@@ -1,0 +1,43 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":disablePeerDependencies"],
+  "minimumReleaseAge": "3 days",
+  "labels": ["renovate"],
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "groupName": "dependencies",
+      "matchDepTypes": ["dependencies"]
+    },
+    {
+      "groupName": "devDependencies",
+      "matchDepTypes": ["devDependencies"]
+    },
+    {
+      "groupName": "linters",
+      "matchPackageNames": [
+        "eslint{/,}**",
+        "@eslint{/,}**",
+        "typescript-eslint{/,}**",
+        "prettier{/,}**",
+        "publint{/,}**",
+        "globals{/,}**"
+      ]
+    },
+    {
+      "groupName": "typescript",
+      "matchPackageNames": ["typescript"]
+    },
+    {
+      "groupName": "Svelte",
+      "matchPackageNames": ["@sveltejs/{/,}**", "svelte{/,}**"]
+    },
+    {
+      "groupName": "build-tools",
+      "matchPackageNames": ["tsup{/,}**", "vite{/,}**", "vitest{/,}**"]
+    }
+  ]
+}
