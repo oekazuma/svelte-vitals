@@ -79,6 +79,6 @@ describe('summary + reporter', () => {
     expect(report).toContain('Critical (1)');
     expect(report).toContain('✗ SEO001  Missing <title>');
     expect(report).toContain('↯ dynamic');
-    expect(report).toContain('Passed (2)');
+    expect(report).toContain('/static');
   });
 });

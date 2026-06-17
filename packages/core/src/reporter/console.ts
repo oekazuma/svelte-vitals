@@ -37,7 +37,8 @@ export function formatConsoleReport(results: Result[], config: Config): string {
     lines.push(`Passed (${passed.length})`, RULE);
     for (const r of passed) {
       const marker = classify(r, config) === 'dynamic' ? '  ↯ dynamic' : '';
-      lines.push(`✓ ${r.id}  ${r.message}${marker}`);
+      const route = r.route ? `  ${r.route}` : '';
+      lines.push(`✓ ${r.id}  ${r.message}${marker}${route}`);
     }
     lines.push('');
   }

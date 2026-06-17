@@ -24,6 +24,7 @@ function routeMatcher(glob: string | undefined): (route: string) => boolean {
   if (!glob) return () => true;
   const body = glob
     .replace(/[.+^${}()|[\]\\]/g, '\\$&')
+    .replace(/\/\*\*$/g, '(?:/.*)?')
     .replace(/\*\*\//g, '(?:.*/)?')
     .replace(/\*\*/g, '.*')
     .replace(/\*/g, '[^/]*');

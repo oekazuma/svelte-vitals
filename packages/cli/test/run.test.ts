@@ -24,6 +24,7 @@ describe('run() end-to-end', () => {
     expect(code).toBe(1);
 
     const report = cap.out.join('\n');
+    expect(report).toContain('Critical (2)');
     expect(report).toContain('✗ SEO001  Missing <title>');
     expect(report).toContain('/none');
     expect(report).toContain('↯ dynamic'); // /dynamic passes with marker
@@ -38,18 +39,12 @@ describe('run() end-to-end', () => {
 });
 
 describe('run() flags', () => {
-  it('suppresses a missing title when the component is passed via metaComponents', async () => {
-    // fixture route /widget has only <Widget/>; declaring it should clear the critical.
+  it('suppresses a missing title for a metaComponents-declared component', async () => {
     const cap = capture();
-    const code = await run({
-      cwd: fixtureDir,
-      log: cap.log,
-      errorLog: cap.errorLog,
-      metaComponents: ['Widget']
-    });
-    // /none still fails (no Widget there), so exit is still 1; assert /widget is NOT reported.
-    expect(cap.out.join('\n')).not.toContain('/widget');
-    void code;
+    const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, metaComponents: ['Widget'] });
+    const failures = cap.out.join('\n').split('Passed')[0];
+    expect(failures).not.toContain('/widget');
+    expect(code).toBe(1); // /none is still a missing-title critical
   });
 
   it('limits analysis to a route glob', async () => {
