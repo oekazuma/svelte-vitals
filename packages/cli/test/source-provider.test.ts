@@ -19,7 +19,7 @@ describe('SourceHeadProvider (Node runtime, real fixture)', () => {
     const heads = await sourceHeadProvider.collect(rt, fixtureDir);
     const byRoute = new Map(heads.map((h) => [h.route, h]));
 
-    expect([...byRoute.keys()].sort()).toEqual(['/blog', '/dynamic', '/none', '/static']);
+    expect([...byRoute.keys()].sort()).toEqual(['/blog', '/dynamic', '/none', '/static', '/widget']);
 
     expect(titleDetection(byRoute.get('/static')!)).toEqual({ presence: 'own', value: 'static' });
     expect(titleDetection(byRoute.get('/dynamic')!)).toEqual({ presence: 'own', value: 'dynamic' });
@@ -33,8 +33,8 @@ describe('SourceHeadProvider (Node runtime, real fixture)', () => {
     const heads = await sourceHeadProvider.collect(rt, fixtureDir);
     const results = await seo001Title.check({ heads, config: { treatDynamicAs: 'pass', metaComponents: [] } });
     const failing = results.filter((r) => r.detection.presence === 'none');
-    expect(failing).toHaveLength(1);
-    expect(failing[0]!.route).toBe('/none');
+    expect(failing).toHaveLength(2);
+    expect(failing.map((r) => r.route).sort()).toEqual(['/none', '/widget']);
   });
 });
 
