@@ -19,7 +19,16 @@ describe('SourceHeadProvider (Node runtime, real fixture)', () => {
     const heads = await sourceHeadProvider.collect(rt, fixtureDir);
     const byRoute = new Map(heads.map((h) => [h.route, h]));
 
-    expect([...byRoute.keys()].sort()).toEqual(['/blog', '/dynamic', '/none', '/static', '/widget']);
+    expect([...byRoute.keys()].sort()).toEqual([
+      '/blog',
+      '/dynamic',
+      '/none',
+      '/smt',
+      '/smt-spread',
+      '/static',
+      '/widget',
+      '/wrapper'
+    ]);
 
     expect(titleDetection(byRoute.get('/static')!)).toEqual({ presence: 'own', value: 'static' });
     expect(titleDetection(byRoute.get('/dynamic')!)).toEqual({ presence: 'own', value: 'dynamic' });
@@ -76,5 +85,19 @@ describe('SourceHeadProvider component detection (layers 2-4)', () => {
     const config = defineConfig({ metaComponents: ['Widget'] });
     const [head] = await sourceHeadProvider.collect(rt, '', config);
     expect(titleDetection(head!)).toEqual({ presence: 'own', value: 'dynamic' });
+  });
+});
+
+describe('SourceHeadProvider real fixtures (component detection)', () => {
+  it('resolves component-based titles across the project', async () => {
+    const rt = createNodeRuntime();
+    const heads = await sourceHeadProvider.collect(rt, fixtureDir, defaultConfig);
+    const byRoute = new Map(heads.map((h) => [h.route, h]));
+
+    expect(titleDetection(byRoute.get('/smt')!)).toEqual({ presence: 'own', value: 'dynamic' });
+    expect(titleDetection(byRoute.get('/smt-spread')!)).toEqual({ presence: 'own', value: 'dynamic' });
+    expect(titleDetection(byRoute.get('/wrapper')!)).toEqual({ presence: 'own', value: 'dynamic' });
+    // /none and /widget have no meta source -> still none.
+    expect(titleDetection(byRoute.get('/none')!)).toEqual({ presence: 'none', value: 'absent' });
   });
 });
