@@ -12,7 +12,12 @@ Options:
   --treat-dynamic-as <mode>   pass | warn | fail (default: pass)
   --route <glob>              Only analyze routes matching this glob
   -h, --help                  Show this help
-  -v, --version               Show version`;
+  -v, --version               Show version
+
+Exit codes:
+  0  no failing findings
+  1  critical finding present
+  2  execution error (not a SvelteKit project / internal error)`;
 
 const VERSION = '0.0.1';
 

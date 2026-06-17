@@ -55,7 +55,7 @@ export function resolveComponentPath(source: string, fromFileRel: string): strin
 
 /**
  * Resolve a file's specific head tags (layer 1 + component layers 2/3/4) and whether
- * a broad (opaque) meta source is present. Transitive recursion is added in Task 7.
+ * a broad (opaque) meta source is present. Includes transitive recursion (depth-limited, cycle-guarded).
  */
 export async function resolveFileTags(
   rt: Runtime,

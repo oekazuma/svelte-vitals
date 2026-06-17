@@ -20,4 +20,22 @@ describe('parseFile', () => {
     const pf = parseFile('<div><p>x</p></div>', 'x.svelte');
     expect(pf.components).toHaveLength(0);
   });
+
+  // Svelte 5 forbids <svelte:head> inside blocks at parse time, so we exercise the
+  // same traversal keys (pending/then/catch/fallback) via component detection instead.
+  it('finds a component usage inside the {:else} fallback of an {#each} block', () => {
+    const pf = parseFile(
+      `<script>import { MetaTags } from 'svelte-meta-tags';</script>{#each [] as x}{:else}<MetaTags title="t" />{/each}`,
+      'x.svelte'
+    );
+    expect(pf.components.map((c) => c.name)).toContain('MetaTags');
+  });
+
+  it('finds a component usage inside an {#await ... then} branch', () => {
+    const pf = parseFile(
+      `<script>import { MetaTags } from 'svelte-meta-tags';</script>{#await p then v}<MetaTags title={v} />{/await}`,
+      'x.svelte'
+    );
+    expect(pf.components.map((c) => c.name)).toContain('MetaTags');
+  });
 });

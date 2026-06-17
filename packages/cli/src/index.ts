@@ -20,14 +20,17 @@ export interface RunOptions {
   route?: string;
 }
 
-function routeMatcher(glob: string | undefined): (route: string) => boolean {
+export function routeMatcher(glob: string | undefined): (route: string) => boolean {
   if (!glob) return () => true;
   const body = glob
     .replace(/[.+^${}()|[\]\\]/g, '\\$&')
-    .replace(/\/\*\*$/g, '(?:/.*)?')
-    .replace(/\*\*\//g, '(?:.*/)?')
-    .replace(/\*\*/g, '.*')
-    .replace(/\*/g, '[^/]*');
+    .replace(/\*\*/g, ' ') // globstar placeholder
+    .replace(/\*/g, '[^/]*') // single-segment wildcard (placeholder untouched)
+    .replace(/\/ $/g, '(?:/.*)?') // trailing /** -> optional subtree
+    .replace(/^ \//g, '(?:.*/)?') // leading **/ -> optional prefix
+    .replace(/ \//g, '(?:.*/)?') // internal **/ -> optional prefix
+    .replace(/\/ /g, '(?:/.*)?') // internal /** -> optional subtree
+    .replace(/ /g, '.*'); // bare ** -> .*
   const re = new RegExp(`^${body}$`);
   return (route) => re.test(route.replace(/^\//, ''));
 }

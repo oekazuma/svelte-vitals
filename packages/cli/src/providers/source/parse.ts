@@ -14,6 +14,23 @@ export type ParsedTag = Omit<HeadTag, 'presence' | 'file'>;
 type Node = any;
 
 /**
+ * All keys that can bear child nodes in a Svelte AST node.
+ * Covers if/each/await blocks (pending/then/catch/fallback) as well as
+ * the standard fragment, nodes, consequent, alternate, and body keys.
+ */
+const CHILD_NODE_KEYS = [
+  'fragment',
+  'nodes',
+  'consequent',
+  'alternate',
+  'body',
+  'pending',
+  'then',
+  'catch',
+  'fallback'
+];
+
+/**
  * Determine a value's kind from a list of child/text nodes (design §4, §11):
  *   - any ExpressionTag present  → 'dynamic' (e.g. {data.title}); we do NOT
  *     follow the expression — that would turn this into runtime analysis.
@@ -70,7 +87,7 @@ function collectSvelteHeads(node: Node, acc: Node[]): void {
   if (!node || typeof node !== 'object') return;
   if (node.type === 'SvelteHead') acc.push(node);
   // Visit the child-bearing properties used by Svelte fragments and blocks.
-  for (const key of ['fragment', 'nodes', 'consequent', 'alternate', 'body']) {
+  for (const key of CHILD_NODE_KEYS) {
     if (key in node) collectSvelteHeads(node[key], acc);
   }
 }
@@ -133,7 +150,7 @@ function collectComponents(node: Node, acc: ComponentUse[]): void {
       hasSpread: attributes.some((a) => a?.type === 'SpreadAttribute')
     });
   }
-  for (const key of ['fragment', 'nodes', 'consequent', 'alternate', 'body']) {
+  for (const key of CHILD_NODE_KEYS) {
     if (key in node) collectComponents(node[key], acc);
   }
 }
