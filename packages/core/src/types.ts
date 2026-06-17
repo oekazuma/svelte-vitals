@@ -44,10 +44,13 @@ export type TreatDynamicAs = 'pass' | 'warn' | 'fail';
 
 export interface Config {
   treatDynamicAs: TreatDynamicAs;
+  /** Component names treated as meta sources of unknown content (design §11 layer 4). */
+  metaComponents: string[];
 }
 
 export const defaultConfig: Config = {
-  treatDynamicAs: 'pass'
+  treatDynamicAs: 'pass',
+  metaComponents: []
 };
 
 /** Merge user config over defaults. Identity helper for config files (design §6). */
