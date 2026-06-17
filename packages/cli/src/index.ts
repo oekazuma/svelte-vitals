@@ -4,18 +4,35 @@ import {
   formatConsoleReport,
   summarize,
   hasFailureAtOrAbove,
-  defaultConfig
+  defineConfig
 } from '@svelte-vitals/core';
 import { createNodeRuntime } from './runtime/node.js';
 import { sourceHeadProvider } from './providers/source/routes.js';
 import { detectProject, ProjectError } from './providers/source/project.js';
 
 export interface RunOptions {
-  /** Project root to analyze. Defaults to the current working directory. */
   cwd?: string;
-  /** Where report/diagnostic output goes. Defaults to console. */
   log?: (line: string) => void;
   errorLog?: (line: string) => void;
+  metaComponents?: string[];
+  treatDynamicAs?: 'pass' | 'warn' | 'fail';
+  /** Restrict analysis to routes whose path matches this glob (matched against the route path without leading slash). */
+  route?: string;
+}
+
+export function routeMatcher(glob: string | undefined): (route: string) => boolean {
+  if (!glob) return () => true;
+  const body = glob
+    .replace(/[.+^${}()|[\]\\]/g, '\\$&')
+    .replace(/\*\*/g, ' ') // globstar placeholder
+    .replace(/\*/g, '[^/]*') // single-segment wildcard (placeholder untouched)
+    .replace(/\/ $/g, '(?:/.*)?') // trailing /** -> optional subtree
+    .replace(/^ \//g, '(?:.*/)?') // leading **/ -> optional prefix
+    .replace(/ \//g, '(?:.*/)?') // internal **/ -> optional prefix
+    .replace(/\/ /g, '(?:/.*)?') // internal /** -> optional subtree
+    .replace(/ /g, '.*'); // bare ** -> .*
+  const re = new RegExp(`^${body}$`);
+  return (route) => re.test(route.replace(/^\//, ''));
 }
 
 /**
@@ -27,7 +44,10 @@ export async function run(opts: RunOptions = {}): Promise<number> {
   const log = opts.log ?? ((line: string) => console.log(line));
   const errorLog = opts.errorLog ?? ((line: string) => console.error(line));
   const rt = createNodeRuntime();
-  const config = defaultConfig;
+  const config = defineConfig({
+    treatDynamicAs: opts.treatDynamicAs ?? 'pass',
+    metaComponents: opts.metaComponents ?? []
+  });
 
   try {
     await detectProject(rt, cwd);
@@ -40,7 +60,8 @@ export async function run(opts: RunOptions = {}): Promise<number> {
   }
 
   try {
-    const heads = await sourceHeadProvider.collect(rt, cwd);
+    const matches = routeMatcher(opts.route);
+    const heads = (await sourceHeadProvider.collect(rt, cwd, config)).filter((h) => matches(h.route));
     const results = await runRules(allRules, { heads, config });
     log(formatConsoleReport(results, config));
     const summary = summarize(results, config);

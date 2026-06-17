@@ -24,7 +24,7 @@ describe('run() end-to-end', () => {
     expect(code).toBe(1);
 
     const report = cap.out.join('\n');
-    expect(report).toContain('Critical (1)');
+    expect(report).toContain('Critical (2)');
     expect(report).toContain('✗ SEO001  Missing <title>');
     expect(report).toContain('/none');
     expect(report).toContain('↯ dynamic'); // /dynamic passes with marker
@@ -35,5 +35,22 @@ describe('run() end-to-end', () => {
     const code = await run({ cwd: here, log: cap.log, errorLog: cap.errorLog });
     expect(code).toBe(2);
     expect(cap.err.join('\n')).toContain('No SvelteKit project found');
+  });
+});
+
+describe('run() flags', () => {
+  it('suppresses a missing title for a metaComponents-declared component', async () => {
+    const cap = capture();
+    const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, metaComponents: ['Widget'] });
+    const failures = cap.out.join('\n').split('Passed')[0];
+    expect(failures).not.toContain('/widget');
+    expect(code).toBe(1); // /none is still a missing-title critical
+  });
+
+  it('limits analysis to a route glob', async () => {
+    const cap = capture();
+    const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, route: 'static/**' });
+    expect(code).toBe(0); // only /static analyzed, which passes
+    expect(cap.out.join('\n')).not.toContain('/none');
   });
 });

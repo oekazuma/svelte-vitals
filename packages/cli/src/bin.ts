@@ -1,42 +1,73 @@
 #!/usr/bin/env node
-// The shebang lets `npx svelte-vitals` execute on unix. deno/bun ignore it and
-// run the file with their own runtime, so this does not lock the CLI to Node
-// (design §14). A real cross-runtime entry/detector lands in a later slice.
+import { readFileSync } from 'node:fs';
+import mri from 'mri';
 import { run } from './index.js';
 
 const HELP = `svelte-vitals — a SvelteKit SEO checker (static mode)
 
 Usage:
-  svelte-vitals [path]
-
-Arguments:
-  path            Project directory to analyze (default: current directory)
+  svelte-vitals [path] [options]
 
 Options:
-  -h, --help      Show this help
-  -v, --version   Show version
+  --meta-components <names>   Comma-separated component names that emit head metadata
+  --treat-dynamic-as <mode>   pass | warn | fail (default: pass)
+  --route <glob>              Only analyze routes matching this glob
+  -h, --help                  Show this help
+  -v, --version               Show version
 
 Exit codes:
   0  no failing findings
   1  critical finding present
   2  execution error (not a SvelteKit project / internal error)`;
 
-const VERSION = '0.0.0';
+// Read the version from the package's own package.json at runtime so it never
+// drifts from the published version (dist/bin.js -> ../package.json).
+function readVersion(): string {
+  try {
+    const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as {
+      version?: string;
+    };
+    return pkg.version ?? '0.0.0';
+  } catch {
+    return '0.0.0';
+  }
+}
+
+const VERSION = readVersion();
 
 async function main(): Promise<void> {
-  const args = process.argv.slice(2);
+  const argv = mri(process.argv.slice(2), {
+    alias: { h: 'help', v: 'version' },
+    string: ['meta-components', 'treat-dynamic-as', 'route']
+  });
 
-  if (args.includes('-h') || args.includes('--help')) {
+  if (argv.help) {
     console.log(HELP);
     process.exit(0);
   }
-  if (args.includes('-v') || args.includes('--version')) {
+  if (argv.version) {
     console.log(VERSION);
     process.exit(0);
   }
 
-  const positional = args.find((a) => !a.startsWith('-'));
-  const code = await run({ cwd: positional ?? process.cwd() });
+  const positional = argv._[0];
+  const metaComponents =
+    typeof argv['meta-components'] === 'string'
+      ? argv['meta-components']
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean)
+      : undefined;
+  const treatRaw = argv['treat-dynamic-as'];
+  const treatDynamicAs = treatRaw === 'warn' || treatRaw === 'fail' || treatRaw === 'pass' ? treatRaw : undefined;
+  const route = typeof argv.route === 'string' ? argv.route : undefined;
+
+  const code = await run({
+    cwd: positional ?? process.cwd(),
+    metaComponents,
+    treatDynamicAs,
+    route
+  });
   process.exit(code);
 }
 
