@@ -1,8 +1,11 @@
-import type { HeadProvider, HeadTag, ResolvedHead, Runtime } from '@svelte-vitals/core';
+import type { Config, HeadProvider, HeadTag, ResolvedHead, Runtime } from '@svelte-vitals/core';
+import { defaultConfig } from '@svelte-vitals/core';
 import { enumerateRoutePages } from './project.js';
-import { parseHeadTags, type ParsedTag } from './parse.js';
+import { parseFile } from './parse.js';
+import { resolveFileTags, BROAD_KINDS, tagKey } from './resolve.js';
 
 const ROUTES_DIR = 'src/routes';
+const MAX_DEPTH = 5;
 
 /** glob/tinyglobby returns POSIX-separated paths on every platform, so we split on '/'. */
 function isGroupSegment(segment: string): boolean {
@@ -36,30 +39,36 @@ async function chainFiles(rt: Runtime, cwd: string, pageRel: string): Promise<Ar
   return files;
 }
 
-/** Stable identity for overriding the same logical tag across the chain. */
-function keyOf(tag: ParsedTag): string {
-  switch (tag.kind) {
-    case 'title':
-      return 'title';
-    case 'meta':
-      return `meta:${tag.name ? `name=${tag.name}` : tag.property ? `prop=${tag.property}` : '?'}`;
-    case 'link':
-      return `link:${tag.rel ?? '?'}`;
-    case 'jsonld':
-      return 'jsonld';
-  }
-}
-
 /** Compose the effective head for one route by walking its chain (child overrides parent). */
-async function resolveRoute(rt: Runtime, cwd: string, pageRel: string): Promise<ResolvedHead> {
+async function resolveRoute(rt: Runtime, cwd: string, pageRel: string, config: Config): Promise<ResolvedHead> {
   const files = await chainFiles(rt, cwd, pageRel);
   const composed = new Map<string, HeadTag>();
+  let broadOwn = false;
+  let broadInherited = false;
+
   for (const { rel, isPage } of files) {
     const source = await rt.readFile(rt.join(cwd, rel));
-    for (const tag of parseHeadTags(source, rel)) {
-      composed.set(keyOf(tag), { ...tag, presence: isPage ? 'own' : 'inherited', file: rel });
+    const parsed = parseFile(source, rel);
+    const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]));
+
+    for (const tag of resolved.tags) {
+      composed.set(tagKey(tag), { ...tag, presence: isPage ? 'own' : 'inherited', file: rel });
+    }
+    if (resolved.broad) {
+      if (isPage) broadOwn = true;
+      else broadInherited = true;
     }
   }
+
+  // Broad (opaque) meta source: fill only kinds not already set specifically.
+  if (broadOwn || broadInherited) {
+    const presence = broadOwn ? 'own' : 'inherited';
+    for (const tag of BROAD_KINDS) {
+      const key = tagKey(tag);
+      if (!composed.has(key)) composed.set(key, { ...tag, presence });
+    }
+  }
+
   return {
     route: deriveRoute(pageRel),
     source: 'static',
@@ -74,8 +83,8 @@ async function resolveRoute(rt: Runtime, cwd: string, pageRel: string): Promise<
  */
 export const sourceHeadProvider: HeadProvider = {
   mode: 'static',
-  async collect(rt, cwd) {
+  async collect(rt, cwd, config = defaultConfig) {
     const pages = await enumerateRoutePages(rt, cwd);
-    return Promise.all(pages.map((page) => resolveRoute(rt, cwd, page)));
+    return Promise.all(pages.map((page) => resolveRoute(rt, cwd, page, config)));
   }
 };

@@ -1,4 +1,4 @@
-import type { Presence, Value } from './types.js';
+import type { Presence, Value, Config } from './types.js';
 import type { Runtime } from './runtime.js';
 
 /**
@@ -37,5 +37,5 @@ export interface ResolvedHead {
 /** Supplies ResolvedHead[] for a project. The only piece that differs per mode. */
 export interface HeadProvider {
   mode: 'static' | 'rendered';
-  collect(rt: Runtime, cwd: string): Promise<ResolvedHead[]>;
+  collect(rt: Runtime, cwd: string, config?: Config): Promise<ResolvedHead[]>;
 }
