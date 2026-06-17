@@ -1,6 +1,7 @@
 import { parse } from 'svelte/compiler';
 import type { HeadTag } from '@svelte-vitals/core';
 import type { Value } from '@svelte-vitals/core';
+import { collectImports, type ImportMap } from './imports.js';
 
 /** A head tag parsed from one file, before layout-chain presence is assigned. */
 export type ParsedTag = Omit<HeadTag, 'presence' | 'file'>;
@@ -45,7 +46,7 @@ function attrText(attributes: Node[], name: string): string | undefined {
 }
 
 /** Value kind of an attribute's content (e.g. the `content` of a <meta>). */
-function attrValue(attributes: Node[], name: string): Value {
+export function attrValue(attributes: Node[], name: string): Value {
   const attr = findAttr(attributes, name);
   if (!attr) return 'absent';
   const v = attr.value;
@@ -101,6 +102,60 @@ function tagsFromHead(head: Node): ParsedTag[] {
     }
   }
   return tags;
+}
+
+/** Value kind of a single attribute (e.g. a component prop). */
+export function attrValueOf(attr: Node): Value {
+  const v = attr?.value;
+  if (v === true) return 'absent';
+  if (Array.isArray(v)) return valueFromNodes(v);
+  if (v && v.type === 'ExpressionTag') return 'dynamic';
+  return 'absent';
+}
+
+export interface ComponentUse {
+  name: string;
+  attributes: Node[];
+  hasSpread: boolean;
+}
+
+function collectComponents(node: Node, acc: ComponentUse[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectComponents(child, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'Component' && typeof node.name === 'string') {
+    const attributes: Node[] = node.attributes ?? [];
+    acc.push({
+      name: node.name,
+      attributes,
+      hasSpread: attributes.some((a) => a?.type === 'SpreadAttribute')
+    });
+  }
+  for (const key of ['fragment', 'nodes', 'consequent', 'alternate', 'body']) {
+    if (key in node) collectComponents(node[key], acc);
+  }
+}
+
+export interface ParsedFile {
+  headTags: ParsedTag[];
+  components: ComponentUse[];
+  imports: ImportMap;
+}
+
+/** Parse a .svelte source into its layer-1 head tags, component usages, and imports. */
+export function parseFile(source: string, filename: string): ParsedFile {
+  const ast = parse(source, { modern: true, filename }) as Node;
+  const heads: Node[] = [];
+  collectSvelteHeads(ast.fragment ?? ast, heads);
+  const components: ComponentUse[] = [];
+  collectComponents(ast.fragment ?? ast, components);
+  return {
+    headTags: heads.flatMap(tagsFromHead),
+    components,
+    imports: collectImports(ast)
+  };
 }
 
 /**
