@@ -1,6 +1,7 @@
 import type { Config, Runtime } from '@svelte-vitals/core';
 import type { ParsedFile, ParsedTag } from './parse.js';
 import { findAdapter } from './adapters/index.js';
+import { parseFile } from './parse.js';
 
 export interface ResolveResult {
   tags: ParsedTag[];
@@ -29,6 +30,27 @@ export function tagKey(tag: ParsedTag): string {
     case 'jsonld':
       return 'jsonld';
   }
+}
+
+/** Map a local component import to a project-root-relative .svelte path, or undefined. */
+export function resolveComponentPath(source: string, fromFileRel: string): string | undefined {
+  let path: string;
+  if (source.startsWith('$lib/')) {
+    path = `src/lib/${source.slice('$lib/'.length)}`;
+  } else if (source === '$lib') {
+    return undefined;
+  } else if (source.startsWith('./') || source.startsWith('../')) {
+    const dir = fromFileRel.split('/').slice(0, -1);
+    for (const seg of source.split('/')) {
+      if (seg === '.' || seg === '') continue;
+      if (seg === '..') dir.pop();
+      else dir.push(seg);
+    }
+    path = dir.join('/');
+  } else {
+    return undefined; // bare specifier (node_modules) — not transitively parsed (§11 boundary)
+  }
+  return path.endsWith('.svelte') ? path : undefined;
 }
 
 /**
@@ -65,12 +87,19 @@ export async function resolveFileTags(
       continue;
     }
 
-    // Layer 3 (transitive) is added in Task 7. Until then, unresolved -> no suppression.
-    void rt;
-    void cwd;
-    void fileRel;
-    void depth;
-    void visited;
+    // Layer 3: transitively resolve a user component in src/.
+    const childRel = info ? resolveComponentPath(info.source, fileRel) : undefined;
+    if (childRel && depth > 0 && !visited.has(childRel)) {
+      const abs = rt.join(cwd, childRel);
+      if (await rt.exists(abs)) {
+        const childParsed = parseFile(await rt.readFile(abs), childRel);
+        const childVisited = new Set(visited).add(childRel);
+        const child = await resolveFileTags(rt, cwd, childRel, childParsed, config, depth - 1, childVisited);
+        tags.push(...child.tags);
+        broad = broad || child.broad;
+      }
+    }
+    // Unresolved & undeclared components contribute nothing (strict).
   }
 
   return { tags, broad };
