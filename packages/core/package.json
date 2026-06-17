@@ -1,0 +1,40 @@
+{
+  "name": "@svelte-vitals/core",
+  "version": "0.0.0",
+  "description": "Shared, runtime-agnostic core for svelte-vitals (types, rule engine, scorer, reporter).",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kazuma Oe (https://github.com/oekazuma)",
+  "keywords": [
+    "svelte",
+    "sveltekit",
+    "seo",
+    "svelte-vitals"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oekazuma/svelte-vitals.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/oekazuma/svelte-vitals/issues"
+  },
+  "homepage": "https://github.com/oekazuma/svelte-vitals#readme",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  }
+}

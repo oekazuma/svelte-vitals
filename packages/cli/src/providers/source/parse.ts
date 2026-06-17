@@ -1,0 +1,115 @@
+import { parse } from 'svelte/compiler';
+import type { HeadTag } from '@svelte-vitals/core';
+import type { Value } from '@svelte-vitals/core';
+
+/** A head tag parsed from one file, before layout-chain presence is assigned. */
+export type ParsedTag = Omit<HeadTag, 'presence' | 'file'>;
+
+// The Svelte AST is structurally complex and only partially typed for our needs,
+// so traversal uses `any`. The node-type strings below are verified against
+// svelte 5 output (see Slice 0 AST probe): <title> is `TitleElement` (not a
+// RegularElement), and `{expr}` is `ExpressionTag`.
+/* eslint-disable @typescript-eslint/no-explicit-any */
+type Node = any;
+
+/**
+ * Determine a value's kind from a list of child/text nodes (design §4, §11):
+ *   - any ExpressionTag present  → 'dynamic' (e.g. {data.title}); we do NOT
+ *     follow the expression — that would turn this into runtime analysis.
+ *   - non-whitespace Text only   → 'static'
+ *   - empty / whitespace only    → 'absent'
+ */
+function valueFromNodes(nodes: Node[]): Value {
+  if (!Array.isArray(nodes)) return 'absent';
+  if (nodes.some((n) => n?.type === 'ExpressionTag')) return 'dynamic';
+  const text = nodes
+    .filter((n) => n?.type === 'Text')
+    .map((n) => String(n.data ?? ''))
+    .join('');
+  return text.trim().length > 0 ? 'static' : 'absent';
+}
+
+/** Static string of an attribute (e.g. name="description"), or undefined if dynamic/absent. */
+function attrText(attributes: Node[], name: string): string | undefined {
+  const attr = findAttr(attributes, name);
+  if (!attr) return undefined;
+  const v = attr.value;
+  if (v === true) return '';
+  if (Array.isArray(v)) {
+    return v
+      .filter((n: Node) => n?.type === 'Text')
+      .map((n: Node) => String(n.data ?? ''))
+      .join('');
+  }
+  return undefined; // single ExpressionTag → not a literal
+}
+
+/** Value kind of an attribute's content (e.g. the `content` of a <meta>). */
+function attrValue(attributes: Node[], name: string): Value {
+  const attr = findAttr(attributes, name);
+  if (!attr) return 'absent';
+  const v = attr.value;
+  if (v === true) return 'absent'; // boolean attribute, no content
+  if (Array.isArray(v)) return valueFromNodes(v);
+  if (v && v.type === 'ExpressionTag') return 'dynamic'; // content={expr}
+  return 'absent';
+}
+
+function findAttr(attributes: Node[], name: string): Node | undefined {
+  if (!Array.isArray(attributes)) return undefined;
+  return attributes.find((a) => a?.type === 'Attribute' && a.name === name);
+}
+
+/** Recursively collect every <svelte:head> node anywhere in the template. */
+function collectSvelteHeads(node: Node, acc: Node[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectSvelteHeads(child, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'SvelteHead') acc.push(node);
+  // Visit the child-bearing properties used by Svelte fragments and blocks.
+  for (const key of ['fragment', 'nodes', 'consequent', 'alternate', 'body']) {
+    if (key in node) collectSvelteHeads(node[key], acc);
+  }
+}
+
+function tagsFromHead(head: Node): ParsedTag[] {
+  const tags: ParsedTag[] = [];
+  const children: Node[] = head?.fragment?.nodes ?? [];
+  for (const node of children) {
+    if (node?.type === 'TitleElement') {
+      tags.push({ kind: 'title', value: valueFromNodes(node.fragment?.nodes ?? []) });
+      continue;
+    }
+    if (node?.type !== 'RegularElement') continue;
+
+    if (node.name === 'meta') {
+      const name = attrText(node.attributes, 'name');
+      const property = attrText(node.attributes, 'property');
+      tags.push({
+        kind: 'meta',
+        ...(name ? { name } : {}),
+        ...(property ? { property } : {}),
+        value: attrValue(node.attributes, 'content')
+      });
+    } else if (node.name === 'link') {
+      const rel = attrText(node.attributes, 'rel');
+      tags.push({ kind: 'link', ...(rel ? { rel } : {}), value: attrValue(node.attributes, 'href') });
+    } else if (node.name === 'script' && attrText(node.attributes, 'type') === 'application/ld+json') {
+      tags.push({ kind: 'jsonld', value: valueFromNodes(node.fragment?.nodes ?? []) });
+    }
+  }
+  return tags;
+}
+
+/**
+ * Parse a .svelte source and extract the head tags declared in its
+ * <svelte:head> blocks (detection layer 1 — literal svelte:head, design §11).
+ */
+export function parseHeadTags(source: string, filename: string): ParsedTag[] {
+  const ast = parse(source, { modern: true, filename }) as Node;
+  const heads: Node[] = [];
+  collectSvelteHeads(ast.fragment ?? ast, heads);
+  return heads.flatMap(tagsFromHead);
+}

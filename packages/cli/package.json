@@ -1,0 +1,50 @@
+{
+  "name": "svelte-vitals",
+  "version": "0.0.0",
+  "description": "A SvelteKit SEO checker — not a runtime Web Vitals reporter. Static analysis of your routes' head metadata.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kazuma Oe (https://github.com/oekazuma)",
+  "keywords": [
+    "svelte",
+    "sveltekit",
+    "seo",
+    "meta-tags",
+    "cli",
+    "svelte-vitals"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oekazuma/svelte-vitals.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/oekazuma/svelte-vitals/issues"
+  },
+  "homepage": "https://github.com/oekazuma/svelte-vitals#readme",
+  "bin": {
+    "svelte-vitals": "./dist/bin.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@svelte-vitals/core": "workspace:*",
+    "svelte": "catalog:",
+    "tinyglobby": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:"
+  }
+}

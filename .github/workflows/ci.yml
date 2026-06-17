@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.changeset/**'
+      - '.vscode/**'
+      - '**/.github/**/*.md'
+  pull_request:
+    paths-ignore:
+      - '.changeset/**'
+      - '.vscode/**'
+      - '**/.github/**/*.md'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Setup Node.js and dependencies
+        uses: ./.github/workflows/setup-node
+      - name: Run Prettier check & ESLint
+        run: pnpm lint
+
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Setup Node.js and dependencies
+        uses: ./.github/workflows/setup-node
+      - name: Build packages
+        run: pnpm build
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Validate publishable packages
+        run: pnpm check:publish
+
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Setup Node.js and dependencies
+        uses: ./.github/workflows/setup-node
+      - name: Build packages
+        run: pnpm build
+      - name: Run tests
+        run: pnpm test
