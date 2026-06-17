@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { readFileSync } from 'node:fs';
 import mri from 'mri';
 import { run } from './index.js';
 
@@ -19,7 +20,20 @@ Exit codes:
   1  critical finding present
   2  execution error (not a SvelteKit project / internal error)`;
 
-const VERSION = '0.0.1';
+// Read the version from the package's own package.json at runtime so it never
+// drifts from the published version (dist/bin.js -> ../package.json).
+function readVersion(): string {
+  try {
+    const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as {
+      version?: string;
+    };
+    return pkg.version ?? '0.0.0';
+  } catch {
+    return '0.0.0';
+  }
+}
+
+const VERSION = readVersion();
 
 async function main(): Promise<void> {
   const argv = mri(process.argv.slice(2), {

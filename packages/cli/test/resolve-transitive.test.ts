@@ -21,6 +21,12 @@ describe('resolveComponentPath', () => {
     expect(resolveComponentPath('svelte-meta-tags', 'src/routes/+page.svelte')).toBeUndefined();
     expect(resolveComponentPath('$lib/utils.ts', 'src/routes/+page.svelte')).toBeUndefined();
   });
+
+  it('appends .svelte to extensionless local imports', () => {
+    expect(resolveComponentPath('$lib/Seo', 'src/routes/+page.svelte')).toBe('src/lib/Seo.svelte');
+    expect(resolveComponentPath('./Seo', 'src/routes/+page.svelte')).toBe('src/routes/Seo.svelte');
+    expect(resolveComponentPath('../C', 'src/routes/blog/+page.svelte')).toBe('src/routes/C.svelte');
+  });
 });
 
 describe('resolveFileTags transitive (layer 3)', () => {
@@ -33,6 +39,17 @@ describe('resolveFileTags transitive (layer 3)', () => {
       'src/routes/+page.svelte'
     );
     expect(r.tags).toContainEqual({ kind: 'title', value: 'dynamic' });
+  });
+
+  it('resolves a wrapper imported without the .svelte extension', async () => {
+    const r = await resolveWith(
+      {
+        'src/routes/+page.svelte': `<script>import Seo from '$lib/Seo';</script><Seo />`,
+        'src/lib/Seo.svelte': `<svelte:head><title>About</title></svelte:head>`
+      },
+      'src/routes/+page.svelte'
+    );
+    expect(r.tags).toContainEqual({ kind: 'title', value: 'static' });
   });
 
   it('stops on cycles without infinite recursion', async () => {

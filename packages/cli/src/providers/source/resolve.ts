@@ -50,7 +50,13 @@ export function resolveComponentPath(source: string, fromFileRel: string): strin
   } else {
     return undefined; // bare specifier (node_modules) — not transitively parsed (§11 boundary)
   }
-  return path.endsWith('.svelte') ? path : undefined;
+  if (path.endsWith('.svelte')) return path;
+  // A non-.svelte extension (.ts/.js/...) is not a component file we parse.
+  if (/\.[^/]+$/.test(path)) return undefined;
+  // Extensionless local import (e.g. `$lib/Seo`) — resolve to its .svelte file.
+  // Projects that add `.svelte` to resolve.extensions import this way; the caller
+  // guards with rt.exists, so a wrong guess is simply skipped (no false resolution).
+  return `${path}.svelte`;
 }
 
 /**
