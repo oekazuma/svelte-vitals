@@ -29,7 +29,7 @@ function byRouteTree(results: Result[], config: Config): string[] {
     routes.get(r.route)!.push(r);
   }
   const lines: string[] = ['By route', RULE];
-  for (const [route, rs] of [...routes.entries()].sort()) {
+  for (const [route, rs] of [...routes.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
     const { score } = computeScore(rs, config, { applyCriticalCap: false });
     lines.push(`${route.padEnd(28)} ${score}`);
     for (const r of rs.filter((x) => classify(x, config) === 'fail')) {
