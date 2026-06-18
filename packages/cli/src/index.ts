@@ -2,12 +2,16 @@ import {
   allRules,
   runRules,
   formatConsoleReport,
+  formatJsonReport,
   summarize,
   hasFailureAtOrAbove,
   defineConfig,
   selectRules,
-  applyRuleSeverities
+  applyRuleSeverities,
+  type Severity,
+  type RuleSetting
 } from '@svelte-vitals/core';
+import { readFileSync } from 'node:fs';
 import { createNodeRuntime } from './runtime/node.js';
 import { sourceHeadProvider } from './providers/source/routes.js';
 import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
@@ -20,6 +24,19 @@ export interface RunOptions {
   treatDynamicAs?: 'pass' | 'warn' | 'fail';
   /** Restrict analysis to routes whose path matches this glob (matched against the route path without leading slash). */
   route?: string;
+  reporter?: 'console' | 'json';
+  byRoute?: boolean;
+  failOn?: Severity;
+  rules?: Record<string, RuleSetting>;
+}
+
+function cliVersion(): string {
+  try {
+    const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as { version?: string };
+    return pkg.version ?? '0.0.0';
+  } catch {
+    return '0.0.0';
+  }
 }
 
 export function routeMatcher(glob: string | undefined): (route: string) => boolean {
@@ -48,7 +65,9 @@ export async function run(opts: RunOptions = {}): Promise<number> {
   const rt = createNodeRuntime();
   const config = defineConfig({
     treatDynamicAs: opts.treatDynamicAs ?? 'pass',
-    metaComponents: opts.metaComponents ?? []
+    metaComponents: opts.metaComponents ?? [],
+    rules: opts.rules ?? {},
+    failOn: opts.failOn ?? 'critical'
   });
 
   try {
@@ -67,7 +86,11 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     const project = await collectProjectFacts(rt, cwd);
     const rules = selectRules(allRules, config);
     const results = applyRuleSeverities(await runRules(rules, { heads, project, config }), config);
-    log(formatConsoleReport(results, config));
+    if (opts.reporter === 'json') {
+      log(formatJsonReport(results, config, { version: cliVersion() }));
+    } else {
+      log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false }));
+    }
     const summary = summarize(results, config);
     return hasFailureAtOrAbove(summary, config.failOn) ? 1 : 0;
   } catch (err) {

@@ -60,3 +60,27 @@ describe('run() flags', () => {
     expect(cap.out.join('\n')).not.toContain('/none');
   });
 });
+
+describe('run() reporters and gating', () => {
+  it('emits JSON when reporter is json', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json' });
+    const json = JSON.parse(cap.out.join('\n'));
+    expect(json).toHaveProperty('score');
+    expect(json).toHaveProperty('routes');
+  });
+
+  it('fails on warning when failOn=warning', async () => {
+    const cap = capture();
+    const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, failOn: 'warning' });
+    expect(code).toBe(1); // fixture has warnings (robots/sitemap/og missing)
+  });
+
+  it('disabling a rule via rules:{id:off} removes its findings', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json', rules: { SEO002: 'off' } });
+    const json = JSON.parse(cap.out.join('\n'));
+    const anySEO002 = json.routes.some((r: { issues: { id: string }[] }) => r.issues.some((i) => i.id === 'SEO002'));
+    expect(anySEO002).toBe(false);
+  });
+});
