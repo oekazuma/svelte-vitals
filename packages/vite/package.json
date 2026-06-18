@@ -1,22 +1,52 @@
 {
   "name": "@svelte-vitals/vite",
   "version": "0.0.0",
-  "description": "Plugin mode for svelte-vitals — analyzes prerendered HTML during vite build. (stub; implemented in v0.2)",
+  "description": "Vite/SvelteKit plugin for svelte-vitals — analyzes prerendered HTML during vite build.",
   "type": "module",
   "license": "MIT",
-  "private": true,
+  "author": "Kazuma Oe (https://github.com/oekazuma)",
+  "keywords": [
+    "svelte",
+    "sveltekit",
+    "seo",
+    "vite-plugin",
+    "svelte-vitals"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oekazuma/svelte-vitals.git",
+    "directory": "packages/vite"
+  },
+  "bugs": {
+    "url": "https://github.com/oekazuma/svelte-vitals/issues"
+  },
+  "homepage": "https://github.com/oekazuma/svelte-vitals#readme",
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "import": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "echo \"@svelte-vitals/vite is a stub (v0.2)\" && exit 0",
+    "build": "tsup",
     "typecheck": "tsc --noEmit",
-    "test": "echo \"no tests yet\" && exit 0"
+    "test": "vitest run"
   },
   "dependencies": {
-    "@svelte-vitals/core": "workspace:*"
+    "@svelte-vitals/core": "workspace:*",
+    "node-html-parser": "catalog:",
+    "tinyglobby": "catalog:"
+  },
+  "peerDependencies": {
+    "vite": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "vite": "catalog:"
   }
 }
