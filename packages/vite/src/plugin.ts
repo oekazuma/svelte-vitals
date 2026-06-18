@@ -1,4 +1,5 @@
 import { existsSync } from 'node:fs';
+import { writeFile } from 'node:fs/promises';
 import { join, isAbsolute } from 'node:path';
 import type { Plugin } from 'vite';
 import type { RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
@@ -46,11 +47,11 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin {
 
       if (options.report !== false) {
         const out = options.report === 'json' ? result.jsonReport : result.consoleReport;
-        // eslint-disable-next-line no-console
         console.log(out);
       }
+      if (options.outFile) await writeFile(options.outFile, result.jsonReport);
       if (result.failed) {
-        throw new Error(`svelte-vitals: build failed — findings at or above "${options.failOn ?? 'critical'}".`);
+        throw new Error(`svelte-vitals: build failed — findings at or above "${result.failOn}".`);
       }
     }
   };

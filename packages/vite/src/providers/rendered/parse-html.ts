@@ -1,4 +1,4 @@
-import { parse, type HTMLElement } from 'node-html-parser';
+import { parse } from 'node-html-parser';
 import type { HeadTag, Value } from '@svelte-vitals/core';
 
 function attrValue(v: string | undefined): Value {
@@ -44,7 +44,7 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
     }
   }
 
-  const htmlEl: HTMLElement | null = root.querySelector('html');
+  const htmlEl = root.querySelector('html');
   const lang = htmlEl?.getAttribute('lang');
   const htmlLang =
     lang === undefined || lang === null

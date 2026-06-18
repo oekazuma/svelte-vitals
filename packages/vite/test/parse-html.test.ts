@@ -33,4 +33,9 @@ describe('parseHtmlHead', () => {
     expect(parseHtmlHead(html(`<title>x</title>`, 'en')).htmlLang).toEqual({ presence: 'own', value: 'static' });
     expect(parseHtmlHead(html(`<title>x</title>`, '')).htmlLang).toEqual({ presence: 'own', value: 'absent' });
   });
+
+  it('returns presence:none when <html> has no lang attribute', () => {
+    const noLangHtml = `<!doctype html><html><head><title>x</title></head><body></body></html>`;
+    expect(parseHtmlHead(noLangHtml).htmlLang).toEqual({ presence: 'none', value: 'absent' });
+  });
 });

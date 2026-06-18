@@ -1,4 +1,3 @@
-import { writeFile } from 'node:fs/promises';
 import {
   allRules,
   selectRules,
@@ -11,11 +10,13 @@ import {
   formatJsonReport,
   defineConfig,
   type Result,
-  type Summary
+  type Summary,
+  type Severity
 } from '@svelte-vitals/core';
 import type { SvelteVitalsOptions } from './plugin.js';
 import { collectRenderedHeads } from './providers/rendered/collect.js';
 import { collectRenderedProject } from './providers/rendered/project.js';
+import { readPackageVersion } from './version.js';
 
 export interface AnalyzeResult {
   score: number;
@@ -25,9 +26,8 @@ export interface AnalyzeResult {
   jsonReport: string;
   routeCount: number;
   failed: boolean;
+  failOn: Severity;
 }
-
-const PLUGIN_VERSION = '0.0.0';
 
 /** Collect prerendered heads + project facts, run the core pipeline, and format reports. */
 export async function analyze(
@@ -57,9 +57,16 @@ export async function analyze(
     `Svelte Vitals  ·  SEO (rendered / plugin)\n` +
     `Analyzed ${heads.length} prerendered route(s). SSR/dynamic routes are not covered — run \`npx svelte-vitals\` for those.\n`;
   const consoleReport = header + '\n' + formatConsoleReport(results, config);
-  const jsonReport = formatJsonReport(results, config, { version: PLUGIN_VERSION });
+  const jsonReport = formatJsonReport(results, config, { version: readPackageVersion() });
 
-  if (options.outFile) await writeFile(options.outFile, jsonReport);
-
-  return { score, summary, results, consoleReport, jsonReport, routeCount: heads.length, failed };
+  return {
+    score,
+    summary,
+    results,
+    consoleReport,
+    jsonReport,
+    routeCount: heads.length,
+    failed,
+    failOn: config.failOn
+  };
 }
