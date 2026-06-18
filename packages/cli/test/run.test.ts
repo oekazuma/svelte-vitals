@@ -42,8 +42,14 @@ describe('run() flags', () => {
   it('suppresses a missing title for a metaComponents-declared component', async () => {
     const cap = capture();
     const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, metaComponents: ['Widget'] });
-    const failures = cap.out.join('\n').split('Passed')[0];
-    expect(failures).not.toContain('/widget');
+    const report = cap.out.join('\n');
+    // The Critical section should list /none (SEO001 missing title) but NOT /widget —
+    // Widget suppression promotes /widget's title detection to dynamic/pass.
+    // Extract the Critical block (from header up to the next severity header or Passed).
+    const criticalBlock = report.split(/\n(?:Warnings|Info|Passed)\s*\(/)[0];
+    expect(criticalBlock).toContain('SEO001  Missing <title>');
+    expect(criticalBlock).toContain('/none');
+    expect(criticalBlock).not.toContain('/widget');
     expect(code).toBe(1); // /none is still a missing-title critical
   });
 
@@ -52,5 +58,39 @@ describe('run() flags', () => {
     const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, route: 'static/**' });
     expect(code).toBe(0); // only /static analyzed, which passes
     expect(cap.out.join('\n')).not.toContain('/none');
+  });
+});
+
+describe('run() reporters and gating', () => {
+  it('emits JSON when reporter is json', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json' });
+    const json = JSON.parse(cap.out.join('\n'));
+    expect(json).toHaveProperty('score');
+    expect(json).toHaveProperty('routes');
+  });
+
+  it('reports project facts: robots/sitemap/html lang all pass for the fixture', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json' });
+    const json = JSON.parse(cap.out.join('\n'));
+    const siteIds = json.siteIssues.map((i: { id: string }) => i.id);
+    expect(siteIds).not.toContain('SEO006'); // robots.txt present
+    expect(siteIds).not.toContain('SEO007'); // sitemap present
+    expect(siteIds).not.toContain('SEO009'); // html lang present
+  });
+
+  it('fails on warning when failOn=warning', async () => {
+    const cap = capture();
+    const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, failOn: 'warning' });
+    expect(code).toBe(1); // fixture has warnings (og:image, og:title, canonical missing)
+  });
+
+  it('disabling a rule via rules:{id:off} removes its findings', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json', rules: { SEO002: 'off' } });
+    const json = JSON.parse(cap.out.join('\n'));
+    const anySEO002 = json.routes.some((r: { issues: { id: string }[] }) => r.issues.some((i) => i.id === 'SEO002'));
+    expect(anySEO002).toBe(false);
   });
 });

@@ -1,9 +1,10 @@
-import type { Category, Config, Detection, Result, Scope, Severity, TreatDynamicAs } from './types.js';
+import type { Category, Config, Detection, Project, Result, Scope, Severity, TreatDynamicAs } from './types.js';
 import type { ResolvedHead } from './head.js';
 
 /** Input given to every rule. Mode-independent: rules see only ResolvedHead[] (design §8, §10). */
 export interface RuleContext {
   heads: ResolvedHead[];
+  project: Project;
   config: Config;
 }
 
@@ -28,12 +29,12 @@ export interface Rule {
  *
  *   presence 'none'            → penalized (nothing set anywhere)
  *   value 'absent'             → penalized (tag present but empty)
- *   value 'dynamic'            → penalized only when treatDynamicAs is 'fail'
+ *   value 'dynamic'            → penalized when treatDynamicAs is not 'pass' (warn or fail)
  *   otherwise (static/inherited) → not penalized
  */
 export function isPenalized(detection: Detection, treatDynamicAs: TreatDynamicAs): boolean {
   if (detection.presence === 'none') return true;
   if (detection.value === 'absent') return true;
-  if (detection.value === 'dynamic') return treatDynamicAs === 'fail';
+  if (detection.value === 'dynamic') return treatDynamicAs !== 'pass';
   return false;
 }

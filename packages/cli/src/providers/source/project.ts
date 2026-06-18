@@ -1,4 +1,4 @@
-import type { Runtime } from '@svelte-vitals/core';
+import type { Project, Detection, Runtime } from '@svelte-vitals/core';
 
 /** Thrown when the target directory is not a SvelteKit project (CLI maps to exit 2). */
 export class ProjectError extends Error {
@@ -45,4 +45,37 @@ export async function detectProject(rt: Runtime, cwd: string): Promise<void> {
 export async function enumerateRoutePages(rt: Runtime, cwd: string): Promise<string[]> {
   const pages = await rt.glob(`${ROUTES_DIR}/**/+page.svelte`, cwd);
   return pages.sort();
+}
+
+async function existsAny(rt: Runtime, cwd: string, paths: string[]): Promise<boolean> {
+  const found = await Promise.all(paths.map((p) => rt.exists(rt.join(cwd, p))));
+  return found.some(Boolean);
+}
+
+function detectHtmlLang(html: string): Detection {
+  // Match double-quoted, single-quoted, or unquoted lang values (e.g. <html lang=en>).
+  const match = /<html[^>]*\slang\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+))/i.exec(html);
+  if (!match) return { presence: 'none', value: 'absent' };
+  const value = match[1] ?? match[2] ?? match[3] ?? '';
+  return { presence: 'own', value: value.trim().length > 0 ? 'static' : 'absent' };
+}
+
+async function detectAppHtmlLang(rt: Runtime, cwd: string): Promise<Detection> {
+  const appHtmlPath = rt.join(cwd, 'src/app.html');
+  if (!(await rt.exists(appHtmlPath))) return { presence: 'none', value: 'absent' };
+  return detectHtmlLang(await rt.readFile(appHtmlPath));
+}
+
+/** Precompute project-wide facts for project-scope rules (design §10, §11, §17). */
+export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Project> {
+  const [hasRobotsTxt, hasSitemap, htmlLang] = await Promise.all([
+    existsAny(rt, cwd, ['static/robots.txt', 'src/routes/robots.txt/+server.ts', 'src/routes/robots.txt/+server.js']),
+    existsAny(rt, cwd, [
+      'static/sitemap.xml',
+      'src/routes/sitemap.xml/+server.ts',
+      'src/routes/sitemap.xml/+server.js'
+    ]),
+    detectAppHtmlLang(rt, cwd)
+  ]);
+  return { hasRobotsTxt, hasSitemap, htmlLang };
 }

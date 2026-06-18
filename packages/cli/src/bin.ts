@@ -1,7 +1,8 @@
 #!/usr/bin/env node
-import { readFileSync } from 'node:fs';
 import mri from 'mri';
 import { run } from './index.js';
+import { readPackageVersion } from './version.js';
+import { buildRulesConfig, findUnknownRuleIds, knownRuleIds } from './rules-config.js';
 
 const HELP = `svelte-vitals — a SvelteKit SEO checker (static mode)
 
@@ -12,33 +13,28 @@ Options:
   --meta-components <names>   Comma-separated component names that emit head metadata
   --treat-dynamic-as <mode>   pass | warn | fail (default: pass)
   --route <glob>              Only analyze routes matching this glob
+  --by-route                  Show per-route score breakdown in console output
+  --reporter <mode>           console | json (default: console)
+  --json                      Alias for --reporter=json
+  --fail-on <severity>        Fail (exit 1) when any finding reaches this severity: critical | warning | info
+  --fail-on-warning           Alias for --fail-on=warning
+  --rules <ids>               Comma-separated rule ids to enable (all others disabled)
+  --ignore <ids>              Comma-separated rule ids to disable
   -h, --help                  Show this help
   -v, --version               Show version
 
 Exit codes:
   0  no failing findings
-  1  critical finding present
+  1  critical finding present (or --fail-on threshold reached)
   2  execution error (not a SvelteKit project / internal error)`;
 
-// Read the version from the package's own package.json at runtime so it never
-// drifts from the published version (dist/bin.js -> ../package.json).
-function readVersion(): string {
-  try {
-    const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as {
-      version?: string;
-    };
-    return pkg.version ?? '0.0.0';
-  } catch {
-    return '0.0.0';
-  }
-}
-
-const VERSION = readVersion();
+const VERSION = readPackageVersion();
 
 async function main(): Promise<void> {
   const argv = mri(process.argv.slice(2), {
     alias: { h: 'help', v: 'version' },
-    string: ['meta-components', 'treat-dynamic-as', 'route']
+    boolean: ['by-route', 'json', 'fail-on-warning'],
+    string: ['meta-components', 'treat-dynamic-as', 'route', 'fail-on', 'reporter', 'rules', 'ignore']
   });
 
   if (argv.help) {
@@ -62,11 +58,38 @@ async function main(): Promise<void> {
   const treatDynamicAs = treatRaw === 'warn' || treatRaw === 'fail' || treatRaw === 'pass' ? treatRaw : undefined;
   const route = typeof argv.route === 'string' ? argv.route : undefined;
 
+  const toList = (v: unknown) =>
+    typeof v === 'string'
+      ? v
+          .split(',')
+          .map((s) => s.trim())
+          .filter(Boolean)
+      : [];
+  const allow = toList(argv.rules);
+  const ignore = toList(argv.ignore);
+  const unknown = findUnknownRuleIds([...allow, ...ignore]);
+  if (unknown.length > 0) {
+    console.error(`svelte-vitals: unknown rule id(s) in --rules/--ignore: ${unknown.join(', ')}`);
+    console.error(`Known rule ids: ${knownRuleIds().join(', ')}`);
+    process.exit(2);
+  }
+  const reporter = argv.json || argv.reporter === 'json' ? 'json' : 'console';
+  const failOnRaw = argv['fail-on'];
+  const failOn = argv['fail-on-warning']
+    ? 'warning'
+    : failOnRaw === 'warning' || failOnRaw === 'info' || failOnRaw === 'critical'
+      ? failOnRaw
+      : undefined;
+
   const code = await run({
     cwd: positional ?? process.cwd(),
     metaComponents,
     treatDynamicAs,
-    route
+    route,
+    reporter,
+    byRoute: Boolean(argv['by-route']),
+    failOn,
+    rules: buildRulesConfig(allow, ignore)
   });
   process.exit(code);
 }

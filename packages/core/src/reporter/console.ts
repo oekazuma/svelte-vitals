@@ -1,5 +1,6 @@
 import type { Config, Result, Severity } from '../types.js';
-import { classify, summarize } from '../summary.js';
+import { classify, summarize, effectiveSeverity } from '../summary.js';
+import { computeScore } from '../scoring/score.js';
 
 const RULE = '────────────────────────';
 const SEVERITY_TITLE: Record<Severity, string> = {
@@ -8,20 +9,49 @@ const SEVERITY_TITLE: Record<Severity, string> = {
   info: 'Info'
 };
 
+export interface ConsoleReportOptions {
+  byRoute?: boolean;
+}
+
+function scoreHeader(results: Result[], config: Config): string {
+  const { score, scoreModel } = computeScore(results, config);
+  const parts = [`route avg ${scoreModel.routeAverage}`];
+  if (scoreModel.sitePenalty > 0) parts.push(`site −${scoreModel.sitePenalty}`);
+  if (scoreModel.criticalCap !== null) parts.push(`capped at ${scoreModel.criticalCap}: critical present`);
+  return `SEO Score: ${score}/100   (${parts.join(' · ')})`;
+}
+
+function byRouteTree(results: Result[], config: Config): string[] {
+  const routes = new Map<string, Result[]>();
+  for (const r of results) {
+    if (r.route === undefined) continue;
+    if (!routes.has(r.route)) routes.set(r.route, []);
+    routes.get(r.route)!.push(r);
+  }
+  const lines: string[] = ['By route', RULE];
+  for (const [route, rs] of [...routes.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+    const { score } = computeScore(rs, config, { applyCriticalCap: false });
+    lines.push(`${route.padEnd(28)} ${score}`);
+    for (const r of rs.filter((x) => classify(x, config) === 'fail')) {
+      lines.push(`    ✗ ${r.id}  ${r.message}`);
+    }
+  }
+  lines.push('');
+  return lines;
+}
+
 /**
  * Render results as a console report string (design §7). Pure: returns a string,
- * the caller is responsible for printing. Slice 0 lists failures grouped by
- * severity, then passing routes (with a ↯ marker for dynamic values).
+ * the caller is responsible for printing. Prepends a score header; when byRoute is
+ * set, adds a per-route score tree.
  */
-export function formatConsoleReport(results: Result[], config: Config): string {
+export function formatConsoleReport(results: Result[], config: Config, options: ConsoleReportOptions = {}): string {
   const summary = summarize(results, config);
-  const lines: string[] = [];
-
-  lines.push('Svelte Vitals  ·  SEO (static mode)', '');
+  const lines: string[] = ['Svelte Vitals  ·  SEO (static mode)', '', scoreHeader(results, config), ''];
 
   const failures = results.filter((r) => classify(r, config) === 'fail');
   for (const severity of ['critical', 'warning', 'info'] as const) {
-    const bucket = failures.filter((r) => r.severity === severity);
+    const bucket = failures.filter((r) => effectiveSeverity(r, config) === severity);
     if (bucket.length === 0) continue;
     lines.push(`${SEVERITY_TITLE[severity]} (${bucket.length})`, RULE);
     for (const r of bucket) {
@@ -43,9 +73,8 @@ export function formatConsoleReport(results: Result[], config: Config): string {
     lines.push('');
   }
 
-  if (summary.dynamic > 0) {
-    lines.push('↯ = set dynamically (verified at runtime).');
-  }
+  if (options.byRoute) lines.push(...byRouteTree(results, config));
+  if (summary.dynamic > 0) lines.push('↯ = set dynamically (verified at runtime).');
 
   return lines.join('\n').replace(/\n+$/, '\n');
 }

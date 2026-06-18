@@ -2,13 +2,19 @@ import {
   allRules,
   runRules,
   formatConsoleReport,
+  formatJsonReport,
   summarize,
   hasFailureAtOrAbove,
-  defineConfig
+  defineConfig,
+  selectRules,
+  applyRuleSeverities,
+  type Severity,
+  type RuleSetting
 } from '@svelte-vitals/core';
 import { createNodeRuntime } from './runtime/node.js';
 import { sourceHeadProvider } from './providers/source/routes.js';
-import { detectProject, ProjectError } from './providers/source/project.js';
+import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
+import { readPackageVersion } from './version.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -18,6 +24,10 @@ export interface RunOptions {
   treatDynamicAs?: 'pass' | 'warn' | 'fail';
   /** Restrict analysis to routes whose path matches this glob (matched against the route path without leading slash). */
   route?: string;
+  reporter?: 'console' | 'json';
+  byRoute?: boolean;
+  failOn?: Severity;
+  rules?: Record<string, RuleSetting>;
 }
 
 export function routeMatcher(glob: string | undefined): (route: string) => boolean {
@@ -46,7 +56,9 @@ export async function run(opts: RunOptions = {}): Promise<number> {
   const rt = createNodeRuntime();
   const config = defineConfig({
     treatDynamicAs: opts.treatDynamicAs ?? 'pass',
-    metaComponents: opts.metaComponents ?? []
+    metaComponents: opts.metaComponents ?? [],
+    rules: opts.rules ?? {},
+    failOn: opts.failOn ?? 'critical'
   });
 
   try {
@@ -62,10 +74,16 @@ export async function run(opts: RunOptions = {}): Promise<number> {
   try {
     const matches = routeMatcher(opts.route);
     const heads = (await sourceHeadProvider.collect(rt, cwd, config)).filter((h) => matches(h.route));
-    const results = await runRules(allRules, { heads, config });
-    log(formatConsoleReport(results, config));
+    const project = await collectProjectFacts(rt, cwd);
+    const rules = selectRules(allRules, config);
+    const results = applyRuleSeverities(await runRules(rules, { heads, project, config }), config);
+    if (opts.reporter === 'json') {
+      log(formatJsonReport(results, config, { version: readPackageVersion() }));
+    } else {
+      log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false }));
+    }
     const summary = summarize(results, config);
-    return hasFailureAtOrAbove(summary, 'critical') ? 1 : 0;
+    return hasFailureAtOrAbove(summary, config.failOn) ? 1 : 0;
   } catch (err) {
     errorLog(`svelte-vitals: ${err instanceof Error ? err.message : String(err)}`);
     return 2;

@@ -20,6 +20,20 @@ export interface Detection {
   value: Value;
 }
 
+/** Project-wide facts precomputed by the runtime layer for project-scope rules (design §10). */
+export interface Project {
+  hasRobotsTxt: boolean;
+  hasSitemap: boolean;
+  /** <html lang> from app.html: presence 'own' when the attribute exists ('none' otherwise); value 'static' if non-empty, 'absent' if empty. */
+  htmlLang: Detection;
+}
+
+export const defaultProject: Project = {
+  hasRobotsTxt: false,
+  hasSitemap: false,
+  htmlLang: { presence: 'none', value: 'absent' }
+};
+
 /** A single rule finding for one route (or the whole project). */
 export interface Result {
   /** Rule id, e.g. 'SEO001'. */
@@ -42,15 +56,24 @@ export type Category = 'seo' | 'performance' | 'a11y' | 'maintainability';
 /** How dynamic (`{data.title}`) values are treated by scoring (design §4, §12). */
 export type TreatDynamicAs = 'pass' | 'warn' | 'fail';
 
+/** Per-rule override: disable, or change severity. */
+export type RuleSetting = 'off' | Severity;
+
 export interface Config {
   treatDynamicAs: TreatDynamicAs;
   /** Component names treated as meta sources of unknown content (design §11 layer 4). */
   metaComponents: string[];
+  /** Per-rule overrides keyed by rule id (design §6). */
+  rules: Record<string, RuleSetting>;
+  /** Minimum severity that fails the run / CI (design §6). */
+  failOn: Severity;
 }
 
 export const defaultConfig: Config = {
   treatDynamicAs: 'pass',
-  metaComponents: []
+  metaComponents: [],
+  rules: {},
+  failOn: 'critical'
 };
 
 /** Merge user config over defaults. Identity helper for config files (design §6). */
