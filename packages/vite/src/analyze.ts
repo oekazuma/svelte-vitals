@@ -53,10 +53,11 @@ export async function analyze(
   const summary = summarize(results, config);
   const failed = hasFailureAtOrAbove(summary, config.failOn);
 
-  const header =
-    `Svelte Vitals  ·  SEO (rendered / plugin)\n` +
-    `Analyzed ${heads.length} prerendered route(s). SSR/dynamic routes are not covered — run \`npx svelte-vitals\` for those.\n`;
-  const consoleReport = header + '\n' + formatConsoleReport(results, config);
+  const coverageNote =
+    `Analyzed ${heads.length} prerendered route(s). ` +
+    'SSR/dynamic routes are not covered — run `npx svelte-vitals` for those.';
+  const consoleReport =
+    formatConsoleReport(results, config, { mode: 'rendered / plugin' }) + '\n' + coverageNote + '\n';
   const jsonReport = formatJsonReport(results, config, { version: readPackageVersion() });
 
   return {

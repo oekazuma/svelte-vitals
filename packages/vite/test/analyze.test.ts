@@ -34,6 +34,9 @@ describe('analyze', () => {
     // html lang present (en) -> SEO009 not a site issue
     const json = JSON.parse(r.jsonReport);
     expect(json.siteIssues.map((i: { id: string }) => i.id)).not.toContain('SEO009');
+    // console report must carry the plugin-mode label and not the static-mode label
+    expect(r.consoleReport).toContain('SEO (rendered / plugin)');
+    expect(r.consoleReport).not.toContain('static mode');
   });
 
   it('fails when findings meet failOn', async () => {
