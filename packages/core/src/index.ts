@@ -29,7 +29,10 @@ export {
   seo003Canonical,
   seo004OgImage,
   seo005OgTitle,
-  seo008JsonLd
+  seo008JsonLd,
+  seo006Robots,
+  seo007Sitemap,
+  seo009HtmlLang
 } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';
 

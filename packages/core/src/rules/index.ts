@@ -7,6 +7,7 @@ import {
   seo005OgTitle,
   seo008JsonLd
 } from './seo/seo002-005-008.js';
+import { seo006Robots, seo007Sitemap, seo009HtmlLang } from './seo/project-rules.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -14,7 +15,20 @@ export const allRules: Rule[] = [
   seo003Canonical,
   seo004OgImage,
   seo005OgTitle,
-  seo008JsonLd
+  seo008JsonLd,
+  seo006Robots,
+  seo007Sitemap,
+  seo009HtmlLang
 ];
 
-export { seo001Title, seo002Description, seo003Canonical, seo004OgImage, seo005OgTitle, seo008JsonLd };
+export {
+  seo001Title,
+  seo002Description,
+  seo003Canonical,
+  seo004OgImage,
+  seo005OgTitle,
+  seo008JsonLd,
+  seo006Robots,
+  seo007Sitemap,
+  seo009HtmlLang
+};
