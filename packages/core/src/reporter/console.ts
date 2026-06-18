@@ -11,6 +11,8 @@ const SEVERITY_TITLE: Record<Severity, string> = {
 
 export interface ConsoleReportOptions {
   byRoute?: boolean;
+  /** Mode label shown in the header (default 'static mode'). */
+  mode?: string;
 }
 
 function scoreHeader(results: Result[], config: Config): string {
@@ -47,7 +49,12 @@ function byRouteTree(results: Result[], config: Config): string[] {
  */
 export function formatConsoleReport(results: Result[], config: Config, options: ConsoleReportOptions = {}): string {
   const summary = summarize(results, config);
-  const lines: string[] = ['Svelte Vitals  ·  SEO (static mode)', '', scoreHeader(results, config), ''];
+  const lines: string[] = [
+    `Svelte Vitals  ·  SEO (${options.mode ?? 'static mode'})`,
+    '',
+    scoreHeader(results, config),
+    ''
+  ];
 
   const failures = results.filter((r) => classify(r, config) === 'fail');
   for (const severity of ['critical', 'warning', 'info'] as const) {

@@ -2,9 +2,10 @@ import type { Presence, Value, Config } from './types.js';
 import type { Runtime } from './runtime.js';
 
 /**
- * A normalized head tag. The mode-independent boundary (design §8): both the
- * static SourceHeadProvider and the future RenderedHeadProvider emit these, so
- * rules never need to know which provider produced them.
+ * A normalized head tag. The mode-independent boundary (design §8): the static
+ * SourceHeadProvider (CLI, via the runtime-abstracted `HeadProvider` below) and
+ * the rendered collector (`@svelte-vitals/vite`, build-time Node) both emit
+ * these, so rules never need to know which mode produced them.
  */
 export interface HeadTag {
   kind: 'title' | 'meta' | 'link' | 'jsonld';
@@ -34,7 +35,11 @@ export interface ResolvedHead {
   file: string;
 }
 
-/** Supplies ResolvedHead[] for a project. The only piece that differs per mode. */
+/**
+ * Supplies ResolvedHead[] for a project through the runtime abstraction. The
+ * static (CLI) mode implements this; rendered mode reads prerendered HTML at
+ * build time and emits the same ResolvedHead[] without the runtime indirection.
+ */
 export interface HeadProvider {
   mode: 'static' | 'rendered';
   collect(rt: Runtime, cwd: string, config?: Config): Promise<ResolvedHead[]>;
