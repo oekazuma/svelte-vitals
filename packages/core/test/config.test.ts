@@ -12,3 +12,17 @@ describe('Config.metaComponents', () => {
     expect(config.treatDynamicAs).toBe('pass');
   });
 });
+
+describe('Config.rules and failOn', () => {
+  it('defaults rules to {} and failOn to critical', () => {
+    expect(defaultConfig.rules).toEqual({});
+    expect(defaultConfig.failOn).toBe('critical');
+  });
+
+  it('merges rules and failOn via defineConfig', () => {
+    const config = defineConfig({ rules: { SEO008: 'off', SEO003: 'critical' }, failOn: 'warning' });
+    expect(config.rules).toEqual({ SEO008: 'off', SEO003: 'critical' });
+    expect(config.failOn).toBe('warning');
+    expect(config.metaComponents).toEqual([]);
+  });
+});

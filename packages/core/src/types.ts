@@ -42,15 +42,24 @@ export type Category = 'seo' | 'performance' | 'a11y' | 'maintainability';
 /** How dynamic (`{data.title}`) values are treated by scoring (design §4, §12). */
 export type TreatDynamicAs = 'pass' | 'warn' | 'fail';
 
+/** Per-rule override: disable, or change severity. */
+export type RuleSetting = 'off' | Severity;
+
 export interface Config {
   treatDynamicAs: TreatDynamicAs;
   /** Component names treated as meta sources of unknown content (design §11 layer 4). */
   metaComponents: string[];
+  /** Per-rule overrides keyed by rule id (design §6). */
+  rules: Record<string, RuleSetting>;
+  /** Minimum severity that fails the run / CI (design §6). */
+  failOn: Severity;
 }
 
 export const defaultConfig: Config = {
   treatDynamicAs: 'pass',
-  metaComponents: []
+  metaComponents: [],
+  rules: {},
+  failOn: 'critical'
 };
 
 /** Merge user config over defaults. Identity helper for config files (design §6). */
