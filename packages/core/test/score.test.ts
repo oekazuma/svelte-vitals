@@ -57,4 +57,35 @@ describe('computeScore (§12 worked example)', () => {
     expect(computeScore(results, defineConfig({})).score).toBe(79); // capped (default)
     expect(computeScore(results, defineConfig({}), { applyCriticalCap: false }).score).toBe(85); // uncapped: 100-15
   });
+
+  it('deducts once per (route, rule) even if a rule emits duplicate penalized results', () => {
+    const results: Result[] = [
+      {
+        id: 'SEO002',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/x',
+        message: 'a'
+      },
+      {
+        id: 'SEO002',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/x',
+        message: 'b'
+      }
+    ];
+    // one deduction per (route, rule), taking the max (critical = 15) -> 100-15 = 85, uncapped view
+    expect(computeScore(results, defineConfig({}), { applyCriticalCap: false }).score).toBe(85);
+  });
+
+  it('deducts once per project rule even if duplicated', () => {
+    const results: Result[] = [
+      { id: 'SEO006', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'a' },
+      { id: 'SEO006', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'b' }
+    ];
+    // single route seeded at 100 not present; routeAverage falls back to 100; site penalty counted once (5) -> 95
+    expect(computeScore(results, defineConfig({})).scoreModel.sitePenalty).toBe(5);
+    expect(computeScore(results, defineConfig({})).score).toBe(95);
+  });
 });

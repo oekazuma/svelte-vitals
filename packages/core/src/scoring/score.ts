@@ -35,23 +35,36 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
   for (const r of routeResults) if (!routeScores.has(r.route as string)) routeScores.set(r.route as string, 100);
 
   let anyCritical = false;
+
+  // One deduction per (route, rule id): take the max deduction among duplicates.
+  const routeRuleMax = new Map<string, number>();
   for (const r of routeResults) {
     if (!isPenalized(r.detection, config.treatDynamicAs)) continue;
     const sev = effectiveSeverity(r, config);
-    routeScores.set(r.route as string, (routeScores.get(r.route as string) as number) - DEDUCTION[sev]);
     if (sev === 'critical') anyCritical = true;
+    const key = `${r.route as string} ${r.id}`;
+    const prev = routeRuleMax.get(key) ?? 0;
+    if (DEDUCTION[sev] > prev) routeRuleMax.set(key, DEDUCTION[sev]);
+  }
+  for (const [key, deduction] of routeRuleMax) {
+    const route = key.slice(0, key.lastIndexOf(' '));
+    routeScores.set(route, (routeScores.get(route) as number) - deduction);
   }
 
   const scores = [...routeScores.values()].map(clamp);
   const routeAverage = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 100;
 
-  let sitePenalty = 0;
+  // One deduction per project rule id: take the max deduction among duplicates.
+  const projectRuleMax = new Map<string, number>();
   for (const r of projectResults) {
     if (!isPenalized(r.detection, config.treatDynamicAs)) continue;
     const sev = effectiveSeverity(r, config);
-    sitePenalty += DEDUCTION[sev];
     if (sev === 'critical') anyCritical = true;
+    const prev = projectRuleMax.get(r.id) ?? 0;
+    if (DEDUCTION[sev] > prev) projectRuleMax.set(r.id, DEDUCTION[sev]);
   }
+  let sitePenalty = 0;
+  for (const deduction of projectRuleMax.values()) sitePenalty += deduction;
 
   const applyCap = options.applyCriticalCap ?? true;
   const criticalCap = applyCap && anyCritical ? CRITICAL_CAP : null;
