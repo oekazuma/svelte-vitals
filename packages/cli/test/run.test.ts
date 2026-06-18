@@ -70,10 +70,20 @@ describe('run() reporters and gating', () => {
     expect(json).toHaveProperty('routes');
   });
 
+  it('reports project facts: robots/sitemap/html lang all pass for the fixture', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json' });
+    const json = JSON.parse(cap.out.join('\n'));
+    const siteIds = json.siteIssues.map((i: { id: string }) => i.id);
+    expect(siteIds).not.toContain('SEO006'); // robots.txt present
+    expect(siteIds).not.toContain('SEO007'); // sitemap present
+    expect(siteIds).not.toContain('SEO009'); // html lang present
+  });
+
   it('fails on warning when failOn=warning', async () => {
     const cap = capture();
     const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, failOn: 'warning' });
-    expect(code).toBe(1); // fixture has warnings (robots/sitemap/og missing)
+    expect(code).toBe(1); // fixture has warnings (og:image, og:title, canonical missing)
   });
 
   it('disabling a rule via rules:{id:off} removes its findings', async () => {
