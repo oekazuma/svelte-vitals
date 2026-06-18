@@ -1,9 +1,10 @@
-import type { Category, Config, Detection, Result, Scope, Severity, TreatDynamicAs } from './types.js';
+import type { Category, Config, Detection, Project, Result, Scope, Severity, TreatDynamicAs } from './types.js';
 import type { ResolvedHead } from './head.js';
 
 /** Input given to every rule. Mode-independent: rules see only ResolvedHead[] (design §8, §10). */
 export interface RuleContext {
   heads: ResolvedHead[];
+  project: Project;
   config: Config;
 }
 

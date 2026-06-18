@@ -20,6 +20,20 @@ export interface Detection {
   value: Value;
 }
 
+/** Project-wide facts precomputed by the runtime layer for project-scope rules (design §10). */
+export interface Project {
+  hasRobotsTxt: boolean;
+  hasSitemap: boolean;
+  /** <html lang> from app.html: presence 'own' if the attribute exists, value reflects emptiness. */
+  htmlLang: Detection;
+}
+
+export const defaultProject: Project = {
+  hasRobotsTxt: false,
+  hasSitemap: false,
+  htmlLang: { presence: 'none', value: 'absent' }
+};
+
 /** A single rule finding for one route (or the whole project). */
 export interface Result {
   /** Rule id, e.g. 'SEO001'. */

@@ -1,7 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { seo001Title, type Detection, type ResolvedHead, defaultConfig, defineConfig } from '@svelte-vitals/core';
+import {
+  seo001Title,
+  type Detection,
+  type ResolvedHead,
+  defaultConfig,
+  defaultProject,
+  defineConfig
+} from '@svelte-vitals/core';
 import { createNodeRuntime } from '../src/runtime/node.js';
 import { sourceHeadProvider } from '../src/providers/source/routes.js';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';
@@ -40,7 +47,7 @@ describe('SourceHeadProvider (Node runtime, real fixture)', () => {
   it('feeds SEO001 to produce one critical failure (the missing title)', async () => {
     const rt = createNodeRuntime();
     const heads = await sourceHeadProvider.collect(rt, fixtureDir);
-    const results = await seo001Title.check({ heads, config: { treatDynamicAs: 'pass', metaComponents: [] } });
+    const results = await seo001Title.check({ heads, project: defaultProject, config: defineConfig({}) });
     const failing = results.filter((r) => r.detection.presence === 'none');
     expect(failing).toHaveLength(2);
     expect(failing.map((r) => r.route).sort()).toEqual(['/none', '/widget']);
