@@ -45,5 +45,5 @@ export { formatJsonReport } from './reporter/json.js';
 
 export { selectRules, applyRuleSeverities } from './config-apply.js';
 
-export type { ScoreModel, ScoreResult } from './scoring/score.js';
+export type { ScoreModel, ScoreResult, ScoreOptions } from './scoring/score.js';
 export { computeScore } from './scoring/score.js';

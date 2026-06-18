@@ -29,7 +29,7 @@ export interface Rule {
  *
  *   presence 'none'            → penalized (nothing set anywhere)
  *   value 'absent'             → penalized (tag present but empty)
- *   value 'dynamic'            → penalized only when treatDynamicAs is 'fail'
+ *   value 'dynamic'            → penalized when treatDynamicAs is not 'pass' (warn or fail)
  *   otherwise (static/inherited) → not penalized
  */
 export function isPenalized(detection: Detection, treatDynamicAs: TreatDynamicAs): boolean {

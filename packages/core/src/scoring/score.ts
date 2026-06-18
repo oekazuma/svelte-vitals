@@ -17,12 +17,16 @@ export interface ScoreResult {
   scoreModel: ScoreModel;
 }
 
+export interface ScoreOptions {
+  applyCriticalCap?: boolean;
+}
+
 function clamp(n: number): number {
   return Math.max(0, Math.min(100, n));
 }
 
 /** Compute the headline score and its breakdown (design §12). */
-export function computeScore(results: Result[], config: Config): ScoreResult {
+export function computeScore(results: Result[], config: Config, options: ScoreOptions = {}): ScoreResult {
   const routeResults = results.filter((r) => r.route !== undefined);
   const projectResults = results.filter((r) => r.route === undefined);
 
@@ -49,7 +53,8 @@ export function computeScore(results: Result[], config: Config): ScoreResult {
     if (sev === 'critical') anyCritical = true;
   }
 
-  const criticalCap = anyCritical ? CRITICAL_CAP : null;
+  const applyCap = options.applyCriticalCap ?? true;
+  const criticalCap = applyCap && anyCritical ? CRITICAL_CAP : null;
   let score = routeAverage - sitePenalty;
   if (criticalCap !== null) score = Math.min(score, criticalCap);
 

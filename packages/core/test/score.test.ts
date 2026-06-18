@@ -43,4 +43,18 @@ describe('computeScore (§12 worked example)', () => {
     expect(score).toBe(100);
     expect(scoreModel.criticalCap).toBeNull();
   });
+
+  it('omits the critical cap for a single-route view when applyCriticalCap is false', () => {
+    const results: Result[] = [
+      {
+        id: 'SEO002',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/x',
+        message: 'missing'
+      }
+    ];
+    expect(computeScore(results, defineConfig({})).score).toBe(79); // capped (default)
+    expect(computeScore(results, defineConfig({}), { applyCriticalCap: false }).score).toBe(85); // uncapped: 100-15
+  });
 });

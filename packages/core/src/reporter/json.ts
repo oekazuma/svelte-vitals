@@ -29,7 +29,7 @@ export function formatJsonReport(results: Result[], config: Config, meta: { vers
     .sort((a, b) => a.route.localeCompare(b.route))
     .map(({ route, results: rs }) => ({
       route,
-      score: computeScore(rs, config).score,
+      score: computeScore(rs, config, { applyCriticalCap: false }).score,
       issues: rs
         .filter((r) => isPenalized(r.detection, config.treatDynamicAs))
         .map((r) => ({ ...issueOf(r), severity: effectiveSeverity(r, config) }))

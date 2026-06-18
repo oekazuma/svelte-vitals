@@ -1,7 +1,6 @@
 import type { Config, Result, Severity } from '../types.js';
 import { classify, summarize, effectiveSeverity } from '../summary.js';
 import { computeScore } from '../scoring/score.js';
-import { isPenalized } from '../rule.js';
 
 const RULE = '────────────────────────';
 const SEVERITY_TITLE: Record<Severity, string> = {
@@ -31,9 +30,9 @@ function byRouteTree(results: Result[], config: Config): string[] {
   }
   const lines: string[] = ['By route', RULE];
   for (const [route, rs] of [...routes.entries()].sort()) {
-    const { score } = computeScore(rs, config);
+    const { score } = computeScore(rs, config, { applyCriticalCap: false });
     lines.push(`${route.padEnd(28)} ${score}`);
-    for (const r of rs.filter((x) => isPenalized(x.detection, config.treatDynamicAs))) {
+    for (const r of rs.filter((x) => classify(x, config) === 'fail')) {
       lines.push(`    ✗ ${r.id}  ${r.message}`);
     }
   }

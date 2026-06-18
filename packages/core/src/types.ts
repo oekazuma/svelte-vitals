@@ -24,7 +24,7 @@ export interface Detection {
 export interface Project {
   hasRobotsTxt: boolean;
   hasSitemap: boolean;
-  /** <html lang> from app.html: presence 'own' if the attribute exists, value reflects emptiness. */
+  /** <html lang> from app.html: presence 'own' when the attribute exists ('none' otherwise); value 'static' if non-empty, 'absent' if empty. */
   htmlLang: Detection;
 }
 
