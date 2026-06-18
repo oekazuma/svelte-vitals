@@ -28,3 +28,5 @@ export type { Summary, Classification } from './summary.js';
 export { summarize, classify, hasFailureAtOrAbove, effectiveSeverity } from './summary.js';
 
 export { formatConsoleReport } from './reporter/console.js';
+
+export { selectRules, applyRuleSeverities } from './config-apply.js';
