@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
-import { writeFile } from 'node:fs/promises';
-import { join, isAbsolute } from 'node:path';
+import { writeFile, mkdir } from 'node:fs/promises';
+import { join, isAbsolute, dirname } from 'node:path';
 import type { Plugin } from 'vite';
 import type { RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
 import { analyze } from './analyze.js';
@@ -42,14 +42,28 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin {
       // prerendered HTML (Task 2 spike). Skip the early/empty invocation so we
       // don't emit a spurious "0 routes" report or gate on nothing.
       if (!existsSync(resolved)) return;
-      const result = await analyze(resolved, root, options);
+
+      let result;
+      try {
+        result = await analyze(resolved, root, options);
+      } catch (err) {
+        // The analysis itself failed (unreadable/malformed output, glob error,
+        // …). That's our problem, not a real SEO finding, so warn and skip the
+        // gate instead of failing the whole build — distinct from `result.failed`.
+        console.warn(`svelte-vitals: skipped — analysis failed: ${err instanceof Error ? err.message : String(err)}`);
+        return;
+      }
       if (result.routeCount === 0) return;
 
       if (options.report !== false) {
         const out = options.report === 'json' ? result.jsonReport : result.consoleReport;
         console.log(out);
       }
-      if (options.outFile) await writeFile(options.outFile, result.jsonReport);
+      if (options.outFile) {
+        const outPath = isAbsolute(options.outFile) ? options.outFile : join(root, options.outFile);
+        await mkdir(dirname(outPath), { recursive: true });
+        await writeFile(outPath, result.jsonReport);
+      }
       if (result.failed) {
         throw new Error(`svelte-vitals: build failed — findings at or above "${result.failOn}".`);
       }

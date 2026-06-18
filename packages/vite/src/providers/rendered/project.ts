@@ -1,6 +1,6 @@
 import { access } from 'node:fs/promises';
 import { join } from 'node:path';
-import type { Detection, Project } from '@svelte-vitals/core';
+import { ROBOTS_SOURCE_PATHS, SITEMAP_SOURCE_PATHS, type Detection, type Project } from '@svelte-vitals/core';
 
 async function exists(path: string): Promise<boolean> {
   try {
@@ -11,22 +11,16 @@ async function exists(path: string): Promise<boolean> {
   }
 }
 
-async function existsAny(cwd: string, paths: string[]): Promise<boolean> {
-  for (const p of paths) if (await exists(join(cwd, p))) return true;
-  return false;
+async function existsAny(cwd: string, paths: readonly string[]): Promise<boolean> {
+  const found = await Promise.all(paths.map((p) => exists(join(cwd, p))));
+  return found.some(Boolean);
 }
 
 /** Project facts for plugin mode: robots/sitemap from source, htmlLang from rendered HTML. */
 export async function collectRenderedProject(cwd: string, htmlLang: Detection): Promise<Project> {
-  const hasRobotsTxt = await existsAny(cwd, [
-    'static/robots.txt',
-    'src/routes/robots.txt/+server.ts',
-    'src/routes/robots.txt/+server.js'
-  ]);
-  const hasSitemap = await existsAny(cwd, [
-    'static/sitemap.xml',
-    'src/routes/sitemap.xml/+server.ts',
-    'src/routes/sitemap.xml/+server.js'
+  const [hasRobotsTxt, hasSitemap] = await Promise.all([
+    existsAny(cwd, ROBOTS_SOURCE_PATHS),
+    existsAny(cwd, SITEMAP_SOURCE_PATHS)
   ]);
   return { hasRobotsTxt, hasSitemap, htmlLang };
 }
