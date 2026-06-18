@@ -30,3 +30,6 @@ export { summarize, classify, hasFailureAtOrAbove, effectiveSeverity } from './s
 export { formatConsoleReport } from './reporter/console.js';
 
 export { selectRules, applyRuleSeverities } from './config-apply.js';
+
+export type { ScoreModel, ScoreResult } from './scoring/score.js';
+export { computeScore } from './scoring/score.js';
