@@ -22,7 +22,16 @@ export type { Rule, RuleContext } from './rule.js';
 export { isPenalized } from './rule.js';
 
 export { runRules } from './engine.js';
-export { allRules, seo001Title } from './rules/index.js';
+export {
+  allRules,
+  seo001Title,
+  seo002Description,
+  seo003Canonical,
+  seo004OgImage,
+  seo005OgTitle,
+  seo008JsonLd
+} from './rules/index.js';
+export { headTagRule } from './rules/seo/head-tag-rule.js';
 
 export type { Summary, Classification } from './summary.js';
 export { summarize, classify, hasFailureAtOrAbove, effectiveSeverity } from './summary.js';
