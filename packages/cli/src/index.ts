@@ -4,11 +4,13 @@ import {
   formatConsoleReport,
   summarize,
   hasFailureAtOrAbove,
-  defineConfig
+  defineConfig,
+  selectRules,
+  applyRuleSeverities
 } from '@svelte-vitals/core';
 import { createNodeRuntime } from './runtime/node.js';
 import { sourceHeadProvider } from './providers/source/routes.js';
-import { detectProject, ProjectError } from './providers/source/project.js';
+import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -62,10 +64,12 @@ export async function run(opts: RunOptions = {}): Promise<number> {
   try {
     const matches = routeMatcher(opts.route);
     const heads = (await sourceHeadProvider.collect(rt, cwd, config)).filter((h) => matches(h.route));
-    const results = await runRules(allRules, { heads, config });
+    const project = await collectProjectFacts(rt, cwd);
+    const rules = selectRules(allRules, config);
+    const results = applyRuleSeverities(await runRules(rules, { heads, project, config }), config);
     log(formatConsoleReport(results, config));
     const summary = summarize(results, config);
-    return hasFailureAtOrAbove(summary, 'critical') ? 1 : 0;
+    return hasFailureAtOrAbove(summary, config.failOn) ? 1 : 0;
   } catch (err) {
     errorLog(`svelte-vitals: ${err instanceof Error ? err.message : String(err)}`);
     return 2;

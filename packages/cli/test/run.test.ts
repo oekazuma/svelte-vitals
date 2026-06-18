@@ -42,8 +42,14 @@ describe('run() flags', () => {
   it('suppresses a missing title for a metaComponents-declared component', async () => {
     const cap = capture();
     const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, metaComponents: ['Widget'] });
-    const failures = cap.out.join('\n').split('Passed')[0];
-    expect(failures).not.toContain('/widget');
+    const report = cap.out.join('\n');
+    // The Critical section should list /none (SEO001 missing title) but NOT /widget —
+    // Widget suppression promotes /widget's title detection to dynamic/pass.
+    // Extract the Critical block (from header up to the next severity header or Passed).
+    const criticalBlock = report.split(/\n(?:Warnings|Info|Passed)\s*\(/)[0];
+    expect(criticalBlock).toContain('SEO001  Missing <title>');
+    expect(criticalBlock).toContain('/none');
+    expect(criticalBlock).not.toContain('/widget');
     expect(code).toBe(1); // /none is still a missing-title critical
   });
 

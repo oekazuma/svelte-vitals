@@ -1,4 +1,4 @@
-import type { Runtime } from '@svelte-vitals/core';
+import type { Project, Detection, Runtime } from '@svelte-vitals/core';
 
 /** Thrown when the target directory is not a SvelteKit project (CLI maps to exit 2). */
 export class ProjectError extends Error {
@@ -45,4 +45,37 @@ export async function detectProject(rt: Runtime, cwd: string): Promise<void> {
 export async function enumerateRoutePages(rt: Runtime, cwd: string): Promise<string[]> {
   const pages = await rt.glob(`${ROUTES_DIR}/**/+page.svelte`, cwd);
   return pages.sort();
+}
+
+async function existsAny(rt: Runtime, cwd: string, paths: string[]): Promise<boolean> {
+  for (const p of paths) {
+    if (await rt.exists(rt.join(cwd, p))) return true;
+  }
+  return false;
+}
+
+function detectHtmlLang(html: string): Detection {
+  const match = /<html[^>]*\slang\s*=\s*("([^"]*)"|'([^']*)')/i.exec(html);
+  if (!match) return { presence: 'none', value: 'absent' };
+  const value = match[2] ?? match[3] ?? '';
+  return { presence: 'own', value: value.trim().length > 0 ? 'static' : 'absent' };
+}
+
+/** Precompute project-wide facts for project-scope rules (design §10, §11, §17). */
+export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Project> {
+  const hasRobotsTxt = await existsAny(rt, cwd, [
+    'static/robots.txt',
+    'src/routes/robots.txt/+server.ts',
+    'src/routes/robots.txt/+server.js'
+  ]);
+  const hasSitemap = await existsAny(rt, cwd, [
+    'static/sitemap.xml',
+    'src/routes/sitemap.xml/+server.ts',
+    'src/routes/sitemap.xml/+server.js'
+  ]);
+  const appHtmlPath = rt.join(cwd, 'src/app.html');
+  const htmlLang = (await rt.exists(appHtmlPath))
+    ? detectHtmlLang(await rt.readFile(appHtmlPath))
+    : { presence: 'none' as const, value: 'absent' as const };
+  return { hasRobotsTxt, hasSitemap, htmlLang };
 }
