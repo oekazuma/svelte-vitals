@@ -35,6 +35,6 @@ export interface Rule {
 export function isPenalized(detection: Detection, treatDynamicAs: TreatDynamicAs): boolean {
   if (detection.presence === 'none') return true;
   if (detection.value === 'absent') return true;
-  if (detection.value === 'dynamic') return treatDynamicAs === 'fail';
+  if (detection.value === 'dynamic') return treatDynamicAs !== 'pass';
   return false;
 }

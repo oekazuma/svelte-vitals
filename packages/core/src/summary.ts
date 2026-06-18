@@ -20,12 +20,18 @@ export function classify(result: Result, config: Config): Classification {
   return 'pass';
 }
 
+/** A penalized dynamic finding is a warning under treatDynamicAs 'warn'; otherwise the rule's severity. */
+export function effectiveSeverity(result: Result, config: Config): Severity {
+  if (result.detection.value === 'dynamic' && config.treatDynamicAs === 'warn') return 'warning';
+  return result.severity;
+}
+
 export function summarize(results: Result[], config: Config): Summary {
   const summary: Summary = { critical: 0, warning: 0, info: 0, passed: 0, dynamic: 0 };
   for (const result of results) {
     const cls = classify(result, config);
     if (cls === 'fail') {
-      summary[severityKey(result.severity)] += 1;
+      summary[effectiveSeverity(result, config)] += 1;
     } else {
       summary.passed += 1;
       if (cls === 'dynamic') summary.dynamic += 1;
@@ -38,9 +44,5 @@ export function summarize(results: Result[], config: Config): Summary {
 export function hasFailureAtOrAbove(summary: Summary, min: Severity): boolean {
   const order: Severity[] = ['info', 'warning', 'critical'];
   const threshold = order.indexOf(min);
-  return order.some((sev, idx) => idx >= threshold && summary[severityKey(sev)] > 0);
-}
-
-function severityKey(severity: Severity): 'critical' | 'warning' | 'info' {
-  return severity;
+  return order.some((sev, idx) => idx >= threshold && summary[sev] > 0);
 }

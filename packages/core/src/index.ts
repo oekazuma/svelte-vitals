@@ -25,6 +25,6 @@ export { runRules } from './engine.js';
 export { allRules, seo001Title } from './rules/index.js';
 
 export type { Summary, Classification } from './summary.js';
-export { summarize, classify, hasFailureAtOrAbove } from './summary.js';
+export { summarize, classify, hasFailureAtOrAbove, effectiveSeverity } from './summary.js';
 
 export { formatConsoleReport } from './reporter/console.js';
