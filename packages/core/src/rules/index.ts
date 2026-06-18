@@ -15,9 +15,9 @@ export const allRules: Rule[] = [
   seo003Canonical,
   seo004OgImage,
   seo005OgTitle,
-  seo008JsonLd,
   seo006Robots,
   seo007Sitemap,
+  seo008JsonLd,
   seo009HtmlLang
 ];
 
@@ -27,8 +27,8 @@ export {
   seo003Canonical,
   seo004OgImage,
   seo005OgTitle,
-  seo008JsonLd,
   seo006Robots,
   seo007Sitemap,
+  seo008JsonLd,
   seo009HtmlLang
 };

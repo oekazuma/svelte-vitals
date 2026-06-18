@@ -25,5 +25,9 @@ describe('collectProjectFacts', () => {
     expect(empty.htmlLang).toEqual({ presence: 'own', value: 'absent' });
     const none = await collectProjectFacts(createMemoryRuntime({ 'src/app.html': '<html>' }), '');
     expect(none.htmlLang).toEqual({ presence: 'none', value: 'absent' });
+    const unquoted = await collectProjectFacts(createMemoryRuntime({ 'src/app.html': '<html lang=en>' }), '');
+    expect(unquoted.htmlLang).toEqual({ presence: 'own', value: 'static' });
+    const single = await collectProjectFacts(createMemoryRuntime({ 'src/app.html': "<html lang='ja'>" }), '');
+    expect(single.htmlLang).toEqual({ presence: 'own', value: 'static' });
   });
 });

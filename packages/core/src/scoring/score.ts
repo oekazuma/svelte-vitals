@@ -8,7 +8,7 @@ const CRITICAL_CAP = 79;
 export interface ScoreModel {
   routeAverage: number;
   sitePenalty: number;
-  /** Headline cap applied when a critical finding exists, else null. */
+  /** Headline cap value when it actually lowered the score, else null. */
   criticalCap: number | null;
 }
 
@@ -36,18 +36,23 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
 
   let anyCritical = false;
 
-  // One deduction per (route, rule id): take the max deduction among duplicates.
-  const routeRuleMax = new Map<string, number>();
+  // One deduction per (route, rule id): take the max deduction among duplicates,
+  // then sum a route's per-rule deductions. Keyed by a nested map so route paths
+  // never need to be parsed back out of a composite string key.
+  const routeRuleMax = new Map<string, Map<string, number>>();
   for (const r of routeResults) {
     if (!isPenalized(r.detection, config.treatDynamicAs)) continue;
     const sev = effectiveSeverity(r, config);
     if (sev === 'critical') anyCritical = true;
-    const key = `${r.route as string} ${r.id}`;
-    const prev = routeRuleMax.get(key) ?? 0;
-    if (DEDUCTION[sev] > prev) routeRuleMax.set(key, DEDUCTION[sev]);
+    const route = r.route as string;
+    let perRule = routeRuleMax.get(route);
+    if (!perRule) routeRuleMax.set(route, (perRule = new Map()));
+    const prev = perRule.get(r.id) ?? 0;
+    if (DEDUCTION[sev] > prev) perRule.set(r.id, DEDUCTION[sev]);
   }
-  for (const [key, deduction] of routeRuleMax) {
-    const route = key.slice(0, key.lastIndexOf(' '));
+  for (const [route, perRule] of routeRuleMax) {
+    let deduction = 0;
+    for (const d of perRule.values()) deduction += d;
     routeScores.set(route, (routeScores.get(route) as number) - deduction);
   }
 
@@ -66,10 +71,13 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
   let sitePenalty = 0;
   for (const deduction of projectRuleMax.values()) sitePenalty += deduction;
 
+  // The cap is only meaningful when it actually lowers the score; reporting it
+  // otherwise reads as "rounded down to 79" even when the score is already below.
   const applyCap = options.applyCriticalCap ?? true;
-  const criticalCap = applyCap && anyCritical ? CRITICAL_CAP : null;
-  let score = routeAverage - sitePenalty;
-  if (criticalCap !== null) score = Math.min(score, criticalCap);
+  const uncapped = routeAverage - sitePenalty;
+  const capBinds = applyCap && anyCritical && uncapped > CRITICAL_CAP;
+  const criticalCap = capBinds ? CRITICAL_CAP : null;
+  const score = capBinds ? CRITICAL_CAP : uncapped;
 
   return { score: clamp(score), scoreModel: { routeAverage, sitePenalty, criticalCap } };
 }

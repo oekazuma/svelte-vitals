@@ -11,10 +11,10 @@ import {
   type Severity,
   type RuleSetting
 } from '@svelte-vitals/core';
-import { readFileSync } from 'node:fs';
 import { createNodeRuntime } from './runtime/node.js';
 import { sourceHeadProvider } from './providers/source/routes.js';
 import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
+import { readPackageVersion } from './version.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -28,15 +28,6 @@ export interface RunOptions {
   byRoute?: boolean;
   failOn?: Severity;
   rules?: Record<string, RuleSetting>;
-}
-
-function cliVersion(): string {
-  try {
-    const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as { version?: string };
-    return pkg.version ?? '0.0.0';
-  } catch {
-    return '0.0.0';
-  }
 }
 
 export function routeMatcher(glob: string | undefined): (route: string) => boolean {
@@ -87,7 +78,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     const rules = selectRules(allRules, config);
     const results = applyRuleSeverities(await runRules(rules, { heads, project, config }), config);
     if (opts.reporter === 'json') {
-      log(formatJsonReport(results, config, { version: cliVersion() }));
+      log(formatJsonReport(results, config, { version: readPackageVersion() }));
     } else {
       log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false }));
     }

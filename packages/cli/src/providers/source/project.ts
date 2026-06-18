@@ -48,34 +48,34 @@ export async function enumerateRoutePages(rt: Runtime, cwd: string): Promise<str
 }
 
 async function existsAny(rt: Runtime, cwd: string, paths: string[]): Promise<boolean> {
-  for (const p of paths) {
-    if (await rt.exists(rt.join(cwd, p))) return true;
-  }
-  return false;
+  const found = await Promise.all(paths.map((p) => rt.exists(rt.join(cwd, p))));
+  return found.some(Boolean);
 }
 
 function detectHtmlLang(html: string): Detection {
-  const match = /<html[^>]*\slang\s*=\s*("([^"]*)"|'([^']*)')/i.exec(html);
+  // Match double-quoted, single-quoted, or unquoted lang values (e.g. <html lang=en>).
+  const match = /<html[^>]*\slang\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>]+))/i.exec(html);
   if (!match) return { presence: 'none', value: 'absent' };
-  const value = match[2] ?? match[3] ?? '';
+  const value = match[1] ?? match[2] ?? match[3] ?? '';
   return { presence: 'own', value: value.trim().length > 0 ? 'static' : 'absent' };
+}
+
+async function detectAppHtmlLang(rt: Runtime, cwd: string): Promise<Detection> {
+  const appHtmlPath = rt.join(cwd, 'src/app.html');
+  if (!(await rt.exists(appHtmlPath))) return { presence: 'none', value: 'absent' };
+  return detectHtmlLang(await rt.readFile(appHtmlPath));
 }
 
 /** Precompute project-wide facts for project-scope rules (design §10, §11, §17). */
 export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Project> {
-  const hasRobotsTxt = await existsAny(rt, cwd, [
-    'static/robots.txt',
-    'src/routes/robots.txt/+server.ts',
-    'src/routes/robots.txt/+server.js'
+  const [hasRobotsTxt, hasSitemap, htmlLang] = await Promise.all([
+    existsAny(rt, cwd, ['static/robots.txt', 'src/routes/robots.txt/+server.ts', 'src/routes/robots.txt/+server.js']),
+    existsAny(rt, cwd, [
+      'static/sitemap.xml',
+      'src/routes/sitemap.xml/+server.ts',
+      'src/routes/sitemap.xml/+server.js'
+    ]),
+    detectAppHtmlLang(rt, cwd)
   ]);
-  const hasSitemap = await existsAny(rt, cwd, [
-    'static/sitemap.xml',
-    'src/routes/sitemap.xml/+server.ts',
-    'src/routes/sitemap.xml/+server.js'
-  ]);
-  const appHtmlPath = rt.join(cwd, 'src/app.html');
-  const htmlLang = (await rt.exists(appHtmlPath))
-    ? detectHtmlLang(await rt.readFile(appHtmlPath))
-    : { presence: 'none' as const, value: 'absent' as const };
   return { hasRobotsTxt, hasSitemap, htmlLang };
 }

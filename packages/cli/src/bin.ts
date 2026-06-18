@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { readFileSync } from 'node:fs';
 import mri from 'mri';
-import { allRules } from '@svelte-vitals/core';
 import { run } from './index.js';
+import { readPackageVersion } from './version.js';
+import { buildRulesConfig, findUnknownRuleIds, knownRuleIds } from './rules-config.js';
 
 const HELP = `svelte-vitals — a SvelteKit SEO checker (static mode)
 
@@ -28,31 +28,7 @@ Exit codes:
   1  critical finding present (or --fail-on threshold reached)
   2  execution error (not a SvelteKit project / internal error)`;
 
-// Read the version from the package's own package.json at runtime so it never
-// drifts from the published version (dist/bin.js -> ../package.json).
-function readVersion(): string {
-  try {
-    const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')) as {
-      version?: string;
-    };
-    return pkg.version ?? '0.0.0';
-  } catch {
-    return '0.0.0';
-  }
-}
-
-const VERSION = readVersion();
-
-function buildRulesConfig(
-  allow: string[],
-  ignore: Record<string, 'off' | 'critical' | 'warning' | 'info'>
-): Record<string, 'off' | 'critical' | 'warning' | 'info'> {
-  const rules = { ...ignore };
-  if (allow.length > 0) {
-    for (const r of allRules) if (!allow.includes(r.id)) rules[r.id] = 'off';
-  }
-  return rules;
-}
+const VERSION = readPackageVersion();
 
 async function main(): Promise<void> {
   const argv = mri(process.argv.slice(2), {
@@ -89,9 +65,14 @@ async function main(): Promise<void> {
           .map((s) => s.trim())
           .filter(Boolean)
       : [];
-  const ignoreRules: Record<string, 'off' | 'critical' | 'warning' | 'info'> = {};
-  for (const id of toList(argv.ignore)) ignoreRules[id] = 'off';
   const allow = toList(argv.rules);
+  const ignore = toList(argv.ignore);
+  const unknown = findUnknownRuleIds([...allow, ...ignore]);
+  if (unknown.length > 0) {
+    console.error(`svelte-vitals: unknown rule id(s) in --rules/--ignore: ${unknown.join(', ')}`);
+    console.error(`Known rule ids: ${knownRuleIds().join(', ')}`);
+    process.exit(2);
+  }
   const reporter = argv.json || argv.reporter === 'json' ? 'json' : 'console';
   const failOnRaw = argv['fail-on'];
   const failOn = argv['fail-on-warning']
@@ -108,7 +89,7 @@ async function main(): Promise<void> {
     reporter,
     byRoute: Boolean(argv['by-route']),
     failOn,
-    rules: buildRulesConfig(allow, ignoreRules)
+    rules: buildRulesConfig(allow, ignore)
   });
   process.exit(code);
 }

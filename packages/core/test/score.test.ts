@@ -44,6 +44,21 @@ describe('computeScore (§12 worked example)', () => {
     expect(scoreModel.criticalCap).toBeNull();
   });
 
+  it('reports criticalCap null when the cap does not actually lower the score', () => {
+    // /x: critical (15) + 5 warnings (25) => 100-40 = 60, already below the 79 cap.
+    const results: Result[] = [
+      fail('SEO002', '/x', 'critical'),
+      fail('SEO003', '/x', 'warning'),
+      fail('SEO004', '/x', 'warning'),
+      fail('SEO005', '/x', 'warning'),
+      fail('SEO010', '/x', 'warning'),
+      fail('SEO011', '/x', 'warning')
+    ];
+    const { score, scoreModel } = computeScore(results, defineConfig({}));
+    expect(score).toBe(60);
+    expect(scoreModel.criticalCap).toBeNull();
+  });
+
   it('omits the critical cap for a single-route view when applyCriticalCap is false', () => {
     const results: Result[] = [
       {
