@@ -64,7 +64,7 @@ It is selected **automatically** when run inside a known AI-agent harness (e.g. 
 
 ### GitHub integration
 
-**Inline PR annotations (zero config).** Under GitHub Actions, svelte-vitals auto-selects the `github` reporter, emitting workflow commands that GitHub turns into inline annotations on the PR diff and the job summary:
+**Inline PR annotations (zero config).** Under GitHub Actions, svelte-vitals auto-selects the `github` reporter, emitting workflow commands that GitHub turns into inline annotations on the PR diff and in the workflow run's annotations:
 
 ```yaml
 - run: npx svelte-vitals
