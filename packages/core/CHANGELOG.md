@@ -1,5 +1,11 @@
 # @svelte-vitals/core
 
+## 0.5.0
+
+### Minor Changes
+
+- 762d4d1: Add SARIF 2.1.0 (`--reporter sarif`) and GitHub Actions workflow-command (`--reporter github`) reporters. The `github` reporter is auto-selected under GitHub Actions for inline PR annotations; SARIF can be uploaded to GitHub code scanning.
+
 ## 0.4.0
 
 ### Minor Changes
