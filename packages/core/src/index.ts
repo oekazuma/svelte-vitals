@@ -46,6 +46,7 @@ export { formatConsoleReport } from './reporter/console.js';
 export { formatJsonReport } from './reporter/json.js';
 export { formatAgentReport } from './reporter/agent.js';
 export { formatSarifReport } from './reporter/sarif.js';
+export { formatGithubReport } from './reporter/github.js';
 
 export { selectRules, applyRuleSeverities } from './config-apply.js';
 
