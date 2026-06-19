@@ -47,7 +47,9 @@ export function headTagRule(opts: HeadTagRuleOptions): Rule {
           message,
           recommendation: opts.recommendation,
           docsUrl,
-          ...(opts.fix ? { fix: opts.fix } : {})
+          // Copy per finding: opts.fix is a rule-level template shared across all
+          // results this rule emits; a fresh object keeps findings independent.
+          ...(opts.fix ? { fix: { ...opts.fix } } : {})
         } satisfies Result;
       });
     }

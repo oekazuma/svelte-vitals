@@ -4,6 +4,16 @@ import { classify, effectiveSeverity } from '../summary.js';
 /** Sort order so the most severe findings (and the groups holding them) surface first. */
 const SEVERITY_RANK: Record<Severity, number> = { critical: 0, warning: 1, info: 2 };
 
+/**
+ * Wrap bare tag-like tokens (`<title>`, `<meta …>`, `<svelte:head>`) in inline
+ * code. Markdown renderers (GitHub etc.) treat raw `<…>` as HTML and strip it,
+ * which would drop the most important context from the report; inline code
+ * survives both rendering and raw agent consumption.
+ */
+function mdTags(text: string): string {
+  return text.replace(/<[^>]+>/g, (tag) => `\`${tag}\``);
+}
+
 /** Render failing findings as an agent-actionable Markdown remediation document (issue #18). */
 export function formatAgentReport(results: Result[], config: Config): string {
   const failing = results.filter((r) => classify(r, config) === 'fail');
@@ -41,12 +51,12 @@ export function formatAgentReport(results: Result[], config: Config): string {
     );
     lines.push(`## ${loc}`, '');
     for (const r of rs) {
-      lines.push(`### ${r.id} · ${r.message} (${effectiveSeverity(r, config)})`);
+      lines.push(`### ${r.id} · ${mdTags(r.message)} (${effectiveSeverity(r, config)})`);
       if (r.fix) {
-        lines.push(`- Fix: ${r.fix.description}`);
+        lines.push(`- Fix: ${mdTags(r.fix.description)}`);
         if (r.fix.snippet) lines.push('', '```' + (r.fix.lang ?? 'svelte'), r.fix.snippet, '```');
       } else if (r.recommendation) {
-        lines.push(`- Fix: ${r.recommendation}`);
+        lines.push(`- Fix: ${mdTags(r.recommendation)}`);
       }
       if (r.docsUrl) lines.push(`- Docs: ${r.docsUrl}`);
       lines.push(`- Accept: re-run svelte-vitals; ${r.id} passes${r.route ? ` for ${r.route}` : ''}.`, '');

@@ -34,7 +34,7 @@ describe('formatAgentReport', () => {
   it('lists only failing findings, grouped, with fix snippet and acceptance', () => {
     const md = formatAgentReport(results, config);
     expect(md).toContain('## src/routes/a/+page.svelte');
-    expect(md).toContain('### SEO002 · Missing <meta name="description"> (critical)');
+    expect(md).toContain('### SEO002 · Missing `<meta name="description">` (critical)');
     expect(md).toContain('Add a description meta.');
     expect(md).toContain('```svelte');
     expect(md).toContain('## (project)'); // SEO006 has no route/location
@@ -54,6 +54,25 @@ describe('formatAgentReport', () => {
     const md = formatAgentReport(results, config);
     expect(md.indexOf('## src/routes/a/+page.svelte')).toBeLessThan(md.indexOf('## (project)'));
     expect(md).toContain('Fix critical issues first');
+  });
+
+  it('wraps tag-like tokens in inline code so renderers do not strip them', () => {
+    const withTags: Result[] = [
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        location: 'src/routes/a/+page.svelte',
+        message: 'Missing <title>',
+        recommendation: 'Add a <title> inside <svelte:head>.'
+      }
+    ];
+    const md = formatAgentReport(withTags, config);
+    expect(md).toContain('### SEO001 · Missing `<title>`');
+    expect(md).toContain('- Fix: Add a `<title>` inside `<svelte:head>`.');
+    // No bare tag survives outside of fenced code / inline code.
+    expect(md).not.toMatch(/Missing <title> \(/);
   });
 
   it('orders findings within a group by severity', () => {
