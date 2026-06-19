@@ -139,3 +139,55 @@ describe('run() agent reporter', () => {
     expect(explicit.err.join('\n')).not.toContain('auto-selected');
   });
 });
+
+describe('run() sarif & github reporters', () => {
+  it('emits parseable SARIF with the missing-title finding as an error', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'sarif', env: CLEAN_ENV });
+    const sarif = JSON.parse(cap.out.join('\n'));
+    expect(sarif.version).toBe('2.1.0');
+    const seo001 = sarif.runs[0].results.find((r: { ruleId: string; level: string }) => r.ruleId === 'SEO001');
+    expect(seo001.level).toBe('error');
+  });
+
+  it('emits github workflow commands for the missing-title finding', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'github', env: CLEAN_ENV });
+    expect(cap.out.join('\n')).toMatch(/::error file=.*\+page\.svelte,title=SEO001%3A/);
+  });
+
+  it('auto-selects github under GitHub Actions and hints how to override', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, env: { GITHUB_ACTIONS: 'true' } });
+    expect(cap.out.join('\n')).toContain('::error ');
+    expect(cap.err.join('\n')).toContain('github reporter auto-selected');
+  });
+
+  it('lets an agent env outrank GitHub Actions', async () => {
+    const cap = capture();
+    await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      env: { GITHUB_ACTIONS: 'true', CLAUDECODE: '1' }
+    });
+    expect(cap.out.join('\n')).toContain('# svelte-vitals — SEO fixes'); // agent Markdown, not workflow commands
+  });
+
+  it('emits nothing on stdout for a clean github run (no stray blank line)', async () => {
+    const cap = capture();
+    // A route glob that matches nothing leaves zero route findings; the fixture's
+    // project rules (robots/sitemap/html lang) all pass, so the github reporter
+    // produces an empty string — which must not be logged as a blank line.
+    const code = await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      reporter: 'github',
+      route: 'no-such-route',
+      env: CLEAN_ENV
+    });
+    expect(code).toBe(0);
+    expect(cap.out).toEqual([]);
+  });
+});

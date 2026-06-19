@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { isAgentEnv, isAutoDetectedAgent, isReporterName, resolveReporter } from '../src/reporter-resolve.js';
+import {
+  isAgentEnv,
+  isAutoDetectedAgent,
+  isAutoDetectedGithub,
+  isGithubActionsEnv,
+  isReporterName,
+  resolveReporter
+} from '../src/reporter-resolve.js';
 
 describe('isAgentEnv', () => {
   it('is true when a known agent env var is set', () => {
@@ -33,7 +40,7 @@ describe('resolveReporter', () => {
 
 describe('isReporterName', () => {
   it('accepts only the known reporter names', () => {
-    for (const name of ['console', 'json', 'agent']) expect(isReporterName(name)).toBe(true);
+    for (const name of ['console', 'json', 'agent', 'sarif', 'github']) expect(isReporterName(name)).toBe(true);
     for (const bad of ['jsonn', 'Agent', '', undefined]) expect(isReporterName(bad)).toBe(false);
   });
 });
@@ -52,5 +59,43 @@ describe('isAutoDetectedAgent', () => {
   it('is false outside an agent env', () => {
     expect(isAutoDetectedAgent(undefined, {})).toBe(false);
     expect(isAutoDetectedAgent(undefined, { CI: 'true' })).toBe(false);
+  });
+});
+
+describe('isGithubActionsEnv', () => {
+  it('is true only when GITHUB_ACTIONS is exactly "true"', () => {
+    expect(isGithubActionsEnv({ GITHUB_ACTIONS: 'true' })).toBe(true);
+  });
+  it('is false otherwise — including the explicit opt-out value "false"', () => {
+    expect(isGithubActionsEnv({})).toBe(false);
+    expect(isGithubActionsEnv({ GITHUB_ACTIONS: '' })).toBe(false);
+    expect(isGithubActionsEnv({ GITHUB_ACTIONS: 'false' })).toBe(false);
+  });
+});
+
+describe('resolveReporter — github auto-detect', () => {
+  it('auto-selects github under GitHub Actions', () => {
+    expect(resolveReporter(undefined, { GITHUB_ACTIONS: 'true' })).toBe('github');
+  });
+  it('lets agent env outrank GitHub Actions', () => {
+    expect(resolveReporter(undefined, { GITHUB_ACTIONS: 'true', CLAUDECODE: '1' })).toBe('agent');
+  });
+  it('lets an explicit flag and SVELTE_VITALS_REPORTER outrank GitHub Actions', () => {
+    expect(resolveReporter('sarif', { GITHUB_ACTIONS: 'true' })).toBe('sarif');
+    expect(resolveReporter(undefined, { GITHUB_ACTIONS: 'true', SVELTE_VITALS_REPORTER: 'json' })).toBe('json');
+  });
+});
+
+describe('isAutoDetectedGithub', () => {
+  it('is true only when github is chosen purely by GITHUB_ACTIONS', () => {
+    expect(isAutoDetectedGithub(undefined, { GITHUB_ACTIONS: 'true' })).toBe(true);
+  });
+  it('is false with an explicit flag, an agent env, or an explicit reporter env', () => {
+    expect(isAutoDetectedGithub('github', { GITHUB_ACTIONS: 'true' })).toBe(false);
+    expect(isAutoDetectedGithub(undefined, { GITHUB_ACTIONS: 'true', CLAUDECODE: '1' })).toBe(false);
+    expect(isAutoDetectedGithub(undefined, { GITHUB_ACTIONS: 'true', SVELTE_VITALS_REPORTER: 'github' })).toBe(false);
+  });
+  it('is false outside GitHub Actions', () => {
+    expect(isAutoDetectedGithub(undefined, {})).toBe(false);
   });
 });

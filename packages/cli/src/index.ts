@@ -4,6 +4,8 @@ import {
   formatConsoleReport,
   formatJsonReport,
   formatAgentReport,
+  formatSarifReport,
+  formatGithubReport,
   summarize,
   hasFailureAtOrAbove,
   defineConfig,
@@ -16,7 +18,7 @@ import { createNodeRuntime } from './runtime/node.js';
 import { sourceHeadProvider } from './providers/source/routes.js';
 import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
 import { readPackageVersion } from './version.js';
-import { resolveReporter, isAutoDetectedAgent, type ReporterName } from './reporter-resolve.js';
+import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -88,10 +90,22 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         'svelte-vitals: agent reporter auto-selected (AI-agent env detected); override with --reporter console|json.'
       );
     }
+    if (reporter === 'github' && isAutoDetectedGithub(opts.reporter, env)) {
+      errorLog(
+        'svelte-vitals: github reporter auto-selected (GitHub Actions detected); override with --reporter console|json|sarif.'
+      );
+    }
     if (reporter === 'json') {
       log(formatJsonReport(results, config, { version: readPackageVersion() }));
     } else if (reporter === 'agent') {
       log(formatAgentReport(results, config));
+    } else if (reporter === 'sarif') {
+      log(formatSarifReport(results, config, { version: readPackageVersion() }));
+    } else if (reporter === 'github') {
+      // The github reporter returns '' when there are no findings; skip logging so
+      // a clean run emits no stray blank line into the Actions log.
+      const output = formatGithubReport(results, config);
+      if (output) log(output);
     } else {
       log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false }));
     }
