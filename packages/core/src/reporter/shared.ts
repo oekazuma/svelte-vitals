@@ -16,6 +16,11 @@ export function messageText(result: Result): string {
   return result.recommendation ? `${result.message} ${result.recommendation}` : result.message;
 }
 
+/** Canonical docs URL for a rule id. The single place this URL shape is defined. */
+export function docsUrlFor(id: string): string {
+  return `https://svelte-vitals.dev/rules/${id}`;
+}
+
 /** Stable, registry-sourced metadata for a rule id (single source of titles/severities). */
 export interface RuleMeta {
   title: string;
@@ -24,10 +29,7 @@ export interface RuleMeta {
 }
 
 const RULE_META: Map<string, RuleMeta> = new Map(
-  allRules.map((r) => [
-    r.id,
-    { title: r.title, severity: r.severity, docsUrl: `https://svelte-vitals.dev/rules/${r.id}` }
-  ])
+  allRules.map((r) => [r.id, { title: r.title, severity: r.severity, docsUrl: docsUrlFor(r.id) }])
 );
 
 export function ruleMetaById(id: string): RuleMeta | undefined {

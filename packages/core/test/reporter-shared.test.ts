@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { severityToSarifLevel, severityToGithubLevel, messageText, ruleMetaById } from '../src/reporter/shared.js';
+import {
+  severityToSarifLevel,
+  severityToGithubLevel,
+  messageText,
+  ruleMetaById,
+  docsUrlFor
+} from '../src/reporter/shared.js';
 import type { Result } from '../src/index.js';
 
 describe('severity level maps', () => {
@@ -41,5 +47,14 @@ describe('ruleMetaById', () => {
   });
   it('returns undefined for an unknown rule id', () => {
     expect(ruleMetaById('NOPE999')).toBeUndefined();
+  });
+  it('sources its docsUrl from docsUrlFor', () => {
+    expect(ruleMetaById('SEO001')?.docsUrl).toBe(docsUrlFor('SEO001'));
+  });
+});
+
+describe('docsUrlFor', () => {
+  it('builds the canonical rule docs URL', () => {
+    expect(docsUrlFor('SEO001')).toBe('https://svelte-vitals.dev/rules/SEO001');
   });
 });

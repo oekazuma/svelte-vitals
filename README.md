@@ -90,6 +90,9 @@ jobs:
 
 `--reporter sarif` writes SARIF 2.1.0 to stdout; redirect it to a file for upload.
 
+> [!NOTE]
+> Code scanning only displays results that carry a file location, so project-scoped checks that aren't tied to a route file (`robots.txt`, `sitemap`, `<html lang>`) don't appear as alerts in the Security tab. They are still reported by the `github`, `console`, and `json` reporters — keep one of those in your pipeline if you rely on those checks.
+
 ### Exit codes
 
 | Code | Meaning                                                         |

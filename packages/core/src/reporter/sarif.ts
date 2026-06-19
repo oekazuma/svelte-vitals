@@ -1,7 +1,7 @@
 import type { Config, Result } from '../types.js';
 import { isPenalized } from '../rule.js';
 import { effectiveSeverity } from '../summary.js';
-import { messageText, ruleMetaById, severityToSarifLevel } from './shared.js';
+import { docsUrlFor, messageText, ruleMetaById, severityToSarifLevel } from './shared.js';
 
 type SarifLevel = 'error' | 'warning' | 'note';
 
@@ -38,7 +38,7 @@ export function formatSarifReport(results: Result[], config: Config, meta: { ver
         id: r.id,
         name,
         shortDescription: { text: name },
-        helpUri: r.docsUrl ?? m?.docsUrl ?? `https://svelte-vitals.dev/rules/${r.id}`,
+        helpUri: r.docsUrl ?? m?.docsUrl ?? docsUrlFor(r.id),
         defaultConfiguration: { level: severityToSarifLevel(m?.severity ?? r.severity) }
       });
     }
