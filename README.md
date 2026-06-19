@@ -12,8 +12,10 @@
 npx svelte-vitals
 ```
 
-> [!NOTE]
-> **Pre-1.0.** Static mode (SEO001–SEO009 + scoring), plugin mode (`@svelte-vitals/vite`), and the `console` / `json` / `agent` / `sarif` / `github` reporters all ship today. A dev overlay, `--fix`, an MCP server, and more categories are on the [roadmap](#roadmap). APIs and output may change before `1.0`.
+> [!WARNING]
+> **Pre-1.0 — not recommended for production use yet.** Development is moving fast and aggressively: APIs, rule IDs, scoring, and output formats can change at any time, including breaking changes between minor releases. Feel free to experiment and share feedback, but hold off on relying on it in critical pipelines until `1.0`.
+>
+> Static mode (SEO001–SEO009 + scoring), plugin mode (`@svelte-vitals/vite`), and the `console` / `json` / `agent` / `sarif` / `github` reporters all ship today. A dev overlay, `--fix`, an MCP server, and more categories are on the [roadmap](#roadmap).
 
 ## Why
 
