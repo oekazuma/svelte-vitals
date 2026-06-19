@@ -34,6 +34,16 @@ export const defaultProject: Project = {
   htmlLang: { presence: 'none', value: 'absent' }
 };
 
+/** A concrete, agent-actionable remediation for a finding (design §10, issue #18). */
+export interface Fix {
+  /** One-line imperative instruction, e.g. 'Add a <meta name="description"> inside <svelte:head>.' */
+  description: string;
+  /** Concrete code to insert or a file's contents to create. */
+  snippet?: string;
+  /** Markdown fenced-code language for `snippet` (default 'svelte'). */
+  lang?: string;
+}
+
 /** A single rule finding for one route (or the whole project). */
 export interface Result {
   /** Rule id, e.g. 'SEO001'. */
@@ -47,6 +57,8 @@ export interface Result {
   message: string;
   recommendation?: string;
   docsUrl?: string;
+  /** Agent-actionable remediation (issue #18). */
+  fix?: Fix;
 }
 
 export type Scope = 'route' | 'project';
