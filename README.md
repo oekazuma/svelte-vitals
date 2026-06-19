@@ -13,7 +13,7 @@ npx svelte-vitals
 ```
 
 > [!WARNING]
-> **Pre-1.0 — not recommended for production use yet.** Development is moving fast and aggressively: APIs, rule IDs, scoring, and output formats can change at any time, including breaking changes between minor releases. Feel free to experiment and share feedback, but hold off on relying on it in critical pipelines until `1.0`.
+> **Pre-1.0 — not recommended for production use yet.** Development is moving fast and aggressively, driven at the maintainer's discretion until `1.0`: APIs, rule IDs, scoring, and output formats can change at any time, including breaking changes between minor releases. Relying on it in critical pipelines is discouraged until `1.0`.
 >
 > See the [roadmap](#roadmap) for what's available and what's planned.
 
