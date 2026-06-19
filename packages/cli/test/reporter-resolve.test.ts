@@ -63,12 +63,13 @@ describe('isAutoDetectedAgent', () => {
 });
 
 describe('isGithubActionsEnv', () => {
-  it('is true when GITHUB_ACTIONS is a non-empty string', () => {
+  it('is true only when GITHUB_ACTIONS is exactly "true"', () => {
     expect(isGithubActionsEnv({ GITHUB_ACTIONS: 'true' })).toBe(true);
   });
-  it('is false otherwise', () => {
+  it('is false otherwise — including the explicit opt-out value "false"', () => {
     expect(isGithubActionsEnv({})).toBe(false);
     expect(isGithubActionsEnv({ GITHUB_ACTIONS: '' })).toBe(false);
+    expect(isGithubActionsEnv({ GITHUB_ACTIONS: 'false' })).toBe(false);
   });
 });
 

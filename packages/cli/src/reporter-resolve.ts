@@ -15,10 +15,9 @@ export function isAgentEnv(env: NodeJS.ProcessEnv = process.env): boolean {
   });
 }
 
-/** True when running inside GitHub Actions (GITHUB_ACTIONS is 'true' there). */
+/** True when running inside GitHub Actions, which always sets GITHUB_ACTIONS to exactly 'true'. */
 export function isGithubActionsEnv(env: NodeJS.ProcessEnv = process.env): boolean {
-  const v = env.GITHUB_ACTIONS;
-  return v !== undefined && v !== '';
+  return env.GITHUB_ACTIONS === 'true';
 }
 
 /**
