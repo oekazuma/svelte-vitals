@@ -13,7 +13,7 @@ npx svelte-vitals
 ```
 
 > [!NOTE]
-> **Early development.** The CLI currently ships the static-mode foundation and the first SEO rule (`<title>` presence). More rules, scoring, and the build-time plugin are on the [roadmap](#roadmap). APIs and output may change before `1.0`.
+> **Pre-1.0.** Static mode (SEO001–SEO009 + scoring), plugin mode (`@svelte-vitals/vite`), and the `console` / `json` / `agent` / `sarif` / `github` reporters all ship today. A dev overlay, `--fix`, an MCP server, and more categories are on the [roadmap](#roadmap). APIs and output may change before `1.0`.
 
 ## Why
 
@@ -116,12 +116,20 @@ A dynamic title such as `<title>{data.title}</title>` — the most common and co
 
 ## Roadmap
 
-The project advances along two axes: **mode maturity** and **category coverage**.
+The project advances along two axes: **mode maturity** and **category coverage**. SEO is the first category; more follow.
 
-- **v0.1 — Static mode / SEO** _(current)_ — zero-config `npx svelte-vitals`, all routes analyzed shallowly.
-- **v0.2 — Plugin mode** (`@svelte-vitals/vite`) — piggybacks on `vite build` and analyzes the prerendered HTML's `<head>`. Library-agnostic and exact; the real value for polished sites.
-- **v0.3 — Dev overlay** — warn in-place while developing via `transformPageChunk`.
-- **v0.4+ — Performance, Accessibility, Upgrade** categories, culminating in a combined Health Report.
+**Shipped**
+
+- **Static mode (CLI)** — zero-config `npx svelte-vitals`: resolves each route's effective `<head>`, runs SEO001–SEO009, scores per route and site-wide, and gates CI via exit codes.
+- **Plugin mode** (`@svelte-vitals/vite`) — piggybacks on `vite build` and analyzes the prerendered HTML's `<head>`. Library-agnostic and exact; the real value for polished sites.
+- **Agent & CI integration** — `console`, `json`, `agent` (Markdown remediation), `sarif` (GitHub code scanning), and `github` (inline PR annotations) reporters. The `agent` reporter auto-selects under AI-agent harnesses; `github` under GitHub Actions.
+
+**Upcoming**
+
+- **Dev overlay** ([#9](https://github.com/oekazuma/svelte-vitals/issues/9)) — warn in-place while developing via `transformPageChunk`, so dynamic routes are seen with real values as pages are visited.
+- **`--fix` autofix** ([#11](https://github.com/oekazuma/svelte-vitals/issues/11)) — generate/repair fixable findings (`robots.txt`, `sitemap.xml`, canonical).
+- **MCP server** ([#24](https://github.com/oekazuma/svelte-vitals/issues/24)) — expose svelte-vitals as a Model Context Protocol tool so agents can invoke it directly in their loop.
+- **More categories** ([#10](https://github.com/oekazuma/svelte-vitals/issues/10)) — Performance, Accessibility, and Upgrade checks, culminating in a combined Health Report at `1.0`.
 
 See the design document for the full vision.
 
@@ -131,7 +139,7 @@ See the design document for the full vision.
 | ---------------------------------------- | ----------------------------------------------------------- |
 | [`svelte-vitals`](./packages/cli)        | CLI + static mode (`npx svelte-vitals`)                     |
 | [`@svelte-vitals/core`](./packages/core) | Runtime-agnostic core: types, rule engine, scorer, reporter |
-| [`@svelte-vitals/vite`](./packages/vite) | Plugin mode (build-time). Stub — lands in v0.2              |
+| [`@svelte-vitals/vite`](./packages/vite) | Plugin mode (build-time): analyzes the prerendered `<head>` |
 
 ## Development
 
