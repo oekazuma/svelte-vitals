@@ -15,7 +15,7 @@ function escapeProp(s: string): string {
 
 /**
  * Render penalized findings as GitHub Actions workflow commands (issue #18, design slice 5).
- * GitHub turns these into inline PR annotations and job-summary entries. Returns '' when clean.
+ * GitHub turns these into inline PR annotations and run-annotation entries. Returns '' when clean.
  */
 export function formatGithubReport(results: Result[], config: Config): string {
   const penalized = results.filter((r) => isPenalized(r.detection, config.treatDynamicAs));
