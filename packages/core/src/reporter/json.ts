@@ -9,7 +9,8 @@ function issueOf(result: Result) {
     title: result.message,
     detection: result.detection,
     location: result.location,
-    recommendation: result.recommendation
+    recommendation: result.recommendation,
+    ...(result.fix ? { fix: result.fix } : {})
   };
 }
 

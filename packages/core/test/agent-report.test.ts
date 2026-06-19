@@ -1,0 +1,61 @@
+import { describe, it, expect } from 'vitest';
+import { formatAgentReport, formatJsonReport, defineConfig, type Result } from '../src/index.js';
+
+const config = defineConfig({});
+const results: Result[] = [
+  {
+    id: 'SEO001',
+    severity: 'critical',
+    detection: { presence: 'own', value: 'static' },
+    route: '/a',
+    location: 'src/routes/a/+page.svelte',
+    message: '<title>'
+  },
+  {
+    id: 'SEO002',
+    severity: 'critical',
+    detection: { presence: 'none', value: 'absent' },
+    route: '/a',
+    location: 'src/routes/a/+page.svelte',
+    message: 'Missing <meta name="description">',
+    docsUrl: 'https://svelte-vitals.dev/rules/SEO002',
+    fix: { description: 'Add a description meta.', snippet: '<meta name="description" content="x" />', lang: 'svelte' }
+  },
+  {
+    id: 'SEO006',
+    severity: 'warning',
+    detection: { presence: 'none', value: 'absent' },
+    message: 'Missing robots.txt',
+    fix: { description: 'Create static/robots.txt.', snippet: 'User-agent: *', lang: 'text' }
+  }
+];
+
+describe('formatAgentReport', () => {
+  it('lists only failing findings, grouped, with fix snippet and acceptance', () => {
+    const md = formatAgentReport(results, config);
+    expect(md).toContain('## src/routes/a/+page.svelte');
+    expect(md).toContain('### SEO002 · Missing <meta name="description"> (critical)');
+    expect(md).toContain('Add a description meta.');
+    expect(md).toContain('```svelte');
+    expect(md).toContain('## (project)'); // SEO006 has no route/location
+    expect(md).toContain('```text');
+    expect(md).toContain('SEO002 passes');
+    expect(md).not.toContain('SEO001'); // passing finding excluded
+  });
+
+  it('reports a clean project', () => {
+    const md = formatAgentReport([results[0]!], config);
+    expect(md).toMatch(/No issues/);
+  });
+});
+
+describe('formatJsonReport includes fix', () => {
+  it('carries fix on penalized issues', () => {
+    const json = JSON.parse(formatJsonReport(results, config, { version: '0.0.0' }));
+    const seo002 = json.routes
+      .find((r: { route: string }) => r.route === '/a')
+      .issues.find((i: { id: string }) => i.id === 'SEO002');
+    expect(seo002.fix.description).toBe('Add a description meta.');
+    expect(json.siteIssues[0].fix.description).toBe('Create static/robots.txt.');
+  });
+});
