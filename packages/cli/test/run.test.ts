@@ -173,4 +173,21 @@ describe('run() sarif & github reporters', () => {
     });
     expect(cap.out.join('\n')).toContain('# svelte-vitals — SEO fixes'); // agent Markdown, not workflow commands
   });
+
+  it('emits nothing on stdout for a clean github run (no stray blank line)', async () => {
+    const cap = capture();
+    // A route glob that matches nothing leaves zero route findings; the fixture's
+    // project rules (robots/sitemap/html lang) all pass, so the github reporter
+    // produces an empty string — which must not be logged as a blank line.
+    const code = await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      reporter: 'github',
+      route: 'no-such-route',
+      env: CLEAN_ENV
+    });
+    expect(code).toBe(0);
+    expect(cap.out).toEqual([]);
+  });
 });

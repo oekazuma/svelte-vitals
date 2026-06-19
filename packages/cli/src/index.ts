@@ -92,7 +92,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     }
     if (reporter === 'github' && isAutoDetectedGithub(opts.reporter, env)) {
       errorLog(
-        'svelte-vitals: github reporter auto-selected (GitHub Actions detected); override with --reporter console|json.'
+        'svelte-vitals: github reporter auto-selected (GitHub Actions detected); override with --reporter console|json|sarif.'
       );
     }
     if (reporter === 'json') {
@@ -102,7 +102,10 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     } else if (reporter === 'sarif') {
       log(formatSarifReport(results, config, { version: readPackageVersion() }));
     } else if (reporter === 'github') {
-      log(formatGithubReport(results, config));
+      // The github reporter returns '' when there are no findings; skip logging so
+      // a clean run emits no stray blank line into the Actions log.
+      const output = formatGithubReport(results, config);
+      if (output) log(output);
     } else {
       log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false }));
     }

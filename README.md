@@ -70,16 +70,22 @@ It is selected **automatically** when run inside a known AI-agent harness (e.g. 
 - run: npx svelte-vitals
 ```
 
-Override with `--reporter console|json` (or `SVELTE_VITALS_REPORTER`) if you want different output in CI.
+Override with `--reporter console|json|sarif` (or `SVELTE_VITALS_REPORTER`) if you want different output in CI.
 
-**Code scanning (Security tab).** Emit SARIF and upload it to surface findings as persistent code-scanning alerts:
+**Code scanning (Security tab).** Emit SARIF and upload it to surface findings as persistent code-scanning alerts. The upload action needs `security-events: write`, so grant it at the job (or workflow) level:
 
 ```yaml
-- run: npx svelte-vitals --reporter sarif > svelte-vitals.sarif
-  continue-on-error: true
-- uses: github/codeql-action/upload-sarif@v3
-  with:
-    sarif_file: svelte-vitals.sarif
+jobs:
+  seo:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - run: npx svelte-vitals --reporter sarif > svelte-vitals.sarif
+        continue-on-error: true
+      - uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: svelte-vitals.sarif
 ```
 
 `--reporter sarif` writes SARIF 2.1.0 to stdout; redirect it to a file for upload.
