@@ -15,7 +15,7 @@ Options:
   --treat-dynamic-as <mode>   pass | warn | fail (default: pass)
   --route <glob>              Only analyze routes matching this glob
   --by-route                  Show per-route score breakdown in console output
-  --reporter <fmt>            console | json | agent (auto: agent under AI-agent envs)
+  --reporter <fmt>            console | json | agent | sarif | github (auto: agent under AI-agent envs, github under GitHub Actions)
   --json                      Alias for --reporter=json
   --fail-on <severity>        Fail (exit 1) when any finding reaches this severity: critical | warning | info
   --fail-on-warning           Alias for --fail-on=warning
@@ -79,7 +79,9 @@ async function main(): Promise<void> {
     reporter = 'json';
   } else if (typeof argv.reporter === 'string') {
     if (!isReporterName(argv.reporter)) {
-      console.error(`svelte-vitals: unknown reporter '${argv.reporter}'. Valid values: console, json, agent.`);
+      console.error(
+        `svelte-vitals: unknown reporter '${argv.reporter}'. Valid values: console, json, agent, sarif, github.`
+      );
       process.exit(2);
     }
     reporter = argv.reporter;
