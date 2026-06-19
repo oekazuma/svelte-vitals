@@ -50,6 +50,12 @@ Passed (3)
 
 Useful as a CI gate.
 
+### Agent-native output
+
+`svelte-vitals --reporter agent` emits a Markdown remediation document an AI coding agent can act on directly: each failing finding lists its location, a concrete fix (with a code snippet), and an acceptance check.
+
+It is selected **automatically** when run inside a known AI-agent harness (e.g. Claude Code sets `CLAUDECODE`). Force it anywhere with `SVELTE_VITALS_REPORTER=agent`, or override with `--reporter console|json`.
+
 ## How it works
 
 svelte-vitals resolves the effective `<head>` of every route by walking the layout chain (`+layout.svelte` → … → `+page.svelte`) and parsing `<svelte:head>` with `svelte/compiler`.
