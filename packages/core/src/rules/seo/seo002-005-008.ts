@@ -65,9 +65,20 @@ export const seo008JsonLd = headTagRule({
   label: 'JSON-LD (<script type="application/ld+json">)',
   recommendation: 'Add JSON-LD structured data, e.g. via <svelte:head> or a JsonLd component.',
   fix: {
-    description: 'Add JSON-LD structured data inside <svelte:head>.',
+    // Svelte ships <script> contents verbatim (the body is raw text, not Svelte
+    // markup), so use literal JSON here — an interpolation like {JSON.stringify(...)}
+    // would be emitted as that literal string and produce invalid JSON-LD.
+    description: 'Add a JSON-LD <script> inside <svelte:head> with literal JSON (Svelte emits the script body as-is).',
     snippet:
-      '<svelte:head>\n  {@html `<script type="application/ld+json">${JSON.stringify(data.jsonLd)}<\\/script>`}\n</svelte:head>',
+      '<svelte:head>\n' +
+      '  <script type="application/ld+json">\n' +
+      '    {\n' +
+      '      "@context": "https://schema.org",\n' +
+      '      "@type": "WebPage",\n' +
+      '      "name": "Page title"\n' +
+      '    }\n' +
+      '  </script>\n' +
+      '</svelte:head>',
     lang: 'svelte'
   }
 });
