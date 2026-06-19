@@ -14,7 +14,7 @@ Options:
   --treat-dynamic-as <mode>   pass | warn | fail (default: pass)
   --route <glob>              Only analyze routes matching this glob
   --by-route                  Show per-route score breakdown in console output
-  --reporter <mode>           console | json (default: console)
+  --reporter <fmt>            console | json | agent (auto: agent under AI-agent envs)
   --json                      Alias for --reporter=json
   --fail-on <severity>        Fail (exit 1) when any finding reaches this severity: critical | warning | info
   --fail-on-warning           Alias for --fail-on=warning
@@ -73,7 +73,9 @@ async function main(): Promise<void> {
     console.error(`Known rule ids: ${knownRuleIds().join(', ')}`);
     process.exit(2);
   }
-  const reporter = argv.json || argv.reporter === 'json' ? 'json' : 'console';
+  const reporterRaw = argv.json ? 'json' : typeof argv.reporter === 'string' ? argv.reporter : undefined;
+  const reporter =
+    reporterRaw === 'json' || reporterRaw === 'console' || reporterRaw === 'agent' ? reporterRaw : undefined;
   const failOnRaw = argv['fail-on'];
   const failOn = argv['fail-on-warning']
     ? 'warning'
