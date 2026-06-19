@@ -1,4 +1,4 @@
-import type { Detection, Result, Severity } from '../../types.js';
+import type { Detection, Fix, Result, Severity } from '../../types.js';
 import type { HeadTag, ResolvedHead } from '../../head.js';
 import type { Rule, RuleContext } from '../../rule.js';
 
@@ -11,6 +11,8 @@ export interface HeadTagRuleOptions {
   /** Short human label, e.g. 'description'. */
   label: string;
   recommendation: string;
+  /** Agent-actionable remediation attached to every finding (issue #18). */
+  fix?: Fix;
 }
 
 function detect(head: ResolvedHead, match: (t: HeadTag) => boolean): Detection {
@@ -44,7 +46,10 @@ export function headTagRule(opts: HeadTagRuleOptions): Rule {
           location: head.file,
           message,
           recommendation: opts.recommendation,
-          docsUrl
+          docsUrl,
+          // Copy per finding: opts.fix is a rule-level template shared across all
+          // results this rule emits; a fresh object keeps findings independent.
+          ...(opts.fix ? { fix: { ...opts.fix } } : {})
         } satisfies Result;
       });
     }

@@ -3,6 +3,7 @@ import mri from 'mri';
 import { run } from './index.js';
 import { readPackageVersion } from './version.js';
 import { buildRulesConfig, findUnknownRuleIds, knownRuleIds } from './rules-config.js';
+import { isReporterName, type ReporterName } from './reporter-resolve.js';
 
 const HELP = `svelte-vitals — a SvelteKit SEO checker (static mode)
 
@@ -14,7 +15,7 @@ Options:
   --treat-dynamic-as <mode>   pass | warn | fail (default: pass)
   --route <glob>              Only analyze routes matching this glob
   --by-route                  Show per-route score breakdown in console output
-  --reporter <mode>           console | json (default: console)
+  --reporter <fmt>            console | json | agent (auto: agent under AI-agent envs)
   --json                      Alias for --reporter=json
   --fail-on <severity>        Fail (exit 1) when any finding reaches this severity: critical | warning | info
   --fail-on-warning           Alias for --fail-on=warning
@@ -73,7 +74,16 @@ async function main(): Promise<void> {
     console.error(`Known rule ids: ${knownRuleIds().join(', ')}`);
     process.exit(2);
   }
-  const reporter = argv.json || argv.reporter === 'json' ? 'json' : 'console';
+  let reporter: ReporterName | undefined;
+  if (argv.json) {
+    reporter = 'json';
+  } else if (typeof argv.reporter === 'string') {
+    if (!isReporterName(argv.reporter)) {
+      console.error(`svelte-vitals: unknown reporter '${argv.reporter}'. Valid values: console, json, agent.`);
+      process.exit(2);
+    }
+    reporter = argv.reporter;
+  }
   const failOnRaw = argv['fail-on'];
   const failOn = argv['fail-on-warning']
     ? 'warning'

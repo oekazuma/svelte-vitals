@@ -7,6 +7,7 @@ export type {
   Value,
   Detection,
   Project,
+  Fix,
   Result,
   Scope,
   Category,
@@ -43,6 +44,7 @@ export { summarize, classify, hasFailureAtOrAbove, effectiveSeverity } from './s
 export type { ConsoleReportOptions } from './reporter/console.js';
 export { formatConsoleReport } from './reporter/console.js';
 export { formatJsonReport } from './reporter/json.js';
+export { formatAgentReport } from './reporter/agent.js';
 
 export { selectRules, applyRuleSeverities } from './config-apply.js';
 

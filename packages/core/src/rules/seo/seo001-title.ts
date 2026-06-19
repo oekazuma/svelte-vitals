@@ -44,7 +44,12 @@ export const seo001Title: Rule = {
         recommendation:
           'Add a <title> inside <svelte:head>, e.g. <title>{data.title}</title>, ' +
           'or set it via your meta component.',
-        docsUrl: DOCS_URL
+        docsUrl: DOCS_URL,
+        fix: {
+          description: 'Add a <title> inside <svelte:head> (a dynamic title is fine).',
+          snippet: '<svelte:head>\n  <title>{data.title}</title>\n</svelte:head>',
+          lang: 'svelte'
+        }
       } satisfies Result;
     });
   }

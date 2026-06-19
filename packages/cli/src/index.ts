@@ -3,6 +3,7 @@ import {
   runRules,
   formatConsoleReport,
   formatJsonReport,
+  formatAgentReport,
   summarize,
   hasFailureAtOrAbove,
   defineConfig,
@@ -15,6 +16,7 @@ import { createNodeRuntime } from './runtime/node.js';
 import { sourceHeadProvider } from './providers/source/routes.js';
 import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
 import { readPackageVersion } from './version.js';
+import { resolveReporter, isAutoDetectedAgent, type ReporterName } from './reporter-resolve.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -24,10 +26,12 @@ export interface RunOptions {
   treatDynamicAs?: 'pass' | 'warn' | 'fail';
   /** Restrict analysis to routes whose path matches this glob (matched against the route path without leading slash). */
   route?: string;
-  reporter?: 'console' | 'json';
+  reporter?: ReporterName;
   byRoute?: boolean;
   failOn?: Severity;
   rules?: Record<string, RuleSetting>;
+  /** Override process.env for reporter auto-detection (mainly useful in tests). */
+  env?: NodeJS.ProcessEnv;
 }
 
 export function routeMatcher(glob: string | undefined): (route: string) => boolean {
@@ -77,8 +81,17 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     const project = await collectProjectFacts(rt, cwd);
     const rules = selectRules(allRules, config);
     const results = applyRuleSeverities(await runRules(rules, { heads, project, config }), config);
-    if (opts.reporter === 'json') {
+    const env = opts.env ?? process.env;
+    const reporter = resolveReporter(opts.reporter, env);
+    if (reporter === 'agent' && isAutoDetectedAgent(opts.reporter, env)) {
+      errorLog(
+        'svelte-vitals: agent reporter auto-selected (AI-agent env detected); override with --reporter console|json.'
+      );
+    }
+    if (reporter === 'json') {
       log(formatJsonReport(results, config, { version: readPackageVersion() }));
+    } else if (reporter === 'agent') {
+      log(formatAgentReport(results, config));
     } else {
       log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false }));
     }

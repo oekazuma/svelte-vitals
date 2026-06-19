@@ -5,6 +5,9 @@ import { run } from '../src/index.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const fixtureDir = join(here, 'fixtures', 'basic-project');
+// Isolate reporter auto-detection from the ambient test-runner environment
+// (e.g. CLAUDECODE is set when running inside Claude Code).
+const CLEAN_ENV: NodeJS.ProcessEnv = {};
 
 function capture() {
   const out: string[] = [];
@@ -20,7 +23,7 @@ function capture() {
 describe('run() end-to-end', () => {
   it('returns exit 1 and reports the missing title', async () => {
     const cap = capture();
-    const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog });
+    const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
     expect(code).toBe(1);
 
     const report = cap.out.join('\n');
@@ -32,7 +35,7 @@ describe('run() end-to-end', () => {
 
   it('returns exit 2 for a non-SvelteKit directory', async () => {
     const cap = capture();
-    const code = await run({ cwd: here, log: cap.log, errorLog: cap.errorLog });
+    const code = await run({ cwd: here, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
     expect(code).toBe(2);
     expect(cap.err.join('\n')).toContain('No SvelteKit project found');
   });
@@ -41,7 +44,13 @@ describe('run() end-to-end', () => {
 describe('run() flags', () => {
   it('suppresses a missing title for a metaComponents-declared component', async () => {
     const cap = capture();
-    const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, metaComponents: ['Widget'] });
+    const code = await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      metaComponents: ['Widget'],
+      env: CLEAN_ENV
+    });
     const report = cap.out.join('\n');
     // The Critical section should list /none (SEO001 missing title) but NOT /widget —
     // Widget suppression promotes /widget's title detection to dynamic/pass.
@@ -55,7 +64,13 @@ describe('run() flags', () => {
 
   it('limits analysis to a route glob', async () => {
     const cap = capture();
-    const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, route: 'static/**' });
+    const code = await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      route: 'static/**',
+      env: CLEAN_ENV
+    });
     expect(code).toBe(0); // only /static analyzed, which passes
     expect(cap.out.join('\n')).not.toContain('/none');
   });
@@ -82,7 +97,13 @@ describe('run() reporters and gating', () => {
 
   it('fails on warning when failOn=warning', async () => {
     const cap = capture();
-    const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, failOn: 'warning' });
+    const code = await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      failOn: 'warning',
+      env: CLEAN_ENV
+    });
     expect(code).toBe(1); // fixture has warnings (og:image, og:title, canonical missing)
   });
 
@@ -92,5 +113,29 @@ describe('run() reporters and gating', () => {
     const json = JSON.parse(cap.out.join('\n'));
     const anySEO002 = json.routes.some((r: { issues: { id: string }[] }) => r.issues.some((i) => i.id === 'SEO002'));
     expect(anySEO002).toBe(false);
+  });
+});
+
+describe('run() agent reporter', () => {
+  it('emits the agent Markdown report when reporter is agent', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'agent' });
+    const out = cap.out.join('\n');
+    expect(out).toContain('# svelte-vitals — SEO fixes');
+    expect(out).toMatch(/### SEO00\d/);
+    expect(out).toContain('- Fix:');
+  });
+
+  it('warns on stderr only when the agent reporter is auto-detected from the env', async () => {
+    // Auto-detected: no explicit reporter, agent env present → hint on stderr, Markdown on stdout.
+    const auto = capture();
+    await run({ cwd: fixtureDir, log: auto.log, errorLog: auto.errorLog, env: { CLAUDECODE: '1' } });
+    expect(auto.out.join('\n')).toContain('# svelte-vitals — SEO fixes');
+    expect(auto.err.join('\n')).toContain('agent reporter auto-selected');
+
+    // Explicit agent reporter: no hint (the user asked for it).
+    const explicit = capture();
+    await run({ cwd: fixtureDir, log: explicit.log, errorLog: explicit.errorLog, reporter: 'agent' });
+    expect(explicit.err.join('\n')).not.toContain('auto-selected');
   });
 });

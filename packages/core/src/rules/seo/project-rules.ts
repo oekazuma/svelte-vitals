@@ -19,7 +19,12 @@ export const seo006Robots: Rule = {
         detection,
         message: ctx.project.hasRobotsTxt ? 'robots.txt' : 'Missing robots.txt',
         recommendation: 'Add static/robots.txt or a src/routes/robots.txt/+server endpoint.',
-        docsUrl: 'https://svelte-vitals.dev/rules/SEO006'
+        docsUrl: 'https://svelte-vitals.dev/rules/SEO006',
+        fix: {
+          description: 'Create static/robots.txt (or a src/routes/robots.txt/+server endpoint).',
+          snippet: 'User-agent: *\nAllow: /\n\nSitemap: https://example.com/sitemap.xml',
+          lang: 'text'
+        }
       }
     ];
   }
@@ -40,7 +45,13 @@ export const seo007Sitemap: Rule = {
         detection,
         message: ctx.project.hasSitemap ? 'sitemap.xml' : 'Missing sitemap.xml',
         recommendation: 'Add static/sitemap.xml or a src/routes/sitemap.xml/+server endpoint.',
-        docsUrl: 'https://svelte-vitals.dev/rules/SEO007'
+        docsUrl: 'https://svelte-vitals.dev/rules/SEO007',
+        fix: {
+          description: 'Create static/sitemap.xml (or a src/routes/sitemap.xml/+server endpoint).',
+          snippet:
+            '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>https://example.com/</loc></url>\n</urlset>',
+          lang: 'xml'
+        }
       }
     ];
   }
@@ -67,7 +78,12 @@ export const seo009HtmlLang: Rule = {
         detection,
         message,
         recommendation: 'Set <html lang="..."> in src/app.html.',
-        docsUrl: 'https://svelte-vitals.dev/rules/SEO009'
+        docsUrl: 'https://svelte-vitals.dev/rules/SEO009',
+        fix: {
+          description: 'Set the lang attribute on <html> in src/app.html.',
+          snippet: '<html lang="en">',
+          lang: 'html'
+        }
       }
     ];
   }

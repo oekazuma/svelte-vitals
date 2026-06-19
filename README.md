@@ -56,6 +56,12 @@ Passed (3)
 ↯ = set dynamically (verified at runtime).
 ```
 
+### Agent-native output
+
+`svelte-vitals --reporter agent` emits a Markdown remediation document an AI coding agent can act on directly: each failing finding lists its location, a concrete fix (with a code snippet), and an acceptance check.
+
+It is selected **automatically** when run inside a known AI-agent harness (e.g. Claude Code sets `CLAUDECODE`). Force it anywhere with `SVELTE_VITALS_REPORTER=agent`, or override with `--reporter console|json`. When auto-selected (not requested explicitly), a one-line hint is printed to stderr explaining how to override, so a human running it in an agent terminal isn't surprised by the Markdown output.
+
 ### Exit codes
 
 | Code | Meaning                                                         |
