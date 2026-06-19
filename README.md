@@ -62,6 +62,28 @@ Passed (3)
 
 It is selected **automatically** when run inside a known AI-agent harness (e.g. Claude Code sets `CLAUDECODE`). Force it anywhere with `SVELTE_VITALS_REPORTER=agent`, or override with `--reporter console|json`. When auto-selected (not requested explicitly), a one-line hint is printed to stderr explaining how to override, so a human running it in an agent terminal isn't surprised by the Markdown output.
 
+### GitHub integration
+
+**Inline PR annotations (zero config).** Under GitHub Actions, svelte-vitals auto-selects the `github` reporter, emitting workflow commands that GitHub turns into inline annotations on the PR diff and the job summary:
+
+```yaml
+- run: npx svelte-vitals
+```
+
+Override with `--reporter console|json` (or `SVELTE_VITALS_REPORTER`) if you want different output in CI.
+
+**Code scanning (Security tab).** Emit SARIF and upload it to surface findings as persistent code-scanning alerts:
+
+```yaml
+- run: npx svelte-vitals --reporter sarif > svelte-vitals.sarif
+  continue-on-error: true
+- uses: github/codeql-action/upload-sarif@v3
+  with:
+    sarif_file: svelte-vitals.sarif
+```
+
+`--reporter sarif` writes SARIF 2.1.0 to stdout; redirect it to a file for upload.
+
 ### Exit codes
 
 | Code | Meaning                                                         |
