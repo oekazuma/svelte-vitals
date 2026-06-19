@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { isAgentEnv, resolveReporter } from '../src/reporter-resolve.js';
+import { isAgentEnv, isAutoDetectedAgent, isReporterName, resolveReporter } from '../src/reporter-resolve.js';
 
 describe('isAgentEnv', () => {
   it('is true when a known agent env var is set', () => {
@@ -28,5 +28,29 @@ describe('resolveReporter', () => {
   it('defaults to console otherwise', () => {
     expect(resolveReporter(undefined, {})).toBe('console');
     expect(resolveReporter(undefined, { CI: 'true' })).toBe('console');
+  });
+});
+
+describe('isReporterName', () => {
+  it('accepts only the known reporter names', () => {
+    for (const name of ['console', 'json', 'agent']) expect(isReporterName(name)).toBe(true);
+    for (const bad of ['jsonn', 'Agent', '', undefined]) expect(isReporterName(bad)).toBe(false);
+  });
+});
+
+describe('isAutoDetectedAgent', () => {
+  it('is true only when agent is chosen purely by env auto-detection', () => {
+    expect(isAutoDetectedAgent(undefined, { CLAUDECODE: '1' })).toBe(true);
+  });
+  it('is false when an explicit flag is given', () => {
+    expect(isAutoDetectedAgent('agent', { CLAUDECODE: '1' })).toBe(false);
+    expect(isAutoDetectedAgent('console', { CLAUDECODE: '1' })).toBe(false);
+  });
+  it('is false when SVELTE_VITALS_REPORTER opts in explicitly', () => {
+    expect(isAutoDetectedAgent(undefined, { CLAUDECODE: '1', SVELTE_VITALS_REPORTER: 'agent' })).toBe(false);
+  });
+  it('is false outside an agent env', () => {
+    expect(isAutoDetectedAgent(undefined, {})).toBe(false);
+    expect(isAutoDetectedAgent(undefined, { CI: 'true' })).toBe(false);
   });
 });

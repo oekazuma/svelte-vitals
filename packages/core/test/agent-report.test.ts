@@ -47,6 +47,38 @@ describe('formatAgentReport', () => {
     const md = formatAgentReport([results[0]!], config);
     expect(md).toMatch(/No issues/);
   });
+
+  it('orders groups most-severe-first, despite alphabetical file names', () => {
+    // The critical lives in 'src/routes/a/...'; the warning is the '(project)' group,
+    // which sorts first alphabetically. Severity ordering must surface the critical first.
+    const md = formatAgentReport(results, config);
+    expect(md.indexOf('## src/routes/a/+page.svelte')).toBeLessThan(md.indexOf('## (project)'));
+    expect(md).toContain('Fix critical issues first');
+  });
+
+  it('orders findings within a group by severity', () => {
+    const file = 'src/routes/x/+page.svelte';
+    const sameGroup: Result[] = [
+      {
+        id: 'SEO004',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/x',
+        location: file,
+        message: 'Missing <meta property="og:image">'
+      },
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/x',
+        location: file,
+        message: 'Missing <title>'
+      }
+    ];
+    const md = formatAgentReport(sameGroup, config);
+    expect(md.indexOf('### SEO001')).toBeLessThan(md.indexOf('### SEO004'));
+  });
 });
 
 describe('formatJsonReport includes fix', () => {

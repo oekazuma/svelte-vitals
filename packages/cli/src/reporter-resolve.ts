@@ -3,7 +3,7 @@ export type ReporterName = 'console' | 'json' | 'agent';
 /** Env vars set by AI-agent harnesses. Curated + extensible; SVELTE_VITALS_AGENT is the universal opt-in. */
 const AGENT_ENV_VARS = ['CLAUDECODE', 'SVELTE_VITALS_AGENT'];
 
-function isReporterName(value: string | undefined): value is ReporterName {
+export function isReporterName(value: string | undefined): value is ReporterName {
   return value === 'console' || value === 'json' || value === 'agent';
 }
 
@@ -28,4 +28,14 @@ export function resolveReporter(
   if (isReporterName(fromEnv)) return fromEnv;
   if (isAgentEnv(env)) return 'agent';
   return 'console';
+}
+
+/**
+ * True when the agent reporter is chosen purely by env auto-detection — i.e. no
+ * explicit flag and no SVELTE_VITALS_REPORTER, but a known agent env is present.
+ * Used to surface a one-line "how to override" hint, since a human running the
+ * CLI inside an agent terminal would otherwise get Markdown unexpectedly.
+ */
+export function isAutoDetectedAgent(explicit: ReporterName | undefined, env: NodeJS.ProcessEnv = process.env): boolean {
+  return !explicit && !isReporterName(env.SVELTE_VITALS_REPORTER) && isAgentEnv(env);
 }

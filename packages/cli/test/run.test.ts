@@ -125,4 +125,17 @@ describe('run() agent reporter', () => {
     expect(out).toMatch(/### SEO00\d/);
     expect(out).toContain('- Fix:');
   });
+
+  it('warns on stderr only when the agent reporter is auto-detected from the env', async () => {
+    // Auto-detected: no explicit reporter, agent env present → hint on stderr, Markdown on stdout.
+    const auto = capture();
+    await run({ cwd: fixtureDir, log: auto.log, errorLog: auto.errorLog, env: { CLAUDECODE: '1' } });
+    expect(auto.out.join('\n')).toContain('# svelte-vitals — SEO fixes');
+    expect(auto.err.join('\n')).toContain('agent reporter auto-selected');
+
+    // Explicit agent reporter: no hint (the user asked for it).
+    const explicit = capture();
+    await run({ cwd: fixtureDir, log: explicit.log, errorLog: explicit.errorLog, reporter: 'agent' });
+    expect(explicit.err.join('\n')).not.toContain('auto-selected');
+  });
 });

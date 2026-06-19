@@ -1,5 +1,8 @@
-import type { Config, Result } from '../types.js';
+import type { Config, Result, Severity } from '../types.js';
 import { classify, effectiveSeverity } from '../summary.js';
+
+/** Sort order so the most severe findings (and the groups holding them) surface first. */
+const SEVERITY_RANK: Record<Severity, number> = { critical: 0, warning: 1, info: 2 };
 
 /** Render failing findings as an agent-actionable Markdown remediation document (issue #18). */
 export function formatAgentReport(results: Result[], config: Config): string {
@@ -12,7 +15,7 @@ export function formatAgentReport(results: Result[], config: Config): string {
   }
 
   lines.push(
-    `${failing.length} issue(s) to fix. Apply each fix below, then re-run \`svelte-vitals\` (or the build) to confirm each rule passes.`,
+    `${failing.length} issue(s) to fix, ordered most-severe first. Fix critical issues first; warning and info items improve SEO but do not fail the default build. Apply each fix below, then re-run \`svelte-vitals\` (or the build) to confirm each rule passes.`,
     ''
   );
 
@@ -23,7 +26,19 @@ export function formatAgentReport(results: Result[], config: Config): string {
     groups.get(key)!.push(r);
   }
 
-  for (const [loc, rs] of [...groups.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
+  // Order groups by their most severe finding (critical-bearing files first),
+  // then alphabetically; within each group, order findings by severity.
+  const groupSeverity = (rs: Result[]) => Math.min(...rs.map((r) => SEVERITY_RANK[effectiveSeverity(r, config)]));
+  const orderedGroups = [...groups.entries()].sort(
+    (a, b) => groupSeverity(a[1]) - groupSeverity(b[1]) || a[0].localeCompare(b[0])
+  );
+
+  for (const [loc, rs] of orderedGroups) {
+    rs.sort(
+      (x, y) =>
+        SEVERITY_RANK[effectiveSeverity(x, config)] - SEVERITY_RANK[effectiveSeverity(y, config)] ||
+        x.id.localeCompare(y.id)
+    );
     lines.push(`## ${loc}`, '');
     for (const r of rs) {
       lines.push(`### ${r.id} · ${r.message} (${effectiveSeverity(r, config)})`);

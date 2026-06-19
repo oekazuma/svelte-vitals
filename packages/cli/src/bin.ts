@@ -3,6 +3,7 @@ import mri from 'mri';
 import { run } from './index.js';
 import { readPackageVersion } from './version.js';
 import { buildRulesConfig, findUnknownRuleIds, knownRuleIds } from './rules-config.js';
+import { isReporterName, type ReporterName } from './reporter-resolve.js';
 
 const HELP = `svelte-vitals — a SvelteKit SEO checker (static mode)
 
@@ -73,9 +74,16 @@ async function main(): Promise<void> {
     console.error(`Known rule ids: ${knownRuleIds().join(', ')}`);
     process.exit(2);
   }
-  const reporterRaw = argv.json ? 'json' : typeof argv.reporter === 'string' ? argv.reporter : undefined;
-  const reporter =
-    reporterRaw === 'json' || reporterRaw === 'console' || reporterRaw === 'agent' ? reporterRaw : undefined;
+  let reporter: ReporterName | undefined;
+  if (argv.json) {
+    reporter = 'json';
+  } else if (typeof argv.reporter === 'string') {
+    if (!isReporterName(argv.reporter)) {
+      console.error(`svelte-vitals: unknown reporter '${argv.reporter}'. Valid values: console, json, agent.`);
+      process.exit(2);
+    }
+    reporter = argv.reporter;
+  }
   const failOnRaw = argv['fail-on'];
   const failOn = argv['fail-on-warning']
     ? 'warning'

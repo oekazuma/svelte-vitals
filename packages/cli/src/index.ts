@@ -16,7 +16,7 @@ import { createNodeRuntime } from './runtime/node.js';
 import { sourceHeadProvider } from './providers/source/routes.js';
 import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
 import { readPackageVersion } from './version.js';
-import { resolveReporter, type ReporterName } from './reporter-resolve.js';
+import { resolveReporter, isAutoDetectedAgent, type ReporterName } from './reporter-resolve.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -81,7 +81,13 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     const project = await collectProjectFacts(rt, cwd);
     const rules = selectRules(allRules, config);
     const results = applyRuleSeverities(await runRules(rules, { heads, project, config }), config);
-    const reporter = resolveReporter(opts.reporter, opts.env ?? process.env);
+    const env = opts.env ?? process.env;
+    const reporter = resolveReporter(opts.reporter, env);
+    if (reporter === 'agent' && isAutoDetectedAgent(opts.reporter, env)) {
+      errorLog(
+        'svelte-vitals: agent reporter auto-selected (AI-agent env detected); override with --reporter console|json.'
+      );
+    }
     if (reporter === 'json') {
       log(formatJsonReport(results, config, { version: readPackageVersion() }));
     } else if (reporter === 'agent') {
