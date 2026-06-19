@@ -4,9 +4,7 @@ export type ReporterName = 'console' | 'json' | 'agent' | 'sarif' | 'github';
 const AGENT_ENV_VARS = ['CLAUDECODE', 'SVELTE_VITALS_AGENT'];
 
 export function isReporterName(value: string | undefined): value is ReporterName {
-  return (
-    value === 'console' || value === 'json' || value === 'agent' || value === 'sarif' || value === 'github'
-  );
+  return value === 'console' || value === 'json' || value === 'agent' || value === 'sarif' || value === 'github';
 }
 
 /** True when run by a known AI-agent harness (design: curated allow-list, no TTY heuristic). */
@@ -59,7 +57,5 @@ export function isAutoDetectedGithub(
   explicit: ReporterName | undefined,
   env: NodeJS.ProcessEnv = process.env
 ): boolean {
-  return (
-    !explicit && !isReporterName(env.SVELTE_VITALS_REPORTER) && !isAgentEnv(env) && isGithubActionsEnv(env)
-  );
+  return !explicit && !isReporterName(env.SVELTE_VITALS_REPORTER) && !isAgentEnv(env) && isGithubActionsEnv(env);
 }

@@ -1,10 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  severityToSarifLevel,
-  severityToGithubLevel,
-  messageText,
-  ruleMetaById
-} from '../src/reporter/shared.js';
+import { severityToSarifLevel, severityToGithubLevel, messageText, ruleMetaById } from '../src/reporter/shared.js';
 import type { Result } from '../src/index.js';
 
 describe('severity level maps', () => {

@@ -38,7 +38,9 @@ describe('formatGithubReport', () => {
     ];
     const lines = formatGithubReport(results, config).split('\n');
     expect(lines[0]).toBe('::warning title=SEO006%3A robots.txt::Missing robots.txt');
-    expect(lines[1]).toBe('::notice file=src/routes/x/+page.svelte,title=SEO008%3A JSON-LD structured data::JSON-LD missing');
+    expect(lines[1]).toBe(
+      '::notice file=src/routes/x/+page.svelte,title=SEO008%3A JSON-LD structured data::JSON-LD missing'
+    );
   });
 
   it('escapes property values (: ,) and message data (newline), but not : or , in message data', () => {

@@ -146,9 +146,7 @@ describe('run() sarif & github reporters', () => {
     await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'sarif', env: CLEAN_ENV });
     const sarif = JSON.parse(cap.out.join('\n'));
     expect(sarif.version).toBe('2.1.0');
-    const seo001 = sarif.runs[0].results.find(
-      (r: { ruleId: string; level: string }) => r.ruleId === 'SEO001'
-    );
+    const seo001 = sarif.runs[0].results.find((r: { ruleId: string; level: string }) => r.ruleId === 'SEO001');
     expect(seo001.level).toBe('error');
   });
 
