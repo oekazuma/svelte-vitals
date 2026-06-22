@@ -40,6 +40,8 @@ describe('analyze tool', () => {
     const report = res.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
     const ids = new Set(report.routes.flatMap((r) => r.issues.map((i) => i.id)));
     // Allow-list of a single rule disables the others, so only SEO001 can appear.
+    // Guard against a vacuous pass: the fixture must surface at least one SEO001.
+    expect(ids.size).toBeGreaterThan(0);
     for (const id of ids) expect(id).toBe('SEO001');
   });
 
