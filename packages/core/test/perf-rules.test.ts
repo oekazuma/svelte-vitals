@@ -46,6 +46,22 @@ describe('PERF001 image dimensions', () => {
   });
 });
 
+describe('PERF001 image line omission when unknown (line: 0)', () => {
+  it('omits line property when img.line === 0', async () => {
+    const imgNoLine = { hasWidth: false, hasHeight: true, hasLoading: true, line: 0, file: 'src/routes/+page.svelte' };
+    const ctx = ctxWith([{ route: '/a', images: [imgNoLine] }]);
+    const [r] = await perf001ImageDimensions.check(ctx);
+    expect('line' in r!).toBe(false);
+    expect(r!.line).toBeUndefined();
+  });
+
+  it('still sets line when img.line > 0', async () => {
+    const ctx = ctxWith([{ route: '/a', images: [img({ hasWidth: false })] }]);
+    const [r] = await perf001ImageDimensions.check(ctx);
+    expect(r!.line).toBe(7);
+  });
+});
+
 describe('PERF002 image loading', () => {
   it('flags a missing loading attribute as info', async () => {
     const ctx = ctxWith([{ route: '/a', images: [img({ hasLoading: false })] }]);

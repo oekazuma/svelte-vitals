@@ -48,7 +48,7 @@ export function formatSarifReport(results: Result[], config: Config, meta: { ver
       level: severityToSarifLevel(effectiveSeverity(r, config)),
       message: { text: messageText(r) },
       partialFingerprints: {
-        'svelteVitals/v1': `${r.id}:${r.route ?? 'project'}${r.line !== undefined ? ':' + r.line : ''}`
+        'svelteVitals/v1': `${r.id}:${r.route ?? 'project'}${r.line !== undefined ? `:${r.location ?? ''}:${r.line}` : ''}`
       }
     };
     if (r.location) {

@@ -53,7 +53,7 @@ export function imageRule(opts: ImageRuleOptions): Rule {
             detection: { presence: 'none', value: 'absent' },
             route: route.route,
             location: img.file,
-            line: img.line,
+            ...(img.line > 0 ? { line: img.line } : {}),
             message: `Missing ${opts.label}`,
             recommendation: opts.recommendation,
             docsUrl,
