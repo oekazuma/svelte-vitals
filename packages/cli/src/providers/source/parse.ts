@@ -179,10 +179,11 @@ function collectImages(node: Node, source: string, acc: ParsedImage[]): void {
   if (!node || typeof node !== 'object') return;
   if (node.type === 'RegularElement' && node.name === 'img') {
     const attrs: Node[] = node.attributes ?? [];
+    const hasSpread = attrs.some((a: Node) => a?.type === 'SpreadAttribute');
     acc.push({
-      hasWidth: Boolean(findAttr(attrs, 'width')),
-      hasHeight: Boolean(findAttr(attrs, 'height')),
-      hasLoading: Boolean(findAttr(attrs, 'loading')),
+      hasWidth: hasSpread || Boolean(findAttr(attrs, 'width')),
+      hasHeight: hasSpread || Boolean(findAttr(attrs, 'height')),
+      hasLoading: hasSpread || Boolean(findAttr(attrs, 'loading')),
       line: lineOf(source, node.start)
     });
   }

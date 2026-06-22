@@ -62,6 +62,24 @@ describe('parseFile images', () => {
     const pf = parseFile(`{#if cond}<img src="/x.png" />{/if}`, 'x.svelte');
     expect(pf.images).toHaveLength(1);
   });
+
+  it('treats spread-only <img> as all attributes present (no false positives)', () => {
+    const pf = parseFile(`<img {...props} />`, 'x.svelte');
+    expect(pf.images).toHaveLength(1);
+    expect(pf.images[0]).toMatchObject({ hasWidth: true, hasHeight: true, hasLoading: true });
+  });
+
+  it('treats <img> with spread + explicit attr as all attributes present', () => {
+    const pf = parseFile(`<img src="/a.png" {...props} />`, 'x.svelte');
+    expect(pf.images).toHaveLength(1);
+    expect(pf.images[0]).toMatchObject({ hasWidth: true, hasHeight: true, hasLoading: true });
+  });
+
+  it('still marks missing attrs as absent when there is no spread', () => {
+    const pf = parseFile(`<img src="/a.png" />`, 'x.svelte');
+    expect(pf.images).toHaveLength(1);
+    expect(pf.images[0]).toMatchObject({ hasWidth: false, hasHeight: false, hasLoading: false });
+  });
 });
 
 describe('attrValueOf', () => {
