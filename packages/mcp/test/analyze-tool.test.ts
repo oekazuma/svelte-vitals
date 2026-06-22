@@ -19,6 +19,30 @@ describe('analyze tool', () => {
     expect(JSON.parse(res.content[0]!.text)).toEqual(report);
   });
 
+  it('honors metaComponents so a wrapper-supplied title is not flagged', async () => {
+    type Report = { routes: Array<{ route: string; issues: Array<{ id: string }> }> };
+    const widgetIssues = (report: Report) =>
+      report.routes.find((r) => r.route === '/widget')?.issues.map((i) => i.id) ?? [];
+
+    // Baseline: /widget renders <Widget /> with no <title>, so SEO001 fires there.
+    const base = await handleAnalyze({ path: fixtureDir });
+    expect(widgetIssues(base.structuredContent as Report)).toContain('SEO001');
+
+    // Declaring Widget as a meta component promotes its title to dynamic/pass.
+    const withMeta = await handleAnalyze({ path: fixtureDir, metaComponents: ['Widget'] });
+    expect(withMeta.isError).toBeFalsy();
+    expect(widgetIssues(withMeta.structuredContent as Report)).not.toContain('SEO001');
+  });
+
+  it('accepts rule ids case-insensitively', async () => {
+    const res = await handleAnalyze({ path: fixtureDir, rules: ['seo001'] });
+    expect(res.isError).toBeFalsy();
+    const report = res.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
+    const ids = new Set(report.routes.flatMap((r) => r.issues.map((i) => i.id)));
+    // Allow-list of a single rule disables the others, so only SEO001 can appear.
+    for (const id of ids) expect(id).toBe('SEO001');
+  });
+
   it('reports an error for an unknown rule id', async () => {
     const res = await handleAnalyze({ path: fixtureDir, rules: ['NOPE999'] });
     expect(res.isError).toBe(true);

@@ -44,9 +44,10 @@ export interface RuleInfo {
   fix?: Fix;
 }
 
-/** Look up a rule's static metadata for the MCP explain_rule tool (issue #24). */
+/** Look up a rule's static metadata for the MCP explain_rule tool (issue #24). Rule ids are matched case-insensitively. */
 export function explainRule(id: string): RuleInfo | undefined {
-  const rule = allRules.find((r) => r.id === id);
+  const target = id.toUpperCase();
+  const rule = allRules.find((r) => r.id === target);
   if (!rule) return undefined;
   return {
     id: rule.id,

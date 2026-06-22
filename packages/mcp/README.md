@@ -4,7 +4,7 @@ A [Model Context Protocol](https://modelcontextprotocol.io) server for [svelte-v
 
 ## Tools
 
-- **`analyze`** — run static-mode analysis on a project path; returns per-route and site-wide scores plus findings with `fix`/`recommendation`/`docsUrl`. Inputs: `path?`, `route?`, `treatDynamicAs?`, `rules?`, `ignore?`, `failOn?`.
+- **`analyze`** — run static-mode analysis on a project path; returns per-route and site-wide scores plus findings with `fix`/`recommendation`/`docsUrl`. Inputs: `path?`, `metaComponents?`, `route?`, `treatDynamicAs?`, `rules?`, `ignore?`, `failOn?`.
 - **`explain_rule`** — given a rule id (e.g. `SEO001`), returns its title, category, severity, rationale, docs URL, and fix template.
 
 ## Usage (stdio)

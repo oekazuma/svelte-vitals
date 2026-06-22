@@ -12,6 +12,13 @@ describe('explainRule', () => {
     expect(info!.fix?.description.length).toBeGreaterThan(0);
   });
 
+  it('resolves a rule id case-insensitively and returns the canonical id', () => {
+    const info = explainRule('seo001');
+    expect(info).toBeDefined();
+    expect(info!.id).toBe('SEO001');
+    expect(info!.docsUrl).toBe('https://svelte-vitals.dev/rules/SEO001');
+  });
+
   it('returns undefined for an unknown id', () => {
     expect(explainRule('NOPE999')).toBeUndefined();
   });

@@ -26,6 +26,13 @@ describe('explain_rule tool', () => {
     expect(res.content[0]!.text).toContain('https://svelte-vitals.dev/rules/SEO001');
   });
 
+  it('resolves the rule id case-insensitively', async () => {
+    const res = await handleExplainRule({ id: 'seo001' });
+    expect(res.isError).toBeFalsy();
+    const info = res.structuredContent as { id: string };
+    expect(info.id).toBe('SEO001');
+  });
+
   it('reports an error for an unknown id', async () => {
     const res = await handleExplainRule({ id: 'NOPE999' });
     expect(res.isError).toBe(true);
