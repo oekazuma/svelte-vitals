@@ -22,7 +22,13 @@ const failing: Result[] = [
 ];
 
 const passing: Result[] = [
-  { id: 'SEO001', severity: 'critical', detection: { presence: 'own', value: 'static' }, route: '/p', message: '<title>' }
+  {
+    id: 'SEO001',
+    severity: 'critical',
+    detection: { presence: 'own', value: 'static' },
+    route: '/p',
+    message: '<title>'
+  }
 ];
 
 describe('formatDevReport', () => {
