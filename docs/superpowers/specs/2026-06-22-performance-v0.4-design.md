@@ -4,7 +4,7 @@ Issue: [#10](https://github.com/oekazuma/svelte-vitals/issues/10) (roadmap epic)
 
 ## Goal
 
-Add static-analysis **Performance** checks for `<img>` elements (the highest-confidence, highest-impact performance signal a static checker can give), and establish the **multi-category foundation** (per-category findings + per-category scores + category-aware reporters) that Accessibility v0.5 and Upgrade v0.6 will reuse, culminating in the v1.0 weighted Health Report.
+Add static-analysis **Performance** checks for `<img>` elements (the highest-confidence, highest-impact performance signal a static checker can give), and establish the **multi-category foundation** (per-category findings + per-category scores + category-aware reporters) that Accessibility v0.5 and Upgrade v0.6 will reuse. The weighted combined Health Report is built as a **later 0.x increment** once the categories exist; `1.0` is the polished culmination, not where new integration lands.
 
 Static-analysis-only; **no runtime Core Web Vitals**. Static mode (CLI) first; plugin-mode image checks are a follow-up.
 
@@ -15,7 +15,7 @@ Two route-scoped rules over `<img>` elements found in each route's `+page.svelte
 - **PERF001 — image dimensions (`warning`).** An `<img>` without an explicit `width` **and** `height` risks layout shift (CLS). A dynamically-bound dimension (`width={w}`) counts as present and **passes** — we never flag a dimension we can't prove is missing (mirrors the SEO "dynamic title passes" stance).
 - **PERF002 — image loading hint (`info`).** An `<img>` with no `loading` attribute gets an advisory: set `loading="lazy"` for offscreen images, or keep it eager (and consider `fetchpriority="high"`) for the LCP image. `info` because static analysis cannot know which images are above the fold — this must not produce noisy false-positive failures.
 
-**Out of scope for v0.4** (deferred, tracked under #10): `preload` checks, adapter-config checks, large-import/bundle-size analysis, plugin-mode (output-HTML) image checks, and the v1.0 weighted combined Health Report.
+**Out of scope for v0.4** (later 0.x increments, tracked under #10): `preload` checks, adapter-config checks, large-import/bundle-size analysis, plugin-mode (output-HTML) image checks, and the weighted combined Health Report (built once the categories exist, before the 1.0 polish).
 
 ## Findings granularity
 
@@ -57,7 +57,7 @@ scoring + reporters: split results by category → per-category score + sections
 
 - Compute a score **per category** by running the existing `computeScore` over the category's result subset: `computeScore(results.filter(r => r.category === 'seo'), …)` and `computeScore(results.filter(r => r.category === 'performance'), …)`. The route-average + critical-cap model is reused unchanged; Performance has no `critical` rule, so the cap simply never binds.
 - A new helper `scoresByCategory(results, config): Record<Category, ScoreResult>` (only for categories that have findings) centralizes this so reporters don't each re-filter.
-- The CLI headline keeps the **SEO score as primary** (preserving existing output/exit semantics) and additionally surfaces the **Performance score**. The combined weighted Health Report is explicitly a v1.0 concern.
+- The CLI headline keeps the **SEO score as primary** (preserving existing output/exit semantics) and additionally surfaces the **Performance score**. The combined weighted Health Report is a later 0.x increment (once more categories exist), not a 1.0 deliverable.
 
 ### core — reporters (category-aware)
 
@@ -83,7 +83,7 @@ No new failure modes. Files that fail to parse already surface as execution erro
 
 ## Roadmap / release
 
-- README roadmap: note Performance checks shipping at `0.4` (first category beyond SEO); keep A11y/Upgrade and the v1.0 Health Report as upcoming.
+- README roadmap: note Performance checks shipping at `0.4` (first category beyond SEO); keep A11y/Upgrade and the combined Health Report as upcoming 0.x increments leading into the 1.0 polish.
 - Changeset: `@svelte-vitals/core` minor (new rules, types, scoring, reporters) and `svelte-vitals` minor (image collection in the provider). `@svelte-vitals/vite` unchanged (plugin-mode image checks deferred).
 
 ## Non-goals / follow-ups
@@ -91,4 +91,4 @@ No new failure modes. Files that fail to parse already surface as execution erro
 - Plugin-mode (`@svelte-vitals/vite`) image checks on prerendered HTML.
 - `preload`, adapter-config, and large-import performance rules.
 - Per-image precise locations beyond `line` (e.g. column), and report-level dedup of a shared layout image across routes.
-- The v1.0 weighted combined Health Report (how SEO/Performance/A11y/Upgrade roll up into one number).
+- The weighted combined Health Report (how SEO/Performance/A11y/Upgrade roll up into one number) — a later 0.x increment, not 1.0 work.
