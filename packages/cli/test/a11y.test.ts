@@ -58,6 +58,8 @@ describe('collectA11y', () => {
     const rt = createMemoryRuntime({ 'src/routes/+page.svelte': `<div {#bad}></div>` });
     const results = await collectA11y(rt, '', config);
     // no throw; the unparseable route simply yields a seed (no a11y findings)
+    expect(results).toHaveLength(1);
+    expect(results[0]!.id).toBe('a11y');
     expect(results.every((r) => r.category === 'a11y')).toBe(true);
   });
 

@@ -28,7 +28,7 @@ function fileA11y(source: string, rel: string): A11yWarning[] {
   }
   const out: A11yWarning[] = [];
   for (const w of warnings) {
-    if (typeof w.code === 'string' && w.code.startsWith('a11y')) {
+    if (typeof w.code === 'string' && w.code.startsWith('a11y_')) {
       out.push({
         code: w.code,
         message: firstLine(w.message ?? w.code),

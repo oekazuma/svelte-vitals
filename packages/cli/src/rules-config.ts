@@ -6,7 +6,7 @@ const KNOWN_IDS = new Set(allRules.map((r) => r.id));
 export function findUnknownRuleIds(ids: string[]): string[] {
   // a11y_* ids are Svelte compiler warning codes (Accessibility category, #10);
   // they are accepted dynamically rather than enumerated in the built-in registry.
-  return [...new Set(ids.filter((id) => !KNOWN_IDS.has(id) && !id.startsWith('a11y')))];
+  return [...new Set(ids.filter((id) => !KNOWN_IDS.has(id) && !(id.startsWith('a11y_') && id !== 'a11y_category')))];
 }
 
 /** All built-in rule ids, sorted — for help and error messages. */

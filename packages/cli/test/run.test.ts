@@ -134,6 +134,7 @@ describe('run() accessibility rules', () => {
     const json = JSON.parse(cap.out.join('\n'));
     expect(json.categories.a11y).toBeDefined();
     const img = json.routes.find((r: { route: string }) => r.route === '/img');
+    expect(img).toBeDefined();
     expect(img.issues.some((i: { id: string }) => i.id === 'a11y_missing_attribute')).toBe(true);
   });
 });
