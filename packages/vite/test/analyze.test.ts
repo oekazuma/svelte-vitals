@@ -35,7 +35,7 @@ describe('analyze', () => {
     const json = JSON.parse(r.jsonReport);
     expect(json.siteIssues.map((i: { id: string }) => i.id)).not.toContain('SEO009');
     // console report must carry the plugin-mode label and not the static-mode label
-    expect(r.consoleReport).toContain('SEO (rendered / plugin)');
+    expect(r.consoleReport).toContain('Svelte Vitals  (rendered / plugin)');
     expect(r.consoleReport).not.toContain('static mode');
   });
 

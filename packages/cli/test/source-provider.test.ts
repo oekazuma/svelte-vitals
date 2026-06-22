@@ -30,6 +30,7 @@ describe('SourceHeadProvider (Node runtime, real fixture)', () => {
     expect([...byRoute.keys()].sort()).toEqual([
       '/blog',
       '/dynamic',
+      '/img',
       '/none',
       '/smt',
       '/smt-spread',

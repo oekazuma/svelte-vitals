@@ -26,7 +26,16 @@ describe('formatJsonReport', () => {
   it('exposes a per-category scores map and tags issues with category', () => {
     const withPerf: Result[] = [
       ...results,
-      { id: 'PERF001', category: 'performance', severity: 'warning', detection: { presence: 'none', value: 'absent' }, route: '/blog', location: 'src/routes/blog/+page.svelte', line: 42, message: 'Missing <img> width/height' }
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        line: 42,
+        message: 'Missing <img> width/height'
+      }
     ];
     const json = JSON.parse(formatJsonReport(withPerf, config, { version: '0.1.0' }));
     expect(json.categories.seo.score).toBeTypeOf('number');

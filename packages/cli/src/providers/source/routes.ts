@@ -1,4 +1,12 @@
-import type { Config, HeadProvider, HeadTag, ImageInfo, ResolvedHead, ResolvedImages, Runtime } from '@svelte-vitals/core';
+import type {
+  Config,
+  HeadProvider,
+  HeadTag,
+  ImageInfo,
+  ResolvedHead,
+  ResolvedImages,
+  Runtime
+} from '@svelte-vitals/core';
 import { defaultConfig } from '@svelte-vitals/core';
 import { enumerateRoutePages } from './project.js';
 import { parseFile } from './parse.js';

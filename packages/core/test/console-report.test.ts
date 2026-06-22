@@ -36,7 +36,16 @@ describe('formatConsoleReport', () => {
   it('adds a Performance score section when performance findings exist', () => {
     const withPerf: Result[] = [
       ...results,
-      { id: 'PERF001', category: 'performance', severity: 'warning', detection: { presence: 'none', value: 'absent' }, route: '/blog', location: 'src/routes/blog/+page.svelte', line: 42, message: 'Missing <img> width/height' }
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        line: 42,
+        message: 'Missing <img> width/height'
+      }
     ];
     const out = formatConsoleReport(withPerf, config);
     expect(out).toMatch(/SEO Score: \d+\/100/);

@@ -109,9 +109,30 @@ describe('scoresByCategory', () => {
   it('scores each category independently', () => {
     const config = defineConfig({});
     const results = [
-      { id: 'SEO001', category: 'seo', severity: 'critical', detection: { presence: 'none', value: 'absent' }, route: '/a', message: 'x' },
-      { id: 'PERF001', category: 'performance', severity: 'warning', detection: { presence: 'none', value: 'absent' }, route: '/a', message: 'y' },
-      { id: 'PERF001', category: 'performance', severity: 'warning', detection: { presence: 'own', value: 'static' }, route: '/b', message: 'ok' }
+      {
+        id: 'SEO001',
+        category: 'seo',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'x'
+      },
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'y'
+      },
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'own', value: 'static' },
+        route: '/b',
+        message: 'ok'
+      }
     ] as const;
     const byCat = scoresByCategory(results as never, config);
     expect(byCat.seo).toBeDefined();
@@ -123,7 +144,15 @@ describe('scoresByCategory', () => {
   it('treats a missing category as seo', () => {
     const config = defineConfig({});
     const byCat = scoresByCategory(
-      [{ id: 'SEO001', severity: 'warning', detection: { presence: 'none', value: 'absent' }, route: '/a', message: 'x' }] as never,
+      [
+        {
+          id: 'SEO001',
+          severity: 'warning',
+          detection: { presence: 'none', value: 'absent' },
+          route: '/a',
+          message: 'x'
+        }
+      ] as never,
       config
     );
     expect(byCat.seo).toBeDefined();

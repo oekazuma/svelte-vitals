@@ -4,7 +4,12 @@ import type { ResolvedImages } from '../src/images.js';
 
 const config = defaultConfig;
 const img = (over: Partial<{ hasWidth: boolean; hasHeight: boolean; hasLoading: boolean }>) => ({
-  hasWidth: true, hasHeight: true, hasLoading: true, line: 7, file: 'src/routes/+page.svelte', ...over
+  hasWidth: true,
+  hasHeight: true,
+  hasLoading: true,
+  line: 7,
+  file: 'src/routes/+page.svelte',
+  ...over
 });
 const ctxWith = (images: ResolvedImages[]) => ({ heads: [], images, project: defaultProject, config });
 

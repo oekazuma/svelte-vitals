@@ -23,11 +23,13 @@
 ### Task 1: `Result.category` + `line`; tag SEO rules
 
 **Files:**
+
 - Modify: `packages/core/src/types.ts` (add `category?`, `line?` to `Result`)
 - Modify: `packages/core/src/rules/seo/seo001-title.ts`, `packages/core/src/rules/seo/head-tag-rule.ts`, `packages/core/src/rules/seo/project-rules.ts` (set `category: 'seo'`)
 - Test: `packages/core/test/rule-category.test.ts` (new)
 
 **Interfaces:**
+
 - Produces: `Result.category?: Category`, `Result.line?: number`. Existing SEO rules emit `category: 'seo'`.
 
 - [ ] **Step 1: Write the failing test** — `packages/core/test/rule-category.test.ts`:
@@ -94,6 +96,7 @@ Expected: FAIL — `category` is `undefined`.
         category: 'seo',
         severity: 'warning',
 ```
+
 (and the same for `SEO007`, `SEO009`)
 
 - [ ] **Step 7: Run core tests**
@@ -115,6 +118,7 @@ git commit -m "feat(core): add Result.category/line and tag SEO rules (#10)"
 ### Task 2: Image IR, `RuleContext.images`, `imageRule`, PERF001/PERF002
 
 **Files:**
+
 - Create: `packages/core/src/images.ts`
 - Modify: `packages/core/src/rule.ts` (add `images?` to `RuleContext`)
 - Create: `packages/core/src/rules/perf/image-rule.ts`
@@ -124,6 +128,7 @@ git commit -m "feat(core): add Result.category/line and tag SEO rules (#10)"
 - Test: `packages/core/test/perf-rules.test.ts` (new)
 
 **Interfaces:**
+
 - Consumes: `Result`, `Category`, `docsUrlFor`, `Rule`, `RuleContext`.
 - Produces:
   - `interface ImageInfo { hasWidth: boolean; hasHeight: boolean; hasLoading: boolean; line: number; file: string }`
@@ -162,6 +167,7 @@ export interface ResolvedImages {
 import type { ResolvedHead } from './head.js';
 import type { ResolvedImages } from './images.js';
 ```
+
 ```ts
 export interface RuleContext {
   heads: ResolvedHead[];
@@ -181,7 +187,12 @@ import type { ResolvedImages } from '../src/images.js';
 
 const config = defaultConfig;
 const img = (over: Partial<{ hasWidth: boolean; hasHeight: boolean; hasLoading: boolean }>) => ({
-  hasWidth: true, hasHeight: true, hasLoading: true, line: 7, file: 'src/routes/+page.svelte', ...over
+  hasWidth: true,
+  hasHeight: true,
+  hasLoading: true,
+  line: 7,
+  file: 'src/routes/+page.svelte',
+  ...over
 });
 const ctxWith = (images: ResolvedImages[]) => ({ heads: [], images, project: defaultProject, config });
 
@@ -350,14 +361,18 @@ export const perf002ImageLoading = imageRule({
 import { seo006Robots, seo007Sitemap, seo009HtmlLang } from './seo/project-rules.js';
 import { perf001ImageDimensions, perf002ImageLoading } from './perf/images.js';
 ```
+
 Add to the `allRules` array (after `seo009HtmlLang`):
+
 ```ts
   seo009HtmlLang,
   perf001ImageDimensions,
   perf002ImageLoading
 ];
 ```
+
 Add to the re-export block:
+
 ```ts
   seo009HtmlLang,
   perf001ImageDimensions,
@@ -370,7 +385,9 @@ Add to the re-export block:
 ```ts
 export type { ImageInfo, ResolvedImages } from './images.js';
 ```
+
 and add `perf001ImageDimensions, perf002ImageLoading` to the rules export line, plus:
+
 ```ts
 export { headTagRule } from './rules/seo/head-tag-rule.js';
 export { imageRule } from './rules/perf/image-rule.js';
@@ -395,11 +412,13 @@ git commit -m "feat(core): add image IR, imageRule, PERF001/PERF002 (#10)"
 ### Task 3: Per-category scoring (`scoresByCategory`)
 
 **Files:**
+
 - Modify: `packages/core/src/scoring/score.ts` (add `scoresByCategory`)
 - Modify: `packages/core/src/index.ts` (export it)
 - Test: `packages/core/test/score.test.ts` (extend)
 
 **Interfaces:**
+
 - Consumes: `computeScore`, `ScoreResult`, `Category`, `Result`, `Config`.
 - Produces: `function scoresByCategory(results: Result[], config: Config): Partial<Record<Category, ScoreResult>>`.
 
@@ -412,9 +431,30 @@ describe('scoresByCategory', () => {
   it('scores each category independently', () => {
     const config = defineConfig({});
     const results = [
-      { id: 'SEO001', category: 'seo', severity: 'critical', detection: { presence: 'none', value: 'absent' }, route: '/a', message: 'x' },
-      { id: 'PERF001', category: 'performance', severity: 'warning', detection: { presence: 'none', value: 'absent' }, route: '/a', message: 'y' },
-      { id: 'PERF001', category: 'performance', severity: 'warning', detection: { presence: 'own', value: 'static' }, route: '/b', message: 'ok' }
+      {
+        id: 'SEO001',
+        category: 'seo',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'x'
+      },
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'y'
+      },
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'own', value: 'static' },
+        route: '/b',
+        message: 'ok'
+      }
     ] as const;
     const byCat = scoresByCategory(results as never, config);
     expect(byCat.seo).toBeDefined();
@@ -426,7 +466,15 @@ describe('scoresByCategory', () => {
   it('treats a missing category as seo', () => {
     const config = defineConfig({});
     const byCat = scoresByCategory(
-      [{ id: 'SEO001', severity: 'warning', detection: { presence: 'none', value: 'absent' }, route: '/a', message: 'x' }] as never,
+      [
+        {
+          id: 'SEO001',
+          severity: 'warning',
+          detection: { presence: 'none', value: 'absent' },
+          route: '/a',
+          message: 'x'
+        }
+      ] as never,
       config
     );
     expect(byCat.seo).toBeDefined();
@@ -447,7 +495,9 @@ Expected: FAIL — `scoresByCategory` is not a function.
 ```ts
 import type { Category, Config, Result, Severity } from '../types.js';
 ```
+
 (append at end of file:)
+
 ```ts
 /** Compute an independent score per category present in `results` (issue #10). */
 export function scoresByCategory(results: Result[], config: Config): Partial<Record<Category, ScoreResult>> {
@@ -487,11 +537,13 @@ git commit -m "feat(core): add scoresByCategory for per-category scores (#10)"
 ### Task 4: Collect `<img>` in the CLI provider
 
 **Files:**
+
 - Modify: `packages/cli/src/providers/source/parse.ts` (collect images + line)
 - Modify: `packages/cli/src/providers/source/routes.ts` (per-route images → `RuleContext.images`)
 - Test: `packages/cli/test/parse-file.test.ts` (extend), `packages/cli/test/source-provider.test.ts` (extend) or a new `packages/cli/test/images.test.ts`
 
 **Interfaces:**
+
 - Consumes: `ResolvedImages`, `ImageInfo` from `@svelte-vitals/core`.
 - Produces:
   - `parse.ts`: `interface ParsedImage { hasWidth: boolean; hasHeight: boolean; hasLoading: boolean; line: number }`; `ParsedFile.images: ParsedImage[]`.
@@ -533,7 +585,9 @@ export interface ParsedImage {
   line: number;
 }
 ```
+
 Add a line helper near the top (after `type Node = any;`):
+
 ```ts
 function lineOf(source: string, offset: unknown): number {
   if (typeof offset !== 'number' || offset < 0) return 0;
@@ -543,7 +597,9 @@ function lineOf(source: string, offset: unknown): number {
   return line;
 }
 ```
+
 Add a collector (parallels `collectComponents`, reusing `CHILD_NODE_KEYS` and `findAttr`):
+
 ```ts
 function collectImages(node: Node, source: string, acc: ParsedImage[]): void {
   if (Array.isArray(node)) {
@@ -565,7 +621,9 @@ function collectImages(node: Node, source: string, acc: ParsedImage[]): void {
   }
 }
 ```
+
 Extend `ParsedFile`:
+
 ```ts
 export interface ParsedFile {
   headTags: ParsedTag[];
@@ -574,18 +632,20 @@ export interface ParsedFile {
   images: ParsedImage[];
 }
 ```
+
 In `parseFile`, collect and return images:
+
 ```ts
-  const components: ComponentUse[] = [];
-  collectComponents(ast.fragment ?? ast, components);
-  const images: ParsedImage[] = [];
-  collectImages(ast.fragment ?? ast, source, images);
-  return {
-    headTags: heads.flatMap(tagsFromHead),
-    components,
-    imports: collectImports(ast),
-    images
-  };
+const components: ComponentUse[] = [];
+collectComponents(ast.fragment ?? ast, components);
+const images: ParsedImage[] = [];
+collectImages(ast.fragment ?? ast, source, images);
+return {
+  headTags: heads.flatMap(tagsFromHead),
+  components,
+  imports: collectImports(ast),
+  images
+};
 ```
 
 > `findAttr` returns the attribute node whether its value is a literal or an `ExpressionTag`, so `width={w}` yields `hasWidth: true` — dynamic counts as present, per the no-false-positives constraint.
@@ -615,8 +675,9 @@ In `resolveRoute`, accumulate images while walking `files` (it already reads + p
 The cleanest seam: `routes.ts` currently only builds `ResolvedHead[]` and the rules run elsewhere? **No** — rules run in `packages/cli/src/index.ts` via `runRules(rules, { heads, project, config })` (see `analyzeProject`). So `sourceHeadProvider.collect` returns heads only; images must travel a parallel path. Add an images collector to the provider and thread it into `analyzeProject`'s `runRules` call.
 
 Concretely:
-  1. In `routes.ts`, add an exported `collectImages(rt, cwd, config): Promise<ResolvedImages[]>` that enumerates route pages, walks each route's chain (reuse `chainFiles`), parses each file, and maps `ParsedImage[]` → `ImageInfo[]` (adding `file`), returning one `ResolvedImages` per route. Factor the chain walk so it isn't duplicated (e.g. have `resolveRoute` and the image collector share `chainFiles`).
-  2. In `packages/cli/src/index.ts` `analyzeProject`, after collecting heads, also collect images and pass them:
+
+1. In `routes.ts`, add an exported `collectImages(rt, cwd, config): Promise<ResolvedImages[]>` that enumerates route pages, walks each route's chain (reuse `chainFiles`), parses each file, and maps `ParsedImage[]` → `ImageInfo[]` (adding `file`), returning one `ResolvedImages` per route. Factor the chain walk so it isn't duplicated (e.g. have `resolveRoute` and the image collector share `chainFiles`).
+2. In `packages/cli/src/index.ts` `analyzeProject`, after collecting heads, also collect images and pass them:
 
 ```ts
 const heads = (await sourceHeadProvider.collect(rt, cwd, config)).filter((h) => matches(h.route));
@@ -636,6 +697,7 @@ export const sourceImageProvider = {
   }
 };
 ```
+
 where `resolveRouteImages` walks `chainFiles(rt, cwd, page)`, parses each file, and collects `ImageInfo[]` (tagging `file: rel`, `route: deriveRoute(page)`).
 
 > `config` is currently unused by image collection but is accepted for symmetry/future use.
@@ -657,6 +719,7 @@ git commit -m "feat(cli): collect <img> facts per route for Performance rules (#
 ### Task 5: Category-aware reporters
 
 **Files:**
+
 - Modify: `packages/core/src/reporter/console.ts`
 - Modify: `packages/core/src/reporter/json.ts`
 - Modify: `packages/core/src/reporter/agent.ts`
@@ -664,17 +727,28 @@ git commit -m "feat(cli): collect <img> facts per route for Performance rules (#
 - Test: `packages/core/test/console-report.test.ts`, `json-report.test.ts`, `agent-report.test.ts` (extend with performance fixtures)
 
 **Interfaces:**
+
 - Consumes: `scoresByCategory`, `Result.category`, `Result.line`.
 - Produces: console per-category score sections; json `categories` map + per-issue `category`; agent generalized heading; github/sarif line-accurate locations.
 
 - [ ] **Step 1: Write failing reporter tests** — add a performance fixture + assertions.
 
 `console-report.test.ts` — add:
+
 ```ts
 it('adds a Performance score section when performance findings exist', () => {
   const withPerf: Result[] = [
     ...results,
-    { id: 'PERF001', category: 'performance', severity: 'warning', detection: { presence: 'none', value: 'absent' }, route: '/blog', location: 'src/routes/blog/+page.svelte', line: 42, message: 'Missing <img> width/height' }
+    {
+      id: 'PERF001',
+      category: 'performance',
+      severity: 'warning',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/blog',
+      location: 'src/routes/blog/+page.svelte',
+      line: 42,
+      message: 'Missing <img> width/height'
+    }
   ];
   const out = formatConsoleReport(withPerf, config);
   expect(out).toMatch(/SEO Score: \d+\/100/);
@@ -685,11 +759,21 @@ it('adds a Performance score section when performance findings exist', () => {
 ```
 
 `json-report.test.ts` — add:
+
 ```ts
 it('exposes a per-category scores map and tags issues with category', () => {
   const withPerf: Result[] = [
     ...results,
-    { id: 'PERF001', category: 'performance', severity: 'warning', detection: { presence: 'none', value: 'absent' }, route: '/blog', location: 'src/routes/blog/+page.svelte', line: 42, message: 'Missing <img> width/height' }
+    {
+      id: 'PERF001',
+      category: 'performance',
+      severity: 'warning',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/blog',
+      location: 'src/routes/blog/+page.svelte',
+      line: 42,
+      message: 'Missing <img> width/height'
+    }
   ];
   const json = JSON.parse(formatJsonReport(withPerf, config, { version: '0.1.0' }));
   expect(json.categories.seo.score).toBeTypeOf('number');
@@ -701,11 +785,22 @@ it('exposes a per-category scores map and tags issues with category', () => {
 ```
 
 `agent-report.test.ts` — add (heading generalized, perf grouped):
+
 ```ts
 it('groups performance findings and uses a category-neutral heading', () => {
   const withPerf: Result[] = [
     ...results,
-    { id: 'PERF001', category: 'performance', severity: 'warning', detection: { presence: 'none', value: 'absent' }, route: '/blog', location: 'src/routes/blog/+page.svelte', line: 42, message: 'Missing <img> width/height', fix: { description: 'Add width/height.', snippet: '<img width="1" height="1" />', lang: 'svelte' } }
+    {
+      id: 'PERF001',
+      category: 'performance',
+      severity: 'warning',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/blog',
+      location: 'src/routes/blog/+page.svelte',
+      line: 42,
+      message: 'Missing <img> width/height',
+      fix: { description: 'Add width/height.', snippet: '<img width="1" height="1" />', lang: 'svelte' }
+    }
   ];
   const md = formatAgentReport(withPerf, config);
   expect(md).toContain('PERF001');
@@ -721,6 +816,7 @@ Expected: FAIL (no `Performance Score:`, no `categories`, heading still "SEO fix
 - [ ] **Step 3: Update `console.ts`** — render a score section per category present, reusing the `"<Label> Score: N/100"` line so existing assertions pass.
 
 Replace `scoreHeader` and the body so categories are iterated. Key changes:
+
 ```ts
 import { computeScore, scoresByCategory } from '../scoring/score.js';
 import type { Category } from '../types.js';
@@ -741,18 +837,30 @@ function scoreLine(label: string, results: Result[], config: Config): string {
   return `${label} Score: ${score}/100   (${parts.join(' · ')})`;
 }
 ```
+
 In `formatConsoleReport`: replace the single `scoreHeader(...)` header line with one score line per category that has results, and prefix each finding's location with `:line` when present. Concretely, build the header as:
+
 ```ts
-  const byCat = scoresByCategory(results, config);
-  const present = CATEGORY_ORDER.filter((c) => byCat[c] !== undefined);
-  const header: string[] = [`Svelte Vitals  (${options.mode ?? 'static mode'})`, ''];
-  for (const c of present) header.push(scoreLine(CATEGORY_LABEL[c] ?? c, results.filter((r) => (r.category ?? 'seo') === c), config));
-  const lines: string[] = [...header, ''];
+const byCat = scoresByCategory(results, config);
+const present = CATEGORY_ORDER.filter((c) => byCat[c] !== undefined);
+const header: string[] = [`Svelte Vitals  (${options.mode ?? 'static mode'})`, ''];
+for (const c of present)
+  header.push(
+    scoreLine(
+      CATEGORY_LABEL[c] ?? c,
+      results.filter((r) => (r.category ?? 'seo') === c),
+      config
+    )
+  );
+const lines: string[] = [...header, ''];
 ```
+
 And in the failures loop, change the location line to include `line`:
+
 ```ts
-      if (r.location) lines.push(`            ${r.location}${r.line ? `:${r.line}` : ''}`);
+if (r.location) lines.push(`            ${r.location}${r.line ? `:${r.line}` : ''}`);
 ```
+
 (Severity buckets and the Passed section stay as-is — findings already show `r.id`, which distinguishes SEO vs PERF.)
 
 > This keeps `SEO Score: N/100` (now per-category) so `console-report.test`'s existing regex passes, and adds `Performance Score: N/100` only when performance results exist. The `byRouteTree` helper is unchanged.
@@ -760,6 +868,7 @@ And in the failures loop, change the location line to include `line`:
 - [ ] **Step 4: Update `json.ts`** — add `categories` and per-issue `category`/`line`.
 
 In `issueOf`, include category and line:
+
 ```ts
 function issueOf(result: Result) {
   return {
@@ -775,25 +884,32 @@ function issueOf(result: Result) {
   };
 }
 ```
+
 In `buildJsonReport`, add a `categories` field (keep top-level `score` = SEO for backward compat):
+
 ```ts
 import { computeScore, scoresByCategory, type ScoreModel } from '../scoring/score.js';
 ```
+
 ```ts
-  const byCat = scoresByCategory(results, config);
-  const categories = Object.fromEntries(
-    Object.entries(byCat).map(([cat, sr]) => [cat, { score: sr.score, scoreModel: sr.scoreModel }])
-  );
-  return { version: meta.version, score, scoreModel, summary, categories, routes, siteIssues };
+const byCat = scoresByCategory(results, config);
+const categories = Object.fromEntries(
+  Object.entries(byCat).map(([cat, sr]) => [cat, { score: sr.score, scoreModel: sr.scoreModel }])
+);
+return { version: meta.version, score, scoreModel, summary, categories, routes, siteIssues };
 ```
+
 Add `categories` to the `JsonReport` interface:
+
 ```ts
-  categories: Record<string, { score: number; scoreModel: ScoreModel }>;
+categories: Record<string, { score: number; scoreModel: ScoreModel }>;
 ```
+
 (Place it after `scoreModel`.) The top-level `score`/`scoreModel` stay computed via `computeScore(results, config)` — which now includes PERF results. **To keep the top-level score = SEO only (backward compat), compute it from the SEO subset:**
+
 ```ts
-  const seoResults = results.filter((r) => (r.category ?? 'seo') === 'seo');
-  const { score, scoreModel } = computeScore(seoResults, config);
+const seoResults = results.filter((r) => (r.category ?? 'seo') === 'seo');
+const { score, scoreModel } = computeScore(seoResults, config);
 ```
 
 > Important: changing the top-level `score` to the SEO subset preserves existing json-report assertions (their fixtures are all SEO, so subset === full). Verify the existing test still sees `summary.critical` etc. — `summary` stays over all results (counts include PERF); the existing fixture has no PERF so unchanged.
@@ -801,13 +917,17 @@ Add `categories` to the `JsonReport` interface:
 - [ ] **Step 5: Update `agent.ts`** — generalize the heading and group by category.
 
 Change the H1 from SEO-specific to neutral, and (minimal) keep the existing file-grouping but ensure PERF findings (which are `fail` and have `fix`) flow through. The only required change for the test is the heading:
+
 ```ts
-  const lines: string[] = ['# svelte-vitals — fixes', ''];
+const lines: string[] = ['# svelte-vitals — fixes', ''];
 ```
+
 and the empty-state line stays `'No issues to fix.'`. PERF findings already classify as `fail` (penalized detection) and carry `fix`, so they render in their `location` group with their snippet automatically. Show `line` in the group header when present:
+
 ```ts
-    const key = r.location ?? r.route ?? '(project)';
+const key = r.location ?? r.route ?? '(project)';
 ```
+
 (unchanged grouping is acceptable; `line` appears via the `## ${loc}` not carrying line — optionally append `:line`. Keep minimal: no line in agent group header for v0.4.)
 
 > Check `agent-report.test.ts`'s "No issues to fix" case (if present) for an H1 assertion; update it to the new `# svelte-vitals — fixes` heading if it checks the old text.
@@ -833,6 +953,7 @@ git commit -m "feat(core): category-aware reporters with per-category scores (#1
 ### Task 6: e2e fixture, README, changeset, full verification
 
 **Files:**
+
 - Create: `packages/cli/test/fixtures/basic-project/src/routes/img/+page.svelte` (an `<img>` missing dimensions) — or add an `<img>` to an existing fixture route
 - Modify: `packages/cli/test/run.test.ts` (assert PERF001 surfaces end-to-end)
 - Modify: `README.md` (roadmap)
@@ -868,6 +989,7 @@ Expected: PASS (after Tasks 2 & 4 the pipeline emits PERF001 for `/img`). If the
 <svelte:head><title>{data.title}</title></svelte:head>
 <img src="/hero.png" alt="hero" />
 ```
+
 so `/img` passes SEO (dynamic title) and only contributes the PERF finding.
 
 - [ ] **Step 4: Run the full CLI suite** and fix any count drift
@@ -880,6 +1002,7 @@ Expected: PASS. If a count assertion drifted from the new route, update it to th
 ```md
 - **Performance checks** (`0.4`) — static `<img>` analysis: `width`/`height` (CLS) and a `loading` advisory, scored as a separate Performance category alongside SEO.
 ```
+
 And under **Upcoming**, replace the single #10 bullet with:
 
 ```md
@@ -920,6 +1043,7 @@ git commit -m "docs(perf): ship Performance v0.4, roadmap + changeset (#10)"
 ## Self-Review
 
 **Spec coverage:**
+
 - PERF001 dimensions + PERF002 loading, dynamic-as-present → Task 2 (rules) + Task 4 (`findAttr` presence). ✅
 - Per-image findings with `file` + `line` → Task 2 (imageRule emits per bad image) + Task 4 (`line` from AST). ✅
 - Image IR (`ImageInfo`/`ResolvedImages`) + `RuleContext.images` → Task 2. ✅

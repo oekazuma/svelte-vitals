@@ -61,7 +61,13 @@ export function formatConsoleReport(results: Result[], config: Config, options: 
   const present = CATEGORY_ORDER.filter((c) => byCat[c] !== undefined);
   const header: string[] = [`Svelte Vitals  (${options.mode ?? 'static mode'})`, ''];
   for (const c of present) {
-    header.push(scoreLine(CATEGORY_LABEL[c] ?? c, results.filter((r) => (r.category ?? 'seo') === c), config));
+    header.push(
+      scoreLine(
+        CATEGORY_LABEL[c] ?? c,
+        results.filter((r) => (r.category ?? 'seo') === c),
+        config
+      )
+    );
   }
   const lines: string[] = [...header, ''];
 

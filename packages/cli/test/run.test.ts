@@ -116,12 +116,23 @@ describe('run() reporters and gating', () => {
   });
 });
 
+describe('run() performance rules', () => {
+  it('reports a Performance finding for an <img> missing dimensions', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, reporter: 'json', log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
+    const json = JSON.parse(cap.out.join('\n'));
+    expect(json.categories.performance).toBeDefined();
+    const img = json.routes.find((r: { route: string }) => r.route === '/img');
+    expect(img.issues.some((i: { id: string }) => i.id === 'PERF001')).toBe(true);
+  });
+});
+
 describe('run() agent reporter', () => {
   it('emits the agent Markdown report when reporter is agent', async () => {
     const cap = capture();
     await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'agent' });
     const out = cap.out.join('\n');
-    expect(out).toContain('# svelte-vitals — SEO fixes');
+    expect(out).toContain('# svelte-vitals — fixes');
     expect(out).toMatch(/### SEO00\d/);
     expect(out).toContain('- Fix:');
   });
@@ -130,7 +141,7 @@ describe('run() agent reporter', () => {
     // Auto-detected: no explicit reporter, agent env present → hint on stderr, Markdown on stdout.
     const auto = capture();
     await run({ cwd: fixtureDir, log: auto.log, errorLog: auto.errorLog, env: { CLAUDECODE: '1' } });
-    expect(auto.out.join('\n')).toContain('# svelte-vitals — SEO fixes');
+    expect(auto.out.join('\n')).toContain('# svelte-vitals — fixes');
     expect(auto.err.join('\n')).toContain('agent reporter auto-selected');
 
     // Explicit agent reporter: no hint (the user asked for it).
@@ -171,7 +182,7 @@ describe('run() sarif & github reporters', () => {
       errorLog: cap.errorLog,
       env: { GITHUB_ACTIONS: 'true', CLAUDECODE: '1' }
     });
-    expect(cap.out.join('\n')).toContain('# svelte-vitals — SEO fixes'); // agent Markdown, not workflow commands
+    expect(cap.out.join('\n')).toContain('# svelte-vitals — fixes'); // agent Markdown, not workflow commands
   });
 
   it('emits nothing on stdout for a clean github run (no stray blank line)', async () => {
