@@ -24,6 +24,7 @@ export const seo006Robots: Rule = {
     return [
       {
         id: 'SEO006',
+        category: 'seo',
         severity: 'warning',
         detection,
         message: ctx.project.hasRobotsTxt ? 'robots.txt' : 'Missing robots.txt',
@@ -56,6 +57,7 @@ export const seo007Sitemap: Rule = {
     return [
       {
         id: 'SEO007',
+        category: 'seo',
         severity: 'warning',
         detection,
         message: ctx.project.hasSitemap ? 'sitemap.xml' : 'Missing sitemap.xml',
@@ -93,6 +95,7 @@ export const seo009HtmlLang: Rule = {
     return [
       {
         id: 'SEO009',
+        category: 'seo',
         severity: 'warning',
         detection,
         message,

@@ -43,6 +43,7 @@ export const seo001Title: Rule = {
       const detection = detectTitle(head);
       return {
         id: 'SEO001',
+        category: 'seo',
         severity: 'critical',
         detection,
         route: head.route,

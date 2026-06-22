@@ -44,6 +44,7 @@ export function headTagRule(opts: HeadTagRuleOptions): Rule {
               : opts.label;
         return {
           id: opts.id,
+          category: 'seo',
           severity: opts.severity,
           detection,
           route: head.route,

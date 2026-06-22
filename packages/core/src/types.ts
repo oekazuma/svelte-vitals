@@ -59,6 +59,10 @@ export interface Result {
   docsUrl?: string;
   /** Agent-actionable remediation (issue #18). */
   fix?: Fix;
+  /** Vitals category this finding belongs to (default 'seo' when absent). */
+  category?: Category;
+  /** 1-based source line for element-level findings (e.g. a specific <img>). */
+  line?: number;
 }
 
 export type Scope = 'route' | 'project';
