@@ -3,4 +3,4 @@
 </script>
 
 <svelte:head><title>{data.title}</title></svelte:head>
-<img src="/hero.png" alt="hero" />
+<img src="/hero.png" />
