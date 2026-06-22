@@ -1,5 +1,11 @@
 # @svelte-vitals/vite
 
+## 0.2.0
+
+### Minor Changes
+
+- 3c7c36e: Add a dev-time SvelteKit handle, `svelteVitalsHandle` (exported from `@svelte-vitals/vite/hooks`). Added to `src/hooks.server.ts`, it analyzes each visited page's rendered `<head>` in dev and prints SEO warnings for the current route to the terminal — request-driven, dev-only, and never mutates the response.
+
 ## 0.1.2
 
 ### Patch Changes
