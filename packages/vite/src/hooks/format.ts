@@ -23,7 +23,7 @@ export function formatDevReport(route: string, results: Result[], config: Config
 /** Stable signature of a route's penalized findings, so a route is re-printed only when it changes. */
 export function findingSignature(results: Result[], config: Config): string {
   return penalized(results, config)
-    .map((r) => `${r.id}:${effectiveSeverity(r, config)}`)
+    .map((r) => `${r.id}:${effectiveSeverity(r, config)}:${r.detection.presence}:${r.detection.value}`)
     .sort()
     .join('|');
 }

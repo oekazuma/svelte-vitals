@@ -57,4 +57,26 @@ describe('findingSignature', () => {
     const sigB = findingSignature([failing[0]!], config);
     expect(sigA).not.toBe(sigB);
   });
+
+  it('distinguishes a missing tag from an empty one (same id and severity)', () => {
+    const missing: Result[] = [
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/p',
+        message: 'Missing <title>'
+      }
+    ];
+    const empty: Result[] = [
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'own', value: 'absent' },
+        route: '/p',
+        message: 'Empty <title>'
+      }
+    ];
+    expect(findingSignature(missing, config)).not.toBe(findingSignature(empty, config));
+  });
 });
