@@ -1,6 +1,6 @@
-import type { Config, Result, Severity } from '../types.js';
+import type { Category, Config, Result, Severity } from '../types.js';
 import { classify, summarize, effectiveSeverity } from '../summary.js';
-import { computeScore } from '../scoring/score.js';
+import { computeScore, scoresByCategory } from '../scoring/score.js';
 
 const RULE = '────────────────────────';
 const SEVERITY_TITLE: Record<Severity, string> = {
@@ -9,18 +9,26 @@ const SEVERITY_TITLE: Record<Severity, string> = {
   info: 'Info'
 };
 
+const CATEGORY_LABEL: Partial<Record<Category, string>> = {
+  seo: 'SEO',
+  performance: 'Performance',
+  a11y: 'Accessibility',
+  maintainability: 'Maintainability'
+};
+const CATEGORY_ORDER: Category[] = ['seo', 'performance', 'a11y', 'maintainability'];
+
 export interface ConsoleReportOptions {
   byRoute?: boolean;
   /** Mode label shown in the header (default 'static mode'). */
   mode?: string;
 }
 
-function scoreHeader(results: Result[], config: Config): string {
+function scoreLine(label: string, results: Result[], config: Config): string {
   const { score, scoreModel } = computeScore(results, config);
   const parts = [`route avg ${scoreModel.routeAverage}`];
   if (scoreModel.sitePenalty > 0) parts.push(`site −${scoreModel.sitePenalty}`);
   if (scoreModel.criticalCap !== null) parts.push(`capped at ${scoreModel.criticalCap}: critical present`);
-  return `SEO Score: ${score}/100   (${parts.join(' · ')})`;
+  return `${label} Score: ${score}/100   (${parts.join(' · ')})`;
 }
 
 function byRouteTree(results: Result[], config: Config): string[] {
@@ -49,12 +57,13 @@ function byRouteTree(results: Result[], config: Config): string[] {
  */
 export function formatConsoleReport(results: Result[], config: Config, options: ConsoleReportOptions = {}): string {
   const summary = summarize(results, config);
-  const lines: string[] = [
-    `Svelte Vitals  ·  SEO (${options.mode ?? 'static mode'})`,
-    '',
-    scoreHeader(results, config),
-    ''
-  ];
+  const byCat = scoresByCategory(results, config);
+  const present = CATEGORY_ORDER.filter((c) => byCat[c] !== undefined);
+  const header: string[] = [`Svelte Vitals  (${options.mode ?? 'static mode'})`, ''];
+  for (const c of present) {
+    header.push(scoreLine(CATEGORY_LABEL[c] ?? c, results.filter((r) => (r.category ?? 'seo') === c), config));
+  }
+  const lines: string[] = [...header, ''];
 
   const failures = results.filter((r) => classify(r, config) === 'fail');
   for (const severity of ['critical', 'warning', 'info'] as const) {
@@ -64,7 +73,7 @@ export function formatConsoleReport(results: Result[], config: Config, options: 
     for (const r of bucket) {
       lines.push(`✗ ${r.id}  ${r.message}`);
       if (r.route) lines.push(`            ${r.route}`);
-      if (r.location) lines.push(`            ${r.location}`);
+      if (r.location) lines.push(`            ${r.location}${r.line ? `:${r.line}` : ''}`);
     }
     lines.push('');
   }

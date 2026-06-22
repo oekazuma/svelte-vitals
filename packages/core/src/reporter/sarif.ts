@@ -18,7 +18,7 @@ interface SarifResult {
   ruleIndex: number;
   level: SarifLevel;
   message: { text: string };
-  locations?: { physicalLocation: { artifactLocation: { uri: string } } }[];
+  locations?: { physicalLocation: { artifactLocation: { uri: string }; region?: { startLine: number } } }[];
   partialFingerprints: Record<string, string>;
 }
 
@@ -50,7 +50,14 @@ export function formatSarifReport(results: Result[], config: Config, meta: { ver
       partialFingerprints: { 'svelteVitals/v1': `${r.id}:${r.route ?? 'project'}` }
     };
     if (r.location) {
-      result.locations = [{ physicalLocation: { artifactLocation: { uri: r.location } } }];
+      result.locations = [
+        {
+          physicalLocation: {
+            artifactLocation: { uri: r.location },
+            ...(r.line !== undefined ? { region: { startLine: r.line } } : {})
+          }
+        }
+      ];
     }
     return result;
   });

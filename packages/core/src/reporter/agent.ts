@@ -17,7 +17,7 @@ function mdTags(text: string): string {
 /** Render failing findings as an agent-actionable Markdown remediation document (issue #18). */
 export function formatAgentReport(results: Result[], config: Config): string {
   const failing = results.filter((r) => classify(r, config) === 'fail');
-  const lines: string[] = ['# svelte-vitals — SEO fixes', ''];
+  const lines: string[] = ['# svelte-vitals — fixes', ''];
 
   if (failing.length === 0) {
     lines.push('No issues to fix.', '');

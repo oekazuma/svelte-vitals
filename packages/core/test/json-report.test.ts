@@ -23,6 +23,19 @@ const results: Result[] = [
 ];
 
 describe('formatJsonReport', () => {
+  it('exposes a per-category scores map and tags issues with category', () => {
+    const withPerf: Result[] = [
+      ...results,
+      { id: 'PERF001', category: 'performance', severity: 'warning', detection: { presence: 'none', value: 'absent' }, route: '/blog', location: 'src/routes/blog/+page.svelte', line: 42, message: 'Missing <img> width/height' }
+    ];
+    const json = JSON.parse(formatJsonReport(withPerf, config, { version: '0.1.0' }));
+    expect(json.categories.seo.score).toBeTypeOf('number');
+    expect(json.categories.performance.score).toBeTypeOf('number');
+    const blog = json.routes.find((r: { route: string }) => r.route === '/blog');
+    expect(blog.issues[0].category).toBe('performance');
+    expect(blog.issues[0].line).toBe(42);
+  });
+
   it('emits the documented shape with only penalized findings', () => {
     const json = JSON.parse(formatJsonReport(results, config, { version: '0.1.0' }));
     expect(json.version).toBe('0.1.0');

@@ -76,6 +76,23 @@ describe('formatSarifReport', () => {
     expect(run.results[1].partialFingerprints['svelteVitals/v1']).toBe('SEO006:project');
   });
 
+  it('uses result.line as startLine when present', () => {
+    const withLine: Result[] = [
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        line: 42,
+        message: 'Missing <img> width/height'
+      }
+    ];
+    const run = JSON.parse(formatSarifReport(withLine, config, { version: '0.0.0' })).runs[0];
+    expect(run.results[0].locations[0].physicalLocation.region.startLine).toBe(42);
+  });
+
   it('emits a valid empty log when there are no penalized findings', () => {
     const passing: Result[] = [results[2]!];
     const sarif = JSON.parse(formatSarifReport(passing, config, { version: '0.0.0' }));
