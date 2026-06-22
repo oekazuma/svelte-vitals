@@ -1,8 +1,12 @@
-import type { Result, Detection } from '../../types.js';
+import type { Result, Detection, Fix } from '../../types.js';
 import type { HeadTag, ResolvedHead } from '../../head.js';
-import type { Rule, RuleContext } from '../../rule.js';
+import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 
-const DOCS_URL = 'https://svelte-vitals.dev/rules/SEO001';
+const FIX: Fix = {
+  description: 'Add a <title> inside <svelte:head> (a dynamic title is fine).',
+  snippet: '<svelte:head>\n  <title>{data.title}</title>\n</svelte:head>',
+  lang: 'svelte'
+};
 
 function detectTitle(head: ResolvedHead): Detection {
   const title: HeadTag | undefined = head.tags.find((t) => t.kind === 'title');
@@ -30,6 +34,9 @@ export const seo001Title: Rule = {
   category: 'seo',
   severity: 'critical',
   scope: 'route',
+  rationale:
+    'A unique, non-empty <title> is the single strongest on-page SEO signal and the text shown in search results and browser tabs.',
+  fix: FIX,
 
   async check(ctx: RuleContext): Promise<Result[]> {
     return ctx.heads.map((head) => {
@@ -44,12 +51,8 @@ export const seo001Title: Rule = {
         recommendation:
           'Add a <title> inside <svelte:head>, e.g. <title>{data.title}</title>, ' +
           'or set it via your meta component.',
-        docsUrl: DOCS_URL,
-        fix: {
-          description: 'Add a <title> inside <svelte:head> (a dynamic title is fine).',
-          snippet: '<svelte:head>\n  <title>{data.title}</title>\n</svelte:head>',
-          lang: 'svelte'
-        }
+        docsUrl: docsUrlFor('SEO001'),
+        fix: { ...FIX }
       } satisfies Result;
     });
   }

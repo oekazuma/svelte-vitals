@@ -1,4 +1,4 @@
-import type { Category, Config, Detection, Project, Result, Scope, Severity, TreatDynamicAs } from './types.js';
+import type { Category, Config, Detection, Fix, Project, Result, Scope, Severity, TreatDynamicAs } from './types.js';
 import type { ResolvedHead } from './head.js';
 
 /** Input given to every rule. Mode-independent: rules see only ResolvedHead[] (design §8, §10). */
@@ -16,11 +16,20 @@ export interface Rule {
   severity: Severity;
   /** 'route' = evaluated per route, 'project' = site-wide (design §10, §12). */
   scope: Scope;
+  /** Why this rule matters — one or two sentences, surfaced by explain_rule (issue #24). */
+  rationale: string;
+  /** Canonical remediation template, shared by findings and explain_rule (issue #24). */
+  fix?: Fix;
   /**
    * Evaluate the resolved heads. A single rule may return one Result per route,
    * so it always returns an array. Project-scoped rules return a single element.
    */
   check(ctx: RuleContext): Promise<Result[]>;
+}
+
+/** Documentation URL for a rule id. Single source so no per-rule URL can drift (issue #24). */
+export function docsUrlFor(id: string): string {
+  return `https://svelte-vitals.dev/rules/${id}`;
 }
 
 /**

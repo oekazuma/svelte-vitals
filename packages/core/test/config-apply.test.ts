@@ -7,6 +7,7 @@ const ruleA = {
   category: 'seo',
   severity: 'critical',
   scope: 'route',
+  rationale: 'r',
   check: async () => []
 } as Rule;
 const ruleB = {
@@ -15,6 +16,7 @@ const ruleB = {
   category: 'seo',
   severity: 'info',
   scope: 'route',
+  rationale: 'r',
   check: async () => []
 } as Rule;
 
