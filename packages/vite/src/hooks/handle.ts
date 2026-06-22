@@ -1,3 +1,4 @@
+import { DEV } from 'esm-env';
 import type { Handle } from '@sveltejs/kit';
 import {
   allRules,
@@ -35,8 +36,12 @@ async function analyzeAndWarn(
 
     const report = formatDevReport(route, results, config);
     if (report) console.warn(report);
-  } catch {
+  } catch (err) {
     // Dev tooling must never break the request: swallow any parse/rule error.
+    // Set SVELTE_VITALS_DEBUG to surface tool-internal errors while debugging.
+    if (globalThis.process?.env?.SVELTE_VITALS_DEBUG) {
+      console.warn('[svelte-vitals] dev analysis failed:', err);
+    }
   }
 }
 
@@ -45,27 +50,31 @@ async function analyzeAndWarn(
  * in dev only. Add it to `src/hooks.server.ts`, e.g. `sequence(svelteVitalsHandle())`.
  */
 export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handle {
+  // Dev-only. `DEV` (esm-env) resolves statically to `true` under the dev server and
+  // `false` in production builds; on non-Node runtimes (edge) its fallback reads no
+  // bare `process`, so it stays `false`. Everywhere but dev this handle is a no-op,
+  // and we skip building the rule set entirely.
+  if (!DEV) return ({ event, resolve }) => resolve(event);
+
+  // treatDynamicAs/failOn intentionally left at defaults: rendered HTML never yields
+  // `dynamic` values (so treatDynamicAs is moot) and this handle reports rather than
+  // gates (so failOn is unused).
   const config = defineConfig({
     metaComponents: options.metaComponents ?? [],
-    rules: options.rules ?? {},
-    treatDynamicAs: 'pass',
-    failOn: 'critical'
+    rules: options.rules ?? {}
   });
   const rules = selectRules(allRules, config);
   const lastSignature = new Map<string, string>();
 
   return ({ event, resolve }) => {
-    // Dev-only: run analysis only under a Node dev server. In production — and in
-    // non-Node runtimes (edge adapters) where `process` is undefined — pass through
-    // untouched. Guarding `typeof process` first avoids a ReferenceError that would
-    // otherwise crash every request on edge deployments.
-    if (typeof process === 'undefined' || process.env.NODE_ENV === 'production') return resolve(event);
-
     let buffer = '';
     return resolve(event, {
-      transformPageChunk: async ({ html, done }) => {
+      transformPageChunk: ({ html, done }) => {
         buffer += html;
-        if (done) await analyzeAndWarn(buffer, event.route.id ?? event.url.pathname, rules, config, lastSignature);
+        // Observe-only: return the chunk unchanged and never block the response on
+        // analysis. We fire-and-forget on the final chunk; analyzeAndWarn swallows
+        // its own errors, so the floating promise can never reject.
+        if (done) void analyzeAndWarn(buffer, event.route.id ?? event.url.pathname, rules, config, lastSignature);
         return html;
       }
     });

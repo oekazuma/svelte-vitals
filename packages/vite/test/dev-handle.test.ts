@@ -23,6 +23,11 @@ function resolveWith(chunks: string[]) {
   }) as Parameters<Handle>[0]['resolve'];
 }
 
+// The handle analyzes fire-and-forget (it never blocks the response), so the
+// resulting console.warn lands a few microtasks after handle() resolves. One
+// macrotask tick drains that chain — analysis is purely in-memory, no real I/O.
+const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
+
 const PAGE_NO_TITLE = '<html lang="en"><head><meta name="description" content="x"></head><body></body></html>';
 const PAGE_OK =
   '<html lang="en"><head><title>Home</title><meta name="description" content="x">' +
@@ -37,6 +42,7 @@ describe('svelteVitalsHandle', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const handle = svelteVitalsHandle();
     await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
     const out = warn.mock.calls.map((c) => String(c[0])).join('\n');
     expect(out).toContain('[svelte-vitals] /none');
     expect(out).toContain('✗ SEO001  Missing <title>');
@@ -46,6 +52,7 @@ describe('svelteVitalsHandle', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const handle = svelteVitalsHandle();
     await handle({ event: fakeEvent('/ok', '/ok'), resolve: resolveWith([PAGE_OK]) });
+    await flush();
     expect(warn).not.toHaveBeenCalled();
   });
 
@@ -63,16 +70,23 @@ describe('svelteVitalsHandle', () => {
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
     const handle = svelteVitalsHandle();
     await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
     await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
     expect(warn).toHaveBeenCalledTimes(1);
   });
 
-  it('is a pass-through in production (no transformPageChunk, no output)', async () => {
+  // Outside dev (production builds, and non-Node/edge runtimes), esm-env resolves
+  // `DEV` to false, so the handle short-circuits to a pass-through. Mocking esm-env
+  // is the canonical way to exercise that branch — `DEV` is a static import, not a
+  // runtime read of NODE_ENV, so toggling env vars wouldn't flip it.
+  it('is a pass-through when not in dev (no transformPageChunk, no output)', async () => {
+    vi.resetModules();
+    vi.doMock('esm-env', () => ({ DEV: false }));
     const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    const prev = process.env.NODE_ENV;
-    process.env.NODE_ENV = 'production';
     try {
-      const handle = svelteVitalsHandle();
+      const { svelteVitalsHandle: prodHandle } = await import('../src/hooks/index.js');
+      const handle = prodHandle();
       const res = (await handle({
         event: fakeEvent('/none', '/none'),
         resolve: resolveWith([PAGE_NO_TITLE])
@@ -80,26 +94,8 @@ describe('svelteVitalsHandle', () => {
       expect(res.transformed).toBe(false);
       expect(warn).not.toHaveBeenCalled();
     } finally {
-      // Restore precisely: assigning `undefined` would coerce to the string
-      // 'undefined' and leave the var set, polluting later tests.
-      if (prev === undefined) delete process.env.NODE_ENV;
-      else process.env.NODE_ENV = prev;
-    }
-  });
-
-  it('passes through when process is undefined (non-Node/edge runtime)', async () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
-    const handle = svelteVitalsHandle();
-    vi.stubGlobal('process', undefined);
-    try {
-      const res = (await handle({
-        event: fakeEvent('/none', '/none'),
-        resolve: resolveWith([PAGE_NO_TITLE])
-      })) as unknown as { transformed: boolean };
-      expect(res.transformed).toBe(false);
-      expect(warn).not.toHaveBeenCalled();
-    } finally {
-      vi.unstubAllGlobals();
+      vi.doUnmock('esm-env');
+      vi.resetModules();
     }
   });
 
