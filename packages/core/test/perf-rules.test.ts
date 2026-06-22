@@ -31,8 +31,14 @@ describe('PERF001 image dimensions', () => {
     expect(r!.detection).toEqual({ presence: 'own', value: 'static' }); // a seeding pass result
   });
 
-  it('emits one passing result for a route with no images', async () => {
+  it('emits nothing for a route with no images (no Performance signal)', async () => {
     const ctx = ctxWith([{ route: '/empty', images: [] }]);
+    const results = await perf001ImageDimensions.check(ctx);
+    expect(results).toHaveLength(0);
+  });
+
+  it('seeds a single passing result for an imaged route whose images all pass', async () => {
+    const ctx = ctxWith([{ route: '/a', images: [img({})] }]);
     const results = await perf001ImageDimensions.check(ctx);
     expect(results).toHaveLength(1);
     expect(results[0]!.detection.presence).toBe('own');

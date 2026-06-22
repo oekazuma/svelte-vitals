@@ -29,9 +29,12 @@ export function imageRule(opts: ImageRuleOptions): Rule {
     async check(ctx: RuleContext): Promise<Result[]> {
       const out: Result[] = [];
       for (const route of ctx.images ?? []) {
+        // A route with no <img> has no Performance signal: emit nothing so it is
+        // neither penalized nor seeded (a zero-image project hides the category).
+        if (route.images.length === 0) continue;
         const bad = route.images.filter((img) => !opts.ok(img));
         if (bad.length === 0) {
-          // One passing result per route seeds it at 100 for the per-category score.
+          // One passing result per imaged route seeds it at 100 for the per-category score.
           out.push({
             id: opts.id,
             category: 'performance',

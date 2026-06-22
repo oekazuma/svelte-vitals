@@ -11,7 +11,7 @@ import {
   defineConfig
 } from '@svelte-vitals/core';
 import { createNodeRuntime } from '../src/runtime/node.js';
-import { sourceHeadProvider, sourceImageProvider } from '../src/providers/source/routes.js';
+import { collectRoutes, sourceHeadProvider, sourceImageProvider } from '../src/providers/source/routes.js';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';
 
 const fixtureDir = join(dirname(fileURLToPath(import.meta.url)), 'fixtures', 'basic-project');
@@ -113,6 +113,27 @@ describe('SourceImageProvider (in-memory runtime)', () => {
     expect(layoutImg).toMatchObject({ hasWidth: true, hasHeight: true, hasLoading: true });
     const pageImg = blog.images.find((i: ImageInfo) => i.file === 'src/routes/blog/+page.svelte');
     expect(pageImg).toMatchObject({ hasWidth: false, hasHeight: false, hasLoading: false });
+  });
+});
+
+describe('collectRoutes (single-pass heads + images)', () => {
+  it('returns heads and images for the same routes from one collection', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+page.svelte': '<svelte:head><title>Home</title></svelte:head>',
+      'src/routes/blog/+page.svelte': '<img src="/hero.png" />'
+    });
+    const { heads, images } = await collectRoutes(rt, '');
+    expect(heads.map((h) => h.route).sort()).toEqual(['/', '/blog']);
+    expect(images.map((i) => i.route).sort()).toEqual(['/', '/blog']);
+
+    // The image-bearing route exposes its <img>; the image-less route is empty.
+    const byRoute = new Map(images.map((i) => [i.route, i]));
+    expect(byRoute.get('/blog')!.images).toHaveLength(1);
+    expect(byRoute.get('/')!.images).toHaveLength(0);
+
+    // Head composition is intact alongside image collection.
+    const home = heads.find((h) => h.route === '/')!;
+    expect(home.tags.some((t) => t.kind === 'title')).toBe(true);
   });
 });
 
