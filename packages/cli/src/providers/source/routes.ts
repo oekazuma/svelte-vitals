@@ -31,7 +31,11 @@ export function deriveRoute(pageRel: string): string {
  * Build the layout chain (root → leaf) for a route, then append the page itself.
  * All layout levels are resolved (design §5); +layout@/+page@ breakouts are not.
  */
-export async function chainFiles(rt: Runtime, cwd: string, pageRel: string): Promise<Array<{ rel: string; isPage: boolean }>> {
+export async function chainFiles(
+  rt: Runtime,
+  cwd: string,
+  pageRel: string
+): Promise<Array<{ rel: string; isPage: boolean }>> {
   const dir = pageRel.slice(0, -'/+page.svelte'.length); // 'src/routes/blog/[slug]'
   const extra = dir.slice(ROUTES_DIR.length); // '' or '/blog/[slug]'
   const segments = extra.length === 0 ? [] : extra.split('/').filter(Boolean);

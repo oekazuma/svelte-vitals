@@ -127,6 +127,17 @@ describe('run() performance rules', () => {
   });
 });
 
+describe('run() accessibility rules', () => {
+  it('reports an Accessibility finding for an <img> without alt', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, reporter: 'json', log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
+    const json = JSON.parse(cap.out.join('\n'));
+    expect(json.categories.a11y).toBeDefined();
+    const img = json.routes.find((r: { route: string }) => r.route === '/img');
+    expect(img.issues.some((i: { id: string }) => i.id === 'a11y_missing_attribute')).toBe(true);
+  });
+});
+
 describe('run() agent reporter', () => {
   it('emits the agent Markdown report when reporter is agent', async () => {
     const cap = capture();

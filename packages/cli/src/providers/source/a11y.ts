@@ -18,7 +18,7 @@ function firstLine(message: string): string {
 
 /** Compile one file and return its mapped a11y warnings. Resilient: returns [] if compile throws. */
 function fileA11y(source: string, rel: string): A11yWarning[] {
-  let warnings: ReadonlyArray<{ code?: string; message?: string; start?: { line?: number } }> = [];
+  let warnings: ReadonlyArray<{ code?: string; message?: string; start?: { line?: number } }>;
   try {
     ({ warnings = [] } = compile(source, { generate: false, filename: rel }) as {
       warnings?: ReadonlyArray<{ code?: string; message?: string; start?: { line?: number } }>;
@@ -46,6 +46,8 @@ function fileA11y(source: string, rel: string): A11yWarning[] {
  * and a warning-free route emits one passing seed so the a11y score anchors at 100.
  */
 export async function collectA11y(rt: Runtime, cwd: string, config: Config = defaultConfig): Promise<Result[]> {
+  // Sentinel set by buildRulesConfig when the allow-list contains no a11y codes.
+  if (config.rules['a11y_category'] === 'off') return [];
   const pages = await enumerateRoutePages(rt, cwd);
   const cache = new Map<string, A11yWarning[]>();
   const results: Result[] = [];
