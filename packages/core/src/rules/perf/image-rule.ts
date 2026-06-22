@@ -34,7 +34,8 @@ export function imageRule(opts: ImageRuleOptions): Rule {
         if (route.images.length === 0) continue;
         const bad = route.images.filter((img) => !opts.ok(img));
         if (bad.length === 0) {
-          // One passing result per imaged route seeds it at 100 for the per-category score.
+          // One passing result per imaged route seeds it at 100 for the per-category
+          // score. A passing result carries no `fix` — there is nothing to remediate.
           out.push({
             id: opts.id,
             category: 'performance',
@@ -43,8 +44,7 @@ export function imageRule(opts: ImageRuleOptions): Rule {
             route: route.route,
             message: opts.label,
             recommendation: opts.recommendation,
-            docsUrl,
-            ...(opts.fix ? { fix: { ...opts.fix } } : {})
+            docsUrl
           });
           continue;
         }

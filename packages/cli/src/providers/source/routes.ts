@@ -128,13 +128,3 @@ export const sourceHeadProvider: HeadProvider = {
     return (await collectRoutes(rt, cwd, config)).heads;
   }
 };
-
-/**
- * SourceImageProvider — static mode. Returns one ResolvedImages per route for
- * Performance rules (a route's facts include images from its layout chain).
- */
-export const sourceImageProvider = {
-  async collect(rt: Runtime, cwd: string, config: Config = defaultConfig): Promise<ResolvedImages[]> {
-    return (await collectRoutes(rt, cwd, config)).images;
-  }
-};

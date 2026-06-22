@@ -90,5 +90,6 @@ No new failure modes. Files that fail to parse already surface as execution erro
 
 - Plugin-mode (`@svelte-vitals/vite`) image checks on prerendered HTML.
 - `preload`, adapter-config, and large-import performance rules.
+- **Image sources other than a literal `<img>` element**: `<enhanced:img>` (`@sveltejs/enhanced-img`), `<picture>`/`<source>`, `<svelte:element this="img">`, and component-based images (e.g. a `<Image>` wrapper). Only `RegularElement` nodes named `img` are inspected in v0.4; the others surface no findings (no false positives, but also no coverage) and are candidates for later increments.
 - Per-image precise locations beyond `line` (e.g. column), and report-level dedup of a shared layout image across routes.
 - The weighted combined Health Report (how SEO/Performance/A11y/Upgrade roll up into one number) — a later 0.x increment, not 1.0 work.

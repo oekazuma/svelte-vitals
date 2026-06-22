@@ -42,6 +42,8 @@ describe('PERF001 image dimensions', () => {
     const results = await perf001ImageDimensions.check(ctx);
     expect(results).toHaveLength(1);
     expect(results[0]!.detection.presence).toBe('own');
+    // A passing seed has nothing to remediate, so it carries no fix.
+    expect('fix' in results[0]!).toBe(false);
   });
 
   it('emits one finding per offending image', async () => {

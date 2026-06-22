@@ -11,7 +11,7 @@ import {
   defineConfig
 } from '@svelte-vitals/core';
 import { createNodeRuntime } from '../src/runtime/node.js';
-import { collectRoutes, sourceHeadProvider, sourceImageProvider } from '../src/providers/source/routes.js';
+import { collectRoutes, sourceHeadProvider } from '../src/providers/source/routes.js';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';
 
 const fixtureDir = join(dirname(fileURLToPath(import.meta.url)), 'fixtures', 'basic-project');
@@ -97,13 +97,13 @@ describe('SourceHeadProvider component detection (layers 2-4)', () => {
   });
 });
 
-describe('SourceImageProvider (in-memory runtime)', () => {
+describe('collectRoutes image collection (in-memory runtime)', () => {
   it('collects images from layout and page per route', async () => {
     const rt = createMemoryRuntime({
       'src/routes/+layout.svelte': '<img src="/logo.png" width="100" height="100" loading="lazy" />',
       'src/routes/blog/+page.svelte': '<img src="/hero.png" />'
     });
-    const resolved = await sourceImageProvider.collect(rt, '');
+    const { images: resolved } = await collectRoutes(rt, '');
     const byRoute = new Map(resolved.map((r) => [r.route, r]));
     const blog = byRoute.get('/blog')!;
     expect(blog).toBeDefined();
