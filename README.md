@@ -132,6 +132,10 @@ The key design goal is **no false negatives**. SvelteKit metadata is usually dyn
 
 A dynamic title such as `<title>{data.title}</title>` — the most common and correct SvelteKit pattern — is **never** flagged as missing. It passes with a `↯` marker instead. Only genuinely missing (`none`) or empty (`absent`) metadata is penalized.
 
+### Known limitations
+
+- **Layout breakouts are not resolved** ([#12](https://github.com/oekazuma/svelte-vitals/issues/12)). The static-mode resolver walks the full `+layout.svelte` chain and does not yet account for SvelteKit's layout reset/breakout files (`+page@.svelte`, `+page@segment.svelte`, `+layout@.svelte`). A route that breaks out of its layout chain may therefore be composed against the wrong set of layouts (or skipped). This is rare in practice; until proper breakout resolution lands, scope the run to the routes you trust with `--route`, or check the affected pages in **plugin mode** (`@svelte-vitals/vite`), which inspects the real prerendered HTML and is unaffected.
+
 ## Roadmap
 
 The project advances along two axes: **mode maturity** and **category coverage**. SEO is the first category; more follow.
