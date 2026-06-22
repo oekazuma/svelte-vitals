@@ -31,6 +31,26 @@ const results: Result[] = [
 ];
 
 describe('formatAgentReport', () => {
+  it('groups performance findings and uses a category-neutral heading', () => {
+    const withPerf: Result[] = [
+      ...results,
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        line: 42,
+        message: 'Missing <img> width/height',
+        fix: { description: 'Add width/height.', snippet: '<img width="1" height="1" />', lang: 'svelte' }
+      }
+    ];
+    const md = formatAgentReport(withPerf, config);
+    expect(md).toContain('PERF001');
+    expect(md).toMatch(/^# svelte-vitals/m); // heading no longer says "SEO fixes"
+  });
+
   it('lists only failing findings, grouped, with fix snippet and acceptance', () => {
     const md = formatAgentReport(results, config);
     expect(md).toContain('## src/routes/a/+page.svelte');

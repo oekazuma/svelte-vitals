@@ -9,6 +9,7 @@ import {
   seo008JsonLd
 } from './seo/seo002-005-008.js';
 import { seo006Robots, seo007Sitemap, seo009HtmlLang } from './seo/project-rules.js';
+import { perf001ImageDimensions, perf002ImageLoading } from './perf/images.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -19,7 +20,9 @@ export const allRules: Rule[] = [
   seo006Robots,
   seo007Sitemap,
   seo008JsonLd,
-  seo009HtmlLang
+  seo009HtmlLang,
+  perf001ImageDimensions,
+  perf002ImageLoading
 ];
 
 export {
@@ -31,7 +34,9 @@ export {
   seo006Robots,
   seo007Sitemap,
   seo008JsonLd,
-  seo009HtmlLang
+  seo009HtmlLang,
+  perf001ImageDimensions,
+  perf002ImageLoading
 };
 
 export interface RuleInfo {

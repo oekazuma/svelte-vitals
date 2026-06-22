@@ -1,4 +1,12 @@
-import type { Config, HeadProvider, HeadTag, ResolvedHead, Runtime } from '@svelte-vitals/core';
+import type {
+  Config,
+  HeadProvider,
+  HeadTag,
+  ImageInfo,
+  ResolvedHead,
+  ResolvedImages,
+  Runtime
+} from '@svelte-vitals/core';
 import { defaultConfig } from '@svelte-vitals/core';
 import { enumerateRoutePages } from './project.js';
 import { parseFile } from './parse.js';
@@ -39,18 +47,33 @@ async function chainFiles(rt: Runtime, cwd: string, pageRel: string): Promise<Ar
   return files;
 }
 
-/** Compose the effective head for one route by walking its chain (child overrides parent). */
-async function resolveRoute(rt: Runtime, cwd: string, pageRel: string, config: Config): Promise<ResolvedHead> {
+/** Per-route facts produced by a single walk of the layout chain. */
+interface RouteFacts {
+  head: ResolvedHead;
+  images: ResolvedImages;
+}
+
+/**
+ * Resolve one route by walking its layout chain once: each file is read and
+ * parsed a single time, yielding both the composed head (child overrides parent)
+ * and the route's <img> facts. Heads and images therefore share one parse pass.
+ */
+async function resolveRoute(rt: Runtime, cwd: string, pageRel: string, config: Config): Promise<RouteFacts> {
   const files = await chainFiles(rt, cwd, pageRel);
   const composed = new Map<string, HeadTag>();
   let broadOwn = false;
   let broadInherited = false;
+  const images: ImageInfo[] = [];
 
   for (const { rel, isPage } of files) {
     const source = await rt.readFile(rt.join(cwd, rel));
     const parsed = parseFile(source, rel);
-    const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]));
 
+    for (const img of parsed.images) {
+      images.push({ ...img, file: rel });
+    }
+
+    const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]));
     for (const tag of resolved.tags) {
       composed.set(tagKey(tag), { ...tag, presence: isPage ? 'own' : 'inherited', file: rel });
     }
@@ -69,11 +92,29 @@ async function resolveRoute(rt: Runtime, cwd: string, pageRel: string, config: C
     }
   }
 
+  const route = deriveRoute(pageRel);
   return {
-    route: deriveRoute(pageRel),
-    source: 'static',
-    tags: [...composed.values()],
-    file: pageRel
+    head: { route, source: 'static', tags: [...composed.values()], file: pageRel },
+    images: { route, images }
+  };
+}
+
+/**
+ * Static-mode collection: enumerate route pages and walk each route's layout
+ * chain exactly once, returning both the mode-independent ResolvedHead[] (design
+ * §8) and the per-route ResolvedImages[] for Performance rules from a single
+ * parse pass per file.
+ */
+export async function collectRoutes(
+  rt: Runtime,
+  cwd: string,
+  config: Config = defaultConfig
+): Promise<{ heads: ResolvedHead[]; images: ResolvedImages[] }> {
+  const pages = await enumerateRoutePages(rt, cwd);
+  const facts = await Promise.all(pages.map((page) => resolveRoute(rt, cwd, page, config)));
+  return {
+    heads: facts.map((f) => f.head),
+    images: facts.map((f) => f.images)
   };
 }
 
@@ -84,7 +125,6 @@ async function resolveRoute(rt: Runtime, cwd: string, pageRel: string, config: C
 export const sourceHeadProvider: HeadProvider = {
   mode: 'static',
   async collect(rt, cwd, config = defaultConfig) {
-    const pages = await enumerateRoutePages(rt, cwd);
-    return Promise.all(pages.map((page) => resolveRoute(rt, cwd, page, config)));
+    return (await collectRoutes(rt, cwd, config)).heads;
   }
 };

@@ -1,14 +1,16 @@
 import type { Config, Result } from '../types.js';
-import { computeScore, type ScoreModel } from '../scoring/score.js';
+import { computeScore, scoresByCategory, type ScoreModel } from '../scoring/score.js';
 import { summarize, effectiveSeverity, type Summary } from '../summary.js';
 import { isPenalized } from '../rule.js';
 
 function issueOf(result: Result) {
   return {
     id: result.id,
+    category: result.category ?? 'seo',
     title: result.message,
     detection: result.detection,
     location: result.location,
+    ...(result.line !== undefined ? { line: result.line } : {}),
     recommendation: result.recommendation,
     ...(result.docsUrl ? { docsUrl: result.docsUrl } : {}),
     ...(result.fix ? { fix: result.fix } : {})
@@ -21,6 +23,7 @@ export interface JsonReport {
   version: string;
   score: number;
   scoreModel: ScoreModel;
+  categories: Record<string, { score: number; scoreModel: ScoreModel }>;
   summary: Summary;
   routes: Array<{ route: string; score: number; issues: JsonIssue[] }>;
   siteIssues: JsonIssue[];
@@ -28,8 +31,15 @@ export interface JsonReport {
 
 /** Build the structured JSON report object (design §7). Shared by the json reporter and the MCP `analyze` tool (issue #24). */
 export function buildJsonReport(results: Result[], config: Config, meta: { version: string }): JsonReport {
-  const { score, scoreModel } = computeScore(results, config);
+  // Top-level score = SEO subset for backward compat (existing consumers only see SEO).
+  const seoResults = results.filter((r) => (r.category ?? 'seo') === 'seo');
+  const { score, scoreModel } = computeScore(seoResults, config);
   const summary = summarize(results, config);
+
+  const byCat = scoresByCategory(results, config);
+  const categories = Object.fromEntries(
+    Object.entries(byCat).map(([cat, sr]) => [cat, { score: sr.score, scoreModel: sr.scoreModel }])
+  );
 
   const routeMap = new Map<string, { route: string; results: Result[] }>();
   for (const r of results) {
@@ -52,7 +62,7 @@ export function buildJsonReport(results: Result[], config: Config, meta: { versi
     .filter((r) => r.route === undefined && isPenalized(r.detection, config.treatDynamicAs))
     .map((r) => ({ ...issueOf(r), severity: effectiveSeverity(r, config) }));
 
-  return { version: meta.version, score, scoreModel, summary, routes, siteIssues };
+  return { version: meta.version, score, scoreModel, categories, summary, routes, siteIssues };
 }
 
 /** Render results as the documented JSON report string (design §7). */

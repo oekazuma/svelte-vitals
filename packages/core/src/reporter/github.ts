@@ -24,7 +24,10 @@ export function formatGithubReport(results: Result[], config: Config): string {
     const meta = ruleMetaById(r.id);
     const title = meta ? `${r.id}: ${meta.title}` : r.id;
     const props: string[] = [];
-    if (r.location) props.push(`file=${escapeProp(r.location)}`);
+    if (r.location) {
+      props.push(`file=${escapeProp(r.location)}`);
+      if (r.line !== undefined) props.push(`line=${r.line}`);
+    }
     props.push(`title=${escapeProp(title)}`);
     return `::${level} ${props.join(',')}::${escapeData(messageText(r))}`;
   });

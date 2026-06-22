@@ -1,9 +1,12 @@
 import type { Category, Config, Detection, Fix, Project, Result, Scope, Severity, TreatDynamicAs } from './types.js';
 import type { ResolvedHead } from './head.js';
+import type { ResolvedImages } from './images.js';
 
 /** Input given to every rule. Mode-independent: rules see only ResolvedHead[] (design §8, §10). */
 export interface RuleContext {
   heads: ResolvedHead[];
+  /** Per-route <img> elements for Performance rules (absent in modes that don't collect them). */
+  images?: ResolvedImages[];
   project: Project;
   config: Config;
 }

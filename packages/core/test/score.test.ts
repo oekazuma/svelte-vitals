@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { computeScore, defineConfig, type Result } from '../src/index.js';
+import { computeScore, defineConfig, scoresByCategory, type Result } from '../src/index.js';
 
 const pass = (id: string, route: string): Result => ({
   id,
@@ -102,5 +102,60 @@ describe('computeScore (§12 worked example)', () => {
     // single route seeded at 100 not present; routeAverage falls back to 100; site penalty counted once (5) -> 95
     expect(computeScore(results, defineConfig({})).scoreModel.sitePenalty).toBe(5);
     expect(computeScore(results, defineConfig({})).score).toBe(95);
+  });
+});
+
+describe('scoresByCategory', () => {
+  it('scores each category independently', () => {
+    const config = defineConfig({});
+    const results = [
+      {
+        id: 'SEO001',
+        category: 'seo',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'x'
+      },
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'y'
+      },
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'own', value: 'static' },
+        route: '/b',
+        message: 'ok'
+      }
+    ] as const;
+    const byCat = scoresByCategory(results as never, config);
+    expect(byCat.seo).toBeDefined();
+    expect(byCat.performance).toBeDefined();
+    // SEO has a critical on its only route → capped/low; performance has one bad route and one clean route.
+    expect(byCat.performance!.score).toBeGreaterThan(byCat.seo!.score);
+  });
+
+  it('treats a missing category as seo', () => {
+    const config = defineConfig({});
+    const byCat = scoresByCategory(
+      [
+        {
+          id: 'SEO001',
+          severity: 'warning',
+          detection: { presence: 'none', value: 'absent' },
+          route: '/a',
+          message: 'x'
+        }
+      ] as never,
+      config
+    );
+    expect(byCat.seo).toBeDefined();
+    expect(byCat.performance).toBeUndefined();
   });
 });

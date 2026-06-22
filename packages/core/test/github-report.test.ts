@@ -62,6 +62,23 @@ describe('formatGithubReport', () => {
     expect(out).toContain('::Missing title: needed Add <title>, set it.%0ASecond line');
   });
 
+  it('uses result.line in the annotation when present', () => {
+    const results: Result[] = [
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        line: 42,
+        message: 'Missing <img> width/height'
+      }
+    ];
+    const out = formatGithubReport(results, config);
+    expect(out).toContain('line=42');
+  });
+
   it('returns an empty string when there are no penalized findings', () => {
     const passing: Result[] = [
       {

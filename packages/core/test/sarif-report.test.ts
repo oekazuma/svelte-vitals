@@ -76,6 +76,91 @@ describe('formatSarifReport', () => {
     expect(run.results[1].partialFingerprints['svelteVitals/v1']).toBe('SEO006:project');
   });
 
+  it('uses result.line as startLine when present', () => {
+    const withLine: Result[] = [
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        line: 42,
+        message: 'Missing <img> width/height'
+      }
+    ];
+    const run = JSON.parse(formatSarifReport(withLine, config, { version: '0.0.0' })).runs[0];
+    expect(run.results[0].locations[0].physicalLocation.region.startLine).toBe(42);
+  });
+
+  it('produces distinct partialFingerprints for same (id, route) but different line', () => {
+    const twoImages: Result[] = [
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        line: 10,
+        message: 'Missing <img> width/height at line 10'
+      },
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        line: 20,
+        message: 'Missing <img> width/height at line 20'
+      }
+    ];
+    const run = JSON.parse(formatSarifReport(twoImages, config, { version: '0.0.0' })).runs[0];
+    const fp0 = run.results[0].partialFingerprints['svelteVitals/v1'];
+    const fp1 = run.results[1].partialFingerprints['svelteVitals/v1'];
+    expect(fp0).toBe('PERF001:/blog:src/routes/blog/+page.svelte:10');
+    expect(fp1).toBe('PERF001:/blog:src/routes/blog/+page.svelte:20');
+    expect(fp0).not.toBe(fp1);
+  });
+
+  it('produces distinct partialFingerprints for same (id, route, line) but different location (file)', () => {
+    const sameLineDiffFile: Result[] = [
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        line: 5,
+        message: 'Missing <img> width/height in page'
+      },
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/blog',
+        location: 'src/routes/blog/Card.svelte',
+        line: 5,
+        message: 'Missing <img> width/height in card'
+      }
+    ];
+    const run = JSON.parse(formatSarifReport(sameLineDiffFile, config, { version: '0.0.0' })).runs[0];
+    const fp0 = run.results[0].partialFingerprints['svelteVitals/v1'];
+    const fp1 = run.results[1].partialFingerprints['svelteVitals/v1'];
+    expect(fp0).toBe('PERF001:/blog:src/routes/blog/+page.svelte:5');
+    expect(fp1).toBe('PERF001:/blog:src/routes/blog/Card.svelte:5');
+    expect(fp0).not.toBe(fp1);
+  });
+
+  it('SEO fingerprints (no line) are unchanged by the location-in-fingerprint change', () => {
+    const run = JSON.parse(formatSarifReport(results, config, { version: '0.0.0' })).runs[0];
+    expect(run.results[0].partialFingerprints['svelteVitals/v1']).toBe('SEO001:/none');
+    expect(run.results[1].partialFingerprints['svelteVitals/v1']).toBe('SEO006:project');
+  });
+
   it('emits a valid empty log when there are no penalized findings', () => {
     const passing: Result[] = [results[2]!];
     const sarif = JSON.parse(formatSarifReport(passing, config, { version: '0.0.0' }));

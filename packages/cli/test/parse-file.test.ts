@@ -48,6 +48,40 @@ describe('parseFile', () => {
   });
 });
 
+describe('parseFile images', () => {
+  it('collects <img> attribute presence and line (dynamic counts as present)', () => {
+    const src = `<div>\n  <img src="/a.png" width="10" height="10" loading="lazy" />\n  <img src="/b.png" width={w} />\n</div>`;
+    const pf = parseFile(src, 'src/routes/+page.svelte');
+    expect(pf.images).toHaveLength(2);
+    expect(pf.images[0]).toMatchObject({ hasWidth: true, hasHeight: true, hasLoading: true, line: 2 });
+    // width={w} (dynamic) still counts as present; height/loading absent.
+    expect(pf.images[1]).toMatchObject({ hasWidth: true, hasHeight: false, hasLoading: false, line: 3 });
+  });
+
+  it('finds <img> nested inside a block', () => {
+    const pf = parseFile(`{#if cond}<img src="/x.png" />{/if}`, 'x.svelte');
+    expect(pf.images).toHaveLength(1);
+  });
+
+  it('treats spread-only <img> as all attributes present (no false positives)', () => {
+    const pf = parseFile(`<img {...props} />`, 'x.svelte');
+    expect(pf.images).toHaveLength(1);
+    expect(pf.images[0]).toMatchObject({ hasWidth: true, hasHeight: true, hasLoading: true });
+  });
+
+  it('treats <img> with spread + explicit attr as all attributes present', () => {
+    const pf = parseFile(`<img src="/a.png" {...props} />`, 'x.svelte');
+    expect(pf.images).toHaveLength(1);
+    expect(pf.images[0]).toMatchObject({ hasWidth: true, hasHeight: true, hasLoading: true });
+  });
+
+  it('still marks missing attrs as absent when there is no spread', () => {
+    const pf = parseFile(`<img src="/a.png" />`, 'x.svelte');
+    expect(pf.images).toHaveLength(1);
+    expect(pf.images[0]).toMatchObject({ hasWidth: false, hasHeight: false, hasLoading: false });
+  });
+});
+
 describe('attrValueOf', () => {
   it('treats a boolean attribute as absent', () => {
     expect(attrValueOf({ value: true })).toBe('absent');

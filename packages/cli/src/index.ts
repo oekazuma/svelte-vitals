@@ -17,7 +17,7 @@ import {
   type Config
 } from '@svelte-vitals/core';
 import { createNodeRuntime } from './runtime/node.js';
-import { sourceHeadProvider } from './providers/source/routes.js';
+import { collectRoutes } from './providers/source/routes.js';
 import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
 import { readPackageVersion } from './version.js';
 import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
@@ -87,10 +87,12 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   await detectProject(rt, cwd); // throws ProjectError if not a SvelteKit project
 
   const matches = routeMatcher(opts.route);
-  const heads = (await sourceHeadProvider.collect(rt, cwd, config)).filter((h) => matches(h.route));
+  const collected = await collectRoutes(rt, cwd, config);
+  const heads = collected.heads.filter((h) => matches(h.route));
+  const images = collected.images.filter((i) => matches(i.route));
   const project = await collectProjectFacts(rt, cwd);
   const rules = selectRules(allRules, config);
-  const results = applyRuleSeverities(await runRules(rules, { heads, project, config }), config);
+  const results = applyRuleSeverities(await runRules(rules, { heads, images, project, config }), config);
   return { results, config, version: readPackageVersion() };
 }
 

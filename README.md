@@ -147,10 +147,11 @@ The project advances along two axes: **mode maturity** and **category coverage**
 - **Agent & CI integration** — `console`, `json`, `agent` (Markdown remediation), `sarif` (GitHub code scanning), and `github` (inline PR annotations) reporters. The `agent` reporter auto-selects under AI-agent harnesses; `github` under GitHub Actions.
 - **Dev overlay** (`@svelte-vitals/vite`) — warns in-place while developing via `transformPageChunk`, so dynamic routes are seen with real values as pages are visited.
 - **MCP server** (`@svelte-vitals/mcp`) — exposes `analyze` and `explain_rule` tools over stdio so an agent can run analysis in its tool loop and receive structured, fixable findings.
+- **Performance checks** (`0.4`) — static `<img>` analysis: `width`/`height` (CLS) and a `loading` advisory, scored as a separate Performance category alongside SEO.
 
 **Upcoming**
 
-- **More categories** ([#10](https://github.com/oekazuma/svelte-vitals/issues/10)) — Performance, Accessibility, and Upgrade checks, culminating in a combined Health Report at `1.0`.
+- **More categories** ([#10](https://github.com/oekazuma/svelte-vitals/issues/10)) — Accessibility and Upgrade checks, then a combined weighted Health Report — all landing across `0.x` ahead of the `1.0` polish.
 
 See the design document for the full vision.
 

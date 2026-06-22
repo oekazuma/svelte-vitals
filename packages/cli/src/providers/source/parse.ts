@@ -73,6 +73,14 @@ export function attrValue(attributes: Node[], name: string): Value {
   return 'absent';
 }
 
+function lineOf(source: string, offset: unknown): number {
+  if (typeof offset !== 'number' || offset < 0) return 0;
+  let line = 1;
+  const end = Math.min(offset, source.length);
+  for (let i = 0; i < end; i++) if (source[i] === '\n') line++;
+  return line;
+}
+
 function findAttr(attributes: Node[], name: string): Node | undefined {
   if (!Array.isArray(attributes)) return undefined;
   return attributes.find((a) => a?.type === 'Attribute' && a.name === name);
@@ -155,10 +163,40 @@ function collectComponents(node: Node, acc: ComponentUse[]): void {
   }
 }
 
+export interface ParsedImage {
+  hasWidth: boolean;
+  hasHeight: boolean;
+  hasLoading: boolean;
+  /** 1-based source line, or 0 if unknown. */
+  line: number;
+}
+
+function collectImages(node: Node, source: string, acc: ParsedImage[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectImages(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && node.name === 'img') {
+    const attrs: Node[] = node.attributes ?? [];
+    const hasSpread = attrs.some((a: Node) => a?.type === 'SpreadAttribute');
+    acc.push({
+      hasWidth: hasSpread || Boolean(findAttr(attrs, 'width')),
+      hasHeight: hasSpread || Boolean(findAttr(attrs, 'height')),
+      hasLoading: hasSpread || Boolean(findAttr(attrs, 'loading')),
+      line: lineOf(source, node.start)
+    });
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectImages(node[key], source, acc);
+  }
+}
+
 export interface ParsedFile {
   headTags: ParsedTag[];
   components: ComponentUse[];
   imports: ImportMap;
+  images: ParsedImage[];
 }
 
 /** Parse a .svelte source into its layer-1 head tags, component usages, and imports. */
@@ -168,10 +206,13 @@ export function parseFile(source: string, filename: string): ParsedFile {
   collectSvelteHeads(ast.fragment ?? ast, heads);
   const components: ComponentUse[] = [];
   collectComponents(ast.fragment ?? ast, components);
+  const images: ParsedImage[] = [];
+  collectImages(ast.fragment ?? ast, source, images);
   return {
     headTags: heads.flatMap(tagsFromHead),
     components,
-    imports: collectImports(ast)
+    imports: collectImports(ast),
+    images
   };
 }
 
