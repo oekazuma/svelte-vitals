@@ -57,6 +57,11 @@ async function main(): Promise<void> {
       : undefined;
   const treatRaw = argv['treat-dynamic-as'];
   const treatDynamicAs = treatRaw === 'warn' || treatRaw === 'fail' || treatRaw === 'pass' ? treatRaw : undefined;
+  if (typeof treatRaw === 'string' && treatDynamicAs === undefined) {
+    console.error(
+      `svelte-vitals: unknown --treat-dynamic-as '${treatRaw}'; expected pass|warn|fail. Defaulting to 'pass'.`
+    );
+  }
   const route = typeof argv.route === 'string' ? argv.route : undefined;
 
   const toList = (v: unknown) =>

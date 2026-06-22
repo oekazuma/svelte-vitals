@@ -20,7 +20,10 @@ function addImportsFromProgram(program: Node, map: ImportMap): void {
       if (spec.type === 'ImportDefaultSpecifier') {
         map.set(local, { source, imported: 'default' });
       } else if (spec.type === 'ImportSpecifier') {
-        map.set(local, { source, imported: spec.imported?.name ?? local });
+        // `imported` is an Identifier (`.name`) for normal specifiers, or a string
+        // Literal (`.value`) for string-literal specifiers (`import { 'a-b' as c }`).
+        // Falling back to `local` would mislabel the latter (`c` instead of `a-b`).
+        map.set(local, { source, imported: spec.imported?.name ?? spec.imported?.value ?? local });
       }
     }
   }
