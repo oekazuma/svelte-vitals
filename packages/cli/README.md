@@ -5,12 +5,12 @@
 
 > **A SvelteKit SEO checker — not a runtime Web Vitals reporter.**
 > Diagnose your project's SEO health by statically analyzing your source code, before it ships. No browser, no build server, no headless Chrome.
+>
+> **ESM-only** (Node 18+). Ships ES modules only; `require()` is unsupported by design.
 
 ```bash
 npx svelte-vitals
 ```
-
-> **ESM-only** (Node 18+). Ships ES modules only; `require()` is unsupported by design.
 
 > [!NOTE]
 > **Early development.** Currently ships static-mode analysis and the first SEO rule (`<title>` presence). More rules, scoring, and a build-time plugin are on the roadmap. Output may change before `1.0`.
