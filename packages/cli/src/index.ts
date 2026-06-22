@@ -12,7 +12,9 @@ import {
   selectRules,
   applyRuleSeverities,
   type Severity,
-  type RuleSetting
+  type RuleSetting,
+  type Result,
+  type Config
 } from '@svelte-vitals/core';
 import { createNodeRuntime } from './runtime/node.js';
 import { sourceHeadProvider } from './providers/source/routes.js';
@@ -51,14 +53,29 @@ export function routeMatcher(glob: string | undefined): (route: string) => boole
   return (route) => re.test(route.replace(/^\//, ''));
 }
 
+export interface AnalyzeOptions {
+  cwd?: string;
+  metaComponents?: string[];
+  treatDynamicAs?: 'pass' | 'warn' | 'fail';
+  /** Restrict analysis to routes whose path matches this glob (matched against the route path without leading slash). */
+  route?: string;
+  failOn?: Severity;
+  rules?: Record<string, RuleSetting>;
+}
+
+export interface AnalyzeResult {
+  results: Result[];
+  config: Config;
+  version: string;
+}
+
 /**
- * Run static-mode analysis once and return the process exit code (design §6):
- *   0 = no failing findings, 1 = critical finding present, 2 = execution error.
+ * Run static-mode analysis and return the structured findings + resolved config.
+ * Throws ProjectError when `cwd` is not a SvelteKit project. Shared by the CLI's
+ * run() and by @svelte-vitals/mcp (issue #24).
  */
-export async function run(opts: RunOptions = {}): Promise<number> {
+export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<AnalyzeResult> {
   const cwd = opts.cwd ?? process.cwd();
-  const log = opts.log ?? ((line: string) => console.log(line));
-  const errorLog = opts.errorLog ?? ((line: string) => console.error(line));
   const rt = createNodeRuntime();
   const config = defineConfig({
     treatDynamicAs: opts.treatDynamicAs ?? 'pass',
@@ -67,22 +84,48 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     failOn: opts.failOn ?? 'critical'
   });
 
+  await detectProject(rt, cwd); // throws ProjectError if not a SvelteKit project
+
+  const matches = routeMatcher(opts.route);
+  const heads = (await sourceHeadProvider.collect(rt, cwd, config)).filter((h) => matches(h.route));
+  const project = await collectProjectFacts(rt, cwd);
+  const rules = selectRules(allRules, config);
+  const results = applyRuleSeverities(await runRules(rules, { heads, project, config }), config);
+  return { results, config, version: readPackageVersion() };
+}
+
+/**
+ * Run static-mode analysis once and return the process exit code (design §6):
+ *   0 = no failing findings, 1 = critical finding present, 2 = execution error.
+ */
+export async function run(opts: RunOptions = {}): Promise<number> {
+  const log = opts.log ?? ((line: string) => console.log(line));
+  const errorLog = opts.errorLog ?? ((line: string) => console.error(line));
+
+  let analysis: AnalyzeResult;
   try {
-    await detectProject(rt, cwd);
+    analysis = await analyzeProject({
+      cwd: opts.cwd ?? process.cwd(),
+      metaComponents: opts.metaComponents,
+      treatDynamicAs: opts.treatDynamicAs,
+      route: opts.route,
+      failOn: opts.failOn,
+      rules: opts.rules
+    });
   } catch (err) {
     if (err instanceof ProjectError) {
       errorLog(err.message);
       return 2;
     }
-    throw err;
+    // Any other failure during analysis is an internal error: report it and exit 2,
+    // matching the documented exit-code contract (see --help). We deliberately do
+    // not rethrow — the CLI surfaces a clean message rather than an uncaught stack.
+    errorLog(`svelte-vitals: ${err instanceof Error ? err.message : String(err)}`);
+    return 2;
   }
 
   try {
-    const matches = routeMatcher(opts.route);
-    const heads = (await sourceHeadProvider.collect(rt, cwd, config)).filter((h) => matches(h.route));
-    const project = await collectProjectFacts(rt, cwd);
-    const rules = selectRules(allRules, config);
-    const results = applyRuleSeverities(await runRules(rules, { heads, project, config }), config);
+    const { results, config, version } = analysis;
     const env = opts.env ?? process.env;
     const reporter = resolveReporter(opts.reporter, env);
     if (reporter === 'agent' && isAutoDetectedAgent(opts.reporter, env)) {
@@ -96,11 +139,11 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       );
     }
     if (reporter === 'json') {
-      log(formatJsonReport(results, config, { version: readPackageVersion() }));
+      log(formatJsonReport(results, config, { version }));
     } else if (reporter === 'agent') {
       log(formatAgentReport(results, config));
     } else if (reporter === 'sarif') {
-      log(formatSarifReport(results, config, { version: readPackageVersion() }));
+      log(formatSarifReport(results, config, { version }));
     } else if (reporter === 'github') {
       // The github reporter returns '' when there are no findings; skip logging so
       // a clean run emits no stray blank line into the Actions log.
@@ -116,3 +159,6 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     return 2;
   }
 }
+
+export { ProjectError } from './providers/source/project.js';
+export { buildRulesConfig, findUnknownRuleIds, knownRuleIds } from './rules-config.js';

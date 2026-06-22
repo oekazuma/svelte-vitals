@@ -1,6 +1,6 @@
 import type { Detection, Fix, Result, Severity } from '../../types.js';
 import type { HeadTag, ResolvedHead } from '../../head.js';
-import type { Rule, RuleContext } from '../../rule.js';
+import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 
 export interface HeadTagRuleOptions {
   id: string;
@@ -11,6 +11,8 @@ export interface HeadTagRuleOptions {
   /** Short human label, e.g. 'description'. */
   label: string;
   recommendation: string;
+  /** Why this rule matters — surfaced by explain_rule (issue #24). */
+  rationale: string;
   /** Agent-actionable remediation attached to every finding (issue #18). */
   fix?: Fix;
 }
@@ -22,13 +24,15 @@ function detect(head: ResolvedHead, match: (t: HeadTag) => boolean): Detection {
 
 /** Build a route-scope rule asserting the presence of a single head tag (design §11). */
 export function headTagRule(opts: HeadTagRuleOptions): Rule {
-  const docsUrl = `https://svelte-vitals.dev/rules/${opts.id}`;
+  const docsUrl = docsUrlFor(opts.id);
   return {
     id: opts.id,
     title: opts.title,
     category: 'seo',
     severity: opts.severity,
     scope: 'route',
+    rationale: opts.rationale,
+    ...(opts.fix ? { fix: opts.fix } : {}),
     async check(ctx: RuleContext): Promise<Result[]> {
       return ctx.heads.map((head) => {
         const detection = detect(head, opts.match);

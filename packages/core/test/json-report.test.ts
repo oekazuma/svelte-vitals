@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatJsonReport, defineConfig, type Result } from '../src/index.js';
+import { buildJsonReport, formatJsonReport, defineConfig, type Result } from '../src/index.js';
 
 const config = defineConfig({});
 const results: Result[] = [
@@ -16,7 +16,8 @@ const results: Result[] = [
     detection: { presence: 'none', value: 'absent' },
     route: '/a',
     location: 'src/routes/a/+page.svelte',
-    message: 'Missing description'
+    message: 'Missing description',
+    docsUrl: 'https://svelte-vitals.dev/rules/SEO002'
   },
   { id: 'SEO006', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'Missing robots.txt' }
 ];
@@ -32,7 +33,19 @@ describe('formatJsonReport', () => {
     expect(routeA.issues).toHaveLength(1); // only the missing description (SEO001 passed)
     expect(routeA.issues[0].id).toBe('SEO002');
     expect(routeA.issues[0].detection).toEqual({ presence: 'none', value: 'absent' });
+    expect(routeA.issues[0].docsUrl).toBe('https://svelte-vitals.dev/rules/SEO002');
     expect(json.siteIssues).toHaveLength(1);
     expect(json.siteIssues[0].id).toBe('SEO006');
+  });
+
+  it('buildJsonReport returns the object formatJsonReport stringifies', () => {
+    const report = buildJsonReport(results, config, { version: '9.9.9' });
+    expect(report.version).toBe('9.9.9');
+    expect(report).toHaveProperty('score');
+    expect(report).toHaveProperty('scoreModel');
+    expect(report).toHaveProperty('summary');
+    expect(Array.isArray(report.routes)).toBe(true);
+    expect(Array.isArray(report.siteIssues)).toBe(true);
+    expect(formatJsonReport(results, config, { version: '9.9.9' })).toBe(JSON.stringify(report, null, 2));
   });
 });

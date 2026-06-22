@@ -1,4 +1,5 @@
-import type { Rule } from '../rule.js';
+import type { Category, Fix, Severity } from '../types.js';
+import { docsUrlFor, type Rule } from '../rule.js';
 import { seo001Title } from './seo/seo001-title.js';
 import {
   seo002Description,
@@ -32,3 +33,29 @@ export {
   seo008JsonLd,
   seo009HtmlLang
 };
+
+export interface RuleInfo {
+  id: string;
+  title: string;
+  category: Category;
+  severity: Severity;
+  rationale: string;
+  docsUrl: string;
+  fix?: Fix;
+}
+
+/** Look up a rule's static metadata for the MCP explain_rule tool (issue #24). Rule ids are matched case-insensitively. */
+export function explainRule(id: string): RuleInfo | undefined {
+  const target = id.toUpperCase();
+  const rule = allRules.find((r) => r.id === target);
+  if (!rule) return undefined;
+  return {
+    id: rule.id,
+    title: rule.title,
+    category: rule.category,
+    severity: rule.severity,
+    rationale: rule.rationale,
+    docsUrl: docsUrlFor(rule.id),
+    ...(rule.fix ? { fix: rule.fix } : {})
+  };
+}
