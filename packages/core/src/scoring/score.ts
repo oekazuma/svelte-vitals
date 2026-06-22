@@ -1,4 +1,4 @@
-import type { Config, Result, Severity } from '../types.js';
+import type { Category, Config, Result, Severity } from '../types.js';
 import { isPenalized } from '../rule.js';
 import { effectiveSeverity } from '../summary.js';
 
@@ -80,4 +80,18 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
   const score = capBinds ? CRITICAL_CAP : uncapped;
 
   return { score: clamp(score), scoreModel: { routeAverage, sitePenalty, criticalCap } };
+}
+
+/** Compute an independent score per category present in `results` (issue #10). */
+export function scoresByCategory(results: Result[], config: Config): Partial<Record<Category, ScoreResult>> {
+  const byCat = new Map<Category, Result[]>();
+  for (const r of results) {
+    const cat = r.category ?? 'seo';
+    let bucket = byCat.get(cat);
+    if (!bucket) byCat.set(cat, (bucket = []));
+    bucket.push(r);
+  }
+  const out: Partial<Record<Category, ScoreResult>> = {};
+  for (const [cat, rs] of byCat) out[cat] = computeScore(rs, config);
+  return out;
 }
