@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatJsonReport, defineConfig, type Result } from '../src/index.js';
+import { buildJsonReport, formatJsonReport, defineConfig, type Result } from '../src/index.js';
 
 const config = defineConfig({});
 const results: Result[] = [
@@ -34,5 +34,16 @@ describe('formatJsonReport', () => {
     expect(routeA.issues[0].detection).toEqual({ presence: 'none', value: 'absent' });
     expect(json.siteIssues).toHaveLength(1);
     expect(json.siteIssues[0].id).toBe('SEO006');
+  });
+
+  it('buildJsonReport returns the object formatJsonReport stringifies', () => {
+    const report = buildJsonReport(results, config, { version: '9.9.9' });
+    expect(report.version).toBe('9.9.9');
+    expect(report).toHaveProperty('score');
+    expect(report).toHaveProperty('scoreModel');
+    expect(report).toHaveProperty('summary');
+    expect(Array.isArray(report.routes)).toBe(true);
+    expect(Array.isArray(report.siteIssues)).toBe(true);
+    expect(formatJsonReport(results, config, { version: '9.9.9' })).toBe(JSON.stringify(report, null, 2));
   });
 });

@@ -1,6 +1,6 @@
 import type { Config, Result } from '../types.js';
-import { computeScore } from '../scoring/score.js';
-import { summarize, effectiveSeverity } from '../summary.js';
+import { computeScore, type ScoreModel } from '../scoring/score.js';
+import { summarize, effectiveSeverity, type Summary } from '../summary.js';
 import { isPenalized } from '../rule.js';
 
 function issueOf(result: Result) {
@@ -14,8 +14,19 @@ function issueOf(result: Result) {
   };
 }
 
-/** Render results as the documented JSON report string (design §7). */
-export function formatJsonReport(results: Result[], config: Config, meta: { version: string }): string {
+type JsonIssue = ReturnType<typeof issueOf> & { severity: ReturnType<typeof effectiveSeverity> };
+
+export interface JsonReport {
+  version: string;
+  score: number;
+  scoreModel: ScoreModel;
+  summary: Summary;
+  routes: Array<{ route: string; score: number; issues: JsonIssue[] }>;
+  siteIssues: JsonIssue[];
+}
+
+/** Build the structured JSON report object (design §7). Shared by the json reporter and the MCP `analyze` tool (issue #24). */
+export function buildJsonReport(results: Result[], config: Config, meta: { version: string }): JsonReport {
   const { score, scoreModel } = computeScore(results, config);
   const summary = summarize(results, config);
 
@@ -40,5 +51,10 @@ export function formatJsonReport(results: Result[], config: Config, meta: { vers
     .filter((r) => r.route === undefined && isPenalized(r.detection, config.treatDynamicAs))
     .map((r) => ({ ...issueOf(r), severity: effectiveSeverity(r, config) }));
 
-  return JSON.stringify({ version: meta.version, score, scoreModel, summary, routes, siteIssues }, null, 2);
+  return { version: meta.version, score, scoreModel, summary, routes, siteIssues };
+}
+
+/** Render results as the documented JSON report string (design §7). */
+export function formatJsonReport(results: Result[], config: Config, meta: { version: string }): string {
+  return JSON.stringify(buildJsonReport(results, config, meta), null, 2);
 }
