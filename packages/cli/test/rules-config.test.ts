@@ -44,3 +44,11 @@ describe('knownRuleIds', () => {
     expect(ids).toEqual([...ids].sort());
   });
 });
+
+describe('findUnknownRuleIds a11y', () => {
+  it('treats a11y_* codes as known rule ids', () => {
+    expect(findUnknownRuleIds(['a11y_missing_attribute'])).toEqual([]);
+    // a genuinely unknown id is still reported
+    expect(findUnknownRuleIds(['NOPE999'])).toEqual(['NOPE999']);
+  });
+});
