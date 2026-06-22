@@ -31,6 +31,11 @@ const analyzeInputSchema = z.object({
 export const analyzeInputShape = analyzeInputSchema.shape;
 export type AnalyzeArgs = z.infer<typeof analyzeInputSchema>;
 
+/**
+ * Handle the `analyze` tool call: run static-mode analysis and return the
+ * structured JSON report as both text and `structuredContent`. Unknown rule ids
+ * and non-SvelteKit paths are returned as `isError` results, not thrown.
+ */
 export async function handleAnalyze(args: AnalyzeArgs): Promise<McpToolResult> {
   const allow = args.rules ?? [];
   const ignore = args.ignore ?? [];

@@ -14,18 +14,24 @@ describe('analyze tool', () => {
     const report = res.structuredContent as { score: number; routes: unknown[]; summary: unknown };
     expect(typeof report.score).toBe('number');
     expect(Array.isArray(report.routes)).toBe(true);
-    expect(res.content[0]!.text).toContain('score');
+    // The text payload and the structured payload must be the same report — guard
+    // against drift between the two shapes (summary, finding metadata, scores).
+    expect(JSON.parse(res.content[0]!.text)).toEqual(report);
   });
 
   it('reports an error for an unknown rule id', async () => {
     const res = await handleAnalyze({ path: fixtureDir, rules: ['NOPE999'] });
     expect(res.isError).toBe(true);
-    expect(res.content[0]!.text).toContain('NOPE999');
+    const text = res.content[0]!.text;
+    expect(text).toContain('Unknown rule id(s): NOPE999');
+    expect(text).toContain('Known rule ids:');
+    expect(text).toContain('SEO001');
   });
 
   it('reports an error for a non-SvelteKit path', async () => {
     const res = await handleAnalyze({ path: here });
     expect(res.isError).toBe(true);
-    expect(res.content[0]!.text).toContain('SvelteKit');
+    // Propagates the CLI's ProjectError message verbatim.
+    expect(res.content[0]!.text).toContain('No SvelteKit project found');
   });
 });

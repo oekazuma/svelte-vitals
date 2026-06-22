@@ -10,6 +10,7 @@ function issueOf(result: Result) {
     detection: result.detection,
     location: result.location,
     recommendation: result.recommendation,
+    ...(result.docsUrl ? { docsUrl: result.docsUrl } : {}),
     ...(result.fix ? { fix: result.fix } : {})
   };
 }

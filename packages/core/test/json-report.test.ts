@@ -16,7 +16,8 @@ const results: Result[] = [
     detection: { presence: 'none', value: 'absent' },
     route: '/a',
     location: 'src/routes/a/+page.svelte',
-    message: 'Missing description'
+    message: 'Missing description',
+    docsUrl: 'https://svelte-vitals.dev/rules/SEO002'
   },
   { id: 'SEO006', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'Missing robots.txt' }
 ];
@@ -32,6 +33,7 @@ describe('formatJsonReport', () => {
     expect(routeA.issues).toHaveLength(1); // only the missing description (SEO001 passed)
     expect(routeA.issues[0].id).toBe('SEO002');
     expect(routeA.issues[0].detection).toEqual({ presence: 'none', value: 'absent' });
+    expect(routeA.issues[0].docsUrl).toBe('https://svelte-vitals.dev/rules/SEO002');
     expect(json.siteIssues).toHaveLength(1);
     expect(json.siteIssues[0].id).toBe('SEO006');
   });

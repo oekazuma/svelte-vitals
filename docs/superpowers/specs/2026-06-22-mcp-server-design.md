@@ -41,7 +41,7 @@ analysis) proves needed.
 
 ## Architecture & data flow
 
-```
+```text
 agent (MCP client)
   │  tools/call: analyze { path, route?, treatDynamicAs?, rules?, ignore?, failOn? }
   ▼

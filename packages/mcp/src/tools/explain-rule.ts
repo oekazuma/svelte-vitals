@@ -10,6 +10,11 @@ const explainRuleInputSchema = z.object({
 export const explainRuleInputShape = explainRuleInputSchema.shape;
 export type ExplainRuleArgs = z.infer<typeof explainRuleInputSchema>;
 
+/**
+ * Handle the `explain_rule` tool call: look up a rule's static metadata and
+ * return it as both a text rendering and `structuredContent`. An unknown id is
+ * returned as an `isError` result listing the known rule ids.
+ */
 export async function handleExplainRule(args: ExplainRuleArgs): Promise<McpToolResult> {
   const info = explainRule(args.id);
   if (!info) {
