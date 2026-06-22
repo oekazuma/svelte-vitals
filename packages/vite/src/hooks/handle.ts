@@ -55,7 +55,11 @@ export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handl
   const lastSignature = new Map<string, string>();
 
   return ({ event, resolve }) => {
-    if (process.env.NODE_ENV === 'production') return resolve(event);
+    // Dev-only: run analysis only under a Node dev server. In production — and in
+    // non-Node runtimes (edge adapters) where `process` is undefined — pass through
+    // untouched. Guarding `typeof process` first avoids a ReferenceError that would
+    // otherwise crash every request on edge deployments.
+    if (typeof process === 'undefined' || process.env.NODE_ENV === 'production') return resolve(event);
 
     let buffer = '';
     return resolve(event, {

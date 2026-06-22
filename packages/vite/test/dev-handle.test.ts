@@ -80,7 +80,26 @@ describe('svelteVitalsHandle', () => {
       expect(res.transformed).toBe(false);
       expect(warn).not.toHaveBeenCalled();
     } finally {
-      process.env.NODE_ENV = prev;
+      // Restore precisely: assigning `undefined` would coerce to the string
+      // 'undefined' and leave the var set, polluting later tests.
+      if (prev === undefined) delete process.env.NODE_ENV;
+      else process.env.NODE_ENV = prev;
+    }
+  });
+
+  it('passes through when process is undefined (non-Node/edge runtime)', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const handle = svelteVitalsHandle();
+    vi.stubGlobal('process', undefined);
+    try {
+      const res = (await handle({
+        event: fakeEvent('/none', '/none'),
+        resolve: resolveWith([PAGE_NO_TITLE])
+      })) as unknown as { transformed: boolean };
+      expect(res.transformed).toBe(false);
+      expect(warn).not.toHaveBeenCalled();
+    } finally {
+      vi.unstubAllGlobals();
     }
   });
 
