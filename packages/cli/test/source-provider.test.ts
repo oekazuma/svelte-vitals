@@ -4,13 +4,14 @@ import { dirname, join } from 'node:path';
 import {
   seo001Title,
   type Detection,
+  type ImageInfo,
   type ResolvedHead,
   defaultConfig,
   defaultProject,
   defineConfig
 } from '@svelte-vitals/core';
 import { createNodeRuntime } from '../src/runtime/node.js';
-import { sourceHeadProvider } from '../src/providers/source/routes.js';
+import { sourceHeadProvider, sourceImageProvider } from '../src/providers/source/routes.js';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';
 
 const fixtureDir = join(dirname(fileURLToPath(import.meta.url)), 'fixtures', 'basic-project');
@@ -92,6 +93,25 @@ describe('SourceHeadProvider component detection (layers 2-4)', () => {
     const config = defineConfig({ metaComponents: ['Widget'] });
     const [head] = await sourceHeadProvider.collect(rt, '', config);
     expect(titleDetection(head!)).toEqual({ presence: 'own', value: 'dynamic' });
+  });
+});
+
+describe('SourceImageProvider (in-memory runtime)', () => {
+  it('collects images from layout and page per route', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+layout.svelte': '<img src="/logo.png" width="100" height="100" loading="lazy" />',
+      'src/routes/blog/+page.svelte': '<img src="/hero.png" />'
+    });
+    const resolved = await sourceImageProvider.collect(rt, '');
+    const byRoute = new Map(resolved.map((r) => [r.route, r]));
+    const blog = byRoute.get('/blog')!;
+    expect(blog).toBeDefined();
+    // layout image (with all attrs) + page image (missing attrs)
+    expect(blog.images).toHaveLength(2);
+    const layoutImg = blog.images.find((i: ImageInfo) => i.file === 'src/routes/+layout.svelte');
+    expect(layoutImg).toMatchObject({ hasWidth: true, hasHeight: true, hasLoading: true });
+    const pageImg = blog.images.find((i: ImageInfo) => i.file === 'src/routes/blog/+page.svelte');
+    expect(pageImg).toMatchObject({ hasWidth: false, hasHeight: false, hasLoading: false });
   });
 });
 

@@ -1,4 +1,4 @@
-import type { Config, HeadProvider, HeadTag, ResolvedHead, Runtime } from '@svelte-vitals/core';
+import type { Config, HeadProvider, HeadTag, ImageInfo, ResolvedHead, ResolvedImages, Runtime } from '@svelte-vitals/core';
 import { defaultConfig } from '@svelte-vitals/core';
 import { enumerateRoutePages } from './project.js';
 import { parseFile } from './parse.js';
@@ -86,5 +86,36 @@ export const sourceHeadProvider: HeadProvider = {
   async collect(rt, cwd, config = defaultConfig) {
     const pages = await enumerateRoutePages(rt, cwd);
     return Promise.all(pages.map((page) => resolveRoute(rt, cwd, page, config)));
+  }
+};
+
+/** Collect all <img> elements for one route across its layout chain. */
+async function resolveRouteImages(
+  rt: Runtime,
+  cwd: string,
+  pageRel: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _config: Config
+): Promise<ResolvedImages> {
+  const files = await chainFiles(rt, cwd, pageRel);
+  const images: ImageInfo[] = [];
+  for (const { rel } of files) {
+    const source = await rt.readFile(rt.join(cwd, rel));
+    const parsed = parseFile(source, rel);
+    for (const img of parsed.images) {
+      images.push({ ...img, file: rel });
+    }
+  }
+  return { route: deriveRoute(pageRel), images };
+}
+
+/**
+ * SourceImageProvider — static mode. Enumerates route pages, walks each route's
+ * layout chain, and returns one ResolvedImages per route for Performance rules.
+ */
+export const sourceImageProvider = {
+  async collect(rt: Runtime, cwd: string, config: Config = defaultConfig): Promise<ResolvedImages[]> {
+    const pages = await enumerateRoutePages(rt, cwd);
+    return Promise.all(pages.map((page) => resolveRouteImages(rt, cwd, page, config)));
   }
 };

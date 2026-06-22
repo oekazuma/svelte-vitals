@@ -48,6 +48,22 @@ describe('parseFile', () => {
   });
 });
 
+describe('parseFile images', () => {
+  it('collects <img> attribute presence and line (dynamic counts as present)', () => {
+    const src = `<div>\n  <img src="/a.png" width="10" height="10" loading="lazy" />\n  <img src="/b.png" width={w} />\n</div>`;
+    const pf = parseFile(src, 'src/routes/+page.svelte');
+    expect(pf.images).toHaveLength(2);
+    expect(pf.images[0]).toMatchObject({ hasWidth: true, hasHeight: true, hasLoading: true, line: 2 });
+    // width={w} (dynamic) still counts as present; height/loading absent.
+    expect(pf.images[1]).toMatchObject({ hasWidth: true, hasHeight: false, hasLoading: false, line: 3 });
+  });
+
+  it('finds <img> nested inside a block', () => {
+    const pf = parseFile(`{#if cond}<img src="/x.png" />{/if}`, 'x.svelte');
+    expect(pf.images).toHaveLength(1);
+  });
+});
+
 describe('attrValueOf', () => {
   it('treats a boolean attribute as absent', () => {
     expect(attrValueOf({ value: true })).toBe('absent');
