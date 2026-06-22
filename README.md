@@ -109,6 +109,8 @@ export const handle = sequence(svelteVitalsHandle());
 
 It runs in `dev` only (a no-op in production builds) and never modifies the response — it only reads the rendered HTML. Coverage follows navigation: a route is checked when you visit it, and re-warned only when its findings change.
 
+`svelteVitalsHandle` accepts a focused subset of the plugin options — `metaComponents` and per-rule `rules` overrides (e.g. `svelteVitalsHandle({ rules: { SEO008: 'off' } })`). Analysis errors are swallowed so a tool bug never breaks a request; set the `SVELTE_VITALS_DEBUG` env var to surface them in the terminal while debugging.
+
 ### Exit codes
 
 | Code | Meaning                                                         |

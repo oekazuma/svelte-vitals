@@ -106,4 +106,42 @@ describe('svelteVitalsHandle', () => {
       handle({ event: fakeEvent(null, '/x'), resolve: resolveWith(['not really <<< html']) })
     ).resolves.toBeDefined();
   });
+
+  it('honors per-rule overrides from options (rules)', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const handle = svelteVitalsHandle({ rules: { SEO001: 'off' } });
+    await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    const out = warn.mock.calls.map((c) => String(c[0])).join('\n');
+    // The page still trips other rules, so the route is reported — but with SEO001
+    // disabled, the missing-title line is gone. Proves options flow into the config.
+    expect(out).toContain('[svelte-vitals] /none');
+    expect(out).not.toContain('SEO001');
+  });
+
+  it('surfaces swallowed analysis errors when SVELTE_VITALS_DEBUG is set', async () => {
+    vi.resetModules();
+    vi.doMock('../src/providers/rendered/parse-html.js', () => ({
+      parseHtmlHead: () => {
+        throw new Error('boom');
+      }
+    }));
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const prev = process.env.SVELTE_VITALS_DEBUG;
+    process.env.SVELTE_VITALS_DEBUG = '1';
+    try {
+      const { svelteVitalsHandle: debugHandle } = await import('../src/hooks/index.js');
+      const handle = debugHandle();
+      await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+      await flush();
+      const out = warn.mock.calls.map((c) => String(c[0])).join('\n');
+      expect(out).toContain('[svelte-vitals] dev analysis failed:');
+    } finally {
+      // Restore precisely: assigning `undefined` would coerce to the string 'undefined'.
+      if (prev === undefined) delete process.env.SVELTE_VITALS_DEBUG;
+      else process.env.SVELTE_VITALS_DEBUG = prev;
+      vi.doUnmock('../src/providers/rendered/parse-html.js');
+      vi.resetModules();
+    }
+  });
 });
