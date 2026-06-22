@@ -2,12 +2,13 @@
 // parses across runtimes. The adapter is Node-only for now; this only verifies
 // that the import + parse resolve, which is the part that differs per runtime.
 //
-//   Node:  node scripts/verify-svelte-import.mjs
-//   Deno:  deno run -A scripts/verify-svelte-import.mjs
-//   Bun:   bun run scripts/verify-svelte-import.mjs
+//   Node:  node scripts/verify-svelte-import.js
+//   Deno:  deno run -A scripts/verify-svelte-import.js
+//   Bun:   bun run scripts/verify-svelte-import.js
 //
 // `svelte` is a root devDependency, so the bare import resolves from the repo
-// root for every runtime.
+// root for every runtime. A plain `.js` is already ESM under the repo's
+// "type": "module" (issue #20) — no `.mjs` extension needed.
 import { parse, VERSION } from 'svelte/compiler';
 
 const ast = parse('<svelte:head><title>{data.title}</title></svelte:head>', { modern: true });

@@ -4,6 +4,8 @@
 
 Vite/SvelteKit plugin for [svelte-vitals](https://github.com/oekazuma/svelte-vitals). It piggybacks on `vite build`, parses the **prerendered HTML's `<head>`**, and runs the same SEO rules as the CLI — library-agnostic, because it inspects the real output. Fails the build when findings reach `failOn`.
 
+> **ESM-only** (Node 18+). Ships ES modules only; `require()` is unsupported by design.
+
 ## Usage
 
 ```ts

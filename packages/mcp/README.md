@@ -22,4 +22,4 @@ Add to your MCP client config:
 }
 ```
 
-ESM-only. Requires Node 18+.
+**ESM-only** (Node 18+). Ships ES modules only; `require()` is unsupported by design.
