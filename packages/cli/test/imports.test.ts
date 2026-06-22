@@ -19,6 +19,11 @@ describe('collectImports', () => {
     expect(map.get('Mod')).toEqual({ source: 'mod', imported: 'default' });
   });
 
+  it('captures the imported name from a string-literal specifier', () => {
+    const map = imports(`<script>import { 'a-b' as c } from 'mod';</script>`);
+    expect(map.get('c')).toEqual({ source: 'mod', imported: 'a-b' });
+  });
+
   it('returns an empty map when there is no script', () => {
     expect(imports('<title>x</title>').size).toBe(0);
   });
