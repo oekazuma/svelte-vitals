@@ -25,6 +25,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.js"
     }
   },
   "main": "./dist/index.js",
@@ -39,14 +43,23 @@
   },
   "dependencies": {
     "@svelte-vitals/core": "workspace:*",
+    "esm-env": "catalog:",
     "node-html-parser": "catalog:",
     "tinyglobby": "catalog:"
   },
   "peerDependencies": {
+    "@sveltejs/kit": "catalog:",
     "vite": "catalog:"
   },
+  "peerDependenciesMeta": {
+    "@sveltejs/kit": {
+      "optional": true
+    }
+  },
   "devDependencies": {
+    "@sveltejs/kit": "catalog:",
     "@types/node": "catalog:",
+    "svelte": "catalog:",
     "vite": "catalog:"
   }
 }
