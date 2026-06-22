@@ -60,4 +60,12 @@ describe('collectA11y', () => {
     // no throw; the unparseable route simply yields a seed (no a11y findings)
     expect(results.every((r) => r.category === 'a11y')).toBe(true);
   });
+
+  it('returns [] when a11y_category sentinel is off (allow-list with no a11y code)', async () => {
+    // A route with a missing alt attribute would normally yield a11y_missing_attribute.
+    const rt = createMemoryRuntime({ 'src/routes/+page.svelte': `<img src="/a.png" />` });
+    const suppressed = defineConfig({ rules: { a11y_category: 'off' } });
+    const results = await collectA11y(rt, '', suppressed);
+    expect(results).toEqual([]);
+  });
 });

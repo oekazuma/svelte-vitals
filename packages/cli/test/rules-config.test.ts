@@ -52,3 +52,23 @@ describe('findUnknownRuleIds a11y', () => {
     expect(findUnknownRuleIds(['NOPE999'])).toEqual(['NOPE999']);
   });
 });
+
+describe('buildRulesConfig a11y_category sentinel', () => {
+  it('sets a11y_category to off when allow-list has no a11y code', () => {
+    const cfg = buildRulesConfig(['SEO001'], []);
+    expect(cfg['a11y_category']).toBe('off');
+  });
+
+  it('does NOT set a11y_category when allow-list includes an a11y code', () => {
+    const cfg = buildRulesConfig(['SEO001', 'a11y_missing_attribute'], []);
+    expect(cfg['a11y_category']).toBeUndefined();
+  });
+
+  it('does NOT set a11y_category when allow-list is empty (no --rules flag)', () => {
+    expect(buildRulesConfig([], [])['a11y_category']).toBeUndefined();
+  });
+
+  it('does NOT set a11y_category when only ignore-list is given', () => {
+    expect(buildRulesConfig([], ['a11y_missing_attribute'])['a11y_category']).toBeUndefined();
+  });
+});
