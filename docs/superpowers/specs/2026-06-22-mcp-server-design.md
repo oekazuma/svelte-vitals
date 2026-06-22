@@ -70,7 +70,11 @@ export interface AnalyzeOptions {
   failOn?: Severity;
   rules?: Record<string, RuleSetting>;
 }
-export interface AnalyzeResult { results: Result[]; config: Config; version: string; }
+export interface AnalyzeResult {
+  results: Result[];
+  config: Config;
+  version: string;
+}
 
 export async function analyzeProject(opts: AnalyzeOptions): Promise<AnalyzeResult>;
 ```
@@ -108,8 +112,13 @@ them to the `Rule` definition so the catalog and the findings share one source:
 
 ```ts
 export interface RuleInfo {
-  id: string; title: string; category: Category; severity: Severity;
-  rationale: string; docsUrl: string; fix?: Fix;
+  id: string;
+  title: string;
+  category: Category;
+  severity: Severity;
+  rationale: string;
+  docsUrl: string;
+  fix?: Fix;
 }
 export function explainRule(id: string): RuleInfo | undefined;
 ```
@@ -123,14 +132,14 @@ per rule; `rationale` is authored prose per rule (the existing `recommendation` 
 
 Input (zod):
 
-| field            | type                          | default | notes                                  |
-| ---------------- | ----------------------------- | ------- | -------------------------------------- |
-| `path`           | string                        | cwd     | project root to analyze                |
-| `route`          | string                        | —       | glob, restrict routes (matches CLI)    |
-| `treatDynamicAs` | `'pass'\|'warn'\|'fail'`       | `pass`  |                                        |
-| `rules`          | string[]                      | —       | enable only these rule ids             |
-| `ignore`         | string[]                      | —       | disable these rule ids                 |
-| `failOn`         | `'critical'\|'warning'\|'info'`| `critical` | informational in the report's summary |
+| field            | type                            | default    | notes                                 |
+| ---------------- | ------------------------------- | ---------- | ------------------------------------- |
+| `path`           | string                          | cwd        | project root to analyze               |
+| `route`          | string                          | —          | glob, restrict routes (matches CLI)   |
+| `treatDynamicAs` | `'pass'\|'warn'\|'fail'`        | `pass`     |                                       |
+| `rules`          | string[]                        | —          | enable only these rule ids            |
+| `ignore`         | string[]                        | —          | disable these rule ids                |
+| `failOn`         | `'critical'\|'warning'\|'info'` | `critical` | informational in the report's summary |
 
 - Unknown rule ids in `rules`/`ignore` → `isError` tool result listing the unknown ids and the
   known ids (mirrors the CLI's exit-2 message).

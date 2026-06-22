@@ -12,8 +12,7 @@ function textError(message: string): McpToolResult {
   return { content: [{ type: 'text', text: message }], isError: true };
 }
 
-/** zod raw shape for the analyze tool's input (registered with the MCP server). */
-export const analyzeInputShape = {
+const analyzeInputSchema = z.object({
   path: z.string().optional().describe('Project root to analyze (defaults to the server cwd).'),
   route: z.string().optional().describe('Glob to restrict which routes are analyzed, e.g. "blog/**".'),
   treatDynamicAs: z
@@ -26,10 +25,11 @@ export const analyzeInputShape = {
     .enum(['critical', 'warning', 'info'])
     .optional()
     .describe('Minimum severity that counts as a failure in the summary. Default: critical.')
-};
+});
 
-const analyzeInput = z.object(analyzeInputShape);
-export type AnalyzeArgs = z.infer<typeof analyzeInput>;
+/** zod raw shape for the analyze tool's input (registered with the MCP server). */
+export const analyzeInputShape = analyzeInputSchema.shape;
+export type AnalyzeArgs = z.infer<typeof analyzeInputSchema>;
 
 export async function handleAnalyze(args: AnalyzeArgs): Promise<McpToolResult> {
   const allow = args.rules ?? [];

@@ -23,11 +23,13 @@
 ### Task 1: Extract `buildJsonReport` in core
 
 **Files:**
+
 - Modify: `packages/core/src/reporter/json.ts`
 - Modify: `packages/core/src/index.ts`
 - Test: `packages/core/test/json-report.test.ts` (existing — extend)
 
 **Interfaces:**
+
 - Consumes: existing `computeScore`, `summarize`, `effectiveSeverity`, `isPenalized`, `Config`, `Result`.
 - Produces:
   - `interface JsonReport { version: string; score: number; scoreModel: ScoreModel; summary: Summary; routes: Array<{ route: string; score: number; issues: JsonIssue[] }>; siteIssues: JsonIssue[] }`
@@ -155,6 +157,7 @@ git commit -m "refactor(core): extract buildJsonReport from the json reporter"
 ### Task 2: Rule catalog — `rationale`/`fix` on `Rule`, `docsUrlFor`, `explainRule`
 
 **Files:**
+
 - Modify: `packages/core/src/rule.ts` (extend `Rule`, add `docsUrlFor`)
 - Modify: `packages/core/src/rules/seo/seo001-title.ts`
 - Modify: `packages/core/src/rules/seo/head-tag-rule.ts`
@@ -165,6 +168,7 @@ git commit -m "refactor(core): extract buildJsonReport from the json reporter"
 - Test: `packages/core/test/explain-rule.test.ts` (new)
 
 **Interfaces:**
+
 - Produces:
   - `Rule` gains `rationale: string` and `fix?: Fix`.
   - `function docsUrlFor(id: string): string` (in `rule.ts`) → `https://svelte-vitals.dev/rules/${id}`.
@@ -268,7 +272,8 @@ export const seo001Title: Rule = {
   category: 'seo',
   severity: 'critical',
   scope: 'route',
-  rationale: 'A unique, non-empty <title> is the single strongest on-page SEO signal and the text shown in search results and browser tabs.',
+  rationale:
+    'A unique, non-empty <title> is the single strongest on-page SEO signal and the text shown in search results and browser tabs.',
   fix: FIX,
   async check(ctx: RuleContext): Promise<Result[]> {
     return ctx.heads.map((head) => {
@@ -379,7 +384,8 @@ export const seo006Robots: Rule = {
   category: 'seo',
   severity: 'warning',
   scope: 'project',
-  rationale: 'robots.txt tells crawlers which paths they may fetch and points them to your sitemap; missing it leaves crawl behaviour to defaults.',
+  rationale:
+    'robots.txt tells crawlers which paths they may fetch and points them to your sitemap; missing it leaves crawl behaviour to defaults.',
   fix: SEO006_FIX,
   async check(ctx: RuleContext): Promise<Result[]> {
     const detection = ctx.project.hasRobotsTxt ? present : absent;
@@ -398,8 +404,8 @@ export const seo006Robots: Rule = {
 };
 ```
 
-  - SEO007 `rationale`: `'A sitemap.xml lists your URLs so search engines can discover and prioritise them, especially pages not well linked internally.'` — reuse the existing snippet/description as `SEO007_FIX`.
-  - SEO009 `rationale`: `'The <html lang> attribute declares the page language for search engines, screen readers, and translation tools.'` — reuse the existing snippet/description as `SEO009_FIX`.
+- SEO007 `rationale`: `'A sitemap.xml lists your URLs so search engines can discover and prioritise them, especially pages not well linked internally.'` — reuse the existing snippet/description as `SEO007_FIX`.
+- SEO009 `rationale`: `'The <html lang> attribute declares the page language for search engines, screen readers, and translation tools.'` — reuse the existing snippet/description as `SEO009_FIX`.
 
 - [ ] **Step 8: Add `explainRule`** in `packages/core/src/rules/index.ts` (append after the `allRules` array, before the re-export block):
 
@@ -470,10 +476,12 @@ git commit -m "feat(core): promote rule rationale/fix onto Rule and add explainR
 ### Task 3: Extract `analyzeProject` in the CLI
 
 **Files:**
+
 - Modify: `packages/cli/src/index.ts`
 - Test: `packages/cli/test/analyze-project.test.ts` (new)
 
 **Interfaces:**
+
 - Produces:
   - `interface AnalyzeOptions { cwd?: string; metaComponents?: string[]; treatDynamicAs?: 'pass'|'warn'|'fail'; route?: string; failOn?: Severity; rules?: Record<string, RuleSetting> }`
   - `interface AnalyzeResult { results: Result[]; config: Config; version: string }`
@@ -659,6 +667,7 @@ git commit -m "refactor(cli): extract analyzeProject for reuse by the MCP server
 ### Task 4: Scaffold `@svelte-vitals/mcp` + the `analyze` tool
 
 **Files:**
+
 - Modify: `pnpm-workspace.yaml` (add `@modelcontextprotocol/sdk` and `zod` to `catalog:`)
 - Create: `packages/mcp/package.json`
 - Create: `packages/mcp/tsconfig.json`
@@ -669,6 +678,7 @@ git commit -m "refactor(cli): extract analyzeProject for reuse by the MCP server
 - Test: `packages/mcp/test/analyze-tool.test.ts` (new)
 
 **Interfaces:**
+
 - Consumes: `analyzeProject`, `buildRulesConfig`, `findUnknownRuleIds`, `knownRuleIds`, `ProjectError` from `svelte-vitals`; `buildJsonReport` from `@svelte-vitals/core`.
 - Produces:
   - `analyzeInputShape` (a zod raw shape object) and `handleAnalyze(args): Promise<McpToolResult>` in `tools/analyze.ts`.
@@ -678,8 +688,8 @@ git commit -m "refactor(cli): extract analyzeProject for reuse by the MCP server
 - [ ] **Step 1: Add the deps to the catalog** — in `pnpm-workspace.yaml`, add under `catalog:` (alphabetical placement is fine):
 
 ```yaml
-  '@modelcontextprotocol/sdk': ^1.29.0
-  zod: ^4.4.3
+'@modelcontextprotocol/sdk': ^1.29.0
+zod: ^4.4.3
 ```
 
 - [ ] **Step 2: Create `packages/mcp/package.json`:**
@@ -842,9 +852,7 @@ export async function handleAnalyze(args: AnalyzeArgs): Promise<McpToolResult> {
   const ignore = args.ignore ?? [];
   const unknown = findUnknownRuleIds([...allow, ...ignore]);
   if (unknown.length > 0) {
-    return textError(
-      `Unknown rule id(s): ${unknown.join(', ')}. Known rule ids: ${knownRuleIds().join(', ')}.`
-    );
+    return textError(`Unknown rule id(s): ${unknown.join(', ')}. Known rule ids: ${knownRuleIds().join(', ')}.`);
   }
 
   try {
@@ -916,6 +924,7 @@ git commit -m "feat(mcp): scaffold @svelte-vitals/mcp with the analyze tool (#24
 ### Task 5: `explain_rule` tool, library entry, bin & smoke test
 
 **Files:**
+
 - Create: `packages/mcp/src/tools/explain-rule.ts`
 - Modify: `packages/mcp/src/server.ts`
 - Create: `packages/mcp/src/index.ts`
@@ -924,6 +933,7 @@ git commit -m "feat(mcp): scaffold @svelte-vitals/mcp with the analyze tool (#24
 - Test: `packages/mcp/test/server.test.ts` (new)
 
 **Interfaces:**
+
 - Consumes: `explainRule`, `knownRuleIds`-equivalent. (`knownRuleIds` lives in `svelte-vitals`; import it there.)
 - Produces: `explainRuleInputShape`, `handleExplainRule(args)`, `createServer` (now with two tools), `bin.ts` entry that starts a stdio server.
 
@@ -975,9 +985,7 @@ export async function handleExplainRule(args: ExplainRuleArgs): Promise<McpToolR
   const info = explainRule(args.id);
   if (!info) {
     return {
-      content: [
-        { type: 'text', text: `Unknown rule id: ${args.id}. Known rule ids: ${knownRuleIds().join(', ')}.` }
-      ],
+      content: [{ type: 'text', text: `Unknown rule id: ${args.id}. Known rule ids: ${knownRuleIds().join(', ')}.` }],
       isError: true
     };
   }
@@ -996,15 +1004,15 @@ import { explainRuleInputShape, handleExplainRule } from './tools/explain-rule.j
 ```
 
 ```ts
-  server.registerTool(
-    'explain_rule',
-    {
-      title: 'Explain an SEO rule',
-      description: 'Return a rule\'s title, category, default severity, rationale, docs URL, and fix template.',
-      inputSchema: explainRuleInputShape
-    },
-    async (args) => await handleExplainRule(args)
-  );
+server.registerTool(
+  'explain_rule',
+  {
+    title: 'Explain an SEO rule',
+    description: "Return a rule's title, category, default severity, rationale, docs URL, and fix template.",
+    inputSchema: explainRuleInputShape
+  },
+  async (args) => await handleExplainRule(args)
+);
 ```
 
 - [ ] **Step 5: Create the library entry `packages/mcp/src/index.ts`:**
@@ -1066,12 +1074,14 @@ Expected: no type errors; `dist/bin.js`, `dist/index.js`, `dist/index.d.ts` prod
 - [ ] **Step 10: Manual stdio smoke check** — verify the server speaks MCP over stdio (initialize + tools/list):
 
 Run:
+
 ```bash
 printf '%s\n%s\n' \
   '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"smoke","version":"0"}}}' \
   '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}' \
   | node packages/mcp/dist/bin.js
 ```
+
 Expected: two JSON-RPC responses on stdout; the `tools/list` result lists `analyze` and `explain_rule`.
 
 - [ ] **Step 11: Commit**
@@ -1086,6 +1096,7 @@ git commit -m "feat(mcp): add explain_rule tool, stdio bin and library entry (#2
 ### Task 6: README, root scripts, changeset
 
 **Files:**
+
 - Modify: `README.md` (roadmap + packages table)
 - Modify: `package.json` (root — extend `check:publish` to include the mcp package)
 - Create: `packages/mcp/README.md`
@@ -1110,7 +1121,7 @@ And update the **Upcoming** list to:
 - [ ] **Step 2: Add the package to the packages table** in `README.md`:
 
 ```md
-| [`@svelte-vitals/mcp`](./packages/mcp)   | MCP server: run analysis inside an agent's tool loop        |
+| [`@svelte-vitals/mcp`](./packages/mcp) | MCP server: run analysis inside an agent's tool loop |
 ```
 
 - [ ] **Step 3: Create `packages/mcp/README.md`** — a short usage doc:
@@ -1180,6 +1191,7 @@ git commit -m "docs(mcp): document the MCP server, update roadmap, add changeset
 ## Self-Review
 
 **Spec coverage:**
+
 - New `@svelte-vitals/mcp` package, stdio, bin `svelte-vitals-mcp` → Task 4 (scaffold) + Task 5 (bin). ✅
 - `analyze` tool (structured JSON report, fix metadata, scores; unknown-rule + non-Kit errors) → Task 4. ✅
 - `explain_rule` tool (title/category/severity/rationale/docs/fix; unknown-id error) → Task 5. ✅
