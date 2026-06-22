@@ -1,5 +1,6 @@
 import { defineConfig } from 'tsup';
 
+// ESM-only by design (issue #20) — never add 'cjs'.
 export default defineConfig({
   entry: ['src/index.ts', 'src/bin.ts'],
   format: ['esm'],

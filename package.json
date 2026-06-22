@@ -9,11 +9,14 @@
     "test": "pnpm -r test",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
-    "check:publish": "pnpm --filter @svelte-vitals/core --filter @svelte-vitals/vite --filter svelte-vitals --filter @svelte-vitals/mcp exec publint",
+    "check:publish": "pnpm run check:publint && pnpm run check:types",
+    "check:publint": "pnpm --filter @svelte-vitals/core --filter @svelte-vitals/vite --filter svelte-vitals --filter @svelte-vitals/mcp exec publint",
+    "check:types": "pnpm --workspace-concurrency=1 --filter @svelte-vitals/core --filter @svelte-vitals/vite --filter svelte-vitals --filter @svelte-vitals/mcp exec attw --pack . --profile esm-only",
     "release": "changeset publish",
     "changeset": "changeset"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "catalog:",
     "@changesets/cli": "catalog:",
     "@eslint/compat": "catalog:",
     "@eslint/js": "catalog:",
