@@ -117,6 +117,9 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       errorLog(err.message);
       return 2;
     }
+    // Any other failure during analysis is an internal error: report it and exit 2,
+    // matching the documented exit-code contract (see --help). We deliberately do
+    // not rethrow — the CLI surfaces a clean message rather than an uncaught stack.
     errorLog(`svelte-vitals: ${err instanceof Error ? err.message : String(err)}`);
     return 2;
   }

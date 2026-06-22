@@ -82,7 +82,10 @@ export async function analyzeProject(opts: AnalyzeOptions): Promise<AnalyzeResul
 - Throws `ProjectError` when the directory is not a SvelteKit project (callers map to their own
   error channel: `run()` → exit 2; MCP → `isError` tool result).
 - `run()` is refactored to call `analyzeProject` and then do reporter resolution + formatting +
-  exit-code computation. **Behaviour is unchanged** — existing CLI tests must stay green.
+  exit-code computation. The documented exit-code contract is preserved (0/1/2) and existing CLI
+  tests stay green. One deliberate consistency change: a non-`ProjectError` failure during project
+  detection now returns exit 2 (an "internal error" per `--help`) instead of propagating as an
+  uncaught throw — matching how pipeline/reporter errors were already handled.
 
 ### core refactor — extract `buildJsonReport`
 
