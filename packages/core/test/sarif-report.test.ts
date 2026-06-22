@@ -93,6 +93,37 @@ describe('formatSarifReport', () => {
     expect(run.results[0].locations[0].physicalLocation.region.startLine).toBe(42);
   });
 
+  it('produces distinct partialFingerprints for same (id, route) but different line', () => {
+    const twoImages: Result[] = [
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        line: 10,
+        message: 'Missing <img> width/height at line 10'
+      },
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        line: 20,
+        message: 'Missing <img> width/height at line 20'
+      }
+    ];
+    const run = JSON.parse(formatSarifReport(twoImages, config, { version: '0.0.0' })).runs[0];
+    const fp0 = run.results[0].partialFingerprints['svelteVitals/v1'];
+    const fp1 = run.results[1].partialFingerprints['svelteVitals/v1'];
+    expect(fp0).toBe('PERF001:/blog:10');
+    expect(fp1).toBe('PERF001:/blog:20');
+    expect(fp0).not.toBe(fp1);
+  });
+
   it('emits a valid empty log when there are no penalized findings', () => {
     const passing: Result[] = [results[2]!];
     const sarif = JSON.parse(formatSarifReport(passing, config, { version: '0.0.0' }));
