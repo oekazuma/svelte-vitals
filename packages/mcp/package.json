@@ -1,0 +1,51 @@
+{
+  "name": "@svelte-vitals/mcp",
+  "version": "0.0.0",
+  "description": "Model Context Protocol server for svelte-vitals — run SEO analysis inside an agent's tool loop.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Kazuma Oe (https://github.com/oekazuma)",
+  "keywords": [
+    "svelte",
+    "sveltekit",
+    "seo",
+    "mcp",
+    "model-context-protocol",
+    "svelte-vitals"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oekazuma/svelte-vitals.git",
+    "directory": "packages/mcp"
+  },
+  "bugs": {
+    "url": "https://github.com/oekazuma/svelte-vitals/issues"
+  },
+  "homepage": "https://github.com/oekazuma/svelte-vitals#readme",
+  "bin": {
+    "svelte-vitals-mcp": "./dist/bin.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "catalog:",
+    "@svelte-vitals/core": "workspace:*",
+    "svelte-vitals": "workspace:*",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:"
+  }
+}
