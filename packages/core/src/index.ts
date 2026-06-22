@@ -18,6 +18,7 @@ export type {
 export { defaultConfig, defineConfig, defaultProject } from './types.js';
 
 export type { HeadTag, ResolvedHead, HeadProvider } from './head.js';
+export type { ImageInfo, ResolvedImages } from './images.js';
 export { ROBOTS_SOURCE_PATHS, SITEMAP_SOURCE_PATHS } from './project-paths.js';
 export type { Runtime } from './runtime.js';
 export type { Rule, RuleContext } from './rule.js';
@@ -35,10 +36,13 @@ export {
   seo006Robots,
   seo007Sitemap,
   seo008JsonLd,
-  seo009HtmlLang
+  seo009HtmlLang,
+  perf001ImageDimensions,
+  perf002ImageLoading
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';
+export { imageRule } from './rules/perf/image-rule.js';
 
 export type { Summary, Classification } from './summary.js';
 export { summarize, classify, hasFailureAtOrAbove, effectiveSeverity } from './summary.js';
