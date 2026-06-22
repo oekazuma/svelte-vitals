@@ -95,6 +95,20 @@ jobs:
 > [!NOTE]
 > Code scanning only displays results that carry a file location, so project-scoped checks that aren't tied to a route file (`robots.txt`, `sitemap`, `<html lang>`) don't appear as alerts in the Security tab. They are still reported by the `github`, `console`, and `json` reporters — keep one of those in your pipeline if you rely on those checks.
 
+### Dev overlay (request-driven)
+
+Get SEO feedback while developing: add the dev handle to `src/hooks.server.ts` and svelte-vitals analyzes each page's **rendered** `<head>` as you navigate, printing warnings for the current route to your dev-server terminal. It sees real values, so dynamic routes (`{data.title}`) are checked against what actually renders.
+
+```ts
+// src/hooks.server.ts
+import { sequence } from '@sveltejs/kit/hooks';
+import { svelteVitalsHandle } from '@svelte-vitals/vite/hooks';
+
+export const handle = sequence(svelteVitalsHandle());
+```
+
+It runs in `dev` only (a no-op in production builds) and never modifies the response — it only reads the rendered HTML. Coverage follows navigation: a route is checked when you visit it, and re-warned only when its findings change.
+
 ### Exit codes
 
 | Code | Meaning                                                         |
