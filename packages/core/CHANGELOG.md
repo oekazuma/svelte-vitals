@@ -1,5 +1,17 @@
 # @svelte-vitals/core
 
+## 0.8.0
+
+### Minor Changes
+
+- 2857e16: Add the Performance category (v0.4, #10): static `<img>` checks — **PERF001** (missing
+  `width`/`height`, CLS risk; warning) and **PERF002** (missing `loading` attribute; info
+  advisory) — with dynamically-bound attributes counting as present. Introduces the
+  multi-category foundation: `Result.category`/`line`, the `ImageInfo`/`ResolvedImages` IR,
+  `RuleContext.images`, `imageRule`, `scoresByCategory`, and category-aware reporters
+  (per-category scores; JSON `categories` map). Existing SEO findings, scores, and output
+  are unchanged.
+
 ## 0.7.0
 
 ### Minor Changes
