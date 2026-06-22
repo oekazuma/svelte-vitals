@@ -54,13 +54,26 @@ describe('collectA11y', () => {
     expect(results).toEqual([expect.objectContaining({ id: 'a11y', route: '/' })]);
   });
 
-  it('does not throw when a file fails to compile (skips a11y for it)', async () => {
+  it('leaves an unparseable route unchecked (no false passing seed)', async () => {
     const rt = createMemoryRuntime({ 'src/routes/+page.svelte': `<div {#bad}></div>` });
     const results = await collectA11y(rt, '', config);
-    // no throw; the unparseable route simply yields a seed (no a11y findings)
-    expect(results).toHaveLength(1);
-    expect(results[0]!.id).toBe('a11y');
-    expect(results.every((r) => r.category === 'a11y')).toBe(true);
+    // no throw, and the unchecked route is excluded from the category rather than
+    // seeded as passing — an uncompilable route must not report a false 100.
+    expect(results).toEqual([]);
+  });
+
+  it('still surfaces findings from compiled files when a sibling file fails to compile', async () => {
+    const rt = createMemoryRuntime({
+      // layout has a real a11y issue; the page is unparseable
+      'src/routes/+layout.svelte': `<img src="/logo.png" />\n<slot />`,
+      'src/routes/broken/+page.svelte': `<div {#bad}></div>`
+    });
+    const results = await collectA11y(rt, '', config);
+    const finding = results.find((r) => r.id === 'a11y_missing_attribute');
+    expect(finding).toBeDefined();
+    expect(finding!.location).toBe('src/routes/+layout.svelte');
+    // the broken route is reported via its layout finding, not seeded as passing
+    expect(results.some((r) => r.id === 'a11y')).toBe(false);
   });
 
   it('returns [] when a11y_category sentinel is off (allow-list with no a11y code)', async () => {

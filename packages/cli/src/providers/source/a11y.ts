@@ -3,6 +3,7 @@ import type { Config, Result, Runtime } from '@svelte-vitals/core';
 import { defaultConfig } from '@svelte-vitals/core';
 import { enumerateRoutePages } from './project.js';
 import { chainFiles, deriveRoute } from './routes.js';
+import { A11Y_CATEGORY_KEY, A11Y_CODE_PREFIX } from '../../rules-config.js';
 
 interface A11yWarning {
   code: string;
@@ -12,31 +13,39 @@ interface A11yWarning {
   line: number;
 }
 
+/**
+ * The a11y outcome of compiling one file. `ok: false` means the compiler threw
+ * (unparseable source) — distinct from `ok: true` with no warnings (compiled clean).
+ * The distinction matters: an unparseable route must NOT be seeded as passing.
+ */
+interface FileA11y {
+  ok: boolean;
+  warnings: A11yWarning[];
+}
+
 function firstLine(message: string): string {
   return message.split('\n')[0] ?? message;
 }
 
-/** Compile one file and return its mapped a11y warnings. Resilient: returns [] if compile throws. */
-function fileA11y(source: string, rel: string): A11yWarning[] {
-  let warnings: ReadonlyArray<{ code?: string; message?: string; start?: { line?: number } }>;
+/** Compile one file and return its mapped a11y warnings. Resilient: `ok: false` if compile throws. */
+function fileA11y(source: string, rel: string): FileA11y {
+  let warnings: ReturnType<typeof compile>['warnings'];
   try {
-    ({ warnings = [] } = compile(source, { generate: false, filename: rel }) as {
-      warnings?: ReadonlyArray<{ code?: string; message?: string; start?: { line?: number } }>;
-    });
+    ({ warnings } = compile(source, { generate: false, filename: rel }));
   } catch {
-    return [];
+    return { ok: false, warnings: [] };
   }
   const out: A11yWarning[] = [];
   for (const w of warnings) {
-    if (typeof w.code === 'string' && w.code.startsWith('a11y_')) {
+    if (w.code.startsWith(A11Y_CODE_PREFIX)) {
       out.push({
         code: w.code,
-        message: firstLine(w.message ?? w.code),
-        line: typeof w.start?.line === 'number' ? w.start.line : 0
+        message: firstLine(w.message),
+        line: w.start?.line ?? 0
       });
     }
   }
-  return out;
+  return { ok: true, warnings: out };
 }
 
 /**
@@ -44,27 +53,33 @@ function fileA11y(source: string, rel: string): A11yWarning[] {
  * Accessibility v0.5). Each route's +page.svelte and +layout.svelte chain is compiled
  * (cached per file); each a11y warning becomes a fail Result keyed by its Svelte code,
  * and a warning-free route emits one passing seed so the a11y score anchors at 100.
+ *
+ * A route whose chain has an unparseable file and no other findings is left
+ * *unchecked*: it emits nothing and is excluded from the category average, rather
+ * than being falsely seeded as passing.
  */
 export async function collectA11y(rt: Runtime, cwd: string, config: Config = defaultConfig): Promise<Result[]> {
   // Sentinel set by buildRulesConfig when the allow-list contains no a11y codes.
-  if (config.rules['a11y_category'] === 'off') return [];
+  if (config.rules[A11Y_CATEGORY_KEY] === 'off') return [];
   const pages = await enumerateRoutePages(rt, cwd);
-  const cache = new Map<string, A11yWarning[]>();
+  const cache = new Map<string, FileA11y>();
   const results: Result[] = [];
 
   for (const page of pages) {
     const files = await chainFiles(rt, cwd, page);
     const route = deriveRoute(page);
     const fails: Result[] = [];
+    let compiledAll = true;
 
     for (const { rel } of files) {
-      let warns = cache.get(rel);
-      if (!warns) {
+      let entry = cache.get(rel);
+      if (!entry) {
         const source = await rt.readFile(rt.join(cwd, rel));
-        warns = fileA11y(source, rel);
-        cache.set(rel, warns);
+        entry = fileA11y(source, rel);
+        cache.set(rel, entry);
       }
-      for (const w of warns) {
+      if (!entry.ok) compiledAll = false;
+      for (const w of entry.warnings) {
         if (config.rules[w.code] === 'off') continue;
         fails.push({
           id: w.code,
@@ -80,7 +95,9 @@ export async function collectA11y(rt: Runtime, cwd: string, config: Config = def
       }
     }
 
-    if (fails.length === 0) {
+    if (fails.length > 0) {
+      results.push(...fails);
+    } else if (compiledAll) {
       // One passing seed per warning-free route anchors the a11y category score at 100.
       results.push({
         id: 'a11y',
@@ -90,9 +107,9 @@ export async function collectA11y(rt: Runtime, cwd: string, config: Config = def
         route,
         message: 'Accessibility'
       });
-    } else {
-      results.push(...fails);
     }
+    // else: a file in the chain failed to compile and nothing was found — leave the
+    // route unchecked (no seed) so an unparseable route can't report a false 100.
   }
 
   return results;
