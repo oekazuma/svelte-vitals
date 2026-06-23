@@ -26,7 +26,7 @@ Health は 2 段階で計算されます：
 
 Health は設定可能な重みを使用してカテゴリスコアを平均します。デフォルトでは存在する各カテゴリに等しい重み（`1`）が設定されます：
 
-```
+```text
 Health = (SEO スコア × w_seo + パフォーマンス スコア × w_perf) / (w_seo + w_perf)
 ```
 
@@ -51,13 +51,13 @@ svelte-vitals --min-health 80
 
 ## 出力例
 
-```
+```text
 Health: 85  (SEO: 90 · Performance: 75)
 ```
 
 SEO ルールのみが発火した場合：
 
-```
+```text
 Health: 90  (SEO: 90)
 ```
 

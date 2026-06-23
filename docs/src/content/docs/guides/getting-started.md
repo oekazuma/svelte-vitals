@@ -39,7 +39,7 @@ npx svelte-vitals ./apps/web
 
 Example output:
 
-```
+```text
 Svelte Vitals  ·  SEO (static mode)
 
 Critical (1)

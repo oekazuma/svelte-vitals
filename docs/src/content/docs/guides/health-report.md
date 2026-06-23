@@ -26,7 +26,7 @@ For each active category (SEO, Performance), svelte-vitals computes an independe
 
 Health averages the category scores using configurable weights. By default every present category has equal weight (`1`):
 
-```
+```text
 Health = (SEO_score × w_seo + Performance_score × w_perf) / (w_seo + w_perf)
 ```
 
@@ -51,13 +51,13 @@ Both can be used together.
 
 ## Example output
 
-```
+```text
 Health: 85  (SEO: 90 · Performance: 75)
 ```
 
 When only SEO rules fire:
 
-```
+```text
 Health: 90  (SEO: 90)
 ```
 
