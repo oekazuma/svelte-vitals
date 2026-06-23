@@ -42,7 +42,7 @@ describe('ruleMetaById', () => {
     expect(m).toEqual({
       title: 'Title presence',
       severity: 'critical',
-      docsUrl: 'https://svelte-vitals.dev/rules/SEO001'
+      docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo001'
     });
   });
   it('returns undefined for an unknown rule id', () => {
@@ -55,6 +55,6 @@ describe('ruleMetaById', () => {
 
 describe('docsUrlFor', () => {
   it('builds the canonical rule docs URL', () => {
-    expect(docsUrlFor('SEO001')).toBe('https://svelte-vitals.dev/rules/SEO001');
+    expect(docsUrlFor('SEO001')).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo001');
   });
 });

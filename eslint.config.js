@@ -12,6 +12,8 @@ export default ts.config(
   includeIgnoreFile(gitignorePath),
   // Test fixtures are intentionally minimal/varied SvelteKit inputs, not source.
   { ignores: ['**/test/fixtures/**'] },
+  // Astro-generated type files (listed in docs/.gitignore, not root .gitignore)
+  { ignores: ['**/.astro/**'] },
   js.configs.recommended,
   ...ts.configs.recommended,
   ...svelte.configs.recommended,

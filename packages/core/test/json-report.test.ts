@@ -17,7 +17,7 @@ const results: Result[] = [
     route: '/a',
     location: 'src/routes/a/+page.svelte',
     message: 'Missing description',
-    docsUrl: 'https://svelte-vitals.dev/rules/SEO002'
+    docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo002'
   },
   { id: 'SEO006', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'Missing robots.txt' }
 ];
@@ -57,7 +57,7 @@ describe('formatJsonReport', () => {
     expect(routeA.issues).toHaveLength(1);
     expect(routeA.issues[0].id).toBe('SEO002');
     expect(routeA.issues[0].detection).toEqual({ presence: 'none', value: 'absent' });
-    expect(routeA.issues[0].docsUrl).toBe('https://svelte-vitals.dev/rules/SEO002');
+    expect(routeA.issues[0].docsUrl).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo002');
     expect(json.siteIssues).toHaveLength(1);
     expect(json.siteIssues[0].id).toBe('SEO006');
   });
