@@ -11,11 +11,9 @@ const SEVERITY_TITLE: Record<Severity, string> = {
 
 const CATEGORY_LABEL: Partial<Record<Category, string>> = {
   seo: 'SEO',
-  performance: 'Performance',
-  a11y: 'Accessibility',
-  maintainability: 'Maintainability'
+  performance: 'Performance'
 };
-const CATEGORY_ORDER: Category[] = ['seo', 'performance', 'a11y', 'maintainability'];
+const CATEGORY_ORDER: Category[] = ['seo', 'performance'];
 
 export interface ConsoleReportOptions {
   byRoute?: boolean;

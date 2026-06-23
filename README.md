@@ -148,8 +148,7 @@ The project advances along two axes: **mode maturity** and **category coverage**
 - **Dev overlay** (`@svelte-vitals/vite`) — warns in-place while developing via `transformPageChunk`, so dynamic routes are seen with real values as pages are visited.
 - **MCP server** (`@svelte-vitals/mcp`) — exposes `analyze` and `explain_rule` tools over stdio so an agent can run analysis in its tool loop and receive structured, fixable findings.
 - **Performance checks** (`0.4`) — static `<img>` analysis: `width`/`height` (CLS) and a `loading` advisory, scored as a separate Performance category alongside SEO.
-- **Accessibility checks** (`0.5`) — aggregates the Svelte compiler's `a11y_*` warnings (alt text, label association, ARIA, …) into a scored Accessibility category.
-- **Health Report** — a single weighted **Health** score combining SEO, Performance, and Accessibility (equal weights by default), shown as the headline in every reporter and the MCP `analyze` output; gate CI on it with `--min-health`.
+- **Health Report** — a single weighted **Health** score over the present category scores (equal weights by default) — SEO, plus Performance when the project has images — shown as the headline in every reporter and the MCP `analyze` output; gate CI on it with `--min-health`.
 
 **Upcoming**
 
