@@ -61,4 +61,17 @@ describe('computeHealth', () => {
     const results = [seoFail('/a')];
     expect(() => computeHealth(results, defineConfig({ weights: { seo: NaN } }))).toThrow(RangeError);
   });
+
+  it('throws RangeError when every present category has weight 0 (would otherwise mask findings)', () => {
+    const results = [seoFail('/a'), pass('performance', 'performance', '/a')];
+    expect(() => computeHealth(results, defineConfig({ weights: { seo: 0, performance: 0 } }))).toThrow(RangeError);
+  });
+
+  it('allows a 0 weight as long as another present category is positive', () => {
+    const results = [seoFail('/a'), pass('performance', 'performance', '/a')];
+    // seo dropped to weight 0 → Health is exactly the performance score (100).
+    const { health, weights } = computeHealth(results, defineConfig({ weights: { seo: 0, performance: 1 } }));
+    expect(weights).toEqual({ seo: 0, performance: 1 });
+    expect(health).toBe(100);
+  });
 });
