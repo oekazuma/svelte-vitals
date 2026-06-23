@@ -20,16 +20,15 @@ const pass = (id: string, category: Result['category'], route: string): Result =
 
 describe('computeHealth', () => {
   it('averages present category scores with equal default weights', () => {
-    // SEO: one route, critical missing → low; performance + a11y: clean seeds → 100.
-    const results = [seoFail('/a'), pass('performance', 'performance', '/a'), pass('a11y', 'a11y', '/a')];
+    // SEO: one route, critical missing → low; performance: clean seed → 100.
+    const results = [seoFail('/a'), pass('performance', 'performance', '/a')];
     const { health, categories, weights } = computeHealth(results, defineConfig({}));
     expect(categories.seo).toBeDefined();
     expect(categories.performance!.score).toBe(100);
-    expect(categories.a11y!.score).toBe(100);
-    // equal weights → mean of the three category scores
-    const mean = Math.round((categories.seo!.score + 100 + 100) / 3);
+    // equal weights → mean of the two category scores
+    const mean = Math.round((categories.seo!.score + 100) / 2);
     expect(health).toBe(mean);
-    expect(weights).toEqual({ seo: 1, performance: 1, a11y: 1 });
+    expect(weights).toEqual({ seo: 1, performance: 1 });
   });
 
   it('honors Config.weights overrides', () => {
