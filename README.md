@@ -12,6 +12,8 @@
 npx svelte-vitals
 ```
 
+📖 **[Documentation](https://oekazuma.github.io/svelte-vitals/)**
+
 > [!WARNING]
 > **Pre-1.0 — not recommended for production use yet.** Development is moving fast and aggressively, driven at the maintainer's discretion until `1.0`: APIs, rule IDs, scoring, and output formats can change at any time, including breaking changes between minor releases. Relying on it in critical pipelines is discouraged until `1.0`.
 >

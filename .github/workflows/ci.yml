@@ -57,3 +57,15 @@ jobs:
         run: pnpm build
       - name: Run tests
         run: pnpm test
+
+  docs:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Setup Node.js and dependencies
+        uses: ./.github/workflows/setup-node
+      - name: Check docs
+        run: pnpm --filter docs check
+      - name: Build docs
+        run: pnpm --filter docs build

@@ -1,0 +1,55 @@
+name: Deploy for Docs to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - name: Get Node.js version from package.json
+        id: get-node-version
+        run: |
+          NODE_VERSION=$(jq -r '.devEngines.runtime.version' package.json)
+          if [ -z "$NODE_VERSION" ] || [ "$NODE_VERSION" = "null" ]; then
+            echo "::error::Could not extract devEngines.runtime.version from package.json"
+            exit 1
+          fi
+          echo "node-version=${NODE_VERSION}" >> "$GITHUB_OUTPUT"
+      - name: Get pnpm version from package.json
+        id: get-pnpm-version
+        run: |
+          PNPM_VERSION=$(node -p "require('./package.json').packageManager || ''")
+          if [ -z "$PNPM_VERSION" ] || [ "$PNPM_VERSION" = "undefined" ]; then
+            echo "::error::Missing packageManager in package.json"
+            exit 1
+          fi
+          echo "pnpm-version=${PNPM_VERSION}" >> "$GITHUB_OUTPUT"
+      - name: Install, build, and upload your site
+        uses: withastro/action@b7d53628f8b666036b0238aadb0b984a2a489f26 # v6.1.1
+        with:
+          path: docs
+          node-version: ${{ steps.get-node-version.outputs.node-version }}
+          package-manager: ${{ steps.get-pnpm-version.outputs.pnpm-version }}
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
