@@ -60,60 +60,18 @@ Passed (3)
 ↯ = set dynamically (verified at runtime).
 ```
 
-### Agent-native output
+## Features
 
-`svelte-vitals --reporter agent` emits a Markdown remediation document an AI coding agent can act on directly: each failing finding lists its location, a concrete fix (with a code snippet), and an acceptance check.
+Full guides live in the [documentation](https://oekazuma.github.io/svelte-vitals/).
 
-It is selected **automatically** when run inside a known AI-agent harness (e.g. Claude Code sets `CLAUDECODE`). Force it anywhere with `SVELTE_VITALS_REPORTER=agent`, or override with `--reporter console|json`. When auto-selected (not requested explicitly), a one-line hint is printed to stderr explaining how to override, so a human running it in an agent terminal isn't surprised by the Markdown output.
+- **Multiple reporters** — `console`, `json`, `agent` (a Markdown remediation document an AI agent can act on directly), `sarif`, and `github`. The `agent` reporter auto-selects inside AI-agent harnesses (e.g. Claude Code); `github` auto-selects under GitHub Actions. → [Reporters](https://oekazuma.github.io/svelte-vitals/guides/reporters/)
+- **GitHub integration** — zero-config inline PR annotations, plus SARIF upload for persistent code-scanning alerts in the Security tab. → [Reporters](https://oekazuma.github.io/svelte-vitals/guides/reporters/)
+- **Dev overlay** — request-driven SEO feedback as you navigate in `dev`, checking each route's **rendered** `<head>` so dynamic routes are seen with real values. → [Dev overlay](https://oekazuma.github.io/svelte-vitals/guides/dev-overlay/)
+- **Plugin mode** (`@svelte-vitals/vite`) — build-time analysis of the prerendered `<head>`; library-agnostic and exact. → [Plugin mode](https://oekazuma.github.io/svelte-vitals/guides/plugin-mode/)
+- **MCP server** (`@svelte-vitals/mcp`) — `analyze` and `explain_rule` tools for an agent's tool loop. → [MCP server](https://oekazuma.github.io/svelte-vitals/guides/mcp/)
+- **Health Report** — a single weighted Health score over the present categories; gate CI with `--min-health`. → [Health Report](https://oekazuma.github.io/svelte-vitals/guides/health-report/)
 
-### GitHub integration
-
-**Inline PR annotations (zero config).** Under GitHub Actions, svelte-vitals auto-selects the `github` reporter, emitting workflow commands that GitHub turns into inline annotations on the PR diff and in the workflow run's annotations:
-
-```yaml
-- run: npx svelte-vitals
-```
-
-Override with `--reporter console|json|sarif` (or `SVELTE_VITALS_REPORTER`) if you want different output in CI.
-
-**Code scanning (Security tab).** Emit SARIF and upload it to surface findings as persistent code-scanning alerts. The upload action needs `security-events: write`, so grant it at the job (or workflow) level:
-
-```yaml
-jobs:
-  seo:
-    runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-    steps:
-      - run: npx svelte-vitals --reporter sarif > svelte-vitals.sarif
-        continue-on-error: true
-      - uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: svelte-vitals.sarif
-```
-
-`--reporter sarif` writes SARIF 2.1.0 to stdout; redirect it to a file for upload.
-
-> [!NOTE]
-> Code scanning only displays results that carry a file location, so project-scoped checks that aren't tied to a route file (`robots.txt`, `sitemap`, `<html lang>`) don't appear as alerts in the Security tab. They are still reported by the `github`, `console`, and `json` reporters — keep one of those in your pipeline if you rely on those checks.
-
-### Dev overlay (request-driven)
-
-Get SEO feedback while developing: add the dev handle to `src/hooks.server.ts` and svelte-vitals analyzes each page's **rendered** `<head>` as you navigate, printing warnings for the current route to your dev-server terminal. It sees real values, so dynamic routes (`{data.title}`) are checked against what actually renders.
-
-```ts
-// src/hooks.server.ts
-import { sequence } from '@sveltejs/kit/hooks';
-import { svelteVitalsHandle } from '@svelte-vitals/vite/hooks';
-
-export const handle = sequence(svelteVitalsHandle());
-```
-
-It runs in `dev` only (a no-op in production builds) and never modifies the response — it only reads the rendered HTML. Coverage follows navigation: a route is checked when you visit it, and re-warned only when its findings change.
-
-`svelteVitalsHandle` accepts a focused subset of the plugin options — `metaComponents` and per-rule `rules` overrides (e.g. `svelteVitalsHandle({ rules: { SEO008: 'off' } })`). Analysis errors are swallowed so a tool bug never breaks a request; set the `SVELTE_VITALS_DEBUG` env var to surface them in the terminal while debugging.
-
-### Exit codes
+## Exit codes
 
 | Code | Meaning                                                         |
 | ---- | --------------------------------------------------------------- |
@@ -121,18 +79,11 @@ It runs in `dev` only (a no-op in production builds) and never modifies the resp
 | `1`  | A critical finding is present                                   |
 | `2`  | Execution error (not a SvelteKit project, internal error, etc.) |
 
-This makes svelte-vitals usable as a CI gate.
+This makes svelte-vitals usable as a CI gate. See the [CLI guide](https://oekazuma.github.io/svelte-vitals/guides/cli/) for every flag.
 
 ## How it works
 
-svelte-vitals resolves the **effective `<head>`** of every route by walking the layout chain (`+layout.svelte` → … → `+page.svelte`) and parsing `<svelte:head>` with the official `svelte/compiler`.
-
-The key design goal is **no false negatives**. SvelteKit metadata is usually dynamic, so each tag is detected on two independent axes:
-
-- **presence** — `own` (set by the route), `inherited` (from a parent layout), or `none`
-- **value** — `static` (a literal), `dynamic` (`{data.title}` — value known only at runtime), or `absent` (present but empty)
-
-A dynamic title such as `<title>{data.title}</title>` — the most common and correct SvelteKit pattern — is **never** flagged as missing. It passes with a `↯` marker instead. Only genuinely missing (`none`) or empty (`absent`) metadata is penalized.
+svelte-vitals resolves the **effective `<head>`** of every route — walking the layout chain (`+layout.svelte` → … → `+page.svelte`) and parsing `<svelte:head>` with the official `svelte/compiler`. Its design goal is **no false negatives**: a dynamic title like `<title>{data.title}</title>` (the correct SvelteKit pattern) is **never** flagged as missing — it passes with a `↯` marker, and only genuinely missing or empty metadata is penalized.
 
 ### Known limitations
 
@@ -151,12 +102,11 @@ The project advances along two axes: **mode maturity** and **category coverage**
 - **MCP server** (`@svelte-vitals/mcp`) — exposes `analyze` and `explain_rule` tools over stdio so an agent can run analysis in its tool loop and receive structured, fixable findings.
 - **Performance checks** (`0.4`) — static `<img>` analysis: `width`/`height` (CLS) and a `loading` advisory, scored as a separate Performance category alongside SEO.
 - **Health Report** — a single weighted **Health** score over the present category scores (equal weights by default) — SEO, plus Performance when the project has images — shown as the headline in every reporter and the MCP `analyze` output; gate CI on it with `--min-health`.
+- **Documentation site** — bilingual (en / ja) rule reference and guides at [oekazuma.github.io/svelte-vitals](https://oekazuma.github.io/svelte-vitals/).
 
 **Upcoming**
 
-- **Toward `1.0`** — rule-reference docs, a config file, and polish. The Upgrade/deprecation category was dropped (covered by official Svelte tooling — the compiler, the Svelte MCP, and `sv migrate`).
-
-See the design document for the full vision.
+- **Toward `1.0`** — a config file, a visual (Lighthouse-like) report, deeper static Performance checks, and polish. The Upgrade/deprecation category was dropped (covered by official Svelte tooling — the compiler, the Svelte MCP, and `sv migrate`).
 
 ## Packages
 
