@@ -31,6 +31,10 @@ const results: Result[] = [
 ];
 
 describe('formatAgentReport', () => {
+  it('shows the Health score in the heading area', () => {
+    const md = formatAgentReport(results, config);
+    expect(md).toMatch(/Health: \d+\/100/);
+  });
   it('groups performance findings and uses a category-neutral heading', () => {
     const withPerf: Result[] = [
       ...results,
