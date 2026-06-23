@@ -3,7 +3,7 @@ title: レポーター
 description: svelte-vitals が検出結果をフォーマットして出力する方法を選択します。
 ---
 
-svelte-vitals は 5 つの出力レポーターをサポートしています。`--reporter <fmt>` で選択するか、環境に適したものを自動選択に任せてください。
+svelte-vitals は 6 つの出力レポーターをサポートしています。`--reporter <fmt>` で選択するか、環境に適したものを自動選択に任せてください。
 
 ## 利用可能なレポーター
 
@@ -62,6 +62,18 @@ GitHub Actions の [ワークフローコマンド](https://docs.github.com/en/a
 ```bash
 svelte-vitals --reporter github
 ```
+
+## HTML レポート
+
+`--reporter html` は自己完結の HTML レポート（Health スコア・カテゴリ別/ルート別スコア・各検出結果と修正）を出力し、ブラウザで開けます。CSS と JS をすべてインライン化しているためオフラインで動作し、CI 成果物として添付したり共有したりするのも簡単です。
+
+```bash
+svelte-vitals --reporter html                 # svelte-vitals-report.html を出力
+svelte-vitals --reporter html --out-file report.html
+svelte-vitals --reporter html --out-file -     # ファイルではなく標準出力へ
+```
+
+既定ではカレントディレクトリに `svelte-vitals-report.html` を書き出し、パスを stderr に表示します。`--out-file <path>` で出力先を変更でき、`--out-file -` で標準出力にストリームします（パイプや CI 成果物向け）。
 
 ## 自動選択の優先順位
 

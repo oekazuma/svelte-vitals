@@ -63,7 +63,7 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
   } else if (typeof argv.reporter === 'string') {
     if (!isReporterName(argv.reporter)) {
       errors.push(
-        `svelte-vitals: unknown reporter '${argv.reporter}'. Valid values: console, json, agent, sarif, github.`
+        `svelte-vitals: unknown reporter '${argv.reporter}'. Valid values: console, json, agent, sarif, github, html.`
       );
     } else {
       reporter = argv.reporter;
@@ -88,6 +88,7 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
       treatDynamicAs,
       route,
       reporter,
+      outFile: typeof argv['out-file'] === 'string' ? argv['out-file'] : undefined,
       byRoute: Boolean(argv['by-route']),
       failOn,
       rules: buildRulesConfig(allow, ignore)

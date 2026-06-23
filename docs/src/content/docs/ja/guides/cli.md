@@ -24,12 +24,19 @@ svelte-vitals [path] [options]
 | `agent`   | AI コーディングエージェント向け Markdown 修正ドキュメント   |
 | `sarif`   | SARIF v2.1（GitHub Code Scanning などの SAST ツールに対応） |
 | `github`  | GitHub Actions アノテーション形式                           |
+| `html`    | ブラウザで開く自己完結の HTML レポート                      |
+
+指定できる値：`console, json, agent, sarif, github, html のいずれか`
 
 **自動選択：** 既知の AI エージェント環境（例：Claude Code が `CLAUDECODE` を設定）で実行された場合、`agent` レポーターが自動的に選択されます。GitHub Actions（`GITHUB_ACTIONS=true`）で実行された場合は `github` レポーターが自動選択されます。明示的な `--reporter` フラグは常に自動選択よりも優先されます。`SVELTE_VITALS_REPORTER` 環境変数でも上書きできます。
 
 ### `--json`
 
 `--reporter=json` のエイリアスです。
+
+### `--out-file <path>`
+
+`--reporter html` の出力先パス（既定 `svelte-vitals-report.html`、`-` で標準出力）。
 
 ### `--fail-on <severity>`
 
