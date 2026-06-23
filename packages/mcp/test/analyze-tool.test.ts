@@ -11,8 +11,9 @@ describe('analyze tool', () => {
   it('returns a structured JSON report for a project path', async () => {
     const res = await handleAnalyze({ path: fixtureDir });
     expect(res.isError).toBeFalsy();
-    const report = res.structuredContent as { score: number; routes: unknown[]; summary: unknown };
+    const report = res.structuredContent as { score: number; weights: unknown; routes: unknown[]; summary: unknown };
     expect(typeof report.score).toBe('number');
+    expect(report).toHaveProperty('weights');
     expect(Array.isArray(report.routes)).toBe(true);
     // The text payload and the structured payload must be the same report — guard
     // against drift between the two shapes (summary, finding metadata, scores).

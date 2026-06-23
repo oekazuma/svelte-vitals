@@ -149,10 +149,11 @@ The project advances along two axes: **mode maturity** and **category coverage**
 - **MCP server** (`@svelte-vitals/mcp`) — exposes `analyze` and `explain_rule` tools over stdio so an agent can run analysis in its tool loop and receive structured, fixable findings.
 - **Performance checks** (`0.4`) — static `<img>` analysis: `width`/`height` (CLS) and a `loading` advisory, scored as a separate Performance category alongside SEO.
 - **Accessibility checks** (`0.5`) — aggregates the Svelte compiler's `a11y_*` warnings (alt text, label association, ARIA, …) into a scored Accessibility category.
+- **Health Report** — a single weighted **Health** score combining SEO, Performance, and Accessibility (equal weights by default), shown as the headline in every reporter and the MCP `analyze` output; gate CI on it with `--min-health`.
 
 **Upcoming**
 
-- **More categories** ([#10](https://github.com/oekazuma/svelte-vitals/issues/10)) — Upgrade checks, then a combined weighted Health Report — landing across `0.x` ahead of the `1.0` polish.
+- **Toward `1.0`** — rule-reference docs, a config file, and polish. The Upgrade/deprecation category was dropped (covered by official Svelte tooling — the compiler, the Svelte MCP, and `sv migrate`).
 
 See the design document for the full vision.
 
