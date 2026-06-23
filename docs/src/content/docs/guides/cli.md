@@ -24,12 +24,19 @@ Select the output format.
 | `agent`   | Markdown remediation document for AI coding agents                     |
 | `sarif`   | SARIF v2.1 (compatible with GitHub Code Scanning and other SAST tools) |
 | `github`  | GitHub Actions annotation format                                       |
+| `html`    | Self-contained HTML report, open in a browser                          |
+
+Accepted values: `console, json, agent, sarif, github, or html`
 
 **Auto-selection:** when run inside a known AI-agent environment (e.g. Claude Code sets `CLAUDECODE`), the `agent` reporter is selected automatically. When run inside GitHub Actions (`GITHUB_ACTIONS=true`), the `github` reporter is selected automatically. An explicit `--reporter` flag always overrides auto-selection. You can also override via the `SVELTE_VITALS_REPORTER` environment variable.
 
 ### `--json`
 
 Alias for `--reporter=json`.
+
+### `--out-file <path>`
+
+Output path for `--reporter html` (default `svelte-vitals-report.html`; `-` for stdout).
 
 ### `--fail-on <severity>`
 

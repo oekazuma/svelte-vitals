@@ -3,7 +3,7 @@ title: Reporters
 description: Choose how svelte-vitals formats and outputs its findings.
 ---
 
-svelte-vitals supports five output reporters. Select one with `--reporter <fmt>`, or let auto-selection pick the right one for your environment.
+svelte-vitals supports six output reporters. Select one with `--reporter <fmt>`, or let auto-selection pick the right one for your environment.
 
 ## Available reporters
 
@@ -62,6 +62,18 @@ The `github` reporter is auto-selected when `GITHUB_ACTIONS=true` is set (which 
 ```bash
 svelte-vitals --reporter github
 ```
+
+## HTML report
+
+`--reporter html` writes a self-contained HTML report — Health score, per-category and per-route scores, and every finding with its fix — that you open in a browser. The file inlines all its CSS and JS, so it works offline and is easy to attach to a CI run or share.
+
+```bash
+svelte-vitals --reporter html                 # writes svelte-vitals-report.html
+svelte-vitals --reporter html --out-file report.html
+svelte-vitals --reporter html --out-file -     # write to stdout instead of a file
+```
+
+By default it writes `svelte-vitals-report.html` in the current directory and prints the path to stderr. Use `--out-file <path>` to change the location, or `--out-file -` to stream it to stdout (for piping or CI artifacts).
 
 ## Auto-selection priority
 
