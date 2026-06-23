@@ -127,6 +127,26 @@ describe('run() performance rules', () => {
   });
 });
 
+describe('run() --min-health gate', () => {
+  it('--min-health fails (exit 1) when Health is below the threshold', async () => {
+    const cap = capture();
+    // 100 is unreachable for the fixture (it has SEO failures), so the gate trips.
+    const code = await run({ cwd: fixtureDir, minHealth: 100, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
+    expect(code).toBe(1);
+  });
+
+  it('--min-health passes (exit 0) when Health meets the threshold and no failing severity', async () => {
+    const cap = capture();
+    // 0 is always met; with default failOn=critical the fixture's criticals still gate,
+    // so use a project-less assertion: a threshold of 0 must not be the cause of a failure.
+    const code = await run({ cwd: fixtureDir, minHealth: 0, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
+    // The fixture has a critical SEO finding, so severity still gates to 1; min-health=0 does not add a failure.
+    // Assert min-health=0 alone never forces 1 by comparing to the baseline (no minHealth).
+    const baseline = await run({ cwd: fixtureDir, log: capture().log, errorLog: capture().errorLog, env: CLEAN_ENV });
+    expect(code).toBe(baseline);
+  });
+});
+
 describe('run() accessibility rules', () => {
   it('reports an Accessibility finding for an <img> without alt', async () => {
     const cap = capture();

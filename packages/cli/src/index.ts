@@ -8,6 +8,7 @@ import {
   formatGithubReport,
   summarize,
   hasFailureAtOrAbove,
+  computeHealth,
   defineConfig,
   selectRules,
   applyRuleSeverities,
@@ -37,6 +38,8 @@ export interface RunOptions {
   rules?: Record<string, RuleSetting>;
   /** Override process.env for reporter auto-detection (mainly useful in tests). */
   env?: NodeJS.ProcessEnv;
+  /** Fail (exit 1) when the combined Health score is below this value (0–100). */
+  minHealth?: number;
 }
 
 export function routeMatcher(glob: string | undefined): (route: string) => boolean {
@@ -155,7 +158,9 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false }));
     }
     const summary = summarize(results, config);
-    return hasFailureAtOrAbove(summary, config.failOn) ? 1 : 0;
+    const failBySeverity = hasFailureAtOrAbove(summary, config.failOn);
+    const failByHealth = opts.minHealth != null && computeHealth(results, config).health < opts.minHealth;
+    return failBySeverity || failByHealth ? 1 : 0;
   } catch (err) {
     errorLog(`svelte-vitals: ${err instanceof Error ? err.message : String(err)}`);
     return 2;

@@ -18,6 +18,7 @@ Options:
   --json                      Alias for --reporter=json
   --fail-on <severity>        Fail (exit 1) when any finding reaches this severity: critical | warning | info
   --fail-on-warning           Alias for --fail-on=warning
+  --min-health <0-100>        Fail (exit 1) when the combined Health score is below this value
   --rules <ids>               Comma-separated rule ids to enable (all others disabled)
   --ignore <ids>              Comma-separated rule ids to disable
   -h, --help                  Show this help
@@ -34,7 +35,7 @@ async function main(): Promise<void> {
   const argv = mri(process.argv.slice(2), {
     alias: { h: 'help', v: 'version' },
     boolean: ['by-route', 'json', 'fail-on-warning'],
-    string: ['meta-components', 'treat-dynamic-as', 'route', 'fail-on', 'reporter', 'rules', 'ignore']
+    string: ['meta-components', 'treat-dynamic-as', 'route', 'fail-on', 'reporter', 'rules', 'ignore', 'min-health']
   });
 
   if (argv.help) {
@@ -51,7 +52,18 @@ async function main(): Promise<void> {
   for (const e of errors) console.error(e);
   if (!options) process.exit(2);
 
-  const code = await run(options);
+  const minHealthRaw = argv['min-health'];
+  let minHealth: number | undefined;
+  if (minHealthRaw !== undefined) {
+    const n = Number(minHealthRaw);
+    if (Number.isFinite(n) && n >= 0 && n <= 100) {
+      minHealth = n;
+    } else {
+      console.error(`svelte-vitals: invalid --min-health '${minHealthRaw}'; expected a number 0-100. Ignoring.`);
+    }
+  }
+
+  const code = await run({ ...options, minHealth });
   process.exit(code);
 }
 
