@@ -112,12 +112,15 @@ export function computeHealth(results: Result[], config: Config): HealthResult {
   let total = 0;
   for (const cat of Object.keys(categories) as Category[]) {
     const w = config.weights?.[cat] ?? 1;
+    if (!Number.isFinite(w) || w < 0) {
+      throw new RangeError(`svelte-vitals: invalid weight for '${cat}'; expected a finite number >= 0.`);
+    }
     weights[cat] = w;
     weighted += categories[cat]!.score * w;
     total += w;
   }
-  // Assumes non-negative weights (config.weights is programmatic-only for now);
-  // when total <= 0 (no categories, or all-zero weights), Health is a perfect 100.
+  // Invalid weights (negative or non-finite) throw RangeError above.
+  // When total <= 0 (no categories, or all-zero weights), Health is a perfect 100.
   const health = total > 0 ? Math.round(weighted / total) : 100;
   return { health, categories, weights };
 }

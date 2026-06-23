@@ -56,11 +56,11 @@ async function main(): Promise<void> {
   let minHealth: number | undefined;
   if (minHealthRaw !== undefined) {
     const n = Number(minHealthRaw);
-    if (Number.isFinite(n) && n >= 0 && n <= 100) {
-      minHealth = n;
-    } else {
-      console.error(`svelte-vitals: invalid --min-health '${minHealthRaw}'; expected a number 0-100. Ignoring.`);
+    if (!Number.isFinite(n) || n < 0 || n > 100) {
+      console.error(`svelte-vitals: invalid --min-health '${minHealthRaw}'; expected a number 0-100.`);
+      process.exit(2);
     }
+    minHealth = n;
   }
 
   const code = await run({ ...options, minHealth });

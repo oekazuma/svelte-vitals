@@ -110,6 +110,11 @@ export async function run(opts: RunOptions = {}): Promise<number> {
   const log = opts.log ?? ((line: string) => console.log(line));
   const errorLog = opts.errorLog ?? ((line: string) => console.error(line));
 
+  if (opts.minHealth != null && (!Number.isFinite(opts.minHealth) || opts.minHealth < 0 || opts.minHealth > 100)) {
+    errorLog(`svelte-vitals: invalid minHealth '${opts.minHealth}'; expected a number 0-100.`);
+    return 2;
+  }
+
   let analysis: AnalyzeResult;
   try {
     analysis = await analyzeProject({

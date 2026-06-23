@@ -51,4 +51,14 @@ describe('computeHealth', () => {
   it('returns 100 when there are no results', () => {
     expect(computeHealth([], defineConfig({})).health).toBe(100);
   });
+
+  it('throws RangeError for a negative weight', () => {
+    const results = [seoFail('/a')];
+    expect(() => computeHealth(results, defineConfig({ weights: { seo: -1 } }))).toThrow(RangeError);
+  });
+
+  it('throws RangeError for a non-finite weight (NaN)', () => {
+    const results = [seoFail('/a')];
+    expect(() => computeHealth(results, defineConfig({ weights: { seo: NaN } }))).toThrow(RangeError);
+  });
 });

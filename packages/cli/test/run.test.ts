@@ -127,6 +127,22 @@ describe('run() performance rules', () => {
   });
 });
 
+describe('run() --min-health validation', () => {
+  it('returns exit 2 for an out-of-range minHealth (150)', async () => {
+    const cap = capture();
+    const code = await run({ cwd: fixtureDir, minHealth: 150, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
+    expect(code).toBe(2);
+    expect(cap.err.join('\n')).toContain('invalid minHealth');
+  });
+
+  it('returns exit 2 for a NaN minHealth', async () => {
+    const cap = capture();
+    const code = await run({ cwd: fixtureDir, minHealth: NaN, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
+    expect(code).toBe(2);
+    expect(cap.err.join('\n')).toContain('invalid minHealth');
+  });
+});
+
 describe('run() --min-health gate', () => {
   it('--min-health fails (exit 1) when Health is below the threshold', async () => {
     const cap = capture();
