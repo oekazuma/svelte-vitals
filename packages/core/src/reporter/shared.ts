@@ -1,5 +1,7 @@
 import type { Result, Severity } from '../types.js';
 import { allRules } from '../rules/index.js';
+import { docsUrlFor } from '../rule.js';
+export { docsUrlFor } from '../rule.js';
 
 /** Map a rule severity to a SARIF result/configuration level. */
 export function severityToSarifLevel(sev: Severity): 'error' | 'warning' | 'note' {
@@ -14,11 +16,6 @@ export function severityToGithubLevel(sev: Severity): 'error' | 'warning' | 'not
 /** Human-readable text for a finding: its message, plus the recommendation when present. */
 export function messageText(result: Result): string {
   return result.recommendation ? `${result.message} ${result.recommendation}` : result.message;
-}
-
-/** Canonical docs URL for a rule id. The single place this URL shape is defined. */
-export function docsUrlFor(id: string): string {
-  return `https://svelte-vitals.dev/rules/${id}`;
 }
 
 /** Stable, registry-sourced metadata for a rule id (single source of titles/severities). */

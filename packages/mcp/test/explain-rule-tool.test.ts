@@ -19,11 +19,11 @@ describe('explain_rule tool', () => {
     expect(info.category).toBe('seo');
     expect(info.severity).toBe('critical');
     expect(info.rationale.length).toBeGreaterThan(0);
-    expect(info.docsUrl).toBe('https://svelte-vitals.dev/rules/SEO001');
+    expect(info.docsUrl).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo001');
     expect(info.fix?.description.length).toBeGreaterThan(0);
     // The text rendering carries the same id and docs link.
     expect(res.content[0]!.text).toContain('SEO001');
-    expect(res.content[0]!.text).toContain('https://svelte-vitals.dev/rules/SEO001');
+    expect(res.content[0]!.text).toContain('https://oekazuma.github.io/svelte-vitals/rules/seo001');
   });
 
   it('resolves the rule id case-insensitively', async () => {

@@ -7,7 +7,7 @@ describe('explainRule', () => {
     expect(info).toBeDefined();
     expect(info!.id).toBe('SEO001');
     expect(info!.severity).toBe('critical');
-    expect(info!.docsUrl).toBe('https://svelte-vitals.dev/rules/SEO001');
+    expect(info!.docsUrl).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo001');
     expect(info!.rationale.length).toBeGreaterThan(0);
     expect(info!.fix?.description.length).toBeGreaterThan(0);
   });
@@ -16,7 +16,7 @@ describe('explainRule', () => {
     const info = explainRule('seo001');
     expect(info).toBeDefined();
     expect(info!.id).toBe('SEO001');
-    expect(info!.docsUrl).toBe('https://svelte-vitals.dev/rules/SEO001');
+    expect(info!.docsUrl).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo001');
   });
 
   it('returns undefined for an unknown id', () => {
@@ -28,7 +28,7 @@ describe('explainRule', () => {
       const info = explainRule(rule.id);
       expect(info, rule.id).toBeDefined();
       expect(info!.rationale.length, `${rule.id} rationale`).toBeGreaterThan(0);
-      expect(info!.docsUrl).toBe(`https://svelte-vitals.dev/rules/${rule.id}`);
+      expect(info!.docsUrl).toBe(`https://oekazuma.github.io/svelte-vitals/rules/${rule.id.toLowerCase()}`);
     }
   });
 });

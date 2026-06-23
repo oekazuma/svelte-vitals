@@ -18,7 +18,7 @@ const results: Result[] = [
     route: '/a',
     location: 'src/routes/a/+page.svelte',
     message: 'Missing <meta name="description">',
-    docsUrl: 'https://svelte-vitals.dev/rules/SEO002',
+    docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo002',
     fix: { description: 'Add a description meta.', snippet: '<meta name="description" content="x" />', lang: 'svelte' }
   },
   {

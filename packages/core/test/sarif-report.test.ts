@@ -12,7 +12,7 @@ const results: Result[] = [
     location: 'src/routes/none/+page.svelte',
     message: 'Missing <title>',
     recommendation: 'Add a <title>.',
-    docsUrl: 'https://svelte-vitals.dev/rules/SEO001'
+    docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo001'
   },
   // project-scoped: no location, no route
   {
@@ -59,7 +59,7 @@ describe('formatSarifReport', () => {
     const seo001 = run.tool.driver.rules.find((x: { id: string }) => x.id === 'SEO001');
     expect(seo001.name).toBe('Title presence');
     expect(seo001.shortDescription.text).toBe('Title presence');
-    expect(seo001.helpUri).toBe('https://svelte-vitals.dev/rules/SEO001');
+    expect(seo001.helpUri).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo001');
     expect(seo001.defaultConfiguration.level).toBe('error');
   });
 

@@ -72,7 +72,7 @@ export function formatSarifReport(results: Result[], config: Config, meta: { ver
         tool: {
           driver: {
             name: 'svelte-vitals',
-            informationUri: 'https://svelte-vitals.dev',
+            informationUri: 'https://oekazuma.github.io/svelte-vitals',
             version: meta.version,
             rules
           }

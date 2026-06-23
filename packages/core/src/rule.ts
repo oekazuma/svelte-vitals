@@ -32,7 +32,7 @@ export interface Rule {
 
 /** Documentation URL for a rule id. Single source so no per-rule URL can drift (issue #24). */
 export function docsUrlFor(id: string): string {
-  return `https://svelte-vitals.dev/rules/${id}`;
+  return `https://oekazuma.github.io/svelte-vitals/rules/${id.toLowerCase()}`;
 }
 
 /**
