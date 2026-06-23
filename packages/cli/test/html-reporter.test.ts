@@ -24,15 +24,15 @@ describe('html reporter', () => {
     });
     expect(code).toBeTypeOf('number');
     expect(writes).toHaveLength(1);
-    expect(writes[0][0]).toBe('svelte-vitals-report.html');
-    expect(writes[0][1].startsWith('<!doctype html>')).toBe(true);
+    expect(writes[0]![0]).toBe('svelte-vitals-report.html');
+    expect(writes[0]![1].startsWith('<!doctype html>')).toBe(true);
     expect(errs.some((e) => e.includes('wrote report to svelte-vitals-report.html'))).toBe(true);
   });
 
   it('honors --out-file path', async () => {
     const writes: Array<[string, string]> = [];
     await run({ cwd: fixture, reporter: 'html', outFile: 'out/report.html', env: {}, writeFile: (p, c) => writes.push([p, c]), log: () => {}, errorLog: () => {} });
-    expect(writes[0][0]).toBe('out/report.html');
+    expect(writes[0]![0]).toBe('out/report.html');
   });
 
   it('writes to stdout (not the filesystem) when out-file is "-"', async () => {
