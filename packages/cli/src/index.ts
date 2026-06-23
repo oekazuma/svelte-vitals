@@ -1,4 +1,5 @@
-import { writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { dirname } from 'node:path';
 import {
   allRules,
   runRules,
@@ -167,8 +168,15 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       if (opts.outFile === '-') {
         log(html);
       } else {
-        const path = opts.outFile ?? 'svelte-vitals-report.html';
-        const write = opts.writeFile ?? ((p: string, c: string) => writeFileSync(p, c));
+        // `||` (not `??`) so an empty --out-file (mri yields '' for a value-less
+        // flag) falls back to the default instead of writing to an empty path.
+        const path = opts.outFile || 'svelte-vitals-report.html';
+        const write =
+          opts.writeFile ??
+          ((p: string, c: string) => {
+            mkdirSync(dirname(p), { recursive: true });
+            writeFileSync(p, c);
+          });
         write(path, html);
         errorLog(`svelte-vitals: wrote report to ${path}`);
       }

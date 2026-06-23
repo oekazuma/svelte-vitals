@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { run } from '../src/index.js';
 import { isReporterName } from '../src/reporter-resolve.js';
 
@@ -57,5 +59,39 @@ describe('html reporter', () => {
     });
     expect(writes).toHaveLength(0);
     expect(logs.join('\n')).toContain('<!doctype html>');
+  });
+
+  it('falls back to the default path when out-file is an empty string', async () => {
+    const writes: Array<[string, string]> = [];
+    await run({
+      cwd: fixture,
+      reporter: 'html',
+      outFile: '',
+      env: {},
+      writeFile: (p, c) => writes.push([p, c]),
+      log: () => {},
+      errorLog: () => {}
+    });
+    expect(writes[0]![0]).toBe('svelte-vitals-report.html');
+  });
+
+  it('creates missing parent directories for --out-file (default writer)', async () => {
+    const base = mkdtempSync(join(tmpdir(), 'sv-html-'));
+    const out = join(base, 'nested', 'deep', 'report.html');
+    try {
+      const code = await run({
+        cwd: fixture,
+        reporter: 'html',
+        outFile: out,
+        env: {},
+        log: () => {},
+        errorLog: () => {}
+      });
+      expect(code).toBeTypeOf('number');
+      expect(existsSync(out)).toBe(true);
+      expect(readFileSync(out, 'utf8').startsWith('<!doctype html>')).toBe(true);
+    } finally {
+      rmSync(base, { recursive: true, force: true });
+    }
   });
 });

@@ -198,3 +198,34 @@ describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loo
     expect(safeHref('not a url')).toBeNull();
   });
 });
+
+describe('category filters (data-driven, not hardcoded)', () => {
+  const html = buildHtmlDocument(report, { version: '9.9.9' });
+
+  it('emits a severity + category chip with an explicit data-filter value', () => {
+    expect(html).toContain('data-filter="all"');
+    expect(html).toContain('data-filter="critical"');
+    expect(html).toContain('data-filter="warning"');
+    expect(html).toContain('data-filter="info"');
+    // category chips are derived from report.categories, not hardcoded
+    expect(html).toContain('data-filter="seo"');
+    expect(html).toContain('data-filter="performance"');
+  });
+
+  it('filters by the chip data-filter value, not its label text', () => {
+    expect(html).toContain("getAttribute('data-filter')");
+  });
+
+  it('only renders chips for categories present in the report', () => {
+    const onlySeo: JsonReport = {
+      ...report,
+      categories: { seo: { score: 80, scoreModel: model() } },
+      weights: { seo: 1 },
+      routes: [],
+      siteIssues: []
+    };
+    const out = buildHtmlDocument(onlySeo, { version: '0' });
+    expect(out).toContain('data-filter="seo"');
+    expect(out).not.toContain('data-filter="performance"');
+  });
+});
