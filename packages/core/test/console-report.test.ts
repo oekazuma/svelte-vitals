@@ -22,6 +22,11 @@ const results: Result[] = [
 ];
 
 describe('formatConsoleReport', () => {
+  it('shows a combined Health headline above the category scores', () => {
+    const out = formatConsoleReport(results, config);
+    expect(out).toMatch(/Health: \d+\/100/);
+    expect(out).toMatch(/SEO Score: \d+\/100/); // per-category line still present
+  });
   it('shows a score header and groups findings', () => {
     const out = formatConsoleReport(results, config);
     expect(out).toMatch(/SEO Score: \d+\/100/);

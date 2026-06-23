@@ -1,6 +1,6 @@
 import type { Category, Config, Result, Severity } from '../types.js';
 import { classify, summarize, effectiveSeverity } from '../summary.js';
-import { computeScore, scoresByCategory, type ScoreResult } from '../scoring/score.js';
+import { computeScore, computeHealth, type ScoreResult } from '../scoring/score.js';
 
 const RULE = '────────────────────────';
 const SEVERITY_TITLE: Record<Severity, string> = {
@@ -56,9 +56,9 @@ function byRouteTree(results: Result[], config: Config): string[] {
  */
 export function formatConsoleReport(results: Result[], config: Config, options: ConsoleReportOptions = {}): string {
   const summary = summarize(results, config);
-  const byCat = scoresByCategory(results, config);
+  const { health, categories: byCat } = computeHealth(results, config);
   const present = CATEGORY_ORDER.filter((c) => byCat[c] !== undefined);
-  const header: string[] = [`Svelte Vitals  ·  ${options.mode ?? 'static mode'}`, ''];
+  const header: string[] = [`Svelte Vitals  ·  ${options.mode ?? 'static mode'}`, '', `Health: ${health}/100`];
   for (const c of present) {
     header.push(scoreLine(CATEGORY_LABEL[c] ?? c, byCat[c]!));
   }

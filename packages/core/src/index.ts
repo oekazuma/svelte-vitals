@@ -57,5 +57,5 @@ export { formatGithubReport } from './reporter/github.js';
 
 export { selectRules, applyRuleSeverities } from './config-apply.js';
 
-export type { ScoreModel, ScoreResult, ScoreOptions } from './scoring/score.js';
-export { computeScore, scoresByCategory } from './scoring/score.js';
+export type { ScoreModel, ScoreResult, ScoreOptions, HealthResult } from './scoring/score.js';
+export { computeScore, scoresByCategory, computeHealth } from './scoring/score.js';

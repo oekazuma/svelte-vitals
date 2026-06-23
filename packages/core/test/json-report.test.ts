@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { buildJsonReport, formatJsonReport, defineConfig, type Result } from '../src/index.js';
+import { buildJsonReport, formatJsonReport, computeHealth, defineConfig, type Result } from '../src/index.js';
 
 const config = defineConfig({});
 const results: Result[] = [
@@ -48,11 +48,13 @@ describe('formatJsonReport', () => {
   it('emits the documented shape with only penalized findings', () => {
     const json = JSON.parse(formatJsonReport(results, config, { version: '0.1.0' }));
     expect(json.version).toBe('0.1.0');
-    expect(typeof json.score).toBe('number');
-    expect(json.scoreModel).toHaveProperty('routeAverage');
+    expect(typeof json.score).toBe('number'); // score is now the combined Health
+    expect(json.weights).toBeDefined();
+    expect(json.scoreModel).toBeUndefined(); // top-level scoreModel removed
+    expect(json.categories.seo.scoreModel).toHaveProperty('routeAverage');
     expect(json.summary.critical).toBe(1);
     const routeA = json.routes.find((r: { route: string }) => r.route === '/a');
-    expect(routeA.issues).toHaveLength(1); // only the missing description (SEO001 passed)
+    expect(routeA.issues).toHaveLength(1);
     expect(routeA.issues[0].id).toBe('SEO002');
     expect(routeA.issues[0].detection).toEqual({ presence: 'none', value: 'absent' });
     expect(routeA.issues[0].docsUrl).toBe('https://svelte-vitals.dev/rules/SEO002');
@@ -60,11 +62,16 @@ describe('formatJsonReport', () => {
     expect(json.siteIssues[0].id).toBe('SEO006');
   });
 
+  it('top-level score equals the combined Health', () => {
+    const report = buildJsonReport(results, config, { version: '9.9.9' });
+    expect(report.score).toBe(computeHealth(results, config).health);
+    expect(report.weights).toEqual(computeHealth(results, config).weights);
+  });
+
   it('buildJsonReport returns the object formatJsonReport stringifies', () => {
     const report = buildJsonReport(results, config, { version: '9.9.9' });
     expect(report.version).toBe('9.9.9');
     expect(report).toHaveProperty('score');
-    expect(report).toHaveProperty('scoreModel');
     expect(report).toHaveProperty('summary');
     expect(Array.isArray(report.routes)).toBe(true);
     expect(Array.isArray(report.siteIssues)).toBe(true);

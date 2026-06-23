@@ -1,5 +1,6 @@
 import type { Config, Result, Severity } from '../types.js';
 import { classify, effectiveSeverity } from '../summary.js';
+import { computeHealth } from '../scoring/score.js';
 
 /** Sort order so the most severe findings (and the groups holding them) surface first. */
 const SEVERITY_RANK: Record<Severity, number> = { critical: 0, warning: 1, info: 2 };
@@ -17,7 +18,8 @@ function mdTags(text: string): string {
 /** Render failing findings as an agent-actionable Markdown remediation document (issue #18). */
 export function formatAgentReport(results: Result[], config: Config): string {
   const failing = results.filter((r) => classify(r, config) === 'fail');
-  const lines: string[] = ['# svelte-vitals — fixes', ''];
+  const { health } = computeHealth(results, config);
+  const lines: string[] = ['# svelte-vitals — fixes', '', `Health: ${health}/100`, ''];
 
   if (failing.length === 0) {
     lines.push('No issues to fix.', '');

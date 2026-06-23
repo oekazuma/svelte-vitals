@@ -83,6 +83,8 @@ export interface Config {
   rules: Record<string, RuleSetting>;
   /** Minimum severity that fails the run / CI (design §6). */
   failOn: Severity;
+  /** Per-category weights for the combined Health score (default: equal, 1 each) (#10). */
+  weights?: Partial<Record<Category, number>>;
 }
 
 export const defaultConfig: Config = {
