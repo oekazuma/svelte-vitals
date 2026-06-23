@@ -39,8 +39,8 @@ function renderFinding(issue: Issue): string {
     `<div class="f-head"><span class="ruleid">${escapeHtml(issue.id)}</span>` +
     `<span class="f-title">${escapeHtml(issue.title)}</span>` +
     `<span class="sev-tag ${sev}">${sev}</span></div>` +
-    `<p class="f-loc">${escapeHtml(issue.location)}${line}${dyn}</p>` +
-    `<p class="f-rec">${escapeHtml(issue.recommendation)}</p>` +
+    `<p class="f-loc">${escapeHtml(issue.location ?? '')}${line}${dyn}</p>` +
+    `<p class="f-rec">${escapeHtml(issue.recommendation ?? '')}</p>` +
     fix +
     docs +
     `</article>`

@@ -1,3 +1,4 @@
+import { writeFileSync } from 'node:fs';
 import {
   allRules,
   runRules,
@@ -6,6 +7,7 @@ import {
   formatAgentReport,
   formatSarifReport,
   formatGithubReport,
+  formatHtmlReport,
   summarize,
   hasFailureAtOrAbove,
   computeHealth,
@@ -39,6 +41,10 @@ export interface RunOptions {
   env?: NodeJS.ProcessEnv;
   /** Fail (exit 1) when the combined Health score is below this value (0–100). */
   minHealth?: number;
+  /** Output path for --reporter html (default 'svelte-vitals-report.html'; '-' = stdout). */
+  outFile?: string;
+  /** Injected file writer for --reporter html (defaults to node:fs writeFileSync). Mainly for tests. */
+  writeFile?: (path: string, content: string) => void;
 }
 
 export function routeMatcher(glob: string | undefined): (route: string) => boolean {
@@ -156,6 +162,16 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       // a clean run emits no stray blank line into the Actions log.
       const output = formatGithubReport(results, config);
       if (output) log(output);
+    } else if (reporter === 'html') {
+      const html = formatHtmlReport(results, config, { version });
+      if (opts.outFile === '-') {
+        log(html);
+      } else {
+        const path = opts.outFile ?? 'svelte-vitals-report.html';
+        const write = opts.writeFile ?? ((p: string, c: string) => writeFileSync(p, c));
+        write(path, html);
+        errorLog(`svelte-vitals: wrote report to ${path}`);
+      }
     } else {
       log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false }));
     }

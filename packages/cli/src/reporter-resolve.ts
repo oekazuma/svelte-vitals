@@ -1,10 +1,17 @@
-export type ReporterName = 'console' | 'json' | 'agent' | 'sarif' | 'github';
+export type ReporterName = 'console' | 'json' | 'agent' | 'sarif' | 'github' | 'html';
 
 /** Env vars set by AI-agent harnesses. Curated + extensible; SVELTE_VITALS_AGENT is the universal opt-in. */
 const AGENT_ENV_VARS = ['CLAUDECODE', 'SVELTE_VITALS_AGENT'];
 
 export function isReporterName(value: string | undefined): value is ReporterName {
-  return value === 'console' || value === 'json' || value === 'agent' || value === 'sarif' || value === 'github';
+  return (
+    value === 'console' ||
+    value === 'json' ||
+    value === 'agent' ||
+    value === 'sarif' ||
+    value === 'github' ||
+    value === 'html'
+  );
 }
 
 /** True when run by a known AI-agent harness (design: curated allow-list, no TTY heuristic). */
