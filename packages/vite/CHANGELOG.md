@@ -1,5 +1,12 @@
 # @svelte-vitals/vite
 
+## 0.3.5
+
+### Patch Changes
+
+- Updated dependencies [e6ee630]
+  - @svelte-vitals/core@0.11.0
+
 ## 0.3.4
 
 ### Patch Changes
