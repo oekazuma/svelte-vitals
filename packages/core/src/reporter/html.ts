@@ -21,6 +21,20 @@ export function escapeHtml(s: string): string {
   );
 }
 
+/**
+ * Return the URL only when it uses a safe http/https scheme, else null.
+ * Guards a finding's `docsUrl` against `javascript:`/`data:` hrefs — escapeHtml
+ * neutralizes attribute breakout but not a malicious scheme. Browsers strip
+ * ASCII whitespace (tab/newline/CR) from a URL before resolving its scheme (so
+ * `java\tscript:` runs as `javascript:`), so strip whitespace first; anything not
+ * plainly http(s):// afterward is rejected. Pure string work — no `URL` global,
+ * keeping core runtime-agnostic and lib-minimal.
+ */
+export function safeHref(url: string): string | null {
+  const normalized = url.replace(/\s/g, '').toLowerCase();
+  return /^https?:\/\//.test(normalized) ? url : null;
+}
+
 const slug = (route: string): string =>
   'route-' +
   route
@@ -41,7 +55,8 @@ function renderFinding(issue: Issue): string {
     issue.fix?.snippet !== undefined
       ? `<div class="fix"><div class="label">fix</div><pre><code>${escapeHtml(issue.fix.snippet)}</code></pre></div>`
       : '';
-  const docs = issue.docsUrl ? `<a class="f-link" href="${escapeHtml(issue.docsUrl)}">Learn more</a>` : '';
+  const href = issue.docsUrl ? safeHref(issue.docsUrl) : null;
+  const docs = href ? `<a class="f-link" href="${escapeHtml(href)}">Learn more</a>` : '';
   return (
     `<article class="finding sev-${sev}" data-severity="${sev}" data-category="${escapeHtml(issue.category)}">` +
     `<div class="f-head"><span class="ruleid">${escapeHtml(issue.id)}</span>` +
@@ -81,7 +96,7 @@ function renderHero(report: JsonReport): string {
       const w = weight !== undefined ? `<span class="w">weight ${weight}</span>` : '';
       const name = cat === 'seo' ? 'SEO' : cat.charAt(0).toUpperCase() + cat.slice(1);
       return (
-        `<div class="cat"><div class="top"><span class="name">${name} ${w}</span>` +
+        `<div class="cat"><div class="top"><span class="name">${escapeHtml(name)} ${w}</span>` +
         `<span class="sc" style="color:${BAND_COLOR[b]}">${score}</span></div>` +
         `<div class="bar"><i style="width:${score}%;background:${BAND_COLOR[b]}"></i></div></div>`
       );

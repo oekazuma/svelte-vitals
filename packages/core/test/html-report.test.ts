@@ -1,14 +1,17 @@
 import { describe, it, expect } from 'vitest';
-import { buildHtmlDocument, formatHtmlReport, escapeHtml, scoreBand } from '../src/index.js';
+import { buildHtmlDocument, formatHtmlReport, escapeHtml, safeHref, scoreBand } from '../src/index.js';
 import type { JsonReport } from '../src/reporter/json.js';
+import type { ScoreModel } from '../src/scoring/score.js';
+
+const model = (criticalCap: number | null = null): ScoreModel => ({ routeAverage: 0, sitePenalty: 0, criticalCap });
 
 const report: JsonReport = {
   version: '9.9.9',
   score: 82,
   weights: { seo: 1, performance: 1 },
   categories: {
-    seo: { score: 91, scoreModel: { mode: 'weighted' } as never },
-    performance: { score: 68, scoreModel: {} as never }
+    seo: { score: 91, scoreModel: model() },
+    performance: { score: 68, scoreModel: model() }
   },
   summary: { critical: 1, warning: 2, info: 1, passed: 37, dynamic: 3 },
   routes: [
@@ -139,5 +142,56 @@ describe('interactivity', () => {
     expect(html).toContain("getElementById('arc')");
     const withoutDocs = html.replace(/href="https?:\/\/oekazuma\.github\.io[^"]*"/g, '');
     expect(/(?:src|href)\s*=\s*"https?:\/\//i.test(withoutDocs)).toBe(false);
+  });
+});
+
+describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loosely typed)', () => {
+  it('drops a finding docsUrl with an unsafe scheme', () => {
+    const evil: JsonReport = {
+      ...report,
+      routes: [
+        {
+          route: '/x',
+          score: 0,
+          issues: [
+            {
+              id: 'SEO001',
+              category: 'seo',
+              title: 't',
+              detection: { presence: 'none', value: 'absent' },
+              location: 'f.svelte',
+              recommendation: 'r',
+              docsUrl: 'javascript:alert(1)',
+              severity: 'critical'
+            }
+          ]
+        }
+      ],
+      siteIssues: []
+    };
+    const html = buildHtmlDocument(evil, { version: '0' });
+    expect(html).not.toContain('javascript:alert(1)');
+    expect(html).not.toContain('href="javascript:'); // no anchor rendered for the unsafe url
+  });
+
+  it('escapes an attacker-controlled category key', () => {
+    const evil: JsonReport = {
+      ...report,
+      categories: { '<img src=x onerror=alert(1)>': { score: 50, scoreModel: model() } },
+      weights: {},
+      routes: [],
+      siteIssues: []
+    };
+    const html = buildHtmlDocument(evil, { version: '0' });
+    expect(html).not.toContain('<img src=x onerror=alert(1)>');
+    expect(html).toContain('&lt;img src=x onerror=alert(1)&gt;');
+  });
+
+  it('safeHref accepts http/https and rejects others', () => {
+    expect(safeHref('https://example.com/a')).toBe('https://example.com/a');
+    expect(safeHref('http://example.com')).toBe('http://example.com');
+    expect(safeHref('javascript:alert(1)')).toBeNull();
+    expect(safeHref('data:text/html,x')).toBeNull();
+    expect(safeHref('not a url')).toBeNull();
   });
 });
