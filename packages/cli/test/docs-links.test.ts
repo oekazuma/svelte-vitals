@@ -24,6 +24,7 @@ describe('docs: every documented rule has a reference page (en + ja)', () => {
   });
   it('has no stray rule pages without a matching rule', () => {
     const ids = new Set(documented.map((r) => `${r.id.toLowerCase()}.md`));
-    for (const f of readdirSync(enRules)) expect(ids.has(f), `stray ${f}`).toBe(true);
+    for (const dir of [enRules, jaRules])
+      for (const f of readdirSync(dir)) expect(ids.has(f), `stray ${f} in ${dir}`).toBe(true);
   });
 });
