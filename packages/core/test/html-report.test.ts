@@ -197,6 +197,15 @@ describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loo
     expect(safeHref('data:text/html,x')).toBeNull();
     expect(safeHref('not a url')).toBeNull();
   });
+
+  it('rejects whitespace-obfuscated and uppercase unsafe schemes; accepts uppercase http(s)', () => {
+    // Browsers strip ASCII tab/newline before scheme resolution — these must not slip through.
+    expect(safeHref('java\tscript:alert(1)')).toBeNull();
+    expect(safeHref('java\nscript:alert(1)')).toBeNull();
+    expect(safeHref('JavaScript:alert(1)')).toBeNull();
+    // Scheme match is case-insensitive: uppercase http(s) is valid and returned verbatim.
+    expect(safeHref('HTTPS://example.com')).toBe('HTTPS://example.com');
+  });
 });
 
 describe('category filters (data-driven, not hardcoded)', () => {
