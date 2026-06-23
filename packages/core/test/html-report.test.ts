@@ -107,3 +107,15 @@ describe('formatHtmlReport', () => {
     expect(out).toContain('</html>');
   });
 });
+
+describe('styling', () => {
+  const html = buildHtmlDocument(report, { version: '9.9.9' });
+  it('inlines a stylesheet with the brand + score tokens', () => {
+    expect(html).toContain('--accent: #ff3e00');
+    expect(html).toContain('.finding');
+    expect(html).toContain('#2FA968'); // good band used somewhere (inline) — sanity that colors are present
+    // still self-contained after adding CSS
+    const withoutDocs = html.replace(/href="https?:\/\/oekazuma\.github\.io[^"]*"/g, '');
+    expect(/url\(\s*['"]?https?:\/\//i.test(withoutDocs)).toBe(false);
+  });
+});
