@@ -119,3 +119,14 @@ describe('styling', () => {
     expect(/url\(\s*['"]?https?:\/\//i.test(withoutDocs)).toBe(false);
   });
 });
+
+describe('interactivity', () => {
+  const html = buildHtmlDocument(report, { version: '9.9.9' });
+  it('inlines the gauge + filter script and stays self-contained', () => {
+    expect(html).toContain('prefers-reduced-motion');
+    expect(html).toContain('data-severity');
+    expect(html).toContain("getElementById('arc')");
+    const withoutDocs = html.replace(/href="https?:\/\/oekazuma\.github\.io[^"]*"/g, '');
+    expect(/(?:src|href)\s*=\s*"https?:\/\//i.test(withoutDocs)).toBe(false);
+  });
+});
