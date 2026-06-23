@@ -95,3 +95,27 @@ export function scoresByCategory(results: Result[], config: Config): Partial<Rec
   for (const [cat, rs] of byCat) out[cat] = computeScore(rs, config);
   return out;
 }
+
+export interface HealthResult {
+  /** Weighted overall score across present categories (0–100). */
+  health: number;
+  categories: Partial<Record<Category, ScoreResult>>;
+  /** Effective weight used per present category. */
+  weights: Partial<Record<Category, number>>;
+}
+
+/** Combined weighted Health score over the categories present in `results` (#10). */
+export function computeHealth(results: Result[], config: Config): HealthResult {
+  const categories = scoresByCategory(results, config);
+  const weights: Partial<Record<Category, number>> = {};
+  let weighted = 0;
+  let total = 0;
+  for (const cat of Object.keys(categories) as Category[]) {
+    const w = config.weights?.[cat] ?? 1;
+    weights[cat] = w;
+    weighted += categories[cat]!.score * w;
+    total += w;
+  }
+  const health = total > 0 ? Math.round(weighted / total) : 100;
+  return { health, categories, weights };
+}
