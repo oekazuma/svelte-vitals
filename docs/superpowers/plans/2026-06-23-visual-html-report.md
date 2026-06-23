@@ -25,10 +25,10 @@
 // packages/core/src/reporter/json.ts
 interface JsonReport {
   version: string;
-  score: number;                         // combined Health score
+  score: number; // combined Health score
   weights: Partial<Record<Category, number>>;
   categories: Record<string, { score: number; scoreModel: ScoreModel }>;
-  summary: Summary;                      // { critical, warning, info, passed, dynamic }  (all numbers)
+  summary: Summary; // { critical, warning, info, passed, dynamic }  (all numbers)
   routes: Array<{ route: string; score: number; issues: JsonIssue[] }>;
   siteIssues: JsonIssue[];
 }
@@ -39,7 +39,7 @@ interface JsonReport {
 //   docsUrl?: string; fix?: { description: string; snippet?: string; lang?: string };
 //   severity: 'critical'|'warning'|'info';
 // }
-export function buildJsonReport(results: Result[], config: Config, meta: { version: string }): JsonReport
+export function buildJsonReport(results: Result[], config: Config, meta: { version: string }): JsonReport;
 ```
 
 ---
@@ -49,11 +49,13 @@ export function buildJsonReport(results: Result[], config: Config, meta: { versi
 Renders the full, correct (unstyled) HTML document from a `JsonReport`: topbar, hero (gauge + tallies + category bars), route list (native `<details>`), site checks, footer. Includes all CSS class names and `data-*` hooks that Tasks 2–3 rely on, plus HTML escaping. Empty `<style></style>` and `<script></script>` placeholders are filled in Tasks 2 and 3.
 
 **Files:**
+
 - Create: `packages/core/src/reporter/html.ts`
 - Modify: `packages/core/src/index.ts` (export the new functions)
 - Test: `packages/core/test/html-report.test.ts`
 
 **Interfaces:**
+
 - Consumes: `buildJsonReport(results, config, meta): JsonReport` and `type JsonReport` from `./json.js`; `Category, Config, Result` from `../types.js`.
 - Produces:
   - `escapeHtml(s: string): string`
@@ -76,7 +78,10 @@ const report: JsonReport = {
   version: '9.9.9',
   score: 82,
   weights: { seo: 1, performance: 1 },
-  categories: { seo: { score: 91, scoreModel: { mode: 'weighted' } as never }, performance: { score: 68, scoreModel: {} as never } },
+  categories: {
+    seo: { score: 91, scoreModel: { mode: 'weighted' } as never },
+    performance: { score: 68, scoreModel: {} as never }
+  },
   summary: { critical: 1, warning: 2, info: 1, passed: 37, dynamic: 3 },
   routes: [
     { route: '/', score: 100, issues: [] },
@@ -92,7 +97,11 @@ const report: JsonReport = {
           location: 'src/routes/products/[id]/+page.svelte',
           recommendation: 'Add a <title> in <svelte:head>.',
           docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo001',
-          fix: { description: 'Add a <title>.', snippet: '<svelte:head>\n  <title>{data.title}</title>\n</svelte:head>', lang: 'svelte' },
+          fix: {
+            description: 'Add a <title>.',
+            snippet: '<svelte:head>\n  <title>{data.title}</title>\n</svelte:head>',
+            lang: 'svelte'
+          },
           severity: 'critical'
         }
       ]
@@ -172,7 +181,11 @@ describe('formatHtmlReport', () => {
   it('matches buildHtmlDocument over the built JsonReport (smoke)', () => {
     // formatHtmlReport builds the JsonReport internally; here we only assert it returns a full doc.
     // A fuller integration check lives in the CLI tests.
-    const out = formatHtmlReport([], { treatDynamicAs: 'pass', metaComponents: [], rules: {}, failOn: 'critical' } as never, { version: '9.9.9' });
+    const out = formatHtmlReport(
+      [],
+      { treatDynamicAs: 'pass', metaComponents: [], rules: {}, failOn: 'critical' } as never,
+      { version: '9.9.9' }
+    );
     expect(out.startsWith('<!doctype html>')).toBe(true);
     expect(out).toContain('</html>');
   });
@@ -212,13 +225,21 @@ export function escapeHtml(s: string): string {
   );
 }
 
-const slug = (route: string): string => 'route-' + route.replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase();
+const slug = (route: string): string =>
+  'route-' +
+  route
+    .replace(/[^a-zA-Z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .toLowerCase();
 
 type Issue = JsonReport['routes'][number]['issues'][number];
 
 function renderFinding(issue: Issue): string {
   const sev = issue.severity;
-  const dyn = issue.detection.value === 'dynamic' ? ' <span class="dyn" title="set dynamically (verified at runtime)">↯</span>' : '';
+  const dyn =
+    issue.detection.value === 'dynamic'
+      ? ' <span class="dyn" title="set dynamically (verified at runtime)">↯</span>'
+      : '';
   const line = issue.line !== undefined ? `:${issue.line}` : '';
   const fix =
     issue.fix?.snippet !== undefined
@@ -253,7 +274,10 @@ function renderHero(report: JsonReport): string {
   const offset = (C * (1 - report.score / 100)).toFixed(1);
   const hb = scoreBand(report.score);
   const s = report.summary;
-  const dynNote = s.dynamic > 0 ? `<span class="tally"><span class="dot dyn-dot">↯</span>Dynamic <span class="n">${s.dynamic}</span></span>` : '';
+  const dynNote =
+    s.dynamic > 0
+      ? `<span class="tally"><span class="dot dyn-dot">↯</span>Dynamic <span class="n">${s.dynamic}</span></span>`
+      : '';
   const cats = Object.entries(report.categories)
     .map(([cat, { score }]) => {
       const b = scoreBand(score);
@@ -320,7 +344,8 @@ function renderSiteChecks(report: JsonReport): string {
 }
 
 function renderFilters(): string {
-  const chip = (label: string, pressed = false) => `<button class="chip" type="button" aria-pressed="${pressed}">${label}</button>`;
+  const chip = (label: string, pressed = false) =>
+    `<button class="chip" type="button" aria-pressed="${pressed}">${label}</button>`;
   return (
     `<div class="filters" role="group" aria-label="Filter findings">` +
     chip('All', true) +
@@ -385,10 +410,12 @@ git commit -m "feat(core): render JsonReport to a self-contained HTML document"
 Fill the `STYLE` constant with the report's CSS (the approved instrument-report look). Purely presentational — targets the class names already emitted in Task 1.
 
 **Files:**
+
 - Modify: `packages/core/src/reporter/html.ts` (the `STYLE` constant)
 - Test: `packages/core/test/html-report.test.ts` (add a styling assertion)
 
 **Interfaces:**
+
 - Consumes: the markup/classes from Task 1 (`.wrap`, `.topbar`, `.brand .v`, `.hero`, `.gauge`, `.num`, `.tallies`, `.tally .dot`, `.cat`, `.bar`, `.filters`, `.chip`, `.routes`, `.route`, `summary`, `.score-chip`, `.finding`, `.sev-critical/.sev-warning/.sev-info`, `.ruleid`, `.fix`, `.f-link`, `.foot`, `.dyn`).
 - Produces: no new exports (fills `STYLE`).
 
@@ -508,10 +535,12 @@ git commit -m "feat(core): style the HTML report (inline, self-contained)"
 Fill the `SCRIPT` constant: animate the Health gauge on load (respecting reduced-motion), and wire the filter chips to show/hide finding cards by severity/category. Operates on the rendered DOM via the `data-*` attributes from Task 1.
 
 **Files:**
+
 - Modify: `packages/core/src/reporter/html.ts` (the `SCRIPT` constant)
 - Test: `packages/core/test/html-report.test.ts` (add a behavior-presence assertion)
 
 **Interfaces:**
+
 - Consumes: DOM hooks from Task 1 — `#arc`, `#hnum`, `.chip[aria-pressed]`, `.finding[data-severity][data-category]`.
 - Produces: no new exports (fills `SCRIPT`).
 
@@ -608,6 +637,7 @@ git commit -m "feat(core): animate the gauge and wire finding filters"
 Add the `html` reporter to the CLI: a new reporter name, an `--out-file` option, and a `run()` branch that renders via `formatHtmlReport` and writes the file (default `svelte-vitals-report.html`; `--out-file <path>`; `--out-file -` → stdout; stderr confirmation). The write is injectable for testing.
 
 **Files:**
+
 - Modify: `packages/cli/src/reporter-resolve.ts` (add `'html'`)
 - Modify: `packages/cli/src/resolve-args.ts` (parse `--out-file`, update message)
 - Modify: `packages/cli/src/index.ts` (`RunOptions.outFile`, `RunOptions.writeFile`, html branch, import)
@@ -615,6 +645,7 @@ Add the `html` reporter to the CLI: a new reporter name, an `--out-file` option,
 - Test: `packages/cli/test/html-reporter.test.ts`
 
 **Interfaces:**
+
 - Consumes: `formatHtmlReport(results, config, { version }): string` from `@svelte-vitals/core`; `RunOptions` from `./index.js`; `ReporterName`/`isReporterName` from `./reporter-resolve.js`.
 - Produces: `RunOptions.outFile?: string`, `RunOptions.writeFile?: (path: string, content: string) => void`; `'html'` as a valid `ReporterName`.
 
@@ -656,14 +687,30 @@ describe('html reporter', () => {
 
   it('honors --out-file path', async () => {
     const writes: Array<[string, string]> = [];
-    await run({ cwd: fixture, reporter: 'html', outFile: 'out/report.html', env: {}, writeFile: (p, c) => writes.push([p, c]), log: () => {}, errorLog: () => {} });
+    await run({
+      cwd: fixture,
+      reporter: 'html',
+      outFile: 'out/report.html',
+      env: {},
+      writeFile: (p, c) => writes.push([p, c]),
+      log: () => {},
+      errorLog: () => {}
+    });
     expect(writes[0][0]).toBe('out/report.html');
   });
 
   it('writes to stdout (not the filesystem) when out-file is "-"', async () => {
     const writes: string[] = [];
     const logs: string[] = [];
-    await run({ cwd: fixture, reporter: 'html', outFile: '-', env: {}, writeFile: () => writes.push('FS'), log: (l) => logs.push(l), errorLog: () => {} });
+    await run({
+      cwd: fixture,
+      reporter: 'html',
+      outFile: '-',
+      env: {},
+      writeFile: () => writes.push('FS'),
+      log: (l) => logs.push(l),
+      errorLog: () => {}
+    });
     expect(writes).toHaveLength(0);
     expect(logs.join('\n')).toContain('<!doctype html>');
   });
@@ -682,10 +729,13 @@ Expected: FAIL — `isReporterName('html')` is false and `run` has no html branc
 In `packages/cli/src/reporter-resolve.ts`:
 
 - Change the type:
+
 ```ts
 export type ReporterName = 'console' | 'json' | 'agent' | 'sarif' | 'github' | 'html';
 ```
+
 - Update `isReporterName`:
+
 ```ts
 export function isReporterName(value: string | undefined): value is ReporterName {
   return (
@@ -706,12 +756,15 @@ export function isReporterName(value: string | undefined): value is ReporterName
 In `packages/cli/src/resolve-args.ts`:
 
 - Update the unknown-reporter error message to include `html`:
+
 ```ts
-      errors.push(
-        `svelte-vitals: unknown reporter '${argv.reporter}'. Valid values: console, json, agent, sarif, github, html.`
-      );
+errors.push(
+  `svelte-vitals: unknown reporter '${argv.reporter}'. Valid values: console, json, agent, sarif, github, html.`
+);
 ```
+
 - In the returned `options` object, add `outFile`:
+
 ```ts
       reporter,
       outFile: typeof argv['out-file'] === 'string' ? argv['out-file'] : undefined,
@@ -723,22 +776,29 @@ In `packages/cli/src/resolve-args.ts`:
 In `packages/cli/src/index.ts`:
 
 - Add the import for `formatHtmlReport` to the existing `@svelte-vitals/core` import block (alongside `formatGithubReport`):
+
 ```ts
   formatGithubReport,
   formatHtmlReport,
 ```
+
 - Add a Node fs import near the top of the file (with the other imports):
+
 ```ts
 import { writeFileSync } from 'node:fs';
 ```
+
 - Add two fields to `RunOptions`:
+
 ```ts
   /** Output path for --reporter html (default 'svelte-vitals-report.html'; '-' = stdout). */
   outFile?: string;
   /** Injected file writer for --reporter html (defaults to node:fs writeFileSync). Mainly for tests. */
   writeFile?: (path: string, content: string) => void;
 ```
+
 - In the reporter dispatch chain, add an `html` branch **before** the final `else` (the console branch):
+
 ```ts
     } else if (reporter === 'html') {
       const html = formatHtmlReport(results, config, { version });
@@ -758,13 +818,26 @@ import { writeFileSync } from 'node:fs';
 In `packages/cli/src/bin.ts`:
 
 - Update the `--reporter` help line and add an `--out-file` line:
+
 ```ts
   --reporter <fmt>            console | json | agent | sarif | github | html (auto: agent under AI-agent envs, github under GitHub Actions)
   --out-file <path>           Output path for --reporter html (default: svelte-vitals-report.html; '-' for stdout)
 ```
+
 - Add `'out-file'` to mri's `string` array:
+
 ```ts
-    string: ['meta-components', 'treat-dynamic-as', 'route', 'fail-on', 'reporter', 'rules', 'ignore', 'min-health', 'out-file']
+string: [
+  'meta-components',
+  'treat-dynamic-as',
+  'route',
+  'fail-on',
+  'reporter',
+  'rules',
+  'ignore',
+  'min-health',
+  'out-file'
+];
 ```
 
 - [ ] **Step 7: Run tests to verify they pass**
@@ -786,6 +859,7 @@ git commit -m "feat(cli): add --reporter html with --out-file"
 Document the HTML report (docs site, en + ja) and the new flags, add the release changeset, and run the full verification suite.
 
 **Files:**
+
 - Modify: `docs/src/content/docs/guides/reporters.md` and `docs/src/content/docs/ja/guides/reporters.md` (add an HTML report section)
 - Modify: `docs/src/content/docs/guides/cli.md` and `docs/src/content/docs/ja/guides/cli.md` (document `--reporter html` + `--out-file`)
 - Create: `.changeset/visual-html-report.md`
@@ -833,6 +907,7 @@ svelte-vitals --reporter html --out-file -     # ファイルではなく標準�
 In `docs/src/content/docs/guides/cli.md`, add `html` to the `--reporter` description and add an `--out-file` entry in the same flag list/table the file already uses. In `docs/src/content/docs/ja/guides/cli.md`, do the same in Japanese. Keep each consistent with that file's existing format (match how the other flags are listed — do not invent a new table shape).
 
 Exact text to use for the additions:
+
 - en `--reporter`: `console, json, agent, sarif, github, or html`
 - en `--out-file`: `Output path for --reporter html (default svelte-vitals-report.html; - for stdout).`
 - ja `--reporter`: `console, json, agent, sarif, github, html のいずれか`
@@ -862,6 +937,7 @@ Run from the repo root:
 ```bash
 CI=true pnpm -r typecheck && CI=true pnpm -r test && pnpm build && CI=true pnpm --filter docs build && pnpm lint && pnpm check:publish
 ```
+
 Expected: all green. (Run `pnpm format` first if prettier flags the new Markdown. The `attw` step may fail locally only — that is the known pre-existing local-cache issue and is unaffected by this change; confirm CI is green on the PR.)
 
 - [ ] **Step 6: Commit**
@@ -876,6 +952,7 @@ git commit -m "docs: document the HTML report; changeset (core + cli minor)"
 ## Self-Review
 
 **Spec coverage:**
+
 - Shared runtime-agnostic renderer in core (`buildHtmlDocument`/`formatHtmlReport`, no `node:`/I/O) → Tasks 1–3. ✅
 - CLI `--reporter html`, default file + `--out-file <path>` + `-` stdout + stderr message, exit codes unchanged → Task 4. ✅
 - Reuses existing `buildJsonReport` data model → Task 1 (`formatHtmlReport`). ✅

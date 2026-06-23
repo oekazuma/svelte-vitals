@@ -36,7 +36,17 @@ async function main(): Promise<void> {
   const argv = mri(process.argv.slice(2), {
     alias: { h: 'help', v: 'version' },
     boolean: ['by-route', 'json', 'fail-on-warning'],
-    string: ['meta-components', 'treat-dynamic-as', 'route', 'fail-on', 'reporter', 'rules', 'ignore', 'min-health', 'out-file']
+    string: [
+      'meta-components',
+      'treat-dynamic-as',
+      'route',
+      'fail-on',
+      'reporter',
+      'rules',
+      'ignore',
+      'min-health',
+      'out-file'
+    ]
   });
 
   if (argv.help) {

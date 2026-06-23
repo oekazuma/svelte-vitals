@@ -21,13 +21,21 @@ export function escapeHtml(s: string): string {
   );
 }
 
-const slug = (route: string): string => 'route-' + route.replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase();
+const slug = (route: string): string =>
+  'route-' +
+  route
+    .replace(/[^a-zA-Z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+    .toLowerCase();
 
 type Issue = JsonReport['routes'][number]['issues'][number];
 
 function renderFinding(issue: Issue): string {
   const sev = issue.severity;
-  const dyn = issue.detection.value === 'dynamic' ? ' <span class="dyn" title="set dynamically (verified at runtime)">↯</span>' : '';
+  const dyn =
+    issue.detection.value === 'dynamic'
+      ? ' <span class="dyn" title="set dynamically (verified at runtime)">↯</span>'
+      : '';
   const line = issue.line !== undefined ? `:${issue.line}` : '';
   const fix =
     issue.fix?.snippet !== undefined
@@ -39,8 +47,8 @@ function renderFinding(issue: Issue): string {
     `<div class="f-head"><span class="ruleid">${escapeHtml(issue.id)}</span>` +
     `<span class="f-title">${escapeHtml(issue.title)}</span>` +
     `<span class="sev-tag ${sev}">${sev}</span></div>` +
-    `<p class="f-loc">${escapeHtml(issue.location ?? '')}${line}${dyn}</p>` +
-    `<p class="f-rec">${escapeHtml(issue.recommendation ?? '')}</p>` +
+    (issue.location ? `<p class="f-loc">${escapeHtml(issue.location)}${line}${dyn}</p>` : '') +
+    (issue.recommendation ? `<p class="f-rec">${escapeHtml(issue.recommendation)}</p>` : '') +
     fix +
     docs +
     `</article>`
@@ -62,7 +70,10 @@ function renderHero(report: JsonReport): string {
   const offset = (C * (1 - report.score / 100)).toFixed(1);
   const hb = scoreBand(report.score);
   const s = report.summary;
-  const dynNote = s.dynamic > 0 ? `<span class="tally"><span class="dot dyn-dot">↯</span>Dynamic <span class="n">${s.dynamic}</span></span>` : '';
+  const dynNote =
+    s.dynamic > 0
+      ? `<span class="tally"><span class="dot dyn-dot">↯</span>Dynamic <span class="n">${s.dynamic}</span></span>`
+      : '';
   const cats = Object.entries(report.categories)
     .map(([cat, { score }]) => {
       const b = scoreBand(score);
@@ -129,7 +140,8 @@ function renderSiteChecks(report: JsonReport): string {
 }
 
 function renderFilters(): string {
-  const chip = (label: string, pressed = false) => `<button class="chip" type="button" aria-pressed="${pressed}">${label}</button>`;
+  const chip = (label: string, pressed = false) =>
+    `<button class="chip" type="button" aria-pressed="${pressed}">${label}</button>`;
   return (
     `<div class="filters" role="group" aria-label="Filter findings">` +
     chip('All', true) +

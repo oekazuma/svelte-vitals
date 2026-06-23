@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { run } from '../src/index.js';
@@ -31,14 +31,30 @@ describe('html reporter', () => {
 
   it('honors --out-file path', async () => {
     const writes: Array<[string, string]> = [];
-    await run({ cwd: fixture, reporter: 'html', outFile: 'out/report.html', env: {}, writeFile: (p, c) => writes.push([p, c]), log: () => {}, errorLog: () => {} });
+    await run({
+      cwd: fixture,
+      reporter: 'html',
+      outFile: 'out/report.html',
+      env: {},
+      writeFile: (p, c) => writes.push([p, c]),
+      log: () => {},
+      errorLog: () => {}
+    });
     expect(writes[0]![0]).toBe('out/report.html');
   });
 
   it('writes to stdout (not the filesystem) when out-file is "-"', async () => {
     const writes: string[] = [];
     const logs: string[] = [];
-    await run({ cwd: fixture, reporter: 'html', outFile: '-', env: {}, writeFile: () => writes.push('FS'), log: (l) => logs.push(l), errorLog: () => {} });
+    await run({
+      cwd: fixture,
+      reporter: 'html',
+      outFile: '-',
+      env: {},
+      writeFile: () => writes.push('FS'),
+      log: (l) => logs.push(l),
+      errorLog: () => {}
+    });
     expect(writes).toHaveLength(0);
     expect(logs.join('\n')).toContain('<!doctype html>');
   });

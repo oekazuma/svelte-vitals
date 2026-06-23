@@ -6,7 +6,10 @@ const report: JsonReport = {
   version: '9.9.9',
   score: 82,
   weights: { seo: 1, performance: 1 },
-  categories: { seo: { score: 91, scoreModel: { mode: 'weighted' } as never }, performance: { score: 68, scoreModel: {} as never } },
+  categories: {
+    seo: { score: 91, scoreModel: { mode: 'weighted' } as never },
+    performance: { score: 68, scoreModel: {} as never }
+  },
   summary: { critical: 1, warning: 2, info: 1, passed: 37, dynamic: 3 },
   routes: [
     { route: '/', score: 100, issues: [] },
@@ -22,7 +25,11 @@ const report: JsonReport = {
           location: 'src/routes/products/[id]/+page.svelte',
           recommendation: 'Add a <title> in <svelte:head>.',
           docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo001',
-          fix: { description: 'Add a <title>.', snippet: '<svelte:head>\n  <title>{data.title}</title>\n</svelte:head>', lang: 'svelte' },
+          fix: {
+            description: 'Add a <title>.',
+            snippet: '<svelte:head>\n  <title>{data.title}</title>\n</svelte:head>',
+            lang: 'svelte'
+          },
           severity: 'critical'
         }
       ]
@@ -102,7 +109,11 @@ describe('formatHtmlReport', () => {
   it('matches buildHtmlDocument over the built JsonReport (smoke)', () => {
     // formatHtmlReport builds the JsonReport internally; here we only assert it returns a full doc.
     // A fuller integration check lives in the CLI tests.
-    const out = formatHtmlReport([], { treatDynamicAs: 'pass', metaComponents: [], rules: {}, failOn: 'critical' } as never, { version: '9.9.9' });
+    const out = formatHtmlReport(
+      [],
+      { treatDynamicAs: 'pass', metaComponents: [], rules: {}, failOn: 'critical' } as never,
+      { version: '9.9.9' }
+    );
     expect(out.startsWith('<!doctype html>')).toBe(true);
     expect(out).toContain('</html>');
   });
