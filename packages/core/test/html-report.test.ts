@@ -89,7 +89,8 @@ describe('buildHtmlDocument', () => {
 
   it('is self-contained: no external resource references', () => {
     // strip docsUrl anchors, then assert nothing else points at http(s)
-    const withoutDocs = html.replace(/href="https?:\/\/oekazuma\.github\.io[^"]*"/g, '');
+    // Strip ONLY the per-finding docsUrl anchors, so any other external link still trips the guard.
+    const withoutDocs = html.replace(/href="https?:\/\/oekazuma\.github\.io\/svelte-vitals\/rules\/[^"]*"/g, '');
     expect(/(?:src|href)\s*=\s*"https?:\/\//i.test(withoutDocs)).toBe(false);
     expect(/url\(\s*['"]?https?:\/\//i.test(withoutDocs)).toBe(false);
   });
@@ -129,7 +130,8 @@ describe('styling', () => {
     expect(html).toContain('.finding');
     expect(html).toContain('#2FA968'); // good band used somewhere (inline) — sanity that colors are present
     // still self-contained after adding CSS
-    const withoutDocs = html.replace(/href="https?:\/\/oekazuma\.github\.io[^"]*"/g, '');
+    // Strip ONLY the per-finding docsUrl anchors, so any other external link still trips the guard.
+    const withoutDocs = html.replace(/href="https?:\/\/oekazuma\.github\.io\/svelte-vitals\/rules\/[^"]*"/g, '');
     expect(/url\(\s*['"]?https?:\/\//i.test(withoutDocs)).toBe(false);
   });
 });
@@ -140,7 +142,8 @@ describe('interactivity', () => {
     expect(html).toContain('prefers-reduced-motion');
     expect(html).toContain('data-severity');
     expect(html).toContain("getElementById('arc')");
-    const withoutDocs = html.replace(/href="https?:\/\/oekazuma\.github\.io[^"]*"/g, '');
+    // Strip ONLY the per-finding docsUrl anchors, so any other external link still trips the guard.
+    const withoutDocs = html.replace(/href="https?:\/\/oekazuma\.github\.io\/svelte-vitals\/rules\/[^"]*"/g, '');
     expect(/(?:src|href)\s*=\s*"https?:\/\//i.test(withoutDocs)).toBe(false);
   });
 });
