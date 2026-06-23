@@ -13,6 +13,7 @@ Remove the Accessibility category entirely. After this, the analyzer reports **S
 ## Scope — what to remove
 
 **Source:**
+
 - **Delete** `packages/cli/src/providers/source/a11y.ts` (the `collectA11y` compiler-warning collector).
 - `packages/cli/src/index.ts` (`analyzeProject`): remove the `collectA11y` import and the merge of its results; the result set is just `runRules(...)` output again (still passed through `applyRuleSeverities`, filtered by the route matcher as before for SEO/Perf).
 - `packages/cli/src/rules-config.ts`:
@@ -22,14 +23,17 @@ Remove the Accessibility category entirely. After this, the analyzer reports **S
 - `packages/core/src/reporter/console.ts`: `CATEGORY_ORDER` and `CATEGORY_LABEL` keep only `seo` + `performance` (drop the `a11y`/`maintainability` entries).
 
 **Tests:**
+
 - **Delete** `packages/cli/test/a11y.test.ts`.
 - `packages/cli/test/run.test.ts`: remove the a11y e2e assertion (the "reports an Accessibility finding for an `<img>` without alt" test).
 - `packages/cli/test/rules-config.test.ts`: remove the `a11y_*` known-id and `a11y_category` sentinel tests.
 
 **Fixtures:**
+
 - `packages/cli/test/fixtures/basic-project/src/routes/img/+page.svelte`: it lost its `alt` attribute in v0.5 purely to trigger an a11y finding. Restore `alt="hero"` (it still exercises PERF001/PERF002 via missing `width`/`height`/`loading`; no behavior depends on the missing alt once a11y is gone).
 
 **Docs/release:**
+
 - `README.md`: remove the "Accessibility checks (0.5)" Shipped bullet.
 - Changeset: `@svelte-vitals/core` **minor** (Category narrowed; console categories) + `svelte-vitals` **minor** (a11y collection removed; `--ignore a11y_*` / allow-list a11y suppression removed). Call out the removal as breaking.
 
