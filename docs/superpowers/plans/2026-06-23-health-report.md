@@ -14,7 +14,7 @@
 - **core stays runtime-agnostic** (no `node:` imports / no I/O in `@svelte-vitals/core`).
 - **Default weights are equal** (each present category weight `1`); effective weight `config.weights?.[cat] ?? 1`. No `--weights` CLI flag in this increment.
 - **Health over present categories only**: `scoresByCategory` returns only categories with findings/seeds; a suppressed/absent category is excluded and weights re-normalize. No present categories → Health `100`.
-- **Exit codes stay severity-based** (`hasFailureAtOrAbove`); `--min-health` adds an *additional* gate, off unless set.
+- **Exit codes stay severity-based** (`hasFailureAtOrAbove`); `--min-health` adds an _additional_ gate, off unless set.
 - **JSON top-level `score` = Health** (was SEO) and top-level `scoreModel` is **removed** — a deliberate breaking change for `1.0`; per-category data stays in `categories`.
 - Commit trailer: `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>`.
 
@@ -23,12 +23,14 @@
 ### Task 1: `Config.weights` + `computeHealth`
 
 **Files:**
+
 - Modify: `packages/core/src/types.ts` (add `weights?` to `Config`)
 - Modify: `packages/core/src/scoring/score.ts` (add `HealthResult` + `computeHealth`)
 - Modify: `packages/core/src/index.ts` (export `computeHealth`, `HealthResult`)
 - Test: `packages/core/test/health.test.ts` (new)
 
 **Interfaces:**
+
 - Consumes: `scoresByCategory`, `ScoreResult`, `Category`, `Config`, `Result` (all existing in core).
 - Produces:
   - `Config.weights?: Partial<Record<Category, number>>`
@@ -173,10 +175,12 @@ git commit -m "feat(core): add Config.weights and computeHealth (#10)"
 ### Task 2: JSON report — top-level `score` = Health, add `weights`, drop `scoreModel`
 
 **Files:**
+
 - Modify: `packages/core/src/reporter/json.ts`
 - Test: `packages/core/test/json-report.test.ts` (update existing)
 
 **Interfaces:**
+
 - Consumes: `computeHealth` (Task 1), existing `computeScore`, `scoresByCategory`, `Category`.
 - Produces: `JsonReport` with `score: number` (= Health), `weights: Partial<Record<Category, number>>`, no top-level `scoreModel`; `categories` unchanged.
 
@@ -276,17 +280,20 @@ git commit -m "feat(core): json top-level score = Health, add weights, drop scor
 ### Task 3: console + agent Health headline
 
 **Files:**
+
 - Modify: `packages/core/src/reporter/console.ts`
 - Modify: `packages/core/src/reporter/agent.ts`
 - Test: `packages/core/test/console-report.test.ts`, `packages/core/test/agent-report.test.ts`
 
 **Interfaces:**
+
 - Consumes: `computeHealth` (Task 1).
 - Produces: console output with a `Health: N/100` line above the per-category score lines; agent output with a `Health: N/100` line after the heading.
 
 - [ ] **Step 1: Write failing tests.**
 
 `console-report.test.ts` — add:
+
 ```ts
 it('shows a combined Health headline above the category scores', () => {
   const out = formatConsoleReport(results, config);
@@ -296,6 +303,7 @@ it('shows a combined Health headline above the category scores', () => {
 ```
 
 `agent-report.test.ts` — add:
+
 ```ts
 it('shows the Health score in the heading area', () => {
   const md = formatAgentReport(results, config);
@@ -311,20 +319,23 @@ Expected: FAIL — no `Health: N/100` line.
 - [ ] **Step 3: Update `console.ts`** — import `computeHealth` and add the Health line to the header.
 
 Change the import:
+
 ```ts
 import { computeScore, scoresByCategory, computeHealth } from '../scoring/score.js';
 ```
+
 In `formatConsoleReport`, build the header with the Health line first:
+
 ```ts
-  const summary = summarize(results, config);
-  const byCat = scoresByCategory(results, config);
-  const { health } = computeHealth(results, config);
-  const present = CATEGORY_ORDER.filter((c) => byCat[c] !== undefined);
-  const header: string[] = [`Svelte Vitals  ·  ${options.mode ?? 'static mode'}`, '', `Health: ${health}/100`];
-  for (const c of present) {
-    header.push(scoreLine(CATEGORY_LABEL[c] ?? c, byCat[c]!));
-  }
-  const lines: string[] = [...header, ''];
+const summary = summarize(results, config);
+const byCat = scoresByCategory(results, config);
+const { health } = computeHealth(results, config);
+const present = CATEGORY_ORDER.filter((c) => byCat[c] !== undefined);
+const header: string[] = [`Svelte Vitals  ·  ${options.mode ?? 'static mode'}`, '', `Health: ${health}/100`];
+for (const c of present) {
+  header.push(scoreLine(CATEGORY_LABEL[c] ?? c, byCat[c]!));
+}
+const lines: string[] = [...header, ''];
 ```
 
 > This inserts `Health: N/100` between the title line and the per-category `… Score: N/100` lines. Existing per-category assertions (`/SEO Score: \d+\/100/`) still pass.
@@ -334,16 +345,18 @@ In `formatConsoleReport`, build the header with the Health line first:
 ```ts
 import { computeHealth } from '../scoring/score.js';
 ```
-Replace the opening lines of `formatAgentReport`:
-```ts
-  const failing = results.filter((r) => classify(r, config) === 'fail');
-  const { health } = computeHealth(results, config);
-  const lines: string[] = ['# svelte-vitals — fixes', '', `Health: ${health}/100`, ''];
 
-  if (failing.length === 0) {
-    lines.push('No issues to fix.', '');
-    return lines.join('\n').replace(/\n+$/, '\n');
-  }
+Replace the opening lines of `formatAgentReport`:
+
+```ts
+const failing = results.filter((r) => classify(r, config) === 'fail');
+const { health } = computeHealth(results, config);
+const lines: string[] = ['# svelte-vitals — fixes', '', `Health: ${health}/100`, ''];
+
+if (failing.length === 0) {
+  lines.push('No issues to fix.', '');
+  return lines.join('\n').replace(/\n+$/, '\n');
+}
 ```
 
 > Confirm the current `agent.ts` opening (heading `'# svelte-vitals — fixes'`, then the `failing.length === 0` branch) and splice in the Health line as shown, preserving the rest.
@@ -365,11 +378,13 @@ git commit -m "feat(core): show combined Health headline in console and agent re
 ### Task 4: `--min-health` CI gate (CLI)
 
 **Files:**
+
 - Modify: `packages/cli/src/index.ts` (`RunOptions.minHealth` + `run()` gate)
 - Modify: `packages/cli/src/bin.ts` (parse `--min-health`, help text)
 - Test: `packages/cli/test/run.test.ts` (add gate cases)
 
 **Interfaces:**
+
 - Consumes: `computeHealth` from `@svelte-vitals/core`.
 - Produces: `RunOptions.minHealth?: number`; `run()` returns `1` when Health < `minHealth` (in addition to the severity gate).
 
@@ -405,6 +420,7 @@ Expected: FAIL — `minHealth` is not an accepted `RunOptions` field / has no ef
 - [ ] **Step 3: Add `minHealth` to `RunOptions` and the gate in `run()`** in `packages/cli/src/index.ts`.
 
 Add `computeHealth` to the `@svelte-vitals/core` import. Add the field to `RunOptions`:
+
 ```ts
 export interface RunOptions {
   // ... existing fields ...
@@ -412,30 +428,35 @@ export interface RunOptions {
   minHealth?: number;
 }
 ```
+
 Update the exit computation (currently `const summary = summarize(results, config); return hasFailureAtOrAbove(summary, config.failOn) ? 1 : 0;`):
+
 ```ts
-    const summary = summarize(results, config);
-    const failBySeverity = hasFailureAtOrAbove(summary, config.failOn);
-    const failByHealth = opts.minHealth != null && computeHealth(results, config).health < opts.minHealth;
-    return failBySeverity || failByHealth ? 1 : 0;
+const summary = summarize(results, config);
+const failBySeverity = hasFailureAtOrAbove(summary, config.failOn);
+const failByHealth = opts.minHealth != null && computeHealth(results, config).health < opts.minHealth;
+return failBySeverity || failByHealth ? 1 : 0;
 ```
 
 - [ ] **Step 4: Parse `--min-health` in `bin.ts`** — add `'min-health'` to the `mri` `string` option list, parse + validate, pass into `run()`, and document it in `HELP`.
 
 Add to the `string:` array in the `mri` call: `'min-health'`. After the `failOn` parsing block:
+
 ```ts
-  const minHealthRaw = argv['min-health'];
-  let minHealth: number | undefined;
-  if (minHealthRaw !== undefined) {
-    const n = Number(minHealthRaw);
-    if (Number.isFinite(n) && n >= 0 && n <= 100) {
-      minHealth = n;
-    } else {
-      console.error(`svelte-vitals: invalid --min-health '${minHealthRaw}'; expected a number 0-100. Ignoring.`);
-    }
+const minHealthRaw = argv['min-health'];
+let minHealth: number | undefined;
+if (minHealthRaw !== undefined) {
+  const n = Number(minHealthRaw);
+  if (Number.isFinite(n) && n >= 0 && n <= 100) {
+    minHealth = n;
+  } else {
+    console.error(`svelte-vitals: invalid --min-health '${minHealthRaw}'; expected a number 0-100. Ignoring.`);
   }
+}
 ```
+
 Add `minHealth` to the `run({ ... })` options object. Add a line to the `HELP` string under Options:
+
 ```
   --min-health <0-100>        Fail (exit 1) when the combined Health score is below this value
 ```
@@ -457,6 +478,7 @@ git commit -m "feat(cli): add --min-health CI gate on the combined Health score 
 ### Task 5: README, changeset, full verification
 
 **Files:**
+
 - Modify: `README.md` (roadmap)
 - Create: `.changeset/health-report.md`
 - Test: `packages/mcp/test/analyze-tool.test.ts` (add a Health assertion)
@@ -468,6 +490,7 @@ git commit -m "feat(cli): add --min-health CI gate on the combined Health score 
 ```ts
 expect(report).toHaveProperty('weights');
 ```
+
 (Place it next to the existing `expect(typeof report.score).toBe('number')` assertion. `report.score` is now the Health value; the existing assertion still holds.)
 
 - [ ] **Step 2: Run the MCP test**
@@ -480,6 +503,7 @@ Expected: PASS. (MCP imports the built `dist` of core/cli, so build them first.)
 ```md
 - **Health Report** — a single weighted **Health** score combining SEO, Performance, and Accessibility (equal weights by default), shown as the headline in every reporter and the MCP `analyze` output; gate CI on it with `--min-health`.
 ```
+
 Replace the **Upcoming** `#10` bullet (which mentions Upgrade) with:
 
 ```md
@@ -524,6 +548,7 @@ git commit -m "docs(health): ship Health Report, roadmap + changeset (#10)"
 ## Self-Review
 
 **Spec coverage:**
+
 - `computeHealth` (equal default weights, present-only, re-normalize, empty→100) + `Config.weights` → Task 1. ✅
 - JSON `score`=Health, `weights` added, top-level `scoreModel` removed, `categories` intact → Task 2. ✅
 - console + agent Health headline; sarif/github unchanged → Task 3 (sarif/github simply not touched). ✅
