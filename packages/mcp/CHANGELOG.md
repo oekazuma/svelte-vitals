@@ -1,5 +1,13 @@
 # @svelte-vitals/mcp
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [31904f9]
+  - @svelte-vitals/core@0.9.0
+  - svelte-vitals@0.8.0
+
 ## 0.1.4
 
 ### Patch Changes
