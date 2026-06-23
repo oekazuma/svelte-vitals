@@ -116,6 +116,8 @@ export function computeHealth(results: Result[], config: Config): HealthResult {
     weighted += categories[cat]!.score * w;
     total += w;
   }
+  // Assumes non-negative weights (config.weights is programmatic-only for now);
+  // when total <= 0 (no categories, or all-zero weights), Health is a perfect 100.
   const health = total > 0 ? Math.round(weighted / total) : 100;
   return { health, categories, weights };
 }
