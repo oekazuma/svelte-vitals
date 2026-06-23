@@ -20,7 +20,6 @@ import {
 import { createNodeRuntime } from './runtime/node.js';
 import { collectRoutes } from './providers/source/routes.js';
 import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
-import { collectA11y } from './providers/source/a11y.js';
 import { readPackageVersion } from './version.js';
 import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
 
@@ -96,9 +95,7 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   const images = collected.images.filter((i) => matches(i.route));
   const project = await collectProjectFacts(rt, cwd);
   const rules = selectRules(allRules, config);
-  const a11y = (await collectA11y(rt, cwd, config)).filter((r) => r.route === undefined || matches(r.route));
-  const ruleResults = await runRules(rules, { heads, images, project, config });
-  const results = applyRuleSeverities([...ruleResults, ...a11y], config);
+  const results = applyRuleSeverities(await runRules(rules, { heads, images, project, config }), config);
   return { results, config, version: readPackageVersion() };
 }
 
