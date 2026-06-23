@@ -70,7 +70,7 @@ Result shape:
 
 ## cli — `--min-health` gate + wiring
 
-- **`bin.ts`**: parse `--min-health <n>` (string → number). Invalid/out-of-range (`!Number.isFinite` or `<0`/`>100`) → stderr warning and ignore (consistent with the `--treat-dynamic-as` warning pattern), not a hard error.
+- **`bin.ts`**: parse `--min-health <n>` (string → number). Invalid or out-of-range value is a usage error — prints an error to stderr and exits 2 (consistent with how unknown `--reporter`/`--rules` ids are handled).
 - **`RunOptions`/`AnalyzeOptions`** gain `minHealth?: number`; `analyzeProject` does not need it (it returns raw results), but `run()` computes Health and applies the gate.
 - **`run()`** exit logic: compute `const { health } = computeHealth(results, config)`. Return `1` when `hasFailureAtOrAbove(summary, config.failOn)` **OR** (`opts.minHealth != null && health < opts.minHealth`). Exit `2` (execution error) unchanged. So `--min-health` adds a score gate on top of the existing severity gate; without it, behavior is unchanged.
 - Help text documents `--min-health`.
@@ -86,7 +86,7 @@ Result shape:
 ## Testing (TDD)
 
 - **core**: `computeHealth` — equal-weight mean of present categories; `Config.weights` override changes the result; a suppressed/absent category is excluded and weights re-normalize; no categories → 100; `weights` field reflects effective weights. `buildJsonReport` — `score` === `computeHealth().health`, top-level `scoreModel` gone, `weights` present, `categories` intact; `formatJsonReport` === `JSON.stringify(buildJsonReport)`.
-- **cli**: `run()` returns 1 when `--min-health` threshold is unmet even with no failing severity; returns 0 when Health ≥ threshold and no failing severity; severity gate still fires independently; invalid `--min-health` warns and is ignored. console/agent show the Health headline.
+- **cli**: `run()` returns 1 when `--min-health` threshold is unmet even with no failing severity; returns 0 when Health ≥ threshold and no failing severity; severity gate still fires independently; invalid `--min-health` exits 2 (usage error). console/agent show the Health headline.
 - **mcp**: `analyze` `structuredContent.score` is the Health value and `weights` is present (the report flows through unchanged).
 - Existing per-category/score tests updated for the reshaped top-level (the `categories` map already carries per-category data, so most assertions move from top-level to `categories.seo`).
 

@@ -440,18 +440,18 @@ return failBySeverity || failByHealth ? 1 : 0;
 
 - [ ] **Step 4: Parse `--min-health` in `bin.ts`** — add `'min-health'` to the `mri` `string` option list, parse + validate, pass into `run()`, and document it in `HELP`.
 
-Add to the `string:` array in the `mri` call: `'min-health'`. After the `failOn` parsing block:
+Add to the `string:` array in the `mri` call: `'min-health'`. After the `failOn` parsing block (invalid or out-of-range is a usage error — exit 2):
 
 ```ts
 const minHealthRaw = argv['min-health'];
 let minHealth: number | undefined;
 if (minHealthRaw !== undefined) {
   const n = Number(minHealthRaw);
-  if (Number.isFinite(n) && n >= 0 && n <= 100) {
-    minHealth = n;
-  } else {
-    console.error(`svelte-vitals: invalid --min-health '${minHealthRaw}'; expected a number 0-100. Ignoring.`);
+  if (!Number.isFinite(n) || n < 0 || n > 100) {
+    console.error(`svelte-vitals: invalid --min-health '${minHealthRaw}'; expected a number 0-100.`);
+    process.exit(2);
   }
+  minHealth = n;
 }
 ```
 
