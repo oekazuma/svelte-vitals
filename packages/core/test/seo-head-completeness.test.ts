@@ -12,9 +12,9 @@ import type { HeadTag, ResolvedHead } from '../src/head.js';
 import type { Project } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 
-const headWith = (tags: Array<Partial<HeadTag>>): ResolvedHead => ({
+const headWith = (tags: Array<Partial<HeadTag>>, source: ResolvedHead['source'] = 'rendered'): ResolvedHead => ({
   route: '/x',
-  source: 'rendered',
+  source,
   file: 'x',
   tags: tags.map((t) => ({ presence: 'own', value: 'static', ...t }) as HeadTag)
 });
@@ -59,6 +59,13 @@ describe('SEO011-014 head presence', () => {
   it('SEO014 matches viewport (warning)', async () => {
     expect(seo014Viewport.severity).toBe('warning');
     expect(fails(await seo014Viewport.check(ctx(headWith([{ kind: 'meta', name: 'viewport' }]))))).toHaveLength(0);
+  });
+  it('SEO014 flags missing viewport in rendered mode', async () => {
+    expect(fails(await seo014Viewport.check(ctx(headWith([{ kind: 'meta', name: 'description' }]))))).toHaveLength(1);
+  });
+  it('SEO014 emits nothing in static (CLI) mode — viewport lives in app.html, unseen there', async () => {
+    const rs = await seo014Viewport.check(ctx(headWith([{ kind: 'meta', name: 'description' }], 'static')));
+    expect(rs).toHaveLength(0);
   });
 });
 

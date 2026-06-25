@@ -1,6 +1,12 @@
-import type { Result } from '../../types.js';
+import type { Fix, Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { headTagRule } from './head-tag-rule.js';
+
+const SEO010_FIX: Fix = {
+  description: 'If this route should be indexed, drop noindex from its <meta name="robots">.',
+  snippet: '<svelte:head>\n  <meta name="robots" content="index, follow" />\n</svelte:head>',
+  lang: 'svelte'
+};
 
 // SEO010 — flag-on-presence: a route whose robots meta is noindex. info advisory.
 export const seo010Indexability: Rule = {
@@ -11,11 +17,7 @@ export const seo010Indexability: Rule = {
   scope: 'route',
   rationale:
     'A noindex directive removes the page from search results; an accidental noindex on a public route silently deindexes it.',
-  fix: {
-    description: 'If this route should be indexed, drop noindex from its <meta name="robots">.',
-    snippet: '<svelte:head>\n  <meta name="robots" content="index, follow" />\n</svelte:head>',
-    lang: 'svelte'
-  },
+  fix: SEO010_FIX,
   async check(ctx: RuleContext): Promise<Result[]> {
     const docsUrl = docsUrlFor('SEO010');
     const out: Result[] = [];
@@ -32,11 +34,7 @@ export const seo010Indexability: Rule = {
         message: 'Route is noindex — verify this is intentional',
         recommendation: 'If this route should be indexed, remove noindex from its <meta name="robots">.',
         docsUrl,
-        fix: {
-          description: 'If this route should be indexed, drop noindex from its <meta name="robots">.',
-          snippet: '<svelte:head>\n  <meta name="robots" content="index, follow" />\n</svelte:head>',
-          lang: 'svelte'
-        }
+        fix: { ...SEO010_FIX }
       });
     }
     return out;
@@ -97,6 +95,10 @@ export const seo014Viewport = headTagRule({
   severity: 'warning',
   match: (t) => t.kind === 'meta' && t.name === 'viewport',
   label: '<meta name="viewport">',
+  // Viewport canonically lives in app.html, which static (CLI) mode does not
+  // resolve into head tags — only evaluate rendered heads so the rule stays
+  // silent there instead of false-flagging "missing" on every route.
+  appliesTo: (head) => head.source === 'rendered',
   recommendation: 'Add <meta name="viewport" content="width=device-width, initial-scale=1"> (usually in app.html).',
   rationale:
     'Without a viewport meta tag the page is not mobile-responsive, which Google penalizes under mobile-first indexing.',
@@ -107,6 +109,12 @@ export const seo014Viewport = headTagRule({
   }
 });
 
+const SEO015_FIX: Fix = {
+  description: 'Add a Sitemap: line to static/robots.txt.',
+  snippet: 'User-agent: *\nAllow: /\n\nSitemap: https://example.com/sitemap.xml',
+  lang: 'text'
+};
+
 // SEO015 — project rule: robots.txt should point crawlers at the sitemap.
 export const seo015SitemapInRobots: Rule = {
   id: 'SEO015',
@@ -116,11 +124,7 @@ export const seo015SitemapInRobots: Rule = {
   scope: 'project',
   rationale:
     'A Sitemap: line in robots.txt helps crawlers discover your sitemap; without it discovery relies on manual submission.',
-  fix: {
-    description: 'Add a Sitemap: line to static/robots.txt.',
-    snippet: 'User-agent: *\nAllow: /\n\nSitemap: https://example.com/sitemap.xml',
-    lang: 'text'
-  },
+  fix: SEO015_FIX,
   async check(ctx: RuleContext): Promise<Result[]> {
     const { hasRobotsTxt, hasSitemap, robotsReferencesSitemap } = ctx.project;
     // Only meaningful when both exist AND we could read the static robots.txt and found no reference.
@@ -134,11 +138,7 @@ export const seo015SitemapInRobots: Rule = {
         message: 'robots.txt does not reference your sitemap',
         recommendation: 'Add a Sitemap: line to static/robots.txt pointing at your sitemap.xml.',
         docsUrl: docsUrlFor('SEO015'),
-        fix: {
-          description: 'Add a Sitemap: line to static/robots.txt.',
-          snippet: 'User-agent: *\nAllow: /\n\nSitemap: https://example.com/sitemap.xml',
-          lang: 'text'
-        }
+        fix: { ...SEO015_FIX }
       }
     ];
   }
