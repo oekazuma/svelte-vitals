@@ -121,7 +121,17 @@ function tagsFromHead(head: Node): ParsedTag[] {
       });
     } else if (node.name === 'link') {
       const rel = attrText(node.attributes, 'rel');
-      tags.push({ kind: 'link', ...(rel ? { rel } : {}), value: attrValue(node.attributes, 'href') });
+      const hasAs = findAttr(node.attributes, 'as') !== undefined;
+      const asLiteral = attrText(node.attributes, 'as'); // literal keyword, or undefined for dynamic/absent
+      const hasCrossorigin = findAttr(node.attributes, 'crossorigin') !== undefined;
+      tags.push({
+        kind: 'link',
+        ...(rel ? { rel } : {}),
+        value: attrValue(node.attributes, 'href'),
+        ...(hasAs ? { hasAs: true } : {}),
+        ...(asLiteral ? { as: asLiteral } : {}),
+        ...(hasCrossorigin ? { hasCrossorigin: true } : {})
+      });
     } else if (node.name === 'script' && attrText(node.attributes, 'type') === 'application/ld+json') {
       tags.push({ kind: 'jsonld', value: valueFromNodes(node.fragment?.nodes ?? []) });
     }

@@ -35,7 +35,16 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
   for (const link of head.querySelectorAll('link')) {
     const rel = link.getAttribute('rel');
     if (!rel) continue;
-    tags.push({ kind: 'link', rel, presence: 'own', value: attrValue(link.getAttribute('href')) });
+    const asAttr = link.getAttribute('as'); // rendered HTML: literal string or undefined
+    const hasCrossorigin = link.hasAttribute('crossorigin');
+    tags.push({
+      kind: 'link',
+      rel,
+      presence: 'own',
+      value: attrValue(link.getAttribute('href')),
+      ...(asAttr != null ? { hasAs: true, as: asAttr } : {}),
+      ...(hasCrossorigin ? { hasCrossorigin: true } : {})
+    });
   }
 
   for (const script of head.querySelectorAll('script')) {

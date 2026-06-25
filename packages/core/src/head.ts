@@ -15,6 +15,12 @@ export interface HeadTag {
   property?: string;
   /** <link rel="...">. */
   rel?: string;
+  /** <link as="..."> keyword (e.g. 'font') when statically literal; undefined when absent or dynamically bound. */
+  as?: string;
+  /** True when a <link> has an `as` attribute at all (literal or dynamic). Distinguishes "no as" from "dynamic as". */
+  hasAs?: boolean;
+  /** True when a <link> has a `crossorigin` attribute (presence only; value is irrelevant to the checks). */
+  hasCrossorigin?: boolean;
   /** Where this tag was set relative to the route. Never 'none' (absence = no tag). */
   presence: Exclude<Presence, 'none'>;
   /** Whether the tag's value is static/dynamic/absent (design §4). */
