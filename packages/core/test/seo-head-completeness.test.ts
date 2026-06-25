@@ -40,12 +40,18 @@ describe('SEO010 indexability', () => {
 
 describe('SEO011-014 head presence', () => {
   it('SEO011 flags missing twitter:card, passes present', async () => {
-    expect(fails(await seo011TwitterCard.check(ctx(headWith([{ kind: 'meta', name: 'description' }]))))).toHaveLength(1);
-    expect(fails(await seo011TwitterCard.check(ctx(headWith([{ kind: 'meta', name: 'twitter:card' }]))))).toHaveLength(0);
+    expect(fails(await seo011TwitterCard.check(ctx(headWith([{ kind: 'meta', name: 'description' }]))))).toHaveLength(
+      1
+    );
+    expect(fails(await seo011TwitterCard.check(ctx(headWith([{ kind: 'meta', name: 'twitter:card' }]))))).toHaveLength(
+      0
+    );
   });
   it('SEO012 matches og:description (warning)', async () => {
     expect(seo012OgDescription.severity).toBe('warning');
-    expect(fails(await seo012OgDescription.check(ctx(headWith([{ kind: 'meta', property: 'og:description' }]))))).toHaveLength(0);
+    expect(
+      fails(await seo012OgDescription.check(ctx(headWith([{ kind: 'meta', property: 'og:description' }]))))
+    ).toHaveLength(0);
   });
   it('SEO013 matches og:url', async () => {
     expect(fails(await seo013OgUrl.check(ctx(headWith([{ kind: 'meta', property: 'og:url' }]))))).toHaveLength(0);
@@ -59,11 +65,15 @@ describe('SEO011-014 head presence', () => {
 describe('SEO015 sitemap-in-robots', () => {
   const proj = (p: Partial<Project>): Project => ({ ...defaultProject, ...p });
   it('flags when robots+sitemap exist but robots does not reference the sitemap', async () => {
-    const rs = await seo015SitemapInRobots.check(ctx(headWith([]), proj({ hasRobotsTxt: true, hasSitemap: true, robotsReferencesSitemap: false })));
+    const rs = await seo015SitemapInRobots.check(
+      ctx(headWith([]), proj({ hasRobotsTxt: true, hasSitemap: true, robotsReferencesSitemap: false }))
+    );
     expect(fails(rs)).toHaveLength(1);
   });
   it('passes when robots references the sitemap', async () => {
-    const rs = await seo015SitemapInRobots.check(ctx(headWith([]), proj({ hasRobotsTxt: true, hasSitemap: true, robotsReferencesSitemap: true })));
+    const rs = await seo015SitemapInRobots.check(
+      ctx(headWith([]), proj({ hasRobotsTxt: true, hasSitemap: true, robotsReferencesSitemap: true }))
+    );
     expect(fails(rs)).toHaveLength(0);
   });
   it('emits nothing when robotsReferencesSitemap is undefined (endpoint/absent)', async () => {

@@ -41,13 +41,19 @@ describe('collectRenderedProject: robotsReferencesSitemap', () => {
 
   it('true when static/robots.txt has a Sitemap: line', async () => {
     await writeFile(join(cwd, 'static/robots.txt'), 'User-agent: *\nAllow: /\nSitemap: https://e.com/sitemap.xml\n');
-    expect((await collectRenderedProject(cwd, { presence: 'none', value: 'absent' })).robotsReferencesSitemap).toBe(true);
+    expect((await collectRenderedProject(cwd, { presence: 'none', value: 'absent' })).robotsReferencesSitemap).toBe(
+      true
+    );
   });
   it('false when static/robots.txt lacks a Sitemap: line', async () => {
     await writeFile(join(cwd, 'static/robots.txt'), 'User-agent: *\nAllow: /\n');
-    expect((await collectRenderedProject(cwd, { presence: 'none', value: 'absent' })).robotsReferencesSitemap).toBe(false);
+    expect((await collectRenderedProject(cwd, { presence: 'none', value: 'absent' })).robotsReferencesSitemap).toBe(
+      false
+    );
   });
   it('undefined when there is no static robots.txt', async () => {
-    expect((await collectRenderedProject(cwd, { presence: 'none', value: 'absent' })).robotsReferencesSitemap).toBeUndefined();
+    expect(
+      (await collectRenderedProject(cwd, { presence: 'none', value: 'absent' })).robotsReferencesSitemap
+    ).toBeUndefined();
   });
 });

@@ -31,5 +31,10 @@ export async function collectRenderedProject(cwd: string, htmlLang: Detection): 
     existsAny(cwd, SITEMAP_SOURCE_PATHS)
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(cwd);
-  return { hasRobotsTxt, hasSitemap, htmlLang, ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}) };
+  return {
+    hasRobotsTxt,
+    hasSitemap,
+    htmlLang,
+    ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {})
+  };
 }

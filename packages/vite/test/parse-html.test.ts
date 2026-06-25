@@ -65,7 +65,9 @@ describe('parse-html: robots noindex', () => {
     expect(tags.find((t) => t.kind === 'meta' && t.name === 'robots')!.noindex).toBe(true);
   });
   it('does not flag index,follow', () => {
-    const { tags } = parseHtmlHead('<html><head><meta name="robots" content="index,follow"></head><body></body></html>');
+    const { tags } = parseHtmlHead(
+      '<html><head><meta name="robots" content="index,follow"></head><body></body></html>'
+    );
     expect(tags.find((t) => t.kind === 'meta' && t.name === 'robots')!.noindex).toBeUndefined();
   });
 });

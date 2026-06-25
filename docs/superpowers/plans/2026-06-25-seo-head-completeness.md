@@ -37,12 +37,14 @@
 Add the two fields and populate them from the CLI (source) and vite (rendered) parsers + project collectors. No rules yet — no behavior change.
 
 **Files:**
+
 - Modify: `packages/core/src/head.ts` (HeadTag field), `packages/core/src/types.ts` (Project field)
 - Modify: `packages/cli/src/providers/source/parse.ts` (robots-meta noindex), `packages/cli/src/providers/source/project.ts` (robots sitemap ref)
 - Modify: `packages/vite/src/providers/rendered/parse-html.ts` (robots-meta noindex), `packages/vite/src/providers/rendered/project.ts` (robots sitemap ref)
 - Test: `packages/cli/test/parse-robots.test.ts`, `packages/cli/test/project-robots-ref.test.ts`, and append to `packages/vite/test/parse-html.test.ts` + `packages/vite/test/project.test.ts`
 
 **Interfaces:**
+
 - Produces: `HeadTag.noindex?: boolean` (true when a `<meta name="robots">` literal content contains `noindex`/`none`; undefined otherwise). `Project.robotsReferencesSitemap?: boolean` (true/false from static `static/robots.txt`; undefined when endpoint/absent/unreadable).
 
 - [ ] **Step 1: Write the failing tests**
@@ -58,13 +60,17 @@ const robots = (tags: ReturnType<typeof parseHeadTags>) => tags.find((t) => t.ki
 
 describe('parse: robots noindex (static)', () => {
   it('flags a literal noindex', () => {
-    expect(robots(parseHeadTags(head('<meta name="robots" content="noindex, follow" />'), 'x.svelte')).noindex).toBe(true);
+    expect(robots(parseHeadTags(head('<meta name="robots" content="noindex, follow" />'), 'x.svelte')).noindex).toBe(
+      true
+    );
   });
   it('flags content="none" (== noindex,nofollow)', () => {
     expect(robots(parseHeadTags(head('<meta name="robots" content="none" />'), 'x.svelte')).noindex).toBe(true);
   });
   it('does not flag index,follow', () => {
-    expect(robots(parseHeadTags(head('<meta name="robots" content="index, follow" />'), 'x.svelte')).noindex).toBeUndefined();
+    expect(
+      robots(parseHeadTags(head('<meta name="robots" content="index, follow" />'), 'x.svelte')).noindex
+    ).toBeUndefined();
   });
   it('does not flag a dynamic content', () => {
     expect(robots(parseHeadTags(head('<meta name="robots" content={r} />'), 'x.svelte')).noindex).toBeUndefined();
@@ -113,7 +119,9 @@ describe('parse-html: robots noindex', () => {
     expect(tags.find((t) => t.kind === 'meta' && t.name === 'robots')!.noindex).toBe(true);
   });
   it('does not flag index,follow', () => {
-    const { tags } = parseHtmlHead('<html><head><meta name="robots" content="index,follow"></head><body></body></html>');
+    const { tags } = parseHtmlHead(
+      '<html><head><meta name="robots" content="index,follow"></head><body></body></html>'
+    );
     expect(tags.find((t) => t.kind === 'meta' && t.name === 'robots')!.noindex).toBeUndefined();
   });
 });
@@ -192,8 +200,13 @@ async function robotsRefsSitemap(rt: Runtime, cwd: string): Promise<boolean | un
 and change the return of `collectProjectFacts`:
 
 ```ts
-  const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
-  return { hasRobotsTxt, hasSitemap, htmlLang, ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}) };
+const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
+return {
+  hasRobotsTxt,
+  hasSitemap,
+  htmlLang,
+  ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {})
+};
 ```
 
 (`Runtime` is already imported in this file via the existing signature; if not, add `import type { Runtime } from '@svelte-vitals/core';`.)
@@ -203,21 +216,21 @@ and change the return of `collectProjectFacts`:
 In `packages/vite/src/providers/rendered/parse-html.ts`, replace the `meta` loop body:
 
 ```ts
-  for (const meta of head.querySelectorAll('meta')) {
-    const name = meta.getAttribute('name');
-    const property = meta.getAttribute('property');
-    if (!name && !property) continue;
-    const content = name === 'robots' ? meta.getAttribute('content') : null;
-    const noindex = content != null && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
-    tags.push({
-      kind: 'meta',
-      ...(name ? { name } : {}),
-      ...(property ? { property } : {}),
-      presence: 'own',
-      value: attrValue(meta.getAttribute('content')),
-      ...(noindex ? { noindex: true } : {})
-    });
-  }
+for (const meta of head.querySelectorAll('meta')) {
+  const name = meta.getAttribute('name');
+  const property = meta.getAttribute('property');
+  if (!name && !property) continue;
+  const content = name === 'robots' ? meta.getAttribute('content') : null;
+  const noindex = content != null && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
+  tags.push({
+    kind: 'meta',
+    ...(name ? { name } : {}),
+    ...(property ? { property } : {}),
+    presence: 'own',
+    value: attrValue(meta.getAttribute('content')),
+    ...(noindex ? { noindex: true } : {})
+  });
+}
 ```
 
 In `packages/vite/src/providers/rendered/project.ts`, add a helper and use it in `collectRenderedProject`:
@@ -238,8 +251,13 @@ async function robotsRefsSitemap(cwd: string): Promise<boolean | undefined> {
 and update its return:
 
 ```ts
-  const robotsReferencesSitemap = await robotsRefsSitemap(cwd);
-  return { hasRobotsTxt, hasSitemap, htmlLang, ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}) };
+const robotsReferencesSitemap = await robotsRefsSitemap(cwd);
+return {
+  hasRobotsTxt,
+  hasSitemap,
+  htmlLang,
+  ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {})
+};
 ```
 
 - [ ] **Step 7: Run the tests to verify they pass + full suites**
@@ -262,12 +280,14 @@ git commit -m "feat(core,cli,vite): capture robots noindex + robots.txt sitemap 
 Add the six rules and their 12 docs pages.
 
 **Files:**
+
 - Create: `packages/core/src/rules/seo/seo010-015.ts`
 - Modify: `packages/core/src/rules/index.ts` (register + re-export), `packages/core/src/index.ts` (export)
 - Create: `docs/src/content/docs/rules/seo01{0..5}.md` + `docs/src/content/docs/ja/rules/seo01{0..5}.md` (12 files)
 - Test: `packages/core/test/seo-head-completeness.test.ts`
 
 **Interfaces:**
+
 - Consumes: `HeadTag.noindex` / `Project.robotsReferencesSitemap` (Task 1); `headTagRule` from `./head-tag-rule.js`; `Rule`, `RuleContext`, `docsUrlFor` from `../../rule.js`; `Result` from `../../types.js`.
 - Produces: `seo010Indexability`, `seo011TwitterCard`, `seo012OgDescription`, `seo013OgUrl`, `seo014Viewport`, `seo015SitemapInRobots` (all `Rule`).
 
@@ -318,12 +338,18 @@ describe('SEO010 indexability', () => {
 
 describe('SEO011-014 head presence', () => {
   it('SEO011 flags missing twitter:card, passes present', async () => {
-    expect(fails(await seo011TwitterCard.check(ctx(headWith([{ kind: 'meta', name: 'description' }]))))).toHaveLength(1);
-    expect(fails(await seo011TwitterCard.check(ctx(headWith([{ kind: 'meta', name: 'twitter:card' }]))))).toHaveLength(0);
+    expect(fails(await seo011TwitterCard.check(ctx(headWith([{ kind: 'meta', name: 'description' }]))))).toHaveLength(
+      1
+    );
+    expect(fails(await seo011TwitterCard.check(ctx(headWith([{ kind: 'meta', name: 'twitter:card' }]))))).toHaveLength(
+      0
+    );
   });
   it('SEO012 matches og:description (warning)', async () => {
     expect(seo012OgDescription.severity).toBe('warning');
-    expect(fails(await seo012OgDescription.check(ctx(headWith([{ kind: 'meta', property: 'og:description' }]))))).toHaveLength(0);
+    expect(
+      fails(await seo012OgDescription.check(ctx(headWith([{ kind: 'meta', property: 'og:description' }]))))
+    ).toHaveLength(0);
   });
   it('SEO013 matches og:url', async () => {
     expect(fails(await seo013OgUrl.check(ctx(headWith([{ kind: 'meta', property: 'og:url' }]))))).toHaveLength(0);
@@ -337,11 +363,15 @@ describe('SEO011-014 head presence', () => {
 describe('SEO015 sitemap-in-robots', () => {
   const proj = (p: Partial<Project>): Project => ({ ...defaultProject, ...p });
   it('flags when robots+sitemap exist but robots does not reference the sitemap', async () => {
-    const rs = await seo015SitemapInRobots.check(ctx(headWith([]), proj({ hasRobotsTxt: true, hasSitemap: true, robotsReferencesSitemap: false })));
+    const rs = await seo015SitemapInRobots.check(
+      ctx(headWith([]), proj({ hasRobotsTxt: true, hasSitemap: true, robotsReferencesSitemap: false }))
+    );
     expect(fails(rs)).toHaveLength(1);
   });
   it('passes when robots references the sitemap', async () => {
-    const rs = await seo015SitemapInRobots.check(ctx(headWith([]), proj({ hasRobotsTxt: true, hasSitemap: true, robotsReferencesSitemap: true })));
+    const rs = await seo015SitemapInRobots.check(
+      ctx(headWith([]), proj({ hasRobotsTxt: true, hasSitemap: true, robotsReferencesSitemap: true }))
+    );
     expect(fails(rs)).toHaveLength(0);
   });
   it('emits nothing when robotsReferencesSitemap is undefined (endpoint/absent)', async () => {
@@ -511,7 +541,9 @@ export const seo015SitemapInRobots: Rule = {
 - [ ] **Step 4: Register + export the rules**
 
 In `packages/core/src/rules/index.ts`:
+
 - Add the import (after the `perf003/perf004` import line):
+
 ```ts
 import {
   seo010Indexability,
@@ -522,6 +554,7 @@ import {
   seo015SitemapInRobots
 } from './seo/seo010-015.js';
 ```
+
 - Add all six to the `allRules` array (after the last perf rule) and to the named re-export block (after the last perf rule), in the same order.
 
 In `packages/core/src/index.ts`, add the six names to the existing `export { … } from './rules/index.js';` rules export.
@@ -531,7 +564,8 @@ In `packages/core/src/index.ts`, add the six names to the existing `export { …
 Create the English pages under `docs/src/content/docs/rules/`:
 
 `seo010.md`:
-```md
+
+````md
 ---
 title: SEO010 · Indexability
 description: A route should not be accidentally set to noindex.
@@ -556,7 +590,9 @@ If this route should be indexed, remove `noindex` from its robots meta:
   <meta name="robots" content="index, follow" />
 </svelte:head>
 ```
-```
+````
+
+````
 
 `seo011.md`:
 ```md
@@ -581,8 +617,9 @@ twitter:card selects how the page renders when shared on X/Twitter; without it t
 <svelte:head>
   <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
-```
-```
+````
+
+````
 
 `seo012.md`:
 ```md
@@ -607,8 +644,9 @@ og:description is the summary shown under the title in social previews; without 
 <svelte:head>
   <meta property="og:description" content="A concise page summary." />
 </svelte:head>
-```
-```
+````
+
+````
 
 `seo013.md`:
 ```md
@@ -633,8 +671,9 @@ og:url tells social platforms the canonical address to attribute shares and like
 <svelte:head>
   <meta property="og:url" content="https://example.com/this-page" />
 </svelte:head>
-```
-```
+````
+
+````
 
 `seo014.md`:
 ```md
@@ -659,8 +698,9 @@ Add the viewport meta tag, typically in `src/app.html`:
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-```
-```
+````
+
+````
 
 `seo015.md`:
 ```md
@@ -688,8 +728,9 @@ User-agent: *
 Allow: /
 
 Sitemap: https://example.com/sitemap.xml
-```
-```
+````
+
+````
 
 Create the Japanese pages under `docs/src/content/docs/ja/rules/`:
 
@@ -718,8 +759,9 @@ noindex はページを検索結果から除外します。公開ルートでの
 <svelte:head>
   <meta name="robots" content="index, follow" />
 </svelte:head>
-```
-```
+````
+
+````
 
 `seo011.md`:
 ```md
@@ -744,8 +786,9 @@ twitter:card は X/Twitter で共有された際の表示形式を決めます�
 <svelte:head>
   <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
-```
-```
+````
+
+````
 
 `seo012.md`:
 ```md
@@ -770,8 +813,9 @@ og:description はソーシャルプレビューでタイトル下に表示さ�
 <svelte:head>
   <meta property="og:description" content="ページの簡潔な要約。" />
 </svelte:head>
-```
-```
+````
+
+````
 
 `seo013.md`:
 ```md
@@ -796,8 +840,9 @@ og:url はシェアやいいねを集約する正規アドレスをソーシャ�
 <svelte:head>
   <meta property="og:url" content="https://example.com/this-page" />
 </svelte:head>
-```
-```
+````
+
+````
 
 `seo014.md`:
 ```md
@@ -822,8 +867,9 @@ viewport メタタグが無いとページはモバイル対応にならず、�
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-```
-```
+````
+
+````
 
 `seo015.md`:
 ```md
@@ -851,8 +897,9 @@ User-agent: *
 Allow: /
 
 Sitemap: https://example.com/sitemap.xml
-```
-```
+````
+
+````
 
 - [ ] **Step 6: Run the rule test + full suites**
 
@@ -868,13 +915,14 @@ Expected: PASS. If any test hard-codes a rule count or enumerates ids (search: `
 ```bash
 git add packages/core/src/rules/seo/seo010-015.ts packages/core/src/rules/index.ts packages/core/src/index.ts packages/core/test/seo-head-completeness.test.ts docs/src/content/docs/rules/seo01*.md docs/src/content/docs/ja/rules/seo01*.md
 git commit -m "feat(core): add SEO010-SEO015 (indexability, twitter, og, viewport, sitemap-in-robots) + docs"
-```
+````
 
 ---
 
 ### Task 3: Changeset + full verification
 
 **Files:**
+
 - Create: `.changeset/seo-head-completeness.md`
 
 **Interfaces:** none (release).
@@ -905,6 +953,7 @@ Run from the repo root (build first so cli/mcp see core's new rules):
 ```bash
 pnpm build && CI=true pnpm -r typecheck && CI=true pnpm -r test && CI=true pnpm --filter docs build && pnpm lint && pnpm check:publish
 ```
+
 Expected: all green. (Run `pnpm format` first if prettier flags the new Markdown; re-run lint. `attw` inside `check:publish` may fail LOCALLY only — known pre-existing local-cache issue, CI-unaffected; if only attw/npm-pack fails and publint passes, treat it as the known issue.) Confirm `pnpm --filter docs build` succeeds with the 12 new rule pages.
 
 - [ ] **Step 3: Commit**
@@ -919,6 +968,7 @@ git commit -m "chore: changeset for SEO010-SEO015 (core + cli + vite + mcp minor
 ## Self-Review
 
 **Spec coverage:**
+
 - SEO010 noindex (info, flag-on-presence, static-only, surfaced via {none,absent}) → Task 2. ✅
 - SEO011 twitter:card (info), SEO012 og:description (warning), SEO013 og:url (info), SEO014 viewport (warning) → Task 2 headTagRule instances. ✅
 - SEO015 sitemap-in-robots (info, project rule, fires only when robots+sitemap exist and robotsReferencesSitemap===false) → Task 2. ✅

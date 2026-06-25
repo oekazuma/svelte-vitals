@@ -14,20 +14,20 @@ B and C each require a distinct capture extension (literal text; literal JSON) a
 
 Add six new SEO rules decidable from the resolved `<head>` and project facts, before deploy, without a browser or web data:
 
-| ID | Check | Severity | Shape |
-|----|-------|----------|-------|
-| **SEO010** | **Indexability** — a route whose `<meta name="robots">` content statically contains `noindex` | `info` (advisory) | flag-on-presence (custom rule) |
-| **SEO011** | **Twitter Card** — `<meta name="twitter:card">` present | `info` | `headTagRule` |
-| **SEO012** | **Open Graph description** — `<meta property="og:description">` present | `warning` | `headTagRule` |
-| **SEO013** | **Open Graph URL** — `<meta property="og:url">` present | `info` | `headTagRule` |
-| **SEO014** | **Viewport** — `<meta name="viewport">` present | `warning` | `headTagRule` |
-| **SEO015** | **Sitemap referenced in robots.txt** — when robots.txt and a sitemap both exist, robots.txt has a `Sitemap:` line | `info` | project rule |
+| ID         | Check                                                                                                             | Severity          | Shape                          |
+| ---------- | ----------------------------------------------------------------------------------------------------------------- | ----------------- | ------------------------------ |
+| **SEO010** | **Indexability** — a route whose `<meta name="robots">` content statically contains `noindex`                     | `info` (advisory) | flag-on-presence (custom rule) |
+| **SEO011** | **Twitter Card** — `<meta name="twitter:card">` present                                                           | `info`            | `headTagRule`                  |
+| **SEO012** | **Open Graph description** — `<meta property="og:description">` present                                           | `warning`         | `headTagRule`                  |
+| **SEO013** | **Open Graph URL** — `<meta property="og:url">` present                                                           | `info`            | `headTagRule`                  |
+| **SEO014** | **Viewport** — `<meta name="viewport">` present                                                                   | `warning`         | `headTagRule`                  |
+| **SEO015** | **Sitemap referenced in robots.txt** — when robots.txt and a sitemap both exist, robots.txt has a `Sitemap:` line | `info`            | project rule                   |
 
 Severity rationale: SEO012 (og:description) and SEO014 (viewport) are `warning` — og:description parallels og:title (SEO005, `warning`); viewport matters for mobile-first indexing. SEO010/SEO011/SEO013/SEO015 are `info` — noindex may be intentional (can't know statically), Twitter falls back to Open Graph, og:url is usually covered by the canonical, and a sitemap can also be submitted via Search Console.
 
 ## SEO010 — Indexability (the headline rule)
 
-Unlike every other SEO rule (which penalizes the *absence* of a desired tag), SEO010 surfaces the *presence* of a `noindex` directive — an accidental `noindex` silently deindexes a page (highest-impact SEO bug). Because static analysis cannot know whether a `noindex` is intentional (`/admin`, thank-you pages), it is an **`info` advisory**: it surfaces the route with a "verify this is intentional" message, never fails the default CI gate (`--fail-on=critical`), and has minimal score impact. A dynamically-bound `content={x}` is **never** flagged (no false negatives) — only a statically-resolvable `noindex` token.
+Unlike every other SEO rule (which penalizes the _absence_ of a desired tag), SEO010 surfaces the _presence_ of a `noindex` directive — an accidental `noindex` silently deindexes a page (highest-impact SEO bug). Because static analysis cannot know whether a `noindex` is intentional (`/admin`, thank-you pages), it is an **`info` advisory**: it surfaces the route with a "verify this is intentional" message, never fails the default CI gate (`--fail-on=critical`), and has minimal score impact. A dynamically-bound `content={x}` is **never** flagged (no false negatives) — only a statically-resolvable `noindex` token.
 
 ## Data model & provider changes (minimal, both modes)
 

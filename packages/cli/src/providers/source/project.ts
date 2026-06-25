@@ -92,5 +92,10 @@ export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Pro
     detectAppHtmlLang(rt, cwd)
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
-  return { hasRobotsTxt, hasSitemap, htmlLang, ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}) };
+  return {
+    hasRobotsTxt,
+    hasSitemap,
+    htmlLang,
+    ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {})
+  };
 }
