@@ -60,3 +60,20 @@ export const handle = sequence(
 - 分析されるのはレンダリングされた HTML の `<head>` のみです — ブラウザが受け取るデータと同じです。ソースレベルの動的な値（例：`{data.title}`）はハンドルが見る時点で常に解決されているため、`treatDynamicAs` はここでは適用されません。
 - `failOn` は使用されません：このハンドルは検出結果を報告するだけで、リクエストをゲートしません。
 - 内部分析エラーをターミナルに表示するには `SVELTE_VITALS_DEBUG=true` を設定してください。
+
+## ライブ UI ダッシュボード
+
+`vite dev` 中に `/__svelte-vitals/` でライブダッシュボードを表示します。CLI の `--reporter html` と同じレポートが、アプリを操作するたびにその場で更新されます。
+
+```js
+// vite.config.{js,ts}
+import { svelteVitals } from '@svelte-vitals/vite';
+
+export default {
+  plugins: [svelteVitals({ ui: true }) /* , sveltekit() */]
+};
+```
+
+これは dev handle（上記オーバーレイと同じもの）から供給されるため、`src/hooks.server.ts` の `svelteVitalsHandle()` はそのまま残してください。`http://localhost:5173/__svelte-vitals/` を開いてアプリを操作すると、訪問した各ルートのレンダリング済み `<head>` が解析され、ダッシュボードがライブ更新されます。
+
+オーバーレイと同様、これは dev 専用かつレンダリングベースで、訪問したルートの SEO `<head>` ルールを対象とします。プロジェクト全体のレポート（全ルート・パフォーマンス・サイト全体のチェック）が必要な場合は `npx svelte-vitals` または `--reporter html` を実行してください。

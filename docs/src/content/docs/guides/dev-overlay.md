@@ -60,3 +60,20 @@ export const handle = sequence(
 - Only the rendered HTML `<head>` is analyzed — the same data the browser receives. Source-level dynamic values (e.g. `{data.title}`) are always resolved by the time the handle sees them, so `treatDynamicAs` is not applicable here.
 - `failOn` is not used: the handle reports findings but never gates the request.
 - Set `SVELTE_VITALS_DEBUG=true` to surface any internal analysis errors to the terminal.
+
+## Live UI dashboard
+
+Enable a live dashboard at `/__svelte-vitals/` during `vite dev` — the same report the CLI's `--reporter html` produces, updating in place as you navigate your app.
+
+```js
+// vite.config.{js,ts}
+import { svelteVitals } from '@svelte-vitals/vite';
+
+export default {
+  plugins: [svelteVitals({ ui: true }) /* , sveltekit() */]
+};
+```
+
+It is fed by the dev handle (the same one the overlay above uses), so keep `svelteVitalsHandle()` in `src/hooks.server.ts`. Open `http://localhost:5173/__svelte-vitals/` and browse your app: each visited route's rendered `<head>` is analyzed and the dashboard updates live.
+
+Like the overlay, this is dev-only and rendered-based: it covers the SEO `<head>` rules for the routes you visit. For a whole-project report (all routes, Performance, site checks), run `npx svelte-vitals` or `--reporter html`.
