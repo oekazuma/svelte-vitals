@@ -76,4 +76,4 @@ export default {
 
 これは dev handle（上記オーバーレイと同じもの）から供給されるため、`src/hooks.server.ts` の `svelteVitalsHandle()` はそのまま残してください。`http://localhost:5173/__svelte-vitals/` を開いてアプリを操作すると、訪問した各ルートのレンダリング済み `<head>` が解析され、ダッシュボードがライブ更新されます。
 
-オーバーレイと同様、これは dev 専用かつレンダリングベースで、訪問したルートの SEO `<head>` ルールを対象とします。プロジェクト全体のレポート（全ルート・パフォーマンス・サイト全体のチェック）が必要な場合は `npx svelte-vitals` または `--reporter html` を実行してください。
+オーバーレイと同様、これは dev 専用かつレンダリングベースで、訪問したルートの SEO `<head>` ルールを対象とします。プロジェクト全体のレポート（全ルート・パフォーマンス・サイト全体のチェック）が必要な場合は `npx svelte-vitals` または `npx svelte-vitals --reporter html` を実行してください。

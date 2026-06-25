@@ -50,8 +50,9 @@ These are deliberate v1 boundaries that keep B vite-native and dependency-free; 
 
 ```js
 // vite.config — serve the dashboard at /__svelte-vitals/ in dev
-svelteVitals({ ui: true })
+svelteVitals({ ui: true });
 ```
+
 ```ts
 // src/hooks.server.ts — already present for the dev overlay; feeds the UI
 export const handle = sequence(svelteVitalsHandle());

@@ -1,8 +1,15 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { ViteDevServer } from 'vite';
-import type { Config } from '@svelte-vitals/core';
+import type { Config, Result } from '@svelte-vitals/core';
 import { createStore } from './store.js';
 import { renderDashboard } from './serve.js';
+
+/** Minimal shape the dashboard renderer relies on, so malformed ingest can't poison it. */
+function isResultLike(x: unknown): x is Result {
+  if (typeof x !== 'object' || x === null) return false;
+  const r = x as Record<string, unknown>;
+  return typeof r.id === 'string' && typeof r.detection === 'object' && r.detection !== null;
+}
 
 /** Mount the dev UI at /__svelte-vitals/ : GET / (dashboard), POST /ingest, GET /events (SSE). */
 export function installUiMiddleware(server: ViteDevServer, config: Config, version: string): void {
@@ -31,7 +38,9 @@ export function installUiMiddleware(server: ViteDevServer, config: Config, versi
       req.on('end', () => {
         try {
           const { route, results } = JSON.parse(body);
-          if (typeof route === 'string' && Array.isArray(results)) store.set(route, results);
+          if (typeof route === 'string' && Array.isArray(results)) {
+            store.set(route, results.filter(isResultLike));
+          }
         } catch {
           // ignore malformed ingest payloads — dev tooling must not crash the dev server
         }

@@ -16,7 +16,20 @@ import { parseHtmlHead } from '../providers/rendered/parse-html.js';
 import { findingSignature, formatDevReport } from './format.js';
 import type { SvelteVitalsHookOptions } from './options.js';
 
+/** Only the local dev server hosts the ingest endpoint, so never POST off-box. */
+function isLoopbackOrigin(origin: string): boolean {
+  try {
+    const host = new URL(origin).hostname;
+    return host === 'localhost' || host === '127.0.0.1' || host === '[::1]' || host === '::1';
+  } catch {
+    return false;
+  }
+}
+
 async function postIngest(origin: string, route: string, results: Result[]): Promise<void> {
+  // `origin` comes from the request (Host header), so a spoofed Host must not
+  // redirect this server-side POST to an arbitrary external host.
+  if (!isLoopbackOrigin(origin)) return;
   try {
     await fetch(`${origin}/__svelte-vitals/ingest`, {
       method: 'POST',
@@ -89,7 +102,15 @@ export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handl
         // Observe-only: return the chunk unchanged and never block the response on
         // analysis. We fire-and-forget on the final chunk; analyzeAndWarn swallows
         // its own errors, so the floating promise can never reject.
-        if (done) void analyzeAndWarn(buffer, event.route.id ?? event.url.pathname, event.url.origin, rules, config, lastSignature);
+        if (done)
+          void analyzeAndWarn(
+            buffer,
+            event.route.id ?? event.url.pathname,
+            event.url.origin,
+            rules,
+            config,
+            lastSignature
+          );
         return html;
       }
     });

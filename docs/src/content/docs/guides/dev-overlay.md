@@ -76,4 +76,4 @@ export default {
 
 It is fed by the dev handle (the same one the overlay above uses), so keep `svelteVitalsHandle()` in `src/hooks.server.ts`. Open `http://localhost:5173/__svelte-vitals/` and browse your app: each visited route's rendered `<head>` is analyzed and the dashboard updates live.
 
-Like the overlay, this is dev-only and rendered-based: it covers the SEO `<head>` rules for the routes you visit. For a whole-project report (all routes, Performance, site checks), run `npx svelte-vitals` or `--reporter html`.
+Like the overlay, this is dev-only and rendered-based: it covers the SEO `<head>` rules for the routes you visit. For a whole-project report (all routes, Performance, site checks), run `npx svelte-vitals` or `npx svelte-vitals --reporter html`.

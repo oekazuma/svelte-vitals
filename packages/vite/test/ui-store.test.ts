@@ -3,14 +3,26 @@ import { createStore } from '../src/ui/store.js';
 import type { Result } from '@svelte-vitals/core';
 
 const r = (id: string, route?: string): Result =>
-  ({ id, message: id, category: 'seo', detection: { presence: 'none', value: 'absent' }, route, severity: 'critical' }) as Result;
+  ({
+    id,
+    message: id,
+    category: 'seo',
+    detection: { presence: 'none', value: 'absent' },
+    route,
+    severity: 'critical'
+  }) as Result;
 
 describe('createStore', () => {
   it('flattens results across routes in snapshot()', () => {
     const s = createStore();
     s.set('/a', [r('SEO001', '/a')]);
     s.set('/b', [r('SEO002', '/b')]);
-    expect(s.snapshot().map((x) => x.id).sort()).toEqual(['SEO001', 'SEO002']);
+    expect(
+      s
+        .snapshot()
+        .map((x) => x.id)
+        .sort()
+    ).toEqual(['SEO001', 'SEO002']);
   });
 
   it('replaces (not appends) a route on re-set', () => {

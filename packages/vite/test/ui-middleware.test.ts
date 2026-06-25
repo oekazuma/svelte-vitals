@@ -97,4 +97,35 @@ describe('installUiMiddleware', () => {
     await new Promise((r) => setTimeout(r, 0));
     expect(sse.chunks.join('')).toContain('event: update');
   });
+
+  it('drops malformed finding objects so the dashboard still renders', async () => {
+    const { call } = setup();
+    const ireq = postReq('/ingest');
+    call(ireq, res());
+    ireq.emit(
+      'data',
+      Buffer.from(
+        JSON.stringify({
+          route: '/x',
+          results: [
+            {},
+            {
+              id: 'SEO001',
+              detection: { presence: 'none', value: 'absent' },
+              message: 'm',
+              category: 'seo',
+              severity: 'critical'
+            }
+          ]
+        })
+      )
+    );
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    const gr = res();
+    call(getReq('/'), gr);
+    const html = gr.chunks.join('');
+    expect(html.startsWith('<!doctype html>')).toBe(true); // did not crash on the {} entry
+    expect(html).toContain('SEO001'); // the valid finding survived
+  });
 });

@@ -4,7 +4,15 @@ import { defineConfig, type Result } from '@svelte-vitals/core';
 
 const config = defineConfig({});
 const results: Result[] = [
-  { id: 'SEO001', message: 'Missing <title>', category: 'seo', detection: { presence: 'none', value: 'absent' }, route: '/a', location: 'a/+page.svelte', severity: 'critical' } as Result
+  {
+    id: 'SEO001',
+    message: 'Missing <title>',
+    category: 'seo',
+    detection: { presence: 'none', value: 'absent' },
+    route: '/a',
+    location: 'a/+page.svelte',
+    severity: 'critical'
+  } as Result
 ];
 
 describe('renderDashboard', () => {

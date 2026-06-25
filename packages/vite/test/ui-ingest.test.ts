@@ -50,4 +50,19 @@ describe('handle ingest (UI feed)', () => {
     await flush();
     expect(fetchMock).not.toHaveBeenCalled();
   });
+
+  it('does NOT POST to a non-loopback origin (spoofed Host)', async () => {
+    process.env.SVELTE_VITALS_UI = '1';
+    const fetchMock = vi.fn(async () => ({ ok: true }) as Response);
+    vi.stubGlobal('fetch', fetchMock);
+    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const evilEvent = {
+      route: { id: '/none' },
+      url: new URL('http://evil.example.com/none')
+    } as unknown as Parameters<Parameters<Handle>[0]['resolve']>[0];
+    const handle = svelteVitalsHandle();
+    await handle({ event: evilEvent, resolve: resolveWith([PAGE_NO_TITLE]) });
+    await flush();
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
 });

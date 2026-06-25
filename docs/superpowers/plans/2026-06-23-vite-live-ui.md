@@ -43,10 +43,12 @@ type Result = { id: string; message: string; category?: Category; detection: {..
 An in-memory store the dev middleware owns: findings keyed by route, a flattened snapshot for `buildJsonReport`, and change subscriptions for SSE.
 
 **Files:**
+
 - Create: `packages/vite/src/ui/store.ts`
 - Test: `packages/vite/test/ui-store.test.ts`
 
 **Interfaces:**
+
 - Consumes: `type Result` from `@svelte-vitals/core`.
 - Produces:
   - `interface FindingsStore { set(route: string, results: Result[]): void; snapshot(): Result[]; subscribe(fn: () => void): () => void; }`
@@ -62,14 +64,26 @@ import { createStore } from '../src/ui/store.js';
 import type { Result } from '@svelte-vitals/core';
 
 const r = (id: string, route?: string): Result =>
-  ({ id, message: id, category: 'seo', detection: { presence: 'none', value: 'absent' }, route, severity: 'critical' }) as Result;
+  ({
+    id,
+    message: id,
+    category: 'seo',
+    detection: { presence: 'none', value: 'absent' },
+    route,
+    severity: 'critical'
+  }) as Result;
 
 describe('createStore', () => {
   it('flattens results across routes in snapshot()', () => {
     const s = createStore();
     s.set('/a', [r('SEO001', '/a')]);
     s.set('/b', [r('SEO002', '/b')]);
-    expect(s.snapshot().map((x) => x.id).sort()).toEqual(['SEO001', 'SEO002']);
+    expect(
+      s
+        .snapshot()
+        .map((x) => x.id)
+        .sort()
+    ).toEqual(['SEO001', 'SEO002']);
   });
 
   it('replaces (not appends) a route on re-set', () => {
@@ -161,10 +175,12 @@ git commit -m "feat(vite): findings store for the live UI"
 Build the served HTML: the core `buildHtmlDocument` output with a `<script data-live>` injected before `</body>` that subscribes to SSE and swaps the `.wrap` content on update.
 
 **Files:**
+
 - Create: `packages/vite/src/ui/serve.ts`
 - Test: `packages/vite/test/ui-serve.test.ts`
 
 **Interfaces:**
+
 - Consumes: `buildHtmlDocument`, `buildJsonReport`, `type Config`, `type Result` from `@svelte-vitals/core`.
 - Produces: `function renderDashboard(results: Result[], config: Config, meta: { version: string }): string`
 
@@ -179,7 +195,15 @@ import { defineConfig, type Result } from '@svelte-vitals/core';
 
 const config = defineConfig({});
 const results: Result[] = [
-  { id: 'SEO001', message: 'Missing <title>', category: 'seo', detection: { presence: 'none', value: 'absent' }, route: '/a', location: 'a/+page.svelte', severity: 'critical' } as Result
+  {
+    id: 'SEO001',
+    message: 'Missing <title>',
+    category: 'seo',
+    detection: { presence: 'none', value: 'absent' },
+    route: '/a',
+    location: 'a/+page.svelte',
+    severity: 'critical'
+  } as Result
 ];
 
 describe('renderDashboard', () => {
@@ -260,10 +284,12 @@ git commit -m "feat(vite): dashboard renderer reusing buildHtmlDocument + live s
 Wire the store + renderer onto a Vite dev server: serve the dashboard, accept ingested findings, and stream SSE updates.
 
 **Files:**
+
 - Create: `packages/vite/src/ui/middleware.ts`
 - Test: `packages/vite/test/ui-middleware.test.ts`
 
 **Interfaces:**
+
 - Consumes: `createStore` (Task 1), `renderDashboard` (Task 2); `type Config` from `@svelte-vitals/core`; Vite `ViteDevServer` type; Node `IncomingMessage`/`ServerResponse`.
 - Produces: `function installUiMiddleware(server: ViteDevServer, config: Config, version: string): void`
 
@@ -285,14 +311,44 @@ function setup() {
   return { call: (req: any, res: any) => handler(req, res, () => {}) };
 }
 function res() {
-  return { statusCode: 0, headers: {} as Record<string, string>, chunks: [] as string[], setHeader(k: string, v: string) { this.headers[k] = v; }, writeHead(c: number, h?: Record<string, string>) { this.statusCode = c; Object.assign(this.headers, h ?? {}); }, write(c: string) { this.chunks.push(c); }, end(c?: string) { if (c) this.chunks.push(c); } };
+  return {
+    statusCode: 0,
+    headers: {} as Record<string, string>,
+    chunks: [] as string[],
+    setHeader(k: string, v: string) {
+      this.headers[k] = v;
+    },
+    writeHead(c: number, h?: Record<string, string>) {
+      this.statusCode = c;
+      Object.assign(this.headers, h ?? {});
+    },
+    write(c: string) {
+      this.chunks.push(c);
+    },
+    end(c?: string) {
+      if (c) this.chunks.push(c);
+    }
+  };
 }
-function postReq(url: string) { return Object.assign(new EventEmitter(), { method: 'POST', url }); }
-function getReq(url: string) { return Object.assign(new EventEmitter(), { method: 'GET', url }); }
+function postReq(url: string) {
+  return Object.assign(new EventEmitter(), { method: 'POST', url });
+}
+function getReq(url: string) {
+  return Object.assign(new EventEmitter(), { method: 'GET', url });
+}
 
 const ingestBody = JSON.stringify({
   route: '/a',
-  results: [{ id: 'SEO001', message: 'Missing <title>', category: 'seo', detection: { presence: 'none', value: 'absent' }, route: '/a', severity: 'critical' }]
+  results: [
+    {
+      id: 'SEO001',
+      message: 'Missing <title>',
+      category: 'seo',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/a',
+      severity: 'critical'
+    }
+  ]
 });
 
 describe('installUiMiddleware', () => {
@@ -408,10 +464,12 @@ git commit -m "feat(vite): dev-server middleware (dashboard, ingest, SSE)"
 Add `ui?: boolean` to the plugin options. When set, `svelteVitals()` returns the existing build plugin **plus** a dev-only plugin whose `configureServer` installs the UI middleware and sets `process.env.SVELTE_VITALS_UI`.
 
 **Files:**
+
 - Modify: `packages/vite/src/plugin.ts`
 - Test: `packages/vite/test/ui-plugin.test.ts`
 
 **Interfaces:**
+
 - Consumes: `installUiMiddleware` (Task 3); `defineConfig` from `@svelte-vitals/core`; `readPackageVersion` from `./version.js`; Vite `Plugin`/`ViteDevServer`.
 - Produces: `SvelteVitalsOptions` gains `ui?: boolean`; `svelteVitals(options): Plugin | Plugin[]` (returns an array when `ui` is set, a single Plugin otherwise).
 
@@ -466,18 +524,23 @@ Expected: FAIL — `ui` not handled; `svelteVitals({ui:true})` returns a single 
 In `packages/vite/src/plugin.ts`:
 
 - Add to `SvelteVitalsOptions` (after `prerenderDir`):
+
 ```ts
   /** Serve a live dashboard at /__svelte-vitals/ during `vite dev` (requires svelteVitalsHandle in hooks.server.ts). */
   ui?: boolean;
 ```
+
 - Add imports at the top (alongside the existing imports):
+
 ```ts
 import type { Plugin, ViteDevServer } from 'vite';
 import { defineConfig } from '@svelte-vitals/core';
 import { installUiMiddleware } from './ui/middleware.js';
 import { readPackageVersion } from './version.js';
 ```
+
 (`type { Plugin }` may already be imported — keep a single import; add `ViteDevServer` to it. Remove any duplicate.)
+
 - Change the signature and wrap the return. The existing function body builds the build-time plugin object; keep it, name it `buildPlugin`, and return conditionally:
 
 ```ts
@@ -540,10 +603,12 @@ git commit -m "feat(vite): svelteVitals({ ui }) serves the dev dashboard"
 When `process.env.SVELTE_VITALS_UI` is set, `svelteVitalsHandle` additionally POSTs each analyzed route's findings to the dev server's `/__svelte-vitals/ingest`. Terminal-warning behavior is unchanged; the POST is fire-and-forget.
 
 **Files:**
+
 - Modify: `packages/vite/src/hooks/handle.ts`
 - Test: `packages/vite/test/ui-ingest.test.ts`
 
 **Interfaces:**
+
 - Consumes: the ingest endpoint contract from Task 3 (`POST /__svelte-vitals/ingest` with `{ route, results }`).
 - Produces: no new exports; behavior change in `svelteVitalsHandle` gated by `SVELTE_VITALS_UI`.
 
@@ -615,6 +680,7 @@ Expected: FAIL — the handle does not POST.
 In `packages/vite/src/hooks/handle.ts`:
 
 - Add a fire-and-forget ingest helper above `analyzeAndWarn`:
+
 ```ts
 async function postIngest(origin: string, route: string, results: Result[]): Promise<void> {
   try {
@@ -628,8 +694,10 @@ async function postIngest(origin: string, route: string, results: Result[]): Pro
   }
 }
 ```
+
 - Import `Result` in the existing `@svelte-vitals/core` type import (add `type Result`).
 - Thread `origin` through `analyzeAndWarn`. Change its signature and the dedupe tail so it posts whenever a route's findings change:
+
 ```ts
 async function analyzeAndWarn(
   html: string,
@@ -659,9 +727,12 @@ async function analyzeAndWarn(
   }
 }
 ```
+
 - Update the single call site inside the returned handle to pass `event.url.origin`:
+
 ```ts
-        if (done) void analyzeAndWarn(buffer, event.route.id ?? event.url.pathname, event.url.origin, rules, config, lastSignature);
+if (done)
+  void analyzeAndWarn(buffer, event.route.id ?? event.url.pathname, event.url.origin, rules, config, lastSignature);
 ```
 
 - [ ] **Step 4: Run tests to verify they pass**
@@ -683,6 +754,7 @@ git commit -m "feat(vite): handle feeds findings to the live UI when enabled"
 Document the live UI (docs site, en + ja) and add the release changeset, then run the full verification suite.
 
 **Files:**
+
 - Modify: `docs/src/content/docs/guides/dev-overlay.md` and `docs/src/content/docs/ja/guides/dev-overlay.md` (add a "Live UI" section)
 - Create: `.changeset/vite-live-ui.md`
 
@@ -757,6 +829,7 @@ Run from the repo root:
 ```bash
 CI=true pnpm -r typecheck && CI=true pnpm -r test && pnpm build && CI=true pnpm --filter docs build && pnpm lint && pnpm check:publish
 ```
+
 Expected: all green. (Run `pnpm format` first if prettier flags the new Markdown; re-run lint. `attw` inside `check:publish` may fail LOCALLY only — known pre-existing local-cache issue, CI-unaffected; if only attw/npm-pack fails and publint passes, treat it as the known issue.)
 
 - [ ] **Step 5: Commit**
@@ -771,6 +844,7 @@ git commit -m "docs: document the live UI; changeset (@svelte-vitals/vite minor)
 ## Self-Review
 
 **Spec coverage:**
+
 - `svelteVitals({ ui: true })` serves `/__svelte-vitals/` in dev → Task 4. ✅
 - Reuse `buildHtmlDocument` verbatim + inject live script → Task 2. ✅
 - Handle↔plugin over HTTP, env-gated (`SVELTE_VITALS_UI`), no change when unset → Tasks 4 (sets env) + 5 (gated POST). ✅

@@ -82,6 +82,11 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
     apply: 'serve',
     configureServer(server: ViteDevServer) {
       process.env.SVELTE_VITALS_UI = '1';
+      // Clear the flag when the dev server stops, so the handle doesn't keep
+      // POSTing to a no-longer-mounted endpoint after a restart / config flip.
+      server.httpServer?.once('close', () => {
+        delete process.env.SVELTE_VITALS_UI;
+      });
       const config = defineConfig({
         treatDynamicAs: options.treatDynamicAs ?? 'pass',
         metaComponents: options.metaComponents ?? [],
