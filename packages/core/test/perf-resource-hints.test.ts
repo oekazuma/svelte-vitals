@@ -48,6 +48,7 @@ describe('PERF004 font preload missing crossorigin', () => {
       ctx(headWith([{ kind: 'link', rel: 'preload', hasAs: true, as: 'font', hasCrossorigin: true }]))
     );
     expect(failing(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(1); // one passing result seeds the route
   });
   it('ignores a non-font preload', async () => {
     const rs = await perf004FontPreloadCrossorigin.check(

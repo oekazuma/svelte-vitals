@@ -2,6 +2,7 @@
 '@svelte-vitals/core': minor
 'svelte-vitals': minor
 '@svelte-vitals/vite': minor
+'@svelte-vitals/mcp': minor
 ---
 
 Add two static resource-hint Performance checks: PERF003 flags a `<link rel="preload">`

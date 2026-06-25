@@ -49,14 +49,17 @@ export function linkRule(opts: LinkRuleOptions): Rule {
           });
           continue;
         }
-        for (let i = 0; i < bad.length; i++) {
+        for (const tag of bad) {
           out.push({
             id: opts.id,
             category: 'performance',
             severity: opts.severity,
             detection: { presence: 'none', value: 'absent' },
             route: head.route,
-            location: head.file,
+            // Point at the file the link actually came from (a layout in static
+            // mode); fall back to the route's representative file when the tag
+            // carries no file (rendered mode).
+            location: tag.file ?? head.file,
             message: `Missing ${opts.label}`,
             recommendation: opts.recommendation,
             docsUrl,
