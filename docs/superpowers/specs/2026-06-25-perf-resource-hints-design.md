@@ -31,6 +31,8 @@ A dynamically-bound attribute (`as={x}` / `crossorigin={c}`) counts as **present
 
 Coverage note (honest, unchanged philosophy): static mode sees only hints written in `<svelte:head>`; resource hints placed in `app.html` are seen only in **rendered / plugin mode**. Both feed the same rule engine, so each check fires wherever the link tag is visible.
 
+**Static-mode multi-`preload` limitation (v1):** the source-head composer (`packages/cli/src/providers/source/routes.ts`) collapses head tags into a singleton `Map` keyed by `link:${rel}` (correct for singleton tags like `canonical`), so multiple `<svelte:head>` `<link rel="preload">` tags collapse to one representative (last-wins) in static mode. **Rendered / plugin mode evaluates every preload** (its parser keeps a flat list). Since resource hints overwhelmingly live in `app.html` — invisible to static mode regardless — these rules are primarily a rendered/plugin-mode capability; the static-mode `<svelte:head>` case is a bonus with this documented limitation. De-duping multi-valued link tags in the static composer is a deferred follow-up; the rules themselves are unaffected (they scan whatever link tags `ResolvedHead.tags` contains).
+
 ## Rules (core, pure functions)
 
 Add a small **head-link rule** helper (`packages/core/src/rules/perf/link-rule.ts`), analogous to `imageRule`/`headTagRule`, that scans each route's head for `kind: 'link'` tags matching a predicate and checks each against `ok`:
