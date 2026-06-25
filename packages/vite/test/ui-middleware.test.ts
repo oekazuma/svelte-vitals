@@ -1,24 +1,72 @@
 import { describe, it, expect } from 'vitest';
 import { EventEmitter } from 'node:events';
+import type { IncomingMessage, ServerResponse } from 'node:http';
+import type { ViteDevServer } from 'vite';
 import { installUiMiddleware } from '../src/ui/middleware.js';
 import { defineConfig } from '@svelte-vitals/core';
 
+type MiddlewareHandler = (req: IncomingMessage, res: ServerResponse, next: () => void) => void;
+
 // Capture the handler that installUiMiddleware registers on server.middlewares.use(path, fn).
 function setup() {
-  let handler: (req: any, res: any, next: () => void) => void = () => {};
-  const server = { middlewares: { use: (_path: string, fn: typeof handler) => (handler = fn) } } as any;
+  let handler: MiddlewareHandler = () => {};
+  const server = {
+    middlewares: { use: (_path: string, fn: MiddlewareHandler) => (handler = fn) }
+  } as unknown as ViteDevServer;
   installUiMiddleware(server, defineConfig({}), '9.9.9');
-  return { call: (req: any, res: any) => handler(req, res, () => {}) };
+  return {
+    call: (req: IncomingMessage, res: ServerResponse) => handler(req, res, () => {})
+  };
 }
-function res() {
-  return { statusCode: 0, headers: {} as Record<string, string>, chunks: [] as string[], setHeader(k: string, v: string) { this.headers[k] = v; }, writeHead(c: number, h?: Record<string, string>) { this.statusCode = c; Object.assign(this.headers, h ?? {}); }, write(c: string) { this.chunks.push(c); }, end(c?: string) { if (c) this.chunks.push(c); } };
+interface MockRes {
+  statusCode: number;
+  headers: Record<string, string>;
+  chunks: string[];
+  setHeader(k: string, v: string): void;
+  writeHead(c: number, h?: Record<string, string>): void;
+  write(c: string): void;
+  end(c?: string): void;
 }
-function postReq(url: string) { return Object.assign(new EventEmitter(), { method: 'POST', url }); }
-function getReq(url: string) { return Object.assign(new EventEmitter(), { method: 'GET', url }); }
+function res(): MockRes & ServerResponse {
+  const r: MockRes = {
+    statusCode: 0,
+    headers: {} as Record<string, string>,
+    chunks: [] as string[],
+    setHeader(k: string, v: string) {
+      r.headers[k] = v;
+    },
+    writeHead(c: number, h?: Record<string, string>) {
+      r.statusCode = c;
+      Object.assign(r.headers, h ?? {});
+    },
+    write(c: string) {
+      r.chunks.push(c);
+    },
+    end(c?: string) {
+      if (c) r.chunks.push(c);
+    }
+  };
+  return r as unknown as MockRes & ServerResponse;
+}
+function postReq(url: string): IncomingMessage {
+  return Object.assign(new EventEmitter(), { method: 'POST', url }) as unknown as IncomingMessage;
+}
+function getReq(url: string): IncomingMessage {
+  return Object.assign(new EventEmitter(), { method: 'GET', url }) as unknown as IncomingMessage;
+}
 
 const ingestBody = JSON.stringify({
   route: '/a',
-  results: [{ id: 'SEO001', message: 'Missing <title>', category: 'seo', detection: { presence: 'none', value: 'absent' }, route: '/a', severity: 'critical' }]
+  results: [
+    {
+      id: 'SEO001',
+      message: 'Missing <title>',
+      category: 'seo',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/a',
+      severity: 'critical'
+    }
+  ]
 });
 
 describe('installUiMiddleware', () => {

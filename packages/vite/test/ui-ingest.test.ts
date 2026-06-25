@@ -25,7 +25,9 @@ afterEach(() => {
 describe('handle ingest (UI feed)', () => {
   it('POSTs findings to /__svelte-vitals/ingest when the UI env flag is set', async () => {
     process.env.SVELTE_VITALS_UI = '1';
-    const fetchMock = vi.fn(async () => ({ ok: true }) as Response);
+    const fetchMock = vi.fn<(url: string | URL, init?: RequestInit) => Promise<Response>>(
+      async () => ({ ok: true }) as Response
+    );
     vi.stubGlobal('fetch', fetchMock);
     vi.spyOn(console, 'warn').mockImplementation(() => {});
     const handle = svelteVitalsHandle();
