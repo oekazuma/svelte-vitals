@@ -40,7 +40,13 @@ export {
   perf001ImageDimensions,
   perf002ImageLoading,
   perf003PreloadAs,
-  perf004FontPreloadCrossorigin
+  perf004FontPreloadCrossorigin,
+  seo010Indexability,
+  seo011TwitterCard,
+  seo012OgDescription,
+  seo013OgUrl,
+  seo014Viewport,
+  seo015SitemapInRobots
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

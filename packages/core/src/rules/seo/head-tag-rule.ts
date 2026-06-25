@@ -15,6 +15,13 @@ export interface HeadTagRuleOptions {
   rationale: string;
   /** Agent-actionable remediation attached to every finding (issue #18). */
   fix?: Fix;
+  /**
+   * When set, only heads for which this returns true are evaluated; others emit
+   * nothing. Use for tags whose canonical location is invisible to a given mode
+   * (e.g. viewport lives in app.html → only checkable in rendered mode), so the
+   * rule stays silent instead of false-flagging "missing".
+   */
+  appliesTo?: (head: ResolvedHead) => boolean;
 }
 
 function detect(head: ResolvedHead, match: (t: HeadTag) => boolean): Detection {
@@ -34,7 +41,8 @@ export function headTagRule(opts: HeadTagRuleOptions): Rule {
     rationale: opts.rationale,
     ...(opts.fix ? { fix: opts.fix } : {}),
     async check(ctx: RuleContext): Promise<Result[]> {
-      return ctx.heads.map((head) => {
+      const heads = opts.appliesTo ? ctx.heads.filter(opts.appliesTo) : ctx.heads;
+      return heads.map((head) => {
         const detection = detect(head, opts.match);
         const message =
           detection.presence === 'none'

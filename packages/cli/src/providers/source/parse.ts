@@ -113,11 +113,14 @@ function tagsFromHead(head: Node): ParsedTag[] {
     if (node.name === 'meta') {
       const name = attrText(node.attributes, 'name');
       const property = attrText(node.attributes, 'property');
+      const content = name === 'robots' ? attrText(node.attributes, 'content') : undefined;
+      const noindex = content !== undefined && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
       tags.push({
         kind: 'meta',
         ...(name ? { name } : {}),
         ...(property ? { property } : {}),
-        value: attrValue(node.attributes, 'content')
+        value: attrValue(node.attributes, 'content'),
+        ...(noindex ? { noindex: true } : {})
       });
     } else if (node.name === 'link') {
       const rel = attrText(node.attributes, 'rel');

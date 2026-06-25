@@ -33,6 +33,10 @@ const PAGE_OK =
   '<html lang="en"><head><title>Home</title><meta name="description" content="x">' +
   '<link rel="canonical" href="https://e.com/"><meta property="og:title" content="t">' +
   '<meta property="og:image" content="https://e.com/o.png">' +
+  '<meta name="viewport" content="width=device-width, initial-scale=1">' +
+  '<meta name="twitter:card" content="summary_large_image">' +
+  '<meta property="og:description" content="x">' +
+  '<meta property="og:url" content="https://e.com/">' +
   '<script type="application/ld+json">{"@context":"https://schema.org"}</script></head><body></body></html>';
 
 afterEach(() => vi.restoreAllMocks());

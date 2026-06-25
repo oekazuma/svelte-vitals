@@ -21,6 +21,8 @@ export interface HeadTag {
   hasAs?: boolean;
   /** True when a <link> has a `crossorigin` attribute (presence only; value is irrelevant to the checks). */
   hasCrossorigin?: boolean;
+  /** True when a <meta name="robots"> literal content contains `noindex`/`none`. Undefined when dynamic or absent. */
+  noindex?: boolean;
   /** Where this tag was set relative to the route. Never 'none' (absence = no tag). */
   presence: Exclude<Presence, 'none'>;
   /** Whether the tag's value is static/dynamic/absent (design §4). */
