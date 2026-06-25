@@ -10,7 +10,15 @@ export function installUiMiddleware(server: ViteDevServer, config: Config, versi
   const clients = new Set<ServerResponse>();
 
   store.subscribe(() => {
-    for (const res of clients) res.write('event: update\ndata: {}\n\n');
+    for (const res of clients) {
+      try {
+        res.write('event: update\ndata: {}\n\n');
+      } catch {
+        // a client socket can error between its close event and this write —
+        // drop it so one dead client never breaks the notify loop for the rest
+        clients.delete(res);
+      }
+    }
   });
 
   // connect strips the mount path, so req.url is relative ('/', '/ingest', '/events').
