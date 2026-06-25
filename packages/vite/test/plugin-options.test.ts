@@ -32,7 +32,7 @@ describe('svelteVitals options', () => {
   });
 
   it('writes the JSON report to a relative outFile resolved against the project root', async () => {
-    const p = svelteVitals({ cwd, report: false, failOn: 'info', outFile: 'reports/seo.json' });
+    const p = svelteVitals({ cwd, report: false, failOn: 'info', outFile: 'reports/seo.json' }) as Plugin;
     // failOn:'info' would normally throw on findings; swallow so we can assert the file.
     await closeBundleOf(p)().catch(() => {});
     const written = await readFile(join(cwd, 'reports/seo.json'), 'utf8');
@@ -42,7 +42,7 @@ describe('svelteVitals options', () => {
 
   it("logs the JSON report to the console when report is 'json'", async () => {
     // Default failOn:'critical' throws after logging; the log fires first.
-    const p = svelteVitals({ cwd, report: 'json' });
+    const p = svelteVitals({ cwd, report: 'json' }) as Plugin;
     await closeBundleOf(p)().catch(() => {});
     expect(logSpy).toHaveBeenCalledTimes(1);
     const logged = logSpy.mock.calls[0]![0] as string;
@@ -52,7 +52,7 @@ describe('svelteVitals options', () => {
   it('is a no-op (no report, no throw) when the prerendered dir is absent', async () => {
     const empty = await mkdtemp(join(tmpdir(), 'sv-opt-empty-'));
     try {
-      const p = svelteVitals({ cwd: empty, failOn: 'critical' });
+      const p = svelteVitals({ cwd: empty, failOn: 'critical' }) as Plugin;
       await expect(closeBundleOf(p)()).resolves.toBeUndefined();
       expect(logSpy).not.toHaveBeenCalled();
     } finally {
@@ -62,7 +62,7 @@ describe('svelteVitals options', () => {
 
   it('respects an absolute outFile path unchanged', async () => {
     const abs = join(cwd, 'absolute-report.json');
-    const p = svelteVitals({ cwd, report: false, failOn: 'info', outFile: abs });
+    const p = svelteVitals({ cwd, report: false, failOn: 'info', outFile: abs }) as Plugin;
     await closeBundleOf(p)().catch(() => {});
     await expect(access(abs)).resolves.toBeUndefined();
   });

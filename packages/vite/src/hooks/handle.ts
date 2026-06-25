@@ -9,15 +9,51 @@ import {
   type Config,
   type Project,
   type ResolvedHead,
+  type Result,
   type Rule
 } from '@svelte-vitals/core';
 import { parseHtmlHead } from '../providers/rendered/parse-html.js';
 import { findingSignature, formatDevReport } from './format.js';
 import type { SvelteVitalsHookOptions } from './options.js';
 
+/** Only the local dev server hosts the ingest endpoint, so never POST off-box. */
+function isLoopbackOrigin(origin: string): boolean {
+  try {
+    const host = new URL(origin).hostname;
+    return host === 'localhost' || host === '127.0.0.1' || host === '[::1]' || host === '::1';
+  } catch {
+    return false;
+  }
+}
+
+async function postIngest(origin: string, route: string, results: Result[]): Promise<void> {
+  // `origin` comes from the request (Host header), so a spoofed Host must not
+  // redirect this server-side POST to an arbitrary external host.
+  if (!isLoopbackOrigin(origin)) {
+    // Accessing the app over LAN/--host yields a non-loopback origin, so the live
+    // UI silently stops updating — surface why when debugging is enabled.
+    if (globalThis.process?.env?.SVELTE_VITALS_DEBUG) {
+      console.warn(
+        `[svelte-vitals] live UI ingest skipped for non-loopback origin ${origin} — open the dashboard via localhost`
+      );
+    }
+    return;
+  }
+  try {
+    await fetch(`${origin}/__svelte-vitals/ingest`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ route, results })
+    });
+  } catch {
+    // dev tooling must never break a request — swallow ingest failures
+  }
+}
+
 async function analyzeAndWarn(
   html: string,
   route: string,
+  origin: string,
   rules: Rule[],
   config: Config,
   lastSignature: Map<string, string>
@@ -36,6 +72,7 @@ async function analyzeAndWarn(
 
     const report = formatDevReport(route, results, config);
     if (report) console.warn(report);
+    if (globalThis.process?.env?.SVELTE_VITALS_UI) void postIngest(origin, route, results);
   } catch (err) {
     // Dev tooling must never break the request: swallow any parse/rule error.
     // Set SVELTE_VITALS_DEBUG to surface tool-internal errors while debugging.
@@ -74,7 +111,15 @@ export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handl
         // Observe-only: return the chunk unchanged and never block the response on
         // analysis. We fire-and-forget on the final chunk; analyzeAndWarn swallows
         // its own errors, so the floating promise can never reject.
-        if (done) void analyzeAndWarn(buffer, event.route.id ?? event.url.pathname, rules, config, lastSignature);
+        if (done)
+          void analyzeAndWarn(
+            buffer,
+            event.route.id ?? event.url.pathname,
+            event.url.origin,
+            rules,
+            config,
+            lastSignature
+          );
         return html;
       }
     });

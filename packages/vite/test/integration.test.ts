@@ -2,6 +2,7 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import type { Plugin } from 'vite';
 import { svelteVitals } from '../src/index.js';
 
 describe('svelteVitals plugin', () => {
@@ -15,13 +16,13 @@ describe('svelteVitals plugin', () => {
   afterAll(async () => rm(cwd, { recursive: true, force: true }));
 
   it('is a build-only plugin named svelte-vitals', () => {
-    const p = svelteVitals({ cwd });
+    const p = svelteVitals({ cwd }) as Plugin;
     expect(p.name).toBe('svelte-vitals');
     expect(p.apply).toBe('build');
   });
 
   it('throws to fail the build when a critical finding exists (missing description on /)', async () => {
-    const p = svelteVitals({ cwd, report: false, failOn: 'critical' });
+    const p = svelteVitals({ cwd, report: false, failOn: 'critical' }) as Plugin;
     // closeBundle is a function on the plugin object
     const hook = typeof p.closeBundle === 'function' ? p.closeBundle : p.closeBundle?.handler;
     await expect((hook as () => Promise<void>).call({})).rejects.toThrow(/svelte-vitals: build failed/);
@@ -57,7 +58,7 @@ describe('svelteVitals plugin', () => {
           '</html>'
         ].join('')
       );
-      const p = svelteVitals({ cwd: cleanCwd, report: false, failOn: 'critical' });
+      const p = svelteVitals({ cwd: cleanCwd, report: false, failOn: 'critical' }) as Plugin;
       const hook = typeof p.closeBundle === 'function' ? p.closeBundle : p.closeBundle?.handler;
       await expect((hook as () => Promise<void>).call({})).resolves.toBeUndefined();
     } finally {
