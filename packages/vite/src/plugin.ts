@@ -1,9 +1,12 @@
 import { existsSync } from 'node:fs';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join, isAbsolute, dirname } from 'node:path';
-import type { Plugin } from 'vite';
+import type { Plugin, ViteDevServer } from 'vite';
 import type { RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
+import { defineConfig } from '@svelte-vitals/core';
 import { analyze } from './analyze.js';
+import { installUiMiddleware } from './ui/middleware.js';
+import { readPackageVersion } from './version.js';
 
 export interface SvelteVitalsOptions {
   /** Project root (defaults to the Vite config root / cwd). */
@@ -19,14 +22,16 @@ export interface SvelteVitalsOptions {
   outFile?: string;
   /** Override the prerendered-pages directory (default: .svelte-kit/output/prerendered/pages). */
   prerenderDir?: string;
+  /** Serve a live dashboard at /__svelte-vitals/ during `vite dev` (requires svelteVitalsHandle in hooks.server.ts). */
+  ui?: boolean;
 }
 
 const DEFAULT_PRERENDER_DIR = '.svelte-kit/output/prerendered/pages';
 
 /** svelte-vitals Vite/SvelteKit plugin. */
-export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin {
+export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin[] {
   let root = options.cwd ?? process.cwd();
-  return {
+  const buildPlugin: Plugin = {
     name: 'svelte-vitals',
     apply: 'build',
     enforce: 'post',
@@ -69,4 +74,22 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin {
       }
     }
   };
+
+  if (!options.ui) return buildPlugin;
+
+  const uiPlugin: Plugin = {
+    name: 'svelte-vitals:ui',
+    apply: 'serve',
+    configureServer(server: ViteDevServer) {
+      process.env.SVELTE_VITALS_UI = '1';
+      const config = defineConfig({
+        treatDynamicAs: options.treatDynamicAs ?? 'pass',
+        metaComponents: options.metaComponents ?? [],
+        rules: options.rules ?? {},
+        failOn: options.failOn ?? 'critical'
+      });
+      installUiMiddleware(server, config, readPackageVersion());
+    }
+  };
+  return [buildPlugin, uiPlugin];
 }
