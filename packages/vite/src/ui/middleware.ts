@@ -4,11 +4,27 @@ import type { Config, Result } from '@svelte-vitals/core';
 import { createStore } from './store.js';
 import { renderDashboard } from './serve.js';
 
-/** Minimal shape the dashboard renderer relies on, so malformed ingest can't poison it. */
+const SEVERITIES = new Set(['critical', 'warning', 'info']);
+
+/**
+ * The fields the dashboard renderer dereferences, so malformed ingest can't crash it:
+ * `escapeHtml(id|message)` need strings, `effectiveSeverity`/`classify` read
+ * `detection.presence|value` and `severity`. Real engine findings always carry these.
+ */
 function isResultLike(x: unknown): x is Result {
   if (typeof x !== 'object' || x === null) return false;
   const r = x as Record<string, unknown>;
-  return typeof r.id === 'string' && typeof r.detection === 'object' && r.detection !== null;
+  const d = r.detection as Record<string, unknown> | undefined;
+  return (
+    typeof r.id === 'string' &&
+    typeof r.message === 'string' &&
+    typeof r.severity === 'string' &&
+    SEVERITIES.has(r.severity) &&
+    typeof d === 'object' &&
+    d !== null &&
+    typeof d.presence === 'string' &&
+    typeof d.value === 'string'
+  );
 }
 
 /** Mount the dev UI at /__svelte-vitals/ : GET / (dashboard), POST /ingest, GET /events (SSE). */

@@ -108,7 +108,9 @@ describe('installUiMiddleware', () => {
         JSON.stringify({
           route: '/x',
           results: [
-            {},
+            {}, // not an object-shaped finding
+            { id: 'SEO002', detection: { presence: 'none', value: 'absent' } }, // missing message/severity
+            { id: 'SEO003', message: 'm', severity: 'bogus', detection: { presence: 'none', value: 'absent' } }, // invalid severity
             {
               id: 'SEO001',
               detection: { presence: 'none', value: 'absent' },
@@ -125,7 +127,9 @@ describe('installUiMiddleware', () => {
     const gr = res();
     call(getReq('/'), gr);
     const html = gr.chunks.join('');
-    expect(html.startsWith('<!doctype html>')).toBe(true); // did not crash on the {} entry
+    expect(html.startsWith('<!doctype html>')).toBe(true); // did not crash on the malformed entries
     expect(html).toContain('SEO001'); // the valid finding survived
+    expect(html).not.toContain('SEO002'); // missing message/severity → dropped
+    expect(html).not.toContain('SEO003'); // invalid severity → dropped
   });
 });
