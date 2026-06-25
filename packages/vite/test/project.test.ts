@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
 import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -28,5 +28,26 @@ describe('collectRenderedProject', () => {
     expect(p.hasRobotsTxt).toBe(false);
     expect(p.hasSitemap).toBe(false);
     await rm(empty, { recursive: true, force: true });
+  });
+});
+
+describe('collectRenderedProject: robotsReferencesSitemap', () => {
+  let cwd: string;
+  beforeEach(async () => {
+    cwd = await mkdtemp(join(tmpdir(), 'sv-robots-vite-'));
+    await mkdir(join(cwd, 'static'), { recursive: true });
+  });
+  afterEach(async () => rm(cwd, { recursive: true, force: true }));
+
+  it('true when static/robots.txt has a Sitemap: line', async () => {
+    await writeFile(join(cwd, 'static/robots.txt'), 'User-agent: *\nAllow: /\nSitemap: https://e.com/sitemap.xml\n');
+    expect((await collectRenderedProject(cwd, { presence: 'none', value: 'absent' })).robotsReferencesSitemap).toBe(true);
+  });
+  it('false when static/robots.txt lacks a Sitemap: line', async () => {
+    await writeFile(join(cwd, 'static/robots.txt'), 'User-agent: *\nAllow: /\n');
+    expect((await collectRenderedProject(cwd, { presence: 'none', value: 'absent' })).robotsReferencesSitemap).toBe(false);
+  });
+  it('undefined when there is no static robots.txt', async () => {
+    expect((await collectRenderedProject(cwd, { presence: 'none', value: 'absent' })).robotsReferencesSitemap).toBeUndefined();
   });
 });

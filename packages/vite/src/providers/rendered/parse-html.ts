@@ -23,12 +23,15 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
     const name = meta.getAttribute('name');
     const property = meta.getAttribute('property');
     if (!name && !property) continue;
+    const content = name === 'robots' ? meta.getAttribute('content') : null;
+    const noindex = content != null && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
     tags.push({
       kind: 'meta',
       ...(name ? { name } : {}),
       ...(property ? { property } : {}),
       presence: 'own',
-      value: attrValue(meta.getAttribute('content'))
+      value: attrValue(meta.getAttribute('content')),
+      ...(noindex ? { noindex: true } : {})
     });
   }
 

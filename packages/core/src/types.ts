@@ -26,6 +26,8 @@ export interface Project {
   hasSitemap: boolean;
   /** <html lang> from app.html: presence 'own' when the attribute exists ('none' otherwise); value 'static' if non-empty, 'absent' if empty. */
   htmlLang: Detection;
+  /** Whether the static static/robots.txt references a sitemap (`Sitemap:` line). Undefined for a +server endpoint / absent / unreadable. */
+  robotsReferencesSitemap?: boolean;
 }
 
 export const defaultProject: Project = {

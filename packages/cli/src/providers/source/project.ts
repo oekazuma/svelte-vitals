@@ -72,6 +72,18 @@ async function detectAppHtmlLang(rt: Runtime, cwd: string): Promise<Detection> {
   return detectHtmlLang(await rt.readFile(appHtmlPath));
 }
 
+async function robotsRefsSitemap(rt: Runtime, cwd: string): Promise<boolean | undefined> {
+  // Only the static file is statically inspectable; a +server endpoint generates
+  // its output at runtime, so we must not guess (no false positives).
+  const p = rt.join(cwd, 'static/robots.txt');
+  if (!(await rt.exists(p))) return undefined;
+  try {
+    return /^\s*sitemap:/im.test(await rt.readFile(p));
+  } catch {
+    return undefined;
+  }
+}
+
 /** Precompute project-wide facts for project-scope rules (design §10, §11, §17). */
 export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Project> {
   const [hasRobotsTxt, hasSitemap, htmlLang] = await Promise.all([
@@ -79,5 +91,6 @@ export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Pro
     existsAny(rt, cwd, SITEMAP_SOURCE_PATHS),
     detectAppHtmlLang(rt, cwd)
   ]);
-  return { hasRobotsTxt, hasSitemap, htmlLang };
+  const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
+  return { hasRobotsTxt, hasSitemap, htmlLang, ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}) };
 }

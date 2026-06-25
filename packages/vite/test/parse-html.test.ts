@@ -58,3 +58,14 @@ describe('parse-html: link as/crossorigin', () => {
     expect(link.hasCrossorigin).toBeUndefined();
   });
 });
+
+describe('parse-html: robots noindex', () => {
+  it('flags a rendered noindex robots meta', () => {
+    const { tags } = parseHtmlHead('<html><head><meta name="robots" content="noindex"></head><body></body></html>');
+    expect(tags.find((t) => t.kind === 'meta' && t.name === 'robots')!.noindex).toBe(true);
+  });
+  it('does not flag index,follow', () => {
+    const { tags } = parseHtmlHead('<html><head><meta name="robots" content="index,follow"></head><body></body></html>');
+    expect(tags.find((t) => t.kind === 'meta' && t.name === 'robots')!.noindex).toBeUndefined();
+  });
+});
