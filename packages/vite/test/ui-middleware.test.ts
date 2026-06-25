@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { EventEmitter } from 'node:events';
 import { installUiMiddleware } from '../src/ui/middleware.js';
 import { defineConfig } from '@svelte-vitals/core';
