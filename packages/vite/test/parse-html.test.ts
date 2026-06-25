@@ -39,3 +39,22 @@ describe('parseHtmlHead', () => {
     expect(parseHtmlHead(noLangHtml).htmlLang).toEqual({ presence: 'none', value: 'absent' });
   });
 });
+
+describe('parse-html: link as/crossorigin', () => {
+  it('captures as + crossorigin presence on a font preload', () => {
+    const { tags } = parseHtmlHead(
+      '<html><head><link rel="preload" href="/i.woff2" as="font" type="font/woff2" crossorigin></head><body></body></html>'
+    );
+    const link = tags.find((t) => t.kind === 'link' && t.rel === 'preload')!;
+    expect(link.as).toBe('font');
+    expect(link.hasAs).toBe(true);
+    expect(link.hasCrossorigin).toBe(true);
+  });
+  it('leaves as/crossorigin unset when absent', () => {
+    const { tags } = parseHtmlHead('<html><head><link rel="preload" href="/a.js"></head><body></body></html>');
+    const link = tags.find((t) => t.kind === 'link' && t.rel === 'preload')!;
+    expect(link.as).toBeUndefined();
+    expect(link.hasAs).toBeUndefined();
+    expect(link.hasCrossorigin).toBeUndefined();
+  });
+});
