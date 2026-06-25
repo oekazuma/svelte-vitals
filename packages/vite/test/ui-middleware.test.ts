@@ -10,18 +10,22 @@ type MiddlewareHandler = (req: IncomingMessage, res: ServerResponse, next: () =>
 // Capture the handler that installUiMiddleware registers on server.middlewares.use(path, fn).
 function setup() {
   let handler: MiddlewareHandler = () => {};
+  const httpServer = new EventEmitter();
   const server = {
+    httpServer,
     middlewares: { use: (_path: string, fn: MiddlewareHandler) => (handler = fn) }
   } as unknown as ViteDevServer;
   installUiMiddleware(server, defineConfig({}), '9.9.9');
   return {
-    call: (req: IncomingMessage, res: ServerResponse) => handler(req, res, () => {})
+    call: (req: IncomingMessage, res: ServerResponse) => handler(req, res, () => {}),
+    closeServer: () => httpServer.emit('close')
   };
 }
 interface MockRes {
   statusCode: number;
   headers: Record<string, string>;
   chunks: string[];
+  ended: boolean;
   setHeader(k: string, v: string): void;
   writeHead(c: number, h?: Record<string, string>): void;
   write(c: string): void;
@@ -32,6 +36,7 @@ function res(): MockRes & ServerResponse {
     statusCode: 0,
     headers: {} as Record<string, string>,
     chunks: [] as string[],
+    ended: false,
     setHeader(k: string, v: string) {
       r.headers[k] = v;
     },
@@ -44,6 +49,7 @@ function res(): MockRes & ServerResponse {
     },
     end(c?: string) {
       if (c) r.chunks.push(c);
+      r.ended = true;
     }
   };
   return r as unknown as MockRes & ServerResponse;
@@ -131,5 +137,45 @@ describe('installUiMiddleware', () => {
     expect(html).toContain('SEO001'); // the valid finding survived
     expect(html).not.toContain('SEO002'); // missing message/severity → dropped
     expect(html).not.toContain('SEO003'); // invalid severity → dropped
+  });
+
+  it('decodes a multibyte ingest body split across chunk boundaries', async () => {
+    const { call } = setup();
+    // A finding message with a multibyte char; split the JSON bytes mid-character.
+    const payload = Buffer.from(
+      JSON.stringify({
+        route: '/x',
+        results: [
+          {
+            id: 'SEO001',
+            message: '日本語タイトルがありません',
+            category: 'seo',
+            detection: { presence: 'none', value: 'absent' },
+            severity: 'critical'
+          }
+        ]
+      }),
+      'utf8'
+    );
+    const split = payload.indexOf(Buffer.from('日', 'utf8')) + 1; // mid first multibyte char
+    const ireq = postReq('/ingest');
+    call(ireq, res());
+    ireq.emit('data', payload.subarray(0, split));
+    ireq.emit('data', payload.subarray(split));
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    const gr = res();
+    call(getReq('/'), gr);
+    const html = gr.chunks.join('');
+    expect(html).toContain('SEO001'); // body parsed despite the split → finding survived
+  });
+
+  it('ends open SSE connections when the dev server closes', () => {
+    const { call, closeServer } = setup();
+    const sse = res();
+    call(getReq('/events'), sse);
+    expect(sse.ended).toBe(false);
+    closeServer();
+    expect(sse.ended).toBe(true); // connection released so httpServer.close() can finish
   });
 });

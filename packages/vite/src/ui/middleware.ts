@@ -44,16 +44,25 @@ export function installUiMiddleware(server: ViteDevServer, config: Config, versi
     }
   });
 
+  // Open SSE connections keep the HTTP server from emitting 'close', so a `vite`
+  // restart/shutdown would hang until each client disconnects. End them ourselves.
+  server.httpServer?.once('close', () => {
+    for (const res of clients) res.end();
+    clients.clear();
+  });
+
   // connect strips the mount path, so req.url is relative ('/', '/ingest', '/events').
   server.middlewares.use('/__svelte-vitals', (req: IncomingMessage, res: ServerResponse) => {
     const url = req.url ?? '/';
 
     if (req.method === 'POST' && url.startsWith('/ingest')) {
-      let body = '';
-      req.on('data', (c) => (body += c));
+      // Collect raw Buffers and decode once: per-chunk toString() would corrupt a
+      // multibyte char split across a chunk boundary, dropping that route's findings.
+      const chunks: Buffer[] = [];
+      req.on('data', (c: Buffer) => chunks.push(c));
       req.on('end', () => {
         try {
-          const { route, results } = JSON.parse(body);
+          const { route, results } = JSON.parse(Buffer.concat(chunks).toString('utf8'));
           if (typeof route === 'string' && Array.isArray(results)) {
             store.set(route, results.filter(isResultLike));
           }

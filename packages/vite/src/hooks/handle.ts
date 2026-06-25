@@ -29,7 +29,16 @@ function isLoopbackOrigin(origin: string): boolean {
 async function postIngest(origin: string, route: string, results: Result[]): Promise<void> {
   // `origin` comes from the request (Host header), so a spoofed Host must not
   // redirect this server-side POST to an arbitrary external host.
-  if (!isLoopbackOrigin(origin)) return;
+  if (!isLoopbackOrigin(origin)) {
+    // Accessing the app over LAN/--host yields a non-loopback origin, so the live
+    // UI silently stops updating — surface why when debugging is enabled.
+    if (globalThis.process?.env?.SVELTE_VITALS_DEBUG) {
+      console.warn(
+        `[svelte-vitals] live UI ingest skipped for non-loopback origin ${origin} — open the dashboard via localhost`
+      );
+    }
+    return;
+  }
   try {
     await fetch(`${origin}/__svelte-vitals/ingest`, {
       method: 'POST',
