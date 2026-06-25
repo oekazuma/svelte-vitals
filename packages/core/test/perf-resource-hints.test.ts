@@ -11,7 +11,6 @@ const headWith = (tags: Array<Partial<HeadTag>>): ResolvedHead => ({
   tags: tags.map((t) => ({ presence: 'own', value: 'static', ...t }) as HeadTag)
 });
 const ctx = (head: ResolvedHead): RuleContext => ({ heads: [head], project: {}, config: defineConfig({}) });
-const ids = (rs: Awaited<ReturnType<typeof perf003PreloadAs.check>>) => rs.map((r) => r.id);
 const failing = (rs: Awaited<ReturnType<typeof perf003PreloadAs.check>>) =>
   rs.filter((r) => r.detection.presence === 'none');
 
