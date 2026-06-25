@@ -38,11 +38,14 @@ export {
   seo008JsonLd,
   seo009HtmlLang,
   perf001ImageDimensions,
-  perf002ImageLoading
+  perf002ImageLoading,
+  perf003PreloadAs,
+  perf004FontPreloadCrossorigin
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';
 export { imageRule } from './rules/perf/image-rule.js';
+export { linkRule } from './rules/perf/link-rule.js';
 
 export type { Summary, Classification } from './summary.js';
 export { summarize, classify, hasFailureAtOrAbove, effectiveSeverity } from './summary.js';

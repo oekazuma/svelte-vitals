@@ -10,6 +10,7 @@ import {
 } from './seo/seo002-005-008.js';
 import { seo006Robots, seo007Sitemap, seo009HtmlLang } from './seo/project-rules.js';
 import { perf001ImageDimensions, perf002ImageLoading } from './perf/images.js';
+import { perf003PreloadAs, perf004FontPreloadCrossorigin } from './perf/resource-hints.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -22,7 +23,9 @@ export const allRules: Rule[] = [
   seo008JsonLd,
   seo009HtmlLang,
   perf001ImageDimensions,
-  perf002ImageLoading
+  perf002ImageLoading,
+  perf003PreloadAs,
+  perf004FontPreloadCrossorigin
 ];
 
 export {
@@ -36,7 +39,9 @@ export {
   seo008JsonLd,
   seo009HtmlLang,
   perf001ImageDimensions,
-  perf002ImageLoading
+  perf002ImageLoading,
+  perf003PreloadAs,
+  perf004FontPreloadCrossorigin
 };
 
 export interface RuleInfo {
