@@ -1,6 +1,6 @@
 # Design: SEO head completeness + robots correctness (sub-project A)
 
-Strengthens svelte-vitals' SEO coverage toward parity with the static, head/markup-decidable perspectives of the popular **claude-seo** skill suite. (claude-seo is an AI-agent SEO suite whose backlinks/rankings/keyword/competitor/content-generation/CWV/crawl capabilities are runtime/web-data driven and out of svelte-vitals' static-analysis scope; this targets only the perspectives a source/rendered-`<head>` analyzer can own.)
+Strengthens svelte-vitals' SEO coverage with widely-recommended, **static, head/markup-decidable** SEO checks it doesn't yet have. It deliberately stays within the static-analysis scope: runtime/web-data perspectives (backlinks, rankings, keyword/competitor research, content generation, Core Web Vitals field data, crawl-based checks) are out of scope for a source/rendered-`<head>` analyzer and are not pursued.
 
 This is **sub-project A** of a 3-phase SEO-strengthening effort:
 
@@ -74,4 +74,4 @@ Rule reference pages `docs/src/content/docs/rules/seo0{10..15}.md` + their `ja/`
 - **Canonical self-reference correctness** — needs URL/origin knowledge; dynamic canonicals can't be checked.
 - **H1 uniqueness / heading hierarchy** — needs body-markup parsing (svelte-vitals resolves head + `<img>` only today).
 - **hreflang validity** — needs capturing the literal `hreflang`/`href` values; a candidate later phase.
-- Everything runtime/web-data driven in claude-seo (backlinks, rankings, keyword/competitor research, content generation, CWV field data, crawl-based checks) — out of svelte-vitals' static-analysis nature by design.
+- Everything runtime/web-data driven (backlinks, rankings, keyword/competitor research, content generation, CWV field data, crawl-based checks) — out of svelte-vitals' static-analysis nature by design.
