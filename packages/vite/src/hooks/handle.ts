@@ -9,15 +9,29 @@ import {
   type Config,
   type Project,
   type ResolvedHead,
+  type Result,
   type Rule
 } from '@svelte-vitals/core';
 import { parseHtmlHead } from '../providers/rendered/parse-html.js';
 import { findingSignature, formatDevReport } from './format.js';
 import type { SvelteVitalsHookOptions } from './options.js';
 
+async function postIngest(origin: string, route: string, results: Result[]): Promise<void> {
+  try {
+    await fetch(`${origin}/__svelte-vitals/ingest`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ route, results })
+    });
+  } catch {
+    // dev tooling must never break a request — swallow ingest failures
+  }
+}
+
 async function analyzeAndWarn(
   html: string,
   route: string,
+  origin: string,
   rules: Rule[],
   config: Config,
   lastSignature: Map<string, string>
@@ -36,6 +50,7 @@ async function analyzeAndWarn(
 
     const report = formatDevReport(route, results, config);
     if (report) console.warn(report);
+    if (globalThis.process?.env?.SVELTE_VITALS_UI) void postIngest(origin, route, results);
   } catch (err) {
     // Dev tooling must never break the request: swallow any parse/rule error.
     // Set SVELTE_VITALS_DEBUG to surface tool-internal errors while debugging.
@@ -74,7 +89,7 @@ export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handl
         // Observe-only: return the chunk unchanged and never block the response on
         // analysis. We fire-and-forget on the final chunk; analyzeAndWarn swallows
         // its own errors, so the floating promise can never reject.
-        if (done) void analyzeAndWarn(buffer, event.route.id ?? event.url.pathname, rules, config, lastSignature);
+        if (done) void analyzeAndWarn(buffer, event.route.id ?? event.url.pathname, event.url.origin, rules, config, lastSignature);
         return html;
       }
     });
