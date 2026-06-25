@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { perf003PreloadAs, perf004FontPreloadCrossorigin } from '../src/index.js';
-import { defineConfig } from '../src/types.js';
+import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
 import type { RuleContext } from '../src/rule.js';
 
@@ -10,7 +10,7 @@ const headWith = (tags: Array<Partial<HeadTag>>): ResolvedHead => ({
   file: 'x',
   tags: tags.map((t) => ({ presence: 'own', value: 'static', ...t }) as HeadTag)
 });
-const ctx = (head: ResolvedHead): RuleContext => ({ heads: [head], project: {}, config: defineConfig({}) });
+const ctx = (head: ResolvedHead): RuleContext => ({ heads: [head], project: defaultProject, config: defineConfig({}) });
 const failing = (rs: Awaited<ReturnType<typeof perf003PreloadAs.check>>) =>
   rs.filter((r) => r.detection.presence === 'none');
 
@@ -20,7 +20,9 @@ describe('PERF003 preload missing as', () => {
     expect(failing(rs)).toHaveLength(1);
   });
   it('passes a preload link that has an as', async () => {
-    const rs = await perf003PreloadAs.check(ctx(headWith([{ kind: 'link', rel: 'preload', hasAs: true, as: 'style' }])));
+    const rs = await perf003PreloadAs.check(
+      ctx(headWith([{ kind: 'link', rel: 'preload', hasAs: true, as: 'style' }]))
+    );
     expect(failing(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1); // one passing result seeds the route
   });

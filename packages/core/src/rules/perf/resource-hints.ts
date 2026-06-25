@@ -5,7 +5,8 @@ export const perf003PreloadAs = linkRule({
   title: 'Preload missing as',
   severity: 'warning',
   label: '`as` on a preloaded `<link>`',
-  recommendation: 'Add an `as` attribute to every `<link rel="preload">` so the browser knows the resource type and can prioritize it.',
+  recommendation:
+    'Add an `as` attribute to every `<link rel="preload">` so the browser knows the resource type and can prioritize it.',
   rationale:
     'A `<link rel="preload">` without an `as` attribute is ignored by the browser (or fetched a second time), wasting the preload.',
   fix: {
@@ -22,7 +23,8 @@ export const perf004FontPreloadCrossorigin = linkRule({
   title: 'Font preload missing crossorigin',
   severity: 'warning',
   label: '`crossorigin` on a font preload',
-  recommendation: 'Add `crossorigin` to `<link rel="preload" as="font">` — fonts are fetched in CORS mode, so without it the preload fetches a second, unused copy.',
+  recommendation:
+    'Add `crossorigin` to `<link rel="preload" as="font">` — fonts are fetched in CORS mode, so without it the preload fetches a second, unused copy.',
   rationale:
     'A font preload without `crossorigin` does not match the actual (CORS) font request, so the preloaded file is never used and the font downloads twice.',
   fix: {

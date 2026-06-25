@@ -24,16 +24,37 @@
 // packages/core/src/head.ts
 interface HeadTag {
   kind: 'title' | 'meta' | 'link' | 'jsonld';
-  name?: string; property?: string; rel?: string;
+  name?: string;
+  property?: string;
+  rel?: string;
   presence: 'own' | 'inherited';
   value: 'static' | 'dynamic' | 'absent';
   file?: string;
 }
-interface ResolvedHead { route: string; source: 'static'|'rendered'; tags: HeadTag[]; file: string; }
+interface ResolvedHead {
+  route: string;
+  source: 'static' | 'rendered';
+  tags: HeadTag[];
+  file: string;
+}
 
 // packages/core/src/rule.ts
-interface RuleContext { heads: ResolvedHead[]; images?: ResolvedImages[]; project: Project; config: Config; }
-interface Rule { id; title; category; severity; scope; rationale; fix?; check(ctx): Promise<Result[]>; }
+interface RuleContext {
+  heads: ResolvedHead[];
+  images?: ResolvedImages[];
+  project: Project;
+  config: Config;
+}
+interface Rule {
+  id;
+  title;
+  category;
+  severity;
+  scope;
+  rationale;
+  fix?;
+  check(ctx): Promise<Result[]>;
+}
 
 // packages/core/src/rules/perf/image-rule.ts — the pattern to mirror:
 //   pass result:  detection: { presence: 'own',  value: 'static' }
@@ -53,12 +74,14 @@ interface Rule { id; title; category; severity; scope; rationale; fix?; check(ct
 Add the three optional fields to `HeadTag` and populate them from the CLI (source) and vite (rendered) link parsers. No rules yet — no behavior change, just richer head tags.
 
 **Files:**
+
 - Modify: `packages/core/src/head.ts` (HeadTag fields)
 - Modify: `packages/cli/src/providers/source/parse.ts` (link branch in `tagsFromHead`)
 - Modify: `packages/vite/src/providers/rendered/parse-html.ts` (link loop)
 - Test: `packages/cli/test/parse.test.ts` (or the existing parse test file — see Step 1) and `packages/vite/test/parse-html.test.ts`
 
 **Interfaces:**
+
 - Produces: `HeadTag.as?: string`, `HeadTag.hasAs?: boolean`, `HeadTag.hasCrossorigin?: boolean` — set only for `kind: 'link'`. `as` is the literal keyword (undefined when absent OR dynamically bound); `hasAs` is true when an `as` attribute is present at all (literal or dynamic); `hasCrossorigin` is true when a `crossorigin` attribute is present (literal or dynamic).
 
 - [ ] **Step 1: Write the failing provider tests**
@@ -178,30 +201,30 @@ with:
 In `packages/vite/src/providers/rendered/parse-html.ts`, replace the `link` loop body (currently):
 
 ```ts
-  for (const link of head.querySelectorAll('link')) {
-    const rel = link.getAttribute('rel');
-    if (!rel) continue;
-    tags.push({ kind: 'link', rel, presence: 'own', value: attrValue(link.getAttribute('href')) });
-  }
+for (const link of head.querySelectorAll('link')) {
+  const rel = link.getAttribute('rel');
+  if (!rel) continue;
+  tags.push({ kind: 'link', rel, presence: 'own', value: attrValue(link.getAttribute('href')) });
+}
 ```
 
 with:
 
 ```ts
-  for (const link of head.querySelectorAll('link')) {
-    const rel = link.getAttribute('rel');
-    if (!rel) continue;
-    const asAttr = link.getAttribute('as'); // rendered HTML: literal string or undefined
-    const hasCrossorigin = link.hasAttribute('crossorigin');
-    tags.push({
-      kind: 'link',
-      rel,
-      presence: 'own',
-      value: attrValue(link.getAttribute('href')),
-      ...(asAttr != null ? { hasAs: true, as: asAttr } : {}),
-      ...(hasCrossorigin ? { hasCrossorigin: true } : {})
-    });
-  }
+for (const link of head.querySelectorAll('link')) {
+  const rel = link.getAttribute('rel');
+  if (!rel) continue;
+  const asAttr = link.getAttribute('as'); // rendered HTML: literal string or undefined
+  const hasCrossorigin = link.hasAttribute('crossorigin');
+  tags.push({
+    kind: 'link',
+    rel,
+    presence: 'own',
+    value: attrValue(link.getAttribute('href')),
+    ...(asAttr != null ? { hasAs: true, as: asAttr } : {}),
+    ...(hasCrossorigin ? { hasCrossorigin: true } : {})
+  });
+}
 ```
 
 - [ ] **Step 6: Run the tests to verify they pass**
@@ -224,6 +247,7 @@ git commit -m "feat(core,cli,vite): capture link as/crossorigin presence on head
 Add a `linkRule` helper (mirroring `imageRule`), the two rules, register them, export them, and add their docs pages.
 
 **Files:**
+
 - Create: `packages/core/src/rules/perf/link-rule.ts`
 - Create: `packages/core/src/rules/perf/resource-hints.ts`
 - Modify: `packages/core/src/rules/index.ts` (register + export)
@@ -232,6 +256,7 @@ Add a `linkRule` helper (mirroring `imageRule`), the two rules, register them, e
 - Test: `packages/core/test/perf-resource-hints.test.ts`
 
 **Interfaces:**
+
 - Consumes: `HeadTag.as/hasAs/hasCrossorigin` (Task 1); `Rule`, `RuleContext`, `docsUrlFor` from `../../rule.js`; `HeadTag` from `../../head.js`; `Fix`, `Result`, `Severity` from `../../types.js`.
 - Produces: `linkRule(opts): Rule`; `perf003PreloadAs: Rule`; `perf004FontPreloadCrossorigin: Rule`.
 
@@ -263,7 +288,9 @@ describe('PERF003 preload missing as', () => {
     expect(failing(rs)).toHaveLength(1);
   });
   it('passes a preload link that has an as', async () => {
-    const rs = await perf003PreloadAs.check(ctx(headWith([{ kind: 'link', rel: 'preload', hasAs: true, as: 'style' }])));
+    const rs = await perf003PreloadAs.check(
+      ctx(headWith([{ kind: 'link', rel: 'preload', hasAs: true, as: 'style' }]))
+    );
     expect(failing(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1); // one passing result seeds the route
   });
@@ -393,7 +420,8 @@ export const perf003PreloadAs = linkRule({
   title: 'Preload missing as',
   severity: 'warning',
   label: '`as` on a preloaded `<link>`',
-  recommendation: 'Add an `as` attribute to every `<link rel="preload">` so the browser knows the resource type and can prioritize it.',
+  recommendation:
+    'Add an `as` attribute to every `<link rel="preload">` so the browser knows the resource type and can prioritize it.',
   rationale:
     'A `<link rel="preload">` without an `as` attribute is ignored by the browser (or fetched a second time), wasting the preload.',
   fix: {
@@ -410,7 +438,8 @@ export const perf004FontPreloadCrossorigin = linkRule({
   title: 'Font preload missing crossorigin',
   severity: 'warning',
   label: '`crossorigin` on a font preload',
-  recommendation: 'Add `crossorigin` to `<link rel="preload" as="font">` — fonts are fetched in CORS mode, so without it the preload fetches a second, unused copy.',
+  recommendation:
+    'Add `crossorigin` to `<link rel="preload" as="font">` — fonts are fetched in CORS mode, so without it the preload fetches a second, unused copy.',
   rationale:
     'A font preload without `crossorigin` does not match the actual (CORS) font request, so the preloaded file is never used and the font downloads twice.',
   fix: {
@@ -426,24 +455,27 @@ export const perf004FontPreloadCrossorigin = linkRule({
 - [ ] **Step 5: Register + export the rules**
 
 In `packages/core/src/rules/index.ts`:
+
 - Add the import (after the `perf001ImageDimensions, perf002ImageLoading` import line):
+
 ```ts
 import { perf003PreloadAs, perf004FontPreloadCrossorigin } from './perf/resource-hints.js';
 ```
+
 - Add both to the `allRules` array (after `perf002ImageLoading`):
+
 ```ts
-  perf002ImageLoading,
-  perf003PreloadAs,
-  perf004FontPreloadCrossorigin
+(perf002ImageLoading, perf003PreloadAs, perf004FontPreloadCrossorigin);
 ```
+
 - Add both to the re-export block (after `perf002ImageLoading`):
+
 ```ts
-  perf002ImageLoading,
-  perf003PreloadAs,
-  perf004FontPreloadCrossorigin
+(perf002ImageLoading, perf003PreloadAs, perf004FontPreloadCrossorigin);
 ```
 
 In `packages/core/src/index.ts`, find the existing rules export (the line exporting `perf001ImageDimensions, perf002ImageLoading` from `./rules/index.js`) and add `perf003PreloadAs, perf004FontPreloadCrossorigin` to it. Also export the helper near the `imageRule` export:
+
 ```ts
 export { linkRule } from './rules/perf/link-rule.js';
 ```
@@ -452,7 +484,7 @@ export { linkRule } from './rules/perf/link-rule.js';
 
 Create `docs/src/content/docs/rules/perf003.md`:
 
-```md
+````md
 ---
 title: PERF003 · Preload missing as
 description: Every <link rel="preload"> should declare an as attribute.
@@ -475,7 +507,9 @@ Add an `as` attribute matching the resource type:
 ```html
 <link rel="preload" href="/app.css" as="style" />
 ```
-```
+````
+
+````
 
 Create `docs/src/content/docs/rules/perf004.md`:
 
@@ -501,8 +535,9 @@ Add `crossorigin` to the font preload:
 
 ```html
 <link rel="preload" href="/inter.woff2" as="font" type="font/woff2" crossorigin />
-```
-```
+````
+
+````
 
 Create `docs/src/content/docs/ja/rules/perf003.md`:
 
@@ -528,8 +563,9 @@ description: すべての <link rel="preload"> は as 属性を指定すべき�
 
 ```html
 <link rel="preload" href="/app.css" as="style" />
-```
-```
+````
+
+````
 
 Create `docs/src/content/docs/ja/rules/perf004.md`:
 
@@ -555,8 +591,9 @@ description: フォントの preload は crossorigin を指定しないと使わ
 
 ```html
 <link rel="preload" href="/inter.woff2" as="font" type="font/woff2" crossorigin />
-```
-```
+````
+
+````
 
 - [ ] **Step 7: Run the rule test + docs-link integrity + full suites**
 
@@ -572,13 +609,14 @@ Expected: PASS. If any test asserts a fixed rule count or enumerates rule ids (s
 ```bash
 git add packages/core/src/rules/perf/link-rule.ts packages/core/src/rules/perf/resource-hints.ts packages/core/src/rules/index.ts packages/core/src/index.ts packages/core/test/perf-resource-hints.test.ts docs/src/content/docs/rules/perf003.md docs/src/content/docs/rules/perf004.md docs/src/content/docs/ja/rules/perf003.md docs/src/content/docs/ja/rules/perf004.md
 git commit -m "feat(core): add PERF003/PERF004 resource-hint rules + docs"
-```
+````
 
 ---
 
 ### Task 3: Changeset + full verification
 
 **Files:**
+
 - Create: `.changeset/perf-resource-hints.md`
 
 **Interfaces:** none (release).
@@ -609,6 +647,7 @@ Run from the repo root:
 ```bash
 CI=true pnpm -r typecheck && CI=true pnpm -r test && pnpm build && CI=true pnpm --filter docs build && pnpm lint && pnpm check:publish
 ```
+
 Expected: all green. (Run `pnpm format` first if prettier flags the new Markdown; re-run lint. `attw` inside `check:publish` may fail LOCALLY only — known pre-existing local-cache issue, CI-unaffected; if only attw/npm-pack fails and publint passes, treat it as the known issue.) Confirm `pnpm --filter docs build` succeeds with the four new rule pages.
 
 - [ ] **Step 3: Commit**
@@ -623,6 +662,7 @@ git commit -m "chore: changeset for PERF003/PERF004 (core + cli + vite minor)"
 ## Self-Review
 
 **Spec coverage:**
+
 - PERF003 (preload missing `as`, warning, route-scoped) → Task 2. ✅
 - PERF004 (font preload missing `crossorigin`, warning, route-scoped) → Task 2. ✅
 - HeadTag `as` / `hasCrossorigin` (+ `hasAs` to distinguish dynamic-present from absent) → Task 1. ✅

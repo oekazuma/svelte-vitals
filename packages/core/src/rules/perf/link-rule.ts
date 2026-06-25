@@ -49,7 +49,7 @@ export function linkRule(opts: LinkRuleOptions): Rule {
           });
           continue;
         }
-        for (const _ of bad) {
+        for (let i = 0; i < bad.length; i++) {
           out.push({
             id: opts.id,
             category: 'performance',

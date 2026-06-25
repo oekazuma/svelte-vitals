@@ -7,7 +7,7 @@ The next increment of **pillar 1** (SEO + deep static Performance — the differ
 Catch two concrete, well-known resource-hint bugs from the source / rendered `<head>`, before deploy, without a browser or runtime metrics:
 
 - **PERF003** — a `<link rel="preload">` with no `as` attribute. Without `as`, the browser can't assign a priority/destination; the preload is ignored or causes a double fetch.
-- **PERF004** — a `<link rel="preload" as="font">` with no `crossorigin` attribute. Fonts are always fetched in CORS mode, so a font preload without `crossorigin` fetches a *second*, unused copy — pure waste.
+- **PERF004** — a `<link rel="preload" as="font">` with no `crossorigin` attribute. Fonts are always fetched in CORS mode, so a font preload without `crossorigin` fetches a _second_, unused copy — pure waste.
 
 Both are `warning` severity (a real, fixable waste — not merely advisory), route-scoped, and emit nothing for routes that have no `preload` link (no signal, like the image rules).
 
@@ -47,7 +47,7 @@ Rules:
 
 Each carries `recommendation`, `rationale`, and a `fix` (description + snippet, `lang: 'svelte'`), like the existing rules. Register both in `allRules` (`packages/core/src/rules/index.ts`) and export them from the core index.
 
-Severity rationale: both are a *wasted/ineffective* hint (not a style preference), so `warning` — consistent with PERF001 (`warning`) and stronger than PERF002's `info` advisory.
+Severity rationale: both are a _wasted/ineffective_ hint (not a style preference), so `warning` — consistent with PERF001 (`warning`) and stronger than PERF002's `info` advisory.
 
 ## Testing
 
