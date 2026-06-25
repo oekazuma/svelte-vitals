@@ -11,6 +11,14 @@ import {
 import { seo006Robots, seo007Sitemap, seo009HtmlLang } from './seo/project-rules.js';
 import { perf001ImageDimensions, perf002ImageLoading } from './perf/images.js';
 import { perf003PreloadAs, perf004FontPreloadCrossorigin } from './perf/resource-hints.js';
+import {
+  seo010Indexability,
+  seo011TwitterCard,
+  seo012OgDescription,
+  seo013OgUrl,
+  seo014Viewport,
+  seo015SitemapInRobots
+} from './seo/seo010-015.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -25,7 +33,13 @@ export const allRules: Rule[] = [
   perf001ImageDimensions,
   perf002ImageLoading,
   perf003PreloadAs,
-  perf004FontPreloadCrossorigin
+  perf004FontPreloadCrossorigin,
+  seo010Indexability,
+  seo011TwitterCard,
+  seo012OgDescription,
+  seo013OgUrl,
+  seo014Viewport,
+  seo015SitemapInRobots
 ];
 
 export {
@@ -41,7 +55,13 @@ export {
   perf001ImageDimensions,
   perf002ImageLoading,
   perf003PreloadAs,
-  perf004FontPreloadCrossorigin
+  perf004FontPreloadCrossorigin,
+  seo010Indexability,
+  seo011TwitterCard,
+  seo012OgDescription,
+  seo013OgUrl,
+  seo014Viewport,
+  seo015SitemapInRobots
 };
 
 export interface RuleInfo {
