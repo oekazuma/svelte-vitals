@@ -16,8 +16,8 @@ describe('parseHtmlHead', () => {
           `<script type="application/ld+json">{"@type":"Thing"}</script>`
       )
     );
-    expect(tags).toContainEqual({ kind: 'title', presence: 'own', value: 'static' });
-    expect(tags).toContainEqual({ kind: 'meta', name: 'description', presence: 'own', value: 'static' });
+    expect(tags).toContainEqual({ kind: 'title', presence: 'own', value: 'static', text: 'About' });
+    expect(tags).toContainEqual({ kind: 'meta', name: 'description', presence: 'own', value: 'static', text: 'A page' });
     expect(tags).toContainEqual({ kind: 'meta', property: 'og:title', presence: 'own', value: 'static' });
     expect(tags).toContainEqual({ kind: 'meta', name: 'empty', presence: 'own', value: 'absent' });
     expect(tags).toContainEqual({ kind: 'link', rel: 'canonical', presence: 'own', value: 'static' });
@@ -86,5 +86,17 @@ describe('parse-html: jsonld raw capture', () => {
       `<html><head><script type="application/ld+json">${body}</script></head><body></body></html>`
     );
     expect(tags.find((t) => t.kind === 'jsonld')!.jsonld).toBe(body);
+  });
+});
+
+describe('parse-html: title/description text capture', () => {
+  it('captures decoded title text (RCDATA entities decoded)', () => {
+    const { tags } = parseHtmlHead(html('<title>Caf&eacute; &amp; Bar</title>'));
+    expect(tags.find((t) => t.kind === 'title')!.text).toBe('Café & Bar');
+  });
+  it('captures description content text', () => {
+    const { tags } = parseHtmlHead(html('<meta name="description" content="A concise summary."/>'));
+    const desc = tags.find((t) => t.kind === 'meta' && t.name === 'description')!;
+    expect(desc.text).toBe('A concise summary.');
   });
 });
