@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   parseJsonLd,
   collectValues,
+  nodeStringValues,
   isAbsoluteUrl,
   isIso8601,
   hasPlaceholder,
@@ -53,10 +54,19 @@ describe('predicates', () => {
     expect(isIso8601('2026-06-26T10:00:00Z')).toBe(true);
     expect(isIso8601('June 26, 2026')).toBe(false);
   });
+  it('isIso8601 rejects impossible calendar dates/times', () => {
+    expect(isIso8601('2026-13-40')).toBe(false); // month/day out of range
+    expect(isIso8601('2026-02-31')).toBe(false); // Feb 31 doesn't exist
+    expect(isIso8601('2026-06-26T25:00:00Z')).toBe(false); // hour out of range
+  });
   it('hasPlaceholder', () => {
     expect(hasPlaceholder('Lorem ipsum dolor')).toBe(true);
     expect(hasPlaceholder('Your Company Name')).toBe(true);
     expect(hasPlaceholder('Acme Corp')).toBe(false);
+  });
+  it('nodeStringValues collects nested + array strings (so SEO020 sees publisher.name etc.)', () => {
+    const node = { name: 'Acme', publisher: { name: 'Your Company Name' }, sameAs: ['https://a.test'] };
+    expect(nodeStringValues(node)).toEqual(expect.arrayContaining(['Acme', 'Your Company Name', 'https://a.test']));
   });
 });
 

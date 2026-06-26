@@ -19,7 +19,7 @@ For each route whose head contains a **static** `<script type="application/ld+js
 
 ## No false negatives / no schema-soup
 
-- Rules run only on a **static, parseable** JSON-LD object. A dynamic `{@html …}` / `{JSON.stringify(…)}` JSON-LD yields no literal content → **not captured → skipped** (never flagged).
+- SEO017–021 run only on a **parseable** JSON-LD object (SEO016 owns parse failures). A `<script>` body is HTML raw text, so Svelte emits it verbatim — a `{@html …}` / `{JSON.stringify(…)}` body is captured as the literal text it ships and is correctly flagged by SEO016 as invalid JSON (it genuinely is broken as written, not a false positive). Only an empty/whitespace body is skipped.
 - SEO018/SEO019 act only on a **closed, well-known key list** (above) — never on arbitrary strings — so a non-URL/non-date string is never mis-flagged.
 - SEO020 uses a small, conservative placeholder vocabulary; only obvious template leftovers match.
 - SEO021 validates only **recognized** `@type`s from the curated table; an unknown/custom `@type` is not flagged (no false positives), and the table lives in a dedicated data module (the only ongoing-maintenance surface, justified by direct rich-result eligibility impact).

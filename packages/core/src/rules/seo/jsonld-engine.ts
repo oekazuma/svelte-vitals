@@ -53,18 +53,46 @@ export function collectValues(nodes: JsonLdNode[], keys: ReadonlySet<string>): s
   return out;
 }
 
-/** A node's own direct string property values (shallow), used by the placeholder scan. */
+/** Every string value reachable in a node (nested objects + arrays), so placeholder text inside e.g. `publisher.name` is seen. */
 export function nodeStringValues(node: JsonLdNode): string[] {
-  return Object.values(node).filter((v): v is string => typeof v === 'string');
+  const out: string[] = [];
+  const walk = (v: unknown): void => {
+    if (typeof v === 'string') {
+      out.push(v);
+      return;
+    }
+    if (Array.isArray(v)) {
+      v.forEach(walk);
+      return;
+    }
+    if (v && typeof v === 'object') Object.values(v as JsonLdNode).forEach(walk);
+  };
+  walk(node);
+  return out;
 }
 
 export function isAbsoluteUrl(s: string): boolean {
   return /^https?:\/\//i.test(s.trim());
 }
 
-/** ISO-8601 date or date-time (date, optional time + Z/offset). Conservative. */
+/**
+ * ISO-8601 date or date-time, AND a real calendar date — the shape regex alone would accept
+ * impossible values like 2026-13-40 or 2026-02-31, which we reject via a UTC round-trip.
+ */
 export function isIso8601(s: string): boolean {
-  return /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})?)?$/.test(s.trim());
+  const str = s.trim();
+  if (!/^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})?)?$/.test(str)) return false;
+  const y = Number(str.slice(0, 4));
+  const m = Number(str.slice(5, 7));
+  const d = Number(str.slice(8, 10));
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d) return false;
+  const tm = /^\d{4}-\d{2}-\d{2}T(\d{2}):(\d{2})(?::(\d{2}))?/.exec(str);
+  if (tm) {
+    const [hh, mm, ss] = [Number(tm[1]), Number(tm[2]), tm[3] !== undefined ? Number(tm[3]) : 0];
+    if (hh > 23 || mm > 59 || ss > 59) return false;
+  }
+  return true;
 }
 
 const PLACEHOLDER_RES = [
