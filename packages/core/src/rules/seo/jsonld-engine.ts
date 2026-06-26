@@ -71,22 +71,35 @@ export function nodeStringValues(node: JsonLdNode): string[] {
   return out;
 }
 
+/**
+ * Absolute = carries a URI scheme (`http:`, `https:`, `data:`, `mailto:`, `urn:`, `tel:`, …) or is
+ * protocol-relative (`//host/…`). Only scheme-less path references (`/x`, `x/y`, `./x`, `#frag`) are
+ * relative — those are what search engines can't resolve. We deliberately accept non-http schemes and
+ * protocol-relative URLs so legitimate values (data-URI logos, `mailto:`/`urn:` identifiers) aren't flagged.
+ */
 export function isAbsoluteUrl(s: string): boolean {
-  return /^https?:\/\//i.test(s.trim());
+  const str = s.trim();
+  return /^[a-z][a-z0-9+.-]*:/i.test(str) || str.startsWith('//');
 }
 
 /**
- * ISO-8601 date or date-time, AND a real calendar date — the shape regex alone would accept
- * impossible values like 2026-13-40 or 2026-02-31, which we reject via a UTC round-trip.
+ * ISO-8601 date or date-time at any allowed precision — year (`2026`), year-month (`2026-06`), full
+ * date, or date-time. Schema.org `Date`/`DateTime` permit reduced precision, so we accept it. We also
+ * reject impossible calendar values (`2026-13`, `2026-02-31`, `…T25:00`) that the shape regex alone allows.
  */
 export function isIso8601(s: string): boolean {
   const str = s.trim();
-  if (!/^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})?)?$/.test(str)) return false;
+  if (!/^\d{4}(-\d{2}(-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})?)?)?)?$/.test(str)) return false;
   const y = Number(str.slice(0, 4));
-  const m = Number(str.slice(5, 7));
-  const d = Number(str.slice(8, 10));
-  const dt = new Date(Date.UTC(y, m - 1, d));
-  if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d) return false;
+  const hasMonth = str.length >= 7;
+  const hasDay = str.length >= 10;
+  const m = hasMonth ? Number(str.slice(5, 7)) : 1;
+  if (m < 1 || m > 12) return false;
+  if (hasDay) {
+    const d = Number(str.slice(8, 10));
+    const dt = new Date(Date.UTC(y, m - 1, d));
+    if (dt.getUTCFullYear() !== y || dt.getUTCMonth() !== m - 1 || dt.getUTCDate() !== d) return false;
+  }
   const tm = /^\d{4}-\d{2}-\d{2}T(\d{2}):(\d{2})(?::(\d{2}))?/.exec(str);
   if (tm) {
     const [hh, mm, ss] = [Number(tm[1]), Number(tm[2]), tm[3] !== undefined ? Number(tm[3]) : 0];
@@ -108,15 +121,9 @@ export function hasPlaceholder(s: string): boolean {
   return PLACEHOLDER_RES.some((re) => re.test(s));
 }
 
-export const URL_KEYS: ReadonlySet<string> = new Set([
-  'url',
-  '@id',
-  'image',
-  'logo',
-  'sameAs',
-  'contentUrl',
-  'thumbnailUrl'
-]);
+// `@id` is intentionally excluded: it is a node *identifier* (IRI), commonly a relative fragment
+// like "#organization" that cross-references nodes within the same @graph — valid, not a broken URL.
+export const URL_KEYS: ReadonlySet<string> = new Set(['url', 'image', 'logo', 'sameAs', 'contentUrl', 'thumbnailUrl']);
 export const DATE_KEYS: ReadonlySet<string> = new Set([
   'datePublished',
   'dateModified',
@@ -130,6 +137,20 @@ export const DATE_KEYS: ReadonlySet<string> = new Set([
 
 /** Types whose Google rich results were dropped/restricted (verify before relying on them). */
 export const DEPRECATED_TYPES: ReadonlySet<string> = new Set(['HowTo', 'FAQPage', 'ClaimReview']);
+
+/**
+ * True when `node[key]` is present AND carries a usable value — not `null`/`undefined`, not an empty
+ * or whitespace-only string, not an empty array. A bare `"headline": ""` is exactly the placeholder an
+ * author leaves behind, and Google treats it as missing, so presence alone (`key in node`) is too weak.
+ */
+export function hasNonEmpty(node: JsonLdNode, key: string): boolean {
+  if (!(key in node)) return false;
+  const v = node[key];
+  if (v === null || v === undefined) return false;
+  if (typeof v === 'string') return v.trim().length > 0;
+  if (Array.isArray(v)) return v.length > 0;
+  return true;
+}
 
 /** Curated @type -> required properties for the rich result (Google structured-data docs). */
 export const REQUIRED_PROPS: Record<string, string[]> = {

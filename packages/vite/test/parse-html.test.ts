@@ -79,4 +79,12 @@ describe('parse-html: jsonld raw capture', () => {
     );
     expect(tags.find((t) => t.kind === 'jsonld')!.jsonld).toBe('{"@type":"WebPage"}');
   });
+  it('preserves HTML entities verbatim (script is raw-text; crawlers do not decode)', () => {
+    // `&quot;` must NOT be decoded to `"` — doing so would corrupt the JSON and make SEO016 misreport.
+    const body = '{"@context":"https://schema.org","@type":"Org","name":"Tom &quot;Cat&quot; Jones"}';
+    const { tags } = parseHtmlHead(
+      `<html><head><script type="application/ld+json">${body}</script></head><body></body></html>`
+    );
+    expect(tags.find((t) => t.kind === 'jsonld')!.jsonld).toBe(body);
+  });
 });
