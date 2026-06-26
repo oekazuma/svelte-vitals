@@ -23,4 +23,13 @@ describe('parse: title/description text capture (static)', () => {
     const t = find(head('<meta name="description" content="{desc}" />'), 'meta');
     expect(t.text).toBeUndefined();
   });
+  // The captured text must be the SERP-visible text, i.e. HTML entities decoded — so its
+  // visibleLength matches rendered (vite) mode and what a search engine actually counts.
+  it('decodes HTML entities in captured title text', () => {
+    expect(find(head('<title>Caf&eacute; &amp; Bar</title>'), 'title').text).toBe('Café & Bar');
+  });
+  it('decodes HTML entities in captured description content', () => {
+    const t = find(head('<meta name="description" content="A &amp; B &mdash; C" />'), 'meta');
+    expect(t.text).toBe('A & B — C');
+  });
 });

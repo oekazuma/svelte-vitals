@@ -105,4 +105,9 @@ describe('parse-html: title/description text capture', () => {
     const desc = tags.find((t) => t.kind === 'meta' && t.name === 'description')!;
     expect(desc.text).toBe('A concise summary.');
   });
+  it('decodes HTML entities in description content (matches static mode + SERP)', () => {
+    const { tags } = parseHtmlHead(html('<meta name="description" content="A &amp; B &mdash; C"/>'));
+    const desc = tags.find((t) => t.kind === 'meta' && t.name === 'description')!;
+    expect(desc.text).toBe('A & B — C');
+  });
 });
