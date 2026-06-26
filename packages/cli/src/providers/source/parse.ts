@@ -148,17 +148,7 @@ function tagsFromHead(head: Node): ParsedTag[] {
     } else if (node.name === 'script' && attrText(node.attributes, 'type') === 'application/ld+json') {
       const nodes = node.fragment?.nodes ?? [];
       const raw = textFromNodes(nodes);
-      // Only set jsonld when the text is valid JSON (guards against literal Svelte-template-like text in raw script nodes).
-      let validJson: string | undefined;
-      if (raw !== undefined) {
-        try {
-          JSON.parse(raw);
-          validJson = raw;
-        } catch {
-          validJson = undefined;
-        }
-      }
-      tags.push({ kind: 'jsonld', value: valueFromNodes(nodes), ...(validJson !== undefined ? { jsonld: validJson } : {}) });
+      tags.push({ kind: 'jsonld', value: valueFromNodes(nodes), ...(raw !== undefined ? { jsonld: raw } : {}) });
     }
   }
   return tags;
