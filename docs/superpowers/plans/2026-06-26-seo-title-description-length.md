@@ -210,12 +210,16 @@ with (adds `descText` and spreads `text`):
       const property = attrText(node.attributes, 'property');
       const content = name === 'robots' ? attrText(node.attributes, 'content') : undefined;
       const noindex = content !== undefined && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
-      const descText = name === 'description' ? attrText(node.attributes, 'content') : undefined;
+      const contentValue = attrValue(node.attributes, 'content');
+      // Only capture description text when content is static — a quoted dynamic value
+      // (content="{desc}") must stay dynamic, else SEO023 false-positives on it.
+      const descText =
+        name === 'description' && contentValue === 'static' ? attrText(node.attributes, 'content') : undefined;
       tags.push({
         kind: 'meta',
         ...(name ? { name } : {}),
         ...(property ? { property } : {}),
-        value: attrValue(node.attributes, 'content'),
+        value: contentValue,
         ...(noindex ? { noindex: true } : {}),
         ...(descText !== undefined ? { text: descText } : {})
       });
@@ -636,11 +640,9 @@ A title that is too short wastes the strongest on-page SEO signal; one that is t
 ```
 ````
 
-````
-
 Create `docs/src/content/docs/rules/seo023.md`:
 
-```md
+````md
 ---
 title: SEO023 · Description length
 description: The meta description should be 70–160 characters.
@@ -662,15 +664,14 @@ A description that is too short under-uses the search snippet; one that is too l
 <svelte:head>
   <meta name="description" content="A concise, compelling summary of the page in roughly 70–160 characters." />
 </svelte:head>
-````
-
+```
 ````
 
 - [ ] **Step 2: Write the Japanese docs**
 
 Create `docs/src/content/docs/ja/rules/seo022.md`:
 
-```md
+````md
 ---
 title: SEO022 · タイトルの長さ
 description: ドキュメントのタイトルは 30〜60 文字であるべきです。
@@ -692,13 +693,12 @@ description: ドキュメントのタイトルは 30〜60 文字であるべき�
 <svelte:head>
   <title>簡潔で説明的なページタイトル（30〜60 文字）</title>
 </svelte:head>
-````
-
+```
 ````
 
 Create `docs/src/content/docs/ja/rules/seo023.md`:
 
-```md
+````md
 ---
 title: SEO023 · 説明文の長さ
 description: meta description は 70〜160 文字であるべきです。
@@ -720,8 +720,7 @@ description: meta description は 70〜160 文字であるべきです。
 <svelte:head>
   <meta name="description" content="ページ内容を簡潔に伝える、およそ 70〜160 文字の説明文。" />
 </svelte:head>
-````
-
+```
 ````
 
 - [ ] **Step 3: Write the changeset**
@@ -740,7 +739,7 @@ Add SEO022 (title length, 30–60 chars) and SEO023 (meta description length,
 70–160 chars). Both check only static text — the literal title/description is now
 captured onto the head model — and flag both too-short and too-long values; a
 dynamic title/description is skipped (presence stays owned by SEO001/SEO002).
-````
+```
 
 - [ ] **Step 4: Verify docs build**
 

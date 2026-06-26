@@ -46,7 +46,7 @@ function lengthRule(opts: LengthRuleOptions): Rule {
                 severity: 'info',
                 detection: PENALIZED,
                 route: head.route,
-                location: head.file,
+                location: tag.file ?? head.file,
                 message: problem,
                 recommendation: opts.recommendation,
                 docsUrl

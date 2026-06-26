@@ -4,11 +4,11 @@ import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
 import type { RuleContext } from '../src/rule.js';
 
-const headWith = (tag: Partial<HeadTag> & Pick<HeadTag, 'kind'>): ResolvedHead => ({
+const headWith = (tag: Partial<HeadTag> & Pick<HeadTag, 'kind'>, value: HeadTag['value'] = 'static'): ResolvedHead => ({
   route: '/x',
   source: 'rendered',
   file: 'x',
-  tags: [{ presence: 'own', value: 'static', ...tag } as HeadTag]
+  tags: [{ presence: 'own', value, ...tag } as HeadTag]
 });
 const ctx = (head: ResolvedHead): RuleContext => ({ heads: [head], project: defaultProject, config: defineConfig({}) });
 const fails = (rs: Awaited<ReturnType<typeof seo022TitleLength.check>>) =>
@@ -32,6 +32,8 @@ describe('SEO022 title length', () => {
   });
   it('emits nothing for a dynamic/absent title', async () => {
     expect(await seo022TitleLength.check(ctx(title(undefined)))).toHaveLength(0);
+    // A dynamic title carries no captured text → length is unknowable, emit nothing.
+    expect(await seo022TitleLength.check(ctx(headWith({ kind: 'title' }, 'dynamic')))).toHaveLength(0);
   });
 });
 
@@ -49,5 +51,9 @@ describe('SEO023 description length', () => {
   });
   it('emits nothing for a dynamic/absent description', async () => {
     expect(await seo023DescriptionLength.check(ctx(desc(undefined)))).toHaveLength(0);
+    // A dynamic description carries no captured text → length is unknowable, emit nothing.
+    expect(
+      await seo023DescriptionLength.check(ctx(headWith({ kind: 'meta', name: 'description' }, 'dynamic')))
+    ).toHaveLength(0);
   });
 });
