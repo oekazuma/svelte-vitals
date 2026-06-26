@@ -17,7 +17,13 @@ describe('parseHtmlHead', () => {
       )
     );
     expect(tags).toContainEqual({ kind: 'title', presence: 'own', value: 'static', text: 'About' });
-    expect(tags).toContainEqual({ kind: 'meta', name: 'description', presence: 'own', value: 'static', text: 'A page' });
+    expect(tags).toContainEqual({
+      kind: 'meta',
+      name: 'description',
+      presence: 'own',
+      value: 'static',
+      text: 'A page'
+    });
     expect(tags).toContainEqual({ kind: 'meta', property: 'og:title', presence: 'own', value: 'static' });
     expect(tags).toContainEqual({ kind: 'meta', name: 'empty', presence: 'own', value: 'absent' });
     expect(tags).toContainEqual({ kind: 'link', rel: 'canonical', presence: 'own', value: 'static' });

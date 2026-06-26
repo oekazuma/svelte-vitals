@@ -24,7 +24,7 @@ absent.
 ## Background / current state
 
 - `HeadTag` (`packages/core/src/head.ts`) carries `value: 'static' | 'dynamic' |
-  'absent'` but **not** the literal text of a title or description. JSON-LD added
+'absent'` but **not** the literal text of a title or description. JSON-LD added
   a literal-capture field (`jsonld?: string`, set only when static); this design
   follows the same pattern for title/description text.
 - Presence rules use the `headTagRule` factory (`seo002-005-008.ts`). The length
@@ -91,10 +91,10 @@ A small `lengthRule` factory builds both rules:
 
 ```ts
 interface LengthRuleOptions {
-  id: string;            // 'SEO022' | 'SEO023'
+  id: string; // 'SEO022' | 'SEO023'
   title: string;
-  label: string;         // PASS message
-  noun: string;          // 'Title' | 'Description'
+  label: string; // PASS message
+  noun: string; // 'Title' | 'Description'
   match: (t: HeadTag) => boolean;
   min: number;
   max: number;
@@ -128,10 +128,10 @@ Detection objects reuse the existing convention (`PENALIZED = { presence:
 'none', value: 'absent' }` for fails, `PASS = { presence: 'own', value:
 'static' }` for passes), matching `seo016-021.ts`.
 
-| ID | Check | Severity | Range |
-|----|-------|----------|-------|
-| SEO022 | Title length | info | 30–60 chars |
-| SEO023 | Description length | info | 70–160 chars |
+| ID     | Check              | Severity | Range        |
+| ------ | ------------------ | -------- | ------------ |
+| SEO022 | Title length       | info     | 30–60 chars  |
+| SEO023 | Description length | info     | 70–160 chars |
 
 ### 4. Registration & surfaces
 

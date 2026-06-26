@@ -41,10 +41,12 @@
 ### Task 1: `visibleLength` helper
 
 **Files:**
+
 - Create: `packages/core/src/rules/seo/text-metrics.ts`
 - Test: `packages/core/test/text-metrics.test.ts`
 
 **Interfaces:**
+
 - Produces: `export function visibleLength(s: string): number`
 
 - [ ] **Step 1: Write the failing test**
@@ -105,11 +107,13 @@ git commit -m "feat(core): add visibleLength text-metrics helper"
 ### Task 2: Capture title/description text in static (CLI) mode
 
 **Files:**
+
 - Modify: `packages/core/src/head.ts` (add field after the `jsonld?` line, ~line 27)
 - Modify: `packages/cli/src/providers/source/parse.ts` (title branch ~line 117-119, meta branch ~line 123-134)
 - Test: `packages/cli/test/parse-length.test.ts` (create)
 
 **Interfaces:**
+
 - Produces: `HeadTag.text?: string`; `parseHeadTags` now sets `text` on static title and `meta[name=description]` tags.
 - Consumes: existing `textFromNodes(nodes)` and `attrText(attributes, name)` in `parse.ts`.
 
@@ -131,8 +135,7 @@ import { describe, it, expect } from 'vitest';
 import { parseHeadTags } from '../src/providers/source/parse.js';
 
 const head = (inner: string) => `<svelte:head>${inner}</svelte:head>`;
-const find = (src: string, kind: 'title' | 'meta') =>
-  parseHeadTags(src, 'x.svelte').find((t) => t.kind === kind)!;
+const find = (src: string, kind: 'title' | 'meta') => parseHeadTags(src, 'x.svelte').find((t) => t.kind === kind)!;
 
 describe('parse: title/description text capture (static)', () => {
   it('captures static title text', () => {
@@ -162,21 +165,21 @@ Expected: FAIL — `text` is `undefined` for the static cases (capture not wired
 In `packages/cli/src/providers/source/parse.ts`, replace the title branch (currently lines 117-120):
 
 ```ts
-    if (node?.type === 'TitleElement') {
-      tags.push({ kind: 'title', value: valueFromNodes(node.fragment?.nodes ?? []) });
-      continue;
-    }
+if (node?.type === 'TitleElement') {
+  tags.push({ kind: 'title', value: valueFromNodes(node.fragment?.nodes ?? []) });
+  continue;
+}
 ```
 
 with:
 
 ```ts
-    if (node?.type === 'TitleElement') {
-      const titleNodes = node.fragment?.nodes ?? [];
-      const text = textFromNodes(titleNodes);
-      tags.push({ kind: 'title', value: valueFromNodes(titleNodes), ...(text !== undefined ? { text } : {}) });
-      continue;
-    }
+if (node?.type === 'TitleElement') {
+  const titleNodes = node.fragment?.nodes ?? [];
+  const text = textFromNodes(titleNodes);
+  tags.push({ kind: 'title', value: valueFromNodes(titleNodes), ...(text !== undefined ? { text } : {}) });
+  continue;
+}
 ```
 
 - [ ] **Step 5: Implement description capture**
@@ -238,10 +241,12 @@ git commit -m "feat(cli): capture static title/description text onto HeadTag.tex
 ### Task 3: Capture title/description text in rendered (vite) mode
 
 **Files:**
+
 - Modify: `packages/vite/src/providers/rendered/parse-html.ts` (title ~line 19-20, meta ~line 22-36)
 - Test: `packages/vite/test/parse-html.test.ts` (add a describe block)
 
 **Interfaces:**
+
 - Consumes: `HeadTag.text` (added in Task 2), node-html-parser `title.text` and `meta.getAttribute('content')`.
 - Produces: rendered title/description tags carry decoded `text`.
 
@@ -275,23 +280,23 @@ Expected: FAIL — `text` is `undefined` (capture not wired yet).
 In `packages/vite/src/providers/rendered/parse-html.ts`, replace the title line (currently lines 19-20):
 
 ```ts
-  const title = head.querySelector('title');
-  if (title) tags.push({ kind: 'title', presence: 'own', value: attrValue(title.text) });
+const title = head.querySelector('title');
+if (title) tags.push({ kind: 'title', presence: 'own', value: attrValue(title.text) });
 ```
 
 with (note: `title.text` is the decoded RCDATA — the visible text):
 
 ```ts
-  const title = head.querySelector('title');
-  if (title) {
-    const text = title.text;
-    tags.push({
-      kind: 'title',
-      presence: 'own',
-      value: attrValue(text),
-      ...(text && text.trim().length > 0 ? { text } : {})
-    });
-  }
+const title = head.querySelector('title');
+if (title) {
+  const text = title.text;
+  tags.push({
+    kind: 'title',
+    presence: 'own',
+    value: attrValue(text),
+    ...(text && text.trim().length > 0 ? { text } : {})
+  });
+}
 ```
 
 - [ ] **Step 4: Implement description capture**
@@ -299,43 +304,43 @@ with (note: `title.text` is the decoded RCDATA — the visible text):
 In the same file, replace the meta loop body (currently lines 22-36):
 
 ```ts
-  for (const meta of head.querySelectorAll('meta')) {
-    const name = meta.getAttribute('name');
-    const property = meta.getAttribute('property');
-    if (!name && !property) continue;
-    const content = name === 'robots' ? meta.getAttribute('content') : null;
-    const noindex = content != null && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
-    tags.push({
-      kind: 'meta',
-      ...(name ? { name } : {}),
-      ...(property ? { property } : {}),
-      presence: 'own',
-      value: attrValue(meta.getAttribute('content')),
-      ...(noindex ? { noindex: true } : {})
-    });
-  }
+for (const meta of head.querySelectorAll('meta')) {
+  const name = meta.getAttribute('name');
+  const property = meta.getAttribute('property');
+  if (!name && !property) continue;
+  const content = name === 'robots' ? meta.getAttribute('content') : null;
+  const noindex = content != null && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
+  tags.push({
+    kind: 'meta',
+    ...(name ? { name } : {}),
+    ...(property ? { property } : {}),
+    presence: 'own',
+    value: attrValue(meta.getAttribute('content')),
+    ...(noindex ? { noindex: true } : {})
+  });
+}
 ```
 
 with (adds `descText`):
 
 ```ts
-  for (const meta of head.querySelectorAll('meta')) {
-    const name = meta.getAttribute('name');
-    const property = meta.getAttribute('property');
-    if (!name && !property) continue;
-    const content = name === 'robots' ? meta.getAttribute('content') : null;
-    const noindex = content != null && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
-    const descText = name === 'description' ? meta.getAttribute('content') : null;
-    tags.push({
-      kind: 'meta',
-      ...(name ? { name } : {}),
-      ...(property ? { property } : {}),
-      presence: 'own',
-      value: attrValue(meta.getAttribute('content')),
-      ...(noindex ? { noindex: true } : {}),
-      ...(descText && descText.trim().length > 0 ? { text: descText } : {})
-    });
-  }
+for (const meta of head.querySelectorAll('meta')) {
+  const name = meta.getAttribute('name');
+  const property = meta.getAttribute('property');
+  if (!name && !property) continue;
+  const content = name === 'robots' ? meta.getAttribute('content') : null;
+  const noindex = content != null && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
+  const descText = name === 'description' ? meta.getAttribute('content') : null;
+  tags.push({
+    kind: 'meta',
+    ...(name ? { name } : {}),
+    ...(property ? { property } : {}),
+    presence: 'own',
+    value: attrValue(meta.getAttribute('content')),
+    ...(noindex ? { noindex: true } : {}),
+    ...(descText && descText.trim().length > 0 ? { text: descText } : {})
+  });
+}
 ```
 
 - [ ] **Step 5: Run tests to verify they pass**
@@ -357,12 +362,14 @@ git commit -m "feat(vite): capture decoded title/description text in rendered mo
 ### Task 4: SEO022 / SEO023 rules + registration
 
 **Files:**
+
 - Create: `packages/core/src/rules/seo/seo022-023.ts`
 - Modify: `packages/core/src/rules/index.ts` (import, `allRules`, re-export)
 - Modify: `packages/core/src/index.ts` (re-export)
 - Test: `packages/core/test/seo-length-rules.test.ts` (create)
 
 **Interfaces:**
+
 - Consumes: `visibleLength` (Task 1), `HeadTag.text` (Task 2), `Rule`/`RuleContext` from `../../rule.js`, `Result` from `../../types.js`, `docsUrlFor` from `../../rule.js`.
 - Produces: `export const seo022TitleLength: Rule`, `export const seo023DescriptionLength: Rule`.
 
@@ -388,7 +395,8 @@ const fails = (rs: Awaited<ReturnType<typeof seo022TitleLength.check>>) =>
   rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 
 const title = (text?: string) => headWith({ kind: 'title', ...(text !== undefined ? { text } : {}) });
-const desc = (text?: string) => headWith({ kind: 'meta', name: 'description', ...(text !== undefined ? { text } : {}) });
+const desc = (text?: string) =>
+  headWith({ kind: 'meta', name: 'description', ...(text !== undefined ? { text } : {}) });
 
 describe('SEO022 title length', () => {
   it('flags a too-short title', async () => {
@@ -592,6 +600,7 @@ git commit -m "feat(core): add SEO022/SEO023 title & description length rules"
 ### Task 5: Docs pages + changeset
 
 **Files:**
+
 - Create: `docs/src/content/docs/rules/seo022.md`, `docs/src/content/docs/rules/seo023.md`
 - Create: `docs/src/content/docs/ja/rules/seo022.md`, `docs/src/content/docs/ja/rules/seo023.md`
 - Create: `.changeset/seo-title-description-length.md`
@@ -602,7 +611,7 @@ git commit -m "feat(core): add SEO022/SEO023 title & description length rules"
 
 Create `docs/src/content/docs/rules/seo022.md`:
 
-```md
+````md
 ---
 title: SEO022 · Title length
 description: The document title should be 30–60 characters.
@@ -625,7 +634,9 @@ A title that is too short wastes the strongest on-page SEO signal; one that is t
   <title>Concise, descriptive page title (30–60 chars)</title>
 </svelte:head>
 ```
-```
+````
+
+````
 
 Create `docs/src/content/docs/rules/seo023.md`:
 
@@ -651,8 +662,9 @@ A description that is too short under-uses the search snippet; one that is too l
 <svelte:head>
   <meta name="description" content="A concise, compelling summary of the page in roughly 70–160 characters." />
 </svelte:head>
-```
-```
+````
+
+````
 
 - [ ] **Step 2: Write the Japanese docs**
 
@@ -680,8 +692,9 @@ description: ドキュメントのタイトルは 30〜60 文字であるべき�
 <svelte:head>
   <title>簡潔で説明的なページタイトル（30〜60 文字）</title>
 </svelte:head>
-```
-```
+````
+
+````
 
 Create `docs/src/content/docs/ja/rules/seo023.md`:
 
@@ -707,8 +720,9 @@ description: meta description は 70〜160 文字であるべきです。
 <svelte:head>
   <meta name="description" content="ページ内容を簡潔に伝える、およそ 70〜160 文字の説明文。" />
 </svelte:head>
-```
-```
+````
+
+````
 
 - [ ] **Step 3: Write the changeset**
 
@@ -726,7 +740,7 @@ Add SEO022 (title length, 30–60 chars) and SEO023 (meta description length,
 70–160 chars). Both check only static text — the literal title/description is now
 captured onto the head model — and flag both too-short and too-long values; a
 dynamic title/description is skipped (presence stays owned by SEO001/SEO002).
-```
+````
 
 - [ ] **Step 4: Verify docs build**
 
@@ -749,9 +763,11 @@ git commit -m "docs: SEO022/SEO023 reference pages (en+ja) + changeset"
 - [ ] **Step 1: Run the whole suite, typecheck, and lint**
 
 Run:
+
 ```bash
 pnpm -r test && pnpm -r typecheck && pnpm lint && pnpm --filter docs build
 ```
+
 Expected: all green. Core test count rises by 10 (`text-metrics` 2 + `seo-length-rules` 8); cli by 4; vite by 2.
 
 - [ ] **Step 2: If lint reports formatting, fix and re-run**
@@ -771,6 +787,7 @@ git commit -m "chore: format SEO022/SEO023 changes"
 ## Self-Review
 
 **Spec coverage:**
+
 - Capture model `HeadTag.text` → Task 2 Step 1. ✓
 - Entity decoding (title RCDATA, content attr) → Task 3 Steps 3-4 (uses `.text` / `getAttribute`), asserted in Task 3 Step 1. ✓
 - `visibleLength` (trim, collapse, code points) → Task 1. ✓

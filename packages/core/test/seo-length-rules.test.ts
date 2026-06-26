@@ -15,7 +15,8 @@ const fails = (rs: Awaited<ReturnType<typeof seo022TitleLength.check>>) =>
   rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 
 const title = (text?: string) => headWith({ kind: 'title', ...(text !== undefined ? { text } : {}) });
-const desc = (text?: string) => headWith({ kind: 'meta', name: 'description', ...(text !== undefined ? { text } : {}) });
+const desc = (text?: string) =>
+  headWith({ kind: 'meta', name: 'description', ...(text !== undefined ? { text } : {}) });
 
 describe('SEO022 title length', () => {
   it('flags a too-short title', async () => {

@@ -9,7 +9,7 @@ describe('parseFile', () => {
         `<MetaTags title={data.title} {...rest} /><div>x</div>`,
       'src/routes/+page.svelte'
     );
-    expect(pf.headTags).toEqual([{ kind: 'title', value: 'static' }]);
+    expect(pf.headTags).toEqual([{ kind: 'title', text: 'About', value: 'static' }]);
     expect(pf.imports.get('MetaTags')?.source).toBe('svelte-meta-tags');
     expect(pf.components).toHaveLength(1);
     expect(pf.components[0]!.name).toBe('MetaTags');

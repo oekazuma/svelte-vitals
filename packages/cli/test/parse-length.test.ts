@@ -2,8 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { parseHeadTags } from '../src/providers/source/parse.js';
 
 const head = (inner: string) => `<svelte:head>${inner}</svelte:head>`;
-const find = (src: string, kind: 'title' | 'meta') =>
-  parseHeadTags(src, 'x.svelte').find((t) => t.kind === kind)!;
+const find = (src: string, kind: 'title' | 'meta') => parseHeadTags(src, 'x.svelte').find((t) => t.kind === kind)!;
 
 describe('parse: title/description text capture (static)', () => {
   it('captures static title text', () => {

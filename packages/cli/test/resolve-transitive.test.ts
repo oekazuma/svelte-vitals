@@ -49,7 +49,7 @@ describe('resolveFileTags transitive (layer 3)', () => {
       },
       'src/routes/+page.svelte'
     );
-    expect(r.tags).toContainEqual({ kind: 'title', value: 'static' });
+    expect(r.tags).toContainEqual({ kind: 'title', text: 'About', value: 'static' });
   });
 
   it('stops on cycles without infinite recursion', async () => {
@@ -74,6 +74,6 @@ describe('resolveFileTags transitive (layer 3)', () => {
       'src/routes/+page.svelte'
     );
     // depth 5 is enough to reach B here; assert it resolves.
-    expect(r.tags).toContainEqual({ kind: 'title', value: 'static' });
+    expect(r.tags).toContainEqual({ kind: 'title', text: 'deep', value: 'static' });
   });
 });

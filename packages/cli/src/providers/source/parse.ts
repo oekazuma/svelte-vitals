@@ -128,7 +128,8 @@ function tagsFromHead(head: Node): ParsedTag[] {
       const content = name === 'robots' ? attrText(node.attributes, 'content') : undefined;
       const noindex = content !== undefined && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
       const contentValue = attrValue(node.attributes, 'content');
-      const descText = name === 'description' && contentValue === 'static' ? attrText(node.attributes, 'content') : undefined;
+      const descText =
+        name === 'description' && contentValue === 'static' ? attrText(node.attributes, 'content') : undefined;
       tags.push({
         kind: 'meta',
         ...(name ? { name } : {}),

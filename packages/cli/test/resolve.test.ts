@@ -14,7 +14,7 @@ async function resolve(src: string, config = defaultConfig) {
 describe('resolveFileTags (layers 2 & 4)', () => {
   it('keeps layer-1 svelte:head tags', async () => {
     const r = await resolve('<svelte:head><title>About</title></svelte:head>');
-    expect(r.tags).toContainEqual({ kind: 'title', value: 'static' });
+    expect(r.tags).toContainEqual({ kind: 'title', text: 'About', value: 'static' });
     expect(r.broad).toBe(false);
   });
 
