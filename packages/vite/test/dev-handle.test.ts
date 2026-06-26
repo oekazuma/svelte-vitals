@@ -37,7 +37,7 @@ const PAGE_OK =
   '<meta name="twitter:card" content="summary_large_image">' +
   '<meta property="og:description" content="x">' +
   '<meta property="og:url" content="https://e.com/">' +
-  '<script type="application/ld+json">{"@context":"https://schema.org"}</script></head><body></body></html>';
+  '<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Home","url":"https://e.com/"}</script></head><body></body></html>';
 
 afterEach(() => vi.restoreAllMocks());
 

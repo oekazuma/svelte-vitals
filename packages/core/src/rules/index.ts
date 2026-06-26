@@ -19,6 +19,14 @@ import {
   seo014Viewport,
   seo015SitemapInRobots
 } from './seo/seo010-015.js';
+import {
+  seo016JsonLdValidity,
+  seo017DeprecatedType,
+  seo018RelativeUrl,
+  seo019DateFormat,
+  seo020Placeholder,
+  seo021RequiredProps
+} from './seo/seo016-021.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -39,7 +47,13 @@ export const allRules: Rule[] = [
   seo012OgDescription,
   seo013OgUrl,
   seo014Viewport,
-  seo015SitemapInRobots
+  seo015SitemapInRobots,
+  seo016JsonLdValidity,
+  seo017DeprecatedType,
+  seo018RelativeUrl,
+  seo019DateFormat,
+  seo020Placeholder,
+  seo021RequiredProps
 ];
 
 export {
@@ -61,7 +75,13 @@ export {
   seo012OgDescription,
   seo013OgUrl,
   seo014Viewport,
-  seo015SitemapInRobots
+  seo015SitemapInRobots,
+  seo016JsonLdValidity,
+  seo017DeprecatedType,
+  seo018RelativeUrl,
+  seo019DateFormat,
+  seo020Placeholder,
+  seo021RequiredProps
 };
 
 export interface RuleInfo {

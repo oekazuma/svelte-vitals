@@ -46,7 +46,13 @@ export {
   seo012OgDescription,
   seo013OgUrl,
   seo014Viewport,
-  seo015SitemapInRobots
+  seo015SitemapInRobots,
+  seo016JsonLdValidity,
+  seo017DeprecatedType,
+  seo018RelativeUrl,
+  seo019DateFormat,
+  seo020Placeholder,
+  seo021RequiredProps
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';
