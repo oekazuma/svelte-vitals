@@ -112,6 +112,9 @@ function jsonldRule(opts: JsonLdRuleOptions): Rule {
         for (const tag of jsonldTags(head)) {
           const parsed = parseJsonLd(tag.jsonld as string);
           if (!parsed.ok) continue; // SEO016 owns parse failures
+          // SEO016 owns the @context/@type validity gate; SEO017–021 only inspect JSON-LD
+          // SEO016 considers valid, so they never emit passes for structurally-invalid data.
+          if (!parsed.nodes.some((n) => '@context' in n) || !parsed.nodes.some((n) => typeOf(n).length > 0)) continue;
           const problem = opts.problem(parsed.nodes);
           if (problem === false) continue; // no signal — rule is not applicable to these nodes
           out.push(
@@ -165,16 +168,16 @@ export const seo018RelativeUrl = jsonldRule({
   title: 'JSON-LD relative URL',
   severity: 'warning',
   label: 'JSON-LD URLs',
-  recommendation: 'Use absolute https URLs for url/@id/image/logo/sameAs in JSON-LD.',
+  recommendation: 'Use absolute URLs (http/https) for url/@id/image/logo/sameAs/contentUrl/thumbnailUrl in JSON-LD.',
   rationale: 'Search engines need absolute URLs in structured data; a relative URL cannot be resolved reliably.',
   fix: {
-    description: 'Replace relative URLs in JSON-LD with absolute https URLs.',
+    description: 'Replace relative URLs in JSON-LD with absolute URLs.',
     snippet: '"image": "https://example.com/logo.png"',
     lang: 'json'
   },
   problem: (nodes) => {
     const bad = collectValues(nodes, URL_KEYS).find((v) => !isAbsoluteUrl(v));
-    return bad ? `Relative URL in JSON-LD: "${bad}" — use an absolute https URL` : undefined;
+    return bad ? `Relative URL in JSON-LD: "${bad}" — use an absolute URL` : undefined;
   }
 });
 

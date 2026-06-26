@@ -19,7 +19,7 @@ For each route whose head contains a **static** `<script type="application/ld+js
 
 ## No false negatives / no schema-soup
 
-- SEO017–021 run only on a **parseable** JSON-LD object (SEO016 owns parse failures). A `<script>` body is HTML raw text, so Svelte emits it verbatim — a `{@html …}` / `{JSON.stringify(…)}` body is captured as the literal text it ships and is correctly flagged by SEO016 as invalid JSON (it genuinely is broken as written, not a false positive). Only an empty/whitespace body is skipped.
+- SEO017–021 run only on a JSON-LD object SEO016 deems **valid** — it parses _and_ has both `@context` and `@type`. SEO016 owns every validity failure (parse error, missing `@context`, missing `@type`); SEO017–021 stay silent on invalid JSON-LD so they never emit misleading passing results for structurally-broken data. A `<script>` body is HTML raw text, so Svelte emits it verbatim — a `{@html …}` / `{JSON.stringify(…)}` body is captured as the literal text it ships and is correctly flagged by SEO016 as invalid JSON (it genuinely is broken as written, not a false positive). Only an empty/whitespace body is skipped.
 - SEO018/SEO019 act only on a **closed, well-known key list** (above) — never on arbitrary strings — so a non-URL/non-date string is never mis-flagged.
 - SEO020 uses a small, conservative placeholder vocabulary; only obvious template leftovers match.
 - SEO021 validates only **recognized** `@type`s from the curated table; an unknown/custom `@type` is not flagged (no false positives), and the table lives in a dedicated data module (the only ongoing-maintenance surface, justified by direct rich-result eligibility impact).
@@ -42,7 +42,7 @@ A new internal module `packages/core/src/rules/seo/jsonld/` (no `node:`, no deps
 ## Rules (core)
 
 - **SEO016** — custom rule: for each head jsonld tag with raw content, `parseJsonLd`. If `!ok` → "JSON-LD is not valid JSON" finding; else if no node has `@context` → "missing @context"; else if no node has `@type` → "missing @type"; else pass (seeds the category). Distinct messages per failure mode.
-- **SEO017–SEO021** — share a small `jsonldRule` helper that iterates heads' jsonld tags, parses (skips when `!ok` — SEO016 owns parse failures), runs a predicate over the flattened nodes, and emits a finding per offending node/value (or one per tag), mirroring the imageRule/linkRule emission contract (no relevant signal → nothing; pass → seed; fail → finding + fix). Each rule supplies its predicate:
+- **SEO017–SEO021** — share a small `jsonldRule` helper that iterates heads' jsonld tags, parses and skips anything SEO016 deems invalid (`!ok`, or no node with `@context`, or no node with `@type` — SEO016 owns all of those), runs a predicate over the flattened nodes, and emits a finding per offending node/value (or one per tag), mirroring the imageRule/linkRule emission contract (no relevant signal → nothing; pass → seed; fail → finding + fix). Each rule supplies its predicate:
   - SEO017: any node's `@type` ∈ `DEPRECATED_TYPES`.
   - SEO018: any `collectValues(nodes, URL_KEYS)` value fails `isAbsoluteUrl`.
   - SEO019: any `collectValues(nodes, DATE_KEYS)` value fails `isIso8601`.

@@ -55,32 +55,72 @@ describe('SEO017-021', () => {
   });
   it('SEO018 flags a relative URL under a known key', async () => {
     expect(
-      fails(await seo018RelativeUrl.check(ctx(headWithJsonLd('{"@type":"Org","image":"/logo.png"}'))))
+      fails(
+        await seo018RelativeUrl.check(
+          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Org","image":"/logo.png"}'))
+        )
+      )
     ).toHaveLength(1);
     expect(
-      fails(await seo018RelativeUrl.check(ctx(headWithJsonLd('{"@type":"Org","image":"https://e.com/l.png"}'))))
+      fails(
+        await seo018RelativeUrl.check(
+          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Org","image":"https://e.com/l.png"}'))
+        )
+      )
     ).toHaveLength(0);
   });
   it('SEO019 flags a non-ISO date under a known key', async () => {
     expect(
-      fails(await seo019DateFormat.check(ctx(headWithJsonLd('{"@type":"Article","datePublished":"June 1, 2026"}'))))
+      fails(
+        await seo019DateFormat.check(
+          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Article","datePublished":"June 1, 2026"}'))
+        )
+      )
     ).toHaveLength(1);
     expect(
-      fails(await seo019DateFormat.check(ctx(headWithJsonLd('{"@type":"Article","datePublished":"2026-06-01"}'))))
+      fails(
+        await seo019DateFormat.check(
+          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Article","datePublished":"2026-06-01"}'))
+        )
+      )
     ).toHaveLength(0);
   });
   it('SEO020 flags placeholder text', async () => {
     expect(
-      fails(await seo020Placeholder.check(ctx(headWithJsonLd('{"@type":"Org","name":"Your Company Name"}'))))
+      fails(
+        await seo020Placeholder.check(
+          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Org","name":"Your Company Name"}'))
+        )
+      )
     ).toHaveLength(1);
   });
   it('SEO021 flags a missing required property and ignores unknown types', async () => {
-    expect(fails(await seo021RequiredProps.check(ctx(headWithJsonLd('{"@type":"Product","name":"x"}'))))).toHaveLength(
-      1
-    ); // missing offers
     expect(
-      fails(await seo021RequiredProps.check(ctx(headWithJsonLd('{"@type":"Product","name":"x","offers":{}}'))))
+      fails(
+        await seo021RequiredProps.check(
+          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Product","name":"x"}'))
+        )
+      )
+    ).toHaveLength(1); // missing offers
+    expect(
+      fails(
+        await seo021RequiredProps.check(
+          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Product","name":"x","offers":{}}'))
+        )
+      )
     ).toHaveLength(0);
-    expect(await seo021RequiredProps.check(ctx(headWithJsonLd('{"@type":"CustomThing","foo":1}')))).toHaveLength(0); // unknown type → no signal
+    expect(
+      await seo021RequiredProps.check(
+        ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"CustomThing","foo":1}'))
+      )
+    ).toHaveLength(0); // unknown type → no signal
+  });
+  it('SEO017-021 skip parseable JSON-LD that SEO016 deems invalid (missing @context/@type)', async () => {
+    // Relative URL present, but no @context → SEO016 owns the finding; SEO018 stays silent (no misleading pass).
+    expect(await seo018RelativeUrl.check(ctx(headWithJsonLd('{"@type":"Org","image":"/logo.png"}')))).toHaveLength(0);
+    // @context but no @type → likewise skipped.
+    expect(
+      await seo021RequiredProps.check(ctx(headWithJsonLd('{"@context":"https://schema.org","name":"x"}')))
+    ).toHaveLength(0);
   });
 });
