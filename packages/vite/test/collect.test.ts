@@ -29,7 +29,7 @@ describe('collectRenderedHeads', () => {
     const byRoute = new Map(heads.map((h) => [h.route, h]));
     expect([...byRoute.keys()].sort()).toEqual(['/', '/blog']);
     expect(byRoute.get('/')!.source).toBe('rendered');
-    expect(byRoute.get('/')!.tags).toContainEqual({ kind: 'title', presence: 'own', value: 'static' });
+    expect(byRoute.get('/')!.tags).toContainEqual({ kind: 'title', presence: 'own', text: 'Home', value: 'static' });
     expect(htmlLang).toEqual({ presence: 'own', value: 'static' });
   });
 });

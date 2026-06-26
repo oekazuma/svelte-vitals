@@ -17,7 +17,15 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
   const tags: HeadTag[] = [];
 
   const title = head.querySelector('title');
-  if (title) tags.push({ kind: 'title', presence: 'own', value: attrValue(title.text) });
+  if (title) {
+    const text = title.text;
+    tags.push({
+      kind: 'title',
+      presence: 'own',
+      value: attrValue(text),
+      ...(text && text.trim().length > 0 ? { text } : {})
+    });
+  }
 
   for (const meta of head.querySelectorAll('meta')) {
     const name = meta.getAttribute('name');
@@ -25,13 +33,15 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
     if (!name && !property) continue;
     const content = name === 'robots' ? meta.getAttribute('content') : null;
     const noindex = content != null && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
+    const descText = name === 'description' ? meta.getAttribute('content') : null;
     tags.push({
       kind: 'meta',
       ...(name ? { name } : {}),
       ...(property ? { property } : {}),
       presence: 'own',
       value: attrValue(meta.getAttribute('content')),
-      ...(noindex ? { noindex: true } : {})
+      ...(noindex ? { noindex: true } : {}),
+      ...(descText && descText.trim().length > 0 ? { text: descText } : {})
     });
   }
 

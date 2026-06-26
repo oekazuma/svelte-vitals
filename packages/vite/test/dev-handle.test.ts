@@ -30,7 +30,7 @@ const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 const PAGE_NO_TITLE = '<html lang="en"><head><meta name="description" content="x"></head><body></body></html>';
 const PAGE_OK =
-  '<html lang="en"><head><title>Home</title><meta name="description" content="x">' +
+  '<html lang="en"><head><title>Quality Widgets and Tools for Modern Builders Shop</title><meta name="description" content="Browse our curated selection of quality widgets and builder tools for modern projects and teams.">' +
   '<link rel="canonical" href="https://e.com/"><meta property="og:title" content="t">' +
   '<meta property="og:image" content="https://e.com/o.png">' +
   '<meta name="viewport" content="width=device-width, initial-scale=1">' +

@@ -52,7 +52,9 @@ export {
   seo018RelativeUrl,
   seo019DateFormat,
   seo020Placeholder,
-  seo021RequiredProps
+  seo021RequiredProps,
+  seo022TitleLength,
+  seo023DescriptionLength
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

@@ -115,7 +115,9 @@ function tagsFromHead(head: Node): ParsedTag[] {
   const children: Node[] = head?.fragment?.nodes ?? [];
   for (const node of children) {
     if (node?.type === 'TitleElement') {
-      tags.push({ kind: 'title', value: valueFromNodes(node.fragment?.nodes ?? []) });
+      const titleNodes = node.fragment?.nodes ?? [];
+      const text = textFromNodes(titleNodes);
+      tags.push({ kind: 'title', value: valueFromNodes(titleNodes), ...(text !== undefined ? { text } : {}) });
       continue;
     }
     if (node?.type !== 'RegularElement') continue;
@@ -125,12 +127,16 @@ function tagsFromHead(head: Node): ParsedTag[] {
       const property = attrText(node.attributes, 'property');
       const content = name === 'robots' ? attrText(node.attributes, 'content') : undefined;
       const noindex = content !== undefined && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
+      const contentValue = attrValue(node.attributes, 'content');
+      const descText =
+        name === 'description' && contentValue === 'static' ? attrText(node.attributes, 'content') : undefined;
       tags.push({
         kind: 'meta',
         ...(name ? { name } : {}),
         ...(property ? { property } : {}),
-        value: attrValue(node.attributes, 'content'),
-        ...(noindex ? { noindex: true } : {})
+        value: contentValue,
+        ...(noindex ? { noindex: true } : {}),
+        ...(descText !== undefined ? { text: descText } : {})
       });
     } else if (node.name === 'link') {
       const rel = attrText(node.attributes, 'rel');
@@ -161,6 +167,17 @@ export function attrValueOf(attr: Node): Value {
   if (Array.isArray(v)) return valueFromNodes(v);
   if (v && v.type === 'ExpressionTag') return 'dynamic';
   return 'absent';
+}
+
+/** Literal static text of a single attribute node (e.g. a component prop), or undefined if dynamic/absent. */
+export function attrTextOf(attr: Node): string | undefined {
+  const v = attr?.value;
+  if (!Array.isArray(v) || v.some((n: Node) => n?.type === 'ExpressionTag')) return undefined;
+  const text = v
+    .filter((n: Node) => n?.type === 'Text')
+    .map((n: Node) => String(n.data ?? ''))
+    .join('');
+  return text.trim().length > 0 ? text : undefined;
 }
 
 export interface ComponentUse {

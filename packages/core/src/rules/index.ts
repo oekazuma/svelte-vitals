@@ -27,6 +27,7 @@ import {
   seo020Placeholder,
   seo021RequiredProps
 } from './seo/seo016-021.js';
+import { seo022TitleLength, seo023DescriptionLength } from './seo/seo022-023.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -53,7 +54,9 @@ export const allRules: Rule[] = [
   seo018RelativeUrl,
   seo019DateFormat,
   seo020Placeholder,
-  seo021RequiredProps
+  seo021RequiredProps,
+  seo022TitleLength,
+  seo023DescriptionLength
 ];
 
 export {
@@ -81,7 +84,9 @@ export {
   seo018RelativeUrl,
   seo019DateFormat,
   seo020Placeholder,
-  seo021RequiredProps
+  seo021RequiredProps,
+  seo022TitleLength,
+  seo023DescriptionLength
 };
 
 export interface RuleInfo {
