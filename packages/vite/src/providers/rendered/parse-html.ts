@@ -52,7 +52,13 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
 
   for (const script of head.querySelectorAll('script')) {
     if (script.getAttribute('type') === 'application/ld+json') {
-      tags.push({ kind: 'jsonld', presence: 'own', value: attrValue(script.text) });
+      const raw = script.text;
+      tags.push({
+        kind: 'jsonld',
+        presence: 'own',
+        value: attrValue(raw),
+        ...(raw && raw.trim().length > 0 ? { jsonld: raw } : {})
+      });
     }
   }
 

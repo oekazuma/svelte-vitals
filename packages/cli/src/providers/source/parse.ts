@@ -47,6 +47,16 @@ function valueFromNodes(nodes: Node[]): Value {
   return text.trim().length > 0 ? 'static' : 'absent';
 }
 
+/** The literal text of a node list when fully static (no ExpressionTag), else undefined. */
+function textFromNodes(nodes: Node[]): string | undefined {
+  if (!Array.isArray(nodes) || nodes.some((n) => n?.type === 'ExpressionTag')) return undefined;
+  const text = nodes
+    .filter((n) => n?.type === 'Text')
+    .map((n) => String(n.data ?? ''))
+    .join('');
+  return text.trim().length > 0 ? text : undefined;
+}
+
 /** Static string of an attribute (e.g. name="description"), or undefined if dynamic/absent. */
 function attrText(attributes: Node[], name: string): string | undefined {
   const attr = findAttr(attributes, name);
@@ -136,7 +146,19 @@ function tagsFromHead(head: Node): ParsedTag[] {
         ...(hasCrossorigin ? { hasCrossorigin: true } : {})
       });
     } else if (node.name === 'script' && attrText(node.attributes, 'type') === 'application/ld+json') {
-      tags.push({ kind: 'jsonld', value: valueFromNodes(node.fragment?.nodes ?? []) });
+      const nodes = node.fragment?.nodes ?? [];
+      const raw = textFromNodes(nodes);
+      // Only set jsonld when the text is valid JSON (guards against literal Svelte-template-like text in raw script nodes).
+      let validJson: string | undefined;
+      if (raw !== undefined) {
+        try {
+          JSON.parse(raw);
+          validJson = raw;
+        } catch {
+          validJson = undefined;
+        }
+      }
+      tags.push({ kind: 'jsonld', value: valueFromNodes(nodes), ...(validJson !== undefined ? { jsonld: validJson } : {}) });
     }
   }
   return tags;
