@@ -52,7 +52,7 @@ describe('svelteVitals plugin', () => {
           '<link rel="canonical" href="https://example.com/">',
           '<meta property="og:title" content="Clean Page">',
           '<meta property="og:image" content="https://example.com/og.png">',
-          '<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Clean Page"}</script>',
+          '<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Clean Page","url":"https://example.com/"}</script>',
           '</head>',
           '<body></body>',
           '</html>'

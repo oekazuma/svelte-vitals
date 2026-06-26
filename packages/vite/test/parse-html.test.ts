@@ -21,7 +21,7 @@ describe('parseHtmlHead', () => {
     expect(tags).toContainEqual({ kind: 'meta', property: 'og:title', presence: 'own', value: 'static' });
     expect(tags).toContainEqual({ kind: 'meta', name: 'empty', presence: 'own', value: 'absent' });
     expect(tags).toContainEqual({ kind: 'link', rel: 'canonical', presence: 'own', value: 'static' });
-    expect(tags).toContainEqual({ kind: 'jsonld', presence: 'own', value: 'static' });
+    expect(tags).toContainEqual({ kind: 'jsonld', presence: 'own', value: 'static', jsonld: '{"@type":"Thing"}' });
   });
 
   it('treats an empty title as absent', () => {
@@ -69,5 +69,14 @@ describe('parse-html: robots noindex', () => {
       '<html><head><meta name="robots" content="index,follow"></head><body></body></html>'
     );
     expect(tags.find((t) => t.kind === 'meta' && t.name === 'robots')!.noindex).toBeUndefined();
+  });
+});
+
+describe('parse-html: jsonld raw capture', () => {
+  it('captures the rendered JSON-LD text', () => {
+    const { tags } = parseHtmlHead(
+      '<html><head><script type="application/ld+json">{"@type":"WebPage"}</script></head><body></body></html>'
+    );
+    expect(tags.find((t) => t.kind === 'jsonld')!.jsonld).toBe('{"@type":"WebPage"}');
   });
 });
