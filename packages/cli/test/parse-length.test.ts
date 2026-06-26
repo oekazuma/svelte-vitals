@@ -20,4 +20,8 @@ describe('parse: title/description text capture (static)', () => {
     const t = find(head('<meta name="description" content={desc} />'), 'meta');
     expect(t.text).toBeUndefined();
   });
+  it('leaves description text undefined when content is a quoted interpolation', () => {
+    const t = find(head('<meta name="description" content="{desc}" />'), 'meta');
+    expect(t.text).toBeUndefined();
+  });
 });
