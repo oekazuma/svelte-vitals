@@ -52,7 +52,10 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
 
   for (const script of head.querySelectorAll('script')) {
     if (script.getAttribute('type') === 'application/ld+json') {
-      const raw = script.text;
+      // `<script>` is a raw-text element — browsers and search engines read its body verbatim and do
+      // NOT decode HTML entities. `.text` decodes (e.g. `&quot;` -> `"`), which would corrupt the JSON
+      // before SEO016 parses it; `.rawText` preserves exactly what the crawler sees.
+      const raw = script.rawText;
       tags.push({
         kind: 'jsonld',
         presence: 'own',

@@ -9,6 +9,7 @@ import {
   isAbsoluteUrl,
   isIso8601,
   hasPlaceholder,
+  hasNonEmpty,
   URL_KEYS,
   DATE_KEYS,
   DEPRECATED_TYPES,
@@ -226,7 +227,7 @@ export const seo021RequiredProps = jsonldRule({
         const required = REQUIRED_PROPS[t];
         if (!required) continue; // unknown/custom type → not flagged
         hasKnownType = true;
-        const missing = required.filter((p) => !(p in node));
+        const missing = required.filter((p) => !hasNonEmpty(node, p));
         if (missing.length > 0) return `${t} JSON-LD is missing required ${missing.join(', ')}`;
       }
     }

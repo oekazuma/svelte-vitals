@@ -6,6 +6,7 @@ import {
   isAbsoluteUrl,
   isIso8601,
   hasPlaceholder,
+  hasNonEmpty,
   typeOf,
   URL_KEYS,
   REQUIRED_PROPS
@@ -48,11 +49,25 @@ describe('predicates', () => {
     expect(isAbsoluteUrl('https://e.com/a')).toBe(true);
     expect(isAbsoluteUrl('/a')).toBe(false);
     expect(isAbsoluteUrl('a/b')).toBe(false);
+    expect(isAbsoluteUrl('#frag')).toBe(false);
+    expect(isAbsoluteUrl('./rel')).toBe(false);
+  });
+  it('isAbsoluteUrl accepts protocol-relative and non-http schemes (no false positives)', () => {
+    expect(isAbsoluteUrl('//cdn.example.com/x.png')).toBe(true); // protocol-relative
+    expect(isAbsoluteUrl('data:image/png;base64,AAAA')).toBe(true); // data URI logo
+    expect(isAbsoluteUrl('mailto:hi@example.com')).toBe(true);
+    expect(isAbsoluteUrl('urn:isbn:9780000000000')).toBe(true);
   });
   it('isIso8601', () => {
     expect(isIso8601('2026-06-26')).toBe(true);
     expect(isIso8601('2026-06-26T10:00:00Z')).toBe(true);
     expect(isIso8601('June 26, 2026')).toBe(false);
+  });
+  it('isIso8601 accepts schema.org reduced precision (year, year-month)', () => {
+    expect(isIso8601('2026')).toBe(true);
+    expect(isIso8601('2026-06')).toBe(true);
+    expect(isIso8601('2026-13')).toBe(false); // month out of range
+    expect(isIso8601('2026-00')).toBe(false);
   });
   it('isIso8601 rejects impossible calendar dates/times', () => {
     expect(isIso8601('2026-13-40')).toBe(false); // month/day out of range
@@ -67,6 +82,19 @@ describe('predicates', () => {
   it('nodeStringValues collects nested + array strings (so SEO020 sees publisher.name etc.)', () => {
     const node = { name: 'Acme', publisher: { name: 'Your Company Name' }, sameAs: ['https://a.test'] };
     expect(nodeStringValues(node)).toEqual(expect.arrayContaining(['Acme', 'Your Company Name', 'https://a.test']));
+  });
+});
+
+describe('hasNonEmpty', () => {
+  it('treats empty/blank values as missing', () => {
+    expect(hasNonEmpty({ headline: 'x' }, 'headline')).toBe(true);
+    expect(hasNonEmpty({ headline: '' }, 'headline')).toBe(false);
+    expect(hasNonEmpty({ headline: '   ' }, 'headline')).toBe(false);
+    expect(hasNonEmpty({ headline: null }, 'headline')).toBe(false);
+    expect(hasNonEmpty({}, 'headline')).toBe(false);
+    expect(hasNonEmpty({ itemListElement: [] }, 'itemListElement')).toBe(false);
+    expect(hasNonEmpty({ itemListElement: [{}] }, 'itemListElement')).toBe(true);
+    expect(hasNonEmpty({ offers: {} }, 'offers')).toBe(true); // a non-empty object counts
   });
 });
 
