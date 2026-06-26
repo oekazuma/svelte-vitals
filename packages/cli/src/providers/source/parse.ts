@@ -115,7 +115,9 @@ function tagsFromHead(head: Node): ParsedTag[] {
   const children: Node[] = head?.fragment?.nodes ?? [];
   for (const node of children) {
     if (node?.type === 'TitleElement') {
-      tags.push({ kind: 'title', value: valueFromNodes(node.fragment?.nodes ?? []) });
+      const titleNodes = node.fragment?.nodes ?? [];
+      const text = textFromNodes(titleNodes);
+      tags.push({ kind: 'title', value: valueFromNodes(titleNodes), ...(text !== undefined ? { text } : {}) });
       continue;
     }
     if (node?.type !== 'RegularElement') continue;
@@ -125,12 +127,14 @@ function tagsFromHead(head: Node): ParsedTag[] {
       const property = attrText(node.attributes, 'property');
       const content = name === 'robots' ? attrText(node.attributes, 'content') : undefined;
       const noindex = content !== undefined && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
+      const descText = name === 'description' ? attrText(node.attributes, 'content') : undefined;
       tags.push({
         kind: 'meta',
         ...(name ? { name } : {}),
         ...(property ? { property } : {}),
         value: attrValue(node.attributes, 'content'),
-        ...(noindex ? { noindex: true } : {})
+        ...(noindex ? { noindex: true } : {}),
+        ...(descText !== undefined ? { text: descText } : {})
       });
     } else if (node.name === 'link') {
       const rel = attrText(node.attributes, 'rel');
