@@ -2,19 +2,19 @@
 
 Validate the **content** of a route's JSON-LD structured data, not just its presence (SEO008). This brings svelte-vitals to parity with the static, source-decidable structured-data checks a comprehensive SEO toolkit performs — within svelte-vitals' nature: pure static analysis of the resolved `<head>`, no browser, no web data, no new dependencies.
 
-SEO008 (JSON-LD presence) stays as-is; SEO016–SEO021 validate the JSON-LD that *is* present.
+SEO008 (JSON-LD presence) stays as-is; SEO016–SEO021 validate the JSON-LD that _is_ present.
 
 ## Goal
 
 For each route whose head contains a **static** `<script type="application/ld+json">`, capture its literal content and validate it. Six new rules:
 
-| ID | Check | Severity |
-|----|-------|----------|
-| **SEO016** | **Validity** — the JSON-LD parses, and has both `@context` and `@type` | `warning` |
-| **SEO017** | **Deprecated/restricted type** — `@type` is in a curated list whose rich results Google dropped/restricted (e.g. `HowTo`, `FAQPage`, `ClaimReview`) | `info` |
-| **SEO018** | **Relative URL** — a value under a known URL key (`url`, `@id`, `image`, `logo`, `sameAs`, `contentUrl`, `thumbnailUrl`) is relative, not absolute | `warning` |
-| **SEO019** | **Non-ISO-8601 date** — a value under a known date key (`datePublished`, `dateModified`, `dateCreated`, `startDate`, `endDate`, `uploadDate`, `validFrom`, `expires`) is not ISO-8601 | `info` |
-| **SEO020** | **Placeholder text** — a value contains obvious unreplaced placeholder/boilerplate (`lorem ipsum`, `your company`, `your-domain`, `example company`, etc.) | `info` |
+| ID         | Check                                                                                                                                                                                              | Severity  |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+| **SEO016** | **Validity** — the JSON-LD parses, and has both `@context` and `@type`                                                                                                                             | `warning` |
+| **SEO017** | **Deprecated/restricted type** — `@type` is in a curated list whose rich results Google dropped/restricted (e.g. `HowTo`, `FAQPage`, `ClaimReview`)                                                | `info`    |
+| **SEO018** | **Relative URL** — a value under a known URL key (`url`, `@id`, `image`, `logo`, `sameAs`, `contentUrl`, `thumbnailUrl`) is relative, not absolute                                                 | `warning` |
+| **SEO019** | **Non-ISO-8601 date** — a value under a known date key (`datePublished`, `dateModified`, `dateCreated`, `startDate`, `endDate`, `uploadDate`, `validFrom`, `expires`) is not ISO-8601              | `info`    |
+| **SEO020** | **Placeholder text** — a value contains obvious unreplaced placeholder/boilerplate (`lorem ipsum`, `your company`, `your-domain`, `example company`, etc.)                                         | `info`    |
 | **SEO021** | **Required properties** — for a recognized `@type`, Google's required properties for its rich result are present (e.g. `Article`→`headline`+`datePublished`+`image`, `Product`→`name`+`offers`, …) | `warning` |
 
 ## No false negatives / no schema-soup

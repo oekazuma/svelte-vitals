@@ -18,7 +18,12 @@ describe('parseJsonLd', () => {
   });
   it('flattens @graph members (plus the container)', () => {
     const r = parseJsonLd('{"@context":"https://schema.org","@graph":[{"@type":"Article"},{"@type":"Person"}]}');
-    expect(r.nodes.map((n) => typeOf(n)[0]).filter(Boolean).sort()).toEqual(['Article', 'Person']);
+    expect(
+      r.nodes
+        .map((n) => typeOf(n)[0])
+        .filter(Boolean)
+        .sort()
+    ).toEqual(['Article', 'Person']);
     expect(r.nodes.some((n) => '@context' in n)).toBe(true);
   });
   it('flattens a top-level array', () => {

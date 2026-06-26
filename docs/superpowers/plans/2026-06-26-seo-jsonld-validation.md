@@ -35,12 +35,14 @@
 Add the field and populate the literal JSON-LD text when static.
 
 **Files:**
+
 - Modify: `packages/core/src/head.ts` (field)
 - Modify: `packages/cli/src/providers/source/parse.ts` (jsonld branch + a `textFromNodes` helper)
 - Modify: `packages/vite/src/providers/rendered/parse-html.ts` (jsonld loop)
 - Test: `packages/cli/test/parse-jsonld.test.ts`, append to `packages/vite/test/parse-html.test.ts`
 
 **Interfaces:**
+
 - Produces: `HeadTag.jsonld?: string` — the literal JSON-LD script content, set only when the script is static (no dynamic interpolation); undefined otherwise.
 
 - [ ] **Step 1: Write the failing tests**
@@ -124,15 +126,15 @@ and replace the jsonld branch:
 In `packages/vite/src/providers/rendered/parse-html.ts`, replace the jsonld push:
 
 ```ts
-    if (script.getAttribute('type') === 'application/ld+json') {
-      const raw = script.text;
-      tags.push({
-        kind: 'jsonld',
-        presence: 'own',
-        value: attrValue(raw),
-        ...(raw && raw.trim().length > 0 ? { jsonld: raw } : {})
-      });
-    }
+if (script.getAttribute('type') === 'application/ld+json') {
+  const raw = script.text;
+  tags.push({
+    kind: 'jsonld',
+    presence: 'own',
+    value: attrValue(raw),
+    ...(raw && raw.trim().length > 0 ? { jsonld: raw } : {})
+  });
+}
 ```
 
 - [ ] **Step 6: Run to verify pass + full suites**
@@ -154,10 +156,12 @@ git commit -m "feat(core,cli,vite): capture literal JSON-LD content on head tags
 A pure module the rules use: parse + flatten + walk, plus the data tables.
 
 **Files:**
+
 - Create: `packages/core/src/rules/seo/jsonld-engine.ts`
 - Test: `packages/core/test/jsonld-engine.test.ts`
 
 **Interfaces:**
+
 - Produces:
   - `type JsonLdNode = Record<string, unknown>`
   - `parseJsonLd(raw: string): { ok: boolean; nodes: JsonLdNode[] }` — `ok:false` on parse error; `nodes` = the root object, top-level array members, and `@graph` members (the container object is included too).
@@ -192,7 +196,12 @@ describe('parseJsonLd', () => {
   });
   it('flattens @graph members (plus the container)', () => {
     const r = parseJsonLd('{"@context":"https://schema.org","@graph":[{"@type":"Article"},{"@type":"Person"}]}');
-    expect(r.nodes.map((n) => typeOf(n)[0]).filter(Boolean).sort()).toEqual(['Article', 'Person']);
+    expect(
+      r.nodes
+        .map((n) => typeOf(n)[0])
+        .filter(Boolean)
+        .sort()
+    ).toEqual(['Article', 'Person']);
     expect(r.nodes.some((n) => '@context' in n)).toBe(true);
   });
   it('flattens a top-level array', () => {
@@ -316,13 +325,28 @@ export function isIso8601(s: string): boolean {
   return /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})?)?$/.test(s.trim());
 }
 
-const PLACEHOLDER_RES = [/lorem ipsum/i, /your company/i, /your-?domain/i, /example company/i, /yourcompany/i, /your name here/i];
+const PLACEHOLDER_RES = [
+  /lorem ipsum/i,
+  /your company/i,
+  /your-?domain/i,
+  /example company/i,
+  /yourcompany/i,
+  /your name here/i
+];
 export const PLACEHOLDERS = PLACEHOLDER_RES.map((r) => r.source);
 export function hasPlaceholder(s: string): boolean {
   return PLACEHOLDER_RES.some((re) => re.test(s));
 }
 
-export const URL_KEYS: ReadonlySet<string> = new Set(['url', '@id', 'image', 'logo', 'sameAs', 'contentUrl', 'thumbnailUrl']);
+export const URL_KEYS: ReadonlySet<string> = new Set([
+  'url',
+  '@id',
+  'image',
+  'logo',
+  'sameAs',
+  'contentUrl',
+  'thumbnailUrl'
+]);
 export const DATE_KEYS: ReadonlySet<string> = new Set([
   'datePublished',
   'dateModified',
@@ -371,12 +395,14 @@ git commit -m "feat(core): JSON-LD inspection engine (parse/flatten/walk + data 
 ### Task 3: Rules SEO016–SEO021 + docs
 
 **Files:**
+
 - Create: `packages/core/src/rules/seo/seo016-021.ts`
 - Modify: `packages/core/src/rules/index.ts` (register + re-export), `packages/core/src/index.ts` (export)
 - Create: `docs/src/content/docs/rules/seo0{16..21}.md` + `docs/src/content/docs/ja/rules/seo0{16..21}.md` (12 files)
 - Test: `packages/core/test/seo-jsonld-rules.test.ts`
 
 **Interfaces:**
+
 - Consumes: the engine (Task 2); `HeadTag.jsonld` (Task 1); `Rule`/`RuleContext`/`docsUrlFor` from `../../rule.js`; `Result` from `../../types.js`.
 - Produces: `seo016JsonLdValidity`, `seo017DeprecatedType`, `seo018RelativeUrl`, `seo019DateFormat`, `seo020Placeholder`, `seo021RequiredProps` (all `Rule`).
 
@@ -402,7 +428,9 @@ const headWithJsonLd = (raw?: string): ResolvedHead => ({
   route: '/x',
   source: 'rendered',
   file: 'x',
-  tags: [{ kind: 'jsonld', presence: 'own', value: raw ? 'static' : 'dynamic', ...(raw ? { jsonld: raw } : {}) } as HeadTag]
+  tags: [
+    { kind: 'jsonld', presence: 'own', value: raw ? 'static' : 'dynamic', ...(raw ? { jsonld: raw } : {}) } as HeadTag
+  ]
 });
 const ctx = (head: ResolvedHead): RuleContext => ({ heads: [head], project: defaultProject, config: defineConfig({}) });
 const fails = (rs: Awaited<ReturnType<typeof seo016JsonLdValidity.check>>) =>
@@ -416,10 +444,14 @@ describe('SEO016 validity', () => {
     expect(fails(await seo016JsonLdValidity.check(ctx(headWithJsonLd('{"@type":"WebPage"}'))))).toHaveLength(1);
   });
   it('flags missing @type', async () => {
-    expect(fails(await seo016JsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org"}'))))).toHaveLength(1);
+    expect(
+      fails(await seo016JsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org"}'))))
+    ).toHaveLength(1);
   });
   it('passes valid JSON-LD', async () => {
-    const rs = await seo016JsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"WebPage"}')));
+    const rs = await seo016JsonLdValidity.check(
+      ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"WebPage"}'))
+    );
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
@@ -430,22 +462,38 @@ describe('SEO016 validity', () => {
 
 describe('SEO017-021', () => {
   it('SEO017 flags a deprecated type', async () => {
-    expect(fails(await seo017DeprecatedType.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"HowTo"}'))))).toHaveLength(1);
+    expect(
+      fails(await seo017DeprecatedType.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"HowTo"}'))))
+    ).toHaveLength(1);
   });
   it('SEO018 flags a relative URL under a known key', async () => {
-    expect(fails(await seo018RelativeUrl.check(ctx(headWithJsonLd('{"@type":"Org","image":"/logo.png"}'))))).toHaveLength(1);
-    expect(fails(await seo018RelativeUrl.check(ctx(headWithJsonLd('{"@type":"Org","image":"https://e.com/l.png"}'))))).toHaveLength(0);
+    expect(
+      fails(await seo018RelativeUrl.check(ctx(headWithJsonLd('{"@type":"Org","image":"/logo.png"}'))))
+    ).toHaveLength(1);
+    expect(
+      fails(await seo018RelativeUrl.check(ctx(headWithJsonLd('{"@type":"Org","image":"https://e.com/l.png"}'))))
+    ).toHaveLength(0);
   });
   it('SEO019 flags a non-ISO date under a known key', async () => {
-    expect(fails(await seo019DateFormat.check(ctx(headWithJsonLd('{"@type":"Article","datePublished":"June 1, 2026"}'))))).toHaveLength(1);
-    expect(fails(await seo019DateFormat.check(ctx(headWithJsonLd('{"@type":"Article","datePublished":"2026-06-01"}'))))).toHaveLength(0);
+    expect(
+      fails(await seo019DateFormat.check(ctx(headWithJsonLd('{"@type":"Article","datePublished":"June 1, 2026"}'))))
+    ).toHaveLength(1);
+    expect(
+      fails(await seo019DateFormat.check(ctx(headWithJsonLd('{"@type":"Article","datePublished":"2026-06-01"}'))))
+    ).toHaveLength(0);
   });
   it('SEO020 flags placeholder text', async () => {
-    expect(fails(await seo020Placeholder.check(ctx(headWithJsonLd('{"@type":"Org","name":"Your Company Name"}'))))).toHaveLength(1);
+    expect(
+      fails(await seo020Placeholder.check(ctx(headWithJsonLd('{"@type":"Org","name":"Your Company Name"}'))))
+    ).toHaveLength(1);
   });
   it('SEO021 flags a missing required property and ignores unknown types', async () => {
-    expect(fails(await seo021RequiredProps.check(ctx(headWithJsonLd('{"@type":"Product","name":"x"}'))))).toHaveLength(1); // missing offers
-    expect(fails(await seo021RequiredProps.check(ctx(headWithJsonLd('{"@type":"Product","name":"x","offers":{}}'))))).toHaveLength(0);
+    expect(fails(await seo021RequiredProps.check(ctx(headWithJsonLd('{"@type":"Product","name":"x"}'))))).toHaveLength(
+      1
+    ); // missing offers
+    expect(
+      fails(await seo021RequiredProps.check(ctx(headWithJsonLd('{"@type":"Product","name":"x","offers":{}}'))))
+    ).toHaveLength(0);
     expect(await seo021RequiredProps.check(ctx(headWithJsonLd('{"@type":"CustomThing","foo":1}')))).toHaveLength(0); // unknown type → no signal
   });
 });
@@ -498,7 +546,8 @@ export const seo016JsonLdValidity: Rule = {
     'Invalid JSON-LD — unparseable, or missing @context/@type — is silently ignored by search engines, so the structured data does nothing.',
   fix: {
     description: 'Make the JSON-LD valid: parseable JSON with both @context (schema.org) and @type.',
-    snippet: '<svelte:head>\n  <script type="application/ld+json">\n    {"@context":"https://schema.org","@type":"WebPage","name":"…"}\n  </script>\n</svelte:head>',
+    snippet:
+      '<svelte:head>\n  <script type="application/ld+json">\n    {"@context":"https://schema.org","@type":"WebPage","name":"…"}\n  </script>\n</svelte:head>',
     lang: 'svelte'
   },
   async check(ctx: RuleContext): Promise<Result[]> {
@@ -609,7 +658,8 @@ export const seo017DeprecatedType = jsonldRule({
   title: 'Deprecated structured-data type',
   severity: 'info',
   label: 'Structured-data type',
-  recommendation: 'Verify the rich-result status of this @type; Google dropped or restricted some (e.g. HowTo, FAQPage).',
+  recommendation:
+    'Verify the rich-result status of this @type; Google dropped or restricted some (e.g. HowTo, FAQPage).',
   rationale: 'Some schema types no longer produce rich results, so the markup adds weight without the SERP benefit.',
   problem: (nodes) => {
     const dep = nodes.flatMap(typeOf).find((t) => DEPRECATED_TYPES.has(t));
@@ -690,7 +740,9 @@ export const seo021RequiredProps = jsonldRule({
 - [ ] **Step 4: Register + export**
 
 In `packages/core/src/rules/index.ts`:
+
 - Add the import (after the `seo010-015` import):
+
 ```ts
 import {
   seo016JsonLdValidity,
@@ -701,6 +753,7 @@ import {
   seo021RequiredProps
 } from './seo/seo016-021.js';
 ```
+
 - Add all six to the `allRules` array and to the named re-export block (same order), after the SEO015 entries.
 
 In `packages/core/src/index.ts`, add the six names to the existing `export { … } from './rules/index.js';` rules export.
@@ -710,7 +763,8 @@ In `packages/core/src/index.ts`, add the six names to the existing `export { …
 Create the English pages under `docs/src/content/docs/rules/`:
 
 `seo016.md`:
-```md
+
+````md
 ---
 title: SEO016 · JSON-LD validity
 description: A page's JSON-LD must be valid JSON with @context and @type.
@@ -731,11 +785,13 @@ Invalid JSON-LD — unparseable, or missing `@context`/`@type` — is silently i
 ```svelte
 <svelte:head>
   <script type="application/ld+json">
-    {"@context":"https://schema.org","@type":"WebPage","name":"…"}
+    { "@context": "https://schema.org", "@type": "WebPage", "name": "…" }
   </script>
 </svelte:head>
 ```
-```
+````
+
+````
 
 `seo017.md`:
 ```md
@@ -757,10 +813,11 @@ These types no longer reliably produce rich results, so the markup adds page wei
 ## How to fix
 
 Verify the type's current rich-result status in Google's documentation; remove or replace it if it no longer earns a rich result.
-```
+````
 
 `seo018.md`:
-```md
+
+````md
 ---
 title: SEO018 · JSON-LD relative URL
 description: URLs in JSON-LD should be absolute.
@@ -781,7 +838,9 @@ Search engines need absolute URLs in structured data; a relative URL can't be re
 ```json
 "image": "https://example.com/logo.png"
 ```
-```
+````
+
+````
 
 `seo019.md`:
 ```md
@@ -804,8 +863,9 @@ Schema.org date properties expect ISO-8601; other formats may be ignored or misp
 
 ```json
 "datePublished": "2026-06-26"
-```
-```
+````
+
+````
 
 `seo020.md`:
 ```md
@@ -827,10 +887,11 @@ Leftover placeholder text ships misleading structured data to search engines.
 ## How to fix
 
 Replace the placeholder with the real value for the page.
-```
+````
 
 `seo021.md`:
-```md
+
+````md
 ---
 title: SEO021 · JSON-LD required properties
 description: A recognized @type should include the properties its rich result requires.
@@ -851,9 +912,11 @@ A recognized `@type` missing its required properties is ineligible for the corre
 Add the missing properties. For example, a `Product` needs `name` and `offers`:
 
 ```json
-{"@context":"https://schema.org","@type":"Product","name":"…","offers":{"@type":"Offer","price":"…"}}
+{ "@context": "https://schema.org", "@type": "Product", "name": "…", "offers": { "@type": "Offer", "price": "…" } }
 ```
-```
+````
+
+````
 
 Create the Japanese pages under `docs/src/content/docs/ja/rules/`:
 
@@ -882,8 +945,9 @@ description: ページの JSON-LD は @context と @type を持つ有効な JSON
     {"@context":"https://schema.org","@type":"WebPage","name":"…"}
   </script>
 </svelte:head>
-```
-```
+````
+
+````
 
 `seo017.md`:
 ```md
@@ -905,10 +969,11 @@ Google のリッチリザルトが廃止・制限された JSON-LD の `@type`�
 ## 修正方法
 
 Google のドキュメントで現在のリッチリザルト状況を確認し、リッチリザルトを得られないなら削除・置換してください。
-```
+````
 
 `seo018.md`:
-```md
+
+````md
 ---
 title: SEO018 · JSON-LD の相対 URL
 description: JSON-LD の URL は絶対 URL であるべきです。
@@ -929,7 +994,9 @@ JSON-LD の既知の URL キー（`url`・`@id`・`image`・`logo`・`sameAs`・
 ```json
 "image": "https://example.com/logo.png"
 ```
-```
+````
+
+````
 
 `seo019.md`:
 ```md
@@ -952,8 +1019,9 @@ schema.org の日付プロパティは ISO-8601 を期待します。他の形�
 
 ```json
 "datePublished": "2026-06-26"
-```
-```
+````
+
+````
 
 `seo020.md`:
 ```md
@@ -975,10 +1043,11 @@ JSON-LD の値に残った明らかなプレースホルダ/定型文（`lorem i
 ## 修正方法
 
 プレースホルダをそのページの実際の値に置き換えてください。
-```
+````
 
 `seo021.md`:
-```md
+
+````md
 ---
 title: SEO021 · JSON-LD の必須プロパティ
 description: 認識される @type は、そのリッチリザルトに必要なプロパティを含むべきです。
@@ -999,9 +1068,11 @@ description: 認識される @type は、そのリッチリザルトに必要な
 不足プロパティを追加します。例えば `Product` は `name` と `offers` が必要です：
 
 ```json
-{"@context":"https://schema.org","@type":"Product","name":"…","offers":{"@type":"Offer","price":"…"}}
+{ "@context": "https://schema.org", "@type": "Product", "name": "…", "offers": { "@type": "Offer", "price": "…" } }
 ```
-```
+````
+
+````
 
 - [ ] **Step 6: Run the rule test + full suites**
 
@@ -1017,13 +1088,14 @@ Expected: PASS. If any test hard-codes a rule count / enumerates ids, update it.
 ```bash
 git add packages/core/src/rules/seo/seo016-021.ts packages/core/src/rules/index.ts packages/core/src/index.ts packages/core/test/seo-jsonld-rules.test.ts docs/src/content/docs/rules/seo01[6-9].md docs/src/content/docs/rules/seo02[01].md docs/src/content/docs/ja/rules/seo01[6-9].md docs/src/content/docs/ja/rules/seo02[01].md
 git commit -m "feat(core): add SEO016-SEO021 JSON-LD validation rules + docs"
-```
+````
 
 ---
 
 ### Task 4: Changeset + full verification
 
 **Files:**
+
 - Create: `.changeset/seo-jsonld-validation.md`
 
 **Interfaces:** none (release).
@@ -1053,6 +1125,7 @@ Run from the repo root (build first so cli/mcp see core's new rules):
 ```bash
 pnpm build && CI=true pnpm -r typecheck && CI=true pnpm -r test && CI=true pnpm --filter docs build && pnpm lint && pnpm check:publish
 ```
+
 Expected: all green. (Run `pnpm format` first if prettier flags the new Markdown; re-run lint. `attw` inside `check:publish` may fail LOCALLY only — known pre-existing local-cache issue, CI-unaffected; if only attw/npm-pack fails and publint passes, treat it as the known issue.) Confirm `pnpm --filter docs build` succeeds with the 12 new rule pages.
 
 - [ ] **Step 3: Commit**
@@ -1067,6 +1140,7 @@ git commit -m "chore: changeset for SEO016-SEO021 (core + cli + vite + mcp minor
 ## Self-Review
 
 **Spec coverage:**
+
 - SEO016 validity (parse + @context + @type, warning, custom rule owning parse failures) → Task 3. ✅
 - SEO017 deprecated type (info), SEO018 relative URL (warning, known keys), SEO019 non-ISO date (info, known keys), SEO020 placeholder (info), SEO021 required props (warning, curated table, unknown types ignored) → Task 3 via `jsonldRule`. ✅
 - Engine: `parseJsonLd` flatten @graph/array, `collectValues` deep, `nodeStringValues`, `isAbsoluteUrl`/`isIso8601`/`hasPlaceholder`, `typeOf`, data tables → Task 2. ✅

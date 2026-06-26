@@ -67,13 +67,28 @@ export function isIso8601(s: string): boolean {
   return /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:\d{2})?)?$/.test(s.trim());
 }
 
-const PLACEHOLDER_RES = [/lorem ipsum/i, /your company/i, /your-?domain/i, /example company/i, /yourcompany/i, /your name here/i];
+const PLACEHOLDER_RES = [
+  /lorem ipsum/i,
+  /your company/i,
+  /your-?domain/i,
+  /example company/i,
+  /yourcompany/i,
+  /your name here/i
+];
 export const PLACEHOLDERS = PLACEHOLDER_RES.map((r) => r.source);
 export function hasPlaceholder(s: string): boolean {
   return PLACEHOLDER_RES.some((re) => re.test(s));
 }
 
-export const URL_KEYS: ReadonlySet<string> = new Set(['url', '@id', 'image', 'logo', 'sameAs', 'contentUrl', 'thumbnailUrl']);
+export const URL_KEYS: ReadonlySet<string> = new Set([
+  'url',
+  '@id',
+  'image',
+  'logo',
+  'sameAs',
+  'contentUrl',
+  'thumbnailUrl'
+]);
 export const DATE_KEYS: ReadonlySet<string> = new Set([
   'datePublished',
   'dateModified',

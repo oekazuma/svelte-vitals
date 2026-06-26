@@ -35,7 +35,8 @@ export const seo016JsonLdValidity: Rule = {
     'Invalid JSON-LD — unparseable, or missing @context/@type — is silently ignored by search engines, so the structured data does nothing.',
   fix: {
     description: 'Make the JSON-LD valid: parseable JSON with both @context (schema.org) and @type.',
-    snippet: '<svelte:head>\n  <script type="application/ld+json">\n    {"@context":"https://schema.org","@type":"WebPage","name":"…"}\n  </script>\n</svelte:head>',
+    snippet:
+      '<svelte:head>\n  <script type="application/ld+json">\n    {"@context":"https://schema.org","@type":"WebPage","name":"…"}\n  </script>\n</svelte:head>',
     lang: 'svelte'
   },
   async check(ctx: RuleContext): Promise<Result[]> {
@@ -150,7 +151,8 @@ export const seo017DeprecatedType = jsonldRule({
   title: 'Deprecated structured-data type',
   severity: 'info',
   label: 'Structured-data type',
-  recommendation: 'Verify the rich-result status of this @type; Google dropped or restricted some (e.g. HowTo, FAQPage).',
+  recommendation:
+    'Verify the rich-result status of this @type; Google dropped or restricted some (e.g. HowTo, FAQPage).',
   rationale: 'Some schema types no longer produce rich results, so the markup adds weight without the SERP benefit.',
   problem: (nodes) => {
     const dep = nodes.flatMap(typeOf).find((t) => DEPRECATED_TYPES.has(t));
