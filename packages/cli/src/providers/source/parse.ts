@@ -169,6 +169,17 @@ export function attrValueOf(attr: Node): Value {
   return 'absent';
 }
 
+/** Literal static text of a single attribute node (e.g. a component prop), or undefined if dynamic/absent. */
+export function attrTextOf(attr: Node): string | undefined {
+  const v = attr?.value;
+  if (!Array.isArray(v) || v.some((n: Node) => n?.type === 'ExpressionTag')) return undefined;
+  const text = v
+    .filter((n: Node) => n?.type === 'Text')
+    .map((n: Node) => String(n.data ?? ''))
+    .join('');
+  return text.trim().length > 0 ? text : undefined;
+}
+
 export interface ComponentUse {
   name: string;
   attributes: Node[];

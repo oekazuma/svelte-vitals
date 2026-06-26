@@ -14,8 +14,11 @@ describe('adapter registry', () => {
   it('finds the svelte-seo adapter for the default import', () => {
     const adapter = findAdapter({ source: 'svelte-seo', imported: 'default' });
     expect(adapter).toBeDefined();
-    const r = adapter!.resolve(useOf(`import Seo from 'svelte-seo';`, '<Seo title="Hi" />'));
-    expect(r.tags).toContainEqual({ kind: 'title', value: 'static' });
+    const r = adapter!.resolve(
+      useOf(`import Seo from 'svelte-seo';`, '<Seo title="Hi" description="A concise summary." />')
+    );
+    expect(r.tags).toContainEqual({ kind: 'title', value: 'static', text: 'Hi' });
+    expect(r.tags).toContainEqual({ kind: 'meta', name: 'description', value: 'static', text: 'A concise summary.' });
   });
 
   it('returns undefined for unknown modules', () => {

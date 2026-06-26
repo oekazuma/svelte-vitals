@@ -16,9 +16,7 @@ import {
   REQUIRED_PROPS,
   type JsonLdNode
 } from './jsonld-engine.js';
-
-const PENALIZED = { presence: 'none', value: 'absent' } as const;
-const PASS = { presence: 'own', value: 'static' } as const;
+import { PENALIZED, PASS } from './detection.js';
 
 /** Static jsonld tags on a head (those with captured raw content). */
 function jsonldTags(head: { tags: HeadTag[] }): HeadTag[] {

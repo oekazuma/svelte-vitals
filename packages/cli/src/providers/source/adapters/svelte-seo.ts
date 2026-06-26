@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ImportInfo } from '../imports.js';
 import type { ComponentUse, ParsedTag } from '../parse.js';
-import { attrValueOf } from '../parse.js';
+import { attrValueOf, attrTextOf } from '../parse.js';
 import type { Adapter, AdapterResult } from './types.js';
 
 type Node = any;
@@ -20,10 +20,18 @@ export const svelteSeoAdapter: Adapter = {
     const attrs = use.attributes;
 
     const title = findAttr(attrs, 'title');
-    if (title) tags.push({ kind: 'title', value: attrValueOf(title) });
+    if (title) {
+      const value = attrValueOf(title);
+      const text = value === 'static' ? attrTextOf(title) : undefined;
+      tags.push({ kind: 'title', value, ...(text !== undefined ? { text } : {}) });
+    }
 
     const description = findAttr(attrs, 'description');
-    if (description) tags.push({ kind: 'meta', name: 'description', value: attrValueOf(description) });
+    if (description) {
+      const value = attrValueOf(description);
+      const text = value === 'static' ? attrTextOf(description) : undefined;
+      tags.push({ kind: 'meta', name: 'description', value, ...(text !== undefined ? { text } : {}) });
+    }
 
     const canonical = findAttr(attrs, 'canonical');
     if (canonical) tags.push({ kind: 'link', rel: 'canonical', value: attrValueOf(canonical) });

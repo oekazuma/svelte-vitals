@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ImportInfo } from '../imports.js';
 import type { ComponentUse, ParsedTag } from '../parse.js';
-import { attrValueOf } from '../parse.js';
+import { attrValueOf, attrTextOf } from '../parse.js';
 import type { Adapter, AdapterResult } from './types.js';
 
 type Node = any;
@@ -22,11 +22,24 @@ export const svelteMetaTagsAdapter: Adapter = {
     const tags: ParsedTag[] = [];
     const attrs = use.attributes;
 
-    const title = findAttr(attrs, 'title') ?? findAttr(attrs, 'titleTemplate');
-    if (title) tags.push({ kind: 'title', value: attrValueOf(title) });
+    const titleAttr = findAttr(attrs, 'title');
+    const templateAttr = findAttr(attrs, 'titleTemplate');
+    const title = titleAttr ?? templateAttr;
+    if (title) {
+      const value = attrValueOf(title);
+      // Capture measurable text only for a bare static title — not the template itself
+      // (a `%s | …` pattern), and not when a titleTemplate wraps the title (the rendered
+      // title would be longer, so measuring the literal alone would false-positive SEO022).
+      const text = titleAttr && !templateAttr && value === 'static' ? attrTextOf(titleAttr) : undefined;
+      tags.push({ kind: 'title', value, ...(text !== undefined ? { text } : {}) });
+    }
 
     const description = findAttr(attrs, 'description');
-    if (description) tags.push({ kind: 'meta', name: 'description', value: attrValueOf(description) });
+    if (description) {
+      const value = attrValueOf(description);
+      const text = value === 'static' ? attrTextOf(description) : undefined;
+      tags.push({ kind: 'meta', name: 'description', value, ...(text !== undefined ? { text } : {}) });
+    }
 
     const canonical = findAttr(attrs, 'canonical');
     if (canonical) tags.push({ kind: 'link', rel: 'canonical', value: attrValueOf(canonical) });

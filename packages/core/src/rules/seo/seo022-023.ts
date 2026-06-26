@@ -2,9 +2,7 @@ import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import type { HeadTag } from '../../head.js';
 import { visibleLength } from './text-metrics.js';
-
-const PENALIZED = { presence: 'none', value: 'absent' } as const;
-const PASS = { presence: 'own', value: 'static' } as const;
+import { PENALIZED, PASS } from './detection.js';
 
 interface LengthRuleOptions {
   id: string;
