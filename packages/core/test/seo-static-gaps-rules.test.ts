@@ -82,6 +82,12 @@ describe('SEO026 hreflang', () => {
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toContain('english');
   });
+  it('accepts BCP-47 script and UN M49 numeric-region codes', async () => {
+    const rs = await seo026Hreflang.check(
+      headsCtx(head('rendered', [alt('zh-Hant-TW'), alt('es-419'), alt('x-default')]))
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
   it('flags two or more alternates without an x-default', async () => {
     const rs = await seo026Hreflang.check(headsCtx(head('rendered', [alt('en'), alt('de')])));
     expect(fails(rs)).toHaveLength(1);

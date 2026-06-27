@@ -125,11 +125,12 @@ describe('parse-html: static-gaps capture (SEO024/026/027)', () => {
     expect(link.hreflang).toBe('en-US');
   });
 
-  it('collects page-body heading levels (SEO027)', () => {
+  it('collects page-body heading levels in document order (SEO027)', () => {
+    // h2 before h1 locks document order (not level-grouped) and matches the static provider.
     const doc =
       '<!doctype html><html lang="en"><head><title>t</title></head>' +
-      '<body><h1>A</h1><section><h2>B</h2><h2>C</h2></section></body></html>';
-    expect(parseHtmlHead(doc).headings).toEqual([1, 2, 2]);
+      '<body><h2>Intro</h2><section><h1>A</h1><h2>B</h2></section></body></html>';
+    expect(parseHtmlHead(doc).headings).toEqual([2, 1, 2]);
   });
 
   it('reports an empty body as no headings (SEO027)', () => {

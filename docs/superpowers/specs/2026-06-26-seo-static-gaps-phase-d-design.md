@@ -105,9 +105,9 @@ is **opt-in**: it emits nothing unless the route has at least one
 `rel="alternate"` link with an `hreflang` (monolingual sites are never flagged).
 When present it validates:
 
-1. Each `hreflang` value is well-formed: `x-default`, or a BCP-47-ish
-   `lang` / `lang-REGION` (regex `^[a-z]{2,3}(-[A-Za-z]{2,4})?(-[A-Za-z]{2})?$`
-   plus the literal `x-default`). Malformed → fail.
+1. Each `hreflang` value is well-formed: `x-default`, or a BCP-47 subset
+   (language + optional script + optional region, where region is 2 alpha or a
+   3-digit UN M49 code, e.g. `es-419`). Malformed → fail.
 2. If two or more alternates exist and none is `x-default` → fail
    (recommend adding `x-default`).
 
@@ -214,7 +214,3 @@ Two PRs to keep review tractable, or one if preferred:
   small, additive capture extensions to existing channels.
 - **PR2 (body channel):** SEO027 heading hierarchy — introduces the new
   `ctx.headings` channel in both providers.
-
-```
-
-```

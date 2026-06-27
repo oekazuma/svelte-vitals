@@ -1,4 +1,4 @@
-import { parse } from 'node-html-parser';
+import { parse, HTMLElement } from 'node-html-parser';
 import type { HeadTag, Value } from '@svelte-vitals/core';
 
 function attrValue(v: string | undefined): Value {
@@ -92,13 +92,20 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
       ? { presence: 'none' as const, value: 'absent' as const }
       : { presence: 'own' as const, value: attrValue(lang) };
 
-  // Page-body headings (SEO027). node-html-parser parses the whole document, so
-  // <h1>–<h6> are reachable here even though the rules above only inspect <head>.
+  // Page-body headings (SEO027). Walk the parsed tree in document order so the
+  // levels match the static provider (which collects in AST order) — grouping by
+  // level would diverge for inputs like <h2>…<h1>.
   const headings: number[] = [];
-  for (let level = 1; level <= 6; level++) {
-    const count = root.querySelectorAll(`h${level}`).length;
-    for (let i = 0; i < count; i++) headings.push(level);
-  }
+  const collectHeadings = (el: HTMLElement): void => {
+    for (const child of el.childNodes) {
+      if (child instanceof HTMLElement) {
+        const m = /^h([1-6])$/i.exec(child.rawTagName ?? '');
+        if (m) headings.push(Number(m[1]));
+        collectHeadings(child);
+      }
+    }
+  };
+  collectHeadings(root);
 
   return { tags, htmlLang, headings };
 }

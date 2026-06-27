@@ -6,9 +6,10 @@ const docsUrl = docsUrlFor('SEO026');
 const recommendation =
   'Use valid hreflang codes (e.g. "en", "en-US", "x-default") and include an x-default when you have multiple language alternates.';
 
-// Pragmatic BCP-47 subset: language (2–3) + optional script (4) + optional region (2),
-// or the literal x-default. Not a full registry check — catches obvious typos.
-const HREFLANG_RE = /^[a-z]{2,3}(-[A-Za-z]{2,4})?(-[A-Za-z]{2})?$/;
+// Pragmatic BCP-47 subset: language (2–3 alpha) + optional script (4 alpha) +
+// optional region (2 alpha or 3-digit UN M49, e.g. es-419), or the literal
+// x-default. Not a full registry check — catches obvious typos like "english".
+const HREFLANG_RE = /^[a-z]{2,3}(-[a-z]{4})?(-([a-z]{2}|\d{3}))?$/i;
 
 function isValidHreflang(v: string): boolean {
   return v === 'x-default' || HREFLANG_RE.test(v);
@@ -31,15 +32,22 @@ export const seo026Hreflang: Rule = {
   async check(ctx: RuleContext): Promise<Result[]> {
     const out: Result[] = [];
     for (const head of ctx.heads) {
-      const values = head.tags
-        .filter((t) => t.kind === 'link' && t.rel === 'alternate' && typeof t.hreflang === 'string')
-        .map((t) => t.hreflang as string);
-      if (values.length === 0) continue; // no hreflang on this route → not applicable
-      const malformed = values.find((v) => !isValidHreflang(v));
+      const alternates = head.tags.filter(
+        (t) => t.kind === 'link' && t.rel === 'alternate' && typeof t.hreflang === 'string'
+      );
+      if (alternates.length === 0) continue; // no hreflang on this route → not applicable
+      const values = alternates.map((t) => t.hreflang as string);
+      const badTag = alternates.find((t) => !isValidHreflang(t.hreflang as string));
       let problem: string | undefined;
-      if (malformed !== undefined) problem = `Invalid hreflang value "${malformed}"`;
-      else if (values.length >= 2 && !values.includes('x-default'))
+      // Point the finding at the alternate's own source file (inherited from a layout),
+      // falling back to the route head file, matching the SEO022/023 convention.
+      let location = head.file;
+      if (badTag) {
+        problem = `Invalid hreflang value "${badTag.hreflang}"`;
+        location = badTag.file ?? head.file;
+      } else if (values.length >= 2 && !values.includes('x-default')) {
         problem = 'Multiple hreflang alternates without an x-default';
+      }
       out.push(
         problem
           ? {
@@ -48,7 +56,7 @@ export const seo026Hreflang: Rule = {
               severity: 'warning',
               detection: PENALIZED,
               route: head.route,
-              location: head.file,
+              location,
               message: problem,
               recommendation,
               docsUrl
