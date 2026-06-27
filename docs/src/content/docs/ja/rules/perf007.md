@@ -18,6 +18,6 @@ description: head 内の <script src> は解析をブロックすべきではあ
 `defer`(または `type="module"`)/ `async` を付けます。
 
 ```html
-<\!-- src/app.html -->
+<!-- src/app.html -->
 <script src="/analytics.js" defer></script>
 ```

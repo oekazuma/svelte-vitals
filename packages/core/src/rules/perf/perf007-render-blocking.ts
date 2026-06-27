@@ -36,7 +36,8 @@ export const perf007RenderBlockingScript: Rule = {
             severity: 'warning',
             detection: { presence: 'none', value: 'absent' },
             route: head.route,
-            location: tag.href ?? head.file,
+            // location is a source path (the URL stays in the message), per the rule-engine convention.
+            location: tag.file ?? head.file,
             message: `Render-blocking <script>${tag.href ? ` (${tag.href})` : ''} in <head>`,
             recommendation,
             docsUrl,
