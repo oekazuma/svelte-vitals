@@ -1,5 +1,43 @@
 # @svelte-vitals/core
 
+## 0.14.0
+
+### Minor Changes
+
+- 0fbc25d: Validate JSON-LD content, not just its presence (SEO008): SEO016 (valid JSON with @context/@type),
+  SEO017 (deprecated/restricted rich-result type), SEO018 (relative URLs under known keys), SEO019
+  (non-ISO-8601 dates under known keys), SEO020 (placeholder text), and SEO021 (required properties for
+  recognized @types). Only static, parseable JSON-LD is checked — a dynamically-built script is skipped.
+- 069e0db: Add SEO024–SEO027, the remaining statically-analyzable SEO checks:
+
+  - **SEO024** — Character encoding: flags a rendered page with no `<meta charset>`
+    (lives in app.html, so rendered-only, like the viewport rule).
+  - **SEO025** — Image alt text: flags an `<img>` with no `alt` attribute (empty
+    `alt=""` is valid decorative; static/CLI mode only, like the perf image rules).
+  - **SEO026** — hreflang validity: opt-in check of `<link rel="alternate"
+hreflang>` alternates — malformed codes, or 2+ alternates without an x-default.
+  - **SEO027** — Heading hierarchy: flags zero or multiple `<h1>` per page (exactly
+    one passes; layout-chain headings count). Introduces a page-body headings
+    channel collected by both providers.
+
+- 8aeeabb: Add SEO022 (title length, 30–60 chars) and SEO023 (meta description length,
+  70–160 chars). Both check only static text — the literal title/description is now
+  captured onto the head model — and flag both too-short and too-long values; a
+  dynamic title/description is skipped (presence stays owned by SEO001/SEO002).
+  Static literal `title`/`description` props on `svelte-meta-tags` and `svelte-seo`
+  components are measured too (a `titleTemplate` correctly suppresses title
+  measurement). Length is counted by grapheme cluster, so emoji (ZWJ/flag/skin-tone
+  sequences) count as one character.
+
+### Patch Changes
+
+- 67a5a0e: Refine the JSON-LD rules to cut false positives: SEO018 no longer flags `@id`
+  (a node identifier, often a relative fragment) and now accepts any URI scheme
+  (`data:`/`mailto:`/`urn:`) and protocol-relative URLs; SEO019 accepts schema.org
+  reduced-precision dates (`2026`, `2026-06`); SEO021 treats empty/blank required
+  values as missing. Rendered-mode capture reads `<script>` via `rawText` so HTML
+  entities (e.g. `&quot;`) are no longer decoded and the JSON stays intact.
+
 ## 0.13.0
 
 ### Minor Changes
