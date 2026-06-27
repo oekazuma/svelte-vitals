@@ -59,20 +59,23 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
     const asAttr = link.getAttribute('as'); // rendered HTML: literal string or undefined
     const hasCrossorigin = link.hasAttribute('crossorigin');
     const hreflang = link.getAttribute('hreflang');
+    const href = link.getAttribute('href');
     tags.push({
       kind: 'link',
       rel,
       presence: 'own',
-      value: attrValue(link.getAttribute('href')),
+      value: attrValue(href),
       ...(asAttr != null ? { hasAs: true, as: asAttr } : {}),
       ...(hasCrossorigin ? { hasCrossorigin: true } : {}),
       // Keep a literal empty hreflang="" (present-but-invalid) so SEO026 can flag it.
-      ...(hreflang != null ? { hreflang } : {})
+      ...(hreflang != null ? { hreflang } : {}),
+      ...(href ? { href } : {})
     });
   }
 
   for (const script of head.querySelectorAll('script')) {
-    if (script.getAttribute('type') === 'application/ld+json') {
+    const type = script.getAttribute('type');
+    if (type === 'application/ld+json') {
       // `<script>` is a raw-text element — browsers and search engines read its body verbatim and do
       // NOT decode HTML entities. `.text` decodes (e.g. `&quot;` -> `"`), which would corrupt the JSON
       // before SEO016 parses it; `.rawText` preserves exactly what the crawler sees.
@@ -82,6 +85,20 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
         presence: 'own',
         value: attrValue(raw),
         ...(raw && raw.trim().length > 0 ? { jsonld: raw } : {})
+      });
+      continue;
+    }
+    // External <script src> in <head> (PERF007/PERF008). Render-blocking unless
+    // defer/async/type=module; the src URL feeds third-party origin analysis.
+    const src = script.getAttribute('src');
+    if (src) {
+      const blocking = !script.hasAttribute('defer') && !script.hasAttribute('async') && type !== 'module';
+      tags.push({
+        kind: 'script',
+        presence: 'own',
+        value: 'static',
+        href: src,
+        ...(blocking ? { blocking: true } : {})
       });
     }
   }

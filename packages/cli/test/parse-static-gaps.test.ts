@@ -27,6 +27,25 @@ describe('parse: hreflang capture (SEO026)', () => {
   });
 });
 
+describe('parse: link href capture (PERF008)', () => {
+  it('captures a literal href on a link', () => {
+    const tags = parseHeadTags(head('<link rel="preconnect" href="https://fonts.gstatic.com" />'), 'x.svelte');
+    expect(tags.find((t) => t.kind === 'link')!.href).toBe('https://fonts.gstatic.com');
+  });
+});
+
+describe('parse: image loading/srcset capture (PERF005/006)', () => {
+  it('records lazy only for a literal loading="lazy"', () => {
+    expect(parseFile('<img src="/a.jpg" loading="lazy" />', 'x.svelte').images[0]!.lazy).toBe(true);
+    expect(parseFile('<img src="/a.jpg" loading="eager" />', 'x.svelte').images[0]!.lazy).toBe(false);
+    expect(parseFile('<img src="/a.jpg" />', 'x.svelte').images[0]!.lazy).toBe(false);
+  });
+  it('records hasSrcset from the srcset attribute', () => {
+    expect(parseFile('<img src="/a.jpg" srcset="/a-2x.jpg 2x" />', 'x.svelte').images[0]!.hasSrcset).toBe(true);
+    expect(parseFile('<img src="/a.jpg" />', 'x.svelte').images[0]!.hasSrcset).toBe(false);
+  });
+});
+
 describe('parse: image alt capture (SEO025)', () => {
   it('records hasAlt true/false from the alt attribute', () => {
     const withAlt = parseFile('<img src="/a.jpg" alt="A" />', 'x.svelte').images[0]!;

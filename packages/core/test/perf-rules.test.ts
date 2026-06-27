@@ -3,11 +3,22 @@ import { perf001ImageDimensions, perf002ImageLoading, defaultProject, defaultCon
 import type { ResolvedImages } from '../src/images.js';
 
 const config = defaultConfig;
-const img = (over: Partial<{ hasWidth: boolean; hasHeight: boolean; hasLoading: boolean; hasAlt: boolean }>) => ({
+const img = (
+  over: Partial<{
+    hasWidth: boolean;
+    hasHeight: boolean;
+    hasLoading: boolean;
+    hasAlt: boolean;
+    lazy: boolean;
+    hasSrcset: boolean;
+  }>
+) => ({
   hasWidth: true,
   hasHeight: true,
   hasLoading: true,
   hasAlt: true,
+  lazy: false,
+  hasSrcset: true,
   line: 7,
   file: 'src/routes/+page.svelte',
   ...over
@@ -62,6 +73,8 @@ describe('PERF001 image line omission when unknown (line: 0)', () => {
       hasHeight: true,
       hasLoading: true,
       hasAlt: true,
+      lazy: false,
+      hasSrcset: true,
       line: 0,
       file: 'src/routes/+page.svelte'
     };

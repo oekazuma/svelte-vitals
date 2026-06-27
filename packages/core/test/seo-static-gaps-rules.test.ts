@@ -39,6 +39,8 @@ const img = (over: Partial<ImageInfo>): ImageInfo => ({
   hasHeight: true,
   hasLoading: true,
   hasAlt: true,
+  lazy: false,
+  hasSrcset: true,
   line: 1,
   file: 'x',
   ...over
