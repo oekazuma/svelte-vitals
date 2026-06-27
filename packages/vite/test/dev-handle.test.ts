@@ -39,6 +39,11 @@ const PAGE_OK =
   '<meta property="og:url" content="https://e.com/">' +
   '<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Home","url":"https://e.com/"}</script></head><body><h1>Quality Widgets</h1></body></html>';
 
+// PAGE_OK with a second <h1> in the body — everything else stays clean, so the
+// only finding is SEO027 (heading hierarchy), confirming the rule sees the
+// rendered body through the dev hook.
+const PAGE_TWO_H1 = PAGE_OK.replace('</body>', '<h1>Second heading</h1></body>');
+
 afterEach(() => vi.restoreAllMocks());
 
 describe('svelteVitalsHandle', () => {
@@ -58,6 +63,16 @@ describe('svelteVitalsHandle', () => {
     await handle({ event: fakeEvent('/ok', '/ok'), resolve: resolveWith([PAGE_OK]) });
     await flush();
     expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('warns about multiple <h1> from the rendered body (SEO027)', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/two-h1', '/two-h1'), resolve: resolveWith([PAGE_TWO_H1]) });
+    await flush();
+    const out = warn.mock.calls.map((c) => String(c[0])).join('\n');
+    expect(out).toContain('[svelte-vitals] /two-h1');
+    expect(out).toContain('SEO027');
   });
 
   it('returns each chunk unchanged', async () => {

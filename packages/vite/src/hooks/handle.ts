@@ -9,6 +9,7 @@ import {
   type Config,
   type Project,
   type ResolvedHead,
+  type ResolvedHeadings,
   type Result,
   type Rule
 } from '@svelte-vitals/core';
@@ -59,12 +60,16 @@ async function analyzeAndWarn(
   lastSignature: Map<string, string>
 ): Promise<void> {
   try {
-    const { tags, htmlLang } = parseHtmlHead(html);
+    const { tags, htmlLang, headings: levels } = parseHtmlHead(html);
     const head: ResolvedHead = { route, source: 'rendered', tags, file: route };
+    // Rendered mode does not track source lines (line 0 = unknown); file is the route.
+    const headings: ResolvedHeadings[] = [
+      { route, headings: levels.map((level) => ({ level, line: 0, file: route })) }
+    ];
     // robots/sitemap are not page-scoped, so mark them present to suppress SEO006/SEO007;
     // htmlLang comes from the rendered document so SEO009 is evaluated against reality.
     const project: Project = { hasRobotsTxt: true, hasSitemap: true, htmlLang };
-    const results = applyRuleSeverities(await runRules(rules, { heads: [head], project, config }), config);
+    const results = applyRuleSeverities(await runRules(rules, { heads: [head], headings, project, config }), config);
 
     const signature = findingSignature(results, config);
     if (lastSignature.get(route) === signature) return;
