@@ -21,6 +21,10 @@ describe('parse: hreflang capture (SEO026)', () => {
     const tags = parseHeadTags(head('<link rel="alternate" hreflang={lang} href="/en" />'), 'x.svelte');
     expect(tags.find((t) => t.kind === 'link')!.hreflang).toBeUndefined();
   });
+  it('keeps a literal empty hreflang="" (present-but-invalid)', () => {
+    const tags = parseHeadTags(head('<link rel="alternate" hreflang="" href="/en" />'), 'x.svelte');
+    expect(tags.find((t) => t.kind === 'link')!.hreflang).toBe('');
+  });
 });
 
 describe('parse: image alt capture (SEO025)', () => {
@@ -45,6 +49,10 @@ describe('parse: heading capture (SEO027)', () => {
   });
   it('collects headings inside conditional blocks', () => {
     const headings = parseFile('{#if x}<h1>A</h1>{/if}', 'x.svelte').headings;
+    expect(headings.map((h) => h.level)).toEqual([1]);
+  });
+  it('does not count an <h1> inside <svelte:head> (body headings only)', () => {
+    const headings = parseFile('<svelte:head><h1>X</h1></svelte:head><h1>Real</h1>', 'x.svelte').headings;
     expect(headings.map((h) => h.level)).toEqual([1]);
   });
 });

@@ -66,7 +66,8 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
       value: attrValue(link.getAttribute('href')),
       ...(asAttr != null ? { hasAs: true, as: asAttr } : {}),
       ...(hasCrossorigin ? { hasCrossorigin: true } : {}),
-      ...(hreflang ? { hreflang } : {})
+      // Keep a literal empty hreflang="" (present-but-invalid) so SEO026 can flag it.
+      ...(hreflang != null ? { hreflang } : {})
     });
   }
 
@@ -94,7 +95,8 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
 
   // Page-body headings (SEO027). Walk the parsed tree in document order so the
   // levels match the static provider (which collects in AST order) — grouping by
-  // level would diverge for inputs like <h2>…<h1>.
+  // level would diverge for inputs like <h2>…<h1>. Scope to <body> so a stray
+  // heading in <head> is not counted (fallback to root for fragment HTML).
   const headings: number[] = [];
   const collectHeadings = (el: HTMLElement): void => {
     for (const child of el.childNodes) {
@@ -105,7 +107,7 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
       }
     }
   };
-  collectHeadings(root);
+  collectHeadings(root.querySelector('body') ?? root);
 
   return { tags, htmlLang, headings };
 }

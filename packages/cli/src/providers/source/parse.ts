@@ -149,7 +149,7 @@ function tagsFromHead(head: Node): ParsedTag[] {
       const hasAs = findAttr(node.attributes, 'as') !== undefined;
       const asLiteral = attrText(node.attributes, 'as'); // literal keyword, or undefined for dynamic/absent
       const hasCrossorigin = findAttr(node.attributes, 'crossorigin') !== undefined;
-      const hreflang = attrText(node.attributes, 'hreflang'); // literal value, or undefined for dynamic/absent
+      const hreflang = attrText(node.attributes, 'hreflang'); // literal (incl. '') or undefined for dynamic/absent
       tags.push({
         kind: 'link',
         ...(rel ? { rel } : {}),
@@ -157,7 +157,8 @@ function tagsFromHead(head: Node): ParsedTag[] {
         ...(hasAs ? { hasAs: true } : {}),
         ...(asLiteral ? { as: asLiteral } : {}),
         ...(hasCrossorigin ? { hasCrossorigin: true } : {}),
-        ...(hreflang ? { hreflang } : {})
+        // Keep a literal empty hreflang="" (present-but-invalid) so SEO026 can flag it.
+        ...(hreflang !== undefined ? { hreflang } : {})
       });
     } else if (node.name === 'script' && attrText(node.attributes, 'type') === 'application/ld+json') {
       const nodes = node.fragment?.nodes ?? [];
@@ -259,6 +260,8 @@ function collectHeadings(node: Node, source: string, acc: ParsedHeading[]): void
     return;
   }
   if (!node || typeof node !== 'object') return;
+  // Body headings only — a stray <h1> inside <svelte:head> is not a page heading.
+  if (node.type === 'SvelteHead') return;
   if (node.type === 'RegularElement' && typeof node.name === 'string' && /^h[1-6]$/.test(node.name)) {
     acc.push({ level: Number(node.name[1]), line: lineOf(source, node.start) });
   }

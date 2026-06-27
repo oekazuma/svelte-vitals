@@ -88,6 +88,14 @@ describe('SEO026 hreflang', () => {
     );
     expect(fails(rs)).toHaveLength(0);
   });
+  it('flags an empty hreflang="" as invalid', async () => {
+    const rs = await seo026Hreflang.check(headsCtx(head('rendered', [alt(''), alt('x-default')])));
+    expect(fails(rs)).toHaveLength(1);
+  });
+  it('treats x-default case-insensitively', async () => {
+    const rs = await seo026Hreflang.check(headsCtx(head('rendered', [alt('en'), alt('de'), alt('X-default')])));
+    expect(fails(rs)).toHaveLength(0);
+  });
   it('flags two or more alternates without an x-default', async () => {
     const rs = await seo026Hreflang.check(headsCtx(head('rendered', [alt('en'), alt('de')])));
     expect(fails(rs)).toHaveLength(1);

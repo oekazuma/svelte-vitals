@@ -28,7 +28,7 @@ export const seo027Heading: Rule = {
       if (h1.length === 0) {
         problem = 'Missing <h1>';
         const first = route.headings[0];
-        if (first) where = { location: first.file };
+        if (first) where = { location: first.file, ...(first.line > 0 ? { line: first.line } : {}) };
       } else if (h1.length > 1) {
         problem = `Multiple <h1> (${h1.length}); use exactly one`;
         const extra = h1[1]!;

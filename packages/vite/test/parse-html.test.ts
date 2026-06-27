@@ -136,4 +136,14 @@ describe('parse-html: static-gaps capture (SEO024/026/027)', () => {
   it('reports an empty body as no headings (SEO027)', () => {
     expect(parseHtmlHead(html('<title>t</title>')).headings).toEqual([]);
   });
+
+  it('ignores headings outside <body> (SEO027)', () => {
+    const doc = '<!doctype html><html lang="en"><head><h1>nope</h1></head><body><h1>A</h1></body></html>';
+    expect(parseHtmlHead(doc).headings).toEqual([1]);
+  });
+
+  it('keeps a literal empty hreflang="" (SEO026)', () => {
+    const { tags } = parseHtmlHead(html('<link rel="alternate" hreflang="" href="/en" />'));
+    expect(tags.find((t) => t.kind === 'link')!.hreflang).toBe('');
+  });
 });

@@ -12,7 +12,8 @@ const recommendation =
 const HREFLANG_RE = /^[a-z]{2,3}(-[a-z]{4})?(-([a-z]{2}|\d{3}))?$/i;
 
 function isValidHreflang(v: string): boolean {
-  return v === 'x-default' || HREFLANG_RE.test(v);
+  // hreflang values are case-insensitive, so "X-default" is valid too.
+  return v.toLowerCase() === 'x-default' || HREFLANG_RE.test(v);
 }
 
 /**
@@ -45,7 +46,7 @@ export const seo026Hreflang: Rule = {
       if (badTag) {
         problem = `Invalid hreflang value "${badTag.hreflang}"`;
         location = badTag.file ?? head.file;
-      } else if (values.length >= 2 && !values.includes('x-default')) {
+      } else if (values.length >= 2 && !values.some((v) => v.toLowerCase() === 'x-default')) {
         problem = 'Multiple hreflang alternates without an x-default';
       }
       out.push(
