@@ -7,7 +7,7 @@ description: head 内の <script src> は解析をブロックすべきではあ
 
 ## チェック内容
 
-`<head>` 内の `<script src>` で `defer`・`async`・`type="module"` のいずれも持たないものを検出します。これらのスクリプトは `src/app.html` に置かれるため、本ルールはレンダリング解析(vite プラグイン)でのみ評価されます。
+`<head>` 内の `<script src>` で `defer`・`async`・`type="module"` のいずれも持たないものを検出します。`src/app.html` に書かれたもの(レンダリング解析で検出)でも、`<svelte:head>` に書かれたもの(静的解析で検出)でも対象です。`<script>` が無い head は検査しません。
 
 ## なぜ重要か
 

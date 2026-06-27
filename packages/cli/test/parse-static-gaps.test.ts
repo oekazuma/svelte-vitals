@@ -34,6 +34,27 @@ describe('parse: link href capture (PERF008)', () => {
   });
 });
 
+describe('parse: head script capture (PERF007/008)', () => {
+  it('marks a sync <script src> in svelte:head as blocking', () => {
+    const t = parseHeadTags(head('<script src="/a.js"></script>'), 'x.svelte').find((t) => t.kind === 'script')!;
+    expect(t.href).toBe('/a.js');
+    expect(t.blocking).toBe(true);
+  });
+  it('does not mark defer/async/module scripts as blocking', () => {
+    for (const attr of ['defer', 'async', 'type="module"']) {
+      const t = parseHeadTags(head(`<script src="/a.js" ${attr}></script>`), 'x.svelte').find(
+        (t) => t.kind === 'script'
+      )!;
+      expect(t.blocking).toBeUndefined();
+    }
+  });
+  it('keeps JSON-LD as kind jsonld (not script)', () => {
+    const tags = parseHeadTags(head('<script type="application/ld+json">{"@type":"Thing"}</script>'), 'x.svelte');
+    expect(tags.some((t) => t.kind === 'jsonld')).toBe(true);
+    expect(tags.some((t) => t.kind === 'script')).toBe(false);
+  });
+});
+
 describe('parse: image loading/srcset capture (PERF005/006)', () => {
   it('records lazy only for a literal loading="lazy"', () => {
     expect(parseFile('<img src="/a.jpg" loading="lazy" />', 'x.svelte').images[0]!.lazy).toBe(true);

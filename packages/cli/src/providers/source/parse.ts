@@ -162,10 +162,24 @@ function tagsFromHead(head: Node): ParsedTag[] {
         ...(hreflang !== undefined ? { hreflang } : {}),
         ...(href ? { href } : {})
       });
-    } else if (node.name === 'script' && attrText(node.attributes, 'type') === 'application/ld+json') {
-      const nodes = node.fragment?.nodes ?? [];
-      const raw = textFromNodes(nodes);
-      tags.push({ kind: 'jsonld', value: valueFromNodes(nodes), ...(raw !== undefined ? { jsonld: raw } : {}) });
+    } else if (node.name === 'script') {
+      const type = attrText(node.attributes, 'type');
+      if (type === 'application/ld+json') {
+        const nodes = node.fragment?.nodes ?? [];
+        const raw = textFromNodes(nodes);
+        tags.push({ kind: 'jsonld', value: valueFromNodes(nodes), ...(raw !== undefined ? { jsonld: raw } : {}) });
+      } else {
+        // External <script src> in <svelte:head> (PERF007/PERF008). Render-blocking
+        // unless defer/async/type=module; only literal src is modeled.
+        const src = attrText(node.attributes, 'src');
+        if (src) {
+          const blocking =
+            findAttr(node.attributes, 'defer') === undefined &&
+            findAttr(node.attributes, 'async') === undefined &&
+            type !== 'module';
+          tags.push({ kind: 'script', value: 'static', href: src, ...(blocking ? { blocking: true } : {}) });
+        }
+      }
     }
   }
   return tags;

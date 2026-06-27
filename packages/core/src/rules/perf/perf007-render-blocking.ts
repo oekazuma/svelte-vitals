@@ -7,8 +7,9 @@ const recommendation = 'Add defer (or type="module"), or async, to the <script> 
 /**
  * PERF007 — Render-blocking <script> in <head>. A <script src> without
  * defer/async/type=module blocks the parser. SvelteKit's own scripts are
- * module/deferred, so this catches hand-added blocking scripts (usually in
- * app.html) — hence rendered-only (static route heads emit nothing).
+ * module/deferred, so this catches hand-added blocking scripts — in app.html
+ * (rendered mode) or in <svelte:head> (static mode). A head with no <script>
+ * emits nothing (no signal), like the image rules.
  */
 export const perf007RenderBlockingScript: Rule = {
   id: 'PERF007',
@@ -26,8 +27,9 @@ export const perf007RenderBlockingScript: Rule = {
   async check(ctx: RuleContext): Promise<Result[]> {
     const out: Result[] = [];
     for (const head of ctx.heads) {
-      if (head.source !== 'rendered') continue; // blocking scripts live in app.html → rendered-only
-      const blocking = head.tags.filter((t) => t.kind === 'script' && t.blocking);
+      const scripts = head.tags.filter((t) => t.kind === 'script');
+      if (scripts.length === 0) continue; // no <script> in head → no render-blocking signal
+      const blocking = scripts.filter((t) => t.blocking);
       if (blocking.length > 0) {
         for (const tag of blocking) {
           out.push({

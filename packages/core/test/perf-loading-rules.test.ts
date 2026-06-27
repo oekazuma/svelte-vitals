@@ -78,17 +78,19 @@ describe('PERF007 render-blocking script', () => {
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toContain('/a.js');
   });
-  it('passes a rendered head with no blocking script', async () => {
+  it('passes a head with a non-blocking script', async () => {
     const rs = await perf007RenderBlockingScript.check(headsCtx(head('rendered', [{ kind: 'script', href: '/a.js' }])));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
-  it('emits nothing in static mode', async () => {
-    expect(
-      await perf007RenderBlockingScript.check(
-        headsCtx(head('static', [{ kind: 'script', href: '/a.js', blocking: true }]))
-      )
-    ).toHaveLength(0);
+  it('also flags a blocking script in static mode (svelte:head)', async () => {
+    const rs = await perf007RenderBlockingScript.check(
+      headsCtx(head('static', [{ kind: 'script', href: '/a.js', blocking: true }]))
+    );
+    expect(fails(rs)).toHaveLength(1);
+  });
+  it('emits nothing for a head with no <script> at all', async () => {
+    expect(await perf007RenderBlockingScript.check(headsCtx(head('rendered', [{ kind: 'title' }])))).toHaveLength(0);
   });
 });
 

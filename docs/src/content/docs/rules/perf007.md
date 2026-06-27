@@ -7,7 +7,7 @@ description: A head <script src> should not block parsing.
 
 ## What it checks
 
-Flags a `<script src>` in `<head>` that has neither `defer`, `async`, nor `type="module"`. Such scripts live in `src/app.html`, so this rule is evaluated only in rendered analysis (the vite plugin).
+Flags a `<script src>` in `<head>` that has neither `defer`, `async`, nor `type="module"` — whether authored in `src/app.html` (caught in rendered analysis) or in `<svelte:head>` (caught in static analysis). A head with no `<script>` is not checked.
 
 ## Why it matters
 

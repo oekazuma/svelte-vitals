@@ -11,7 +11,7 @@ Add PERF005–PERF008, four static Performance checks (#60):
   it is `loading="lazy"` (static/CLI mode).
 - **PERF006** Responsive image: flags an `<img>` without `srcset` (info; static/CLI mode).
 - **PERF007** Render-blocking script: flags a `<head>` `<script src>` without
-  `defer`/`async`/`type="module"` (rendered mode).
+  `defer`/`async`/`type="module"`, in app.html (rendered) or `<svelte:head>` (static).
 - **PERF008** Preconnect third-party origin: flags a well-known third-party
   origin (Google Fonts) referenced without a `preconnect`/`dns-prefetch` (info).
 

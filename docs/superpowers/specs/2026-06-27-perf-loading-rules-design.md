@@ -21,7 +21,7 @@ signal is invisible to a mode (mirrors `appliesTo` / image-channel conventions).
 | ------- | ---------------------------------- | -------- | ----- | ------------ |
 | PERF005 | LCP image not lazy-loaded          | warning  | route | static (CLI) |
 | PERF006 | Responsive images (`srcset`)       | info     | route | static (CLI) |
-| PERF007 | Render-blocking `<script>` in head | warning  | route | rendered     |
+| PERF007 | Render-blocking `<script>` in head | warning  | route | both         |
 | PERF008 | Preconnect for third-party origins | info     | route | both         |
 
 ## Background (architecture facts)
