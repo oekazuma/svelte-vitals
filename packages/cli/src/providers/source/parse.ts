@@ -150,6 +150,7 @@ function tagsFromHead(head: Node): ParsedTag[] {
       const asLiteral = attrText(node.attributes, 'as'); // literal keyword, or undefined for dynamic/absent
       const hasCrossorigin = findAttr(node.attributes, 'crossorigin') !== undefined;
       const hreflang = attrText(node.attributes, 'hreflang'); // literal (incl. '') or undefined for dynamic/absent
+      const href = attrText(node.attributes, 'href'); // literal URL (for PERF008 origin analysis), or undefined
       tags.push({
         kind: 'link',
         ...(rel ? { rel } : {}),
@@ -158,12 +159,27 @@ function tagsFromHead(head: Node): ParsedTag[] {
         ...(asLiteral ? { as: asLiteral } : {}),
         ...(hasCrossorigin ? { hasCrossorigin: true } : {}),
         // Keep a literal empty hreflang="" (present-but-invalid) so SEO026 can flag it.
-        ...(hreflang !== undefined ? { hreflang } : {})
+        ...(hreflang !== undefined ? { hreflang } : {}),
+        ...(href ? { href } : {})
       });
-    } else if (node.name === 'script' && attrText(node.attributes, 'type') === 'application/ld+json') {
-      const nodes = node.fragment?.nodes ?? [];
-      const raw = textFromNodes(nodes);
-      tags.push({ kind: 'jsonld', value: valueFromNodes(nodes), ...(raw !== undefined ? { jsonld: raw } : {}) });
+    } else if (node.name === 'script') {
+      const type = attrText(node.attributes, 'type');
+      if (type === 'application/ld+json') {
+        const nodes = node.fragment?.nodes ?? [];
+        const raw = textFromNodes(nodes);
+        tags.push({ kind: 'jsonld', value: valueFromNodes(nodes), ...(raw !== undefined ? { jsonld: raw } : {}) });
+      } else {
+        // External <script src> in <svelte:head> (PERF007/PERF008). Render-blocking
+        // unless defer/async/type=module; only literal src is modeled.
+        const src = attrText(node.attributes, 'src');
+        if (src) {
+          const blocking =
+            findAttr(node.attributes, 'defer') === undefined &&
+            findAttr(node.attributes, 'async') === undefined &&
+            type !== 'module';
+          tags.push({ kind: 'script', value: 'static', href: src, ...(blocking ? { blocking: true } : {}) });
+        }
+      }
     }
   }
   return tags;
@@ -219,6 +235,8 @@ export interface ParsedImage {
   hasHeight: boolean;
   hasLoading: boolean;
   hasAlt: boolean;
+  lazy: boolean;
+  hasSrcset: boolean;
   /** 1-based source line, or 0 if unknown. */
   line: number;
 }
@@ -245,6 +263,9 @@ function collectImages(node: Node, source: string, acc: ParsedImage[]): void {
       hasHeight: hasSpread || Boolean(findAttr(attrs, 'height')),
       hasLoading: hasSpread || Boolean(findAttr(attrs, 'loading')),
       hasAlt: hasSpread || Boolean(findAttr(attrs, 'alt')),
+      // A literal loading="lazy" only — a spread or dynamic loading={…} must not be flagged.
+      lazy: attrText(attrs, 'loading') === 'lazy',
+      hasSrcset: hasSpread || Boolean(findAttr(attrs, 'srcset')),
       line: lineOf(source, node.start)
     });
   }

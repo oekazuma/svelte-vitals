@@ -26,7 +26,13 @@ describe('parseHtmlHead', () => {
     });
     expect(tags).toContainEqual({ kind: 'meta', property: 'og:title', presence: 'own', value: 'static' });
     expect(tags).toContainEqual({ kind: 'meta', name: 'empty', presence: 'own', value: 'absent' });
-    expect(tags).toContainEqual({ kind: 'link', rel: 'canonical', presence: 'own', value: 'static' });
+    expect(tags).toContainEqual({
+      kind: 'link',
+      rel: 'canonical',
+      presence: 'own',
+      value: 'static',
+      href: 'https://x'
+    });
     expect(tags).toContainEqual({ kind: 'jsonld', presence: 'own', value: 'static', jsonld: '{"@type":"Thing"}' });
   });
 
@@ -145,5 +151,25 @@ describe('parse-html: static-gaps capture (SEO024/026/027)', () => {
   it('keeps a literal empty hreflang="" (SEO026)', () => {
     const { tags } = parseHtmlHead(html('<link rel="alternate" hreflang="" href="/en" />'));
     expect(tags.find((t) => t.kind === 'link')!.hreflang).toBe('');
+  });
+});
+
+describe('parse-html: script capture (PERF007/008)', () => {
+  it('marks a sync <script src> in head as blocking', () => {
+    const { tags } = parseHtmlHead(html('<script src="/a.js"></script>'));
+    const s = tags.find((t) => t.kind === 'script')!;
+    expect(s.href).toBe('/a.js');
+    expect(s.blocking).toBe(true);
+  });
+  it('does not mark defer/async/module scripts as blocking', () => {
+    for (const attr of ['defer', 'async', 'type="module"']) {
+      const { tags } = parseHtmlHead(html(`<script src="/a.js" ${attr}></script>`));
+      expect(tags.find((t) => t.kind === 'script')!.blocking).toBeUndefined();
+    }
+  });
+  it('still captures JSON-LD scripts as kind jsonld (not script)', () => {
+    const { tags } = parseHtmlHead(html('<script type="application/ld+json">{"@type":"Thing"}</script>'));
+    expect(tags.some((t) => t.kind === 'jsonld')).toBe(true);
+    expect(tags.some((t) => t.kind === 'script')).toBe(false);
   });
 });

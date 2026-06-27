@@ -59,7 +59,11 @@ export {
   seo024Charset,
   seo025ImageAlt,
   seo026Hreflang,
-  seo027Heading
+  seo027Heading,
+  perf005LcpImage,
+  perf006ResponsiveImage,
+  perf007RenderBlockingScript,
+  perf008Preconnect
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

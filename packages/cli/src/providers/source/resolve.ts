@@ -29,6 +29,8 @@ export function tagKey(tag: ParsedTag): string {
       return `link:${tag.rel ?? '?'}`;
     case 'jsonld':
       return 'jsonld';
+    case 'script':
+      return `script:${tag.href ?? '?'}`;
   }
 }
 

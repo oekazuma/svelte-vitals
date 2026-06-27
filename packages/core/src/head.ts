@@ -8,7 +8,7 @@ import type { Runtime } from './runtime.js';
  * these, so rules never need to know which mode produced them.
  */
 export interface HeadTag {
-  kind: 'title' | 'meta' | 'link' | 'jsonld';
+  kind: 'title' | 'meta' | 'link' | 'jsonld' | 'script';
   /** <meta name="...">. */
   name?: string;
   /** <meta property="..."> (e.g. og:image). */
@@ -29,6 +29,10 @@ export interface HeadTag {
   text?: string;
   /** Literal `hreflang` of a `<link rel="alternate">` (e.g. 'en', 'en-US', 'x-default'). Undefined when dynamic/absent. */
   hreflang?: string;
+  /** Literal href (link) / src (script) URL when static — used for third-party origin analysis (PERF008). */
+  href?: string;
+  /** True for a render-blocking `<script src>` in <head> (no defer/async/module) (PERF007). */
+  blocking?: boolean;
   /** Where this tag was set relative to the route. Never 'none' (absence = no tag). */
   presence: Exclude<Presence, 'none'>;
   /** Whether the tag's value is static/dynamic/absent (design §4). */

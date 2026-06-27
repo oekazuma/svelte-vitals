@@ -9,8 +9,11 @@ import {
   seo008JsonLd
 } from './seo/seo002-005-008.js';
 import { seo006Robots, seo007Sitemap, seo009HtmlLang } from './seo/project-rules.js';
-import { perf001ImageDimensions, perf002ImageLoading } from './perf/images.js';
+import { perf001ImageDimensions, perf002ImageLoading, perf006ResponsiveImage } from './perf/images.js';
 import { perf003PreloadAs, perf004FontPreloadCrossorigin } from './perf/resource-hints.js';
+import { perf005LcpImage } from './perf/perf005-lcp-image.js';
+import { perf007RenderBlockingScript } from './perf/perf007-render-blocking.js';
+import { perf008Preconnect } from './perf/perf008-preconnect.js';
 import {
   seo010Indexability,
   seo011TwitterCard,
@@ -64,7 +67,11 @@ export const allRules: Rule[] = [
   seo024Charset,
   seo025ImageAlt,
   seo026Hreflang,
-  seo027Heading
+  seo027Heading,
+  perf005LcpImage,
+  perf006ResponsiveImage,
+  perf007RenderBlockingScript,
+  perf008Preconnect
 ];
 
 export {
@@ -98,7 +105,11 @@ export {
   seo024Charset,
   seo025ImageAlt,
   seo026Hreflang,
-  seo027Heading
+  seo027Heading,
+  perf005LcpImage,
+  perf006ResponsiveImage,
+  perf007RenderBlockingScript,
+  perf008Preconnect
 };
 
 export interface RuleInfo {

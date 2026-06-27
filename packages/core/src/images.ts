@@ -9,6 +9,10 @@ export interface ImageInfo {
   hasLoading: boolean;
   /** True when the <img> has an `alt` attribute at all (incl. empty `alt=""` decorative; SEO025). */
   hasAlt: boolean;
+  /** True when the <img> has a literal `loading="lazy"` (PERF005). Dynamic/spread → false. */
+  lazy: boolean;
+  /** True when the <img> has a `srcset` attribute (PERF006). */
+  hasSrcset: boolean;
   /** 1-based source line, or 0 if unknown. */
   line: number;
   /** Source file the <img> came from. */
