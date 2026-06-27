@@ -123,6 +123,12 @@ function tagsFromHead(head: Node): ParsedTag[] {
     if (node?.type !== 'RegularElement') continue;
 
     if (node.name === 'meta') {
+      const charset = attrValue(node.attributes, 'charset');
+      if (charset !== 'absent') {
+        // <meta charset="…"> carries neither name nor property; model it as name:'charset' (SEO024).
+        tags.push({ kind: 'meta', name: 'charset', value: charset });
+        continue;
+      }
       const name = attrText(node.attributes, 'name');
       const property = attrText(node.attributes, 'property');
       const content = name === 'robots' ? attrText(node.attributes, 'content') : undefined;
@@ -143,13 +149,16 @@ function tagsFromHead(head: Node): ParsedTag[] {
       const hasAs = findAttr(node.attributes, 'as') !== undefined;
       const asLiteral = attrText(node.attributes, 'as'); // literal keyword, or undefined for dynamic/absent
       const hasCrossorigin = findAttr(node.attributes, 'crossorigin') !== undefined;
+      const hreflang = attrText(node.attributes, 'hreflang'); // literal (incl. '') or undefined for dynamic/absent
       tags.push({
         kind: 'link',
         ...(rel ? { rel } : {}),
         value: attrValue(node.attributes, 'href'),
         ...(hasAs ? { hasAs: true } : {}),
         ...(asLiteral ? { as: asLiteral } : {}),
-        ...(hasCrossorigin ? { hasCrossorigin: true } : {})
+        ...(hasCrossorigin ? { hasCrossorigin: true } : {}),
+        // Keep a literal empty hreflang="" (present-but-invalid) so SEO026 can flag it.
+        ...(hreflang !== undefined ? { hreflang } : {})
       });
     } else if (node.name === 'script' && attrText(node.attributes, 'type') === 'application/ld+json') {
       const nodes = node.fragment?.nodes ?? [];
@@ -209,6 +218,15 @@ export interface ParsedImage {
   hasWidth: boolean;
   hasHeight: boolean;
   hasLoading: boolean;
+  hasAlt: boolean;
+  /** 1-based source line, or 0 if unknown. */
+  line: number;
+}
+
+/** A page-body heading (<h1>–<h6>) parsed from one file (SEO027). */
+export interface ParsedHeading {
+  /** Heading level 1–6. */
+  level: number;
   /** 1-based source line, or 0 if unknown. */
   line: number;
 }
@@ -226,6 +244,7 @@ function collectImages(node: Node, source: string, acc: ParsedImage[]): void {
       hasWidth: hasSpread || Boolean(findAttr(attrs, 'width')),
       hasHeight: hasSpread || Boolean(findAttr(attrs, 'height')),
       hasLoading: hasSpread || Boolean(findAttr(attrs, 'loading')),
+      hasAlt: hasSpread || Boolean(findAttr(attrs, 'alt')),
       line: lineOf(source, node.start)
     });
   }
@@ -234,11 +253,29 @@ function collectImages(node: Node, source: string, acc: ParsedImage[]): void {
   }
 }
 
+/** Recursively collect page-body headings (<h1>–<h6>) anywhere in the template (SEO027). */
+function collectHeadings(node: Node, source: string, acc: ParsedHeading[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectHeadings(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  // Body headings only — a stray <h1> inside <svelte:head> is not a page heading.
+  if (node.type === 'SvelteHead') return;
+  if (node.type === 'RegularElement' && typeof node.name === 'string' && /^h[1-6]$/.test(node.name)) {
+    acc.push({ level: Number(node.name[1]), line: lineOf(source, node.start) });
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectHeadings(node[key], source, acc);
+  }
+}
+
 export interface ParsedFile {
   headTags: ParsedTag[];
   components: ComponentUse[];
   imports: ImportMap;
   images: ParsedImage[];
+  headings: ParsedHeading[];
 }
 
 /** Parse a .svelte source into its layer-1 head tags, component usages, and imports. */
@@ -250,11 +287,14 @@ export function parseFile(source: string, filename: string): ParsedFile {
   collectComponents(ast.fragment ?? ast, components);
   const images: ParsedImage[] = [];
   collectImages(ast.fragment ?? ast, source, images);
+  const headings: ParsedHeading[] = [];
+  collectHeadings(ast.fragment ?? ast, source, headings);
   return {
     headTags: heads.flatMap(tagsFromHead),
     components,
     imports: collectImports(ast),
-    images
+    images,
+    headings
   };
 }
 

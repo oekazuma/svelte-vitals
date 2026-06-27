@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { glob } from 'tinyglobby';
-import type { ResolvedHead, Value } from '@svelte-vitals/core';
+import type { ResolvedHead, ResolvedHeadings, Value } from '@svelte-vitals/core';
 import { parseHtmlHead } from './parse-html.js';
 
 /** Map a prerendered HTML path (relative to pages/, POSIX) to its route. */
@@ -14,6 +14,7 @@ export function deriveRouteFromHtmlPath(relPath: string): string {
 
 export interface CollectedHeads {
   heads: ResolvedHead[];
+  headings: ResolvedHeadings[];
   htmlLang: { presence: 'own' | 'none'; value: Value };
 }
 
@@ -27,17 +28,24 @@ export async function collectRenderedHeads(prerenderPagesDir: string): Promise<C
   );
 
   const heads: ResolvedHead[] = [];
+  const headings: ResolvedHeadings[] = [];
   let htmlLang: CollectedHeads['htmlLang'] = { presence: 'none', value: 'absent' };
 
   for (const { rel, parsed } of parsedFiles) {
     if (htmlLang.presence === 'none' && parsed.htmlLang.presence === 'own') htmlLang = parsed.htmlLang;
+    const route = deriveRouteFromHtmlPath(rel);
     heads.push({
-      route: deriveRouteFromHtmlPath(rel),
+      route,
       source: 'rendered',
       tags: parsed.tags,
       file: rel
     });
+    headings.push({
+      route,
+      // Rendered mode does not track source lines (line 0 = unknown); file is the HTML path.
+      headings: parsed.headings.map((level) => ({ level, line: 0, file: rel }))
+    });
   }
 
-  return { heads, htmlLang };
+  return { heads, headings, htmlLang };
 }

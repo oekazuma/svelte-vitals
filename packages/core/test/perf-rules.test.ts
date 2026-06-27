@@ -3,10 +3,11 @@ import { perf001ImageDimensions, perf002ImageLoading, defaultProject, defaultCon
 import type { ResolvedImages } from '../src/images.js';
 
 const config = defaultConfig;
-const img = (over: Partial<{ hasWidth: boolean; hasHeight: boolean; hasLoading: boolean }>) => ({
+const img = (over: Partial<{ hasWidth: boolean; hasHeight: boolean; hasLoading: boolean; hasAlt: boolean }>) => ({
   hasWidth: true,
   hasHeight: true,
   hasLoading: true,
+  hasAlt: true,
   line: 7,
   file: 'src/routes/+page.svelte',
   ...over
@@ -56,7 +57,14 @@ describe('PERF001 image dimensions', () => {
 
 describe('PERF001 image line omission when unknown (line: 0)', () => {
   it('omits line property when img.line === 0', async () => {
-    const imgNoLine = { hasWidth: false, hasHeight: true, hasLoading: true, line: 0, file: 'src/routes/+page.svelte' };
+    const imgNoLine = {
+      hasWidth: false,
+      hasHeight: true,
+      hasLoading: true,
+      hasAlt: true,
+      line: 0,
+      file: 'src/routes/+page.svelte'
+    };
     const ctx = ctxWith([{ route: '/a', images: [imgNoLine] }]);
     const [r] = await perf001ImageDimensions.check(ctx);
     expect('line' in r!).toBe(false);

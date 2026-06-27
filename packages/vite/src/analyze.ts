@@ -42,10 +42,10 @@ export async function analyze(
     failOn: options.failOn ?? 'critical'
   });
 
-  const { heads, htmlLang } = await collectRenderedHeads(prerenderPagesDir);
+  const { heads, headings, htmlLang } = await collectRenderedHeads(prerenderPagesDir);
   const project = await collectRenderedProject(cwd, htmlLang);
   const results = applyRuleSeverities(
-    await runRules(selectRules(allRules, config), { heads, project, config }),
+    await runRules(selectRules(allRules, config), { heads, headings, project, config }),
     config
   );
 

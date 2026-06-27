@@ -28,6 +28,10 @@ import {
   seo021RequiredProps
 } from './seo/seo016-021.js';
 import { seo022TitleLength, seo023DescriptionLength } from './seo/seo022-023.js';
+import { seo024Charset } from './seo/seo024-charset.js';
+import { seo025ImageAlt } from './seo/seo025-image-alt.js';
+import { seo026Hreflang } from './seo/seo026-hreflang.js';
+import { seo027Heading } from './seo/seo027-heading.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -56,7 +60,11 @@ export const allRules: Rule[] = [
   seo020Placeholder,
   seo021RequiredProps,
   seo022TitleLength,
-  seo023DescriptionLength
+  seo023DescriptionLength,
+  seo024Charset,
+  seo025ImageAlt,
+  seo026Hreflang,
+  seo027Heading
 ];
 
 export {
@@ -86,7 +94,11 @@ export {
   seo020Placeholder,
   seo021RequiredProps,
   seo022TitleLength,
-  seo023DescriptionLength
+  seo023DescriptionLength,
+  seo024Charset,
+  seo025ImageAlt,
+  seo026Hreflang,
+  seo027Heading
 };
 
 export interface RuleInfo {

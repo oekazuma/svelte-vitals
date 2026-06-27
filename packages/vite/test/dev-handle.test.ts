@@ -30,14 +30,19 @@ const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 const PAGE_NO_TITLE = '<html lang="en"><head><meta name="description" content="x"></head><body></body></html>';
 const PAGE_OK =
-  '<html lang="en"><head><title>Quality Widgets and Tools for Modern Builders Shop</title><meta name="description" content="Browse our curated selection of quality widgets and builder tools for modern projects and teams.">' +
+  '<html lang="en"><head><meta charset="utf-8"><title>Quality Widgets and Tools for Modern Builders Shop</title><meta name="description" content="Browse our curated selection of quality widgets and builder tools for modern projects and teams.">' +
   '<link rel="canonical" href="https://e.com/"><meta property="og:title" content="t">' +
   '<meta property="og:image" content="https://e.com/o.png">' +
   '<meta name="viewport" content="width=device-width, initial-scale=1">' +
   '<meta name="twitter:card" content="summary_large_image">' +
   '<meta property="og:description" content="x">' +
   '<meta property="og:url" content="https://e.com/">' +
-  '<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Home","url":"https://e.com/"}</script></head><body></body></html>';
+  '<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Home","url":"https://e.com/"}</script></head><body><h1>Quality Widgets</h1></body></html>';
+
+// PAGE_OK with a second <h1> in the body — everything else stays clean, so the
+// only finding is SEO027 (heading hierarchy), confirming the rule sees the
+// rendered body through the dev hook.
+const PAGE_TWO_H1 = PAGE_OK.replace('</body>', '<h1>Second heading</h1></body>');
 
 afterEach(() => vi.restoreAllMocks());
 
@@ -58,6 +63,16 @@ describe('svelteVitalsHandle', () => {
     await handle({ event: fakeEvent('/ok', '/ok'), resolve: resolveWith([PAGE_OK]) });
     await flush();
     expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('warns about multiple <h1> from the rendered body (SEO027)', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/two-h1', '/two-h1'), resolve: resolveWith([PAGE_TWO_H1]) });
+    await flush();
+    const out = warn.mock.calls.map((c) => String(c[0])).join('\n');
+    expect(out).toContain('[svelte-vitals] /two-h1');
+    expect(out).toContain('SEO027');
   });
 
   it('returns each chunk unchanged', async () => {

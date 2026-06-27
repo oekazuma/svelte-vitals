@@ -2,8 +2,10 @@ import type {
   Config,
   HeadProvider,
   HeadTag,
+  HeadingInfo,
   ImageInfo,
   ResolvedHead,
+  ResolvedHeadings,
   ResolvedImages,
   Runtime
 } from '@svelte-vitals/core';
@@ -55,6 +57,7 @@ export async function chainFiles(
 interface RouteFacts {
   head: ResolvedHead;
   images: ResolvedImages;
+  headings: ResolvedHeadings;
 }
 
 /**
@@ -68,6 +71,7 @@ async function resolveRoute(rt: Runtime, cwd: string, pageRel: string, config: C
   let broadOwn = false;
   let broadInherited = false;
   const images: ImageInfo[] = [];
+  const headings: HeadingInfo[] = [];
 
   for (const { rel, isPage } of files) {
     const source = await rt.readFile(rt.join(cwd, rel));
@@ -75,6 +79,9 @@ async function resolveRoute(rt: Runtime, cwd: string, pageRel: string, config: C
 
     for (const img of parsed.images) {
       images.push({ ...img, file: rel });
+    }
+    for (const heading of parsed.headings) {
+      headings.push({ ...heading, file: rel });
     }
 
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]));
@@ -99,7 +106,8 @@ async function resolveRoute(rt: Runtime, cwd: string, pageRel: string, config: C
   const route = deriveRoute(pageRel);
   return {
     head: { route, source: 'static', tags: [...composed.values()], file: pageRel },
-    images: { route, images }
+    images: { route, images },
+    headings: { route, headings }
   };
 }
 
@@ -113,12 +121,13 @@ export async function collectRoutes(
   rt: Runtime,
   cwd: string,
   config: Config = defaultConfig
-): Promise<{ heads: ResolvedHead[]; images: ResolvedImages[] }> {
+): Promise<{ heads: ResolvedHead[]; images: ResolvedImages[]; headings: ResolvedHeadings[] }> {
   const pages = await enumerateRoutePages(rt, cwd);
   const facts = await Promise.all(pages.map((page) => resolveRoute(rt, cwd, page, config)));
   return {
     heads: facts.map((f) => f.head),
-    images: facts.map((f) => f.images)
+    images: facts.map((f) => f.images),
+    headings: facts.map((f) => f.headings)
   };
 }
 

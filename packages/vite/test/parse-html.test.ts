@@ -111,3 +111,39 @@ describe('parse-html: title/description text capture', () => {
     expect(desc.text).toBe('A & B — C');
   });
 });
+
+describe('parse-html: static-gaps capture (SEO024/026/027)', () => {
+  it('captures <meta charset> as a name:charset tag (SEO024)', () => {
+    const { tags } = parseHtmlHead(html('<meta charset="utf-8" />'));
+    expect(tags).toContainEqual({ kind: 'meta', name: 'charset', presence: 'own', value: 'static' });
+  });
+
+  it('captures hreflang on a rel=alternate link (SEO026)', () => {
+    const { tags } = parseHtmlHead(html('<link rel="alternate" hreflang="en-US" href="/en" />'));
+    const link = tags.find((t) => t.kind === 'link')!;
+    expect(link.rel).toBe('alternate');
+    expect(link.hreflang).toBe('en-US');
+  });
+
+  it('collects page-body heading levels in document order (SEO027)', () => {
+    // h2 before h1 locks document order (not level-grouped) and matches the static provider.
+    const doc =
+      '<!doctype html><html lang="en"><head><title>t</title></head>' +
+      '<body><h2>Intro</h2><section><h1>A</h1><h2>B</h2></section></body></html>';
+    expect(parseHtmlHead(doc).headings).toEqual([2, 1, 2]);
+  });
+
+  it('reports an empty body as no headings (SEO027)', () => {
+    expect(parseHtmlHead(html('<title>t</title>')).headings).toEqual([]);
+  });
+
+  it('ignores headings outside <body> (SEO027)', () => {
+    const doc = '<!doctype html><html lang="en"><head><h1>nope</h1></head><body><h1>A</h1></body></html>';
+    expect(parseHtmlHead(doc).headings).toEqual([1]);
+  });
+
+  it('keeps a literal empty hreflang="" (SEO026)', () => {
+    const { tags } = parseHtmlHead(html('<link rel="alternate" hreflang="" href="/en" />'));
+    expect(tags.find((t) => t.kind === 'link')!.hreflang).toBe('');
+  });
+});

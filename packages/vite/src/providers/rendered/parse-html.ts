@@ -1,4 +1,4 @@
-import { parse } from 'node-html-parser';
+import { parse, HTMLElement } from 'node-html-parser';
 import type { HeadTag, Value } from '@svelte-vitals/core';
 
 function attrValue(v: string | undefined): Value {
@@ -8,6 +8,8 @@ function attrValue(v: string | undefined): Value {
 export interface ParsedHtmlHead {
   tags: HeadTag[];
   htmlLang: { presence: 'own' | 'none'; value: Value };
+  /** Page-body heading levels (the `n` in <hn>) found in the document (SEO027). */
+  headings: number[];
 }
 
 /** Parse a fully-rendered HTML document's <head> into normalized head tags. */
@@ -30,6 +32,12 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
   for (const meta of head.querySelectorAll('meta')) {
     const name = meta.getAttribute('name');
     const property = meta.getAttribute('property');
+    const charset = meta.getAttribute('charset');
+    if (charset != null) {
+      // <meta charset="…"> carries neither name nor property; model it as name:'charset' (SEO024).
+      tags.push({ kind: 'meta', name: 'charset', presence: 'own', value: attrValue(charset) });
+      continue;
+    }
     if (!name && !property) continue;
     const content = name === 'robots' ? meta.getAttribute('content') : null;
     const noindex = content != null && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
@@ -50,13 +58,16 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
     if (!rel) continue;
     const asAttr = link.getAttribute('as'); // rendered HTML: literal string or undefined
     const hasCrossorigin = link.hasAttribute('crossorigin');
+    const hreflang = link.getAttribute('hreflang');
     tags.push({
       kind: 'link',
       rel,
       presence: 'own',
       value: attrValue(link.getAttribute('href')),
       ...(asAttr != null ? { hasAs: true, as: asAttr } : {}),
-      ...(hasCrossorigin ? { hasCrossorigin: true } : {})
+      ...(hasCrossorigin ? { hasCrossorigin: true } : {}),
+      // Keep a literal empty hreflang="" (present-but-invalid) so SEO026 can flag it.
+      ...(hreflang != null ? { hreflang } : {})
     });
   }
 
@@ -82,5 +93,21 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
       ? { presence: 'none' as const, value: 'absent' as const }
       : { presence: 'own' as const, value: attrValue(lang) };
 
-  return { tags, htmlLang };
+  // Page-body headings (SEO027). Walk the parsed tree in document order so the
+  // levels match the static provider (which collects in AST order) — grouping by
+  // level would diverge for inputs like <h2>…<h1>. Scope to <body> so a stray
+  // heading in <head> is not counted (fallback to root for fragment HTML).
+  const headings: number[] = [];
+  const collectHeadings = (el: HTMLElement): void => {
+    for (const child of el.childNodes) {
+      if (child instanceof HTMLElement) {
+        const m = /^h([1-6])$/i.exec(child.rawTagName ?? '');
+        if (m) headings.push(Number(m[1]));
+        collectHeadings(child);
+      }
+    }
+  };
+  collectHeadings(root.querySelector('body') ?? root);
+
+  return { tags, htmlLang, headings };
 }
