@@ -1,4 +1,4 @@
-import type { Fix, Result, Severity } from '../../types.js';
+import type { Category, Fix, Result, Severity } from '../../types.js';
 import type { ImageInfo } from '../../images.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 
@@ -6,6 +6,8 @@ export interface ImageRuleOptions {
   id: string;
   title: string;
   severity: Severity;
+  /** Vitals category (default 'performance'); SEO025 (alt text) reports under 'seo'. */
+  category?: Category;
   /** Noun phrase for messages, e.g. '<img> width/height'. */
   label: string;
   recommendation: string;
@@ -15,13 +17,14 @@ export interface ImageRuleOptions {
   ok: (img: ImageInfo) => boolean;
 }
 
-/** Build a route-scoped Performance rule that checks each <img> against `ok` (issue #10). */
+/** Build a route-scoped <img> rule that checks each image against `ok` (issue #10). */
 export function imageRule(opts: ImageRuleOptions): Rule {
   const docsUrl = docsUrlFor(opts.id);
+  const category = opts.category ?? 'performance';
   return {
     id: opts.id,
     title: opts.title,
-    category: 'performance',
+    category,
     severity: opts.severity,
     scope: 'route',
     rationale: opts.rationale,
@@ -38,7 +41,7 @@ export function imageRule(opts: ImageRuleOptions): Rule {
           // score. A passing result carries no `fix` — there is nothing to remediate.
           out.push({
             id: opts.id,
-            category: 'performance',
+            category,
             severity: opts.severity,
             detection: { presence: 'own', value: 'static' },
             route: route.route,
@@ -51,7 +54,7 @@ export function imageRule(opts: ImageRuleOptions): Rule {
         for (const img of bad) {
           out.push({
             id: opts.id,
-            category: 'performance',
+            category,
             severity: opts.severity,
             detection: { presence: 'none', value: 'absent' },
             route: route.route,

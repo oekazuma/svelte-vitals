@@ -27,6 +27,8 @@ export interface HeadTag {
   jsonld?: string;
   /** Literal visible text of a static <title> or <meta name="description"> content, set only when static. Undefined when dynamic. */
   text?: string;
+  /** Literal `hreflang` of a `<link rel="alternate">` (e.g. 'en', 'en-US', 'x-default'). Undefined when dynamic/absent. */
+  hreflang?: string;
   /** Where this tag was set relative to the route. Never 'none' (absence = no tag). */
   presence: Exclude<Presence, 'none'>;
   /** Whether the tag's value is static/dynamic/absent (design §4). */

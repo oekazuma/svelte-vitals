@@ -1,12 +1,15 @@
 import type { Category, Config, Detection, Fix, Project, Result, Scope, Severity, TreatDynamicAs } from './types.js';
 import type { ResolvedHead } from './head.js';
 import type { ResolvedImages } from './images.js';
+import type { ResolvedHeadings } from './headings.js';
 
 /** Input given to every rule. Mode-independent: rules see only ResolvedHead[] (design §8, §10). */
 export interface RuleContext {
   heads: ResolvedHead[];
   /** Per-route <img> elements for Performance rules (absent in modes that don't collect them). */
   images?: ResolvedImages[];
+  /** Per-route page-body headings for SEO027 (absent in modes that don't collect them). */
+  headings?: ResolvedHeadings[];
   project: Project;
   config: Config;
 }

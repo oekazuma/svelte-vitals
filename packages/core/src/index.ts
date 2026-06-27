@@ -19,6 +19,7 @@ export { defaultConfig, defineConfig, defaultProject } from './types.js';
 
 export type { HeadTag, ResolvedHead, HeadProvider } from './head.js';
 export type { ImageInfo, ResolvedImages } from './images.js';
+export type { HeadingInfo, ResolvedHeadings } from './headings.js';
 export { ROBOTS_SOURCE_PATHS, SITEMAP_SOURCE_PATHS } from './project-paths.js';
 export type { Runtime } from './runtime.js';
 export type { Rule, RuleContext } from './rule.js';
@@ -54,7 +55,11 @@ export {
   seo020Placeholder,
   seo021RequiredProps,
   seo022TitleLength,
-  seo023DescriptionLength
+  seo023DescriptionLength,
+  seo024Charset,
+  seo025ImageAlt,
+  seo026Hreflang,
+  seo027Heading
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

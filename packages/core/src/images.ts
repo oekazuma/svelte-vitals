@@ -7,6 +7,8 @@ export interface ImageInfo {
   hasWidth: boolean;
   hasHeight: boolean;
   hasLoading: boolean;
+  /** True when the <img> has an `alt` attribute at all (incl. empty `alt=""` decorative; SEO025). */
+  hasAlt: boolean;
   /** 1-based source line, or 0 if unknown. */
   line: number;
   /** Source file the <img> came from. */

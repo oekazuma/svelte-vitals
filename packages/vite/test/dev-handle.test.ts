@@ -30,14 +30,14 @@ const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 const PAGE_NO_TITLE = '<html lang="en"><head><meta name="description" content="x"></head><body></body></html>';
 const PAGE_OK =
-  '<html lang="en"><head><title>Quality Widgets and Tools for Modern Builders Shop</title><meta name="description" content="Browse our curated selection of quality widgets and builder tools for modern projects and teams.">' +
+  '<html lang="en"><head><meta charset="utf-8"><title>Quality Widgets and Tools for Modern Builders Shop</title><meta name="description" content="Browse our curated selection of quality widgets and builder tools for modern projects and teams.">' +
   '<link rel="canonical" href="https://e.com/"><meta property="og:title" content="t">' +
   '<meta property="og:image" content="https://e.com/o.png">' +
   '<meta name="viewport" content="width=device-width, initial-scale=1">' +
   '<meta name="twitter:card" content="summary_large_image">' +
   '<meta property="og:description" content="x">' +
   '<meta property="og:url" content="https://e.com/">' +
-  '<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Home","url":"https://e.com/"}</script></head><body></body></html>';
+  '<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Home","url":"https://e.com/"}</script></head><body><h1>Quality Widgets</h1></body></html>';
 
 afterEach(() => vi.restoreAllMocks());
 

@@ -100,9 +100,10 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   const collected = await collectRoutes(rt, cwd, config);
   const heads = collected.heads.filter((h) => matches(h.route));
   const images = collected.images.filter((i) => matches(i.route));
+  const headings = collected.headings.filter((h) => matches(h.route));
   const project = await collectProjectFacts(rt, cwd);
   const rules = selectRules(allRules, config);
-  const results = applyRuleSeverities(await runRules(rules, { heads, images, project, config }), config);
+  const results = applyRuleSeverities(await runRules(rules, { heads, images, headings, project, config }), config);
   return { results, config, version: readPackageVersion() };
 }
 

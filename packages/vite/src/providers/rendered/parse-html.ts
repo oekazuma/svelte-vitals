@@ -8,6 +8,8 @@ function attrValue(v: string | undefined): Value {
 export interface ParsedHtmlHead {
   tags: HeadTag[];
   htmlLang: { presence: 'own' | 'none'; value: Value };
+  /** Page-body heading levels (the `n` in <hn>) found in the document (SEO027). */
+  headings: number[];
 }
 
 /** Parse a fully-rendered HTML document's <head> into normalized head tags. */
@@ -30,6 +32,12 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
   for (const meta of head.querySelectorAll('meta')) {
     const name = meta.getAttribute('name');
     const property = meta.getAttribute('property');
+    const charset = meta.getAttribute('charset');
+    if (charset != null) {
+      // <meta charset="…"> carries neither name nor property; model it as name:'charset' (SEO024).
+      tags.push({ kind: 'meta', name: 'charset', presence: 'own', value: attrValue(charset) });
+      continue;
+    }
     if (!name && !property) continue;
     const content = name === 'robots' ? meta.getAttribute('content') : null;
     const noindex = content != null && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
@@ -50,13 +58,15 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
     if (!rel) continue;
     const asAttr = link.getAttribute('as'); // rendered HTML: literal string or undefined
     const hasCrossorigin = link.hasAttribute('crossorigin');
+    const hreflang = link.getAttribute('hreflang');
     tags.push({
       kind: 'link',
       rel,
       presence: 'own',
       value: attrValue(link.getAttribute('href')),
       ...(asAttr != null ? { hasAs: true, as: asAttr } : {}),
-      ...(hasCrossorigin ? { hasCrossorigin: true } : {})
+      ...(hasCrossorigin ? { hasCrossorigin: true } : {}),
+      ...(hreflang ? { hreflang } : {})
     });
   }
 
@@ -82,5 +92,13 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
       ? { presence: 'none' as const, value: 'absent' as const }
       : { presence: 'own' as const, value: attrValue(lang) };
 
-  return { tags, htmlLang };
+  // Page-body headings (SEO027). node-html-parser parses the whole document, so
+  // <h1>–<h6> are reachable here even though the rules above only inspect <head>.
+  const headings: number[] = [];
+  for (let level = 1; level <= 6; level++) {
+    const count = root.querySelectorAll(`h${level}`).length;
+    for (let i = 0; i < count; i++) headings.push(level);
+  }
+
+  return { tags, htmlLang, headings };
 }
