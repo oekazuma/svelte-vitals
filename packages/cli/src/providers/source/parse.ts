@@ -1,6 +1,6 @@
 import { parse } from 'svelte/compiler';
 import type { HeadTag } from '@svelte-vitals/core';
-import type { Value, EachBlockFact, EffectFact } from '@svelte-vitals/core';
+import type { Value, EachBlockFact, EffectFact, SourceSpan } from '@svelte-vitals/core';
 import { collectImports, type ImportMap } from './imports.js';
 
 /** A head tag parsed from one file, before layout-chain presence is assigned. */
@@ -419,14 +419,43 @@ function bodyOnlyAssignsState(fn: Node, stateNames: Set<string>): boolean {
   return body.body.every((s: Node) => s?.type === 'ExpressionStatement' && isStateAssign(s.expression));
 }
 
-/** Parse a component's reactivity/correctness facts (Correctness category, CLI/static only). */
+/** Attributes whose value navigates/executes — a literal `javascript:` here is an XSS vector (SEC002). */
+const URL_ATTRS = ['href', 'src', 'action', 'formaction'];
+
+/** Recursively collect Security facts: `{@html}` tags and literal `javascript:` URLs (SEC001/SEC002). */
+function collectSecurityFacts(node: Node, source: string, htmlTags: SourceSpan[], jsUrls: SourceSpan[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectSecurityFacts(child, source, htmlTags, jsUrls);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'HtmlTag') htmlTags.push({ line: lineOf(source, node.start) });
+  if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
+    for (const name of URL_ATTRS) {
+      const attr = findAttr(node.attributes, name);
+      if (!attr) continue;
+      const value = attrText(node.attributes, name); // literal only; dynamic href={url} → undefined
+      if (value !== undefined && /^\s*javascript:/i.test(value)) {
+        jsUrls.push({ line: lineOf(source, attr.start ?? node.start) });
+      }
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectSecurityFacts(node[key], source, htmlTags, jsUrls);
+  }
+}
+
+/** Parse a component's reactivity/correctness + security facts (CLI/static only). */
 export function parseComponentFacts(
   source: string,
   filename: string
-): { eachBlocks: EachBlockFact[]; effects: EffectFact[] } {
+): { eachBlocks: EachBlockFact[]; effects: EffectFact[]; htmlTags: SourceSpan[]; javascriptUrls: SourceSpan[] } {
   const ast = parse(source, { modern: true, filename }) as Node;
   const eachBlocks: EachBlockFact[] = [];
   collectEachBlocks(ast.fragment ?? ast, source, eachBlocks);
+  const htmlTags: SourceSpan[] = [];
+  const javascriptUrls: SourceSpan[] = [];
+  collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
 
   const effects: EffectFact[] = [];
   const program = ast.instance?.content;
@@ -447,5 +476,5 @@ export function parseComponentFacts(
       });
     });
   }
-  return { eachBlocks, effects };
+  return { eachBlocks, effects, htmlTags, javascriptUrls };
 }

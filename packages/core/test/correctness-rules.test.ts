@@ -13,6 +13,8 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   file: 'src/lib/C.svelte',
   eachBlocks: [],
   effects: [],
+  htmlTags: [],
+  javascriptUrls: [],
   ...over
 });
 
