@@ -47,10 +47,13 @@ export async function detectProject(rt: Runtime, cwd: string): Promise<void> {
   );
 }
 
-/** Enumerate route page files relative to the project root (design §5). */
+/** Enumerate route page files relative to the project root (design §5, #12: incl. +page@ breakouts). */
 export async function enumerateRoutePages(rt: Runtime, cwd: string): Promise<string[]> {
-  const pages = await rt.glob(`${ROUTES_DIR}/**/+page.svelte`, cwd);
-  return pages.sort();
+  const [plain, breakout] = await Promise.all([
+    rt.glob(`${ROUTES_DIR}/**/+page.svelte`, cwd),
+    rt.glob(`${ROUTES_DIR}/**/+page@*.svelte`, cwd)
+  ]);
+  return [...new Set([...plain, ...breakout])].sort();
 }
 
 async function existsAny(rt: Runtime, cwd: string, paths: readonly string[]): Promise<boolean> {

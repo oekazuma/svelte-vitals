@@ -26,10 +26,24 @@ export function createMemoryRuntime(files: Record<string, string>): Runtime {
 }
 
 function globToRegExp(pattern: string): RegExp {
-  const escaped = pattern.replace(/[.+^${}()|[\]\\]/g, '\\$&');
-  const body = escaped
-    .replace(/\*\*\//g, '(?:.*/)?')
-    .replace(/\*\*/g, '.*')
-    .replace(/\*/g, '[^/]*');
+  // Tokenize char-by-char so `**/` expands to "any depth" without the later `*`
+  // pass corrupting the inserted regex (the previous string-replace approach only
+  // matched a single nested segment).
+  let body = '';
+  for (let i = 0; i < pattern.length; i++) {
+    if (pattern.startsWith('**/', i)) {
+      body += '(?:[^/]+/)*'; // zero or more full path segments
+      i += 2;
+    } else if (pattern.startsWith('**', i)) {
+      body += '.*';
+      i += 1;
+    } else if (pattern[i] === '*') {
+      body += '[^/]*';
+    } else if (/[.+^${}()|[\]\\]/.test(pattern[i]!)) {
+      body += `\\${pattern[i]}`;
+    } else {
+      body += pattern[i];
+    }
+  }
   return new RegExp(`^${body}$`);
 }
