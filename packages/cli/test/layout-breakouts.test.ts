@@ -73,6 +73,23 @@ describe('chainFiles — breakout resolution (#12)', () => {
       'src/routes/(app)/item/+page@nope.svelte'
     ]);
   });
+
+  it('+layout@seg resolves a STRICT ancestor, even when the segment name repeats its own dir', () => {
+    // b/a/b/+layout@b must reset to the OUTER ancestor `src/routes/b`, not its own dir,
+    // so the intermediate b/a/+layout.svelte is skipped. `@` targets strict ancestors only.
+    const map = new Map<string, string>([
+      L('src/routes/b'),
+      L('src/routes/b/a'),
+      L('src/routes/b/a/b', '+layout@b.svelte'),
+      L('src/routes/b/a/b/c')
+    ]);
+    expect(rels('src/routes/b/a/b/c/+page.svelte', map)).toEqual([
+      'src/routes/b/+layout.svelte',
+      'src/routes/b/a/b/+layout@b.svelte',
+      'src/routes/b/a/b/c/+layout.svelte',
+      'src/routes/b/a/b/c/+page.svelte'
+    ]);
+  });
 });
 
 describe('deriveRoute — breakout filenames (#12)', () => {
@@ -92,6 +109,14 @@ describe('enumerateRoutePages — includes +page@ breakouts (#12)', () => {
       'src/routes/(app)/item/+page@.svelte',
       'src/routes/+page.svelte'
     ]);
+  });
+
+  it('ignores leading-dot directories, matching the real runtime glob (tinyglobby dot:false)', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+page.svelte': 'x',
+      'src/routes/.well-known/+page.svelte': 'y'
+    });
+    expect(await enumerateRoutePages(rt, '')).toEqual(['src/routes/+page.svelte']);
   });
 });
 

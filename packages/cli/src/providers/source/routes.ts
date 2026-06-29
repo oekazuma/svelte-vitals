@@ -50,12 +50,18 @@ function parseAt(rel: string): string | null {
  * Directory segments a `@`-leaf attaches to: null = default (own dir), [] = root,
  * else the prefix up to the LAST segment equal to the `@`-segment (null when the
  * segment is unknown → caller falls back to the default, never crashes).
+ *
+ * `strictAncestor` excludes the file's own directory segment from the search:
+ * a `+layout@seg` resets to a STRICT ancestor (a layout cannot be its own parent),
+ * so a `+layout@b` in `…/b` must target an outer `b`, never itself. A page leaf may
+ * legitimately attach to its own directory's layout, so it keeps the full search.
  */
-function atTarget(rel: string, dirSegs: string[]): string[] | null {
+function atTarget(rel: string, dirSegs: string[], strictAncestor = false): string[] | null {
   const at = parseAt(rel);
   if (at === null) return null; // no breakout
   if (at === '') return []; // root layout
-  const i = dirSegs.lastIndexOf(at);
+  const haystack = strictAncestor ? dirSegs.slice(0, -1) : dirSegs;
+  const i = haystack.lastIndexOf(at);
   return i >= 0 ? dirSegs.slice(0, i + 1) : null;
 }
 
@@ -101,7 +107,7 @@ export function chainFiles(pageRel: string, layouts: Map<string, string>): Array
     if (!found || seen.has(found.rel)) break;
     seen.add(found.rel);
     chain.unshift(found.rel);
-    const reset = atTarget(found.rel, found.segs);
+    const reset = atTarget(found.rel, found.segs, true);
     // default (or unknown segment) → parent is strictly above the layout's dir;
     // a `+layout@seg` that names a strict ancestor jumps straight to it.
     dir = reset !== null && reset.length < found.segs.length ? reset : found.segs.slice(0, -1);

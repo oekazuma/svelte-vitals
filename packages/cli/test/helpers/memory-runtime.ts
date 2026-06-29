@@ -32,7 +32,9 @@ function globToRegExp(pattern: string): RegExp {
   let body = '';
   for (let i = 0; i < pattern.length; i++) {
     if (pattern.startsWith('**/', i)) {
-      body += '(?:[^/]+/)*'; // zero or more full path segments
+      // zero or more full path segments, excluding leading-dot dirs to match the
+      // real runtime glob (tinyglobby runs with dot:false, so it skips hidden dirs).
+      body += '(?:(?!\\.)[^/]+/)*';
       i += 2;
     } else if (pattern.startsWith('**', i)) {
       body += '.*';

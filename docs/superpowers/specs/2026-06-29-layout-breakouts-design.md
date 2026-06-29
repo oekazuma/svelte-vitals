@@ -46,9 +46,13 @@ returns `Map<dirRel, filename>` (a directory has one layout). Built once per run
 `chainFiles(pageRel, layouts)` returns `[{rel,isPage:false}...root-first, {rel:pageRel,isPage:true}]`:
 
 - `parseAt(filename)` → the `@`-segment (`''` for `@`, `null` for no `@`).
-- `atTarget(filename, dirSegs)` → directory segments to attach to: `null` (default
-  = own dir), `[]` (root), or the prefix up to the **last** segment equal to the
-  `@`-segment (not found → fall back to default, never crash).
+- `atTarget(filename, dirSegs, strictAncestor?)` → directory segments to attach to:
+  `null` (default = own dir), `[]` (root), or the prefix up to the **last** segment
+  equal to the `@`-segment (not found → fall back to default, never crash).
+  `strictAncestor` (used for `+layout@seg` resets) excludes the file's own dir
+  segment from the search — a layout cannot be its own parent, so `+layout@b` in
+  `…/b` must target an **outer** `b`. The page leaf keeps the full search (a page
+  may legitimately attach to its own directory's layout).
 - `buildChain(attachSegs)` walks upward from the attach dir: find the nearest
   layout at-or-above the current dir, prepend it, then continue from its parent —
   **unless that layout is itself `+layout@seg`**, in which case jump to `seg`'s
@@ -65,9 +69,11 @@ and drops `(group)` segments — URL unchanged by breakouts.
 
 - `chainFiles` unit (with a layout map): default chain unchanged; `+page@`
   (root), `+page@seg`, `+page@(group)`, `+page@[param]`; `+layout@` reset skips an
-  intermediate layout; unknown `@seg` falls back; cycle guard.
+  intermediate layout; `+layout@seg` resolves a strict ancestor even when `seg`
+  repeats its own dir name; unknown `@seg` falls back; cycle guard.
 - `deriveRoute`: `+page@(app).svelte` etc. yield the directory's route.
-- `enumerateRoutePages`: `+page@x.svelte` is enumerated.
+- `enumerateRoutePages`: `+page@x.svelte` is enumerated; leading-dot dirs are
+  ignored (memory runtime mirrors tinyglobby `dot:false`).
 - Integration (`collectRoutes`, memory runtime): a breakout page inherits the
   reset chain (correct inherited vs skipped tags).
 - Full `pnpm -r test` + typecheck + lint green.
