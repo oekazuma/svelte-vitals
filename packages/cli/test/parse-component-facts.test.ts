@@ -30,6 +30,15 @@ describe('parseComponentFacts — $effect (CORRECT002)', () => {
   it('reports no effects when there are none', () => {
     expect(facts('let count = $state(0);')).toEqual([]);
   });
+  it('treats $state.raw as a state declaration', () => {
+    const e = facts('let big = $state.raw([]); $effect(() => { big = []; });');
+    expect(e[0]!.assignsOnlyState).toBe(true);
+  });
+  it('does not treat $state.snapshot as a state declaration', () => {
+    // `snap` is a snapshot read, not reactive state — assigning it is not the derive smell.
+    const e = facts('let count = $state(0); let snap = $state.snapshot(count); $effect(() => { snap = count; });');
+    expect(e[0]!.assignsOnlyState).toBe(false);
+  });
 });
 
 describe('collectComponentFacts (memory runtime)', () => {

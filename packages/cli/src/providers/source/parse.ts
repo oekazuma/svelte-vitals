@@ -359,11 +359,25 @@ function walkEstree(node: Node, visit: (n: Node) => void): void {
   }
 }
 
-/** Whether a CallExpression callee is `$rune` or `$rune.member` (e.g. `$state`, `$effect.pre`). */
+/** Whether a CallExpression callee is `$rune` or `$rune.member` (e.g. `$effect`, `$effect.pre`). */
 function isRuneCall(node: Node, rune: string): boolean {
   const c = node?.callee;
   if (c?.type === 'Identifier') return c.name === rune;
   if (c?.type === 'MemberExpression') return c.object?.type === 'Identifier' && c.object.name === rune;
+  return false;
+}
+
+/**
+ * Whether a CallExpression is a `$state` *declaration* form: `$state(...)`,
+ * `$state.raw(...)`, or `$state.frozen(...)` — but NOT readers like
+ * `$state.snapshot(...)`, which would otherwise pollute the state-name set (CORRECT002).
+ */
+function isStateDeclaration(node: Node): boolean {
+  const c = node?.callee;
+  if (c?.type === 'Identifier') return c.name === '$state';
+  if (c?.type === 'MemberExpression' && c.object?.type === 'Identifier' && c.object.name === '$state') {
+    return c.property?.type === 'Identifier' && (c.property.name === 'raw' || c.property.name === 'frozen');
+  }
   return false;
 }
 
@@ -392,7 +406,7 @@ export function parseComponentFacts(
   if (program) {
     const stateNames = new Set<string>();
     walkEstree(program, (n) => {
-      if (n.type === 'VariableDeclarator' && n.init && isRuneCall(n.init, '$state') && n.id?.type === 'Identifier') {
+      if (n.type === 'VariableDeclarator' && n.init && isStateDeclaration(n.init) && n.id?.type === 'Identifier') {
         stateNames.add(n.id.name);
       }
     });

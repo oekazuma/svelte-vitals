@@ -102,7 +102,10 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   const heads = collected.heads.filter((h) => matches(h.route));
   const images = collected.images.filter((i) => matches(i.route));
   const headings = collected.headings.filter((h) => matches(h.route));
-  const [project, components] = await Promise.all([collectProjectFacts(rt, cwd), collectComponentFacts(rt, cwd)]);
+  const project = await collectProjectFacts(rt, cwd);
+  // Component (Correctness) facts are file-scoped with no route attribution yet, so a
+  // route-filtered run skips them rather than reporting unrelated components (#68 review).
+  const components = opts.route ? [] : await collectComponentFacts(rt, cwd);
   const rules = selectRules(allRules, config);
   const results = applyRuleSeverities(
     await runRules(rules, { heads, images, headings, components, project, config }),
