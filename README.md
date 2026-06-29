@@ -85,10 +85,6 @@ This makes svelte-vitals usable as a CI gate. See the [CLI guide](https://oekazu
 
 svelte-vitals resolves the **effective `<head>`** of every route — walking the layout chain (`+layout.svelte` → … → `+page.svelte`) and parsing `<svelte:head>` with the official `svelte/compiler`. Its design goal is **no false negatives**: a dynamic title like `<title>{data.title}</title>` (the correct SvelteKit pattern) is **never** flagged as missing — it passes with a `↯` marker, and only genuinely missing or empty metadata is penalized.
 
-### Known limitations
-
-- **Layout breakouts are not resolved** ([#12](https://github.com/oekazuma/svelte-vitals/issues/12)). The static-mode resolver walks the full `+layout.svelte` chain and does not yet account for SvelteKit's layout reset/breakout files (`+page@.svelte`, `+page@segment.svelte`, `+layout@.svelte`). A route that breaks out of its layout chain may therefore be composed against the wrong set of layouts (or skipped). This is rare in practice; until proper breakout resolution lands, scope the run to the routes you trust with `--route`, or check the affected pages in **plugin mode** (`@svelte-vitals/vite`), which inspects the real prerendered HTML and is unaffected.
-
 ## Roadmap
 
 The project advances along two axes: **mode maturity** and **category coverage**. SEO is the first category; more follow.
