@@ -11,11 +11,14 @@ export interface ComponentIssue {
   message: string;
 }
 
+/** Categories that component-scoped rules report under (CLI/static source analysis). */
+export type ComponentCategory = Extract<Category, 'correctness' | 'security'>;
+
 export interface ComponentRuleOptions {
   id: string;
   title: string;
   /** Vitals category — 'correctness' or 'security'. */
-  category: Category;
+  category: ComponentCategory;
   /** Default 'warning'. */
   severity?: Severity;
   /** Pass message / category label. */
