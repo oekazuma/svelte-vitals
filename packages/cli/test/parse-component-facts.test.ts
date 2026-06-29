@@ -79,6 +79,10 @@ describe('parseComponentFacts — security (SEC001/SEC002)', () => {
     expect(parseComponentFacts('<a href="https://example.com">x</a>', 'C.svelte').javascriptUrls).toEqual([]);
     expect(parseComponentFacts('<a href={url}>x</a>', 'C.svelte').javascriptUrls).toEqual([]);
   });
+  it('flags a javascript: URL on a <svelte:element>', () => {
+    const c = parseComponentFacts('<svelte:element this="a" href="javascript:alert(1)">x</svelte:element>', 'C.svelte');
+    expect(c.javascriptUrls).toEqual([{ line: 1 }]);
+  });
   it('does not flag a mixed value whose rendered URL is not statically known', () => {
     // Leading expression: the real URL is `{base}javascript:..`, not a javascript: URL.
     expect(parseComponentFacts('<a href="{base}javascript:foo">x</a>', 'C.svelte').javascriptUrls).toEqual([]);

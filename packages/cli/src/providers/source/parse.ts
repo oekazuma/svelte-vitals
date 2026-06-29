@@ -430,7 +430,8 @@ function collectSecurityFacts(node: Node, source: string, htmlTags: SourceSpan[]
   }
   if (!node || typeof node !== 'object') return;
   if (node.type === 'HtmlTag') htmlTags.push({ line: lineOf(source, node.start) });
-  if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
+  // RegularElement = static <a>/<iframe>/…; SvelteElement = <svelte:element this="a" …>.
+  if ((node.type === 'RegularElement' || node.type === 'SvelteElement') && Array.isArray(node.attributes)) {
     for (const name of URL_ATTRS) {
       const attr = findAttr(node.attributes, name);
       if (!attr) continue;
