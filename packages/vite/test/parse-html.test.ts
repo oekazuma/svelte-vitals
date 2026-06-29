@@ -177,6 +177,15 @@ describe('parse-html: image capture (rendered image-rule parity)', () => {
   it('reports no images for a page without <img>', () => {
     expect(parseHtmlHead(doc('<h1>t</h1>')).images).toEqual([]);
   });
+
+  it('ignores an <img> outside <body> (body-scoped, like headings)', () => {
+    const html =
+      '<!doctype html><html lang="en"><head><title>t</title><img src="/head.jpg"></head>' +
+      '<body><img src="/body.jpg" alt="x" /></body></html>';
+    const { images } = parseHtmlHead(html);
+    expect(images).toHaveLength(1);
+    expect(images[0]!.hasAlt).toBe(true); // the body image, not the head one
+  });
 });
 
 describe('parse-html: script capture (PERF007/008)', () => {

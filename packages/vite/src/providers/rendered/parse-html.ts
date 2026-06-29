@@ -128,9 +128,10 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
   };
   collectHeadings(root.querySelector('body') ?? root);
 
-  // Page <img> elements (PERF001/002/005/006, SEO025). Document order so PERF005's
+  // Page <img> elements (PERF001/002/005/006, SEO025). Scope to <body> (like the
+  // heading scan) so a stray <head><img> isn't reported. Document order so PERF005's
   // "first image ≈ LCP" heuristic matches the static provider. line 0 = unknown.
-  const images = root.querySelectorAll('img').map((img) => ({
+  const images = (root.querySelector('body') ?? root).querySelectorAll('img').map((img) => ({
     hasWidth: img.hasAttribute('width'),
     hasHeight: img.hasAttribute('height'),
     hasLoading: img.hasAttribute('loading'),
