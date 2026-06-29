@@ -1,5 +1,28 @@
 # @svelte-vitals/vite
 
+## 0.9.0
+
+### Minor Changes
+
+- 660f040: Collect `<img>` elements in rendered (vite) mode so the image rules — PERF001,
+  PERF002, PERF005, PERF006, and SEO025 — now run during build analysis and in the
+  dev hook, not only in static (CLI) mode (#61). Previously the vite plugin
+  silently skipped every image/alt check.
+- 6ee3d04: Add SEO028–SEO030 (#61), reusing existing capture (no parser changes):
+
+  - **SEO028** Duplicate title: flags routes that share an identical static `<title>`.
+  - **SEO029** Duplicate description: flags routes that share an identical static
+    meta description.
+  - **SEO030** Heading order: flags a skipped heading level (e.g. `<h2>` straight
+    to `<h4>`); single-`<h1>` presence stays SEO027.
+
+### Patch Changes
+
+- Updated dependencies [4dc7773]
+- Updated dependencies [7cabf35]
+- Updated dependencies [6ee3d04]
+  - @svelte-vitals/core@0.16.0
+
 ## 0.8.0
 
 ### Minor Changes
