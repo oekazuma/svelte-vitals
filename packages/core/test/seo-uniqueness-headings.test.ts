@@ -14,7 +14,15 @@ const titleHead = (route: string, text?: string): ResolvedHead => ({
   route,
   source: 'rendered',
   file: route,
-  tags: [{ kind: 'title', presence: 'own', value: 'static', ...(text !== undefined ? { text } : {}) } as HeadTag]
+  // A static tag always carries captured text; omitting text models a dynamic title.
+  tags: [
+    {
+      kind: 'title',
+      presence: 'own',
+      value: text !== undefined ? 'static' : 'dynamic',
+      ...(text !== undefined ? { text } : {})
+    } as HeadTag
+  ]
 });
 const descHead = (route: string, text?: string): ResolvedHead => ({
   route,
@@ -25,7 +33,7 @@ const descHead = (route: string, text?: string): ResolvedHead => ({
       kind: 'meta',
       name: 'description',
       presence: 'own',
-      value: 'static',
+      value: text !== undefined ? 'static' : 'dynamic',
       ...(text !== undefined ? { text } : {})
     } as HeadTag
   ]

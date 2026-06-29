@@ -44,8 +44,9 @@ order, flag a heading whose level jumps more than +1 over the previous heading
 (e.g. `<h2>` directly followed by `<h4>`). The first heading has no predecessor,
 so the check starts at the second; missing/multiple `<h1>` stays SEO027's concern.
 
-- Route with headings and no skip → pass; with a skip → one fail per skip
-  (`info`); route with no headings → emit nothing.
+- Route with headings and no skip → pass; with a skip → one `info` fail for the
+  **first** skipped level on the route (one finding per route, like the other
+  "first problem" rules); route with no headings → emit nothing.
 
 ## Registration & surfaces
 
