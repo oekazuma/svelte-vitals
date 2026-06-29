@@ -1,5 +1,5 @@
 import { parse, HTMLElement } from 'node-html-parser';
-import type { HeadTag, Value } from '@svelte-vitals/core';
+import type { HeadTag, ImageInfo, Value } from '@svelte-vitals/core';
 
 function attrValue(v: string | undefined): Value {
   return v !== undefined && v.trim().length > 0 ? 'static' : 'absent';
@@ -10,6 +10,8 @@ export interface ParsedHtmlHead {
   htmlLang: { presence: 'own' | 'none'; value: Value };
   /** Page-body heading levels (the `n` in <hn>) found in the document (SEO027). */
   headings: number[];
+  /** Page <img> elements (the caller fills `file`); enables the image rules in rendered mode. */
+  images: Omit<ImageInfo, 'file'>[];
 }
 
 /** Parse a fully-rendered HTML document's <head> into normalized head tags. */
@@ -126,5 +128,17 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
   };
   collectHeadings(root.querySelector('body') ?? root);
 
-  return { tags, htmlLang, headings };
+  // Page <img> elements (PERF001/002/005/006, SEO025). Document order so PERF005's
+  // "first image ≈ LCP" heuristic matches the static provider. line 0 = unknown.
+  const images = root.querySelectorAll('img').map((img) => ({
+    hasWidth: img.hasAttribute('width'),
+    hasHeight: img.hasAttribute('height'),
+    hasLoading: img.hasAttribute('loading'),
+    hasAlt: img.hasAttribute('alt'),
+    lazy: img.getAttribute('loading') === 'lazy',
+    hasSrcset: img.hasAttribute('srcset'),
+    line: 0
+  }));
+
+  return { tags, htmlLang, headings, images };
 }
