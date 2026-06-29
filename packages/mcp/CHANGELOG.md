@@ -1,5 +1,50 @@
 # @svelte-vitals/mcp
 
+## 0.6.0
+
+### Minor Changes
+
+- 4dc7773: Add a **Correctness** category — the first analysis of Svelte component bodies
+  (not just `<head>`), broadening svelte-vitals toward a deterministic, agent-native
+  code-health scanner. A new static (CLI) scan reads every `.svelte` under `src/`
+  into a component-facts channel and adds two rules:
+
+  - **CORRECT001** Keyed each block: flags an `{#each}` with no key (reordering an
+    unkeyed list destroys/recreates DOM and loses element state).
+  - **CORRECT002** Effect used to derive state: flags an `$effect` whose body only
+    assigns to `$state` — the "useEffect → $effect" anti-pattern; use `$derived`.
+
+  Correctness findings are scored per source file and surface under the new
+  `correctness` category in the Health report. (CLI/static mode only.)
+
+- 7cabf35: Add a **Security** category — the second "Svelte Doctor" code-health category,
+  reusing the component-body scan (CLI/static mode):
+
+  - **SEC001** Raw HTML render: flags `{@html …}` (an unescaped-HTML XSS surface;
+    sanitize the value).
+  - **SEC002** javascript: URL: flags a literal `javascript:` URL in an
+    `href`/`src`/`action`/`formaction` attribute.
+
+  The component-rule factory is now shared between the Correctness and Security
+  categories, and the console reporter shows a Security score line.
+
+- 6ee3d04: Add SEO028–SEO030 (#61), reusing existing capture (no parser changes):
+
+  - **SEO028** Duplicate title: flags routes that share an identical static `<title>`.
+  - **SEO029** Duplicate description: flags routes that share an identical static
+    meta description.
+  - **SEO030** Heading order: flags a skipped heading level (e.g. `<h2>` straight
+    to `<h4>`); single-`<h1>` presence stays SEO027.
+
+### Patch Changes
+
+- Updated dependencies [4dc7773]
+- Updated dependencies [d173e44]
+- Updated dependencies [7cabf35]
+- Updated dependencies [6ee3d04]
+  - @svelte-vitals/core@0.16.0
+  - svelte-vitals@0.15.0
+
 ## 0.5.0
 
 ### Minor Changes
