@@ -7,7 +7,7 @@ description: An {#each} block over dynamic data should have a key.
 
 ## What it checks
 
-Flags an `{#each}` block with no key. Checked by static (CLI) analysis of every `.svelte` component under `src/`.
+Flags an `{#each}` block with no key. Checked by static (CLI) analysis of every `.svelte` component under `src/`. A constant inline array literal (`{#each [1, 2, 3] as n}`) is ignored — it has a fixed length and never reorders, so a key cannot help.
 
 ## Why it matters
 

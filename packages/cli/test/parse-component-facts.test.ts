@@ -10,6 +10,14 @@ describe('parseComponentFacts — each blocks (CORRECT001)', () => {
     const unkeyed = parseComponentFacts('{#each items as item}<li>{item}</li>{/each}', 'C.svelte');
     expect(unkeyed.eachBlocks).toEqual([{ hasKey: false, line: 1 }]);
   });
+  it('ignores a constant inline array literal (fixed length, never reorders)', () => {
+    const c = parseComponentFacts('{#each [1, 2, 3] as n}<li>{n}</li>{/each}', 'C.svelte');
+    expect(c.eachBlocks).toEqual([]);
+  });
+  it('still flags an each over a spread array literal (dynamic length)', () => {
+    const c = parseComponentFacts('{#each [...items] as n}<li>{n}</li>{/each}', 'C.svelte');
+    expect(c.eachBlocks).toEqual([{ hasKey: false, line: 1 }]);
+  });
 });
 
 describe('parseComponentFacts — $effect (CORRECT002)', () => {
@@ -38,6 +46,19 @@ describe('parseComponentFacts — $effect (CORRECT002)', () => {
     // `snap` is a snapshot read, not reactive state — assigning it is not the derive smell.
     const e = facts('let count = $state(0); let snap = $state.snapshot(count); $effect(() => { snap = count; });');
     expect(e[0]!.assignsOnlyState).toBe(false);
+  });
+  it('does not flag a compound assignment (accumulation, not derivation)', () => {
+    // `+=` reads the previous value, so it can't become a self-referential $derived.
+    const e = facts('let total = $state(0); let count = $state(0); $effect(() => { total += count; });');
+    expect(e[0]!.assignsOnlyState).toBe(false);
+  });
+  it('flags an assign-only $effect.pre', () => {
+    const e = facts('let count = $state(0); let double = $state(0); $effect.pre(() => { double = count * 2; });');
+    expect(e).toEqual([{ line: 1, assignsOnlyState: true }]);
+  });
+  it('ignores non-effect $effect readers ($effect.tracking / $effect.root)', () => {
+    const e = facts('let count = $state(0); const t = $effect.tracking(); $effect.root(() => {});');
+    expect(e).toEqual([]);
   });
 });
 

@@ -330,6 +330,21 @@ export function parseHeadTags(source: string, filename: string): ParsedTag[] {
   return heads.flatMap(tagsFromHead);
 }
 
+/**
+ * Whether an `{#each}` iterates a constant inline array literal (`{#each [a, b] as x}`).
+ * Such a list has a fixed length and never reorders, so a key can't help — flagging it
+ * would be a false positive. A spread element (`[...xs]`) makes it dynamic again, so it
+ * is NOT treated as constant.
+ */
+function isConstantListEach(node: Node): boolean {
+  const expr = node?.expression;
+  return (
+    expr?.type === 'ArrayExpression' &&
+    Array.isArray(expr.elements) &&
+    !expr.elements.some((el: Node) => el?.type === 'SpreadElement')
+  );
+}
+
 /** Recursively collect every `{#each}` block in the template (Correctness CORRECT001). */
 function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): void {
   if (Array.isArray(node)) {
@@ -337,7 +352,7 @@ function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): vo
     return;
   }
   if (!node || typeof node !== 'object') return;
-  if (node.type === 'EachBlock') {
+  if (node.type === 'EachBlock' && !isConstantListEach(node)) {
     acc.push({ hasKey: node.key != null, line: lineOf(source, node.start) });
   }
   for (const key of CHILD_NODE_KEYS) {
@@ -359,11 +374,17 @@ function walkEstree(node: Node, visit: (n: Node) => void): void {
   }
 }
 
-/** Whether a CallExpression callee is `$rune` or `$rune.member` (e.g. `$effect`, `$effect.pre`). */
-function isRuneCall(node: Node, rune: string): boolean {
+/**
+ * Whether a CallExpression *creates an effect*: `$effect(...)` or `$effect.pre(...)`.
+ * Excludes the non-effect `$effect.*` readers (`$effect.tracking()`, `$effect.root()`),
+ * which would otherwise be recorded as effects and seed spurious CORRECT002 pass units.
+ */
+function isEffectCall(node: Node): boolean {
   const c = node?.callee;
-  if (c?.type === 'Identifier') return c.name === rune;
-  if (c?.type === 'MemberExpression') return c.object?.type === 'Identifier' && c.object.name === rune;
+  if (c?.type === 'Identifier') return c.name === '$effect';
+  if (c?.type === 'MemberExpression' && c.object?.type === 'Identifier' && c.object.name === '$effect') {
+    return c.property?.type === 'Identifier' && c.property.name === 'pre';
+  }
   return false;
 }
 
@@ -383,8 +404,14 @@ function isStateDeclaration(node: Node): boolean {
 
 /** True when a function's body does nothing but assign to `$state` identifiers (CORRECT002). */
 function bodyOnlyAssignsState(fn: Node, stateNames: Set<string>): boolean {
+  // Only a plain `=` is a derive candidate. Compound assignments (`+=`, `*=`, `??=`, …)
+  // read the previous value, so they accumulate rather than derive and can't become a
+  // self-referential `$derived` — flagging them would be a false positive.
   const isStateAssign = (expr: Node): boolean =>
-    expr?.type === 'AssignmentExpression' && expr.left?.type === 'Identifier' && stateNames.has(expr.left.name);
+    expr?.type === 'AssignmentExpression' &&
+    expr.operator === '=' &&
+    expr.left?.type === 'Identifier' &&
+    stateNames.has(expr.left.name);
   const body = fn?.body;
   if (!body) return false;
   if (body.type !== 'BlockStatement') return isStateAssign(body); // arrow with expression body
@@ -411,7 +438,7 @@ export function parseComponentFacts(
       }
     });
     walkEstree(program, (n) => {
-      if (n.type !== 'CallExpression' || !isRuneCall(n, '$effect')) return;
+      if (n.type !== 'CallExpression' || !isEffectCall(n)) return;
       const fn = n.arguments?.[0];
       const isFn = fn?.type === 'ArrowFunctionExpression' || fn?.type === 'FunctionExpression';
       effects.push({
