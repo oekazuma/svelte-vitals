@@ -35,6 +35,8 @@ import { seo024Charset } from './seo/seo024-charset.js';
 import { seo025ImageAlt } from './seo/seo025-image-alt.js';
 import { seo026Hreflang } from './seo/seo026-hreflang.js';
 import { seo027Heading } from './seo/seo027-heading.js';
+import { seo028TitleUnique, seo029DescriptionUnique } from './seo/seo028-029-uniqueness.js';
+import { seo030HeadingOrder } from './seo/seo030-heading-order.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -71,7 +73,10 @@ export const allRules: Rule[] = [
   perf005LcpImage,
   perf006ResponsiveImage,
   perf007RenderBlockingScript,
-  perf008Preconnect
+  perf008Preconnect,
+  seo028TitleUnique,
+  seo029DescriptionUnique,
+  seo030HeadingOrder
 ];
 
 export {
@@ -109,7 +114,10 @@ export {
   perf005LcpImage,
   perf006ResponsiveImage,
   perf007RenderBlockingScript,
-  perf008Preconnect
+  perf008Preconnect,
+  seo028TitleUnique,
+  seo029DescriptionUnique,
+  seo030HeadingOrder
 };
 
 export interface RuleInfo {
