@@ -19,20 +19,21 @@ silently skipped every image/alt check (`ctx.images` was unset).
   (`image-rule.ts`, `perf005`). Only the CLI provider populates `ctx.images`
   (`collectImages` in `parse.ts` → `routes.ts` → `cli/index.ts`).
 - The rendered provider (`parse-html.ts`) parses the whole document already
-  (node-html-parser) but only reads `<head>`; `analyze.ts` and the dev
-  `handle.ts` build `ctx` without `images`.
+  (node-html-parser) and already scans `<body>` for headings (SEO027), but does
+  not collect `<img>`; `analyze.ts` and the dev `handle.ts` build `ctx` without
+  `images`.
 - `ImageInfo` = `{ hasWidth, hasHeight, hasLoading, hasAlt, lazy, hasSrcset, line, file }`.
 
 ## Design
 
 ### Capture (`parse-html.ts`)
 
-Add `images` to `ParsedHtmlHead`. Collect every `<img>` in the document
-(document order, so PERF005's "first image" heuristic matches the static
-provider):
+Add `images` to `ParsedHtmlHead`. Collect every `<img>` in the **body** (scoped
+like the heading scan, so a stray `<head><img>` is ignored; document order, so
+PERF005's "first image" heuristic matches the static provider):
 
 ```ts
-images: root.querySelectorAll('img').map((img) => ({
+images: (root.querySelector('body') ?? root).querySelectorAll('img').map((img) => ({
   hasWidth: img.hasAttribute('width'),
   hasHeight: img.hasAttribute('height'),
   hasLoading: img.hasAttribute('loading'),
