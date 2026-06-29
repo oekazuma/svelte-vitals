@@ -2,6 +2,7 @@ import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import type { HeadTag } from '../../head.js';
 import { PENALIZED, PASS } from './detection.js';
+import { collapseWhitespace } from './text-metrics.js';
 
 interface UniquenessRuleOptions {
   id: string;
@@ -11,11 +12,6 @@ interface UniquenessRuleOptions {
   match: (t: HeadTag) => boolean;
   recommendation: string;
   rationale: string;
-}
-
-/** Normalize captured text the same way visibleLength measures it (trim + collapse whitespace). */
-function normalize(s: string): string {
-  return s.trim().replace(/\s+/g, ' ');
 }
 
 /**
@@ -39,7 +35,7 @@ function uniquenessRule(opts: UniquenessRuleOptions): Rule {
       for (const head of ctx.heads) {
         const tag = head.tags.find(opts.match);
         if (!tag || typeof tag.text !== 'string') continue;
-        const text = normalize(tag.text);
+        const text = collapseWhitespace(tag.text);
         if (text.length === 0) continue;
         entries.push({ route: head.route, file: tag.file ?? head.file, text });
         counts.set(text, (counts.get(text) ?? 0) + 1);
