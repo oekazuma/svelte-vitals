@@ -7,9 +7,9 @@ const recommendation =
 
 /**
  * PERF005 — LCP image not lazy-loaded. Lazy-loading the largest contentful paint
- * image delays it. Static analysis approximates the LCP as the first <img> in
- * document order for the route; if that image is loading="lazy", flag it.
- * CLI/static only (the rendered provider does not collect <img>).
+ * image delays it. Analysis approximates the LCP as the first <img> in document
+ * order for the route; if that image is loading="lazy", flag it. Runs in both
+ * static (CLI) and rendered (vite) mode, since both providers collect <img>.
  */
 export const perf005LcpImage: Rule = {
   id: 'PERF005',

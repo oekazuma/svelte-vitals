@@ -44,6 +44,10 @@ const PAGE_OK =
 // rendered body through the dev hook.
 const PAGE_TWO_H1 = PAGE_OK.replace('</body>', '<h1>Second heading</h1></body>');
 
+// PAGE_OK with a body <img> missing alt + dimensions — proves the dev hook now
+// threads rendered images into the rule context (image rules were CLI-only before).
+const PAGE_BAD_IMG = PAGE_OK.replace('</body>', '<img src="/photo.jpg"></body>');
+
 afterEach(() => vi.restoreAllMocks());
 
 describe('svelteVitalsHandle', () => {
@@ -73,6 +77,17 @@ describe('svelteVitalsHandle', () => {
     const out = warn.mock.calls.map((c) => String(c[0])).join('\n');
     expect(out).toContain('[svelte-vitals] /two-h1');
     expect(out).toContain('SEO027');
+  });
+
+  it('warns about a rendered <img> missing alt/dimensions (image rules in rendered mode)', async () => {
+    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/img', '/img'), resolve: resolveWith([PAGE_BAD_IMG]) });
+    await flush();
+    const out = warn.mock.calls.map((c) => String(c[0])).join('\n');
+    expect(out).toContain('[svelte-vitals] /img');
+    expect(out).toContain('SEO025'); // missing alt
+    expect(out).toContain('PERF001'); // missing width/height
   });
 
   it('returns each chunk unchanged', async () => {

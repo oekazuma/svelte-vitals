@@ -154,6 +154,40 @@ describe('parse-html: static-gaps capture (SEO024/026/027)', () => {
   });
 });
 
+describe('parse-html: image capture (rendered image-rule parity)', () => {
+  const doc = (body: string) =>
+    `<!doctype html><html lang="en"><head><title>t</title></head><body>${body}</body></html>`;
+
+  it('collects <img> attribute flags from the body', () => {
+    const { images } = parseHtmlHead(
+      doc('<img src="/a.jpg" width="8" height="6" loading="lazy" srcset="/a-2x.jpg 2x" alt="A" />')
+    );
+    expect(images).toEqual([
+      { hasWidth: true, hasHeight: true, hasLoading: true, hasAlt: true, lazy: true, hasSrcset: true, line: 0 }
+    ]);
+  });
+
+  it('records false flags for a bare <img> and preserves document order', () => {
+    const { images } = parseHtmlHead(doc('<img src="/first.jpg" alt="x" /><img src="/second.jpg" />'));
+    expect(images).toHaveLength(2);
+    expect(images[0]!.hasAlt).toBe(true);
+    expect(images[1]!).toMatchObject({ hasWidth: false, hasAlt: false, lazy: false, hasSrcset: false });
+  });
+
+  it('reports no images for a page without <img>', () => {
+    expect(parseHtmlHead(doc('<h1>t</h1>')).images).toEqual([]);
+  });
+
+  it('ignores an <img> outside <body> (body-scoped, like headings)', () => {
+    const html =
+      '<!doctype html><html lang="en"><head><title>t</title><img src="/head.jpg"></head>' +
+      '<body><img src="/body.jpg" alt="x" /></body></html>';
+    const { images } = parseHtmlHead(html);
+    expect(images).toHaveLength(1);
+    expect(images[0]!.hasAlt).toBe(true); // the body image, not the head one
+  });
+});
+
 describe('parse-html: script capture (PERF007/008)', () => {
   it('marks a sync <script src> in head as blocking', () => {
     const { tags } = parseHtmlHead(html('<script src="/a.js"></script>'));

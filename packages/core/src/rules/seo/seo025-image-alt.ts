@@ -1,8 +1,8 @@
 import { imageRule } from '../perf/image-rule.js';
 
 /**
- * SEO025 — Image alt text. Reuses the <img> collection (CLI/static only; rendered
- * mode does not collect images, so the rule no-ops there, like PERF001/002).
+ * SEO025 — Image alt text. Reuses the <img> collection from both providers — the
+ * static (CLI) source parser and the rendered (vite) HTML parser — like PERF001/002.
  * Presence only: an explicit empty `alt=""` is a valid decorative-image signal and
  * passes; a spread `{...rest}` may supply alt, so it is not flagged.
  */
