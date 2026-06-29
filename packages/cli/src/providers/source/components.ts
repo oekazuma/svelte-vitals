@@ -14,7 +14,7 @@ export async function collectComponentFacts(rt: Runtime, cwd: string): Promise<C
         const source = await rt.readFile(rt.join(cwd, rel));
         return { file: rel, ...parseComponentFacts(source, rel) };
       } catch {
-        return { file: rel, eachBlocks: [], effects: [] };
+        return { file: rel, eachBlocks: [], effects: [], htmlTags: [], javascriptUrls: [] };
       }
     })
   );

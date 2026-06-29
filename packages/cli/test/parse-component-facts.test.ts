@@ -62,6 +62,40 @@ describe('parseComponentFacts — $effect (CORRECT002)', () => {
   });
 });
 
+describe('parseComponentFacts — security (SEC001/SEC002)', () => {
+  it('collects {@html} occurrences', () => {
+    const f = parseComponentFacts('<div>{@html body}</div>', 'C.svelte');
+    expect(f.htmlTags).toEqual([{ line: 1 }]);
+  });
+  it('flags a literal javascript: URL in href/src (case-insensitive)', () => {
+    expect(parseComponentFacts('<a href="javascript:alert(1)">x</a>', 'C.svelte').javascriptUrls).toEqual([
+      { line: 1 }
+    ]);
+    expect(parseComponentFacts('<iframe src="JavaScript:void(0)"></iframe>', 'C.svelte').javascriptUrls).toEqual([
+      { line: 1 }
+    ]);
+  });
+  it('does not flag a normal URL or a dynamic href', () => {
+    expect(parseComponentFacts('<a href="https://example.com">x</a>', 'C.svelte').javascriptUrls).toEqual([]);
+    expect(parseComponentFacts('<a href={url}>x</a>', 'C.svelte').javascriptUrls).toEqual([]);
+  });
+  it('flags a javascript: URL on a <svelte:element>', () => {
+    const c = parseComponentFacts('<svelte:element this="a" href="javascript:alert(1)">x</svelte:element>', 'C.svelte');
+    expect(c.javascriptUrls).toEqual([{ line: 1 }]);
+  });
+  it('does not flag a mixed value whose rendered URL is not statically known', () => {
+    // Leading expression: the real URL is `{base}javascript:..`, not a javascript: URL.
+    expect(parseComponentFacts('<a href="{base}javascript:foo">x</a>', 'C.svelte').javascriptUrls).toEqual([]);
+    // `javascript:` followed by an expression: still dynamic, so we don't claim it statically.
+    expect(parseComponentFacts('<a href="javascript:{evil}">x</a>', 'C.svelte').javascriptUrls).toEqual([]);
+  });
+  it('reports no security facts for a plain component', () => {
+    const f = parseComponentFacts('<p>hi</p>', 'C.svelte');
+    expect(f.htmlTags).toEqual([]);
+    expect(f.javascriptUrls).toEqual([]);
+  });
+});
+
 describe('collectComponentFacts (memory runtime)', () => {
   it('scans every .svelte under src, including $lib', async () => {
     const rt = createMemoryRuntime({

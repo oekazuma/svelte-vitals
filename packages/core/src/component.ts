@@ -20,10 +20,20 @@ export interface EffectFact {
   assignsOnlyState: boolean;
 }
 
-/** Reactivity/correctness facts parsed from one `.svelte` component. */
+/** A flagged source position in a component (e.g. an `{@html}` tag or a `javascript:` URL). */
+export interface SourceSpan {
+  /** 1-based source line, or 0 if unknown. */
+  line: number;
+}
+
+/** Reactivity/correctness + security facts parsed from one `.svelte` component. */
 export interface ComponentFacts {
   /** Source file the component came from. */
   file: string;
   eachBlocks: EachBlockFact[];
   effects: EffectFact[];
+  /** `{@html …}` occurrences — raw-HTML render surfaces (Security SEC001). */
+  htmlTags: SourceSpan[];
+  /** Element attributes with a literal `javascript:` URL (Security SEC002). */
+  javascriptUrls: SourceSpan[];
 }

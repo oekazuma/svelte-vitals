@@ -38,6 +38,7 @@ import { seo027Heading } from './seo/seo027-heading.js';
 import { seo028TitleUnique, seo029DescriptionUnique } from './seo/seo028-029-uniqueness.js';
 import { seo030HeadingOrder } from './seo/seo030-heading-order.js';
 import { correct001EachKey, correct002EffectDerived } from './correctness/correct001-002.js';
+import { sec001Html, sec002JavascriptUrl } from './security/sec001-002.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -79,7 +80,9 @@ export const allRules: Rule[] = [
   seo029DescriptionUnique,
   seo030HeadingOrder,
   correct001EachKey,
-  correct002EffectDerived
+  correct002EffectDerived,
+  sec001Html,
+  sec002JavascriptUrl
 ];
 
 export {
@@ -122,7 +125,9 @@ export {
   seo029DescriptionUnique,
   seo030HeadingOrder,
   correct001EachKey,
-  correct002EffectDerived
+  correct002EffectDerived,
+  sec001Html,
+  sec002JavascriptUrl
 };
 
 export interface RuleInfo {
