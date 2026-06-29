@@ -58,4 +58,23 @@ describe('formatConsoleReport', () => {
     expect(out).toContain('PERF001');
     expect(out).toContain('src/routes/blog/+page.svelte:42');
   });
+
+  it('adds a Correctness score section when correctness findings exist', () => {
+    const withCorrect: Result[] = [
+      ...results,
+      {
+        id: 'CORRECT001',
+        category: 'correctness',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: 'src/lib/List.svelte',
+        location: 'src/lib/List.svelte',
+        line: 5,
+        message: '{#each} block has no key'
+      }
+    ];
+    const out = formatConsoleReport(withCorrect, config);
+    expect(out).toMatch(/Correctness Score: \d+\/100/);
+    expect(out).toContain('CORRECT001');
+  });
 });

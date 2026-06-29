@@ -20,6 +20,7 @@ export { defaultConfig, defineConfig, defaultProject } from './types.js';
 export type { HeadTag, ResolvedHead, HeadProvider } from './head.js';
 export type { ImageInfo, ResolvedImages } from './images.js';
 export type { HeadingInfo, ResolvedHeadings } from './headings.js';
+export type { EachBlockFact, EffectFact, ComponentFacts } from './component.js';
 export { ROBOTS_SOURCE_PATHS, SITEMAP_SOURCE_PATHS } from './project-paths.js';
 export type { Runtime } from './runtime.js';
 export type { Rule, RuleContext } from './rule.js';
@@ -66,7 +67,9 @@ export {
   perf008Preconnect,
   seo028TitleUnique,
   seo029DescriptionUnique,
-  seo030HeadingOrder
+  seo030HeadingOrder,
+  correct001EachKey,
+  correct002EffectDerived
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

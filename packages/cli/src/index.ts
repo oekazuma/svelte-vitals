@@ -22,6 +22,7 @@ import {
 } from '@svelte-vitals/core';
 import { createNodeRuntime } from './runtime/node.js';
 import { collectRoutes } from './providers/source/routes.js';
+import { collectComponentFacts } from './providers/source/components.js';
 import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
 import { readPackageVersion } from './version.js';
 import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
@@ -102,8 +103,14 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   const images = collected.images.filter((i) => matches(i.route));
   const headings = collected.headings.filter((h) => matches(h.route));
   const project = await collectProjectFacts(rt, cwd);
+  // Component (Correctness) facts are file-scoped with no route attribution yet, so a
+  // route-filtered run skips them rather than reporting unrelated components (#68 review).
+  const components = opts.route ? [] : await collectComponentFacts(rt, cwd);
   const rules = selectRules(allRules, config);
-  const results = applyRuleSeverities(await runRules(rules, { heads, images, headings, project, config }), config);
+  const results = applyRuleSeverities(
+    await runRules(rules, { heads, images, headings, components, project, config }),
+    config
+  );
   return { results, config, version: readPackageVersion() };
 }
 

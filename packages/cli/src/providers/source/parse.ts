@@ -1,6 +1,6 @@
 import { parse } from 'svelte/compiler';
 import type { HeadTag } from '@svelte-vitals/core';
-import type { Value } from '@svelte-vitals/core';
+import type { Value, EachBlockFact, EffectFact } from '@svelte-vitals/core';
 import { collectImports, type ImportMap } from './imports.js';
 
 /** A head tag parsed from one file, before layout-chain presence is assigned. */
@@ -328,4 +328,124 @@ export function parseHeadTags(source: string, filename: string): ParsedTag[] {
   const heads: Node[] = [];
   collectSvelteHeads(ast.fragment ?? ast, heads);
   return heads.flatMap(tagsFromHead);
+}
+
+/**
+ * Whether an `{#each}` iterates a constant inline array literal (`{#each [a, b] as x}`).
+ * Such a list has a fixed length and never reorders, so a key can't help — flagging it
+ * would be a false positive. A spread element (`[...xs]`) makes it dynamic again, so it
+ * is NOT treated as constant.
+ */
+function isConstantListEach(node: Node): boolean {
+  const expr = node?.expression;
+  return (
+    expr?.type === 'ArrayExpression' &&
+    Array.isArray(expr.elements) &&
+    !expr.elements.some((el: Node) => el?.type === 'SpreadElement')
+  );
+}
+
+/** Recursively collect every `{#each}` block in the template (Correctness CORRECT001). */
+function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectEachBlocks(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'EachBlock' && !isConstantListEach(node)) {
+    acc.push({ hasKey: node.key != null, line: lineOf(source, node.start) });
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectEachBlocks(node[key], source, acc);
+  }
+}
+
+/** Generic ESTree walk over a `<script>` program: visit every node with a `.type`. */
+function walkEstree(node: Node, visit: (n: Node) => void): void {
+  if (Array.isArray(node)) {
+    for (const child of node) walkEstree(child, visit);
+    return;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+  visit(node);
+  for (const key of Object.keys(node)) {
+    if (key === 'type' || key === 'start' || key === 'end' || key === 'loc' || key === 'range') continue;
+    walkEstree(node[key], visit);
+  }
+}
+
+/**
+ * Whether a CallExpression *creates an effect*: `$effect(...)` or `$effect.pre(...)`.
+ * Excludes the non-effect `$effect.*` readers (`$effect.tracking()`, `$effect.root()`),
+ * which would otherwise be recorded as effects and seed spurious CORRECT002 pass units.
+ */
+function isEffectCall(node: Node): boolean {
+  const c = node?.callee;
+  if (c?.type === 'Identifier') return c.name === '$effect';
+  if (c?.type === 'MemberExpression' && c.object?.type === 'Identifier' && c.object.name === '$effect') {
+    return c.property?.type === 'Identifier' && c.property.name === 'pre';
+  }
+  return false;
+}
+
+/**
+ * Whether a CallExpression is a `$state` *declaration* form: `$state(...)`,
+ * `$state.raw(...)`, or `$state.frozen(...)` — but NOT readers like
+ * `$state.snapshot(...)`, which would otherwise pollute the state-name set (CORRECT002).
+ */
+function isStateDeclaration(node: Node): boolean {
+  const c = node?.callee;
+  if (c?.type === 'Identifier') return c.name === '$state';
+  if (c?.type === 'MemberExpression' && c.object?.type === 'Identifier' && c.object.name === '$state') {
+    return c.property?.type === 'Identifier' && (c.property.name === 'raw' || c.property.name === 'frozen');
+  }
+  return false;
+}
+
+/** True when a function's body does nothing but assign to `$state` identifiers (CORRECT002). */
+function bodyOnlyAssignsState(fn: Node, stateNames: Set<string>): boolean {
+  // Only a plain `=` is a derive candidate. Compound assignments (`+=`, `*=`, `??=`, …)
+  // read the previous value, so they accumulate rather than derive and can't become a
+  // self-referential `$derived` — flagging them would be a false positive.
+  const isStateAssign = (expr: Node): boolean =>
+    expr?.type === 'AssignmentExpression' &&
+    expr.operator === '=' &&
+    expr.left?.type === 'Identifier' &&
+    stateNames.has(expr.left.name);
+  const body = fn?.body;
+  if (!body) return false;
+  if (body.type !== 'BlockStatement') return isStateAssign(body); // arrow with expression body
+  if (body.body.length === 0) return false;
+  return body.body.every((s: Node) => s?.type === 'ExpressionStatement' && isStateAssign(s.expression));
+}
+
+/** Parse a component's reactivity/correctness facts (Correctness category, CLI/static only). */
+export function parseComponentFacts(
+  source: string,
+  filename: string
+): { eachBlocks: EachBlockFact[]; effects: EffectFact[] } {
+  const ast = parse(source, { modern: true, filename }) as Node;
+  const eachBlocks: EachBlockFact[] = [];
+  collectEachBlocks(ast.fragment ?? ast, source, eachBlocks);
+
+  const effects: EffectFact[] = [];
+  const program = ast.instance?.content;
+  if (program) {
+    const stateNames = new Set<string>();
+    walkEstree(program, (n) => {
+      if (n.type === 'VariableDeclarator' && n.init && isStateDeclaration(n.init) && n.id?.type === 'Identifier') {
+        stateNames.add(n.id.name);
+      }
+    });
+    walkEstree(program, (n) => {
+      if (n.type !== 'CallExpression' || !isEffectCall(n)) return;
+      const fn = n.arguments?.[0];
+      const isFn = fn?.type === 'ArrowFunctionExpression' || fn?.type === 'FunctionExpression';
+      effects.push({
+        line: lineOf(source, n.start),
+        assignsOnlyState: isFn ? bodyOnlyAssignsState(fn, stateNames) : false
+      });
+    });
+  }
+  return { eachBlocks, effects };
 }
