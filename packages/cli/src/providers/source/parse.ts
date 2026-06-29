@@ -434,7 +434,9 @@ function collectSecurityFacts(node: Node, source: string, htmlTags: SourceSpan[]
     for (const name of URL_ATTRS) {
       const attr = findAttr(node.attributes, name);
       if (!attr) continue;
-      const value = attrText(node.attributes, name); // literal only; dynamic href={url} → undefined
+      // Fully-literal value only. A dynamic `href={url}` OR a mixed `href="{base}javascript:.."`
+      // yields undefined — we can't know the rendered URL statically, so we don't flag it.
+      const value = attrTextOf(attr);
       if (value !== undefined && /^\s*javascript:/i.test(value)) {
         jsUrls.push({ line: lineOf(source, attr.start ?? node.start) });
       }

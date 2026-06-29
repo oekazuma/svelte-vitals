@@ -79,6 +79,12 @@ describe('parseComponentFacts — security (SEC001/SEC002)', () => {
     expect(parseComponentFacts('<a href="https://example.com">x</a>', 'C.svelte').javascriptUrls).toEqual([]);
     expect(parseComponentFacts('<a href={url}>x</a>', 'C.svelte').javascriptUrls).toEqual([]);
   });
+  it('does not flag a mixed value whose rendered URL is not statically known', () => {
+    // Leading expression: the real URL is `{base}javascript:..`, not a javascript: URL.
+    expect(parseComponentFacts('<a href="{base}javascript:foo">x</a>', 'C.svelte').javascriptUrls).toEqual([]);
+    // `javascript:` followed by an expression: still dynamic, so we don't claim it statically.
+    expect(parseComponentFacts('<a href="javascript:{evil}">x</a>', 'C.svelte').javascriptUrls).toEqual([]);
+  });
   it('reports no security facts for a plain component', () => {
     const f = parseComponentFacts('<p>hi</p>', 'C.svelte');
     expect(f.htmlTags).toEqual([]);
