@@ -1,6 +1,6 @@
 import { parse } from 'svelte/compiler';
 import type { HeadTag } from '@svelte-vitals/core';
-import type { Value } from '@svelte-vitals/core';
+import type { Value, EachBlockFact, EffectFact } from '@svelte-vitals/core';
 import { collectImports, type ImportMap } from './imports.js';
 
 /** A head tag parsed from one file, before layout-chain presence is assigned. */
@@ -328,4 +328,83 @@ export function parseHeadTags(source: string, filename: string): ParsedTag[] {
   const heads: Node[] = [];
   collectSvelteHeads(ast.fragment ?? ast, heads);
   return heads.flatMap(tagsFromHead);
+}
+
+/** Recursively collect every `{#each}` block in the template (Correctness CORRECT001). */
+function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectEachBlocks(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'EachBlock') {
+    acc.push({ hasKey: node.key != null, line: lineOf(source, node.start) });
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectEachBlocks(node[key], source, acc);
+  }
+}
+
+/** Generic ESTree walk over a `<script>` program: visit every node with a `.type`. */
+function walkEstree(node: Node, visit: (n: Node) => void): void {
+  if (Array.isArray(node)) {
+    for (const child of node) walkEstree(child, visit);
+    return;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+  visit(node);
+  for (const key of Object.keys(node)) {
+    if (key === 'type' || key === 'start' || key === 'end' || key === 'loc' || key === 'range') continue;
+    walkEstree(node[key], visit);
+  }
+}
+
+/** Whether a CallExpression callee is `$rune` or `$rune.member` (e.g. `$state`, `$effect.pre`). */
+function isRuneCall(node: Node, rune: string): boolean {
+  const c = node?.callee;
+  if (c?.type === 'Identifier') return c.name === rune;
+  if (c?.type === 'MemberExpression') return c.object?.type === 'Identifier' && c.object.name === rune;
+  return false;
+}
+
+/** True when a function's body does nothing but assign to `$state` identifiers (CORRECT002). */
+function bodyOnlyAssignsState(fn: Node, stateNames: Set<string>): boolean {
+  const isStateAssign = (expr: Node): boolean =>
+    expr?.type === 'AssignmentExpression' && expr.left?.type === 'Identifier' && stateNames.has(expr.left.name);
+  const body = fn?.body;
+  if (!body) return false;
+  if (body.type !== 'BlockStatement') return isStateAssign(body); // arrow with expression body
+  if (body.body.length === 0) return false;
+  return body.body.every((s: Node) => s?.type === 'ExpressionStatement' && isStateAssign(s.expression));
+}
+
+/** Parse a component's reactivity/correctness facts (Correctness category, CLI/static only). */
+export function parseComponentFacts(
+  source: string,
+  filename: string
+): { eachBlocks: EachBlockFact[]; effects: EffectFact[] } {
+  const ast = parse(source, { modern: true, filename }) as Node;
+  const eachBlocks: EachBlockFact[] = [];
+  collectEachBlocks(ast.fragment ?? ast, source, eachBlocks);
+
+  const effects: EffectFact[] = [];
+  const program = ast.instance?.content;
+  if (program) {
+    const stateNames = new Set<string>();
+    walkEstree(program, (n) => {
+      if (n.type === 'VariableDeclarator' && n.init && isRuneCall(n.init, '$state') && n.id?.type === 'Identifier') {
+        stateNames.add(n.id.name);
+      }
+    });
+    walkEstree(program, (n) => {
+      if (n.type !== 'CallExpression' || !isRuneCall(n, '$effect')) return;
+      const fn = n.arguments?.[0];
+      const isFn = fn?.type === 'ArrowFunctionExpression' || fn?.type === 'FunctionExpression';
+      effects.push({
+        line: lineOf(source, n.start),
+        assignsOnlyState: isFn ? bodyOnlyAssignsState(fn, stateNames) : false
+      });
+    });
+  }
+  return { eachBlocks, effects };
 }

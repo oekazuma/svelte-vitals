@@ -37,6 +37,7 @@ import { seo026Hreflang } from './seo/seo026-hreflang.js';
 import { seo027Heading } from './seo/seo027-heading.js';
 import { seo028TitleUnique, seo029DescriptionUnique } from './seo/seo028-029-uniqueness.js';
 import { seo030HeadingOrder } from './seo/seo030-heading-order.js';
+import { correct001EachKey, correct002EffectDerived } from './correctness/correct001-002.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -76,7 +77,9 @@ export const allRules: Rule[] = [
   perf008Preconnect,
   seo028TitleUnique,
   seo029DescriptionUnique,
-  seo030HeadingOrder
+  seo030HeadingOrder,
+  correct001EachKey,
+  correct002EffectDerived
 ];
 
 export {
@@ -117,7 +120,9 @@ export {
   perf008Preconnect,
   seo028TitleUnique,
   seo029DescriptionUnique,
-  seo030HeadingOrder
+  seo030HeadingOrder,
+  correct001EachKey,
+  correct002EffectDerived
 };
 
 export interface RuleInfo {

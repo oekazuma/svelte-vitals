@@ -2,6 +2,7 @@ import type { Category, Config, Detection, Fix, Project, Result, Scope, Severity
 import type { ResolvedHead } from './head.js';
 import type { ResolvedImages } from './images.js';
 import type { ResolvedHeadings } from './headings.js';
+import type { ComponentFacts } from './component.js';
 
 /** Input given to every rule. Mode-independent: rules see only ResolvedHead[] (design §8, §10). */
 export interface RuleContext {
@@ -10,6 +11,8 @@ export interface RuleContext {
   images?: ResolvedImages[];
   /** Per-route page-body headings for SEO027 (absent in modes that don't collect them). */
   headings?: ResolvedHeadings[];
+  /** Per-file component-body facts for Correctness rules (static/CLI mode only). */
+  components?: ComponentFacts[];
   project: Project;
   config: Config;
 }
