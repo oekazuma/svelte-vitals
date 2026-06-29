@@ -63,7 +63,10 @@ export {
   perf005LcpImage,
   perf006ResponsiveImage,
   perf007RenderBlockingScript,
-  perf008Preconnect
+  perf008Preconnect,
+  seo028TitleUnique,
+  seo029DescriptionUnique,
+  seo030HeadingOrder
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';
