@@ -49,6 +49,10 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
 
   const route = typeof argv.route === 'string' ? argv.route : undefined;
 
+  // --diff (string): `--diff` alone → '' (default base HEAD); `--diff main` → 'main'.
+  const diff = typeof argv.diff === 'string' ? argv.diff || true : undefined;
+  const staged = Boolean(argv.staged);
+
   const allow = toList(argv.rules);
   const ignore = toList(argv.ignore);
   const unknown = findUnknownRuleIds([...allow, ...ignore]);
@@ -91,7 +95,9 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
       outFile: typeof argv['out-file'] === 'string' ? argv['out-file'] : undefined,
       byRoute: Boolean(argv['by-route']),
       failOn,
-      rules: buildRulesConfig(allow, ignore)
+      rules: buildRulesConfig(allow, ignore),
+      ...(diff !== undefined ? { diff } : {}),
+      ...(staged ? { staged } : {})
     },
     warnings,
     errors

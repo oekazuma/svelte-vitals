@@ -13,6 +13,8 @@ Options:
   --meta-components <names>   Comma-separated component names that emit head metadata
   --treat-dynamic-as <mode>   pass | warn | fail (default: pass)
   --route <glob>              Only analyze routes matching this glob
+  --diff [ref]                Report only findings in files changed vs ref (default HEAD; e.g. --diff main)
+  --staged                    Report only findings in files staged for commit (pre-commit gate)
   --by-route                  Show per-route score breakdown in console output
   --reporter <fmt>            console | json | agent | sarif | github | html (auto: agent under AI-agent envs, github under GitHub Actions)
   --out-file <path>           Output path for --reporter html (default: svelte-vitals-report.html; '-' for stdout)
@@ -35,7 +37,7 @@ const VERSION = readPackageVersion();
 async function main(): Promise<void> {
   const argv = mri(process.argv.slice(2), {
     alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'json', 'fail-on-warning'],
+    boolean: ['by-route', 'json', 'fail-on-warning', 'staged'],
     string: [
       'meta-components',
       'treat-dynamic-as',
@@ -45,7 +47,8 @@ async function main(): Promise<void> {
       'rules',
       'ignore',
       'min-health',
-      'out-file'
+      'out-file',
+      'diff'
     ]
   });
 
