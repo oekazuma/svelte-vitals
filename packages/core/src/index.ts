@@ -71,7 +71,9 @@ export {
   correct001EachKey,
   correct002EffectDerived,
   sec001Html,
-  sec002JavascriptUrl
+  sec002JavascriptUrl,
+  arch001ComponentSize,
+  arch002PropCount
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

@@ -13,9 +13,10 @@ const CATEGORY_LABEL: Partial<Record<Category, string>> = {
   seo: 'SEO',
   performance: 'Performance',
   correctness: 'Correctness',
-  security: 'Security'
+  security: 'Security',
+  architecture: 'Architecture'
 };
-const CATEGORY_ORDER: Category[] = ['seo', 'performance', 'correctness', 'security'];
+const CATEGORY_ORDER: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
 
 export interface ConsoleReportOptions {
   byRoute?: boolean;

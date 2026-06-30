@@ -69,7 +69,7 @@ export interface Result {
 
 export type Scope = 'route' | 'project' | 'component';
 
-export type Category = 'seo' | 'performance' | 'correctness' | 'security';
+export type Category = 'seo' | 'performance' | 'correctness' | 'security' | 'architecture';
 
 /** How dynamic (`{data.title}`) values are treated by scoring (design §4, §12). */
 export type TreatDynamicAs = 'pass' | 'warn' | 'fail';

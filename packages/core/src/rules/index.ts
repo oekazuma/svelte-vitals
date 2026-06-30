@@ -39,6 +39,7 @@ import { seo028TitleUnique, seo029DescriptionUnique } from './seo/seo028-029-uni
 import { seo030HeadingOrder } from './seo/seo030-heading-order.js';
 import { correct001EachKey, correct002EffectDerived } from './correctness/correct001-002.js';
 import { sec001Html, sec002JavascriptUrl } from './security/sec001-002.js';
+import { arch001ComponentSize, arch002PropCount } from './architecture/arch001-002.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -82,7 +83,9 @@ export const allRules: Rule[] = [
   correct001EachKey,
   correct002EffectDerived,
   sec001Html,
-  sec002JavascriptUrl
+  sec002JavascriptUrl,
+  arch001ComponentSize,
+  arch002PropCount
 ];
 
 export {
@@ -127,7 +130,9 @@ export {
   correct001EachKey,
   correct002EffectDerived,
   sec001Html,
-  sec002JavascriptUrl
+  sec002JavascriptUrl,
+  arch001ComponentSize,
+  arch002PropCount
 };
 
 export interface RuleInfo {

@@ -448,21 +448,62 @@ function collectSecurityFacts(node: Node, source: string, htmlTags: SourceSpan[]
   }
 }
 
-/** Parse a component's reactivity/correctness + security facts (CLI/static only). */
+/** Whether a CallExpression is a bare `$props()` call. */
+function isPropsCall(node: Node): boolean {
+  return node?.type === 'CallExpression' && node.callee?.type === 'Identifier' && node.callee.name === '$props';
+}
+
+/** Named props destructured from `$props()`, or 0 when unknowable (ARCH002). */
+function countProps(program: Node): number {
+  let count = 0;
+  let seen = 0;
+  // Unknowable when: a non-destructured / `...rest` $props(), or more than one $props()
+  // call (a normal component has exactly one) — either way we can't trust a count.
+  let uncountable = false;
+  walkEstree(program, (n) => {
+    if (n.type !== 'VariableDeclarator' || !n.init || !isPropsCall(n.init)) return;
+    seen++;
+    const props = n.id?.type === 'ObjectPattern' ? n.id.properties : undefined;
+    if (!Array.isArray(props) || props.some((p: Node) => p?.type === 'RestElement')) {
+      uncountable = true;
+      return;
+    }
+    count = props.filter((p: Node) => p?.type === 'Property').length;
+  });
+  return uncountable || seen > 1 ? 0 : count;
+}
+
+/** Source line count, not over-counting a single trailing newline (ARCH001). */
+function countLines(source: string): number {
+  if (source.length === 0) return 0;
+  return source.split('\n').length - (source.endsWith('\n') ? 1 : 0);
+}
+
+/** Parse a component's reactivity/correctness + security + architecture facts (CLI/static only). */
 export function parseComponentFacts(
   source: string,
   filename: string
-): { eachBlocks: EachBlockFact[]; effects: EffectFact[]; htmlTags: SourceSpan[]; javascriptUrls: SourceSpan[] } {
+): {
+  eachBlocks: EachBlockFact[];
+  effects: EffectFact[];
+  htmlTags: SourceSpan[];
+  javascriptUrls: SourceSpan[];
+  loc: number;
+  propCount: number;
+} {
   const ast = parse(source, { modern: true, filename }) as Node;
   const eachBlocks: EachBlockFact[] = [];
   collectEachBlocks(ast.fragment ?? ast, source, eachBlocks);
   const htmlTags: SourceSpan[] = [];
   const javascriptUrls: SourceSpan[] = [];
   collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
+  const loc = countLines(source);
 
   const effects: EffectFact[] = [];
+  let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
+    propCount = countProps(program);
     const stateNames = new Set<string>();
     walkEstree(program, (n) => {
       if (n.type === 'VariableDeclarator' && n.init && isStateDeclaration(n.init) && n.id?.type === 'Identifier') {
@@ -479,5 +520,5 @@ export function parseComponentFacts(
       });
     });
   }
-  return { eachBlocks, effects, htmlTags, javascriptUrls };
+  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount };
 }
