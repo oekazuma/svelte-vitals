@@ -112,6 +112,10 @@ describe('parseComponentFacts — architecture (ARCH001/ARCH002)', () => {
     const src = '<script>let { a, b } = $props(); let other = $props();</script>';
     expect(parseComponentFacts(src, 'C.svelte').propCount).toBe(0);
   });
+  it('returns 0 when more than one $props() is destructured (ambiguous)', () => {
+    const src = '<script>let { a } = $props(); let { b, c } = $props();</script>';
+    expect(parseComponentFacts(src, 'C.svelte').propCount).toBe(0);
+  });
   it('reports 0 props when there is no $props()', () => {
     expect(parseComponentFacts('<p>hi</p>', 'C.svelte').propCount).toBe(0);
   });

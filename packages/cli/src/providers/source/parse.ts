@@ -453,12 +453,16 @@ function isPropsCall(node: Node): boolean {
   return node?.type === 'CallExpression' && node.callee?.type === 'Identifier' && node.callee.name === '$props';
 }
 
-/** Named props destructured from `$props()`, or 0 when unknowable (rest / non-destructured) (ARCH002). */
+/** Named props destructured from `$props()`, or 0 when unknowable (ARCH002). */
 function countProps(program: Node): number {
   let count = 0;
-  let uncountable = false; // any non-destructured / `...rest` $props() makes the whole count unknowable
+  let seen = 0;
+  // Unknowable when: a non-destructured / `...rest` $props(), or more than one $props()
+  // call (a normal component has exactly one) — either way we can't trust a count.
+  let uncountable = false;
   walkEstree(program, (n) => {
     if (n.type !== 'VariableDeclarator' || !n.init || !isPropsCall(n.init)) return;
+    seen++;
     const props = n.id?.type === 'ObjectPattern' ? n.id.properties : undefined;
     if (!Array.isArray(props) || props.some((p: Node) => p?.type === 'RestElement')) {
       uncountable = true;
@@ -466,7 +470,7 @@ function countProps(program: Node): number {
     }
     count = props.filter((p: Node) => p?.type === 'Property').length;
   });
-  return uncountable ? 0 : count;
+  return uncountable || seen > 1 ? 0 : count;
 }
 
 /** Source line count, not over-counting a single trailing newline (ARCH001). */

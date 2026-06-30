@@ -35,7 +35,8 @@ positive principle. Architecture metrics are deterministic counts.
 `ComponentCategory` widens to include `'architecture'`. Both rules use
 `severity: 'info'` and thresholds as named constants:
 
-- **ARCH001** — `applies: () => true` (every component has a size); `bad`: one
+- **ARCH001** — `applies: (c) => c.loc > 0` (skip unanalyzable files — `loc: 0`
+  is the read/parse-failure fallback, not a real 0-line component); `bad`: one
   finding when `loc > MAX_LOC` (400).
 - **ARCH002** — `applies: (c) => c.propCount > 0`; `bad`: one finding when
   `propCount > MAX_PROPS` (10).
