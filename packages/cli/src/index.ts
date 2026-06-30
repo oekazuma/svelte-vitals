@@ -48,9 +48,9 @@ export interface RunOptions {
   outFile?: string;
   /** Injected file writer for --reporter html (defaults to node:fs writeFileSync). Mainly for tests. */
   writeFile?: (path: string, content: string) => void;
-  /** Report only findings in files changed vs a ref (true = HEAD/uncommitted; string = that ref). */
-  diff?: string | boolean;
-  /** Report only findings in files staged for commit. Takes precedence over `diff`. */
+  /** Report only findings in files changed vs the merge-base with this ref ('HEAD' = uncommitted). Undefined = no gating. */
+  diffBase?: string;
+  /** Report only findings in files staged for commit. Takes precedence over `diffBase`. */
   staged?: boolean;
 }
 
@@ -156,14 +156,14 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     let results = analysis.results;
 
     // --staged / --diff: scope findings to the changed files (gate "what the agent wrote").
-    if (opts.staged || opts.diff) {
+    if (opts.staged || opts.diffBase !== undefined) {
       const cwd = opts.cwd ?? process.cwd();
       const changed = opts.staged
         ? getChangedFiles(cwd, { staged: true })
-        : getChangedFiles(cwd, { base: typeof opts.diff === 'string' ? opts.diff : undefined });
+        : getChangedFiles(cwd, { base: opts.diffBase });
       if (changed === undefined) {
         errorLog(
-          'svelte-vitals: could not determine changed files (not a git repo or git unavailable); analyzing all.'
+          'svelte-vitals: could not determine changed files (not a git repo, git unavailable, or bad ref); analyzing all.'
         );
       } else {
         results = filterToChangedFiles(results, changed);

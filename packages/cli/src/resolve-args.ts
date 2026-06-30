@@ -49,8 +49,8 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
 
   const route = typeof argv.route === 'string' ? argv.route : undefined;
 
-  // --diff (string): `--diff` alone → '' (default base HEAD); `--diff main` → 'main'.
-  const diff = typeof argv.diff === 'string' ? argv.diff || true : undefined;
+  // --diff (string): `--diff` alone → '' ⇒ default base 'HEAD'; `--diff main` → 'main'.
+  const diffBase = typeof argv.diff === 'string' ? argv.diff || 'HEAD' : undefined;
   const staged = Boolean(argv.staged);
 
   const allow = toList(argv.rules);
@@ -96,7 +96,7 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
       byRoute: Boolean(argv['by-route']),
       failOn,
       rules: buildRulesConfig(allow, ignore),
-      ...(diff !== undefined ? { diff } : {}),
+      ...(diffBase !== undefined ? { diffBase } : {}),
       ...(staged ? { staged } : {})
     },
     warnings,

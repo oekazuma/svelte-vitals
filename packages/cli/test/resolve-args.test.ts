@@ -69,13 +69,13 @@ describe('resolveArgs', () => {
 
   it('maps --staged and --diff to changed-file options', () => {
     expect(resolve('--staged').options?.staged).toBe(true);
-    expect(resolve('--diff').options?.diff).toBe(true); // bare --diff → default base (HEAD)
-    expect(resolve('--diff', 'main').options?.diff).toBe('main');
+    expect(resolve('--diff').options?.diffBase).toBe('HEAD'); // bare --diff → default base
+    expect(resolve('--diff', 'main').options?.diffBase).toBe('main');
   });
 
-  it('omits diff/staged when not passed', () => {
+  it('omits diffBase/staged when not passed', () => {
     const { options } = resolve('--json');
-    expect(options?.diff).toBeUndefined();
+    expect(options?.diffBase).toBeUndefined();
     expect(options?.staged).toBeUndefined();
   });
 });

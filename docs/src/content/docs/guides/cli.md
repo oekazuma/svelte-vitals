@@ -72,6 +72,25 @@ Only analyze routes whose path matches the given glob pattern.
 svelte-vitals --route "/blog/**"
 ```
 
+### `--diff [ref]`
+
+Report only findings located in files **changed** versus `ref` (default `HEAD`, i.e. uncommitted changes). Compares against the **merge-base** with `ref`, and includes untracked (new) files — so `--diff main` is "what this branch changed". Great as a PR check.
+
+```bash
+svelte-vitals --diff          # uncommitted changes vs HEAD
+svelte-vitals --diff main     # everything this branch changed vs main
+```
+
+### `--staged`
+
+Report only findings in files **staged** for commit (`git diff --cached`). Ideal as a pre-commit hook to gate just what you're about to commit. Takes precedence over `--diff`.
+
+```bash
+svelte-vitals --staged --fail-on warning
+```
+
+> Both flags filter findings by their source-file location and assume the project root is the git root. If git is unavailable (or the ref is invalid), svelte-vitals warns and analyzes the whole project.
+
 ### `--by-route`
 
 Print a per-route score breakdown in the console output.
