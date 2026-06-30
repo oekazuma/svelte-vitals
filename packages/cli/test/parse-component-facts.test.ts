@@ -96,6 +96,22 @@ describe('parseComponentFacts — security (SEC001/SEC002)', () => {
   });
 });
 
+describe('parseComponentFacts — architecture (ARCH001/ARCH002)', () => {
+  it('counts source lines (loc)', () => {
+    expect(parseComponentFacts('<p>a</p>\n<p>b</p>\n<p>c</p>', 'C.svelte').loc).toBe(3);
+  });
+  it('counts destructured props from $props()', () => {
+    expect(parseComponentFacts('<script>let { a, b, c } = $props();</script>', 'C.svelte').propCount).toBe(3);
+  });
+  it('reports 0 props for a rest element or non-destructured $props()', () => {
+    expect(parseComponentFacts('<script>let { a, ...rest } = $props();</script>', 'C.svelte').propCount).toBe(0);
+    expect(parseComponentFacts('<script>let props = $props();</script>', 'C.svelte').propCount).toBe(0);
+  });
+  it('reports 0 props when there is no $props()', () => {
+    expect(parseComponentFacts('<p>hi</p>', 'C.svelte').propCount).toBe(0);
+  });
+});
+
 describe('collectComponentFacts (memory runtime)', () => {
   it('scans every .svelte under src, including $lib', async () => {
     const rt = createMemoryRuntime({

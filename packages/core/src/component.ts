@@ -26,7 +26,7 @@ export interface SourceSpan {
   line: number;
 }
 
-/** Reactivity/correctness + security facts parsed from one `.svelte` component. */
+/** Reactivity/correctness + security + architecture facts parsed from one `.svelte` component. */
 export interface ComponentFacts {
   /** Source file the component came from. */
   file: string;
@@ -36,4 +36,8 @@ export interface ComponentFacts {
   htmlTags: SourceSpan[];
   /** Element attributes with a literal `javascript:` URL (Security SEC002). */
   javascriptUrls: SourceSpan[];
+  /** Source line count of the component file (Architecture ARCH001). */
+  loc: number;
+  /** Named props destructured from `$props()`; 0 when unknowable (rest / non-destructured) (Architecture ARCH002). */
+  propCount: number;
 }

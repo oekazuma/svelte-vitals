@@ -15,6 +15,8 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   effects: [],
   htmlTags: [],
   javascriptUrls: [],
+  loc: 10,
+  propCount: 0,
   ...over
 });
 

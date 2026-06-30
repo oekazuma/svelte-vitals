@@ -448,21 +448,48 @@ function collectSecurityFacts(node: Node, source: string, htmlTags: SourceSpan[]
   }
 }
 
-/** Parse a component's reactivity/correctness + security facts (CLI/static only). */
+/** Whether a CallExpression is a bare `$props()` call. */
+function isPropsCall(node: Node): boolean {
+  return node?.type === 'CallExpression' && node.callee?.type === 'Identifier' && node.callee.name === '$props';
+}
+
+/** Named props destructured from `$props()`, or 0 when unknowable (rest / non-destructured) (ARCH002). */
+function countProps(program: Node): number {
+  let count = 0;
+  walkEstree(program, (n) => {
+    if (n.type !== 'VariableDeclarator' || !n.init || !isPropsCall(n.init)) return;
+    if (n.id?.type !== 'ObjectPattern' || !Array.isArray(n.id.properties)) return; // `let p = $props()` → unknowable
+    if (n.id.properties.some((p: Node) => p?.type === 'RestElement')) return; // `...rest` → unbounded
+    count = n.id.properties.filter((p: Node) => p?.type === 'Property').length;
+  });
+  return count;
+}
+
+/** Parse a component's reactivity/correctness + security + architecture facts (CLI/static only). */
 export function parseComponentFacts(
   source: string,
   filename: string
-): { eachBlocks: EachBlockFact[]; effects: EffectFact[]; htmlTags: SourceSpan[]; javascriptUrls: SourceSpan[] } {
+): {
+  eachBlocks: EachBlockFact[];
+  effects: EffectFact[];
+  htmlTags: SourceSpan[];
+  javascriptUrls: SourceSpan[];
+  loc: number;
+  propCount: number;
+} {
   const ast = parse(source, { modern: true, filename }) as Node;
   const eachBlocks: EachBlockFact[] = [];
   collectEachBlocks(ast.fragment ?? ast, source, eachBlocks);
   const htmlTags: SourceSpan[] = [];
   const javascriptUrls: SourceSpan[] = [];
   collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
+  const loc = source.split('\n').length;
 
   const effects: EffectFact[] = [];
+  let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
+    propCount = countProps(program);
     const stateNames = new Set<string>();
     walkEstree(program, (n) => {
       if (n.type === 'VariableDeclarator' && n.init && isStateDeclaration(n.init) && n.id?.type === 'Identifier') {
@@ -479,5 +506,5 @@ export function parseComponentFacts(
       });
     });
   }
-  return { eachBlocks, effects, htmlTags, javascriptUrls };
+  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount };
 }

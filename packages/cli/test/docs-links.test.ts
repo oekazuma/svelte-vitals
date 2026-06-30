@@ -8,11 +8,9 @@ const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..')
 const enRules = join(repoRoot, 'docs', 'src', 'content', 'docs', 'rules');
 const jaRules = join(repoRoot, 'docs', 'src', 'content', 'docs', 'ja', 'rules');
 
-// Rules whose findings link to our own docs — every category has reference pages.
-const documented = allRules.filter(
-  (r) =>
-    r.category === 'seo' || r.category === 'performance' || r.category === 'correctness' || r.category === 'security'
-);
+// Every rule links its findings to our own docs, so every category has reference pages.
+const DOCUMENTED_CATEGORIES = new Set(['seo', 'performance', 'correctness', 'security', 'architecture']);
+const documented = allRules.filter((r) => DOCUMENTED_CATEGORIES.has(r.category));
 
 describe('docs: every documented rule has a reference page (en + ja)', () => {
   it('has an en page per rule id (lowercased slug)', () => {
