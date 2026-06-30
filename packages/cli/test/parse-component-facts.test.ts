@@ -97,8 +97,9 @@ describe('parseComponentFacts — security (SEC001/SEC002)', () => {
 });
 
 describe('parseComponentFacts — architecture (ARCH001/ARCH002)', () => {
-  it('counts source lines (loc)', () => {
+  it('counts source lines (loc), not over-counting a trailing newline', () => {
     expect(parseComponentFacts('<p>a</p>\n<p>b</p>\n<p>c</p>', 'C.svelte').loc).toBe(3);
+    expect(parseComponentFacts('<p>a</p>\n<p>b</p>\n<p>c</p>\n', 'C.svelte').loc).toBe(3);
   });
   it('counts destructured props from $props()', () => {
     expect(parseComponentFacts('<script>let { a, b, c } = $props();</script>', 'C.svelte').propCount).toBe(3);
@@ -106,6 +107,10 @@ describe('parseComponentFacts — architecture (ARCH001/ARCH002)', () => {
   it('reports 0 props for a rest element or non-destructured $props()', () => {
     expect(parseComponentFacts('<script>let { a, ...rest } = $props();</script>', 'C.svelte').propCount).toBe(0);
     expect(parseComponentFacts('<script>let props = $props();</script>', 'C.svelte').propCount).toBe(0);
+  });
+  it('returns 0 when any $props() shape is uncountable (mixed patterns)', () => {
+    const src = '<script>let { a, b } = $props(); let other = $props();</script>';
+    expect(parseComponentFacts(src, 'C.svelte').propCount).toBe(0);
   });
   it('reports 0 props when there is no $props()', () => {
     expect(parseComponentFacts('<p>hi</p>', 'C.svelte').propCount).toBe(0);

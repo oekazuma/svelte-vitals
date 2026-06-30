@@ -456,13 +456,23 @@ function isPropsCall(node: Node): boolean {
 /** Named props destructured from `$props()`, or 0 when unknowable (rest / non-destructured) (ARCH002). */
 function countProps(program: Node): number {
   let count = 0;
+  let uncountable = false; // any non-destructured / `...rest` $props() makes the whole count unknowable
   walkEstree(program, (n) => {
     if (n.type !== 'VariableDeclarator' || !n.init || !isPropsCall(n.init)) return;
-    if (n.id?.type !== 'ObjectPattern' || !Array.isArray(n.id.properties)) return; // `let p = $props()` → unknowable
-    if (n.id.properties.some((p: Node) => p?.type === 'RestElement')) return; // `...rest` → unbounded
-    count = n.id.properties.filter((p: Node) => p?.type === 'Property').length;
+    const props = n.id?.type === 'ObjectPattern' ? n.id.properties : undefined;
+    if (!Array.isArray(props) || props.some((p: Node) => p?.type === 'RestElement')) {
+      uncountable = true;
+      return;
+    }
+    count = props.filter((p: Node) => p?.type === 'Property').length;
   });
-  return count;
+  return uncountable ? 0 : count;
+}
+
+/** Source line count, not over-counting a single trailing newline (ARCH001). */
+function countLines(source: string): number {
+  if (source.length === 0) return 0;
+  return source.split('\n').length - (source.endsWith('\n') ? 1 : 0);
 }
 
 /** Parse a component's reactivity/correctness + security + architecture facts (CLI/static only). */
@@ -483,7 +493,7 @@ export function parseComponentFacts(
   const htmlTags: SourceSpan[] = [];
   const javascriptUrls: SourceSpan[] = [];
   collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
-  const loc = source.split('\n').length;
+  const loc = countLines(source);
 
   const effects: EffectFact[] = [];
   let propCount = 0;

@@ -36,6 +36,9 @@ describe('ARCH001 component size', () => {
   it('emits nothing when the component channel is unset (rendered mode)', async () => {
     expect(await arch001ComponentSize.check(base as RuleContext)).toHaveLength(0);
   });
+  it('skips an unanalyzable component (loc 0 = read/parse failure), not a PASS', async () => {
+    expect(await arch001ComponentSize.check(ctx([comp({ loc: 0 })]))).toHaveLength(0);
+  });
 });
 
 describe('ARCH002 prop count', () => {
