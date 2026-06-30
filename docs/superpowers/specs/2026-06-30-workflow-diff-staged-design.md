@@ -18,10 +18,15 @@ pre-existing findings across the whole app. The signature agent-native workflow.
 
 ### Changed-file resolution (`changed-files.ts`)
 
-`getChangedFiles(cwd, { staged?, base? })` runs git via `node:child_process`
-(`git diff --name-only --diff-filter=d [--cached] [base]`) and returns a `Set`
-of repo-relative POSIX paths, or `undefined` on any failure (not a git repo, git
-missing, etc.). Deleted files are excluded (`--diff-filter=d`).
+`getChangedFiles(cwd, { staged?, base? })` runs git via `node:child_process` and
+returns a `Set` of repo-relative POSIX paths, or `undefined` on any failure (not a
+git repo, git missing, bad ref). Deleted files are excluded (`--diff-filter=d`).
+
+- `--staged`: `git diff --name-only --cached --diff-filter=d`.
+- `--diff`: `git diff --name-only --diff-filter=d --merge-base <base>` (so
+  `--diff main` is branch-introduced changes, not files only changed on `main`),
+  **unioned with** `git ls-files --others --exclude-standard` (untracked/new files
+  — a "gate what changed" run must catch brand-new components).
 
 ### Filtering (`run()` in `index.ts`)
 
@@ -41,9 +46,9 @@ v1 assumes project root == git root (the common case); documented.
 
 ## CLI surface
 
-- mri: `diff` (string — `--diff` alone → `''` ⇒ default base; `--diff main` →
-  `'main'`), `staged` (boolean). `resolveArgs` maps to
-  `RunOptions.diff?: string | true` and `staged?: boolean`. `--staged` wins if both.
+- mri: `diff` (string — `--diff` alone → `''`; `--diff main` → `'main'`), `staged`
+  (boolean). `resolveArgs` maps to `RunOptions.diffBase?: string` (bare `--diff` →
+  `'HEAD'`; `undefined` = no gating) and `staged?: boolean`. `--staged` wins if both.
 - HELP + exit codes documented. Changeset `svelte-vitals` minor.
 
 ## Testing
