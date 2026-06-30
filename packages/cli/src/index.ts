@@ -26,6 +26,7 @@ import { collectComponentFacts } from './providers/source/components.js';
 import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
 import { readPackageVersion } from './version.js';
 import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
+import { getChangedFiles, filterToChangedFiles } from './changed-files.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -47,6 +48,10 @@ export interface RunOptions {
   outFile?: string;
   /** Injected file writer for --reporter html (defaults to node:fs writeFileSync). Mainly for tests. */
   writeFile?: (path: string, content: string) => void;
+  /** Report only findings in files changed vs the merge-base with this ref ('HEAD' = uncommitted). Undefined = no gating. */
+  diffBase?: string;
+  /** Report only findings in files staged for commit. Takes precedence over `diffBase`. */
+  staged?: boolean;
 }
 
 export function routeMatcher(glob: string | undefined): (route: string) => boolean {
@@ -147,7 +152,24 @@ export async function run(opts: RunOptions = {}): Promise<number> {
   }
 
   try {
-    const { results, config, version } = analysis;
+    const { config, version } = analysis;
+    let results = analysis.results;
+
+    // --staged / --diff: scope findings to the changed files (gate "what the agent wrote").
+    if (opts.staged || opts.diffBase !== undefined) {
+      const cwd = opts.cwd ?? process.cwd();
+      const changed = opts.staged
+        ? getChangedFiles(cwd, { staged: true })
+        : getChangedFiles(cwd, { base: opts.diffBase });
+      if (changed === undefined) {
+        errorLog(
+          'svelte-vitals: could not determine changed files (not a git repo, git unavailable, or bad ref); analyzing all.'
+        );
+      } else {
+        results = filterToChangedFiles(results, changed);
+      }
+    }
+
     const env = opts.env ?? process.env;
     const reporter = resolveReporter(opts.reporter, env);
     if (reporter === 'agent' && isAutoDetectedAgent(opts.reporter, env)) {

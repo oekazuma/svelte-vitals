@@ -6,8 +6,8 @@ import { resolveArgs } from '../src/resolve-args.js';
 function resolve(...args: string[]) {
   const argv = mri(args, {
     alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'json', 'fail-on-warning'],
-    string: ['meta-components', 'treat-dynamic-as', 'route', 'fail-on', 'reporter', 'rules', 'ignore']
+    boolean: ['by-route', 'json', 'fail-on-warning', 'staged'],
+    string: ['meta-components', 'treat-dynamic-as', 'route', 'fail-on', 'reporter', 'rules', 'ignore', 'diff']
   });
   return resolveArgs(argv);
 }
@@ -65,5 +65,17 @@ describe('resolveArgs', () => {
   it('maps --json to the json reporter', () => {
     const { options } = resolve('--json');
     expect(options?.reporter).toBe('json');
+  });
+
+  it('maps --staged and --diff to changed-file options', () => {
+    expect(resolve('--staged').options?.staged).toBe(true);
+    expect(resolve('--diff').options?.diffBase).toBe('HEAD'); // bare --diff → default base
+    expect(resolve('--diff', 'main').options?.diffBase).toBe('main');
+  });
+
+  it('omits diffBase/staged when not passed', () => {
+    const { options } = resolve('--json');
+    expect(options?.diffBase).toBeUndefined();
+    expect(options?.staged).toBeUndefined();
   });
 });
