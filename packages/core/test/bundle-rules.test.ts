@@ -63,13 +63,23 @@ describe('PERF010 namespace import', () => {
   });
   it('dedupes the same package imported twice (one finding)', async () => {
     const rs = await perf010NamespaceImport.check(
-      ctx([withNs([{ source: 'lodash', line: 2 }, { source: 'lodash', line: 3 }])])
+      ctx([
+        withNs([
+          { source: 'lodash', line: 2 },
+          { source: 'lodash', line: 3 }
+        ])
+      ])
     );
     expect(fails(rs)).toHaveLength(1);
   });
   it('reports one finding per distinct package', async () => {
     const rs = await perf010NamespaceImport.check(
-      ctx([withNs([{ source: 'lodash', line: 2 }, { source: 'three', line: 3 }])])
+      ctx([
+        withNs([
+          { source: 'lodash', line: 2 },
+          { source: 'three', line: 3 }
+        ])
+      ])
     );
     expect(fails(rs)).toHaveLength(2);
   });

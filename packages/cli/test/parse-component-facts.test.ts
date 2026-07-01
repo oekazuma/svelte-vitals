@@ -162,7 +162,10 @@ describe('parseComponentFacts — namespace imports (PERF010)', () => {
     expect(ns("import * as _ from 'lodash';").map((n) => n.source)).toEqual(['lodash']);
   });
   it('captures namespace imports from a module script too', () => {
-    const c = parseComponentFacts(`<script module>import * as a from 'apkg';</script><script>import * as b from 'bpkg';</script>`, 'C.svelte');
+    const c = parseComponentFacts(
+      `<script module>import * as a from 'apkg';</script><script>import * as b from 'bpkg';</script>`,
+      'C.svelte'
+    );
     expect(c.namespaceImports.map((n) => n.source).sort()).toEqual(['apkg', 'bpkg']);
   });
   it('excludes type-only, named/default, and non-bare namespace imports', () => {
@@ -175,7 +178,10 @@ describe('parseComponentFacts — namespace imports (PERF010)', () => {
     expect(ns("import * as e from '$lib/env';")).toEqual([]);
   });
   it('records a 1-based line', () => {
-    const [only] = parseComponentFacts(`<script>\nimport * as _ from 'lodash';\n</script>`, 'C.svelte').namespaceImports;
+    const [only] = parseComponentFacts(
+      `<script>\nimport * as _ from 'lodash';\n</script>`,
+      'C.svelte'
+    ).namespaceImports;
     expect(only!.line).toBeGreaterThan(0);
   });
 });

@@ -12,7 +12,7 @@ package>'`. A namespace import forces the bundler to keep the whole module, so
 named imports (`import { x } from 'pkg'`) should be preferred for tree-shaking.
 Advisory, so `info` severity.
 
-This covers the "whole-library import" of *arbitrary* packages that PERF009 does
+This covers the "whole-library import" of _arbitrary_ packages that PERF009 does
 not: PERF009 matches only a curated heavy list by exact specifier; for any other
 package a named import is tree-shakeable and carries no signal, but a namespace
 import of any package is the whole-library form.
@@ -22,8 +22,8 @@ import of any package is the whole-library form.
 **Flagged:** a value namespace import whose specifier is a **bare** package.
 
 ```js
-import * as _ from 'lodash';      // ✗ flag
-import * as THREE from 'three';   // ✗ flag (named imports tree-shake better)
+import * as _ from 'lodash'; // ✗ flag
+import * as THREE from 'three'; // ✗ flag (named imports tree-shake better)
 ```
 
 **Not flagged:**
@@ -52,7 +52,11 @@ focused field:
 
 ```ts
 /** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — Bundle PERF010. */
-namespaceImports: { source: string; line: number }[];
+namespaceImports: {
+  source: string;
+  line: number;
+}
+[];
 ```
 
 Populated in `packages/cli/src/providers/source/parse.ts` alongside
@@ -99,12 +103,13 @@ is unset in rendered mode, so it no-ops there — same as PERF009).
       });
     }
     return out;
-  }
+  };
   ```
 
 `componentRule` emits a PASS (detection `own`/`static`) when `applies` is true
 and `bad` is empty, and one PENALIZED finding per `bad` entry (with `line` when
-> 0) — identical shape to PERF009.
+
+> 0. — identical shape to PERF009.
 
 ### 3. Registration & surfaces
 

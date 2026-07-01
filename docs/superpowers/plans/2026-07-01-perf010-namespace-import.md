@@ -39,6 +39,7 @@
 ### Task 1: Capture `namespaceImports` on ComponentFacts
 
 **Files:**
+
 - Modify: `packages/core/src/component.ts` (add field after `imports`, line 44)
 - Modify: `packages/cli/src/providers/source/parse.ts` (add collector near `collectImportSources` line 482-487; extend `parseComponentFacts` return type line 493-501 and body line 502-536)
 - Modify: `packages/cli/src/providers/source/components.ts` (catch fallback, add `namespaceImports: []`)
@@ -46,6 +47,7 @@
 - Test: `packages/cli/test/parse-component-facts.test.ts` (add capture tests)
 
 **Interfaces:**
+
 - Produces: `ComponentFacts.namespaceImports: { source: string; line: number }[]`; `parseComponentFacts(...)` returns it.
 - Consumes: existing `walkEstree`, `lineOf` in `parse.ts`.
 
@@ -54,8 +56,12 @@
 In `packages/core/src/component.ts`, after the `imports: string[];` line (line 44), inside `ComponentFacts`, add:
 
 ```ts
-  /** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — Bundle PERF010. */
-  namespaceImports: { source: string; line: number }[];
+/** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — Bundle PERF010. */
+namespaceImports: {
+  source: string;
+  line: number;
+}
+[];
 ```
 
 - [ ] **Step 2: Write the failing capture tests**
@@ -70,7 +76,10 @@ describe('parseComponentFacts — namespace imports (PERF010)', () => {
     expect(ns("import * as _ from 'lodash';").map((n) => n.source)).toEqual(['lodash']);
   });
   it('captures namespace imports from a module script too', () => {
-    const c = parseComponentFacts(`<script module>import * as a from 'apkg';</script><script>import * as b from 'bpkg';</script>`, 'C.svelte');
+    const c = parseComponentFacts(
+      `<script module>import * as a from 'apkg';</script><script>import * as b from 'bpkg';</script>`,
+      'C.svelte'
+    );
     expect(c.namespaceImports.map((n) => n.source).sort()).toEqual(['apkg', 'bpkg']);
   });
   it('excludes type-only, named/default, and non-bare namespace imports', () => {
@@ -81,7 +90,10 @@ describe('parseComponentFacts — namespace imports (PERF010)', () => {
     expect(ns("import * as e from '$lib/env';")).toEqual([]);
   });
   it('records a 1-based line', () => {
-    const [only] = parseComponentFacts(`<script>\nimport * as _ from 'lodash';\n</script>`, 'C.svelte').namespaceImports;
+    const [only] = parseComponentFacts(
+      `<script>\nimport * as _ from 'lodash';\n</script>`,
+      'C.svelte'
+    ).namespaceImports;
     expect(only!.line).toBeGreaterThan(0);
   });
 });
@@ -120,45 +132,49 @@ function collectNamespaceImports(program: Node, source: string, acc: { source: s
 In the `parseComponentFacts` return-type annotation (lines 493-501), add after `imports: string[];`:
 
 ```ts
-  namespaceImports: { source: string; line: number }[];
+namespaceImports: {
+  source: string;
+  line: number;
+}
+[];
 ```
 
 In the body, replace the imports-collection block (lines 510-512):
 
 ```ts
-  // Imports live in either the instance (<script>) or module (<script module>) program.
-  const imports: string[] = [];
-  if (ast.module?.content) collectImportSources(ast.module.content, imports);
+// Imports live in either the instance (<script>) or module (<script module>) program.
+const imports: string[] = [];
+if (ast.module?.content) collectImportSources(ast.module.content, imports);
 ```
 
 with:
 
 ```ts
-  // Imports live in either the instance (<script>) or module (<script module>) program.
-  const imports: string[] = [];
-  const namespaceImports: { source: string; line: number }[] = [];
-  if (ast.module?.content) {
-    collectImportSources(ast.module.content, imports);
-    collectNamespaceImports(ast.module.content, source, namespaceImports);
-  }
+// Imports live in either the instance (<script>) or module (<script module>) program.
+const imports: string[] = [];
+const namespaceImports: { source: string; line: number }[] = [];
+if (ast.module?.content) {
+  collectImportSources(ast.module.content, imports);
+  collectNamespaceImports(ast.module.content, source, namespaceImports);
+}
 ```
 
 Then, inside the `if (program) {` block, right after the existing `collectImportSources(program, imports);` (line 518), add:
 
 ```ts
-    collectNamespaceImports(program, source, namespaceImports);
+collectNamespaceImports(program, source, namespaceImports);
 ```
 
 Finally, update the return statement (line 536) from:
 
 ```ts
-  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports };
+return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports };
 ```
 
 to:
 
 ```ts
-  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports };
+return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports };
 ```
 
 - [ ] **Step 6: Update the provider catch fallback**
@@ -205,12 +221,14 @@ git commit -m "feat(cli): capture namespace imports onto ComponentFacts.namespac
 ### Task 2: PERF010 rule + registration
 
 **Files:**
+
 - Create: `packages/core/src/rules/performance/perf010-namespace-import.ts`
 - Modify: `packages/core/src/rules/index.ts` (import line ~43; `allRules` ~90; re-export ~138)
 - Modify: `packages/core/src/index.ts` (re-export ~77)
 - Test: `packages/core/test/bundle-rules.test.ts` (add PERF010 describe block)
 
 **Interfaces:**
+
 - Consumes: `componentRule` from `../component-rule.js`; `ComponentFacts.namespaceImports` (Task 1).
 - Produces: `export const perf010NamespaceImport: Rule`.
 
@@ -238,13 +256,23 @@ describe('PERF010 namespace import', () => {
   });
   it('dedupes the same package imported twice (one finding)', async () => {
     const rs = await perf010NamespaceImport.check(
-      ctx([withNs([{ source: 'lodash', line: 2 }, { source: 'lodash', line: 3 }])])
+      ctx([
+        withNs([
+          { source: 'lodash', line: 2 },
+          { source: 'lodash', line: 3 }
+        ])
+      ])
     );
     expect(fails(rs)).toHaveLength(1);
   });
   it('reports one finding per distinct package', async () => {
     const rs = await perf010NamespaceImport.check(
-      ctx([withNs([{ source: 'lodash', line: 2 }, { source: 'three', line: 3 }])])
+      ctx([
+        withNs([
+          { source: 'lodash', line: 2 },
+          { source: 'three', line: 3 }
+        ])
+      ])
     );
     expect(fails(rs)).toHaveLength(2);
   });
@@ -325,8 +353,7 @@ In the re-export `export { … }` block, replace the closing `  perf009HeavyImpo
 In `packages/core/src/index.ts`, in the `export { … } from './rules/index.js'` block, replace the `  perf009HeavyImport` line (line 77) with:
 
 ```ts
-  perf009HeavyImport,
-  perf010NamespaceImport
+(perf009HeavyImport, perf010NamespaceImport);
 ```
 
 (Preserve whatever follows the block — only add the new line after `perf009HeavyImport`.)
@@ -350,6 +377,7 @@ git commit -m "feat(core): add PERF010 namespace import rule"
 ### Task 3: Docs + changeset
 
 **Files:**
+
 - Create: `docs/src/content/docs/rules/perf010.md`, `docs/src/content/docs/ja/rules/perf010.md`
 - Create: `.changeset/perf010-namespace-import.md`
 
@@ -357,7 +385,7 @@ git commit -m "feat(core): add PERF010 namespace import rule"
 
 Create `docs/src/content/docs/rules/perf010.md`:
 
-```md
+````md
 ---
 title: PERF010 · Namespace import
 description: Prefer named imports over import * as for tree-shaking.
@@ -384,7 +412,9 @@ A namespace import forces the bundler to retain the entire module, so unused exp
   import { Scene, WebGLRenderer } from 'three';
 </script>
 ```
-```
+````
+
+````
 
 - [ ] **Step 2: Write the Japanese doc**
 
@@ -416,8 +446,9 @@ namespace import はモジュール全体をバンドルに残すため、未使
   // import * as THREE from 'three'; の代わりに
   import { Scene, WebGLRenderer } from 'three';
 </script>
-```
-```
+````
+
+````
 
 - [ ] **Step 3: Write the changeset**
 
@@ -435,7 +466,7 @@ value `import * as X from '<bare package>'`, which keeps the whole module in the
 bundle and defeats tree-shaking; named imports are preferred. Type-only and
 non-bare (relative / `$lib` / `$app` / `#…`) namespace imports are not flagged.
 Reported under `performance` (info). `ComponentFacts` gains `namespaceImports`.
-```
+````
 
 - [ ] **Step 4: Verify docs build**
 
@@ -458,9 +489,11 @@ git commit -m "docs: PERF010 reference pages (en+ja) + changeset"
 - [ ] **Step 1: Build core, then run the whole suite / typecheck / lint / docs build**
 
 Run:
+
 ```bash
 pnpm -r build && pnpm -r test && pnpm -r typecheck && pnpm lint && pnpm --filter docs build
 ```
+
 Expected: all green. Core test count rises by 4 (PERF010 rule tests); cli by 4 (capture tests).
 
 - [ ] **Step 2: If lint reports formatting, fix and re-run**
@@ -480,6 +513,7 @@ git commit -m "chore: format PERF010 changes"
 ## Self-Review
 
 **Spec coverage:**
+
 - `ComponentFacts.namespaceImports` field → Task 1 Step 1. ✓
 - Collector: bare-only, type-only excluded, module + instance scripts, line → Task 1 Steps 4-5. ✓
 - Provider catch fallback + existing helper compile fixups → Task 1 Steps 6-7. ✓
