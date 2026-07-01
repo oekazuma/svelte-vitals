@@ -41,6 +41,7 @@ import { correct001EachKey, correct002EffectDerived } from './correctness/correc
 import { sec001Html, sec002JavascriptUrl } from './security/sec001-002.js';
 import { arch001ComponentSize, arch002PropCount } from './architecture/arch001-002.js';
 import { perf009HeavyImport } from './performance/perf009-heavy-import.js';
+import { perf010NamespaceImport } from './performance/perf010-namespace-import.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -87,7 +88,8 @@ export const allRules: Rule[] = [
   sec002JavascriptUrl,
   arch001ComponentSize,
   arch002PropCount,
-  perf009HeavyImport
+  perf009HeavyImport,
+  perf010NamespaceImport
 ];
 
 export {
@@ -135,7 +137,8 @@ export {
   sec002JavascriptUrl,
   arch001ComponentSize,
   arch002PropCount,
-  perf009HeavyImport
+  perf009HeavyImport,
+  perf010NamespaceImport
 };
 
 export interface RuleInfo {

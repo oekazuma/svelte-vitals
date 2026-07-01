@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { perf009HeavyImport } from '../src/index.js';
+import { perf009HeavyImport, perf010NamespaceImport } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -46,5 +46,36 @@ describe('PERF009 heavy dependency import', () => {
   });
   it('emits nothing when the component channel is unset (rendered mode)', async () => {
     expect(await perf009HeavyImport.check(base as RuleContext)).toHaveLength(0);
+  });
+});
+
+describe('PERF010 namespace import', () => {
+  const withNs = (namespaceImports: { source: string; line: number }[]): ComponentFacts => ({
+    ...comp([]),
+    namespaceImports
+  });
+
+  it('flags a bare namespace import', async () => {
+    const rs = await perf010NamespaceImport.check(ctx([withNs([{ source: 'lodash', line: 2 }])]));
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.category).toBe('performance');
+    expect(rs[0]!.message).toContain('lodash');
+  });
+  it('dedupes the same package imported twice (one finding)', async () => {
+    const rs = await perf010NamespaceImport.check(
+      ctx([withNs([{ source: 'lodash', line: 2 }, { source: 'lodash', line: 3 }])])
+    );
+    expect(fails(rs)).toHaveLength(1);
+  });
+  it('reports one finding per distinct package', async () => {
+    const rs = await perf010NamespaceImport.check(
+      ctx([withNs([{ source: 'lodash', line: 2 }, { source: 'three', line: 3 }])])
+    );
+    expect(fails(rs)).toHaveLength(2);
+  });
+  it('passes a component with no namespace imports', async () => {
+    const rs = await perf010NamespaceImport.check(ctx([withNs([])]));
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(0); // applies() is false → no signal
   });
 });
