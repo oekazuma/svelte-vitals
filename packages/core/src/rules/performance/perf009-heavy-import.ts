@@ -19,8 +19,16 @@ export const perf009HeavyImport = componentRule({
   rationale:
     'Importing a large, non-tree-shakeable package pulls its whole weight into the bundle even when only a fraction is used, slowing load.',
   applies: (c) => c.imports.length > 0,
-  bad: (c) =>
-    c.imports
-      .filter((src) => src in HEAVY_PACKAGES)
-      .map((src) => ({ line: 0, message: `Heavy import "${src}" — ${HEAVY_PACKAGES[src]}` }))
+  bad: (c) => {
+    // `Object.hasOwn` (not `in`) so inherited keys like `toString` never match;
+    // dedupe so the same package imported in both scripts isn't double-penalized.
+    const seen = new Set<string>();
+    const out: { line: number; message: string }[] = [];
+    for (const src of c.imports) {
+      if (!Object.hasOwn(HEAVY_PACKAGES, src) || seen.has(src)) continue;
+      seen.add(src);
+      out.push({ line: 0, message: `Heavy import "${src}" — ${HEAVY_PACKAGES[src]}` });
+    }
+    return out;
+  }
 });

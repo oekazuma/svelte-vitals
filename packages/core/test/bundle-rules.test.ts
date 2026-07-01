@@ -32,6 +32,14 @@ describe('PERF009 heavy dependency import', () => {
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1); // a passing seed
   });
+  it('does not match inherited Object keys (e.g. "toString")', async () => {
+    const rs = await perf009HeavyImport.check(ctx([comp(['toString', 'constructor'])]));
+    expect(fails(rs)).toHaveLength(0);
+  });
+  it('dedupes the same heavy package imported twice (one finding)', async () => {
+    const rs = await perf009HeavyImport.check(ctx([comp(['lodash', 'lodash'])]));
+    expect(fails(rs)).toHaveLength(1);
+  });
   it('emits nothing for a component with no imports', async () => {
     expect(await perf009HeavyImport.check(ctx([comp([])]))).toHaveLength(0);
   });
