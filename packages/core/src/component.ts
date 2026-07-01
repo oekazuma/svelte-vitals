@@ -40,4 +40,6 @@ export interface ComponentFacts {
   loc: number;
   /** Named props destructured from `$props()`; 0 when unknowable (rest / non-destructured) (Architecture ARCH002). */
   propCount: number;
+  /** Module specifiers of every `import` in the instance + module scripts (Bundle PERF009). */
+  imports: string[];
 }
