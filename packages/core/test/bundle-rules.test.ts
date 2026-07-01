@@ -17,7 +17,8 @@ const comp = (imports: string[]): ComponentFacts => ({
   javascriptUrls: [],
   loc: 10,
   propCount: 0,
-  imports
+  imports,
+  namespaceImports: []
 });
 
 describe('PERF009 heavy dependency import', () => {

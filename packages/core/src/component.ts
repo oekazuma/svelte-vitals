@@ -42,4 +42,6 @@ export interface ComponentFacts {
   propCount: number;
   /** Module specifiers of every `import` in the instance + module scripts (Bundle PERF009). */
   imports: string[];
+  /** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — Bundle PERF010. */
+  namespaceImports: { source: string; line: number }[];
 }
