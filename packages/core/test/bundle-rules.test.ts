@@ -61,16 +61,18 @@ describe('PERF010 namespace import', () => {
     expect(rs[0]!.category).toBe('performance');
     expect(rs[0]!.message).toContain('lodash');
   });
-  it('dedupes the same package imported twice (one finding)', async () => {
+  it('dedupes the same package imported twice, reporting the earliest line', async () => {
+    // Collection order is module-then-instance, not always source order; report the min line.
     const rs = await perf010NamespaceImport.check(
       ctx([
         withNs([
-          { source: 'lodash', line: 2 },
-          { source: 'lodash', line: 3 }
+          { source: 'lodash', line: 5 },
+          { source: 'lodash', line: 2 }
         ])
       ])
     );
     expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.line).toBe(2);
   });
   it('reports one finding per distinct package', async () => {
     const rs = await perf010NamespaceImport.check(

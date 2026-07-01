@@ -12,17 +12,19 @@ export const perf010NamespaceImport = componentRule({
     'A namespace import (import * as X) forces the bundler to retain the entire module, so unused exports cannot be tree-shaken out.',
   applies: (c) => c.namespaceImports.length > 0,
   bad: (c) => {
-    // Dedupe by source so a package imported as a namespace twice isn't double-penalized.
-    const seen = new Set<string>();
-    const out: { line: number; message: string }[] = [];
+    // Dedupe by source (a package imported as a namespace twice isn't double-penalized),
+    // reporting the earliest line — collection order is module-then-instance, which isn't
+    // always source order, so take the minimum line per source rather than first-seen.
+    const minLine = new Map<string, number>();
     for (const ns of c.namespaceImports) {
-      if (seen.has(ns.source)) continue;
-      seen.add(ns.source);
-      out.push({
-        line: ns.line,
-        message: `Namespace import "* as … from '${ns.source}'" — prefer named imports so the bundler can tree-shake`
-      });
+      const prev = minLine.get(ns.source);
+      if (prev === undefined || ns.line < prev) minLine.set(ns.source, ns.line);
     }
-    return out;
+    return [...minLine.entries()]
+      .sort((a, b) => a[1] - b[1])
+      .map(([source, line]) => ({
+        line,
+        message: `Namespace import "* as … from '${source}'" — prefer named imports so the bundler can tree-shake`
+      }));
   }
 });
