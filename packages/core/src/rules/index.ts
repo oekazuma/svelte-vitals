@@ -40,6 +40,7 @@ import { seo030HeadingOrder } from './seo/seo030-heading-order.js';
 import { correct001EachKey, correct002EffectDerived } from './correctness/correct001-002.js';
 import { sec001Html, sec002JavascriptUrl } from './security/sec001-002.js';
 import { arch001ComponentSize, arch002PropCount } from './architecture/arch001-002.js';
+import { perf009HeavyImport } from './performance/perf009-heavy-import.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -85,7 +86,8 @@ export const allRules: Rule[] = [
   sec001Html,
   sec002JavascriptUrl,
   arch001ComponentSize,
-  arch002PropCount
+  arch002PropCount,
+  perf009HeavyImport
 ];
 
 export {
@@ -132,7 +134,8 @@ export {
   sec001Html,
   sec002JavascriptUrl,
   arch001ComponentSize,
-  arch002PropCount
+  arch002PropCount,
+  perf009HeavyImport
 };
 
 export interface RuleInfo {

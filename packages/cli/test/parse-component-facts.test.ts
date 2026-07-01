@@ -121,6 +121,25 @@ describe('parseComponentFacts — architecture (ARCH001/ARCH002)', () => {
   });
 });
 
+describe('parseComponentFacts — imports (PERF009)', () => {
+  it('collects import specifiers from the instance script', () => {
+    const src = "<script>import _ from 'lodash'; import { onMount } from 'svelte';</script>";
+    expect(parseComponentFacts(src, 'C.svelte').imports).toEqual(['lodash', 'svelte']);
+  });
+  it('collects imports from the module script too', () => {
+    const src = "<script module>import x from 'a';</script><script>import y from 'b';</script>";
+    expect(parseComponentFacts(src, 'C.svelte').imports.sort()).toEqual(['a', 'b']);
+  });
+  it('records subpath specifiers verbatim (not normalized)', () => {
+    expect(parseComponentFacts("<script>import d from 'lodash/debounce';</script>", 'C.svelte').imports).toEqual([
+      'lodash/debounce'
+    ]);
+  });
+  it('reports no imports for a component without a script', () => {
+    expect(parseComponentFacts('<p>hi</p>', 'C.svelte').imports).toEqual([]);
+  });
+});
+
 describe('collectComponentFacts (memory runtime)', () => {
   it('scans every .svelte under src, including $lib', async () => {
     const rt = createMemoryRuntime({

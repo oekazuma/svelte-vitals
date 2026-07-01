@@ -479,6 +479,13 @@ function countLines(source: string): number {
   return source.split('\n').length - (source.endsWith('\n') ? 1 : 0);
 }
 
+/** Module specifiers of every `import` in an ESTree program (Bundle PERF009). */
+function collectImportSources(program: Node, acc: string[]): void {
+  walkEstree(program, (n) => {
+    if (n.type === 'ImportDeclaration' && typeof n.source?.value === 'string') acc.push(n.source.value);
+  });
+}
+
 /** Parse a component's reactivity/correctness + security + architecture facts (CLI/static only). */
 export function parseComponentFacts(
   source: string,
@@ -490,6 +497,7 @@ export function parseComponentFacts(
   javascriptUrls: SourceSpan[];
   loc: number;
   propCount: number;
+  imports: string[];
 } {
   const ast = parse(source, { modern: true, filename }) as Node;
   const eachBlocks: EachBlockFact[] = [];
@@ -499,10 +507,15 @@ export function parseComponentFacts(
   collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
   const loc = countLines(source);
 
+  // Imports live in either the instance (<script>) or module (<script module>) program.
+  const imports: string[] = [];
+  if (ast.module?.content) collectImportSources(ast.module.content, imports);
+
   const effects: EffectFact[] = [];
   let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
+    collectImportSources(program, imports);
     propCount = countProps(program);
     const stateNames = new Set<string>();
     walkEstree(program, (n) => {
@@ -520,5 +533,5 @@ export function parseComponentFacts(
       });
     });
   }
-  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount };
+  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports };
 }

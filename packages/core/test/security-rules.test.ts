@@ -17,6 +17,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   javascriptUrls: [],
   loc: 10,
   propCount: 0,
+  imports: [],
   ...over
 });
 
