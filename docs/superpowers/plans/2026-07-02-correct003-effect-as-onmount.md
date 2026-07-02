@@ -39,12 +39,14 @@
 ### Task 1: Capture `EffectFact.mountOnly`
 
 **Files:**
+
 - Modify: `packages/core/src/component.ts` (add field after `assignsOnlyState`, line 20)
 - Modify: `packages/cli/src/providers/source/parse.ts` (helpers after `bodyOnlyAssignsState` ~line 420; instance block ~lines 543-557)
 - Modify: `packages/cli/test/parse-component-facts.test.ts` (3 `toEqual` fixups at the effect describe block; add capture tests)
 - Modify: `packages/core/test/correctness-rules.test.ts` (2 EffectFact literals at lines 48, 53)
 
 **Interfaces:**
+
 - Produces: `EffectFact.mountOnly: boolean`; `parseComponentFacts` sets it.
 - Consumes: existing `walkEstree`, `lineOf`, `isEffectCall`, `isStateDeclaration`.
 
@@ -53,8 +55,8 @@
 In `packages/core/src/component.ts`, inside `EffectFact`, after the `assignsOnlyState: boolean;` line (line 20), add:
 
 ```ts
-  /** True when this $effect has a NON-EMPTY body that reads no reactive value and makes no bare call — it never re-runs, so it should be onMount (CORRECT003). */
-  mountOnly: boolean;
+/** True when this $effect has a NON-EMPTY body that reads no reactive value and makes no bare call — it never re-runs, so it should be onMount (CORRECT003). */
+mountOnly: boolean;
 ```
 
 - [ ] **Step 2: Write the failing capture tests**
@@ -159,43 +161,44 @@ function bodyIsEmpty(fn: Node): boolean {
 In `parseComponentFacts`, the instance block currently reads:
 
 ```ts
-    const stateNames = new Set<string>();
-    walkEstree(program, (n) => {
-      if (n.type === 'VariableDeclarator' && n.init && isStateDeclaration(n.init) && n.id?.type === 'Identifier') {
-        stateNames.add(n.id.name);
-      }
-    });
-    walkEstree(program, (n) => {
-      if (n.type !== 'CallExpression' || !isEffectCall(n)) return;
-      const fn = n.arguments?.[0];
-      const isFn = fn?.type === 'ArrowFunctionExpression' || fn?.type === 'FunctionExpression';
-      effects.push({
-        line: lineOf(source, n.start),
-        assignsOnlyState: isFn ? bodyOnlyAssignsState(fn, stateNames) : false
-      });
-    });
+const stateNames = new Set<string>();
+walkEstree(program, (n) => {
+  if (n.type === 'VariableDeclarator' && n.init && isStateDeclaration(n.init) && n.id?.type === 'Identifier') {
+    stateNames.add(n.id.name);
+  }
+});
+walkEstree(program, (n) => {
+  if (n.type !== 'CallExpression' || !isEffectCall(n)) return;
+  const fn = n.arguments?.[0];
+  const isFn = fn?.type === 'ArrowFunctionExpression' || fn?.type === 'FunctionExpression';
+  effects.push({
+    line: lineOf(source, n.start),
+    assignsOnlyState: isFn ? bodyOnlyAssignsState(fn, stateNames) : false
+  });
+});
 ```
 
 Replace it with (adds a `reactiveNames` superset and the `mountOnly` field; `stateNames` unchanged):
 
 ```ts
-    const stateNames = new Set<string>();
-    const reactiveNames = new Set<string>();
-    walkEstree(program, (n) => {
-      if (n.type !== 'VariableDeclarator' || !n.init) return;
-      if (isStateDeclaration(n.init) && n.id?.type === 'Identifier') stateNames.add(n.id.name);
-      if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init)) addBoundNames(n.id, reactiveNames);
-    });
-    walkEstree(program, (n) => {
-      if (n.type !== 'CallExpression' || !isEffectCall(n)) return;
-      const fn = n.arguments?.[0];
-      const isFn = fn?.type === 'ArrowFunctionExpression' || fn?.type === 'FunctionExpression';
-      effects.push({
-        line: lineOf(source, n.start),
-        assignsOnlyState: isFn ? bodyOnlyAssignsState(fn, stateNames) : false,
-        mountOnly: isFn ? !bodyIsEmpty(fn) && !bodyReadsReactive(fn, reactiveNames) : false
-      });
-    });
+const stateNames = new Set<string>();
+const reactiveNames = new Set<string>();
+walkEstree(program, (n) => {
+  if (n.type !== 'VariableDeclarator' || !n.init) return;
+  if (isStateDeclaration(n.init) && n.id?.type === 'Identifier') stateNames.add(n.id.name);
+  if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init))
+    addBoundNames(n.id, reactiveNames);
+});
+walkEstree(program, (n) => {
+  if (n.type !== 'CallExpression' || !isEffectCall(n)) return;
+  const fn = n.arguments?.[0];
+  const isFn = fn?.type === 'ArrowFunctionExpression' || fn?.type === 'FunctionExpression';
+  effects.push({
+    line: lineOf(source, n.start),
+    assignsOnlyState: isFn ? bodyOnlyAssignsState(fn, stateNames) : false,
+    mountOnly: isFn ? !bodyIsEmpty(fn) && !bodyReadsReactive(fn, reactiveNames) : false
+  });
+});
 ```
 
 - [ ] **Step 6: Fix the existing effect `toEqual` assertions**
@@ -239,12 +242,14 @@ git commit -m "feat(cli): capture EffectFact.mountOnly for CORRECT003"
 ### Task 2: CORRECT003 rule + registration
 
 **Files:**
+
 - Modify: `packages/core/src/rules/correctness/correct001-002.ts` (add rule)
 - Modify: `packages/core/src/rules/index.ts` (import ~line 40; `allRules` ~line 86; re-export ~line 135)
 - Modify: `packages/core/src/index.ts` (re-export ~line 72)
 - Test: `packages/core/test/correctness-rules.test.ts` (add CORRECT003 describe block)
 
 **Interfaces:**
+
 - Consumes: `componentRule`; `EffectFact.mountOnly` (Task 1).
 - Produces: `export const correct003EffectAsOnMount: Rule`.
 
@@ -297,7 +302,9 @@ export const correct003EffectAsOnMount = componentRule({
     'An $effect that reads no reactive value runs once after mount and never re-runs — it is an onMount in disguise, which obscures intent and misuses the reactivity system.',
   applies: (c) => c.effects.length > 0,
   bad: (c) =>
-    c.effects.filter((e) => e.mountOnly).map((e) => ({ line: e.line, message: '$effect reads no reactive value — use onMount instead' }))
+    c.effects
+      .filter((e) => e.mountOnly)
+      .map((e) => ({ line: e.line, message: '$effect reads no reactive value — use onMount instead' }))
 });
 ```
 
@@ -340,6 +347,7 @@ git commit -m "feat(core): add CORRECT003 effect-used-as-onMount rule"
 ### Task 3: Docs + changeset
 
 **Files:**
+
 - Create: `docs/src/content/docs/rules/correct003.md`, `docs/src/content/docs/ja/rules/correct003.md`
 - Create: `.changeset/correct003-effect-onmount.md`
 
@@ -347,7 +355,7 @@ git commit -m "feat(core): add CORRECT003 effect-used-as-onMount rule"
 
 Create `docs/src/content/docs/rules/correct003.md`:
 
-```md
+````md
 ---
 title: CORRECT003 · Effect used as onMount
 description: Use onMount for an $effect that reads no reactive value.
@@ -374,7 +382,9 @@ An `$effect` that never reacts to anything is an `onMount` in disguise. Using `$
   });
 </script>
 ```
-```
+````
+
+````
 
 - [ ] **Step 2: Write the Japanese doc**
 
@@ -406,8 +416,9 @@ description: reactive 値を読まない $effect には onMount を使います�
     element.focus();
   });
 </script>
-```
-```
+````
+
+````
 
 - [ ] **Step 3: Write the changeset**
 
@@ -425,7 +436,7 @@ Add **CORRECT003 (effect used as onMount)** — the Correctness/reactivity slice
 (no `$state`/`$derived`/`$props`, no store subscription, no bare function call), so
 it never re-runs and should be `onMount`. Reported under `correctness` (warning).
 `EffectFact` gains `mountOnly`.
-```
+````
 
 - [ ] **Step 4: Verify docs build**
 
@@ -448,9 +459,11 @@ git commit -m "docs: CORRECT003 reference pages (en+ja) + changeset"
 - [ ] **Step 1: Build core, then run the whole suite / typecheck / lint / docs build**
 
 Run:
+
 ```bash
 pnpm -r build && pnpm -r test && pnpm -r typecheck && pnpm lint && pnpm --filter docs build
 ```
+
 Expected: all green. Core test count rises by 3 (CORRECT003 rule tests); cli by ~5 (mountOnly capture tests).
 
 - [ ] **Step 2: If lint reports formatting, fix and re-run**
@@ -470,6 +483,7 @@ git commit -m "chore: format CORRECT003 changes"
 ## Self-Review
 
 **Spec coverage:**
+
 - `EffectFact.mountOnly` field → Task 1 Step 1. ✓
 - Conservative reactive-read scan (reactive names + `$store` + bare call), empty-body exclusion, `$effect.pre`, reactiveNames = $state ∪ $derived ∪ $props → Task 1 Steps 4-5. ✓
 - Existing EffectFact `toEqual`/literal fixups → Task 1 Steps 6-7. ✓

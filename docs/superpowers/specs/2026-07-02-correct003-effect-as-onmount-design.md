@@ -11,14 +11,14 @@ Add **CORRECT003**, the "More Correctness/reactivity" slice of #69. Flag an
 runs once after mount and never re-runs, so it is really an `onMount` and the
 `$effect` obscures intent. `warning` severity, matching CORRECT002.
 
-Distinct from CORRECT002 (an `$effect` that only *assigns* `$state` → use
+Distinct from CORRECT002 (an `$effect` that only _assigns_ `$state` → use
 `$derived`): CORRECT003 is an `$effect` that neither reads nor derives reactive
 state → use `onMount`.
 
 ## Background / current state
 
 - `ComponentFacts.effects: EffectFact[]` where `EffectFact = { line: number;
-  assignsOnlyState: boolean }` (CORRECT002 uses `assignsOnlyState`).
+assignsOnlyState: boolean }` (CORRECT002 uses `assignsOnlyState`).
 - `packages/cli/src/providers/source/parse.ts` collects effects: it tracks
   `stateNames` (via `isStateDeclaration`, `$state` only), detects effect calls
   (`isEffectCall` → `$effect`/`$effect.pre`), and computes `assignsOnlyState`
@@ -56,13 +56,19 @@ smell out of scope here.
 Examples:
 
 ```js
-$effect(() => { el.focus(); });              // flag — member call, no reactive read
-$effect(() => analytics.pageView());         // flag — member call
-$effect(() => { document.title = 'Home'; }); // flag — static assignment
-$effect(() => { count; });                   // ok — reactive name ($state)
-$effect(() => localHelper());                // ok — bare call (may read state)
-$effect(() => console.log($store));          // ok — store subscription
-$effect(() => {});                           // ok — empty body, not flagged
+$effect(() => {
+  el.focus();
+}); // flag — member call, no reactive read
+$effect(() => analytics.pageView()); // flag — member call
+$effect(() => {
+  document.title = 'Home';
+}); // flag — static assignment
+$effect(() => {
+  count;
+}); // ok — reactive name ($state)
+$effect(() => localHelper()); // ok — bare call (may read state)
+$effect(() => console.log($store)); // ok — store subscription
+$effect(() => {}); // ok — empty body, not flagged
 ```
 
 Shadowing (a local `const count` inside the effect that collides with a reactive

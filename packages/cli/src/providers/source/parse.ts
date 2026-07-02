@@ -595,7 +595,8 @@ export function parseComponentFacts(
     walkEstree(program, (n) => {
       if (n.type !== 'VariableDeclarator' || !n.init) return;
       if (isStateDeclaration(n.init) && n.id?.type === 'Identifier') stateNames.add(n.id.name);
-      if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init)) addBoundNames(n.id, reactiveNames);
+      if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init))
+        addBoundNames(n.id, reactiveNames);
     });
     walkEstree(program, (n) => {
       if (n.type !== 'CallExpression' || !isEffectCall(n)) return;

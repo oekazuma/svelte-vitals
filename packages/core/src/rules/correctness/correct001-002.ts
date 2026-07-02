@@ -38,5 +38,7 @@ export const correct003EffectAsOnMount = componentRule({
     'An $effect that reads no reactive value runs once after mount and never re-runs — it is an onMount in disguise, which obscures intent and misuses the reactivity system.',
   applies: (c) => c.effects.length > 0,
   bad: (c) =>
-    c.effects.filter((e) => e.mountOnly).map((e) => ({ line: e.line, message: '$effect reads no reactive value — use onMount instead' }))
+    c.effects
+      .filter((e) => e.mountOnly)
+      .map((e) => ({ line: e.line, message: '$effect reads no reactive value — use onMount instead' }))
 });
