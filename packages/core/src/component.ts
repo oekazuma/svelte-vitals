@@ -46,4 +46,6 @@ export interface ComponentFacts {
   imports: string[];
   /** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — Bundle PERF010. */
   namespaceImports: { source: string; line: number }[];
+  /** `$state` declarations never written or escaped anywhere in the component — candidates for const (CORRECT004). */
+  constableStates: { name: string; line: number }[];
 }

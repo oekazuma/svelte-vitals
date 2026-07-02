@@ -459,6 +459,69 @@ function addBoundNames(id: Node, acc: Set<string>): void {
   }
 }
 
+/** The base identifier name of a (possibly nested) member expression or identifier, else undefined. */
+function rootObjectName(node: Node): string | undefined {
+  let cur = node;
+  while (cur?.type === 'MemberExpression') cur = cur.object;
+  return cur?.type === 'Identifier' ? cur.name : undefined;
+}
+
+/**
+ * Add state names that are WRITTEN or ESCAPED (CORRECT004 rules 1–4): reassignment,
+ * update, member/element assignment, method call on the state, or the state passed
+ * as a call argument. Run over the instance program AND the template fragment
+ * (inline handlers mutate state in the template).
+ */
+function collectStateWrites(root: Node, stateNames: Set<string>, acc: Set<string>): void {
+  walkEstree(root, (n: Node) => {
+    if (n?.type === 'AssignmentExpression') {
+      if (n.left?.type === 'Identifier' && stateNames.has(n.left.name)) acc.add(n.left.name);
+      else if (n.left?.type === 'MemberExpression') {
+        const r = rootObjectName(n.left);
+        if (r && stateNames.has(r)) acc.add(r);
+      }
+    } else if (n?.type === 'UpdateExpression' && n.argument?.type === 'Identifier' && stateNames.has(n.argument.name)) {
+      acc.add(n.argument.name);
+    } else if (n?.type === 'CallExpression') {
+      if (n.callee?.type === 'MemberExpression') {
+        const r = rootObjectName(n.callee);
+        if (r && stateNames.has(r)) acc.add(r); // x.push(), x.foo()
+      }
+      for (const a of n.arguments ?? []) {
+        if (a?.type === 'Identifier' && stateNames.has(a.name)) acc.add(a.name); // f(x)
+      }
+    }
+  });
+}
+
+/**
+ * Add state names ESCAPED via the template (CORRECT004 rules 5–6): a `bind:` on any
+ * element, or passed as a `Component` prop. Slot children / DOM-attribute reads do
+ * not escape. `CHILD_NODE_KEYS` omits `attributes`, so inspect them explicitly.
+ */
+function collectTemplateEscapes(node: Node, stateNames: Set<string>, acc: Set<string>): void {
+  if (Array.isArray(node)) {
+    for (const c of node) collectTemplateEscapes(c, stateNames, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+  if (Array.isArray(node.attributes)) {
+    for (const attr of node.attributes) {
+      if (attr?.type === 'BindDirective') {
+        const r = rootObjectName(attr.expression);
+        if (r && stateNames.has(r)) acc.add(r);
+      } else if (node.type === 'Component') {
+        walkEstree(attr, (m: Node) => {
+          if (m?.type === 'Identifier' && stateNames.has(m.name)) acc.add(m.name);
+        });
+      }
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectTemplateEscapes(node[key], stateNames, acc);
+  }
+}
+
 const RUNE_NAMES = new Set(['$state', '$derived', '$effect', '$props', '$bindable', '$inspect', '$host']);
 
 /**
@@ -609,6 +672,7 @@ export function parseComponentFacts(
   propCount: number;
   imports: string[];
   namespaceImports: { source: string; line: number }[];
+  constableStates: { name: string; line: number }[];
 } {
   const ast = parse(source, { modern: true, filename }) as Node;
   const eachBlocks: EachBlockFact[] = [];
@@ -627,6 +691,7 @@ export function parseComponentFacts(
   }
 
   const effects: EffectFact[] = [];
+  const constableStates: { name: string; line: number }[] = [];
   let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
@@ -635,9 +700,13 @@ export function parseComponentFacts(
     propCount = countProps(program);
     const stateNames = new Set<string>();
     const reactiveNames = new Set<string>();
+    const stateDecls: { name: string; line: number }[] = [];
     walkEstree(program, (n) => {
       if (n.type !== 'VariableDeclarator' || !n.init) return;
-      if (isStateDeclaration(n.init) && n.id?.type === 'Identifier') stateNames.add(n.id.name);
+      if (isStateDeclaration(n.init) && n.id?.type === 'Identifier') {
+        stateNames.add(n.id.name);
+        stateDecls.push({ name: n.id.name, line: lineOf(source, n.start) });
+      }
       if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init))
         addBoundNames(n.id, reactiveNames);
     });
@@ -651,6 +720,15 @@ export function parseComponentFacts(
         mountOnly: isFn ? !bodyIsEmpty(fn) && !bodyReadsReactive(fn, reactiveNames) : false
       });
     });
+    const writtenOrEscaped = new Set<string>();
+    collectStateWrites(program, stateNames, writtenOrEscaped);
+    if (ast.fragment) {
+      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped);
+      collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
+    }
+    for (const d of stateDecls) {
+      if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
+    }
   }
-  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports };
+  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports, constableStates };
 }
