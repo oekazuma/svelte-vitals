@@ -41,12 +41,14 @@
 ### Task 1: Capture `constableStates`
 
 **Files:**
+
 - Modify: `packages/core/src/component.ts` (add field after `namespaceImports`)
 - Modify: `packages/cli/src/providers/source/parse.ts` (helpers near `addBoundNames`; return type; instance block; return object)
 - Modify: `packages/cli/test/parse-component-facts.test.ts` (add capture tests)
 - Modify: `packages/core/test/correctness-rules.test.ts`, `security-rules.test.ts`, `architecture-rules.test.ts`, `bundle-rules.test.ts` (add `constableStates: []` to each ComponentFacts helper)
 
 **Interfaces:**
+
 - Produces: `ComponentFacts.constableStates: { name: string; line: number }[]`; `parseComponentFacts` sets it.
 - Consumes: existing `walkEstree`, `lineOf`, `isStateDeclaration`, `CHILD_NODE_KEYS`.
 
@@ -55,8 +57,12 @@
 In `packages/core/src/component.ts`, after the `namespaceImports: …` field, inside `ComponentFacts`, add:
 
 ```ts
-  /** `$state` declarations never written or escaped anywhere in the component — candidates for const (CORRECT004). */
-  constableStates: { name: string; line: number }[];
+/** `$state` declarations never written or escaped anywhere in the component — candidates for const (CORRECT004). */
+constableStates: {
+  name: string;
+  line: number;
+}
+[];
 ```
 
 - [ ] **Step 2: Write the failing capture tests**
@@ -172,48 +178,52 @@ function collectTemplateEscapes(node: Node, stateNames: Set<string>, acc: Set<st
 In `parseComponentFacts`, add `constableStates` to the return-type annotation, after `namespaceImports: { source: string; line: number }[];`:
 
 ```ts
-  constableStates: { name: string; line: number }[];
+constableStates: {
+  name: string;
+  line: number;
+}
+[];
 ```
 
 Add a `let` binding next to `const effects` (before the `if (program)` block), so it defaults to empty when there is no instance script. Change:
 
 ```ts
-  const effects: EffectFact[] = [];
-  let propCount = 0;
+const effects: EffectFact[] = [];
+let propCount = 0;
 ```
 
 to:
 
 ```ts
-  const effects: EffectFact[] = [];
-  const constableStates: { name: string; line: number }[] = [];
-  let propCount = 0;
+const effects: EffectFact[] = [];
+const constableStates: { name: string; line: number }[] = [];
+let propCount = 0;
 ```
 
 In the instance block, extend the existing `VariableDeclarator` walk to also record state declarations (name + line). Change:
 
 ```ts
-    walkEstree(program, (n) => {
-      if (n.type !== 'VariableDeclarator' || !n.init) return;
-      if (isStateDeclaration(n.init) && n.id?.type === 'Identifier') stateNames.add(n.id.name);
-      if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init))
-        addBoundNames(n.id, reactiveNames);
-    });
+walkEstree(program, (n) => {
+  if (n.type !== 'VariableDeclarator' || !n.init) return;
+  if (isStateDeclaration(n.init) && n.id?.type === 'Identifier') stateNames.add(n.id.name);
+  if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init))
+    addBoundNames(n.id, reactiveNames);
+});
 ```
 
 to:
 
 ```ts
-    const stateDecls: { name: string; line: number }[] = [];
-    walkEstree(program, (n) => {
-      if (n.type !== 'VariableDeclarator' || !n.init) return;
-      if (isStateDeclaration(n.init) && n.id?.type === 'Identifier') {
-        stateNames.add(n.id.name);
-        stateDecls.push({ name: n.id.name, line: lineOf(source, n.start) });
-      }
-      if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init))
-        addBoundNames(n.id, reactiveNames);
-    });
+const stateDecls: { name: string; line: number }[] = [];
+walkEstree(program, (n) => {
+  if (n.type !== 'VariableDeclarator' || !n.init) return;
+  if (isStateDeclaration(n.init) && n.id?.type === 'Identifier') {
+    stateNames.add(n.id.name);
+    stateDecls.push({ name: n.id.name, line: lineOf(source, n.start) });
+  }
+  if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init))
+    addBoundNames(n.id, reactiveNames);
+});
 ```
 
 - [ ] **Step 6: Compute `constableStates`**
@@ -221,15 +231,15 @@ to:
 Still in the instance block, after the effects-collecting `walkEstree(...)` call (the one that pushes to `effects`), add:
 
 ```ts
-    const writtenOrEscaped = new Set<string>();
-    collectStateWrites(program, stateNames, writtenOrEscaped);
-    if (ast.fragment) {
-      collectStateWrites(ast.fragment, stateNames, writtenOrEscaped);
-      collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
-    }
-    for (const d of stateDecls) {
-      if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
-    }
+const writtenOrEscaped = new Set<string>();
+collectStateWrites(program, stateNames, writtenOrEscaped);
+if (ast.fragment) {
+  collectStateWrites(ast.fragment, stateNames, writtenOrEscaped);
+  collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
+}
+for (const d of stateDecls) {
+  if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
+}
 ```
 
 - [ ] **Step 7: Return `constableStates`**
@@ -237,13 +247,13 @@ Still in the instance block, after the effects-collecting `walkEstree(...)` call
 Change the return statement:
 
 ```ts
-  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports };
+return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports };
 ```
 
 to:
 
 ```ts
-  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports, constableStates };
+return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports, constableStates };
 ```
 
 - [ ] **Step 8: Update the provider catch fallback and core test helpers**
@@ -277,12 +287,14 @@ git commit -m "feat(cli): capture constableStates for CORRECT004"
 ### Task 2: CORRECT004 rule + registration
 
 **Files:**
+
 - Create: `packages/core/src/rules/correctness/correct004-unmutated-state.ts`
 - Modify: `packages/core/src/rules/index.ts` (import ~line 40; `allRules`; re-export)
 - Modify: `packages/core/src/index.ts` (re-export after `correct003EffectAsOnMount`)
 - Test: `packages/core/test/correctness-rules.test.ts` (add CORRECT004 describe block)
 
 **Interfaces:**
+
 - Consumes: `componentRule`; `ComponentFacts.constableStates` (Task 1).
 - Produces: `export const correct004UnmutatedState: Rule`.
 
@@ -293,9 +305,7 @@ In `packages/core/test/correctness-rules.test.ts`, add `correct004UnmutatedState
 ```ts
 describe('CORRECT004 unmutated $state', () => {
   it('flags a constable $state (one finding per state, with line)', async () => {
-    const rs = await correct004UnmutatedState.check(
-      ctx([comp({ constableStates: [{ name: 'title', line: 2 }] })])
-    );
+    const rs = await correct004UnmutatedState.check(ctx([comp({ constableStates: [{ name: 'title', line: 2 }] })]));
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.category).toBe('correctness');
     expect(rs[0]!.line).toBe(2);
@@ -303,7 +313,14 @@ describe('CORRECT004 unmutated $state', () => {
   });
   it('reports one finding per distinct constable state', async () => {
     const rs = await correct004UnmutatedState.check(
-      ctx([comp({ constableStates: [{ name: 'a', line: 2 }, { name: 'b', line: 3 }] })])
+      ctx([
+        comp({
+          constableStates: [
+            { name: 'a', line: 2 },
+            { name: 'b', line: 3 }
+          ]
+        })
+      ])
     );
     expect(fails(rs)).toHaveLength(2);
   });
@@ -384,6 +401,7 @@ git commit -m "feat(core): add CORRECT004 unmutated-\$state rule"
 ### Task 3: Docs + changeset
 
 **Files:**
+
 - Create: `docs/src/content/docs/rules/correct004.md`, `docs/src/content/docs/ja/rules/correct004.md`
 - Create: `.changeset/correct004-unmutated-state.md`
 
@@ -391,7 +409,7 @@ git commit -m "feat(core): add CORRECT004 unmutated-\$state rule"
 
 Create `docs/src/content/docs/rules/correct004.md`:
 
-```md
+````md
 ---
 title: CORRECT004 · Unmutated $state
 description: Use const (or $state.raw) for a $state that is never mutated.
@@ -419,7 +437,9 @@ A `$state` that is never mutated pays for reactivity — deep proxying and depen
   data = nextValue;
 </script>
 ```
-```
+````
+
+````
 
 - [ ] **Step 2: Write the Japanese doc**
 
@@ -452,8 +472,9 @@ description: 変更されない $state には const（または $state.raw）を
   let data = $state.raw(initial);
   data = nextValue;
 </script>
-```
-```
+````
+
+````
 
 - [ ] **Step 3: Write the changeset**
 
@@ -472,7 +493,7 @@ component (no reassignment, member/method mutation, bind, call-arg, or
 component-prop pass), so its reactivity is unused — use `const` (or `$state.raw`
 if only reassigned wholesale). Reported under `correctness` (info). `ComponentFacts`
 gains `constableStates`.
-```
+````
 
 - [ ] **Step 4: Verify docs build**
 
@@ -495,9 +516,11 @@ git commit -m "docs: CORRECT004 reference pages (en+ja) + changeset"
 - [ ] **Step 1: Build core, then run the whole suite / typecheck / lint / docs build**
 
 Run:
+
 ```bash
 pnpm -r build && pnpm -r test && pnpm -r typecheck && pnpm lint && pnpm --filter docs build
 ```
+
 Expected: all green. Core test count rises by 3 (CORRECT004 rule tests); cli by ~6 (constable capture tests).
 
 - [ ] **Step 2: If lint reports formatting, fix and re-run**
@@ -517,6 +540,7 @@ git commit -m "chore: format CORRECT004 changes"
 ## Self-Review
 
 **Spec coverage:**
+
 - `ComponentFacts.constableStates` field → Task 1 Step 1. ✓
 - Write detection (assign/update/member/method/call-arg) over script + template → `collectStateWrites` run on program AND fragment, Task 1 Steps 4, 6. ✓
 - Template escapes (bind: + component prop; slot/DOM-attr reads excluded) → `collectTemplateEscapes`, Task 1 Step 4. ✓

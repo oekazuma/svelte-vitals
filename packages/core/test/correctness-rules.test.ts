@@ -93,9 +93,7 @@ describe('CORRECT003 effect used as onMount', () => {
 
 describe('CORRECT004 unmutated $state', () => {
   it('flags a constable $state (one finding per state, with line)', async () => {
-    const rs = await correct004UnmutatedState.check(
-      ctx([comp({ constableStates: [{ name: 'title', line: 2 }] })])
-    );
+    const rs = await correct004UnmutatedState.check(ctx([comp({ constableStates: [{ name: 'title', line: 2 }] })]));
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.category).toBe('correctness');
     expect(rs[0]!.line).toBe(2);
@@ -103,7 +101,14 @@ describe('CORRECT004 unmutated $state', () => {
   });
   it('reports one finding per distinct constable state', async () => {
     const rs = await correct004UnmutatedState.check(
-      ctx([comp({ constableStates: [{ name: 'a', line: 2 }, { name: 'b', line: 3 }] })])
+      ctx([
+        comp({
+          constableStates: [
+            { name: 'a', line: 2 },
+            { name: 'b', line: 3 }
+          ]
+        })
+      ])
     );
     expect(fails(rs)).toHaveLength(2);
   });

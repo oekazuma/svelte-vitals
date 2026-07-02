@@ -38,7 +38,7 @@ warn about a never-mutated `$state`.
 A declared `$state` name is **suppressed** (not flagged) when, anywhere in the
 component, it is:
 
-**Script AND template expressions (ESTree walk over the instance program *and*
+**Script AND template expressions (ESTree walk over the instance program _and_
 the template fragment):** — writes 1–4 are detected in both places, because a
 `$state` is commonly mutated in an inline event handler (`<button onclick={() =>
 count++}>`), whose expression lives in the template AST, not the instance script.
@@ -83,7 +83,11 @@ Add a focused field:
 
 ```ts
 /** `$state` declarations never written or escaped in the component — candidates for const (CORRECT004). */
-constableStates: { name: string; line: number }[];
+constableStates: {
+  name: string;
+  line: number;
+}
+[];
 ```
 
 `parse.ts` changes (in the instance block, where `stateNames` is already built):
