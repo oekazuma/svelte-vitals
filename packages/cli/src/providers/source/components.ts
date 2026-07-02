@@ -22,7 +22,8 @@ export async function collectComponentFacts(rt: Runtime, cwd: string): Promise<C
           javascriptUrls: [],
           loc: 0,
           propCount: 0,
-          imports: []
+          imports: [],
+          namespaceImports: []
         };
       }
     })

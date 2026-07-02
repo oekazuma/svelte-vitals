@@ -486,6 +486,23 @@ function collectImportSources(program: Node, acc: string[]): void {
   });
 }
 
+/** A specifier is "bare" (a node_modules package) when it is not relative/absolute/alias-local. */
+function isBareSpecifier(s: string): boolean {
+  return !/^[./$#]/.test(s);
+}
+
+/** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — Bundle PERF010. */
+function collectNamespaceImports(program: Node, source: string, acc: { source: string; line: number }[]): void {
+  walkEstree(program, (n) => {
+    if (n.type !== 'ImportDeclaration' || n.importKind === 'type') return;
+    const spec = n.source?.value;
+    if (typeof spec !== 'string' || !isBareSpecifier(spec)) return;
+    if (Array.isArray(n.specifiers) && n.specifiers.some((s: Node) => s?.type === 'ImportNamespaceSpecifier')) {
+      acc.push({ source: spec, line: lineOf(source, n.start) });
+    }
+  });
+}
+
 /** Parse a component's reactivity/correctness + security + architecture facts (CLI/static only). */
 export function parseComponentFacts(
   source: string,
@@ -498,6 +515,7 @@ export function parseComponentFacts(
   loc: number;
   propCount: number;
   imports: string[];
+  namespaceImports: { source: string; line: number }[];
 } {
   const ast = parse(source, { modern: true, filename }) as Node;
   const eachBlocks: EachBlockFact[] = [];
@@ -509,13 +527,18 @@ export function parseComponentFacts(
 
   // Imports live in either the instance (<script>) or module (<script module>) program.
   const imports: string[] = [];
-  if (ast.module?.content) collectImportSources(ast.module.content, imports);
+  const namespaceImports: { source: string; line: number }[] = [];
+  if (ast.module?.content) {
+    collectImportSources(ast.module.content, imports);
+    collectNamespaceImports(ast.module.content, source, namespaceImports);
+  }
 
   const effects: EffectFact[] = [];
   let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
     collectImportSources(program, imports);
+    collectNamespaceImports(program, source, namespaceImports);
     propCount = countProps(program);
     const stateNames = new Set<string>();
     walkEstree(program, (n) => {
@@ -533,5 +556,5 @@ export function parseComponentFacts(
       });
     });
   }
-  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports };
+  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports };
 }

@@ -74,7 +74,8 @@ export {
   sec002JavascriptUrl,
   arch001ComponentSize,
   arch002PropCount,
-  perf009HeavyImport
+  perf009HeavyImport,
+  perf010NamespaceImport
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';
