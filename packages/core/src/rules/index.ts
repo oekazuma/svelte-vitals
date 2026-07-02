@@ -37,7 +37,7 @@ import { seo026Hreflang } from './seo/seo026-hreflang.js';
 import { seo027Heading } from './seo/seo027-heading.js';
 import { seo028TitleUnique, seo029DescriptionUnique } from './seo/seo028-029-uniqueness.js';
 import { seo030HeadingOrder } from './seo/seo030-heading-order.js';
-import { correct001EachKey, correct002EffectDerived } from './correctness/correct001-002.js';
+import { correct001EachKey, correct002EffectDerived, correct003EffectAsOnMount } from './correctness/correct001-002.js';
 import { sec001Html, sec002JavascriptUrl } from './security/sec001-002.js';
 import { arch001ComponentSize, arch002PropCount } from './architecture/arch001-002.js';
 import { perf009HeavyImport } from './performance/perf009-heavy-import.js';
@@ -84,6 +84,7 @@ export const allRules: Rule[] = [
   seo030HeadingOrder,
   correct001EachKey,
   correct002EffectDerived,
+  correct003EffectAsOnMount,
   sec001Html,
   sec002JavascriptUrl,
   arch001ComponentSize,
@@ -133,6 +134,7 @@ export {
   seo030HeadingOrder,
   correct001EachKey,
   correct002EffectDerived,
+  correct003EffectAsOnMount,
   sec001Html,
   sec002JavascriptUrl,
   arch001ComponentSize,

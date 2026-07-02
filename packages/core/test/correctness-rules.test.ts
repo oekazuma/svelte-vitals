@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { correct001EachKey, correct002EffectDerived } from '../src/index.js';
+import { correct001EachKey, correct002EffectDerived, correct003EffectAsOnMount } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -60,5 +60,27 @@ describe('CORRECT002 effect used to derive state', () => {
   });
   it('emits nothing for a component with no $effect', async () => {
     expect(await correct002EffectDerived.check(ctx([comp({})]))).toHaveLength(0);
+  });
+});
+
+describe('CORRECT003 effect used as onMount', () => {
+  it('flags a mount-only $effect', async () => {
+    const rs = await correct003EffectAsOnMount.check(
+      ctx([comp({ effects: [{ line: 4, assignsOnlyState: false, mountOnly: true }] })])
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.category).toBe('correctness');
+    expect(rs[0]!.message).toContain('onMount');
+  });
+  it('passes an $effect that reads reactive state', async () => {
+    const rs = await correct003EffectAsOnMount.check(
+      ctx([comp({ effects: [{ line: 4, assignsOnlyState: false, mountOnly: false }] })])
+    );
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(1); // a passing seed (applies=true, no findings)
+  });
+  it('is no-signal when there are no effects', async () => {
+    const rs = await correct003EffectAsOnMount.check(ctx([comp({ effects: [] })]));
+    expect(rs).toHaveLength(0);
   });
 });
