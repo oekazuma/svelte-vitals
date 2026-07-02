@@ -70,6 +70,7 @@ export {
   seo030HeadingOrder,
   correct001EachKey,
   correct002EffectDerived,
+  correct003EffectAsOnMount,
   sec001Html,
   sec002JavascriptUrl,
   arch001ComponentSize,
