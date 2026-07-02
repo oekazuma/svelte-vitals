@@ -7,7 +7,7 @@ description: reactive 値を読まない $effect には onMount を使います�
 
 ## チェック内容
 
-空でない本体が reactive 値を一切読まない `$effect` / `$effect.pre` を検出します — `$state`・`$derived`・`$props` の参照、store 購読、ローカル関数呼び出しのいずれも無いものです。そのような effect はマウント後に一度だけ実行され、再実行されません。コンポーネントの instance スクリプトを静的(CLI)解析します。
+空でない本体が reactive 値を一切読まない `$effect` / `$effect.pre` を検出します — `$state`・`$derived`・`$props` の参照、store 購読、裸の関数呼び出し（`foo()`）のいずれも無いものです。そのような effect はマウント後に一度だけ実行され、再実行されません。コンポーネントの instance スクリプトを静的(CLI)解析します。
 
 ## なぜ重要か
 

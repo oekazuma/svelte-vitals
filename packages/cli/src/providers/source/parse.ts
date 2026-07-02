@@ -449,15 +449,40 @@ const RUNE_NAMES = new Set(['$state', '$derived', '$effect', '$props', '$bindabl
  */
 function bodyReadsReactive(fn: Node, reactiveNames: Set<string>): boolean {
   let reads = false;
-  walkEstree(fn.body, (n: Node) => {
-    if (reads) return;
-    if (n?.type === 'Identifier') {
-      if (reactiveNames.has(n.name)) reads = true;
-      else if (n.name.startsWith('$') && !RUNE_NAMES.has(n.name)) reads = true;
-    } else if (n?.type === 'CallExpression' && n.callee?.type === 'Identifier') {
-      reads = true;
+  const IGNORED_KEYS = new Set(['type', 'start', 'end', 'loc', 'range']);
+  // Dedicated walk (not the generic walkEstree) so a non-computed property NAME
+  // (`obj.count`, `{ count: 5 }`) that happens to match a reactive binding isn't
+  // misread as a reactive read — only value/computed positions count.
+  const visit = (n: Node): void => {
+    if (reads || !n) return;
+    if (Array.isArray(n)) {
+      for (const c of n) visit(c);
+      return;
     }
-  });
+    if (typeof n !== 'object' || typeof n.type !== 'string') return;
+    if (n.type === 'Identifier') {
+      if (reactiveNames.has(n.name) || (n.name.startsWith('$') && !RUNE_NAMES.has(n.name))) reads = true;
+      return;
+    }
+    if (n.type === 'CallExpression' && n.callee?.type === 'Identifier') {
+      reads = true; // bare-identifier call may read reactive state internally
+      return;
+    }
+    if (n.type === 'MemberExpression') {
+      visit(n.object);
+      if (n.computed) visit(n.property); // `obj[count]` reads count; `obj.count` does not
+      return;
+    }
+    if (n.type === 'Property') {
+      if (n.computed) visit(n.key);
+      visit(n.value);
+      return;
+    }
+    for (const key of Object.keys(n)) {
+      if (!IGNORED_KEYS.has(key)) visit(n[key]);
+    }
+  };
+  visit(fn.body);
   return reads;
 }
 

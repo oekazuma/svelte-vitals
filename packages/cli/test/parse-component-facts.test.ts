@@ -206,6 +206,12 @@ describe('parseComponentFacts — mount-only $effect (CORRECT003)', () => {
   it('is not mountOnly for an empty body', () => {
     expect(facts('$effect(() => {});')[0]!.mountOnly).toBe(false);
   });
+  it('does not treat a non-computed property name matching a reactive binding as a read', () => {
+    // `obj.count` accesses a property named `count`; it does not read the reactive `count`.
+    expect(facts('let count = $state(0); $effect(() => { obj.count = 5; });')[0]!.mountOnly).toBe(true);
+    // but a computed access `obj[count]` DOES read the reactive index.
+    expect(facts('let count = $state(0); $effect(() => { obj[count] = 5; });')[0]!.mountOnly).toBe(false);
+  });
   it('covers $effect.pre', () => {
     expect(facts('$effect.pre(() => { el.focus(); });')[0]!.mountOnly).toBe(true);
   });

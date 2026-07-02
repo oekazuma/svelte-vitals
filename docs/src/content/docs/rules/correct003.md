@@ -7,7 +7,7 @@ description: Use onMount for an $effect that reads no reactive value.
 
 ## What it checks
 
-Flags an `$effect` / `$effect.pre` whose non-empty body reads no reactive value — no `$state`, `$derived`, or `$props`, no store subscription, and no local function call. Such an effect runs once after mount and never re-runs. Checked by static (CLI) analysis of component instance scripts.
+Flags an `$effect` / `$effect.pre` whose non-empty body reads no reactive value — no `$state`, `$derived`, or `$props`, no store subscription, and no bare function call (`foo()`). Such an effect runs once after mount and never re-runs. Checked by static (CLI) analysis of component instance scripts.
 
 ## Why it matters
 
