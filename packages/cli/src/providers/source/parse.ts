@@ -419,6 +419,56 @@ function bodyOnlyAssignsState(fn: Node, stateNames: Set<string>): boolean {
   return body.body.every((s: Node) => s?.type === 'ExpressionStatement' && isStateAssign(s.expression));
 }
 
+/** `$derived(...)` or `$derived.by(...)` declaration form. */
+function isDerivedDeclaration(node: Node): boolean {
+  const c = node?.callee;
+  if (c?.type === 'Identifier') return c.name === '$derived';
+  if (c?.type === 'MemberExpression' && c.object?.type === 'Identifier' && c.object.name === '$derived') {
+    return c.property?.type === 'Identifier' && c.property.name === 'by';
+  }
+  return false;
+}
+
+/** Add the names a declarator binds (Identifier or destructuring ObjectPattern) to `acc`. */
+function addBoundNames(id: Node, acc: Set<string>): void {
+  if (!id) return;
+  if (id.type === 'Identifier') acc.add(id.name);
+  else if (id.type === 'ObjectPattern') {
+    for (const p of id.properties ?? []) {
+      if (p?.type === 'Property' && p.value?.type === 'Identifier') acc.add(p.value.name);
+      else if (p?.type === 'RestElement' && p.argument?.type === 'Identifier') acc.add(p.argument.name);
+    }
+  }
+}
+
+const RUNE_NAMES = new Set(['$state', '$derived', '$effect', '$props', '$bindable', '$inspect', '$host']);
+
+/**
+ * Whether an $effect callback body reads a reactive value (CORRECT003, conservative):
+ * a reactive name, a `$`-prefixed store subscription, or any bare-identifier call.
+ */
+function bodyReadsReactive(fn: Node, reactiveNames: Set<string>): boolean {
+  let reads = false;
+  walkEstree(fn.body, (n: Node) => {
+    if (reads) return;
+    if (n?.type === 'Identifier') {
+      if (reactiveNames.has(n.name)) reads = true;
+      else if (n.name.startsWith('$') && !RUNE_NAMES.has(n.name)) reads = true;
+    } else if (n?.type === 'CallExpression' && n.callee?.type === 'Identifier') {
+      reads = true;
+    }
+  });
+  return reads;
+}
+
+/** Empty effect callback body (`() => {}` or no body). */
+function bodyIsEmpty(fn: Node): boolean {
+  const body = fn?.body;
+  if (!body) return true;
+  if (body.type === 'BlockStatement') return (body.body ?? []).length === 0;
+  return false;
+}
+
 /** Attributes whose value navigates/executes — a literal `javascript:` here is an XSS vector (SEC002). */
 const URL_ATTRS = ['href', 'src', 'action', 'formaction'];
 
@@ -541,10 +591,11 @@ export function parseComponentFacts(
     collectNamespaceImports(program, source, namespaceImports);
     propCount = countProps(program);
     const stateNames = new Set<string>();
+    const reactiveNames = new Set<string>();
     walkEstree(program, (n) => {
-      if (n.type === 'VariableDeclarator' && n.init && isStateDeclaration(n.init) && n.id?.type === 'Identifier') {
-        stateNames.add(n.id.name);
-      }
+      if (n.type !== 'VariableDeclarator' || !n.init) return;
+      if (isStateDeclaration(n.init) && n.id?.type === 'Identifier') stateNames.add(n.id.name);
+      if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init)) addBoundNames(n.id, reactiveNames);
     });
     walkEstree(program, (n) => {
       if (n.type !== 'CallExpression' || !isEffectCall(n)) return;
@@ -552,7 +603,8 @@ export function parseComponentFacts(
       const isFn = fn?.type === 'ArrowFunctionExpression' || fn?.type === 'FunctionExpression';
       effects.push({
         line: lineOf(source, n.start),
-        assignsOnlyState: isFn ? bodyOnlyAssignsState(fn, stateNames) : false
+        assignsOnlyState: isFn ? bodyOnlyAssignsState(fn, stateNames) : false,
+        mountOnly: isFn ? !bodyIsEmpty(fn) && !bodyReadsReactive(fn, reactiveNames) : false
       });
     });
   }

@@ -18,6 +18,8 @@ export interface EffectFact {
   line: number;
   /** True when the effect body only assigns to `$state` variables (the "use $derived" smell). */
   assignsOnlyState: boolean;
+  /** True when this $effect has a NON-EMPTY body that reads no reactive value and makes no bare call — it never re-runs, so it should be onMount (CORRECT003). */
+  mountOnly: boolean;
 }
 
 /** A flagged source position in a component (e.g. an `{@html}` tag or a `javascript:` URL). */

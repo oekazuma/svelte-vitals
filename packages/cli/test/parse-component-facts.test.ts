@@ -25,11 +25,11 @@ describe('parseComponentFacts — $effect (CORRECT002)', () => {
 
   it('flags an $effect whose body only assigns $state', () => {
     const e = facts('let count = $state(0); let double = $state(0); $effect(() => { double = count * 2; });');
-    expect(e).toEqual([{ line: 1, assignsOnlyState: true }]);
+    expect(e).toEqual([{ line: 1, assignsOnlyState: true, mountOnly: false }]);
   });
   it('does not flag an $effect that does other work', () => {
     const e = facts('let count = $state(0); $effect(() => { console.log(count); });');
-    expect(e).toEqual([{ line: 1, assignsOnlyState: false }]);
+    expect(e).toEqual([{ line: 1, assignsOnlyState: false, mountOnly: false }]);
   });
   it('does not flag assignment to a non-$state variable', () => {
     const e = facts('let count = $state(0); let plain = 0; $effect(() => { plain = count; });');
@@ -54,7 +54,7 @@ describe('parseComponentFacts — $effect (CORRECT002)', () => {
   });
   it('flags an assign-only $effect.pre', () => {
     const e = facts('let count = $state(0); let double = $state(0); $effect.pre(() => { double = count * 2; });');
-    expect(e).toEqual([{ line: 1, assignsOnlyState: true }]);
+    expect(e).toEqual([{ line: 1, assignsOnlyState: true, mountOnly: false }]);
   });
   it('ignores non-effect $effect readers ($effect.tracking / $effect.root)', () => {
     const e = facts('let count = $state(0); const t = $effect.tracking(); $effect.root(() => {});');
@@ -183,5 +183,30 @@ describe('parseComponentFacts — namespace imports (PERF010)', () => {
       'C.svelte'
     ).namespaceImports;
     expect(only!.line).toBeGreaterThan(0);
+  });
+});
+
+describe('parseComponentFacts — mount-only $effect (CORRECT003)', () => {
+  const facts = (script: string) => parseComponentFacts(`<script>${script}</script>`, 'C.svelte').effects;
+
+  it('marks an effect with only member-call side effects as mountOnly', () => {
+    expect(facts('$effect(() => { document.title = "Home"; });')[0]!.mountOnly).toBe(true);
+    expect(facts('$effect(() => { el.focus(); });')[0]!.mountOnly).toBe(true);
+    expect(facts('$effect(() => analytics.pageView());')[0]!.mountOnly).toBe(true);
+  });
+  it('is not mountOnly when the body reads reactive state/derived/props', () => {
+    expect(facts('let count = $state(0); $effect(() => { console.log(count); });')[0]!.mountOnly).toBe(false);
+    expect(facts('let d = $derived(1); $effect(() => { console.log(d); });')[0]!.mountOnly).toBe(false);
+    expect(facts('let { title } = $props(); $effect(() => { document.title = title; });')[0]!.mountOnly).toBe(false);
+  });
+  it('is not mountOnly for a store subscription or a bare call', () => {
+    expect(facts('$effect(() => { console.log($page); });')[0]!.mountOnly).toBe(false);
+    expect(facts('$effect(() => helper());')[0]!.mountOnly).toBe(false);
+  });
+  it('is not mountOnly for an empty body', () => {
+    expect(facts('$effect(() => {});')[0]!.mountOnly).toBe(false);
+  });
+  it('covers $effect.pre', () => {
+    expect(facts('$effect.pre(() => { el.focus(); });')[0]!.mountOnly).toBe(true);
   });
 });

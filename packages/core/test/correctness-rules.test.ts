@@ -45,12 +45,16 @@ describe('CORRECT001 keyed each block', () => {
 
 describe('CORRECT002 effect used to derive state', () => {
   it('flags an $effect that only assigns state', async () => {
-    const rs = await correct002EffectDerived.check(ctx([comp({ effects: [{ line: 5, assignsOnlyState: true }] })]));
+    const rs = await correct002EffectDerived.check(
+      ctx([comp({ effects: [{ line: 5, assignsOnlyState: true, mountOnly: false }] })])
+    );
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toContain('$derived');
   });
   it('passes an $effect that does real work', async () => {
-    const rs = await correct002EffectDerived.check(ctx([comp({ effects: [{ line: 5, assignsOnlyState: false }] })]));
+    const rs = await correct002EffectDerived.check(
+      ctx([comp({ effects: [{ line: 5, assignsOnlyState: false, mountOnly: false }] })])
+    );
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
