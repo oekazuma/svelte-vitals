@@ -18,7 +18,8 @@ const comp = (imports: string[]): ComponentFacts => ({
   loc: 10,
   propCount: 0,
   imports,
-  namespaceImports: []
+  namespaceImports: [],
+  constableStates: []
 });
 
 describe('PERF009 heavy dependency import', () => {

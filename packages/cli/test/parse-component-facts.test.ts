@@ -224,3 +224,53 @@ describe('parseComponentFacts — mount-only $effect (CORRECT003)', () => {
     expect(facts('$effect.pre(() => { el.focus(); });')[0]!.mountOnly).toBe(true);
   });
 });
+
+describe('parseComponentFacts — constable $state (CORRECT004)', () => {
+  const names = (src: string) => parseComponentFacts(src, 'C.svelte').constableStates.map((s) => s.name);
+
+  it('flags a $state that is only read', () => {
+    expect(names('<script>let title = $state("Hi");</script><h1>{title}</h1>')).toEqual(['title']);
+    expect(names('<script>let cfg = $state({ a: 1 });</script><p>{cfg.a}</p>')).toEqual(['cfg']);
+  });
+  it('does not flag a $state written in the script', () => {
+    expect(names('<script>let n = $state(0); function inc() { n++; }</script>')).toEqual([]);
+    expect(names('<script>let o = $state({}); o.x = 1;</script>')).toEqual([]);
+    expect(names('<script>let a = $state([]); a.push(1);</script>')).toEqual([]);
+    expect(names('<script>let x = $state(0); use(x);</script>')).toEqual([]);
+  });
+  it('does not flag a $state mutated in an inline handler', () => {
+    expect(names('<script>let n = $state(0);</script><button onclick={() => n++}>+</button>')).toEqual([]);
+  });
+  it('does not flag a bound $state', () => {
+    expect(names('<script>let name = $state("");</script><input bind:value={name} />')).toEqual([]);
+  });
+  it('does not flag a $state passed as a component prop', () => {
+    expect(names('<script>let data = $state({});</script><Child d={data} />')).toEqual([]);
+  });
+  it('still flags a $state only read in a slot child or DOM attribute', () => {
+    expect(names('<script>let label = $state("x");</script><Card>{label}</Card>')).toEqual(['label']);
+    expect(names('<script>let ph = $state("x");</script><input value={ph} />')).toEqual(['ph']);
+  });
+  it('does not flag a $state written via a destructuring assignment', () => {
+    expect(names('<script>let count = $state(0); ({ count } = obj);</script>')).toEqual([]);
+  });
+  it('does not flag a $state property deleted with `delete`', () => {
+    expect(names('<script>let m = $state({}); delete m.k;</script>')).toEqual([]);
+  });
+  it('does not flag a $state passed as a member-expression call argument', () => {
+    expect(names('<script>let u = $state({}); save(u.profile);</script>')).toEqual([]);
+  });
+  it('does not flag a $state mutated via a member update expression', () => {
+    expect(names('<script>let s = $state({ n: 0 }); function inc() { s.n++; }</script>')).toEqual([]);
+  });
+  it('does not flag a $state passed as a spread call argument', () => {
+    expect(names('<script>let a = $state([]); send(...a);</script>')).toEqual([]);
+    expect(names('<script>let o = $state({}); merge(...o.items);</script>')).toEqual([]);
+  });
+  it('does not flag a $state passed as a prop to a dynamic component', () => {
+    expect(names('<script>let d = $state({});</script><svelte:component this={C} d={d} />')).toEqual([]);
+  });
+  it('still flags a genuinely read-only $state used in a template expression', () => {
+    expect(names('<script>let t = $state("x");</script><p>{t}</p>')).toEqual(['t']);
+  });
+});

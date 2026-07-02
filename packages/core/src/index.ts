@@ -71,6 +71,7 @@ export {
   correct001EachKey,
   correct002EffectDerived,
   correct003EffectAsOnMount,
+  correct004UnmutatedState,
   sec001Html,
   sec002JavascriptUrl,
   arch001ComponentSize,
