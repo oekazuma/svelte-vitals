@@ -485,8 +485,9 @@ function collectStateWrites(root: Node, stateNames: Set<string>, acc: Set<string
         addBoundNames(n.left, bound);
         for (const name of bound) if (stateNames.has(name)) acc.add(name);
       }
-    } else if (n?.type === 'UpdateExpression' && n.argument?.type === 'Identifier' && stateNames.has(n.argument.name)) {
-      acc.add(n.argument.name);
+    } else if (n?.type === 'UpdateExpression') {
+      const r = rootObjectName(n.argument);
+      if (r && stateNames.has(r)) acc.add(r); // x++, x.count++, x[i]++
     } else if (n?.type === 'UnaryExpression' && n.operator === 'delete') {
       const r = rootObjectName(n.argument);
       if (r && stateNames.has(r)) acc.add(r);
@@ -496,8 +497,10 @@ function collectStateWrites(root: Node, stateNames: Set<string>, acc: Set<string
         if (r && stateNames.has(r)) acc.add(r); // x.push(), x.foo()
       }
       for (const a of n.arguments ?? []) {
-        const r = rootObjectName(a);
-        if (r && stateNames.has(r)) acc.add(r); // f(x), f(x.a), f(x[i])
+        // Unwrap a spread argument (`f(...x)`, `f(...x.items)`) to its expression.
+        const arg = a?.type === 'SpreadElement' ? a.argument : a;
+        const r = rootObjectName(arg);
+        if (r && stateNames.has(r)) acc.add(r); // f(x), f(x.a), f(...x)
       }
     }
   });

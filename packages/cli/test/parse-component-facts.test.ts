@@ -260,6 +260,13 @@ describe('parseComponentFacts — constable $state (CORRECT004)', () => {
   it('does not flag a $state passed as a member-expression call argument', () => {
     expect(names('<script>let u = $state({}); save(u.profile);</script>')).toEqual([]);
   });
+  it('does not flag a $state mutated via a member update expression', () => {
+    expect(names('<script>let s = $state({ n: 0 }); function inc() { s.n++; }</script>')).toEqual([]);
+  });
+  it('does not flag a $state passed as a spread call argument', () => {
+    expect(names('<script>let a = $state([]); send(...a);</script>')).toEqual([]);
+    expect(names('<script>let o = $state({}); merge(...o.items);</script>')).toEqual([]);
+  });
   it('does not flag a $state passed as a prop to a dynamic component', () => {
     expect(names('<script>let d = $state({});</script><svelte:component this={C} d={d} />')).toEqual([]);
   });
