@@ -38,7 +38,11 @@ warn about a never-mutated `$state`.
 A declared `$state` name is **suppressed** (not flagged) when, anywhere in the
 component, it is:
 
-**Script (instance ESTree walk):**
+**Script AND template expressions (ESTree walk over the instance program *and*
+the template fragment):** — writes 1–4 are detected in both places, because a
+`$state` is commonly mutated in an inline event handler (`<button onclick={() =>
+count++}>`), whose expression lives in the template AST, not the instance script.
+Missing handler mutations would be a false positive.
 
 1. Reassigned / compound-assigned / updated — `AssignmentExpression` whose `left`
    is an `Identifier` that is a state name, or an `UpdateExpression` (`x++`/`x--`)
@@ -86,10 +90,16 @@ constableStates: { name: string; line: number }[];
 
 - Collect `stateDecls: { name: string; line: number }[]` for each
   `VariableDeclarator` with an `Identifier` id whose init `isStateDeclaration`.
-- Build `writtenOrEscaped: Set<string>` by walking the instance program (rules
-  1–4) and the template fragment (rules 5–6). Helpers:
-  `rootObjectName(memberExpr)` → the base identifier name; a template walk that
-  tracks `BindDirective` expressions and `Component` `attributes`.
+- Build `writtenOrEscaped: Set<string>`:
+  - `collectStateWrites(root, stateNames, acc)` — a generic ESTree walk for rules
+    1–4, run over **both** the instance `program` and `ast.fragment` (so inline
+    handler mutations are seen).
+  - `collectTemplateEscapes(fragment, stateNames, acc)` — a dedicated template
+    walk for rules 5–6 (`BindDirective` expressions; `Component` node
+    `attributes`). `CHILD_NODE_KEYS` does not include `attributes`, so this walk
+    inspects `node.attributes` explicitly and recurses children via
+    `CHILD_NODE_KEYS`.
+  - Helper `rootObjectName(memberExpr)` → the base identifier name.
 - `constableStates = stateDecls.filter((d) => !writtenOrEscaped.has(d.name))`.
 
 `stateNames` / `assignsOnlyState` / `reactiveNames` (CORRECT002/003) are unchanged.
@@ -132,7 +142,8 @@ rule; not `@svelte-vitals/vite`).
 - **Capture** (`packages/cli` `parse-component-facts` tests): a `$state` read only
   via interpolation / member read is `constable`; a `$state` that is reassigned,
   compound-assigned, `++`/`--`, member-assigned (`x.a=`), method-called
-  (`x.push()`), passed as a call arg (`f(x)`), bound (`bind:value={x}`), or passed
+  (`x.push()`), passed as a call arg (`f(x)`), mutated in an inline handler
+  (`<button onclick={() => x++}>`), bound (`bind:value={x}`), or passed
   as a component prop (`<Child d={x}>`) is **not** constable; a Component's slot
   child read (`<Card>{x}</Card>`) stays constable; a DOM attribute read
   (`<input value={x}>`) stays constable.
