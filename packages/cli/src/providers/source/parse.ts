@@ -479,24 +479,41 @@ function collectStateWrites(root: Node, stateNames: Set<string>, acc: Set<string
       else if (n.left?.type === 'MemberExpression') {
         const r = rootObjectName(n.left);
         if (r && stateNames.has(r)) acc.add(r);
+      } else if (n.left?.type === 'ObjectPattern' || n.left?.type === 'ArrayPattern') {
+        // Destructuring-assignment target, e.g. `({ count } = obj)` or `[count] = arr`.
+        const bound = new Set<string>();
+        addBoundNames(n.left, bound);
+        for (const name of bound) if (stateNames.has(name)) acc.add(name);
       }
     } else if (n?.type === 'UpdateExpression' && n.argument?.type === 'Identifier' && stateNames.has(n.argument.name)) {
       acc.add(n.argument.name);
+    } else if (n?.type === 'UnaryExpression' && n.operator === 'delete') {
+      const r = rootObjectName(n.argument);
+      if (r && stateNames.has(r)) acc.add(r);
     } else if (n?.type === 'CallExpression') {
       if (n.callee?.type === 'MemberExpression') {
         const r = rootObjectName(n.callee);
         if (r && stateNames.has(r)) acc.add(r); // x.push(), x.foo()
       }
       for (const a of n.arguments ?? []) {
-        if (a?.type === 'Identifier' && stateNames.has(a.name)) acc.add(a.name); // f(x)
+        const r = rootObjectName(a);
+        if (r && stateNames.has(r)) acc.add(r); // f(x), f(x.a), f(x[i])
       }
     }
   });
 }
 
 /**
+ * Component-like nodes whose attributes are props passed INTO another component
+ * (an escape), as opposed to `SvelteElement` (`<svelte:element this={...}>`), whose
+ * attributes are DOM-attribute reads on a dynamically-named element — not an escape.
+ */
+const COMPONENT_LIKE_TYPES = new Set(['Component', 'SvelteComponent', 'SvelteSelf']);
+
+/**
  * Add state names ESCAPED via the template (CORRECT004 rules 5–6): a `bind:` on any
- * element, or passed as a `Component` prop. Slot children / DOM-attribute reads do
+ * element, or passed as a prop to a component (static `<Foo>`, or dynamic
+ * `<svelte:component>`/`<svelte:self>`). Slot children / DOM-attribute reads do
  * not escape. `CHILD_NODE_KEYS` omits `attributes`, so inspect them explicitly.
  */
 function collectTemplateEscapes(node: Node, stateNames: Set<string>, acc: Set<string>): void {
@@ -510,7 +527,7 @@ function collectTemplateEscapes(node: Node, stateNames: Set<string>, acc: Set<st
       if (attr?.type === 'BindDirective') {
         const r = rootObjectName(attr.expression);
         if (r && stateNames.has(r)) acc.add(r);
-      } else if (node.type === 'Component') {
+      } else if (COMPONENT_LIKE_TYPES.has(node.type)) {
         walkEstree(attr, (m: Node) => {
           if (m?.type === 'Identifier' && stateNames.has(m.name)) acc.add(m.name);
         });

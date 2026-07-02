@@ -251,4 +251,19 @@ describe('parseComponentFacts — constable $state (CORRECT004)', () => {
     expect(names('<script>let label = $state("x");</script><Card>{label}</Card>')).toEqual(['label']);
     expect(names('<script>let ph = $state("x");</script><input value={ph} />')).toEqual(['ph']);
   });
+  it('does not flag a $state written via a destructuring assignment', () => {
+    expect(names('<script>let count = $state(0); ({ count } = obj);</script>')).toEqual([]);
+  });
+  it('does not flag a $state property deleted with `delete`', () => {
+    expect(names('<script>let m = $state({}); delete m.k;</script>')).toEqual([]);
+  });
+  it('does not flag a $state passed as a member-expression call argument', () => {
+    expect(names('<script>let u = $state({}); save(u.profile);</script>')).toEqual([]);
+  });
+  it('does not flag a $state passed as a prop to a dynamic component', () => {
+    expect(names('<script>let d = $state({});</script><svelte:component this={C} d={d} />')).toEqual([]);
+  });
+  it('still flags a genuinely read-only $state used in a template expression', () => {
+    expect(names('<script>let t = $state("x");</script><p>{t}</p>')).toEqual(['t']);
+  });
 });
