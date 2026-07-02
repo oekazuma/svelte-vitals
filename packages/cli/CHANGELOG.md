@@ -1,5 +1,48 @@
 # svelte-vitals
 
+## 0.16.0
+
+### Minor Changes
+
+- 90e3e7e: Add an **Architecture** category — the third "Svelte Doctor" code-health category,
+  reusing the component-body scan (CLI/static mode). Deterministic, high-precision
+  size metrics that flag bloated "god components":
+
+  - **ARCH001** Component size: flags a `.svelte` file over 400 lines (info).
+  - **ARCH002** Prop count: flags a component destructuring more than 10 props from
+    `$props()` (info).
+
+  `ComponentFacts` gains `loc` and `propCount`; the console reporter shows an
+  Architecture score line.
+
+- 32698e0: Add **PERF009 (heavy dependency import)** — the Bundle slice of #69. Flags an
+  `import` from a well-known heavy / non-tree-shakeable package (`lodash`, `moment`),
+  matched by exact specifier so subpath imports like `lodash/debounce` pass.
+  Reported under the `performance` category (info). `ComponentFacts` gains `imports`
+  (module specifiers from the instance + module scripts).
+- 382c397: Add **PERF010 (namespace import)** — the remaining Bundle slice of #69. Flags a
+  value `import * as X from '<bare package>'`, which keeps the whole module in the
+  bundle and defeats tree-shaking; named imports are preferred. Type-only and
+  non-bare (relative / `$lib` / `$app` / `#…`) namespace imports are not flagged.
+  Reported under `performance` (info). `ComponentFacts` gains `namespaceImports`.
+- 0441cbb: Add `--diff` and `--staged` to scope findings to changed files (#69) — run
+  svelte-vitals as a pre-commit hook or PR check that gates only what just changed:
+
+  - `--staged` — report only findings in files staged for commit.
+  - `--diff [ref]` — report only findings in files changed vs `ref` (default
+    `HEAD`; e.g. `--diff main` for branch changes).
+
+  Findings are filtered to those located in the changed files, then flow through
+  scoring, the reporters, and the `--fail-on` / `--min-health` gates. If git can't
+  answer (not a repo / unavailable), it warns and analyzes everything.
+
+### Patch Changes
+
+- Updated dependencies [90e3e7e]
+- Updated dependencies [32698e0]
+- Updated dependencies [382c397]
+  - @svelte-vitals/core@0.17.0
+
 ## 0.15.0
 
 ### Minor Changes
