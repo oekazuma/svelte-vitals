@@ -199,6 +199,14 @@ describe('parseComponentFacts — mount-only $effect (CORRECT003)', () => {
     expect(facts('let d = $derived(1); $effect(() => { console.log(d); });')[0]!.mountOnly).toBe(false);
     expect(facts('let { title } = $props(); $effect(() => { document.title = title; });')[0]!.mountOnly).toBe(false);
   });
+  it('captures reactive names through defaults and nested destructuring (no false positive)', () => {
+    // `title` has a default → its binding is an AssignmentPattern, still a reactive prop.
+    expect(facts("let { title = 'x' } = $props(); $effect(() => { document.title = title; });")[0]!.mountOnly).toBe(
+      false
+    );
+    // nested destructuring binds `b`.
+    expect(facts('let { a: { b } } = $props(); $effect(() => { el.textContent = b; });')[0]!.mountOnly).toBe(false);
+  });
   it('is not mountOnly for a store subscription or a bare call', () => {
     expect(facts('$effect(() => { console.log($page); });')[0]!.mountOnly).toBe(false);
     expect(facts('$effect(() => helper());')[0]!.mountOnly).toBe(false);

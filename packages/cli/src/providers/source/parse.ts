@@ -429,15 +429,33 @@ function isDerivedDeclaration(node: Node): boolean {
   return false;
 }
 
-/** Add the names a declarator binds (Identifier or destructuring ObjectPattern) to `acc`. */
+/**
+ * Add every name a binding target introduces to `acc`, recursing through all
+ * destructuring forms: defaults (`{ a = 1 }`), nested (`{ a: { b } }`), arrays,
+ * and rest. Missing a bound prop would drop it from `reactiveNames` and risk a
+ * false-positive CORRECT003 flag, so this must cover the full pattern grammar.
+ */
 function addBoundNames(id: Node, acc: Set<string>): void {
   if (!id) return;
-  if (id.type === 'Identifier') acc.add(id.name);
-  else if (id.type === 'ObjectPattern') {
-    for (const p of id.properties ?? []) {
-      if (p?.type === 'Property' && p.value?.type === 'Identifier') acc.add(p.value.name);
-      else if (p?.type === 'RestElement' && p.argument?.type === 'Identifier') acc.add(p.argument.name);
-    }
+  switch (id.type) {
+    case 'Identifier':
+      acc.add(id.name);
+      break;
+    case 'ObjectPattern':
+      for (const p of id.properties ?? []) {
+        if (p?.type === 'Property') addBoundNames(p.value, acc);
+        else if (p?.type === 'RestElement') addBoundNames(p.argument, acc);
+      }
+      break;
+    case 'ArrayPattern':
+      for (const el of id.elements ?? []) addBoundNames(el, acc);
+      break;
+    case 'AssignmentPattern':
+      addBoundNames(id.left, acc);
+      break;
+    case 'RestElement':
+      addBoundNames(id.argument, acc);
+      break;
   }
 }
 
