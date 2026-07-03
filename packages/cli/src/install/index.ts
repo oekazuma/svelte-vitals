@@ -119,19 +119,21 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
   }
 
   // 5. Write.
-  try {
-    for (const r of rows) {
-      if (r.status === 'exists') {
-        io.log(`= ${r.client.label}: already configured (${r.path}) — use --force to overwrite.`);
-        continue;
-      }
+  let hadFailure = false;
+  for (const r of rows) {
+    if (r.status === 'exists') {
+      io.log(`= ${r.client.label}: already configured (${r.path}) — use --force to overwrite.`);
+      continue;
+    }
+    try {
       io.writeFile(r.path, r.content);
       io.log(`✓ ${r.client.label}: ${r.status} ${r.path}`);
+    } catch (err) {
+      hadFailure = true;
+      io.errorLog(`svelte-vitals: failed to write ${r.path}: ${err instanceof Error ? err.message : String(err)}`);
     }
-  } catch (err) {
-    io.errorLog(`svelte-vitals: failed to write config: ${err instanceof Error ? err.message : String(err)}`);
-    return 2;
   }
+  if (hadFailure) return 2;
 
   io.log('');
   io.log('Done. Restart your client to load the svelte-vitals MCP server.');

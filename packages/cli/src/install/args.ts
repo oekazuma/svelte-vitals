@@ -1,8 +1,8 @@
 import type mri from 'mri';
-import type { ClientId, Scope } from './clients.js';
+import { CLIENTS, type ClientId, type Scope } from './clients.js';
 import type { InstallFlags } from './index.js';
 
-const VALID_CLIENTS: readonly ClientId[] = ['claude-code', 'cursor', 'codex'];
+const VALID_CLIENTS: readonly ClientId[] = CLIENTS.map((c) => c.id);
 
 export interface ResolvedInstallArgs {
   /** Flags to pass to runInstall, or null when a fatal (exit-2) error was found. */
@@ -26,6 +26,9 @@ export function resolveInstallArgs(argv: mri.Argv): ResolvedInstallArgs {
   for (const c of rawClients) {
     if ((VALID_CLIENTS as readonly string[]).includes(c)) client.push(c as ClientId);
     else warnings.push(`svelte-vitals: unknown --client '${c}'; expected claude-code|cursor|codex. Skipping.`);
+  }
+  if (rawClients.length > 0 && client.length === 0) {
+    errors.push('svelte-vitals: no valid --client values; expected claude-code|cursor|codex.');
   }
 
   let scope: Scope | undefined;

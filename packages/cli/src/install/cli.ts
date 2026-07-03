@@ -20,13 +20,14 @@ Options:
   --force           Overwrite an existing svelte-vitals entry
   -h, --help        Show this help`;
 
-function realIO(): InstallIO {
+export function realIO(): InstallIO {
   return {
     readFile: (path) => {
       try {
         return readFileSync(path, 'utf8');
-      } catch {
-        return undefined;
+      } catch (err) {
+        if ((err as NodeJS.ErrnoException).code === 'ENOENT') return undefined;
+        throw err;
       }
     },
     writeFile: (path, content) => {

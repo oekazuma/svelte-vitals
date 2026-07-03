@@ -21,6 +21,11 @@ describe('resolveInstallArgs', () => {
     expect(r.flags!.client).toEqual(['claude-code']);
     expect(r.warnings.join('\n')).toContain('bogus');
   });
+  it('errors on an all-invalid --client (fatal)', () => {
+    const r = resolveInstallArgs(parse(['--client', 'bogus']));
+    expect(r.flags).toBeNull();
+    expect(r.errors.join('\n')).toContain('claude-code');
+  });
   it('errors on an invalid scope (fatal)', () => {
     const r = resolveInstallArgs(parse(['--scope', 'weird']));
     expect(r.flags).toBeNull();

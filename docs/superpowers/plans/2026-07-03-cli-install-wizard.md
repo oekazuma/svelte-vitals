@@ -888,7 +888,7 @@ Expected: prints `Plan:`, a line containing `Claude Code (project)` and a path e
 Run (real write into a throwaway dir):
 
 ```bash
-D=$(mktemp -d) && node "$PWD/packages/cli/dist/bin.js" install --client cursor --scope project --yes >/tmp/out.txt 2>&1; cd "$D"; cat .cursor/mcp.json; cd - >/dev/null
+D=$(mktemp -d) && cd "$D" && node "$OLDPWD/packages/cli/dist/bin.js" install --client cursor --scope project --yes && cat .cursor/mcp.json
 ```
 
 Expected: `.cursor/mcp.json` contains `mcpServers.svelte-vitals` with `command: "npx"`, `args: ["-y", "@svelte-vitals/mcp"]`.

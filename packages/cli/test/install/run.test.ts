@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { runInstall, type InstallIO, type InstallPrompts } from '../../src/install/index.js';
 
-function fakeIO(over: { files?: Record<string, string>; isTTY?: boolean } = {}) {
+function fakeIO(over: { files?: Record<string, string>; isTTY?: boolean; failWritePath?: string } = {}) {
   const files = over.files ?? {};
   const writes: Record<string, string> = {};
   const out: string[] = [];
@@ -9,6 +9,9 @@ function fakeIO(over: { files?: Record<string, string>; isTTY?: boolean } = {}) 
   const io: InstallIO = {
     readFile: (p) => files[p],
     writeFile: (p, c) => {
+      if (over.failWritePath && p === over.failWritePath) {
+        throw new Error(`EACCES: permission denied, open '${p}'`);
+      }
       writes[p] = c;
     },
     cwd: '/proj',
@@ -86,5 +89,18 @@ describe('runInstall', () => {
     expect(await runInstall({ client: ['claude-code'], scope: 'project', yes: true }, io, noPrompts)).toBe(2);
     expect(writes).toEqual({});
     expect(err.join('\n')).toContain('/proj/.mcp.json');
+  });
+  it('non-TTY without --scope defaults to project for multi-scope clients', async () => {
+    const { io, writes } = fakeIO();
+    await runInstall({ client: ['claude-code'], yes: true }, io, noPrompts);
+    expect(Object.keys(writes)).toEqual(['/proj/.mcp.json']);
+  });
+  it('a per-file write failure names the failing path, keeps earlier writes, and does not abort the run', async () => {
+    const { io, writes, err } = fakeIO({ failWritePath: '/proj/.cursor/mcp.json' });
+    const code = await runInstall({ client: ['claude-code', 'cursor'], scope: 'project', yes: true }, io, noPrompts);
+    expect(code).toBe(2);
+    expect(writes['/proj/.mcp.json']).toBeDefined();
+    expect(writes['/proj/.cursor/mcp.json']).toBeUndefined();
+    expect(err.join('\n')).toContain('/proj/.cursor/mcp.json');
   });
 });
