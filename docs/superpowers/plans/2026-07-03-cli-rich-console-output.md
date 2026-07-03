@@ -40,12 +40,14 @@
 ### Task 1: Core palette injection
 
 **Files:**
+
 - Create: `packages/core/src/reporter/palette.ts`
 - Modify: `packages/core/src/reporter/console.ts`
 - Modify: `packages/core/src/index.ts`
 - Test: `packages/core/test/console-palette.test.ts` (create)
 
 **Interfaces:**
+
 - Produces: `interface Palette`, `const noColorPalette: Palette`, `function scoreColor(p, score)`; `ConsoleReportOptions.palette?`.
 - Consumes: nothing new.
 
@@ -195,54 +197,54 @@ function byRouteTree(p: Palette, results: Result[], config: Config): string[] {
 In `formatConsoleReport`, add `const p = options.palette ?? noColorPalette;` at the top, then color the header/sections. Replace the header + section-title + marker construction so it reads:
 
 ```ts
-  const p = options.palette ?? noColorPalette;
-  const summary = summarize(results, config);
-  const { health, categories: byCat } = computeHealth(results, config);
-  const present = CATEGORY_ORDER.filter((c) => byCat[c] !== undefined);
-  const header: string[] = [
-    p.bold(`Svelte Vitals  ·  ${options.mode ?? 'static mode'}`),
-    '',
-    `${p.bold('Health:')} ${scoreColor(p, health)(`${health}/100`)}`
-  ];
-  for (const c of present) {
-    header.push(scoreLine(p, CATEGORY_LABEL[c] ?? c, byCat[c]!));
+const p = options.palette ?? noColorPalette;
+const summary = summarize(results, config);
+const { health, categories: byCat } = computeHealth(results, config);
+const present = CATEGORY_ORDER.filter((c) => byCat[c] !== undefined);
+const header: string[] = [
+  p.bold(`Svelte Vitals  ·  ${options.mode ?? 'static mode'}`),
+  '',
+  `${p.bold('Health:')} ${scoreColor(p, health)(`${health}/100`)}`
+];
+for (const c of present) {
+  header.push(scoreLine(p, CATEGORY_LABEL[c] ?? c, byCat[c]!));
+}
+const lines: string[] = [...header, ''];
+
+const SEVERITY_COLOR: Record<Severity, (s: string) => string> = {
+  critical: (s) => p.red(p.bold(s)),
+  warning: (s) => p.yellow(p.bold(s)),
+  info: (s) => p.dim(s)
+};
+
+const failures = results.filter((r) => classify(r, config) === 'fail');
+for (const severity of ['critical', 'warning', 'info'] as const) {
+  const bucket = failures.filter((r) => effectiveSeverity(r, config) === severity);
+  if (bucket.length === 0) continue;
+  lines.push(SEVERITY_COLOR[severity](`${SEVERITY_TITLE[severity]} (${bucket.length})`), p.dim(RULE));
+  for (const r of bucket) {
+    lines.push(`${p.red('✗')} ${r.id}  ${r.message}`);
+    if (r.route) lines.push(p.dim(`            ${r.route}`));
+    if (r.location) lines.push(p.dim(`            ${r.location}${r.line ? `:${r.line}` : ''}`));
   }
-  const lines: string[] = [...header, ''];
+  lines.push('');
+}
 
-  const SEVERITY_COLOR: Record<Severity, (s: string) => string> = {
-    critical: (s) => p.red(p.bold(s)),
-    warning: (s) => p.yellow(p.bold(s)),
-    info: (s) => p.dim(s)
-  };
-
-  const failures = results.filter((r) => classify(r, config) === 'fail');
-  for (const severity of ['critical', 'warning', 'info'] as const) {
-    const bucket = failures.filter((r) => effectiveSeverity(r, config) === severity);
-    if (bucket.length === 0) continue;
-    lines.push(SEVERITY_COLOR[severity](`${SEVERITY_TITLE[severity]} (${bucket.length})`), p.dim(RULE));
-    for (const r of bucket) {
-      lines.push(`${p.red('✗')} ${r.id}  ${r.message}`);
-      if (r.route) lines.push(p.dim(`            ${r.route}`));
-      if (r.location) lines.push(p.dim(`            ${r.location}${r.line ? `:${r.line}` : ''}`));
-    }
-    lines.push('');
+const passed = results.filter((r) => classify(r, config) !== 'fail');
+if (passed.length > 0) {
+  lines.push(p.bold(`Passed (${passed.length})`), p.dim(RULE));
+  for (const r of passed) {
+    const marker = classify(r, config) === 'dynamic' ? p.cyan('  ↯ dynamic') : '';
+    const route = r.route ? `  ${r.route}` : '';
+    lines.push(`${p.green('✓')} ${r.id}  ${r.message}${marker}${route}`);
   }
+  lines.push('');
+}
 
-  const passed = results.filter((r) => classify(r, config) !== 'fail');
-  if (passed.length > 0) {
-    lines.push(p.bold(`Passed (${passed.length})`), p.dim(RULE));
-    for (const r of passed) {
-      const marker = classify(r, config) === 'dynamic' ? p.cyan('  ↯ dynamic') : '';
-      const route = r.route ? `  ${r.route}` : '';
-      lines.push(`${p.green('✓')} ${r.id}  ${r.message}${marker}${route}`);
-    }
-    lines.push('');
-  }
+if (options.byRoute) lines.push(...byRouteTree(p, results, config));
+if (summary.dynamic > 0) lines.push(p.dim('↯ = set dynamically (verified at runtime).'));
 
-  if (options.byRoute) lines.push(...byRouteTree(p, results, config));
-  if (summary.dynamic > 0) lines.push(p.dim('↯ = set dynamically (verified at runtime).'));
-
-  return lines.join('\n').replace(/\n+$/, '\n');
+return lines.join('\n').replace(/\n+$/, '\n');
 ```
 
 (The `SEVERITY_TITLE`, `CATEGORY_LABEL`, `CATEGORY_ORDER`, `RULE` constants and the early `import` lines are unchanged.)
@@ -275,12 +277,14 @@ git commit -m "feat(core): inject a Palette into the console reporter (identity 
 ### Task 2: CLI color palette + `--no-color` + tagline
 
 **Files:**
+
 - Create: `packages/cli/src/color.ts`
 - Modify: `packages/cli/src/index.ts` (`RunOptions`; hoist reporter/env; console branch)
 - Modify: `packages/cli/src/bin.ts` (`--no-color` flag; help)
 - Test: `packages/cli/test/color.test.ts` (create)
 
 **Interfaces:**
+
 - Consumes: `Palette`, `noColorPalette` from `@svelte-vitals/core` (Task 1); `resolveReporter` (existing).
 - Produces: `ansiPalette`, `colorEnabled(opts)`, `paletteFor(enabled)`; `RunOptions.noColor?`, `RunOptions.stdoutIsTTY?`.
 
@@ -442,11 +446,13 @@ git commit -m "feat(cli): colorize console output (gated on TTY/NO_COLOR); --no-
 ### Task 3: Analysis spinner
 
 **Files:**
+
 - Create: `packages/cli/src/spinner.ts`
 - Modify: `packages/cli/src/index.ts` (wrap the analysis phase)
 - Test: `packages/cli/test/spinner.test.ts` (create)
 
 **Interfaces:**
+
 - Consumes: `colorEnabled` (Task 2) for gating.
 - Produces: `startSpinner(text, opts): Spinner`.
 
@@ -520,23 +526,23 @@ export function startSpinner(text: string, opts: { enabled: boolean; stream?: No
 
 - [ ] **Step 4: Wrap the analysis phase in `run()`**
 
-In `packages/cli/src/index.ts`, `run()` currently resolves the reporter *after* `analyzeProject`. To gate the spinner (which runs *during* analysis) we resolve `env`/`reporter` up front.
+In `packages/cli/src/index.ts`, `run()` currently resolves the reporter _after_ `analyzeProject`. To gate the spinner (which runs _during_ analysis) we resolve `env`/`reporter` up front.
 
 Immediately after the `minHealth` validation block and before `let analysis: AnalyzeResult;`, add:
 
 ```ts
-  const env = opts.env ?? process.env;
-  const reporter = resolveReporter(opts.reporter, env);
-  const spinnerEnabled =
-    reporter === 'console' &&
-    !isAutoDetectedAgent(opts.reporter, env) &&
-    colorEnabled({
-      reporter,
-      isTTY: opts.stderrIsTTY ?? !!process.stderr.isTTY,
-      env,
-      noColorFlag: opts.noColor
-    });
-  const spinner = startSpinner('Analyzing…', { enabled: spinnerEnabled });
+const env = opts.env ?? process.env;
+const reporter = resolveReporter(opts.reporter, env);
+const spinnerEnabled =
+  reporter === 'console' &&
+  !isAutoDetectedAgent(opts.reporter, env) &&
+  colorEnabled({
+    reporter,
+    isTTY: opts.stderrIsTTY ?? !!process.stderr.isTTY,
+    env,
+    noColorFlag: opts.noColor
+  });
+const spinner = startSpinner('Analyzing…', { enabled: spinnerEnabled });
 ```
 
 Add the import at the top: `import { startSpinner } from './spinner.js';`
@@ -564,6 +570,7 @@ git commit -m "feat(cli): stderr 'Analyzing…' spinner during static analysis (
 ### Task 4: Changeset + full verification
 
 **Files:**
+
 - Create: `.changeset/cli-rich-console.md`
 
 - [ ] **Step 1: Write the changeset**
@@ -587,9 +594,11 @@ dependency-free and other reporters are unchanged.
 - [ ] **Step 2: Full verification**
 
 Run:
+
 ```bash
 pnpm -r build && pnpm -r test && pnpm -r typecheck && pnpm lint && pnpm --filter docs build
 ```
+
 Expected: all green. Core test count rises by 3 (`console-palette`); cli by ~8 (`color` + `spinner`).
 
 - [ ] **Step 3: If lint reports formatting, fix and re-run**
@@ -614,6 +623,7 @@ git commit -m "docs: changeset for rich console output"
 ## Self-Review
 
 **Spec coverage:**
+
 - Palette injection, identity default, `scoreColor` thresholds → Task 1. ✓
 - Color applied to health/category/severity/markers/dividers → Task 1 Step 4. ✓
 - CLI ANSI palette + `colorEnabled` gating (TTY/NO_COLOR/FORCE_COLOR/reporter/--no-color) → Task 2. ✓

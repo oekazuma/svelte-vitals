@@ -88,7 +88,10 @@ New `packages/cli/src/color.ts` (hand-rolled ANSI, no dep):
 ```ts
 import { noColorPalette, type Palette } from '@svelte-vitals/core';
 
-const wrap = (open: number, close = 0) => (s: string) => `\x1b[${open}m${s}\x1b[${close}m`;
+const wrap =
+  (open: number, close = 0) =>
+  (s: string) =>
+    `\x1b[${open}m${s}\x1b[${close}m`;
 const ansiPalette: Palette = {
   bold: wrap(1, 22),
   dim: wrap(2, 22),
@@ -164,7 +167,7 @@ Enable only when: `reporter === 'console'` AND `process.stderr.isTTY` AND color 
 
 ## Testing
 
-- **core** (`console` reporter): existing tests unchanged (identity default). New: with a **marker palette** (e.g. `bold: s => `[b]${s}[/b]``, `red: s => `[r]${s}[/r]``), assert the Health number, `Critical` title, and `✗` carry the expected markers; `scoreColor` returns green/yellow/red fn at 90/70 boundaries.
+- **core** (`console` reporter): existing tests unchanged (identity default). New: with a **marker palette** (e.g. `bold: s => `[b]${s}[/b]``, `red: s => `[r]${s}[/r]``), assert the Health number, `Critical`title, and`✗`carry the expected markers;`scoreColor` returns green/yellow/red fn at 90/70 boundaries.
 - **cli**: `colorEnabled` truth table — `--no-color` off; `NO_COLOR` off; `FORCE_COLOR` on; console+TTY on; non-TTY off; non-console reporter off. `startSpinner({enabled:false})` writes nothing and returns a working `stop()`; enabled writes frames to the injected stream and `stop()` clears.
 - Full suite + typecheck + lint + `docs build` green; no assertions loosened.
 
