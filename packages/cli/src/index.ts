@@ -27,6 +27,8 @@ import { detectProject, ProjectError, collectProjectFacts } from './providers/so
 import { readPackageVersion } from './version.js';
 import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
 import { getChangedFiles, filterToChangedFiles } from './changed-files.js';
+import { colorEnabled, paletteFor } from './color.js';
+import { startSpinner } from './spinner.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -52,6 +54,34 @@ export interface RunOptions {
   diffBase?: string;
   /** Report only findings in files staged for commit. Takes precedence over `diffBase`. */
   staged?: boolean;
+  /** Disable ANSI color in console output. */
+  noColor?: boolean;
+  /** Override stdout TTY detection (tests). */
+  stdoutIsTTY?: boolean;
+  /** Override stderr TTY detection (tests). */
+  stderrIsTTY?: boolean;
+}
+
+/**
+ * Whether the "Analyzing…" spinner should run. Unlike color, the spinner animates
+ * with carriage returns and escape codes, so it needs a real interactive stderr —
+ * `FORCE_COLOR` must NOT force it on in a non-TTY stderr (e.g. CI), where `\r` would
+ * clutter the log. So gate on `stderrIsTTY` unconditionally, then reuse the color
+ * gating (NO_COLOR / --no-color / agent env) with that same TTY value.
+ */
+export function spinnerEnabled(opts: {
+  reporter: ReporterName;
+  rawReporter: ReporterName | undefined;
+  stderrIsTTY: boolean;
+  env: NodeJS.ProcessEnv;
+  noColorFlag?: boolean;
+}): boolean {
+  return (
+    opts.reporter === 'console' &&
+    opts.stderrIsTTY &&
+    !isAutoDetectedAgent(opts.rawReporter, opts.env) &&
+    colorEnabled({ reporter: opts.reporter, isTTY: opts.stderrIsTTY, env: opts.env, noColorFlag: opts.noColorFlag })
+  );
 }
 
 export function routeMatcher(glob: string | undefined): (route: string) => boolean {
@@ -132,6 +162,18 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     return 2;
   }
 
+  const env = opts.env ?? process.env;
+  const reporter = resolveReporter(opts.reporter, env);
+  const spinner = startSpinner('Analyzing…', {
+    enabled: spinnerEnabled({
+      reporter,
+      rawReporter: opts.reporter,
+      stderrIsTTY: opts.stderrIsTTY ?? !!process.stderr.isTTY,
+      env,
+      noColorFlag: opts.noColor
+    })
+  });
+
   let analysis: AnalyzeResult;
   try {
     analysis = await analyzeProject({
@@ -143,6 +185,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       rules: opts.rules
     });
   } catch (err) {
+    spinner.stop();
     if (err instanceof ProjectError) {
       errorLog(err.message);
       return 2;
@@ -150,6 +193,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     errorLog(`svelte-vitals: ${err instanceof Error ? err.message : String(err)}`);
     return 2;
   }
+  spinner.stop();
 
   try {
     const { config, version } = analysis;
@@ -170,8 +214,6 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       }
     }
 
-    const env = opts.env ?? process.env;
-    const reporter = resolveReporter(opts.reporter, env);
     if (reporter === 'agent' && isAutoDetectedAgent(opts.reporter, env)) {
       errorLog(
         'svelte-vitals: agent reporter auto-selected (AI-agent env detected); override with --reporter console|json.'
@@ -211,7 +253,13 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         errorLog(`svelte-vitals: wrote report to ${path}`);
       }
     } else {
-      log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false }));
+      const colorOn = colorEnabled({
+        reporter,
+        isTTY: opts.stdoutIsTTY ?? !!process.stdout.isTTY,
+        env,
+        noColorFlag: opts.noColor
+      });
+      log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false, palette: paletteFor(colorOn) }));
     }
     const summary = summarize(results, config);
     const failBySeverity = hasFailureAtOrAbove(summary, config.failOn);

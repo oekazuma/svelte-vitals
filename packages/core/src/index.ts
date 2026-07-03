@@ -89,6 +89,8 @@ export { summarize, classify, hasFailureAtOrAbove, effectiveSeverity } from './s
 
 export type { ConsoleReportOptions } from './reporter/console.js';
 export { formatConsoleReport } from './reporter/console.js';
+export { noColorPalette, scoreColor } from './reporter/palette.js';
+export type { Palette } from './reporter/palette.js';
 export { buildJsonReport, formatJsonReport } from './reporter/json.js';
 export type { JsonReport } from './reporter/json.js';
 export { formatAgentReport } from './reporter/agent.js';
