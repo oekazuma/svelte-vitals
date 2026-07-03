@@ -28,6 +28,7 @@ import { readPackageVersion } from './version.js';
 import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
 import { getChangedFiles, filterToChangedFiles } from './changed-files.js';
 import { colorEnabled, paletteFor } from './color.js';
+import { startSpinner } from './spinner.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -139,6 +140,19 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     return 2;
   }
 
+  const env = opts.env ?? process.env;
+  const reporter = resolveReporter(opts.reporter, env);
+  const spinnerEnabled =
+    reporter === 'console' &&
+    !isAutoDetectedAgent(opts.reporter, env) &&
+    colorEnabled({
+      reporter,
+      isTTY: opts.stderrIsTTY ?? !!process.stderr.isTTY,
+      env,
+      noColorFlag: opts.noColor
+    });
+  const spinner = startSpinner('Analyzing…', { enabled: spinnerEnabled });
+
   let analysis: AnalyzeResult;
   try {
     analysis = await analyzeProject({
@@ -150,6 +164,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       rules: opts.rules
     });
   } catch (err) {
+    spinner.stop();
     if (err instanceof ProjectError) {
       errorLog(err.message);
       return 2;
@@ -157,6 +172,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     errorLog(`svelte-vitals: ${err instanceof Error ? err.message : String(err)}`);
     return 2;
   }
+  spinner.stop();
 
   try {
     const { config, version } = analysis;
@@ -177,8 +193,6 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       }
     }
 
-    const env = opts.env ?? process.env;
-    const reporter = resolveReporter(opts.reporter, env);
     if (reporter === 'agent' && isAutoDetectedAgent(opts.reporter, env)) {
       errorLog(
         'svelte-vitals: agent reporter auto-selected (AI-agent env detected); override with --reporter console|json.'
