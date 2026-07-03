@@ -3,11 +3,13 @@ import mri from 'mri';
 import { run } from './index.js';
 import { readPackageVersion } from './version.js';
 import { resolveArgs } from './resolve-args.js';
+import { runInstallCli } from './install/cli.js';
 
 const HELP = `svelte-vitals — a deterministic SvelteKit code-health scanner (SEO · performance · correctness · security · architecture)
 
 Usage:
   svelte-vitals [path] [options]
+  svelte-vitals install          Set up the MCP server for Claude Code / Cursor / Codex
 
 Options:
   --meta-components <names>   Comma-separated component names that emit head metadata
@@ -36,6 +38,12 @@ Exit codes:
 const VERSION = readPackageVersion();
 
 async function main(): Promise<void> {
+  const rawArgs = process.argv.slice(2);
+  if (rawArgs[0] === 'install') {
+    const code = await runInstallCli(rawArgs.slice(1));
+    process.exit(code);
+  }
+
   const argv = mri(process.argv.slice(2), {
     alias: { h: 'help', v: 'version' },
     boolean: ['by-route', 'json', 'fail-on-warning', 'staged', 'no-color'],
