@@ -22,6 +22,12 @@ describe('colorEnabled', () => {
   it('FORCE_COLOR forces on even off-TTY', () => {
     expect(colorEnabled({ ...base, isTTY: false, env: { FORCE_COLOR: '1' } })).toBe(true);
   });
+  it('an empty NO_COLOR does not disable', () => {
+    expect(colorEnabled({ ...base, env: { NO_COLOR: '' } })).toBe(true);
+  });
+  it("FORCE_COLOR='0' does not force on", () => {
+    expect(colorEnabled({ ...base, isTTY: false, env: { FORCE_COLOR: '0' } })).toBe(false);
+  });
 });
 
 describe('paletteFor', () => {
