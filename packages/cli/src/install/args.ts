@@ -24,8 +24,11 @@ export function resolveInstallArgs(argv: mri.Argv): ResolvedInstallArgs {
       : [];
   const client: ClientId[] = [];
   for (const c of rawClients) {
-    if ((VALID_CLIENTS as readonly string[]).includes(c)) client.push(c as ClientId);
-    else warnings.push(`svelte-vitals: unknown --client '${c}'; expected claude-code|cursor|codex. Skipping.`);
+    if ((VALID_CLIENTS as readonly string[]).includes(c)) {
+      if (!client.includes(c as ClientId)) client.push(c as ClientId);
+    } else {
+      warnings.push(`svelte-vitals: unknown --client '${c}'; expected claude-code|cursor|codex. Skipping.`);
+    }
   }
   if (rawClients.length > 0 && client.length === 0) {
     errors.push('svelte-vitals: no valid --client values; expected claude-code|cursor|codex.');

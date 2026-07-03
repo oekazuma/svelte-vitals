@@ -1,13 +1,20 @@
 import { describe, it, expect } from 'vitest';
 import { runInstall, type InstallIO, type InstallPrompts } from '../../src/install/index.js';
 
-function fakeIO(over: { files?: Record<string, string>; isTTY?: boolean; failWritePath?: string } = {}) {
+function fakeIO(
+  over: { files?: Record<string, string>; isTTY?: boolean; failWritePath?: string; throwOnRead?: string } = {}
+) {
   const files = over.files ?? {};
   const writes: Record<string, string> = {};
   const out: string[] = [];
   const err: string[] = [];
   const io: InstallIO = {
-    readFile: (p) => files[p],
+    readFile: (p) => {
+      if (over.throwOnRead && p === over.throwOnRead) {
+        throw new Error(`EACCES: permission denied, open '${p}'`);
+      }
+      return files[p];
+    },
     writeFile: (p, c) => {
       if (over.failWritePath && p === over.failWritePath) {
         throw new Error(`EACCES: permission denied, open '${p}'`);
@@ -94,6 +101,17 @@ describe('runInstall', () => {
     const { io, writes } = fakeIO();
     await runInstall({ client: ['claude-code'], yes: true }, io, noPrompts);
     expect(Object.keys(writes)).toEqual(['/proj/.mcp.json']);
+  });
+  it('TTY detection tolerates a throwing readFile (e.g. EACCES) without crashing', async () => {
+    const { io, writes } = fakeIO({ isTTY: true, throwOnRead: '/proj/.cursor/mcp.json' });
+    const prompts: InstallPrompts = {
+      ...noPrompts,
+      selectClients: async () => ['claude-code'],
+      selectScope: async () => 'project',
+      confirm: async () => true
+    };
+    expect(await runInstall({}, io, prompts)).toBe(0);
+    expect(writes['/proj/.mcp.json']).toBeDefined();
   });
   it('a per-file write failure names the failing path, keeps earlier writes, and does not abort the run', async () => {
     const { io, writes, err } = fakeIO({ failWritePath: '/proj/.cursor/mcp.json' });

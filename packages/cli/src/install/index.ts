@@ -51,9 +51,16 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
   if (flags.client && flags.client.length > 0) {
     ids = flags.client;
   } else if (io.isTTY) {
-    const detected = CLIENTS.filter((c) =>
-      c.scopes.some((s) => io.readFile(c.resolvePath(s, io.cwd, io.home)) !== undefined)
-    ).map((c) => c.id);
+    const configExists = (path: string): boolean => {
+      try {
+        return io.readFile(path) !== undefined;
+      } catch {
+        return false;
+      }
+    };
+    const detected = CLIENTS.filter((c) => c.scopes.some((s) => configExists(c.resolvePath(s, io.cwd, io.home)))).map(
+      (c) => c.id
+    );
     const picked = await prompts.selectClients(CLIENTS, detected);
     if (picked === null) {
       io.log('Cancelled.');

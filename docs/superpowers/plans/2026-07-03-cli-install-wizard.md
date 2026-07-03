@@ -13,7 +13,7 @@
 - **ESM-only** — tsup emits `format: ['esm']` only; never add `'cjs'` (issue #20).
 - **Node 18+** (`engines.node >= 18`).
 - **New deps go through the pnpm workspace catalog** — add the version range to `catalog:` in `pnpm-workspace.yaml`, then reference `"catalog:"` in `packages/cli/package.json`. (`minimumReleaseAge` is enforced; both libs are long-published.)
-- **No competitor product names** in any artifact (code, comments, docs, changeset, commit messages).
+- **No competitor product names** in any artifact — do not reference competing scanner/analysis tools by name. (The supported MCP clients — Claude Code, Cursor, Codex — are integration targets, not competitors, and are named freely.)
 - **Release via changeset** — this feature ships a `svelte-vitals` **minor** bump. Never publish manually.
 - **Do not loosen any existing test.** Follow TDD; commit after each green step.
 - The MCP entry written for every client is exactly `{ command: 'npx', args: ['-y', '@svelte-vitals/mcp'] }`.
