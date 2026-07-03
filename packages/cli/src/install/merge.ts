@@ -21,12 +21,7 @@ function sameEntry(prior: unknown, entry: McpEntry): boolean {
 }
 
 /** Decide the merge status for a table that may already hold a svelte-vitals key. */
-function statusFor(
-  prior: unknown,
-  entry: McpEntry,
-  force: boolean,
-  created: boolean
-): MergeStatus | 'skip' {
+function statusFor(prior: unknown, entry: McpEntry, force: boolean, created: boolean): MergeStatus | 'skip' {
   if (prior !== undefined) {
     if (sameEntry(prior, entry)) return 'exists';
     return force ? 'updated' : 'skip';
@@ -39,9 +34,7 @@ export function mergeJson(existing: string | undefined, entry: McpEntry, force: 
   const created = existing === undefined;
   const root: Record<string, unknown> = created ? {} : (JSON.parse(existing) as Record<string, unknown>);
   const servers =
-    typeof root.mcpServers === 'object' && root.mcpServers !== null
-      ? (root.mcpServers as Record<string, unknown>)
-      : {};
+    typeof root.mcpServers === 'object' && root.mcpServers !== null ? (root.mcpServers as Record<string, unknown>) : {};
   const status = statusFor(servers[SERVER_KEY], entry, force, created);
   if (status === 'exists' || status === 'skip') return { content: existing as string, status: 'exists' };
   servers[SERVER_KEY] = { command: entry.command, args: entry.args };

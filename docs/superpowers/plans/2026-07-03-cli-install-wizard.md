@@ -23,10 +23,12 @@
 ### Task 1: Client writer modules
 
 **Files:**
+
 - Create: `packages/cli/src/install/clients.ts`
 - Test: `packages/cli/test/install/clients.test.ts`
 
 **Interfaces:**
+
 - Consumes: nothing (leaf module).
 - Produces: `McpEntry`, `MCP_ENTRY`, `ClientId` (`'claude-code' | 'cursor' | 'codex'`), `Scope` (`'project' | 'global'`), `ClientWriter`, `CLIENTS: ClientWriter[]`, `clientById(id: ClientId): ClientWriter | undefined`.
 
@@ -147,12 +149,14 @@ git commit -m "feat(cli): install — client writer definitions (paths + format)
 ### Task 2: JSON/TOML merge helpers
 
 **Files:**
+
 - Modify: `pnpm-workspace.yaml` (add `smol-toml` to catalog)
 - Modify: `packages/cli/package.json` (add `"smol-toml": "catalog:"` to dependencies)
 - Create: `packages/cli/src/install/merge.ts`
 - Test: `packages/cli/test/install/merge.test.ts`
 
 **Interfaces:**
+
 - Consumes: `McpEntry`, `MCP_ENTRY` from `./clients.js`.
 - Produces: `MergeStatus` (`'created' | 'added' | 'exists' | 'updated'`), `MergeResult` (`{ content: string; status: MergeStatus }`), `mergeJson(existing: string | undefined, entry: McpEntry, force: boolean): MergeResult`, `mergeToml(existing, entry, force): MergeResult`.
 
@@ -161,7 +165,7 @@ git commit -m "feat(cli): install — client writer definitions (paths + format)
 In `pnpm-workspace.yaml`, under `catalog:`, add (keep alphabetical-ish with neighbors):
 
 ```yaml
-  smol-toml: ^1.4.1
+smol-toml: ^1.4.1
 ```
 
 In `packages/cli/package.json` `dependencies`, add:
@@ -283,12 +287,7 @@ function sameEntry(prior: unknown, entry: McpEntry): boolean {
 }
 
 /** Decide the merge status for a table that may already hold a svelte-vitals key. */
-function statusFor(
-  prior: unknown,
-  entry: McpEntry,
-  force: boolean,
-  created: boolean
-): MergeStatus | 'skip' {
+function statusFor(prior: unknown, entry: McpEntry, force: boolean, created: boolean): MergeStatus | 'skip' {
   if (prior !== undefined) {
     if (sameEntry(prior, entry)) return 'exists';
     return force ? 'updated' : 'skip';
@@ -301,9 +300,7 @@ export function mergeJson(existing: string | undefined, entry: McpEntry, force: 
   const created = existing === undefined;
   const root: Record<string, unknown> = created ? {} : (JSON.parse(existing) as Record<string, unknown>);
   const servers =
-    typeof root.mcpServers === 'object' && root.mcpServers !== null
-      ? (root.mcpServers as Record<string, unknown>)
-      : {};
+    typeof root.mcpServers === 'object' && root.mcpServers !== null ? (root.mcpServers as Record<string, unknown>) : {};
   const status = statusFor(servers[SERVER_KEY], entry, force, created);
   if (status === 'exists' || status === 'skip') return { content: existing as string, status: 'exists' };
   servers[SERVER_KEY] = { command: entry.command, args: entry.args };
@@ -346,10 +343,12 @@ git commit -m "feat(cli): install — pure JSON/TOML config merge (adds smol-tom
 ### Task 3: runInstall orchestration
 
 **Files:**
+
 - Create: `packages/cli/src/install/index.ts`
 - Test: `packages/cli/test/install/run.test.ts`
 
 **Interfaces:**
+
 - Consumes: `CLIENTS`, `clientById`, `MCP_ENTRY`, `ClientId`, `ClientWriter`, `Scope` from `./clients.js`; `mergeJson`, `mergeToml`, `MergeStatus` from `./merge.js`.
 - Produces: `InstallIO`, `InstallPrompts`, `InstallFlags`, `runInstall(flags: InstallFlags, io: InstallIO, prompts: InstallPrompts): Promise<number>`.
 
@@ -515,9 +514,7 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
     }
     ids = picked;
   } else {
-    io.errorLog(
-      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex> to install non-interactively.'
-    );
+    io.errorLog('svelte-vitals: no TTY; pass --client <claude-code,cursor,codex> to install non-interactively.');
     return 2;
   }
 
@@ -604,10 +601,12 @@ git commit -m "feat(cli): install — runInstall orchestration (injected IO + pr
 ### Task 4: Install flag parsing
 
 **Files:**
+
 - Create: `packages/cli/src/install/args.ts`
 - Test: `packages/cli/test/install/args.test.ts`
 
 **Interfaces:**
+
 - Consumes: `ClientId`, `Scope` from `./clients.js`; `InstallFlags` from `./index.js`.
 - Produces: `ResolvedInstallArgs` (`{ flags: InstallFlags | null; warnings: string[]; errors: string[] }`), `resolveInstallArgs(argv: mri.Argv): ResolvedInstallArgs`.
 
@@ -733,6 +732,7 @@ git commit -m "feat(cli): install — pure flag parsing (resolveInstallArgs)"
 ### Task 5: Wire the `install` subcommand into bin.ts
 
 **Files:**
+
 - Modify: `pnpm-workspace.yaml` (add `@clack/prompts` to catalog)
 - Modify: `packages/cli/package.json` (add `"@clack/prompts": "catalog:"`)
 - Create: `packages/cli/src/install/cli.ts` (real IO + clack adapter + `runInstallCli`)
@@ -740,6 +740,7 @@ git commit -m "feat(cli): install — pure flag parsing (resolveInstallArgs)"
 - Create: `.changeset/cli-install-wizard.md`
 
 **Interfaces:**
+
 - Consumes: `runInstall`, `InstallIO`, `InstallPrompts` from `./index.js`; `resolveInstallArgs` from `./args.js`; `ClientId`, `ClientWriter`, `Scope` from `./clients.js`.
 - Produces: `runInstallCli(args: string[]): Promise<number>`.
 
@@ -748,7 +749,7 @@ git commit -m "feat(cli): install — pure flag parsing (resolveInstallArgs)"
 In `pnpm-workspace.yaml` under `catalog:`, add:
 
 ```yaml
-  '@clack/prompts': ^0.11.0
+'@clack/prompts': ^0.11.0
 ```
 
 In `packages/cli/package.json` `dependencies`, add:
@@ -863,11 +864,11 @@ import { runInstallCli } from './install/cli.js';
 Then inside `main()`, as the first statements:
 
 ```ts
-  const rawArgs = process.argv.slice(2);
-  if (rawArgs[0] === 'install') {
-    const code = await runInstallCli(rawArgs.slice(1));
-    process.exit(code);
-  }
+const rawArgs = process.argv.slice(2);
+if (rawArgs[0] === 'install') {
+  const code = await runInstallCli(rawArgs.slice(1));
+  process.exit(code);
+}
 ```
 
 Add a one-line pointer to the top-level `HELP` string. Insert this line into the `Usage:` block (after the `svelte-vitals [path] [options]` line):
@@ -885,9 +886,11 @@ Run: `node packages/cli/dist/bin.js install --client claude-code --scope project
 Expected: prints `Plan:`, a line containing `Claude Code (project)` and a path ending `.mcp.json  [created]`, then `Dry run — no files written.` Exit code 0.
 
 Run (real write into a throwaway dir):
+
 ```bash
 D=$(mktemp -d) && node "$PWD/packages/cli/dist/bin.js" install --client cursor --scope project --yes >/tmp/out.txt 2>&1; cd "$D"; cat .cursor/mcp.json; cd - >/dev/null
 ```
+
 Expected: `.cursor/mcp.json` contains `mcpServers.svelte-vitals` with `command: "npx"`, `args: ["-y", "@svelte-vitals/mcp"]`.
 
 Run (non-TTY guard — should fail cleanly): `node packages/cli/dist/bin.js install </dev/null`
@@ -938,6 +941,7 @@ git commit -m "feat(cli): install subcommand — clack wizard + bin routing + he
 ## Self-Review
 
 **Spec coverage:**
+
 - Command surface & flags (spec §1) → Task 4 (parsing) + Task 5 (routing, help, subcommand).
 - Client writer modules (spec §2) → Task 1.
 - Merge/write safety (spec §3) → Task 2 (pure merge, parse-failure throws) + Task 3 (write via IO).

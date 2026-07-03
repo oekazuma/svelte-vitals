@@ -8,7 +8,7 @@
 
 Sub-project **B** of making the CLI more interactive and rich. Sub-project A (rich console output) shipped in #82. Today, wiring svelte-vitals into an AI-agent's MCP client is manual: the user hand-edits their client config to add a `svelte-vitals` server pointing at `npx -y @svelte-vitals/mcp` (see `docs/.../guides/mcp.md`). This sub-project automates that with an interactive `svelte-vitals install` wizard.
 
-AI-agent integration is a core product pillar, so a one-command MCP setup directly serves it. This is product-specific convenience (configuring *our* server across clients), not a duplication of any client's general tooling.
+AI-agent integration is a core product pillar, so a one-command MCP setup directly serves it. This is product-specific convenience (configuring _our_ server across clients), not a duplication of any client's general tooling.
 
 ## Goal
 
@@ -30,13 +30,13 @@ New subcommand `svelte-vitals install`. In `bin.ts`, branch on `argv._[0] === 'i
 
 Flags (all enable non-interactive use):
 
-| Flag | Meaning |
-| ---- | ------- |
-| `--client <ids>` | Comma-separated `claude-code,cursor,codex`. When given, skips the client picker. |
-| `--scope <project\|global>` | Applies to all selected clients. Codex is always forced to `global`. |
-| `--yes` / `-y` | Skip the confirmation prompt. |
-| `--dry-run` | Print the planned changes and exit without writing. |
-| `--force` | Overwrite an existing `svelte-vitals` entry without asking. |
+| Flag                        | Meaning                                                                          |
+| --------------------------- | -------------------------------------------------------------------------------- |
+| `--client <ids>`            | Comma-separated `claude-code,cursor,codex`. When given, skips the client picker. |
+| `--scope <project\|global>` | Applies to all selected clients. Codex is always forced to `global`.             |
+| `--yes` / `-y`              | Skip the confirmation prompt.                                                    |
+| `--dry-run`                 | Print the planned changes and exit without writing.                              |
+| `--force`                   | Overwrite an existing `svelte-vitals` entry without asking.                      |
 
 The `install` subcommand is parsed with its own `mri` options (separate from the scanner's), so scanner flags and install flags don't collide. Help gains an `install` usage section.
 
@@ -62,11 +62,11 @@ export interface ClientWriter {
 }
 ```
 
-| Client | project path | global path | format | key |
-| ------ | ------------ | ----------- | ------ | --- |
-| Claude Code | `.mcp.json` | `~/.claude.json` | json | `mcpServers.svelte-vitals` |
-| Cursor | `.cursor/mcp.json` | `~/.cursor/mcp.json` | json | `mcpServers.svelte-vitals` |
-| Codex | — | `~/.codex/config.toml` | toml | `mcp_servers.svelte-vitals` |
+| Client      | project path       | global path            | format | key                         |
+| ----------- | ------------------ | ---------------------- | ------ | --------------------------- |
+| Claude Code | `.mcp.json`        | `~/.claude.json`       | json   | `mcpServers.svelte-vitals`  |
+| Cursor      | `.cursor/mcp.json` | `~/.cursor/mcp.json`   | json   | `mcpServers.svelte-vitals`  |
+| Codex       | —                  | `~/.codex/config.toml` | toml   | `mcp_servers.svelte-vitals` |
 
 ### 3. Merge / write (`src/install/merge.ts`, pure)
 

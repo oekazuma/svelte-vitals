@@ -45,17 +45,20 @@ describe('mergeToml', () => {
   it('creates a new toml config', () => {
     const r = mergeToml(undefined, MCP_ENTRY, false);
     expect(r.status).toBe('created');
-    const parsed = parseToml(r.content) as Record<string, any>;
+    const parsed = parseToml(r.content) as { mcp_servers: Record<string, { command: string; args: unknown[] }> };
     expect(parsed.mcp_servers['svelte-vitals']).toEqual({ command: 'npx', args: ['-y', '@svelte-vitals/mcp'] });
   });
   it('adds without clobbering existing tables or scalars', () => {
     const existing = 'model = "gpt"\n\n[mcp_servers.other]\ncommand = "x"\nargs = []\n';
     const r = mergeToml(existing, MCP_ENTRY, false);
     expect(r.status).toBe('added');
-    const parsed = parseToml(r.content) as Record<string, any>;
+    const parsed = parseToml(r.content) as {
+      model?: string;
+      mcp_servers: Record<string, { command: string; args: unknown[] }>;
+    };
     expect(parsed.model).toBe('gpt');
-    expect(parsed.mcp_servers.other.command).toBe('x');
-    expect(parsed.mcp_servers['svelte-vitals'].command).toBe('npx');
+    expect(parsed.mcp_servers.other!.command).toBe('x');
+    expect(parsed.mcp_servers['svelte-vitals']!.command).toBe('npx');
   });
   it('exists when identical; updates with force', () => {
     const first = mergeToml(undefined, MCP_ENTRY, false).content;
