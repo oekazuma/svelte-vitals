@@ -1,5 +1,27 @@
 # @svelte-vitals/core
 
+## 0.18.0
+
+### Minor Changes
+
+- 32712e2: Rich console output: the default `console` reporter now colorizes the Health/category
+  scores, severity sections, and pass/fail markers, and shows an "Analyzing…" spinner
+  during the scan. All of it auto-disables under `NO_COLOR`, a non-TTY stdout, a
+  non-`console` reporter, or `--no-color` (and honors `FORCE_COLOR`). Color is an
+  injected `Palette` (identity by default), so `@svelte-vitals/core` stays
+  dependency-free and other reporters are unchanged.
+- 54c77d8: Add **CORRECT003 (effect used as onMount)** — the Correctness/reactivity slice of
+  #69. Flags an `$effect`/`$effect.pre` whose non-empty body reads no reactive value
+  (no `$state`/`$derived`/`$props`, no store subscription, no bare function call), so
+  it never re-runs and should be `onMount`. Reported under `correctness` (warning).
+  `EffectFact` gains `mountOnly`.
+- bc6fa86: Add **CORRECT004 (unmutated $state)** — a Correctness/reactivity rule from #69.
+  Flags a `let x = $state(...)` that is never written or escaped anywhere in the
+  component (no reassignment, member/method mutation, bind, call-arg, or
+  component-prop pass), so its reactivity is unused — use `const` (or `$state.raw`
+  if only reassigned wholesale). Reported under `correctness` (info). `ComponentFacts`
+  gains `constableStates`.
+
 ## 0.17.0
 
 ### Minor Changes
