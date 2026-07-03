@@ -1,5 +1,30 @@
 # @svelte-vitals/mcp
 
+## 0.8.0
+
+### Minor Changes
+
+- 54c77d8: Add **CORRECT003 (effect used as onMount)** — the Correctness/reactivity slice of
+  #69. Flags an `$effect`/`$effect.pre` whose non-empty body reads no reactive value
+  (no `$state`/`$derived`/`$props`, no store subscription, no bare function call), so
+  it never re-runs and should be `onMount`. Reported under `correctness` (warning).
+  `EffectFact` gains `mountOnly`.
+- bc6fa86: Add **CORRECT004 (unmutated $state)** — a Correctness/reactivity rule from #69.
+  Flags a `let x = $state(...)` that is never written or escaped anywhere in the
+  component (no reassignment, member/method mutation, bind, call-arg, or
+  component-prop pass), so its reactivity is unused — use `const` (or `$state.raw`
+  if only reassigned wholesale). Reported under `correctness` (info). `ComponentFacts`
+  gains `constableStates`.
+
+### Patch Changes
+
+- Updated dependencies [a328974]
+- Updated dependencies [32712e2]
+- Updated dependencies [54c77d8]
+- Updated dependencies [bc6fa86]
+  - svelte-vitals@0.17.0
+  - @svelte-vitals/core@0.18.0
+
 ## 0.7.0
 
 ### Minor Changes
