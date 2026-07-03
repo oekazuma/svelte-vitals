@@ -11,6 +11,8 @@ svelte-vitals [path] [options]
 
 `path` は省略可能で、デフォルトはカレントディレクトリです。
 
+> AI エージェントのクライアントに MCP サーバーをセットアップするための [`install` サブコマンド](#svelte-vitals-install) もあります。
+
 ## フラグ
 
 ### `--reporter <fmt>`
@@ -117,6 +119,52 @@ svelte-vitals --meta-components "SeoHead,PageMeta"
 ### `-v, --version`
 
 バージョンを表示して終了します。
+
+## `svelte-vitals install`
+
+svelte-vitals の [MCP サーバー](/svelte-vitals/ja/guides/mcp/) を、AI エージェントのクライアント（**Claude Code**、**Cursor**、**Codex**）に対話的にセットアップします。各クライアントの設定にサーバーエントリをマージします（既存の他のサーバーはそのまま維持されます）。
+
+```bash
+npx svelte-vitals install
+```
+
+フラグなしで実行すると対話式ウィザードが起動します — クライアントを選択し、クライアントごとにスコープを選び、変更計画を確認して適用します。非対話環境／CI ではフラグだけで実行できます。
+
+### `--client <ids>`
+
+設定するクライアントをカンマ区切りで指定します：`claude-code`、`cursor`、`codex`。指定した場合は対話式の選択がスキップされます。
+
+### `--scope <project|global>`
+
+設定の書き込み先。選択したすべてのクライアントに適用されます。**Codex は常に global** です（プロジェクトスコープの設定を持たないため）。
+
+| クライアント | project            | global                 |
+| ------------ | ------------------ | ---------------------- |
+| Claude Code  | `.mcp.json`        | `~/.claude.json`       |
+| Cursor       | `.cursor/mcp.json` | `~/.cursor/mcp.json`   |
+| Codex        | —                  | `~/.codex/config.toml` |
+
+### `--yes`, `-y`
+
+確認プロンプトをスキップします。
+
+### `--dry-run`
+
+変更計画を表示し、何も書き込まずに終了します。
+
+### `--force`
+
+既存の `svelte-vitals` エントリを上書きします。デフォルトでは、既に存在するエントリはそのまま維持されます。
+
+```bash
+# 非対話：このプロジェクトに Claude Code + Cursor を設定
+npx svelte-vitals install --client claude-code,cursor --scope project --yes
+
+# 何が変更されるかを書き込まずにプレビュー
+npx svelte-vitals install --client codex --dry-run
+```
+
+既存の設定ファイルが解析できない場合、上書きせずに失敗します（終了コード `2`）。
 
 ## 終了コード
 

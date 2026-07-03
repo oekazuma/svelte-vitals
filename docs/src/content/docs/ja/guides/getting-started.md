@@ -73,4 +73,4 @@ Passed (3)
 
 - すべてのフラグについては [CLI リファレンス](/svelte-vitals/ja/guides/cli/) を参照してください。
 - `vite build` と連携するには [プラグインモード](/svelte-vitals/ja/guides/plugin-mode/) を使用してください。
-- AI エージェントが自動的に分析を実行できるようにするには [MCP](/svelte-vitals/ja/guides/mcp/) を使用してください。
+- AI エージェントが自動的に分析を実行できるようにするには [MCP](/svelte-vitals/ja/guides/mcp/) を使用してください — `npx svelte-vitals install` で Claude Code / Cursor / Codex に一発で組み込めます。

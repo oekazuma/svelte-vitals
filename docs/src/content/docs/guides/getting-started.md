@@ -73,4 +73,4 @@ These codes are stable and suitable for CI gates.
 
 - See [CLI reference](/svelte-vitals/guides/cli/) for all flags.
 - Use [Plugin mode](/svelte-vitals/guides/plugin-mode/) to integrate with `vite build`.
-- Use [MCP](/svelte-vitals/guides/mcp/) to let AI agents run the analysis automatically.
+- Use [MCP](/svelte-vitals/guides/mcp/) to let AI agents run the analysis automatically — `npx svelte-vitals install` wires it into Claude Code / Cursor / Codex in one step.
