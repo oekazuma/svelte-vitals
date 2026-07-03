@@ -62,6 +62,28 @@ export interface RunOptions {
   stderrIsTTY?: boolean;
 }
 
+/**
+ * Whether the "Analyzing…" spinner should run. Unlike color, the spinner animates
+ * with carriage returns and escape codes, so it needs a real interactive stderr —
+ * `FORCE_COLOR` must NOT force it on in a non-TTY stderr (e.g. CI), where `\r` would
+ * clutter the log. So gate on `stderrIsTTY` unconditionally, then reuse the color
+ * gating (NO_COLOR / --no-color / agent env) with that same TTY value.
+ */
+export function spinnerEnabled(opts: {
+  reporter: ReporterName;
+  rawReporter: ReporterName | undefined;
+  stderrIsTTY: boolean;
+  env: NodeJS.ProcessEnv;
+  noColorFlag?: boolean;
+}): boolean {
+  return (
+    opts.reporter === 'console' &&
+    opts.stderrIsTTY &&
+    !isAutoDetectedAgent(opts.rawReporter, opts.env) &&
+    colorEnabled({ reporter: opts.reporter, isTTY: opts.stderrIsTTY, env: opts.env, noColorFlag: opts.noColorFlag })
+  );
+}
+
 export function routeMatcher(glob: string | undefined): (route: string) => boolean {
   if (!glob) return () => true;
   const body = glob
@@ -142,16 +164,15 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 
   const env = opts.env ?? process.env;
   const reporter = resolveReporter(opts.reporter, env);
-  const spinnerEnabled =
-    reporter === 'console' &&
-    !isAutoDetectedAgent(opts.reporter, env) &&
-    colorEnabled({
+  const spinner = startSpinner('Analyzing…', {
+    enabled: spinnerEnabled({
       reporter,
-      isTTY: opts.stderrIsTTY ?? !!process.stderr.isTTY,
+      rawReporter: opts.reporter,
+      stderrIsTTY: opts.stderrIsTTY ?? !!process.stderr.isTTY,
       env,
       noColorFlag: opts.noColor
-    });
-  const spinner = startSpinner('Analyzing…', { enabled: spinnerEnabled });
+    })
+  });
 
   let analysis: AnalyzeResult;
   try {
