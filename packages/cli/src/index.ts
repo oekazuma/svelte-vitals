@@ -27,6 +27,7 @@ import { detectProject, ProjectError, collectProjectFacts } from './providers/so
 import { readPackageVersion } from './version.js';
 import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
 import { getChangedFiles, filterToChangedFiles } from './changed-files.js';
+import { colorEnabled, paletteFor } from './color.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -52,6 +53,12 @@ export interface RunOptions {
   diffBase?: string;
   /** Report only findings in files staged for commit. Takes precedence over `diffBase`. */
   staged?: boolean;
+  /** Disable ANSI color in console output. */
+  noColor?: boolean;
+  /** Override stdout TTY detection (tests). */
+  stdoutIsTTY?: boolean;
+  /** Override stderr TTY detection (tests). */
+  stderrIsTTY?: boolean;
 }
 
 export function routeMatcher(glob: string | undefined): (route: string) => boolean {
@@ -211,7 +218,13 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         errorLog(`svelte-vitals: wrote report to ${path}`);
       }
     } else {
-      log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false }));
+      const colorOn = colorEnabled({
+        reporter,
+        isTTY: opts.stdoutIsTTY ?? !!process.stdout.isTTY,
+        env,
+        noColorFlag: opts.noColor
+      });
+      log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false, palette: paletteFor(colorOn) }));
     }
     const summary = summarize(results, config);
     const failBySeverity = hasFailureAtOrAbove(summary, config.failOn);

@@ -4,7 +4,7 @@ import { run } from './index.js';
 import { readPackageVersion } from './version.js';
 import { resolveArgs } from './resolve-args.js';
 
-const HELP = `svelte-vitals — a SvelteKit SEO checker (static mode)
+const HELP = `svelte-vitals — a deterministic SvelteKit code-health scanner (SEO · performance · correctness · security · architecture)
 
 Usage:
   svelte-vitals [path] [options]
@@ -24,6 +24,7 @@ Options:
   --min-health <0-100>        Fail (exit 1) when the combined Health score is below this value
   --rules <ids>               Comma-separated rule ids to enable (all others disabled)
   --ignore <ids>              Comma-separated rule ids to disable
+  --no-color                  Disable ANSI color in console output
   -h, --help                  Show this help
   -v, --version               Show version
 
@@ -37,7 +38,7 @@ const VERSION = readPackageVersion();
 async function main(): Promise<void> {
   const argv = mri(process.argv.slice(2), {
     alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'json', 'fail-on-warning', 'staged'],
+    boolean: ['by-route', 'json', 'fail-on-warning', 'staged', 'no-color'],
     string: [
       'meta-components',
       'treat-dynamic-as',
@@ -77,7 +78,7 @@ async function main(): Promise<void> {
     minHealth = n;
   }
 
-  const code = await run({ ...options, minHealth });
+  const code = await run({ ...options, minHealth, noColor: argv['no-color'] });
   process.exit(code);
 }
 
