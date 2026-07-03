@@ -49,7 +49,7 @@ SvelteKit プロジェクトの静的モード分析を実行します。
 npx svelte-vitals install
 ```
 
-**Claude Code**、**Cursor**、**Codex** に対応しており、各クライアントの設定にサーバーエントリをマージします（既存の他のサーバーはそのまま維持されます）。利用可能なフラグ（`--client`、`--scope`、`--dry-run`、`--force`）については [`install` コマンド](/svelte-vitals/ja/guides/cli/#svelte-vitals-install) を参照してください。
+**Claude Code**、**Cursor**、**Codex** に対応しており、各クライアントの設定にサーバーエントリをマージします（既存の他のサーバーはそのまま維持されます）。利用可能なフラグ（`--client`、`--scope`、`--yes`、`--dry-run`、`--force`）については [`install` コマンド](/svelte-vitals/ja/guides/cli/#svelte-vitals-install) を参照してください。
 
 ### 手動セットアップ
 
