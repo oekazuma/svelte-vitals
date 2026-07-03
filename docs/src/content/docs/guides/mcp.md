@@ -41,9 +41,19 @@ Return documentation for a single rule.
 
 ## Setup
 
-### Claude Desktop / Claude Code
+### Quick setup (recommended)
 
-Add to your MCP client configuration (e.g. `~/.claude/claude_desktop_config.json`):
+Run the interactive installer from your project root — it configures the MCP server for you:
+
+```bash
+npx svelte-vitals install
+```
+
+It supports **Claude Code**, **Cursor**, and **Codex**, merging the server entry into each client's config without touching your other servers. See the [`install` command](/svelte-vitals/guides/cli/#svelte-vitals-install) for the available flags (`--client`, `--scope`, `--yes`, `--dry-run`, `--force`).
+
+### Manual setup
+
+Any MCP client that supports stdio-transport servers can be configured by hand. Add the following to the client's config (e.g. Claude Code's `.mcp.json`, or `~/.claude.json`):
 
 ```json
 {
@@ -56,9 +66,13 @@ Add to your MCP client configuration (e.g. `~/.claude/claude_desktop_config.json
 }
 ```
 
-### Other MCP clients
+For Codex, the equivalent TOML in `~/.codex/config.toml`:
 
-Any client that supports stdio-transport MCP servers can use the same pattern — set the command to `npx` and args to `["-y", "@svelte-vitals/mcp"]`.
+```toml
+[mcp_servers.svelte-vitals]
+command = "npx"
+args = ["-y", "@svelte-vitals/mcp"]
+```
 
 ## Transport
 

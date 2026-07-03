@@ -41,9 +41,19 @@ SvelteKit プロジェクトの静的モード分析を実行します。
 
 ## セットアップ
 
-### Claude Desktop / Claude Code
+### クイックセットアップ（推奨）
 
-MCP クライアント設定（例：`~/.claude/claude_desktop_config.json`）に追加します：
+プロジェクトルートで対話式インストーラーを実行すると、MCP サーバーを自動で設定します：
+
+```bash
+npx svelte-vitals install
+```
+
+**Claude Code**、**Cursor**、**Codex** に対応しており、各クライアントの設定にサーバーエントリをマージします（既存の他のサーバーはそのまま維持されます）。利用可能なフラグ（`--client`、`--scope`、`--yes`、`--dry-run`、`--force`）については [`install` コマンド](/svelte-vitals/ja/guides/cli/#svelte-vitals-install) を参照してください。
+
+### 手動セットアップ
+
+stdio トランスポートをサポートする任意の MCP クライアントは手動で設定できます。クライアントの設定（例：Claude Code の `.mcp.json` や `~/.claude.json`）に以下を追加します：
 
 ```json
 {
@@ -56,9 +66,13 @@ MCP クライアント設定（例：`~/.claude/claude_desktop_config.json`）�
 }
 ```
 
-### その他の MCP クライアント
+Codex の場合、`~/.codex/config.toml` に相当する TOML を追加します：
 
-stdio トランスポート MCP サーバーをサポートする任意のクライアントで同じパターンを使用できます — コマンドを `npx` に、引数を `["-y", "@svelte-vitals/mcp"]` に設定してください。
+```toml
+[mcp_servers.svelte-vitals]
+command = "npx"
+args = ["-y", "@svelte-vitals/mcp"]
+```
 
 ## トランスポート
 

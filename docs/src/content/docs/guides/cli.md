@@ -11,6 +11,8 @@ svelte-vitals [path] [options]
 
 `path` is optional and defaults to the current directory.
 
+> There is also an [`install` subcommand](#svelte-vitals-install) for setting up the MCP server in your AI-agent clients.
+
 ## Flags
 
 ### `--reporter <fmt>`
@@ -136,6 +138,52 @@ Print the help text and exit.
 ### `-v, --version`
 
 Print the version and exit.
+
+## `svelte-vitals install`
+
+Interactively set up the svelte-vitals [MCP server](/svelte-vitals/guides/mcp/) for your AI-agent clients — **Claude Code**, **Cursor**, and **Codex** — by merging the server entry into each client's config (your other servers are left untouched).
+
+```bash
+npx svelte-vitals install
+```
+
+With no flags it launches an interactive wizard: pick your clients, choose a scope per client, review the plan, and confirm. For non-interactive/CI use, drive it entirely with flags.
+
+### `--client <ids>`
+
+Comma-separated clients to configure: `claude-code`, `cursor`, `codex`. When given, the interactive picker is skipped.
+
+### `--scope <project|global>`
+
+Where to write the config. Applies to all selected clients; **Codex is always global** (it has no project-scoped config).
+
+| Client      | project            | global                 |
+| ----------- | ------------------ | ---------------------- |
+| Claude Code | `.mcp.json`        | `~/.claude.json`       |
+| Cursor      | `.cursor/mcp.json` | `~/.cursor/mcp.json`   |
+| Codex       | —                  | `~/.codex/config.toml` |
+
+### `--yes`, `-y`
+
+Skip the confirmation prompt.
+
+### `--dry-run`
+
+Print the planned changes and exit without writing anything.
+
+### `--force`
+
+Overwrite an existing `svelte-vitals` entry. By default an entry that already exists is left untouched.
+
+```bash
+# Non-interactive: configure Claude Code + Cursor for this project
+npx svelte-vitals install --client claude-code,cursor --scope project --yes
+
+# Preview what would change, without writing
+npx svelte-vitals install --client codex --dry-run
+```
+
+If an existing config can't be parsed, the command fails without writing (exit `2`) rather than overwriting it.
 
 ## Exit codes
 
