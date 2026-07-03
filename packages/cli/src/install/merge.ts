@@ -9,6 +9,10 @@ export interface MergeResult {
 
 const SERVER_KEY = 'svelte-vitals';
 
+function isPlainObject(v: unknown): v is Record<string, unknown> {
+  return typeof v === 'object' && v !== null && !Array.isArray(v);
+}
+
 function sameEntry(prior: unknown, entry: McpEntry): boolean {
   if (typeof prior !== 'object' || prior === null) return false;
   const o = prior as { command?: unknown; args?: unknown };
@@ -32,9 +36,15 @@ function statusFor(prior: unknown, entry: McpEntry, force: boolean, created: boo
 /** Merge the svelte-vitals server into a JSON `{ mcpServers: {...} }` config. */
 export function mergeJson(existing: string | undefined, entry: McpEntry, force: boolean): MergeResult {
   const created = existing === undefined;
-  const root: Record<string, unknown> = created ? {} : (JSON.parse(existing) as Record<string, unknown>);
-  const servers =
-    typeof root.mcpServers === 'object' && root.mcpServers !== null ? (root.mcpServers as Record<string, unknown>) : {};
+  const parsed: unknown = created ? {} : JSON.parse(existing);
+  if (!isPlainObject(parsed)) {
+    throw new Error('existing config is not a JSON object');
+  }
+  const root = parsed;
+  if (root.mcpServers !== undefined && !isPlainObject(root.mcpServers)) {
+    throw new Error('existing config has a non-object "mcpServers" table');
+  }
+  const servers = isPlainObject(root.mcpServers) ? root.mcpServers : {};
   const status = statusFor(servers[SERVER_KEY], entry, force, created);
   if (status === 'exists' || status === 'skip') return { content: existing as string, status: 'exists' };
   servers[SERVER_KEY] = { command: entry.command, args: entry.args };
@@ -45,11 +55,15 @@ export function mergeJson(existing: string | undefined, entry: McpEntry, force: 
 /** Merge the svelte-vitals server into a TOML config under [mcp_servers.svelte-vitals]. */
 export function mergeToml(existing: string | undefined, entry: McpEntry, force: boolean): MergeResult {
   const created = existing === undefined;
-  const root = (created ? {} : parseToml(existing)) as Record<string, unknown>;
-  const servers =
-    typeof root.mcp_servers === 'object' && root.mcp_servers !== null
-      ? (root.mcp_servers as Record<string, unknown>)
-      : {};
+  const parsed: unknown = created ? {} : parseToml(existing);
+  if (!isPlainObject(parsed)) {
+    throw new Error('existing config is not a TOML table');
+  }
+  const root = parsed;
+  if (root.mcp_servers !== undefined && !isPlainObject(root.mcp_servers)) {
+    throw new Error('existing config has a non-table "mcp_servers" section');
+  }
+  const servers = isPlainObject(root.mcp_servers) ? root.mcp_servers : {};
   const status = statusFor(servers[SERVER_KEY], entry, force, created);
   if (status === 'exists' || status === 'skip') return { content: existing as string, status: 'exists' };
   servers[SERVER_KEY] = { command: entry.command, args: entry.args };

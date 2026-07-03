@@ -89,7 +89,15 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
     } else {
       scope = 'project';
     }
-    rows.push(planFor(client, scope, io, flags.force ?? false));
+    try {
+      rows.push(planFor(client, scope, io, flags.force ?? false));
+    } catch (err) {
+      const path = client.resolvePath(scope, io.cwd, io.home);
+      io.errorLog(
+        `svelte-vitals: could not parse existing config at ${path}: ${err instanceof Error ? err.message : String(err)}`
+      );
+      return 2;
+    }
   }
 
   // 3. Preview.

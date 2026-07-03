@@ -81,4 +81,10 @@ describe('runInstall', () => {
     expect(await runInstall({}, io, prompts)).toBe(0);
     expect(writes).toEqual({});
   });
+  it('unparseable existing config exits 2 without writing', async () => {
+    const { io, writes, err } = fakeIO({ files: { '/proj/.mcp.json': '{not json' } });
+    expect(await runInstall({ client: ['claude-code'], scope: 'project', yes: true }, io, noPrompts)).toBe(2);
+    expect(writes).toEqual({});
+    expect(err.join('\n')).toContain('/proj/.mcp.json');
+  });
 });

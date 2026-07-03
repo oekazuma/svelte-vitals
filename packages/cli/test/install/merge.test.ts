@@ -39,6 +39,13 @@ describe('mergeJson', () => {
   it('throws on unparseable existing content', () => {
     expect(() => mergeJson('{not json', MCP_ENTRY, false)).toThrow();
   });
+  it('throws when existing content parses to a non-object root', () => {
+    expect(() => mergeJson('["x"]', MCP_ENTRY, false)).toThrow();
+  });
+  it('throws when mcpServers is not a plain object', () => {
+    const existing = JSON.stringify({ mcpServers: ['x'] });
+    expect(() => mergeJson(existing, MCP_ENTRY, false)).toThrow();
+  });
 });
 
 describe('mergeToml', () => {
@@ -69,5 +76,9 @@ describe('mergeToml', () => {
   });
   it('throws on unparseable toml', () => {
     expect(() => mergeToml('= = =', MCP_ENTRY, false)).toThrow();
+  });
+  it('throws when mcp_servers is not a table', () => {
+    const existing = 'mcp_servers = ["x"]\n';
+    expect(() => mergeToml(existing, MCP_ENTRY, false)).toThrow();
   });
 });
