@@ -151,11 +151,13 @@ With no flags it launches an interactive wizard: pick your clients, choose a sco
 
 ### `--client <ids>`
 
-Comma-separated clients to configure: `claude-code`, `cursor`, `codex`. When given, the interactive picker is skipped.
+Comma-separated clients/targets to configure: `claude-code`, `cursor`, `codex`, `vite-plugin`, `vite-dev-overlay`. When given, the interactive picker is skipped.
+
+`vite-plugin` registers `@svelte-vitals/vite`'s build-mode plugin in `vite.config.{ts,js,mjs}`; `vite-dev-overlay` wires up the dev-overlay hook in `src/hooks.server.{ts,js}`. Both use a `magicast` codemod that only touches a file whose shape it confidently recognizes — anything else is left alone and a snippet is printed instead. If either is written and `@svelte-vitals/vite` isn't already a dependency, it's installed automatically via the detected package manager. **`--force` does not apply to these two** — an existing registration is always left as-is regardless of the flag.
 
 ### `--scope <project|global>`
 
-Where to write the config. Applies to all selected clients; **Codex is always global** (it has no project-scoped config).
+Where to write the config. Applies to all selected clients; **Codex is always global** (it has no project-scoped config). (Vite targets have no scope and ignore this flag.)
 
 | Client      | project            | global                 |
 | ----------- | ------------------ | ---------------------- |

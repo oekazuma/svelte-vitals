@@ -1,11 +1,13 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { homedir } from 'node:os';
+import { spawnSync } from 'node:child_process';
 import mri from 'mri';
 import * as p from '@clack/prompts';
 import { runInstall, type InstallIO, type InstallPrompts } from './index.js';
 import { resolveInstallArgs } from './args.js';
-import type { ClientId, ClientWriter, Scope } from './clients.js';
+import type { ClientWriter, Scope } from './clients.js';
+import type { SelectableOption, TargetId } from './index.js';
 
 const INSTALL_HELP = `svelte-vitals install — set up the svelte-vitals MCP server for your AI-agent clients
 
@@ -13,7 +15,10 @@ Usage:
   svelte-vitals install [options]
 
 Options:
-  --client <ids>    Comma-separated: claude-code,cursor,codex (skips the interactive picker)
+  --client <ids>    Comma-separated: claude-code,cursor,codex,vite-plugin,vite-dev-overlay (skips the interactive picker)
+                    vite-plugin registers the build-mode plugin in vite.config; vite-dev-overlay
+                    wires up the dev-overlay hook in src/hooks.server.ts. --force does not apply
+                    to either — an existing registration is always left as-is.
   --scope <scope>   project | global (applies to all selected clients; codex is always global)
   --yes, -y         Skip the confirmation prompt
   --dry-run         Print the planned changes and exit without writing
@@ -38,20 +43,24 @@ export function realIO(): InstallIO {
     home: homedir(),
     isTTY: Boolean(process.stdout.isTTY),
     log: (line) => console.log(line),
-    errorLog: (line) => console.error(line)
+    errorLog: (line) => console.error(line),
+    runCommand: (command, args, cwd) => {
+      const result = spawnSync(command, args, { cwd, stdio: 'inherit', shell: process.platform === 'win32' });
+      return result.status ?? 1;
+    }
   };
 }
 
 function clackPrompts(): InstallPrompts {
   return {
-    selectClients: async (all: ClientWriter[], defaults: ClientId[]) => {
+    selectClients: async (all: SelectableOption[], defaults: TargetId[]) => {
       const res = await p.multiselect({
-        message: 'Which clients should svelte-vitals be installed for?',
-        options: all.map((c) => ({ value: c.id, label: c.label })),
+        message: 'Which clients/targets should svelte-vitals be installed for?',
+        options: all.map((o) => ({ value: o.id, label: o.label, hint: o.hint })),
         initialValues: defaults,
         required: true
       });
-      return p.isCancel(res) ? null : (res as ClientId[]);
+      return p.isCancel(res) ? null : (res as TargetId[]);
     },
     selectScope: async (client: ClientWriter) => {
       const res = await p.select({
