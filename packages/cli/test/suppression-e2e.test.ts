@@ -1,6 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { parseComponentFacts } from '../src/providers/source/parse.js';
-import { correct002EffectDerived, sec001Html, defineConfig, defaultProject } from '@svelte-vitals/core';
+import {
+  parseComponentFacts,
+  correct002EffectDerived,
+  sec001Html,
+  defineConfig,
+  defaultProject
+} from '@svelte-vitals/core';
 import type { RuleContext, ComponentFacts } from '@svelte-vitals/core';
 
 const config = defineConfig({});
