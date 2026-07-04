@@ -81,3 +81,5 @@ It is fed by the dev handle (the same one the overlay above uses), so keep `svel
 Live updates only flow over a loopback origin (`localhost`, `127.0.0.1`, `[::1]`). When you run `vite dev --host` and open the app via a LAN IP, the handle skips the ingest POST (a guard against a spoofed `Host` header), so the dashboard stays empty — open it from `localhost` instead. Set `SVELTE_VITALS_DEBUG=true` to log when an ingest is skipped.
 
 Like the overlay, this is dev-only and rendered-based: it covers the SEO `<head>` rules for the routes you visit. For a whole-project report (all routes, Performance, site checks), run `npx svelte-vitals` or `npx svelte-vitals --reporter html`.
+
+Component-scoped rules (Correctness, Security, Architecture, and the two Bundle-Performance rules) are build-mode-only — see [Plugin mode](/svelte-vitals/guides/plugin-mode/) — and never appear in the dev overlay, since there is no whole-project source scan on a per-request rendered view.
