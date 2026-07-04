@@ -56,6 +56,6 @@ export interface ComponentFacts {
   namespaceImports: { source: string; line: number }[];
   /** `$state` declarations never written or escaped anywhere in the component — candidates for const (CORRECT004). */
   constableStates: { name: string; line: number }[];
-  /** Inline `svelte-vitals-disable-next-line` directives found in this file's source — component-rule escape hatch (issue #92). */
-  suppressions: SuppressionDirective[];
+  /** Inline `svelte-vitals-disable-next-line` directives found in this file's source — component-rule escape hatch (issue #92). Optional: absent is equivalent to no directives, so existing external constructors of `ComponentFacts` are unaffected. */
+  suppressions?: SuppressionDirective[];
 }
