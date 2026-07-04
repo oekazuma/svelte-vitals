@@ -1,7 +1,7 @@
 import { join } from 'node:path';
 import { CLIENTS, clientById, MCP_ENTRY, type ClientId, type ClientWriter, type Scope } from './clients.js';
 import { mergeJson, mergeToml } from './merge.js';
-import { VITE_TARGETS, type ViteTargetId } from './vite-targets.js';
+import { VITE_TARGETS, viteTargetById, type ViteTargetId } from './vite-targets.js';
 import { codemodViteConfig } from './codemod-vite-config.js';
 import { codemodHooksServer } from './codemod-hooks.js';
 import { detectPackageManager, hasVitePackage, installCommand } from './package-manager.js';
@@ -76,13 +76,13 @@ function resolveCandidate(io: InstallIO, candidates: string[]): { path: string; 
 function planForVitePlugin(io: InstallIO): PlanRow {
   const { path, content } = resolveCandidate(io, ['vite.config.ts', 'vite.config.js', 'vite.config.mjs']);
   const result = codemodViteConfig(content);
-  return { id: 'vite-plugin', label: 'Vite plugin (build gate)', path, ...result };
+  return { id: 'vite-plugin', label: viteTargetById('vite-plugin')!.label, path, ...result };
 }
 
 function planForDevOverlay(io: InstallIO): PlanRow {
   const { path, content } = resolveCandidate(io, ['src/hooks.server.ts', 'src/hooks.server.js']);
   const result = codemodHooksServer(content);
-  return { id: 'vite-dev-overlay', label: 'Dev overlay', path, ...result };
+  return { id: 'vite-dev-overlay', label: viteTargetById('vite-dev-overlay')!.label, path, ...result };
 }
 
 function indent(text: string): string {
