@@ -679,6 +679,27 @@ function collectNamespaceImports(program: Node, source: string, acc: { source: s
   });
 }
 
+const JS_DIRECTIVE = /^\s*\/\/\s*svelte-vitals-disable-next-line(?:\s+([A-Za-z]+\d+(?:\s*,\s*[A-Za-z]+\d+)*))?\s*$/;
+const HTML_DIRECTIVE =
+  /^\s*<!--\s*svelte-vitals-disable-next-line(?:\s+([A-Za-z]+\d+(?:\s*,\s*[A-Za-z]+\d+)*))?\s*-->\s*$/;
+
+/**
+ * Inline `svelte-vitals-disable-next-line` directives (issue #92). A plain text scan, not an
+ * AST walk, so `<script>` (`//`) and template (`<!-- -->`) comments are covered uniformly. The
+ * directive must be the entire content of its line; the suppressed line is directive-line + 1.
+ */
+function collectSuppressions(source: string): SuppressionDirective[] {
+  const out: SuppressionDirective[] = [];
+  const lines = source.split('\n');
+  lines.forEach((line, i) => {
+    const m = JS_DIRECTIVE.exec(line) ?? HTML_DIRECTIVE.exec(line);
+    if (!m) return;
+    const ruleIds = m[1]?.split(',').map((s) => s.trim().toUpperCase());
+    out.push({ line: i + 2, ruleIds });
+  });
+  return out;
+}
+
 /** Parse a component's reactivity/correctness + security + architecture facts (CLI/static only). */
 export function parseComponentFacts(
   source: string,
@@ -702,6 +723,7 @@ export function parseComponentFacts(
   const javascriptUrls: SourceSpan[] = [];
   collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
   const loc = countLines(source);
+  const suppressions = collectSuppressions(source);
 
   // Imports live in either the instance (<script>) or module (<script module>) program.
   const imports: string[] = [];
@@ -751,5 +773,5 @@ export function parseComponentFacts(
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
     }
   }
-  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports, constableStates, suppressions: [] };
+  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports, constableStates, suppressions };
 }

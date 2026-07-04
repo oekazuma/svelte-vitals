@@ -274,3 +274,31 @@ describe('parseComponentFacts — constable $state (CORRECT004)', () => {
     expect(names('<script>let t = $state("x");</script><p>{t}</p>')).toEqual(['t']);
   });
 });
+
+describe('parseComponentFacts — suppression directives (issue #92)', () => {
+  it('captures a script-side disable-next-line with a rule id', () => {
+    const src = '<script>\n// svelte-vitals-disable-next-line CORRECT002\n$effect(() => { x = 1; });\n</script>';
+    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([{ line: 3, ruleIds: ['CORRECT002'] }]);
+  });
+  it('captures multiple comma-separated rule ids', () => {
+    const src = '<script>\n// svelte-vitals-disable-next-line CORRECT002, SEC001\nx = 1;\n</script>';
+    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([
+      { line: 3, ruleIds: ['CORRECT002', 'SEC001'] }
+    ]);
+  });
+  it('captures a blanket disable-next-line with no rule id', () => {
+    const src = '<script>\n// svelte-vitals-disable-next-line\nx = 1;\n</script>';
+    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([{ line: 3, ruleIds: undefined }]);
+  });
+  it('captures a template-side HTML comment directive', () => {
+    const src = '<!-- svelte-vitals-disable-next-line SEC001 -->\n<div>{@html body}</div>';
+    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([{ line: 2, ruleIds: ['SEC001'] }]);
+  });
+  it('does not match a same-line trailing comment', () => {
+    const src = '<script>\nx = 1; // svelte-vitals-disable-next-line CORRECT002\n</script>';
+    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([]);
+  });
+  it('reports no suppressions for a component without any directive', () => {
+    expect(parseComponentFacts('<p>hi</p>', 'C.svelte').suppressions).toEqual([]);
+  });
+});
