@@ -82,4 +82,4 @@ Live updates only flow over a loopback origin (`localhost`, `127.0.0.1`, `[::1]`
 
 Like the overlay, this is dev-only and rendered-based: it covers the SEO `<head>` rules for the routes you visit. For a whole-project report (all routes, Performance, site checks), run `npx svelte-vitals` or `npx svelte-vitals --reporter html`.
 
-Component-scoped rules (Correctness, Security, Architecture, and the two Bundle-Performance rules) are build-mode-only — see [Plugin mode](/svelte-vitals/guides/plugin-mode/) — and never appear in the dev overlay, since there is no whole-project source scan on a per-request rendered view.
+Component-scoped rules (Correctness, Security, Architecture, and the two component-scoped Performance rules) are build-mode-only — see [Plugin mode](/svelte-vitals/guides/plugin-mode/) — and never appear in the dev overlay, since there is no whole-project source scan on a per-request rendered view.

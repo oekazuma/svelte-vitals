@@ -82,4 +82,4 @@ export default {
 
 オーバーレイと同様、これは dev 専用かつレンダリングベースで、訪問したルートの SEO `<head>` ルールを対象とします。プロジェクト全体のレポート（全ルート・パフォーマンス・サイト全体のチェック）が必要な場合は `npx svelte-vitals` または `npx svelte-vitals --reporter html` を実行してください。
 
-component スコープのルール（Correctness・Security・Architecture、および2つの Bundle-Performance ルール）はビルドモードのみの対応です（[プラグインモード](/svelte-vitals/ja/guides/plugin-mode/) を参照） — リクエスト単位のレンダリング済みビューにはプロジェクト全体を横断するソーススキャンが存在しないため、開発オーバーレイには表示されません。
+コンポーネントスコープのルール（Correctness・Security・Architecture、および2つのコンポーネントスコープの Performance ルール）はビルドモードのみの対応です（[プラグインモード](/svelte-vitals/ja/guides/plugin-mode/) を参照） — リクエスト単位のレンダリング済みビューにはプロジェクト全体を横断するソーススキャンが存在しないため、開発オーバーレイには表示されません。
