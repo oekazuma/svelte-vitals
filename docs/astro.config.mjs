@@ -1,13 +1,18 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+const base = '/svelte-vitals';
+
 export default defineConfig({
   site: 'https://oekazuma.github.io/',
-  base: '/svelte-vitals',
+  base,
   integrations: [
     starlight({
       title: 'svelte-vitals',
       description: 'A SvelteKit SEO & Performance checker — static analysis of your routes, before they ship.',
+      logo: { src: './src/assets/logo-mark.svg', alt: 'svelte-vitals' },
+      favicon: '/favicon.svg',
+      head: [{ tag: 'link', attrs: { rel: 'apple-touch-icon', sizes: '180x180', href: `${base}/favicon-180.png` } }],
       locales: {
         root: { label: 'English', lang: 'en' },
         ja: { label: '日本語', lang: 'ja' }
