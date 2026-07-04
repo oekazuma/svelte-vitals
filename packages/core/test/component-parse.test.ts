@@ -265,9 +265,7 @@ describe('parseComponentFacts — suppression directives (issue #92)', () => {
   });
   it('captures multiple comma-separated rule ids', () => {
     const src = '<script>\n// svelte-vitals-disable-next-line CORRECT002, SEC001\nx = 1;\n</script>';
-    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([
-      { line: 3, ruleIds: ['CORRECT002', 'SEC001'] }
-    ]);
+    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([{ line: 3, ruleIds: ['CORRECT002', 'SEC001'] }]);
   });
   it('captures a blanket disable-next-line with no rule id', () => {
     const src = '<script>\n// svelte-vitals-disable-next-line\nx = 1;\n</script>';

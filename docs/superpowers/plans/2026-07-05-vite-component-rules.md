@@ -24,10 +24,12 @@
 ## Task 1: Extract shared Svelte-AST utilities into `@svelte-vitals/core`
 
 **Files:**
+
 - Create: `packages/core/src/svelte-ast.ts`
 - Test: `packages/core/test/svelte-ast.test.ts`
 
 **Interfaces:**
+
 - Produces: `CHILD_NODE_KEYS: string[]`, `valueFromNodes(nodes) => Value`, `textFromNodes(nodes) => string | undefined`, `attrText(attributes, name) => string | undefined`, `attrValue(attributes, name) => Value`, `lineOf(source, offset) => number`, `findAttr(attributes, name) => Node | undefined`, `attrValueOf(attr) => Value`, `attrTextOf(attr) => string | undefined` — all moved verbatim from `packages/cli/src/providers/source/parse.ts`, unchanged signatures/behavior. `Value` is consumed from `./types.js` (already in core).
 
 This task only adds a new, self-contained file to core — nothing else in the repo references it yet, so nothing else changes.
@@ -291,12 +293,14 @@ git commit -m "feat(core): extract shared Svelte-AST utilities from the CLI pars
 ## Task 2: Extract `parseComponentFacts` into `@svelte-vitals/core`
 
 **Files:**
+
 - Create: `packages/core/src/component-parse.ts`
 - Modify: `packages/core/src/index.ts`
 - Modify: `packages/core/package.json`
 - Move: `packages/cli/test/parse-component-facts.test.ts` → `packages/core/test/component-parse.test.ts` (minus one `describe` block — see Task 3)
 
 **Interfaces:**
+
 - Consumes: `CHILD_NODE_KEYS`, `lineOf`, `findAttr`, `attrTextOf` from `./svelte-ast.js` (Task 1). `EachBlockFact`, `EffectFact`, `SourceSpan`, `SuppressionDirective` from `./component.js` (already in core, pre-existing).
 - Produces: `parseComponentFacts(source: string, filename: string) => { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports, constableStates, suppressions }` — same signature and return shape as the CLI's current version (this task is a relocation, not a rewrite).
 
@@ -572,9 +576,7 @@ describe('parseComponentFacts — suppression directives (issue #92)', () => {
   });
   it('captures multiple comma-separated rule ids', () => {
     const src = '<script>\n// svelte-vitals-disable-next-line CORRECT002, SEC001\nx = 1;\n</script>';
-    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([
-      { line: 3, ruleIds: ['CORRECT002', 'SEC001'] }
-    ]);
+    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([{ line: 3, ruleIds: ['CORRECT002', 'SEC001'] }]);
   });
   it('captures a blanket disable-next-line with no rule id', () => {
     const src = '<script>\n// svelte-vitals-disable-next-line\nx = 1;\n</script>';
@@ -1134,6 +1136,7 @@ git commit -m "feat(core): extract parseComponentFacts from the CLI package"
 ## Task 3: Shrink the CLI package to use `@svelte-vitals/core`'s relocated parser
 
 **Files:**
+
 - Modify: `packages/cli/src/providers/source/parse.ts`
 - Modify: `packages/cli/src/providers/source/components.ts`
 - Modify: `packages/cli/src/providers/source/adapters/svelte-meta-tags.ts`
@@ -1143,6 +1146,7 @@ git commit -m "feat(core): extract parseComponentFacts from the CLI package"
 - Create: `packages/cli/test/collect-component-facts.test.ts`
 
 **Interfaces:**
+
 - Consumes: `parseComponentFacts`, `CHILD_NODE_KEYS`, `lineOf`, `findAttr`, `valueFromNodes`, `textFromNodes`, `attrText`, `attrValue`, `attrValueOf`, `attrTextOf` from `@svelte-vitals/core` (Task 1/2).
 - Produces: no change — `parseFile`, `parseHeadTags`, `attrValue`, `attrValueOf`, `attrTextOf`, `collectComponentFacts` keep their exact existing signatures; this task is a pure relocation.
 
@@ -1476,6 +1480,7 @@ import {
 
 Run: `pnpm --filter @svelte-vitals/core test && pnpm --filter svelte-vitals test`
 Expected: all PASS, same total test count as before this task's file split (minus the one file deleted, plus the one file added — net test count unchanged). Specifically confirm:
+
 - `packages/cli/test/collect-component-facts.test.ts` passes (1 test).
 - `packages/cli/test/suppression-e2e.test.ts` passes (3 tests, unchanged).
 - No file still imports from a path that no longer exports what it needs.
@@ -1498,10 +1503,12 @@ git commit -m "refactor(cli): use @svelte-vitals/core's relocated component-fact
 ## Task 4: New vite-side component-facts collector
 
 **Files:**
+
 - Create: `packages/vite/src/providers/source/components.ts`
 - Test: `packages/vite/test/collect-component-facts.test.ts`
 
 **Interfaces:**
+
 - Consumes: `parseComponentFacts`, `type ComponentFacts` from `@svelte-vitals/core` (Task 2). `glob` from `tinyglobby` (already a vite dependency).
 - Produces: `collectComponentFacts(root: string): Promise<ComponentFacts[]>` — used by Task 5's `analyze()`.
 
@@ -1615,10 +1622,12 @@ git commit -m "feat(vite): add a build-mode component-facts collector"
 ## Task 5: Wire component facts into `analyze()`
 
 **Files:**
+
 - Modify: `packages/vite/src/analyze.ts`
 - Modify: `packages/vite/test/analyze.test.ts`
 
 **Interfaces:**
+
 - Consumes: `collectComponentFacts(root: string)` from `./providers/source/components.js` (Task 4).
 - Produces: `analyze()`'s `RuleContext` now includes `components`; no signature change to `analyze()` itself.
 
@@ -1796,6 +1805,7 @@ git commit -m "feat(vite): wire component-scoped rules into build-mode analyze()
 ## Task 6: Documentation
 
 **Files:**
+
 - Modify: `docs/src/content/docs/guides/plugin-mode.md`
 - Modify: `docs/src/content/docs/ja/guides/plugin-mode.md`
 - Modify: `docs/src/content/docs/guides/dev-overlay.md`
@@ -1864,25 +1874,25 @@ component スコープのルール（Correctness・Security・Architecture、お
 Change the "Categories" row (line 25) from:
 
 ```md
-| Categories     | All 5 — SEO, Performance, Correctness, Security, Architecture | SEO, Performance         | SEO, Performance                  | All 5                            |
+| Categories | All 5 — SEO, Performance, Correctness, Security, Architecture | SEO, Performance | SEO, Performance | All 5 |
 ```
 
 to:
 
 ```md
-| Categories     | All 5 — SEO, Performance, Correctness, Security, Architecture | All 5 — SEO, Performance, Correctness, Security, Architecture | SEO, Performance                  | All 5                            |
+| Categories | All 5 — SEO, Performance, Correctness, Security, Architecture | All 5 — SEO, Performance, Correctness, Security, Architecture | SEO, Performance | All 5 |
 ```
 
 Change the "Reads" row (line 24) from:
 
 ```md
-| Reads          | Source (`.svelte` files, layout chain)                        | Prerendered HTML output  | Rendered HTML, per dev request    | Source (same engine as the CLI)  |
+| Reads | Source (`.svelte` files, layout chain) | Prerendered HTML output | Rendered HTML, per dev request | Source (same engine as the CLI) |
 ```
 
 to:
 
 ```md
-| Reads          | Source (`.svelte` files, layout chain)                        | Prerendered HTML output + `.svelte` source (component rules) | Rendered HTML, per dev request    | Source (same engine as the CLI)  |
+| Reads | Source (`.svelte` files, layout chain) | Prerendered HTML output + `.svelte` source (component rules) | Rendered HTML, per dev request | Source (same engine as the CLI) |
 ```
 
 Replace the "Why the coverage differs" section (lines 31–35) with:
@@ -1892,7 +1902,7 @@ Replace the "Why the coverage differs" section (lines 31–35) with:
 
 Correctness, Security, and Architecture rules read component **source** — `$effect` bodies, `{@html}` calls, prop counts — which only exists before compilation. The CLI, MCP (which runs the CLI's own analysis engine), and the Vite plugin's **build mode** all read this source directly, so all three run the full 5-category rule set.
 
-The dev overlay is the one path that inspects **rendered HTML only** (the response for each route you visit, with no whole-project source scan), which keeps it SEO/Performance-only, but library-agnostic and exact for the pages it covers: whatever produced the `<head>`, if it's missing from the shipped HTML, the overlay sees it. Build mode reads rendered HTML too (for the same exact-verification reason), *in addition to* the source scan — it's the only path that gets both.
+The dev overlay is the one path that inspects **rendered HTML only** (the response for each route you visit, with no whole-project source scan), which keeps it SEO/Performance-only, but library-agnostic and exact for the pages it covers: whatever produced the `<head>`, if it's missing from the shipped HTML, the overlay sees it. Build mode reads rendered HTML too (for the same exact-verification reason), _in addition to_ the source scan — it's the only path that gets both.
 ```
 
 Update the "Vite plugin — exact, build-time verification" prose (line 45) from:
@@ -1914,25 +1924,25 @@ Apply the same six changes in Japanese, mirroring the structure above:
 Change the "カテゴリ" row (line 25) from:
 
 ```md
-| カテゴリ       | 全5種 — SEO・Performance・Correctness・Security・Architecture | SEO・Performance                 | SEO・Performance                             | 全5種                               |
+| カテゴリ | 全5種 — SEO・Performance・Correctness・Security・Architecture | SEO・Performance | SEO・Performance | 全5種 |
 ```
 
 to:
 
 ```md
-| カテゴリ       | 全5種 — SEO・Performance・Correctness・Security・Architecture | 全5種 — SEO・Performance・Correctness・Security・Architecture | SEO・Performance                             | 全5種                               |
+| カテゴリ | 全5種 — SEO・Performance・Correctness・Security・Architecture | 全5種 — SEO・Performance・Correctness・Security・Architecture | SEO・Performance | 全5種 |
 ```
 
 Change the "読み取る対象" row (line 24) from:
 
 ```md
-| 読み取る対象   | ソース(`.svelte`ファイル、レイアウトチェーン）                | プレレンダリング済みHTML出力     | 開発中のリクエストごとのレンダリング済みHTML | ソース(CLIと同じエンジン）          |
+| 読み取る対象 | ソース(`.svelte`ファイル、レイアウトチェーン） | プレレンダリング済みHTML出力 | 開発中のリクエストごとのレンダリング済みHTML | ソース(CLIと同じエンジン） |
 ```
 
 to:
 
 ```md
-| 読み取る対象   | ソース(`.svelte`ファイル、レイアウトチェーン）                | プレレンダリング済みHTML出力 + `.svelte`ソース（componentルール） | 開発中のリクエストごとのレンダリング済みHTML | ソース(CLIと同じエンジン）          |
+| 読み取る対象 | ソース(`.svelte`ファイル、レイアウトチェーン） | プレレンダリング済みHTML出力 + `.svelte`ソース（componentルール） | 開発中のリクエストごとのレンダリング済みHTML | ソース(CLIと同じエンジン） |
 ```
 
 Replace the "なぜカバー範囲が違うのか" section (lines 31–35) with:
@@ -1989,6 +1999,7 @@ git commit -m "docs: document vite build-mode component-scoped rule coverage"
 ## Task 7: Changesets
 
 **Files:**
+
 - Create: `.changeset/vite-component-rules-core.md`
 - Create: `.changeset/vite-component-rules-vite.md`
 - Create: `.changeset/vite-component-rules-cli.md`
@@ -2041,8 +2052,8 @@ git commit -m "chore: add changesets for vite component-scoped rule coverage"
 ## Final verification (run once, after all tasks)
 
 - [ ] Run: `pnpm typecheck && pnpm test && pnpm lint`
-  Expected: all green across every package.
+      Expected: all green across every package.
 - [ ] Run: `pnpm --filter docs build`
-  Expected: docs build succeeds.
+      Expected: docs build succeeds.
 - [ ] Run: `pnpm build` (all packages) to confirm `@svelte-vitals/core`'s new `svelte` dependency and the relocated modules build cleanly end-to-end (tsup/type declarations).
 - [ ] Manually confirm via `pnpm --filter @svelte-vitals/vite test -- analyze` output that the new coverage line ("Scanned N component(s) under src/...") appears in the console report.

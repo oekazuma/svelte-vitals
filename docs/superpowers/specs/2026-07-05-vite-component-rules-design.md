@@ -34,8 +34,8 @@ per-rule `options.rules` config (e.g. `{ CORRECT002: 'off' }`), same as today.
   pass) when that field is absent/empty. This is intentional and documented in
   the file's own comment ("CLI/static only").
 - `ComponentFacts`/`SuppressionDirective` types already live in
-  `@svelte-vitals/core` (`packages/core/src/component.ts`) — only the *parsing
-  logic* that produces them is CLI-only.
+  `@svelte-vitals/core` (`packages/core/src/component.ts`) — only the _parsing
+  logic_ that produces them is CLI-only.
 - That parsing logic lives in `packages/cli/src/providers/source/parse.ts`
   (~700 lines) and splits into three layers, verified by reading the file and
   cross-checking every helper's call sites:
@@ -44,7 +44,7 @@ per-rule `options.rules` config (e.g. `{ CORRECT002: 'off' }`), same as today.
      `collectImages`, `collectHeadings`. Untouched by this work; vite already
      has an equivalent rendered-HTML-based path for this
      (`providers/rendered/*`).
-  2. **Generic Svelte-AST utilities**, used by *both* layer 1 and layer 3:
+  2. **Generic Svelte-AST utilities**, used by _both_ layer 1 and layer 3:
      `CHILD_NODE_KEYS`, `lineOf`, `findAttr`, `valueFromNodes`,
      `textFromNodes`, `attrText`, `attrValue`, `attrValueOf`, `attrTextOf`,
      the `type Node = any` alias.
@@ -65,7 +65,7 @@ per-rule `options.rules` config (e.g. `{ CORRECT002: 'off' }`), same as today.
      re-exported from `svelte-vitals`'s public `index.ts`, so moving them has
      no public-API consequence.
 - `packages/cli/src/providers/source/components.ts`'s `collectComponentFacts(rt,
-  cwd)` (the glob-and-read wrapper around `parseComponentFacts`) already takes
+cwd)` (the glob-and-read wrapper around `parseComponentFacts`) already takes
   an injected `Runtime` (`packages/core/src/runtime.ts`) rather than hardcoding
   `node:fs` — but `Runtime` itself, and this wrapper, stay CLI-only; vite gets
   its own trivial direct implementation (no abstraction needed — vite always
@@ -103,8 +103,8 @@ Two new files:
   layer 3's private helpers, moved verbatim, importing the shared utilities
   from `./svelte-ast.js`. `parseComponentFacts`'s signature and return shape
   are unchanged: `(source: string, filename: string) => { eachBlocks,
-  effects, htmlTags, javascriptUrls, loc, propCount, imports,
-  namespaceImports, constableStates, suppressions }`.
+effects, htmlTags, javascriptUrls, loc, propCount, imports,
+namespaceImports, constableStates, suppressions }`.
 
 Both files are pure (no I/O), matching every other file already in
 `packages/core/src/`.
@@ -211,7 +211,7 @@ No change to `packages/vite/src/plugin.ts` — `closeBundle`'s existing call to
 
 - `docs/src/content/docs/guides/plugin-mode.md` (+ `ja`): after the existing
   "library-agnostic" framing (build mode inspects rendered HTML), add a
-  paragraph: build mode *additionally* scans `.svelte` source directly for
+  paragraph: build mode _additionally_ scans `.svelte` source directly for
   Correctness/Security/Architecture and the two component-scoped Performance
   rules (PERF009–010), listing the same rule-id set as the CLI guide's
   suppression-directive section for consistency.
@@ -274,7 +274,7 @@ No change to `packages/vite/src/plugin.ts` — `closeBundle`'s existing call to
   incompatible with the overlay's per-request rendered-HTML model (see Goal).
 - An opt-out flag for the new default-on rules — users use the existing
   per-rule `options.rules` config instead.
-- Deduplicating the *second* `svelte/compiler` `parse()` call that already
+- Deduplicating the _second_ `svelte/compiler` `parse()` call that already
   happens today when a CLI run wants both head-tags and component-facts for
   the same file (pre-existing minor inefficiency, unrelated to this feature).
 - Any change to `@svelte-vitals/mcp` — it already gets full component-rule
