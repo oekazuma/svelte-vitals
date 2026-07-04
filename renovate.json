@@ -9,6 +9,12 @@
   "rangeStrategy": "bump",
   "packageRules": [
     {
+      "description": "Published packages' engines.node is a public compatibility floor for consumers, not a dev-toolchain pin — never auto-bump it.",
+      "matchDepTypes": ["engines"],
+      "matchFileNames": ["packages/*/package.json"],
+      "enabled": false
+    },
+    {
       "groupName": "dependencies",
       "matchDepTypes": ["dependencies"]
     },
