@@ -24,7 +24,9 @@ export function codemodViteConfig(existing: string | undefined): CodemodResult {
       return { status: 'manual', snippet: MANUAL_SNIPPET };
     }
     // NB: .find(), not .some() — magicast's Proxified arrays don't invoke .some()'s callback (see Global Constraints).
-    const already = configObj.plugins.find((p: { $type?: string; $callee?: string }) => p?.$type === 'function-call' && p?.$callee === 'svelteVitals');
+    const already = configObj.plugins.find(
+      (p: { $type?: string; $callee?: string }) => p?.$type === 'function-call' && p?.$callee === 'svelteVitals'
+    );
     if (already !== undefined) {
       return { status: 'exists' };
     }

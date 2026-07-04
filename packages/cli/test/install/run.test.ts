@@ -232,7 +232,11 @@ export default { plugins: [svelteVitals()] };
       failWritePath: '/proj/.mcp.json',
       runCommand: (...args) => (runCalls.push(args), 0)
     });
-    const code = await runInstall({ client: ['claude-code', 'vite-plugin'], scope: 'project', yes: true }, io, noPrompts);
+    const code = await runInstall(
+      { client: ['claude-code', 'vite-plugin'], scope: 'project', yes: true },
+      io,
+      noPrompts
+    );
     expect(code).toBe(2);
     expect(writes['/proj/vite.config.ts']).toContain('svelteVitals()');
     expect(runCalls.length).toBe(1);

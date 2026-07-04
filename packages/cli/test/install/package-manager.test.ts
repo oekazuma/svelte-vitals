@@ -25,11 +25,15 @@ describe('detectPackageManager', () => {
 
 describe('hasVitePackage', () => {
   it('true when @svelte-vitals/vite is a devDependency', () => {
-    const io = fakeReadCwd({ '/proj/package.json': JSON.stringify({ devDependencies: { '@svelte-vitals/vite': '^1.0.0' } }) });
+    const io = fakeReadCwd({
+      '/proj/package.json': JSON.stringify({ devDependencies: { '@svelte-vitals/vite': '^1.0.0' } })
+    });
     expect(hasVitePackage(io)).toBe(true);
   });
   it('true when @svelte-vitals/vite is a dependency', () => {
-    const io = fakeReadCwd({ '/proj/package.json': JSON.stringify({ dependencies: { '@svelte-vitals/vite': '^1.0.0' } }) });
+    const io = fakeReadCwd({
+      '/proj/package.json': JSON.stringify({ dependencies: { '@svelte-vitals/vite': '^1.0.0' } })
+    });
     expect(hasVitePackage(io)).toBe(true);
   });
   it('false when package.json exists but lacks the package', () => {

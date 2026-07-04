@@ -34,7 +34,9 @@ export function resolveInstallArgs(argv: mri.Argv): ResolvedInstallArgs {
     }
   }
   if (rawClients.length > 0 && client.length === 0) {
-    errors.push('svelte-vitals: no valid --client values; expected claude-code|cursor|codex|vite-plugin|vite-dev-overlay.');
+    errors.push(
+      'svelte-vitals: no valid --client values; expected claude-code|cursor|codex|vite-plugin|vite-dev-overlay.'
+    );
   }
 
   let scope: Scope | undefined;

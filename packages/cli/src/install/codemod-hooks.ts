@@ -16,7 +16,11 @@ function addImports(mod: ReturnType<typeof parseModule>): void {
     mod.imports.$append({ imported: 'sequence', local: 'sequence', from: '@sveltejs/kit/hooks' });
   }
   if (!mod.imports.svelteVitalsHandle) {
-    mod.imports.$append({ imported: 'svelteVitalsHandle', local: 'svelteVitalsHandle', from: '@svelte-vitals/vite/hooks' });
+    mod.imports.$append({
+      imported: 'svelteVitalsHandle',
+      local: 'svelteVitalsHandle',
+      from: '@svelte-vitals/vite/hooks'
+    });
   }
 }
 
@@ -43,7 +47,10 @@ export function codemodHooksServer(existing: string | undefined): CodemodResult 
       // Also force single-quote strings: when the source has no string literals for
       // detectCodeFormat to sample (e.g. a bare arrow-function handle), it falls back to
       // magicast's own default of double quotes instead of this project's single-quote style.
-      return { status: 'added', content: generateCode(mod, { format: { objectCurlySpacing: true, quote: 'single' } }).code };
+      return {
+        status: 'added',
+        content: generateCode(mod, { format: { objectCurlySpacing: true, quote: 'single' } }).code
+      };
     }
 
     if (handle.$type === 'function-call' && handle.$callee === 'sequence') {
@@ -55,16 +62,26 @@ export function codemodHooksServer(existing: string | undefined): CodemodResult 
         return { status: 'exists' };
       }
       if (!mod.imports.svelteVitalsHandle) {
-        mod.imports.$append({ imported: 'svelteVitalsHandle', local: 'svelteVitalsHandle', from: '@svelte-vitals/vite/hooks' });
+        mod.imports.$append({
+          imported: 'svelteVitalsHandle',
+          local: 'svelteVitalsHandle',
+          from: '@svelte-vitals/vite/hooks'
+        });
       }
       handle.$args.push(builders.functionCall('svelteVitalsHandle'));
-      return { status: 'added', content: generateCode(mod, { format: { objectCurlySpacing: true, quote: 'single' } }).code };
+      return {
+        status: 'added',
+        content: generateCode(mod, { format: { objectCurlySpacing: true, quote: 'single' } }).code
+      };
     }
 
     // A single, non-sequence handle expression: wrap it.
     addImports(mod);
     mod.exports.handle = builders.functionCall('sequence', handle, builders.functionCall('svelteVitalsHandle'));
-    return { status: 'updated', content: generateCode(mod, { format: { objectCurlySpacing: true, quote: 'single' } }).code };
+    return {
+      status: 'updated',
+      content: generateCode(mod, { format: { objectCurlySpacing: true, quote: 'single' } }).code
+    };
   } catch (err) {
     if (err instanceof MagicastError) {
       return { status: 'manual', snippet: MANUAL_SNIPPET };

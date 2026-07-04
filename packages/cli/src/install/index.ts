@@ -116,7 +116,10 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
     const viteConfigExists = ['vite.config.ts', 'vite.config.js', 'vite.config.mjs'].some((f) =>
       configExists(join(io.cwd, f))
     );
-    const detected: TargetId[] = [...detectedClients, ...(viteConfigExists ? (['vite-plugin', 'vite-dev-overlay'] as ViteTargetId[]) : [])];
+    const detected: TargetId[] = [
+      ...detectedClients,
+      ...(viteConfigExists ? (['vite-plugin', 'vite-dev-overlay'] as ViteTargetId[]) : [])
+    ];
     const options: SelectableOption[] = [
       ...CLIENTS.map((c) => ({ id: c.id, label: c.label })),
       ...VITE_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint }))

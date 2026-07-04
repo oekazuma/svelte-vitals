@@ -39,7 +39,9 @@ export const handle = sequence(authHandle, svelteVitalsHandle());
     expect(result.status).toBe('updated');
     expect(result.content).toContain("import { sequence } from '@sveltejs/kit/hooks';");
     expect(result.content).toContain("import { svelteVitalsHandle } from '@svelte-vitals/vite/hooks';");
-    expect(result.content).toMatch(/export const handle = sequence\(async \(\{ event, resolve \}\) => resolve\(event\), svelteVitalsHandle\(\)\)/);
+    expect(result.content).toMatch(
+      /export const handle = sequence\(async \(\{ event, resolve \}\) => resolve\(event\), svelteVitalsHandle\(\)\)/
+    );
   });
 
   it('file exists but has no handle export → added, a fresh handle appended', () => {
