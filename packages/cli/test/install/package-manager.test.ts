@@ -18,6 +18,9 @@ describe('detectPackageManager', () => {
   it('detects bun from bun.lockb', () => {
     expect(detectPackageManager(fakeReadCwd({ '/proj/bun.lockb': '' }))).toBe('bun');
   });
+  it('detects bun from bun.lock (the newer text-based format)', () => {
+    expect(detectPackageManager(fakeReadCwd({ '/proj/bun.lock': '' }))).toBe('bun');
+  });
   it('falls back to npm when no lockfile is found', () => {
     expect(detectPackageManager(fakeReadCwd({}))).toBe('npm');
   });

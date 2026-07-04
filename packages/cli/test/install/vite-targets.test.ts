@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { VITE_TARGETS, viteTargetById } from '../../src/install/vite-targets.js';
+import { VITE_TARGETS, viteTargetById, isViteTargetId } from '../../src/install/vite-targets.js';
 
 describe('vite targets', () => {
   it('has both targets with distinct ids', () => {
@@ -16,5 +16,10 @@ describe('vite targets', () => {
   });
   it('viteTargetById returns undefined for an unknown id', () => {
     expect(viteTargetById('nope')).toBeUndefined();
+  });
+  it('isViteTargetId is true for both Vite target ids and false for an MCP client id', () => {
+    expect(isViteTargetId('vite-plugin')).toBe(true);
+    expect(isViteTargetId('vite-dev-overlay')).toBe(true);
+    expect(isViteTargetId('claude-code')).toBe(false);
   });
 });

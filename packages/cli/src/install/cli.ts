@@ -16,8 +16,8 @@ Usage:
 
 Options:
   --client <ids>    Comma-separated: claude-code,cursor,codex,vite-plugin,vite-dev-overlay (skips the interactive picker)
-                    vite-plugin registers the build-mode plugin in vite.config; vite-dev-overlay
-                    wires up the dev-overlay hook in src/hooks.server.ts. --force does not apply
+                    vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-dev-overlay
+                    wires up the dev-overlay hook in src/hooks.server.{ts,js}. --force does not apply
                     to either — an existing registration is always left as-is.
   --scope <scope>   project | global (applies to all selected clients; codex is always global)
   --yes, -y         Skip the confirmation prompt
@@ -45,7 +45,20 @@ export function realIO(): InstallIO {
     log: (line) => console.log(line),
     errorLog: (line) => console.error(line),
     runCommand: (command, args, cwd) => {
-      const result = spawnSync(command, args, { cwd, stdio: 'inherit', shell: process.platform === 'win32' });
+      const result = spawnSync(command, args, {
+        cwd,
+        stdio: 'inherit',
+        shell: process.platform === 'win32',
+        timeout: 120_000
+      });
+      if (result.error) {
+        console.error(`svelte-vitals: ${command} failed to start: ${result.error.message}`);
+        return 1;
+      }
+      if (result.signal) {
+        console.error(`svelte-vitals: ${command} was terminated (${result.signal}) — it may have timed out.`);
+        return 1;
+      }
       return result.status ?? 1;
     }
   };

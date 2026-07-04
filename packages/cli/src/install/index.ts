@@ -1,7 +1,7 @@
 import { join } from 'node:path';
 import { CLIENTS, clientById, MCP_ENTRY, type ClientId, type ClientWriter, type Scope } from './clients.js';
 import { mergeJson, mergeToml } from './merge.js';
-import { VITE_TARGETS, viteTargetById, type ViteTargetId } from './vite-targets.js';
+import { VITE_TARGETS, viteTargetById, isViteTargetId, type ViteTargetId } from './vite-targets.js';
 import { codemodViteConfig } from './codemod-vite-config.js';
 import { codemodHooksServer } from './codemod-hooks.js';
 import { detectPackageManager, hasVitePackage, installCommand } from './package-manager.js';
@@ -116,10 +116,7 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
     const viteConfigExists = ['vite.config.ts', 'vite.config.js', 'vite.config.mjs'].some((f) =>
       configExists(join(io.cwd, f))
     );
-    const detected: TargetId[] = [
-      ...detectedClients,
-      ...(viteConfigExists ? (['vite-plugin', 'vite-dev-overlay'] as ViteTargetId[]) : [])
-    ];
+    const detected: TargetId[] = [...detectedClients, ...(viteConfigExists ? VITE_TARGETS.map((t) => t.id) : [])];
     const options: SelectableOption[] = [
       ...CLIENTS.map((c) => ({ id: c.id, label: c.label })),
       ...VITE_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint }))
@@ -138,7 +135,7 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
   }
 
   const clients = ids.map(clientById).filter((c): c is ClientWriter => c !== undefined);
-  const viteIds = ids.filter((id): id is ViteTargetId => id === 'vite-plugin' || id === 'vite-dev-overlay');
+  const viteIds = ids.filter(isViteTargetId);
   if (clients.length === 0 && viteIds.length === 0) {
     io.errorLog('svelte-vitals: no valid clients or targets selected.');
     return 2;
@@ -209,7 +206,7 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
     try {
       io.writeFile(r.path, r.content ?? '');
       io.log(`✓ ${r.label}: ${r.status} ${r.path}`);
-      if (r.id === 'vite-plugin' || r.id === 'vite-dev-overlay') viteWasWritten = true;
+      if (isViteTargetId(r.id)) viteWasWritten = true;
     } catch (err) {
       hadFailure = true;
       io.errorLog(`svelte-vitals: failed to write ${r.path}: ${err instanceof Error ? err.message : String(err)}`);

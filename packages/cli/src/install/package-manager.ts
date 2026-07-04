@@ -7,9 +7,13 @@ interface ReadCwd {
   readFile(path: string): string | undefined;
 }
 
+// Order matters: checked in this priority when multiple lockfiles coexist.
+// Bun has shipped two lockfile formats — the newer text-based `bun.lock` (default
+// since Bun 1.2) and the older binary `bun.lockb` — so both are checked.
 const LOCKFILE_TO_PM: Record<string, PackageManager> = {
   'pnpm-lock.yaml': 'pnpm',
   'yarn.lock': 'yarn',
+  'bun.lock': 'bun',
   'bun.lockb': 'bun'
 };
 
