@@ -773,5 +773,16 @@ export function parseComponentFacts(
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
     }
   }
-  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports, constableStates, suppressions };
+  return {
+    eachBlocks,
+    effects,
+    htmlTags,
+    javascriptUrls,
+    loc,
+    propCount,
+    imports,
+    namespaceImports,
+    constableStates,
+    suppressions
+  };
 }

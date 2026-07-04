@@ -36,7 +36,10 @@ describe('inline suppression directive — end-to-end (issue #92)', () => {
       '</script>'
     ].join('\n');
     const facts = parseComponentFacts(src, 'src/lib/C.svelte');
-    const ctx: RuleContext = { components: [comp({ effects: facts.effects, suppressions: facts.suppressions })], ...base };
+    const ctx: RuleContext = {
+      components: [comp({ effects: facts.effects, suppressions: facts.suppressions })],
+      ...base
+    };
     const rs = await correct002EffectDerived.check(ctx);
     expect(fails(rs)).toHaveLength(0);
   });
@@ -44,7 +47,10 @@ describe('inline suppression directive — end-to-end (issue #92)', () => {
   it('SEC001 passes for a real template-side {@html} suppressed via an HTML-comment directive', async () => {
     const src = ['<!-- svelte-vitals-disable-next-line SEC001 -->', '<div>{@html trustedMarkup}</div>'].join('\n');
     const facts = parseComponentFacts(src, 'src/lib/C.svelte');
-    const ctx: RuleContext = { components: [comp({ htmlTags: facts.htmlTags, suppressions: facts.suppressions })], ...base };
+    const ctx: RuleContext = {
+      components: [comp({ htmlTags: facts.htmlTags, suppressions: facts.suppressions })],
+      ...base
+    };
     const rs = await sec001Html.check(ctx);
     expect(fails(rs)).toHaveLength(0);
   });

@@ -136,8 +136,7 @@ SEC001–002, ARCH001–002, PERF009–010.
 In markup, use an HTML comment instead:
 
 ```svelte
-<!-- svelte-vitals-disable-next-line SEC001 -->
-<div>{@html trustedMarkup}</div>
+<!-- svelte-vitals-disable-next-line SEC001 --><div>{@html trustedMarkup}</div>
 ```
 
 Omit the rule id to suppress every rule on the next line, or list several
