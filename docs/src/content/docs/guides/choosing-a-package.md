@@ -1,6 +1,8 @@
 ---
 title: Choosing a package
 description: Which of svelte-vitals' three packages to use, and when to combine them.
+sidebar:
+  order: 2
 ---
 
 svelte-vitals ships as three packages — `svelte-vitals` (CLI), `@svelte-vitals/vite` (plugin + dev overlay), and `@svelte-vitals/mcp` (MCP server). They share the same rule engine and scoring, but read different input and cover different ground. Most projects end up using more than one.

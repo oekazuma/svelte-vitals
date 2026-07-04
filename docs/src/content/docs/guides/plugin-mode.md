@@ -1,6 +1,8 @@
 ---
 title: Plugin mode
 description: Integrate svelte-vitals into vite build to analyze prerendered HTML at build time.
+sidebar:
+  order: 4
 ---
 
 `@svelte-vitals/vite` is a Vite / SvelteKit plugin that piggybacks on `vite build`, parses the **prerendered HTML's `<head>`**, and runs the same SEO and Performance rules as the CLI. Because it inspects the real HTML output, it is library-agnostic. The build fails when findings reach the `failOn` threshold.

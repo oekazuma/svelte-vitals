@@ -1,6 +1,8 @@
 ---
 title: Dev overlay
 description: Get live SEO warnings in the dev server without waiting for a build.
+sidebar:
+  order: 5
 ---
 
 `@svelte-vitals/vite` includes a SvelteKit `handle` hook — `svelteVitalsHandle` — that runs SEO analysis on every page served in the **development server**. Warnings are printed to the terminal as you navigate your app. No build step needed.

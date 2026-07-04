@@ -1,6 +1,8 @@
 ---
 title: MCP サーバー
 description: Model Context Protocol を通じて AI エージェントが svelte-vitals 分析を実行できるようにします。
+sidebar:
+  order: 6
 ---
 
 `@svelte-vitals/mcp` は、svelte-vitals をツールとして公開する [Model Context Protocol](https://modelcontextprotocol.io) サーバーです。AI エージェントはそのツールループ内でこれらのツールを呼び出すことができます。エージェントは構造化された実行可能な検出結果を受け取ります — それぞれに `fix`、`recommendation`、`docsUrl` が含まれており、CLI サブプロセスを手動で起動する必要はありません。

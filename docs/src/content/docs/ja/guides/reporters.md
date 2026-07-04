@@ -1,6 +1,8 @@
 ---
 title: レポーター
 description: svelte-vitals が検出結果をフォーマットして出力する方法を選択します。
+sidebar:
+  order: 7
 ---
 
 svelte-vitals は 6 つの出力レポーターをサポートしています。`--reporter <fmt>` で選択するか、環境に適したものを自動選択に任せてください。

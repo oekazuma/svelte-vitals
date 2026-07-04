@@ -1,6 +1,8 @@
 ---
 title: CLI リファレンス
 description: svelte-vitals のすべてのコマンドラインフラグの完全なリファレンス。
+sidebar:
+  order: 3
 ---
 
 ## 使用方法

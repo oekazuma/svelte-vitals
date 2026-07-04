@@ -1,6 +1,8 @@
 ---
 title: Health レポート
 description: 重み付き Health スコアを理解し、--min-health を CI ゲートとして使用します。
+sidebar:
+  order: 8
 ---
 
 **Health スコア**は、分析結果に存在するカテゴリ全体のプロジェクトの総合的な品質を要約した 0〜100 の単一の数値です。CI パイプラインをゲートするために `--min-health` フラグで使用されます。

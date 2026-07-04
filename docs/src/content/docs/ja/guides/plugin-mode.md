@@ -1,6 +1,8 @@
 ---
 title: プラグインモード
 description: ビルド時にプリレンダリングされた HTML を分析するために svelte-vitals を vite build に統合します。
+sidebar:
+  order: 4
 ---
 
 `@svelte-vitals/vite` は Vite / SvelteKit プラグインで、`vite build` に便乗して**プリレンダリングされた HTML の `<head>`** を解析し、CLI と同じ SEO およびパフォーマンスルールを実行します。実際の HTML 出力を検査するため、ライブラリに依存しません。検出結果が `failOn` の閾値に達するとビルドが失敗します。
