@@ -187,6 +187,8 @@ export default { plugins: [svelteVitals()] };
     expect(writes).toEqual({});
     expect(runCalls).toEqual([]);
     expect(out.join('\n')).toContain('already configured');
+    // --force never applies to Vite targets, so the message must not suggest it.
+    expect(out.join('\n')).not.toContain('--force');
   });
 
   it('vite-dev-overlay: no hooks.server.ts → created', async () => {

@@ -15,14 +15,13 @@ export function codemodViteConfig(existing: string | undefined): CodemodResult {
   }
   try {
     const mod = parseModule(existing);
-    if (mod.imports.svelteVitals) {
-      return { status: 'exists' };
-    }
     const def = mod.exports.default;
     const configObj = def?.$type === 'function-call' ? def.$args[0] : def;
     if (!configObj || configObj.$type !== 'object' || configObj.plugins?.$type !== 'array') {
       return { status: 'manual', snippet: MANUAL_SNIPPET };
     }
+    // The plugins array (not just the import) is the source of truth for "already
+    // configured" — an import with no corresponding call is not actually registered.
     // NB: .find(), not .some() — magicast's Proxified arrays don't invoke .some()'s callback (see Global Constraints).
     const already = configObj.plugins.find(
       (p: { $type?: string; $callee?: string }) => p?.$type === 'function-call' && p?.$callee === 'svelteVitals'
@@ -30,7 +29,9 @@ export function codemodViteConfig(existing: string | undefined): CodemodResult {
     if (already !== undefined) {
       return { status: 'exists' };
     }
-    mod.imports.$append({ imported: 'svelteVitals', local: 'svelteVitals', from: '@svelte-vitals/vite' });
+    if (!mod.imports.svelteVitals) {
+      mod.imports.$append({ imported: 'svelteVitals', local: 'svelteVitals', from: '@svelte-vitals/vite' });
+    }
     configObj.plugins.unshift(builders.functionCall('svelteVitals'));
     // NB: magicast's format auto-detection always reports `objectCurlySpacing: undefined`
     // (it's not actually inferred from source), which recast then treats as `false` instead

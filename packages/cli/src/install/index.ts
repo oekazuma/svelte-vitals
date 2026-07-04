@@ -196,7 +196,10 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
   let viteWasWritten = false;
   for (const r of rows) {
     if (r.status === 'exists') {
-      io.log(`= ${r.label}: already configured (${r.path}) — use --force to overwrite.`);
+      // --force never applies to the two Vite targets (see Global Constraints), so the
+      // "use --force" hint would be misleading for them.
+      const hint = isViteTargetId(r.id) ? '' : ' — use --force to overwrite';
+      io.log(`= ${r.label}: already configured (${r.path})${hint}.`);
       continue;
     }
     if (r.status === 'manual') {
