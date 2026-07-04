@@ -113,8 +113,9 @@ svelte-vitals --ignore PERF001
 
 マークアップ内では HTML コメントを使います。
 
-```svelte
-<!-- svelte-vitals-disable-next-line SEC001 --><div>{@html trustedMarkup}</div>
+```html
+<!-- svelte-vitals-disable-next-line SEC001 -->
+<div>{@html trustedMarkup}</div>
 ```
 
 ルール ID を省略すると次の行のすべてのルールを抑制します。複数指定する場合はカンマ区切りで書けます（`CORRECT002, SEC001`）。

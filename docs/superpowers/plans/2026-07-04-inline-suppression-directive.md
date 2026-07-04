@@ -537,8 +537,9 @@ SEC001–002, ARCH001–002, PERF009–010.
 
 In markup, use an HTML comment instead:
 
-```svelte
-<!-- svelte-vitals-disable-next-line SEC001 --><div>{@html trustedMarkup}</div>
+```html
+<!-- svelte-vitals-disable-next-line SEC001 -->
+<div>{@html trustedMarkup}</div>
 ```
 
 Omit the rule id to suppress every rule on the next line, or list several
@@ -572,8 +573,9 @@ In `docs/src/content/docs/ja/guides/cli.md`, insert the equivalent section right
 
 マークアップ内では HTML コメントを使います。
 
-```svelte
-<!-- svelte-vitals-disable-next-line SEC001 --><div>{@html trustedMarkup}</div>
+```html
+<!-- svelte-vitals-disable-next-line SEC001 -->
+<div>{@html trustedMarkup}</div>
 ```
 
 ルール ID を省略すると次の行のすべてのルールを抑制します。複数指定する場合はカンマ区切りで書けます（`CORRECT002, SEC001`）。
