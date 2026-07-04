@@ -96,6 +96,32 @@ svelte-vitals --rules SEO001,SEO002
 svelte-vitals --ignore PERF001
 ```
 
+### 特定の指摘だけをインラインで抑制する
+
+`--ignore` はプロジェクト全体でルールを無効にしますが、意図的な1箇所だけを黙らせたい場合は、対象行の直前に `svelte-vitals-disable-next-line` コメントを書きます。コンポーネントスコープの全ルール（Correctness、Security、Architecture、Performance）に対応: CORRECT001–004、SEC001–002、ARCH001–002、PERF009–010。
+
+```svelte
+<script>
+  // プリレンダリングされたHTMLは常に非表示。canVibrate() はマウント後にのみ評価する必要があり、
+  // そうしないとハイドレーション不一致が発生する。$derived だとハイドレーション中にも評価される。
+  // svelte-vitals-disable-next-line CORRECT002
+  $effect(() => {
+    mounted = true;
+  });
+</script>
+```
+
+マークアップ内では HTML コメントを使います。
+
+```html
+<!-- svelte-vitals-disable-next-line SEC001 -->
+<div>{@html trustedMarkup}</div>
+```
+
+ルール ID を省略すると次の行のすべてのルールを抑制します。複数指定する場合はカンマ区切りで書けます（`CORRECT002, SEC001`）。
+
+2つの制約があります。コメントはその行に単独で書かれている必要があり（同一行の末尾コメントは認識されません）、対象行の**直前**の行になければなりません（間に空行があると一致しません）。
+
 ### `--meta-components <names>`
 
 `<head>` メタデータを出力するカスタムコンポーネント名のカンマ区切りリストです。アナライザーにそれらのコンポーネントをヘッドメタデータエミッターとして扱うよう指示します。

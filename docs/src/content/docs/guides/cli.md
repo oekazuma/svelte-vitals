@@ -115,6 +115,38 @@ Disable the specified rules. Accepts a comma-separated list of rule IDs.
 svelte-vitals --ignore PERF001
 ```
 
+### Suppressing a single finding inline
+
+For one intentional occurrence that `--ignore` would silence project-wide, add a
+`svelte-vitals-disable-next-line` comment on the line directly above it. Works for
+any component-scoped rule (Correctness, Security, Architecture, Performance): CORRECT001–004,
+SEC001–002, ARCH001–002, PERF009–010.
+
+```svelte
+<script>
+  // The prerendered HTML always renders this hidden; canVibrate() must run only
+  // after mount, or hydration mismatches. $derived would re-run during hydration.
+  // svelte-vitals-disable-next-line CORRECT002
+  $effect(() => {
+    mounted = true;
+  });
+</script>
+```
+
+In markup, use an HTML comment instead:
+
+```html
+<!-- svelte-vitals-disable-next-line SEC001 -->
+<div>{@html trustedMarkup}</div>
+```
+
+Omit the rule id to suppress every rule on the next line, or list several
+comma-separated (`CORRECT002, SEC001`).
+
+Two constraints: the comment must be the only thing on its line (a trailing
+same-line comment is not recognized), and it must be the line **immediately**
+above the target — a blank line in between breaks the match.
+
 ### `--meta-components <names>`
 
 Comma-separated list of custom component names that emit `<head>` metadata. Tells the analyzer to treat those components as head-metadata emitters.

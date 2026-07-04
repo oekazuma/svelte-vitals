@@ -25,6 +25,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   imports: [],
   namespaceImports: [],
   constableStates: [],
+  suppressions: [],
   ...over
 });
 
@@ -66,6 +67,17 @@ describe('CORRECT002 effect used to derive state', () => {
   });
   it('emits nothing for a component with no $effect', async () => {
     expect(await correct002EffectDerived.check(ctx([comp({})]))).toHaveLength(0);
+  });
+  it('passes the mount-signal pattern when suppressed via inline directive (issue #92)', async () => {
+    const rs = await correct002EffectDerived.check(
+      ctx([
+        comp({
+          effects: [{ line: 5, assignsOnlyState: true, mountOnly: false }],
+          suppressions: [{ line: 5, ruleIds: ['CORRECT002'] }]
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(0);
   });
 });
 

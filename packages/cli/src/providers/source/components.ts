@@ -24,7 +24,8 @@ export async function collectComponentFacts(rt: Runtime, cwd: string): Promise<C
           propCount: 0,
           imports: [],
           namespaceImports: [],
-          constableStates: []
+          constableStates: [],
+          suppressions: []
         };
       }
     })

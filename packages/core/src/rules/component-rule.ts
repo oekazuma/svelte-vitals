@@ -31,6 +31,11 @@ export interface ComponentRuleOptions {
   bad: (c: ComponentFacts) => ComponentIssue[];
 }
 
+/** Whether `ruleId`'s finding on `line` is silenced by an inline directive on this component. */
+function isSuppressed(c: ComponentFacts, ruleId: string, line: number): boolean {
+  return (c.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
+}
+
 /**
  * Build a component-scoped rule (Correctness/Security) over `ctx.components`. CLI/static
  * only — `ctx.components` is unset in rendered mode, so it emits nothing there. Findings
@@ -50,7 +55,7 @@ export function componentRule(opts: ComponentRuleOptions): Rule {
       const out: Result[] = [];
       for (const c of ctx.components ?? []) {
         if (!opts.applies(c)) continue; // no signal in this file → neither penalize nor seed
-        const bad = opts.bad(c);
+        const bad = opts.bad(c).filter((b) => !(b.line > 0 && isSuppressed(c, opts.id, b.line)));
         if (bad.length === 0) {
           out.push({
             id: opts.id,
