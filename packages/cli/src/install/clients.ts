@@ -45,6 +45,6 @@ export const CLIENTS: ClientWriter[] = [
   }
 ];
 
-export function clientById(id: ClientId): ClientWriter | undefined {
+export function clientById(id: string): ClientWriter | undefined {
   return CLIENTS.find((c) => c.id === id);
 }

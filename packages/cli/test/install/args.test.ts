@@ -44,3 +44,20 @@ describe('resolveInstallArgs', () => {
     expect(r.flags).toEqual({ yes: false, dryRun: false, force: false });
   });
 });
+
+describe('resolveInstallArgs — Vite targets', () => {
+  it('accepts vite-plugin and vite-dev-overlay in --client', () => {
+    const r = resolveInstallArgs(parse(['--client', 'vite-plugin,vite-dev-overlay']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags!.client).toEqual(['vite-plugin', 'vite-dev-overlay']);
+  });
+  it('mixes an MCP client id with a Vite target id', () => {
+    const r = resolveInstallArgs(parse(['--client', 'claude-code,vite-plugin']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags!.client).toEqual(['claude-code', 'vite-plugin']);
+  });
+  it('still rejects a genuinely unknown id', () => {
+    const r = resolveInstallArgs(parse(['--client', 'not-a-real-target']));
+    expect(r.warnings.join('\n')).toContain('not-a-real-target');
+  });
+});
