@@ -21,6 +21,18 @@ export type { HeadTag, ResolvedHead, HeadProvider } from './head.js';
 export type { ImageInfo, ResolvedImages } from './images.js';
 export type { HeadingInfo, ResolvedHeadings } from './headings.js';
 export type { EachBlockFact, EffectFact, SourceSpan, ComponentFacts, SuppressionDirective } from './component.js';
+export { parseComponentFacts } from './component-parse.js';
+export {
+  CHILD_NODE_KEYS,
+  lineOf,
+  findAttr,
+  valueFromNodes,
+  textFromNodes,
+  attrText,
+  attrValue,
+  attrValueOf,
+  attrTextOf
+} from './svelte-ast.js';
 export { ROBOTS_SOURCE_PATHS, SITEMAP_SOURCE_PATHS } from './project-paths.js';
 export type { Runtime } from './runtime.js';
 export type { Rule, RuleContext } from './rule.js';
