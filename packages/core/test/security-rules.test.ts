@@ -34,6 +34,12 @@ describe('SEC001 raw HTML render', () => {
   it('emits nothing for a component without {@html}', async () => {
     expect(await sec001Html.check(ctx([comp({})]))).toHaveLength(0);
   });
+  it('passes when the {@html} finding is suppressed via a template-side directive (issue #92)', async () => {
+    const rs = await sec001Html.check(
+      ctx([comp({ htmlTags: [{ line: 4 }], suppressions: [{ line: 4, ruleIds: ['SEC001'] }] })])
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
   it('emits nothing when the component channel is unset (rendered mode)', async () => {
     expect(await sec001Html.check(base as RuleContext)).toHaveLength(0);
   });
