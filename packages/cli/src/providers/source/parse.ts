@@ -1,6 +1,6 @@
 import { parse } from 'svelte/compiler';
 import type { HeadTag } from '@svelte-vitals/core';
-import type { Value, EachBlockFact, EffectFact, SourceSpan } from '@svelte-vitals/core';
+import type { Value, EachBlockFact, EffectFact, SourceSpan, SuppressionDirective } from '@svelte-vitals/core';
 import { collectImports, type ImportMap } from './imports.js';
 
 /** A head tag parsed from one file, before layout-chain presence is assigned. */
@@ -693,6 +693,7 @@ export function parseComponentFacts(
   imports: string[];
   namespaceImports: { source: string; line: number }[];
   constableStates: { name: string; line: number }[];
+  suppressions: SuppressionDirective[];
 } {
   const ast = parse(source, { modern: true, filename }) as Node;
   const eachBlocks: EachBlockFact[] = [];
@@ -750,5 +751,5 @@ export function parseComponentFacts(
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
     }
   }
-  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports, constableStates };
+  return { eachBlocks, effects, htmlTags, javascriptUrls, loc, propCount, imports, namespaceImports, constableStates, suppressions: [] };
 }

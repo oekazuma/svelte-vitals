@@ -19,7 +19,8 @@ const comp = (imports: string[]): ComponentFacts => ({
   propCount: 0,
   imports,
   namespaceImports: [],
-  constableStates: []
+  constableStates: [],
+  suppressions: []
 });
 
 describe('PERF009 heavy dependency import', () => {

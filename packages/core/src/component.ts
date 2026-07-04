@@ -28,6 +28,14 @@ export interface SourceSpan {
   line: number;
 }
 
+/** An inline `svelte-vitals-disable-next-line` directive found in the component's source (issue #92). */
+export interface SuppressionDirective {
+  /** 1-based line the directive suppresses (the line immediately after the comment). */
+  line: number;
+  /** Rule ids suppressed on that line; undefined = suppress every rule on that line. */
+  ruleIds?: string[];
+}
+
 /** Reactivity/correctness + security + architecture facts parsed from one `.svelte` component. */
 export interface ComponentFacts {
   /** Source file the component came from. */
@@ -48,4 +56,6 @@ export interface ComponentFacts {
   namespaceImports: { source: string; line: number }[];
   /** `$state` declarations never written or escaped anywhere in the component — candidates for const (CORRECT004). */
   constableStates: { name: string; line: number }[];
+  /** Inline `svelte-vitals-disable-next-line` directives found in this file's source — component-rule escape hatch (issue #92). */
+  suppressions: SuppressionDirective[];
 }
