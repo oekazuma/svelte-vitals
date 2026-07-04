@@ -98,7 +98,7 @@ svelte-vitals --ignore PERF001
 
 ### 特定の指摘だけをインラインで抑制する
 
-`--ignore` はプロジェクト全体でルールを無効にしますが、意図的な1箇所だけを黙らせたい場合は、対象行の直前に `svelte-vitals-disable-next-line` コメントを書きます。コンポーネントスコープの全ルール（Correctness、Security、Architecture）に対応: CORRECT001–004、SEC001–002、ARCH001–002、PERF009–010。
+`--ignore` はプロジェクト全体でルールを無効にしますが、意図的な1箇所だけを黙らせたい場合は、対象行の直前に `svelte-vitals-disable-next-line` コメントを書きます。コンポーネントスコープの全ルール（Correctness、Security、Architecture、Performance）に対応: CORRECT001–004、SEC001–002、ARCH001–002、PERF009–010。
 
 ```svelte
 <script>

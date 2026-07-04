@@ -119,7 +119,7 @@ svelte-vitals --ignore PERF001
 
 For one intentional occurrence that `--ignore` would silence project-wide, add a
 `svelte-vitals-disable-next-line` comment on the line directly above it. Works for
-any component-scoped rule (Correctness, Security, Architecture): CORRECT001–004,
+any component-scoped rule (Correctness, Security, Architecture, Performance): CORRECT001–004,
 SEC001–002, ARCH001–002, PERF009–010.
 
 ```svelte
