@@ -1,6 +1,8 @@
 ---
 title: 開発オーバーレイ
 description: ビルドを待たずに開発サーバーでライブの SEO 警告を取得します。
+sidebar:
+  order: 5
 ---
 
 `@svelte-vitals/vite` には SvelteKit の `handle` フック — `svelteVitalsHandle` — が含まれており、**開発サーバー**で配信される各ページの SEO 分析を実行します。アプリをナビゲートするとターミナルに警告が出力されます。ビルドステップは不要です。

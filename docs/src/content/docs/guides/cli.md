@@ -1,6 +1,8 @@
 ---
 title: CLI reference
 description: Complete reference for all svelte-vitals command-line flags.
+sidebar:
+  order: 3
 ---
 
 ## Usage

@@ -1,6 +1,8 @@
 ---
 title: MCP server
 description: Let AI agents run svelte-vitals analysis via the Model Context Protocol.
+sidebar:
+  order: 6
 ---
 
 `@svelte-vitals/mcp` is a [Model Context Protocol](https://modelcontextprotocol.io) server that exposes svelte-vitals as tools an AI agent can call inside its tool loop. The agent receives structured, actionable findings — each with a `fix`, `recommendation`, and `docsUrl` — without needing to spawn a CLI subprocess manually.

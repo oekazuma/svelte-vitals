@@ -1,6 +1,8 @@
 ---
 title: はじめに
 description: svelte-vitals をインストールして、数秒で最初の SEO 監査を実行しましょう。
+sidebar:
+  order: 1
 ---
 
 ## svelte-vitals とは？

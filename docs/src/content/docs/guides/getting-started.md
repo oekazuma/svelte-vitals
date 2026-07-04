@@ -1,6 +1,8 @@
 ---
 title: Getting started
 description: Install svelte-vitals and run your first SEO audit in seconds.
+sidebar:
+  order: 1
 ---
 
 ## What is svelte-vitals?

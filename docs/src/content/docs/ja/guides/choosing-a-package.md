@@ -1,6 +1,8 @@
 ---
 title: パッケージの選び方
 description: svelte-vitals の3つのパッケージをどう使い分け、どう組み合わせるか。
+sidebar:
+  order: 2
 ---
 
 svelte-vitals は `svelte-vitals`(CLI)、`@svelte-vitals/vite`(プラグイン + 開発オーバーレイ)、`@svelte-vitals/mcp`(MCPサーバー)という3つのパッケージで構成されています。いずれも同じルールエンジンとスコアリングを共有していますが、読み取る対象とカバー範囲が異なります。ほとんどのプロジェクトでは複数を組み合わせて使うことになります。
