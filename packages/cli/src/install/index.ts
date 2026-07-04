@@ -212,9 +212,11 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
       io.errorLog(`svelte-vitals: failed to write ${r.path}: ${err instanceof Error ? err.message : String(err)}`);
     }
   }
-  if (hadFailure) return 2;
-
-  // 6. Auto-install @svelte-vitals/vite if a Vite target was actually written.
+  // 6. Auto-install @svelte-vitals/vite if a Vite target was actually written —
+  // run this even if another row failed, so a partial failure elsewhere doesn't
+  // silently strand a freshly-registered vite.config without its dependency
+  // (once written, the codemod reports 'exists' on every later run, so this is
+  // the only chance to install it).
   if (viteWasWritten && io.runCommand && !hasVitePackage(io)) {
     const pm = detectPackageManager(io);
     const { command, args } = installCommand(pm);
@@ -226,6 +228,8 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
       );
     }
   }
+
+  if (hadFailure) return 2;
 
   io.log('');
   if (clients.length > 0) io.log('Restart your client to load the svelte-vitals MCP server.');

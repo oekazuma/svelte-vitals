@@ -224,4 +224,18 @@ export default { plugins: [svelteVitals()] };
     expect(code).toBe(0);
     expect(err.join('\n')).toContain('@svelte-vitals/vite');
   });
+
+  it('a partial failure (an MCP client write fails) still runs the package-manager install for a Vite target that already succeeded', async () => {
+    const runCalls: unknown[] = [];
+    const { io, writes, err } = fakeIO({
+      files: { '/proj/vite.config.ts': `export default { plugins: [] };`, '/proj/package.json': '{}' },
+      failWritePath: '/proj/.mcp.json',
+      runCommand: (...args) => (runCalls.push(args), 0)
+    });
+    const code = await runInstall({ client: ['claude-code', 'vite-plugin'], scope: 'project', yes: true }, io, noPrompts);
+    expect(code).toBe(2);
+    expect(writes['/proj/vite.config.ts']).toContain('svelteVitals()');
+    expect(runCalls.length).toBe(1);
+    expect(err.join('\n')).toContain('/proj/.mcp.json');
+  });
 });
