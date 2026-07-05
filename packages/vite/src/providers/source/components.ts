@@ -1,36 +1,32 @@
-import { readFile } from 'node:fs/promises';
+import { readFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
 import { glob } from 'tinyglobby';
-import { parseComponentFacts, type ComponentFacts } from '@svelte-vitals/core';
+import { collectComponentFacts as collect, type ComponentFacts, type Runtime } from '@svelte-vitals/core';
+
+/**
+ * Node-backed Runtime adapter (design §8). vite always runs in Node, so no
+ * swappable runtime is needed here — this just satisfies the interface the
+ * shared core implementation expects.
+ */
+const nodeRuntime: Runtime = {
+  readFile: (path) => readFile(path, 'utf8'),
+  async exists(path) {
+    try {
+      await access(path);
+      return true;
+    } catch {
+      return false;
+    }
+  },
+  glob: (pattern, cwd) => glob(pattern, { cwd, dot: false }),
+  join: (...parts) => join(...parts)
+};
 
 /**
  * Scan every `.svelte` component under `src/` for Correctness/Security/Architecture/
- * Bundle-Performance facts (build mode only). Mirrors the CLI's `collectComponentFacts`,
- * but implemented directly against `node:fs` + `tinyglobby` instead of the CLI's
- * injectable `Runtime` — vite always runs in Node, so no swappable runtime is needed.
+ * Bundle-Performance facts (build mode only). Implementation lives in
+ * `@svelte-vitals/core` (plans/003) and is shared with the CLI package.
  */
-export async function collectComponentFacts(root: string): Promise<ComponentFacts[]> {
-  const files = await glob('src/**/*.svelte', { cwd: root, dot: false });
-  return Promise.all(
-    files.sort().map(async (rel): Promise<ComponentFacts> => {
-      try {
-        const source = await readFile(join(root, rel), 'utf8');
-        return { file: rel, ...parseComponentFacts(source, rel) };
-      } catch {
-        return {
-          file: rel,
-          eachBlocks: [],
-          effects: [],
-          htmlTags: [],
-          javascriptUrls: [],
-          loc: 0,
-          propCount: 0,
-          imports: [],
-          namespaceImports: [],
-          constableStates: [],
-          suppressions: []
-        };
-      }
-    })
-  );
+export function collectComponentFacts(root: string): Promise<ComponentFacts[]> {
+  return collect(nodeRuntime, root);
 }
