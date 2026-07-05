@@ -13,9 +13,15 @@ function git(args: string[], cwd: string): string[] {
 }
 
 /**
- * Repo-relative POSIX paths changed per the options, or `undefined` when git can't
+ * `cwd`-relative POSIX paths changed per the options, or `undefined` when git can't
  * answer (not a repo, git missing, bad ref). Deleted files are excluded — there is
  * nothing left to analyze. Used to scope `--diff` / `--staged` runs.
+ *
+ * Paths are resolved relative to `cwd` (via `--relative`), matching the basis of
+ * `Result.location` — this matters when the analyzed project lives in a subdirectory
+ * of the git repo (e.g. a monorepo's `apps/web/`), since `git diff --name-only` on
+ * its own reports repo-root-relative paths. `git ls-files --others` is already
+ * `cwd`-relative and scoped to `cwd`, so it needs no such flag.
  *
  * For `--diff`, the working tree is compared against the **merge-base** with `base`
  * (so `--diff main` is "what this branch changed", not files that only moved on
@@ -25,9 +31,9 @@ function git(args: string[], cwd: string): string[] {
 export function getChangedFiles(cwd: string, opts: ChangedFilesOptions): Set<string> | undefined {
   try {
     const files = opts.staged
-      ? git(['diff', '--name-only', '--cached', '--diff-filter=d'], cwd)
+      ? git(['diff', '--name-only', '--relative', '--cached', '--diff-filter=d'], cwd)
       : [
-          ...git(['diff', '--name-only', '--diff-filter=d', '--merge-base', opts.base ?? 'HEAD'], cwd),
+          ...git(['diff', '--name-only', '--relative', '--diff-filter=d', '--merge-base', opts.base ?? 'HEAD'], cwd),
           ...git(['ls-files', '--others', '--exclude-standard'], cwd) // untracked / new files
         ];
     return new Set(files.map((s) => s.trim()).filter(Boolean));
