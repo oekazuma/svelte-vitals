@@ -49,10 +49,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      matrix:
+        node-version: [22, 24]
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Setup Node.js and dependencies
         uses: ./.github/workflows/setup-node
+        with:
+          node-version: ${{ matrix.node-version }}
       - name: Build packages
         run: pnpm build
       - name: Run tests
