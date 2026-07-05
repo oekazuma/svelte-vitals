@@ -1,5 +1,20 @@
 # @svelte-vitals/mcp
 
+## 0.9.0
+
+### Minor Changes
+
+- 19e304c: Add an inline `svelte-vitals-disable-next-line` comment to suppress a specific component-scoped rule's finding on the following line (`// ...` in `<script>`, `<!-- ... -->` in markup) — a targeted escape hatch for intentional patterns a rule can't infer statically, such as a mount-only `$effect` used to avoid a hydration mismatch. Covers CORRECT001–004, SEC001–002, ARCH001–002, and PERF009–010. Fixes #92.
+
+### Patch Changes
+
+- Updated dependencies [19e304c]
+- Updated dependencies [c16e7f9]
+- Updated dependencies [2f94444]
+- Updated dependencies [2f94444]
+  - @svelte-vitals/core@0.19.0
+  - svelte-vitals@0.18.0
+
 ## 0.8.0
 
 ### Minor Changes
@@ -10,11 +25,9 @@
   it never re-runs and should be `onMount`. Reported under `correctness` (warning).
   `EffectFact` gains `mountOnly`.
 - bc6fa86: Add **CORRECT004 (unmutated $state)** — a Correctness/reactivity rule from #69.
-  Flags a `let x = $state(...)` that is never written or escaped anywhere in the
-  component (no reassignment, member/method mutation, bind, call-arg, or
-  component-prop pass), so its reactivity is unused — use `const` (or `$state.raw`
-  if only reassigned wholesale). Reported under `correctness` (info). `ComponentFacts`
-  gains `constableStates`.
+  Flags a `let x = $state(...)`that is never written or escaped anywhere in the
+component (no reassignment, member/method mutation, bind, call-arg, or
+component-prop pass), so its reactivity is unused — use`const`(or`$state.raw`if only reassigned wholesale). Reported under`correctness`(info).`ComponentFacts`gains`constableStates`.
 
 ### Patch Changes
 

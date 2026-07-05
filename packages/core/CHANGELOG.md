@@ -1,5 +1,12 @@
 # @svelte-vitals/core
 
+## 0.19.0
+
+### Minor Changes
+
+- 19e304c: Add an inline `svelte-vitals-disable-next-line` comment to suppress a specific component-scoped rule's finding on the following line (`// ...` in `<script>`, `<!-- ... -->` in markup) — a targeted escape hatch for intentional patterns a rule can't infer statically, such as a mount-only `$effect` used to avoid a hydration mismatch. Covers CORRECT001–004, SEC001–002, ARCH001–002, and PERF009–010. Fixes #92.
+- 2f94444: Export `parseComponentFacts` (and the Svelte-AST utilities it's built on — `attrValue`, `attrValueOf`, `attrTextOf`, `findAttr`, `lineOf`, `CHILD_NODE_KEYS`, `valueFromNodes`, `textFromNodes`, `attrText`) from the package root. This is the same `.svelte`-source parser the CLI has always used for Correctness/Security/Architecture/Bundle-Performance rules, relocated from `svelte-vitals` so `@svelte-vitals/vite` can use it too. `@svelte-vitals/core` gains a new `svelte` dependency (for `svelte/compiler`'s `parse`) — a pure parsing call, so this doesn't affect the package's runtime-agnostic status.
+
 ## 0.18.0
 
 ### Minor Changes
@@ -16,11 +23,9 @@
   it never re-runs and should be `onMount`. Reported under `correctness` (warning).
   `EffectFact` gains `mountOnly`.
 - bc6fa86: Add **CORRECT004 (unmutated $state)** — a Correctness/reactivity rule from #69.
-  Flags a `let x = $state(...)` that is never written or escaped anywhere in the
-  component (no reassignment, member/method mutation, bind, call-arg, or
-  component-prop pass), so its reactivity is unused — use `const` (or `$state.raw`
-  if only reassigned wholesale). Reported under `correctness` (info). `ComponentFacts`
-  gains `constableStates`.
+  Flags a `let x = $state(...)`that is never written or escaped anywhere in the
+component (no reassignment, member/method mutation, bind, call-arg, or
+component-prop pass), so its reactivity is unused — use`const`(or`$state.raw`if only reassigned wholesale). Reported under`correctness`(info).`ComponentFacts`gains`constableStates`.
 
 ## 0.17.0
 

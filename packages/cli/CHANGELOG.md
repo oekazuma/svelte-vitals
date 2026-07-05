@@ -1,5 +1,19 @@
 # svelte-vitals
 
+## 0.18.0
+
+### Minor Changes
+
+- 19e304c: Add an inline `svelte-vitals-disable-next-line` comment to suppress a specific component-scoped rule's finding on the following line (`// ...` in `<script>`, `<!-- ... -->` in markup) — a targeted escape hatch for intentional patterns a rule can't infer statically, such as a mount-only `$effect` used to avoid a hydration mismatch. Covers CORRECT001–004, SEC001–002, ARCH001–002, and PERF009–010. Fixes #92.
+- c16e7f9: `npx svelte-vitals install` can now also set up `@svelte-vitals/vite`: `--client vite-plugin` registers the build-mode plugin in `vite.config.{ts,js,mjs}`, and `--client vite-dev-overlay` wires the dev-overlay hook into `src/hooks.server.{ts,js}`. Both use a `magicast` codemod that only edits a file whose shape it confidently recognizes — anything else is left untouched and a snippet is printed instead. When either target is written and `@svelte-vitals/vite` isn't already a dependency, it's installed automatically via the detected package manager. `--force` does not apply to these two targets — an existing registration is always left as-is.
+
+### Patch Changes
+
+- 2f94444: Internal refactor: component-facts source parsing (`parseComponentFacts` and its shared AST utilities) moved to `@svelte-vitals/core` so `@svelte-vitals/vite` can reuse it. No user-facing behavior change.
+- Updated dependencies [19e304c]
+- Updated dependencies [2f94444]
+  - @svelte-vitals/core@0.19.0
+
 ## 0.17.0
 
 ### Minor Changes
@@ -21,11 +35,9 @@
   it never re-runs and should be `onMount`. Reported under `correctness` (warning).
   `EffectFact` gains `mountOnly`.
 - bc6fa86: Add **CORRECT004 (unmutated $state)** — a Correctness/reactivity rule from #69.
-  Flags a `let x = $state(...)` that is never written or escaped anywhere in the
-  component (no reassignment, member/method mutation, bind, call-arg, or
-  component-prop pass), so its reactivity is unused — use `const` (or `$state.raw`
-  if only reassigned wholesale). Reported under `correctness` (info). `ComponentFacts`
-  gains `constableStates`.
+  Flags a `let x = $state(...)`that is never written or escaped anywhere in the
+component (no reassignment, member/method mutation, bind, call-arg, or
+component-prop pass), so its reactivity is unused — use`const`(or`$state.raw`if only reassigned wholesale). Reported under`correctness`(info).`ComponentFacts`gains`constableStates`.
 
 ### Patch Changes
 
