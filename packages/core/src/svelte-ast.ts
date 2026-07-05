@@ -58,6 +58,7 @@ export function attrText(attributes: Node[], name: string): string | undefined {
   const v = attr.value;
   if (v === true) return '';
   if (Array.isArray(v)) {
+    if (v.some((n: Node) => n?.type === 'ExpressionTag')) return undefined;
     return v
       .filter((n: Node) => n?.type === 'Text')
       .map((n: Node) => String(n.data ?? ''))

@@ -64,6 +64,16 @@ describe('attrText', () => {
     const attrs = [{ type: 'Attribute', name: 'name', value: { type: 'ExpressionTag' } }];
     expect(attrText(attrs, 'name')).toBeUndefined();
   });
+  it('returns undefined for a mixed static/dynamic attribute (e.g. href="prefix{expr}")', () => {
+    const attrs = [
+      {
+        type: 'Attribute',
+        name: 'href',
+        value: [{ type: 'Text', data: 'prefix' }, { type: 'ExpressionTag' }]
+      }
+    ];
+    expect(attrText(attrs, 'href')).toBeUndefined();
+  });
   it('returns undefined when the attribute is absent', () => {
     expect(attrText([], 'name')).toBeUndefined();
   });

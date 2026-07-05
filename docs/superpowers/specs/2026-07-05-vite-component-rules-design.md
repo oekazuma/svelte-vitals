@@ -198,10 +198,10 @@ exist, since it doesn't touch `prerenderPagesDir` — so it runs even in the
 
 Extend the `coverageNote` with a second line:
 
-```
+```ts
 `Analyzed ${heads.length} prerendered route(s). ` +
-'SSR/dynamic routes are not covered — run `npx svelte-vitals` for those.\n' +
-`Scanned ${components.length} component(s) under src/ for Correctness/Security/Architecture/Bundle findings.`
+  'SSR/dynamic routes are not covered — run `npx svelte-vitals` for those.\n' +
+  `Scanned ${components.length} component(s) under src/ for Correctness/Security/Architecture/Bundle findings.`;
 ```
 
 No change to `packages/vite/src/plugin.ts` — `closeBundle`'s existing call to
