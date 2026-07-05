@@ -1,0 +1,56 @@
+# AGENTS.md
+
+Repository conventions for AI agent sessions. Read this before exploring the codebase — it exists so you don't have to rediscover (or guess) these facts every session.
+
+## What this is
+
+svelte-vitals is a static code-health checker for SvelteKit — not a runtime Web Vitals reporter. It statically analyzes source code (resolved `<head>` metadata and component bodies) across five categories: SEO, Performance, Correctness, Security, Architecture. The project is pre-1.0 (all packages are on `0.x` versions).
+
+## Verify commands
+
+| Purpose        | Command              | Notes                                 |
+| -------------- | -------------------- | ------------------------------------- |
+| Build          | `pnpm build`         | `pnpm -r build`                       |
+| Typecheck      | `pnpm typecheck`     | `pnpm -r typecheck`                   |
+| Test           | `pnpm test`          | `pnpm -r test` (vitest)               |
+| Lint           | `pnpm lint`          | `prettier --check .` + `eslint .`     |
+| Format         | `pnpm format`        | `prettier --write .`                  |
+| Publish checks | `pnpm check:publish` | publint + attw (`--profile esm-only`) |
+
+CI (`.github/workflows/ci.yml`) runs four jobs: `lint`, `check` (build + typecheck + check:publish), `test`, `docs`. Run the relevant verify commands yourself and confirm they pass **before** claiming a task is complete.
+
+## Package map
+
+- `packages/core` — runtime-agnostic rule engine, scorer, and reporter (types + logic only).
+- `packages/cli` — the `svelte-vitals` CLI.
+- `packages/vite` — Vite/SvelteKit plugin + dev overlay; analyzes prerendered HTML during `vite build`.
+- `packages/mcp` — Model Context Protocol server exposing svelte-vitals to agent tool loops.
+- `docs` — Astro Starlight docs site, English + Japanese (`docs/src/content/docs/` and `docs/src/content/docs/ja/`).
+
+## Hard rules
+
+- **Core purity**: `packages/core/src/index.ts` states verbatim: "runtime-agnostic core (design §8). No `node:` imports, no I/O, no runtime-specific globals." All I/O is injected through the `Runtime` interface (`packages/core/src/runtime.ts`). Never add a `node:` import or direct I/O call inside `packages/core`.
+- **Dependencies via catalog**: root `package.json` devDependencies are all pinned as `catalog:`; actual versions live in `pnpm-workspace.yaml`. Add/bump shared devDependencies there, not as literal versions in a package's `package.json`.
+- **Changesets required**: any user-facing change needs `pnpm changeset`. Merging to `main` opens a release PR (Changesets bot). Internal-only / doc-only changes don't need one.
+- **en/ja docs stay in sync**: `docs/src/content/docs/` (English) and `docs/src/content/docs/ja/` (Japanese) are updated together by convention — don't ship an English-only doc change if the Japanese equivalent exists.
+
+## Conventions
+
+- **Conventional commits**, scoped by package, e.g.:
+  - `fix(cli): make --diff/--staged work when the project is not at the git repo root`
+  - `test(cli): pin behavior for malformed .svelte files in both passes`
+  - Other prefixes in use: `feat(vite):`, `docs:`, `chore:`.
+- **Adding a rule**: create `packages/core/src/rules/<category>/xxxNNN-slug.ts`, then register it in `packages/core/src/rules/index.ts` in all three places: the import, the `allRules` array, and the re-export block. Note: for historical reasons performance rules are split across `rules/perf/` (PERF001–008) and `rules/performance/` (PERF009–010) — check both when looking for an existing PERF rule.
+- **Tests**: vitest, per-package `test/` directories; fixtures live under `test/fixtures/`.
+
+## Design docs
+
+`docs/superpowers/specs/` holds design docs, `docs/superpowers/plans/` holds implementation plans, both accumulated with date-prefixed filenames. Before assuming a tradeoff is undecided or reintroducing something that was deliberately removed, check here first — e.g. the a11y category was designed (`2026-06-22-a11y-v0.5-design.md`) and later removed (`docs/superpowers/specs/2026-06-23-remove-a11y-design.md`, `docs/superpowers/plans/2026-06-23-remove-a11y.md`).
+
+## Exit codes
+
+The CLI's contract (`packages/cli/src/bin.ts`):
+
+- `0` — no failing findings
+- `1` — critical finding present (or `--fail-on`/`--min-health` threshold reached)
+- `2` — execution error (not a SvelteKit project / internal error)
