@@ -20,6 +20,10 @@ runs:
       run: |
         if [ -n "${{ inputs.node-version }}" ]; then
           echo "node-version=${{ inputs.node-version }}" >> "$GITHUB_OUTPUT"
+          # devEngines.runtime (onFail: download) makes pnpm run scripts under ITS version
+          # regardless of the runner's node — rewrite it so the matrix actually tests this version.
+          jq --arg v "${{ inputs.node-version }}" '.devEngines.runtime.version = $v' package.json > package.json.tmp
+          mv package.json.tmp package.json
           exit 0
         fi
         NODE_VERSION=$(jq -r '.devEngines.runtime.version' package.json)

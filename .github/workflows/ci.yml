@@ -51,7 +51,9 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        node-version: [22, 24]
+        # Concrete semver values: setup-node rewrites devEngines.runtime.version to this,
+        # so pnpm's managed runtime (onFail: download) actually runs scripts under it.
+        node-version: ['22.12.0', '24.16.0']
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Setup Node.js and dependencies
