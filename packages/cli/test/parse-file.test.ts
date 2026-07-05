@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { parseFile, attrValueOf } from '../src/providers/source/parse.js';
+import { parseFile } from '../src/providers/source/parse.js';
+import { attrValueOf } from '@svelte-vitals/core';
 
 describe('parseFile', () => {
   it('returns head tags, component usages, and imports', () => {

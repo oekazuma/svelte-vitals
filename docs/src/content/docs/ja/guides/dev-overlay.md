@@ -81,3 +81,5 @@ export default {
 ライブ更新はループバックオリジン（`localhost`・`127.0.0.1`・`[::1]`）でのみ流れます。`vite dev --host` で LAN の IP からアプリを開いた場合、ハンドルは ingest の POST をスキップする（`Host` ヘッダー偽装への防御）ため、ダッシュボードは空のままになります。その場合は `localhost` から開いてください。`SVELTE_VITALS_DEBUG=true` を設定すると、ingest がスキップされた際にログが出力されます。
 
 オーバーレイと同様、これは dev 専用かつレンダリングベースで、訪問したルートの SEO `<head>` ルールを対象とします。プロジェクト全体のレポート（全ルート・パフォーマンス・サイト全体のチェック）が必要な場合は `npx svelte-vitals` または `npx svelte-vitals --reporter html` を実行してください。
+
+コンポーネントスコープのルール（Correctness・Security・Architecture、および2つのコンポーネントスコープの Performance ルール）はビルドモードのみの対応です（[プラグインモード](/svelte-vitals/ja/guides/plugin-mode/) を参照） — リクエスト単位のレンダリング済みビューにはプロジェクト全体を横断するソーススキャンが存在しないため、開発オーバーレイには表示されません。

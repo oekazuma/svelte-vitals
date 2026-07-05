@@ -5,7 +5,7 @@ sidebar:
   order: 4
 ---
 
-`@svelte-vitals/vite` is a Vite / SvelteKit plugin that piggybacks on `vite build`, parses the **prerendered HTML's `<head>`**, and runs the same SEO and Performance rules as the CLI. Because it inspects the real HTML output, it is library-agnostic. The build fails when findings reach the `failOn` threshold.
+`@svelte-vitals/vite` is a Vite / SvelteKit plugin that piggybacks on `vite build`, parses the **prerendered HTML's `<head>`**, and runs the same SEO and Performance rules as the CLI. Because it inspects the real HTML output, it is library-agnostic. Build mode additionally scans your `.svelte` source directly under `src/` for Correctness, Security, Architecture, and the two component-scoped Performance rules (PERF009/PERF010 — heavy/namespace imports) — the same component-scoped rules the CLI runs, enabled by default. The build fails when findings reach the `failOn` threshold.
 
 > **ESM-only** (Node 18+). Ships ES modules only; `require()` is unsupported by design.
 

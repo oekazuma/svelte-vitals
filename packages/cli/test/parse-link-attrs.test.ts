@@ -24,4 +24,10 @@ describe('parse: link as/crossorigin (static)', () => {
     expect(link.as).toBeUndefined();
     expect(link.hasCrossorigin).toBeUndefined();
   });
+  it('treats a mixed static/dynamic href="/base/{slug}" as non-literal, not a truncated prefix', () => {
+    const tags = parseHeadTags(head('<link rel="preload" href="/base/{slug}" as="font" />'), 'x.svelte');
+    const link = tags.find((t) => t.kind === 'link' && t.rel === 'preload')!;
+    expect(link.value).toBe('dynamic');
+    expect(link.href).toBeUndefined(); // not "/base/" — PERF008 origin analysis must skip this, not misread it
+  });
 });

@@ -19,20 +19,20 @@ svelte-vitals ships as three packages — `svelte-vitals` (CLI), `@svelte-vitals
 
 ## Comparison
 
-|                | CLI (`svelte-vitals`)                                         | Vite plugin — build mode | Vite plugin — dev overlay         | MCP server                       |
-| -------------- | ------------------------------------------------------------- | ------------------------ | --------------------------------- | -------------------------------- |
-| Reads          | Source (`.svelte` files, layout chain)                        | Prerendered HTML output  | Rendered HTML, per dev request    | Source (same engine as the CLI)  |
-| Categories     | All 5 — SEO, Performance, Correctness, Security, Architecture | SEO, Performance         | SEO, Performance                  | All 5                            |
-| Routes covered | Every route — SSR, dynamic, prerendered                       | Prerendered routes only  | Only routes you've visited in dev | Every route                      |
-| Runs           | On demand — terminal, CI, pre-commit                          | Every `vite build`       | Live, while `vite dev` runs       | On demand — an agent's tool call |
-| Needs a build  | No                                                            | Yes                      | No                                | No                               |
-| Typical home   | CI, pre-commit hooks, one-off audits                          | Build pipeline gate      | Local dev feedback                | An AI agent's tool loop          |
+|                | CLI (`svelte-vitals`)                                         | Vite plugin — build mode                                      | Vite plugin — dev overlay         | MCP server                       |
+| -------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | --------------------------------- | -------------------------------- |
+| Reads          | Source (`.svelte` files, layout chain)                        | Prerendered HTML output + `.svelte` source (component rules)  | Rendered HTML, per dev request    | Source (same engine as the CLI)  |
+| Categories     | All 5 — SEO, Performance, Correctness, Security, Architecture | All 5 — SEO, Performance, Correctness, Security, Architecture | SEO, Performance                  | All 5                            |
+| Routes covered | Every route — SSR, dynamic, prerendered                       | Prerendered routes only                                       | Only routes you've visited in dev | Every route                      |
+| Runs           | On demand — terminal, CI, pre-commit                          | Every `vite build`                                            | Live, while `vite dev` runs       | On demand — an agent's tool call |
+| Needs a build  | No                                                            | Yes                                                           | No                                | No                               |
+| Typical home   | CI, pre-commit hooks, one-off audits                          | Build pipeline gate                                           | Local dev feedback                | An AI agent's tool loop          |
 
-### Why the coverage differs
+### Why build-mode coverage is close to the CLI's
 
-Correctness, Security, and Architecture rules read component **source** — `$effect` bodies, `{@html}` calls, prop counts — which only exists before compilation. Only the two paths that read source directly (the CLI and MCP, which runs the CLI's own analysis engine) can run them.
+Correctness, Security, and Architecture rules read component **source** — `$effect` bodies, `{@html}` calls, prop counts — which only exists before compilation. The CLI, MCP (which runs the CLI's own analysis engine), and the Vite plugin's **build mode** all read this source directly, so all three run the full 5-category rule set.
 
-The Vite plugin, in both its build and dev-overlay forms, inspects **HTML** instead — the prerendered output or the rendered response. That makes it SEO/Performance-only, but also library-agnostic and exact for the pages it covers: whatever produced the `<head>`, if it's missing from the shipped HTML, the plugin sees it. It's the only path that inspects what a browser actually receives.
+The dev overlay is the one path that inspects **rendered HTML only** (the response for each route you visit, with no whole-project source scan), which keeps it SEO/Performance-only, but library-agnostic and exact for the pages it covers: whatever produced the `<head>`, if it's missing from the shipped HTML, the overlay sees it. Build mode reads rendered HTML too (for the same exact-verification reason), _in addition to_ the source scan — it's the only path that gets both.
 
 ## The packages
 
@@ -42,7 +42,7 @@ The Vite plugin, in both its build and dev-overlay forms, inspects **HTML** inst
 
 ### Vite plugin — exact, build-time verification
 
-`@svelte-vitals/vite`'s build mode runs during `vite build` and parses the **actual prerendered HTML**, so it can't be fooled by a component the source scanner doesn't recognize — if the tag isn't in the shipped output, it fails. The trade-off is scope: only prerendered routes, and only the head/DOM-based SEO and Performance rules. See [Plugin mode](/svelte-vitals/guides/plugin-mode/).
+`@svelte-vitals/vite`'s build mode runs during `vite build` and parses the **actual prerendered HTML** for SEO/Performance, so it can't be fooled by a component the source scanner doesn't recognize — if the tag isn't in the shipped output, it fails. It also scans `.svelte` source directly for Correctness, Security, Architecture, and the two component-scoped Performance rules, the same as the CLI. The remaining trade-off is route scope: only prerendered routes get the HTML-based SEO/Performance verification (component-scoped rules apply project-wide). See [Plugin mode](/svelte-vitals/guides/plugin-mode/).
 
 The same package also adds a **dev overlay** — live warnings in the terminal (and an optional dashboard at `/__svelte-vitals/`) as you navigate `vite dev`, with zero build step. It's feedback, not a gate: nothing here fails a build or a CI run. See [Dev overlay](/svelte-vitals/guides/dev-overlay/).
 

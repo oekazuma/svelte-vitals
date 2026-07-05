@@ -1,5 +1,4 @@
-import type { ComponentFacts, Runtime } from '@svelte-vitals/core';
-import { parseComponentFacts } from './parse.js';
+import { parseComponentFacts, type ComponentFacts, type Runtime } from '@svelte-vitals/core';
 
 /**
  * Scan every `.svelte` component under `src/` for Correctness facts (#correctness).

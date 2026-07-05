@@ -16,6 +16,7 @@ import {
 import type { SvelteVitalsOptions } from './plugin.js';
 import { collectRenderedHeads } from './providers/rendered/collect.js';
 import { collectRenderedProject } from './providers/rendered/project.js';
+import { collectComponentFacts } from './providers/source/components.js';
 import { readPackageVersion } from './version.js';
 
 export interface AnalyzeResult {
@@ -29,7 +30,7 @@ export interface AnalyzeResult {
   failOn: Severity;
 }
 
-/** Collect prerendered heads + project facts, run the core pipeline, and format reports. */
+/** Collect prerendered heads + project facts + component facts, run the core pipeline, and format reports. */
 export async function analyze(
   prerenderPagesDir: string,
   cwd: string,
@@ -44,8 +45,9 @@ export async function analyze(
 
   const { heads, headings, images, htmlLang } = await collectRenderedHeads(prerenderPagesDir);
   const project = await collectRenderedProject(cwd, htmlLang);
+  const components = await collectComponentFacts(cwd);
   const results = applyRuleSeverities(
-    await runRules(selectRules(allRules, config), { heads, headings, images, project, config }),
+    await runRules(selectRules(allRules, config), { heads, headings, images, project, components, config }),
     config
   );
 
@@ -55,7 +57,8 @@ export async function analyze(
 
   const coverageNote =
     `Analyzed ${heads.length} prerendered route(s). ` +
-    'SSR/dynamic routes are not covered — run `npx svelte-vitals` for those.';
+    'SSR/dynamic routes are not covered — run `npx svelte-vitals` for those.\n' +
+    `Scanned ${components.length} component(s) under src/ for Correctness/Security/Architecture/Bundle findings.`;
   const consoleReport =
     formatConsoleReport(results, config, { mode: 'rendered / plugin' }) + '\n' + coverageNote + '\n';
   const jsonReport = formatJsonReport(results, config, { version: readPackageVersion() });

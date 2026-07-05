@@ -20,6 +20,9 @@ describe('analyze', () => {
       join(pages, 'bad.html'),
       `<html lang="en"><head><meta charset="utf-8"/></head><body></body></html>`
     );
+    // a component with an unkeyed {#each} (CORRECT001), for the component-scope wiring test
+    await mkdir(join(cwd, 'src/lib'), { recursive: true });
+    await writeFile(join(cwd, 'src/lib/List.svelte'), '{#each items as item}<li>{item}</li>{/each}');
   });
   afterAll(async () => rm(cwd, { recursive: true, force: true }));
 
@@ -42,5 +45,15 @@ describe('analyze', () => {
   it('fails when findings meet failOn', async () => {
     const r = await analyze(pages, cwd, { report: false, failOn: 'critical' });
     expect(r.failed).toBe(true);
+  });
+
+  it('also runs component-scoped rules against .svelte source under src/', async () => {
+    const r = await analyze(pages, cwd, { report: false });
+    expect(
+      r.results.some(
+        (x) => x.id === 'CORRECT001' && x.location === 'src/lib/List.svelte' && x.detection.presence === 'none'
+      )
+    ).toBe(true);
+    expect(r.consoleReport).toContain('Scanned 1 component(s) under src/');
   });
 });
