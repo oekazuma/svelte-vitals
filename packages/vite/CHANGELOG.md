@@ -1,5 +1,17 @@
 # @svelte-vitals/vite
 
+## 0.10.0
+
+### Minor Changes
+
+- 2f94444: Build mode now additionally scans `.svelte` source under `src/` and runs Correctness, Security, Architecture, and the two component-scoped Performance rules (PERF009/PERF010) — the same rules the CLI and MCP already run — enabled by default alongside the existing rendered-HTML SEO/Performance checks. The dev overlay is unchanged (still SEO/Performance-only, rendered-HTML-based). Use the existing `rules` option to opt individual rules out, e.g. `{ CORRECT002: 'off' }`.
+
+### Patch Changes
+
+- Updated dependencies [19e304c]
+- Updated dependencies [2f94444]
+  - @svelte-vitals/core@0.19.0
+
 ## 0.9.2
 
 ### Patch Changes
