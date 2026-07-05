@@ -25,5 +25,46 @@ export default ts.config(
         ...globals.node
       }
     }
+  },
+  // @svelte-vitals/core is runtime-agnostic by contract (design §8, see packages/core/src/index.ts):
+  // no node: imports, no I/O, no runtime-specific globals. Enforce it here so a violation
+  // fails `pnpm lint` / CI instead of relying on review. I/O is injected via the Runtime interface.
+  {
+    files: ['packages/core/src/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: [
+                'node:*',
+                'fs',
+                'fs/*',
+                'path',
+                'os',
+                'url',
+                'child_process',
+                'http',
+                'https',
+                'crypto',
+                'util',
+                'stream',
+                'events'
+              ],
+              message:
+                '@svelte-vitals/core is runtime-agnostic (design §8): no Node builtins here — inject I/O through the Runtime interface (src/runtime.ts).'
+            }
+          ]
+        }
+      ],
+      'no-restricted-globals': [
+        'error',
+        { name: 'process', message: 'core is runtime-agnostic (design §8): no runtime-specific globals.' },
+        { name: '__dirname', message: 'core is runtime-agnostic (design §8): no runtime-specific globals.' },
+        { name: '__filename', message: 'core is runtime-agnostic (design §8): no runtime-specific globals.' },
+        { name: 'Buffer', message: 'core is runtime-agnostic (design §8): no runtime-specific globals.' }
+      ]
+    }
   }
 );
