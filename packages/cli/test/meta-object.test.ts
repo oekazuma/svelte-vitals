@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect } from 'vitest';
 import { parse } from 'svelte/compiler';
 import {
@@ -7,9 +8,8 @@ import {
   TWITTER_KEYS
 } from '../src/providers/source/adapters/meta-object.js';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// The Svelte AST is only partially typed for our needs, so this test helper traverses with `any`.
 function attrOf(tag: string, name: string): any {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const ast = parse(`<script></script>${tag}`, { modern: true, filename: 'x.svelte' }) as any;
   const component = ast.fragment.nodes.find((n: any) => n.type === 'Component');
   return component.attributes.find((a: any) => a.type === 'Attribute' && a.name === name);

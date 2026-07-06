@@ -1,5 +1,5 @@
 import type { ImportInfo } from '../imports.js';
-import type { ComponentUse, ParsedTag } from '../parse.js';
+import type { ParsedTag } from '../parse.js';
 import type { Adapter, AdapterResult } from './types.js';
 
 /**
@@ -14,7 +14,7 @@ export const svelteMetaTagsJsonLdAdapter: Adapter = {
     return false;
   },
 
-  resolve(_use: ComponentUse): AdapterResult {
+  resolve(): AdapterResult {
     const tags: ParsedTag[] = [{ kind: 'jsonld', value: 'dynamic' }];
     return { tags, broad: false };
   }
