@@ -14,8 +14,13 @@ export const BROAD_KINDS: ParsedTag[] = [
   { kind: 'meta', name: 'description', value: 'dynamic' },
   { kind: 'link', rel: 'canonical', value: 'dynamic' },
   { kind: 'meta', property: 'og:title', value: 'dynamic' },
+  { kind: 'meta', property: 'og:description', value: 'dynamic' },
   { kind: 'meta', property: 'og:image', value: 'dynamic' },
+  { kind: 'meta', property: 'og:url', value: 'dynamic' },
+  { kind: 'meta', name: 'twitter:card', value: 'dynamic' },
   { kind: 'meta', name: 'robots', value: 'dynamic' }
+  // jsonld is intentionally omitted: structured data is a distinct concern, not a
+  // meta-tag family a broad meta source implies (JsonLd has its own adapter).
 ];
 
 /** Stable identity for a tag (matches routes.ts keyOf). */
