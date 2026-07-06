@@ -9,6 +9,10 @@ sidebar:
 
 svelte-vitals is a SvelteKit SEO and Performance checker that works entirely from source code — no running site, no browser, no build server required. It resolves every route's effective `<head>` by walking the layout chain and parsing `<svelte:head>` blocks, then scores each route and the site as a whole.
 
+## Prerequisites
+
+Node.js 22.12 or later is required.
+
 ## Installation
 
 No install needed for a one-off run:
