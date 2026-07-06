@@ -49,10 +49,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    strategy:
+      matrix:
+        # setup-node rewrites devEngines.runtime.version to this,
+        # so pnpm's managed runtime (onFail: download) actually runs scripts under it.
+        # 22.13.0 is the declared engines.node floor (the minimum the pinned pnpm@11.9.0
+        # can run on; Node 22 is maintenance LTS until 2027-04);
+        # 24.16.0 is the current release used for development (devEngines);
+        # '26' is the latest of the Current line (active LTS from 2026-10) — early warning.
+        node-version: ['22.13.0', '24.16.0', '26']
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
       - name: Setup Node.js and dependencies
         uses: ./.github/workflows/setup-node
+        with:
+          node-version: ${{ matrix.node-version }}
       - name: Build packages
         run: pnpm build
       - name: Run tests

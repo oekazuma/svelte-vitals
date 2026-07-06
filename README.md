@@ -50,6 +50,8 @@ Every category is scored independently and rolled into a single weighted **Healt
 
 ## Usage
 
+Requires **Node.js 22.13+**.
+
 Run it inside any SvelteKit project:
 
 ```bash

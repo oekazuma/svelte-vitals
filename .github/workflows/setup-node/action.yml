@@ -6,6 +6,10 @@ inputs:
     description: 'Optional npm registry URL for publishing'
     required: false
     default: ''
+  node-version:
+    description: 'Optional Node.js version override (defaults to devEngines.runtime.version)'
+    required: false
+    default: ''
 
 runs:
   using: 'composite'
@@ -13,7 +17,13 @@ runs:
     - name: Get Node.js version from package.json
       id: get-node-version
       shell: bash
+      env:
+        NODE_VERSION_OVERRIDE: ${{ inputs.node-version }}
       run: |
+        if [ -n "$NODE_VERSION_OVERRIDE" ]; then
+          echo "node-version=$NODE_VERSION_OVERRIDE" >> "$GITHUB_OUTPUT"
+          exit 0
+        fi
         NODE_VERSION=$(jq -r '.devEngines.runtime.version' package.json)
         if [ -z "$NODE_VERSION" ] || [ "$NODE_VERSION" = "null" ]; then
           echo "::error::Could not extract devEngines.runtime.version from package.json"
@@ -34,3 +44,24 @@ runs:
     - name: Install dependencies
       shell: bash
       run: pnpm install --frozen-lockfile
+
+    - name: Point devEngines at the matrix Node version
+      if: inputs.node-version != ''
+      shell: bash
+      env:
+        NODE_VERSION_OVERRIDE: ${{ inputs.node-version }}
+      run: |
+        # devEngines.runtime (onFail: download) makes pnpm run scripts under ITS version
+        # regardless of the runner's node — rewrite it so the matrix actually tests this version.
+        # Must run AFTER `pnpm install --frozen-lockfile`: pnpm records the runtime in
+        # pnpm-lock.yaml, so rewriting the manifest first fails the frozen-lockfile check.
+        jq --arg v "$NODE_VERSION_OVERRIDE" '.devEngines.runtime.version = $v' package.json > package.json.tmp
+        mv package.json.tmp package.json
+        # pnpm manages the devEngines runtime as a lockfile-recorded dependency: the first
+        # `pnpm run` after this rewrite auto-installs to fetch the new runtime, and CI's
+        # frozen-lockfile default would kill that install (the manifest no longer matches the
+        # lockfile's recorded runtime). Deps were already installed and frozen-verified above,
+        # so let that runtime-fetch install run unfrozen for the rest of this job.
+        # NB: this must live in pnpm-workspace.yaml — pnpm 11's internally spawned install
+        # ignores npm_config_* env overrides and .npmrc for this setting.
+        printf '\nfrozenLockfile: false\n' >> pnpm-workspace.yaml
