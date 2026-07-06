@@ -11,7 +11,7 @@ svelte-vitals is a SvelteKit SEO and Performance checker that works entirely fro
 
 ## Prerequisites
 
-Node.js 22.12 or later is required.
+Node.js 22.13 or later is required.
 
 ## Installation
 
