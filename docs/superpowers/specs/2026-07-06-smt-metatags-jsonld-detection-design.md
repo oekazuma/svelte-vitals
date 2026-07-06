@@ -30,7 +30,7 @@ static モードには 4 層の head 検出がある（`packages/cli/src/provide
 
 `MetaTags` に `openGraph`（オブジェクト prop）を渡すと adapter が `broad: true` を返し（`adapters/svelte-meta-tags.ts:52`）、`routes.ts:170` がこの broad ソースに対して `BROAD_KINDS` の 6 種類だけを `dynamic` タグとして補完する。
 
-```
+```text
 title / description / canonical / og:title / og:image / robots
 ```
 
