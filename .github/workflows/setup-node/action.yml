@@ -20,10 +20,6 @@ runs:
       run: |
         if [ -n "${{ inputs.node-version }}" ]; then
           echo "node-version=${{ inputs.node-version }}" >> "$GITHUB_OUTPUT"
-          # devEngines.runtime (onFail: download) makes pnpm run scripts under ITS version
-          # regardless of the runner's node — rewrite it so the matrix actually tests this version.
-          jq --arg v "${{ inputs.node-version }}" '.devEngines.runtime.version = $v' package.json > package.json.tmp
-          mv package.json.tmp package.json
           exit 0
         fi
         NODE_VERSION=$(jq -r '.devEngines.runtime.version' package.json)
@@ -46,3 +42,14 @@ runs:
     - name: Install dependencies
       shell: bash
       run: pnpm install --frozen-lockfile
+
+    - name: Point devEngines at the matrix Node version
+      if: inputs.node-version != ''
+      shell: bash
+      run: |
+        # devEngines.runtime (onFail: download) makes pnpm run scripts under ITS version
+        # regardless of the runner's node — rewrite it so the matrix actually tests this version.
+        # Must run AFTER `pnpm install --frozen-lockfile`: pnpm records the runtime in
+        # pnpm-lock.yaml, so rewriting the manifest first fails the frozen-lockfile check.
+        jq --arg v "${{ inputs.node-version }}" '.devEngines.runtime.version = $v' package.json > package.json.tmp
+        mv package.json.tmp package.json
