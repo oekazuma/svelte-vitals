@@ -28,10 +28,12 @@ Issue: https://github.com/oekazuma/svelte-vitals/issues/91
 `openGraph` / `twitter` のインラインオブジェクトリテラルからキーを列挙し、対応する head タグを emit するヘルパーを新設する。両 adapter がこれを共有する。
 
 **Files:**
+
 - Create: `packages/cli/src/providers/source/adapters/meta-object.ts`
 - Test: `packages/cli/test/meta-object.test.ts`
 
 **Interfaces:**
+
 - Consumes: `ParsedTag`（`../parse.js`）, `Value`（`@svelte-vitals/core`）
 - Produces:
   - `exprValue(node: Node): Value` — ESTree 式ノードの値種別（文字列リテラル非空→`'static'`、他リテラル→`'static'`、`Identifier`/`Member`/`Array`/`Object` 等→`'dynamic'`、null→`'absent'`）
@@ -224,40 +226,42 @@ git commit -m "feat(cli): add shared openGraph/twitter object-literal introspect
 `MetaTags` の `openGraph` / `twitter` をヘルパーで解析し、`broad` を精密化する。
 
 **Files:**
+
 - Modify: `packages/cli/src/providers/source/adapters/svelte-meta-tags.ts:50-55`
 - Test: `packages/cli/test/adapters-smt.test.ts`（ケース追加）
 
 **Interfaces:**
+
 - Consumes: `resolveMetaObject`, `OPEN_GRAPH_KEYS`, `TWITTER_KEYS`（Task 1）
-- Produces: 変更後の `svelteMetaTagsAdapter.resolve` は openGraph/twitter リテラルから og:*/twitter:card タグを含み、`broad = hasSpread || openGraph opaque || twitter opaque`
+- Produces: 変更後の `svelteMetaTagsAdapter.resolve` は openGraph/twitter リテラルから og:\*/twitter:card タグを含み、`broad = hasSpread || openGraph opaque || twitter opaque`
 
 - [ ] **Step 1: 失敗するテストを書く**
 
 `packages/cli/test/adapters-smt.test.ts` の `describe` 内末尾に追加:
 
 ```typescript
-  it('emits og:url / og:description / og:image tags from an inline openGraph literal', () => {
-    const r = svelteMetaTagsAdapter.resolve(
-      useOf('<MetaTags openGraph={{ type: "website", url: u, description: "d", images: [{ url: i }], title: t }} />')
-    );
-    expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:url', value: 'dynamic' });
-    expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:description', value: 'static' });
-    expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:image', value: 'dynamic' });
-    expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:title', value: 'dynamic' });
-    expect(r.broad).toBe(false);
-  });
+it('emits og:url / og:description / og:image tags from an inline openGraph literal', () => {
+  const r = svelteMetaTagsAdapter.resolve(
+    useOf('<MetaTags openGraph={{ type: "website", url: u, description: "d", images: [{ url: i }], title: t }} />')
+  );
+  expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:url', value: 'dynamic' });
+  expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:description', value: 'static' });
+  expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:image', value: 'dynamic' });
+  expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:title', value: 'dynamic' });
+  expect(r.broad).toBe(false);
+});
 
-  it('emits twitter:card from an inline twitter literal', () => {
-    const r = svelteMetaTagsAdapter.resolve(useOf('<MetaTags twitter={{ cardType: "summary_large_image" }} />'));
-    expect(r.tags).toContainEqual({ kind: 'meta', name: 'twitter:card', value: 'static' });
-    expect(r.broad).toBe(false);
-  });
+it('emits twitter:card from an inline twitter literal', () => {
+  const r = svelteMetaTagsAdapter.resolve(useOf('<MetaTags twitter={{ cardType: "summary_large_image" }} />'));
+  expect(r.tags).toContainEqual({ kind: 'meta', name: 'twitter:card', value: 'static' });
+  expect(r.broad).toBe(false);
+});
 
-  it('falls back to broad when openGraph is a variable (not an inline literal)', () => {
-    const r = svelteMetaTagsAdapter.resolve(useOf('<MetaTags openGraph={cfg} />'));
-    expect(r.broad).toBe(true);
-    expect(r.tags.some((t) => t.kind === 'meta' && t.property === 'og:url')).toBe(false);
-  });
+it('falls back to broad when openGraph is a variable (not an inline literal)', () => {
+  const r = svelteMetaTagsAdapter.resolve(useOf('<MetaTags openGraph={cfg} />'));
+  expect(r.broad).toBe(true);
+  expect(r.tags.some((t) => t.kind === 'meta' && t.property === 'og:url')).toBe(false);
+});
 ```
 
 - [ ] **Step 2: テストが失敗することを確認**
@@ -278,25 +282,25 @@ import { resolveMetaObject, OPEN_GRAPH_KEYS, TWITTER_KEYS } from './meta-object.
 現在の該当ブロック（50-55 行付近）:
 
 ```typescript
-    // openGraph is an object prop we don't introspect; treat it as a broad og:* source.
-    const openGraph = findAttr(attrs, 'openGraph');
-    const broad = use.hasSpread || Boolean(openGraph);
+// openGraph is an object prop we don't introspect; treat it as a broad og:* source.
+const openGraph = findAttr(attrs, 'openGraph');
+const broad = use.hasSpread || Boolean(openGraph);
 
-    return { tags, broad };
+return { tags, broad };
 ```
 
 を次に置き換える:
 
 ```typescript
-    // Introspect inline openGraph / twitter object literals into specific og:*/twitter:card
-    // tags. A variable-passed object (openGraph={cfg}) or a spread is unreadable → fall back
-    // to broad coverage (BROAD_KINDS fills the og family + twitter:card).
-    const og = resolveMetaObject(findAttr(attrs, 'openGraph'), OPEN_GRAPH_KEYS);
-    const tw = resolveMetaObject(findAttr(attrs, 'twitter'), TWITTER_KEYS);
-    tags.push(...og.tags, ...tw.tags);
-    const broad = use.hasSpread || og.opaque || tw.opaque;
+// Introspect inline openGraph / twitter object literals into specific og:*/twitter:card
+// tags. A variable-passed object (openGraph={cfg}) or a spread is unreadable → fall back
+// to broad coverage (BROAD_KINDS fills the og family + twitter:card).
+const og = resolveMetaObject(findAttr(attrs, 'openGraph'), OPEN_GRAPH_KEYS);
+const tw = resolveMetaObject(findAttr(attrs, 'twitter'), TWITTER_KEYS);
+tags.push(...og.tags, ...tw.tags);
+const broad = use.hasSpread || og.opaque || tw.opaque;
 
-    return { tags, broad };
+return { tags, broad };
 ```
 
 - [ ] **Step 4: テストが通ることを確認**
@@ -318,37 +322,39 @@ git commit -m "fix(cli): introspect svelte-meta-tags openGraph/twitter literals 
 `svelte-seo` も同一の `openGraph` / `twitter` 解析を共有する。
 
 **Files:**
+
 - Modify: `packages/cli/src/providers/source/adapters/svelte-seo.ts:39-42`
 - Test: `packages/cli/test/adapters-registry.test.ts`（ケース追加）
 
 **Interfaces:**
+
 - Consumes: `resolveMetaObject`, `OPEN_GRAPH_KEYS`, `TWITTER_KEYS`（Task 1）
-- Produces: `svelteSeoAdapter.resolve` が og:*/twitter:card タグを含み、`broad = hasSpread || openGraph opaque || twitter opaque`
+- Produces: `svelteSeoAdapter.resolve` が og:\*/twitter:card タグを含み、`broad = hasSpread || openGraph opaque || twitter opaque`
 
 - [ ] **Step 1: 失敗するテストを書く**
 
 `packages/cli/test/adapters-registry.test.ts` の `describe('adapter registry', ...)` 内に追加:
 
 ```typescript
-  it('introspects the svelte-seo openGraph/twitter literals', () => {
-    const adapter = findAdapter({ source: 'svelte-seo', imported: 'default' })!;
-    const r = adapter.resolve(
-      useOf(
-        `import Seo from 'svelte-seo';`,
-        '<Seo openGraph={{ url: u, description: "d" }} twitter={{ card: "summary" }} />'
-      )
-    );
-    expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:url', value: 'dynamic' });
-    expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:description', value: 'static' });
-    expect(r.tags).toContainEqual({ kind: 'meta', name: 'twitter:card', value: 'static' });
-    expect(r.broad).toBe(false);
-  });
+it('introspects the svelte-seo openGraph/twitter literals', () => {
+  const adapter = findAdapter({ source: 'svelte-seo', imported: 'default' })!;
+  const r = adapter.resolve(
+    useOf(
+      `import Seo from 'svelte-seo';`,
+      '<Seo openGraph={{ url: u, description: "d" }} twitter={{ card: "summary" }} />'
+    )
+  );
+  expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:url', value: 'dynamic' });
+  expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:description', value: 'static' });
+  expect(r.tags).toContainEqual({ kind: 'meta', name: 'twitter:card', value: 'static' });
+  expect(r.broad).toBe(false);
+});
 
-  it('falls back to broad when svelte-seo openGraph is a variable', () => {
-    const adapter = findAdapter({ source: 'svelte-seo', imported: 'default' })!;
-    const r = adapter.resolve(useOf(`import Seo from 'svelte-seo';`, '<Seo openGraph={cfg} />'));
-    expect(r.broad).toBe(true);
-  });
+it('falls back to broad when svelte-seo openGraph is a variable', () => {
+  const adapter = findAdapter({ source: 'svelte-seo', imported: 'default' })!;
+  const r = adapter.resolve(useOf(`import Seo from 'svelte-seo';`, '<Seo openGraph={cfg} />'));
+  expect(r.broad).toBe(true);
+});
 ```
 
 - [ ] **Step 2: テストが失敗することを確認**
@@ -369,21 +375,21 @@ import { resolveMetaObject, OPEN_GRAPH_KEYS, TWITTER_KEYS } from './meta-object.
 現在の該当ブロック（39-42 行付近）:
 
 ```typescript
-    const openGraph = findAttr(attrs, 'openGraph');
-    const broad = use.hasSpread || Boolean(openGraph);
+const openGraph = findAttr(attrs, 'openGraph');
+const broad = use.hasSpread || Boolean(openGraph);
 
-    return { tags, broad };
+return { tags, broad };
 ```
 
 を次に置き換える:
 
 ```typescript
-    const og = resolveMetaObject(findAttr(attrs, 'openGraph'), OPEN_GRAPH_KEYS);
-    const tw = resolveMetaObject(findAttr(attrs, 'twitter'), TWITTER_KEYS);
-    tags.push(...og.tags, ...tw.tags);
-    const broad = use.hasSpread || og.opaque || tw.opaque;
+const og = resolveMetaObject(findAttr(attrs, 'openGraph'), OPEN_GRAPH_KEYS);
+const tw = resolveMetaObject(findAttr(attrs, 'twitter'), TWITTER_KEYS);
+tags.push(...og.tags, ...tw.tags);
+const broad = use.hasSpread || og.opaque || tw.opaque;
 
-    return { tags, broad };
+return { tags, broad };
 ```
 
 - [ ] **Step 4: テストが通ることを確認**
@@ -405,11 +411,13 @@ git commit -m "fix(cli): introspect svelte-seo openGraph/twitter literals"
 `svelte-meta-tags` の `JsonLd` コンポーネントを検出し、`jsonld` タグを emit する（SEO008 解消）。
 
 **Files:**
+
 - Create: `packages/cli/src/providers/source/adapters/svelte-meta-tags-jsonld.ts`
 - Modify: `packages/cli/src/providers/source/adapters/index.ts:3-9`
 - Test: `packages/cli/test/adapters-jsonld.test.ts`
 
 **Interfaces:**
+
 - Consumes: `Adapter`, `AdapterResult`（`./types.js`）, `ImportInfo`（`../imports.js`）, `ComponentUse`, `ParsedTag`（`../parse.js`）
 - Produces: `svelteMetaTagsJsonLdAdapter: Adapter`。`builtinAdapters` に登録され、`JsonLd`（named）/ `svelte-meta-tags/JsonLd.svelte`（default）にマッチ、`{ kind: 'jsonld', value: 'dynamic' }` を emit。
 
@@ -521,10 +529,12 @@ git commit -m "fix(cli): detect svelte-meta-tags JsonLd component (SEO008)"
 不透明ソース（`config.metaComponents`・spread・変数 openGraph）でも og:description / og:url / twitter:card を dynamic 補完する。
 
 **Files:**
+
 - Modify: `packages/cli/src/providers/source/resolve.ts:11-19`
 - Test: `packages/cli/test/resolve.test.ts`（ケース追加）
 
 **Interfaces:**
+
 - Produces: 拡張後の `BROAD_KINDS` に `{ kind: 'meta', property: 'og:description', value: 'dynamic' }` / `{ kind: 'meta', property: 'og:url', value: 'dynamic' }` / `{ kind: 'meta', name: 'twitter:card', value: 'dynamic' }` を含む（`jsonld` は含まない）
 
 - [ ] **Step 1: 失敗するテストを書く**
@@ -532,15 +542,15 @@ git commit -m "fix(cli): detect svelte-meta-tags JsonLd component (SEO008)"
 `packages/cli/test/resolve.test.ts` の `describe` 内に追加:
 
 ```typescript
-  it('BROAD_KINDS covers og:description, og:url and twitter:card', () => {
-    expect(BROAD_KINDS).toContainEqual({ kind: 'meta', property: 'og:description', value: 'dynamic' });
-    expect(BROAD_KINDS).toContainEqual({ kind: 'meta', property: 'og:url', value: 'dynamic' });
-    expect(BROAD_KINDS).toContainEqual({ kind: 'meta', name: 'twitter:card', value: 'dynamic' });
-  });
+it('BROAD_KINDS covers og:description, og:url and twitter:card', () => {
+  expect(BROAD_KINDS).toContainEqual({ kind: 'meta', property: 'og:description', value: 'dynamic' });
+  expect(BROAD_KINDS).toContainEqual({ kind: 'meta', property: 'og:url', value: 'dynamic' });
+  expect(BROAD_KINDS).toContainEqual({ kind: 'meta', name: 'twitter:card', value: 'dynamic' });
+});
 
-  it('BROAD_KINDS does NOT cover jsonld (structured data is a separate concern)', () => {
-    expect(BROAD_KINDS.some((t) => t.kind === 'jsonld')).toBe(false);
-  });
+it('BROAD_KINDS does NOT cover jsonld (structured data is a separate concern)', () => {
+  expect(BROAD_KINDS.some((t) => t.kind === 'jsonld')).toBe(false);
+});
 ```
 
 （`BROAD_KINDS` は既に import 済み。broad 判定自体は既存テスト「marks broad for a metaComponents-declared component」でカバー済みのため追加不要。）
@@ -590,10 +600,12 @@ git commit -m "fix(cli): broaden BROAD_KINDS to cover og:description/og:url/twit
 `/smt` フィクスチャに openGraph / twitter / JsonLd を追加し、実 Node ランタイムで全タグが検出されることを検証する。
 
 **Files:**
+
 - Modify: `packages/cli/test/fixtures/basic-project/src/routes/smt/+page.svelte`
 - Modify: `packages/cli/test/source-provider.test.ts`（import に `HeadTag` 追加、ケース追加）
 
 **Interfaces:**
+
 - Consumes: Task 2・4・5 の成果（adapter 解析 + JsonLd adapter + BROAD_KINDS）
 - Produces: `/smt` の `ResolvedHead.tags` に og:url / og:description / twitter:card / jsonld を含む
 
@@ -643,16 +655,16 @@ import {
 `describe('SourceHeadProvider (Node runtime, real fixture)', ...)` 内に追加:
 
 ```typescript
-  it('detects svelte-meta-tags openGraph/twitter/JsonLd tags on the /smt route (issue #91)', async () => {
-    const rt = createNodeRuntime();
-    const heads = await sourceHeadProvider.collect(rt, fixtureDir);
-    const smt = new Map(heads.map((h) => [h.route, h])).get('/smt')!;
-    const has = (pred: (t: HeadTag) => boolean) => smt.tags.some(pred);
-    expect(has((t) => t.kind === 'meta' && t.property === 'og:url')).toBe(true);
-    expect(has((t) => t.kind === 'meta' && t.property === 'og:description')).toBe(true);
-    expect(has((t) => t.kind === 'meta' && t.name === 'twitter:card')).toBe(true);
-    expect(has((t) => t.kind === 'jsonld')).toBe(true);
-  });
+it('detects svelte-meta-tags openGraph/twitter/JsonLd tags on the /smt route (issue #91)', async () => {
+  const rt = createNodeRuntime();
+  const heads = await sourceHeadProvider.collect(rt, fixtureDir);
+  const smt = new Map(heads.map((h) => [h.route, h])).get('/smt')!;
+  const has = (pred: (t: HeadTag) => boolean) => smt.tags.some(pred);
+  expect(has((t) => t.kind === 'meta' && t.property === 'og:url')).toBe(true);
+  expect(has((t) => t.kind === 'meta' && t.property === 'og:description')).toBe(true);
+  expect(has((t) => t.kind === 'meta' && t.name === 'twitter:card')).toBe(true);
+  expect(has((t) => t.kind === 'jsonld')).toBe(true);
+});
 ```
 
 - [ ] **Step 3: テストが失敗しない（実装済みなので通る）ことを確認 / 回帰チェック**
@@ -674,6 +686,7 @@ git commit -m "test(cli): cover svelte-meta-tags og/twitter/JsonLd detection on 
 ### Task 7: Changeset ＋ 全体 Verify
 
 **Files:**
+
 - Create: `.changeset/fix-smt-metatags-jsonld-detection.md`
 
 - [ ] **Step 1: changeset を作成**

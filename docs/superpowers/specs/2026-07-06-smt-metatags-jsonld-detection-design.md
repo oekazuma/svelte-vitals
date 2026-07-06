@@ -54,18 +54,18 @@ title / description / canonical / og:title / og:image / robots
 
 openGraph キー → タグ:
 
-| openGraph キー | タグ |
-| --- | --- |
-| `title` | og:title |
-| `description` | og:description |
-| `url` | og:url |
-| `images` | og:image |
-| `type` | og:type |
+| openGraph キー | タグ           |
+| -------------- | -------------- |
+| `title`        | og:title       |
+| `description`  | og:description |
+| `url`          | og:url         |
+| `images`       | og:image       |
+| `type`         | og:type        |
 
 twitter キー → タグ:
 
-| twitter キー | タグ |
-| --- | --- |
+| twitter キー                                         | タグ         |
+| ---------------------------------------------------- | ------------ |
 | `cardType`（svelte-meta-tags）/ `card`（svelte-seo） | twitter:card |
 
 - 各タグの `value` は該当プロパティ値が静的なら `static`、式なら `dynamic`。
@@ -118,7 +118,7 @@ twitter キー → タグ:
 
 ## テスト
 
-- `adapters-smt.test.ts`: openGraph / twitter インラインリテラル解析ケースを追加（キーが有る場合に og:*/twitter:card を emit、無い場合に emit しないこと、静的値/式で value が変わること）。
+- `adapters-smt.test.ts`: openGraph / twitter インラインリテラル解析ケースを追加（キーが有る場合に og:\*/twitter:card を emit、無い場合に emit しないこと、静的値/式で value が変わること）。
 - JsonLd adapter の新規テストファイル（named import / default import のマッチと jsonld emit）。
 - svelte-seo adapter テスト（既存が無ければ新設。openGraph/twitter リテラル解析と `card` キーの差異）。
 - `resolve.test.ts`: `BROAD_KINDS` 拡張の検証（不透明ソースで og:description / og:url / twitter:card が dynamic 補完されること、jsonld は補完されないこと）。
