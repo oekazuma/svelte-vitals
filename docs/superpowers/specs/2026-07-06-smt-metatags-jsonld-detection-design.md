@@ -81,6 +81,8 @@ twitter キー → タグ:
 
 **挙動変更（精密化）**: 従来は「openGraph があれば broad」で `BROAD_KINDS` が og:title / og:image を無条件に補完していた。本変更後、openGraph がリテラルの場合は broad=false になり `BROAD_KINDS` による補完は効かないため、リテラルに `images` / `title` キーが**無ければ** SEO004 / SEO005 は正しく Missing として surface する。これは Q1 で選択した「リテラル解析＝精密」の意図通りの変更であり、従来の false negative（未設定の og:image が pass していた）を是正する。Issue #91 の repro は `images` を含む想定のため og:image は引き続き pass する。
 
+**挙動変更（twitter の broad 発火）**: 従来 `broad` は openGraph の有無のみで決まり `twitter` prop は関与しなかった。本変更で `twitter` が非リテラル式（`twitter={cfg}`）の場合も broad を発火させる。broad は `BROAD_KINDS` 全体（title/description/canonical/og:\*/twitter:card 等）を dynamic 補完するため、`<MetaTags twitter={cfg} />` のように twitter だけを不透明に渡すレアケースでは、そのルートの title/description 等も「dynamic 存在」と見なされ SEO001/002 等が抑制され得る。これは既存の opaque-openGraph の broad セマンティクスと対称であり、false positive 抑制優先の方針に沿う（かつ本変更全体では、リテラル openGraph を broad から外したことで抑制範囲はむしろ縮小している）。granular な部分 broad は本スコープ外。
+
 ### ③ `BROAD_KINDS` の拡張 ＋ JsonLd adapter 新設
 
 `resolve.ts`:
