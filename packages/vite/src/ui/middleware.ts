@@ -85,6 +85,8 @@ export function installUiMiddleware(server: ViteDevServer, config: Config, versi
     const origin = req.headers.origin;
     const host = req.headers.host;
     if ((typeof origin === 'string' && !isLoopbackOrigin(origin)) || !isLoopbackHost(host)) {
+      // drain any unread body so the client reliably receives the 403 (unread data kills the socket)
+      req.resume();
       res.statusCode = 403;
       res.end('svelte-vitals dev UI is only available from localhost');
       return;

@@ -2,7 +2,8 @@
 export function isLoopbackOrigin(origin: string): boolean {
   try {
     const host = new URL(origin).hostname;
-    return host === 'localhost' || host === '127.0.0.1' || host === '[::1]' || host === '::1';
+    // WHATWG URL keeps the brackets on IPv6 hostnames ('[::1]'); a bare '::1' never parses.
+    return host === 'localhost' || host === '127.0.0.1' || host === '[::1]';
   } catch {
     return false;
   }

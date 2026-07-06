@@ -56,11 +56,22 @@ function res(): MockRes & ServerResponse {
 }
 // A real IncomingMessage always carries a headers object (the http parser initializes it),
 // and HTTP/1.1 requires Host — default to a loopback Host to model real dev-server traffic.
+// It is also a Readable, so resume() always exists (the middleware drains rejected bodies).
 function postReq(url: string, headers: Record<string, string> = { host: 'localhost:5173' }): IncomingMessage {
-  return Object.assign(new EventEmitter(), { method: 'POST', url, headers }) as unknown as IncomingMessage;
+  return Object.assign(new EventEmitter(), {
+    method: 'POST',
+    url,
+    headers,
+    resume: () => {}
+  }) as unknown as IncomingMessage;
 }
 function getReq(url: string, headers: Record<string, string> = { host: 'localhost:5173' }): IncomingMessage {
-  return Object.assign(new EventEmitter(), { method: 'GET', url, headers }) as unknown as IncomingMessage;
+  return Object.assign(new EventEmitter(), {
+    method: 'GET',
+    url,
+    headers,
+    resume: () => {}
+  }) as unknown as IncomingMessage;
 }
 
 const ingestBody = JSON.stringify({
