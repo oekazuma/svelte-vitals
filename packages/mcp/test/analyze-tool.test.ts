@@ -6,6 +6,7 @@ import { handleAnalyze } from '../src/tools/analyze.js';
 const here = dirname(fileURLToPath(import.meta.url));
 // Reuse the CLI's fixture project so we don't duplicate a SvelteKit tree.
 const fixtureDir = join(here, '..', '..', 'cli', 'test', 'fixtures', 'basic-project');
+const configFileFixtureDir = join(here, '..', '..', 'cli', 'test', 'fixtures', 'config-file-project');
 
 describe('analyze tool', () => {
   it('returns a structured JSON report for a project path', async () => {
@@ -60,5 +61,20 @@ describe('analyze tool', () => {
     expect(res.isError).toBe(true);
     // Propagates the CLI's ProjectError message verbatim.
     expect(res.content[0]!.text).toContain('No SvelteKit project found');
+  });
+
+  it('reflects a project config file (svelte-vitals.config.mjs disables SEO001 via rules)', async () => {
+    const res = await handleAnalyze({ path: configFileFixtureDir });
+    expect(res.isError).toBeFalsy();
+    const report = res.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
+    const ids = new Set(report.routes.flatMap((r) => r.issues.map((i) => i.id)));
+    expect(ids.has('SEO001')).toBe(false);
+  });
+
+  it('applies a weights argument to the combined Health score', async () => {
+    const res = await handleAnalyze({ path: fixtureDir, weights: { seo: 5 } });
+    expect(res.isError).toBeFalsy();
+    const report = res.structuredContent as { weights: Record<string, number> };
+    expect(report.weights.seo).toBe(5);
   });
 });

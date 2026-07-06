@@ -30,7 +30,11 @@ const analyzeInputSchema = z.object({
   failOn: z
     .enum(['critical', 'warning', 'info'])
     .optional()
-    .describe('Minimum severity that counts as a failure in the summary. Default: critical.')
+    .describe('Minimum severity that counts as a failure in the summary. Default: critical.'),
+  weights: z
+    .partialRecord(z.enum(['seo', 'performance', 'correctness', 'security', 'architecture']), z.number())
+    .optional()
+    .describe('Per-category weights for the combined Health score, e.g. {"seo": 2}. Unlisted categories default to 1.')
 });
 
 /** zod raw shape for the analyze tool's input (registered with the MCP server). */
@@ -52,6 +56,12 @@ export async function handleAnalyze(args: AnalyzeArgs): Promise<McpToolResult> {
     return textError(`Unknown rule id(s): ${unknown.join(', ')}. Known rule ids: ${knownRuleIds().join(', ')}.`);
   }
 
+  // buildRulesConfig returns {} when neither `rules` nor `ignore` was passed; normalize
+  // that to undefined so it doesn't clobber a config file's `rules` (same reasoning as
+  // the CLI's resolve-args.ts — analyzeProject treats {} as "replace with nothing enabled").
+  const rulesConfig = buildRulesConfig(allow, ignore);
+  const rules = Object.keys(rulesConfig).length > 0 ? rulesConfig : undefined;
+
   try {
     const { results, config, version } = await analyzeProject({
       cwd: args.path,
@@ -59,7 +69,8 @@ export async function handleAnalyze(args: AnalyzeArgs): Promise<McpToolResult> {
       treatDynamicAs: args.treatDynamicAs,
       route: args.route,
       failOn: args.failOn,
-      rules: buildRulesConfig(allow, ignore)
+      rules,
+      weights: args.weights
     });
     const report = buildJsonReport(results, config, { version });
     return {

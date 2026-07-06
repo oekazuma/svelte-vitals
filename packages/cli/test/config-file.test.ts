@@ -5,9 +5,8 @@ import { describe, it, expect } from 'vitest';
 import { loadConfigFile } from '../src/config-file.js';
 
 /**
- * Spike prototype tests (design doc: docs/superpowers/specs/2026-07-05-config-file-design.md).
- * `loadConfigFile` is not wired into any entry point yet — these tests only
- * confirm the loader mechanism itself is viable.
+ * Loader + validation tests (design doc: docs/superpowers/specs/2026-07-05-config-file-design.md).
+ * `loadConfigFile` is wired into `analyzeProject` (packages/cli/src/index.ts).
  */
 
 const fixture = (name: string) => join(import.meta.dirname, 'fixtures', name);
@@ -30,8 +29,9 @@ describe('loadConfigFile', () => {
   });
 
   it('loads a plain-object .mjs config file', async () => {
-    const config = await loadConfigFile(fixture('config-file-mjs'));
-    expect(config).toEqual({
+    const loaded = await loadConfigFile(fixture('config-file-mjs'));
+    expect(loaded?.warnings).toEqual([]);
+    expect(loaded?.config).toEqual({
       treatDynamicAs: 'warn',
       failOn: 'warning',
       rules: { SEO001: 'off' }
@@ -39,9 +39,10 @@ describe('loadConfigFile', () => {
   });
 
   it('loads a .mjs config file that uses defineConfig (dogfooding)', async () => {
-    const config = await loadConfigFile(fixture('config-file-defineconfig'));
+    const loaded = await loadConfigFile(fixture('config-file-defineconfig'));
     // defineConfig() merges over defaultConfig, so the loaded value is a full Config.
-    expect(config).toMatchObject({
+    expect(loaded?.warnings).toEqual([]);
+    expect(loaded?.config).toMatchObject({
       failOn: 'info',
       metaComponents: ['Seo'],
       treatDynamicAs: 'pass',
@@ -51,6 +52,43 @@ describe('loadConfigFile', () => {
 
   it('rejects a config file with no default export', async () => {
     await expect(loadConfigFile(fixture('config-file-invalid'))).rejects.toThrow(/must have a default export/);
+  });
+
+  it('rejects an unknown rule id in rules, listing known rule ids', async () => {
+    await expect(loadConfigFile(fixture('config-file-unknown-rule'))).rejects.toThrow(
+      /unknown rule id\(s\) in rules: NOPE999.*Known rule ids:/s
+    );
+  });
+
+  it('rejects a negative weight', async () => {
+    await expect(loadConfigFile(fixture('config-file-bad-weights'))).rejects.toThrow(/invalid weight for 'seo'/);
+  });
+
+  it('rejects an unknown category key in weights', async () => {
+    await expect(loadConfigFile(fixture('config-file-bad-weights-category'))).rejects.toThrow(
+      /unknown category 'bogus' in weights/
+    );
+  });
+
+  it('loads a valid weights map through to config.weights', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-weights'));
+    expect(loaded?.warnings).toEqual([]);
+    expect(loaded?.config.weights).toEqual({ seo: 2, performance: 1.5 });
+  });
+
+  it('warns (without rejecting) on a metaComponents value that is not an array of strings, dropping the field', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-bad-metacomponents'));
+    expect(loaded?.config.metaComponents).toBeUndefined();
+    expect(loaded?.warnings.some((w) => w.includes('metaComponents must be an array of strings'))).toBe(true);
+    // Valid sibling fields are still adopted.
+    expect(loaded?.config.failOn).toBe('warning');
+  });
+
+  it('warns (without rejecting) on an invalid enum value and an unknown top-level key', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-warnings'));
+    expect(loaded?.config.treatDynamicAs).toBeUndefined();
+    expect(loaded?.warnings.some((w) => w.includes("unknown treatDynamicAs 'nope'"))).toBe(true);
+    expect(loaded?.warnings.some((w) => w.includes("unknown config key 'someFutureOption'"))).toBe(true);
   });
 
   // Spike finding: this MUST run in a child process. vitest's module runner

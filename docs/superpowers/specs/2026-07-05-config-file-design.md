@@ -1,7 +1,7 @@
 # Config-file support: `svelte-vitals.config.{ts,js,mjs}` (roadmap item C)
 
 **Date:** 2026-07-05
-**Status:** Accepted (2026-07-07) — recommendations approved by the maintainer; loader prototyped, not wired
+**Status:** Shipped (plan A — CLI/MCP) (2026-07-07) — loader hardened, wired into `analyzeProject` (CLI `run()` + MCP `analyze` tool), `--weights` CLI flag and MCP `weights` argument added. vite wiring + docs-site updates remain (plan B).
 **Packages:** `svelte-vitals` (loader + CLI wiring), `@svelte-vitals/mcp` (inherits via `analyzeProject`), `@svelte-vitals/vite` (wiring approach is an open question, see below), `@svelte-vitals/core` (no code change; `defineConfig` re-export only)
 
 ## Goal
