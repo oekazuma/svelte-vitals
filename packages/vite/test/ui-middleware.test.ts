@@ -54,11 +54,13 @@ function res(): MockRes & ServerResponse {
   };
   return r as unknown as MockRes & ServerResponse;
 }
-function postReq(url: string): IncomingMessage {
-  return Object.assign(new EventEmitter(), { method: 'POST', url }) as unknown as IncomingMessage;
+// A real IncomingMessage always carries a headers object (the http parser initializes it),
+// and HTTP/1.1 requires Host — default to a loopback Host to model real dev-server traffic.
+function postReq(url: string, headers: Record<string, string> = { host: 'localhost:5173' }): IncomingMessage {
+  return Object.assign(new EventEmitter(), { method: 'POST', url, headers }) as unknown as IncomingMessage;
 }
-function getReq(url: string): IncomingMessage {
-  return Object.assign(new EventEmitter(), { method: 'GET', url }) as unknown as IncomingMessage;
+function getReq(url: string, headers: Record<string, string> = { host: 'localhost:5173' }): IncomingMessage {
+  return Object.assign(new EventEmitter(), { method: 'GET', url, headers }) as unknown as IncomingMessage;
 }
 
 const ingestBody = JSON.stringify({
@@ -177,5 +179,106 @@ describe('installUiMiddleware', () => {
     expect(sse.ended).toBe(false);
     closeServer();
     expect(sse.ended).toBe(true); // connection released so httpServer.close() can finish
+  });
+
+  it('rejects a cross-site ingest POST carrying a non-loopback Origin', async () => {
+    const { call } = setup();
+    const ir = res();
+    const ireq = postReq('/ingest', { host: 'localhost:5173', origin: 'https://evil.example' });
+    call(ireq, ir);
+    expect(ir.statusCode).toBe(403); // rejected before the body is even read
+    // even if the body still arrives, no listener consumes it — the store must not change
+    ireq.emit('data', Buffer.from(ingestBody));
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    const gr = res();
+    call(getReq('/'), gr);
+    expect(gr.statusCode).not.toBe(403);
+    expect(gr.chunks.join('')).not.toContain('SEO001');
+  });
+
+  it('accepts an ingest POST without an Origin header (server-side postIngest behavior)', async () => {
+    const { call } = setup();
+    const ir = res();
+    const ireq = postReq('/ingest', { host: 'localhost:5173' }); // node fetch sends no Origin
+    call(ireq, ir);
+    ireq.emit('data', Buffer.from(ingestBody));
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    expect(ir.statusCode).toBe(204);
+    const gr = res();
+    call(getReq('/'), gr);
+    expect(gr.chunks.join('')).toContain('SEO001'); // stored and rendered
+  });
+
+  it('rejects a dashboard GET with a non-loopback Host (DNS rebinding)', () => {
+    const { call } = setup();
+    const gr = res();
+    call(getReq('/', { host: 'evil.example' }), gr);
+    expect(gr.statusCode).toBe(403);
+    expect(gr.chunks.join('')).not.toContain('<!doctype html>');
+  });
+
+  it('filters a finding with a non-string category so the dashboard still renders', async () => {
+    const { call } = setup();
+    const ireq = postReq('/ingest');
+    call(ireq, res());
+    ireq.emit(
+      'data',
+      Buffer.from(
+        JSON.stringify({
+          route: '/x',
+          results: [
+            {
+              id: 'SEO009',
+              message: 'm',
+              category: 123, // would pass `?? 'seo'` and throw inside escapeHtml
+              detection: { presence: 'none', value: 'absent' },
+              severity: 'critical'
+            }
+          ]
+        })
+      )
+    );
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    const gr = res();
+    call(getReq('/'), gr);
+    const html = gr.chunks.join('');
+    expect(gr.statusCode).not.toBe(500); // dashboard did not crash
+    expect(html.startsWith('<!doctype html>')).toBe(true);
+    expect(html).not.toContain('SEO009'); // malformed finding was filtered out
+  });
+
+  it('filters a finding with a malformed fix shape so the dashboard still renders', async () => {
+    const { call } = setup();
+    const ireq = postReq('/ingest');
+    call(ireq, res());
+    ireq.emit(
+      'data',
+      Buffer.from(
+        JSON.stringify({
+          route: '/x',
+          results: [
+            {
+              id: 'SEO010',
+              message: 'm',
+              category: 'seo',
+              detection: { presence: 'none', value: 'absent' },
+              severity: 'critical',
+              fix: { description: 5 } // non-string description would throw inside escapeHtml
+            }
+          ]
+        })
+      )
+    );
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    const gr = res();
+    call(getReq('/'), gr);
+    const html = gr.chunks.join('');
+    expect(gr.statusCode).not.toBe(500); // dashboard did not crash
+    expect(html.startsWith('<!doctype html>')).toBe(true);
+    expect(html).not.toContain('SEO010'); // malformed finding was filtered out
   });
 });
