@@ -53,3 +53,8 @@ runs:
         # pnpm-lock.yaml, so rewriting the manifest first fails the frozen-lockfile check.
         jq --arg v "${{ inputs.node-version }}" '.devEngines.runtime.version = $v' package.json > package.json.tmp
         mv package.json.tmp package.json
+        # After the rewrite the manifest no longer matches the lockfile's recorded runtime;
+        # pnpm's verify-deps-before-run would otherwise re-run `pnpm install` before every
+        # `pnpm run` and die on ERR_PNPM_OUTDATED_LOCKFILE. Deps are already installed and
+        # frozen-verified above, so skip the re-check for the rest of this job.
+        echo "npm_config_verify_deps_before_run=false" >> "$GITHUB_ENV"
