@@ -17,9 +17,11 @@ runs:
     - name: Get Node.js version from package.json
       id: get-node-version
       shell: bash
+      env:
+        NODE_VERSION_OVERRIDE: ${{ inputs.node-version }}
       run: |
-        if [ -n "${{ inputs.node-version }}" ]; then
-          echo "node-version=${{ inputs.node-version }}" >> "$GITHUB_OUTPUT"
+        if [ -n "$NODE_VERSION_OVERRIDE" ]; then
+          echo "node-version=$NODE_VERSION_OVERRIDE" >> "$GITHUB_OUTPUT"
           exit 0
         fi
         NODE_VERSION=$(jq -r '.devEngines.runtime.version' package.json)
@@ -46,12 +48,14 @@ runs:
     - name: Point devEngines at the matrix Node version
       if: inputs.node-version != ''
       shell: bash
+      env:
+        NODE_VERSION_OVERRIDE: ${{ inputs.node-version }}
       run: |
         # devEngines.runtime (onFail: download) makes pnpm run scripts under ITS version
         # regardless of the runner's node — rewrite it so the matrix actually tests this version.
         # Must run AFTER `pnpm install --frozen-lockfile`: pnpm records the runtime in
         # pnpm-lock.yaml, so rewriting the manifest first fails the frozen-lockfile check.
-        jq --arg v "${{ inputs.node-version }}" '.devEngines.runtime.version = $v' package.json > package.json.tmp
+        jq --arg v "$NODE_VERSION_OVERRIDE" '.devEngines.runtime.version = $v' package.json > package.json.tmp
         mv package.json.tmp package.json
         # pnpm manages the devEngines runtime as a lockfile-recorded dependency: the first
         # `pnpm run` after this rewrite auto-installs to fetch the new runtime, and CI's
