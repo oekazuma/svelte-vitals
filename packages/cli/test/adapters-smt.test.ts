@@ -51,4 +51,27 @@ describe('svelteMetaTagsAdapter', () => {
     expect(r.tags.some((t) => t.kind === 'title')).toBe(false);
     expect(r.tags).toContainEqual({ kind: 'meta', name: 'description', value: 'static', text: 'd' });
   });
+
+  it('emits og:url / og:description / og:image tags from an inline openGraph literal', () => {
+    const r = svelteMetaTagsAdapter.resolve(
+      useOf('<MetaTags openGraph={{ type: "website", url: u, description: "d", images: [{ url: i }], title: t }} />')
+    );
+    expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:url', value: 'dynamic' });
+    expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:description', value: 'static' });
+    expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:image', value: 'dynamic' });
+    expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:title', value: 'dynamic' });
+    expect(r.broad).toBe(false);
+  });
+
+  it('emits twitter:card from an inline twitter literal', () => {
+    const r = svelteMetaTagsAdapter.resolve(useOf('<MetaTags twitter={{ cardType: "summary_large_image" }} />'));
+    expect(r.tags).toContainEqual({ kind: 'meta', name: 'twitter:card', value: 'static' });
+    expect(r.broad).toBe(false);
+  });
+
+  it('falls back to broad when openGraph is a variable (not an inline literal)', () => {
+    const r = svelteMetaTagsAdapter.resolve(useOf('<MetaTags openGraph={cfg} />'));
+    expect(r.broad).toBe(true);
+    expect(r.tags.some((t) => t.kind === 'meta' && t.property === 'og:url')).toBe(false);
+  });
 });
