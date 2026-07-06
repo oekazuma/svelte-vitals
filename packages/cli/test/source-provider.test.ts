@@ -4,6 +4,7 @@ import { dirname, join } from 'node:path';
 import {
   seo001Title,
   type Detection,
+  type HeadTag,
   type ImageInfo,
   type ResolvedHead,
   defaultConfig,
@@ -53,6 +54,17 @@ describe('SourceHeadProvider (Node runtime, real fixture)', () => {
     const failing = results.filter((r) => r.detection.presence === 'none');
     expect(failing).toHaveLength(2);
     expect(failing.map((r) => r.route).sort()).toEqual(['/none', '/widget']);
+  });
+
+  it('detects svelte-meta-tags openGraph/twitter/JsonLd tags on the /smt route (issue #91)', async () => {
+    const rt = createNodeRuntime();
+    const heads = await sourceHeadProvider.collect(rt, fixtureDir);
+    const smt = new Map(heads.map((h) => [h.route, h])).get('/smt')!;
+    const has = (pred: (t: HeadTag) => boolean) => smt.tags.some(pred);
+    expect(has((t) => t.kind === 'meta' && t.property === 'og:url')).toBe(true);
+    expect(has((t) => t.kind === 'meta' && t.property === 'og:description')).toBe(true);
+    expect(has((t) => t.kind === 'meta' && t.name === 'twitter:card')).toBe(true);
+    expect(has((t) => t.kind === 'jsonld')).toBe(true);
   });
 });
 
