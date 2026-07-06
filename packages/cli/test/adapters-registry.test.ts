@@ -21,6 +21,26 @@ describe('adapter registry', () => {
     expect(r.tags).toContainEqual({ kind: 'meta', name: 'description', value: 'static', text: 'A concise summary.' });
   });
 
+  it('introspects the svelte-seo openGraph/twitter literals', () => {
+    const adapter = findAdapter({ source: 'svelte-seo', imported: 'default' })!;
+    const r = adapter.resolve(
+      useOf(
+        `import Seo from 'svelte-seo';`,
+        '<Seo openGraph={{ url: u, description: "d" }} twitter={{ card: "summary" }} />'
+      )
+    );
+    expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:url', value: 'dynamic' });
+    expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:description', value: 'static' });
+    expect(r.tags).toContainEqual({ kind: 'meta', name: 'twitter:card', value: 'static' });
+    expect(r.broad).toBe(false);
+  });
+
+  it('falls back to broad when svelte-seo openGraph is a variable', () => {
+    const adapter = findAdapter({ source: 'svelte-seo', imported: 'default' })!;
+    const r = adapter.resolve(useOf(`import Seo from 'svelte-seo';`, '<Seo openGraph={cfg} />'));
+    expect(r.broad).toBe(true);
+  });
+
   it('returns undefined for unknown modules', () => {
     expect(findAdapter({ source: 'lodash', imported: 'default' })).toBeUndefined();
   });
