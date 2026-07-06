@@ -45,8 +45,11 @@ export function resolveMetaObject(
   const tags: ParsedTag[] = [];
   let opaque = false;
   for (const prop of expr.properties ?? []) {
-    if (prop?.type !== 'Property') {
-      opaque = true; // SpreadElement — unknown extra keys
+    // A SpreadElement (`{...d}`) or a computed key (`{ [k]: v }`) can't be
+    // enumerated statically — fall back to broad coverage rather than silently
+    // under-reporting a key we can't resolve.
+    if (prop?.type !== 'Property' || prop.computed) {
+      opaque = true;
       continue;
     }
     const key = prop.key?.name ?? prop.key?.value;

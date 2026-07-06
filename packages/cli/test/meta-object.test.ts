@@ -45,6 +45,13 @@ describe('resolveMetaObject', () => {
     expect(r.tags).toContainEqual({ kind: 'meta', property: 'og:url', value: 'dynamic' });
   });
 
+  it('marks opaque when a key is computed (not statically resolvable)', () => {
+    const attr = attrOf('<MetaTags openGraph={{ [k]: SITE }} />', 'openGraph');
+    const r = resolveMetaObject(attr, OPEN_GRAPH_KEYS);
+    expect(r.opaque).toBe(true);
+    expect(r.tags).toHaveLength(0);
+  });
+
   it('returns nothing (not opaque) when the prop is absent', () => {
     const r = resolveMetaObject(undefined, OPEN_GRAPH_KEYS);
     expect(r).toEqual({ tags: [], opaque: false });
