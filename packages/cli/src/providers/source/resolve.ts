@@ -8,6 +8,33 @@ export interface ResolveResult {
   broad: boolean;
 }
 
+/**
+ * Per-run read+parse memo, keyed by project-root-relative path (as normalized by
+ * chainFiles / resolveComponentPath). Shared across routes so a file imported by
+ * many pages (a root layout, a common $lib component) is only parsed once per run.
+ */
+export type ParseCache = Map<string, Promise<ParsedFile>>;
+
+/**
+ * Read and parse `rel` at most once per cache. The cached value is a Promise (not
+ * the resolved ParsedFile) so that concurrent callers racing on the same file
+ * (collectRoutes resolves all routes in parallel) share a single in-flight parse
+ * instead of triggering duplicate reads/parses.
+ *
+ * If the read or parse rejects, the rejected promise stays cached: every caller
+ * that shares the file sees the same failure. This matches pre-cache behavior,
+ * where a single malformed route file already failed the whole run (exit 2, see
+ * Plan 002's characterization tests) — the cache does not change that contract.
+ */
+export function readAndParse(rt: Runtime, cwd: string, rel: string, cache: ParseCache): Promise<ParsedFile> {
+  let hit = cache.get(rel);
+  if (!hit) {
+    hit = rt.readFile(rt.join(cwd, rel)).then((source) => parseFile(source, rel));
+    cache.set(rel, hit);
+  }
+  return hit;
+}
+
 /** Tag kinds a broad (opaque) meta source is assumed to possibly set, all dynamic. */
 export const BROAD_KINDS: ParsedTag[] = [
   { kind: 'title', value: 'dynamic' },
@@ -77,7 +104,11 @@ export async function resolveFileTags(
   parsed: ParsedFile,
   config: Config,
   depth: number,
-  visited: Set<string>
+  visited: Set<string>,
+  // Defaults to a fresh, single-call cache so existing direct callers (e.g. unit
+  // tests exercising this function in isolation) don't need to pass one; real
+  // callers (routes.ts) always pass the shared per-run cache explicitly.
+  cache: ParseCache = new Map()
 ): Promise<ResolveResult> {
   const tags: ParsedTag[] = [...parsed.headTags];
   let broad = false;
@@ -105,9 +136,9 @@ export async function resolveFileTags(
     if (childRel && depth > 0 && !visited.has(childRel)) {
       const abs = rt.join(cwd, childRel);
       if (await rt.exists(abs)) {
-        const childParsed = parseFile(await rt.readFile(abs), childRel);
+        const childParsed = await readAndParse(rt, cwd, childRel, cache);
         const childVisited = new Set(visited).add(childRel);
-        const child = await resolveFileTags(rt, cwd, childRel, childParsed, config, depth - 1, childVisited);
+        const child = await resolveFileTags(rt, cwd, childRel, childParsed, config, depth - 1, childVisited, cache);
         tags.push(...child.tags);
         broad = broad || child.broad;
       }
