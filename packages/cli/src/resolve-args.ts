@@ -35,6 +35,11 @@ function parseWeights(raw: unknown, errors: string[]): Partial<Record<Category, 
       unknownCategories.push(category);
       continue;
     }
+    // Reject an empty value explicitly — Number('') would silently coerce to 0.
+    if (valueRaw === '') {
+      invalidValues.push(pair);
+      continue;
+    }
     const value = Number(valueRaw);
     if (!Number.isFinite(value) || value < 0) {
       invalidValues.push(pair);

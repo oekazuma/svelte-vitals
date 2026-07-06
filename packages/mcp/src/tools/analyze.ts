@@ -32,7 +32,7 @@ const analyzeInputSchema = z.object({
     .optional()
     .describe('Minimum severity that counts as a failure in the summary. Default: critical.'),
   weights: z
-    .partialRecord(z.enum(['seo', 'performance', 'correctness', 'security', 'architecture']), z.number())
+    .partialRecord(z.enum(['seo', 'performance', 'correctness', 'security', 'architecture']), z.number().nonnegative())
     .optional()
     .describe('Per-category weights for the combined Health score, e.g. {"seo": 2}. Unlisted categories default to 1.')
 });

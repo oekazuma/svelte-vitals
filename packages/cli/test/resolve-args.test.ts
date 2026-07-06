@@ -123,4 +123,10 @@ describe('resolveArgs', () => {
     expect(options).toBeNull();
     expect(errors.some((e) => e.includes('invalid --weights entry'))).toBe(true);
   });
+
+  it('reports an empty --weights value as a fatal error (Number("") must not coerce to 0)', () => {
+    const { options, errors } = resolve('--weights', 'seo=');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('invalid --weights entry'))).toBe(true);
+  });
 });

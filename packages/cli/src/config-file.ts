@@ -20,6 +20,11 @@ const TREAT_DYNAMIC_AS_VALUES = ['pass', 'warn', 'fail'];
 const FAIL_ON_VALUES = ['critical', 'warning', 'info'];
 const KNOWN_TOP_LEVEL_KEYS = new Set(['treatDynamicAs', 'metaComponents', 'rules', 'failOn', 'weights']);
 
+/** Whether `value` is a plain object (not null, not an array) — usable with Object.keys/entries. */
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
 function isMissingExtensionLoaderError(err: unknown): boolean {
   return (
     err instanceof Error &&
@@ -82,6 +87,9 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
   }
 
   if (raw.rules !== undefined) {
+    if (!isPlainObject(raw.rules)) {
+      throw new Error(`${path}: rules must be an object of rule-id → setting.`);
+    }
     const rules = raw.rules as Config['rules'];
     const unknown = findUnknownRuleIds(Object.keys(rules));
     if (unknown.length > 0) {
@@ -93,10 +101,15 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
   }
 
   if (raw.weights !== undefined) {
+    if (!isPlainObject(raw.weights)) {
+      throw new Error(`${path}: weights must be an object of category → number.`);
+    }
     const weights: Partial<Record<Category, number>> = {};
-    for (const [cat, w] of Object.entries(raw.weights as Record<string, unknown>)) {
+    for (const [rawCat, w] of Object.entries(raw.weights)) {
+      // Category keys are accepted case-insensitively, matching --weights.
+      const cat = rawCat.toLowerCase();
       if (!CATEGORIES.includes(cat as Category)) {
-        throw new Error(`${path}: unknown category '${cat}' in weights. Known categories: ${CATEGORIES.join(', ')}`);
+        throw new Error(`${path}: unknown category '${rawCat}' in weights. Known categories: ${CATEGORIES.join(', ')}`);
       }
       if (typeof w !== 'number' || !Number.isFinite(w) || w < 0) {
         throw new Error(`${path}: invalid weight for '${cat}': ${String(w)}; expected a finite number >= 0.`);

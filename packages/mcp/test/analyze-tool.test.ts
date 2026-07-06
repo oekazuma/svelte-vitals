@@ -1,7 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { Client } from '@modelcontextprotocol/sdk/client/index.js';
+import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import { handleAnalyze } from '../src/tools/analyze.js';
+import { createServer } from '../src/server.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 // Reuse the CLI's fixture project so we don't duplicate a SvelteKit tree.
@@ -76,5 +79,24 @@ describe('analyze tool', () => {
     expect(res.isError).toBeFalsy();
     const report = res.structuredContent as { weights: Record<string, number> };
     expect(report.weights.seo).toBe(5);
+  });
+
+  it('rejects a negative weight at the input-schema layer (isError, before analysis runs)', async () => {
+    // Go through a real client-server pair so the tool's zod inputSchema is applied
+    // (handleAnalyze alone would bypass it — validation lives in the MCP SDK layer).
+    const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+    const server = createServer();
+    await server.connect(serverTransport);
+    const client = new Client({ name: 'test', version: '0.0.0' });
+    await client.connect(clientTransport);
+    try {
+      const res = await client.callTool({ name: 'analyze', arguments: { path: fixtureDir, weights: { seo: -1 } } });
+      expect(res.isError).toBe(true);
+      const text = (res.content as Array<{ type: string; text: string }>)[0]!.text;
+      expect(text).toContain('Input validation error');
+    } finally {
+      await client.close();
+      await server.close();
+    }
   });
 });

@@ -76,6 +76,24 @@ describe('loadConfigFile', () => {
     expect(loaded?.config.weights).toEqual({ seo: 2, performance: 1.5 });
   });
 
+  it('rejects a rules value that is not a plain object (null) with a clear message', async () => {
+    await expect(loadConfigFile(fixture('config-file-rules-null'))).rejects.toThrow(
+      /rules must be an object of rule-id → setting/
+    );
+  });
+
+  it('rejects a weights value that is not a plain object (array) with a clear message', async () => {
+    await expect(loadConfigFile(fixture('config-file-weights-array'))).rejects.toThrow(
+      /weights must be an object of category → number/
+    );
+  });
+
+  it('accepts weights category keys case-insensitively, normalizing to lowercase', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-weights-uppercase'));
+    expect(loaded?.warnings).toEqual([]);
+    expect(loaded?.config.weights).toEqual({ seo: 2 });
+  });
+
   it('warns (without rejecting) on a metaComponents value that is not an array of strings, dropping the field', async () => {
     const loaded = await loadConfigFile(fixture('config-file-bad-metacomponents'));
     expect(loaded?.config.metaComponents).toBeUndefined();
