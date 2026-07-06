@@ -15,18 +15,9 @@ import {
   type Rule
 } from '@svelte-vitals/core';
 import { parseHtmlHead } from '../providers/rendered/parse-html.js';
+import { isLoopbackOrigin } from '../loopback.js';
 import { findingSignature, formatDevReport } from './format.js';
 import type { SvelteVitalsHookOptions } from './options.js';
-
-/** Only the local dev server hosts the ingest endpoint, so never POST off-box. */
-function isLoopbackOrigin(origin: string): boolean {
-  try {
-    const host = new URL(origin).hostname;
-    return host === 'localhost' || host === '127.0.0.1' || host === '[::1]' || host === '::1';
-  } catch {
-    return false;
-  }
-}
 
 async function postIngest(origin: string, route: string, results: Result[]): Promise<void> {
   // `origin` comes from the request (Host header), so a spoofed Host must not

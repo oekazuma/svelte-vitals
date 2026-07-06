@@ -3,18 +3,28 @@ import type { ViteDevServer } from 'vite';
 import type { Config, Result } from '@svelte-vitals/core';
 import { createStore } from './store.js';
 import { renderDashboard } from './serve.js';
+import { isLoopbackHost, isLoopbackOrigin } from '../loopback.js';
 
 const SEVERITIES = new Set(['critical', 'warning', 'info']);
+const CATEGORIES = new Set(['seo', 'performance', 'correctness', 'security', 'architecture']);
+
+function isOptionalString(v: unknown): v is string | undefined {
+  return v === undefined || typeof v === 'string';
+}
 
 /**
- * The fields the dashboard renderer dereferences, so malformed ingest can't crash it:
- * `escapeHtml(id|message)` need strings, `effectiveSeverity`/`classify` read
- * `detection.presence|value` and `severity`. Real engine findings always carry these.
+ * Every field the dashboard renderer dereferences, so malformed ingest can't crash it:
+ * `escapeHtml` needs strings for `id`/`message`/`category`/`location`/`recommendation`/
+ * `docsUrl`/`fix.*`/`route`, `effectiveSeverity`/`classify` read `detection.presence|value`
+ * and `severity`, and `line` is interpolated as a number. Optional fields must be absent
+ * or well-typed — `category: 123` would pass `?? 'seo'` and then throw inside `escapeHtml`.
+ * Real engine findings always satisfy all of this.
  */
 function isResultLike(x: unknown): x is Result {
   if (typeof x !== 'object' || x === null) return false;
   const r = x as Record<string, unknown>;
   const d = r.detection as Record<string, unknown> | undefined;
+  const f = r.fix as Record<string, unknown> | undefined;
   return (
     typeof r.id === 'string' &&
     typeof r.message === 'string' &&
@@ -23,7 +33,19 @@ function isResultLike(x: unknown): x is Result {
     typeof d === 'object' &&
     d !== null &&
     typeof d.presence === 'string' &&
-    typeof d.value === 'string'
+    typeof d.value === 'string' &&
+    (r.category === undefined || (typeof r.category === 'string' && CATEGORIES.has(r.category))) &&
+    isOptionalString(r.location) &&
+    isOptionalString(r.recommendation) &&
+    isOptionalString(r.docsUrl) &&
+    (f === undefined ||
+      (typeof f === 'object' &&
+        f !== null &&
+        typeof f.description === 'string' &&
+        isOptionalString(f.snippet) &&
+        isOptionalString(f.lang))) &&
+    (r.line === undefined || typeof r.line === 'number') &&
+    isOptionalString(r.route)
   );
 }
 
@@ -54,6 +76,21 @@ export function installUiMiddleware(server: ViteDevServer, config: Config, versi
   // connect strips the mount path, so req.url is relative ('/', '/ingest', '/events').
   server.middlewares.use('/__svelte-vitals', (req: IncomingMessage, res: ServerResponse) => {
     const url = req.url ?? '/';
+
+    // Same boundary as the sending side's postIngest (hooks/handle.ts): the dev UI is
+    // loopback-only. Cross-site form POSTs carry an Origin header (same-origin GET
+    // navigations don't), so rejecting only "Origin present AND non-loopback" never
+    // breaks legitimate use. Host validation mitigates DNS rebinding (LAN use via
+    // --host is already blocked on the sending side too).
+    const origin = req.headers.origin;
+    const host = req.headers.host;
+    if ((typeof origin === 'string' && !isLoopbackOrigin(origin)) || !isLoopbackHost(host)) {
+      // drain any unread body so the client reliably receives the 403 (unread data kills the socket)
+      req.resume();
+      res.statusCode = 403;
+      res.end('svelte-vitals dev UI is only available from localhost');
+      return;
+    }
 
     if (req.method === 'POST' && url.startsWith('/ingest')) {
       // Collect raw Buffers and decode once: per-chunk toString() would corrupt a
@@ -87,7 +124,15 @@ export function installUiMiddleware(server: ViteDevServer, config: Config, versi
       return;
     }
 
-    res.setHeader('Content-Type', 'text/html');
-    res.end(renderDashboard(store.snapshot(), config, { version }));
+    // Last line of defense that validated data should never reach: if the renderer
+    // throws anyway, return a plain-text 500 and never take down the dev server.
+    try {
+      const html = renderDashboard(store.snapshot(), config, { version });
+      res.setHeader('Content-Type', 'text/html');
+      res.end(html);
+    } catch {
+      res.statusCode = 500;
+      res.end('svelte-vitals dashboard failed to render');
+    }
   });
 }
