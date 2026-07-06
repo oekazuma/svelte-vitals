@@ -11,8 +11,7 @@ import type {
 } from '@svelte-vitals/core';
 import { defaultConfig } from '@svelte-vitals/core';
 import { enumerateRoutePages } from './project.js';
-import { parseFile } from './parse.js';
-import { resolveFileTags, BROAD_KINDS, tagKey } from './resolve.js';
+import { resolveFileTags, readAndParse, BROAD_KINDS, tagKey, type ParseCache } from './resolve.js';
 
 const ROUTES_DIR = 'src/routes';
 const MAX_DEPTH = 5;
@@ -134,7 +133,8 @@ async function resolveRoute(
   cwd: string,
   pageRel: string,
   config: Config,
-  layouts: Map<string, string>
+  layouts: Map<string, string>,
+  cache: ParseCache
 ): Promise<RouteFacts> {
   const files = chainFiles(pageRel, layouts);
   const composed = new Map<string, HeadTag>();
@@ -144,8 +144,7 @@ async function resolveRoute(
   const headings: HeadingInfo[] = [];
 
   for (const { rel, isPage } of files) {
-    const source = await rt.readFile(rt.join(cwd, rel));
-    const parsed = parseFile(source, rel);
+    const parsed = await readAndParse(rt, cwd, rel, cache);
 
     for (const img of parsed.images) {
       images.push({ ...img, file: rel });
@@ -154,7 +153,7 @@ async function resolveRoute(
       headings.push({ ...heading, file: rel });
     }
 
-    const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]));
+    const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache);
     for (const tag of resolved.tags) {
       composed.set(tagKey(tag), { ...tag, presence: isPage ? 'own' : 'inherited', file: rel });
     }
@@ -193,7 +192,8 @@ export async function collectRoutes(
   config: Config = defaultConfig
 ): Promise<{ heads: ResolvedHead[]; images: ResolvedImages[]; headings: ResolvedHeadings[] }> {
   const [pages, layouts] = await Promise.all([enumerateRoutePages(rt, cwd), collectLayouts(rt, cwd)]);
-  const facts = await Promise.all(pages.map((page) => resolveRoute(rt, cwd, page, config, layouts)));
+  const cache: ParseCache = new Map();
+  const facts = await Promise.all(pages.map((page) => resolveRoute(rt, cwd, page, config, layouts, cache)));
   return {
     heads: facts.map((f) => f.head),
     images: facts.map((f) => f.images),
