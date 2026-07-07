@@ -20,6 +20,7 @@ const comp = (imports: string[]): ComponentFacts => ({
   imports,
   namespaceImports: [],
   constableStates: [],
+  mutatedProps: [],
   suppressions: []
 });
 

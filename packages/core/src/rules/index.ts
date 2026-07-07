@@ -39,6 +39,7 @@ import { seo028TitleUnique, seo029DescriptionUnique } from './seo/seo028-029-uni
 import { seo030HeadingOrder } from './seo/seo030-heading-order.js';
 import { correct001EachKey, correct002EffectDerived, correct003EffectAsOnMount } from './correctness/correct001-002.js';
 import { correct004UnmutatedState } from './correctness/correct004-unmutated-state.js';
+import { correct005PropMutation } from './correctness/correct005-prop-mutation.js';
 import { sec001Html, sec002JavascriptUrl } from './security/sec001-002.js';
 import { arch001ComponentSize, arch002PropCount } from './architecture/arch001-002.js';
 import { perf009HeavyImport } from './performance/perf009-heavy-import.js';
@@ -87,6 +88,7 @@ export const allRules: Rule[] = [
   correct002EffectDerived,
   correct003EffectAsOnMount,
   correct004UnmutatedState,
+  correct005PropMutation,
   sec001Html,
   sec002JavascriptUrl,
   arch001ComponentSize,
@@ -138,6 +140,7 @@ export {
   correct002EffectDerived,
   correct003EffectAsOnMount,
   correct004UnmutatedState,
+  correct005PropMutation,
   sec001Html,
   sec002JavascriptUrl,
   arch001ComponentSize,

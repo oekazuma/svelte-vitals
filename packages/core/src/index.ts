@@ -85,6 +85,7 @@ export {
   correct002EffectDerived,
   correct003EffectAsOnMount,
   correct004UnmutatedState,
+  correct005PropMutation,
   sec001Html,
   sec002JavascriptUrl,
   arch001ComponentSize,

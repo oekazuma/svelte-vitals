@@ -37,6 +37,7 @@ describe('emptyComponentFacts', () => {
       imports: [],
       namespaceImports: [],
       constableStates: [],
+      mutatedProps: [],
       suppressions: []
     });
   });

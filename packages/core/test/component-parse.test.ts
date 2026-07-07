@@ -266,6 +266,54 @@ describe('parseComponentFacts — constable $state (CORRECT004)', () => {
   });
 });
 
+describe('parseComponentFacts — mutated non-bindable props (CORRECT005)', () => {
+  const names = (src: string) => parseComponentFacts(src, 'C.svelte').mutatedProps.map((m) => m.name);
+
+  it('flags a member-expression write on a destructured prop', () => {
+    expect(names('<script>let { user } = $props(); user.name = "x";</script>')).toEqual(['user']);
+    expect(names('<script>let { count } = $props(); count.n += 1;</script>')).toEqual(['count']);
+  });
+  it('flags a member update expression on a destructured prop', () => {
+    expect(names('<script>let { obj } = $props(); function inc() { obj.n++; }</script>')).toEqual(['obj']);
+  });
+  it('flags `delete` on a destructured prop property', () => {
+    expect(names('<script>let { obj } = $props(); delete obj.k;</script>')).toEqual(['obj']);
+  });
+  it('flags a mutating method call on a destructured prop', () => {
+    expect(names('<script>let { items } = $props(); items.push(1);</script>')).toEqual(['items']);
+    expect(names('<script>let { items } = $props(); items.splice(0, 1);</script>')).toEqual(['items']);
+    expect(names('<script>let { m } = $props(); m.set("k", 1);</script>')).toEqual(['m']);
+  });
+  it('does not flag plain reassignment of the prop itself (sanctioned ephemeral-state pattern)', () => {
+    expect(names('<script>let { count } = $props(); count = 5;</script>')).toEqual([]);
+    expect(names('<script>let { count } = $props(); count += 1;</script>')).toEqual([]);
+  });
+  it('does not flag mutation of a $bindable-declared prop', () => {
+    expect(names('<script>let { value = $bindable() } = $props(); value.x = 1;</script>')).toEqual([]);
+    expect(names('<script>let { value = $bindable("fallback") } = $props(); value += "!";</script>')).toEqual([]);
+  });
+  it('flags mutation of a renamed (aliased) destructured prop by its local name', () => {
+    expect(names('<script>let { super: trouper } = $props(); trouper.x = 1;</script>')).toEqual(['trouper']);
+  });
+  it('flags mutation via the rest-props binding (rest can never be individually bindable)', () => {
+    expect(names('<script>let { a, ...rest } = $props(); rest.b = 1;</script>')).toEqual(['rest']);
+  });
+  it('flags mutation when $props() is not destructured at all (no field can be $bindable)', () => {
+    expect(names('<script>let props = $props(); props.x = 1;</script>')).toEqual(['props']);
+  });
+  it('flags a prop mutated in an inline template handler', () => {
+    expect(names('<script>let { items } = $props();</script><button onclick={() => items.push(1)}>+</button>')).toEqual(
+      ['items']
+    );
+  });
+  it('does not flag mutation of a plain non-prop variable', () => {
+    expect(names('<script>let { user } = $props(); let other = {}; other.x = 1;</script>')).toEqual([]);
+  });
+  it('does not flag anything when there is no $props()', () => {
+    expect(names('<script>let x = 1; x = 2;</script>')).toEqual([]);
+  });
+});
+
 describe('parseComponentFacts — suppression directives (issue #92)', () => {
   it('captures a script-side disable-next-line with a rule id', () => {
     const src = '<script>\n// svelte-vitals-disable-next-line CORRECT002\n$effect(() => { x = 1; });\n</script>';

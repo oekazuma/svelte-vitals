@@ -20,6 +20,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   imports: [],
   namespaceImports: [],
   constableStates: [],
+  mutatedProps: [],
   suppressions: [],
   ...over
 });
