@@ -15,6 +15,8 @@ svelte-vitals [path] [options]
 
 > AI エージェントのクライアントに MCP サーバーをセットアップするための [`install` サブコマンド](#svelte-vitals-install) もあります。
 
+以下のフラグは、毎回の実行で指定する代わりに、プロジェクトルートの `svelte-vitals.config` ファイルにまとめて一度だけ設定することもできます — 詳しくは [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。フラグは常に設定ファイルより優先されます。
+
 ## フラグ
 
 ### `--reporter <fmt>`
@@ -95,6 +97,16 @@ svelte-vitals --rules SEO001,SEO002
 ```bash
 svelte-vitals --ignore PERF001
 ```
+
+### `--weights <pairs>`
+
+組み合わせた [Health スコア](/svelte-vitals/ja/guides/health-report/) のカテゴリごとの重み上書きです。カンマ区切りの `category=number` ペアを受け付けます。カテゴリ名は大文字小文字を区別しません。指定しなかったカテゴリはデフォルトの重み `1` になります。
+
+```bash
+svelte-vitals --weights seo=2,performance=1
+```
+
+未知のカテゴリ、または負の値・数値でない値を指定するとエラーになります（終了コード `2`）。
 
 ### 特定の指摘だけをインラインで抑制する
 

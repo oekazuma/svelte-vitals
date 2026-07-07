@@ -17,17 +17,20 @@ Run static-mode analysis on a SvelteKit project.
 
 **Inputs:**
 
-| Parameter        | Type                                 | Description                                         |
-| ---------------- | ------------------------------------ | --------------------------------------------------- |
-| `path`           | `string?`                            | Path to the SvelteKit project (defaults to cwd)     |
-| `metaComponents` | `string[]?`                          | Component names that emit head metadata             |
-| `route`          | `string?`                            | Only analyze routes matching this glob              |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'?`        | How to handle dynamic metadata values               |
-| `rules`          | `string[]?`                          | Rule IDs to enable (all others disabled)            |
-| `ignore`         | `string[]?`                          | Rule IDs to disable                                 |
-| `failOn`         | `'critical' \| 'warning' \| 'info'?` | Severity threshold for the response's `failed` flag |
+| Parameter        | Type                                 | Description                                                                                                                                    |
+| ---------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `path`           | `string?`                            | Path to the SvelteKit project (defaults to cwd)                                                                                                |
+| `metaComponents` | `string[]?`                          | Component names that emit head metadata                                                                                                        |
+| `route`          | `string?`                            | Only analyze routes matching this glob                                                                                                         |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'?`        | How to handle dynamic metadata values                                                                                                          |
+| `rules`          | `string[]?`                          | Rule IDs to enable (all others disabled)                                                                                                       |
+| `ignore`         | `string[]?`                          | Rule IDs to disable                                                                                                                            |
+| `failOn`         | `'critical' \| 'warning' \| 'info'?` | Severity threshold for the response's `failed` flag                                                                                            |
+| `weights`        | `Record<string, number>?`            | Per-category weights for the combined Health score, e.g. `{"seo": 2}` (category keys are case-insensitive; unlisted categories default to `1`) |
 
 **Returns:** per-route and site-wide scores plus a list of findings, each with `fix`, `recommendation`, and `docsUrl`.
+
+A project-level `svelte-vitals.config` file (see [Config file](/svelte-vitals/guides/configuration/)) is also read automatically — these tool arguments override it the same way CLI flags do.
 
 ### `explain_rule`
 

@@ -15,6 +15,8 @@ svelte-vitals [path] [options]
 
 > There is also an [`install` subcommand](#svelte-vitals-install) for setting up the MCP server in your AI-agent clients.
 
+Flags below can also be set once in a `svelte-vitals.config` file at the project root instead of being repeated on every invocation — see [Config file](/svelte-vitals/guides/configuration/). A flag always overrides the config file.
+
 ## Flags
 
 ### `--reporter <fmt>`
@@ -114,6 +116,16 @@ Disable the specified rules. Accepts a comma-separated list of rule IDs.
 ```bash
 svelte-vitals --ignore PERF001
 ```
+
+### `--weights <pairs>`
+
+Per-category weight overrides for the combined [Health score](/svelte-vitals/guides/health-report/). Accepts comma-separated `category=number` pairs; categories are matched case-insensitively. Unlisted categories default to weight `1`.
+
+```bash
+svelte-vitals --weights seo=2,performance=1
+```
+
+An unknown category or a negative/non-numeric value is an error (exit `2`).
 
 ### Suppressing a single finding inline
 
