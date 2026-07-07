@@ -3,7 +3,8 @@ import {
   correct001EachKey,
   correct002EffectDerived,
   correct003EffectAsOnMount,
-  correct004UnmutatedState
+  correct004UnmutatedState,
+  correct005PropMutation
 } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
@@ -25,6 +26,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   imports: [],
   namespaceImports: [],
   constableStates: [],
+  mutatedProps: [],
   suppressions: [],
   ...over
 });
@@ -126,6 +128,33 @@ describe('CORRECT004 unmutated $state', () => {
   });
   it('is no-signal when there are no constable states', async () => {
     const rs = await correct004UnmutatedState.check(ctx([comp({ constableStates: [] })]));
+    expect(rs).toHaveLength(0);
+  });
+});
+
+describe('CORRECT005 mutated non-bindable prop', () => {
+  it('flags a mutated prop (one finding per mutation, with line and name)', async () => {
+    const rs = await correct005PropMutation.check(ctx([comp({ mutatedProps: [{ name: 'user', line: 4 }] })]));
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.category).toBe('correctness');
+    expect(rs[0]!.line).toBe(4);
+    expect(rs[0]!.message).toContain('user');
+  });
+  it('reports one finding per distinct mutation occurrence', async () => {
+    const rs = await correct005PropMutation.check(
+      ctx([
+        comp({
+          mutatedProps: [
+            { name: 'a', line: 2 },
+            { name: 'b', line: 3 }
+          ]
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(2);
+  });
+  it('is no-signal when there are no mutated props', async () => {
+    const rs = await correct005PropMutation.check(ctx([comp({ mutatedProps: [] })]));
     expect(rs).toHaveLength(0);
   });
 });

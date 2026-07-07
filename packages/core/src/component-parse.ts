@@ -311,6 +311,138 @@ function isPropsCall(node: Node): boolean {
   return node?.type === 'CallExpression' && node.callee?.type === 'Identifier' && node.callee.name === '$props';
 }
 
+/** Whether a CallExpression is a `$bindable(...)` call (a destructured prop's default value). */
+function isBindableCall(node: Node): boolean {
+  return node?.type === 'CallExpression' && node.callee?.type === 'Identifier' && node.callee.name === '$bindable';
+}
+
+/**
+ * Local identifier names bound to a non-`$bindable` prop from `$props()` (CORRECT005):
+ * plain and renamed destructured names, and the `...rest` binding (rest props can never
+ * be individually declared `$bindable` — that requires a per-prop destructuring default).
+ * A prop initialized with `$bindable(...)` is excluded — mutating it is the intended
+ * contract. `let props = $props()` (no destructuring) tracks `props` itself, since none
+ * of its fields can be `$bindable` either. Returns an empty set when `$props()` appears
+ * more than once, or a destructuring shape is ambiguous (nested pattern) — conservative,
+ * to avoid false positives rather than chase every shape.
+ */
+function collectNonBindableProps(program: Node): Set<string> {
+  const names = new Set<string>();
+  let seen = 0;
+  let ambiguous = false;
+  walkEstree(program, (n) => {
+    if (n.type !== 'VariableDeclarator' || !n.init || !isPropsCall(n.init)) return;
+    seen++;
+    if (n.id?.type === 'Identifier') {
+      names.add(n.id.name);
+      return;
+    }
+    if (n.id?.type !== 'ObjectPattern' || !Array.isArray(n.id.properties)) {
+      ambiguous = true;
+      return;
+    }
+    for (const p of n.id.properties) {
+      if (p?.type === 'RestElement') {
+        addBoundNames(p.argument, names);
+      } else if (p?.type === 'Property') {
+        if (p.value?.type === 'AssignmentPattern') {
+          if (!isBindableCall(p.value.right) && p.value.left?.type === 'Identifier') names.add(p.value.left.name);
+        } else if (p.value?.type === 'Identifier') {
+          names.add(p.value.name);
+        }
+        // A nested destructuring pattern (`{ a: { b } }`) is skipped conservatively.
+      }
+    }
+  });
+  return ambiguous || seen > 1 ? new Set() : names;
+}
+
+/** Mutating array/Set/Map methods — a call to one of these on a non-bindable prop mutates it (CORRECT005). */
+const MUTATING_METHODS = new Set([
+  'push',
+  'pop',
+  'shift',
+  'unshift',
+  'splice',
+  'sort',
+  'reverse',
+  'copyWithin',
+  'fill',
+  'set',
+  'add',
+  'delete',
+  'clear'
+]);
+
+/**
+ * Flag mutations of a non-`$bindable` prop (CORRECT005): a member-expression write
+ * (`prop.x = …`, `prop.x += …`, `prop.x++`), `delete prop.x`, or a call to a mutating
+ * method on the prop (`prop.push(...)`). Plain reassignment of the prop identifier
+ * itself (`prop = 5`) is NOT flagged — Svelte's docs explicitly sanction temporary
+ * reassignment for ephemeral state; only mutation is prohibited. Run over the instance
+ * program AND the template fragment (inline handlers can mutate props in the template).
+ */
+function collectPropMutations(
+  root: Node,
+  propNames: Set<string>,
+  source: string,
+  acc: { name: string; line: number }[]
+): void {
+  if (propNames.size === 0) return;
+
+  // Scope-aware guard (review): a prop name can be shadowed by a nested function's
+  // parameter (`function process(items) { items.push(x) }`) or a template `{#each}`
+  // block's loop variable (`{#each other as items}`) — either introduces an unrelated
+  // binding with the same name, and mutating IT is not a prop mutation. We track only
+  // these two binding sources (the two realistic ways a short prop-like name gets
+  // reused in a Svelte component); full lexical scope resolution (block-scoped
+  // let/const redeclaration, {#snippet}/{:then}/{:catch} bindings) is not attempted —
+  // this is a known, deliberately partial mitigation, not exhaustive shadow tracking.
+  function visit(node: Node, shadowed: Set<string>): void {
+    if (Array.isArray(node)) {
+      for (const child of node) visit(child, shadowed);
+      return;
+    }
+    if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+
+    let scope = shadowed;
+    if (
+      node.type === 'FunctionDeclaration' ||
+      node.type === 'FunctionExpression' ||
+      node.type === 'ArrowFunctionExpression'
+    ) {
+      const introduced = new Set<string>();
+      for (const p of node.params ?? []) addBoundNames(p, introduced);
+      if (introduced.size > 0) scope = new Set([...shadowed, ...introduced]);
+    } else if (node.type === 'EachBlock' && node.context) {
+      const introduced = new Set<string>();
+      addBoundNames(node.context, introduced);
+      if (introduced.size > 0) scope = new Set([...shadowed, ...introduced]);
+    }
+
+    const flag = (r: string | undefined, at: Node) => {
+      if (r && propNames.has(r) && !scope.has(r)) acc.push({ name: r, line: lineOf(source, at.start) });
+    };
+    if (node.type === 'AssignmentExpression' && node.left?.type === 'MemberExpression') {
+      flag(rootObjectName(node.left), node);
+    } else if (node.type === 'UpdateExpression' && node.argument?.type === 'MemberExpression') {
+      flag(rootObjectName(node.argument), node);
+    } else if (node.type === 'UnaryExpression' && node.operator === 'delete') {
+      flag(rootObjectName(node.argument), node);
+    } else if (node.type === 'CallExpression' && node.callee?.type === 'MemberExpression') {
+      const method = node.callee.property?.type === 'Identifier' ? node.callee.property.name : undefined;
+      if (method && MUTATING_METHODS.has(method)) flag(rootObjectName(node.callee.object), node);
+    }
+
+    for (const key of Object.keys(node)) {
+      if (key === 'type' || key === 'start' || key === 'end' || key === 'loc' || key === 'range') continue;
+      visit(node[key], scope);
+    }
+  }
+
+  visit(root, new Set());
+}
+
 /** Named props destructured from `$props()`, or 0 when unknowable (ARCH002). */
 function countProps(program: Node): number {
   let count = 0;
@@ -396,6 +528,7 @@ export function parseComponentFacts(
   imports: string[];
   namespaceImports: { source: string; line: number }[];
   constableStates: { name: string; line: number }[];
+  mutatedProps: { name: string; line: number }[];
   suppressions: SuppressionDirective[];
 } {
   const ast = parse(source, { modern: true, filename }) as Node;
@@ -417,12 +550,16 @@ export function parseComponentFacts(
 
   const effects: EffectFact[] = [];
   const constableStates: { name: string; line: number }[] = [];
+  const mutatedProps: { name: string; line: number }[] = [];
   let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
     collectImportSources(program, imports);
     collectNamespaceImports(program, source, namespaceImports);
     propCount = countProps(program);
+    const nonBindableProps = collectNonBindableProps(program);
+    collectPropMutations(program, nonBindableProps, source, mutatedProps);
+    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source, mutatedProps);
     const stateNames = new Set<string>();
     const reactiveNames = new Set<string>();
     const stateDecls: { name: string; line: number }[] = [];
@@ -465,6 +602,7 @@ export function parseComponentFacts(
     imports,
     namespaceImports,
     constableStates,
+    mutatedProps,
     suppressions
   };
 }

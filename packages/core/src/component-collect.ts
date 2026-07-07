@@ -20,6 +20,7 @@ export function emptyComponentFacts(file: string): ComponentFacts {
     imports: [],
     namespaceImports: [],
     constableStates: [],
+    mutatedProps: [],
     suppressions: []
   };
 }
