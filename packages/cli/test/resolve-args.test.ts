@@ -7,7 +7,17 @@ function resolve(...args: string[]) {
   const argv = mri(args, {
     alias: { h: 'help', v: 'version' },
     boolean: ['by-route', 'json', 'fail-on-warning', 'staged'],
-    string: ['meta-components', 'treat-dynamic-as', 'route', 'fail-on', 'reporter', 'rules', 'ignore', 'diff']
+    string: [
+      'meta-components',
+      'treat-dynamic-as',
+      'route',
+      'fail-on',
+      'reporter',
+      'rules',
+      'ignore',
+      'diff',
+      'weights'
+    ]
   });
   return resolveArgs(argv);
 }
@@ -77,5 +87,52 @@ describe('resolveArgs', () => {
     const { options } = resolve('--json');
     expect(options?.diffBase).toBeUndefined();
     expect(options?.staged).toBeUndefined();
+  });
+
+  it('leaves rules undefined when neither --rules nor --ignore is passed', () => {
+    const { options } = resolve('--json');
+    expect(options?.rules).toBeUndefined();
+  });
+
+  it('parses --weights into a per-category map, normalizing case', () => {
+    const { options, errors } = resolve('--weights', 'SEO=2,performance=1.5');
+    expect(errors).toEqual([]);
+    expect(options?.weights).toEqual({ seo: 2, performance: 1.5 });
+  });
+
+  it('omits weights when --weights is not passed', () => {
+    const { options } = resolve('--json');
+    expect(options?.weights).toBeUndefined();
+  });
+
+  it('reports an unknown category in --weights as a fatal error', () => {
+    const { options, errors } = resolve('--weights', 'bogus=2');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('unknown category(ies) in --weights'))).toBe(true);
+    expect(errors.some((e) => e.includes('Known categories'))).toBe(true);
+  });
+
+  it('reports a negative --weights value as a fatal error', () => {
+    const { options, errors } = resolve('--weights', 'seo=-1');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('invalid --weights entry'))).toBe(true);
+  });
+
+  it('reports a non-numeric --weights value as a fatal error', () => {
+    const { options, errors } = resolve('--weights', 'seo=nope');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('invalid --weights entry'))).toBe(true);
+  });
+
+  it('reports an empty --weights value as a fatal error (Number("") must not coerce to 0)', () => {
+    const { options, errors } = resolve('--weights', 'seo=');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('invalid --weights entry'))).toBe(true);
+  });
+
+  it('reports --weights with no category=number pairs as a fatal error (must not silently clobber config weights)', () => {
+    const { options, errors } = resolve('--weights', ',');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('--weights was passed but contains no category=number pairs'))).toBe(true);
   });
 });

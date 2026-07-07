@@ -18,7 +18,8 @@ import {
   type Severity,
   type RuleSetting,
   type Result,
-  type Config
+  type Config,
+  type Category
 } from '@svelte-vitals/core';
 import { createNodeRuntime } from './runtime/node.js';
 import { collectRoutes } from './providers/source/routes.js';
@@ -29,6 +30,7 @@ import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type Report
 import { getChangedFiles, filterToChangedFiles } from './changed-files.js';
 import { colorEnabled, paletteFor } from './color.js';
 import { startSpinner } from './spinner.js';
+import { loadConfigFile } from './config-file.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -42,6 +44,8 @@ export interface RunOptions {
   byRoute?: boolean;
   failOn?: Severity;
   rules?: Record<string, RuleSetting>;
+  /** Per-category weights for the combined Health score (flag > config file > default 1 each). */
+  weights?: Partial<Record<Category, number>>;
   /** Override process.env for reporter auto-detection (mainly useful in tests). */
   env?: NodeJS.ProcessEnv;
   /** Fail (exit 1) when the combined Health score is below this value (0–100). */
@@ -107,27 +111,44 @@ export interface AnalyzeOptions {
   route?: string;
   failOn?: Severity;
   rules?: Record<string, RuleSetting>;
+  /** Per-category weights for the combined Health score (flag > config file > default 1 each). */
+  weights?: Partial<Record<Category, number>>;
 }
 
 export interface AnalyzeResult {
   results: Result[];
   config: Config;
   version: string;
+  /** Non-fatal config-file issues (unknown top-level keys, invalid enum values). Empty when no config file or none found. */
+  warnings: string[];
 }
 
 /**
  * Run static-mode analysis and return the structured findings + resolved config.
- * Throws ProjectError when `cwd` is not a SvelteKit project. Shared by the CLI's
- * run() and by @svelte-vitals/mcp (issue #24).
+ * Throws ProjectError when `cwd` is not a SvelteKit project. Also throws when a
+ * `svelte-vitals.config.{mjs,js,ts}` file in `cwd` fails to load or fails
+ * validation (unknown rule ids in `rules`, invalid `weights` entries) — see
+ * `loadConfigFile`. Shared by the CLI's run() and by @svelte-vitals/mcp (issue #24).
+ *
+ * Config precedence is per field: an explicit option here wins, otherwise the
+ * config file's value is used, otherwise the built-in default (design doc
+ * 2026-07-05-config-file-design.md §3).
  */
 export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<AnalyzeResult> {
   const cwd = opts.cwd ?? process.cwd();
   const rt = createNodeRuntime();
+
+  const loaded = await loadConfigFile(cwd);
+  const file = loaded?.config;
+  const warnings = loaded?.warnings ?? [];
+
+  const weights = opts.weights ?? file?.weights;
   const config = defineConfig({
-    treatDynamicAs: opts.treatDynamicAs ?? 'pass',
-    metaComponents: opts.metaComponents ?? [],
-    rules: opts.rules ?? {},
-    failOn: opts.failOn ?? 'critical'
+    treatDynamicAs: opts.treatDynamicAs ?? file?.treatDynamicAs ?? 'pass',
+    metaComponents: opts.metaComponents ?? file?.metaComponents ?? [],
+    rules: opts.rules ?? file?.rules ?? {},
+    failOn: opts.failOn ?? file?.failOn ?? 'critical',
+    ...(weights !== undefined ? { weights } : {})
   });
 
   await detectProject(rt, cwd); // throws ProjectError if not a SvelteKit project
@@ -146,7 +167,7 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     await runRules(rules, { heads, images, headings, components, project, config }),
     config
   );
-  return { results, config, version: readPackageVersion() };
+  return { results, config, version: readPackageVersion(), warnings };
 }
 
 /**
@@ -182,7 +203,8 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       treatDynamicAs: opts.treatDynamicAs,
       route: opts.route,
       failOn: opts.failOn,
-      rules: opts.rules
+      rules: opts.rules,
+      weights: opts.weights
     });
   } catch (err) {
     spinner.stop();
@@ -194,6 +216,8 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     return 2;
   }
   spinner.stop();
+
+  for (const w of analysis.warnings) errorLog(`svelte-vitals: ${w}`);
 
   try {
     const { config, version } = analysis;
@@ -273,3 +297,9 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 
 export { ProjectError } from './providers/source/project.js';
 export { buildRulesConfig, findUnknownRuleIds, knownRuleIds } from './rules-config.js';
+export { loadConfigFile } from './config-file.js';
+export type { LoadedConfigFile } from './config-file.js';
+// Re-exported so user config files can `import { defineConfig } from 'svelte-vitals'`
+// (the package they actually installed) instead of the transitive `@svelte-vitals/core`
+// (design doc 2026-07-05-config-file-design.md §5).
+export { defineConfig } from '@svelte-vitals/core';

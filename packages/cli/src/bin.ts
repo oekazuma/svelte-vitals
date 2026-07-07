@@ -26,9 +26,13 @@ Options:
   --min-health <0-100>        Fail (exit 1) when the combined Health score is below this value
   --rules <ids>               Comma-separated rule ids to enable (all others disabled)
   --ignore <ids>              Comma-separated rule ids to disable
+  --weights <pairs>           Per-category Health weight overrides, e.g. seo=2,performance=1 (unlisted categories default to 1)
   --no-color                  Disable ANSI color in console output
   -h, --help                  Show this help
   -v, --version               Show version
+
+Config file:
+  svelte-vitals.config.{mjs,js,ts} in the analyzed directory; flags override it.
 
 Exit codes:
   0  no failing findings
@@ -57,7 +61,8 @@ async function main(): Promise<void> {
       'ignore',
       'min-health',
       'out-file',
-      'diff'
+      'diff',
+      'weights'
     ]
   });
 

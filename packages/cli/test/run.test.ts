@@ -5,6 +5,8 @@ import { run } from '../src/index.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const fixtureDir = join(here, 'fixtures', 'basic-project');
+const configFileFixtureDir = join(here, 'fixtures', 'config-file-project');
+const configFileInvalidFixtureDir = join(here, 'fixtures', 'config-file-invalid-project');
 // Isolate reporter auto-detection from the ambient test-runner environment
 // (e.g. CLAUDECODE is set when running inside Claude Code).
 const CLEAN_ENV: NodeJS.ProcessEnv = {};
@@ -236,5 +238,28 @@ describe('run() sarif & github reporters', () => {
     });
     expect(code).toBe(0);
     expect(cap.out).toEqual([]);
+  });
+});
+
+describe('run() config file (design doc 2026-07-05-config-file-design.md)', () => {
+  it('reflects the config file in findings (SEO001 disabled by rules) and prints its warnings', async () => {
+    const cap = capture();
+    const code = await run({ cwd: configFileFixtureDir, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
+    // failOn: 'warning' (from the file) + a critical SEO002 finding present → exit 1.
+    expect(code).toBe(1);
+    const report = cap.out.join('\n');
+    expect(report).not.toContain('SEO001');
+    expect(report).toContain('SEO002');
+  });
+
+  it('exits 2 with the loader validation message for a config file with an unknown rule id', async () => {
+    const cap = capture();
+    const code = await run({ cwd: configFileInvalidFixtureDir, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
+    expect(code).toBe(2);
+    const errText = cap.err.join('\n');
+    expect(errText).toContain('unknown rule id(s) in rules: NOPE999');
+    expect(errText).toContain('Known rule ids:');
+    // No double `svelte-vitals: ` prefix (the loader no longer prepends its own).
+    expect(errText).not.toContain('svelte-vitals: svelte-vitals:');
   });
 });
