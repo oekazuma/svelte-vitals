@@ -54,6 +54,12 @@ describe('loadConfigFile', () => {
     await expect(loadConfigFile(fixture('config-file-invalid'))).rejects.toThrow(/must have a default export/);
   });
 
+  it('rejects a config file whose default export is an array, not a plain object', async () => {
+    await expect(loadConfigFile(fixture('config-file-default-export-array'))).rejects.toThrow(
+      /must have a default export that is a plain object/
+    );
+  });
+
   it('rejects an unknown rule id in rules, listing known rule ids', async () => {
     await expect(loadConfigFile(fixture('config-file-unknown-rule'))).rejects.toThrow(
       /unknown rule id\(s\) in rules: NOPE999.*Known rule ids:/s

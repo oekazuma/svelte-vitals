@@ -58,6 +58,18 @@ function parseWeights(raw: unknown, errors: string[]): Partial<Record<Category, 
     );
   }
 
+  // `raw` was a non-empty string (e.g. "," or " ") but every pair was either purely
+  // whitespace (filtered out above, so neither unknownCategories nor invalidValues
+  // saw it) or otherwise didn't yield an entry. Note: this check uses the local
+  // unknownCategories/invalidValues counts, not `errors.length` — `errors` is the
+  // shared diagnostics array for the whole resolveArgs() call and may already hold
+  // unrelated entries (e.g. from --rules) by the time parseWeights runs. Without
+  // this, a bare `--weights ,` would silently return {} and clobber a config
+  // file's weights instead of surfacing a diagnostic.
+  if (unknownCategories.length === 0 && invalidValues.length === 0 && Object.keys(weights).length === 0) {
+    errors.push('svelte-vitals: --weights was passed but contains no category=number pairs.');
+  }
+
   return weights;
 }
 

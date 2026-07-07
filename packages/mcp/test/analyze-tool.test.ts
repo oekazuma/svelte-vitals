@@ -81,6 +81,27 @@ describe('analyze tool', () => {
     expect(report.weights.seo).toBe(5);
   });
 
+  it('accepts weights category keys case-insensitively (via the real input schema, not handleAnalyze directly)', async () => {
+    // Case-insensitivity is implemented as a zod preprocess step on the input schema,
+    // so — like the negative-weight test below — this must go through a real
+    // client-server pair; calling handleAnalyze directly would bypass the schema
+    // entirely and the uppercase key would never get lowercased.
+    const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+    const server = createServer();
+    await server.connect(serverTransport);
+    const client = new Client({ name: 'test', version: '0.0.0' });
+    await client.connect(clientTransport);
+    try {
+      const res = await client.callTool({ name: 'analyze', arguments: { path: fixtureDir, weights: { SEO: 2 } } });
+      expect(res.isError).toBeFalsy();
+      const report = res.structuredContent as { weights: Record<string, number> };
+      expect(report.weights.seo).toBe(2);
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
   it('rejects a negative weight at the input-schema layer (isError, before analysis runs)', async () => {
     // Go through a real client-server pair so the tool's zod inputSchema is applied
     // (handleAnalyze alone would bypass it — validation lives in the MCP SDK layer).

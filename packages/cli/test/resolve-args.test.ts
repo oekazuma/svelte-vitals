@@ -129,4 +129,10 @@ describe('resolveArgs', () => {
     expect(options).toBeNull();
     expect(errors.some((e) => e.includes('invalid --weights entry'))).toBe(true);
   });
+
+  it('reports --weights with no category=number pairs as a fatal error (must not silently clobber config weights)', () => {
+    const { options, errors } = resolve('--weights', ',');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('--weights was passed but contains no category=number pairs'))).toBe(true);
+  });
 });

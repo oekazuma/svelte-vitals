@@ -157,9 +157,9 @@ export async function loadConfigFile(cwd: string): Promise<LoadedConfigFile | un
     throw err;
   }
 
-  if (!mod.default || typeof mod.default !== 'object') {
+  if (!isPlainObject(mod.default)) {
     throw new Error(
-      `${found} must have a default export (e.g. \`export default defineConfig({...})\` or a plain object).`
+      `${found} must have a default export that is a plain object (e.g. \`export default defineConfig({...})\` or a plain object literal).`
     );
   }
 

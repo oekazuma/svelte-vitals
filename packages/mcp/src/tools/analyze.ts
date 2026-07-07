@@ -32,9 +32,20 @@ const analyzeInputSchema = z.object({
     .optional()
     .describe('Minimum severity that counts as a failure in the summary. Default: critical.'),
   weights: z
-    .partialRecord(z.enum(['seo', 'performance', 'correctness', 'security', 'architecture']), z.number().nonnegative())
+    .preprocess(
+      (v) =>
+        v && typeof v === 'object' && !Array.isArray(v)
+          ? Object.fromEntries(Object.entries(v).map(([k, val]) => [String(k).toLowerCase(), val]))
+          : v,
+      z.partialRecord(
+        z.enum(['seo', 'performance', 'correctness', 'security', 'architecture']),
+        z.number().nonnegative()
+      )
+    )
     .optional()
-    .describe('Per-category weights for the combined Health score, e.g. {"seo": 2}. Unlisted categories default to 1.')
+    .describe(
+      'Per-category weights for the combined Health score, e.g. {"seo": 2}. Category keys are case-insensitive. Unlisted categories default to 1.'
+    )
 });
 
 /** zod raw shape for the analyze tool's input (registered with the MCP server). */
