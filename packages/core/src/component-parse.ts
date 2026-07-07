@@ -389,24 +389,58 @@ function collectPropMutations(
   acc: { name: string; line: number }[]
 ): void {
   if (propNames.size === 0) return;
-  walkEstree(root, (n: Node) => {
-    if (n?.type === 'AssignmentExpression' && n.left?.type === 'MemberExpression') {
-      const r = rootObjectName(n.left);
-      if (r && propNames.has(r)) acc.push({ name: r, line: lineOf(source, n.start) });
-    } else if (n?.type === 'UpdateExpression' && n.argument?.type === 'MemberExpression') {
-      const r = rootObjectName(n.argument);
-      if (r && propNames.has(r)) acc.push({ name: r, line: lineOf(source, n.start) });
-    } else if (n?.type === 'UnaryExpression' && n.operator === 'delete') {
-      const r = rootObjectName(n.argument);
-      if (r && propNames.has(r)) acc.push({ name: r, line: lineOf(source, n.start) });
-    } else if (n?.type === 'CallExpression' && n.callee?.type === 'MemberExpression') {
-      const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
-      if (method && MUTATING_METHODS.has(method)) {
-        const r = rootObjectName(n.callee.object);
-        if (r && propNames.has(r)) acc.push({ name: r, line: lineOf(source, n.start) });
-      }
+
+  // Scope-aware guard (review): a prop name can be shadowed by a nested function's
+  // parameter (`function process(items) { items.push(x) }`) or a template `{#each}`
+  // block's loop variable (`{#each other as items}`) — either introduces an unrelated
+  // binding with the same name, and mutating IT is not a prop mutation. We track only
+  // these two binding sources (the two realistic ways a short prop-like name gets
+  // reused in a Svelte component); full lexical scope resolution (block-scoped
+  // let/const redeclaration, {#snippet}/{:then}/{:catch} bindings) is not attempted —
+  // this is a known, deliberately partial mitigation, not exhaustive shadow tracking.
+  function visit(node: Node, shadowed: Set<string>): void {
+    if (Array.isArray(node)) {
+      for (const child of node) visit(child, shadowed);
+      return;
     }
-  });
+    if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+
+    let scope = shadowed;
+    if (
+      node.type === 'FunctionDeclaration' ||
+      node.type === 'FunctionExpression' ||
+      node.type === 'ArrowFunctionExpression'
+    ) {
+      const introduced = new Set<string>();
+      for (const p of node.params ?? []) addBoundNames(p, introduced);
+      if (introduced.size > 0) scope = new Set([...shadowed, ...introduced]);
+    } else if (node.type === 'EachBlock' && node.context) {
+      const introduced = new Set<string>();
+      addBoundNames(node.context, introduced);
+      if (introduced.size > 0) scope = new Set([...shadowed, ...introduced]);
+    }
+
+    const flag = (r: string | undefined, at: Node) => {
+      if (r && propNames.has(r) && !scope.has(r)) acc.push({ name: r, line: lineOf(source, at.start) });
+    };
+    if (node.type === 'AssignmentExpression' && node.left?.type === 'MemberExpression') {
+      flag(rootObjectName(node.left), node);
+    } else if (node.type === 'UpdateExpression' && node.argument?.type === 'MemberExpression') {
+      flag(rootObjectName(node.argument), node);
+    } else if (node.type === 'UnaryExpression' && node.operator === 'delete') {
+      flag(rootObjectName(node.argument), node);
+    } else if (node.type === 'CallExpression' && node.callee?.type === 'MemberExpression') {
+      const method = node.callee.property?.type === 'Identifier' ? node.callee.property.name : undefined;
+      if (method && MUTATING_METHODS.has(method)) flag(rootObjectName(node.callee.object), node);
+    }
+
+    for (const key of Object.keys(node)) {
+      if (key === 'type' || key === 'start' || key === 'end' || key === 'loc' || key === 'range') continue;
+      visit(node[key], scope);
+    }
+  }
+
+  visit(root, new Set());
 }
 
 /** Named props destructured from `$props()`, or 0 when unknowable (ARCH002). */

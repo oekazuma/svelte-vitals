@@ -312,6 +312,17 @@ describe('parseComponentFacts — mutated non-bindable props (CORRECT005)', () =
   it('does not flag anything when there is no $props()', () => {
     expect(names('<script>let x = 1; x = 2;</script>')).toEqual([]);
   });
+  it('does not flag a mutation of a same-named function parameter that shadows the prop (review)', () => {
+    expect(names('<script>let { items } = $props(); function process(items) { items.push(1); }</script>')).toEqual([]);
+  });
+  it('still flags the real prop once outside the shadowing function (review)', () => {
+    expect(
+      names('<script>let { items } = $props(); function process(items) { items.push(1); } items.sort();</script>')
+    ).toEqual(['items']);
+  });
+  it('does not flag a mutation of an {#each} loop variable that shadows the prop (review)', () => {
+    expect(names('<script>let { items } = $props();</script>{#each other as items}{items.push(1)}{/each}')).toEqual([]);
+  });
 });
 
 describe('parseComponentFacts — suppression directives (issue #92)', () => {
