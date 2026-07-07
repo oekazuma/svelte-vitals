@@ -54,3 +54,12 @@ The CLI's contract (`packages/cli/src/bin.ts`):
 - `0` — no failing findings
 - `1` — critical finding present (or `--fail-on`/`--min-health` threshold reached)
 - `2` — execution error (not a SvelteKit project / internal error)
+
+## Svelte MCP server
+
+The Svelte MCP server (configured in `.mcp.json`) provides Svelte 5 / SvelteKit documentation and code validation. Use it whenever the task involves Svelte/SvelteKit topics or writing `.svelte` code:
+
+- `list-sections` — call this first to discover the available documentation sections (returns titles, `use_cases`, and paths).
+- `get-documentation` — after `list-sections`, fetch every section relevant to the task (accepts single or multiple sections; judge relevance by the `use_cases` field).
+- `svelte-autofixer` — run on any Svelte code before presenting it; keep re-running until it returns no issues or suggestions.
+- `playground-link` — generates a Svelte Playground link. Only after the user confirms they want one, and never for code already written to files in the project.
