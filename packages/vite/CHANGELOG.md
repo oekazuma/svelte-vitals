@@ -1,5 +1,23 @@
 # @svelte-vitals/vite
 
+## 0.11.0
+
+### Minor Changes
+
+- 3b33e4c: Raise the supported Node.js floor from 18.20.8 (EOL) to >=22.13.0 — the oldest maintained LTS line the pinned pnpm can run on. CI now exercises Node 22 (floor), 24, and 26.
+
+### Patch Changes
+
+- e476a2e: Deduplicate `collectComponentFacts` into `@svelte-vitals/core`; behavior is unchanged.
+- aa1e0a4: Harden the dev UI middleware: reject non-loopback origins/hosts, fully validate ingested findings against what the dashboard renderer dereferences, and never let a malformed payload crash the dashboard.
+- Updated dependencies [18b11af]
+- Updated dependencies [7f1697d]
+- Updated dependencies [e476a2e]
+- Updated dependencies [6b2d0a7]
+- Updated dependencies [3b33e4c]
+- Updated dependencies [4513f97]
+  - @svelte-vitals/core@0.20.0
+
 ## 0.10.0
 
 ### Minor Changes
