@@ -16,6 +16,14 @@ describe('parseComponentFacts — each blocks (CORRECT001)', () => {
     const c = parseComponentFacts('{#each [...items] as n}<li>{n}</li>{/each}', 'C.svelte');
     expect(c.eachBlocks).toEqual([{ hasKey: false, line: 1 }]);
   });
+  it('ignores an itemless each (the "render N times" pattern — no item identity to key on)', () => {
+    const c = parseComponentFacts('{#each { length: 8 }, rank}<div>{rank}</div>{/each}', 'C.svelte');
+    expect(c.eachBlocks).toEqual([]);
+  });
+  it('ignores an itemless each even if it is (pointlessly) given an index key', () => {
+    const c = parseComponentFacts('{#each { length: 8 }, rank (rank)}<div>{rank}</div>{/each}', 'C.svelte');
+    expect(c.eachBlocks).toEqual([]);
+  });
 });
 
 describe('parseComponentFacts — $effect (CORRECT002)', () => {
