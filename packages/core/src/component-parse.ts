@@ -31,7 +31,10 @@ function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): vo
     return;
   }
   if (!node || typeof node !== 'object') return;
-  if (node.type === 'EachBlock' && !isConstantListEach(node)) {
+  // Itemless each (`{#each { length: 8 }, i}` — the docs' "render N times" pattern,
+  // e.g. a chess board) has no item identity to key on; the only possible key is
+  // the index itself, which is a no-op. Flagging it would be a false positive.
+  if (node.type === 'EachBlock' && node.context != null && !isConstantListEach(node)) {
     acc.push({ hasKey: node.key != null, line: lineOf(source, node.start) });
   }
   for (const key of CHILD_NODE_KEYS) {
