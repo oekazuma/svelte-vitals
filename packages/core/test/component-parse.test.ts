@@ -264,6 +264,16 @@ describe('parseComponentFacts — constable $state (CORRECT004)', () => {
   it('still flags a genuinely read-only $state used in a template expression', () => {
     expect(names('<script>let t = $state("x");</script><p>{t}</p>')).toEqual(['t']);
   });
+  it('still flags a $state when only a shadowing local of the same name is written (issue #140)', () => {
+    expect(names('<script>let count = $state(0); function f() { let count = 0; count++; }</script>')).toEqual([
+      'count'
+    ]);
+    expect(names('<script>let count = $state(0); function f(count) { count++; }</script>')).toEqual(['count']);
+    expect(names('<script>let items = $state([]);</script>{#each other as items}{items.push(1)}{/each}')).toEqual([
+      'items'
+    ]);
+    expect(names('<script>let i = $state(0); for (let i = 0; i < 3; i++) {}</script>')).toEqual(['i']);
+  });
 });
 
 describe('parseComponentFacts — mutated non-bindable props (CORRECT005)', () => {
@@ -322,6 +332,24 @@ describe('parseComponentFacts — mutated non-bindable props (CORRECT005)', () =
   });
   it('does not flag a mutation of an {#each} loop variable that shadows the prop (review)', () => {
     expect(names('<script>let { items } = $props();</script>{#each other as items}{items.push(1)}{/each}')).toEqual([]);
+  });
+  it('does not flag a mutation of a block-scoped let/const that shadows the prop (issue #140)', () => {
+    expect(names('<script>let { items } = $props(); if (true) { let items = []; items.push(1); }</script>')).toEqual(
+      []
+    );
+  });
+  it('does not flag a mutation of a for-loop variable that shadows the prop (issue #140)', () => {
+    expect(
+      names('<script>let { items } = $props(); for (let items = []; false; ) { items.push(1); }</script>')
+    ).toEqual([]);
+  });
+  it('does not flag a mutation of a catch-clause parameter that shadows the prop (issue #140)', () => {
+    expect(names('<script>let { items } = $props(); try {} catch (items) { items.push(1); }</script>')).toEqual([]);
+  });
+  it('still flags the real prop mutation alongside an unrelated shadowed block (issue #140)', () => {
+    expect(
+      names('<script>let { items } = $props(); if (true) { let items = []; items.push(1); } items.sort();</script>')
+    ).toEqual(['items']);
   });
 });
 
