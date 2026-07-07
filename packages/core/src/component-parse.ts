@@ -149,40 +149,108 @@ function rootObjectName(node: Node): string | undefined {
 }
 
 /**
+ * Names newly bound AT `node` (not by its children) that shadow an outer binding of the
+ * same name for everything nested inside it: function/arrow-function parameters, a
+ * `catch` clause's parameter, a block's own `let`/`const` declarations (not `var`, which
+ * is function-scoped and already covered by the enclosing function's params test), a
+ * `for`/`for-of`/`for-in` loop's declared variable, and a Svelte `{#each ... as x}`
+ * block's context. Used by `walkScoped` so a write/mutation detector doesn't misattribute
+ * a write to one of these locals as a write to an outer `$state`/prop of the same name
+ * (issue #140 — a deliberately partial mitigation: `{#snippet}`/`{:then}`/`{:catch}`
+ * bindings are not tracked, and a block's own `let` shadows the whole block, not just the
+ * statements after its declaration — over-conservative, not exhaustive scope resolution).
+ */
+function scopeIntroducedNames(node: Node): Set<string> {
+  const introduced = new Set<string>();
+  if (
+    node.type === 'FunctionDeclaration' ||
+    node.type === 'FunctionExpression' ||
+    node.type === 'ArrowFunctionExpression'
+  ) {
+    for (const p of node.params ?? []) addBoundNames(p, introduced);
+  } else if (node.type === 'CatchClause') {
+    addBoundNames(node.param, introduced);
+  } else if (node.type === 'BlockStatement') {
+    for (const stmt of node.body ?? []) {
+      if (stmt?.type === 'VariableDeclaration' && stmt.kind !== 'var') {
+        for (const d of stmt.declarations ?? []) addBoundNames(d.id, introduced);
+      }
+    }
+  } else if (node.type === 'ForStatement' || node.type === 'ForOfStatement' || node.type === 'ForInStatement') {
+    const decl = node.type === 'ForStatement' ? node.init : node.left;
+    if (decl?.type === 'VariableDeclaration') {
+      for (const d of decl.declarations ?? []) addBoundNames(d.id, introduced);
+    }
+  } else if (node.type === 'EachBlock' && node.context) {
+    addBoundNames(node.context, introduced);
+  }
+  return introduced;
+}
+
+/**
+ * Like `walkEstree`, but threads a "shadowed names" set down through scope-introducing
+ * constructs (`scopeIntroducedNames`) so `visit` can check whether a candidate identifier
+ * is locally shadowed before treating it as a match against an outer binding.
+ */
+function walkScoped(
+  node: Node,
+  visit: (n: Node, shadowed: Set<string>) => void,
+  shadowed: Set<string> = new Set()
+): void {
+  if (Array.isArray(node)) {
+    for (const child of node) walkScoped(child, visit, shadowed);
+    return;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
+  visit(node, scope);
+  for (const key of Object.keys(node)) {
+    if (key === 'type' || key === 'start' || key === 'end' || key === 'loc' || key === 'range') continue;
+    walkScoped(node[key], visit, scope);
+  }
+}
+
+/**
  * Add state names that are WRITTEN or ESCAPED (CORRECT004 rules 1–4): reassignment,
  * update, member/element assignment, method call on the state, or the state passed
  * as a call argument. Run over the instance program AND the template fragment
- * (inline handlers mutate state in the template).
+ * (inline handlers mutate state in the template). Scope-aware (issue #140): a local
+ * that shadows a state's name (a function param, block-scoped let/const, {#each}
+ * context, …) does not mark the outer state as written/escaped.
  */
 function collectStateWrites(root: Node, stateNames: Set<string>, acc: Set<string>): void {
-  walkEstree(root, (n: Node) => {
+  walkScoped(root, (n: Node, scope: Set<string>) => {
+    const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);
     if (n?.type === 'AssignmentExpression') {
-      if (n.left?.type === 'Identifier' && stateNames.has(n.left.name)) acc.add(n.left.name);
-      else if (n.left?.type === 'MemberExpression') {
+      if (n.left?.type === 'Identifier' && stateNames.has(n.left.name) && !shadowed(n.left.name)) {
+        acc.add(n.left.name);
+      } else if (n.left?.type === 'MemberExpression') {
         const r = rootObjectName(n.left);
-        if (r && stateNames.has(r)) acc.add(r);
+        if (r && stateNames.has(r) && !shadowed(r)) acc.add(r);
       } else if (n.left?.type === 'ObjectPattern' || n.left?.type === 'ArrayPattern') {
         // Destructuring-assignment target, e.g. `({ count } = obj)` or `[count] = arr`.
         const bound = new Set<string>();
         addBoundNames(n.left, bound);
-        for (const name of bound) if (stateNames.has(name)) acc.add(name);
+        for (const name of bound) if (stateNames.has(name) && !shadowed(name)) acc.add(name);
       }
     } else if (n?.type === 'UpdateExpression') {
       const r = rootObjectName(n.argument);
-      if (r && stateNames.has(r)) acc.add(r); // x++, x.count++, x[i]++
+      if (r && stateNames.has(r) && !shadowed(r)) acc.add(r); // x++, x.count++, x[i]++
     } else if (n?.type === 'UnaryExpression' && n.operator === 'delete') {
       const r = rootObjectName(n.argument);
-      if (r && stateNames.has(r)) acc.add(r);
+      if (r && stateNames.has(r) && !shadowed(r)) acc.add(r);
     } else if (n?.type === 'CallExpression') {
       if (n.callee?.type === 'MemberExpression') {
         const r = rootObjectName(n.callee);
-        if (r && stateNames.has(r)) acc.add(r); // x.push(), x.foo()
+        if (r && stateNames.has(r) && !shadowed(r)) acc.add(r); // x.push(), x.foo()
       }
       for (const a of n.arguments ?? []) {
         // Unwrap a spread argument (`f(...x)`, `f(...x.items)`) to its expression.
         const arg = a?.type === 'SpreadElement' ? a.argument : a;
         const r = rootObjectName(arg);
-        if (r && stateNames.has(r)) acc.add(r); // f(x), f(x.a), f(...x)
+        if (r && stateNames.has(r) && !shadowed(r)) acc.add(r); // f(x), f(x.a), f(...x)
       }
     }
   });
@@ -381,6 +449,7 @@ const MUTATING_METHODS = new Set([
  * itself (`prop = 5`) is NOT flagged — Svelte's docs explicitly sanction temporary
  * reassignment for ephemeral state; only mutation is prohibited. Run over the instance
  * program AND the template fragment (inline handlers can mutate props in the template).
+ * Scope-aware (issue #140): a local that shadows the prop's name is not flagged.
  */
 function collectPropMutations(
   root: Node,
@@ -389,58 +458,21 @@ function collectPropMutations(
   acc: { name: string; line: number }[]
 ): void {
   if (propNames.size === 0) return;
-
-  // Scope-aware guard (review): a prop name can be shadowed by a nested function's
-  // parameter (`function process(items) { items.push(x) }`) or a template `{#each}`
-  // block's loop variable (`{#each other as items}`) — either introduces an unrelated
-  // binding with the same name, and mutating IT is not a prop mutation. We track only
-  // these two binding sources (the two realistic ways a short prop-like name gets
-  // reused in a Svelte component); full lexical scope resolution (block-scoped
-  // let/const redeclaration, {#snippet}/{:then}/{:catch} bindings) is not attempted —
-  // this is a known, deliberately partial mitigation, not exhaustive shadow tracking.
-  function visit(node: Node, shadowed: Set<string>): void {
-    if (Array.isArray(node)) {
-      for (const child of node) visit(child, shadowed);
-      return;
-    }
-    if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
-
-    let scope = shadowed;
-    if (
-      node.type === 'FunctionDeclaration' ||
-      node.type === 'FunctionExpression' ||
-      node.type === 'ArrowFunctionExpression'
-    ) {
-      const introduced = new Set<string>();
-      for (const p of node.params ?? []) addBoundNames(p, introduced);
-      if (introduced.size > 0) scope = new Set([...shadowed, ...introduced]);
-    } else if (node.type === 'EachBlock' && node.context) {
-      const introduced = new Set<string>();
-      addBoundNames(node.context, introduced);
-      if (introduced.size > 0) scope = new Set([...shadowed, ...introduced]);
-    }
-
-    const flag = (r: string | undefined, at: Node) => {
-      if (r && propNames.has(r) && !scope.has(r)) acc.push({ name: r, line: lineOf(source, at.start) });
+  walkScoped(root, (n: Node, scope: Set<string>) => {
+    const flag = (r: string | undefined) => {
+      if (r && propNames.has(r) && !scope.has(r)) acc.push({ name: r, line: lineOf(source, n.start) });
     };
-    if (node.type === 'AssignmentExpression' && node.left?.type === 'MemberExpression') {
-      flag(rootObjectName(node.left), node);
-    } else if (node.type === 'UpdateExpression' && node.argument?.type === 'MemberExpression') {
-      flag(rootObjectName(node.argument), node);
-    } else if (node.type === 'UnaryExpression' && node.operator === 'delete') {
-      flag(rootObjectName(node.argument), node);
-    } else if (node.type === 'CallExpression' && node.callee?.type === 'MemberExpression') {
-      const method = node.callee.property?.type === 'Identifier' ? node.callee.property.name : undefined;
-      if (method && MUTATING_METHODS.has(method)) flag(rootObjectName(node.callee.object), node);
+    if (n.type === 'AssignmentExpression' && n.left?.type === 'MemberExpression') {
+      flag(rootObjectName(n.left));
+    } else if (n.type === 'UpdateExpression' && n.argument?.type === 'MemberExpression') {
+      flag(rootObjectName(n.argument));
+    } else if (n.type === 'UnaryExpression' && n.operator === 'delete') {
+      flag(rootObjectName(n.argument));
+    } else if (n.type === 'CallExpression' && n.callee?.type === 'MemberExpression') {
+      const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
+      if (method && MUTATING_METHODS.has(method)) flag(rootObjectName(n.callee.object));
     }
-
-    for (const key of Object.keys(node)) {
-      if (key === 'type' || key === 'start' || key === 'end' || key === 'loc' || key === 'range') continue;
-      visit(node[key], scope);
-    }
-  }
-
-  visit(root, new Set());
+  });
 }
 
 /** Named props destructured from `$props()`, or 0 when unknowable (ARCH002). */
