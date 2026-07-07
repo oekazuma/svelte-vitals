@@ -43,6 +43,10 @@ export default {
 | `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`        | `'pass'`     | How to treat dynamically-set metadata          |
 | `prerenderDir`   | `string`                            | —            | Override the prerendered-pages directory       |
 
+## Reusing a config file
+
+`@svelte-vitals/vite` doesn't read `svelte-vitals.config.*` on its own — import it inside `vite.config.ts` and spread it into the plugin options instead. See [Config file § Using the config file with the Vite plugin](/svelte-vitals/guides/configuration/#using-the-config-file-with-the-vite-plugin) for the pattern.
+
 ## Scope
 
 Only **prerendered** routes are analyzed. For SSR or dynamic routes, use the `svelte-vitals` CLI instead.

@@ -95,6 +95,8 @@ Passed (3)
 
 Only categories with findings appear — a project with no images and no component-level issues shows just a SEO score.
 
+Repeated flags (`--rules`, `--fail-on`, `--weights`, …) can also live in a `svelte-vitals.config.mjs` file at the project root instead — see the [Config file guide](https://oekazuma.github.io/svelte-vitals/guides/configuration/).
+
 ## Features
 
 Full guides live in the [documentation](https://oekazuma.github.io/svelte-vitals/).

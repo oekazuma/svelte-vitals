@@ -26,10 +26,16 @@ For each active category (SEO, Performance), svelte-vitals computes an independe
 
 ### 2. Weighted Health
 
-Health averages the category scores using configurable weights. By default every present category has equal weight (`1`):
+Health averages the category scores using per-category weights. By default every present category has equal weight (`1`):
 
 ```text
 Health = (SEO_score × w_seo + Performance_score × w_perf) / (w_seo + w_perf)
+```
+
+Set weights with the `--weights` flag or the config file's `weights` field — see [Config file](/svelte-vitals/guides/configuration/) for both. For example, to make SEO count double:
+
+```bash
+svelte-vitals --weights seo=2
 ```
 
 **Only categories present in the results are included.** If your project has no images, no Performance rules fire, the Performance category produces no results, and Health is based solely on SEO. Performance only appears when the project has images that trigger Performance rules.

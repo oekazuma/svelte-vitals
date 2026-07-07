@@ -43,6 +43,10 @@ export default {
 | `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`        | `'pass'`     | 動的に設定されたメタデータの扱い方                 |
 | `prerenderDir`   | `string`                            | —            | プリレンダリングページディレクトリの上書き         |
 
+## 設定ファイルの再利用
+
+`@svelte-vitals/vite` は `svelte-vitals.config.*` を自分では読み込みません — 代わりに `vite.config.ts` 内でそれを import し、プラグインオプションに展開してください。この方法については [設定ファイル § Vite プラグインで設定ファイルを再利用する](/svelte-vitals/ja/guides/configuration/#vite-プラグインで設定ファイルを再利用する) を参照してください。
+
 ## 対象範囲
 
 分析されるのは**プリレンダリング**されたルートのみです。SSR や動的ルートには `svelte-vitals` CLI を使用してください。
