@@ -7,9 +7,9 @@ export const perf010NamespaceImport = componentRule({
   severity: 'info',
   label: 'No namespace imports',
   recommendation:
-    "Use named imports (import { x } from 'pkg') instead of import * as — a namespace import keeps the whole module in the bundle.",
+    "Use named imports (import { x } from 'pkg') instead of import * as — so the bundle reliably tree-shakes.",
   rationale:
-    'A namespace import (import * as X) forces the bundler to retain the entire module, so unused exports cannot be tree-shaken out.',
+    'A namespace import (import * as X) is only tree-shakeable while every access to X stays static; passing X around or indexing it dynamically forces the bundler to keep the whole module. Named imports are reliably shakeable and make the dependency surface explicit.',
   applies: (c) => c.namespaceImports.length > 0,
   bad: (c) => {
     // Dedupe by source (a package imported as a namespace twice isn't double-penalized),
@@ -24,7 +24,7 @@ export const perf010NamespaceImport = componentRule({
       .sort((a, b) => a[1] - b[1])
       .map(([source, line]) => ({
         line,
-        message: `Namespace import "* as … from '${source}'" — prefer named imports so the bundler can tree-shake`
+        message: `Namespace import "* as … from '${source}'" — prefer named imports so the bundle reliably tree-shakes`
       }));
   }
 });

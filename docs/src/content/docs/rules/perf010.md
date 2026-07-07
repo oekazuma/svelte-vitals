@@ -11,7 +11,7 @@ Flags a value `import * as X from '<package>'` from a bare (node_modules) packag
 
 ## Why it matters
 
-A namespace import forces the bundler to retain the entire module, so unused exports cannot be tree-shaken out — even packages like `three` or `d3` ship less when imported by name.
+A namespace import (`import * as X`) is only tree-shakeable while every access to `X` stays static (`X.foo()`); passing `X` around or indexing it dynamically (`X[key]`) forces the bundler to assume every export is reachable and keep the whole module. Named imports are reliably shakeable and make the dependency surface explicit — even packages like `three` or `d3` ship less when imported by name.
 
 ## How to fix
 
