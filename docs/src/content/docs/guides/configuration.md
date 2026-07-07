@@ -59,6 +59,8 @@ Import `defineConfig` from `svelte-vitals` — the package you actually installe
 
 `Category` is `'seo' | 'performance' | 'correctness' | 'security' | 'architecture'`.
 
+A weight of `0` is valid — it excludes that category from the Health average entirely (the category's own score still appears in the output, and findings / exit-code behavior are unaffected). Setting **every** present category to `0` is an error, though: there is nothing left to average, so the run stops with exit `2`.
+
 ## Precedence
 
 For each field, the first of these that is set wins: **CLI flag > config file > built-in default**. This is per field, not all-or-nothing — a one-off `--fail-on info` does not discard the rest of your config file.
