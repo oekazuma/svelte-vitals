@@ -1,5 +1,27 @@
 # @svelte-vitals/mcp
 
+## 0.10.0
+
+### Minor Changes
+
+- 94ea510: Load `svelte-vitals.config.{mjs,js,ts}` from the analyzed directory (flags > config file > defaults, per field) and add `--weights` (e.g. `--weights seo=2,performance=1`) plus a `weights` argument on the MCP analyze tool. `.ts` configs work unflagged on Node 22.18+/23.6+; on older Node the CLI explains the upgrade / `--experimental-strip-types` / rename-to-`.mjs` options.
+- 3b33e4c: Raise the supported Node.js floor from 18.20.8 (EOL) to >=22.13.0 — the oldest maintained LTS line the pinned pnpm can run on. CI now exercises Node 22 (floor), 24, and 26.
+
+### Patch Changes
+
+- Updated dependencies [94ea510]
+- Updated dependencies [18b11af]
+- Updated dependencies [7f1697d]
+- Updated dependencies [e476a2e]
+- Updated dependencies [0be8d49]
+- Updated dependencies [b1f85ba]
+- Updated dependencies [86aa6d6]
+- Updated dependencies [6b2d0a7]
+- Updated dependencies [3b33e4c]
+- Updated dependencies [4513f97]
+  - svelte-vitals@0.19.0
+  - @svelte-vitals/core@0.20.0
+
 ## 0.9.0
 
 ### Minor Changes
