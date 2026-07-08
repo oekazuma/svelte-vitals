@@ -25,6 +25,7 @@ SvelteKit プロジェクトの静的モード分析を実行します。
 | `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'?`        | 動的メタデータ値の扱い方                                                                                                                                        |
 | `rules`          | `string[]?`                          | 有効にするルール ID（他はすべて無効）                                                                                                                           |
 | `ignore`         | `string[]?`                          | 無効にするルール ID                                                                                                                                             |
+| `categories`     | `string[]?`                          | 分析対象をこれらのカテゴリに絞り込む（`rules`/`ignore` の選択との積集合。大文字小文字は区別しない）                                                             |
 | `failOn`         | `'critical' \| 'warning' \| 'info'?` | レスポンスの `failed` フラグの重大度閾値                                                                                                                        |
 | `weights`        | `Record<string, number>?`            | 組み合わせた Health スコアのカテゴリごとの重み（例：`{"seo": 2}`）。カテゴリ名は大文字小文字を区別せず、指定しなかったカテゴリはデフォルトの重み `1` になります |
 
