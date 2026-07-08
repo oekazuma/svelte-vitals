@@ -6,7 +6,7 @@ import { resolveArgs } from '../src/resolve-args.js';
 function resolve(...args: string[]) {
   const argv = mri(args, {
     alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'json', 'fail-on-warning', 'staged'],
+    boolean: ['by-route', 'json', 'fail-on-warning', 'staged', 'score'],
     string: [
       'meta-components',
       'treat-dynamic-as',
@@ -17,7 +17,8 @@ function resolve(...args: string[]) {
       'ignore',
       'diff',
       'baseline',
-      'weights'
+      'weights',
+      'category'
     ]
   });
   return resolveArgs(argv);
@@ -147,5 +148,52 @@ describe('resolveArgs', () => {
     const { options, errors } = resolve('--weights', ',');
     expect(options).toBeNull();
     expect(errors.some((e) => e.includes('--weights was passed but contains no category=number pairs'))).toBe(true);
+  });
+
+  it('parses --category into a normalized, de-duplicated list, mixing case', () => {
+    const { options, errors } = resolve('--category', 'seo,SECURITY,seo');
+    expect(errors).toEqual([]);
+    expect(options?.categories).toEqual(['seo', 'security']);
+  });
+
+  it('omits categories when --category is not passed', () => {
+    const { options } = resolve('--json');
+    expect(options?.categories).toBeUndefined();
+  });
+
+  it('reports an unknown category in --category as a fatal error', () => {
+    const { options, errors } = resolve('--category', 'bogus');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('unknown category(ies) in --category'))).toBe(true);
+    expect(errors.some((e) => e.includes('Known categories'))).toBe(true);
+  });
+
+  it('reports --category with no categories (e.g. a bare comma) as a fatal error', () => {
+    const { options, errors } = resolve('--category', ',');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('--category was passed but contains no categories'))).toBe(true);
+  });
+
+  it('sets score:true when --score is passed', () => {
+    const { options, warnings } = resolve('--score');
+    expect(options?.score).toBe(true);
+    expect(warnings).toEqual([]);
+  });
+
+  it('omits score when --score is not passed', () => {
+    const { options } = resolve('--json');
+    expect(options?.score).toBeUndefined();
+  });
+
+  it('warns when --score is combined with --json', () => {
+    const { options, warnings } = resolve('--score', '--json');
+    expect(options?.score).toBe(true);
+    expect(warnings.some((w) => w.includes('--score overrides --reporter'))).toBe(true);
+  });
+
+  it('warns when --score is combined with --reporter', () => {
+    const { options, warnings } = resolve('--score', '--reporter', 'md');
+    expect(options?.score).toBe(true);
+    expect(warnings.some((w) => w.includes('--score overrides --reporter'))).toBe(true);
   });
 });

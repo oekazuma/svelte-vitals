@@ -48,10 +48,14 @@ export interface RunOptions {
   rules?: Record<string, RuleSetting>;
   /** Per-category weights for the combined Health score (flag > config file > default 1 each). */
   weights?: Partial<Record<Category, number>>;
+  /** Restrict analysis to rules in these categories (applied after rules/ignore selection). */
+  categories?: Category[];
   /** Override process.env for reporter auto-detection (mainly useful in tests). */
   env?: NodeJS.ProcessEnv;
   /** Fail (exit 1) when the combined Health score is below this value (0–100). */
   minHealth?: number;
+  /** Print only the combined Health score (integer) to stdout. */
+  score?: boolean;
   /** Output path for --reporter html (default 'svelte-vitals-report.html'; '-' = stdout). */
   outFile?: string;
   /** Injected file writer for --reporter html (defaults to node:fs writeFileSync). Mainly for tests. */
@@ -117,6 +121,8 @@ export interface AnalyzeOptions {
   rules?: Record<string, RuleSetting>;
   /** Per-category weights for the combined Health score (flag > config file > default 1 each). */
   weights?: Partial<Record<Category, number>>;
+  /** Restrict analysis to rules in these categories (applied after rules/ignore selection). */
+  categories?: Category[];
 }
 
 export interface AnalyzeResult {
@@ -166,7 +172,8 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   // Component (Correctness) facts are file-scoped with no route attribution yet, so a
   // route-filtered run skips them rather than reporting unrelated components (#68 review).
   const components = opts.route ? [] : await collectComponentFacts(rt, cwd);
-  const rules = selectRules(allRules, config);
+  const selected = selectRules(allRules, config);
+  const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
   const results = applyRuleSeverities(
     await runRules(rules, { heads, images, headings, components, project, config }),
     config
@@ -190,13 +197,15 @@ export async function run(opts: RunOptions = {}): Promise<number> {
   const env = opts.env ?? process.env;
   const reporter = resolveReporter(opts.reporter, env);
   const spinner = startSpinner('Analyzing…', {
-    enabled: spinnerEnabled({
-      reporter,
-      rawReporter: opts.reporter,
-      stderrIsTTY: opts.stderrIsTTY ?? !!process.stderr.isTTY,
-      env,
-      noColorFlag: opts.noColor
-    })
+    enabled:
+      !opts.score &&
+      spinnerEnabled({
+        reporter,
+        rawReporter: opts.reporter,
+        stderrIsTTY: opts.stderrIsTTY ?? !!process.stderr.isTTY,
+        env,
+        noColorFlag: opts.noColor
+      })
   });
 
   let analysis: AnalyzeResult;
@@ -208,7 +217,8 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       route: opts.route,
       failOn: opts.failOn,
       rules: opts.rules,
-      weights: opts.weights
+      weights: opts.weights,
+      categories: opts.categories
     });
   } catch (err) {
     spinner.stop();
@@ -258,7 +268,8 @@ export async function run(opts: RunOptions = {}): Promise<number> {
             route: opts.route,
             failOn: opts.failOn,
             rules: opts.rules,
-            weights: opts.weights
+            weights: opts.weights,
+            categories: opts.categories
           });
           results = filterToNewFindings(results, base.results);
         } catch {
@@ -269,54 +280,58 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       }
     }
 
-    if (reporter === 'agent' && isAutoDetectedAgent(opts.reporter, env)) {
-      errorLog(
-        'svelte-vitals: agent reporter auto-selected (AI-agent env detected); override with --reporter console|json.'
-      );
-    }
-    if (reporter === 'github' && isAutoDetectedGithub(opts.reporter, env)) {
-      errorLog(
-        'svelte-vitals: github reporter auto-selected (GitHub Actions detected); override with --reporter console|json|sarif.'
-      );
-    }
-    if (reporter === 'json') {
-      log(formatJsonReport(results, config, { version }));
-    } else if (reporter === 'agent') {
-      log(formatAgentReport(results, config));
-    } else if (reporter === 'sarif') {
-      log(formatSarifReport(results, config, { version }));
-    } else if (reporter === 'github') {
-      // The github reporter returns '' when there are no findings; skip logging so
-      // a clean run emits no stray blank line into the Actions log.
-      const output = formatGithubReport(results, config);
-      if (output) log(output);
-    } else if (reporter === 'html') {
-      const html = formatHtmlReport(results, config, { version });
-      if (opts.outFile === '-') {
-        log(html);
-      } else {
-        // `||` (not `??`) so an empty --out-file (mri yields '' for a value-less
-        // flag) falls back to the default instead of writing to an empty path.
-        const path = opts.outFile || 'svelte-vitals-report.html';
-        const write =
-          opts.writeFile ??
-          ((p: string, c: string) => {
-            mkdirSync(dirname(p), { recursive: true });
-            writeFileSync(p, c);
-          });
-        write(path, html);
-        errorLog(`svelte-vitals: wrote report to ${path}`);
-      }
-    } else if (reporter === 'md') {
-      log(formatMarkdownReport(results, config, { version }));
+    if (opts.score) {
+      log(String(computeHealth(results, config).health));
     } else {
-      const colorOn = colorEnabled({
-        reporter,
-        isTTY: opts.stdoutIsTTY ?? !!process.stdout.isTTY,
-        env,
-        noColorFlag: opts.noColor
-      });
-      log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false, palette: paletteFor(colorOn) }));
+      if (reporter === 'agent' && isAutoDetectedAgent(opts.reporter, env)) {
+        errorLog(
+          'svelte-vitals: agent reporter auto-selected (AI-agent env detected); override with --reporter console|json.'
+        );
+      }
+      if (reporter === 'github' && isAutoDetectedGithub(opts.reporter, env)) {
+        errorLog(
+          'svelte-vitals: github reporter auto-selected (GitHub Actions detected); override with --reporter console|json|sarif.'
+        );
+      }
+      if (reporter === 'json') {
+        log(formatJsonReport(results, config, { version }));
+      } else if (reporter === 'agent') {
+        log(formatAgentReport(results, config));
+      } else if (reporter === 'sarif') {
+        log(formatSarifReport(results, config, { version }));
+      } else if (reporter === 'github') {
+        // The github reporter returns '' when there are no findings; skip logging so
+        // a clean run emits no stray blank line into the Actions log.
+        const output = formatGithubReport(results, config);
+        if (output) log(output);
+      } else if (reporter === 'html') {
+        const html = formatHtmlReport(results, config, { version });
+        if (opts.outFile === '-') {
+          log(html);
+        } else {
+          // `||` (not `??`) so an empty --out-file (mri yields '' for a value-less
+          // flag) falls back to the default instead of writing to an empty path.
+          const path = opts.outFile || 'svelte-vitals-report.html';
+          const write =
+            opts.writeFile ??
+            ((p: string, c: string) => {
+              mkdirSync(dirname(p), { recursive: true });
+              writeFileSync(p, c);
+            });
+          write(path, html);
+          errorLog(`svelte-vitals: wrote report to ${path}`);
+        }
+      } else if (reporter === 'md') {
+        log(formatMarkdownReport(results, config, { version }));
+      } else {
+        const colorOn = colorEnabled({
+          reporter,
+          isTTY: opts.stdoutIsTTY ?? !!process.stdout.isTTY,
+          env,
+          noColorFlag: opts.noColor
+        });
+        log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false, palette: paletteFor(colorOn) }));
+      }
     }
     const summary = summarize(results, config);
     const failBySeverity = hasFailureAtOrAbove(summary, config.failOn);

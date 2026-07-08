@@ -71,6 +71,17 @@ svelte-vitals --min-health 80
 
 See [Health report](/svelte-vitals/guides/health-report/) for how the score is calculated.
 
+### `--score`
+
+Print only the combined Health score (an integer) to stdout, suppressing all other reporter output. Useful in shell prompts or scripts that just want the number without parsing JSON.
+
+```bash
+svelte-vitals --score
+svelte-vitals --score --min-health 80   # gate on the score; exit code still reflects pass/fail
+```
+
+Combining `--score` with `--reporter`/`--json` is not an error, but the reporter output is suppressed and a warning is printed to stderr. The exit code is unaffected by `--score` — it still reflects `--fail-on` and `--min-health` as usual.
+
 ### `--route <glob>`
 
 Only analyze routes whose path matches the given glob pattern.
@@ -130,6 +141,17 @@ Disable the specified rules. Accepts a comma-separated list of rule IDs.
 ```bash
 svelte-vitals --ignore PERF001
 ```
+
+### `--category <cats>`
+
+Restrict analysis to rules in the given categories. Accepts a comma-separated list, matched case-insensitively: `seo`, `performance`, `correctness`, `security`, `architecture`.
+
+```bash
+svelte-vitals --category seo
+svelte-vitals --category seo,performance
+```
+
+`--category` intersects with `--rules`/`--ignore`/config-file rule selection — a rule only runs if it survives both. Narrowing to a subset of categories also narrows the [Health score](/svelte-vitals/guides/health-report/): the combined score becomes the weighted average of only the categories that have findings, so it isn't directly comparable to an unfiltered run. An unknown category is an error (exit `2`).
 
 ### `--weights <pairs>`
 

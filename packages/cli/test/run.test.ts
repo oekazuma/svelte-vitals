@@ -263,3 +263,50 @@ describe('run() config file (design doc 2026-07-05-config-file-design.md)', () =
     expect(errText).not.toContain('svelte-vitals: svelte-vitals:');
   });
 });
+
+describe('run() --category', () => {
+  it('restricts findings to the given category, excluding other categories', async () => {
+    const cap = capture();
+    await run({
+      cwd: fixtureDir,
+      reporter: 'json',
+      log: cap.log,
+      errorLog: cap.errorLog,
+      categories: ['seo'],
+      env: CLEAN_ENV
+    });
+    const json = JSON.parse(cap.out.join('\n'));
+    expect(Object.keys(json.categories)).toEqual(['seo']);
+    const allIds: string[] = [];
+    for (const r of json.routes) for (const i of r.issues) allIds.push(i.id);
+    expect(allIds.every((id: string) => id.startsWith('SEO'))).toBe(true);
+    // PERF001 (missing <img> dimensions) is present without a category filter (see
+    // 'run() performance rules' above); it must not survive a seo-only filter.
+    expect(allIds).not.toContain('PERF001');
+  });
+});
+
+describe('run() --score', () => {
+  it('prints only the combined Health score as a single line', async () => {
+    const cap = capture();
+    const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, score: true, env: CLEAN_ENV });
+    expect(cap.out).toHaveLength(1);
+    expect(cap.out[0]).toMatch(/^\d+$/);
+    expect(code).toBe(1); // the fixture still has a critical SEO finding, so exit stays 1
+  });
+
+  it('gates on --min-health while suppressing reporter output (basic-project cannot reach 100)', async () => {
+    const cap = capture();
+    const code = await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      score: true,
+      minHealth: 100,
+      env: CLEAN_ENV
+    });
+    expect(code).toBe(1);
+    expect(cap.out).toHaveLength(1);
+    expect(cap.out[0]).toMatch(/^\d+$/);
+  });
+});
