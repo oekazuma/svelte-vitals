@@ -201,23 +201,25 @@ Print the version and exit.
 
 ## `svelte-vitals install`
 
-Interactively set up the svelte-vitals [MCP server](/svelte-vitals/guides/mcp/) for your AI-agent clients — **Claude Code**, **Cursor**, and **Codex** — by merging the server entry into each client's config (your other servers are left untouched).
+Interactively set up the svelte-vitals [MCP server](/svelte-vitals/guides/mcp/), the Vite integration, and agent instruction files for your AI-agent clients — **Claude Code**, **Cursor**, and **Codex** — by merging the server entry into each client's config (your other servers are left untouched).
 
 ```bash
 npx svelte-vitals install
 ```
 
-With no flags it launches an interactive wizard: pick your clients, choose a scope per client, review the plan, and confirm. For non-interactive/CI use, drive it entirely with flags.
+With no flags it launches an interactive wizard: pick your clients/targets, choose a scope per client, review the plan, and confirm. For non-interactive/CI use, drive it entirely with flags.
 
 ### `--client <ids>`
 
-Comma-separated clients/targets to configure: `claude-code`, `cursor`, `codex`, `vite-plugin`, `vite-dev-overlay`. When given, the interactive picker is skipped.
+Comma-separated clients/targets to configure: `claude-code`, `cursor`, `codex`, `vite-plugin`, `vite-dev-overlay`, `claude-skill`, `cursor-rules`. When given, the interactive picker is skipped.
 
 `vite-plugin` registers `@svelte-vitals/vite`'s build-mode plugin in `vite.config.{ts,js,mjs}`; `vite-dev-overlay` wires up the dev-overlay hook in `src/hooks.server.{ts,js}`. Both use a `magicast` codemod that only touches a file whose shape it confidently recognizes — anything else is left alone and a snippet is printed instead. If either is written and `@svelte-vitals/vite` isn't already a dependency, it's installed automatically via the detected package manager. **`--force` does not apply to these two** — an existing registration is always left as-is regardless of the flag.
 
+`claude-skill` writes a Claude Code skill to `.claude/skills/svelte-vitals/SKILL.md`; `cursor-rules` writes a Cursor project rules file to `.cursor/rules/svelte-vitals.mdc`. Both are generated at install time from the current rule set (every rule's id, title, severity, and rationale, grouped by category) so an agent has the rule knowledge and a playbook — when to run `svelte-vitals --diff`/`--staged` — up front, before it writes code. Unlike the Vite targets, these files are fully regenerated rather than codemodded, so **`--force` does apply** and simply overwrites them with a fresh copy.
+
 ### `--scope <project|global>`
 
-Where to write the config. Applies to all selected clients; **Codex is always global** (it has no project-scoped config). (Vite targets have no scope and ignore this flag.)
+Where to write the config. Applies to all selected clients; **Codex is always global** (it has no project-scoped config). (Vite targets and agent skill/rules targets have no scope and ignore this flag.)
 
 | Client      | project            | global                 |
 | ----------- | ------------------ | ---------------------- |

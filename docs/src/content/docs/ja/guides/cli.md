@@ -195,23 +195,25 @@ svelte-vitals --meta-components "SeoHead,PageMeta"
 
 ## `svelte-vitals install`
 
-svelte-vitals の [MCP サーバー](/svelte-vitals/ja/guides/mcp/) を、AI エージェントのクライアント（**Claude Code**、**Cursor**、**Codex**）に対話的にセットアップします。各クライアントの設定にサーバーエントリをマージします（既存の他のサーバーはそのまま維持されます）。
+svelte-vitals の [MCP サーバー](/svelte-vitals/ja/guides/mcp/)、Vite との連携、AI エージェントのクライアント（**Claude Code**、**Cursor**、**Codex**）向けのエージェント指示ファイルを対話的にセットアップします。各クライアントの設定にサーバーエントリをマージします（既存の他のサーバーはそのまま維持されます）。
 
 ```bash
 npx svelte-vitals install
 ```
 
-フラグなしで実行すると対話式ウィザードが起動します — クライアントを選択し、クライアントごとにスコープを選び、変更計画を確認して適用します。非対話環境／CI ではフラグだけで実行できます。
+フラグなしで実行すると対話式ウィザードが起動します — クライアント／ターゲットを選択し、クライアントごとにスコープを選び、変更計画を確認して適用します。非対話環境／CI ではフラグだけで実行できます。
 
 ### `--client <ids>`
 
-設定するクライアント／ターゲットをカンマ区切りで指定します：`claude-code`、`cursor`、`codex`、`vite-plugin`、`vite-dev-overlay`。指定した場合は対話式の選択がスキップされます。
+設定するクライアント／ターゲットをカンマ区切りで指定します：`claude-code`、`cursor`、`codex`、`vite-plugin`、`vite-dev-overlay`、`claude-skill`、`cursor-rules`。指定した場合は対話式の選択がスキップされます。
 
 `vite-plugin` は `@svelte-vitals/vite` のビルドモードのプラグインを `vite.config.{ts,js,mjs}` に登録します。`vite-dev-overlay` は開発オーバーレイのフックを `src/hooks.server.{ts,js}` に組み込みます。どちらも `magicast` によるコードモッドを使用し、確実に認識できる形のファイルのみを変更します — それ以外の場合は何もせず、代わりに手動で追加するためのスニペットを表示します。どちらかが書き込まれ、かつ `@svelte-vitals/vite` がまだ依存関係に含まれていない場合、検出されたパッケージマネージャー経由で自動インストールされます。**`--force` はこの2つには適用されません** — フラグの有無にかかわらず、既存の登録は常にそのまま維持されます。
 
+`claude-skill` は Claude Code のスキルを `.claude/skills/svelte-vitals/SKILL.md` に書き出します。`cursor-rules` は Cursor のプロジェクトルールファイルを `.cursor/rules/svelte-vitals.mdc` に書き出します。どちらもインストール時点のルールセット（各ルールの id・タイトル・severity・rationale をカテゴリごとにまとめたもの）から生成されるため、エージェントはコードを書く前からルールの知識と、いつ `svelte-vitals --diff`／`--staged` を実行すべきかというプレイブックを持つことになります。Vite 向けの2ターゲットと異なりコードモッドではなく毎回全文を再生成するため、**`--force` はこの2つに適用され**、既存ファイルを最新の内容で上書きします。
+
 ### `--scope <project|global>`
 
-設定の書き込み先。選択したすべてのクライアントに適用されます。**Codex は常に global** です（プロジェクトスコープの設定を持たないため）。（Vite ターゲットにはスコープがなく、このフラグは無視されます。）
+設定の書き込み先。選択したすべてのクライアントに適用されます。**Codex は常に global** です（プロジェクトスコープの設定を持たないため）。（Vite ターゲットとエージェントのスキル／ルールターゲットにはスコープがなく、このフラグは無視されます。）
 
 | クライアント | project            | global                 |
 | ------------ | ------------------ | ---------------------- |

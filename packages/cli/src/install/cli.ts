@@ -6,19 +6,24 @@ import mri from 'mri';
 import * as p from '@clack/prompts';
 import { runInstall, type InstallIO, type InstallPrompts } from './index.js';
 import { resolveInstallArgs } from './args.js';
+import { readPackageVersion } from '../version.js';
 import type { ClientWriter, Scope } from './clients.js';
 import type { SelectableOption, TargetId } from './index.js';
 
-const INSTALL_HELP = `svelte-vitals install — set up the svelte-vitals MCP server for your AI-agent clients
+const INSTALL_HELP = `svelte-vitals install — set up the svelte-vitals MCP server, Vite integration, and agent skills/rules
 
 Usage:
   svelte-vitals install [options]
 
 Options:
-  --client <ids>    Comma-separated: claude-code,cursor,codex,vite-plugin,vite-dev-overlay (skips the interactive picker)
+  --client <ids>    Comma-separated: claude-code,cursor,codex,vite-plugin,vite-dev-overlay,claude-skill,cursor-rules
+                    (skips the interactive picker)
                     vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-dev-overlay
                     wires up the dev-overlay hook in src/hooks.server.{ts,js}. --force does not apply
-                    to either — an existing registration is always left as-is.
+                    to either of these two — an existing registration is always left as-is.
+                    claude-skill writes a Claude Code skill (.claude/skills/svelte-vitals/SKILL.md); cursor-rules
+                    writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc). Both are generated from the
+                    current rule set and support --force to regenerate.
   --scope <scope>   project | global (applies to all selected clients; codex is always global)
   --yes, -y         Skip the confirmation prompt
   --dry-run         Print the planned changes and exit without writing
@@ -105,5 +110,5 @@ export async function runInstallCli(args: string[]): Promise<number> {
   for (const w of warnings) console.error(w);
   for (const e of errors) console.error(e);
   if (!flags) return 2;
-  return runInstall(flags, realIO(), clackPrompts());
+  return runInstall(flags, realIO(), clackPrompts(), readPackageVersion());
 }
