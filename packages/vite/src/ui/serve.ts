@@ -20,7 +20,11 @@ const LIVE_SCRIPT = `<script data-live>
 </script>`;
 
 /** The dashboard HTML: the core report document plus the injected live-update script. */
-export function renderDashboard(results: Result[], config: Config, meta: { version: string }): string {
+export function renderDashboard(
+  results: Result[],
+  config: Config,
+  meta: { version: string; coreVersion?: string }
+): string {
   const html = buildHtmlDocument(buildJsonReport(results, config, meta), meta);
   return html.replace('</body>', LIVE_SCRIPT + '</body>');
 }

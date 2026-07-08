@@ -2,7 +2,7 @@
 import mri from 'mri';
 import * as p from '@clack/prompts';
 import { run } from './index.js';
-import { readPackageVersion } from './version.js';
+import { readPackageVersion, readCoreVersion } from './version.js';
 import { resolveArgs } from './resolve-args.js';
 import { runInstallCli } from './install/cli.js';
 import { runCiCli } from './ci/cli.js';
@@ -92,7 +92,10 @@ async function main(): Promise<void> {
     process.exit(0);
   }
   if (argv.version) {
-    console.log(VERSION);
+    // Printing the resolved core version alongside the CLI's own lets users compare
+    // it directly against the `@svelte-vitals/vite` dev overlay's "core vX.Y.Z" line —
+    // the two packages are versioned independently and can drift (see docs).
+    console.log(`${VERSION} (core ${readCoreVersion()})`);
     process.exit(0);
   }
 

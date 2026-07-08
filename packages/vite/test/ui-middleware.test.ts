@@ -8,14 +8,14 @@ import { defineConfig } from '@svelte-vitals/core';
 type MiddlewareHandler = (req: IncomingMessage, res: ServerResponse, next: () => void) => void;
 
 // Capture the handler that installUiMiddleware registers on server.middlewares.use(path, fn).
-function setup() {
+function setup(coreVersion?: string) {
   let handler: MiddlewareHandler = () => {};
   const httpServer = new EventEmitter();
   const server = {
     httpServer,
     middlewares: { use: (_path: string, fn: MiddlewareHandler) => (handler = fn) }
   } as unknown as ViteDevServer;
-  installUiMiddleware(server, defineConfig({}), '9.9.9');
+  installUiMiddleware(server, defineConfig({}), '9.9.9', coreVersion);
   return {
     call: (req: IncomingMessage, res: ServerResponse) => handler(req, res, () => {}),
     closeServer: () => httpServer.emit('close')
@@ -259,6 +259,13 @@ describe('installUiMiddleware', () => {
     expect(gr.statusCode).not.toBe(500); // dashboard did not crash
     expect(html.startsWith('<!doctype html>')).toBe(true);
     expect(html).not.toContain('SEO009'); // malformed finding was filtered out
+  });
+
+  it('surfaces the resolved @svelte-vitals/core version in the dashboard when passed', () => {
+    const { call } = setup('0.21.0');
+    const gr = res();
+    call(getReq('/'), gr);
+    expect(gr.chunks.join('')).toContain('core v0.21.0');
   });
 
   it('filters a finding with a malformed fix shape so the dashboard still renders', async () => {

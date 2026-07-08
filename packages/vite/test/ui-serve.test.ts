@@ -33,4 +33,9 @@ describe('renderDashboard', () => {
   it('renders an empty snapshot without throwing', () => {
     expect(() => renderDashboard([], config, { version: '0' })).not.toThrow();
   });
+
+  it('surfaces the resolved @svelte-vitals/core version when given, so it can be compared against the CLI', () => {
+    const withCore = renderDashboard(results, config, { version: '9.9.9', coreVersion: '0.21.0' });
+    expect(withCore).toContain('core v0.21.0');
+  });
 });

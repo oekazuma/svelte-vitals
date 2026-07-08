@@ -50,7 +50,12 @@ function isResultLike(x: unknown): x is Result {
 }
 
 /** Mount the dev UI at /__svelte-vitals/ : GET / (dashboard), POST /ingest, GET /events (SSE). */
-export function installUiMiddleware(server: ViteDevServer, config: Config, version: string): void {
+export function installUiMiddleware(
+  server: ViteDevServer,
+  config: Config,
+  version: string,
+  coreVersion?: string
+): void {
   const store = createStore();
   const clients = new Set<ServerResponse>();
 
@@ -127,7 +132,7 @@ export function installUiMiddleware(server: ViteDevServer, config: Config, versi
     // Last line of defense that validated data should never reach: if the renderer
     // throws anyway, return a plain-text 500 and never take down the dev server.
     try {
-      const html = renderDashboard(store.snapshot(), config, { version });
+      const html = renderDashboard(store.snapshot(), config, { version, coreVersion });
       res.setHeader('Content-Type', 'text/html');
       res.end(html);
     } catch {

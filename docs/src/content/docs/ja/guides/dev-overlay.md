@@ -83,3 +83,9 @@ export default {
 オーバーレイと同様、これは dev 専用かつレンダリングベースで、訪問したルートの SEO `<head>` ルールを対象とします。プロジェクト全体のレポート（全ルート・パフォーマンス・サイト全体のチェック）が必要な場合は `npx svelte-vitals` または `npx svelte-vitals --reporter html` を実行してください。
 
 コンポーネントスコープのルール（Correctness・Security・Architecture、および2つのコンポーネントスコープの Performance ルール）はビルドモードのみの対応です（[プラグインモード](/svelte-vitals/ja/guides/plugin-mode/) を参照） — リクエスト単位のレンダリング済みビューにはプロジェクト全体を横断するソーススキャンが存在しないため、開発オーバーレイには表示されません。
+
+## バージョンのずれ
+
+ダッシュボードのフッターには `v<@svelte-vitals/vite のバージョン> · core v<@svelte-vitals/core のバージョン>` が表示されます。CLI と検出結果を比較するときに重要なのは後者の core バージョンです。`svelte-vitals`（CLI）と `@svelte-vitals/vite` はそれぞれ独立してバージョン管理されつつ、共有のルールエンジンである `@svelte-vitals/core` をラップしているだけなので、両方のパッケージ自体は最新に見えていても、実際には**異なる** core バージョンに解決されることがあります。その場合、新しい core リリースで追加されたルールは、実際にそのバージョンに依存している側にしか現れません。
+
+これはパッケージマネージャーのクールダウン/固定機能によって、気づかないうちに発生し得ます — 例えば pnpm の [`minimumReleaseAge`](https://pnpm.io/settings#minimumreleaseage) は、`pnpm dlx svelte-vitals@latest` の実行結果を、lockfile 上の `@svelte-vitals/vite` が依存している core より古い「成熟した」リリース（古い core を伴う）に静かに解決してしまうことがあります。同じプロジェクトで CLI と開発オーバーレイの検出結果が食い違う場合は、まず `svelte-vitals --version` を実行して `(core X.Y.Z)` の部分をダッシュボードのフッターの `core vX.Y.Z` と比較してください — バグを疑う前に真っ先に確認すべき点です。

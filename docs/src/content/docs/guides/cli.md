@@ -236,7 +236,7 @@ Print the help text and exit.
 
 ### `-v, --version`
 
-Print the version and exit.
+Print the CLI's own version and the resolved `@svelte-vitals/core` version, e.g. `0.20.0 (core 0.21.0)`. `svelte-vitals` and `@svelte-vitals/vite` are versioned independently and can end up depending on different `@svelte-vitals/core` releases — compare this `core` version against the one shown in the [dev overlay](/svelte-vitals/guides/dev-overlay/#version-drift) footer if the two surfaces ever disagree on findings.
 
 ## `svelte-vitals install`
 
