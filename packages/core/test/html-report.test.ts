@@ -208,6 +208,45 @@ describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loo
   });
 });
 
+describe('routeBadges (dev-dashboard provenance)', () => {
+  it('omitting opts produces byte-identical output to passing opts: {}', () => {
+    const withoutOpts = buildHtmlDocument(report, { version: '9.9.9' });
+    const withEmptyOpts = buildHtmlDocument(report, { version: '9.9.9' }, {});
+    expect(withEmptyOpts).toBe(withoutOpts);
+  });
+
+  it('omitting opts renders no badge markup at all', () => {
+    const html = buildHtmlDocument(report, { version: '9.9.9' });
+    expect(html).not.toContain('class="badge');
+  });
+
+  it('renders a badge only for routes present in routeBadges', () => {
+    const html = buildHtmlDocument(report, { version: '9.9.9' }, { routeBadges: { '/': 'measured' } });
+    const homeSection = html.slice(html.indexOf('id="route-"'));
+    expect(homeSection.slice(0, homeSection.indexOf('</summary>'))).toContain('badge-measured');
+    // the other route ('/products/[id]') has no entry in routeBadges → no badge rendered for it
+    const productsIdx = html.indexOf('id="route-products-id"');
+    const productsSection = html.slice(productsIdx, html.indexOf('</summary>', productsIdx));
+    expect(productsSection).not.toContain('class="badge');
+  });
+
+  it('renders the static badge distinctly from measured', () => {
+    const html = buildHtmlDocument(
+      report,
+      { version: '9.9.9' },
+      { routeBadges: { '/': 'measured', '/products/[id]': 'static' } }
+    );
+    expect(html).toContain('badge-measured">measured</span>');
+    expect(html).toContain('badge-static">static</span>');
+  });
+
+  it('drops an unknown badge value instead of rendering it verbatim', () => {
+    const html = buildHtmlDocument(report, { version: '9.9.9' }, { routeBadges: { '/': 'bogus' as never } });
+    expect(html).not.toContain('class="badge');
+    expect(html).not.toContain('bogus');
+  });
+});
+
 describe('category filters (data-driven, not hardcoded)', () => {
   const html = buildHtmlDocument(report, { version: '9.9.9' });
 
