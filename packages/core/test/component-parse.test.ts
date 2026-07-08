@@ -67,7 +67,7 @@ describe('parseComponentFacts — $effect (CORRECT002)', () => {
     expect(e).toEqual([]);
   });
 
-  // The "mount signal" idiom (hydration-mismatch guard, issue #92 / #158): a boolean
+  // The "mount signal" idiom (hydration-mismatch guard, issue #92): a boolean
   // $state flipped to true in an $effect so a $derived reads false during SSR/prerender
   // and the client's first render, then its real value after mount. $derived can't
   // replace this — it evaluates eagerly during hydration, reintroducing the mismatch
