@@ -1,7 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { ViteDevServer } from 'vite';
 import type { Config, Result } from '@svelte-vitals/core';
-import { createStore } from './store.js';
+import type { FindingsStore } from './store.js';
 import { renderDashboard } from './serve.js';
 import { isLoopbackHost, isLoopbackOrigin } from '../loopback.js';
 
@@ -49,9 +49,17 @@ function isResultLike(x: unknown): x is Result {
   );
 }
 
-/** Mount the dev UI at /__svelte-vitals/ : GET / (dashboard), POST /ingest, GET /events (SSE). */
-export function installUiMiddleware(server: ViteDevServer, config: Config, version: string): void {
-  const store = createStore();
+/**
+ * Mount the dev UI at /__svelte-vitals/ : GET / (dashboard), POST /ingest, GET /events (SSE).
+ * `store` is created and owned by the ui plugin (plugin.ts) so the analysis runner can also
+ * write to it (`store.setStatic`) — this middleware only reads it and writes the live layer.
+ */
+export function installUiMiddleware(
+  server: ViteDevServer,
+  config: Config,
+  version: string,
+  store: FindingsStore
+): void {
   const clients = new Set<ServerResponse>();
 
   store.subscribe(() => {
@@ -127,7 +135,7 @@ export function installUiMiddleware(server: ViteDevServer, config: Config, versi
     // Last line of defense that validated data should never reach: if the renderer
     // throws anyway, return a plain-text 500 and never take down the dev server.
     try {
-      const html = renderDashboard(store.snapshot(), config, { version });
+      const html = renderDashboard(store.snapshot(), config, { version }, store.badges());
       res.setHeader('Content-Type', 'text/html');
       res.end(html);
     } catch {

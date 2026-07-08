@@ -20,7 +20,16 @@ const LIVE_SCRIPT = `<script data-live>
 </script>`;
 
 /** The dashboard HTML: the core report document plus the injected live-update script. */
-export function renderDashboard(results: Result[], config: Config, meta: { version: string }): string {
-  const html = buildHtmlDocument(buildJsonReport(results, config, meta), meta);
+export function renderDashboard(
+  results: Result[],
+  config: Config,
+  meta: { version: string },
+  badges?: Record<string, 'measured' | 'static'>
+): string {
+  const html = buildHtmlDocument(
+    buildJsonReport(results, config, meta),
+    meta,
+    badges ? { routeBadges: badges } : undefined
+  );
   return html.replace('</body>', LIVE_SCRIPT + '</body>');
 }

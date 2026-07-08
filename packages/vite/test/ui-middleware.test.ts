@@ -3,6 +3,7 @@ import { EventEmitter } from 'node:events';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { ViteDevServer } from 'vite';
 import { installUiMiddleware } from '../src/ui/middleware.js';
+import { createStore } from '../src/ui/store.js';
 import { defineConfig } from '@svelte-vitals/core';
 
 type MiddlewareHandler = (req: IncomingMessage, res: ServerResponse, next: () => void) => void;
@@ -15,7 +16,7 @@ function setup() {
     httpServer,
     middlewares: { use: (_path: string, fn: MiddlewareHandler) => (handler = fn) }
   } as unknown as ViteDevServer;
-  installUiMiddleware(server, defineConfig({}), '9.9.9');
+  installUiMiddleware(server, defineConfig({}), '9.9.9', createStore());
   return {
     call: (req: IncomingMessage, res: ServerResponse) => handler(req, res, () => {}),
     closeServer: () => httpServer.emit('close')
