@@ -110,6 +110,7 @@ export type { JsonReport } from './reporter/json.js';
 export { formatAgentReport } from './reporter/agent.js';
 export { formatSarifReport } from './reporter/sarif.js';
 export { formatGithubReport } from './reporter/github.js';
+export { formatMarkdownReport } from './reporter/markdown.js';
 export { buildHtmlDocument, formatHtmlReport, escapeHtml, safeHref, scoreBand, BAND_COLOR } from './reporter/html.js';
 
 export { selectRules, applyRuleSeverities } from './config-apply.js';
