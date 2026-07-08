@@ -97,6 +97,19 @@ svelte-vitals --staged --fail-on warning
 
 > Both flags filter findings by their source-file location and assume the project root is the git root. If git is unavailable (or the ref is invalid), svelte-vitals warns and analyzes the whole project.
 
+### `--baseline <ref>`
+
+Report only findings that are **new** compared to `ref` — i.e. not present when the same analysis runs against `ref`. Unlike `--diff`/`--staged` (which scope by file), `--baseline` scopes by finding identity, so pre-existing issues in files you touched don't fail the gate — only issues your change actually introduced. There is no default ref; it must be given explicitly.
+
+Internally, svelte-vitals checks out `ref` into a temporary git worktree, analyzes it, and subtracts those findings (matched by rule id + route + location) from the current run's findings. If checkout fails (not a git repo, git unavailable, bad ref), svelte-vitals warns and reports all findings instead of failing the run.
+
+```bash
+svelte-vitals --baseline origin/main
+svelte-vitals --diff origin/main --baseline origin/main --fail-on warning   # recommended PR gate
+```
+
+> Findings are matched without their line number, so a second violation of the same rule added lower in a file you already had one violation in won't surface as "new".
+
 ### `--by-route`
 
 Print a per-route score breakdown in the console output.
