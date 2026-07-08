@@ -83,3 +83,9 @@ Live updates only flow over a loopback origin (`localhost`, `127.0.0.1`, `[::1]`
 Like the overlay, this is dev-only and rendered-based: it covers the SEO `<head>` rules for the routes you visit. For a whole-project report (all routes, Performance, site checks), run `npx svelte-vitals` or `npx svelte-vitals --reporter html`.
 
 Component-scoped rules (Correctness, Security, Architecture, and the two component-scoped Performance rules) are build-mode-only — see [Plugin mode](/svelte-vitals/guides/plugin-mode/) — and never appear in the dev overlay, since there is no whole-project source scan on a per-request rendered view.
+
+## Version drift
+
+The dashboard footer shows `v<@svelte-vitals/vite version> · core v<@svelte-vitals/core version>`. That second number is the one that matters when comparing findings against the CLI: `svelte-vitals` (CLI) and `@svelte-vitals/vite` are versioned independently, both wrapping the shared `@svelte-vitals/core` rule engine — so it's possible for the two to resolve to _different_ core versions even when both packages themselves look up to date, and a rule added in a newer core release will only show up on whichever surface actually depends on it.
+
+This is easy to hit without noticing through package-manager cooldown/pinning features — e.g. pnpm's [`minimumReleaseAge`](https://pnpm.io/settings#minimumreleaseage) can silently resolve a `pnpm dlx svelte-vitals@latest` run down to an older "mature" release (with an older core) than what `@svelte-vitals/vite` in your lockfile depends on. If the CLI and the dev overlay disagree on findings for the same project, run `svelte-vitals --version` and compare its `(core X.Y.Z)` against the dashboard footer's `core vX.Y.Z` — a mismatch there is the first thing to check before assuming a bug.

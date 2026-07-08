@@ -6,7 +6,7 @@ import type { RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core'
 import { defineConfig } from '@svelte-vitals/core';
 import { analyze } from './analyze.js';
 import { installUiMiddleware } from './ui/middleware.js';
-import { readPackageVersion } from './version.js';
+import { readPackageVersion, readCoreVersion } from './version.js';
 
 export interface SvelteVitalsOptions {
   /** Project root (defaults to the Vite config root / cwd). */
@@ -93,7 +93,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         rules: options.rules ?? {},
         failOn: options.failOn ?? 'critical'
       });
-      installUiMiddleware(server, config, readPackageVersion());
+      installUiMiddleware(server, config, readPackageVersion(), readCoreVersion());
     }
   };
   return [buildPlugin, uiPlugin];

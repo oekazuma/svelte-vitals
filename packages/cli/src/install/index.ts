@@ -12,7 +12,7 @@ import {
 import { buildSkillMarkdown, buildCursorRules } from './skill-content.js';
 import { codemodViteConfig } from './codemod-vite-config.js';
 import { codemodHooksServer } from './codemod-hooks.js';
-import { detectPackageManager, hasVitePackage, installCommand } from './package-manager.js';
+import { detectPackageManager, hasVitePackage, installCommand, readInstalledViteVersion } from './package-manager.js';
 import type { WriteStatus } from './codemod-types.js';
 
 export type TargetId = ClientId | ViteTargetId | AgentTargetId;
@@ -270,6 +270,13 @@ export async function runInstall(
     if (code !== 0) {
       io.errorLog(
         `svelte-vitals: failed to install @svelte-vitals/vite (${command} ${args.join(' ')} exited ${code}). Install it manually.`
+      );
+    } else {
+      const installedVersion = readInstalledViteVersion(io);
+      io.log(
+        installedVersion
+          ? `svelte-vitals: installed @svelte-vitals/vite@${installedVersion} — compare against \`svelte-vitals --version\`'s core number if findings ever seem out of sync.`
+          : 'svelte-vitals: installed @svelte-vitals/vite (could not read the installed version from node_modules).'
       );
     }
   }
