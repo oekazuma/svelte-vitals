@@ -17,6 +17,23 @@ svelte-vitals [path] [options]
 
 Flags below can also be set once in a `svelte-vitals.config` file at the project root instead of being repeated on every invocation — see [Config file](/svelte-vitals/guides/configuration/). A flag always overrides the config file.
 
+## Monorepos
+
+Passing an explicit `path` (or running inside the app directory itself) always takes priority — svelte-vitals never second-guesses a target you named.
+
+When no `path` is given and the current directory isn't a SvelteKit app, svelte-vitals looks for SvelteKit apps nearby (directories with `svelte.config.{js,ts}` and `src/routes`) instead of failing immediately:
+
+- **Exactly one app found:** it's analyzed automatically, with a notice on stderr (`detected SvelteKit app at apps/web; analyzing it.`).
+- **Multiple apps found, interactive terminal:** you get a single-select prompt to choose which one to analyze. Cancelling exits `0` without analyzing anything.
+- **Multiple apps found, non-interactive (CI, agents, piped output):** svelte-vitals never prompts — it exits `2` with the list of detected apps and a hint to pass one explicitly, e.g. `npx svelte-vitals apps/web`.
+- **No apps found:** the original "not a SvelteKit project" error, exit `2`.
+
+```bash
+cd my-monorepo
+npx svelte-vitals              # detects apps/web + apps/admin, prompts to pick one (or auto-picks if there's only one)
+npx svelte-vitals apps/web     # skips detection entirely — analyzes apps/web directly
+```
+
 ## Flags
 
 ### `--reporter <fmt>`

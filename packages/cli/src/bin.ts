@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import mri from 'mri';
+import * as p from '@clack/prompts';
 import { run } from './index.js';
 import { readPackageVersion } from './version.js';
 import { resolveArgs } from './resolve-args.js';
@@ -45,6 +46,15 @@ Exit codes:
   2  execution error (not a SvelteKit project / internal error)`;
 
 const VERSION = readPackageVersion();
+
+/** Monorepo app picker (design doc 2026-07-08-monorepo-app-picker-design.md): single-select via @clack/prompts, same style as the `install` wizard. */
+async function selectApp(apps: string[]): Promise<string | null> {
+  const res = await p.select({
+    message: 'Multiple SvelteKit apps found — which one should svelte-vitals analyze?',
+    options: apps.map((a) => ({ value: a, label: a }))
+  });
+  return p.isCancel(res) ? null : (res as string);
+}
 
 async function main(): Promise<void> {
   const rawArgs = process.argv.slice(2);
@@ -102,7 +112,7 @@ async function main(): Promise<void> {
     minHealth = n;
   }
 
-  const code = await run({ ...options, minHealth, noColor: argv['no-color'] });
+  const code = await run({ ...options, minHealth, noColor: argv['no-color'], selectApp });
   process.exit(code);
 }
 

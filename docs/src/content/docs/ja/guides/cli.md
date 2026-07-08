@@ -17,6 +17,23 @@ svelte-vitals [path] [options]
 
 以下のフラグは、毎回の実行で指定する代わりに、プロジェクトルートの `svelte-vitals.config` ファイルにまとめて一度だけ設定することもできます — 詳しくは [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。フラグは常に設定ファイルより優先されます。
 
+## モノレポ
+
+明示的に `path` を渡した場合(またはアプリのディレクトリ自体で実行した場合)は常にそれが優先されます — svelte-vitals が指定されたターゲットを勝手に読み替えることはありません。
+
+`path` を渡さず、かつカレントディレクトリが SvelteKit アプリでない場合、svelte-vitals はすぐに失敗する代わりに、近くの SvelteKit アプリ(`svelte.config.{js,ts}` と `src/routes` を持つディレクトリ)を探します:
+
+- **1 件だけ見つかった場合:** 自動的にそのアプリを解析します。stderr に通知が出ます(`detected SvelteKit app at apps/web; analyzing it.`)。
+- **複数見つかった場合(対話的な TTY):** どれを解析するか単一選択のプロンプトが表示されます。キャンセルすると、何も解析せずに終了コード `0` で終了します。
+- **複数見つかった場合(非対話的 — CI、エージェント、パイプ出力など):** svelte-vitals はプロンプトを一切出しません — 検出したアプリの一覧と、`npx svelte-vitals apps/web` のように明示的にパスを渡すヒントとともに終了コード `2` で終了します。
+- **見つからなかった場合:** 従来どおり「SvelteKit プロジェクトが見つからない」というエラーで終了コード `2` になります。
+
+```bash
+cd my-monorepo
+npx svelte-vitals              # apps/web と apps/admin を検出し、どちらか選択を促す(1件だけなら自動選択)
+npx svelte-vitals apps/web     # 検出をスキップし、apps/web を直接解析する
+```
+
 ## フラグ
 
 ### `--reporter <fmt>`

@@ -59,6 +59,8 @@ npx svelte-vitals          # analyze the current directory
 npx svelte-vitals ./apps/web   # or a specific path
 ```
 
+At a monorepo root, running `npx svelte-vitals` with no path detects the SvelteKit apps underneath and either analyzes the only one found or lets you pick interactively — see [CLI: Monorepos](https://oekazuma.github.io/svelte-vitals/guides/cli/#monorepos).
+
 Example output:
 
 ```

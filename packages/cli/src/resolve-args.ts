@@ -221,6 +221,9 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
   return {
     options: {
       cwd: positional ?? process.cwd(),
+      // Never reinterpret an explicit target (design doc 2026-07-08-monorepo-app-picker-design.md,
+      // decision 1): the monorepo picker in run() only triggers when this is false.
+      explicitPath: positional !== undefined,
       metaComponents,
       treatDynamicAs,
       route,
