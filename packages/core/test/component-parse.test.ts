@@ -66,6 +66,32 @@ describe('parseComponentFacts — $effect (CORRECT002)', () => {
     const e = facts('let count = $state(0); const t = $effect.tracking(); $effect.root(() => {});');
     expect(e).toEqual([]);
   });
+
+  // The "mount signal" idiom (hydration-mismatch guard, issue #92 / #158): a boolean
+  // $state flipped to true in an $effect so a $derived reads false during SSR/prerender
+  // and the client's first render, then its real value after mount. $derived can't
+  // replace this — it evaluates eagerly during hydration, reintroducing the mismatch
+  // the $effect exists to avoid. The check is intentionally structural (only-assigns),
+  // not semantic, so the bare mount-flag effect is flagged (suppress it inline per the
+  // docs) while adding *any* other statement — like mount-time listener setup — already
+  // takes it out of "only assigns state" and it stops being flagged, whether or not that
+  // extra statement happens to also be mount-only bookkeeping.
+  it('flags a bare mount-flag effect (mounted = true) — the known false positive, suppress via inline directive', () => {
+    const e = facts('let mounted = $state(false); $effect(() => { mounted = true; });');
+    expect(e).toEqual([{ line: 1, assignsOnlyState: true, mountOnly: false }]);
+  });
+  it('does not flag the same mount-flag assignment once the effect also does other mount-time setup', () => {
+    const e = facts(
+      `let mounted = $state(false);
+       $effect(() => {
+         mounted = true;
+         const onEvent = (e) => {};
+         window.addEventListener('some-event', onEvent);
+         return () => window.removeEventListener('some-event', onEvent);
+       });`
+    );
+    expect(e[0]!.assignsOnlyState).toBe(false);
+  });
 });
 
 describe('parseComponentFacts — security (SEC001/SEC002)', () => {
