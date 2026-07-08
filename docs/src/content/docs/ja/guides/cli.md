@@ -13,7 +13,7 @@ svelte-vitals [path] [options]
 
 `path` は省略可能で、デフォルトはカレントディレクトリです。
 
-> AI エージェントのクライアントに MCP サーバーをセットアップするための [`install` サブコマンド](#svelte-vitals-install) もあります。
+> AI エージェントのクライアントに MCP サーバーをセットアップするための [`install` サブコマンド](#svelte-vitals-install) と、GitHub Actions の PR ゲートを生成する `ci install` サブコマンドもあります — 詳しくは [CI 連携](/svelte-vitals/ja/guides/ci/) を参照してください。
 
 以下のフラグは、毎回の実行で指定する代わりに、プロジェクトルートの `svelte-vitals.config` ファイルにまとめて一度だけ設定することもできます — 詳しくは [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。フラグは常に設定ファイルより優先されます。
 
@@ -23,16 +23,17 @@ svelte-vitals [path] [options]
 
 出力フォーマットを選択します。
 
-| 値        | 説明                                                        |
-| --------- | ----------------------------------------------------------- |
-| `console` | 人間が読みやすいテキスト出力（デフォルト）                  |
-| `json`    | マシン可読な JSON                                           |
-| `agent`   | AI コーディングエージェント向け Markdown 修正ドキュメント   |
-| `sarif`   | SARIF v2.1（GitHub Code Scanning などの SAST ツールに対応） |
-| `github`  | GitHub Actions アノテーション形式                           |
-| `html`    | ブラウザで開く自己完結の HTML レポート                      |
+| 値        | 説明                                                             |
+| --------- | ---------------------------------------------------------------- |
+| `console` | 人間が読みやすいテキスト出力（デフォルト）                       |
+| `json`    | マシン可読な JSON                                                |
+| `agent`   | AI コーディングエージェント向け Markdown 修正ドキュメント        |
+| `sarif`   | SARIF v2.1（GitHub Code Scanning などの SAST ツールに対応）      |
+| `github`  | GitHub Actions アノテーション形式                                |
+| `html`    | ブラウザで開く自己完結の HTML レポート                           |
+| `md`      | PR コメント / ジョブサマリー向けのコンパクトな Markdown サマリー |
 
-指定できる値：`console, json, agent, sarif, github, html のいずれか`
+指定できる値：`console, json, agent, sarif, github, html, md のいずれか`
 
 **自動選択：** 既知の AI エージェント環境（例：Claude Code が `CLAUDECODE` を設定）で実行された場合、`agent` レポーターが自動的に選択されます。GitHub Actions（`GITHUB_ACTIONS=true`）で実行された場合は `github` レポーターが自動選択されます。明示的な `--reporter` フラグは常に自動選択よりも優先されます。`SVELTE_VITALS_REPORTER` 環境変数でも上書きできます。
 

@@ -1,4 +1,4 @@
-export type ReporterName = 'console' | 'json' | 'agent' | 'sarif' | 'github' | 'html';
+export type ReporterName = 'console' | 'json' | 'agent' | 'sarif' | 'github' | 'html' | 'md';
 
 /** Env vars set by AI-agent harnesses. Curated + extensible; SVELTE_VITALS_AGENT is the universal opt-in. */
 const AGENT_ENV_VARS = ['CLAUDECODE', 'SVELTE_VITALS_AGENT'];
@@ -10,7 +10,8 @@ export function isReporterName(value: string | undefined): value is ReporterName
     value === 'agent' ||
     value === 'sarif' ||
     value === 'github' ||
-    value === 'html'
+    value === 'html' ||
+    value === 'md'
   );
 }
 

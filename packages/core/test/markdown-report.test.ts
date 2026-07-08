@@ -1,0 +1,120 @@
+import { describe, it, expect } from 'vitest';
+import { formatMarkdownReport, defineConfig, type Result } from '../src/index.js';
+
+const config = defineConfig({});
+
+describe('formatMarkdownReport', () => {
+  it('renders the Health header, a per-category score table, and a findings table', () => {
+    const results: Result[] = [
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/none',
+        location: 'src/routes/none/+page.svelte',
+        message: 'Missing <title>'
+      },
+      {
+        id: 'PERF001',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        line: 42,
+        message: 'Missing <img> width/height'
+      }
+    ];
+    const out = formatMarkdownReport(results, config, { version: '1.2.3' });
+
+    expect(out).toContain('<!-- svelte-vitals v1.2.3 -->');
+    expect(out).toMatch(/## svelte-vitals — Health \d+\/100/);
+    expect(out).toContain('| Category | Score |');
+    expect(out).toContain('| performance |');
+    expect(out).toContain('| seo |');
+    expect(out).toContain('**1 critical · 1 warning · 0 info**');
+    expect(out).toContain('### Findings');
+    expect(out).toContain('| Severity | Rule | Location | Message |');
+    expect(out).toContain('[SEO001](https://oekazuma.github.io/svelte-vitals/rules/seo001)');
+    expect(out).toContain('src/routes/none/+page.svelte');
+    expect(out).toContain('Missing <title>');
+    expect(out).toContain('src/routes/blog/+page.svelte:42');
+
+    // Critical is sorted before warning regardless of input order.
+    const critIdx = out.indexOf('🔴 critical');
+    const warnIdx = out.indexOf('🟡 warning');
+    expect(critIdx).toBeGreaterThan(-1);
+    expect(warnIdx).toBeGreaterThan(critIdx);
+  });
+
+  it('falls back to the route when a finding has no location, and to "-" when neither is set', () => {
+    const results: Result[] = [
+      {
+        id: 'SEO006',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/no-location',
+        message: 'Missing something'
+      },
+      {
+        id: 'SEO008',
+        severity: 'info',
+        detection: { presence: 'none', value: 'absent' },
+        message: 'Site-wide finding with no route or location'
+      }
+    ];
+    const out = formatMarkdownReport(results, config, { version: '1.0.0' });
+    expect(out).toContain(
+      '| 🟡 warning | [SEO006](https://oekazuma.github.io/svelte-vitals/rules/seo006) | /no-location |'
+    );
+    expect(out).toContain('| 🔵 info | [SEO008](https://oekazuma.github.io/svelte-vitals/rules/seo008) | - |');
+  });
+
+  it('prints a clean-run message and omits the findings section when there are no penalized findings', () => {
+    const results: Result[] = [
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'own', value: 'static' },
+        route: '/ok',
+        location: 'src/routes/ok/+page.svelte',
+        message: '<title>'
+      }
+    ];
+    const out = formatMarkdownReport(results, config, { version: '1.0.0' });
+    expect(out).toContain('✅ No issues found.');
+    expect(out).not.toContain('### Findings');
+    expect(out).toContain('**0 critical · 0 warning · 0 info**');
+  });
+
+  it('truncates to 50 findings and appends a "…and N more" note', () => {
+    const results: Result[] = Array.from({ length: 60 }, (_, i) => ({
+      id: 'SEO006',
+      severity: 'info' as const,
+      detection: { presence: 'none' as const, value: 'absent' as const },
+      route: `/r${i}`,
+      location: `src/routes/r${i}/+page.svelte`,
+      message: `Missing robots.txt ${i}`
+    }));
+    const out = formatMarkdownReport(results, config, { version: '1.0.0' });
+    const rowCount = out.split('\n').filter((l) => l.startsWith('| 🔵 info |')).length;
+    expect(rowCount).toBe(50);
+    expect(out).toContain('…and 10 more (run `npx svelte-vitals` locally for the full report)');
+  });
+
+  it('escapes pipes and newlines inside message cells', () => {
+    const results: Result[] = [
+      {
+        id: 'SEO006',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        location: 'src/routes/a/+page.svelte',
+        message: 'Missing robots.txt | needed\nsecond line'
+      }
+    ];
+    const out = formatMarkdownReport(results, config, { version: '1.0.0' });
+    expect(out).toContain('Missing robots.txt \\| needed second line');
+    expect(out).not.toContain('needed\nsecond line');
+  });
+});

@@ -13,7 +13,7 @@ svelte-vitals [path] [options]
 
 `path` is optional and defaults to the current directory.
 
-> There is also an [`install` subcommand](#svelte-vitals-install) for setting up the MCP server in your AI-agent clients.
+> There is also an [`install` subcommand](#svelte-vitals-install) for setting up the MCP server in your AI-agent clients, and a `ci install` subcommand that scaffolds a GitHub Actions PR gate — see [CI integration](/svelte-vitals/guides/ci/).
 
 Flags below can also be set once in a `svelte-vitals.config` file at the project root instead of being repeated on every invocation — see [Config file](/svelte-vitals/guides/configuration/). A flag always overrides the config file.
 
@@ -31,8 +31,9 @@ Select the output format.
 | `sarif`   | SARIF v2.1 (compatible with GitHub Code Scanning and other SAST tools) |
 | `github`  | GitHub Actions annotation format                                       |
 | `html`    | Self-contained HTML report, open in a browser                          |
+| `md`      | Compact Markdown summary for PR comments / job summaries               |
 
-Accepted values: `console, json, agent, sarif, github, or html`
+Accepted values: `console, json, agent, sarif, github, html, or md`
 
 **Auto-selection:** when run inside a known AI-agent environment (e.g. Claude Code sets `CLAUDECODE`), the `agent` reporter is selected automatically. When run inside GitHub Actions (`GITHUB_ACTIONS=true`), the `github` reporter is selected automatically. An explicit `--reporter` flag always overrides auto-selection. You can also override via the `SVELTE_VITALS_REPORTER` environment variable.
 
