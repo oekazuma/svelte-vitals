@@ -18,9 +18,22 @@ improve スキルによる監査(2026-07-05、commit `1f6f233` 時点)から生�
 | 010  | config ファイル対応の本実装(ローダー出荷 + CLI/MCP 配線 + `--weights`)           | P2       | M      | 008        | DONE(2026-07-07 REVISE 1回[metaComponents 型検証]→レビュー承認 → [PR #129](https://github.com/oekazuma/svelte-vitals/pull/129)。executor が MCP 側の rules `{}` クロバーも発見・修正)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | 011  | config ファイルの docs 対応(configuration ガイド en/ja + vite docs-only 配線)    | P2       | S      | 010        | DONE(2026-07-07 レビュー承認 → [PR #131](https://github.com/oekazuma/svelte-vitals/pull/131) マージ済み。DOCS-01 根治。副産物の発見[ja/guides/cli.md の --diff/--staged 節欠落]は [PR #132](https://github.com/oekazuma/svelte-vitals/pull/132) で対応)                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
+| 014 | `--baseline <ref>` — 変更が新たに導入した finding のみ報告(PR ゲートの中核) | P1 | M | — | DONE(2026-07-08 レビュー承認[Sonnet 5 executor、逸脱なし]→ [PR #142](https://github.com/oekazuma/svelte-vitals/pull/142)。packages スコープの build/typecheck/test[830 本]/lint 全 green。root build の docs のみサンドボックス都合で未実測 — CI が本検証) |
+| 015 | `ci install` — GitHub Actions ワークフロー生成 + PR サマリーコメント + md レポーター | P1 | L | 014 | DONE(2026-07-08 REVISE 1回[guides/cli.md の --reporter 列挙に md 追記]→ レビュー承認 → [PR #144](https://github.com/oekazuma/svelte-vitals/pull/144)。CodeRabbit 指摘3件[fork PR でコメント step が job を落とす(Major)/手書き例の「equivalent」表現 en・ja]は全件妥当と検証し `42886c6` で修正 — コメント step は fork で skip + continue-on-error、Plan の「v1 は付けない」判断は覆した。全 857 テスト green) |
+| 016 | `install` にエージェントスキル配布を追加(Claude Code スキル / Cursor ルール) | P2 | M | — | DONE(2026-07-08 レビュー承認[Sonnet 5 executor、逸脱なし — version は InstallIO ではなく runInstall 引数で注入という良い判断込み]→ [PR #145](https://github.com/oekazuma/svelte-vitals/pull/145)。CLI テスト 413 本 green、49 ルール×5 カテゴリの生成・冪等性・--force を実機確認済み) |
+| 017 | docs サイトから llms.txt / llms-full.txt を配信 | P2 | S | — | DONE(2026-07-08 条件付きレビュー承認 → [PR #146](https://github.com/oekazuma/svelte-vitals/pull/146)。peer 互換[starlight >=0.41.0]と lockfile 解決は検証済みだが、docs ビルドはサンドボックス制約[.vscode/settings.json 書き込み拒否で docs の install 不能]により**PR の CI docs ジョブが本検証** — マージ後の本番実測済み[2026-07-08]: llms.txt は base 込み絶対 URL で配信、llms-full.txt に49ルール+全ガイド収録。事前懸念だった ja 混入は起きず**英語のみ**[プラグインがルートロケール以外をデフォルト除外]。Copilot 指摘1件[site/plugin の description 二重管理]は妥当と検証し `2a47566` で共有定数化 — 副次的にサイトのメタディスクリプションも5カテゴリ版に更新。修正後 CI 全ジョブ green) |
+| 018 | CLI 利便性フラグ `--category` / `--score` | P3 | S | — | DONE(2026-07-08 レビュー承認[Sonnet 5 executor。値なし `--category` は --weights 前例に合わせ無視という文書化済みの妥当な判断1件]→ [PR #147](https://github.com/oekazuma/svelte-vitals/pull/147)。CLI テスト 424 本 green、--score の1行出力と --category の絞り込みを実機確認済み) |
+| 019 | モノレポの SvelteKit アプリ自動検出 + 選択式ピッカー | P2 | M | — | DONE(2026-07-08 レビュー承認[Sonnet 5 executor。文書化済み逸脱1件: run.test.ts の既存1ケースに `explicitPath: true` を付与 — 新挙動と整合させる正当な適応と裁定]→ [PR #148](https://github.com/oekazuma/svelte-vitals/pull/148)。設計書も PR に同梱。CodeRabbit 指摘1件[picker のゲートが stdout TTY のみ — stdin パイプ時に clack がハングしうる]は妥当と検証し `ed98207` で stdin+stdout 両ゲート化。CLI テスト 437 本 green、明示 path 短絡と非TTY一覧エラーを実機確認済み) |
+
+(012/013 は欠番 — 副産物対応の advisor ブランチ名 `advisor/012-*`/`advisor/013-*` として消費済みのため、混同を避けて 014 から採番。014–018 は 2026-07-08 のギャップ分析(commit `d0c76c9` 時点)から生成。テーマは「CI 組み込み体験」と「エージェント統合の入口拡大」— 部品[reporter 群、`--diff`、`--fail-on`、MCP]は揃っているのに、ユーザーがワークフローや指示ファイルを手で組み立てる必要がある状態を解消する。)
+
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) | REJECTED (with one-line rationale)
 
 ## Dependency notes
+
+- **015 は 014 の後**: 生成するワークフローが `--baseline origin/${{ github.base_ref }}` を前提にする(015 の Drift check が 014 の未マージを検出して STOP する)。
+- **018 は最後に推奨**: 014/015 と同じ CLI ファイル(bin.ts / resolve-args.ts / index.ts)を触るため、コンフリクト回避として直列の末尾に置く。016/017 は独立で並行可。
+- 014 の `--baseline`(ref 比較)と方向性メモ DIR-03 の「抑制ファイル型 baseline」(現状を記録して受け入れ)は別物。両方導入する場合はフラグ命名の整合に注意(014 の Maintenance notes 参照)。
 
 - **003 は 002 の後**: 空 facts フォールバックの挙動を固定するテスト(002)がある状態で collector を動かす(003)。
 - **007 は 002 の後**: パースキャッシュは「パース失敗時に何が起きるか」の契約(002 が固定)を保存しなければならない。
@@ -41,6 +54,14 @@ Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) | REJE
 - **DOCS-01**(health-report ガイドの「設定可能な重み」): 008 の config ファイル実装で根本解決する方針のため、単独の文言修正計画は作らなかった(実装まで時間が空くなら暫定の文言弱めも可 — 008 の Maintenance notes 参照)。
 - **依存監査**: `pnpm audit --prod` は moderate 1件のみ(docs ツールチェーン経由の `yaml`、実行時到達性なし、Renovate 対応圏内)。対応不要。
 - **a11y カテゴリ再導入 / トレンド履歴機能**: 設計ドキュメントで明示的に廃止・non-goal とされた決定済み事項。提案しない。
+
+2026-07-08 のギャップ分析(014–018 の親)で検討し、見送った項目:
+
+- **スコア共有 API / テレメトリ**: 外部送信ゼロは本プロジェクトの優位点。真似ない。
+- **ESLint / oxlint プラグイン化**: eslint-plugin-svelte 等の公式エコシステムと重複し、「Svelte 公式ツールを複製しない」方針に反する。MCP + agent レポーターが担当領域。
+- **GitHub Actions の marketplace Action 化**: v1 は `npx` 直叩きテンプレート(Plan 015)で十分。テンプレートの複雑さが限界を迎えたら再検討。
+- **GitLab CI などの他 CI テンプレート**: GitHub Actions で需要を検証してから。
+- **モノレポ対応の強化**(config 上方探索・workspace 検出): 実ユーザーからの要望が観測されるまで保留 → **2026-07-08 メンテナー本人の要望により保留解除**、アプリ検出+ピッカーとして Plan 019 に起案(config 上方探索と workspace マニフェスト解析は引き続きスコープ外)。
 
 ## 方向性(計画化しなかった選択肢)
 
