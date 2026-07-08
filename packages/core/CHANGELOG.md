@@ -1,5 +1,11 @@
 # @svelte-vitals/core
 
+## 0.21.0
+
+### Minor Changes
+
+- 8dc631c: Add a `--reporter md` Markdown summary reporter (Health score, per-category scores, severity counts, and a findings table) and a `svelte-vitals ci install` command that scaffolds a GitHub Actions workflow gating pull requests on newly introduced findings — inline annotations, a job summary, and a sticky PR comment, using `--diff`/`--baseline`/`--reporter github`/`--reporter md` under the hood.
+
 ## 0.20.0
 
 ### Minor Changes

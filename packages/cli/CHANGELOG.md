@@ -1,5 +1,20 @@
 # svelte-vitals
 
+## 0.20.0
+
+### Minor Changes
+
+- fa0bd8a: Add `claude-skill` and `cursor-rules` targets to `svelte-vitals install`, generating a Claude Code skill (`.claude/skills/svelte-vitals/SKILL.md`) and a Cursor rules file (`.cursor/rules/svelte-vitals.mdc`) from the current rule set (ids, titles, severities, and rationale grouped by category) so an agent has the rule knowledge and a run playbook before it writes code. Unlike the Vite targets, these files are fully regenerated, so `--force` overwrites them with a fresh copy.
+- afd31ce: Add `--baseline <ref>` to report only findings newly introduced compared to a git ref (e.g. `--baseline origin/main`), unlike `--diff`/`--staged` which scope by changed file but still surface pre-existing findings in those files. Combine with `--diff origin/main --baseline origin/main` for a PR gate that fails only on issues the change actually introduced.
+- 8dc631c: Add a `--reporter md` Markdown summary reporter (Health score, per-category scores, severity counts, and a findings table) and a `svelte-vitals ci install` command that scaffolds a GitHub Actions workflow gating pull requests on newly introduced findings — inline annotations, a job summary, and a sticky PR comment, using `--diff`/`--baseline`/`--reporter github`/`--reporter md` under the hood.
+- d9cb3ba: Add `--category <cats>` to restrict analysis to rules in the given categories (intersects with `--rules`/`--ignore`/config-file selection), and `--score` to print only the combined Health score to stdout, suppressing reporter output — handy for shell prompts or scripts that just want the number, especially combined with `--min-health` for gating.
+- 44c0384: Running `npx svelte-vitals` at a monorepo root with no path argument no longer dead-ends on "No SvelteKit project found": it detects SvelteKit apps underneath and either analyzes the only one found (with a stderr notice) or, in an interactive terminal, offers a single-select prompt to pick one. Non-interactive environments (CI, agents) still never prompt — they get exit `2` with the detected app list and a hint to pass a path explicitly. Passing an explicit path always skips detection, so existing invocations are unaffected.
+
+### Patch Changes
+
+- Updated dependencies [8dc631c]
+  - @svelte-vitals/core@0.21.0
+
 ## 0.19.0
 
 ### Minor Changes
