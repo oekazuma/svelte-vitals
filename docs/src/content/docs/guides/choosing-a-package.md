@@ -7,6 +7,8 @@ sidebar:
 
 svelte-vitals ships as three packages — `svelte-vitals` (CLI), `@svelte-vitals/vite` (plugin + dev overlay), and `@svelte-vitals/mcp` (MCP server). They share the same rule engine and scoring, but read different input and cover different ground. Most projects end up using more than one.
 
+Each package is versioned independently and depends on `@svelte-vitals/core` (the shared rule engine) as its own semver range, so two packages installed at the "same time" can still resolve to different core versions — see [dev overlay: Version drift](/svelte-vitals/guides/dev-overlay/#version-drift) if the CLI and the Vite plugin ever disagree on findings for the same project.
+
 ## Quick answer
 
 | If you want to...                                                                        | Use                                 |

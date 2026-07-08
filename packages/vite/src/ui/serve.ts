@@ -23,7 +23,7 @@ const LIVE_SCRIPT = `<script data-live>
 export function renderDashboard(
   results: Result[],
   config: Config,
-  meta: { version: string },
+  meta: { version: string; coreVersion?: string },
   badges?: Record<string, 'measured' | 'static'>
 ): string {
   const html = buildHtmlDocument(

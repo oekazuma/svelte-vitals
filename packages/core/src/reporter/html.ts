@@ -78,11 +78,18 @@ function renderFinding(issue: Issue): string {
   );
 }
 
-function renderTopbar(report: JsonReport, meta: { version: string }): string {
+function renderTopbar(report: JsonReport, meta: { version: string; coreVersion?: string }): string {
   const findings = report.routes.reduce((n, r) => n + r.issues.length, 0) + report.siteIssues.length;
+  // The rule engine version, shown separately from the tool's own version so it can be
+  // compared directly against another surface's (e.g. the CLI's `--version` output) —
+  // the two are versioned independently and can drift onto different core releases.
+  const core = meta.coreVersion
+    ? `<span title="@svelte-vitals/core version">core v${escapeHtml(meta.coreVersion)}</span>`
+    : '';
   return (
     `<header class="topbar"><div class="brand"><span class="bolt">↯</span>svelte-<span class="v">vitals</span></div>` +
     `<div class="meta"><span>v${escapeHtml(meta.version)}</span>` +
+    core +
     `<span>${report.routes.length} routes</span>` +
     `<span>${findings} findings</span></div></header>`
   );
@@ -298,7 +305,7 @@ const SCRIPT = `
 
 export function buildHtmlDocument(
   report: JsonReport,
-  meta: { version: string },
+  meta: { version: string; coreVersion?: string },
   opts?: { routeBadges?: Record<string, 'measured' | 'static'> }
 ): string {
   return (
@@ -317,6 +324,10 @@ export function buildHtmlDocument(
   );
 }
 
-export function formatHtmlReport(results: Result[], config: Config, meta: { version: string }): string {
+export function formatHtmlReport(
+  results: Result[],
+  config: Config,
+  meta: { version: string; coreVersion?: string }
+): string {
   return buildHtmlDocument(buildJsonReport(results, config, meta), meta);
 }

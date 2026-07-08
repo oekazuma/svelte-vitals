@@ -83,3 +83,9 @@ dev サーバーの起動直後から、ダッシュボードは**プロジェ�
 ライブ更新はループバックオリジン（`localhost`・`127.0.0.1`・`[::1]`）でのみ流れます。`vite dev --host` で LAN の IP からアプリを開いた場合、ハンドルは ingest の POST をスキップする（`Host` ヘッダー偽装への防御）ため、訪問したルートが `measured` に精緻化されません。その場合は `localhost` から開いてください。`SVELTE_VITALS_DEBUG=true` を設定すると、ingest がスキップされた際にログが出力されます。
 
 プロジェクト全体の解析が失敗した場合（例：dev サーバーのルートが SvelteKit プロジェクトでない場合）、失敗は `console.warn` でログに出力され、ダッシュボードはライブのみのモード — 訪問したルートだけを表示 — にフォールバックします。dev サーバーが壊れることはありません。
+
+## バージョンのずれ
+
+ダッシュボードのフッターには `v<@svelte-vitals/vite のバージョン> · core v<@svelte-vitals/core のバージョン>` が表示されます。CLI と検出結果を比較するときに重要なのは後者の core バージョンです。`svelte-vitals`（CLI）と `@svelte-vitals/vite` はそれぞれ独立してバージョン管理されつつ、共有のルールエンジンである `@svelte-vitals/core` をラップしているだけなので、両方のパッケージ自体は最新に見えていても、実際には**異なる** core バージョンに解決されることがあります。その場合、新しい core リリースで追加されたルールは、実際にそのバージョンに依存している側にしか現れません。
+
+これはパッケージマネージャーのクールダウン/固定機能によって、気づかないうちに発生し得ます — 例えば pnpm の [`minimumReleaseAge`](https://pnpm.io/settings#minimumreleaseage) は、`pnpm dlx svelte-vitals@latest` の実行結果を、lockfile 上の `@svelte-vitals/vite` が依存している core より古い「成熟した」リリース（古い core を伴う）に静かに解決してしまうことがあります。同じプロジェクトで CLI と開発オーバーレイの検出結果が食い違う場合は、まず `svelte-vitals --version` を実行して `(core X.Y.Z)` の部分をダッシュボードのフッターの `core vX.Y.Z` と比較してください — バグを疑う前に真っ先に確認すべき点です。

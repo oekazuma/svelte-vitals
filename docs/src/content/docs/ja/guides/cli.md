@@ -230,7 +230,7 @@ svelte-vitals --meta-components "SeoHead,PageMeta"
 
 ### `-v, --version`
 
-バージョンを表示して終了します。
+CLI 自身のバージョンと、解決された `@svelte-vitals/core` のバージョンを表示して終了します（例：`0.20.0 (core 0.21.0)`）。`svelte-vitals` と `@svelte-vitals/vite` はそれぞれ独立してバージョン管理されており、異なる `@svelte-vitals/core` リリースに依存する状態になり得ます。CLI と[開発オーバーレイ](/svelte-vitals/ja/guides/dev-overlay/#バージョンのずれ)で検出結果が食い違う場合は、この `core` バージョンをダッシュボードのフッターに表示される値と比較してください。
 
 ## `svelte-vitals install`
 

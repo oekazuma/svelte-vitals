@@ -25,6 +25,7 @@ Run static-mode analysis on a SvelteKit project.
 | `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'?`        | How to handle dynamic metadata values                                                                                                          |
 | `rules`          | `string[]?`                          | Rule IDs to enable (all others disabled)                                                                                                       |
 | `ignore`         | `string[]?`                          | Rule IDs to disable                                                                                                                            |
+| `categories`     | `string[]?`                          | Restrict analysis to these categories (intersection with `rules`/`ignore`; case-insensitive)                                                   |
 | `failOn`         | `'critical' \| 'warning' \| 'info'?` | Severity threshold for the response's `failed` flag                                                                                            |
 | `weights`        | `Record<string, number>?`            | Per-category weights for the combined Health score, e.g. `{"seo": 2}` (category keys are case-insensitive; unlisted categories default to `1`) |
 

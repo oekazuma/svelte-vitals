@@ -159,6 +159,31 @@ export default { plugins: [sveltekit()] };
     expect(runCalls).toEqual([{ command: 'npm', args: ['install', '-D', '@svelte-vitals/vite'], cwd: '/proj' }]);
   });
 
+  it('vite-plugin: logs the actually-resolved @svelte-vitals/vite version after a successful install', async () => {
+    // The package manager fake doesn't really write node_modules, so seed the file it would have
+    // produced — this is what lets the version-drift concern (an install silently resolving to an
+    // older release, e.g. via pnpm's minimumReleaseAge) be visible in the install log.
+    const { io, out } = fakeIO({
+      files: {
+        '/proj/vite.config.ts': `export default { plugins: [] };`,
+        '/proj/package.json': '{}',
+        '/proj/node_modules/@svelte-vitals/vite/package.json': JSON.stringify({ version: '0.11.1' })
+      },
+      runCommand: () => 0
+    });
+    await runInstall({ client: ['vite-plugin'], yes: true }, io, noPrompts);
+    expect(out.join('\n')).toContain('installed @svelte-vitals/vite@0.11.1');
+  });
+
+  it('vite-plugin: falls back to a plain message when the installed version cannot be read', async () => {
+    const { io, out } = fakeIO({
+      files: { '/proj/vite.config.ts': `export default { plugins: [] };`, '/proj/package.json': '{}' },
+      runCommand: () => 0
+    });
+    await runInstall({ client: ['vite-plugin'], yes: true }, io, noPrompts);
+    expect(out.join('\n')).toContain('could not read the installed version');
+  });
+
   it('vite-plugin: package already installed → no install command run', async () => {
     const viteConfig = `export default { plugins: [] };`;
     const runCalls: unknown[] = [];
@@ -218,13 +243,14 @@ export default { plugins: [svelteVitals()] };
   });
 
   it('a failed package-manager install is reported but does not fail the run', async () => {
-    const { io, err } = fakeIO({
+    const { io, err, out } = fakeIO({
       files: { '/proj/vite.config.ts': `export default { plugins: [] };`, '/proj/package.json': '{}' },
       runCommand: () => 1
     });
     const code = await runInstall({ client: ['vite-plugin'], yes: true }, io, noPrompts);
     expect(code).toBe(0);
     expect(err.join('\n')).toContain('@svelte-vitals/vite');
+    expect(out.join('\n')).not.toContain('installed @svelte-vitals/vite@'); // no version log on a failed install
   });
 
   it('a partial failure (an MCP client write fails) still runs the package-manager install for a Vite target that already succeeded', async () => {

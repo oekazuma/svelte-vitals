@@ -27,7 +27,7 @@ import { collectRoutes } from './providers/source/routes.js';
 import { collectComponentFacts } from './providers/source/components.js';
 import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
 import { discoverApps } from './discover-apps.js';
-import { readPackageVersion } from './version.js';
+import { readPackageVersion, readCoreVersion } from './version.js';
 import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
 import { getChangedFiles, filterToChangedFiles } from './changed-files.js';
 import { checkoutBaseline, filterToNewFindings } from './baseline.js';
@@ -365,7 +365,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         const output = formatGithubReport(results, config);
         if (output) log(output);
       } else if (reporter === 'html') {
-        const html = formatHtmlReport(results, config, { version });
+        const html = formatHtmlReport(results, config, { version, coreVersion: readCoreVersion() });
         if (opts.outFile === '-') {
           log(html);
         } else {

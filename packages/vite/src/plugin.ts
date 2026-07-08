@@ -8,7 +8,7 @@ import { analyze } from './analyze.js';
 import { installUiMiddleware } from './ui/middleware.js';
 import { createStore } from './ui/store.js';
 import { createAnalysisRunner } from './ui/analysis.js';
-import { readPackageVersion } from './version.js';
+import { readPackageVersion, readCoreVersion } from './version.js';
 
 const CONFIG_BASENAMES = new Set([
   'svelte.config.js',
@@ -144,7 +144,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         runner.stop();
       });
 
-      installUiMiddleware(server, config, readPackageVersion(), store);
+      installUiMiddleware(server, config, readPackageVersion(), store, readCoreVersion());
     }
   };
   return [buildPlugin, uiPlugin];

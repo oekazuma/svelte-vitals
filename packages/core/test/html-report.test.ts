@@ -96,6 +96,18 @@ describe('buildHtmlDocument', () => {
   });
 });
 
+describe('coreVersion (rule-engine version, distinct from the tool version)', () => {
+  it('renders a "core vX.Y.Z" badge when meta.coreVersion is given', () => {
+    const html = buildHtmlDocument(report, { version: '9.9.9', coreVersion: '0.21.0' });
+    expect(html).toContain('core v0.21.0');
+  });
+
+  it('omits the badge when meta.coreVersion is absent (backward compatible)', () => {
+    const html = buildHtmlDocument(report, { version: '9.9.9' });
+    expect(html).not.toContain('core v');
+  });
+});
+
 describe('escapeHtml / scoreBand', () => {
   it('escapes HTML-significant characters', () => {
     expect(escapeHtml(`<a href="x">&'`)).toBe('&lt;a href=&quot;x&quot;&gt;&amp;&#39;');

@@ -58,7 +58,8 @@ export function installUiMiddleware(
   server: ViteDevServer,
   config: Config,
   version: string,
-  store: FindingsStore
+  store: FindingsStore,
+  coreVersion?: string
 ): void {
   const clients = new Set<ServerResponse>();
 
@@ -135,7 +136,7 @@ export function installUiMiddleware(
     // Last line of defense that validated data should never reach: if the renderer
     // throws anyway, return a plain-text 500 and never take down the dev server.
     try {
-      const html = renderDashboard(store.snapshot(), config, { version }, store.badges());
+      const html = renderDashboard(store.snapshot(), config, { version, coreVersion }, store.badges());
       res.setHeader('Content-Type', 'text/html');
       res.end(html);
     } catch {

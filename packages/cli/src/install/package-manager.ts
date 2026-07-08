@@ -42,3 +42,19 @@ export function installCommand(pm: PackageManager): { command: string; args: str
   const action = pm === 'npm' ? 'install' : 'add';
   return { command: pm, args: [action, '-D', '@svelte-vitals/vite'] };
 }
+
+/**
+ * Read the version of @svelte-vitals/vite actually resolved into node_modules after
+ * running installCommand — a lockfile/registry cooldown (e.g. pnpm's `minimumReleaseAge`)
+ * can silently resolve the install to an older release than the latest published one, with
+ * no other visible signal. Returns undefined if unreadable/unparsable; never throws.
+ */
+export function readInstalledViteVersion(io: ReadCwd): string | undefined {
+  const raw = io.readFile(join(io.cwd, 'node_modules/@svelte-vitals/vite/package.json'));
+  if (raw === undefined) return undefined;
+  try {
+    return (JSON.parse(raw) as { version?: string }).version;
+  } catch {
+    return undefined;
+  }
+}
