@@ -25,10 +25,39 @@ describe('svelteVitals({ ui })', () => {
     const plugins = svelteVitals({ ui: true }) as Plugin[];
     const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
     const used: string[] = [];
-    const server = { middlewares: { use: (path: string) => used.push(path) } } as unknown as ViteDevServer;
+    const server = {
+      config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
+      watcher: { on: () => {} },
+      middlewares: { use: (path: string) => used.push(path) }
+    } as unknown as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
     (hook as (s: ViteDevServer) => void).call({}, server);
     expect(process.env.SVELTE_VITALS_UI).toBe('1');
     expect(used).toContain('/__svelte-vitals');
+  });
+
+  it('configureServer registers a watcher listener for source-change re-analysis', () => {
+    const plugins = svelteVitals({ ui: true }) as Plugin[];
+    const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
+    const watcherEvents: string[] = [];
+    const server = {
+      config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
+      watcher: { on: (event: string) => watcherEvents.push(event) },
+      middlewares: { use: () => {} }
+    } as unknown as ViteDevServer;
+    const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
+    (hook as (s: ViteDevServer) => void).call({}, server);
+    expect(watcherEvents).toContain('all');
+  });
+
+  it('configureServer works without a watcher or httpServer on the mock server (defensive)', () => {
+    const plugins = svelteVitals({ ui: true }) as Plugin[];
+    const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
+    const server = {
+      config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
+      middlewares: { use: () => {} }
+    } as unknown as ViteDevServer;
+    const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
+    expect(() => (hook as (s: ViteDevServer) => void).call({}, server)).not.toThrow();
   });
 });

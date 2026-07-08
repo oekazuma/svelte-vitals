@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { createStore } from '../src/ui/store.js';
+import { createStore, composeSnapshot, composeBadges } from '../src/ui/store.js';
 import type { Result } from '@svelte-vitals/core';
 
 const r = (id: string, route?: string): Result =>
@@ -47,5 +47,96 @@ describe('createStore', () => {
     off();
     s.set('/b', [r('SEO002', '/b')]);
     expect(fn).toHaveBeenCalledTimes(1);
+  });
+
+  it('notifies subscribers on setStatic', () => {
+    const s = createStore();
+    const fn = vi.fn();
+    s.subscribe(fn);
+    s.setStatic([r('SEO001', '/a')]);
+    expect(fn).toHaveBeenCalledTimes(1);
+  });
+
+  it('snapshot() includes the static layer alone when no live layer exists', () => {
+    const s = createStore();
+    s.setStatic([r('SEO001', '/a'), r('SEO002', '/b')]);
+    expect(
+      s
+        .snapshot()
+        .map((x) => x.id)
+        .sort()
+    ).toEqual(['SEO001', 'SEO002']);
+  });
+
+  it('badges() marks every static-only route as static', () => {
+    const s = createStore();
+    s.setStatic([r('SEO001', '/a'), r('SEO002', '/b')]);
+    expect(s.badges()).toEqual({ '/a': 'static', '/b': 'static' });
+  });
+
+  it('live overrides the static result for a matching rule id on a visited route', () => {
+    const s = createStore();
+    s.setStatic([r('SEO001', '/a')]);
+    s.set('/a', [{ ...r('SEO001', '/a'), message: 'live version' }]);
+    const found = s.snapshot().filter((x) => x.id === 'SEO001' && x.route === '/a');
+    expect(found).toHaveLength(1);
+    expect(found[0]!.message).toBe('live version');
+  });
+
+  it('keeps a static rule id on a visited route when live did not evaluate that id', () => {
+    const s = createStore();
+    s.setStatic([r('SEO001', '/a'), r('SEO002', '/a')]);
+    s.set('/a', [r('SEO002', '/a')]); // live only re-evaluated SEO002
+    const ids = s
+      .snapshot()
+      .filter((x) => x.route === '/a')
+      .map((x) => x.id)
+      .sort();
+    expect(ids).toEqual(['SEO001', 'SEO002']);
+  });
+
+  it('preserves routeless (component/site-scoped) static findings untouched by live', () => {
+    const s = createStore();
+    s.setStatic([r('CORRECT001'), r('SEO001', '/a')]);
+    s.set('/a', [r('SEO001', '/a')]);
+    expect(s.snapshot().some((x) => x.id === 'CORRECT001' && x.route === undefined)).toBe(true);
+  });
+
+  it('keeps an unvisited route on the static layer', () => {
+    const s = createStore();
+    s.setStatic([r('SEO001', '/a'), r('SEO002', '/never-visited')]);
+    s.set('/a', [r('SEO001', '/a')]);
+    expect(s.snapshot().some((x) => x.id === 'SEO002' && x.route === '/never-visited')).toBe(true);
+  });
+
+  it('keeps a live-only route (not present in the static layer) as-is', () => {
+    const s = createStore();
+    s.setStatic([r('SEO001', '/a')]);
+    s.set('/brand-new', [r('SEO003', '/brand-new')]);
+    expect(s.snapshot().some((x) => x.id === 'SEO003' && x.route === '/brand-new')).toBe(true);
+  });
+
+  it('badges() reports measured for a visited route and static for the rest', () => {
+    const s = createStore();
+    s.setStatic([r('SEO001', '/a'), r('SEO002', '/b')]);
+    s.set('/a', [r('SEO001', '/a')]);
+    expect(s.badges()).toEqual({ '/a': 'measured', '/b': 'static' });
+  });
+
+  it('badges() reports measured for every route when the static layer is empty', () => {
+    const s = createStore();
+    s.set('/a', [r('SEO001', '/a')]);
+    expect(s.badges()).toEqual({ '/a': 'measured' });
+  });
+});
+
+describe('composeSnapshot / composeBadges (pure)', () => {
+  it('composeSnapshot returns only the static layer when the live map is empty', () => {
+    const out = composeSnapshot([r('SEO001', '/a')], new Map());
+    expect(out.map((x) => x.id)).toEqual(['SEO001']);
+  });
+
+  it('composeBadges returns an empty map when both layers are empty', () => {
+    expect(composeBadges([], new Map())).toEqual({});
   });
 });

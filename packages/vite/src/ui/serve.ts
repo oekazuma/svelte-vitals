@@ -23,8 +23,13 @@ const LIVE_SCRIPT = `<script data-live>
 export function renderDashboard(
   results: Result[],
   config: Config,
-  meta: { version: string; coreVersion?: string }
+  meta: { version: string; coreVersion?: string },
+  badges?: Record<string, 'measured' | 'static'>
 ): string {
-  const html = buildHtmlDocument(buildJsonReport(results, config, meta), meta);
+  const html = buildHtmlDocument(
+    buildJsonReport(results, config, meta),
+    meta,
+    badges ? { routeBadges: badges } : undefined
+  );
   return html.replace('</body>', LIVE_SCRIPT + '</body>');
 }

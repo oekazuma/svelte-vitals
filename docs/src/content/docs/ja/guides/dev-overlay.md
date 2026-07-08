@@ -65,7 +65,7 @@ export const handle = sequence(
 
 ## ライブ UI ダッシュボード
 
-`vite dev` 中に `/__svelte-vitals/` でライブダッシュボードを表示します。CLI の `--reporter html` と同じレポートが、アプリを操作するたびにその場で更新されます。
+`vite dev` 中に `/__svelte-vitals/` でライブダッシュボードを表示します。CLI の `--reporter html` と同じレポートが、作業に合わせてその場で更新されます。
 
 ```js
 // vite.config.{js,ts}
@@ -76,13 +76,13 @@ export default {
 };
 ```
 
-これは dev handle（上記オーバーレイと同じもの）から供給されるため、`src/hooks.server.ts` の `svelteVitalsHandle()` はそのまま残してください。`http://localhost:5173/__svelte-vitals/` を開いてアプリを操作すると、訪問した各ルートのレンダリング済み `<head>` が解析され、ダッシュボードがライブ更新されます。
+dev サーバーの起動直後から、ダッシュボードは**プロジェクト全体**を表示します。起動時に全ルート・全カテゴリ（SEO・Performance・Correctness・Security・Architecture）の静的解析が非同期で実行され（`npx svelte-vitals` と同じ解析です）、ページを1つも訪問しなくても本物のプロジェクト Health が得られます。ソースファイル（`src/` または `static/` 配下、あるいは `svelte.config.*` / `svelte-vitals.config.*`）を保存すると、デバウンス付きの再解析が走り、ダッシュボードが自動的に更新されます。
 
-ライブ更新はループバックオリジン（`localhost`・`127.0.0.1`・`[::1]`）でのみ流れます。`vite dev --host` で LAN の IP からアプリを開いた場合、ハンドルは ingest の POST をスキップする（`Host` ヘッダー偽装への防御）ため、ダッシュボードは空のままになります。その場合は `localhost` から開いてください。`SVELTE_VITALS_DEBUG=true` を設定すると、ingest がスキップされた際にログが出力されます。
+この静的なベースラインの上に、アプリを操作することで結果が精緻化されます。これは dev handle（上記オーバーレイと同じもの）から供給されるため、`src/hooks.server.ts` の `svelteVitalsHandle()` はそのまま残してください。訪問した各ルートのレンダリング済み `<head>` が解析され、そのライブ結果がそのルートの静的結果を置き換えます — レンダリング済みのページのほうが、特に動的な値については真実に近いためです。ルート見出しには由来を示すバッジが付きます：実際にレンダリングされたページ由来の結果なら `measured`、まだソース解析のみでカバーされているルートなら `static` です。
 
-オーバーレイと同様、これは dev 専用かつレンダリングベースで、訪問したルートの SEO `<head>` ルールを対象とします。プロジェクト全体のレポート（全ルート・パフォーマンス・サイト全体のチェック）が必要な場合は `npx svelte-vitals` または `npx svelte-vitals --reporter html` を実行してください。
+ライブ更新はループバックオリジン（`localhost`・`127.0.0.1`・`[::1]`）でのみ流れます。`vite dev --host` で LAN の IP からアプリを開いた場合、ハンドルは ingest の POST をスキップする（`Host` ヘッダー偽装への防御）ため、訪問したルートが `measured` に精緻化されません。その場合は `localhost` から開いてください。`SVELTE_VITALS_DEBUG=true` を設定すると、ingest がスキップされた際にログが出力されます。
 
-コンポーネントスコープのルール（Correctness・Security・Architecture、および2つのコンポーネントスコープの Performance ルール）はビルドモードのみの対応です（[プラグインモード](/svelte-vitals/ja/guides/plugin-mode/) を参照） — リクエスト単位のレンダリング済みビューにはプロジェクト全体を横断するソーススキャンが存在しないため、開発オーバーレイには表示されません。
+プロジェクト全体の解析が失敗した場合（例：dev サーバーのルートが SvelteKit プロジェクトでない場合）、失敗は `console.warn` でログに出力され、ダッシュボードはライブのみのモード — 訪問したルートだけを表示 — にフォールバックします。dev サーバーが壊れることはありません。
 
 ## バージョンのずれ
 

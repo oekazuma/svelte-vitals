@@ -1,12 +1,39 @@
 import { existsSync } from 'node:fs';
 import { writeFile, mkdir } from 'node:fs/promises';
-import { join, isAbsolute, dirname } from 'node:path';
+import { join, isAbsolute, dirname, relative, basename, sep } from 'node:path';
 import type { Plugin, ViteDevServer } from 'vite';
 import type { RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
 import { defineConfig } from '@svelte-vitals/core';
 import { analyze } from './analyze.js';
 import { installUiMiddleware } from './ui/middleware.js';
+import { createStore } from './ui/store.js';
+import { createAnalysisRunner } from './ui/analysis.js';
 import { readPackageVersion, readCoreVersion } from './version.js';
+
+const CONFIG_BASENAMES = new Set([
+  'svelte.config.js',
+  'svelte.config.ts',
+  'svelte-vitals.config.mjs',
+  'svelte-vitals.config.js',
+  'svelte-vitals.config.ts'
+]);
+
+const IGNORED_SEGMENTS = new Set(['node_modules', '.svelte-kit', 'build', 'dist']);
+
+/**
+ * Whether a `server.watcher` event on `file` should trigger a dev-dashboard re-analysis:
+ * anything under `src/` or `static/` (the default SvelteKit layout this dashboard assumes),
+ * or a `svelte.config.*` / `svelte-vitals.config.*` at any depth — excluding build/dependency
+ * output so their churn never triggers a spurious re-run. Exported for tests.
+ */
+export function isRelevant(file: string, root: string): boolean {
+  const rel = relative(root, file);
+  if (rel === '' || rel.startsWith('..')) return false; // outside the project root
+  const segments = rel.split(sep);
+  if (segments.some((s) => IGNORED_SEGMENTS.has(s))) return false;
+  if (CONFIG_BASENAMES.has(basename(file))) return true;
+  return segments[0] === 'src' || segments[0] === 'static';
+}
 
 export interface SvelteVitalsOptions {
   /** Project root (defaults to the Vite config root / cwd). */
@@ -82,18 +109,42 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
     apply: 'serve',
     configureServer(server: ViteDevServer) {
       process.env.SVELTE_VITALS_UI = '1';
-      // Clear the flag when the dev server stops, so the handle doesn't keep
-      // POSTing to a no-longer-mounted endpoint after a restart / config flip.
-      server.httpServer?.once('close', () => {
-        delete process.env.SVELTE_VITALS_UI;
-      });
       const config = defineConfig({
         treatDynamicAs: options.treatDynamicAs ?? 'pass',
         metaComponents: options.metaComponents ?? [],
         rules: options.rules ?? {},
         failOn: options.failOn ?? 'critical'
       });
-      installUiMiddleware(server, config, readPackageVersion(), readCoreVersion());
+      const store = createStore();
+      const uiRoot = options.cwd ?? server.config.root;
+
+      // Whole-project static analysis: one run at startup (never blocking dev-server
+      // start) plus a debounced re-run on relevant source changes (design doc
+      // 2026-07-08-dev-dashboard-whole-project-design.md). Failures are warned and the
+      // previous static layer (if any) is kept — the dashboard falls back to live-only.
+      const runner = createAnalysisRunner({
+        root: uiRoot,
+        treatDynamicAs: options.treatDynamicAs,
+        metaComponents: options.metaComponents,
+        rules: options.rules,
+        failOn: options.failOn,
+        onResults: (results) => store.setStatic(results),
+        onError: (err) => console.warn('[svelte-vitals] dev analysis failed:', err)
+      });
+      runner.start();
+      server.watcher?.on('all', (_event, file) => {
+        if (isRelevant(file, uiRoot)) runner.notifyChange(file);
+      });
+
+      // Clear the flag and stop the runner when the dev server stops, so the handle
+      // doesn't keep POSTing to a no-longer-mounted endpoint after a restart / config
+      // flip, and no re-analysis timer outlives the server.
+      server.httpServer?.once('close', () => {
+        delete process.env.SVELTE_VITALS_UI;
+        runner.stop();
+      });
+
+      installUiMiddleware(server, config, readPackageVersion(), store, readCoreVersion());
     }
   };
   return [buildPlugin, uiPlugin];
