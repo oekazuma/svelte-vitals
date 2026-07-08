@@ -1,0 +1,140 @@
+import { describe, it, expect, afterEach } from 'vitest';
+import { execFileSync } from 'node:child_process';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { checkoutBaseline, filterToNewFindings, findingKey } from '../src/baseline.js';
+import type { Result } from '@svelte-vitals/core';
+
+const r = (over: Partial<Result>): Result => ({
+  id: 'X',
+  severity: 'warning',
+  detection: { presence: 'none', value: 'absent' },
+  message: 'm',
+  ...over
+});
+
+describe('findingKey', () => {
+  it('combines id, route, and location', () => {
+    expect(findingKey(r({ id: 'SEO001', route: '/blog', location: 'src/routes/blog/+page.svelte' }))).toBe(
+      'SEO001::/blog::src/routes/blog/+page.svelte'
+    );
+  });
+
+  it('treats missing route/location as empty segments', () => {
+    expect(findingKey(r({ id: 'PROJ001' }))).toBe('PROJ001::::');
+  });
+
+  it('ignores line — two findings differing only by line share a key', () => {
+    const a = findingKey(r({ id: 'SEO001', location: 'a.svelte', line: 3 }));
+    const b = findingKey(r({ id: 'SEO001', location: 'a.svelte', line: 42 }));
+    expect(a).toBe(b);
+  });
+});
+
+describe('filterToNewFindings', () => {
+  it('removes findings present (by key) in the baseline', () => {
+    const current: Result[] = [
+      r({ id: 'A', location: 'x.svelte' }),
+      r({ id: 'B', location: 'y.svelte' }),
+      r({ id: 'C' })
+    ];
+    const baseline: Result[] = [r({ id: 'A', location: 'x.svelte' })];
+    expect(filterToNewFindings(current, baseline).map((x) => x.id)).toEqual(['B', 'C']);
+  });
+
+  it('keeps everything when the baseline has no findings', () => {
+    const current: Result[] = [r({ id: 'A', location: 'x.svelte' })];
+    expect(filterToNewFindings(current, [])).toEqual(current);
+  });
+
+  it('drops everything when current and baseline are identical', () => {
+    const current: Result[] = [r({ id: 'A', location: 'x.svelte' }), r({ id: 'B' })];
+    expect(filterToNewFindings(current, current)).toEqual([]);
+  });
+
+  it('a line-only difference on an existing finding is still treated as pre-existing (not new)', () => {
+    const current: Result[] = [r({ id: 'A', location: 'x.svelte', line: 99 })];
+    const baseline: Result[] = [r({ id: 'A', location: 'x.svelte', line: 1 })];
+    expect(filterToNewFindings(current, baseline)).toEqual([]);
+  });
+});
+
+describe('checkoutBaseline', () => {
+  const dirs: string[] = [];
+
+  afterEach(() => {
+    while (dirs.length > 0) {
+      const dir = dirs.pop();
+      if (dir) rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  function git(args: string[], cwd: string): string {
+    return execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+  }
+
+  function makeRepo(): string {
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-baseline-repo-'));
+    dirs.push(dir);
+    git(['init'], dir);
+    git(['config', 'user.email', 'test@example.com'], dir);
+    git(['config', 'user.name', 'Test'], dir);
+    return dir;
+  }
+
+  it('checks out the ref content into a fresh worktree and cleans it up after', () => {
+    const repo = makeRepo();
+    const markerPath = join(repo, 'marker.txt');
+    writeFileSync(markerPath, 'old\n');
+    git(['add', '.'], repo);
+    git(['commit', '-m', 'first'], repo);
+    const oldRef = git(['rev-parse', 'HEAD'], repo).trim();
+
+    writeFileSync(markerPath, 'new\n');
+    git(['add', '.'], repo);
+    git(['commit', '-m', 'second'], repo);
+
+    const checkout = checkoutBaseline(repo, oldRef);
+    expect(checkout).toBeDefined();
+    if (checkout === undefined) return;
+
+    const content = readFileSync(join(checkout.analyzeCwd, 'marker.txt'), 'utf8');
+    expect(content).toBe('old\n');
+
+    const worktreeDir = checkout.analyzeCwd;
+    checkout.cleanup();
+    expect(existsSync(worktreeDir)).toBe(false);
+  });
+
+  it('resolves a subdirectory analyzeCwd for a monorepo-style project', () => {
+    const repo = makeRepo();
+    mkdirSync(join(repo, 'apps/web/src'), { recursive: true });
+    writeFileSync(join(repo, 'apps/web/src/marker.txt'), 'hello\n');
+    git(['add', '.'], repo);
+    git(['commit', '-m', 'init'], repo);
+
+    const checkout = checkoutBaseline(join(repo, 'apps/web'), 'HEAD');
+    expect(checkout).toBeDefined();
+    if (checkout === undefined) return;
+
+    expect(checkout.analyzeCwd.endsWith(join('apps', 'web'))).toBe(true);
+    expect(existsSync(join(checkout.analyzeCwd, 'src/marker.txt'))).toBe(true);
+    checkout.cleanup();
+  });
+
+  it('returns undefined for a bad ref', () => {
+    const repo = makeRepo();
+    writeFileSync(join(repo, 'a.txt'), 'x\n');
+    git(['add', '.'], repo);
+    git(['commit', '-m', 'init'], repo);
+
+    expect(checkoutBaseline(repo, 'not-a-real-ref')).toBeUndefined();
+  });
+
+  it('returns undefined outside a git repo', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-baseline-norepo-'));
+    dirs.push(dir);
+    expect(checkoutBaseline(dir, 'HEAD')).toBeUndefined();
+  });
+});

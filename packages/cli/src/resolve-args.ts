@@ -123,6 +123,18 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
   const diffBase = typeof argv.diff === 'string' ? argv.diff || 'HEAD' : undefined;
   const staged = Boolean(argv.staged);
 
+  // --baseline (string): unlike --diff, no implicit default — a bare `--baseline`
+  // (mri yields '') is a fatal error rather than silently defaulting to HEAD, so a
+  // missing ref in a CI config surfaces immediately instead of silently no-op'ing.
+  let baselineRef: string | undefined;
+  if (typeof argv.baseline === 'string') {
+    if (argv.baseline.trim() === '') {
+      errors.push('svelte-vitals: --baseline requires a git ref (e.g. --baseline origin/main).');
+    } else {
+      baselineRef = argv.baseline;
+    }
+  }
+
   const allow = toList(argv.rules);
   const ignore = toList(argv.ignore);
   const unknown = findUnknownRuleIds([...allow, ...ignore]);
@@ -177,7 +189,8 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
       rules,
       ...(weights !== undefined ? { weights } : {}),
       ...(diffBase !== undefined ? { diffBase } : {}),
-      ...(staged ? { staged } : {})
+      ...(staged ? { staged } : {}),
+      ...(baselineRef !== undefined ? { baseline: baselineRef } : {})
     },
     warnings,
     errors

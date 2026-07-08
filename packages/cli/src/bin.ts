@@ -17,6 +17,7 @@ Options:
   --route <glob>              Only analyze routes matching this glob
   --diff [ref]                Report only findings in files changed vs ref (default HEAD; e.g. --diff main)
   --staged                    Report only findings in files staged for commit (pre-commit gate)
+  --baseline <ref>            Report only findings not present at ref (compare against e.g. origin/main)
   --by-route                  Show per-route score breakdown in console output
   --reporter <fmt>            console | json | agent | sarif | github | html (auto: agent under AI-agent envs, github under GitHub Actions)
   --out-file <path>           Output path for --reporter html (default: svelte-vitals-report.html; '-' for stdout)
@@ -62,6 +63,7 @@ async function main(): Promise<void> {
       'min-health',
       'out-file',
       'diff',
+      'baseline',
       'weights'
     ]
   });

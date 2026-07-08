@@ -16,6 +16,7 @@ function resolve(...args: string[]) {
       'rules',
       'ignore',
       'diff',
+      'baseline',
       'weights'
     ]
   });
@@ -87,6 +88,18 @@ describe('resolveArgs', () => {
     const { options } = resolve('--json');
     expect(options?.diffBase).toBeUndefined();
     expect(options?.staged).toBeUndefined();
+  });
+
+  it('maps --baseline <ref> to options.baseline', () => {
+    const { options, errors } = resolve('--baseline', 'origin/main');
+    expect(options?.baseline).toBe('origin/main');
+    expect(errors).toEqual([]);
+  });
+
+  it('reports a bare --baseline (no ref) as a fatal error (no options)', () => {
+    const { options, errors } = resolve('--baseline');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('--baseline requires a git ref'))).toBe(true);
   });
 
   it('leaves rules undefined when neither --rules nor --ignore is passed', () => {

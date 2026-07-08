@@ -28,6 +28,7 @@ import { detectProject, ProjectError, collectProjectFacts } from './providers/so
 import { readPackageVersion } from './version.js';
 import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
 import { getChangedFiles, filterToChangedFiles } from './changed-files.js';
+import { checkoutBaseline, filterToNewFindings } from './baseline.js';
 import { colorEnabled, paletteFor } from './color.js';
 import { startSpinner } from './spinner.js';
 import { loadConfigFile } from './config-file.js';
@@ -58,6 +59,8 @@ export interface RunOptions {
   diffBase?: string;
   /** Report only findings in files staged for commit. Takes precedence over `diffBase`. */
   staged?: boolean;
+  /** Report only findings not present when analyzing this git ref (e.g. the PR base). */
+  baseline?: string;
   /** Disable ANSI color in console output. */
   noColor?: boolean;
   /** Override stdout TTY detection (tests). */
@@ -235,6 +238,33 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         );
       } else {
         results = filterToChangedFiles(results, changed);
+      }
+    }
+
+    if (opts.baseline !== undefined) {
+      const cwd = opts.cwd ?? process.cwd();
+      const checkout = checkoutBaseline(cwd, opts.baseline);
+      if (checkout === undefined) {
+        errorLog(
+          `svelte-vitals: could not analyze baseline '${opts.baseline}' (not a git repo, git unavailable, or bad ref); reporting all findings.`
+        );
+      } else {
+        try {
+          const base = await analyzeProject({
+            cwd: checkout.analyzeCwd,
+            metaComponents: opts.metaComponents,
+            treatDynamicAs: opts.treatDynamicAs,
+            route: opts.route,
+            failOn: opts.failOn,
+            rules: opts.rules,
+            weights: opts.weights
+          });
+          results = filterToNewFindings(results, base.results);
+        } catch {
+          errorLog(`svelte-vitals: baseline analysis of '${opts.baseline}' failed; reporting all findings.`);
+        } finally {
+          checkout.cleanup();
+        }
       }
     }
 
