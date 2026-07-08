@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import starlightLlmsTxt from 'starlight-llms-txt';
 
 const base = '/svelte-vitals';
 
@@ -31,6 +32,13 @@ export default defineConfig({
           collapsed: true,
           items: [{ autogenerate: { directory: 'rules', collapsed: true } }]
         }
+      ],
+      plugins: [
+        starlightLlmsTxt({
+          projectName: 'svelte-vitals',
+          description:
+            'A deterministic SvelteKit code-health scanner — SEO, performance, correctness, security, architecture.'
+        })
       ]
     })
   ]
