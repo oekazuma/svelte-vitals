@@ -1,5 +1,5 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { dirname } from 'node:path';
+import { dirname, join } from 'node:path';
 import {
   allRules,
   runRules,
@@ -26,6 +26,7 @@ import { createNodeRuntime } from './runtime/node.js';
 import { collectRoutes } from './providers/source/routes.js';
 import { collectComponentFacts } from './providers/source/components.js';
 import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
+import { discoverApps } from './discover-apps.js';
 import { readPackageVersion } from './version.js';
 import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
 import { getChangedFiles, filterToChangedFiles } from './changed-files.js';
@@ -72,6 +73,10 @@ export interface RunOptions {
   stdoutIsTTY?: boolean;
   /** Override stderr TTY detection (tests). */
   stderrIsTTY?: boolean;
+  /** True when the user passed a path argument — discovery must not run (design: never reinterpret an explicit target). */
+  explicitPath?: boolean;
+  /** Injected picker for the monorepo app selector (bin.ts wires a clack implementation; null = cancelled). */
+  selectApp?: (apps: string[]) => Promise<string | null>;
 }
 
 /**
@@ -208,10 +213,12 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       })
   });
 
+  let cwd = opts.cwd ?? process.cwd();
+
   let analysis: AnalyzeResult;
   try {
     analysis = await analyzeProject({
-      cwd: opts.cwd ?? process.cwd(),
+      cwd,
       metaComponents: opts.metaComponents,
       treatDynamicAs: opts.treatDynamicAs,
       route: opts.route,
@@ -223,11 +230,58 @@ export async function run(opts: RunOptions = {}): Promise<number> {
   } catch (err) {
     spinner.stop();
     if (err instanceof ProjectError) {
-      errorLog(err.message);
+      // Monorepo app auto-detection + picker (design doc 2026-07-08-monorepo-app-picker-design.md):
+      // only kicks in when the user didn't name a target — an explicit path's failure is never
+      // silently reinterpreted.
+      if (opts.explicitPath) {
+        errorLog(err.message);
+        return 2;
+      }
+      const apps = await discoverApps(cwd);
+      if (apps.length === 0) {
+        errorLog(err.message);
+        return 2;
+      }
+      let chosen: string;
+      if (apps.length === 1) {
+        errorLog(`svelte-vitals: detected SvelteKit app at ${apps[0]}; analyzing it.`);
+        chosen = apps[0]!;
+      } else if ((opts.stdoutIsTTY ?? !!process.stdout.isTTY) && opts.selectApp) {
+        const selection = await opts.selectApp(apps);
+        if (selection === null) {
+          log('Cancelled.');
+          return 0;
+        }
+        chosen = selection;
+      } else {
+        errorLog(`svelte-vitals: multiple SvelteKit apps found: ${apps.join(', ')}.`);
+        errorLog(`svelte-vitals: pass one as a path, e.g. \`npx svelte-vitals ${apps[0]}\`.`);
+        return 2;
+      }
+      cwd = join(cwd, chosen);
+      try {
+        analysis = await analyzeProject({
+          cwd,
+          metaComponents: opts.metaComponents,
+          treatDynamicAs: opts.treatDynamicAs,
+          route: opts.route,
+          failOn: opts.failOn,
+          rules: opts.rules,
+          weights: opts.weights,
+          categories: opts.categories
+        });
+      } catch (err2) {
+        if (err2 instanceof ProjectError) {
+          errorLog(err2.message);
+          return 2;
+        }
+        errorLog(`svelte-vitals: ${err2 instanceof Error ? err2.message : String(err2)}`);
+        return 2;
+      }
+    } else {
+      errorLog(`svelte-vitals: ${err instanceof Error ? err.message : String(err)}`);
       return 2;
     }
-    errorLog(`svelte-vitals: ${err instanceof Error ? err.message : String(err)}`);
-    return 2;
   }
   spinner.stop();
 
@@ -239,7 +293,6 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 
     // --staged / --diff: scope findings to the changed files (gate "what the agent wrote").
     if (opts.staged || opts.diffBase !== undefined) {
-      const cwd = opts.cwd ?? process.cwd();
       const changed = opts.staged
         ? getChangedFiles(cwd, { staged: true })
         : getChangedFiles(cwd, { base: opts.diffBase });
@@ -253,7 +306,6 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     }
 
     if (opts.baseline !== undefined) {
-      const cwd = opts.cwd ?? process.cwd();
       const checkout = checkoutBaseline(cwd, opts.baseline);
       if (checkout === undefined) {
         errorLog(

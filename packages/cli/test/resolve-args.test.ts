@@ -196,4 +196,15 @@ describe('resolveArgs', () => {
     expect(options?.score).toBe(true);
     expect(warnings.some((w) => w.includes('--score overrides --reporter'))).toBe(true);
   });
+
+  it('sets explicitPath:true when a positional path is passed', () => {
+    const { options } = resolve('apps/web');
+    expect(options?.explicitPath).toBe(true);
+    expect(options?.cwd).toBe('apps/web');
+  });
+
+  it('sets explicitPath:false when no positional path is passed', () => {
+    const { options } = resolve('--json');
+    expect(options?.explicitPath).toBe(false);
+  });
 });

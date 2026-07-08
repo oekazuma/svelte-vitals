@@ -43,7 +43,8 @@ export async function detectProject(rt: Runtime, cwd: string): Promise<void> {
   if (hasKitDep || (hasConfig && hasRoutes)) return;
 
   throw new ProjectError(
-    'No SvelteKit project found in the current directory. ' + 'Run this inside a SvelteKit app, or pass --config.'
+    'No SvelteKit project found in the current directory. ' +
+      'Run this inside a SvelteKit app, or pass a path (e.g. npx svelte-vitals apps/web).'
   );
 }
 

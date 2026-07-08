@@ -35,9 +35,13 @@ describe('run() end-to-end', () => {
     expect(report).toContain('↯ dynamic'); // /dynamic passes with marker
   });
 
-  it('returns exit 2 for a non-SvelteKit directory', async () => {
+  it('returns exit 2 for a non-SvelteKit directory (explicit path — no monorepo discovery)', async () => {
     const cap = capture();
-    const code = await run({ cwd: here, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
+    // explicitPath: true because `here` stands in for a user-provided path in this test;
+    // otherwise run() would try the monorepo picker (design doc
+    // 2026-07-08-monorepo-app-picker-design.md) since this dir's own subtree contains the
+    // discover-apps.test.ts fixtures. See run-discover.test.ts for the discovery paths.
+    const code = await run({ cwd: here, explicitPath: true, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
     expect(code).toBe(2);
     expect(cap.err.join('\n')).toContain('No SvelteKit project found');
   });
