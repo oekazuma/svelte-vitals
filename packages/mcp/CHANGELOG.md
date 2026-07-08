@@ -1,5 +1,19 @@
 # @svelte-vitals/mcp
 
+## 0.11.0
+
+### Minor Changes
+
+- edc54c2: Add a `categories` input to the `analyze` tool, restricting analysis to rules in the given categories (intersects with `rules`/`ignore` selection, case-insensitive). Mirrors the CLI's `--category` flag.
+
+### Patch Changes
+
+- Updated dependencies [7e3b423]
+- Updated dependencies [f0af627]
+- Updated dependencies [ea90a6d]
+  - @svelte-vitals/core@0.22.0
+  - svelte-vitals@0.21.0
+
 ## 0.10.1
 
 ### Patch Changes
