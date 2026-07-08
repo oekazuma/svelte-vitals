@@ -28,7 +28,12 @@ export function planWorkflowWrite(existing: string | undefined, force: boolean):
  *   (Plan 014) further narrows to findings that are newly introduced, not pre-existing ones
  *   in touched files. `fetch-depth: 0` is required for both to resolve the base ref.
  * - The PR comment is sticky: a `<!-- svelte-vitals-report -->` marker lets a subsequent
- *   run update the same comment instead of piling up new ones.
+ *   run update the same comment instead of piling up new ones. The step is skipped on PRs
+ *   from forks (`if: ...head.repo.full_name == github.repository`) because GitHub downgrades
+ *   `GITHUB_TOKEN` to read-only there, so posting would throw — annotations and the job
+ *   summary still work on fork PRs. It also carries `continue-on-error: true` so a transient
+ *   comment-API failure on same-repo PRs can't break the gate; the Gate step re-raises the
+ *   scan result, so nothing real is masked.
  * - `continue-on-error: true` on the `scan` step lets the workflow keep running (to post the
  *   summary comment) even when svelte-vitals exits 1; the final `Gate` step re-raises the
  *   failure by checking `steps.scan.outcome` so the job still fails in that case.
@@ -74,6 +79,8 @@ export function buildWorkflowYaml(opts: { version: string }): string {
     '      - name: Job summary',
     '        run: cat svelte-vitals-report.md >> "$GITHUB_STEP_SUMMARY"',
     '      - name: PR comment (sticky)',
+    '        if: github.event.pull_request.head.repo.full_name == github.repository',
+    '        continue-on-error: true',
     '        uses: actions/github-script@v7',
     '        with:',
     '          script: |',

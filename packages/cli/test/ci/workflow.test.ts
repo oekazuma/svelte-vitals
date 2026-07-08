@@ -50,6 +50,24 @@ describe('buildWorkflowYaml', () => {
     expect(yaml).toContain('createComment');
   });
 
+  it('the PR comment step is skipped on fork PRs and can never fail the job', () => {
+    const forkGuard = 'if: github.event.pull_request.head.repo.full_name == github.repository';
+    const noFail = 'continue-on-error: true';
+    expect(yaml).toContain(forkGuard);
+
+    // Both lines must sit inside the PR-comment step: after its name, before its uses:.
+    const stepStart = yaml.indexOf('PR comment (sticky)');
+    const stepUses = yaml.indexOf('actions/github-script');
+    expect(stepStart).toBeGreaterThan(-1);
+    expect(stepUses).toBeGreaterThan(stepStart);
+    const guardIdx = yaml.indexOf(forkGuard);
+    expect(guardIdx).toBeGreaterThan(stepStart);
+    expect(guardIdx).toBeLessThan(stepUses);
+    const noFailIdx = yaml.indexOf(noFail, stepStart);
+    expect(noFailIdx).toBeGreaterThan(stepStart);
+    expect(noFailIdx).toBeLessThan(stepUses);
+  });
+
   it('re-raises the scan failure in the final Gate step', () => {
     expect(yaml).toContain("if: steps.scan.outcome == 'failure'");
     expect(yaml).toContain('exit 1');

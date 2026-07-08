@@ -57,12 +57,16 @@ permissions:
 
 PR コメントを投稿・更新するには `pull-requests: write` が必要です。**フォークからの**
 プルリクエストによってトリガーされたワークフローでは、ワークフローの宣言内容にかかわらず
-GitHub Actions がトークンの権限を降格するため、フォーク PR ではコメントステップの投稿が
-失敗することがあります — その場合でもインラインアノテーションとジョブサマリーは機能します。
+GitHub Actions がトークンの権限を降格するため、生成されるワークフローはフォーク PR では
+コメントステップをスキップします（このステップには `continue-on-error` も指定されているため、
+ジョブを失敗させることはありません）— その場合でもインラインアノテーションとジョブサマリーは
+機能します。
 
 ## 手書きする場合
 
-インストーラーを使いたくない場合、最小限の等価な構成は次の通りです：
+インストーラーを使いたくない場合、最小限のゲート構成は次の通りです（生成されるワークフロー
+の完全な等価物ではありません — スキャンは 1 回のみで、Markdown サマリー・スティッキー PR
+コメント・独立したゲートステップはありません）：
 
 ```yaml
 name: svelte-vitals
@@ -83,6 +87,10 @@ jobs:
           node-version: 24
       - run: npx svelte-vitals . --diff origin/${{ github.base_ref }} --baseline origin/${{ github.base_ref }} --fail-on-warning
 ```
+
+GitHub Actions 上では `github` レポーターが自動選択されるため、この構成でもインライン
+アノテーションは機能します。ジョブサマリー + スティッキーコメントを含む完全なフローが
+必要な場合は `svelte-vitals ci install` を実行してください。
 
 出力フォーマットの一覧は[レポーターガイド](/svelte-vitals/ja/guides/reporters/)を、
 `--diff`・`--baseline`・`--fail-on` については[CLI リファレンス](/svelte-vitals/ja/guides/cli/)

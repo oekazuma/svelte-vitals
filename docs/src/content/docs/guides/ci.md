@@ -54,12 +54,14 @@ permissions:
 
 `pull-requests: write` is required to post/update the PR comment. On workflows triggered by pull
 requests **from forks**, GitHub Actions downgrades token permissions regardless of what the
-workflow declares, so the comment step may fail to post on fork PRs — the inline annotations and
-job summary still work in that case.
+workflow declares, so the generated workflow skips the comment step on fork PRs (and the step is
+marked `continue-on-error`, so it can never fail the job) — the inline annotations and job summary
+still work in that case.
 
 ## Writing it by hand
 
-If you'd rather not run the installer, the minimal equivalent is:
+If you'd rather not run the installer, here is a minimal gate (not the full generated workflow —
+one scan, no Markdown summary, no sticky PR comment, no separate gate step):
 
 ```yaml
 name: svelte-vitals
@@ -80,6 +82,9 @@ jobs:
           node-version: 24
       - run: npx svelte-vitals . --diff origin/${{ github.base_ref }} --baseline origin/${{ github.base_ref }} --fail-on-warning
 ```
+
+Under GitHub Actions the `github` reporter is auto-selected, so this still produces inline
+annotations; run `svelte-vitals ci install` if you want the full job summary + sticky comment flow.
 
 See the [Reporters guide](/svelte-vitals/guides/reporters/) for the full list of output formats
 and the [CLI reference](/svelte-vitals/guides/cli/) for `--diff`, `--baseline`, and `--fail-on`.
