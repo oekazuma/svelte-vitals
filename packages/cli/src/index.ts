@@ -73,6 +73,8 @@ export interface RunOptions {
   stdoutIsTTY?: boolean;
   /** Override stderr TTY detection (tests). */
   stderrIsTTY?: boolean;
+  /** Override stdin TTY detection (tests). */
+  stdinIsTTY?: boolean;
   /** True when the user passed a path argument — discovery must not run (design: never reinterpret an explicit target). */
   explicitPath?: boolean;
   /** Injected picker for the monorepo app selector (bin.ts wires a clack implementation; null = cancelled). */
@@ -246,7 +248,13 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       if (apps.length === 1) {
         errorLog(`svelte-vitals: detected SvelteKit app at ${apps[0]}; analyzing it.`);
         chosen = apps[0]!;
-      } else if ((opts.stdoutIsTTY ?? !!process.stdout.isTTY) && opts.selectApp) {
+      } else if (
+        // clack reads from stdin and renders to stdout, so both must be interactive —
+        // a piped/redirected stdin would leave the prompt hanging for input that never comes.
+        (opts.stdinIsTTY ?? !!process.stdin.isTTY) &&
+        (opts.stdoutIsTTY ?? !!process.stdout.isTTY) &&
+        opts.selectApp
+      ) {
         const selection = await opts.selectApp(apps);
         if (selection === null) {
           log('Cancelled.');

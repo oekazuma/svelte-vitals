@@ -24,6 +24,7 @@ describe('run(): monorepo app discovery + picker (design doc 2026-07-08-monorepo
       log: cap.log,
       errorLog: cap.errorLog,
       env: CLEAN_ENV,
+      stdinIsTTY: true,
       stdoutIsTTY: true,
       selectApp
     });
@@ -40,6 +41,7 @@ describe('run(): monorepo app discovery + picker (design doc 2026-07-08-monorepo
       log: cap.log,
       errorLog: cap.errorLog,
       env: CLEAN_ENV,
+      stdinIsTTY: true,
       stdoutIsTTY: true,
       selectApp
     });
@@ -63,6 +65,24 @@ describe('run(): monorepo app discovery + picker (design doc 2026-07-08-monorepo
     const errOutput = cap.err.join('\n');
     expect(errOutput).toContain('multiple SvelteKit apps found: apps/admin, apps/web');
     expect(errOutput).toContain('npx svelte-vitals apps/admin');
+  });
+
+  it('piped stdin (stdin not a TTY, stdout a TTY): non-TTY fallback — exit 2 with the list, no prompt', async () => {
+    // clack reads from stdin; prompting with a piped/redirected stdin would hang forever.
+    const cap = capture();
+    const selectApp = vi.fn(async () => 'apps/web');
+    const code = await run({
+      cwd: monorepoFixture,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      env: CLEAN_ENV,
+      stdinIsTTY: false,
+      stdoutIsTTY: true,
+      selectApp
+    });
+    expect(code).toBe(2);
+    expect(selectApp).not.toHaveBeenCalled();
+    expect(cap.err.join('\n')).toContain('multiple SvelteKit apps found: apps/admin, apps/web');
   });
 
   it('explicitPath:true + non-SvelteKit cwd: immediate exit 2, no discovery, selectApp never called', async () => {
