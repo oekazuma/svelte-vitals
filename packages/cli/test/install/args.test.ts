@@ -61,3 +61,20 @@ describe('resolveInstallArgs — Vite targets', () => {
     expect(r.warnings.join('\n')).toContain('not-a-real-target');
   });
 });
+
+describe('resolveInstallArgs — agent targets', () => {
+  it('accepts claude-skill and cursor-rules in --client', () => {
+    const r = resolveInstallArgs(parse(['--client', 'claude-skill,cursor-rules']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags!.client).toEqual(['claude-skill', 'cursor-rules']);
+  });
+  it('mixes an MCP client id with an agent target id', () => {
+    const r = resolveInstallArgs(parse(['--client', 'claude-code,claude-skill']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags!.client).toEqual(['claude-code', 'claude-skill']);
+  });
+  it('still rejects a genuinely unknown id', () => {
+    const r = resolveInstallArgs(parse(['--client', 'not-an-agent-target']));
+    expect(r.warnings.join('\n')).toContain('not-an-agent-target');
+  });
+});

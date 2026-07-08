@@ -10,7 +10,7 @@ const HELP = `svelte-vitals — a deterministic SvelteKit code-health scanner (S
 
 Usage:
   svelte-vitals [path] [options]
-  svelte-vitals install          Set up the MCP server for Claude Code / Cursor / Codex
+  svelte-vitals install          Set up the MCP server, Vite integration, or agent skills/rules
   svelte-vitals ci install       Add a GitHub Actions PR gate (annotations + summary comment)
 
 Options:

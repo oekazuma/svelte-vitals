@@ -245,3 +245,73 @@ export default { plugins: [svelteVitals()] };
     expect(err.join('\n')).toContain('/proj/.mcp.json');
   });
 });
+
+describe('runInstall — agent targets', () => {
+  it('claude-skill: not present → created, content has frontmatter and the version', async () => {
+    const { io, writes } = fakeIO();
+    const code = await runInstall({ client: ['claude-skill'], yes: true }, io, noPrompts, '9.9.9');
+    expect(code).toBe(0);
+    const content = writes['/proj/.claude/skills/svelte-vitals/SKILL.md'];
+    expect(content).toContain('name: svelte-vitals');
+    expect(content).toContain('svelte-vitals 9.9.9');
+  });
+
+  it('cursor-rules: not present → created, content has frontmatter and the version', async () => {
+    const { io, writes } = fakeIO();
+    const code = await runInstall({ client: ['cursor-rules'], yes: true }, io, noPrompts, '9.9.9');
+    expect(code).toBe(0);
+    const content = writes['/proj/.cursor/rules/svelte-vitals.mdc'];
+    expect(content).toContain('globs:');
+    expect(content).toContain('svelte-vitals 9.9.9');
+  });
+
+  it('a second run without --force reports exists and writes nothing', async () => {
+    const first = fakeIO();
+    await runInstall({ client: ['claude-skill'], yes: true }, first.io, noPrompts);
+    const existing = first.writes['/proj/.claude/skills/svelte-vitals/SKILL.md']!;
+    const { io, writes, out } = fakeIO({ files: { '/proj/.claude/skills/svelte-vitals/SKILL.md': existing } });
+    const code = await runInstall({ client: ['claude-skill'], yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes).toEqual({});
+    expect(out.join('\n')).toContain('already configured');
+    expect(out.join('\n')).toContain('--force to overwrite');
+  });
+
+  it('--force regenerates an already-existing agent target file', async () => {
+    const { io, writes } = fakeIO({
+      files: { '/proj/.claude/skills/svelte-vitals/SKILL.md': 'stale content' }
+    });
+    const code = await runInstall({ client: ['claude-skill'], yes: true, force: true }, io, noPrompts, '1.0.0');
+    expect(code).toBe(0);
+    expect(writes['/proj/.claude/skills/svelte-vitals/SKILL.md']).toContain('svelte-vitals 1.0.0');
+  });
+
+  it('dry-run does not write agent target files', async () => {
+    const { io, writes, out } = fakeIO();
+    const code = await runInstall({ client: ['claude-skill', 'cursor-rules'], dryRun: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes).toEqual({});
+    expect(out.join('\n')).toContain('Dry run');
+  });
+
+  it('a plan can mix an MCP client and an agent target in one run', async () => {
+    const { io, writes } = fakeIO();
+    await runInstall({ client: ['claude-code', 'claude-skill'], scope: 'project', yes: true }, io, noPrompts);
+    expect(Object.keys(writes).sort()).toEqual(['/proj/.claude/skills/svelte-vitals/SKILL.md', '/proj/.mcp.json']);
+  });
+
+  it('interactive picker options include both agent targets', async () => {
+    const { io } = fakeIO({ isTTY: true });
+    let seenOptions: string[] = [];
+    const prompts: InstallPrompts = {
+      ...noPrompts,
+      selectClients: async (all) => {
+        seenOptions = all.map((o) => o.id);
+        return null;
+      }
+    };
+    await runInstall({}, io, prompts);
+    expect(seenOptions).toContain('claude-skill');
+    expect(seenOptions).toContain('cursor-rules');
+  });
+});

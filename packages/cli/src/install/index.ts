@@ -2,12 +2,20 @@ import { join } from 'node:path';
 import { CLIENTS, clientById, MCP_ENTRY, type ClientId, type ClientWriter, type Scope } from './clients.js';
 import { mergeJson, mergeToml } from './merge.js';
 import { VITE_TARGETS, viteTargetById, isViteTargetId, type ViteTargetId } from './vite-targets.js';
+import {
+  AGENT_TARGETS,
+  agentTargetById,
+  isAgentTargetId,
+  type AgentTarget,
+  type AgentTargetId
+} from './agent-targets.js';
+import { buildSkillMarkdown, buildCursorRules } from './skill-content.js';
 import { codemodViteConfig } from './codemod-vite-config.js';
 import { codemodHooksServer } from './codemod-hooks.js';
 import { detectPackageManager, hasVitePackage, installCommand } from './package-manager.js';
 import type { WriteStatus } from './codemod-types.js';
 
-export type TargetId = ClientId | ViteTargetId;
+export type TargetId = ClientId | ViteTargetId | AgentTargetId;
 
 export interface InstallIO {
   /** File contents, or undefined if the file does not exist. */
@@ -85,6 +93,19 @@ function planForDevOverlay(io: InstallIO): PlanRow {
   return { id: 'vite-dev-overlay', label: viteTargetById('vite-dev-overlay')!.label, path, ...result };
 }
 
+/**
+ * Plan a generated agent instruction file (Claude Code skill / Cursor rules). Unlike the
+ * Vite targets, content here is fully regenerated from core's rule metadata rather than
+ * codemodded, so --force is allowed to overwrite an existing file.
+ */
+function planForAgentTarget(target: AgentTarget, io: InstallIO, force: boolean, version: string): PlanRow {
+  const path = join(io.cwd, target.relPath);
+  const existing = io.readFile(path);
+  const content = target.id === 'claude-skill' ? buildSkillMarkdown(version) : buildCursorRules(version);
+  const status: WriteStatus = existing === undefined ? 'created' : force ? 'updated' : 'exists';
+  return { id: target.id, label: target.label, path, status, content };
+}
+
 function indent(text: string): string {
   return text
     .split('\n')
@@ -97,7 +118,12 @@ function rowLine(r: PlanRow): string {
   return r.status === 'manual' && r.snippet ? `${head}\n${indent(r.snippet)}` : head;
 }
 
-export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: InstallPrompts): Promise<number> {
+export async function runInstall(
+  flags: InstallFlags,
+  io: InstallIO,
+  prompts: InstallPrompts,
+  version = '0.0.0'
+): Promise<number> {
   // 1. Select clients / targets.
   let ids: TargetId[];
   if (flags.client && flags.client.length > 0) {
@@ -116,10 +142,21 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
     const viteConfigExists = ['vite.config.ts', 'vite.config.js', 'vite.config.mjs'].some((f) =>
       configExists(join(io.cwd, f))
     );
-    const detected: TargetId[] = [...detectedClients, ...(viteConfigExists ? VITE_TARGETS.map((t) => t.id) : [])];
+    const claudeSkillDetected = configExists(join(io.cwd, '.claude', 'settings.json'));
+    const cursorRulesDetected = configExists(join(io.cwd, '.cursor', 'mcp.json'));
+    const detectedAgents: AgentTargetId[] = [
+      ...(claudeSkillDetected ? (['claude-skill'] as const) : []),
+      ...(cursorRulesDetected ? (['cursor-rules'] as const) : [])
+    ];
+    const detected: TargetId[] = [
+      ...detectedClients,
+      ...(viteConfigExists ? VITE_TARGETS.map((t) => t.id) : []),
+      ...detectedAgents
+    ];
     const options: SelectableOption[] = [
       ...CLIENTS.map((c) => ({ id: c.id, label: c.label })),
-      ...VITE_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint }))
+      ...VITE_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
+      ...AGENT_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint }))
     ];
     const picked = await prompts.selectClients(options, detected);
     if (picked === null) {
@@ -129,14 +166,15 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
     ids = picked;
   } else {
     io.errorLog(
-      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-dev-overlay> to install non-interactively.'
+      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-dev-overlay,claude-skill,cursor-rules> to install non-interactively.'
     );
     return 2;
   }
 
   const clients = ids.map(clientById).filter((c): c is ClientWriter => c !== undefined);
   const viteIds = ids.filter(isViteTargetId);
-  if (clients.length === 0 && viteIds.length === 0) {
+  const agentIds = ids.filter(isAgentTargetId);
+  if (clients.length === 0 && viteIds.length === 0 && agentIds.length === 0) {
     io.errorLog('svelte-vitals: no valid clients or targets selected.');
     return 2;
   }
@@ -171,6 +209,10 @@ export async function runInstall(flags: InstallFlags, io: InstallIO, prompts: In
   }
   for (const viteId of viteIds) {
     rows.push(viteId === 'vite-plugin' ? planForVitePlugin(io) : planForDevOverlay(io));
+  }
+  for (const agentId of agentIds) {
+    const target = agentTargetById(agentId)!;
+    rows.push(planForAgentTarget(target, io, flags.force ?? false, version));
   }
 
   // 3. Preview.
