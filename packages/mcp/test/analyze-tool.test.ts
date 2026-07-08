@@ -50,6 +50,65 @@ describe('analyze tool', () => {
     for (const id of ids) expect(id).toBe('SEO001');
   });
 
+  it('restricts findings to a single category via categories', async () => {
+    const res = await handleAnalyze({ path: fixtureDir, categories: ['seo'] });
+    expect(res.isError).toBeFalsy();
+    const report = res.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
+    const ids = new Set(report.routes.flatMap((r) => r.issues.map((i) => i.id)));
+    // Guard against a vacuous pass: the fixture must surface at least one SEO finding.
+    expect(ids.size).toBeGreaterThan(0);
+    for (const id of ids) expect(id).toMatch(/^SEO/);
+  });
+
+  it('returns findings across all categories when categories is not passed', async () => {
+    const res = await handleAnalyze({ path: fixtureDir });
+    expect(res.isError).toBeFalsy();
+    const report = res.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
+    const ids = new Set(report.routes.flatMap((r) => r.issues.map((i) => i.id)));
+    // The unfiltered fixture surfaces findings outside SEO too (unlike the categories: ['seo'] case above).
+    expect([...ids].some((id) => !id.startsWith('SEO'))).toBe(true);
+  });
+
+  it('accepts categories case-insensitively (via the real input schema, not handleAnalyze directly)', async () => {
+    // Case-insensitivity is implemented as a zod preprocess step on the input schema,
+    // so — like the weights case-insensitivity test below — this must go through a real
+    // client-server pair; calling handleAnalyze directly would bypass the schema entirely
+    // and the uppercase category would never get lowercased.
+    const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+    const server = createServer();
+    await server.connect(serverTransport);
+    const client = new Client({ name: 'test', version: '0.0.0' });
+    await client.connect(clientTransport);
+    try {
+      const lower = await handleAnalyze({ path: fixtureDir, categories: ['seo'] });
+      const res = await client.callTool({ name: 'analyze', arguments: { path: fixtureDir, categories: ['SEO'] } });
+      expect(res.isError).toBeFalsy();
+      expect(res.structuredContent).toEqual(lower.structuredContent);
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
+  it('rejects an unknown category at the input-schema layer (isError, before analysis runs)', async () => {
+    // Go through a real client-server pair so the tool's zod inputSchema is applied
+    // (handleAnalyze alone would bypass it — validation lives in the MCP SDK layer).
+    const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
+    const server = createServer();
+    await server.connect(serverTransport);
+    const client = new Client({ name: 'test', version: '0.0.0' });
+    await client.connect(clientTransport);
+    try {
+      const res = await client.callTool({ name: 'analyze', arguments: { path: fixtureDir, categories: ['a11y'] } });
+      expect(res.isError).toBe(true);
+      const text = (res.content as Array<{ type: string; text: string }>)[0]!.text;
+      expect(text).toContain('Input validation error');
+    } finally {
+      await client.close();
+      await server.close();
+    }
+  });
+
   it('reports an error for an unknown rule id', async () => {
     const res = await handleAnalyze({ path: fixtureDir, rules: ['NOPE999'] });
     expect(res.isError).toBe(true);

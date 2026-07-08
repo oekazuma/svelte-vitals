@@ -27,6 +27,15 @@ const analyzeInputSchema = z.object({
     .describe('How dynamic ({data.title}) values are scored. Default: pass.'),
   rules: z.array(z.string()).optional().describe('Enable only these rule ids (all others disabled).'),
   ignore: z.array(z.string()).optional().describe('Disable these rule ids.'),
+  categories: z
+    .preprocess(
+      (v) => (Array.isArray(v) ? v.map((c) => String(c).toLowerCase()) : v),
+      z.array(z.enum(['seo', 'performance', 'correctness', 'security', 'architecture']))
+    )
+    .optional()
+    .describe(
+      'Restrict analysis to rules in these categories (intersection with rules/ignore selection). Case-insensitive. Mirrors the CLI --category flag.'
+    ),
   failOn: z
     .enum(['critical', 'warning', 'info'])
     .optional()
@@ -81,7 +90,8 @@ export async function handleAnalyze(args: AnalyzeArgs): Promise<McpToolResult> {
       route: args.route,
       failOn: args.failOn,
       rules,
-      weights: args.weights
+      weights: args.weights,
+      categories: args.categories
     });
     const report = buildJsonReport(results, config, { version });
     return {
