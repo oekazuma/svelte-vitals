@@ -73,6 +73,42 @@ function parseWeights(raw: unknown, errors: string[]): Partial<Record<Category, 
   return weights;
 }
 
+/**
+ * Parse `--category seo,SECURITY` into a de-duplicated list of categories
+ * (mirrors `parseWeights`'s validation shape). Categories are matched
+ * case-insensitively and normalized to lowercase; unknown categories push a
+ * fatal error. Returns `undefined` when `raw` is not a non-empty string (flag
+ * not passed).
+ */
+function parseCategories(raw: unknown, errors: string[]): Category[] | undefined {
+  if (typeof raw !== 'string' || raw.trim() === '') return undefined;
+
+  const categories: Category[] = [];
+  const unknownCategories: string[] = [];
+
+  for (const entry of raw
+    .split(',')
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean)) {
+    if (!CATEGORIES.includes(entry as Category)) {
+      unknownCategories.push(entry);
+      continue;
+    }
+    if (!categories.includes(entry as Category)) categories.push(entry as Category);
+  }
+
+  if (unknownCategories.length > 0) {
+    errors.push(`svelte-vitals: unknown category(ies) in --category: ${unknownCategories.join(', ')}`);
+    errors.push(`Known categories: ${CATEGORIES.join(', ')}`);
+  }
+
+  if (unknownCategories.length === 0 && categories.length === 0) {
+    errors.push('svelte-vitals: --category was passed but contains no categories.');
+  }
+
+  return categories;
+}
+
 /** Result of normalizing parsed argv: the `run` options, plus any diagnostics to print. */
 export interface ResolvedArgs {
   /** Options to pass to `run`, or `null` when a fatal (exit-2) error was found. */
@@ -166,6 +202,12 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
   const failOn = argv['fail-on-warning'] ? 'warning' : failOnValid ? failOnRaw : undefined;
 
   const weights = parseWeights(argv.weights, errors);
+  const categories = parseCategories(argv.category, errors);
+
+  const score = Boolean(argv.score);
+  if (score && (argv.json || typeof argv.reporter === 'string')) {
+    warnings.push('svelte-vitals: --score overrides --reporter; reporter output suppressed.');
+  }
 
   // `buildRulesConfig` returns `{}` when neither --rules nor --ignore was passed;
   // normalize that to `undefined` so it doesn't clobber a config file's `rules`
@@ -188,6 +230,8 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
       failOn,
       rules,
       ...(weights !== undefined ? { weights } : {}),
+      ...(categories !== undefined ? { categories } : {}),
+      ...(score ? { score } : {}),
       ...(diffBase !== undefined ? { diffBase } : {}),
       ...(staged ? { staged } : {}),
       ...(baselineRef !== undefined ? { baseline: baselineRef } : {})

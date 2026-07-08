@@ -29,7 +29,9 @@ Options:
   --min-health <0-100>        Fail (exit 1) when the combined Health score is below this value
   --rules <ids>               Comma-separated rule ids to enable (all others disabled)
   --ignore <ids>              Comma-separated rule ids to disable
+  --category <cats>           Comma-separated categories to analyze: seo | performance | correctness | security | architecture
   --weights <pairs>           Per-category Health weight overrides, e.g. seo=2,performance=1 (unlisted categories default to 1)
+  --score                     Print only the combined Health score (works with --min-health for gating)
   --no-color                  Disable ANSI color in console output
   -h, --help                  Show this help
   -v, --version               Show version
@@ -57,7 +59,7 @@ async function main(): Promise<void> {
 
   const argv = mri(process.argv.slice(2), {
     alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'json', 'fail-on-warning', 'staged', 'no-color'],
+    boolean: ['by-route', 'json', 'fail-on-warning', 'staged', 'no-color', 'score'],
     string: [
       'meta-components',
       'treat-dynamic-as',
@@ -70,7 +72,8 @@ async function main(): Promise<void> {
       'out-file',
       'diff',
       'baseline',
-      'weights'
+      'weights',
+      'category'
     ]
   });
 

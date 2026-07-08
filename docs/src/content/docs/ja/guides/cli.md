@@ -71,6 +71,17 @@ svelte-vitals --min-health 80
 
 スコアの計算方法については [Health レポート](/svelte-vitals/ja/guides/health-report/) を参照してください。
 
+### `--score`
+
+組み合わせた Health スコア(整数)のみを stdout に出力し、他のレポーター出力をすべて抑制します。数値をパースせずにシェルプロンプトやスクリプトから使いたい場合に便利です。
+
+```bash
+svelte-vitals --score
+svelte-vitals --score --min-health 80   # スコアでゲートする。終了コードは通常どおり pass/fail を反映
+```
+
+`--score` を `--reporter`/`--json` と組み合わせてもエラーにはなりませんが、レポーター出力は抑制され、stderr に警告が表示されます。終了コードは `--score` の影響を受けず、`--fail-on` と `--min-health` を通常どおり反映します。
+
 ### `--route <glob>`
 
 指定した glob パターンに一致するルートのみを分析します。
@@ -130,6 +141,17 @@ svelte-vitals --rules SEO001,SEO002
 ```bash
 svelte-vitals --ignore PERF001
 ```
+
+### `--category <cats>`
+
+指定したカテゴリのルールのみに分析を限定します。カンマ区切りのリストを受け付け、大文字小文字は区別しません: `seo`、`performance`、`correctness`、`security`、`architecture`。
+
+```bash
+svelte-vitals --category seo
+svelte-vitals --category seo,performance
+```
+
+`--category` は `--rules`/`--ignore`/設定ファイルのルール選択と積集合になります — ルールは両方を通過した場合のみ実行されます。カテゴリを絞り込むと [Health スコア](/svelte-vitals/ja/guides/health-report/) も絞り込まれます。組み合わせたスコアは、検出結果が存在するカテゴリのみの加重平均になるため、フィルタなしの実行結果と直接比較することはできません。未知のカテゴリを指定するとエラーになります(終了コード `2`)。
 
 ### `--weights <pairs>`
 
