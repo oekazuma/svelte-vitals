@@ -9,6 +9,7 @@ import {
   formatSarifReport,
   formatGithubReport,
   formatHtmlReport,
+  formatMarkdownReport,
   summarize,
   hasFailureAtOrAbove,
   computeHealth,
@@ -306,6 +307,8 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         write(path, html);
         errorLog(`svelte-vitals: wrote report to ${path}`);
       }
+    } else if (reporter === 'md') {
+      log(formatMarkdownReport(results, config, { version }));
     } else {
       const colorOn = colorEnabled({
         reporter,

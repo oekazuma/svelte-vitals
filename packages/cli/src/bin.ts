@@ -4,12 +4,14 @@ import { run } from './index.js';
 import { readPackageVersion } from './version.js';
 import { resolveArgs } from './resolve-args.js';
 import { runInstallCli } from './install/cli.js';
+import { runCiCli } from './ci/cli.js';
 
 const HELP = `svelte-vitals — a deterministic SvelteKit code-health scanner (SEO · performance · correctness · security · architecture)
 
 Usage:
   svelte-vitals [path] [options]
   svelte-vitals install          Set up the MCP server for Claude Code / Cursor / Codex
+  svelte-vitals ci install       Add a GitHub Actions PR gate (annotations + summary comment)
 
 Options:
   --meta-components <names>   Comma-separated component names that emit head metadata
@@ -19,7 +21,7 @@ Options:
   --staged                    Report only findings in files staged for commit (pre-commit gate)
   --baseline <ref>            Report only findings not present at ref (compare against e.g. origin/main)
   --by-route                  Show per-route score breakdown in console output
-  --reporter <fmt>            console | json | agent | sarif | github | html (auto: agent under AI-agent envs, github under GitHub Actions)
+  --reporter <fmt>            console | json | agent | sarif | github | html | md (auto: agent under AI-agent envs, github under GitHub Actions)
   --out-file <path>           Output path for --reporter html (default: svelte-vitals-report.html; '-' for stdout)
   --json                      Alias for --reporter=json
   --fail-on <severity>        Fail (exit 1) when any finding reaches this severity: critical | warning | info
@@ -46,6 +48,10 @@ async function main(): Promise<void> {
   const rawArgs = process.argv.slice(2);
   if (rawArgs[0] === 'install') {
     const code = await runInstallCli(rawArgs.slice(1));
+    process.exit(code);
+  }
+  if (rawArgs[0] === 'ci') {
+    const code = await runCiCli(rawArgs.slice(1));
     process.exit(code);
   }
 

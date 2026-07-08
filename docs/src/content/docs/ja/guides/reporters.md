@@ -5,7 +5,7 @@ sidebar:
   order: 7
 ---
 
-svelte-vitals は 6 つの出力レポーターをサポートしています。`--reporter <fmt>` で選択するか、環境に適したものを自動選択に任せてください。
+svelte-vitals は 7 つの出力レポーターをサポートしています。`--reporter <fmt>` で選択するか、環境に適したものを自動選択に任せてください。
 
 ## 利用可能なレポーター
 
@@ -63,6 +63,19 @@ GitHub Actions の [ワークフローコマンド](https://docs.github.com/en/a
 
 ```bash
 svelte-vitals --reporter github
+```
+
+### `md`
+
+コンパクトな Markdown サマリーです — Health スコア、カテゴリ別スコア表、重大度別件数、
+各ルールのドキュメントページへのリンク付き検出結果テーブルを含みます。GitHub Actions の
+ジョブサマリーや PR コメント向けに設計されており、GitHub のコメントサイズ制限内に収まるよう
+検出結果の行数は 50 件に制限されます。このレポーターを自動的にワークフローへ組み込む
+`svelte-vitals ci install` については [CI 連携ガイド](/svelte-vitals/ja/guides/ci/) を
+参照してください。
+
+```bash
+svelte-vitals --reporter md
 ```
 
 ## HTML レポート

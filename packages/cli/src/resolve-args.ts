@@ -149,7 +149,7 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
   } else if (typeof argv.reporter === 'string') {
     if (!isReporterName(argv.reporter)) {
       errors.push(
-        `svelte-vitals: unknown reporter '${argv.reporter}'. Valid values: console, json, agent, sarif, github, html.`
+        `svelte-vitals: unknown reporter '${argv.reporter}'. Valid values: console, json, agent, sarif, github, html, md.`
       );
     } else {
       reporter = argv.reporter;

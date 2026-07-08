@@ -5,7 +5,7 @@ sidebar:
   order: 7
 ---
 
-svelte-vitals supports six output reporters. Select one with `--reporter <fmt>`, or let auto-selection pick the right one for your environment.
+svelte-vitals supports seven output reporters. Select one with `--reporter <fmt>`, or let auto-selection pick the right one for your environment.
 
 ## Available reporters
 
@@ -63,6 +63,18 @@ The `github` reporter is auto-selected when `GITHUB_ACTIONS=true` is set (which 
 
 ```bash
 svelte-vitals --reporter github
+```
+
+### `md`
+
+A compact Markdown summary — Health score, per-category score table, severity counts, and a
+findings table with links to each rule's docs page. Designed for a GitHub Actions job summary or
+a PR comment; capped at 50 finding rows to stay within GitHub's comment size limits. See the
+[CI integration guide](/svelte-vitals/guides/ci/) for `svelte-vitals ci install`, which wires
+this reporter into a generated workflow automatically.
+
+```bash
+svelte-vitals --reporter md
 ```
 
 ## HTML report
