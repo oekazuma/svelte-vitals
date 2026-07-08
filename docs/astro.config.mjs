@@ -3,6 +3,8 @@ import starlight from '@astrojs/starlight';
 import starlightLlmsTxt from 'starlight-llms-txt';
 
 const base = '/svelte-vitals';
+const description =
+  'A deterministic SvelteKit code-health scanner — SEO, performance, correctness, security, architecture.';
 
 export default defineConfig({
   site: 'https://oekazuma.github.io/',
@@ -10,7 +12,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'svelte-vitals',
-      description: 'A SvelteKit SEO & Performance checker — static analysis of your routes, before they ship.',
+      description,
       logo: { src: './src/assets/logo-mark.svg', alt: 'svelte-vitals' },
       favicon: '/favicon.svg',
       head: [{ tag: 'link', attrs: { rel: 'apple-touch-icon', sizes: '180x180', href: `${base}/favicon-180.png` } }],
@@ -36,8 +38,7 @@ export default defineConfig({
       plugins: [
         starlightLlmsTxt({
           projectName: 'svelte-vitals',
-          description:
-            'A deterministic SvelteKit code-health scanner — SEO, performance, correctness, security, architecture.'
+          description
         })
       ]
     })
