@@ -1,5 +1,18 @@
 # svelte-vitals
 
+## 0.21.0
+
+### Minor Changes
+
+- f0af627: Surface the resolved `@svelte-vitals/core` version so it's possible to tell whether the CLI and the Vite dev overlay are running the same rule engine. `svelte-vitals --version` now prints `<cli version> (core <core version>)`, and the dev overlay's dashboard footer (`/__svelte-vitals/`) shows `core v<version>` alongside its own version. `svelte-vitals` and `@svelte-vitals/vite` are versioned independently and can end up depending on different `@svelte-vitals/core` releases (e.g. a package-manager cooldown like pnpm's `minimumReleaseAge` resolving `@latest` down to an older release) — previously there was no way to notice this without diffing lockfiles, so the two surfaces could silently disagree on findings. See the "Version drift" section in the dev overlay docs.
+
+### Patch Changes
+
+- ea90a6d: `svelte-vitals install` now logs the actually-resolved `@svelte-vitals/vite` version after auto-installing it (e.g. `installed @svelte-vitals/vite@0.11.1`), so a lockfile/registry cooldown (e.g. pnpm's `minimumReleaseAge`) silently resolving the install to an older release than expected is visible instead of hidden.
+- Updated dependencies [7e3b423]
+- Updated dependencies [f0af627]
+  - @svelte-vitals/core@0.22.0
+
 ## 0.20.0
 
 ### Minor Changes
