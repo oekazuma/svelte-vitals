@@ -6,7 +6,7 @@ import { resolveArgs } from '../src/resolve-args.js';
 function resolve(...args: string[]) {
   const argv = mri(args, {
     alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'json', 'fail-on-warning', 'staged', 'score'],
+    boolean: ['by-route', 'json', 'fail-on-warning', 'staged', 'score', 'verbose'],
     string: [
       'meta-components',
       'treat-dynamic-as',
@@ -206,5 +206,15 @@ describe('resolveArgs', () => {
   it('sets explicitPath:false when no positional path is passed', () => {
     const { options } = resolve('--json');
     expect(options?.explicitPath).toBe(false);
+  });
+
+  it('threads --verbose into options.verbose', () => {
+    const { options } = resolve('--verbose');
+    expect(options?.verbose).toBe(true);
+  });
+
+  it('verbose defaults to false (undefined) when not passed', () => {
+    const { options } = resolve();
+    expect(options?.verbose).toBeUndefined();
   });
 });

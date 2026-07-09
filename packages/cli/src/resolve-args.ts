@@ -209,6 +209,8 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
     warnings.push('svelte-vitals: --score overrides --reporter; reporter output suppressed.');
   }
 
+  const verbose = Boolean(argv['verbose']);
+
   // `buildRulesConfig` returns `{}` when neither --rules nor --ignore was passed;
   // normalize that to `undefined` so it doesn't clobber a config file's `rules`
   // (design doc §3, decision 3 — "not specified" must stay distinguishable from
@@ -235,6 +237,7 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
       ...(weights !== undefined ? { weights } : {}),
       ...(categories !== undefined ? { categories } : {}),
       ...(score ? { score } : {}),
+      ...(verbose ? { verbose } : {}),
       ...(diffBase !== undefined ? { diffBase } : {}),
       ...(staged ? { staged } : {}),
       ...(baselineRef !== undefined ? { baseline: baselineRef } : {})
