@@ -1,5 +1,11 @@
 # @svelte-vitals/core
 
+## 0.22.1
+
+### Patch Changes
+
+- 2652572: The Markdown reporter's findings table (used for the GitHub Actions job summary and sticky PR comment) now appends each finding's `recommendation` to its message, matching what the console/github/agent reporters already show. Previously the table only showed the terse `message` (e.g. "Missing robots.txt"), dropping the actionable "how to fix it" text.
+
 ## 0.22.0
 
 ### Minor Changes
