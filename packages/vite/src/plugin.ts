@@ -146,6 +146,28 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       });
 
       installUiMiddleware(server, config, readPackageVersion(), store, readCoreVersion());
+
+      // The dashboard has no separate CLI entry point (unlike `vitest --ui`) to signal
+      // it exists, so announce it the same way Vite announces its own dev server: as an
+      // extra line appended after Vite's own "Local:/Network:" URL block. Wrapping
+      // printUrls (rather than logging eagerly here) means the line only appears once
+      // the server is actually listening and prints in the same place a developer's eyes
+      // already are on every `vite dev` start.
+      if (typeof server.printUrls === 'function') {
+        const printUrls = server.printUrls.bind(server);
+        server.printUrls = () => {
+          printUrls();
+          const printed = server.resolvedUrls?.local?.[0] ?? server.resolvedUrls?.network?.[0];
+          if (printed) {
+            // installUiMiddleware always mounts at the server root ('/__svelte-vitals'),
+            // regardless of a configured `base` — a non-root base makes Vite print a URL
+            // with a path segment (e.g. http://host:5173/my-app/), so resolving
+            // '__svelte-vitals/' relative to that would announce the wrong, 404ing URL.
+            // Use the origin only and always append the root-mounted path ourselves.
+            console.log(`  ➜  svelte-vitals: ${new URL(printed).origin}/__svelte-vitals/`);
+          }
+        };
+      }
     }
   };
   return [buildPlugin, uiPlugin];

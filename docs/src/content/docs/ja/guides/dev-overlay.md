@@ -76,6 +76,12 @@ export default {
 };
 ```
 
+有効にすると、`vite dev` はサーバー起動のたびに本来の `Local:`/`Network:` 表示の直後にダッシュボードのURLを出力するので、`/__svelte-vitals/` というパスを覚えておく必要はありません。
+
+```
+  ➜  svelte-vitals: http://localhost:5173/__svelte-vitals/
+```
+
 dev サーバーの起動直後から、ダッシュボードは**プロジェクト全体**を表示します。起動時に全ルート・全カテゴリ（SEO・Performance・Correctness・Security・Architecture）の静的解析が非同期で実行され（`npx svelte-vitals` と同じ解析です）、ページを1つも訪問しなくても本物のプロジェクト Health が得られます。ソースファイル（`src/` または `static/` 配下、あるいは `svelte.config.*` / `svelte-vitals.config.*`）を保存すると、デバウンス付きの再解析が走り、ダッシュボードが自動的に更新されます。
 
 この静的なベースラインの上に、アプリを操作することで結果が精緻化されます。これは dev handle（上記オーバーレイと同じもの）から供給されるため、`src/hooks.server.ts` の `svelteVitalsHandle()` はそのまま残してください。訪問した各ルートのレンダリング済み `<head>` が解析され、そのライブ結果がそのルートの静的結果を置き換えます — レンダリング済みのページのほうが、特に動的な値については真実に近いためです。ルート見出しには由来を示すバッジが付きます：実際にレンダリングされたページ由来の結果なら `measured`、まだソース解析のみでカバーされているルートなら `static` です。
