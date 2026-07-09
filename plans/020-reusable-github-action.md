@@ -52,14 +52,14 @@ Issue #154: `ci install` generates a full inline workflow that consumer repos en
 
 ## Commands you will need
 
-| Purpose   | Command                                                        | Expected on success |
-| --------- | --------------------------------------------------------------- | -------------------- |
-| Install   | `pnpm install`                                                   | exit 0                |
-| Build     | `pnpm build`                                                     | exit 0                |
-| Typecheck | `pnpm typecheck`                                                 | exit 0                |
-| Tests     | `pnpm test`                                                      | all pass              |
-| Lint      | `pnpm lint`                                                      | exit 0                |
-| Changeset | `pnpm changeset` (svelte-vitals: minor, @svelte-vitals/action: minor) | files generated  |
+| Purpose   | Command                                                               | Expected on success |
+| --------- | --------------------------------------------------------------------- | ------------------- |
+| Install   | `pnpm install`                                                        | exit 0              |
+| Build     | `pnpm build`                                                          | exit 0              |
+| Typecheck | `pnpm typecheck`                                                      | exit 0              |
+| Tests     | `pnpm test`                                                           | all pass            |
+| Lint      | `pnpm lint`                                                           | exit 0              |
+| Changeset | `pnpm changeset` (svelte-vitals: minor, @svelte-vitals/action: minor) | files generated     |
 
 ## Scope
 
@@ -100,8 +100,8 @@ Issue #154: `ci install` generates a full inline workflow that consumer repos en
 - [ ] **1.1** Open `pnpm-workspace.yaml`. The existing `catalog:` block is not strictly alphabetized (e.g. `@astrojs/check` already sits after `@clack/prompts`) — add these two lines anywhere in the block, e.g. right after the `catalog:` key:
 
 ```yaml
-  '@actions/core': ^3.0.1
-  '@actions/github': ^9.1.1
+'@actions/core': ^3.0.1
+'@actions/github': ^9.1.1
 ```
 
 (Versions confirmed current on the npm registry as of this plan's writing — re-check `npm view @actions/core version` / `npm view @actions/github version` if executing this step much later.)
@@ -553,7 +553,9 @@ export interface PullRequestContext {
  * annotations and the job summary.
  */
 export function isForkPR(ctx: PullRequestContext): boolean {
-  return ctx.eventName === 'pull_request' && ctx.headRepoFullName !== undefined && ctx.headRepoFullName !== ctx.repoFullName;
+  return (
+    ctx.eventName === 'pull_request' && ctx.headRepoFullName !== undefined && ctx.headRepoFullName !== ctx.repoFullName
+  );
 }
 ```
 
@@ -762,8 +764,8 @@ Expected: files under `packages/action/dist` show as staged (`A`), not ignored.
 - [ ] **7.3** In `.github/workflows/ci.yml`, in the `check` job, add a step right after the existing `Build packages` step:
 
 ```yaml
-      - name: Verify action dist is up to date
-        run: git diff --exit-code -- packages/action/dist
+- name: Verify action dist is up to date
+  run: git diff --exit-code -- packages/action/dist
 ```
 
 - [ ] **7.4** Verify locally — rebuild and confirm no diff (proves the committed `dist/` matches source):

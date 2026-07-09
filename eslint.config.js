@@ -15,6 +15,10 @@ export default ts.config(
   { ignores: ['**/test/fixtures/**'] },
   // Astro-generated type files (listed in docs/.gitignore, not root .gitignore)
   { ignores: ['**/.astro/**'] },
+  // Committed but machine-generated bundle (unlike every other package's gitignored dist);
+  // negated in .gitignore for git so GitHub Actions can consume it directly, which also
+  // makes it visible to includeIgnoreFile above — exclude it from lint explicitly.
+  { ignores: ['packages/action/dist/**'] },
   js.configs.recommended,
   ...ts.configs.recommended,
   ...svelte.configs.recommended,

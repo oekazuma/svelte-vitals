@@ -11,5 +11,7 @@ export interface PullRequestContext {
  * annotations and the job summary.
  */
 export function isForkPR(ctx: PullRequestContext): boolean {
-  return ctx.eventName === 'pull_request' && ctx.headRepoFullName !== undefined && ctx.headRepoFullName !== ctx.repoFullName;
+  return (
+    ctx.eventName === 'pull_request' && ctx.headRepoFullName !== undefined && ctx.headRepoFullName !== ctx.repoFullName
+  );
 }

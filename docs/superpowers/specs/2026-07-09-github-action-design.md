@@ -12,7 +12,7 @@
 2. The CLI version is a literal string inside two `run:` shell blocks. There's no way for Dependabot/Renovate to bump it, and re-running `ci install --force` clobbers any local edits.
 3. The sticky-comment `github-script` logic becomes "our code" that every consumer repo now owns, reviews, and maintains.
 
-`plans/README.md`'s 2026-07-08 gap analysis explicitly deferred this: *"GitHub Actions の marketplace Action 化: v1 は `npx` 直叩きテンプレート(Plan 015)で十分。テンプレートの複雑さが限界を迎えたら再検討"* ("defer until the template's complexity hits its limit"). Issue #154 is a real-world report of exactly that limit.
+`plans/README.md`'s 2026-07-08 gap analysis explicitly deferred this: _"GitHub Actions の marketplace Action 化: v1 は `npx` 直叩きテンプレート(Plan 015)で十分。テンプレートの複雑さが限界を迎えたら再検討"_ ("defer until the template's complexity hits its limit"). Issue #154 is a real-world report of exactly that limit.
 
 ## Goal
 
@@ -37,7 +37,7 @@ instead of owning ~60 lines of generated YAML. `ci install` keeps scaffolding th
 3. **`dist/` is committed normally** (not gitignored) for this package only, matching the official `actions/typescript-action` template convention. CI's `check` job gets a step verifying it's up to date (`git diff --exit-code -- packages/action/dist` after the existing `pnpm build`). No release-time build-and-commit choreography needed.
 4. **Versioning: changesets-native tags only.** `packages/action` is a normal changesets-versioned package; its releases produce tags shaped like every other package's (`@svelte-vitals/action@0.1.0`), same as the 87 existing tags. No separate floating `v0`/`v1` major tag — considered and declined, since Dependabot tracks arbitrary ref bumps on a pinned action regardless of tag naming, so the extra moving-tag machinery buys nothing here.
 5. **`ci install` is replaced, not dual-tracked.** `buildWorkflowYaml` stops generating the full inline template and instead emits the short Action-call form above. No `--template=inline|action` flag. Already-installed consumer workflows are untouched until they re-run with `--force`.
-6. **Action reference is commit-SHA-pinned with a same-line version comment**, matching this repo's own convention (`actions/checkout@9c091bb2... # v7.0.0` in `.github/workflows/ci.yml`): `uses: oekazuma/svelte-vitals/packages/action@<40-hex-sha> # @svelte-vitals/action@<version>`. The SHA is resolved at `svelte-vitals` CLI **build time**, not at `ci install` runtime — see Design §5. This keeps `ci install` fully offline (no GitHub API/network call), consistent with its current behavior. Scope note: only *our* action reference gets SHA-pinned by this change; `actions/checkout@v4` in the generated template keeps its existing floating-tag form (unchanged from today's template) — SHA-pinning third-party actions in generated output is a separate, broader concern issue #154 didn't raise.
+6. **Action reference is commit-SHA-pinned with a same-line version comment**, matching this repo's own convention (`actions/checkout@9c091bb2... # v7.0.0` in `.github/workflows/ci.yml`): `uses: oekazuma/svelte-vitals/packages/action@<40-hex-sha> # @svelte-vitals/action@<version>`. The SHA is resolved at `svelte-vitals` CLI **build time**, not at `ci install` runtime — see Design §5. This keeps `ci install` fully offline (no GitHub API/network call), consistent with its current behavior. Scope note: only _our_ action reference gets SHA-pinned by this change; `actions/checkout@v4` in the generated template keeps its existing floating-tag form (unchanged from today's template) — SHA-pinning third-party actions in generated output is a separate, broader concern issue #154 didn't raise.
 
 ## Design
 
@@ -67,11 +67,11 @@ Excluded from `check:publish` (`check:publint`/`check:types` in root `package.js
 
 ### 2. `action.yml` inputs
 
-| Input          | Maps to                    | Default              |
-| -------------- | --------------------------- | --------------------- |
-| `path`         | `analyzeProject`'s cwd       | `.`                    |
-| `diff`         | `AnalyzeOptions.diffBase`    | (unset)                |
-| `baseline`     | `AnalyzeOptions.baseline`    | (unset)                |
+| Input          | Maps to                             | Default               |
+| -------------- | ----------------------------------- | --------------------- |
+| `path`         | `analyzeProject`'s cwd              | `.`                   |
+| `diff`         | `AnalyzeOptions.diffBase`           | (unset)               |
+| `baseline`     | `AnalyzeOptions.baseline`           | (unset)               |
 | `github-token` | octokit auth for the sticky comment | `${{ github.token }}` |
 
 No `reporter` input — the action always produces all three outputs (annotations + job summary + sticky comment) internally; that fan-out is no longer the consumer's concern. No `fail-on`/`min-health` inputs in v1 — the current inline template doesn't expose them either (default critical-only gate); adding them is a straightforward follow-up, not required to match today's behavior (YAGNI).
@@ -129,7 +129,7 @@ This file is gitignored (pure codegen output, like every other package's `dist/`
 }
 ```
 
-**Why `git rev-parse HEAD` is safe to embed:** `.github/workflows/release.yml` checks out the post-merge "Version Packages" commit and runs `pnpm build` (which builds `svelte-vitals`, running this codegen) *before* `changesets/action` tags and publishes whatever packages changed in that release, all pointing at that same `HEAD`. Two cases:
+**Why `git rev-parse HEAD` is safe to embed:** `.github/workflows/release.yml` checks out the post-merge "Version Packages" commit and runs `pnpm build` (which builds `svelte-vitals`, running this codegen) _before_ `changesets/action` tags and publishes whatever packages changed in that release, all pointing at that same `HEAD`. Two cases:
 
 - `packages/action` has a pending changeset in this release → the embedded SHA **is** the exact commit `@svelte-vitals/action@<new-version>` gets tagged at.
 - `packages/action` has no pending changeset (CLI-only release) → `HEAD` is a later commit than the action's last real release tag, but Decision 3's CI check guarantees `packages/action/dist` at `HEAD` is byte-identical to that last release (nothing could have changed it without the freshness check failing), so pinning to the newer `HEAD` SHA is still functionally correct — it just means the embedded SHA doesn't literally equal the old tag's SHA, only its content. `ACTION_VERSION` (read directly from `packages/action/package.json` at build time) stays accurate as the comment either way.
