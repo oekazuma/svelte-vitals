@@ -31,3 +31,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
+      - name: Tag private package releases
+        # @changesets/cli@2.31.0 (latest stable; the tag-only-for-private-packages behavior
+        # only exists in the unreleased 3.0 line) only tags packages it publishes to npm, so
+        # our private, changesets-versioned packages (currently just @svelte-vitals/action,
+        # distributed via git tag/SHA instead of npm) never get tagged by the step above.
+        # Idempotent: skips any package whose tag already exists on origin.
+        run: |
+          for pkg_dir in packages/action; do
+            name=$(node -p "require('./$pkg_dir/package.json').name")
+            version=$(node -p "require('./$pkg_dir/package.json').version")
+            tag="$name@$version"
+            if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
+              echo "$tag already exists on origin, skipping"
+            else
+              git config user.name "github-actions[bot]"
+              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+              git tag "$tag"
+              git push origin "$tag"
+              echo "created and pushed $tag"
+            fi
+          done
