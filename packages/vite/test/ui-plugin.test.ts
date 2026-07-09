@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach } from 'vitest';
+import { describe, it, expect, afterEach, vi } from 'vitest';
 import type { Plugin, ViteDevServer } from 'vite';
 import { svelteVitals } from '../src/index.js';
 
@@ -48,6 +48,46 @@ describe('svelteVitals({ ui })', () => {
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
     (hook as (s: ViteDevServer) => void).call({}, server);
     expect(watcherEvents).toContain('all');
+  });
+
+  it('configureServer wraps printUrls to also announce the dashboard URL', () => {
+    const plugins = svelteVitals({ ui: true }) as Plugin[];
+    const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
+    const originalPrintUrls = vi.fn();
+    const server = {
+      config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
+      watcher: { on: () => {} },
+      middlewares: { use: () => {} },
+      printUrls: originalPrintUrls,
+      resolvedUrls: { local: ['http://localhost:5173/'], network: [] }
+    } as unknown as ViteDevServer;
+    const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
+    (hook as (s: ViteDevServer) => void).call({}, server);
+
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    server.printUrls();
+
+    expect(originalPrintUrls).toHaveBeenCalledTimes(1);
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('http://localhost:5173/__svelte-vitals/'));
+    logSpy.mockRestore();
+  });
+
+  it('printUrls wrapper still calls the original and does not throw when resolvedUrls is unavailable', () => {
+    const plugins = svelteVitals({ ui: true }) as Plugin[];
+    const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
+    const originalPrintUrls = vi.fn();
+    const server = {
+      config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
+      watcher: { on: () => {} },
+      middlewares: { use: () => {} },
+      printUrls: originalPrintUrls,
+      resolvedUrls: null
+    } as unknown as ViteDevServer;
+    const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
+    (hook as (s: ViteDevServer) => void).call({}, server);
+
+    expect(() => server.printUrls()).not.toThrow();
+    expect(originalPrintUrls).toHaveBeenCalledTimes(1);
   });
 
   it('configureServer works without a watcher or httpServer on the mock server (defensive)', () => {

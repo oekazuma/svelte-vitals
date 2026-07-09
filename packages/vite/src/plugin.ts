@@ -146,6 +146,23 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       });
 
       installUiMiddleware(server, config, readPackageVersion(), store, readCoreVersion());
+
+      // The dashboard has no separate CLI entry point (unlike `vitest --ui`) to signal
+      // it exists, so announce it the same way Vite announces its own dev server: as an
+      // extra line appended after Vite's own "Local:/Network:" URL block. Wrapping
+      // printUrls (rather than logging eagerly here) means the line only appears once
+      // the server is actually listening and prints in the same place a developer's eyes
+      // already are on every `vite dev` start.
+      if (typeof server.printUrls === 'function') {
+        const printUrls = server.printUrls.bind(server);
+        server.printUrls = () => {
+          printUrls();
+          const base = server.resolvedUrls?.local[0] ?? server.resolvedUrls?.network[0];
+          if (base) {
+            console.log(`  ➜  svelte-vitals: ${new URL('__svelte-vitals/', base).href}`);
+          }
+        };
+      }
     }
   };
   return [buildPlugin, uiPlugin];
