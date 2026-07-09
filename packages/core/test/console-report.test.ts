@@ -261,11 +261,11 @@ describe('formatConsoleReport', () => {
     expect(out).toContain('✓ SEO003  Has <title>');
   });
 
-  it('omitHeader:true skips the brand/Health/category lines, returning only the body', () => {
+  it('omitHeader:true skips the brand/Health lines but still prints category score lines', () => {
     const out = formatConsoleReport(results, config, { omitHeader: true });
     expect(out).not.toContain('Svelte Vitals');
     expect(out).not.toContain('Health:');
-    expect(out).not.toContain('SEO Score:');
+    expect(out).toContain('SEO Score:');
     expect(out).toContain('Critical (1)'); // body content still present
   });
 

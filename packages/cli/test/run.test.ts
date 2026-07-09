@@ -356,6 +356,9 @@ describe('run() --verbose and animation', () => {
     expect(report).not.toContain('Svelte Vitals');
     expect(report).not.toContain('Health:');
     expect(report).toContain('Critical');
+    // Category score lines are not animated — they must still print in the body,
+    // right after the (animated, not printed-here) Health line.
+    expect(report).toContain('SEO Score:');
   });
 
   it('does not animate when stdout is not a TTY — header prints inline as before', async () => {
