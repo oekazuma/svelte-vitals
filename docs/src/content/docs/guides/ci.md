@@ -46,6 +46,41 @@ On every `pull_request` event, the generated workflow:
 4. Fails the job if the scan found any gating findings, after the summary/comment have already
    been written — so you always get the PR comment, even on a failing run.
 
+## What the comment looks like
+
+Before you install anything, here's a preview of the sticky PR comment `@svelte-vitals/action`
+posts — this is what a real one renders as (the finding rows below are real rule output, just
+assembled here for illustration; the bold lines below render as actual headings in a real GitHub
+comment):
+
+> **svelte-vitals — Health 78/100**
+>
+> | Category    | Score |
+> | ----------- | ----- |
+> | seo         | 65    |
+> | performance | 90    |
+>
+> **1 critical · 1 warning · 1 info** (44 checks passed)
+>
+> **Findings**
+>
+> | Severity    | Rule                                                              | Location                     | Message                                                                                                                          |
+> | ----------- | ----------------------------------------------------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+> | 🔴 critical | [SEO001](https://oekazuma.github.io/svelte-vitals/rules/seo001)   | src/routes/blog/+page.svelte | Missing `<title>` Add a `<title>` inside `<svelte:head>`, e.g. `<title>{data.title}</title>`, or set it via your meta component. |
+> | 🟡 warning  | [PERF001](https://oekazuma.github.io/svelte-vitals/rules/perf001) | src/routes/+page.svelte:12   | Missing `<img>` width/height Set explicit width and height on `<img>` to reserve space and avoid layout shift (CLS).             |
+> | 🔵 info     | [PERF009](https://oekazuma.github.io/svelte-vitals/rules/perf009) | src/routes/+page.svelte:3    | Heavy import "lodash" — 71 KB Import a submodule or switch to a lighter, tree-shakeable alternative.                             |
+
+A few things worth knowing before you see the real thing:
+
+- **It updates in place.** Every push to the PR re-scans and edits this same comment (via its
+  hidden marker) instead of posting a new one each time.
+- **The message column includes the fix.** Each row is the finding's message _and_ its
+  recommendation together, so you don't have to open the full report to know what to do.
+- **Rule IDs link to the docs** for that specific rule.
+- **A clean PR gets a short comment too** — `✅ No issues found.` in place of the findings table.
+- The same content (minus the table) also appears in the job's **step summary**, and the
+  underlying findings get **inline annotations** directly on the diff.
+
 ## Action inputs
 
 `ci install` scaffolds a call to `@svelte-vitals/action` with these inputs:

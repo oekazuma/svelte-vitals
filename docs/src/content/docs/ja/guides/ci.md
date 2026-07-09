@@ -49,6 +49,42 @@ svelte-vitals が生成したワークフローが既にある場合は、`--for
 4. スキャンでゲート対象の検出結果が見つかった場合、サマリー/コメントが既に書き込まれた
    **後に**ジョブを失敗させます — そのため、失敗した実行でも常に PR コメントを得られます。
 
+## コメントの見た目
+
+何もインストールする前に、`@svelte-vitals/action` が投稿するスティッキー PR コメントの
+プレビューを示します — 実際に生成されるコメントはこのようにレンダリングされます
+（以下の行は実際のルール出力を、説明のためにまとめたものです。太字の行は、実際の GitHub の
+コメント上では見出しとして表示されます）：
+
+> **svelte-vitals — Health 78/100**
+>
+> | Category    | Score |
+> | ----------- | ----- |
+> | seo         | 65    |
+> | performance | 90    |
+>
+> **1 critical · 1 warning · 1 info** (44 checks passed)
+>
+> **Findings**
+>
+> | Severity    | Rule                                                              | Location                     | Message                                                                                                                          |
+> | ----------- | ----------------------------------------------------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+> | 🔴 critical | [SEO001](https://oekazuma.github.io/svelte-vitals/rules/seo001)   | src/routes/blog/+page.svelte | Missing `<title>` Add a `<title>` inside `<svelte:head>`, e.g. `<title>{data.title}</title>`, or set it via your meta component. |
+> | 🟡 warning  | [PERF001](https://oekazuma.github.io/svelte-vitals/rules/perf001) | src/routes/+page.svelte:12   | Missing `<img>` width/height Set explicit width and height on `<img>` to reserve space and avoid layout shift (CLS).             |
+> | 🔵 info     | [PERF009](https://oekazuma.github.io/svelte-vitals/rules/perf009) | src/routes/+page.svelte:3    | Heavy import "lodash" — 71 KB Import a submodule or switch to a lighter, tree-shakeable alternative.                             |
+
+実際のコメントを見る前に知っておくとよい点：
+
+- **その場で更新されます。** PR へのプッシュのたびに再スキャンし、隠しマーカーを使って
+  同じコメントを編集します。新しいコメントが積み上がることはありません。
+- **Message 列に修正方法まで含まれます。** 各行は検出結果のメッセージと推奨対応を
+  合わせたものなので、詳細を確認するために完全なレポートを開く必要はありません。
+- **ルール ID はそのルールのドキュメントへのリンクになっています。**
+- **問題がない PR にも短いコメントが付きます** — 検出結果テーブルの代わりに
+  `✅ No issues found.` と表示されます。
+- 同じ内容（テーブル部分を除く）はジョブの**ステップサマリー**にも表示され、
+  元となった検出結果は diff 上に**インラインアノテーション**として直接表示されます。
+
 ## Action の入力
 
 `ci install` は `@svelte-vitals/action` の呼び出しを、以下の入力とともに生成します：
