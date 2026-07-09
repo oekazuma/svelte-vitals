@@ -136,10 +136,12 @@ export function formatConsoleReport(results: Result[], config: Config, options: 
   const passed = results.filter((r) => classify(r, config) !== 'fail');
   if (passed.length > 0) {
     lines.push(p.bold(`Passed (${passed.length})`), p.dim(RULE));
-    for (const r of passed) {
-      const marker = classify(r, config) === 'dynamic' ? p.cyan('  ↯ dynamic') : '';
-      const route = r.route ? `  ${r.route}` : '';
-      lines.push(`${p.green('✓')} ${r.id}  ${r.message}${marker}${route}`);
+    if (options.verbose) {
+      for (const r of passed) {
+        const marker = classify(r, config) === 'dynamic' ? p.cyan('  ↯ dynamic') : '';
+        const route = r.route ? `  ${r.route}` : '';
+        lines.push(`${p.green('✓')} ${r.id}  ${r.message}${marker}${route}`);
+      }
     }
     lines.push('');
   }

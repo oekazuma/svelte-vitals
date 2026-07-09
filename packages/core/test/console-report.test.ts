@@ -121,4 +121,23 @@ describe('formatConsoleReport', () => {
     expect(out).toContain('/b');
     expect(out).not.toContain('…and');
   });
+
+  it('collapses the Passed section to a bare count by default (no per-item lines)', () => {
+    const passing: Result[] = [
+      { id: 'SEO003', severity: 'info', detection: { presence: 'own', value: 'static' }, route: '/a', message: 'Has <title>' },
+      { id: 'SEO004', severity: 'info', detection: { presence: 'own', value: 'static' }, route: '/b', message: 'Has <meta description>' }
+    ];
+    const out = formatConsoleReport(passing, config);
+    expect(out).toContain('Passed (2)');
+    expect(out).not.toContain('✓ SEO003');
+    expect(out).not.toContain('✓ SEO004');
+  });
+
+  it('lists every passed item under verbose:true, exactly as before', () => {
+    const passing: Result[] = [
+      { id: 'SEO003', severity: 'info', detection: { presence: 'own', value: 'static' }, route: '/a', message: 'Has <title>' }
+    ];
+    const out = formatConsoleReport(passing, config, { verbose: true });
+    expect(out).toContain('✓ SEO003  Has <title>');
+  });
 });
