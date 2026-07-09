@@ -1151,8 +1151,8 @@ import type { DashboardSnapshot } from './snapshot.js';
 function embedJson(value: unknown): string {
   return JSON.stringify(value)
     .replace(/</g, '\\u003c')
-    .replace(/ /g, '\\u2028')
-    .replace(/ /g, '\\u2029');
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029');
 }
 
 /** The dashboard's shell HTML: empty sidebar/detail/topbar containers, the stylesheet, the
@@ -1179,7 +1179,9 @@ export function renderDashboardShell(snapshot: DashboardSnapshot): string {
 Run: `pnpm --filter @svelte-vitals/vite test -- ui-dashboard`
 Expected: PASS.
 
-Manually double-check the `</script>`-escaping test by eye — open `packages/vite/src/ui/dashboard.ts` and confirm the `replace` chain reads `.replace(/</g, '\\u003c')` etc. exactly (two backslash characters before `u003c` in the source, i.e. a JS string literal whose runtime value is the six characters `<`). If a stray single backslash slipped in while writing the file, the escaping test in Step 3 above would still numerically catch it (the assertion decodes the embedded JSON back and compares), but fix the source to match this exact form regardless for readability.
+Manually double-check the `</script>`-escaping test by eye — open `packages/vite/src/ui/dashboard.ts` and confirm the `replace` chain's *replacement strings* each carry two literal backslash characters before `u003c`/`u2028`/`u2029` (a JS string literal whose runtime value is the six-character escape text, e.g. `<`). If a stray single backslash slipped in while writing the file, the escaping test in Step 3 above would still numerically catch it (the assertion decodes the embedded JSON back and compares), but fix the source to match this exact form regardless for readability.
+
+**Known pitfall:** the U+2028/U+2029 *regex patterns* must use a standard single-backslash regex escape (backslash, lowercase u, then the four hex digits of the codepoint) to match those characters — a raw, unescaped U+2028/U+2029 character typed directly inside a `/…/` regex literal is a `SyntaxError: Unterminated regular expression` in ECMAScript (regex literals disallow raw `LineTerminator` characters, unlike string/template literals). This is different from the *replacement strings* two lines below, which need the doubled backslash described above. If typechecking or running this file throws that specific syntax error, this is almost certainly the cause — check that the regex patterns use the escaped form, not a literal line-separator character.
 
 - [ ] **Step 5: Commit**
 
