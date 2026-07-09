@@ -128,6 +128,33 @@ describe('createStore', () => {
     s.set('/a', [r('SEO001', '/a')]);
     expect(s.badges()).toEqual({ '/a': 'measured' });
   });
+
+  it('setAnalyzing/isAnalyzing round-trips and notifies subscribers', () => {
+    const s = createStore();
+    const fn = vi.fn();
+    s.subscribe(fn);
+    expect(s.isAnalyzing()).toBe(false);
+    s.setAnalyzing(true);
+    expect(s.isAnalyzing()).toBe(true);
+    expect(fn).toHaveBeenCalledTimes(1);
+    s.setAnalyzing(false);
+    expect(s.isAnalyzing()).toBe(false);
+    expect(fn).toHaveBeenCalledTimes(2);
+  });
+
+  it('sequence() strictly increases across set/setStatic/setAnalyzing', () => {
+    const s = createStore();
+    const seq0 = s.sequence();
+    s.set('/a', [r('SEO001', '/a')]);
+    const seq1 = s.sequence();
+    expect(seq1).toBeGreaterThan(seq0);
+    s.setStatic([r('SEO002', '/b')]);
+    const seq2 = s.sequence();
+    expect(seq2).toBeGreaterThan(seq1);
+    s.setAnalyzing(true);
+    const seq3 = s.sequence();
+    expect(seq3).toBeGreaterThan(seq2);
+  });
 });
 
 describe('composeSnapshot / composeBadges (pure)', () => {

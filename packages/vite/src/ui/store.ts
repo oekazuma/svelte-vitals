@@ -13,10 +13,15 @@ export interface FindingsStore {
   set(route: string, results: Result[]): void;
   /** Replace the whole static (whole-project) layer and notify subscribers. */
   setStatic(results: Result[]): void;
+  /** Mark whether a whole-project analysis run is currently in flight; participates in subscribe/notify like a findings change. */
+  setAnalyzing(analyzing: boolean): void;
+  isAnalyzing(): boolean;
   /** Composed findings across both layers — feed straight into buildJsonReport. */
   snapshot(): Result[];
   /** Per-route provenance for the dashboard's badges: 'measured' (live) or 'static'. */
   badges(): Record<string, RouteBadge>;
+  /** Monotonically increasing counter, bumped once per notify() — lets consumers discard stale fetches. */
+  sequence(): number;
   /** Subscribe to change notifications; returns an unsubscribe function. */
   subscribe(fn: () => void): () => void;
 }
@@ -68,8 +73,11 @@ export function createStore(): FindingsStore {
   let staticResults: Result[] = [];
   const liveByRoute = new Map<string, Result[]>();
   const subs = new Set<() => void>();
+  let analyzing = false;
+  let seq = 0;
 
   function notify(): void {
+    seq += 1;
     for (const fn of subs) fn();
   }
 
@@ -85,11 +93,21 @@ export function createStore(): FindingsStore {
       staticResults = results;
       notify();
     },
+    setAnalyzing(next) {
+      analyzing = next;
+      notify();
+    },
+    isAnalyzing() {
+      return analyzing;
+    },
     snapshot() {
       return composeSnapshot(staticResults, liveByRoute);
     },
     badges() {
       return composeBadges(staticResults, liveByRoute);
+    },
+    sequence() {
+      return seq;
     },
     subscribe(fn) {
       subs.add(fn);

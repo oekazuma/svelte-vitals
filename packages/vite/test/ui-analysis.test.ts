@@ -144,4 +144,61 @@ describe('createAnalysisRunner', () => {
       rmSync(emptyDir, { recursive: true, force: true });
     }
   });
+
+  it('calls onStatusChange(true) then onStatusChange(false) around a successful run', async () => {
+    const analyze = vi.fn<AnalyzeFn>(async () => ({ results: [] }));
+    const onStatusChange = vi.fn();
+    const runner = createAnalysisRunner({
+      root: '/proj',
+      analyze,
+      onResults: vi.fn(),
+      onError: vi.fn(),
+      onStatusChange
+    });
+    runner.start();
+    await vi.waitFor(() => expect(onStatusChange).toHaveBeenLastCalledWith(false));
+    expect(onStatusChange.mock.calls.map((c) => c[0])).toEqual([true, false]);
+  });
+
+  it('calls onStatusChange(false) even when the run fails', async () => {
+    const analyze = vi.fn<AnalyzeFn>(async () => {
+      throw new Error('boom');
+    });
+    const onStatusChange = vi.fn();
+    const runner = createAnalysisRunner({
+      root: '/proj',
+      analyze,
+      onResults: vi.fn(),
+      onError: vi.fn(),
+      onStatusChange
+    });
+    runner.start();
+    await vi.waitFor(() => expect(onStatusChange).toHaveBeenLastCalledWith(false));
+  });
+
+  it('re-fires onStatusChange(true) when a coalesced follow-up starts', async () => {
+    let resolveFirst!: (v: { results: Result[] }) => void;
+    const analyze = vi
+      .fn<AnalyzeFn>()
+      .mockImplementationOnce(() => new Promise((resolve) => (resolveFirst = resolve)))
+      .mockImplementation(async () => ({ results: [] }));
+    const onStatusChange = vi.fn();
+    const runner = createAnalysisRunner({
+      root: '/proj',
+      analyze,
+      onResults: vi.fn(),
+      onError: vi.fn(),
+      onStatusChange,
+      debounceMs: 10
+    });
+
+    runner.start();
+    await vi.waitFor(() => expect(analyze).toHaveBeenCalledTimes(1));
+    runner.notifyChange('a.svelte');
+    await vi.advanceTimersByTimeAsync(20);
+
+    resolveFirst({ results: [] });
+    await vi.waitFor(() => expect(analyze).toHaveBeenCalledTimes(2));
+    expect(onStatusChange.mock.calls.map((c) => c[0])).toEqual([true, false, true, false]);
+  });
 });

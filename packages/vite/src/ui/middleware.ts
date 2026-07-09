@@ -2,7 +2,8 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { ViteDevServer } from 'vite';
 import type { Config, Result } from '@svelte-vitals/core';
 import type { FindingsStore } from './store.js';
-import { renderDashboard } from './serve.js';
+import { buildSnapshot } from './snapshot.js';
+import { renderDashboardShell } from './dashboard.js';
 import { isLoopbackHost, isLoopbackOrigin } from '../loopback.js';
 
 const SEVERITIES = new Set(['critical', 'warning', 'info']);
@@ -133,10 +134,22 @@ export function installUiMiddleware(
       return;
     }
 
+    if (url.startsWith('/data.json')) {
+      try {
+        const snapshot = buildSnapshot(store, config, { version, coreVersion });
+        res.setHeader('Content-Type', 'application/json');
+        res.end(JSON.stringify(snapshot));
+      } catch {
+        res.statusCode = 500;
+        res.end('{}');
+      }
+      return;
+    }
+
     // Last line of defense that validated data should never reach: if the renderer
     // throws anyway, return a plain-text 500 and never take down the dev server.
     try {
-      const html = renderDashboard(store.snapshot(), config, { version, coreVersion }, store.badges());
+      const html = renderDashboardShell(buildSnapshot(store, config, { version, coreVersion }));
       res.setHeader('Content-Type', 'text/html');
       res.end(html);
     } catch {
