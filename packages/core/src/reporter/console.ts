@@ -47,6 +47,8 @@ export interface ConsoleReportOptions {
   palette?: Palette;
   /** Show every failing/passed/route entry uncapped and ungrouped, exactly as before this option existed. Default false (capped, grouped by rule). */
   verbose?: boolean;
+  /** Internal: set by the CLI when it has already animated the Health header itself — skips the brand/Health/category lines, returning only the findings/passed/by-route body. Default false. */
+  omitHeader?: boolean;
 }
 
 function scoreLine(p: Palette, label: string, { score, scoreModel }: ScoreResult): string {
@@ -105,15 +107,18 @@ export function formatConsoleReport(results: Result[], config: Config, options: 
   const summary = summarize(results, config);
   const { health, categories: byCat } = computeHealth(results, config);
   const present = CATEGORY_ORDER.filter((c) => byCat[c] !== undefined);
-  const header: string[] = [
-    p.bold(`Svelte Vitals  ·  ${options.mode ?? 'static mode'}`),
-    '',
-    `${p.bold('Health:')} ${scoreColor(p, health)(`${health}/100`)}`
-  ];
-  for (const c of present) {
-    header.push(scoreLine(p, CATEGORY_LABEL[c] ?? c, byCat[c]!));
+  const lines: string[] = [];
+  if (!options.omitHeader) {
+    lines.push(
+      p.bold(`Svelte Vitals  ·  ${options.mode ?? 'static mode'}`),
+      '',
+      `${p.bold('Health:')} ${scoreColor(p, health)(`${health}/100`)}`
+    );
+    for (const c of present) {
+      lines.push(scoreLine(p, CATEGORY_LABEL[c] ?? c, byCat[c]!));
+    }
   }
-  const lines: string[] = [...header, ''];
+  lines.push('');
 
   const SEVERITY_COLOR: Record<Severity, (s: string) => string> = {
     critical: (s) => p.red(p.bold(s)),

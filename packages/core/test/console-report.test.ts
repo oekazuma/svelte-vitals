@@ -260,4 +260,18 @@ describe('formatConsoleReport', () => {
     const out = formatConsoleReport(passing, config, { verbose: true });
     expect(out).toContain('✓ SEO003  Has <title>');
   });
+
+  it('omitHeader:true skips the brand/Health/category lines, returning only the body', () => {
+    const out = formatConsoleReport(results, config, { omitHeader: true });
+    expect(out).not.toContain('Svelte Vitals');
+    expect(out).not.toContain('Health:');
+    expect(out).not.toContain('SEO Score:');
+    expect(out).toContain('Critical (1)'); // body content still present
+  });
+
+  it('omitHeader is false by default — header still prints', () => {
+    const out = formatConsoleReport(results, config);
+    expect(out).toContain('Svelte Vitals');
+    expect(out).toContain('Health:');
+  });
 });
