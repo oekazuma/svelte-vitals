@@ -95,7 +95,7 @@ jobs:
   svelte-vitals:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
       - uses: oekazuma/svelte-vitals/packages/action@<sha> # @svelte-vitals/action@<version>

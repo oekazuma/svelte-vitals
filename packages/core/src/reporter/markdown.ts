@@ -25,6 +25,15 @@ function locationOf(issue: { location?: string; line?: number }, route: string |
   return route ?? '-';
 }
 
+/**
+ * `title` alone is often a terse label ("Missing robots.txt") — append `recommendation` (the
+ * actionable fix, when present) so a reader doesn't have to open the full report to learn what
+ * to do. Mirrors `messageText` (reporter/shared.ts), which does the same for `Result.message`.
+ */
+function messageWithRecommendation(issue: { title: string; recommendation?: string }): string {
+  return issue.recommendation ? `${issue.title} ${issue.recommendation}` : issue.title;
+}
+
 function flattenFindings(report: JsonReport): FlatFinding[] {
   const findings: FlatFinding[] = [];
   for (const r of report.routes) {
@@ -33,7 +42,7 @@ function flattenFindings(report: JsonReport): FlatFinding[] {
         severity: issue.severity,
         id: issue.id,
         location: locationOf(issue, r.route),
-        message: issue.title
+        message: messageWithRecommendation(issue)
       });
     }
   }
@@ -42,7 +51,7 @@ function flattenFindings(report: JsonReport): FlatFinding[] {
       severity: issue.severity,
       id: issue.id,
       location: locationOf(issue, undefined),
-      message: issue.title
+      message: messageWithRecommendation(issue)
     });
   }
   // Most severe first (stable within a severity) so truncation at MAX_FINDINGS keeps the
