@@ -1,0 +1,20 @@
+name: 'svelte-vitals'
+description: 'Static SvelteKit code-health checks (SEO, Performance, Correctness, Security, Architecture) — PR annotations, job summary, and a sticky summary comment.'
+inputs:
+  path:
+    description: 'Project directory to analyze'
+    required: false
+    default: '.'
+  diff:
+    description: 'Scope findings to files changed vs this git ref (e.g. origin/main)'
+    required: false
+  baseline:
+    description: 'Report only findings not already present at this git ref'
+    required: false
+  github-token:
+    description: 'Token used to read/post/update the sticky PR comment'
+    required: false
+    default: ${{ github.token }}
+runs:
+  using: 'node24'
+  main: 'dist/index.js'
