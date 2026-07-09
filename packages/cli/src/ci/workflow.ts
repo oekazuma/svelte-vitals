@@ -1,5 +1,10 @@
 export const WORKFLOW_PATH = '.github/workflows/svelte-vitals.yml';
 
+// Kept in lockstep with the pin this repo's own workflows use (.github/workflows/ci.yml,
+// release.yml, deploy-docs.yml) — bump both together when actions/checkout cuts a new release.
+const CHECKOUT_SHA = '9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0';
+const CHECKOUT_VERSION = 'v7.0.0';
+
 export interface WorkflowPlan {
   status: 'created' | 'exists' | 'updated';
   content?: string;
@@ -22,7 +27,9 @@ export function planWorkflowWrite(existing: string | undefined, force: boolean):
  * replaces the old ~60-line inline template; see plans/020-reusable-github-action.md).
  * The action itself owns annotations, the job summary, the sticky PR comment, and the
  * gate — `ci install` only scaffolds the call, pinned to a commit SHA with a same-line
- * version comment (matching this repo's own `actions/checkout@<sha> # v4` convention).
+ * version comment. `actions/checkout` is pinned the same way, matching this repo's own
+ * `actions/checkout@<sha> # vX.Y.Z` convention (.github/workflows/ci.yml etc.) rather than
+ * a floating tag.
  */
 export function buildWorkflowYaml(opts: { actionSha: string; actionVersion: string }): string {
   const { actionSha, actionVersion } = opts;
@@ -42,7 +49,7 @@ export function buildWorkflowYaml(opts: { actionSha: string; actionVersion: stri
     '  svelte-vitals:',
     '    runs-on: ubuntu-latest',
     '    steps:',
-    '      - uses: actions/checkout@v4',
+    `      - uses: actions/checkout@${CHECKOUT_SHA} # ${CHECKOUT_VERSION}`,
     '        with:',
     '          fetch-depth: 0',
     `      - uses: oekazuma/svelte-vitals/packages/action@${actionSha} # @svelte-vitals/action@${actionVersion}`,

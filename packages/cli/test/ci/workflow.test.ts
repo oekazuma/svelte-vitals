@@ -34,6 +34,11 @@ describe('buildWorkflowYaml', () => {
     expect(yaml).toContain(`uses: oekazuma/svelte-vitals/packages/action@${sha} # @svelte-vitals/action@1.2.3`);
   });
 
+  it('pins actions/checkout to a commit SHA with a same-line version comment, not a floating tag', () => {
+    expect(yaml).toMatch(/uses: actions\/checkout@[0-9a-f]{40} # v\d+\.\d+\.\d+/);
+    expect(yaml).not.toContain('actions/checkout@v4');
+  });
+
   it('passes diff and baseline scoped to the PR base ref', () => {
     expect(yaml).toContain('diff: origin/${{ github.base_ref }}');
     expect(yaml).toContain('baseline: origin/${{ github.base_ref }}');

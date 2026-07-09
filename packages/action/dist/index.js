@@ -56899,6 +56899,9 @@ function locationOf(issue2, route) {
   if (issue2.location) return issue2.line !== void 0 ? `${issue2.location}:${issue2.line}` : issue2.location;
   return route ?? "-";
 }
+function messageWithRecommendation(issue2) {
+  return issue2.recommendation ? `${issue2.title} ${issue2.recommendation}` : issue2.title;
+}
 function flattenFindings(report2) {
   const findings = [];
   for (const r of report2.routes) {
@@ -56907,7 +56910,7 @@ function flattenFindings(report2) {
         severity: issue2.severity,
         id: issue2.id,
         location: locationOf(issue2, r.route),
-        message: issue2.title
+        message: messageWithRecommendation(issue2)
       });
     }
   }
@@ -56916,7 +56919,7 @@ function flattenFindings(report2) {
       severity: issue2.severity,
       id: issue2.id,
       location: locationOf(issue2, void 0),
-      message: issue2.title
+      message: messageWithRecommendation(issue2)
     });
   }
   return findings.map((f, index) => ({ f, index })).sort((a, b) => SEVERITY_RANK2[a.f.severity] - SEVERITY_RANK2[b.f.severity] || a.index - b.index).map(({ f }) => f);

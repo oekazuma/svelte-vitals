@@ -102,6 +102,21 @@ describe('formatMarkdownReport', () => {
     expect(out).toContain('…and 10 more (run `npx svelte-vitals` locally for the full report)');
   });
 
+  it('appends the recommendation to the message cell when present, for actionable context', () => {
+    const results: Result[] = [
+      {
+        id: 'SEO006',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'Missing robots.txt',
+        recommendation: 'Add static/robots.txt or a src/routes/robots.txt/+server endpoint.'
+      }
+    ];
+    const out = formatMarkdownReport(results, config, { version: '1.0.0' });
+    expect(out).toContain('Missing robots.txt Add static/robots.txt or a src/routes/robots.txt/+server endpoint.');
+  });
+
   it('escapes pipes and newlines inside message cells', () => {
     const results: Result[] = [
       {
