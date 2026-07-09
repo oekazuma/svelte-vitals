@@ -77,17 +77,38 @@ describe('formatConsoleReport', () => {
   });
 
   it('--by-route with verbose:true shows every route, still worst-first', () => {
-    const manyRoutes: Result[] = Array.from({ length: 12 }, (_, i) => ({
+    // Six routes with a critical failing finding (low score), named so they sort AFTER
+    // the good routes alphabetically (`/z-bad*`). Seven routes with only passing findings
+    // (score 100), named so they sort BEFORE the bad ones alphabetically (`/a-good*`).
+    // Together that's 13 routes — more than the default 10-route cap — so this also
+    // confirms the cap is truly lifted under verbose while order stays worst-first
+    // throughout, not just alphabetical (which this fixture would otherwise be
+    // indistinguishable from, since same-score routes fall back to a locale sort).
+    const badRoutes: Result[] = Array.from({ length: 6 }, (_, i) => ({
+      id: 'SEO001',
+      severity: 'critical' as const,
+      detection: { presence: 'none', value: 'absent' } as const,
+      route: `/z-bad${i}`,
+      message: 'Missing <title>'
+    }));
+    const goodRoutes: Result[] = Array.from({ length: 7 }, (_, i) => ({
       id: 'SEO003',
       severity: 'info' as const,
       detection: { presence: 'own', value: 'static' } as const,
-      route: `/r${i}`,
+      route: `/a-good${i}`,
       message: 'Has <title>'
     }));
+    const manyRoutes = [...badRoutes, ...goodRoutes];
     const out = formatConsoleReport(manyRoutes, config, { byRoute: true, verbose: true });
     const byRouteSection = out.split('By route')[1]!;
-    for (let i = 0; i < 12; i++) expect(byRouteSection).toContain(`/r${i}`);
+    for (const { route } of manyRoutes) expect(byRouteSection).toContain(route);
     expect(byRouteSection).not.toContain('…and');
+    // Every low-score '/z-bad*' route must appear before every high-score '/a-good*'
+    // route, even though 'a' sorts before 'z' alphabetically — this is the assertion
+    // that would fail if verbose reverted to alphabetical order.
+    const worstBadIndex = Math.max(...badRoutes.map((r) => byRouteSection.indexOf(r.route!)));
+    const bestGoodIndex = Math.min(...goodRoutes.map((r) => byRouteSection.indexOf(r.route!)));
+    expect(worstBadIndex).toBeLessThan(bestGoodIndex);
   });
   it('adds a Performance score section when performance findings exist', () => {
     const withPerf: Result[] = [
