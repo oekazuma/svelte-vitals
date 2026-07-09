@@ -143,6 +143,14 @@ svelte-vitals --diff origin/main --baseline origin/main --fail-on warning   # re
 
 Print a per-route score breakdown in the console output.
 
+### `--verbose`
+
+Show every finding uncapped and ungrouped, matching the console output from before this option existed. By default, console output groups failures by rule (showing the top 5 rules per severity, each with one example location and an "…and N more" count), collapses the Passed section to a bare count, and caps `--by-route` to the 10 worst-scoring routes.
+
+### `--no-animation`
+
+Disable the Health-score reveal animation. The animation only ever plays on an interactive terminal with color enabled (never in CI, a piped/redirected output, or an AI-agent shell), so this flag is only needed to opt out of it specifically while still on an interactive terminal.
+
 ### `--rules <ids>`
 
 Enable only the specified rules; all others are disabled. Accepts a comma-separated list of rule IDs.
