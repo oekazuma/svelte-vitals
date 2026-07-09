@@ -63,12 +63,26 @@ dependency-free client-rendered dashboard:
 This is additive: `packages/core` is untouched, so the CLI's static report
 and the MCP JSON path have zero blast radius.
 
+**Tradeoff, stated explicitly:** this abandons `2026-06-23-vite-live-ui-design.md`'s
+core value that the live UI and the CLI's `--reporter html` are pixel-identical
+because they share one renderer. The new dashboard reimplements finding
+cards, the score gauge, category bars, and severity clamping in
+`dashboard-script.ts`/`dashboard-style.ts` instead of reusing core's
+`render*` functions. That's an accepted cost — the two surfaces are already
+free to diverge in the whole-project-analysis spec (badges are dashboard-only)
+— but it means a new `Issue`/`JsonReport` field or a severity-handling fix
+must be applied in **two places** (`packages/core/src/reporter/html.ts` and
+`packages/vite/src/ui/dashboard-script.ts`) going forward, not one.
+
 ## Data & events
 
 - `packages/vite/src/ui/store.ts` gains:
   - `setAnalyzing(analyzing: boolean): void`
   - `isAnalyzing(): boolean`
-  - Both participate in the existing `subscribe`/`notify` mechanism — setting
+  - `sequence(): number` — an internal counter incremented on every
+    `notify()` call (i.e. by `set`, `setStatic`, and the new `setAnalyzing`
+    alike), exposed for the payload's `sequence` field below.
+  - All participate in the existing `subscribe`/`notify` mechanism — setting
     analyzing state fires the same `update` SSE event as a findings change.
 - `packages/vite/src/ui/analysis.ts`'s `AnalysisRunnerOptions` gains an
   optional `onStatusChange?(analyzing: boolean): void`, called with `true`
@@ -88,17 +102,74 @@ and the MCP JSON path have zero blast radius.
     report: JsonReport; // from buildJsonReport — unchanged
     badges: Record<string, 'measured' | 'static'>;
     analyzing: boolean;
+    sequence: number; // monotonically increasing per store notify
     meta: { version: string; coreVersion?: string };
   }
   ```
+- **Notify ordering.** `runOnce` in `analysis.ts` calls `opts.onResults(results)`
+  inside the `try` block, before the `finally` where `onStatusChange(false)`
+  would fire — so `store.setStatic(...)` (→ notify) always happens before
+  `store.setAnalyzing(false)` (→ notify) for the same run. Consumers therefore
+  never observe `analyzing: false` paired with a stale (pre-run) snapshot.
+  This ordering falls out of `analysis.ts`'s existing control flow and needs
+  no new logic — only the `plugin.ts` wiring (`onResults` → `store.setStatic`,
+  `onStatusChange` → `store.setAnalyzing`) has to preserve it, i.e. don't
+  reorder or batch these two calls.
+- **Sequence number guards out-of-order fetches.** Because a single analysis
+  run can fire two or three `update` events in quick succession
+  (`setAnalyzing(true)` → `setStatic` → `setAnalyzing(false)`), the client may
+  have more than one `GET /data.json` in flight at once, and network jitter
+  can resolve them out of order. `store` increments an internal counter on
+  every `notify()` and stamps it onto `DashboardSnapshot.sequence`; the client
+  tracks the highest `sequence` it has rendered and discards any response
+  with a lower one.
+- **SSE reconnection resync.** `EventSource` auto-reconnects on a dropped
+  connection (dev-server restart, laptop sleep/wake) but replays no missed
+  events. The client re-fetches `/data.json` not only on `update` but also on
+  the `EventSource`'s `open` event (which also fires on the initial
+  connection and every reconnect) — cheap and idempotent given the sequence
+  guard above, and it's what makes the topbar's connected/reconnecting dot
+  meaningful rather than cosmetic.
+
+## Security: embedded JSON and client-side rendering
+
+Finding content (`location`, `recommendation`, `fix.snippet`, route paths)
+originates from analyzed source and, for live results, from rendered `<head>`
+values ingested at `POST /ingest` — `middleware.ts`'s `isResultLike` (line 23)
+validates *types* only, not content, so any of these fields can legitimately
+contain `<`, `</script>`, or similar. Two places need explicit treatment that
+`buildHtmlDocument` already handles for the CLI report but the new dashboard
+must reimplement, since it no longer goes through `escapeHtml`/`safeHref`:
+
+- **Embedding the snapshot as `<script type="application/json">`.** After
+  `JSON.stringify(snapshot)`, replace every less-than character (codepoint
+  U+003C) in the result with its 6-character `\uXXXX` JSON escape form —
+  this blocks a `</script>` breakout — and do the same for U+2028/U+2029
+  (which some environments still choke on inside inline `<script>` content)
+  before writing the tag. Apply this once, in the shared function that
+  produces the shell HTML and the `/data.json` body — the latter doesn't
+  strictly need it (it's served as `application/json`, not inlined), but
+  using one code path avoids a forgotten special case.
+- **Rendering finding fields into the DOM client-side.** Build nodes via
+  `textContent`/`setAttribute`, never by interpolating finding strings into
+  an `innerHTML` template — this is the client-JS equivalent of core's
+  `escapeHtml`. For `docsUrl`, reimplement `safeHref`'s http(s)-only check
+  (`packages/core/src/reporter/html.ts` line 33) before setting `href`, since
+  the dashboard no longer runs the value through core's renderer. The
+  syntax-highlighting tokenizer must escape token text the same way — it
+  operates on `fix.snippet`, which is unescaped source-like text.
 
 ## Layout
 
 **Sidebar (left; collapses to a drawer under 640px, same breakpoint
 philosophy as the existing responsive rule):**
-- Search input — case-insensitive substring match against route path and,
-  for the currently rendered set, finding rule id / title. Matching is
-  client-side only (no server round trip).
+- Search input — case-insensitive substring match, filtering **which routes
+  appear in the sidebar list** (not the detail pane's contents). A route
+  matches if its path matches, or if any of its findings' rule id/title/
+  location matches. Selecting a route from a filtered list still shows all
+  of that route's findings in the detail pane — narrowing the detail pane
+  itself remains the severity/category chips' job, kept separate so the two
+  controls don't fight over what "filtered" means.
 - Sort control — Score (worst first) [default], Score (best first),
   Alphabetical, Most findings.
 - "Overview" entry (default selection).
@@ -122,6 +193,25 @@ philosophy as the existing responsive rule):**
 - SSE connection state (connected / reconnecting) — a small dot, mirroring
   `vitest --ui`'s watch-mode status.
 - Dark-mode toggle.
+
+**Selection persistence.** The selected route (or "Overview") is reflected in
+`location.hash` (`#overview` or `#route/<slug>`, reusing the slugging scheme
+from `packages/core/src/reporter/html.ts`'s `slug()`, reimplemented
+client-side since that helper isn't exported). On load, the client selects
+from the hash if present and valid, else defaults to Overview. This is a
+small addition on top of the client-state selection model already required
+for live updates, and it's what keeps a reload or a shared link from losing
+the user's place — a gap the current accordion layout doesn't have
+(browser-native anchor scrolling to a route's `id`) and the new layout would
+otherwise introduce.
+
+**Baseline accessibility.** The sidebar route list and Overview entry get
+list semantics and `aria-current`/`aria-selected` on the active item; focus
+states follow the existing filter chips' `:focus-visible` treatment
+(`packages/core/src/reporter/html.ts`'s `STYLE`, `.chip:focus-visible`). Full
+screen-reader/a11y audit of the new layout is out of scope for this pass (see
+Non-goals) — this is the same baseline the existing chips already meet, not a
+new accessibility initiative.
 
 ## The three deferred items
 
@@ -163,12 +253,17 @@ philosophy as the existing responsive rule):**
   as-is for the new route).
 - `serve.ts` — superseded by `dashboard.ts` for the UI's own HTML; whether
   it's deleted or kept as a thin re-export is an implementation-time call
-  (no design impact either way).
+  (no design impact either way). If deleted, `packages/vite/test/ui-serve.test.ts`
+  (which asserts on the old `LIVE_SCRIPT`-injection behavior per
+  `2026-06-23-vite-live-ui-design.md`'s test plan) is retired along with it;
+  its assertions are superseded by the new dashboard/snapshot tests below.
 
 ## Testing
 
-- **store:** unit tests for `setAnalyzing`/`isAnalyzing`, and that setting
-  analyzing state notifies subscribers the same way a findings change does.
+- **store:** unit tests for `setAnalyzing`/`isAnalyzing`, that setting
+  analyzing state notifies subscribers the same way a findings change does,
+  and that the snapshot's `sequence` strictly increases across `set`/
+  `setStatic`/`setAnalyzing` calls.
 - **analysis runner:** fake-timer test asserting `onStatusChange` fires
   `true` at the start of a run and `false` once it (and any coalesced
   follow-up) settles.
@@ -184,7 +279,8 @@ philosophy as the existing responsive rule):**
   manually against a fixture SvelteKit app (`pnpm --filter @svelte-vitals/vite dev`)
   before shipping — golden path (browse routes, confirm sidebar/detail sync)
   and edge cases (zero routes, all-passing project, dark mode + reduced
-  motion, narrow viewport drawer).
+  motion, narrow viewport drawer, a stopped/restarted dev server to confirm
+  the reconnect resync actually recovers the dashboard).
 
 ## Non-goals
 
@@ -201,6 +297,13 @@ philosophy as the existing responsive rule):**
   deferral, carried from `2026-07-08-dev-dashboard-whole-project-design.md`).
 - New SSE event types — the analyzing indicator rides the existing `update`
   event.
+- Showing passing (non-penalized) results. `JsonReport.routes[].issues` only
+  ever contains penalized findings (`packages/core/src/reporter/json.ts`,
+  the `isPenalized` filter) — the new dashboard shows the same set as today.
+  A "passed rules" view would need a `JsonReport` shape change and is a
+  separate follow-up.
+- Full accessibility audit / screen-reader testing of the new layout — only
+  the baseline parity described under Layout is in scope.
 
 ## Release
 
