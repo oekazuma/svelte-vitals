@@ -136,7 +136,7 @@ must be applied in **two places** (`packages/core/src/reporter/html.ts` and
 Finding content (`location`, `recommendation`, `fix.snippet`, route paths)
 originates from analyzed source and, for live results, from rendered `<head>`
 values ingested at `POST /ingest` — `middleware.ts`'s `isResultLike` (line 23)
-validates *types* only, not content, so any of these fields can legitimately
+validates _types_ only, not content, so any of these fields can legitimately
 contain `<`, `</script>`, or similar. Two places need explicit treatment that
 `buildHtmlDocument` already handles for the CLI report but the new dashboard
 must reimplement, since it no longer goes through `escapeHtml`/`safeHref`:
@@ -163,6 +163,7 @@ must reimplement, since it no longer goes through `escapeHtml`/`safeHref`:
 
 **Sidebar (left; collapses to a drawer under 640px, same breakpoint
 philosophy as the existing responsive rule):**
+
 - Search input — case-insensitive substring match, filtering **which routes
   appear in the sidebar list** (not the detail pane's contents). A route
   matches if its path matches, or if any of its findings' rule id/title/
@@ -177,6 +178,7 @@ philosophy as the existing responsive rule):**
   and the existing `measured`/`static` badge. Click to select.
 
 **Detail pane (right):**
+
 - "Overview" selected → the existing hero gauge, per-category score bars,
   and site-wide checks (siteIssues) — the same content as today's top
   section, just relocated.
@@ -188,6 +190,7 @@ philosophy as the existing responsive rule):**
   selected route).
 
 **Topbar:**
+
 - Brand, version, core version (unchanged content).
 - "Analyzing…" indicator, visible only while `analyzing` is true.
 - SSE connection state (connected / reconnecting) — a small dot, mirroring

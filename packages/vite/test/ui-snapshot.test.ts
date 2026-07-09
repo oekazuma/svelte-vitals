@@ -21,9 +21,9 @@ describe('buildSnapshot', () => {
     store.setAnalyzing(true);
     const snapshot = buildSnapshot(store, defineConfig({}), { version: '9.9.9', coreVersion: '0.21.0' });
 
-    expect(snapshot.report.routes.some((route) => route.route === '/a' && route.issues.some((i) => i.id === 'SEO001'))).toBe(
-      true
-    );
+    expect(
+      snapshot.report.routes.some((route) => route.route === '/a' && route.issues.some((i) => i.id === 'SEO001'))
+    ).toBe(true);
     expect(snapshot.badges).toEqual({ '/a': 'static' });
     expect(snapshot.analyzing).toBe(true);
     expect(snapshot.sequence).toBe(store.sequence());

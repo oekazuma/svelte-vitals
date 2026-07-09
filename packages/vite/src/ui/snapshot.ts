@@ -20,8 +20,7 @@ type Issue = JsonReport['routes'][number]['issues'][number];
 function sanitizeDocsUrl(issue: Issue): Issue {
   if (issue.docsUrl === undefined) return issue;
   if (safeHref(issue.docsUrl) !== null) return issue;
-  const { docsUrl: _drop, ...rest } = issue;
-  return rest as Issue;
+  return { ...issue, docsUrl: undefined };
 }
 
 function sanitizeReport(report: JsonReport): JsonReport {

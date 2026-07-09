@@ -44,10 +44,12 @@ Read these before starting — every task below assumes this shape:
 ### Task 1: Store — analyzing flag and sequence counter
 
 **Files:**
+
 - Modify: `packages/vite/src/ui/store.ts`
 - Test: `packages/vite/test/ui-store.test.ts`
 
 **Interfaces:**
+
 - Consumes: nothing new.
 - Produces: `FindingsStore.setAnalyzing(analyzing: boolean): void`, `FindingsStore.isAnalyzing(): boolean`, `FindingsStore.sequence(): number`. `sequence()` returns a counter incremented once per `notify()` call (i.e. by `set`, `setStatic`, and `setAnalyzing` alike). Task 3 depends on these three methods.
 
@@ -56,32 +58,32 @@ Read these before starting — every task below assumes this shape:
 Add these `it` blocks inside the existing `describe('createStore', ...)` block in `packages/vite/test/ui-store.test.ts` (append after the last existing `it`, before the closing `});` of that `describe`):
 
 ```ts
-  it('setAnalyzing/isAnalyzing round-trips and notifies subscribers', () => {
-    const s = createStore();
-    const fn = vi.fn();
-    s.subscribe(fn);
-    expect(s.isAnalyzing()).toBe(false);
-    s.setAnalyzing(true);
-    expect(s.isAnalyzing()).toBe(true);
-    expect(fn).toHaveBeenCalledTimes(1);
-    s.setAnalyzing(false);
-    expect(s.isAnalyzing()).toBe(false);
-    expect(fn).toHaveBeenCalledTimes(2);
-  });
+it('setAnalyzing/isAnalyzing round-trips and notifies subscribers', () => {
+  const s = createStore();
+  const fn = vi.fn();
+  s.subscribe(fn);
+  expect(s.isAnalyzing()).toBe(false);
+  s.setAnalyzing(true);
+  expect(s.isAnalyzing()).toBe(true);
+  expect(fn).toHaveBeenCalledTimes(1);
+  s.setAnalyzing(false);
+  expect(s.isAnalyzing()).toBe(false);
+  expect(fn).toHaveBeenCalledTimes(2);
+});
 
-  it('sequence() strictly increases across set/setStatic/setAnalyzing', () => {
-    const s = createStore();
-    const seq0 = s.sequence();
-    s.set('/a', [r('SEO001', '/a')]);
-    const seq1 = s.sequence();
-    expect(seq1).toBeGreaterThan(seq0);
-    s.setStatic([r('SEO002', '/b')]);
-    const seq2 = s.sequence();
-    expect(seq2).toBeGreaterThan(seq1);
-    s.setAnalyzing(true);
-    const seq3 = s.sequence();
-    expect(seq3).toBeGreaterThan(seq2);
-  });
+it('sequence() strictly increases across set/setStatic/setAnalyzing', () => {
+  const s = createStore();
+  const seq0 = s.sequence();
+  s.set('/a', [r('SEO001', '/a')]);
+  const seq1 = s.sequence();
+  expect(seq1).toBeGreaterThan(seq0);
+  s.setStatic([r('SEO002', '/b')]);
+  const seq2 = s.sequence();
+  expect(seq2).toBeGreaterThan(seq1);
+  s.setAnalyzing(true);
+  const seq3 = s.sequence();
+  expect(seq3).toBeGreaterThan(seq2);
+});
 ```
 
 - [ ] **Step 2: Run the tests to verify they fail**
@@ -181,10 +183,12 @@ git commit -m "feat(vite): add analyzing flag and sequence counter to the ui fin
 ### Task 2: Analysis runner — `onStatusChange` callback
 
 **Files:**
+
 - Modify: `packages/vite/src/ui/analysis.ts`
 - Test: `packages/vite/test/ui-analysis.test.ts`
 
 **Interfaces:**
+
 - Consumes: nothing new.
 - Produces: `AnalysisRunnerOptions.onStatusChange?(analyzing: boolean): void` — called `true` right before a run's `analyze()` call and `false` once that run settles (success or failure), including immediately before a coalesced follow-up run starts again. Task 8 wires this to `store.setAnalyzing`.
 
@@ -193,62 +197,62 @@ git commit -m "feat(vite): add analyzing flag and sequence counter to the ui fin
 Add these `it` blocks inside the existing `describe('createAnalysisRunner', ...)` block in `packages/vite/test/ui-analysis.test.ts` (the file already has `beforeEach(() => vi.useFakeTimers())` / `afterEach(() => vi.useRealTimers())` at module scope — reuse them):
 
 ```ts
-  it('calls onStatusChange(true) then onStatusChange(false) around a successful run', async () => {
-    const analyze = vi.fn<AnalyzeFn>(async () => ({ results: [] }));
-    const onStatusChange = vi.fn();
-    const runner = createAnalysisRunner({
-      root: '/proj',
-      analyze,
-      onResults: vi.fn(),
-      onError: vi.fn(),
-      onStatusChange
-    });
-    runner.start();
-    await vi.waitFor(() => expect(onStatusChange).toHaveBeenLastCalledWith(false));
-    expect(onStatusChange.mock.calls.map((c) => c[0])).toEqual([true, false]);
+it('calls onStatusChange(true) then onStatusChange(false) around a successful run', async () => {
+  const analyze = vi.fn<AnalyzeFn>(async () => ({ results: [] }));
+  const onStatusChange = vi.fn();
+  const runner = createAnalysisRunner({
+    root: '/proj',
+    analyze,
+    onResults: vi.fn(),
+    onError: vi.fn(),
+    onStatusChange
+  });
+  runner.start();
+  await vi.waitFor(() => expect(onStatusChange).toHaveBeenLastCalledWith(false));
+  expect(onStatusChange.mock.calls.map((c) => c[0])).toEqual([true, false]);
+});
+
+it('calls onStatusChange(false) even when the run fails', async () => {
+  const analyze = vi.fn<AnalyzeFn>(async () => {
+    throw new Error('boom');
+  });
+  const onStatusChange = vi.fn();
+  const runner = createAnalysisRunner({
+    root: '/proj',
+    analyze,
+    onResults: vi.fn(),
+    onError: vi.fn(),
+    onStatusChange
+  });
+  runner.start();
+  await vi.waitFor(() => expect(onStatusChange).toHaveBeenLastCalledWith(false));
+});
+
+it('re-fires onStatusChange(true) when a coalesced follow-up starts', async () => {
+  let resolveFirst!: (v: { results: Result[] }) => void;
+  const analyze = vi
+    .fn<AnalyzeFn>()
+    .mockImplementationOnce(() => new Promise((resolve) => (resolveFirst = resolve)))
+    .mockImplementation(async () => ({ results: [] }));
+  const onStatusChange = vi.fn();
+  const runner = createAnalysisRunner({
+    root: '/proj',
+    analyze,
+    onResults: vi.fn(),
+    onError: vi.fn(),
+    onStatusChange,
+    debounceMs: 10
   });
 
-  it('calls onStatusChange(false) even when the run fails', async () => {
-    const analyze = vi.fn<AnalyzeFn>(async () => {
-      throw new Error('boom');
-    });
-    const onStatusChange = vi.fn();
-    const runner = createAnalysisRunner({
-      root: '/proj',
-      analyze,
-      onResults: vi.fn(),
-      onError: vi.fn(),
-      onStatusChange
-    });
-    runner.start();
-    await vi.waitFor(() => expect(onStatusChange).toHaveBeenLastCalledWith(false));
-  });
+  runner.start();
+  await vi.waitFor(() => expect(analyze).toHaveBeenCalledTimes(1));
+  runner.notifyChange('a.svelte');
+  await vi.advanceTimersByTimeAsync(20);
 
-  it('re-fires onStatusChange(true) when a coalesced follow-up starts', async () => {
-    let resolveFirst!: (v: { results: Result[] }) => void;
-    const analyze = vi
-      .fn<AnalyzeFn>()
-      .mockImplementationOnce(() => new Promise((resolve) => (resolveFirst = resolve)))
-      .mockImplementation(async () => ({ results: [] }));
-    const onStatusChange = vi.fn();
-    const runner = createAnalysisRunner({
-      root: '/proj',
-      analyze,
-      onResults: vi.fn(),
-      onError: vi.fn(),
-      onStatusChange,
-      debounceMs: 10
-    });
-
-    runner.start();
-    await vi.waitFor(() => expect(analyze).toHaveBeenCalledTimes(1));
-    runner.notifyChange('a.svelte');
-    await vi.advanceTimersByTimeAsync(20);
-
-    resolveFirst({ results: [] });
-    await vi.waitFor(() => expect(analyze).toHaveBeenCalledTimes(2));
-    expect(onStatusChange.mock.calls.map((c) => c[0])).toEqual([true, false, true, false]);
-  });
+  resolveFirst({ results: [] });
+  await vi.waitFor(() => expect(analyze).toHaveBeenCalledTimes(2));
+  expect(onStatusChange.mock.calls.map((c) => c[0])).toEqual([true, false, true, false]);
+});
 ```
 
 - [ ] **Step 2: Run the tests to verify they fail**
@@ -281,31 +285,31 @@ export interface AnalysisRunnerOptions {
 And in `runOnce`:
 
 ```ts
-  async function runOnce(): Promise<void> {
-    if (stopped) return;
-    running = true;
-    opts.onStatusChange?.(true);
-    try {
-      const analyze = await getAnalyze();
-      const { results } = await analyze({
-        cwd: opts.root,
-        treatDynamicAs: opts.treatDynamicAs,
-        metaComponents: opts.metaComponents,
-        rules: opts.rules,
-        failOn: opts.failOn
-      });
-      if (!stopped) opts.onResults(results);
-    } catch (err) {
-      if (!stopped) opts.onError(err);
-    } finally {
-      running = false;
-      opts.onStatusChange?.(false);
-      if (!stopped && pending) {
-        pending = false;
-        void runOnce();
-      }
+async function runOnce(): Promise<void> {
+  if (stopped) return;
+  running = true;
+  opts.onStatusChange?.(true);
+  try {
+    const analyze = await getAnalyze();
+    const { results } = await analyze({
+      cwd: opts.root,
+      treatDynamicAs: opts.treatDynamicAs,
+      metaComponents: opts.metaComponents,
+      rules: opts.rules,
+      failOn: opts.failOn
+    });
+    if (!stopped) opts.onResults(results);
+  } catch (err) {
+    if (!stopped) opts.onError(err);
+  } finally {
+    running = false;
+    opts.onStatusChange?.(false);
+    if (!stopped && pending) {
+      pending = false;
+      void runOnce();
     }
   }
+}
 ```
 
 - [ ] **Step 4: Run the tests to verify they pass**
@@ -325,10 +329,12 @@ git commit -m "feat(vite): add onStatusChange callback to the ui analysis runner
 ### Task 3: Snapshot payload builder
 
 **Files:**
+
 - Create: `packages/vite/src/ui/snapshot.ts`
 - Test: `packages/vite/test/ui-snapshot.test.ts`
 
 **Interfaces:**
+
 - Consumes: `FindingsStore` (Task 1: `.snapshot()`, `.badges()`, `.isAnalyzing()`, `.sequence()`), `buildJsonReport`/`safeHref`/`type Config`/`type JsonReport` from `@svelte-vitals/core`.
 - Produces: `interface DashboardSnapshot { report: JsonReport; badges: Record<string, 'measured' | 'static'>; analyzing: boolean; sequence: number; meta: { version: string; coreVersion?: string } }` and `buildSnapshot(store: FindingsStore, config: Config, meta: { version: string; coreVersion?: string }): DashboardSnapshot`. Tasks 6 and 7 depend on this exact shape and function name.
 
@@ -360,9 +366,9 @@ describe('buildSnapshot', () => {
     store.setAnalyzing(true);
     const snapshot = buildSnapshot(store, defineConfig({}), { version: '9.9.9', coreVersion: '0.21.0' });
 
-    expect(snapshot.report.routes.some((route) => route.route === '/a' && route.issues.some((i) => i.id === 'SEO001'))).toBe(
-      true
-    );
+    expect(
+      snapshot.report.routes.some((route) => route.route === '/a' && route.issues.some((i) => i.id === 'SEO001'))
+    ).toBe(true);
     expect(snapshot.badges).toEqual({ '/a': 'static' });
     expect(snapshot.analyzing).toBe(true);
     expect(snapshot.sequence).toBe(store.sequence());
@@ -469,10 +475,12 @@ git commit -m "feat(vite): add DashboardSnapshot builder with server-side docsUr
 ### Task 4: Dashboard stylesheet
 
 **Files:**
+
 - Create: `packages/vite/src/ui/dashboard-style.ts`
 - Test: covered by Task 6's `ui-dashboard.test.ts` (this task has no standalone test — a hand-authored CSS string has nothing to unit-test on its own; Task 6 asserts on its presence inside the rendered shell).
 
 **Interfaces:**
+
 - Consumes: nothing.
 - Produces: `export const DASHBOARD_STYLE: string`. Task 6 embeds it in a `<style>` tag.
 
@@ -590,10 +598,12 @@ git commit -m "feat(vite): add dashboard stylesheet with dark-mode tokens"
 ### Task 5: Dashboard client script
 
 **Files:**
+
 - Create: `packages/vite/src/ui/dashboard-script.ts`
 - Test: covered by Task 6's `ui-dashboard.test.ts` (same reasoning as core's existing `SCRIPT`/`ui-serve.test.ts` precedent: an injected client script is tested by string-presence assertions on the rendered document, not by executing it in Node).
 
 **Interfaces:**
+
 - Consumes: the `DashboardSnapshot` JSON shape from Task 3 (read at runtime from `document.getElementById('svelte-vitals-data').textContent`), and the DOM ids `dv-topbar`/`dv-sidebar`/`dv-detail`/`dv-app`/`svelte-vitals-data` that Task 6's shell must provide.
 - Produces: `export const DASHBOARD_SCRIPT: string` — a self-invoking script (matching core's `SCRIPT` constant style: `function`/`var`, no build step). Fetches `GET /__svelte-vitals/data.json` on SSE `update` and on `EventSource`'s `open` event, guarding with the snapshot's `sequence` field. Persists dark-mode in `localStorage` under key `svelte-vitals-theme`. Reflects the selected route in `location.hash` as `overview` or `route/<slug>` using the same slugging scheme as core's `slug()` (`packages/core/src/reporter/html.ts` line 38), reimplemented locally since that helper isn't exported.
 
@@ -1024,7 +1034,7 @@ export const DASHBOARD_SCRIPT = `
 - [ ] **Step 2: Sanity-check the file**
 
 Run: `pnpm --filter @svelte-vitals/vite typecheck`
-Expected: no errors (a plain exported `string` constant — TypeScript does not parse the *contents* of the template literal, only that the literal itself is syntactically closed). If there's an error, it means a stray unescaped `` ` `` or `${` inside the template literal — check for any backtick or `${` accidentally left un-escaped in the JS source above (there should be none: the one nested template-literal-like backtick in the tokenizer, matching a JS backtick-quote character at runtime, is written as `'\`'` inside the outer template literal, and the two backslash-prefixed metacharacters `\\d`, `\\.`, `\\n`, `\\\\`, `\\/` are deliberate escapes so the *emitted* client script contains real regex/string escapes).
+Expected: no errors (a plain exported `string` constant — TypeScript does not parse the _contents_ of the template literal, only that the literal itself is syntactically closed). If there's an error, it means a stray unescaped `` ` `` or `${` inside the template literal — check for any backtick or `${` accidentally left un-escaped in the JS source above (there should be none: the one nested template-literal-like backtick in the tokenizer, matching a JS backtick-quote character at runtime, is written as `'\`'`inside the outer template literal, and the two backslash-prefixed metacharacters`\\d`, `\\.`, `\\n`, `\\\\`, `\\/` are deliberate escapes so the _emitted_ client script contains real regex/string escapes).
 
 - [ ] **Step 3: Commit**
 
@@ -1038,10 +1048,12 @@ git commit -m "feat(vite): add dashboard client script (search, sort, dark mode,
 ### Task 6: Dashboard shell renderer
 
 **Files:**
+
 - Create: `packages/vite/src/ui/dashboard.ts`
 - Test: Create `packages/vite/test/ui-dashboard.test.ts`
 
 **Interfaces:**
+
 - Consumes: `DashboardSnapshot` (Task 3), `DASHBOARD_STYLE` (Task 4), `DASHBOARD_SCRIPT` (Task 5).
 - Produces: `renderDashboardShell(snapshot: DashboardSnapshot): string`. Task 7 depends on this exact function name/signature.
 
@@ -1061,7 +1073,21 @@ const baseSnapshot: DashboardSnapshot = {
     weights: { seo: 1 },
     categories: { seo: { score: 80, scoreModel: 'weighted' as never } },
     summary: { critical: 0, warning: 0, info: 0, passed: 0, dynamic: 0 } as never,
-    routes: [{ route: '/a', score: 80, issues: [{ id: 'SEO001', category: 'seo', title: 'Missing <title>', severity: 'critical', detection: { presence: 'none', value: 'absent' } } as never] }],
+    routes: [
+      {
+        route: '/a',
+        score: 80,
+        issues: [
+          {
+            id: 'SEO001',
+            category: 'seo',
+            title: 'Missing <title>',
+            severity: 'critical',
+            detection: { presence: 'none', value: 'absent' }
+          } as never
+        ]
+      }
+    ],
     siteIssues: []
   },
   badges: { '/a': 'static' },
@@ -1179,9 +1205,9 @@ export function renderDashboardShell(snapshot: DashboardSnapshot): string {
 Run: `pnpm --filter @svelte-vitals/vite test -- ui-dashboard`
 Expected: PASS.
 
-Manually double-check the `</script>`-escaping test by eye — open `packages/vite/src/ui/dashboard.ts` and confirm the `replace` chain's *replacement strings* each carry two literal backslash characters before `u003c`/`u2028`/`u2029` (a JS string literal whose runtime value is the six-character escape text, e.g. `<`). If a stray single backslash slipped in while writing the file, the escaping test in Step 3 above would still numerically catch it (the assertion decodes the embedded JSON back and compares), but fix the source to match this exact form regardless for readability.
+Manually double-check the `</script>`-escaping test by eye — open `packages/vite/src/ui/dashboard.ts` and confirm the `replace` chain's _replacement strings_ each carry two literal backslash characters before `u003c`/`u2028`/`u2029` (a JS string literal whose runtime value is the six-character escape text, e.g. `<`). If a stray single backslash slipped in while writing the file, the escaping test in Step 3 above would still numerically catch it (the assertion decodes the embedded JSON back and compares), but fix the source to match this exact form regardless for readability.
 
-**Known pitfall:** the U+2028/U+2029 *regex patterns* must use a standard single-backslash regex escape (backslash, lowercase u, then the four hex digits of the codepoint) to match those characters — a raw, unescaped U+2028/U+2029 character typed directly inside a `/…/` regex literal is a `SyntaxError: Unterminated regular expression` in ECMAScript (regex literals disallow raw `LineTerminator` characters, unlike string/template literals). This is different from the *replacement strings* two lines below, which need the doubled backslash described above. If typechecking or running this file throws that specific syntax error, this is almost certainly the cause — check that the regex patterns use the escaped form, not a literal line-separator character.
+**Known pitfall:** the U+2028/U+2029 _regex patterns_ must use a standard single-backslash regex escape (backslash, lowercase u, then the four hex digits of the codepoint) to match those characters — a raw, unescaped U+2028/U+2029 character typed directly inside a `/…/` regex literal is a `SyntaxError: Unterminated regular expression` in ECMAScript (regex literals disallow raw `LineTerminator` characters, unlike string/template literals). This is different from the _replacement strings_ two lines below, which need the doubled backslash described above. If typechecking or running this file throws that specific syntax error, this is almost certainly the cause — check that the regex patterns use the escaped form, not a literal line-separator character.
 
 - [ ] **Step 5: Commit**
 
@@ -1195,12 +1221,14 @@ git commit -m "feat(vite): add dashboard shell renderer with escaped embedded sn
 ### Task 7: Middleware — `/data.json` route, switch `/` to the new renderer, retire `serve.ts`
 
 **Files:**
+
 - Modify: `packages/vite/src/ui/middleware.ts`
 - Modify: `packages/vite/test/ui-middleware.test.ts`
 - Delete: `packages/vite/src/ui/serve.ts`
 - Delete: `packages/vite/test/ui-serve.test.ts`
 
 **Interfaces:**
+
 - Consumes: `buildSnapshot` (Task 3), `renderDashboardShell` (Task 6).
 - Produces: `installUiMiddleware`'s public signature is unchanged (`server, config, version, store, coreVersion?`). New behavior: `GET /__svelte-vitals/data.json` returns the `DashboardSnapshot` as JSON; `GET /__svelte-vitals/` now renders via `renderDashboardShell`.
 
@@ -1209,17 +1237,17 @@ git commit -m "feat(vite): add dashboard shell renderer with escaped embedded sn
 In `packages/vite/test/ui-middleware.test.ts`, the existing test `'surfaces the resolved @svelte-vitals/core version in the dashboard when passed'` currently asserts `gr.chunks.join('')).toContain('core v0.21.0')` — that literal text is now only ever rendered by client-side JS, not present in the server response body (the server response embeds `"coreVersion":"0.21.0"` as JSON, not the string `core v0.21.0`). Replace that one test with:
 
 ```ts
-  it('surfaces the resolved @svelte-vitals/core version in the embedded snapshot when passed', () => {
-    const { call } = setup('0.21.0');
-    const gr = res();
-    call(getReq('/'), gr);
-    const html = gr.chunks.join('');
-    const start = html.indexOf('<script type="application/json" id="svelte-vitals-data">');
-    const contentStart = html.indexOf('>', start) + 1;
-    const end = html.indexOf('</script>', contentStart);
-    const embedded = JSON.parse(html.slice(contentStart, end));
-    expect(embedded.meta.coreVersion).toBe('0.21.0');
-  });
+it('surfaces the resolved @svelte-vitals/core version in the embedded snapshot when passed', () => {
+  const { call } = setup('0.21.0');
+  const gr = res();
+  call(getReq('/'), gr);
+  const html = gr.chunks.join('');
+  const start = html.indexOf('<script type="application/json" id="svelte-vitals-data">');
+  const contentStart = html.indexOf('>', start) + 1;
+  const end = html.indexOf('</script>', contentStart);
+  const embedded = JSON.parse(html.slice(contentStart, end));
+  expect(embedded.meta.coreVersion).toBe('0.21.0');
+});
 ```
 
 Every other existing test in the file keeps passing unmodified: they assert either on `toContain('SEO001')`/`not.toContain('SEO00N')` (still true — those ids appear verbatim inside the embedded JSON) or on status codes / SSE framing (unaffected by the renderer change).
@@ -1229,29 +1257,29 @@ Every other existing test in the file keeps passing unmodified: they assert eith
 Add this `it` to the same `describe('installUiMiddleware', ...)` block:
 
 ```ts
-  it('GET /data.json returns the same snapshot the dashboard embeds', async () => {
-    const { call } = setup();
-    const ir = res();
-    const ireq = postReq('/ingest');
-    call(ireq, ir);
-    ireq.emit('data', Buffer.from(ingestBody));
-    ireq.emit('end');
-    await new Promise((r) => setTimeout(r, 0));
+it('GET /data.json returns the same snapshot the dashboard embeds', async () => {
+  const { call } = setup();
+  const ir = res();
+  const ireq = postReq('/ingest');
+  call(ireq, ir);
+  ireq.emit('data', Buffer.from(ingestBody));
+  ireq.emit('end');
+  await new Promise((r) => setTimeout(r, 0));
 
-    const jr = res();
-    call(getReq('/data.json'), jr);
-    expect(jr.headers['Content-Type']).toContain('application/json');
-    const data = JSON.parse(jr.chunks.join(''));
-    expect(data.report.routes.some((r: { route: string }) => r.route === '/a')).toBe(true);
-    expect(typeof data.sequence).toBe('number');
-  });
+  const jr = res();
+  call(getReq('/data.json'), jr);
+  expect(jr.headers['Content-Type']).toContain('application/json');
+  const data = JSON.parse(jr.chunks.join(''));
+  expect(data.report.routes.some((r: { route: string }) => r.route === '/a')).toBe(true);
+  expect(typeof data.sequence).toBe('number');
+});
 
-  it('rejects a /data.json request with a non-loopback Host', () => {
-    const { call } = setup();
-    const jr = res();
-    call(getReq('/data.json', { host: 'evil.example' }), jr);
-    expect(jr.statusCode).toBe(403);
-  });
+it('rejects a /data.json request with a non-loopback Host', () => {
+  const { call } = setup();
+  const jr = res();
+  call(getReq('/data.json', { host: 'evil.example' }), jr);
+  expect(jr.statusCode).toBe(403);
+});
 ```
 
 - [ ] **Step 3: Run the tests to verify the new ones fail**
@@ -1271,47 +1299,47 @@ import { renderDashboardShell } from './dashboard.js';
 Then, inside the routed handler (`server.middlewares.use('/__svelte-vitals', ...)`), add a `/data.json` branch after the existing `/events` branch and before the final catch-all:
 
 ```ts
-    if (url.startsWith('/data.json')) {
-      try {
-        const snapshot = buildSnapshot(store, config, { version, coreVersion });
-        res.setHeader('Content-Type', 'application/json');
-        res.end(JSON.stringify(snapshot));
-      } catch {
-        res.statusCode = 500;
-        res.end('{}');
-      }
-      return;
-    }
+if (url.startsWith('/data.json')) {
+  try {
+    const snapshot = buildSnapshot(store, config, { version, coreVersion });
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(snapshot));
+  } catch {
+    res.statusCode = 500;
+    res.end('{}');
+  }
+  return;
+}
 ```
 
 And replace the final catch-all block:
 
 ```ts
-    // Last line of defense that validated data should never reach: if the renderer
-    // throws anyway, return a plain-text 500 and never take down the dev server.
-    try {
-      const html = renderDashboard(store.snapshot(), config, { version, coreVersion }, store.badges());
-      res.setHeader('Content-Type', 'text/html');
-      res.end(html);
-    } catch {
-      res.statusCode = 500;
-      res.end('svelte-vitals dashboard failed to render');
-    }
+// Last line of defense that validated data should never reach: if the renderer
+// throws anyway, return a plain-text 500 and never take down the dev server.
+try {
+  const html = renderDashboard(store.snapshot(), config, { version, coreVersion }, store.badges());
+  res.setHeader('Content-Type', 'text/html');
+  res.end(html);
+} catch {
+  res.statusCode = 500;
+  res.end('svelte-vitals dashboard failed to render');
+}
 ```
 
 with:
 
 ```ts
-    // Last line of defense that validated data should never reach: if the renderer
-    // throws anyway, return a plain-text 500 and never take down the dev server.
-    try {
-      const html = renderDashboardShell(buildSnapshot(store, config, { version, coreVersion }));
-      res.setHeader('Content-Type', 'text/html');
-      res.end(html);
-    } catch {
-      res.statusCode = 500;
-      res.end('svelte-vitals dashboard failed to render');
-    }
+// Last line of defense that validated data should never reach: if the renderer
+// throws anyway, return a plain-text 500 and never take down the dev server.
+try {
+  const html = renderDashboardShell(buildSnapshot(store, config, { version, coreVersion }));
+  res.setHeader('Content-Type', 'text/html');
+  res.end(html);
+} catch {
+  res.statusCode = 500;
+  res.end('svelte-vitals dashboard failed to render');
+}
 ```
 
 - [ ] **Step 5: Delete the superseded files**
@@ -1342,10 +1370,12 @@ git commit -m "feat(vite): serve /data.json and switch the dashboard route to th
 ### Task 8: Wire the analyzing indicator into the plugin
 
 **Files:**
+
 - Modify: `packages/vite/src/plugin.ts`
 - Modify: `packages/vite/test/ui-integration.test.ts`
 
 **Interfaces:**
+
 - Consumes: `AnalysisRunnerOptions.onStatusChange` (Task 2), `FindingsStore.setAnalyzing` (Task 1).
 - Produces: no new exports — this task only changes runtime wiring.
 
@@ -1354,23 +1384,23 @@ git commit -m "feat(vite): serve /data.json and switch the dashboard route to th
 In `packages/vite/test/ui-integration.test.ts`, the existing `analyzedStore()` helper builds a `store` + `runner` using the exact same pattern `plugin.ts` uses (see the file's own top-of-file comment: "no page visit involved"). Add a new test to the existing `describe(...)` block that exercises the intended wiring directly (this is the same pattern `plugin.ts` will use, run against the real fixture, so it proves the wiring's semantics without needing to mock the whole Vite dev server):
 
 ```ts
-  it('onStatusChange wired to store.setAnalyzing toggles isAnalyzing() around the real run', async () => {
-    const store = createStore();
-    const onError = vi.fn();
-    const runner = createAnalysisRunner({
-      root: FIXTURE,
-      onResults: (results) => store.setStatic(results),
-      onError,
-      onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
-    });
-    expect(store.isAnalyzing()).toBe(false);
-    runner.start();
-    await vi.waitFor(() => expect(store.isAnalyzing()).toBe(true));
-    await vi.waitFor(() => expect(store.snapshot().length).toBeGreaterThan(0), { timeout: 15000 });
-    await vi.waitFor(() => expect(store.isAnalyzing()).toBe(false));
-    runner.stop();
-    expect(onError).not.toHaveBeenCalled();
+it('onStatusChange wired to store.setAnalyzing toggles isAnalyzing() around the real run', async () => {
+  const store = createStore();
+  const onError = vi.fn();
+  const runner = createAnalysisRunner({
+    root: FIXTURE,
+    onResults: (results) => store.setStatic(results),
+    onError,
+    onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
   });
+  expect(store.isAnalyzing()).toBe(false);
+  runner.start();
+  await vi.waitFor(() => expect(store.isAnalyzing()).toBe(true));
+  await vi.waitFor(() => expect(store.snapshot().length).toBeGreaterThan(0), { timeout: 15000 });
+  await vi.waitFor(() => expect(store.isAnalyzing()).toBe(false));
+  runner.stop();
+  expect(onError).not.toHaveBeenCalled();
+});
 ```
 
 Add `createAnalysisRunner` to the existing `import { createAnalysisRunner } from '../src/ui/analysis.js';` line if not already imported that way (it already is, per the file's existing `analyzedStore()` helper — reuse it, do not re-import).
@@ -1385,30 +1415,30 @@ Expected: this specific test already passes once Tasks 1 and 2 are in place, bec
 In `packages/vite/src/plugin.ts`, inside `uiPlugin.configureServer`, find:
 
 ```ts
-      const runner = createAnalysisRunner({
-        root: uiRoot,
-        treatDynamicAs: options.treatDynamicAs,
-        metaComponents: options.metaComponents,
-        rules: options.rules,
-        failOn: options.failOn,
-        onResults: (results) => store.setStatic(results),
-        onError: (err) => console.warn('[svelte-vitals] dev analysis failed:', err)
-      });
+const runner = createAnalysisRunner({
+  root: uiRoot,
+  treatDynamicAs: options.treatDynamicAs,
+  metaComponents: options.metaComponents,
+  rules: options.rules,
+  failOn: options.failOn,
+  onResults: (results) => store.setStatic(results),
+  onError: (err) => console.warn('[svelte-vitals] dev analysis failed:', err)
+});
 ```
 
 and add `onStatusChange`:
 
 ```ts
-      const runner = createAnalysisRunner({
-        root: uiRoot,
-        treatDynamicAs: options.treatDynamicAs,
-        metaComponents: options.metaComponents,
-        rules: options.rules,
-        failOn: options.failOn,
-        onResults: (results) => store.setStatic(results),
-        onError: (err) => console.warn('[svelte-vitals] dev analysis failed:', err),
-        onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
-      });
+const runner = createAnalysisRunner({
+  root: uiRoot,
+  treatDynamicAs: options.treatDynamicAs,
+  metaComponents: options.metaComponents,
+  rules: options.rules,
+  failOn: options.failOn,
+  onResults: (results) => store.setStatic(results),
+  onError: (err) => console.warn('[svelte-vitals] dev analysis failed:', err),
+  onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
+});
 ```
 
 - [ ] **Step 4: Run the full vite test suite**
@@ -1428,6 +1458,7 @@ git commit -m "feat(vite): wire the analysis runner's onStatusChange into the da
 ### Task 9: Update dev-overlay docs (en + ja)
 
 **Files:**
+
 - Modify: `docs/src/content/docs/guides/dev-overlay.md`
 - Modify: `docs/src/content/docs/ja/guides/dev-overlay.md`
 
@@ -1514,6 +1545,7 @@ git commit -m "docs: describe the new master/detail live UI dashboard (en/ja)"
 ### Task 10: Changeset
 
 **Files:**
+
 - Create: `.changeset/<generated-name>.md`
 
 **Interfaces:** none.
@@ -1532,7 +1564,7 @@ This writes a new file under `.changeset/`. Confirm its frontmatter reads:
 
 ```md
 ---
-"@svelte-vitals/vite": minor
+'@svelte-vitals/vite': minor
 ---
 
 Redesign the live UI dashboard (`ui: true`) into a searchable, sortable master/detail layout with dark mode, syntax-highlighted fix snippets, and a live analysis-in-progress indicator.
