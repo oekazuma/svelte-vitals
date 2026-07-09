@@ -36,29 +36,38 @@ async function main(): Promise<void> {
       headRepoFullName: headFullName
     });
     if (!fork) {
-      const octokit = github.getOctokit(token);
-      const body = `${STICKY_COMMENT_MARKER}\n${markdown}`;
-      const { data: comments } = await octokit.rest.issues.listComments({
-        owner: ctx.repo.owner,
-        repo: ctx.repo.repo,
-        issue_number: pr.number,
-        per_page: 100
-      });
-      const plan = planStickyComment(comments.map((c) => ({ id: c.id, body: c.body })));
-      if (plan.op === 'update') {
-        await octokit.rest.issues.updateComment({
-          owner: ctx.repo.owner,
-          repo: ctx.repo.repo,
-          comment_id: plan.id,
-          body
-        });
-      } else {
-        await octokit.rest.issues.createComment({
+      // A transient GitHub API/permission failure here must not fail an otherwise-clean
+      // scan (the old inline template's comment step carried continue-on-error: true for
+      // the same reason) — only the gate below may call core.setFailed.
+      try {
+        const octokit = github.getOctokit(token);
+        const body = `${STICKY_COMMENT_MARKER}\n${markdown}`;
+        const { data: comments } = await octokit.rest.issues.listComments({
           owner: ctx.repo.owner,
           repo: ctx.repo.repo,
           issue_number: pr.number,
-          body
+          per_page: 100
         });
+        const plan = planStickyComment(comments.map((c) => ({ id: c.id, body: c.body })));
+        if (plan.op === 'update') {
+          await octokit.rest.issues.updateComment({
+            owner: ctx.repo.owner,
+            repo: ctx.repo.repo,
+            comment_id: plan.id,
+            body
+          });
+        } else {
+          await octokit.rest.issues.createComment({
+            owner: ctx.repo.owner,
+            repo: ctx.repo.repo,
+            issue_number: pr.number,
+            body
+          });
+        }
+      } catch (err) {
+        core.warning(
+          `svelte-vitals: failed to post/update the PR comment: ${err instanceof Error ? err.message : String(err)}`
+        );
       }
     }
   }

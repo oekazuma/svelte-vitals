@@ -104,9 +104,12 @@ jobs:
           baseline: origin/${{ github.base_ref }}
 ```
 
-`ci install` resolves `<sha>`/`<version>` to a real, released commit automatically, so running the
-installer is the easiest way to get a working pin. Writing this by hand, use the commit SHA and
-version from the latest `@svelte-vitals/action@<version>` release tag in the
+`ci install` fills in `<sha>`/`<version>` automatically with a real, working commit SHA from this
+repository (resolved at `svelte-vitals`'s own build time) — not necessarily the exact commit
+`@svelte-vitals/action@<version>`'s release tag points at, but always a commit whose
+`packages/action/dist` matches that version. Running the installer is the easiest way to get a
+working pin either way. Writing this by hand, use the commit SHA and version from the latest
+`@svelte-vitals/action@<version>` release tag in the
 [repository](https://github.com/oekazuma/svelte-vitals/releases).
 
 See the [CLI reference](/svelte-vitals/guides/cli/) for `--diff`, `--baseline`, and the equivalent

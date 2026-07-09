@@ -58635,30 +58635,36 @@ async function main() {
       headRepoFullName: headFullName
     });
     if (!fork) {
-      const octokit = getOctokit(token);
-      const body = `${STICKY_COMMENT_MARKER}
+      try {
+        const octokit = getOctokit(token);
+        const body = `${STICKY_COMMENT_MARKER}
 ${markdown}`;
-      const { data: comments } = await octokit.rest.issues.listComments({
-        owner: ctx.repo.owner,
-        repo: ctx.repo.repo,
-        issue_number: pr.number,
-        per_page: 100
-      });
-      const plan = planStickyComment(comments.map((c) => ({ id: c.id, body: c.body })));
-      if (plan.op === "update") {
-        await octokit.rest.issues.updateComment({
-          owner: ctx.repo.owner,
-          repo: ctx.repo.repo,
-          comment_id: plan.id,
-          body
-        });
-      } else {
-        await octokit.rest.issues.createComment({
+        const { data: comments } = await octokit.rest.issues.listComments({
           owner: ctx.repo.owner,
           repo: ctx.repo.repo,
           issue_number: pr.number,
-          body
+          per_page: 100
         });
+        const plan = planStickyComment(comments.map((c) => ({ id: c.id, body: c.body })));
+        if (plan.op === "update") {
+          await octokit.rest.issues.updateComment({
+            owner: ctx.repo.owner,
+            repo: ctx.repo.repo,
+            comment_id: plan.id,
+            body
+          });
+        } else {
+          await octokit.rest.issues.createComment({
+            owner: ctx.repo.owner,
+            repo: ctx.repo.repo,
+            issue_number: pr.number,
+            body
+          });
+        }
+      } catch (err) {
+        warning(
+          `svelte-vitals: failed to post/update the PR comment: ${err instanceof Error ? err.message : String(err)}`
+        );
       }
     }
   }

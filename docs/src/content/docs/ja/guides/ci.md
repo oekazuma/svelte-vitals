@@ -109,8 +109,12 @@ jobs:
           baseline: origin/${{ github.base_ref }}
 ```
 
-`ci install` は `<sha>`/`<version>` を実際にリリースされたコミットへ自動的に解決するため、
-動作するピン留めを得る一番簡単な方法はインストーラーを実行することです。手書きする場合は、
+`ci install` は `<sha>`/`<version>` に、このリポジトリ内で実在する動作可能なコミット SHA を
+(`svelte-vitals` 自身のビルド時に解決して)自動的に埋め込みます。ただしこれは必ずしも
+`@svelte-vitals/action@<version>` のリリースタグが指す、まさにそのコミットとは限りません —
+どのコミットであっても、その `packages/action/dist` は該当バージョンの内容と一致することが
+保証されています。いずれにせよ、動作するピン留めを得る一番簡単な方法はインストーラーを
+実行することです。手書きする場合は、
 [リポジトリ](https://github.com/oekazuma/svelte-vitals/releases)にある最新の
 `@svelte-vitals/action@<version>` リリースタグのコミット SHA とバージョンを使ってください。
 
