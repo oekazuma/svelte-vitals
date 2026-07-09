@@ -1,5 +1,12 @@
 # @svelte-vitals/vite
 
+## 0.13.0
+
+### Minor Changes
+
+- a3b4eff: Redesign the live UI dashboard (`ui: true`) into a searchable, sortable master/detail layout with dark mode, syntax-highlighted fix snippets, and a live analysis-in-progress indicator.
+- 45ec323: `svelteVitals({ ui: true })` now prints the live dashboard's URL right after Vite's own `Local:`/`Network:` lines every time `vite dev` starts, so the dashboard is discoverable without knowing the `/__svelte-vitals/` path in advance.
+
 ## 0.12.2
 
 ### Patch Changes
