@@ -32,6 +32,11 @@
 - **Depends on**: — (Plans 014/015 already merged; this plan builds on their output)
 - **Category**: direction (issue #154)
 - **Planned at**: commit `e432902`, 2026-07-09
+- **Completed**: 2026-07-09, all 11 tasks (10 numbered steps + 1 unplanned interstitial lint-config fix) reviewed and approved on `advisor/020-reusable-github-action`. Implementation-time findings, none of which changed the plan's architecture/decisions:
+  - Task 2's implementer found and fixed a bug in this plan's own literal test-fixture data (a synthetic `--baseline` test finding that matched no real fixture route).
+  - Task 6's implementer found and fixed a real runtime bug not anticipated by the design: bundling `@actions/github` pulls in a CJS dependency (`tunnel`, via `@actions/http-client`) that calls `require('net')` at module scope, crashing esbuild's ESM output at runtime; fixed with a `createRequire` banner shim in `packages/action/tsup.config.ts`.
+  - After Step 7 (committing `packages/action/dist`), a repo-wide `pnpm lint` regression was discovered: this repo's ESLint config derives its ignores from `.gitignore`, and the `dist/` un-ignore needed for git tracking also un-ignored the committed bundle for ESLint. Fixed with an explicit ESLint ignore for `packages/action/dist/**` (unplanned task, not one of the 10 numbered steps).
+  - Full verification pass (Step 11) confirms `pnpm build && pnpm typecheck && pnpm test && pnpm lint` all exit 0 (976 tests total across 5 packages) and all other Done criteria hold; see `.superpowers/sdd/task-11-report.md` for the detailed record.
 
 ## Why this matters
 
