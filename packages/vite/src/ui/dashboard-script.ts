@@ -305,7 +305,7 @@ export const DASHBOARD_SCRIPT = `
     svg.setAttribute('viewBox', '0 0 132 132');
     var bg = document.createElementNS(svgNs, 'circle');
     bg.setAttribute('cx', '66'); bg.setAttribute('cy', '66'); bg.setAttribute('r', '58');
-    bg.setAttribute('fill', 'none'); bg.setAttribute('stroke', '#e4e7ec'); bg.setAttribute('stroke-width', '11');
+    bg.setAttribute('fill', 'none'); bg.setAttribute('class', 'dv-gauge-track'); bg.setAttribute('stroke-width', '11');
     var arc = document.createElementNS(svgNs, 'circle');
     arc.setAttribute('cx', '66'); arc.setAttribute('cy', '66'); arc.setAttribute('r', '58');
     arc.setAttribute('fill', 'none'); arc.setAttribute('stroke', BAND_COLOR[band]); arc.setAttribute('stroke-width', '11');
