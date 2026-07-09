@@ -5,9 +5,9 @@ sidebar:
   order: 9
 ---
 
-`svelte-vitals ci install` scaffolds a GitHub Actions workflow that scans every pull request,
-posts inline annotations, writes a job summary, and keeps a single sticky PR comment updated
-with the results — no YAML to hand-write.
+`svelte-vitals ci install` scaffolds a GitHub Actions workflow that calls **`@svelte-vitals/action`**, a
+first-party GitHub Action, on every pull request — inline annotations, a job summary, and a single
+sticky PR comment, with no YAML to hand-write.
 
 ## Quick start
 
@@ -24,23 +24,41 @@ npx svelte-vitals ci install --force     # regenerate an existing workflow file
 ```
 
 Re-running `ci install` without `--force` is a no-op if the file already exists (idempotent —
-safe to run again after upgrading svelte-vitals).
+safe to run again after upgrading svelte-vitals). If you already have a workflow from an older
+svelte-vitals version, re-run with `--force` to migrate to the current, shorter template.
 
 ## What the workflow does
 
-On every `pull_request` event, the job:
+On every `pull_request` event, the generated workflow:
 
-1. Checks out the repo with full history (`fetch-depth: 0`) so `--diff`/`--baseline` can resolve
-   the PR's base ref.
-2. Runs svelte-vitals scoped to the PR: `--diff origin/<base>` limits findings to files the PR
-   touched, and [`--baseline origin/<base>`](/svelte-vitals/guides/cli/) further narrows to
-   findings **newly introduced** by the PR — pre-existing issues in touched files don't block it.
-3. Emits `--reporter github` output, which GitHub renders as inline annotations on the diff.
-4. Emits `--reporter md` output into the job summary and a pull request comment. The comment is
-   sticky: a hidden `<!-- svelte-vitals-report -->` marker lets subsequent pushes update the same
-   comment instead of piling up new ones.
-5. Fails the job (`exit 1`) if the scan step found any gating findings, after the summary/comment
-   steps have already run — so you always get the PR comment, even on a failing run.
+1. Checks out the repo with full history (`fetch-depth: 0`) so the Action can resolve the PR's
+   base ref for `diff`/`baseline`.
+2. Calls `@svelte-vitals/action`, which runs svelte-vitals **in-process** (no `npx`, no Node setup
+   step, no separate scan per output) scoped to the PR: `diff: origin/<base>` limits findings to
+   files the PR touched, and [`baseline: origin/<base>`](/svelte-vitals/guides/cli/) further
+   narrows to findings **newly introduced** by the PR — pre-existing issues in touched files
+   don't block it.
+3. From that single analysis, the action produces all three outputs together:
+   - Inline annotations on the diff.
+   - A job summary.
+   - A sticky PR comment — a hidden `<!-- svelte-vitals-report -->` marker lets subsequent pushes
+     update the same comment instead of piling up new ones.
+4. Fails the job if the scan found any gating findings, after the summary/comment have already
+   been written — so you always get the PR comment, even on a failing run.
+
+## Action inputs
+
+`ci install` scaffolds a call to `@svelte-vitals/action` with these inputs:
+
+| Input          | Description                                                          | Default               |
+| -------------- | -------------------------------------------------------------------- | --------------------- |
+| `path`         | Project directory to analyze                                         | `.`                   |
+| `diff`         | Scope findings to files changed vs this git ref (e.g. `origin/main`) | (unset)               |
+| `baseline`     | Report only findings not already present at this git ref             | (unset)               |
+| `github-token` | Token used to read/post/update the sticky PR comment                 | `${{ github.token }}` |
+
+There's no `reporter` input — the action always produces annotations, the job summary, and the
+sticky comment together in one pass; that fan-out isn't something you configure separately.
 
 ## Permissions
 
@@ -54,22 +72,25 @@ permissions:
 
 `pull-requests: write` is required to post/update the PR comment. On workflows triggered by pull
 requests **from forks**, GitHub Actions downgrades token permissions regardless of what the
-workflow declares, so the generated workflow skips the comment step on fork PRs (and the step is
-marked `continue-on-error`, so it can never fail the job) — the inline annotations and job summary
-still work in that case.
+workflow declares, so `@svelte-vitals/action` detects fork PRs and skips the sticky comment there
+(this can never fail the job) — inline annotations and the job summary still work in that case.
 
 ## Writing it by hand
 
-If you'd rather not run the installer, here is a minimal gate (not the full generated workflow —
-one scan, no Markdown summary, no sticky PR comment, no separate gate step):
+If you'd rather not run the installer, this is exactly what `ci install` generates:
 
 ```yaml
+# Generated by `svelte-vitals ci install`.
+# Re-run with --force to regenerate.
 name: svelte-vitals
+
 on:
   pull_request:
+
 permissions:
   contents: read
   pull-requests: write
+
 jobs:
   svelte-vitals:
     runs-on: ubuntu-latest
@@ -77,14 +98,21 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v4
+      - uses: oekazuma/svelte-vitals/packages/action@<sha> # @svelte-vitals/action@<version>
         with:
-          node-version: 24
-      - run: npx svelte-vitals . --diff origin/${{ github.base_ref }} --baseline origin/${{ github.base_ref }} --fail-on-warning
+          diff: origin/${{ github.base_ref }}
+          baseline: origin/${{ github.base_ref }}
 ```
 
-Under GitHub Actions the `github` reporter is auto-selected, so this still produces inline
-annotations; run `svelte-vitals ci install` if you want the full job summary + sticky comment flow.
+`ci install` fills in `<sha>`/`<version>` automatically with a real, working commit SHA from this
+repository (resolved at `svelte-vitals`'s own build time) — not necessarily the exact commit
+`@svelte-vitals/action@<version>`'s release tag points at, but always a commit whose
+`packages/action/dist` matches that version. Running the installer is the easiest way to get a
+working pin either way. Writing this by hand, use the commit SHA and version from the latest
+`@svelte-vitals/action@<version>` release tag in the
+[repository](https://github.com/oekazuma/svelte-vitals/releases).
 
-See the [Reporters guide](/svelte-vitals/guides/reporters/) for the full list of output formats
-and the [CLI reference](/svelte-vitals/guides/cli/) for `--diff`, `--baseline`, and `--fail-on`.
+See the [CLI reference](/svelte-vitals/guides/cli/) for `--diff`, `--baseline`, and the equivalent
+flags if you'd rather run svelte-vitals directly instead of through the action, and the
+[Reporters guide](/svelte-vitals/guides/reporters/) for the output formats the action's summary
+and comment build on.

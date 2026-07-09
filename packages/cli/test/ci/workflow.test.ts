@@ -23,54 +23,30 @@ describe('WORKFLOW_PATH', () => {
 });
 
 describe('buildWorkflowYaml', () => {
-  const yaml = buildWorkflowYaml({ version: '1.2.3' });
+  const sha = 'a'.repeat(40);
+  const yaml = buildWorkflowYaml({ actionSha: sha, actionVersion: '1.2.3' });
 
-  it('substitutes the version and leaves no __VERSION__ placeholder behind', () => {
-    expect(yaml).not.toContain('__VERSION__');
-    expect(yaml).toContain('npx -y svelte-vitals@1.2.3 .');
-  });
-
-  it('checks out full history (fetch-depth: 0) so --baseline/--diff can resolve the base ref', () => {
+  it('checks out full history (fetch-depth: 0) so diff/baseline can resolve the base ref', () => {
     expect(yaml).toContain('fetch-depth: 0');
   });
 
-  it('gates on findings newly introduced vs. the PR base via --baseline', () => {
-    expect(yaml).toContain('--baseline origin/${{ github.base_ref }}');
-    expect(yaml).toContain('--diff origin/${{ github.base_ref }}');
+  it('calls the action pinned to a commit SHA with a same-line version comment', () => {
+    expect(yaml).toContain(`uses: oekazuma/svelte-vitals/packages/action@${sha} # @svelte-vitals/action@1.2.3`);
   });
 
-  it('uses the github reporter for annotations and the md reporter for the summary', () => {
-    expect(yaml).toContain('--reporter github');
-    expect(yaml).toContain('--reporter md > svelte-vitals-report.md');
+  it('passes diff and baseline scoped to the PR base ref', () => {
+    expect(yaml).toContain('diff: origin/${{ github.base_ref }}');
+    expect(yaml).toContain('baseline: origin/${{ github.base_ref }}');
   });
 
-  it('posts a sticky PR comment keyed by a stable marker', () => {
-    expect(yaml).toContain('<!-- svelte-vitals-report -->');
-    expect(yaml).toContain('updateComment');
-    expect(yaml).toContain('createComment');
+  it('does not scaffold a setup-node step (the action runs on node24 directly)', () => {
+    expect(yaml).not.toContain('setup-node');
+    expect(yaml).not.toContain('npx');
   });
 
-  it('the PR comment step is skipped on fork PRs and can never fail the job', () => {
-    const forkGuard = 'if: github.event.pull_request.head.repo.full_name == github.repository';
-    const noFail = 'continue-on-error: true';
-    expect(yaml).toContain(forkGuard);
-
-    // Both lines must sit inside the PR-comment step: after its name, before its uses:.
-    const stepStart = yaml.indexOf('PR comment (sticky)');
-    const stepUses = yaml.indexOf('actions/github-script');
-    expect(stepStart).toBeGreaterThan(-1);
-    expect(stepUses).toBeGreaterThan(stepStart);
-    const guardIdx = yaml.indexOf(forkGuard);
-    expect(guardIdx).toBeGreaterThan(stepStart);
-    expect(guardIdx).toBeLessThan(stepUses);
-    const noFailIdx = yaml.indexOf(noFail, stepStart);
-    expect(noFailIdx).toBeGreaterThan(stepStart);
-    expect(noFailIdx).toBeLessThan(stepUses);
-  });
-
-  it('re-raises the scan failure in the final Gate step', () => {
-    expect(yaml).toContain("if: steps.scan.outcome == 'failure'");
-    expect(yaml).toContain('exit 1');
+  it('does not scaffold an inline github-script sticky-comment step (owned by the action now)', () => {
+    expect(yaml).not.toContain('github-script');
+    expect(yaml).not.toContain('actions/github-script');
   });
 
   it('contains no tab characters (YAML indentation must be spaces)', () => {

@@ -2,16 +2,17 @@ import { join } from 'node:path';
 import mri from 'mri';
 import type { InstallIO } from '../install/index.js';
 import { realIO } from '../install/cli.js';
-import { readPackageVersion } from '../version.js';
 import { WORKFLOW_PATH, buildWorkflowYaml, planWorkflowWrite } from './workflow.js';
+import { ACTION_SHA, ACTION_VERSION } from './action-pin.generated.js';
 
 const CI_HELP = `svelte-vitals ci — scaffold CI integration
 
 Usage:
   svelte-vitals ci install [options]
 
-Adds a GitHub Actions workflow (${WORKFLOW_PATH}) that scans pull requests, posts inline
-annotations + a job summary, and maintains a sticky PR comment with the findings.
+Adds a GitHub Actions workflow (${WORKFLOW_PATH}) that calls the \`@svelte-vitals/action\`
+GitHub Action on pull requests: inline annotations, a job summary, and a sticky PR
+comment with the findings.
 
 Options:
   --force       Overwrite an existing workflow file
@@ -55,9 +56,8 @@ export async function runCiCli(args: string[], io: InstallIO = realIO()): Promis
   if (plan.status === 'exists') {
     io.log(`= already installed (${WORKFLOW_PATH}) — use --force to regenerate.`);
   } else {
-    const version = readPackageVersion();
     try {
-      io.writeFile(path, buildWorkflowYaml({ version }));
+      io.writeFile(path, buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION }));
       io.log(`✓ ${plan.status} ${WORKFLOW_PATH}`);
     } catch (err) {
       io.errorLog(

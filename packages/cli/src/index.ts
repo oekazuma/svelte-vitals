@@ -188,6 +188,59 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   return { results, config, version: readPackageVersion(), warnings };
 }
 
+export interface ApplyScopeOptions {
+  cwd: string;
+  staged?: boolean;
+  diffBase?: string;
+  baseline?: string;
+  errorLog?: (line: string) => void;
+  analyzeOpts?: AnalyzeOptions;
+}
+
+/**
+ * Narrow `results` to what a PR gate cares about: `--staged`/`--diff` restrict to
+ * changed files, `--baseline` drops findings that already existed at that ref. Shared
+ * by `run()` and `@svelte-vitals/action` (issue #154) so the git-diff/baseline
+ * orchestration lives in exactly one place.
+ */
+export async function applyScope(results: Result[], opts: ApplyScopeOptions): Promise<Result[]> {
+  const errorLog = opts.errorLog ?? ((line: string) => console.error(line));
+  let scoped = results;
+
+  if (opts.staged || opts.diffBase !== undefined) {
+    const changed = opts.staged
+      ? getChangedFiles(opts.cwd, { staged: true })
+      : getChangedFiles(opts.cwd, { base: opts.diffBase });
+    if (changed === undefined) {
+      errorLog(
+        'svelte-vitals: could not determine changed files (not a git repo, git unavailable, or bad ref); analyzing all.'
+      );
+    } else {
+      scoped = filterToChangedFiles(scoped, changed);
+    }
+  }
+
+  if (opts.baseline !== undefined) {
+    const checkout = checkoutBaseline(opts.cwd, opts.baseline);
+    if (checkout === undefined) {
+      errorLog(
+        `svelte-vitals: could not analyze baseline '${opts.baseline}' (not a git repo, git unavailable, or bad ref); reporting all findings.`
+      );
+    } else {
+      try {
+        const base = await analyzeProject({ ...opts.analyzeOpts, cwd: checkout.analyzeCwd });
+        scoped = filterToNewFindings(scoped, base.results);
+      } catch {
+        errorLog(`svelte-vitals: baseline analysis of '${opts.baseline}' failed; reporting all findings.`);
+      } finally {
+        checkout.cleanup();
+      }
+    }
+  }
+
+  return scoped;
+}
+
 /**
  * Run static-mode analysis once and return the process exit code (design §6):
  *   0 = no failing findings, 1 = critical finding present, 2 = execution error.
@@ -297,48 +350,22 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 
   try {
     const { config, version } = analysis;
-    let results = analysis.results;
-
-    // --staged / --diff: scope findings to the changed files (gate "what the agent wrote").
-    if (opts.staged || opts.diffBase !== undefined) {
-      const changed = opts.staged
-        ? getChangedFiles(cwd, { staged: true })
-        : getChangedFiles(cwd, { base: opts.diffBase });
-      if (changed === undefined) {
-        errorLog(
-          'svelte-vitals: could not determine changed files (not a git repo, git unavailable, or bad ref); analyzing all.'
-        );
-      } else {
-        results = filterToChangedFiles(results, changed);
+    const results = await applyScope(analysis.results, {
+      cwd,
+      staged: opts.staged,
+      diffBase: opts.diffBase,
+      baseline: opts.baseline,
+      errorLog,
+      analyzeOpts: {
+        metaComponents: opts.metaComponents,
+        treatDynamicAs: opts.treatDynamicAs,
+        route: opts.route,
+        failOn: opts.failOn,
+        rules: opts.rules,
+        weights: opts.weights,
+        categories: opts.categories
       }
-    }
-
-    if (opts.baseline !== undefined) {
-      const checkout = checkoutBaseline(cwd, opts.baseline);
-      if (checkout === undefined) {
-        errorLog(
-          `svelte-vitals: could not analyze baseline '${opts.baseline}' (not a git repo, git unavailable, or bad ref); reporting all findings.`
-        );
-      } else {
-        try {
-          const base = await analyzeProject({
-            cwd: checkout.analyzeCwd,
-            metaComponents: opts.metaComponents,
-            treatDynamicAs: opts.treatDynamicAs,
-            route: opts.route,
-            failOn: opts.failOn,
-            rules: opts.rules,
-            weights: opts.weights,
-            categories: opts.categories
-          });
-          results = filterToNewFindings(results, base.results);
-        } catch {
-          errorLog(`svelte-vitals: baseline analysis of '${opts.baseline}' failed; reporting all findings.`);
-        } finally {
-          checkout.cleanup();
-        }
-      }
-    }
+    });
 
     if (opts.score) {
       log(String(computeHealth(results, config).health));

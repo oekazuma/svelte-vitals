@@ -41,6 +41,8 @@ jobs:
         uses: ./.github/workflows/setup-node
       - name: Build packages
         run: pnpm build
+      - name: Verify action dist is up to date
+        run: git diff --exit-code -- packages/action/dist
       - name: Typecheck
         run: pnpm typecheck
       - name: Validate publishable packages
