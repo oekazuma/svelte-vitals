@@ -129,7 +129,8 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         rules: options.rules,
         failOn: options.failOn,
         onResults: (results) => store.setStatic(results),
-        onError: (err) => console.warn('[svelte-vitals] dev analysis failed:', err)
+        onError: (err) => console.warn('[svelte-vitals] dev analysis failed:', err),
+        onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
       });
       runner.start();
       server.watcher?.on('all', (_event, file) => {

@@ -96,4 +96,22 @@ describe('dev dashboard whole-project integration (real analyzeProject)', () => 
     expect(badges['/']).toBe('measured');
     expect(badges['/about']).toBe('static');
   });
+
+  it('onStatusChange wired to store.setAnalyzing toggles isAnalyzing() around the real run', async () => {
+    const store = createStore();
+    const onError = vi.fn();
+    const runner = createAnalysisRunner({
+      root: FIXTURE,
+      onResults: (results) => store.setStatic(results),
+      onError,
+      onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
+    });
+    expect(store.isAnalyzing()).toBe(false);
+    runner.start();
+    await vi.waitFor(() => expect(store.isAnalyzing()).toBe(true));
+    await vi.waitFor(() => expect(store.snapshot().length).toBeGreaterThan(0), { timeout: 15000 });
+    await vi.waitFor(() => expect(store.isAnalyzing()).toBe(false));
+    runner.stop();
+    expect(onError).not.toHaveBeenCalled();
+  });
 });
