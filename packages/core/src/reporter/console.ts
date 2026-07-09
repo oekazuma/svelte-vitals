@@ -56,20 +56,40 @@ function scoreLine(p: Palette, label: string, { score, scoreModel }: ScoreResult
   return `${label} Score: ${scoreColor(p, score)(`${score}/100`)}   ${p.dim(`(${parts.join(' · ')})`)}`;
 }
 
-function byRouteTree(p: Palette, results: Result[], config: Config): string[] {
+const MAX_ROUTES_BY_ROUTE = 10;
+
+function byRouteTree(p: Palette, results: Result[], config: Config, verbose: boolean): string[] {
   const routes = new Map<string, Result[]>();
   for (const r of results) {
     if (r.route === undefined) continue;
     if (!routes.has(r.route)) routes.set(r.route, []);
     routes.get(r.route)!.push(r);
   }
+  const scored = [...routes.entries()].map(([route, rs]) => ({
+    route,
+    rs,
+    score: computeScore(rs, config, { applyCriticalCap: false }).score
+  }));
+  // Worst first (ascending score) — the routes most in need of attention lead, which is
+  // also what makes a cap meaningful: the routes cut off are the healthiest ones.
+  scored.sort((a, b) => a.score - b.score || a.route.localeCompare(b.route));
+
+  const shown = verbose ? scored : scored.slice(0, MAX_ROUTES_BY_ROUTE);
   const lines: string[] = [p.bold('By route'), p.dim(RULE)];
-  for (const [route, rs] of [...routes.entries()].sort((a, b) => a[0].localeCompare(b[0]))) {
-    const { score } = computeScore(rs, config, { applyCriticalCap: false });
+  for (const { route, rs, score } of shown) {
     lines.push(`${route.padEnd(28)} ${scoreColor(p, score)(`${score}`)}`);
     for (const r of rs.filter((x) => classify(x, config) === 'fail')) {
       lines.push(`    ${p.red('✗')} ${r.id}  ${r.message}`);
     }
+  }
+  if (!verbose && scored.length > MAX_ROUTES_BY_ROUTE) {
+    const remaining = scored.slice(MAX_ROUTES_BY_ROUTE);
+    const avgScore = Math.round(remaining.reduce((sum, r) => sum + r.score, 0) / remaining.length);
+    lines.push(
+      p.dim(
+        `…and ${remaining.length} more route${remaining.length > 1 ? 's' : ''} (avg score ${avgScore}) — run with --verbose to see all`
+      )
+    );
   }
   lines.push('');
   return lines;
@@ -127,7 +147,9 @@ export function formatConsoleReport(results: Result[], config: Config, options: 
       }
       if (groups.length > MAX_RULE_GROUPS_PER_BUCKET) {
         const remaining = groups.length - MAX_RULE_GROUPS_PER_BUCKET;
-        lines.push(p.dim(`…and ${remaining} more rule${remaining > 1 ? 's' : ''} affected — run with --verbose to see all`));
+        lines.push(
+          p.dim(`…and ${remaining} more rule${remaining > 1 ? 's' : ''} affected — run with --verbose to see all`)
+        );
       }
     }
     lines.push('');
@@ -146,7 +168,7 @@ export function formatConsoleReport(results: Result[], config: Config, options: 
     lines.push('');
   }
 
-  if (options.byRoute) lines.push(...byRouteTree(p, results, config));
+  if (options.byRoute) lines.push(...byRouteTree(p, results, config, options.verbose ?? false));
   if (summary.dynamic > 0) lines.push(p.dim('↯ = set dynamically (verified at runtime).'));
 
   return lines.join('\n').replace(/\n+$/, '\n');

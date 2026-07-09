@@ -38,6 +38,57 @@ describe('formatConsoleReport', () => {
     expect(out).toContain('By route');
     expect(out).toMatch(/\/a\s+\d+/);
   });
+  it('sorts --by-route worst-score-first, not alphabetically', () => {
+    const mixed: Result[] = [
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/z-bad',
+        message: 'Missing <title>'
+      },
+      {
+        id: 'SEO003',
+        severity: 'info',
+        detection: { presence: 'own', value: 'static' },
+        route: '/a-good',
+        message: 'Has <title>'
+      }
+    ];
+    const out = formatConsoleReport(mixed, config, { byRoute: true });
+    const byRouteSection = out.split('By route')[1]!;
+    // The worse route ('/z-bad', has a critical finding) must appear before the
+    // better one ('/a-good') even though 'a' sorts before 'z' alphabetically.
+    expect(byRouteSection.indexOf('/z-bad')).toBeLessThan(byRouteSection.indexOf('/a-good'));
+  });
+
+  it('caps --by-route at 10 routes by default, with an "…and N more" trailer', () => {
+    const manyRoutes: Result[] = Array.from({ length: 12 }, (_, i) => ({
+      id: 'SEO003',
+      severity: 'info' as const,
+      detection: { presence: 'own', value: 'static' } as const,
+      route: `/r${i}`,
+      message: 'Has <title>'
+    }));
+    const out = formatConsoleReport(manyRoutes, config, { byRoute: true });
+    const byRouteSection = out.split('By route')[1]!;
+    expect(byRouteSection).toContain('…and 2 more route');
+    expect(byRouteSection).toContain('run with --verbose to see all');
+  });
+
+  it('--by-route with verbose:true shows every route, still worst-first', () => {
+    const manyRoutes: Result[] = Array.from({ length: 12 }, (_, i) => ({
+      id: 'SEO003',
+      severity: 'info' as const,
+      detection: { presence: 'own', value: 'static' } as const,
+      route: `/r${i}`,
+      message: 'Has <title>'
+    }));
+    const out = formatConsoleReport(manyRoutes, config, { byRoute: true, verbose: true });
+    const byRouteSection = out.split('By route')[1]!;
+    for (let i = 0; i < 12; i++) expect(byRouteSection).toContain(`/r${i}`);
+    expect(byRouteSection).not.toContain('…and');
+  });
   it('adds a Performance score section when performance findings exist', () => {
     const withPerf: Result[] = [
       ...results,
@@ -80,9 +131,27 @@ describe('formatConsoleReport', () => {
 
   it('collapses a rule that fires on multiple routes into one group with an "…and N more" line', () => {
     const multi: Result[] = [
-      { id: 'SEO001', severity: 'critical', detection: { presence: 'none', value: 'absent' }, route: '/a', message: 'Missing <title>' },
-      { id: 'SEO001', severity: 'critical', detection: { presence: 'none', value: 'absent' }, route: '/b', message: 'Missing <title>' },
-      { id: 'SEO001', severity: 'critical', detection: { presence: 'none', value: 'absent' }, route: '/c', message: 'Missing <title>' }
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'Missing <title>'
+      },
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/b',
+        message: 'Missing <title>'
+      },
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/c',
+        message: 'Missing <title>'
+      }
     ];
     const out = formatConsoleReport(multi, config);
     expect(out).toContain('Critical (3)');
@@ -111,10 +180,22 @@ describe('formatConsoleReport', () => {
     expect(out).toContain('…and 2 more rules affected — run with --verbose to see all');
   });
 
-  it('verbose:true restores today\'s full per-result listing, uncapped and ungrouped', () => {
+  it("verbose:true restores today's full per-result listing, uncapped and ungrouped", () => {
     const multi: Result[] = [
-      { id: 'SEO001', severity: 'critical', detection: { presence: 'none', value: 'absent' }, route: '/a', message: 'Missing <title>' },
-      { id: 'SEO001', severity: 'critical', detection: { presence: 'none', value: 'absent' }, route: '/b', message: 'Missing <title>' }
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'Missing <title>'
+      },
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/b',
+        message: 'Missing <title>'
+      }
     ];
     const out = formatConsoleReport(multi, config, { verbose: true });
     expect(out).toContain('/a');
@@ -124,8 +205,20 @@ describe('formatConsoleReport', () => {
 
   it('collapses the Passed section to a bare count by default (no per-item lines)', () => {
     const passing: Result[] = [
-      { id: 'SEO003', severity: 'info', detection: { presence: 'own', value: 'static' }, route: '/a', message: 'Has <title>' },
-      { id: 'SEO004', severity: 'info', detection: { presence: 'own', value: 'static' }, route: '/b', message: 'Has <meta description>' }
+      {
+        id: 'SEO003',
+        severity: 'info',
+        detection: { presence: 'own', value: 'static' },
+        route: '/a',
+        message: 'Has <title>'
+      },
+      {
+        id: 'SEO004',
+        severity: 'info',
+        detection: { presence: 'own', value: 'static' },
+        route: '/b',
+        message: 'Has <meta description>'
+      }
     ];
     const out = formatConsoleReport(passing, config);
     expect(out).toContain('Passed (2)');
@@ -135,7 +228,13 @@ describe('formatConsoleReport', () => {
 
   it('lists every passed item under verbose:true, exactly as before', () => {
     const passing: Result[] = [
-      { id: 'SEO003', severity: 'info', detection: { presence: 'own', value: 'static' }, route: '/a', message: 'Has <title>' }
+      {
+        id: 'SEO003',
+        severity: 'info',
+        detection: { presence: 'own', value: 'static' },
+        route: '/a',
+        message: 'Has <title>'
+      }
     ];
     const out = formatConsoleReport(passing, config, { verbose: true });
     expect(out).toContain('✓ SEO003  Has <title>');
