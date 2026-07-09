@@ -1,5 +1,13 @@
 # svelte-vitals
 
+## 0.22.1
+
+### Patch Changes
+
+- 2652572: `ci install`'s generated workflow now pins `actions/checkout` to a commit SHA with a same-line version comment (`actions/checkout@<sha> # v7.0.0`), matching this repo's own convention, instead of a floating `@v4` tag.
+- Updated dependencies [2652572]
+  - @svelte-vitals/core@0.22.1
+
 ## 0.22.0
 
 ### Minor Changes
