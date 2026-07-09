@@ -224,6 +224,14 @@ export const DASHBOARD_SCRIPT = `
     var s = state.snapshot;
     state.routeBySlug = {};
 
+    // mount() clears and rebuilds the whole sidebar, including the <input> itself, so
+    // a naive re-render on every keystroke drops focus and cursor position — capture
+    // them before rebuilding and restore them on the freshly-created input afterward.
+    var prevSearch = document.querySelector('.dv-search');
+    var hadFocus = !!prevSearch && document.activeElement === prevSearch;
+    var selStart = hadFocus ? prevSearch.selectionStart : null;
+    var selEnd = hadFocus ? prevSearch.selectionEnd : null;
+
     var searchInput = h('input', {
       type: 'search',
       class: 'dv-search',
@@ -248,6 +256,13 @@ export const DASHBOARD_SCRIPT = `
 
     var nav = h('div', { class: 'dv-nav', role: 'listbox', 'aria-label': 'Routes' }, items);
     mount('dv-sidebar', h('div', { class: 'dv-sidebar-inner' }, [searchInput, sortSelect, nav]));
+
+    if (hadFocus) {
+      searchInput.focus();
+      if (selStart !== null && searchInput.setSelectionRange) {
+        searchInput.setSelectionRange(selStart, selEnd);
+      }
+    }
   }
 
   function renderFilterChips(categories) {

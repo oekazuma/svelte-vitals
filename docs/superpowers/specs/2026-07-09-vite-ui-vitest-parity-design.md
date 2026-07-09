@@ -153,11 +153,15 @@ must reimplement, since it no longer goes through `escapeHtml`/`safeHref`:
 - **Rendering finding fields into the DOM client-side.** Build nodes via
   `textContent`/`setAttribute`, never by interpolating finding strings into
   an `innerHTML` template — this is the client-JS equivalent of core's
-  `escapeHtml`. For `docsUrl`, reimplement `safeHref`'s http(s)-only check
-  (`packages/core/src/reporter/html.ts` line 33) before setting `href`, since
-  the dashboard no longer runs the value through core's renderer. The
-  syntax-highlighting tokenizer must escape token text the same way — it
-  operates on `fix.snippet`, which is unescaped source-like text.
+  `escapeHtml`. `docsUrl` sanitization is a single server-side pass: the
+  snapshot builder (in `packages/vite/src/ui/snapshot.ts`) already runs it
+  through `safeHref`'s http(s)-only check
+  (`packages/core/src/reporter/html.ts` line 33) before the value ever
+  reaches the browser, so the client renderer sets `href` directly from the
+  already-sanitized `docsUrl` — it must not re-implement or re-run that
+  check itself. The syntax-highlighting tokenizer must escape token text the
+  same way (`textContent`, not `innerHTML`) — it operates on `fix.snippet`,
+  which is unescaped source-like text.
 
 ## Layout
 
@@ -209,7 +213,10 @@ the user's place — a gap the current accordion layout doesn't have
 otherwise introduce.
 
 **Baseline accessibility.** The sidebar route list and Overview entry get
-list semantics and `aria-current`/`aria-selected` on the active item; focus
+list semantics (`role="listbox"`/`role="option"`) and `aria-selected` on the
+active item — `aria-selected` is the correct pairing for this selectable-list
+pattern (`aria-current` is for a "current page in a set of pages" pattern
+like breadcrumbs/pagination, not a selectable list); focus
 states follow the existing filter chips' `:focus-visible` treatment
 (`packages/core/src/reporter/html.ts`'s `STYLE`, `.chip:focus-visible`). Full
 screen-reader/a11y audit of the new layout is out of scope for this pass (see

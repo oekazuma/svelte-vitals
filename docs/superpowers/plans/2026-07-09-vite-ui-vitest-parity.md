@@ -1556,7 +1556,7 @@ Run: `pnpm changeset`
 
 Select `@svelte-vitals/vite`, bump type **minor**, and when prompted for a summary enter:
 
-```
+```text
 Redesign the live UI dashboard (`ui: true`) into a searchable, sortable master/detail layout with dark mode, syntax-highlighted fix snippets, and a live analysis-in-progress indicator.
 ```
 
