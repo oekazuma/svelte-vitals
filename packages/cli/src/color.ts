@@ -1,5 +1,7 @@
 import { noColorPalette, type Palette } from '@svelte-vitals/core';
 
+export { noColorPalette };
+
 const wrap =
   (open: number, close = 0) =>
   (s: string): string =>
