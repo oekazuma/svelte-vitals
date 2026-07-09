@@ -262,11 +262,16 @@ describe('installUiMiddleware', () => {
     expect(html).not.toContain('SEO009'); // malformed finding was filtered out
   });
 
-  it('surfaces the resolved @svelte-vitals/core version in the dashboard when passed', () => {
+  it('surfaces the resolved @svelte-vitals/core version in the embedded snapshot when passed', () => {
     const { call } = setup('0.21.0');
     const gr = res();
     call(getReq('/'), gr);
-    expect(gr.chunks.join('')).toContain('core v0.21.0');
+    const html = gr.chunks.join('');
+    const start = html.indexOf('<script type="application/json" id="svelte-vitals-data">');
+    const contentStart = html.indexOf('>', start) + 1;
+    const end = html.indexOf('</script>', contentStart);
+    const embedded = JSON.parse(html.slice(contentStart, end));
+    expect(embedded.meta.coreVersion).toBe('0.21.0');
   });
 
   it('filters a finding with a malformed fix shape so the dashboard still renders', async () => {
@@ -299,5 +304,29 @@ describe('installUiMiddleware', () => {
     expect(gr.statusCode).not.toBe(500); // dashboard did not crash
     expect(html.startsWith('<!doctype html>')).toBe(true);
     expect(html).not.toContain('SEO010'); // malformed finding was filtered out
+  });
+
+  it('GET /data.json returns the same snapshot the dashboard embeds', async () => {
+    const { call } = setup();
+    const ir = res();
+    const ireq = postReq('/ingest');
+    call(ireq, ir);
+    ireq.emit('data', Buffer.from(ingestBody));
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+
+    const jr = res();
+    call(getReq('/data.json'), jr);
+    expect(jr.headers['Content-Type']).toContain('application/json');
+    const data = JSON.parse(jr.chunks.join(''));
+    expect(data.report.routes.some((r: { route: string }) => r.route === '/a')).toBe(true);
+    expect(typeof data.sequence).toBe('number');
+  });
+
+  it('rejects a /data.json request with a non-loopback Host', () => {
+    const { call } = setup();
+    const jr = res();
+    call(getReq('/data.json', { host: 'evil.example' }), jr);
+    expect(jr.statusCode).toBe(403);
   });
 });
