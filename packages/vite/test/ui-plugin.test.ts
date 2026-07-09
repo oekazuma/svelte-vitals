@@ -65,11 +65,40 @@ describe('svelteVitals({ ui })', () => {
     (hook as (s: ViteDevServer) => void).call({}, server);
 
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
-    server.printUrls();
+    try {
+      server.printUrls();
+      expect(originalPrintUrls).toHaveBeenCalledTimes(1);
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('http://localhost:5173/__svelte-vitals/'));
+    } finally {
+      logSpy.mockRestore();
+    }
+  });
 
-    expect(originalPrintUrls).toHaveBeenCalledTimes(1);
-    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('http://localhost:5173/__svelte-vitals/'));
-    logSpy.mockRestore();
+  it('announces the dashboard at the server root even when Vite prints a URL with a configured base path', () => {
+    const plugins = svelteVitals({ ui: true }) as Plugin[];
+    const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
+    const originalPrintUrls = vi.fn();
+    const server = {
+      config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
+      watcher: { on: () => {} },
+      middlewares: { use: () => {} },
+      printUrls: originalPrintUrls,
+      // A non-root `base` in vite.config makes Vite print a URL with a path
+      // segment (e.g. /my-app/), but installUiMiddleware always mounts at
+      // the server root — the announced URL must not inherit that path.
+      resolvedUrls: { local: ['http://localhost:5173/my-app/'], network: [] }
+    } as unknown as ViteDevServer;
+    const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
+    (hook as (s: ViteDevServer) => void).call({}, server);
+
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    try {
+      server.printUrls();
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining('http://localhost:5173/__svelte-vitals/'));
+      expect(logSpy).not.toHaveBeenCalledWith(expect.stringContaining('/my-app/__svelte-vitals/'));
+    } finally {
+      logSpy.mockRestore();
+    }
   });
 
   it('printUrls wrapper still calls the original and does not throw when resolvedUrls is unavailable', () => {

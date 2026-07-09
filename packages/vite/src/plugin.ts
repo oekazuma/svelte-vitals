@@ -157,9 +157,14 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         const printUrls = server.printUrls.bind(server);
         server.printUrls = () => {
           printUrls();
-          const base = server.resolvedUrls?.local[0] ?? server.resolvedUrls?.network[0];
-          if (base) {
-            console.log(`  ➜  svelte-vitals: ${new URL('__svelte-vitals/', base).href}`);
+          const printed = server.resolvedUrls?.local?.[0] ?? server.resolvedUrls?.network?.[0];
+          if (printed) {
+            // installUiMiddleware always mounts at the server root ('/__svelte-vitals'),
+            // regardless of a configured `base` — a non-root base makes Vite print a URL
+            // with a path segment (e.g. http://host:5173/my-app/), so resolving
+            // '__svelte-vitals/' relative to that would announce the wrong, 404ing URL.
+            // Use the origin only and always append the root-mounted path ourselves.
+            console.log(`  ➜  svelte-vitals: ${new URL(printed).origin}/__svelte-vitals/`);
           }
         };
       }
