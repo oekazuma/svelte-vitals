@@ -25,6 +25,8 @@ export interface AnalysisRunnerOptions {
   analyze?: AnalyzeFn;
   onResults(results: Result[]): void;
   onError(err: unknown): void;
+  /** Called `true` right before a run starts its `analyze()` call and `false` once that run settles — including right before a coalesced follow-up starts again, so a rapid burst of changes may emit false-then-true between runs rather than staying true throughout. */
+  onStatusChange?(analyzing: boolean): void;
   /** Debounce window for `notifyChange` (default: 500ms). */
   debounceMs?: number;
 }
@@ -62,6 +64,7 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunne
   async function runOnce(): Promise<void> {
     if (stopped) return;
     running = true;
+    opts.onStatusChange?.(true);
     try {
       const analyze = await getAnalyze();
       const { results } = await analyze({
@@ -76,6 +79,7 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunne
       if (!stopped) opts.onError(err);
     } finally {
       running = false;
+      opts.onStatusChange?.(false);
       if (!stopped && pending) {
         pending = false;
         void runOnce();
