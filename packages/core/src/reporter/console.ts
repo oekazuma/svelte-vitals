@@ -19,12 +19,34 @@ const CATEGORY_LABEL: Partial<Record<Category, string>> = {
 };
 const CATEGORY_ORDER: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
 
+const MAX_RULE_GROUPS_PER_BUCKET = 5;
+
+interface RuleGroup {
+  id: string;
+  results: Result[];
+}
+
+/** Groups results by rule id, ranked by descending group size (most-affected rule first); ties broken by id for determinism. */
+function groupByRule(results: Result[]): RuleGroup[] {
+  const groups = new Map<string, Result[]>();
+  for (const r of results) {
+    const bucket = groups.get(r.id);
+    if (bucket) bucket.push(r);
+    else groups.set(r.id, [r]);
+  }
+  return [...groups.entries()]
+    .map(([id, rs]) => ({ id, results: rs }))
+    .sort((a, b) => b.results.length - a.results.length || a.id.localeCompare(b.id));
+}
+
 export interface ConsoleReportOptions {
   byRoute?: boolean;
   /** Mode label shown in the header (default 'static mode'). */
   mode?: string;
   /** Color decorators; defaults to no color. */
   palette?: Palette;
+  /** Show every failing/passed/route entry uncapped and ungrouped, exactly as before this option existed. Default false (capped, grouped by rule). */
+  verbose?: boolean;
 }
 
 function scoreLine(p: Palette, label: string, { score, scoreModel }: ScoreResult): string {
@@ -84,10 +106,29 @@ export function formatConsoleReport(results: Result[], config: Config, options: 
     const bucket = failures.filter((r) => effectiveSeverity(r, config) === severity);
     if (bucket.length === 0) continue;
     lines.push(SEVERITY_COLOR[severity](`${SEVERITY_TITLE[severity]} (${bucket.length})`), p.dim(RULE));
-    for (const r of bucket) {
-      lines.push(`${p.red('✗')} ${r.id}  ${r.message}`);
-      if (r.route) lines.push(p.dim(`            ${r.route}`));
-      if (r.location) lines.push(p.dim(`            ${r.location}${r.line ? `:${r.line}` : ''}`));
+
+    if (options.verbose) {
+      for (const r of bucket) {
+        lines.push(`${p.red('✗')} ${r.id}  ${r.message}`);
+        if (r.route) lines.push(p.dim(`            ${r.route}`));
+        if (r.location) lines.push(p.dim(`            ${r.location}${r.line ? `:${r.line}` : ''}`));
+      }
+    } else {
+      const groups = groupByRule(bucket);
+      const shownGroups = groups.slice(0, MAX_RULE_GROUPS_PER_BUCKET);
+      for (const group of shownGroups) {
+        const r = group.results[0]!;
+        lines.push(`${p.red('✗')} ${r.id}  ${r.message}`);
+        if (r.route) lines.push(p.dim(`            ${r.route}`));
+        if (r.location) lines.push(p.dim(`            ${r.location}${r.line ? `:${r.line}` : ''}`));
+        if (group.results.length > 1) {
+          lines.push(p.dim(`            …and ${group.results.length - 1} more`));
+        }
+      }
+      if (groups.length > MAX_RULE_GROUPS_PER_BUCKET) {
+        const remaining = groups.length - MAX_RULE_GROUPS_PER_BUCKET;
+        lines.push(p.dim(`…and ${remaining} more rule${remaining > 1 ? 's' : ''} affected — run with --verbose to see all`));
+      }
     }
     lines.push('');
   }
