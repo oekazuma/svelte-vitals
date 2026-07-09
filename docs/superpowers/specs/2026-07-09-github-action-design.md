@@ -78,7 +78,20 @@ No `reporter` input — the action always produces all three outputs (annotation
 
 ### 3. Runtime behavior (`src/index.ts`)
 
-Single `analyzeProject({ cwd: path, diffBase: diff, baseline })` call, then:
+**Correction from the original draft:** `analyzeProject` does not accept `diffBase`/`baseline` — those are resolved by a ~40-line sequence inside the CLI's `run()` (`packages/cli/src/index.ts:298-341`: `getChangedFiles`/`filterToChangedFiles` for `--diff`/`--staged`, `checkoutBaseline`/`filterToNewFindings` for `--baseline`), none of which is currently exported from the `svelte-vitals` package. Rather than duplicate that sequence in `packages/action`, extract it into a new exported function, **`applyScope(results, opts): Promise<Result[]>`**, added to `packages/cli/src/index.ts`'s export list — a behavior-preserving refactor (`run()` calls it instead of inlining the block; existing `run()` tests must pass unchanged). The action then does:
+
+```ts
+const analysis = await analyzeProject({ cwd: path });
+const results = await applyScope(analysis.results, {
+  cwd: path,
+  diffBase: diffInput,
+  baseline: baselineInput,
+  errorLog: core.warning,
+  analyzeOpts: {} // no CLI flags exposed by the action beyond path/diff/baseline (v1)
+});
+```
+
+then, from that single `results` array:
 
 1. **Annotations** — reuse `formatGithubReport`'s per-finding formatting (or emit equivalent `::error file=...::` lines) to stdout; GitHub parses workflow commands from any step's stdout, not just `@actions/core` calls.
 2. **Job summary** — `formatMarkdownReport(results, config, { version })` written via `core.summary.addRaw(...).write()`.
