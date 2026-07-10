@@ -36302,13 +36302,13 @@ function apply_mutations(node, mutations) {
   );
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/patterns.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/patterns.js
 var regex_starts_with_whitespaces = /^[ \t\r\n]+/;
 var regex_ends_with_whitespaces = /[ \t\r\n]+$/;
 var regex_not_whitespace = /[^ \t\r\n]/;
 var regex_not_newline_characters = /[^\n]/g;
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/constants.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/constants.js
 var EACH_INDEX_REACTIVE = 1 << 1;
 var EACH_IS_CONTROLLED = 1 << 2;
 var EACH_IS_ANIMATED = 1 << 3;
@@ -36343,7 +36343,7 @@ var IGNORABLE_RUNTIME_WARNINGS = (
   ]
 );
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/utils/fuzzymatch.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/utils/fuzzymatch.js
 function fuzzymatch(name, names) {
   if (names.length === 0) return null;
   const set2 = new FuzzySet(names);
@@ -36579,7 +36579,7 @@ function getLocator(source2, options = {}) {
   return locator2;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/utils.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/utils.js
 var VOID_ELEMENT_NAMES = [
   "area",
   "base",
@@ -36732,7 +36732,7 @@ var RUNES = (
 );
 var REGEX_VALID_TAG_NAME = /^[a-zA-Z][a-zA-Z0-9]*(-[a-zA-Z0-9.\-_\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u{10000}-\u{EFFFF}]*)?$/u;
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/state.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/state.js
 var warnings = [];
 var filename;
 var UNKNOWN_FILENAME = "(unknown)";
@@ -36766,7 +36766,7 @@ function reset(state) {
   warnings = [];
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/utils/compile_diagnostic.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/utils/compile_diagnostic.js
 var regex_tabs = /^\t+/;
 function tabs_to_spaces(str) {
   return str.replace(regex_tabs, (match) => match.split("	").join("  "));
@@ -36837,7 +36837,7 @@ ${this.frame}`;
   }
 };
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/warnings.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/warnings.js
 var InternalCompileWarning = class extends CompileDiagnostic {
   name = "CompileWarning";
   /**
@@ -36987,7 +36987,7 @@ function svelte_element_invalid_this(node) {
 https://svelte.dev/e/svelte_element_invalid_this`);
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/utils/extract_svelte_ignore.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/utils/extract_svelte_ignore.js
 var regex_svelte_ignore = /^\s*svelte-ignore\s/;
 var replacements = {
   "non-top-level-reactive-declaration": "reactive_declaration_invalid_placement",
@@ -37043,7 +37043,7 @@ function extract_svelte_ignore(offset2, text2, runes2) {
   return ignores;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/legacy.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/legacy.js
 function remove_surrounding_whitespace_nodes(nodes) {
   const first = nodes.at(0);
   const last = nodes.at(-1);
@@ -48433,7 +48433,7 @@ function tsPlugin(options) {
   };
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/errors.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/errors.js
 var InternalCompileError = class extends Error {
   message = "";
   // ensure this property is enumerable
@@ -48695,7 +48695,7 @@ function void_element_invalid_content(node) {
 https://svelte.dev/e/void_element_invalid_content`);
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/acorn.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/acorn.js
 var JSParser = Parser;
 var TSParser = JSParser.extend(tsPlugin());
 function parse6(source2, comments, typescript, is_script) {
@@ -48874,7 +48874,7 @@ function get_comment_handlers(source2, comments, index = 0) {
   };
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/utils/bracket.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/utils/bracket.js
 function infinity_if_negative(num) {
   if (num < 0) {
     return Infinity;
@@ -49029,7 +49029,7 @@ function match_quote(parser, start, quote) {
   unterminated_string_constant(start);
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/read/expression.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/read/expression.js
 function get_loose_identifier(parser, opening_token) {
   const end = find_matching_bracket(parser.template, parser.index, opening_token ?? "{");
   if (end) {
@@ -49068,7 +49068,7 @@ function read_expression(parser, opening_token, disallow_loose) {
   }
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/utils/builders.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/utils/builders.js
 function array(elements = []) {
   return { type: "ArrayExpression", elements };
 }
@@ -49083,7 +49083,7 @@ var true_instance = literal2(true);
 var false_instance = literal2(false);
 var null_instance = literal2(null);
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/utils/ast.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/utils/ast.js
 function is_text_attribute(attribute) {
   return Array.isArray(attribute.value) && attribute.value.length === 1 && attribute.value[0].type === "Text";
 }
@@ -49097,7 +49097,7 @@ function get_attribute_expression(attribute) {
   ) : attribute.value.expression;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/read/script.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/read/script.js
 var regex_closing_script_tag = /<\/script\s*>/;
 var regex_starts_with_closing_script_tag = /<\/script\s*>/y;
 var RESERVED_ATTRIBUTES = ["server", "client", "worker", "test", "default"];
@@ -49156,7 +49156,7 @@ function read_script(parser, start, attributes) {
   };
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/read/style.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/read/style.js
 var REGEX_MATCHER = /[~^$*|]?=/y;
 var REGEX_CLOSING_BRACKET = /[\s\]]/;
 var REGEX_ATTRIBUTE_FLAGS = /[a-zA-Z]+/y;
@@ -49614,7 +49614,7 @@ function allow_comment_or_whitespace(parser) {
   }
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/utils/entities.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/utils/entities.js
 var entities_default = {
   "CounterClockwiseContourIntegral;": 8755,
   "ClockwiseContourIntegral;": 8754,
@@ -51849,7 +51849,7 @@ var entities_default = {
   lt: 60
 };
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/utils/html.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/utils/html.js
 var windows_1252 = [
   8364,
   129,
@@ -51957,7 +51957,7 @@ function validate_code(code) {
   return NUL;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/utils/create.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/utils/create.js
 function create_fragment(transparent = false) {
   return {
     type: "Fragment",
@@ -51969,7 +51969,7 @@ function create_fragment(transparent = false) {
   };
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/nodes.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/nodes.js
 var element_nodes = [
   "SvelteElement",
   "RegularElement",
@@ -52063,7 +52063,7 @@ var ExpressionMetadata = class {
   }
 };
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/html-tree-validation.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/html-tree-validation.js
 var autoclosing_children = {
   // based on http://developers.whatwg.org/syntax.html#syntax-tag-omission
   li: { direct: ["li"] },
@@ -52173,14 +52173,14 @@ var disallowed_children = {
   "#document": { only: ["html"] }
 };
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/utils/string.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/utils/string.js
 function list(strings, conjunction = "or") {
   if (strings.length === 1) return strings[0];
   if (strings.length === 2) return `${strings[0]} ${conjunction} ${strings[1]}`;
   return `${strings.slice(0, -1).join(", ")} ${conjunction} ${strings[strings.length - 1]}`;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/state/element.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/state/element.js
 var regex_invalid_unquoted_attribute_value = /(\/>|[\s"'=<>`])/y;
 var regex_closing_textarea_tag = /<\/textarea(\s[^>]*)?>/iy;
 var regex_closing_comment = /-->/;
@@ -52893,7 +52893,7 @@ function read_tag(parser, regex) {
   };
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/read/context.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/read/context.js
 function read_pattern(parser) {
   const start = parser.index;
   let i = parser.index;
@@ -52960,7 +52960,7 @@ function read_type_annotation(parser) {
   };
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/state/tag.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/state/tag.js
 var regex_whitespace_with_closing_curly_brace = /\s*}/y;
 var regex_supported_declaration = /(?:let|const)\b/y;
 var regex_unsupported_declaration = /(?:var|interface|enum)\b/y;
@@ -53614,7 +53614,7 @@ function special(parser) {
   expected_tag(parser.index);
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/state/text.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/state/text.js
 function text(parser) {
   const start = parser.index;
   while (parser.index < parser.template.length && !parser.match("<") && !parser.match("{")) {
@@ -53630,7 +53630,7 @@ function text(parser) {
   });
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/state/fragment.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/state/fragment.js
 function fragment(parser) {
   if (parser.match("<")) {
     return element;
@@ -53641,7 +53641,7 @@ function fragment(parser) {
   return text;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/read/options.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/read/options.js
 function read_options(node) {
   const component_options2 = {
     start: node.start,
@@ -53844,7 +53844,7 @@ function validate_tag(attribute, tag2) {
   }
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/special-element.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/special-element.js
 function disallow_children(node) {
   const { nodes } = node.fragment;
   if (nodes.length > 0) {
@@ -53854,7 +53854,7 @@ function disallow_children(node) {
   }
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/1-parse/index.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/index.js
 function is_whitespace(cc) {
   if (cc === 32 || cc <= 13 && cc >= 9) return true;
   if (cc < 160) return false;
@@ -54105,7 +54105,7 @@ function parse7(template2, loose = false) {
   return parser.root;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/scope.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/scope.js
 var NUMBER = /* @__PURE__ */ Symbol("number");
 var STRING = /* @__PURE__ */ Symbol("string");
 var globals = {
@@ -54158,7 +54158,7 @@ var globals = {
   "String.fromCodePoint": [STRING, String.fromCodePoint]
 };
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/constants.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/constants.js
 var import_aria_query = __toESM(require_lib2(), 1);
 var import_axobject_query = __toESM(require_lib3(), 1);
 var aria_attributes = "activedescendant atomic autocomplete busy checked colcount colindex colspan controls current describedby description details disabled dropeffect errormessage expanded flowto grabbed haspopup hidden invalid keyshortcuts label labelledby level live modal multiline multiselectable orientation owns placeholder posinset pressed readonly relevant required roledescription rowcount rowindex rowspan selected setsize sort valuemax valuemin valuenow valuetext".split(
@@ -54213,7 +54213,7 @@ for (const [schema, ax_object] of import_axobject_query.elementAXObjects.entries
   }
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/index.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/index.js
 var import_aria_query2 = __toESM(require_lib2(), 1);
 var import_axobject_query2 = __toESM(require_lib3(), 1);
 
@@ -54230,7 +54230,7 @@ for (let i = 0; i < chars.length; i++) {
 }
 var bufLength = 1024 * 16;
 
-// ../../node_modules/.pnpm/esrap@2.2.13_@typescript-eslint+types@8.62.1/node_modules/esrap/src/index.js
+// ../../node_modules/.pnpm/esrap@2.2.13_@typescript-eslint+types@8.63.0/node_modules/esrap/src/index.js
 var btoa2 = () => {
   throw new Error("Unsupported environment: `window.btoa` or `Buffer` should be supported.");
 };
@@ -54240,19 +54240,19 @@ if (typeof window !== "undefined" && typeof window.btoa === "function") {
   btoa2 = (str) => Buffer.from(str, "utf-8").toString("base64");
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/internal/server/hydration.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/internal/server/hydration.js
 var BLOCK_OPEN = `<!--${HYDRATION_START}-->`;
 var BLOCK_OPEN_ELSE = `<!--${HYDRATION_START_ELSE}-->`;
 var BLOCK_CLOSE = `<!--${HYDRATION_END}-->`;
 var EMPTY_COMMENT = `<!---->`;
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/3-transform/server/visitors/shared/utils.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/3-transform/server/visitors/shared/utils.js
 var block_open = literal2(BLOCK_OPEN);
 var block_open_else = literal2(BLOCK_OPEN_ELSE);
 var block_close = literal2(BLOCK_CLOSE);
 var empty_comment = literal2(EMPTY_COMMENT);
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/phases/3-transform/client/transform-template/fix-attribute-casing.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/3-transform/client/transform-template/fix-attribute-casing.js
 var svg_attributes = "accent-height accumulate additive alignment-baseline allowReorder alphabetic amplitude arabic-form ascent attributeName attributeType autoReverse azimuth baseFrequency baseline-shift baseProfile bbox begin bias by calcMode cap-height class clip clipPathUnits clip-path clip-rule color color-interpolation color-interpolation-filters color-profile color-rendering contentScriptType contentStyleType cursor cx cy d decelerate descent diffuseConstant direction display divisor dominant-baseline dur dx dy edgeMode elevation enable-background end exponent externalResourcesRequired fill fill-opacity fill-rule filter filterRes filterUnits flood-color flood-opacity font-family font-size font-size-adjust font-stretch font-style font-variant font-weight format from fr fx fy g1 g2 glyph-name glyph-orientation-horizontal glyph-orientation-vertical glyphRef gradientTransform gradientUnits hanging height href horiz-adv-x horiz-origin-x id ideographic image-rendering in in2 intercept k k1 k2 k3 k4 kernelMatrix kernelUnitLength kerning keyPoints keySplines keyTimes lang lengthAdjust letter-spacing lighting-color limitingConeAngle local marker-end marker-mid marker-start markerHeight markerUnits markerWidth mask maskContentUnits maskUnits mathematical max media method min mode name numOctaves offset onabort onactivate onbegin onclick onend onerror onfocusin onfocusout onload onmousedown onmousemove onmouseout onmouseover onmouseup onrepeat onresize onscroll onunload opacity operator order orient orientation origin overflow overline-position overline-thickness panose-1 paint-order pathLength patternContentUnits patternTransform patternUnits pointer-events points pointsAtX pointsAtY pointsAtZ preserveAlpha preserveAspectRatio primitiveUnits r radius refX refY rendering-intent repeatCount repeatDur requiredExtensions requiredFeatures restart result rotate rx ry scale seed shape-rendering slope spacing specularConstant specularExponent speed spreadMethod startOffset stdDeviation stemh stemv stitchTiles stop-color stop-opacity strikethrough-position strikethrough-thickness string stroke stroke-dasharray stroke-dashoffset stroke-linecap stroke-linejoin stroke-miterlimit stroke-opacity stroke-width style surfaceScale systemLanguage tabindex tableValues target targetX targetY text-anchor text-decoration text-rendering textLength to transform type u1 u2 underline-position underline-thickness unicode unicode-bidi unicode-range units-per-em v-alphabetic v-hanging v-ideographic v-mathematical values version vert-adv-y vert-origin-x vert-origin-y viewBox viewTarget visibility width widths word-spacing writing-mode x x-height x1 x2 xChannelSelector xlink:actuate xlink:arcrole xlink:href xlink:role xlink:show xlink:title xlink:type xml:base xml:lang xml:space y y1 y2 yChannelSelector z zoomAndPan".split(
   " "
 );
@@ -54261,7 +54261,7 @@ svg_attributes.forEach((name) => {
   svg_attribute_lookup.set(name.toLowerCase(), name);
 });
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/validate-options.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/validate-options.js
 var common_options = {
   filename: string("(unknown)"),
   // default to process.cwd() where it exists to replicate svelte4 behavior (and make Deno work with this as well)
@@ -54519,7 +54519,7 @@ function throw_error2(msg) {
   options_invalid_value(null, msg);
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.62.1/node_modules/svelte/src/compiler/index.js
+// ../../node_modules/.pnpm/svelte@5.56.4_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/index.js
 function parse8(source2, { modern, loose } = {}) {
   source2 = remove_bom(source2);
   reset({ warning: () => false, filename: void 0 });
