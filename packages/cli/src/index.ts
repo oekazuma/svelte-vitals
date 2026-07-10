@@ -33,6 +33,7 @@ import { getChangedFiles, filterToChangedFiles } from './changed-files.js';
 import { checkoutBaseline, filterToNewFindings } from './baseline.js';
 import { colorEnabled, paletteFor } from './color.js';
 import { startSpinner } from './spinner.js';
+import { startMascotSpinner, mascotFitsWidth } from './mascot.js';
 import { loadConfigFile } from './config-file.js';
 import { playScoreAnimation, scoreAnimationEnabled } from './pulse-animation.js';
 
@@ -86,6 +87,8 @@ export interface RunOptions {
   noAnimation?: boolean;
   /** Override the stream the score animation writes to (tests). Defaults to process.stdout. */
   stdoutStream?: NodeJS.WriteStream;
+  /** Override the stream the analysis-phase progress indicator writes to (tests). Defaults to process.stderr. */
+  stderrStream?: NodeJS.WriteStream;
   /** Override the animation's per-frame delay in ms (tests — 0 runs the real frame loop near-instantly). Defaults to the animation module's own constant. */
   animationFrameDelayMs?: number;
 }
@@ -265,17 +268,20 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 
   const env = opts.env ?? process.env;
   const reporter = resolveReporter(opts.reporter, env);
-  const spinner = startSpinner('Analyzing…', {
-    enabled:
-      !opts.score &&
-      spinnerEnabled({
-        reporter,
-        rawReporter: opts.reporter,
-        stderrIsTTY: opts.stderrIsTTY ?? !!process.stderr.isTTY,
-        env,
-        noColorFlag: opts.noColor
-      })
-  });
+  const stderrStream = opts.stderrStream ?? process.stderr;
+  const spinnerBaseEnabled =
+    !opts.score &&
+    spinnerEnabled({
+      reporter,
+      rawReporter: opts.reporter,
+      stderrIsTTY: opts.stderrIsTTY ?? !!process.stderr.isTTY,
+      env,
+      noColorFlag: opts.noColor
+    });
+  const useMascotSpinner = spinnerBaseEnabled && !opts.noAnimation && mascotFitsWidth(stderrStream.columns);
+  const spinner = useMascotSpinner
+    ? startMascotSpinner('Analyzing…', { enabled: true, palette: paletteFor(true), stream: stderrStream })
+    : startSpinner('Analyzing…', { enabled: spinnerBaseEnabled, stream: stderrStream });
 
   let cwd = opts.cwd ?? process.cwd();
 
@@ -375,6 +381,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         categories: opts.categories
       }
     });
+    const summary = summarize(results, config);
 
     if (opts.score) {
       log(String(computeHealth(results, config).health));
@@ -438,6 +445,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         if (animate) {
           await playScoreAnimation({
             score: computeHealth(results, config).health,
+            hasCritical: summary.critical > 0,
             palette,
             stream: opts.stdoutStream ?? process.stdout,
             frameDelayMs: opts.animationFrameDelayMs
@@ -453,7 +461,6 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         );
       }
     }
-    const summary = summarize(results, config);
     const failBySeverity = hasFailureAtOrAbove(summary, config.failOn);
     const failByHealth = opts.minHealth != null && computeHealth(results, config).health < opts.minHealth;
     return failBySeverity || failByHealth ? 1 : 0;

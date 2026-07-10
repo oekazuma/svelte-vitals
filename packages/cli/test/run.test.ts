@@ -390,4 +390,58 @@ describe('run() --verbose and animation', () => {
     expect(animWrites).toEqual([]);
     expect(cap.out.join('\n')).toContain('Health:'); // header printed inline instead
   });
+
+  it('shows the mascot idle loop on stderr during analysis on a wide interactive terminal', async () => {
+    const cap = capture();
+    const stderrWrites: string[] = [];
+    const stderrStream = { write: (s: string) => stderrWrites.push(s) } as unknown as NodeJS.WriteStream;
+    await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      env: CLEAN_ENV,
+      stderrIsTTY: true,
+      stderrStream,
+      stdoutIsTTY: false // isolate: only exercise the analysis-phase mascot here
+    });
+    expect(stderrWrites.length).toBeGreaterThan(0);
+    // The mascot's orange truecolor escape is a reliable "this is mascot art, not the
+    // plain braille spinner" marker — the braille spinner never emits color.
+    expect(stderrWrites.join('')).toContain('\x1b[38;2;255;62;0m');
+  });
+
+  it('falls back to the plain braille spinner when --no-animation is set, even on a wide interactive terminal', async () => {
+    const cap = capture();
+    const stderrWrites: string[] = [];
+    const stderrStream = { write: (s: string) => stderrWrites.push(s) } as unknown as NodeJS.WriteStream;
+    await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      env: CLEAN_ENV,
+      stderrIsTTY: true,
+      stderrStream,
+      stdoutIsTTY: false,
+      noAnimation: true
+    });
+    expect(stderrWrites.length).toBeGreaterThan(0); // a progress indicator still shows...
+    expect(stderrWrites.join('')).not.toContain('\x1b[38;2;255;62;0m'); // ...just not the mascot
+  });
+
+  it('falls back to the plain braille spinner on a narrow terminal', async () => {
+    const cap = capture();
+    const stderrWrites: string[] = [];
+    const stderrStream = { write: (s: string) => stderrWrites.push(s) } as unknown as NodeJS.WriteStream;
+    Object.defineProperty(stderrStream, 'columns', { value: 30 });
+    await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      env: CLEAN_ENV,
+      stderrIsTTY: true,
+      stderrStream,
+      stdoutIsTTY: false
+    });
+    expect(stderrWrites.join('')).not.toContain('\x1b[38;2;255;62;0m');
+  });
 });
