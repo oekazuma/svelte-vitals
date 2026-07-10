@@ -1,18 +1,5 @@
 <script>
-  let {
-    name,
-    role,
-    email,
-    phone,
-    address,
-    city,
-    country,
-    avatar,
-    company,
-    website,
-    twitter,
-    linkedin
-  } = $props();
+  let { name, role, email, phone, address, city, country, avatar, company, website, twitter, linkedin } = $props();
 </script>
 
 <article>

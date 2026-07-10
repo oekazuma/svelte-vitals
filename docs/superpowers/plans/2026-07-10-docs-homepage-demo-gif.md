@@ -489,6 +489,8 @@ Set TypingSpeed 60ms
 Set Framerate 30
 
 Hide
+Type "unset CLAUDECODE SVELTE_VITALS_AGENT CI"
+Enter
 Type "alias svelte-vitals='node ../../packages/cli/dist/bin.js'"
 Enter
 Type "clear"
@@ -512,13 +514,26 @@ Notes on each non-obvious line:
   user would type against a published package, even though it's actually
   invoking the local build. `clear` inside the hidden block wipes the shell
   banner so the very first visible frame is a clean prompt.
-- `--reporter console` is passed **explicitly**, not left to
-  auto-detection. `packages/cli/src/reporter-resolve.ts`'s
-  `isAutoDetectedAgent(explicit, env)` returns `false` whenever `explicit`
-  is set, regardless of environment — so passing this flag also sidesteps
-  the "AI-agent env detected" auto-selection that would otherwise swap in
-  the Markdown `agent` reporter if `vhs` is invoked from within an
-  agent-shaped shell (e.g. `CLAUDECODE` set in the recording environment).
+- `unset CLAUDECODE SVELTE_VITALS_AGENT CI` clears any agent/CI env vars
+  `vhs` itself inherited from whatever shell launched it (e.g. this repo's
+  own agent-driven sessions set `CLAUDECODE`). This is required as of
+  `packages/cli/src/reporter-resolve.ts`'s `isAgentEnv`/`isCiEnv`, used
+  **unconditionally** by `scoreAnimationEnabled` (a fix that landed after
+  this plan was first drafted, in response to a PR review comment — see
+  `docs/superpowers/plans/2026-07-10-console-reporter-compact-animated.md`).
+  Passing `--reporter console` explicitly is no longer enough on its own to
+  get the animation inside a detected agent shell; the env vars themselves
+  must be gone for that specific subprocess. Baking the `unset` into the
+  tape's hidden setup (rather than requiring whoever runs `vhs demo.tape`
+  to remember to `env -u` it externally) keeps the recording reproducible
+  regardless of the invoking shell's ambient environment.
+- `--reporter console` is still passed **explicitly**, not left to
+  auto-detection, for a second, independent reason: it also sidesteps
+  `resolveReporter`'s own agent-env auto-selection, which would otherwise
+  swap in the Markdown `agent` reporter (`isAutoDetectedAgent` only
+  returns `false` when an explicit reporter is given — this part is
+  unaffected by the `scoreAnimationEnabled` fix above, which is a separate
+  gate).
 - No `--no-color` / `--no-animation`: `vhs` runs the command in a real pty,
   so `process.stdout.isTTY` is `true` and the pulse animation plays exactly
   as it would for an interactive human user — nothing needs to be forced.

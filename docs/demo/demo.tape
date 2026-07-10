@@ -10,6 +10,8 @@ Set TypingSpeed 60ms
 Set Framerate 30
 
 Hide
+Type "unset CLAUDECODE SVELTE_VITALS_AGENT CI"
+Enter
 Type "alias svelte-vitals='node ../../packages/cli/dist/bin.js'"
 Enter
 Type "clear"
