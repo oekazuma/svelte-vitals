@@ -444,6 +444,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         if (animate) {
           await playScoreAnimation({
             score: computeHealth(results, config).health,
+            hasCritical: summarize(results, config).critical > 0,
             palette,
             stream: opts.stdoutStream ?? process.stdout,
             frameDelayMs: opts.animationFrameDelayMs

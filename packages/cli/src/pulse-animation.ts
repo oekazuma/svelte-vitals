@@ -1,6 +1,14 @@
 import { scoreColor, type Palette } from '@svelte-vitals/core';
+import { createLogUpdate } from 'log-update';
 import { colorEnabled } from './color.js';
 import { isAgentEnv, isCiEnv, type ReporterName } from './reporter-resolve.js';
+import {
+  mascotFitsWidth,
+  mascotStateFor,
+  renderMascotAnticipating,
+  renderMascotReaction,
+  renderConfettiFrame
+} from './mascot.js';
 
 const FRAME_COUNT = 6;
 const FRAME_DELAY_MS = 200;
@@ -21,23 +29,37 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+const REACTION_HOLD_MS = 500;
+const CONFETTI_FRAME_COUNT = 4;
+const CONFETTI_FRAME_DELAY_MS = 220;
+
 export interface ScoreAnimationOptions {
   score: number;
+  /** Whether any critical-severity finding is present — determines the 'alarmed' reaction regardless of score. */
+  hasCritical: boolean;
   palette: Palette;
   stream: NodeJS.WriteStream;
-  /** Override for tests — real playback uses FRAME_DELAY_MS (200ms); 0 runs the same frame loop near-instantly. */
+  /** Override for tests — real playback uses FRAME_DELAY_MS/REACTION_HOLD_MS/CONFETTI_FRAME_DELAY_MS; 0 runs every phase near-instantly. */
   frameDelayMs?: number;
 }
 
 /**
- * Plays the pulse-line score-reveal animation in place on `stream`: two lines (wave +
- * Health score), redrawn each frame via `\r` + a 2-line ANSI cursor-up escape, matching
- * the redraw technique `spinner.ts` already uses for its single-line spinner. The score
- * counts up linearly across the frames; the final frame colors it via `scoreColor`,
- * matching every other colored score in the console reporter.
+ * Plays the pulse-line score-reveal animation: the wave + counting Health score
+ * (unchanged from before), plus — on a wide-enough terminal (`mascotFitsWidth`) — a
+ * mascot that watches neutrally while the score counts up, then snaps to its reaction
+ * pose on the final frame, held briefly, followed by a confetti bonus if the score is
+ * a perfect 100. Redraws via `log-update` (see mascot.ts's `startMascotSpinner` doc
+ * comment for why: hand-rolled `\x1b[nA` cursor math doesn't track wrapped lines, and
+ * this block is now up to 8 lines tall with the mascot + confetti).
  */
 export async function playScoreAnimation(opts: ScoreAnimationOptions): Promise<void> {
   const frameDelayMs = opts.frameDelayMs ?? FRAME_DELAY_MS;
+  const holdMs = opts.frameDelayMs ?? REACTION_HOLD_MS;
+  const confettiDelayMs = opts.frameDelayMs ?? CONFETTI_FRAME_DELAY_MS;
+  const render = createLogUpdate(opts.stream);
+  const showMascot = mascotFitsWidth(opts.stream.columns);
+  const state = mascotStateFor(opts.score, opts.hasCritical);
+
   for (let frame = 0; frame < FRAME_COUNT; frame++) {
     const progress = frame / (FRAME_COUNT - 1);
     const displayScore = Math.round(opts.score * progress);
@@ -46,13 +68,26 @@ export async function playScoreAnimation(opts: ScoreAnimationOptions): Promise<v
     const scoreText = isFinalFrame
       ? scoreColor(opts.palette, opts.score)(`${displayScore}/100`)
       : opts.palette.dim(`${displayScore}/100`);
-    const cursorUp = frame === 0 ? '' : '\x1b[2A';
-    // \x1b[K after each line clears any leftover characters from a longer previous
-    // frame — the wave strings are not all the same length, and without this a
-    // shorter frame would leave stray trailing characters from the one before it.
-    opts.stream.write(`${cursorUp}\r  ${wave}\x1b[K\n\r  Health: ${scoreText}\x1b[K\n`);
+    const waveBlock = `  ${wave}\n  Health: ${scoreText}`;
+    const mascotBlock = showMascot
+      ? (isFinalFrame ? renderMascotReaction(state, opts.palette) : renderMascotAnticipating(opts.palette)) + '\n'
+      : '';
+    render(`${mascotBlock}${waveBlock}`);
     if (!isFinalFrame) await sleep(frameDelayMs);
   }
+
+  if (holdMs > 0) await sleep(holdMs);
+
+  if (showMascot && state === 'ecstatic') {
+    const mascotBlock = renderMascotReaction('ecstatic', opts.palette);
+    for (let i = 0; i < CONFETTI_FRAME_COUNT; i++) {
+      const waveBlock = `  ${WAVE_FRAMES[FRAME_COUNT - 1]!}\n  Health: ${scoreColor(opts.palette, opts.score)('100/100')}`;
+      render(`${renderConfettiFrame(i, mascotBlock, opts.palette)}\n${waveBlock}`);
+      if (i < CONFETTI_FRAME_COUNT - 1 && confettiDelayMs > 0) await sleep(confettiDelayMs);
+    }
+  }
+
+  render.done();
 }
 
 /**

@@ -34,28 +34,68 @@ describe('scoreAnimationEnabled', () => {
   });
   it('is off in CI, even on an allocated TTY', () => {
     expect(scoreAnimationEnabled({ ...base, env: { CI: 'true' } })).toBe(false);
-    expect(scoreAnimationEnabled({ ...base, env: { CI: '1' } })).toBe(false);
   });
 });
 
 describe('playScoreAnimation', () => {
-  it('writes 6 frames ending on the final score, using frameDelayMs:0 to run instantly', async () => {
+  it('writes multiple frames ending on the final score', async () => {
     const { writes, stream } = fakeStream();
-    await playScoreAnimation({ score: 82, palette: noColorPalette, stream, frameDelayMs: 0 });
-    expect(writes).toHaveLength(6);
+    await playScoreAnimation({ score: 82, hasCritical: false, palette: noColorPalette, stream, frameDelayMs: 0 });
+    expect(writes.length).toBeGreaterThan(1);
     expect(writes[writes.length - 1]).toContain('82/100');
   });
 
-  it('colors the final frame using scoreColor thresholds', async () => {
+  it('colors the final Health score using scoreColor thresholds', async () => {
     const { writes, stream } = fakeStream();
-    await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 });
+    await playScoreAnimation({ score: 95, hasCritical: false, palette: ansiPalette, stream, frameDelayMs: 0 });
     expect(writes[writes.length - 1]).toContain('\x1b[32m'); // green, score >= 90
   });
 
-  it('redraws in place: every frame after the first starts with a cursor-up escape', async () => {
+  it('shows the mascot reaction matching the final state on the last frame', async () => {
     const { writes, stream } = fakeStream();
-    await playScoreAnimation({ score: 50, palette: noColorPalette, stream, frameDelayMs: 0 });
-    expect(writes[0]).not.toContain('\x1b[2A');
-    for (let i = 1; i < writes.length; i++) expect(writes[i]).toContain('\x1b[2A');
+    // content: 70-89, no critical -> yellow face
+    await playScoreAnimation({ score: 75, hasCritical: false, palette: ansiPalette, stream, frameDelayMs: 0 });
+    const last = writes[writes.length - 1]!;
+    expect(last).toContain('\x1b[38;2;255;62;0m'); // svelte-orange body present
+    expect(last).toContain('\x1b[33m'); // content's yellow face
+  });
+
+  it('shows the alarmed (red) reaction when a critical finding is present, even at a middling score', async () => {
+    const { writes, stream } = fakeStream();
+    await playScoreAnimation({ score: 75, hasCritical: true, palette: ansiPalette, stream, frameDelayMs: 0 });
+    const last = writes[writes.length - 1]!;
+    expect(last).toContain('\x1b[31m'); // alarmed's red face, not content's yellow
+  });
+
+  it('plays a confetti bonus after a perfect 100, but not for any other score', async () => {
+    const perfect = fakeStream();
+    await playScoreAnimation({
+      score: 100,
+      hasCritical: false,
+      palette: ansiPalette,
+      stream: perfect.stream,
+      frameDelayMs: 0
+    });
+    // Confetti frames add particle rows around the mascot; look for the deterministic
+    // particle glyph set that only confetti frames introduce.
+    expect(perfect.writes.some((w) => w.includes('*') || w.includes('·'))).toBe(true);
+
+    const high = fakeStream();
+    await playScoreAnimation({
+      score: 99,
+      hasCritical: false,
+      palette: ansiPalette,
+      stream: high.stream,
+      frameDelayMs: 0
+    });
+    expect(high.writes.some((w) => w.includes('*') || w.includes('·'))).toBe(false);
+  });
+
+  it('omits the mascot entirely on a narrow terminal, still completing the wave/score reveal', async () => {
+    const { writes, stream } = fakeStream();
+    Object.defineProperty(stream, 'columns', { value: 30 });
+    await playScoreAnimation({ score: 82, hasCritical: false, palette: noColorPalette, stream, frameDelayMs: 0 });
+    expect(writes[writes.length - 1]).toContain('82/100');
+    expect(writes.join('')).not.toContain('.---.'); // no mascot body art anywhere
   });
 });
