@@ -10,7 +10,6 @@ function fakeStream() {
 describe('scoreAnimationEnabled', () => {
   const base = {
     reporter: 'console' as const,
-    rawReporter: undefined,
     stdoutIsTTY: true,
     env: {} as NodeJS.ProcessEnv
   };
@@ -30,8 +29,12 @@ describe('scoreAnimationEnabled', () => {
   it('is off with --no-animation', () => {
     expect(scoreAnimationEnabled({ ...base, noAnimationFlag: true })).toBe(false);
   });
-  it('is off when the agent reporter was auto-detected from the env', () => {
+  it('is off in a detected agent env, even when console is requested explicitly', () => {
     expect(scoreAnimationEnabled({ ...base, env: { CLAUDECODE: '1' } })).toBe(false);
+  });
+  it('is off in CI, even on an allocated TTY', () => {
+    expect(scoreAnimationEnabled({ ...base, env: { CI: 'true' } })).toBe(false);
+    expect(scoreAnimationEnabled({ ...base, env: { CI: '1' } })).toBe(false);
   });
 });
 

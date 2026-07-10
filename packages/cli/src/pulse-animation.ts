@@ -1,6 +1,6 @@
 import { scoreColor, type Palette } from '@svelte-vitals/core';
 import { colorEnabled } from './color.js';
-import { isAutoDetectedAgent, type ReporterName } from './reporter-resolve.js';
+import { isAgentEnv, isCiEnv, type ReporterName } from './reporter-resolve.js';
 
 const FRAME_COUNT = 6;
 const FRAME_DELAY_MS = 200;
@@ -60,10 +60,16 @@ export async function playScoreAnimation(opts: ScoreAnimationOptions): Promise<v
  * the animation writes the actual report content, unlike the spinner's stderr status
  * line. `--score` mode never reaches the console-reporter call site at all, so it
  * needs no explicit check here.
+ *
+ * Unlike `spinnerEnabled`, the agent/CI checks here are unconditional (`isAgentEnv`/
+ * `isCiEnv`, not "auto-detected only") — a decorative animation that overwrites its own
+ * output via ANSI cursor-up escapes has no reasonable use even when a caller explicitly
+ * forces `--reporter console` inside a detected agent shell or CI job; only a real
+ * interactive human terminal benefits, and both docs and the CLI help promise it "never
+ * plays in CI/agent shells" with no such carve-out.
  */
 export function scoreAnimationEnabled(opts: {
   reporter: ReporterName;
-  rawReporter: ReporterName | undefined;
   stdoutIsTTY: boolean;
   env: NodeJS.ProcessEnv;
   noColorFlag?: boolean;
@@ -73,7 +79,8 @@ export function scoreAnimationEnabled(opts: {
     opts.reporter === 'console' &&
     opts.stdoutIsTTY &&
     !opts.noAnimationFlag &&
-    !isAutoDetectedAgent(opts.rawReporter, opts.env) &&
+    !isAgentEnv(opts.env) &&
+    !isCiEnv(opts.env) &&
     colorEnabled({ reporter: opts.reporter, isTTY: opts.stdoutIsTTY, env: opts.env, noColorFlag: opts.noColorFlag })
   );
 }

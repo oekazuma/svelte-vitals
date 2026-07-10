@@ -28,6 +28,11 @@ export function isGithubActionsEnv(env: NodeJS.ProcessEnv = process.env): boolea
   return env.GITHUB_ACTIONS === 'true';
 }
 
+/** True when CI is set (the widely-adopted convention: GitHub Actions, GitLab, CircleCI, Travis, and most other CI systems all set CI=true). */
+export function isCiEnv(env: NodeJS.ProcessEnv = process.env): boolean {
+  return env.CI === 'true' || env.CI === '1';
+}
+
 /**
  * Resolve the reporter: explicit flag → SVELTE_VITALS_REPORTER → agent-env
  * auto-detect → GitHub-Actions auto-detect → console.

@@ -430,7 +430,6 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         const palette = paletteFor(colorOn);
         const animate = scoreAnimationEnabled({
           reporter,
-          rawReporter: opts.reporter,
           stdoutIsTTY,
           env,
           noColorFlag: opts.noColor,
