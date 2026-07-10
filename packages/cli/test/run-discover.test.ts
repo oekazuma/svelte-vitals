@@ -26,6 +26,12 @@ describe('run(): monorepo app discovery + picker (design doc 2026-07-08-monorepo
       env: CLEAN_ENV,
       stdinIsTTY: true,
       stdoutIsTTY: true,
+      // This test predates the score-reveal animation (Task 6 of the
+      // console-reporter-compact-animated plan); it isn't testing the animation, and
+      // without noAnimation it would write real frames to the actual process.stdout
+      // and add real per-frame delay, since stdoutIsTTY:true now also enables the
+      // animation. See test/run.test.ts / test/pulse-animation.test.ts for animation coverage.
+      noAnimation: true,
       selectApp
     });
     expect(selectApp).toHaveBeenCalledWith(['apps/admin', 'apps/web']);
@@ -133,7 +139,16 @@ describe('run(): monorepo discovery, exactly one app found', () => {
   it('auto-continues with a stderr notice and analyzes the sole app', async () => {
     const cap = capture();
     const selectApp = vi.fn(async () => 'apps/web'); // must not be called for a single match
-    const code = await run({ cwd, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV, stdoutIsTTY: true, selectApp });
+    // noAnimation: true — see the comment on the first describe block's test above.
+    const code = await run({
+      cwd,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      env: CLEAN_ENV,
+      stdoutIsTTY: true,
+      noAnimation: true,
+      selectApp
+    });
     expect(selectApp).not.toHaveBeenCalled();
     expect(cap.err.join('\n')).toContain('detected SvelteKit app at apps/web; analyzing it.');
     expect(code).toBe(1);

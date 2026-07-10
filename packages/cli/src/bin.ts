@@ -34,6 +34,8 @@ Options:
   --weights <pairs>           Per-category Health weight overrides, e.g. seo=2,performance=1 (unlisted categories default to 1)
   --score                     Print only the combined Health score (works with --min-health for gating)
   --no-color                  Disable ANSI color in console output
+  --no-animation               Disable the Health-score reveal animation on an interactive terminal
+  --verbose                    Show every finding uncapped and ungrouped (default: capped, grouped by rule)
   -h, --help                  Show this help
   -v, --version               Show version
 
@@ -69,7 +71,7 @@ async function main(): Promise<void> {
 
   const argv = mri(process.argv.slice(2), {
     alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'json', 'fail-on-warning', 'staged', 'no-color', 'score'],
+    boolean: ['by-route', 'json', 'fail-on-warning', 'staged', 'no-color', 'score', 'verbose', 'no-animation'],
     string: [
       'meta-components',
       'treat-dynamic-as',
@@ -115,7 +117,13 @@ async function main(): Promise<void> {
     minHealth = n;
   }
 
-  const code = await run({ ...options, minHealth, noColor: argv['no-color'], selectApp });
+  const code = await run({
+    ...options,
+    minHealth,
+    noColor: argv['no-color'],
+    noAnimation: argv['no-animation'],
+    selectApp
+  });
   process.exit(code);
 }
 

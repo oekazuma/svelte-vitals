@@ -78,7 +78,7 @@ describe('summary + reporter', () => {
       project: defaultProject,
       config
     });
-    const report = formatConsoleReport(results, config);
+    const report = formatConsoleReport(results, config, { verbose: true });
     expect(report).toContain('Critical (1)');
     expect(report).toContain('✗ SEO001  Missing <title>');
     expect(report).toContain('↯ dynamic');

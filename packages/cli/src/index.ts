@@ -34,6 +34,7 @@ import { checkoutBaseline, filterToNewFindings } from './baseline.js';
 import { colorEnabled, paletteFor } from './color.js';
 import { startSpinner } from './spinner.js';
 import { loadConfigFile } from './config-file.js';
+import { playScoreAnimation, scoreAnimationEnabled } from './pulse-animation.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -79,6 +80,14 @@ export interface RunOptions {
   explicitPath?: boolean;
   /** Injected picker for the monorepo app selector (bin.ts wires a clack implementation; null = cancelled). */
   selectApp?: (apps: string[]) => Promise<string | null>;
+  /** Show every finding uncapped and ungrouped in console output (default false — capped, grouped by rule). */
+  verbose?: boolean;
+  /** Disable the Health-score reveal animation even on an interactive stdout. */
+  noAnimation?: boolean;
+  /** Override the stream the score animation writes to (tests). Defaults to process.stdout. */
+  stdoutStream?: NodeJS.WriteStream;
+  /** Override the animation's per-frame delay in ms (tests — 0 runs the real frame loop near-instantly). Defaults to the animation module's own constant. */
+  animationFrameDelayMs?: number;
 }
 
 /**
@@ -411,13 +420,37 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       } else if (reporter === 'md') {
         log(formatMarkdownReport(results, config, { version }));
       } else {
+        const stdoutIsTTY = opts.stdoutIsTTY ?? !!process.stdout.isTTY;
         const colorOn = colorEnabled({
           reporter,
-          isTTY: opts.stdoutIsTTY ?? !!process.stdout.isTTY,
+          isTTY: stdoutIsTTY,
           env,
           noColorFlag: opts.noColor
         });
-        log(formatConsoleReport(results, config, { byRoute: opts.byRoute ?? false, palette: paletteFor(colorOn) }));
+        const palette = paletteFor(colorOn);
+        const animate = scoreAnimationEnabled({
+          reporter,
+          stdoutIsTTY,
+          env,
+          noColorFlag: opts.noColor,
+          noAnimationFlag: opts.noAnimation
+        });
+        if (animate) {
+          await playScoreAnimation({
+            score: computeHealth(results, config).health,
+            palette,
+            stream: opts.stdoutStream ?? process.stdout,
+            frameDelayMs: opts.animationFrameDelayMs
+          });
+        }
+        log(
+          formatConsoleReport(results, config, {
+            byRoute: opts.byRoute ?? false,
+            verbose: opts.verbose ?? false,
+            palette,
+            omitHeader: animate
+          })
+        );
       }
     }
     const summary = summarize(results, config);

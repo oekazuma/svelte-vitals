@@ -25,7 +25,11 @@ function capture() {
 describe('run() end-to-end', () => {
   it('returns exit 1 and reports the missing title', async () => {
     const cap = capture();
-    const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
+    // verbose:true — this test predates the default capped/grouped console output
+    // (Tasks 1-4 of the console-reporter-compact-animated plan) and asserts on the
+    // fully-itemized Passed list, so it opts into the old uncapped rendering here
+    // rather than being rewritten to check the new default's collapsed summary.
+    const code = await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV, verbose: true });
     expect(code).toBe(1);
 
     const report = cap.out.join('\n');
@@ -312,5 +316,78 @@ describe('run() --score', () => {
     expect(code).toBe(1);
     expect(cap.out).toHaveLength(1);
     expect(cap.out[0]).toMatch(/^\d+$/);
+  });
+});
+
+describe('run() --verbose and animation', () => {
+  it('passes verbose:true through to the console report body', async () => {
+    const cap = capture();
+    await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      env: CLEAN_ENV,
+      verbose: true
+    });
+    // basic-project's single critical finding still renders the same either way,
+    // but verbose:true must not throw and must still produce console output.
+    expect(cap.out.join('\n')).toContain('Critical');
+  });
+
+  it('animates the header on an interactive stdout and omits it from the printed body', async () => {
+    const cap = capture();
+    const animWrites: string[] = [];
+    const stdoutStream = { write: (s: string) => animWrites.push(s) } as unknown as NodeJS.WriteStream;
+    await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      env: CLEAN_ENV,
+      stdoutIsTTY: true,
+      stdoutStream,
+      animationFrameDelayMs: 0
+    });
+    // Animation wrote frames to the injected stream...
+    expect(animWrites.length).toBeGreaterThan(0);
+    expect(animWrites.join('')).toContain('Health:');
+    // ...and the printed report body has no duplicate header (Svelte Vitals brand line
+    // and Health: line only ever came from the animation, not from formatConsoleReport).
+    const report = cap.out.join('\n');
+    expect(report).not.toContain('Svelte Vitals');
+    expect(report).not.toContain('Health:');
+    expect(report).toContain('Critical');
+    // Category score lines are not animated — they must still print in the body,
+    // right after the (animated, not printed-here) Health line.
+    expect(report).toContain('SEO Score:');
+  });
+
+  it('does not animate when stdout is not a TTY — header prints inline as before', async () => {
+    const cap = capture();
+    const code = await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      env: CLEAN_ENV,
+      stdoutIsTTY: false
+    });
+    expect(code).toBe(1);
+    expect(cap.out.join('\n')).toContain('Health:');
+  });
+
+  it('--no-animation suppresses the animation even on an interactive stdout', async () => {
+    const cap = capture();
+    const animWrites: string[] = [];
+    const stdoutStream = { write: (s: string) => animWrites.push(s) } as unknown as NodeJS.WriteStream;
+    await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      env: CLEAN_ENV,
+      stdoutIsTTY: true,
+      stdoutStream,
+      noAnimation: true
+    });
+    expect(animWrites).toEqual([]);
+    expect(cap.out.join('\n')).toContain('Health:'); // header printed inline instead
   });
 });
