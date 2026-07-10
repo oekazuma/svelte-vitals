@@ -480,9 +480,9 @@ git commit -m "docs: add the demo-store fixture used to record the homepage GIF"
 Output ../public/demo.gif
 
 Set Shell "bash"
-Set FontSize 20
-Set Width 1200
-Set Height 630
+Set FontSize 16
+Set Width 1000
+Set Height 900
 Set Theme "Dracula"
 Set Padding 20
 Set TypingSpeed 60ms
@@ -545,6 +545,21 @@ Notes on each non-obvious line:
   before it restarts. Keeping them as two lines documents which is which —
   collapse or extend them in Task 3 if the actual recording needs
   retiming.
+- `FontSize 16` / `Width 1000` / `Height 900` (not the more "hero-shaped"
+  1200×630 tried first) — verified empirically: `formatConsoleReport`'s
+  body (category lines, Warnings/Info sections, the collapsed Passed
+  count) is one synchronous write of ~42 lines that appears in full the
+  instant the animation's final frame settles, all in the same terminal
+  buffer. If the terminal is too short to fit all of it, the shell scrolls
+  the instant that write lands — carrying the animated header (and the
+  final Health score right along with it) off-screen, which is exactly
+  the "just the animation and score moment" framing this design calls for
+  losing. 900px at FontSize 16 was the smallest height that kept
+  everything, including the trailing `Passed (115)` line, on one screen
+  with no scroll (confirmed by extracting the final GIF frame with
+  `ffmpeg -vf "select='eq(n,N)'"` and inspecting it directly — see Task 3
+  Step 5). If a future fixture change adds or removes findings, re-check
+  this the same way rather than assuming the height still fits.
 
 - [ ] **Step 2: Commit**
 
@@ -617,24 +632,42 @@ ls -la docs/public/demo.gif
 ffprobe -v error -show_entries stream=width,height,nb_frames -of default=noprint_wrappers=1 docs/public/demo.gif
 ```
 
-Expected: a non-trivial file size (a few hundred KB to a few MB is normal
-for a ~4s, 1200×630 animated GIF), `width=1200`, `height=630`, and
-`nb_frames` greater than 1 (confirms it's actually animated, not
-accidentally collapsed to a single frame — the exact failure mode this
-design's spec calls out for why `hero.image.file` is unsafe for this asset;
-`ffprobe` catching it here is a second, independent check before it ever
-reaches the Astro build in Task 4).
+Expected (verified while writing this plan): a non-trivial file size (this
+recording is ~130KB at `docs/public/demo.gif`'s actual settings), `width=1000`,
+`height=900`, `duration≈5.92`, and `nb_frames` greater than 1 (148, at this
+tape's `Framerate 30` — confirms it's actually animated, not accidentally
+collapsed to a single frame — the exact failure mode this design's spec
+calls out for why `hero.image.file` is unsafe for this asset; `ffprobe`
+catching it here is a second, independent check before it ever reaches the
+Astro build in Task 4).
 
 - [ ] **Step 5: Watch it**
 
-There is no automated check for "does this look good" — open
-`docs/public/demo.gif` in an image viewer (or a browser tab) and confirm:
-the wave animation is visible and legible at the recorded size, the final
-`Health: 95/100` line is readable, the five category score lines
+There is no fully-automated check for "does this look good," but you don't
+have to eyeball a live GIF loop to verify it either — extract specific
+frames with `ffmpeg` and read them as images, which is how this was
+actually checked while writing this plan:
+
+```bash
+mkdir -p /tmp/demo-gif-frames
+ffmpeg -y -i docs/public/demo.gif -vf "select='eq(n\,68)'" -vframes 1 /tmp/demo-gif-frames/mid-animation.png
+ffmpeg -y -i docs/public/demo.gif -vf "select='eq(n\,147)'" -vframes 1 /tmp/demo-gif-frames/final.png
+```
+
+(`n,147` is this recording's last frame — `nb_frames - 1` from Step 4;
+adjust if a re-recording changes the frame count.) Then view both PNGs.
+Confirm: the wave animation is visible and legible mid-flight (frame 68
+here shows the erratic wave with a dim, still-counting-up `Health: 19/100`),
+the final frame shows the correctly `scoreColor`-banded `Health: 95/100`
+line, all five category score lines right below it
 (`SEO Score:`, `Performance Score:`, `Correctness Score:`, `Security
-Score:`, `Architecture Score:`) appear right after, and the loop point
-(GIF restarting) isn't jarring. If not, adjust `demo.tape`'s `Set
-FontSize`/`Set Width`/`Set Height`/`Sleep` values and re-run Step 3.
+Score:`, `Architecture Score:`), and — the specific failure mode Task 2's
+`Set Height` note warns about — that the terminal has **not** scrolled: the
+prompt/command line typed in Step 3 must still be the topmost line in the
+final frame, with nothing pushed off-screen above it. If it has scrolled,
+increase `Set Height` in `demo.tape` and re-run Step 3. If the wave or text
+is illegible at the recorded size, adjust `Set FontSize`/`Set Width`
+instead and re-run.
 
 - [ ] **Step 6: Commit**
 
