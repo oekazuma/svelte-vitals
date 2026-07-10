@@ -5,7 +5,7 @@ template: splash
 hero:
   title: '<img src="/svelte-vitals/wordmark.svg" alt="svelte-vitals" style="height: 3.5rem; max-width: 100%;" />'
   image:
-    html: '<img src="/svelte-vitals/demo.gif" alt="端末で svelte-vitals を実行し、Health スコアがアニメーションして確定する様子の録画。" style="max-width: 100%; border-radius: 0.5rem;" />'
+    html: '<style>.demo-gif-static{display:none}@media (prefers-reduced-motion: reduce){.demo-gif-animated{display:none}.demo-gif-static{display:block}}</style><img class="demo-gif-animated" src="/svelte-vitals/demo.gif" alt="端末で svelte-vitals を実行し、Health スコアがアニメーションして確定する様子の録画。" style="max-width: 100%; border-radius: 0.5rem;" /><img class="demo-gif-static" src="/svelte-vitals/demo-poster.png" alt="svelte-vitals 実行後、最終的な Health スコアとカテゴリ内訳が表示された端末のスクリーンショット。" style="max-width: 100%; border-radius: 0.5rem;" />'
   tagline: ビルドもブラウザも不要。ソースコードを読むだけで、SvelteKitアプリの健康状態がわかります。
   actions:
     - text: はじめに

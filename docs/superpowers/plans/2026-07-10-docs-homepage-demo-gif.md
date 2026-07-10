@@ -669,11 +669,41 @@ increase `Set Height` in `demo.tape` and re-run Step 3. If the wave or text
 is illegible at the recorded size, adjust `Set FontSize`/`Set Width`
 instead and re-run.
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 6: Generate the reduced-motion poster**
+
+An auto-playing, indefinitely-looping GIF with no on-page pause control is
+exactly the case WCAG 2.2's SC 2.2.2 (Pause, Stop, Hide) exists for. A real
+interactive pause button would need client-side JS this otherwise fully
+static homepage has none of — disproportionate for a decorative hero
+asset. Instead, generate a static PNG of the GIF's own final frame, so
+Task 4 can swap to it via a `prefers-reduced-motion` CSS media query (no
+JS) for visitors whose OS says they don't want auto-playing motion:
 
 ```bash
-git add docs/public/demo.gif
-git commit -m "docs: record the homepage demo GIF"
+ffprobe -v error -show_entries stream=nb_frames -of default=noprint_wrappers=1 docs/public/demo.gif
+```
+
+Take the printed `nb_frames` value, subtract 1 (0-indexed), and extract
+that frame:
+
+```bash
+ffmpeg -y -i docs/public/demo.gif -vf "select='eq(n\,147)'" -vframes 1 docs/public/demo-poster.png
+```
+
+(`147` is `nb_frames - 1` for this recording — substitute the value Step 6
+printed if a re-recording changes the frame count.)
+
+Expected: `docs/public/demo-poster.png` exists, same pixel dimensions as
+`demo.gif` (`file docs/public/demo-poster.png` should report `1000 x 900`
+to match Task 2/3's tape settings), showing the settled Health score and
+all five category lines — the same content Step 5 just visually confirmed
+in the GIF's own final frame.
+
+- [ ] **Step 7: Commit**
+
+```bash
+git add docs/public/demo.gif docs/public/demo-poster.png
+git commit -m "docs: record the homepage demo GIF (+ a static poster for prefers-reduced-motion)"
 ```
 
 ---
@@ -687,7 +717,7 @@ git commit -m "docs: record the homepage demo GIF"
 
 **Interfaces:**
 
-- Consumes: `docs/public/demo.gif` (Task 3).
+- Consumes: `docs/public/demo.gif`, `docs/public/demo-poster.png` (Task 3).
 - Produces: nothing (leaf task).
 
 - [ ] **Step 1: Update the English homepage**
@@ -705,7 +735,7 @@ template: splash
 hero:
   title: '<img src="/svelte-vitals/wordmark.svg" alt="svelte-vitals" style="height: 3.5rem; max-width: 100%;" />'
   image:
-    html: '<img src="/svelte-vitals/demo.gif" alt="Terminal recording of svelte-vitals running against a project, showing the Health score animate in and settle at a final score." style="max-width: 100%; border-radius: 0.5rem;" />'
+    html: '<style>.demo-gif-static{display:none}@media (prefers-reduced-motion: reduce){.demo-gif-animated{display:none}.demo-gif-static{display:block}}</style><img class="demo-gif-animated" src="/svelte-vitals/demo.gif" alt="Terminal recording of svelte-vitals running against a project, showing the Health score animate in and settle at a final score." style="max-width: 100%; border-radius: 0.5rem;" /><img class="demo-gif-static" src="/svelte-vitals/demo-poster.png" alt="Terminal screenshot of svelte-vitals after a run, showing the final Health score and category breakdown." style="max-width: 100%; border-radius: 0.5rem;" />'
   tagline: No build, no browser — just read the source to see your SvelteKit app's health.
   actions:
     - text: Get started
@@ -722,10 +752,18 @@ an animated GIF, silently flattening the animation. `html` is a raw-HTML
 passthrough (the `rawHtml` branch), the same reasoning `hero.title` already
 relies on for the wordmark.
 
+The `html` value is two `<img>` elements plus a scoped `<style>` block, not
+one — this is the WCAG mitigation from Task 3 Step 6: `.demo-gif-animated`
+(the GIF) is visible by default and `.demo-gif-static` (the poster PNG) is
+`display:none`; the `@media (prefers-reduced-motion: reduce)` block flips
+both, so a visitor whose OS requests reduced motion sees the static final
+frame instead of an indefinitely-looping animation, with no client-side JS
+anywhere on this otherwise fully static page.
+
 - [ ] **Step 2: Update the Japanese homepage**
 
-In `docs/src/content/docs/ja/index.mdx`, the same shape with a Japanese alt
-string:
+In `docs/src/content/docs/ja/index.mdx`, the same shape with Japanese alt
+strings:
 
 ```yaml
 ---
@@ -735,7 +773,7 @@ template: splash
 hero:
   title: '<img src="/svelte-vitals/wordmark.svg" alt="svelte-vitals" style="height: 3.5rem; max-width: 100%;" />'
   image:
-    html: '<img src="/svelte-vitals/demo.gif" alt="端末で svelte-vitals を実行し、Health スコアがアニメーションして確定する様子の録画。" style="max-width: 100%; border-radius: 0.5rem;" />'
+    html: '<style>.demo-gif-static{display:none}@media (prefers-reduced-motion: reduce){.demo-gif-animated{display:none}.demo-gif-static{display:block}}</style><img class="demo-gif-animated" src="/svelte-vitals/demo.gif" alt="端末で svelte-vitals を実行し、Health スコアがアニメーションして確定する様子の録画。" style="max-width: 100%; border-radius: 0.5rem;" /><img class="demo-gif-static" src="/svelte-vitals/demo-poster.png" alt="svelte-vitals 実行後、最終的な Health スコアとカテゴリ内訳が表示された端末のスクリーンショット。" style="max-width: 100%; border-radius: 0.5rem;" />'
   tagline: ビルドもブラウザも不要。ソースコードを読むだけで、SvelteKitアプリの健康状態がわかります。
   actions:
     - text: はじめに
