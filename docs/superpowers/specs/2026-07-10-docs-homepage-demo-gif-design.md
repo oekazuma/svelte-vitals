@@ -72,12 +72,22 @@ manufactured failure showcase (low score) or a suspiciously perfect 100.
 ## Placement
 
 Both `docs/src/content/docs/index.mdx` and `docs/src/content/docs/ja/index.mdx`
-gain an `<img>` tag inside the `hero:` frontmatter, between `tagline` and
-`actions` — the same raw-HTML-in-frontmatter technique already used for the
-wordmark in `hero.title`. Because the GIF is language-neutral (terminal output
-strings are in English regardless of locale, consistent with today's tool
-behavior), the same `docs/public/demo.gif` file is referenced from both
-locale pages — no separate ja-specific recording.
+gain a `hero.image.html` entry — Starlight's native hero-media slot, rendered
+in its own dedicated position (beside the title/tagline/actions column on
+desktop, stacked above it on narrow viewports), not a third raw-HTML hack
+squeezed into an unrelated frontmatter field. `image.html` is a raw-HTML
+passthrough (`Hero.astro` renders it via `set:html` into a `.hero-html` div)
+rather than Starlight's `image.file`/`image.dark`+`image.light` fields, which
+route through Astro's `astro:assets` `<Image>` component — that pipeline runs
+local images through Sharp for optimization, and Sharp only preserves the
+first frame of an animated GIF, which would silently flatten our animation
+into a still frame. `image.html` bypasses that pipeline entirely (a plain
+`<img>` tag pointed at the public asset), the same reasoning that already
+keeps the wordmark in `hero.title` as raw HTML instead of a processed image.
+Because the GIF is language-neutral (terminal output strings are in English
+regardless of locale, consistent with today's tool behavior), the same
+`docs/public/demo.gif` file is referenced from both locale pages — no
+separate ja-specific recording.
 
 ## Maintenance
 
