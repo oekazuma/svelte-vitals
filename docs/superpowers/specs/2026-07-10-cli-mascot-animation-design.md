@@ -67,12 +67,12 @@ Candidates researched: `log-update` (sindresorhus), `chalk-animation`,
   hand-rolled redraw in `pulse-animation.ts` overwrites a fixed line count
   via `\x1b[2A`, which silently corrupts if any line wraps at the
   terminal's actual column width. That risk was tolerable at 2 lines; the
-  mascot pushes the redrawn block to roughly 6–8 lines (mascot body + wave
-  + score, plus confetti frames), and a narrow terminal — exactly the kind
-  someone might use to capture a phone-shaped recording for social video —
-  is where this would visibly break. `log-update` tracks actual rendered
-  height including wraps and repaints correctly; that's a specific,
-  testable, narrow-terminal correctness improvement, not general
+  mascot pushes the redrawn block to roughly 6–8 lines (mascot body, wave,
+  and score, plus confetti frames), and a narrow terminal — exactly the
+  kind someone might use to capture a phone-shaped recording for social
+  video — is where this would visibly break. `log-update` tracks actual
+  rendered height including wraps and repaints correctly; that's a
+  specific, testable, narrow-terminal correctness improvement, not general
   convenience.
 - **Everything else about the mascot — the ASCII/Unicode art, the five
   reaction poses, the idle loop, the confetti particles — stays
@@ -87,7 +87,7 @@ Candidates researched: `log-update` (sindresorhus), `chalk-animation`,
   Unicode/ASCII-art mascot. Exact glyph content is authored during
   implementation (matching how `WAVE_FRAMES`' literal strings were
   hand-tuned, not derived from a spec-level ASCII sketch); this design
-  fixes the *constraints* (size envelope, color rules, states), not the
+  fixes the _constraints_ (size envelope, color rules, states), not the
   literal characters.
 - **Body color:** Svelte's brand orange (`#ff3e00`, matching
   `packages/core/src/reporter/html.ts`'s `--accent`), constant across every
@@ -112,13 +112,13 @@ together — the state table below has no unreachable/contradictory branch.
 
 Evaluated top to bottom; first match wins:
 
-| # | Condition | State | Notes |
-|---|---|---|---|
-| 1 | Health === 100 | **Ecstatic** | + confetti bonus (see below). Critical is structurally impossible here. |
-| 2 | Health ≥ 90 (and < 100) | **Happy / proud** | Critical structurally impossible here. |
-| 3 | Any critical finding present | **Alarmed / concerned** | Checked before the plain score bands below — a mediocre score from general warnings should not look identical to a score depressed by a critical finding. Always ≤79 by construction. |
-| 4 | Health 70–89, no critical | **Content / neutral smile** | |
-| 5 | Health < 70, no critical | **Discouraged** | |
+| #   | Condition                    | State                       | Notes                                                                                                                                                                                 |
+| --- | ---------------------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Health === 100               | **Ecstatic**                | + confetti bonus (see below). Critical is structurally impossible here.                                                                                                               |
+| 2   | Health ≥ 90 (and < 100)      | **Happy / proud**           | Critical structurally impossible here.                                                                                                                                                |
+| 3   | Any critical finding present | **Alarmed / concerned**     | Checked before the plain score bands below — a mediocre score from general warnings should not look identical to a score depressed by a critical finding. Always ≤79 by construction. |
+| 4   | Health 70–89, no critical    | **Content / neutral smile** |                                                                                                                                                                                       |
+| 5   | Health < 70, no critical     | **Discouraged**             |                                                                                                                                                                                       |
 
 ### 100/100 bonus: confetti
 
@@ -237,7 +237,7 @@ noun for the character.
 - Any change to json/html/md/github/sarif/agent reporters — console
   reporter and CLI runtime behavior only.
 - Automating social sharing itself (e.g. auto-generating or auto-posting a
-  clip) — this design only makes the *moment* worth capturing; capturing
+  clip) — this design only makes the _moment_ worth capturing; capturing
   and posting stays a manual, human action.
 - A dedicated flag to disable only the mascot while keeping the rest of the
   animation — `--no-animation` remains the single on/off switch, matching
@@ -256,10 +256,9 @@ noun for the character.
 
 ## Testing
 
-- **State selection:** unit tests for the pure `(score, hasCritical) =>
-  MascotState` function covering every boundary the table implies — 79/80,
-  89/90, 99/100, and critical-present vs. absent at each of those
-  boundaries.
+- **State selection:** unit tests for the pure `mascotStateFor(score, hasCritical)`
+  function covering every boundary the table implies — 79/80, 89/90,
+  99/100, and critical-present vs. absent at each of those boundaries.
 - **Frame content:** not snapshot-tested, matching the project's existing
   stance for `pulse-animation.ts`/`spinner.ts` — verified by manual check
   in a real terminal before shipping. Tests instead assert that the final
