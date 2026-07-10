@@ -13,6 +13,9 @@ export default ts.config(
   includeIgnoreFile(gitignorePath),
   // Test fixtures are intentionally minimal/varied SvelteKit inputs, not source.
   { ignores: ['**/test/fixtures/**'] },
+  // docs/demo is the fixture svelte-vitals analyzes to record the homepage demo GIF —
+  // its findings (unkeyed each, {@html}, javascript: URL, etc.) are deliberate, not source.
+  { ignores: ['docs/demo/**'] },
   // Astro-generated type files (listed in docs/.gitignore, not root .gitignore)
   { ignores: ['**/.astro/**'] },
   // Committed but machine-generated bundle (unlike every other package's gitignored dist);
