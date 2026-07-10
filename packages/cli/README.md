@@ -34,13 +34,11 @@ Critical (1)
             src/routes/none/+page.svelte
 
 Passed (3)
-────────────────────────
-✓ SEO001  <title>  /blog
-✓ SEO001  <title>  ↯ dynamic  /dynamic
-✓ SEO001  <title>  /static
 
 ↯ = set dynamically (verified at runtime).
 ```
+
+By default, console output groups failures by rule (top 5 per severity, each with one example location and an "…and N more" count) and collapses the Passed section to a bare count, so large projects don't flood the terminal. Pass `--verbose` to see every finding uncapped and ungrouped, with each passed item listed individually. On an interactive, color-capable terminal the Health score plays a short reveal animation; pass `--no-animation` to disable it.
 
 ### Exit codes
 
