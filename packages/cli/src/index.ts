@@ -381,6 +381,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         categories: opts.categories
       }
     });
+    const summary = summarize(results, config);
 
     if (opts.score) {
       log(String(computeHealth(results, config).health));
@@ -444,7 +445,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         if (animate) {
           await playScoreAnimation({
             score: computeHealth(results, config).health,
-            hasCritical: summarize(results, config).critical > 0,
+            hasCritical: summary.critical > 0,
             palette,
             stream: opts.stdoutStream ?? process.stdout,
             frameDelayMs: opts.animationFrameDelayMs
@@ -460,7 +461,6 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         );
       }
     }
-    const summary = summarize(results, config);
     const failBySeverity = hasFailureAtOrAbove(summary, config.failOn);
     const failByHealth = opts.minHealth != null && computeHealth(results, config).health < opts.minHealth;
     return failBySeverity || failByHealth ? 1 : 0;

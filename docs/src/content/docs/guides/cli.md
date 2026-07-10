@@ -149,7 +149,7 @@ Show every finding uncapped and ungrouped, matching the console output from befo
 
 ### `--no-animation`
 
-Disable the Health-score reveal animation and the analysis-phase mascot. Both only ever play on an interactive terminal with color enabled (never in CI, a piped/redirected output, or an AI-agent shell) and wide enough to fit the mascot's art (40+ columns); this flag is only needed to opt out of them specifically while still on a terminal that would otherwise show them. Falls back to a plain spinner during analysis and a plain (mascot-free) score animation.
+Disable the Health-score reveal animation and the analysis-phase mascot. Both only ever play on an interactive terminal with color enabled (never in CI, a piped/redirected output, or an AI-agent shell); this flag is only needed to opt out of them specifically while still on a terminal that would otherwise show them. The mascot art additionally needs 40+ columns and is omitted below that width even without this flag — the score animation itself still plays on a narrower terminal, just without the mascot. Falls back to a plain spinner during analysis and a plain (mascot-free) score animation.
 
 ### `--rules <ids>`
 

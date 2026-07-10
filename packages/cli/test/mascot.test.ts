@@ -39,6 +39,10 @@ describe('mascotStateFor', () => {
     expect(mascotStateFor(80, true)).toBe('alarmed');
     expect(mascotStateFor(69, true)).toBe('alarmed');
   });
+  it('a critical finding always wins over ecstatic/happy too — defensive, since real callers never actually pass this combination (CRITICAL_CAP=79 makes it unreachable in practice)', () => {
+    expect(mascotStateFor(100, true)).toBe('alarmed');
+    expect(mascotStateFor(95, true)).toBe('alarmed');
+  });
 });
 
 describe('mascotFitsWidth', () => {

@@ -4,17 +4,18 @@ import { createLogUpdate } from 'log-update';
 export type MascotState = 'ecstatic' | 'happy' | 'alarmed' | 'content' | 'discouraged';
 
 /**
- * Reaction state for the score-reveal pose, evaluated in this exact order (design:
- * docs/superpowers/specs/2026-07-10-cli-mascot-animation-design.md). Note that
- * `CRITICAL_CAP` in packages/core/src/scoring/score.ts caps any score with a critical
- * finding at <=79, so 'ecstatic'/'happy' and hasCritical:true can never both hold in
- * practice — this function still checks in the stated order for clarity, not because
- * the branches can collide.
+ * Reaction state for the score-reveal pose. `hasCritical` is checked first,
+ * defensively: `CRITICAL_CAP` in packages/core/src/scoring/score.ts caps any score
+ * with a critical finding at <=79, so 'ecstatic'/'happy' and hasCritical:true never
+ * both hold for real (score, hasCritical) pairs derived from the same results — but
+ * checking hasCritical first means this function never celebrates a critical finding
+ * even if a future caller passes an inconsistent pair (e.g. a stale score computed
+ * before hasCritical), rather than relying solely on callers upholding the invariant.
  */
 export function mascotStateFor(score: number, hasCritical: boolean): MascotState {
+  if (hasCritical) return 'alarmed';
   if (score === 100) return 'ecstatic';
   if (score >= 90) return 'happy';
-  if (hasCritical) return 'alarmed';
   if (score >= 70) return 'content';
   return 'discouraged';
 }
@@ -44,6 +45,9 @@ const TOP_ARMS_UP = '\\.---./';
 const BOTTOM = " '---' ";
 
 function renderFace(top: string, eyes: string, mouth: string, faceColor: (s: string) => string): string {
+  // Assumes faceColor wraps its input in ANSI codes when color is enabled, even for a
+  // whitespace-only string (true for every Palette color fn in this codebase — see
+  // packages/core/src/reporter/palette.ts's noColorPalette vs. ansiPalette in color.ts).
   const colorEnabled = faceColor(' ') !== ' ';
   const orange = svelteOrange(colorEnabled);
   return [
