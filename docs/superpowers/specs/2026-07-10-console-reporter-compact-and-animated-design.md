@@ -24,21 +24,19 @@ Both are addressed together because they touch the same call site and the same
 
 ## Prior art consulted
 
-[react-doctor](https://github.com/millionco/react-doctor) (Million.js team, a
-similarly-shaped static code-health CLI) solves the flood problem by grouping
+Similarly-shaped static code-health CLIs solve the flood problem by grouping
 findings by rule (not by file), showing only the top-N highest-impact rule
-groups by default with a "run with `--verbose`" escape hatch, and gives its
-health-score header an animated reveal (ASCII face + score count-up with
-easing, redrawn via ANSI cursor-up escapes) gated behind a careful
-TTY/CI/agent/`TERM=dumb` check. We adopt the same two structural ideas
-(rule-grouped capped output, animated score reveal) but not react-doctor's
-specific dependencies (`ora`, `effect`, `is-unicode-supported`) or its "doctor
-face" motif — svelte-vitals has never added a terminal-UI dependency
-(`spinner.ts`, `color.ts` are both hand-rolled already) and this doesn't
-change that. The animation motif is svelte-vitals' own: a pulse/heartbeat
-line (chosen after reviewing three candidate motifs — pulse line, the
-existing ↯ brand mark "charging up", and a combination — the pulse line won
-for being the most direct fit for "vitals").
+groups by default with a "run with `--verbose`" escape hatch, and give their
+health-score header an animated reveal (score count-up with easing, redrawn
+via ANSI cursor-up escapes) gated behind a careful TTY/CI/agent/`TERM=dumb`
+check. We adopt the same two structural ideas (rule-grouped capped output,
+animated score reveal) but not any third-party terminal-UI dependencies —
+svelte-vitals has never added a terminal-UI dependency (`spinner.ts`,
+`color.ts` are both hand-rolled already) and this doesn't change that. The
+animation motif is svelte-vitals' own: a pulse/heartbeat line (chosen after
+reviewing three candidate motifs — pulse line, the existing ↯ brand mark
+"charging up", and a combination — the pulse line won for being the most
+direct fit for "vitals").
 
 ## Part 1: Compact-by-default output
 

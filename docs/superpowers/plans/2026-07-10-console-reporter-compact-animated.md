@@ -663,7 +663,7 @@ const FRAME_DELAY_MS = 200;
 
 // Pulse waveform, one string per frame — an erratic heartbeat line that settles flat
 // as the score locks in (svelte-vitals' own animation motif: "vitals" as in a pulse
-// monitor, not react-doctor's "doctor face" this design was informed by).
+// monitor).
 const WAVE_FRAMES = [
   '────────────╱╲──────────',
   '──────────╱╲──╱╲────────',
