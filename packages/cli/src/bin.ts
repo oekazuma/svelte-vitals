@@ -34,7 +34,7 @@ Options:
   --weights <pairs>           Per-category Health weight overrides, e.g. seo=2,performance=1 (unlisted categories default to 1)
   --score                     Print only the combined Health score (works with --min-health for gating)
   --no-color                  Disable ANSI color in console output
-  --no-animation               Disable the Health-score reveal animation on an interactive terminal
+  --no-animation               Disable the Health-score reveal animation and mascot on an interactive terminal
   --verbose                    Show every finding uncapped and ungrouped (default: capped, grouped by rule)
   -h, --help                  Show this help
   -v, --version               Show version
