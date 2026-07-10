@@ -4,13 +4,85 @@ description: SvelteKit 向けの静的コードヘルスチェッカー — SEO�
 template: splash
 hero:
   title: '<img src="/svelte-vitals/wordmark.svg" alt="svelte-vitals" style="height: 3.5rem; max-width: 100%;" />'
-  image:
-    html: '<style>.demo-gif-static{display:none}@media (prefers-reduced-motion: reduce){.demo-gif-animated{display:none}.demo-gif-static{display:block}}</style><img class="demo-gif-animated" src="/svelte-vitals/demo.gif" alt="端末で svelte-vitals を実行し、Health スコアがアニメーションして確定する様子の録画。" style="max-width: 100%; border-radius: 0.5rem;" /><img class="demo-gif-static" src="/svelte-vitals/demo-poster.png" alt="svelte-vitals 実行後、最終的な Health スコアとカテゴリ内訳が表示された端末のスクリーンショット。" style="max-width: 100%; border-radius: 0.5rem;" />'
   tagline: ビルドもブラウザも不要。ソースコードを読むだけで、SvelteKitアプリの健康状態がわかります。
   actions:
     - text: はじめに
       link: /svelte-vitals/ja/guides/getting-started/
       icon: right-arrow
 ---
+
+<div class="demo-terminal">
+  <div class="demo-terminal-bar">
+    <span class="demo-terminal-dot" style="background:#ff5f56"></span>
+    <span class="demo-terminal-dot" style="background:#ffbd2e"></span>
+    <span class="demo-terminal-dot" style="background:#27c93f"></span>
+    <span class="demo-terminal-title">~/my-sveltekit-app</span>
+  </div>
+  <img
+    class="demo-gif-animated"
+    src="/svelte-vitals/demo.gif"
+    alt="端末で svelte-vitals を実行し、Health スコアがアニメーションして確定する様子の録画。"
+  />
+  <img
+    class="demo-gif-static"
+    src="/svelte-vitals/demo-poster.png"
+    alt="svelte-vitals 実行後、最終的な Health スコアとカテゴリ内訳が表示された端末のスクリーンショット。"
+  />
+</div>
+
+<style>
+  {`
+  .demo-terminal {
+    max-width: 44rem;
+    margin: 1rem auto 2.5rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid var(--sl-color-gray-5);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  }
+  .demo-terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 0.85rem;
+    background: #1a1b26;
+  }
+  .demo-terminal-dot {
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .demo-terminal-title {
+    margin-inline-start: 0.5rem;
+    font-family: var(--__sl-font-mono, monospace);
+    font-size: var(--sl-text-xs);
+    color: #8b8fa3;
+  }
+  .demo-terminal img {
+    display: block;
+    width: 100%;
+  }
+  @media (max-width: 50rem) {
+    .demo-terminal {
+      max-width: 100vw;
+      margin-inline: calc(50% - 50vw);
+      border-radius: 0;
+      border-inline: none;
+    }
+  }
+  .demo-gif-static {
+    display: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .demo-gif-animated {
+      display: none;
+    }
+    .demo-gif-static {
+      display: block;
+    }
+  }
+  `}
+</style>
 
 svelte-vitals は、各ルートの実効的な `<head>` や `<img>` の使われ方をソースコードから静的に解決し、SEO・Performance・Correctness・Security・Architecture の5カテゴリでスコアリングします。ルート単位でもサイト全体でも一目で把握でき、基準を下回ればCIで止められます。すべて、実際にデプロイする前に。
