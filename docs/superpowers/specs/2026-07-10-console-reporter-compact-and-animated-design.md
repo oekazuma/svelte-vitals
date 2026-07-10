@@ -12,7 +12,7 @@ every other reporter (json/html/md/github/sarif/agent) untouched:
 
 1. **The terminal-flood problem.** On a large project, `formatConsoleReport` lists
    every failing result individually within its severity bucket, then lists every
-   *passing* result individually too (`Passed (N)` followed by N lines), and
+   _passing_ result individually too (`Passed (N)` followed by N lines), and
    `--by-route` lists every route. None of this is capped — output scales linearly
    with project size with no way to see a a compact summary first.
 2. **No delight.** The CLI's only animation today is a plain braille spinner
@@ -59,7 +59,7 @@ each). Instead, group the bucket's results by `result.id` first:
   component-scoped, routeless results.
 - If more than `MAX_RULE_GROUPS_PER_BUCKET` groups exist in a bucket, append
   one line after the shown groups: `…and N more rules affected — run with
-  --verbose to see all` (N = remaining group count, not remaining finding
+--verbose to see all` (N = remaining group count, not remaining finding
   count — a rule count is the more legible number here).
 - With `verbose: true`, skip capping and grouping-collapse entirely: every
   failing result prints exactly as it does today (this is the existing
@@ -83,7 +83,7 @@ Today, `byRouteTree` lists every route alphabetically. Two changes:
    healthiest ones).
 2. By default (non-verbose), show only the worst `MAX_ROUTES_BY_ROUTE`
    (constant, **10**) routes, then one summary line: `…and N more routes
-   (avg score S) — run with --verbose to see all` (N = remaining route
+(avg score S) — run with --verbose to see all` (N = remaining route
    count, S = the average score of the remaining/cut routes, rounded).
    `verbose: true` shows every route, still worst-first.
 

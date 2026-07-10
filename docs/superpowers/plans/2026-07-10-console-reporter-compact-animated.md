@@ -41,10 +41,12 @@ Read these before starting — every task below assumes this shape:
 ### Task 1: Group failing results by rule, cap per severity bucket
 
 **Files:**
+
 - Modify: `packages/core/src/reporter/console.ts`
 - Test: `packages/core/test/console-report.test.ts`
 
 **Interfaces:**
+
 - Consumes: nothing new.
 - Produces: `ConsoleReportOptions.verbose?: boolean` (default `false`). Tasks 2 and 3 reuse this same field on the same interface — do not introduce a second flag.
 
@@ -53,49 +55,79 @@ Read these before starting — every task below assumes this shape:
 Add to `packages/core/test/console-report.test.ts` (inside the existing `describe('formatConsoleReport', ...)` block, after the last existing `it`):
 
 ```ts
-  it('collapses a rule that fires on multiple routes into one group with an "…and N more" line', () => {
-    const multi: Result[] = [
-      { id: 'SEO001', severity: 'critical', detection: { presence: 'none', value: 'absent' }, route: '/a', message: 'Missing <title>' },
-      { id: 'SEO001', severity: 'critical', detection: { presence: 'none', value: 'absent' }, route: '/b', message: 'Missing <title>' },
-      { id: 'SEO001', severity: 'critical', detection: { presence: 'none', value: 'absent' }, route: '/c', message: 'Missing <title>' }
-    ];
-    const out = formatConsoleReport(multi, config);
-    expect(out).toContain('Critical (3)');
-    // Only the first route's line is shown by default, plus a collapse line — not all three routes.
-    expect(out).toContain('✗ SEO001  Missing <title>');
-    expect(out).toContain('/a');
-    expect(out).not.toContain('/b');
-    expect(out).not.toContain('/c');
-    expect(out).toContain('…and 2 more');
-  });
+it('collapses a rule that fires on multiple routes into one group with an "…and N more" line', () => {
+  const multi: Result[] = [
+    {
+      id: 'SEO001',
+      severity: 'critical',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/a',
+      message: 'Missing <title>'
+    },
+    {
+      id: 'SEO001',
+      severity: 'critical',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/b',
+      message: 'Missing <title>'
+    },
+    {
+      id: 'SEO001',
+      severity: 'critical',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/c',
+      message: 'Missing <title>'
+    }
+  ];
+  const out = formatConsoleReport(multi, config);
+  expect(out).toContain('Critical (3)');
+  // Only the first route's line is shown by default, plus a collapse line — not all three routes.
+  expect(out).toContain('✗ SEO001  Missing <title>');
+  expect(out).toContain('/a');
+  expect(out).not.toContain('/b');
+  expect(out).not.toContain('/c');
+  expect(out).toContain('…and 2 more');
+});
 
-  it('caps rule groups per severity bucket at 5 by default, with a trailer line', () => {
-    const many: Result[] = Array.from({ length: 7 }, (_, i) => ({
-      id: `SEO0${i}`,
-      severity: 'critical' as const,
-      detection: { presence: 'none', value: 'absent' } as const,
-      route: `/r${i}`,
-      message: `Rule ${i} failed`
-    }));
-    const out = formatConsoleReport(many, config);
-    expect(out).toContain('Critical (7)');
-    expect(out).toContain('SEO00');
-    expect(out).toContain('SEO04'); // 5th shown group (0-indexed: SEO00..SEO04)
-    expect(out).not.toContain('SEO05');
-    expect(out).not.toContain('SEO06');
-    expect(out).toContain('…and 2 more rules affected — run with --verbose to see all');
-  });
+it('caps rule groups per severity bucket at 5 by default, with a trailer line', () => {
+  const many: Result[] = Array.from({ length: 7 }, (_, i) => ({
+    id: `SEO0${i}`,
+    severity: 'critical' as const,
+    detection: { presence: 'none', value: 'absent' } as const,
+    route: `/r${i}`,
+    message: `Rule ${i} failed`
+  }));
+  const out = formatConsoleReport(many, config);
+  expect(out).toContain('Critical (7)');
+  expect(out).toContain('SEO00');
+  expect(out).toContain('SEO04'); // 5th shown group (0-indexed: SEO00..SEO04)
+  expect(out).not.toContain('SEO05');
+  expect(out).not.toContain('SEO06');
+  expect(out).toContain('…and 2 more rules affected — run with --verbose to see all');
+});
 
-  it('verbose:true restores today\'s full per-result listing, uncapped and ungrouped', () => {
-    const multi: Result[] = [
-      { id: 'SEO001', severity: 'critical', detection: { presence: 'none', value: 'absent' }, route: '/a', message: 'Missing <title>' },
-      { id: 'SEO001', severity: 'critical', detection: { presence: 'none', value: 'absent' }, route: '/b', message: 'Missing <title>' }
-    ];
-    const out = formatConsoleReport(multi, config, { verbose: true });
-    expect(out).toContain('/a');
-    expect(out).toContain('/b');
-    expect(out).not.toContain('…and');
-  });
+it("verbose:true restores today's full per-result listing, uncapped and ungrouped", () => {
+  const multi: Result[] = [
+    {
+      id: 'SEO001',
+      severity: 'critical',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/a',
+      message: 'Missing <title>'
+    },
+    {
+      id: 'SEO001',
+      severity: 'critical',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/b',
+      message: 'Missing <title>'
+    }
+  ];
+  const out = formatConsoleReport(multi, config, { verbose: true });
+  expect(out).toContain('/a');
+  expect(out).toContain('/b');
+  expect(out).not.toContain('…and');
+});
 ```
 
 - [ ] **Step 2: Run tests to verify they fail**
@@ -146,36 +178,38 @@ export interface ConsoleReportOptions {
 Replace the severity-bucket loop body inside `formatConsoleReport`:
 
 ```ts
-  for (const severity of ['critical', 'warning', 'info'] as const) {
-    const bucket = failures.filter((r) => effectiveSeverity(r, config) === severity);
-    if (bucket.length === 0) continue;
-    lines.push(SEVERITY_COLOR[severity](`${SEVERITY_TITLE[severity]} (${bucket.length})`), p.dim(RULE));
+for (const severity of ['critical', 'warning', 'info'] as const) {
+  const bucket = failures.filter((r) => effectiveSeverity(r, config) === severity);
+  if (bucket.length === 0) continue;
+  lines.push(SEVERITY_COLOR[severity](`${SEVERITY_TITLE[severity]} (${bucket.length})`), p.dim(RULE));
 
-    if (options.verbose) {
-      for (const r of bucket) {
-        lines.push(`${p.red('✗')} ${r.id}  ${r.message}`);
-        if (r.route) lines.push(p.dim(`            ${r.route}`));
-        if (r.location) lines.push(p.dim(`            ${r.location}${r.line ? `:${r.line}` : ''}`));
-      }
-    } else {
-      const groups = groupByRule(bucket);
-      const shownGroups = groups.slice(0, MAX_RULE_GROUPS_PER_BUCKET);
-      for (const group of shownGroups) {
-        const r = group.results[0]!;
-        lines.push(`${p.red('✗')} ${r.id}  ${r.message}`);
-        if (r.route) lines.push(p.dim(`            ${r.route}`));
-        if (r.location) lines.push(p.dim(`            ${r.location}${r.line ? `:${r.line}` : ''}`));
-        if (group.results.length > 1) {
-          lines.push(p.dim(`            …and ${group.results.length - 1} more`));
-        }
-      }
-      if (groups.length > MAX_RULE_GROUPS_PER_BUCKET) {
-        const remaining = groups.length - MAX_RULE_GROUPS_PER_BUCKET;
-        lines.push(p.dim(`…and ${remaining} more rule${remaining > 1 ? 's' : ''} affected — run with --verbose to see all`));
+  if (options.verbose) {
+    for (const r of bucket) {
+      lines.push(`${p.red('✗')} ${r.id}  ${r.message}`);
+      if (r.route) lines.push(p.dim(`            ${r.route}`));
+      if (r.location) lines.push(p.dim(`            ${r.location}${r.line ? `:${r.line}` : ''}`));
+    }
+  } else {
+    const groups = groupByRule(bucket);
+    const shownGroups = groups.slice(0, MAX_RULE_GROUPS_PER_BUCKET);
+    for (const group of shownGroups) {
+      const r = group.results[0]!;
+      lines.push(`${p.red('✗')} ${r.id}  ${r.message}`);
+      if (r.route) lines.push(p.dim(`            ${r.route}`));
+      if (r.location) lines.push(p.dim(`            ${r.location}${r.line ? `:${r.line}` : ''}`));
+      if (group.results.length > 1) {
+        lines.push(p.dim(`            …and ${group.results.length - 1} more`));
       }
     }
-    lines.push('');
+    if (groups.length > MAX_RULE_GROUPS_PER_BUCKET) {
+      const remaining = groups.length - MAX_RULE_GROUPS_PER_BUCKET;
+      lines.push(
+        p.dim(`…and ${remaining} more rule${remaining > 1 ? 's' : ''} affected — run with --verbose to see all`)
+      );
+    }
   }
+  lines.push('');
+}
 ```
 
 - [ ] **Step 4: Run tests to verify they pass**
@@ -200,10 +234,12 @@ git commit -m "feat(core): group console findings by rule, cap top 5 per severit
 ### Task 2: Collapse the Passed section to a count by default
 
 **Files:**
+
 - Modify: `packages/core/src/reporter/console.ts`
 - Test: `packages/core/test/console-report.test.ts`
 
 **Interfaces:**
+
 - Consumes: `ConsoleReportOptions.verbose` (Task 1).
 - Produces: nothing new (behavior change only).
 
@@ -212,24 +248,42 @@ git commit -m "feat(core): group console findings by rule, cap top 5 per severit
 Add to `packages/core/test/console-report.test.ts`:
 
 ```ts
-  it('collapses the Passed section to a bare count by default (no per-item lines)', () => {
-    const passing: Result[] = [
-      { id: 'SEO003', severity: 'info', detection: { presence: 'own', value: 'static' }, route: '/a', message: 'Has <title>' },
-      { id: 'SEO004', severity: 'info', detection: { presence: 'own', value: 'static' }, route: '/b', message: 'Has <meta description>' }
-    ];
-    const out = formatConsoleReport(passing, config);
-    expect(out).toContain('Passed (2)');
-    expect(out).not.toContain('✓ SEO003');
-    expect(out).not.toContain('✓ SEO004');
-  });
+it('collapses the Passed section to a bare count by default (no per-item lines)', () => {
+  const passing: Result[] = [
+    {
+      id: 'SEO003',
+      severity: 'info',
+      detection: { presence: 'own', value: 'static' },
+      route: '/a',
+      message: 'Has <title>'
+    },
+    {
+      id: 'SEO004',
+      severity: 'info',
+      detection: { presence: 'own', value: 'static' },
+      route: '/b',
+      message: 'Has <meta description>'
+    }
+  ];
+  const out = formatConsoleReport(passing, config);
+  expect(out).toContain('Passed (2)');
+  expect(out).not.toContain('✓ SEO003');
+  expect(out).not.toContain('✓ SEO004');
+});
 
-  it('lists every passed item under verbose:true, exactly as before', () => {
-    const passing: Result[] = [
-      { id: 'SEO003', severity: 'info', detection: { presence: 'own', value: 'static' }, route: '/a', message: 'Has <title>' }
-    ];
-    const out = formatConsoleReport(passing, config, { verbose: true });
-    expect(out).toContain('✓ SEO003  Has <title>');
-  });
+it('lists every passed item under verbose:true, exactly as before', () => {
+  const passing: Result[] = [
+    {
+      id: 'SEO003',
+      severity: 'info',
+      detection: { presence: 'own', value: 'static' },
+      route: '/a',
+      message: 'Has <title>'
+    }
+  ];
+  const out = formatConsoleReport(passing, config, { verbose: true });
+  expect(out).toContain('✓ SEO003  Has <title>');
+});
 ```
 
 - [ ] **Step 2: Run tests to verify they fail**
@@ -242,18 +296,18 @@ Expected: FAIL on the first new test — today's code always lists every passed 
 In `packages/core/src/reporter/console.ts`, replace the passed-results block inside `formatConsoleReport`:
 
 ```ts
-  const passed = results.filter((r) => classify(r, config) !== 'fail');
-  if (passed.length > 0) {
-    lines.push(p.bold(`Passed (${passed.length})`), p.dim(RULE));
-    if (options.verbose) {
-      for (const r of passed) {
-        const marker = classify(r, config) === 'dynamic' ? p.cyan('  ↯ dynamic') : '';
-        const route = r.route ? `  ${r.route}` : '';
-        lines.push(`${p.green('✓')} ${r.id}  ${r.message}${marker}${route}`);
-      }
+const passed = results.filter((r) => classify(r, config) !== 'fail');
+if (passed.length > 0) {
+  lines.push(p.bold(`Passed (${passed.length})`), p.dim(RULE));
+  if (options.verbose) {
+    for (const r of passed) {
+      const marker = classify(r, config) === 'dynamic' ? p.cyan('  ↯ dynamic') : '';
+      const route = r.route ? `  ${r.route}` : '';
+      lines.push(`${p.green('✓')} ${r.id}  ${r.message}${marker}${route}`);
     }
-    lines.push('');
   }
+  lines.push('');
+}
 ```
 
 - [ ] **Step 4: Run tests to verify they pass**
@@ -278,10 +332,12 @@ git commit -m "feat(core): collapse the Passed section to a bare count by defaul
 ### Task 3: `--by-route` — worst-first sort and cap at 10
 
 **Files:**
+
 - Modify: `packages/core/src/reporter/console.ts`
 - Test: `packages/core/test/console-report.test.ts`
 
 **Interfaces:**
+
 - Consumes: `ConsoleReportOptions.verbose` (Task 1).
 - Produces: nothing new (behavior change only — `byRouteTree`'s internal signature changes but it's not exported).
 
@@ -290,45 +346,57 @@ git commit -m "feat(core): collapse the Passed section to a bare count by defaul
 Add to `packages/core/test/console-report.test.ts`:
 
 ```ts
-  it('sorts --by-route worst-score-first, not alphabetically', () => {
-    const mixed: Result[] = [
-      { id: 'SEO001', severity: 'critical', detection: { presence: 'none', value: 'absent' }, route: '/z-bad', message: 'Missing <title>' },
-      { id: 'SEO003', severity: 'info', detection: { presence: 'own', value: 'static' }, route: '/a-good', message: 'Has <title>' }
-    ];
-    const out = formatConsoleReport(mixed, config, { byRoute: true });
-    const byRouteSection = out.split('By route')[1]!;
-    // The worse route ('/z-bad', has a critical finding) must appear before the
-    // better one ('/a-good') even though 'a' sorts before 'z' alphabetically.
-    expect(byRouteSection.indexOf('/z-bad')).toBeLessThan(byRouteSection.indexOf('/a-good'));
-  });
-
-  it('caps --by-route at 10 routes by default, with an "…and N more" trailer', () => {
-    const manyRoutes: Result[] = Array.from({ length: 12 }, (_, i) => ({
+it('sorts --by-route worst-score-first, not alphabetically', () => {
+  const mixed: Result[] = [
+    {
+      id: 'SEO001',
+      severity: 'critical',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/z-bad',
+      message: 'Missing <title>'
+    },
+    {
       id: 'SEO003',
-      severity: 'info' as const,
-      detection: { presence: 'own', value: 'static' } as const,
-      route: `/r${i}`,
+      severity: 'info',
+      detection: { presence: 'own', value: 'static' },
+      route: '/a-good',
       message: 'Has <title>'
-    }));
-    const out = formatConsoleReport(manyRoutes, config, { byRoute: true });
-    const byRouteSection = out.split('By route')[1]!;
-    expect(byRouteSection).toContain('…and 2 more route');
-    expect(byRouteSection).toContain('run with --verbose to see all');
-  });
+    }
+  ];
+  const out = formatConsoleReport(mixed, config, { byRoute: true });
+  const byRouteSection = out.split('By route')[1]!;
+  // The worse route ('/z-bad', has a critical finding) must appear before the
+  // better one ('/a-good') even though 'a' sorts before 'z' alphabetically.
+  expect(byRouteSection.indexOf('/z-bad')).toBeLessThan(byRouteSection.indexOf('/a-good'));
+});
 
-  it('--by-route with verbose:true shows every route, still worst-first', () => {
-    const manyRoutes: Result[] = Array.from({ length: 12 }, (_, i) => ({
-      id: 'SEO003',
-      severity: 'info' as const,
-      detection: { presence: 'own', value: 'static' } as const,
-      route: `/r${i}`,
-      message: 'Has <title>'
-    }));
-    const out = formatConsoleReport(manyRoutes, config, { byRoute: true, verbose: true });
-    const byRouteSection = out.split('By route')[1]!;
-    for (let i = 0; i < 12; i++) expect(byRouteSection).toContain(`/r${i}`);
-    expect(byRouteSection).not.toContain('…and');
-  });
+it('caps --by-route at 10 routes by default, with an "…and N more" trailer', () => {
+  const manyRoutes: Result[] = Array.from({ length: 12 }, (_, i) => ({
+    id: 'SEO003',
+    severity: 'info' as const,
+    detection: { presence: 'own', value: 'static' } as const,
+    route: `/r${i}`,
+    message: 'Has <title>'
+  }));
+  const out = formatConsoleReport(manyRoutes, config, { byRoute: true });
+  const byRouteSection = out.split('By route')[1]!;
+  expect(byRouteSection).toContain('…and 2 more route');
+  expect(byRouteSection).toContain('run with --verbose to see all');
+});
+
+it('--by-route with verbose:true shows every route, still worst-first', () => {
+  const manyRoutes: Result[] = Array.from({ length: 12 }, (_, i) => ({
+    id: 'SEO003',
+    severity: 'info' as const,
+    detection: { presence: 'own', value: 'static' } as const,
+    route: `/r${i}`,
+    message: 'Has <title>'
+  }));
+  const out = formatConsoleReport(manyRoutes, config, { byRoute: true, verbose: true });
+  const byRouteSection = out.split('By route')[1]!;
+  for (let i = 0; i < 12; i++) expect(byRouteSection).toContain(`/r${i}`);
+  expect(byRouteSection).not.toContain('…and');
+});
 ```
 
 - [ ] **Step 2: Run tests to verify they fail**
@@ -384,7 +452,7 @@ function byRouteTree(p: Palette, results: Result[], config: Config, verbose: boo
 Update the call site inside `formatConsoleReport` (currently `if (options.byRoute) lines.push(...byRouteTree(p, results, config));`):
 
 ```ts
-  if (options.byRoute) lines.push(...byRouteTree(p, results, config, options.verbose ?? false));
+if (options.byRoute) lines.push(...byRouteTree(p, results, config, options.verbose ?? false));
 ```
 
 - [ ] **Step 4: Run tests to verify they pass**
@@ -409,10 +477,12 @@ git commit -m "feat(core): sort --by-route worst-first and cap at 10 routes by d
 ### Task 4: `omitHeader` option
 
 **Files:**
+
 - Modify: `packages/core/src/reporter/console.ts`
 - Test: `packages/core/test/console-report.test.ts`
 
 **Interfaces:**
+
 - Consumes: nothing new.
 - Produces: `ConsoleReportOptions.omitHeader?: boolean` (default `false`). Task 6 (CLI) depends on this exact option name.
 
@@ -421,19 +491,19 @@ git commit -m "feat(core): sort --by-route worst-first and cap at 10 routes by d
 Add to `packages/core/test/console-report.test.ts`:
 
 ```ts
-  it('omitHeader:true skips the brand/Health/category lines, returning only the body', () => {
-    const out = formatConsoleReport(results, config, { omitHeader: true });
-    expect(out).not.toContain('Svelte Vitals');
-    expect(out).not.toContain('Health:');
-    expect(out).not.toContain('SEO Score:');
-    expect(out).toContain('Critical (1)'); // body content still present
-  });
+it('omitHeader:true skips the brand/Health/category lines, returning only the body', () => {
+  const out = formatConsoleReport(results, config, { omitHeader: true });
+  expect(out).not.toContain('Svelte Vitals');
+  expect(out).not.toContain('Health:');
+  expect(out).not.toContain('SEO Score:');
+  expect(out).toContain('Critical (1)'); // body content still present
+});
 
-  it('omitHeader is false by default — header still prints', () => {
-    const out = formatConsoleReport(results, config);
-    expect(out).toContain('Svelte Vitals');
-    expect(out).toContain('Health:');
-  });
+it('omitHeader is false by default — header still prints', () => {
+  const out = formatConsoleReport(results, config);
+  expect(out).toContain('Svelte Vitals');
+  expect(out).toContain('Health:');
+});
 ```
 
 - [ ] **Step 2: Run tests to verify the first one fails**
@@ -459,18 +529,18 @@ export interface ConsoleReportOptions {
 Replace the header-building section at the top of `formatConsoleReport` (currently builds a `header` array unconditionally then does `const lines: string[] = [...header, '']`):
 
 ```ts
-  const lines: string[] = [];
-  if (!options.omitHeader) {
-    lines.push(
-      p.bold(`Svelte Vitals  ·  ${options.mode ?? 'static mode'}`),
-      '',
-      `${p.bold('Health:')} ${scoreColor(p, health)(`${health}/100`)}`
-    );
-    for (const c of present) {
-      lines.push(scoreLine(p, CATEGORY_LABEL[c] ?? c, byCat[c]!));
-    }
+const lines: string[] = [];
+if (!options.omitHeader) {
+  lines.push(
+    p.bold(`Svelte Vitals  ·  ${options.mode ?? 'static mode'}`),
+    '',
+    `${p.bold('Health:')} ${scoreColor(p, health)(`${health}/100`)}`
+  );
+  for (const c of present) {
+    lines.push(scoreLine(p, CATEGORY_LABEL[c] ?? c, byCat[c]!));
   }
-  lines.push('');
+}
+lines.push('');
 ```
 
 (This replaces both the `const header: string[] = [...]` block and the `const lines: string[] = [...header, ''];` line — there is now only one `lines` array, built directly.)
@@ -497,10 +567,12 @@ git commit -m "feat(core): add omitHeader option to formatConsoleReport"
 ### Task 5: Pulse-line score animation module
 
 **Files:**
+
 - Create: `packages/cli/src/pulse-animation.ts`
 - Test: Create `packages/cli/test/pulse-animation.test.ts`
 
 **Interfaces:**
+
 - Consumes: `Palette`, `scoreColor` from `@svelte-vitals/core`; `type ReporterName`, `isAutoDetectedAgent` from `./reporter-resolve.js`; `colorEnabled` from `./color.js`.
 - Produces: `scoreAnimationEnabled(opts): boolean`, `playScoreAnimation(opts): Promise<void>`. Task 6 depends on both exact names/signatures.
 
@@ -685,6 +757,7 @@ git commit -m "feat(cli): add the pulse-line score-reveal animation module"
 ### Task 6: Wire `--verbose`/`--no-animation` and the animation into the CLI
 
 **Files:**
+
 - Modify: `packages/cli/src/bin.ts`
 - Modify: `packages/cli/src/resolve-args.ts`
 - Modify: `packages/cli/src/index.ts`
@@ -692,6 +765,7 @@ git commit -m "feat(cli): add the pulse-line score-reveal animation module"
 - Test: `packages/cli/test/run.test.ts`
 
 **Interfaces:**
+
 - Consumes: `ConsoleReportOptions.verbose`/`omitHeader` (Tasks 1-4), `scoreAnimationEnabled`/`playScoreAnimation` (Task 5).
 - Produces: `RunOptions.verbose?: boolean`, `RunOptions.noAnimation?: boolean`, `RunOptions.stdoutStream?: NodeJS.WriteStream` (test injection point, mirrors `stdoutIsTTY`/`stderrIsTTY`), `RunOptions.animationFrameDelayMs?: number` (test injection point, threaded straight into `playScoreAnimation`'s `frameDelayMs`).
 
@@ -706,15 +780,15 @@ Add to `packages/cli/test/resolve-args.test.ts` — first add `'verbose'` to the
 Then add a new test to the `describe('resolveArgs', ...)` block:
 
 ```ts
-  it('threads --verbose into options.verbose', () => {
-    const { options } = resolve('--verbose');
-    expect(options?.verbose).toBe(true);
-  });
+it('threads --verbose into options.verbose', () => {
+  const { options } = resolve('--verbose');
+  expect(options?.verbose).toBe(true);
+});
 
-  it('verbose defaults to false (undefined) when not passed', () => {
-    const { options } = resolve();
-    expect(options?.verbose).toBeUndefined();
-  });
+it('verbose defaults to false (undefined) when not passed', () => {
+  const { options } = resolve();
+  expect(options?.verbose).toBeUndefined();
+});
 ```
 
 Add to `packages/cli/test/run.test.ts` a new `describe` block after the existing ones:
@@ -829,7 +903,13 @@ Add two lines to the `HELP` string, in the `Options:` block, right after the exi
 Update the `run(...)` call at the bottom of `main()` to also thread `noAnimation`:
 
 ```ts
-  const code = await run({ ...options, minHealth, noColor: argv['no-color'], noAnimation: argv['no-animation'], selectApp });
+const code = await run({
+  ...options,
+  minHealth,
+  noColor: argv['no-color'],
+  noAnimation: argv['no-animation'],
+  selectApp
+});
 ```
 
 (`verbose` is already inside `options` via Step 3's change to `resolveArgs`, so it doesn't need a separate line here — it flows through `...options` the same way `byRoute` does.)
@@ -928,6 +1008,7 @@ git commit -m "feat(cli): wire --verbose/--no-animation and the score animation 
 ### Task 7: Documentation (en/ja)
 
 **Files:**
+
 - Modify: `docs/src/content/docs/guides/cli.md`
 - Modify: `docs/src/content/docs/ja/guides/cli.md`
 
@@ -978,6 +1059,7 @@ git commit -m "docs: document --verbose and --no-animation (en/ja)"
 ### Task 8: Changesets
 
 **Files:**
+
 - Create: `.changeset/<generated-name>.md`
 
 **Interfaces:** none.
