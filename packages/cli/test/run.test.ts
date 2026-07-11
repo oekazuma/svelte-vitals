@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { run } from '../src/index.js';
+import { GREETING_MESSAGES } from '../src/speech-bubble.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const fixtureDir = join(here, 'fixtures', 'basic-project');
@@ -402,12 +403,31 @@ describe('run() --verbose and animation', () => {
       env: CLEAN_ENV,
       stderrIsTTY: true,
       stderrStream,
-      stdoutIsTTY: false // isolate: only exercise the analysis-phase mascot here
+      stdoutIsTTY: false, // isolate: only exercise the analysis-phase mascot here
+      animationFrameDelayMs: 0 // keep the greeting's hold near-instant in tests
     });
     expect(stderrWrites.length).toBeGreaterThan(0);
     // The mascot's orange truecolor escape is a reliable "this is mascot art, not the
     // plain braille spinner" marker — the braille spinner never emits color.
     expect(stderrWrites.join('')).toContain('\x1b[38;2;255;62;0m');
+  });
+
+  it('shows a one-off greeting speech bubble before the idle loop, on a wide interactive terminal', async () => {
+    const cap = capture();
+    const stderrWrites: string[] = [];
+    const stderrStream = { write: (s: string) => stderrWrites.push(s) } as unknown as NodeJS.WriteStream;
+    await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      env: CLEAN_ENV,
+      stderrIsTTY: true,
+      stderrStream,
+      stdoutIsTTY: false,
+      animationFrameDelayMs: 0
+    });
+    const allWrites = stderrWrites.join('');
+    expect(GREETING_MESSAGES.some((m) => allWrites.includes(m))).toBe(true);
   });
 
   it('falls back to the plain braille spinner when --no-animation is set, even on a wide interactive terminal', async () => {
