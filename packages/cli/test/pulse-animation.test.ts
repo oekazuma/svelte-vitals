@@ -104,10 +104,21 @@ describe('playScoreAnimation', () => {
 
   it('colors the settled wave solid orange during the confetti bonus too', async () => {
     const { writes, stream } = fakeStream();
-    Object.defineProperty(stream, 'columns', { value: 19 });
+    // No columns override: defaults to a width wide enough for mascotFitsWidth to pass
+    // (unlike the narrow-terminal tests above), so score: 100 actually reaches the
+    // confetti loop — `showMascot && state === 'ecstatic'` — instead of being skipped.
     await playScoreAnimation({ score: 100, palette: ansiPalette, stream, frameDelayMs: 0 });
-    const lastWrite = writes[writes.length - 1]!;
-    expect(lastWrite).toContain('\x1b[38;2;255;62;0m');
+    const allWrites = writes.join('');
+    // The confetti loop builds its own waveBlock every frame, byte-identical to the main
+    // loop's settled frame (same color, same wave, same score text). log-update's line
+    // diffing can skip re-emitting a line whose content hasn't changed since the previous
+    // render, so a naive "does the last/any write contain the orange code" check can pass
+    // from the main loop's own (separately tested) coloring alone, without the confetti
+    // loop's coloring line ever running. Instead assert the bare/uncolored settled wave —
+    // the exact text the confetti loop would emit if its WAVE_ORANGE/WAVE_RESET wrap were
+    // reverted — never appears anywhere in the full output.
+    expect(allWrites).not.toContain('  ─────────────────────────');
+    expect(allWrites).toContain('\x1b[38;2;255;62;0m');
   });
 
   it('shows a reaction speech bubble matching the final state, on a wide enough terminal', async () => {
