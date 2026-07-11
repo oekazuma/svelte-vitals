@@ -38,7 +38,7 @@ one message uniformly at random from the relevant pool:
 
 - **Greeting pool** — one shared pool, shown at startup (score isn't known
   yet, so no state-based split here):
-  ```
+  ```text
   Welcome to Svelte Vitals!
   Let's check your project!
   Ready when you are!

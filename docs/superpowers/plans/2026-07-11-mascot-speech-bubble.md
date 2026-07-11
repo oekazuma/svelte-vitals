@@ -32,7 +32,7 @@
 
 - Produces: `bubbleFitsWidth(columns: number | undefined): boolean`, `renderSpeechBubble(text: string): string[]`, `withSpeechBubble(mascotBlock: string, bubbleLines: readonly string[]): string`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Create `packages/cli/test/speech-bubble.test.ts`:
 
@@ -95,12 +95,12 @@ describe('bubbleFitsWidth', () => {
 });
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `pnpm --filter svelte-vitals exec vitest run test/speech-bubble.test.ts`
 Expected: FAIL — `Cannot find module '../src/speech-bubble.js'`
 
-- [ ] **Step 3: Create `packages/cli/src/speech-bubble.ts`**
+- [x] **Step 3: Create `packages/cli/src/speech-bubble.ts`**
 
 ```ts
 const MIN_BUBBLE_COLUMNS = 55;
@@ -147,12 +147,12 @@ export function withSpeechBubble(mascotBlock: string, bubbleLines: readonly stri
 }
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `pnpm --filter svelte-vitals exec vitest run test/speech-bubble.test.ts`
 Expected: PASS (7 tests)
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/cli/src/speech-bubble.ts packages/cli/test/speech-bubble.test.ts
@@ -173,7 +173,7 @@ git commit -m "feat(cli): add speech bubble rendering primitives"
 - Consumes: `withSpeechBubble`, `renderSpeechBubble` (Task 1, same file); `MascotState` (`packages/cli/src/mascot.ts`)
 - Produces: `GREETING_MESSAGES: readonly string[]`, `REACTION_MESSAGES: Record<MascotState, readonly string[]>`, `pickMessage(pool, random?): string`, `renderMascotWithSpeech(mascotBlock: string, message: string): string`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 In `packages/cli/test/speech-bubble.test.ts`, replace the existing `import { renderSpeechBubble, withSpeechBubble, bubbleFitsWidth } from '../src/speech-bubble.js';` line (do not add a second import from the same path) with:
 
@@ -231,12 +231,12 @@ describe('renderMascotWithSpeech', () => {
 });
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `pnpm --filter svelte-vitals exec vitest run test/speech-bubble.test.ts`
 Expected: FAIL — `pickMessage`/`renderMascotWithSpeech`/`GREETING_MESSAGES`/`REACTION_MESSAGES` are not exported
 
-- [ ] **Step 3: Add to `packages/cli/src/speech-bubble.ts`**
+- [x] **Step 3: Add to `packages/cli/src/speech-bubble.ts`**
 
 Add this import at the very top of the file:
 
@@ -275,12 +275,12 @@ export function renderMascotWithSpeech(mascotBlock: string, message: string): st
 }
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `pnpm --filter svelte-vitals exec vitest run test/speech-bubble.test.ts`
 Expected: PASS (13 tests)
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/cli/src/speech-bubble.ts packages/cli/test/speech-bubble.test.ts
@@ -301,7 +301,7 @@ git commit -m "feat(cli): add speech bubble message pools and random selection"
 - Consumes: `renderMascotAnticipating` (`packages/cli/src/mascot.ts`); `renderMascotWithSpeech`, `pickMessage`, `GREETING_MESSAGES` (Task 1/2, same file)
 - Produces: `playMascotGreeting(opts: { enabled: boolean; stream: NodeJS.WriteStream; holdMs?: number }): Promise<void>`
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 In `packages/cli/test/speech-bubble.test.ts`, add `playMascotGreeting` to the existing `../src/speech-bubble.js` import list (do not add a second import from the same path):
 
@@ -346,12 +346,12 @@ describe('playMascotGreeting', () => {
 });
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `pnpm --filter svelte-vitals exec vitest run test/speech-bubble.test.ts`
 Expected: FAIL — `playMascotGreeting` is not exported
 
-- [ ] **Step 3: Add to `packages/cli/src/speech-bubble.ts`**
+- [x] **Step 3: Add to `packages/cli/src/speech-bubble.ts`**
 
 Replace the top-of-file import block (from Task 2's `import type { MascotState } from './mascot.js';`) with:
 
@@ -391,12 +391,12 @@ export async function playMascotGreeting(opts: {
 }
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `pnpm --filter svelte-vitals exec vitest run test/speech-bubble.test.ts`
 Expected: PASS (15 tests)
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/cli/src/speech-bubble.ts packages/cli/test/speech-bubble.test.ts
@@ -416,7 +416,7 @@ git commit -m "feat(cli): add mascot startup greeting playback"
 
 - Consumes: `bubbleFitsWidth`, `pickMessage`, `renderMascotWithSpeech`, `REACTION_MESSAGES` (`packages/cli/src/speech-bubble.ts`, Tasks 1-2)
 
-- [ ] **Step 1: Write the failing tests**
+- [x] **Step 1: Write the failing tests**
 
 Add this import to `packages/cli/test/pulse-animation.test.ts`'s import block:
 
@@ -446,12 +446,12 @@ it('omits the speech bubble (but keeps the fox) when the terminal fits the masco
 });
 ```
 
-- [ ] **Step 2: Run tests to verify they fail**
+- [x] **Step 2: Run tests to verify they fail**
 
 Run: `pnpm --filter svelte-vitals exec vitest run test/pulse-animation.test.ts`
 Expected: FAIL — the first new test fails because no reaction message is ever written yet
 
-- [ ] **Step 3: Modify `packages/cli/src/pulse-animation.ts`**
+- [x] **Step 3: Modify `packages/cli/src/pulse-animation.ts`**
 
 Add this import after the existing `import { ... } from './mascot.js';` block:
 
@@ -498,12 +498,12 @@ if (showMascot && state === 'ecstatic') {
 
 (The lines above and below this block — the `frameDelayMs`/`holdMs`/`confettiDelayMs` consts at the top, and the trailing `render.done();` — are unchanged.)
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `pnpm --filter svelte-vitals exec vitest run test/pulse-animation.test.ts`
 Expected: PASS (14 tests)
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/cli/src/pulse-animation.ts packages/cli/test/pulse-animation.test.ts
@@ -523,7 +523,7 @@ git commit -m "feat(cli): show a reaction speech bubble at the score reveal"
 
 - Consumes: `playMascotGreeting`, `bubbleFitsWidth`, `GREETING_MESSAGES` (`packages/cli/src/speech-bubble.ts`, Tasks 1-3)
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Add this import to `packages/cli/test/run.test.ts`'s top import block:
 
@@ -577,12 +577,12 @@ it('shows a one-off greeting speech bubble before the idle loop, on a wide inter
 });
 ```
 
-- [ ] **Step 2: Run tests to verify the new one fails**
+- [x] **Step 2: Run tests to verify the new one fails**
 
 Run: `pnpm --filter svelte-vitals exec vitest run test/run.test.ts`
 Expected: FAIL — the new "shows a one-off greeting" test fails (no greeting is played yet); the updated idle-loop test still passes (the added option is inert until Step 3)
 
-- [ ] **Step 3: Modify `packages/cli/src/index.ts`**
+- [x] **Step 3: Modify `packages/cli/src/index.ts`**
 
 Add this import after the existing `import { startMascotSpinner, mascotFitsWidth } from './mascot.js';` line:
 
@@ -613,12 +613,12 @@ const spinner = useMascotSpinner
   : startSpinner('Analyzing…', { enabled: spinnerBaseEnabled, stream: stderrStream });
 ```
 
-- [ ] **Step 4: Run tests to verify they pass**
+- [x] **Step 4: Run tests to verify they pass**
 
 Run: `pnpm --filter svelte-vitals exec vitest run test/run.test.ts`
 Expected: PASS (all tests in the file)
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add packages/cli/src/index.ts packages/cli/test/run.test.ts
@@ -638,7 +638,7 @@ git commit -m "feat(cli): play a startup greeting speech bubble before analysis"
 
 - None (docs/metadata only; no code interfaces produced or consumed)
 
-- [ ] **Step 1: Update `packages/cli/README.md`**
+- [x] **Step 1: Update `packages/cli/README.md`**
 
 Find the existing mascot paragraph:
 
@@ -652,7 +652,7 @@ Replace it with:
 On an interactive terminal, a small pixel-art fox mascot appears alongside both the analysis spinner and the Health-score reveal, reacting to the score (a perfect 100 gets a confetti flourish). On a wide enough terminal it also greets you with a short line in a speech bubble at startup, and again with a matching reaction line at the score reveal. `--no-animation` disables all of it, falling back to the plain spinner and plain score animation.
 ```
 
-- [ ] **Step 2: Create the changeset**
+- [x] **Step 2: Create the changeset**
 
 Create `.changeset/mascot-speech-bubble.md`:
 
@@ -664,7 +664,7 @@ Create `.changeset/mascot-speech-bubble.md`:
 Give the CLI's pixel-art fox mascot a speech bubble: a random greeting line at startup, and a reaction line matching the Health-score band at the score reveal (on terminals wide enough for both). Falls back to the fox alone on narrower terminals, same as before.
 ```
 
-- [ ] **Step 3: Run full verification**
+- [x] **Step 3: Run full verification**
 
 Run, in order, from the repo root of this worktree:
 
@@ -680,14 +680,14 @@ Expected: all five commands exit 0. If `pnpm lint`'s `prettier --check` flags `s
 
 If `packages/action/dist/index.js` shows as changed in `git status` after `pnpm build` (it bundles the CLI source), that is expected — stage it in the final commit.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add packages/cli/README.md .changeset/mascot-speech-bubble.md packages/action/dist/index.js
 git commit -m "docs(cli): document the mascot speech bubble; add changeset"
 ```
 
-- [ ] **Step 5: Final check**
+- [x] **Step 5: Final check**
 
 Run: `git status --short`
 Expected: clean (nothing uncommitted) except any files intentionally left for the finishing-a-development-branch workflow.
