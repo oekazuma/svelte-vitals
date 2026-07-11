@@ -24,10 +24,12 @@
 ### Task 1: Speech bubble rendering + width gate
 
 **Files:**
+
 - Create: `packages/cli/src/speech-bubble.ts`
 - Test: `packages/cli/test/speech-bubble.test.ts`
 
 **Interfaces:**
+
 - Produces: `bubbleFitsWidth(columns: number | undefined): boolean`, `renderSpeechBubble(text: string): string[]`, `withSpeechBubble(mascotBlock: string, bubbleLines: readonly string[]): string`
 
 - [ ] **Step 1: Write the failing tests**
@@ -162,10 +164,12 @@ git commit -m "feat(cli): add speech bubble rendering primitives"
 ### Task 2: Message pools, random selection, composition helper
 
 **Files:**
+
 - Modify: `packages/cli/src/speech-bubble.ts`
 - Modify: `packages/cli/test/speech-bubble.test.ts`
 
 **Interfaces:**
+
 - Consumes: `withSpeechBubble`, `renderSpeechBubble` (Task 1, same file); `MascotState` (`packages/cli/src/mascot.ts`)
 - Produces: `GREETING_MESSAGES: readonly string[]`, `REACTION_MESSAGES: Record<MascotState, readonly string[]>`, `pickMessage(pool, random?): string`, `renderMascotWithSpeech(mascotBlock: string, message: string): string`
 
@@ -288,10 +292,12 @@ git commit -m "feat(cli): add speech bubble message pools and random selection"
 ### Task 3: Startup greeting playback
 
 **Files:**
+
 - Modify: `packages/cli/src/speech-bubble.ts`
 - Modify: `packages/cli/test/speech-bubble.test.ts`
 
 **Interfaces:**
+
 - Consumes: `renderMascotAnticipating` (`packages/cli/src/mascot.ts`); `renderMascotWithSpeech`, `pickMessage`, `GREETING_MESSAGES` (Task 1/2, same file)
 - Produces: `playMascotGreeting(opts: { enabled: boolean; stream: NodeJS.WriteStream; holdMs?: number }): Promise<void>`
 
@@ -402,10 +408,12 @@ git commit -m "feat(cli): add mascot startup greeting playback"
 ### Task 4: Score-reveal reaction bubble
 
 **Files:**
+
 - Modify: `packages/cli/src/pulse-animation.ts`
 - Modify: `packages/cli/test/pulse-animation.test.ts`
 
 **Interfaces:**
+
 - Consumes: `bubbleFitsWidth`, `pickMessage`, `renderMascotWithSpeech`, `REACTION_MESSAGES` (`packages/cli/src/speech-bubble.ts`, Tasks 1-2)
 
 - [ ] **Step 1: Write the failing tests**
@@ -419,23 +427,23 @@ import { REACTION_MESSAGES } from '../src/speech-bubble.js';
 Append inside the `describe('playScoreAnimation', ...)` block (after the existing `'omits the mascot entirely on a narrow terminal...'` test):
 
 ```ts
-  it('shows a reaction speech bubble matching the final state, on a wide enough terminal', async () => {
-    const { writes, stream } = fakeStream();
-    await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 }); // happy
-    const allWrites = writes.join('');
-    expect(REACTION_MESSAGES.happy.some((m) => allWrites.includes(m))).toBe(true);
-  });
+it('shows a reaction speech bubble matching the final state, on a wide enough terminal', async () => {
+  const { writes, stream } = fakeStream();
+  await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 }); // happy
+  const allWrites = writes.join('');
+  expect(REACTION_MESSAGES.happy.some((m) => allWrites.includes(m))).toBe(true);
+});
 
-  it('omits the speech bubble (but keeps the fox) when the terminal fits the mascot but not the bubble', async () => {
-    const { writes, stream } = fakeStream();
-    Object.defineProperty(stream, 'columns', { value: 45 }); // >= 40 (mascot) but < 55 (bubble)
-    await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 });
-    const allWrites = writes.join('');
-    expect(allWrites).toContain('\x1b[38;2;255;62;0m'); // fox still present
-    for (const pool of Object.values(REACTION_MESSAGES)) {
-      for (const m of pool) expect(allWrites).not.toContain(m);
-    }
-  });
+it('omits the speech bubble (but keeps the fox) when the terminal fits the mascot but not the bubble', async () => {
+  const { writes, stream } = fakeStream();
+  Object.defineProperty(stream, 'columns', { value: 45 }); // >= 40 (mascot) but < 55 (bubble)
+  await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 });
+  const allWrites = writes.join('');
+  expect(allWrites).toContain('\x1b[38;2;255;62;0m'); // fox still present
+  for (const pool of Object.values(REACTION_MESSAGES)) {
+    for (const m of pool) expect(allWrites).not.toContain(m);
+  }
+});
 ```
 
 - [ ] **Step 2: Run tests to verify they fail**
@@ -454,40 +462,38 @@ import { bubbleFitsWidth, pickMessage, renderMascotWithSpeech, REACTION_MESSAGES
 Replace the body of `playScoreAnimation` (from `const render = createLogUpdate(opts.stream);` through the confetti loop) with:
 
 ```ts
-  const render = createLogUpdate(opts.stream);
-  const showMascot = mascotFitsWidth(opts.stream.columns);
-  const state = mascotStateFor(opts.score);
-  const reactionMessage =
-    showMascot && bubbleFitsWidth(opts.stream.columns) ? pickMessage(REACTION_MESSAGES[state]) : undefined;
-  const finalMascotBlock = reactionMessage
-    ? renderMascotWithSpeech(renderMascotReaction(state), reactionMessage)
-    : renderMascotReaction(state);
+const render = createLogUpdate(opts.stream);
+const showMascot = mascotFitsWidth(opts.stream.columns);
+const state = mascotStateFor(opts.score);
+const reactionMessage =
+  showMascot && bubbleFitsWidth(opts.stream.columns) ? pickMessage(REACTION_MESSAGES[state]) : undefined;
+const finalMascotBlock = reactionMessage
+  ? renderMascotWithSpeech(renderMascotReaction(state), reactionMessage)
+  : renderMascotReaction(state);
 
-  for (let frame = 0; frame < FRAME_COUNT; frame++) {
-    const progress = frame / (FRAME_COUNT - 1);
-    const displayScore = Math.round(opts.score * progress);
-    const isFinalFrame = frame === FRAME_COUNT - 1;
-    const wave = WAVE_FRAMES[frame]!;
-    const scoreText = isFinalFrame
-      ? scoreColor(opts.palette, opts.score)(`${displayScore}/100`)
-      : opts.palette.dim(`${displayScore}/100`);
-    const waveBlock = `  ${wave}\n  Health: ${scoreText}`;
-    const mascotBlock = showMascot
-      ? (isFinalFrame ? finalMascotBlock : renderMascotAnticipating()) + '\n'
-      : '';
-    render(`${mascotBlock}${waveBlock}`);
-    if (!isFinalFrame) await sleep(frameDelayMs);
+for (let frame = 0; frame < FRAME_COUNT; frame++) {
+  const progress = frame / (FRAME_COUNT - 1);
+  const displayScore = Math.round(opts.score * progress);
+  const isFinalFrame = frame === FRAME_COUNT - 1;
+  const wave = WAVE_FRAMES[frame]!;
+  const scoreText = isFinalFrame
+    ? scoreColor(opts.palette, opts.score)(`${displayScore}/100`)
+    : opts.palette.dim(`${displayScore}/100`);
+  const waveBlock = `  ${wave}\n  Health: ${scoreText}`;
+  const mascotBlock = showMascot ? (isFinalFrame ? finalMascotBlock : renderMascotAnticipating()) + '\n' : '';
+  render(`${mascotBlock}${waveBlock}`);
+  if (!isFinalFrame) await sleep(frameDelayMs);
+}
+
+if (holdMs > 0) await sleep(holdMs);
+
+if (showMascot && state === 'ecstatic') {
+  for (let i = 0; i < CONFETTI_FRAME_COUNT; i++) {
+    const waveBlock = `  ${WAVE_FRAMES[FRAME_COUNT - 1]!}\n  Health: ${scoreColor(opts.palette, opts.score)('100/100')}`;
+    render(`${renderConfettiFrame(i, finalMascotBlock)}\n${waveBlock}`);
+    if (i < CONFETTI_FRAME_COUNT - 1 && confettiDelayMs > 0) await sleep(confettiDelayMs);
   }
-
-  if (holdMs > 0) await sleep(holdMs);
-
-  if (showMascot && state === 'ecstatic') {
-    for (let i = 0; i < CONFETTI_FRAME_COUNT; i++) {
-      const waveBlock = `  ${WAVE_FRAMES[FRAME_COUNT - 1]!}\n  Health: ${scoreColor(opts.palette, opts.score)('100/100')}`;
-      render(`${renderConfettiFrame(i, finalMascotBlock)}\n${waveBlock}`);
-      if (i < CONFETTI_FRAME_COUNT - 1 && confettiDelayMs > 0) await sleep(confettiDelayMs);
-    }
-  }
+}
 ```
 
 (The lines above and below this block — the `frameDelayMs`/`holdMs`/`confettiDelayMs` consts at the top, and the trailing `render.done();` — are unchanged.)
@@ -509,10 +515,12 @@ git commit -m "feat(cli): show a reaction speech bubble at the score reveal"
 ### Task 5: Startup greeting integration
 
 **Files:**
+
 - Modify: `packages/cli/src/index.ts`
 - Modify: `packages/cli/test/run.test.ts`
 
 **Interfaces:**
+
 - Consumes: `playMascotGreeting`, `bubbleFitsWidth`, `GREETING_MESSAGES` (`packages/cli/src/speech-bubble.ts`, Tasks 1-3)
 
 - [ ] **Step 1: Write the failing test**
@@ -526,47 +534,47 @@ import { GREETING_MESSAGES } from '../src/speech-bubble.js';
 Update the existing test `'shows the mascot idle loop on stderr during analysis on a wide interactive terminal'` (in the same `describe` block as the other mascot/spinner tests) — add `animationFrameDelayMs: 0` to its `run()` call so the new greeting's hold doesn't slow the test down:
 
 ```ts
-  it('shows the mascot idle loop on stderr during analysis on a wide interactive terminal', async () => {
-    const cap = capture();
-    const stderrWrites: string[] = [];
-    const stderrStream = { write: (s: string) => stderrWrites.push(s) } as unknown as NodeJS.WriteStream;
-    await run({
-      cwd: fixtureDir,
-      log: cap.log,
-      errorLog: cap.errorLog,
-      env: CLEAN_ENV,
-      stderrIsTTY: true,
-      stderrStream,
-      stdoutIsTTY: false, // isolate: only exercise the analysis-phase mascot here
-      animationFrameDelayMs: 0 // keep the greeting's hold near-instant in tests
-    });
-    expect(stderrWrites.length).toBeGreaterThan(0);
-    // The mascot's orange truecolor escape is a reliable "this is mascot art, not the
-    // plain braille spinner" marker — the braille spinner never emits color.
-    expect(stderrWrites.join('')).toContain('\x1b[38;2;255;62;0m');
+it('shows the mascot idle loop on stderr during analysis on a wide interactive terminal', async () => {
+  const cap = capture();
+  const stderrWrites: string[] = [];
+  const stderrStream = { write: (s: string) => stderrWrites.push(s) } as unknown as NodeJS.WriteStream;
+  await run({
+    cwd: fixtureDir,
+    log: cap.log,
+    errorLog: cap.errorLog,
+    env: CLEAN_ENV,
+    stderrIsTTY: true,
+    stderrStream,
+    stdoutIsTTY: false, // isolate: only exercise the analysis-phase mascot here
+    animationFrameDelayMs: 0 // keep the greeting's hold near-instant in tests
   });
+  expect(stderrWrites.length).toBeGreaterThan(0);
+  // The mascot's orange truecolor escape is a reliable "this is mascot art, not the
+  // plain braille spinner" marker — the braille spinner never emits color.
+  expect(stderrWrites.join('')).toContain('\x1b[38;2;255;62;0m');
+});
 ```
 
 Then add a new test immediately after it:
 
 ```ts
-  it('shows a one-off greeting speech bubble before the idle loop, on a wide interactive terminal', async () => {
-    const cap = capture();
-    const stderrWrites: string[] = [];
-    const stderrStream = { write: (s: string) => stderrWrites.push(s) } as unknown as NodeJS.WriteStream;
-    await run({
-      cwd: fixtureDir,
-      log: cap.log,
-      errorLog: cap.errorLog,
-      env: CLEAN_ENV,
-      stderrIsTTY: true,
-      stderrStream,
-      stdoutIsTTY: false,
-      animationFrameDelayMs: 0
-    });
-    const allWrites = stderrWrites.join('');
-    expect(GREETING_MESSAGES.some((m) => allWrites.includes(m))).toBe(true);
+it('shows a one-off greeting speech bubble before the idle loop, on a wide interactive terminal', async () => {
+  const cap = capture();
+  const stderrWrites: string[] = [];
+  const stderrStream = { write: (s: string) => stderrWrites.push(s) } as unknown as NodeJS.WriteStream;
+  await run({
+    cwd: fixtureDir,
+    log: cap.log,
+    errorLog: cap.errorLog,
+    env: CLEAN_ENV,
+    stderrIsTTY: true,
+    stderrStream,
+    stdoutIsTTY: false,
+    animationFrameDelayMs: 0
   });
+  const allWrites = stderrWrites.join('');
+  expect(GREETING_MESSAGES.some((m) => allWrites.includes(m))).toBe(true);
+});
 ```
 
 - [ ] **Step 2: Run tests to verify the new one fails**
@@ -585,24 +593,24 @@ import { playMascotGreeting, bubbleFitsWidth } from './speech-bubble.js';
 Replace:
 
 ```ts
-  const useMascotSpinner = spinnerBaseEnabled && !opts.noAnimation && mascotFitsWidth(stderrStream.columns);
-  const spinner = useMascotSpinner
-    ? startMascotSpinner('Analyzing…', { enabled: true, stream: stderrStream })
-    : startSpinner('Analyzing…', { enabled: spinnerBaseEnabled, stream: stderrStream });
+const useMascotSpinner = spinnerBaseEnabled && !opts.noAnimation && mascotFitsWidth(stderrStream.columns);
+const spinner = useMascotSpinner
+  ? startMascotSpinner('Analyzing…', { enabled: true, stream: stderrStream })
+  : startSpinner('Analyzing…', { enabled: spinnerBaseEnabled, stream: stderrStream });
 ```
 
 with:
 
 ```ts
-  const useMascotSpinner = spinnerBaseEnabled && !opts.noAnimation && mascotFitsWidth(stderrStream.columns);
-  if (useMascotSpinner && bubbleFitsWidth(stderrStream.columns)) {
-    // A wordless greeting isn't worth a dedicated hold before the idle loop, so this
-    // only plays when there's room for the speech bubble too — not just the fox alone.
-    await playMascotGreeting({ enabled: true, stream: stderrStream, holdMs: opts.animationFrameDelayMs });
-  }
-  const spinner = useMascotSpinner
-    ? startMascotSpinner('Analyzing…', { enabled: true, stream: stderrStream })
-    : startSpinner('Analyzing…', { enabled: spinnerBaseEnabled, stream: stderrStream });
+const useMascotSpinner = spinnerBaseEnabled && !opts.noAnimation && mascotFitsWidth(stderrStream.columns);
+if (useMascotSpinner && bubbleFitsWidth(stderrStream.columns)) {
+  // A wordless greeting isn't worth a dedicated hold before the idle loop, so this
+  // only plays when there's room for the speech bubble too — not just the fox alone.
+  await playMascotGreeting({ enabled: true, stream: stderrStream, holdMs: opts.animationFrameDelayMs });
+}
+const spinner = useMascotSpinner
+  ? startMascotSpinner('Analyzing…', { enabled: true, stream: stderrStream })
+  : startSpinner('Analyzing…', { enabled: spinnerBaseEnabled, stream: stderrStream });
 ```
 
 - [ ] **Step 4: Run tests to verify they pass**
@@ -622,10 +630,12 @@ git commit -m "feat(cli): play a startup greeting speech bubble before analysis"
 ### Task 6: Docs, changeset, and full verification
 
 **Files:**
+
 - Modify: `packages/cli/README.md`
 - Create: `.changeset/mascot-speech-bubble.md`
 
 **Interfaces:**
+
 - None (docs/metadata only; no code interfaces produced or consumed)
 
 - [ ] **Step 1: Update `packages/cli/README.md`**
