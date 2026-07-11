@@ -90,7 +90,24 @@ describe('playScoreAnimation', () => {
     Object.defineProperty(stream, 'columns', { value: 19 });
     await playScoreAnimation({ score: 82, palette: noColorPalette, stream, frameDelayMs: 0 });
     expect(writes[writes.length - 1]).toContain('82/100');
-    expect(writes.join('')).not.toContain('\x1b[38;2;255;62;0m'); // no mascot body art anywhere
+    expect(writes.join('')).not.toContain('╭'); // no mascot face art anywhere (the wave's own color isn't a reliable signal — it's colored too now)
+  });
+
+  it('colors the pulse wave dim orange while counting, solid orange once the score settles', async () => {
+    const { writes, stream } = fakeStream();
+    Object.defineProperty(stream, 'columns', { value: 19 }); // below MIN_MASCOT_COLUMNS — isolates the wave's own color from the mascot's
+    await playScoreAnimation({ score: 82, palette: ansiPalette, stream, frameDelayMs: 0 });
+    const allWrites = writes.join('');
+    expect(allWrites).toContain('\x1b[38;2;153;37;0m'); // dim orange, seen during at least one counting frame
+    expect(allWrites).toContain('\x1b[38;2;255;62;0m'); // solid orange, seen on the settled frame
+  });
+
+  it('colors the settled wave solid orange during the confetti bonus too', async () => {
+    const { writes, stream } = fakeStream();
+    Object.defineProperty(stream, 'columns', { value: 19 });
+    await playScoreAnimation({ score: 100, palette: ansiPalette, stream, frameDelayMs: 0 });
+    const lastWrite = writes[writes.length - 1]!;
+    expect(lastWrite).toContain('\x1b[38;2;255;62;0m');
   });
 
   it('shows a reaction speech bubble matching the final state, on a wide enough terminal', async () => {
