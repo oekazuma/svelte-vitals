@@ -20,6 +20,7 @@
 ### Task 1: Mascot face redesign + speech-bubble corner rounding
 
 **Files:**
+
 - Modify: `packages/cli/src/mascot.ts`
 - Modify: `packages/cli/test/mascot.test.ts`
 - Modify: `packages/cli/src/speech-bubble.ts`
@@ -28,6 +29,7 @@
 - Modify: `packages/cli/test/run.test.ts` (narrow-terminal column value)
 
 **Interfaces:**
+
 - Produces (unchanged signatures, changed output): `mascotFitsWidth`, `renderMascotReaction`, `renderMascotAnticipating`, `renderMascotIdleFrame`, `renderConfettiFrame`, `startMascotSpinner`, `renderSpeechBubble`
 - Unchanged: `MascotState`, `mascotStateFor`, `MascotSpinner`, everything in `speech-bubble.ts` other than `renderSpeechBubble`'s corner characters
 
@@ -478,29 +480,29 @@ Every other test in this file (`bubbleFitsWidth`, `pickMessage`, `message pools`
 In `packages/cli/test/pulse-animation.test.ts`, replace:
 
 ```ts
-  it('shows the mascot reaction matching the final state on the last frame', async () => {
-    // log-update only rewrites lines that actually changed between frames, so the last
-    // write's content depends on which rows differ between the anticipating pose and the
-    // reaction pose. A happy/ecstatic score reliably touches that diff because blush is
-    // only added on the reaction frame (never during anticipating) — a score in the
-    // "content" band wouldn't, since its mouth uses the same fixed palette as the
-    // anticipating pose's neutral mouth, just a different shape.
-    const { writes, stream } = fakeStream();
-    await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 }); // happy
-    const last = writes[writes.length - 1]!;
-    expect(last).toContain('\x1b[38;2;255;145;175m'); // happy's blush accent, added only on the reaction frame
-  });
+it('shows the mascot reaction matching the final state on the last frame', async () => {
+  // log-update only rewrites lines that actually changed between frames, so the last
+  // write's content depends on which rows differ between the anticipating pose and the
+  // reaction pose. A happy/ecstatic score reliably touches that diff because blush is
+  // only added on the reaction frame (never during anticipating) — a score in the
+  // "content" band wouldn't, since its mouth uses the same fixed palette as the
+  // anticipating pose's neutral mouth, just a different shape.
+  const { writes, stream } = fakeStream();
+  await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 }); // happy
+  const last = writes[writes.length - 1]!;
+  expect(last).toContain('\x1b[38;2;255;145;175m'); // happy's blush accent, added only on the reaction frame
+});
 ```
 
 with:
 
 ```ts
-  it('shows the mascot reaction matching the final state on the last frame', async () => {
-    const { writes, stream } = fakeStream();
-    await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 }); // happy
-    const allWrites = writes.join('');
-    expect(allWrites).toContain('   ◡◡◡◡   '); // happy's mouth row — distinct from content's/ecstatic's
-  });
+it('shows the mascot reaction matching the final state on the last frame', async () => {
+  const { writes, stream } = fakeStream();
+  await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 }); // happy
+  const allWrites = writes.join('');
+  expect(allWrites).toContain('   ◡◡◡◡   '); // happy's mouth row — distinct from content's/ecstatic's
+});
 ```
 
 And in the same file, change only the `columns` value (30 → 15, since `MIN_MASCOT_COLUMNS` is now 20) in:
@@ -547,10 +549,12 @@ git commit -m "feat(cli): redesign mascot as a minimal line-art face, round the 
 ### Task 2: Pulse-line colorization
 
 **Files:**
+
 - Modify: `packages/cli/src/pulse-animation.ts`
 - Modify: `packages/cli/test/pulse-animation.test.ts`
 
 **Interfaces:**
+
 - No new exports. `ScoreAnimationOptions` and `playScoreAnimation`'s signature are unchanged — only what `playScoreAnimation` writes to its stream changes.
 
 - [ ] **Step 1: Write the failing tests**
@@ -560,40 +564,40 @@ git commit -m "feat(cli): redesign mascot as a minimal line-art face, round the 
 In `packages/cli/test/pulse-animation.test.ts`, append inside the `describe('playScoreAnimation', ...)` block (after the existing `'omits the speech bubble (but keeps the fox)...'` test, before the closing `});` of the describe block):
 
 ```ts
-  it('colors the pulse wave dim orange while counting, solid orange once the score settles', async () => {
-    const { writes, stream } = fakeStream();
-    Object.defineProperty(stream, 'columns', { value: 19 }); // below MIN_MASCOT_COLUMNS — isolates the wave's own color from the mascot's
-    await playScoreAnimation({ score: 82, palette: ansiPalette, stream, frameDelayMs: 0 });
-    const allWrites = writes.join('');
-    expect(allWrites).toContain('\x1b[38;2;153;37;0m'); // dim orange, seen during at least one counting frame
-    expect(allWrites).toContain('\x1b[38;2;255;62;0m'); // solid orange, seen on the settled frame
-  });
+it('colors the pulse wave dim orange while counting, solid orange once the score settles', async () => {
+  const { writes, stream } = fakeStream();
+  Object.defineProperty(stream, 'columns', { value: 19 }); // below MIN_MASCOT_COLUMNS — isolates the wave's own color from the mascot's
+  await playScoreAnimation({ score: 82, palette: ansiPalette, stream, frameDelayMs: 0 });
+  const allWrites = writes.join('');
+  expect(allWrites).toContain('\x1b[38;2;153;37;0m'); // dim orange, seen during at least one counting frame
+  expect(allWrites).toContain('\x1b[38;2;255;62;0m'); // solid orange, seen on the settled frame
+});
 
-  it('colors the settled wave solid orange during the confetti bonus too', async () => {
-    const { writes, stream } = fakeStream();
-    Object.defineProperty(stream, 'columns', { value: 19 });
-    await playScoreAnimation({ score: 100, palette: ansiPalette, stream, frameDelayMs: 0 });
-    const lastWrite = writes[writes.length - 1]!;
-    expect(lastWrite).toContain('\x1b[38;2;255;62;0m');
-  });
+it('colors the settled wave solid orange during the confetti bonus too', async () => {
+  const { writes, stream } = fakeStream();
+  Object.defineProperty(stream, 'columns', { value: 19 });
+  await playScoreAnimation({ score: 100, palette: ansiPalette, stream, frameDelayMs: 0 });
+  const lastWrite = writes[writes.length - 1]!;
+  expect(lastWrite).toContain('\x1b[38;2;255;62;0m');
+});
 ```
 
 Then fix the narrow-terminal test's now-ambiguous color assertion (the wave itself will, after this task's Step 2, also emit `\x1b[38;2;255;62;0m` on its settled frame — this assertion needs to check for the mascot's actual box-drawing character instead, not a color both the mascot and the now-colored wave share). The test currently reads (already at `columns: 19`, per Task 1):
 
 ```ts
-  it('omits the mascot entirely on a narrow terminal, still completing the wave/score reveal', async () => {
-    const { writes, stream } = fakeStream();
-    Object.defineProperty(stream, 'columns', { value: 19 });
-    await playScoreAnimation({ score: 82, palette: noColorPalette, stream, frameDelayMs: 0 });
-    expect(writes[writes.length - 1]).toContain('82/100');
-    expect(writes.join('')).not.toContain('\x1b[38;2;255;62;0m'); // no mascot body art anywhere
-  });
+it('omits the mascot entirely on a narrow terminal, still completing the wave/score reveal', async () => {
+  const { writes, stream } = fakeStream();
+  Object.defineProperty(stream, 'columns', { value: 19 });
+  await playScoreAnimation({ score: 82, palette: noColorPalette, stream, frameDelayMs: 0 });
+  expect(writes[writes.length - 1]).toContain('82/100');
+  expect(writes.join('')).not.toContain('\x1b[38;2;255;62;0m'); // no mascot body art anywhere
+});
 ```
 
 Replace only its last assertion line — leave `columns: 19` and everything else as-is:
 
 ```ts
-    expect(writes.join('')).not.toContain('╭'); // no mascot face art anywhere (the wave's own color isn't a reliable signal — it's colored too now)
+expect(writes.join('')).not.toContain('╭'); // no mascot face art anywhere (the wave's own color isn't a reliable signal — it's colored too now)
 ```
 
 - [ ] **Step 2: Run the tests to verify the new ones fail**
@@ -623,34 +627,34 @@ const WAVE_RESET = '\x1b[0m';
 Then, inside `playScoreAnimation`'s frame loop, replace:
 
 ```ts
-    const wave = WAVE_FRAMES[frame]!;
-    const scoreText = isFinalFrame
-      ? scoreColor(opts.palette, opts.score)(`${displayScore}/100`)
-      : opts.palette.dim(`${displayScore}/100`);
-    const waveBlock = `  ${wave}\n  Health: ${scoreText}`;
+const wave = WAVE_FRAMES[frame]!;
+const scoreText = isFinalFrame
+  ? scoreColor(opts.palette, opts.score)(`${displayScore}/100`)
+  : opts.palette.dim(`${displayScore}/100`);
+const waveBlock = `  ${wave}\n  Health: ${scoreText}`;
 ```
 
 with:
 
 ```ts
-    const wave = WAVE_FRAMES[frame]!;
-    const waveText = isFinalFrame ? `${WAVE_ORANGE}${wave}${WAVE_RESET}` : `${WAVE_ORANGE_DIM}${wave}${WAVE_RESET}`;
-    const scoreText = isFinalFrame
-      ? scoreColor(opts.palette, opts.score)(`${displayScore}/100`)
-      : opts.palette.dim(`${displayScore}/100`);
-    const waveBlock = `  ${waveText}\n  Health: ${scoreText}`;
+const wave = WAVE_FRAMES[frame]!;
+const waveText = isFinalFrame ? `${WAVE_ORANGE}${wave}${WAVE_RESET}` : `${WAVE_ORANGE_DIM}${wave}${WAVE_RESET}`;
+const scoreText = isFinalFrame
+  ? scoreColor(opts.palette, opts.score)(`${displayScore}/100`)
+  : opts.palette.dim(`${displayScore}/100`);
+const waveBlock = `  ${waveText}\n  Health: ${scoreText}`;
 ```
 
 And in the confetti loop, replace:
 
 ```ts
-      const waveBlock = `  ${WAVE_FRAMES[FRAME_COUNT - 1]!}\n  Health: ${scoreColor(opts.palette, opts.score)('100/100')}`;
+const waveBlock = `  ${WAVE_FRAMES[FRAME_COUNT - 1]!}\n  Health: ${scoreColor(opts.palette, opts.score)('100/100')}`;
 ```
 
 with:
 
 ```ts
-      const waveBlock = `  ${WAVE_ORANGE}${WAVE_FRAMES[FRAME_COUNT - 1]!}${WAVE_RESET}\n  Health: ${scoreColor(opts.palette, opts.score)('100/100')}`;
+const waveBlock = `  ${WAVE_ORANGE}${WAVE_FRAMES[FRAME_COUNT - 1]!}${WAVE_RESET}\n  Health: ${scoreColor(opts.palette, opts.score)('100/100')}`;
 ```
 
 - [ ] **Step 4: Run the tests to verify they pass**
@@ -675,6 +679,7 @@ git commit -m "feat(cli): color the Health-score reveal's pulse wave in Svelte o
 ### Task 3: Docs, changesets, and full verification
 
 **Files:**
+
 - Modify: `packages/cli/README.md`
 - Modify: `docs/src/content/docs/guides/cli.md`
 - Modify: `docs/src/content/docs/ja/guides/cli.md`
