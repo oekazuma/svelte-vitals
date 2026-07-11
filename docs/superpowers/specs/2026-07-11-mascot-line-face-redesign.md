@@ -75,9 +75,13 @@ const waveText = isFinalFrame ? `${WAVE_ORANGE}${wave}${RESET}` : `${WAVE_ORANGE
 
 This touches only the `wave` variable's rendering inside `playScoreAnimation`'s frame loop — `scoreText`'s own coloring (which still uses `Palette`/`scoreColor` for pass/warn/fail semantics on the number) is unchanged.
 
+### Follow-up: the settled frame isn't flat either
+
+After trying the shipped build, the project owner flagged that a fully flat settled line reads as "dead" (the opposite of what a health-check tool's own reveal moment should feel like) — a real vitals monitor showing a flat line means the opposite of healthy. Fixed by replacing `WAVE_FRAMES`'s last entry with a single steady beat marked by a heart (`♡`, a plain text character — not an emoji, to avoid terminal-dependent double-width rendering that would break the fixed-column math this whole feature relies on) at the same peak position frame 0 uses, keeping all six frames the same 24-column width (the settled frame was previously 25, one wider than the rest — fixed as part of this same change).
+
 ## Non-goals
 
 - No change to `mascotStateFor`'s score-band logic (still `100` → ecstatic, `90-99` → happy, else → content) — this redesign is presentation-only.
 - No change to the greeting/reaction message pools, random selection, or playback timing in `speech-bubble.ts` — only its border-character choice changes.
 - No sparkle/accent characters added to the mascot art itself (superseded by relying on the existing confetti bonus, see above).
-- No change to `WAVE_FRAMES`' waveform shape or `FRAME_COUNT` (explicitly out of scope per the project owner's chosen scope: color only).
+- No change to `WAVE_FRAMES`' frame count or its counting-up frames' (0-4) shape — only the settled frame's content changed (see "Follow-up" above), and only after landing, not part of the original color-only scope.

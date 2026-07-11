@@ -14,16 +14,19 @@ import { bubbleFitsWidth, pickMessage, renderMascotWithSpeech, REACTION_MESSAGES
 const FRAME_COUNT = 6;
 const FRAME_DELAY_MS = 200;
 
-// Pulse waveform, one string per frame — an erratic heartbeat line that settles flat
-// as the score locks in (svelte-vitals' own animation motif: "vitals" as in a pulse
-// monitor).
+// Pulse waveform, one string per frame — an erratic heartbeat line that settles into a
+// single steady beat as the score locks in (svelte-vitals' own animation motif: "vitals"
+// as in a pulse monitor). The settled frame deliberately isn't a flat line — a genuinely
+// flat vitals monitor means the opposite of healthy — so it keeps one beat, marked with a
+// heart, at the same peak position frame 0 used. All six frames are the same width (24)
+// so the line doesn't visibly shift when it settles.
 const WAVE_FRAMES = [
   '────────────╱╲──────────',
   '──────────╱╲──╱╲────────',
   '────────╱╲──────╱╲──────',
   '──────╱╲──────────╲─────',
   '────╱──────────────╲────',
-  '─────────────────────────'
+  '────────────♡───────────'
 ];
 
 const WAVE_ORANGE = '\x1b[38;2;255;62;0m'; // Svelte's brand accent (#ff3e00) — solid, once the score has settled
