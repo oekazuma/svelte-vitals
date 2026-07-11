@@ -44,9 +44,9 @@ function renderFace(lines: readonly string[]): string {
 // Every frame is 4 lines, 12 columns wide (╭ + 10 interior + ╮). Mood is conveyed
 // through mouth width (and, at `ecstatic` only, the eyes switching to closed/joyful);
 // there is no second accent color — the whole point of this design is to be minimal.
-const FACE_OPEN_EYES_NEUTRAL_MOUTH = ['╭──────────╮', '│  ●    ●  │', '│    ─     │', '╰──────────╯'];
+const FACE_OPEN_EYES_NEUTRAL_MOUTH = ['╭──────────╮', '│  ●    ●  │', '│    ──    │', '╰──────────╯'];
 
-const FACE_CLOSED_EYES_NEUTRAL_MOUTH = ['╭──────────╮', '│  ─    ─  │', '│    ─     │', '╰──────────╯'];
+const FACE_CLOSED_EYES_NEUTRAL_MOUTH = ['╭──────────╮', '│  ─    ─  │', '│    ──    │', '╰──────────╯'];
 
 const FACE_CONTENT = ['╭──────────╮', '│  ●    ●  │', '│    ◡◡    │', '╰──────────╯'];
 
