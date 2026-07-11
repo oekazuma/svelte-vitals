@@ -13,15 +13,15 @@ YAML を手書きする必要はありません。
 ## クイックスタート
 
 ```bash
-npx svelte-vitals ci install
+npx svelte-vitals@latest ci install
 ```
 
 これにより `.github/workflows/svelte-vitals.yml` が書き出されます。コミットしてプルリクエスト
 を開けば、実行される様子を確認できます。
 
 ```bash
-npx svelte-vitals ci install --dry-run   # 書き込まずにプレビュー
-npx svelte-vitals ci install --force     # 既存のワークフローファイルを再生成
+npx svelte-vitals@latest ci install --dry-run   # 書き込まずにプレビュー
+npx svelte-vitals@latest ci install --force     # 既存のワークフローファイルを再生成
 ```
 
 `--force` を付けずに `ci install` を再実行しても、ファイルが既に存在する場合は何も行いません

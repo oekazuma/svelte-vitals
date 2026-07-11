@@ -25,13 +25,13 @@ When no `path` is given and the current directory isn't a SvelteKit app, svelte-
 
 - **Exactly one app found:** it's analyzed automatically, with a notice on stderr (`detected SvelteKit app at apps/web; analyzing it.`).
 - **Multiple apps found, interactive terminal:** you get a single-select prompt to choose which one to analyze. Cancelling exits `0` without analyzing anything.
-- **Multiple apps found, non-interactive (CI, agents, piped output):** svelte-vitals never prompts — it exits `2` with the list of detected apps and a hint to pass one explicitly, e.g. `npx svelte-vitals apps/web`.
+- **Multiple apps found, non-interactive (CI, agents, piped output):** svelte-vitals never prompts — it exits `2` with the list of detected apps and a hint to pass one explicitly, e.g. `npx svelte-vitals@latest apps/web`.
 - **No apps found:** the original "not a SvelteKit project" error, exit `2`.
 
 ```bash
 cd my-monorepo
-npx svelte-vitals              # detects apps/web + apps/admin, prompts to pick one (or auto-picks if there's only one)
-npx svelte-vitals apps/web     # skips detection entirely — analyzes apps/web directly
+npx svelte-vitals@latest              # detects apps/web + apps/admin, prompts to pick one (or auto-picks if there's only one)
+npx svelte-vitals@latest apps/web     # skips detection entirely — analyzes apps/web directly
 ```
 
 ## Flags
@@ -251,7 +251,7 @@ Print the CLI's own version and the resolved `@svelte-vitals/core` version, e.g.
 Interactively set up the svelte-vitals [MCP server](/svelte-vitals/guides/mcp/), the Vite integration, and agent instruction files for your AI-agent clients — **Claude Code**, **Cursor**, and **Codex** — by merging the server entry into each client's config (your other servers are left untouched).
 
 ```bash
-npx svelte-vitals install
+npx svelte-vitals@latest install
 ```
 
 With no flags it launches an interactive wizard: pick your clients/targets, choose a scope per client, review the plan, and confirm. For non-interactive/CI use, drive it entirely with flags.
@@ -288,10 +288,10 @@ Overwrite an existing `svelte-vitals` entry. By default an entry that already ex
 
 ```bash
 # Non-interactive: configure Claude Code + Cursor for this project
-npx svelte-vitals install --client claude-code,cursor --scope project --yes
+npx svelte-vitals@latest install --client claude-code,cursor --scope project --yes
 
 # Preview what would change, without writing
-npx svelte-vitals install --client codex --dry-run
+npx svelte-vitals@latest install --client codex --dry-run
 ```
 
 If an existing config can't be parsed, the command fails without writing (exit `2`) rather than overwriting it.

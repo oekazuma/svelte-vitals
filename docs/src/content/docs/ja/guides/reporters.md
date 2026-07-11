@@ -103,6 +103,6 @@ svelte-vitals --reporter html --out-file -     # ファイルではなく標準�
 ```yaml
 # .github/workflows/seo.yml
 - name: Check SEO
-  run: npx svelte-vitals --fail-on-warning
+  run: npx svelte-vitals@latest --fail-on-warning
   # GITHUB_ACTIONS はすでに設定済み；github レポーターが自動選択される
 ```

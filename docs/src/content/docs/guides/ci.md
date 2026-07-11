@@ -12,15 +12,15 @@ sticky PR comment, with no YAML to hand-write.
 ## Quick start
 
 ```bash
-npx svelte-vitals ci install
+npx svelte-vitals@latest ci install
 ```
 
 This writes `.github/workflows/svelte-vitals.yml`. Commit it and open a pull request to see it
 run.
 
 ```bash
-npx svelte-vitals ci install --dry-run   # preview without writing
-npx svelte-vitals ci install --force     # regenerate an existing workflow file
+npx svelte-vitals@latest ci install --dry-run   # preview without writing
+npx svelte-vitals@latest ci install --force     # regenerate an existing workflow file
 ```
 
 Re-running `ci install` without `--force` is a no-op if the file already exists (idempotent —

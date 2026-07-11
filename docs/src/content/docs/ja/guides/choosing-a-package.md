@@ -13,7 +13,7 @@ svelte-vitals は `svelte-vitals`(CLI)、`@svelte-vitals/vite`(プラグイン +
 
 | やりたいこと                                                                            | 使うもの                               |
 | --------------------------------------------------------------------------------------- | -------------------------------------- |
-| プロジェクト全体のSEO・パフォーマンス・コードヘルスをCI/PRでゲートしたい                | **CLI** — `npx svelte-vitals`          |
+| プロジェクト全体のSEO・パフォーマンス・コードヘルスをCI/PRでゲートしたい                | **CLI** — `npx svelte-vitals@latest`   |
 | コミットしようとしているファイルだけをチェックしたい                                    | **CLI**(`--staged` / `--diff`)         |
 | 実際に配信されるHTMLそのものを、生成元に関わらず正確に検証したい                        | **Vite プラグイン**(ビルドモード）     |
 | ビルドを待たずに、開発中にライブで警告を見たい                                          | **Vite プラグイン**(開発オーバーレイ） |
@@ -50,11 +50,11 @@ Correctness・Security・Architecture のルールはコンポーネントの**�
 
 ### MCPサーバー — AIエージェントのワークフロー向け
 
-`@svelte-vitals/mcp` はCLIそのものの解析(全5カテゴリ・全ルート)を `analyze` と `explain_rule` というModel Context Protocolのツールとして公開します。エージェントはCLIをシェルアウトしてテキスト出力をパースする代わりに、会話の途中で直接呼び出せます。AIコーディングエージェントを日常的に使っているなら有用ですが、CIゲートの代わりにはなりません。`npx svelte-vitals install` でセットアップできます。詳細は [MCPサーバー](/svelte-vitals/ja/guides/mcp/) を参照してください。
+`@svelte-vitals/mcp` はCLIそのものの解析(全5カテゴリ・全ルート)を `analyze` と `explain_rule` というModel Context Protocolのツールとして公開します。エージェントはCLIをシェルアウトしてテキスト出力をパースする代わりに、会話の途中で直接呼び出せます。AIコーディングエージェントを日常的に使っているなら有用ですが、CIゲートの代わりにはなりません。`npx svelte-vitals@latest install` でセットアップできます。詳細は [MCPサーバー](/svelte-vitals/ja/guides/mcp/) を参照してください。
 
 ## おすすめの組み合わせ
 
-- **まず始めるなら:** ローカルで `npx svelte-vitals` を実行し、CIにも追加する(`pnpm build && npx svelte-vitals --fail-on critical`)。これだけで全5カテゴリ・全ルートをカバーできます。
-- **AIエージェントと一緒にコーディングするなら:** MCPサーバーを追加(`npx svelte-vitals install`)し、エージェントが自分の変更を自らチェックできるようにする。
+- **まず始めるなら:** ローカルで `npx svelte-vitals@latest` を実行し、CIにも追加する(`pnpm build && npx svelte-vitals@latest --fail-on critical`)。これだけで全5カテゴリ・全ルートをカバーできます。
+- **AIエージェントと一緒にコーディングするなら:** MCPサーバーを追加(`npx svelte-vitals@latest install`)し、エージェントが自分の変更を自らチェックできるようにする。
 - **プレレンダリング/マーケティングページを磨き込むなら:** Vite プラグインのビルドモードで配信HTMLを正確にビルド時ゲートし、開発オーバーレイで執筆中のライブフィードバックも得る。
 - **これらすべてを組み合わせる**のが一般的な最終形です — それぞれ異なるタイミングで異なる対象をチェックするため、競合しません。
