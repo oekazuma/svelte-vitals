@@ -85,7 +85,7 @@ describe('playScoreAnimation', () => {
     const { writes, stream } = fakeStream();
     // 19, not 15: below MIN_MASCOT_COLUMNS (20) so the mascot is correctly omitted,
     // but still wide enough that log-update doesn't hard-wrap the plain
-    // "  Health: 82/100" score line (16 visible chars) itself, which would otherwise
+    // "Health: 82/100" score line (14 visible chars) itself, which would otherwise
     // split the "82/100" substring this test asserts on across two physical lines.
     Object.defineProperty(stream, 'columns', { value: 19 });
     await playScoreAnimation({ score: 82, palette: noColorPalette, stream, frameDelayMs: 0 });

@@ -86,7 +86,7 @@ export async function playScoreAnimation(opts: ScoreAnimationOptions): Promise<v
     const scoreText = isFinalFrame
       ? scoreColor(opts.palette, opts.score)(`${displayScore}/100`)
       : opts.palette.dim(`${displayScore}/100`);
-    const waveBlock = `  ${waveText}\n  Health: ${scoreText}`;
+    const waveBlock = `${waveText}\nHealth: ${scoreText}`;
     const mascotBlock = showMascot ? (isFinalFrame ? finalMascotBlock : renderMascotAnticipating()) + '\n' : '';
     render(`${mascotBlock}${waveBlock}`);
     if (!isFinalFrame) await sleep(frameDelayMs);
@@ -96,7 +96,7 @@ export async function playScoreAnimation(opts: ScoreAnimationOptions): Promise<v
 
   if (showMascot && state === 'ecstatic') {
     for (let i = 0; i < CONFETTI_FRAME_COUNT; i++) {
-      const waveBlock = `  ${WAVE_ORANGE}${WAVE_FRAMES[FRAME_COUNT - 1]!}${WAVE_RESET}\n  Health: ${scoreColor(opts.palette, opts.score)('100/100')}`;
+      const waveBlock = `${WAVE_ORANGE}${WAVE_FRAMES[FRAME_COUNT - 1]!}${WAVE_RESET}\nHealth: ${scoreColor(opts.palette, opts.score)('100/100')}`;
       render(`${renderConfettiFrame(i, finalMascotBlock)}\n${waveBlock}`);
       if (i < CONFETTI_FRAME_COUNT - 1 && confettiDelayMs > 0) await sleep(confettiDelayMs);
     }
