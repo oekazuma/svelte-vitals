@@ -15,8 +15,8 @@ body{background:var(--ground);color:var(--ink);font-family:var(--sans);line-heig
 .dv-app{display:grid;grid-template-rows:auto 1fr;grid-template-columns:280px 1fr;grid-template-areas:"top top" "side main";height:100vh}
 .dv-topbar{grid-area:top;border-bottom:1px solid var(--line);background:var(--panel)}
 .dv-topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 20px}
-.dv-brand{display:flex;align-items:baseline;gap:8px;font-weight:700;font-size:16px}
-.dv-brand .bolt{color:var(--accent)}
+.dv-brand{display:flex;align-items:center}
+.dv-brand svg{height:22px;width:auto;display:block}
 .dv-meta{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}
 .dv-status{display:flex;align-items:center;gap:10px}
 .dv-analyzing{font-size:12px;color:var(--accent);font-weight:600}

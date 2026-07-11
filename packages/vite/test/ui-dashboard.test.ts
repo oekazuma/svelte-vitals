@@ -88,4 +88,11 @@ describe('renderDashboardShell', () => {
     expect(html).toContain("new EventSource('/__svelte-vitals/events')");
     expect(html).toContain("fetch('/__svelte-vitals/data.json')");
   });
+
+  it('embeds the same wordmark SVG as the docs site, not the old bolt-glyph brand', () => {
+    const html = renderDashboardShell(baseSnapshot);
+    expect(html).toContain('viewBox="0 0 380 56"'); // matches docs/public/wordmark.svg's viewBox
+    expect(html).toContain('dv-wordmark-title');
+    expect(html).not.toContain("text: '↯'"); // old bolt-glyph brand, replaced
+  });
 });

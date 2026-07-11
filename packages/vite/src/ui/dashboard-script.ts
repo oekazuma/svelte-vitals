@@ -12,6 +12,12 @@ export const DASHBOARD_SCRIPT = `
   var BAND_COLOR = { good: '#2fa968', warn: '#e8a317', poor: '#e5484d' };
   function scoreBand(score) { return score >= 90 ? 'good' : score >= 50 ? 'warn' : 'poor'; }
 
+  // Same mark as the docs site's hero wordmark (docs/public/wordmark.svg) — an inline
+  // copy, not an <img src>, since the dashboard is a single self-contained HTML response
+  // with no other static assets to serve alongside it. Fixed brand colors (not CSS custom
+  // properties), matching the docs usage: the wordmark reads the same in both themes.
+  var WORDMARK_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 56" role="img" aria-labelledby="dv-wordmark-title"><title id="dv-wordmark-title">svelte-vitals</title><defs><clipPath id="dv-wordmark-clip"><rect x="2" y="2" width="52" height="52" rx="14"/></clipPath></defs><rect x="2" y="2" width="52" height="52" rx="14" fill="#FF3E00"/><polyline clip-path="url(#dv-wordmark-clip)" points="4,28 15,28 17.5,23.5 20,28 23,28 26,7 29,49 32,28 35,28 37,24.5 39.5,28 52,28" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="70" y="38" font-family="ui-sans-serif, system-ui, -apple-system, \\'Segoe UI\\', Roboto, sans-serif" font-size="30" font-weight="700" fill="#FF3E00">svelte-vitals</text></svg>';
+
   function h(tag, attrs, kids) {
     var n = document.createElement(tag);
     if (attrs) {
@@ -137,12 +143,18 @@ export const DASHBOARD_SCRIPT = `
     if (sb) sb.classList.toggle('open');
   }
 
+  function brandEl() {
+    var el = h('div', { class: 'dv-brand' }, []);
+    el.innerHTML = WORDMARK_SVG;
+    return el;
+  }
+
   function renderTopbar() {
     var s = state.snapshot;
     var findings = s.report.routes.reduce(function (n, r) { return n + r.issues.length; }, 0) + s.report.siteIssues.length;
     var kids = [
       h('button', { type: 'button', class: 'dv-menu-toggle', 'aria-label': 'Toggle route list', onclick: toggleSidebar, text: '≡' }, []),
-      h('div', { class: 'dv-brand' }, [h('span', { class: 'bolt', text: '↯' }, []), document.createTextNode('svelte-vitals')]),
+      brandEl(),
       h('div', { class: 'dv-meta' }, [
         h('span', { text: 'v' + s.meta.version }, []),
         s.meta.coreVersion ? h('span', { title: '@svelte-vitals/core version', text: 'core v' + s.meta.coreVersion }, []) : null,

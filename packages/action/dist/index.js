@@ -56976,7 +56976,7 @@ function applyRuleSeverities(results, config) {
   });
 }
 
-// ../cli/dist/chunk-2AG6MT6H.js
+// ../cli/dist/chunk-TCZ6OF6J.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -57754,7 +57754,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-2AG6MT6H.js
+// ../cli/dist/chunk-TCZ6OF6J.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
