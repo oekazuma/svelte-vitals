@@ -122,7 +122,7 @@ describe('playScoreAnimation', () => {
     // loop's coloring line ever running. Instead assert the bare/uncolored settled wave —
     // the exact text the confetti loop would emit if its WAVE_ORANGE/WAVE_RESET wrap were
     // reverted — never appears anywhere in the full output.
-    expect(allWrites).not.toContain('  ────────────♡───────────');
+    expect(allWrites).not.toContain('  ────────────<3──────────');
     expect(allWrites).toContain('\x1b[38;2;255;62;0m');
   });
 

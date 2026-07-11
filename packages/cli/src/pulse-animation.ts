@@ -17,8 +17,14 @@ const FRAME_DELAY_MS = 200;
 // Pulse waveform, one string per frame — an erratic heartbeat line that settles into a
 // single steady beat as the score locks in (svelte-vitals' own animation motif: "vitals"
 // as in a pulse monitor). The settled frame deliberately isn't a flat line — a genuinely
-// flat vitals monitor means the opposite of healthy — so it keeps one beat, marked with a
-// heart, at the same peak position frame 0 used. All six frames are the same width (24)
+// flat vitals monitor means the opposite of healthy — so it keeps one beat, marked with an
+// ASCII heart ("<3"), at the same peak position frame 0 used. "<3" — not a Unicode heart
+// glyph like ♡/♥ — deliberately: those sit in Unicode's "Ambiguous" East Asian Width
+// class, which some terminal locale configurations render as 2 columns instead of 1,
+// which would silently widen just the settled frame relative to the other five and
+// reintroduce exactly the alignment jump this feature exists to avoid. "<3" is two
+// Basic Latin characters (always 1 column, unconditionally), so it's a safe drop-in
+// replacement for the "╱╲" peak used elsewhere. All six frames are the same width (24)
 // so the line doesn't visibly shift when it settles.
 const WAVE_FRAMES = [
   '────────────╱╲──────────',
@@ -26,7 +32,7 @@ const WAVE_FRAMES = [
   '────────╱╲──────╱╲──────',
   '──────╱╲──────────╲─────',
   '────╱──────────────╲────',
-  '────────────♡───────────'
+  '────────────<3──────────'
 ];
 
 const WAVE_ORANGE = '\x1b[38;2;255;62;0m'; // Svelte's brand accent (#ff3e00) — solid, once the score has settled
