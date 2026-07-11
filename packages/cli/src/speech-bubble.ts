@@ -1,3 +1,5 @@
+import type { MascotState } from './mascot.js';
+
 const MIN_BUBBLE_COLUMNS = 55;
 
 /**
@@ -39,4 +41,31 @@ export function withSpeechBubble(mascotBlock: string, bubbleLines: readonly stri
     ...Array<string>(Math.max(padBottom, 0)).fill(blankBubbleLine)
   ];
   return mascotLines.map((line, i) => `${line} ${paddedBubble[i] ?? blankBubbleLine}`).join('\n');
+}
+
+export const GREETING_MESSAGES: readonly string[] = [
+  'Welcome to Svelte Vitals!',
+  "Let's check your project!",
+  'Ready when you are!',
+  "Hi there! Let's dig in."
+];
+
+export const REACTION_MESSAGES: Record<MascotState, readonly string[]> = {
+  ecstatic: ['Perfect score!', 'Flawless!', 'You nailed it!'],
+  happy: ['Nice work!', 'Looking great!', 'Almost perfect!'],
+  content: ['Keep going!', 'Room to grow!', "Let's improve this!"]
+};
+
+/**
+ * Picks one message uniformly at random from `pool`. `random` defaults to
+ * `Math.random` — only overridden by this module's own unit tests below, for
+ * deterministic selection; other call sites and their tests never pass it.
+ */
+export function pickMessage(pool: readonly string[], random: () => number = Math.random): string {
+  return pool[Math.floor(random() * pool.length)]!;
+}
+
+/** Composes a mascot pose with a speech bubble to its right — the shared shape both the startup greeting and the score-reveal reaction use. */
+export function renderMascotWithSpeech(mascotBlock: string, message: string): string {
+  return withSpeechBubble(mascotBlock, renderSpeechBubble(message));
 }

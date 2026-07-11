@@ -1,5 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { renderSpeechBubble, withSpeechBubble, bubbleFitsWidth } from '../src/speech-bubble.js';
+import {
+  renderSpeechBubble,
+  withSpeechBubble,
+  bubbleFitsWidth,
+  pickMessage,
+  renderMascotWithSpeech,
+  GREETING_MESSAGES,
+  REACTION_MESSAGES
+} from '../src/speech-bubble.js';
 import { renderMascotReaction } from '../src/mascot.js';
 
 describe('renderSpeechBubble', () => {
@@ -52,5 +60,43 @@ describe('bubbleFitsWidth', () => {
   });
   it('treats an unknown width (undefined columns) as fitting (defaults to 80)', () => {
     expect(bubbleFitsWidth(undefined)).toBe(true);
+  });
+});
+
+describe('pickMessage', () => {
+  it('picks the first item when random() returns 0', () => {
+    expect(pickMessage(['a', 'b', 'c'], () => 0)).toBe('a');
+  });
+  it('picks the last item when random() returns just under 1', () => {
+    expect(pickMessage(['a', 'b', 'c'], () => 0.999)).toBe('c');
+  });
+  it('defaults to Math.random and always returns a pool member', () => {
+    const pool = ['a', 'b', 'c'];
+    for (let i = 0; i < 20; i++) {
+      expect(pool).toContain(pickMessage(pool));
+    }
+  });
+});
+
+describe('message pools', () => {
+  it('all greeting messages fit a compact bubble (<=26 chars)', () => {
+    for (const m of GREETING_MESSAGES) expect(m.length).toBeLessThanOrEqual(26);
+  });
+  it('all reaction messages fit a compact bubble (<=26 chars)', () => {
+    for (const pool of Object.values(REACTION_MESSAGES)) {
+      for (const m of pool) expect(m.length).toBeLessThanOrEqual(26);
+    }
+  });
+  it('has a reaction pool for every mascot state', () => {
+    expect(Object.keys(REACTION_MESSAGES).sort()).toEqual(['content', 'ecstatic', 'happy']);
+  });
+});
+
+describe('renderMascotWithSpeech', () => {
+  it('composes a mascot pose and a message into a single bubbled block', () => {
+    const block = renderMascotWithSpeech(renderMascotReaction('happy'), 'Nice work!');
+    expect(block.split('\n')).toHaveLength(7);
+    expect(block).toContain('Nice work!');
+    expect(block).toContain('\x1b[38;2;255;62;0m'); // still the fox, orange present
   });
 });
