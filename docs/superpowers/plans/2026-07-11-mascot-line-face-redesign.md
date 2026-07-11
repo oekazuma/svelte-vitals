@@ -555,12 +555,14 @@ git commit -m "feat(cli): redesign mascot as a minimal line-art face, round the 
 
 - [ ] **Step 1: Write the failing tests**
 
+**Note (updated after Task 1 shipped):** Task 1's implementer found that `columns: 15` makes `log-update` hard-wrap the plain `"  Health: 82/100"` score line (16 visible characters) at that width, splitting text substrings across physical lines for reasons unrelated to mascot logic — so Task 1's own narrow-terminal test in this file already uses `columns: 19` (not the `15` originally planned), still safely below `MIN_MASCOT_COLUMNS = 20`. Use `19` for all narrow-terminal `columns` values below, for the same reason and to stay consistent with what's already in the file.
+
 In `packages/cli/test/pulse-animation.test.ts`, append inside the `describe('playScoreAnimation', ...)` block (after the existing `'omits the speech bubble (but keeps the fox)...'` test, before the closing `});` of the describe block):
 
 ```ts
   it('colors the pulse wave dim orange while counting, solid orange once the score settles', async () => {
     const { writes, stream } = fakeStream();
-    Object.defineProperty(stream, 'columns', { value: 15 }); // below MIN_MASCOT_COLUMNS — isolates the wave's own color from the mascot's
+    Object.defineProperty(stream, 'columns', { value: 19 }); // below MIN_MASCOT_COLUMNS — isolates the wave's own color from the mascot's
     await playScoreAnimation({ score: 82, palette: ansiPalette, stream, frameDelayMs: 0 });
     const allWrites = writes.join('');
     expect(allWrites).toContain('\x1b[38;2;153;37;0m'); // dim orange, seen during at least one counting frame
@@ -569,35 +571,29 @@ In `packages/cli/test/pulse-animation.test.ts`, append inside the `describe('pla
 
   it('colors the settled wave solid orange during the confetti bonus too', async () => {
     const { writes, stream } = fakeStream();
-    Object.defineProperty(stream, 'columns', { value: 15 });
+    Object.defineProperty(stream, 'columns', { value: 19 });
     await playScoreAnimation({ score: 100, palette: ansiPalette, stream, frameDelayMs: 0 });
     const lastWrite = writes[writes.length - 1]!;
     expect(lastWrite).toContain('\x1b[38;2;255;62;0m');
   });
 ```
 
-Then fix the narrow-terminal test's now-ambiguous color assertion (the wave itself will, after this task's Step 2, also emit `\x1b[38;2;255;62;0m` on its settled frame — this assertion needs to check for the mascot's actual box-drawing character instead, not a color both the mascot and the now-colored wave share). Replace:
+Then fix the narrow-terminal test's now-ambiguous color assertion (the wave itself will, after this task's Step 2, also emit `\x1b[38;2;255;62;0m` on its settled frame — this assertion needs to check for the mascot's actual box-drawing character instead, not a color both the mascot and the now-colored wave share). The test currently reads (already at `columns: 19`, per Task 1):
 
 ```ts
   it('omits the mascot entirely on a narrow terminal, still completing the wave/score reveal', async () => {
     const { writes, stream } = fakeStream();
-    Object.defineProperty(stream, 'columns', { value: 15 });
+    Object.defineProperty(stream, 'columns', { value: 19 });
     await playScoreAnimation({ score: 82, palette: noColorPalette, stream, frameDelayMs: 0 });
     expect(writes[writes.length - 1]).toContain('82/100');
     expect(writes.join('')).not.toContain('\x1b[38;2;255;62;0m'); // no mascot body art anywhere
   });
 ```
 
-with:
+Replace only its last assertion line — leave `columns: 19` and everything else as-is:
 
 ```ts
-  it('omits the mascot entirely on a narrow terminal, still completing the wave/score reveal', async () => {
-    const { writes, stream } = fakeStream();
-    Object.defineProperty(stream, 'columns', { value: 15 });
-    await playScoreAnimation({ score: 82, palette: noColorPalette, stream, frameDelayMs: 0 });
-    expect(writes[writes.length - 1]).toContain('82/100');
     expect(writes.join('')).not.toContain('╭'); // no mascot face art anywhere (the wave's own color isn't a reliable signal — it's colored too now)
-  });
 ```
 
 - [ ] **Step 2: Run the tests to verify the new ones fail**
