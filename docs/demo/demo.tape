@@ -3,7 +3,7 @@ Output ../public/demo.gif
 Set Shell "bash"
 Set FontSize 16
 Set Width 1000
-Set Height 900
+Set Height 1050
 Set Theme "Dracula"
 Set Padding 20
 Set TypingSpeed 60ms
