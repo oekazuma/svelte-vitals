@@ -25,13 +25,13 @@ svelte-vitals [path] [options]
 
 - **1 件だけ見つかった場合:** 自動的にそのアプリを解析します。stderr に通知が出ます(`detected SvelteKit app at apps/web; analyzing it.`)。
 - **複数見つかった場合(対話的な TTY):** どれを解析するか単一選択のプロンプトが表示されます。キャンセルすると、何も解析せずに終了コード `0` で終了します。
-- **複数見つかった場合(非対話的 — CI、エージェント、パイプ出力など):** svelte-vitals はプロンプトを一切出しません — 検出したアプリの一覧と、`npx svelte-vitals apps/web` のように明示的にパスを渡すヒントとともに終了コード `2` で終了します。
+- **複数見つかった場合(非対話的 — CI、エージェント、パイプ出力など):** svelte-vitals はプロンプトを一切出しません — 検出したアプリの一覧と、`npx svelte-vitals@latest apps/web` のように明示的にパスを渡すヒントとともに終了コード `2` で終了します。
 - **見つからなかった場合:** 従来どおり「SvelteKit プロジェクトが見つからない」というエラーで終了コード `2` になります。
 
 ```bash
 cd my-monorepo
-npx svelte-vitals              # apps/web と apps/admin を検出し、どちらか選択を促す(1件だけなら自動選択)
-npx svelte-vitals apps/web     # 検出をスキップし、apps/web を直接解析する
+npx svelte-vitals@latest              # apps/web と apps/admin を検出し、どちらか選択を促す(1件だけなら自動選択)
+npx svelte-vitals@latest apps/web     # 検出をスキップし、apps/web を直接解析する
 ```
 
 ## フラグ
@@ -245,7 +245,7 @@ CLI 自身のバージョンと、解決された `@svelte-vitals/core` のバ�
 svelte-vitals の [MCP サーバー](/svelte-vitals/ja/guides/mcp/)、Vite との連携、AI エージェントのクライアント（**Claude Code**、**Cursor**、**Codex**）向けのエージェント指示ファイルを対話的にセットアップします。各クライアントの設定にサーバーエントリをマージします（既存の他のサーバーはそのまま維持されます）。
 
 ```bash
-npx svelte-vitals install
+npx svelte-vitals@latest install
 ```
 
 フラグなしで実行すると対話式ウィザードが起動します — クライアント／ターゲットを選択し、クライアントごとにスコープを選び、変更計画を確認して適用します。非対話環境／CI ではフラグだけで実行できます。
@@ -282,10 +282,10 @@ npx svelte-vitals install
 
 ```bash
 # 非対話：このプロジェクトに Claude Code + Cursor を設定
-npx svelte-vitals install --client claude-code,cursor --scope project --yes
+npx svelte-vitals@latest install --client claude-code,cursor --scope project --yes
 
 # 何が変更されるかを書き込まずにプレビュー
-npx svelte-vitals install --client codex --dry-run
+npx svelte-vitals@latest install --client codex --dry-run
 ```
 
 既存の設定ファイルが解析できない場合、上書きせずに失敗します（終了コード `2`）。

@@ -12,13 +12,13 @@ Set Framerate 30
 Hide
 Type "unset CLAUDECODE SVELTE_VITALS_AGENT CI"
 Enter
-Type 'npx() { if [ "$1" = svelte-vitals ]; then shift; node ../../packages/cli/dist/bin.js "$@"; else command npx "$@"; fi; }'
+Type 'npx() { if [ "$1" = svelte-vitals ] || [ "$1" = svelte-vitals@latest ]; then shift; node ../../packages/cli/dist/bin.js "$@"; else command npx "$@"; fi; }'
 Enter
 Type "clear"
 Enter
 Show
 
-Type "npx svelte-vitals"
+Type "npx svelte-vitals@latest"
 Enter
 Sleep 2s
 Sleep 2s

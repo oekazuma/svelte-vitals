@@ -9,7 +9,7 @@
 > **ESM-only** (Node 18+). Ships ES modules only; `require()` is unsupported by design.
 
 ```bash
-npx svelte-vitals
+npx svelte-vitals@latest
 ```
 
 > [!NOTE]
@@ -20,8 +20,8 @@ npx svelte-vitals
 Run inside any SvelteKit project:
 
 ```bash
-npx svelte-vitals          # analyze the current directory
-npx svelte-vitals ./apps/web   # or a specific path
+npx svelte-vitals@latest              # analyze the current directory
+npx svelte-vitals@latest ./apps/web   # or a specific path
 ```
 
 ```
