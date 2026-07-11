@@ -37,6 +37,7 @@ export function mascotFitsWidth(columns: number | undefined): boolean {
 const ORANGE_FG = '\x1b[38;2;255;62;0m'; // Svelte's brand accent (#ff3e00)
 const RESET = '\x1b[0m';
 
+/** Wraps each line of a face's literal art in the fixed Svelte-orange color, joined into one multi-line string. */
 function renderFace(lines: readonly string[]): string {
   return lines.map((line) => `${ORANGE_FG}${line}${RESET}`).join('\n');
 }
@@ -92,10 +93,12 @@ const CONFETTI_COLORS: readonly RGB[] = [
 const CONFETTI_CHARS = ['*', '.', '·', '+'];
 const CONFETTI_WIDTH = 24;
 
+/** 24-bit truecolor ANSI foreground escape for `rgb`. */
 function confettiFg(rgb: RGB): string {
   return `\x1b[38;2;${rgb[0]};${rgb[1]};${rgb[2]}m`;
 }
 
+/** One row of confetti particles for the 100/100 bonus; `offset` shifts which columns get a glyph, for a "twinkling" effect across successive frames. */
 function confettiRow(offset: number): string {
   let out = '';
   for (let col = 0; col < CONFETTI_WIDTH; col++) {

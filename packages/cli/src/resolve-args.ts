@@ -119,6 +119,7 @@ export interface ResolvedArgs {
   errors: string[];
 }
 
+/** Splits a comma-separated string flag into trimmed, non-empty entries; non-string input (flag not passed) yields `[]`. */
 const toList = (v: unknown): string[] =>
   typeof v === 'string'
     ? v

@@ -58,6 +58,7 @@ async function selectApp(apps: string[]): Promise<string | null> {
   return p.isCancel(res) ? null : (res as string);
 }
 
+/** CLI entrypoint: dispatches `install`/`ci` subcommands, otherwise parses argv, resolves it into `run()` options, executes the analysis, and exits with the resulting code. */
 async function main(): Promise<void> {
   const rawArgs = process.argv.slice(2);
   if (rawArgs[0] === 'install') {
