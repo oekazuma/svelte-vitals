@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { scoreAnimationEnabled, playScoreAnimation } from '../src/pulse-animation.js';
 import { noColorPalette, ansiPalette } from '../src/color.js';
+import { REACTION_MESSAGES } from '../src/speech-bubble.js';
 
 function fakeStream() {
   const writes: string[] = [];
@@ -92,5 +93,23 @@ describe('playScoreAnimation', () => {
     await playScoreAnimation({ score: 82, palette: noColorPalette, stream, frameDelayMs: 0 });
     expect(writes[writes.length - 1]).toContain('82/100');
     expect(writes.join('')).not.toContain('\x1b[38;2;255;62;0m'); // no mascot body art anywhere
+  });
+
+  it('shows a reaction speech bubble matching the final state, on a wide enough terminal', async () => {
+    const { writes, stream } = fakeStream();
+    await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 }); // happy
+    const allWrites = writes.join('');
+    expect(REACTION_MESSAGES.happy.some((m) => allWrites.includes(m))).toBe(true);
+  });
+
+  it('omits the speech bubble (but keeps the fox) when the terminal fits the mascot but not the bubble', async () => {
+    const { writes, stream } = fakeStream();
+    Object.defineProperty(stream, 'columns', { value: 45 }); // >= 40 (mascot) but < 55 (bubble)
+    await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 });
+    const allWrites = writes.join('');
+    expect(allWrites).toContain('\x1b[38;2;255;62;0m'); // fox still present
+    for (const pool of Object.values(REACTION_MESSAGES)) {
+      for (const m of pool) expect(allWrites).not.toContain(m);
+    }
   });
 });
