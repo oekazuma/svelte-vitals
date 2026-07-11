@@ -9,6 +9,7 @@ import {
   renderMascotReaction,
   renderConfettiFrame
 } from './mascot.js';
+import { bubbleFitsWidth, pickMessage, renderMascotWithSpeech, REACTION_MESSAGES } from './speech-bubble.js';
 
 const FRAME_COUNT = 6;
 const FRAME_DELAY_MS = 200;
@@ -35,8 +36,6 @@ const CONFETTI_FRAME_DELAY_MS = 220;
 
 export interface ScoreAnimationOptions {
   score: number;
-  /** Whether any critical-severity finding is present — determines the 'alarmed' reaction regardless of score. */
-  hasCritical: boolean;
   palette: Palette;
   stream: NodeJS.WriteStream;
   /** Override for tests — real playback uses FRAME_DELAY_MS/REACTION_HOLD_MS/CONFETTI_FRAME_DELAY_MS; 0 runs every phase near-instantly. */
@@ -58,7 +57,12 @@ export async function playScoreAnimation(opts: ScoreAnimationOptions): Promise<v
   const confettiDelayMs = opts.frameDelayMs ?? CONFETTI_FRAME_DELAY_MS;
   const render = createLogUpdate(opts.stream);
   const showMascot = mascotFitsWidth(opts.stream.columns);
-  const state = mascotStateFor(opts.score, opts.hasCritical);
+  const state = mascotStateFor(opts.score);
+  const reactionMessage =
+    showMascot && bubbleFitsWidth(opts.stream.columns) ? pickMessage(REACTION_MESSAGES[state]) : undefined;
+  const finalMascotBlock = reactionMessage
+    ? renderMascotWithSpeech(renderMascotReaction(state), reactionMessage)
+    : renderMascotReaction(state);
 
   for (let frame = 0; frame < FRAME_COUNT; frame++) {
     const progress = frame / (FRAME_COUNT - 1);
@@ -69,9 +73,7 @@ export async function playScoreAnimation(opts: ScoreAnimationOptions): Promise<v
       ? scoreColor(opts.palette, opts.score)(`${displayScore}/100`)
       : opts.palette.dim(`${displayScore}/100`);
     const waveBlock = `  ${wave}\n  Health: ${scoreText}`;
-    const mascotBlock = showMascot
-      ? (isFinalFrame ? renderMascotReaction(state, opts.palette) : renderMascotAnticipating(opts.palette)) + '\n'
-      : '';
+    const mascotBlock = showMascot ? (isFinalFrame ? finalMascotBlock : renderMascotAnticipating()) + '\n' : '';
     render(`${mascotBlock}${waveBlock}`);
     if (!isFinalFrame) await sleep(frameDelayMs);
   }
@@ -79,10 +81,9 @@ export async function playScoreAnimation(opts: ScoreAnimationOptions): Promise<v
   if (holdMs > 0) await sleep(holdMs);
 
   if (showMascot && state === 'ecstatic') {
-    const mascotBlock = renderMascotReaction('ecstatic', opts.palette);
     for (let i = 0; i < CONFETTI_FRAME_COUNT; i++) {
       const waveBlock = `  ${WAVE_FRAMES[FRAME_COUNT - 1]!}\n  Health: ${scoreColor(opts.palette, opts.score)('100/100')}`;
-      render(`${renderConfettiFrame(i, mascotBlock, opts.palette)}\n${waveBlock}`);
+      render(`${renderConfettiFrame(i, finalMascotBlock)}\n${waveBlock}`);
       if (i < CONFETTI_FRAME_COUNT - 1 && confettiDelayMs > 0) await sleep(confettiDelayMs);
     }
   }

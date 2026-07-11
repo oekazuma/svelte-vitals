@@ -40,7 +40,7 @@ Passed (3)
 
 By default, console output groups failures by rule (top 5 per severity, each with one example location and an "…and N more" count) and collapses the Passed section to a bare count, so large projects don't flood the terminal. Pass `--verbose` to see every finding uncapped and ungrouped, with each passed item listed individually. On an interactive, color-capable terminal the Health score plays a short reveal animation; pass `--no-animation` to disable it.
 
-On an interactive terminal, a small mascot appears alongside both the analysis spinner and the Health-score reveal, reacting to the result (a critical finding always reads as concerned, regardless of the numeric score; a perfect 100 gets a confetti flourish). `--no-animation` disables it, falling back to the plain spinner and plain score animation.
+On an interactive terminal wide enough for the mascot (40+ columns), a small pixel-art fox appears alongside both the analysis spinner and the Health-score reveal, reacting to the score (a perfect 100 gets a confetti flourish). On a wider terminal still (55+ columns) it also greets you with a short line in a speech bubble at startup, and again with a matching reaction line at the score reveal. `--no-animation` disables all of it, falling back to the plain spinner and plain score animation.
 
 ### Exit codes
 

@@ -34,6 +34,7 @@ import { checkoutBaseline, filterToNewFindings } from './baseline.js';
 import { colorEnabled, paletteFor } from './color.js';
 import { startSpinner } from './spinner.js';
 import { startMascotSpinner, mascotFitsWidth } from './mascot.js';
+import { playMascotGreeting, bubbleFitsWidth } from './speech-bubble.js';
 import { loadConfigFile } from './config-file.js';
 import { playScoreAnimation, scoreAnimationEnabled } from './pulse-animation.js';
 
@@ -279,8 +280,13 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       noColorFlag: opts.noColor
     });
   const useMascotSpinner = spinnerBaseEnabled && !opts.noAnimation && mascotFitsWidth(stderrStream.columns);
+  if (useMascotSpinner && bubbleFitsWidth(stderrStream.columns)) {
+    // A wordless greeting isn't worth a dedicated hold before the idle loop, so this
+    // only plays when there's room for the speech bubble too — not just the fox alone.
+    await playMascotGreeting({ enabled: true, stream: stderrStream, holdMs: opts.animationFrameDelayMs });
+  }
   const spinner = useMascotSpinner
-    ? startMascotSpinner('Analyzing…', { enabled: true, palette: paletteFor(true), stream: stderrStream })
+    ? startMascotSpinner('Analyzing…', { enabled: true, stream: stderrStream })
     : startSpinner('Analyzing…', { enabled: spinnerBaseEnabled, stream: stderrStream });
 
   let cwd = opts.cwd ?? process.cwd();
@@ -445,7 +451,6 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         if (animate) {
           await playScoreAnimation({
             score: computeHealth(results, config).health,
-            hasCritical: summary.critical > 0,
             palette,
             stream: opts.stdoutStream ?? process.stdout,
             frameDelayMs: opts.animationFrameDelayMs
