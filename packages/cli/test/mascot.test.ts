@@ -31,12 +31,12 @@ describe('mascotStateFor', () => {
 });
 
 describe('mascotFitsWidth', () => {
-  it('fits at 80 columns (the default) and anything at or above 40', () => {
+  it('fits at 80 columns (the default) and anything at or above 20', () => {
     expect(mascotFitsWidth(80)).toBe(true);
-    expect(mascotFitsWidth(40)).toBe(true);
+    expect(mascotFitsWidth(20)).toBe(true);
   });
-  it('does not fit below 40 columns', () => {
-    expect(mascotFitsWidth(39)).toBe(false);
+  it('does not fit below 20 columns', () => {
+    expect(mascotFitsWidth(19)).toBe(false);
     expect(mascotFitsWidth(1)).toBe(false);
   });
   it('treats an unknown width (undefined columns) as fitting (defaults to 80)', () => {
@@ -45,11 +45,11 @@ describe('mascotFitsWidth', () => {
 });
 
 describe('mascot rendering', () => {
-  it('renders 7-line frames (14-pixel head+mouth grid packed 2-per-line via half-blocks) for idle, anticipating, and every reaction state', () => {
-    expect(renderMascotIdleFrame(0).split('\n')).toHaveLength(7);
-    expect(renderMascotAnticipating().split('\n')).toHaveLength(7);
+  it('renders 4-line frames (a rounded-rectangle face, 12 columns wide) for idle, anticipating, and every reaction state', () => {
+    expect(renderMascotIdleFrame(0).split('\n')).toHaveLength(4);
+    expect(renderMascotAnticipating().split('\n')).toHaveLength(4);
     for (const state of ['ecstatic', 'happy', 'content'] as const) {
-      expect(renderMascotReaction(state).split('\n')).toHaveLength(7);
+      expect(renderMascotReaction(state).split('\n')).toHaveLength(4);
     }
   });
   it('the idle frame alternates an open-eyed and a blinking face', () => {
@@ -68,21 +68,28 @@ describe('mascot rendering', () => {
     expect(happy).not.toBe(ecstatic);
     expect(content).not.toBe(ecstatic);
   });
-  it('happy and ecstatic both apply a blush accent that content does not have', () => {
-    const content = renderMascotReaction('content');
-    const happy = renderMascotReaction('happy');
-    const ecstatic = renderMascotReaction('ecstatic');
-    // Blush pink (happy) / brighter blush pink (ecstatic) truecolor codes.
-    expect(content).not.toContain('\x1b[38;2;255;145;175m');
-    expect(content).not.toContain('\x1b[38;2;255;105;150m');
-    expect(happy).toContain('\x1b[38;2;255;145;175m');
-    expect(ecstatic).toContain('\x1b[38;2;255;105;150m');
+  it('every frame uses a single fixed color, never a second accent color', () => {
+    // Unlike the earlier pixel-art fox design (which had a separate blush accent
+    // color for happy/ecstatic), this minimal design has exactly one color: every
+    // rendered frame should contain exactly one distinct truecolor foreground code.
+    for (const block of [
+      renderMascotIdleFrame(0),
+      renderMascotIdleFrame(4),
+      renderMascotAnticipating(),
+      renderMascotReaction('content'),
+      renderMascotReaction('happy'),
+      renderMascotReaction('ecstatic')
+    ]) {
+      // eslint-disable-next-line no-control-regex -- \x1b matches the ANSI escape prefix, intentional
+      const colorCodes = block.match(/\x1b\[38;2;\d+;\d+;\d+m/g) ?? [];
+      expect(new Set(colorCodes)).toEqual(new Set(['\x1b[38;2;255;62;0m']));
+    }
   });
   it('confetti wraps the given mascot block with a particle row above and below, deterministically', () => {
     const mascotBlock = renderMascotReaction('ecstatic');
     const frame = renderConfettiFrame(0, mascotBlock);
     const lines = frame.split('\n');
-    expect(lines).toHaveLength(9); // 1 confetti row + 7 mascot lines + 1 confetti row
+    expect(lines).toHaveLength(6); // 1 confetti row + 4 mascot lines + 1 confetti row
     expect(lines[0]).not.toBe(''); // top confetti row has content
     expect(lines[lines.length - 1]).not.toBe('');
     // Deterministic: same offset always produces the same row (no RNG).

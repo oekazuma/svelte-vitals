@@ -21,7 +21,7 @@ export function bubbleFitsWidth(columns: number | undefined): boolean {
  */
 export function renderSpeechBubble(text: string): string[] {
   const border = '─'.repeat(text.length + 2);
-  return [`┌${border}┐`, `│ ${text} │`, `└${border}┘`];
+  return [`╭${border}╮`, `│ ${text} │`, `╰${border}╯`];
 }
 
 /**

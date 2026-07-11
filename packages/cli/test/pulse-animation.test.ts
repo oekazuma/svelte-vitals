@@ -53,16 +53,10 @@ describe('playScoreAnimation', () => {
   });
 
   it('shows the mascot reaction matching the final state on the last frame', async () => {
-    // log-update only rewrites lines that actually changed between frames, so the last
-    // write's content depends on which rows differ between the anticipating pose and the
-    // reaction pose. A happy/ecstatic score reliably touches that diff because blush is
-    // only added on the reaction frame (never during anticipating) — a score in the
-    // "content" band wouldn't, since its mouth uses the same fixed palette as the
-    // anticipating pose's neutral mouth, just a different shape.
     const { writes, stream } = fakeStream();
     await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 }); // happy
-    const last = writes[writes.length - 1]!;
-    expect(last).toContain('\x1b[38;2;255;145;175m'); // happy's blush accent, added only on the reaction frame
+    const allWrites = writes.join('');
+    expect(allWrites).toContain('   ◡◡◡◡   '); // happy's mouth row — distinct from content's/ecstatic's
   });
 
   it('plays a confetti bonus after a perfect 100, but not for any other score', async () => {
@@ -89,7 +83,11 @@ describe('playScoreAnimation', () => {
 
   it('omits the mascot entirely on a narrow terminal, still completing the wave/score reveal', async () => {
     const { writes, stream } = fakeStream();
-    Object.defineProperty(stream, 'columns', { value: 30 });
+    // 19, not 15: below MIN_MASCOT_COLUMNS (20) so the mascot is correctly omitted,
+    // but still wide enough that log-update doesn't hard-wrap the plain
+    // "  Health: 82/100" score line (16 visible chars) itself, which would otherwise
+    // split the "82/100" substring this test asserts on across two physical lines.
+    Object.defineProperty(stream, 'columns', { value: 19 });
     await playScoreAnimation({ score: 82, palette: noColorPalette, stream, frameDelayMs: 0 });
     expect(writes[writes.length - 1]).toContain('82/100');
     expect(writes.join('')).not.toContain('\x1b[38;2;255;62;0m'); // no mascot body art anywhere

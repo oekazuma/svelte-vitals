@@ -452,7 +452,7 @@ describe('run() --verbose and animation', () => {
     const cap = capture();
     const stderrWrites: string[] = [];
     const stderrStream = { write: (s: string) => stderrWrites.push(s) } as unknown as NodeJS.WriteStream;
-    Object.defineProperty(stderrStream, 'columns', { value: 30 });
+    Object.defineProperty(stderrStream, 'columns', { value: 15 });
     await run({
       cwd: fixtureDir,
       log: cap.log,
