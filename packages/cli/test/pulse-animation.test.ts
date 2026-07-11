@@ -93,37 +93,40 @@ describe('playScoreAnimation', () => {
     expect(writes.join('')).not.toContain('╭'); // no mascot face art anywhere (the wave's own color isn't a reliable signal — it's colored too now)
   });
 
-  it('colors the pulse wave dim orange while counting, solid orange once the score settles', async () => {
+  it('colors the pulse wave dim orange while counting', async () => {
     const { writes, stream } = fakeStream();
     Object.defineProperty(stream, 'columns', { value: 19 }); // below MIN_MASCOT_COLUMNS — isolates the wave's own color from the mascot's
     await playScoreAnimation({ score: 82, palette: ansiPalette, stream, frameDelayMs: 0 });
     const allWrites = writes.join('');
     expect(allWrites).toContain('\x1b[38;2;153;37;0m'); // dim orange, seen during at least one counting frame
-    expect(allWrites).toContain('\x1b[38;2;255;62;0m'); // solid orange, seen on the settled frame
   });
 
-  it('colors the settled wave solid orange during the confetti bonus too', async () => {
+  it('shows no wave line once the score settles — just the mascot pose and Health score', async () => {
+    const { writes, stream } = fakeStream();
+    await playScoreAnimation({ score: 82, palette: ansiPalette, stream, frameDelayMs: 0 });
+    const last = writes[writes.length - 1]!;
+    expect(last).toContain('82/100');
+    // '╱'/'╲' only ever appear in WAVE_FRAMES — unlike a bare '─' (also used by the
+    // mascot's own box border), their absence unambiguously means no wave line.
+    expect(last).not.toMatch(/[╱╲]/);
+  });
+
+  it('shows no wave line during the confetti bonus either', async () => {
     const { writes, stream } = fakeStream();
     // No columns override: defaults to a width wide enough for mascotFitsWidth to pass
     // (unlike the narrow-terminal tests above), so score: 100 actually reaches the
     // confetti loop — `showMascot && state === 'ecstatic'` — instead of being skipped.
     await playScoreAnimation({ score: 100, palette: ansiPalette, stream, frameDelayMs: 0 });
     const allWrites = writes.join('');
-    // Confirm the confetti loop actually ran (not just that the main loop's own,
-    // separately-tested coloring happened) before trusting the coloring assertions below —
+    // Confirm the confetti loop actually ran before trusting the "no wave" assertion below —
     // otherwise a future regression in the showMascot/state==='ecstatic' gate could silently
     // stop exercising the confetti loop and this test would keep passing for the wrong reason.
     expect(allWrites).toMatch(/[*·+]/); // confetti-only glyphs (CONFETTI_CHARS, mascot.ts)
-    // The confetti loop builds its own waveBlock every frame, byte-identical to the main
-    // loop's settled frame (same color, same wave, same score text). log-update's line
-    // diffing can skip re-emitting a line whose content hasn't changed since the previous
-    // render, so a naive "does the last/any write contain the orange code" check can pass
-    // from the main loop's own (separately tested) coloring alone, without the confetti
-    // loop's coloring line ever running. Instead assert the bare/uncolored settled wave —
-    // the exact text the confetti loop would emit if its WAVE_ORANGE/WAVE_RESET wrap were
-    // reverted — never appears anywhere in the full output.
-    expect(allWrites).not.toContain('  ────────────<3──────────');
-    expect(allWrites).toContain('\x1b[38;2;255;62;0m');
+    const last = writes[writes.length - 1]!;
+    expect(last).toContain('100/100');
+    // '╱'/'╲' only ever appear in WAVE_FRAMES — unlike a bare '─' (also used by the
+    // mascot's own box border), their absence unambiguously means no wave line.
+    expect(last).not.toMatch(/[╱╲]/);
   });
 
   it('shows a reaction speech bubble matching the final state, on a wide enough terminal', async () => {
