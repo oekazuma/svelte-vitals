@@ -128,12 +128,12 @@ describe('playScoreAnimation', () => {
     expect(REACTION_MESSAGES.happy.some((m) => allWrites.includes(m))).toBe(true);
   });
 
-  it('omits the speech bubble (but keeps the fox) when the terminal fits the mascot but not the bubble', async () => {
+  it('omits the speech bubble (but keeps the mascot) when the terminal fits the mascot but not the bubble', async () => {
     const { writes, stream } = fakeStream();
-    Object.defineProperty(stream, 'columns', { value: 45 }); // >= 40 (mascot) but < 55 (bubble)
+    Object.defineProperty(stream, 'columns', { value: 45 }); // >= 20 (mascot) but < 55 (bubble)
     await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 });
     const allWrites = writes.join('');
-    expect(allWrites).toContain('\x1b[38;2;255;62;0m'); // fox still present
+    expect(allWrites).toContain('\x1b[38;2;255;62;0m'); // mascot still present
     for (const pool of Object.values(REACTION_MESSAGES)) {
       for (const m of pool) expect(allWrites).not.toContain(m);
     }
