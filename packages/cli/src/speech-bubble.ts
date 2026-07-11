@@ -1,4 +1,5 @@
-import type { MascotState } from './mascot.js';
+import { createLogUpdate } from 'log-update';
+import { renderMascotAnticipating, type MascotState } from './mascot.js';
 
 const MIN_BUBBLE_COLUMNS = 55;
 
@@ -68,4 +69,31 @@ export function pickMessage(pool: readonly string[], random: () => number = Math
 /** Composes a mascot pose with a speech bubble to its right — the shared shape both the startup greeting and the score-reveal reaction use. */
 export function renderMascotWithSpeech(mascotBlock: string, message: string): string {
   return withSpeechBubble(mascotBlock, renderSpeechBubble(message));
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+const GREETING_HOLD_MS = 800;
+
+/**
+ * Plays a one-shot greeting: the fox's idle-open pose with a random greeting
+ * message in a speech bubble, held for `holdMs`, then cleared — called once
+ * before analysis starts (index.ts), never repeated within a single run. Uses
+ * `log-update` for the same reason mascot.ts's `startMascotSpinner` and
+ * pulse-animation.ts's `playScoreAnimation` do: accurate multi-line redraw/clear.
+ */
+export async function playMascotGreeting(opts: {
+  enabled: boolean;
+  stream: NodeJS.WriteStream;
+  /** Override for tests — real playback uses GREETING_HOLD_MS; 0 completes near-instantly. */
+  holdMs?: number;
+}): Promise<void> {
+  if (!opts.enabled) return;
+  const holdMs = opts.holdMs ?? GREETING_HOLD_MS;
+  const render = createLogUpdate(opts.stream);
+  render(renderMascotWithSpeech(renderMascotAnticipating(), pickMessage(GREETING_MESSAGES)));
+  if (holdMs > 0) await sleep(holdMs);
+  render.clear();
 }

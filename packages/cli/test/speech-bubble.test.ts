@@ -5,6 +5,7 @@ import {
   bubbleFitsWidth,
   pickMessage,
   renderMascotWithSpeech,
+  playMascotGreeting,
   GREETING_MESSAGES,
   REACTION_MESSAGES
 } from '../src/speech-bubble.js';
@@ -98,5 +99,29 @@ describe('renderMascotWithSpeech', () => {
     expect(block.split('\n')).toHaveLength(7);
     expect(block).toContain('Nice work!');
     expect(block).toContain('\x1b[38;2;255;62;0m'); // still the fox, orange present
+  });
+});
+
+function fakeStream() {
+  const writes: string[] = [];
+  return { writes, stream: { write: (s: string) => writes.push(s) } as unknown as NodeJS.WriteStream };
+}
+
+describe('playMascotGreeting', () => {
+  it('writes nothing when disabled', async () => {
+    const { writes, stream } = fakeStream();
+    await playMascotGreeting({ enabled: false, stream, holdMs: 0 });
+    expect(writes).toEqual([]);
+  });
+
+  it('writes a frame containing the fox and one of the greeting messages, then clears', async () => {
+    const { writes, stream } = fakeStream();
+    await playMascotGreeting({ enabled: true, stream, holdMs: 0 });
+    expect(writes.length).toBeGreaterThan(0);
+    const allWrites = writes.join('');
+    expect(allWrites).toContain('\x1b[38;2;255;62;0m'); // the fox
+    expect(GREETING_MESSAGES.some((m) => allWrites.includes(m))).toBe(true);
+    const last = writes[writes.length - 1]!;
+    expect(GREETING_MESSAGES.some((m) => last.includes(m))).toBe(false); // cleared on the last write
   });
 });
