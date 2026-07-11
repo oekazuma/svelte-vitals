@@ -8,7 +8,6 @@ import {
   renderConfettiFrame,
   startMascotSpinner
 } from '../src/mascot.js';
-import { noColorPalette, ansiPalette } from '../src/color.js';
 
 function fakeStream() {
   const writes: string[] = [];
@@ -17,31 +16,17 @@ function fakeStream() {
 
 describe('mascotStateFor', () => {
   it('is ecstatic at exactly 100', () => {
-    expect(mascotStateFor(100, false)).toBe('ecstatic');
+    expect(mascotStateFor(100)).toBe('ecstatic');
   });
   it('is happy from 90 up to (not including) 100', () => {
-    expect(mascotStateFor(90, false)).toBe('happy');
-    expect(mascotStateFor(99, false)).toBe('happy');
+    expect(mascotStateFor(90)).toBe('happy');
+    expect(mascotStateFor(99)).toBe('happy');
   });
-  it('is alarmed whenever a critical finding is present, regardless of score, below 90', () => {
-    expect(mascotStateFor(79, true)).toBe('alarmed');
-    expect(mascotStateFor(0, true)).toBe('alarmed');
-  });
-  it('is content from 70 to 89 with no critical finding', () => {
-    expect(mascotStateFor(70, false)).toBe('content');
-    expect(mascotStateFor(89, false)).toBe('content');
-  });
-  it('is discouraged below 70 with no critical finding', () => {
-    expect(mascotStateFor(69, false)).toBe('discouraged');
-    expect(mascotStateFor(0, false)).toBe('discouraged');
-  });
-  it('a critical finding at a boundary still reads as alarmed, not content/discouraged', () => {
-    expect(mascotStateFor(80, true)).toBe('alarmed');
-    expect(mascotStateFor(69, true)).toBe('alarmed');
-  });
-  it('a critical finding always wins over ecstatic/happy too — defensive, since real callers never actually pass this combination (CRITICAL_CAP=79 makes it unreachable in practice)', () => {
-    expect(mascotStateFor(100, true)).toBe('alarmed');
-    expect(mascotStateFor(95, true)).toBe('alarmed');
+  it('is content below 90, including 0', () => {
+    expect(mascotStateFor(89)).toBe('content');
+    expect(mascotStateFor(70)).toBe('content');
+    expect(mascotStateFor(69)).toBe('content');
+    expect(mascotStateFor(0)).toBe('content');
   });
 });
 
@@ -60,60 +45,68 @@ describe('mascotFitsWidth', () => {
 });
 
 describe('mascot rendering', () => {
-  it('renders 4-line frames for idle, anticipating, and every reaction state', () => {
-    expect(renderMascotIdleFrame(0, noColorPalette).split('\n')).toHaveLength(4);
-    expect(renderMascotAnticipating(noColorPalette).split('\n')).toHaveLength(4);
-    for (const state of ['ecstatic', 'happy', 'alarmed', 'content', 'discouraged'] as const) {
-      expect(renderMascotReaction(state, noColorPalette).split('\n')).toHaveLength(4);
+  it('renders 7-line frames (14-pixel head+mouth grid packed 2-per-line via half-blocks) for idle, anticipating, and every reaction state', () => {
+    expect(renderMascotIdleFrame(0).split('\n')).toHaveLength(7);
+    expect(renderMascotAnticipating().split('\n')).toHaveLength(7);
+    for (const state of ['ecstatic', 'happy', 'content'] as const) {
+      expect(renderMascotReaction(state).split('\n')).toHaveLength(7);
     }
   });
   it('the idle frame alternates an open-eyed and a blinking face', () => {
-    const open = renderMascotIdleFrame(0, noColorPalette);
-    const blink = renderMascotIdleFrame(4, noColorPalette); // index 4 is the blink in the 5-tick cycle
+    const open = renderMascotIdleFrame(0);
+    const blink = renderMascotIdleFrame(4); // index 4 is the blink in the 5-tick cycle
     expect(open).not.toBe(blink);
   });
-  it('colors the reaction face with the palette (ansiPalette produces ANSI codes, noColorPalette does not)', () => {
-    const colored = renderMascotReaction('happy', ansiPalette);
-    const plain = renderMascotReaction('happy', noColorPalette);
-    expect(colored).toContain('\x1b[32m'); // green
-    expect(plain).not.toContain('\x1b[');
+  it('always renders in color (24-bit truecolor escape codes) — the mascot has no no-color fallback, since it is only ever reached once color is already confirmed enabled by its callers', () => {
+    expect(renderMascotReaction('happy')).toContain('\x1b[38;2;255;62;0m'); // Svelte-orange foreground
   });
-  it('alarmed and discouraged both render red; content renders yellow; ecstatic/happy render green', () => {
-    expect(renderMascotReaction('alarmed', ansiPalette)).toContain('\x1b[31m');
-    expect(renderMascotReaction('discouraged', ansiPalette)).toContain('\x1b[31m');
-    expect(renderMascotReaction('content', ansiPalette)).toContain('\x1b[33m');
-    expect(renderMascotReaction('ecstatic', ansiPalette)).toContain('\x1b[32m');
-    expect(renderMascotReaction('happy', ansiPalette)).toContain('\x1b[32m');
+  it('content, happy, and ecstatic are all visually distinct from each other', () => {
+    const content = renderMascotReaction('content');
+    const happy = renderMascotReaction('happy');
+    const ecstatic = renderMascotReaction('ecstatic');
+    expect(content).not.toBe(happy);
+    expect(happy).not.toBe(ecstatic);
+    expect(content).not.toBe(ecstatic);
+  });
+  it('happy and ecstatic both apply a blush accent that content does not have', () => {
+    const content = renderMascotReaction('content');
+    const happy = renderMascotReaction('happy');
+    const ecstatic = renderMascotReaction('ecstatic');
+    // Blush pink (happy) / brighter blush pink (ecstatic) truecolor codes.
+    expect(content).not.toContain('\x1b[38;2;255;145;175m');
+    expect(content).not.toContain('\x1b[38;2;255;105;150m');
+    expect(happy).toContain('\x1b[38;2;255;145;175m');
+    expect(ecstatic).toContain('\x1b[38;2;255;105;150m');
   });
   it('confetti wraps the given mascot block with a particle row above and below, deterministically', () => {
-    const mascotBlock = renderMascotReaction('ecstatic', noColorPalette);
-    const frame = renderConfettiFrame(0, mascotBlock, noColorPalette);
+    const mascotBlock = renderMascotReaction('ecstatic');
+    const frame = renderConfettiFrame(0, mascotBlock);
     const lines = frame.split('\n');
-    expect(lines).toHaveLength(6); // 1 confetti row + 4 mascot lines + 1 confetti row
+    expect(lines).toHaveLength(9); // 1 confetti row + 7 mascot lines + 1 confetti row
     expect(lines[0]).not.toBe(''); // top confetti row has content
     expect(lines[lines.length - 1]).not.toBe('');
     // Deterministic: same offset always produces the same row (no RNG).
-    expect(renderConfettiFrame(0, mascotBlock, noColorPalette)).toBe(frame);
+    expect(renderConfettiFrame(0, mascotBlock)).toBe(frame);
   });
 });
 
 describe('startMascotSpinner', () => {
   it('writes nothing when disabled and returns a working stop()', () => {
     const { writes, stream } = fakeStream();
-    const spin = startMascotSpinner('Analyzing…', { enabled: false, palette: noColorPalette, stream });
+    const spin = startMascotSpinner('Analyzing…', { enabled: false, stream });
     spin.stop();
     expect(writes).toEqual([]);
   });
   it('writes a frame immediately when enabled, containing the status text', () => {
     const { writes, stream } = fakeStream();
-    const spin = startMascotSpinner('Analyzing…', { enabled: true, palette: noColorPalette, stream });
+    const spin = startMascotSpinner('Analyzing…', { enabled: true, stream });
     expect(writes.length).toBeGreaterThan(0);
     expect(writes[0]).toContain('Analyzing…');
     spin.stop();
   });
   it('clears the block on stop (no leftover mascot art)', () => {
     const { writes, stream } = fakeStream();
-    const spin = startMascotSpinner('Analyzing…', { enabled: true, palette: noColorPalette, stream });
+    const spin = startMascotSpinner('Analyzing…', { enabled: true, stream });
     spin.stop();
     const last = writes[writes.length - 1]!;
     expect(last).not.toContain('Analyzing…');

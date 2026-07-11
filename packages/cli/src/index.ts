@@ -280,7 +280,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     });
   const useMascotSpinner = spinnerBaseEnabled && !opts.noAnimation && mascotFitsWidth(stderrStream.columns);
   const spinner = useMascotSpinner
-    ? startMascotSpinner('Analyzing…', { enabled: true, palette: paletteFor(true), stream: stderrStream })
+    ? startMascotSpinner('Analyzing…', { enabled: true, stream: stderrStream })
     : startSpinner('Analyzing…', { enabled: spinnerBaseEnabled, stream: stderrStream });
 
   let cwd = opts.cwd ?? process.cwd();
@@ -445,7 +445,6 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         if (animate) {
           await playScoreAnimation({
             score: computeHealth(results, config).health,
-            hasCritical: summary.critical > 0,
             palette,
             stream: opts.stdoutStream ?? process.stdout,
             frameDelayMs: opts.animationFrameDelayMs
