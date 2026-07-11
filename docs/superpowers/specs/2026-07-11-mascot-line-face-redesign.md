@@ -1,7 +1,7 @@
 # Design: Mascot line-face redesign + pulse-line colorization
 
 **Date:** 2026-07-11
-**Status:** Proposed
+**Status:** Implemented
 **Packages:** `svelte-vitals` (CLI) only — no `@svelte-vitals/core` changes
 **Supersedes:** `docs/superpowers/specs/2026-07-11-cli-mascot-pixel-fox-redesign.md` (the pixel-art fox, merged in PR #175, including the speech-bubble feature from PR #176).
 
@@ -21,7 +21,7 @@ All frames are 4 lines tall, 12 columns wide (`╭` + 10 interior + `╮`), rend
 Idle (eyes open):        Idle (blink):
 ╭──────────╮             ╭──────────╮
 │  ●    ●  │             │  ─    ─  │
-│    ─     │             │    ─     │
+│    ──    │             │    ──    │
 ╰──────────╯             ╰──────────╯
 
 content (score < 90):     happy (90-99):            ecstatic (100):

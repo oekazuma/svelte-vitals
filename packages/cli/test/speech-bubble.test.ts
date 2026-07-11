@@ -44,7 +44,10 @@ describe('withSpeechBubble', () => {
     const bubble = renderSpeechBubble('Keep going!');
     const combined = withSpeechBubble(mascot, bubble).split('\n');
     const bubbleWidth = bubble[0]!.length;
-    expect(combined[0]).toContain('╭');
+    // combined[0] is the mascot's own top border, which already contains '╭' on its own —
+    // a bare `.toContain('╭')` would pass even if the bubble weren't rendered on this row
+    // at all, so assert the bubble's exact top-border string appears (not just one char).
+    expect(combined[0]).toContain(bubble[0]!);
     expect(combined[1]).toContain('Keep going!');
     expect(combined[2]).toContain('╰');
     // Row 3 is the mascot's own bottom border (which, unlike the old fox art, is

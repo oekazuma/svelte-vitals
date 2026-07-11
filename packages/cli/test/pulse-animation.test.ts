@@ -109,6 +109,11 @@ describe('playScoreAnimation', () => {
     // confetti loop — `showMascot && state === 'ecstatic'` — instead of being skipped.
     await playScoreAnimation({ score: 100, palette: ansiPalette, stream, frameDelayMs: 0 });
     const allWrites = writes.join('');
+    // Confirm the confetti loop actually ran (not just that the main loop's own,
+    // separately-tested coloring happened) before trusting the coloring assertions below —
+    // otherwise a future regression in the showMascot/state==='ecstatic' gate could silently
+    // stop exercising the confetti loop and this test would keep passing for the wrong reason.
+    expect(allWrites).toMatch(/[*·+]/); // confetti-only glyphs (CONFETTI_CHARS, mascot.ts)
     // The confetti loop builds its own waveBlock every frame, byte-identical to the main
     // loop's settled frame (same color, same wave, same score text). log-update's line
     // diffing can skip re-emitting a line whose content hasn't changed since the previous
