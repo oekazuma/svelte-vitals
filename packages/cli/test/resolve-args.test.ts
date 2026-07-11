@@ -217,4 +217,27 @@ describe('resolveArgs', () => {
     const { options } = resolve();
     expect(options?.verbose).toBeUndefined();
   });
+
+  it('threads --no-color into options.noColor', () => {
+    // Regression test: mri auto-negates `--no-color` into `{color: false}`, never a
+    // `'no-color'` key — a naive `argv['no-color']` read is always undefined, silently
+    // ignoring the flag no matter how it's passed.
+    const { options } = resolve('--no-color');
+    expect(options?.noColor).toBe(true);
+  });
+
+  it('noColor defaults to false (undefined) when --no-color is not passed', () => {
+    const { options } = resolve();
+    expect(options?.noColor).toBeUndefined();
+  });
+
+  it('threads --no-animation into options.noAnimation', () => {
+    const { options } = resolve('--no-animation');
+    expect(options?.noAnimation).toBe(true);
+  });
+
+  it('noAnimation defaults to false (undefined) when --no-animation is not passed', () => {
+    const { options } = resolve();
+    expect(options?.noAnimation).toBeUndefined();
+  });
 });

@@ -71,7 +71,7 @@ async function main(): Promise<void> {
 
   const argv = mri(process.argv.slice(2), {
     alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'json', 'fail-on-warning', 'staged', 'no-color', 'score', 'verbose', 'no-animation'],
+    boolean: ['by-route', 'json', 'fail-on-warning', 'staged', 'score', 'verbose'],
     string: [
       'meta-components',
       'treat-dynamic-as',
@@ -120,8 +120,6 @@ async function main(): Promise<void> {
   const code = await run({
     ...options,
     minHealth,
-    noColor: argv['no-color'],
-    noAnimation: argv['no-animation'],
     selectApp
   });
   process.exit(code);
