@@ -16,7 +16,7 @@
 > svelte-vitals **statically analyzes your source code** — resolved `<head>` metadata and component bodies — across five categories (SEO, Performance, Correctness, Security, Architecture), before it ever ships. No browser, no build server, no headless Chrome.
 
 ```bash
-npx svelte-vitals
+npx svelte-vitals@latest
 ```
 
 📖 **[Documentation](https://oekazuma.github.io/svelte-vitals/)**
@@ -55,11 +55,11 @@ Requires **Node.js 22.13+**.
 Run it inside any SvelteKit project:
 
 ```bash
-npx svelte-vitals          # analyze the current directory
-npx svelte-vitals ./apps/web   # or a specific path
+npx svelte-vitals@latest              # analyze the current directory
+npx svelte-vitals@latest ./apps/web   # or a specific path
 ```
 
-At a monorepo root, running `npx svelte-vitals` with no path detects the SvelteKit apps underneath and either analyzes the only one found or lets you pick interactively — see [CLI: Monorepos](https://oekazuma.github.io/svelte-vitals/guides/cli/#monorepos).
+At a monorepo root, running `npx svelte-vitals@latest` with no path detects the SvelteKit apps underneath and either analyzes the only one found or lets you pick interactively — see [CLI: Monorepos](https://oekazuma.github.io/svelte-vitals/guides/cli/#monorepos).
 
 Example output:
 
@@ -131,7 +131,7 @@ svelte-vitals runs two static passes, both via the official `svelte/compiler` �
 
 | Package                                  | Description                                                 |
 | ---------------------------------------- | ----------------------------------------------------------- |
-| [`svelte-vitals`](./packages/cli)        | CLI + static mode (`npx svelte-vitals`)                     |
+| [`svelte-vitals`](./packages/cli)        | CLI + static mode (`npx svelte-vitals@latest`)              |
 | [`@svelte-vitals/core`](./packages/core) | Runtime-agnostic core: types, rule engine, scorer, reporter |
 | [`@svelte-vitals/vite`](./packages/vite) | Plugin mode (build-time): analyzes the prerendered `<head>` |
 | [`@svelte-vitals/mcp`](./packages/mcp)   | MCP server: run analysis inside an agent's tool loop        |

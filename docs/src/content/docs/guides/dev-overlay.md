@@ -82,7 +82,7 @@ Once enabled, `vite dev` prints the dashboard's URL right after its own `Local:`
   ➜  svelte-vitals: http://localhost:5173/__svelte-vitals/
 ```
 
-From the moment the dev server starts, the dashboard shows the **whole project**: a static analysis of all routes across every category (SEO, Performance, Correctness, Security, Architecture) runs asynchronously at startup — the same analysis as `npx svelte-vitals` — so you get the real project Health without visiting a single page. Saving a source file (anything under `src/` or `static/`, or a `svelte.config.*` / `svelte-vitals.config.*`) triggers a debounced re-analysis, and the dashboard refreshes itself.
+From the moment the dev server starts, the dashboard shows the **whole project**: a static analysis of all routes across every category (SEO, Performance, Correctness, Security, Architecture) runs asynchronously at startup — the same analysis as `npx svelte-vitals@latest` — so you get the real project Health without visiting a single page. Saving a source file (anything under `src/` or `static/`, or a `svelte.config.*` / `svelte-vitals.config.*`) triggers a debounced re-analysis, and the dashboard refreshes itself.
 
 On top of that static baseline, browsing your app refines the picture: it is fed by the dev handle (the same one the overlay above uses), so keep `svelteVitalsHandle()` in `src/hooks.server.ts`. Each visited route's rendered `<head>` is analyzed, and those live results replace the static ones for that route — a rendered page is closer to the truth, especially for dynamic values. Route headings carry a provenance badge: `measured` for routes whose findings come from a real rendered page, `static` for routes covered only by source analysis so far.
 

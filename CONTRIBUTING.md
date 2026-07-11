@@ -27,7 +27,7 @@ pnpm format      # prettier --write
 
 | Package                                  | Description                                                 |
 | ---------------------------------------- | ----------------------------------------------------------- |
-| [`svelte-vitals`](./packages/cli)        | CLI + static mode (`npx svelte-vitals`)                     |
+| [`svelte-vitals`](./packages/cli)        | CLI + static mode (`npx svelte-vitals@latest`)              |
 | [`@svelte-vitals/core`](./packages/core) | Runtime-agnostic core: types, rule engine, scorer, reporter |
 | [`@svelte-vitals/vite`](./packages/vite) | Plugin mode (build-time): analyzes the prerendered `<head>` |
 | [`@svelte-vitals/mcp`](./packages/mcp)   | MCP server: run analysis inside an agent's tool loop        |

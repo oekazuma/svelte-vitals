@@ -11,13 +11,13 @@ Each package is versioned independently and depends on `@svelte-vitals/core` (th
 
 ## Quick answer
 
-| If you want to...                                                                        | Use                                 |
-| ---------------------------------------------------------------------------------------- | ----------------------------------- |
-| Gate CI / PRs against SEO, Performance, and code-health issues, across the whole project | **CLI** — `npx svelte-vitals`       |
-| Check only the files you're about to commit                                              | **CLI** with `--staged` or `--diff` |
-| Verify the exact HTML your prerendered pages will ship, whatever generated it            | **Vite plugin**, build mode         |
-| See warnings live while developing, with no build step                                   | **Vite plugin**, dev overlay        |
-| Let an AI coding agent (Claude Code, Cursor, Codex) check its own changes                | **MCP server**                      |
+| If you want to...                                                                        | Use                                  |
+| ---------------------------------------------------------------------------------------- | ------------------------------------ |
+| Gate CI / PRs against SEO, Performance, and code-health issues, across the whole project | **CLI** — `npx svelte-vitals@latest` |
+| Check only the files you're about to commit                                              | **CLI** with `--staged` or `--diff`  |
+| Verify the exact HTML your prerendered pages will ship, whatever generated it            | **Vite plugin**, build mode          |
+| See warnings live while developing, with no build step                                   | **Vite plugin**, dev overlay         |
+| Let an AI coding agent (Claude Code, Cursor, Codex) check its own changes                | **MCP server**                       |
 
 ## Comparison
 
@@ -50,11 +50,11 @@ The same package also adds a **dev overlay** — live warnings in the terminal (
 
 ### MCP server — for AI-agent workflows
 
-`@svelte-vitals/mcp` exposes the CLI's own analysis (all 5 categories, every route) as `analyze` and `explain_rule` tools over the Model Context Protocol, so an agent can call it mid-conversation instead of shelling out and parsing text output. Useful once you're working with an AI coding agent day to day; not a replacement for a CI gate. Set it up with `npx svelte-vitals install`. See [MCP server](/svelte-vitals/guides/mcp/).
+`@svelte-vitals/mcp` exposes the CLI's own analysis (all 5 categories, every route) as `analyze` and `explain_rule` tools over the Model Context Protocol, so an agent can call it mid-conversation instead of shelling out and parsing text output. Useful once you're working with an AI coding agent day to day; not a replacement for a CI gate. Set it up with `npx svelte-vitals@latest install`. See [MCP server](/svelte-vitals/guides/mcp/).
 
 ## Recommended setups
 
-- **Just starting out:** run `npx svelte-vitals` locally, then add it to CI (`pnpm build && npx svelte-vitals --fail-on critical`). This alone covers all 5 categories and every route.
-- **Coding with an AI agent:** add the MCP server (`npx svelte-vitals install`) so the agent can check its own edits without you asking it to.
+- **Just starting out:** run `npx svelte-vitals@latest` locally, then add it to CI (`pnpm build && npx svelte-vitals@latest --fail-on critical`). This alone covers all 5 categories and every route.
+- **Coding with an AI agent:** add the MCP server (`npx svelte-vitals@latest install`) so the agent can check its own edits without you asking it to.
 - **Polishing prerendered/marketing pages:** add the Vite plugin's build mode for an exact, build-time gate on shipped HTML, and the dev overlay for live feedback while you write.
 - **All of the above together** is the common end state — they check different things at different times and don't conflict.

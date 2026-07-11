@@ -52,7 +52,7 @@ SvelteKit プロジェクトの静的モード分析を実行します。
 プロジェクトルートで対話式インストーラーを実行すると、MCP サーバーを自動で設定します：
 
 ```bash
-npx svelte-vitals install
+npx svelte-vitals@latest install
 ```
 
 **Claude Code**、**Cursor**、**Codex** に対応しており、各クライアントの設定にサーバーエントリをマージします（既存の他のサーバーはそのまま維持されます）。利用可能なフラグ（`--client`、`--scope`、`--yes`、`--dry-run`、`--force`）については [`install` コマンド](/svelte-vitals/ja/guides/cli/#svelte-vitals-install) を参照してください。

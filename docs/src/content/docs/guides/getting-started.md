@@ -18,7 +18,7 @@ Node.js 22.13 or later is required.
 No install needed for a one-off run:
 
 ```bash
-npx svelte-vitals
+npx svelte-vitals@latest
 ```
 
 To add it as a dev dependency:
@@ -34,13 +34,13 @@ pnpm add -D svelte-vitals
 Run inside the root of any SvelteKit project:
 
 ```bash
-npx svelte-vitals
+npx svelte-vitals@latest
 ```
 
 To target a sub-directory:
 
 ```bash
-npx svelte-vitals ./apps/web
+npx svelte-vitals@latest ./apps/web
 ```
 
 Example output:
@@ -80,4 +80,4 @@ These codes are stable and suitable for CI gates.
 - Not sure which package to reach for? See [Choosing a package](/svelte-vitals/guides/choosing-a-package/) for a comparison of the CLI, the Vite plugin, and the MCP server.
 - See [CLI reference](/svelte-vitals/guides/cli/) for all flags.
 - Use [Plugin mode](/svelte-vitals/guides/plugin-mode/) to integrate with `vite build`.
-- Use [MCP](/svelte-vitals/guides/mcp/) to let AI agents run the analysis automatically — `npx svelte-vitals install` wires it into Claude Code / Cursor / Codex in one step.
+- Use [MCP](/svelte-vitals/guides/mcp/) to let AI agents run the analysis automatically — `npx svelte-vitals@latest install` wires it into Claude Code / Cursor / Codex in one step.

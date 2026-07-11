@@ -18,7 +18,7 @@ Node.js 22.13 以降が必要です。
 一度だけ実行する場合はインストール不要です：
 
 ```bash
-npx svelte-vitals
+npx svelte-vitals@latest
 ```
 
 開発依存として追加する場合：
@@ -34,13 +34,13 @@ pnpm add -D svelte-vitals
 任意の SvelteKit プロジェクトのルートで実行してください：
 
 ```bash
-npx svelte-vitals
+npx svelte-vitals@latest
 ```
 
 サブディレクトリを指定する場合：
 
 ```bash
-npx svelte-vitals ./apps/web
+npx svelte-vitals@latest ./apps/web
 ```
 
 出力例：
@@ -80,4 +80,4 @@ Passed (3)
 - どのパッケージを使えばいいか迷ったら、CLI・Vite プラグイン・MCPサーバーを比較した [パッケージの選び方](/svelte-vitals/ja/guides/choosing-a-package/) を参照してください。
 - すべてのフラグについては [CLI リファレンス](/svelte-vitals/ja/guides/cli/) を参照してください。
 - `vite build` と連携するには [プラグインモード](/svelte-vitals/ja/guides/plugin-mode/) を使用してください。
-- AI エージェントが自動的に分析を実行できるようにするには [MCP](/svelte-vitals/ja/guides/mcp/) を使用してください — `npx svelte-vitals install` で Claude Code / Cursor / Codex に一発で組み込めます。
+- AI エージェントが自動的に分析を実行できるようにするには [MCP](/svelte-vitals/ja/guides/mcp/) を使用してください — `npx svelte-vitals@latest install` で Claude Code / Cursor / Codex に一発で組み込めます。
