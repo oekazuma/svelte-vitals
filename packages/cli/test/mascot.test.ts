@@ -54,8 +54,25 @@ describe('mascot rendering', () => {
   });
   it('the idle frame alternates an open-eyed and a blinking face', () => {
     const open = renderMascotIdleFrame(0);
-    const blink = renderMascotIdleFrame(4); // index 4 is the blink in the 5-tick cycle
+    const blink = renderMascotIdleFrame(4); // index 4 is a blink in the 24-tick cycle
     expect(open).not.toBe(blink);
+  });
+  it('the idle loop occasionally winks — both eyes, and one eye — distinct from open/blink/each other', () => {
+    const open = renderMascotIdleFrame(0);
+    const blink = renderMascotIdleFrame(4);
+    const winkBoth = renderMascotIdleFrame(12); // index 12 is the both-eyes wink in the 24-tick cycle
+    const winkOne = renderMascotIdleFrame(23); // index 23 is the one-eye wink
+    expect(winkBoth).toContain('  >    <  ');
+    expect(winkOne).toContain('  ●    <  ');
+    expect(winkBoth).not.toBe(open);
+    expect(winkBoth).not.toBe(blink);
+    expect(winkOne).not.toBe(open);
+    expect(winkOne).not.toBe(blink);
+    expect(winkBoth).not.toBe(winkOne);
+  });
+  it('the idle loop is periodic — frameIndex wraps modulo the sequence length', () => {
+    expect(renderMascotIdleFrame(24)).toBe(renderMascotIdleFrame(0));
+    expect(renderMascotIdleFrame(36)).toBe(renderMascotIdleFrame(12));
   });
   it('always renders in color (24-bit truecolor escape codes) — the mascot has no no-color fallback, since it is only ever reached once color is already confirmed enabled by its callers', () => {
     expect(renderMascotReaction('happy')).toContain('\x1b[38;2;255;62;0m'); // Svelte-orange foreground
@@ -75,6 +92,8 @@ describe('mascot rendering', () => {
     for (const block of [
       renderMascotIdleFrame(0),
       renderMascotIdleFrame(4),
+      renderMascotIdleFrame(12),
+      renderMascotIdleFrame(23),
       renderMascotAnticipating(),
       renderMascotReaction('content'),
       renderMascotReaction('happy'),

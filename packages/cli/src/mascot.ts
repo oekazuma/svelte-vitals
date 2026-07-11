@@ -49,6 +49,17 @@ const FACE_OPEN_EYES_NEUTRAL_MOUTH = ['╭──────────╮', '�
 
 const FACE_CLOSED_EYES_NEUTRAL_MOUTH = ['╭──────────╮', '│  ─    ─  │', '│    ──    │', '╰──────────╯'];
 
+// Idle-loop personality flourishes, alongside the blink above. `>`/`<` (not the
+// full-width `＞`/`＜`/`・` originally proposed) — those are East Asian Width
+// Fullwidth/Wide, always 2 columns, which would break the fixed 1-column-per-eye
+// layout the same way the pulse-wave heart glyph almost did (see pulse-animation.ts's
+// WAVE_FRAMES doc comment). The one-eye wink reuses `●` for the open eye (not a
+// smaller dot) so it stays vertically aligned with `<` — a dot sits near the
+// character cell's baseline in most monospace fonts while `<` is vertically
+// centered, so pairing them visibly misaligned the two eyes.
+const FACE_WINK_BOTH = ['╭──────────╮', '│  >    <  │', '│    ──    │', '╰──────────╯'];
+const FACE_WINK_ONE = ['╭──────────╮', '│  ●    <  │', '│    ──    │', '╰──────────╯'];
+
 const FACE_CONTENT = ['╭──────────╮', '│  ●    ●  │', '│    ◡◡    │', '╰──────────╯'];
 
 const FACE_HAPPY = ['╭──────────╮', '│  ●    ●  │', '│   ◡◡◡◡   │', '╰──────────╯'];
@@ -71,13 +82,23 @@ export function renderMascotAnticipating(): string {
   return renderFace(FACE_OPEN_EYES_NEUTRAL_MOUTH);
 }
 
-// Mostly-open with a brief blink, matching a ~1s full cycle at IDLE_TICK_MS (160ms x 5 = 800ms).
-const IDLE_FRAME_SEQUENCE = [0, 0, 0, 0, 1];
+// 0 = eyes open, 1 = blink, 2 = both-eyes wink, 3 = one-eye wink. Blink keeps the
+// original every-5th-tick cadence (160ms x 5 = 800ms); the winks are rarer personality
+// flourishes layered on top, spaced apart from each other and from the blinks so no two
+// "special" expressions ever land back-to-back. Full cycle: 160ms x 24 = 3.84s.
+const IDLE_FRAME_SEQUENCE = [0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 2, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 3];
+
+const IDLE_FACES: Record<number, readonly string[]> = {
+  0: FACE_OPEN_EYES_NEUTRAL_MOUTH,
+  1: FACE_CLOSED_EYES_NEUTRAL_MOUTH,
+  2: FACE_WINK_BOTH,
+  3: FACE_WINK_ONE
+};
 
 /** One frame of the analysis-phase idle loop. `frameIndex` is taken mod the sequence length. */
 export function renderMascotIdleFrame(frameIndex: number): string {
-  const isBlink = IDLE_FRAME_SEQUENCE[frameIndex % IDLE_FRAME_SEQUENCE.length] === 1;
-  return renderFace(isBlink ? FACE_CLOSED_EYES_NEUTRAL_MOUTH : FACE_OPEN_EYES_NEUTRAL_MOUTH);
+  const code = IDLE_FRAME_SEQUENCE[frameIndex % IDLE_FRAME_SEQUENCE.length]!;
+  return renderFace(IDLE_FACES[code]!);
 }
 
 // A small set of festive colors for the 100/100 confetti bonus, distinct from the
