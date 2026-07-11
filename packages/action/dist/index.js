@@ -32286,8 +32286,8 @@ var Summary = class {
    * @returns {Summary} summary instance
    */
   addTable(rows) {
-    const tableBody = rows.map((row2) => {
-      const cells = row2.map((cell) => {
+    const tableBody = rows.map((row) => {
+      const cells = row.map((cell) => {
         if (typeof cell === "string") {
           return this.wrap("td", cell);
         }
@@ -56976,7 +56976,7 @@ function applyRuleSeverities(results, config) {
   });
 }
 
-// ../cli/dist/chunk-RVZZNMTI.js
+// ../cli/dist/chunk-2AG6MT6H.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -57754,7 +57754,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-RVZZNMTI.js
+// ../cli/dist/chunk-2AG6MT6H.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -58426,70 +58426,6 @@ var ansiPalette = {
   green: wrap(32, 39),
   cyan: wrap(36, 39)
 };
-var row = (s) => s.replace(/ /g, "");
-var HEAD_EYES_OPEN = [
-  row(". . X X . . . . . . X X . ."),
-  row(". . X I X . . . . X I X . ."),
-  row(". X X I I X . . X I I X X ."),
-  row("X X X X X X X X X X X X X X"),
-  row("X X X X X X X X X X X X X X"),
-  row("X X X E E X X X X E E X X X"),
-  row("X X X E E X X X X E E X X X"),
-  row("W X X W W W X X W W W X X W"),
-  row("W W X W W W X X W W W X W W"),
-  row("W W W W W W N N W W W W W W"),
-  row(". W W W W W N N W W W W W .")
-];
-var HEAD_EYES_CLOSED = [
-  row(". . X X . . . . . . X X . ."),
-  row(". . X I X . . . . X I X . ."),
-  row(". X X I I X . . X I I X X ."),
-  row("X X X X X X X X X X X X X X"),
-  row("X X X X X X X X X X X X X X"),
-  row("X X X X X X X X X X X X X X"),
-  row("X X X E E X X X X E E X X X"),
-  row("W X X W W W X X W W W X X W"),
-  row("W W X W W W X X W W W X W W"),
-  row("W W W W W W N N W W W W W W"),
-  row(". W W W W W N N W W W W W .")
-];
-var MOUTH_NEUTRAL = [
-  row(". . W W W W W W W W W W . ."),
-  row(". . W W W W N N W W W W . ."),
-  row(". . . W W W W W W W W . . .")
-];
-var MOUTH_SMALL_SMILE = [
-  // content
-  row(". . W W W W W W W W W W . ."),
-  row(". . W W W N W W N W W W . ."),
-  row(". . . W W W N N W W W . . .")
-];
-var MOUTH_BIG_SMILE = [
-  // happy / ecstatic
-  row(". . W W N W W W W N W W . ."),
-  row(". . W W W N N N N W W W . ."),
-  row(". . . W W W W W W W . . . .")
-];
-function withBlush(head, bright) {
-  const ch = bright ? "C" : "B";
-  const rows = head.map((r) => r.split(""));
-  rows[8][1] = ch;
-  rows[9][1] = ch;
-  rows[8][12] = ch;
-  rows[9][12] = ch;
-  if (bright) {
-    rows[9][2] = ch;
-    rows[9][11] = ch;
-  }
-  return rows.map((r) => r.join(""));
-}
-var REACTION_GRIDS = {
-  content: [...HEAD_EYES_OPEN, ...MOUTH_SMALL_SMILE],
-  happy: [...withBlush(HEAD_EYES_OPEN, false), ...MOUTH_BIG_SMILE],
-  ecstatic: [...withBlush(HEAD_EYES_OPEN, true), ...MOUTH_BIG_SMILE]
-};
-var IDLE_OPEN_GRID = [...HEAD_EYES_OPEN, ...MOUTH_NEUTRAL];
-var IDLE_BLINK_GRID = [...HEAD_EYES_CLOSED, ...MOUTH_NEUTRAL];
 var KNOWN_IDS = new Set(allRules.map((r) => r.id));
 function findUnknownRuleIds(ids) {
   return [...new Set(ids.filter((id2) => !KNOWN_IDS.has(id2)))];

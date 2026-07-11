@@ -119,6 +119,7 @@ export interface ResolvedArgs {
   errors: string[];
 }
 
+/** Splits a comma-separated string flag into trimmed, non-empty entries; non-string input (flag not passed) yields `[]`. */
 const toList = (v: unknown): string[] =>
   typeof v === 'string'
     ? v
@@ -211,6 +212,15 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
 
   const verbose = Boolean(argv['verbose']);
 
+  // mri auto-negates `--no-X` into `{X: false}`, not `{'no-X': true}` — so `--no-color`/
+  // `--no-animation` surface as `argv.color === false` / `argv.animation === false`, never
+  // as an `argv['no-color']`/`argv['no-animation']` key (that key is never populated,
+  // regardless of whether either flag is passed). `undefined` (flag not passed) must stay
+  // `false` here, not just `!argv.color` — `!undefined` is `true`, which would invert the
+  // default.
+  const noColor = argv.color === false;
+  const noAnimation = argv.animation === false;
+
   // `buildRulesConfig` returns `{}` when neither --rules nor --ignore was passed;
   // normalize that to `undefined` so it doesn't clobber a config file's `rules`
   // (design doc §3, decision 3 — "not specified" must stay distinguishable from
@@ -238,6 +248,8 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
       ...(categories !== undefined ? { categories } : {}),
       ...(score ? { score } : {}),
       ...(verbose ? { verbose } : {}),
+      ...(noColor ? { noColor } : {}),
+      ...(noAnimation ? { noAnimation } : {}),
       ...(diffBase !== undefined ? { diffBase } : {}),
       ...(staged ? { staged } : {}),
       ...(baselineRef !== undefined ? { baseline: baselineRef } : {})

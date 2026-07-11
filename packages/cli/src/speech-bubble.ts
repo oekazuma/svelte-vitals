@@ -5,9 +5,9 @@ const MIN_BUBBLE_COLUMNS = 55;
 
 /**
  * Whether the terminal is wide enough for the mascot + speech bubble combination —
- * a stricter gate than `mascotFitsWidth` (mascot.ts), which only covers the fox
- * sprite alone. Below this, callers render the mascot without a bubble (or skip a
- * bubble-only moment like the greeting entirely) rather than hiding the fox itself.
+ * a stricter gate than `mascotFitsWidth` (mascot.ts), which only covers the mascot
+ * face alone. Below this, callers render the mascot without a bubble (or skip a
+ * bubble-only moment like the greeting entirely) rather than hiding the mascot itself.
  */
 export function bubbleFitsWidth(columns: number | undefined): boolean {
   return (columns ?? 80) >= MIN_BUBBLE_COLUMNS;
@@ -16,19 +16,19 @@ export function bubbleFitsWidth(columns: number | undefined): boolean {
 /**
  * Renders `text` inside a Unicode box-drawing border, sized to the text (1-space
  * padding on each side). Always exactly 3 lines: top border, text line, bottom
- * border. Plain terminal-default colors — unlike the fox sprite, this is readable
- * text, not pixel art, so it doesn't need a fixed color identity.
+ * border. Plain terminal-default colors — unlike the mascot's face, this is readable
+ * text, not fixed-identity line art, so it doesn't need a fixed color.
  */
 export function renderSpeechBubble(text: string): string[] {
   const border = '─'.repeat(text.length + 2);
-  return [`┌${border}┐`, `│ ${text} │`, `└${border}┘`];
+  return [`╭${border}╮`, `│ ${text} │`, `╰${border}╯`];
 }
 
 /**
  * Places `bubbleLines` to the right of `mascotBlock`, vertically centered against
- * it. `mascotBlock` is a `renderPixelGrid` output (mascot.ts) — its lines already
- * end in an ANSI reset, so appending plain text after a space is safe (no color
- * bleed into the bubble).
+ * it. `mascotBlock` is a `renderFace` output (mascot.ts) — its lines already end in
+ * an ANSI reset, so appending plain text after a space is safe (no color bleed into
+ * the bubble).
  */
 export function withSpeechBubble(mascotBlock: string, bubbleLines: readonly string[]): string {
   const mascotLines = mascotBlock.split('\n');
@@ -78,7 +78,7 @@ function sleep(ms: number): Promise<void> {
 const GREETING_HOLD_MS = 800;
 
 /**
- * Plays a one-shot greeting: the fox's idle-open pose with a random greeting
+ * Plays a one-shot greeting: the mascot's idle-open pose with a random greeting
  * message in a speech bubble, held for `holdMs`, then cleared — called once
  * before analysis starts (index.ts), never repeated within a single run. Uses
  * `log-update` for the same reason mascot.ts's `startMascotSpinner` and

@@ -15,10 +15,10 @@ describe('renderSpeechBubble', () => {
   it('returns exactly 3 lines: top border, text, bottom border', () => {
     const lines = renderSpeechBubble('Hi there!');
     expect(lines).toHaveLength(3);
-    expect(lines[0]!.startsWith('┌')).toBe(true);
-    expect(lines[0]!.endsWith('┐')).toBe(true);
-    expect(lines[2]!.startsWith('└')).toBe(true);
-    expect(lines[2]!.endsWith('┘')).toBe(true);
+    expect(lines[0]!.startsWith('╭')).toBe(true);
+    expect(lines[0]!.endsWith('╮')).toBe(true);
+    expect(lines[2]!.startsWith('╰')).toBe(true);
+    expect(lines[2]!.endsWith('╯')).toBe(true);
     expect(lines[1]).toBe('│ Hi there! │');
   });
 
@@ -30,24 +30,31 @@ describe('renderSpeechBubble', () => {
 });
 
 describe('withSpeechBubble', () => {
-  it('combines a 7-line mascot block with a 3-line bubble into 7 lines total', () => {
+  it('combines a 4-line mascot block with a 3-line bubble into 4 lines total', () => {
     const mascot = renderMascotReaction('content');
     const bubble = renderSpeechBubble('Keep going!');
     const combined = withSpeechBubble(mascot, bubble).split('\n');
-    expect(combined).toHaveLength(7);
+    expect(combined).toHaveLength(4);
   });
 
-  it('vertically centers the bubble: blank on the outer rows, bubble content on the middle 3', () => {
+  it('places the 3-line bubble at the top of the 4-line mascot block, with the extra row left blank at the bottom', () => {
+    // padTop = floor((4-3)/2) = 0, padBottom = 4-3-0 = 1 — withSpeechBubble's
+    // generic centering formula, not a special case for this height combination.
     const mascot = renderMascotReaction('content');
     const bubble = renderSpeechBubble('Keep going!');
     const combined = withSpeechBubble(mascot, bubble).split('\n');
-    expect(combined[0]).not.toContain('┌');
-    expect(combined[1]).not.toContain('┌');
-    expect(combined[2]).toContain('┌');
-    expect(combined[3]).toContain('Keep going!');
-    expect(combined[4]).toContain('└');
-    expect(combined[5]).not.toContain('└');
-    expect(combined[6]).not.toContain('└');
+    const bubbleWidth = bubble[0]!.length;
+    // combined[0] is the mascot's own top border, which already contains '╭' on its own —
+    // a bare `.toContain('╭')` would pass even if the bubble weren't rendered on this row
+    // at all, so assert the bubble's exact top-border string appears (not just one char).
+    expect(combined[0]).toContain(bubble[0]!);
+    expect(combined[1]).toContain('Keep going!');
+    expect(combined[2]).toContain('╰');
+    // Row 3 is the mascot's own bottom border (which, unlike the old fox art, is
+    // itself drawn with ╰/╯) padded with a blank bubble row — so we check the bubble
+    // side specifically is blank, rather than asserting the whole row lacks ╰/╭.
+    expect(combined[3]).not.toContain('Keep going!');
+    expect(combined[3]!.endsWith(' '.repeat(bubbleWidth))).toBe(true);
   });
 });
 
@@ -96,9 +103,9 @@ describe('message pools', () => {
 describe('renderMascotWithSpeech', () => {
   it('composes a mascot pose and a message into a single bubbled block', () => {
     const block = renderMascotWithSpeech(renderMascotReaction('happy'), 'Nice work!');
-    expect(block.split('\n')).toHaveLength(7);
+    expect(block.split('\n')).toHaveLength(4);
     expect(block).toContain('Nice work!');
-    expect(block).toContain('\x1b[38;2;255;62;0m'); // still the fox, orange present
+    expect(block).toContain('\x1b[38;2;255;62;0m'); // still the mascot, orange present
   });
 });
 
