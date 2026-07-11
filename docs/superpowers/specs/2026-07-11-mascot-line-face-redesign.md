@@ -84,6 +84,10 @@ After trying the shipped build, the project owner flagged that a fully flat sett
 
 Simplest fix, and the one that shipped: don't render a wave line on the settled frame (or during the confetti bonus after it) at all — just the mascot's reaction pose and `Health: NN/100`. The mascot's own pose is already the reveal's payoff moment; the wave's only job was to animate the counting-up phase, so it has nothing left to do once the count finishes. `WAVE_FRAMES` now has 5 entries (the counting frames only, no settled-frame entry), and the previous "keep all frames the same 24-column width" constraint from the heart attempts no longer applies to anything, since there's no settled-frame wave to keep in sync with the counting frames.
 
+### Follow-up: occasional winks in the idle loop
+
+Separately, the project owner asked for a wink expression, mixed into the analysis-phase idle loop alongside the existing blink for personality. Two variants: both eyes squinting, and a one-eye wink. The original proposal used the fullwidth Japanese punctuation `＞＜`/`・` — checked with `unicodedata.east_asian_width` and confirmed Fullwidth/Wide (always 2 columns), the same class of risk as the pulse-wave heart glyph attempt above, so switched to the visually-equivalent ASCII `>`/`<` (confirmed Narrow) instead. The one-eye wink also went through one round of feedback: it originally paired a small dot (`.`) with `<` for the open eye, but the dot sits near the font's baseline while `<` is vertically centered, so the two eyes read as visibly misaligned — fixed by reusing `●` (the mascot's existing open-eye glyph, already proven to align correctly everywhere else) instead of introducing a new dot glyph.
+
 ## Non-goals
 
 - No change to `mascotStateFor`'s score-band logic (still `100` → ecstatic, `90-99` → happy, else → content) — this redesign is presentation-only.
