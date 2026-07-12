@@ -1,6 +1,6 @@
 ---
-title: "Live dashboard"
-description: "A live, filterable code-health dashboard during `vite dev` — enabled by default, no build step needed."
+title: 'Live dashboard'
+description: 'A live, filterable code-health dashboard during `vite dev` — enabled by default, no build step needed.'
 sidebar:
   order: 5
 ---

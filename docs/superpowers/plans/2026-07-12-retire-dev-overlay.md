@@ -23,6 +23,7 @@
 ### Task 1: Remove `console.warn` from the dev handle
 
 **Files:**
+
 - Modify: `packages/vite/src/hooks/format.ts`
 - Modify: `packages/vite/src/hooks/handle.ts`
 - Modify: `packages/vite/test/dev-format.test.ts`
@@ -30,6 +31,7 @@
 - (No change needed: `packages/vite/test/ui-ingest.test.ts` already asserts on the `fetch`/ingest side effect independently of `console.warn` — it stays green as-is.)
 
 **Interfaces:**
+
 - Consumes: `isPenalized`, `effectiveSeverity`, `defineConfig`, `type Config`, `type Result` from `@svelte-vitals/core` (all already imported in the files touched here).
 - Produces: `findingSignature(results: Result[], config: Config): string` (unchanged signature, still exported from `format.ts` — Task 2 and later tasks don't depend on anything new from this task).
 
@@ -140,15 +142,19 @@ Expected: 3 passed.
 In `packages/vite/src/hooks/handle.ts`:
 
 Change the import (line 19) from:
+
 ```ts
 import { findingSignature, formatDevReport } from './format.js';
 ```
+
 to:
+
 ```ts
 import { findingSignature } from './format.js';
 ```
 
 Rename `analyzeAndWarn` to `analyzeAndIngest` and drop the report/console.warn lines. Replace:
+
 ```ts
 async function analyzeAndWarn(
   html: string,
@@ -190,7 +196,9 @@ async function analyzeAndWarn(
   }
 }
 ```
+
 with:
+
 ```ts
 async function analyzeAndIngest(
   html: string,
@@ -234,13 +242,16 @@ async function analyzeAndIngest(
 ```
 
 Update the `svelteVitalsHandle` doc comment (currently "prints SEO warnings for each visited page's rendered `<head>`, in dev only"). Replace:
+
 ```ts
 /**
  * SvelteKit `handle` that prints SEO warnings for each visited page's rendered `<head>`,
  * in dev only. Add it to `src/hooks.server.ts`, e.g. `sequence(svelteVitalsHandle())`.
  */
 ```
+
 with:
+
 ```ts
 /**
  * SvelteKit `handle` that analyzes each visited page's rendered `<head>`, in dev only,
@@ -251,6 +262,7 @@ with:
 ```
 
 Update the two remaining call sites of `analyzeAndWarn` inside `svelteVitalsHandle`'s `transformPageChunk` (the comment above it and the call itself). Replace:
+
 ```ts
         // Observe-only: return the chunk unchanged and never block the response on
         // analysis. We fire-and-forget on the final chunk; analyzeAndWarn swallows
@@ -258,7 +270,9 @@ Update the two remaining call sites of `analyzeAndWarn` inside `svelteVitalsHand
         if (done)
           void analyzeAndWarn(
 ```
+
 with:
+
 ```ts
         // Observe-only: return the chunk unchanged and never block the response on
         // analysis. We fire-and-forget on the final chunk; analyzeAndIngest swallows
@@ -504,6 +518,7 @@ supersedes that output."
 ### Task 2: Default the vite plugin's `ui` option to `true`
 
 **Files:**
+
 - Modify: `packages/vite/src/plugin.ts`
 - Modify: `packages/vite/test/ui-plugin.test.ts`
 - Modify: `packages/vite/test/plugin-options.test.ts`
@@ -511,6 +526,7 @@ supersedes that output."
 - Modify: `packages/vite/test/integration.test.ts`
 
 **Interfaces:**
+
 - Consumes: nothing new from Task 1.
 - Produces: `svelteVitals(options?: SvelteVitalsOptions): Plugin | Plugin[]` — same signature, but now returns `Plugin[]` (build + ui) whenever `options.ui !== false`, including when `options.ui` is omitted entirely. Every later task that calls `svelteVitals(...)` and expects a single build-only `Plugin` back must now pass `ui: false` explicitly.
 
@@ -519,27 +535,27 @@ supersedes that output."
 In `packages/vite/test/ui-plugin.test.ts`, replace the first test (currently named `'returns a single plugin when ui is not set (unchanged)'`) with two tests. Replace:
 
 ```ts
-  it('returns a single plugin when ui is not set (unchanged)', () => {
-    const p = svelteVitals({});
-    expect(Array.isArray(p)).toBe(false);
-    expect((p as Plugin).name).toBe('svelte-vitals');
-  });
+it('returns a single plugin when ui is not set (unchanged)', () => {
+  const p = svelteVitals({});
+  expect(Array.isArray(p)).toBe(false);
+  expect((p as Plugin).name).toBe('svelte-vitals');
+});
 ```
 
 with:
 
 ```ts
-  it('defaults ui to true: returns both plugins when ui is not set', () => {
-    const plugins = svelteVitals({}) as Plugin[];
-    expect(Array.isArray(plugins)).toBe(true);
-    expect(plugins.map((p) => p.name).sort()).toEqual(['svelte-vitals', 'svelte-vitals:ui']);
-  });
+it('defaults ui to true: returns both plugins when ui is not set', () => {
+  const plugins = svelteVitals({}) as Plugin[];
+  expect(Array.isArray(plugins)).toBe(true);
+  expect(plugins.map((p) => p.name).sort()).toEqual(['svelte-vitals', 'svelte-vitals:ui']);
+});
 
-  it('returns a single build-only plugin when ui: false is passed explicitly', () => {
-    const p = svelteVitals({ ui: false });
-    expect(Array.isArray(p)).toBe(false);
-    expect((p as Plugin).name).toBe('svelte-vitals');
-  });
+it('returns a single build-only plugin when ui: false is passed explicitly', () => {
+  const p = svelteVitals({ ui: false });
+  expect(Array.isArray(p)).toBe(false);
+  expect((p as Plugin).name).toBe('svelte-vitals');
+});
 ```
 
 - [ ] **Step 2: Run the test to verify it fails**
@@ -552,16 +568,16 @@ Expected: FAIL — `svelteVitals({})` currently returns a single `Plugin`, not a
 In `packages/vite/src/plugin.ts`, change:
 
 ```ts
-  if (!options.ui) return buildPlugin;
+if (!options.ui) return buildPlugin;
 ```
 
 to:
 
 ```ts
-  // `ui` defaults to true: the plugin's real dev-time value is the live dashboard
-  // (2026-07-12-retire-dev-overlay-design.md) — pass `ui: false` to keep only the
-  // build-time gate.
-  if (options.ui === false) return buildPlugin;
+// `ui` defaults to true: the plugin's real dev-time value is the live dashboard
+// (2026-07-12-retire-dev-overlay-design.md) — pass `ui: false` to keep only the
+// build-time gate.
+if (options.ui === false) return buildPlugin;
 ```
 
 Also update the `ui` option's JSDoc a few lines above, in the `SvelteVitalsOptions` interface. Change:
@@ -593,15 +609,18 @@ Expected: all tests in the file pass (the two new ones plus the pre-existing `ui
 Four call sites across three files construct `svelteVitals({...})` without `ui` and immediately cast `as Plugin`, then read `.closeBundle` off it — these break at runtime once the default returns an array. Add `ui: false` to each (these tests are about the build-time gate specifically; they don't want the dashboard's `configureServer` side effects at all).
 
 In `packages/vite/test/plugin-options.test.ts`, change all four occurrences:
+
 - `svelteVitals({ cwd, report: false, failOn: 'info', outFile: 'reports/seo.json' })` → `svelteVitals({ cwd, ui: false, report: false, failOn: 'info', outFile: 'reports/seo.json' })`
 - `svelteVitals({ cwd, report: 'json' })` → `svelteVitals({ cwd, ui: false, report: 'json' })`
 - `svelteVitals({ cwd: empty, failOn: 'critical' })` → `svelteVitals({ cwd: empty, ui: false, failOn: 'critical' })`
 - `svelteVitals({ cwd, report: false, failOn: 'info', outFile: abs })` → `svelteVitals({ cwd, ui: false, report: false, failOn: 'info', outFile: abs })`
 
 In `packages/vite/test/plugin-error.test.ts`, change:
+
 - `svelteVitals({ cwd, failOn: 'critical' })` → `svelteVitals({ cwd, ui: false, failOn: 'critical' })`
 
 In `packages/vite/test/integration.test.ts`, change all three occurrences:
+
 - `svelteVitals({ cwd })` → `svelteVitals({ cwd, ui: false })`
 - `svelteVitals({ cwd, report: false, failOn: 'critical' })` (both occurrences, one per test) → `svelteVitals({ cwd, ui: false, report: false, failOn: 'critical' })`
 
@@ -632,6 +651,7 @@ ui: false to keep only the build-time gate."
 ### Task 3: Rename the CLI installer's `vite-dev-overlay` target to `vite-hooks`
 
 **Files:**
+
 - Modify: `packages/cli/src/install/vite-targets.ts`
 - Modify: `packages/cli/src/install/index.ts`
 - Modify: `packages/cli/src/install/cli.ts`
@@ -640,6 +660,7 @@ ui: false to keep only the build-time gate."
 - Modify: `packages/cli/test/install/run.test.ts`
 
 **Interfaces:**
+
 - Consumes: nothing from Tasks 1-2.
 - Produces: `ViteTargetId = 'vite-plugin' | 'vite-hooks'` (was `'vite-dev-overlay'`). `VITE_TARGETS`, `viteTargetById`, `isViteTargetId` keep their existing signatures.
 
@@ -684,6 +705,7 @@ export function isViteTargetId(id: string): id is ViteTargetId {
 - [ ] **Step 2: Update `vite-targets.test.ts`**
 
 In `packages/cli/test/install/vite-targets.test.ts`, change:
+
 - `expect(VITE_TARGETS.map((t) => t.id).sort()).toEqual(['vite-dev-overlay', 'vite-plugin']);` → `expect(VITE_TARGETS.map((t) => t.id).sort()).toEqual(['vite-hooks', 'vite-plugin']);`
 - `expect(isViteTargetId('vite-dev-overlay')).toBe(true);` → `expect(isViteTargetId('vite-hooks')).toBe(true);`
 
@@ -715,25 +737,25 @@ function planForViteHooks(io: InstallIO): PlanRow {
 Update its call site — change:
 
 ```ts
-    rows.push(viteId === 'vite-plugin' ? planForVitePlugin(io) : planForDevOverlay(io));
+rows.push(viteId === 'vite-plugin' ? planForVitePlugin(io) : planForDevOverlay(io));
 ```
 
 to:
 
 ```ts
-    rows.push(viteId === 'vite-plugin' ? planForVitePlugin(io) : planForViteHooks(io));
+rows.push(viteId === 'vite-plugin' ? planForVitePlugin(io) : planForViteHooks(io));
 ```
 
 Update the no-TTY fallback message — change:
 
 ```ts
-      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-dev-overlay,claude-skill,cursor-rules> to install non-interactively.'
+'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-dev-overlay,claude-skill,cursor-rules> to install non-interactively.';
 ```
 
 to:
 
 ```ts
-      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules> to install non-interactively.'
+'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules> to install non-interactively.';
 ```
 
 - [ ] **Step 4: Update `cli.ts`'s help text**
@@ -764,41 +786,41 @@ to:
 In `packages/cli/test/install/args.test.ts`, change:
 
 ```ts
-  it('accepts vite-plugin and vite-dev-overlay in --client', () => {
-    const r = resolveInstallArgs(parse(['--client', 'vite-plugin,vite-dev-overlay']));
-    expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['vite-plugin', 'vite-dev-overlay']);
-  });
+it('accepts vite-plugin and vite-dev-overlay in --client', () => {
+  const r = resolveInstallArgs(parse(['--client', 'vite-plugin,vite-dev-overlay']));
+  expect(r.errors).toEqual([]);
+  expect(r.flags!.client).toEqual(['vite-plugin', 'vite-dev-overlay']);
+});
 ```
 
 to:
 
 ```ts
-  it('accepts vite-plugin and vite-hooks in --client', () => {
-    const r = resolveInstallArgs(parse(['--client', 'vite-plugin,vite-hooks']));
-    expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['vite-plugin', 'vite-hooks']);
-  });
+it('accepts vite-plugin and vite-hooks in --client', () => {
+  const r = resolveInstallArgs(parse(['--client', 'vite-plugin,vite-hooks']));
+  expect(r.errors).toEqual([]);
+  expect(r.flags!.client).toEqual(['vite-plugin', 'vite-hooks']);
+});
 ```
 
 In `packages/cli/test/install/run.test.ts`, change:
 
 ```ts
-  it('vite-dev-overlay: no hooks.server.ts → created', async () => {
-    const { io, writes } = fakeIO({ files: { '/proj/package.json': '{}' }, runCommand: () => 0 });
-    await runInstall({ client: ['vite-dev-overlay'], yes: true }, io, noPrompts);
-    expect(writes['/proj/src/hooks.server.ts']).toContain('svelteVitalsHandle');
-  });
+it('vite-dev-overlay: no hooks.server.ts → created', async () => {
+  const { io, writes } = fakeIO({ files: { '/proj/package.json': '{}' }, runCommand: () => 0 });
+  await runInstall({ client: ['vite-dev-overlay'], yes: true }, io, noPrompts);
+  expect(writes['/proj/src/hooks.server.ts']).toContain('svelteVitalsHandle');
+});
 ```
 
 to:
 
 ```ts
-  it('vite-hooks: no hooks.server.ts → created', async () => {
-    const { io, writes } = fakeIO({ files: { '/proj/package.json': '{}' }, runCommand: () => 0 });
-    await runInstall({ client: ['vite-hooks'], yes: true }, io, noPrompts);
-    expect(writes['/proj/src/hooks.server.ts']).toContain('svelteVitalsHandle');
-  });
+it('vite-hooks: no hooks.server.ts → created', async () => {
+  const { io, writes } = fakeIO({ files: { '/proj/package.json': '{}' }, runCommand: () => 0 });
+  await runInstall({ client: ['vite-hooks'], yes: true }, io, noPrompts);
+  expect(writes['/proj/src/hooks.server.ts']).toContain('svelteVitalsHandle');
+});
 ```
 
 - [ ] **Step 6: Run the CLI package's install tests**
@@ -827,6 +849,7 @@ shim for the old id (near-zero existing adoption)."
 ### Task 4: Rewrite the dev-overlay guide as the live-dashboard guide (en + ja)
 
 **Files:**
+
 - Create: `docs/src/content/docs/guides/dev-dashboard.md`
 - Create: `docs/src/content/docs/ja/guides/dev-dashboard.md`
 - Delete: `docs/src/content/docs/guides/dev-overlay.md`
@@ -838,7 +861,7 @@ shim for the old id (near-zero existing adoption)."
 
 Write `docs/src/content/docs/guides/dev-dashboard.md`:
 
-```md
+````md
 ---
 title: Live dashboard
 description: A live, filterable code-health dashboard during `vite dev` — enabled by default, no build step needed.
@@ -856,6 +879,7 @@ export default {
   plugins: [svelteVitals() /* , sveltekit() */]
 };
 ```
+````
 
 `vite dev` prints the dashboard's URL right after its own `Local:`/`Network:` lines every time the server starts, so you don't have to remember the `/__svelte-vitals/` path:
 
@@ -931,7 +955,8 @@ export default {
 The dashboard topbar shows `v<@svelte-vitals/vite version>` and, next to it, `core v<@svelte-vitals/core version>`. That second number is the one that matters when comparing findings against the CLI: `svelte-vitals` (CLI) and `@svelte-vitals/vite` are versioned independently, both wrapping the shared `@svelte-vitals/core` rule engine — so it's possible for the two to resolve to _different_ core versions even when both packages themselves look up to date, and a rule added in a newer core release will only show up on whichever surface actually depends on it.
 
 This is easy to hit without noticing through package-manager cooldown/pinning features — e.g. pnpm's [`minimumReleaseAge`](https://pnpm.io/settings#minimumreleaseage) can silently resolve a `pnpm dlx svelte-vitals@latest` run down to an older "mature" release (with an older core) than what `@svelte-vitals/vite` in your lockfile depends on. If the CLI and the dashboard disagree on findings for the same project, run `svelte-vitals --version` and compare its `(core X.Y.Z)` against the dashboard topbar's `core vX.Y.Z` — a mismatch there is the first thing to check before assuming a bug.
-```
+
+````
 
 - [ ] **Step 2: Create the Japanese guide**
 
@@ -954,7 +979,7 @@ import { svelteVitals } from '@svelte-vitals/vite';
 export default {
   plugins: [svelteVitals() /* , sveltekit() */]
 };
-```
+````
 
 `vite dev` はサーバー起動のたびに本来の `Local:`/`Network:` 表示の直後にダッシュボードのURLを出力するので、`/__svelte-vitals/` というパスを覚えておく必要はありません。
 
@@ -1030,13 +1055,14 @@ export default {
 ダッシュボードのトップバーには `v<@svelte-vitals/vite のバージョン>` と、その隣に `core v<@svelte-vitals/core のバージョン>` が表示されます。CLI と検出結果を比較するときに重要なのは後者の core バージョンです。`svelte-vitals`(CLI)と `@svelte-vitals/vite` はそれぞれ独立してバージョン管理されつつ、共有のルールエンジンである `@svelte-vitals/core` をラップしているだけなので、両方のパッケージ自体は最新に見えていても、実際には**異なる** core バージョンに解決されることがあります。その場合、新しい core リリースで追加されたルールは、実際にそのバージョンに依存している側にしか現れません。
 
 これはパッケージマネージャーのクールダウン/固定機能によって、気づかないうちに発生し得ます — 例えば pnpm の [`minimumReleaseAge`](https://pnpm.io/settings#minimumreleaseage) は、`pnpm dlx svelte-vitals@latest` の実行結果を、lockfile 上の `@svelte-vitals/vite` が依存している core より古い「成熟した」リリース(古い core を伴う)に静かに解決してしまうことがあります。同じプロジェクトで CLI とダッシュボードの検出結果が食い違う場合は、まず `svelte-vitals --version` を実行して `(core X.Y.Z)` の部分をダッシュボードのトップバーの `core vX.Y.Z` と比較してください — バグを疑う前に真っ先に確認すべき点です。
-```
+
+````
 
 - [ ] **Step 3: Delete the old guide files**
 
 ```bash
 git rm docs/src/content/docs/guides/dev-overlay.md docs/src/content/docs/ja/guides/dev-overlay.md
-```
+````
 
 - [ ] **Step 4: Verify the docs site builds**
 
@@ -1060,6 +1086,7 @@ role is now framed as improving its accuracy, not printing warnings."
 ### Task 5: Fix cross-links and the package-comparison table
 
 **Files:**
+
 - Modify: `docs/src/content/docs/guides/cli.md`
 - Modify: `docs/src/content/docs/ja/guides/cli.md`
 - Modify: `docs/src/content/docs/guides/plugin-mode.md`
@@ -1430,6 +1457,7 @@ old visited-routes-only, SEO/Performance-only behavior."
 ### Task 6: Changesets and final verification
 
 **Files:**
+
 - Create: `.changeset/retire-dev-overlay.md`
 
 **Interfaces:** None.

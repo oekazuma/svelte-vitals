@@ -34,7 +34,7 @@ fits the new shape, not preserved for migration.
    `true`.** Passing `ui: false` opts out (keeps only the build-time gate).
    This is the plugin's real dev-time value now — without it, `svelteVitals()`
    registers only the `apply: 'build'` plugin and does nothing during `vite
-   dev` (confirmed in `plugin.ts`: `if (!options.ui) return buildPlugin;`).
+dev` (confirmed in `plugin.ts`: `if (!options.ui) return buildPlugin;`).
 3. **CLI installer: rename the `vite-dev-overlay` target to `vite-hooks`**,
    with copy describing its real effect (dashboard accuracy, not terminal
    warnings). No back-compat shim for the old id — `--client vite-dev-overlay`
@@ -63,7 +63,7 @@ fits the new shape, not preserved for migration.
   check. `SvelteVitalsOptions.ui`'s JSDoc gains "Default: `true`."
 - **`packages/cli/src/install/vite-targets.ts`** — `id: 'vite-dev-overlay'`
   → `id: 'vite-hooks'`; `label: 'Dev overlay'` → `label: 'Live dashboard
-  accuracy'`; `hint` changes from "Live warnings in `vite dev` only — never
+accuracy'`; `hint` changes from "Live warnings in `vite dev` only — never
   fails a build or CI" to "Feeds real rendered results into the live
   dashboard as you browse — improves per-route accuracy, never fails a
   build."
