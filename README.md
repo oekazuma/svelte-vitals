@@ -12,7 +12,7 @@
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/npm/l/svelte-vitals" alt="MIT"></a>
 </p>
 
-<p align="center">A static code-health checker for SvelteKit — SEO, Performance, Correctness, Security, and Architecture, from source. No build, no browser. (Not a runtime Web Vitals reporter, despite the name.)</p>
+<p align="center">A static code-health checker for SvelteKit — SEO, Performance, Correctness, Security, and Architecture, from source. No browser or headless Chrome required. (Not a runtime Web Vitals reporter, despite the name.)</p>
 
 ```bash
 npx svelte-vitals@latest
@@ -41,7 +41,7 @@ Five categories — **SEO**, **Performance**, **Correctness**, **Security**, **A
 
 ## Packages
 
-Three packages — CLI, Vite plugin, MCP server — sharing one rule engine. → [Choosing a package](https://oekazuma.github.io/svelte-vitals/guides/choosing-a-package/)
+Three packages you'll use directly — CLI, Vite plugin, MCP server — all built on the shared `@svelte-vitals/core` rule engine. → [Choosing a package](https://oekazuma.github.io/svelte-vitals/guides/choosing-a-package/)
 
 ## Getting started
 
