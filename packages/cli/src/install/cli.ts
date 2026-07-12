@@ -16,10 +16,11 @@ Usage:
   svelte-vitals install [options]
 
 Options:
-  --client <ids>    Comma-separated: claude-code,cursor,codex,vite-plugin,vite-dev-overlay,claude-skill,cursor-rules
+  --client <ids>    Comma-separated: claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules
                     (skips the interactive picker)
-                    vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-dev-overlay
-                    wires up the dev-overlay hook in src/hooks.server.{ts,js}. --force does not apply
+                    vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-hooks
+                    wires up the svelteVitalsHandle hook in src/hooks.server.{ts,js}, which improves the
+                    live dashboard's per-route accuracy as you browse. --force does not apply
                     to either of these two — an existing registration is always left as-is.
                     claude-skill writes a Claude Code skill (.claude/skills/svelte-vitals/SKILL.md); cursor-rules
                     writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc). Both are generated from the

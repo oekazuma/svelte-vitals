@@ -46,10 +46,10 @@ describe('resolveInstallArgs', () => {
 });
 
 describe('resolveInstallArgs — Vite targets', () => {
-  it('accepts vite-plugin and vite-dev-overlay in --client', () => {
-    const r = resolveInstallArgs(parse(['--client', 'vite-plugin,vite-dev-overlay']));
+  it('accepts vite-plugin and vite-hooks in --client', () => {
+    const r = resolveInstallArgs(parse(['--client', 'vite-plugin,vite-hooks']));
     expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['vite-plugin', 'vite-dev-overlay']);
+    expect(r.flags!.client).toEqual(['vite-plugin', 'vite-hooks']);
   });
   it('mixes an MCP client id with a Vite target id', () => {
     const r = resolveInstallArgs(parse(['--client', 'claude-code,vite-plugin']));

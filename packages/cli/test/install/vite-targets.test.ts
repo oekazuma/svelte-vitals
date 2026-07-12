@@ -3,7 +3,7 @@ import { VITE_TARGETS, viteTargetById, isViteTargetId } from '../../src/install/
 
 describe('vite targets', () => {
   it('has both targets with distinct ids', () => {
-    expect(VITE_TARGETS.map((t) => t.id).sort()).toEqual(['vite-dev-overlay', 'vite-plugin']);
+    expect(VITE_TARGETS.map((t) => t.id).sort()).toEqual(['vite-hooks', 'vite-plugin']);
   });
   it('each target has a non-empty label and hint', () => {
     for (const t of VITE_TARGETS) {
@@ -19,7 +19,7 @@ describe('vite targets', () => {
   });
   it('isViteTargetId is true for both Vite target ids and false for an MCP client id', () => {
     expect(isViteTargetId('vite-plugin')).toBe(true);
-    expect(isViteTargetId('vite-dev-overlay')).toBe(true);
+    expect(isViteTargetId('vite-hooks')).toBe(true);
     expect(isViteTargetId('claude-code')).toBe(false);
   });
 });
