@@ -34,19 +34,22 @@ pnpm add -D svelte-vitals
 任意の SvelteKit プロジェクトのルートで実行してください：
 
 ```bash
-npx svelte-vitals@latest
+npx svelte-vitals@latest --verbose
 ```
 
 サブディレクトリを指定する場合：
 
 ```bash
-npx svelte-vitals@latest ./apps/web
+npx svelte-vitals@latest ./apps/web --verbose
 ```
 
-出力例：
+出力例(`--verbose` を付けると、件数だけでなく、パスした各項目を個別に表示):
 
 ```text
-Svelte Vitals  ·  SEO (static mode)
+Svelte Vitals  ·  static mode
+
+Health: 79/100
+SEO Score: 79/100   (route avg 96 · capped at 79: critical present)
 
 Critical (1)
 ────────────────────────
@@ -63,7 +66,7 @@ Passed (3)
 ↯ = set dynamically (verified at runtime).
 ```
 
-`↯` マーカーは値が動的に設定されていること（例：`<title>{data.title}</title>`）を意味します。動的なタイトルはパスします — 本当に欠けているか空のメタデータのみがフラグされます。
+`↯` マーカーは値が動的に設定されていること(例:`<title>{data.title}</title>`)を意味します。動的なタイトルはパスします — 本当に欠けているか空のメタデータのみがフラグされます。`--verbose` を付けない場合、`Passed` セクションは件数のみ(`Passed (3)`)に折りたたまれ、この脚注も表示されません — 画面上に説明対象の `↯` マーカーが無いためです。
 
 ## 終了コード
 

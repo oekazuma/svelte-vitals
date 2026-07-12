@@ -34,19 +34,22 @@ pnpm add -D svelte-vitals
 Run inside the root of any SvelteKit project:
 
 ```bash
-npx svelte-vitals@latest
+npx svelte-vitals@latest --verbose
 ```
 
 To target a sub-directory:
 
 ```bash
-npx svelte-vitals@latest ./apps/web
+npx svelte-vitals@latest ./apps/web --verbose
 ```
 
-Example output:
+Example output (`--verbose` shows every passed check individually rather than just a count):
 
 ```text
-Svelte Vitals  ·  SEO (static mode)
+Svelte Vitals  ·  static mode
+
+Health: 79/100
+SEO Score: 79/100   (route avg 96 · capped at 79: critical present)
 
 Critical (1)
 ────────────────────────
@@ -63,7 +66,7 @@ Passed (3)
 ↯ = set dynamically (verified at runtime).
 ```
 
-A `↯` marker means the value is set dynamically (e.g. `<title>{data.title}</title>`). Dynamic titles pass — only genuinely missing or empty metadata is flagged.
+A `↯` marker means the value is set dynamically (e.g. `<title>{data.title}</title>`). Dynamic titles pass — only genuinely missing or empty metadata is flagged. Without `--verbose`, the `Passed` section collapses to a bare count (`Passed (3)`) and this footnote is omitted, since there'd be no `↯` marker on screen for it to explain.
 
 ## Exit codes
 

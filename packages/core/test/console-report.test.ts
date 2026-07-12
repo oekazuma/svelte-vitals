@@ -261,6 +261,24 @@ describe('formatConsoleReport', () => {
     expect(out).toContain('✓ SEO003  Has <title>');
   });
 
+  it('omits the "↯ = set dynamically" footnote in compact mode, since the ↯ marker itself only prints under verbose:true', () => {
+    const dynamicPass: Result[] = [
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'own', value: 'dynamic' },
+        route: '/a',
+        message: '<title>'
+      }
+    ];
+    const compact = formatConsoleReport(dynamicPass, config);
+    expect(compact).not.toContain('↯');
+
+    const verbose = formatConsoleReport(dynamicPass, config, { verbose: true });
+    expect(verbose).toContain('↯ dynamic');
+    expect(verbose).toContain('↯ = set dynamically (verified at runtime).');
+  });
+
   it('omitHeader:true skips the brand/Health lines but still prints category score lines', () => {
     const out = formatConsoleReport(results, config, { omitHeader: true });
     expect(out).not.toContain('Svelte Vitals');
