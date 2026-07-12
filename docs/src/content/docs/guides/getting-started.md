@@ -34,16 +34,16 @@ pnpm add -D svelte-vitals
 Run inside the root of any SvelteKit project:
 
 ```bash
-npx svelte-vitals@latest
+npx svelte-vitals@latest --verbose
 ```
 
 To target a sub-directory:
 
 ```bash
-npx svelte-vitals@latest ./apps/web
+npx svelte-vitals@latest ./apps/web --verbose
 ```
 
-Example output (`--verbose`, to show every passed check individually rather than just a count):
+Example output (`--verbose` shows every passed check individually rather than just a count):
 
 ```text
 Svelte Vitals  ·  static mode
