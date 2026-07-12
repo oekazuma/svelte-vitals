@@ -54,10 +54,6 @@ npx svelte-vitals@latest apps/web     # 検出をスキップし、apps/web を�
 
 **自動選択：** 既知の AI エージェント環境（例：Claude Code が `CLAUDECODE` を設定）で実行された場合、`agent` レポーターが自動的に選択されます。GitHub Actions（`GITHUB_ACTIONS=true`）で実行された場合は `github` レポーターが自動選択されます。明示的な `--reporter` フラグは常に自動選択よりも優先されます。`SVELTE_VITALS_REPORTER` 環境変数でも上書きできます。
 
-### `--json`
-
-`--reporter=json` のエイリアスです。
-
 ### `--out-file <path>`
 
 `--reporter html` の出力先パス（既定 `svelte-vitals-report.html`、`-` で標準出力）。
@@ -73,10 +69,6 @@ npx svelte-vitals@latest apps/web     # 検出をスキップし、apps/web を�
 | `info`     | 任意の検出結果で失敗                   |
 
 デフォルト動作（`--fail-on` なし）：クリティカルな検出結果が存在する場合のみ終了コード `1`。
-
-### `--fail-on-warning`
-
-`--fail-on=warning` のエイリアスです。
 
 ### `--min-health <0-100>`
 
@@ -97,7 +89,7 @@ svelte-vitals --score
 svelte-vitals --score --min-health 80   # スコアでゲートする。終了コードは通常どおり pass/fail を反映
 ```
 
-`--score` を `--reporter`/`--json` と組み合わせてもエラーにはなりませんが、レポーター出力は抑制され、stderr に警告が表示されます。終了コードは `--score` の影響を受けず、`--fail-on` と `--min-health` を通常どおり反映します。
+`--score` を `--reporter` と組み合わせてもエラーにはなりませんが、レポーター出力は抑制され、stderr に警告が表示されます。終了コードは `--score` の影響を受けず、`--fail-on` と `--min-health` を通常どおり反映します。
 
 ### `--route <glob>`
 
