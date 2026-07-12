@@ -16,7 +16,7 @@ body{background:var(--ground);color:var(--ink);font-family:var(--sans);line-heig
 .dv-topbar{grid-area:top;border-bottom:1px solid var(--line);background:var(--panel)}
 .dv-topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 20px}
 .dv-brand{display:flex;align-items:center;background:none;border:none;padding:0;cursor:pointer;border-radius:6px}
-.dv-brand svg{height:22px;width:auto;display:block}
+.dv-brand svg{height:28px;width:auto;display:block}
 .dv-brand:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 .dv-meta{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}
 .dv-status{display:flex;align-items:center;gap:10px}
