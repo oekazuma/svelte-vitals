@@ -88,6 +88,8 @@ On top of that static baseline, browsing your app refines the picture: it is fed
 
 The sidebar's search box filters routes by path or by a finding's rule id/title/location; the sort control reorders it (worst score first by default). Selecting a route (or "Overview") updates the detail pane and is reflected in the URL hash, so a reload or a shared link returns to the same view. The topbar shows an "Analyzing…" indicator while a whole-project re-analysis is running, plus a dark-mode toggle — the preference is remembered per browser and otherwise follows your OS setting.
 
+"Overview" lists every finding across the whole project — every route plus the project's site-wide checks — in one place, and the severity/category chips filter that list directly. Each finding shows which route it came from; clicking it jumps straight to that route's detail pane.
+
 Live updates only flow over a loopback origin (`localhost`, `127.0.0.1`, `[::1]`). When you run `vite dev --host` and open the app via a LAN IP, the handle skips the ingest POST (a guard against a spoofed `Host` header), so visited routes won't refine to `measured` — open it from `localhost` instead. Set `SVELTE_VITALS_DEBUG=true` to log when an ingest is skipped.
 
 If the whole-project analysis fails (for example the dev server root is not a SvelteKit project), the failure is logged with `console.warn` and the dashboard falls back to live-only mode — showing just the routes you visit — without ever breaking the dev server.

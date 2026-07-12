@@ -73,6 +73,9 @@ body{background:var(--ground);color:var(--ink);font-family:var(--sans);line-heig
 .dv-sev-critical{color:var(--poor)}
 .dv-sev-warning{color:var(--warn)}
 .dv-sev-info{color:var(--faint)}
+.dv-f-route{display:block;font:inherit;font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--accent);background:none;border:none;padding:0;margin:8px 0 0;cursor:pointer;text-align:left}
+.dv-f-route:hover{text-decoration:underline}
+.dv-f-route:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .dv-f-loc{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin:8px 0 0}
 .dv-f-rec{font-size:14px;margin:10px 0 0}
 .dv-fix{margin:12px 0 0;background:var(--code-bg);border-radius:8px;overflow:hidden}
