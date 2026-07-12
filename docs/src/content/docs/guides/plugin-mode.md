@@ -55,6 +55,6 @@ Only **prerendered** routes are analyzed. For SSR or dynamic routes, use the `sv
 
 During `vite build`, after SvelteKit prerenders your pages, `@svelte-vitals/vite` locates the output HTML files, parses each page's `<head>`, and runs the full rule set. If any finding meets the `failOn` threshold, the build process exits with a non-zero code.
 
-## Dev overlay
+## Live dashboard
 
-At dev time, `@svelte-vitals/vite` also injects live warnings into the browser via `transformPageChunk`. See [Dev overlay](/svelte-vitals/guides/dev-overlay/) for details.
+At dev time, `@svelte-vitals/vite` also serves a live dashboard at `/__svelte-vitals/`, on by default. See [Live dashboard](/svelte-vitals/guides/dev-dashboard/) for details.

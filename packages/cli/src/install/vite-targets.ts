@@ -1,4 +1,4 @@
-export type ViteTargetId = 'vite-plugin' | 'vite-dev-overlay';
+export type ViteTargetId = 'vite-plugin' | 'vite-hooks';
 
 export interface ViteTarget {
   id: ViteTargetId;
@@ -14,9 +14,9 @@ export const VITE_TARGETS: ViteTarget[] = [
     hint: 'Fails `vite build` when prerendered pages cross the SEO/Performance threshold'
   },
   {
-    id: 'vite-dev-overlay',
-    label: 'Dev overlay',
-    hint: 'Live warnings in `vite dev` only — never fails a build or CI'
+    id: 'vite-hooks',
+    label: 'Live dashboard accuracy',
+    hint: 'Feeds real rendered results into the live dashboard as you browse — improves per-route accuracy, never fails a build'
   }
 ];
 

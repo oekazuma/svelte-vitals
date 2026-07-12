@@ -87,10 +87,10 @@ function planForVitePlugin(io: InstallIO): PlanRow {
   return { id: 'vite-plugin', label: viteTargetById('vite-plugin')!.label, path, ...result };
 }
 
-function planForDevOverlay(io: InstallIO): PlanRow {
+function planForViteHooks(io: InstallIO): PlanRow {
   const { path, content } = resolveCandidate(io, ['src/hooks.server.ts', 'src/hooks.server.js']);
   const result = codemodHooksServer(content);
-  return { id: 'vite-dev-overlay', label: viteTargetById('vite-dev-overlay')!.label, path, ...result };
+  return { id: 'vite-hooks', label: viteTargetById('vite-hooks')!.label, path, ...result };
 }
 
 /**
@@ -166,7 +166,7 @@ export async function runInstall(
     ids = picked;
   } else {
     io.errorLog(
-      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-dev-overlay,claude-skill,cursor-rules> to install non-interactively.'
+      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules> to install non-interactively.'
     );
     return 2;
   }
@@ -208,7 +208,7 @@ export async function runInstall(
     }
   }
   for (const viteId of viteIds) {
-    rows.push(viteId === 'vite-plugin' ? planForVitePlugin(io) : planForDevOverlay(io));
+    rows.push(viteId === 'vite-plugin' ? planForVitePlugin(io) : planForViteHooks(io));
   }
   for (const agentId of agentIds) {
     const target = agentTargetById(agentId)!;

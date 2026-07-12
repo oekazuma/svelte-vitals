@@ -16,7 +16,7 @@ import {
 } from '@svelte-vitals/core';
 import { parseHtmlHead } from '../providers/rendered/parse-html.js';
 import { isLoopbackOrigin } from '../loopback.js';
-import { findingSignature, formatDevReport } from './format.js';
+import { findingSignature } from './format.js';
 import type { SvelteVitalsHookOptions } from './options.js';
 
 async function postIngest(origin: string, route: string, results: Result[]): Promise<void> {
@@ -43,7 +43,7 @@ async function postIngest(origin: string, route: string, results: Result[]): Pro
   }
 }
 
-async function analyzeAndWarn(
+async function analyzeAndIngest(
   html: string,
   route: string,
   origin: string,
@@ -67,12 +67,12 @@ async function analyzeAndWarn(
       config
     );
 
+    // Skip a repeat POST (and the SSE churn it would cause) when a route re-renders
+    // with the exact same findings — e.g. an unrelated HMR pass.
     const signature = findingSignature(results, config);
     if (lastSignature.get(route) === signature) return;
     lastSignature.set(route, signature);
 
-    const report = formatDevReport(route, results, config);
-    if (report) console.warn(report);
     if (globalThis.process?.env?.SVELTE_VITALS_UI) void postIngest(origin, route, results);
   } catch (err) {
     // Dev tooling must never break the request: swallow any parse/rule error.
@@ -84,8 +84,10 @@ async function analyzeAndWarn(
 }
 
 /**
- * SvelteKit `handle` that prints SEO warnings for each visited page's rendered `<head>`,
- * in dev only. Add it to `src/hooks.server.ts`, e.g. `sequence(svelteVitalsHandle())`.
+ * SvelteKit `handle` that analyzes each visited page's rendered `<head>`, in dev only,
+ * and (when the live dashboard is enabled) feeds the results in — upgrading that
+ * route's dashboard findings from static (source-only) to `measured` (real rendered
+ * HTML). Add it to `src/hooks.server.ts`, e.g. `sequence(svelteVitalsHandle())`.
  */
 export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handle {
   // Dev-only. `DEV` (esm-env) resolves statically to `true` under the dev server and
@@ -110,10 +112,10 @@ export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handl
       transformPageChunk: ({ html, done }) => {
         buffer += html;
         // Observe-only: return the chunk unchanged and never block the response on
-        // analysis. We fire-and-forget on the final chunk; analyzeAndWarn swallows
+        // analysis. We fire-and-forget on the final chunk; analyzeAndIngest swallows
         // its own errors, so the floating promise can never reject.
         if (done)
-          void analyzeAndWarn(
+          void analyzeAndIngest(
             buffer,
             event.route.id ?? event.url.pathname,
             event.url.origin,

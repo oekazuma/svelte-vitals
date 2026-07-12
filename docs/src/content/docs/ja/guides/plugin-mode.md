@@ -55,6 +55,6 @@ export default {
 
 `vite build` 中、SvelteKit がページをプリレンダリングした後、`@svelte-vitals/vite` は出力された HTML ファイルを探して各ページの `<head>` を解析し、完全なルールセットを実行します。いずれかの検出結果が `failOn` の閾値に達すると、ビルドプロセスは非ゼロのコードで終了します。
 
-## 開発オーバーレイ
+## ライブダッシュボード
 
-開発時には、`@svelte-vitals/vite` は `transformPageChunk` を通じてブラウザにライブ警告を注入します。詳細は [開発オーバーレイ](/svelte-vitals/ja/guides/dev-overlay/) を参照してください。
+開発時には、`@svelte-vitals/vite` は `/__svelte-vitals/` でライブダッシュボードも配信します(デフォルトで有効)。詳細は [ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/) を参照してください。

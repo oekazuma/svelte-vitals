@@ -7,8 +7,14 @@ afterEach(() => {
 });
 
 describe('svelteVitals({ ui })', () => {
-  it('returns a single plugin when ui is not set (unchanged)', () => {
-    const p = svelteVitals({});
+  it('defaults ui to true: returns both plugins when ui is not set', () => {
+    const plugins = svelteVitals({}) as Plugin[];
+    expect(Array.isArray(plugins)).toBe(true);
+    expect(plugins.map((p) => p.name).sort()).toEqual(['svelte-vitals', 'svelte-vitals:ui']);
+  });
+
+  it('returns a single build-only plugin when ui: false is passed explicitly', () => {
+    const p = svelteVitals({ ui: false });
     expect(Array.isArray(p)).toBe(false);
     expect((p as Plugin).name).toBe('svelte-vitals');
   });

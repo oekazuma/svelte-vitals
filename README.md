@@ -105,7 +105,7 @@ Full guides live in the [documentation](https://oekazuma.github.io/svelte-vitals
 
 - **Multiple reporters** — `console`, `json`, `agent` (a Markdown remediation document an AI agent can act on directly), `sarif`, and `github`. The `agent` reporter auto-selects inside AI-agent harnesses (e.g. Claude Code); `github` auto-selects under GitHub Actions. → [Reporters](https://oekazuma.github.io/svelte-vitals/guides/reporters/)
 - **GitHub integration** — zero-config inline PR annotations, plus SARIF upload for persistent code-scanning alerts in the Security tab. → [Reporters](https://oekazuma.github.io/svelte-vitals/guides/reporters/)
-- **Dev overlay** — request-driven SEO/Performance feedback as you navigate in `dev`, checking each route's **rendered** `<head>` so dynamic routes are seen with real values. → [Dev overlay](https://oekazuma.github.io/svelte-vitals/guides/dev-overlay/)
+- **Live dashboard** — a searchable, filterable dashboard at `/__svelte-vitals/` during `vite dev`, on by default: whole-project coverage from startup, refined to real rendered values as you browse. → [Live dashboard](https://oekazuma.github.io/svelte-vitals/guides/dev-dashboard/)
 - **Plugin mode** (`@svelte-vitals/vite`) — build-time analysis of the prerendered `<head>`; library-agnostic and exact. → [Plugin mode](https://oekazuma.github.io/svelte-vitals/guides/plugin-mode/)
 - **MCP server** (`@svelte-vitals/mcp`) — `analyze` and `explain_rule` tools for an agent's tool loop. → [MCP server](https://oekazuma.github.io/svelte-vitals/guides/mcp/)
 - **Health Report** — a single weighted Health score over the present categories; gate CI with `--min-health`. → [Health Report](https://oekazuma.github.io/svelte-vitals/guides/health-report/)

@@ -49,7 +49,12 @@ export interface SvelteVitalsOptions {
   outFile?: string;
   /** Override the prerendered-pages directory (default: .svelte-kit/output/prerendered/pages). */
   prerenderDir?: string;
-  /** Serve a live dashboard at /__svelte-vitals/ during `vite dev` (requires svelteVitalsHandle in hooks.server.ts). */
+  /**
+   * Serve a live dashboard at /__svelte-vitals/ during `vite dev` (add
+   * svelteVitalsHandle to hooks.server.ts for accurate, per-route `measured` results
+   * as you browse — the dashboard still works without it, from whole-project static
+   * analysis alone). Default: `true`. Pass `false` to keep only the build-time gate.
+   */
   ui?: boolean;
 }
 
@@ -102,7 +107,10 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
     }
   };
 
-  if (!options.ui) return buildPlugin;
+  // `ui` defaults to true: the plugin's real dev-time value is the live dashboard
+  // (2026-07-12-retire-dev-overlay-design.md) — pass `ui: false` to keep only the
+  // build-time gate.
+  if (options.ui === false) return buildPlugin;
 
   const uiPlugin: Plugin = {
     name: 'svelte-vitals:ui',

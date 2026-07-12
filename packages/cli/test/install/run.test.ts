@@ -216,9 +216,9 @@ export default { plugins: [svelteVitals()] };
     expect(out.join('\n')).not.toContain('--force');
   });
 
-  it('vite-dev-overlay: no hooks.server.ts → created', async () => {
+  it('vite-hooks: no hooks.server.ts → created', async () => {
     const { io, writes } = fakeIO({ files: { '/proj/package.json': '{}' }, runCommand: () => 0 });
-    await runInstall({ client: ['vite-dev-overlay'], yes: true }, io, noPrompts);
+    await runInstall({ client: ['vite-hooks'], yes: true }, io, noPrompts);
     expect(writes['/proj/src/hooks.server.ts']).toContain('svelteVitalsHandle');
   });
 

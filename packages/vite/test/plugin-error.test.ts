@@ -35,7 +35,7 @@ describe('svelteVitals analysis failure', () => {
   });
 
   it('warns and skips the gate instead of failing the build when analysis throws', async () => {
-    const p = svelteVitals({ cwd, failOn: 'critical' }) as Plugin;
+    const p = svelteVitals({ cwd, ui: false, failOn: 'critical' }) as Plugin;
     await expect(closeBundleOf(p)()).resolves.toBeUndefined();
     expect(warnSpy).toHaveBeenCalledTimes(1);
     expect(warnSpy.mock.calls[0]![0]).toMatch(/analysis failed: boom/);
