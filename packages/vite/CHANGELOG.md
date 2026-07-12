@@ -1,5 +1,28 @@
 # @svelte-vitals/vite
 
+## 0.14.0
+
+### Minor Changes
+
+- 5d9f0d1: Live dashboard: `svelteVitals()`'s `ui` option now defaults to `true` — the dashboard at `/__svelte-vitals/` is on during `vite dev` unless you pass `ui: false`. `svelteVitalsHandle` no longer prints findings to the terminal (the dashboard supersedes that output); it still feeds the dashboard's per-route accuracy when enabled.
+
+  CLI: the `install` wizard's `vite-dev-overlay` target is renamed `vite-hooks`, with copy describing its real effect (dashboard accuracy) instead of terminal warnings.
+
+### Patch Changes
+
+- c2ee668: Live dashboard: the "Overview" pane now lists every finding across the whole project (all routes plus site-wide checks) instead of only site-wide checks, and the severity/category filter chips actually filter that list. Previously the chips rendered on Overview but had nothing to act on for most projects (no site-wide findings), which made them look broken. Each finding now shows its route, clickable to jump straight to that route's detail pane.
+- c2ee668: Live dashboard: replace the plain bolt-glyph brand mark with the same wordmark used on the docs site, for visual consistency.
+
+  CLI mascot: give the `happy`/`ecstatic` reaction faces a cleaner rounded-bracket smile (`╰──╯`/`╰───╯`) instead of a repeated `◡` arc, which read as a wavy scallop rather than one smile.
+
+- Updated dependencies [ca6d1af]
+- Updated dependencies [c2ee668]
+- Updated dependencies [7da8bb7]
+- Updated dependencies [085c622]
+- Updated dependencies [08aa27e]
+- Updated dependencies [5d9f0d1]
+  - svelte-vitals@0.24.0
+
 ## 0.13.1
 
 ### Patch Changes

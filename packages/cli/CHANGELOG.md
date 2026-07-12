@@ -1,5 +1,24 @@
 # svelte-vitals
 
+## 0.24.0
+
+### Minor Changes
+
+- ca6d1af: Add a small mascot to the CLI's interactive terminal output: it replaces the analysis spinner with an idle loop, then reacts to the Health-score reveal (a perfect 100 gets a confetti bonus). A minimal, single-color line-art face in Svelte's brand orange, shown on terminals 20+ columns wide. Disable with `--no-animation`, same as the existing score-reveal animation.
+- 085c622: Give the CLI's mascot a speech bubble: a random greeting line at startup, and a reaction line matching the Health-score band at the score reveal (on terminals wide enough for both, 55+ columns). Falls back to the mascot alone on narrower terminals, same as before. The Health-score reveal's pulse waveform is now colored in the same Svelte orange as the mascot — dim while counting, solid once the score settles.
+- 08aa27e: Remove the `--json` and `--fail-on-warning` CLI flags. Both were pure aliases for `--reporter=json` and `--fail-on=warning` respectively — use those instead. No deprecation period (pre-1.0).
+- 5d9f0d1: Live dashboard: `svelteVitals()`'s `ui` option now defaults to `true` — the dashboard at `/__svelte-vitals/` is on during `vite dev` unless you pass `ui: false`. `svelteVitalsHandle` no longer prints findings to the terminal (the dashboard supersedes that output); it still feeds the dashboard's per-route accuracy when enabled.
+
+  CLI: the `install` wizard's `vite-dev-overlay` target is renamed `vite-hooks`, with copy describing its real effect (dashboard accuracy) instead of terminal warnings.
+
+### Patch Changes
+
+- c2ee668: Live dashboard: replace the plain bolt-glyph brand mark with the same wordmark used on the docs site, for visual consistency.
+
+  CLI mascot: give the `happy`/`ecstatic` reaction faces a cleaner rounded-bracket smile (`╰──╯`/`╰───╯`) instead of a repeated `◡` arc, which read as a wavy scallop rather than one smile.
+
+- 7da8bb7: Fix `--no-color` and `--no-animation`, which silently had no effect regardless of whether they were passed — the CLI's argument parser (`mri`) auto-negates `--no-X` flags into `{X: false}`, not a `'no-X'` key, so the code reading `argv['no-color']`/`argv['no-animation']` was always reading `undefined`.
+
 ## 0.23.0
 
 ### Minor Changes
