@@ -144,7 +144,7 @@ export const DASHBOARD_SCRIPT = `
   }
 
   function brandEl() {
-    var el = h('div', { class: 'dv-brand' }, []);
+    var el = h('button', { type: 'button', class: 'dv-brand', 'aria-label': 'Go to Overview', onclick: function () { selectItem('overview'); } }, []);
     el.innerHTML = WORDMARK_SVG;
     return el;
   }
