@@ -42,8 +42,8 @@ import { correct004UnmutatedState } from './correctness/correct004-unmutated-sta
 import { correct005PropMutation } from './correctness/correct005-prop-mutation.js';
 import { sec001Html, sec002JavascriptUrl } from './security/sec001-002.js';
 import { arch001ComponentSize, arch002PropCount } from './architecture/arch001-002.js';
-import { perf009HeavyImport } from './performance/perf009-heavy-import.js';
-import { perf010NamespaceImport } from './performance/perf010-namespace-import.js';
+import { perf009HeavyImport } from './perf/perf009-heavy-import.js';
+import { perf010NamespaceImport } from './perf/perf010-namespace-import.js';
 
 export const allRules: Rule[] = [
   seo001Title,

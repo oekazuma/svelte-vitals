@@ -181,9 +181,7 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
   }
 
   let reporter: ReporterName | undefined;
-  if (argv.json) {
-    reporter = 'json';
-  } else if (typeof argv.reporter === 'string') {
+  if (typeof argv.reporter === 'string') {
     if (!isReporterName(argv.reporter)) {
       errors.push(
         `svelte-vitals: unknown reporter '${argv.reporter}'. Valid values: console, json, agent, sarif, github, html, md.`
@@ -200,13 +198,13 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
       `svelte-vitals: unknown --fail-on '${failOnRaw}'; expected critical|warning|info. No threshold applied.`
     );
   }
-  const failOn = argv['fail-on-warning'] ? 'warning' : failOnValid ? failOnRaw : undefined;
+  const failOn = failOnValid ? failOnRaw : undefined;
 
   const weights = parseWeights(argv.weights, errors);
   const categories = parseCategories(argv.category, errors);
 
   const score = Boolean(argv.score);
-  if (score && (argv.json || typeof argv.reporter === 'string')) {
+  if (score && typeof argv.reporter === 'string') {
     warnings.push('svelte-vitals: --score overrides --reporter; reporter output suppressed.');
   }
 

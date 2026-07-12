@@ -6,7 +6,7 @@ import { resolveArgs } from '../src/resolve-args.js';
 function resolve(...args: string[]) {
   const argv = mri(args, {
     alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'json', 'fail-on-warning', 'staged', 'score', 'verbose'],
+    boolean: ['by-route', 'staged', 'score', 'verbose'],
     string: [
       'meta-components',
       'treat-dynamic-as',
@@ -51,12 +51,6 @@ describe('resolveArgs', () => {
     expect(warnings[0]).toContain("unknown --fail-on 'warn'");
   });
 
-  it('lets --fail-on-warning override the threshold', () => {
-    const { options, warnings } = resolve('--fail-on-warning');
-    expect(options?.failOn).toBe('warning');
-    expect(warnings).toEqual([]);
-  });
-
   it('reports an unknown reporter as a fatal error (no options)', () => {
     const { options, errors } = resolve('--reporter', 'xml');
     expect(options).toBeNull();
@@ -74,11 +68,6 @@ describe('resolveArgs', () => {
     expect(options?.metaComponents).toEqual(['MetaTags', 'Seo']);
   });
 
-  it('maps --json to the json reporter', () => {
-    const { options } = resolve('--json');
-    expect(options?.reporter).toBe('json');
-  });
-
   it('maps --staged and --diff to changed-file options', () => {
     expect(resolve('--staged').options?.staged).toBe(true);
     expect(resolve('--diff').options?.diffBase).toBe('HEAD'); // bare --diff → default base
@@ -86,7 +75,7 @@ describe('resolveArgs', () => {
   });
 
   it('omits diffBase/staged when not passed', () => {
-    const { options } = resolve('--json');
+    const { options } = resolve('--reporter', 'json');
     expect(options?.diffBase).toBeUndefined();
     expect(options?.staged).toBeUndefined();
   });
@@ -104,7 +93,7 @@ describe('resolveArgs', () => {
   });
 
   it('leaves rules undefined when neither --rules nor --ignore is passed', () => {
-    const { options } = resolve('--json');
+    const { options } = resolve('--reporter', 'json');
     expect(options?.rules).toBeUndefined();
   });
 
@@ -115,7 +104,7 @@ describe('resolveArgs', () => {
   });
 
   it('omits weights when --weights is not passed', () => {
-    const { options } = resolve('--json');
+    const { options } = resolve('--reporter', 'json');
     expect(options?.weights).toBeUndefined();
   });
 
@@ -157,7 +146,7 @@ describe('resolveArgs', () => {
   });
 
   it('omits categories when --category is not passed', () => {
-    const { options } = resolve('--json');
+    const { options } = resolve('--reporter', 'json');
     expect(options?.categories).toBeUndefined();
   });
 
@@ -181,14 +170,8 @@ describe('resolveArgs', () => {
   });
 
   it('omits score when --score is not passed', () => {
-    const { options } = resolve('--json');
+    const { options } = resolve('--reporter', 'json');
     expect(options?.score).toBeUndefined();
-  });
-
-  it('warns when --score is combined with --json', () => {
-    const { options, warnings } = resolve('--score', '--json');
-    expect(options?.score).toBe(true);
-    expect(warnings.some((w) => w.includes('--score overrides --reporter'))).toBe(true);
   });
 
   it('warns when --score is combined with --reporter', () => {
@@ -204,7 +187,7 @@ describe('resolveArgs', () => {
   });
 
   it('sets explicitPath:false when no positional path is passed', () => {
-    const { options } = resolve('--json');
+    const { options } = resolve('--reporter', 'json');
     expect(options?.explicitPath).toBe(false);
   });
 

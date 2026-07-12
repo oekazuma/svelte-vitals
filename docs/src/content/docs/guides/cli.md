@@ -54,10 +54,6 @@ Accepted values: `console, json, agent, sarif, github, html, or md`
 
 **Auto-selection:** when run inside a known AI-agent environment (e.g. Claude Code sets `CLAUDECODE`), the `agent` reporter is selected automatically. When run inside GitHub Actions (`GITHUB_ACTIONS=true`), the `github` reporter is selected automatically. An explicit `--reporter` flag always overrides auto-selection. You can also override via the `SVELTE_VITALS_REPORTER` environment variable.
 
-### `--json`
-
-Alias for `--reporter=json`.
-
 ### `--out-file <path>`
 
 Output path for `--reporter html` (default `svelte-vitals-report.html`; `-` for stdout).
@@ -73,10 +69,6 @@ Exit with code `1` when any finding reaches the given severity threshold.
 | `info`     | Fail on any finding                  |
 
 Default behavior (no `--fail-on`): exit `1` only when critical findings are present.
-
-### `--fail-on-warning`
-
-Alias for `--fail-on=warning`.
 
 ### `--min-health <0-100>`
 
@@ -97,7 +89,7 @@ svelte-vitals --score
 svelte-vitals --score --min-health 80   # gate on the score; exit code still reflects pass/fail
 ```
 
-Combining `--score` with `--reporter`/`--json` is not an error, but the reporter output is suppressed and a warning is printed to stderr. The exit code is unaffected by `--score` — it still reflects `--fail-on` and `--min-health` as usual.
+Combining `--score` with `--reporter` is not an error, but the reporter output is suppressed and a warning is printed to stderr. The exit code is unaffected by `--score` — it still reflects `--fail-on` and `--min-health` as usual.
 
 ### `--route <glob>`
 

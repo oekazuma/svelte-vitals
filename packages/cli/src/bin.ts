@@ -24,9 +24,7 @@ Options:
   --by-route                  Show per-route score breakdown in console output
   --reporter <fmt>            console | json | agent | sarif | github | html | md (auto: agent under AI-agent envs, github under GitHub Actions)
   --out-file <path>           Output path for --reporter html (default: svelte-vitals-report.html; '-' for stdout)
-  --json                      Alias for --reporter=json
   --fail-on <severity>        Fail (exit 1) when any finding reaches this severity: critical | warning | info
-  --fail-on-warning           Alias for --fail-on=warning
   --min-health <0-100>        Fail (exit 1) when the combined Health score is below this value
   --rules <ids>               Comma-separated rule ids to enable (all others disabled)
   --ignore <ids>              Comma-separated rule ids to disable
@@ -72,7 +70,7 @@ async function main(): Promise<void> {
 
   const argv = mri(process.argv.slice(2), {
     alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'json', 'fail-on-warning', 'staged', 'score', 'verbose'],
+    boolean: ['by-route', 'staged', 'score', 'verbose'],
     string: [
       'meta-components',
       'treat-dynamic-as',

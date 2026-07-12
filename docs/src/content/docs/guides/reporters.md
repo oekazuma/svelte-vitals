@@ -23,8 +23,6 @@ Machine-readable JSON output. Useful for scripts, dashboards, or feeding results
 
 ```bash
 svelte-vitals --reporter json
-# or use the alias:
-svelte-vitals --json
 ```
 
 ### `agent`
@@ -102,6 +100,6 @@ By default it writes `svelte-vitals-report.html` in the current directory and pr
 ```yaml
 # .github/workflows/seo.yml
 - name: Check SEO
-  run: npx svelte-vitals@latest --fail-on-warning
+  run: npx svelte-vitals@latest --fail-on warning
   # GITHUB_ACTIONS is already set; github reporter is auto-selected
 ```
