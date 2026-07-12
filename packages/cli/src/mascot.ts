@@ -68,7 +68,10 @@ const FACE_CONTENT = ['╭──────────╮', '│  ●    ●  
 // third mouth "shape language" on top of the neutral/content one.
 const FACE_HAPPY = ['╭──────────╮', '│  ●    ●  │', '│   ╰──╯   │', '╰──────────╯'];
 
-const FACE_ECSTATIC = ['╭──────────╮', '│  ^    ^  │', '│  ╰───╯   │', '╰──────────╯'];
+// The 5-char mouth can't sit exactly on the eyes' center (2,7 → midpoint 4.5) the way
+// the 4-char happy mouth does — one column off either way. Centered right (cols 3-7)
+// reads correctly; centered left (cols 2-6, the original placement) read as skewed.
+const FACE_ECSTATIC = ['╭──────────╮', '│  ^    ^  │', '│   ╰───╯  │', '╰──────────╯'];
 
 const REACTION_FACES: Record<MascotState, readonly string[]> = {
   content: FACE_CONTENT,
