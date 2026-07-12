@@ -62,16 +62,18 @@ const FACE_WINK_ONE = ['╭──────────╮', '│  ●    <  �
 
 const FACE_CONTENT = ['╭──────────╮', '│  ●    ●  │', '│    ◡◡    │', '╰──────────╯'];
 
-// happy/ecstatic use a rounded bracket (╰──╯/╰───╯) rather than repeating ◡ — four or
-// five small arcs in a row read as a wavy scallop, not one smile. The bracket also
-// echoes the face's own rounded corners (╭╮╰╯), self-similar rather than introducing a
-// third mouth "shape language" on top of the neutral/content one.
+// happy/ecstatic use a rounded bracket (╰──╯) rather than repeating ◡ — four or five
+// small arcs in a row read as a wavy scallop, not one smile. The bracket also echoes
+// the face's own rounded corners (╭╮╰╯), self-similar rather than introducing a third
+// mouth "shape language" on top of the neutral/content one.
 const FACE_HAPPY = ['╭──────────╮', '│  ●    ●  │', '│   ╰──╯   │', '╰──────────╯'];
 
-// The 5-char mouth can't sit exactly on the eyes' center (2,7 → midpoint 4.5) the way
-// the 4-char happy mouth does — one column off either way. Centered right (cols 3-7)
-// reads correctly; centered left (cols 2-6, the original placement) read as skewed.
-const FACE_ECSTATIC = ['╭──────────╮', '│  ^    ^  │', '│   ╰───╯  │', '╰──────────╯'];
+// Same 4-char mouth as happy (cols 3-6, exactly centered on the eyes' 4.5 midpoint) —
+// a 5-char mouth was tried first but can only ever sit one column off-center either
+// way (its own span's center always lands on an integer, never the eyes' x.5
+// midpoint), which read as skewed regardless of which side it favored. Mood is
+// differentiated by the eyes alone here (^ vs ●), not mouth width.
+const FACE_ECSTATIC = ['╭──────────╮', '│  ^    ^  │', '│   ╰──╯   │', '╰──────────╯'];
 
 const REACTION_FACES: Record<MascotState, readonly string[]> = {
   content: FACE_CONTENT,
