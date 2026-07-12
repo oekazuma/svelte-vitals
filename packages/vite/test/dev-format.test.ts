@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatDevReport, findingSignature } from '../src/hooks/format.js';
+import { findingSignature } from '../src/hooks/format.js';
 import { defineConfig, type Result } from '@svelte-vitals/core';
 
 const config = defineConfig({});
@@ -30,20 +30,6 @@ const passing: Result[] = [
     message: '<title>'
   }
 ];
-
-describe('formatDevReport', () => {
-  it('lists only penalized findings, most-severe first, under a route header', () => {
-    const out = formatDevReport('/p', failing, config);
-    const lines = out.split('\n');
-    expect(lines[0]).toBe('[svelte-vitals] /p');
-    expect(lines[1]).toBe('  ✗ SEO001  Missing <title>');
-    expect(lines[2]).toBe('  ⚠ SEO003  Missing <link rel="canonical">');
-  });
-
-  it('returns an empty string for a clean route', () => {
-    expect(formatDevReport('/p', passing, config)).toBe('');
-  });
-});
 
 describe('findingSignature', () => {
   it('is stable regardless of input order', () => {

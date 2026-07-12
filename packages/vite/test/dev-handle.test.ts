@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import type { Handle } from '@sveltejs/kit';
+import { isPenalized, defineConfig, type Result } from '@svelte-vitals/core';
 import { svelteVitalsHandle } from '../src/hooks/index.js';
 
 // A minimal fake RequestEvent carrying only what the handle reads.
@@ -24,7 +25,7 @@ function resolveWith(chunks: string[]) {
 }
 
 // The handle analyzes fire-and-forget (it never blocks the response), so the
-// resulting console.warn lands a few microtasks after handle() resolves. One
+// resulting ingest POST lands a few microtasks after handle() resolves. One
 // macrotask tick drains that chain — analysis is purely in-memory, no real I/O.
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
@@ -48,50 +49,73 @@ const PAGE_TWO_H1 = PAGE_OK.replace('</body>', '<h1>Second heading</h1></body>')
 // threads rendered images into the rule context (image rules were CLI-only before).
 const PAGE_BAD_IMG = PAGE_OK.replace('</body>', '<img src="/photo.jpg"></body>');
 
-afterEach(() => vi.restoreAllMocks());
+const config = defineConfig({});
+
+// Ids of results that actually penalize the score — mirrors format.ts's own filter,
+// so these tests check the same "did this rule fail" question the dashboard cares
+// about, without depending on any internal (non-exported) helper.
+function penalizedIds(results: Result[]): string[] {
+  return results.filter((r) => isPenalized(r.detection, config.treatDynamicAs)).map((r) => r.id);
+}
+
+function setup() {
+  process.env.SVELTE_VITALS_UI = '1';
+  const fetchMock = vi.fn<(url: string | URL, init?: RequestInit) => Promise<Response>>(
+    async () => ({ ok: true }) as Response
+  );
+  vi.stubGlobal('fetch', fetchMock);
+  return fetchMock;
+}
+
+function sentResults(fetchMock: ReturnType<typeof setup>, callIndex = 0): Result[] {
+  const [, init] = fetchMock.mock.calls[callIndex]!;
+  return JSON.parse((init as RequestInit).body as string).results as Result[];
+}
+
+afterEach(() => {
+  vi.restoreAllMocks();
+  delete process.env.SVELTE_VITALS_UI;
+});
 
 describe('svelteVitalsHandle', () => {
-  it('warns about a missing <title> for the visited route', async () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+  it('reports a missing <title> for the visited route', async () => {
+    const fetchMock = setup();
     const handle = svelteVitalsHandle();
     await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
     await flush();
-    const out = warn.mock.calls.map((c) => String(c[0])).join('\n');
-    expect(out).toContain('[svelte-vitals] /none');
-    expect(out).toContain('✗ SEO001  Missing <title>');
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(penalizedIds(sentResults(fetchMock))).toContain('SEO001');
   });
 
-  it('prints nothing for a clean page', async () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+  it('reports no penalized findings for a clean page', async () => {
+    const fetchMock = setup();
     const handle = svelteVitalsHandle();
     await handle({ event: fakeEvent('/ok', '/ok'), resolve: resolveWith([PAGE_OK]) });
     await flush();
-    expect(warn).not.toHaveBeenCalled();
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(penalizedIds(sentResults(fetchMock))).toEqual([]);
   });
 
-  it('warns about multiple <h1> from the rendered body (SEO027)', async () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+  it('reports multiple <h1> from the rendered body (SEO027)', async () => {
+    const fetchMock = setup();
     const handle = svelteVitalsHandle();
     await handle({ event: fakeEvent('/two-h1', '/two-h1'), resolve: resolveWith([PAGE_TWO_H1]) });
     await flush();
-    const out = warn.mock.calls.map((c) => String(c[0])).join('\n');
-    expect(out).toContain('[svelte-vitals] /two-h1');
-    expect(out).toContain('SEO027');
+    expect(penalizedIds(sentResults(fetchMock))).toContain('SEO027');
   });
 
-  it('warns about a rendered <img> missing alt/dimensions (image rules in rendered mode)', async () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+  it('reports a rendered <img> missing alt/dimensions (image rules in rendered mode)', async () => {
+    const fetchMock = setup();
     const handle = svelteVitalsHandle();
     await handle({ event: fakeEvent('/img', '/img'), resolve: resolveWith([PAGE_BAD_IMG]) });
     await flush();
-    const out = warn.mock.calls.map((c) => String(c[0])).join('\n');
-    expect(out).toContain('[svelte-vitals] /img');
-    expect(out).toContain('SEO025'); // missing alt
-    expect(out).toContain('PERF001'); // missing width/height
+    const ids = penalizedIds(sentResults(fetchMock));
+    expect(ids).toContain('SEO025'); // missing alt
+    expect(ids).toContain('PERF001'); // missing width/height
   });
 
   it('returns each chunk unchanged', async () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    setup();
     const handle = svelteVitalsHandle();
     const res = (await handle({
       event: fakeEvent('/none', '/none'),
@@ -100,24 +124,24 @@ describe('svelteVitalsHandle', () => {
     expect(res.seen).toEqual(['<html><head>', '</head></html>']);
   });
 
-  it('dedups: the same findings on a repeat visit print only once', async () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+  it('dedups: the same findings on a repeat visit POST only once', async () => {
+    const fetchMock = setup();
     const handle = svelteVitalsHandle();
     await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
     await flush();
     await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
     await flush();
-    expect(warn).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
   // Outside dev (production builds, and non-Node/edge runtimes), esm-env resolves
   // `DEV` to false, so the handle short-circuits to a pass-through. Mocking esm-env
   // is the canonical way to exercise that branch — `DEV` is a static import, not a
   // runtime read of NODE_ENV, so toggling env vars wouldn't flip it.
-  it('is a pass-through when not in dev (no transformPageChunk, no output)', async () => {
+  it('is a pass-through when not in dev (no transformPageChunk, no ingest)', async () => {
     vi.resetModules();
     vi.doMock('esm-env', () => ({ DEV: false }));
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const fetchMock = setup();
     try {
       const { svelteVitalsHandle: prodHandle } = await import('../src/hooks/index.js');
       const handle = prodHandle();
@@ -126,7 +150,7 @@ describe('svelteVitalsHandle', () => {
         resolve: resolveWith([PAGE_NO_TITLE])
       })) as unknown as { transformed: boolean };
       expect(res.transformed).toBe(false);
-      expect(warn).not.toHaveBeenCalled();
+      expect(fetchMock).not.toHaveBeenCalled();
     } finally {
       vi.doUnmock('esm-env');
       vi.resetModules();
@@ -134,7 +158,7 @@ describe('svelteVitalsHandle', () => {
   });
 
   it('does not throw when the HTML is unparseable garbage', async () => {
-    vi.spyOn(console, 'warn').mockImplementation(() => {});
+    setup();
     const handle = svelteVitalsHandle();
     await expect(
       handle({ event: fakeEvent(null, '/x'), resolve: resolveWith(['not really <<< html']) })
@@ -142,15 +166,13 @@ describe('svelteVitalsHandle', () => {
   });
 
   it('honors per-rule overrides from options (rules)', async () => {
-    const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const fetchMock = setup();
     const handle = svelteVitalsHandle({ rules: { SEO001: 'off' } });
     await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
     await flush();
-    const out = warn.mock.calls.map((c) => String(c[0])).join('\n');
-    // The page still trips other rules, so the route is reported — but with SEO001
-    // disabled, the missing-title line is gone. Proves options flow into the config.
-    expect(out).toContain('[svelte-vitals] /none');
-    expect(out).not.toContain('SEO001');
+    // The page still trips other rules, so results are still sent — but with SEO001
+    // disabled, it's excluded from the penalized set. Proves options flow into the config.
+    expect(penalizedIds(sentResults(fetchMock))).not.toContain('SEO001');
   });
 
   it('surfaces swallowed analysis errors when SVELTE_VITALS_DEBUG is set', async () => {
