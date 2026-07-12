@@ -62,9 +62,13 @@ const FACE_WINK_ONE = ['╭──────────╮', '│  ●    <  �
 
 const FACE_CONTENT = ['╭──────────╮', '│  ●    ●  │', '│    ◡◡    │', '╰──────────╯'];
 
-const FACE_HAPPY = ['╭──────────╮', '│  ●    ●  │', '│   ◡◡◡◡   │', '╰──────────╯'];
+// happy/ecstatic use a rounded bracket (╰──╯/╰───╯) rather than repeating ◡ — four or
+// five small arcs in a row read as a wavy scallop, not one smile. The bracket also
+// echoes the face's own rounded corners (╭╮╰╯), self-similar rather than introducing a
+// third mouth "shape language" on top of the neutral/content one.
+const FACE_HAPPY = ['╭──────────╮', '│  ●    ●  │', '│   ╰──╯   │', '╰──────────╯'];
 
-const FACE_ECSTATIC = ['╭──────────╮', '│  ^    ^  │', '│  ◡◡◡◡◡   │', '╰──────────╯'];
+const FACE_ECSTATIC = ['╭──────────╮', '│  ^    ^  │', '│  ╰───╯   │', '╰──────────╯'];
 
 const REACTION_FACES: Record<MascotState, readonly string[]> = {
   content: FACE_CONTENT,

@@ -56,7 +56,7 @@ describe('playScoreAnimation', () => {
     const { writes, stream } = fakeStream();
     await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 }); // happy
     const allWrites = writes.join('');
-    expect(allWrites).toContain('   ◡◡◡◡   '); // happy's mouth row — distinct from content's/ecstatic's
+    expect(allWrites).toContain('   ╰──╯   '); // happy's mouth row — distinct from content's/ecstatic's
   });
 
   it('plays a confetti bonus after a perfect 100, but not for any other score', async () => {

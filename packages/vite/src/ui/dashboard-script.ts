@@ -12,6 +12,12 @@ export const DASHBOARD_SCRIPT = `
   var BAND_COLOR = { good: '#2fa968', warn: '#e8a317', poor: '#e5484d' };
   function scoreBand(score) { return score >= 90 ? 'good' : score >= 50 ? 'warn' : 'poor'; }
 
+  // Same mark as the docs site's hero wordmark (docs/public/wordmark.svg) — an inline
+  // copy, not an <img src>, since the dashboard is a single self-contained HTML response
+  // with no other static assets to serve alongside it. Fixed brand colors (not CSS custom
+  // properties), matching the docs usage: the wordmark reads the same in both themes.
+  var WORDMARK_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 56" role="img" aria-labelledby="dv-wordmark-title"><title id="dv-wordmark-title">svelte-vitals</title><defs><clipPath id="dv-wordmark-clip"><rect x="2" y="2" width="52" height="52" rx="14"/></clipPath></defs><rect x="2" y="2" width="52" height="52" rx="14" fill="#FF3E00"/><polyline clip-path="url(#dv-wordmark-clip)" points="4,28 15,28 17.5,23.5 20,28 23,28 26,7 29,49 32,28 35,28 37,24.5 39.5,28 52,28" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="70" y="38" font-family="ui-sans-serif, system-ui, -apple-system, \\'Segoe UI\\', Roboto, sans-serif" font-size="30" font-weight="700" fill="#FF3E00">svelte-vitals</text></svg>';
+
   function h(tag, attrs, kids) {
     var n = document.createElement(tag);
     if (attrs) {
@@ -137,12 +143,18 @@ export const DASHBOARD_SCRIPT = `
     if (sb) sb.classList.toggle('open');
   }
 
+  function brandEl() {
+    var el = h('button', { type: 'button', class: 'dv-brand', 'aria-label': 'Go to Overview', onclick: function () { selectItem('overview'); } }, []);
+    el.innerHTML = WORDMARK_SVG;
+    return el;
+  }
+
   function renderTopbar() {
     var s = state.snapshot;
     var findings = s.report.routes.reduce(function (n, r) { return n + r.issues.length; }, 0) + s.report.siteIssues.length;
     var kids = [
       h('button', { type: 'button', class: 'dv-menu-toggle', 'aria-label': 'Toggle route list', onclick: toggleSidebar, text: '≡' }, []),
-      h('div', { class: 'dv-brand' }, [h('span', { class: 'bolt', text: '↯' }, []), document.createTextNode('svelte-vitals')]),
+      brandEl(),
       h('div', { class: 'dv-meta' }, [
         h('span', { text: 'v' + s.meta.version }, []),
         s.meta.coreVersion ? h('span', { title: '@svelte-vitals/core version', text: 'core v' + s.meta.coreVersion }, []) : null,
@@ -286,7 +298,9 @@ export const DASHBOARD_SCRIPT = `
     return f === 'all' || issue.severity === f || issue.category === f;
   }
 
-  function renderFinding(issue) {
+  var SEVERITY_ORDER = { critical: 0, warning: 1, info: 2 };
+
+  function renderFinding(issue, route) {
     var kids = [
       h('div', { class: 'dv-f-head' }, [
         h('span', { class: 'dv-ruleid', text: issue.id }, []),
@@ -294,6 +308,9 @@ export const DASHBOARD_SCRIPT = `
         h('span', { class: 'dv-sev-tag dv-sev-' + issue.severity, text: issue.severity }, [])
       ])
     ];
+    if (route) {
+      kids.push(h('button', { type: 'button', class: 'dv-f-route', onclick: function () { selectItem(route); }, text: route }, []));
+    }
     if (issue.location) {
       kids.push(h('p', { class: 'dv-f-loc', text: issue.location + (issue.line !== undefined ? ':' + issue.line : '') }, []));
     }
@@ -350,11 +367,23 @@ export const DASHBOARD_SCRIPT = `
       ]);
     });
     var chips = renderFilterChips(s.report.categories);
-    var siteFindings = s.report.siteIssues.filter(passesFilter);
-    var siteChecks = s.report.siteIssues.length
-      ? h('section', { class: 'dv-section' }, [h('h2', { text: 'Site checks' }, [])].concat(siteFindings.map(renderFinding)))
-      : null;
-    return h('div', { class: 'dv-overview' }, [gauge, h('div', { class: 'dv-cats' }, cats), chips, siteChecks].filter(Boolean));
+    var totalCount = s.report.routes.reduce(function (n, r) { return n + r.issues.length; }, 0) + s.report.siteIssues.length;
+    var entries = [];
+    s.report.routes.forEach(function (r) {
+      r.issues.forEach(function (issue) { entries.push({ issue: issue, route: r.route }); });
+    });
+    s.report.siteIssues.forEach(function (issue) { entries.push({ issue: issue, route: null }); });
+    entries = entries.filter(function (e) { return passesFilter(e.issue); });
+    entries.sort(function (a, b) {
+      var sd = SEVERITY_ORDER[a.issue.severity] - SEVERITY_ORDER[b.issue.severity];
+      if (sd !== 0) return sd;
+      return (a.route || '').localeCompare(b.route || '');
+    });
+    var body = entries.length
+      ? entries.map(function (e) { return renderFinding(e.issue, e.route); })
+      : [h('p', { class: 'dv-empty', text: totalCount ? 'No issues match the current filter.' : 'No issues found — nice work!' }, [])];
+    var findings = h('section', { class: 'dv-section' }, [h('h2', { text: 'Findings' }, [])].concat(body));
+    return h('div', { class: 'dv-overview' }, [gauge, h('div', { class: 'dv-cats' }, cats), chips, findings].filter(Boolean));
   }
 
   function renderRouteDetail(route) {
@@ -367,7 +396,9 @@ export const DASHBOARD_SCRIPT = `
     ].filter(Boolean));
     var chips = renderFilterChips(state.snapshot.report.categories);
     var findings = route.issues.filter(passesFilter);
-    var body = findings.length ? findings.map(renderFinding) : [h('p', { class: 'dv-empty', text: 'No issues match the current filter.' }, [])];
+    var body = findings.length
+      ? findings.map(function (issue) { return renderFinding(issue); })
+      : [h('p', { class: 'dv-empty', text: 'No issues match the current filter.' }, [])];
     return h('div', { class: 'dv-route-detail' }, [header, chips].concat(body));
   }
 
