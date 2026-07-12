@@ -25,7 +25,7 @@ function addImports(mod: ReturnType<typeof parseModule>): void {
 }
 
 /**
- * Register the svelte-vitals dev-overlay handle in a hooks.server source.
+ * Register the svelte-vitals `svelteVitalsHandle` hook in a hooks.server source.
  * Returns 'manual' (no content) when the existing `handle` export's shape
  * isn't one of: absent, `sequence(...)`, or a single handle expression.
  */
