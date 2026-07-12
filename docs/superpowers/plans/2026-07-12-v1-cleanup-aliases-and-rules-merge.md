@@ -22,6 +22,7 @@
 ### Task 1: Remove the `--json` and `--fail-on-warning` CLI aliases
 
 **Files:**
+
 - Modify: `packages/cli/src/resolve-args.ts`
 - Modify: `packages/cli/src/bin.ts`
 - Modify: `packages/cli/test/resolve-args.test.ts`
@@ -38,33 +39,30 @@
 In `packages/cli/test/resolve-args.test.ts`, delete this test (currently lines 54-58):
 
 ```ts
-  it('lets --fail-on-warning override the threshold', () => {
-    const { options, warnings } = resolve('--fail-on-warning');
-    expect(options?.failOn).toBe('warning');
-    expect(warnings).toEqual([]);
-  });
-
+it('lets --fail-on-warning override the threshold', () => {
+  const { options, warnings } = resolve('--fail-on-warning');
+  expect(options?.failOn).toBe('warning');
+  expect(warnings).toEqual([]);
+});
 ```
 
 Delete this test (currently lines 77-80):
 
 ```ts
-  it('maps --json to the json reporter', () => {
-    const { options } = resolve('--json');
-    expect(options?.reporter).toBe('json');
-  });
-
+it('maps --json to the json reporter', () => {
+  const { options } = resolve('--json');
+  expect(options?.reporter).toBe('json');
+});
 ```
 
 Delete this test (currently lines 188-192) — it duplicates coverage already provided by the adjacent `'warns when --score is combined with --reporter'` test, which exercises the same `score && reporter-is-set` code path via `--reporter md`:
 
 ```ts
-  it('warns when --score is combined with --json', () => {
-    const { options, warnings } = resolve('--score', '--json');
-    expect(options?.score).toBe(true);
-    expect(warnings.some((w) => w.includes('--score overrides --reporter'))).toBe(true);
-  });
-
+it('warns when --score is combined with --json', () => {
+  const { options, warnings } = resolve('--score', '--json');
+  expect(options?.score).toBe(true);
+  expect(warnings.some((w) => w.includes('--score overrides --reporter'))).toBe(true);
+});
 ```
 
 - [ ] **Step 2: Replace the remaining `resolve('--json')` calls (used only as a convenience to get a non-null, resolved `options` object) with `resolve('--reporter', 'json')`**
@@ -72,13 +70,13 @@ Delete this test (currently lines 188-192) — it duplicates coverage already pr
 In `packages/cli/test/resolve-args.test.ts`, there are 6 remaining call sites using `resolve('--json')` where the test doesn't care about the alias itself, only about getting valid resolved options. Replace each occurrence of:
 
 ```ts
-    const { options } = resolve('--json');
+const { options } = resolve('--json');
 ```
 
 with:
 
 ```ts
-    const { options } = resolve('--reporter', 'json');
+const { options } = resolve('--reporter', 'json');
 ```
 
 This appears in these tests (by their `it(...)` description, so you can find each one): `'omits diffBase/staged when not passed'`, `'leaves rules undefined when neither --rules nor --ignore is passed'`, `'omits weights when --weights is not passed'`, `'omits categories when --category is not passed'`, `'omits score when --score is not passed'`, `'sets explicitPath:false when no positional path is passed'`. All six have the exact same one-line body change — do all six.
@@ -123,31 +121,31 @@ to:
 Change:
 
 ```ts
-  const failOn = argv['fail-on-warning'] ? 'warning' : failOnValid ? failOnRaw : undefined;
+const failOn = argv['fail-on-warning'] ? 'warning' : failOnValid ? failOnRaw : undefined;
 ```
 
 to:
 
 ```ts
-  const failOn = failOnValid ? failOnRaw : undefined;
+const failOn = failOnValid ? failOnRaw : undefined;
 ```
 
 Change:
 
 ```ts
-  const score = Boolean(argv.score);
-  if (score && (argv.json || typeof argv.reporter === 'string')) {
-    warnings.push('svelte-vitals: --score overrides --reporter; reporter output suppressed.');
-  }
+const score = Boolean(argv.score);
+if (score && (argv.json || typeof argv.reporter === 'string')) {
+  warnings.push('svelte-vitals: --score overrides --reporter; reporter output suppressed.');
+}
 ```
 
 to:
 
 ```ts
-  const score = Boolean(argv.score);
-  if (score && typeof argv.reporter === 'string') {
-    warnings.push('svelte-vitals: --score overrides --reporter; reporter output suppressed.');
-  }
+const score = Boolean(argv.score);
+if (score && typeof argv.reporter === 'string') {
+  warnings.push('svelte-vitals: --score overrides --reporter; reporter output suppressed.');
+}
 ```
 
 - [ ] **Step 6: Update `bin.ts`'s help text and mri config**
@@ -194,7 +192,6 @@ In `docs/src/content/docs/guides/cli.md`, delete this section (including its bla
 ### `--json`
 
 Alias for `--reporter=json`.
-
 ```
 
 Delete this section (currently right after the `--fail-on` value table and its "Default behavior" line, before `### --min-health <0-100>`):
@@ -203,7 +200,6 @@ Delete this section (currently right after the `--fail-on` value table and its "
 ### `--fail-on-warning`
 
 Alias for `--fail-on=warning`.
-
 ```
 
 Change:
@@ -220,21 +216,24 @@ Combining `--score` with `--reporter` is not an error, but the reporter output i
 
 In `docs/src/content/docs/guides/reporters.md`, change:
 
-```md
+````md
 ```bash
 svelte-vitals --reporter json
 # or use the alias:
 svelte-vitals --json
 ```
-```
+````
+
+````
 
 to:
 
 ```md
 ```bash
 svelte-vitals --reporter json
-```
-```
+````
+
+````
 
 Change:
 
@@ -242,7 +241,7 @@ Change:
 - name: Check SEO
   run: npx svelte-vitals@latest --fail-on-warning
   # GITHUB_ACTIONS is already set; github reporter is auto-selected
-```
+````
 
 to:
 
@@ -260,7 +259,6 @@ In `docs/src/content/docs/ja/guides/cli.md`, delete this section (right after th
 ### `--json`
 
 `--reporter=json` のエイリアスです。
-
 ```
 
 Delete this section (right after the `--fail-on` value table and its "デフォルト動作" line, before `### --min-health <0-100>`):
@@ -269,7 +267,6 @@ Delete this section (right after the `--fail-on` value table and its "デフォ�
 ### `--fail-on-warning`
 
 `--fail-on=warning` のエイリアスです。
-
 ```
 
 Change:
@@ -286,21 +283,24 @@ to:
 
 In `docs/src/content/docs/ja/guides/reporters.md`, change:
 
-```md
+````md
 ```bash
 svelte-vitals --reporter json
 # またはエイリアスを使用：
 svelte-vitals --json
 ```
-```
+````
+
+````
 
 to:
 
 ```md
 ```bash
 svelte-vitals --reporter json
-```
-```
+````
+
+````
 
 Change:
 
@@ -308,7 +308,7 @@ Change:
 - name: Check SEO
   run: npx svelte-vitals@latest --fail-on-warning
   # GITHUB_ACTIONS はすでに設定済み；github レポーターが自動選択される
-```
+````
 
 to:
 
@@ -362,6 +362,7 @@ period, per the v1.0 cleanup design."
 ### Task 2: Merge `rules/performance/` into `rules/perf/`
 
 **Files:**
+
 - Move: `packages/core/src/rules/performance/perf009-heavy-import.ts` → `packages/core/src/rules/perf/perf009-heavy-import.ts`
 - Move: `packages/core/src/rules/performance/perf010-namespace-import.ts` → `packages/core/src/rules/perf/perf010-namespace-import.ts`
 - Modify: `packages/core/src/rules/index.ts`
