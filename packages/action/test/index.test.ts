@@ -27,8 +27,8 @@ const h = vi.hoisted(() => {
   };
 
   const listComments = vi.fn(async () => ({ data: [] as { id: number; body: string | null }[] }));
-  const updateComment = vi.fn(async (_params: Record<string, unknown>) => ({}));
-  const createComment = vi.fn(async (_params: Record<string, unknown>) => ({}));
+  const updateComment = vi.fn<(params: Record<string, unknown>) => Promise<Record<string, unknown>>>(async () => ({}));
+  const createComment = vi.fn<(params: Record<string, unknown>) => Promise<Record<string, unknown>>>(async () => ({}));
   const getOctokit = vi.fn(() => ({
     rest: {
       issues: { listComments, updateComment, createComment }
