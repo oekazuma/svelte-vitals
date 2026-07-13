@@ -21,9 +21,10 @@ export function findingKey(r: Pick<Result, 'id' | 'route' | 'location'>): string
 }
 
 /**
- * `ref` 時点のプロジェクトを一時 git worktree に展開し、そのパス(解析すべき cwd)を返す。
- * 返り値 undefined = git が答えられない(repo 外 / ref 不在 / git 不在)。
- * 呼び出し側は必ず cleanup コールバックを finally で呼ぶこと。
+ * Expands the project as of `ref` into a temporary git worktree and returns its path
+ * (the cwd to analyze). Returns undefined when git can't answer — outside a repo, the
+ * ref doesn't exist, or git isn't installed. Callers must always invoke the cleanup
+ * callback in a `finally` block.
  */
 export function checkoutBaseline(cwd: string, ref: string): { analyzeCwd: string; cleanup: () => void } | undefined {
   let tmp: string | undefined;
@@ -69,7 +70,7 @@ export function checkoutBaseline(cwd: string, ref: string): { analyzeCwd: string
   }
 }
 
-/** 現在の results から、baseline に存在した finding(同一キー)を取り除く。 */
+/** Removes findings from the current `results` that already existed in the baseline (same key). */
 export function filterToNewFindings(results: Result[], baselineResults: Result[]): Result[] {
   const baselineKeys = new Set(baselineResults.map(findingKey));
   return results.filter((r) => !baselineKeys.has(findingKey(r)));

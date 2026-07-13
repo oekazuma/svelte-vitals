@@ -50,7 +50,8 @@ const FACE_OPEN_EYES_NEUTRAL_MOUTH = ['╭──────────╮', '�
 const FACE_CLOSED_EYES_NEUTRAL_MOUTH = ['╭──────────╮', '│  ─    ─  │', '│    ──    │', '╰──────────╯'];
 
 // Idle-loop personality flourishes, alongside the blink above. `>`/`<` (not the
-// full-width `＞`/`＜`/`・` originally proposed) — those are East Asian Width
+// full-width FULLWIDTH GREATER-THAN SIGN / FULLWIDTH LESS-THAN SIGN / KATAKANA
+// MIDDLE DOT originally proposed) — those are East Asian Width
 // Fullwidth/Wide, always 2 columns, which would break the fixed 1-column-per-eye
 // layout the same way the pulse-wave heart glyph almost did (see pulse-animation.ts's
 // WAVE_FRAMES doc comment). The one-eye wink reuses `●` for the open eye (not a
