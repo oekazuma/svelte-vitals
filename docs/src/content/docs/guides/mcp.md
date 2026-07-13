@@ -22,6 +22,9 @@ Run static-mode analysis on a SvelteKit project.
 | `path`           | `string?`                            | Path to the SvelteKit project (defaults to cwd)                                                                                                |
 | `metaComponents` | `string[]?`                          | Component names that emit head metadata                                                                                                        |
 | `route`          | `string?`                            | Only analyze routes matching this glob                                                                                                         |
+| `diff`           | `string?`                            | Scope findings to files changed vs this git ref (e.g. `"origin/main"`); mirrors the CLI `--diff` flag                                          |
+| `baseline`       | `string?`                            | Report only findings not already present at this git ref (e.g. `"origin/main"`); mirrors the CLI `--baseline` flag                             |
+| `noSuppressions` | `boolean?`                           | Ignore `svelte-vitals-suppressions.json` for this call; mirrors the CLI `--no-suppressions` flag                                               |
 | `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'?`        | How to handle dynamic metadata values                                                                                                          |
 | `rules`          | `string[]?`                          | Rule IDs to enable (all others disabled)                                                                                                       |
 | `ignore`         | `string[]?`                          | Rule IDs to disable                                                                                                                            |
