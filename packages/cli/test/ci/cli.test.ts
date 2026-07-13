@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { runCiCli } from '../../src/ci/cli.js';
-import { WORKFLOW_PATH } from '../../src/ci/workflow.js';
+import { WORKFLOW_PATH, buildWorkflowYaml } from '../../src/ci/workflow.js';
+import { ACTION_SHA, ACTION_VERSION } from '../../src/ci/action-pin.generated.js';
 import type { InstallIO } from '../../src/install/index.js';
 
 function fakeIO(over: { files?: Record<string, string>; failWritePath?: string } = {}): {
@@ -90,6 +91,63 @@ describe('runCiCli', () => {
   it('returns exit 2 and logs an error when writing fails', async () => {
     const { io, err } = fakeIO({ failWritePath: PATH });
     expect(await runCiCli(['install'], io)).toBe(2);
+    expect(err.join('\n')).toContain('failed to write');
+  });
+});
+
+describe('runCiCli upgrade', () => {
+  const OLD_SHA = '1'.repeat(40);
+  const oldWorkflow = buildWorkflowYaml({ actionSha: OLD_SHA, actionVersion: '0.1.0' });
+
+  it('with no workflow file, exits 2 with an install hint', async () => {
+    const { io, err } = fakeIO();
+    expect(await runCiCli(['upgrade'], io)).toBe(2);
+    expect(err.join('\n')).toContain('run `svelte-vitals ci install` first');
+  });
+
+  it('with a workflow that has no action reference, exits 2', async () => {
+    const { io, err } = fakeIO({ files: { [PATH]: 'name: no-action-here\n' } });
+    expect(await runCiCli(['upgrade'], io)).toBe(2);
+    expect(err.join('\n')).toContain('no @svelte-vitals/action reference found');
+  });
+
+  it('when already pinned to the current sha, reports up to date and writes nothing', async () => {
+    const current = buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION });
+    const { io, writes, out } = fakeIO({ files: { [PATH]: current } });
+    expect(await runCiCli(['upgrade'], io)).toBe(0);
+    expect(writes).toEqual({});
+    expect(out.join('\n')).toContain('already up to date');
+  });
+
+  it('upgrades a stale pin, rewriting only the action line', async () => {
+    const { io, writes, out } = fakeIO({ files: { [PATH]: oldWorkflow } });
+    expect(await runCiCli(['upgrade'], io)).toBe(0);
+    expect(writes[PATH]).toContain(
+      `uses: oekazuma/svelte-vitals/packages/action@${ACTION_SHA} # @svelte-vitals/action@${ACTION_VERSION}`
+    );
+    // The other pinned action (actions/checkout) is untouched.
+    expect(writes[PATH]).toContain('uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0');
+    expect(out.join('\n')).toContain('upgraded @svelte-vitals/action');
+  });
+
+  it('--dry-run previews the upgrade and writes nothing', async () => {
+    const { io, writes, out } = fakeIO({ files: { [PATH]: oldWorkflow } });
+    expect(await runCiCli(['upgrade', '--dry-run'], io)).toBe(0);
+    expect(writes).toEqual({});
+    expect(out.join('\n')).toContain('Dry run — no files written.');
+    expect(out.join('\n')).toContain('Would upgrade');
+  });
+
+  it('`ci upgrade --help` prints help and exits 0 without writing', async () => {
+    const { io, out, writes } = fakeIO({ files: { [PATH]: oldWorkflow } });
+    expect(await runCiCli(['upgrade', '--help'], io)).toBe(0);
+    expect(out.join('\n')).toContain('svelte-vitals ci upgrade');
+    expect(writes).toEqual({});
+  });
+
+  it('returns exit 2 and logs an error when writing fails', async () => {
+    const { io, err } = fakeIO({ files: { [PATH]: oldWorkflow }, failWritePath: PATH });
+    expect(await runCiCli(['upgrade'], io)).toBe(2);
     expect(err.join('\n')).toContain('failed to write');
   });
 });
