@@ -1,0 +1,132 @@
+# Design spike: `lang: 'ja'` i18n for CLI / Action / vite dashboard
+
+**Date:** 2026-07-13
+**Status:** Proposed (design spike only — not accepted, awaiting maintainer review)
+**Source issue:** [#165](https://github.com/oekazuma/svelte-vitals/issues/165) — investigation-only, filed by the maintainer to capture scope before deciding whether/how to build this.
+**Packages in scope:** `packages/core` (rules + reporters), `packages/cli`, `packages/action`, `packages/vite` (dashboard only).
+**Explicitly out of scope (per issue #165):** `packages/mcp` (structured JSON, not human-facing prose), SARIF/GitHub-annotation protocol vocabulary, the docs site (already localized separately via Starlight).
+
+This document does not implement anything. It records the design decisions
+needed before any implementation plan can be written, and recommends a
+maintainer-reviewable default for each. If accepted, the maintenance notes at
+the end recommend splitting the actual work into several smaller plans.
+
+## Step 1 — verifying issue #165 against the current codebase
+
+The issue's numbers are close to current reality but drifted in the ~3 weeks
+since it was likely investigated (the repo has had rule-suppression and
+docs-comment-sweep work land since). Re-measured 2026-07-13, on this branch:
+
+| Area | Issue said | Measured now | Note |
+| --- | --- | --- | --- |
+| `packages/core/src/rules/` files | 32 files, ~2265 lines | 31 non-index rule files (27 excluding `*-rule.ts` builders) + builders, 2089 lines | Close; issue's file count likely included `index.ts`/builder files differently. Order of magnitude unchanged. |
+| `message:` occurrences | ~44 | 35 | Lower — some rules likely consolidated messages via `head-tag-rule.ts`/`image-rule.ts`/`link-rule.ts` builders, which centralize a `label` instead of a per-call `message:`. |
+| `recommendation:` occurrences | ~64 | 64 | Exact match. |
+| fix `description:` occurrences | ~28 | 28 | Exact match. |
+| Total string-property occurrences | ~217 | 257 (counting `title`/`message`/`recommendation`/`rationale`/`description` together) | The issue's 217 and this session's 257 aren't counting the identical property set, so this isn't a real regression signal — re-measure at implementation time rather than trusting either figure. |
+| `packages/core/src/reporter/` | 7 files, 879 lines | 9 files, 951 lines (`json.ts`, `shared.ts` also present) | Issue's "7 files" likely only counted the format-emitting reporters, not `palette.ts`/`shared.ts`/`json.ts` (the last has no human-facing prose — pure data serialization, itself out-of-scope-by-nature). |
+| `html.ts` | 333 lines, `lang="en"` present | 333 lines, confirmed `lang="en"` at line 312 | Match. |
+| `packages/vite/src/ui/dashboard-script.ts` | 434 lines | 465 lines | Grew ~30 lines since the issue was filed — plausibly from unrelated recent work (see below). Still the same file, same design (hand-authored, dependency-free client script). |
+| `dashboard.ts` hardcodes `<html lang="en">` | yes | confirmed, line 23 | Match. |
+| `packages/action/src/` | ~118 lines, thin | 119 lines (`fork.ts` 17 + `index.ts` 84 + `sticky-comment.ts` 18) | Match. Confirmed `index.ts` calls `formatGithubReport`/`formatMarkdownReport` from `@svelte-vitals/core` directly and writes their output verbatim — the issue's "gets Japanese for free" claim holds structurally. |
+
+One relevant piece of context not in the issue: **`docs/superpowers/specs/2026-07-12-retire-dev-overlay-design.md`** (Accepted, maintainer-approved 2026-07-12) made the live dashboard (`svelteVitals({ ui: true })`, rendered by `dashboard.ts`/`dashboard-script.ts`) the **default and primary** dev-time surface — the old `console.warn`-based "dev overlay" was removed entirely. This raises the vite dashboard's priority for this design: it is no longer one of two UI surfaces, it is *the* dev-time surface, so a `ja` dashboard has more end-user reach today than it would have had a month ago.
+
+**Conclusion**: no material drift. The issue's scope assessment stands; use freshly-measured counts (above) rather than the issue's original numbers when estimating implementation effort.
+
+## Step 2 — catalog mechanism: where do translated strings live?
+
+Three options were compared, with core purity impact, implementation cost, and translation-gap detectability as the deciding axes.
+
+| Option | Core purity impact | Implementation cost | Missing-translation detectability | Verdict |
+| --- | --- | --- | --- | --- |
+| **A. Inline per-rule multilingual objects** — change each rule's `message`/`recommendation`/etc. to `{ en: '...', ja: '...' }` | High — `Rule.check()`'s return type (`Result.message`, `.recommendation`) and the rule-builder option types (`ComponentRuleOptions`, and the analogous options types in `head-tag-rule.ts`/`image-rule.ts`/`link-rule.ts`) all need type-level changes. `RuleContext` also needs a `lang` field so `check()` can pick the string variant per-call, which changes the signature every one of the 27 non-builder rule files and 4 builder files must satisfy — 31 files touched, not just the 27 with translatable content. | Highest — touches every rule file, plus the 3 rule-builder files (`component-rule.ts`, `perf/image-rule.ts`, `perf/link-rule.ts`, `seo/head-tag-rule.ts`), plus `Result`'s type in `packages/core/src/types.ts`. Genuinely a breaking change to the `Rule` interface. | Good in principle (missing `ja` key is a type error) but only if every string field is force-typed as `{en,ja}` — an easy corner to cut under review pressure, since some rules build `message` dynamically (`messageFor(detection)` in `seo001-title.ts`) rather than as a literal, so the `{en,ja}` object would itself need to be constructed per-branch, multiplying touch points inside `check()` bodies, not just at the top-level property. | **Rejected** — cost and blast radius (breaks `Rule`/`Result` types, the exact "runtime-agnostic, minimal" surface `AGENTS.md` calls out) is disproportionate to the benefit. |
+| **B. Central catalog** (e.g. `packages/core/src/i18n/ja.ts`, keyed by rule id + string role: `{ SEO001: { message: {...}, recommendation: {...} }, ... }`) | Low — `Rule`/`Result`/`RuleContext` types are untouched. A single new lookup step (`translate(result, lang)`) sits between `check()`'s output and the reporter, run once in `runRules` or by the caller. No existing rule file needs to change. | Medium — one new file (plus growth as rules are added), one new lookup function, `RuleContext`/`AnalyzeOptions` gain a `lang` field (additive, not breaking). Reporters need `lang`-aware headings/labels (their own smaller, per-reporter catalogs — see Step 3). | Good, and cheaper to enforce than it first looks: a single test (e.g. `packages/core/test/i18n-coverage.test.ts`) can import `allRules`, diff rule ids against the `ja` catalog's keys, and fail the build on any gap — one check covers all 27+ rules instead of relying on 27 individual type signatures being honest. | **Recommended.** |
+| **C. External i18n library** (e.g. `i18next`, `svelte-i18n`, `@formatjs/intl`) | High — conflicts directly with `AGENTS.md`'s "core purity" framing (runtime-agnostic, no unnecessary dependencies) and with the project's general lightweight-dependency posture (catalog-pinned devDependencies, minimal runtime deps per package). The actual translation need here — pick one of two flat string values keyed by rule id — does not need pluralization engines, ICU message format, or locale-fallback chains that these libraries provide. | Low glue code, but adds a runtime dependency to `packages/core` where today there are none beyond type-only imports. | Depends on the library; most support build-time key-coverage checks, so no worse than B on this axis. | **Rejected** — the problem (two flat locales, no plurals/ICU needed) doesn't justify the dependency, and it works against an explicit project convention. Noted for completeness per the plan's ask, not seriously considered. |
+
+**Recommendation: Option B, a central catalog.**
+
+Rationale, weighed against the existing "four places" burden `AGENTS.md` already documents for adding a rule (`rules/index.ts` import + `allRules` array + re-export block, plus `packages/core/src/index.ts`'s duplicate re-export list): Option B adds a **fifth place** (the `ja` catalog entry) to that same "remember to sync N places" model the project already lives with and already has tooling instincts for (the plan's own drift-check step exists because of this pattern). That is a linear, well-understood cost. Option A instead adds a **breaking type-level change** to `Rule`/`Result` — a different, worse kind of cost, since it invalidates every existing rule file's shape and any external consumer relying on `Result.message` being a plain `string` (the MCP package, reporters, and any user script consuming CLI JSON output). B keeps `Result.message` as `string` — already resolved to the request language before it leaves `core` — so nothing downstream of `runRules` needs to know i18n exists at all.
+
+## Step 3 — `lang` propagation design
+
+### 3.1 `core`: `RuleContext` and `AnalyzeOptions`
+
+- Add `lang?: 'en' | 'ja'` to `RuleContext` (`packages/core/src/rule.ts`), defaulting to `'en'` when absent, consistent with every other optional `RuleContext` field (`images`, `headings`, `components`) being absent-safe.
+- Under Option B, `check()` implementations do **not** read `ctx.lang` themselves — they keep returning English `Result`s exactly as today (zero rule-file changes). Instead, `runRules` (`packages/core/src/engine.ts`) gains a translation pass: after flattening results, if `ctx.lang === 'ja'`, look up each `Result.id` in the catalog and substitute `message`/`recommendation`/`fix.description` (and `rationale`, if surfaced — currently only `Rule.rationale`, not `Result`, carries it; confirm whether `explain_rule`/MCP need this before locking the `Result` shape further) when present, else leave the English string in place with a recorded catalog-miss (see Step 4).
+- `AnalyzeOptions` (`packages/cli/src/index.ts`) gains `lang?: 'en' | 'ja'`, following the exact precedence pattern already documented on `analyzeProject`'s JSDoc for `treatDynamicAs`/`weights`: *"an explicit option here wins, otherwise the config file's value is used, otherwise the built-in default"* — i.e. `lang: opts.lang ?? file?.lang ?? 'en'`. `KNOWN_TOP_LEVEL_KEYS` in `packages/cli/src/config-file.ts` gains `'lang'`, validated the same way `treatDynamicAs` already is (`TREAT_DYNAMIC_AS_VALUES.includes(...)`-style allowlist check, invalid values dropped with a warning, matching the existing "Warning (returned, field dropped)" contract documented there).
+- CLI flag: `--lang <en|ja>`, parsed in `packages/cli/src/resolve-args.ts` the same way `--route`/`--treat-dynamic-as` are today (a small validated-enum extraction feeding into the options object passed to `analyzeProject`).
+
+### 3.2 Reporters (`packages/core/src/reporter/*.ts`)
+
+Each reporter's own headings/labels (not rule copy — that's the catalog from Step 2) need their own small, per-reporter label maps, since they are structurally different from rule copy (fixed small sets of section headings, not open-ended per-rule prose):
+
+- `console.ts` — `SEVERITY_TITLE`/`CATEGORY_LABEL` (confirmed at lines 6–18: `Critical`/`Warnings`/`Info`, `SEO`/`Performance`/etc.) become `Record<'en'|'ja', Record<...>>` lookups, selected by a new `lang` field on `ConsoleReportOptions`.
+- `html.ts` — largest surface (333 lines, 30+ strings) and the only one with a document-level `lang="en"` attribute (line 312) that must flip to `lang="ja"` when translated — otherwise the emitted HTML actively lies about its own content language to assistive tech and browsers.
+- `markdown.ts`, `agent.ts` — same pattern, smaller string sets; `agent.ts`'s explanatory paragraphs (confirmed multi-sentence prose at lines ~19–30) are the closest analog to rule `recommendation` text and should probably draw from the same review bar (a native/fluent speaker checks these, not machine translation left unreviewed).
+- `github.ts`, `sarif.ts` — confirmed protocol-level vocabulary (SARIF `level`, GitHub annotation `level`) — **not translated**, matching the issue's own call and this plan's scope.
+- `json.ts` — confirmed to carry no reporter-authored prose of its own (only re-serializes `Result[]`, which by the time it reaches `json.ts` already went through `runRules`'s translation pass) — needs no reporter-level change at all.
+
+Each reporter function (`formatConsoleReport`, `formatMarkdownReport`, `formatGithubReport` excluded, `formatHtmlReport`, `formatAgentReport`) gains a `lang` parameter, additive to their existing `options`/`meta` parameter objects (all four already take an options-bag as their last or near-last argument, so this is not a signature-breaking change for any of them — confirmed shapes: `formatConsoleReport(results, config, options = {})`, `formatMarkdownReport(results, config, meta: { version })`, `formatHtmlReport(results, config, ...)`, `formatAgentReport(results, config)`).
+
+### 3.3 `packages/action`
+
+Confirmed by reading `packages/action/src/index.ts`: it calls `analyzeProject({ cwd: path })` then `formatGithubReport(results, config)` and `formatMarkdownReport(results, config, { version })` directly, with no string literals of its own beyond a handful of `core.warning`/`core.setFailed` calls (not yet audited line-by-line here, but the issue's "almost no strings of its own" claim matches the 84-line file's shape). Wiring: add `lang: core.getInput('lang') || undefined` to the `analyzeProject` call and thread the same value into the two `format*Report` calls. This is close to free — the Action doesn't need its own catalog, it inherits whatever `core` produces.
+
+Confirmed `packages/action/action.yml`'s current `inputs:` block (`path`, `diff`, `baseline`, `github-token`, all `required: false`) — a new `lang` input follows the exact same shape: `required: false`, no `default:` key (so `core.getInput('lang')` returns `''`, coerced to `undefined` the same way `diff`/`baseline` already do it in `index.ts`, e.g. `const diff = core.getInput('diff') || undefined;`), letting `analyzeProject`'s own `lang ?? file?.lang ?? 'en'` precedence chain supply the default rather than duplicating `'en'` in the Action's YAML.
+
+### 3.4 `packages/vite` dashboard (`dashboard-script.ts` / `dashboard.ts`)
+
+This is structurally different from 3.1–3.3: `dashboard-script.ts` is a hand-authored string (`DASHBOARD_SCRIPT`, confirmed 465 lines) that runs as inline client-side JavaScript with no bundler and no access to `core`'s (would-be) catalog module — it's not compiled, it's a template literal embedded into `renderDashboardShell`'s output (`packages/vite/src/ui/dashboard.ts`, confirmed lines 20–33).
+
+Recommended approach, informed by how `renderDashboardShell` already works:
+
+- Add a small `LABELS = { en: {...}, ja: {...} }` object directly inside the `DASHBOARD_SCRIPT` template string in `dashboard-script.ts` — a flat map of the ~20 confirmed UI strings (aria-labels, placeholders, sort-option text, section headings, empty states) plus a tiny helper for the dynamic count strings (`"N critical"` etc., which need a function per language, not just a string, since word order/particles can differ in Japanese — this is exactly the kind of pluralization/interpolation case Option C's libraries exist for, but at this small a scale a two-branch `function countLabel(n, lang) {...}` is simpler than pulling in a library for one client script).
+- `renderDashboardShell` (`dashboard.ts`) gains a `lang: 'en'|'ja'` parameter. Two things change in the emitted HTML: (a) `<html lang="en">` (line 23) becomes `<html lang="${lang}">`, and (b) the current snapshot-JSON `<script type="application/json" id="svelte-vitals-data">` block (confirmed via `embedJson(snapshot)`, lines 20–33) is the natural place to also embed the resolved `lang` — e.g. add a sibling field to the snapshot object (or a second tiny `<script type="application/json" id="svelte-vitals-lang">"ja"</script>`) so `DASHBOARD_SCRIPT`'s client code reads `lang` from the DOM at startup the same way it already reads the snapshot, rather than needing a new server/client channel. This reuses the existing embed-as-JSON mechanism `embedJson` already provides (including its `</script>`/U+2028/U+2029 escaping, which a raw string interpolation would need to reimplement) instead of inventing a new one.
+- Where does the vite plugin's `lang` value come from? `SvelteVitalsOptions` (the plugin's own config surface, referenced in `2026-07-12-retire-dev-overlay-design.md` for `options.ui`) gains a `lang?: 'en'|'ja'` field alongside `ui`, defaulting to `'en'`. This is independent of the CLI/Action's config-file precedence chain — the vite plugin already has its own options object, so `options.lang ?? 'en'` is enough; there's no config-file layer to reconcile here since `svelteVitals()` is configured directly in `vite.config.ts`, not via `svelte-vitals.config.*`.
+
+## Step 4 — translation-completeness policy
+
+Two candidates, evaluated against the project's existing risk posture (CI already gates docs-links completeness — `packages/cli/test/docs-links.test.ts` fails the build if a rule's doc file is missing in either `en` or `ja` — so there is direct precedent for "missing `ja` counterpart fails CI," not just a hypothetical policy):
+
+- **Build-time completeness check (recommended)**: a test (e.g. `packages/core/test/i18n-catalog-coverage.test.ts`) imports `allRules`, extracts every id, and asserts the `ja` catalog (Step 2, Option B) has a complete entry for each — same shape and same enforcement point as the existing `docs-links.test.ts` pattern for rule docs. A 33rd rule shipped without its `ja` catalog entry fails CI, the same way it already fails CI today if its `docs/rules/<id>.md` (ja) is missing. This keeps the two completeness guarantees (docs, catalog) structurally identical, which is easier to reason about than having one enforced and the other silently degrading.
+- **Fallback-to-English-with-warning**: lower friction for new-rule authors (no immediate translation required to ship), but produces a `ja`-mode report that's silently bilingual — worse for the actual end users this feature exists for, and harder to notice in review than a red CI check, since a warning in a reporter's own metadata is easy to miss compared to a failing test.
+
+**Recommendation: build-time completeness check**, matching the `docs-links.test.ts` precedent already in the codebase. The cost (new-rule authors must supply a `ja` translation before merging) is the same cost the project already accepted for rule docs, so this isn't a new category of friction — it's extending an existing one to a new artifact.
+
+## Files affected (for future implementation-plan sizing)
+
+- `packages/core/src/rule.ts` — `RuleContext.lang` (additive).
+- `packages/core/src/engine.ts` — translation pass in `runRules` (or a new wrapper, if keeping `runRules` translation-agnostic is preferred — a follow-up plan should decide the exact seam).
+- `packages/core/src/i18n/` (new) — `ja.ts` catalog, coverage test.
+- `packages/core/src/reporter/console.ts`, `html.ts`, `markdown.ts`, `agent.ts` — per-reporter label maps + `lang` parameter. `github.ts`/`sarif.ts` unchanged. `json.ts` unchanged.
+- `packages/core/src/types.ts` — confirm whether `Config`/`Result` need a `lang`-adjacent field, or whether `RuleContext`/reporter parameters are sufficient (current recommendation: the latter, keeping `Result` untouched).
+- `packages/cli/src/index.ts` — `AnalyzeOptions.lang`, precedence wiring in `analyzeProject`.
+- `packages/cli/src/config-file.ts` — `KNOWN_TOP_LEVEL_KEYS` + validation for `lang`.
+- `packages/cli/src/resolve-args.ts` — `--lang` flag parsing.
+- `packages/action/src/index.ts`, `packages/action/action.yml` — `lang` input (`required: false`, no default, matching `diff`/`baseline`), threaded to `analyzeProject`/`format*Report`.
+- `packages/vite/src/ui/dashboard-script.ts` — `LABELS` map + dynamic-count helper (~20 strings).
+- `packages/vite/src/ui/dashboard.ts` — `renderDashboardShell(snapshot, lang)`, `<html lang>` fix, embed `lang` alongside snapshot JSON.
+- `packages/vite/src/plugin.ts` (or wherever `SvelteVitalsOptions` is defined) — `lang` option.
+
+**Not** in this list, per the plan's explicit scope: the actual `ja` translations for the ~150+ distinct rule-copy strings, `packages/mcp`, SARIF/GitHub annotation vocabulary, docs site content.
+
+## Estimate
+
+Rough, for whoever splits this into implementation plans (see Maintenance notes): the plumbing (catalog mechanism, `lang` propagation through core/CLI/Action, dashboard label map, coverage test) is a contained, well-scoped piece of work once this design is accepted — call it M-effort. The actual translation of ~150+ rule-copy strings plus ~60 reporter/CLI/dashboard strings into reviewed Japanese is the dominant cost and should be estimated and staffed separately (translation quality review, not engineering time, is the bottleneck there).
+
+## Open questions for the maintainer
+
+1. Should `Rule.rationale` (currently only exposed via `explain_rule`, not `Result`) be translated in this pass, or deferred since `packages/mcp`'s `explain_rule` tool is explicitly out of scope per issue #165? This spike assumes deferred, but flags it since `rationale` is rule-copy in the same sense as `message`/`recommendation`.
+2. Where exactly should the `runRules`→translation seam live — inside `runRules` itself (making it not purely "rule execution" anymore) or as an explicit extra call site in `analyzeProject`? This spike leans toward keeping `runRules` mechanical and adding a separate `translateResults(results, lang)` call in `analyzeProject`, but didn't want to lock that in without maintainer input on whether `packages/mcp` or other `runRules` callers would want translation too.
+
+## Maintenance notes
+
+If this design is accepted, recommend splitting implementation into separate plans rather than one L-sized plan, mirroring the plan's own guidance:
+
+1. **Core catalog mechanism** — `RuleContext.lang`, the `i18n/ja.ts` catalog scaffold (empty or partially filled), the coverage test, `runRules`/`analyzeProject` wiring. No rule-copy translation yet — ships with the coverage test either skipped or covering a deliberately small pilot set (e.g. 2–3 rules) to prove the mechanism before scaling to all 27+.
+2. **Full rule-copy translation** — fill in the `ja` catalog for all rules, satisfying the coverage test end-to-end. Largest and most review-sensitive piece (translation quality, not code review, is the bottleneck).
+3. **CLI + Action `lang` wiring** — `--lang` flag, config-file `lang` key, `action.yml` input, reporter label maps (`console.ts`/`markdown.ts`/`agent.ts`/`html.ts`).
+4. **vite dashboard `lang` support** — `dashboard-script.ts` label map, `dashboard.ts` embed + `<html lang>` fix, plugin option.
+
+`packages/mcp` is out of scope for all of the above, but flagged in the plan's own maintenance notes as worth revisiting if `explain_rule` or similar tools grow human-facing prose beyond structured JSON — this design doc's catalog mechanism (Option B) would extend to that case without further redesign, should it arise.
