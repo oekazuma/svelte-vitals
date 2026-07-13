@@ -56976,7 +56976,7 @@ function applyRuleSeverities(results, config) {
   });
 }
 
-// ../cli/dist/chunk-EU27FVUM.js
+// ../cli/dist/chunk-S4QJ5TSF.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -57754,15 +57754,17 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-EU27FVUM.js
+// ../cli/dist/chunk-S4QJ5TSF.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
 import { mkdtempSync, rmSync } from "fs";
 import { tmpdir } from "os";
 import { join as join3 } from "path";
-import { existsSync as existsSync2 } from "fs";
+import { readFileSync as readFileSync22, writeFileSync } from "fs";
 import { join as join4 } from "path";
+import { existsSync as existsSync2 } from "fs";
+import { join as join5 } from "path";
 import { pathToFileURL } from "url";
 function createNodeRuntime() {
   return {
@@ -58417,6 +58419,66 @@ function filterToNewFindings(results, baselineResults) {
   const baselineKeys = new Set(baselineResults.map(findingKey));
   return results.filter((r) => !baselineKeys.has(findingKey(r)));
 }
+var SUPPRESSIONS_FILE = "svelte-vitals-suppressions.json";
+function isPlainObject3(value) {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+function loadSuppressions(cwd) {
+  const path = join4(cwd, SUPPRESSIONS_FILE);
+  let raw;
+  try {
+    raw = readFileSync22(path, "utf8");
+  } catch {
+    return void 0;
+  }
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (err) {
+    throw new Error(
+      `invalid ${SUPPRESSIONS_FILE}: not valid JSON (${err instanceof Error ? err.message : String(err)}).`,
+      { cause: err }
+    );
+  }
+  if (!isPlainObject3(parsed)) {
+    throw new Error(`invalid ${SUPPRESSIONS_FILE}: expected a top-level JSON object.`);
+  }
+  if (parsed.version !== 1) {
+    throw new Error(`invalid ${SUPPRESSIONS_FILE}: expected "version": 1, got ${JSON.stringify(parsed.version)}.`);
+  }
+  if (!Array.isArray(parsed.suppressions)) {
+    throw new Error(`invalid ${SUPPRESSIONS_FILE}: "suppressions" must be an array.`);
+  }
+  const entries = [];
+  parsed.suppressions.forEach((entry, i) => {
+    if (!isPlainObject3(entry) || typeof entry.id !== "string") {
+      throw new Error(`invalid ${SUPPRESSIONS_FILE}: suppressions[${i}] must be an object with a string "id".`);
+    }
+    entries.push({
+      id: entry.id,
+      ...typeof entry.route === "string" ? { route: entry.route } : {},
+      ...typeof entry.location === "string" ? { location: entry.location } : {}
+    });
+  });
+  return entries;
+}
+function applySuppressions(results, entries, config) {
+  const keys = new Set(entries.map((e2) => findingKey(e2)));
+  const usedKeys = /* @__PURE__ */ new Set();
+  const kept = [];
+  let suppressed = 0;
+  for (const r of results) {
+    const key2 = findingKey(r);
+    if (keys.has(key2) && isPenalized(r.detection, config.treatDynamicAs)) {
+      suppressed++;
+      usedKeys.add(key2);
+      continue;
+    }
+    kept.push(r);
+  }
+  const stale = [...keys].filter((k) => !usedKeys.has(k)).length;
+  return { results: kept, suppressed, stale };
+}
 var wrap = (open3, close2 = 0) => (s) => `\x1B[${open3}m${s}\x1B[${close2}m`;
 var ansiPalette = {
   bold: wrap(1, 22),
@@ -58438,7 +58500,7 @@ var CATEGORIES = ["seo", "performance", "correctness", "security", "architecture
 var TREAT_DYNAMIC_AS_VALUES = ["pass", "warn", "fail"];
 var FAIL_ON_VALUES = ["critical", "warning", "info"];
 var KNOWN_TOP_LEVEL_KEYS = /* @__PURE__ */ new Set(["treatDynamicAs", "metaComponents", "rules", "failOn", "weights"]);
-function isPlainObject3(value) {
+function isPlainObject22(value) {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 function isMissingExtensionLoaderError(err) {
@@ -58476,7 +58538,7 @@ function validateConfigFile(raw, path) {
     }
   }
   if (raw.rules !== void 0) {
-    if (!isPlainObject3(raw.rules)) {
+    if (!isPlainObject22(raw.rules)) {
       throw new Error(`${path}: rules must be an object of rule-id \u2192 setting.`);
     }
     const rules = raw.rules;
@@ -58489,7 +58551,7 @@ function validateConfigFile(raw, path) {
     config.rules = rules;
   }
   if (raw.weights !== void 0) {
-    if (!isPlainObject3(raw.weights)) {
+    if (!isPlainObject22(raw.weights)) {
       throw new Error(`${path}: weights must be an object of category \u2192 number.`);
     }
     const weights = {};
@@ -58508,7 +58570,7 @@ function validateConfigFile(raw, path) {
   return { config, warnings: warnings2 };
 }
 async function loadConfigFile(cwd) {
-  const found = CONFIG_FILENAMES.map((name) => join4(cwd, name)).find((path) => existsSync2(path));
+  const found = CONFIG_FILENAMES.map((name) => join5(cwd, name)).find((path) => existsSync2(path));
   if (!found) return void 0;
   let mod;
   try {
@@ -58522,7 +58584,7 @@ async function loadConfigFile(cwd) {
     }
     throw err;
   }
-  if (!isPlainObject3(mod.default)) {
+  if (!isPlainObject22(mod.default)) {
     throw new Error(
       `${found} must have a default export that is a plain object (e.g. \`export default defineConfig({...})\` or a plain object literal).`
     );
@@ -58592,6 +58654,18 @@ async function applyScope(results, opts) {
         errorLog(`svelte-vitals: baseline analysis of '${opts.baseline}' failed; reporting all findings.`);
       } finally {
         checkout.cleanup();
+      }
+    }
+  }
+  if (!opts.noSuppressions && opts.config) {
+    const entries = loadSuppressions(opts.cwd);
+    if (entries !== void 0) {
+      const { results: afterSuppressions, suppressed, stale } = applySuppressions(scoped, entries, opts.config);
+      scoped = afterSuppressions;
+      if (suppressed > 0 || stale > 0) {
+        errorLog(
+          `svelte-vitals: ${suppressed} finding(s) suppressed by ${SUPPRESSIONS_FILE}` + (stale > 0 ? ` (${stale} stale entr${stale === 1 ? "y" : "ies"} \u2014 re-run --update-suppressions to prune)` : "") + "."
+        );
       }
     }
   }
