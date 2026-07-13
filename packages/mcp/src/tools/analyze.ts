@@ -1,5 +1,12 @@
 import { z } from 'zod';
-import { analyzeProject, buildRulesConfig, findUnknownRuleIds, knownRuleIds, ProjectError } from 'svelte-vitals';
+import {
+  analyzeProject,
+  applyScope,
+  buildRulesConfig,
+  findUnknownRuleIds,
+  knownRuleIds,
+  ProjectError
+} from 'svelte-vitals';
 import { buildJsonReport } from '@svelte-vitals/core';
 
 export interface McpToolResult {
@@ -21,6 +28,24 @@ const analyzeInputSchema = z.object({
       'Component names that resolve SEO tags into <head> (e.g. ["Seo"]); their presence suppresses missing-tag findings for the head they own. Mirrors the CLI --meta-components flag.'
     ),
   route: z.string().optional().describe('Glob to restrict which routes are analyzed, e.g. "blog/**".'),
+  diff: z
+    .string()
+    .optional()
+    .describe(
+      'Scope findings to files changed vs this git ref (e.g. "origin/main"). Mirrors the CLI --diff flag; omit for no diff scoping.'
+    ),
+  baseline: z
+    .string()
+    .optional()
+    .describe(
+      'Report only findings not already present at this git ref (e.g. "origin/main"). Mirrors the CLI --baseline flag.'
+    ),
+  noSuppressions: z
+    .boolean()
+    .optional()
+    .describe(
+      'Ignore svelte-vitals-suppressions.json for this call, reporting every finding even if previously accepted. Mirrors the CLI --no-suppressions flag.'
+    ),
   treatDynamicAs: z
     .enum(['pass', 'warn', 'fail'])
     .optional()
@@ -83,6 +108,9 @@ export async function handleAnalyze(args: AnalyzeArgs): Promise<McpToolResult> {
   const rules = Object.keys(rulesConfig).length > 0 ? rulesConfig : undefined;
 
   try {
+    // analyzeProject falls back to process.cwd() internally when args.path is
+    // undefined; applyScope's `cwd` is required, so mirror that default here.
+    const cwd = args.path ?? process.cwd();
     const { results, config, version } = await analyzeProject({
       cwd: args.path,
       metaComponents: args.metaComponents,
@@ -93,7 +121,14 @@ export async function handleAnalyze(args: AnalyzeArgs): Promise<McpToolResult> {
       weights: args.weights,
       categories: args.categories
     });
-    const report = buildJsonReport(results, config, { version });
+    const scoped = await applyScope(results, {
+      cwd,
+      config,
+      diffBase: args.diff,
+      baseline: args.baseline,
+      noSuppressions: args.noSuppressions
+    });
+    const report = buildJsonReport(scoped, config, { version });
     return {
       content: [{ type: 'text', text: JSON.stringify(report, null, 2) }],
       structuredContent: report

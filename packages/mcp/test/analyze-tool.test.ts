@@ -1,5 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, afterEach } from 'vitest';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { cpSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
@@ -11,7 +14,34 @@ const here = dirname(fileURLToPath(import.meta.url));
 const fixtureDir = join(here, '..', '..', 'cli', 'test', 'fixtures', 'basic-project');
 const configFileFixtureDir = join(here, '..', '..', 'cli', 'test', 'fixtures', 'config-file-project');
 
+// diff/baseline scoping goes through applyScope's real git integration
+// (packages/cli/src/changed-files.ts / baseline.ts), which the CLI's own tests stub
+// out via vi.mock on internal modules that aren't part of svelte-vitals' public API —
+// not reusable from this package. So these tests spin up a minimal real git repo
+// instead, following run-suppressions.test.ts's temp-directory-copy pattern for the
+// (mock-free) suppressions case.
+const dirs: string[] = [];
+function git(args: string[], cwd: string): string {
+  return execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+}
+function makeGitProjectCopy(): string {
+  const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-mcp-scope-'));
+  dirs.push(dir);
+  cpSync(fixtureDir, dir, { recursive: true });
+  git(['init'], dir);
+  git(['add', '-A'], dir);
+  git(['commit', '-m', 'init', '--no-gpg-sign'], dir);
+  return dir;
+}
+
 describe('analyze tool', () => {
+  afterEach(() => {
+    while (dirs.length > 0) {
+      const dir = dirs.pop();
+      if (dir) rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
   it('returns a structured JSON report for a project path', async () => {
     const res = await handleAnalyze({ path: fixtureDir });
     expect(res.isError).toBeFalsy();
@@ -178,5 +208,66 @@ describe('analyze tool', () => {
       await client.close();
       await server.close();
     }
+  });
+
+  it('scopes findings to files changed vs a git ref via diff', async () => {
+    const dir = makeGitProjectCopy();
+
+    // Unscoped: the fixture's usual findings (e.g. /widget's SEO001) are present.
+    const unscoped = await handleAnalyze({ path: dir });
+    expect(unscoped.isError).toBeFalsy();
+    const unscopedReport = unscoped.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
+    expect(unscopedReport.routes.flatMap((r) => r.issues.map((i) => i.id))).toContain('SEO001');
+
+    // The repo was just committed with no further changes, so diffing against HEAD
+    // finds no changed (or untracked) files — every finding is filtered out.
+    const scoped = await handleAnalyze({ path: dir, diff: 'HEAD' });
+    expect(scoped.isError).toBeFalsy();
+    const scopedReport = scoped.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
+    expect(scopedReport.routes.flatMap((r) => r.issues.map((i) => i.id))).not.toContain('SEO001');
+  });
+
+  it('drops findings already present at the baseline ref via baseline', async () => {
+    const dir = makeGitProjectCopy();
+
+    // Unscoped: the fixture's usual findings are present.
+    const unscoped = await handleAnalyze({ path: dir });
+    expect(unscoped.isError).toBeFalsy();
+    const unscopedReport = unscoped.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
+    expect(unscopedReport.routes.flatMap((r) => r.issues.map((i) => i.id))).toContain('SEO001');
+
+    // The baseline ref (HEAD) is identical to the current project, so every current
+    // finding is "already present" there and gets filtered out as not-new.
+    const scoped = await handleAnalyze({ path: dir, baseline: 'HEAD' });
+    expect(scoped.isError).toBeFalsy();
+    const scopedReport = scoped.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
+    expect(scopedReport.routes.flatMap((r) => r.issues.map((i) => i.id))).not.toContain('SEO001');
+  });
+
+  it('ignores svelte-vitals-suppressions.json when noSuppressions is set', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-mcp-suppressions-'));
+    dirs.push(dir);
+    cpSync(fixtureDir, dir, { recursive: true });
+    writeFileSync(
+      join(dir, 'svelte-vitals-suppressions.json'),
+      JSON.stringify({
+        version: 1,
+        suppressions: [{ id: 'SEO001', route: '/widget', location: 'src/routes/widget/+page.svelte' }]
+      })
+    );
+
+    type Report = { routes: Array<{ route: string; issues: Array<{ id: string }> }> };
+    const widgetIssues = (report: Report) =>
+      report.routes.find((r) => r.route === '/widget')?.issues.map((i) => i.id) ?? [];
+
+    // Default: the accepted finding (widget's SEO001) is suppressed and does not surface.
+    const suppressed = await handleAnalyze({ path: dir });
+    expect(suppressed.isError).toBeFalsy();
+    expect(widgetIssues(suppressed.structuredContent as Report)).not.toContain('SEO001');
+
+    // noSuppressions: true bypasses the file, so the finding reappears.
+    const unsuppressed = await handleAnalyze({ path: dir, noSuppressions: true });
+    expect(unsuppressed.isError).toBeFalsy();
+    expect(widgetIssues(unsuppressed.structuredContent as Report)).toContain('SEO001');
   });
 });
