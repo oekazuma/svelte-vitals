@@ -13,6 +13,7 @@ Usage:
   svelte-vitals [path] [options]
   svelte-vitals install          Set up the MCP server, Vite integration, or agent skills/rules
   svelte-vitals ci install       Add a GitHub Actions PR gate (annotations + summary comment)
+  svelte-vitals ci upgrade       Refresh the pinned @svelte-vitals/action in an existing workflow
 
 Options:
   --meta-components <names>   Comma-separated component names that emit head metadata

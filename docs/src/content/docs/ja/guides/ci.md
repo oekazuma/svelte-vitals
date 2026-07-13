@@ -162,3 +162,34 @@ Action を経由せず svelte-vitals を直接実行したい場合の `--diff`�
 対応フラグについては[CLI リファレンス](/svelte-vitals/ja/guides/cli/)を、Action のサマリーと
 コメントが基づいている出力フォーマットについては
 [レポーターガイド](/svelte-vitals/ja/guides/reporters/)を参照してください。
+
+## ピン留めされた Action の更新
+
+`@svelte-vitals/action` はサプライチェーンの安全性のためコミット SHA でピン留めされているため、
+新しいリリースが出るたびにワークフロー内のピンは古くなります。ファイル全体を
+`ci install --force` で再生成することもできますが、それではワークフローに加えた
+カスタマイズ(追加のトリガーやステップなど)が失われてしまいます。
+
+`svelte-vitals ci upgrade` はより外科的な代替手段です — 既存のワークフロー内の
+`uses: oekazuma/svelte-vitals/packages/action@<sha>` の行**だけ**を、実行している CLI に
+同梱されたピンへ書き換えます。それ以外の内容(`actions/checkout` など他の `uses:` ピン、
+独自のトリガー、追加ステップ)はそのまま残ります。
+
+```bash
+npx svelte-vitals@latest ci upgrade              # その場でピンを書き換える
+npx svelte-vitals@latest ci upgrade --dry-run    # 書き込まずに変更前後をプレビュー
+```
+
+`ci upgrade` が書き込むピンはネットワーク経由の取得ではなく CLI のビルドに焼き込まれた値です
+— 最新のピンを得るには(上記のように)`@latest` を付けて実行してください。想定される結果：
+
+- **アップグレードされた場合** — 参照行が同梱ピンと一致していなかったため書き換えられ、
+  行のコメント(`# @svelte-vitals/action@X.Y.Z`)から読み取った旧バージョンが表示されます。
+- **既に最新の場合** — すべての参照が既に同梱ピンと一致しており、何も書き込まれません。
+- **ワークフローが見つからない / action の参照が見つからない場合** — `ci install` を
+  先に実行するよう促すエラーで終了します。`ci upgrade` はワークフローをゼロから
+  作成することはありません。
+
+Renovate など別のツールで直接ピンを更新している場合でも、`ci upgrade` と競合することは
+ありません — どちらも同じ `uses: ... @<sha> # @svelte-vitals/action@<version>` という形式の
+同じ行を保ちます。

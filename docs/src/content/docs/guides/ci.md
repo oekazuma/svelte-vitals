@@ -163,3 +163,33 @@ See the [CLI reference](/svelte-vitals/guides/cli/) for `--diff`, `--baseline`, 
 flags if you'd rather run svelte-vitals directly instead of through the action, and the
 [Reporters guide](/svelte-vitals/guides/reporters/) for the output formats the action's summary
 and comment build on.
+
+## Upgrading the pinned action
+
+`@svelte-vitals/action` is pinned by commit SHA for supply-chain safety, so the pin in your
+workflow goes stale as new releases ship. Regenerating the whole file with `ci install --force`
+works, but it throws away any customizations you've made to the workflow (extra triggers, added
+steps, etc).
+
+`svelte-vitals ci upgrade` is the surgical alternative: it rewrites **only** the
+`uses: oekazuma/svelte-vitals/packages/action@<sha>` line(s) in your existing workflow to the pin
+bundled with the CLI you're running — everything else in the file (other `uses:` pins like
+`actions/checkout`, your triggers, extra steps) is left untouched.
+
+```bash
+npx svelte-vitals@latest ci upgrade              # rewrite the pin in place
+npx svelte-vitals@latest ci upgrade --dry-run    # preview the before/after without writing
+```
+
+The pin `ci upgrade` writes comes from the CLI build itself, not a network lookup — run it with
+`@latest` (as above) to pick up the most recent one. Possible outcomes:
+
+- **Upgraded** — the reference line(s) didn't match the bundled pin; they're rewritten and the
+  old version (read from the line's `# @svelte-vitals/action@X.Y.Z` comment) is reported.
+- **Already up to date** — every reference already matches the bundled pin; nothing is written.
+- **No workflow found** / **no action reference found** — exits with an error telling you to run
+  `ci install` first; `ci upgrade` never creates a workflow from scratch.
+
+If you use Renovate (or another tool) to bump the pin directly, `ci upgrade` won't conflict with
+it — both keep the same line in the same `uses: ... @<sha> # @svelte-vitals/action@<version>`
+shape.
