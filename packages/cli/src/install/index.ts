@@ -126,14 +126,28 @@ function rowLine(r: PlanRow): string {
  * maintenance command for keeping previously-generated agent files fresh, not an install path.
  */
 async function runRefresh(io: InstallIO, flags: InstallFlags, version: string): Promise<number> {
+  let hadFailure = false;
   const rows: PlanRow[] = [];
   for (const target of AGENT_TARGETS) {
     const path = join(io.cwd, target.relPath);
-    if (io.readFile(path) === undefined) continue;
-    rows.push(planForAgentTarget(target, io, /* force */ true, version));
+    // readFile maps only ENOENT to undefined and rethrows everything else (EACCES, EISDIR, …),
+    // so treat a per-target read failure like a per-target write failure: report it, keep
+    // refreshing the other targets, and exit 2 at the end. planForAgentTarget re-reads the
+    // file internally, so it sits inside the same try.
+    try {
+      if (io.readFile(path) === undefined) continue;
+      rows.push(planForAgentTarget(target, io, /* force */ true, version));
+    } catch (err) {
+      hadFailure = true;
+      io.errorLog(`svelte-vitals: failed to read ${path}: ${err instanceof Error ? err.message : String(err)}`);
+    }
   }
 
   if (rows.length === 0) {
+    // A failed read means we can't tell whether that target's file exists, so the
+    // "nothing installed yet" guidance would be misleading — the read error above is
+    // the actionable message.
+    if (hadFailure) return 2;
     io.errorLog(
       'svelte-vitals: no generated agent files found — run `svelte-vitals install --client claude-skill,cursor-rules` first.'
     );
@@ -146,10 +160,9 @@ async function runRefresh(io: InstallIO, flags: InstallFlags, version: string): 
 
   if (flags.dryRun) {
     io.log('Dry run — no files written.');
-    return 0;
+    return hadFailure ? 2 : 0;
   }
 
-  let hadFailure = false;
   for (const r of rows) {
     try {
       io.writeFile(r.path, r.content ?? '');

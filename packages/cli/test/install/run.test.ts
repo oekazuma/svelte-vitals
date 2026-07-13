@@ -413,4 +413,29 @@ describe('runInstall — --refresh', () => {
     expect(writes['/proj/.cursor/rules/svelte-vitals.mdc']).toBeDefined();
     expect(err.join('\n')).toContain('/proj/.claude/skills/svelte-vitals/SKILL.md');
   });
+
+  it('a per-target read failure (e.g. EACCES) is reported, does not abort refreshing the rest, and exits 2', async () => {
+    const { io, writes, err } = fakeIO({
+      files: { '/proj/.cursor/rules/svelte-vitals.mdc': 'stale rules content' },
+      throwOnRead: '/proj/.claude/skills/svelte-vitals/SKILL.md'
+    });
+    const code = await runInstall({ refresh: true }, io, noPrompts, '2.0.0');
+    expect(code).toBe(2);
+    expect(err.join('\n')).toContain('failed to read /proj/.claude/skills/svelte-vitals/SKILL.md');
+    // The readable target is still refreshed; the unreadable one is never written.
+    expect(writes['/proj/.cursor/rules/svelte-vitals.mdc']).toContain('svelte-vitals 2.0.0');
+    expect(writes['/proj/.claude/skills/svelte-vitals/SKILL.md']).toBeUndefined();
+  });
+
+  it('a read failure is not counted as an existing file: with no readable targets, exits 2 without the zero-files guidance', async () => {
+    const { io, writes, err } = fakeIO({
+      throwOnRead: '/proj/.claude/skills/svelte-vitals/SKILL.md'
+    });
+    const code = await runInstall({ refresh: true }, io, noPrompts);
+    expect(code).toBe(2);
+    expect(writes).toEqual({});
+    expect(err.join('\n')).toContain('failed to read /proj/.claude/skills/svelte-vitals/SKILL.md');
+    // The "nothing installed yet" guidance would be misleading when a read failed.
+    expect(err.join('\n')).not.toContain('no generated agent files found');
+  });
 });
