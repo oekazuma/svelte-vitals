@@ -24,11 +24,7 @@ import { createMemoryRuntime } from './helpers/memory-runtime.js';
  * chain? This is the "affected routes" primitive a real implementation would
  * need for --diff/--staged to skip resolving untouched routes.
  */
-async function affectedPages(
-  changedFileRel: string,
-  pages: string[],
-  layouts: Map<string, string>
-): Promise<string[]> {
+async function affectedPages(changedFileRel: string, pages: string[], layouts: Map<string, string>): Promise<string[]> {
   return pages.filter((page) => chainFiles(page, layouts).some((f) => f.rel === changedFileRel));
 }
 

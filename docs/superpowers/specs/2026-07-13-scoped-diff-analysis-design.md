@@ -10,7 +10,7 @@ recommendation (or reject) before any follow-up implementation plan is written.
 
 `--diff`/`--staged`/`--baseline` exist so a PR gate can look only at what a change
 actually touched. Today all three still pay the cost of a **full** project
-analysis and only filter the *output* afterward:
+analysis and only filter the _output_ afterward:
 
 - `analyzeProject` (`packages/cli/src/index.ts:172-207`) takes no changed-file
   information at all — it always globs every route, walks every layout chain,
@@ -25,7 +25,7 @@ analysis and only filter the *output* afterward:
 
 On a large SvelteKit app, a pre-commit hook or PR gate that only touched one
 route pays the full-project cost anyway (twice, for `--baseline`). This spike
-asks: can analysis be scoped to *only the routes affected by what changed*,
+asks: can analysis be scoped to _only the routes affected by what changed_,
 and if so, where does that scoping stop being safe?
 
 The answer is not a blanket yes. Some rules are correct only when they see
@@ -48,7 +48,7 @@ callout below, that field answers a different question). Three buckets:
   (Correctness/Security/Architecture rules): the verdict for file `F` depends
   only on `F`'s own parsed facts.
 - **Cross-route** — the rule's verdict for route `R` genuinely depends on
-  *other* routes' data. Scoping to only `R` changes the answer.
+  _other_ routes' data. Scoping to only `R` changes the answer.
 - **Project-fact** — the rule ignores routes/components entirely and reads
   `ctx.project` (a handful of whole-repo file-existence/content checks:
   `static/robots.txt`, `static/sitemap.xml`, `src/app.html`'s `<html lang>`).
@@ -57,64 +57,64 @@ callout below, that field answers a different question). Three buckets:
   (a handful of `exists`/`readFile` calls, not proportional to route count),
   so there's no perf reason to skip it regardless of scoping strategy.
 
-| Rule ID | Category | Classification | Basis |
-|---|---|---|---|
-| SEO001 | seo | Route-independent | `seo001-title.ts`: `ctx.heads.map(...)`, per-head only |
-| SEO002 | seo | Route-independent | `headTagRule` builder, per-head only |
-| SEO003 | seo | Route-independent | `headTagRule` builder |
-| SEO004 | seo | Route-independent | `headTagRule` builder |
-| SEO005 | seo | Route-independent | `headTagRule` builder |
-| SEO006 | seo | Project-fact | `project-rules.ts`: reads `ctx.project.hasRobotsTxt` only |
-| SEO007 | seo | Project-fact | `project-rules.ts`: reads `ctx.project.hasSitemap` only |
-| SEO008 | seo | Route-independent | `headTagRule` builder |
-| SEO009 | seo | Project-fact | `project-rules.ts`: reads `ctx.project.htmlLang` (app.html) |
-| PERF001 | performance | Route-independent | `imageRule` builder, per-route `ctx.images` entry only |
-| PERF002 | performance | Route-independent | `imageRule` builder |
-| PERF003 | performance | Route-independent | `linkRule` builder, per-head only |
-| PERF004 | performance | Route-independent | `linkRule` builder |
-| SEO010 | seo | Route-independent | `seo010-015.ts`: loop over `ctx.heads`, per-head only |
-| SEO011 | seo | Route-independent | `headTagRule` builder |
-| SEO012 | seo | Route-independent | `headTagRule` builder |
-| SEO013 | seo | Route-independent | `headTagRule` builder |
-| SEO014 | seo | Route-independent | `headTagRule` builder (`appliesTo: rendered` gate, still per-head) |
-| SEO015 | seo | Project-fact | reads `ctx.project.{hasRobotsTxt,hasSitemap,robotsReferencesSitemap}` only |
-| SEO016 | seo | Route-independent | `seo016-021.ts`: per-head JSON-LD parse, no cross-route read |
-| SEO017 | seo | Route-independent | `jsondRule` builder over the same file, per-head |
-| SEO018 | seo | Route-independent | `jsonldRule` builder |
-| SEO019 | seo | Route-independent | `jsonldRule` builder |
-| SEO020 | seo | Route-independent | `jsonldRule` builder |
-| SEO021 | seo | Route-independent | `jsonldRule` builder |
-| SEO022 | seo | Route-independent | `seo022-023.ts` `lengthRule` builder, per-head |
-| SEO023 | seo | Route-independent | `lengthRule` builder |
-| SEO024 | seo | Route-independent | `headTagRule` builder (`appliesTo: rendered`) |
-| SEO025 | seo | Route-independent | `imageRule` builder |
-| SEO026 | seo | Route-independent | `seo026-hreflang.ts`: per-head `<link alternate>` set, no cross-route |
-| SEO027 | seo | Route-independent | `seo027-heading.ts`: per-route `ctx.headings` entry only |
-| PERF005 | performance | Route-independent | `perf005-lcp-image.ts`: per-route `ctx.images` entry only |
-| PERF006 | performance | Route-independent | `imageRule` builder |
-| PERF007 | performance | Route-independent | `perf007-render-blocking.ts`: per-head `<script>` set only |
-| PERF008 | performance | Route-independent | `perf008-preconnect.ts`: per-head host tracking, no cross-route reads |
-| **SEO028** | seo | **Cross-route** | `seo028-029-uniqueness.ts`: builds a `Map<text, count>` over **every** `ctx.heads` entry before deciding any one route's verdict |
-| **SEO029** | seo | **Cross-route** | same file, same mechanism (description instead of title) |
-| SEO030 | seo | Route-independent | `seo030-heading-order.ts`: per-route `ctx.headings` entry only |
-| CORRECT001 | correctness | Component/file-independent | `componentRule` builder, per-file `ctx.components` entry only |
-| CORRECT002 | correctness | Component/file-independent | `componentRule` builder |
-| CORRECT003 | correctness | Component/file-independent | `componentRule` builder |
-| CORRECT004 | correctness | Component/file-independent | `componentRule` builder |
-| CORRECT005 | correctness | Component/file-independent | `componentRule` builder |
-| SEC001 | security | Component/file-independent | `componentRule` builder |
-| SEC002 | security | Component/file-independent | `componentRule` builder |
-| ARCH001 | architecture | Component/file-independent | `componentRule` builder |
-| ARCH002 | architecture | Component/file-independent | `componentRule` builder |
-| PERF009 | performance | Component/file-independent | `componentRule` builder |
-| PERF010 | performance | Component/file-independent | `componentRule` builder |
+| Rule ID    | Category     | Classification             | Basis                                                                                                                            |
+| ---------- | ------------ | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| SEO001     | seo          | Route-independent          | `seo001-title.ts`: `ctx.heads.map(...)`, per-head only                                                                           |
+| SEO002     | seo          | Route-independent          | `headTagRule` builder, per-head only                                                                                             |
+| SEO003     | seo          | Route-independent          | `headTagRule` builder                                                                                                            |
+| SEO004     | seo          | Route-independent          | `headTagRule` builder                                                                                                            |
+| SEO005     | seo          | Route-independent          | `headTagRule` builder                                                                                                            |
+| SEO006     | seo          | Project-fact               | `project-rules.ts`: reads `ctx.project.hasRobotsTxt` only                                                                        |
+| SEO007     | seo          | Project-fact               | `project-rules.ts`: reads `ctx.project.hasSitemap` only                                                                          |
+| SEO008     | seo          | Route-independent          | `headTagRule` builder                                                                                                            |
+| SEO009     | seo          | Project-fact               | `project-rules.ts`: reads `ctx.project.htmlLang` (app.html)                                                                      |
+| PERF001    | performance  | Route-independent          | `imageRule` builder, per-route `ctx.images` entry only                                                                           |
+| PERF002    | performance  | Route-independent          | `imageRule` builder                                                                                                              |
+| PERF003    | performance  | Route-independent          | `linkRule` builder, per-head only                                                                                                |
+| PERF004    | performance  | Route-independent          | `linkRule` builder                                                                                                               |
+| SEO010     | seo          | Route-independent          | `seo010-015.ts`: loop over `ctx.heads`, per-head only                                                                            |
+| SEO011     | seo          | Route-independent          | `headTagRule` builder                                                                                                            |
+| SEO012     | seo          | Route-independent          | `headTagRule` builder                                                                                                            |
+| SEO013     | seo          | Route-independent          | `headTagRule` builder                                                                                                            |
+| SEO014     | seo          | Route-independent          | `headTagRule` builder (`appliesTo: rendered` gate, still per-head)                                                               |
+| SEO015     | seo          | Project-fact               | reads `ctx.project.{hasRobotsTxt,hasSitemap,robotsReferencesSitemap}` only                                                       |
+| SEO016     | seo          | Route-independent          | `seo016-021.ts`: per-head JSON-LD parse, no cross-route read                                                                     |
+| SEO017     | seo          | Route-independent          | `jsondRule` builder over the same file, per-head                                                                                 |
+| SEO018     | seo          | Route-independent          | `jsonldRule` builder                                                                                                             |
+| SEO019     | seo          | Route-independent          | `jsonldRule` builder                                                                                                             |
+| SEO020     | seo          | Route-independent          | `jsonldRule` builder                                                                                                             |
+| SEO021     | seo          | Route-independent          | `jsonldRule` builder                                                                                                             |
+| SEO022     | seo          | Route-independent          | `seo022-023.ts` `lengthRule` builder, per-head                                                                                   |
+| SEO023     | seo          | Route-independent          | `lengthRule` builder                                                                                                             |
+| SEO024     | seo          | Route-independent          | `headTagRule` builder (`appliesTo: rendered`)                                                                                    |
+| SEO025     | seo          | Route-independent          | `imageRule` builder                                                                                                              |
+| SEO026     | seo          | Route-independent          | `seo026-hreflang.ts`: per-head `<link alternate>` set, no cross-route                                                            |
+| SEO027     | seo          | Route-independent          | `seo027-heading.ts`: per-route `ctx.headings` entry only                                                                         |
+| PERF005    | performance  | Route-independent          | `perf005-lcp-image.ts`: per-route `ctx.images` entry only                                                                        |
+| PERF006    | performance  | Route-independent          | `imageRule` builder                                                                                                              |
+| PERF007    | performance  | Route-independent          | `perf007-render-blocking.ts`: per-head `<script>` set only                                                                       |
+| PERF008    | performance  | Route-independent          | `perf008-preconnect.ts`: per-head host tracking, no cross-route reads                                                            |
+| **SEO028** | seo          | **Cross-route**            | `seo028-029-uniqueness.ts`: builds a `Map<text, count>` over **every** `ctx.heads` entry before deciding any one route's verdict |
+| **SEO029** | seo          | **Cross-route**            | same file, same mechanism (description instead of title)                                                                         |
+| SEO030     | seo          | Route-independent          | `seo030-heading-order.ts`: per-route `ctx.headings` entry only                                                                   |
+| CORRECT001 | correctness  | Component/file-independent | `componentRule` builder, per-file `ctx.components` entry only                                                                    |
+| CORRECT002 | correctness  | Component/file-independent | `componentRule` builder                                                                                                          |
+| CORRECT003 | correctness  | Component/file-independent | `componentRule` builder                                                                                                          |
+| CORRECT004 | correctness  | Component/file-independent | `componentRule` builder                                                                                                          |
+| CORRECT005 | correctness  | Component/file-independent | `componentRule` builder                                                                                                          |
+| SEC001     | security     | Component/file-independent | `componentRule` builder                                                                                                          |
+| SEC002     | security     | Component/file-independent | `componentRule` builder                                                                                                          |
+| ARCH001    | architecture | Component/file-independent | `componentRule` builder                                                                                                          |
+| ARCH002    | architecture | Component/file-independent | `componentRule` builder                                                                                                          |
+| PERF009    | performance  | Component/file-independent | `componentRule` builder                                                                                                          |
+| PERF010    | performance  | Component/file-independent | `componentRule` builder                                                                                                          |
 
 **Result: 34 route-independent, 11 component/file-independent, 4 project-fact,
 2 cross-route (SEO028, SEO029).** No rule fell into an "unclear from the code"
 bucket — every `check` function was legible enough to classify with
 confidence, so the STOP condition about ambiguous rules did not trigger.
 
-### Callout: the existing `scope: 'route' | 'project' | 'component'` field answers a *different* question
+### Callout: the existing `scope: 'route' | 'project' | 'component'` field answers a _different_ question
 
 `Rule.scope` (`packages/core/src/rule.ts:26`) already exists, and it's tempting
 to assume it already encodes this spike's classification. **It doesn't.** Its
@@ -155,7 +155,7 @@ This was prototyped and exercised in Step 3 (below). Two structural findings:
    (`resolveFileTags`, depth-limited to 5, cycle-guarded). `collectRoutes`
    already shares one `ParseCache` (Plan 034) across all routes in a run, so a
    shared layout is parsed once regardless of how many routes reference it —
-   the *marginal* cost of one additional in-scope route is roughly "walk its
+   the _marginal_ cost of one additional in-scope route is roughly "walk its
    own chain once," not "re-parse everything." This means the reverse-lookup
    approach, if built, would need `enumerateRoutePages`/`collectLayouts` to run
    unconditionally (they're cheap) but could then call `resolveRoute` only for
@@ -163,7 +163,7 @@ This was prototyped and exercised in Step 3 (below). Two structural findings:
 
 2. **A change to a route/layout file is cheap to scope; a change to a shared
    `$lib` component is not, in general.** The reverse lookup above only
-   answers "which routes have `changedFile` *as a route/layout file* in their
+   answers "which routes have `changedFile` _as a route/layout file_ in their
    chain" (the changed file must itself be a `+page.svelte`/`+layout.svelte`
    somewhere in `src/routes`). If the changed file is a `$lib` component
    imported by an unknown subset of pages (directly, or transitively through
@@ -265,7 +265,7 @@ If a follow-up implementation plan is written, the shape this spike points to:
 1. **Does SEO028/SEO029 needing full heads defeat the point?** If those two
    rules alone force resolving every route's head regardless of what
    changed, is the win from skipping `resolveFileTags`'s transitive
-   component walk for the *other* 34 route-independent rules still worth the
+   component walk for the _other_ 34 route-independent rules still worth the
    implementation complexity? (Likely yes for projects with heavy meta
    components / deep transitive resolution, since head resolution itself —
    not the tiny SEO028/029 Map-building loop — is the expensive part; but
@@ -281,19 +281,19 @@ If a follow-up implementation plan is written, the shape this spike points to:
    `2026-07-13-suppressions-file-design.md`, decision 2) or use the full
    result set; no change implied here, but a future plan should confirm.
 4. **Does `--baseline`'s second full analysis get the same treatment?** The
-   baseline analysis diffs the *current* scoped results against a full
+   baseline analysis diffs the _current_ scoped results against a full
    analysis of the base ref. Applying the same route-scoping to the baseline
    run would require answering "which of the base ref's routes correspond to
    the changed files" — which may not even exist in the base ref (a brand
    new route). This spike's plan explicitly kept `checkoutBaseline`'s
    mechanism out of scope; a follow-up plan needs to decide whether the
-   baseline run gets scoped too, or stays a full run (only the *primary*
+   baseline run gets scoped too, or stays a full run (only the _primary_
    analysis benefits).
 5. **Is a `dataDependency` field worth adding to the public `Rule` type**,
    given it's consumed only by the CLI's internal scoping logic and
    `@svelte-vitals/core` is meant to stay runtime-agnostic and mode-agnostic?
    An alternative is a CLI-local constant set (`CROSS_ROUTE_RULE_IDS = new
-   Set(['SEO028', 'SEO029'])`) that doesn't touch core's `Rule` type at all —
+Set(['SEO028', 'SEO029'])`) that doesn't touch core's `Rule` type at all —
    simpler, but drifts silently if a future rule needs the same treatment and
    nobody remembers to update the constant. A `core`-side field is
    self-documenting and enforced by the type checker at the rule's
