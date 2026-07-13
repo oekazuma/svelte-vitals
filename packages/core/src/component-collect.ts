@@ -18,6 +18,7 @@ export function emptyComponentFacts(file: string): ComponentFacts {
     loc: 0,
     propCount: 0,
     imports: [],
+    importSpans: [],
     namespaceImports: [],
     constableStates: [],
     mutatedProps: [],

@@ -501,10 +501,12 @@ function countLines(source: string): number {
   return source.split('\n').length - (source.endsWith('\n') ? 1 : 0);
 }
 
-/** Module specifiers of every `import` in an ESTree program (Bundle PERF009). */
-function collectImportSources(program: Node, acc: string[]): void {
+/** Module specifiers of every `import`, each with its source line (Bundle PERF009). */
+function collectImportSources(program: Node, source: string, acc: { source: string; line: number }[]): void {
   walkEstree(program, (n) => {
-    if (n.type === 'ImportDeclaration' && typeof n.source?.value === 'string') acc.push(n.source.value);
+    if (n.type === 'ImportDeclaration' && typeof n.source?.value === 'string') {
+      acc.push({ source: n.source.value, line: lineOf(source, n.start) });
+    }
   });
 }
 
@@ -558,6 +560,7 @@ export function parseComponentFacts(
   loc: number;
   propCount: number;
   imports: string[];
+  importSpans: { source: string; line: number }[];
   namespaceImports: { source: string; line: number }[];
   constableStates: { name: string; line: number }[];
   mutatedProps: { name: string; line: number }[];
@@ -573,10 +576,10 @@ export function parseComponentFacts(
   const suppressions = collectSuppressions(source);
 
   // Imports live in either the instance (<script>) or module (<script module>) program.
-  const imports: string[] = [];
+  const importSpans: { source: string; line: number }[] = [];
   const namespaceImports: { source: string; line: number }[] = [];
   if (ast.module?.content) {
-    collectImportSources(ast.module.content, imports);
+    collectImportSources(ast.module.content, source, importSpans);
     collectNamespaceImports(ast.module.content, source, namespaceImports);
   }
 
@@ -586,7 +589,7 @@ export function parseComponentFacts(
   let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
-    collectImportSources(program, imports);
+    collectImportSources(program, source, importSpans);
     collectNamespaceImports(program, source, namespaceImports);
     propCount = countProps(program);
     const nonBindableProps = collectNonBindableProps(program);
@@ -624,6 +627,7 @@ export function parseComponentFacts(
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
     }
   }
+  const imports = importSpans.map((s) => s.source);
   return {
     eachBlocks,
     effects,
@@ -632,6 +636,7 @@ export function parseComponentFacts(
     loc,
     propCount,
     imports,
+    importSpans,
     namespaceImports,
     constableStates,
     mutatedProps,
