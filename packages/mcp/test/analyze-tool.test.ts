@@ -30,7 +30,22 @@ function makeGitProjectCopy(): string {
   cpSync(fixtureDir, dir, { recursive: true });
   git(['init'], dir);
   git(['add', '-A'], dir);
-  git(['commit', '-m', 'init', '--no-gpg-sign'], dir);
+  // CI runners have no global git user configured, so `commit` fails with "Author
+  // identity unknown" unless we supply one explicitly (local machines usually have
+  // ~/.gitconfig set, which is why this only failed in CI).
+  git(
+    [
+      '-c',
+      'user.name=svelte-vitals-test',
+      '-c',
+      'user.email=test@svelte-vitals.invalid',
+      'commit',
+      '-m',
+      'init',
+      '--no-gpg-sign'
+    ],
+    dir
+  );
   return dir;
 }
 
