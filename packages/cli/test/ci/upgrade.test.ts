@@ -160,4 +160,46 @@ describe('upgradeActionPin', () => {
 
     expect(outcome).toEqual({ status: 'up-to-date' });
   });
+
+  it('rewrites an anchor-defined uses: line, preserving the anchor name', () => {
+    const content = [
+      'jobs:',
+      '  a:',
+      '    steps:',
+      `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${OLD_SHA} # @svelte-vitals/action@1.0.0`,
+      '  b:',
+      '    steps:',
+      '      - uses: *vitals_action'
+    ].join('\n');
+
+    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
+
+    expect(outcome.status).toBe('upgraded');
+    expect(outcome.replaced).toBe(1);
+    expect(outcome.from).toBe('1.0.0');
+    expect(outcome.content).toContain(
+      `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${NEW_SHA} # @svelte-vitals/action@2.0.0`
+    );
+    // The alias line itself has no literal ref to rewrite — a YAML parser resolves it
+    // to the anchor's (now-updated) value at parse time, so it's correctly left as-is.
+    expect(outcome.content).toContain('      - uses: *vitals_action');
+  });
+
+  it('rewrites an anchor-defined uses: line with no trailing comment', () => {
+    const content = `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${OLD_SHA}`;
+    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
+
+    expect(outcome.status).toBe('upgraded');
+    expect(outcome.from).toBe(OLD_SHA.slice(0, 7));
+    expect(outcome.content).toBe(
+      `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${NEW_SHA} # @svelte-vitals/action@2.0.0`
+    );
+  });
+
+  it('reports up-to-date for an anchor-defined line already pinned to the current sha', () => {
+    const content = `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${NEW_SHA} # @svelte-vitals/action@2.0.0`;
+    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
+
+    expect(outcome).toEqual({ status: 'up-to-date' });
+  });
 });
