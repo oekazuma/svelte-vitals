@@ -13,6 +13,7 @@ Usage:
   svelte-vitals [path] [options]
   svelte-vitals install          Set up the MCP server, Vite integration, or agent skills/rules
   svelte-vitals ci install       Add a GitHub Actions PR gate (annotations + summary comment)
+  svelte-vitals ci upgrade       Refresh the pinned @svelte-vitals/action in an existing workflow
 
 Options:
   --meta-components <names>   Comma-separated component names that emit head metadata
@@ -21,6 +22,8 @@ Options:
   --diff [ref]                Report only findings in files changed vs ref (default HEAD; e.g. --diff main)
   --staged                    Report only findings in files staged for commit (pre-commit gate)
   --baseline <ref>            Report only findings not present at ref (compare against e.g. origin/main)
+  --update-suppressions       Write svelte-vitals-suppressions.json accepting all current findings (introduce gates on legacy projects)
+  --no-suppressions           Ignore svelte-vitals-suppressions.json for this run
   --by-route                  Show per-route score breakdown in console output
   --reporter <fmt>            console | json | agent | sarif | github | html | md (auto: agent under AI-agent envs, github under GitHub Actions)
   --out-file <path>           Output path for --reporter html (default: svelte-vitals-report.html; '-' for stdout)
@@ -70,7 +73,7 @@ async function main(): Promise<void> {
 
   const argv = mri(process.argv.slice(2), {
     alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'staged', 'score', 'verbose'],
+    boolean: ['by-route', 'staged', 'score', 'verbose', 'update-suppressions'],
     string: [
       'meta-components',
       'treat-dynamic-as',

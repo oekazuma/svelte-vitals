@@ -31,6 +31,7 @@ import { readPackageVersion, readCoreVersion } from './version.js';
 import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
 import { getChangedFiles, filterToChangedFiles } from './changed-files.js';
 import { checkoutBaseline, filterToNewFindings } from './baseline.js';
+import { loadSuppressions, writeSuppressions, applySuppressions, SUPPRESSIONS_FILE } from './suppressions.js';
 import { colorEnabled, paletteFor } from './color.js';
 import { startSpinner } from './spinner.js';
 import { startMascotSpinner, mascotFitsWidth } from './mascot.js';
@@ -70,6 +71,10 @@ export interface RunOptions {
   staged?: boolean;
   /** Report only findings not present when analyzing this git ref (e.g. the PR base). */
   baseline?: string;
+  /** Disable applying svelte-vitals-suppressions.json for this run. */
+  noSuppressions?: boolean;
+  /** Analyze, then (re)write svelte-vitals-suppressions.json with all currently penalized findings and exit 0. */
+  updateSuppressions?: boolean;
   /** Disable ANSI color in console output. */
   noColor?: boolean;
   /** Override stdout TTY detection (tests). */
@@ -206,15 +211,27 @@ export interface ApplyScopeOptions {
   staged?: boolean;
   diffBase?: string;
   baseline?: string;
+  /**
+   * Resolved config, needed to decide which findings count as "penalized" when
+   * applying svelte-vitals-suppressions.json (`isPenalized`). Suppression
+   * application is skipped entirely when omitted — callers that don't pass a
+   * config (e.g. @svelte-vitals/action, which doesn't opt into this yet) keep
+   * their previous behavior unchanged.
+   */
+  config?: Config;
+  /** Disable applying svelte-vitals-suppressions.json for this run. */
+  noSuppressions?: boolean;
   errorLog?: (line: string) => void;
   analyzeOpts?: AnalyzeOptions;
 }
 
 /**
  * Narrow `results` to what a PR gate cares about: `--staged`/`--diff` restrict to
- * changed files, `--baseline` drops findings that already existed at that ref. Shared
- * by `run()` and `@svelte-vitals/action` (issue #154) so the git-diff/baseline
- * orchestration lives in exactly one place.
+ * changed files, `--baseline` drops findings that already existed at that ref,
+ * and (last) svelte-vitals-suppressions.json drops findings that were explicitly
+ * accepted via `--update-suppressions`. Shared by `run()` and
+ * `@svelte-vitals/action` (issue #154) so the git-diff/baseline orchestration
+ * lives in exactly one place.
  */
 export async function applyScope(results: Result[], opts: ApplyScopeOptions): Promise<Result[]> {
   const errorLog = opts.errorLog ?? ((line: string) => console.error(line));
@@ -247,6 +264,23 @@ export async function applyScope(results: Result[], opts: ApplyScopeOptions): Pr
         errorLog(`svelte-vitals: baseline analysis of '${opts.baseline}' failed; reporting all findings.`);
       } finally {
         checkout.cleanup();
+      }
+    }
+  }
+
+  if (!opts.noSuppressions && opts.config) {
+    const entries = loadSuppressions(opts.cwd);
+    if (entries !== undefined) {
+      const { results: afterSuppressions, suppressed, stale } = applySuppressions(scoped, entries, opts.config);
+      scoped = afterSuppressions;
+      if (suppressed > 0 || stale > 0) {
+        errorLog(
+          `svelte-vitals: ${suppressed} finding(s) suppressed by ${SUPPRESSIONS_FILE}` +
+            (stale > 0
+              ? ` (${stale} stale entr${stale === 1 ? 'y' : 'ies'} — re-run --update-suppressions to prune)`
+              : '') +
+            '.'
+        );
       }
     }
   }
@@ -371,11 +405,23 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 
   try {
     const { config, version } = analysis;
+
+    if (opts.updateSuppressions) {
+      // Scoping flags (--diff/--staged/--baseline) are deliberately ignored here —
+      // the suppressions file is meant to record the whole project's current state,
+      // not a diff (design doc 2026-07-13-suppressions-file-design.md, decision 2).
+      const count = writeSuppressions(cwd, analysis.results, config);
+      errorLog(`svelte-vitals: wrote ${count} suppression(s) to ${SUPPRESSIONS_FILE}.`);
+      return 0;
+    }
+
     const results = await applyScope(analysis.results, {
       cwd,
+      config,
       staged: opts.staged,
       diffBase: opts.diffBase,
       baseline: opts.baseline,
+      noSuppressions: opts.noSuppressions,
       errorLog,
       analyzeOpts: {
         metaComponents: opts.metaComponents,

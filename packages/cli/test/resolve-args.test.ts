@@ -6,7 +6,7 @@ import { resolveArgs } from '../src/resolve-args.js';
 function resolve(...args: string[]) {
   const argv = mri(args, {
     alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'staged', 'score', 'verbose'],
+    boolean: ['by-route', 'staged', 'score', 'verbose', 'update-suppressions'],
     string: [
       'meta-components',
       'treat-dynamic-as',
@@ -90,6 +90,32 @@ describe('resolveArgs', () => {
     const { options, errors } = resolve('--baseline');
     expect(options).toBeNull();
     expect(errors.some((e) => e.includes('--baseline requires a git ref'))).toBe(true);
+  });
+
+  it('maps --update-suppressions to options.updateSuppressions', () => {
+    const { options, errors } = resolve('--update-suppressions');
+    expect(options?.updateSuppressions).toBe(true);
+    expect(errors).toEqual([]);
+  });
+
+  it('maps --no-suppressions to options.noSuppressions', () => {
+    const { options, errors } = resolve('--no-suppressions');
+    expect(options?.noSuppressions).toBe(true);
+    expect(errors).toEqual([]);
+  });
+
+  it('omits updateSuppressions/noSuppressions when neither flag is passed', () => {
+    const { options } = resolve('--reporter', 'json');
+    expect(options?.updateSuppressions).toBeUndefined();
+    expect(options?.noSuppressions).toBeUndefined();
+  });
+
+  it('reports --update-suppressions with --no-suppressions as a fatal error (no options)', () => {
+    const { options, errors } = resolve('--update-suppressions', '--no-suppressions');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('--update-suppressions and --no-suppressions cannot be used together'))).toBe(
+      true
+    );
   });
 
   it('leaves rules undefined when neither --rules nor --ignore is passed', () => {

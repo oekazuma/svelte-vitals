@@ -131,6 +131,36 @@ svelte-vitals --diff origin/main --baseline origin/main --fail-on warning   # �
 
 > 検出結果は行番号を含めずに照合されるため、既に 1 件違反があるファイルの下の方に同じルールの 2 件目の違反を追加しても「新規」としては表示されません。
 
+### `svelte-vitals-suppressions.json` / `--update-suppressions` / `--no-suppressions`
+
+既存プロジェクトに svelte-vitals を導入する場合、たいてい修正しきれない検出結果の蓄積があり、ゲートを有効にする前にすべて直すことはできません。`--baseline <ref>` は **一時的な**ケース(PR とそのベースの比較)をカバーしますが、それとは別に **恒久的な**ランプもあります — 今日の検出結果を一度だけ記録して受け入れ、以降は新規のものだけをゲート対象にする、というものです。
+
+```bash
+svelte-vitals --update-suppressions   # svelte-vitals-suppressions.json を書き出し、現在のすべての検出結果を受け入れる
+git add svelte-vitals-suppressions.json && git commit -m "chore: accept existing svelte-vitals findings"
+svelte-vitals --fail-on warning       # 以降はこのコミット以後に導入された検出結果だけをゲート対象にする
+```
+
+`--update-suppressions` はプロジェクト全体を解析し(`--diff`/`--staged`/`--baseline` によるスコープ絞り込みは無視されます — このファイルは差分ではなくプロジェクト全体の状態を記録するためのものです)、現在ペナルティ対象になっているすべての検出結果を解析対象ディレクトリの `svelte-vitals-suppressions.json` に書き込み(パスしている検出結果は書き込まれません)、stderr にサマリーを表示して、レポートを出力せずに終了コード `0` で終了します。
+
+ファイルが存在すると、以降の実行では**自動的に**(`--diff`/`--staged` と `--baseline` の後に)適用され、ルール ID・route・location がエントリと一致するペナルティ対象の検出結果を取り除いたうえで、抑制した件数を表示します:
+
+```
+svelte-vitals: 12 finding(s) suppressed by svelte-vitals-suppressions.json.
+```
+
+受け入れ済みの検出結果を修正すると、そのエントリは**stale(未使用)**になります(何にも一致しなくなります)。svelte-vitals は stale の件数を stderr に表示してプルーニングを促しますが、それだけで実行を失敗させることはありません:
+
+```
+svelte-vitals: 3 finding(s) suppressed by svelte-vitals-suppressions.json (1 stale entry — re-run --update-suppressions to prune).
+```
+
+`--no-suppressions` を使うと、その回の実行だけファイルを無視できます(例えばプロジェクトの本当の現状を確認したいとき)。壊れた `svelte-vitals-suppressions.json`(JSON として不正、`version` が一致しない、エントリに `id` がない、など)は黙って無視されるのではなく、致命的エラー(終了コード `2`)になります — タイプミスのあるファイルが CI のゲートを黙って無効化してしまうことを防ぐためです。
+
+**`--baseline <ref>` との違い:** `--baseline` は実行のたびに git の ref を再解析して「何が既存か」を導出します — コミットは不要ですが、常に 1 つの ref としか比較できません。抑制ファイルは、一度だけ(または意図的に)構築してコミットする永続的な記録で、どの ref 上にいても適用され続けます。
+
+> `--baseline` と同様、エントリは行番号なしで照合されます — 受け入れ済みのルールの 2 件目の違反が同じファイルの下の方に追加されても「新規」としては表示されません。このファイルは v1 では CLI にのみ影響します。まだ `@svelte-vitals/vite`、`@svelte-vitals/mcp`、GitHub Action からは読み込まれません。
+
 ### `--by-route`
 
 コンソール出力にルートごとのスコア内訳を表示します。

@@ -131,6 +131,36 @@ svelte-vitals --diff origin/main --baseline origin/main --fail-on warning   # re
 
 > Findings are matched without their line number, so a second violation of the same rule added lower in a file you already had one violation in won't surface as "new".
 
+### `svelte-vitals-suppressions.json` / `--update-suppressions` / `--no-suppressions`
+
+Adopting svelte-vitals on an existing project usually means there's a backlog of findings you can't fix before turning on gating. `--baseline <ref>` covers the **transient** case — comparing a PR against its base — but there's also a **persistent** ramp: record today's findings once, accept them, and gate only on anything new from then on.
+
+```bash
+svelte-vitals --update-suppressions   # write svelte-vitals-suppressions.json, accepting every current finding
+git add svelte-vitals-suppressions.json && git commit -m "chore: accept existing svelte-vitals findings"
+svelte-vitals --fail-on warning       # now gates only on findings introduced after that commit
+```
+
+`--update-suppressions` analyzes the whole project (any `--diff`/`--staged`/`--baseline` scoping is ignored — the file is meant to capture the whole project's state, not a diff), writes every currently-penalized finding to `svelte-vitals-suppressions.json` in the analyzed directory (passing findings are never written), prints a summary to stderr, and exits `0` without printing a report.
+
+Once the file exists, it's applied **automatically** on every run — after `--diff`/`--staged` and `--baseline` — removing any penalized finding whose rule id, route, and location match an entry, and printing how many were suppressed:
+
+```
+svelte-vitals: 12 finding(s) suppressed by svelte-vitals-suppressions.json.
+```
+
+Fix an accepted finding and its entry becomes **stale** (matches nothing); svelte-vitals reports the stale count on stderr as a reminder to prune, but never fails the run because of it:
+
+```
+svelte-vitals: 3 finding(s) suppressed by svelte-vitals-suppressions.json (1 stale entry — re-run --update-suppressions to prune).
+```
+
+Use `--no-suppressions` to ignore the file for one run (e.g. to see the project's true current state). A malformed `svelte-vitals-suppressions.json` (not valid JSON, wrong `version`, or an entry missing `id`) is a hard error (exit `2`) rather than being silently ignored — a typo'd file must not silently un-gate CI.
+
+**Key difference from `--baseline <ref>`:** `--baseline` re-derives "what's pre-existing" by re-analyzing a git ref on every run — nothing to commit, but it only ever compares against one ref. The suppressions file is a committed, persistent record you build once (or update deliberately) and that keeps applying regardless of which ref you're on.
+
+> Entries match without a line number, same as `--baseline` — a second violation of an accepted rule lower in the same file won't surface as new. This file only affects the CLI in v1; it isn't yet read by `@svelte-vitals/vite`, `@svelte-vitals/mcp`, or the GitHub Action.
+
 ### `--by-route`
 
 Print a per-route score breakdown in the console output.

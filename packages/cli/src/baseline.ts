@@ -8,8 +8,15 @@ function git(args: string[], cwd: string): string {
   return execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
 }
 
-/** finding の同一性キー。line は含めない — 無関係な行ズレで「新規」誤検出しないため。 */
-export function findingKey(r: Result): string {
+/**
+ * Identity key for a finding. `line` is deliberately excluded — unrelated line
+ * drift must not make an existing finding look "new". The parameter is a `Pick`
+ * so that suppressions.ts (packages/cli/src/suppressions.ts) can reuse this
+ * exact key function on `SuppressionEntry` values (which carry only
+ * `id`/`route`/`location`, not a full `Result`) instead of duplicating the
+ * key template.
+ */
+export function findingKey(r: Pick<Result, 'id' | 'route' | 'location'>): string {
   return `${r.id}::${r.route ?? ''}::${r.location ?? ''}`;
 }
 
