@@ -341,3 +341,76 @@ describe('runInstall — agent targets', () => {
     expect(seenOptions).toContain('cursor-rules');
   });
 });
+
+describe('runInstall — --refresh', () => {
+  it('both agent target files present → both regenerated with the current version', async () => {
+    const { io, writes } = fakeIO({
+      files: {
+        '/proj/.claude/skills/svelte-vitals/SKILL.md': 'stale skill content',
+        '/proj/.cursor/rules/svelte-vitals.mdc': 'stale rules content'
+      }
+    });
+    const code = await runInstall({ refresh: true }, io, noPrompts, '2.0.0');
+    expect(code).toBe(0);
+    expect(writes['/proj/.claude/skills/svelte-vitals/SKILL.md']).toContain('svelte-vitals 2.0.0');
+    expect(writes['/proj/.cursor/rules/svelte-vitals.mdc']).toContain('svelte-vitals 2.0.0');
+  });
+
+  it('only one agent target file present → only that file is regenerated, the other is not created', async () => {
+    const { io, writes } = fakeIO({
+      files: { '/proj/.claude/skills/svelte-vitals/SKILL.md': 'stale skill content' }
+    });
+    const code = await runInstall({ refresh: true }, io, noPrompts, '2.0.0');
+    expect(code).toBe(0);
+    expect(writes['/proj/.claude/skills/svelte-vitals/SKILL.md']).toContain('svelte-vitals 2.0.0');
+    expect(writes['/proj/.cursor/rules/svelte-vitals.mdc']).toBeUndefined();
+  });
+
+  it('no generated agent files present → prints guidance to stderr and exits 0 without writing', async () => {
+    const { io, writes, err } = fakeIO();
+    const code = await runInstall({ refresh: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes).toEqual({});
+    expect(err.join('\n')).toContain('no generated agent files found');
+    expect(err.join('\n')).toContain('svelte-vitals install --client claude-skill,cursor-rules');
+  });
+
+  it('--dry-run previews the plan and writes nothing', async () => {
+    const { io, writes, out } = fakeIO({
+      files: { '/proj/.claude/skills/svelte-vitals/SKILL.md': 'stale skill content' }
+    });
+    const code = await runInstall({ refresh: true, dryRun: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes).toEqual({});
+    expect(out.join('\n')).toContain('Dry run');
+  });
+
+  it('leaves MCP client config files untouched', async () => {
+    const { io, writes } = fakeIO({
+      files: {
+        '/proj/.claude/skills/svelte-vitals/SKILL.md': 'stale skill content',
+        '/proj/.mcp.json': JSON.stringify({ mcpServers: { other: { command: 'x', args: [] } } }),
+        '/proj/.cursor/mcp.json': JSON.stringify({ mcpServers: { other: { command: 'y', args: [] } } })
+      }
+    });
+    const code = await runInstall({ refresh: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes['/proj/.mcp.json']).toBeUndefined();
+    expect(writes['/proj/.cursor/mcp.json']).toBeUndefined();
+  });
+
+  it('a per-file write failure is reported but does not abort refreshing the rest', async () => {
+    const { io, writes, err } = fakeIO({
+      files: {
+        '/proj/.claude/skills/svelte-vitals/SKILL.md': 'stale skill content',
+        '/proj/.cursor/rules/svelte-vitals.mdc': 'stale rules content'
+      },
+      failWritePath: '/proj/.claude/skills/svelte-vitals/SKILL.md'
+    });
+    const code = await runInstall({ refresh: true }, io, noPrompts);
+    expect(code).toBe(2);
+    expect(writes['/proj/.claude/skills/svelte-vitals/SKILL.md']).toBeUndefined();
+    expect(writes['/proj/.cursor/rules/svelte-vitals.mdc']).toBeDefined();
+    expect(err.join('\n')).toContain('/proj/.claude/skills/svelte-vitals/SKILL.md');
+  });
+});

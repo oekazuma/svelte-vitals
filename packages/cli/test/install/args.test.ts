@@ -3,7 +3,7 @@ import mri from 'mri';
 import { resolveInstallArgs } from '../../src/install/args.js';
 
 const parse = (args: string[]) =>
-  mri(args, { boolean: ['yes', 'dry-run', 'force'], string: ['client', 'scope'], alias: { y: 'yes' } });
+  mri(args, { boolean: ['yes', 'dry-run', 'force', 'refresh'], string: ['client', 'scope'], alias: { y: 'yes' } });
 
 describe('resolveInstallArgs', () => {
   it('parses clients and scope', () => {
@@ -76,5 +76,25 @@ describe('resolveInstallArgs — agent targets', () => {
   it('still rejects a genuinely unknown id', () => {
     const r = resolveInstallArgs(parse(['--client', 'not-an-agent-target']));
     expect(r.warnings.join('\n')).toContain('not-an-agent-target');
+  });
+});
+
+describe('resolveInstallArgs — --refresh', () => {
+  it('accepts a bare --refresh', () => {
+    const r = resolveInstallArgs(parse(['--refresh']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags).toEqual({ yes: false, dryRun: false, force: false, refresh: true });
+  });
+  it('errors when combined with --client (fatal)', () => {
+    const r = resolveInstallArgs(parse(['--refresh', '--client', 'claude-skill']));
+    expect(r.flags).toBeNull();
+    expect(r.errors.join('\n')).toContain('--refresh');
+    expect(r.errors.join('\n')).toContain('--client');
+  });
+  it('warns (but does not error) when combined with --scope/--yes/--force', () => {
+    const r = resolveInstallArgs(parse(['--refresh', '--scope', 'project', '--yes', '--force']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags).toMatchObject({ refresh: true });
+    expect(r.warnings.join('\n')).toContain('--refresh');
   });
 });

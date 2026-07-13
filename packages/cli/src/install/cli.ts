@@ -29,6 +29,9 @@ Options:
   --yes, -y         Skip the confirmation prompt
   --dry-run         Print the planned changes and exit without writing
   --force           Overwrite an existing svelte-vitals entry
+  --refresh         Regenerate existing agent skill/rules files with the current rule set
+                    (claude-skill / cursor-rules). Only regenerates files already present on
+                    disk — it never creates one. Cannot be combined with --client.
   -h, --help        Show this help`;
 
 export function realIO(): InstallIO {
@@ -99,7 +102,7 @@ function clackPrompts(): InstallPrompts {
 /** Parse install args, print diagnostics, and run the wizard. Returns the exit code. */
 export async function runInstallCli(args: string[]): Promise<number> {
   const argv = mri(args, {
-    boolean: ['yes', 'dry-run', 'force', 'help'],
+    boolean: ['yes', 'dry-run', 'force', 'refresh', 'help'],
     string: ['client', 'scope'],
     alias: { y: 'yes', h: 'help' }
   });
