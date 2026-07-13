@@ -1,5 +1,7 @@
 # Compact-by-default Console Reporter + Score-Reveal Animation Implementation Plan
 
+> **Status: SHIPPED (verified 2026-07-13 reconcile).** Landed on main via PR #167 (plus the agent/CI animation-suppression fix `233d817`) — the checkboxes below were never ticked during execution and are NOT open work. Judge state by the code, not the boxes.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Make `svelte-vitals`'s console output stay readable on large projects (group failures by rule, cap what's shown by default, add a `--verbose` escape hatch) and give the Health score a short svelte-vitals-themed pulse-line reveal animation on an interactive terminal.

@@ -1,5 +1,7 @@
 # Live UI Dashboard — vitest --ui Parity Implementation Plan
 
+> **Status: SHIPPED (verified 2026-07-13 reconcile).** All target files exist on main (`snapshot.ts` / `dashboard.ts` / `dashboard-script.ts` / `dashboard-style.ts` / `/data.json` route; `serve.ts` retired) — the checkboxes below were never ticked during execution and are NOT open work. Judge state by the code, not the boxes.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Rebuild the `@svelte-vitals/vite` live dashboard (`svelteVitals({ ui: true })`, served at `/__svelte-vitals/`) into a master/detail, searchable, sortable, dark-mode-capable SPA-style dashboard — closing the experiential gap with `vitest --ui` — while leaving `@svelte-vitals/core` and the CLI's `--reporter html` output completely untouched.
