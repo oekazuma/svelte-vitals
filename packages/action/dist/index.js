@@ -56976,7 +56976,7 @@ function applyRuleSeverities(results, config) {
   });
 }
 
-// ../cli/dist/chunk-S4QJ5TSF.js
+// ../cli/dist/chunk-OCLDCX4Y.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -57754,7 +57754,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-S4QJ5TSF.js
+// ../cli/dist/chunk-OCLDCX4Y.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -58337,9 +58337,8 @@ async function resolveRoute(rt, cwd, pageRel, config, layouts, cache) {
     headings: { route, headings }
   };
 }
-async function collectRoutes(rt, cwd, config = defaultConfig) {
+async function collectRoutes(rt, cwd, config = defaultConfig, cache = /* @__PURE__ */ new Map()) {
   const [pages, layouts] = await Promise.all([enumerateRoutePages(rt, cwd), collectLayouts(rt, cwd)]);
-  const cache = /* @__PURE__ */ new Map();
   const facts = await Promise.all(pages.map((page) => resolveRoute(rt, cwd, page, config, layouts, cache)));
   return {
     heads: facts.map((f) => f.head),
@@ -58613,7 +58612,7 @@ async function analyzeProject(opts = {}) {
   });
   await detectProject(rt, cwd);
   const matches = routeMatcher(opts.route);
-  const collected = await collectRoutes(rt, cwd, config);
+  const collected = await collectRoutes(rt, cwd, config, opts.parseCache);
   const heads = collected.heads.filter((h) => matches(h.route));
   const images = collected.images.filter((i) => matches(i.route));
   const headings = collected.headings.filter((h) => matches(h.route));
