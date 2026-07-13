@@ -27,6 +27,18 @@ Re-running `ci install` without `--force` is a no-op if the file already exists 
 safe to run again after upgrading svelte-vitals). If you already have a workflow from an older
 svelte-vitals version, re-run with `--force` to migrate to the current, shorter template.
 
+## Adopting on an existing project
+
+If the repo already has a backlog of findings, run `svelte-vitals --update-suppressions` locally
+first: it writes `svelte-vitals-suppressions.json`, accepting every current finding in one shot.
+Commit that file, then enable whatever gate you want (`--fail-on`, `--min-health`, a pre-commit
+hook, or this workflow) — from then on it only fails on findings introduced afterward, without
+having to fix the backlog up front. See [`--update-suppressions`](/svelte-vitals/guides/cli/#svelte-vitals-suppressionsjson---update-suppressions---no-suppressions)
+in the CLI reference for the full behavior. `@svelte-vitals/action` doesn't read this file directly
+yet (v1 is CLI-only) — its own `diff`/`baseline` scoping below already limits _this_ workflow to a
+PR's own changes; the suppressions file additionally lets you turn on gating outside of PRs (e.g.
+`--fail-on` in a local pre-commit hook) without the same backlog problem.
+
 ## What the workflow does
 
 On every `pull_request` event, the generated workflow:

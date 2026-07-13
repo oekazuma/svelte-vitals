@@ -29,6 +29,10 @@ npx svelte-vitals@latest ci install --force     # 既存のワークフローフ
 svelte-vitals が生成したワークフローが既にある場合は、`--force` で再実行すると現行の
 短いテンプレートに移行できます。
 
+## 既存プロジェクトへの導入
+
+リポジトリに既に検出結果の蓄積がある場合は、まずローカルで `svelte-vitals --update-suppressions` を実行してください。現在のすべての検出結果を受け入れる `svelte-vitals-suppressions.json` が一度で書き出されます。そのファイルをコミットしてから、好きなゲート(`--fail-on`、`--min-health`、pre-commit フック、あるいはこのワークフロー)を有効にすれば、以降はそれ以後に導入された検出結果だけで失敗するようになり、蓄積分を事前に直す必要はありません。詳しくは CLI リファレンスの [`--update-suppressions`](/svelte-vitals/ja/guides/cli/#svelte-vitals-suppressionsjson---update-suppressions---no-suppressions) を参照してください。`@svelte-vitals/action` はまだこのファイルを直接読み込みません(v1 は CLI のみ対応)— 以下で説明する `diff`/`baseline` によるスコープ絞り込みが、この _ワークフロー_ を既に PR 自体の変更分に限定しています。抑制ファイルはそれに加えて、PR の外(たとえばローカルの pre-commit フックでの `--fail-on`)でも同じ蓄積問題なしにゲートを有効にできるようにするものです。
+
 ## ワークフローの動作
 
 `pull_request` イベントが発生するたびに、生成されるワークフローは以下を行います：
