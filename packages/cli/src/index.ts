@@ -214,9 +214,8 @@ export interface ApplyScopeOptions {
   /**
    * Resolved config, needed to decide which findings count as "penalized" when
    * applying svelte-vitals-suppressions.json (`isPenalized`). Suppression
-   * application is skipped entirely when omitted — callers that don't pass a
-   * config (e.g. @svelte-vitals/action, which doesn't opt into this yet) keep
-   * their previous behavior unchanged.
+   * application is skipped entirely when omitted, keeping such callers'
+   * behavior unchanged (the CLI and @svelte-vitals/action both pass it).
    */
   config?: Config;
   /** Disable applying svelte-vitals-suppressions.json for this run. */

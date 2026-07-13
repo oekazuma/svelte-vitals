@@ -58694,6 +58694,7 @@ async function main() {
   const { config, version: version2 } = analysis;
   const results = await applyScope(analysis.results, {
     cwd: path,
+    config,
     diffBase: diff,
     baseline,
     errorLog: (line) => warning(line)
