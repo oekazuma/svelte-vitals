@@ -1,5 +1,11 @@
 # @svelte-vitals/core
 
+## 0.23.1
+
+### Patch Changes
+
+- fda64dd: Console reporter: stop printing the "↯ = set dynamically (verified at runtime)." footnote in compact (default, non-`--verbose`) mode. The `↯` marker itself only ever appears in the verbose `Passed` listing — showing the footnote without it visible anywhere in the output was confusing.
+
 ## 0.23.0
 
 ### Minor Changes

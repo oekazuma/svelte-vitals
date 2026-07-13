@@ -1,5 +1,19 @@
 # svelte-vitals
 
+## 0.25.0
+
+### Minor Changes
+
+- 4ebb756: Add `svelte-vitals ci upgrade`: rewrites only the pinned `@svelte-vitals/action` reference line(s) in an existing generated workflow to the pin bundled with the CLI, leaving everything else (other pins like `actions/checkout`, custom triggers/steps) untouched. Use `ci install --force` if you want to regenerate the whole file instead.
+- ab55482: `install --refresh` regenerates whichever generated agent instruction files (`claude-skill`, `cursor-rules`) already exist on disk with the current rule set, without needing to remember which `--client` ids were originally installed. It never creates a file that isn't already there, ignores `--scope`/`--yes`/`--force`, and cannot be combined with `--client`.
+- 9802586: Add a `svelte-vitals-suppressions.json` file: `--update-suppressions` records every currently-penalized finding once (a persistent adoption ramp, unlike the transient `--baseline <ref>` git-ref comparison), and the file is then applied automatically on every run — after `--diff`/`--staged` and `--baseline` — so gating (`--fail-on`, `--min-health`) can be turned on for an existing project without first fixing its whole backlog. `--no-suppressions` disables it for one run.
+
+### Patch Changes
+
+- 58ccebc: CLI mascot: fix the ecstatic (100/100) face's mouth being off-center under the eyes — switched to the same 4-column mouth width the happy face already centers correctly (a 5-column mouth can never land exactly on the eyes' midpoint).
+- Updated dependencies [fda64dd]
+  - @svelte-vitals/core@0.23.1
+
 ## 0.24.0
 
 ### Minor Changes
