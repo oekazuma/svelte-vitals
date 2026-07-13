@@ -8,8 +8,13 @@ function git(args: string[], cwd: string): string {
   return execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
 }
 
-/** finding の同一性キー。line は含めない — 無関係な行ズレで「新規」誤検出しないため。 */
-export function findingKey(r: Result): string {
+/**
+ * finding の同一性キー。line は含めない — 無関係な行ズレで「新規」誤検出しないため。
+ * `Pick` で受けるのは、suppressions.ts(packages/cli/src/suppressions.ts)が
+ * `SuppressionEntry`(`id`/`route`/`location` のみを持つ、完全な `Result` ではない値)
+ * にも同じキー関数を使い回せるようにするため — 複製しない。
+ */
+export function findingKey(r: Pick<Result, 'id' | 'route' | 'location'>): string {
   return `${r.id}::${r.route ?? ''}::${r.location ?? ''}`;
 }
 

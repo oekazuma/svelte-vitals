@@ -218,6 +218,13 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
   // default.
   const noColor = argv.color === false;
   const noAnimation = argv.animation === false;
+  // Same mri auto-negation as --no-color/--no-animation above: `--no-suppressions`
+  // surfaces as `argv.suppressions === false`, never as an `argv['no-suppressions']` key.
+  const noSuppressions = argv.suppressions === false;
+  const updateSuppressions = Boolean(argv['update-suppressions']);
+  if (updateSuppressions && noSuppressions) {
+    errors.push('svelte-vitals: --update-suppressions and --no-suppressions cannot be used together.');
+  }
 
   // `buildRulesConfig` returns `{}` when neither --rules nor --ignore was passed;
   // normalize that to `undefined` so it doesn't clobber a config file's `rules`
@@ -250,7 +257,9 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
       ...(noAnimation ? { noAnimation } : {}),
       ...(diffBase !== undefined ? { diffBase } : {}),
       ...(staged ? { staged } : {}),
-      ...(baselineRef !== undefined ? { baseline: baselineRef } : {})
+      ...(baselineRef !== undefined ? { baseline: baselineRef } : {}),
+      ...(noSuppressions ? { noSuppressions } : {}),
+      ...(updateSuppressions ? { updateSuppressions } : {})
     },
     warnings,
     errors
