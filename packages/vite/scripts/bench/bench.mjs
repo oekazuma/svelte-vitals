@@ -1,5 +1,5 @@
 // Throwaway benchmark for Plan 037 (dev-server analysis isolation spike,
-// docs/superpowers/plans/037-design-spike-dev-server-analysis-isolation.md).
+// plans/037-design-spike-dev-server-analysis-isolation.md).
 // Not part of the shipped package — do not import from packages/vite/src. No tests:
 // this is a one-off measurement tool whose results are transcribed into
 // docs/superpowers/specs/2026-07-13-dev-server-analysis-isolation-design.md.
@@ -13,10 +13,12 @@
 //      before the analyze() call and disabled right after, read in ms.
 //   2. The classic tick-drift method: a setInterval firing every TICK_MS, recording
 //      the actual gap between ticks. A busy/blocked event loop shows up as gaps much
-//      larger than TICK_MS. We report the max gap and the cumulative time spent in
-//      gaps beyond BLOCK_THRESHOLD_MS (the plan's suggested "distinctly blocked"
-//      cutoff), which double-checks the perf_hooks numbers without relying solely on
-//      one API.
+//      larger than TICK_MS. For every gap exceeding BLOCK_THRESHOLD_MS (the plan's
+//      suggested "distinctly blocked" cutoff), we count it as a blocked tick and sum
+//      (gap - TICK_MS) into a cumulative "excess" figure — the total time spent
+//      waiting beyond what a healthy TICK_MS-spaced tick would take. Reported
+//      alongside the max gap, this double-checks the perf_hooks numbers without
+//      relying solely on one API.
 //
 // Usage: node packages/vite/scripts/bench/bench.mjs [--sizes=50,200,500] [--runs=3]
 
@@ -62,14 +64,14 @@ function startTickMonitor(intervalMs) {
   };
 }
 
-function summarizeTicks(gaps, thresholdMs) {
+function summarizeTicks(gaps, intervalMs, thresholdMs) {
   let maxGapMs = 0;
   let excessMs = 0;
   let blockedTicks = 0;
   for (const gap of gaps) {
     if (gap > maxGapMs) maxGapMs = gap;
     if (gap > thresholdMs) {
-      excessMs += gap - TICK_MS;
+      excessMs += gap - intervalMs;
       blockedTicks++;
     }
   }
@@ -99,7 +101,7 @@ async function measureOnce(cwd) {
     p50Ms: nsToMs(histogram.percentile(50)),
     p99Ms: nsToMs(histogram.percentile(99))
   };
-  const tick = summarizeTicks(gaps, BLOCK_THRESHOLD_MS);
+  const tick = summarizeTicks(gaps, TICK_MS, BLOCK_THRESHOLD_MS);
 
   return { totalMs: t1 - t0, resultCount: results.length, eld, tick };
 }

@@ -1,5 +1,5 @@
 // Throwaway benchmark fixture generator for Plan 037 (dev-server analysis isolation
-// spike, docs/superpowers/plans/037-design-spike-dev-server-analysis-isolation.md).
+// spike, plans/037-design-spike-dev-server-analysis-isolation.md).
 // Not part of the shipped package — never imported from packages/vite/src. No tests:
 // this is a one-off measurement tool, disposable once the design doc is written
 // (see docs/superpowers/specs/2026-07-13-dev-server-analysis-isolation-design.md).

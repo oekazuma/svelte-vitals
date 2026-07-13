@@ -45,8 +45,9 @@ run:
 2. **Classic tick-drift check** — a `setInterval` firing every 10ms for the same
    window, recording the actual gap between ticks. A busy event loop shows up as
    gaps far larger than 10ms. Reports the max gap and, using the plan's own suggested
-   "distinctly blocked" cutoff of 100ms, the count of ticks exceeding it and the
-   cumulative excess time.
+   "distinctly blocked" cutoff of 100ms, the count of ticks exceeding it plus the
+   cumulative "excess" time — the sum of (gap − 10ms) across only those over-threshold
+   ticks, i.e. time spent waiting beyond what a healthy 10ms-spaced tick would take.
 
 Both methods run concurrently in the same process/window so they cross-check each
 other rather than relying on a single measurement API.
@@ -122,7 +123,7 @@ plan's required range.
   tied to `runner.stop()`, fallback-to-inline-on-worker-startup-failure). Building
   that now, with no evidence of an actual problem in the range that matters, would be
   speculative investment against the project's stated preference to avoid
-  overbuilding pre-1.0 (see `docs/superpowers/plans/README.md`'s recurring "measure
+  overbuilding pre-1.0 (see `plans/README.md`'s recurring "measure
   before building" pattern in prior spikes).
 
 Per Plan 037's Done criteria, this decision belongs in `plans/README.md`'s
