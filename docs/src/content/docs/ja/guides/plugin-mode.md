@@ -33,19 +33,20 @@ export default {
 
 ## オプション
 
-| オプション       | 型                                  | デフォルト   | 説明                                               |
-| ---------------- | ----------------------------------- | ------------ | -------------------------------------------------- |
-| `failOn`         | `'critical' \| 'warning' \| 'info'` | `'critical'` | ビルドを失敗させる最低重大度                       |
-| `report`         | `'console' \| 'json' \| false`      | `'console'`  | 分析レポートの出力形式                             |
-| `outFile`        | `string`                            | —            | JSON レポートをこのパスのファイルに書き込む        |
-| `rules`          | `string[]`                          | —            | 有効にするルール ID（他はすべて無効）              |
-| `metaComponents` | `string[]`                          | —            | ヘッドメタデータを出力するカスタムコンポーネント名 |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`        | `'pass'`     | 動的に設定されたメタデータの扱い方                 |
-| `prerenderDir`   | `string`                            | —            | プリレンダリングページディレクトリの上書き         |
+| オプション       | 型                                  | デフォルト     | 説明                                                       |
+| ---------------- | ----------------------------------- | -------------- | ---------------------------------------------------------- |
+| `failOn`         | `'critical' \| 'warning' \| 'info'` | `'critical'`   | ビルドを失敗させる最低重大度                               |
+| `report`         | `'console' \| 'json' \| false`      | `'console'`    | 分析レポートの出力形式                                     |
+| `outFile`        | `string`                            | —              | JSON レポートをこのパスのファイルに書き込む                |
+| `rules`          | `string[]`                          | —              | 有効にするルール ID（他はすべて無効）                      |
+| `metaComponents` | `string[]`                          | —              | ヘッドメタデータを出力するカスタムコンポーネント名         |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`        | `'pass'`       | 動的に設定されたメタデータの扱い方                         |
+| `weights`        | `Partial<Record<Category, number>>` | 各カテゴリ `1` | レポート内の組み合わせた Health スコアのカテゴリごとの重み |
+| `prerenderDir`   | `string`                            | —              | プリレンダリングページディレクトリの上書き                 |
 
-## 設定ファイルの再利用
+## 設定ファイル
 
-`@svelte-vitals/vite` は `svelte-vitals.config.*` を自分では読み込みません — 代わりに `vite.config.ts` 内でそれを import し、プラグインオプションに展開してください。この方法については [設定ファイル § Vite プラグインで設定ファイルを再利用する](/svelte-vitals/ja/guides/configuration/#vite-プラグインで設定ファイルを再利用する) を参照してください。
+`@svelte-vitals/vite` はプロジェクトルートの `svelte-vitals.config.*` を自動的に読み込みます — 上記の明示的なオプションは常に設定ファイルの値より優先されます。優先順位のルールと、ライブダッシュボードでの利用方法については [設定ファイル § Vite プラグインで設定ファイルを再利用する](/svelte-vitals/ja/guides/configuration/#vite-プラグインで設定ファイルを再利用する) を参照してください。
 
 ## 対象範囲
 

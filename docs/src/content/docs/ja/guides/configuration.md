@@ -5,7 +5,9 @@ sidebar:
   order: 3.5
 ---
 
-`--rules`、`--ignore`、`--fail-on`、`--weights` を実行のたびに指定する代わりに、プロジェクトルートに `svelte-vitals.config` ファイルを置いて設定をまとめられます。CLI と [MCP サーバー](/svelte-vitals/ja/guides/mcp/) はどちらもこのファイルを自動的に読み込みます（MCP サーバーは CLI と同じ `analyzeProject` 関数を呼び出しているため、この機能をそのまま引き継ぎます）。
+`--rules`、`--ignore`、`--fail-on`、`--weights` を実行のたびに指定する代わりに、プロジェクトルートに `svelte-vitals.config` ファイルを置いて設定をまとめられます。CLI、[MCP サーバー](/svelte-vitals/ja/guides/mcp/)、[Vite プラグイン](/svelte-vitals/ja/guides/plugin-mode/) はいずれもこのファイルを自動的に読み込みます(MCP サーバーは CLI と同じ `analyzeProject` 関数を呼び出しているためこの機能をそのまま引き継ぎ、Vite プラグインは直接読み込みます — 詳細は下記の [Vite プラグインで設定ファイルを再利用する](#vite-プラグインで設定ファイルを再利用する) を参照)。
+
+`svelte-vitals install --client config-file` を実行すると、以下のオプションをすべてコメントアウトした状態の `svelte-vitals.config.mjs` の雛形を生成できます。
 
 ## 探索場所
 
@@ -82,17 +84,16 @@ export default {
 
 ## Vite プラグインで設定ファイルを再利用する
 
-`@svelte-vitals/vite` 自体は `svelte-vitals.config.*` を読み込みません — `svelte-vitals` の CLI パッケージにあえて依存していないため、読み込むためのローダーがそもそも存在しないのです。`vite.config.ts` はすでに Vite 自身の TypeScript 読み込みを経由しているので、そこで設定ファイルを import し、プラグインオプションに直接展開してください。
+`@svelte-vitals/vite` は CLI と同じ方法で `svelte-vitals.config.*` を読み込みます — 追加の配線は不要です。ビルド時のゲート(`vite build`)と[ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/)(`vite dev`)のどちらも、プロジェクトルート(`svelteVitals({ ... })` に渡す `cwd`、省略時は Vite の config root)からこのファイルを解決し、CLI と同じフィールド単位の優先順位を適用します: **`svelteVitals({ ... })` に明示的に渡したオプションが優先され、次に設定ファイルの値、最後に組み込みのデフォルトが使われます**。これには `weights` も含まれており、CLI や MCP サーバーと同様にプラグインの Health スコアに反映されるようになりました。
 
 ```ts
 // vite.config.ts
 import { sveltekit } from '@sveltejs/kit/vite';
 import { svelteVitals } from '@svelte-vitals/vite';
-import config from './svelte-vitals.config.js';
 
 export default {
-  plugins: [sveltekit(), svelteVitals({ ...config, report: 'console' })]
+  plugins: [sveltekit(), svelteVitals({ report: 'console' })]
 };
 ```
 
-こうすることで、CLI と Vite プラグインの両方に対して `treatDynamicAs` / `metaComponents` / `rules` / `failOn` の設定を一箇所にまとめられます。（プラグインには Health の `weights` という概念自体がないため、含まれていても無視されます。）
+プロジェクトルートに `svelte-vitals.config.mjs` を置くだけで、上記のプラグインはその `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` を自動的に読み込みます — `vite.config.ts` 側で自分でファイルを import する必要はありません。設定ファイルの非致命的な警告(未知のトップレベルキー、無効な列挙値など)は、CLI と同じ `svelte-vitals:` というプレフィックス付きの文言でコンソールに出力されます。

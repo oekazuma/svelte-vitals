@@ -27,7 +27,7 @@ describe('svelteVitals({ ui })', () => {
     expect(ui.apply).toBe('serve');
   });
 
-  it('configureServer installs middleware and sets the UI env flag', () => {
+  it('configureServer installs middleware and sets the UI env flag', async () => {
     const plugins = svelteVitals({ ui: true }) as Plugin[];
     const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
     const used: string[] = [];
@@ -37,12 +37,12 @@ describe('svelteVitals({ ui })', () => {
       middlewares: { use: (path: string) => used.push(path) }
     } as unknown as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
-    (hook as (s: ViteDevServer) => void).call({}, server);
+    await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
     expect(process.env.SVELTE_VITALS_UI).toBe('1');
     expect(used).toContain('/__svelte-vitals');
   });
 
-  it('configureServer registers a watcher listener for source-change re-analysis', () => {
+  it('configureServer registers a watcher listener for source-change re-analysis', async () => {
     const plugins = svelteVitals({ ui: true }) as Plugin[];
     const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
     const watcherEvents: string[] = [];
@@ -52,11 +52,11 @@ describe('svelteVitals({ ui })', () => {
       middlewares: { use: () => {} }
     } as unknown as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
-    (hook as (s: ViteDevServer) => void).call({}, server);
+    await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
     expect(watcherEvents).toContain('all');
   });
 
-  it('configureServer wraps printUrls to also announce the dashboard URL', () => {
+  it('configureServer wraps printUrls to also announce the dashboard URL', async () => {
     const plugins = svelteVitals({ ui: true }) as Plugin[];
     const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
     const originalPrintUrls = vi.fn();
@@ -68,7 +68,7 @@ describe('svelteVitals({ ui })', () => {
       resolvedUrls: { local: ['http://localhost:5173/'], network: [] }
     } as unknown as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
-    (hook as (s: ViteDevServer) => void).call({}, server);
+    await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
 
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
     try {
@@ -80,7 +80,7 @@ describe('svelteVitals({ ui })', () => {
     }
   });
 
-  it('announces the dashboard at the server root even when Vite prints a URL with a configured base path', () => {
+  it('announces the dashboard at the server root even when Vite prints a URL with a configured base path', async () => {
     const plugins = svelteVitals({ ui: true }) as Plugin[];
     const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
     const originalPrintUrls = vi.fn();
@@ -95,7 +95,7 @@ describe('svelteVitals({ ui })', () => {
       resolvedUrls: { local: ['http://localhost:5173/my-app/'], network: [] }
     } as unknown as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
-    (hook as (s: ViteDevServer) => void).call({}, server);
+    await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
 
     const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
     try {
@@ -107,7 +107,7 @@ describe('svelteVitals({ ui })', () => {
     }
   });
 
-  it('printUrls wrapper still calls the original and does not throw when resolvedUrls is unavailable', () => {
+  it('printUrls wrapper still calls the original and does not throw when resolvedUrls is unavailable', async () => {
     const plugins = svelteVitals({ ui: true }) as Plugin[];
     const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
     const originalPrintUrls = vi.fn();
@@ -119,13 +119,13 @@ describe('svelteVitals({ ui })', () => {
       resolvedUrls: null
     } as unknown as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
-    (hook as (s: ViteDevServer) => void).call({}, server);
+    await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
 
     expect(() => server.printUrls()).not.toThrow();
     expect(originalPrintUrls).toHaveBeenCalledTimes(1);
   });
 
-  it('configureServer works without a watcher or httpServer on the mock server (defensive)', () => {
+  it('configureServer works without a watcher or httpServer on the mock server (defensive)', async () => {
     const plugins = svelteVitals({ ui: true }) as Plugin[];
     const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
     const server = {
@@ -133,6 +133,7 @@ describe('svelteVitals({ ui })', () => {
       middlewares: { use: () => {} }
     } as unknown as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
-    expect(() => (hook as (s: ViteDevServer) => void).call({}, server)).not.toThrow();
+    // Rejecting here would fail the test the same way `.not.toThrow()` would for sync code.
+    await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
   });
 });

@@ -33,19 +33,20 @@ export default {
 
 ## Options
 
-| Option           | Type                                | Default      | Description                                    |
-| ---------------- | ----------------------------------- | ------------ | ---------------------------------------------- |
-| `failOn`         | `'critical' \| 'warning' \| 'info'` | `'critical'` | Minimum severity that fails the build          |
-| `report`         | `'console' \| 'json' \| false`      | `'console'`  | Output format for the analysis report          |
-| `outFile`        | `string`                            | —            | Write the JSON report to a file at this path   |
-| `rules`          | `string[]`                          | —            | Rule IDs to enable (all others disabled)       |
-| `metaComponents` | `string[]`                          | —            | Custom component names that emit head metadata |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`        | `'pass'`     | How to treat dynamically-set metadata          |
-| `prerenderDir`   | `string`                            | —            | Override the prerendered-pages directory       |
+| Option           | Type                                | Default      | Description                                                      |
+| ---------------- | ----------------------------------- | ------------ | ---------------------------------------------------------------- |
+| `failOn`         | `'critical' \| 'warning' \| 'info'` | `'critical'` | Minimum severity that fails the build                            |
+| `report`         | `'console' \| 'json' \| false`      | `'console'`  | Output format for the analysis report                            |
+| `outFile`        | `string`                            | —            | Write the JSON report to a file at this path                     |
+| `rules`          | `string[]`                          | —            | Rule IDs to enable (all others disabled)                         |
+| `metaComponents` | `string[]`                          | —            | Custom component names that emit head metadata                   |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`        | `'pass'`     | How to treat dynamically-set metadata                            |
+| `weights`        | `Partial<Record<Category, number>>` | every `1`    | Per-category weights for the combined Health score in the report |
+| `prerenderDir`   | `string`                            | —            | Override the prerendered-pages directory                         |
 
-## Reusing a config file
+## Config file
 
-`@svelte-vitals/vite` doesn't read `svelte-vitals.config.*` on its own — import it inside `vite.config.ts` and spread it into the plugin options instead. See [Config file § Using the config file with the Vite plugin](/svelte-vitals/guides/configuration/#using-the-config-file-with-the-vite-plugin) for the pattern.
+`@svelte-vitals/vite` reads `svelte-vitals.config.*` from the project root automatically — an explicit option above always wins over the config file's value. See [Config file § Using the config file with the Vite plugin](/svelte-vitals/guides/configuration/#using-the-config-file-with-the-vite-plugin) for the precedence rules and how the live dashboard uses it too.
 
 ## Scope
 
