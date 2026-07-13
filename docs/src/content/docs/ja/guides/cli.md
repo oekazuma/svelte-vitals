@@ -302,12 +302,19 @@ npx svelte-vitals@latest install
 
 既存の `svelte-vitals` エントリを上書きします。デフォルトでは、既に存在するエントリはそのまま維持されます。
 
+### `--refresh`
+
+ディスク上に既に存在する `claude-skill`／`cursor-rules` ファイルだけを、現行のルールセットで再生成します。ルールの追加や rationale の改善を、最初にどのエージェントターゲットをインストールしたか覚えていなくても1コマンドで反映できます。既に存在するファイルだけを再生成し、無いファイルは作りません（refresh はインストールではありません）。`--scope`・`--yes`・`--force` は適用対象外のため無視されます（warning を1行出力）。`--client` との併用は致命的エラーになります。生成済みのエージェントファイルが1件も見つからない場合は案内を表示して終了コード `0` で終了します。
+
 ```bash
 # 非対話：このプロジェクトに Claude Code + Cursor を設定
 npx svelte-vitals@latest install --client claude-code,cursor --scope project --yes
 
 # 何が変更されるかを書き込まずにプレビュー
 npx svelte-vitals@latest install --client codex --dry-run
+
+# ルール追加後、既にインストール済みのエージェントスキル/ルールファイルを再生成
+npx svelte-vitals@latest install --refresh
 ```
 
 既存の設定ファイルが解析できない場合、上書きせずに失敗します（終了コード `2`）。

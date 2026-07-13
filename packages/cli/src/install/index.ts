@@ -51,6 +51,8 @@ export interface InstallFlags {
   yes?: boolean;
   dryRun?: boolean;
   force?: boolean;
+  /** Regenerate only the agent target files (AGENT_TARGETS) that already exist on disk. */
+  refresh?: boolean;
 }
 
 interface PlanRow {
@@ -118,12 +120,75 @@ function rowLine(r: PlanRow): string {
   return r.status === 'manual' && r.snippet ? `${head}\n${indent(r.snippet)}` : head;
 }
 
+/**
+ * Regenerate whichever AGENT_TARGETS files already exist on disk, with the current rule set.
+ * Unlike a normal install, this never creates a file that isn't already there — it's a
+ * maintenance command for keeping previously-generated agent files fresh, not an install path.
+ */
+async function runRefresh(io: InstallIO, flags: InstallFlags, version: string): Promise<number> {
+  let hadFailure = false;
+  const rows: PlanRow[] = [];
+  for (const target of AGENT_TARGETS) {
+    const path = join(io.cwd, target.relPath);
+    // readFile maps only ENOENT to undefined and rethrows everything else (EACCES, EISDIR, …),
+    // so treat a per-target read failure like a per-target write failure: report it, keep
+    // refreshing the other targets, and exit 2 at the end. planForAgentTarget re-reads the
+    // file internally, so it sits inside the same try.
+    try {
+      if (io.readFile(path) === undefined) continue;
+      rows.push(planForAgentTarget(target, io, /* force */ true, version));
+    } catch (err) {
+      hadFailure = true;
+      io.errorLog(`svelte-vitals: failed to read ${path}: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  }
+
+  if (rows.length === 0) {
+    // A failed read means we can't tell whether that target's file exists, so the
+    // "nothing installed yet" guidance would be misleading — the read error above is
+    // the actionable message.
+    if (hadFailure) return 2;
+    io.errorLog(
+      'svelte-vitals: no generated agent files found — run `svelte-vitals install --client claude-skill,cursor-rules` first.'
+    );
+    return 0;
+  }
+
+  const planText = rows.map(rowLine).join('\n');
+  io.log('Plan:');
+  io.log(planText);
+
+  if (flags.dryRun) {
+    io.log('Dry run — no files written.');
+    return hadFailure ? 2 : 0;
+  }
+
+  for (const r of rows) {
+    try {
+      io.writeFile(r.path, r.content ?? '');
+      io.log(`✓ ${r.label}: ${r.status} ${r.path}`);
+    } catch (err) {
+      hadFailure = true;
+      io.errorLog(`svelte-vitals: failed to write ${r.path}: ${err instanceof Error ? err.message : String(err)}`);
+    }
+  }
+  if (hadFailure) return 2;
+
+  io.log('');
+  io.log(`✓ refreshed ${rows.length} file(s).`);
+  return 0;
+}
+
 export async function runInstall(
   flags: InstallFlags,
   io: InstallIO,
   prompts: InstallPrompts,
   version = '0.0.0'
 ): Promise<number> {
+  if (flags.refresh) {
+    return runRefresh(io, flags, version);
+  }
+
   // 1. Select clients / targets.
   let ids: TargetId[];
   if (flags.client && flags.client.length > 0) {

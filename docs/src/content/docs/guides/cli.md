@@ -308,12 +308,19 @@ Print the planned changes and exit without writing anything.
 
 Overwrite an existing `svelte-vitals` entry. By default an entry that already exists is left untouched.
 
+### `--refresh`
+
+Regenerate whichever `claude-skill`/`cursor-rules` files are already present on disk, with the current rule set — a one-command way to pick up newly added rules or improved rationale text without remembering which agent targets you originally installed. It only regenerates files that already exist; it never creates one (refresh is not install). It ignores `--scope`, `--yes`, and `--force` (with a warning) since they don't apply, and cannot be combined with `--client` (fatal). If no generated agent files are found, it prints guidance and exits `0`.
+
 ```bash
 # Non-interactive: configure Claude Code + Cursor for this project
 npx svelte-vitals@latest install --client claude-code,cursor --scope project --yes
 
 # Preview what would change, without writing
 npx svelte-vitals@latest install --client codex --dry-run
+
+# Regenerate any already-installed agent skill/rules files after adding a rule
+npx svelte-vitals@latest install --refresh
 ```
 
 If an existing config can't be parsed, the command fails without writing (exit `2`) rather than overwriting it.
