@@ -56637,11 +56637,15 @@ var perf009HeavyImport = componentRule({
   label: "No heavy imports",
   recommendation: "Import a submodule or switch to a lighter, tree-shakeable alternative.",
   rationale: "Importing a large, non-tree-shakeable package pulls its whole weight into the bundle even when only a fraction is used, slowing load.",
-  applies: (c) => c.importSpans.length > 0,
+  // ComponentFacts is a public @svelte-vitals/core export — an external caller compiled
+  // against an older version may still construct one without importSpans. Fall back to the
+  // line-less `imports` (line: 0, the pre-fix behavior) instead of crashing on `undefined`.
+  applies: (c) => (c.importSpans ?? c.imports).length > 0,
   bad: (c) => {
     const seen = /* @__PURE__ */ new Set();
     const out = [];
-    for (const { source: src, line } of c.importSpans) {
+    const spans = c.importSpans ?? c.imports.map((source2) => ({ source: source2, line: 0 }));
+    for (const { source: src, line } of spans) {
       if (!Object.hasOwn(HEAVY_PACKAGES, src) || seen.has(src)) continue;
       seen.add(src);
       out.push({ line, message: `Heavy import "${src}" \u2014 ${HEAVY_PACKAGES[src]}` });
