@@ -24,6 +24,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   loc: 10,
   propCount: 0,
   imports: [],
+  importSpans: [],
   namespaceImports: [],
   constableStates: [],
   mutatedProps: [],

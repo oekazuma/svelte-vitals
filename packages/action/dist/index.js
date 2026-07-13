@@ -54963,9 +54963,11 @@ function countLines(source2) {
   if (source2.length === 0) return 0;
   return source2.split("\n").length - (source2.endsWith("\n") ? 1 : 0);
 }
-function collectImportSources(program, acc) {
+function collectImportSources(program, source2, acc) {
   walkEstree(program, (n) => {
-    if (n.type === "ImportDeclaration" && typeof n.source?.value === "string") acc.push(n.source.value);
+    if (n.type === "ImportDeclaration" && typeof n.source?.value === "string") {
+      acc.push({ source: n.source.value, line: lineOf(source2, n.start) });
+    }
   });
 }
 function isBareSpecifier(s) {
@@ -55003,10 +55005,10 @@ function parseComponentFacts(source2, filename2) {
   collectSecurityFacts(ast.fragment ?? ast, source2, htmlTags, javascriptUrls);
   const loc = countLines(source2);
   const suppressions = collectSuppressions(source2);
-  const imports2 = [];
+  const importSpans = [];
   const namespaceImports = [];
   if (ast.module?.content) {
-    collectImportSources(ast.module.content, imports2);
+    collectImportSources(ast.module.content, source2, importSpans);
     collectNamespaceImports(ast.module.content, source2, namespaceImports);
   }
   const effects = [];
@@ -55015,7 +55017,7 @@ function parseComponentFacts(source2, filename2) {
   let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
-    collectImportSources(program, imports2);
+    collectImportSources(program, source2, importSpans);
     collectNamespaceImports(program, source2, namespaceImports);
     propCount = countProps(program);
     const nonBindableProps = collectNonBindableProps(program);
@@ -55053,6 +55055,7 @@ function parseComponentFacts(source2, filename2) {
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
     }
   }
+  const imports2 = importSpans.map((s) => s.source);
   return {
     eachBlocks,
     effects,
@@ -55061,6 +55064,7 @@ function parseComponentFacts(source2, filename2) {
     loc,
     propCount,
     imports: imports2,
+    importSpans,
     namespaceImports,
     constableStates,
     mutatedProps,
@@ -55077,6 +55081,7 @@ function emptyComponentFacts(file) {
     loc: 0,
     propCount: 0,
     imports: [],
+    importSpans: [],
     namespaceImports: [],
     constableStates: [],
     mutatedProps: [],
@@ -56632,14 +56637,18 @@ var perf009HeavyImport = componentRule({
   label: "No heavy imports",
   recommendation: "Import a submodule or switch to a lighter, tree-shakeable alternative.",
   rationale: "Importing a large, non-tree-shakeable package pulls its whole weight into the bundle even when only a fraction is used, slowing load.",
-  applies: (c) => c.imports.length > 0,
+  // ComponentFacts is a public @svelte-vitals/core export — an external caller compiled
+  // against an older version may still construct one without importSpans. Fall back to the
+  // line-less `imports` (line: 0, the pre-fix behavior) instead of crashing on `undefined`.
+  applies: (c) => (c.importSpans ?? c.imports).length > 0,
   bad: (c) => {
     const seen = /* @__PURE__ */ new Set();
     const out = [];
-    for (const src of c.imports) {
+    const spans = c.importSpans ?? c.imports.map((source2) => ({ source: source2, line: 0 }));
+    for (const { source: src, line } of spans) {
       if (!Object.hasOwn(HEAVY_PACKAGES, src) || seen.has(src)) continue;
       seen.add(src);
-      out.push({ line: 0, message: `Heavy import "${src}" \u2014 ${HEAVY_PACKAGES[src]}` });
+      out.push({ line, message: `Heavy import "${src}" \u2014 ${HEAVY_PACKAGES[src]}` });
     }
     return out;
   }
