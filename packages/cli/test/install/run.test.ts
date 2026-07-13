@@ -342,6 +342,67 @@ describe('runInstall — agent targets', () => {
   });
 });
 
+describe('runInstall — config-file target', () => {
+  it('config-file: not present → created, content has every option commented out', async () => {
+    const { io, writes } = fakeIO();
+    const code = await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    const content = writes['/proj/svelte-vitals.config.mjs'];
+    expect(content).toContain('export default {');
+    expect(content).toContain('// failOn:');
+  });
+
+  it('a second run without --force reports exists and writes nothing', async () => {
+    const first = fakeIO();
+    await runInstall({ client: ['config-file'], yes: true }, first.io, noPrompts);
+    const existing = first.writes['/proj/svelte-vitals.config.mjs']!;
+    const { io, writes, out } = fakeIO({ files: { '/proj/svelte-vitals.config.mjs': existing } });
+    const code = await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes).toEqual({});
+    expect(out.join('\n')).toContain('already configured');
+    expect(out.join('\n')).toContain('--force to overwrite');
+  });
+
+  it('--force regenerates an already-existing config file', async () => {
+    const { io, writes } = fakeIO({
+      files: { '/proj/svelte-vitals.config.mjs': 'stale content' }
+    });
+    const code = await runInstall({ client: ['config-file'], yes: true, force: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes['/proj/svelte-vitals.config.mjs']).toContain('export default {');
+    expect(writes['/proj/svelte-vitals.config.mjs']).not.toBe('stale content');
+  });
+
+  it('dry-run does not write the config file', async () => {
+    const { io, writes, out } = fakeIO();
+    const code = await runInstall({ client: ['config-file'], dryRun: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes).toEqual({});
+    expect(out.join('\n')).toContain('Dry run');
+  });
+
+  it('a plan can mix an MCP client and the config-file target in one run', async () => {
+    const { io, writes } = fakeIO();
+    await runInstall({ client: ['claude-code', 'config-file'], scope: 'project', yes: true }, io, noPrompts);
+    expect(Object.keys(writes).sort()).toEqual(['/proj/.mcp.json', '/proj/svelte-vitals.config.mjs']);
+  });
+
+  it('interactive picker options include the config-file target', async () => {
+    const { io } = fakeIO({ isTTY: true });
+    let seenOptions: string[] = [];
+    const prompts: InstallPrompts = {
+      ...noPrompts,
+      selectClients: async (all) => {
+        seenOptions = all.map((o) => o.id);
+        return null;
+      }
+    };
+    await runInstall({}, io, prompts);
+    expect(seenOptions).toContain('config-file');
+  });
+});
+
 describe('runInstall — --refresh', () => {
   it('both agent target files present → both regenerated with the current version', async () => {
     const { io, writes } = fakeIO({
