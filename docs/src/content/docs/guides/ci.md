@@ -34,10 +34,11 @@ first: it writes `svelte-vitals-suppressions.json`, accepting every current find
 Commit that file, then enable whatever gate you want (`--fail-on`, `--min-health`, a pre-commit
 hook, or this workflow) — from then on it only fails on findings introduced afterward, without
 having to fix the backlog up front. See [`--update-suppressions`](/svelte-vitals/guides/cli/#svelte-vitals-suppressionsjson---update-suppressions---no-suppressions)
-in the CLI reference for the full behavior. `@svelte-vitals/action` doesn't read this file directly
-yet (v1 is CLI-only) — its own `diff`/`baseline` scoping below already limits _this_ workflow to a
-PR's own changes; the suppressions file additionally lets you turn on gating outside of PRs (e.g.
-`--fail-on` in a local pre-commit hook) without the same backlog problem.
+in the CLI reference for the full behavior. `@svelte-vitals/action` applies this file
+automatically too, whenever it's present in the repo — no extra input needed to enable it. Its own
+`diff`/`baseline` scoping below already limits _this_ workflow to a PR's own changes; the
+suppressions file additionally lets you turn on gating outside of PRs (e.g. `--fail-on` in a local
+pre-commit hook) without the same backlog problem.
 
 ## What the workflow does
 

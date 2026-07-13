@@ -15,6 +15,7 @@ async function main(): Promise<void> {
   const { config, version } = analysis;
   const results = await applyScope(analysis.results, {
     cwd: path,
+    config,
     diffBase: diff,
     baseline,
     errorLog: (line) => core.warning(line)
