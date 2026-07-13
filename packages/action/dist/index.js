@@ -58763,6 +58763,9 @@ ${markdown}`;
 main().catch((err) => {
   setFailed(err instanceof Error ? err.message : String(err));
 });
+export {
+  main
+};
 /*! Bundled license information:
 
 undici/lib/web/fetch/body.js:

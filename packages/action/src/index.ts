@@ -5,7 +5,7 @@ import { formatGithubReport, formatMarkdownReport, summarize, hasFailureAtOrAbov
 import { isForkPR } from './fork.js';
 import { planStickyComment, STICKY_COMMENT_MARKER } from './sticky-comment.js';
 
-async function main(): Promise<void> {
+export async function main(): Promise<void> {
   const path = core.getInput('path') || '.';
   const diff = core.getInput('diff') || undefined;
   const baseline = core.getInput('baseline') || undefined;
