@@ -27,7 +27,12 @@ export function upgradeActionPin(content: string, sha: string, version: string):
   let from: string | undefined;
 
   const next = lines.map((line) => {
-    const match = ACTION_USES_LINE.exec(line);
+    // Splitting a CRLF file on '\n' leaves a trailing '\r' on every line — strip it before
+    // matching (the regex is anchored with `$`) and re-append it to a rewritten line so the
+    // file's line endings are preserved.
+    const eol = line.endsWith('\r') ? '\r' : '';
+    const bare = eol ? line.slice(0, -1) : line;
+    const match = ACTION_USES_LINE.exec(bare);
     if (!match || !match.groups) return line;
 
     const { indent, ref } = match.groups;
@@ -40,11 +45,11 @@ export function upgradeActionPin(content: string, sha: string, version: string):
     }
 
     replaced += 1;
-    return `${indent}${sha} # @svelte-vitals/action@${version}`;
+    return `${indent}${sha} # @svelte-vitals/action@${version}${eol}`;
   });
 
   if (replaced === 0) {
-    const hasAnyReference = lines.some((line) => ACTION_USES_LINE.test(line));
+    const hasAnyReference = lines.some((line) => ACTION_USES_LINE.test(line.endsWith('\r') ? line.slice(0, -1) : line));
     return { status: hasAnyReference ? 'up-to-date' : 'no-reference' };
   }
 

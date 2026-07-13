@@ -111,4 +111,53 @@ describe('upgradeActionPin', () => {
 
     expect(outcome).toEqual({ status: 'no-reference' });
   });
+
+  it('upgrades a CRLF workflow (with a version comment) and preserves \\r\\n on every line', () => {
+    const content = [
+      'jobs:',
+      '  svelte-vitals:',
+      '    steps:',
+      `      - uses: oekazuma/svelte-vitals/packages/action@${OLD_SHA} # @svelte-vitals/action@1.0.0`,
+      '        with:',
+      '          diff: origin/main',
+      ''
+    ].join('\r\n');
+
+    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
+
+    expect(outcome.status).toBe('upgraded');
+    expect(outcome.replaced).toBe(1);
+    expect(outcome.from).toBe('1.0.0');
+    expect(outcome.content).toContain(
+      `      - uses: oekazuma/svelte-vitals/packages/action@${NEW_SHA} # @svelte-vitals/action@2.0.0\r\n`
+    );
+    // No mixed line endings: stripping every '\r\n' pair must leave no bare '\n' behind.
+    expect(outcome.content?.replace(/\r\n/g, '')).not.toContain('\n');
+  });
+
+  it('upgrades a CRLF workflow with no trailing comment, keeping the line CRLF-terminated', () => {
+    const content = [`      - uses: oekazuma/svelte-vitals/packages/action@${OLD_SHA}`, 'next line'].join('\r\n');
+
+    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
+
+    expect(outcome.status).toBe('upgraded');
+    expect(outcome.from).toBe(OLD_SHA.slice(0, 7));
+    expect(outcome.content).toBe(
+      [
+        `      - uses: oekazuma/svelte-vitals/packages/action@${NEW_SHA} # @svelte-vitals/action@2.0.0`,
+        'next line'
+      ].join('\r\n')
+    );
+  });
+
+  it('reports up-to-date (not no-reference) for a CRLF workflow already pinned to the current sha', () => {
+    const content = [
+      `      - uses: oekazuma/svelte-vitals/packages/action@${NEW_SHA} # @svelte-vitals/action@2.0.0`,
+      ''
+    ].join('\r\n');
+
+    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
+
+    expect(outcome).toEqual({ status: 'up-to-date' });
+  });
 });
