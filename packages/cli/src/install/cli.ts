@@ -16,7 +16,7 @@ Usage:
   svelte-vitals install [options]
 
 Options:
-  --client <ids>    Comma-separated: claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,config-file
+  --client <ids>    Comma-separated: claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file
                     (skips the interactive picker)
                     vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-hooks
                     wires up the svelteVitalsHandle hook in src/hooks.server.{ts,js}, which improves the
@@ -25,6 +25,9 @@ Options:
                     claude-skill writes a Claude Code skill (.claude/skills/svelte-vitals/SKILL.md); cursor-rules
                     writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc). Both are generated from the
                     current rule set and support --force to regenerate.
+                    claude-skill-improve writes a second, read-only Claude Code skill
+                    (.claude/skills/improve-svelte/SKILL.md) that audits the whole project and writes
+                    implementation plans instead of a run-after-every-edit playbook; also supports --force.
                     config-file scaffolds svelte-vitals.config.mjs with every option commented out;
                     supports --force to regenerate.
   --scope <scope>   project | global (applies to all selected clients; codex is always global)
@@ -32,8 +35,8 @@ Options:
   --dry-run         Print the planned changes and exit without writing
   --force           Overwrite an existing svelte-vitals entry
   --refresh         Regenerate existing agent skill/rules files with the current rule set
-                    (claude-skill / cursor-rules). Only regenerates files already present on
-                    disk — it never creates one. Cannot be combined with --client.
+                    (claude-skill / cursor-rules / claude-skill-improve). Only regenerates files already
+                    present on disk — it never creates one. Cannot be combined with --client.
   -h, --help        Show this help`;
 
 export function realIO(): InstallIO {

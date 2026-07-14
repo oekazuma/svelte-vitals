@@ -17,6 +17,7 @@ import {
   type ConfigTargetId
 } from './config-targets.js';
 import { buildSkillMarkdown, buildCursorRules } from './skill-content.js';
+import { buildImproveSkillMarkdown } from './improve-skill-content.js';
 import { buildConfigFileTemplate } from './config-content.js';
 import { codemodViteConfig } from './codemod-vite-config.js';
 import { codemodHooksServer } from './codemod-hooks.js';
@@ -111,7 +112,12 @@ function planForViteHooks(io: InstallIO): PlanRow {
 function planForAgentTarget(target: AgentTarget, io: InstallIO, force: boolean, version: string): PlanRow {
   const path = join(io.cwd, target.relPath);
   const existing = io.readFile(path);
-  const content = target.id === 'claude-skill' ? buildSkillMarkdown(version) : buildCursorRules(version);
+  const content =
+    target.id === 'claude-skill'
+      ? buildSkillMarkdown(version)
+      : target.id === 'cursor-rules'
+        ? buildCursorRules(version)
+        : buildImproveSkillMarkdown(version);
   const status: WriteStatus = existing === undefined ? 'created' : force ? 'updated' : 'exists';
   return { id: target.id, label: target.label, path, status, content };
 }
@@ -253,7 +259,7 @@ export async function runInstall(
     ids = picked;
   } else {
     io.errorLog(
-      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,config-file> to install non-interactively.'
+      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file> to install non-interactively.'
     );
     return 2;
   }
