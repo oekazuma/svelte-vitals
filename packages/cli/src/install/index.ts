@@ -16,15 +16,24 @@ import {
   type ConfigTarget,
   type ConfigTargetId
 } from './config-targets.js';
+import { CI_TARGETS, ciTargetById, isCiTargetId, type CiTarget, type CiTargetId } from './ci-targets.js';
 import { buildSkillMarkdown, buildCursorRules } from './skill-content.js';
 import { buildImproveSkillMarkdown } from './improve-skill-content.js';
 import { buildConfigFileTemplate } from './config-content.js';
+import {
+  findExistingConfigFile,
+  detectBestConfigExtension,
+  hasSvelteVitalsDependency,
+  isEsmProject
+} from './config-file-format.js';
 import { codemodViteConfig } from './codemod-vite-config.js';
 import { codemodHooksServer } from './codemod-hooks.js';
 import { detectPackageManager, hasVitePackage, installCommand, readInstalledViteVersion } from './package-manager.js';
 import type { WriteStatus } from './codemod-types.js';
+import { planWorkflowWrite, buildWorkflowYaml } from '../ci/workflow.js';
+import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
 
-export type TargetId = ClientId | ViteTargetId | AgentTargetId | ConfigTargetId;
+export type TargetId = ClientId | ViteTargetId | AgentTargetId | ConfigTargetId | CiTargetId;
 
 export interface InstallIO {
   /** File contents, or undefined if the file does not exist. */
@@ -38,6 +47,9 @@ export interface InstallIO {
   errorLog(line: string): void;
   /** Run a command (used only to auto-install @svelte-vitals/vite). Returns the exit code. */
   runCommand?(command: string, args: string[], cwd: string): number;
+  /** `process.version` — used only to decide whether a fresh config-file scaffold can pick
+   * `.ts` (native TypeScript stripping support). Falls back to `process.version` if omitted. */
+  nodeVersion?: string;
 }
 
 export interface SelectableOption {
@@ -47,8 +59,13 @@ export interface SelectableOption {
 }
 
 export interface InstallPrompts {
-  /** Returns chosen target ids (clients and/or Vite targets), or null when cancelled. */
-  selectClients(all: SelectableOption[], defaults: TargetId[]): Promise<TargetId[] | null>;
+  /**
+   * Returns chosen target ids, or null when cancelled. Options are pre-grouped by
+   * category (group label → options) so the picker can render them as distinct
+   * sections (MCP server / Vite integration / Agent Skills & rules / CI / Config file)
+   * instead of one flat list.
+   */
+  selectClients(groups: Record<string, SelectableOption[]>, defaults: TargetId[]): Promise<TargetId[] | null>;
   /** Returns chosen scope, or null when cancelled. */
   selectScope(client: ClientWriter): Promise<Scope | null>;
   confirm(planText: string): Promise<boolean>;
@@ -138,16 +155,54 @@ function planForAgentTarget(target: AgentTarget, io: InstallIO, force: boolean, 
 }
 
 /**
- * Plan the config-file scaffolder (`svelte-vitals.config.mjs`). Like the agent targets,
- * content here is a fixed, fully-regenerated template rather than codemodded, so --force
- * is allowed to overwrite an existing file.
+ * Plan the config-file scaffolder (`svelte-vitals.config.{mjs,js,ts}`). Like the agent
+ * targets, content here is a fixed, fully-regenerated template rather than codemodded, so
+ * --force is allowed to overwrite an existing file.
+ *
+ * Extension handling: if a config file already exists (any of the candidates in
+ * `loadConfigFile`'s search order), --force regenerates *that* file, preserving its
+ * existing extension/format rather than switching it underneath the user — including
+ * module syntax: a `.js` in a CommonJS project gets `module.exports`, and the
+ * `defineConfig` variant is only emitted when svelte-vitals is actually a declared
+ * dependency (its import must resolve at load time — npx-only projects would break).
+ * Only a fresh scaffold (nothing exists yet) auto-picks the best extension for this
+ * environment (see detectBestConfigExtension in config-file-format.ts).
  */
 function planForConfigTarget(target: ConfigTarget, io: InstallIO, force: boolean): PlanRow {
+  const existingRel = findExistingConfigFile(io.readFile, io.cwd);
+  if (existingRel !== undefined) {
+    const path = join(io.cwd, existingRel);
+    const status: WriteStatus = force ? 'updated' : 'exists';
+    const content = force
+      ? buildConfigFileTemplate({
+          useDefineConfig: existingRel.endsWith('.ts') && hasSvelteVitalsDependency(io.readFile, io.cwd),
+          useCommonJs: existingRel.endsWith('.js') && !isEsmProject(io.readFile, io.cwd)
+        })
+      : undefined;
+    return { id: target.id, label: target.label, path, status, content };
+  }
+  const ext = detectBestConfigExtension({
+    readFile: io.readFile,
+    cwd: io.cwd,
+    nodeVersion: io.nodeVersion ?? process.version
+  });
+  const path = join(io.cwd, `svelte-vitals.config.${ext}`);
+  const content = buildConfigFileTemplate({ useDefineConfig: ext === 'ts' });
+  return { id: target.id, label: target.label, path, status: 'created', content };
+}
+
+/**
+ * Plan the CI workflow scaffolder — the same writer `svelte-vitals ci install` uses
+ * (planWorkflowWrite/buildWorkflowYaml), exposed as one more selectable target so it
+ * doesn't require a separate command in the common case.
+ */
+function planForCiTarget(target: CiTarget, io: InstallIO, force: boolean): PlanRow {
   const path = join(io.cwd, target.relPath);
   const existing = io.readFile(path);
-  const content = buildConfigFileTemplate();
-  const status: WriteStatus = existing === undefined ? 'created' : force ? 'updated' : 'exists';
-  return { id: target.id, label: target.label, path, status, content };
+  const plan = planWorkflowWrite(existing, force);
+  const content =
+    plan.status === 'exists' ? undefined : buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION });
+  return { id: target.id, label: target.label, path, status: plan.status, content };
 }
 
 function indent(text: string): string {
@@ -257,18 +312,28 @@ export async function runInstall(
       ...(claudeSkillDetected ? (['claude-skill'] as const) : []),
       ...(cursorRulesDetected ? (['cursor-rules'] as const) : [])
     ];
+    const ciWorkflowDetected = configExists(join(io.cwd, CI_TARGETS[0]!.relPath));
+    // configExists (not findExistingConfigFile directly) so a throwing readFile can't
+    // crash detection — same tolerance as every other detection probe above.
+    const configFileDetected = findExistingConfigFile((p) => (configExists(p) ? '' : undefined), io.cwd) !== undefined;
     const detected: TargetId[] = [
       ...detectedClients,
       ...(viteConfigExists ? VITE_TARGETS.map((t) => t.id) : []),
-      ...detectedAgents
+      ...detectedAgents,
+      ...(ciWorkflowDetected ? CI_TARGETS.map((t) => t.id) : []),
+      ...(configFileDetected ? CONFIG_TARGETS.map((t) => t.id) : [])
     ];
-    const options: SelectableOption[] = [
-      ...CLIENTS.map((c) => ({ id: c.id, label: c.label })),
-      ...VITE_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
-      ...AGENT_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
-      ...CONFIG_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint }))
-    ];
-    const picked = await prompts.selectClients(options, detected);
+    // Grouped by category so the picker renders distinct sections instead of one flat
+    // list — flattening all four/five target types together made it hard to tell what
+    // an id was for (an MCP client vs. a Vite target vs. an agent skill vs. a one-off).
+    const groups: Record<string, SelectableOption[]> = {
+      'MCP server': CLIENTS.map((c) => ({ id: c.id, label: c.label })),
+      'Vite integration': VITE_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
+      'Agent Skills & rules': AGENT_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
+      'CI (GitHub Actions)': CI_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
+      'Config file': CONFIG_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint }))
+    };
+    const picked = await prompts.selectClients(groups, detected);
     if (picked === null) {
       io.log('Cancelled.');
       return 0;
@@ -276,7 +341,7 @@ export async function runInstall(
     ids = picked;
   } else {
     io.errorLog(
-      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file> to install non-interactively.'
+      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow> to install non-interactively.'
     );
     return 2;
   }
@@ -285,7 +350,14 @@ export async function runInstall(
   const viteIds = ids.filter(isViteTargetId);
   const agentIds = ids.filter(isAgentTargetId);
   const configIds = ids.filter(isConfigTargetId);
-  if (clients.length === 0 && viteIds.length === 0 && agentIds.length === 0 && configIds.length === 0) {
+  const ciIds = ids.filter(isCiTargetId);
+  if (
+    clients.length === 0 &&
+    viteIds.length === 0 &&
+    agentIds.length === 0 &&
+    configIds.length === 0 &&
+    ciIds.length === 0
+  ) {
     io.errorLog('svelte-vitals: no valid clients or targets selected.');
     return 2;
   }
@@ -332,9 +404,30 @@ export async function runInstall(
       return 2;
     }
   }
+  // Same try/catch as the client/agent loops above: readFile maps only ENOENT to
+  // undefined and rethrows everything else (EACCES, EISDIR, …), which must become a
+  // friendly exit 2 rather than an unhandled rejection.
   for (const configId of configIds) {
     const target = configTargetById(configId)!;
-    rows.push(planForConfigTarget(target, io, flags.force ?? false));
+    try {
+      rows.push(planForConfigTarget(target, io, flags.force ?? false));
+    } catch (err) {
+      io.errorLog(
+        `svelte-vitals: could not check existing config file: ${err instanceof Error ? err.message : String(err)}`
+      );
+      return 2;
+    }
+  }
+  for (const ciId of ciIds) {
+    const target = ciTargetById(ciId)!;
+    try {
+      rows.push(planForCiTarget(target, io, flags.force ?? false));
+    } catch (err) {
+      io.errorLog(
+        `svelte-vitals: could not check existing workflow at ${join(io.cwd, target.relPath)}: ${err instanceof Error ? err.message : String(err)}`
+      );
+      return 2;
+    }
   }
 
   // 3. Preview.
@@ -374,6 +467,14 @@ export async function runInstall(
       io.writeFile(r.path, r.content ?? '');
       io.log(`✓ ${r.label}: ${r.status} ${r.path}`);
       if (isViteTargetId(r.id)) viteWasWritten = true;
+      // The .ts pick was validated against *this* machine's Node only — the committed
+      // config also has to load wherever svelte-vitals runs next (CI, teammates), and
+      // Node 22.13–22.17 can't load .ts without a flag.
+      if (isConfigTargetId(r.id) && r.path.endsWith('.ts')) {
+        io.log(
+          'svelte-vitals: note — a .ts config needs Node 22.18+ (or 23.6+) everywhere svelte-vitals runs, CI included; rename to .mjs if that is not guaranteed.'
+        );
+      }
     } catch (err) {
       hadFailure = true;
       io.errorLog(`svelte-vitals: failed to write ${r.path}: ${err instanceof Error ? err.message : String(err)}`);

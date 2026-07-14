@@ -11,11 +11,11 @@ svelte-vitals の [MCP サーバー](/svelte-vitals/ja/guides/mcp/)、Vite と�
 npx svelte-vitals@latest install
 ```
 
-フラグなしで実行すると対話式ウィザードが起動します — クライアント／ターゲットを選択し、クライアントごとにスコープを選び、変更計画を確認して適用します。非対話環境／CI ではフラグだけで実行できます。
+フラグなしで実行すると対話式ウィザードが起動します — クライアント／ターゲットを選択し、クライアントごとにスコープを選び、変更計画を確認して適用します。ピッカーはターゲットをカテゴリごとにグループ化します — **MCP server**、**Vite integration**、**Agent Skills & rules**、**CI (GitHub Actions)**、**Config file** — 10個のターゲットがあってもそれぞれ何のためのものか分かりやすくなっています。非対話環境／CI ではフラグだけで実行できます。
 
 ## `--client <ids>`
 
-設定するクライアント／ターゲットをカンマ区切りで指定します：`claude-code`、`cursor`、`codex`、`vite-plugin`、`vite-hooks`、`claude-skill`、`cursor-rules`、`claude-skill-improve`、`config-file`。指定した場合は対話式の選択がスキップされます。
+設定するクライアント／ターゲットをカンマ区切りで指定します：`claude-code`、`cursor`、`codex`、`vite-plugin`、`vite-hooks`、`claude-skill`、`cursor-rules`、`claude-skill-improve`、`config-file`、`ci-workflow`。指定した場合は対話式の選択がスキップされます。
 
 `vite-plugin` は `@svelte-vitals/vite` のビルドモードのプラグインを `vite.config.{ts,js,mjs}` に登録します(ライブダッシュボードはデフォルトで有効です)。`vite-hooks` は `svelteVitalsHandle` フックを `src/hooks.server.{ts,js}` に組み込み、ブラウジングに応じてダッシュボードのルート別の精度を上げます。どちらも `magicast` によるコードモッドを使用し、確実に認識できる形のファイルのみを変更します — それ以外の場合は何もせず、代わりに手動で追加するためのスニペットを表示します。どちらかが書き込まれ、かつ `@svelte-vitals/vite` がまだ依存関係に含まれていない場合、検出されたパッケージマネージャー経由で自動インストールされます。**`--force` はこの2つには適用されません** — フラグの有無にかかわらず、既存の登録は常にそのまま維持されます。
 
@@ -23,11 +23,13 @@ npx svelte-vitals@latest install
 
 `claude-skill-improve` は [`/improve-svelte` Agent Skill](/svelte-vitals/ja/guides/agent-skills/#improve-svelte) を同じ3つの場所（`improve-svelte/` 以下 — `.claude/skills/improve-svelte/SKILL.md`、`.agents/skills/improve-svelte/SKILL.md`、`.cursor/skills/improve-svelte/SKILL.md`）に書き出します。`claude-skill`／`cursor-rules` と同様に毎回全文を再生成するため、**`--force` が適用されます**。
 
-`config-file` はオプション(`treatDynamicAs`、`metaComponents`、`rules`、`failOn`、`weights`)をすべてコメントアウトした `svelte-vitals.config.mjs` の雛形を生成します — 詳細は [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。エージェントターゲットと同様に毎回全文を再生成するため、**`--force` が適用されます**。
+`config-file` はオプション(`treatDynamicAs`、`metaComponents`、`rules`、`failOn`、`weights`)をすべてコメントアウトした `svelte-vitals.config.{mjs,ts}` の雛形を、環境に応じて最適な拡張子を自動判定して生成します — 詳細は [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。エージェントターゲットと同様に毎回全文を再生成するため、**`--force` が適用されます**(既に存在するファイルに対して。再生成で拡張子が変わることはありません)。
+
+`ci-workflow` は `.github/workflows/svelte-vitals.yml` を生成します。これは単体の [`svelte-vitals ci install`](/svelte-vitals/ja/guides/ci/) コマンドが書き出すのと同じファイルです — 別コマンドを覚えておく代わりに、他のターゲットと同じ実行でCIもセットアップできます。毎回全文を再生成するため、**`--force` が適用されます**。既存ワークフローのピン留めされたアクションバージョンだけを更新する `svelte-vitals ci upgrade`(このウィザードには含まれません)は、これまで通り別途必要です。
 
 ## `--scope <project|global>`
 
-設定の書き込み先。選択したすべてのクライアントに適用されます。**Codex は常に global** です（プロジェクトスコープの設定を持たないため）。（Vite ターゲット、エージェントのスキル／ルールターゲット、config-file ターゲットにはスコープがなく、このフラグは無視されます。）
+設定の書き込み先。選択したすべてのクライアントに適用されます。**Codex は常に global** です（プロジェクトスコープの設定を持たないため）。（Vite ターゲット、エージェントのスキル／ルールターゲット、config-file ターゲット、ci-workflow ターゲットにはスコープがなく、このフラグは無視されます。）
 
 | クライアント | project            | global                 |
 | ------------ | ------------------ | ---------------------- |
@@ -60,6 +62,9 @@ npx svelte-vitals@latest install --client codex --dry-run
 
 # ルール追加後、既にインストール済みのエージェントスキル/ルールファイルを再生成
 npx svelte-vitals@latest install --refresh
+
+# 他と同じ実行でCIもセットアップ
+npx svelte-vitals@latest install --client claude-code,ci-workflow --yes
 ```
 
 既存の設定ファイルが解析できない場合、上書きせずに失敗します（終了コード `2`）。

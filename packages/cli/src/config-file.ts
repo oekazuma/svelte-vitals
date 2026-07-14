@@ -11,9 +11,13 @@ import { findUnknownRuleIds, knownRuleIds } from './rules-config.js';
  * @svelte-vitals/mcp's `analyze` tool both inherit it.
  *
  * Candidate filenames, in priority order. Only `cwd` itself is searched (no
- * upward directory walk — see design doc §1).
+ * upward directory walk — see design doc §1). Exported so the install wizard's
+ * config-file scaffolder (install/config-file-format.ts) detects existing
+ * configs against the exact same list — a second hand-maintained copy could
+ * drift and make the scaffolder create a duplicate config the loader then
+ * shadows or ignores.
  */
-const CONFIG_FILENAMES = ['svelte-vitals.config.mjs', 'svelte-vitals.config.js', 'svelte-vitals.config.ts'];
+export const CONFIG_FILENAMES = ['svelte-vitals.config.mjs', 'svelte-vitals.config.js', 'svelte-vitals.config.ts'];
 
 const CATEGORIES: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
 const TREAT_DYNAMIC_AS_VALUES = ['pass', 'warn', 'fail'];

@@ -97,6 +97,19 @@ describe('resolveInstallArgs — config target', () => {
   });
 });
 
+describe('resolveInstallArgs — ci target', () => {
+  it('accepts ci-workflow in --client', () => {
+    const r = resolveInstallArgs(parse(['--client', 'ci-workflow']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags!.client).toEqual(['ci-workflow']);
+  });
+  it('mixes an MCP client id with the ci target id', () => {
+    const r = resolveInstallArgs(parse(['--client', 'claude-code,ci-workflow']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags!.client).toEqual(['claude-code', 'ci-workflow']);
+  });
+});
+
 describe('resolveInstallArgs — --refresh', () => {
   it('accepts a bare --refresh', () => {
     const r = resolveInstallArgs(parse(['--refresh']));

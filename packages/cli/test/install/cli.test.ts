@@ -32,6 +32,16 @@ describe('runInstallCli --help', () => {
     expect(help).toContain('claude-skill-improve');
   });
 
+  it('lists the ci-workflow target id', async () => {
+    const lines: string[] = [];
+    vi.spyOn(console, 'log').mockImplementation((line: string) => {
+      lines.push(line);
+    });
+    const code = await runInstallCli(['--help']);
+    expect(code).toBe(0);
+    expect(lines.join('\n')).toContain('ci-workflow');
+  });
+
   it('documents --refresh', async () => {
     const lines: string[] = [];
     vi.spyOn(console, 'log').mockImplementation((line: string) => {

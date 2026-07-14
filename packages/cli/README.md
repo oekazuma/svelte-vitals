@@ -78,7 +78,7 @@ Useful as a CI gate.
 
 ### `svelte-vitals install`
 
-An interactive wizard that wires up the [MCP server](https://www.npmjs.com/package/@svelte-vitals/mcp), the [Vite plugin](https://www.npmjs.com/package/@svelte-vitals/vite)'s live dashboard, and Agent Skills (`/svelte-vitals`, `/improve-svelte`) for Claude Code, Cursor, and Codex:
+An interactive wizard that wires up the [MCP server](https://www.npmjs.com/package/@svelte-vitals/mcp), the [Vite plugin](https://www.npmjs.com/package/@svelte-vitals/vite)'s live dashboard, Agent Skills (`/svelte-vitals`, `/improve-svelte`) for Claude Code, Cursor, and Codex, and a GitHub Actions CI workflow — grouped by category in the picker so it's clear what each target is for:
 
 ```bash
 npx svelte-vitals@latest install
@@ -86,7 +86,7 @@ npx svelte-vitals@latest install
 
 ### CI integration
 
-`svelte-vitals ci install` scaffolds a GitHub Actions workflow around `@svelte-vitals/action` — inline PR annotations, a job summary, and a sticky PR comment, no YAML to hand-write. See [CI integration](https://oekazuma.github.io/svelte-vitals/guides/ci/).
+`svelte-vitals ci install` scaffolds a GitHub Actions workflow around `@svelte-vitals/action` — inline PR annotations, a job summary, and a sticky PR comment, no YAML to hand-write. The same workflow is also a selectable `ci-workflow` target inside `svelte-vitals install`, so it can be set up in the same pass as everything else. See [CI integration](https://oekazuma.github.io/svelte-vitals/guides/ci/).
 
 ### Agent-native output
 
