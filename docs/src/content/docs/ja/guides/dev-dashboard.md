@@ -99,7 +99,7 @@ Fix this svelte-vitals finding:
 After fixing, re-run `svelte-vitals --diff` (or revisit this route) to confirm SEO001 passes for /blog/hello.
 ````
 
-ネットワーク通信は発生しません — プロンプトはダッシュボードのスナップショットに既にあるデータからクライアント側で組み立てられます。[`agent` レポーター](/svelte-vitals/ja/guides/reporters/)が修正ドキュメントに使うのと同じフィールドです。
+プロンプトの生成にAI呼び出しは一切ありません — ダッシュボードのスナップショットに既にある svelte-vitals 自身のルールデータから即座に組み立てられます。[`agent` レポーター](/svelte-vitals/ja/guides/reporters/)が修正ドキュメントに使うのと同じフィールドです。ルールの実際の推奨事項ではない修正を捏造することはできません。
 
 ## 無効化する
 

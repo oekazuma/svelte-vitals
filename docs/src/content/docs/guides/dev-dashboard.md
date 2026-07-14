@@ -99,7 +99,7 @@ Fix this svelte-vitals finding:
 After fixing, re-run `svelte-vitals --diff` (or revisit this route) to confirm SEO001 passes for /blog/hello.
 ````
 
-No network round-trip involved — the prompt is assembled client-side from data already in the dashboard's snapshot, the same fields the [`agent` reporter](/svelte-vitals/guides/reporters/) uses for its remediation document.
+No AI call generates it — the prompt is assembled instantly from svelte-vitals' own rule data already in the dashboard's snapshot, the same fields the [`agent` reporter](/svelte-vitals/guides/reporters/) uses for its remediation document. It can't hallucinate a fix that isn't the rule's actual recommendation.
 
 ## Disabling it
 
