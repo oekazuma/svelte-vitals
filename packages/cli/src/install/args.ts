@@ -2,12 +2,14 @@ import type mri from 'mri';
 import { CLIENTS, type Scope } from './clients.js';
 import { VITE_TARGETS } from './vite-targets.js';
 import { AGENT_TARGETS } from './agent-targets.js';
+import { CONFIG_TARGETS } from './config-targets.js';
 import type { InstallFlags, TargetId } from './index.js';
 
 const VALID_TARGETS: readonly TargetId[] = [
   ...CLIENTS.map((c) => c.id),
   ...VITE_TARGETS.map((t) => t.id),
-  ...AGENT_TARGETS.map((t) => t.id)
+  ...AGENT_TARGETS.map((t) => t.id),
+  ...CONFIG_TARGETS.map((t) => t.id)
 ];
 const EXPECTED_TARGETS = VALID_TARGETS.join('|');
 
