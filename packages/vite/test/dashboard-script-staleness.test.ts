@@ -55,9 +55,11 @@ class FakeEventSource {
 }
 
 /** Flushes pending microtasks (the fetch/json promise chain inside fetchSnapshot) so that,
- * after this resolves, any render triggered by the dispatched event has already happened. */
+ * after this resolves, any render triggered by the dispatched event has already happened.
+ * A macrotask (0ms timeout) is enough — it runs strictly after all queued microtasks, so
+ * this doesn't need (and gains no extra safety from) a longer real-time delay. */
 function flush(): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, 10));
+  return new Promise((resolve) => setTimeout(resolve, 0));
 }
 
 describe('dashboard client script — SSE staleness guard', () => {
