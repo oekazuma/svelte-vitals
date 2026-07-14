@@ -33,18 +33,18 @@ export default {
 
 ## オプション
 
-| オプション       | 型                                  | デフォルト     | 説明                                                                                                                                       |
-| ---------------- | ----------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| `failOn`         | `'critical' \| 'warning' \| 'info'` | `'critical'`   | ビルドを失敗させる最低重大度                                                                                                               |
-| `report`         | `'console' \| 'json' \| false`      | `'console'`    | 分析レポートの出力形式                                                                                                                     |
-| `outFile`        | `string`                            | —              | JSON レポートをこのパスのファイルに書き込む                                                                                                |
-| `rules`          | `string[]`                          | —              | 有効にするルール ID（他はすべて無効）                                                                                                      |
-| `metaComponents` | `string[]`                          | —              | ヘッドメタデータを出力するカスタムコンポーネント名                                                                                         |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`        | `'pass'`       | 動的に設定されたメタデータの扱い方                                                                                                         |
-| `weights`        | `Partial<Record<Category, number>>` | 各カテゴリ `1` | レポート内の組み合わせた Health スコアのカテゴリごとの重み                                                                                 |
-| `prerenderDir`   | `string`                            | —              | プリレンダリングページディレクトリの上書き                                                                                                 |
-| `ui`             | `boolean`                           | `true`         | `vite dev` 中に[ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/)を配信するかどうか。`false` にするとビルド時ゲートのみになる |
-| `cwd`            | `string`                            | Vite のルート  | プロジェクトルート                                                                                                                         |
+| オプション       | 型                                                           | デフォルト     | 説明                                                                                                                                       |
+| ---------------- | ------------------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'`   | ビルドを失敗させる最低重大度                                                                                                               |
+| `report`         | `'console' \| 'json' \| false`                               | `'console'`    | 分析レポートの出力形式                                                                                                                     |
+| `outFile`        | `string`                                                     | —              | JSON レポートをこのパスのファイルに書き込む                                                                                                |
+| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`           | ルールごとの上書き — ルールを無効化するか重大度を変更する                                                                                  |
+| `metaComponents` | `string[]`                                                   | —              | ヘッドメタデータを出力するカスタムコンポーネント名                                                                                         |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`       | 動的に設定されたメタデータの扱い方                                                                                                         |
+| `weights`        | `Partial<Record<Category, number>>`                          | 各カテゴリ `1` | レポート内の組み合わせた Health スコアのカテゴリごとの重み                                                                                 |
+| `prerenderDir`   | `string`                                                     | —              | プリレンダリングページディレクトリの上書き                                                                                                 |
+| `ui`             | `boolean`                                                    | `true`         | `vite dev` 中に[ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/)を配信するかどうか。`false` にするとビルド時ゲートのみになる |
+| `cwd`            | `string`                                                     | Vite のルート  | プロジェクトルート                                                                                                                         |
 
 ## 設定ファイル
 

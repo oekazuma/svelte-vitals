@@ -33,18 +33,18 @@ export default {
 
 ## Options
 
-| Option           | Type                                | Default      | Description                                                                                                                |
-| ---------------- | ----------------------------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------- |
-| `failOn`         | `'critical' \| 'warning' \| 'info'` | `'critical'` | Minimum severity that fails the build                                                                                      |
-| `report`         | `'console' \| 'json' \| false`      | `'console'`  | Output format for the analysis report                                                                                      |
-| `outFile`        | `string`                            | —            | Write the JSON report to a file at this path                                                                               |
-| `rules`          | `string[]`                          | —            | Rule IDs to enable (all others disabled)                                                                                   |
-| `metaComponents` | `string[]`                          | —            | Custom component names that emit head metadata                                                                             |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`        | `'pass'`     | How to treat dynamically-set metadata                                                                                      |
-| `weights`        | `Partial<Record<Category, number>>` | every `1`    | Per-category weights for the combined Health score in the report                                                           |
-| `prerenderDir`   | `string`                            | —            | Override the prerendered-pages directory                                                                                   |
-| `ui`             | `boolean`                           | `true`       | Serve the [live dashboard](/svelte-vitals/guides/dev-dashboard/) during `vite dev`; `false` keeps only the build-time gate |
-| `cwd`            | `string`                            | Vite root    | Project root                                                                                                               |
+| Option           | Type                                                         | Default      | Description                                                                                                                |
+| ---------------- | ------------------------------------------------------------ | ------------ | -------------------------------------------------------------------------------------------------------------------------- |
+| `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'` | Minimum severity that fails the build                                                                                      |
+| `report`         | `'console' \| 'json' \| false`                               | `'console'`  | Output format for the analysis report                                                                                      |
+| `outFile`        | `string`                                                     | —            | Write the JSON report to a file at this path                                                                               |
+| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`         | Per-rule overrides — disable a rule or change its severity                                                                 |
+| `metaComponents` | `string[]`                                                   | —            | Custom component names that emit head metadata                                                                             |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`     | How to treat dynamically-set metadata                                                                                      |
+| `weights`        | `Partial<Record<Category, number>>`                          | every `1`    | Per-category weights for the combined Health score in the report                                                           |
+| `prerenderDir`   | `string`                                                     | —            | Override the prerendered-pages directory                                                                                   |
+| `ui`             | `boolean`                                                    | `true`       | Serve the [live dashboard](/svelte-vitals/guides/dev-dashboard/) during `vite dev`; `false` keeps only the build-time gate |
+| `cwd`            | `string`                                                     | Vite root    | Project root                                                                                                               |
 
 ## Config file
 
