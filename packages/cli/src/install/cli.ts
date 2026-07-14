@@ -31,8 +31,11 @@ Options:
                     locations, under improve-svelte/) that audits the whole project and writes
                     implementation plans instead of a run-after-every-edit playbook; also
                     supports --force.
-                    config-file scaffolds svelte-vitals.config.mjs with every option commented out;
-                    supports --force to regenerate.
+                    config-file scaffolds svelte-vitals.config.{mjs,ts} with every option commented
+                    out, auto-picking .ts (with defineConfig) when the current Node supports it and
+                    the project looks TypeScript-oriented (tsconfig.json or vite.config.ts present),
+                    else the safe .mjs default; supports --force to regenerate the file that's
+                    already there (its extension never changes on --force).
                     ci-workflow scaffolds .github/workflows/svelte-vitals.yml, the same file
                     \`svelte-vitals ci install\` writes standalone — pick it here to set it up in
                     the same pass as everything else; supports --force to regenerate. \`svelte-vitals
@@ -63,6 +66,7 @@ export function realIO(): InstallIO {
     cwd: process.cwd(),
     home: homedir(),
     isTTY: Boolean(process.stdout.isTTY),
+    nodeVersion: process.version,
     log: (line) => console.log(line),
     errorLog: (line) => console.error(line),
     runCommand: (command, args, cwd) => {

@@ -7,7 +7,7 @@ sidebar:
 
 Instead of repeating `--rules`, `--ignore`, `--fail-on`, and `--weights` on every invocation, put them in a `svelte-vitals.config` file at your project root. The CLI, the [MCP server](/svelte-vitals/guides/mcp/), and the [Vite plugin](/svelte-vitals/guides/plugin-mode/) all read it automatically (the MCP server inherits it because it calls the same `analyzeProject` function as the CLI; the Vite plugin reads it directly — see [Using the config file with the Vite plugin](#using-the-config-file-with-the-vite-plugin) below).
 
-Run `svelte-vitals install --client config-file` to scaffold `svelte-vitals.config.mjs` with every option below commented out.
+Run `svelte-vitals install --client config-file` to scaffold one with every option below commented out.
 
 ## Where it lives
 
@@ -18,6 +18,8 @@ svelte-vitals looks for one of these, in this order, **in the analyzed directory
 3. `svelte-vitals.config.ts`
 
 The first match wins. If none exist, svelte-vitals runs with its built-in defaults, same as before this feature existed.
+
+`install --client config-file` picks between `.ts` and `.mjs` for you: `.ts` (using `defineConfig` for real type-checking/autocomplete) when the current Node supports loading it natively **and** the project looks TypeScript-oriented (a `tsconfig.json` or a `vite.config.ts` at the project root); otherwise the safe `.mjs` default, which works on every Node version svelte-vitals supports with no flag. Regenerating an existing file with `--force` always keeps that file's own extension rather than switching formats underneath you.
 
 ## Example
 

@@ -7,7 +7,7 @@ sidebar:
 
 `--rules`、`--ignore`、`--fail-on`、`--weights` を実行のたびに指定する代わりに、プロジェクトルートに `svelte-vitals.config` ファイルを置いて設定をまとめられます。CLI、[MCP サーバー](/svelte-vitals/ja/guides/mcp/)、[Vite プラグイン](/svelte-vitals/ja/guides/plugin-mode/) はいずれもこのファイルを自動的に読み込みます(MCP サーバーは CLI と同じ `analyzeProject` 関数を呼び出しているためこの機能をそのまま引き継ぎ、Vite プラグインは直接読み込みます — 詳細は下記の [Vite プラグインで設定ファイルを再利用する](#vite-プラグインで設定ファイルを再利用する) を参照)。
 
-`svelte-vitals install --client config-file` を実行すると、以下のオプションをすべてコメントアウトした状態の `svelte-vitals.config.mjs` の雛形を生成できます。
+`svelte-vitals install --client config-file` を実行すると、以下のオプションをすべてコメントアウトした状態の雛形を生成できます。
 
 ## 探索場所
 
@@ -18,6 +18,8 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
 3. `svelte-vitals.config.ts`
 
 最初に見つかったファイルが採用されます。どれも存在しない場合、この機能がなかった頃と同様、組み込みのデフォルト設定で実行されます。
+
+`install --client config-file` は `.ts` と `.mjs` のどちらが良いか自動で判定します。現在の Node が `.ts` をネイティブに読み込め、**かつ**プロジェクトが TypeScript 志向(プロジェクトルートに `tsconfig.json` または `vite.config.ts` がある)であれば `.ts`(実際に型チェック・オートコンプリートが効く `defineConfig` を使用)を、それ以外は安全な `.mjs` — svelte-vitals がサポートするどの Node バージョンでもフラグなしで動く既定値 — を選びます。`--force` で既存ファイルを再生成する場合は、拡張子を勝手に変えることなく、常にその既存ファイル自身の拡張子を維持します。
 
 ## 例
 

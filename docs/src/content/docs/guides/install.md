@@ -23,7 +23,7 @@ Comma-separated clients/targets to configure: `claude-code`, `cursor`, `codex`, 
 
 `claude-skill-improve` writes the [`/improve-svelte` Agent Skill](/svelte-vitals/guides/agent-skills/#improve-svelte) to the same three locations, under `improve-svelte/` (`.claude/skills/improve-svelte/SKILL.md`, `.agents/skills/improve-svelte/SKILL.md`, `.cursor/skills/improve-svelte/SKILL.md`). Like `claude-skill`/`cursor-rules`, it's fully regenerated, so **`--force` does apply**.
 
-`config-file` scaffolds `svelte-vitals.config.mjs` with every option (`treatDynamicAs`, `metaComponents`, `rules`, `failOn`, `weights`) commented out — see [Config file](/svelte-vitals/guides/configuration/). Like the agent targets, it's fully regenerated, so **`--force` does apply**.
+`config-file` scaffolds `svelte-vitals.config.{mjs,ts}` with every option (`treatDynamicAs`, `metaComponents`, `rules`, `failOn`, `weights`) commented out, auto-picking the best extension for the environment — see [Config file](/svelte-vitals/guides/configuration/). Like the agent targets, it's fully regenerated, so **`--force` does apply** (to whichever file already exists — regenerating never switches its extension).
 
 `ci-workflow` scaffolds `.github/workflows/svelte-vitals.yml`, the same file the standalone [`svelte-vitals ci install`](/svelte-vitals/guides/ci/) command writes — pick it here to set up CI in the same pass as everything else, instead of a separate command. It's fully regenerated, so **`--force` does apply**; `svelte-vitals ci upgrade` (not part of this wizard) remains the way to bump an existing workflow's pinned action version without touching anything else in the file.
 

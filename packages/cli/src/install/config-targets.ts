@@ -4,7 +4,9 @@ export interface ConfigTarget {
   id: ConfigTargetId;
   label: string;
   hint: string;
-  /** cwd-relative destination path. */
+  /** Default cwd-relative destination path — the fallback extension when nothing else is
+   * detected. `index.ts`'s planForConfigTarget picks the actual extension per environment
+   * (see config-file-format.ts) rather than always using this literally. */
   relPath: string;
 }
 
@@ -15,7 +17,7 @@ export const CONFIG_TARGETS: ConfigTarget[] = [
   {
     id: 'config-file',
     label: 'Config file',
-    hint: 'Scaffolds svelte-vitals.config.mjs with every option commented out',
+    hint: 'Scaffolds svelte-vitals.config.{mjs,ts} (auto-picks the best one) with every option commented out',
     relPath: 'svelte-vitals.config.mjs'
   }
 ];

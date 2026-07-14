@@ -20,6 +20,7 @@ import { CI_TARGETS, ciTargetById, isCiTargetId, type CiTarget, type CiTargetId 
 import { buildSkillMarkdown, buildCursorRules } from './skill-content.js';
 import { buildImproveSkillMarkdown } from './improve-skill-content.js';
 import { buildConfigFileTemplate } from './config-content.js';
+import { findExistingConfigFile, detectBestConfigExtension } from './config-file-format.js';
 import { codemodViteConfig } from './codemod-vite-config.js';
 import { codemodHooksServer } from './codemod-hooks.js';
 import { detectPackageManager, hasVitePackage, installCommand, readInstalledViteVersion } from './package-manager.js';
@@ -41,6 +42,9 @@ export interface InstallIO {
   errorLog(line: string): void;
   /** Run a command (used only to auto-install @svelte-vitals/vite). Returns the exit code. */
   runCommand?(command: string, args: string[], cwd: string): number;
+  /** `process.version` — used only to decide whether a fresh config-file scaffold can pick
+   * `.ts` (native TypeScript stripping support). Falls back to `process.version` if omitted. */
+  nodeVersion?: string;
 }
 
 export interface SelectableOption {
@@ -146,16 +150,33 @@ function planForAgentTarget(target: AgentTarget, io: InstallIO, force: boolean, 
 }
 
 /**
- * Plan the config-file scaffolder (`svelte-vitals.config.mjs`). Like the agent targets,
- * content here is a fixed, fully-regenerated template rather than codemodded, so --force
- * is allowed to overwrite an existing file.
+ * Plan the config-file scaffolder (`svelte-vitals.config.{mjs,js,ts}`). Like the agent
+ * targets, content here is a fixed, fully-regenerated template rather than codemodded, so
+ * --force is allowed to overwrite an existing file.
+ *
+ * Extension handling: if a config file already exists (any of the three candidates —
+ * `loadConfigFile`'s search order), --force regenerates *that* file, preserving its
+ * existing extension/format rather than switching it underneath the user. Only a fresh
+ * scaffold (nothing exists yet) auto-picks the best extension for this environment —
+ * `.ts` when the current Node can load it natively and the project looks TypeScript-
+ * oriented, otherwise the safe `.mjs` default (see config-file-format.ts).
  */
 function planForConfigTarget(target: ConfigTarget, io: InstallIO, force: boolean): PlanRow {
-  const path = join(io.cwd, target.relPath);
-  const existing = io.readFile(path);
-  const content = buildConfigFileTemplate();
-  const status: WriteStatus = existing === undefined ? 'created' : force ? 'updated' : 'exists';
-  return { id: target.id, label: target.label, path, status, content };
+  const existingRel = findExistingConfigFile(io.readFile, io.cwd);
+  if (existingRel !== undefined) {
+    const path = join(io.cwd, existingRel);
+    const status: WriteStatus = force ? 'updated' : 'exists';
+    const content = force ? buildConfigFileTemplate({ useDefineConfig: existingRel.endsWith('.ts') }) : undefined;
+    return { id: target.id, label: target.label, path, status, content };
+  }
+  const ext = detectBestConfigExtension({
+    readFile: io.readFile,
+    cwd: io.cwd,
+    nodeVersion: io.nodeVersion ?? process.version
+  });
+  const path = join(io.cwd, `svelte-vitals.config.${ext}`);
+  const content = buildConfigFileTemplate({ useDefineConfig: ext === 'ts' });
+  return { id: target.id, label: target.label, path, status: 'created', content };
 }
 
 /**

@@ -23,7 +23,7 @@ npx svelte-vitals@latest install
 
 `claude-skill-improve` は [`/improve-svelte` Agent Skill](/svelte-vitals/ja/guides/agent-skills/#improve-svelte) を同じ3つの場所（`improve-svelte/` 以下 — `.claude/skills/improve-svelte/SKILL.md`、`.agents/skills/improve-svelte/SKILL.md`、`.cursor/skills/improve-svelte/SKILL.md`）に書き出します。`claude-skill`／`cursor-rules` と同様に毎回全文を再生成するため、**`--force` が適用されます**。
 
-`config-file` はオプション(`treatDynamicAs`、`metaComponents`、`rules`、`failOn`、`weights`)をすべてコメントアウトした `svelte-vitals.config.mjs` の雛形を生成します — 詳細は [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。エージェントターゲットと同様に毎回全文を再生成するため、**`--force` が適用されます**。
+`config-file` はオプション(`treatDynamicAs`、`metaComponents`、`rules`、`failOn`、`weights`)をすべてコメントアウトした `svelte-vitals.config.{mjs,ts}` の雛形を、環境に応じて最適な拡張子を自動判定して生成します — 詳細は [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。エージェントターゲットと同様に毎回全文を再生成するため、**`--force` が適用されます**(既に存在するファイルに対して。再生成で拡張子が変わることはありません)。
 
 `ci-workflow` は `.github/workflows/svelte-vitals.yml` を生成します。これは単体の [`svelte-vitals ci install`](/svelte-vitals/ja/guides/ci/) コマンドが書き出すのと同じファイルです — 別コマンドを覚えておく代わりに、他のターゲットと同じ実行でCIもセットアップできます。毎回全文を再生成するため、**`--force` が適用されます**。既存ワークフローのピン留めされたアクションバージョンだけを更新する `svelte-vitals ci upgrade`(このウィザードには含まれません)は、これまで通り別途必要です。
 
