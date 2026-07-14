@@ -67,11 +67,18 @@ Each reporter's own headings/labels (not rule copy — that's the catalog from S
 - `github.ts`, `sarif.ts` — confirmed protocol-level vocabulary (SARIF `level`, GitHub annotation `level`) — **not translated**, matching the issue's own call and this plan's scope.
 - `json.ts` — confirmed to carry no reporter-authored prose of its own (only re-serializes `Result[]`, which by the time it reaches `json.ts` already went through `runRules`'s translation pass) — needs no reporter-level change at all.
 
-Each reporter function (`formatConsoleReport`, `formatMarkdownReport`, `formatGithubReport` excluded, `formatHtmlReport`, `formatAgentReport`) gains a `lang` parameter, additive to their existing `options`/`meta` parameter objects (all four already take an options-bag as their last or near-last argument, so this is not a signature-breaking change for any of them — confirmed shapes: `formatConsoleReport(results, config, options = {})`, `formatMarkdownReport(results, config, meta: { version })`, `formatHtmlReport(results, config, ...)`, `formatAgentReport(results, config)`).
+Four reporter functions gain a `lang` parameter, additive to their existing `options`/`meta` parameter objects (each already takes an options-bag as its last or near-last argument, so this is not a signature-breaking change for any of them — confirmed shapes: `formatConsoleReport(results, config, options = {})`, `formatMarkdownReport(results, config, meta: { version })`, `formatHtmlReport(results, config, ...)`, `formatAgentReport(results, config)`):
+
+- `formatConsoleReport`
+- `formatMarkdownReport`
+- `formatHtmlReport`
+- `formatAgentReport`
+
+`formatGithubReport` is **not** in this list — per the `github.ts`/`sarif.ts` scope decision just above, its output is protocol-level GitHub annotation vocabulary, not translated prose, and its signature is unchanged.
 
 ### 3.3 `packages/action`
 
-Confirmed by reading `packages/action/src/index.ts`: it calls `analyzeProject({ cwd: path })` then `formatGithubReport(results, config)` and `formatMarkdownReport(results, config, { version })` directly, with no string literals of its own beyond a handful of `core.warning`/`core.setFailed` calls (not yet audited line-by-line here, but the issue's "almost no strings of its own" claim matches the 84-line file's shape). Wiring: add `lang: core.getInput('lang') || undefined` to the `analyzeProject` call and thread the same value into the two `format*Report` calls. This is close to free — the Action doesn't need its own catalog, it inherits whatever `core` produces.
+Confirmed by reading `packages/action/src/index.ts`: it calls `analyzeProject({ cwd: path })` then `formatGithubReport(results, config)` and `formatMarkdownReport(results, config, { version })` directly, with no string literals of its own beyond a handful of `core.warning`/`core.setFailed` calls (not yet audited line-by-line here, but the issue's "almost no strings of its own" claim matches the 84-line file's shape). Wiring: add `lang: core.getInput('lang') || undefined` to the `analyzeProject` call, and thread the same value only into the `formatMarkdownReport` call (the sticky-comment body) — matching 3.2's decision that `formatGithubReport` stays untranslated. This is close to free — the Action doesn't need its own catalog, it inherits whatever `core` produces.
 
 Confirmed `packages/action/action.yml`'s current `inputs:` block (`path`, `diff`, `baseline`, `github-token`, all `required: false`) — a new `lang` input follows the exact same shape: `required: false`, no `default:` key (so `core.getInput('lang')` returns `''`, coerced to `undefined` the same way `diff`/`baseline` already do it in `index.ts`, e.g. `const diff = core.getInput('diff') || undefined;`), letting `analyzeProject`'s own `lang ?? file?.lang ?? 'en'` precedence chain supply the default rather than duplicating `'en'` in the Action's YAML.
 
