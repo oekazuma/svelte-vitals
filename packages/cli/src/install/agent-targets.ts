@@ -27,7 +27,7 @@ export const AGENT_TARGETS: AgentTarget[] = [
   {
     id: 'claude-skill-improve',
     label: 'Claude Code improve-svelte skill',
-    hint: 'Senior-advisor audit → implementation plans (read-only), modeled on the improve-react pattern',
+    hint: 'Senior-advisor audit → implementation plans (read-only), for a project-wide improvement roadmap',
     relPath: '.claude/skills/improve-svelte/SKILL.md'
   }
 ];
