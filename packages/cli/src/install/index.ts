@@ -323,7 +323,14 @@ export async function runInstall(
   }
   for (const agentId of agentIds) {
     const target = agentTargetById(agentId)!;
-    rows.push(...planForAgentTarget(target, io, flags.force ?? false, version));
+    try {
+      rows.push(...planForAgentTarget(target, io, flags.force ?? false, version));
+    } catch (err) {
+      io.errorLog(
+        `svelte-vitals: could not check existing agent target ${target.id}: ${err instanceof Error ? err.message : String(err)}`
+      );
+      return 2;
+    }
   }
   for (const configId of configIds) {
     const target = configTargetById(configId)!;

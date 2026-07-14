@@ -406,6 +406,17 @@ describe('runInstall — agent targets', () => {
     expect(seenOptions).toContain('cursor-rules');
     expect(seenOptions).toContain('claude-skill-improve');
   });
+
+  it('a read failure (e.g. EACCES) while planning an agent target is reported and exits 2, matching planForClient', async () => {
+    const { io, writes, err } = fakeIO({
+      throwOnRead: '/proj/.agents/skills/svelte-vitals/SKILL.md'
+    });
+    const code = await runInstall({ client: ['claude-skill'], yes: true }, io, noPrompts);
+    expect(code).toBe(2);
+    expect(writes).toEqual({});
+    expect(err.join('\n')).toContain('could not check existing agent target claude-skill');
+    expect(err.join('\n')).toContain('EACCES');
+  });
 });
 
 describe('runInstall — config-file target', () => {
