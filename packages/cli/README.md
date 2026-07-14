@@ -3,17 +3,17 @@
 [![npm](https://img.shields.io/npm/v/svelte-vitals)](https://www.npmjs.com/package/svelte-vitals)
 [![MIT](https://img.shields.io/npm/l/svelte-vitals)](https://opensource.org/licenses/MIT)
 
-> **A SvelteKit SEO checker — not a runtime Web Vitals reporter.**
-> Diagnose your project's SEO health by statically analyzing your source code, before it ships. No browser, no build server, no headless Chrome.
+> **A static SvelteKit code-health scanner — not a runtime Web Vitals reporter.**
+> Diagnose your project's SEO, Performance, Correctness, Security, and Architecture health by statically analyzing your source code, before it ships. No browser, no build server, no headless Chrome.
 >
-> **ESM-only** (Node 18+). Ships ES modules only; `require()` is unsupported by design.
+> **ESM-only** (Node 22.13+). Ships ES modules only; `require()` is unsupported by design.
 
 ```bash
 npx svelte-vitals@latest
 ```
 
-> [!NOTE]
-> **Early development.** Currently ships static-mode analysis and the first SEO rule (`<title>` presence). More rules, scoring, and a build-time plugin are on the roadmap. Output may change before `1.0`.
+> [!WARNING]
+> **Pre-1.0.** APIs, rule IDs, scoring, and output formats can change at any time, including breaking changes between minor releases.
 
 ## Usage
 
@@ -25,15 +25,31 @@ npx svelte-vitals@latest ./apps/web   # or a specific path
 ```
 
 ```
-Svelte Vitals  ·  SEO (static mode)
+Svelte Vitals  ·  static mode
 
-Critical (1)
+Health: 76/100
+SEO Score: 51/100   (route avg 61 · site −10)
+Architecture Score: 100/100   (route avg 100)
+
+Critical (2)
 ────────────────────────
 ✗ SEO001  Missing <title>
-            /none
-            src/routes/none/+page.svelte
+            /
+            src/routes/+page.svelte
+✗ SEO002  Missing <meta name="description">
+            /
+            src/routes/+page.svelte
 
-Passed (3)
+Warnings (10)
+────────────────────────
+✗ SEO003  Missing <link rel="canonical">
+            /
+            src/routes/+page.svelte
+            …and 1 more
+…and 1 more rule affected — run with --verbose to see all
+
+Passed (11)
+────────────────────────
 
 ↯ = set dynamically (verified at runtime).
 ```
@@ -44,13 +60,33 @@ On an interactive terminal wide enough for the mascot (20+ columns), a small lin
 
 ### Exit codes
 
-| Code | Meaning                                                         |
-| ---- | --------------------------------------------------------------- |
-| `0`  | No failing findings                                             |
-| `1`  | A critical finding is present                                   |
-| `2`  | Execution error (not a SvelteKit project, internal error, etc.) |
+| Code | Meaning                                                                     |
+| ---- | --------------------------------------------------------------------------- |
+| `0`  | No failing findings                                                         |
+| `1`  | Critical finding present, or `--fail-on` / `--min-health` threshold reached |
+| `2`  | Execution error (not a SvelteKit project, internal error, etc.)             |
 
 Useful as a CI gate.
+
+### Reporters
+
+`--reporter <fmt>` selects the output format: `console` (default), `json`, `agent`, `sarif`, `github`, `html` (self-contained, `--out-file`), and `md` (compact, for PR comments/job summaries). `agent` auto-selects inside known AI-agent harnesses (e.g. Claude Code); `github` auto-selects under GitHub Actions.
+
+### Ramping up on an existing project
+
+`--diff [ref]` / `--staged` scope findings to changed/staged files; `--baseline <ref>` scopes to findings that are genuinely new versus a ref; `--update-suppressions` records today's findings once so only newly-introduced issues gate the build afterward. `--rules`/`--ignore`/`--category` select which rules run, `--weights` reweights the combined Health score, and `--min-health`/`--score` gate or print just the number. A `svelte-vitals.config.{mjs,js,ts}` file (scaffolded via `svelte-vitals install --client config-file`) can set any of these once instead of repeating flags.
+
+### `svelte-vitals install`
+
+An interactive wizard that wires up the [MCP server](https://www.npmjs.com/package/@svelte-vitals/mcp), the [Vite plugin](https://www.npmjs.com/package/@svelte-vitals/vite)'s live dashboard, and Agent Skills (`/svelte-vitals`, `/improve-svelte`) for Claude Code, Cursor, and Codex:
+
+```bash
+npx svelte-vitals@latest install
+```
+
+### CI integration
+
+`svelte-vitals ci install` scaffolds a GitHub Actions workflow around `@svelte-vitals/action` — inline PR annotations, a job summary, and a sticky PR comment, no YAML to hand-write. See [CI integration](https://oekazuma.github.io/svelte-vitals/guides/ci/).
 
 ### Agent-native output
 
@@ -64,7 +100,7 @@ svelte-vitals resolves the effective `<head>` of every route by walking the layo
 
 A dynamic title such as `<title>{data.title}</title>` — the most common, correct SvelteKit pattern — is **never** flagged as missing; it passes with a `↯` marker. Only genuinely missing or empty metadata is penalized.
 
-See the [project README](https://github.com/oekazuma/svelte-vitals#readme) for the full picture and roadmap.
+See the [full documentation](https://oekazuma.github.io/svelte-vitals/) for every flag, rule, and reporter, or the [project README](https://github.com/oekazuma/svelte-vitals#readme) for the full picture and roadmap.
 
 ## License
 

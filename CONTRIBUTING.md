@@ -16,21 +16,23 @@ pnpm install
 ## Common commands
 
 ```bash
-pnpm build       # build all packages (tsup)
-pnpm test        # vitest
-pnpm typecheck   # tsc --noEmit
-pnpm lint        # prettier --check + eslint
-pnpm format      # prettier --write
+pnpm build          # build all packages (tsup)
+pnpm test           # vitest
+pnpm typecheck      # tsc --noEmit
+pnpm lint           # prettier --check + eslint
+pnpm format         # prettier --write
+pnpm check:publish  # publint + attw (--profile esm-only)
 ```
 
 ## Packages
 
-| Package                                  | Description                                                 |
-| ---------------------------------------- | ----------------------------------------------------------- |
-| [`svelte-vitals`](./packages/cli)        | CLI + static mode (`npx svelte-vitals@latest`)              |
-| [`@svelte-vitals/core`](./packages/core) | Runtime-agnostic core: types, rule engine, scorer, reporter |
-| [`@svelte-vitals/vite`](./packages/vite) | Plugin mode (build-time): analyzes the prerendered `<head>` |
-| [`@svelte-vitals/mcp`](./packages/mcp)   | MCP server: run analysis inside an agent's tool loop        |
+| Package                                      | Description                                                                 |
+| -------------------------------------------- | --------------------------------------------------------------------------- |
+| [`svelte-vitals`](./packages/cli)            | CLI + static mode (`npx svelte-vitals@latest`)                              |
+| [`@svelte-vitals/core`](./packages/core)     | Runtime-agnostic core: types, rule engine, scorer, reporters, full rule set |
+| [`@svelte-vitals/vite`](./packages/vite)     | Plugin mode (build-time) + the live dev dashboard                           |
+| [`@svelte-vitals/mcp`](./packages/mcp)       | MCP server: run analysis inside an agent's tool loop                        |
+| [`@svelte-vitals/action`](./packages/action) | First-party GitHub Action: annotations, job summary, sticky PR comment      |
 
 Each package also exposes its own `build`, `test`, and `typecheck` scripts, runnable via `pnpm --filter <package> <script>`.
 

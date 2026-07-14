@@ -84,6 +84,19 @@ describe('resolveInstallArgs — agent targets', () => {
   });
 });
 
+describe('resolveInstallArgs — config target', () => {
+  it('accepts config-file in --client', () => {
+    const r = resolveInstallArgs(parse(['--client', 'config-file']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags!.client).toEqual(['config-file']);
+  });
+  it('mixes an MCP client id with the config target id', () => {
+    const r = resolveInstallArgs(parse(['--client', 'claude-code,config-file']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags!.client).toEqual(['claude-code', 'config-file']);
+  });
+});
+
 describe('resolveInstallArgs — --refresh', () => {
   it('accepts a bare --refresh', () => {
     const r = resolveInstallArgs(parse(['--refresh']));

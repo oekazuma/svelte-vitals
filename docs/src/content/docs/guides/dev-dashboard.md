@@ -94,7 +94,7 @@ Fix this svelte-vitals finding:
 </svelte:head>
 ```
 
-- Docs: https://oekazuma.github.io/svelte-vitals/rules/seo001/
+- Docs: https://oekazuma.github.io/svelte-vitals/rules/seo001
 
 After fixing, re-run `svelte-vitals --diff` (or revisit this route) to confirm SEO001 passes for /blog/hello.
 ````

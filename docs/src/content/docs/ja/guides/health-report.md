@@ -29,7 +29,7 @@ Health は 2 段階で計算されます：
 Health はカテゴリごとの重みを使用してカテゴリスコアを平均します。デフォルトでは存在する各カテゴリに等しい重み（`1`）が設定されます。例えば SEO とパフォーマンスだけが存在する場合：
 
 ```text
-Health = (SEO スコア × w_seo + パフォーマンス スコア × w_perf) / (w_seo + w_perf)
+Health = (SEO_score × w_seo + Performance_score × w_perf) / (w_seo + w_perf)
 ```
 
 この式は簡潔にするため2カテゴリで示していますが、実際には結果に存在する**すべて**のカテゴリ（最大5つ：SEO、Performance、Correctness、Security、Architecture）にわたって同じ加重平均が計算されます。

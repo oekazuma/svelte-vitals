@@ -7,7 +7,7 @@ sidebar:
 
 `@svelte-vitals/mcp` is a [Model Context Protocol](https://modelcontextprotocol.io) server that exposes svelte-vitals as tools an AI agent can call inside its tool loop. The agent receives structured, actionable findings — each with a `fix`, `recommendation`, and `docsUrl` — without needing to spawn a CLI subprocess manually.
 
-> **ESM-only** (Node 18+). Ships ES modules only; `require()` is unsupported by design.
+> **ESM-only** (Node 22.13+). Ships ES modules only; `require()` is unsupported by design.
 
 ## Tools
 
