@@ -280,15 +280,17 @@ With no flags it launches an interactive wizard: pick your clients/targets, choo
 
 ### `--client <ids>`
 
-Comma-separated clients/targets to configure: `claude-code`, `cursor`, `codex`, `vite-plugin`, `vite-hooks`, `claude-skill`, `cursor-rules`. When given, the interactive picker is skipped.
+Comma-separated clients/targets to configure: `claude-code`, `cursor`, `codex`, `vite-plugin`, `vite-hooks`, `claude-skill`, `cursor-rules`, `config-file`. When given, the interactive picker is skipped.
 
 `vite-plugin` registers `@svelte-vitals/vite`'s build-mode plugin in `vite.config.{ts,js,mjs}` (its live dashboard is on by default); `vite-hooks` wires up the `svelteVitalsHandle` hook in `src/hooks.server.{ts,js}`, which improves the dashboard's per-route accuracy as you browse. Both use a `magicast` codemod that only touches a file whose shape it confidently recognizes — anything else is left alone and a snippet is printed instead. If either is written and `@svelte-vitals/vite` isn't already a dependency, it's installed automatically via the detected package manager. **`--force` does not apply to these two** — an existing registration is always left as-is regardless of the flag.
 
 `claude-skill` writes a Claude Code skill to `.claude/skills/svelte-vitals/SKILL.md`; `cursor-rules` writes a Cursor project rules file to `.cursor/rules/svelte-vitals.mdc`. Both are generated at install time from the current rule set (every rule's id, title, severity, and rationale, grouped by category) so an agent has the rule knowledge and a playbook — when to run `svelte-vitals --diff`/`--staged` — up front, before it writes code. Unlike the Vite targets, these files are fully regenerated rather than codemodded, so **`--force` does apply** and simply overwrites them with a fresh copy.
 
+`config-file` scaffolds `svelte-vitals.config.mjs` with every option (`treatDynamicAs`, `metaComponents`, `rules`, `failOn`, `weights`) commented out — see [Config file](/svelte-vitals/guides/configuration/). Like the agent targets, it's fully regenerated, so **`--force` does apply**.
+
 ### `--scope <project|global>`
 
-Where to write the config. Applies to all selected clients; **Codex is always global** (it has no project-scoped config). (Vite targets and agent skill/rules targets have no scope and ignore this flag.)
+Where to write the config. Applies to all selected clients; **Codex is always global** (it has no project-scoped config). (Vite targets, agent skill/rules targets, and the config-file target have no scope and ignore this flag.)
 
 | Client      | project            | global                 |
 | ----------- | ------------------ | ---------------------- |

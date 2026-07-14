@@ -16,7 +16,7 @@ Usage:
   svelte-vitals install [options]
 
 Options:
-  --client <ids>    Comma-separated: claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules
+  --client <ids>    Comma-separated: claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,config-file
                     (skips the interactive picker)
                     vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-hooks
                     wires up the svelteVitalsHandle hook in src/hooks.server.{ts,js}, which improves the
@@ -25,6 +25,8 @@ Options:
                     claude-skill writes a Claude Code skill (.claude/skills/svelte-vitals/SKILL.md); cursor-rules
                     writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc). Both are generated from the
                     current rule set and support --force to regenerate.
+                    config-file scaffolds svelte-vitals.config.mjs with every option commented out;
+                    supports --force to regenerate.
   --scope <scope>   project | global (applies to all selected clients; codex is always global)
   --yes, -y         Skip the confirmation prompt
   --dry-run         Print the planned changes and exit without writing

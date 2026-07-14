@@ -9,13 +9,21 @@ import {
   type AgentTarget,
   type AgentTargetId
 } from './agent-targets.js';
+import {
+  CONFIG_TARGETS,
+  configTargetById,
+  isConfigTargetId,
+  type ConfigTarget,
+  type ConfigTargetId
+} from './config-targets.js';
 import { buildSkillMarkdown, buildCursorRules } from './skill-content.js';
+import { buildConfigFileTemplate } from './config-content.js';
 import { codemodViteConfig } from './codemod-vite-config.js';
 import { codemodHooksServer } from './codemod-hooks.js';
 import { detectPackageManager, hasVitePackage, installCommand, readInstalledViteVersion } from './package-manager.js';
 import type { WriteStatus } from './codemod-types.js';
 
-export type TargetId = ClientId | ViteTargetId | AgentTargetId;
+export type TargetId = ClientId | ViteTargetId | AgentTargetId | ConfigTargetId;
 
 export interface InstallIO {
   /** File contents, or undefined if the file does not exist. */
@@ -104,6 +112,19 @@ function planForAgentTarget(target: AgentTarget, io: InstallIO, force: boolean, 
   const path = join(io.cwd, target.relPath);
   const existing = io.readFile(path);
   const content = target.id === 'claude-skill' ? buildSkillMarkdown(version) : buildCursorRules(version);
+  const status: WriteStatus = existing === undefined ? 'created' : force ? 'updated' : 'exists';
+  return { id: target.id, label: target.label, path, status, content };
+}
+
+/**
+ * Plan the config-file scaffolder (`svelte-vitals.config.mjs`). Like the agent targets,
+ * content here is a fixed, fully-regenerated template rather than codemodded, so --force
+ * is allowed to overwrite an existing file.
+ */
+function planForConfigTarget(target: ConfigTarget, io: InstallIO, force: boolean): PlanRow {
+  const path = join(io.cwd, target.relPath);
+  const existing = io.readFile(path);
+  const content = buildConfigFileTemplate();
   const status: WriteStatus = existing === undefined ? 'created' : force ? 'updated' : 'exists';
   return { id: target.id, label: target.label, path, status, content };
 }
@@ -221,7 +242,8 @@ export async function runInstall(
     const options: SelectableOption[] = [
       ...CLIENTS.map((c) => ({ id: c.id, label: c.label })),
       ...VITE_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
-      ...AGENT_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint }))
+      ...AGENT_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
+      ...CONFIG_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint }))
     ];
     const picked = await prompts.selectClients(options, detected);
     if (picked === null) {
@@ -231,7 +253,7 @@ export async function runInstall(
     ids = picked;
   } else {
     io.errorLog(
-      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules> to install non-interactively.'
+      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,config-file> to install non-interactively.'
     );
     return 2;
   }
@@ -239,7 +261,8 @@ export async function runInstall(
   const clients = ids.map(clientById).filter((c): c is ClientWriter => c !== undefined);
   const viteIds = ids.filter(isViteTargetId);
   const agentIds = ids.filter(isAgentTargetId);
-  if (clients.length === 0 && viteIds.length === 0 && agentIds.length === 0) {
+  const configIds = ids.filter(isConfigTargetId);
+  if (clients.length === 0 && viteIds.length === 0 && agentIds.length === 0 && configIds.length === 0) {
     io.errorLog('svelte-vitals: no valid clients or targets selected.');
     return 2;
   }
@@ -278,6 +301,10 @@ export async function runInstall(
   for (const agentId of agentIds) {
     const target = agentTargetById(agentId)!;
     rows.push(planForAgentTarget(target, io, flags.force ?? false, version));
+  }
+  for (const configId of configIds) {
+    const target = configTargetById(configId)!;
+    rows.push(planForConfigTarget(target, io, flags.force ?? false));
   }
 
   // 3. Preview.

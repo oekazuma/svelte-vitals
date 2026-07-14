@@ -13,6 +13,7 @@ import {
   type Summary,
   type Severity
 } from '@svelte-vitals/core';
+import { loadConfigFile } from 'svelte-vitals';
 import type { SvelteVitalsOptions } from './plugin.js';
 import { collectRenderedHeads } from './providers/rendered/collect.js';
 import { collectRenderedProject } from './providers/rendered/project.js';
@@ -28,19 +29,32 @@ export interface AnalyzeResult {
   routeCount: number;
   failed: boolean;
   failOn: Severity;
+  /** Non-fatal config-file issues (unknown top-level keys, invalid enum values). Empty when no config file exists. */
+  warnings: string[];
 }
 
-/** Collect prerendered heads + project facts + component facts, run the core pipeline, and format reports. */
+/**
+ * Collect prerendered heads + project facts + component facts, run the core pipeline, and
+ * format reports. Reads `svelte-vitals.config.{mjs,js,ts}` from `cwd`, the same way the CLI's
+ * `analyzeProject` does — per-field precedence: an explicit `options` value here wins,
+ * otherwise the config file's value, otherwise the built-in default.
+ */
 export async function analyze(
   prerenderPagesDir: string,
   cwd: string,
   options: SvelteVitalsOptions
 ): Promise<AnalyzeResult> {
+  const loaded = await loadConfigFile(cwd);
+  const fileConfig = loaded?.config;
+  const warnings = loaded?.warnings ?? [];
+
+  const weights = options.weights ?? fileConfig?.weights;
   const config = defineConfig({
-    treatDynamicAs: options.treatDynamicAs ?? 'pass',
-    metaComponents: options.metaComponents ?? [],
-    rules: options.rules ?? {},
-    failOn: options.failOn ?? 'critical'
+    treatDynamicAs: options.treatDynamicAs ?? fileConfig?.treatDynamicAs ?? 'pass',
+    metaComponents: options.metaComponents ?? fileConfig?.metaComponents ?? [],
+    rules: options.rules ?? fileConfig?.rules ?? {},
+    failOn: options.failOn ?? fileConfig?.failOn ?? 'critical',
+    ...(weights !== undefined ? { weights } : {})
   });
 
   const { heads, headings, images, htmlLang } = await collectRenderedHeads(prerenderPagesDir);
@@ -71,6 +85,7 @@ export async function analyze(
     jsonReport,
     routeCount: heads.length,
     failed,
-    failOn: config.failOn
+    failOn: config.failOn,
+    warnings
   };
 }

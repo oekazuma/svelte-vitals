@@ -5,7 +5,9 @@ sidebar:
   order: 3.5
 ---
 
-Instead of repeating `--rules`, `--ignore`, `--fail-on`, and `--weights` on every invocation, put them in a `svelte-vitals.config` file at your project root. The CLI and the [MCP server](/svelte-vitals/guides/mcp/) both read it automatically (the MCP server inherits it because it calls the same `analyzeProject` function as the CLI).
+Instead of repeating `--rules`, `--ignore`, `--fail-on`, and `--weights` on every invocation, put them in a `svelte-vitals.config` file at your project root. The CLI, the [MCP server](/svelte-vitals/guides/mcp/), and the [Vite plugin](/svelte-vitals/guides/plugin-mode/) all read it automatically (the MCP server inherits it because it calls the same `analyzeProject` function as the CLI; the Vite plugin reads it directly — see [Using the config file with the Vite plugin](#using-the-config-file-with-the-vite-plugin) below).
+
+Run `svelte-vitals install --client config-file` to scaffold `svelte-vitals.config.mjs` with every option below commented out.
 
 ## Where it lives
 
@@ -82,17 +84,16 @@ One exception: `rules` is replaced as a whole, not merged key-by-key. If you pas
 
 ## Using the config file with the Vite plugin
 
-`@svelte-vitals/vite` does not read `svelte-vitals.config.*` itself — it intentionally doesn't depend on the `svelte-vitals` CLI package, so there's no loader to wire in. Since `vite.config.ts` already runs through Vite's own TypeScript loading, import your config file there and spread it into the plugin options directly:
+`@svelte-vitals/vite` reads `svelte-vitals.config.*` the same way the CLI does — no extra wiring needed. Both the build-time gate (`vite build`) and the [live dashboard](/svelte-vitals/guides/dev-dashboard/) (`vite dev`) resolve it from the project root (`cwd` passed to `svelteVitals({ ... })`, or the Vite config root when `cwd` is omitted), with the same per-field precedence as the CLI: **an explicit `svelteVitals({ ... })` option wins, otherwise the config file's value, otherwise the built-in default**. This includes `weights`, which now flows into the plugin's Health score exactly like it does for the CLI and MCP server.
 
 ```ts
 // vite.config.ts
 import { sveltekit } from '@sveltejs/kit/vite';
 import { svelteVitals } from '@svelte-vitals/vite';
-import config from './svelte-vitals.config.js';
 
 export default {
-  plugins: [sveltekit(), svelteVitals({ ...config, report: 'console' })]
+  plugins: [sveltekit(), svelteVitals({ report: 'console' })]
 };
 ```
 
-This keeps one source of truth for `treatDynamicAs` / `metaComponents` / `rules` / `failOn` across the CLI and the Vite plugin. (The plugin has no concept of Health `weights` — that field is ignored if present.)
+With `svelte-vitals.config.mjs` in the project root, the plugin above picks up its `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` automatically — no need to import the file yourself in `vite.config.ts`. Non-fatal config-file warnings (unknown top-level keys, invalid enum values) are logged to the console with a `svelte-vitals:` prefix, the same wording the CLI uses.

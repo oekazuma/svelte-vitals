@@ -2,8 +2,9 @@ import { existsSync } from 'node:fs';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join, isAbsolute, dirname, relative, basename, sep } from 'node:path';
 import type { Plugin, ViteDevServer } from 'vite';
-import type { RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
+import type { Category, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
 import { defineConfig } from '@svelte-vitals/core';
+import { loadConfigFile } from 'svelte-vitals';
 import { analyze } from './analyze.js';
 import { installUiMiddleware } from './ui/middleware.js';
 import { createStore } from './ui/store.js';
@@ -43,6 +44,8 @@ export interface SvelteVitalsOptions {
   rules?: Record<string, RuleSetting>;
   /** Minimum severity that fails the build (default: 'critical'). */
   failOn?: Severity;
+  /** Per-category weights for the combined Health score shown in the JSON/console report (flag > config file > default 1 each). */
+  weights?: Partial<Record<Category, number>>;
   /** Report output (default: 'console'). */
   report?: 'console' | 'json' | false;
   /** Write the JSON report to this path. */
@@ -90,6 +93,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         console.warn(`svelte-vitals: skipped — analysis failed: ${err instanceof Error ? err.message : String(err)}`);
         return;
       }
+      for (const w of result.warnings) console.warn(`svelte-vitals: ${w}`);
       if (result.routeCount === 0) return;
 
       if (options.report !== false) {
@@ -115,16 +119,28 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
   const uiPlugin: Plugin = {
     name: 'svelte-vitals:ui',
     apply: 'serve',
-    configureServer(server: ViteDevServer) {
+    async configureServer(server: ViteDevServer) {
       process.env.SVELTE_VITALS_UI = '1';
+      const uiRoot = options.cwd ?? server.config.root;
+
+      // Same precedence as the CLI's analyzeProject / build-mode analyze(): an explicit
+      // plugin option wins, otherwise svelte-vitals.config.* in uiRoot, otherwise the
+      // built-in default. This `config` drives the dashboard's rendering/scoring
+      // (installUiMiddleware → buildSnapshot → buildJsonReport) — the whole-project
+      // `runner` below gets its config-file values independently, since it calls
+      // analyzeProject (which loads the config file itself).
+      const loaded = await loadConfigFile(uiRoot);
+      const fileConfig = loaded?.config;
+      for (const w of loaded?.warnings ?? []) console.warn(`svelte-vitals: ${w}`);
+      const weights = options.weights ?? fileConfig?.weights;
       const config = defineConfig({
-        treatDynamicAs: options.treatDynamicAs ?? 'pass',
-        metaComponents: options.metaComponents ?? [],
-        rules: options.rules ?? {},
-        failOn: options.failOn ?? 'critical'
+        treatDynamicAs: options.treatDynamicAs ?? fileConfig?.treatDynamicAs ?? 'pass',
+        metaComponents: options.metaComponents ?? fileConfig?.metaComponents ?? [],
+        rules: options.rules ?? fileConfig?.rules ?? {},
+        failOn: options.failOn ?? fileConfig?.failOn ?? 'critical',
+        ...(weights !== undefined ? { weights } : {})
       });
       const store = createStore();
-      const uiRoot = options.cwd ?? server.config.root;
 
       // Whole-project static analysis: one run at startup (never blocking dev-server
       // start) plus a debounced re-run on relevant source changes (design doc

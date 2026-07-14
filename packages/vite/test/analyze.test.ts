@@ -57,3 +57,66 @@ describe('analyze', () => {
     expect(r.consoleReport).toContain('Scanned 1 component(s) under src/');
   });
 });
+
+describe('analyze — svelte-vitals.config.*', () => {
+  // Each test gets its own temp project (rather than sharing one cwd and rewriting the same
+  // config file path across tests): Node's ESM loader caches a dynamic import() by URL, so
+  // reusing one absolute path across tests would silently return a stale config from an
+  // earlier test instead of re-reading the file each time.
+  async function makeProject(configContent: string) {
+    const cwd = await mkdtemp(join(tmpdir(), 'sv-analyze-config-'));
+    const pages = join(cwd, '.svelte-kit/output/prerendered/pages');
+    await mkdir(pages, { recursive: true });
+    // missing <title> -> SEO001 -- used to check `rules` from the config file is honored.
+    await writeFile(
+      join(pages, 'index.html'),
+      `<html lang="en"><head><meta name="description" content="d"/></head><body></body></html>`
+    );
+    await writeFile(join(cwd, 'svelte-vitals.config.mjs'), configContent);
+    return { cwd, pages };
+  }
+
+  it('honors rules/weights/failOn from svelte-vitals.config.mjs when no plugin option overrides them', async () => {
+    const { cwd, pages } = await makeProject(
+      `export default {
+        rules: { SEO001: 'off' },
+        weights: { seo: 5 },
+        failOn: 'info'
+      };\n`
+    );
+    try {
+      const r = await analyze(pages, cwd, { report: false });
+      // SEO001 disabled by the config file -> no finding for the missing <title>.
+      expect(r.results.some((x) => x.id === 'SEO001')).toBe(false);
+      // weights flow into the emitted JSON report (config.weights, per buildJsonReport/computeHealth).
+      const json = JSON.parse(r.jsonReport);
+      expect(json.weights.seo).toBe(5);
+      // failOn: 'info' from the config file, unset by any plugin option.
+      expect(r.failOn).toBe('info');
+      expect(r.warnings).toEqual([]);
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
+
+  it('an explicit plugin option wins over the config file for the same field', async () => {
+    const { cwd, pages } = await makeProject(`export default { failOn: 'info' };\n`);
+    try {
+      const r = await analyze(pages, cwd, { report: false, failOn: 'critical' });
+      expect(r.failOn).toBe('critical');
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
+
+  it('surfaces non-fatal config-file warnings (e.g. an unrecognized failOn value)', async () => {
+    const { cwd, pages } = await makeProject(`export default { failOn: 'nope' };\n`);
+    try {
+      const r = await analyze(pages, cwd, { report: false });
+      expect(r.warnings.length).toBeGreaterThan(0);
+      expect(r.warnings[0]).toContain('failOn');
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
+});
