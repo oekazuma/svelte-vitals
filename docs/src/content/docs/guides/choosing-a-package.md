@@ -1,23 +1,25 @@
 ---
 title: Choosing a package
-description: Which of svelte-vitals' three packages to use, and when to combine them.
+description: Which svelte-vitals surface to use — CLI, Vite plugin, MCP server, GitHub Action, or Agent Skills — and when to combine them.
 sidebar:
   order: 2
 ---
 
-svelte-vitals ships as three packages — `svelte-vitals` (CLI), `@svelte-vitals/vite` (plugin + live dashboard), and `@svelte-vitals/mcp` (MCP server). They share the same rule engine and scoring, but read different input and cover different ground. Most projects end up using more than one.
+svelte-vitals ships as three npm packages — `svelte-vitals` (CLI), `@svelte-vitals/vite` (plugin + live dashboard), and `@svelte-vitals/mcp` (MCP server) — plus two surfaces you don't install from npm: **`@svelte-vitals/action`**, a first-party GitHub Action consumed straight from the repo, and **Agent Skills**, `SKILL.md` files the CLI generates into your project. They all share the same rule engine and scoring, but read different input and cover different ground. Most projects end up using more than one.
 
 Each package is versioned independently and depends on `@svelte-vitals/core` (the shared rule engine) as its own semver range, so two packages installed at the "same time" can still resolve to different core versions — see [live dashboard: Version drift](/svelte-vitals/guides/dev-dashboard/#version-drift) if the CLI and the Vite plugin ever disagree on findings for the same project.
 
 ## Quick answer
 
-| If you want to...                                                                        | Use                                  |
-| ---------------------------------------------------------------------------------------- | ------------------------------------ |
-| Gate CI / PRs against SEO, Performance, and code-health issues, across the whole project | **CLI** — `npx svelte-vitals@latest` |
-| Check only the files you're about to commit                                              | **CLI** with `--staged` or `--diff`  |
-| Verify the exact HTML your prerendered pages will ship, whatever generated it            | **Vite plugin**, build mode          |
-| See live findings while developing, whole project, from the moment `vite dev` starts     | **Vite plugin**, live dashboard      |
-| Let an AI coding agent (Claude Code, Cursor, Codex) check its own changes                | **MCP server**                       |
+| If you want to...                                                                        | Use                                                       |
+| ---------------------------------------------------------------------------------------- | --------------------------------------------------------- |
+| Gate CI / PRs against SEO, Performance, and code-health issues, across the whole project | **CLI** — `npx svelte-vitals@latest`                      |
+| Check only the files you're about to commit                                              | **CLI** with `--staged` or `--diff`                       |
+| Gate GitHub PRs with inline annotations, a job summary, and a sticky comment — no YAML   | **GitHub Action** — `npx svelte-vitals@latest ci install` |
+| Verify the exact HTML your prerendered pages will ship, whatever generated it            | **Vite plugin**, build mode                               |
+| See live findings while developing, whole project, from the moment `vite dev` starts     | **Vite plugin**, live dashboard                           |
+| Let an AI coding agent (Claude Code, Cursor, Codex) check its own changes                | **MCP server**                                            |
+| Teach your agent the rules up front, or get a project-wide improvement roadmap from it   | **Agent Skills** — `/svelte-vitals`, `/improve-svelte`    |
 
 ## Comparison
 
@@ -29,6 +31,8 @@ Each package is versioned independently and depends on `@svelte-vitals/core` (th
 | Runs           | On demand — terminal, CI, pre-commit                          | Every `vite build`                                            | Live, while `vite dev` runs                                                         | On demand — an agent's tool call |
 | Needs a build  | No                                                            | Yes                                                           | No                                                                                  | No                               |
 | Typical home   | CI, pre-commit hooks, one-off audits                          | Build pipeline gate                                           | Local dev feedback (on by default)                                                  | An AI agent's tool loop          |
+
+Two surfaces are intentionally absent from this table: the **GitHub Action** runs the CLI's own engine in-process, so its coverage is the CLI column — what it adds is the PR experience (annotations, summary, sticky comment) rather than different analysis. **Agent Skills** run no analysis of their own at all — they give the agent the rule knowledge and tell it when to run the scanner.
 
 ### Why build-mode coverage is close to the CLI's
 
@@ -52,9 +56,18 @@ The same package also serves a **live dashboard** at `/__svelte-vitals/` during 
 
 `@svelte-vitals/mcp` exposes the CLI's own analysis (all 5 categories, every route) as `analyze` and `explain_rule` tools over the Model Context Protocol, so an agent can call it mid-conversation instead of shelling out and parsing text output. Useful once you're working with an AI coding agent day to day; not a replacement for a CI gate. Set it up with `npx svelte-vitals@latest install`. See [MCP server](/svelte-vitals/guides/mcp/).
 
+### GitHub Action — PR gating with zero YAML
+
+`@svelte-vitals/action` runs the same engine as the CLI on every pull request and turns the findings into GitHub-native feedback: inline annotations on the changed lines, a job summary, and a single sticky PR comment that updates in place. You don't install it from npm — `npx svelte-vitals@latest ci install` (or the `ci-workflow` target inside `svelte-vitals install`) scaffolds a workflow that calls it pinned to a commit SHA, and `svelte-vitals ci upgrade` bumps that pin later. The generated workflow scopes findings to the PR's own changes via `--diff`/`--baseline`, so pre-existing issues don't fail other people's PRs. See [CI integration](/svelte-vitals/guides/ci/).
+
+### Agent Skills — rule knowledge for your agent, up front
+
+Where the MCP server lets an agent _run_ the analysis, [Agent Skills](/svelte-vitals/guides/agent-skills/) make it _know the rules before it writes code_. `svelte-vitals install` generates two portable `SKILL.md` files that work identically in Claude Code, Codex, and Cursor: **`/svelte-vitals`** embeds the full rule catalog plus a run-the-scanner-after-every-edit playbook, and **`/improve-svelte`** is a read-only audit that turns "review my app" into impact-ranked, self-contained implementation plans. They complement the MCP server rather than replacing it — knowledge up front, analysis on demand. See [Agent Skills](/svelte-vitals/guides/agent-skills/).
+
 ## Recommended setups
 
 - **Just starting out:** run `npx svelte-vitals@latest` locally, then add it to CI (`pnpm build && npx svelte-vitals@latest --fail-on critical`). This alone covers all 5 categories and every route.
-- **Coding with an AI agent:** add the MCP server (`npx svelte-vitals@latest install`) so the agent can check its own edits without you asking it to.
+- **Hosting on GitHub:** `npx svelte-vitals@latest ci install` instead of hand-writing that CI step — same engine, plus inline PR annotations and the sticky comment, scoped to each PR's own changes.
+- **Coding with an AI agent:** add the MCP server and Agent Skills in one pass (`npx svelte-vitals@latest install`) — the skills give the agent the rules before it writes code, the MCP server lets it verify after.
 - **Polishing prerendered/marketing pages:** add the Vite plugin's build mode for an exact, build-time gate on shipped HTML — its live dashboard (on by default) gives you feedback while you write, no extra setup needed.
 - **All of the above together** is the common end state — they check different things at different times and don't conflict.
