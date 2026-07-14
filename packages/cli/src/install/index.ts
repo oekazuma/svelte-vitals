@@ -17,6 +17,7 @@ import {
   type ConfigTargetId
 } from './config-targets.js';
 import { buildSkillMarkdown, buildCursorRules } from './skill-content.js';
+import { buildImproveSkillMarkdown } from './improve-skill-content.js';
 import { buildConfigFileTemplate } from './config-content.js';
 import { codemodViteConfig } from './codemod-vite-config.js';
 import { codemodHooksServer } from './codemod-hooks.js';
@@ -108,10 +109,28 @@ function planForViteHooks(io: InstallIO): PlanRow {
  * Vite targets, content here is fully regenerated from core's rule metadata rather than
  * codemodded, so --force is allowed to overwrite an existing file.
  */
+function agentTargetContent(id: AgentTargetId, version: string): string {
+  switch (id) {
+    case 'claude-skill':
+      return buildSkillMarkdown(version);
+    case 'cursor-rules':
+      return buildCursorRules(version);
+    case 'claude-skill-improve':
+      return buildImproveSkillMarkdown(version);
+    default: {
+      // Exhaustiveness check: if AgentTargetId ever gains a new member without a
+      // case here, this assignment fails to compile instead of silently falling
+      // through to the wrong content at runtime.
+      const _exhaustive: never = id;
+      throw new Error(`svelte-vitals: unhandled agent target id: ${String(_exhaustive)}`);
+    }
+  }
+}
+
 function planForAgentTarget(target: AgentTarget, io: InstallIO, force: boolean, version: string): PlanRow {
   const path = join(io.cwd, target.relPath);
   const existing = io.readFile(path);
-  const content = target.id === 'claude-skill' ? buildSkillMarkdown(version) : buildCursorRules(version);
+  const content = agentTargetContent(target.id, version);
   const status: WriteStatus = existing === undefined ? 'created' : force ? 'updated' : 'exists';
   return { id: target.id, label: target.label, path, status, content };
 }
@@ -253,7 +272,7 @@ export async function runInstall(
     ids = picked;
   } else {
     io.errorLog(
-      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,config-file> to install non-interactively.'
+      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file> to install non-interactively.'
     );
     return 2;
   }

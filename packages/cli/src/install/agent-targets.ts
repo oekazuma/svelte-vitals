@@ -1,4 +1,4 @@
-export type AgentTargetId = 'claude-skill' | 'cursor-rules';
+export type AgentTargetId = 'claude-skill' | 'cursor-rules' | 'claude-skill-improve';
 
 export interface AgentTarget {
   id: AgentTargetId;
@@ -23,6 +23,12 @@ export const AGENT_TARGETS: AgentTarget[] = [
     label: 'Cursor rules',
     hint: 'Project rules file so Cursor avoids flagged patterns up front',
     relPath: '.cursor/rules/svelte-vitals.mdc'
+  },
+  {
+    id: 'claude-skill-improve',
+    label: 'Claude Code improve-svelte skill',
+    hint: 'Senior-advisor audit → implementation plans (read-only), for a project-wide improvement roadmap',
+    relPath: '.claude/skills/improve-svelte/SKILL.md'
   }
 ];
 

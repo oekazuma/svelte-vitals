@@ -274,11 +274,13 @@ npx svelte-vitals@latest install
 
 ### `--client <ids>`
 
-設定するクライアント／ターゲットをカンマ区切りで指定します：`claude-code`、`cursor`、`codex`、`vite-plugin`、`vite-hooks`、`claude-skill`、`cursor-rules`、`config-file`。指定した場合は対話式の選択がスキップされます。
+設定するクライアント／ターゲットをカンマ区切りで指定します：`claude-code`、`cursor`、`codex`、`vite-plugin`、`vite-hooks`、`claude-skill`、`cursor-rules`、`claude-skill-improve`、`config-file`。指定した場合は対話式の選択がスキップされます。
 
 `vite-plugin` は `@svelte-vitals/vite` のビルドモードのプラグインを `vite.config.{ts,js,mjs}` に登録します(ライブダッシュボードはデフォルトで有効です)。`vite-hooks` は `svelteVitalsHandle` フックを `src/hooks.server.{ts,js}` に組み込み、ブラウジングに応じてダッシュボードのルート別の精度を上げます。どちらも `magicast` によるコードモッドを使用し、確実に認識できる形のファイルのみを変更します — それ以外の場合は何もせず、代わりに手動で追加するためのスニペットを表示します。どちらかが書き込まれ、かつ `@svelte-vitals/vite` がまだ依存関係に含まれていない場合、検出されたパッケージマネージャー経由で自動インストールされます。**`--force` はこの2つには適用されません** — フラグの有無にかかわらず、既存の登録は常にそのまま維持されます。
 
 `claude-skill` は Claude Code のスキルを `.claude/skills/svelte-vitals/SKILL.md` に書き出します。`cursor-rules` は Cursor のプロジェクトルールファイルを `.cursor/rules/svelte-vitals.mdc` に書き出します。どちらもインストール時点のルールセット（各ルールの id・タイトル・severity・rationale をカテゴリごとにまとめたもの）から生成されるため、エージェントはコードを書く前からルールの知識と、いつ `svelte-vitals --diff`／`--staged` を実行すべきかというプレイブックを持つことになります。Vite 向けの2ターゲットと異なりコードモッドではなく毎回全文を再生成するため、**`--force` はこの2つに適用され**、既存ファイルを最新の内容で上書きします。
+
+`claude-skill-improve` は、読み取り専用の2つ目の Claude Code スキルを `.claude/skills/improve-svelte/SKILL.md` に書き出します。1ファイルずつ場当たり的に直すのではなく、「このSvelteKitアプリをレビューして」という依頼を、根拠に基づく体系的な監査に変えるものです。プロジェクト全体をスキャンし、ルールの生の severity ではなく実際のユーザー・検索エンジンへの影響度で指摘に優先順位を付け（たとえばホームページの canonical URL 欠落は、誰も見ないページの同じ指摘より優先されます）、選ばれた指摘を1件ずつ `plans/` 配下の自己完結型の実装プランとして書き出します — 別のエージェント（より安価なモデルでも）や人間が、文脈を再構築せずにそのまま着手できる精度です。各プランの修正内容は svelte-vitals 自身のルールカタログ（`claude-skill` が埋め込むのと同じもの）由来なので、その場ででっち上げたものではなくレビュー済みの推奨内容そのものであり、ネットワーク取得も不要です。ソース自体は一切編集しないため、いつ実行しても安全です。`claude-skill` が毎回の編集ごとの回帰チェック用プレイブックであるのに対し、こちらは push 前やリファクタ前、SEO・パフォーマンス強化の際などに使う「優先順位付きロードマップが欲しい」ときのためのものです。`claude-skill`／`cursor-rules` と同様に毎回全文を再生成するため、**`--force` が適用されます**。
 
 `config-file` はオプション(`treatDynamicAs`、`metaComponents`、`rules`、`failOn`、`weights`)をすべてコメントアウトした `svelte-vitals.config.mjs` の雛形を生成します — 詳細は [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。エージェントターゲットと同様に毎回全文を再生成するため、**`--force` が適用されます**。
 
@@ -306,7 +308,7 @@ npx svelte-vitals@latest install
 
 ### `--refresh`
 
-ディスク上に既に存在する `claude-skill`／`cursor-rules` ファイルだけを、現行のルールセットで再生成します。ルールの追加や rationale の改善を、最初にどのエージェントターゲットをインストールしたか覚えていなくても1コマンドで反映できます。既に存在するファイルだけを再生成し、無いファイルは作りません（refresh はインストールではありません）。`--scope`・`--yes`・`--force` は適用対象外のため無視されます（warning を1行出力）。`--client` との併用は致命的エラーになります。生成済みのエージェントファイルが1件も見つからない場合は案内を表示して終了コード `0` で終了します。
+ディスク上に既に存在する `claude-skill`／`cursor-rules`／`claude-skill-improve` ファイルだけを、現行のルールセットで再生成します。ルールの追加や rationale の改善を、最初にどのエージェントターゲットをインストールしたか覚えていなくても1コマンドで反映できます。既に存在するファイルだけを再生成し、無いファイルは作りません（refresh はインストールではありません）。`--scope`・`--yes`・`--force` は適用対象外のため無視されます（warning を1行出力）。`--client` との併用は致命的エラーになります。生成済みのエージェントファイルが1件も見つからない場合は案内を表示して終了コード `0` で終了します。
 
 ```bash
 # 非対話：このプロジェクトに Claude Code + Cursor を設定

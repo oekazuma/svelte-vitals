@@ -280,11 +280,13 @@ With no flags it launches an interactive wizard: pick your clients/targets, choo
 
 ### `--client <ids>`
 
-Comma-separated clients/targets to configure: `claude-code`, `cursor`, `codex`, `vite-plugin`, `vite-hooks`, `claude-skill`, `cursor-rules`, `config-file`. When given, the interactive picker is skipped.
+Comma-separated clients/targets to configure: `claude-code`, `cursor`, `codex`, `vite-plugin`, `vite-hooks`, `claude-skill`, `cursor-rules`, `claude-skill-improve`, `config-file`. When given, the interactive picker is skipped.
 
 `vite-plugin` registers `@svelte-vitals/vite`'s build-mode plugin in `vite.config.{ts,js,mjs}` (its live dashboard is on by default); `vite-hooks` wires up the `svelteVitalsHandle` hook in `src/hooks.server.{ts,js}`, which improves the dashboard's per-route accuracy as you browse. Both use a `magicast` codemod that only touches a file whose shape it confidently recognizes — anything else is left alone and a snippet is printed instead. If either is written and `@svelte-vitals/vite` isn't already a dependency, it's installed automatically via the detected package manager. **`--force` does not apply to these two** — an existing registration is always left as-is regardless of the flag.
 
 `claude-skill` writes a Claude Code skill to `.claude/skills/svelte-vitals/SKILL.md`; `cursor-rules` writes a Cursor project rules file to `.cursor/rules/svelte-vitals.mdc`. Both are generated at install time from the current rule set (every rule's id, title, severity, and rationale, grouped by category) so an agent has the rule knowledge and a playbook — when to run `svelte-vitals --diff`/`--staged` — up front, before it writes code. Unlike the Vite targets, these files are fully regenerated rather than codemodded, so **`--force` does apply** and simply overwrites them with a fresh copy.
+
+`claude-skill-improve` writes a second, read-only Claude Code skill to `.claude/skills/improve-svelte/SKILL.md`: instead of reacting one file at a time, it turns "review my SvelteKit app" into a structured, evidence-based audit. It scans the whole project, ranks findings by actual user/search-engine impact rather than raw rule severity (a missing canonical URL on your homepage outranks the same issue on a page nobody visits), and writes each one into a self-contained implementation plan under `plans/` — precise enough for any agent (including a cheaper model) or a human to execute without re-deriving context. Every plan's fix comes from svelte-vitals' own rule catalog (the same one `claude-skill` embeds), so it's the reviewer-written recommendation, not something invented on the spot, and needs no network fetch. It never edits source itself, so it's safe to run anytime. Where `claude-skill` is the every-edit regression-check playbook, this is the periodic "give me a prioritized roadmap" pass — before a push, a refactor, or an SEO/performance push. Like `claude-skill`/`cursor-rules`, it's fully regenerated, so **`--force` does apply**.
 
 `config-file` scaffolds `svelte-vitals.config.mjs` with every option (`treatDynamicAs`, `metaComponents`, `rules`, `failOn`, `weights`) commented out — see [Config file](/svelte-vitals/guides/configuration/). Like the agent targets, it's fully regenerated, so **`--force` does apply**.
 
@@ -312,7 +314,7 @@ Overwrite an existing `svelte-vitals` entry. By default an entry that already ex
 
 ### `--refresh`
 
-Regenerate whichever `claude-skill`/`cursor-rules` files are already present on disk, with the current rule set — a one-command way to pick up newly added rules or improved rationale text without remembering which agent targets you originally installed. It only regenerates files that already exist; it never creates one (refresh is not install). It ignores `--scope`, `--yes`, and `--force` (with a warning) since they don't apply, and cannot be combined with `--client` (fatal). If no generated agent files are found, it prints guidance and exits `0`.
+Regenerate whichever `claude-skill`/`cursor-rules`/`claude-skill-improve` files are already present on disk, with the current rule set — a one-command way to pick up newly added rules or improved rationale text without remembering which agent targets you originally installed. It only regenerates files that already exist; it never creates one (refresh is not install). It ignores `--scope`, `--yes`, and `--force` (with a warning) since they don't apply, and cannot be combined with `--client` (fatal). If no generated agent files are found, it prints guidance and exits `0`.
 
 ```bash
 # Non-interactive: configure Claude Code + Cursor for this project

@@ -73,6 +73,11 @@ describe('resolveInstallArgs — agent targets', () => {
     expect(r.errors).toEqual([]);
     expect(r.flags!.client).toEqual(['claude-code', 'claude-skill']);
   });
+  it('accepts claude-skill-improve in --client', () => {
+    const r = resolveInstallArgs(parse(['--client', 'claude-skill-improve']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags!.client).toEqual(['claude-skill-improve']);
+  });
   it('still rejects a genuinely unknown id', () => {
     const r = resolveInstallArgs(parse(['--client', 'not-an-agent-target']));
     expect(r.warnings.join('\n')).toContain('not-an-agent-target');

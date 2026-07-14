@@ -22,7 +22,7 @@ function ruleLine(rule: (typeof allRules)[number]): string {
   return `- **${rule.id} — ${oneLine(rule.title)}** (${rule.severity}): ${oneLine(rule.rationale)}${fixPart} ([docs](${docsUrlFor(rule.id)}))`;
 }
 
-function ruleDigest(): string {
+export function ruleDigest(): string {
   return CATEGORY_ORDER.map((category) => {
     const lines = allRules
       .filter((r) => r.category === category)
