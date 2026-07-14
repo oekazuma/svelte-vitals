@@ -185,14 +185,20 @@ async function resolveRoute(
  * chain exactly once, returning both the mode-independent ResolvedHead[] (design
  * §8) and the per-route ResolvedImages[] for Performance rules from a single
  * parse pass per file.
+ *
+ * `cache` defaults to a fresh, single-call `ParseCache` (existing callers are
+ * unaffected). A caller that re-analyzes the same project repeatedly (the vite
+ * dev dashboard) can pass in a long-lived cache and invalidate only the entries
+ * for files that actually changed between calls, so unchanged routes/layouts
+ * are never re-read or re-parsed.
  */
 export async function collectRoutes(
   rt: Runtime,
   cwd: string,
-  config: Config = defaultConfig
+  config: Config = defaultConfig,
+  cache: ParseCache = new Map()
 ): Promise<{ heads: ResolvedHead[]; images: ResolvedImages[]; headings: ResolvedHeadings[] }> {
   const [pages, layouts] = await Promise.all([enumerateRoutePages(rt, cwd), collectLayouts(rt, cwd)]);
-  const cache: ParseCache = new Map();
   const facts = await Promise.all(pages.map((page) => resolveRoute(rt, cwd, page, config, layouts, cache)));
   return {
     heads: facts.map((f) => f.head),

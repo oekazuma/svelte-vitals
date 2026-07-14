@@ -22,6 +22,9 @@ SvelteKit プロジェクトの静的モード分析を実行します。
 | `path`           | `string?`                            | SvelteKit プロジェクトへのパス（デフォルトは cwd）                                                                                                              |
 | `metaComponents` | `string[]?`                          | ヘッドメタデータを出力するコンポーネント名                                                                                                                      |
 | `route`          | `string?`                            | この glob に一致するルートのみを分析                                                                                                                            |
+| `diff`           | `string?`                            | この git 参照（例：`"origin/main"`）と比較して変更されたファイルに検出結果を絞り込む。CLI の `--diff` フラグに相当                                              |
+| `baseline`       | `string?`                            | この git 参照（例：`"origin/main"`）の時点でまだ存在しなかった検出結果のみを報告する。CLI の `--baseline` フラグに相当                                          |
+| `noSuppressions` | `boolean?`                           | この呼び出しでは `svelte-vitals-suppressions.json` を無視する。CLI の `--no-suppressions` フラグに相当                                                          |
 | `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'?`        | 動的メタデータ値の扱い方                                                                                                                                        |
 | `rules`          | `string[]?`                          | 有効にするルール ID（他はすべて無効）                                                                                                                           |
 | `ignore`         | `string[]?`                          | 無効にするルール ID                                                                                                                                             |

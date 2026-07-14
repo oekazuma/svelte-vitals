@@ -9,12 +9,16 @@ export interface UpgradeOutcome {
   from?: string;
 }
 
-// Matches lines like (indentation, and the trailing version comment, are both optional so a
-// user's hand-edited workflow still matches):
+// Matches lines like (indentation, an optional YAML anchor `&name`, and the trailing
+// version comment, are all optional so a user's hand-edited workflow still matches):
 //   - uses: oekazuma/svelte-vitals/packages/action@<ref>
 //   - uses: oekazuma/svelte-vitals/packages/action@<ref> # @svelte-vitals/action@1.2.3
+//   - uses: &vitals_action oekazuma/svelte-vitals/packages/action@<ref> # @svelte-vitals/action@1.2.3
+// An anchor definition's value is shared by every `*name` alias line elsewhere in the
+// file (YAML semantics) — rewriting only the anchor line's ref is sufficient; alias
+// lines need no separate rewrite.
 const ACTION_USES_LINE =
-  /^(?<indent>\s*-\s*uses:\s*oekazuma\/svelte-vitals\/packages\/action@)(?<ref>[^\s#]+)(?<comment>\s*#.*)?$/;
+  /^(?<indent>\s*-\s*uses:\s*(?:&\S+\s+)?oekazuma\/svelte-vitals\/packages\/action@)(?<ref>[^\s#]+)(?<comment>\s*#.*)?$/;
 
 /**
  * Rewrite every `uses: oekazuma/svelte-vitals/packages/action@<ref>` line in `content` to pin

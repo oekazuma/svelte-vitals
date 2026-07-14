@@ -52,6 +52,8 @@ export interface ComponentFacts {
   propCount: number;
   /** Module specifiers of every `import` in the instance + module scripts (Bundle PERF009). */
   imports: string[];
+  /** Module specifiers of every `import`, each with its source line (Bundle PERF009). */
+  importSpans: { source: string; line: number }[];
   /** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — Bundle PERF010. */
   namespaceImports: { source: string; line: number }[];
   /** `$state` declarations never written or escaped anywhere in the component — candidates for const (CORRECT004). */

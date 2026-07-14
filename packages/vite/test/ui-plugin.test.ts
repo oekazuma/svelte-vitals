@@ -1,9 +1,24 @@
 import { describe, it, expect, afterEach, vi } from 'vitest';
 import type { Plugin, ViteDevServer } from 'vite';
+
+// Stub out the whole-project analysis runner so the watcher-callback test below can
+// assert on `notifyChange` calls directly, without a real analysis run in the loop.
+// `vi.hoisted` gives the mock factory a safe reference to a variable declared here,
+// since `vi.mock` factories are hoisted above regular imports/consts.
+const { mockNotifyChange } = vi.hoisted(() => ({ mockNotifyChange: vi.fn() }));
+vi.mock('../src/ui/analysis.js', () => ({
+  createAnalysisRunner: () => ({
+    start: vi.fn(),
+    notifyChange: mockNotifyChange,
+    stop: vi.fn()
+  })
+}));
+
 import { svelteVitals } from '../src/index.js';
 
 afterEach(() => {
   delete process.env.SVELTE_VITALS_UI;
+  mockNotifyChange.mockClear();
 });
 
 describe('svelteVitals({ ui })', () => {
@@ -54,6 +69,36 @@ describe('svelteVitals({ ui })', () => {
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
     await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
     expect(watcherEvents).toContain('all');
+  });
+
+  it('the watcher callback triggers re-analysis for a relevant file and skips an irrelevant one', async () => {
+    const plugins = svelteVitals({ ui: true }) as Plugin[];
+    const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
+    let watcherCallback: ((event: string, file: string) => void) | undefined;
+    const root = '/tmp/does-not-exist-svelte-vitals-ui-plugin-test';
+    const server = {
+      config: { root },
+      watcher: {
+        on: (_event: string, cb: (event: string, file: string) => void) => {
+          watcherCallback = cb;
+        }
+      },
+      middlewares: { use: () => {} }
+    } as unknown as ViteDevServer;
+    const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
+    await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
+    expect(watcherCallback).toBeDefined();
+
+    // A relevant file (under src/) triggers a re-analysis via runner.notifyChange.
+    const relevantFile = `${root}/src/routes/+page.svelte`;
+    watcherCallback!('change', relevantFile);
+    expect(mockNotifyChange).toHaveBeenCalledWith(relevantFile);
+
+    // An irrelevant file (under node_modules/) must not trigger a re-analysis.
+    mockNotifyChange.mockClear();
+    const irrelevantFile = `${root}/node_modules/foo/index.js`;
+    watcherCallback!('change', irrelevantFile);
+    expect(mockNotifyChange).not.toHaveBeenCalled();
   });
 
   it('configureServer wraps printUrls to also announce the dashboard URL', async () => {
