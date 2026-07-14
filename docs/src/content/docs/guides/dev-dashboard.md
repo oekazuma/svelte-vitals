@@ -75,6 +75,32 @@ Notes:
 - Live updates only flow over a loopback origin (`localhost`, `127.0.0.1`, `[::1]`). When you run `vite dev --host` and open the app via a LAN IP, the handle skips the ingest POST (a guard against a spoofed `Host` header), so visited routes won't refine to `measured` — open it from `localhost` instead.
 - Set `SVELTE_VITALS_DEBUG=true` to surface swallowed internal errors (analysis failures, skipped ingests) to the terminal for troubleshooting.
 
+## Copy a fix prompt for any finding
+
+Every finding card has a collapsed **AI Prompt** disclosure — expand it and hit **Copy** to get a ready-to-paste prompt for whichever coding agent you're using, built from that finding's rule id, location, recommendation, fix, and docs link:
+
+````text
+Fix this svelte-vitals finding:
+
+- Rule: SEO001 — Missing <title> (critical)
+- Route: /blog/hello
+- Location: src/routes/blog/hello/+page.svelte:3
+- Recommendation: Add a <title> inside <svelte:head>.
+- Fix: Add a <title> tag.
+
+```svelte
+<svelte:head>
+  <title>Hello</title>
+</svelte:head>
+```
+
+- Docs: https://oekazuma.github.io/svelte-vitals/rules/seo001/
+
+After fixing, re-run `svelte-vitals --diff` (or revisit this route) to confirm SEO001 passes for /blog/hello.
+````
+
+No network round-trip involved — the prompt is assembled client-side from data already in the dashboard's snapshot, the same fields the [`agent` reporter](/svelte-vitals/guides/reporters/) uses for its remediation document.
+
 ## Disabling it
 
 The dashboard is on by default. If you only want the [build-time gate](/svelte-vitals/guides/plugin-mode/) and not the dev-time dashboard — for example on a very large project where you'd rather avoid the startup/re-analysis cost — pass `ui: false`:
