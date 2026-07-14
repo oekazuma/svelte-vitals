@@ -1,4 +1,6 @@
+import { relative, sep } from 'node:path';
 import type { Result, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
+import type { ParseCache } from 'svelte-vitals';
 
 /** The subset of `analyzeProject` (from `svelte-vitals`) the runner needs. Injectable for tests. */
 export type AnalyzeFn = (opts: {
@@ -7,6 +9,7 @@ export type AnalyzeFn = (opts: {
   metaComponents?: string[];
   rules?: Record<string, RuleSetting>;
   failOn?: Severity;
+  parseCache?: ParseCache;
 }) => Promise<{ results: Result[] }>;
 
 export interface AnalysisRunnerOptions {
@@ -48,6 +51,7 @@ export interface AnalysisRunner {
 export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunner {
   const debounceMs = opts.debounceMs ?? 500;
   let cachedAnalyze: AnalyzeFn | undefined = opts.analyze;
+  const parseCache: ParseCache = new Map();
   let stopped = false;
   let running = false;
   let pending = false;
@@ -72,7 +76,8 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunne
         treatDynamicAs: opts.treatDynamicAs,
         metaComponents: opts.metaComponents,
         rules: opts.rules,
-        failOn: opts.failOn
+        failOn: opts.failOn,
+        parseCache
       });
       if (!stopped) opts.onResults(results);
     } catch (err) {
@@ -92,8 +97,13 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunne
       if (stopped) return;
       void runOnce();
     },
-    notifyChange() {
+    notifyChange(file: string) {
       if (stopped) return;
+      // Invalidate only the changed file's cache entry — the ParseCache is keyed
+      // by project-root-relative POSIX path (as tinyglobby returns it), while the
+      // watcher hands us an absolute, OS-separated path, so normalize to match.
+      const rel = relative(opts.root, file).split(sep).join('/');
+      parseCache.delete(rel);
       if (timer !== undefined) clearTimeout(timer);
       timer = setTimeout(() => {
         timer = undefined;

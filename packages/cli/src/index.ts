@@ -24,6 +24,7 @@ import {
 } from '@svelte-vitals/core';
 import { createNodeRuntime } from './runtime/node.js';
 import { collectRoutes } from './providers/source/routes.js';
+import type { ParseCache } from './providers/source/resolve.js';
 import { collectComponentFacts } from './providers/source/components.js';
 import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
 import { discoverApps } from './discover-apps.js';
@@ -148,6 +149,18 @@ export interface AnalyzeOptions {
   weights?: Partial<Record<Category, number>>;
   /** Restrict analysis to rules in these categories (applied after rules/ignore selection). */
   categories?: Category[];
+  /**
+   * Reuse this parse cache across multiple `analyzeProject` calls instead of
+   * starting fresh each time — the vite dev dashboard passes a long-lived cache
+   * and invalidates only the changed file's entry between re-analyses, so
+   * unchanged routes/layouts are never re-read or re-parsed. This only covers
+   * the route/layout (head-resolution) parse path via `collectRoutes` —
+   * `collectComponentFacts` (Correctness facts) is unaffected and still scans
+   * every component on each call. Callers that don't need cross-call reuse
+   * (the CLI's `run()`, MCP, the Action — each analyzes once per process) can
+   * omit this; a fresh cache is created automatically.
+   */
+  parseCache?: ParseCache;
 }
 
 export interface AnalyzeResult {
@@ -189,7 +202,7 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   await detectProject(rt, cwd); // throws ProjectError if not a SvelteKit project
 
   const matches = routeMatcher(opts.route);
-  const collected = await collectRoutes(rt, cwd, config);
+  const collected = await collectRoutes(rt, cwd, config, opts.parseCache);
   const heads = collected.heads.filter((h) => matches(h.route));
   const images = collected.images.filter((i) => matches(i.route));
   const headings = collected.headings.filter((h) => matches(h.route));
@@ -521,6 +534,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 }
 
 export { ProjectError } from './providers/source/project.js';
+export type { ParseCache } from './providers/source/resolve.js';
 export { buildRulesConfig, findUnknownRuleIds, knownRuleIds } from './rules-config.js';
 export { loadConfigFile } from './config-file.js';
 export type { LoadedConfigFile } from './config-file.js';
