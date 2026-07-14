@@ -3,11 +3,6 @@
 </script>
 
 <svelte:head>
-  <title>Contact | Demo Store — Reach the Team Directly</title>
-  <meta
-    name="description"
-    content="Get in touch with Demo Store's founder for wholesale, press, or custom order inquiries."
-  />
   <link rel="canonical" href="https://example.com/contact" />
   <meta property="og:title" content="Contact Demo Store — Reach the Team Directly" />
   <meta
