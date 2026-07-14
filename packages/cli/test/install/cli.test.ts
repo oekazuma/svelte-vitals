@@ -29,6 +29,7 @@ describe('runInstallCli --help', () => {
     const help = lines.join('\n');
     expect(help).toContain('claude-skill');
     expect(help).toContain('cursor-rules');
+    expect(help).toContain('claude-skill-improve');
   });
 
   it('documents --refresh', async () => {
