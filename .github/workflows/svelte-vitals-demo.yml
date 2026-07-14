@@ -17,8 +17,13 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
+      - name: debug diff scoping
+        run: |
+          cd docs/demo
+          echo "merge-base diff (relative):"
+          git diff --name-only --relative --merge-base origin/main || true
+          echo "untracked:"
+          git ls-files --others --exclude-standard || true
       - uses: oekazuma/svelte-vitals/packages/action@2c21acbad36c5360228bbb0790dbb4a06b7c773a # @svelte-vitals/action@0.3.0
         with:
           path: docs/demo
-          diff: origin/${{ github.base_ref }}
-          baseline: origin/${{ github.base_ref }}
