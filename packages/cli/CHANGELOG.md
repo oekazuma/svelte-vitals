@@ -1,5 +1,22 @@
 # svelte-vitals
 
+## 0.25.0
+
+### Minor Changes
+
+- 4ebb756: Add `svelte-vitals ci upgrade`: rewrites only the pinned `@svelte-vitals/action` reference line(s) in an existing generated workflow to the pin bundled with the CLI, leaving everything else (other pins like `actions/checkout`, custom triggers/steps) untouched. Use `ci install --force` if you want to regenerate the whole file instead.
+- ab55482: `install --refresh` regenerates whichever generated agent instruction files (`claude-skill`, `cursor-rules`) already exist on disk with the current rule set, without needing to remember which `--client` ids were originally installed. It never creates a file that isn't already there, ignores `--scope`/`--yes`/`--force`, and cannot be combined with `--client`.
+- f14fc4e: Add a `config-file` install target: `svelte-vitals install --client config-file` scaffolds `svelte-vitals.config.mjs` with every option commented out. Previously the only way to adopt a config file was to hand-write it from the docs example — `install` already generates the other four onboarding artifacts (MCP client config, Vite plugin/hooks wiring, agent skill/rules files) but left the config file out of that flow. Supports `--force` to regenerate.
+- 9802586: Add a `svelte-vitals-suppressions.json` file: `--update-suppressions` records every currently-penalized finding once (a persistent adoption ramp, unlike the transient `--baseline <ref>` git-ref comparison), and the file is then applied automatically on every run — after `--diff`/`--staged` and `--baseline` — so gating (`--fail-on`, `--min-health`) can be turned on for an existing project without first fixing its whole backlog. `--no-suppressions` disables it for one run.
+
+### Patch Changes
+
+- 43be9f2: `analyzeProject` accepts an optional `parseCache` (exported as `ParseCache`) that lets a caller re-analyzing the same project repeatedly reuse read+parse results across calls instead of starting fresh each time. The vite dev dashboard now keeps one `ParseCache` alive for the lifetime of the dev server and invalidates only the entry for the file that actually changed on each debounced re-analysis, so saving an unrelated file no longer re-reads and re-parses every route and layout in the project.
+- 58ccebc: CLI mascot: fix the ecstatic (100/100) face's mouth being off-center under the eyes — switched to the same 4-column mouth width the happy face already centers correctly (a 5-column mouth can never land exactly on the eyes' midpoint).
+- Updated dependencies [fda64dd]
+- Updated dependencies [bf6932d]
+  - @svelte-vitals/core@0.24.0
+
 ## 0.24.0
 
 ### Minor Changes
