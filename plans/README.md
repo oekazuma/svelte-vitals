@@ -31,6 +31,22 @@ improve スキルによる監査(2026-07-05、commit `1f6f233` 時点)から生�
 | 024 | `ci upgrade` — 生成済みワークフローの Action ピンだけを外科的に更新 | P3 | S | — | DONE(2026-07-13 レビュー承認[Sonnet 5 executor、逸脱なし]→ [PR #197](https://github.com/oekazuma/svelte-vitals/pull/197)。CLI テスト 523 本 green、実機で「偽旧ピン→対象行のみ復元→カスタマイズ保持→冪等」を確認。レビュー対応: Copilot 指摘[CRLF ファイルで全行不一致→no-reference 誤判定]は実バグと検証し `c24252f` で行末正規化+回帰テスト3本) |
 | 025 | `install --refresh` — 生成済みエージェントファイル(SKILL.md / .mdc)を現行ルールセットで一括再生成 | P3 | S | 016 | DONE(2026-07-13 レビュー承認[Sonnet 5 executor、逸脱なし — 実装裁量2件(warning 時のフラグ非除去・行別成功ログ)は既存流儀に合致]→ [PR #198](https://github.com/oekazuma/svelte-vitals/pull/198)。CLI テスト 518 本 green、実機で「0件案内 / 存在ファイルのみ再生成 / .mdc 非生成」を確認。レビュー対応: Copilot 指摘[ENOENT 以外の readFile 例外でクラッシュ]は妥当と検証し `a3f3684` でターゲット単位の失敗継続+exit 2 に統一) |
 | 026 | Action に suppressions を配線 + cli の日本語コメント一掃(dist 再ビルド1回に同梱) | P3 | S | 023 | DONE(2026-07-13 レビュー承認[Sonnet 5 executor。自己申告の陳腐化 JSDoc(ApplyScopeOptions.config)も追加修正させた]→ [PR #199](https://github.com/oekazuma/svelte-vitals/pull/199)。CLI テスト 563 本 green、CJK grep 0 件。**マージ前にオペレーターの実機 dist 再ビルドが必須**[#196 と同フロー]) |
+| 027 | CI の `pnpm build` 重複実行を dist キャッシュで排除する | P1 | S | — | IN PROGRESS([PR #212](https://github.com/oekazuma/svelte-vitals/pull/212) オープン、CI 全ジョブ green。Plan 040 とスタック — [PR #213](https://github.com/oekazuma/svelte-vitals/pull/213) が本 PR をベースにしている) |
+| 028 | PERF009(heavy import)の finding に正しい行番号を持たせる | P1 | S | — | DONE([PR #200](https://github.com/oekazuma/svelte-vitals/pull/200) マージ済み。レビュー対応: Copilot 指摘[`ComponentFacts` は公開型のため、旧バージョン向けにビルドされた外部呼び出し元は `importSpans` なしでインスタンス化しうる]は妥当と検証し `c31e622` で `imports`(行番号なし)へのフォールバックを追加) |
+| 029 | `@svelte-vitals/action` の `main()` にテストを追加する | P1 | M | — | DONE([PR #201](https://github.com/oekazuma/svelte-vitals/pull/201) マージ済み。CI失敗[モックの型不一致 TS2493]の初回修正[`_params` 引数追加]が `@typescript-eslint/no-unused-vars` の回帰を招いたため、既存の `vi.fn<Type>(impl)` ジェネリック型パターンに修正) |
+| 030 | ドキュメント/ワークスペースの陳腐化した記載を修正する(3件まとめ) | P2 | S | — | IN PROGRESS([PR #208](https://github.com/oekazuma/svelte-vitals/pull/208) オープン、CI 全ジョブ green) |
+| 031 | watcher → 再解析の結線を end-to-end でテストする | P2 | S | —(034 と同一ファイルを扱うため順序に注意) | DONE([PR #202](https://github.com/oekazuma/svelte-vitals/pull/202) マージ済み) |
+| 032 | `ci upgrade` が YAML アンカー付き `uses:` 行を扱えるようにする | P2 | S | — | DONE([PR #203](https://github.com/oekazuma/svelte-vitals/pull/203) マージ済み) |
+| 033 | MCP `analyze` tool に `applyScope`(diff/baseline/suppressions)を配線する | P2 | S | — | DONE([PR #204](https://github.com/oekazuma/svelte-vitals/pull/204) マージ済み。CI失敗[テストの `git commit` が CI ランナーにグローバル git identity がなく失敗]を `-c user.name=... -c user.email=...` の明示指定で修正) |
+| 034 | dev dashboard の再解析で変更していないファイルの再パースを避ける | P3 | M | 031 | IN PROGRESS([PR #210](https://github.com/oekazuma/svelte-vitals/pull/210) オープン、CI 全ジョブ green) |
+| 035 | dashboard の SSE staleness guard を実行して検証するテストを追加する | P2 | M | — | IN PROGRESS([PR #209](https://github.com/oekazuma/svelte-vitals/pull/209) オープン、CI 全ジョブ green) |
+| 036 | 設計スパイク — `--diff`/`--staged`/`--baseline` のフルプロジェクト解析を回避する | P3 | M | —(034 と相互作用) | DONE([PR #205](https://github.com/oekazuma/svelte-vitals/pull/205) マージ済み。CI失敗[prettier 整形漏れ]を `--write` で修正) |
+| 037 | 設計スパイク — whole-project 解析の dev-server イベントループ専有を計測・検討する | P3 | L | 034 | DONE([PR #206](https://github.com/oekazuma/svelte-vitals/pull/206) マージ済み。結論: 500ルートまで実測上問題なし、`worker_threads` 移行は見送り。レビュー対応: Copilot 指摘[ベンチマークの `summarizeTicks()` がグローバル定数 `TICK_MS` に暗黙依存/存在しない `docs/superpowers/plans/037-...` パスへの参照3件]は妥当と検証し修正) |
+| 038 | config file を vite プラグインに配線し、`install` にスキャフォルダーを追加する | P3 | M | — | IN PROGRESS([PR #211](https://github.com/oekazuma/svelte-vitals/pull/211) オープン、CI 全ジョブ green) |
+| 039 | 設計スパイク — `lang: 'ja'` i18n(CLI / Action / vite dashboard) | P3 | L | — | IN PROGRESS([PR #207](https://github.com/oekazuma/svelte-vitals/pull/207) オープン、CI 全ジョブ green。レビュー対応: Copilot 指摘[Action 配線の節がレポーター API 設計の節(`formatGithubReport` は翻訳対象外)と矛盾/PR 説明文が当時未コミットだった plan ファイルを参照]は妥当と検証し修正) |
+| 040 | CI の `check`/`docs` ジョブに GitHub Actions のステップ並列化を適用する | P2 | S | 027 | IN PROGRESS([PR #213](https://github.com/oekazuma/svelte-vitals/pull/213) オープン、base は `advisor/027-ci-build-cache`。CI 全ジョブ green) |
+
+2026-07-13 の `/improve deep` セッション(commit `3341587` 時点)から生成された 027–040 に共通する注記: この `plans/` ディレクトリ自体が本セッション終了までリポジトリにコミットされておらず、各 PR の説明文が(実際には存在しない)`plans/0NN-*.md` を参照する形になっていた。Copilot のレビューがこれを実際に指摘した(037・039)。本コミットで解消。
 
 (012/013 は欠番 — 副産物対応の advisor ブランチ名 `advisor/012-*`/`advisor/013-*` として消費済みのため、混同を避けて 014 から採番。014–018 は 2026-07-08 のギャップ分析(commit `d0c76c9` 時点)から生成。テーマは「CI 組み込み体験」と「エージェント統合の入口拡大」— 部品[reporter 群、`--diff`、`--fail-on`、MCP]は揃っているのに、ユーザーがワークフローや指示ファイルを手で組み立てる必要がある状態を解消する。)
 
@@ -41,6 +57,8 @@ Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) | REJE
 - **015 は 014 の後**: 生成するワークフローが `--baseline origin/${{ github.base_ref }}` を前提にする(015 の Drift check が 014 の未マージを検出して STOP する)。
 - **018 は最後に推奨**: 014/015 と同じ CLI ファイル(bin.ts / resolve-args.ts / index.ts)を触るため、コンフリクト回避として直列の末尾に置く。016/017 は独立で並行可。
 - 014 の `--baseline`(ref 比較)と方向性メモ DIR-03 の「抑制ファイル型 baseline」(現状を記録して受け入れ)は別物。両方導入する場合はフラグ命名の整合に注意(014 の Maintenance notes 参照)。
+- **031 → 034 → 037 は同じファイル `packages/vite/src/ui/analysis.ts` を触る連鎖**: 031(watcher→再解析の e2e テスト)がある状態で 034(パースキャッシュ)を実装し、037(dev-server のイベントループ計測)は 034 のキャッシュ有無で計測結果が変わるため 034 の後に読む。実行順は 031→034→037 だが、031・037 は独立に先行マージ済み(034 は本 README 更新時点でまだ PR オープン)。
+- **027 → 040 は同じファイル `.github/workflows/ci.yml` を触る**: 040(ステップ並列化)は 027(dist キャッシュ)の変更を前提にスタックした PR(#213、base = `advisor/027-ci-build-cache`)として出している。027 のマージ後に 040 を main に向け直す。
 
 - **003 は 002 の後**: 空 facts フォールバックの挙動を固定するテスト(002)がある状態で collector を動かす(003)。
 - **007 は 002 の後**: パースキャッシュは「パース失敗時に何が起きるか」の契約(002 が固定)を保存しなければならない。
