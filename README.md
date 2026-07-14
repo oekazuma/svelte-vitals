@@ -38,6 +38,7 @@ Five categories — **SEO**, **Performance**, **Correctness**, **Security**, **A
 - **Live dashboard** — a searchable, filterable dashboard at `/__svelte-vitals/` during `vite dev`, on by default: whole-project coverage from startup, refined to real rendered values as you browse. → [Live dashboard](https://oekazuma.github.io/svelte-vitals/guides/dev-dashboard/)
 - **Plugin mode** (`@svelte-vitals/vite`) — build-time analysis of the prerendered `<head>`; library-agnostic and exact. → [Plugin mode](https://oekazuma.github.io/svelte-vitals/guides/plugin-mode/)
 - **MCP server** (`@svelte-vitals/mcp`) — `analyze` and `explain_rule` tools for an agent's tool loop. → [MCP server](https://oekazuma.github.io/svelte-vitals/guides/mcp/)
+- **Agent Skills** — `/svelte-vitals` and `/improve-svelte` slash-command skills for Claude Code, Cursor, and Codex: rule knowledge up front, plus a project-wide, evidence-ranked improvement roadmap. → [Agent Skills](https://oekazuma.github.io/svelte-vitals/guides/agent-skills/)
 
 ## Packages
 
