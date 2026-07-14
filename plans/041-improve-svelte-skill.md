@@ -27,7 +27,7 @@
 svelte-vitals already ships one agent-facing artifact via `svelte-vitals
 install --client claude-skill`: a Claude Code skill (`.claude/skills/svelte-vitals/SKILL.md`)
 that teaches an agent the rule catalog and a fix-it-now playbook (run the
-scanner after every edit, gate commits with `--staged`). That's the *regression-check*
+scanner after every edit, gate commits with `--staged`). That's the _regression-check_
 posture — good for "don't make it worse," not for "here's a prioritized
 roadmap to make this codebase actually good."
 
@@ -45,7 +45,7 @@ exists (`AGENT_TARGETS`, fully-regenerated-from-rule-metadata content,
 `--force`/`--refresh` support) — this plan adds one more entry to it, not a
 new distribution system.
 
-One thing svelte-vitals can do *better* than react-doctor's version here:
+One thing svelte-vitals can do _better_ than react-doctor's version here:
 react-doctor's canonical fix lives behind a hosted URL
 (`https://www.react.doctor/prompts/rules/<plugin>/<rule>.md`) that the agent
 must fetch. Every svelte-vitals rule's `recommendation`/`fix.description`/
@@ -96,7 +96,7 @@ the skill file, no network fetch required.
   ```
 
   `ruleLine()` renders one rule as `- **SEO002 — Description presence**
-  (critical): <rationale>. Fix: <fix.description> ([docs](<url>))`. This is
+(critical): <rationale>. Fix: <fix.description> ([docs](<url>))`. This is
   exactly the "rule catalog" content the new skill needs — reuse it, don't
   reimplement it.
 
@@ -159,15 +159,15 @@ the skill file, no network fetch required.
 
 ## Commands you will need
 
-| Purpose   | Command                                        | Expected on success |
-| --------- | ----------------------------------------------- | -------------------- |
-| Build     | `pnpm --filter svelte-vitals build`             | exit 0                |
-| Typecheck | `pnpm --filter svelte-vitals typecheck`         | exit 0                |
-| Tests     | `pnpm --filter svelte-vitals test`              | all pass              |
-| Lint      | `pnpm lint`                                      | exit 0                |
-| Format    | `pnpm format`                                    | exit 0                |
-| Docs      | `pnpm --filter docs check`                       | exit 0                |
-| 全体確認  | `pnpm build && pnpm typecheck && pnpm test`     | exit 0 / all pass     |
+| Purpose   | Command                                     | Expected on success |
+| --------- | ------------------------------------------- | ------------------- |
+| Build     | `pnpm --filter svelte-vitals build`         | exit 0              |
+| Typecheck | `pnpm --filter svelte-vitals typecheck`     | exit 0              |
+| Tests     | `pnpm --filter svelte-vitals test`          | all pass            |
+| Lint      | `pnpm lint`                                 | exit 0              |
+| Format    | `pnpm format`                               | exit 0              |
+| Docs      | `pnpm --filter docs check`                  | exit 0              |
+| 全体確認  | `pnpm build && pnpm typecheck && pnpm test` | exit 0 / all pass   |
 
 `svelte-vitals` (the `packages/cli` package) is a `@svelte-vitals/core`
 consumer — if `pnpm --filter svelte-vitals build` complains about stale core
@@ -200,7 +200,7 @@ workspace dependencies first).
 
 **Out of scope** (do NOT touch, even though related):
 
-- `packages/mcp/src/tools/explain-rule.ts` — the new skill *references* the
+- `packages/mcp/src/tools/explain-rule.ts` — the new skill _references_ the
   `explain_rule` MCP tool in its prose; it does not change that tool.
 - `packages/cli/src/install/skill-content.ts`'s `buildSkillMarkdown`/
   `buildCursorRules`/`sharedBody` — the existing `svelte-vitals` skill is
@@ -215,7 +215,7 @@ workspace dependencies first).
   `AgentTarget`/`PlanRow` model exactly one file per target id today; adding
   multi-file-per-target support to `index.ts` would be a real architecture
   change for a benefit (skill-loading token economy) that doesn't apply here
-  given the existing `svelte-vitals` skill already inlines its *entire* rule
+  given the existing `svelte-vitals` skill already inlines its _entire_ rule
   digest into one file with no ill effect. Ship this as one file, matching
   that precedent. If a future reviewer wants the multi-file split, that's a
   separate plan.
@@ -320,6 +320,7 @@ Get the machine map before applying judgment:
   project has a `svelte-vitals.config.{mjs,js,ts}` or
   `svelte-vitals-suppressions.json`, read them too — they change which
   findings even appear (see Hard Rule 5).
+
 - **Stack**: SvelteKit version, static/prerendered vs. SSR vs. adapter-node,
   whether the Vite dev dashboard (`@svelte-vitals/vite`, `ui: true`) is
   already wired up, whether an MCP client or the `svelte-vitals` skill is
@@ -358,11 +359,11 @@ below).
 
 Depth follows effort level (default `standard`):
 
-| Effort     | Coverage                              | Subagents | Findings                     |
-| ---------- | -------------------------------------- | --------- | ----------------------------- |
-| `quick`    | Highest-traffic/public routes only     | 0–1       | ~5, HIGH severity only        |
-| `standard` | All routes and components              | ≤5        | Full table                    |
-| `deep`     | Whole project incl. rarely-hit routes  | 5         | Full table + LOW polish items |
+| Effort     | Coverage                              | Subagents | Findings                      |
+| ---------- | ------------------------------------- | --------- | ----------------------------- |
+| `quick`    | Highest-traffic/public routes only    | 0–1       | ~5, HIGH severity only        |
+| `standard` | All routes and components             | ≤5        | Full table                    |
+| `deep`     | Whole project incl. rarely-hit routes | 5         | Full table + LOW polish items |
 
 ### Phase 3 — Vet, prioritize, confirm
 
@@ -372,8 +373,8 @@ present a finding you haven't confirmed at its `file:line`/route.
 
 Present vetted findings as one table, ordered by leverage (impact ÷ effort):
 
-| # | Severity | Category | Location | Rule | Finding | Fix summary |
-| - | -------- | -------- | -------- | ---- | ------- | ----------- |
+| #   | Severity | Category | Location | Rule | Finding | Fix summary |
+| --- | -------- | -------- | -------- | ---- | ------- | ----------- |
 
 Severity here is leverage-driven, **not** svelte-vitals' raw rule severity:
 
@@ -529,7 +530,7 @@ adapted to this file — never approximated from memory.
   - Run this project's own typecheck, lint, and test commands (see Phase 1
     recon — don't assume a specific package manager).
 - **Behavior check**: Load the affected route and confirm `<observable
-  behavior>` — for an SEO fix, View Source (not just the rendered DOM) to
+behavior>` — for an SEO fix, View Source (not just the rendered DOM) to
   confirm the SSR output actually contains the fix.
 - **Done when**: the targeted finding is clear, the Health Score is not
   lower, required checks pass, and the behavior check matches the target.
@@ -537,14 +538,14 @@ adapted to this file — never approximated from memory.
 
 ## Invocation variants
 
-| Invocation                                                                         | Behavior                                                                                                                                  |
-| ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| bare                                                                                  | Full workflow: recon → audit all categories → vet → confirm → plans                                                                        |
-| `quick` / `deep`                                                                      | Adjust audit effort (see table); composes with a category focus                                                                             |
-| a category focus (`seo`, `performance`, `correctness`, `security`, `architecture`)    | Recon + audit that category only                                                                                                             |
-| `plan <description>`                                                                  | Skip the audit; recon just enough to specify, then write a single plan for the described improvement                                        |
-| `execute <plan>`                                                                      | Dispatch an executor subagent to implement the plan in an isolated worktree, then review its diff against svelte-vitals (`--diff --reporter agent`) and render a verdict |
-| `reconcile`                                                                           | Re-check `plans/` against the current code: mark done plans DONE, refresh stale `file:line`/route references, retire fixed findings          |
+| Invocation                                                                         | Behavior                                                                                                                                                                 |
+| ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| bare                                                                               | Full workflow: recon → audit all categories → vet → confirm → plans                                                                                                      |
+| `quick` / `deep`                                                                   | Adjust audit effort (see table); composes with a category focus                                                                                                          |
+| a category focus (`seo`, `performance`, `correctness`, `security`, `architecture`) | Recon + audit that category only                                                                                                                                         |
+| `plan <description>`                                                               | Skip the audit; recon just enough to specify, then write a single plan for the described improvement                                                                     |
+| `execute <plan>`                                                                   | Dispatch an executor subagent to implement the plan in an isolated worktree, then review its diff against svelte-vitals (`--diff --reporter agent`) and render a verdict |
+| `reconcile`                                                                        | Re-check `plans/` against the current code: mark done plans DONE, refresh stale `file:line`/route references, retire fixed findings                                      |
 
 ## Tone
 

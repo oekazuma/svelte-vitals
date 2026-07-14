@@ -47,7 +47,7 @@ the invocable command), confirmed against each tool's own docs:
 
 So today, a user who runs `svelte-vitals install --client claude-skill` (or
 `claude-skill-improve`) and works in Codex or Cursor instead of Claude Code
-gets nothing — despite the generated *content* being 100% tool-agnostic
+gets nothing — despite the generated _content_ being 100% tool-agnostic
 prose (it never mentions Claude Code specifically). The fix does not need a
 second content format: the same generated Markdown, written to three
 conventional directories instead of one, makes both existing skills
@@ -185,12 +185,12 @@ this change.
 ## Commands you will need
 
 | Purpose   | Command                                    | Expected on success |
-| --------- | -------------------------------------------- | -------------------- |
-| Build     | `pnpm --filter svelte-vitals... build`       | exit 0                |
-| Typecheck | `pnpm --filter svelte-vitals... typecheck`   | exit 0                |
-| Tests     | `pnpm --filter svelte-vitals... test`        | all pass              |
-| Lint      | `pnpm lint`                                    | exit 0                |
-| Docs      | `pnpm --filter docs check`                     | exit 0                |
+| --------- | ------------------------------------------ | ------------------- |
+| Build     | `pnpm --filter svelte-vitals... build`     | exit 0              |
+| Typecheck | `pnpm --filter svelte-vitals... typecheck` | exit 0              |
+| Tests     | `pnpm --filter svelte-vitals... test`      | all pass            |
+| Lint      | `pnpm lint`                                | exit 0              |
+| Docs      | `pnpm --filter docs check`                 | exit 0              |
 
 (Same commands as plan 041; the `docs check` step may be unrunnable in a
 network-restricted sandbox — see plan 041's own notes on this. Prose-review
@@ -224,7 +224,7 @@ skipping it.)
 
 - `packages/cli/src/install/skill-content.ts`,
   `packages/cli/src/install/improve-skill-content.ts` — the generated
-  *content* does not change at all in this plan, only where it's written.
+  _content_ does not change at all in this plan, only where it's written.
   Do not edit `buildSkillMarkdown`, `buildCursorRules`, or
   `buildImproveSkillMarkdown`.
 - `cursor-rules` / `buildCursorRules` — stays a single-destination,
@@ -527,7 +527,7 @@ destination paths, and that partial-existing states are handled correctly.
     when other paths for the same target don't:
 
     ```ts
-    it('--refresh only regenerates the specific paths already on disk, not a target\'s other destinations', async () => {
+    it("--refresh only regenerates the specific paths already on disk, not a target's other destinations", async () => {
       const { io, writes } = fakeIO({
         files: { '/proj/.claude/skills/svelte-vitals/SKILL.md': 'stale' }
       });
