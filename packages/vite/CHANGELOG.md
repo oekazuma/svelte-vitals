@@ -1,5 +1,19 @@
 # @svelte-vitals/vite
 
+## 0.16.0
+
+### Minor Changes
+
+- 02b4d98: The live dashboard's finding cards now have a collapsed **AI Prompt** disclosure. Expand it and hit **Copy** to get a ready-to-paste prompt for a coding agent, built instantly from that finding's rule id, location, recommendation, fix, and docs link — no AI call generates it, so it can't hallucinate a fix that isn't the rule's actual recommendation.
+
+### Patch Changes
+
+- Updated dependencies [d243f01]
+- Updated dependencies [25efcde]
+- Updated dependencies [0bb628d]
+- Updated dependencies [f1cbfd0]
+  - svelte-vitals@0.27.0
+
 ## 0.15.1
 
 ### Patch Changes
