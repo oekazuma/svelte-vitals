@@ -127,12 +127,14 @@ function agentTargetContent(id: AgentTargetId, version: string): string {
   }
 }
 
-function planForAgentTarget(target: AgentTarget, io: InstallIO, force: boolean, version: string): PlanRow {
-  const path = join(io.cwd, target.relPath);
-  const existing = io.readFile(path);
+function planForAgentTarget(target: AgentTarget, io: InstallIO, force: boolean, version: string): PlanRow[] {
   const content = agentTargetContent(target.id, version);
-  const status: WriteStatus = existing === undefined ? 'created' : force ? 'updated' : 'exists';
-  return { id: target.id, label: target.label, path, status, content };
+  return target.relPaths.map((relPath) => {
+    const path = join(io.cwd, relPath);
+    const existing = io.readFile(path);
+    const status: WriteStatus = existing === undefined ? 'created' : force ? 'updated' : 'exists';
+    return { id: target.id, label: target.label, path, status, content };
+  });
 }
 
 /**
@@ -169,17 +171,19 @@ async function runRefresh(io: InstallIO, flags: InstallFlags, version: string): 
   let hadFailure = false;
   const rows: PlanRow[] = [];
   for (const target of AGENT_TARGETS) {
-    const path = join(io.cwd, target.relPath);
-    // readFile maps only ENOENT to undefined and rethrows everything else (EACCES, EISDIR, …),
-    // so treat a per-target read failure like a per-target write failure: report it, keep
-    // refreshing the other targets, and exit 2 at the end. planForAgentTarget re-reads the
-    // file internally, so it sits inside the same try.
-    try {
-      if (io.readFile(path) === undefined) continue;
-      rows.push(planForAgentTarget(target, io, /* force */ true, version));
-    } catch (err) {
-      hadFailure = true;
-      io.errorLog(`svelte-vitals: failed to read ${path}: ${err instanceof Error ? err.message : String(err)}`);
+    const content = agentTargetContent(target.id, version);
+    for (const relPath of target.relPaths) {
+      const path = join(io.cwd, relPath);
+      // readFile maps only ENOENT to undefined and rethrows everything else (EACCES, EISDIR, …),
+      // so treat a per-path read failure like a per-path write failure: report it, keep
+      // refreshing the other paths/targets, and exit 2 at the end.
+      try {
+        if (io.readFile(path) === undefined) continue;
+        rows.push({ id: target.id, label: target.label, path, status: 'updated', content });
+      } catch (err) {
+        hadFailure = true;
+        io.errorLog(`svelte-vitals: failed to read ${path}: ${err instanceof Error ? err.message : String(err)}`);
+      }
     }
   }
 
@@ -319,7 +323,7 @@ export async function runInstall(
   }
   for (const agentId of agentIds) {
     const target = agentTargetById(agentId)!;
-    rows.push(planForAgentTarget(target, io, flags.force ?? false, version));
+    rows.push(...planForAgentTarget(target, io, flags.force ?? false, version));
   }
   for (const configId of configIds) {
     const target = configTargetById(configId)!;
