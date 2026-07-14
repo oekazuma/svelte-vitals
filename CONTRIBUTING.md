@@ -4,8 +4,8 @@ This is a pnpm-workspaces monorepo (TypeScript / ESM).
 
 ## Requirements
 
-- Node.js `24.16.0` (see `devEngines` in [`package.json`](./package.json))
-- pnpm `11.11.0` (see `packageManager` in [`package.json`](./package.json))
+- Node.js — see `devEngines` in [`package.json`](./package.json)
+- pnpm — see `packageManager` in [`package.json`](./package.json)
 
 ## Setup
 
