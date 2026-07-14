@@ -1,5 +1,24 @@
 # @svelte-vitals/action
 
+## 0.3.0
+
+### Minor Changes
+
+- 3aad0e2: Apply `svelte-vitals-suppressions.json` in the GitHub Action gate, matching the CLI: when the file is present in the repo it's applied automatically (no new input needed), and suppressed/stale-entry counts are logged as job warnings. Previously the action ignored this file entirely, so projects that adopted suppressions locally still had their whole backlog re-surface in Action-based CI.
+
+### Patch Changes
+
+- Updated dependencies [4ebb756]
+- Updated dependencies [43be9f2]
+- Updated dependencies [fda64dd]
+- Updated dependencies [58ccebc]
+- Updated dependencies [ab55482]
+- Updated dependencies [bf6932d]
+- Updated dependencies [f14fc4e]
+- Updated dependencies [9802586]
+  - svelte-vitals@0.25.0
+  - @svelte-vitals/core@0.24.0
+
 ## 0.2.3
 
 ### Patch Changes
