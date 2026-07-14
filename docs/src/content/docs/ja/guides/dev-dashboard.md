@@ -75,6 +75,32 @@ export const handle = sequence(
 - ライブ更新はループバックオリジン(`localhost`・`127.0.0.1`・`[::1]`)でのみ流れます。`vite dev --host` で LAN の IP からアプリを開いた場合、ハンドルは ingest の POST をスキップする(`Host` ヘッダー偽装への防御)ため、訪問したルートが `measured` に精緻化されません。その場合は `localhost` から開いてください。
 - `SVELTE_VITALS_DEBUG=true` を設定すると、飲み込まれた内部エラー(分析失敗、ingestのスキップ)がトラブルシューティング用にターミナルへ表示されます。
 
+## 指摘ごとに修正プロンプトをコピーする
+
+各指摘カードには、デフォルトで閉じている **AI Prompt** というディスクロージャーがあります。開いて **Copy** を押すと、その指摘のルールID・場所・推奨対応・fix・ドキュメントリンクから組み立てられた、お使いのコーディングエージェントにそのまま貼り付けられるプロンプトが手に入ります:
+
+````text
+Fix this svelte-vitals finding:
+
+- Rule: SEO001 — Missing <title> (critical)
+- Route: /blog/hello
+- Location: src/routes/blog/hello/+page.svelte:3
+- Recommendation: Add a <title> inside <svelte:head>.
+- Fix: Add a <title> tag.
+
+```svelte
+<svelte:head>
+  <title>Hello</title>
+</svelte:head>
+```
+
+- Docs: https://oekazuma.github.io/svelte-vitals/rules/seo001/
+
+After fixing, re-run `svelte-vitals --diff` (or revisit this route) to confirm SEO001 passes for /blog/hello.
+````
+
+プロンプトの生成にAI呼び出しは一切ありません — ダッシュボードのスナップショットに既にある svelte-vitals 自身のルールデータから即座に組み立てられます。[`agent` レポーター](/svelte-vitals/ja/guides/reporters/)が修正ドキュメントに使うのと同じフィールドです。ルールの実際の推奨事項ではない修正を捏造することはできません。
+
 ## 無効化する
 
 ダッシュボードはデフォルトで有効です。[ビルド時ゲート](/svelte-vitals/ja/guides/plugin-mode/)だけが必要で、dev時のダッシュボードは不要な場合(例:起動時/再解析のコストを避けたい非常に大きなプロジェクトなど)は、`ui: false` を指定してください:

@@ -95,4 +95,49 @@ describe('renderDashboardShell', () => {
     expect(html).toContain('dv-wordmark-title');
     expect(html).not.toContain("text: '↯'"); // old bolt-glyph brand, replaced
   });
+
+  it('the embedded client script is syntactically valid JS once a real finding is present', () => {
+    // Regression guard: DASHBOARD_SCRIPT is one giant template literal, so a stray
+    // unescaped backtick or quote inside a comment/string anywhere in it (e.g. in the
+    // AI-prompt builder) silently breaks the whole script for the browser without
+    // failing the TypeScript build, since the string's *contents* aren't type-checked.
+    const snapshot: DashboardSnapshot = {
+      ...baseSnapshot,
+      report: {
+        ...baseSnapshot.report,
+        routes: [
+          {
+            route: '/a',
+            score: 50,
+            issues: [
+              {
+                id: 'SEO001',
+                category: 'seo',
+                title: 'Missing <title>',
+                severity: 'critical',
+                location: 'src/routes/+page.svelte',
+                line: 3,
+                recommendation: 'Add a title',
+                fix: {
+                  description: 'Add a title',
+                  snippet: '<svelte:head><title>Hi</title></svelte:head>',
+                  lang: 'svelte'
+                },
+                docsUrl: 'https://example.com',
+                detection: { presence: 'none', value: 'absent' }
+              } as never
+            ]
+          }
+        ]
+      }
+    };
+    const html = renderDashboardShell(snapshot);
+    const start = html.lastIndexOf('<script>') + '<script>'.length;
+    const end = html.lastIndexOf('</script>');
+    const script = html.slice(start, end);
+    // `new Function` here only parses (never calls) a string built entirely from this
+    // test's own fixture data and the repo's own DASHBOARD_SCRIPT constant — a syntax
+    // check, not execution of untrusted input.
+    expect(() => new Function(script)).not.toThrow();
+  });
 });

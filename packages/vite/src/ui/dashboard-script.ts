@@ -113,6 +113,76 @@ export const DASHBOARD_SCRIPT = `
     return pre;
   }
 
+  // Plain-text, copy-pasteable prompt for a single finding — same ingredients as the
+  // agent reporter's per-finding block (rule id, location, recommendation, fix, docs),
+  // reshaped for a standalone request rather than a whole-project remediation doc.
+  function buildAiPrompt(issue, route) {
+    var lines = ['Fix this svelte-vitals finding:', ''];
+    lines.push('- Rule: ' + issue.id + ' — ' + issue.title + ' (' + issue.severity + ')');
+    if (route) lines.push('- Route: ' + route);
+    if (issue.location) {
+      lines.push('- Location: ' + issue.location + (issue.line !== undefined ? ':' + issue.line : ''));
+    }
+    if (issue.recommendation) lines.push('- Recommendation: ' + issue.recommendation);
+    if (issue.fix) {
+      lines.push('- Fix: ' + issue.fix.description);
+      if (issue.fix.snippet) {
+        lines.push('', '\`\`\`' + (issue.fix.lang || 'svelte'), issue.fix.snippet, '\`\`\`');
+      }
+    }
+    if (issue.docsUrl) lines.push('- Docs: ' + issue.docsUrl);
+    lines.push(
+      '',
+      'After fixing, re-run \`svelte-vitals --diff\` (or revisit this route) to confirm ' +
+        issue.id +
+        ' passes' +
+        (route ? ' for ' + route : '') +
+        '.'
+    );
+    return lines.join('\\n');
+  }
+
+  function copyToClipboard(text, btn) {
+    var original = 'Copy';
+    function reset(label) {
+      btn.textContent = label;
+      setTimeout(function () { btn.textContent = original; }, 1500);
+    }
+    function done() { reset('Copied!'); }
+    function fail() { reset('Copy failed'); }
+    function fallbackCopy() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      return ok;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy() ? done() : fail(); });
+    } else {
+      fallbackCopy() ? done() : fail();
+    }
+  }
+
+  function renderAiPrompt(issue, route) {
+    var text = buildAiPrompt(issue, route);
+    var btn = h('button', { type: 'button', class: 'dv-ai-copy-btn', text: 'Copy' }, []);
+    btn.addEventListener('click', function () { copyToClipboard(text, btn); });
+    return h('details', { class: 'dv-ai-prompt' }, [
+      h('summary', { text: 'AI Prompt' }, []),
+      h('div', { class: 'dv-ai-prompt-body' }, [
+        h('pre', { class: 'dv-ai-prompt-pre', text: text }, []),
+        btn
+      ])
+    ]);
+  }
+
   var state = {
     snapshot: null,
     selected: 'overview',
@@ -300,7 +370,7 @@ export const DASHBOARD_SCRIPT = `
 
   var SEVERITY_ORDER = { critical: 0, warning: 1, info: 2 };
 
-  function renderFinding(issue, route) {
+  function renderFinding(issue, route, promptRoute) {
     var kids = [
       h('div', { class: 'dv-f-head' }, [
         h('span', { class: 'dv-ruleid', text: issue.id }, []),
@@ -323,6 +393,7 @@ export const DASHBOARD_SCRIPT = `
     if (issue.docsUrl) {
       kids.push(h('a', { class: 'dv-f-link', href: issue.docsUrl, text: 'Learn more' }, []));
     }
+    kids.push(renderAiPrompt(issue, promptRoute !== undefined ? promptRoute : route));
     return h('article', { class: 'dv-finding dv-finding-' + issue.severity }, kids);
   }
 
@@ -397,7 +468,7 @@ export const DASHBOARD_SCRIPT = `
     var chips = renderFilterChips(state.snapshot.report.categories);
     var findings = route.issues.filter(passesFilter);
     var body = findings.length
-      ? findings.map(function (issue) { return renderFinding(issue); })
+      ? findings.map(function (issue) { return renderFinding(issue, undefined, route.route); })
       : [h('p', { class: 'dv-empty', text: 'No issues match the current filter.' }, [])];
     return h('div', { class: 'dv-route-detail' }, [header, chips].concat(body));
   }
