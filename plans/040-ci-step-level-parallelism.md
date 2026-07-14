@@ -66,37 +66,37 @@ Plan 027 適用後は `Build packages` の前に cache ステップが追加さ�
 — 上記ヘッダーの drift check 指示を参照):
 
 ```yaml
-  check:
-    runs-on: ubuntu-latest
-    timeout-minutes: 8
-    steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-      - name: Setup Node.js and dependencies
-        uses: ./.github/workflows/setup-node
-      - name: Build packages
-        run: pnpm build
-      - name: Verify action dist is up to date
-        run: git diff --exit-code -- packages/action/dist
-      - name: Typecheck
-        run: pnpm typecheck
-      - name: Validate publishable packages
-        run: pnpm check:publish
+check:
+  runs-on: ubuntu-latest
+  timeout-minutes: 8
+  steps:
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+    - name: Setup Node.js and dependencies
+      uses: ./.github/workflows/setup-node
+    - name: Build packages
+      run: pnpm build
+    - name: Verify action dist is up to date
+      run: git diff --exit-code -- packages/action/dist
+    - name: Typecheck
+      run: pnpm typecheck
+    - name: Validate publishable packages
+      run: pnpm check:publish
 ```
 
 `docs` ジョブ(全文):
 
 ```yaml
-  docs:
-    runs-on: ubuntu-latest
-    timeout-minutes: 8
-    steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-      - name: Setup Node.js and dependencies
-        uses: ./.github/workflows/setup-node
-      - name: Check docs
-        run: pnpm --filter docs check
-      - name: Build docs
-        run: pnpm --filter docs build
+docs:
+  runs-on: ubuntu-latest
+  timeout-minutes: 8
+  steps:
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+    - name: Setup Node.js and dependencies
+      uses: ./.github/workflows/setup-node
+    - name: Check docs
+      run: pnpm --filter docs check
+    - name: Build docs
+      run: pnpm --filter docs build
 ```
 
 - `root package.json` の `check:publish` は `check:publint && check:types`
@@ -123,10 +123,10 @@ Plan 027 適用後は `Build packages` の前に cache ステップが追加さ�
 
 ## Commands you will need
 
-| Purpose                     | Command                                              | Expected on success |
-| ---------------------------- | ----------------------------------------------------- | -------------------- |
-| YAML 妥当性(ローカル簡易チェック) | `ruby -ryaml -e "YAML.load_file('.github/workflows/ci.yml'); puts 'YAML OK'"`(pyyaml がサンドボックスで導入不能な場合の代替 — Plan 027 の executor が使った方法) | `YAML OK` |
-| 参考(ローカルで意味のある検証はここまで) | `pnpm build && pnpm typecheck && pnpm check:publish`(手元で3コマンドが個別に成功することの確認 — 並列実行そのものはローカルで再現できない) | 全て exit 0 |
+| Purpose                                  | Command                                                                                                                                                          | Expected on success |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| YAML 妥当性(ローカル簡易チェック)        | `ruby -ryaml -e "YAML.load_file('.github/workflows/ci.yml'); puts 'YAML OK'"`(pyyaml がサンドボックスで導入不能な場合の代替 — Plan 027 の executor が使った方法) | `YAML OK`           |
+| 参考(ローカルで意味のある検証はここまで) | `pnpm build && pnpm typecheck && pnpm check:publish`(手元で3コマンドが個別に成功することの確認 — 並列実行そのものはローカルで再現できない)                       | 全て exit 0         |
 
 このプランの変更は CI ワークフロー YAML のみで、GitHub Actions 上でしか
 「本当に並列実行されているか」「壁時計時間が短縮したか」を確認できない。
@@ -186,15 +186,15 @@ Plan 027 適用後は `Build packages` の前に cache ステップが追加さ�
 としてまとめる:
 
 ```yaml
-      - name: Build packages
-        run: pnpm build
-      - parallel:
-          - name: Verify action dist is up to date
-            run: git diff --exit-code -- packages/action/dist
-          - name: Typecheck
-            run: pnpm typecheck
-          - name: Validate publishable packages
-            run: pnpm check:publish
+- name: Build packages
+  run: pnpm build
+- parallel:
+    - name: Verify action dist is up to date
+      run: git diff --exit-code -- packages/action/dist
+    - name: Typecheck
+      run: pnpm typecheck
+    - name: Validate publishable packages
+      run: pnpm check:publish
 ```
 
 (Plan 027 が既にマージされている場合、`Build packages` の前に
@@ -207,13 +207,13 @@ Plan 027 適用後は `Build packages` の前に cache ステップが追加さ�
 ### Step 2: `docs` ジョブの2ステップを `parallel:` でまとめる
 
 ```yaml
-      - name: Setup Node.js and dependencies
-        uses: ./.github/workflows/setup-node
-      - parallel:
-          - name: Check docs
-            run: pnpm --filter docs check
-          - name: Build docs
-            run: pnpm --filter docs build
+- name: Setup Node.js and dependencies
+  uses: ./.github/workflows/setup-node
+- parallel:
+    - name: Check docs
+      run: pnpm --filter docs check
+    - name: Build docs
+      run: pnpm --filter docs build
 ```
 
 **Verify**: YAML として妥当であること(同上)。

@@ -56,7 +56,7 @@ const ACTION_USES_LINE =
 このパターンでは以下の行にマッチしない:
 
 ```yaml
-      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa # @svelte-vitals/action@1.0.0
+- uses: &vitals_action oekazuma/svelte-vitals/packages/action@aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa # @svelte-vitals/action@1.0.0
 ```
 
 `upgradeActionPin` の全文は既に把握済み(24-57行目)—
@@ -67,19 +67,19 @@ comment` で再構築する。`indent` グループが `uses:` からパッケ�
 `packages/cli/src/ci/cli.ts:108-111`(このバグが表面化する箇所):
 
 ```ts
-  if (outcome.status === 'no-reference') {
-    io.errorLog(`svelte-vitals: no @svelte-vitals/action reference found in ${WORKFLOW_PATH}.`);
-    return 2;
-  }
+if (outcome.status === 'no-reference') {
+  io.errorLog(`svelte-vitals: no @svelte-vitals/action reference found in ${WORKFLOW_PATH}.`);
+  return 2;
+}
 ```
 
 ## Commands you will need
 
-| Purpose   | Command                                              | Expected on success |
-| --------- | ------------------------------------------------------ | -------------------- |
-| Tests     | `pnpm --filter svelte-vitals test`                    | all pass              |
-| Typecheck | `pnpm --filter svelte-vitals typecheck`               | exit 0                |
-| Lint      | `pnpm lint`                                             | exit 0                |
+| Purpose   | Command                                 | Expected on success |
+| --------- | --------------------------------------- | ------------------- |
+| Tests     | `pnpm --filter svelte-vitals test`      | all pass            |
+| Typecheck | `pnpm --filter svelte-vitals typecheck` | exit 0              |
+| Lint      | `pnpm lint`                             | exit 0              |
 
 ## Scope
 
@@ -137,47 +137,47 @@ const ACTION_USES_LINE =
 末尾、`describe('upgradeActionPin', ...)` ブロック内):
 
 ```ts
-  it('rewrites an anchor-defined uses: line, preserving the anchor name', () => {
-    const content = [
-      'jobs:',
-      '  a:',
-      '    steps:',
-      `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${OLD_SHA} # @svelte-vitals/action@1.0.0`,
-      '  b:',
-      '    steps:',
-      '      - uses: *vitals_action'
-    ].join('\n');
+it('rewrites an anchor-defined uses: line, preserving the anchor name', () => {
+  const content = [
+    'jobs:',
+    '  a:',
+    '    steps:',
+    `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${OLD_SHA} # @svelte-vitals/action@1.0.0`,
+    '  b:',
+    '    steps:',
+    '      - uses: *vitals_action'
+  ].join('\n');
 
-    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
+  const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
 
-    expect(outcome.status).toBe('upgraded');
-    expect(outcome.replaced).toBe(1);
-    expect(outcome.from).toBe('1.0.0');
-    expect(outcome.content).toContain(
-      `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${NEW_SHA} # @svelte-vitals/action@2.0.0`
-    );
-    // The alias line itself has no literal ref to rewrite — a YAML parser resolves it
-    // to the anchor's (now-updated) value at parse time, so it's correctly left as-is.
-    expect(outcome.content).toContain('      - uses: *vitals_action');
-  });
+  expect(outcome.status).toBe('upgraded');
+  expect(outcome.replaced).toBe(1);
+  expect(outcome.from).toBe('1.0.0');
+  expect(outcome.content).toContain(
+    `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${NEW_SHA} # @svelte-vitals/action@2.0.0`
+  );
+  // The alias line itself has no literal ref to rewrite — a YAML parser resolves it
+  // to the anchor's (now-updated) value at parse time, so it's correctly left as-is.
+  expect(outcome.content).toContain('      - uses: *vitals_action');
+});
 
-  it('rewrites an anchor-defined uses: line with no trailing comment', () => {
-    const content = `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${OLD_SHA}`;
-    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
+it('rewrites an anchor-defined uses: line with no trailing comment', () => {
+  const content = `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${OLD_SHA}`;
+  const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
 
-    expect(outcome.status).toBe('upgraded');
-    expect(outcome.from).toBe(OLD_SHA.slice(0, 7));
-    expect(outcome.content).toBe(
-      `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${NEW_SHA} # @svelte-vitals/action@2.0.0`
-    );
-  });
+  expect(outcome.status).toBe('upgraded');
+  expect(outcome.from).toBe(OLD_SHA.slice(0, 7));
+  expect(outcome.content).toBe(
+    `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${NEW_SHA} # @svelte-vitals/action@2.0.0`
+  );
+});
 
-  it('reports up-to-date for an anchor-defined line already pinned to the current sha', () => {
-    const content = `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${NEW_SHA} # @svelte-vitals/action@2.0.0`;
-    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
+it('reports up-to-date for an anchor-defined line already pinned to the current sha', () => {
+  const content = `      - uses: &vitals_action oekazuma/svelte-vitals/packages/action@${NEW_SHA} # @svelte-vitals/action@2.0.0`;
+  const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
 
-    expect(outcome).toEqual({ status: 'up-to-date' });
-  });
+  expect(outcome).toEqual({ status: 'up-to-date' });
+});
 ```
 
 **Verify**: `pnpm --filter svelte-vitals test` → all pass、既存の全ケース(CRLF・

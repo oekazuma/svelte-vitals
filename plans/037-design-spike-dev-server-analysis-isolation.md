@@ -57,10 +57,10 @@ SSE/`data.json` リクエストの応答が遅延する可能性がある。
 
 ## Commands you will need
 
-| Purpose                     | Command                                          | Expected on success |
-| ----------------------------- | --------------------------------------------------- | -------------------- |
-| ベンチマーク用の一時プロジェクト生成 | (Step 2 で作成するスクリプト、`node scripts/...` 相当) | 実行完了 |
-| 既存テスト                    | `pnpm --filter @svelte-vitals/vite test`          | all pass              |
+| Purpose                              | Command                                                | Expected on success |
+| ------------------------------------ | ------------------------------------------------------ | ------------------- |
+| ベンチマーク用の一時プロジェクト生成 | (Step 2 で作成するスクリプト、`node scripts/...` 相当) | 実行完了            |
+| 既存テスト                           | `pnpm --filter @svelte-vitals/vite test`               | all pass            |
 
 ## Scope
 

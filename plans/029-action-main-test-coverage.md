@@ -90,12 +90,24 @@ async function main(): Promise<void> {
         });
         const plan = planStickyComment(comments.map((c) => ({ id: c.id, body: c.body })));
         if (plan.op === 'update') {
-          await octokit.rest.issues.updateComment({ owner: ctx.repo.owner, repo: ctx.repo.repo, comment_id: plan.id, body });
+          await octokit.rest.issues.updateComment({
+            owner: ctx.repo.owner,
+            repo: ctx.repo.repo,
+            comment_id: plan.id,
+            body
+          });
         } else {
-          await octokit.rest.issues.createComment({ owner: ctx.repo.owner, repo: ctx.repo.repo, issue_number: pr.number, body });
+          await octokit.rest.issues.createComment({
+            owner: ctx.repo.owner,
+            repo: ctx.repo.repo,
+            issue_number: pr.number,
+            body
+          });
         }
       } catch (err) {
-        core.warning(`svelte-vitals: failed to post/update the PR comment: ${err instanceof Error ? err.message : String(err)}`);
+        core.warning(
+          `svelte-vitals: failed to post/update the PR comment: ${err instanceof Error ? err.message : String(err)}`
+        );
       }
     }
   }
@@ -126,12 +138,12 @@ main().catch((err) => {
 
 ## Commands you will need
 
-| Purpose   | Command                                          | Expected on success |
-| --------- | -------------------------------------------------- | -------------------- |
-| Typecheck | `pnpm --filter @svelte-vitals/action typecheck`   | exit 0 (ローカルで動く場合。下記 NOTES 参照) |
-| Tests     | `pnpm --filter @svelte-vitals/action test`        | all pass              |
-| Build     | `pnpm --filter @svelte-vitals/action build`       | exit 0 (同上)        |
-| Lint      | `pnpm lint`                                        | exit 0                |
+| Purpose   | Command                                         | Expected on success                          |
+| --------- | ----------------------------------------------- | -------------------------------------------- |
+| Typecheck | `pnpm --filter @svelte-vitals/action typecheck` | exit 0 (ローカルで動く場合。下記 NOTES 参照) |
+| Tests     | `pnpm --filter @svelte-vitals/action test`      | all pass                                     |
+| Build     | `pnpm --filter @svelte-vitals/action build`     | exit 0 (同上)                                |
+| Lint      | `pnpm lint`                                     | exit 0                                       |
 
 **重要**: `packages/action` の依存(`@actions/core`/`@actions/github`)がサンドボック
 ス環境にインストールできないことが過去のプラン(023/026)で確認されている
@@ -191,7 +203,7 @@ notes に明記し、CI の `check`/`test` ジョブでの検証に委ねる。�
   `getOctokit`(`rest.issues.listComments`/`updateComment`/`createComment` を
   `vi.fn()` でモックした octokit ライクなオブジェクトを返す)。
 - `svelte-vitals` — `analyzeProject`(固定の `{ results: [...], config: {...},
-  version: '0.0.0-test' }` を返す)と `applyScope`(受け取った `results` をそのまま
+version: '0.0.0-test' }` を返す)と `applyScope`(受け取った `results` をそのまま
   返す、またはテストケースに応じて critical な finding を混ぜる)。
 - `@svelte-vitals/core` — `formatGithubReport`・`formatMarkdownReport`・`summarize`・
   `hasFailureAtOrAbove` を、テストが分岐を制御できる程度の単純な `vi.fn()` にする

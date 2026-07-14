@@ -39,44 +39,44 @@
 - `.github/workflows/ci.yml` — `check` ジョブ:
 
 ```yaml
-  check:
-    runs-on: ubuntu-latest
-    timeout-minutes: 8
-    steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-      - name: Setup Node.js and dependencies
-        uses: ./.github/workflows/setup-node
-      - name: Build packages
-        run: pnpm build
-      - name: Verify action dist is up to date
-        run: git diff --exit-code -- packages/action/dist
-      - name: Typecheck
-        run: pnpm typecheck
-      - name: Validate publishable packages
-        run: pnpm check:publish
+check:
+  runs-on: ubuntu-latest
+  timeout-minutes: 8
+  steps:
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+    - name: Setup Node.js and dependencies
+      uses: ./.github/workflows/setup-node
+    - name: Build packages
+      run: pnpm build
+    - name: Verify action dist is up to date
+      run: git diff --exit-code -- packages/action/dist
+    - name: Typecheck
+      run: pnpm typecheck
+    - name: Validate publishable packages
+      run: pnpm check:publish
 ```
 
 - 同ファイル、`test` ジョブ(3-way node matrix):
 
 ```yaml
-  test:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    strategy:
-      matrix:
-        node-version: ['22.13.0', '24.16.0', '26']
-    steps:
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-        with:
-          persist-credentials: false
-      - name: Setup Node.js and dependencies
-        uses: ./.github/workflows/setup-node
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Build packages
-        run: pnpm build
-      - name: Run tests
-        run: pnpm test
+test:
+  runs-on: ubuntu-latest
+  timeout-minutes: 15
+  strategy:
+    matrix:
+      node-version: ['22.13.0', '24.16.0', '26']
+  steps:
+    - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      with:
+        persist-credentials: false
+    - name: Setup Node.js and dependencies
+      uses: ./.github/workflows/setup-node
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Build packages
+      run: pnpm build
+    - name: Run tests
+      run: pnpm test
 ```
 
 - `.github/workflows/setup-node/action.yml` — `actions/setup-node@...` の `cache: 'pnpm'`
@@ -95,11 +95,11 @@
 
 ## Commands you will need
 
-| Purpose                     | Command                                              | Expected on success |
-| ---------------------------- | ----------------------------------------------------- | -------------------- |
-| ワークフロー構文の妥当性(ローカルでの簡易チェック) | `cd .github/workflows && python3 -c "import yaml,sys; yaml.safe_load(open('ci.yml'))"` (or any YAML linter available) | エラーなし |
-| ビルド確認(参考、CI相当) | `pnpm build`                                         | exit 0               |
-| テスト確認(参考、CI相当) | `pnpm test`                                          | all pass             |
+| Purpose                                            | Command                                                                                                               | Expected on success |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| ワークフロー構文の妥当性(ローカルでの簡易チェック) | `cd .github/workflows && python3 -c "import yaml,sys; yaml.safe_load(open('ci.yml'))"` (or any YAML linter available) | エラーなし          |
+| ビルド確認(参考、CI相当)                           | `pnpm build`                                                                                                          | exit 0              |
+| テスト確認(参考、CI相当)                           | `pnpm test`                                                                                                           | all pass            |
 
 このプランは CI ワークフロー YAML のみを変更するため、ローカルで実行して検証できる
 コマンドは限られる。**最終検証は実際に CI 上で行う**(PR を開いて Actions の実行結果を
@@ -134,12 +134,12 @@
 `packages/*/dist` をソース + lockfile のハッシュでキーにして保存/復元する。
 
 ```yaml
-      - name: Cache package builds
-        id: dist-cache
-        uses: actions/cache@<pin-latest-major-actions/cache-with-sha> # vX.X.X
-        with:
-          path: packages/*/dist
-          key: dist-${{ hashFiles('packages/*/src/**', 'pnpm-lock.yaml', 'packages/*/tsup.config.ts') }}
+- name: Cache package builds
+  id: dist-cache
+  uses: actions/cache@<pin-latest-major-actions/cache-with-sha> # vX.X.X
+  with:
+    path: packages/*/dist
+    key: dist-${{ hashFiles('packages/*/src/**', 'pnpm-lock.yaml', 'packages/*/tsup.config.ts') }}
 ```
 
 `actions/cache` はこのリポジトリで既出の action ではないため、`actions/checkout` や
@@ -165,15 +165,15 @@
 する。
 
 ```yaml
-      - name: Restore package builds
-        id: dist-cache
-        uses: actions/cache@<same-pin-as-step-1>
-        with:
-          path: packages/*/dist
-          key: dist-${{ hashFiles('packages/*/src/**', 'pnpm-lock.yaml', 'packages/*/tsup.config.ts') }}
-      - name: Build packages
-        if: steps.dist-cache.outputs.cache-hit != 'true'
-        run: pnpm build
+- name: Restore package builds
+  id: dist-cache
+  uses: actions/cache@<same-pin-as-step-1>
+  with:
+    path: packages/*/dist
+    key: dist-${{ hashFiles('packages/*/src/**', 'pnpm-lock.yaml', 'packages/*/tsup.config.ts') }}
+- name: Build packages
+  if: steps.dist-cache.outputs.cache-hit != 'true'
+  run: pnpm build
 ```
 
 同じキー文字列を `check` と `test` の両方のステップで使うこと(コピペで揃える — キー

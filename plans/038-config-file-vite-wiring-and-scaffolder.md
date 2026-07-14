@@ -51,7 +51,7 @@
 
 - **`loadConfigFile`** — `packages/cli/src/config-file.ts`(冒頭60行を既に読了
   済み)。`CONFIG_FILENAMES = ['svelte-vitals.config.mjs', 'svelte-vitals.config.js',
-  'svelte-vitals.config.ts']`(16行目)、`cwd` 直下のみ探索(上方探索なし)。戻り値
+'svelte-vitals.config.ts']`(16行目)、`cwd` 直下のみ探索(上方探索なし)。戻り値
   `LoadedConfigFile { config: Partial<Config>; warnings: string[] }`。
 - **`analyzeProject` での使用パターン**(参考にすべき精度の高い前例) —
   `packages/cli/src/index.ts:172-187`:
@@ -133,12 +133,12 @@ export async function analyze(
 
 ## Commands you will need
 
-| Purpose   | Command                                                                  | Expected on success |
-| --------- | --------------------------------------------------------------------------- | -------------------- |
-| Build     | `pnpm --filter svelte-vitals --filter @svelte-vitals/vite build`         | exit 0                |
-| Typecheck | 同2パッケージ `typecheck`                                                | exit 0                |
-| Tests     | 同2パッケージ `test`                                                     | all pass              |
-| Lint      | `pnpm lint`                                                                | exit 0                |
+| Purpose   | Command                                                          | Expected on success |
+| --------- | ---------------------------------------------------------------- | ------------------- |
+| Build     | `pnpm --filter svelte-vitals --filter @svelte-vitals/vite build` | exit 0              |
+| Typecheck | 同2パッケージ `typecheck`                                        | exit 0              |
+| Tests     | 同2パッケージ `test`                                             | all pass            |
+| Lint      | `pnpm lint`                                                      | exit 0              |
 
 ## Git workflow
 

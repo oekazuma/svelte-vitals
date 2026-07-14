@@ -95,12 +95,12 @@ packages:
 
 ## Commands you will need
 
-| Purpose                  | Command                                | Expected on success |
-| ------------------------- | ---------------------------------------- | -------------------- |
-| ワークスペース確認        | `pnpm -r list --depth -1`               | `docs/demo` が一覧に出る |
-| lockfile 整合性確認       | `pnpm install`                          | exit 0、lockfile 更新が妥当であること |
-| 全体ビルド/テスト         | `pnpm build && pnpm typecheck && pnpm test` | exit 0 / all pass |
-| lint                       | `pnpm lint`                              | exit 0                |
+| Purpose             | Command                                     | Expected on success                   |
+| ------------------- | ------------------------------------------- | ------------------------------------- |
+| ワークスペース確認  | `pnpm -r list --depth -1`                   | `docs/demo` が一覧に出る              |
+| lockfile 整合性確認 | `pnpm install`                              | exit 0、lockfile 更新が妥当であること |
+| 全体ビルド/テスト   | `pnpm build && pnpm typecheck && pnpm test` | exit 0 / all pass                     |
+| lint                | `pnpm lint`                                 | exit 0                                |
 
 ## Scope
 
@@ -155,8 +155,8 @@ packages:
 `corepack use` to match it automatically」)にしてもよいが、必須ではない。数字を
 更新するだけでも Done criteria は満たす。
 
-**Verify**: `grep "pnpm \`11.11.0\`" CONTRIBUTING.md` がヒットすること
-(実際の `package.json` の値と手動で突き合わせる — ハードコードするなら正しい値を)。
+**Verify**: `grep "pnpm \`11.11.0\`" CONTRIBUTING.md`がヒットすること
+(実際の`package.json` の値と手動で突き合わせる — ハードコードするなら正しい値を)。
 
 ### Step 3: `docs/demo` を pnpm workspace に含める
 

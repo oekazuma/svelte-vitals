@@ -111,6 +111,7 @@ const comp = (imports: string[]): ComponentFacts => ({
 ```
 
 このヘルパーが PERF009/PERF010 両方のテストで使われている(47行目・91行目付近)。
+
 - **抑制の仕組み** — `packages/core/src/rules/component-rule.ts:35-37`(`isSuppressed`)
   と 58行目(`bad.filter((b) => !(b.line > 0 && isSuppressed(...)))`)。今回のフィックス
   はこの2箇所を変更しない — PERF009 が正しい `line` を渡すようになれば、既存の抑制ロジ
@@ -128,13 +129,13 @@ PERF009 はそちらを見るように変更する。これは加法的変更で
 
 ## Commands you will need
 
-| Purpose   | Command                                        | Expected on success |
-| --------- | ----------------------------------------------- | -------------------- |
-| Build     | `pnpm --filter @svelte-vitals/core build`      | exit 0                |
-| Typecheck | `pnpm --filter @svelte-vitals/core typecheck`  | exit 0                |
-| Tests     | `pnpm --filter @svelte-vitals/core test`       | all pass              |
-| Lint      | `pnpm lint`                                     | exit 0                |
-| 全体確認  | `pnpm build && pnpm typecheck && pnpm test`    | exit 0 / all pass     |
+| Purpose   | Command                                       | Expected on success |
+| --------- | --------------------------------------------- | ------------------- |
+| Build     | `pnpm --filter @svelte-vitals/core build`     | exit 0              |
+| Typecheck | `pnpm --filter @svelte-vitals/core typecheck` | exit 0              |
+| Tests     | `pnpm --filter @svelte-vitals/core test`      | all pass            |
+| Lint      | `pnpm lint`                                   | exit 0              |
+| 全体確認  | `pnpm build && pnpm typecheck && pnpm test`   | exit 0 / all pass   |
 
 ## Scope
 
@@ -177,8 +178,12 @@ PERF009 はそちらを見るように変更する。これは加法的変更で
 ールドにする — `?` を付けない):
 
 ```ts
-  /** Module specifiers of every `import`, each with its source line (Bundle PERF009). */
-  importSpans: { source: string; line: number }[];
+/** Module specifiers of every `import`, each with its source line (Bundle PERF009). */
+importSpans: {
+  source: string;
+  line: number;
+}
+[];
 ```
 
 **Verify**: `pnpm --filter @svelte-vitals/core typecheck` → この時点ではまだ他のファイ
@@ -225,7 +230,7 @@ function collectImportSources(program: Node, source: string, acc: { source: stri
 導出する(二重の AST 走査を避ける):
 
 ```ts
-  const imports = importSpans.map((s) => s.source);
+const imports = importSpans.map((s) => s.source);
 ```
 
 (この1行を、`imports`/`namespaceImports` を集め終えた直後、戻り値オブジェクトを組み立
@@ -289,6 +294,7 @@ source, line: i + 1 }))` のように仮の行番号を生成してもよいが�
 ルパー引数なので変更不要。
 
 追加すべきテストケース(新規):
+
 - `lodash` を import しているコンポーネントで PERF009 の finding が `line: 0` ではな
   く実際の import 文の行番号を持つこと。
 - 同じ重い import に対して `// svelte-vitals-disable-next-line PERF009` を直前行に置

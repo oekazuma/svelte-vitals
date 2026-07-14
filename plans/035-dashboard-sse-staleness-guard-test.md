@@ -31,13 +31,18 @@
 ガードを持つ:
 
 ```js
-  function fetchSnapshot() {
-    fetch('/__svelte-vitals/data.json').then(function (r) { return r.json(); }).then(function (data) {
+function fetchSnapshot() {
+  fetch('/__svelte-vitals/data.json')
+    .then(function (r) {
+      return r.json();
+    })
+    .then(function (data) {
       if (state.snapshot && data.sequence <= state.snapshot.sequence) return;
       state.snapshot = data;
       renderAll();
-    }).catch(function () {});
-  }
+    })
+    .catch(function () {});
+}
 ```
 
 これは「複数回の再解析がほぼ同時に走ったとき、古いレスポンスが後から届いて新しい
@@ -96,12 +101,12 @@
 
 ## Commands you will need
 
-| Purpose   | Command                                    | Expected on success |
-| --------- | --------------------------------------------- | -------------------- |
-| Install   | `pnpm install`(jsdom 追加後)                | exit 0                |
-| Tests     | `pnpm --filter @svelte-vitals/vite test`     | all pass              |
-| Typecheck | `pnpm --filter @svelte-vitals/vite typecheck`| exit 0                |
-| Lint      | `pnpm lint`                                    | exit 0                |
+| Purpose   | Command                                       | Expected on success |
+| --------- | --------------------------------------------- | ------------------- |
+| Install   | `pnpm install`(jsdom 追加後)                  | exit 0              |
+| Tests     | `pnpm --filter @svelte-vitals/vite test`      | all pass            |
+| Typecheck | `pnpm --filter @svelte-vitals/vite typecheck` | exit 0              |
+| Lint      | `pnpm lint`                                   | exit 0              |
 
 ## Scope
 
@@ -136,7 +141,7 @@
 倣う):
 
 ```yaml
-  jsdom: ^27.0.0
+jsdom: ^27.0.0
 ```
 
 (実際の最新安定版バージョンを確認して埋めること — 推測でバージョン番号を固定しない。
@@ -269,34 +274,34 @@ dispatch することで `fetchSnapshot()` を間接的に駆動する必要が�
 テスト本体:
 
 ```ts
-  it('discards an out-of-order response with a lower or equal sequence', async () => {
-    // fetchSnapshot() is called once on 'open' (boot()'s open handler) — resolve it
-    // with sequence 5 so state.snapshot.sequence becomes 5.
-    fetchMock.mockResolvedValueOnce({ json: () => Promise.resolve(JSON.parse(snapshotJson(5))) });
+it('discards an out-of-order response with a lower or equal sequence', async () => {
+  // fetchSnapshot() is called once on 'open' (boot()'s open handler) — resolve it
+  // with sequence 5 so state.snapshot.sequence becomes 5.
+  fetchMock.mockResolvedValueOnce({ json: () => Promise.resolve(JSON.parse(snapshotJson(5))) });
 
-    (0, eval)(DASHBOARD_SCRIPT);
-    esInstances[0]!.dispatch('open');
-    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+  (0, eval)(DASHBOARD_SCRIPT);
+  esInstances[0]!.dispatch('open');
+  await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
 
-    // Now simulate a SECOND 'update' event whose fetch resolves with an OLDER
-    // sequence (4) than what's already rendered (5) — the guard must discard it.
-    fetchMock.mockResolvedValueOnce({ json: () => Promise.resolve(JSON.parse(snapshotJson(4, { analyzing: true }))) });
-    esInstances[0]!.dispatch('update');
-    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
+  // Now simulate a SECOND 'update' event whose fetch resolves with an OLDER
+  // sequence (4) than what's already rendered (5) — the guard must discard it.
+  fetchMock.mockResolvedValueOnce({ json: () => Promise.resolve(JSON.parse(snapshotJson(4, { analyzing: true }))) });
+  esInstances[0]!.dispatch('update');
+  await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
 
-    // Assert the stale response was NOT applied: the topbar (rendered from
-    // state.snapshot) must still reflect analyzing: false, not the stale true.
-    // (Exact assertion depends on what renderTopbar() actually reflects for
-    // `analyzing` — read renderTopbar()'s implementation in Step 2 and assert on
-    // whatever DOM output distinguishes sequence-5 state from sequence-4 state.)
-    expect(document.getElementById('dv-topbar')!.innerHTML).not.toContain(/* sequence-4-specific marker */);
-  });
+  // Assert the stale response was NOT applied: the topbar (rendered from
+  // state.snapshot) must still reflect analyzing: false, not the stale true.
+  // (Exact assertion depends on what renderTopbar() actually reflects for
+  // `analyzing` — read renderTopbar()'s implementation in Step 2 and assert on
+  // whatever DOM output distinguishes sequence-5 state from sequence-4 state.)
+  expect(document.getElementById('dv-topbar')!.innerHTML).not.toContain(/* sequence-4-specific marker */);
+});
 
-  it('applies a newer response and updates the rendered state', async () => {
-    // Mirror of the above: resolve 'open' with sequence 5, then 'update' with
-    // sequence 6, and assert the NEW content IS reflected — proves the guard
-    // isn't simply discarding everything.
-  });
+it('applies a newer response and updates the rendered state', async () => {
+  // Mirror of the above: resolve 'open' with sequence 5, then 'update' with
+  // sequence 6, and assert the NEW content IS reflected — proves the guard
+  // isn't simply discarding everything.
+});
 ```
 
 具体的な DOM アサーション(コメントの `/* sequence-4-specific marker */` の部分)

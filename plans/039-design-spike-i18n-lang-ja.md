@@ -73,10 +73,10 @@ core の reporter 設計にそのまま乗るので、core/CLI/vite を CLI フ�
 
 このプランは調査/設計が主。関連ファイルを読むための grep 程度:
 
-| Purpose                        | Command                                                                 |
-| --------------------------------- | -------------------------------------------------------------------------- |
+| Purpose                                      | Command                                                                           |
+| -------------------------------------------- | --------------------------------------------------------------------------------- |
 | ルール文字列の再カウント(issue の数値を検証) | `grep -rc "message:\|recommendation:\|description:" packages/core/src/rules/*.ts` |
-| reporter の文字列棚卸し           | `packages/core/src/reporter/*.ts` を読む                                  |
+| reporter の文字列棚卸し                      | `packages/core/src/reporter/*.ts` を読む                                          |
 
 ## Scope
 

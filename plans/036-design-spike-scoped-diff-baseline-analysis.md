@@ -69,10 +69,10 @@
 このプランは実装ではなく調査/設計が主だが、プロトタイプ(Step 3)を書く場合は
 以下を使う:
 
-| Purpose   | Command                                  | Expected on success |
-| --------- | ------------------------------------------ | -------------------- |
-| Tests     | `pnpm --filter svelte-vitals test`       | all pass              |
-| Typecheck | `pnpm --filter svelte-vitals typecheck`  | exit 0                |
+| Purpose   | Command                                 | Expected on success |
+| --------- | --------------------------------------- | ------------------- |
+| Tests     | `pnpm --filter svelte-vitals test`      | all pass            |
+| Typecheck | `pnpm --filter svelte-vitals typecheck` | exit 0              |
 
 ## Scope
 

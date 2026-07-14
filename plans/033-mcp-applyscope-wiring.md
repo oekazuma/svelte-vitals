@@ -86,15 +86,15 @@ diff/baseline/suppressions に相当するフィールドがない。
 **参考実装 — `packages/action/src/index.ts:14-22`**(このプランが模倣する配線):
 
 ```ts
-  const analysis = await analyzeProject({ cwd: path });
-  const { config, version } = analysis;
-  const results = await applyScope(analysis.results, {
-    cwd: path,
-    config,
-    diffBase: diff,
-    baseline,
-    errorLog: (line) => core.warning(line)
-  });
+const analysis = await analyzeProject({ cwd: path });
+const { config, version } = analysis;
+const results = await applyScope(analysis.results, {
+  cwd: path,
+  config,
+  diffBase: diff,
+  baseline,
+  errorLog: (line) => core.warning(line)
+});
 ```
 
 **`applyScope` のシグネチャ** — `packages/cli/src/index.ts:209-288`
@@ -112,7 +112,7 @@ export interface ApplyScopeOptions {
   analyzeOpts?: AnalyzeOptions;
 }
 
-export async function applyScope(results: Result[], opts: ApplyScopeOptions): Promise<Result[]>
+export async function applyScope(results: Result[], opts: ApplyScopeOptions): Promise<Result[]>;
 ```
 
 `config` を渡さない呼び出しは suppressions の適用を完全にスキップする
@@ -127,12 +127,12 @@ when omitted, keeping such callers' behavior unchanged")。
 
 ## Commands you will need
 
-| Purpose   | Command                                    | Expected on success |
-| --------- | --------------------------------------------- | -------------------- |
-| Tests     | `pnpm --filter @svelte-vitals/mcp test`      | all pass              |
-| Typecheck | `pnpm --filter @svelte-vitals/mcp typecheck` | exit 0                |
-| Build     | `pnpm --filter @svelte-vitals/mcp build`     | exit 0                |
-| Lint      | `pnpm lint`                                    | exit 0                |
+| Purpose   | Command                                      | Expected on success |
+| --------- | -------------------------------------------- | ------------------- |
+| Tests     | `pnpm --filter @svelte-vitals/mcp test`      | all pass            |
+| Typecheck | `pnpm --filter @svelte-vitals/mcp typecheck` | exit 0              |
+| Build     | `pnpm --filter @svelte-vitals/mcp build`     | exit 0              |
+| Lint      | `pnpm lint`                                  | exit 0              |
 
 ## Scope
 
@@ -202,7 +202,14 @@ optional なので型エラーにはならない)。
 渡す:
 
 ```ts
-import { analyzeProject, applyScope, buildRulesConfig, findUnknownRuleIds, knownRuleIds, ProjectError } from 'svelte-vitals';
+import {
+  analyzeProject,
+  applyScope,
+  buildRulesConfig,
+  findUnknownRuleIds,
+  knownRuleIds,
+  ProjectError
+} from 'svelte-vitals';
 ```
 
 `handleAnalyze` の try ブロック内(既存の `analyzeProject` 呼び出しの直後)を以下の
@@ -238,6 +245,7 @@ import { analyzeProject, applyScope, buildRulesConfig, findUnknownRuleIds, known
 ```
 
 注意点:
+
 - `applyScope` は `cwd: string`(必須)を要求する。`analyzeProject` には
   `cwd: args.path`(`string | undefined`)を渡しているが、`analyzeProject` 内部で
   `opts.cwd ?? process.cwd()` としてデフォルト値を補っている(`packages/cli/src/index.ts:173`)
@@ -251,7 +259,7 @@ import { analyzeProject, applyScope, buildRulesConfig, findUnknownRuleIds, known
   こと(stdio トランスポートは stdout を JSON-RPC メッセージ専用に使うため、
   `console.error`(stderr)は安全なはずだが、既存コードで `errorLog` を渡す/渡さない
   の判断基準があるか `packages/action/src/index.ts` の `errorLog: (line) =>
-  core.warning(line)` のような明示的な指定パターンと比較して判断する)。
+core.warning(line)` のような明示的な指定パターンと比較して判断する)。
   デフォルトで問題なければ `errorLog` は省略してよい。
 
 **Verify**: `pnpm --filter @svelte-vitals/mcp typecheck && pnpm --filter @svelte-vitals/mcp build`

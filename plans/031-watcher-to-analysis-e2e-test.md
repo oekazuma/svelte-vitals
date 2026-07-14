@@ -74,19 +74,19 @@ watcher listener for source-change re-analysis」は `watcher.on` が `'all'` �
 `packages/vite/test/ui-plugin.test.ts:45-57`(既存の該当テスト、全文):
 
 ```ts
-  it('configureServer registers a watcher listener for source-change re-analysis', () => {
-    const plugins = svelteVitals({ ui: true }) as Plugin[];
-    const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
-    const watcherEvents: string[] = [];
-    const server = {
-      config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
-      watcher: { on: (event: string) => watcherEvents.push(event) },
-      middlewares: { use: () => {} }
-    } as unknown as ViteDevServer;
-    const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
-    (hook as (s: ViteDevServer) => void).call({}, server);
-    expect(watcherEvents).toContain('all');
-  });
+it('configureServer registers a watcher listener for source-change re-analysis', () => {
+  const plugins = svelteVitals({ ui: true }) as Plugin[];
+  const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
+  const watcherEvents: string[] = [];
+  const server = {
+    config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
+    watcher: { on: (event: string) => watcherEvents.push(event) },
+    middlewares: { use: () => {} }
+  } as unknown as ViteDevServer;
+  const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
+  (hook as (s: ViteDevServer) => void).call({}, server);
+  expect(watcherEvents).toContain('all');
+});
 ```
 
 このテストのモック `server.watcher.on` はイベント名を配列に push するだけで、渡され
@@ -106,10 +106,10 @@ watcher listener for source-change re-analysis」は `watcher.on` が `'all'` �
 ## Commands you will need
 
 | Purpose   | Command                                       | Expected on success |
-| --------- | ----------------------------------------------- | -------------------- |
-| Tests     | `pnpm --filter @svelte-vitals/vite test`      | all pass              |
-| Typecheck | `pnpm --filter @svelte-vitals/vite typecheck` | exit 0                |
-| Lint      | `pnpm lint`                                     | exit 0                |
+| --------- | --------------------------------------------- | ------------------- |
+| Tests     | `pnpm --filter @svelte-vitals/vite test`      | all pass            |
+| Typecheck | `pnpm --filter @svelte-vitals/vite typecheck` | exit 0              |
+| Lint      | `pnpm lint`                                   | exit 0              |
 
 ## Scope
 
@@ -140,24 +140,24 @@ watcher listener for source-change re-analysis」は `watcher.on` が `'all'` �
 も保持するように変更する(または新しい `it` ブロックでこれを行う):
 
 ```ts
-  it('the watcher callback triggers re-analysis for a relevant file and skips an irrelevant one', () => {
-    const plugins = svelteVitals({ ui: true }) as Plugin[];
-    const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
-    let watcherCallback: ((event: string, file: string) => void) | undefined;
-    const server = {
-      config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
-      watcher: {
-        on: (_event: string, cb: (event: string, file: string) => void) => {
-          watcherCallback = cb;
-        }
-      },
-      middlewares: { use: () => {} }
-    } as unknown as ViteDevServer;
-    const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
-    (hook as (s: ViteDevServer) => void).call({}, server);
-    expect(watcherCallback).toBeDefined();
-    // ... 続きは Step 2
-  });
+it('the watcher callback triggers re-analysis for a relevant file and skips an irrelevant one', () => {
+  const plugins = svelteVitals({ ui: true }) as Plugin[];
+  const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
+  let watcherCallback: ((event: string, file: string) => void) | undefined;
+  const server = {
+    config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
+    watcher: {
+      on: (_event: string, cb: (event: string, file: string) => void) => {
+        watcherCallback = cb;
+      }
+    },
+    middlewares: { use: () => {} }
+  } as unknown as ViteDevServer;
+  const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
+  (hook as (s: ViteDevServer) => void).call({}, server);
+  expect(watcherCallback).toBeDefined();
+  // ... 続きは Step 2
+});
 ```
 
 ### Step 2: `runner.notifyChange` が呼ばれた/呼ばれないことを観測する
@@ -189,14 +189,14 @@ import { svelteVitals } from '../src/index.js';
 このモックを使い、Step 1 で捕捉した `watcherCallback` を実際に呼び出す:
 
 ```ts
-    watcherCallback!('change', '/tmp/does-not-exist-svelte-vitals-ui-plugin-test/src/routes/+page.svelte');
-    expect(mockNotifyChange).toHaveBeenCalledWith(
-      '/tmp/does-not-exist-svelte-vitals-ui-plugin-test/src/routes/+page.svelte'
-    );
+watcherCallback!('change', '/tmp/does-not-exist-svelte-vitals-ui-plugin-test/src/routes/+page.svelte');
+expect(mockNotifyChange).toHaveBeenCalledWith(
+  '/tmp/does-not-exist-svelte-vitals-ui-plugin-test/src/routes/+page.svelte'
+);
 
-    mockNotifyChange.mockClear();
-    watcherCallback!('change', '/tmp/does-not-exist-svelte-vitals-ui-plugin-test/node_modules/foo/index.js');
-    expect(mockNotifyChange).not.toHaveBeenCalled();
+mockNotifyChange.mockClear();
+watcherCallback!('change', '/tmp/does-not-exist-svelte-vitals-ui-plugin-test/node_modules/foo/index.js');
+expect(mockNotifyChange).not.toHaveBeenCalled();
 ```
 
 (2つ目のケースは `node_modules` 配下なので `isRelevant` が false を返すはずのパス —

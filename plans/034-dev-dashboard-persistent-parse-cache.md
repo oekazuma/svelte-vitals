@@ -138,17 +138,17 @@ export type AnalyzeFn = (opts: {
 
 - **`plugin.ts` の呼び出し元**(既に読了済み) — `runner.notifyChange(file)` は
   `server.watcher.on('all', (_event, file) => { if (isRelevant(file, uiRoot))
-  runner.notifyChange(file); })` から、Vite の watcher が渡す**絶対パス**で呼ばれる。
+runner.notifyChange(file); })` から、Vite の watcher が渡す**絶対パス**で呼ばれる。
   `uiRoot`(= `options.cwd ?? server.config.root`)がプロジェクトルート。
 
 ## Commands you will need
 
-| Purpose   | Command                                                        | Expected on success |
-| --------- | ----------------------------------------------------------------- | -------------------- |
-| Tests     | `pnpm --filter @svelte-vitals/core test --filter svelte-vitals test --filter @svelte-vitals/vite test`(または各パッケージ個別に) | all pass |
-| Typecheck | `pnpm typecheck`                                                 | exit 0                |
-| Build     | `pnpm build`                                                     | exit 0                |
-| Lint      | `pnpm lint`                                                       | exit 0                |
+| Purpose   | Command                                                                                                                          | Expected on success |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| Tests     | `pnpm --filter @svelte-vitals/core test --filter svelte-vitals test --filter @svelte-vitals/vite test`(または各パッケージ個別に) | all pass            |
+| Typecheck | `pnpm typecheck`                                                                                                                 | exit 0              |
+| Build     | `pnpm build`                                                                                                                     | exit 0              |
+| Lint      | `pnpm lint`                                                                                                                      | exit 0              |
 
 ## Scope
 
@@ -246,7 +246,7 @@ export interface AnalyzeOptions {
 `analyzeProject` 実装内の `collectRoutes` 呼び出し(192行目)を更新:
 
 ```ts
-  const collected = await collectRoutes(rt, cwd, config, opts.parseCache);
+const collected = await collectRoutes(rt, cwd, config, opts.parseCache);
 ```
 
 ファイル冒頭の import に `ParseCache` 型を追加(`collectRoutes` と同じ
@@ -298,14 +298,14 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunne
 `runOnce` の `analyze(...)` 呼び出しに `parseCache` を渡す:
 
 ```ts
-      const { results } = await analyze({
-        cwd: opts.root,
-        treatDynamicAs: opts.treatDynamicAs,
-        metaComponents: opts.metaComponents,
-        rules: opts.rules,
-        failOn: opts.failOn,
-        parseCache
-      });
+const { results } = await analyze({
+  cwd: opts.root,
+  treatDynamicAs: opts.treatDynamicAs,
+  metaComponents: opts.metaComponents,
+  rules: opts.rules,
+  failOn: opts.failOn,
+  parseCache
+});
 ```
 
 `getAnalyze()`(production 実装、`svelte-vitals` を dynamic import する箇所)は
@@ -357,7 +357,7 @@ import { relative, sep } from 'node:path';
    `toBe`(参照同一性)でアサートする — これが「キャッシュが使い回されている」
    ことの直接証拠。
 2. `parseCache` に事前に(テストが)ダミーのエントリ(`cache.set('src/routes/+page.svelte',
-   Promise.resolve(...))` 相当 — モックの `AnalyzeFn` が受け取った `parseCache`
+Promise.resolve(...))` 相当 — モックの `AnalyzeFn` が受け取った `parseCache`
    引数に対して行う)を入れておき、`notifyChange(absolutePathToThatFile)` を
    呼んだ後、そのキーが削除されていること、かつ**無関係な別のキーは残っている**
    ことをアサートする。
