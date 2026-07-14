@@ -144,10 +144,12 @@ export const DASHBOARD_SCRIPT = `
 
   function copyToClipboard(text, btn) {
     var original = 'Copy';
-    function done() {
-      btn.textContent = 'Copied!';
+    function reset(label) {
+      btn.textContent = label;
       setTimeout(function () { btn.textContent = original; }, 1500);
     }
+    function done() { reset('Copied!'); }
+    function fail() { reset('Copy failed'); }
     function fallbackCopy() {
       var ta = document.createElement('textarea');
       ta.value = text;
@@ -156,14 +158,15 @@ export const DASHBOARD_SCRIPT = `
       ta.style.opacity = '0';
       document.body.appendChild(ta);
       ta.select();
-      try { document.execCommand('copy'); } catch (e) {}
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
       document.body.removeChild(ta);
+      return ok;
     }
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(); done(); });
+      navigator.clipboard.writeText(text).then(done, function () { fallbackCopy() ? done() : fail(); });
     } else {
-      fallbackCopy();
-      done();
+      fallbackCopy() ? done() : fail();
     }
   }
 
