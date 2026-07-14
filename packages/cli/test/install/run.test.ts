@@ -396,8 +396,10 @@ describe('runInstall — agent targets', () => {
     let seenOptions: string[] = [];
     const prompts: InstallPrompts = {
       ...noPrompts,
-      selectClients: async (all) => {
-        seenOptions = all.map((o) => o.id);
+      selectClients: async (groups) => {
+        seenOptions = Object.values(groups)
+          .flat()
+          .map((o) => o.id);
         return null;
       }
     };
@@ -470,13 +472,126 @@ describe('runInstall — config-file target', () => {
     let seenOptions: string[] = [];
     const prompts: InstallPrompts = {
       ...noPrompts,
-      selectClients: async (all) => {
-        seenOptions = all.map((o) => o.id);
+      selectClients: async (groups) => {
+        seenOptions = Object.values(groups)
+          .flat()
+          .map((o) => o.id);
         return null;
       }
     };
     await runInstall({}, io, prompts);
     expect(seenOptions).toContain('config-file');
+  });
+});
+
+describe('runInstall — ci-workflow target', () => {
+  it('ci-workflow: not present → created, content calls @svelte-vitals/action', async () => {
+    const { io, writes } = fakeIO();
+    const code = await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    const content = writes['/proj/.github/workflows/svelte-vitals.yml'];
+    expect(content).toContain('name: svelte-vitals');
+    expect(content).toContain('oekazuma/svelte-vitals/packages/action@');
+  });
+
+  it('a second run without --force reports exists and writes nothing', async () => {
+    const first = fakeIO();
+    await runInstall({ client: ['ci-workflow'], yes: true }, first.io, noPrompts);
+    const existing = first.writes['/proj/.github/workflows/svelte-vitals.yml']!;
+    const { io, writes, out } = fakeIO({ files: { '/proj/.github/workflows/svelte-vitals.yml': existing } });
+    const code = await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes).toEqual({});
+    expect(out.join('\n')).toContain('already configured');
+    expect(out.join('\n')).toContain('--force to overwrite');
+  });
+
+  it('--force regenerates an already-existing workflow file', async () => {
+    const { io, writes } = fakeIO({
+      files: { '/proj/.github/workflows/svelte-vitals.yml': 'stale content' }
+    });
+    const code = await runInstall({ client: ['ci-workflow'], yes: true, force: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes['/proj/.github/workflows/svelte-vitals.yml']).toContain('name: svelte-vitals');
+    expect(writes['/proj/.github/workflows/svelte-vitals.yml']).not.toBe('stale content');
+  });
+
+  it('dry-run does not write the workflow file', async () => {
+    const { io, writes, out } = fakeIO();
+    const code = await runInstall({ client: ['ci-workflow'], dryRun: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes).toEqual({});
+    expect(out.join('\n')).toContain('Dry run');
+  });
+
+  it('a plan can mix an MCP client and the ci-workflow target in one run', async () => {
+    const { io, writes } = fakeIO();
+    await runInstall({ client: ['claude-code', 'ci-workflow'], scope: 'project', yes: true }, io, noPrompts);
+    expect(Object.keys(writes).sort()).toEqual(['/proj/.github/workflows/svelte-vitals.yml', '/proj/.mcp.json']);
+  });
+
+  it('interactive picker options include the ci-workflow target, grouped under "CI (GitHub Actions)"', async () => {
+    const { io } = fakeIO({ isTTY: true });
+    let seenGroups: Record<string, string[]> = {};
+    const prompts: InstallPrompts = {
+      ...noPrompts,
+      selectClients: async (groups) => {
+        seenGroups = Object.fromEntries(Object.entries(groups).map(([group, opts]) => [group, opts.map((o) => o.id)]));
+        return null;
+      }
+    };
+    await runInstall({}, io, prompts);
+    expect(seenGroups['CI (GitHub Actions)']).toEqual(['ci-workflow']);
+  });
+
+  it('pre-selects ci-workflow in the interactive picker when the workflow file already exists', async () => {
+    const { io } = fakeIO({ isTTY: true, files: { '/proj/.github/workflows/svelte-vitals.yml': 'existing' } });
+    let seenDefaults: string[] = [];
+    const prompts: InstallPrompts = {
+      ...noPrompts,
+      selectClients: async (_groups, defaults) => {
+        seenDefaults = defaults;
+        return null;
+      }
+    };
+    await runInstall({}, io, prompts);
+    expect(seenDefaults).toContain('ci-workflow');
+  });
+});
+
+describe('runInstall — grouped interactive picker', () => {
+  it('groups options by category: MCP server, Vite integration, Agent Skills & rules, CI, Config file', async () => {
+    const { io } = fakeIO({ isTTY: true });
+    let seenGroupNames: string[] = [];
+    const prompts: InstallPrompts = {
+      ...noPrompts,
+      selectClients: async (groups) => {
+        seenGroupNames = Object.keys(groups);
+        return null;
+      }
+    };
+    await runInstall({}, io, prompts);
+    expect(seenGroupNames).toEqual([
+      'MCP server',
+      'Vite integration',
+      'Agent Skills & rules',
+      'CI (GitHub Actions)',
+      'Config file'
+    ]);
+  });
+
+  it('MCP server group contains exactly the three MCP client ids', async () => {
+    const { io } = fakeIO({ isTTY: true });
+    let mcpGroup: string[] = [];
+    const prompts: InstallPrompts = {
+      ...noPrompts,
+      selectClients: async (groups) => {
+        mcpGroup = (groups['MCP server'] ?? []).map((o) => o.id);
+        return null;
+      }
+    };
+    await runInstall({}, io, prompts);
+    expect(mcpGroup).toEqual(['claude-code', 'cursor', 'codex']);
   });
 });
 

@@ -10,14 +10,15 @@ import { readPackageVersion } from '../version.js';
 import type { ClientWriter, Scope } from './clients.js';
 import type { SelectableOption, TargetId } from './index.js';
 
-const INSTALL_HELP = `svelte-vitals install — set up the svelte-vitals MCP server, Vite integration, and agent skills/rules
+const INSTALL_HELP = `svelte-vitals install — set up the svelte-vitals MCP server, Vite integration, agent skills/rules, and CI
 
 Usage:
   svelte-vitals install [options]
 
 Options:
-  --client <ids>    Comma-separated: claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file
-                    (skips the interactive picker)
+  --client <ids>    Comma-separated: claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow
+                    (skips the interactive picker; the picker groups these by category —
+                    MCP server, Vite integration, Agent Skills & rules, CI, Config file)
                     vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-hooks
                     wires up the svelteVitalsHandle hook in src/hooks.server.{ts,js}, which improves the
                     live dashboard's per-route accuracy as you browse. --force does not apply
@@ -32,6 +33,10 @@ Options:
                     supports --force.
                     config-file scaffolds svelte-vitals.config.mjs with every option commented out;
                     supports --force to regenerate.
+                    ci-workflow scaffolds .github/workflows/svelte-vitals.yml, the same file
+                    \`svelte-vitals ci install\` writes standalone — pick it here to set it up in
+                    the same pass as everything else; supports --force to regenerate. \`svelte-vitals
+                    ci upgrade\` remains the way to bump an existing workflow's pinned action version.
   --scope <scope>   project | global (applies to all selected clients; codex is always global)
   --yes, -y         Skip the confirmation prompt
   --dry-run         Print the planned changes and exit without writing
@@ -82,10 +87,15 @@ export function realIO(): InstallIO {
 
 function clackPrompts(): InstallPrompts {
   return {
-    selectClients: async (all: SelectableOption[], defaults: TargetId[]) => {
-      const res = await p.multiselect({
+    selectClients: async (groups: Record<string, SelectableOption[]>, defaults: TargetId[]) => {
+      const res = await p.groupMultiselect({
         message: 'Which clients/targets should svelte-vitals be installed for?',
-        options: all.map((o) => ({ value: o.id, label: o.label, hint: o.hint })),
+        options: Object.fromEntries(
+          Object.entries(groups).map(([group, opts]) => [
+            group,
+            opts.map((o) => ({ value: o.id, label: o.label, hint: o.hint }))
+          ])
+        ),
         initialValues: defaults,
         required: true
       });

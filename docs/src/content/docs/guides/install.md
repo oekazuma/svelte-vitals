@@ -11,11 +11,11 @@ Interactively set up the svelte-vitals [MCP server](/svelte-vitals/guides/mcp/),
 npx svelte-vitals@latest install
 ```
 
-With no flags it launches an interactive wizard: pick your clients/targets, choose a scope per client, review the plan, and confirm. For non-interactive/CI use, drive it entirely with flags.
+With no flags it launches an interactive wizard: pick your clients/targets, choose a scope per client, review the plan, and confirm. The picker groups targets by category — **MCP server**, **Vite integration**, **Agent Skills & rules**, **CI (GitHub Actions)**, **Config file** — so it's clear what each one is for even with nine targets on offer. For non-interactive/CI use, drive it entirely with flags.
 
 ## `--client <ids>`
 
-Comma-separated clients/targets to configure: `claude-code`, `cursor`, `codex`, `vite-plugin`, `vite-hooks`, `claude-skill`, `cursor-rules`, `claude-skill-improve`, `config-file`. When given, the interactive picker is skipped.
+Comma-separated clients/targets to configure: `claude-code`, `cursor`, `codex`, `vite-plugin`, `vite-hooks`, `claude-skill`, `cursor-rules`, `claude-skill-improve`, `config-file`, `ci-workflow`. When given, the interactive picker is skipped.
 
 `vite-plugin` registers `@svelte-vitals/vite`'s build-mode plugin in `vite.config.{ts,js,mjs}` (its live dashboard is on by default); `vite-hooks` wires up the `svelteVitalsHandle` hook in `src/hooks.server.{ts,js}`, which improves the dashboard's per-route accuracy as you browse. Both use a `magicast` codemod that only touches a file whose shape it confidently recognizes — anything else is left alone and a snippet is printed instead. If either is written and `@svelte-vitals/vite` isn't already a dependency, it's installed automatically via the detected package manager. **`--force` does not apply to these two** — an existing registration is always left as-is regardless of the flag.
 
@@ -25,9 +25,11 @@ Comma-separated clients/targets to configure: `claude-code`, `cursor`, `codex`, 
 
 `config-file` scaffolds `svelte-vitals.config.mjs` with every option (`treatDynamicAs`, `metaComponents`, `rules`, `failOn`, `weights`) commented out — see [Config file](/svelte-vitals/guides/configuration/). Like the agent targets, it's fully regenerated, so **`--force` does apply**.
 
+`ci-workflow` scaffolds `.github/workflows/svelte-vitals.yml`, the same file the standalone [`svelte-vitals ci install`](/svelte-vitals/guides/ci/) command writes — pick it here to set up CI in the same pass as everything else, instead of a separate command. It's fully regenerated, so **`--force` does apply**; `svelte-vitals ci upgrade` (not part of this wizard) remains the way to bump an existing workflow's pinned action version without touching anything else in the file.
+
 ## `--scope <project|global>`
 
-Where to write the config. Applies to all selected clients; **Codex is always global** (it has no project-scoped config). (Vite targets, agent skill/rules targets, and the config-file target have no scope and ignore this flag.)
+Where to write the config. Applies to all selected clients; **Codex is always global** (it has no project-scoped config). (Vite targets, agent skill/rules targets, the config-file target, and the ci-workflow target have no scope and ignore this flag.)
 
 | Client      | project            | global                 |
 | ----------- | ------------------ | ---------------------- |
@@ -60,6 +62,9 @@ npx svelte-vitals@latest install --client codex --dry-run
 
 # Regenerate any already-installed agent skill/rules files after adding a rule
 npx svelte-vitals@latest install --refresh
+
+# Set up CI in the same pass as everything else
+npx svelte-vitals@latest install --client claude-code,ci-workflow --yes
 ```
 
 If an existing config can't be parsed, the command fails without writing (exit `2`) rather than overwriting it.

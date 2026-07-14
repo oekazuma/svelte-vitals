@@ -16,6 +16,7 @@ import {
   type ConfigTarget,
   type ConfigTargetId
 } from './config-targets.js';
+import { CI_TARGETS, ciTargetById, isCiTargetId, type CiTarget, type CiTargetId } from './ci-targets.js';
 import { buildSkillMarkdown, buildCursorRules } from './skill-content.js';
 import { buildImproveSkillMarkdown } from './improve-skill-content.js';
 import { buildConfigFileTemplate } from './config-content.js';
@@ -23,8 +24,10 @@ import { codemodViteConfig } from './codemod-vite-config.js';
 import { codemodHooksServer } from './codemod-hooks.js';
 import { detectPackageManager, hasVitePackage, installCommand, readInstalledViteVersion } from './package-manager.js';
 import type { WriteStatus } from './codemod-types.js';
+import { planWorkflowWrite, buildWorkflowYaml } from '../ci/workflow.js';
+import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
 
-export type TargetId = ClientId | ViteTargetId | AgentTargetId | ConfigTargetId;
+export type TargetId = ClientId | ViteTargetId | AgentTargetId | ConfigTargetId | CiTargetId;
 
 export interface InstallIO {
   /** File contents, or undefined if the file does not exist. */
@@ -47,8 +50,13 @@ export interface SelectableOption {
 }
 
 export interface InstallPrompts {
-  /** Returns chosen target ids (clients and/or Vite targets), or null when cancelled. */
-  selectClients(all: SelectableOption[], defaults: TargetId[]): Promise<TargetId[] | null>;
+  /**
+   * Returns chosen target ids, or null when cancelled. Options are pre-grouped by
+   * category (group label → options) so the picker can render them as distinct
+   * sections (MCP server / Vite integration / Agent Skills & rules / CI / Config file)
+   * instead of one flat list.
+   */
+  selectClients(groups: Record<string, SelectableOption[]>, defaults: TargetId[]): Promise<TargetId[] | null>;
   /** Returns chosen scope, or null when cancelled. */
   selectScope(client: ClientWriter): Promise<Scope | null>;
   confirm(planText: string): Promise<boolean>;
@@ -148,6 +156,20 @@ function planForConfigTarget(target: ConfigTarget, io: InstallIO, force: boolean
   const content = buildConfigFileTemplate();
   const status: WriteStatus = existing === undefined ? 'created' : force ? 'updated' : 'exists';
   return { id: target.id, label: target.label, path, status, content };
+}
+
+/**
+ * Plan the CI workflow scaffolder — the same writer `svelte-vitals ci install` uses
+ * (planWorkflowWrite/buildWorkflowYaml), exposed as one more selectable target so it
+ * doesn't require a separate command in the common case.
+ */
+function planForCiTarget(target: CiTarget, io: InstallIO, force: boolean): PlanRow {
+  const path = join(io.cwd, target.relPath);
+  const existing = io.readFile(path);
+  const plan = planWorkflowWrite(existing, force);
+  const content =
+    plan.status === 'exists' ? undefined : buildWorkflowYaml({ actionSha: ACTION_SHA, actionVersion: ACTION_VERSION });
+  return { id: target.id, label: target.label, path, status: plan.status, content };
 }
 
 function indent(text: string): string {
@@ -257,18 +279,24 @@ export async function runInstall(
       ...(claudeSkillDetected ? (['claude-skill'] as const) : []),
       ...(cursorRulesDetected ? (['cursor-rules'] as const) : [])
     ];
+    const ciWorkflowDetected = configExists(join(io.cwd, CI_TARGETS[0]!.relPath));
     const detected: TargetId[] = [
       ...detectedClients,
       ...(viteConfigExists ? VITE_TARGETS.map((t) => t.id) : []),
-      ...detectedAgents
+      ...detectedAgents,
+      ...(ciWorkflowDetected ? CI_TARGETS.map((t) => t.id) : [])
     ];
-    const options: SelectableOption[] = [
-      ...CLIENTS.map((c) => ({ id: c.id, label: c.label })),
-      ...VITE_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
-      ...AGENT_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
-      ...CONFIG_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint }))
-    ];
-    const picked = await prompts.selectClients(options, detected);
+    // Grouped by category so the picker renders distinct sections instead of one flat
+    // list — flattening all four/five target types together made it hard to tell what
+    // an id was for (an MCP client vs. a Vite target vs. an agent skill vs. a one-off).
+    const groups: Record<string, SelectableOption[]> = {
+      'MCP server': CLIENTS.map((c) => ({ id: c.id, label: c.label })),
+      'Vite integration': VITE_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
+      'Agent Skills & rules': AGENT_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
+      'CI (GitHub Actions)': CI_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
+      'Config file': CONFIG_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint }))
+    };
+    const picked = await prompts.selectClients(groups, detected);
     if (picked === null) {
       io.log('Cancelled.');
       return 0;
@@ -276,7 +304,7 @@ export async function runInstall(
     ids = picked;
   } else {
     io.errorLog(
-      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file> to install non-interactively.'
+      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow> to install non-interactively.'
     );
     return 2;
   }
@@ -285,7 +313,14 @@ export async function runInstall(
   const viteIds = ids.filter(isViteTargetId);
   const agentIds = ids.filter(isAgentTargetId);
   const configIds = ids.filter(isConfigTargetId);
-  if (clients.length === 0 && viteIds.length === 0 && agentIds.length === 0 && configIds.length === 0) {
+  const ciIds = ids.filter(isCiTargetId);
+  if (
+    clients.length === 0 &&
+    viteIds.length === 0 &&
+    agentIds.length === 0 &&
+    configIds.length === 0 &&
+    ciIds.length === 0
+  ) {
     io.errorLog('svelte-vitals: no valid clients or targets selected.');
     return 2;
   }
@@ -335,6 +370,10 @@ export async function runInstall(
   for (const configId of configIds) {
     const target = configTargetById(configId)!;
     rows.push(planForConfigTarget(target, io, flags.force ?? false));
+  }
+  for (const ciId of ciIds) {
+    const target = ciTargetById(ciId)!;
+    rows.push(planForCiTarget(target, io, flags.force ?? false));
   }
 
   // 3. Preview.

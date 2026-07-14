@@ -19,6 +19,12 @@ npx svelte-vitals@latest ci install
 これにより `.github/workflows/svelte-vitals.yml` が書き出されます。コミットしてプルリクエスト
 を開けば、実行される様子を確認できます。
 
+MCP サーバー・Vite との連携・Agent Skills と一緒にセットアップしたい場合は、
+[`svelte-vitals install`](/svelte-vitals/ja/guides/install/#--client-ids) でも
+`ci-workflow` が選択可能なターゲットになっています — このコマンドを別途実行する代わりに、
+そちらで同じワークフローファイルを同じ実行の中で書き出せます。`ci upgrade`(下記)には
+ウィザード側の対応物はなく、引き続き単体のコマンドです。
+
 ```bash
 npx svelte-vitals@latest ci install --dry-run   # 書き込まずにプレビュー
 npx svelte-vitals@latest ci install --force     # 既存のワークフローファイルを再生成
