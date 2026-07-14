@@ -153,10 +153,12 @@ export interface AnalyzeOptions {
    * Reuse this parse cache across multiple `analyzeProject` calls instead of
    * starting fresh each time — the vite dev dashboard passes a long-lived cache
    * and invalidates only the changed file's entry between re-analyses, so
-   * unchanged routes/layouts/components are never re-read or re-parsed.
-   * Callers that don't need cross-call reuse (the CLI's `run()`, MCP, the
-   * Action — each analyzes once per process) can omit this; a fresh cache is
-   * created automatically.
+   * unchanged routes/layouts are never re-read or re-parsed. This only covers
+   * the route/layout (head-resolution) parse path via `collectRoutes` —
+   * `collectComponentFacts` (Correctness facts) is unaffected and still scans
+   * every component on each call. Callers that don't need cross-call reuse
+   * (the CLI's `run()`, MCP, the Action — each analyzes once per process) can
+   * omit this; a fresh cache is created automatically.
    */
   parseCache?: ParseCache;
 }
