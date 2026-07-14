@@ -22,12 +22,14 @@ Options:
                     wires up the svelteVitalsHandle hook in src/hooks.server.{ts,js}, which improves the
                     live dashboard's per-route accuracy as you browse. --force does not apply
                     to either of these two — an existing registration is always left as-is.
-                    claude-skill writes a Claude Code skill (.claude/skills/svelte-vitals/SKILL.md); cursor-rules
-                    writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc). Both are generated from the
-                    current rule set and support --force to regenerate.
-                    claude-skill-improve writes a second, read-only Claude Code skill
-                    (.claude/skills/improve-svelte/SKILL.md) that audits the whole project and writes
-                    implementation plans instead of a run-after-every-edit playbook; also supports --force.
+                    claude-skill writes an agent skill (Claude Code, Codex, and Cursor —
+                    .claude/skills/, .agents/skills/, and .cursor/skills/ under svelte-vitals/);
+                    cursor-rules writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc).
+                    Both are generated from the current rule set and support --force to regenerate.
+                    claude-skill-improve writes a second, read-only agent skill (same three
+                    locations, under improve-svelte/) that audits the whole project and writes
+                    implementation plans instead of a run-after-every-edit playbook; also
+                    supports --force.
                     config-file scaffolds svelte-vitals.config.mjs with every option commented out;
                     supports --force to regenerate.
   --scope <scope>   project | global (applies to all selected clients; codex is always global)
