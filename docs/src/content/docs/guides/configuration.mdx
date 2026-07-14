@@ -5,6 +5,8 @@ sidebar:
   order: 3.5
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 Instead of repeating `--rules`, `--ignore`, `--fail-on`, and `--weights` on every invocation, put them in a `svelte-vitals.config` file at your project root. The CLI, the [MCP server](/svelte-vitals/guides/mcp/), and the [Vite plugin](/svelte-vitals/guides/plugin-mode/) all read it automatically (the MCP server inherits it because it calls the same `analyzeProject` function as the CLI; the Vite plugin reads it directly — see [Using the config file with the Vite plugin](#using-the-config-file-with-the-vite-plugin) below).
 
 Run `svelte-vitals install --client config-file` to scaffold one with every option below commented out.
@@ -19,35 +21,52 @@ svelte-vitals looks for one of these, in this order, **in the analyzed directory
 
 The first match wins. If none exist, svelte-vitals runs with its built-in defaults, same as before this feature existed.
 
-`install --client config-file` picks between `.ts` and `.mjs` for you: `.ts` (using `defineConfig` for real type-checking/autocomplete) when the current Node supports loading it natively **and** the project looks TypeScript-oriented (a `tsconfig.json` or a `vite.config.ts` at the project root); otherwise the safe `.mjs` default, which works on every Node version svelte-vitals supports with no flag. Regenerating an existing file with `--force` always keeps that file's own extension rather than switching formats underneath you.
+`install --client config-file` picks between `.ts` and `.mjs` for you: `.ts` (using `defineConfig` for real type-checking/autocomplete) when the current Node supports loading it natively **and** the project looks TypeScript-oriented (a `tsconfig.json` or a `vite.config.ts` at the project root) — the case most SvelteKit projects fall into, so `.ts` is what you'll typically get. Otherwise it falls back to the safe `.mjs` default, which works on every Node version svelte-vitals supports with no flag. Regenerating an existing file with `--force` always keeps that file's own extension rather than switching formats underneath you.
 
 ## Example
 
-```js
-// svelte-vitals.config.mjs
-import { defineConfig } from 'svelte-vitals';
+<Tabs syncKey="config-ext">
+  <TabItem label="TypeScript">
+    ```ts
+    // svelte-vitals.config.ts
+    import { defineConfig } from 'svelte-vitals';
 
-export default defineConfig({
-  treatDynamicAs: 'warn',
-  metaComponents: ['Seo'],
-  rules: {
-    SEO008: 'off'
-  },
-  failOn: 'warning',
-  weights: {
-    seo: 2
-  }
-});
-```
+    export default defineConfig({
+      treatDynamicAs: 'warn',
+      metaComponents: ['Seo'],
+      rules: {
+        SEO008: 'off'
+      },
+      failOn: 'warning',
+      weights: {
+        seo: 2
+      }
+    });
+    ```
 
-`defineConfig` is just an identity helper that merges your object over the built-in defaults — it exists for type-checking and editor autocomplete, not because it does anything magic. A plain object default export works exactly the same:
+  </TabItem>
+  <TabItem label="JavaScript">
+    ```js
+    // svelte-vitals.config.mjs
+    import { defineConfig } from 'svelte-vitals';
 
-```js
-// svelte-vitals.config.mjs
-export default {
-  failOn: 'warning'
-};
-```
+    export default defineConfig({
+      treatDynamicAs: 'warn',
+      metaComponents: ['Seo'],
+      rules: {
+        SEO008: 'off'
+      },
+      failOn: 'warning',
+      weights: {
+        seo: 2
+      }
+    });
+    ```
+
+  </TabItem>
+</Tabs>
+
+`defineConfig` is just an identity helper that merges your object over the built-in defaults — it exists for type-checking and editor autocomplete in a `.ts` file. A plain `export default {...}` object works exactly the same at runtime with or without it; in a `.mjs`/`.js` file there's no type-checking to gain either way, so a bare object is just as good there.
 
 Import `defineConfig` from `svelte-vitals` — the package you actually installed. (It is re-exported from `@svelte-vitals/core` too, but that package is normally a transitive dependency, and a strict `node_modules` layout — pnpm's default — won't let your project resolve a transitive dependency directly.)
 
@@ -98,4 +117,4 @@ export default {
 };
 ```
 
-With `svelte-vitals.config.mjs` in the project root, the plugin above picks up its `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` automatically — no need to import the file yourself in `vite.config.ts`. Non-fatal config-file warnings (unknown top-level keys, invalid enum values) are logged to the console with a `svelte-vitals:` prefix, the same wording the CLI uses.
+With a `svelte-vitals.config` file (any of the three supported extensions) in the project root, the plugin above picks up its `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` automatically — no need to import the file yourself in `vite.config.ts`. Non-fatal config-file warnings (unknown top-level keys, invalid enum values) are logged to the console with a `svelte-vitals:` prefix, the same wording the CLI uses.
