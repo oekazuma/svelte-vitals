@@ -13,7 +13,7 @@ svelte-vitals [path] [options]
 
 `path` は省略可能で、デフォルトはカレントディレクトリです。
 
-> AI エージェントのクライアントに MCP サーバーをセットアップするための [`install` サブコマンド](#svelte-vitals-install) と、GitHub Actions の PR ゲートを生成する `ci install` サブコマンドもあります — 詳しくは [CI 連携](/svelte-vitals/ja/guides/ci/) を参照してください。
+> AI エージェントのクライアントに MCP サーバー、[Agent Skills](/svelte-vitals/ja/guides/agent-skills/)、Vite との連携をセットアップするための [`install` サブコマンド](/svelte-vitals/ja/guides/install/) と、GitHub Actions の PR ゲートを生成する `ci install` サブコマンドもあります — 詳しくは [CI 連携](/svelte-vitals/ja/guides/ci/) を参照してください。
 
 以下のフラグは、毎回の実行で指定する代わりに、プロジェクトルートの `svelte-vitals.config` ファイルにまとめて一度だけ設定することもできます — 詳しくは [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。フラグは常に設定ファイルより優先されます。
 
@@ -261,67 +261,6 @@ svelte-vitals --meta-components "SeoHead,PageMeta"
 ### `-v, --version`
 
 CLI 自身のバージョンと、解決された `@svelte-vitals/core` のバージョンを表示して終了します（例：`0.20.0 (core 0.21.0)`）。`svelte-vitals` と `@svelte-vitals/vite` はそれぞれ独立してバージョン管理されており、異なる `@svelte-vitals/core` リリースに依存する状態になり得ます。CLI と[ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/#バージョンのずれ)で検出結果が食い違う場合は、この `core` バージョンをダッシュボードのトップバーに表示される値と比較してください。
-
-## `svelte-vitals install`
-
-svelte-vitals の [MCP サーバー](/svelte-vitals/ja/guides/mcp/)、Vite との連携、AI エージェントのクライアント（**Claude Code**、**Cursor**、**Codex**）向けのエージェント指示ファイルを対話的にセットアップします。各クライアントの設定にサーバーエントリをマージします（既存の他のサーバーはそのまま維持されます）。
-
-```bash
-npx svelte-vitals@latest install
-```
-
-フラグなしで実行すると対話式ウィザードが起動します — クライアント／ターゲットを選択し、クライアントごとにスコープを選び、変更計画を確認して適用します。非対話環境／CI ではフラグだけで実行できます。
-
-### `--client <ids>`
-
-設定するクライアント／ターゲットをカンマ区切りで指定します：`claude-code`、`cursor`、`codex`、`vite-plugin`、`vite-hooks`、`claude-skill`、`cursor-rules`、`claude-skill-improve`、`config-file`。指定した場合は対話式の選択がスキップされます。
-
-`vite-plugin` は `@svelte-vitals/vite` のビルドモードのプラグインを `vite.config.{ts,js,mjs}` に登録します(ライブダッシュボードはデフォルトで有効です)。`vite-hooks` は `svelteVitalsHandle` フックを `src/hooks.server.{ts,js}` に組み込み、ブラウジングに応じてダッシュボードのルート別の精度を上げます。どちらも `magicast` によるコードモッドを使用し、確実に認識できる形のファイルのみを変更します — それ以外の場合は何もせず、代わりに手動で追加するためのスニペットを表示します。どちらかが書き込まれ、かつ `@svelte-vitals/vite` がまだ依存関係に含まれていない場合、検出されたパッケージマネージャー経由で自動インストールされます。**`--force` はこの2つには適用されません** — フラグの有無にかかわらず、既存の登録は常にそのまま維持されます。
-
-`claude-skill` はエージェントスキルを3つの慣例的な場所へ同時に書き出します — `.claude/skills/svelte-vitals/SKILL.md`（Claude Code）、`.agents/skills/svelte-vitals/SKILL.md`（Codex）、`.cursor/skills/svelte-vitals/SKILL.md`（Cursor）— 3つとも同じフロントマター形式の `SKILL.md` 規約を読むため、内容はバイト単位で同一です。`cursor-rules` は Cursor のプロジェクトルールファイルを `.cursor/rules/svelte-vitals.mdc` に書き出します。どちらもインストール時点のルールセット（各ルールの id・タイトル・severity・rationale をカテゴリごとにまとめたもの）から生成されるため、エージェントはコードを書く前からルールの知識と、いつ `svelte-vitals --diff`／`--staged` を実行すべきかというプレイブックを持つことになります。Vite 向けの2ターゲットと異なりコードモッドではなく毎回全文を再生成するため、**`--force` はこの2つに適用され**、既存ファイルを最新の内容で上書きします。
-
-`claude-skill-improve` は、読み取り専用の2つ目のエージェントスキルを同じ3つの場所（`improve-svelte/` 以下 — `.claude/skills/improve-svelte/SKILL.md`、`.agents/skills/improve-svelte/SKILL.md`、`.cursor/skills/improve-svelte/SKILL.md`）に書き出します。1ファイルずつ場当たり的に直すのではなく、「このSvelteKitアプリをレビューして」という依頼を、根拠に基づく体系的な監査に変えるものです。プロジェクト全体をスキャンし、ルールの生の severity ではなく実際のユーザー・検索エンジンへの影響度で指摘に優先順位を付け（たとえばホームページの canonical URL 欠落は、誰も見ないページの同じ指摘より優先されます）、選ばれた指摘を1件ずつ `plans/` 配下の自己完結型の実装プランとして書き出します — 別のエージェント（より安価なモデルでも）や人間が、文脈を再構築せずにそのまま着手できる精度です。各プランの修正内容は svelte-vitals 自身のルールカタログ（`claude-skill` が埋め込むのと同じもの）由来なので、その場ででっち上げたものではなくレビュー済みの推奨内容そのものであり、ネットワーク取得も不要です。ソース自体は一切編集しないため、いつ実行しても安全です。`claude-skill` が毎回の編集ごとの回帰チェック用プレイブックであるのに対し、こちらは push 前やリファクタ前、SEO・パフォーマンス強化の際などに使う「優先順位付きロードマップが欲しい」ときのためのものです。`claude-skill`／`cursor-rules` と同様に毎回全文を再生成するため、**`--force` が適用されます**。
-
-`config-file` はオプション(`treatDynamicAs`、`metaComponents`、`rules`、`failOn`、`weights`)をすべてコメントアウトした `svelte-vitals.config.mjs` の雛形を生成します — 詳細は [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。エージェントターゲットと同様に毎回全文を再生成するため、**`--force` が適用されます**。
-
-### `--scope <project|global>`
-
-設定の書き込み先。選択したすべてのクライアントに適用されます。**Codex は常に global** です（プロジェクトスコープの設定を持たないため）。（Vite ターゲット、エージェントのスキル／ルールターゲット、config-file ターゲットにはスコープがなく、このフラグは無視されます。）
-
-| クライアント | project            | global                 |
-| ------------ | ------------------ | ---------------------- |
-| Claude Code  | `.mcp.json`        | `~/.claude.json`       |
-| Cursor       | `.cursor/mcp.json` | `~/.cursor/mcp.json`   |
-| Codex        | —                  | `~/.codex/config.toml` |
-
-### `--yes`, `-y`
-
-確認プロンプトをスキップします。
-
-### `--dry-run`
-
-変更計画を表示し、何も書き込まずに終了します。
-
-### `--force`
-
-既存の `svelte-vitals` エントリを上書きします。デフォルトでは、既に存在するエントリはそのまま維持されます。
-
-### `--refresh`
-
-ディスク上に既に存在する `claude-skill`／`cursor-rules`／`claude-skill-improve` ファイルだけを、現行のルールセットで再生成します。ルールの追加や rationale の改善を、最初にどのエージェントターゲットをインストールしたか覚えていなくても1コマンドで反映できます。既に存在するファイルだけを再生成し、無いファイルは作りません（refresh はインストールではありません）。`--scope`・`--yes`・`--force` は適用対象外のため無視されます（warning を1行出力）。`--client` との併用は致命的エラーになります。生成済みのエージェントファイルが1件も見つからない場合は案内を表示して終了コード `0` で終了します。
-
-```bash
-# 非対話：このプロジェクトに Claude Code + Cursor を設定
-npx svelte-vitals@latest install --client claude-code,cursor --scope project --yes
-
-# 何が変更されるかを書き込まずにプレビュー
-npx svelte-vitals@latest install --client codex --dry-run
-
-# ルール追加後、既にインストール済みのエージェントスキル/ルールファイルを再生成
-npx svelte-vitals@latest install --refresh
-```
-
-既存の設定ファイルが解析できない場合、上書きせずに失敗します（終了コード `2`）。
 
 ## 終了コード
 

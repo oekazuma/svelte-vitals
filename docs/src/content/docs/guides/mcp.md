@@ -58,7 +58,7 @@ Run the interactive installer from your project root — it configures the MCP s
 npx svelte-vitals@latest install
 ```
 
-It supports **Claude Code**, **Cursor**, and **Codex**, merging the server entry into each client's config without touching your other servers. See the [`install` command](/svelte-vitals/guides/cli/#svelte-vitals-install) for the available flags (`--client`, `--scope`, `--yes`, `--dry-run`, `--force`).
+It supports **Claude Code**, **Cursor**, and **Codex**, merging the server entry into each client's config without touching your other servers. See [`svelte-vitals install`](/svelte-vitals/guides/install/) for the available flags (`--client`, `--scope`, `--yes`, `--dry-run`, `--force`).
 
 ### Manual setup
 
