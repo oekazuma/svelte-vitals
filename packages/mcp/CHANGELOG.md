@@ -1,5 +1,12 @@
 # @svelte-vitals/mcp
 
+## 0.12.2
+
+### Patch Changes
+
+- Updated dependencies [f1cbfd0]
+  - svelte-vitals@0.27.0
+
 ## 0.12.1
 
 ### Patch Changes
