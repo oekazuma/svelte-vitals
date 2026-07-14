@@ -5,17 +5,28 @@ describe('agent targets', () => {
   it('has all three targets with distinct ids', () => {
     expect(AGENT_TARGETS.map((t) => t.id).sort()).toEqual(['claude-skill', 'claude-skill-improve', 'cursor-rules']);
   });
-  it('each target has a non-empty label, hint, and relPath', () => {
+  it('each target has a non-empty label, hint, and relPaths', () => {
     for (const t of AGENT_TARGETS) {
       expect(t.label.length).toBeGreaterThan(0);
       expect(t.hint.length).toBeGreaterThan(0);
-      expect(t.relPath.length).toBeGreaterThan(0);
+      expect(t.relPaths.length).toBeGreaterThan(0);
+      for (const p of t.relPaths) {
+        expect(p.length).toBeGreaterThan(0);
+      }
     }
   });
   it('agentTargetById resolves a known id', () => {
-    expect(agentTargetById('claude-skill')?.relPath).toBe('.claude/skills/svelte-vitals/SKILL.md');
-    expect(agentTargetById('cursor-rules')?.relPath).toBe('.cursor/rules/svelte-vitals.mdc');
-    expect(agentTargetById('claude-skill-improve')?.relPath).toBe('.claude/skills/improve-svelte/SKILL.md');
+    expect(agentTargetById('claude-skill')?.relPaths).toEqual([
+      '.claude/skills/svelte-vitals/SKILL.md',
+      '.agents/skills/svelte-vitals/SKILL.md',
+      '.cursor/skills/svelte-vitals/SKILL.md'
+    ]);
+    expect(agentTargetById('cursor-rules')?.relPaths).toEqual(['.cursor/rules/svelte-vitals.mdc']);
+    expect(agentTargetById('claude-skill-improve')?.relPaths).toEqual([
+      '.claude/skills/improve-svelte/SKILL.md',
+      '.agents/skills/improve-svelte/SKILL.md',
+      '.cursor/skills/improve-svelte/SKILL.md'
+    ]);
   });
   it('agentTargetById returns undefined for an unknown id', () => {
     expect(agentTargetById('nope')).toBeUndefined();

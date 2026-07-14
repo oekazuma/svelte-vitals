@@ -273,13 +273,15 @@ export default { plugins: [svelteVitals()] };
 });
 
 describe('runInstall — agent targets', () => {
-  it('claude-skill: not present → created, content has frontmatter and the version', async () => {
+  it('claude-skill: not present → created, content has frontmatter and the version, identical across all three destinations', async () => {
     const { io, writes } = fakeIO();
     const code = await runInstall({ client: ['claude-skill'], yes: true }, io, noPrompts, '9.9.9');
     expect(code).toBe(0);
     const content = writes['/proj/.claude/skills/svelte-vitals/SKILL.md'];
     expect(content).toContain('name: svelte-vitals');
     expect(content).toContain('svelte-vitals 9.9.9');
+    expect(writes['/proj/.agents/skills/svelte-vitals/SKILL.md']).toBe(content);
+    expect(writes['/proj/.cursor/skills/svelte-vitals/SKILL.md']).toBe(content);
   });
 
   it('cursor-rules: not present → created, content has frontmatter and the version', async () => {
@@ -291,20 +293,21 @@ describe('runInstall — agent targets', () => {
     expect(content).toContain('svelte-vitals 9.9.9');
   });
 
-  it('claude-skill-improve: not present → created, content has frontmatter and the version', async () => {
+  it('claude-skill-improve: not present → created, content has frontmatter and the version, identical across all three destinations', async () => {
     const { io, writes } = fakeIO();
     const code = await runInstall({ client: ['claude-skill-improve'], yes: true }, io, noPrompts, '9.9.9');
     expect(code).toBe(0);
     const content = writes['/proj/.claude/skills/improve-svelte/SKILL.md'];
     expect(content).toContain('name: improve-svelte');
     expect(content).toContain('svelte-vitals 9.9.9');
+    expect(writes['/proj/.agents/skills/improve-svelte/SKILL.md']).toBe(content);
+    expect(writes['/proj/.cursor/skills/improve-svelte/SKILL.md']).toBe(content);
   });
 
-  it('a second run without --force reports exists and writes nothing', async () => {
+  it('a second run without --force reports exists and writes nothing, once all three destinations already exist', async () => {
     const first = fakeIO();
     await runInstall({ client: ['claude-skill'], yes: true }, first.io, noPrompts);
-    const existing = first.writes['/proj/.claude/skills/svelte-vitals/SKILL.md']!;
-    const { io, writes, out } = fakeIO({ files: { '/proj/.claude/skills/svelte-vitals/SKILL.md': existing } });
+    const { io, writes, out } = fakeIO({ files: { ...first.writes } });
     const code = await runInstall({ client: ['claude-skill'], yes: true }, io, noPrompts);
     expect(code).toBe(0);
     expect(writes).toEqual({});
@@ -312,11 +315,10 @@ describe('runInstall — agent targets', () => {
     expect(out.join('\n')).toContain('--force to overwrite');
   });
 
-  it('claude-skill-improve: a second run without --force reports exists and writes nothing', async () => {
+  it('claude-skill-improve: a second run without --force reports exists and writes nothing, once all three destinations already exist', async () => {
     const first = fakeIO();
     await runInstall({ client: ['claude-skill-improve'], yes: true }, first.io, noPrompts);
-    const existing = first.writes['/proj/.claude/skills/improve-svelte/SKILL.md']!;
-    const { io, writes, out } = fakeIO({ files: { '/proj/.claude/skills/improve-svelte/SKILL.md': existing } });
+    const { io, writes, out } = fakeIO({ files: { ...first.writes } });
     const code = await runInstall({ client: ['claude-skill-improve'], yes: true }, io, noPrompts);
     expect(code).toBe(0);
     expect(writes).toEqual({});
@@ -324,22 +326,46 @@ describe('runInstall — agent targets', () => {
     expect(out.join('\n')).toContain('--force to overwrite');
   });
 
-  it('--force regenerates an already-existing agent target file', async () => {
+  it('claude-skill: an old single-path install gets the two new destinations created alongside the existing one', async () => {
+    const { io, writes, out } = fakeIO({
+      files: { '/proj/.claude/skills/svelte-vitals/SKILL.md': 'stale single-tool content' }
+    });
+    const code = await runInstall({ client: ['claude-skill'], yes: true }, io, noPrompts, '9.9.9');
+    expect(code).toBe(0);
+    expect(writes['/proj/.claude/skills/svelte-vitals/SKILL.md']).toBeUndefined(); // not force, so left alone
+    expect(writes['/proj/.agents/skills/svelte-vitals/SKILL.md']).toContain('svelte-vitals 9.9.9');
+    expect(writes['/proj/.cursor/skills/svelte-vitals/SKILL.md']).toContain('svelte-vitals 9.9.9');
+    expect(out.join('\n')).toContain('already configured');
+  });
+
+  it('--force regenerates an already-existing agent target file at all three destinations', async () => {
     const { io, writes } = fakeIO({
-      files: { '/proj/.claude/skills/svelte-vitals/SKILL.md': 'stale content' }
+      files: {
+        '/proj/.claude/skills/svelte-vitals/SKILL.md': 'stale content',
+        '/proj/.agents/skills/svelte-vitals/SKILL.md': 'stale content',
+        '/proj/.cursor/skills/svelte-vitals/SKILL.md': 'stale content'
+      }
     });
     const code = await runInstall({ client: ['claude-skill'], yes: true, force: true }, io, noPrompts, '1.0.0');
     expect(code).toBe(0);
     expect(writes['/proj/.claude/skills/svelte-vitals/SKILL.md']).toContain('svelte-vitals 1.0.0');
+    expect(writes['/proj/.agents/skills/svelte-vitals/SKILL.md']).toContain('svelte-vitals 1.0.0');
+    expect(writes['/proj/.cursor/skills/svelte-vitals/SKILL.md']).toContain('svelte-vitals 1.0.0');
   });
 
-  it('--force regenerates an already-existing claude-skill-improve file', async () => {
+  it('--force regenerates an already-existing claude-skill-improve file at all three destinations', async () => {
     const { io, writes } = fakeIO({
-      files: { '/proj/.claude/skills/improve-svelte/SKILL.md': 'stale content' }
+      files: {
+        '/proj/.claude/skills/improve-svelte/SKILL.md': 'stale content',
+        '/proj/.agents/skills/improve-svelte/SKILL.md': 'stale content',
+        '/proj/.cursor/skills/improve-svelte/SKILL.md': 'stale content'
+      }
     });
     const code = await runInstall({ client: ['claude-skill-improve'], yes: true, force: true }, io, noPrompts, '1.0.0');
     expect(code).toBe(0);
     expect(writes['/proj/.claude/skills/improve-svelte/SKILL.md']).toContain('svelte-vitals 1.0.0');
+    expect(writes['/proj/.agents/skills/improve-svelte/SKILL.md']).toContain('svelte-vitals 1.0.0');
+    expect(writes['/proj/.cursor/skills/improve-svelte/SKILL.md']).toContain('svelte-vitals 1.0.0');
   });
 
   it('dry-run does not write agent target files', async () => {
@@ -357,7 +383,12 @@ describe('runInstall — agent targets', () => {
   it('a plan can mix an MCP client and an agent target in one run', async () => {
     const { io, writes } = fakeIO();
     await runInstall({ client: ['claude-code', 'claude-skill'], scope: 'project', yes: true }, io, noPrompts);
-    expect(Object.keys(writes).sort()).toEqual(['/proj/.claude/skills/svelte-vitals/SKILL.md', '/proj/.mcp.json']);
+    expect(Object.keys(writes).sort()).toEqual([
+      '/proj/.agents/skills/svelte-vitals/SKILL.md',
+      '/proj/.claude/skills/svelte-vitals/SKILL.md',
+      '/proj/.cursor/skills/svelte-vitals/SKILL.md',
+      '/proj/.mcp.json'
+    ]);
   });
 
   it('interactive picker options include all three agent targets', async () => {
@@ -460,6 +491,17 @@ describe('runInstall — --refresh', () => {
     expect(code).toBe(0);
     expect(writes['/proj/.claude/skills/svelte-vitals/SKILL.md']).toContain('svelte-vitals 2.0.0');
     expect(writes['/proj/.cursor/rules/svelte-vitals.mdc']).toBeUndefined();
+  });
+
+  it("--refresh only regenerates the specific paths already on disk, not a target's other destinations", async () => {
+    const { io, writes } = fakeIO({
+      files: { '/proj/.claude/skills/svelte-vitals/SKILL.md': 'stale' }
+    });
+    const code = await runInstall({ refresh: true }, io, noPrompts, '2.0.0');
+    expect(code).toBe(0);
+    expect(writes['/proj/.claude/skills/svelte-vitals/SKILL.md']).toContain('svelte-vitals 2.0.0');
+    expect(writes['/proj/.agents/skills/svelte-vitals/SKILL.md']).toBeUndefined();
+    expect(writes['/proj/.cursor/skills/svelte-vitals/SKILL.md']).toBeUndefined();
   });
 
   it('no generated agent files present → prints guidance to stderr and exits 0 without writing', async () => {
