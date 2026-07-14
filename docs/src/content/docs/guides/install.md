@@ -11,7 +11,7 @@ Interactively set up the svelte-vitals [MCP server](/svelte-vitals/guides/mcp/),
 npx svelte-vitals@latest install
 ```
 
-With no flags it launches an interactive wizard: pick your clients/targets, choose a scope per client, review the plan, and confirm. The picker groups targets by category — **MCP server**, **Vite integration**, **Agent Skills & rules**, **CI (GitHub Actions)**, **Config file** — so it's clear what each one is for even with nine targets on offer. For non-interactive/CI use, drive it entirely with flags.
+With no flags it launches an interactive wizard: pick your clients/targets, choose a scope per client, review the plan, and confirm. The picker groups targets by category — **MCP server**, **Vite integration**, **Agent Skills & rules**, **CI (GitHub Actions)**, **Config file** — so it's clear what each one is for even with ten targets on offer. For non-interactive/CI use, drive it entirely with flags.
 
 ## `--client <ids>`
 

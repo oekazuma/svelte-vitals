@@ -32,10 +32,11 @@ Options:
                     implementation plans instead of a run-after-every-edit playbook; also
                     supports --force.
                     config-file scaffolds svelte-vitals.config.{mjs,ts} with every option commented
-                    out, auto-picking .ts (with defineConfig) when the current Node supports it and
-                    the project looks TypeScript-oriented (tsconfig.json or vite.config.ts present),
-                    else the safe .mjs default; supports --force to regenerate the file that's
-                    already there (its extension never changes on --force).
+                    out, auto-picking .ts (with defineConfig) when the current Node supports it, the
+                    project looks TypeScript-oriented (tsconfig.json or vite.config.ts present), and
+                    svelte-vitals is a declared dependency (defineConfig's import resolves at load
+                    time); else the safe .mjs default. Supports --force to regenerate the file
+                    that's already there (its extension never changes on --force).
                     ci-workflow scaffolds .github/workflows/svelte-vitals.yml, the same file
                     \`svelte-vitals ci install\` writes standalone — pick it here to set it up in
                     the same pass as everything else; supports --force to regenerate. \`svelte-vitals

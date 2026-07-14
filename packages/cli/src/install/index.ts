@@ -20,7 +20,12 @@ import { CI_TARGETS, ciTargetById, isCiTargetId, type CiTarget, type CiTargetId 
 import { buildSkillMarkdown, buildCursorRules } from './skill-content.js';
 import { buildImproveSkillMarkdown } from './improve-skill-content.js';
 import { buildConfigFileTemplate } from './config-content.js';
-import { findExistingConfigFile, detectBestConfigExtension } from './config-file-format.js';
+import {
+  findExistingConfigFile,
+  detectBestConfigExtension,
+  hasSvelteVitalsDependency,
+  isEsmProject
+} from './config-file-format.js';
 import { codemodViteConfig } from './codemod-vite-config.js';
 import { codemodHooksServer } from './codemod-hooks.js';
 import { detectPackageManager, hasVitePackage, installCommand, readInstalledViteVersion } from './package-manager.js';
@@ -154,19 +159,26 @@ function planForAgentTarget(target: AgentTarget, io: InstallIO, force: boolean, 
  * targets, content here is a fixed, fully-regenerated template rather than codemodded, so
  * --force is allowed to overwrite an existing file.
  *
- * Extension handling: if a config file already exists (any of the three candidates —
+ * Extension handling: if a config file already exists (any of the candidates in
  * `loadConfigFile`'s search order), --force regenerates *that* file, preserving its
- * existing extension/format rather than switching it underneath the user. Only a fresh
- * scaffold (nothing exists yet) auto-picks the best extension for this environment —
- * `.ts` when the current Node can load it natively and the project looks TypeScript-
- * oriented, otherwise the safe `.mjs` default (see config-file-format.ts).
+ * existing extension/format rather than switching it underneath the user — including
+ * module syntax: a `.js` in a CommonJS project gets `module.exports`, and the
+ * `defineConfig` variant is only emitted when svelte-vitals is actually a declared
+ * dependency (its import must resolve at load time — npx-only projects would break).
+ * Only a fresh scaffold (nothing exists yet) auto-picks the best extension for this
+ * environment (see detectBestConfigExtension in config-file-format.ts).
  */
 function planForConfigTarget(target: ConfigTarget, io: InstallIO, force: boolean): PlanRow {
   const existingRel = findExistingConfigFile(io.readFile, io.cwd);
   if (existingRel !== undefined) {
     const path = join(io.cwd, existingRel);
     const status: WriteStatus = force ? 'updated' : 'exists';
-    const content = force ? buildConfigFileTemplate({ useDefineConfig: existingRel.endsWith('.ts') }) : undefined;
+    const content = force
+      ? buildConfigFileTemplate({
+          useDefineConfig: existingRel.endsWith('.ts') && hasSvelteVitalsDependency(io.readFile, io.cwd),
+          useCommonJs: existingRel.endsWith('.js') && !isEsmProject(io.readFile, io.cwd)
+        })
+      : undefined;
     return { id: target.id, label: target.label, path, status, content };
   }
   const ext = detectBestConfigExtension({
@@ -301,11 +313,15 @@ export async function runInstall(
       ...(cursorRulesDetected ? (['cursor-rules'] as const) : [])
     ];
     const ciWorkflowDetected = configExists(join(io.cwd, CI_TARGETS[0]!.relPath));
+    // configExists (not findExistingConfigFile directly) so a throwing readFile can't
+    // crash detection — same tolerance as every other detection probe above.
+    const configFileDetected = findExistingConfigFile((p) => (configExists(p) ? '' : undefined), io.cwd) !== undefined;
     const detected: TargetId[] = [
       ...detectedClients,
       ...(viteConfigExists ? VITE_TARGETS.map((t) => t.id) : []),
       ...detectedAgents,
-      ...(ciWorkflowDetected ? CI_TARGETS.map((t) => t.id) : [])
+      ...(ciWorkflowDetected ? CI_TARGETS.map((t) => t.id) : []),
+      ...(configFileDetected ? CONFIG_TARGETS.map((t) => t.id) : [])
     ];
     // Grouped by category so the picker renders distinct sections instead of one flat
     // list — flattening all four/five target types together made it hard to tell what
@@ -388,13 +404,30 @@ export async function runInstall(
       return 2;
     }
   }
+  // Same try/catch as the client/agent loops above: readFile maps only ENOENT to
+  // undefined and rethrows everything else (EACCES, EISDIR, …), which must become a
+  // friendly exit 2 rather than an unhandled rejection.
   for (const configId of configIds) {
     const target = configTargetById(configId)!;
-    rows.push(planForConfigTarget(target, io, flags.force ?? false));
+    try {
+      rows.push(planForConfigTarget(target, io, flags.force ?? false));
+    } catch (err) {
+      io.errorLog(
+        `svelte-vitals: could not check existing config file: ${err instanceof Error ? err.message : String(err)}`
+      );
+      return 2;
+    }
   }
   for (const ciId of ciIds) {
     const target = ciTargetById(ciId)!;
-    rows.push(planForCiTarget(target, io, flags.force ?? false));
+    try {
+      rows.push(planForCiTarget(target, io, flags.force ?? false));
+    } catch (err) {
+      io.errorLog(
+        `svelte-vitals: could not check existing workflow at ${join(io.cwd, target.relPath)}: ${err instanceof Error ? err.message : String(err)}`
+      );
+      return 2;
+    }
   }
 
   // 3. Preview.
@@ -434,6 +467,14 @@ export async function runInstall(
       io.writeFile(r.path, r.content ?? '');
       io.log(`✓ ${r.label}: ${r.status} ${r.path}`);
       if (isViteTargetId(r.id)) viteWasWritten = true;
+      // The .ts pick was validated against *this* machine's Node only — the committed
+      // config also has to load wherever svelte-vitals runs next (CI, teammates), and
+      // Node 22.13–22.17 can't load .ts without a flag.
+      if (isConfigTargetId(r.id) && r.path.endsWith('.ts')) {
+        io.log(
+          'svelte-vitals: note — a .ts config needs Node 22.18+ (or 23.6+) everywhere svelte-vitals runs, CI included; rename to .mjs if that is not guaranteed.'
+        );
+      }
     } catch (err) {
       hadFailure = true;
       io.errorLog(`svelte-vitals: failed to write ${r.path}: ${err instanceof Error ? err.message : String(err)}`);

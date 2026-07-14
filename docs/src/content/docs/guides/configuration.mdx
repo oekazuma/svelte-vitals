@@ -21,7 +21,7 @@ svelte-vitals looks for one of these, in this order, **in the analyzed directory
 
 The first match wins. If none exist, svelte-vitals runs with its built-in defaults, same as before this feature existed.
 
-`install --client config-file` picks between `.ts` and `.mjs` for you: `.ts` (using `defineConfig` for real type-checking/autocomplete) when the current Node supports loading it natively **and** the project looks TypeScript-oriented (a `tsconfig.json` or a `vite.config.ts` at the project root) — the case most SvelteKit projects fall into, so `.ts` is what you'll typically get. Otherwise it falls back to the safe `.mjs` default, which works on every Node version svelte-vitals supports with no flag. Regenerating an existing file with `--force` always keeps that file's own extension rather than switching formats underneath you.
+`install --client config-file` picks between `.ts` and `.mjs` for you: `.ts` (using `defineConfig` for real type-checking/autocomplete) when the current Node supports loading it natively, the project looks TypeScript-oriented (a `tsconfig.json` or a `vite.config.ts` at the project root), **and** `svelte-vitals` is a declared dependency (the `defineConfig` import resolves at load time, so an npx-only project must not get it) — the case a TypeScript SvelteKit project with svelte-vitals installed falls into. Otherwise it falls back to the safe `.mjs` default, which works on every Node version svelte-vitals supports with no flag and no dependency. Regenerating an existing file with `--force` always keeps that file's own extension rather than switching formats underneath you.
 
 ## Example
 
@@ -48,9 +48,7 @@ The first match wins. If none exist, svelte-vitals runs with its built-in defaul
   <TabItem label="JavaScript">
     ```js
     // svelte-vitals.config.mjs
-    import { defineConfig } from 'svelte-vitals';
-
-    export default defineConfig({
+    export default {
       treatDynamicAs: 'warn',
       metaComponents: ['Seo'],
       rules: {
@@ -60,15 +58,15 @@ The first match wins. If none exist, svelte-vitals runs with its built-in defaul
       weights: {
         seo: 2
       }
-    });
+    };
     ```
 
   </TabItem>
 </Tabs>
 
-`defineConfig` is just an identity helper that merges your object over the built-in defaults — it exists for type-checking and editor autocomplete in a `.ts` file. A plain `export default {...}` object works exactly the same at runtime with or without it; in a `.mjs`/`.js` file there's no type-checking to gain either way, so a bare object is just as good there.
+`defineConfig` is just an identity helper that merges your object over the built-in defaults — it exists for type-checking and editor autocomplete in a `.ts` file. A plain `export default {...}` object works exactly the same at runtime with or without it; in a `.mjs`/`.js` file there's no type-checking to gain either way, so a bare object (as the JavaScript tab shows) is just as good there — and, unlike the import, it works even when svelte-vitals is only ever run via `npx` and isn't in your `node_modules`.
 
-Import `defineConfig` from `svelte-vitals` — the package you actually installed. (It is re-exported from `@svelte-vitals/core` too, but that package is normally a transitive dependency, and a strict `node_modules` layout — pnpm's default — won't let your project resolve a transitive dependency directly.)
+The `defineConfig` import in a `.ts` config is a **runtime** import — it resolves when svelte-vitals loads the file, not just at type-check time — so it requires `svelte-vitals` to be a declared dependency of your project. Import it from `svelte-vitals` — the package you actually installed. (It is re-exported from `@svelte-vitals/core` too, but that package is normally a transitive dependency, and a strict `node_modules` layout — pnpm's default — won't let your project resolve a transitive dependency directly.)
 
 ## Available options
 

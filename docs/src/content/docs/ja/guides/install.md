@@ -11,7 +11,7 @@ svelte-vitals の [MCP サーバー](/svelte-vitals/ja/guides/mcp/)、Vite と�
 npx svelte-vitals@latest install
 ```
 
-フラグなしで実行すると対話式ウィザードが起動します — クライアント／ターゲットを選択し、クライアントごとにスコープを選び、変更計画を確認して適用します。ピッカーはターゲットをカテゴリごとにグループ化します — **MCP server**、**Vite integration**、**Agent Skills & rules**、**CI (GitHub Actions)**、**Config file** — 9個のターゲットがあってもそれぞれ何のためのものか分かりやすくなっています。非対話環境／CI ではフラグだけで実行できます。
+フラグなしで実行すると対話式ウィザードが起動します — クライアント／ターゲットを選択し、クライアントごとにスコープを選び、変更計画を確認して適用します。ピッカーはターゲットをカテゴリごとにグループ化します — **MCP server**、**Vite integration**、**Agent Skills & rules**、**CI (GitHub Actions)**、**Config file** — 10個のターゲットがあってもそれぞれ何のためのものか分かりやすくなっています。非対話環境／CI ではフラグだけで実行できます。
 
 ## `--client <ids>`
 

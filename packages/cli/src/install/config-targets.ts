@@ -4,21 +4,17 @@ export interface ConfigTarget {
   id: ConfigTargetId;
   label: string;
   hint: string;
-  /** Default cwd-relative destination path — the fallback extension when nothing else is
-   * detected. `index.ts`'s planForConfigTarget picks the actual extension per environment
-   * (see config-file-format.ts) rather than always using this literally. */
-  relPath: string;
 }
 
 // Config-file install target with metadata for the CLI wizard. Like the agent targets
 // (and unlike the two Vite targets), this is wholly generated rather than codemodded, so
-// --force is safe to apply (see index.ts).
+// --force is safe to apply (see index.ts). No relPath here: the destination filename is
+// decided per environment by planForConfigTarget (see config-file-format.ts).
 export const CONFIG_TARGETS: ConfigTarget[] = [
   {
     id: 'config-file',
     label: 'Config file',
-    hint: 'Scaffolds svelte-vitals.config.{mjs,ts} (auto-picks the best one) with every option commented out',
-    relPath: 'svelte-vitals.config.mjs'
+    hint: 'Scaffolds svelte-vitals.config.{mjs,ts} (auto-picks the best one) with every option commented out'
   }
 ];
 

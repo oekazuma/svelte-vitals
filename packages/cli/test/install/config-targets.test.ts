@@ -5,15 +5,14 @@ describe('config targets', () => {
   it('has exactly one target', () => {
     expect(CONFIG_TARGETS.map((t) => t.id)).toEqual(['config-file']);
   });
-  it('each target has a non-empty label, hint, and relPath', () => {
+  it('each target has a non-empty label and hint', () => {
     for (const t of CONFIG_TARGETS) {
       expect(t.label.length).toBeGreaterThan(0);
       expect(t.hint.length).toBeGreaterThan(0);
-      expect(t.relPath.length).toBeGreaterThan(0);
     }
   });
   it('configTargetById resolves a known id', () => {
-    expect(configTargetById('config-file')?.relPath).toBe('svelte-vitals.config.mjs');
+    expect(configTargetById('config-file')?.label).toBe('Config file');
   });
   it('configTargetById returns undefined for an unknown id', () => {
     expect(configTargetById('nope')).toBeUndefined();

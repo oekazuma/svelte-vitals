@@ -2,8 +2,11 @@ import { describe, it, expect } from 'vitest';
 import {
   nodeSupportsNativeTypeScript,
   findExistingConfigFile,
+  hasSvelteVitalsDependency,
+  isEsmProject,
   detectBestConfigExtension
 } from '../../src/install/config-file-format.js';
+import { CONFIG_FILENAMES } from '../../src/config-file.js';
 
 describe('nodeSupportsNativeTypeScript', () => {
   it('is false below 22.18', () => {
@@ -34,7 +37,15 @@ describe('nodeSupportsNativeTypeScript', () => {
 });
 
 describe('findExistingConfigFile', () => {
-  it('returns undefined when none of the three candidates exist', () => {
+  it('checks exactly the loader’s own candidate list (no second hand-maintained copy)', () => {
+    const probed: string[] = [];
+    findExistingConfigFile((p) => {
+      probed.push(p);
+      return undefined;
+    }, '/proj');
+    expect(probed).toEqual(CONFIG_FILENAMES.map((n) => `/proj/${n}`));
+  });
+  it('returns undefined when none of the candidates exist', () => {
     expect(findExistingConfigFile(() => undefined, '/proj')).toBeUndefined();
   });
   it('finds an existing .mjs file', () => {
@@ -54,24 +65,87 @@ describe('findExistingConfigFile', () => {
   });
 });
 
+describe('hasSvelteVitalsDependency', () => {
+  it('is false with no package.json', () => {
+    expect(hasSvelteVitalsDependency(() => undefined, '/proj')).toBe(false);
+  });
+  it('is false when svelte-vitals is not declared', () => {
+    const files: Record<string, string> = {
+      '/proj/package.json': JSON.stringify({ devDependencies: { vite: '^8.0.0' } })
+    };
+    expect(hasSvelteVitalsDependency((p) => files[p], '/proj')).toBe(false);
+  });
+  it('is true for a devDependency', () => {
+    const files: Record<string, string> = {
+      '/proj/package.json': JSON.stringify({ devDependencies: { 'svelte-vitals': '^0.26.0' } })
+    };
+    expect(hasSvelteVitalsDependency((p) => files[p], '/proj')).toBe(true);
+  });
+  it('is true for a regular dependency', () => {
+    const files: Record<string, string> = {
+      '/proj/package.json': JSON.stringify({ dependencies: { 'svelte-vitals': '^0.26.0' } })
+    };
+    expect(hasSvelteVitalsDependency((p) => files[p], '/proj')).toBe(true);
+  });
+  it('is false for unparseable package.json', () => {
+    const files: Record<string, string> = { '/proj/package.json': '{not json' };
+    expect(hasSvelteVitalsDependency((p) => files[p], '/proj')).toBe(false);
+  });
+});
+
+describe('isEsmProject', () => {
+  it('is true only for "type": "module"', () => {
+    const esm: Record<string, string> = { '/proj/package.json': JSON.stringify({ type: 'module' }) };
+    const cjs: Record<string, string> = { '/proj/package.json': JSON.stringify({ name: 'x' }) };
+    expect(isEsmProject((p) => esm[p], '/proj')).toBe(true);
+    expect(isEsmProject((p) => cjs[p], '/proj')).toBe(false);
+    expect(isEsmProject(() => undefined, '/proj')).toBe(false);
+  });
+});
+
+const TS_PROJECT_FILES: Record<string, string> = {
+  '/proj/tsconfig.json': '{}',
+  '/proj/package.json': JSON.stringify({ devDependencies: { 'svelte-vitals': '^0.26.0' } })
+};
+
 describe('detectBestConfigExtension', () => {
-  it('picks .mjs when the Node version cannot load .ts natively, even with a tsconfig.json', () => {
-    const files: Record<string, string> = { '/proj/tsconfig.json': '{}' };
-    const ext = detectBestConfigExtension({ readFile: (p) => files[p], cwd: '/proj', nodeVersion: 'v22.13.0' });
+  it('picks .mjs when the Node version cannot load .ts natively, even in a full TS project', () => {
+    const ext = detectBestConfigExtension({
+      readFile: (p) => TS_PROJECT_FILES[p],
+      cwd: '/proj',
+      nodeVersion: 'v22.13.0'
+    });
     expect(ext).toBe('mjs');
   });
-  it('picks .ts when Node supports it and a tsconfig.json is present', () => {
-    const files: Record<string, string> = { '/proj/tsconfig.json': '{}' };
-    const ext = detectBestConfigExtension({ readFile: (p) => files[p], cwd: '/proj', nodeVersion: 'v22.18.0' });
+  it('picks .ts when Node supports it, tsconfig.json is present, and svelte-vitals is a dependency', () => {
+    const ext = detectBestConfigExtension({
+      readFile: (p) => TS_PROJECT_FILES[p],
+      cwd: '/proj',
+      nodeVersion: 'v22.18.0'
+    });
     expect(ext).toBe('ts');
   });
-  it('picks .ts when Node supports it and a vite.config.ts is present (no tsconfig.json)', () => {
-    const files: Record<string, string> = { '/proj/vite.config.ts': 'export default {}' };
+  it('a vite.config.ts alone (no tsconfig.json) also counts as TypeScript-oriented', () => {
+    const files: Record<string, string> = {
+      '/proj/vite.config.ts': 'export default {}',
+      '/proj/package.json': JSON.stringify({ devDependencies: { 'svelte-vitals': '^0.26.0' } })
+    };
     const ext = detectBestConfigExtension({ readFile: (p) => files[p], cwd: '/proj', nodeVersion: 'v24.16.0' });
     expect(ext).toBe('ts');
   });
+  it('picks .mjs for an npx-only project (no svelte-vitals dependency) — the defineConfig import would not resolve', () => {
+    const files: Record<string, string> = {
+      '/proj/tsconfig.json': '{}',
+      '/proj/package.json': JSON.stringify({ devDependencies: { vite: '^8.0.0' } })
+    };
+    const ext = detectBestConfigExtension({ readFile: (p) => files[p], cwd: '/proj', nodeVersion: 'v24.16.0' });
+    expect(ext).toBe('mjs');
+  });
   it('picks .mjs when Node supports .ts but the project has neither tsconfig.json nor vite.config.ts', () => {
-    const ext = detectBestConfigExtension({ readFile: () => undefined, cwd: '/proj', nodeVersion: 'v24.16.0' });
+    const files: Record<string, string> = {
+      '/proj/package.json': JSON.stringify({ devDependencies: { 'svelte-vitals': '^0.26.0' } })
+    };
+    const ext = detectBestConfigExtension({ readFile: (p) => files[p], cwd: '/proj', nodeVersion: 'v24.16.0' });
     expect(ext).toBe('mjs');
   });
 });

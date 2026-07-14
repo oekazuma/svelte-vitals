@@ -486,9 +486,13 @@ describe('runInstall — config-file target', () => {
   });
 
   describe('auto-picking the best extension', () => {
-    it('a TypeScript-oriented project (tsconfig.json) on a Node that supports it → .ts with defineConfig', async () => {
-      const { io, writes } = fakeIO({
-        files: { '/proj/tsconfig.json': '{}' },
+    // The .ts template imports defineConfig at runtime, so .ts is only picked when
+    // svelte-vitals is a declared dependency — these fixtures declare it.
+    const PKG_WITH_DEP = JSON.stringify({ type: 'module', devDependencies: { 'svelte-vitals': '^0.26.0' } });
+
+    it('a TS project with svelte-vitals installed, on a Node that supports it → .ts with defineConfig', async () => {
+      const { io, writes, out } = fakeIO({
+        files: { '/proj/tsconfig.json': '{}', '/proj/package.json': PKG_WITH_DEP },
         nodeVersion: 'v22.18.0'
       });
       const code = await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
@@ -498,20 +502,34 @@ describe('runInstall — config-file target', () => {
       expect(content).toContain("import { defineConfig } from 'svelte-vitals';");
       expect(content).toContain('export default defineConfig({');
       expect(writes['/proj/svelte-vitals.config.mjs']).toBeUndefined();
+      // The pick is validated against this machine's Node only — the user is told the
+      // committed .ts must load wherever svelte-vitals runs next (CI, teammates).
+      expect(out.join('\n')).toContain('Node 22.18+');
     });
 
     it('a vite.config.ts alone (no tsconfig.json) is enough to pick .ts', async () => {
       const { io, writes } = fakeIO({
-        files: { '/proj/vite.config.ts': 'export default {}' },
+        files: { '/proj/vite.config.ts': 'export default {}', '/proj/package.json': PKG_WITH_DEP },
         nodeVersion: 'v24.16.0'
       });
       await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
       expect(writes['/proj/svelte-vitals.config.ts']).toBeDefined();
     });
 
+    it('an npx-only TS project (svelte-vitals not in package.json) gets .mjs — the defineConfig import would not resolve at load time', async () => {
+      const { io, writes } = fakeIO({
+        files: { '/proj/tsconfig.json': '{}', '/proj/package.json': JSON.stringify({ type: 'module' }) },
+        nodeVersion: 'v24.16.0'
+      });
+      await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
+      expect(writes['/proj/svelte-vitals.config.mjs']).toBeDefined();
+      expect(writes['/proj/svelte-vitals.config.ts']).toBeUndefined();
+      expect(writes['/proj/svelte-vitals.config.mjs']).not.toContain('defineConfig');
+    });
+
     it('a TypeScript-oriented project on a Node that cannot load .ts natively still gets .mjs', async () => {
       const { io, writes } = fakeIO({
-        files: { '/proj/tsconfig.json': '{}' },
+        files: { '/proj/tsconfig.json': '{}', '/proj/package.json': PKG_WITH_DEP },
         nodeVersion: 'v22.13.0'
       });
       await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
@@ -520,18 +538,25 @@ describe('runInstall — config-file target', () => {
     });
 
     it('a plain JS project (no tsconfig.json, no vite.config.ts) gets .mjs even on a Node that supports .ts', async () => {
-      const { io, writes } = fakeIO({ nodeVersion: 'v24.16.0' });
+      const { io, writes } = fakeIO({ files: { '/proj/package.json': PKG_WITH_DEP }, nodeVersion: 'v24.16.0' });
       await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
       expect(writes['/proj/svelte-vitals.config.mjs']).toBeDefined();
     });
 
     it('a second run detects an existing .ts config (not just .mjs) and reports exists without creating a duplicate .mjs', async () => {
-      const first = fakeIO({ files: { '/proj/tsconfig.json': '{}' }, nodeVersion: 'v22.18.0' });
+      const first = fakeIO({
+        files: { '/proj/tsconfig.json': '{}', '/proj/package.json': PKG_WITH_DEP },
+        nodeVersion: 'v22.18.0'
+      });
       await runInstall({ client: ['config-file'], yes: true }, first.io, noPrompts);
       const existingTs = first.writes['/proj/svelte-vitals.config.ts']!;
 
       const { io, writes, out } = fakeIO({
-        files: { '/proj/tsconfig.json': '{}', '/proj/svelte-vitals.config.ts': existingTs },
+        files: {
+          '/proj/tsconfig.json': '{}',
+          '/proj/package.json': PKG_WITH_DEP,
+          '/proj/svelte-vitals.config.ts': existingTs
+        },
         nodeVersion: 'v22.18.0'
       });
       const code = await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
@@ -542,7 +567,7 @@ describe('runInstall — config-file target', () => {
 
     it('--force on an existing .ts config regenerates .ts, not .mjs, even without a tsconfig.json anymore', async () => {
       const { io, writes } = fakeIO({
-        files: { '/proj/svelte-vitals.config.ts': 'stale ts content' },
+        files: { '/proj/svelte-vitals.config.ts': 'stale ts content', '/proj/package.json': PKG_WITH_DEP },
         nodeVersion: 'v22.13.0' // wouldn't auto-pick .ts fresh, but this file already exists
       });
       const code = await runInstall({ client: ['config-file'], yes: true, force: true }, io, noPrompts);
@@ -551,14 +576,66 @@ describe('runInstall — config-file target', () => {
       expect(writes['/proj/svelte-vitals.config.mjs']).toBeUndefined();
     });
 
-    it('--force on an existing .js config regenerates .js as a plain object export (no defineConfig)', async () => {
+    it('--force on an existing .ts config without svelte-vitals installed regenerates it dependency-free (plain object)', async () => {
       const { io, writes } = fakeIO({
-        files: { '/proj/svelte-vitals.config.js': 'stale js content' }
+        files: {
+          '/proj/svelte-vitals.config.ts': 'stale ts content',
+          '/proj/package.json': JSON.stringify({ type: 'module' })
+        }
+      });
+      const code = await runInstall({ client: ['config-file'], yes: true, force: true }, io, noPrompts);
+      expect(code).toBe(0);
+      expect(writes['/proj/svelte-vitals.config.ts']).toContain('export default {');
+      expect(writes['/proj/svelte-vitals.config.ts']).not.toContain('defineConfig');
+    });
+
+    it('--force on an existing .js config in an ESM project regenerates it as ESM (no defineConfig)', async () => {
+      const { io, writes } = fakeIO({
+        files: {
+          '/proj/svelte-vitals.config.js': 'stale js content',
+          '/proj/package.json': JSON.stringify({ type: 'module' })
+        }
       });
       const code = await runInstall({ client: ['config-file'], yes: true, force: true }, io, noPrompts);
       expect(code).toBe(0);
       expect(writes['/proj/svelte-vitals.config.js']).toContain('export default {');
       expect(writes['/proj/svelte-vitals.config.js']).not.toContain('defineConfig');
+    });
+
+    it('--force on an existing .js config in a CommonJS project regenerates it as module.exports — ESM syntax there is a SyntaxError at load time', async () => {
+      const { io, writes } = fakeIO({
+        files: {
+          '/proj/svelte-vitals.config.js': 'module.exports = { failOn: "warning" };',
+          '/proj/package.json': JSON.stringify({ name: 'cjs-project' })
+        }
+      });
+      const code = await runInstall({ client: ['config-file'], yes: true, force: true }, io, noPrompts);
+      expect(code).toBe(0);
+      expect(writes['/proj/svelte-vitals.config.js']).toContain('module.exports = {');
+      expect(writes['/proj/svelte-vitals.config.js']).not.toContain('export default');
+    });
+
+    it('pre-selects config-file in the interactive picker when a config file already exists', async () => {
+      const { io } = fakeIO({ isTTY: true, files: { '/proj/svelte-vitals.config.ts': 'x' } });
+      let seenDefaults: string[] = [];
+      const prompts: InstallPrompts = {
+        ...noPrompts,
+        selectClients: async (_groups, defaults) => {
+          seenDefaults = defaults;
+          return null;
+        }
+      };
+      await runInstall({}, io, prompts);
+      expect(seenDefaults).toContain('config-file');
+    });
+
+    it('a read failure (e.g. EACCES) while planning the config-file target is reported and exits 2', async () => {
+      const { io, writes, err } = fakeIO({ throwOnRead: '/proj/svelte-vitals.config.mjs' });
+      const code = await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
+      expect(code).toBe(2);
+      expect(writes).toEqual({});
+      expect(err.join('\n')).toContain('could not check existing config file');
+      expect(err.join('\n')).toContain('EACCES');
     });
   });
 });
@@ -635,6 +712,15 @@ describe('runInstall — ci-workflow target', () => {
     };
     await runInstall({}, io, prompts);
     expect(seenDefaults).toContain('ci-workflow');
+  });
+
+  it('a read failure (e.g. EACCES) while planning the ci-workflow target is reported and exits 2', async () => {
+    const { io, writes, err } = fakeIO({ throwOnRead: '/proj/.github/workflows/svelte-vitals.yml' });
+    const code = await runInstall({ client: ['ci-workflow'], yes: true }, io, noPrompts);
+    expect(code).toBe(2);
+    expect(writes).toEqual({});
+    expect(err.join('\n')).toContain('could not check existing workflow');
+    expect(err.join('\n')).toContain('EACCES');
   });
 });
 

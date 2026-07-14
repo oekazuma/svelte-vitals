@@ -21,7 +21,7 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
 
 最初に見つかったファイルが採用されます。どれも存在しない場合、この機能がなかった頃と同様、組み込みのデフォルト設定で実行されます。
 
-`install --client config-file` は `.ts` と `.mjs` のどちらが良いか自動で判定します。現在の Node が `.ts` をネイティブに読み込め、**かつ**プロジェクトが TypeScript 志向(プロジェクトルートに `tsconfig.json` または `vite.config.ts` がある)であれば `.ts`(実際に型チェック・オートコンプリートが効く `defineConfig` を使用)を選びます — ほとんどの SvelteKit プロジェクトはこちらに該当するため、通常は `.ts` が生成されます。それ以外の場合は安全な `.mjs` — svelte-vitals がサポートするどの Node バージョンでもフラグなしで動く既定値 — にフォールバックします。`--force` で既存ファイルを再生成する場合は、拡張子を勝手に変えることなく、常にその既存ファイル自身の拡張子を維持します。
+`install --client config-file` は `.ts` と `.mjs` のどちらが良いか自動で判定します。現在の Node が `.ts` をネイティブに読み込め、プロジェクトが TypeScript 志向(プロジェクトルートに `tsconfig.json` または `vite.config.ts` がある)で、**かつ** `svelte-vitals` が依存関係として宣言されている(`defineConfig` の import は読み込み時に解決されるため、npx のみで使うプロジェクトには適用できません)場合に `.ts`(実際に型チェック・オートコンプリートが効く `defineConfig` を使用)を選びます — svelte-vitals をインストール済みの TypeScript の SvelteKit プロジェクトがこれに該当します。それ以外の場合は安全な `.mjs` — svelte-vitals がサポートするどの Node バージョンでも、依存関係なしにフラグなしで動く既定値 — にフォールバックします。`--force` で既存ファイルを再生成する場合は、拡張子を勝手に変えることなく、常にその既存ファイル自身の拡張子を維持します。
 
 ## 例
 
@@ -48,9 +48,7 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
   <TabItem label="JavaScript">
     ```js
     // svelte-vitals.config.mjs
-    import { defineConfig } from 'svelte-vitals';
-
-    export default defineConfig({
+    export default {
       treatDynamicAs: 'warn',
       metaComponents: ['Seo'],
       rules: {
@@ -60,15 +58,15 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
       weights: {
         seo: 2
       }
-    });
+    };
     ```
 
   </TabItem>
 </Tabs>
 
-`defineConfig` は、渡したオブジェクトを組み込みのデフォルトにマージするだけの恒等関数(identity helper)です — `.ts` ファイルでの型チェックとエディタの補完のために存在します。プレーンな `export default {...}` オブジェクトでも実行時の挙動はまったく同じです。`.mjs`/`.js` ファイルではどちらにしても型チェックの恩恵はないので、プレーンなオブジェクトのままで構いません。
+`defineConfig` は、渡したオブジェクトを組み込みのデフォルトにマージするだけの恒等関数(identity helper)です — `.ts` ファイルでの型チェックとエディタの補完のために存在します。プレーンな `export default {...}` オブジェクトでも実行時の挙動はまったく同じです。`.mjs`/`.js` ファイルではどちらにしても型チェックの恩恵はないので、(JavaScript タブが示すように)プレーンなオブジェクトのままで構いません — しかも import と違い、svelte-vitals を `npx` 経由でしか実行せず `node_modules` に存在しない場合でも動作します。
 
-`defineConfig` は `svelte-vitals` からインポートしてください — 実際にインストールしているパッケージです。(`@svelte-vitals/core` からも re-export されていますが、このパッケージは通常は推移的な依存関係であり、pnpm のデフォルトである厳格な `node_modules` の構成では、プロジェクトから推移的な依存関係を直接解決できません。)
+`.ts` 設定内の `defineConfig` の import は**ランタイム**の import です — 型チェック時だけでなく、svelte-vitals がファイルを読み込む時に解決されます — そのため、プロジェクトの依存関係として `svelte-vitals` が宣言されている必要があります。import 元は `svelte-vitals` にしてください — 実際にインストールしているパッケージです。(`@svelte-vitals/core` からも re-export されていますが、このパッケージは通常は推移的な依存関係であり、pnpm のデフォルトである厳格な `node_modules` の構成では、プロジェクトから推移的な依存関係を直接解決できません。)
 
 ## 利用可能なオプション
 
