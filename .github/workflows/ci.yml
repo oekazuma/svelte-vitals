@@ -57,12 +57,13 @@ jobs:
       # this key needs `github.sha` (or an equivalent) added.
       - name: Build packages
         run: pnpm build
-      - name: Verify action dist is up to date
-        run: git diff --exit-code -- packages/action/dist
-      - name: Typecheck
-        run: pnpm typecheck
-      - name: Validate publishable packages
-        run: pnpm check:publish
+      - parallel:
+          - name: Verify action dist is up to date
+            run: git diff --exit-code -- packages/action/dist
+          - name: Typecheck
+            run: pnpm typecheck
+          - name: Validate publishable packages
+            run: pnpm check:publish
 
   test:
     needs: check
@@ -108,7 +109,8 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
       - name: Setup Node.js and dependencies
         uses: ./.github/workflows/setup-node
-      - name: Check docs
-        run: pnpm --filter docs check
-      - name: Build docs
-        run: pnpm --filter docs build
+      - parallel:
+          - name: Check docs
+            run: pnpm --filter docs check
+          - name: Build docs
+            run: pnpm --filter docs build
