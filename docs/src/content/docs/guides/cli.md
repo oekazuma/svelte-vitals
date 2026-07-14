@@ -116,7 +116,7 @@ Report only findings in files **staged** for commit (`git diff --cached`). Ideal
 svelte-vitals --staged --fail-on warning
 ```
 
-> Both flags filter findings by their source-file location and assume the project root is the git root. If git is unavailable (or the ref is invalid), svelte-vitals warns and analyzes the whole project.
+> Both flags filter findings by their source-file location and work correctly even when the analyzed project lives in a subdirectory of the git repo (e.g. a monorepo's `apps/web/`). If git is unavailable (or the ref is invalid), svelte-vitals warns and analyzes the whole project.
 
 ### `--baseline <ref>`
 

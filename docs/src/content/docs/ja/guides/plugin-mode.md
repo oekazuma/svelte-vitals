@@ -7,7 +7,7 @@ sidebar:
 
 `@svelte-vitals/vite` は Vite / SvelteKit プラグインで、`vite build` に便乗して**プリレンダリングされた HTML の `<head>`** を解析し、CLI と同じ SEO およびパフォーマンスルールを実行します。実際の HTML 出力を検査するため、ライブラリに依存しません。ビルドモードではさらに、`src/` 配下の `.svelte` ソースを直接走査し、Correctness・Security・Architecture、およびコンポーネントスコープの2つの Performance ルール（PERF009/PERF010 — 重い import・namespace import）も検証します — CLI と同じコンポーネントスコープのルールで、デフォルトで有効です。検出結果が `failOn` の閾値に達するとビルドが失敗します。
 
-> **ESM のみ**（Node 18+）。ES モジュールのみを提供します。`require()` は設計上サポートされていません。
+> **ESM のみ**（Node 22.13+）。ES モジュールのみを提供します。`require()` は設計上サポートされていません。
 
 ## インストール
 
@@ -33,16 +33,18 @@ export default {
 
 ## オプション
 
-| オプション       | 型                                  | デフォルト     | 説明                                                       |
-| ---------------- | ----------------------------------- | -------------- | ---------------------------------------------------------- |
-| `failOn`         | `'critical' \| 'warning' \| 'info'` | `'critical'`   | ビルドを失敗させる最低重大度                               |
-| `report`         | `'console' \| 'json' \| false`      | `'console'`    | 分析レポートの出力形式                                     |
-| `outFile`        | `string`                            | —              | JSON レポートをこのパスのファイルに書き込む                |
-| `rules`          | `string[]`                          | —              | 有効にするルール ID（他はすべて無効）                      |
-| `metaComponents` | `string[]`                          | —              | ヘッドメタデータを出力するカスタムコンポーネント名         |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`        | `'pass'`       | 動的に設定されたメタデータの扱い方                         |
-| `weights`        | `Partial<Record<Category, number>>` | 各カテゴリ `1` | レポート内の組み合わせた Health スコアのカテゴリごとの重み |
-| `prerenderDir`   | `string`                            | —              | プリレンダリングページディレクトリの上書き                 |
+| オプション       | 型                                  | デフォルト     | 説明                                                                                                                                       |
+| ---------------- | ----------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `failOn`         | `'critical' \| 'warning' \| 'info'` | `'critical'`   | ビルドを失敗させる最低重大度                                                                                                               |
+| `report`         | `'console' \| 'json' \| false`      | `'console'`    | 分析レポートの出力形式                                                                                                                     |
+| `outFile`        | `string`                            | —              | JSON レポートをこのパスのファイルに書き込む                                                                                                |
+| `rules`          | `string[]`                          | —              | 有効にするルール ID（他はすべて無効）                                                                                                      |
+| `metaComponents` | `string[]`                          | —              | ヘッドメタデータを出力するカスタムコンポーネント名                                                                                         |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`        | `'pass'`       | 動的に設定されたメタデータの扱い方                                                                                                         |
+| `weights`        | `Partial<Record<Category, number>>` | 各カテゴリ `1` | レポート内の組み合わせた Health スコアのカテゴリごとの重み                                                                                 |
+| `prerenderDir`   | `string`                            | —              | プリレンダリングページディレクトリの上書き                                                                                                 |
+| `ui`             | `boolean`                           | `true`         | `vite dev` 中に[ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/)を配信するかどうか。`false` にするとビルド時ゲートのみになる |
+| `cwd`            | `string`                            | Vite のルート  | プロジェクトルート                                                                                                                         |
 
 ## 設定ファイル
 
