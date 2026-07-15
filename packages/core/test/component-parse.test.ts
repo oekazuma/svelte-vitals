@@ -535,4 +535,66 @@ describe('parseComponentFacts — orphan $effect in runes modules (.svelte.ts/.s
     expect(facts.constableStates).toEqual([]);
     expect(facts.loc).toBe(0);
   });
+
+  it('does not flag a module-scope new of an imported class shadowed by a block-scoped class', () => {
+    const src = [
+      "import { Store } from './safe.js';",
+      'export const s = new Store();',
+      '{',
+      '  class Store {',
+      '    constructor() {',
+      '      $effect(() => {});',
+      '    }',
+      '  }',
+      '  register(() => new Store());',
+      '}'
+    ].join('\n');
+    expect(orphans(src)).toEqual([]);
+  });
+  it('does not register a named class expression under its own (inner-only) name', () => {
+    const src = [
+      'const A = class Store {',
+      '  constructor() {',
+      '    $effect(() => {});',
+      '  }',
+      '};',
+      'export const s = new Store();'
+    ].join('\n');
+    expect(orphans(src)).toEqual([]);
+  });
+  it('still flags an export-wrapped top-level class and an export-wrapped new', () => {
+    const src = [
+      'export class Store {',
+      '  constructor() {',
+      '    $effect(() => {});',
+      '  }',
+      '}',
+      'export const s = new Store();'
+    ].join('\n');
+    expect(orphans(src)).toEqual([{ line: 6, kind: 'constructor-instantiated', className: 'Store' }]);
+  });
+  it('sees through TS constructor overload signatures to the implementation body', () => {
+    const src = [
+      'class S {',
+      '  constructor(a: string);',
+      '  constructor(a: number);',
+      '  constructor(a: unknown) {',
+      '    $effect(() => {});',
+      '  }',
+      '}',
+      'export const s = new S(1);'
+    ].join('\n');
+    expect(orphans(src)).toEqual([{ line: 8, kind: 'constructor-instantiated', className: 'S' }]);
+  });
+  it('still flags a guarded constructor effect (guards are not evaluated statically)', () => {
+    const src = [
+      'class Store {',
+      '  constructor(persist) {',
+      '    if (persist) $effect(() => {});',
+      '  }',
+      '}',
+      'export const s = new Store(false);'
+    ].join('\n');
+    expect(orphans(src)).toEqual([{ line: 6, kind: 'constructor-instantiated', className: 'Store' }]);
+  });
 });
