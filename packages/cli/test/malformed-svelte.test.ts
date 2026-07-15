@@ -48,6 +48,7 @@ describe('collectComponentFacts: malformed .svelte files (component path)', () =
       namespaceImports: [],
       constableStates: [],
       mutatedProps: [],
+      orphanEffects: [],
       suppressions: []
     });
 
@@ -106,6 +107,7 @@ describe('collectComponentFacts: malformed .svelte files (component path)', () =
       namespaceImports: [],
       constableStates: [],
       mutatedProps: [],
+      orphanEffects: [],
       suppressions: []
     });
     expect(byFile.get(goodPath)!.loc).toBeGreaterThan(0);

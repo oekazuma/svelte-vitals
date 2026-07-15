@@ -22,6 +22,16 @@ export interface EffectFact {
   mountOnly: boolean;
 }
 
+/** A `$effect` guaranteed to run outside component initialisation — it throws `effect_orphan` at runtime (CORRECT006). */
+export interface OrphanEffectFact {
+  /** 1-based source line, or 0 if unknown. For 'constructor-instantiated', the module-scope `new` site. */
+  line: number;
+  /** 'top-level' = runs at module evaluation; 'constructor-instantiated' = module-scope `new` of a same-file class whose constructor creates a bare effect. */
+  kind: 'top-level' | 'constructor-instantiated';
+  /** Class name when kind is 'constructor-instantiated' (used in the finding message). */
+  className?: string;
+}
+
 /** A flagged source position in a component (e.g. an `{@html}` tag or a `javascript:` URL). */
 export interface SourceSpan {
   /** 1-based source line, or 0 if unknown. */
@@ -60,6 +70,8 @@ export interface ComponentFacts {
   constableStates: { name: string; line: number }[];
   /** Mutations of a non-`$bindable` prop from `$props()` — member writes, `delete`, or a mutating method call (CORRECT005). */
   mutatedProps: { name: string; line: number }[];
+  /** `$effect` calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (CORRECT006). */
+  orphanEffects: OrphanEffectFact[];
   /** Inline `svelte-vitals-disable-next-line` directives found in this file's source — component-rule escape hatch (issue #92). Optional: absent is equivalent to no directives, so existing external constructors of `ComponentFacts` are unaffected. */
   suppressions?: SuppressionDirective[];
 }

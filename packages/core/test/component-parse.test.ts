@@ -404,3 +404,68 @@ describe('parseComponentFacts — suppression directives (issue #92)', () => {
     expect(parseComponentFacts('<p>hi</p>', 'C.svelte').suppressions).toEqual([]);
   });
 });
+
+describe('parseComponentFacts — orphan $effect in <script module> (CORRECT006)', () => {
+  const orphans = (src: string) => parseComponentFacts(src, 'C.svelte').orphanEffects;
+
+  it('flags a top-level $effect in <script module>', () => {
+    const src = '<script module>\nlet c = $state(0);\n$effect(() => { console.log(c); });\n</script>\n<p>hi</p>';
+    expect(orphans(src)).toEqual([{ line: 3, kind: 'top-level' }]);
+  });
+  it('does not flag $effect in the instance script (component init context)', () => {
+    expect(orphans('<script>\n$effect(() => { console.log(1); });\n</script>')).toEqual([]);
+  });
+  it('flags $effect.pre inside a top-level if block', () => {
+    const src = '<script module>\nif (globalThis.browser) {\n  $effect.pre(() => { console.log(1); });\n}\n</script>';
+    expect(orphans(src)).toEqual([{ line: 3, kind: 'top-level' }]);
+  });
+  it('does not flag an effect inside an $effect.root callback', () => {
+    const src = '<script module>\n$effect.root(() => {\n  $effect(() => { console.log(1); });\n});\n</script>';
+    expect(orphans(src)).toEqual([]);
+  });
+  it('does not flag an effect inside a function declaration', () => {
+    const src = '<script module>\nexport function setup() {\n  $effect(() => { console.log(1); });\n}\n</script>';
+    expect(orphans(src)).toEqual([]);
+  });
+  it('flags a module-scope new of a same-file class with a bare constructor effect', () => {
+    const src = [
+      '<script module>',
+      'class Store {',
+      '  v = $state(0);',
+      '  constructor() {',
+      '    $effect(() => { console.log(this.v); });',
+      '  }',
+      '}',
+      'export const store = new Store();',
+      '</script>'
+    ].join('\n');
+    expect(orphans(src)).toEqual([{ line: 8, kind: 'constructor-instantiated', className: 'Store' }]);
+  });
+  it('does not flag the class when it is never instantiated at module scope', () => {
+    const src = [
+      '<script module>',
+      'export class Store {',
+      '  constructor() {',
+      '    $effect(() => {});',
+      '  }',
+      '}',
+      '</script>'
+    ].join('\n');
+    expect(orphans(src)).toEqual([]);
+  });
+  it('does not flag when the constructor effect is wrapped in $effect.root', () => {
+    const src = [
+      '<script module>',
+      'class Store {',
+      '  constructor() {',
+      '    $effect.root(() => {',
+      '      $effect(() => {});',
+      '    });',
+      '  }',
+      '}',
+      'export const store = new Store();',
+      '</script>'
+    ].join('\n');
+    expect(orphans(src)).toEqual([]);
+  });
+});

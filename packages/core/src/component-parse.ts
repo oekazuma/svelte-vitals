@@ -1,5 +1,5 @@
 import { parse } from 'svelte/compiler';
-import type { EachBlockFact, EffectFact, SourceSpan, SuppressionDirective } from './component.js';
+import type { EachBlockFact, EffectFact, OrphanEffectFact, SourceSpan, SuppressionDirective } from './component.js';
 import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf } from './svelte-ast.js';
 
 // The Svelte AST is structurally complex and only partially typed for our needs,
@@ -68,6 +68,18 @@ function isEffectCall(node: Node): boolean {
     return c.property?.type === 'Identifier' && c.property.name === 'pre';
   }
   return false;
+}
+
+/** Whether a CallExpression is `$effect.root(...)` — a legal standalone reactive scope (CORRECT006). */
+function isEffectRootCall(node: Node): boolean {
+  const c = node?.callee;
+  return (
+    c?.type === 'MemberExpression' &&
+    c.object?.type === 'Identifier' &&
+    c.object.name === '$effect' &&
+    c.property?.type === 'Identifier' &&
+    c.property.name === 'root'
+  );
 }
 
 /**
@@ -548,6 +560,80 @@ function collectSuppressions(source: string): SuppressionDirective[] {
   return out;
 }
 
+/** Nodes whose bodies do NOT run when the surrounding code is evaluated: functions run when called; class member/constructor code runs on construction (CORRECT006). */
+const EVAL_SCOPE_BOUNDARIES = new Set([
+  'FunctionDeclaration',
+  'FunctionExpression',
+  'ArrowFunctionExpression',
+  'ClassDeclaration',
+  'ClassExpression'
+]);
+
+/**
+ * Walk only the code that executes when `node` itself is evaluated: every node is
+ * visited, but children of eval-scope boundaries (function/class bodies) are not
+ * entered. `visit` returning true skips a node's children — used to exempt
+ * `$effect.root(...)` callbacks (CORRECT006).
+ */
+function walkEvalScope(node: Node, visit: (n: Node) => boolean | undefined): void {
+  if (Array.isArray(node)) {
+    for (const child of node) walkEvalScope(child, visit);
+    return;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+  if (visit(node)) return;
+  if (EVAL_SCOPE_BOUNDARIES.has(node.type)) return;
+  for (const key of Object.keys(node)) {
+    if (key === 'type' || key === 'start' || key === 'end' || key === 'loc' || key === 'range') continue;
+    walkEvalScope(node[key], visit);
+  }
+}
+
+/** Lines of `$effect`/`$effect.pre` calls that run when `root` itself is evaluated (CORRECT006). */
+function collectEvalScopeEffectLines(root: Node, source: string): number[] {
+  const lines: number[] = [];
+  walkEvalScope(root, (n) => {
+    if (n.type !== 'CallExpression') return undefined;
+    if (isEffectRootCall(n)) return true;
+    if (isEffectCall(n)) lines.push(lineOf(source, n.start));
+    return undefined;
+  });
+  return lines;
+}
+
+/**
+ * Orphan `$effect` facts for a module-context program (CORRECT006): (1) effects that run
+ * at module evaluation time, (2) a module-scope `new` of a same-file class whose
+ * constructor creates a bare effect. Conservative by construction — never crosses a
+ * function boundary, so factory functions, IIFEs, and cross-file classes are not flagged.
+ */
+function collectOrphanEffects(program: Node, source: string): OrphanEffectFact[] {
+  const out: OrphanEffectFact[] = collectEvalScopeEffectLines(program, source).map((line) => ({
+    line,
+    kind: 'top-level' as const
+  }));
+
+  const effectfulClasses = new Set<string>();
+  walkEvalScope(program, (n) => {
+    if ((n.type === 'ClassDeclaration' || n.type === 'ClassExpression') && n.id?.type === 'Identifier') {
+      const ctor = (n.body?.body ?? []).find((m: Node) => m?.type === 'MethodDefinition' && m.kind === 'constructor');
+      if (ctor?.value?.body && collectEvalScopeEffectLines(ctor.value.body, source).length > 0) {
+        effectfulClasses.add(n.id.name);
+      }
+    }
+    return undefined;
+  });
+  if (effectfulClasses.size > 0) {
+    walkEvalScope(program, (n) => {
+      if (n.type === 'NewExpression' && n.callee?.type === 'Identifier' && effectfulClasses.has(n.callee.name)) {
+        out.push({ line: lineOf(source, n.start), kind: 'constructor-instantiated', className: n.callee.name });
+      }
+      return undefined;
+    });
+  }
+  return out.sort((a, b) => a.line - b.line);
+}
+
 /** Parse a component's reactivity/correctness + security + architecture facts (CLI/static + vite build mode). */
 export function parseComponentFacts(
   source: string,
@@ -564,6 +650,7 @@ export function parseComponentFacts(
   namespaceImports: { source: string; line: number }[];
   constableStates: { name: string; line: number }[];
   mutatedProps: { name: string; line: number }[];
+  orphanEffects: OrphanEffectFact[];
   suppressions: SuppressionDirective[];
 } {
   const ast = parse(source, { modern: true, filename }) as Node;
@@ -582,6 +669,7 @@ export function parseComponentFacts(
     collectImportSources(ast.module.content, source, importSpans);
     collectNamespaceImports(ast.module.content, source, namespaceImports);
   }
+  const orphanEffects: OrphanEffectFact[] = ast.module?.content ? collectOrphanEffects(ast.module.content, source) : [];
 
   const effects: EffectFact[] = [];
   const constableStates: { name: string; line: number }[] = [];
@@ -640,6 +728,7 @@ export function parseComponentFacts(
     namespaceImports,
     constableStates,
     mutatedProps,
+    orphanEffects,
     suppressions
   };
 }

@@ -22,6 +22,7 @@ export function emptyComponentFacts(file: string): ComponentFacts {
     namespaceImports: [],
     constableStates: [],
     mutatedProps: [],
+    orphanEffects: [],
     suppressions: []
   };
 }
