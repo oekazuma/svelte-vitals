@@ -54667,6 +54667,10 @@ function isEffectCall(node) {
   }
   return false;
 }
+function isEffectRootCall(node) {
+  const c = node?.callee;
+  return c?.type === "MemberExpression" && c.object?.type === "Identifier" && c.object.name === "$effect" && c.property?.type === "Identifier" && c.property.name === "root";
+}
 function isStateDeclaration(node) {
   const c = node?.callee;
   if (c?.type === "Identifier") return c.name === "$state";
@@ -54996,7 +55000,87 @@ function collectSuppressions(source2) {
   });
   return out;
 }
+var EVAL_SCOPE_BOUNDARIES = /* @__PURE__ */ new Set([
+  "FunctionDeclaration",
+  "FunctionExpression",
+  "ArrowFunctionExpression",
+  "ClassDeclaration",
+  "ClassExpression"
+]);
+function walkEvalScope(node, visit) {
+  if (Array.isArray(node)) {
+    for (const child of node) walkEvalScope(child, visit);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (visit(node)) return;
+  if (EVAL_SCOPE_BOUNDARIES.has(node.type)) return;
+  for (const key2 of Object.keys(node)) {
+    if (key2 === "type" || key2 === "start" || key2 === "end" || key2 === "loc" || key2 === "range") continue;
+    walkEvalScope(node[key2], visit);
+  }
+}
+function collectEvalScopeEffectLines(root, source2) {
+  const lines = [];
+  walkEvalScope(root, (n) => {
+    if (n.type !== "CallExpression") return void 0;
+    if (isEffectRootCall(n)) return true;
+    if (isEffectCall(n)) lines.push(lineOf(source2, n.start));
+    return void 0;
+  });
+  return lines;
+}
+function collectOrphanEffects(program, source2) {
+  const out = collectEvalScopeEffectLines(program, source2).map((line) => ({
+    line,
+    kind: "top-level"
+  }));
+  const effectfulClasses = /* @__PURE__ */ new Set();
+  walkEvalScope(program, (n) => {
+    if ((n.type === "ClassDeclaration" || n.type === "ClassExpression") && n.id?.type === "Identifier") {
+      const ctor = (n.body?.body ?? []).find((m) => m?.type === "MethodDefinition" && m.kind === "constructor");
+      if (ctor?.value?.body && collectEvalScopeEffectLines(ctor.value.body, source2).length > 0) {
+        effectfulClasses.add(n.id.name);
+      }
+    }
+    return void 0;
+  });
+  if (effectfulClasses.size > 0) {
+    walkEvalScope(program, (n) => {
+      if (n.type === "NewExpression" && n.callee?.type === "Identifier" && effectfulClasses.has(n.callee.name)) {
+        out.push({ line: lineOf(source2, n.start), kind: "constructor-instantiated", className: n.callee.name });
+      }
+      return void 0;
+    });
+  }
+  return out.sort((a, b) => a.line - b.line);
+}
+var MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
+function parseModuleFacts(source2, filename2) {
+  const wrapped = `<script lang="ts">
+${source2}
+</script>`;
+  const ast = parse8(wrapped, { modern: true, filename: filename2 });
+  const program = ast.instance?.content;
+  const orphanEffects = program ? collectOrphanEffects(program, wrapped).map((f) => ({ ...f, line: Math.max(0, f.line - 1) })) : [];
+  return {
+    eachBlocks: [],
+    effects: [],
+    htmlTags: [],
+    javascriptUrls: [],
+    loc: 0,
+    propCount: 0,
+    imports: [],
+    importSpans: [],
+    namespaceImports: [],
+    constableStates: [],
+    mutatedProps: [],
+    suppressions: collectSuppressions(source2),
+    orphanEffects
+  };
+}
 function parseComponentFacts(source2, filename2) {
+  if (MODULE_FILE_RE.test(filename2)) return parseModuleFacts(source2, filename2);
   const ast = parse8(source2, { modern: true, filename: filename2 });
   const eachBlocks = [];
   collectEachBlocks(ast.fragment ?? ast, source2, eachBlocks);
@@ -55011,6 +55095,7 @@ function parseComponentFacts(source2, filename2) {
     collectImportSources(ast.module.content, source2, importSpans);
     collectNamespaceImports(ast.module.content, source2, namespaceImports);
   }
+  const orphanEffects = ast.module?.content ? collectOrphanEffects(ast.module.content, source2) : [];
   const effects = [];
   const constableStates = [];
   const mutatedProps = [];
@@ -55068,6 +55153,7 @@ function parseComponentFacts(source2, filename2) {
     namespaceImports,
     constableStates,
     mutatedProps,
+    orphanEffects,
     suppressions
   };
 }
@@ -55085,11 +55171,14 @@ function emptyComponentFacts(file) {
     namespaceImports: [],
     constableStates: [],
     mutatedProps: [],
+    orphanEffects: [],
     suppressions: []
   };
 }
 async function collectComponentFacts(rt, cwd) {
-  const files = await rt.glob("src/**/*.svelte", cwd);
+  const patterns = ["src/**/*.svelte", "src/**/*.svelte.ts", "src/**/*.svelte.js"];
+  const lists = await Promise.all(patterns.map((p) => rt.glob(p, cwd)));
+  const files = [...new Set(lists.flat())];
   return Promise.all(
     files.sort().map(async (rel) => {
       try {
@@ -56579,6 +56668,20 @@ var correct005PropMutation = componentRule({
     message: `Prop "${m.name}" is mutated, but it is not declared $bindable`
   }))
 });
+var correct006OrphanEffect = componentRule({
+  id: "CORRECT006",
+  title: "Orphan $effect",
+  category: "correctness",
+  severity: "critical",
+  label: "$effect context",
+  recommendation: "Wrap the effect in $effect.root (and own the returned cleanup), or restructure so the effect is created during component initialisation (e.g. call a setup method from a component).",
+  rationale: "An $effect created outside component initialisation throws effect_orphan at runtime \u2014 the compiler does not catch it, and it typically surfaces as a production 500.",
+  applies: (c) => c.orphanEffects.length > 0,
+  bad: (c) => c.orphanEffects.map((o) => ({
+    line: o.line,
+    message: o.kind === "top-level" ? "$effect at module scope runs outside component initialisation \u2014 it throws effect_orphan at runtime" : `class "${o.className}" runs $effect in its constructor and is instantiated at module scope \u2014 it throws effect_orphan at runtime`
+  }))
+});
 var sec001Html = componentRule({
   id: "SEC001",
   title: "Raw HTML render",
@@ -56718,6 +56821,7 @@ var allRules = [
   correct003EffectAsOnMount,
   correct004UnmutatedState,
   correct005PropMutation,
+  correct006OrphanEffect,
   sec001Html,
   sec002JavascriptUrl,
   arch001ComponentSize,
