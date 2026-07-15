@@ -696,11 +696,17 @@ type ParsedFacts = Omit<ComponentFacts, 'file' | 'suppressions'> & { suppression
  * facts stay empty and `loc` is 0 so ARCH001/PERF009 don't fire on module files. The
  * source is wrapped in a `<script lang="ts">` tag so the Svelte script parser (which
  * handles TS natively) yields the ESTree program; the 1-line wrap prefix is subtracted
- * from every reported line. A source containing a literal `"</script>"` string defeats
- * the wrap and throws here — callers already treat a throw as empty facts.
+ * from every reported line. A literal `"</script>"` string in the source would otherwise
+ * terminate the wrapper tag early and break the parse, so it is neutralised first (see
+ * below) — string contents don't affect fact extraction, and the same-length replacement
+ * preserves every offset/line number.
  */
 function parseModuleFacts(source: string, filename: string): ParsedFacts {
-  const wrapped = `<script lang="ts">\n${source}\n</script>`;
+  // A literal "</script" (in a string/comment) would terminate the wrapper tag early —
+  // the script parser is not string-aware. Neutralise it with a same-length placeholder;
+  // string contents don't affect fact extraction and source offsets are preserved.
+  const neutralized = source.replace(/<\/script/gi, '<_script');
+  const wrapped = `<script lang="ts">\n${neutralized}\n</script>`;
   const ast = parse(wrapped, { modern: true, filename }) as Node;
   const program = ast.instance?.content;
   const orphanEffects = program
