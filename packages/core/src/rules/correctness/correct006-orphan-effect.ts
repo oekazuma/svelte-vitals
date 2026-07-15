@@ -10,9 +10,12 @@ export const correct006OrphanEffect = componentRule({
     'Wrap the effect in $effect.root (and own the returned cleanup), or restructure so the effect is created during component initialisation (e.g. call a setup method from a component).',
   rationale:
     'An $effect created outside component initialisation throws effect_orphan at runtime — the compiler does not catch it, and it typically surfaces as a production 500.',
-  applies: (c) => c.orphanEffects.length > 0,
+  // `orphanEffects` is typed required, but a facts object built by an older/external
+  // constructor may omit it — default to empty rather than let `applies` throw and
+  // take the whole `runRules` Promise.all down with it.
+  applies: (c) => (c.orphanEffects ?? []).length > 0,
   bad: (c) =>
-    c.orphanEffects.map((o) => ({
+    (c.orphanEffects ?? []).map((o) => ({
       line: o.line,
       message:
         o.kind === 'top-level'
