@@ -15,6 +15,7 @@ export default defineConfig({
       description,
       logo: { src: './src/assets/logo-mark.svg', alt: 'svelte-vitals' },
       favicon: '/favicon.svg',
+      customCss: ['./src/styles/theme-image.css'],
       head: [{ tag: 'link', attrs: { rel: 'apple-touch-icon', sizes: '180x180', href: `${base}/favicon-180.png` } }],
       locales: {
         root: { label: 'English', lang: 'en' },
