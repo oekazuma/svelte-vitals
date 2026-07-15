@@ -104,8 +104,9 @@ describe('buildHtmlDocument (static export of the shared app shell)', () => {
   });
 
   it('is self-contained: no external resource references in the markup', () => {
-    // docsUrl now lives inside the embedded JSON (with `<` escaped to <), never in
-    // a server-rendered href — so the whole document must have no http(s) src/href at all.
+    // docsUrl now lives inside the embedded JSON (with `<` escaped to the literal
+    // sequence \u003c), never in a server-rendered href — so the whole document must
+    // have no http(s) src/href at all.
     expect(/(?:src|href)\s*=\s*"https?:\/\//i.test(html)).toBe(false);
     expect(/url\(\s*['"]?https?:\/\//i.test(html)).toBe(false);
   });
@@ -236,7 +237,8 @@ describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loo
       siteIssues: []
     };
     const html = buildHtmlDocument(evil, { version: '0' });
-    // embedJson escapes `<` to <, so the raw tag never exists in the document.
+    // embedJson escapes `<` to the literal sequence \u003c, so the raw tag never
+    // exists in the document (the parsed JSON still contains the original string).
     expect(html).not.toContain('<img src=x onerror=alert(1)>');
   });
 
