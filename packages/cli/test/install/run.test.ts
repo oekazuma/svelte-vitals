@@ -945,6 +945,33 @@ export default { plugins: [sveltekit()] };
     expect(writes['/proj/apps/web/vite.config.ts']).toContain('svelteVitals()');
     expect(runCalls).toEqual([{ command: 'pnpm', args: ['add', '-D', '@svelte-vitals/vite'], cwd: '/proj/apps/web' }]);
   });
+
+  it('an app with its own package-lock.json keeps npm even when the repo root uses pnpm', async () => {
+    const viteConfig = `
+import { sveltekit } from '@sveltejs/kit/vite';
+export default { plugins: [sveltekit()] };
+`;
+    const runCalls: Array<{ command: string; args: string[]; cwd: string }> = [];
+    const { io } = fakeIO({
+      files: {
+        '/proj/pnpm-lock.yaml': '',
+        '/proj/apps/web/package-lock.json': '{}',
+        '/proj/apps/web/svelte.config.js': 'x',
+        '/proj/apps/web/vite.config.ts': viteConfig,
+        '/proj/apps/web/package.json': '{}'
+      },
+      discoverApps: async () => ['apps/web'],
+      runCommand: (command, args, cwd) => {
+        runCalls.push({ command, args, cwd });
+        return 0;
+      }
+    });
+    const code = await runInstall({ client: ['vite-plugin'], yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(runCalls).toEqual([
+      { command: 'npm', args: ['install', '-D', '@svelte-vitals/vite'], cwd: '/proj/apps/web' }
+    ]);
+  });
 });
 
 describe('runInstall — --refresh', () => {

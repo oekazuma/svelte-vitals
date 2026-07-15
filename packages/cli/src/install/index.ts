@@ -28,7 +28,13 @@ import {
 } from './config-file-format.js';
 import { codemodViteConfig } from './codemod-vite-config.js';
 import { codemodHooksServer } from './codemod-hooks.js';
-import { detectPackageManager, hasVitePackage, installCommand, readInstalledViteVersion } from './package-manager.js';
+import {
+  detectPackageManager,
+  detectPackageManagerFromLockfile,
+  hasVitePackage,
+  installCommand,
+  readInstalledViteVersion
+} from './package-manager.js';
 import type { WriteStatus } from './codemod-types.js';
 import { planWorkflowWrite, buildWorkflowYaml } from '../ci/workflow.js';
 import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
@@ -102,14 +108,13 @@ interface PlanRow {
 
 /**
  * Package-manager detection for a monorepo app dir: the app's own lockfile wins if it
- * has one, but in a workspace setup the lockfile lives at the repo root, so fall back
- * to detecting from cwd. `detectPackageManager` alone would default to npm for an app
- * dir inside a pnpm workspace — the exact case this exists for.
+ * has one (including a real package-lock.json — distinct from npm-as-fallback), but in
+ * a workspace setup the lockfile lives at the repo root, so fall back to detecting
+ * from cwd. `detectPackageManager` alone would default to npm for an app dir inside a
+ * pnpm workspace — the exact case this exists for.
  */
 function detectPackageManagerNear(io: InstallIO, appDir: string): ReturnType<typeof detectPackageManager> {
-  const inApp = detectPackageManager({ ...io, cwd: appDir });
-  if (inApp !== 'npm') return inApp;
-  return detectPackageManager(io);
+  return detectPackageManagerFromLockfile({ ...io, cwd: appDir }) ?? detectPackageManager(io);
 }
 
 function planForClient(client: ClientWriter, scope: Scope, io: InstallIO, force: boolean): PlanRow {

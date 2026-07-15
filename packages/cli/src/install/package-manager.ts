@@ -14,15 +14,25 @@ const LOCKFILE_TO_PM: Record<string, PackageManager> = {
   'pnpm-lock.yaml': 'pnpm',
   'yarn.lock': 'yarn',
   'bun.lock': 'bun',
-  'bun.lockb': 'bun'
+  'bun.lockb': 'bun',
+  'package-lock.json': 'npm'
 };
 
-/** Detect the project's package manager from its lockfile; defaults to npm. */
-export function detectPackageManager(io: ReadCwd): PackageManager {
+/**
+ * The package manager whose lockfile exists in `io.cwd`, or undefined when none does.
+ * Distinct from `detectPackageManager`'s npm fallback so callers with their own
+ * fallback chain (e.g. app dir → workspace root) can tell "really npm" from "no signal".
+ */
+export function detectPackageManagerFromLockfile(io: ReadCwd): PackageManager | undefined {
   for (const [file, pm] of Object.entries(LOCKFILE_TO_PM)) {
     if (io.readFile(join(io.cwd, file)) !== undefined) return pm;
   }
-  return 'npm';
+  return undefined;
+}
+
+/** Detect the project's package manager from its lockfile; defaults to npm. */
+export function detectPackageManager(io: ReadCwd): PackageManager {
+  return detectPackageManagerFromLockfile(io) ?? 'npm';
 }
 
 /** Whether @svelte-vitals/vite is already a (dev)dependency in package.json. */

@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { detectPackageManager, hasVitePackage, installCommand } from '../../src/install/package-manager.js';
+import {
+  detectPackageManager,
+  detectPackageManagerFromLockfile,
+  hasVitePackage,
+  installCommand
+} from '../../src/install/package-manager.js';
 
 function fakeReadCwd(files: Record<string, string>) {
   return {
@@ -21,8 +26,20 @@ describe('detectPackageManager', () => {
   it('detects bun from bun.lock (the newer text-based format)', () => {
     expect(detectPackageManager(fakeReadCwd({ '/proj/bun.lock': '' }))).toBe('bun');
   });
+  it('detects npm from a real package-lock.json', () => {
+    expect(detectPackageManager(fakeReadCwd({ '/proj/package-lock.json': '{}' }))).toBe('npm');
+  });
   it('falls back to npm when no lockfile is found', () => {
     expect(detectPackageManager(fakeReadCwd({}))).toBe('npm');
+  });
+});
+
+describe('detectPackageManagerFromLockfile', () => {
+  it('returns npm for a real package-lock.json — distinct from the no-lockfile case', () => {
+    expect(detectPackageManagerFromLockfile(fakeReadCwd({ '/proj/package-lock.json': '{}' }))).toBe('npm');
+  });
+  it('returns undefined when no lockfile is found, so callers can apply their own fallback', () => {
+    expect(detectPackageManagerFromLockfile(fakeReadCwd({}))).toBeUndefined();
   });
 });
 
