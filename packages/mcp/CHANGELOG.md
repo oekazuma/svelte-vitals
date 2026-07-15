@@ -1,5 +1,17 @@
 # @svelte-vitals/mcp
 
+## 0.13.0
+
+### Minor Changes
+
+- b10c26a: Add CORRECT006 (critical): flag orphan `$effect` calls that throw `effect_orphan` at runtime — a top-level `$effect` in a `.svelte.ts`/`.svelte.js` runes module or a `.svelte` `<script module>`, and a module-scope `new` of a class whose constructor creates a bare `$effect`. `.svelte.ts`/`.svelte.js` runes modules are now analyzed by the component-facts pipeline.
+
+### Patch Changes
+
+- Updated dependencies [b10c26a]
+  - @svelte-vitals/core@0.26.0
+  - svelte-vitals@0.29.0
+
 ## 0.12.3
 
 ### Patch Changes

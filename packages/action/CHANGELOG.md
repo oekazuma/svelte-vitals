@@ -1,5 +1,13 @@
 # @svelte-vitals/action
 
+## 0.3.4
+
+### Patch Changes
+
+- Updated dependencies [b10c26a]
+  - @svelte-vitals/core@0.26.0
+  - svelte-vitals@0.29.0
+
 ## 0.3.3
 
 ### Patch Changes
