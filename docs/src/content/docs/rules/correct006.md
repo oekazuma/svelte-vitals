@@ -12,7 +12,7 @@ Flags `$effect` / `$effect.pre` calls that are guaranteed to run outside compone
 - A **top-level effect** in a `.svelte.ts` / `.svelte.js` runes module or in a `.svelte` `<script module>` block — it runs when the module is imported, outside any component's initialisation.
 - A **module-scope `new`** of a class declared in the same file whose constructor creates a bare `$effect` (one not wrapped in `$effect.root`) — the shared-state-manager pattern. The finding points at the `new` site.
 
-Not flagged: effects inside functions (including factory functions and IIFEs), effects inside an `$effect.root(...)` callback, classes that are only instantiated inside components, and classes imported from another file. Detection never crosses a function boundary, so it has no false positives by construction — at the cost of missing cross-file and factory variants.
+Not flagged: effects inside functions (including factory functions and IIFEs), effects inside an `$effect.root(...)` callback, classes that are only instantiated inside components, classes imported from another file, effects in class field initializers or static blocks, and effects in anonymous class expressions (`const Store = class { … }`). Detection never crosses a function boundary, so it has no false positives by construction — at the cost of missing cross-file and factory variants.
 
 ## Why it matters
 

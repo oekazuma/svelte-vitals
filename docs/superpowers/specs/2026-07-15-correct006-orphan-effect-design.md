@@ -220,6 +220,11 @@ is included.
 - **Bare constructor effects without a module-scope `new`** — legal when the
   class is instantiated inside a component; deliberately not flagged (false
   positive avoidance).
+- **Class field initializers, static blocks, and anonymous class expressions** — an
+  effect created in a class field initializer or static block, or in a class
+  expression without a name (`const Store = class { ... }`), is not detected even
+  when the class is instantiated at module scope. Same conservative rationale;
+  identified in the final branch review.
 - **The `</script>` string-literal edge** — a module source containing the
   literal string `"</script>"` may break the wrap-based parse; it degrades to
   the existing fail-safe (empty facts, detection skipped, no crash). Rare in
