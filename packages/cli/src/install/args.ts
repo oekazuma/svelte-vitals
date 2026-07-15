@@ -52,6 +52,8 @@ export function resolveInstallArgs(argv: mri.Argv): ResolvedInstallArgs {
     else errors.push(`svelte-vitals: unknown --scope '${rawScope}'; expected project|global.`);
   }
 
+  const app = typeof argv.app === 'string' && argv.app.trim() !== '' ? argv.app.trim() : undefined;
+
   const refresh = Boolean(argv.refresh);
   if (refresh && rawClients.length > 0) {
     errors.push('svelte-vitals: --refresh regenerates existing files and cannot be combined with --client.');
@@ -59,14 +61,15 @@ export function resolveInstallArgs(argv: mri.Argv): ResolvedInstallArgs {
 
   if (errors.length > 0) return { flags: null, warnings, errors };
 
-  if (refresh && (scope !== undefined || Boolean(argv.yes) || Boolean(argv.force))) {
-    warnings.push('svelte-vitals: --scope, --yes, and --force are ignored with --refresh.');
+  if (refresh && (scope !== undefined || Boolean(argv.yes) || Boolean(argv.force) || app !== undefined)) {
+    warnings.push('svelte-vitals: --scope, --yes, --force, and --app are ignored with --refresh.');
   }
 
   return {
     flags: {
       ...(client.length > 0 ? { client } : {}),
       ...(scope ? { scope } : {}),
+      ...(app !== undefined && !refresh ? { app } : {}),
       yes: Boolean(argv.yes),
       dryRun: Boolean(argv['dry-run']),
       force: Boolean(argv.force),

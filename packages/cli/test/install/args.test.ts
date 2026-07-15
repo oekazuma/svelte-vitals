@@ -110,6 +110,22 @@ describe('resolveInstallArgs — ci target', () => {
   });
 });
 
+describe('resolveInstallArgs — --app', () => {
+  it('passes --app through', () => {
+    const r = resolveInstallArgs(parse(['--client', 'vite-plugin', '--app', 'apps/web']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags).toMatchObject({ app: 'apps/web' });
+  });
+  it('omits the app key when not provided', () => {
+    const r = resolveInstallArgs(parse(['--client', 'vite-plugin']));
+    expect(r.flags).not.toHaveProperty('app');
+  });
+  it('ignores an empty --app value', () => {
+    const r = resolveInstallArgs(parse(['--client', 'vite-plugin', '--app', ' ']));
+    expect(r.flags).not.toHaveProperty('app');
+  });
+});
+
 describe('resolveInstallArgs — --refresh', () => {
   it('accepts a bare --refresh', () => {
     const r = resolveInstallArgs(parse(['--refresh']));
@@ -127,5 +143,12 @@ describe('resolveInstallArgs — --refresh', () => {
     expect(r.errors).toEqual([]);
     expect(r.flags).toMatchObject({ refresh: true });
     expect(r.warnings.join('\n')).toContain('--refresh');
+  });
+  it('warns and drops --app when combined with --refresh', () => {
+    const r = resolveInstallArgs(parse(['--refresh', '--app', 'apps/web']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags).toMatchObject({ refresh: true });
+    expect(r.flags).not.toHaveProperty('app');
+    expect(r.warnings.join('\n')).toContain('--app');
   });
 });

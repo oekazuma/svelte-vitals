@@ -32,6 +32,7 @@ import { detectPackageManager, hasVitePackage, installCommand, readInstalledVite
 import type { WriteStatus } from './codemod-types.js';
 import { planWorkflowWrite, buildWorkflowYaml } from '../ci/workflow.js';
 import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
+import { discoverApps } from '../discover-apps.js';
 
 export type TargetId = ClientId | ViteTargetId | AgentTargetId | ConfigTargetId | CiTargetId;
 
@@ -50,6 +51,9 @@ export interface InstallIO {
   /** `process.version` — used only to decide whether a fresh config-file scaffold can pick
    * `.ts` (native TypeScript stripping support). Falls back to `process.version` if omitted. */
   nodeVersion?: string;
+  /** Monorepo SvelteKit-app discovery (the analyzer's own `discoverApps`). Injectable for
+   * tests, which use a virtual filesystem the real (fs-backed) implementation can't see. */
+  discoverApps?(cwd: string): Promise<string[]>;
 }
 
 export interface SelectableOption {
@@ -68,6 +72,8 @@ export interface InstallPrompts {
   selectClients(groups: Record<string, SelectableOption[]>, defaults: TargetId[]): Promise<TargetId[] | null>;
   /** Returns chosen scope, or null when cancelled. */
   selectScope(client: ClientWriter): Promise<Scope | null>;
+  /** Monorepo: returns the chosen app directory (cwd-relative), or null when cancelled. */
+  selectApp(apps: string[]): Promise<string | null>;
   confirm(planText: string): Promise<boolean>;
 }
 
@@ -79,6 +85,9 @@ export interface InstallFlags {
   force?: boolean;
   /** Regenerate only the agent target files (AGENT_TARGETS) that already exist on disk. */
   refresh?: boolean;
+  /** Monorepo: cwd-relative SvelteKit app directory the app-scoped targets (vite-plugin,
+   * vite-hooks, config-file) should write into. Skips app auto-detection when given. */
+  app?: string;
 }
 
 interface PlanRow {
@@ -91,6 +100,18 @@ interface PlanRow {
   snippet?: string;
 }
 
+/**
+ * Package-manager detection for a monorepo app dir: the app's own lockfile wins if it
+ * has one, but in a workspace setup the lockfile lives at the repo root, so fall back
+ * to detecting from cwd. `detectPackageManager` alone would default to npm for an app
+ * dir inside a pnpm workspace — the exact case this exists for.
+ */
+function detectPackageManagerNear(io: InstallIO, appDir: string): ReturnType<typeof detectPackageManager> {
+  const inApp = detectPackageManager({ ...io, cwd: appDir });
+  if (inApp !== 'npm') return inApp;
+  return detectPackageManager(io);
+}
+
 function planForClient(client: ClientWriter, scope: Scope, io: InstallIO, force: boolean): PlanRow {
   const path = client.resolvePath(scope, io.cwd, io.home);
   const existing = io.readFile(path);
@@ -100,23 +121,27 @@ function planForClient(client: ClientWriter, scope: Scope, io: InstallIO, force:
 }
 
 /** Read the first candidate path that exists; otherwise report the first candidate as the (nonexistent) path. */
-function resolveCandidate(io: InstallIO, candidates: string[]): { path: string; content: string | undefined } {
+function resolveCandidate(
+  io: InstallIO,
+  baseDir: string,
+  candidates: string[]
+): { path: string; content: string | undefined } {
   for (const rel of candidates) {
-    const path = join(io.cwd, rel);
+    const path = join(baseDir, rel);
     const content = io.readFile(path);
     if (content !== undefined) return { path, content };
   }
-  return { path: join(io.cwd, candidates[0]!), content: undefined };
+  return { path: join(baseDir, candidates[0]!), content: undefined };
 }
 
-function planForVitePlugin(io: InstallIO): PlanRow {
-  const { path, content } = resolveCandidate(io, ['vite.config.ts', 'vite.config.js', 'vite.config.mjs']);
+function planForVitePlugin(io: InstallIO, appDir: string): PlanRow {
+  const { path, content } = resolveCandidate(io, appDir, ['vite.config.ts', 'vite.config.js', 'vite.config.mjs']);
   const result = codemodViteConfig(content);
   return { id: 'vite-plugin', label: viteTargetById('vite-plugin')!.label, path, ...result };
 }
 
-function planForViteHooks(io: InstallIO): PlanRow {
-  const { path, content } = resolveCandidate(io, ['src/hooks.server.ts', 'src/hooks.server.js']);
+function planForViteHooks(io: InstallIO, appDir: string): PlanRow {
+  const { path, content } = resolveCandidate(io, appDir, ['src/hooks.server.ts', 'src/hooks.server.js']);
   const result = codemodHooksServer(content);
   return { id: 'vite-hooks', label: viteTargetById('vite-hooks')!.label, path, ...result };
 }
@@ -168,25 +193,25 @@ function planForAgentTarget(target: AgentTarget, io: InstallIO, force: boolean, 
  * Only a fresh scaffold (nothing exists yet) auto-picks the best extension for this
  * environment (see detectBestConfigExtension in config-file-format.ts).
  */
-function planForConfigTarget(target: ConfigTarget, io: InstallIO, force: boolean): PlanRow {
-  const existingRel = findExistingConfigFile(io.readFile, io.cwd);
+function planForConfigTarget(target: ConfigTarget, io: InstallIO, force: boolean, appDir: string): PlanRow {
+  const existingRel = findExistingConfigFile(io.readFile, appDir);
   if (existingRel !== undefined) {
-    const path = join(io.cwd, existingRel);
+    const path = join(appDir, existingRel);
     const status: WriteStatus = force ? 'updated' : 'exists';
     const content = force
       ? buildConfigFileTemplate({
-          useDefineConfig: existingRel.endsWith('.ts') && hasSvelteVitalsDependency(io.readFile, io.cwd),
-          useCommonJs: existingRel.endsWith('.js') && !isEsmProject(io.readFile, io.cwd)
+          useDefineConfig: existingRel.endsWith('.ts') && hasSvelteVitalsDependency(io.readFile, appDir),
+          useCommonJs: existingRel.endsWith('.js') && !isEsmProject(io.readFile, appDir)
         })
       : undefined;
     return { id: target.id, label: target.label, path, status, content };
   }
   const ext = detectBestConfigExtension({
     readFile: io.readFile,
-    cwd: io.cwd,
+    cwd: appDir,
     nodeVersion: io.nodeVersion ?? process.version
   });
-  const path = join(io.cwd, `svelte-vitals.config.${ext}`);
+  const path = join(appDir, `svelte-vitals.config.${ext}`);
   const content = buildConfigFileTemplate({ useDefineConfig: ext === 'ts' });
   return { id: target.id, label: target.label, path, status: 'created', content };
 }
@@ -362,7 +387,59 @@ export async function runInstall(
     return 2;
   }
 
-  // 2. Resolve a scope per client and build the plan.
+  // 2. Monorepo: resolve the app directory the app-scoped targets write into.
+  // vite-plugin/vite-hooks/config-file must land in the SvelteKit app itself (that's
+  // where vite.config/hooks.server live, and the config file is only loaded from the
+  // analyzed directory) — everything else (MCP project configs, skills, the CI
+  // workflow) belongs at the repo root and ignores this. Mirrors the analyzer's own
+  // app picker (design doc 2026-07-08-monorepo-app-picker-design.md): cwd-is-an-app
+  // short-circuits, a single detected app is used with a notice, several prompt on a
+  // TTY, and non-interactive runs get told to pass --app.
+  const hasSvelteConfig = (dir: string): boolean => {
+    try {
+      return (
+        io.readFile(join(dir, 'svelte.config.js')) !== undefined ||
+        io.readFile(join(dir, 'svelte.config.ts')) !== undefined
+      );
+    } catch {
+      return false;
+    }
+  };
+  const needsApp = viteIds.length > 0 || configIds.length > 0;
+  let appDir = io.cwd;
+  if (needsApp) {
+    if (flags.app) {
+      const candidate = join(io.cwd, flags.app);
+      if (!hasSvelteConfig(candidate)) {
+        io.errorLog(`svelte-vitals: --app '${flags.app}' is not a SvelteKit app (no svelte.config.{js,ts} there).`);
+        return 2;
+      }
+      appDir = candidate;
+    } else if (!hasSvelteConfig(io.cwd)) {
+      const apps = await (io.discoverApps ?? discoverApps)(io.cwd);
+      if (apps.length === 1) {
+        io.errorLog(`svelte-vitals: detected SvelteKit app at ${apps[0]}; targeting it for the Vite/config targets.`);
+        appDir = join(io.cwd, apps[0]!);
+      } else if (apps.length > 1) {
+        if (io.isTTY) {
+          const picked = await prompts.selectApp(apps);
+          if (picked === null) {
+            io.log('Cancelled.');
+            return 0;
+          }
+          appDir = join(io.cwd, picked);
+        } else {
+          io.errorLog(`svelte-vitals: multiple SvelteKit apps found: ${apps.join(', ')}.`);
+          io.errorLog(`svelte-vitals: pass one with --app, e.g. \`svelte-vitals install --app ${apps[0]}\`.`);
+          return 2;
+        }
+      }
+      // 0 apps found → keep cwd, same as before this feature existed (install has
+      // never hard-required a SvelteKit project).
+    }
+  }
+
+  // 3. Resolve a scope per client and build the plan.
   const rows: PlanRow[] = [];
   for (const client of clients) {
     let scope: Scope;
@@ -391,7 +468,7 @@ export async function runInstall(
     }
   }
   for (const viteId of viteIds) {
-    rows.push(viteId === 'vite-plugin' ? planForVitePlugin(io) : planForViteHooks(io));
+    rows.push(viteId === 'vite-plugin' ? planForVitePlugin(io, appDir) : planForViteHooks(io, appDir));
   }
   for (const agentId of agentIds) {
     const target = agentTargetById(agentId)!;
@@ -410,7 +487,7 @@ export async function runInstall(
   for (const configId of configIds) {
     const target = configTargetById(configId)!;
     try {
-      rows.push(planForConfigTarget(target, io, flags.force ?? false));
+      rows.push(planForConfigTarget(target, io, flags.force ?? false, appDir));
     } catch (err) {
       io.errorLog(
         `svelte-vitals: could not check existing config file: ${err instanceof Error ? err.message : String(err)}`
@@ -430,12 +507,12 @@ export async function runInstall(
     }
   }
 
-  // 3. Preview.
+  // 4. Preview.
   const planText = rows.map(rowLine).join('\n');
   io.log('Plan:');
   io.log(planText);
 
-  // 4. Dry-run / confirm.
+  // 5. Dry-run / confirm.
   if (flags.dryRun) {
     io.log('Dry run — no files written.');
     return 0;
@@ -448,7 +525,7 @@ export async function runInstall(
     }
   }
 
-  // 5. Write.
+  // 6. Write.
   let hadFailure = false;
   let viteWasWritten = false;
   for (const r of rows) {
@@ -480,22 +557,26 @@ export async function runInstall(
       io.errorLog(`svelte-vitals: failed to write ${r.path}: ${err instanceof Error ? err.message : String(err)}`);
     }
   }
-  // 6. Auto-install @svelte-vitals/vite if a Vite target was actually written —
+  // 7. Auto-install @svelte-vitals/vite if a Vite target was actually written —
   // run this even if another row failed, so a partial failure elsewhere doesn't
   // silently strand a freshly-registered vite.config without its dependency
   // (once written, the codemod reports 'exists' on every later run, so this is
-  // the only chance to install it).
-  if (viteWasWritten && io.runCommand && !hasVitePackage(io)) {
-    const pm = detectPackageManager(io);
+  // the only chance to install it). In a monorepo, the dependency belongs to the
+  // app's own package.json, so both the check and the install run in appDir; the
+  // package manager is still detected from wherever the lockfile lives (the repo
+  // root in a workspace setup — an app dir usually has none).
+  const appIo = { ...io, cwd: appDir };
+  if (viteWasWritten && io.runCommand && !hasVitePackage(appIo)) {
+    const pm = appDir === io.cwd ? detectPackageManager(io) : detectPackageManagerNear(io, appDir);
     const { command, args } = installCommand(pm);
     io.log(`Installing @svelte-vitals/vite via ${pm}...`);
-    const code = io.runCommand(command, args, io.cwd);
+    const code = io.runCommand(command, args, appDir);
     if (code !== 0) {
       io.errorLog(
         `svelte-vitals: failed to install @svelte-vitals/vite (${command} ${args.join(' ')} exited ${code}). Install it manually.`
       );
     } else {
-      const installedVersion = readInstalledViteVersion(io);
+      const installedVersion = readInstalledViteVersion(appIo) ?? readInstalledViteVersion(io);
       io.log(
         installedVersion
           ? `svelte-vitals: installed @svelte-vitals/vite@${installedVersion} — compare against \`svelte-vitals --version\`'s core number if findings ever seem out of sync.`

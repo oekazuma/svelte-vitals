@@ -9,6 +9,7 @@ function fakeIO(
     throwOnRead?: string;
     runCommand?: (command: string, args: string[], cwd: string) => number;
     nodeVersion?: string;
+    discoverApps?: (cwd: string) => Promise<string[]>;
   } = {}
 ) {
   const files = over.files ?? {};
@@ -34,6 +35,9 @@ function fakeIO(
     nodeVersion: over.nodeVersion ?? 'v22.13.0',
     log: (l) => out.push(l),
     errorLog: (l) => err.push(l),
+    // Tests use a virtual filesystem, so the real fs-backed discoverApps would
+    // scan the actual repo — default to "no apps found" unless a test injects one.
+    discoverApps: over.discoverApps ?? (async () => []),
     ...(over.runCommand ? { runCommand: over.runCommand } : {})
   };
   return { io, writes, out, err };
@@ -42,6 +46,7 @@ function fakeIO(
 const noPrompts: InstallPrompts = {
   selectClients: async () => null,
   selectScope: async () => null,
+  selectApp: async () => null,
   confirm: async () => true
 };
 
@@ -757,6 +762,188 @@ describe('runInstall — grouped interactive picker', () => {
     };
     await runInstall({}, io, prompts);
     expect(mcpGroup).toEqual(['claude-code', 'cursor', 'codex']);
+  });
+});
+
+describe('runInstall — monorepo app resolution (vite/config targets)', () => {
+  it('cwd itself is a SvelteKit app → no discovery, writes stay at cwd', async () => {
+    let discoveryCalls = 0;
+    const { io, writes } = fakeIO({
+      files: { '/proj/svelte.config.js': 'export default {};' },
+      discoverApps: async () => {
+        discoveryCalls++;
+        return ['apps/web'];
+      }
+    });
+    const code = await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(discoveryCalls).toBe(0);
+    expect(writes['/proj/svelte-vitals.config.mjs']).toBeDefined();
+  });
+
+  it('exactly one app detected → used automatically with a notice, config lands in the app dir', async () => {
+    const { io, writes, err } = fakeIO({
+      files: { '/proj/apps/web/svelte.config.js': 'export default {};' },
+      discoverApps: async () => ['apps/web']
+    });
+    const code = await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(err.join('\n')).toContain('detected SvelteKit app at apps/web');
+    expect(writes['/proj/apps/web/svelte-vitals.config.mjs']).toBeDefined();
+    expect(writes['/proj/svelte-vitals.config.mjs']).toBeUndefined();
+  });
+
+  it("vite-plugin's candidate lookup and manual snippet path are app-relative", async () => {
+    const { io, writes, out } = fakeIO({
+      files: { '/proj/apps/web/svelte.config.js': 'export default {};' },
+      discoverApps: async () => ['apps/web']
+    });
+    const code = await runInstall({ client: ['vite-plugin'], yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes).toEqual({});
+    expect(out.join('\n')).toContain('/proj/apps/web/vite.config.ts');
+  });
+
+  it('several apps, non-interactive → exit 2 pointing at --app', async () => {
+    const { io, writes, err } = fakeIO({
+      files: {
+        '/proj/apps/web/svelte.config.js': 'x',
+        '/proj/apps/admin/svelte.config.js': 'x'
+      },
+      discoverApps: async () => ['apps/admin', 'apps/web']
+    });
+    const code = await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
+    expect(code).toBe(2);
+    expect(writes).toEqual({});
+    expect(err.join('\n')).toContain('multiple SvelteKit apps found');
+    expect(err.join('\n')).toContain('--app');
+  });
+
+  it('several apps on a TTY → selectApp prompt decides the app dir', async () => {
+    let promptedWith: string[] = [];
+    const prompts: InstallPrompts = {
+      ...noPrompts,
+      selectApp: async (apps) => {
+        promptedWith = apps;
+        return 'apps/admin';
+      }
+    };
+    const { io, writes } = fakeIO({
+      isTTY: true,
+      files: {
+        '/proj/apps/web/svelte.config.js': 'x',
+        '/proj/apps/admin/svelte.config.js': 'x'
+      },
+      discoverApps: async () => ['apps/admin', 'apps/web']
+    });
+    const code = await runInstall({ client: ['config-file'], yes: true }, io, prompts);
+    expect(code).toBe(0);
+    expect(promptedWith).toEqual(['apps/admin', 'apps/web']);
+    expect(writes['/proj/apps/admin/svelte-vitals.config.mjs']).toBeDefined();
+  });
+
+  it('cancelling the app picker exits 0 without writing', async () => {
+    const prompts: InstallPrompts = { ...noPrompts, selectApp: async () => null };
+    const { io, writes, out } = fakeIO({
+      isTTY: true,
+      files: {
+        '/proj/apps/web/svelte.config.js': 'x',
+        '/proj/apps/admin/svelte.config.js': 'x'
+      },
+      discoverApps: async () => ['apps/admin', 'apps/web']
+    });
+    const code = await runInstall({ client: ['config-file'], yes: true }, io, prompts);
+    expect(code).toBe(0);
+    expect(writes).toEqual({});
+    expect(out.join('\n')).toContain('Cancelled');
+  });
+
+  it('--app skips detection and targets the named app', async () => {
+    let discoveryCalls = 0;
+    const { io, writes } = fakeIO({
+      files: {
+        '/proj/apps/web/svelte.config.js': 'x',
+        '/proj/apps/admin/svelte.config.ts': 'x'
+      },
+      discoverApps: async () => {
+        discoveryCalls++;
+        return ['apps/admin', 'apps/web'];
+      }
+    });
+    const code = await runInstall({ client: ['config-file'], app: 'apps/admin', yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(discoveryCalls).toBe(0);
+    expect(writes['/proj/apps/admin/svelte-vitals.config.mjs']).toBeDefined();
+  });
+
+  it('--app pointing at a non-SvelteKit dir is a fatal error (exit 2)', async () => {
+    const { io, writes, err } = fakeIO();
+    const code = await runInstall({ client: ['config-file'], app: 'packages/lib', yes: true }, io, noPrompts);
+    expect(code).toBe(2);
+    expect(writes).toEqual({});
+    expect(err.join('\n')).toContain("--app 'packages/lib' is not a SvelteKit app");
+  });
+
+  it('root-scoped targets are unaffected: MCP config stays at cwd while the config file goes into the app', async () => {
+    const { io, writes } = fakeIO({
+      files: { '/proj/apps/web/svelte.config.js': 'x' },
+      discoverApps: async () => ['apps/web']
+    });
+    const code = await runInstall(
+      { client: ['claude-code', 'config-file'], scope: 'project', yes: true },
+      io,
+      noPrompts
+    );
+    expect(code).toBe(0);
+    expect(Object.keys(writes).sort()).toEqual(['/proj/.mcp.json', '/proj/apps/web/svelte-vitals.config.mjs']);
+  });
+
+  it('no apps found anywhere → previous behavior, writes at cwd', async () => {
+    const { io, writes } = fakeIO({ discoverApps: async () => [] });
+    const code = await runInstall({ client: ['config-file'], yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes['/proj/svelte-vitals.config.mjs']).toBeDefined();
+  });
+
+  it('targets without app scope never trigger discovery', async () => {
+    let discoveryCalls = 0;
+    const { io } = fakeIO({
+      discoverApps: async () => {
+        discoveryCalls++;
+        return ['apps/web'];
+      }
+    });
+    await runInstall(
+      { client: ['claude-code', 'claude-skill', 'ci-workflow'], scope: 'project', yes: true },
+      io,
+      noPrompts
+    );
+    expect(discoveryCalls).toBe(0);
+  });
+
+  it('the vite auto-install runs in the app dir and detects the PM from the root lockfile', async () => {
+    const viteConfig = `
+import { sveltekit } from '@sveltejs/kit/vite';
+export default { plugins: [sveltekit()] };
+`;
+    const runCalls: Array<{ command: string; args: string[]; cwd: string }> = [];
+    const { io, writes } = fakeIO({
+      files: {
+        '/proj/pnpm-lock.yaml': '',
+        '/proj/apps/web/svelte.config.js': 'x',
+        '/proj/apps/web/vite.config.ts': viteConfig,
+        '/proj/apps/web/package.json': '{}'
+      },
+      discoverApps: async () => ['apps/web'],
+      runCommand: (command, args, cwd) => {
+        runCalls.push({ command, args, cwd });
+        return 0;
+      }
+    });
+    const code = await runInstall({ client: ['vite-plugin'], yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes['/proj/apps/web/vite.config.ts']).toContain('svelteVitals()');
+    expect(runCalls).toEqual([{ command: 'pnpm', args: ['add', '-D', '@svelte-vitals/vite'], cwd: '/proj/apps/web' }]);
   });
 });
 
