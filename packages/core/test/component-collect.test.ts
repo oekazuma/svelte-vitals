@@ -15,8 +15,10 @@ function createMemoryRuntime(files: Record<string, string>, unreadable: Set<stri
     async exists(path) {
       return map.has(path);
     },
-    async glob() {
-      return [...map.keys()].filter((key) => key.endsWith('.svelte'));
+    async glob(pattern) {
+      if (pattern.endsWith('*.svelte.ts')) return [...map.keys()].filter((k) => k.endsWith('.svelte.ts'));
+      if (pattern.endsWith('*.svelte.js')) return [...map.keys()].filter((k) => k.endsWith('.svelte.js'));
+      return [...map.keys()].filter((k) => k.endsWith('.svelte'));
     },
     join(...parts) {
       return parts.filter((p) => p.length > 0).join('/');
@@ -82,5 +84,23 @@ describe('collectComponentFacts', () => {
     };
     const facts = await collectComponentFacts(rt, '');
     expect(facts.map((f) => f.file)).toEqual(['src/lib/a.svelte', 'src/lib/m.svelte', 'src/routes/z.svelte']);
+  });
+
+  it('picks up .svelte.ts/.svelte.js runes modules with orphan-$effect facts', async () => {
+    const rt = createMemoryRuntime({
+      'src/lib/store.svelte.ts': '$effect(() => {});',
+      'src/lib/legacy.svelte.js': '$effect(() => {});'
+    });
+    const facts = await collectComponentFacts(rt, '');
+    expect(facts.map((f) => f.file)).toEqual(['src/lib/legacy.svelte.js', 'src/lib/store.svelte.ts']);
+    expect(facts[0]!.orphanEffects).toEqual([{ line: 1, kind: 'top-level' }]);
+    expect(facts[1]!.orphanEffects).toEqual([{ line: 1, kind: 'top-level' }]);
+  });
+
+  it('never rejects on a module source containing a literal "</script>" string', async () => {
+    const rt = createMemoryRuntime({ 'src/lib/tricky.svelte.ts': 'const s = "</' + 'script>";' });
+    const facts = await collectComponentFacts(rt, '');
+    expect(facts).toHaveLength(1);
+    expect(facts[0]!.file).toBe('src/lib/tricky.svelte.ts');
   });
 });

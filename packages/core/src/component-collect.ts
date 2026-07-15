@@ -28,13 +28,16 @@ export function emptyComponentFacts(file: string): ComponentFacts {
 }
 
 /**
- * Scan every `.svelte` component under `src/` for Correctness/Security/Architecture/
- * Bundle-Performance facts. Independent of route resolution — covers `$lib` and
- * non-route components too. A file that fails to read or parse contributes empty
- * facts instead of aborting the whole scan (dev tooling must never throw).
+ * Scan every `.svelte` component and `.svelte.ts`/`.svelte.js` runes module under `src/`
+ * for Correctness/Security/Architecture/Bundle-Performance facts. Independent of route
+ * resolution — covers `$lib` and non-route components too. A file that fails to read or
+ * parse contributes empty facts instead of aborting the whole scan (dev tooling must
+ * never throw).
  */
 export async function collectComponentFacts(rt: Runtime, cwd: string): Promise<ComponentFacts[]> {
-  const files = await rt.glob('src/**/*.svelte', cwd);
+  const patterns = ['src/**/*.svelte', 'src/**/*.svelte.ts', 'src/**/*.svelte.js'];
+  const lists = await Promise.all(patterns.map((p) => rt.glob(p, cwd)));
+  const files = [...new Set(lists.flat())];
   return Promise.all(
     files.sort().map(async (rel): Promise<ComponentFacts> => {
       try {
