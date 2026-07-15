@@ -685,10 +685,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
  * reactivity/correctness + security + architecture facts, or a `.svelte.ts`/`.svelte.js`
  * runes module's orphan-$effect facts (CORRECT006).
  */
-export function parseComponentFacts(
-  source: string,
-  filename: string
-): ParsedFacts {
+export function parseComponentFacts(source: string, filename: string): ParsedFacts {
   if (MODULE_FILE_RE.test(filename)) return parseModuleFacts(source, filename);
 
   const ast = parse(source, { modern: true, filename }) as Node;
