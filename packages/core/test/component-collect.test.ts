@@ -97,10 +97,10 @@ describe('collectComponentFacts', () => {
     expect(facts[1]!.orphanEffects).toEqual([{ line: 1, kind: 'top-level' }]);
   });
 
-  it('never rejects on a module source containing a literal "</script>" string', async () => {
-    const rt = createMemoryRuntime({ 'src/lib/tricky.svelte.ts': 'const s = "</' + 'script>";' });
+  it('parses a module source containing a literal "</script>" string (neutralised wrap)', async () => {
+    const rt = createMemoryRuntime({ 'src/lib/tricky.svelte.ts': 'const s = "</' + 'script>";\n$effect(() => {});' });
     const facts = await collectComponentFacts(rt, '');
     expect(facts).toHaveLength(1);
-    expect(facts[0]!.file).toBe('src/lib/tricky.svelte.ts');
+    expect(facts[0]!.orphanEffects).toEqual([{ line: 2, kind: 'top-level' }]);
   });
 });

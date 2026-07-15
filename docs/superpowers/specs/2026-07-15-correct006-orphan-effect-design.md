@@ -225,7 +225,8 @@ is included.
   expression without a name (`const Store = class { ... }`), is not detected even
   when the class is instantiated at module scope. Same conservative rationale;
   identified in the final branch review.
-- **The `</script>` string-literal edge** — a module source containing the
-  literal string `"</script>"` may break the wrap-based parse; it degrades to
-  the existing fail-safe (empty facts, detection skipped, no crash). Rare in
-  state modules; acceptable for v1.
+- ~~**The `</script>` string-literal edge**~~ — resolved: the wrap-based parse
+  neutralises any literal `</script` occurrence with a same-length placeholder
+  (`<_script`) before wrapping, so a module source containing `"</script>"` as
+  a string/comment is analysed normally — offsets and line numbers are
+  preserved, and string contents don't affect fact extraction.

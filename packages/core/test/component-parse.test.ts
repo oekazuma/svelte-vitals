@@ -597,4 +597,8 @@ describe('parseComponentFacts — orphan $effect in runes modules (.svelte.ts/.s
     ].join('\n');
     expect(orphans(src)).toEqual([{ line: 6, kind: 'constructor-instantiated', className: 'Store' }]);
   });
+  it('detects effects in a module containing a literal "</script>" string', () => {
+    const src = 'const tpl = "</' + 'script>";\n$effect(() => {});';
+    expect(orphans(src)).toEqual([{ line: 2, kind: 'top-level' }]);
+  });
 });
