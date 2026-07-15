@@ -4,11 +4,13 @@ import {
   correct002EffectDerived,
   correct003EffectAsOnMount,
   correct004UnmutatedState,
-  correct005PropMutation
+  correct005PropMutation,
+  correct006OrphanEffect
 } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
+import { parseComponentFacts } from '../src/component-parse.js';
 
 const config = defineConfig({});
 const base = { heads: [], project: defaultProject, config };
@@ -158,5 +160,44 @@ describe('CORRECT005 mutated non-bindable prop', () => {
   it('is no-signal when there are no mutated props', async () => {
     const rs = await correct005PropMutation.check(ctx([comp({ mutatedProps: [] })]));
     expect(rs).toHaveLength(0);
+  });
+});
+
+describe('CORRECT006 orphan $effect', () => {
+  it('flags a top-level module $effect as critical', async () => {
+    const rs = await correct006OrphanEffect.check(
+      ctx([comp({ file: 'src/lib/store.svelte.ts', orphanEffects: [{ line: 2, kind: 'top-level' }] })])
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.severity).toBe('critical');
+    expect(rs[0]!.category).toBe('correctness');
+    expect(rs[0]!.route).toBe('src/lib/store.svelte.ts');
+    expect(rs[0]!.line).toBe(2);
+    expect(rs[0]!.message).toContain('effect_orphan');
+  });
+  it('names the class in the constructor-instantiated message', async () => {
+    const rs = await correct006OrphanEffect.check(
+      ctx([
+        comp({
+          orphanEffects: [{ line: 8, kind: 'constructor-instantiated', className: 'QuizStateManager' }]
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.message).toContain('QuizStateManager');
+    expect(rs[0]!.message).toContain('constructor');
+  });
+  it('emits nothing for a component with no orphan effects', async () => {
+    expect(await correct006OrphanEffect.check(ctx([comp({})]))).toHaveLength(0);
+  });
+  it('emits nothing when the component channel is unset (rendered mode)', async () => {
+    expect(await correct006OrphanEffect.check(base as RuleContext)).toHaveLength(0);
+  });
+  it('end-to-end: real module source yields a critical finding; a suppression silences its line', async () => {
+    const src = '// svelte-vitals-disable-next-line CORRECT006\n$effect(() => {});\n$effect.pre(() => {});';
+    const facts = parseComponentFacts(src, 'src/lib/store.svelte.ts');
+    const rs = await correct006OrphanEffect.check(ctx([{ file: 'src/lib/store.svelte.ts', ...facts }]));
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.line).toBe(3);
   });
 });
