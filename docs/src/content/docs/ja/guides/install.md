@@ -37,6 +37,21 @@ npx svelte-vitals@latest install
 | Cursor       | `.cursor/mcp.json` | `~/.cursor/mcp.json`   |
 | Codex        | —                  | `~/.codex/config.toml` |
 
+## `--app <dir>` — モノレポ
+
+`vite-plugin`・`vite-hooks`・`config-file` の3ターゲットは SvelteKit の**アプリ**ディレクトリに書き込む必要があります — `vite.config.*` や `src/hooks.server.*` があるのはそこですし、`svelte-vitals.config.*` は[分析対象ディレクトリからしか読み込まれません](/svelte-vitals/ja/guides/configuration/#探索場所)。モノレポのルートで `install` を実行した場合、これらのターゲットは[アナライザーと同じ方法](/svelte-vitals/ja/guides/cli/#モノレポ)で対象アプリを解決します:
+
+- 明示的な `--app apps/web` が常に最優先です(そのディレクトリに `svelte.config.{js,ts}` がなければ終了コード `2` で失敗します)。
+- それ以外で、カレントディレクトリ自体が SvelteKit アプリならそのまま使われます。
+- それ以外は自動検出が働きます: 見つかったアプリが1件ならそのまま使用(通知あり)、複数ならインタラクティブな端末では選択プロンプト、非対話環境では `--app` を求めて終了コード `2` になります。
+
+それ以外のターゲット — MCP クライアント設定・エージェントスキル/ルール・`ci-workflow` — は常にカレントディレクトリ基準で書き込みます。モノレポではリポジトリルートがそれらの正しい置き場所だからです。
+
+```bash
+cd my-monorepo
+npx svelte-vitals@latest install --client vite-plugin,config-file --app apps/web --yes
+```
+
 ## `--yes`, `-y`
 
 確認プロンプトをスキップします。

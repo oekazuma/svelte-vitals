@@ -42,6 +42,13 @@ Options:
                     the same pass as everything else; supports --force to regenerate. \`svelte-vitals
                     ci upgrade\` remains the way to bump an existing workflow's pinned action version.
   --scope <scope>   project | global (applies to all selected clients; codex is always global)
+  --app <dir>       Monorepo: the SvelteKit app directory the vite-plugin/vite-hooks/config-file
+                    targets write into (e.g. --app apps/web). Without it, when the current
+                    directory isn't itself a SvelteKit app, one detected app is used
+                    automatically (with a notice), several prompt a picker on a TTY, and
+                    non-interactive runs exit 2 asking for --app. All other targets (MCP
+                    configs, skills, ci-workflow) always write at the current directory —
+                    the repo root is their correct home.
   --yes, -y         Skip the confirmation prompt
   --dry-run         Print the planned changes and exit without writing
   --force           Overwrite an existing svelte-vitals entry
@@ -114,6 +121,14 @@ function clackPrompts(): InstallPrompts {
       });
       return p.isCancel(res) ? null : (res as Scope);
     },
+    selectApp: async (apps: string[]) => {
+      const res = await p.select({
+        message: 'Multiple SvelteKit apps found — which one should the Vite/config targets go into?',
+        options: apps.map((a) => ({ value: a, label: a })),
+        initialValue: apps[0]
+      });
+      return p.isCancel(res) ? null : (res as string);
+    },
     confirm: async (planText: string) => {
       const res = await p.confirm({ message: `Apply this plan?\n${planText}` });
       return p.isCancel(res) ? false : Boolean(res);
@@ -125,7 +140,7 @@ function clackPrompts(): InstallPrompts {
 export async function runInstallCli(args: string[]): Promise<number> {
   const argv = mri(args, {
     boolean: ['yes', 'dry-run', 'force', 'refresh', 'help'],
-    string: ['client', 'scope'],
+    string: ['client', 'scope', 'app'],
     alias: { y: 'yes', h: 'help' }
   });
   if (argv.help) {

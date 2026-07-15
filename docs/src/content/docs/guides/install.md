@@ -37,6 +37,21 @@ Where to write the config. Applies to all selected clients; **Codex is always gl
 | Cursor      | `.cursor/mcp.json` | `~/.cursor/mcp.json`   |
 | Codex       | —                  | `~/.codex/config.toml` |
 
+## `--app <dir>` — monorepos
+
+The `vite-plugin`, `vite-hooks`, and `config-file` targets must land in the SvelteKit **app** directory — that's where `vite.config.*` and `src/hooks.server.*` live, and a `svelte-vitals.config.*` is only [loaded from the analyzed directory](/svelte-vitals/guides/configuration/#where-it-lives). When you run `install` from a monorepo root, these targets resolve their app the same way [the analyzer does](/svelte-vitals/guides/cli/#monorepos):
+
+- An explicit `--app apps/web` always wins (and fails with exit `2` if that directory has no `svelte.config.{js,ts}`).
+- Otherwise, if the current directory is itself a SvelteKit app, it's used as-is.
+- Otherwise detection kicks in: exactly one app found → used automatically with a notice; several found → a picker prompt on an interactive terminal, or exit `2` asking for `--app` when non-interactive.
+
+Everything else — MCP client configs, agent skills/rules, `ci-workflow` — always writes relative to the current directory, since the repo root is those files' correct home in a monorepo.
+
+```bash
+cd my-monorepo
+npx svelte-vitals@latest install --client vite-plugin,config-file --app apps/web --yes
+```
+
 ## `--yes`, `-y`
 
 Skip the confirmation prompt.
