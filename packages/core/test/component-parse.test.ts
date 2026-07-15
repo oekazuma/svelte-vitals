@@ -469,3 +469,70 @@ describe('parseComponentFacts — orphan $effect in <script module> (CORRECT006)
     expect(orphans(src)).toEqual([]);
   });
 });
+
+describe('parseComponentFacts — orphan $effect in runes modules (.svelte.ts/.svelte.js)', () => {
+  const orphans = (src: string, file = 'src/lib/store.svelte.ts') => parseComponentFacts(src, file).orphanEffects;
+
+  it('flags a top-level $effect, with line numbers matching the unwrapped source', () => {
+    expect(orphans('let c = $state(0);\n$effect(() => { console.log(c); });')).toEqual([
+      { line: 2, kind: 'top-level' }
+    ]);
+  });
+  it('flags the shared-state-class pattern: bare constructor effect + module-scope new', () => {
+    const src = [
+      'class QuizStateManager {',
+      '  bookmarks = $state([]);',
+      '  constructor() {',
+      '    $effect(() => { save(this.bookmarks); });',
+      '  }',
+      '}',
+      'export const quizState = new QuizStateManager();'
+    ].join('\n');
+    expect(orphans(src)).toEqual([{ line: 7, kind: 'constructor-instantiated', className: 'QuizStateManager' }]);
+  });
+  it('does not flag effects inside $effect.root, functions, or non-instantiated classes', () => {
+    expect(orphans('$effect.root(() => {\n  $effect(() => {});\n});')).toEqual([]);
+    expect(orphans('export function useThing() {\n  $effect(() => {});\n}')).toEqual([]);
+    expect(orphans('export class S {\n  constructor() {\n    $effect(() => {});\n  }\n}')).toEqual([]);
+  });
+  it('does not flag a constructor effect wrapped in $effect.root, even when instantiated', () => {
+    const src = [
+      'class S {',
+      '  constructor() {',
+      '    $effect.root(() => {',
+      '      $effect(() => {});',
+      '    });',
+      '  }',
+      '}',
+      'export const s = new S();'
+    ].join('\n');
+    expect(orphans(src)).toEqual([]);
+  });
+  it('parses TS module syntax (type-only imports, satisfies, top-level await)', () => {
+    const src = [
+      'import type { Foo } from "./types";',
+      'const cfg = { a: 1 } satisfies Record<string, number>;',
+      'export const x = await Promise.resolve(1);',
+      '$effect(() => { console.log(x); });'
+    ].join('\n');
+    expect(orphans(src)).toEqual([{ line: 4, kind: 'top-level' }]);
+  });
+  it('handles .svelte.js too', () => {
+    expect(orphans('$effect(() => {});', 'src/lib/store.svelte.js')).toEqual([{ line: 1, kind: 'top-level' }]);
+  });
+  it('collects suppression directives against unwrapped line numbers', () => {
+    const facts = parseComponentFacts(
+      '// svelte-vitals-disable-next-line CORRECT006\n$effect(() => {});',
+      'src/lib/s.svelte.ts'
+    );
+    expect(facts.orphanEffects).toEqual([{ line: 2, kind: 'top-level' }]);
+    expect(facts.suppressions).toEqual([{ line: 2, ruleIds: ['CORRECT006'] }]);
+  });
+  it('keeps component-only facts empty for a module file', () => {
+    const facts = parseComponentFacts('let c = $state(0);\nexport function inc() { c += 1; }', 'src/lib/c.svelte.ts');
+    expect(facts.effects).toEqual([]);
+    expect(facts.eachBlocks).toEqual([]);
+    expect(facts.constableStates).toEqual([]);
+    expect(facts.loc).toBe(0);
+  });
+});

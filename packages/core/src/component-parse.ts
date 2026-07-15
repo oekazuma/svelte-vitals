@@ -1,5 +1,12 @@
 import { parse } from 'svelte/compiler';
-import type { EachBlockFact, EffectFact, OrphanEffectFact, SourceSpan, SuppressionDirective } from './component.js';
+import type {
+  ComponentFacts,
+  EachBlockFact,
+  EffectFact,
+  OrphanEffectFact,
+  SourceSpan,
+  SuppressionDirective
+} from './component.js';
 import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf } from './svelte-ast.js';
 
 // The Svelte AST is structurally complex and only partially typed for our needs,
@@ -634,25 +641,56 @@ function collectOrphanEffects(program: Node, source: string): OrphanEffectFact[]
   return out.sort((a, b) => a.line - b.line);
 }
 
-/** Parse a component's reactivity/correctness + security + architecture facts (CLI/static + vite build mode). */
+/** A Svelte runes module file — the whole file is one module-scope program (CORRECT006). */
+const MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
+
+/** What the per-file parsers produce — `ComponentFacts` minus `file`, with `suppressions` always present. */
+type ParsedFacts = Omit<ComponentFacts, 'file' | 'suppressions'> & { suppressions: SuppressionDirective[] };
+
+/**
+ * Facts for a `.svelte.ts`/`.svelte.js` runes module (CORRECT006). The whole file runs at
+ * import time, so only `orphanEffects` and `suppressions` are populated — component-only
+ * facts stay empty and `loc` is 0 so ARCH001/PERF009 don't fire on module files. The
+ * source is wrapped in a `<script lang="ts">` tag so the Svelte script parser (which
+ * handles TS natively) yields the ESTree program; the 1-line wrap prefix is subtracted
+ * from every reported line. A source containing a literal `"</script>"` string defeats
+ * the wrap and throws here — callers already treat a throw as empty facts.
+ */
+function parseModuleFacts(source: string, filename: string): ParsedFacts {
+  const wrapped = `<script lang="ts">\n${source}\n</script>`;
+  const ast = parse(wrapped, { modern: true, filename }) as Node;
+  const program = ast.instance?.content;
+  const orphanEffects = program
+    ? collectOrphanEffects(program, wrapped).map((f) => ({ ...f, line: Math.max(0, f.line - 1) }))
+    : [];
+  return {
+    eachBlocks: [],
+    effects: [],
+    htmlTags: [],
+    javascriptUrls: [],
+    loc: 0,
+    propCount: 0,
+    imports: [],
+    importSpans: [],
+    namespaceImports: [],
+    constableStates: [],
+    mutatedProps: [],
+    suppressions: collectSuppressions(source),
+    orphanEffects
+  };
+}
+
+/**
+ * Parse one source file's facts (CLI/static + vite build mode): a `.svelte` component's
+ * reactivity/correctness + security + architecture facts, or a `.svelte.ts`/`.svelte.js`
+ * runes module's orphan-$effect facts (CORRECT006).
+ */
 export function parseComponentFacts(
   source: string,
   filename: string
-): {
-  eachBlocks: EachBlockFact[];
-  effects: EffectFact[];
-  htmlTags: SourceSpan[];
-  javascriptUrls: SourceSpan[];
-  loc: number;
-  propCount: number;
-  imports: string[];
-  importSpans: { source: string; line: number }[];
-  namespaceImports: { source: string; line: number }[];
-  constableStates: { name: string; line: number }[];
-  mutatedProps: { name: string; line: number }[];
-  orphanEffects: OrphanEffectFact[];
-  suppressions: SuppressionDirective[];
-} {
+): ParsedFacts {
+  if (MODULE_FILE_RE.test(filename)) return parseModuleFacts(source, filename);
+
   const ast = parse(source, { modern: true, filename }) as Node;
   const eachBlocks: EachBlockFact[] = [];
   collectEachBlocks(ast.fragment ?? ast, source, eachBlocks);
