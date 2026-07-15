@@ -1,9 +1,8 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { ViteDevServer } from 'vite';
-import type { Config, Result } from '@svelte-vitals/core';
+import { renderAppShell, type Config, type Result } from '@svelte-vitals/core';
 import type { FindingsStore } from './store.js';
 import { buildSnapshot } from './snapshot.js';
-import { renderDashboardShell } from './dashboard.js';
 import { isLoopbackHost, isLoopbackOrigin } from '../loopback.js';
 
 const SEVERITIES = new Set(['critical', 'warning', 'info']);
@@ -149,7 +148,7 @@ export function installUiMiddleware(
     // Last line of defense that validated data should never reach: if the renderer
     // throws anyway, return a plain-text 500 and never take down the dev server.
     try {
-      const html = renderDashboardShell(buildSnapshot(store, config, { version, coreVersion }));
+      const html = renderAppShell(buildSnapshot(store, config, { version, coreVersion }));
       res.setHeader('Content-Type', 'text/html');
       res.end(html);
     } catch {

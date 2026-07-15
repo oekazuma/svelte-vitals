@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { DASHBOARD_SCRIPT } from '../src/ui/dashboard-script.js';
+import { APP_SCRIPT as DASHBOARD_SCRIPT } from '@svelte-vitals/core';
 
 /**
  * These tests execute the hand-authored `DASHBOARD_SCRIPT` client script (no bundler, no
@@ -30,6 +30,7 @@ function snapshotJson(sequence: number, analyzing: boolean): string {
     },
     badges: {},
     analyzing,
+    live: true,
     sequence,
     meta: { version: '9.9.9', coreVersion: '0.21.0' }
   });
