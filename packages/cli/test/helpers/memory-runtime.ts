@@ -25,6 +25,11 @@ export function createMemoryRuntime(files: Record<string, string>): Runtime {
   };
 }
 
+/** Escape a literal (non-glob) fragment for embedding in the mock's regex. */
+function escapeLiteral(s: string): string {
+  return s.replace(/[.+^${}()|[\]\\*]/g, '\\$&');
+}
+
 function globToRegExp(pattern: string): RegExp {
   // Tokenize char-by-char so `**/` expands to "any depth" without the later `*`
   // pass corrupting the inserted regex (the previous string-replace approach only
@@ -41,6 +46,14 @@ function globToRegExp(pattern: string): RegExp {
       i += 1;
     } else if (pattern[i] === '*') {
       body += '[^/]*';
+    } else if (pattern[i] === '{') {
+      // Brace-expansion alternation, e.g. `*.svelte{,.ts,.js}` — including empty
+      // alternatives. Mirrors tinyglobby/picomatch, which the real Runtime.glob
+      // implementations use (core's collectComponentFacts issues one such pattern).
+      const end = pattern.indexOf('}', i);
+      const alts = pattern.slice(i + 1, end).split(',');
+      body += `(?:${alts.map(escapeLiteral).join('|')})`;
+      i = end;
     } else if (/[.+^${}()|[\]\\]/.test(pattern[i]!)) {
       body += `\\${pattern[i]}`;
     } else {
