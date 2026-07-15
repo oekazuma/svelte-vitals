@@ -22,6 +22,17 @@ export default {
   ➜  svelte-vitals: http://localhost:5173/__svelte-vitals/
 ```
 
+<img
+  class="theme-img theme-img-dark"
+  src="/svelte-vitals/dashboard-dark.png"
+  alt="The svelte-vitals live dashboard's Overview pane, showing the Health score ring, per-category bars, and a list of findings with severity, rule id, location, and a fix snippet."
+/>
+<img
+  class="theme-img theme-img-light"
+  src="/svelte-vitals/dashboard-light.png"
+  alt="The svelte-vitals live dashboard's Overview pane, showing the Health score ring, per-category bars, and a list of findings with severity, rule id, location, and a fix snippet."
+/>
+
 ## Whole-project coverage from startup
 
 From the moment the dev server starts, the dashboard shows the **whole project**: a static analysis of all routes across every category (SEO, Performance, Correctness, Security, Architecture) runs asynchronously at startup — the same analysis as `npx svelte-vitals@latest` — so you get the real project Health without visiting a single page. Saving a source file (anything under `src/` or `static/`, or a `svelte.config.*` / `svelte-vitals.config.*`) triggers a debounced re-analysis, and the dashboard refreshes itself.

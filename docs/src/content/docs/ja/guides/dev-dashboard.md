@@ -22,6 +22,17 @@ export default {
   ➜  svelte-vitals: http://localhost:5173/__svelte-vitals/
 ```
 
+<img
+  class="theme-img theme-img-dark"
+  src="/svelte-vitals/dashboard-dark.png"
+  alt="svelte-vitals ライブダッシュボードの Overview ペイン。Health スコアのリング、カテゴリ別バー、重要度・ルールID・場所・修正スニペット付きの指摘一覧が表示されている。"
+/>
+<img
+  class="theme-img theme-img-light"
+  src="/svelte-vitals/dashboard-light.png"
+  alt="svelte-vitals ライブダッシュボードの Overview ペイン。Health スコアのリング、カテゴリ別バー、重要度・ルールID・場所・修正スニペット付きの指摘一覧が表示されている。"
+/>
+
 ## 起動直後からのプロジェクト全体カバレッジ
 
 dev サーバーの起動直後から、ダッシュボードは**プロジェクト全体**を表示します。起動時に全ルート・全カテゴリ（SEO・Performance・Correctness・Security・Architecture）の静的解析が非同期で実行され（`npx svelte-vitals@latest` と同じ解析です）、ページを1つも訪問しなくても本物のプロジェクト Health が得られます。ソースファイル（`src/` または `static/` 配下、あるいは `svelte.config.*` / `svelte-vitals.config.*`）を保存すると、デバウンス付きの再解析が走り、ダッシュボードが自動的に更新されます。
