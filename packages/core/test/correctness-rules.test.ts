@@ -199,4 +199,9 @@ describe('CORRECT006 orphan $effect', () => {
     expect(fails(rs)).toHaveLength(1);
     expect(fails(rs)[0]!.line).toBe(3);
   });
+  it('tolerates facts built without orphanEffects (older external constructors)', async () => {
+    const legacy = comp({}) as ComponentFacts & { orphanEffects?: undefined };
+    delete (legacy as Record<string, unknown>).orphanEffects;
+    expect(await correct006OrphanEffect.check(ctx([legacy]))).toHaveLength(0);
+  });
 });
