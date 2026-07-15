@@ -20,7 +20,7 @@ export { defaultConfig, defineConfig, defaultProject } from './types.js';
 export type { HeadTag, ResolvedHead, HeadProvider } from './head.js';
 export type { ImageInfo, ResolvedImages } from './images.js';
 export type { HeadingInfo, ResolvedHeadings } from './headings.js';
-export type { EachBlockFact, EffectFact, SourceSpan, ComponentFacts, SuppressionDirective } from './component.js';
+export type { EachBlockFact, EffectFact, OrphanEffectFact, SourceSpan, ComponentFacts, SuppressionDirective } from './component.js';
 export { parseComponentFacts } from './component-parse.js';
 export { collectComponentFacts, emptyComponentFacts } from './component-collect.js';
 export {
@@ -86,6 +86,7 @@ export {
   correct003EffectAsOnMount,
   correct004UnmutatedState,
   correct005PropMutation,
+  correct006OrphanEffect,
   sec001Html,
   sec002JavascriptUrl,
   arch001ComponentSize,
