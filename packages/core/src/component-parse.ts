@@ -609,10 +609,33 @@ function collectEvalScopeEffectLines(root: Node, source: string): number[] {
 }
 
 /**
+ * Unwrap a top-level statement's `export`/`export default` wrapper to the declaration
+ * (or expression) it wraps; a non-export statement is returned as-is. Used so pattern 2
+ * (below) treats `export class Store {…}` / `export const s = new Store()` the same as
+ * their unexported forms.
+ */
+function unwrapExport(stmt: Node): Node {
+  if (stmt.type === 'ExportNamedDeclaration') return stmt.declaration ?? stmt;
+  if (stmt.type === 'ExportDefaultDeclaration') return stmt.declaration;
+  return stmt;
+}
+
+/**
  * Orphan `$effect` facts for a module-context program (CORRECT006): (1) effects that run
  * at module evaluation time, (2) a module-scope `new` of a same-file class whose
  * constructor creates a bare effect. Conservative by construction — never crosses a
  * function boundary, so factory functions, IIFEs, and cross-file classes are not flagged.
+ *
+ * Pattern 2 (the class/`new` half) operates on DIRECT top-level statements only — it
+ * never descends into blocks/if/for/try. A top-level `ClassDeclaration` name is a real
+ * module-scope binding that an import can't legally share, so restricting collection to
+ * `program.body` (unwrapping only `export`/`export default`) rules out two false-positive
+ * vectors: a block-scoped class shadowing an imported name of the same name, and a class
+ * expression's own name (`const A = class Store {…}`), which is only visible inside the
+ * expression, never as a module-scope binding. This matches the design spec's own wording
+ * for pattern 2: "flag top-level `new ClassName(...)` statements". Pattern 1 (top-level
+ * `$effect`, including inside top-level blocks/if) is unaffected — see
+ * `collectEvalScopeEffectLines` above.
  */
 function collectOrphanEffects(program: Node, source: string): OrphanEffectFact[] {
   const out: OrphanEffectFact[] = collectEvalScopeEffectLines(program, source).map((line) => ({
@@ -620,23 +643,43 @@ function collectOrphanEffects(program: Node, source: string): OrphanEffectFact[]
     kind: 'top-level' as const
   }));
 
+  const body: Node[] = program.body ?? [];
+
   const effectfulClasses = new Set<string>();
-  walkEvalScope(program, (n) => {
-    if ((n.type === 'ClassDeclaration' || n.type === 'ClassExpression') && n.id?.type === 'Identifier') {
-      const ctor = (n.body?.body ?? []).find((m: Node) => m?.type === 'MethodDefinition' && m.kind === 'constructor');
-      if (ctor?.value?.body && collectEvalScopeEffectLines(ctor.value.body, source).length > 0) {
-        effectfulClasses.add(n.id.name);
-      }
+  for (const stmt of body) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type !== 'ClassDeclaration' || decl.id?.type !== 'Identifier') continue;
+    // A TS constructor overload signature is bodiless — require a body so the FIRST
+    // matching MethodDefinition is the actual implementation, not a signature.
+    const ctor = (decl.body?.body ?? []).find(
+      (m: Node) => m?.type === 'MethodDefinition' && m.kind === 'constructor' && m.value?.body
+    );
+    if (ctor && collectEvalScopeEffectLines(ctor.value.body, source).length > 0) {
+      effectfulClasses.add(decl.id.name);
     }
-    return undefined;
-  });
+  }
+
   if (effectfulClasses.size > 0) {
-    walkEvalScope(program, (n) => {
-      if (n.type === 'NewExpression' && n.callee?.type === 'Identifier' && effectfulClasses.has(n.callee.name)) {
-        out.push({ line: lineOf(source, n.start), kind: 'constructor-instantiated', className: n.callee.name });
-      }
-      return undefined;
-    });
+    for (const stmt of body) {
+      const decl = unwrapExport(stmt);
+      // A direct top-level `VariableDeclaration`/`ExpressionStatement`, or an
+      // `export default <expression>` (whose "declaration" IS the expression itself,
+      // not wrapped in a statement node) — anything else (if/for/block/try, …) is a
+      // conservative miss by design.
+      const isCandidate =
+        decl?.type === 'VariableDeclaration' ||
+        decl?.type === 'ExpressionStatement' ||
+        (stmt.type === 'ExportDefaultDeclaration' &&
+          decl?.type !== 'FunctionDeclaration' &&
+          decl?.type !== 'ClassDeclaration');
+      if (!isCandidate) continue;
+      walkEvalScope(decl, (n) => {
+        if (n.type === 'NewExpression' && n.callee?.type === 'Identifier' && effectfulClasses.has(n.callee.name)) {
+          out.push({ line: lineOf(source, n.start), kind: 'constructor-instantiated', className: n.callee.name });
+        }
+        return undefined;
+      });
+    }
   }
   return out.sort((a, b) => a.line - b.line);
 }
