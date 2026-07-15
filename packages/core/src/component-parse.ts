@@ -49,6 +49,9 @@ function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): vo
   }
 }
 
+/** AST metadata keys every walker skips — never traversed as child nodes. */
+const WALK_IGNORED_KEYS = new Set(['type', 'start', 'end', 'loc', 'range']);
+
 /** Generic ESTree walk over a `<script>` program: visit every node with a `.type`. */
 function walkEstree(node: Node, visit: (n: Node) => void): void {
   if (Array.isArray(node)) {
@@ -58,7 +61,7 @@ function walkEstree(node: Node, visit: (n: Node) => void): void {
   if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
   visit(node);
   for (const key of Object.keys(node)) {
-    if (key === 'type' || key === 'start' || key === 'end' || key === 'loc' || key === 'range') continue;
+    if (WALK_IGNORED_KEYS.has(key)) continue;
     walkEstree(node[key], visit);
   }
 }
@@ -226,7 +229,7 @@ function walkScoped(
   const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
   visit(node, scope);
   for (const key of Object.keys(node)) {
-    if (key === 'type' || key === 'start' || key === 'end' || key === 'loc' || key === 'range') continue;
+    if (WALK_IGNORED_KEYS.has(key)) continue;
     walkScoped(node[key], visit, scope);
   }
 }
@@ -319,7 +322,6 @@ const RUNE_NAMES = new Set(['$state', '$derived', '$effect', '$props', '$bindabl
  */
 function bodyReadsReactive(fn: Node, reactiveNames: Set<string>): boolean {
   let reads = false;
-  const IGNORED_KEYS = new Set(['type', 'start', 'end', 'loc', 'range']);
   // Dedicated walk (not the generic walkEstree) so a non-computed property NAME
   // (`obj.count`, `{ count: 5 }`) that happens to match a reactive binding isn't
   // misread as a reactive read — only value/computed positions count.
@@ -349,7 +351,7 @@ function bodyReadsReactive(fn: Node, reactiveNames: Set<string>): boolean {
       return;
     }
     for (const key of Object.keys(n)) {
-      if (!IGNORED_KEYS.has(key)) visit(n[key]);
+      if (!WALK_IGNORED_KEYS.has(key)) visit(n[key]);
     }
   };
   visit(fn.body);
@@ -591,7 +593,7 @@ function walkEvalScope(node: Node, visit: (n: Node) => boolean | undefined): voi
   if (visit(node)) return;
   if (EVAL_SCOPE_BOUNDARIES.has(node.type)) return;
   for (const key of Object.keys(node)) {
-    if (key === 'type' || key === 'start' || key === 'end' || key === 'loc' || key === 'range') continue;
+    if (WALK_IGNORED_KEYS.has(key)) continue;
     walkEvalScope(node[key], visit);
   }
 }
