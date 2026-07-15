@@ -54647,6 +54647,7 @@ function collectEachBlocks(node, source2, acc) {
     if (key2 in node) collectEachBlocks(node[key2], source2, acc);
   }
 }
+var WALK_IGNORED_KEYS = /* @__PURE__ */ new Set(["type", "start", "end", "loc", "range"]);
 function walkEstree(node, visit) {
   if (Array.isArray(node)) {
     for (const child of node) walkEstree(child, visit);
@@ -54655,7 +54656,7 @@ function walkEstree(node, visit) {
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
   visit(node);
   for (const key2 of Object.keys(node)) {
-    if (key2 === "type" || key2 === "start" || key2 === "end" || key2 === "loc" || key2 === "range") continue;
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
     walkEstree(node[key2], visit);
   }
 }
@@ -54755,7 +54756,7 @@ function walkScoped(node, visit, shadowed = /* @__PURE__ */ new Set()) {
   const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
   visit(node, scope);
   for (const key2 of Object.keys(node)) {
-    if (key2 === "type" || key2 === "start" || key2 === "end" || key2 === "loc" || key2 === "range") continue;
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
     walkScoped(node[key2], visit, scope);
   }
 }
@@ -54818,7 +54819,6 @@ function collectTemplateEscapes(node, stateNames, acc) {
 var RUNE_NAMES = /* @__PURE__ */ new Set(["$state", "$derived", "$effect", "$props", "$bindable", "$inspect", "$host"]);
 function bodyReadsReactive(fn, reactiveNames) {
   let reads = false;
-  const IGNORED_KEYS = /* @__PURE__ */ new Set(["type", "start", "end", "loc", "range"]);
   const visit = (n) => {
     if (reads || !n) return;
     if (Array.isArray(n)) {
@@ -54845,7 +54845,7 @@ function bodyReadsReactive(fn, reactiveNames) {
       return;
     }
     for (const key2 of Object.keys(n)) {
-      if (!IGNORED_KEYS.has(key2)) visit(n[key2]);
+      if (!WALK_IGNORED_KEYS.has(key2)) visit(n[key2]);
     }
   };
   visit(fn.body);
@@ -55016,7 +55016,7 @@ function walkEvalScope(node, visit) {
   if (visit(node)) return;
   if (EVAL_SCOPE_BOUNDARIES.has(node.type)) return;
   for (const key2 of Object.keys(node)) {
-    if (key2 === "type" || key2 === "start" || key2 === "end" || key2 === "loc" || key2 === "range") continue;
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
     walkEvalScope(node[key2], visit);
   }
 }
@@ -55030,35 +55030,48 @@ function collectEvalScopeEffectLines(root, source2) {
   });
   return lines;
 }
+function unwrapExport(stmt2) {
+  if (stmt2.type === "ExportNamedDeclaration") return stmt2.declaration ?? stmt2;
+  if (stmt2.type === "ExportDefaultDeclaration") return stmt2.declaration;
+  return stmt2;
+}
 function collectOrphanEffects(program, source2) {
   const out = collectEvalScopeEffectLines(program, source2).map((line) => ({
     line,
     kind: "top-level"
   }));
+  const body = program.body ?? [];
   const effectfulClasses = /* @__PURE__ */ new Set();
-  walkEvalScope(program, (n) => {
-    if ((n.type === "ClassDeclaration" || n.type === "ClassExpression") && n.id?.type === "Identifier") {
-      const ctor = (n.body?.body ?? []).find((m) => m?.type === "MethodDefinition" && m.kind === "constructor");
-      if (ctor?.value?.body && collectEvalScopeEffectLines(ctor.value.body, source2).length > 0) {
-        effectfulClasses.add(n.id.name);
-      }
+  for (const stmt2 of body) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type !== "ClassDeclaration" || decl.id?.type !== "Identifier") continue;
+    const ctor = (decl.body?.body ?? []).find(
+      (m) => m?.type === "MethodDefinition" && m.kind === "constructor" && m.value?.body
+    );
+    if (ctor && collectEvalScopeEffectLines(ctor.value.body, source2).length > 0) {
+      effectfulClasses.add(decl.id.name);
     }
-    return void 0;
-  });
+  }
   if (effectfulClasses.size > 0) {
-    walkEvalScope(program, (n) => {
-      if (n.type === "NewExpression" && n.callee?.type === "Identifier" && effectfulClasses.has(n.callee.name)) {
-        out.push({ line: lineOf(source2, n.start), kind: "constructor-instantiated", className: n.callee.name });
-      }
-      return void 0;
-    });
+    for (const stmt2 of body) {
+      const decl = unwrapExport(stmt2);
+      const isCandidate = decl?.type === "VariableDeclaration" || decl?.type === "ExpressionStatement" || stmt2.type === "ExportDefaultDeclaration" && decl?.type !== "FunctionDeclaration" && decl?.type !== "ClassDeclaration";
+      if (!isCandidate) continue;
+      walkEvalScope(decl, (n) => {
+        if (n.type === "NewExpression" && n.callee?.type === "Identifier" && effectfulClasses.has(n.callee.name)) {
+          out.push({ line: lineOf(source2, n.start), kind: "constructor-instantiated", className: n.callee.name });
+        }
+        return void 0;
+      });
+    }
   }
   return out.sort((a, b) => a.line - b.line);
 }
 var MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
 function parseModuleFacts(source2, filename2) {
+  const neutralized = source2.replace(/<\/script/gi, "<_script");
   const wrapped = `<script lang="ts">
-${source2}
+${neutralized}
 </script>`;
   const ast = parse8(wrapped, { modern: true, filename: filename2 });
   const program = ast.instance?.content;
@@ -55176,9 +55189,7 @@ function emptyComponentFacts(file) {
   };
 }
 async function collectComponentFacts(rt, cwd) {
-  const patterns = ["src/**/*.svelte", "src/**/*.svelte.ts", "src/**/*.svelte.js"];
-  const lists = await Promise.all(patterns.map((p) => rt.glob(p, cwd)));
-  const files = [...new Set(lists.flat())];
+  const files = await rt.glob("src/**/*.svelte{,.ts,.js}", cwd);
   return Promise.all(
     files.sort().map(async (rel) => {
       try {
@@ -56676,8 +56687,11 @@ var correct006OrphanEffect = componentRule({
   label: "$effect context",
   recommendation: "Wrap the effect in $effect.root (and own the returned cleanup), or restructure so the effect is created during component initialisation (e.g. call a setup method from a component).",
   rationale: "An $effect created outside component initialisation throws effect_orphan at runtime \u2014 the compiler does not catch it, and it typically surfaces as a production 500.",
-  applies: (c) => c.orphanEffects.length > 0,
-  bad: (c) => c.orphanEffects.map((o) => ({
+  // `orphanEffects` is typed required, but a facts object built by an older/external
+  // constructor may omit it — default to empty rather than let `applies` throw and
+  // take the whole `runRules` Promise.all down with it.
+  applies: (c) => (c.orphanEffects ?? []).length > 0,
+  bad: (c) => (c.orphanEffects ?? []).map((o) => ({
     line: o.line,
     message: o.kind === "top-level" ? "$effect at module scope runs outside component initialisation \u2014 it throws effect_orphan at runtime" : `class "${o.className}" runs $effect in its constructor and is instantiated at module scope \u2014 it throws effect_orphan at runtime`
   }))
