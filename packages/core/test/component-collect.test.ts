@@ -16,8 +16,9 @@ function createMemoryRuntime(files: Record<string, string>, unreadable: Set<stri
       return map.has(path);
     },
     async glob(pattern) {
-      if (pattern.endsWith('*.svelte.ts')) return [...map.keys()].filter((k) => k.endsWith('.svelte.ts'));
-      if (pattern.endsWith('*.svelte.js')) return [...map.keys()].filter((k) => k.endsWith('.svelte.js'));
+      if (pattern === 'src/**/*.svelte{,.ts,.js}') {
+        return [...map.keys()].filter((k) => /\.svelte(\.(ts|js))?$/.test(k));
+      }
       return [...map.keys()].filter((k) => k.endsWith('.svelte'));
     },
     join(...parts) {

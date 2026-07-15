@@ -35,9 +35,9 @@ export function emptyComponentFacts(file: string): ComponentFacts {
  * never throw).
  */
 export async function collectComponentFacts(rt: Runtime, cwd: string): Promise<ComponentFacts[]> {
-  const patterns = ['src/**/*.svelte', 'src/**/*.svelte.ts', 'src/**/*.svelte.js'];
-  const lists = await Promise.all(patterns.map((p) => rt.glob(p, cwd)));
-  const files = [...new Set(lists.flat())];
+  // One brace pattern = one directory traversal (Runtime.glob implementations use
+  // picomatch-style matching); dedupe is unnecessary for a single pattern.
+  const files = await rt.glob('src/**/*.svelte{,.ts,.js}', cwd);
   return Promise.all(
     files.sort().map(async (rel): Promise<ComponentFacts> => {
       try {
