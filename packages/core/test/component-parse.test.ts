@@ -601,4 +601,15 @@ describe('parseComponentFacts — orphan $effect in runes modules (.svelte.ts/.s
     const src = 'const tpl = "</' + 'script>";\n$effect(() => {});';
     expect(orphans(src)).toEqual([{ line: 2, kind: 'top-level' }]);
   });
+  it('flags an export-default new of an effectful class', () => {
+    const src = [
+      'class Store {',
+      '  constructor() {',
+      '    $effect(() => {});',
+      '  }',
+      '}',
+      'export default new Store();'
+    ].join('\n');
+    expect(orphans(src)).toEqual([{ line: 6, kind: 'constructor-instantiated', className: 'Store' }]);
+  });
 });
