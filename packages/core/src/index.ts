@@ -112,6 +112,8 @@ export { formatSarifReport } from './reporter/sarif.js';
 export { formatGithubReport } from './reporter/github.js';
 export { formatMarkdownReport } from './reporter/markdown.js';
 export { buildHtmlDocument, formatHtmlReport, escapeHtml, safeHref, scoreBand, BAND_COLOR } from './reporter/html.js';
+export { renderAppShell, APP_SCRIPT, APP_STYLE } from './reporter/app-shell.js';
+export type { AppSnapshot, RouteBadge } from './reporter/app-shell.js';
 
 export { selectRules, applyRuleSeverities } from './config-apply.js';
 

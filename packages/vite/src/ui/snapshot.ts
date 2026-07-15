@@ -1,21 +1,16 @@
-import { buildJsonReport, safeHref, type Config, type JsonReport } from '@svelte-vitals/core';
-import type { FindingsStore, RouteBadge } from './store.js';
+import { buildJsonReport, safeHref, type AppSnapshot, type Config, type JsonReport } from '@svelte-vitals/core';
+import type { FindingsStore } from './store.js';
 
-export interface DashboardSnapshot {
-  report: JsonReport;
-  badges: Record<string, RouteBadge>;
-  analyzing: boolean;
-  /** Monotonically increasing; lets the client discard an out-of-order /data.json response. */
-  sequence: number;
-  meta: { version: string; coreVersion?: string };
-}
+/** The dashboard's payload — core's shared app-shell snapshot, always `live` here. */
+export type DashboardSnapshot = AppSnapshot;
 
 type Issue = JsonReport['routes'][number]['issues'][number];
 
 /**
- * `docsUrl` on an ingested (live) result never goes through core's `escapeHtml`/`safeHref`
- * renderer in this dashboard — sanitize it once here, server-side, so the client never has
- * to re-implement the http(s)-only scheme check itself.
+ * `docsUrl` on an ingested (live) result flows into `/data.json` responses, which the
+ * client script renders into an <a href> without going through `renderAppShell`'s own
+ * sanitizer — so sanitize here too, server-side, covering both the embedded first paint
+ * and every refetch.
  */
 function sanitizeDocsUrl(issue: Issue): Issue {
   if (issue.docsUrl === undefined) return issue;
@@ -42,6 +37,7 @@ export function buildSnapshot(
     badges: store.badges(),
     analyzing: store.isAnalyzing(),
     sequence: store.sequence(),
+    live: true,
     meta
   };
 }

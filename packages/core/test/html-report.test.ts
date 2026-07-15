@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { buildHtmlDocument, formatHtmlReport, escapeHtml, safeHref, scoreBand } from '../src/index.js';
+import { buildHtmlDocument, formatHtmlReport, renderAppShell, escapeHtml, safeHref, scoreBand } from '../src/index.js';
+import type { AppSnapshot } from '../src/index.js';
 import type { JsonReport } from '../src/reporter/json.js';
 import type { ScoreModel } from '../src/scoring/score.js';
 
@@ -51,7 +52,22 @@ const report: JsonReport = {
   ]
 };
 
-describe('buildHtmlDocument', () => {
+/** The snapshot the client script boots from, parsed back out of the document. */
+function extractEmbeddedSnapshot(html: string): AppSnapshot {
+  const start = html.indexOf('<script type="application/json" id="svelte-vitals-data">');
+  const contentStart = html.indexOf('>', start) + 1;
+  const end = html.indexOf('</script>', contentStart);
+  return JSON.parse(html.slice(contentStart, end)) as AppSnapshot;
+}
+
+/** The client script's source, extracted the way a browser would receive it. */
+function extractClientScript(html: string): string {
+  const start = html.lastIndexOf('<script>') + '<script>'.length;
+  const end = html.lastIndexOf('</script>');
+  return html.slice(start, end);
+}
+
+describe('buildHtmlDocument (static export of the shared app shell)', () => {
   const html = buildHtmlDocument(report, { version: '9.9.9' });
 
   it('is a full self-contained HTML document with a title', () => {
@@ -60,51 +76,50 @@ describe('buildHtmlDocument', () => {
     expect(html).toContain('</html>');
   });
 
-  it('renders the Health score and category scores', () => {
-    expect(html).toContain('>82<'); // health number
-    expect(html).toContain('SEO');
-    expect(html).toContain('>91<');
-    expect(html).toContain('Performance');
-    expect(html).toContain('>68<');
+  it('mounts the same shell containers as the live dashboard', () => {
+    expect(html).toContain('id="dv-topbar"');
+    expect(html).toContain('id="dv-sidebar"');
+    expect(html).toContain('id="dv-detail"');
   });
 
-  it('renders a row per route and a card per finding', () => {
-    expect(html).toContain('/products/[id]');
-    expect(html).toContain('SEO001');
-    expect(html).toContain('Missing &lt;title&gt;'); // escaped
-    expect(html).toContain('SEO007'); // site-wide finding
-    expect(html).toContain('data-severity="critical"');
-    expect(html).toContain('data-category="seo"');
+  it('embeds the report as a parseable snapshot with live: false and no badges', () => {
+    const snapshot = extractEmbeddedSnapshot(html);
+    expect(snapshot.report).toEqual(report);
+    expect(snapshot.live).toBe(false);
+    expect(snapshot.badges).toEqual({});
+    expect(snapshot.analyzing).toBe(false);
+    expect(snapshot.meta).toEqual({ version: '9.9.9' });
   });
 
-  it('escapes the fix snippet and renders it in a code block', () => {
-    expect(html).toContain('&lt;svelte:head&gt;');
-    expect(html).toContain('&lt;title&gt;{data.title}&lt;/title&gt;');
-    expect(html).not.toContain('<title>{data.title}</title>'); // raw snippet must not leak
+  it('the embedded client script parses as valid JS with this report in place', () => {
+    const script = extractClientScript(html);
+    // Parse-only (never called): a syntax check of our own generated shell, not
+    // execution of untrusted input.
+    expect(() => new Function(script)).not.toThrow();
   });
 
-  it('links findings to their docsUrl', () => {
-    expect(html).toContain('href="https://oekazuma.github.io/svelte-vitals/rules/seo001"');
+  it('the client script skips the SSE wiring when the snapshot is not live', () => {
+    const script = extractClientScript(html);
+    expect(script).toContain("state.snapshot.live && typeof EventSource !== 'undefined'");
   });
 
-  it('is self-contained: no external resource references', () => {
-    // strip docsUrl anchors, then assert nothing else points at http(s)
-    // Strip ONLY the per-finding docsUrl anchors, so any other external link still trips the guard.
-    const withoutDocs = html.replace(/href="https?:\/\/oekazuma\.github\.io\/svelte-vitals\/rules\/[^"]*"/g, '');
-    expect(/(?:src|href)\s*=\s*"https?:\/\//i.test(withoutDocs)).toBe(false);
-    expect(/url\(\s*['"]?https?:\/\//i.test(withoutDocs)).toBe(false);
+  it('is self-contained: no external resource references in the markup', () => {
+    // docsUrl now lives inside the embedded JSON (with `<` escaped to <), never in
+    // a server-rendered href — so the whole document must have no http(s) src/href at all.
+    expect(/(?:src|href)\s*=\s*"https?:\/\//i.test(html)).toBe(false);
+    expect(/url\(\s*['"]?https?:\/\//i.test(html)).toBe(false);
   });
 });
 
 describe('coreVersion (rule-engine version, distinct from the tool version)', () => {
-  it('renders a "core vX.Y.Z" badge when meta.coreVersion is given', () => {
+  it('carries meta.coreVersion into the snapshot when given', () => {
     const html = buildHtmlDocument(report, { version: '9.9.9', coreVersion: '0.21.0' });
-    expect(html).toContain('core v0.21.0');
+    expect(extractEmbeddedSnapshot(html).meta).toEqual({ version: '9.9.9', coreVersion: '0.21.0' });
   });
 
-  it('omits the badge when meta.coreVersion is absent (backward compatible)', () => {
+  it('omits it when absent (backward compatible)', () => {
     const html = buildHtmlDocument(report, { version: '9.9.9' });
-    expect(html).not.toContain('core v');
+    expect(extractEmbeddedSnapshot(html).meta).toEqual({ version: '9.9.9' });
   });
 });
 
@@ -122,9 +137,7 @@ describe('escapeHtml / scoreBand', () => {
 });
 
 describe('formatHtmlReport', () => {
-  it('matches buildHtmlDocument over the built JsonReport (smoke)', () => {
-    // formatHtmlReport builds the JsonReport internally; here we only assert it returns a full doc.
-    // A fuller integration check lives in the CLI tests.
+  it('returns a full document over the built JsonReport (smoke)', () => {
     const out = formatHtmlReport(
       [],
       { treatDynamicAs: 'pass', metaComponents: [], rules: {}, failOn: 'critical' } as never,
@@ -132,36 +145,34 @@ describe('formatHtmlReport', () => {
     );
     expect(out.startsWith('<!doctype html>')).toBe(true);
     expect(out).toContain('</html>');
+    expect(extractEmbeddedSnapshot(out).live).toBe(false);
   });
 });
 
-describe('styling', () => {
-  const html = buildHtmlDocument(report, { version: '9.9.9' });
-  it('inlines a stylesheet with the brand + score tokens', () => {
-    expect(html).toContain('--accent: #ff3e00');
-    expect(html).toContain('.finding');
-    expect(html).toContain('#2FA968'); // good band used somewhere (inline) — sanity that colors are present
-    // still self-contained after adding CSS
-    // Strip ONLY the per-finding docsUrl anchors, so any other external link still trips the guard.
-    const withoutDocs = html.replace(/href="https?:\/\/oekazuma\.github\.io\/svelte-vitals\/rules\/[^"]*"/g, '');
-    expect(/url\(\s*['"]?https?:\/\//i.test(withoutDocs)).toBe(false);
-  });
-});
-
-describe('interactivity', () => {
-  const html = buildHtmlDocument(report, { version: '9.9.9' });
-  it('inlines the gauge + filter script and stays self-contained', () => {
-    expect(html).toContain('prefers-reduced-motion');
-    expect(html).toContain('data-severity');
-    expect(html).toContain("getElementById('arc')");
-    // Strip ONLY the per-finding docsUrl anchors, so any other external link still trips the guard.
-    const withoutDocs = html.replace(/href="https?:\/\/oekazuma\.github\.io\/svelte-vitals\/rules\/[^"]*"/g, '');
-    expect(/(?:src|href)\s*=\s*"https?:\/\//i.test(withoutDocs)).toBe(false);
+describe('parity with the live dashboard shell', () => {
+  it('renderAppShell with live: true produces the dashboard document (same style + script, dashboard title)', () => {
+    const staticHtml = buildHtmlDocument(report, { version: '9.9.9' });
+    const liveHtml = renderAppShell({
+      report,
+      badges: {},
+      analyzing: false,
+      sequence: 0,
+      live: true,
+      meta: { version: '9.9.9' }
+    });
+    expect(liveHtml).toContain('<title>svelte-vitals dashboard</title>');
+    // Identical except the title and the embedded snapshot's `live` flag.
+    const normalize = (h: string) =>
+      h
+        .replace('<title>svelte-vitals dashboard</title>', '<title></title>')
+        .replace('<title>svelte-vitals report</title>', '<title></title>')
+        .replace('"live":true', '"live":false');
+    expect(normalize(liveHtml)).toBe(normalize(staticHtml));
   });
 });
 
 describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loosely typed)', () => {
-  it('drops a finding docsUrl with an unsafe scheme', () => {
+  it('drops a finding docsUrl with an unsafe scheme before embedding', () => {
     const evil: JsonReport = {
       ...report,
       routes: [
@@ -186,10 +197,37 @@ describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loo
     };
     const html = buildHtmlDocument(evil, { version: '0' });
     expect(html).not.toContain('javascript:alert(1)');
-    expect(html).not.toContain('href="javascript:'); // no anchor rendered for the unsafe url
+    expect(extractEmbeddedSnapshot(html).report.routes[0]!.issues[0]!.docsUrl).toBeUndefined();
   });
 
-  it('escapes an attacker-controlled category key', () => {
+  it('a </script> injection in finding data cannot break out of the JSON element', () => {
+    const evil: JsonReport = {
+      ...report,
+      routes: [
+        {
+          route: '/a',
+          score: 80,
+          issues: [
+            {
+              id: 'SEO001',
+              category: 'seo',
+              title: '</script><script>alert(1)</script>',
+              detection: { presence: 'none', value: 'absent' },
+              location: 'f.svelte',
+              recommendation: 'r',
+              severity: 'critical'
+            }
+          ]
+        }
+      ],
+      siteIssues: []
+    };
+    const html = buildHtmlDocument(evil, { version: '0' });
+    expect(html).not.toContain('</script><script>alert(1)</script>');
+    expect(extractEmbeddedSnapshot(html).report.routes[0]!.issues[0]!.title).toBe('</script><script>alert(1)</script>');
+  });
+
+  it('an attacker-controlled category key cannot appear as raw markup', () => {
     const evil: JsonReport = {
       ...report,
       categories: { '<img src=x onerror=alert(1)>': { score: 50, scoreModel: model() } },
@@ -198,8 +236,8 @@ describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loo
       siteIssues: []
     };
     const html = buildHtmlDocument(evil, { version: '0' });
+    // embedJson escapes `<` to <, so the raw tag never exists in the document.
     expect(html).not.toContain('<img src=x onerror=alert(1)>');
-    expect(html).toContain('&lt;img src=x onerror=alert(1)&gt;');
   });
 
   it('safeHref accepts http/https and rejects others', () => {
@@ -227,65 +265,18 @@ describe('routeBadges (dev-dashboard provenance)', () => {
     expect(withEmptyOpts).toBe(withoutOpts);
   });
 
-  it('omitting opts renders no badge markup at all', () => {
-    const html = buildHtmlDocument(report, { version: '9.9.9' });
-    expect(html).not.toContain('class="badge');
-  });
-
-  it('renders a badge only for routes present in routeBadges', () => {
-    const html = buildHtmlDocument(report, { version: '9.9.9' }, { routeBadges: { '/': 'measured' } });
-    const homeSection = html.slice(html.indexOf('id="route-"'));
-    expect(homeSection.slice(0, homeSection.indexOf('</summary>'))).toContain('badge-measured');
-    // the other route ('/products/[id]') has no entry in routeBadges → no badge rendered for it
-    const productsIdx = html.indexOf('id="route-products-id"');
-    const productsSection = html.slice(productsIdx, html.indexOf('</summary>', productsIdx));
-    expect(productsSection).not.toContain('class="badge');
-  });
-
-  it('renders the static badge distinctly from measured', () => {
+  it('carries known badges into the snapshot', () => {
     const html = buildHtmlDocument(
       report,
       { version: '9.9.9' },
       { routeBadges: { '/': 'measured', '/products/[id]': 'static' } }
     );
-    expect(html).toContain('badge-measured">measured</span>');
-    expect(html).toContain('badge-static">static</span>');
+    expect(extractEmbeddedSnapshot(html).badges).toEqual({ '/': 'measured', '/products/[id]': 'static' });
   });
 
-  it('drops an unknown badge value instead of rendering it verbatim', () => {
+  it('drops an unknown badge value instead of embedding it', () => {
     const html = buildHtmlDocument(report, { version: '9.9.9' }, { routeBadges: { '/': 'bogus' as never } });
-    expect(html).not.toContain('class="badge');
+    expect(extractEmbeddedSnapshot(html).badges).toEqual({});
     expect(html).not.toContain('bogus');
-  });
-});
-
-describe('category filters (data-driven, not hardcoded)', () => {
-  const html = buildHtmlDocument(report, { version: '9.9.9' });
-
-  it('emits a severity + category chip with an explicit data-filter value', () => {
-    expect(html).toContain('data-filter="all"');
-    expect(html).toContain('data-filter="critical"');
-    expect(html).toContain('data-filter="warning"');
-    expect(html).toContain('data-filter="info"');
-    // category chips are derived from report.categories, not hardcoded
-    expect(html).toContain('data-filter="seo"');
-    expect(html).toContain('data-filter="performance"');
-  });
-
-  it('filters by the chip data-filter value, not its label text', () => {
-    expect(html).toContain("getAttribute('data-filter')");
-  });
-
-  it('only renders chips for categories present in the report', () => {
-    const onlySeo: JsonReport = {
-      ...report,
-      categories: { seo: { score: 80, scoreModel: model() } },
-      weights: { seo: 1 },
-      routes: [],
-      siteIssues: []
-    };
-    const out = buildHtmlDocument(onlySeo, { version: '0' });
-    expect(out).toContain('data-filter="seo"');
-    expect(out).not.toContain('data-filter="performance"');
   });
 });

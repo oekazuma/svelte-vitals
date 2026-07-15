@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { renderDashboardShell } from '../src/ui/dashboard.js';
+import { renderAppShell as renderDashboardShell } from '@svelte-vitals/core';
 import type { DashboardSnapshot } from '../src/ui/snapshot.js';
 
 const baseSnapshot: DashboardSnapshot = {
@@ -28,6 +28,7 @@ const baseSnapshot: DashboardSnapshot = {
   },
   badges: { '/a': 'static' },
   analyzing: false,
+  live: true,
   sequence: 1,
   meta: { version: '9.9.9', coreVersion: '0.21.0' }
 };

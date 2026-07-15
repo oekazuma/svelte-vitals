@@ -78,7 +78,7 @@ svelte-vitals --reporter md
 
 ## HTML レポート
 
-`--reporter html` は自己完結の HTML レポート（Health スコア・カテゴリ別/ルート別スコア・各検出結果と修正）を出力し、ブラウザで開けます。CSS と JS をすべてインライン化しているためオフラインで動作し、CI 成果物として添付したり共有したりするのも簡単です。
+`--reporter html` は、ブラウザで開ける自己完結の HTML レポートを出力します。これは**[ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/)と同じUI**です — レンダラーを1つ共有しているため、2つが乖離することはありません: 検索・並び替え可能なルート一覧を持つマスター/ディテールレイアウト、重要度・カテゴリのフィルター、ダークモード、そして各指摘のコピー可能な [AI Prompt](/svelte-vitals/ja/guides/dev-dashboard/#指摘ごとに修正プロンプトをコピーする) が使えます。唯一の違いは、静的ファイルには背後に dev サーバーがないため、ライブ更新の仕組み(SSE接続、ブラウジングによる `measured` への精緻化)がないことです。CSS と JS をすべてインライン化しているためオフラインで動作し、CI 成果物として添付したり共有したりするのも簡単です。
 
 ```bash
 svelte-vitals --reporter html                 # svelte-vitals-report.html を出力

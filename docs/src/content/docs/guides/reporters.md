@@ -77,7 +77,7 @@ svelte-vitals --reporter md
 
 ## HTML report
 
-`--reporter html` writes a self-contained HTML report — Health score, per-category and per-route scores, and every finding with its fix — that you open in a browser. The file inlines all its CSS and JS, so it works offline and is easy to attach to a CI run or share.
+`--reporter html` writes a self-contained HTML report that you open in a browser. It's the **same UI as the [live dashboard](/svelte-vitals/guides/dev-dashboard/)** — one shared renderer, so the two can't drift apart: the master/detail layout with a searchable, sortable route list, severity/category filters, dark mode, and a copy-to-clipboard [AI Prompt](/svelte-vitals/guides/dev-dashboard/#copy-a-fix-prompt-for-any-finding) on every finding. The only difference is that a static file has no dev server behind it, so the live-update machinery (SSE connection, `measured` refinement as you browse) is absent. The file inlines all its CSS and JS, so it works offline and is easy to attach to a CI run or share.
 
 ```bash
 svelte-vitals --reporter html                 # writes svelte-vitals-report.html
