@@ -7,15 +7,14 @@ import {
   correct005PropMutation,
   correct006OrphanEffect
 } from '../src/index.js';
-import { defineConfig, defaultProject } from '../src/types.js';
+import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
 import { parseComponentFacts } from '../src/component-parse.js';
 
 const config = defineConfig({});
 const base = { heads: [], project: defaultProject, config };
-const fails = (rs: { detection: { presence: string; value: string } }[]) =>
-  rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
+const fails = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 const ctx = (components: ComponentFacts[]): RuleContext => ({ components, ...base });
 const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   file: 'src/lib/C.svelte',
