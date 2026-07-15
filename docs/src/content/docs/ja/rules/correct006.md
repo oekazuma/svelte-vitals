@@ -14,6 +14,8 @@ description: コンポーネント初期化の外で作られた $effect はラ�
 
 検出対象外: 関数内の effect(ファクトリ関数・IIFE を含む)、`$effect.root(...)` コールバック内の effect、コンポーネント内でのみインスタンス化されるクラス、他ファイルから import されたクラス、クラスフィールド初期化子や static ブロック内の effect、名前のないクラス式(`const Store = class { … }`)内の effect。検出は関数境界を決して越えないため、構造上誤検出はありません — その代わりクロスファイルやファクトリ経由のケースは検出できません。
 
+トップレベルの `if` や、コンストラクタ引数によるチェック(`constructor(persist) { if (persist) $effect(...) }`)で条件付きにガードされた effect は、そのガードが実行時に決して真にならない場合でも検出されます — ガードは静的に評価できないためです。ガードが意図的なものであれば、インラインの抑制コメント(`svelte-vitals-disable-next-line CORRECT006`)を使ってください。
+
 ## 重要な理由
 
 Svelte コンパイラはこれらのパターンをすべて警告なしでコンパイルします — 失敗はランタイムでのみ起こります。開発中は気づかないことがあり(そのモジュールが特定のルートでしか import されない場合など)、本番ではクラッシュとして顕在化します — 典型的にはそのモジュールを import するすべてのページで 500 エラーになります。リアクティブな effect はコンポーネントの初期化中、または明示的な `$effect.root` スコープ内でしか作れません。
@@ -63,7 +65,7 @@ export const quizState = new QuizStateManager();
 ```svelte
 <!-- +layout.svelte -->
 <script>
-  import { quizState } from '$lib/store.svelte.ts';
+  import { quizState } from '$lib/store.svelte.js';
   quizState.startPersisting();
 </script>
 ```
