@@ -5,10 +5,12 @@ import {
   correct003EffectAsOnMount,
   correct004UnmutatedState,
   correct005PropMutation,
-  correct006OrphanEffect
+  correct006OrphanEffect,
+  correct007OrphanLifecycle
 } from '../src/index.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
+import type { KitModuleFacts } from '../src/kit-module.js';
 import type { RuleContext } from '../src/rule.js';
 import { parseComponentFacts } from '../src/component-parse.js';
 
@@ -32,6 +34,18 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   orphanEffects: [],
   orphanLifecycleCalls: [],
   moduleStateDecls: [],
+  suppressions: [],
+  ...over
+});
+
+const kitFacts = (over: Partial<KitModuleFacts>): KitModuleFacts => ({
+  file: 'src/routes/+page.ts',
+  kind: 'universal',
+  moduleStateReassignments: [],
+  importedStateWrites: [],
+  importedStateWritesOutsideHandlers: [],
+  runesModuleImports: [],
+  lifecycleCalls: [],
   suppressions: [],
   ...over
 });
@@ -205,5 +219,70 @@ describe('CORRECT006 orphan $effect', () => {
     const legacy = comp({}) as ComponentFacts & { orphanEffects?: undefined };
     delete (legacy as Record<string, unknown>).orphanEffects;
     expect(await correct006OrphanEffect.check(ctx([legacy]))).toHaveLength(0);
+  });
+});
+
+describe('CORRECT007 lifecycle call outside component initialisation', () => {
+  it('flags a module top-level call as critical with the module message', async () => {
+    const rs = await correct007OrphanLifecycle.check(
+      ctx([
+        comp({ file: 'src/lib/s.svelte.ts', orphanLifecycleCalls: [{ name: 'onMount', line: 2, kind: 'top-level' }] })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.severity).toBe('critical');
+    expect(rs[0]!.category).toBe('correctness');
+    expect(rs[0]!.line).toBe(2);
+    expect(rs[0]!.message).toContain('onMount()');
+    expect(rs[0]!.message).toContain('lifecycle_outside_component');
+  });
+  it('names the class in the constructor-instantiated message', async () => {
+    const rs = await correct007OrphanLifecycle.check(
+      ctx([
+        comp({
+          orphanLifecycleCalls: [{ name: 'getContext', line: 7, kind: 'constructor-instantiated', className: 'Store' }]
+        })
+      ])
+    );
+    expect(fails(rs)[0]!.message).toContain('"Store"');
+    expect(fails(rs)[0]!.message).toContain('getContext()');
+  });
+  it('uses the load/handler message for kit inHandler calls and the module message otherwise', async () => {
+    const rs = await correct007OrphanLifecycle.check({
+      ...ctx([]),
+      kitModules: [
+        kitFacts({ lifecycleCalls: [{ name: 'getContext', line: 3, inHandler: true }] }),
+        kitFacts({
+          file: 'src/hooks.server.ts',
+          kind: 'server',
+          lifecycleCalls: [{ name: 'onMount', line: 2, inHandler: false }]
+        })
+      ]
+    });
+    expect(fails(rs)).toHaveLength(2);
+    expect(fails(rs)[0]!.message).toContain('load/handler');
+    expect(fails(rs)[1]!.message).toContain('module evaluation');
+  });
+  it('reads both channels in one run and honours suppressions on each', async () => {
+    const rs = await correct007OrphanLifecycle.check({
+      ...ctx([
+        comp({
+          orphanLifecycleCalls: [{ name: 'onMount', line: 2, kind: 'top-level' }],
+          suppressions: [{ line: 2, ruleIds: ['CORRECT007'] }]
+        })
+      ]),
+      kitModules: [
+        kitFacts({
+          lifecycleCalls: [{ name: 'getContext', line: 3, inHandler: true }],
+          suppressions: [{ line: 3, ruleIds: ['CORRECT007'] }]
+        })
+      ]
+    });
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(2); // two PASS units (signal present, all findings suppressed)
+  });
+  it('emits nothing without signal or in rendered mode', async () => {
+    expect(await correct007OrphanLifecycle.check(ctx([comp({})]))).toHaveLength(0);
+    expect(await correct007OrphanLifecycle.check(base as RuleContext)).toHaveLength(0);
   });
 });
