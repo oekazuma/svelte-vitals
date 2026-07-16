@@ -5,7 +5,9 @@ import {
   addBoundNames,
   scopeIntroducedNames,
   rootObjectName,
-  WALK_IGNORED_KEYS
+  WALK_IGNORED_KEYS,
+  collectSvelteLifecycleImports,
+  matchLifecycleCall
 } from './component-parse.js';
 import { lineOf } from './svelte-ast.js';
 import type { KitModuleFacts } from './kit-module.js';
@@ -264,12 +266,14 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
   const importedStateWrites: KitModuleFacts['importedStateWrites'] = [];
   const importedStateWritesOutsideHandlers: KitModuleFacts['importedStateWritesOutsideHandlers'] = [];
   const runesModuleImports: KitModuleFacts['runesModuleImports'] = [];
+  const lifecycleCalls: KitModuleFacts['lifecycleCalls'] = [];
   if (!program) {
     return {
       moduleStateReassignments,
       importedStateWrites,
       importedStateWritesOutsideHandlers,
       runesModuleImports,
+      lifecycleCalls,
       suppressions
     };
   }
@@ -303,6 +307,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
 
   const handlerFns = collectHandlerFunctions(program);
   const startupFns = collectStartupFunctions(program);
+  const svelteImports = collectSvelteLifecycleImports(program);
   walkKit(program, handlerFns, startupFns, (n, shadowed, inFunction, inHandler, inStartup) => {
     if (inFunction && !inStartup) {
       // SEC004 — module-scope let/var reassigned from inside a function body.
@@ -378,6 +383,17 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
       if (inHandler) importedStateWrites.push({ ...write, line: line(n.start) });
       else importedStateWritesOutsideHandlers.push({ name: write.name, line: line(n.start) });
     }
+
+    // CORRECT007 — svelte lifecycle/context calls outside component initialisation:
+    // top level (crashes at import), handler bodies (crashes per request — getContext
+    // in load), and the `init` hook (crashes at boot). Helper functions are exempt:
+    // a component may legally call them during its own initialisation.
+    if (n.type === 'CallExpression' && (!inFunction || inHandler || inStartup)) {
+      const m = matchLifecycleCall(n, svelteImports);
+      if (m && !shadowed.has(m.local)) {
+        lifecycleCalls.push({ name: m.canonical, line: line(n.start), inHandler });
+      }
+    }
   });
 
   const byLine = <T extends { line: number }>(arr: T[]): T[] => arr.sort((a, b) => a.line - b.line);
@@ -387,6 +403,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
     importedStateWrites: byLine(importedStateWrites),
     importedStateWritesOutsideHandlers: byLine(importedStateWritesOutsideHandlers),
     runesModuleImports: byLine(runesModuleImports),
+    lifecycleCalls: byLine(lifecycleCalls),
     suppressions
   };
 }

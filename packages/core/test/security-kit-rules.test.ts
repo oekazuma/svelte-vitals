@@ -21,6 +21,7 @@ const kit = (over: Partial<KitModuleFacts>): KitModuleFacts => ({
   importedStateWrites: [],
   importedStateWritesOutsideHandlers: [],
   runesModuleImports: [],
+  lifecycleCalls: [],
   suppressions: [],
   ...over
 });
