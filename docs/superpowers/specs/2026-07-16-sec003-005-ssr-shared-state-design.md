@@ -137,10 +137,16 @@ calls on the imported binding (covers svelte stores AND imported module-scope
 `Map`s — both shared). Namespace imports (`* as s` → `s.user = …`) count.
 Other method calls (`logger.info()`) do not — conservative. Scope-aware via
 the existing shadow tracking. The `.set(...)`/`.update(...)` call-form is
-additionally gated to repo-local specifiers (relative or `$lib/`, excluding
-`$lib/server/`), so `.set`/`.update` on installed packages (Drizzle, KV/redis
-clients) or `$lib/server` singletons — persistence, not shared module state —
-is not flagged (finding from the final branch review).
+additionally gated to repo-local specifiers (relative or `$lib/`) whose
+specifier RESOLVES to a path outside `src/lib/server/**`, so `.set`/`.update`
+on installed packages (Drizzle, KV/redis clients) or `src/lib/server`
+singletons — persistence, not shared module state — is not flagged (finding
+from the final branch review). Resolving before gating means the exemption
+applies regardless of import style: both the `$lib/server/` alias and an
+equivalent relative import (`../../lib/server/db` from a route file) resolve
+to the same `src/lib/server/**` path and are exempt alike (2026-07-16
+follow-up to PR #235, which only string-matched the raw `$lib/server/` alias
+and false-positived on the relative form).
 
 **SEC004 — `Server module state` (warning).** Flag reassignments (`=`,
 compound, `??=`/`||=`/`&&=`, `UpdateExpression`) of module-scope `let`/`var`
