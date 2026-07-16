@@ -1,5 +1,25 @@
 # svelte-vitals
 
+## 0.29.0
+
+### Minor Changes
+
+- b10c26a: Add CORRECT006 (critical): flag orphan `$effect` calls that throw `effect_orphan` at runtime — a top-level `$effect` in a `.svelte.ts`/`.svelte.js` runes module or a `.svelte` `<script module>`, and a module-scope `new` of a class whose constructor creates a bare `$effect`. `.svelte.ts`/`.svelte.js` runes modules are now analyzed by the component-facts pipeline.
+- e38ea4d: Add CORRECT007 (critical): flag Svelte lifecycle/context calls (`onMount`, `getContext`, `setContext`, …) that run outside component initialisation and throw `lifecycle_outside_component` at runtime — at module scope in runes modules and `<script module>`, in constructors of module-scope-instantiated classes, and inside SvelteKit load/action/endpoint handlers (the classic `getContext`-in-`load` trap).
+- b0c2040: Add CORRECT008 (critical) and CORRECT009 (warning): flag browser-only globals (`window`, `document`, `localStorage`, …) read in server-executed code — module scope of runes modules and `<script module>`, SvelteKit load/handler/`init` bodies and file top levels (CORRECT008), and component instance-script top levels that run during SSR (CORRECT009). Recognises `browser`/`typeof` guards, respects same-file `export const ssr = false`, and never descends into `onMount`/`$effect`/function bodies.
+- d6511a7: Add SEC003–005: SSR shared-state leak detection for SvelteKit server/universal route files. SEC003 (critical) flags load/action/endpoint handlers writing to imported module state; SEC004 (warning) flags module-scope `let`/`var` reassigned from functions in Kit server files; SEC005 (warning) flags server-side imports of `.svelte.ts` modules holding module-scope `$state`. Kit route/hooks files are now analyzed via a new `KitModuleFacts` channel.
+
+### Patch Changes
+
+- c4ef9d8: Fix `ci install`/`ci upgrade` to never pin `@svelte-vitals/action` to a commit SHA that isn't actually on `origin/main` yet. The pin is generated at build time from `git rev-parse HEAD`; if a local build runs before that commit is pushed (e.g. testing against a `pnpm link`ed checkout), the generated GitHub Actions workflow referenced an unresolvable action and every PR's CI job failed. The generator now falls back to the nearest ancestor commit that is on `origin/main` when HEAD itself isn't reachable there.
+- 76701e0: Fix monorepo app detection (`discoverApps`, and `install --app`) to recognize a SvelteKit app that has no `svelte.config.{js,ts}` — current `sv create` output folds SvelteKit's adapter/compiler config directly into the `sveltekit()` plugin call in `vite.config.ts` and no longer emits a separate `svelte.config` file. Detection now also accepts a `package.json` declaring `@sveltejs/kit`, mirroring `detectProject`'s existing rule. Previously such an app was silently invisible to `svelte-vitals` (from a monorepo root) or `svelte-vitals install --app <dir>` (explicit `--app` failed with "not a SvelteKit app").
+- Updated dependencies [b10c26a]
+- Updated dependencies [e38ea4d]
+- Updated dependencies [b0c2040]
+- Updated dependencies [d6511a7]
+- Updated dependencies [15f0b61]
+  - @svelte-vitals/core@0.26.0
+
 ## 0.28.0
 
 ### Minor Changes
