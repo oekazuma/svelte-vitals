@@ -209,13 +209,21 @@ function walkKit(
   }
 }
 
-/** Normalize a posix path, resolving `.` and `..` segments — string-only, no I/O. */
-function normalizePosix(path: string): string {
+/**
+ * Normalize a posix path, resolving `.` and `..` segments — string-only, no I/O.
+ * Returns undefined when a `..` segment pops an empty stack, i.e. the path escapes
+ * its root (e.g. `../../../../src/lib/server/db` from a shallow route file): the
+ * real target lies outside the repo tree we can see, so there is no repo-relative
+ * path to return at all.
+ */
+function normalizePosix(path: string): string | undefined {
   const out: string[] = [];
   for (const seg of path.split('/')) {
     if (seg === '' || seg === '.') continue;
-    if (seg === '..') out.pop();
-    else out.push(seg);
+    if (seg === '..') {
+      if (out.length === 0) return undefined;
+      out.pop();
+    } else out.push(seg);
   }
   return out.join('/');
 }
@@ -224,7 +232,8 @@ function normalizePosix(path: string): string {
  * Resolve an import specifier to a repo-relative path against the importing file, or
  * undefined when it cannot be a repo-local module: `$lib/` maps to `src/lib/`, `./`/`../`
  * resolve against the importing file's directory; bare packages and other aliases are
- * skipped (they can't be resolved to a repo-local path at all).
+ * skipped (they can't be resolved to a repo-local path at all). Also undefined when a
+ * relative specifier's `..` segments escape the repo root — see `normalizePosix`.
  */
 function resolveRepoLocalPath(spec: string, importerFile: string): string | undefined {
   let path: string;
@@ -239,9 +248,10 @@ function resolveRepoLocalPath(spec: string, importerFile: string): string | unde
 /**
  * Resolve an import specifier to a repo-relative `.svelte.ts`/`.svelte.js` path, or
  * undefined when it cannot be a runes module: `$lib/` maps to `src/lib/`, `./`/`../`
- * resolve against the importing file's directory; bare packages and other aliases are
- * skipped. An extensionless `…/x.svelte` specifier canonicalises to `….svelte.ts`
- * (SEC005 also tries the `.js` sibling when matching).
+ * resolve against the importing file's directory; bare packages, other aliases, and
+ * a relative specifier whose `..` segments escape the repo root are skipped. An
+ * extensionless `…/x.svelte` specifier canonicalises to `….svelte.ts` (SEC005 also
+ * tries the `.js` sibling when matching).
  */
 export function resolveRunesModuleSpecifier(spec: string, importerFile: string): string | undefined {
   const path = resolveRepoLocalPath(spec, importerFile);
@@ -253,17 +263,24 @@ export function resolveRunesModuleSpecifier(spec: string, importerFile: string):
 
 /**
  * Whether an import specifier points at repo-local module state that would be
- * SHARED on the server: relative or `$lib/` — but not `src/lib/server/**`, where
- * legitimate singletons (DB connections, KV/API clients) live. The check resolves
- * the specifier to its repo-relative path first, so a relative import that lands in
- * `src/lib/server/**` is exempt exactly like the `$lib/server/**` alias form.
- * Installed packages (drizzle, redis, @vercel/kv, …) are excluded: `.set()`/`.update()`
- * on those is persistence, not shared-module-state mutation.
+ * SHARED on the server: relative or `$lib/` — but not `src/lib/server` itself or
+ * anything under `src/lib/server/**`, where legitimate singletons (DB connections,
+ * KV/API clients) live. The check resolves the specifier to its repo-relative path
+ * first, so a relative import that lands in `src/lib/server/**` is exempt exactly
+ * like the `$lib/server/**` alias form, and the directory-entrypoint import itself
+ * (`$lib/server`, or an equivalent `../../lib/server`, resolving to exactly
+ * `src/lib/server` — importing the index file rather than a named submodule) is
+ * exempt too. A specifier that resolves to undefined — a bare package, an alias
+ * that can't map to a repo path, or a relative specifier whose `..` segments escape
+ * the repo root (see `normalizePosix`) — is conservatively NOT local state: we
+ * can't see that file, so we don't flag writes to it. Installed packages (drizzle,
+ * redis, @vercel/kv, …) are excluded: `.set()`/`.update()` on those is persistence,
+ * not shared-module-state mutation.
  */
 function isLocalStateSpecifier(spec: string, importerFile: string): boolean {
   const path = resolveRepoLocalPath(spec, importerFile);
   if (path === undefined) return false;
-  return !path.startsWith('src/lib/server/');
+  return path !== 'src/lib/server' && !path.startsWith('src/lib/server/');
 }
 
 /**
