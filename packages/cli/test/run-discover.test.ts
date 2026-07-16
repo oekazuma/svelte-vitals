@@ -34,8 +34,8 @@ describe('run(): monorepo app discovery + picker (design doc 2026-07-08-monorepo
       noAnimation: true,
       selectApp
     });
-    expect(selectApp).toHaveBeenCalledWith(['apps/admin', 'apps/web']);
-    expect(code).toBe(1); // both fixture apps are missing a <title> -> SEO001 critical
+    expect(selectApp).toHaveBeenCalledWith(['apps/admin', 'apps/mobile', 'apps/web']);
+    expect(code).toBe(1); // all fixture apps are missing a <title> -> SEO001 critical
     expect(cap.out.join('\n')).toContain('SEO001');
   });
 
@@ -69,7 +69,7 @@ describe('run(): monorepo app discovery + picker (design doc 2026-07-08-monorepo
     expect(code).toBe(2);
     expect(selectApp).not.toHaveBeenCalled();
     const errOutput = cap.err.join('\n');
-    expect(errOutput).toContain('multiple SvelteKit apps found: apps/admin, apps/web');
+    expect(errOutput).toContain('multiple SvelteKit apps found: apps/admin, apps/mobile, apps/web');
     expect(errOutput).toContain('npx svelte-vitals apps/admin');
   });
 
@@ -88,7 +88,7 @@ describe('run(): monorepo app discovery + picker (design doc 2026-07-08-monorepo
     });
     expect(code).toBe(2);
     expect(selectApp).not.toHaveBeenCalled();
-    expect(cap.err.join('\n')).toContain('multiple SvelteKit apps found: apps/admin, apps/web');
+    expect(cap.err.join('\n')).toContain('multiple SvelteKit apps found: apps/admin, apps/mobile, apps/web');
   });
 
   it('explicitPath:true + non-SvelteKit cwd: immediate exit 2, no discovery, selectApp never called', async () => {
