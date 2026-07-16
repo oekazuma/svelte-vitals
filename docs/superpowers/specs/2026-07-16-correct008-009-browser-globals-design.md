@@ -191,3 +191,8 @@ browser}`, dynamic import) — the reason CORRECT009 is a warning, with the
 window` at a guarded site then used elsewhere).
 - The curated list trades recall for precision — browser-only APIs outside
   the 17 names are not flagged.
+- **`$props()` destructuring defaults are not scanned** (`let { width =
+window.innerWidth } = $props()`) — the default only evaluates when the prop
+  is absent, including during SSR, but the scanner only visits a
+  `VariableDeclarator`'s `init`, never its `id` pattern's defaults — a
+  silent conservative miss.
