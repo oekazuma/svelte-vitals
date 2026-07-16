@@ -317,4 +317,14 @@ describe('parseKitModuleFacts — browser-global refs (CORRECT008)', () => {
       { name: 'window', line: 2, inHandler: false }
     ]);
   });
+  it('scans a function aliased to both a handler and init exactly once (handler wins)', () => {
+    const src = 'function foo() {\n  document.title;\n}\nexport { foo as load, foo as init };';
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
+      { name: 'document', line: 2, inHandler: true }
+    ]);
+  });
+  it('honours the alias-exported ssr = false form', () => {
+    const src = 'const ssr = false;\nexport { ssr };\nconst w = window.innerWidth;';
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
+  });
 });

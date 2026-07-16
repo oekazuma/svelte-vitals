@@ -402,7 +402,13 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
       }
     };
     for (const fn of handlerFns) scanFn(fn, true);
-    for (const fn of startupFns) scanFn(fn, false);
+    for (const fn of startupFns) {
+      // A function aliased to BOTH a handler and `init` was already scanned above —
+      // scanning it again would duplicate the facts with a conflicting inHandler
+      // flag. Handler classification wins.
+      if (handlerFns.has(fn)) continue;
+      scanFn(fn, false);
+    }
   }
 
   walkKit(program, handlerFns, startupFns, (n, shadowed, inFunction, inHandler, inStartup) => {
