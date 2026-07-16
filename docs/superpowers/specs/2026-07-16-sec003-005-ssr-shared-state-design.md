@@ -140,7 +140,11 @@ bindings from inside any function body. Top-level (module-evaluation)
 reassignments are initialisation — not flagged. Shadowed locals excluded.
 `inHandler` distinguishes the message strength (direct handler write vs helper
 function). `const` bindings and method-mutation caches (`cache.set(…)`) are
-out of scope by decision — documented limitation.
+out of scope by decision — documented limitation. Assignments inside
+SvelteKit's `init` startup hook (`export function init` / `export const init =
+…`) are also not flagged — it runs once at server startup, semantically
+top-level initialisation (SEC003/SEC005 write detection is not exempted for
+`init`; writing imported shared state from it is still one shared instance).
 
 **SEC005 — `Shared runes-module import` (warning).** For each entry in
 `runesModuleImports` whose `resolved` file has non-empty `moduleStateDecls` in

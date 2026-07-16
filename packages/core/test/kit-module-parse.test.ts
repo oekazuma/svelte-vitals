@@ -63,6 +63,11 @@ describe('parseKitModuleFacts — module-scope reassignments (SEC004)', () => {
     expect(f.moduleStateReassignments).toEqual([{ name: 'user', line: 4, inHandler: true }]);
     expect(f.suppressions).toEqual([{ line: 4, ruleIds: ['SEC004'] }]);
   });
+  it("does not flag assignments inside SvelteKit's init startup hook", () => {
+    const src =
+      'let db;\nexport async function init() {\n  db = await connect();\n}\nexport const handle = async ({ event, resolve }) => resolve(event);';
+    expect(facts(src, 'src/hooks.server.ts').moduleStateReassignments).toEqual([]);
+  });
 });
 
 describe('parseKitModuleFacts — imported-state writes (SEC003/SEC005)', () => {

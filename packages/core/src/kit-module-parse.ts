@@ -75,21 +75,49 @@ function collectHandlerFunctions(program: Node): Set<Node> {
 }
 
 /**
+ * The function nodes of this file's SvelteKit startup hooks: exported `init`
+ * (function or arrow, `satisfies` unwrapped). Kit calls `init` once at server
+ * startup — semantically top-level initialisation, not a per-request handler, so
+ * SEC004 should not flag assignments inside it.
+ */
+function collectStartupFunctions(program: Node): Set<Node> {
+  const startup = new Set<Node>();
+  for (const stmt of program.body ?? []) {
+    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.declaration) continue;
+    const decl = stmt.declaration;
+    if (decl.type === 'FunctionDeclaration' && decl.id?.type === 'Identifier' && decl.id.name === 'init') {
+      startup.add(decl);
+      continue;
+    }
+    if (decl.type !== 'VariableDeclaration') continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type !== 'Identifier' || !d.init) continue;
+      const init = unwrapTs(d.init);
+      if (d.id.name === 'init' && isFunctionNode(init)) startup.add(init);
+    }
+  }
+  return startup;
+}
+
+/**
  * Walk the whole program threading (1) shadowed names (like component-parse's
- * `walkScoped`), (2) whether the CURRENT node sits inside any function body, and
- * (3) whether that function chain includes a server handler. Class bodies count as
- * function depth — their methods run when called, not at module evaluation.
+ * `walkScoped`), (2) whether the CURRENT node sits inside any function body, (3)
+ * whether that function chain includes a server handler, and (4) whether it
+ * includes the `init` startup hook. Class bodies count as function depth — their
+ * methods run when called, not at module evaluation.
  */
 function walkKit(
   node: Node,
   handlerFns: Set<Node>,
-  visit: (n: Node, shadowed: Set<string>, inFunction: boolean, inHandler: boolean) => void,
+  startupFns: Set<Node>,
+  visit: (n: Node, shadowed: Set<string>, inFunction: boolean, inHandler: boolean, inStartup: boolean) => void,
   shadowed: Set<string> = new Set(),
   inFunction = false,
-  inHandler = false
+  inHandler = false,
+  inStartup = false
 ): void {
   if (Array.isArray(node)) {
-    for (const child of node) walkKit(child, handlerFns, visit, shadowed, inFunction, inHandler);
+    for (const child of node) walkKit(child, handlerFns, startupFns, visit, shadowed, inFunction, inHandler, inStartup);
     return;
   }
   if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
@@ -99,11 +127,12 @@ function walkKit(
   const isBoundary = isFunctionNode(node) || node.type === 'ClassDeclaration' || node.type === 'ClassExpression';
   const nextInFunction = inFunction || isBoundary;
   const nextInHandler = inHandler || handlerFns.has(node);
+  const nextInStartup = inStartup || startupFns.has(node);
 
-  visit(node, scope, inFunction, inHandler);
+  visit(node, scope, inFunction, inHandler, inStartup);
   for (const key of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key)) continue;
-    walkKit(node[key], handlerFns, visit, scope, nextInFunction, nextInHandler);
+    walkKit(node[key], handlerFns, startupFns, visit, scope, nextInFunction, nextInHandler, nextInStartup);
   }
 }
 
@@ -200,10 +229,13 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
   }
 
   const handlerFns = collectHandlerFunctions(program);
-  walkKit(program, handlerFns, (n, shadowed, inFunction, inHandler) => {
-    if (inFunction) {
+  const startupFns = collectStartupFunctions(program);
+  walkKit(program, handlerFns, startupFns, (n, shadowed, inFunction, inHandler, inStartup) => {
+    if (inFunction && !inStartup) {
       // SEC004 — module-scope let/var reassigned from inside a function body.
-      // Top-level reassignment is initialisation, not shared-state mutation.
+      // Top-level reassignment is initialisation, not shared-state mutation;
+      // assignment from inside Kit's `init` startup hook is likewise
+      // initialisation, not exempted for SEC003/SEC005 write detection below.
       const flagLet = (name: string | undefined) => {
         if (name && !shadowed.has(name) && moduleLets.has(name)) {
           moduleStateReassignments.push({ name, line: line(n.start), inHandler });
