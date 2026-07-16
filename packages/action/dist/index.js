@@ -55292,9 +55292,27 @@ function collectHandlerFunctions(program) {
   }
   return handlers;
 }
-function walkKit(node, handlerFns, visit, shadowed = /* @__PURE__ */ new Set(), inFunction = false, inHandler = false) {
+function collectStartupFunctions(program) {
+  const startup = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.declaration) continue;
+    const decl = stmt2.declaration;
+    if (decl.type === "FunctionDeclaration" && decl.id?.type === "Identifier" && decl.id.name === "init") {
+      startup.add(decl);
+      continue;
+    }
+    if (decl.type !== "VariableDeclaration") continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type !== "Identifier" || !d.init) continue;
+      const init2 = unwrapTs(d.init);
+      if (d.id.name === "init" && isFunctionNode(init2)) startup.add(init2);
+    }
+  }
+  return startup;
+}
+function walkKit(node, handlerFns, startupFns, visit, shadowed = /* @__PURE__ */ new Set(), inFunction = false, inHandler = false, inStartup = false) {
   if (Array.isArray(node)) {
-    for (const child of node) walkKit(child, handlerFns, visit, shadowed, inFunction, inHandler);
+    for (const child of node) walkKit(child, handlerFns, startupFns, visit, shadowed, inFunction, inHandler, inStartup);
     return;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
@@ -55303,10 +55321,11 @@ function walkKit(node, handlerFns, visit, shadowed = /* @__PURE__ */ new Set(), 
   const isBoundary = isFunctionNode(node) || node.type === "ClassDeclaration" || node.type === "ClassExpression";
   const nextInFunction = inFunction || isBoundary;
   const nextInHandler = inHandler || handlerFns.has(node);
-  visit(node, scope, inFunction, inHandler);
+  const nextInStartup = inStartup || startupFns.has(node);
+  visit(node, scope, inFunction, inHandler, inStartup);
   for (const key2 of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key2)) continue;
-    walkKit(node[key2], handlerFns, visit, scope, nextInFunction, nextInHandler);
+    walkKit(node[key2], handlerFns, startupFns, visit, scope, nextInFunction, nextInHandler, nextInStartup);
   }
 }
 function normalizePosix(path) {
@@ -55330,6 +55349,10 @@ function resolveRunesModuleSpecifier(spec, importerFile) {
   if (path.endsWith(".svelte")) return `${path}.ts`;
   return void 0;
 }
+function isLocalStateSpecifier(spec) {
+  if (spec.startsWith("./") || spec.startsWith("../")) return true;
+  return spec.startsWith("$lib/") && !spec.startsWith("$lib/server/");
+}
 function parseKitModuleFacts(source2, filename2) {
   const suppressions = collectSuppressions(source2);
   const { program, wrapped } = parseModuleProgram(source2, filename2);
@@ -55347,17 +55370,17 @@ function parseKitModuleFacts(source2, filename2) {
     };
   }
   const line = (start) => Math.max(0, lineOf(wrapped, start) - 1);
-  const importedNames = /* @__PURE__ */ new Set();
+  const importedSpecifiers = /* @__PURE__ */ new Map();
   for (const stmt2 of program.body ?? []) {
     if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type") continue;
+    const spec = typeof stmt2.source?.value === "string" ? stmt2.source.value : "";
     const names = [];
     for (const s of stmt2.specifiers ?? []) {
       if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
       names.push(s.local.name);
-      importedNames.add(s.local.name);
+      importedSpecifiers.set(s.local.name, spec);
     }
     if (names.length === 0) continue;
-    const spec = typeof stmt2.source?.value === "string" ? stmt2.source.value : "";
     const resolved = resolveRunesModuleSpecifier(spec, filename2);
     if (resolved) runesModuleImports.push({ source: spec, resolved, names, line: line(stmt2.start) });
   }
@@ -55369,8 +55392,9 @@ function parseKitModuleFacts(source2, filename2) {
     }
   }
   const handlerFns = collectHandlerFunctions(program);
-  walkKit(program, handlerFns, (n, shadowed, inFunction, inHandler) => {
-    if (inFunction) {
+  const startupFns = collectStartupFunctions(program);
+  walkKit(program, handlerFns, startupFns, (n, shadowed, inFunction, inHandler, inStartup) => {
+    if (inFunction && !inStartup) {
       const flagLet = (name) => {
         if (name && !shadowed.has(name) && moduleLets.has(name)) {
           moduleStateReassignments.push({ name, line: line(n.start), inHandler });
@@ -55390,7 +55414,7 @@ function parseKitModuleFacts(source2, filename2) {
     let write;
     const importedRoot = (expr) => {
       const r = rootObjectName(expr);
-      return r && !shadowed.has(r) && importedNames.has(r) ? r : void 0;
+      return r && !shadowed.has(r) && importedSpecifiers.has(r) ? r : void 0;
     };
     if (n.type === "AssignmentExpression" && n.left?.type === "MemberExpression") {
       const r = importedRoot(n.left);
@@ -55405,7 +55429,7 @@ function parseKitModuleFacts(source2, filename2) {
       const method2 = n.callee.property?.type === "Identifier" ? n.callee.property.name : void 0;
       if (method2 === "set" || method2 === "update") {
         const r = importedRoot(n.callee.object);
-        if (r) write = { name: r, via: "set-call" };
+        if (r && isLocalStateSpecifier(importedSpecifiers.get(r))) write = { name: r, via: "set-call" };
       }
     } else if (n.type === "AssignmentExpression" && (n.left?.type === "ObjectPattern" || n.left?.type === "ArrayPattern")) {
       const scanPatternTargets = (pat) => {
@@ -55433,11 +55457,12 @@ function parseKitModuleFacts(source2, filename2) {
       else importedStateWritesOutsideHandlers.push({ name: write.name, line: line(n.start) });
     }
   });
+  const byLine = (arr) => arr.sort((a, b) => a.line - b.line);
   return {
-    moduleStateReassignments,
-    importedStateWrites,
-    importedStateWritesOutsideHandlers,
-    runesModuleImports,
+    moduleStateReassignments: byLine(moduleStateReassignments),
+    importedStateWrites: byLine(importedStateWrites),
+    importedStateWritesOutsideHandlers: byLine(importedStateWritesOutsideHandlers),
+    runesModuleImports: byLine(runesModuleImports),
     suppressions
   };
 }
