@@ -613,3 +613,40 @@ describe('parseComponentFacts — orphan $effect in runes modules (.svelte.ts/.s
     expect(orphans(src)).toEqual([{ line: 6, kind: 'constructor-instantiated', className: 'Store' }]);
   });
 });
+
+describe('parseComponentFacts — module-scope $state declarations (SEC005)', () => {
+  const decls = (src: string, file = 'src/lib/store.svelte.ts') => parseComponentFacts(src, file).moduleStateDecls;
+
+  it('collects top-level $state and $state.raw variable declarations', () => {
+    const src = 'export const user = $state({ name: "" });\nlet count = $state.raw(0);';
+    expect(decls(src)).toEqual([
+      { name: 'user', line: 1 },
+      { name: 'count', line: 2 }
+    ]);
+  });
+  it('collects a module-scope new of a same-file class with a $state field', () => {
+    const src = [
+      'class QuizStateManager {',
+      '  bookmarks = $state([]);',
+      '}',
+      'export const quizState = new QuizStateManager();'
+    ].join('\n');
+    expect(decls(src)).toEqual([{ name: 'quizState', line: 4 }]);
+  });
+  it('ignores $state inside functions and classes without a module-scope new', () => {
+    const src = [
+      'export function createStore() {',
+      '  const s = $state({});',
+      '  return s;',
+      '}',
+      'class Unused {',
+      '  v = $state(0);',
+      '}'
+    ].join('\n');
+    expect(decls(src)).toEqual([]);
+  });
+  it('stays empty for .svelte components (script module $state is out of scope)', () => {
+    const facts = parseComponentFacts('<script module>\nexport const s = $state({});\n</script>', 'C.svelte');
+    expect(facts.moduleStateDecls).toEqual([]);
+  });
+});
