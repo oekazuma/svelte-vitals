@@ -55379,8 +55379,10 @@ function normalizePosix(path) {
   const out = [];
   for (const seg of path.split("/")) {
     if (seg === "" || seg === ".") continue;
-    if (seg === "..") out.pop();
-    else out.push(seg);
+    if (seg === "..") {
+      if (out.length === 0) return void 0;
+      out.pop();
+    } else out.push(seg);
   }
   return out.join("/");
 }
@@ -55403,7 +55405,7 @@ function resolveRunesModuleSpecifier(spec, importerFile) {
 function isLocalStateSpecifier(spec, importerFile) {
   const path = resolveRepoLocalPath(spec, importerFile);
   if (path === void 0) return false;
-  return !path.startsWith("src/lib/server/");
+  return path !== "src/lib/server" && !path.startsWith("src/lib/server/");
 }
 function parseKitModuleFacts(source2, filename2) {
   const suppressions = collectSuppressions(source2);
