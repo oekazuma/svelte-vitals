@@ -128,7 +128,11 @@ property assignment (`user.name = …`, `state.a.b = …`), `UpdateExpression`,
 calls on the imported binding (covers svelte stores AND imported module-scope
 `Map`s — both shared). Namespace imports (`* as s` → `s.user = …`) count.
 Other method calls (`logger.info()`) do not — conservative. Scope-aware via
-the existing shadow tracking.
+the existing shadow tracking. The `.set(...)`/`.update(...)` call-form is
+additionally gated to repo-local specifiers (relative or `$lib/`, excluding
+`$lib/server/`), so `.set`/`.update` on installed packages (Drizzle, KV/redis
+clients) or `$lib/server` singletons — persistence, not shared module state —
+is not flagged (finding from the final branch review).
 
 **SEC004 — `Server module state` (warning).** Flag reassignments (`=`,
 compound, `??=`/`||=`/`&&=`, `UpdateExpression`) of module-scope `let`/`var`

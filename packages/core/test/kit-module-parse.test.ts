@@ -131,6 +131,25 @@ describe('parseKitModuleFacts — imported-state writes (SEC003/SEC005)', () => 
     expect(f.importedStateWrites).toEqual([]);
     expect(f.importedStateWritesOutsideHandlers).toEqual([]);
   });
+  it('does not flag .set/.update on package or $lib/server imports (DB/KV clients)', () => {
+    const src = [
+      "import { db } from '$lib/server/db';",
+      "import { kv } from '@vercel/kv';",
+      'export const actions = {',
+      '  default: async () => {',
+      '    await db.update(users).set({ name: "x" });',
+      '    await kv.set("k", 1);',
+      '  }',
+      '};'
+    ].join('\n');
+    const f = facts(src);
+    expect(f.importedStateWrites).toEqual([]);
+    expect(f.importedStateWritesOutsideHandlers).toEqual([]);
+  });
+  it('still flags .set on a repo-local $lib store (the docs NEVER example)', () => {
+    const src = "import { user } from '$lib/user';\nexport function load() {\n  user.set({});\n}";
+    expect(facts(src).importedStateWrites).toEqual([{ name: 'user', line: 3, via: 'set-call' }]);
+  });
 });
 
 describe('parseKitModuleFacts — runes-module imports (SEC005)', () => {
