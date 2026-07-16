@@ -55007,28 +55007,34 @@ var EVAL_SCOPE_BOUNDARIES = /* @__PURE__ */ new Set([
   "ClassDeclaration",
   "ClassExpression"
 ]);
-function walkEvalScope(node, visit) {
+function walkEvalScope(node, visit, shadowed = /* @__PURE__ */ new Set()) {
   if (Array.isArray(node)) {
-    for (const child of node) walkEvalScope(child, visit);
+    for (const child of node) walkEvalScope(child, visit, shadowed);
     return;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
-  if (visit(node)) return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (visit(node, scope)) return;
   if (EVAL_SCOPE_BOUNDARIES.has(node.type)) return;
   for (const key2 of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key2)) continue;
-    walkEvalScope(node[key2], visit);
+    walkEvalScope(node[key2], visit, scope);
   }
 }
-function collectEvalScopeCalls(root, source2, matcher, skipSubtree) {
+function collectEvalScopeCalls(root, source2, matcher, skipSubtree, initialShadowed) {
   const out = [];
-  walkEvalScope(root, (n) => {
-    if (n.type !== "CallExpression") return void 0;
-    if (skipSubtree?.(n)) return true;
-    const name = matcher(n);
-    if (name) out.push({ name, line: lineOf(source2, n.start) });
-    return void 0;
-  });
+  walkEvalScope(
+    root,
+    (n, shadowed) => {
+      if (n.type !== "CallExpression") return void 0;
+      if (skipSubtree?.(n)) return true;
+      const name = matcher(n, shadowed);
+      if (name) out.push({ name, line: lineOf(source2, n.start) });
+      return void 0;
+    },
+    initialShadowed
+  );
   return out;
 }
 function unwrapExport(stmt2) {
@@ -55047,7 +55053,9 @@ function collectOrphanCalls(program, source2, matcher, skipSubtree) {
       (m) => m?.type === "MethodDefinition" && m.kind === "constructor" && m.value?.body
     );
     if (!ctor) continue;
-    const calls = collectEvalScopeCalls(ctor.value.body, source2, matcher, skipSubtree);
+    const ctorShadow = /* @__PURE__ */ new Set();
+    for (const p of ctor.value.params ?? []) addBoundNames(p, ctorShadow);
+    const calls = collectEvalScopeCalls(ctor.value.body, source2, matcher, skipSubtree, ctorShadow);
     if (calls.length > 0) matchingClasses.set(decl.id.name, calls[0].name);
   }
   if (matchingClasses.size > 0) {
@@ -55116,7 +55124,10 @@ function matchLifecycleCall(n, imports2) {
 function collectOrphanLifecycleCalls(program, source2) {
   const imports2 = collectSvelteLifecycleImports(program);
   if (imports2.locals.size === 0 && imports2.namespaces.size === 0) return [];
-  return collectOrphanCalls(program, source2, (n) => matchLifecycleCall(n, imports2)?.canonical);
+  return collectOrphanCalls(program, source2, (n, shadowed) => {
+    const m = matchLifecycleCall(n, imports2);
+    return m && !shadowed.has(m.local) ? m.canonical : void 0;
+  });
 }
 var MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
 function parseModuleProgram(source2, filename2) {
@@ -57181,7 +57192,7 @@ var correct007OrphanLifecycle = {
         m.file,
         calls.map((l) => ({
           line: l.line,
-          message: l.inHandler ? `${l.name}() is called in a load/handler \u2014 it runs on every request, outside component initialisation, and throws lifecycle_outside_component at runtime` : topLevelMessage(l.name)
+          message: l.inHandler ? `${l.name}() is called in a load/handler \u2014 it runs on every request, outside component initialisation, and throws lifecycle_outside_component at runtime` : `${l.name}() runs outside component initialisation (module evaluation or the init hook) \u2014 it throws lifecycle_outside_component at runtime`
         })),
         m.suppressions
       );
