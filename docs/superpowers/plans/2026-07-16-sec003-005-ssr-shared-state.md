@@ -112,7 +112,11 @@ In `packages/core/src/component.ts`, inside `ComponentFacts`, after the `orphanE
 
 ```ts
 /** Module-scope `$state` declarations in a `.svelte.ts`/`.svelte.js` runes module — on a server, one instance shared by every request (SEC005). Always empty for `.svelte` files. */
-moduleStateDecls: { name: string; line: number }[];
+moduleStateDecls: {
+  name: string;
+  line: number;
+}
+[];
 ```
 
 - [ ] **Step 5: Export the shared helpers and extract `parseModuleProgram`**
@@ -312,7 +316,8 @@ describe('parseKitModuleFacts — module-scope reassignments (SEC004)', () => {
     expect(facts(src).moduleStateReassignments).toEqual([{ name: 'user', line: 8, inHandler: true }]);
   });
   it('flags compound and ??= reassignment and ++ from a load handler', () => {
-    const src = 'let hits = 0;\nlet cached;\nexport const load = async () => {\n  hits++;\n  cached ??= await fetch("/x");\n};';
+    const src =
+      'let hits = 0;\nlet cached;\nexport const load = async () => {\n  hits++;\n  cached ??= await fetch("/x");\n};';
     expect(facts(src).moduleStateReassignments).toEqual([
       { name: 'hits', line: 4, inHandler: true },
       { name: 'cached', line: 5, inHandler: true }
@@ -342,7 +347,8 @@ describe('parseKitModuleFacts — module-scope reassignments (SEC004)', () => {
     ]);
   });
   it('identifies a hooks.server handle handler', () => {
-    const src = 'let lastPath;\nexport const handle = async ({ event, resolve }) => {\n  lastPath = event.url.pathname;\n  return resolve(event);\n};';
+    const src =
+      'let lastPath;\nexport const handle = async ({ event, resolve }) => {\n  lastPath = event.url.pathname;\n  return resolve(event);\n};';
     expect(facts(src, 'src/hooks.server.ts').moduleStateReassignments).toEqual([
       { name: 'lastPath', line: 3, inHandler: true }
     ]);
@@ -573,7 +579,8 @@ Append to `packages/core/test/kit-module-parse.test.ts` (add `resolveRunesModule
 ```ts
 describe('parseKitModuleFacts — imported-state writes (SEC003/SEC005)', () => {
   it('flags the docs NEVER example: store.set inside load', () => {
-    const src = "import { user } from '$lib/user';\nexport async function load({ fetch }) {\n  user.set(await (await fetch('/api/user')).json());\n}";
+    const src =
+      "import { user } from '$lib/user';\nexport async function load({ fetch }) {\n  user.set(await (await fetch('/api/user')).json());\n}";
     expect(facts(src).importedStateWrites).toEqual([{ name: 'user', line: 3, via: 'set-call' }]);
   });
   it('flags property assignment, update, delete, and namespace-import writes in handlers', () => {
@@ -597,7 +604,8 @@ describe('parseKitModuleFacts — imported-state writes (SEC003/SEC005)', () => 
     ]);
   });
   it('records writes outside handlers separately (top level and helper functions)', () => {
-    const src = "import { theme } from './theme.svelte.js';\ntheme.mode = 'dark';\nfunction reset() {\n  theme.update((t) => t);\n}";
+    const src =
+      "import { theme } from './theme.svelte.js';\ntheme.mode = 'dark';\nfunction reset() {\n  theme.update((t) => t);\n}";
     const f = facts(src);
     expect(f.importedStateWrites).toEqual([]);
     expect(f.importedStateWritesOutsideHandlers).toEqual([
@@ -624,7 +632,8 @@ describe('parseKitModuleFacts — imported-state writes (SEC003/SEC005)', () => 
 
 describe('parseKitModuleFacts — runes-module imports (SEC005)', () => {
   it('resolves $lib and relative specifiers to repo-relative .svelte.ts paths', () => {
-    const src = "import { quizState } from '$lib/quiz.svelte.js';\nimport { other } from '../store.svelte.ts';\nimport type { T } from '$lib/types.svelte.ts';\nimport pkg from 'some-pkg';";
+    const src =
+      "import { quizState } from '$lib/quiz.svelte.js';\nimport { other } from '../store.svelte.ts';\nimport type { T } from '$lib/types.svelte.ts';\nimport pkg from 'some-pkg';";
     const f = facts(src, 'src/routes/deep/+page.server.ts');
     expect(f.runesModuleImports).toEqual([
       { source: '$lib/quiz.svelte.js', resolved: 'src/lib/quiz.svelte.js', names: ['quizState'], line: 1 },
@@ -633,9 +642,7 @@ describe('parseKitModuleFacts — runes-module imports (SEC005)', () => {
   });
   it('canonicalises an extensionless .svelte specifier to .svelte.ts', () => {
     expect(resolveRunesModuleSpecifier('$lib/store.svelte', 'src/routes/+page.ts')).toBe('src/lib/store.svelte.ts');
-    expect(resolveRunesModuleSpecifier('./a/../b.svelte.js', 'src/routes/x/+page.ts')).toBe(
-      'src/routes/x/b.svelte.js'
-    );
+    expect(resolveRunesModuleSpecifier('./a/../b.svelte.js', 'src/routes/x/+page.ts')).toBe('src/routes/x/b.svelte.js');
     expect(resolveRunesModuleSpecifier('$lib/util.ts', 'src/routes/+page.ts')).toBeUndefined();
     expect(resolveRunesModuleSpecifier('some-pkg', 'src/routes/+page.ts')).toBeUndefined();
   });
@@ -689,65 +696,62 @@ export function resolveRunesModuleSpecifier(spec: string, importerFile: string):
 2. In `parseKitModuleFacts`, after the `line` helper, collect imports:
 
 ```ts
-  // Imported value bindings (type-only skipped): local name → declared, plus the
-  // subset whose specifier resolves to a repo-local runes module (SEC005).
-  const importedNames = new Set<string>();
-  for (const stmt of program.body ?? []) {
-    if (stmt?.type !== 'ImportDeclaration' || stmt.importKind === 'type') continue;
-    const names: string[] = [];
-    for (const s of stmt.specifiers ?? []) {
-      if (s?.importKind === 'type' || s?.local?.type !== 'Identifier') continue;
-      names.push(s.local.name);
-      importedNames.add(s.local.name);
-    }
-    if (names.length === 0) continue;
-    const spec = typeof stmt.source?.value === 'string' ? stmt.source.value : '';
-    const resolved = resolveRunesModuleSpecifier(spec, filename);
-    if (resolved) runesModuleImports.push({ source: spec, resolved, names, line: line(stmt.start) });
+// Imported value bindings (type-only skipped): local name → declared, plus the
+// subset whose specifier resolves to a repo-local runes module (SEC005).
+const importedNames = new Set<string>();
+for (const stmt of program.body ?? []) {
+  if (stmt?.type !== 'ImportDeclaration' || stmt.importKind === 'type') continue;
+  const names: string[] = [];
+  for (const s of stmt.specifiers ?? []) {
+    if (s?.importKind === 'type' || s?.local?.type !== 'Identifier') continue;
+    names.push(s.local.name);
+    importedNames.add(s.local.name);
   }
+  if (names.length === 0) continue;
+  const spec = typeof stmt.source?.value === 'string' ? stmt.source.value : '';
+  const resolved = resolveRunesModuleSpecifier(spec, filename);
+  if (resolved) runesModuleImports.push({ source: spec, resolved, names, line: line(stmt.start) });
+}
 ```
 
 3. Extend the `walkKit` visitor: after the SEC004 block (note the SEC004 block early-returns on `!inFunction` — restructure so the imported-write detection below runs for ALL nodes, including top level):
 
 ```ts
-    // SEC003 / SEC005 — a write whose root binding is an import.
-    let write: { name: string; via: 'assignment' | 'set-call' } | undefined;
-    const importedRoot = (expr: Node): string | undefined => {
-      const r = rootObjectName(expr);
-      return r && !shadowed.has(r) && importedNames.has(r) ? r : undefined;
-    };
-    if (n.type === 'AssignmentExpression' && n.left?.type === 'MemberExpression') {
-      const r = importedRoot(n.left);
+// SEC003 / SEC005 — a write whose root binding is an import.
+let write: { name: string; via: 'assignment' | 'set-call' } | undefined;
+const importedRoot = (expr: Node): string | undefined => {
+  const r = rootObjectName(expr);
+  return r && !shadowed.has(r) && importedNames.has(r) ? r : undefined;
+};
+if (n.type === 'AssignmentExpression' && n.left?.type === 'MemberExpression') {
+  const r = importedRoot(n.left);
+  if (r) write = { name: r, via: 'assignment' };
+} else if (n.type === 'UpdateExpression' && n.argument?.type === 'MemberExpression') {
+  const r = importedRoot(n.argument);
+  if (r) write = { name: r, via: 'assignment' };
+} else if (n.type === 'UnaryExpression' && n.operator === 'delete') {
+  const r = importedRoot(n.argument);
+  if (r) write = { name: r, via: 'assignment' };
+} else if (n.type === 'CallExpression' && n.callee?.type === 'MemberExpression') {
+  const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
+  if (method === 'set' || method === 'update') {
+    const r = importedRoot(n.callee.object);
+    if (r) write = { name: r, via: 'set-call' };
+  }
+} else if (n.type === 'AssignmentExpression' && (n.left?.type === 'ObjectPattern' || n.left?.type === 'ArrayPattern')) {
+  // Destructuring-assignment targets: `[state.x] = arr`, `({ a: state.y } = obj)` —
+  // scan the pattern for MemberExpression targets whose root is an import.
+  walkKit(n.left, handlerFns, (t) => {
+    if (t.type === 'MemberExpression' && !write) {
+      const r = importedRoot(t);
       if (r) write = { name: r, via: 'assignment' };
-    } else if (n.type === 'UpdateExpression' && n.argument?.type === 'MemberExpression') {
-      const r = importedRoot(n.argument);
-      if (r) write = { name: r, via: 'assignment' };
-    } else if (n.type === 'UnaryExpression' && n.operator === 'delete') {
-      const r = importedRoot(n.argument);
-      if (r) write = { name: r, via: 'assignment' };
-    } else if (n.type === 'CallExpression' && n.callee?.type === 'MemberExpression') {
-      const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
-      if (method === 'set' || method === 'update') {
-        const r = importedRoot(n.callee.object);
-        if (r) write = { name: r, via: 'set-call' };
-      }
-    } else if (
-      n.type === 'AssignmentExpression' &&
-      (n.left?.type === 'ObjectPattern' || n.left?.type === 'ArrayPattern')
-    ) {
-      // Destructuring-assignment targets: `[state.x] = arr`, `({ a: state.y } = obj)` —
-      // scan the pattern for MemberExpression targets whose root is an import.
-      walkKit(n.left, handlerFns, (t) => {
-        if (t.type === 'MemberExpression' && !write) {
-          const r = importedRoot(t);
-          if (r) write = { name: r, via: 'assignment' };
-        }
-      });
     }
-    if (write) {
-      if (inHandler) importedStateWrites.push({ ...write, line: line(n.start) });
-      else importedStateWritesOutsideHandlers.push({ name: write.name, line: line(n.start) });
-    }
+  });
+}
+if (write) {
+  if (inHandler) importedStateWrites.push({ ...write, line: line(n.start) });
+  else importedStateWritesOutsideHandlers.push({ name: write.name, line: line(n.start) });
+}
 ```
 
 - [ ] **Step 4: Run to verify all parser tests pass, then commit**
@@ -836,13 +840,8 @@ describe('collectKitModuleFacts', () => {
     expect(facts[1]!.moduleStateReassignments).toEqual([{ name: 'user', line: 3, inHandler: true }]);
   });
   it('falls back to empty facts when a file fails to read', async () => {
-    const rt = createMemoryRuntime(
-      { 'src/routes/+page.server.ts': 'let x;' },
-      new Set(['src/routes/+page.server.ts'])
-    );
-    expect(await collectKitModuleFacts(rt, '')).toEqual([
-      emptyKitModuleFacts('src/routes/+page.server.ts', 'server')
-    ]);
+    const rt = createMemoryRuntime({ 'src/routes/+page.server.ts': 'let x;' }, new Set(['src/routes/+page.server.ts']));
+    expect(await collectKitModuleFacts(rt, '')).toEqual([emptyKitModuleFacts('src/routes/+page.server.ts', 'server')]);
   });
 });
 ```
@@ -1356,9 +1355,7 @@ export const sec005SharedStateImport = kitModuleRule({
     'A .svelte.ts module with module-scope $state is one shared instance on the server: mutated, it leaks data between users; read-only, every request sees the same boot-time value instead of per-user data.',
   applies: (m) => m.runesModuleImports.length > 0,
   bad: (m, ctx) => {
-    const stateFiles = new Set(
-      (ctx.components ?? []).filter((c) => c.moduleStateDecls.length > 0).map((c) => c.file)
-    );
+    const stateFiles = new Set((ctx.components ?? []).filter((c) => c.moduleStateDecls.length > 0).map((c) => c.file));
     const writtenOutside = new Set(m.importedStateWritesOutsideHandlers.map((w) => w.name));
     const writtenInHandler = new Set(m.importedStateWrites.map((w) => w.name));
     const out: KitModuleIssue[] = [];

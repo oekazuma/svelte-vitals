@@ -36,7 +36,7 @@ This introduces the second analysis surface after CORRECT006's runes modules:
   "NEVER DO THIS": (1) module-scope `let user` in `+page.server.js` assigned
   from an action — "If Alice submitted an embarrassing secret, and Bob visited
   the page after her, Bob would know Alice's secret"; (2) `user.set(await
-  response.json())` on an imported store inside `load` — "puts one user's
+response.json())` on an imported store inside `load` — "puts one user's
   information in a place that is shared by _all_ users".
 - The docs also state the legitimacy boundary that drives the FP strategy:
   "If you're not using SSR … you can safely keep state in a shared module" —
@@ -68,10 +68,10 @@ This introduces the second analysis surface after CORRECT006's runes modules:
 
 ### 1. Collected files
 
-| kind | globs |
-| --- | --- |
-| `server` | `src/routes/**/+page.server.{ts,js}`, `src/routes/**/+layout.server.{ts,js}`, `src/routes/**/+server.{ts,js}`, `src/hooks.server.{ts,js}` |
-| `universal` | `src/routes/**/+page.{ts,js}`, `src/routes/**/+layout.{ts,js}` |
+| kind        | globs                                                                                                                                     |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `server`    | `src/routes/**/+page.server.{ts,js}`, `src/routes/**/+layout.server.{ts,js}`, `src/routes/**/+server.{ts,js}`, `src/hooks.server.{ts,js}` |
+| `universal` | `src/routes/**/+page.{ts,js}`, `src/routes/**/+layout.{ts,js}`                                                                            |
 
 Universal files run on the server during SSR, so all three rules apply; the
 `kind` reaches the finding message so users understand why. `src/lib/server/**`
