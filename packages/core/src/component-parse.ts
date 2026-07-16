@@ -586,41 +586,57 @@ const EVAL_SCOPE_BOUNDARIES = new Set([
  * Walk only the code that executes when `node` itself is evaluated: every node is
  * visited, but children of eval-scope boundaries (function/class bodies) are not
  * entered. `visit` returning true skips a node's children — used to exempt
- * `$effect.root(...)` callbacks (CORRECT006).
+ * `$effect.root(...)` callbacks (CORRECT006). Like `walkScoped`, threads a "shadowed
+ * names" set down through scope-introducing constructs (`scopeIntroducedNames`) so
+ * `visit` can check whether a candidate identifier is locally shadowed before
+ * treating it as a match against an outer (e.g. imported) binding (CORRECT007).
  */
-function walkEvalScope(node: Node, visit: (n: Node) => boolean | undefined): void {
+function walkEvalScope(
+  node: Node,
+  visit: (n: Node, shadowed: Set<string>) => boolean | undefined,
+  shadowed: Set<string> = new Set()
+): void {
   if (Array.isArray(node)) {
-    for (const child of node) walkEvalScope(child, visit);
+    for (const child of node) walkEvalScope(child, visit, shadowed);
     return;
   }
   if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
-  if (visit(node)) return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
+  if (visit(node, scope)) return;
   if (EVAL_SCOPE_BOUNDARIES.has(node.type)) return;
   for (const key of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key)) continue;
-    walkEvalScope(node[key], visit);
+    walkEvalScope(node[key], visit, scope);
   }
 }
 
 /**
  * Calls matching `matcher` that run when `root` itself is evaluated (CORRECT006/007).
  * `skipSubtree` exempts a call's children — CORRECT006 uses it for `$effect.root(...)`
- * callbacks, which are a legal standalone reactive scope.
+ * callbacks, which are a legal standalone reactive scope. `initialShadowed` seeds the
+ * shadow set threaded through `walkEvalScope` (CORRECT007 uses it to seed a
+ * constructor's own parameters before scanning its body).
  */
 function collectEvalScopeCalls(
   root: Node,
   source: string,
-  matcher: (n: Node) => string | undefined,
-  skipSubtree?: (n: Node) => boolean
+  matcher: (n: Node, shadowed: Set<string>) => string | undefined,
+  skipSubtree?: (n: Node) => boolean,
+  initialShadowed?: Set<string>
 ): { name: string; line: number }[] {
   const out: { name: string; line: number }[] = [];
-  walkEvalScope(root, (n) => {
-    if (n.type !== 'CallExpression') return undefined;
-    if (skipSubtree?.(n)) return true;
-    const name = matcher(n);
-    if (name) out.push({ name, line: lineOf(source, n.start) });
-    return undefined;
-  });
+  walkEvalScope(
+    root,
+    (n, shadowed) => {
+      if (n.type !== 'CallExpression') return undefined;
+      if (skipSubtree?.(n)) return true;
+      const name = matcher(n, shadowed);
+      if (name) out.push({ name, line: lineOf(source, n.start) });
+      return undefined;
+    },
+    initialShadowed
+  );
   return out;
 }
 
@@ -646,7 +662,7 @@ export function unwrapExport(stmt: Node): Node {
 function collectOrphanCalls(
   program: Node,
   source: string,
-  matcher: (n: Node) => string | undefined,
+  matcher: (n: Node, shadowed: Set<string>) => string | undefined,
   skipSubtree?: (n: Node) => boolean
 ): { name: string; line: number; kind: 'top-level' | 'constructor-instantiated'; className?: string }[] {
   const out: { name: string; line: number; kind: 'top-level' | 'constructor-instantiated'; className?: string }[] =
@@ -664,7 +680,13 @@ function collectOrphanCalls(
       (m: Node) => m?.type === 'MethodDefinition' && m.kind === 'constructor' && m.value?.body
     );
     if (!ctor) continue;
-    const calls = collectEvalScopeCalls(ctor.value.body, source, matcher, skipSubtree);
+    // Seed the shadow set with the constructor's own parameters — a parameter that
+    // shadows an imported lifecycle name makes a same-named call inside the body a
+    // legal local call, not the tracked import (CORRECT007 false positive).
+    const ctorShadow = new Set<string>();
+    for (const p of ctor.value.params ?? []) addBoundNames(p, ctorShadow);
+    const calls = collectEvalScopeCalls(ctor.value.body, source, matcher, skipSubtree, ctorShadow);
+    // calls are in walk (source) order — a constructor mixing callees reports the first one.
     if (calls.length > 0) matchingClasses.set(decl.id.name, calls[0]!.name);
   }
 
@@ -790,7 +812,10 @@ export function matchLifecycleCall(
 function collectOrphanLifecycleCalls(program: Node, source: string): OrphanLifecycleCallFact[] {
   const imports = collectSvelteLifecycleImports(program);
   if (imports.locals.size === 0 && imports.namespaces.size === 0) return [];
-  return collectOrphanCalls(program, source, (n) => matchLifecycleCall(n, imports)?.canonical);
+  return collectOrphanCalls(program, source, (n, shadowed) => {
+    const m = matchLifecycleCall(n, imports);
+    return m && !shadowed.has(m.local) ? m.canonical : undefined;
+  });
 }
 
 /** A Svelte runes module file — the whole file is one module-scope program (CORRECT006). */
