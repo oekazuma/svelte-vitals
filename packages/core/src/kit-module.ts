@@ -17,6 +17,12 @@ export interface KitModuleFacts {
   importedStateWritesOutsideHandlers: { name: string; line: number }[];
   /** Value imports whose specifier resolves to a repo-local `.svelte.ts`/`.svelte.js` runes module (SEC005). */
   runesModuleImports: { source: string; resolved: string; names: string[]; line: number }[];
+  /** Svelte lifecycle/context calls that run outside component initialisation — top level, handler bodies, or the `init` hook (CORRECT007). */
+  lifecycleCalls: {
+    name: string;
+    line: number;
+    inHandler: boolean;
+  }[];
   /** Inline `svelte-vitals-disable-next-line` directives in this file. */
   suppressions: SuppressionDirective[];
 }

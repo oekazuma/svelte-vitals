@@ -239,3 +239,28 @@ describe('parseKitModuleFacts — runes-module imports (SEC005)', () => {
     expect(resolveRunesModuleSpecifier('some-pkg', 'src/routes/+page.ts')).toBeUndefined();
   });
 });
+
+describe('parseKitModuleFacts — lifecycle calls (CORRECT007)', () => {
+  it('flags getContext inside load (the classic trap)', () => {
+    const src =
+      "import { getContext } from 'svelte';\nexport function load() {\n  const user = getContext('user');\n  return { user };\n}";
+    expect(facts(src).lifecycleCalls).toEqual([{ name: 'getContext', line: 3, inHandler: true }]);
+  });
+  it('flags top-level and init-hook calls with inHandler false', () => {
+    const src =
+      "import { onMount, setContext } from 'svelte';\nonMount(() => {});\nexport async function init() {\n  setContext('k', 1);\n}";
+    expect(facts(src, 'src/hooks.server.ts').lifecycleCalls).toEqual([
+      { name: 'onMount', line: 2, inHandler: false },
+      { name: 'setContext', line: 4, inHandler: false }
+    ]);
+  });
+  it('does not flag calls inside non-handler helper functions', () => {
+    const src = "import { getContext } from 'svelte';\nexport function useUser() {\n  return getContext('user');\n}";
+    expect(facts(src, 'src/routes/+page.ts').lifecycleCalls).toEqual([]);
+  });
+  it('resolves aliases and ignores same-named imports from other modules', () => {
+    const src =
+      "import { getContext as ctx } from 'svelte';\nimport { setContext } from './di.js';\nexport const load = () => {\n  ctx('a');\n  setContext('b', 1);\n};";
+    expect(facts(src).lifecycleCalls).toEqual([{ name: 'getContext', line: 4, inHandler: true }]);
+  });
+});
