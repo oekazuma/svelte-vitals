@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-import { execSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolveActionSha } from './resolve-action-sha.mjs';
 
 const scriptsDir = dirname(fileURLToPath(import.meta.url));
 const cliDir = join(scriptsDir, '..');
@@ -11,7 +11,7 @@ const outPath = join(cliDir, 'src', 'ci', 'action-pin.generated.ts');
 
 function resolveActionPin() {
   try {
-    const sha = execSync('git rev-parse HEAD', { cwd: cliDir, encoding: 'utf8' }).trim();
+    const sha = resolveActionSha(cliDir);
     const actionPkg = JSON.parse(readFileSync(actionPkgPath, 'utf8'));
     return { sha, version: actionPkg.version };
   } catch {
