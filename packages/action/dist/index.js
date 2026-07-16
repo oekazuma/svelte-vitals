@@ -55266,6 +55266,53 @@ function unwrapTs(expr) {
 function isFunctionNode(n) {
   return n?.type === "FunctionDeclaration" || n?.type === "FunctionExpression" || n?.type === "ArrowFunctionExpression";
 }
+function collectTopLevelBindings(program) {
+  const bindings = /* @__PURE__ */ new Map();
+  for (const stmt2 of program.body ?? []) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type === "FunctionDeclaration" && decl.id?.type === "Identifier") {
+      bindings.set(decl.id.name, decl);
+    } else if (decl?.type === "VariableDeclaration") {
+      for (const d of decl.declarations ?? []) {
+        if (d?.id?.type === "Identifier" && d.init) bindings.set(d.id.name, unwrapTs(d.init));
+      }
+    }
+  }
+  return bindings;
+}
+function addActionsMembers(obj, handlers) {
+  for (const p of obj.properties ?? []) {
+    if (p?.type !== "Property") continue;
+    const v = unwrapTs(p.value);
+    if (isFunctionNode(v)) handlers.add(v);
+  }
+}
+function resolveAliasHandlerExports(program, bindings, handlers) {
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source) continue;
+    for (const s of stmt2.specifiers) {
+      if (s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
+      const exportedName = s.exported.name;
+      const resolved = bindings.get(s.local.name);
+      if (HANDLER_NAMES.has(exportedName) && isFunctionNode(resolved)) {
+        handlers.add(resolved);
+      } else if (exportedName === "actions" && resolved?.type === "ObjectExpression") {
+        addActionsMembers(resolved, handlers);
+      }
+    }
+  }
+}
+function resolveAliasStartupExports(program, bindings, startup) {
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source) continue;
+    for (const s of stmt2.specifiers) {
+      if (s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
+      if (s.exported.name !== "init") continue;
+      const resolved = bindings.get(s.local.name);
+      if (isFunctionNode(resolved)) startup.add(resolved);
+    }
+  }
+}
 function collectHandlerFunctions(program) {
   const handlers = /* @__PURE__ */ new Set();
   for (const stmt2 of program.body ?? []) {
@@ -55282,14 +55329,11 @@ function collectHandlerFunctions(program) {
       if (HANDLER_NAMES.has(d.id.name) && isFunctionNode(init2)) {
         handlers.add(init2);
       } else if (d.id.name === "actions" && init2?.type === "ObjectExpression") {
-        for (const p of init2.properties ?? []) {
-          if (p?.type !== "Property") continue;
-          const v = unwrapTs(p.value);
-          if (isFunctionNode(v)) handlers.add(v);
-        }
+        addActionsMembers(init2, handlers);
       }
     }
   }
+  resolveAliasHandlerExports(program, collectTopLevelBindings(program), handlers);
   return handlers;
 }
 function collectStartupFunctions(program) {
@@ -55308,6 +55352,7 @@ function collectStartupFunctions(program) {
       if (d.id.name === "init" && isFunctionNode(init2)) startup.add(init2);
     }
   }
+  resolveAliasStartupExports(program, collectTopLevelBindings(program), startup);
   return startup;
 }
 function walkKit(node, handlerFns, startupFns, visit, shadowed = /* @__PURE__ */ new Set(), inFunction = false, inHandler = false, inStartup = false) {
