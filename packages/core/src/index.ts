@@ -99,6 +99,8 @@ export {
   correct006OrphanEffect,
   sec001Html,
   sec002JavascriptUrl,
+  sec003LoadStateWrite,
+  sec004ServerModuleState,
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,

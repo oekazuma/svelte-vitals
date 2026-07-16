@@ -42,6 +42,8 @@ import { correct004UnmutatedState } from './correctness/correct004-unmutated-sta
 import { correct005PropMutation } from './correctness/correct005-prop-mutation.js';
 import { correct006OrphanEffect } from './correctness/correct006-orphan-effect.js';
 import { sec001Html, sec002JavascriptUrl } from './security/sec001-002.js';
+import { sec003LoadStateWrite } from './security/sec003-load-state-write.js';
+import { sec004ServerModuleState } from './security/sec004-server-module-state.js';
 import { arch001ComponentSize, arch002PropCount } from './architecture/arch001-002.js';
 import { perf009HeavyImport } from './perf/perf009-heavy-import.js';
 import { perf010NamespaceImport } from './perf/perf010-namespace-import.js';
@@ -93,6 +95,8 @@ export const allRules: Rule[] = [
   correct006OrphanEffect,
   sec001Html,
   sec002JavascriptUrl,
+  sec003LoadStateWrite,
+  sec004ServerModuleState,
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,
@@ -146,6 +150,8 @@ export {
   correct006OrphanEffect,
   sec001Html,
   sec002JavascriptUrl,
+  sec003LoadStateWrite,
+  sec004ServerModuleState,
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,
