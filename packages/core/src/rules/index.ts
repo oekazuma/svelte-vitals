@@ -42,6 +42,8 @@ import { correct004UnmutatedState } from './correctness/correct004-unmutated-sta
 import { correct005PropMutation } from './correctness/correct005-prop-mutation.js';
 import { correct006OrphanEffect } from './correctness/correct006-orphan-effect.js';
 import { correct007OrphanLifecycle } from './correctness/correct007-orphan-lifecycle.js';
+import { correct008BrowserGlobals } from './correctness/correct008-browser-globals.js';
+import { correct009InstanceBrowserGlobals } from './correctness/correct009-instance-browser-globals.js';
 import { sec001Html, sec002JavascriptUrl } from './security/sec001-002.js';
 import { sec003LoadStateWrite } from './security/sec003-load-state-write.js';
 import { sec004ServerModuleState } from './security/sec004-server-module-state.js';
@@ -96,6 +98,8 @@ export const allRules: Rule[] = [
   correct005PropMutation,
   correct006OrphanEffect,
   correct007OrphanLifecycle,
+  correct008BrowserGlobals,
+  correct009InstanceBrowserGlobals,
   sec001Html,
   sec002JavascriptUrl,
   sec003LoadStateWrite,
@@ -153,6 +157,8 @@ export {
   correct005PropMutation,
   correct006OrphanEffect,
   correct007OrphanLifecycle,
+  correct008BrowserGlobals,
+  correct009InstanceBrowserGlobals,
   sec001Html,
   sec002JavascriptUrl,
   sec003LoadStateWrite,

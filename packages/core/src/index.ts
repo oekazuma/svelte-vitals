@@ -98,6 +98,8 @@ export {
   correct005PropMutation,
   correct006OrphanEffect,
   correct007OrphanLifecycle,
+  correct008BrowserGlobals,
+  correct009InstanceBrowserGlobals,
   sec001Html,
   sec002JavascriptUrl,
   sec003LoadStateWrite,

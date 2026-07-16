@@ -6,7 +6,9 @@ import {
   correct004UnmutatedState,
   correct005PropMutation,
   correct006OrphanEffect,
-  correct007OrphanLifecycle
+  correct007OrphanLifecycle,
+  correct008BrowserGlobals,
+  correct009InstanceBrowserGlobals
 } from '../src/index.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
@@ -286,5 +288,70 @@ describe('CORRECT007 lifecycle call outside component initialisation', () => {
   it('emits nothing without signal or in rendered mode', async () => {
     expect(await correct007OrphanLifecycle.check(ctx([comp({})]))).toHaveLength(0);
     expect(await correct007OrphanLifecycle.check(base as RuleContext)).toHaveLength(0);
+  });
+});
+
+describe('CORRECT008 browser global in server module code', () => {
+  it('flags a module-context read as critical with the module message', async () => {
+    const rs = await correct008BrowserGlobals.check(
+      ctx([
+        comp({
+          file: 'src/lib/store.svelte.ts',
+          browserGlobalRefs: [{ name: 'window', line: 1, context: 'module' }]
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.severity).toBe('critical');
+    expect(rs[0]!.message).toContain('window');
+    expect(rs[0]!.message).toContain('is not defined');
+  });
+  it('ignores instance-context refs (CORRECT009 territory) and reads the kit channel', async () => {
+    const rs = await correct008BrowserGlobals.check({
+      ...ctx([comp({ browserGlobalRefs: [{ name: 'window', line: 3, context: 'instance' }] })]),
+      kitModules: [kitFacts({ browserGlobalRefs: [{ name: 'localStorage', line: 3, inHandler: true }] })]
+    });
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.route).toBe('src/routes/+page.ts');
+    expect(fails(rs)[0]!.message).toContain('load/handler');
+  });
+  it('is silenced by suppressions and emits nothing in rendered mode', async () => {
+    const rs = await correct008BrowserGlobals.check(
+      ctx([
+        comp({
+          browserGlobalRefs: [{ name: 'window', line: 2, context: 'module' }],
+          suppressions: [{ line: 2, ruleIds: ['CORRECT008'] }]
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(0);
+    expect(await correct008BrowserGlobals.check(base as RuleContext)).toHaveLength(0);
+  });
+});
+
+describe('CORRECT009 browser global during component initialisation', () => {
+  it('flags an instance-context read as warning', async () => {
+    const rs = await correct009InstanceBrowserGlobals.check(
+      ctx([
+        comp({
+          file: 'src/lib/Widget.svelte',
+          browserGlobalRefs: [{ name: 'localStorage', line: 4, context: 'instance' }]
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.severity).toBe('warning');
+    expect(rs[0]!.line).toBe(4);
+    expect(rs[0]!.message).toContain('localStorage');
+  });
+  it('ignores module-context refs and files without instance refs', async () => {
+    expect(
+      fails(
+        await correct009InstanceBrowserGlobals.check(
+          ctx([comp({ browserGlobalRefs: [{ name: 'window', line: 1, context: 'module' }] })])
+        )
+      )
+    ).toHaveLength(0);
+    expect(await correct009InstanceBrowserGlobals.check(ctx([comp({})]))).toHaveLength(0);
   });
 });
