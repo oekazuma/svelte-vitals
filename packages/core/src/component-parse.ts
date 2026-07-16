@@ -917,13 +917,17 @@ function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
  * Browser-global reads in code that executes when `program` (or a passed function body)
  * is evaluated (CORRECT008/009). Position-aware — only read positions match: never a
  * non-computed member property or object key, a declaration id, an import/export
- * specifier, a label, or a bare `typeof` operand (that idiom never throws). Stops at
- * eval-scope boundaries (function/class bodies), threads the shadow set, disqualifies
- * names bound at the program's top level (`extra.bound` adds more, e.g. the other
- * script's bindings or a handler's parameters), and skips guard clauses ENTIRELY —
- * if/ternary/logical whose test passes `isBrowserGuardTest` — including their else
- * branches (a documented conservative miss). `extra.guards` adds guard bindings beyond
- * this program's own `$app/environment` import.
+ * specifier, a label, or a bare `typeof` operand (that idiom never throws). Never
+ * descends into TS type-only subtrees (type aliases, interfaces, `TSTypeQuery`'s
+ * `typeof window`, generic type arguments, annotations) — a `TSAsExpression` /
+ * `TSSatisfiesExpression` / `TSNonNullExpression` / `TSInstantiationExpression`
+ * wrapper still has its runtime `.expression` visited. Stops at eval-scope boundaries
+ * (function/class bodies), threads the shadow set, disqualifies names bound at the
+ * program's top level (`extra.bound` adds more, e.g. the other script's bindings or a
+ * handler's parameters), and skips guard clauses ENTIRELY — if/ternary/logical whose
+ * test passes `isBrowserGuardTest` — including their else branches (a documented
+ * conservative miss). `extra.guards` adds guard bindings beyond this program's own
+ * `$app/environment` import.
  */
 export function collectBrowserGlobalRefs(
   program: Node,
@@ -980,6 +984,24 @@ export function collectBrowserGlobalRefs(
       case 'ExportNamedDeclaration':
         if (!n.declaration) return; // bare specifiers aren't reads
         break;
+      default:
+        if (n.type.startsWith('TS')) {
+          // TS wrapper expressions carry a runtime expression — visit only that.
+          // Everything else under a TS* node is erased type-level code (type
+          // aliases, interfaces, TSTypeQuery's `typeof window`, generic args,
+          // annotations) and can never throw at runtime. Skipping the rare
+          // runtime-bearing TS constructs (enum initializers, namespaces) is a
+          // conservative miss, aligned with the no-false-positive contract.
+          if (
+            n.type === 'TSAsExpression' ||
+            n.type === 'TSSatisfiesExpression' ||
+            n.type === 'TSNonNullExpression' ||
+            n.type === 'TSInstantiationExpression'
+          ) {
+            visit(n.expression, scope);
+          }
+          return;
+        }
     }
     for (const key of Object.keys(n)) {
       if (WALK_IGNORED_KEYS.has(key)) continue;
