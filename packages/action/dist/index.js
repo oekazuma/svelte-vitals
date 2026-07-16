@@ -55178,6 +55178,15 @@ function collectProgramBindings(program) {
   }
   return bound;
 }
+function guardTerminates(consequent) {
+  if (!consequent) return false;
+  if (consequent.type === "ReturnStatement" || consequent.type === "ThrowStatement") return true;
+  if (consequent.type === "BlockStatement") {
+    const last = (consequent.body ?? [])[consequent.body.length - 1];
+    return last?.type === "ReturnStatement" || last?.type === "ThrowStatement";
+  }
+  return false;
+}
 function isBrowserGuardTest(test, guardBindings) {
   let guarded = false;
   walkEstree(test, (n) => {
@@ -55197,6 +55206,15 @@ function collectBrowserGlobalRefs(program, source2, extra) {
   const out = [];
   const bound = /* @__PURE__ */ new Set([...collectProgramBindings(program), ...extra?.bound ?? []]);
   const guards = /* @__PURE__ */ new Set([...collectBrowserGuardImports(program), ...extra?.guards ?? []]);
+  for (const stmt2 of program.body ?? []) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type !== "VariableDeclaration" || decl.kind !== "const" && decl.kind !== "let") continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type === "Identifier" && d.init && isBrowserGuardTest(d.init, guards)) {
+        guards.add(d.id.name);
+      }
+    }
+  }
   const visit = (n, shadowed) => {
     if (!n) return;
     if (Array.isArray(n)) {
@@ -55240,6 +55258,22 @@ function collectBrowserGlobalRefs(program, source2, extra) {
       case "ExportNamedDeclaration":
         if (!n.declaration) return;
         break;
+      case "BlockStatement":
+      case "Program":
+        for (const stmt2 of n.body ?? []) {
+          visit(stmt2, scope);
+          if (stmt2?.type === "IfStatement" && isBrowserGuardTest(stmt2.test, guards) && guardTerminates(stmt2.consequent)) {
+            break;
+          }
+        }
+        return;
+      default:
+        if (n.type.startsWith("TS")) {
+          if (n.type === "TSAsExpression" || n.type === "TSSatisfiesExpression" || n.type === "TSNonNullExpression" || n.type === "TSInstantiationExpression") {
+            visit(n.expression, scope);
+          }
+          return;
+        }
     }
     for (const key2 of Object.keys(n)) {
       if (WALK_IGNORED_KEYS.has(key2)) continue;
