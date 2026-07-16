@@ -202,6 +202,24 @@ describe('parseKitModuleFacts — imported-state writes (SEC003/SEC005)', () => 
       { name: 'user', line: 3, via: 'set-call' }
     ]);
   });
+  it('does not flag .set on a $lib/server directory-entrypoint import', () => {
+    const src = [
+      "import { db } from '$lib/server';",
+      'export const actions = {',
+      '  default: async () => {',
+      '    await db.set("k", 1);',
+      '  }',
+      '};'
+    ].join('\n');
+    expect(facts(src).importedStateWrites).toEqual([]);
+  });
+  it('treats a ..-escaping specifier conservatively (not local, not a runes module)', () => {
+    const src = "import { store } from '../../../../src/lib/user.js';\nexport function load() {\n  store.set(1);\n}";
+    expect(facts(src, 'src/routes/a/+page.server.ts').importedStateWrites).toEqual([]);
+    expect(
+      resolveRunesModuleSpecifier('../../../../src/lib/quiz.svelte.ts', 'src/routes/a/+page.server.ts')
+    ).toBeUndefined();
+  });
 });
 
 describe('parseKitModuleFacts — runes-module imports (SEC005)', () => {

@@ -138,15 +138,26 @@ calls on the imported binding (covers svelte stores AND imported module-scope
 Other method calls (`logger.info()`) do not — conservative. Scope-aware via
 the existing shadow tracking. The `.set(...)`/`.update(...)` call-form is
 additionally gated to repo-local specifiers (relative or `$lib/`) whose
-specifier RESOLVES to a path outside `src/lib/server/**`, so `.set`/`.update`
-on installed packages (Drizzle, KV/redis clients) or `src/lib/server`
-singletons — persistence, not shared module state — is not flagged (finding
-from the final branch review). Resolving before gating means the exemption
-applies regardless of import style: both the `$lib/server/` alias and an
-equivalent relative import (`../../lib/server/db` from a route file) resolve
-to the same `src/lib/server/**` path and are exempt alike (2026-07-16
-follow-up to PR #235, which only string-matched the raw `$lib/server/` alias
-and false-positived on the relative form).
+specifier RESOLVES to `src/lib/server` itself or a path under
+`src/lib/server/**`, so `.set`/`.update` on installed packages (Drizzle,
+KV/redis clients) or `src/lib/server` singletons — persistence, not shared
+module state — is not flagged (finding from the final branch review).
+Resolving before gating means the exemption applies regardless of import
+style: both the `$lib/server/` alias and an equivalent relative import
+(`../../lib/server/db` from a route file) resolve to the same
+`src/lib/server/**` path and are exempt alike (2026-07-16 follow-up to PR
+#235, which only string-matched the raw `$lib/server/` alias and
+false-positived on the relative form). The exemption also covers the
+directory-entrypoint import (`$lib/server`, or an equivalent relative form,
+resolving to exactly `src/lib/server` with no trailing segment) — the common
+`import { db } from '$lib/server'` index-file form, which the `/**`-suffixed
+match alone would miss (Copilot review follow-up). Path resolution is
+conservative about escapes: a relative specifier whose `..` segments pop past
+the repo root (e.g. `../../../../src/lib/server/db` from a shallow route
+file) resolves to undefined rather than to a local-looking path — it is
+treated as NOT local state (so `.set`/`.update` on it isn't flagged, since the
+real file is outside the repo tree we can see) and never matches SEC005
+either.
 
 **SEC004 — `Server module state` (warning).** Flag reassignments (`=`,
 compound, `??=`/`||=`/`&&=`, `UpdateExpression`) of module-scope `let`/`var`
