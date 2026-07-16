@@ -221,6 +221,22 @@ function normalizePosix(path: string): string {
 }
 
 /**
+ * Resolve an import specifier to a repo-relative path against the importing file, or
+ * undefined when it cannot be a repo-local module: `$lib/` maps to `src/lib/`, `./`/`../`
+ * resolve against the importing file's directory; bare packages and other aliases are
+ * skipped (they can't be resolved to a repo-local path at all).
+ */
+function resolveRepoLocalPath(spec: string, importerFile: string): string | undefined {
+  let path: string;
+  if (spec.startsWith('$lib/')) path = `src/lib/${spec.slice('$lib/'.length)}`;
+  else if (spec.startsWith('./') || spec.startsWith('../')) {
+    const dir = importerFile.split('/').slice(0, -1).join('/');
+    path = `${dir}/${spec}`;
+  } else return undefined;
+  return normalizePosix(path);
+}
+
+/**
  * Resolve an import specifier to a repo-relative `.svelte.ts`/`.svelte.js` path, or
  * undefined when it cannot be a runes module: `$lib/` maps to `src/lib/`, `./`/`../`
  * resolve against the importing file's directory; bare packages and other aliases are
@@ -228,13 +244,8 @@ function normalizePosix(path: string): string {
  * (SEC005 also tries the `.js` sibling when matching).
  */
 export function resolveRunesModuleSpecifier(spec: string, importerFile: string): string | undefined {
-  let path: string;
-  if (spec.startsWith('$lib/')) path = `src/lib/${spec.slice('$lib/'.length)}`;
-  else if (spec.startsWith('./') || spec.startsWith('../')) {
-    const dir = importerFile.split('/').slice(0, -1).join('/');
-    path = `${dir}/${spec}`;
-  } else return undefined;
-  path = normalizePosix(path);
+  const path = resolveRepoLocalPath(spec, importerFile);
+  if (path === undefined) return undefined;
   if (/\.svelte\.(ts|js)$/.test(path)) return path;
   if (path.endsWith('.svelte')) return `${path}.ts`;
   return undefined;
@@ -242,14 +253,17 @@ export function resolveRunesModuleSpecifier(spec: string, importerFile: string):
 
 /**
  * Whether an import specifier points at repo-local module state that would be
- * SHARED on the server: relative or `$lib/` — but not `$lib/server/**`, where
- * legitimate singletons (DB connections, KV/API clients) live. Installed packages
- * (drizzle, redis, @vercel/kv, …) are excluded: `.set()`/`.update()` on those is
- * persistence, not shared-module-state mutation.
+ * SHARED on the server: relative or `$lib/` — but not `src/lib/server/**`, where
+ * legitimate singletons (DB connections, KV/API clients) live. The check resolves
+ * the specifier to its repo-relative path first, so a relative import that lands in
+ * `src/lib/server/**` is exempt exactly like the `$lib/server/**` alias form.
+ * Installed packages (drizzle, redis, @vercel/kv, …) are excluded: `.set()`/`.update()`
+ * on those is persistence, not shared-module-state mutation.
  */
-function isLocalStateSpecifier(spec: string): boolean {
-  if (spec.startsWith('./') || spec.startsWith('../')) return true;
-  return spec.startsWith('$lib/') && !spec.startsWith('$lib/server/');
+function isLocalStateSpecifier(spec: string, importerFile: string): boolean {
+  const path = resolveRepoLocalPath(spec, importerFile);
+  if (path === undefined) return false;
+  return !path.startsWith('src/lib/server/');
 }
 
 /**
@@ -345,7 +359,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
       const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
       if (method === 'set' || method === 'update') {
         const r = importedRoot(n.callee.object);
-        if (r && isLocalStateSpecifier(importedSpecifiers.get(r)!)) write = { name: r, via: 'set-call' };
+        if (r && isLocalStateSpecifier(importedSpecifiers.get(r)!, filename)) write = { name: r, via: 'set-call' };
       }
     } else if (
       n.type === 'AssignmentExpression' &&

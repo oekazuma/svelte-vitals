@@ -183,6 +183,25 @@ describe('parseKitModuleFacts — imported-state writes (SEC003/SEC005)', () => 
       { name: 'state', line: 3, via: 'assignment' }
     ]);
   });
+  it('does not flag .set/.update on a relative-path import into lib/server', () => {
+    const src = [
+      "import { db } from '../../lib/server/db';",
+      'export const actions = {',
+      '  default: async () => {',
+      '    await db.update(users).set({ name: "x" });',
+      '  }',
+      '};'
+    ].join('\n');
+    const f = facts(src, 'src/routes/a/+page.server.ts');
+    expect(f.importedStateWrites).toEqual([]);
+    expect(f.importedStateWritesOutsideHandlers).toEqual([]);
+  });
+  it('still flags .set on a relative-path store import outside lib/server', () => {
+    const src = "import { user } from '../user-store.js';\nexport function load() {\n  user.set({});\n}";
+    expect(facts(src, 'src/routes/a/+page.server.ts').importedStateWrites).toEqual([
+      { name: 'user', line: 3, via: 'set-call' }
+    ]);
+  });
 });
 
 describe('parseKitModuleFacts — runes-module imports (SEC005)', () => {
