@@ -4,6 +4,7 @@ import type {
   EachBlockFact,
   EffectFact,
   OrphanEffectFact,
+  OrphanLifecycleCallFact,
   SourceSpan,
   SuppressionDirective
 } from './component.js';
@@ -601,16 +602,26 @@ function walkEvalScope(node: Node, visit: (n: Node) => boolean | undefined): voi
   }
 }
 
-/** Lines of `$effect`/`$effect.pre` calls that run when `root` itself is evaluated (CORRECT006). */
-function collectEvalScopeEffectLines(root: Node, source: string): number[] {
-  const lines: number[] = [];
+/**
+ * Calls matching `matcher` that run when `root` itself is evaluated (CORRECT006/007).
+ * `skipSubtree` exempts a call's children — CORRECT006 uses it for `$effect.root(...)`
+ * callbacks, which are a legal standalone reactive scope.
+ */
+function collectEvalScopeCalls(
+  root: Node,
+  source: string,
+  matcher: (n: Node) => string | undefined,
+  skipSubtree?: (n: Node) => boolean
+): { name: string; line: number }[] {
+  const out: { name: string; line: number }[] = [];
   walkEvalScope(root, (n) => {
     if (n.type !== 'CallExpression') return undefined;
-    if (isEffectRootCall(n)) return true;
-    if (isEffectCall(n)) lines.push(lineOf(source, n.start));
+    if (skipSubtree?.(n)) return true;
+    const name = matcher(n);
+    if (name) out.push({ name, line: lineOf(source, n.start) });
     return undefined;
   });
-  return lines;
+  return out;
 }
 
 /**
@@ -623,6 +634,68 @@ export function unwrapExport(stmt: Node): Node {
   if (stmt.type === 'ExportNamedDeclaration') return stmt.declaration ?? stmt;
   if (stmt.type === 'ExportDefaultDeclaration') return stmt.declaration;
   return stmt;
+}
+
+/**
+ * Matcher-parameterised orphan-call collector (CORRECT006/007): (1) matching calls that
+ * run at module evaluation time, (2) a module-scope `new` (direct top-level statements
+ * only, export-unwrapped) of a same-file top-level class whose constructor directly
+ * makes a matching call. See `collectOrphanEffects`'s doc comment for why pattern 2 is
+ * restricted to top-level `ClassDeclaration`s and top-level `new` statements.
+ */
+function collectOrphanCalls(
+  program: Node,
+  source: string,
+  matcher: (n: Node) => string | undefined,
+  skipSubtree?: (n: Node) => boolean
+): { name: string; line: number; kind: 'top-level' | 'constructor-instantiated'; className?: string }[] {
+  const out: { name: string; line: number; kind: 'top-level' | 'constructor-instantiated'; className?: string }[] =
+    collectEvalScopeCalls(program, source, matcher, skipSubtree).map((c) => ({ ...c, kind: 'top-level' as const }));
+
+  const body: Node[] = program.body ?? [];
+
+  const matchingClasses = new Map<string, string>(); // class name → canonical callee name
+  for (const stmt of body) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type !== 'ClassDeclaration' || decl.id?.type !== 'Identifier') continue;
+    // A TS constructor overload signature is bodiless — require a body so the FIRST
+    // matching MethodDefinition is the actual implementation, not a signature.
+    const ctor = (decl.body?.body ?? []).find(
+      (m: Node) => m?.type === 'MethodDefinition' && m.kind === 'constructor' && m.value?.body
+    );
+    if (!ctor) continue;
+    const calls = collectEvalScopeCalls(ctor.value.body, source, matcher, skipSubtree);
+    if (calls.length > 0) matchingClasses.set(decl.id.name, calls[0]!.name);
+  }
+
+  if (matchingClasses.size > 0) {
+    for (const stmt of body) {
+      const decl = unwrapExport(stmt);
+      // A direct top-level `VariableDeclaration`/`ExpressionStatement`, or an
+      // `export default <expression>` (whose "declaration" IS the expression itself,
+      // not wrapped in a statement node) — anything else (if/for/block/try, …) is a
+      // conservative miss by design.
+      const isCandidate =
+        decl?.type === 'VariableDeclaration' ||
+        decl?.type === 'ExpressionStatement' ||
+        (stmt.type === 'ExportDefaultDeclaration' &&
+          decl?.type !== 'FunctionDeclaration' &&
+          decl?.type !== 'ClassDeclaration');
+      if (!isCandidate) continue;
+      walkEvalScope(decl, (n) => {
+        if (n.type === 'NewExpression' && n.callee?.type === 'Identifier' && matchingClasses.has(n.callee.name)) {
+          out.push({
+            name: matchingClasses.get(n.callee.name)!,
+            line: lineOf(source, n.start),
+            kind: 'constructor-instantiated',
+            className: n.callee.name
+          });
+        }
+        return undefined;
+      });
+    }
+  }
+  return out.sort((a, b) => a.line - b.line);
 }
 
 /**
@@ -640,53 +713,84 @@ export function unwrapExport(stmt: Node): Node {
  * expression, never as a module-scope binding. This matches the design spec's own wording
  * for pattern 2: "flag top-level `new ClassName(...)` statements". Pattern 1 (top-level
  * `$effect`, including inside top-level blocks/if) is unaffected — see
- * `collectEvalScopeEffectLines` above.
+ * `collectEvalScopeCalls` above. Generalised as `collectOrphanCalls` — CORRECT007 reuses
+ * the same walk with a lifecycle-import matcher.
  */
 function collectOrphanEffects(program: Node, source: string): OrphanEffectFact[] {
-  const out: OrphanEffectFact[] = collectEvalScopeEffectLines(program, source).map((line) => ({
-    line,
-    kind: 'top-level' as const
-  }));
+  return collectOrphanCalls(program, source, (n) => (isEffectCall(n) ? '$effect' : undefined), isEffectRootCall).map(
+    ({ line, kind, className }) => ({ line, kind, ...(className !== undefined ? { className } : {}) })
+  );
+}
 
-  const body: Node[] = program.body ?? [];
+/** Svelte exports that throw `lifecycle_outside_component` when called without an active component context (CORRECT007). */
+export const LIFECYCLE_NAMES = new Set([
+  'onMount',
+  'onDestroy',
+  'beforeUpdate',
+  'afterUpdate',
+  'createEventDispatcher',
+  'getContext',
+  'setContext',
+  'hasContext',
+  'getAllContexts'
+]);
 
-  const effectfulClasses = new Set<string>();
-  for (const stmt of body) {
-    const decl = unwrapExport(stmt);
-    if (decl?.type !== 'ClassDeclaration' || decl.id?.type !== 'Identifier') continue;
-    // A TS constructor overload signature is bodiless — require a body so the FIRST
-    // matching MethodDefinition is the actual implementation, not a signature.
-    const ctor = (decl.body?.body ?? []).find(
-      (m: Node) => m?.type === 'MethodDefinition' && m.kind === 'constructor' && m.value?.body
-    );
-    if (ctor && collectEvalScopeEffectLines(ctor.value.body, source).length > 0) {
-      effectfulClasses.add(decl.id.name);
+/**
+ * Tracked svelte lifecycle/context bindings in a module program (CORRECT007): local
+ * alias → canonical name for named value imports from 'svelte', plus namespace locals
+ * (`import * as s from 'svelte'`). Type-only imports/specifiers excluded; same-named
+ * imports from any other module are never tracked. Shared with the Kit-module parser.
+ */
+export function collectSvelteLifecycleImports(program: Node): { locals: Map<string, string>; namespaces: Set<string> } {
+  const locals = new Map<string, string>();
+  const namespaces = new Set<string>();
+  for (const stmt of program.body ?? []) {
+    if (stmt?.type !== 'ImportDeclaration' || stmt.importKind === 'type' || stmt.source?.value !== 'svelte') continue;
+    for (const s of stmt.specifiers ?? []) {
+      if (s?.importKind === 'type' || s?.local?.type !== 'Identifier') continue;
+      if (s.type === 'ImportSpecifier' && s.imported?.type === 'Identifier' && LIFECYCLE_NAMES.has(s.imported.name)) {
+        locals.set(s.local.name, s.imported.name);
+      } else if (s.type === 'ImportNamespaceSpecifier') {
+        namespaces.add(s.local.name);
+      }
     }
   }
+  return { locals, namespaces };
+}
 
-  if (effectfulClasses.size > 0) {
-    for (const stmt of body) {
-      const decl = unwrapExport(stmt);
-      // A direct top-level `VariableDeclaration`/`ExpressionStatement`, or an
-      // `export default <expression>` (whose "declaration" IS the expression itself,
-      // not wrapped in a statement node) — anything else (if/for/block/try, …) is a
-      // conservative miss by design.
-      const isCandidate =
-        decl?.type === 'VariableDeclaration' ||
-        decl?.type === 'ExpressionStatement' ||
-        (stmt.type === 'ExportDefaultDeclaration' &&
-          decl?.type !== 'FunctionDeclaration' &&
-          decl?.type !== 'ClassDeclaration');
-      if (!isCandidate) continue;
-      walkEvalScope(decl, (n) => {
-        if (n.type === 'NewExpression' && n.callee?.type === 'Identifier' && effectfulClasses.has(n.callee.name)) {
-          out.push({ line: lineOf(source, n.start), kind: 'constructor-instantiated', className: n.callee.name });
-        }
-        return undefined;
-      });
-    }
+/**
+ * Whether a CallExpression calls a tracked svelte lifecycle/context binding (CORRECT007):
+ * a direct call to a (possibly aliased) named import, or a non-computed member call on a
+ * `svelte` namespace import. Returns the canonical name plus the local root binding (for
+ * shadow checks in the Kit parser). Shared with the Kit-module parser.
+ */
+export function matchLifecycleCall(
+  n: Node,
+  imports: { locals: Map<string, string>; namespaces: Set<string> }
+): { canonical: string; local: string } | undefined {
+  const c = n?.callee;
+  if (c?.type === 'Identifier') {
+    const canonical = imports.locals.get(c.name);
+    return canonical ? { canonical, local: c.name } : undefined;
   }
-  return out.sort((a, b) => a.line - b.line);
+  if (
+    c?.type === 'MemberExpression' &&
+    !c.computed &&
+    c.object?.type === 'Identifier' &&
+    imports.namespaces.has(c.object.name) &&
+    c.property?.type === 'Identifier' &&
+    LIFECYCLE_NAMES.has(c.property.name)
+  ) {
+    return { canonical: c.property.name, local: c.object.name };
+  }
+  return undefined;
+}
+
+/** Orphan lifecycle-call facts for a module-context program (CORRECT007). */
+function collectOrphanLifecycleCalls(program: Node, source: string): OrphanLifecycleCallFact[] {
+  const imports = collectSvelteLifecycleImports(program);
+  if (imports.locals.size === 0 && imports.namespaces.size === 0) return [];
+  return collectOrphanCalls(program, source, (n) => matchLifecycleCall(n, imports)?.canonical);
 }
 
 /** A Svelte runes module file — the whole file is one module-scope program (CORRECT006). */
@@ -760,17 +864,21 @@ function collectModuleStateDecls(program: Node, source: string): { name: string;
 }
 
 /**
- * Facts for a `.svelte.ts`/`.svelte.js` runes module (CORRECT006). The whole file runs at
- * import time, so only `orphanEffects`, `moduleStateDecls`, and `suppressions` are
- * populated — component-only facts stay empty and `loc` is 0 so ARCH001/PERF009 don't
- * fire on module files. Uses `parseModuleProgram` to get the ESTree program from the
- * wrapped source; the 1-line wrap prefix is subtracted from every reported line.
+ * Facts for a `.svelte.ts`/`.svelte.js` runes module (CORRECT006/007). The whole file runs
+ * at import time, so only `orphanEffects`, `orphanLifecycleCalls`, `moduleStateDecls`, and
+ * `suppressions` are populated — component-only facts stay empty and `loc` is 0 so
+ * ARCH001/PERF009 don't fire on module files. Uses `parseModuleProgram` to get the ESTree
+ * program from the wrapped source; the 1-line wrap prefix is subtracted from every
+ * reported line.
  */
 function parseModuleFacts(source: string, filename: string): ParsedFacts {
   const { program, wrapped } = parseModuleProgram(source, filename);
   const shift = (line: number) => Math.max(0, line - 1);
   const orphanEffects = program
     ? collectOrphanEffects(program, wrapped).map((f) => ({ ...f, line: shift(f.line) }))
+    : [];
+  const orphanLifecycleCalls = program
+    ? collectOrphanLifecycleCalls(program, wrapped).map((f) => ({ ...f, line: shift(f.line) }))
     : [];
   const moduleStateDecls = program
     ? collectModuleStateDecls(program, wrapped).map((d) => ({ ...d, line: shift(d.line) }))
@@ -789,6 +897,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     mutatedProps: [],
     suppressions: collectSuppressions(source),
     orphanEffects,
+    orphanLifecycleCalls,
     moduleStateDecls
   };
 }
@@ -818,6 +927,9 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     collectNamespaceImports(ast.module.content, source, namespaceImports);
   }
   const orphanEffects: OrphanEffectFact[] = ast.module?.content ? collectOrphanEffects(ast.module.content, source) : [];
+  const orphanLifecycleCalls: OrphanLifecycleCallFact[] = ast.module?.content
+    ? collectOrphanLifecycleCalls(ast.module.content, source)
+    : [];
 
   const effects: EffectFact[] = [];
   const constableStates: { name: string; line: number }[] = [];
@@ -877,6 +989,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     constableStates,
     mutatedProps,
     orphanEffects,
+    orphanLifecycleCalls,
     moduleStateDecls: [],
     suppressions
   };

@@ -27,6 +27,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   constableStates: [],
   mutatedProps: [],
   orphanEffects: [],
+  orphanLifecycleCalls: [],
   moduleStateDecls: [],
   suppressions: [],
   ...over

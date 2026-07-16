@@ -26,6 +26,7 @@ const comp = (
   constableStates: [],
   mutatedProps: [],
   orphanEffects: [],
+  orphanLifecycleCalls: [],
   moduleStateDecls: [],
   suppressions
 });

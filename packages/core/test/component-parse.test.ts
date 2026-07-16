@@ -650,3 +650,70 @@ describe('parseComponentFacts — module-scope $state declarations (SEC005)', ()
     expect(facts.moduleStateDecls).toEqual([]);
   });
 });
+
+describe('parseComponentFacts — orphan lifecycle calls (CORRECT007)', () => {
+  const calls = (src: string, file = 'src/lib/store.svelte.ts') => parseComponentFacts(src, file).orphanLifecycleCalls;
+
+  it('flags top-level lifecycle/context calls imported from svelte', () => {
+    const src = "import { onMount, getContext } from 'svelte';\nonMount(() => {});\nconst theme = getContext('theme');";
+    expect(calls(src)).toEqual([
+      { name: 'onMount', line: 2, kind: 'top-level' },
+      { name: 'getContext', line: 3, kind: 'top-level' }
+    ]);
+  });
+  it('flags every tracked callee at top level', () => {
+    const names = [
+      'onMount',
+      'onDestroy',
+      'beforeUpdate',
+      'afterUpdate',
+      'createEventDispatcher',
+      'getContext',
+      'setContext',
+      'hasContext',
+      'getAllContexts'
+    ];
+    for (const name of names) {
+      expect(calls(`import { ${name} } from 'svelte';\n${name}();`)).toEqual([{ name, line: 2, kind: 'top-level' }]);
+    }
+  });
+  it('records the canonical name for aliased imports and namespace member calls', () => {
+    expect(calls("import { onMount as om } from 'svelte';\nom(() => {});")).toEqual([
+      { name: 'onMount', line: 2, kind: 'top-level' }
+    ]);
+    expect(calls("import * as s from 'svelte';\ns.setContext('k', 1);")).toEqual([
+      { name: 'setContext', line: 2, kind: 'top-level' }
+    ]);
+  });
+  it('flags a module-scope new of a class whose constructor calls a tracked function', () => {
+    const src = [
+      "import { getContext } from 'svelte';",
+      'class Store {',
+      '  constructor() {',
+      "    this.user = getContext('user');",
+      '  }',
+      '}',
+      'export const store = new Store();'
+    ].join('\n');
+    expect(calls(src)).toEqual([{ name: 'getContext', line: 7, kind: 'constructor-instantiated', className: 'Store' }]);
+  });
+  it('does not flag calls inside functions, createContext, non-context svelte exports, or other packages', () => {
+    expect(calls("import { onMount } from 'svelte';\nexport function setup() {\n  onMount(() => {});\n}")).toEqual([]);
+    expect(calls("import { createContext } from 'svelte';\nconst ctx = createContext();")).toEqual([]);
+    expect(calls("import { getContext } from './my-di.js';\nconst x = getContext('k');")).toEqual([]);
+    expect(calls("import { tick } from 'svelte';\ntick();")).toEqual([]);
+  });
+  it('flags <script module> calls but not instance-script calls in .svelte files', () => {
+    const mod = "<script module>\nimport { setContext } from 'svelte';\nsetContext('k', 1);\n</script>";
+    expect(parseComponentFacts(mod, 'C.svelte').orphanLifecycleCalls).toEqual([
+      { name: 'setContext', line: 3, kind: 'top-level' }
+    ]);
+    const inst = "<script>\nimport { onMount } from 'svelte';\nonMount(() => {});\n</script>";
+    expect(parseComponentFacts(inst, 'C.svelte').orphanLifecycleCalls).toEqual([]);
+  });
+  it('keeps orphanEffects unchanged through the generalised collectors', () => {
+    const f = parseComponentFacts('$effect(() => {});', 'src/lib/s.svelte.ts');
+    expect(f.orphanEffects).toEqual([{ line: 1, kind: 'top-level' }]);
+    expect(f.orphanLifecycleCalls).toEqual([]);
+  });
+});

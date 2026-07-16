@@ -85,6 +85,7 @@ const stateModule = (file: string): ComponentFacts => ({
   constableStates: [],
   mutatedProps: [],
   orphanEffects: [],
+  orphanLifecycleCalls: [],
   moduleStateDecls: [{ name: 'user', line: 1 }],
   suppressions: []
 });
