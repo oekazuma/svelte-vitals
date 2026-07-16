@@ -337,6 +337,19 @@ describe('parseKitModuleFacts — browser-global refs (CORRECT008)', () => {
     ].join('\n');
     expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
   });
+  it('recognises a module-level derived guard used inside a handler', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      'const canUse = browser;',
+      'export function load() {',
+      '  if (canUse) {',
+      '    return { w: window.innerWidth };',
+      '  }',
+      '  return {};',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
+  });
   it('stops after a typeof early-return guard but still flags before it', () => {
     const src = [
       'export function load() {',

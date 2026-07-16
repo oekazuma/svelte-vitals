@@ -96,7 +96,11 @@ collision risk (`name`, `status`, `length`, …) are deliberately absent.
    generic key-walk. A guard binding derived from another guard, one level
    deep (`const canUse = browser && !!window.matchMedia;` then `if (canUse)
 {…}`), is also recognised via a one-pass pre-scan of the program's
-   top-level `const`/`let` declarators — no fixpoint chasing.
+   top-level `const`/`let` declarators (`collectDerivedGuardBindings`) — no
+   fixpoint chasing. The Kit parser and the `.svelte` instance scan run the
+   same pre-scan on the module program and pass the result through
+   `extra.guards`, so a module-level derived guard is recognised inside
+   handler bodies and the instance script.
 4. **TS type subtrees are never walked** — the generic key-walk stops at any
    `TS*` node (type aliases, interfaces, `TSTypeQuery`'s `typeof window`,
    generic type arguments, annotations), since none of that is runtime code.
@@ -196,3 +200,10 @@ window.innerWidth } = $props()`) — the default only evaluates when the prop
   is absent, including during SSR, but the scanner only visits a
   `VariableDeclarator`'s `init`, never its `id` pattern's defaults — a
   silent conservative miss.
+- **Nested-block early-return guards only stop their own block** — a
+  terminating guard inside a nested `{ … }` block ends the scan of that
+  block's remaining statements, but the guard's `return` actually exits the
+  whole function, so statements after the nested block are still scanned
+  and can false-positive. Contrived in practice (a bare nested block whose
+  guard returns for the enclosing function); a full control-flow
+  reachability analysis is out of scope for v1.

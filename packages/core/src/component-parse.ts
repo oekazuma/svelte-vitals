@@ -887,12 +887,6 @@ export function collectProgramBindings(program: Node): Set<string> {
   return bound;
 }
 
-/**
- * Whether a guard-clause test establishes a browser environment: it references the
- * `$app/environment` `browser` binding, or contains a
- * `typeof <tracked-global> === | !== 'undefined'` comparison (CORRECT008/009).
- * Over-matching here only widens the skip — a conservative miss, never a false positive.
- */
 /** Whether a guard's consequent unconditionally exits (return/throw) — code after it never runs in the guarded environment (CORRECT008/009). */
 function guardTerminates(consequent: Node): boolean {
   if (!consequent) return false;
@@ -904,6 +898,12 @@ function guardTerminates(consequent: Node): boolean {
   return false;
 }
 
+/**
+ * Whether a guard-clause test establishes a browser environment: it references the
+ * `$app/environment` `browser` binding, or contains a
+ * `typeof <tracked-global> === | !== 'undefined'` comparison (CORRECT008/009).
+ * Over-matching here only widens the skip — a conservative miss, never a false positive.
+ */
 function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
   let guarded = false;
   walkEstree(test, (n) => {
@@ -922,6 +922,30 @@ function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
     }
   });
   return guarded;
+}
+
+/**
+ * Names of derived guard bindings (one level, no fixpoint chasing): a top-level
+ * (export-unwrapped) `const`/`let` declarator whose init passes `isBrowserGuardTest` —
+ * `const canUse = browser && !!window.matchMedia;` makes `canUse` itself a guard for a
+ * later `if (canUse) { … }`. Over-matching here only widens the skip (conservative
+ * miss). The scanner runs this on its own program; the Kit parser and the `.svelte`
+ * instance scan also run it on the module program so a module-level derived guard is
+ * recognised inside handlers / the instance script (CORRECT008/009).
+ * Shared with the Kit-module parser.
+ */
+export function collectDerivedGuardBindings(program: Node, guards: Set<string>): Set<string> {
+  const derived = new Set<string>();
+  for (const stmt of program.body ?? []) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type !== 'VariableDeclaration' || (decl.kind !== 'const' && decl.kind !== 'let')) continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type === 'Identifier' && d.init && isBrowserGuardTest(d.init, guards)) {
+        derived.add(d.id.name);
+      }
+    }
+  }
+  return derived;
 }
 
 /**
@@ -952,19 +976,7 @@ export function collectBrowserGlobalRefs(
   const out: { name: string; line: number }[] = [];
   const bound = new Set([...collectProgramBindings(program), ...(extra?.bound ?? [])]);
   const guards = new Set([...collectBrowserGuardImports(program), ...(extra?.guards ?? [])]);
-
-  // Derived guard bindings (one level, no fixpoint chasing): `const canUse = browser
-  // && !!window.matchMedia;` makes `canUse` itself recognised as a guard for a later
-  // `if (canUse) { … }`. Over-matching here only widens the skip (conservative miss).
-  for (const stmt of program.body ?? []) {
-    const decl = unwrapExport(stmt);
-    if (decl?.type !== 'VariableDeclaration' || (decl.kind !== 'const' && decl.kind !== 'let')) continue;
-    for (const d of decl.declarations ?? []) {
-      if (d?.id?.type === 'Identifier' && d.init && isBrowserGuardTest(d.init, guards)) {
-        guards.add(d.id.name);
-      }
-    }
-  }
+  for (const name of collectDerivedGuardBindings(program, guards)) guards.add(name);
 
   const visit = (n: Node, shadowed: Set<string>): void => {
     if (!n) return;
@@ -1253,10 +1265,16 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
     }
     // Instance top level runs on the server during SSR (CORRECT009). The module
-    // script's guard binding and top-level bindings are visible here — pass them in.
-    const moduleExtra = moduleProgram
-      ? { guards: collectBrowserGuardImports(moduleProgram), bound: collectProgramBindings(moduleProgram) }
-      : undefined;
+    // script's guard bindings (raw browser imports + module-level derived guards)
+    // and top-level bindings are visible here — pass them in.
+    let moduleExtra: { guards: Set<string>; bound: Set<string> } | undefined;
+    if (moduleProgram) {
+      const moduleBrowserImports = collectBrowserGuardImports(moduleProgram);
+      moduleExtra = {
+        guards: new Set([...moduleBrowserImports, ...collectDerivedGuardBindings(moduleProgram, moduleBrowserImports)]),
+        bound: collectProgramBindings(moduleProgram)
+      };
+    }
     for (const r of collectBrowserGlobalRefs(program, source, moduleExtra)) {
       browserGlobalRefs.push({ ...r, context: 'instance' });
     }

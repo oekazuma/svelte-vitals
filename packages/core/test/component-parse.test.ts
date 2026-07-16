@@ -842,4 +842,18 @@ describe('parseComponentFacts — browser-global refs (CORRECT008/009)', () => {
     ].join('\n');
     expect(refs(src)).toEqual([]);
   });
+  it('recognises a <script module>-derived guard used in the instance script', () => {
+    const src = [
+      '<script module>',
+      "import { browser } from '$app/environment';",
+      'export const canUse = browser;',
+      '</script>',
+      '<script>',
+      '  if (canUse) {',
+      '    window.scrollTo(0, 0);',
+      '  }',
+      '</script>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').browserGlobalRefs).toEqual([]);
+  });
 });
