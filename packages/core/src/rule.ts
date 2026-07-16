@@ -3,6 +3,7 @@ import type { ResolvedHead } from './head.js';
 import type { ResolvedImages } from './images.js';
 import type { ResolvedHeadings } from './headings.js';
 import type { ComponentFacts } from './component.js';
+import type { KitModuleFacts } from './kit-module.js';
 
 /** Input given to every rule. Mode-independent: rules see only ResolvedHead[] (design §8, §10). */
 export interface RuleContext {
@@ -13,6 +14,8 @@ export interface RuleContext {
   headings?: ResolvedHeadings[];
   /** Per-file component-body facts for Correctness rules (static/CLI mode only). */
   components?: ComponentFacts[];
+  /** Per-file SvelteKit route/hooks facts for the SSR shared-state rules (static/CLI + vite build mode only). */
+  kitModules?: KitModuleFacts[];
   project: Project;
   config: Config;
 }

@@ -16,6 +16,7 @@ import {
   defineConfig,
   selectRules,
   applyRuleSeverities,
+  collectKitModuleFacts,
   type Severity,
   type RuleSetting,
   type Result,
@@ -210,10 +211,11 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   // Component (Correctness) facts are file-scoped with no route attribution yet, so a
   // route-filtered run skips them rather than reporting unrelated components (#68 review).
   const components = opts.route ? [] : await collectComponentFacts(rt, cwd);
+  const kitModules = opts.route ? [] : await collectKitModuleFacts(rt, cwd);
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
   const results = applyRuleSeverities(
-    await runRules(rules, { heads, images, headings, components, project, config }),
+    await runRules(rules, { heads, images, headings, components, project, config, kitModules }),
     config
   );
   return { results, config, version: readPackageVersion(), warnings };

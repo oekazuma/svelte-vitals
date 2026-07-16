@@ -1,7 +1,13 @@
 import { readFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
 import { glob } from 'tinyglobby';
-import { collectComponentFacts as collect, type ComponentFacts, type Runtime } from '@svelte-vitals/core';
+import {
+  collectComponentFacts as collect,
+  collectKitModuleFacts as collectKit,
+  type ComponentFacts,
+  type KitModuleFacts,
+  type Runtime
+} from '@svelte-vitals/core';
 
 /**
  * Node-backed Runtime adapter (design §8). vite always runs in Node, so no
@@ -29,4 +35,9 @@ const nodeRuntime: Runtime = {
  */
 export function collectComponentFacts(root: string): Promise<ComponentFacts[]> {
   return collect(nodeRuntime, root);
+}
+
+/** Scan SvelteKit route/hooks files for SSR shared-state facts (SEC003–005, build mode only). */
+export function collectKitModuleFacts(root: string): Promise<KitModuleFacts[]> {
+  return collectKit(nodeRuntime, root);
 }
