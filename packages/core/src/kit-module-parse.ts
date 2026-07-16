@@ -234,14 +234,28 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
       n.type === 'AssignmentExpression' &&
       (n.left?.type === 'ObjectPattern' || n.left?.type === 'ArrayPattern')
     ) {
-      // Destructuring-assignment targets: `[state.x] = arr`, `({ a: state.y } = obj)` —
-      // scan the pattern for MemberExpression targets whose root is an import.
-      walkKit(n.left, handlerFns, (t) => {
-        if (t.type === 'MemberExpression' && !write) {
-          const r = importedRoot(t);
+      // Destructuring-assignment targets: `[state.x] = arr`, `({ a: state.y } = obj)`.
+      // Only TARGET positions count — a computed key (`[state.key]:`) and a default
+      // value (`= state.fallback`) are reads, not writes.
+      const scanPatternTargets = (pat: Node): void => {
+        if (!pat || write) return;
+        if (pat.type === 'MemberExpression') {
+          const r = importedRoot(pat);
           if (r) write = { name: r, via: 'assignment' };
+        } else if (pat.type === 'ObjectPattern') {
+          for (const p of pat.properties ?? []) {
+            if (p?.type === 'Property') scanPatternTargets(p.value);
+            else if (p?.type === 'RestElement') scanPatternTargets(p.argument);
+          }
+        } else if (pat.type === 'ArrayPattern') {
+          for (const el of pat.elements ?? []) scanPatternTargets(el);
+        } else if (pat.type === 'AssignmentPattern') {
+          scanPatternTargets(pat.left);
+        } else if (pat.type === 'RestElement') {
+          scanPatternTargets(pat.argument);
         }
-      });
+      };
+      scanPatternTargets(n.left);
     }
     if (write) {
       if (inHandler) importedStateWrites.push({ ...write, line: line(n.start) });
