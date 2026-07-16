@@ -49,8 +49,8 @@ function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): vo
   }
 }
 
-/** AST metadata keys every walker skips — never traversed as child nodes. */
-const WALK_IGNORED_KEYS = new Set(['type', 'start', 'end', 'loc', 'range']);
+/** AST metadata keys every walker skips — never traversed as child nodes. Shared with the Kit-module parser (SEC003–005). */
+export const WALK_IGNORED_KEYS = new Set(['type', 'start', 'end', 'loc', 'range']);
 
 /** Generic ESTree walk over a `<script>` program: visit every node with a `.type`. */
 function walkEstree(node: Node, visit: (n: Node) => void): void {
@@ -138,8 +138,9 @@ function isDerivedDeclaration(node: Node): boolean {
  * destructuring forms: defaults (`{ a = 1 }`), nested (`{ a: { b } }`), arrays,
  * and rest. Missing a bound prop would drop it from `reactiveNames` and risk a
  * false-positive CORRECT003 flag, so this must cover the full pattern grammar.
+ * Shared with the Kit-module parser (SEC003–005).
  */
-function addBoundNames(id: Node, acc: Set<string>): void {
+export function addBoundNames(id: Node, acc: Set<string>): void {
   if (!id) return;
   switch (id.type) {
     case 'Identifier':
@@ -163,8 +164,8 @@ function addBoundNames(id: Node, acc: Set<string>): void {
   }
 }
 
-/** The base identifier name of a (possibly nested) member expression or identifier, else undefined. */
-function rootObjectName(node: Node): string | undefined {
+/** The base identifier name of a (possibly nested) member expression or identifier, else undefined. Shared with the Kit-module parser (SEC003–005). */
+export function rootObjectName(node: Node): string | undefined {
   let cur = node;
   while (cur?.type === 'MemberExpression') cur = cur.object;
   return cur?.type === 'Identifier' ? cur.name : undefined;
@@ -181,8 +182,9 @@ function rootObjectName(node: Node): string | undefined {
  * (issue #140 — a deliberately partial mitigation: `{#snippet}`/`{:then}`/`{:catch}`
  * bindings are not tracked, and a block's own `let` shadows the whole block, not just the
  * statements after its declaration — over-conservative, not exhaustive scope resolution).
+ * Shared with the Kit-module parser (SEC003–005).
  */
-function scopeIntroducedNames(node: Node): Set<string> {
+export function scopeIntroducedNames(node: Node): Set<string> {
   const introduced = new Set<string>();
   if (
     node.type === 'FunctionDeclaration' ||
@@ -556,8 +558,9 @@ const HTML_DIRECTIVE =
  * Inline `svelte-vitals-disable-next-line` directives (issue #92). A plain text scan, not an
  * AST walk, so `<script>` (`//`) and template (`<!-- -->`) comments are covered uniformly. The
  * directive must be the entire content of its line; the suppressed line is directive-line + 1.
+ * Shared with the Kit-module parser (SEC003–005).
  */
-function collectSuppressions(source: string): SuppressionDirective[] {
+export function collectSuppressions(source: string): SuppressionDirective[] {
   const out: SuppressionDirective[] = [];
   const lines = source.split('\n');
   lines.forEach((line, i) => {
@@ -614,9 +617,9 @@ function collectEvalScopeEffectLines(root: Node, source: string): number[] {
  * Unwrap a top-level statement's `export`/`export default` wrapper to the declaration
  * (or expression) it wraps; a non-export statement is returned as-is. Used so pattern 2
  * (below) treats `export class Store {…}` / `export const s = new Store()` the same as
- * their unexported forms.
+ * their unexported forms. Shared with the Kit-module parser (SEC003–005).
  */
-function unwrapExport(stmt: Node): Node {
+export function unwrapExport(stmt: Node): Node {
   if (stmt.type === 'ExportNamedDeclaration') return stmt.declaration ?? stmt;
   if (stmt.type === 'ExportDefaultDeclaration') return stmt.declaration;
   return stmt;
@@ -693,26 +696,84 @@ const MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
 type ParsedFacts = Omit<ComponentFacts, 'file' | 'suppressions'> & { suppressions: SuppressionDirective[] };
 
 /**
- * Facts for a `.svelte.ts`/`.svelte.js` runes module (CORRECT006). The whole file runs at
- * import time, so only `orphanEffects` and `suppressions` are populated — component-only
- * facts stay empty and `loc` is 0 so ARCH001/PERF009 don't fire on module files. The
- * source is wrapped in a `<script lang="ts">` tag so the Svelte script parser (which
- * handles TS natively) yields the ESTree program; the 1-line wrap prefix is subtracted
- * from every reported line. A literal `"</script>"` string in the source would otherwise
- * terminate the wrapper tag early and break the parse, so it is neutralised first (see
- * below) — string contents don't affect fact extraction, and the same-length replacement
- * preserves every offset/line number.
+ * Parse a plain TS/JS module source by wrapping it in a `<script lang="ts">` tag —
+ * the Svelte script parser handles TS natively, so no extra parser dependency is
+ * needed. Literal "</script" occurrences are neutralised with a same-length
+ * placeholder first (string contents don't affect fact extraction; offsets are
+ * preserved). Returns the ESTree Program and the wrapped source — wrapped line
+ * numbers are +1 relative to the input, so callers subtract 1. Shared by the
+ * runes-module facts (CORRECT006) and the Kit-module facts (SEC003–005).
  */
-function parseModuleFacts(source: string, filename: string): ParsedFacts {
-  // A literal "</script" (in a string/comment) would terminate the wrapper tag early —
-  // the script parser is not string-aware. Neutralise it with a same-length placeholder;
-  // string contents don't affect fact extraction and source offsets are preserved.
+export function parseModuleProgram(source: string, filename: string): { program: Node | undefined; wrapped: string } {
   const neutralized = source.replace(/<\/script/gi, '<_script');
   const wrapped = `<script lang="ts">\n${neutralized}\n</script>`;
   const ast = parse(wrapped, { modern: true, filename }) as Node;
-  const program = ast.instance?.content;
+  return { program: ast.instance?.content, wrapped };
+}
+
+/**
+ * Module-scope reactive-state declarations in a runes module (SEC005): a top-level
+ * `let|const x = $state(...)` / `$state.raw(...)` declaration, and a module-scope
+ * `new` (in a top-level variable declaration) of a same-file top-level class with a
+ * `$state` field initializer — recorded under the instance binding's name at the
+ * declaration line. Direct top-level statements only (export-unwrapped), mirroring
+ * CORRECT006's pattern-2 conservatism.
+ */
+function collectModuleStateDecls(program: Node, source: string): { name: string; line: number }[] {
+  const out: { name: string; line: number }[] = [];
+  const body: Node[] = program.body ?? [];
+  const statefulClasses = new Set<string>();
+  for (const stmt of body) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type === 'VariableDeclaration') {
+      for (const d of decl.declarations ?? []) {
+        if (d?.id?.type === 'Identifier' && d.init && isStateDeclaration(d.init)) {
+          out.push({ name: d.id.name, line: lineOf(source, d.start) });
+        }
+      }
+    } else if (decl?.type === 'ClassDeclaration' && decl.id?.type === 'Identifier') {
+      const hasStateField = (decl.body?.body ?? []).some(
+        (m: Node) => m?.type === 'PropertyDefinition' && m.value && isStateDeclaration(m.value)
+      );
+      if (hasStateField) statefulClasses.add(decl.id.name);
+    }
+  }
+  if (statefulClasses.size > 0) {
+    for (const stmt of body) {
+      const decl = unwrapExport(stmt);
+      if (decl?.type !== 'VariableDeclaration') continue;
+      for (const d of decl.declarations ?? []) {
+        if (
+          d?.init?.type === 'NewExpression' &&
+          d.init.callee?.type === 'Identifier' &&
+          statefulClasses.has(d.init.callee.name)
+        ) {
+          out.push({
+            name: d.id?.type === 'Identifier' ? d.id.name : d.init.callee.name,
+            line: lineOf(source, d.start)
+          });
+        }
+      }
+    }
+  }
+  return out.sort((a, b) => a.line - b.line);
+}
+
+/**
+ * Facts for a `.svelte.ts`/`.svelte.js` runes module (CORRECT006). The whole file runs at
+ * import time, so only `orphanEffects`, `moduleStateDecls`, and `suppressions` are
+ * populated — component-only facts stay empty and `loc` is 0 so ARCH001/PERF009 don't
+ * fire on module files. Uses `parseModuleProgram` to get the ESTree program from the
+ * wrapped source; the 1-line wrap prefix is subtracted from every reported line.
+ */
+function parseModuleFacts(source: string, filename: string): ParsedFacts {
+  const { program, wrapped } = parseModuleProgram(source, filename);
+  const shift = (line: number) => Math.max(0, line - 1);
   const orphanEffects = program
-    ? collectOrphanEffects(program, wrapped).map((f) => ({ ...f, line: Math.max(0, f.line - 1) }))
+    ? collectOrphanEffects(program, wrapped).map((f) => ({ ...f, line: shift(f.line) }))
+    : [];
+  const moduleStateDecls = program
+    ? collectModuleStateDecls(program, wrapped).map((d) => ({ ...d, line: shift(d.line) }))
     : [];
   return {
     eachBlocks: [],
@@ -727,7 +788,8 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     constableStates: [],
     mutatedProps: [],
     suppressions: collectSuppressions(source),
-    orphanEffects
+    orphanEffects,
+    moduleStateDecls
   };
 }
 
@@ -815,6 +877,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     constableStates,
     mutatedProps,
     orphanEffects,
+    moduleStateDecls: [],
     suppressions
   };
 }

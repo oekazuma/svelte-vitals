@@ -72,6 +72,8 @@ export interface ComponentFacts {
   mutatedProps: { name: string; line: number }[];
   /** `$effect` calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (CORRECT006). */
   orphanEffects: OrphanEffectFact[];
+  /** Module-scope `$state` declarations in a `.svelte.ts`/`.svelte.js` runes module — on a server, one instance shared by every request (SEC005). Always empty for `.svelte` files. */
+  moduleStateDecls: { name: string; line: number }[];
   /** Inline `svelte-vitals-disable-next-line` directives found in this file's source — component-rule escape hatch (issue #92). Optional: absent is equivalent to no directives, so existing external constructors of `ComponentFacts` are unaffected. */
   suppressions?: SuppressionDirective[];
 }

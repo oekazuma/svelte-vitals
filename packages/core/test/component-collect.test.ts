@@ -43,6 +43,7 @@ describe('emptyComponentFacts', () => {
       constableStates: [],
       mutatedProps: [],
       orphanEffects: [],
+      moduleStateDecls: [],
       suppressions: []
     });
   });
