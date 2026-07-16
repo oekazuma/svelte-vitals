@@ -42,10 +42,82 @@ function isFunctionNode(n: Node): boolean {
 }
 
 /**
+ * Top-level local bindings resolvable to a value node: function declarations and
+ * `const`/`let` declarators (init unwrapped through `satisfies`/`as`). Used to
+ * resolve separate-statement alias exports (`const load = …; export { load };`,
+ * `export { handler as GET };`) to the same handler/startup classification as
+ * inline `export` declarations. Cross-file re-exports (`export { load } from …`)
+ * stay unresolved — conservative, matching the design's direct-analysis scope.
+ */
+function collectTopLevelBindings(program: Node): Map<string, Node> {
+  const bindings = new Map<string, Node>();
+  for (const stmt of program.body ?? []) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type === 'FunctionDeclaration' && decl.id?.type === 'Identifier') {
+      bindings.set(decl.id.name, decl);
+    } else if (decl?.type === 'VariableDeclaration') {
+      for (const d of decl.declarations ?? []) {
+        if (d?.id?.type === 'Identifier' && d.init) bindings.set(d.id.name, unwrapTs(d.init));
+      }
+    }
+  }
+  return bindings;
+}
+
+/** Add every function-valued member of an `export const actions = { … }` object to `handlers`. */
+function addActionsMembers(obj: Node, handlers: Set<Node>): void {
+  for (const p of obj.properties ?? []) {
+    if (p?.type !== 'Property') continue;
+    const v = unwrapTs(p.value);
+    if (isFunctionNode(v)) handlers.add(v);
+  }
+}
+
+/**
+ * Same-file alias exports (`export { load }`, `export { handler as GET }`, an
+ * alias-exported `actions` object) resolved against `bindings` and folded into
+ * `handlers` — mirrors the classification inline `export` declarations get.
+ */
+function resolveAliasHandlerExports(program: Node, bindings: Map<string, Node>, handlers: Set<Node>): void {
+  for (const stmt of program.body ?? []) {
+    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.specifiers || stmt.source) continue;
+    for (const s of stmt.specifiers) {
+      if (s?.exported?.type !== 'Identifier' || s?.local?.type !== 'Identifier') continue;
+      const exportedName = s.exported.name;
+      const resolved = bindings.get(s.local.name);
+      if (HANDLER_NAMES.has(exportedName) && isFunctionNode(resolved)) {
+        handlers.add(resolved);
+      } else if (exportedName === 'actions' && resolved?.type === 'ObjectExpression') {
+        addActionsMembers(resolved, handlers);
+      }
+    }
+  }
+}
+
+/**
+ * Same-file alias exports of the `init` startup hook (`export { init }`) resolved
+ * against `bindings` and folded into `startup` — mirrors the classification an
+ * inline `export async function init() {}` gets.
+ */
+function resolveAliasStartupExports(program: Node, bindings: Map<string, Node>, startup: Set<Node>): void {
+  for (const stmt of program.body ?? []) {
+    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.specifiers || stmt.source) continue;
+    for (const s of stmt.specifiers) {
+      if (s?.exported?.type !== 'Identifier' || s?.local?.type !== 'Identifier') continue;
+      if (s.exported.name !== 'init') continue;
+      const resolved = bindings.get(s.local.name);
+      if (isFunctionNode(resolved)) startup.add(resolved);
+    }
+  }
+}
+
+/**
  * The function nodes of this file's server-executed entry points: exported
  * `load`/HTTP-method/hooks handlers (function or arrow, `satisfies` unwrapped) and
  * every member of `export const actions = { … }`. A handler assigned a non-function
  * expression (e.g. `export const handle = sequence(...)`) is skipped — conservative.
+ * Same-file alias exports (`export { load }`, `export { handler as GET }`, an
+ * alias-exported `actions`) are resolved too; cross-file re-exports are not.
  */
 function collectHandlerFunctions(program: Node): Set<Node> {
   const handlers = new Set<Node>();
@@ -63,14 +135,11 @@ function collectHandlerFunctions(program: Node): Set<Node> {
       if (HANDLER_NAMES.has(d.id.name) && isFunctionNode(init)) {
         handlers.add(init);
       } else if (d.id.name === 'actions' && init?.type === 'ObjectExpression') {
-        for (const p of init.properties ?? []) {
-          if (p?.type !== 'Property') continue;
-          const v = unwrapTs(p.value);
-          if (isFunctionNode(v)) handlers.add(v);
-        }
+        addActionsMembers(init, handlers);
       }
     }
   }
+  resolveAliasHandlerExports(program, collectTopLevelBindings(program), handlers);
   return handlers;
 }
 
@@ -78,7 +147,8 @@ function collectHandlerFunctions(program: Node): Set<Node> {
  * The function nodes of this file's SvelteKit startup hooks: exported `init`
  * (function or arrow, `satisfies` unwrapped). Kit calls `init` once at server
  * startup — semantically top-level initialisation, not a per-request handler, so
- * SEC004 should not flag assignments inside it.
+ * SEC004 should not flag assignments inside it. A same-file alias export
+ * (`export { init }`) is resolved too; a cross-file re-export is not.
  */
 function collectStartupFunctions(program: Node): Set<Node> {
   const startup = new Set<Node>();
@@ -96,6 +166,7 @@ function collectStartupFunctions(program: Node): Set<Node> {
       if (d.id.name === 'init' && isFunctionNode(init)) startup.add(init);
     }
   }
+  resolveAliasStartupExports(program, collectTopLevelBindings(program), startup);
   return startup;
 }
 
