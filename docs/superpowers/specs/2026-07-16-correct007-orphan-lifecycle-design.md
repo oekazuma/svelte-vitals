@@ -176,3 +176,14 @@ Rendered mode (both channels unset) emits nothing.
 - **`svelte/legacy` (`createBubbler`)** — not tracked.
 - **Class-constructor patterns inside Kit files** — not tracked (module
   surface covers the shared-state-class shape).
+- **Functions nested inside a handler/`init` body inherit the flag.** A
+  closure defined inside `load`/a handler/`init` and merely _returned_ for
+  later use (e.g. `export function load() { return { getUser: () =>
+getContext('user') }; }`) is flagged even though, if invoked from
+  component initialisation rather than from within the handler, the call
+  would be legal — a false positive in principle. Accepted because the
+  invoked-within-handler case (a nested helper actually called during the
+  request) dominates and is a genuine crash; suppress inline
+  (`svelte-vitals-disable-next-line CORRECT007`) when the closure is
+  deliberately returned for component-side use (finding from the final
+  branch review).

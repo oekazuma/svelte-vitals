@@ -97,7 +97,7 @@ export const correct007OrphanLifecycle: Rule = {
           line: l.line,
           message: l.inHandler
             ? `${l.name}() is called in a load/handler — it runs on every request, outside component initialisation, and throws lifecycle_outside_component at runtime`
-            : topLevelMessage(l.name)
+            : `${l.name}() runs outside component initialisation (module evaluation or the init hook) — it throws lifecycle_outside_component at runtime`
         })),
         m.suppressions
       );

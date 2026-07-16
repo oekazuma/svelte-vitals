@@ -263,4 +263,9 @@ describe('parseKitModuleFacts — lifecycle calls (CORRECT007)', () => {
       "import { getContext as ctx } from 'svelte';\nimport { setContext } from './di.js';\nexport const load = () => {\n  ctx('a');\n  setContext('b', 1);\n};";
     expect(facts(src).lifecycleCalls).toEqual([{ name: 'getContext', line: 4, inHandler: true }]);
   });
+  it('flags calls in functions nested inside a handler (deliberate: usually invoked within the handler)', () => {
+    const src =
+      "import { getContext } from 'svelte';\nexport function load() {\n  return { getUser: () => getContext('user') };\n}";
+    expect(facts(src).lifecycleCalls).toEqual([{ name: 'getContext', line: 3, inHandler: true }]);
+  });
 });
