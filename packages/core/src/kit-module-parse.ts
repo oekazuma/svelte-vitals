@@ -139,6 +139,18 @@ export function resolveRunesModuleSpecifier(spec: string, importerFile: string):
 }
 
 /**
+ * Whether an import specifier points at repo-local module state that would be
+ * SHARED on the server: relative or `$lib/` — but not `$lib/server/**`, where
+ * legitimate singletons (DB connections, KV/API clients) live. Installed packages
+ * (drizzle, redis, @vercel/kv, …) are excluded: `.set()`/`.update()` on those is
+ * persistence, not shared-module-state mutation.
+ */
+function isLocalStateSpecifier(spec: string): boolean {
+  if (spec.startsWith('./') || spec.startsWith('../')) return true;
+  return spec.startsWith('$lib/') && !spec.startsWith('$lib/server/');
+}
+
+/**
  * Parse one SvelteKit route/hooks file's SSR shared-state facts (SEC003–005). Uses
  * the shared wrap parser (`parseModuleProgram`), so reported lines subtract the
  * 1-line wrap prefix; suppressions are scanned on the unwrapped source.
@@ -161,19 +173,19 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
   }
   const line = (start: number) => Math.max(0, lineOf(wrapped, start) - 1);
 
-  // Imported value bindings (type-only skipped): local name → declared, plus the
-  // subset whose specifier resolves to a repo-local runes module (SEC005).
-  const importedNames = new Set<string>();
+  // Imported value bindings (type-only skipped): local name → raw specifier, plus
+  // the subset whose specifier resolves to a repo-local runes module (SEC005).
+  const importedSpecifiers = new Map<string, string>();
   for (const stmt of program.body ?? []) {
     if (stmt?.type !== 'ImportDeclaration' || stmt.importKind === 'type') continue;
+    const spec = typeof stmt.source?.value === 'string' ? stmt.source.value : '';
     const names: string[] = [];
     for (const s of stmt.specifiers ?? []) {
       if (s?.importKind === 'type' || s?.local?.type !== 'Identifier') continue;
       names.push(s.local.name);
-      importedNames.add(s.local.name);
+      importedSpecifiers.set(s.local.name, spec);
     }
     if (names.length === 0) continue;
-    const spec = typeof stmt.source?.value === 'string' ? stmt.source.value : '';
     const resolved = resolveRunesModuleSpecifier(spec, filename);
     if (resolved) runesModuleImports.push({ source: spec, resolved, names, line: line(stmt.start) });
   }
@@ -213,7 +225,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
     let write: { name: string; via: 'assignment' | 'set-call' } | undefined;
     const importedRoot = (expr: Node): string | undefined => {
       const r = rootObjectName(expr);
-      return r && !shadowed.has(r) && importedNames.has(r) ? r : undefined;
+      return r && !shadowed.has(r) && importedSpecifiers.has(r) ? r : undefined;
     };
     if (n.type === 'AssignmentExpression' && n.left?.type === 'MemberExpression') {
       const r = importedRoot(n.left);
@@ -228,7 +240,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
       const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
       if (method === 'set' || method === 'update') {
         const r = importedRoot(n.callee.object);
-        if (r) write = { name: r, via: 'set-call' };
+        if (r && isLocalStateSpecifier(importedSpecifiers.get(r)!)) write = { name: r, via: 'set-call' };
       }
     } else if (
       n.type === 'AssignmentExpression' &&
