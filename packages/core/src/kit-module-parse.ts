@@ -10,6 +10,7 @@ import {
   matchLifecycleCall,
   collectBrowserGlobalRefs,
   collectBrowserGuardImports,
+  collectDerivedGuardBindings,
   collectProgramBindings
 } from './component-parse.js';
 import { lineOf } from './svelte-ast.js';
@@ -388,7 +389,11 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
     // 1-line wrap prefix (the local `line()` helper takes a byte OFFSET, not a line,
     // so it must not be used here).
     const shiftLine = (l: number) => Math.max(0, l - 1);
-    const guards = collectBrowserGuardImports(program);
+    // Union of the raw `$app/environment` browser imports and module-level derived
+    // guard bindings, so per-handler scans (whose own pre-pass only sees the handler
+    // body) still recognise `const canUse = browser;` declared at module level.
+    const browserImports = collectBrowserGuardImports(program);
+    const guards = new Set([...browserImports, ...collectDerivedGuardBindings(program, browserImports)]);
     const bound = collectProgramBindings(program);
     for (const r of collectBrowserGlobalRefs(program, wrapped, { guards, bound })) {
       browserGlobalRefs.push({ name: r.name, line: shiftLine(r.line), inHandler: false });
