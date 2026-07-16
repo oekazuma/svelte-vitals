@@ -55129,6 +55129,126 @@ function collectOrphanLifecycleCalls(program, source2) {
     return m && !shadowed.has(m.local) ? m.canonical : void 0;
   });
 }
+var BROWSER_GLOBALS = /* @__PURE__ */ new Set([
+  "window",
+  "document",
+  "localStorage",
+  "sessionStorage",
+  "navigator",
+  "location",
+  "history",
+  "screen",
+  "matchMedia",
+  "requestAnimationFrame",
+  "cancelAnimationFrame",
+  "IntersectionObserver",
+  "ResizeObserver",
+  "MutationObserver",
+  "alert",
+  "confirm",
+  "prompt"
+]);
+function collectBrowserGuardImports(program) {
+  const out = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type" || stmt2.source?.value !== "$app/environment")
+      continue;
+    for (const s of stmt2.specifiers ?? []) {
+      if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
+      if (s.type === "ImportSpecifier" && s.imported?.type === "Identifier" && s.imported.name === "browser") {
+        out.add(s.local.name);
+      }
+    }
+  }
+  return out;
+}
+function collectProgramBindings(program) {
+  const bound = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type === "ImportDeclaration") {
+      for (const s of stmt2.specifiers ?? []) if (s?.local?.type === "Identifier") bound.add(s.local.name);
+      continue;
+    }
+    const decl = unwrapExport(stmt2);
+    if (decl?.type === "VariableDeclaration") {
+      for (const d of decl.declarations ?? []) addBoundNames(d?.id, bound);
+    } else if ((decl?.type === "FunctionDeclaration" || decl?.type === "ClassDeclaration") && decl.id?.type === "Identifier") {
+      bound.add(decl.id.name);
+    }
+  }
+  return bound;
+}
+function isBrowserGuardTest(test, guardBindings) {
+  let guarded = false;
+  walkEstree(test, (n) => {
+    if (n.type === "Identifier" && guardBindings.has(n.name)) guarded = true;
+    if (n.type === "BinaryExpression" && ["===", "!==", "==", "!="].includes(n.operator)) {
+      const sides = [n.left, n.right];
+      const hasTypeofGlobal = sides.some(
+        (s) => s?.type === "UnaryExpression" && s.operator === "typeof" && s.argument?.type === "Identifier" && BROWSER_GLOBALS.has(s.argument.name)
+      );
+      const hasUndefinedString = sides.some((s) => s?.type === "Literal" && s.value === "undefined");
+      if (hasTypeofGlobal && hasUndefinedString) guarded = true;
+    }
+  });
+  return guarded;
+}
+function collectBrowserGlobalRefs(program, source2, extra) {
+  const out = [];
+  const bound = /* @__PURE__ */ new Set([...collectProgramBindings(program), ...extra?.bound ?? []]);
+  const guards = /* @__PURE__ */ new Set([...collectBrowserGuardImports(program), ...extra?.guards ?? []]);
+  const visit = (n, shadowed) => {
+    if (!n) return;
+    if (Array.isArray(n)) {
+      for (const c of n) visit(c, shadowed);
+      return;
+    }
+    if (typeof n !== "object" || typeof n.type !== "string") return;
+    if (EVAL_SCOPE_BOUNDARIES.has(n.type)) return;
+    if ((n.type === "IfStatement" || n.type === "ConditionalExpression") && isBrowserGuardTest(n.test, guards)) return;
+    if (n.type === "LogicalExpression" && isBrowserGuardTest(n.left, guards)) return;
+    const introduced = scopeIntroducedNames(n);
+    const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+    switch (n.type) {
+      case "Identifier":
+        if (BROWSER_GLOBALS.has(n.name) && !bound.has(n.name) && !scope.has(n.name)) {
+          out.push({ name: n.name, line: lineOf(source2, n.start) });
+        }
+        return;
+      case "UnaryExpression":
+        if (n.operator === "typeof" && n.argument?.type === "Identifier") return;
+        break;
+      case "MemberExpression":
+        visit(n.object, scope);
+        if (n.computed) visit(n.property, scope);
+        return;
+      case "Property":
+        if (n.computed) visit(n.key, scope);
+        visit(n.value, scope);
+        return;
+      case "VariableDeclarator":
+        visit(n.init, scope);
+        return;
+      case "LabeledStatement":
+        visit(n.body, scope);
+        return;
+      case "BreakStatement":
+      case "ContinueStatement":
+      case "ImportDeclaration":
+      case "ExportAllDeclaration":
+        return;
+      case "ExportNamedDeclaration":
+        if (!n.declaration) return;
+        break;
+    }
+    for (const key2 of Object.keys(n)) {
+      if (WALK_IGNORED_KEYS.has(key2)) continue;
+      visit(n[key2], scope);
+    }
+  };
+  visit(program, /* @__PURE__ */ new Set());
+  return out;
+}
 var MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
 function parseModuleProgram(source2, filename2) {
   const neutralized = source2.replace(/<\/script/gi, "<_script");
@@ -55178,6 +55298,7 @@ function parseModuleFacts(source2, filename2) {
   const shift = (line) => Math.max(0, line - 1);
   const orphanEffects = program ? collectOrphanEffects(program, wrapped).map((f) => ({ ...f, line: shift(f.line) })) : [];
   const orphanLifecycleCalls = program ? collectOrphanLifecycleCalls(program, wrapped).map((f) => ({ ...f, line: shift(f.line) })) : [];
+  const browserGlobalRefs = program ? collectBrowserGlobalRefs(program, wrapped).map((r) => ({ ...r, line: shift(r.line), context: "module" })) : [];
   const moduleStateDecls = program ? collectModuleStateDecls(program, wrapped).map((d) => ({ ...d, line: shift(d.line) })) : [];
   return {
     eachBlocks: [],
@@ -55194,6 +55315,7 @@ function parseModuleFacts(source2, filename2) {
     suppressions: collectSuppressions(source2),
     orphanEffects,
     orphanLifecycleCalls,
+    browserGlobalRefs,
     moduleStateDecls
   };
 }
@@ -55207,14 +55329,21 @@ function parseComponentFacts(source2, filename2) {
   collectSecurityFacts(ast.fragment ?? ast, source2, htmlTags, javascriptUrls);
   const loc = countLines(source2);
   const suppressions = collectSuppressions(source2);
+  const moduleProgram = ast.module?.content;
   const importSpans = [];
   const namespaceImports = [];
-  if (ast.module?.content) {
-    collectImportSources(ast.module.content, source2, importSpans);
-    collectNamespaceImports(ast.module.content, source2, namespaceImports);
+  if (moduleProgram) {
+    collectImportSources(moduleProgram, source2, importSpans);
+    collectNamespaceImports(moduleProgram, source2, namespaceImports);
   }
-  const orphanEffects = ast.module?.content ? collectOrphanEffects(ast.module.content, source2) : [];
-  const orphanLifecycleCalls = ast.module?.content ? collectOrphanLifecycleCalls(ast.module.content, source2) : [];
+  const orphanEffects = moduleProgram ? collectOrphanEffects(moduleProgram, source2) : [];
+  const orphanLifecycleCalls = moduleProgram ? collectOrphanLifecycleCalls(moduleProgram, source2) : [];
+  const browserGlobalRefs = [];
+  if (moduleProgram) {
+    for (const r of collectBrowserGlobalRefs(moduleProgram, source2)) {
+      browserGlobalRefs.push({ ...r, context: "module" });
+    }
+  }
   const effects = [];
   const constableStates = [];
   const mutatedProps = [];
@@ -55258,6 +55387,10 @@ function parseComponentFacts(source2, filename2) {
     for (const d of stateDecls) {
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
     }
+    const moduleExtra = moduleProgram ? { guards: collectBrowserGuardImports(moduleProgram), bound: collectProgramBindings(moduleProgram) } : void 0;
+    for (const r of collectBrowserGlobalRefs(program, source2, moduleExtra)) {
+      browserGlobalRefs.push({ ...r, context: "instance" });
+    }
   }
   const imports2 = importSpans.map((s) => s.source);
   return {
@@ -55274,6 +55407,7 @@ function parseComponentFacts(source2, filename2) {
     mutatedProps,
     orphanEffects,
     orphanLifecycleCalls,
+    browserGlobalRefs,
     moduleStateDecls: [],
     suppressions
   };
@@ -55294,6 +55428,7 @@ function emptyComponentFacts(file) {
     mutatedProps: [],
     orphanEffects: [],
     orphanLifecycleCalls: [],
+    browserGlobalRefs: [],
     moduleStateDecls: [],
     suppressions: []
   };
@@ -55424,6 +55559,33 @@ function collectStartupFunctions(program) {
   resolveAliasStartupExports(program, collectTopLevelBindings(program), startup);
   return startup;
 }
+function hasSsrFalseOptOut(program) {
+  const isFalse = (init2) => {
+    const v = unwrapTs(init2);
+    return v?.type === "Literal" && v.value === false;
+  };
+  for (const stmt2 of program.body ?? []) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type !== "VariableDeclaration") continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type === "Identifier" && d.id.name === "ssr" && d.init && isFalse(d.init)) {
+        if (stmt2.type === "ExportNamedDeclaration") return true;
+      }
+    }
+  }
+  const bindings = collectTopLevelBindings(program);
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source || stmt2.exportKind === "type")
+      continue;
+    for (const s of stmt2.specifiers) {
+      if (s?.exportKind === "type" || s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
+      if (s.exported.name !== "ssr") continue;
+      const resolved = bindings.get(s.local.name);
+      if (resolved?.type === "Literal" && resolved.value === false) return true;
+    }
+  }
+  return false;
+}
 function walkKit(node, handlerFns, startupFns, visit, shadowed = /* @__PURE__ */ new Set(), inFunction = false, inHandler = false, inStartup = false) {
   if (Array.isArray(node)) {
     for (const child of node) walkKit(child, handlerFns, startupFns, visit, shadowed, inFunction, inHandler, inStartup);
@@ -55482,6 +55644,7 @@ function parseKitModuleFacts(source2, filename2) {
   const importedStateWritesOutsideHandlers = [];
   const runesModuleImports = [];
   const lifecycleCalls = [];
+  const browserGlobalRefs = [];
   if (!program) {
     return {
       moduleStateReassignments,
@@ -55489,6 +55652,7 @@ function parseKitModuleFacts(source2, filename2) {
       importedStateWritesOutsideHandlers,
       runesModuleImports,
       lifecycleCalls,
+      browserGlobalRefs,
       suppressions
     };
   }
@@ -55517,6 +55681,27 @@ function parseKitModuleFacts(source2, filename2) {
   const handlerFns = collectHandlerFunctions(program);
   const startupFns = collectStartupFunctions(program);
   const svelteImports = collectSvelteLifecycleImports(program);
+  if (!hasSsrFalseOptOut(program)) {
+    const shiftLine = (l) => Math.max(0, l - 1);
+    const guards = collectBrowserGuardImports(program);
+    const bound = collectProgramBindings(program);
+    for (const r of collectBrowserGlobalRefs(program, wrapped, { guards, bound })) {
+      browserGlobalRefs.push({ name: r.name, line: shiftLine(r.line), inHandler: false });
+    }
+    const scanFn = (fn, inHandler) => {
+      if (!fn?.body) return;
+      const params = /* @__PURE__ */ new Set();
+      for (const p of fn.params ?? []) addBoundNames(p, params);
+      for (const r of collectBrowserGlobalRefs(fn.body, wrapped, { guards, bound: /* @__PURE__ */ new Set([...bound, ...params]) })) {
+        browserGlobalRefs.push({ name: r.name, line: shiftLine(r.line), inHandler });
+      }
+    };
+    for (const fn of handlerFns) scanFn(fn, true);
+    for (const fn of startupFns) {
+      if (handlerFns.has(fn)) continue;
+      scanFn(fn, false);
+    }
+  }
   walkKit(program, handlerFns, startupFns, (n, shadowed, inFunction, inHandler, inStartup) => {
     if (inFunction && !inStartup) {
       const flagLet = (name) => {
@@ -55594,6 +55779,7 @@ function parseKitModuleFacts(source2, filename2) {
     importedStateWritesOutsideHandlers: byLine(importedStateWritesOutsideHandlers),
     runesModuleImports: byLine(runesModuleImports),
     lifecycleCalls: byLine(lifecycleCalls),
+    browserGlobalRefs: byLine(browserGlobalRefs),
     suppressions
   };
 }
@@ -55606,6 +55792,7 @@ function emptyKitModuleFacts(file, kind) {
     importedStateWritesOutsideHandlers: [],
     runesModuleImports: [],
     lifecycleCalls: [],
+    browserGlobalRefs: [],
     suppressions: []
   };
 }
@@ -57207,6 +57394,94 @@ var correct007OrphanLifecycle = {
     return out;
   }
 };
+var PENALIZED4 = { presence: "none", value: "absent" };
+var PASS4 = { presence: "own", value: "static" };
+var ID2 = "CORRECT008";
+var DOCS_URL2 = docsUrlFor(ID2);
+var LABEL2 = "Server-safe module code";
+var RECOMMENDATION2 = "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).";
+var moduleMessage = (name) => `${name} is accessed at module scope \u2014 it does not exist on the server, so importing this file crashes SSR with "${name} is not defined"`;
+function isSuppressed3(suppressions, line) {
+  return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID2)));
+}
+function emitFile2(out, file, issues, suppressions) {
+  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed3(suppressions, b.line)));
+  if (bad.length === 0) {
+    out.push({
+      id: ID2,
+      category: "correctness",
+      severity: "critical",
+      detection: PASS4,
+      route: file,
+      message: LABEL2,
+      recommendation: RECOMMENDATION2,
+      docsUrl: DOCS_URL2
+    });
+    return;
+  }
+  for (const b of bad) {
+    out.push({
+      id: ID2,
+      category: "correctness",
+      severity: "critical",
+      detection: PENALIZED4,
+      route: file,
+      location: file,
+      ...b.line > 0 ? { line: b.line } : {},
+      message: b.message,
+      recommendation: RECOMMENDATION2,
+      docsUrl: DOCS_URL2
+    });
+  }
+}
+var correct008BrowserGlobals = {
+  id: ID2,
+  title: "Browser global in server module code",
+  category: "correctness",
+  severity: "critical",
+  scope: "component",
+  rationale: "window, document, localStorage and friends do not exist on the server; a read in module scope or a load/handler crashes SSR with a ReferenceError \u2014 the compiler does not catch it, and it surfaces as a production 500.",
+  async check(ctx) {
+    const out = [];
+    for (const c of ctx.components ?? []) {
+      const refs = (c.browserGlobalRefs ?? []).filter((r) => r.context === "module");
+      if (refs.length === 0) continue;
+      emitFile2(
+        out,
+        c.file,
+        refs.map((r) => ({ line: r.line, message: moduleMessage(r.name) })),
+        c.suppressions
+      );
+    }
+    for (const m of ctx.kitModules ?? []) {
+      const refs = m.browserGlobalRefs ?? [];
+      if (refs.length === 0) continue;
+      emitFile2(
+        out,
+        m.file,
+        refs.map((r) => ({
+          line: r.line,
+          message: r.inHandler ? `${r.name} is accessed in a load/handler \u2014 it runs on the server during SSR, where ${r.name} is not defined` : moduleMessage(r.name)
+        })),
+        m.suppressions
+      );
+    }
+    return out;
+  }
+};
+var correct009InstanceBrowserGlobals = componentRule({
+  id: "CORRECT009",
+  title: "Browser global during component initialisation",
+  category: "correctness",
+  label: "Server-safe component init",
+  recommendation: "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).",
+  rationale: "A component instance script runs on the server on every SSR render, where window/document/localStorage do not exist. Warning, not critical: a component rendered only behind a parent {#if browser} (or a client-only dynamic import) is a legitimate pattern that static analysis cannot prove cross-file.",
+  applies: (c) => (c.browserGlobalRefs ?? []).some((r) => r.context === "instance"),
+  bad: (c) => (c.browserGlobalRefs ?? []).filter((r) => r.context === "instance").map((r) => ({
+    line: r.line,
+    message: `${r.name} is accessed during component initialisation \u2014 during SSR this runs on the server, where ${r.name} is not defined`
+  }))
+});
 var sec001Html = componentRule({
   id: "SEC001",
   title: "Raw HTML render",
@@ -57227,9 +57502,9 @@ var sec002JavascriptUrl = componentRule({
   applies: (c) => c.javascriptUrls.length > 0,
   bad: (c) => c.javascriptUrls.map((u) => ({ line: u.line, message: "javascript: URL in an attribute" }))
 });
-var PENALIZED4 = { presence: "none", value: "absent" };
-var PASS4 = { presence: "own", value: "static" };
-function isSuppressed3(m, ruleId, line) {
+var PENALIZED5 = { presence: "none", value: "absent" };
+var PASS5 = { presence: "own", value: "static" };
+function isSuppressed4(m, ruleId, line) {
   return (m.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
 }
 function kitModuleRule(opts) {
@@ -57246,13 +57521,13 @@ function kitModuleRule(opts) {
       const out = [];
       for (const m of ctx.kitModules ?? []) {
         if (!opts.applies(m, ctx)) continue;
-        const bad = opts.bad(m, ctx).filter((b) => !(b.line > 0 && isSuppressed3(m, opts.id, b.line)));
+        const bad = opts.bad(m, ctx).filter((b) => !(b.line > 0 && isSuppressed4(m, opts.id, b.line)));
         if (bad.length === 0) {
           out.push({
             id: opts.id,
             category: opts.category,
             severity,
-            detection: PASS4,
+            detection: PASS5,
             route: m.file,
             message: opts.label,
             recommendation: opts.recommendation,
@@ -57265,7 +57540,7 @@ function kitModuleRule(opts) {
             id: opts.id,
             category: opts.category,
             severity,
-            detection: PENALIZED4,
+            detection: PENALIZED5,
             route: m.file,
             location: m.file,
             ...b.line > 0 ? { line: b.line } : {},
@@ -57456,6 +57731,8 @@ var allRules = [
   correct005PropMutation,
   correct006OrphanEffect,
   correct007OrphanLifecycle,
+  correct008BrowserGlobals,
+  correct009InstanceBrowserGlobals,
   sec001Html,
   sec002JavascriptUrl,
   sec003LoadStateWrite,
