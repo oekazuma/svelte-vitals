@@ -823,4 +823,13 @@ describe('parseComponentFacts — browser-global refs (CORRECT008/009)', () => {
     const src = '{\n  const window = fake();\n  window.open();\n}';
     expect(refs(src)).toEqual([]);
   });
+  it('never flags TS type-position typeof or type annotations', () => {
+    expect(refs('type W = typeof window;\nexport type { W };')).toEqual([]);
+    expect(refs('interface Foo {\n  d: typeof document;\n}\nexport const x: Foo | null = null;')).toEqual([]);
+    expect(refs('const m = new Map<string, typeof localStorage>();')).toEqual([]);
+  });
+  it('still scans the runtime expression inside as/satisfies wrappers', () => {
+    expect(refs('const w = window.innerWidth as number;')).toEqual([{ name: 'window', line: 1, context: 'module' }]);
+    expect(refs('const x = foo as typeof window;')).toEqual([]);
+  });
 });

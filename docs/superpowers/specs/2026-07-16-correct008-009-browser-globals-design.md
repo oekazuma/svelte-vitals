@@ -88,7 +88,14 @@ collision risk (`name`, `status`, `length`, …) are deliberately absent.
 'undefined'` comparison is skipped **entirely, including the else
    branch** — a `window` access in the server branch of `if (browser) … else
 …` is a conservative miss, documented.
-4. Output `{ name: string; line: number }[]` in walk (source) order.
+4. **TS type subtrees are never walked** — the generic key-walk stops at any
+   `TS*` node (type aliases, interfaces, `TSTypeQuery`'s `typeof window`,
+   generic type arguments, annotations), since none of that is runtime code.
+   The four TS _expression wrapper_ forms (`TSAsExpression`,
+   `TSSatisfiesExpression`, `TSNonNullExpression`, `TSInstantiationExpression`)
+   still have their runtime `.expression` visited — `foo as typeof window` is
+   not flagged, but `window.innerWidth as number` still is.
+5. Output `{ name: string; line: number }[]` in walk (source) order.
 
 ### 3. Facts
 
@@ -143,7 +150,9 @@ Changeset: core / `svelte-vitals` / vite / mcp — **minor**.
   tracked name excluded; nested shadowing excluded; `browser` guard
   (plain + aliased) skips if/ternary/`&&`; `typeof` guard skips;
   function/`onMount`/`$effect` bodies excluded; module vs instance context
-  split in `.svelte`; wrap −1 lines in `.svelte.ts`.
+  split in `.svelte`; wrap −1 lines in `.svelte.ts`; TS type-position
+  `typeof`/interface fields/generic type arguments never flagged, while
+  `as`/`satisfies` wrappers still scan their runtime expression.
 - **Kit**: access in `load` body (`inHandler: true`); top level and `init`
   (`false`); helper function exempt; `export const ssr = false` empties the
   facts; `csr = false` does not.
