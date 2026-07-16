@@ -269,3 +269,52 @@ describe('parseKitModuleFacts — lifecycle calls (CORRECT007)', () => {
     expect(facts(src).lifecycleCalls).toEqual([{ name: 'getContext', line: 3, inHandler: true }]);
   });
 });
+
+describe('parseKitModuleFacts — browser-global refs (CORRECT008)', () => {
+  it('flags reads at top level and inside load with the right inHandler flags', () => {
+    const src = "const w = window.innerWidth;\nexport function load() {\n  return { s: localStorage.getItem('k') };\n}";
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
+      { name: 'window', line: 1, inHandler: false },
+      { name: 'localStorage', line: 3, inHandler: true }
+    ]);
+  });
+  it('flags init-hook reads with inHandler false and exempts helper functions', () => {
+    const src = [
+      'export async function init() {',
+      '  document.title;',
+      '}',
+      'export function helper() {',
+      '  return window.innerWidth;',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/hooks.server.ts').browserGlobalRefs).toEqual([
+      { name: 'document', line: 2, inHandler: false }
+    ]);
+  });
+  it('does not descend into closures nested inside a handler', () => {
+    const src = 'export function load() {\n  return { getWidth: () => window.innerWidth };\n}';
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
+  });
+  it('respects browser/typeof guards and handler-parameter shadowing inside handlers', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      'export function load({ window }) {',
+      '  if (browser) {',
+      '    document.title;',
+      '  }',
+      '  window.close();',
+      "  return typeof localStorage !== 'undefined' ? localStorage.getItem('k') : null;",
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
+  });
+  it('empties the facts when the file itself exports ssr = false, but not for csr = false', () => {
+    const ssrOff =
+      'export const ssr = false;\nconst w = window.innerWidth;\nexport function load() {\n  return { t: document.title };\n}';
+    expect(facts(ssrOff, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
+    const csrOff = 'export const csr = false;\nconst w = window.innerWidth;';
+    expect(facts(csrOff, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
+      { name: 'window', line: 2, inHandler: false }
+    ]);
+  });
+});

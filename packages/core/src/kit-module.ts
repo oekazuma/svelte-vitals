@@ -23,6 +23,12 @@ export interface KitModuleFacts {
     line: number;
     inHandler: boolean;
   }[];
+  /** Browser-global reads in server-executed positions — top level, handler bodies, the `init` hook (CORRECT008). Empty when the file itself exports `ssr = false`. */
+  browserGlobalRefs: {
+    name: string;
+    line: number;
+    inHandler: boolean;
+  }[];
   /** Inline `svelte-vitals-disable-next-line` directives in this file. */
   suppressions: SuppressionDirective[];
 }

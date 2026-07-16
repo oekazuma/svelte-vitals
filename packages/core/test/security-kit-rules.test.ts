@@ -22,6 +22,7 @@ const kit = (over: Partial<KitModuleFacts>): KitModuleFacts => ({
   importedStateWritesOutsideHandlers: [],
   runesModuleImports: [],
   lifecycleCalls: [],
+  browserGlobalRefs: [],
   suppressions: [],
   ...over
 });
