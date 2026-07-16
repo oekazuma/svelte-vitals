@@ -101,6 +101,21 @@ describe('parseKitModuleFacts — imported-state writes (SEC003/SEC005)', () => 
       { name: 'theme', line: 4 }
     ]);
   });
+  it('flags a destructuring-assignment target with an imported root', () => {
+    const src = "import { state } from './shared.js';\nexport function load() {\n  [state.x] = [1];\n}";
+    expect(facts(src).importedStateWrites).toEqual([{ name: 'state', line: 3, via: 'assignment' }]);
+  });
+  it('does not flag read positions inside a destructuring pattern (computed key, default value)', () => {
+    const src = [
+      "import { state } from './shared.js';",
+      'export function load() {',
+      '  let local, a;',
+      '  ({ [state.key]: local } = { x: 1 });',
+      '  [a = state.fallback] = [];',
+      '}'
+    ].join('\n');
+    expect(facts(src).importedStateWrites).toEqual([]);
+  });
   it('does not flag reads, non-set method calls, local shadows, or writes to non-imports', () => {
     const src = [
       "import { logger, data } from './svc.js';",
