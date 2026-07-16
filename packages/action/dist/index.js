@@ -55068,14 +55068,54 @@ function collectOrphanEffects(program, source2) {
   return out.sort((a, b) => a.line - b.line);
 }
 var MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
-function parseModuleFacts(source2, filename2) {
+function parseModuleProgram(source2, filename2) {
   const neutralized = source2.replace(/<\/script/gi, "<_script");
   const wrapped = `<script lang="ts">
 ${neutralized}
 </script>`;
   const ast = parse8(wrapped, { modern: true, filename: filename2 });
-  const program = ast.instance?.content;
-  const orphanEffects = program ? collectOrphanEffects(program, wrapped).map((f) => ({ ...f, line: Math.max(0, f.line - 1) })) : [];
+  return { program: ast.instance?.content, wrapped };
+}
+function collectModuleStateDecls(program, source2) {
+  const out = [];
+  const body = program.body ?? [];
+  const statefulClasses = /* @__PURE__ */ new Set();
+  for (const stmt2 of body) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type === "VariableDeclaration") {
+      for (const d of decl.declarations ?? []) {
+        if (d?.id?.type === "Identifier" && d.init && isStateDeclaration(d.init)) {
+          out.push({ name: d.id.name, line: lineOf(source2, d.start) });
+        }
+      }
+    } else if (decl?.type === "ClassDeclaration" && decl.id?.type === "Identifier") {
+      const hasStateField = (decl.body?.body ?? []).some(
+        (m) => m?.type === "PropertyDefinition" && m.value && isStateDeclaration(m.value)
+      );
+      if (hasStateField) statefulClasses.add(decl.id.name);
+    }
+  }
+  if (statefulClasses.size > 0) {
+    for (const stmt2 of body) {
+      const decl = unwrapExport(stmt2);
+      if (decl?.type !== "VariableDeclaration") continue;
+      for (const d of decl.declarations ?? []) {
+        if (d?.init?.type === "NewExpression" && d.init.callee?.type === "Identifier" && statefulClasses.has(d.init.callee.name)) {
+          out.push({
+            name: d.id?.type === "Identifier" ? d.id.name : d.init.callee.name,
+            line: lineOf(source2, d.start)
+          });
+        }
+      }
+    }
+  }
+  return out.sort((a, b) => a.line - b.line);
+}
+function parseModuleFacts(source2, filename2) {
+  const { program, wrapped } = parseModuleProgram(source2, filename2);
+  const shift = (line) => Math.max(0, line - 1);
+  const orphanEffects = program ? collectOrphanEffects(program, wrapped).map((f) => ({ ...f, line: shift(f.line) })) : [];
+  const moduleStateDecls = program ? collectModuleStateDecls(program, wrapped).map((d) => ({ ...d, line: shift(d.line) })) : [];
   return {
     eachBlocks: [],
     effects: [],
@@ -55089,7 +55129,8 @@ ${neutralized}
     constableStates: [],
     mutatedProps: [],
     suppressions: collectSuppressions(source2),
-    orphanEffects
+    orphanEffects,
+    moduleStateDecls
   };
 }
 function parseComponentFacts(source2, filename2) {
@@ -55167,6 +55208,7 @@ function parseComponentFacts(source2, filename2) {
     constableStates,
     mutatedProps,
     orphanEffects,
+    moduleStateDecls: [],
     suppressions
   };
 }
@@ -55185,6 +55227,7 @@ function emptyComponentFacts(file) {
     constableStates: [],
     mutatedProps: [],
     orphanEffects: [],
+    moduleStateDecls: [],
     suppressions: []
   };
 }
@@ -55197,6 +55240,239 @@ async function collectComponentFacts(rt, cwd) {
         return { file: rel, ...parseComponentFacts(source2, rel) };
       } catch {
         return emptyComponentFacts(rel);
+      }
+    })
+  );
+}
+var HANDLER_NAMES = /* @__PURE__ */ new Set([
+  "load",
+  "handle",
+  "handleFetch",
+  "handleError",
+  "GET",
+  "POST",
+  "PUT",
+  "PATCH",
+  "DELETE",
+  "HEAD",
+  "OPTIONS",
+  "fallback"
+]);
+function unwrapTs(expr) {
+  let cur = expr;
+  while (cur?.type === "TSSatisfiesExpression" || cur?.type === "TSAsExpression") cur = cur.expression;
+  return cur;
+}
+function isFunctionNode(n) {
+  return n?.type === "FunctionDeclaration" || n?.type === "FunctionExpression" || n?.type === "ArrowFunctionExpression";
+}
+function collectHandlerFunctions(program) {
+  const handlers = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.declaration) continue;
+    const decl = stmt2.declaration;
+    if (decl.type === "FunctionDeclaration" && decl.id?.type === "Identifier" && HANDLER_NAMES.has(decl.id.name)) {
+      handlers.add(decl);
+      continue;
+    }
+    if (decl.type !== "VariableDeclaration") continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type !== "Identifier" || !d.init) continue;
+      const init2 = unwrapTs(d.init);
+      if (HANDLER_NAMES.has(d.id.name) && isFunctionNode(init2)) {
+        handlers.add(init2);
+      } else if (d.id.name === "actions" && init2?.type === "ObjectExpression") {
+        for (const p of init2.properties ?? []) {
+          if (p?.type !== "Property") continue;
+          const v = unwrapTs(p.value);
+          if (isFunctionNode(v)) handlers.add(v);
+        }
+      }
+    }
+  }
+  return handlers;
+}
+function walkKit(node, handlerFns, visit, shadowed = /* @__PURE__ */ new Set(), inFunction = false, inHandler = false) {
+  if (Array.isArray(node)) {
+    for (const child of node) walkKit(child, handlerFns, visit, shadowed, inFunction, inHandler);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  const isBoundary = isFunctionNode(node) || node.type === "ClassDeclaration" || node.type === "ClassExpression";
+  const nextInFunction = inFunction || isBoundary;
+  const nextInHandler = inHandler || handlerFns.has(node);
+  visit(node, scope, inFunction, inHandler);
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    walkKit(node[key2], handlerFns, visit, scope, nextInFunction, nextInHandler);
+  }
+}
+function normalizePosix(path) {
+  const out = [];
+  for (const seg of path.split("/")) {
+    if (seg === "" || seg === ".") continue;
+    if (seg === "..") out.pop();
+    else out.push(seg);
+  }
+  return out.join("/");
+}
+function resolveRunesModuleSpecifier(spec, importerFile) {
+  let path;
+  if (spec.startsWith("$lib/")) path = `src/lib/${spec.slice("$lib/".length)}`;
+  else if (spec.startsWith("./") || spec.startsWith("../")) {
+    const dir = importerFile.split("/").slice(0, -1).join("/");
+    path = `${dir}/${spec}`;
+  } else return void 0;
+  path = normalizePosix(path);
+  if (/\.svelte\.(ts|js)$/.test(path)) return path;
+  if (path.endsWith(".svelte")) return `${path}.ts`;
+  return void 0;
+}
+function parseKitModuleFacts(source2, filename2) {
+  const suppressions = collectSuppressions(source2);
+  const { program, wrapped } = parseModuleProgram(source2, filename2);
+  const moduleStateReassignments = [];
+  const importedStateWrites = [];
+  const importedStateWritesOutsideHandlers = [];
+  const runesModuleImports = [];
+  if (!program) {
+    return {
+      moduleStateReassignments,
+      importedStateWrites,
+      importedStateWritesOutsideHandlers,
+      runesModuleImports,
+      suppressions
+    };
+  }
+  const line = (start) => Math.max(0, lineOf(wrapped, start) - 1);
+  const importedNames = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type") continue;
+    const names = [];
+    for (const s of stmt2.specifiers ?? []) {
+      if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
+      names.push(s.local.name);
+      importedNames.add(s.local.name);
+    }
+    if (names.length === 0) continue;
+    const spec = typeof stmt2.source?.value === "string" ? stmt2.source.value : "";
+    const resolved = resolveRunesModuleSpecifier(spec, filename2);
+    if (resolved) runesModuleImports.push({ source: spec, resolved, names, line: line(stmt2.start) });
+  }
+  const moduleLets = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    const decl = unwrapExport(stmt2);
+    if (decl?.type === "VariableDeclaration" && (decl.kind === "let" || decl.kind === "var")) {
+      for (const d of decl.declarations ?? []) addBoundNames(d?.id, moduleLets);
+    }
+  }
+  const handlerFns = collectHandlerFunctions(program);
+  walkKit(program, handlerFns, (n, shadowed, inFunction, inHandler) => {
+    if (inFunction) {
+      const flagLet = (name) => {
+        if (name && !shadowed.has(name) && moduleLets.has(name)) {
+          moduleStateReassignments.push({ name, line: line(n.start), inHandler });
+        }
+      };
+      if (n.type === "AssignmentExpression") {
+        if (n.left?.type === "Identifier") flagLet(n.left.name);
+        else if (n.left?.type === "ObjectPattern" || n.left?.type === "ArrayPattern") {
+          const bound = /* @__PURE__ */ new Set();
+          addBoundNames(n.left, bound);
+          for (const b of bound) flagLet(b);
+        }
+      } else if (n.type === "UpdateExpression" && n.argument?.type === "Identifier") {
+        flagLet(n.argument.name);
+      }
+    }
+    let write;
+    const importedRoot = (expr) => {
+      const r = rootObjectName(expr);
+      return r && !shadowed.has(r) && importedNames.has(r) ? r : void 0;
+    };
+    if (n.type === "AssignmentExpression" && n.left?.type === "MemberExpression") {
+      const r = importedRoot(n.left);
+      if (r) write = { name: r, via: "assignment" };
+    } else if (n.type === "UpdateExpression" && n.argument?.type === "MemberExpression") {
+      const r = importedRoot(n.argument);
+      if (r) write = { name: r, via: "assignment" };
+    } else if (n.type === "UnaryExpression" && n.operator === "delete") {
+      const r = importedRoot(n.argument);
+      if (r) write = { name: r, via: "assignment" };
+    } else if (n.type === "CallExpression" && n.callee?.type === "MemberExpression") {
+      const method2 = n.callee.property?.type === "Identifier" ? n.callee.property.name : void 0;
+      if (method2 === "set" || method2 === "update") {
+        const r = importedRoot(n.callee.object);
+        if (r) write = { name: r, via: "set-call" };
+      }
+    } else if (n.type === "AssignmentExpression" && (n.left?.type === "ObjectPattern" || n.left?.type === "ArrayPattern")) {
+      const scanPatternTargets = (pat) => {
+        if (!pat || write) return;
+        if (pat.type === "MemberExpression") {
+          const r = importedRoot(pat);
+          if (r) write = { name: r, via: "assignment" };
+        } else if (pat.type === "ObjectPattern") {
+          for (const p of pat.properties ?? []) {
+            if (p?.type === "Property") scanPatternTargets(p.value);
+            else if (p?.type === "RestElement") scanPatternTargets(p.argument);
+          }
+        } else if (pat.type === "ArrayPattern") {
+          for (const el of pat.elements ?? []) scanPatternTargets(el);
+        } else if (pat.type === "AssignmentPattern") {
+          scanPatternTargets(pat.left);
+        } else if (pat.type === "RestElement") {
+          scanPatternTargets(pat.argument);
+        }
+      };
+      scanPatternTargets(n.left);
+    }
+    if (write) {
+      if (inHandler) importedStateWrites.push({ ...write, line: line(n.start) });
+      else importedStateWritesOutsideHandlers.push({ name: write.name, line: line(n.start) });
+    }
+  });
+  return {
+    moduleStateReassignments,
+    importedStateWrites,
+    importedStateWritesOutsideHandlers,
+    runesModuleImports,
+    suppressions
+  };
+}
+function emptyKitModuleFacts(file, kind) {
+  return {
+    file,
+    kind,
+    moduleStateReassignments: [],
+    importedStateWrites: [],
+    importedStateWritesOutsideHandlers: [],
+    runesModuleImports: [],
+    suppressions: []
+  };
+}
+function kindOf(file) {
+  const base = file.split("/").pop() ?? file;
+  return base.includes(".server.") || base.startsWith("+server.") ? "server" : "universal";
+}
+async function collectKitModuleFacts(rt, cwd) {
+  const patterns = [
+    "src/routes/**/+{page,layout}.server.{ts,js}",
+    "src/routes/**/+{page,layout}.{ts,js}",
+    "src/routes/**/+server.{ts,js}",
+    "src/hooks.server.{ts,js}"
+  ];
+  const lists = await Promise.all(patterns.map((p) => rt.glob(p, cwd)));
+  const files = [...new Set(lists.flat())];
+  return Promise.all(
+    files.sort().map(async (rel) => {
+      const kind = kindOf(rel);
+      try {
+        const source2 = await rt.readFile(rt.join(cwd, rel));
+        return { file: rel, kind, ...parseKitModuleFacts(source2, rel) };
+      } catch {
+        return emptyKitModuleFacts(rel, kind);
       }
     })
   );
@@ -56716,6 +56992,114 @@ var sec002JavascriptUrl = componentRule({
   applies: (c) => c.javascriptUrls.length > 0,
   bad: (c) => c.javascriptUrls.map((u) => ({ line: u.line, message: "javascript: URL in an attribute" }))
 });
+var PENALIZED3 = { presence: "none", value: "absent" };
+var PASS3 = { presence: "own", value: "static" };
+function isSuppressed2(m, ruleId, line) {
+  return (m.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
+}
+function kitModuleRule(opts) {
+  const docsUrl7 = docsUrlFor(opts.id);
+  const severity = opts.severity ?? "warning";
+  return {
+    id: opts.id,
+    title: opts.title,
+    category: opts.category,
+    severity,
+    scope: "component",
+    rationale: opts.rationale,
+    async check(ctx) {
+      const out = [];
+      for (const m of ctx.kitModules ?? []) {
+        if (!opts.applies(m, ctx)) continue;
+        const bad = opts.bad(m, ctx).filter((b) => !(b.line > 0 && isSuppressed2(m, opts.id, b.line)));
+        if (bad.length === 0) {
+          out.push({
+            id: opts.id,
+            category: opts.category,
+            severity,
+            detection: PASS3,
+            route: m.file,
+            message: opts.label,
+            recommendation: opts.recommendation,
+            docsUrl: docsUrl7
+          });
+          continue;
+        }
+        for (const b of bad) {
+          out.push({
+            id: opts.id,
+            category: opts.category,
+            severity,
+            detection: PENALIZED3,
+            route: m.file,
+            location: m.file,
+            ...b.line > 0 ? { line: b.line } : {},
+            message: b.message,
+            recommendation: opts.recommendation,
+            docsUrl: docsUrl7
+          });
+        }
+      }
+      return out;
+    }
+  };
+}
+var sec003LoadStateWrite = kitModuleRule({
+  id: "SEC003",
+  title: "Handler writes imported state",
+  category: "security",
+  severity: "critical",
+  label: "Load/handler purity",
+  recommendation: "Return the data from load (or the action) and pass it via page data instead of writing it to module state; per-user data belongs in cookies/locals plus a database.",
+  rationale: "SvelteKit's docs mark this NEVER-DO-THIS: the server is one long-lived process shared by every user, so module state written during a request is visible to ALL later requests \u2014 one user's data can be served to another.",
+  applies: (m) => m.importedStateWrites.length > 0,
+  bad: (m) => m.importedStateWrites.map((w2) => ({
+    line: w2.line,
+    message: `a server-executed handler writes imported module state "${w2.name}" \u2014 shared across all requests on the server, one user's data can leak to another`
+  }))
+});
+var sec004ServerModuleState = kitModuleRule({
+  id: "SEC004",
+  title: "Server module-scope state",
+  category: "security",
+  label: "Server module state",
+  recommendation: "Do not keep request data in module scope on the server \u2014 authenticate with cookies/locals and persist per-user data in a database. For a deliberate process-wide cache, prefer a const container (e.g. a Map) or add an inline suppression.",
+  rationale: `Module scope on the server is one shared, long-lived instance (SvelteKit docs: "Avoid shared state on the server"): a value reassigned during one user's request is served to every other user, and it silently resets on every deploy or restart.`,
+  applies: (m) => m.moduleStateReassignments.length > 0,
+  bad: (m) => m.moduleStateReassignments.map((r) => ({
+    line: r.line,
+    message: r.inHandler ? `module-scope variable "${r.name}" is reassigned from a request handler \u2014 its value is shared across all requests on the server` : `module-scope variable "${r.name}" is reassigned from a function \u2014 if it runs during a request, the value is shared across all requests on the server`
+  }))
+});
+function extSibling(path) {
+  return path.endsWith(".svelte.ts") ? path.replace(/\.svelte\.ts$/, ".svelte.js") : path.replace(/\.svelte\.js$/, ".svelte.ts");
+}
+var sec005SharedStateImport = kitModuleRule({
+  id: "SEC005",
+  title: "Shared runes-state import on the server",
+  category: "security",
+  label: "Server state imports",
+  recommendation: "Keep module-scope $state out of server-executed code: return data from load and share it via page data or the context API. If the module is genuinely client-only, restructure so server files do not import it, or add an inline suppression.",
+  rationale: "A .svelte.ts module with module-scope $state is one shared instance on the server: mutated, it leaks data between users; read-only, every request sees the same boot-time value instead of per-user data.",
+  applies: (m) => m.runesModuleImports.length > 0,
+  bad: (m, ctx) => {
+    const stateFiles = new Set((ctx.components ?? []).filter((c) => c.moduleStateDecls.length > 0).map((c) => c.file));
+    const writtenOutside = new Set(m.importedStateWritesOutsideHandlers.map((w2) => w2.name));
+    const writtenInHandler = new Set(m.importedStateWrites.map((w2) => w2.name));
+    const out = [];
+    for (const imp of m.runesModuleImports) {
+      if (!stateFiles.has(imp.resolved) && !stateFiles.has(extSibling(imp.resolved))) continue;
+      const names = imp.names.filter((n) => !writtenInHandler.has(n));
+      if (names.length === 0) continue;
+      const mutates = names.some((n) => writtenOutside.has(n));
+      out.push({
+        line: imp.line,
+        message: mutates ? `server-executed code mutates shared module state from "${imp.source}" \u2014 on the server it is one instance shared by every request` : `"${imp.source}" holds module-scope $state \u2014 on the server it is shared by every request and keeps its boot-time value (a leak if it ever holds per-user data)`
+      });
+    }
+    return out;
+  }
+});
 var MAX_LOC = 400;
 var MAX_PROPS = 10;
 var arch001ComponentSize = componentRule({
@@ -56838,6 +57222,9 @@ var allRules = [
   correct006OrphanEffect,
   sec001Html,
   sec002JavascriptUrl,
+  sec003LoadStateWrite,
+  sec004ServerModuleState,
+  sec005SharedStateImport,
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,
@@ -57103,7 +57490,7 @@ function applyRuleSeverities(results, config) {
   });
 }
 
-// ../cli/dist/chunk-O5VMXV2Q.js
+// ../cli/dist/chunk-4HDEG3P6.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -57881,7 +58268,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-O5VMXV2Q.js
+// ../cli/dist/chunk-4HDEG3P6.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -58745,10 +59132,11 @@ async function analyzeProject(opts = {}) {
   const headings = collected.headings.filter((h) => matches(h.route));
   const project = await collectProjectFacts(rt, cwd);
   const components = opts.route ? [] : await collectComponentFacts(rt, cwd);
+  const kitModules = opts.route ? [] : await collectKitModuleFacts(rt, cwd);
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories.includes(r.category)) : selected;
   const results = applyRuleSeverities(
-    await runRules(rules, { heads, images, headings, components, project, config }),
+    await runRules(rules, { heads, images, headings, components, project, config, kitModules }),
     config
   );
   return { results, config, version: readPackageVersion(), warnings: warnings2 };
