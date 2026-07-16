@@ -97,6 +97,7 @@ export {
   correct004UnmutatedState,
   correct005PropMutation,
   correct006OrphanEffect,
+  correct007OrphanLifecycle,
   sec001Html,
   sec002JavascriptUrl,
   sec003LoadStateWrite,

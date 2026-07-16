@@ -41,6 +41,7 @@ import { correct001EachKey, correct002EffectDerived, correct003EffectAsOnMount }
 import { correct004UnmutatedState } from './correctness/correct004-unmutated-state.js';
 import { correct005PropMutation } from './correctness/correct005-prop-mutation.js';
 import { correct006OrphanEffect } from './correctness/correct006-orphan-effect.js';
+import { correct007OrphanLifecycle } from './correctness/correct007-orphan-lifecycle.js';
 import { sec001Html, sec002JavascriptUrl } from './security/sec001-002.js';
 import { sec003LoadStateWrite } from './security/sec003-load-state-write.js';
 import { sec004ServerModuleState } from './security/sec004-server-module-state.js';
@@ -94,6 +95,7 @@ export const allRules: Rule[] = [
   correct004UnmutatedState,
   correct005PropMutation,
   correct006OrphanEffect,
+  correct007OrphanLifecycle,
   sec001Html,
   sec002JavascriptUrl,
   sec003LoadStateWrite,
@@ -150,6 +152,7 @@ export {
   correct004UnmutatedState,
   correct005PropMutation,
   correct006OrphanEffect,
+  correct007OrphanLifecycle,
   sec001Html,
   sec002JavascriptUrl,
   sec003LoadStateWrite,
