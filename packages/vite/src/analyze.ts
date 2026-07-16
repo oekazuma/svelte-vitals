@@ -17,7 +17,7 @@ import { loadConfigFile } from 'svelte-vitals';
 import type { SvelteVitalsOptions } from './plugin.js';
 import { collectRenderedHeads } from './providers/rendered/collect.js';
 import { collectRenderedProject } from './providers/rendered/project.js';
-import { collectComponentFacts } from './providers/source/components.js';
+import { collectComponentFacts, collectKitModuleFacts } from './providers/source/components.js';
 import { readPackageVersion } from './version.js';
 
 export interface AnalyzeResult {
@@ -60,8 +60,9 @@ export async function analyze(
   const { heads, headings, images, htmlLang } = await collectRenderedHeads(prerenderPagesDir);
   const project = await collectRenderedProject(cwd, htmlLang);
   const components = await collectComponentFacts(cwd);
+  const kitModules = await collectKitModuleFacts(cwd);
   const results = applyRuleSeverities(
-    await runRules(selectRules(allRules, config), { heads, headings, images, project, components, config }),
+    await runRules(selectRules(allRules, config), { heads, headings, images, project, components, config, kitModules }),
     config
   );
 
