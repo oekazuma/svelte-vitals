@@ -832,4 +832,14 @@ describe('parseComponentFacts — browser-global refs (CORRECT008/009)', () => {
     expect(refs('const w = window.innerWidth as number;')).toEqual([{ name: 'window', line: 1, context: 'module' }]);
     expect(refs('const x = foo as typeof window;')).toEqual([]);
   });
+  it('recognises a derived guard binding (one level)', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      'const canUse = browser && !!window.matchMedia;',
+      'if (canUse) {',
+      '  window.scrollTo(0, 0);',
+      '}'
+    ].join('\n');
+    expect(refs(src)).toEqual([]);
+  });
 });

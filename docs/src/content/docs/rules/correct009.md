@@ -7,7 +7,7 @@ description: A component's instance script runs on the server during SSR — win
 
 ## What it checks
 
-Flags reads of browser-only globals (the same list as [CORRECT008](/svelte-vitals/rules/correct008)) at the **top level of a component's `<script>`** — that code runs on the server on every SSR render of the component. The same guards apply: `browser` from `$app/environment`, `typeof` checks, `onMount`/`$effect` bodies, your own bindings, and shadowed locals are never flagged.
+Flags reads of browser-only globals (the same list as [CORRECT008](/svelte-vitals/rules/correct008)) at the **top level of a component's `<script>`** — that code runs on the server on every SSR render of the component. The same guards apply: `browser` from `$app/environment`, `typeof` checks (early-return guards included), `onMount`/`$effect` bodies, your own bindings, and shadowed locals are never flagged.
 
 ## Why it matters
 

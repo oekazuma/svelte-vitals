@@ -87,7 +87,16 @@ collision risk (`name`, `status`, `length`, …) are deliberately absent.
    binding (`browser`) or (b) a `typeof <tracked-global> === | !==
 'undefined'` comparison is skipped **entirely, including the else
    branch** — a `window` access in the server branch of `if (browser) … else
-…` is a conservative miss, documented.
+…` is a conservative miss, documented. A **terminating early-return guard**
+   (`if (!browser) return {};` / `if (typeof window === 'undefined') throw
+…;`, any polarity) additionally stops the scan of the rest of its enclosing
+   `BlockStatement`/`Program` — the remaining statements never run in the
+   guarded environment, so the walk manually loops the container's
+   statement list and breaks after such a guard instead of relying on the
+   generic key-walk. A guard binding derived from another guard, one level
+   deep (`const canUse = browser && !!window.matchMedia;` then `if (canUse)
+{…}`), is also recognised via a one-pass pre-scan of the program's
+   top-level `const`/`let` declarators — no fixpoint chasing.
 4. **TS type subtrees are never walked** — the generic key-walk stops at any
    `TS*` node (type aliases, interfaces, `TSTypeQuery`'s `typeof window`,
    generic type arguments, annotations), since none of that is runtime code.
@@ -152,10 +161,13 @@ Changeset: core / `svelte-vitals` / vite / mcp — **minor**.
   function/`onMount`/`$effect` bodies excluded; module vs instance context
   split in `.svelte`; wrap −1 lines in `.svelte.ts`; TS type-position
   `typeof`/interface fields/generic type arguments never flagged, while
-  `as`/`satisfies` wrappers still scan their runtime expression.
+  `as`/`satisfies` wrappers still scan their runtime expression; a derived
+  guard binding (`const canUse = browser && …`) recognised one level deep.
 - **Kit**: access in `load` body (`inHandler: true`); top level and `init`
   (`false`); helper function exempt; `export const ssr = false` empties the
-  facts; `csr = false` does not.
+  facts; `csr = false` does not; a terminating early-return guard
+  (`if (!browser) return {};` / a `typeof` early return) stops scanning the
+  rest of the handler body, while code before the guard is still flagged.
 - **Rules**: severities and message variants; both channels for 008;
   suppression per channel; rendered-mode no-op; 009 via `componentRule`
   semantics.

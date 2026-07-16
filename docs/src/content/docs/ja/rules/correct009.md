@@ -7,7 +7,7 @@ description: コンポーネントの instance script は SSR 時にサーバー
 
 ## チェック内容
 
-**コンポーネントの `<script>` トップレベル**での browser 専用 global([CORRECT008](/svelte-vitals/ja/rules/correct008) と同じリスト)の読み取りを検出します — このコードはコンポーネントの SSR レンダリングのたびにサーバーで実行されます。ガードの扱いも同じです: `$app/environment` の `browser`、`typeof` チェック、`onMount`/`$effect` 本体、自前の binding、シャドーされたローカルは検出されません。
+**コンポーネントの `<script>` トップレベル**での browser 専用 global([CORRECT008](/svelte-vitals/ja/rules/correct008) と同じリスト)の読み取りを検出します — このコードはコンポーネントの SSR レンダリングのたびにサーバーで実行されます。ガードの扱いも同じです: `$app/environment` の `browser`、`typeof` チェック(early-return ガードを含む)、`onMount`/`$effect` 本体、自前の binding、シャドーされたローカルは検出されません。
 
 ## 重要な理由
 

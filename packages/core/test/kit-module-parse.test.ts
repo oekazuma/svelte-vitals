@@ -327,4 +327,26 @@ describe('parseKitModuleFacts — browser-global refs (CORRECT008)', () => {
     const src = 'const ssr = false;\nexport { ssr };\nconst w = window.innerWidth;';
     expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
   });
+  it('stops scanning a handler after an early-return browser guard', () => {
+    const src = [
+      "import { browser } from '$app/environment';",
+      'export function load() {',
+      '  if (!browser) return {};',
+      '  return { w: window.innerWidth };',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([]);
+  });
+  it('stops after a typeof early-return guard but still flags before it', () => {
+    const src = [
+      'export function load() {',
+      '  const before = navigator.language;',
+      "  if (typeof window === 'undefined') return {};",
+      '  return { w: window.innerWidth };',
+      '}'
+    ].join('\n');
+    expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
+      { name: 'navigator', line: 2, inHandler: true }
+    ]);
+  });
 });

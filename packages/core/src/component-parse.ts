@@ -893,6 +893,17 @@ export function collectProgramBindings(program: Node): Set<string> {
  * `typeof <tracked-global> === | !== 'undefined'` comparison (CORRECT008/009).
  * Over-matching here only widens the skip — a conservative miss, never a false positive.
  */
+/** Whether a guard's consequent unconditionally exits (return/throw) — code after it never runs in the guarded environment (CORRECT008/009). */
+function guardTerminates(consequent: Node): boolean {
+  if (!consequent) return false;
+  if (consequent.type === 'ReturnStatement' || consequent.type === 'ThrowStatement') return true;
+  if (consequent.type === 'BlockStatement') {
+    const last = (consequent.body ?? [])[consequent.body.length - 1];
+    return last?.type === 'ReturnStatement' || last?.type === 'ThrowStatement';
+  }
+  return false;
+}
+
 function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
   let guarded = false;
   walkEstree(test, (n) => {
@@ -926,8 +937,12 @@ function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
  * program's top level (`extra.bound` adds more, e.g. the other script's bindings or a
  * handler's parameters), and skips guard clauses ENTIRELY — if/ternary/logical whose
  * test passes `isBrowserGuardTest` — including their else branches (a documented
- * conservative miss). `extra.guards` adds guard bindings beyond this program's own
- * `$app/environment` import.
+ * conservative miss). A guard binding derived from another guard, one level deep
+ * (`const canUse = browser && !!window.matchMedia;`), is recognised too. Within a
+ * `BlockStatement`/`Program`, a terminating early-return guard (`if (!browser) return
+ * {};`) stops the scan of the remaining statements in that container — they are
+ * server-unreachable in the guarded environment. `extra.guards` adds guard bindings
+ * beyond this program's own `$app/environment` import.
  */
 export function collectBrowserGlobalRefs(
   program: Node,
@@ -937,6 +952,19 @@ export function collectBrowserGlobalRefs(
   const out: { name: string; line: number }[] = [];
   const bound = new Set([...collectProgramBindings(program), ...(extra?.bound ?? [])]);
   const guards = new Set([...collectBrowserGuardImports(program), ...(extra?.guards ?? [])]);
+
+  // Derived guard bindings (one level, no fixpoint chasing): `const canUse = browser
+  // && !!window.matchMedia;` makes `canUse` itself recognised as a guard for a later
+  // `if (canUse) { … }`. Over-matching here only widens the skip (conservative miss).
+  for (const stmt of program.body ?? []) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type !== 'VariableDeclaration' || (decl.kind !== 'const' && decl.kind !== 'let')) continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type === 'Identifier' && d.init && isBrowserGuardTest(d.init, guards)) {
+        guards.add(d.id.name);
+      }
+    }
+  }
 
   const visit = (n: Node, shadowed: Set<string>): void => {
     if (!n) return;
@@ -984,6 +1012,26 @@ export function collectBrowserGlobalRefs(
       case 'ExportNamedDeclaration':
         if (!n.declaration) return; // bare specifiers aren't reads
         break;
+      case 'BlockStatement':
+      case 'Program':
+        // Statement-list containers get a manual loop (rather than the generic
+        // key-walk) so a terminating early-return guard (`if (!browser) return
+        // {};`) can stop scanning the rest of the container — the remaining
+        // statements are server-unreachable in the guarded environment
+        // (CORRECT008/009). The guard statement itself is still skipped by the
+        // IfStatement check above; `Program` can't contain a `return`, so its
+        // early-break only ever triggers on a `throw`-terminated guard.
+        for (const stmt of n.body ?? []) {
+          visit(stmt, scope);
+          if (
+            stmt?.type === 'IfStatement' &&
+            isBrowserGuardTest(stmt.test, guards) &&
+            guardTerminates(stmt.consequent)
+          ) {
+            break;
+          }
+        }
+        return;
       default:
         if (n.type.startsWith('TS')) {
           // TS wrapper expressions carry a runtime expression — visit only that.
