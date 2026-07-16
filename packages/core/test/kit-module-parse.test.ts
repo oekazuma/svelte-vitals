@@ -84,6 +84,11 @@ describe('parseKitModuleFacts — module-scope reassignments (SEC004)', () => {
     const src = "let n;\nexport { load } from './shared.js';\nfunction helper() {\n  n = 1;\n}";
     expect(facts(src).moduleStateReassignments).toEqual([{ name: 'n', line: 4, inHandler: false }]);
   });
+  it('ignores type-only alias exports', () => {
+    const src =
+      'let user;\ntype load = () => void;\nconst load = async () => {\n  user = 1;\n};\nexport type { load };';
+    expect(facts(src).moduleStateReassignments).toEqual([{ name: 'user', line: 4, inHandler: false }]);
+  });
 });
 
 describe('parseKitModuleFacts — imported-state writes (SEC003/SEC005)', () => {
