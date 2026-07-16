@@ -55384,21 +55384,26 @@ function normalizePosix(path) {
   }
   return out.join("/");
 }
-function resolveRunesModuleSpecifier(spec, importerFile) {
+function resolveRepoLocalPath(spec, importerFile) {
   let path;
   if (spec.startsWith("$lib/")) path = `src/lib/${spec.slice("$lib/".length)}`;
   else if (spec.startsWith("./") || spec.startsWith("../")) {
     const dir = importerFile.split("/").slice(0, -1).join("/");
     path = `${dir}/${spec}`;
   } else return void 0;
-  path = normalizePosix(path);
+  return normalizePosix(path);
+}
+function resolveRunesModuleSpecifier(spec, importerFile) {
+  const path = resolveRepoLocalPath(spec, importerFile);
+  if (path === void 0) return void 0;
   if (/\.svelte\.(ts|js)$/.test(path)) return path;
   if (path.endsWith(".svelte")) return `${path}.ts`;
   return void 0;
 }
-function isLocalStateSpecifier(spec) {
-  if (spec.startsWith("./") || spec.startsWith("../")) return true;
-  return spec.startsWith("$lib/") && !spec.startsWith("$lib/server/");
+function isLocalStateSpecifier(spec, importerFile) {
+  const path = resolveRepoLocalPath(spec, importerFile);
+  if (path === void 0) return false;
+  return !path.startsWith("src/lib/server/");
 }
 function parseKitModuleFacts(source2, filename2) {
   const suppressions = collectSuppressions(source2);
@@ -55476,7 +55481,7 @@ function parseKitModuleFacts(source2, filename2) {
       const method2 = n.callee.property?.type === "Identifier" ? n.callee.property.name : void 0;
       if (method2 === "set" || method2 === "update") {
         const r = importedRoot(n.callee.object);
-        if (r && isLocalStateSpecifier(importedSpecifiers.get(r))) write = { name: r, via: "set-call" };
+        if (r && isLocalStateSpecifier(importedSpecifiers.get(r), filename2)) write = { name: r, via: "set-call" };
       }
     } else if (n.type === "AssignmentExpression" && (n.left?.type === "ObjectPattern" || n.left?.type === "ArrayPattern")) {
       const scanPatternTargets = (pat) => {
