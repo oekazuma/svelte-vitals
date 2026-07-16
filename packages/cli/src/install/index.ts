@@ -400,12 +400,25 @@ export async function runInstall(
   // app picker (design doc 2026-07-08-monorepo-app-picker-design.md): cwd-is-an-app
   // short-circuits, a single detected app is used with a notice, several prompt on a
   // TTY, and non-interactive runs get told to pass --app.
-  const hasSvelteConfig = (dir: string): boolean => {
+  // A directory counts as a SvelteKit app if it has svelte.config.{js,ts}, OR a
+  // package.json declaring @sveltejs/kit — mirrors the analyzer's own detectProject
+  // (design §17). The package.json signal matters because current `sv create` output
+  // folds SvelteKit config into vite.config.ts and emits no separate svelte.config file.
+  const isSvelteKitApp = (dir: string): boolean => {
     try {
-      return (
+      if (
         io.readFile(join(dir, 'svelte.config.js')) !== undefined ||
         io.readFile(join(dir, 'svelte.config.ts')) !== undefined
-      );
+      ) {
+        return true;
+      }
+      const pkgRaw = io.readFile(join(dir, 'package.json'));
+      if (pkgRaw === undefined) return false;
+      const pkg = JSON.parse(pkgRaw) as {
+        dependencies?: Record<string, string>;
+        devDependencies?: Record<string, string>;
+      };
+      return Boolean(pkg.dependencies?.['@sveltejs/kit'] ?? pkg.devDependencies?.['@sveltejs/kit']);
     } catch {
       return false;
     }
@@ -415,12 +428,14 @@ export async function runInstall(
   if (needsApp) {
     if (flags.app) {
       const candidate = join(io.cwd, flags.app);
-      if (!hasSvelteConfig(candidate)) {
-        io.errorLog(`svelte-vitals: --app '${flags.app}' is not a SvelteKit app (no svelte.config.{js,ts} there).`);
+      if (!isSvelteKitApp(candidate)) {
+        io.errorLog(
+          `svelte-vitals: --app '${flags.app}' is not a SvelteKit app (no svelte.config.{js,ts} or @sveltejs/kit dependency there).`
+        );
         return 2;
       }
       appDir = candidate;
-    } else if (!hasSvelteConfig(io.cwd)) {
+    } else if (!isSvelteKitApp(io.cwd)) {
       const apps = await (io.discoverApps ?? discoverApps)(io.cwd);
       if (apps.length === 1) {
         io.errorLog(`svelte-vitals: detected SvelteKit app at ${apps[0]}; targeting it for the Vite/config targets.`);

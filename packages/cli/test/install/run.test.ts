@@ -884,6 +884,19 @@ describe('runInstall — monorepo app resolution (vite/config targets)', () => {
     expect(err.join('\n')).toContain("--app 'packages/lib' is not a SvelteKit app");
   });
 
+  it('--app targets an app with no svelte.config.{js,ts}, detected via @sveltejs/kit in package.json', async () => {
+    // current `sv create` output folds SvelteKit config into vite.config.ts and emits no
+    // separate svelte.config file — the --app validation must not depend on that file existing.
+    const { io, writes } = fakeIO({
+      files: {
+        '/proj/apps/mobile/package.json': JSON.stringify({ devDependencies: { '@sveltejs/kit': '^2.63.0' } })
+      }
+    });
+    const code = await runInstall({ client: ['config-file'], app: 'apps/mobile', yes: true }, io, noPrompts);
+    expect(code).toBe(0);
+    expect(writes['/proj/apps/mobile/svelte-vitals.config.mjs']).toBeDefined();
+  });
+
   it('root-scoped targets are unaffected: MCP config stays at cwd while the config file goes into the app', async () => {
     const { io, writes } = fakeIO({
       files: { '/proj/apps/web/svelte.config.js': 'x' },
