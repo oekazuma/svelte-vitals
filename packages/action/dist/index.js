@@ -55202,19 +55202,24 @@ function isBrowserGuardTest(test, guardBindings) {
   });
   return guarded;
 }
-function collectBrowserGlobalRefs(program, source2, extra) {
-  const out = [];
-  const bound = /* @__PURE__ */ new Set([...collectProgramBindings(program), ...extra?.bound ?? []]);
-  const guards = /* @__PURE__ */ new Set([...collectBrowserGuardImports(program), ...extra?.guards ?? []]);
+function collectDerivedGuardBindings(program, guards) {
+  const derived = /* @__PURE__ */ new Set();
   for (const stmt2 of program.body ?? []) {
     const decl = unwrapExport(stmt2);
     if (decl?.type !== "VariableDeclaration" || decl.kind !== "const" && decl.kind !== "let") continue;
     for (const d of decl.declarations ?? []) {
       if (d?.id?.type === "Identifier" && d.init && isBrowserGuardTest(d.init, guards)) {
-        guards.add(d.id.name);
+        derived.add(d.id.name);
       }
     }
   }
+  return derived;
+}
+function collectBrowserGlobalRefs(program, source2, extra) {
+  const out = [];
+  const bound = /* @__PURE__ */ new Set([...collectProgramBindings(program), ...extra?.bound ?? []]);
+  const guards = /* @__PURE__ */ new Set([...collectBrowserGuardImports(program), ...extra?.guards ?? []]);
+  for (const name of collectDerivedGuardBindings(program, guards)) guards.add(name);
   const visit = (n, shadowed) => {
     if (!n) return;
     if (Array.isArray(n)) {
@@ -55421,7 +55426,14 @@ function parseComponentFacts(source2, filename2) {
     for (const d of stateDecls) {
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
     }
-    const moduleExtra = moduleProgram ? { guards: collectBrowserGuardImports(moduleProgram), bound: collectProgramBindings(moduleProgram) } : void 0;
+    let moduleExtra;
+    if (moduleProgram) {
+      const moduleBrowserImports = collectBrowserGuardImports(moduleProgram);
+      moduleExtra = {
+        guards: /* @__PURE__ */ new Set([...moduleBrowserImports, ...collectDerivedGuardBindings(moduleProgram, moduleBrowserImports)]),
+        bound: collectProgramBindings(moduleProgram)
+      };
+    }
     for (const r of collectBrowserGlobalRefs(program, source2, moduleExtra)) {
       browserGlobalRefs.push({ ...r, context: "instance" });
     }
@@ -55717,7 +55729,8 @@ function parseKitModuleFacts(source2, filename2) {
   const svelteImports = collectSvelteLifecycleImports(program);
   if (!hasSsrFalseOptOut(program)) {
     const shiftLine = (l) => Math.max(0, l - 1);
-    const guards = collectBrowserGuardImports(program);
+    const browserImports = collectBrowserGuardImports(program);
+    const guards = /* @__PURE__ */ new Set([...browserImports, ...collectDerivedGuardBindings(program, browserImports)]);
     const bound = collectProgramBindings(program);
     for (const r of collectBrowserGlobalRefs(program, wrapped, { guards, bound })) {
       browserGlobalRefs.push({ name: r.name, line: shiftLine(r.line), inHandler: false });
