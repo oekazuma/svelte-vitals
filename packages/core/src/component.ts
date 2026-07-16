@@ -32,6 +32,18 @@ export interface OrphanEffectFact {
   className?: string;
 }
 
+/** A svelte lifecycle/context call guaranteed to run outside component initialisation — it throws `lifecycle_outside_component` at runtime (CORRECT007). */
+export interface OrphanLifecycleCallFact {
+  /** Canonical svelte export name (alias-resolved), e.g. 'onMount'. */
+  name: string;
+  /** 1-based source line, or 0 if unknown. For 'constructor-instantiated', the module-scope `new` site. */
+  line: number;
+  /** 'top-level' = runs at module evaluation; 'constructor-instantiated' = module-scope `new` of a same-file class whose constructor calls a tracked function. */
+  kind: 'top-level' | 'constructor-instantiated';
+  /** Class name when kind is 'constructor-instantiated' (used in the finding message). */
+  className?: string;
+}
+
 /** A flagged source position in a component (e.g. an `{@html}` tag or a `javascript:` URL). */
 export interface SourceSpan {
   /** 1-based source line, or 0 if unknown. */
@@ -72,6 +84,8 @@ export interface ComponentFacts {
   mutatedProps: { name: string; line: number }[];
   /** `$effect` calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (CORRECT006). */
   orphanEffects: OrphanEffectFact[];
+  /** Svelte lifecycle/context calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (CORRECT007). */
+  orphanLifecycleCalls: OrphanLifecycleCallFact[];
   /** Module-scope `$state` declarations in a `.svelte.ts`/`.svelte.js` runes module — on a server, one instance shared by every request (SEC005). Always empty for `.svelte` files. */
   moduleStateDecls: { name: string; line: number }[];
   /** Inline `svelte-vitals-disable-next-line` directives found in this file's source — component-rule escape hatch (issue #92). Optional: absent is equivalent to no directives, so existing external constructors of `ComponentFacts` are unaffected. */
