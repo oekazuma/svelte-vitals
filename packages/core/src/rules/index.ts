@@ -44,6 +44,7 @@ import { correct006OrphanEffect } from './correctness/correct006-orphan-effect.j
 import { sec001Html, sec002JavascriptUrl } from './security/sec001-002.js';
 import { sec003LoadStateWrite } from './security/sec003-load-state-write.js';
 import { sec004ServerModuleState } from './security/sec004-server-module-state.js';
+import { sec005SharedStateImport } from './security/sec005-shared-state-import.js';
 import { arch001ComponentSize, arch002PropCount } from './architecture/arch001-002.js';
 import { perf009HeavyImport } from './perf/perf009-heavy-import.js';
 import { perf010NamespaceImport } from './perf/perf010-namespace-import.js';
@@ -97,6 +98,7 @@ export const allRules: Rule[] = [
   sec002JavascriptUrl,
   sec003LoadStateWrite,
   sec004ServerModuleState,
+  sec005SharedStateImport,
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,
@@ -152,6 +154,7 @@ export {
   sec002JavascriptUrl,
   sec003LoadStateWrite,
   sec004ServerModuleState,
+  sec005SharedStateImport,
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,

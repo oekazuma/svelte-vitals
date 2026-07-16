@@ -101,6 +101,7 @@ export {
   sec002JavascriptUrl,
   sec003LoadStateWrite,
   sec004ServerModuleState,
+  sec005SharedStateImport,
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,
