@@ -7,7 +7,10 @@ import {
   rootObjectName,
   WALK_IGNORED_KEYS,
   collectSvelteLifecycleImports,
-  matchLifecycleCall
+  matchLifecycleCall,
+  collectBrowserGlobalRefs,
+  collectBrowserGuardImports,
+  collectProgramBindings
 } from './component-parse.js';
 import { lineOf } from './svelte-ast.js';
 import type { KitModuleFacts } from './kit-module.js';
@@ -175,6 +178,40 @@ function collectStartupFunctions(program: Node): Set<Node> {
 }
 
 /**
+ * Whether this file opts out of the server entirely via `export const ssr = false`
+ * (satisfies-unwrapped; same-file alias export `export { ssr }` resolved). Such a file
+ * never runs on the server, so browser globals in it are legal (CORRECT008).
+ */
+function hasSsrFalseOptOut(program: Node): boolean {
+  const isFalse = (init: Node): boolean => {
+    const v = unwrapTs(init);
+    return v?.type === 'Literal' && v.value === false;
+  };
+  for (const stmt of program.body ?? []) {
+    const decl = unwrapExport(stmt);
+    if (decl?.type !== 'VariableDeclaration') continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type === 'Identifier' && d.id.name === 'ssr' && d.init && isFalse(d.init)) {
+        if (stmt.type === 'ExportNamedDeclaration') return true;
+      }
+    }
+  }
+  // Alias export: `const ssr = false; export { ssr };`
+  const bindings = collectTopLevelBindings(program);
+  for (const stmt of program.body ?? []) {
+    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.specifiers || stmt.source || stmt.exportKind === 'type')
+      continue;
+    for (const s of stmt.specifiers) {
+      if (s?.exportKind === 'type' || s?.exported?.type !== 'Identifier' || s?.local?.type !== 'Identifier') continue;
+      if (s.exported.name !== 'ssr') continue;
+      const resolved = bindings.get(s.local.name);
+      if (resolved?.type === 'Literal' && resolved.value === false) return true;
+    }
+  }
+  return false;
+}
+
+/**
  * Walk the whole program threading (1) shadowed names (like component-parse's
  * `walkScoped`), (2) whether the CURRENT node sits inside any function body, (3)
  * whether that function chain includes a server handler, and (4) whether it
@@ -298,6 +335,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
   const importedStateWritesOutsideHandlers: KitModuleFacts['importedStateWritesOutsideHandlers'] = [];
   const runesModuleImports: KitModuleFacts['runesModuleImports'] = [];
   const lifecycleCalls: KitModuleFacts['lifecycleCalls'] = [];
+  const browserGlobalRefs: KitModuleFacts['browserGlobalRefs'] = [];
   if (!program) {
     return {
       moduleStateReassignments,
@@ -305,6 +343,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
       importedStateWritesOutsideHandlers,
       runesModuleImports,
       lifecycleCalls,
+      browserGlobalRefs,
       suppressions
     };
   }
@@ -339,6 +378,33 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
   const handlerFns = collectHandlerFunctions(program);
   const startupFns = collectStartupFunctions(program);
   const svelteImports = collectSvelteLifecycleImports(program);
+
+  // CORRECT008 — browser-global reads in server-executed positions. The scanner stops
+  // at function boundaries, so run it once over the program (top level) and once per
+  // handler/init body; closures nested inside handlers are deliberately not entered
+  // (they are typically client-side callbacks returned to components).
+  if (!hasSsrFalseOptOut(program)) {
+    // The scanner returns line numbers computed against `wrapped` — subtract the
+    // 1-line wrap prefix (the local `line()` helper takes a byte OFFSET, not a line,
+    // so it must not be used here).
+    const shiftLine = (l: number) => Math.max(0, l - 1);
+    const guards = collectBrowserGuardImports(program);
+    const bound = collectProgramBindings(program);
+    for (const r of collectBrowserGlobalRefs(program, wrapped, { guards, bound })) {
+      browserGlobalRefs.push({ name: r.name, line: shiftLine(r.line), inHandler: false });
+    }
+    const scanFn = (fn: Node, inHandler: boolean) => {
+      if (!fn?.body) return;
+      const params = new Set<string>();
+      for (const p of fn.params ?? []) addBoundNames(p, params);
+      for (const r of collectBrowserGlobalRefs(fn.body, wrapped, { guards, bound: new Set([...bound, ...params]) })) {
+        browserGlobalRefs.push({ name: r.name, line: shiftLine(r.line), inHandler });
+      }
+    };
+    for (const fn of handlerFns) scanFn(fn, true);
+    for (const fn of startupFns) scanFn(fn, false);
+  }
+
   walkKit(program, handlerFns, startupFns, (n, shadowed, inFunction, inHandler, inStartup) => {
     if (inFunction && !inStartup) {
       // SEC004 — module-scope let/var reassigned from inside a function body.
@@ -435,6 +501,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
     importedStateWritesOutsideHandlers: byLine(importedStateWritesOutsideHandlers),
     runesModuleImports: byLine(runesModuleImports),
     lifecycleCalls: byLine(lifecycleCalls),
+    browserGlobalRefs: byLine(browserGlobalRefs),
     suppressions
   };
 }

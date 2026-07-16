@@ -12,6 +12,7 @@ export function emptyKitModuleFacts(file: string, kind: KitModuleFacts['kind']):
     importedStateWritesOutsideHandlers: [],
     runesModuleImports: [],
     lifecycleCalls: [],
+    browserGlobalRefs: [],
     suppressions: []
   };
 }
