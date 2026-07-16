@@ -55020,52 +55020,103 @@ function walkEvalScope(node, visit) {
     walkEvalScope(node[key2], visit);
   }
 }
-function collectEvalScopeEffectLines(root, source2) {
-  const lines = [];
+function collectEvalScopeCalls(root, source2, matcher, skipSubtree) {
+  const out = [];
   walkEvalScope(root, (n) => {
     if (n.type !== "CallExpression") return void 0;
-    if (isEffectRootCall(n)) return true;
-    if (isEffectCall(n)) lines.push(lineOf(source2, n.start));
+    if (skipSubtree?.(n)) return true;
+    const name = matcher(n);
+    if (name) out.push({ name, line: lineOf(source2, n.start) });
     return void 0;
   });
-  return lines;
+  return out;
 }
 function unwrapExport(stmt2) {
   if (stmt2.type === "ExportNamedDeclaration") return stmt2.declaration ?? stmt2;
   if (stmt2.type === "ExportDefaultDeclaration") return stmt2.declaration;
   return stmt2;
 }
-function collectOrphanEffects(program, source2) {
-  const out = collectEvalScopeEffectLines(program, source2).map((line) => ({
-    line,
-    kind: "top-level"
-  }));
+function collectOrphanCalls(program, source2, matcher, skipSubtree) {
+  const out = collectEvalScopeCalls(program, source2, matcher, skipSubtree).map((c) => ({ ...c, kind: "top-level" }));
   const body = program.body ?? [];
-  const effectfulClasses = /* @__PURE__ */ new Set();
+  const matchingClasses = /* @__PURE__ */ new Map();
   for (const stmt2 of body) {
     const decl = unwrapExport(stmt2);
     if (decl?.type !== "ClassDeclaration" || decl.id?.type !== "Identifier") continue;
     const ctor = (decl.body?.body ?? []).find(
       (m) => m?.type === "MethodDefinition" && m.kind === "constructor" && m.value?.body
     );
-    if (ctor && collectEvalScopeEffectLines(ctor.value.body, source2).length > 0) {
-      effectfulClasses.add(decl.id.name);
-    }
+    if (!ctor) continue;
+    const calls = collectEvalScopeCalls(ctor.value.body, source2, matcher, skipSubtree);
+    if (calls.length > 0) matchingClasses.set(decl.id.name, calls[0].name);
   }
-  if (effectfulClasses.size > 0) {
+  if (matchingClasses.size > 0) {
     for (const stmt2 of body) {
       const decl = unwrapExport(stmt2);
       const isCandidate = decl?.type === "VariableDeclaration" || decl?.type === "ExpressionStatement" || stmt2.type === "ExportDefaultDeclaration" && decl?.type !== "FunctionDeclaration" && decl?.type !== "ClassDeclaration";
       if (!isCandidate) continue;
       walkEvalScope(decl, (n) => {
-        if (n.type === "NewExpression" && n.callee?.type === "Identifier" && effectfulClasses.has(n.callee.name)) {
-          out.push({ line: lineOf(source2, n.start), kind: "constructor-instantiated", className: n.callee.name });
+        if (n.type === "NewExpression" && n.callee?.type === "Identifier" && matchingClasses.has(n.callee.name)) {
+          out.push({
+            name: matchingClasses.get(n.callee.name),
+            line: lineOf(source2, n.start),
+            kind: "constructor-instantiated",
+            className: n.callee.name
+          });
         }
         return void 0;
       });
     }
   }
   return out.sort((a, b) => a.line - b.line);
+}
+function collectOrphanEffects(program, source2) {
+  return collectOrphanCalls(program, source2, (n) => isEffectCall(n) ? "$effect" : void 0, isEffectRootCall).map(
+    ({ line, kind, className }) => ({ line, kind, ...className !== void 0 ? { className } : {} })
+  );
+}
+var LIFECYCLE_NAMES = /* @__PURE__ */ new Set([
+  "onMount",
+  "onDestroy",
+  "beforeUpdate",
+  "afterUpdate",
+  "createEventDispatcher",
+  "getContext",
+  "setContext",
+  "hasContext",
+  "getAllContexts"
+]);
+function collectSvelteLifecycleImports(program) {
+  const locals = /* @__PURE__ */ new Map();
+  const namespaces = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ImportDeclaration" || stmt2.importKind === "type" || stmt2.source?.value !== "svelte") continue;
+    for (const s of stmt2.specifiers ?? []) {
+      if (s?.importKind === "type" || s?.local?.type !== "Identifier") continue;
+      if (s.type === "ImportSpecifier" && s.imported?.type === "Identifier" && LIFECYCLE_NAMES.has(s.imported.name)) {
+        locals.set(s.local.name, s.imported.name);
+      } else if (s.type === "ImportNamespaceSpecifier") {
+        namespaces.add(s.local.name);
+      }
+    }
+  }
+  return { locals, namespaces };
+}
+function matchLifecycleCall(n, imports2) {
+  const c = n?.callee;
+  if (c?.type === "Identifier") {
+    const canonical = imports2.locals.get(c.name);
+    return canonical ? { canonical, local: c.name } : void 0;
+  }
+  if (c?.type === "MemberExpression" && !c.computed && c.object?.type === "Identifier" && imports2.namespaces.has(c.object.name) && c.property?.type === "Identifier" && LIFECYCLE_NAMES.has(c.property.name)) {
+    return { canonical: c.property.name, local: c.object.name };
+  }
+  return void 0;
+}
+function collectOrphanLifecycleCalls(program, source2) {
+  const imports2 = collectSvelteLifecycleImports(program);
+  if (imports2.locals.size === 0 && imports2.namespaces.size === 0) return [];
+  return collectOrphanCalls(program, source2, (n) => matchLifecycleCall(n, imports2)?.canonical);
 }
 var MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
 function parseModuleProgram(source2, filename2) {
@@ -55115,6 +55166,7 @@ function parseModuleFacts(source2, filename2) {
   const { program, wrapped } = parseModuleProgram(source2, filename2);
   const shift = (line) => Math.max(0, line - 1);
   const orphanEffects = program ? collectOrphanEffects(program, wrapped).map((f) => ({ ...f, line: shift(f.line) })) : [];
+  const orphanLifecycleCalls = program ? collectOrphanLifecycleCalls(program, wrapped).map((f) => ({ ...f, line: shift(f.line) })) : [];
   const moduleStateDecls = program ? collectModuleStateDecls(program, wrapped).map((d) => ({ ...d, line: shift(d.line) })) : [];
   return {
     eachBlocks: [],
@@ -55130,6 +55182,7 @@ function parseModuleFacts(source2, filename2) {
     mutatedProps: [],
     suppressions: collectSuppressions(source2),
     orphanEffects,
+    orphanLifecycleCalls,
     moduleStateDecls
   };
 }
@@ -55150,6 +55203,7 @@ function parseComponentFacts(source2, filename2) {
     collectNamespaceImports(ast.module.content, source2, namespaceImports);
   }
   const orphanEffects = ast.module?.content ? collectOrphanEffects(ast.module.content, source2) : [];
+  const orphanLifecycleCalls = ast.module?.content ? collectOrphanLifecycleCalls(ast.module.content, source2) : [];
   const effects = [];
   const constableStates = [];
   const mutatedProps = [];
@@ -55208,6 +55262,7 @@ function parseComponentFacts(source2, filename2) {
     constableStates,
     mutatedProps,
     orphanEffects,
+    orphanLifecycleCalls,
     moduleStateDecls: [],
     suppressions
   };
@@ -55227,6 +55282,7 @@ function emptyComponentFacts(file) {
     constableStates: [],
     mutatedProps: [],
     orphanEffects: [],
+    orphanLifecycleCalls: [],
     moduleStateDecls: [],
     suppressions: []
   };
@@ -55414,12 +55470,14 @@ function parseKitModuleFacts(source2, filename2) {
   const importedStateWrites = [];
   const importedStateWritesOutsideHandlers = [];
   const runesModuleImports = [];
+  const lifecycleCalls = [];
   if (!program) {
     return {
       moduleStateReassignments,
       importedStateWrites,
       importedStateWritesOutsideHandlers,
       runesModuleImports,
+      lifecycleCalls,
       suppressions
     };
   }
@@ -55447,6 +55505,7 @@ function parseKitModuleFacts(source2, filename2) {
   }
   const handlerFns = collectHandlerFunctions(program);
   const startupFns = collectStartupFunctions(program);
+  const svelteImports = collectSvelteLifecycleImports(program);
   walkKit(program, handlerFns, startupFns, (n, shadowed, inFunction, inHandler, inStartup) => {
     if (inFunction && !inStartup) {
       const flagLet = (name) => {
@@ -55510,6 +55569,12 @@ function parseKitModuleFacts(source2, filename2) {
       if (inHandler) importedStateWrites.push({ ...write, line: line(n.start) });
       else importedStateWritesOutsideHandlers.push({ name: write.name, line: line(n.start) });
     }
+    if (n.type === "CallExpression" && (!inFunction || inHandler || inStartup)) {
+      const m = matchLifecycleCall(n, svelteImports);
+      if (m && !shadowed.has(m.local)) {
+        lifecycleCalls.push({ name: m.canonical, line: line(n.start), inHandler });
+      }
+    }
   });
   const byLine = (arr) => arr.sort((a, b) => a.line - b.line);
   return {
@@ -55517,6 +55582,7 @@ function parseKitModuleFacts(source2, filename2) {
     importedStateWrites: byLine(importedStateWrites),
     importedStateWritesOutsideHandlers: byLine(importedStateWritesOutsideHandlers),
     runesModuleImports: byLine(runesModuleImports),
+    lifecycleCalls: byLine(lifecycleCalls),
     suppressions
   };
 }
@@ -55528,6 +55594,7 @@ function emptyKitModuleFacts(file, kind) {
     importedStateWrites: [],
     importedStateWritesOutsideHandlers: [],
     runesModuleImports: [],
+    lifecycleCalls: [],
     suppressions: []
   };
 }
@@ -57051,6 +57118,84 @@ var correct006OrphanEffect = componentRule({
     message: o.kind === "top-level" ? "$effect at module scope runs outside component initialisation \u2014 it throws effect_orphan at runtime" : `class "${o.className}" runs $effect in its constructor and is instantiated at module scope \u2014 it throws effect_orphan at runtime`
   }))
 });
+var PENALIZED3 = { presence: "none", value: "absent" };
+var PASS3 = { presence: "own", value: "static" };
+var ID = "CORRECT007";
+var DOCS_URL = docsUrlFor(ID);
+var LABEL = "Lifecycle-call context";
+var RECOMMENDATION = "Call lifecycle/context functions during component initialisation (the top level of a component's <script>). In load, return the data and call setContext in a layout/page component; in shared modules, expose a setup function that components call during init.";
+var topLevelMessage = (name) => `${name}() runs at module evaluation, outside component initialisation \u2014 it throws lifecycle_outside_component at runtime`;
+function isSuppressed2(suppressions, line) {
+  return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID)));
+}
+function emitFile(out, file, issues, suppressions) {
+  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed2(suppressions, b.line)));
+  if (bad.length === 0) {
+    out.push({
+      id: ID,
+      category: "correctness",
+      severity: "critical",
+      detection: PASS3,
+      route: file,
+      message: LABEL,
+      recommendation: RECOMMENDATION,
+      docsUrl: DOCS_URL
+    });
+    return;
+  }
+  for (const b of bad) {
+    out.push({
+      id: ID,
+      category: "correctness",
+      severity: "critical",
+      detection: PENALIZED3,
+      route: file,
+      location: file,
+      ...b.line > 0 ? { line: b.line } : {},
+      message: b.message,
+      recommendation: RECOMMENDATION,
+      docsUrl: DOCS_URL
+    });
+  }
+}
+var correct007OrphanLifecycle = {
+  id: ID,
+  title: "Lifecycle call outside component initialisation",
+  category: "correctness",
+  severity: "critical",
+  scope: "component",
+  rationale: "Svelte lifecycle and context functions require an active component context; called at module scope, in a shared-state class constructor, or in a load/handler they throw lifecycle_outside_component at runtime \u2014 the compiler does not catch it, and it surfaces as a production crash.",
+  async check(ctx) {
+    const out = [];
+    for (const c of ctx.components ?? []) {
+      const calls = c.orphanLifecycleCalls ?? [];
+      if (calls.length === 0) continue;
+      emitFile(
+        out,
+        c.file,
+        calls.map((o) => ({
+          line: o.line,
+          message: o.kind === "top-level" ? topLevelMessage(o.name) : `class "${o.className}" calls ${o.name}() in its constructor and is instantiated at module scope \u2014 it throws lifecycle_outside_component at runtime`
+        })),
+        c.suppressions
+      );
+    }
+    for (const m of ctx.kitModules ?? []) {
+      const calls = m.lifecycleCalls ?? [];
+      if (calls.length === 0) continue;
+      emitFile(
+        out,
+        m.file,
+        calls.map((l) => ({
+          line: l.line,
+          message: l.inHandler ? `${l.name}() is called in a load/handler \u2014 it runs on every request, outside component initialisation, and throws lifecycle_outside_component at runtime` : topLevelMessage(l.name)
+        })),
+        m.suppressions
+      );
+    }
+    return out;
+  }
+};
 var sec001Html = componentRule({
   id: "SEC001",
   title: "Raw HTML render",
@@ -57071,9 +57216,9 @@ var sec002JavascriptUrl = componentRule({
   applies: (c) => c.javascriptUrls.length > 0,
   bad: (c) => c.javascriptUrls.map((u) => ({ line: u.line, message: "javascript: URL in an attribute" }))
 });
-var PENALIZED3 = { presence: "none", value: "absent" };
-var PASS3 = { presence: "own", value: "static" };
-function isSuppressed2(m, ruleId, line) {
+var PENALIZED4 = { presence: "none", value: "absent" };
+var PASS4 = { presence: "own", value: "static" };
+function isSuppressed3(m, ruleId, line) {
   return (m.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
 }
 function kitModuleRule(opts) {
@@ -57090,13 +57235,13 @@ function kitModuleRule(opts) {
       const out = [];
       for (const m of ctx.kitModules ?? []) {
         if (!opts.applies(m, ctx)) continue;
-        const bad = opts.bad(m, ctx).filter((b) => !(b.line > 0 && isSuppressed2(m, opts.id, b.line)));
+        const bad = opts.bad(m, ctx).filter((b) => !(b.line > 0 && isSuppressed3(m, opts.id, b.line)));
         if (bad.length === 0) {
           out.push({
             id: opts.id,
             category: opts.category,
             severity,
-            detection: PASS3,
+            detection: PASS4,
             route: m.file,
             message: opts.label,
             recommendation: opts.recommendation,
@@ -57109,7 +57254,7 @@ function kitModuleRule(opts) {
             id: opts.id,
             category: opts.category,
             severity,
-            detection: PENALIZED3,
+            detection: PENALIZED4,
             route: m.file,
             location: m.file,
             ...b.line > 0 ? { line: b.line } : {},
@@ -57299,6 +57444,7 @@ var allRules = [
   correct004UnmutatedState,
   correct005PropMutation,
   correct006OrphanEffect,
+  correct007OrphanLifecycle,
   sec001Html,
   sec002JavascriptUrl,
   sec003LoadStateWrite,
