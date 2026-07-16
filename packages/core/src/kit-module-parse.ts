@@ -307,11 +307,13 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
     }
   });
 
+  const byLine = <T extends { line: number }>(arr: T[]): T[] => arr.sort((a, b) => a.line - b.line);
+
   return {
-    moduleStateReassignments,
-    importedStateWrites,
-    importedStateWritesOutsideHandlers,
-    runesModuleImports,
+    moduleStateReassignments: byLine(moduleStateReassignments),
+    importedStateWrites: byLine(importedStateWrites),
+    importedStateWritesOutsideHandlers: byLine(importedStateWritesOutsideHandlers),
+    runesModuleImports: byLine(runesModuleImports),
     suppressions
   };
 }

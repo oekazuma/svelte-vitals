@@ -213,6 +213,16 @@ function, no I/O; `import type` and bare (package) specifiers excluded.
 - **Dynamic `import()`** is not tracked.
 - `.svelte` `<script module>` `$state` is not treated as a shared-state source
   for SEC005 (rare; revisit on demand).
+- **`var` shadowing an imported name is not tracked** — the shared shadow
+  helper covers params and block `let`/`const` only, so a `var state` local
+  shadowing an imported `state` can still be flagged; vanishingly rare in
+  modern code.
+- **An extensionless `….svelte` specifier canonicalises to `….svelte.ts`**, so
+  importing the _component_ `X.svelte` while a `$state`-holding `X.svelte.ts`
+  sibling exists can misattribute a SEC005 finding to the component import.
+- **Handler names are file-kind-agnostic** — `export function handle()` in a
+  route file would be treated as a handler; harmless since Kit rejects
+  unknown route-file exports at build time.
 
 ## Docs & changeset
 
