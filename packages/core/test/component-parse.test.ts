@@ -716,4 +716,24 @@ describe('parseComponentFacts — orphan lifecycle calls (CORRECT007)', () => {
     expect(f.orphanEffects).toEqual([{ line: 1, kind: 'top-level' }]);
     expect(f.orphanLifecycleCalls).toEqual([]);
   });
+  it('does not flag a constructor parameter shadowing an imported lifecycle name', () => {
+    const src = [
+      "import { setContext } from 'svelte';",
+      'class Store {',
+      '  constructor(setContext) {',
+      "    setContext('k', 1);",
+      '  }',
+      '}',
+      'export const s = new Store((k, v) => {});'
+    ].join('\n');
+    expect(calls(src)).toEqual([]);
+  });
+  it('does not flag a top-level block-local shadowing an imported lifecycle name', () => {
+    const src = "import { onMount } from 'svelte';\n{\n  const onMount = (f) => f;\n  onMount(() => {});\n}";
+    expect(calls(src)).toEqual([]);
+  });
+  it('does not track computed namespace member calls or type-only specifiers', () => {
+    expect(calls("import * as s from 'svelte';\ns['setContext']('k', 1);")).toEqual([]);
+    expect(calls("import { type onMount, tick } from 'svelte';\ntick();")).toEqual([]);
+  });
 });
