@@ -1,0 +1,22 @@
+import type { SuppressionDirective } from './component.js';
+
+/**
+ * Facts parsed from one SvelteKit route/hooks file for the SSR shared-state rules
+ * (SEC003–005). Collected by `collectKitModuleFacts` (static/CLI + vite build mode).
+ */
+export interface KitModuleFacts {
+  /** Repo-relative source file. */
+  file: string;
+  /** 'server' = runs only on the server (+*.server, +server, hooks.server); 'universal' = +page.ts/+layout.ts (still runs on the server during SSR). */
+  kind: 'server' | 'universal';
+  /** Module-scope let/var reassigned from inside a function (SEC004). */
+  moduleStateReassignments: { name: string; line: number; inHandler: boolean }[];
+  /** Writes to an imported binding from inside an exported handler (SEC003). */
+  importedStateWrites: { name: string; line: number; via: 'assignment' | 'set-call' }[];
+  /** Writes to an imported binding outside handlers — top level or helper functions (SEC005's write flavour). */
+  importedStateWritesOutsideHandlers: { name: string; line: number }[];
+  /** Value imports whose specifier resolves to a repo-local `.svelte.ts`/`.svelte.js` runes module (SEC005). */
+  runesModuleImports: { source: string; resolved: string; names: string[]; line: number }[];
+  /** Inline `svelte-vitals-disable-next-line` directives in this file. */
+  suppressions: SuppressionDirective[];
+}
