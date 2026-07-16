@@ -55289,9 +55289,10 @@ function addActionsMembers(obj, handlers) {
 }
 function resolveAliasHandlerExports(program, bindings, handlers) {
   for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source) continue;
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source || stmt2.exportKind === "type")
+      continue;
     for (const s of stmt2.specifiers) {
-      if (s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
+      if (s?.exportKind === "type" || s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
       const exportedName = s.exported.name;
       const resolved = bindings.get(s.local.name);
       if (HANDLER_NAMES.has(exportedName) && isFunctionNode(resolved)) {
@@ -55304,9 +55305,10 @@ function resolveAliasHandlerExports(program, bindings, handlers) {
 }
 function resolveAliasStartupExports(program, bindings, startup) {
   for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source) continue;
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source || stmt2.exportKind === "type")
+      continue;
     for (const s of stmt2.specifiers) {
-      if (s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
+      if (s?.exportKind === "type" || s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
       if (s.exported.name !== "init") continue;
       const resolved = bindings.get(s.local.name);
       if (isFunctionNode(resolved)) startup.add(resolved);
