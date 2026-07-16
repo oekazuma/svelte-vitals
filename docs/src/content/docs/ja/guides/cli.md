@@ -212,7 +212,7 @@ svelte-vitals --weights seo=2,performance=1
 
 ### 特定の指摘だけをインラインで抑制する
 
-`--ignore` はプロジェクト全体でルールを無効にしますが、意図的な1箇所だけを黙らせたい場合は、対象行の直前に `svelte-vitals-disable-next-line` コメントを書きます。コンポーネントスコープの全ルール（Correctness、Security、Architecture、Performance）に対応: CORRECT001–006、SEC001–005、ARCH001–002、PERF009–010。
+`--ignore` はプロジェクト全体でルールを無効にしますが、意図的な1箇所だけを黙らせたい場合は、対象行の直前に `svelte-vitals-disable-next-line` コメントを書きます。コンポーネントスコープの全ルール（Correctness、Security、Architecture、Performance）に対応: CORRECT001–007、SEC001–005、ARCH001–002、PERF009–010。
 
 ```svelte
 <script>
