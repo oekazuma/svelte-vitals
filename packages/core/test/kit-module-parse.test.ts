@@ -68,6 +68,22 @@ describe('parseKitModuleFacts — module-scope reassignments (SEC004)', () => {
       'let db;\nexport async function init() {\n  db = await connect();\n}\nexport const handle = async ({ event, resolve }) => resolve(event);';
     expect(facts(src, 'src/hooks.server.ts').moduleStateReassignments).toEqual([]);
   });
+  it('resolves separate-statement alias exports to handlers', () => {
+    const src = 'let user;\nconst load = async () => {\n  user = 1;\n};\nexport { load };';
+    expect(facts(src).moduleStateReassignments).toEqual([{ name: 'user', line: 3, inHandler: true }]);
+  });
+  it('resolves an alias-exported actions object', () => {
+    const src = 'let user;\nconst actions = {\n  default: async () => {\n    user = 1;\n  }\n};\nexport { actions };';
+    expect(facts(src).moduleStateReassignments).toEqual([{ name: 'user', line: 4, inHandler: true }]);
+  });
+  it('applies the init exemption to an alias-exported init hook', () => {
+    const src = 'let db;\nasync function init() {\n  db = 1;\n}\nexport { init };';
+    expect(facts(src, 'src/hooks.server.ts').moduleStateReassignments).toEqual([]);
+  });
+  it('leaves cross-file re-exports unresolved (conservative)', () => {
+    const src = "let n;\nexport { load } from './shared.js';\nfunction helper() {\n  n = 1;\n}";
+    expect(facts(src).moduleStateReassignments).toEqual([{ name: 'n', line: 4, inHandler: false }]);
+  });
 });
 
 describe('parseKitModuleFacts — imported-state writes (SEC003/SEC005)', () => {
@@ -154,6 +170,13 @@ describe('parseKitModuleFacts — imported-state writes (SEC003/SEC005)', () => 
   it('still flags .set on a repo-local $lib store (the docs NEVER example)', () => {
     const src = "import { user } from '$lib/user';\nexport function load() {\n  user.set({});\n}";
     expect(facts(src).importedStateWrites).toEqual([{ name: 'user', line: 3, via: 'set-call' }]);
+  });
+  it('resolves renamed alias exports (export { handler as GET })', () => {
+    const src =
+      "import { state } from './shared.js';\nfunction handler() {\n  state.user = 1;\n}\nexport { handler as GET };";
+    expect(facts(src, 'src/routes/api/+server.ts').importedStateWrites).toEqual([
+      { name: 'state', line: 3, via: 'assignment' }
+    ]);
   });
 });
 

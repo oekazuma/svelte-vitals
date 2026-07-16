@@ -119,6 +119,14 @@ expressions, unwrapping `satisfies`/TS type assertions):
 - `+server` HTTP method exports: `GET`/`POST`/`PUT`/`PATCH`/`DELETE`/`HEAD`/`OPTIONS`/`fallback`
 - `hooks.server`: `handle`, `handleFetch`, `handleError`
 
+Same-file separate-statement alias exports are resolved to the same
+classification as the inline forms above: `const load = …; export { load };`,
+`function handler() {…} export { handler as GET };`, and an alias-exported
+`export { actions };` all count, as does `export { init };` for the startup
+hook (§4 below). Cross-file re-exports (`export { load } from './other.js';`)
+are **not** resolved — conservative, matching this design's direct-analysis
+scope (no cross-file resolution).
+
 ### 4. Detection
 
 **SEC003 — `Load writes imported state` (critical).** Inside handler bodies
