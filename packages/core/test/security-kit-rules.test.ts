@@ -87,6 +87,7 @@ const stateModule = (file: string): ComponentFacts => ({
   mutatedProps: [],
   orphanEffects: [],
   orphanLifecycleCalls: [],
+  browserGlobalRefs: [],
   moduleStateDecls: [{ name: 'user', line: 1 }],
   suppressions: []
 });

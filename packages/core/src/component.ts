@@ -44,6 +44,16 @@ export interface OrphanLifecycleCallFact {
   className?: string;
 }
 
+/** A browser-only global read in code that runs on the server — SSR crashes with "<name> is not defined" (CORRECT008/009). */
+export interface BrowserGlobalRefFact {
+  /** The global's name, e.g. 'window'. */
+  name: string;
+  /** 1-based source line, or 0 if unknown. */
+  line: number;
+  /** 'module' = module evaluation (script module / runes module — CORRECT008); 'instance' = component-init top level (runs on the server during SSR — CORRECT009). */
+  context: 'module' | 'instance';
+}
+
 /** A flagged source position in a component (e.g. an `{@html}` tag or a `javascript:` URL). */
 export interface SourceSpan {
   /** 1-based source line, or 0 if unknown. */
@@ -86,6 +96,8 @@ export interface ComponentFacts {
   orphanEffects: OrphanEffectFact[];
   /** Svelte lifecycle/context calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (CORRECT007). */
   orphanLifecycleCalls: OrphanLifecycleCallFact[];
+  /** Browser-global reads in server-executed positions of this file (CORRECT008/009). */
+  browserGlobalRefs: BrowserGlobalRefFact[];
   /** Module-scope `$state` declarations in a `.svelte.ts`/`.svelte.js` runes module — on a server, one instance shared by every request (SEC005). Always empty for `.svelte` files. */
   moduleStateDecls: { name: string; line: number }[];
   /** Inline `svelte-vitals-disable-next-line` directives found in this file's source — component-rule escape hatch (issue #92). Optional: absent is equivalent to no directives, so existing external constructors of `ComponentFacts` are unaffected. */

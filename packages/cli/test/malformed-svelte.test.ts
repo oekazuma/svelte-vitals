@@ -50,6 +50,7 @@ describe('collectComponentFacts: malformed .svelte files (component path)', () =
       mutatedProps: [],
       orphanEffects: [],
       orphanLifecycleCalls: [],
+      browserGlobalRefs: [],
       moduleStateDecls: [],
       suppressions: []
     });
@@ -111,6 +112,7 @@ describe('collectComponentFacts: malformed .svelte files (component path)', () =
       mutatedProps: [],
       orphanEffects: [],
       orphanLifecycleCalls: [],
+      browserGlobalRefs: [],
       moduleStateDecls: [],
       suppressions: []
     });
