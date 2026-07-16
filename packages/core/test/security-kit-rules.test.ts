@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { sec003LoadStateWrite, sec004ServerModuleState } from '../src/index.js';
+import { sec003LoadStateWrite, sec004ServerModuleState, sec005SharedStateImport } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
+import type { ComponentFacts } from '../src/component.js';
 import type { KitModuleFacts } from '../src/kit-module.js';
 import type { RuleContext } from '../src/rule.js';
 import type { Result } from '../src/types.js';
@@ -67,5 +68,77 @@ describe('SEC004 server module-scope state', () => {
       ctx([kit({ moduleStateReassignments: [{ name: 'last', line: 3, inHandler: false }] })])
     );
     expect(fails(rs)[0]!.message).toContain('from a function');
+  });
+});
+
+const stateModule = (file: string): ComponentFacts => ({
+  file,
+  eachBlocks: [],
+  effects: [],
+  htmlTags: [],
+  javascriptUrls: [],
+  loc: 0,
+  propCount: 0,
+  imports: [],
+  importSpans: [],
+  namespaceImports: [],
+  constableStates: [],
+  mutatedProps: [],
+  orphanEffects: [],
+  moduleStateDecls: [{ name: 'user', line: 1 }],
+  suppressions: []
+});
+
+describe('SEC005 shared runes-state import on the server', () => {
+  const imp = { source: '$lib/quiz.svelte.js', resolved: 'src/lib/quiz.svelte.js', names: ['quizState'], line: 1 };
+
+  it('flags a read-only import of a module-scope $state module (stale/boot-time message)', async () => {
+    const rs = await sec005SharedStateImport.check(
+      ctx([kit({ runesModuleImports: [imp] })], { components: [stateModule('src/lib/quiz.svelte.js')] })
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.severity).toBe('warning');
+    expect(rs[0]!.line).toBe(1);
+    expect(rs[0]!.message).toContain('boot-time');
+  });
+  it('uses the mutation message when the binding is written outside handlers', async () => {
+    const rs = await sec005SharedStateImport.check(
+      ctx(
+        [
+          kit({
+            runesModuleImports: [imp],
+            importedStateWritesOutsideHandlers: [{ name: 'quizState', line: 5 }]
+          })
+        ],
+        { components: [stateModule('src/lib/quiz.svelte.js')] }
+      )
+    );
+    expect(fails(rs)[0]!.message).toContain('mutates');
+  });
+  it('matches the .svelte.ts sibling of a .js-resolved import', async () => {
+    const rs = await sec005SharedStateImport.check(
+      ctx([kit({ runesModuleImports: [imp] })], { components: [stateModule('src/lib/quiz.svelte.ts')] })
+    );
+    expect(fails(rs)).toHaveLength(1);
+  });
+  it('does not double-report a binding already flagged by SEC003, and skips non-state modules', async () => {
+    const covered = await sec005SharedStateImport.check(
+      ctx(
+        [
+          kit({
+            runesModuleImports: [imp],
+            importedStateWrites: [{ name: 'quizState', line: 5, via: 'set-call' }]
+          })
+        ],
+        { components: [stateModule('src/lib/quiz.svelte.js')] }
+      )
+    );
+    expect(fails(covered)).toHaveLength(0);
+    const noState = await sec005SharedStateImport.check(
+      ctx([kit({ runesModuleImports: [imp] })], {
+        components: [{ ...stateModule('src/lib/quiz.svelte.js'), moduleStateDecls: [] }]
+      })
+    );
+    expect(fails(noState)).toHaveLength(0);
   });
 });
