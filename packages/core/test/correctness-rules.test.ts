@@ -33,6 +33,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   mutatedProps: [],
   orphanEffects: [],
   orphanLifecycleCalls: [],
+  browserGlobalRefs: [],
   moduleStateDecls: [],
   suppressions: [],
   ...over

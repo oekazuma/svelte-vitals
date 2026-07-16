@@ -737,3 +737,90 @@ describe('parseComponentFacts — orphan lifecycle calls (CORRECT007)', () => {
     expect(calls("import { type onMount, tick } from 'svelte';\ntick();")).toEqual([]);
   });
 });
+
+describe('parseComponentFacts — browser-global refs (CORRECT008/009)', () => {
+  const refs = (src: string, file = 'src/lib/store.svelte.ts') => parseComponentFacts(src, file).browserGlobalRefs;
+
+  it('flags bare and member-object reads at module scope', () => {
+    const src = 'const w = window.innerWidth;\nlocalStorage.setItem("k", "v");\ndocument.title = "x";';
+    expect(refs(src)).toEqual([
+      { name: 'window', line: 1, context: 'module' },
+      { name: 'localStorage', line: 2, context: 'module' },
+      { name: 'document', line: 3, context: 'module' }
+    ]);
+  });
+  it('does not flag typeof operands, property keys, or member property names', () => {
+    const src =
+      'const ok = typeof window;\nconst o = { window: 1, document: 2 };\nconst x = o.window;\napi.localStorage.get();';
+    expect(refs(src)).toEqual([]);
+  });
+  it('does not flag names imported or declared at top level', () => {
+    const src =
+      "import { window } from 'happy-dom';\nconst document = makeDoc();\nwindow.open();\ndocument.write('x');";
+    expect(refs(src)).toEqual([]);
+  });
+  it('skips browser-guarded clauses entirely (if / ternary / logical, alias included)', () => {
+    const src = [
+      "import { browser as isBrowser } from '$app/environment';",
+      'if (isBrowser) {',
+      '  window.scrollTo(0, 0);',
+      '} else {',
+      '  document.title;',
+      '}',
+      'const w = isBrowser ? window.innerWidth : 0;',
+      'isBrowser && localStorage.clear();'
+    ].join('\n');
+    expect(refs(src)).toEqual([]);
+  });
+  it('skips typeof-guarded clauses', () => {
+    const src =
+      "if (typeof window !== 'undefined') {\n  window.addEventListener('x', f);\n}\nconst s = typeof localStorage === 'undefined' ? null : localStorage.getItem('k');";
+    expect(refs(src)).toEqual([]);
+  });
+  it('does not flag reads inside functions, onMount, or $effect', () => {
+    const src = [
+      "import { onMount } from 'svelte';",
+      'export function width() {',
+      '  return window.innerWidth;',
+      '}',
+      'onMount(() => document.title);',
+      '$effect(() => {',
+      '  localStorage.setItem("a", "b");',
+      '});'
+    ].join('\n');
+    expect(refs(src)).toEqual([]);
+  });
+  it('splits module vs instance contexts in .svelte files', () => {
+    const src = [
+      '<script module>',
+      'const w = window.innerWidth;',
+      '</script>',
+      '<script>',
+      "  const stored = localStorage.getItem('k');",
+      '</script>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').browserGlobalRefs).toEqual([
+      { name: 'window', line: 2, context: 'module' },
+      { name: 'localStorage', line: 5, context: 'instance' }
+    ]);
+  });
+  it("shares the module script's guard and bindings with the instance scan", () => {
+    const src = [
+      '<script module>',
+      "import { browser } from '$app/environment';",
+      'const document = makeDoc();',
+      '</script>',
+      '<script>',
+      '  if (browser) {',
+      '    window.scrollTo(0, 0);',
+      '  }',
+      "  document.write('x');",
+      '</script>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').browserGlobalRefs).toEqual([]);
+  });
+  it('does not flag a shadowed name in a top-level block', () => {
+    const src = '{\n  const window = fake();\n  window.open();\n}';
+    expect(refs(src)).toEqual([]);
+  });
+});

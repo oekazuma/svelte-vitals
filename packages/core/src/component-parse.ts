@@ -1,5 +1,6 @@
 import { parse } from 'svelte/compiler';
 import type {
+  BrowserGlobalRefFact,
   ComponentFacts,
   EachBlockFact,
   EffectFact,
@@ -818,6 +819,177 @@ function collectOrphanLifecycleCalls(program: Node, source: string): OrphanLifec
   });
 }
 
+/** Browser-only globals worth flagging in server-executed code (CORRECT008/009) — curated high-signal names absent from Node; NOT the full `globals.browser` list, which would false-positive on generic identifiers without scope analysis. */
+export const BROWSER_GLOBALS = new Set([
+  'window',
+  'document',
+  'localStorage',
+  'sessionStorage',
+  'navigator',
+  'location',
+  'history',
+  'screen',
+  'matchMedia',
+  'requestAnimationFrame',
+  'cancelAnimationFrame',
+  'IntersectionObserver',
+  'ResizeObserver',
+  'MutationObserver',
+  'alert',
+  'confirm',
+  'prompt'
+]);
+
+/**
+ * Local names of `browser` value-imported from '$app/environment' (alias-resolved) —
+ * the guard binding recognised by the browser-global scanner (CORRECT008/009).
+ * Shared with the Kit-module parser.
+ */
+export function collectBrowserGuardImports(program: Node): Set<string> {
+  const out = new Set<string>();
+  for (const stmt of program.body ?? []) {
+    if (stmt?.type !== 'ImportDeclaration' || stmt.importKind === 'type' || stmt.source?.value !== '$app/environment')
+      continue;
+    for (const s of stmt.specifiers ?? []) {
+      if (s?.importKind === 'type' || s?.local?.type !== 'Identifier') continue;
+      if (s.type === 'ImportSpecifier' && s.imported?.type === 'Identifier' && s.imported.name === 'browser') {
+        out.add(s.local.name);
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * Names bound at the program's top level: every import's local name plus every
+ * export-unwrapped declaration name. A tracked global with such a binding is a real
+ * binding, not a global read (`const document = …`, `import { window } from …`) —
+ * disqualified program-wide by the browser-global scanner (CORRECT008/009).
+ * Shared with the Kit-module parser.
+ */
+export function collectProgramBindings(program: Node): Set<string> {
+  const bound = new Set<string>();
+  for (const stmt of program.body ?? []) {
+    if (stmt?.type === 'ImportDeclaration') {
+      for (const s of stmt.specifiers ?? []) if (s?.local?.type === 'Identifier') bound.add(s.local.name);
+      continue;
+    }
+    const decl = unwrapExport(stmt);
+    if (decl?.type === 'VariableDeclaration') {
+      for (const d of decl.declarations ?? []) addBoundNames(d?.id, bound);
+    } else if (
+      (decl?.type === 'FunctionDeclaration' || decl?.type === 'ClassDeclaration') &&
+      decl.id?.type === 'Identifier'
+    ) {
+      bound.add(decl.id.name);
+    }
+  }
+  return bound;
+}
+
+/**
+ * Whether a guard-clause test establishes a browser environment: it references the
+ * `$app/environment` `browser` binding, or contains a
+ * `typeof <tracked-global> === | !== 'undefined'` comparison (CORRECT008/009).
+ * Over-matching here only widens the skip — a conservative miss, never a false positive.
+ */
+function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
+  let guarded = false;
+  walkEstree(test, (n) => {
+    if (n.type === 'Identifier' && guardBindings.has(n.name)) guarded = true;
+    if (n.type === 'BinaryExpression' && ['===', '!==', '==', '!='].includes(n.operator)) {
+      const sides = [n.left, n.right];
+      const hasTypeofGlobal = sides.some(
+        (s: Node) =>
+          s?.type === 'UnaryExpression' &&
+          s.operator === 'typeof' &&
+          s.argument?.type === 'Identifier' &&
+          BROWSER_GLOBALS.has(s.argument.name)
+      );
+      const hasUndefinedString = sides.some((s: Node) => s?.type === 'Literal' && s.value === 'undefined');
+      if (hasTypeofGlobal && hasUndefinedString) guarded = true;
+    }
+  });
+  return guarded;
+}
+
+/**
+ * Browser-global reads in code that executes when `program` (or a passed function body)
+ * is evaluated (CORRECT008/009). Position-aware — only read positions match: never a
+ * non-computed member property or object key, a declaration id, an import/export
+ * specifier, a label, or a bare `typeof` operand (that idiom never throws). Stops at
+ * eval-scope boundaries (function/class bodies), threads the shadow set, disqualifies
+ * names bound at the program's top level (`extra.bound` adds more, e.g. the other
+ * script's bindings or a handler's parameters), and skips guard clauses ENTIRELY —
+ * if/ternary/logical whose test passes `isBrowserGuardTest` — including their else
+ * branches (a documented conservative miss). `extra.guards` adds guard bindings beyond
+ * this program's own `$app/environment` import.
+ */
+export function collectBrowserGlobalRefs(
+  program: Node,
+  source: string,
+  extra?: { guards?: Set<string>; bound?: Set<string> }
+): { name: string; line: number }[] {
+  const out: { name: string; line: number }[] = [];
+  const bound = new Set([...collectProgramBindings(program), ...(extra?.bound ?? [])]);
+  const guards = new Set([...collectBrowserGuardImports(program), ...(extra?.guards ?? [])]);
+
+  const visit = (n: Node, shadowed: Set<string>): void => {
+    if (!n) return;
+    if (Array.isArray(n)) {
+      for (const c of n) visit(c, shadowed);
+      return;
+    }
+    if (typeof n !== 'object' || typeof n.type !== 'string') return;
+    if (EVAL_SCOPE_BOUNDARIES.has(n.type)) return;
+
+    if ((n.type === 'IfStatement' || n.type === 'ConditionalExpression') && isBrowserGuardTest(n.test, guards)) return;
+    if (n.type === 'LogicalExpression' && isBrowserGuardTest(n.left, guards)) return;
+
+    const introduced = scopeIntroducedNames(n);
+    const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
+
+    switch (n.type) {
+      case 'Identifier':
+        if (BROWSER_GLOBALS.has(n.name) && !bound.has(n.name) && !scope.has(n.name)) {
+          out.push({ name: n.name, line: lineOf(source, n.start) });
+        }
+        return;
+      case 'UnaryExpression':
+        if (n.operator === 'typeof' && n.argument?.type === 'Identifier') return; // guard idiom — never throws
+        break;
+      case 'MemberExpression':
+        visit(n.object, scope);
+        if (n.computed) visit(n.property, scope);
+        return;
+      case 'Property':
+        if (n.computed) visit(n.key, scope);
+        visit(n.value, scope);
+        return;
+      case 'VariableDeclarator':
+        visit(n.init, scope); // the id is a binding target, not a read
+        return;
+      case 'LabeledStatement':
+        visit(n.body, scope);
+        return;
+      case 'BreakStatement':
+      case 'ContinueStatement':
+      case 'ImportDeclaration':
+      case 'ExportAllDeclaration':
+        return;
+      case 'ExportNamedDeclaration':
+        if (!n.declaration) return; // bare specifiers aren't reads
+        break;
+    }
+    for (const key of Object.keys(n)) {
+      if (WALK_IGNORED_KEYS.has(key)) continue;
+      visit(n[key], scope);
+    }
+  };
+  visit(program, new Set());
+  return out;
+}
+
 /** A Svelte runes module file — the whole file is one module-scope program (CORRECT006). */
 const MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
 
@@ -889,11 +1061,11 @@ function collectModuleStateDecls(program: Node, source: string): { name: string;
 }
 
 /**
- * Facts for a `.svelte.ts`/`.svelte.js` runes module (CORRECT006/007). The whole file runs
- * at import time, so only `orphanEffects`, `orphanLifecycleCalls`, `moduleStateDecls`, and
- * `suppressions` are populated — component-only facts stay empty and `loc` is 0 so
- * ARCH001/PERF009 don't fire on module files. Uses `parseModuleProgram` to get the ESTree
- * program from the wrapped source; the 1-line wrap prefix is subtracted from every
+ * Facts for a `.svelte.ts`/`.svelte.js` runes module (CORRECT006/007/008). The whole file runs
+ * at import time, so only `orphanEffects`, `orphanLifecycleCalls`, `browserGlobalRefs`,
+ * `moduleStateDecls`, and `suppressions` are populated — component-only facts stay empty and
+ * `loc` is 0 so ARCH001/PERF009 don't fire on module files. Uses `parseModuleProgram` to get
+ * the ESTree program from the wrapped source; the 1-line wrap prefix is subtracted from every
  * reported line.
  */
 function parseModuleFacts(source: string, filename: string): ParsedFacts {
@@ -904,6 +1076,9 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     : [];
   const orphanLifecycleCalls = program
     ? collectOrphanLifecycleCalls(program, wrapped).map((f) => ({ ...f, line: shift(f.line) }))
+    : [];
+  const browserGlobalRefs: BrowserGlobalRefFact[] = program
+    ? collectBrowserGlobalRefs(program, wrapped).map((r) => ({ ...r, line: shift(r.line), context: 'module' as const }))
     : [];
   const moduleStateDecls = program
     ? collectModuleStateDecls(program, wrapped).map((d) => ({ ...d, line: shift(d.line) }))
@@ -923,6 +1098,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     suppressions: collectSuppressions(source),
     orphanEffects,
     orphanLifecycleCalls,
+    browserGlobalRefs,
     moduleStateDecls
   };
 }
@@ -945,16 +1121,23 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   const suppressions = collectSuppressions(source);
 
   // Imports live in either the instance (<script>) or module (<script module>) program.
+  const moduleProgram = ast.module?.content;
   const importSpans: { source: string; line: number }[] = [];
   const namespaceImports: { source: string; line: number }[] = [];
-  if (ast.module?.content) {
-    collectImportSources(ast.module.content, source, importSpans);
-    collectNamespaceImports(ast.module.content, source, namespaceImports);
+  if (moduleProgram) {
+    collectImportSources(moduleProgram, source, importSpans);
+    collectNamespaceImports(moduleProgram, source, namespaceImports);
   }
-  const orphanEffects: OrphanEffectFact[] = ast.module?.content ? collectOrphanEffects(ast.module.content, source) : [];
-  const orphanLifecycleCalls: OrphanLifecycleCallFact[] = ast.module?.content
-    ? collectOrphanLifecycleCalls(ast.module.content, source)
+  const orphanEffects: OrphanEffectFact[] = moduleProgram ? collectOrphanEffects(moduleProgram, source) : [];
+  const orphanLifecycleCalls: OrphanLifecycleCallFact[] = moduleProgram
+    ? collectOrphanLifecycleCalls(moduleProgram, source)
     : [];
+  const browserGlobalRefs: BrowserGlobalRefFact[] = [];
+  if (moduleProgram) {
+    for (const r of collectBrowserGlobalRefs(moduleProgram, source)) {
+      browserGlobalRefs.push({ ...r, context: 'module' });
+    }
+  }
 
   const effects: EffectFact[] = [];
   const constableStates: { name: string; line: number }[] = [];
@@ -999,6 +1182,14 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     for (const d of stateDecls) {
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
     }
+    // Instance top level runs on the server during SSR (CORRECT009). The module
+    // script's guard binding and top-level bindings are visible here — pass them in.
+    const moduleExtra = moduleProgram
+      ? { guards: collectBrowserGuardImports(moduleProgram), bound: collectProgramBindings(moduleProgram) }
+      : undefined;
+    for (const r of collectBrowserGlobalRefs(program, source, moduleExtra)) {
+      browserGlobalRefs.push({ ...r, context: 'instance' });
+    }
   }
   const imports = importSpans.map((s) => s.source);
   return {
@@ -1015,6 +1206,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     mutatedProps,
     orphanEffects,
     orphanLifecycleCalls,
+    browserGlobalRefs,
     moduleStateDecls: [],
     suppressions
   };

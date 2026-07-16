@@ -44,6 +44,7 @@ describe('emptyComponentFacts', () => {
       mutatedProps: [],
       orphanEffects: [],
       orphanLifecycleCalls: [],
+      browserGlobalRefs: [],
       moduleStateDecls: [],
       suppressions: []
     });

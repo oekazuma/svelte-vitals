@@ -24,6 +24,7 @@ export function emptyComponentFacts(file: string): ComponentFacts {
     mutatedProps: [],
     orphanEffects: [],
     orphanLifecycleCalls: [],
+    browserGlobalRefs: [],
     moduleStateDecls: [],
     suppressions: []
   };
