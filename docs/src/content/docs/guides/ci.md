@@ -113,6 +113,50 @@ A few things worth knowing before you see the real thing:
 There's no `reporter` input — the action always produces annotations, the job summary, and the
 sticky comment together in one pass; that fan-out isn't something you configure separately.
 
+The inputs above are **not** the whole configuration surface: the action runs the same analysis
+as the CLI, so it automatically picks up your committed
+[`svelte-vitals.config.*`](/svelte-vitals/guides/configuration/) and
+[`svelte-vitals-suppressions.json`](/svelte-vitals/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
+— see the next section.
+
+## Excluding routes or rules
+
+A common wall when adopting in CI: routes that are intentionally not public (behind auth, admin
+areas) get flagged by SEO rules, and there's no action input to exclude them — because exclusions
+live in files the action already reads, so they apply identically to the CLI, the MCP server, the
+Vite plugin, and this action. Pick by intent:
+
+- **Never want a rule at all** — turn it off globally in
+  [`svelte-vitals.config.*`](/svelte-vitals/guides/configuration/):
+
+  ```js
+  // svelte-vitals.config.mjs
+  export default {
+    rules: { SEO008: 'off' }
+  };
+  ```
+
+- **A rule or category doesn't apply to part of the app** (the auth-only case) — scope it with
+  [`overrides`](/svelte-vitals/guides/configuration/#scoping-rules-to-routes-or-files-overrides).
+  This is durable policy: routes added under the glob later are excluded too.
+
+  ```js
+  // svelte-vitals.config.mjs
+  export default {
+    // No SEO checks for anything in the (app) route group.
+    overrides: [{ files: 'src/routes/(app)/**', rules: { seo: 'off' } }]
+  };
+  ```
+
+- **The findings are real, you just can't fix them all now** — accept the current backlog
+  one-shot with `svelte-vitals --update-suppressions` and commit the file (see
+  [Adopting on an existing project](#adopting-on-an-existing-project) above). Unlike `overrides`,
+  this is a snapshot: a *new* route with the same problem fails again, which is exactly what you
+  want for a backlog.
+
+All three are committed files — no workflow inputs involved, and a change to them is reviewed
+like any other PR.
+
 ## Permissions
 
 The generated workflow requests:

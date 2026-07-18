@@ -77,10 +77,56 @@ The `defineConfig` import in a `.ts` config is a **runtime** import — it resol
 | `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`               | Per-rule overrides — disable a rule or change its severity                                 |
 | `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'`       | Minimum severity that fails the run (exit code `1`)                                        |
 | `weights`        | `Partial<Record<Category, number>>`                          | every category `1` | Per-category weights for the combined [Health score](/svelte-vitals/guides/health-report/) |
+| `overrides`      | `RuleOverride[]`                                             | (none)             | Route-/file-scoped rule overrides — see [below](#scoping-rules-to-routes-or-files-overrides) |
 
 `Category` is `'seo' | 'performance' | 'correctness' | 'security' | 'architecture'`.
 
 A weight of `0` is valid — it excludes that category from the Health average entirely (the category's own score still appears in the output, and findings / exit-code behavior are unaffected). Setting **every** present category to `0` is an error, though: there is nothing left to average, so the run stops with exit `2`.
+
+## Scoping rules to routes or files (overrides)
+
+`rules` applies everywhere. `overrides` applies rule settings only where they match — the typical
+case being routes that are intentionally not public (behind auth) and shouldn't be held to SEO
+metadata rules:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  overrides: [
+    // Everything in the (app) route group: no SEO checks at all.
+    { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
+    // /admin and everything under it: keep SEO001, but only as info.
+    { route: '/admin/**', rules: { SEO001: 'info' } }
+  ]
+};
+```
+
+Each entry has `rules` (keys are **rule ids or category names**, values are
+`'off' | 'critical' | 'warning' | 'info'`) plus at least one scope:
+
+- **`route`** — glob(s) matched against the finding's route id as shown in reports (e.g.
+  `/blog/[slug]`). Note that SvelteKit `(group)` segments are **not** part of the route id
+  (`src/routes/(app)/dashboard` reports as `/dashboard`) — to target a group, use `files`.
+- **`files`** — glob(s) matched against the finding's source path (e.g.
+  `src/routes/(app)/dashboard/+page.svelte`).
+
+Glob syntax is deliberately small: `*` matches within a path segment, `**` matches across
+segments, and a trailing `/**` also matches the bare prefix (`/admin/**` matches `/admin`
+itself). Everything else — including `(`, `)`, `[`, `]` — is literal. An entry matches when
+_any_ of its `route` or `files` globs match.
+
+Semantics worth knowing:
+
+- `'off'` removes matching findings entirely — they don't fail the run and don't drag the
+  score, as if the rule hadn't run there. A severity value re-classifies instead.
+- Entries are evaluated in order and **later entries win**; within one entry, a rule-id key
+  beats a category key. Overrides always win over the global `rules` setting where they match.
+- Findings that aren't attached to a route or file (project-wide checks like robots.txt) are
+  never affected — use `rules` for those.
+- For a permanent "this part of the app is exempt" policy, prefer `overrides` over the
+  [suppressions file](/svelte-vitals/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions):
+  suppressions accept only the findings that existed when the file was written, so newly added
+  routes fail again; overrides keep matching new routes under the same glob.
 
 ## Precedence
 
@@ -88,9 +134,11 @@ For each field, the first of these that is set wins: **CLI flag > config file > 
 
 One exception: `rules` is replaced as a whole, not merged key-by-key. If you pass `--rules` or `--ignore` on the command line, the flag-built rule set replaces the config file's `rules` entirely for that run — it does not merge with it.
 
+`overrides` has no CLI flag — route policy belongs in a committed file. The config file is its only source for the CLI/MCP/action; the Vite plugin additionally accepts it as a plugin option (option > file, as usual).
+
 ## Validation
 
-- **Invalid and svelte-vitals stops (exit `2`)**: the file can't be loaded (syntax error, no default export, or a `.ts` file on a Node version that can't load it — see below); an unknown rule id inside `rules`; an unknown category or a negative/non-numeric value inside `weights`.
+- **Invalid and svelte-vitals stops (exit `2`)**: the file can't be loaded (syntax error, no default export, or a `.ts` file on a Node version that can't load it — see below); an unknown rule id inside `rules`; an unknown category or a negative/non-numeric value inside `weights`; a malformed `overrides` entry (not `{ route/files, rules }`-shaped, a scope that isn't a string / non-empty string array, a key in its `rules` that is neither a known rule id nor a category, or a setting other than `off`/`critical`/`warning`/`info`).
 - **Invalid but ignored, with a warning (analysis still runs)**: an unrecognized `treatDynamicAs` or `failOn` value (falls back to flag/default); an unrecognized top-level key (forward-compatible with future config fields).
 
 ## TypeScript configs
@@ -115,4 +163,4 @@ export default {
 };
 ```
 
-With a `svelte-vitals.config` file (any of the three supported extensions) in the project root, the plugin above picks up its `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` automatically — no need to import the file yourself in `vite.config.ts`. Non-fatal config-file warnings (unknown top-level keys, invalid enum values) are logged to the console with a `svelte-vitals:` prefix, the same wording the CLI uses.
+With a `svelte-vitals.config` file (any of the three supported extensions) in the project root, the plugin above picks up its `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` / `overrides` automatically — no need to import the file yourself in `vite.config.ts`. Non-fatal config-file warnings (unknown top-level keys, invalid enum values) are logged to the console with a `svelte-vitals:` prefix, the same wording the CLI uses.
