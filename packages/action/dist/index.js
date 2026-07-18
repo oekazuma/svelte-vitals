@@ -58037,6 +58037,10 @@ function formatMarkdownReport(results, config, meta) {
       lines.push("");
       lines.push(`\u2026and ${findings.length - MAX_FINDINGS} more (run \`npx svelte-vitals\` locally for the full report)`);
     }
+    lines.push("");
+    lines.push(
+      "_Expected findings (e.g. routes behind auth)? See [Excluding routes or rules](https://oekazuma.github.io/svelte-vitals/guides/ci/#excluding-routes-or-rules)._"
+    );
   }
   return lines.join("\n");
 }
@@ -58049,8 +58053,40 @@ function applyRuleSeverities(results, config) {
     return setting && setting !== "off" ? { ...result, severity: setting } : result;
   });
 }
+function routeGlobToRegExp(pattern) {
+  const body = pattern.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*\*/g, "\0").replace(/\*/g, "[^/]*").replace(/\u0000/g, ".*");
+  const source2 = body.endsWith("/.*") ? `${body.slice(0, -3)}(/.*)?` : body;
+  return new RegExp(`^${source2}$`);
+}
+function toPatterns(globs) {
+  if (globs === void 0) return [];
+  return (Array.isArray(globs) ? globs : [globs]).map(routeGlobToRegExp);
+}
+function applyOverrides(results, config) {
+  const overrides = config.overrides;
+  if (!overrides || overrides.length === 0) return results;
+  const compiled = overrides.map((o) => ({
+    routes: toPatterns(o.route),
+    files: toPatterns(o.files),
+    rules: o.rules
+  }));
+  const out = [];
+  for (const result of results) {
+    const { route, location } = result;
+    let setting;
+    for (const o of compiled) {
+      const matched = route !== void 0 && o.routes.some((p) => p.test(route)) || location !== void 0 && o.files.some((p) => p.test(location));
+      if (!matched) continue;
+      const s = o.rules[result.id] ?? o.rules[result.category ?? "seo"];
+      if (s !== void 0) setting = s;
+    }
+    if (setting === void 0) out.push(result);
+    else if (setting !== "off") out.push({ ...result, severity: setting });
+  }
+  return out;
+}
 
-// ../cli/dist/chunk-AAUZ37EW.js
+// ../cli/dist/chunk-I2XGFPE7.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -58828,7 +58864,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-AAUZ37EW.js
+// ../cli/dist/chunk-I2XGFPE7.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -59572,7 +59608,8 @@ var CONFIG_FILENAMES = ["svelte-vitals.config.mjs", "svelte-vitals.config.js", "
 var CATEGORIES = ["seo", "performance", "correctness", "security", "architecture"];
 var TREAT_DYNAMIC_AS_VALUES = ["pass", "warn", "fail"];
 var FAIL_ON_VALUES = ["critical", "warning", "info"];
-var KNOWN_TOP_LEVEL_KEYS = /* @__PURE__ */ new Set(["treatDynamicAs", "metaComponents", "rules", "failOn", "weights"]);
+var KNOWN_TOP_LEVEL_KEYS = /* @__PURE__ */ new Set(["treatDynamicAs", "metaComponents", "rules", "failOn", "weights", "overrides"]);
+var RULE_SETTING_VALUES = ["off", "critical", "warning", "info"];
 function isPlainObject22(value) {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
@@ -59622,6 +59659,50 @@ function validateConfigFile(raw, path) {
       );
     }
     config.rules = rules;
+  }
+  if (raw.overrides !== void 0) {
+    if (!Array.isArray(raw.overrides)) {
+      throw new Error(`${path}: overrides must be an array of { route/files, rules } entries.`);
+    }
+    const isGlobs = (v) => typeof v === "string" || Array.isArray(v) && v.length > 0 && v.every((g) => typeof g === "string");
+    const overrides = [];
+    raw.overrides.forEach((entry, i) => {
+      if (!isPlainObject22(entry)) {
+        throw new Error(`${path}: overrides[${i}] must be an object with 'route' and/or 'files', and 'rules'.`);
+      }
+      if (entry.route !== void 0 && !isGlobs(entry.route)) {
+        throw new Error(`${path}: overrides[${i}].route must be a string or a non-empty array of strings.`);
+      }
+      if (entry.files !== void 0 && !isGlobs(entry.files)) {
+        throw new Error(`${path}: overrides[${i}].files must be a string or a non-empty array of strings.`);
+      }
+      if (entry.route === void 0 && entry.files === void 0) {
+        throw new Error(`${path}: overrides[${i}] must set 'route' and/or 'files' to scope the override.`);
+      }
+      if (!isPlainObject22(entry.rules)) {
+        throw new Error(`${path}: overrides[${i}].rules must be an object of rule-id/category \u2192 setting.`);
+      }
+      const nonCategoryKeys = Object.keys(entry.rules).filter((k) => !CATEGORIES.includes(k));
+      const unknown = findUnknownRuleIds(nonCategoryKeys);
+      if (unknown.length > 0) {
+        throw new Error(
+          `${path}: unknown rule id(s) or categories in overrides[${i}].rules: ${unknown.join(", ")}. Known categories: ${CATEGORIES.join(", ")}. Known rule ids: ${knownRuleIds().join(", ")}`
+        );
+      }
+      for (const [key2, setting] of Object.entries(entry.rules)) {
+        if (!RULE_SETTING_VALUES.includes(setting)) {
+          throw new Error(
+            `${path}: overrides[${i}].rules.${key2}: invalid setting '${String(setting)}'; expected ${RULE_SETTING_VALUES.join("|")}.`
+          );
+        }
+      }
+      overrides.push({
+        ...entry.route !== void 0 ? { route: entry.route } : {},
+        ...entry.files !== void 0 ? { files: entry.files } : {},
+        rules: entry.rules
+      });
+    });
+    config.overrides = overrides;
   }
   if (raw.weights !== void 0) {
     if (!isPlainObject22(raw.weights)) {
@@ -59682,7 +59763,8 @@ async function analyzeProject(opts = {}) {
     metaComponents: opts.metaComponents ?? file?.metaComponents ?? [],
     rules: opts.rules ?? file?.rules ?? {},
     failOn: opts.failOn ?? file?.failOn ?? "critical",
-    ...weights !== void 0 ? { weights } : {}
+    ...weights !== void 0 ? { weights } : {},
+    ...file?.overrides !== void 0 ? { overrides: file.overrides } : {}
   });
   await detectProject(rt, cwd);
   const matches = routeMatcher(opts.route);
@@ -59695,8 +59777,8 @@ async function analyzeProject(opts = {}) {
   const kitModules = opts.route ? [] : await collectKitModuleFacts(rt, cwd);
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories.includes(r.category)) : selected;
-  const results = applyRuleSeverities(
-    await runRules(rules, { heads, images, headings, components, project, config, kitModules }),
+  const results = applyOverrides(
+    applyRuleSeverities(await runRules(rules, { heads, images, headings, components, project, config, kitModules }), config),
     config
   );
   return { results, config, version: readPackageVersion(), warnings: warnings2 };
