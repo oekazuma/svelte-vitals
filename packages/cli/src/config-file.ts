@@ -109,24 +109,34 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
     if (!Array.isArray(raw.overrides)) {
       throw new Error(`${path}: overrides must be an array of { route/files, rules } entries.`);
     }
+    // Empty globs compile to a never-matching pattern, so an entry carrying one
+    // would silently do nothing — reject alongside the other shape errors.
+    const isGlob = (v: unknown): v is string => typeof v === 'string' && v.length > 0;
     const isGlobs = (v: unknown): v is RuleOverride['route'] =>
-      typeof v === 'string' || (Array.isArray(v) && v.length > 0 && v.every((g) => typeof g === 'string'));
+      isGlob(v) || (Array.isArray(v) && v.length > 0 && v.every(isGlob));
     const overrides: RuleOverride[] = [];
     raw.overrides.forEach((entry: unknown, i: number) => {
       if (!isPlainObject(entry)) {
         throw new Error(`${path}: overrides[${i}] must be an object with 'route' and/or 'files', and 'rules'.`);
       }
       if (entry.route !== undefined && !isGlobs(entry.route)) {
-        throw new Error(`${path}: overrides[${i}].route must be a string or a non-empty array of strings.`);
+        throw new Error(
+          `${path}: overrides[${i}].route must be a non-empty string or a non-empty array of non-empty strings.`
+        );
       }
       if (entry.files !== undefined && !isGlobs(entry.files)) {
-        throw new Error(`${path}: overrides[${i}].files must be a string or a non-empty array of strings.`);
+        throw new Error(
+          `${path}: overrides[${i}].files must be a non-empty string or a non-empty array of non-empty strings.`
+        );
       }
       if (entry.route === undefined && entry.files === undefined) {
         throw new Error(`${path}: overrides[${i}] must set 'route' and/or 'files' to scope the override.`);
       }
       if (!isPlainObject(entry.rules)) {
         throw new Error(`${path}: overrides[${i}].rules must be an object of rule-id/category → setting.`);
+      }
+      if (Object.keys(entry.rules).length === 0) {
+        throw new Error(`${path}: overrides[${i}].rules must contain at least one rule id or category.`);
       }
       // Keys may be rule ids or category names; reject anything else so a typo
       // can't silently leave a route gated (or un-gated) — same stance as `rules`.
