@@ -218,7 +218,10 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
   const results = applyOverrides(
-    applyRuleSeverities(await runRules(rules, { heads, images, headings, components, project, config, kitModules }), config),
+    applyRuleSeverities(
+      await runRules(rules, { heads, images, headings, components, project, config, kitModules }),
+      config
+    ),
     config
   );
   return { results, config, version: readPackageVersion(), warnings };

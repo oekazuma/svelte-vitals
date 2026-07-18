@@ -20,12 +20,15 @@ export function applyRuleSeverities(results: Result[], config: Config): Result[]
  * everything else — including SvelteKit's `(`, `)`, `[`, `]` — is literal
  * (design 2026-07-18).
  */
+// '\u0000' below is a placeholder for '**' so the single-'*' pass can't see it;
+// it cannot occur in a route id or path, and split/join avoids a control-char regex.
 function routeGlobToRegExp(pattern: string): RegExp {
   const body = pattern
     .replace(/[.+?^${}()|[\]\\]/g, '\\$&')
     .replace(/\*\*/g, '\u0000')
     .replace(/\*/g, '[^/]*')
-    .replace(/\u0000/g, '.*');
+    .split('\u0000')
+    .join('.*');
   const source = body.endsWith('/.*') ? `${body.slice(0, -3)}(/.*)?` : body;
   return new RegExp(`^${source}$`);
 }

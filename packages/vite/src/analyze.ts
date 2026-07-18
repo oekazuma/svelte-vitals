@@ -66,7 +66,15 @@ export async function analyze(
   const kitModules = await collectKitModuleFacts(cwd);
   const results = applyOverrides(
     applyRuleSeverities(
-      await runRules(selectRules(allRules, config), { heads, headings, images, project, components, config, kitModules }),
+      await runRules(selectRules(allRules, config), {
+        heads,
+        headings,
+        images,
+        project,
+        components,
+        config,
+        kitModules
+      }),
       config
     ),
     config

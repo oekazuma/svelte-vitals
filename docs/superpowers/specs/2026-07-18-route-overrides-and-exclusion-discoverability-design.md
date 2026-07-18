@@ -16,7 +16,7 @@ routes" when running through `@svelte-vitals/action`. Two real problems:
    at all. The action's inputs table reads as "this is all the configuration
    there is".
 2. **A real feature gap** — the suppressions file is a snapshot amnesty keyed on
-   exact `(id, route, location)`. Adding a *new* authenticated route later fails
+   exact `(id, route, location)`. Adding a _new_ authenticated route later fails
    CI again until `--update-suppressions` is re-run. There is no way to express
    the durable policy "routes under `/(app)` are not public; don't run SEO
    rules there".
@@ -151,7 +151,7 @@ the pointer.
 - **`packages/action/README.md`** (new; shipped to npm): what the action does,
   the inputs table, and a Configuration section stating explicitly that the
   action loads the project's `svelte-vitals.config.*` and applies
-  `svelte-vitals-suppressions.json` automatically — inputs are *not* the whole
+  `svelte-vitals-suppressions.json` automatically — inputs are _not_ the whole
   configuration surface. Links to the CI guide.
 - **CI guide** (`guides/ci.md`, en/ja): new `## Excluding routes or rules`
   section near the inputs table covering the three mechanisms and when to use

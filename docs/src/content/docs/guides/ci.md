@@ -151,7 +151,7 @@ Vite plugin, and this action. Pick by intent:
 - **The findings are real, you just can't fix them all now** — accept the current backlog
   one-shot with `svelte-vitals --update-suppressions` and commit the file (see
   [Adopting on an existing project](#adopting-on-an-existing-project) above). Unlike `overrides`,
-  this is a snapshot: a *new* route with the same problem fails again, which is exactly what you
+  this is a snapshot: a _new_ route with the same problem fails again, which is exactly what you
   want for a backlog.
 
 All three are committed files — no workflow inputs involved, and a change to them is reviewed

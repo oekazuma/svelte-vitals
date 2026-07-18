@@ -70,13 +70,13 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
 
 ## 利用可能なオプション
 
-| オプション       | 型                                                           | デフォルト     | 説明                                                                                       |
-| ---------------- | ------------------------------------------------------------ | -------------- | ------------------------------------------------------------------------------------------ |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`       | メタデータの値が動的に設定されているルートをどう採点するか                                 |
-| `metaComponents` | `string[]`                                                   | `[]`           | `<head>` メタデータを出力するカスタムコンポーネント名                                      |
-| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`           | ルールごとの上書き — ルールを無効化するか重大度を変更する                                  |
-| `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'`   | 実行を失敗させる(終了コード `1`)最低重大度                                                 |
-| `weights`        | `Partial<Record<Category, number>>`                          | 各カテゴリ `1` | 組み合わせた [Health スコア](/svelte-vitals/ja/guides/health-report/) のカテゴリごとの重み |
+| オプション       | 型                                                           | デフォルト     | 説明                                                                                                |
+| ---------------- | ------------------------------------------------------------ | -------------- | --------------------------------------------------------------------------------------------------- |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`       | メタデータの値が動的に設定されているルートをどう採点するか                                          |
+| `metaComponents` | `string[]`                                                   | `[]`           | `<head>` メタデータを出力するカスタムコンポーネント名                                               |
+| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`           | ルールごとの上書き — ルールを無効化するか重大度を変更する                                           |
+| `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'`   | 実行を失敗させる(終了コード `1`)最低重大度                                                          |
+| `weights`        | `Partial<Record<Category, number>>`                          | 各カテゴリ `1` | 組み合わせた [Health スコア](/svelte-vitals/ja/guides/health-report/) のカテゴリごとの重み          |
 | `overrides`      | `RuleOverride[]`                                             | (なし)         | ルート/ファイル単位のルール上書き — [下記](#ルールをルートやファイルにスコープする-overrides)を参照 |
 
 `Category` は `'seo' | 'performance' | 'correctness' | 'security' | 'architecture'` です。
