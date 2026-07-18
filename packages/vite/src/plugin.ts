@@ -2,7 +2,7 @@ import { existsSync } from 'node:fs';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join, isAbsolute, dirname, relative, basename, sep } from 'node:path';
 import type { Plugin, ViteDevServer } from 'vite';
-import type { Category, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
+import type { Category, RuleOverride, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
 import { defineConfig } from '@svelte-vitals/core';
 import { loadConfigFile } from 'svelte-vitals';
 import { analyze } from './analyze.js';
@@ -42,6 +42,8 @@ export interface SvelteVitalsOptions {
   treatDynamicAs?: TreatDynamicAs;
   metaComponents?: string[];
   rules?: Record<string, RuleSetting>;
+  /** Route-/file-scoped rule overrides applied to build-gate results (option > config file). */
+  overrides?: RuleOverride[];
   /** Minimum severity that fails the build (default: 'critical'). */
   failOn?: Severity;
   /** Per-category weights for the combined Health score shown in the JSON/console report (flag > config file > default 1 each). */

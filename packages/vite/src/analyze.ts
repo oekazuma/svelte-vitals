@@ -2,6 +2,7 @@ import {
   allRules,
   selectRules,
   applyRuleSeverities,
+  applyOverrides,
   runRules,
   computeScore,
   summarize,
@@ -49,20 +50,25 @@ export async function analyze(
   const warnings = loaded?.warnings ?? [];
 
   const weights = options.weights ?? fileConfig?.weights;
+  const overrides = options.overrides ?? fileConfig?.overrides;
   const config = defineConfig({
     treatDynamicAs: options.treatDynamicAs ?? fileConfig?.treatDynamicAs ?? 'pass',
     metaComponents: options.metaComponents ?? fileConfig?.metaComponents ?? [],
     rules: options.rules ?? fileConfig?.rules ?? {},
     failOn: options.failOn ?? fileConfig?.failOn ?? 'critical',
-    ...(weights !== undefined ? { weights } : {})
+    ...(weights !== undefined ? { weights } : {}),
+    ...(overrides !== undefined ? { overrides } : {})
   });
 
   const { heads, headings, images, htmlLang } = await collectRenderedHeads(prerenderPagesDir);
   const project = await collectRenderedProject(cwd, htmlLang);
   const components = await collectComponentFacts(cwd);
   const kitModules = await collectKitModuleFacts(cwd);
-  const results = applyRuleSeverities(
-    await runRules(selectRules(allRules, config), { heads, headings, images, project, components, config, kitModules }),
+  const results = applyOverrides(
+    applyRuleSeverities(
+      await runRules(selectRules(allRules, config), { heads, headings, images, project, components, config, kitModules }),
+      config
+    ),
     config
   );
 

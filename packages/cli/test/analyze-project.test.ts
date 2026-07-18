@@ -31,6 +31,19 @@ describe('analyzeProject', () => {
   it('throws ProjectError for a non-SvelteKit directory', async () => {
     await expect(analyzeProject({ cwd: here })).rejects.toBeInstanceOf(ProjectError);
   });
+
+  it('applies config-file overrides: seo off under src/routes/(app)/** only (design 2026-07-18)', async () => {
+    const { results, config } = await analyzeProject({ cwd: join(here, 'fixtures', 'overrides-project') });
+    expect(config.overrides).toEqual([{ files: 'src/routes/(app)/**', rules: { seo: 'off' } }]);
+    const seoOf = (route: string) => results.filter((r) => r.route === route && (r.category ?? 'seo') === 'seo');
+    // (group) segments are dropped from route ids, so the dashboard reports as '/dashboard'.
+    // Passing seeds carry no location and so survive a files glob — only penalized
+    // findings must be gone (they are what gates CI and drags the score).
+    const penalized = (r: { detection: { presence: string; value: string } }) =>
+      r.detection.presence === 'none' || r.detection.value === 'absent';
+    expect(seoOf('/dashboard').filter(penalized)).toEqual([]);
+    expect(seoOf('/public').some((r) => r.id === 'SEO001' && penalized(r))).toBe(true);
+  });
 });
 
 describe('analyzeProject config-file precedence (design doc 2026-07-05-config-file-design.md §3)', () => {

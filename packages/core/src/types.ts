@@ -77,6 +77,27 @@ export type TreatDynamicAs = 'pass' | 'warn' | 'fail';
 /** Per-rule override: disable, or change severity. */
 export type RuleSetting = 'off' | Severity;
 
+/**
+ * Scoped rule override (design 2026-07-18), applied to results after analysis.
+ * An entry matches a finding when any `route` glob matches its route id or any
+ * `files` glob matches its source location; at least one of the two must be
+ * set. Glob syntax: `*` matches within a segment, `**` across segments, a
+ * trailing `/**` also matches the bare prefix, and all other characters
+ * (including SvelteKit's `(`, `)`, `[`, `]`) are literal.
+ */
+export interface RuleOverride {
+  /**
+   * Route-id glob(s), e.g. '/admin/**'. Note route ids drop `(group)` segments
+   * (`src/routes/(app)/dashboard` reports as '/dashboard') — target a group
+   * via `files` instead.
+   */
+  route?: string | string[];
+  /** Source-path glob(s) matched against a finding's location, e.g. 'src/routes/(app)/**'. */
+  files?: string | string[];
+  /** Keys are rule ids ('SEO001') or category names ('seo'). Rule id beats category within an entry. */
+  rules: Record<string, RuleSetting>;
+}
+
 export interface Config {
   treatDynamicAs: TreatDynamicAs;
   /** Component names treated as meta sources of unknown content (design §11 layer 4). */
@@ -87,6 +108,8 @@ export interface Config {
   failOn: Severity;
   /** Per-category weights for the combined Health score (default: equal, 1 each) (#10). */
   weights?: Partial<Record<Category, number>>;
+  /** Route-/file-scoped rule overrides, applied to results after analysis (later entries win). */
+  overrides?: RuleOverride[];
 }
 
 export const defaultConfig: Config = {

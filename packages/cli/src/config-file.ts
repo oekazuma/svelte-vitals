@@ -1,7 +1,7 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import type { Category, Config } from '@svelte-vitals/core';
+import type { Category, Config, RuleOverride } from '@svelte-vitals/core';
 import { findUnknownRuleIds, knownRuleIds } from './rules-config.js';
 
 /**
@@ -22,7 +22,8 @@ export const CONFIG_FILENAMES = ['svelte-vitals.config.mjs', 'svelte-vitals.conf
 const CATEGORIES: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
 const TREAT_DYNAMIC_AS_VALUES = ['pass', 'warn', 'fail'];
 const FAIL_ON_VALUES = ['critical', 'warning', 'info'];
-const KNOWN_TOP_LEVEL_KEYS = new Set(['treatDynamicAs', 'metaComponents', 'rules', 'failOn', 'weights']);
+const KNOWN_TOP_LEVEL_KEYS = new Set(['treatDynamicAs', 'metaComponents', 'rules', 'failOn', 'weights', 'overrides']);
+const RULE_SETTING_VALUES = ['off', 'critical', 'warning', 'info'];
 
 /** Whether `value` is a plain object (not null, not an array) — usable with Object.keys/entries. */
 function isPlainObject(value: unknown): value is Record<string, unknown> {
@@ -102,6 +103,56 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
       );
     }
     config.rules = rules;
+  }
+
+  if (raw.overrides !== undefined) {
+    if (!Array.isArray(raw.overrides)) {
+      throw new Error(`${path}: overrides must be an array of { route/files, rules } entries.`);
+    }
+    const isGlobs = (v: unknown): v is RuleOverride['route'] =>
+      typeof v === 'string' || (Array.isArray(v) && v.length > 0 && v.every((g) => typeof g === 'string'));
+    const overrides: RuleOverride[] = [];
+    raw.overrides.forEach((entry: unknown, i: number) => {
+      if (!isPlainObject(entry)) {
+        throw new Error(`${path}: overrides[${i}] must be an object with 'route' and/or 'files', and 'rules'.`);
+      }
+      if (entry.route !== undefined && !isGlobs(entry.route)) {
+        throw new Error(`${path}: overrides[${i}].route must be a string or a non-empty array of strings.`);
+      }
+      if (entry.files !== undefined && !isGlobs(entry.files)) {
+        throw new Error(`${path}: overrides[${i}].files must be a string or a non-empty array of strings.`);
+      }
+      if (entry.route === undefined && entry.files === undefined) {
+        throw new Error(`${path}: overrides[${i}] must set 'route' and/or 'files' to scope the override.`);
+      }
+      if (!isPlainObject(entry.rules)) {
+        throw new Error(`${path}: overrides[${i}].rules must be an object of rule-id/category → setting.`);
+      }
+      // Keys may be rule ids or category names; reject anything else so a typo
+      // can't silently leave a route gated (or un-gated) — same stance as `rules`.
+      const nonCategoryKeys = Object.keys(entry.rules).filter((k) => !CATEGORIES.includes(k as Category));
+      const unknown = findUnknownRuleIds(nonCategoryKeys);
+      if (unknown.length > 0) {
+        throw new Error(
+          `${path}: unknown rule id(s) or categories in overrides[${i}].rules: ${unknown.join(', ')}. ` +
+            `Known categories: ${CATEGORIES.join(', ')}. Known rule ids: ${knownRuleIds().join(', ')}`
+        );
+      }
+      for (const [key, setting] of Object.entries(entry.rules)) {
+        if (!RULE_SETTING_VALUES.includes(setting as string)) {
+          throw new Error(
+            `${path}: overrides[${i}].rules.${key}: invalid setting '${String(setting)}'; ` +
+              `expected ${RULE_SETTING_VALUES.join('|')}.`
+          );
+        }
+      }
+      overrides.push({
+        ...(entry.route !== undefined ? { route: entry.route as RuleOverride['route'] } : {}),
+        ...(entry.files !== undefined ? { files: entry.files as RuleOverride['files'] } : {}),
+        rules: entry.rules as RuleOverride['rules']
+      });
+    });
+    config.overrides = overrides;
   }
 
   if (raw.weights !== undefined) {

@@ -109,6 +109,16 @@ describe('analyze — svelte-vitals.config.*', () => {
     }
   });
 
+  it('applies route-scoped overrides from the config file to rendered results (design 2026-07-18)', async () => {
+    const { cwd, pages } = await makeProject(`export default { overrides: [{ route: '/', rules: { seo: 'off' } }] };\n`);
+    try {
+      const r = await analyze(pages, cwd, { report: false });
+      expect(r.results.some((x) => x.id === 'SEO001')).toBe(false);
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
+
   it('surfaces non-fatal config-file warnings (e.g. an unrecognized failOn value)', async () => {
     const { cwd, pages } = await makeProject(`export default { failOn: 'nope' };\n`);
     try {
