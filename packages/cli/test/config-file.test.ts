@@ -100,6 +100,45 @@ describe('loadConfigFile', () => {
     expect(loaded?.config.weights).toEqual({ seo: 2 });
   });
 
+  it('loads valid scoped overrides through to config.overrides', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-overrides'));
+    expect(loaded?.warnings).toEqual([]);
+    expect(loaded?.config.overrides).toEqual([
+      { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
+      { route: ['/admin', '/admin/**'], rules: { SEO001: 'warning' } }
+    ]);
+  });
+
+  it('rejects an overrides value that is not an array', async () => {
+    await expect(loadConfigFile(fixture('config-file-overrides-not-array'))).rejects.toThrow(
+      /overrides must be an array/
+    );
+  });
+
+  it('rejects an overrides entry whose route is not a string or non-empty string array', async () => {
+    await expect(loadConfigFile(fixture('config-file-overrides-bad-route'))).rejects.toThrow(
+      /overrides\[0\]\.route must be a string or a non-empty array of strings/
+    );
+  });
+
+  it('rejects an overrides entry that sets neither route nor files', async () => {
+    await expect(loadConfigFile(fixture('config-file-overrides-no-scope'))).rejects.toThrow(
+      /overrides\[0\] must set 'route' and\/or 'files'/
+    );
+  });
+
+  it('rejects an overrides rules key that is neither a known rule id nor a category', async () => {
+    await expect(loadConfigFile(fixture('config-file-overrides-unknown-rule'))).rejects.toThrow(
+      /unknown rule id\(s\) or categor(y|ies) in overrides\[0\]\.rules: SEO999/
+    );
+  });
+
+  it('rejects an overrides rules value that is not off or a severity', async () => {
+    await expect(loadConfigFile(fixture('config-file-overrides-bad-value'))).rejects.toThrow(
+      /overrides\[0\]\.rules\.SEO001: invalid setting 'nope'/
+    );
+  });
+
   it('warns (without rejecting) on a metaComponents value that is not an array of strings, dropping the field', async () => {
     const loaded = await loadConfigFile(fixture('config-file-bad-metacomponents'));
     expect(loaded?.config.metaComponents).toBeUndefined();

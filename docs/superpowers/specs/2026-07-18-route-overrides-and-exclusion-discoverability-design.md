@@ -34,40 +34,56 @@ Three deliverables, in this design:
 ### Config shape
 
 ```ts
-export interface RouteOverride {
-  /** Route glob(s) matched against a finding's `route` (e.g. '/(app)/**'). */
-  route: string | string[];
+export interface RuleOverride {
+  /** Route-id glob(s), e.g. '/admin/**'. Route ids drop (group) segments. */
+  route?: string | string[];
+  /** Source-path glob(s) matched against a finding's location, e.g. 'src/routes/(app)/**'. */
+  files?: string | string[];
   /** Keys are rule ids ('SEO001') or category names ('seo'). */
   rules: Record<string, RuleSetting>; // 'off' | 'critical' | 'warning' | 'info'
 }
 
 interface Config {
   // ...existing fields
-  /** Route-scoped rule overrides, applied to results after analysis. */
-  overrides?: RouteOverride[];
+  /** Route-/file-scoped rule overrides, applied to results after analysis. */
+  overrides?: RuleOverride[];
 }
 ```
 
+At least one of `route` / `files` is required per entry (validated fatally).
+
 Rationale for ESLint-style entries (chosen over per-rule `exclude` lists or a
 category-only knob): one entry expresses the motivating case in one line
-(`{ route: '/(app)/**', rules: { seo: 'off' } }`), scales to per-rule and
-per-severity tweaks for free by reusing `RuleSetting`, and is the shape users
-already know.
+(`{ files: 'src/routes/(app)/**', rules: { seo: 'off' } }`), scales to per-rule
+and per-severity tweaks for free by reusing `RuleSetting`, and is the shape
+users already know.
+
+**Why `files` exists (found during implementation):** `deriveRoute` drops
+`(group)` segments from route ids (`src/routes/(app)/dashboard/+page.svelte`
+reports as `/dashboard`), so a route glob cannot target "everything in the
+`(app)` group" — the exact shape the motivating auth-routes case takes. `files`
+globs match the finding's `location` (source path), where the group directory
+is visible.
 
 ### Matching semantics
 
-- Overrides match against `Result.route` (`'/blog/[slug]'`-style route ids).
-  Project-scoped findings (no `route`) are never matched — global `rules` config
-  already covers those.
+- An entry matches a finding when **any `route` glob matches `Result.route` OR
+  any `files` glob matches `Result.location`**. Findings with neither field
+  (some project-scoped findings) never match — global `rules` config already
+  covers those.
+- Caveat: passing seeds generally carry no `location`, so a `files`-only entry
+  removes penalized findings but leaves passing seeds of the same rule. Gating
+  and scores behave correctly (passing seeds are inert); only the
+  "checks passed" count retains them.
 - Glob support is deliberately minimal, implemented in core with no new
   dependency (core stays runtime-agnostic; `(`, `)`, `[`, `]` are escaped as
-  literals since SvelteKit route ids use them):
+  literals since SvelteKit paths use them):
   - `*` matches within a segment (no `/`),
   - `**` matches across segments,
   - a trailing `/**` also matches the bare prefix (`'/admin/**'` matches
     `/admin` itself — the intuitive reading of "everything under /admin").
   - anything else is literal; matching is case-sensitive and anchored
-    (full-route match).
+    (full-string match).
 - Precedence: entries are evaluated in array order, **later entries win**;
   within one entry, a rule-id key beats a category key. Overrides are applied
   after global `rules` severities, so an override always wins over the global
@@ -78,7 +94,7 @@ already know.
 New pure function in `packages/core/src/config-apply.ts`:
 
 ```ts
-applyRouteOverrides(results: Result[], config: Config): Result[]
+applyOverrides(results: Result[], config: Config): Result[]
 ```
 
 - `'off'` **removes the result entirely** — both penalized and passing entries —
@@ -87,11 +103,14 @@ applyRouteOverrides(results: Result[], config: Config): Result[]
   scoring/`passed` counts honest.)
 - A severity value rewrites `result.severity` (same shape as
   `applyRuleSeverities`).
-- Called immediately after `applyRuleSeverities` at all three call sites:
+- Called immediately after `applyRuleSeverities` in
   `packages/cli/src/index.ts` (`analyzeProject` — CLI, MCP, and the action all
-  inherit it), `packages/vite/src/analyze.ts`, and
-  `packages/vite/src/hooks/handle.ts`. It cannot be folded into `selectRules`
-  because that operates pre-run on rules, not per-route.
+  inherit it) and `packages/vite/src/analyze.ts` (build gate; also gains an
+  `overrides` plugin option with the usual option > file precedence). The dev
+  `svelteVitalsHandle` (`packages/vite/src/hooks/handle.ts`) is deliberately
+  unchanged: it is observe-only, never gates, and reads no config file. It
+  cannot be folded into `selectRules` because that operates pre-run on rules,
+  not per-route.
 
 ### Validation (config file)
 
@@ -100,8 +119,9 @@ applyRouteOverrides(results: Result[], config: Config): Result[]
 dropped override would un-gate or over-gate CI):
 
 - `overrides` not an array of plain objects,
-- an entry missing `route` (string or non-empty string array) or `rules`
-  (plain object),
+- an entry whose `route`/`files` is present but not a string or non-empty
+  string array, or an entry with neither; `rules` missing or not a plain
+  object,
 - a `rules` key that is neither a known rule id nor a category name,
 - a `rules` value that is not `'off' | 'critical' | 'warning' | 'info'`.
 
@@ -111,9 +131,6 @@ route policy belongs in a committed file, not a flag).
 
 ### Out of scope
 
-- Matching on `location`/file globs (component-scoped findings). The motivating
-  case is route-keyed; file matching can be added later without schema changes
-  (a `files` key on the same entry shape).
 - Auto-relaxing SEO rules on routes that declare `noindex` (idea #4 from the
   discussion) — separate design if pursued.
 

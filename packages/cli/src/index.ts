@@ -16,6 +16,7 @@ import {
   defineConfig,
   selectRules,
   applyRuleSeverities,
+  applyOverrides,
   collectKitModuleFacts,
   type Severity,
   type RuleSetting,
@@ -197,7 +198,8 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     metaComponents: opts.metaComponents ?? file?.metaComponents ?? [],
     rules: opts.rules ?? file?.rules ?? {},
     failOn: opts.failOn ?? file?.failOn ?? 'critical',
-    ...(weights !== undefined ? { weights } : {})
+    ...(weights !== undefined ? { weights } : {}),
+    ...(file?.overrides !== undefined ? { overrides: file.overrides } : {})
   });
 
   await detectProject(rt, cwd); // throws ProjectError if not a SvelteKit project
@@ -215,8 +217,8 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   const kitModules = opts.route ? [] : await collectKitModuleFacts(rt, cwd);
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
-  const results = applyRuleSeverities(
-    await runRules(rules, { heads, images, headings, components, project, config, kitModules }),
+  const results = applyOverrides(
+    applyRuleSeverities(await runRules(rules, { heads, images, headings, components, project, config, kitModules }), config),
     config
   );
   return { results, config, version: readPackageVersion(), warnings };
