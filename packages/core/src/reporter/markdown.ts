@@ -112,6 +112,12 @@ export function formatMarkdownReport(results: Result[], config: Config, meta: { 
       lines.push('');
       lines.push(`…and ${findings.length - MAX_FINDINGS} more (run \`npx svelte-vitals\` locally for the full report)`);
     }
+    // A blocked adopter reading this comment in CI is exactly who needs the exclusion
+    // mechanisms (config overrides / suppressions file) — point there, once, at the end.
+    lines.push('');
+    lines.push(
+      '_Expected findings (e.g. routes behind auth)? See [Excluding routes or rules](https://oekazuma.github.io/svelte-vitals/guides/ci/#excluding-routes-or-rules)._'
+    );
   }
 
   return lines.join('\n');

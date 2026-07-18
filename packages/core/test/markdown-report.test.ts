@@ -87,6 +87,24 @@ describe('formatMarkdownReport', () => {
     expect(out).toContain('**0 critical · 0 warning · 0 info**');
   });
 
+  it('appends an exclusion-docs footer when findings exist, and omits it on a clean run', () => {
+    const failing: Result[] = [
+      {
+        id: 'SEO001',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/none',
+        message: 'Missing <title>'
+      }
+    ];
+    const out = formatMarkdownReport(failing, config, { version: '1.0.0' });
+    expect(out).toContain('routes behind auth');
+    expect(out).toContain('https://oekazuma.github.io/svelte-vitals/guides/ci/#excluding-routes-or-rules');
+
+    const clean: Result[] = [{ ...failing[0]!, detection: { presence: 'own', value: 'static' } }];
+    expect(formatMarkdownReport(clean, config, { version: '1.0.0' })).not.toContain('#excluding-routes-or-rules');
+  });
+
   it('truncates to 50 findings and appends a "…and N more" note', () => {
     const results: Result[] = Array.from({ length: 60 }, (_, i) => ({
       id: 'SEO006',
