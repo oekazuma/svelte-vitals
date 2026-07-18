@@ -66,7 +66,11 @@ describe('applyOverrides', () => {
 
   it('accepts an array of route globs on one entry', () => {
     const config = defineConfig({ overrides: [{ route: ['/admin', '/account/**'], rules: { SEO001: 'off' } }] });
-    const results = [finding({ route: '/admin' }), finding({ route: '/account/settings' }), finding({ route: '/blog' })];
+    const results = [
+      finding({ route: '/admin' }),
+      finding({ route: '/account/settings' }),
+      finding({ route: '/blog' })
+    ];
     expect(applyOverrides(results, config).map((r) => r.route)).toEqual(['/blog']);
   });
 

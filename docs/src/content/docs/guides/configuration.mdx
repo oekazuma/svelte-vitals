@@ -70,13 +70,13 @@ The `defineConfig` import in a `.ts` config is a **runtime** import — it resol
 
 ## Available options
 
-| Option           | Type                                                         | Default            | Description                                                                                |
-| ---------------- | ------------------------------------------------------------ | ------------------ | ------------------------------------------------------------------------------------------ |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`           | How to score routes where a metadata value is set dynamically                              |
-| `metaComponents` | `string[]`                                                   | `[]`               | Custom component names that emit `<head>` metadata                                         |
-| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`               | Per-rule overrides — disable a rule or change its severity                                 |
-| `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'`       | Minimum severity that fails the run (exit code `1`)                                        |
-| `weights`        | `Partial<Record<Category, number>>`                          | every category `1` | Per-category weights for the combined [Health score](/svelte-vitals/guides/health-report/) |
+| Option           | Type                                                         | Default            | Description                                                                                  |
+| ---------------- | ------------------------------------------------------------ | ------------------ | -------------------------------------------------------------------------------------------- |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`           | How to score routes where a metadata value is set dynamically                                |
+| `metaComponents` | `string[]`                                                   | `[]`               | Custom component names that emit `<head>` metadata                                           |
+| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`               | Per-rule overrides — disable a rule or change its severity                                   |
+| `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'`       | Minimum severity that fails the run (exit code `1`)                                          |
+| `weights`        | `Partial<Record<Category, number>>`                          | every category `1` | Per-category weights for the combined [Health score](/svelte-vitals/guides/health-report/)   |
 | `overrides`      | `RuleOverride[]`                                             | (none)             | Route-/file-scoped rule overrides — see [below](#scoping-rules-to-routes-or-files-overrides) |
 
 `Category` is `'seo' | 'performance' | 'correctness' | 'security' | 'architecture'`.
