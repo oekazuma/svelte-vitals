@@ -58086,7 +58086,7 @@ function applyOverrides(results, config) {
   return out;
 }
 
-// ../cli/dist/chunk-BGC45D76.js
+// ../cli/dist/chunk-QBXO46PU.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -58864,7 +58864,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-BGC45D76.js
+// ../cli/dist/chunk-QBXO46PU.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -59664,23 +59664,31 @@ function validateConfigFile(raw, path) {
     if (!Array.isArray(raw.overrides)) {
       throw new Error(`${path}: overrides must be an array of { route/files, rules } entries.`);
     }
-    const isGlobs = (v) => typeof v === "string" || Array.isArray(v) && v.length > 0 && v.every((g) => typeof g === "string");
+    const isGlob = (v) => typeof v === "string" && v.length > 0;
+    const isGlobs = (v) => isGlob(v) || Array.isArray(v) && v.length > 0 && v.every(isGlob);
     const overrides = [];
     raw.overrides.forEach((entry, i) => {
       if (!isPlainObject22(entry)) {
         throw new Error(`${path}: overrides[${i}] must be an object with 'route' and/or 'files', and 'rules'.`);
       }
       if (entry.route !== void 0 && !isGlobs(entry.route)) {
-        throw new Error(`${path}: overrides[${i}].route must be a string or a non-empty array of strings.`);
+        throw new Error(
+          `${path}: overrides[${i}].route must be a non-empty string or a non-empty array of non-empty strings.`
+        );
       }
       if (entry.files !== void 0 && !isGlobs(entry.files)) {
-        throw new Error(`${path}: overrides[${i}].files must be a string or a non-empty array of strings.`);
+        throw new Error(
+          `${path}: overrides[${i}].files must be a non-empty string or a non-empty array of non-empty strings.`
+        );
       }
       if (entry.route === void 0 && entry.files === void 0) {
         throw new Error(`${path}: overrides[${i}] must set 'route' and/or 'files' to scope the override.`);
       }
       if (!isPlainObject22(entry.rules)) {
         throw new Error(`${path}: overrides[${i}].rules must be an object of rule-id/category \u2192 setting.`);
+      }
+      if (Object.keys(entry.rules).length === 0) {
+        throw new Error(`${path}: overrides[${i}].rules must contain at least one rule id or category.`);
       }
       const nonCategoryKeys = Object.keys(entry.rules).filter((k) => !CATEGORIES.includes(k));
       const unknown = findUnknownRuleIds(nonCategoryKeys);
