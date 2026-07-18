@@ -58054,7 +58054,7 @@ function applyRuleSeverities(results, config) {
   });
 }
 function routeGlobToRegExp(pattern) {
-  const body = pattern.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*\*/g, "\0").replace(/\*/g, "[^/]*").replace(/\u0000/g, ".*");
+  const body = pattern.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*\*/g, "\0").replace(/\*/g, "[^/]*").split("\0").join(".*");
   const source2 = body.endsWith("/.*") ? `${body.slice(0, -3)}(/.*)?` : body;
   return new RegExp(`^${source2}$`);
 }
@@ -58086,7 +58086,7 @@ function applyOverrides(results, config) {
   return out;
 }
 
-// ../cli/dist/chunk-I2XGFPE7.js
+// ../cli/dist/chunk-BGC45D76.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -58864,7 +58864,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-I2XGFPE7.js
+// ../cli/dist/chunk-BGC45D76.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -59778,7 +59778,10 @@ async function analyzeProject(opts = {}) {
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories.includes(r.category)) : selected;
   const results = applyOverrides(
-    applyRuleSeverities(await runRules(rules, { heads, images, headings, components, project, config, kitModules }), config),
+    applyRuleSeverities(
+      await runRules(rules, { heads, images, headings, components, project, config, kitModules }),
+      config
+    ),
     config
   );
   return { results, config, version: readPackageVersion(), warnings: warnings2 };
