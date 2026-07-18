@@ -175,7 +175,9 @@ the pointer.
 
 ## Release
 
-Two changesets: (1) minor — `overrides` feature (core, cli, vite, action);
-(2) minor — report footer hint (core, action). `packages/action/dist` is
-committed, so it is rebuilt in the same PR (repo convention:
-`chore(action): rebuild dist/`).
+Two changesets: (1) minor — `overrides` feature (core, cli, vite);
+(2) minor — report footer hint (core). `@svelte-vitals/action` is private
+and is never listed explicitly — it gets its bump automatically as a
+dependent (`updateInternalDependencies: patch`), matching every previous
+release in its CHANGELOG. `packages/action/dist` is committed, so it is
+rebuilt in the same PR (repo convention: `chore(action): rebuild dist/`).

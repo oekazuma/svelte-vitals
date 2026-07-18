@@ -115,9 +115,27 @@ describe('loadConfigFile', () => {
     );
   });
 
-  it('rejects an overrides entry whose route is not a string or non-empty string array', async () => {
+  it('rejects an overrides entry whose route is not a non-empty string or non-empty string array', async () => {
     await expect(loadConfigFile(fixture('config-file-overrides-bad-route'))).rejects.toThrow(
-      /overrides\[0\]\.route must be a string or a non-empty array of strings/
+      /overrides\[0\]\.route must be a non-empty string or a non-empty array of non-empty strings/
+    );
+  });
+
+  it('rejects an empty route glob (it would silently never match)', async () => {
+    await expect(loadConfigFile(fixture('config-file-overrides-empty-route'))).rejects.toThrow(
+      /overrides\[0\]\.route must be a non-empty string or a non-empty array of non-empty strings/
+    );
+  });
+
+  it('rejects an empty string inside a files glob array', async () => {
+    await expect(loadConfigFile(fixture('config-file-overrides-empty-files'))).rejects.toThrow(
+      /overrides\[0\]\.files must be a non-empty string or a non-empty array of non-empty strings/
+    );
+  });
+
+  it('rejects an overrides entry with an empty rules object (it would change nothing)', async () => {
+    await expect(loadConfigFile(fixture('config-file-overrides-empty-rules'))).rejects.toThrow(
+      /overrides\[0\]\.rules must contain at least one rule id or category/
     );
   });
 
