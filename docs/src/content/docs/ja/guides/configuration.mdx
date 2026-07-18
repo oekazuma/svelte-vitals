@@ -77,10 +77,59 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
 | `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`           | ルールごとの上書き — ルールを無効化するか重大度を変更する                                  |
 | `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'`   | 実行を失敗させる(終了コード `1`)最低重大度                                                 |
 | `weights`        | `Partial<Record<Category, number>>`                          | 各カテゴリ `1` | 組み合わせた [Health スコア](/svelte-vitals/ja/guides/health-report/) のカテゴリごとの重み |
+| `overrides`      | `RuleOverride[]`                                             | (なし)         | ルート/ファイル単位のルール上書き — [下記](#ルールをルートやファイルにスコープする-overrides)を参照 |
 
 `Category` は `'seo' | 'performance' | 'correctness' | 'security' | 'architecture'` です。
 
 重み `0` は正当な値で、そのカテゴリを Health の平均から完全に除外します(カテゴリ自体のスコアは引き続き出力され、検出結果や終了コードの挙動にも影響しません)。ただし、結果に存在する**すべて**のカテゴリを `0` にすると平均の取りようがなくなるため、実行はエラー(終了コード `2`)になります。
+
+## ルールをルートやファイルにスコープする (overrides)
+
+`rules` は全体に適用されます。`overrides` はマッチした箇所にだけルール設定を適用します —
+典型的なのは、意図的に非公開のルート(認証必須のページ)を SEO メタデータルールの対象外に
+したいケースです：
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  overrides: [
+    // (app) ルートグループ配下：SEO チェックを一切行わない。
+    { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
+    // /admin とその配下：SEO001 は残すが info に格下げ。
+    { route: '/admin/**', rules: { SEO001: 'info' } }
+  ]
+};
+```
+
+各エントリは `rules`(キーは**ルール ID またはカテゴリ名**、値は
+`'off' | 'critical' | 'warning' | 'info'`)と、少なくとも1つのスコープを持ちます：
+
+- **`route`** — レポートに表示されるルート ID(例: `/blog/[slug]`)にマッチする glob。
+  SvelteKit の `(group)` セグメントはルート ID に**含まれない**点に注意してください
+  (`src/routes/(app)/dashboard` は `/dashboard` として報告されます) — グループを対象に
+  するには `files` を使います。
+- **`files`** — 検出結果のソースパス(例: `src/routes/(app)/dashboard/+page.svelte`)に
+  マッチする glob。
+
+glob の構文は意図的に小さくしてあります：`*` はパスセグメント内にマッチ、`**` はセグメントを
+またいでマッチ、末尾の `/**` はプレフィックス自体にもマッチします(`/admin/**` は `/admin`
+そのものにもマッチ)。それ以外 — `(`、`)`、`[`、`]` を含む — はすべてリテラルです。エントリは
+`route` / `files` の glob の*いずれか*がマッチしたときにマッチします。
+
+知っておくべきセマンティクス：
+
+- `'off'` はマッチした検出結果を完全に取り除きます — 実行を失敗させず、スコアも下げません。
+  そのルールがそこでは実行されなかったのと同じ扱いです。重大度の値を指定すると再分類になります。
+- エントリは順に評価され、**後のエントリが勝ちます**。1つのエントリ内ではルール ID のキーが
+  カテゴリのキーに勝ちます。マッチした箇所ではオーバーライドが常にグローバルの `rules` 設定に
+  勝ちます。
+- ルートにもファイルにも紐付かない検出結果(robots.txt などプロジェクト全体のチェック)には
+  一切影響しません — そちらは `rules` を使ってください。
+- 「アプリのこの部分は恒久的に対象外」というポリシーには、
+  [suppressions ファイル](/svelte-vitals/ja/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
+  より `overrides` を選んでください：suppressions はファイルを書き出した時点で存在した検出結果
+  だけを受け入れるため、あとから追加したルートは再び失敗します。overrides は同じ glob 配下の
+  新しいルートにもマッチし続けます。
 
 ## 優先順位
 
@@ -88,9 +137,11 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
 
 一つ例外があります。`rules` はキー単位でマージされるのではなく、全体が丸ごと置き換わります。コマンドラインで `--rules` または `--ignore` を指定した場合、フラグから構築されたルールセットがその実行では設定ファイルの `rules` を完全に置き換えます — マージはされません。
 
+`overrides` に対応する CLI フラグはありません — ルートのポリシーはコミットされるファイルに置くべきものだからです。CLI/MCP/Action にとっては設定ファイルが唯一のソースで、Vite プラグインだけは追加でプラグインオプションとしても受け取ります(いつも通り、オプション > ファイル)。
+
 ## バリデーション
 
-- **無効で svelte-vitals が停止する(終了コード `2`)**:ファイルを読み込めない(構文エラー、default export がない、または後述する Node のバージョンで `.ts` ファイルを読み込めない場合)、`rules` 内に未知のルール ID がある、`weights` 内に未知のカテゴリまたは負の値・数値でない値がある場合。
+- **無効で svelte-vitals が停止する(終了コード `2`)**:ファイルを読み込めない(構文エラー、default export がない、または後述する Node のバージョンで `.ts` ファイルを読み込めない場合)、`rules` 内に未知のルール ID がある、`weights` 内に未知のカテゴリまたは負の値・数値でない値がある場合、`overrides` のエントリが不正な場合(`{ route/files, rules }` の形でない、スコープが文字列でも空でない文字列配列でもない、`rules` 内のキーが既知のルール ID でもカテゴリ名でもない、設定値が `off`/`critical`/`warning`/`info` 以外)。
 - **無効だが無視され、警告が出る(分析は続行される)**:認識できない `treatDynamicAs` または `failOn` の値(フラグ／デフォルトにフォールバック)、認識できないトップレベルキー(将来の設定フィールドとの前方互換性のため)。
 
 ## TypeScript の設定ファイル
@@ -115,4 +166,4 @@ export default {
 };
 ```
 
-プロジェクトルートに `svelte-vitals.config` ファイル(サポートされる3つの拡張子のいずれか)を置くだけで、上記のプラグインはその `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` を自動的に読み込みます — `vite.config.ts` 側で自分でファイルを import する必要はありません。設定ファイルの非致命的な警告(未知のトップレベルキー、無効な列挙値など)は、CLI と同じ `svelte-vitals:` というプレフィックス付きの文言でコンソールに出力されます。
+プロジェクトルートに `svelte-vitals.config` ファイル(サポートされる3つの拡張子のいずれか)を置くだけで、上記のプラグインはその `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` / `overrides` を自動的に読み込みます — `vite.config.ts` 側で自分でファイルを import する必要はありません。設定ファイルの非致命的な警告(未知のトップレベルキー、無効な列挙値など)は、CLI と同じ `svelte-vitals:` というプレフィックス付きの文言でコンソールに出力されます。

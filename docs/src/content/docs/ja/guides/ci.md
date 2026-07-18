@@ -110,6 +110,49 @@ svelte-vitals が生成したワークフローが既にある場合は、`--for
 スティッキーコメントを1回のパスでまとめて生成します。この出力の振り分けは個別に
 設定するものではなくなりました。
 
+上記の入力が設定のすべてでは**ありません**。Action は CLI と同じ解析を実行するため、コミット済みの
+[`svelte-vitals.config.*`](/svelte-vitals/ja/guides/configuration/) と
+[`svelte-vitals-suppressions.json`](/svelte-vitals/ja/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
+を自動的に読み取ります — 次のセクションを参照してください。
+
+## ルートやルールを除外する
+
+CI 導入時によくぶつかる壁：意図的に公開していないルート（認証必須のページや管理画面）が SEO
+ルールに大量に引っかかるのに、それを除外する Action の入力が見当たらない — 除外の仕組みは
+Action がすでに読み取っているファイル側にあるからです。そのため同じ設定が CLI・MCP サーバー・
+Vite プラグイン・この Action すべてに同一に適用されます。意図に応じて選んでください：
+
+- **そのルールが一切不要** — [`svelte-vitals.config.*`](/svelte-vitals/ja/guides/configuration/)
+  でグローバルに無効化します：
+
+  ```js
+  // svelte-vitals.config.mjs
+  export default {
+    rules: { SEO008: 'off' }
+  };
+  ```
+
+- **アプリの一部にだけルールやカテゴリが当てはまらない**（認証必須ルートのケース）—
+  [`overrides`](/svelte-vitals/ja/guides/configuration/#ルールをルートやファイルにスコープする-overrides)
+  でスコープします。これは恒久的なポリシーです：あとから glob 配下に追加したルートも除外されます。
+
+  ```js
+  // svelte-vitals.config.mjs
+  export default {
+    // (app) ルートグループ配下では SEO チェックを行わない。
+    overrides: [{ files: 'src/routes/(app)/**', rules: { seo: 'off' } }]
+  };
+  ```
+
+- **検出結果自体は正しいが、今すぐ全部は直せない** — `svelte-vitals --update-suppressions` で
+  現在の蓄積分を一括で受け入れてファイルをコミットします（上の
+  [既存プロジェクトへの導入](#既存プロジェクトへの導入) を参照）。`overrides` と違いこちらは
+  スナップショットです：同じ問題を持つ*新しい*ルートは再び失敗します — 蓄積分の管理には
+  まさにそれが望ましい挙動です。
+
+3つともコミットされるファイルです — ワークフローの入力は関与せず、変更は他の PR と同じように
+レビューされます。
+
 ## 権限
 
 生成されるワークフローは以下を要求します：
