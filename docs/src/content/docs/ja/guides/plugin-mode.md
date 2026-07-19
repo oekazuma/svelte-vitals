@@ -5,7 +5,7 @@ sidebar:
   order: 4
 ---
 
-`@svelte-vitals/vite` は Vite / SvelteKit プラグインで、`vite build` に便乗して**プリレンダリングされた HTML の `<head>`** を解析し、CLI と同じ SEO およびパフォーマンスルールを実行します。実際の HTML 出力を検査するため、ライブラリに依存しません。ビルドモードではさらに、`src/` 配下のソース — コンポーネント、runes モジュール（`.svelte.ts`/`.svelte.js`）、SvelteKit のルート/フックファイル — を走査し、Correctness・Security・Architecture、およびコンポーネントスコープの Performance（バンドル）ルールも検証します — CLI と同じファイルスコープのルールで、デフォルトで有効です。検出結果が `failOn` の閾値に達するとビルドが失敗します。
+`@svelte-vitals/vite` は Vite / SvelteKit プラグインで、`vite build` に便乗して**プリレンダリングされた HTML の `<head>`** を解析し、CLI と同じ SEO およびパフォーマンスルールを実行します。実際の HTML 出力を検査するため、ライブラリに依存しません。ビルドモードではさらに、`src/` 配下のソース（コンポーネント、runes モジュール（`.svelte.ts`/`.svelte.js`）、SvelteKit のルート/フックファイル）を走査し、Correctness、Security、Architecture、およびコンポーネントスコープの Performance（バンドル）ルールも検証します。CLI と同じファイルスコープのルールで、デフォルトで有効です。検出結果が `failOn` の閾値に達するとビルドが失敗します。
 
 > **ESM のみ**（Node 22.13+）。ES モジュールのみを提供します。`require()` は設計上サポートされていません。
 
@@ -38,7 +38,7 @@ export default {
 | `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'`   | ビルドを失敗させる最低重大度                                                                                                               |
 | `report`         | `'console' \| 'json' \| false`                               | `'console'`    | 分析レポートの出力形式                                                                                                                     |
 | `outFile`        | `string`                                                     | —              | JSON レポートをこのパスのファイルに書き込む                                                                                                |
-| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`           | ルールごとの上書き — ルールを無効化するか重大度を変更する                                                                                  |
+| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`           | ルールごとの上書き（ルールを無効化するか重大度を変更する）                                                                                 |
 | `metaComponents` | `string[]`                                                   | —              | ヘッドメタデータを出力するカスタムコンポーネント名                                                                                         |
 | `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`       | 動的に設定されたメタデータの扱い方                                                                                                         |
 | `weights`        | `Partial<Record<Category, number>>`                          | 各カテゴリ `1` | レポート内の組み合わせた Health スコアのカテゴリごとの重み                                                                                 |
@@ -48,7 +48,7 @@ export default {
 
 ## 設定ファイル
 
-`@svelte-vitals/vite` はプロジェクトルートの `svelte-vitals.config.*` を自動的に読み込みます — 上記の明示的なオプションは常に設定ファイルの値より優先されます。優先順位のルールと、ライブダッシュボードでの利用方法については [設定ファイル § Vite プラグインで設定ファイルを再利用する](/svelte-vitals/ja/guides/configuration/#vite-プラグインで設定ファイルを再利用する) を参照してください。
+`@svelte-vitals/vite` はプロジェクトルートの `svelte-vitals.config.*` を自動的に読み込みます。上記の明示的なオプションは常に設定ファイルの値より優先されます。優先順位のルールと、ライブダッシュボードでの利用方法については [設定ファイル § Vite プラグインで設定ファイルを再利用する](/svelte-vitals/ja/guides/configuration/#vite-プラグインで設定ファイルを再利用する) を参照してください。
 
 ## 対象範囲
 

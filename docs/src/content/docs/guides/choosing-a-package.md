@@ -48,7 +48,7 @@ Once you actually visit a route in dev, the dashboard additionally re-checks tha
 
 ### Vite plugin — exact, build-time verification
 
-`@svelte-vitals/vite`'s build mode runs during `vite build` and parses the **actual prerendered HTML** for SEO/Performance, so it can't be fooled by a component the source scanner doesn't recognize — if the tag isn't in the shipped output, it fails. It also scans `.svelte` source directly for Correctness, Security, Architecture, and the two component-scoped Performance rules, the same as the CLI. The remaining trade-off is route scope: only prerendered routes get the HTML-based SEO/Performance verification (component-scoped rules apply project-wide). See [Plugin mode](/svelte-vitals/guides/plugin-mode/).
+`@svelte-vitals/vite`'s build mode runs during `vite build` and parses the **actual prerendered HTML** for SEO/Performance, so it can't be fooled by a component the source scanner doesn't recognize — if the tag isn't in the shipped output, it fails. It also scans `.svelte` source directly for Correctness, Security, Architecture, and the component-scoped Performance rules, the same as the CLI. The remaining trade-off is route scope: only prerendered routes get the HTML-based SEO/Performance verification (component-scoped rules apply project-wide). See [Plugin mode](/svelte-vitals/guides/plugin-mode/).
 
 The same package also serves a **live dashboard** at `/__svelte-vitals/` during `vite dev`, on by default, with zero build step — whole-project coverage from startup, refined to real rendered results as you browse. It's feedback, not a gate: nothing here fails a build or a CI run. See [Live dashboard](/svelte-vitals/guides/dev-dashboard/).
 

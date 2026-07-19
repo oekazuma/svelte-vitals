@@ -64,7 +64,7 @@ The first match wins. If none exist, svelte-vitals runs with its built-in defaul
   </TabItem>
 </Tabs>
 
-`defineConfig` is just an identity helper that merges your object over the built-in defaults — it exists for type-checking and editor autocomplete in a `.ts` file. A plain `export default {...}` object works exactly the same at runtime with or without it; in a `.mjs`/`.js` file there's no type-checking to gain either way, so a bare object (as the JavaScript tab shows) is just as good there — and, unlike the import, it works even when svelte-vitals is only ever run via `npx` and isn't in your `node_modules`.
+`defineConfig` is just a thin helper that merges your object over the built-in defaults — it exists for type-checking and editor autocomplete in a `.ts` file. A plain `export default {...}` object works exactly the same at runtime with or without it; in a `.mjs`/`.js` file there's no type-checking to gain either way, so a bare object (as the JavaScript tab shows) is just as good there — and, unlike the import, it works even when svelte-vitals is only ever run via `npx` and isn't in your `node_modules`.
 
 The `defineConfig` import in a `.ts` config is a **runtime** import — it resolves when svelte-vitals loads the file, not just at type-check time — so it requires `svelte-vitals` to be a declared dependency of your project. Import it from `svelte-vitals` — the package you actually installed. (It is re-exported from `@svelte-vitals/core` too, but that package is normally a transitive dependency, and a strict `node_modules` layout — pnpm's default — won't let your project resolve a transitive dependency directly.)
 

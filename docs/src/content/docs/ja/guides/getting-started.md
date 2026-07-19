@@ -7,7 +7,7 @@ sidebar:
 
 ## svelte-vitals とは？
 
-svelte-vitals は、ソースコードのみを使用して動作する SvelteKit SEO・パフォーマンスチェッカーです。実行中のサイト、ブラウザ、ビルドサーバーは不要です。レイアウトチェーンをたどりながら `<svelte:head>` ブロックを解析して各ルートの実効 `<head>` を解決し、ルートごとおよびサイト全体でスコアを算出します。
+svelte-vitals は、ソースコードのみを使用して動作する、SvelteKit 向けの SEO とパフォーマンスのチェッカーです。実行中のサイト、ブラウザ、ビルドサーバーは不要です。レイアウトチェーンをたどりながら `<svelte:head>` ブロックを解析して各ルートの実効 `<head>` を解決し、ルートごとおよびサイト全体でスコアを算出します。
 
 ## 前提条件
 
@@ -66,7 +66,7 @@ Passed (3)
 ↯ = set dynamically (verified at runtime).
 ```
 
-`↯` マーカーは値が動的に設定されていること(例:`<title>{data.title}</title>`)を意味します。動的なタイトルはパスします — 本当に欠けているか空のメタデータのみがフラグされます。`--verbose` を付けない場合、`Passed` セクションは件数のみ(`Passed (3)`)に折りたたまれ、この脚注も表示されません — 画面上に説明対象の `↯` マーカーが無いためです。
+`↯` マーカーは値が動的に設定されていること(例:`<title>{data.title}</title>`)を意味します。動的なタイトルはパスし、本当に欠けているか空のメタデータだけが指摘されます。`--verbose` を付けない場合、`Passed` セクションは件数のみ(`Passed (3)`)に折りたたまれ、この脚注も表示されません(画面上に説明対象の `↯` マーカーが無いためです)。
 
 ## 終了コード
 
@@ -74,13 +74,13 @@ Passed (3)
 | ------ | -------------------------------------------------------------------------------------- |
 | `0`    | 失敗する検出結果なし                                                                   |
 | `1`    | クリティカルな検出結果が存在する（または `--fail-on` / `--min-health` の閾値に達した） |
-| `2`    | 実行エラー — SvelteKit プロジェクトでない、または内部エラー                            |
+| `2`    | 実行エラー（SvelteKit プロジェクトでない、または内部エラー）                           |
 
 これらのコードは安定しており、CI ゲートとして使用できます。
 
 ## 次のステップ
 
-- どのパッケージを使えばいいか迷ったら、CLI・Vite プラグイン・MCPサーバーを比較した [パッケージの選び方](/svelte-vitals/ja/guides/choosing-a-package/) を参照してください。
+- どのパッケージを使えばいいか迷ったら、CLI、Vite プラグイン、MCP サーバーを比較した [パッケージの選び方](/svelte-vitals/ja/guides/choosing-a-package/) を参照してください。
 - すべてのフラグについては [CLI リファレンス](/svelte-vitals/ja/guides/cli/) を参照してください。
 - `vite build` と連携するには [プラグインモード](/svelte-vitals/ja/guides/plugin-mode/) を使用してください。
-- AI エージェントが自動的に分析を実行できるようにするには [MCP](/svelte-vitals/ja/guides/mcp/) を使用してください — `npx svelte-vitals@latest install` で Claude Code / Cursor / Codex に一発で組み込めます。
+- AI エージェントが自動的に分析を実行できるようにするには [MCP](/svelte-vitals/ja/guides/mcp/) を使用してください。`npx svelte-vitals@latest install` で Claude Code / Cursor / Codex に一発で組み込めます。
