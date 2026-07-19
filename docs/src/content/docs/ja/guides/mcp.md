@@ -5,7 +5,7 @@ sidebar:
   order: 6
 ---
 
-`@svelte-vitals/mcp` は、svelte-vitals をツールとして公開する [Model Context Protocol](https://modelcontextprotocol.io) サーバーです。AI エージェントはそのツールループ内でこれらのツールを呼び出すことができます。エージェントは構造化された実行可能な検出結果を受け取ります — それぞれに `fix`、`recommendation`、`docsUrl` が含まれており、CLI サブプロセスを手動で起動する必要はありません。
+`@svelte-vitals/mcp` は、svelte-vitals をツールとして公開する [Model Context Protocol](https://modelcontextprotocol.io) サーバーです。AI エージェントはそのツールループ内でこれらのツールを呼び出すことができます。エージェントは構造化された実行可能な検出結果を受け取ります。それぞれに `fix`、`recommendation`、`docsUrl` が含まれており、CLI サブプロセスを手動で起動する必要はありません。
 
 > **ESM のみ**（Node 22.13+）。ES モジュールのみを提供します。`require()` は設計上サポートされていません。
 
@@ -34,7 +34,7 @@ SvelteKit プロジェクトの静的モード分析を実行します。
 
 **返り値：** ルートごとおよびサイト全体のスコアと検出結果のリスト。各検出結果には `fix`、`recommendation`、`docsUrl` が含まれます。
 
-プロジェクトルートの `svelte-vitals.config` ファイル（[設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照）も自動的に読み込まれます — これらのツール引数は、CLI フラグと同じように設定ファイルより優先されます。
+プロジェクトルートの `svelte-vitals.config` ファイル（[設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照）も自動的に読み込まれます。これらのツール引数は、CLI フラグと同じように設定ファイルより優先されます。
 
 ### `explain_rule`
 
@@ -85,4 +85,4 @@ args = ["-y", "@svelte-vitals/mcp"]
 
 ## トランスポート
 
-サーバーは **stdio** を通じて通信します — HTTP ポートは開きません。
+サーバーは **stdio** を通じて通信し、HTTP ポートは開きません。

@@ -11,21 +11,21 @@ svelte-vitals の [MCP サーバー](/svelte-vitals/ja/guides/mcp/)、Vite と�
 npx svelte-vitals@latest install
 ```
 
-フラグなしで実行すると対話式ウィザードが起動します — クライアント／ターゲットを選択し、クライアントごとにスコープを選び、変更計画を確認して適用します。ピッカーはターゲットをカテゴリごとにグループ化します — **MCP server**、**Vite integration**、**Agent Skills & rules**、**CI (GitHub Actions)**、**Config file** — 10個のターゲットがあってもそれぞれ何のためのものか分かりやすくなっています。非対話環境／CI ではフラグだけで実行できます。
+フラグなしで実行すると対話式ウィザードが起動します。クライアント／ターゲットを選択し、クライアントごとにスコープを選び、変更計画を確認して適用します。ピッカーはターゲットを **MCP server**、**Vite integration**、**Agent Skills & rules**、**CI (GitHub Actions)**、**Config file** のカテゴリごとにグループ化するため、10個のターゲットがあってもそれぞれ何のためのものか分かりやすくなっています。非対話環境／CI ではフラグだけで実行できます。
 
 ## `--client <ids>`
 
 設定するクライアント／ターゲットをカンマ区切りで指定します：`claude-code`、`cursor`、`codex`、`vite-plugin`、`vite-hooks`、`claude-skill`、`cursor-rules`、`claude-skill-improve`、`config-file`、`ci-workflow`。指定した場合は対話式の選択がスキップされます。
 
-`vite-plugin` は `@svelte-vitals/vite` のビルドモードのプラグインを `vite.config.{ts,js,mjs}` に登録します(ライブダッシュボードはデフォルトで有効です)。`vite-hooks` は `svelteVitalsHandle` フックを `src/hooks.server.{ts,js}` に組み込み、ブラウジングに応じてダッシュボードのルート別の精度を上げます。どちらも `magicast` によるコードモッドを使用し、確実に認識できる形のファイルのみを変更します — それ以外の場合は何もせず、代わりに手動で追加するためのスニペットを表示します。どちらかが書き込まれ、かつ `@svelte-vitals/vite` がまだ依存関係に含まれていない場合、検出されたパッケージマネージャー経由で自動インストールされます。**`--force` はこの2つには適用されません** — フラグの有無にかかわらず、既存の登録は常にそのまま維持されます。
+`vite-plugin` は `@svelte-vitals/vite` のビルドモードのプラグインを `vite.config.{ts,js,mjs}` に登録します(ライブダッシュボードはデフォルトで有効です)。`vite-hooks` は `svelteVitalsHandle` フックを `src/hooks.server.{ts,js}` に組み込み、ブラウジングに応じてダッシュボードのルート別の精度を上げます。どちらも `magicast` によるコードモッドを使用し、確実に認識できる形のファイルのみを変更します。それ以外の場合は何もせず、代わりに手動で追加するためのスニペットを表示します。どちらかが書き込まれ、かつ `@svelte-vitals/vite` がまだ依存関係に含まれていない場合、検出されたパッケージマネージャー経由で自動インストールされます。**`--force` はこの2つには適用されません**。フラグの有無にかかわらず、既存の登録は常にそのまま維持されます。
 
-`claude-skill` は [`/svelte-vitals` Agent Skill](/svelte-vitals/ja/guides/agent-skills/#svelte-vitals) を3つの慣例的な場所へ同時に書き出します — `.claude/skills/svelte-vitals/SKILL.md`（Claude Code）、`.agents/skills/svelte-vitals/SKILL.md`（Codex）、`.cursor/skills/svelte-vitals/SKILL.md`（Cursor）— 3つとも同じフロントマター形式の `SKILL.md` 規約を読むため、内容はバイト単位で同一です。`cursor-rules` は Cursor のプロジェクトルールファイルを `.cursor/rules/svelte-vitals.mdc` に書き出します。どちらもインストール時点のルールセット（各ルールの id・タイトル・severity・rationale をカテゴリごとにまとめたもの）から生成されます。Vite 向けの2ターゲットと異なりコードモッドではなく毎回全文を再生成するため、**`--force` はこの2つに適用され**、既存ファイルを最新の内容で上書きします。
+`claude-skill` は [`/svelte-vitals` Agent Skill](/svelte-vitals/ja/guides/agent-skills/#svelte-vitals) を3つの慣例的な場所へ同時に書き出します: `.claude/skills/svelte-vitals/SKILL.md`（Claude Code）、`.agents/skills/svelte-vitals/SKILL.md`（Codex）、`.cursor/skills/svelte-vitals/SKILL.md`（Cursor）です。3つとも同じフロントマター形式の `SKILL.md` 規約を読むため、内容はバイト単位で同一です。`cursor-rules` は Cursor のプロジェクトルールファイルを `.cursor/rules/svelte-vitals.mdc` に書き出します。どちらもインストール時点のルールセット（各ルールの id、タイトル、severity、rationale をカテゴリごとにまとめたもの）から生成されます。Vite 向けの2ターゲットと異なりコードモッドではなく毎回全文を再生成するため、**`--force` はこの2つに適用され**、既存ファイルを最新の内容で上書きします。
 
-`claude-skill-improve` は [`/improve-svelte` Agent Skill](/svelte-vitals/ja/guides/agent-skills/#improve-svelte) を同じ3つの場所（`improve-svelte/` 以下 — `.claude/skills/improve-svelte/SKILL.md`、`.agents/skills/improve-svelte/SKILL.md`、`.cursor/skills/improve-svelte/SKILL.md`）に書き出します。`claude-skill`／`cursor-rules` と同様に毎回全文を再生成するため、**`--force` が適用されます**。
+`claude-skill-improve` は [`/improve-svelte` Agent Skill](/svelte-vitals/ja/guides/agent-skills/#improve-svelte) を同じ3つの場所（`improve-svelte/` 以下の `.claude/skills/improve-svelte/SKILL.md`、`.agents/skills/improve-svelte/SKILL.md`、`.cursor/skills/improve-svelte/SKILL.md`）に書き出します。`claude-skill`／`cursor-rules` と同様に毎回全文を再生成するため、**`--force` が適用されます**。
 
-`config-file` はオプション(`treatDynamicAs`、`metaComponents`、`rules`、`failOn`、`weights`)をすべてコメントアウトした `svelte-vitals.config.{mjs,ts}` の雛形を、環境に応じて最適な拡張子を自動判定して生成します — 詳細は [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。エージェントターゲットと同様に毎回全文を再生成するため、**`--force` が適用されます**(既に存在するファイルに対して。再生成で拡張子が変わることはありません)。
+`config-file` はオプション(`treatDynamicAs`、`metaComponents`、`rules`、`failOn`、`weights`)をすべてコメントアウトした `svelte-vitals.config.{mjs,ts}` の雛形を、環境に応じて最適な拡張子を自動判定して生成します。詳細は [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。エージェントターゲットと同様に毎回全文を再生成するため、**`--force` が適用されます**(既に存在するファイルに対して。再生成で拡張子が変わることはありません)。
 
-`ci-workflow` は `.github/workflows/svelte-vitals.yml` を生成します。これは単体の [`svelte-vitals ci install`](/svelte-vitals/ja/guides/ci/) コマンドが書き出すのと同じファイルです — 別コマンドを覚えておく代わりに、他のターゲットと同じ実行でCIもセットアップできます。毎回全文を再生成するため、**`--force` が適用されます**。既存ワークフローのピン留めされたアクションバージョンだけを更新する `svelte-vitals ci upgrade`(このウィザードには含まれません)は、これまで通り別途必要です。
+`ci-workflow` は `.github/workflows/svelte-vitals.yml` を生成します。これは単体の [`svelte-vitals ci install`](/svelte-vitals/ja/guides/ci/) コマンドが書き出すのと同じファイルです。別コマンドを覚えておく代わりに、他のターゲットと同じ実行でCIもセットアップできます。毎回全文を再生成するため、**`--force` が適用されます**。既存ワークフローのピン留めされたアクションバージョンだけを更新する `svelte-vitals ci upgrade`(このウィザードには含まれません)は、これまで通り別途必要です。
 
 ## `--scope <project|global>`
 
@@ -37,15 +37,15 @@ npx svelte-vitals@latest install
 | Cursor       | `.cursor/mcp.json` | `~/.cursor/mcp.json`   |
 | Codex        | —                  | `~/.codex/config.toml` |
 
-## `--app <dir>` — モノレポ
+## モノレポでの `--app <dir>`
 
-`vite-plugin`・`vite-hooks`・`config-file` の3ターゲットは SvelteKit の**アプリ**ディレクトリに書き込む必要があります — `vite.config.*` や `src/hooks.server.*` があるのはそこですし、`svelte-vitals.config.*` は[分析対象ディレクトリからしか読み込まれません](/svelte-vitals/ja/guides/configuration/#探索場所)。モノレポのルートで `install` を実行した場合、これらのターゲットは[アナライザーと同じ方法](/svelte-vitals/ja/guides/cli/#モノレポ)で対象アプリを解決します:
+`vite-plugin`、`vite-hooks`、`config-file` の3ターゲットは SvelteKit の**アプリ**ディレクトリに書き込む必要があります。`vite.config.*` や `src/hooks.server.*` があるのはそこですし、`svelte-vitals.config.*` は[分析対象ディレクトリからしか読み込まれません](/svelte-vitals/ja/guides/configuration/#探索場所)。モノレポのルートで `install` を実行した場合、これらのターゲットは[アナライザーと同じ方法](/svelte-vitals/ja/guides/cli/#モノレポ)で対象アプリを解決します:
 
 - 明示的な `--app apps/web` が常に最優先です(そのディレクトリに `svelte.config.{js,ts}` がなければ終了コード `2` で失敗します)。
 - それ以外で、カレントディレクトリ自体が SvelteKit アプリならそのまま使われます。
 - それ以外は自動検出が働きます: 見つかったアプリが1件ならそのまま使用(通知あり)、複数ならインタラクティブな端末では選択プロンプト、非対話環境では `--app` を求めて終了コード `2` になります。
 
-それ以外のターゲット — MCP クライアント設定・エージェントスキル/ルール・`ci-workflow` — は常にカレントディレクトリ基準で書き込みます。モノレポではリポジトリルートがそれらの正しい置き場所だからです。
+それ以外のターゲット（MCP クライアント設定、エージェントスキル/ルール、`ci-workflow`）は常にカレントディレクトリ基準で書き込みます。モノレポではリポジトリルートがそれらの正しい置き場所だからです。
 
 ```bash
 cd my-monorepo
@@ -66,7 +66,7 @@ npx svelte-vitals@latest install --client vite-plugin,config-file --app apps/web
 
 ## `--refresh`
 
-ディスク上に既に存在する `claude-skill`／`cursor-rules`／`claude-skill-improve` ファイルだけを、現行のルールセットで再生成します。ルールの追加や rationale の改善を、最初にどのエージェントターゲットをインストールしたか覚えていなくても1コマンドで反映できます。既に存在するファイルだけを再生成し、無いファイルは作りません（refresh はインストールではありません）。`--scope`・`--yes`・`--force` は適用対象外のため無視されます（warning を1行出力）。`--client` との併用は致命的エラーになります。生成済みのエージェントファイルが1件も見つからない場合は案内を表示して終了コード `0` で終了します。
+ディスク上に既に存在する `claude-skill`／`cursor-rules`／`claude-skill-improve` ファイルだけを、現行のルールセットで再生成します。ルールの追加や rationale の改善を、最初にどのエージェントターゲットをインストールしたか覚えていなくても1コマンドで反映できます。既に存在するファイルだけを再生成し、無いファイルは作りません（refresh はインストールではありません）。`--scope`、`--yes`、`--force` は適用対象外のため無視されます（warning を1行出力）。`--client` との併用は致命的エラーになります。生成済みのエージェントファイルが1件も見つからない場合は案内を表示して終了コード `0` で終了します。
 
 ```bash
 # 非対話：このプロジェクトに Claude Code + Cursor を設定

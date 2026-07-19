@@ -7,7 +7,7 @@ description: すべての <link rel="preload"> は as 属性を指定すべき�
 
 ## チェック内容
 
-すべての `<link rel="preload">` は、リソース種別を示す `as` 属性（`style`・`script`・`font`・`image` など）を持つ必要があります。`as` のない preload は検出されます。
+すべての `<link rel="preload">` は、リソース種別を示す `as` 属性（`style`、`script`、`font`、`image` など）を持つ必要があります。`as` のない preload は検出されます。
 
 ## なぜ重要か
 

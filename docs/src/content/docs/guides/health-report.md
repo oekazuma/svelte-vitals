@@ -40,7 +40,7 @@ Set weights with the `--weights` flag or the config file's `weights` field — s
 svelte-vitals --weights seo=2
 ```
 
-**Only categories present in the results are included.** If your project has no images, no Performance rules fire, the Performance category produces no results, and Health is based solely on SEO. Performance only appears when the project has images that trigger Performance rules.
+**Only categories present in the results are included.** If, for example, nothing in your project matches any Performance rule, the Performance category produces no results and Health is based solely on the remaining categories.
 
 The result is rounded to the nearest integer.
 

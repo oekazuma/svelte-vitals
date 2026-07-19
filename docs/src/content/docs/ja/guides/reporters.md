@@ -27,7 +27,7 @@ svelte-vitals --reporter json
 
 ### `agent`
 
-AI コーディングエージェント向けに設計された Markdown 修正ドキュメントです。各失敗した検出結果には以下が含まれます：
+AI コーディングエージェント向けに設計された Markdown 修正ドキュメントです。失敗した各検出結果には以下が含まれます：
 
 - ルートとソースファイルの場所
 - スニペット付きの具体的なコード修正
@@ -65,12 +65,7 @@ svelte-vitals --reporter github
 
 ### `md`
 
-コンパクトな Markdown サマリーです — Health スコア、カテゴリ別スコア表、重大度別件数、
-各ルールのドキュメントページへのリンク付き検出結果テーブルを含みます。GitHub Actions の
-ジョブサマリーや PR コメント向けに設計されており、GitHub のコメントサイズ制限内に収まるよう
-検出結果の行数は 50 件に制限されます。このレポーターを自動的にワークフローへ組み込む
-`svelte-vitals ci install` については [CI 連携ガイド](/svelte-vitals/ja/guides/ci/) を
-参照してください。
+コンパクトな Markdown サマリーです。Health スコア、カテゴリ別スコア表、重大度別件数、各ルールのドキュメントページへのリンク付き検出結果テーブルを含みます。GitHub Actions のジョブサマリーや PR コメント向けに設計されており、GitHub のコメントサイズ制限内に収まるよう検出結果の行数は 50 件に制限されます。このレポーターを自動的にワークフローへ組み込む `svelte-vitals ci install` については [CI 連携ガイド](/svelte-vitals/ja/guides/ci/) を参照してください。
 
 ```bash
 svelte-vitals --reporter md
@@ -78,7 +73,7 @@ svelte-vitals --reporter md
 
 ## HTML レポート
 
-`--reporter html` は、ブラウザで開ける自己完結の HTML レポートを出力します。これは**[ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/)と同じUI**です — レンダラーを1つ共有しているため、2つが乖離することはありません: 検索・並び替え可能なルート一覧を持つマスター/ディテールレイアウト、重要度・カテゴリのフィルター、ダークモード、そして各指摘のコピー可能な [AI Prompt](/svelte-vitals/ja/guides/dev-dashboard/#指摘ごとに修正プロンプトをコピーする) が使えます。唯一の違いは、静的ファイルには背後に dev サーバーがないため、ライブ更新の仕組み(SSE接続、ブラウジングによる `measured` への精緻化)がないことです。CSS と JS をすべてインライン化しているためオフラインで動作し、CI 成果物として添付したり共有したりするのも簡単です。
+`--reporter html` は、ブラウザで開ける自己完結の HTML レポートを出力します。これは**[ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/)と同じUI**で、レンダラーを1つ共有しているため、2つが乖離することはありません。検索と並び替えが可能なルート一覧を持つマスター/ディテールレイアウト、重要度やカテゴリのフィルター、ダークモード、そして各指摘のコピー可能な [AI Prompt](/svelte-vitals/ja/guides/dev-dashboard/#指摘ごとに修正プロンプトをコピーする) が使えます。唯一の違いは、静的ファイルには背後に dev サーバーがないため、ライブ更新の仕組み(SSE接続、ブラウジングによる `measured` への精緻化)がないことです。CSS と JS をすべてインライン化しているためオフラインで動作し、CI 成果物として添付したり共有したりするのも簡単です。
 
 ```bash
 svelte-vitals --reporter html                 # svelte-vitals-report.html を出力
@@ -90,8 +85,8 @@ svelte-vitals --reporter html --out-file -     # ファイルではなく標準�
 
 ## 自動選択の優先順位
 
-1. **明示的な `--reporter <fmt>`** — 常に最優先。
-2. **`SVELTE_VITALS_REPORTER` 環境変数** — 自動検出を上書き。
+1. **明示的な `--reporter <fmt>`**：常に最優先。
+2. **`SVELTE_VITALS_REPORTER` 環境変数**：自動検出を上書き。
 3. **AI エージェント環境**（例：`CLAUDECODE` が設定されている）→ `agent`。
 4. **GitHub Actions**（`GITHUB_ACTIONS=true`）→ `github`。
 5. **デフォルト** → `console`。
