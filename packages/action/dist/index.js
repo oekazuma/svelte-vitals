@@ -30225,9 +30225,9 @@ var require_lib3 = __commonJS({
   }
 });
 
-// ../../node_modules/.pnpm/picomatch@4.0.4/node_modules/picomatch/lib/constants.js
+// ../../node_modules/.pnpm/picomatch@4.0.5/node_modules/picomatch/lib/constants.js
 var require_constants6 = __commonJS({
-  "../../node_modules/.pnpm/picomatch@4.0.4/node_modules/picomatch/lib/constants.js"(exports, module) {
+  "../../node_modules/.pnpm/picomatch@4.0.5/node_modules/picomatch/lib/constants.js"(exports, module) {
     "use strict";
     var WIN_SLASH = "\\\\/";
     var WIN_NO_SLASH = `[^${WIN_SLASH}]`;
@@ -30427,9 +30427,9 @@ var require_constants6 = __commonJS({
   }
 });
 
-// ../../node_modules/.pnpm/picomatch@4.0.4/node_modules/picomatch/lib/utils.js
+// ../../node_modules/.pnpm/picomatch@4.0.5/node_modules/picomatch/lib/utils.js
 var require_utils2 = __commonJS({
-  "../../node_modules/.pnpm/picomatch@4.0.4/node_modules/picomatch/lib/utils.js"(exports) {
+  "../../node_modules/.pnpm/picomatch@4.0.5/node_modules/picomatch/lib/utils.js"(exports) {
     "use strict";
     var {
       REGEX_BACKSLASH,
@@ -30491,9 +30491,9 @@ var require_utils2 = __commonJS({
   }
 });
 
-// ../../node_modules/.pnpm/picomatch@4.0.4/node_modules/picomatch/lib/scan.js
+// ../../node_modules/.pnpm/picomatch@4.0.5/node_modules/picomatch/lib/scan.js
 var require_scan = __commonJS({
-  "../../node_modules/.pnpm/picomatch@4.0.4/node_modules/picomatch/lib/scan.js"(exports, module) {
+  "../../node_modules/.pnpm/picomatch@4.0.5/node_modules/picomatch/lib/scan.js"(exports, module) {
     "use strict";
     var utils = require_utils2();
     var {
@@ -30821,9 +30821,9 @@ var require_scan = __commonJS({
   }
 });
 
-// ../../node_modules/.pnpm/picomatch@4.0.4/node_modules/picomatch/lib/parse.js
+// ../../node_modules/.pnpm/picomatch@4.0.5/node_modules/picomatch/lib/parse.js
 var require_parse2 = __commonJS({
-  "../../node_modules/.pnpm/picomatch@4.0.4/node_modules/picomatch/lib/parse.js"(exports, module) {
+  "../../node_modules/.pnpm/picomatch@4.0.5/node_modules/picomatch/lib/parse.js"(exports, module) {
     "use strict";
     var constants3 = require_constants6();
     var utils = require_utils2();
@@ -30999,7 +30999,11 @@ var require_parse2 = __commonJS({
         }
       }
     };
-    var getStarExtglobSequenceOutput = (pattern) => {
+    var buildCharClassStar = (chars2) => {
+      const source2 = chars2.length === 1 ? utils.escapeRegex(chars2[0]) : `[${chars2.map((ch) => utils.escapeRegex(ch)).join("")}]`;
+      return `${source2}*`;
+    };
+    var getStarExtglobSequenceChars = (pattern) => {
       let index = 0;
       const chars2 = [];
       while (index < pattern.length) {
@@ -31021,8 +31025,7 @@ var require_parse2 = __commonJS({
       if (chars2.length < 1) {
         return;
       }
-      const source2 = chars2.length === 1 ? utils.escapeRegex(chars2[0]) : `[${chars2.map((ch) => utils.escapeRegex(ch)).join("")}]`;
-      return `${source2}*`;
+      return chars2;
     };
     var repeatedExtglobRecursion = (pattern) => {
       let depth = 0;
@@ -31046,14 +31049,28 @@ var require_parse2 = __commonJS({
           return { risky: true };
         }
       }
+      const safeChars = [];
+      let sawStarSequence = false;
+      let combinable = true;
       for (const branch of branches) {
-        const safeOutput = getStarExtglobSequenceOutput(branch);
-        if (safeOutput) {
-          return { risky: true, safeOutput };
+        const chars2 = getStarExtglobSequenceChars(branch);
+        if (chars2) {
+          sawStarSequence = true;
+          safeChars.push(...chars2);
+          continue;
         }
+        const literal3 = normalizeSimpleBranch(branch);
+        if (literal3 && literal3.length === 1) {
+          safeChars.push(literal3);
+          continue;
+        }
+        combinable = false;
         if (repeatedExtglobRecursion(branch) > max) {
           return { risky: true };
         }
+      }
+      if (sawStarSequence) {
+        return combinable ? { risky: true, safeOutput: buildCharClassStar([...new Set(safeChars)]) } : { risky: true };
       }
       return { risky: false };
     };
@@ -31818,9 +31835,9 @@ var require_parse2 = __commonJS({
   }
 });
 
-// ../../node_modules/.pnpm/picomatch@4.0.4/node_modules/picomatch/lib/picomatch.js
+// ../../node_modules/.pnpm/picomatch@4.0.5/node_modules/picomatch/lib/picomatch.js
 var require_picomatch = __commonJS({
-  "../../node_modules/.pnpm/picomatch@4.0.4/node_modules/picomatch/lib/picomatch.js"(exports, module) {
+  "../../node_modules/.pnpm/picomatch@4.0.5/node_modules/picomatch/lib/picomatch.js"(exports, module) {
     "use strict";
     var scan = require_scan();
     var parse9 = require_parse2();
@@ -31904,9 +31921,9 @@ var require_picomatch = __commonJS({
       }
       return { isMatch: Boolean(match), match, output };
     };
-    picomatch2.matchBase = (input, glob2, options) => {
+    picomatch2.matchBase = (input, glob2, options, posix2 = options && options.windows) => {
       const regex = glob2 instanceof RegExp ? glob2 : picomatch2.makeRe(glob2, options);
-      return regex.test(utils.basename(input));
+      return regex.test(utils.basename(input, { windows: posix2 }));
     };
     picomatch2.isMatch = (str, patterns, options) => picomatch2(patterns, options)(str);
     picomatch2.parse = (pattern, options) => {
@@ -31958,9 +31975,9 @@ var require_picomatch = __commonJS({
   }
 });
 
-// ../../node_modules/.pnpm/picomatch@4.0.4/node_modules/picomatch/index.js
+// ../../node_modules/.pnpm/picomatch@4.0.5/node_modules/picomatch/index.js
 var require_picomatch2 = __commonJS({
-  "../../node_modules/.pnpm/picomatch@4.0.4/node_modules/picomatch/index.js"(exports, module) {
+  "../../node_modules/.pnpm/picomatch@4.0.5/node_modules/picomatch/index.js"(exports, module) {
     "use strict";
     var pico = require_picomatch();
     var utils = require_utils2();
@@ -32989,46 +33006,220 @@ var endpoint = withDefaults(null, DEFAULTS);
 // ../../node_modules/.pnpm/@octokit+request@10.0.11/node_modules/@octokit/request/dist-bundle/index.js
 var import_content_type = __toESM(require_dist(), 1);
 
-// ../../node_modules/.pnpm/json-with-bigint@3.5.8/node_modules/json-with-bigint/json-with-bigint.js
+// ../../node_modules/.pnpm/json-with-bigint@3.5.10/node_modules/json-with-bigint/json-with-bigint.js
 var intRegex = /^-?\d+$/;
 var noiseValue = /^-?\d+n+$/;
 var originalStringify = JSON.stringify;
 var originalParse = JSON.parse;
 var customFormat = /^-?\d+n$/;
-var bigIntsStringify = /([\[:])?"(-?\d+)n"($|([\\n]|\s)*(\s|[\\n])*[,\}\]])/g;
-var noiseStringify = /([\[:])?("-?\d+n+)n("$|"([\\n]|\s)*(\s|[\\n])*[,\}\]])/g;
+var bigIntsStringify = /([\[:])?"(-?\d+)n"($|\s*[,\}\]])/g;
+var noiseStringify = /([\[:])?("-?\d+n+)n("$|"\s*[,\}\]])/g;
+var isUnstringifiable = (val) => val === void 0 || typeof val === "function" || typeof val === "symbol";
+var isRawJSON = (val) => val !== null && typeof val === "object" && val.constructor && val.constructor.name === "RawJSON";
+var stringifyIteratively = (rootValue, replacer, spaceParam) => {
+  let space2 = "";
+  if (typeof spaceParam === "number") {
+    space2 = " ".repeat(Math.min(10, Math.max(0, Math.floor(spaceParam))));
+  } else if (typeof spaceParam === "string") {
+    space2 = spaceParam.slice(0, 10);
+  }
+  const isFunctionReplacer = typeof replacer === "function";
+  const propertyList = Array.isArray(replacer) ? new Set(replacer.map(String)) : null;
+  const prepareVal = (parent, key2, val) => {
+    const isObject = val !== null && typeof val === "object";
+    const hasToJSON = isObject && typeof val.toJSON === "function";
+    if (hasToJSON) {
+      val = val.toJSON(key2);
+    }
+    const isNoise = typeof val === "string" && noiseValue.test(val);
+    if (isNoise) return val + "n";
+    const isBigInt = typeof val === "bigint";
+    if (isBigInt) {
+      const supportsRawJSON = "rawJSON" in JSON;
+      if (supportsRawJSON) return JSON.rawJSON(val.toString());
+      return val.toString() + "n";
+    }
+    if (isFunctionReplacer) {
+      val = replacer.call(parent, key2, val);
+    }
+    const isPostReplacerObject = val !== null && typeof val === "object";
+    if (isPostReplacerObject) {
+      const isPrimitiveWrapper = val instanceof Number || val instanceof String || val instanceof Boolean;
+      if (isPrimitiveWrapper) {
+        val = val.valueOf();
+      }
+    }
+    return val;
+  };
+  const rootProcessed = prepareVal({ "": rootValue }, "", rootValue);
+  if (isUnstringifiable(rootProcessed)) {
+    return void 0;
+  }
+  const isRootPrimitive = rootProcessed === null || typeof rootProcessed !== "object";
+  const isRootNativeRawJSON = isRawJSON(rootProcessed);
+  if (isRootPrimitive || isRootNativeRawJSON) {
+    return originalStringify(rootProcessed);
+  }
+  const chunks = [];
+  let level = 0;
+  const stack = [
+    {
+      parent: { "": rootProcessed },
+      key: "",
+      val: rootProcessed,
+      isArray: Array.isArray(rootProcessed),
+      keys: Array.isArray(rootProcessed) ? null : Object.keys(rootProcessed),
+      index: 0,
+      first: true
+    }
+  ];
+  const visited = new WeakSet([rootProcessed]);
+  while (stack.length > 0) {
+    const node = stack[stack.length - 1];
+    if (node.index === 0) {
+      chunks.push(node.isArray ? "[" : "{");
+      level++;
+    }
+    let isDone = false;
+    if (node.isArray) {
+      if (node.index < node.val.length) {
+        if (!node.first) chunks.push(",");
+        if (space2) chunks.push("\n" + space2.repeat(level));
+        const childRaw = node.val[node.index];
+        const childVal = prepareVal(node.val, String(node.index), childRaw);
+        if (isUnstringifiable(childVal)) {
+          chunks.push("null");
+          node.first = false;
+          node.index++;
+        } else {
+          const isComplexObject = childVal !== null && typeof childVal === "object";
+          const isNativeRaw = isRawJSON(childVal);
+          if (isComplexObject && !isNativeRaw) {
+            if (visited.has(childVal)) {
+              throw new TypeError("Converting circular structure to JSON");
+            }
+            visited.add(childVal);
+            stack.push({
+              parent: node.val,
+              key: String(node.index),
+              val: childVal,
+              isArray: Array.isArray(childVal),
+              keys: Array.isArray(childVal) ? null : Object.keys(childVal),
+              index: 0,
+              first: true
+            });
+            node.first = false;
+            node.index++;
+          } else {
+            chunks.push(originalStringify(childVal));
+            node.first = false;
+            node.index++;
+          }
+        }
+      } else {
+        isDone = true;
+      }
+    } else {
+      while (node.index < node.keys.length) {
+        const k = node.keys[node.index++];
+        const isFilteredOutByArray = propertyList && !propertyList.has(k);
+        if (isFilteredOutByArray) continue;
+        const childRaw = node.val[k];
+        const childVal = prepareVal(node.val, k, childRaw);
+        if (isUnstringifiable(childVal)) continue;
+        if (!node.first) chunks.push(",");
+        if (space2) {
+          chunks.push("\n" + space2.repeat(level) + originalStringify(k) + ": ");
+        } else {
+          chunks.push(originalStringify(k) + ":");
+        }
+        const isComplexObject = childVal !== null && typeof childVal === "object";
+        const isNativeRaw = isRawJSON(childVal);
+        if (isComplexObject && !isNativeRaw) {
+          if (visited.has(childVal)) {
+            throw new TypeError("Converting circular structure to JSON");
+          }
+          visited.add(childVal);
+          stack.push({
+            parent: node.val,
+            key: k,
+            val: childVal,
+            isArray: Array.isArray(childVal),
+            keys: Array.isArray(childVal) ? null : Object.keys(childVal),
+            index: 0,
+            first: true
+          });
+          node.first = false;
+          break;
+        } else {
+          chunks.push(originalStringify(childVal));
+          node.first = false;
+        }
+      }
+      const isNodeFullyProcessed = node.index >= node.keys.length && stack[stack.length - 1] === node;
+      if (isNodeFullyProcessed) {
+        isDone = true;
+      }
+    }
+    if (isDone) {
+      level--;
+      if (!node.first && space2) chunks.push("\n" + space2.repeat(level));
+      chunks.push(node.isArray ? "]" : "}");
+      visited.delete(node.val);
+      stack.pop();
+    }
+  }
+  return chunks.join("");
+};
 var JSONStringify = (value, replacer, space2) => {
-  if ("rawJSON" in JSON) {
-    return originalStringify(
+  try {
+    const supportsRawJSON = "rawJSON" in JSON;
+    if (supportsRawJSON) {
+      return originalStringify(
+        value,
+        (key2, val) => {
+          if (typeof val === "bigint") return JSON.rawJSON(val.toString());
+          const hasFunctionReplacer = typeof replacer === "function";
+          if (hasFunctionReplacer) return replacer(key2, val);
+          const isKeyInArrayReplacer = Array.isArray(replacer) && replacer.includes(key2);
+          if (isKeyInArrayReplacer) return val;
+          return val;
+        },
+        space2
+      );
+    }
+    if (!value) return originalStringify(value, replacer, space2);
+    const convertedToCustomJSON = originalStringify(
       value,
-      (key2, value2) => {
-        if (typeof value2 === "bigint") return JSON.rawJSON(value2.toString());
-        if (typeof replacer === "function") return replacer(key2, value2);
-        if (Array.isArray(replacer) && replacer.includes(key2)) return value2;
-        return value2;
+      (key2, val) => {
+        const isNoise = typeof val === "string" && noiseValue.test(val);
+        if (isNoise) return val.toString() + "n";
+        if (typeof val === "bigint") return val.toString() + "n";
+        const hasFunctionReplacer = typeof replacer === "function";
+        if (hasFunctionReplacer) return replacer(key2, val);
+        const isKeyInArrayReplacer = Array.isArray(replacer) && replacer.includes(key2);
+        if (isKeyInArrayReplacer) return val;
+        return val;
       },
       space2
     );
+    const processedJSON = convertedToCustomJSON.replace(
+      bigIntsStringify,
+      "$1$2$3"
+    );
+    const denoisedJSON = processedJSON.replace(noiseStringify, "$1$2$3");
+    return denoisedJSON;
+  } catch (error2) {
+    if (error2 instanceof RangeError) {
+      const convertedJSON = stringifyIteratively(value, replacer, space2);
+      if (convertedJSON === void 0) return void 0;
+      const supportsRawJSON = "rawJSON" in JSON;
+      if (supportsRawJSON) return convertedJSON;
+      const processedJSON = convertedJSON.replace(bigIntsStringify, "$1$2$3");
+      return processedJSON.replace(noiseStringify, "$1$2$3");
+    }
+    throw error2;
   }
-  if (!value) return originalStringify(value, replacer, space2);
-  const convertedToCustomJSON = originalStringify(
-    value,
-    (key2, value2) => {
-      const isNoise = typeof value2 === "string" && noiseValue.test(value2);
-      if (isNoise) return value2.toString() + "n";
-      if (typeof value2 === "bigint") return value2.toString() + "n";
-      if (typeof replacer === "function") return replacer(key2, value2);
-      if (Array.isArray(replacer) && replacer.includes(key2)) return value2;
-      return value2;
-    },
-    space2
-  );
-  const processedJSON = convertedToCustomJSON.replace(
-    bigIntsStringify,
-    "$1$2$3"
-  );
-  const denoisedJSON = processedJSON.replace(noiseStringify, "$1$2$3");
-  return denoisedJSON;
 };
 var featureCache = /* @__PURE__ */ new Map();
 var isContextSourceSupported = () => {
@@ -33053,16 +33244,20 @@ var convertMarkedBigIntsReviver = (key2, value, context3, userReviver) => {
   if (isCustomFormatBigInt) return BigInt(value.slice(0, -1));
   const isNoiseValue = typeof value === "string" && noiseValue.test(value);
   if (isNoiseValue) return value.slice(0, -1);
-  if (typeof userReviver !== "function") return value;
+  const hasUserReviver = typeof userReviver === "function";
+  if (!hasUserReviver) return value;
   return userReviver(key2, value, context3);
 };
 var JSONParseV2 = (text2, reviver) => {
   return JSON.parse(text2, (key2, value, context3) => {
-    const isBigNumber = typeof value === "number" && (value > Number.MAX_SAFE_INTEGER || value < Number.MIN_SAFE_INTEGER);
+    const isNumber = typeof value === "number";
+    const isOutOfBounds = value > Number.MAX_SAFE_INTEGER || value < Number.MIN_SAFE_INTEGER;
+    const isBigNumber = isNumber && isOutOfBounds;
     const isInt = context3 && intRegex.test(context3.source);
     const isBigInt = isBigNumber && isInt;
     if (isBigInt) return BigInt(context3.source);
-    if (typeof reviver !== "function") return value;
+    const hasCustomReviver = typeof reviver === "function";
+    if (!hasCustomReviver) return value;
     return reviver(key2, value, context3);
   });
 };
@@ -33070,26 +33265,80 @@ var MAX_INT = Number.MAX_SAFE_INTEGER.toString();
 var MAX_DIGITS = MAX_INT.length;
 var stringsOrLargeNumbers = /"(?:\\.|[^"])*"|-?(0|[1-9][0-9]*)(\.[0-9]+)?([eE][+-]?[0-9]+)?/g;
 var noiseValueWithQuotes = /^"-?\d+n+"$/;
-var JSONParse = (text2, reviver) => {
-  if (!text2) return originalParse(text2, reviver);
-  if (isContextSourceSupported()) return JSONParseV2(text2, reviver);
-  const serializedData = text2.replace(
+var applyReviverIteratively = (parsed, userReviver) => {
+  const rootHolder = { "": parsed };
+  const stack = [{ parent: rootHolder, key: "", visited: false }];
+  while (stack.length > 0) {
+    const node = stack[stack.length - 1];
+    if (!node.visited) {
+      node.visited = true;
+      const value = node.parent[node.key];
+      const isComplexObject = value !== null && typeof value === "object";
+      if (isComplexObject) {
+        const keys = Object.keys(value);
+        for (let i = keys.length - 1; i >= 0; i--) {
+          stack.push({ parent: value, key: keys[i], visited: false });
+        }
+      }
+    } else {
+      const { parent, key: key2 } = node;
+      let value = parent[key2];
+      if (typeof value === "string") {
+        const isCustomFormatBigInt = customFormat.test(value);
+        if (isCustomFormatBigInt) {
+          value = BigInt(value.slice(0, -1));
+        } else {
+          const isNoise = noiseValue.test(value);
+          if (isNoise) value = value.slice(0, -1);
+        }
+      }
+      const hasUserReviver = typeof userReviver === "function";
+      if (hasUserReviver) {
+        value = userReviver.call(parent, key2, value);
+      }
+      const isDeleted = value === void 0;
+      if (isDeleted) {
+        delete parent[key2];
+      } else {
+        parent[key2] = value;
+      }
+      stack.pop();
+    }
+  }
+  return rootHolder[""];
+};
+var serializeBigInts = (text2) => {
+  return text2.replace(
     stringsOrLargeNumbers,
-    (text3, digits, fractional, exponential) => {
-      const isString = text3[0] === '"';
-      const isNoise = isString && noiseValueWithQuotes.test(text3);
-      if (isNoise) return text3.substring(0, text3.length - 1) + 'n"';
-      const isFractionalOrExponential = fractional || exponential;
+    (match, digits, fractional, exponential) => {
+      const isString = match[0] === '"';
+      const isNoise = isString && noiseValueWithQuotes.test(match);
+      if (isNoise) return match.substring(0, match.length - 1) + 'n"';
+      const hasFractionalOrExponential = fractional || exponential;
       const isLessThanMaxSafeInt = digits && (digits.length < MAX_DIGITS || digits.length === MAX_DIGITS && digits <= MAX_INT);
-      if (isString || isFractionalOrExponential || isLessThanMaxSafeInt)
-        return text3;
-      return '"' + text3 + 'n"';
+      const isStandardValue = isString || hasFractionalOrExponential || isLessThanMaxSafeInt;
+      if (isStandardValue) return match;
+      return '"' + match + 'n"';
     }
   );
-  return originalParse(
-    serializedData,
-    (key2, value, context3) => convertMarkedBigIntsReviver(key2, value, context3, reviver)
-  );
+};
+var JSONParse = (text2, reviver) => {
+  if (!text2) return originalParse(text2, reviver);
+  try {
+    if (isContextSourceSupported()) return JSONParseV2(text2, reviver);
+    const serializedData = serializeBigInts(text2);
+    return originalParse(
+      serializedData,
+      (key2, value, context3) => convertMarkedBigIntsReviver(key2, value, context3, reviver)
+    );
+  } catch (error2) {
+    if (error2 instanceof RangeError) {
+      const serializedData = serializeBigInts(text2);
+      const parsed = originalParse(serializedData);
+      return applyReviverIteratively(parsed, reviver);
+    }
+    throw error2;
+  }
 };
 
 // ../../node_modules/.pnpm/@octokit+request-error@7.1.0/node_modules/@octokit/request-error/dist-src/index.js
@@ -36302,13 +36551,13 @@ function apply_mutations(node, mutations) {
   );
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/patterns.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/patterns.js
 var regex_starts_with_whitespaces = /^[ \t\r\n]+/;
 var regex_ends_with_whitespaces = /[ \t\r\n]+$/;
 var regex_not_whitespace = /[^ \t\r\n]/;
 var regex_not_newline_characters = /[^\n]/g;
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/constants.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/constants.js
 var EACH_INDEX_REACTIVE = 1 << 1;
 var EACH_IS_CONTROLLED = 1 << 2;
 var EACH_IS_ANIMATED = 1 << 3;
@@ -36343,7 +36592,7 @@ var IGNORABLE_RUNTIME_WARNINGS = (
   ]
 );
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/utils/fuzzymatch.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/utils/fuzzymatch.js
 function fuzzymatch(name, names) {
   if (names.length === 0) return null;
   const set2 = new FuzzySet(names);
@@ -36579,7 +36828,7 @@ function getLocator(source2, options = {}) {
   return locator2;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/utils.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/utils.js
 var VOID_ELEMENT_NAMES = [
   "area",
   "base",
@@ -36732,7 +36981,7 @@ var RUNES = (
 );
 var REGEX_VALID_TAG_NAME = /^[a-zA-Z][a-zA-Z0-9]*(-[a-zA-Z0-9.\-_\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD\u{10000}-\u{EFFFF}]*)?$/u;
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/state.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/state.js
 var warnings = [];
 var filename;
 var UNKNOWN_FILENAME = "(unknown)";
@@ -36766,7 +37015,7 @@ function reset(state) {
   warnings = [];
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/utils/compile_diagnostic.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/utils/compile_diagnostic.js
 var regex_tabs = /^\t+/;
 function tabs_to_spaces(str) {
   return str.replace(regex_tabs, (match) => match.split("	").join("  "));
@@ -36837,7 +37086,7 @@ ${this.frame}`;
   }
 };
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/warnings.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/warnings.js
 var InternalCompileWarning = class extends CompileDiagnostic {
   name = "CompileWarning";
   /**
@@ -36987,7 +37236,7 @@ function svelte_element_invalid_this(node) {
 https://svelte.dev/e/svelte_element_invalid_this`);
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/utils/extract_svelte_ignore.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/utils/extract_svelte_ignore.js
 var regex_svelte_ignore = /^\s*svelte-ignore\s/;
 var replacements = {
   "non-top-level-reactive-declaration": "reactive_declaration_invalid_placement",
@@ -37043,7 +37292,7 @@ function extract_svelte_ignore(offset2, text2, runes2) {
   return ignores;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/legacy.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/legacy.js
 function remove_surrounding_whitespace_nodes(nodes) {
   const first = nodes.at(0);
   const last = nodes.at(-1);
@@ -43443,7 +43692,7 @@ function tokenizer2(input, options) {
   return Parser.tokenizer(input, options);
 }
 
-// ../../node_modules/.pnpm/@sveltejs+acorn-typescript@1.0.10_acorn@8.17.0/node_modules/@sveltejs/acorn-typescript/index.js
+// ../../node_modules/.pnpm/@sveltejs+acorn-typescript@1.0.11_acorn@8.17.0/node_modules/@sveltejs/acorn-typescript/index.js
 var startsExpr2 = true;
 var acornTypeScriptMap = /* @__PURE__ */ new WeakMap();
 function generateAcornTypeScript(_acorn) {
@@ -44424,6 +44673,9 @@ function isPossiblyLiteralEnum(expression) {
   }
   return isUncomputedMemberExpressionChain(expression.object);
 }
+function isAmbientNumericUnaryExpression(expression) {
+  return expression.type === "UnaryExpression" && (expression.operator === "-" || expression.operator === "+") && expression.argument.type === "Literal" && (typeof expression.argument.value === "number" || typeof expression.argument.value === "bigint");
+}
 function isUncomputedMemberExpressionChain(expression) {
   if (expression.type === "Identifier") return true;
   if (expression.type !== "MemberExpression") return false;
@@ -44516,6 +44768,7 @@ function tsPlugin(options) {
         this.preValue = null;
         this.preToken = null;
         this.isLookahead = false;
+        this.maxEmittedCommentStart = -1;
         this.isAmbientContext = false;
         this.inAbstractClass = false;
         this.inType = false;
@@ -44877,7 +45130,8 @@ function tsPlugin(options) {
           }
         }
         if (this.isLookahead) return;
-        if (this.options.onComment) {
+        if (this.options.onComment && start > this.maxEmittedCommentStart) {
+          this.maxEmittedCommentStart = start;
           this.options.onComment(
             true,
             this.input.slice(start + 2, end),
@@ -44897,7 +45151,8 @@ function tsPlugin(options) {
           ch = this.input.charCodeAt(++this.pos);
         }
         if (this.isLookahead) return;
-        if (this.options.onComment)
+        if (this.options.onComment && start > this.maxEmittedCommentStart) {
+          this.maxEmittedCommentStart = start;
           this.options.onComment(
             false,
             this.input.slice(start + startSkip, this.pos),
@@ -44906,6 +45161,7 @@ function tsPlugin(options) {
             startLoc,
             this.curPosition()
           );
+        }
       }
       finishToken(type, val) {
         this.preValue = this.value;
@@ -46276,6 +46532,8 @@ function tsPlugin(options) {
         if (tokenIsIdentifier(this.type)) {
           node.id = this.parseIdent();
           this.checkLValSimple(node.id, acornScope.BIND_TS_INTERFACE);
+          const scope = this.currentScope();
+          this.maybeExportDefined(scope, node.id.name);
         } else {
           node.id = null;
           this.raise(this.start, TypeScriptError.MissingInterfaceName);
@@ -46424,6 +46682,8 @@ function tsPlugin(options) {
       tsParseTypeAliasDeclaration(node) {
         node.id = this.parseIdent();
         this.checkLValSimple(node.id, acornScope.BIND_TS_TYPE);
+        const scope = this.currentScope();
+        this.maybeExportDefined(scope, node.id.name);
         node.typeAnnotation = this.tsInType(() => {
           node.typeParameters = this.tsTryParseTypeParameters(
             this.tsParseInOutModifiers.bind(this)
@@ -46563,6 +46823,12 @@ function tsPlugin(options) {
         this.parseFunctionBody(node, allowExpressionBody, false, forInit, {
           isFunctionDeclaration: isDeclaration
         });
+        if (isDeclaration && this.isAmbientContext && node.id) {
+          const scope = this.currentScope();
+          if (scope.flags & acornScope.SCOPE_TOP) {
+            this.declareName(node.id.name, acornScope.BIND_FLAGS_TS_EXPORT_ONLY, node.id.start);
+          }
+        }
         this.yieldPos = oldYieldPos;
         this.awaitPos = oldAwaitPos;
         this.awaitIdentPos = oldAwaitIdentPos;
@@ -46992,7 +47258,7 @@ function tsPlugin(options) {
           if (!init2) continue;
           if (kind !== "const" || !!id2.typeAnnotation) {
             this.raise(init2.start, TypeScriptError.InitializerNotAllowedInAmbientContext);
-          } else if (init2.type !== "StringLiteral" && init2.type !== "BooleanLiteral" && init2.type !== "NumericLiteral" && init2.type !== "BigIntLiteral" && (init2.type !== "TemplateLiteral" || init2.expressions.length > 0) && !isPossiblyLiteralEnum(init2)) {
+          } else if (init2.type !== "Literal" && (init2.type !== "TemplateLiteral" || init2.expressions.length > 0) && !isAmbientNumericUnaryExpression(init2) && !isPossiblyLiteralEnum(init2)) {
             this.raise(
               init2.start,
               TypeScriptError.ConstInitiailizerMustBeStringOrNumericLiteralOrLiteralEnumReference
@@ -47734,7 +48000,7 @@ function tsPlugin(options) {
               break;
             } else {
               exprList.push(
-                this.parseMaybeAssign(forInit, refDestructuringErrors, this.parseParenItem)
+                this.parseMaybeAssign(false, refDestructuringErrors, this.parseParenItem)
               );
             }
           }
@@ -48433,7 +48699,7 @@ function tsPlugin(options) {
   };
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/errors.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/errors.js
 var InternalCompileError = class extends Error {
   message = "";
   // ensure this property is enumerable
@@ -48695,7 +48961,7 @@ function void_element_invalid_content(node) {
 https://svelte.dev/e/void_element_invalid_content`);
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/acorn.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/acorn.js
 var JSParser = Parser;
 var TSParser = JSParser.extend(tsPlugin());
 function parse6(source2, comments, typescript, is_script) {
@@ -48874,7 +49140,7 @@ function get_comment_handlers(source2, comments, index = 0) {
   };
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/utils/bracket.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/utils/bracket.js
 function infinity_if_negative(num) {
   if (num < 0) {
     return Infinity;
@@ -49029,7 +49295,7 @@ function match_quote(parser, start, quote) {
   unterminated_string_constant(start);
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/read/expression.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/read/expression.js
 function get_loose_identifier(parser, opening_token) {
   const end = find_matching_bracket(parser.template, parser.index, opening_token ?? "{");
   if (end) {
@@ -49068,7 +49334,7 @@ function read_expression(parser, opening_token, disallow_loose) {
   }
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/utils/builders.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/utils/builders.js
 function array(elements = []) {
   return { type: "ArrayExpression", elements };
 }
@@ -49083,7 +49349,7 @@ var true_instance = literal2(true);
 var false_instance = literal2(false);
 var null_instance = literal2(null);
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/utils/ast.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/utils/ast.js
 function is_text_attribute(attribute) {
   return Array.isArray(attribute.value) && attribute.value.length === 1 && attribute.value[0].type === "Text";
 }
@@ -49097,7 +49363,7 @@ function get_attribute_expression(attribute) {
   ) : attribute.value.expression;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/read/script.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/read/script.js
 var regex_closing_script_tag = /<\/script\s*>/;
 var regex_starts_with_closing_script_tag = /<\/script\s*>/y;
 var RESERVED_ATTRIBUTES = ["server", "client", "worker", "test", "default"];
@@ -49156,7 +49422,7 @@ function read_script(parser, start, attributes) {
   };
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/read/style.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/read/style.js
 var REGEX_MATCHER = /[~^$*|]?=/y;
 var REGEX_CLOSING_BRACKET = /[\s\]]/;
 var REGEX_ATTRIBUTE_FLAGS = /[a-zA-Z]+/y;
@@ -49614,7 +49880,7 @@ function allow_comment_or_whitespace(parser) {
   }
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/utils/entities.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/utils/entities.js
 var entities_default = {
   "CounterClockwiseContourIntegral;": 8755,
   "ClockwiseContourIntegral;": 8754,
@@ -51849,7 +52115,7 @@ var entities_default = {
   lt: 60
 };
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/utils/html.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/utils/html.js
 var windows_1252 = [
   8364,
   129,
@@ -51957,7 +52223,7 @@ function validate_code(code) {
   return NUL;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/utils/create.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/utils/create.js
 function create_fragment(transparent = false) {
   return {
     type: "Fragment",
@@ -51969,7 +52235,7 @@ function create_fragment(transparent = false) {
   };
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/nodes.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/nodes.js
 var element_nodes = [
   "SvelteElement",
   "RegularElement",
@@ -52063,7 +52329,7 @@ var ExpressionMetadata = class {
   }
 };
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/html-tree-validation.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/html-tree-validation.js
 var autoclosing_children = {
   // based on http://developers.whatwg.org/syntax.html#syntax-tag-omission
   li: { direct: ["li"] },
@@ -52173,14 +52439,14 @@ var disallowed_children = {
   "#document": { only: ["html"] }
 };
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/utils/string.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/utils/string.js
 function list(strings, conjunction = "or") {
   if (strings.length === 1) return strings[0];
   if (strings.length === 2) return `${strings[0]} ${conjunction} ${strings[1]}`;
   return `${strings.slice(0, -1).join(", ")} ${conjunction} ${strings[strings.length - 1]}`;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/state/element.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/state/element.js
 var regex_invalid_unquoted_attribute_value = /(\/>|[\s"'=<>`])/y;
 var regex_closing_textarea_tag = /<\/textarea(\s[^>]*)?>/iy;
 var regex_closing_comment = /-->/;
@@ -52893,7 +53159,7 @@ function read_tag(parser, regex) {
   };
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/read/context.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/read/context.js
 function read_pattern(parser) {
   const start = parser.index;
   let i = parser.index;
@@ -52960,7 +53226,7 @@ function read_type_annotation(parser) {
   };
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/state/tag.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/state/tag.js
 var regex_whitespace_with_closing_curly_brace = /\s*}/y;
 var regex_supported_declaration = /(?:let|const)\b/y;
 var regex_unsupported_declaration = /(?:var|interface|enum)\b/y;
@@ -53614,7 +53880,7 @@ function special(parser) {
   expected_tag(parser.index);
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/state/text.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/state/text.js
 function text(parser) {
   const start = parser.index;
   while (parser.index < parser.template.length && !parser.match("<") && !parser.match("{")) {
@@ -53630,7 +53896,7 @@ function text(parser) {
   });
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/state/fragment.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/state/fragment.js
 function fragment(parser) {
   if (parser.match("<")) {
     return element;
@@ -53641,7 +53907,7 @@ function fragment(parser) {
   return text;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/read/options.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/read/options.js
 function read_options(node) {
   const component_options2 = {
     start: node.start,
@@ -53844,7 +54110,7 @@ function validate_tag(attribute, tag2) {
   }
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/special-element.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/special-element.js
 function disallow_children(node) {
   const { nodes } = node.fragment;
   if (nodes.length > 0) {
@@ -53854,7 +54120,7 @@ function disallow_children(node) {
   }
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/1-parse/index.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/1-parse/index.js
 function is_whitespace(cc) {
   if (cc === 32 || cc <= 13 && cc >= 9) return true;
   if (cc < 160) return false;
@@ -54105,7 +54371,7 @@ function parse7(template2, loose = false) {
   return parser.root;
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/scope.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/scope.js
 var NUMBER = /* @__PURE__ */ Symbol("number");
 var STRING = /* @__PURE__ */ Symbol("string");
 var globals = {
@@ -54158,7 +54424,7 @@ var globals = {
   "String.fromCodePoint": [STRING, String.fromCodePoint]
 };
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/constants.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/constants.js
 var import_aria_query = __toESM(require_lib2(), 1);
 var import_axobject_query = __toESM(require_lib3(), 1);
 var aria_attributes = "activedescendant atomic autocomplete busy checked colcount colindex colspan controls current describedby description details disabled dropeffect errormessage expanded flowto grabbed haspopup hidden invalid keyshortcuts label labelledby level live modal multiline multiselectable orientation owns placeholder posinset pressed readonly relevant required roledescription rowcount rowindex rowspan selected setsize sort valuemax valuemin valuenow valuetext".split(
@@ -54213,7 +54479,7 @@ for (const [schema, ax_object] of import_axobject_query.elementAXObjects.entries
   }
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/index.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/2-analyze/visitors/shared/a11y/index.js
 var import_aria_query2 = __toESM(require_lib2(), 1);
 var import_axobject_query2 = __toESM(require_lib3(), 1);
 
@@ -54230,7 +54496,7 @@ for (let i = 0; i < chars.length; i++) {
 }
 var bufLength = 1024 * 16;
 
-// ../../node_modules/.pnpm/esrap@2.2.13_@typescript-eslint+types@8.63.0/node_modules/esrap/src/index.js
+// ../../node_modules/.pnpm/esrap@2.2.13_@typescript-eslint+types@8.64.0/node_modules/esrap/src/index.js
 var btoa2 = () => {
   throw new Error("Unsupported environment: `window.btoa` or `Buffer` should be supported.");
 };
@@ -54240,19 +54506,19 @@ if (typeof window !== "undefined" && typeof window.btoa === "function") {
   btoa2 = (str) => Buffer.from(str, "utf-8").toString("base64");
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/internal/server/hydration.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/internal/server/hydration.js
 var BLOCK_OPEN = `<!--${HYDRATION_START}-->`;
 var BLOCK_OPEN_ELSE = `<!--${HYDRATION_START_ELSE}-->`;
 var BLOCK_CLOSE = `<!--${HYDRATION_END}-->`;
 var EMPTY_COMMENT = `<!---->`;
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/3-transform/server/visitors/shared/utils.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/3-transform/server/visitors/shared/utils.js
 var block_open = literal2(BLOCK_OPEN);
 var block_open_else = literal2(BLOCK_OPEN_ELSE);
 var block_close = literal2(BLOCK_CLOSE);
 var empty_comment = literal2(EMPTY_COMMENT);
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/phases/3-transform/client/transform-template/fix-attribute-casing.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/phases/3-transform/client/transform-template/fix-attribute-casing.js
 var svg_attributes = "accent-height accumulate additive alignment-baseline allowReorder alphabetic amplitude arabic-form ascent attributeName attributeType autoReverse azimuth baseFrequency baseline-shift baseProfile bbox begin bias by calcMode cap-height class clip clipPathUnits clip-path clip-rule color color-interpolation color-interpolation-filters color-profile color-rendering contentScriptType contentStyleType cursor cx cy d decelerate descent diffuseConstant direction display divisor dominant-baseline dur dx dy edgeMode elevation enable-background end exponent externalResourcesRequired fill fill-opacity fill-rule filter filterRes filterUnits flood-color flood-opacity font-family font-size font-size-adjust font-stretch font-style font-variant font-weight format from fr fx fy g1 g2 glyph-name glyph-orientation-horizontal glyph-orientation-vertical glyphRef gradientTransform gradientUnits hanging height href horiz-adv-x horiz-origin-x id ideographic image-rendering in in2 intercept k k1 k2 k3 k4 kernelMatrix kernelUnitLength kerning keyPoints keySplines keyTimes lang lengthAdjust letter-spacing lighting-color limitingConeAngle local marker-end marker-mid marker-start markerHeight markerUnits markerWidth mask maskContentUnits maskUnits mathematical max media method min mode name numOctaves offset onabort onactivate onbegin onclick onend onerror onfocusin onfocusout onload onmousedown onmousemove onmouseout onmouseover onmouseup onrepeat onresize onscroll onunload opacity operator order orient orientation origin overflow overline-position overline-thickness panose-1 paint-order pathLength patternContentUnits patternTransform patternUnits pointer-events points pointsAtX pointsAtY pointsAtZ preserveAlpha preserveAspectRatio primitiveUnits r radius refX refY rendering-intent repeatCount repeatDur requiredExtensions requiredFeatures restart result rotate rx ry scale seed shape-rendering slope spacing specularConstant specularExponent speed spreadMethod startOffset stdDeviation stemh stemv stitchTiles stop-color stop-opacity strikethrough-position strikethrough-thickness string stroke stroke-dasharray stroke-dashoffset stroke-linecap stroke-linejoin stroke-miterlimit stroke-opacity stroke-width style surfaceScale systemLanguage tabindex tableValues target targetX targetY text-anchor text-decoration text-rendering textLength to transform type u1 u2 underline-position underline-thickness unicode unicode-bidi unicode-range units-per-em v-alphabetic v-hanging v-ideographic v-mathematical values version vert-adv-y vert-origin-x vert-origin-y viewBox viewTarget visibility width widths word-spacing writing-mode x x-height x1 x2 xChannelSelector xlink:actuate xlink:arcrole xlink:href xlink:role xlink:show xlink:title xlink:type xml:base xml:lang xml:space y y1 y2 yChannelSelector z zoomAndPan".split(
   " "
 );
@@ -54261,7 +54527,7 @@ svg_attributes.forEach((name) => {
   svg_attribute_lookup.set(name.toLowerCase(), name);
 });
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/validate-options.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/validate-options.js
 var common_options = {
   filename: string("(unknown)"),
   // default to process.cwd() where it exists to replicate svelte4 behavior (and make Deno work with this as well)
@@ -54519,7 +54785,7 @@ function throw_error2(msg) {
   options_invalid_value(null, msg);
 }
 
-// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.63.0/node_modules/svelte/src/compiler/index.js
+// ../../node_modules/.pnpm/svelte@5.56.5_@typescript-eslint+types@8.64.0/node_modules/svelte/src/compiler/index.js
 function parse8(source2, { modern, loose } = {}) {
   source2 = remove_bom(source2);
   reset({ warning: () => false, filename: void 0 });
@@ -58095,7 +58361,7 @@ import { readdir as readdir2, readdirSync, realpath, realpathSync, stat as stat2
 import { isAbsolute, posix, resolve as resolve3 } from "path";
 import { fileURLToPath } from "url";
 
-// ../../node_modules/.pnpm/fdir@6.5.0_picomatch@4.0.4/node_modules/fdir/dist/index.mjs
+// ../../node_modules/.pnpm/fdir@6.5.0_picomatch@4.0.5/node_modules/fdir/dist/index.mjs
 import { createRequire } from "module";
 import { basename, dirname, normalize, relative, resolve as resolve2, sep as sep2 } from "path";
 import * as nativeFs from "fs";
