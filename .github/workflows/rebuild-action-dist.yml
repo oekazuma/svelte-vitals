@@ -1,0 +1,60 @@
+# packages/action/dist is a committed bundle that embeds the CLI and its
+# dependencies (svelte included), so every Renovate bump that touches the
+# bundle graph leaves dist stale and fails CI's "Verify action dist is up to
+# date" step. This workflow rebuilds dist on Renovate PRs and pushes the
+# refreshed bundle back to the branch, so those PRs go green without a human.
+#
+# The push uses the ACTION_DIST_PAT secret (fine-grained PAT, Contents:
+# read/write on this repo) instead of GITHUB_TOKEN — pushes made with
+# GITHUB_TOKEN do not trigger workflows, which would leave the new commit
+# without CI runs. The PAT push re-triggers CI (and this workflow, which then
+# finds no diff and exits — no loop).
+name: Rebuild action dist
+
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  rebuild:
+    # Same-repo Renovate branches only: never forks, never human PRs.
+    if: github.event.pull_request.head.repo.full_name == github.repository && startsWith(github.head_ref, 'renovate/')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ github.head_ref }}
+          # The default GITHUB_TOKEN stays out of .git/config; the push below
+          # authenticates explicitly with the PAT.
+          persist-credentials: false
+      - name: Setup Node.js and dependencies
+        uses: ./.github/workflows/setup-node
+      - name: Rebuild packages
+        run: pnpm build
+      - name: Commit refreshed dist if stale
+        env:
+          PAT: ${{ secrets.ACTION_DIST_PAT }}
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          if git diff --quiet -- packages/action/dist; then
+            echo "packages/action/dist is up to date — nothing to do."
+            exit 0
+          fi
+          if [ -z "$PAT" ]; then
+            echo "::error::packages/action/dist is stale but the ACTION_DIST_PAT secret is not set. Rebuild manually (pnpm build) and commit packages/action/dist, or add the secret."
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add packages/action/dist
+          git commit -m "chore(action): rebuild dist for updated dependencies"
+          git push "https://x-access-token:${PAT}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${HEAD_REF}"
