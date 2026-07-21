@@ -26,7 +26,7 @@ const ctx = (head: ResolvedHead, project: Project = defaultProject): RuleContext
 const fails = (rs: Awaited<ReturnType<typeof seo010Indexability.check>>) =>
   rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 
-describe('SEO010 indexability', () => {
+describe('seo/indexability indexability', () => {
   it('flags a route whose robots meta is noindex', async () => {
     const rs = await seo010Indexability.check(ctx(headWith([{ kind: 'meta', name: 'robots', noindex: true }])));
     expect(fails(rs)).toHaveLength(1);
@@ -38,8 +38,8 @@ describe('SEO010 indexability', () => {
   });
 });
 
-describe('SEO011-014 head presence', () => {
-  it('SEO011 flags missing twitter:card, passes present', async () => {
+describe('seo/twitter-card-014 head presence', () => {
+  it('seo/twitter-card flags missing twitter:card, passes present', async () => {
     expect(fails(await seo011TwitterCard.check(ctx(headWith([{ kind: 'meta', name: 'description' }]))))).toHaveLength(
       1
     );
@@ -47,29 +47,29 @@ describe('SEO011-014 head presence', () => {
       0
     );
   });
-  it('SEO012 matches og:description (warning)', async () => {
+  it('seo/og-description matches og:description (warning)', async () => {
     expect(seo012OgDescription.severity).toBe('warning');
     expect(
       fails(await seo012OgDescription.check(ctx(headWith([{ kind: 'meta', property: 'og:description' }]))))
     ).toHaveLength(0);
   });
-  it('SEO013 matches og:url', async () => {
+  it('seo/og-url matches og:url', async () => {
     expect(fails(await seo013OgUrl.check(ctx(headWith([{ kind: 'meta', property: 'og:url' }]))))).toHaveLength(0);
   });
-  it('SEO014 matches viewport (warning)', async () => {
+  it('seo/viewport matches viewport (warning)', async () => {
     expect(seo014Viewport.severity).toBe('warning');
     expect(fails(await seo014Viewport.check(ctx(headWith([{ kind: 'meta', name: 'viewport' }]))))).toHaveLength(0);
   });
-  it('SEO014 flags missing viewport in rendered mode', async () => {
+  it('seo/viewport flags missing viewport in rendered mode', async () => {
     expect(fails(await seo014Viewport.check(ctx(headWith([{ kind: 'meta', name: 'description' }]))))).toHaveLength(1);
   });
-  it('SEO014 emits nothing in static (CLI) mode — viewport lives in app.html, unseen there', async () => {
+  it('seo/viewport emits nothing in static (CLI) mode — viewport lives in app.html, unseen there', async () => {
     const rs = await seo014Viewport.check(ctx(headWith([{ kind: 'meta', name: 'description' }], 'static')));
     expect(rs).toHaveLength(0);
   });
 });
 
-describe('SEO015 sitemap-in-robots', () => {
+describe('seo/sitemap-in-robots sitemap-in-robots', () => {
   const proj = (p: Partial<Project>): Project => ({ ...defaultProject, ...p });
   it('flags when robots+sitemap exist but robots does not reference the sitemap', async () => {
     const rs = await seo015SitemapInRobots.check(

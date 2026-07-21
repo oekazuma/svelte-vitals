@@ -4,7 +4,7 @@ import { formatAgentReport, formatJsonReport, defineConfig, type Result } from '
 const config = defineConfig({});
 const results: Result[] = [
   {
-    id: 'SEO001',
+    id: 'seo/title-presence',
     severity: 'critical',
     detection: { presence: 'own', value: 'static' },
     route: '/a',
@@ -12,7 +12,7 @@ const results: Result[] = [
     message: '<title>'
   },
   {
-    id: 'SEO002',
+    id: 'seo/description-presence',
     severity: 'critical',
     detection: { presence: 'none', value: 'absent' },
     route: '/a',
@@ -22,7 +22,7 @@ const results: Result[] = [
     fix: { description: 'Add a description meta.', snippet: '<meta name="description" content="x" />', lang: 'svelte' }
   },
   {
-    id: 'SEO006',
+    id: 'seo/robots-txt',
     severity: 'warning',
     detection: { presence: 'none', value: 'absent' },
     message: 'Missing robots.txt',
@@ -39,7 +39,7 @@ describe('formatAgentReport', () => {
     const withPerf: Result[] = [
       ...results,
       {
-        id: 'PERF001',
+        id: 'performance/image-dimensions',
         category: 'performance',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
@@ -51,20 +51,20 @@ describe('formatAgentReport', () => {
       }
     ];
     const md = formatAgentReport(withPerf, config);
-    expect(md).toContain('PERF001');
+    expect(md).toContain('performance/image-dimensions');
     expect(md).toMatch(/^# svelte-vitals/m); // heading no longer says "SEO fixes"
   });
 
   it('lists only failing findings, grouped, with fix snippet and acceptance', () => {
     const md = formatAgentReport(results, config);
     expect(md).toContain('## src/routes/a/+page.svelte');
-    expect(md).toContain('### SEO002 · Missing `<meta name="description">` (critical)');
+    expect(md).toContain('### seo/description-presence · Missing `<meta name="description">` (critical)');
     expect(md).toContain('Add a description meta.');
     expect(md).toContain('```svelte');
-    expect(md).toContain('## (project)'); // SEO006 has no route/location
+    expect(md).toContain('## (project)'); // seo/robots-txt has no route/location
     expect(md).toContain('```text');
-    expect(md).toContain('SEO002 passes');
-    expect(md).not.toContain('SEO001'); // passing finding excluded
+    expect(md).toContain('seo/description-presence passes');
+    expect(md).not.toContain('seo/title-presence'); // passing finding excluded
   });
 
   it('reports a clean project', () => {
@@ -83,7 +83,7 @@ describe('formatAgentReport', () => {
   it('wraps tag-like tokens in inline code so renderers do not strip them', () => {
     const withTags: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/a',
@@ -93,7 +93,7 @@ describe('formatAgentReport', () => {
       }
     ];
     const md = formatAgentReport(withTags, config);
-    expect(md).toContain('### SEO001 · Missing `<title>`');
+    expect(md).toContain('### seo/title-presence · Missing `<title>`');
     expect(md).toContain('- Fix: Add a `<title>` inside `<svelte:head>`.');
     // No bare tag survives outside of fenced code / inline code.
     expect(md).not.toMatch(/Missing <title> \(/);
@@ -103,7 +103,7 @@ describe('formatAgentReport', () => {
     const file = 'src/routes/x/+page.svelte';
     const sameGroup: Result[] = [
       {
-        id: 'SEO004',
+        id: 'seo/og-image',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
         route: '/x',
@@ -111,7 +111,7 @@ describe('formatAgentReport', () => {
         message: 'Missing <meta property="og:image">'
       },
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/x',
@@ -120,7 +120,7 @@ describe('formatAgentReport', () => {
       }
     ];
     const md = formatAgentReport(sameGroup, config);
-    expect(md.indexOf('### SEO001')).toBeLessThan(md.indexOf('### SEO004'));
+    expect(md.indexOf('### seo/title-presence')).toBeLessThan(md.indexOf('### seo/og-image'));
   });
 });
 
@@ -129,7 +129,7 @@ describe('formatJsonReport includes fix', () => {
     const json = JSON.parse(formatJsonReport(results, config, { version: '0.0.0' }));
     const seo002 = json.routes
       .find((r: { route: string }) => r.route === '/a')
-      .issues.find((i: { id: string }) => i.id === 'SEO002');
+      .issues.find((i: { id: string }) => i.id === 'seo/description-presence');
     expect(seo002.fix.description).toBe('Add a description meta.');
     expect(json.siteIssues[0].fix.description).toBe('Create static/robots.txt.');
   });

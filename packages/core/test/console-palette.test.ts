@@ -14,7 +14,7 @@ const mark: Palette = {
   cyan: (s) => `[c]${s}[/c]`
 };
 const fail: Result = {
-  id: 'SEO001',
+  id: 'seo/title-presence',
   category: 'seo',
   severity: 'critical',
   detection: { presence: 'none', value: 'absent' },
@@ -26,7 +26,7 @@ describe('console palette', () => {
   it('is identity by default (output unchanged)', () => {
     const out = formatConsoleReport([fail], config);
     expect(out).not.toContain('[');
-    expect(out).toContain('✗ SEO001');
+    expect(out).toContain('✗ seo/title-presence');
   });
   it('applies the palette to markers and severity titles when provided', () => {
     const out = formatConsoleReport([fail], config, { palette: mark });

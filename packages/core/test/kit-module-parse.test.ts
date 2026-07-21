@@ -3,7 +3,7 @@ import { parseKitModuleFacts, resolveRunesModuleSpecifier } from '../src/kit-mod
 
 const facts = (src: string, file = 'src/routes/+page.server.ts') => parseKitModuleFacts(src, file);
 
-describe('parseKitModuleFacts — module-scope reassignments (SEC004)', () => {
+describe('parseKitModuleFacts — module-scope reassignments (security/server-module-state)', () => {
   it('flags the docs NEVER example: module let assigned from an action', () => {
     const src = [
       'let user;',
@@ -58,10 +58,11 @@ describe('parseKitModuleFacts — module-scope reassignments (SEC004)', () => {
     ]);
   });
   it('collects suppressions against unwrapped line numbers', () => {
-    const src = 'let user;\nexport function load() {\n  // svelte-vitals-disable-next-line SEC004\n  user = 1;\n}';
+    const src =
+      'let user;\nexport function load() {\n  // svelte-vitals-disable-next-line security/server-module-state\n  user = 1;\n}';
     const f = facts(src);
     expect(f.moduleStateReassignments).toEqual([{ name: 'user', line: 4, inHandler: true }]);
-    expect(f.suppressions).toEqual([{ line: 4, ruleIds: ['SEC004'] }]);
+    expect(f.suppressions).toEqual([{ line: 4, ruleIds: ['security/server-module-state'] }]);
   });
   it("does not flag assignments inside SvelteKit's init startup hook", () => {
     const src =
@@ -91,7 +92,7 @@ describe('parseKitModuleFacts — module-scope reassignments (SEC004)', () => {
   });
 });
 
-describe('parseKitModuleFacts — imported-state writes (SEC003/SEC005)', () => {
+describe('parseKitModuleFacts — imported-state writes (security/handler-state-write/security/shared-state-import)', () => {
   it('flags the docs NEVER example: store.set inside load', () => {
     const src =
       "import { user } from '$lib/user';\nexport async function load({ fetch }) {\n  user.set(await (await fetch('/api/user')).json());\n}";
@@ -222,7 +223,7 @@ describe('parseKitModuleFacts — imported-state writes (SEC003/SEC005)', () => 
   });
 });
 
-describe('parseKitModuleFacts — runes-module imports (SEC005)', () => {
+describe('parseKitModuleFacts — runes-module imports (security/shared-state-import)', () => {
   it('resolves $lib and relative specifiers to repo-relative .svelte.ts paths', () => {
     const src =
       "import { quizState } from '$lib/quiz.svelte.js';\nimport { other } from '../store.svelte.ts';\nimport type { T } from '$lib/types.svelte.ts';\nimport pkg from 'some-pkg';";
@@ -240,7 +241,7 @@ describe('parseKitModuleFacts — runes-module imports (SEC005)', () => {
   });
 });
 
-describe('parseKitModuleFacts — lifecycle calls (CORRECT007)', () => {
+describe('parseKitModuleFacts — lifecycle calls (correctness/orphan-lifecycle)', () => {
   it('flags getContext inside load (the classic trap)', () => {
     const src =
       "import { getContext } from 'svelte';\nexport function load() {\n  const user = getContext('user');\n  return { user };\n}";
@@ -270,7 +271,7 @@ describe('parseKitModuleFacts — lifecycle calls (CORRECT007)', () => {
   });
 });
 
-describe('parseKitModuleFacts — browser-global refs (CORRECT008)', () => {
+describe('parseKitModuleFacts — browser-global refs (correctness/server-browser-global)', () => {
   it('flags reads at top level and inside load with the right inHandler flags', () => {
     const src = "const w = window.innerWidth;\nexport function load() {\n  return { s: localStorage.getItem('k') };\n}";
     expect(facts(src, 'src/routes/+page.ts').browserGlobalRefs).toEqual([
@@ -364,7 +365,7 @@ describe('parseKitModuleFacts — browser-global refs (CORRECT008)', () => {
   });
 });
 
-describe('parseKitModuleFacts — ssrDisabled (SEO031)', () => {
+describe('parseKitModuleFacts — ssrDisabled (seo/ssr-disabled)', () => {
   it('records the declaration line for an inline export const ssr = false', () => {
     const src = 'export const prerender = true;\nexport const ssr = false;';
     expect(facts(src, 'src/routes/+page.ts').ssrDisabled).toEqual({ line: 2 });

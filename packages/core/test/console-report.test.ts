@@ -4,21 +4,26 @@ import { formatConsoleReport, defineConfig, type Result } from '../src/index.js'
 const config = defineConfig({});
 const results: Result[] = [
   {
-    id: 'SEO001',
+    id: 'seo/title-presence',
     severity: 'critical',
     detection: { presence: 'own', value: 'static' },
     route: '/a',
     message: '<title>'
   },
   {
-    id: 'SEO002',
+    id: 'seo/description-presence',
     severity: 'critical',
     detection: { presence: 'none', value: 'absent' },
     route: '/a',
     location: 'src/routes/a/+page.svelte',
     message: 'Missing <meta name="description">'
   },
-  { id: 'SEO006', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'Missing robots.txt' }
+  {
+    id: 'seo/robots-txt',
+    severity: 'warning',
+    detection: { presence: 'none', value: 'absent' },
+    message: 'Missing robots.txt'
+  }
 ];
 
 describe('formatConsoleReport', () => {
@@ -41,14 +46,14 @@ describe('formatConsoleReport', () => {
   it('sorts --by-route worst-score-first, not alphabetically', () => {
     const mixed: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/z-bad',
         message: 'Missing <title>'
       },
       {
-        id: 'SEO003',
+        id: 'seo/canonical-url',
         severity: 'info',
         detection: { presence: 'own', value: 'static' },
         route: '/a-good',
@@ -64,7 +69,7 @@ describe('formatConsoleReport', () => {
 
   it('caps --by-route at 10 routes by default, with an "…and N more" trailer', () => {
     const manyRoutes: Result[] = Array.from({ length: 12 }, (_, i) => ({
-      id: 'SEO003',
+      id: 'seo/canonical-url',
       severity: 'info' as const,
       detection: { presence: 'own', value: 'static' } as const,
       route: `/r${i}`,
@@ -85,14 +90,14 @@ describe('formatConsoleReport', () => {
     // throughout, not just alphabetical (which this fixture would otherwise be
     // indistinguishable from, since same-score routes fall back to a locale sort).
     const badRoutes: Result[] = Array.from({ length: 6 }, (_, i) => ({
-      id: 'SEO001',
+      id: 'seo/title-presence',
       severity: 'critical' as const,
       detection: { presence: 'none', value: 'absent' } as const,
       route: `/z-bad${i}`,
       message: 'Missing <title>'
     }));
     const goodRoutes: Result[] = Array.from({ length: 7 }, (_, i) => ({
-      id: 'SEO003',
+      id: 'seo/canonical-url',
       severity: 'info' as const,
       detection: { presence: 'own', value: 'static' } as const,
       route: `/a-good${i}`,
@@ -114,7 +119,7 @@ describe('formatConsoleReport', () => {
     const withPerf: Result[] = [
       ...results,
       {
-        id: 'PERF001',
+        id: 'performance/image-dimensions',
         category: 'performance',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
@@ -127,7 +132,7 @@ describe('formatConsoleReport', () => {
     const out = formatConsoleReport(withPerf, config);
     expect(out).toMatch(/SEO Score: \d+\/100/);
     expect(out).toMatch(/Performance Score: \d+\/100/);
-    expect(out).toContain('PERF001');
+    expect(out).toContain('performance/image-dimensions');
     expect(out).toContain('src/routes/blog/+page.svelte:42');
   });
 
@@ -135,7 +140,7 @@ describe('formatConsoleReport', () => {
     const withCorrect: Result[] = [
       ...results,
       {
-        id: 'CORRECT001',
+        id: 'correctness/each-key',
         category: 'correctness',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
@@ -147,27 +152,27 @@ describe('formatConsoleReport', () => {
     ];
     const out = formatConsoleReport(withCorrect, config);
     expect(out).toMatch(/Correctness Score: \d+\/100/);
-    expect(out).toContain('CORRECT001');
+    expect(out).toContain('correctness/each-key');
   });
 
   it('collapses a rule that fires on multiple routes into one group with an "…and N more" line', () => {
     const multi: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/a',
         message: 'Missing <title>'
       },
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/b',
         message: 'Missing <title>'
       },
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/c',
@@ -177,7 +182,7 @@ describe('formatConsoleReport', () => {
     const out = formatConsoleReport(multi, config);
     expect(out).toContain('Critical (3)');
     // Only the first route's line is shown by default, plus a collapse line — not all three routes.
-    expect(out).toContain('✗ SEO001  Missing <title>');
+    expect(out).toContain('✗ seo/title-presence  Missing <title>');
     expect(out).toContain('/a');
     expect(out).not.toContain('/b');
     expect(out).not.toContain('/c');
@@ -204,14 +209,14 @@ describe('formatConsoleReport', () => {
   it("verbose:true restores today's full per-result listing, uncapped and ungrouped", () => {
     const multi: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/a',
         message: 'Missing <title>'
       },
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/b',
@@ -227,14 +232,14 @@ describe('formatConsoleReport', () => {
   it('collapses the Passed section to a bare count by default (no per-item lines)', () => {
     const passing: Result[] = [
       {
-        id: 'SEO003',
+        id: 'seo/canonical-url',
         severity: 'info',
         detection: { presence: 'own', value: 'static' },
         route: '/a',
         message: 'Has <title>'
       },
       {
-        id: 'SEO004',
+        id: 'seo/og-image',
         severity: 'info',
         detection: { presence: 'own', value: 'static' },
         route: '/b',
@@ -243,14 +248,14 @@ describe('formatConsoleReport', () => {
     ];
     const out = formatConsoleReport(passing, config);
     expect(out).toContain('Passed (2)');
-    expect(out).not.toContain('✓ SEO003');
-    expect(out).not.toContain('✓ SEO004');
+    expect(out).not.toContain('✓ seo/canonical-url');
+    expect(out).not.toContain('✓ seo/og-image');
   });
 
   it('lists every passed item under verbose:true, exactly as before', () => {
     const passing: Result[] = [
       {
-        id: 'SEO003',
+        id: 'seo/canonical-url',
         severity: 'info',
         detection: { presence: 'own', value: 'static' },
         route: '/a',
@@ -258,13 +263,13 @@ describe('formatConsoleReport', () => {
       }
     ];
     const out = formatConsoleReport(passing, config, { verbose: true });
-    expect(out).toContain('✓ SEO003  Has <title>');
+    expect(out).toContain('✓ seo/canonical-url  Has <title>');
   });
 
   it('omits the "↯ = set dynamically" footnote in compact mode, since the ↯ marker itself only prints under verbose:true', () => {
     const dynamicPass: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'own', value: 'dynamic' },
         route: '/a',

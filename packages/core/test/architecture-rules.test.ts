@@ -30,7 +30,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   ...over
 });
 
-describe('ARCH001 component size', () => {
+describe('architecture/component-size component size', () => {
   it('flags a component over the line limit', async () => {
     const rs = await arch001ComponentSize.check(ctx([comp({ loc: 500 })]));
     expect(fails(rs)).toHaveLength(1);
@@ -51,7 +51,7 @@ describe('ARCH001 component size', () => {
   });
 });
 
-describe('ARCH002 prop count', () => {
+describe('architecture/prop-count prop count', () => {
   it('flags a component with too many props', async () => {
     const rs = await arch002PropCount.check(ctx([comp({ propCount: 15 })]));
     expect(fails(rs)).toHaveLength(1);

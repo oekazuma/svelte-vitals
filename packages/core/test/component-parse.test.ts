@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { parseComponentFacts } from '../src/component-parse.js';
 
-describe('parseComponentFacts — each blocks (CORRECT001)', () => {
+describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
   it('detects keyed vs unkeyed {#each}', () => {
     const keyed = parseComponentFacts('{#each items as item (item.id)}<li>{item.name}</li>{/each}', 'C.svelte');
     expect(keyed.eachBlocks).toEqual([{ hasKey: true, line: 1 }]);
@@ -26,7 +26,7 @@ describe('parseComponentFacts — each blocks (CORRECT001)', () => {
   });
 });
 
-describe('parseComponentFacts — $effect (CORRECT002)', () => {
+describe('parseComponentFacts — $effect (correctness/effect-as-derived)', () => {
   const facts = (script: string) => parseComponentFacts(`<script>${script}</script>`, 'C.svelte').effects;
 
   it('flags an $effect whose body only assigns $state', () => {
@@ -94,7 +94,7 @@ describe('parseComponentFacts — $effect (CORRECT002)', () => {
   });
 });
 
-describe('parseComponentFacts — security (SEC001/SEC002)', () => {
+describe('parseComponentFacts — security (security/raw-html/security/javascript-url)', () => {
   it('collects {@html} occurrences', () => {
     const f = parseComponentFacts('<div>{@html body}</div>', 'C.svelte');
     expect(f.htmlTags).toEqual([{ line: 1 }]);
@@ -128,7 +128,7 @@ describe('parseComponentFacts — security (SEC001/SEC002)', () => {
   });
 });
 
-describe('parseComponentFacts — architecture (ARCH001/ARCH002)', () => {
+describe('parseComponentFacts — architecture (architecture/component-size/architecture/prop-count)', () => {
   it('counts source lines (loc), not over-counting a trailing newline', () => {
     expect(parseComponentFacts('<p>a</p>\n<p>b</p>\n<p>c</p>', 'C.svelte').loc).toBe(3);
     expect(parseComponentFacts('<p>a</p>\n<p>b</p>\n<p>c</p>\n', 'C.svelte').loc).toBe(3);
@@ -153,7 +153,7 @@ describe('parseComponentFacts — architecture (ARCH001/ARCH002)', () => {
   });
 });
 
-describe('parseComponentFacts — imports (PERF009)', () => {
+describe('parseComponentFacts — imports (performance/heavy-import)', () => {
   it('collects import specifiers from the instance script', () => {
     const src = "<script>import _ from 'lodash'; import { onMount } from 'svelte';</script>";
     expect(parseComponentFacts(src, 'C.svelte').imports).toEqual(['lodash', 'svelte']);
@@ -172,7 +172,7 @@ describe('parseComponentFacts — imports (PERF009)', () => {
   });
 });
 
-describe('parseComponentFacts — namespace imports (PERF010)', () => {
+describe('parseComponentFacts — namespace imports (performance/namespace-import)', () => {
   const ns = (script: string) => parseComponentFacts(`<script>${script}</script>`, 'C.svelte').namespaceImports;
 
   it('captures a bare value namespace import with its source', () => {
@@ -203,7 +203,7 @@ describe('parseComponentFacts — namespace imports (PERF010)', () => {
   });
 });
 
-describe('parseComponentFacts — mount-only $effect (CORRECT003)', () => {
+describe('parseComponentFacts — mount-only $effect (correctness/effect-as-onmount)', () => {
   const facts = (script: string) => parseComponentFacts(`<script>${script}</script>`, 'C.svelte').effects;
 
   it('marks an effect with only member-call side effects as mountOnly', () => {
@@ -242,7 +242,7 @@ describe('parseComponentFacts — mount-only $effect (CORRECT003)', () => {
   });
 });
 
-describe('parseComponentFacts — constable $state (CORRECT004)', () => {
+describe('parseComponentFacts — constable $state (correctness/unmutated-state)', () => {
   const names = (src: string) => parseComponentFacts(src, 'C.svelte').constableStates.map((s) => s.name);
 
   it('flags a $state that is only read', () => {
@@ -302,7 +302,7 @@ describe('parseComponentFacts — constable $state (CORRECT004)', () => {
   });
 });
 
-describe('parseComponentFacts — mutated non-bindable props (CORRECT005)', () => {
+describe('parseComponentFacts — mutated non-bindable props (correctness/prop-mutation)', () => {
   const names = (src: string) => parseComponentFacts(src, 'C.svelte').mutatedProps.map((m) => m.name);
 
   it('flags a member-expression write on a destructured prop', () => {
@@ -381,23 +381,29 @@ describe('parseComponentFacts — mutated non-bindable props (CORRECT005)', () =
 
 describe('parseComponentFacts — suppression directives (issue #92)', () => {
   it('captures a script-side disable-next-line with a rule id', () => {
-    const src = '<script>\n// svelte-vitals-disable-next-line CORRECT002\n$effect(() => { x = 1; });\n</script>';
-    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([{ line: 3, ruleIds: ['CORRECT002'] }]);
+    const src =
+      '<script>\n// svelte-vitals-disable-next-line correctness/effect-as-derived\n$effect(() => { x = 1; });\n</script>';
+    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([
+      { line: 3, ruleIds: ['correctness/effect-as-derived'] }
+    ]);
   });
   it('captures multiple comma-separated rule ids', () => {
-    const src = '<script>\n// svelte-vitals-disable-next-line CORRECT002, SEC001\nx = 1;\n</script>';
-    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([{ line: 3, ruleIds: ['CORRECT002', 'SEC001'] }]);
+    const src =
+      '<script>\n// svelte-vitals-disable-next-line correctness/effect-as-derived, security/raw-html\nx = 1;\n</script>';
+    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([
+      { line: 3, ruleIds: ['correctness/effect-as-derived', 'security/raw-html'] }
+    ]);
   });
   it('captures a blanket disable-next-line with no rule id', () => {
     const src = '<script>\n// svelte-vitals-disable-next-line\nx = 1;\n</script>';
     expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([{ line: 3, ruleIds: undefined }]);
   });
   it('captures a template-side HTML comment directive', () => {
-    const src = '<!-- svelte-vitals-disable-next-line SEC001 -->\n<div>{@html body}</div>';
-    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([{ line: 2, ruleIds: ['SEC001'] }]);
+    const src = '<!-- svelte-vitals-disable-next-line security/raw-html -->\n<div>{@html body}</div>';
+    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([{ line: 2, ruleIds: ['security/raw-html'] }]);
   });
   it('does not match a same-line trailing comment', () => {
-    const src = '<script>\nx = 1; // svelte-vitals-disable-next-line CORRECT002\n</script>';
+    const src = '<script>\nx = 1; // svelte-vitals-disable-next-line correctness/effect-as-derived\n</script>';
     expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([]);
   });
   it('reports no suppressions for a component without any directive', () => {
@@ -405,7 +411,7 @@ describe('parseComponentFacts — suppression directives (issue #92)', () => {
   });
 });
 
-describe('parseComponentFacts — orphan $effect in <script module> (CORRECT006)', () => {
+describe('parseComponentFacts — orphan $effect in <script module> (correctness/orphan-effect)', () => {
   const orphans = (src: string) => parseComponentFacts(src, 'C.svelte').orphanEffects;
 
   it('flags a top-level $effect in <script module>', () => {
@@ -522,11 +528,11 @@ describe('parseComponentFacts — orphan $effect in runes modules (.svelte.ts/.s
   });
   it('collects suppression directives against unwrapped line numbers', () => {
     const facts = parseComponentFacts(
-      '// svelte-vitals-disable-next-line CORRECT006\n$effect(() => {});',
+      '// svelte-vitals-disable-next-line correctness/orphan-effect\n$effect(() => {});',
       'src/lib/s.svelte.ts'
     );
     expect(facts.orphanEffects).toEqual([{ line: 2, kind: 'top-level' }]);
-    expect(facts.suppressions).toEqual([{ line: 2, ruleIds: ['CORRECT006'] }]);
+    expect(facts.suppressions).toEqual([{ line: 2, ruleIds: ['correctness/orphan-effect'] }]);
   });
   it('keeps component-only facts empty for a module file', () => {
     const facts = parseComponentFacts('let c = $state(0);\nexport function inc() { c += 1; }', 'src/lib/c.svelte.ts');
@@ -614,7 +620,7 @@ describe('parseComponentFacts — orphan $effect in runes modules (.svelte.ts/.s
   });
 });
 
-describe('parseComponentFacts — module-scope $state declarations (SEC005)', () => {
+describe('parseComponentFacts — module-scope $state declarations (security/shared-state-import)', () => {
   const decls = (src: string, file = 'src/lib/store.svelte.ts') => parseComponentFacts(src, file).moduleStateDecls;
 
   it('collects top-level $state and $state.raw variable declarations', () => {
@@ -651,7 +657,7 @@ describe('parseComponentFacts — module-scope $state declarations (SEC005)', ()
   });
 });
 
-describe('parseComponentFacts — orphan lifecycle calls (CORRECT007)', () => {
+describe('parseComponentFacts — orphan lifecycle calls (correctness/orphan-lifecycle)', () => {
   const calls = (src: string, file = 'src/lib/store.svelte.ts') => parseComponentFacts(src, file).orphanLifecycleCalls;
 
   it('flags top-level lifecycle/context calls imported from svelte', () => {
@@ -738,7 +744,7 @@ describe('parseComponentFacts — orphan lifecycle calls (CORRECT007)', () => {
   });
 });
 
-describe('parseComponentFacts — browser-global refs (CORRECT008/009)', () => {
+describe('parseComponentFacts — browser-global refs (correctness/server-browser-global/009)', () => {
   const refs = (src: string, file = 'src/lib/store.svelte.ts') => parseComponentFacts(src, file).browserGlobalRefs;
 
   it('flags bare and member-object reads at module scope', () => {

@@ -14,7 +14,7 @@ const ctx = (head: ResolvedHead): RuleContext => ({ heads: [head], project: defa
 const failing = (rs: Awaited<ReturnType<typeof perf003PreloadAs.check>>) =>
   rs.filter((r) => r.detection.presence === 'none');
 
-describe('PERF003 preload missing as', () => {
+describe('performance/preload-missing-as preload missing as', () => {
   it('flags a preload link with no as', async () => {
     const rs = await perf003PreloadAs.check(ctx(headWith([{ kind: 'link', rel: 'preload' }])));
     expect(failing(rs)).toHaveLength(1);
@@ -36,7 +36,7 @@ describe('PERF003 preload missing as', () => {
   });
 });
 
-describe('PERF004 font preload missing crossorigin', () => {
+describe('performance/font-preload-crossorigin font preload missing crossorigin', () => {
   it('flags as=font preload without crossorigin', async () => {
     const rs = await perf004FontPreloadCrossorigin.check(
       ctx(headWith([{ kind: 'link', rel: 'preload', hasAs: true, as: 'font' }]))

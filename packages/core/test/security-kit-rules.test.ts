@@ -32,7 +32,7 @@ const kit = (over: Partial<KitModuleFacts>): KitModuleFacts => ({
   ...over
 });
 
-describe('SEC003 handler writes imported state', () => {
+describe('security/handler-state-write handler writes imported state', () => {
   it('flags a handler write as critical', async () => {
     const rs = await sec003LoadStateWrite.check(
       ctx([kit({ importedStateWrites: [{ name: 'user', line: 3, via: 'set-call' }] })])
@@ -53,7 +53,7 @@ describe('SEC003 handler writes imported state', () => {
       ctx([
         kit({
           importedStateWrites: [{ name: 'user', line: 3, via: 'assignment' }],
-          suppressions: [{ line: 3, ruleIds: ['SEC003'] }]
+          suppressions: [{ line: 3, ruleIds: ['security/handler-state-write'] }]
         })
       ])
     );
@@ -61,7 +61,7 @@ describe('SEC003 handler writes imported state', () => {
   });
 });
 
-describe('SEC004 server module-scope state', () => {
+describe('security/server-module-state server module-scope state', () => {
   it('flags a handler reassignment as warning with the handler message', async () => {
     const rs = await sec004ServerModuleState.check(
       ctx([kit({ moduleStateReassignments: [{ name: 'user', line: 8, inHandler: true }] })])
@@ -98,7 +98,7 @@ const stateModule = (file: string): ComponentFacts => ({
   suppressions: []
 });
 
-describe('SEC005 shared runes-state import on the server', () => {
+describe('security/shared-state-import shared runes-state import on the server', () => {
   const imp = { source: '$lib/quiz.svelte.js', resolved: 'src/lib/quiz.svelte.js', names: ['quizState'], line: 1 };
 
   it('flags a read-only import of a module-scope $state module (stale/boot-time message)', async () => {
@@ -130,7 +130,7 @@ describe('SEC005 shared runes-state import on the server', () => {
     );
     expect(fails(rs)).toHaveLength(1);
   });
-  it('does not double-report a binding already flagged by SEC003, and skips non-state modules', async () => {
+  it('does not double-report a binding already flagged by security/handler-state-write, and skips non-state modules', async () => {
     const covered = await sec005SharedStateImport.check(
       ctx(
         [
@@ -152,7 +152,7 @@ describe('SEC005 shared runes-state import on the server', () => {
   });
 });
 
-describe('SEO031 SSR disabled', () => {
+describe('seo/ssr-disabled SSR disabled', () => {
   it('flags a leaf route with the per-route message as an seo warning', async () => {
     const rs = await seo031SsrDisabled.check(
       ctx([kit({ file: 'src/routes/dash/+page.ts', kind: 'universal', ssrDisabled: { line: 1 } })])
@@ -181,7 +181,7 @@ describe('SEO031 SSR disabled', () => {
   it('emits nothing without the flag, honours suppression, and no-ops in rendered mode', async () => {
     expect(await seo031SsrDisabled.check(ctx([kit({})]))).toHaveLength(0);
     const suppressed = await seo031SsrDisabled.check(
-      ctx([kit({ ssrDisabled: { line: 3 }, suppressions: [{ line: 3, ruleIds: ['SEO031'] }] })])
+      ctx([kit({ ssrDisabled: { line: 3 }, suppressions: [{ line: 3, ruleIds: ['seo/ssr-disabled'] }] })])
     );
     expect(fails(suppressed)).toHaveLength(0);
     expect(await seo031SsrDisabled.check(base as RuleContext)).toHaveLength(0);

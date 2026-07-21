@@ -19,7 +19,7 @@ const head = (source: 'static' | 'rendered', tags: Partial<HeadTag>[]): Resolved
 });
 const headsCtx = (h: ResolvedHead): RuleContext => ({ heads: [h], ...base });
 
-describe('SEO024 charset', () => {
+describe('seo/charset charset', () => {
   it('passes a rendered page with <meta charset>', async () => {
     const rs = await seo024Charset.check(headsCtx(head('rendered', [{ kind: 'meta', name: 'charset' }])));
     expect(fails(rs)).toHaveLength(0);
@@ -47,7 +47,7 @@ const img = (over: Partial<ImageInfo>): ImageInfo => ({
 });
 const imagesCtx = (images: ResolvedImages[]): RuleContext => ({ heads: [], images, ...base });
 
-describe('SEO025 image alt', () => {
+describe('seo/image-alt image alt', () => {
   it('passes an <img> with an alt attribute (incl. empty alt="")', async () => {
     const rs = await seo025ImageAlt.check(imagesCtx([{ route: '/a', images: [img({ hasAlt: true })] }]));
     expect(rs[0]!.category).toBe('seo');
@@ -69,7 +69,7 @@ const alt = (hreflang?: string): Partial<HeadTag> => ({
   ...(hreflang !== undefined ? { hreflang } : {})
 });
 
-describe('SEO026 hreflang', () => {
+describe('seo/hreflang hreflang', () => {
   it('emits nothing when there are no hreflang alternates', async () => {
     const rs = await seo026Hreflang.check(headsCtx(head('rendered', [{ kind: 'link', rel: 'canonical' }])));
     expect(rs).toHaveLength(0);
@@ -115,7 +115,7 @@ const hs = (levels: number[]): ResolvedHeadings => ({
   headings: levels.map((level) => ({ level, line: 0, file: 'x' }))
 });
 
-describe('SEO027 heading hierarchy', () => {
+describe('seo/single-h1 heading hierarchy', () => {
   it('passes a page with exactly one <h1>', async () => {
     const rs = await seo027Heading.check(headingsCtx([hs([1, 2, 2])]));
     expect(fails(rs)).toHaveLength(0);

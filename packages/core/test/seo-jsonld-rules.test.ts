@@ -23,7 +23,7 @@ const ctx = (head: ResolvedHead): RuleContext => ({ heads: [head], project: defa
 const fails = (rs: Awaited<ReturnType<typeof seo016JsonLdValidity.check>>) =>
   rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 
-describe('SEO016 validity', () => {
+describe('seo/json-ld-validity validity', () => {
   it('flags invalid JSON', async () => {
     expect(fails(await seo016JsonLdValidity.check(ctx(headWithJsonLd('{bad'))))).toHaveLength(1);
   });
@@ -47,13 +47,13 @@ describe('SEO016 validity', () => {
   });
 });
 
-describe('SEO017-021', () => {
-  it('SEO017 flags a deprecated type', async () => {
+describe('seo/json-ld-deprecated-type-021', () => {
+  it('seo/json-ld-deprecated-type flags a deprecated type', async () => {
     expect(
       fails(await seo017DeprecatedType.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"HowTo"}'))))
     ).toHaveLength(1);
   });
-  it('SEO018 flags a relative URL under a known key', async () => {
+  it('seo/json-ld-relative-url flags a relative URL under a known key', async () => {
     expect(
       fails(
         await seo018RelativeUrl.check(
@@ -69,7 +69,7 @@ describe('SEO017-021', () => {
       )
     ).toHaveLength(0);
   });
-  it('SEO018 does not flag a relative @id (node identifier, not a URL)', async () => {
+  it('seo/json-ld-relative-url does not flag a relative @id (node identifier, not a URL)', async () => {
     expect(
       fails(
         await seo018RelativeUrl.check(
@@ -82,7 +82,7 @@ describe('SEO017-021', () => {
       )
     ).toHaveLength(0);
   });
-  it('SEO018 accepts protocol-relative and data-URI values', async () => {
+  it('seo/json-ld-relative-url accepts protocol-relative and data-URI values', async () => {
     expect(
       fails(
         await seo018RelativeUrl.check(
@@ -98,7 +98,7 @@ describe('SEO017-021', () => {
       )
     ).toHaveLength(0);
   });
-  it('SEO019 flags a non-ISO date under a known key', async () => {
+  it('seo/json-ld-date-format flags a non-ISO date under a known key', async () => {
     expect(
       fails(
         await seo019DateFormat.check(
@@ -114,7 +114,7 @@ describe('SEO017-021', () => {
       )
     ).toHaveLength(0);
   });
-  it('SEO019 accepts schema.org reduced-precision dates (year / year-month)', async () => {
+  it('seo/json-ld-date-format accepts schema.org reduced-precision dates (year / year-month)', async () => {
     expect(
       fails(
         await seo019DateFormat.check(
@@ -130,7 +130,7 @@ describe('SEO017-021', () => {
       )
     ).toHaveLength(0);
   });
-  it('SEO020 flags placeholder text', async () => {
+  it('seo/json-ld-placeholder flags placeholder text', async () => {
     expect(
       fails(
         await seo020Placeholder.check(
@@ -139,7 +139,7 @@ describe('SEO017-021', () => {
       )
     ).toHaveLength(1);
   });
-  it('SEO021 flags a missing required property and ignores unknown types', async () => {
+  it('seo/json-ld-required-props flags a missing required property and ignores unknown types', async () => {
     expect(
       fails(
         await seo021RequiredProps.check(
@@ -160,7 +160,7 @@ describe('SEO017-021', () => {
       )
     ).toHaveLength(0); // unknown type → no signal
   });
-  it('SEO021 treats an empty/blank required value as missing', async () => {
+  it('seo/json-ld-required-props treats an empty/blank required value as missing', async () => {
     expect(
       fails(
         await seo021RequiredProps.check(
@@ -176,8 +176,8 @@ describe('SEO017-021', () => {
       )
     ).toHaveLength(1); // empty array → still missing
   });
-  it('SEO017-021 skip parseable JSON-LD that SEO016 deems invalid (missing @context/@type)', async () => {
-    // Relative URL present, but no @context → SEO016 owns the finding; SEO018 stays silent (no misleading pass).
+  it('seo/json-ld-deprecated-type-021 skip parseable JSON-LD that seo/json-ld-validity deems invalid (missing @context/@type)', async () => {
+    // Relative URL present, but no @context → seo/json-ld-validity owns the finding; seo/json-ld-relative-url stays silent (no misleading pass).
     expect(await seo018RelativeUrl.check(ctx(headWithJsonLd('{"@type":"Org","image":"/logo.png"}')))).toHaveLength(0);
     // @context but no @type → likewise skipped.
     expect(

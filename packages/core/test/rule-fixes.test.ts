@@ -37,7 +37,7 @@ describe('rule fixes', () => {
     }
   });
 
-  it('SEO002 fix snippet is a description meta tag', async () => {
+  it('seo/description-presence fix snippet is a description meta tag', async () => {
     const [r] = await seo002Description.check(routeCtx);
     expect(r!.fix!.snippet).toContain('name="description"');
   });

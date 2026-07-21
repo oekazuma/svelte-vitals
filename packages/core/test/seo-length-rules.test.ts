@@ -18,7 +18,7 @@ const title = (text?: string) => headWith({ kind: 'title', ...(text !== undefine
 const desc = (text?: string) =>
   headWith({ kind: 'meta', name: 'description', ...(text !== undefined ? { text } : {}) });
 
-describe('SEO022 title length', () => {
+describe('seo/title-length title length', () => {
   it('flags a too-short title', async () => {
     expect(fails(await seo022TitleLength.check(ctx(title('Home'))))).toHaveLength(1);
   });
@@ -37,7 +37,7 @@ describe('SEO022 title length', () => {
   });
 });
 
-describe('SEO023 description length', () => {
+describe('seo/description-length description length', () => {
   it('flags a too-short description', async () => {
     expect(fails(await seo023DescriptionLength.check(ctx(desc('Too short.'))))).toHaveLength(1);
   });

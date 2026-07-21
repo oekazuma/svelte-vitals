@@ -25,7 +25,7 @@ const img = (
 });
 const ctxWith = (images: ResolvedImages[]) => ({ heads: [], images, project: defaultProject, config });
 
-describe('PERF001 image dimensions', () => {
+describe('performance/image-dimensions image dimensions', () => {
   it('flags an <img> missing width or height, with file and line', async () => {
     const ctx = ctxWith([{ route: '/a', images: [img({ hasWidth: false })] }]);
     const [r] = await perf001ImageDimensions.check(ctx);
@@ -66,7 +66,7 @@ describe('PERF001 image dimensions', () => {
   });
 });
 
-describe('PERF001 image line omission when unknown (line: 0)', () => {
+describe('performance/image-dimensions image line omission when unknown (line: 0)', () => {
   it('omits line property when img.line === 0', async () => {
     const imgNoLine = {
       hasWidth: false,
@@ -91,7 +91,7 @@ describe('PERF001 image line omission when unknown (line: 0)', () => {
   });
 });
 
-describe('PERF002 image loading', () => {
+describe('performance/image-loading-hint image loading', () => {
   it('flags a missing loading attribute as info', async () => {
     const ctx = ctxWith([{ route: '/a', images: [img({ hasLoading: false })] }]);
     const [r] = await perf002ImageLoading.check(ctx);

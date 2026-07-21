@@ -34,7 +34,7 @@ const inheritedHead = head('/child', 'src/routes/child/+page.svelte', {
   value: 'static'
 });
 
-describe('SEO001 title detection', () => {
+describe('seo/title-presence title detection', () => {
   it('detects a static title as present (own/static)', async () => {
     const [result] = await seo001Title.check({ heads: [staticHead], project: defaultProject, config });
     expect(result!.detection).toEqual({ presence: 'own', value: 'static' });
@@ -80,7 +80,7 @@ describe('summary + reporter', () => {
     });
     const report = formatConsoleReport(results, config, { verbose: true });
     expect(report).toContain('Critical (1)');
-    expect(report).toContain('✗ SEO001  Missing <title>');
+    expect(report).toContain('✗ seo/title-presence  Missing <title>');
     expect(report).toContain('↯ dynamic');
     expect(report).toContain('/static');
   });

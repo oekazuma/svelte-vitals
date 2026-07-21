@@ -40,7 +40,7 @@ const descHead = (route: string, text?: string): ResolvedHead => ({
 });
 const ctx = (heads: ResolvedHead[]): RuleContext => ({ heads, ...base });
 
-describe('SEO028 duplicate title', () => {
+describe('seo/duplicate-title duplicate title', () => {
   it('flags two routes sharing a title', async () => {
     const rs = await seo028TitleUnique.check(ctx([titleHead('/a', 'Same Title'), titleHead('/b', 'Same Title')]));
     expect(fails(rs)).toHaveLength(2);
@@ -61,7 +61,7 @@ describe('SEO028 duplicate title', () => {
   });
 });
 
-describe('SEO029 duplicate description', () => {
+describe('seo/duplicate-description duplicate description', () => {
   it('flags two routes sharing a description', async () => {
     const rs = await seo029DescriptionUnique.check(ctx([descHead('/a', 'Same desc'), descHead('/b', 'Same desc')]));
     expect(fails(rs)).toHaveLength(2);
@@ -78,7 +78,7 @@ const headings = (levels: number[]): ResolvedHeadings => ({
 });
 const headingsCtx = (h: ResolvedHeadings[]): RuleContext => ({ heads: [], headings: h, ...base });
 
-describe('SEO030 heading order', () => {
+describe('seo/heading-level-skip heading order', () => {
   it('passes a well-ordered outline', async () => {
     const rs = await seo030HeadingOrder.check(headingsCtx([headings([1, 2, 3, 2])]));
     expect(fails(rs)).toHaveLength(0);

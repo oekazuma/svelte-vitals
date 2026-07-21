@@ -32,7 +32,7 @@ const comp = (
   suppressions
 });
 
-describe('PERF009 heavy dependency import', () => {
+describe('performance/heavy-import heavy dependency import', () => {
   it('flags a bare lodash / moment import', async () => {
     const rs = await perf009HeavyImport.check(
       ctx([
@@ -92,25 +92,25 @@ describe('PERF009 heavy dependency import', () => {
   it('emits nothing when the component channel is unset (rendered mode)', async () => {
     expect(await perf009HeavyImport.check(base as RuleContext)).toHaveLength(0);
   });
-  // Regression for the bug this plan fixes: PERF009 used to hard-code `line: 0`, and
+  // Regression for the bug this plan fixes: performance/heavy-import used to hard-code `line: 0`, and
   // component-rule's suppression check only looks up a directive when `b.line > 0` —
-  // so `svelte-vitals-disable-next-line PERF009` silently never suppressed anything.
+  // so `svelte-vitals-disable-next-line performance/heavy-import` silently never suppressed anything.
   it('suppresses the finding when a directive matches its real line and rule id', async () => {
     const rs = await perf009HeavyImport.check(
-      ctx([comp([{ source: 'lodash', line: 5 }], [{ line: 5, ruleIds: ['PERF009'] }])])
+      ctx([comp([{ source: 'lodash', line: 5 }], [{ line: 5, ruleIds: ['performance/heavy-import'] }])])
     );
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1); // falls back to the normal PASS result
   });
   it('does not suppress when the directive is on a different line', async () => {
     const rs = await perf009HeavyImport.check(
-      ctx([comp([{ source: 'lodash', line: 5 }], [{ line: 6, ruleIds: ['PERF009'] }])])
+      ctx([comp([{ source: 'lodash', line: 5 }], [{ line: 6, ruleIds: ['performance/heavy-import'] }])])
     );
     expect(fails(rs)).toHaveLength(1);
   });
 });
 
-describe('PERF010 namespace import', () => {
+describe('performance/namespace-import namespace import', () => {
   const withNs = (namespaceImports: { source: string; line: number }[]): ComponentFacts => ({
     ...comp([]),
     namespaceImports

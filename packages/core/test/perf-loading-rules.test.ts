@@ -28,7 +28,7 @@ const img = (over: Partial<ImageInfo>): ImageInfo => ({
 });
 const imagesCtx = (images: ResolvedImages[]): RuleContext => ({ heads: [], images, ...base });
 
-describe('PERF005 LCP image eager loading', () => {
+describe('performance/lcp-image LCP image eager loading', () => {
   it('flags a lazy first image', async () => {
     const rs = await perf005LcpImage.check(imagesCtx([{ route: '/a', images: [img({ lazy: true })] }]));
     expect(fails(rs)).toHaveLength(1);
@@ -50,7 +50,7 @@ describe('PERF005 LCP image eager loading', () => {
   });
 });
 
-describe('PERF006 responsive image', () => {
+describe('performance/responsive-image responsive image', () => {
   it('flags an <img> without srcset (info)', async () => {
     const rs = await perf006ResponsiveImage.check(imagesCtx([{ route: '/a', images: [img({ hasSrcset: false })] }]));
     expect(fails(rs)).toHaveLength(1);
@@ -70,7 +70,7 @@ const head = (source: 'static' | 'rendered', tags: Partial<HeadTag>[]): Resolved
 });
 const headsCtx = (h: ResolvedHead): RuleContext => ({ heads: [h], ...base });
 
-describe('PERF007 render-blocking script', () => {
+describe('performance/render-blocking-script render-blocking script', () => {
   it('flags a blocking head script (rendered)', async () => {
     const rs = await perf007RenderBlockingScript.check(
       headsCtx(head('rendered', [{ kind: 'script', href: '/a.js', blocking: true }]))
@@ -96,7 +96,7 @@ describe('PERF007 render-blocking script', () => {
 
 const link = (rel: string, href: string): Partial<HeadTag> => ({ kind: 'link', rel, href });
 
-describe('PERF008 preconnect third-party origin', () => {
+describe('performance/preconnect preconnect third-party origin', () => {
   it('flags a third-party stylesheet with no preconnect', async () => {
     const rs = await perf008Preconnect.check(
       headsCtx(head('rendered', [link('stylesheet', 'https://fonts.googleapis.com/css2?x')]))

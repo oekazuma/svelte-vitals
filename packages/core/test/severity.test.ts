@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { isPenalized, effectiveSeverity, summarize, defineConfig, type Result } from '../src/index.js';
 
 const dynResult: Result = {
-  id: 'SEO001',
+  id: 'seo/title-presence',
   severity: 'critical',
   detection: { presence: 'own', value: 'dynamic' },
   route: '/x',

@@ -19,17 +19,22 @@ const fail = (id: string, route: string, severity: 'critical' | 'warning' | 'inf
 describe('computeScore (§12 worked example)', () => {
   it('caps at 79 when a critical exists and applies site penalty', () => {
     const results: Result[] = [
-      pass('SEO001', '/a'),
-      pass('SEO001', '/b'),
-      pass('SEO001', '/c'),
-      pass('SEO001', '/d'),
+      pass('seo/title-presence', '/a'),
+      pass('seo/title-presence', '/b'),
+      pass('seo/title-presence', '/c'),
+      pass('seo/title-presence', '/d'),
       // route /blog: critical + 2 warnings + 1 info  => 100-15-5-5-1 = 74
-      fail('SEO002', '/blog', 'critical'),
-      fail('SEO003', '/blog', 'warning'),
-      fail('SEO004', '/blog', 'warning'),
-      fail('SEO008', '/blog', 'info'),
+      fail('seo/description-presence', '/blog', 'critical'),
+      fail('seo/canonical-url', '/blog', 'warning'),
+      fail('seo/og-image', '/blog', 'warning'),
+      fail('seo/json-ld', '/blog', 'info'),
       // project rule: robots.txt missing (warning) => site penalty 5
-      { id: 'SEO006', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'no robots' }
+      {
+        id: 'seo/robots-txt',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        message: 'no robots'
+      }
     ];
     const { score, scoreModel } = computeScore(results, defineConfig({}));
     expect(scoreModel.routeAverage).toBe(95); // (100*4 + 74)/5 = 94.8 -> 95
@@ -39,7 +44,7 @@ describe('computeScore (§12 worked example)', () => {
   });
 
   it('no cap and full marks when everything passes', () => {
-    const { score, scoreModel } = computeScore([pass('SEO001', '/a')], defineConfig({}));
+    const { score, scoreModel } = computeScore([pass('seo/title-presence', '/a')], defineConfig({}));
     expect(score).toBe(100);
     expect(scoreModel.criticalCap).toBeNull();
   });
@@ -47,12 +52,12 @@ describe('computeScore (§12 worked example)', () => {
   it('reports criticalCap null when the cap does not actually lower the score', () => {
     // /x: critical (15) + 5 warnings (25) => 100-40 = 60, already below the 79 cap.
     const results: Result[] = [
-      fail('SEO002', '/x', 'critical'),
-      fail('SEO003', '/x', 'warning'),
-      fail('SEO004', '/x', 'warning'),
-      fail('SEO005', '/x', 'warning'),
-      fail('SEO010', '/x', 'warning'),
-      fail('SEO011', '/x', 'warning')
+      fail('seo/description-presence', '/x', 'critical'),
+      fail('seo/canonical-url', '/x', 'warning'),
+      fail('seo/og-image', '/x', 'warning'),
+      fail('seo/og-title', '/x', 'warning'),
+      fail('seo/indexability', '/x', 'warning'),
+      fail('seo/twitter-card', '/x', 'warning')
     ];
     const { score, scoreModel } = computeScore(results, defineConfig({}));
     expect(score).toBe(60);
@@ -62,7 +67,7 @@ describe('computeScore (§12 worked example)', () => {
   it('omits the critical cap for a single-route view when applyCriticalCap is false', () => {
     const results: Result[] = [
       {
-        id: 'SEO002',
+        id: 'seo/description-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/x',
@@ -76,14 +81,14 @@ describe('computeScore (§12 worked example)', () => {
   it('deducts once per (route, rule) even if a rule emits duplicate penalized results', () => {
     const results: Result[] = [
       {
-        id: 'SEO002',
+        id: 'seo/description-presence',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
         route: '/x',
         message: 'a'
       },
       {
-        id: 'SEO002',
+        id: 'seo/description-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/x',
@@ -96,8 +101,8 @@ describe('computeScore (§12 worked example)', () => {
 
   it('deducts once per project rule even if duplicated', () => {
     const results: Result[] = [
-      { id: 'SEO006', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'a' },
-      { id: 'SEO006', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'b' }
+      { id: 'seo/robots-txt', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'a' },
+      { id: 'seo/robots-txt', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'b' }
     ];
     // single route seeded at 100 not present; routeAverage falls back to 100; site penalty counted once (5) -> 95
     expect(computeScore(results, defineConfig({})).scoreModel.sitePenalty).toBe(5);
@@ -110,7 +115,7 @@ describe('scoresByCategory', () => {
     const config = defineConfig({});
     const results = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         category: 'seo',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
@@ -118,7 +123,7 @@ describe('scoresByCategory', () => {
         message: 'x'
       },
       {
-        id: 'PERF001',
+        id: 'performance/image-dimensions',
         category: 'performance',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
@@ -126,7 +131,7 @@ describe('scoresByCategory', () => {
         message: 'y'
       },
       {
-        id: 'PERF001',
+        id: 'performance/image-dimensions',
         category: 'performance',
         severity: 'warning',
         detection: { presence: 'own', value: 'static' },
@@ -146,7 +151,7 @@ describe('scoresByCategory', () => {
     const byCat = scoresByCategory(
       [
         {
-          id: 'SEO001',
+          id: 'seo/title-presence',
           severity: 'warning',
           detection: { presence: 'none', value: 'absent' },
           route: '/a',

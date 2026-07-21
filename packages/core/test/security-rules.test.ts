@@ -30,7 +30,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   ...over
 });
 
-describe('SEC001 raw HTML render', () => {
+describe('security/raw-html raw HTML render', () => {
   it('flags a component using {@html}', async () => {
     const rs = await sec001Html.check(ctx([comp({ htmlTags: [{ line: 4 }] })]));
     expect(fails(rs)).toHaveLength(1);
@@ -42,7 +42,7 @@ describe('SEC001 raw HTML render', () => {
   });
   it('passes when the {@html} finding is suppressed via a template-side directive (issue #92)', async () => {
     const rs = await sec001Html.check(
-      ctx([comp({ htmlTags: [{ line: 4 }], suppressions: [{ line: 4, ruleIds: ['SEC001'] }] })])
+      ctx([comp({ htmlTags: [{ line: 4 }], suppressions: [{ line: 4, ruleIds: ['security/raw-html'] }] })])
     );
     expect(fails(rs)).toHaveLength(0);
   });
@@ -51,7 +51,7 @@ describe('SEC001 raw HTML render', () => {
   });
 });
 
-describe('SEC002 javascript: URL', () => {
+describe('security/javascript-url javascript: URL', () => {
   it('flags a javascript: URL', async () => {
     const rs = await sec002JavascriptUrl.check(ctx([comp({ javascriptUrls: [{ line: 7 }] })]));
     expect(fails(rs)).toHaveLength(1);
