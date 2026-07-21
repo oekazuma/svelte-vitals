@@ -1,5 +1,17 @@
 # @svelte-vitals/vite
 
+## 0.20.0
+
+### Minor Changes
+
+- edaaa94: Add SEO031 (warning): flag SvelteKit route files that disable server-side rendering with `export const ssr = false` — per the official SEO guidance, server-rendered content indexes more reliably, and SPA mode adds a round trip before first paint. The root-layout (app-wide) case gets a dedicated message; deliberate SPAs can turn the rule off or suppress inline.
+
+### Patch Changes
+
+- Updated dependencies [edaaa94]
+  - @svelte-vitals/core@0.28.0
+  - svelte-vitals@0.31.0
+
 ## 0.19.0
 
 ### Minor Changes
