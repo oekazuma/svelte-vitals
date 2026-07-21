@@ -169,6 +169,15 @@ describe('SEO031 SSR disabled', () => {
     );
     expect(fails(rs)[0]!.message).toContain('whole app');
   });
+  it('does not fire for hooks.server or +server files (ssr is a page option)', async () => {
+    const rs = await seo031SsrDisabled.check(
+      ctx([
+        kit({ file: 'src/hooks.server.ts', kind: 'server', ssrDisabled: { line: 1 } }),
+        kit({ file: 'src/routes/api/+server.ts', kind: 'server', ssrDisabled: { line: 1 } })
+      ])
+    );
+    expect(rs).toHaveLength(0);
+  });
   it('emits nothing without the flag, honours suppression, and no-ops in rendered mode', async () => {
     expect(await seo031SsrDisabled.check(ctx([kit({})]))).toHaveLength(0);
     const suppressed = await seo031SsrDisabled.check(
