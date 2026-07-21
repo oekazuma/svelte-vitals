@@ -80,41 +80,45 @@ function addActionsMembers(obj: Node, handlers: Set<Node>): void {
 }
 
 /**
- * Same-file alias exports (`export { load }`, `export { handler as GET }`, an
- * alias-exported `actions` object) resolved against `bindings` and folded into
- * `handlers` — mirrors the classification inline `export` declarations get.
+ * Iterate the module's named exports, calling `visit(name, value, anchor)` for
+ * each: first inline `export` declarations (`export function f` yields the
+ * declaration itself; `export const x = …` yields each declarator's TS-unwrapped
+ * init), then same-file alias specifiers (`export { local as name }`) resolved
+ * through `collectTopLevelBindings` — type-only exports and cross-file re-exports
+ * are skipped. `anchor` is the node whose `start` carries the export's source
+ * position (the declarator/declaration inline, the resolved node for aliases).
+ * A visitor returning `true` stops the walk (first-match finders). Bindings are
+ * built lazily, once, and only when an alias specifier actually resolves a pass.
+ * Replaces the four hand-rolled copies that classified handlers, the `init`
+ * hook, `ssr`/`csr` opt-outs, and the `load` function.
  */
-function resolveAliasHandlerExports(program: Node, bindings: Map<string, Node>, handlers: Set<Node>): void {
+function forEachNamedExport(
+  program: Node,
+  visit: (name: string, value: Node, anchor: Node) => boolean | undefined
+): void {
   for (const stmt of program.body ?? []) {
-    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.specifiers || stmt.source || stmt.exportKind === 'type')
+    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.declaration) continue;
+    const decl = stmt.declaration;
+    if (decl.type === 'FunctionDeclaration' && decl.id?.type === 'Identifier') {
+      if (visit(decl.id.name, decl, decl)) return;
       continue;
-    for (const s of stmt.specifiers) {
-      if (s?.exportKind === 'type' || s?.exported?.type !== 'Identifier' || s?.local?.type !== 'Identifier') continue;
-      const exportedName = s.exported.name;
-      const resolved = bindings.get(s.local.name);
-      if (HANDLER_NAMES.has(exportedName) && isFunctionNode(resolved)) {
-        handlers.add(resolved);
-      } else if (exportedName === 'actions' && resolved?.type === 'ObjectExpression') {
-        addActionsMembers(resolved, handlers);
-      }
+    }
+    if (decl.type !== 'VariableDeclaration') continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type !== 'Identifier' || !d.init) continue;
+      if (visit(d.id.name, unwrapTs(d.init), d)) return;
     }
   }
-}
-
-/**
- * Same-file alias exports of the `init` startup hook (`export { init }`) resolved
- * against `bindings` and folded into `startup` — mirrors the classification an
- * inline `export async function init() {}` gets.
- */
-function resolveAliasStartupExports(program: Node, bindings: Map<string, Node>, startup: Set<Node>): void {
+  let bindings: Map<string, Node> | undefined;
   for (const stmt of program.body ?? []) {
     if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.specifiers || stmt.source || stmt.exportKind === 'type')
       continue;
     for (const s of stmt.specifiers) {
       if (s?.exportKind === 'type' || s?.exported?.type !== 'Identifier' || s?.local?.type !== 'Identifier') continue;
-      if (s.exported.name !== 'init') continue;
+      bindings ??= collectTopLevelBindings(program);
       const resolved = bindings.get(s.local.name);
-      if (isFunctionNode(resolved)) startup.add(resolved);
+      if (resolved === undefined) continue;
+      if (visit(s.exported.name, resolved, resolved)) return;
     }
   }
 }
@@ -129,25 +133,11 @@ function resolveAliasStartupExports(program: Node, bindings: Map<string, Node>, 
  */
 function collectHandlerFunctions(program: Node): Set<Node> {
   const handlers = new Set<Node>();
-  for (const stmt of program.body ?? []) {
-    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.declaration) continue;
-    const decl = stmt.declaration;
-    if (decl.type === 'FunctionDeclaration' && decl.id?.type === 'Identifier' && HANDLER_NAMES.has(decl.id.name)) {
-      handlers.add(decl);
-      continue;
-    }
-    if (decl.type !== 'VariableDeclaration') continue;
-    for (const d of decl.declarations ?? []) {
-      if (d?.id?.type !== 'Identifier' || !d.init) continue;
-      const init = unwrapTs(d.init);
-      if (HANDLER_NAMES.has(d.id.name) && isFunctionNode(init)) {
-        handlers.add(init);
-      } else if (d.id.name === 'actions' && init?.type === 'ObjectExpression') {
-        addActionsMembers(init, handlers);
-      }
-    }
-  }
-  resolveAliasHandlerExports(program, collectTopLevelBindings(program), handlers);
+  forEachNamedExport(program, (name, value) => {
+    if (HANDLER_NAMES.has(name) && isFunctionNode(value)) handlers.add(value);
+    else if (name === 'actions' && value?.type === 'ObjectExpression') addActionsMembers(value, handlers);
+    return undefined;
+  });
   return handlers;
 }
 
@@ -160,21 +150,10 @@ function collectHandlerFunctions(program: Node): Set<Node> {
  */
 function collectStartupFunctions(program: Node): Set<Node> {
   const startup = new Set<Node>();
-  for (const stmt of program.body ?? []) {
-    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.declaration) continue;
-    const decl = stmt.declaration;
-    if (decl.type === 'FunctionDeclaration' && decl.id?.type === 'Identifier' && decl.id.name === 'init') {
-      startup.add(decl);
-      continue;
-    }
-    if (decl.type !== 'VariableDeclaration') continue;
-    for (const d of decl.declarations ?? []) {
-      if (d?.id?.type !== 'Identifier' || !d.init) continue;
-      const init = unwrapTs(d.init);
-      if (d.id.name === 'init' && isFunctionNode(init)) startup.add(init);
-    }
-  }
-  resolveAliasStartupExports(program, collectTopLevelBindings(program), startup);
+  forEachNamedExport(program, (name, value) => {
+    if (name === 'init' && isFunctionNode(value)) startup.add(value);
+    return undefined;
+  });
   return startup;
 }
 
@@ -188,32 +167,13 @@ function collectStartupFunctions(program: Node): Set<Node> {
  * PERF011 exempts it (see `csrDisabled` on `KitModuleFacts`).
  */
 function findFalseOptOut(program: Node, source: string, name: 'ssr' | 'csr'): { line: number } | undefined {
-  const isFalse = (init: Node): boolean => {
-    const v = unwrapTs(init);
-    return v?.type === 'Literal' && v.value === false;
-  };
-  for (const stmt of program.body ?? []) {
-    const decl = unwrapExport(stmt);
-    if (decl?.type !== 'VariableDeclaration') continue;
-    for (const d of decl.declarations ?? []) {
-      if (d?.id?.type === 'Identifier' && d.id.name === name && d.init && isFalse(d.init)) {
-        if (stmt.type === 'ExportNamedDeclaration') return { line: lineOf(source, d.start) };
-      }
-    }
-  }
-  // Alias export: `const ssr = false; export { ssr };`
-  const bindings = collectTopLevelBindings(program);
-  for (const stmt of program.body ?? []) {
-    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.specifiers || stmt.source || stmt.exportKind === 'type')
-      continue;
-    for (const s of stmt.specifiers) {
-      if (s?.exportKind === 'type' || s?.exported?.type !== 'Identifier' || s?.local?.type !== 'Identifier') continue;
-      if (s.exported.name !== name) continue;
-      const resolved = bindings.get(s.local.name);
-      if (resolved?.type === 'Literal' && resolved.value === false) return { line: lineOf(source, resolved.start) };
-    }
-  }
-  return undefined;
+  let hit: { line: number } | undefined;
+  forEachNamedExport(program, (exported, value, anchor) => {
+    if (exported !== name || value?.type !== 'Literal' || value.value !== false) return undefined;
+    hit = { line: lineOf(source, anchor.start) };
+    return true;
+  });
+  return hit;
 }
 
 /**
@@ -222,29 +182,13 @@ function findFalseOptOut(program: Node, source: string, name: 'ssr' | 'csr'): { 
  * re-exports stay unresolved, matching the other collectors' scope.
  */
 function findLoadFunction(program: Node): Node | undefined {
-  for (const stmt of program.body ?? []) {
-    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.declaration) continue;
-    const decl = stmt.declaration;
-    if (decl.type === 'FunctionDeclaration' && decl.id?.type === 'Identifier' && decl.id.name === 'load') return decl;
-    if (decl.type !== 'VariableDeclaration') continue;
-    for (const d of decl.declarations ?? []) {
-      if (d?.id?.type !== 'Identifier' || d.id.name !== 'load' || !d.init) continue;
-      const init = unwrapTs(d.init);
-      if (isFunctionNode(init)) return init;
-    }
-  }
-  const bindings = collectTopLevelBindings(program);
-  for (const stmt of program.body ?? []) {
-    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.specifiers || stmt.source || stmt.exportKind === 'type')
-      continue;
-    for (const s of stmt.specifiers) {
-      if (s?.exportKind === 'type' || s?.exported?.type !== 'Identifier' || s?.local?.type !== 'Identifier') continue;
-      if (s.exported.name !== 'load') continue;
-      const resolved = bindings.get(s.local.name);
-      if (resolved && isFunctionNode(resolved)) return resolved;
-    }
-  }
-  return undefined;
+  let load: Node | undefined;
+  forEachNamedExport(program, (name, value) => {
+    if (name !== 'load' || !isFunctionNode(value)) return undefined;
+    load = value;
+    return true;
+  });
+  return load;
 }
 
 /** All AwaitExpression nodes in `node`, not descending into nested functions. */
