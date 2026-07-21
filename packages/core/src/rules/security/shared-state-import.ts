@@ -8,7 +8,7 @@ function extSibling(path: string): string {
 }
 
 export const sec005SharedStateImport = kitModuleRule({
-  id: 'SEC005',
+  id: 'security/shared-state-import',
   title: 'Shared runes-state import on the server',
   category: 'security',
   label: 'Server state imports',

@@ -1,7 +1,7 @@
 import { kitModuleRule } from '../kit-module-rule.js';
 
 export const sec004ServerModuleState = kitModuleRule({
-  id: 'SEC004',
+  id: 'security/server-module-state',
   title: 'Server module-scope state',
   category: 'security',
   label: 'Server module state',
