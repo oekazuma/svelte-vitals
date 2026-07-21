@@ -34,6 +34,7 @@ export { collectComponentFacts, emptyComponentFacts } from './component-collect.
 export type { KitModuleFacts } from './kit-module.js';
 export { parseKitModuleFacts, resolveRunesModuleSpecifier } from './kit-module-parse.js';
 export { collectKitModuleFacts, emptyKitModuleFacts } from './kit-module-collect.js';
+export { findMinifyDisabled } from './vite-config-parse.js';
 export {
   CHILD_NODE_KEYS,
   lineOf,

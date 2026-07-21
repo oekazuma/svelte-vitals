@@ -37,7 +37,7 @@ const HANDLER_NAMES = new Set([
 ]);
 
 /** Unwrap TS wrapper expressions (`x satisfies T`, `x as T`) to the underlying expression. */
-function unwrapTs(expr: Node): Node {
+export function unwrapTs(expr: Node): Node {
   let cur = expr;
   while (cur?.type === 'TSSatisfiesExpression' || cur?.type === 'TSAsExpression') cur = cur.expression;
   return cur;
@@ -55,7 +55,7 @@ function isFunctionNode(n: Node): boolean {
  * inline `export` declarations. Cross-file re-exports (`export { load } from …`)
  * stay unresolved — conservative, matching the design's direct-analysis scope.
  */
-function collectTopLevelBindings(program: Node): Map<string, Node> {
+export function collectTopLevelBindings(program: Node): Map<string, Node> {
   const bindings = new Map<string, Node>();
   for (const stmt of program.body ?? []) {
     const decl = unwrapExport(stmt);
