@@ -60,4 +60,4 @@ export default {
 
 ## ライブダッシュボード
 
-開発時には、`@svelte-vitals/vite` は `/__svelte-vitals/` でライブダッシュボードも配信します(デフォルトで有効)。詳細は [ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/) を参照してください。
+開発時には、`@svelte-vitals/vite` は `/__svelte-vitals/` でライブダッシュボードも配信します（デフォルトで有効）。詳細は [ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/) を参照してください。
