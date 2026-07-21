@@ -215,6 +215,145 @@ function findSsrFalseOptOut(program: Node, source: string): { line: number } | u
 }
 
 /**
+ * The exported `load` function node (inline `export function load` / `export const
+ * load = …`, `satisfies`/`as` unwrapped) or a same-file alias export. Cross-file
+ * re-exports stay unresolved, matching the other collectors' scope.
+ */
+function findLoadFunction(program: Node): Node | undefined {
+  for (const stmt of program.body ?? []) {
+    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.declaration) continue;
+    const decl = stmt.declaration;
+    if (decl.type === 'FunctionDeclaration' && decl.id?.type === 'Identifier' && decl.id.name === 'load') return decl;
+    if (decl.type !== 'VariableDeclaration') continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type !== 'Identifier' || d.id.name !== 'load' || !d.init) continue;
+      const init = unwrapTs(d.init);
+      if (isFunctionNode(init)) return init;
+    }
+  }
+  const bindings = collectTopLevelBindings(program);
+  for (const stmt of program.body ?? []) {
+    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.specifiers || stmt.source || stmt.exportKind === 'type')
+      continue;
+    for (const s of stmt.specifiers) {
+      if (s?.exportKind === 'type' || s?.exported?.type !== 'Identifier' || s?.local?.type !== 'Identifier') continue;
+      if (s.exported.name !== 'load') continue;
+      const resolved = bindings.get(s.local.name);
+      if (resolved && isFunctionNode(resolved)) return resolved;
+    }
+  }
+  return undefined;
+}
+
+/** All AwaitExpression nodes in `node`, not descending into nested functions. */
+function collectAwaits(node: Node, out: Node[] = []): Node[] {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAwaits(child, out);
+    return out;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return out;
+  if (isFunctionNode(node)) return out;
+  if (node.type === 'AwaitExpression') out.push(node);
+  for (const key of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key)) continue;
+    collectAwaits(node[key], out);
+  }
+  return out;
+}
+
+/** Whether `await`'s argument is a `parent()` / `<x>.parent()` call (Kit's parent-load step, PERF011/013-exempt). */
+function isParentCall(arg: Node): boolean {
+  const e = unwrapTs(arg);
+  if (e?.type !== 'CallExpression') return false;
+  const callee = e.callee;
+  if (callee?.type === 'Identifier' && callee.name === 'parent') return true;
+  return callee?.type === 'MemberExpression' && !callee.computed && callee.property?.name === 'parent';
+}
+
+/**
+ * Whether the expression references any tainted name. Threads nested-function
+ * shadowing (`scopeIntroducedNames`) so a callback parameter that shadows a
+ * tainted binding does not create a false dependency; non-computed member
+ * properties and object keys don't count as references.
+ */
+function refsTainted(node: Node, tainted: Set<string>): boolean {
+  let hit = false;
+  const walk = (n: Node, shadowed: Set<string>): void => {
+    if (hit) return;
+    if (Array.isArray(n)) {
+      for (const child of n) walk(child, shadowed);
+      return;
+    }
+    if (!n || typeof n !== 'object' || typeof n.type !== 'string') return;
+    const introduced = scopeIntroducedNames(n);
+    const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
+    if (n.type === 'Identifier' && tainted.has(n.name) && !scope.has(n.name)) {
+      hit = true;
+      return;
+    }
+    for (const key of Object.keys(n)) {
+      if (WALK_IGNORED_KEYS.has(key)) continue;
+      if (n.type === 'MemberExpression' && key === 'property' && !n.computed) continue;
+      if (n.type === 'Property' && key === 'key' && !n.computed) continue;
+      walk(n[key], scope);
+    }
+  };
+  walk(node, new Set());
+  return hit;
+}
+
+/**
+ * PERF011/PERF013 — forward-taint analysis of the exported `load`'s straight-line
+ * statements (direct `try` blocks inlined; `if`/loops/`switch`/`catch`/nested
+ * functions are not entered). One await site per statement; a site whose awaits'
+ * argument subtrees reference an earlier site's bindings (transitively, through
+ * intermediate consts) is dependent, otherwise independent when a prior site
+ * exists. `await parent()` is never a site, but its bindings taint. Lines are
+ * returned in ORIGINAL-source coordinates (the −1 wrap shift is applied here).
+ */
+function collectLoadWaterfalls(
+  program: Node,
+  wrapped: string
+): { dependentLines: number[]; independentLines: number[] } {
+  const dependentLines: number[] = [];
+  const independentLines: number[] = [];
+  const load = findLoadFunction(program);
+  if (!load?.body || load.body.type !== 'BlockStatement') return { dependentLines, independentLines };
+
+  const statements: Node[] = [];
+  const pushStmts = (body: Node[]): void => {
+    for (const stmt of body ?? []) {
+      if (stmt?.type === 'TryStatement' && stmt.block?.type === 'BlockStatement') pushStmts(stmt.block.body);
+      else if (stmt) statements.push(stmt);
+    }
+  };
+  pushStmts(load.body.body);
+
+  const line = (start: number) => Math.max(0, lineOf(wrapped, start) - 1);
+  const tainted = new Set<string>();
+  let sawAwaitSite = false;
+
+  for (const stmt of statements) {
+    if (stmt.type === 'VariableDeclaration' || stmt.type === 'ExpressionStatement' || stmt.type === 'ReturnStatement') {
+      const sites = collectAwaits(stmt).filter((a) => !isParentCall(a.argument));
+      if (sites.length > 0) {
+        const first = sites.reduce((m, a) => (a.start < m.start ? a : m));
+        if (sites.some((a) => refsTainted(a.argument, tainted))) dependentLines.push(line(first.start));
+        else if (sawAwaitSite) independentLines.push(line(first.start));
+        sawAwaitSite = true;
+      }
+      if (stmt.type === 'VariableDeclaration') {
+        for (const d of stmt.declarations ?? []) {
+          if (!d?.id || !d.init) continue;
+          if (collectAwaits(d.init).length > 0 || refsTainted(d.init, tainted)) addBoundNames(d.id, tainted);
+        }
+      }
+    }
+  }
+  return { dependentLines, independentLines };
+}
+
+/**
  * Walk the whole program threading (1) shadowed names (like component-parse's
  * `walkScoped`), (2) whether the CURRENT node sits inside any function body, (3)
  * whether that function chain includes a server handler, and (4) whether it
@@ -387,6 +526,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
   // handler/init body; closures nested inside handlers are deliberately not entered
   // (they are typically client-side callbacks returned to components).
   const ssrOptOut = findSsrFalseOptOut(program, wrapped);
+  const waterfalls = collectLoadWaterfalls(program, wrapped);
   if (!ssrOptOut) {
     // The scanner returns line numbers computed against `wrapped` — subtract the
     // 1-line wrap prefix (the local `line()` helper takes a byte OFFSET, not a line,
@@ -517,6 +657,9 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
     lifecycleCalls: byLine(lifecycleCalls),
     browserGlobalRefs: byLine(browserGlobalRefs),
     ...(ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {}),
+    ...(waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0
+      ? { loadWaterfalls: waterfalls }
+      : {}),
     suppressions
   };
 }
