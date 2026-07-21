@@ -7,12 +7,12 @@ description: モジュールスコープや load/handler での window、documen
 
 ## チェック内容
 
-**必ずサーバーで実行されるコード**での browser 専用 global(`window`、`document`、`localStorage`、`sessionStorage`、`navigator`、`location`、`history`、`screen`、`matchMedia`、`requestAnimationFrame`、`cancelAnimationFrame`、`IntersectionObserver`、`ResizeObserver`、`MutationObserver`、`alert`、`confirm`、`prompt`)の読み取りを検出します:
+**必ずサーバーで実行されるコード**での browser 専用 global（`window`、`document`、`localStorage`、`sessionStorage`、`navigator`、`location`、`history`、`screen`、`matchMedia`、`requestAnimationFrame`、`cancelAnimationFrame`、`IntersectionObserver`、`ResizeObserver`、`MutationObserver`、`alert`、`confirm`、`prompt`）の読み取りを検出します:
 
-- `.svelte.ts`/`.svelte.js` runes モジュールや `.svelte` の `<script module>` ブロックの**モジュールスコープ**(サーバーで import された瞬間にクラッシュ)
-- **SvelteKit のルート/フックファイル**：トップレベル、`load`/action/エンドポイント handler 本体、`init` フック(import 時またはリクエストごとにクラッシュ)
+- `.svelte.ts`/`.svelte.js` runes モジュールや `.svelte` の `<script module>` ブロックの**モジュールスコープ**（サーバーで import された瞬間にクラッシュ）
+- **SvelteKit のルート/フックファイル**：トップレベル、`load`/action/エンドポイント handler 本体、`init` フック（import 時またはリクエストごとにクラッシュ）
 
-検出対象外: `$app/environment` の `browser`(エイリアス込み)や `typeof window !== 'undefined'` チェックでガードされたコード(early-return ガードを含む)、`onMount`/`$effect`/通常の関数内(モジュール評価時には実行されない)、裸の `typeof window`(throw しない)、自分で import/宣言した名前(`const document = …`)、handler 内にネストしたクロージャ(典型的にはクライアント側コールバック)、自身が `ssr = false` を export するファイル。
+検出対象外: `$app/environment` の `browser`（エイリアス込み）や `typeof window !== 'undefined'` チェックでガードされたコード（early-return ガードを含む）、`onMount`/`$effect`/通常の関数内（モジュール評価時には実行されない）、裸の `typeof window`（throw しない）、自分で import/宣言した名前（`const document = …`）、handler 内にネストしたクロージャ（典型的にはクライアント側コールバック）、自身が `ssr = false` を export するファイル。
 
 ## なぜ重要か
 

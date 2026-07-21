@@ -7,7 +7,7 @@ description: 大きくツリーシェイクできないパッケージの import
 
 ## チェック内容
 
-よく知られた重い/ツリーシェイク不可のパッケージ(現状は `lodash` と `moment`)からの `import` を検出します。完全一致で判定するため、`lodash/debounce` のようなサブパス import は対象外です。`src/**/*.svelte` のスクリプトを静的(CLI)解析します。
+よく知られた重い/ツリーシェイク不可のパッケージ（現状は `lodash` と `moment`）からの `import` を検出します。完全一致で判定するため、`lodash/debounce` のようなサブパス import は対象外です。`src/**/*.svelte` のスクリプトを静的（CLI）解析します。
 
 ## なぜ重要か
 
