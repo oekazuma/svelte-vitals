@@ -58,7 +58,7 @@ describe('analyze', () => {
   });
 
   it('threads a resolved minify-disabled fact into PERF012', async () => {
-    const r = await analyze(pages, cwd, { report: false }, { file: 'vite.config.ts', line: 3 });
+    const r = await analyze(pages, cwd, { report: false }, { viteMinifyDisabled: { file: 'vite.config.ts', line: 3 } });
     const hit = r.results.find((x) => x.id === 'PERF012');
     expect(hit).toBeDefined();
     expect(hit?.location).toBe('vite.config.ts');

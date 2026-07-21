@@ -45,7 +45,7 @@ export async function analyze(
   prerenderPagesDir: string,
   cwd: string,
   options: SvelteVitalsOptions,
-  viteMinifyDisabled?: Project['viteMinifyDisabled']
+  extraProjectFacts?: Partial<Project>
 ): Promise<AnalyzeResult> {
   const loaded = await loadConfigFile(cwd);
   const fileConfig = loaded?.config;
@@ -65,7 +65,7 @@ export async function analyze(
   const { heads, headings, images, htmlLang } = await collectRenderedHeads(prerenderPagesDir);
   const project = {
     ...(await collectRenderedProject(cwd, htmlLang)),
-    ...(viteMinifyDisabled ? { viteMinifyDisabled } : {})
+    ...(extraProjectFacts ?? {})
   };
   const components = await collectComponentFacts(cwd);
   const kitModules = await collectKitModuleFacts(cwd);

@@ -23,20 +23,36 @@ describe('resolveMinifyDisabled', () => {
     expect(await resolveMinifyDisabled(false, file, root)).toEqual({ file: 'vite.config.ts', line: 3 });
   });
 
-  it('falls back to line 1 for a dynamic config that still resolves to false', async () => {
+  it('omits the line for a dynamic config that still resolves to false', async () => {
     const file = join(root, 'vite.config.dynamic.ts');
     await writeFile(file, `export default () => ({ build: { minify: false } });\n`);
-    expect(await resolveMinifyDisabled(false, file, root)).toEqual({ file: 'vite.config.dynamic.ts', line: 1 });
+    expect(await resolveMinifyDisabled(false, file, root)).toEqual({ file: 'vite.config.dynamic.ts' });
   });
 
-  it('falls back to vite.config.js line 1 when no config file path is known', async () => {
-    expect(await resolveMinifyDisabled(false, undefined, root)).toEqual({ file: 'vite.config.js', line: 1 });
+  it('returns an empty fact (no file, no line) for an inline programmatic config', async () => {
+    expect(await resolveMinifyDisabled(false, undefined, root)).toEqual({});
   });
 
-  it('keeps line 1 when the config file is unreadable', async () => {
+  it('omits the line when the config file is unreadable', async () => {
     expect(await resolveMinifyDisabled(false, join(root, 'missing.config.ts'), root)).toEqual({
-      file: 'missing.config.ts',
-      line: 1
+      file: 'missing.config.ts'
     });
+  });
+
+  it('uses a ../-prefixed posix relative path for a config file outside root, never an absolute path', async () => {
+    // A dedicated scratch dir (not the shared `root`) so the "outside root" config
+    // file lives in its own monorepo-like layout, not directly in the OS tmpdir.
+    const monorepo = await mkdtemp(join(tmpdir(), 'sv-minify-monorepo-'));
+    try {
+      const outerConfig = join(monorepo, 'vite.config.ts');
+      await writeFile(outerConfig, `export default {\n  build: {\n    minify: false\n  }\n};\n`);
+      const inner = join(monorepo, 'app');
+      const result = await resolveMinifyDisabled(false, outerConfig, inner);
+      expect(result?.file).toBe('../vite.config.ts');
+      expect(result?.file?.startsWith('/')).toBe(false);
+      expect(result?.line).toBe(3);
+    } finally {
+      await rm(monorepo, { recursive: true, force: true });
+    }
   });
 });

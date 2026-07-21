@@ -17,7 +17,13 @@ const CONFIG_BASENAMES = new Set([
   'svelte.config.ts',
   'svelte-vitals.config.mjs',
   'svelte-vitals.config.js',
-  'svelte-vitals.config.ts'
+  'svelte-vitals.config.ts',
+  'vite.config.js',
+  'vite.config.mjs',
+  'vite.config.ts',
+  'vite.config.cjs',
+  'vite.config.mts',
+  'vite.config.cts'
 ]);
 
 const IGNORED_SEGMENTS = new Set(['node_modules', '.svelte-kit', 'build', 'dist']);
@@ -25,7 +31,8 @@ const IGNORED_SEGMENTS = new Set(['node_modules', '.svelte-kit', 'build', 'dist'
 /**
  * Whether a `server.watcher` event on `file` should trigger a dev-dashboard re-analysis:
  * anything under `src/` or `static/` (the default SvelteKit layout this dashboard assumes),
- * or a `svelte.config.*` / `svelte-vitals.config.*` at any depth — excluding build/dependency
+ * or a `svelte.config.*` / `svelte-vitals.config.*` / `vite.config.*` at any depth (editing
+ * the Vite config can change the PERF012 minify-disabled fact) — excluding build/dependency
  * output so their churn never triggers a spurious re-run. Exported for tests.
  */
 export function isRelevant(file: string, root: string): boolean {
@@ -76,7 +83,9 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
     enforce: 'post',
     configResolved(config) {
       if (!options.cwd) root = config.root;
-      minifyFlag = { minify: config.build.minify, configFile: config.configFile };
+      // Vite <=7 resolves top-level build.minify to false whenever build.ssr is set —
+      // judge only the client build, which reflects user intent on every Vite version.
+      if (!config.build.ssr) minifyFlag = { minify: config.build.minify, configFile: config.configFile };
     },
     async closeBundle() {
       const pagesDir = options.prerenderDir ? options.prerenderDir : join(root, DEFAULT_PRERENDER_DIR);
@@ -93,7 +102,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         const viteMinifyDisabled = minifyFlag
           ? await resolveMinifyDisabled(minifyFlag.minify, minifyFlag.configFile, root)
           : undefined;
-        result = await analyze(resolved, root, options, viteMinifyDisabled);
+        result = await analyze(resolved, root, options, viteMinifyDisabled ? { viteMinifyDisabled } : undefined);
       } catch (err) {
         // The analysis itself failed (unreadable/malformed output, glob error,
         // …). That's our problem, not a real SEO finding, so warn and skip the
