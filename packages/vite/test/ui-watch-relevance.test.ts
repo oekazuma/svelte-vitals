@@ -24,6 +24,15 @@ describe('isRelevant (dev-dashboard watcher filter)', () => {
     expect(isRelevant(join(root, 'svelte-vitals.config.ts'), root)).toBe(true);
   });
 
+  it('is relevant for vite.config.* at the project root (PERF012 depends on it)', () => {
+    expect(isRelevant(join(root, 'vite.config.js'), root)).toBe(true);
+    expect(isRelevant(join(root, 'vite.config.mjs'), root)).toBe(true);
+    expect(isRelevant(join(root, 'vite.config.ts'), root)).toBe(true);
+    expect(isRelevant(join(root, 'vite.config.cjs'), root)).toBe(true);
+    expect(isRelevant(join(root, 'vite.config.mts'), root)).toBe(true);
+    expect(isRelevant(join(root, 'vite.config.cts'), root)).toBe(true);
+  });
+
   it('is irrelevant for files outside src/ and static/', () => {
     expect(isRelevant(join(root, 'README.md'), root)).toBe(false);
     expect(isRelevant(join(root, 'package.json'), root)).toBe(false);

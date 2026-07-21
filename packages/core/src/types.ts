@@ -28,6 +28,14 @@ export interface Project {
   htmlLang: Detection;
   /** Whether the static static/robots.txt references a sitemap (`Sitemap:` line). Undefined for a +server endpoint / absent / unreadable. */
   robotsReferencesSitemap?: boolean;
+  /**
+   * Set when the Vite config disables minification for production builds (PERF012).
+   * `file` is the config path relative to the analyzed root (posix, may start with `../`
+   * in monorepos); unset for inline programmatic configs. `line` is 1-based and set only
+   * when the literal `minify: false` was located in that file; unset when the value was
+   * resolved at build time (plugin/conditional config).
+   */
+  viteMinifyDisabled?: { file?: string; line?: number };
 }
 
 export const defaultProject: Project = {

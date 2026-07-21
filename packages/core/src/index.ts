@@ -34,6 +34,7 @@ export { collectComponentFacts, emptyComponentFacts } from './component-collect.
 export type { KitModuleFacts } from './kit-module.js';
 export { parseKitModuleFacts, resolveRunesModuleSpecifier } from './kit-module-parse.js';
 export { collectKitModuleFacts, emptyKitModuleFacts } from './kit-module-collect.js';
+export { findMinifyDisabled } from './vite-config-parse.js';
 export {
   CHILD_NODE_KEYS,
   lineOf,
@@ -110,7 +111,8 @@ export {
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,
-  perf010NamespaceImport
+  perf010NamespaceImport,
+  perf012MinifyDisabled
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

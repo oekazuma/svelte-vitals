@@ -6,6 +6,7 @@ import type { Category, RuleOverride, RuleSetting, Severity, TreatDynamicAs } fr
 import { defineConfig } from '@svelte-vitals/core';
 import { loadConfigFile } from 'svelte-vitals';
 import { analyze } from './analyze.js';
+import { resolveMinifyDisabled } from './minify-flag.js';
 import { installUiMiddleware } from './ui/middleware.js';
 import { createStore } from './ui/store.js';
 import { createAnalysisRunner } from './ui/analysis.js';
@@ -16,7 +17,13 @@ const CONFIG_BASENAMES = new Set([
   'svelte.config.ts',
   'svelte-vitals.config.mjs',
   'svelte-vitals.config.js',
-  'svelte-vitals.config.ts'
+  'svelte-vitals.config.ts',
+  'vite.config.js',
+  'vite.config.mjs',
+  'vite.config.ts',
+  'vite.config.cjs',
+  'vite.config.mts',
+  'vite.config.cts'
 ]);
 
 const IGNORED_SEGMENTS = new Set(['node_modules', '.svelte-kit', 'build', 'dist']);
@@ -24,7 +31,8 @@ const IGNORED_SEGMENTS = new Set(['node_modules', '.svelte-kit', 'build', 'dist'
 /**
  * Whether a `server.watcher` event on `file` should trigger a dev-dashboard re-analysis:
  * anything under `src/` or `static/` (the default SvelteKit layout this dashboard assumes),
- * or a `svelte.config.*` / `svelte-vitals.config.*` at any depth — excluding build/dependency
+ * or a `svelte.config.*` / `svelte-vitals.config.*` / `vite.config.*` at any depth (editing
+ * the Vite config can change the PERF012 minify-disabled fact) — excluding build/dependency
  * output so their churn never triggers a spurious re-run. Exported for tests.
  */
 export function isRelevant(file: string, root: string): boolean {
@@ -68,12 +76,16 @@ const DEFAULT_PRERENDER_DIR = '.svelte-kit/output/prerendered/pages';
 /** svelte-vitals Vite/SvelteKit plugin. */
 export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin[] {
   let root = options.cwd ?? process.cwd();
+  let minifyFlag: { minify: unknown; configFile: string | undefined } | undefined;
   const buildPlugin: Plugin = {
     name: 'svelte-vitals',
     apply: 'build',
     enforce: 'post',
     configResolved(config) {
       if (!options.cwd) root = config.root;
+      // Vite <=7 resolves top-level build.minify to false whenever build.ssr is set —
+      // judge only the client build, which reflects user intent on every Vite version.
+      if (!config.build.ssr) minifyFlag = { minify: config.build.minify, configFile: config.configFile };
     },
     async closeBundle() {
       const pagesDir = options.prerenderDir ? options.prerenderDir : join(root, DEFAULT_PRERENDER_DIR);
@@ -87,7 +99,10 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
 
       let result;
       try {
-        result = await analyze(resolved, root, options);
+        const viteMinifyDisabled = minifyFlag
+          ? await resolveMinifyDisabled(minifyFlag.minify, minifyFlag.configFile, root)
+          : undefined;
+        result = await analyze(resolved, root, options, viteMinifyDisabled ? { viteMinifyDisabled } : undefined);
       } catch (err) {
         // The analysis itself failed (unreadable/malformed output, glob error,
         // …). That's our problem, not a real SEO finding, so warn and skip the

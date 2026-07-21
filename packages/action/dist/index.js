@@ -55870,6 +55870,77 @@ async function collectKitModuleFacts(rt, cwd) {
     })
   );
 }
+function propOf(obj, name) {
+  let found;
+  for (const p of obj.properties ?? []) {
+    if (p?.type === "SpreadElement") {
+      if (found) found = void 0;
+      continue;
+    }
+    if (p?.type !== "Property" || p.computed) continue;
+    if (p.key?.type === "Identifier" && p.key.name === name) found = p;
+    else if (p.key?.type === "Literal" && p.key.value === name) found = p;
+  }
+  return found;
+}
+function unwrapToObjectExpression(expr, bindings) {
+  for (let i = 0; i < 4 && expr; i++) {
+    expr = unwrapTs(expr);
+    if (expr?.type === "ObjectExpression") return expr;
+    if (expr?.type === "Identifier") {
+      expr = bindings.get(expr.name);
+      continue;
+    }
+    if (expr?.type === "CallExpression") {
+      expr = expr.arguments?.[0];
+      continue;
+    }
+    return void 0;
+  }
+  return expr?.type === "ObjectExpression" ? expr : void 0;
+}
+function findExportedExpression(program) {
+  let exported;
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type === "ExportDefaultDeclaration") exported = stmt2.declaration;
+  }
+  if (exported) return exported;
+  let cjsExported;
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExpressionStatement") continue;
+    const expr = stmt2.expression;
+    if (expr?.type !== "AssignmentExpression" || expr.operator !== "=") continue;
+    const left = expr.left;
+    if (left?.type === "MemberExpression" && !left.computed && left.object?.type === "Identifier" && left.object.name === "module" && left.property?.type === "Identifier" && left.property.name === "exports") {
+      cjsExported = expr.right;
+    }
+  }
+  return cjsExported;
+}
+function resolveConfigObject(program) {
+  const exported = findExportedExpression(program);
+  if (!exported) return void 0;
+  return unwrapToObjectExpression(exported, collectTopLevelBindings(program));
+}
+function findMinifyDisabled(source2) {
+  let program;
+  let wrapped;
+  try {
+    ({ program, wrapped } = parseModuleProgram(source2, "vite.config.ts"));
+  } catch {
+    return void 0;
+  }
+  if (!program) return void 0;
+  const config = resolveConfigObject(program);
+  if (!config) return void 0;
+  const build2 = propOf(config, "build");
+  const buildValue = build2 ? unwrapTs(build2.value) : void 0;
+  if (buildValue?.type !== "ObjectExpression") return void 0;
+  const minify = propOf(buildValue, "minify");
+  const minifyValue = minify ? unwrapTs(minify.value) : void 0;
+  if (minifyValue?.type !== "Literal" || minifyValue.value !== false) return void 0;
+  return { line: Math.max(0, lineOf(wrapped, minify.start) - 1) };
+}
 var ROBOTS_SOURCE_PATHS = [
   "static/robots.txt",
   "src/routes/robots.txt/+server.ts",
@@ -57751,6 +57822,41 @@ var perf010NamespaceImport = componentRule({
     }));
   }
 });
+var PENALIZED6 = { presence: "none", value: "absent" };
+var PERF012_FIX = {
+  description: "Remove the minify: false override from vite.config (Vite minifies with esbuild by default), or scope it to non-production builds.",
+  snippet: "export default defineConfig({\n  build: {\n    minify: 'esbuild'\n  }\n});",
+  lang: "ts"
+};
+var RECOMMENDATION3 = "Remove build.minify: false from vite.config, or scope it to non-production builds if it is intentional.";
+var perf012MinifyDisabled = {
+  id: "PERF012",
+  title: "Minification disabled",
+  category: "performance",
+  severity: "warning",
+  scope: "project",
+  rationale: "Disabling minification ships unminified JS/CSS to production, inflating bundle size several-fold and slowing every page load; the override is usually a leftover from debugging.",
+  fix: PERF012_FIX,
+  async check(ctx) {
+    const hit = ctx.project.viteMinifyDisabled;
+    if (!hit) return [];
+    const provenance = hit.file === void 0 ? " The override comes from an inline (programmatic) Vite config." : hit.line === void 0 ? " The override was resolved from the actual build \u2014 it may come from a plugin or a conditional config, not a literal in the file." : "";
+    return [
+      {
+        id: "PERF012",
+        category: "performance",
+        severity: "warning",
+        detection: PENALIZED6,
+        ...hit.file !== void 0 ? { location: hit.file } : {},
+        ...hit.line !== void 0 ? { line: hit.line } : {},
+        message: "JS/CSS minification is disabled (build.minify: false) \u2014 production bundles ship unminified and several times larger." + provenance,
+        recommendation: RECOMMENDATION3,
+        docsUrl: docsUrlFor("PERF012"),
+        fix: { ...PERF012_FIX }
+      }
+    ];
+  }
+};
 var allRules = [
   seo001Title,
   seo002Description,
@@ -57808,7 +57914,8 @@ var allRules = [
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,
-  perf010NamespaceImport
+  perf010NamespaceImport,
+  perf012MinifyDisabled
 ];
 function classify(result, config) {
   if (isPenalized(result.detection, config.treatDynamicAs)) return "fail";
@@ -58106,7 +58213,7 @@ function applyOverrides(results, config) {
   return out;
 }
 
-// ../cli/dist/chunk-QBXO46PU.js
+// ../cli/dist/chunk-DFWOXJRI.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -58884,7 +58991,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-QBXO46PU.js
+// ../cli/dist/chunk-DFWOXJRI.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -58972,18 +59079,39 @@ async function robotsRefsSitemap(rt, cwd) {
     return void 0;
   }
 }
+var VITE_CONFIG_FILES = [
+  "vite.config.js",
+  "vite.config.mjs",
+  "vite.config.ts",
+  "vite.config.cjs",
+  "vite.config.mts",
+  "vite.config.cts"
+];
+async function detectViteMinifyDisabled(rt, cwd) {
+  const exists2 = await Promise.all(VITE_CONFIG_FILES.map((f) => rt.exists(rt.join(cwd, f))));
+  const file = VITE_CONFIG_FILES[exists2.indexOf(true)];
+  if (!file) return void 0;
+  try {
+    const hit = findMinifyDisabled(await rt.readFile(rt.join(cwd, file)));
+    return hit ? { file, line: hit.line } : void 0;
+  } catch {
+    return void 0;
+  }
+}
 async function collectProjectFacts(rt, cwd) {
-  const [hasRobotsTxt, hasSitemap, htmlLang] = await Promise.all([
+  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled] = await Promise.all([
     existsAny(rt, cwd, ROBOTS_SOURCE_PATHS),
     existsAny(rt, cwd, SITEMAP_SOURCE_PATHS),
-    detectAppHtmlLang(rt, cwd)
+    detectAppHtmlLang(rt, cwd),
+    detectViteMinifyDisabled(rt, cwd)
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
   return {
     hasRobotsTxt,
     hasSitemap,
     htmlLang,
-    ...robotsReferencesSitemap !== void 0 ? { robotsReferencesSitemap } : {}
+    ...robotsReferencesSitemap !== void 0 ? { robotsReferencesSitemap } : {},
+    ...viteMinifyDisabled ? { viteMinifyDisabled } : {}
   };
 }
 function exprValue(node) {

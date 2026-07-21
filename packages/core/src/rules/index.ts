@@ -52,6 +52,7 @@ import { sec005SharedStateImport } from './security/sec005-shared-state-import.j
 import { arch001ComponentSize, arch002PropCount } from './architecture/arch001-002.js';
 import { perf009HeavyImport } from './perf/perf009-heavy-import.js';
 import { perf010NamespaceImport } from './perf/perf010-namespace-import.js';
+import { perf012MinifyDisabled } from './perf/perf012-minify-disabled.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -110,7 +111,8 @@ export const allRules: Rule[] = [
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,
-  perf010NamespaceImport
+  perf010NamespaceImport,
+  perf012MinifyDisabled
 ];
 
 export {
@@ -170,7 +172,8 @@ export {
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,
-  perf010NamespaceImport
+  perf010NamespaceImport,
+  perf012MinifyDisabled
 };
 
 export interface RuleInfo {
