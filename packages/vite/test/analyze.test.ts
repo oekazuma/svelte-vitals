@@ -56,6 +56,17 @@ describe('analyze', () => {
     ).toBe(true);
     expect(r.consoleReport).toContain('Scanned 1 component(s) under src/');
   });
+
+  it('threads a resolved minify-disabled fact into PERF012', async () => {
+    const r = await analyze(pages, cwd, { report: false }, { file: 'vite.config.ts', line: 3 });
+    const hit = r.results.find((x) => x.id === 'PERF012');
+    expect(hit).toBeDefined();
+    expect(hit?.location).toBe('vite.config.ts');
+    expect(hit?.line).toBe(3);
+
+    const clean = await analyze(pages, cwd, { report: false });
+    expect(clean.results.some((x) => x.id === 'PERF012')).toBe(false);
+  });
 });
 
 describe('analyze — svelte-vitals.config.*', () => {

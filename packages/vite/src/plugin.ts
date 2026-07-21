@@ -6,6 +6,7 @@ import type { Category, RuleOverride, RuleSetting, Severity, TreatDynamicAs } fr
 import { defineConfig } from '@svelte-vitals/core';
 import { loadConfigFile } from 'svelte-vitals';
 import { analyze } from './analyze.js';
+import { resolveMinifyDisabled } from './minify-flag.js';
 import { installUiMiddleware } from './ui/middleware.js';
 import { createStore } from './ui/store.js';
 import { createAnalysisRunner } from './ui/analysis.js';
@@ -68,12 +69,14 @@ const DEFAULT_PRERENDER_DIR = '.svelte-kit/output/prerendered/pages';
 /** svelte-vitals Vite/SvelteKit plugin. */
 export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin[] {
   let root = options.cwd ?? process.cwd();
+  let minifyFlag: { minify: unknown; configFile: string | undefined } | undefined;
   const buildPlugin: Plugin = {
     name: 'svelte-vitals',
     apply: 'build',
     enforce: 'post',
     configResolved(config) {
       if (!options.cwd) root = config.root;
+      minifyFlag = { minify: config.build.minify, configFile: config.configFile };
     },
     async closeBundle() {
       const pagesDir = options.prerenderDir ? options.prerenderDir : join(root, DEFAULT_PRERENDER_DIR);
@@ -87,7 +90,10 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
 
       let result;
       try {
-        result = await analyze(resolved, root, options);
+        const viteMinifyDisabled = minifyFlag
+          ? await resolveMinifyDisabled(minifyFlag.minify, minifyFlag.configFile, root)
+          : undefined;
+        result = await analyze(resolved, root, options, viteMinifyDisabled);
       } catch (err) {
         // The analysis itself failed (unreadable/malformed output, glob error,
         // …). That's our problem, not a real SEO finding, so warn and skip the
