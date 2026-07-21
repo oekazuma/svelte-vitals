@@ -5,7 +5,7 @@ import type { SuppressionDirective } from '../../component.js';
 const PENALIZED = { presence: 'none', value: 'absent' } as const;
 const PASS = { presence: 'own', value: 'static' } as const;
 
-const ID = 'CORRECT007';
+const ID = 'correctness/orphan-lifecycle';
 const DOCS_URL = docsUrlFor(ID);
 const LABEL = 'Lifecycle-call context';
 const RECOMMENDATION =

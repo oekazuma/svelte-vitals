@@ -1,7 +1,7 @@
 import { componentRule } from '../component-rule.js';
 
 export const correct006OrphanEffect = componentRule({
-  id: 'CORRECT006',
+  id: 'correctness/orphan-effect',
   title: 'Orphan $effect',
   category: 'correctness',
   severity: 'critical',

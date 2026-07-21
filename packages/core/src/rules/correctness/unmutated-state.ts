@@ -1,7 +1,7 @@
 import { componentRule } from '../component-rule.js';
 
 export const correct004UnmutatedState = componentRule({
-  id: 'CORRECT004',
+  id: 'correctness/unmutated-state',
   title: 'Unmutated $state',
   category: 'correctness',
   severity: 'info',

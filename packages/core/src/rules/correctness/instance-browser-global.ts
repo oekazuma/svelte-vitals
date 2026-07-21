@@ -1,7 +1,7 @@
 import { componentRule } from '../component-rule.js';
 
 export const correct009InstanceBrowserGlobals = componentRule({
-  id: 'CORRECT009',
+  id: 'correctness/instance-browser-global',
   title: 'Browser global during component initialisation',
   category: 'correctness',
   label: 'Server-safe component init',
