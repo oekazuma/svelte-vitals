@@ -55870,6 +55870,50 @@ async function collectKitModuleFacts(rt, cwd) {
     })
   );
 }
+function propOf(obj, name) {
+  for (const p of obj.properties ?? []) {
+    if (p?.type !== "Property" || p.computed) continue;
+    if (p.key?.type === "Identifier" && p.key.name === name) return p;
+    if (p.key?.type === "Literal" && p.key.value === name) return p;
+  }
+  return void 0;
+}
+function resolveConfigObject(program) {
+  let exported;
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type === "ExportDefaultDeclaration") exported = stmt2.declaration;
+  }
+  if (!exported) return void 0;
+  let expr = unwrapTs(exported);
+  if (expr?.type === "Identifier") {
+    const resolved = collectTopLevelBindings(program).get(expr.name);
+    if (!resolved) return void 0;
+    expr = unwrapTs(resolved);
+  }
+  if (expr?.type === "CallExpression") {
+    expr = expr.arguments?.[0] ? unwrapTs(expr.arguments[0]) : void 0;
+  }
+  return expr?.type === "ObjectExpression" ? expr : void 0;
+}
+function findMinifyDisabled(source2) {
+  let program;
+  let wrapped;
+  try {
+    ({ program, wrapped } = parseModuleProgram(source2, "vite.config.ts"));
+  } catch {
+    return void 0;
+  }
+  if (!program) return void 0;
+  const config = resolveConfigObject(program);
+  if (!config) return void 0;
+  const build2 = propOf(config, "build");
+  const buildValue = build2 ? unwrapTs(build2.value) : void 0;
+  if (buildValue?.type !== "ObjectExpression") return void 0;
+  const minify = propOf(buildValue, "minify");
+  const minifyValue = minify ? unwrapTs(minify.value) : void 0;
+  if (minifyValue?.type !== "Literal" || minifyValue.value !== false) return void 0;
+  return { line: Math.max(0, lineOf(wrapped, minify.start) - 1) };
+}
 var ROBOTS_SOURCE_PATHS = [
   "static/robots.txt",
   "src/routes/robots.txt/+server.ts",
@@ -57751,6 +57795,40 @@ var perf010NamespaceImport = componentRule({
     }));
   }
 });
+var PENALIZED6 = { presence: "none", value: "absent" };
+var PERF012_FIX = {
+  description: "Remove the minify: false override from vite.config (Vite minifies with esbuild by default), or scope it to non-production builds.",
+  snippet: "export default defineConfig({\n  build: {\n    minify: 'esbuild'\n  }\n});",
+  lang: "ts"
+};
+var RECOMMENDATION3 = "Remove build.minify: false from vite.config, or scope it to non-production builds if it is intentional.";
+var perf012MinifyDisabled = {
+  id: "PERF012",
+  title: "Minification disabled",
+  category: "performance",
+  severity: "warning",
+  scope: "project",
+  rationale: "Disabling minification ships unminified JS/CSS to production, inflating bundle size several-fold and slowing every page load; the override is usually a leftover from debugging.",
+  fix: PERF012_FIX,
+  async check(ctx) {
+    const hit = ctx.project.viteMinifyDisabled;
+    if (!hit) return [];
+    return [
+      {
+        id: "PERF012",
+        category: "performance",
+        severity: "warning",
+        detection: PENALIZED6,
+        location: hit.file,
+        line: hit.line,
+        message: "JS/CSS minification is disabled (build.minify: false) \u2014 production bundles ship unminified and several times larger.",
+        recommendation: RECOMMENDATION3,
+        docsUrl: docsUrlFor("PERF012"),
+        fix: { ...PERF012_FIX }
+      }
+    ];
+  }
+};
 var allRules = [
   seo001Title,
   seo002Description,
@@ -57808,7 +57886,8 @@ var allRules = [
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,
-  perf010NamespaceImport
+  perf010NamespaceImport,
+  perf012MinifyDisabled
 ];
 function classify(result, config) {
   if (isPenalized(result.detection, config.treatDynamicAs)) return "fail";
@@ -58106,7 +58185,7 @@ function applyOverrides(results, config) {
   return out;
 }
 
-// ../cli/dist/chunk-QBXO46PU.js
+// ../cli/dist/chunk-ZEDDYYDF.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -58884,7 +58963,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-QBXO46PU.js
+// ../cli/dist/chunk-ZEDDYYDF.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -58972,18 +59051,41 @@ async function robotsRefsSitemap(rt, cwd) {
     return void 0;
   }
 }
+var VITE_CONFIG_FILES = [
+  "vite.config.js",
+  "vite.config.mjs",
+  "vite.config.ts",
+  "vite.config.cjs",
+  "vite.config.mts",
+  "vite.config.cts"
+];
+async function detectViteMinifyDisabled(rt, cwd) {
+  for (const file of VITE_CONFIG_FILES) {
+    const p = rt.join(cwd, file);
+    if (!await rt.exists(p)) continue;
+    try {
+      const hit = findMinifyDisabled(await rt.readFile(p));
+      return hit ? { file, line: hit.line } : void 0;
+    } catch {
+      return void 0;
+    }
+  }
+  return void 0;
+}
 async function collectProjectFacts(rt, cwd) {
-  const [hasRobotsTxt, hasSitemap, htmlLang] = await Promise.all([
+  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled] = await Promise.all([
     existsAny(rt, cwd, ROBOTS_SOURCE_PATHS),
     existsAny(rt, cwd, SITEMAP_SOURCE_PATHS),
-    detectAppHtmlLang(rt, cwd)
+    detectAppHtmlLang(rt, cwd),
+    detectViteMinifyDisabled(rt, cwd)
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
   return {
     hasRobotsTxt,
     hasSitemap,
     htmlLang,
-    ...robotsReferencesSitemap !== void 0 ? { robotsReferencesSitemap } : {}
+    ...robotsReferencesSitemap !== void 0 ? { robotsReferencesSitemap } : {},
+    ...viteMinifyDisabled ? { viteMinifyDisabled } : {}
   };
 }
 function exprValue(node) {
