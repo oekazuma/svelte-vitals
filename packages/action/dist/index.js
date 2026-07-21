@@ -57292,6 +57292,7 @@ function kitModuleRule(opts) {
   };
 }
 var ROOT_LAYOUT_RE = /^src\/routes\/\+layout(\.server)?\.(ts|js)$/;
+var PAGE_OPTION_FILE_RE = /\+(page|layout)(\.server)?\.(ts|js)$/;
 var seo031SsrDisabled = kitModuleRule({
   id: "SEO031",
   title: "SSR disabled",
@@ -57299,7 +57300,7 @@ var seo031SsrDisabled = kitModuleRule({
   label: "SSR enabled",
   recommendation: "Keep SSR on for indexable pages; restrict ssr = false to routes that don't need SEO (authenticated dashboards, app-only views). For a deliberate SPA, turn this rule off in the config or add an inline suppression.",
   rationale: "SvelteKit's SEO guidance is to leave SSR on unless there is a good reason not to: server-rendered content is indexed more frequently and reliably, and SPA mode costs an extra network round trip before anything renders.",
-  applies: (m) => m.ssrDisabled !== void 0,
+  applies: (m) => m.ssrDisabled !== void 0 && PAGE_OPTION_FILE_RE.test(m.file),
   bad: (m) => [
     {
       line: m.ssrDisabled.line,
