@@ -55605,7 +55605,7 @@ function collectStartupFunctions(program) {
   resolveAliasStartupExports(program, collectTopLevelBindings(program), startup);
   return startup;
 }
-function hasSsrFalseOptOut(program) {
+function findSsrFalseOptOut(program, source2) {
   const isFalse = (init2) => {
     const v = unwrapTs(init2);
     return v?.type === "Literal" && v.value === false;
@@ -55615,7 +55615,7 @@ function hasSsrFalseOptOut(program) {
     if (decl?.type !== "VariableDeclaration") continue;
     for (const d of decl.declarations ?? []) {
       if (d?.id?.type === "Identifier" && d.id.name === "ssr" && d.init && isFalse(d.init)) {
-        if (stmt2.type === "ExportNamedDeclaration") return true;
+        if (stmt2.type === "ExportNamedDeclaration") return { line: lineOf(source2, d.start) };
       }
     }
   }
@@ -55627,10 +55627,10 @@ function hasSsrFalseOptOut(program) {
       if (s?.exportKind === "type" || s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
       if (s.exported.name !== "ssr") continue;
       const resolved = bindings.get(s.local.name);
-      if (resolved?.type === "Literal" && resolved.value === false) return true;
+      if (resolved?.type === "Literal" && resolved.value === false) return { line: lineOf(source2, resolved.start) };
     }
   }
-  return false;
+  return void 0;
 }
 function walkKit(node, handlerFns, startupFns, visit, shadowed = /* @__PURE__ */ new Set(), inFunction = false, inHandler = false, inStartup = false) {
   if (Array.isArray(node)) {
@@ -55727,7 +55727,8 @@ function parseKitModuleFacts(source2, filename2) {
   const handlerFns = collectHandlerFunctions(program);
   const startupFns = collectStartupFunctions(program);
   const svelteImports = collectSvelteLifecycleImports(program);
-  if (!hasSsrFalseOptOut(program)) {
+  const ssrOptOut = findSsrFalseOptOut(program, wrapped);
+  if (!ssrOptOut) {
     const shiftLine = (l) => Math.max(0, l - 1);
     const browserImports = collectBrowserGuardImports(program);
     const guards = /* @__PURE__ */ new Set([...browserImports, ...collectDerivedGuardBindings(program, browserImports)]);
@@ -55827,6 +55828,7 @@ function parseKitModuleFacts(source2, filename2) {
     runesModuleImports: byLine(runesModuleImports),
     lifecycleCalls: byLine(lifecycleCalls),
     browserGlobalRefs: byLine(browserGlobalRefs),
+    ...ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {},
     suppressions
   };
 }
@@ -57239,7 +57241,75 @@ var seo030HeadingOrder = {
 };
 var PENALIZED2 = { presence: "none", value: "absent" };
 var PASS2 = { presence: "own", value: "static" };
-function isSuppressed(c, ruleId, line) {
+function isSuppressed(m, ruleId, line) {
+  return (m.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
+}
+function kitModuleRule(opts) {
+  const docsUrl7 = docsUrlFor(opts.id);
+  const severity = opts.severity ?? "warning";
+  return {
+    id: opts.id,
+    title: opts.title,
+    category: opts.category,
+    severity,
+    scope: "component",
+    rationale: opts.rationale,
+    async check(ctx) {
+      const out = [];
+      for (const m of ctx.kitModules ?? []) {
+        if (!opts.applies(m, ctx)) continue;
+        const bad = opts.bad(m, ctx).filter((b) => !(b.line > 0 && isSuppressed(m, opts.id, b.line)));
+        if (bad.length === 0) {
+          out.push({
+            id: opts.id,
+            category: opts.category,
+            severity,
+            detection: PASS2,
+            route: m.file,
+            message: opts.label,
+            recommendation: opts.recommendation,
+            docsUrl: docsUrl7
+          });
+          continue;
+        }
+        for (const b of bad) {
+          out.push({
+            id: opts.id,
+            category: opts.category,
+            severity,
+            detection: PENALIZED2,
+            route: m.file,
+            location: m.file,
+            ...b.line > 0 ? { line: b.line } : {},
+            message: b.message,
+            recommendation: opts.recommendation,
+            docsUrl: docsUrl7
+          });
+        }
+      }
+      return out;
+    }
+  };
+}
+var ROOT_LAYOUT_RE = /^src\/routes\/\+layout(\.server)?\.(ts|js)$/;
+var seo031SsrDisabled = kitModuleRule({
+  id: "SEO031",
+  title: "SSR disabled",
+  category: "seo",
+  label: "SSR enabled",
+  recommendation: "Keep SSR on for indexable pages; restrict ssr = false to routes that don't need SEO (authenticated dashboards, app-only views). For a deliberate SPA, turn this rule off in the config or add an inline suppression.",
+  rationale: "SvelteKit's SEO guidance is to leave SSR on unless there is a good reason not to: server-rendered content is indexed more frequently and reliably, and SPA mode costs an extra network round trip before anything renders.",
+  applies: (m) => m.ssrDisabled !== void 0,
+  bad: (m) => [
+    {
+      line: m.ssrDisabled.line,
+      message: ROOT_LAYOUT_RE.test(m.file) ? "SSR is disabled for the whole app \u2014 search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint" : "SSR is disabled for this route \u2014 its content is invisible to crawlers that don't execute JavaScript and indexes less reliably"
+    }
+  ]
+});
+var PENALIZED3 = { presence: "none", value: "absent" };
+var PASS3 = { presence: "own", value: "static" };
+function isSuppressed2(c, ruleId, line) {
   return (c.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
 }
 function componentRule(opts) {
@@ -57256,13 +57326,13 @@ function componentRule(opts) {
       const out = [];
       for (const c of ctx.components ?? []) {
         if (!opts.applies(c)) continue;
-        const bad = opts.bad(c).filter((b) => !(b.line > 0 && isSuppressed(c, opts.id, b.line)));
+        const bad = opts.bad(c).filter((b) => !(b.line > 0 && isSuppressed2(c, opts.id, b.line)));
         if (bad.length === 0) {
           out.push({
             id: opts.id,
             category: opts.category,
             severity,
-            detection: PASS2,
+            detection: PASS3,
             route: c.file,
             message: opts.label,
             recommendation: opts.recommendation,
@@ -57275,7 +57345,7 @@ function componentRule(opts) {
             id: opts.id,
             category: opts.category,
             severity,
-            detection: PENALIZED2,
+            detection: PENALIZED3,
             route: c.file,
             location: c.file,
             ...b.line > 0 ? { line: b.line } : {},
@@ -57363,24 +57433,24 @@ var correct006OrphanEffect = componentRule({
     message: o.kind === "top-level" ? "$effect at module scope runs outside component initialisation \u2014 it throws effect_orphan at runtime" : `class "${o.className}" runs $effect in its constructor and is instantiated at module scope \u2014 it throws effect_orphan at runtime`
   }))
 });
-var PENALIZED3 = { presence: "none", value: "absent" };
-var PASS3 = { presence: "own", value: "static" };
+var PENALIZED4 = { presence: "none", value: "absent" };
+var PASS4 = { presence: "own", value: "static" };
 var ID = "CORRECT007";
 var DOCS_URL = docsUrlFor(ID);
 var LABEL = "Lifecycle-call context";
 var RECOMMENDATION = "Call lifecycle/context functions during component initialisation (the top level of a component's <script>). In load, return the data and call setContext in a layout/page component; in shared modules, expose a setup function that components call during init.";
 var topLevelMessage = (name) => `${name}() runs at module evaluation, outside component initialisation \u2014 it throws lifecycle_outside_component at runtime`;
-function isSuppressed2(suppressions, line) {
+function isSuppressed3(suppressions, line) {
   return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID)));
 }
 function emitFile(out, file, issues, suppressions) {
-  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed2(suppressions, b.line)));
+  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed3(suppressions, b.line)));
   if (bad.length === 0) {
     out.push({
       id: ID,
       category: "correctness",
       severity: "critical",
-      detection: PASS3,
+      detection: PASS4,
       route: file,
       message: LABEL,
       recommendation: RECOMMENDATION,
@@ -57393,7 +57463,7 @@ function emitFile(out, file, issues, suppressions) {
       id: ID,
       category: "correctness",
       severity: "critical",
-      detection: PENALIZED3,
+      detection: PENALIZED4,
       route: file,
       location: file,
       ...b.line > 0 ? { line: b.line } : {},
@@ -57441,24 +57511,24 @@ var correct007OrphanLifecycle = {
     return out;
   }
 };
-var PENALIZED4 = { presence: "none", value: "absent" };
-var PASS4 = { presence: "own", value: "static" };
+var PENALIZED5 = { presence: "none", value: "absent" };
+var PASS5 = { presence: "own", value: "static" };
 var ID2 = "CORRECT008";
 var DOCS_URL2 = docsUrlFor(ID2);
 var LABEL2 = "Server-safe module code";
 var RECOMMENDATION2 = "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).";
 var moduleMessage = (name) => `${name} is accessed at module scope \u2014 it does not exist on the server, so importing this file crashes SSR with "${name} is not defined"`;
-function isSuppressed3(suppressions, line) {
+function isSuppressed4(suppressions, line) {
   return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID2)));
 }
 function emitFile2(out, file, issues, suppressions) {
-  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed3(suppressions, b.line)));
+  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed4(suppressions, b.line)));
   if (bad.length === 0) {
     out.push({
       id: ID2,
       category: "correctness",
       severity: "critical",
-      detection: PASS4,
+      detection: PASS5,
       route: file,
       message: LABEL2,
       recommendation: RECOMMENDATION2,
@@ -57471,7 +57541,7 @@ function emitFile2(out, file, issues, suppressions) {
       id: ID2,
       category: "correctness",
       severity: "critical",
-      detection: PENALIZED4,
+      detection: PENALIZED5,
       route: file,
       location: file,
       ...b.line > 0 ? { line: b.line } : {},
@@ -57549,58 +57619,6 @@ var sec002JavascriptUrl = componentRule({
   applies: (c) => c.javascriptUrls.length > 0,
   bad: (c) => c.javascriptUrls.map((u) => ({ line: u.line, message: "javascript: URL in an attribute" }))
 });
-var PENALIZED5 = { presence: "none", value: "absent" };
-var PASS5 = { presence: "own", value: "static" };
-function isSuppressed4(m, ruleId, line) {
-  return (m.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
-}
-function kitModuleRule(opts) {
-  const docsUrl7 = docsUrlFor(opts.id);
-  const severity = opts.severity ?? "warning";
-  return {
-    id: opts.id,
-    title: opts.title,
-    category: opts.category,
-    severity,
-    scope: "component",
-    rationale: opts.rationale,
-    async check(ctx) {
-      const out = [];
-      for (const m of ctx.kitModules ?? []) {
-        if (!opts.applies(m, ctx)) continue;
-        const bad = opts.bad(m, ctx).filter((b) => !(b.line > 0 && isSuppressed4(m, opts.id, b.line)));
-        if (bad.length === 0) {
-          out.push({
-            id: opts.id,
-            category: opts.category,
-            severity,
-            detection: PASS5,
-            route: m.file,
-            message: opts.label,
-            recommendation: opts.recommendation,
-            docsUrl: docsUrl7
-          });
-          continue;
-        }
-        for (const b of bad) {
-          out.push({
-            id: opts.id,
-            category: opts.category,
-            severity,
-            detection: PENALIZED5,
-            route: m.file,
-            location: m.file,
-            ...b.line > 0 ? { line: b.line } : {},
-            message: b.message,
-            recommendation: opts.recommendation,
-            docsUrl: docsUrl7
-          });
-        }
-      }
-      return out;
-    }
-  };
-}
 var sec003LoadStateWrite = kitModuleRule({
   id: "SEC003",
   title: "Handler writes imported state",
@@ -57771,6 +57789,7 @@ var allRules = [
   seo028TitleUnique,
   seo029DescriptionUnique,
   seo030HeadingOrder,
+  seo031SsrDisabled,
   correct001EachKey,
   correct002EffectDerived,
   correct003EffectAsOnMount,
