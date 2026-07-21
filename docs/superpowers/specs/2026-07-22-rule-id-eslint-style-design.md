@@ -13,7 +13,7 @@ v1.0未満のため後方互換は不要(旧IDのエイリアスは作らない)
 
 `<category>/<kebab-case-name>`。`category` は既存の `Rule.category` フィールドの値(`seo` | `performance` | `correctness` | `security` | `architecture`)とそのまま一致させる — IDのプレフィックスとカテゴリフィールドが別々の語彙を持つ現状のズレ(`PERF` vs `performance`、`CORRECT` vs `correctness`、`SEC` vs `security`、`ARCH` vs `architecture`)を解消する。
 
-例: `seo/ssr-disabled`、`performance/load-waterfall`、`security/load-state-write`、`correctness/orphan-effect`、`architecture/component-size`。
+例: `seo/ssr-disabled`、`performance/load-waterfall`、`security/handler-state-write`、`correctness/orphan-effect`、`architecture/component-size`。
 
 ## 全60ルールの対応表
 
@@ -64,7 +64,7 @@ v1.0未満のため後方互換は不要(旧IDのエイリアスは作らない)
 |---|---|---|---|
 | SEC001 | Raw HTML render | `security/raw-html` | `security/raw-html.ts` |
 | SEC002 | javascript: URL | `security/javascript-url` | `security/javascript-url.ts` |
-| SEC003 | Handler writes imported state | `security/load-state-write` | `security/load-state-write.ts` |
+| SEC003 | Handler writes imported state | `security/handler-state-write` | `security/handler-state-write.ts` |
 | SEC004 | Server module-scope state | `security/server-module-state` | `security/server-module-state.ts` |
 | SEC005 | Shared runes-state import on the server | `security/shared-state-import` | `security/shared-state-import.ts` |
 
@@ -98,13 +98,15 @@ v1.0未満のため後方互換は不要(旧IDのエイリアスは作らない)
 | SEO024 | Character encoding | `seo/charset` | `seo/charset.ts` |
 | SEO025 | Image alt text | `seo/image-alt` | `seo/image-alt.ts` |
 | SEO026 | hreflang validity | `seo/hreflang` | `seo/hreflang.ts` |
-| SEO027 | Heading hierarchy | `seo/heading-hierarchy` | `seo/heading-hierarchy.ts` |
+| SEO027 | Heading hierarchy | `seo/single-h1` | `seo/single-h1.ts` |
 | SEO028 | Duplicate title | `seo/duplicate-title` | `seo/duplicate-title.ts` |
 | SEO029 | Duplicate description | `seo/duplicate-description` | `seo/duplicate-description.ts` |
-| SEO030 | Heading order | `seo/heading-order` | `seo/heading-order.ts` |
+| SEO030 | Heading order | `seo/heading-level-skip` | `seo/heading-level-skip.ts` |
 | SEO031 | SSR disabled | `seo/ssr-disabled` | `seo/ssr-disabled.ts` |
 
 複数ルールが1ファイルにまとまっていた既存ファイル(`correct001-002.ts`、`images.ts`、`resource-hints.ts`、`seo002-005-008.ts`、`seo010-015.ts`、`seo016-021.ts`、`seo022-023.ts`、`seo028-029-uniqueness.ts`、`sec001-002.ts`)は、この移行でルールごとに1ファイルへ分割する。共有ヘルパー(`head-tag-rule.ts`、`jsonld-engine.ts`、`component-rule.ts`、`kit-module-rule.ts`、`image-rule.ts`、`link-rule.ts`、`detection.ts`、`text-metrics.ts`、`project-rules.ts`の共通処理)はそのまま維持し、`project-rules.ts`(`robots-txt`/`sitemap-xml`/`html-lang`の3ルールを含む)のみ同様に分割する。
+
+なお `performance` カテゴリの実装ディレクトリは、既存の `packages/core/src/rules/perf/` を据え置く(意図的)。ディレクトリ名はユーザー向けAPIではなく、`perf` → `performance` のディレクトリリネームはこの移行の本質(IDの意味の明確化)に寄与しないため対象外とする。
 
 ## コード側の変更
 
@@ -120,9 +122,13 @@ const HTML_DIRECTIVE = /^\s*<!--\s*svelte-vitals-disable-next-line(?:\s+([A-Za-z
 
 ### config・CLI・MCPの照合ロジック
 
-`config.rules[rule.id]` などの完全一致照合ロジック自体は変更不要(元々プレフィックスに依存していない)。変更が要るのは大文字小文字の正規化処理のみ:
-- `packages/cli/src/rules-config.ts` の `--rules`/`--ignore` 引数を `.toUpperCase()` して比較している箇所を、小文字比較(またはそのまま大文字小文字区別)に変更。
-- config例・エラーメッセージ中のサンプルIDをすべて新形式に更新。
+`config.rules[rule.id]` などの完全一致照合ロジック自体は変更不要(元々プレフィックスに依存していない)。CLIの `--rules`/`--ignore`(`packages/cli/src/rules-config.ts`・`resolve-args.ts`)はそもそも大文字小文字を正規化せず完全一致で照合しているため変更不要。
+
+現に大文字小文字非依存(`.toUpperCase()`)で正規化している箇所は次の2つで、これらは正規化を削除するかケースセンシティブ前提に書き換える:
+- `packages/mcp/src/tools/analyze.ts:97-98`(`analyze` ツールの `rules`/`ignore` 引数)
+- `packages/core/src/rules/index.ts:196-197`(`explainRule`。同ファイル195行目のJSDoc「matched case-insensitively」も実態に合わせて修正する)
+
+加えて、config例・エラーメッセージ・zodのdescription中のサンプルIDをすべて新形式に更新する。
 
 configファイルの例も変わる: `rules: { SEO031: 'off' }` → `rules: { 'seo/ssr-disabled': 'off' }`(キーにスラッシュを含むためクォート必須。ESLintの`.eslintrc`と同じ形)。
 
@@ -146,7 +152,26 @@ docs/src/content/docs/ja/rules/seo031.md → docs/src/content/docs/ja/rules/seo/
 
 front matterの `title` は `title: SEO031 · SSR disabled` → `title: seo/ssr-disabled · SSR disabled` の形式に更新(IDセグメントだけ差し替え、区切りの `·` はそのまま)。
 
-`packages/cli/test/docs-links.test.ts` は、ID文字列からファイルパスへの変換規則を「`rules/${id.toLowerCase()}.md` を探す」から「`rules/${id}.md` を探す」(IDが既に `category/name` なので追加のカテゴリ分岐は不要)に更新する。
+`packages/cli/test/docs-links.test.ts` は、ID文字列からファイルパスへの変換規則を「`rules/${id.toLowerCase()}.md` を探す」から「`rules/${id}.md` を探す」(IDが既に `category/name` なので追加のカテゴリ分岐は不要)に更新する。「stray page検出」テストは現状 `readdirSync(dir)` でフラットに列挙しているため、カテゴリのサブディレクトリを再帰的に走査する形に書き換える必要がある(現状のままだとサブディレクトリ名しか見えず、既存ページの有無を正しく検出できなくなる)。
+
+### guides・README・スキャフォールドのサンプルID
+
+ルールページ以外にも、旧ID(`SEO001`等)を出力例・config例として掲載している箇所がある。移行時に合わせて更新する:
+- `docs/src/content/docs/guides/{ci,cli,getting-started,dev-dashboard,mcp}.md`、`configuration.mdx`(en)とその日本語版6ファイル(計12ファイル)
+- `packages/cli/README.md`、`packages/mcp/README.md`
+- `packages/cli/src/install/config-content.ts:12`(scaffold コメント `{ SEO001: 'off' }`)— キーにスラッシュが入るためクォート必須化も反映
+- `packages/vite/src/hooks/options.ts:7`(JSDocの例 `{ SEO008: 'off' }`)
+- `packages/mcp/src/tools/explain-rule.ts:7`(zodの `describe('Rule id to explain, e.g. "SEO001".')`)
+
+これらはAGENTS.mdが許容する「例としてのID言及」であり規約違反ではないが、例の中身が新IDに追従していないと利用者を誤導するため、本移行のスコープに含める。
+
+### `packages/action`
+
+`packages/action` の src/test を確認した結果、旧IDのハードコードは見つからなかった(sticky commentはfindings一覧を受け取って整形するのみでID形式に依存しない)。コード変更は不要。検証節の対象パッケージにも含める。
+
+### 抑制ベースラインファイル(`packages/cli/src/suppressions.ts`)
+
+`.svelte-vitals-suppressions.json` は各エントリを `id`(ルールID文字列)で保持する。ID体系を変更すると、既存のベースラインファイルに記録された全エントリが新IDと一致しなくなり、抑制されていたfindingsが移行直後に一斉に再浮上する。これは意図された挙動(旧IDへの対応は行わない)だが、利用者が移行時に何をすべきか分かるよう、changesetの本文に「アップグレード後は `--update-suppressions` 相当の手順でベースラインを再生成してください」という移行ガイドを明記する。
 
 ## テストコードの更新
 
@@ -158,7 +183,7 @@ front matterの `title` は `title: SEO031 · SSR disabled` → `title: seo/ssr-
 
 ## 検証
 
-- `pnpm build` / `pnpm typecheck` / `pnpm test`(core・cli・vite・mcp全パッケージ) / `pnpm lint` / `pnpm check:publish`
-- `pnpm --filter docs build`(en/ja 双方のルールページがビルドできること、`docs-links.test.ts` が新パス規則で全ページの存在を検証すること)
+- `pnpm build` / `pnpm typecheck` / `pnpm test`(core・cli・vite・mcp・action全パッケージ) / `pnpm lint` / `pnpm check:publish`
+- `pnpm --filter docs build`(en/ja 双方のルールページがビルドできること、`docs-links.test.ts` が新パス規則・再帰的stray検出の両方で全ページの存在を検証すること)
 - 手動確認: config例(`rules: { 'seo/ssr-disabled': 'off' }`)と抑制コメント(`// svelte-vitals-disable-next-line seo/ssr-disabled`)がそれぞれ実際に効くこと
-- changeset必須(user-facing / 破壊的変更のため `pnpm changeset` で major bump相当を記録)
+- changeset必須(user-facing / 破壊的変更のため `pnpm changeset` で major bump相当を記録。本文に抑制ベースラインファイルの再生成手順を含める)
