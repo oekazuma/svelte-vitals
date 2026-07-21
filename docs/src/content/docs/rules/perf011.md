@@ -9,7 +9,7 @@ description: Dependent sequential awaits in a universal load cost a network roun
 
 Flags await chains in a **universal** load (`+page.ts` / `+layout.ts`) where a later await uses the result of an earlier one — directly, through destructured bindings, or through intermediate constants. Each dependent hop is a full network round trip from the browser on client-side navigation.
 
-The scan is deliberately conservative: it follows the load body's straight-line statements (including directly `try`-wrapped ones) and does not enter `if` branches, loops, or nested functions. `await parent()` is never flagged itself, but data derived from it counts as a dependency. Dependent chains in **server** loads are not flagged — they cannot be parallelized, and they already run server-side.
+The scan is deliberately conservative: it follows the load body's straight-line statements (including directly `try`-wrapped ones) and does not enter `if` branches, loops, or nested functions. `await parent()` is never flagged itself, but data derived from it counts as a dependency. Reading a response body (`await res.json()` and friends) is not counted as a hop — it costs no extra round trip — but data parsed from it still carries the dependency forward. Dependent chains in **server** loads are not flagged — they cannot be parallelized, and they already run server-side.
 
 ## Why it matters
 

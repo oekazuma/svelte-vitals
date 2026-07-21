@@ -62,12 +62,14 @@ Walk the load body's **direct statements in order**, extending into the direct s
 - `ExpressionStatement` whose expression (TS-unwrapped) is an `AwaitExpression` → site, no bindings.
 - `ReturnStatement` whose argument subtree contains one or more `AwaitExpression`s → one terminal site (no bindings; can only be classified, never depended on).
 - `await parent()` sites (callee resolves to the `parent` binding destructured from the load event, or a direct `parent()` call) are **excluded entirely** — neither classified nor taint sources' anchors, though the names they bind DO become taint sources (a later await using `await parent()`'s data is a real dependency on a Kit-managed step we chose not to judge; treating its bindings as taint prevents misclassifying such awaits as independent).
+- Response-body-parse sites — a zero-argument `.json()`/`.text()`/`.blob()`/`.arrayBuffer()`/`.formData()`/`.bytes()` member call (`res.json()`) — are excluded the same way as `await parent()`: not classified as a hop (reading an already-received body costs no extra round trip), but the bindings they feed still taint (data parsed from the body IS derived from the earlier request). A same-named call WITH arguments (`db.json("users")`) is not exempt and is classified normally.
 - A statement with multiple/nested awaits (`await f(await g())`) is one site.
 
 ### Taint propagation and classification
 
 - Maintain a tainted-name set, seeded by each await site's bound names.
 - A non-await `VariableDeclaration` whose init references a tainted name taints its own bound names (forward transitivity through intermediate consts).
+- An `ExpressionStatement` whose expression is a plain `=` `AssignmentExpression` (e.g. `user = await fetch(...).then(...)` inside a `try`, or a later `key = res.key`) taints its left-hand-side's bound names the same way, when its right-hand side contains an await or already references a tainted name — otherwise a `try`-wrapped chain's target, or a plain reassignment from a tainted value, would never taint and a real dependency downstream would be misclassified independent.
 - For each await site after the first, collect the identifiers referenced in its expression subtree, threading nested-function shadowing with the existing scope machinery (`scopeIntroducedNames`-style), so a callback parameter that shadows a tainted name does not create a false dependency. Property keys and member-expression property names don't count as references.
 - References ∩ tainted ≠ ∅ → push the site's line to `dependentLines`; otherwise (and at least one earlier non-excluded await site exists) → push to `independentLines`.
 - Reassignment of a tainted `let` to an untainted value is ignored (stays tainted) — over-approximation toward "dependent", which is the conservative direction for PERF013; for PERF011 it is mitigated by the shadow-threading above and by straight-line scope (plain reassignment between awaits is rare in load bodies).
