@@ -53,6 +53,8 @@ import { arch001ComponentSize, arch002PropCount } from './architecture/arch001-0
 import { perf009HeavyImport } from './perf/perf009-heavy-import.js';
 import { perf010NamespaceImport } from './perf/perf010-namespace-import.js';
 import { perf012MinifyDisabled } from './perf/perf012-minify-disabled.js';
+import { perf011LoadWaterfall } from './perf/perf011-load-waterfall.js';
+import { perf013SequentialAwaits } from './perf/perf013-sequential-awaits.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -112,7 +114,9 @@ export const allRules: Rule[] = [
   arch002PropCount,
   perf009HeavyImport,
   perf010NamespaceImport,
-  perf012MinifyDisabled
+  perf012MinifyDisabled,
+  perf011LoadWaterfall,
+  perf013SequentialAwaits
 ];
 
 export {
@@ -173,7 +177,9 @@ export {
   arch002PropCount,
   perf009HeavyImport,
   perf010NamespaceImport,
-  perf012MinifyDisabled
+  perf012MinifyDisabled,
+  perf011LoadWaterfall,
+  perf013SequentialAwaits
 };
 
 export interface RuleInfo {

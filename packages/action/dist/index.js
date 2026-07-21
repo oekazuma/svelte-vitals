@@ -55605,7 +55605,7 @@ function collectStartupFunctions(program) {
   resolveAliasStartupExports(program, collectTopLevelBindings(program), startup);
   return startup;
 }
-function findSsrFalseOptOut(program, source2) {
+function findFalseOptOut(program, source2, name) {
   const isFalse = (init2) => {
     const v = unwrapTs(init2);
     return v?.type === "Literal" && v.value === false;
@@ -55614,7 +55614,7 @@ function findSsrFalseOptOut(program, source2) {
     const decl = unwrapExport(stmt2);
     if (decl?.type !== "VariableDeclaration") continue;
     for (const d of decl.declarations ?? []) {
-      if (d?.id?.type === "Identifier" && d.id.name === "ssr" && d.init && isFalse(d.init)) {
+      if (d?.id?.type === "Identifier" && d.id.name === name && d.init && isFalse(d.init)) {
         if (stmt2.type === "ExportNamedDeclaration") return { line: lineOf(source2, d.start) };
       }
     }
@@ -55625,12 +55625,171 @@ function findSsrFalseOptOut(program, source2) {
       continue;
     for (const s of stmt2.specifiers) {
       if (s?.exportKind === "type" || s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
-      if (s.exported.name !== "ssr") continue;
+      if (s.exported.name !== name) continue;
       const resolved = bindings.get(s.local.name);
       if (resolved?.type === "Literal" && resolved.value === false) return { line: lineOf(source2, resolved.start) };
     }
   }
   return void 0;
+}
+function findLoadFunction(program) {
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.declaration) continue;
+    const decl = stmt2.declaration;
+    if (decl.type === "FunctionDeclaration" && decl.id?.type === "Identifier" && decl.id.name === "load") return decl;
+    if (decl.type !== "VariableDeclaration") continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type !== "Identifier" || d.id.name !== "load" || !d.init) continue;
+      const init2 = unwrapTs(d.init);
+      if (isFunctionNode(init2)) return init2;
+    }
+  }
+  const bindings = collectTopLevelBindings(program);
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source || stmt2.exportKind === "type")
+      continue;
+    for (const s of stmt2.specifiers) {
+      if (s?.exportKind === "type" || s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
+      if (s.exported.name !== "load") continue;
+      const resolved = bindings.get(s.local.name);
+      if (resolved && isFunctionNode(resolved)) return resolved;
+    }
+  }
+  return void 0;
+}
+function collectAwaits(node, out = []) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAwaits(child, out);
+    return out;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return out;
+  if (isFunctionNode(node)) return out;
+  if (node.type === "AwaitExpression") out.push(node);
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    collectAwaits(node[key2], out);
+  }
+  return out;
+}
+function isParentCall(arg) {
+  const e2 = unwrapTs(arg);
+  if (e2?.type !== "CallExpression") return false;
+  const callee = e2.callee;
+  if (callee?.type === "Identifier" && callee.name === "parent") return true;
+  return callee?.type === "MemberExpression" && !callee.computed && callee.property?.name === "parent";
+}
+var BODY_METHODS = /* @__PURE__ */ new Set(["json", "text", "blob", "arrayBuffer", "formData", "bytes"]);
+function isBodyParseCall(arg) {
+  const e2 = unwrapTs(arg);
+  if (e2?.type !== "CallExpression" || e2.arguments?.length) return false;
+  const callee = e2.callee;
+  return callee?.type === "MemberExpression" && !callee.computed && BODY_METHODS.has(callee.property?.name);
+}
+function refsTainted(node, tainted) {
+  let hit = false;
+  const walk2 = (n, shadowed) => {
+    if (hit) return;
+    if (Array.isArray(n)) {
+      for (const child of n) walk2(child, shadowed);
+      return;
+    }
+    if (!n || typeof n !== "object" || typeof n.type !== "string") return;
+    const introduced = scopeIntroducedNames(n);
+    const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+    if (n.type === "Identifier" && tainted.has(n.name) && !scope.has(n.name)) {
+      hit = true;
+      return;
+    }
+    for (const key2 of Object.keys(n)) {
+      if (WALK_IGNORED_KEYS.has(key2)) continue;
+      if (n.type === "MemberExpression" && key2 === "property" && !n.computed) continue;
+      if (n.type === "Property" && key2 === "key" && !n.computed) continue;
+      walk2(n[key2], scope);
+    }
+  };
+  walk2(node, /* @__PURE__ */ new Set());
+  return hit;
+}
+function collectLoadWaterfalls(program, wrapped) {
+  const dependentLines = [];
+  const independentLines = [];
+  const load = findLoadFunction(program);
+  if (!load?.body || load.body.type !== "BlockStatement") return { dependentLines, independentLines };
+  const line = (start) => Math.max(0, lineOf(wrapped, start) - 1);
+  const tainted = /* @__PURE__ */ new Set();
+  let sawAwaitSite = false;
+  const taintAssignTarget = (left) => {
+    if (left?.type === "MemberExpression") {
+      const root = rootObjectName(left);
+      if (root) tainted.add(root);
+    } else {
+      addBoundNames(left, tainted);
+    }
+  };
+  const taintOnly = (node) => {
+    if (Array.isArray(node)) {
+      for (const child of node) taintOnly(child);
+      return;
+    }
+    if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+    if (isFunctionNode(node)) return;
+    if (node.type === "AssignmentExpression") {
+      if (collectAwaits(node.right).length > 0 || refsTainted(node.right, tainted)) taintAssignTarget(node.left);
+    } else if (node.type === "VariableDeclaration") {
+      for (const d of node.declarations ?? []) {
+        if (d?.id && d.init && (collectAwaits(d.init).length > 0 || refsTainted(d.init, tainted))) {
+          addBoundNames(d.id, tainted);
+        }
+      }
+    }
+    for (const key2 of Object.keys(node)) {
+      if (WALK_IGNORED_KEYS.has(key2)) continue;
+      taintOnly(node[key2]);
+    }
+  };
+  const processStatements = (body) => {
+    for (const stmt2 of body ?? []) {
+      if (!stmt2) continue;
+      if (stmt2.type === "TryStatement") {
+        if (stmt2.block?.type === "BlockStatement") processStatements(stmt2.block.body);
+        if (stmt2.handler) taintOnly(stmt2.handler);
+        if (stmt2.finalizer) taintOnly(stmt2.finalizer);
+        continue;
+      }
+      if (stmt2.type === "VariableDeclaration" || stmt2.type === "ExpressionStatement" || stmt2.type === "ReturnStatement") {
+        const sites = collectAwaits(stmt2).filter((a) => !isParentCall(a.argument) && !isBodyParseCall(a.argument));
+        if (sites.length > 0) {
+          const dependent = sites.filter((a) => refsTainted(a.argument, tainted));
+          if (dependent.length > 0) {
+            const anchor = dependent.reduce((m, a) => a.start < m.start ? a : m);
+            dependentLines.push(line(anchor.start));
+          } else if (sawAwaitSite) {
+            const workSites = sites.filter((a) => unwrapTs(a.argument)?.type !== "Identifier");
+            if (workSites.length > 0) {
+              const anchor = workSites.reduce((m, a) => a.start < m.start ? a : m);
+              independentLines.push(line(anchor.start));
+            }
+          }
+          sawAwaitSite = true;
+        }
+        if (stmt2.type === "VariableDeclaration") {
+          for (const d of stmt2.declarations ?? []) {
+            if (!d?.id || !d.init) continue;
+            if (collectAwaits(d.init).length > 0 || refsTainted(d.init, tainted)) addBoundNames(d.id, tainted);
+          }
+        } else if (stmt2.type === "ExpressionStatement") {
+          const expr = unwrapTs(stmt2.expression);
+          if (expr?.type === "AssignmentExpression") {
+            if (collectAwaits(expr.right).length > 0 || refsTainted(expr.right, tainted)) taintAssignTarget(expr.left);
+          }
+        }
+      } else {
+        taintOnly(stmt2);
+      }
+    }
+  };
+  processStatements(load.body.body);
+  return { dependentLines, independentLines };
 }
 function walkKit(node, handlerFns, startupFns, visit, shadowed = /* @__PURE__ */ new Set(), inFunction = false, inHandler = false, inStartup = false) {
   if (Array.isArray(node)) {
@@ -55727,7 +55886,9 @@ function parseKitModuleFacts(source2, filename2) {
   const handlerFns = collectHandlerFunctions(program);
   const startupFns = collectStartupFunctions(program);
   const svelteImports = collectSvelteLifecycleImports(program);
-  const ssrOptOut = findSsrFalseOptOut(program, wrapped);
+  const ssrOptOut = findFalseOptOut(program, wrapped, "ssr");
+  const csrOptOut = findFalseOptOut(program, wrapped, "csr");
+  const waterfalls = collectLoadWaterfalls(program, wrapped);
   if (!ssrOptOut) {
     const shiftLine = (l) => Math.max(0, l - 1);
     const browserImports = collectBrowserGuardImports(program);
@@ -55829,6 +55990,8 @@ function parseKitModuleFacts(source2, filename2) {
     lifecycleCalls: byLine(lifecycleCalls),
     browserGlobalRefs: byLine(browserGlobalRefs),
     ...ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {},
+    ...csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {},
+    ...waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0 ? { loadWaterfalls: waterfalls } : {},
     suppressions
   };
 }
@@ -57325,6 +57488,7 @@ function kitModuleRule(opts) {
     severity,
     scope: "component",
     rationale: opts.rationale,
+    ...opts.fix ? { fix: opts.fix } : {},
     async check(ctx) {
       const out = [];
       for (const m of ctx.kitModules ?? []) {
@@ -57354,7 +57518,8 @@ function kitModuleRule(opts) {
             ...b.line > 0 ? { line: b.line } : {},
             message: b.message,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl7
+            docsUrl: docsUrl7,
+            ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
       }
@@ -57857,6 +58022,40 @@ var perf012MinifyDisabled = {
     ];
   }
 };
+var MESSAGE = "Sequential dependent awaits in a universal load create a client-side request waterfall \u2014 each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.";
+var perf011LoadWaterfall = kitModuleRule({
+  id: "PERF011",
+  title: "Load waterfall",
+  category: "performance",
+  severity: "warning",
+  label: "No load waterfalls",
+  recommendation: "Move the dependent await chain into a server load (+page.server.ts / +layout.server.ts), where the hops run server-to-server.",
+  rationale: "In a universal load, every await that depends on a previous result costs a full network round trip from the browser on client-side navigation; chains multiply latency on every page visit. A server load runs the same hops server-side.",
+  fix: {
+    description: "Move the dependent await chain into a server load (+page.server.ts), where hops run server-to-server.",
+    snippet: "// +page.server.ts \u2014 same chain, server-side hops\nexport async function load({ fetch }) {\n  const user = await fetch(`/api/user`).then((r) => r.json());\n  const posts = await fetch(`/api/posts/${user.id}`).then((r) => r.json());\n  return { user, posts };\n}",
+    lang: "ts"
+  },
+  applies: (m) => m.kind === "universal" && m.csrDisabled === void 0 && (m.loadWaterfalls?.dependentLines.length ?? 0) > 0,
+  bad: (m) => m.loadWaterfalls.dependentLines.map((line) => ({ line, message: MESSAGE }))
+});
+var MESSAGE2 = "This await does not use the results of the awaits before it \u2014 the requests run sequentially for no reason. Start them together and await them with Promise.all.";
+var perf013SequentialAwaits = kitModuleRule({
+  id: "PERF013",
+  title: "Sequential independent awaits",
+  category: "performance",
+  severity: "info",
+  label: "No needlessly sequential awaits",
+  recommendation: "Start the independent requests together and await them with Promise.all.",
+  rationale: "Awaits that do not use each other's results still run one after another, adding their latencies; starting them together costs nothing and bounds the wait to the slowest request.",
+  fix: {
+    description: "Start the independent requests together and await them with Promise.all.",
+    snippet: "const [a, b] = await Promise.all([fetchA(), fetchB()]);",
+    lang: "ts"
+  },
+  applies: (m) => (m.loadWaterfalls?.independentLines.length ?? 0) > 0,
+  bad: (m) => m.loadWaterfalls.independentLines.map((line) => ({ line, message: MESSAGE2 }))
+});
 var allRules = [
   seo001Title,
   seo002Description,
@@ -57915,7 +58114,9 @@ var allRules = [
   arch002PropCount,
   perf009HeavyImport,
   perf010NamespaceImport,
-  perf012MinifyDisabled
+  perf012MinifyDisabled,
+  perf011LoadWaterfall,
+  perf013SequentialAwaits
 ];
 function classify(result, config) {
   if (isPenalized(result.detection, config.treatDynamicAs)) return "fail";
