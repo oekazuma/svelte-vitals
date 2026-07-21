@@ -16,13 +16,13 @@ Sourced from the best-practices survey (2026-07-21) of `sveltejs/kit/documentati
 
 ## Rules
 
-| | PERF011 | PERF013 |
-|---|---|---|
-| title | `Load waterfall` | `Sequential independent awaits` |
-| category | `performance` | `performance` |
-| severity | `warning` | `info` |
-| applies | `kind === 'universal'` files with `dependentLines` | files of either kind with `independentLines` |
-| shape | `kitModuleRule` factory | `kitModuleRule` factory |
+|          | PERF011                                            | PERF013                                      |
+| -------- | -------------------------------------------------- | -------------------------------------------- |
+| title    | `Load waterfall`                                   | `Sequential independent awaits`              |
+| category | `performance`                                      | `performance`                                |
+| severity | `warning`                                          | `info`                                       |
+| applies  | `kind === 'universal'` files with `dependentLines` | files of either kind with `independentLines` |
+| shape    | `kitModuleRule` factory                            | `kitModuleRule` factory                      |
 
 Both use the `kitModuleRule` factory; its `category` union widens to `'security' | 'seo' | 'performance'`.
 
@@ -74,7 +74,7 @@ Walk the load body's **direct statements in order**, extending into the direct s
 
 ### Not detected (summary)
 
-Single-await loads; awaits inside `if`/loops/`switch`/`catch`/nested closures; `await parent()` itself; dependent chains in server loads (fact recorded, rule filters); files without a `load` export; malformed sources (existing parser behavior: facts default to empty, never throw).
+Single-await loads; awaits inside `if`/loops/`switch`/`catch`/nested closures; `await parent()` itself; dependent chains in server loads (fact recorded, rule filters); files without a `load` export; malformed sources (existing pipeline behavior: `parseKitModuleFacts` may throw, and `collectKitModuleFacts`'s catch yields empty facts).
 
 ## Suppression
 
