@@ -14,8 +14,8 @@ export interface KitModuleIssue {
 export interface KitModuleRuleOptions {
   id: string;
   title: string;
-  /** The SSR shared-state rules are Security rules. */
-  category: 'security';
+  /** Kit-file rules report as Security (SEC003–005) or SEO (SEO031). */
+  category: 'security' | 'seo';
   /** Default 'warning'. */
   severity?: Severity;
   /** Pass message / category label. */

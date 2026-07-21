@@ -37,6 +37,7 @@ import { seo026Hreflang } from './seo/seo026-hreflang.js';
 import { seo027Heading } from './seo/seo027-heading.js';
 import { seo028TitleUnique, seo029DescriptionUnique } from './seo/seo028-029-uniqueness.js';
 import { seo030HeadingOrder } from './seo/seo030-heading-order.js';
+import { seo031SsrDisabled } from './seo/seo031-ssr-disabled.js';
 import { correct001EachKey, correct002EffectDerived, correct003EffectAsOnMount } from './correctness/correct001-002.js';
 import { correct004UnmutatedState } from './correctness/correct004-unmutated-state.js';
 import { correct005PropMutation } from './correctness/correct005-prop-mutation.js';
@@ -91,6 +92,7 @@ export const allRules: Rule[] = [
   seo028TitleUnique,
   seo029DescriptionUnique,
   seo030HeadingOrder,
+  seo031SsrDisabled,
   correct001EachKey,
   correct002EffectDerived,
   correct003EffectAsOnMount,
@@ -150,6 +152,7 @@ export {
   seo028TitleUnique,
   seo029DescriptionUnique,
   seo030HeadingOrder,
+  seo031SsrDisabled,
   correct001EachKey,
   correct002EffectDerived,
   correct003EffectAsOnMount,
