@@ -29,6 +29,8 @@ export interface KitModuleFacts {
     line: number;
     inHandler: boolean;
   }[];
+  /** Set when this file disables SSR via `export const ssr = false` (inline or same-file alias export) — the declaration's line (SEO031). */
+  ssrDisabled?: { line: number };
   /** Inline `svelte-vitals-disable-next-line` directives in this file. */
   suppressions: SuppressionDirective[];
 }

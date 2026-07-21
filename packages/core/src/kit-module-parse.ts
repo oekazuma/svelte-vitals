@@ -179,11 +179,13 @@ function collectStartupFunctions(program: Node): Set<Node> {
 }
 
 /**
- * Whether this file opts out of the server entirely via `export const ssr = false`
- * (satisfies-unwrapped; same-file alias export `export { ssr }` resolved). Such a file
- * never runs on the server, so browser globals in it are legal (CORRECT008).
+ * The `export const ssr = false` opt-out, when present: inline form
+ * (`satisfies`/`as` unwrapped) or same-file alias export (`const ssr = false;
+ * export { ssr };`). Returns the declaration's line in the WRAPPED source (the
+ * caller applies the −1 shift). Such a file never runs on the server — CORRECT008
+ * skips its browser-global scan, and SEO031 reports the flag itself.
  */
-function hasSsrFalseOptOut(program: Node): boolean {
+function findSsrFalseOptOut(program: Node, source: string): { line: number } | undefined {
   const isFalse = (init: Node): boolean => {
     const v = unwrapTs(init);
     return v?.type === 'Literal' && v.value === false;
@@ -193,7 +195,7 @@ function hasSsrFalseOptOut(program: Node): boolean {
     if (decl?.type !== 'VariableDeclaration') continue;
     for (const d of decl.declarations ?? []) {
       if (d?.id?.type === 'Identifier' && d.id.name === 'ssr' && d.init && isFalse(d.init)) {
-        if (stmt.type === 'ExportNamedDeclaration') return true;
+        if (stmt.type === 'ExportNamedDeclaration') return { line: lineOf(source, d.start) };
       }
     }
   }
@@ -206,10 +208,10 @@ function hasSsrFalseOptOut(program: Node): boolean {
       if (s?.exportKind === 'type' || s?.exported?.type !== 'Identifier' || s?.local?.type !== 'Identifier') continue;
       if (s.exported.name !== 'ssr') continue;
       const resolved = bindings.get(s.local.name);
-      if (resolved?.type === 'Literal' && resolved.value === false) return true;
+      if (resolved?.type === 'Literal' && resolved.value === false) return { line: lineOf(source, resolved.start) };
     }
   }
-  return false;
+  return undefined;
 }
 
 /**
@@ -384,7 +386,8 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
   // at function boundaries, so run it once over the program (top level) and once per
   // handler/init body; closures nested inside handlers are deliberately not entered
   // (they are typically client-side callbacks returned to components).
-  if (!hasSsrFalseOptOut(program)) {
+  const ssrOptOut = findSsrFalseOptOut(program, wrapped);
+  if (!ssrOptOut) {
     // The scanner returns line numbers computed against `wrapped` — subtract the
     // 1-line wrap prefix (the local `line()` helper takes a byte OFFSET, not a line,
     // so it must not be used here).
@@ -513,6 +516,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
     runesModuleImports: byLine(runesModuleImports),
     lifecycleCalls: byLine(lifecycleCalls),
     browserGlobalRefs: byLine(browserGlobalRefs),
+    ...(ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {}),
     suppressions
   };
 }
