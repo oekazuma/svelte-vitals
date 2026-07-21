@@ -112,7 +112,9 @@ export {
   arch002PropCount,
   perf009HeavyImport,
   perf010NamespaceImport,
-  perf012MinifyDisabled
+  perf012MinifyDisabled,
+  perf011LoadWaterfall,
+  perf013SequentialAwaits
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';
