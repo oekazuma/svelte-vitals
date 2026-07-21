@@ -100,17 +100,15 @@ const VITE_CONFIG_FILES = [
 ] as const;
 
 async function detectViteMinifyDisabled(rt: Runtime, cwd: string): Promise<Project['viteMinifyDisabled']> {
-  for (const file of VITE_CONFIG_FILES) {
-    const p = rt.join(cwd, file);
-    if (!(await rt.exists(p))) continue;
-    try {
-      const hit = findMinifyDisabled(await rt.readFile(p));
-      return hit ? { file, line: hit.line } : undefined;
-    } catch {
-      return undefined; // unreadable config — don't guess
-    }
+  const exists = await Promise.all(VITE_CONFIG_FILES.map((f) => rt.exists(rt.join(cwd, f))));
+  const file = VITE_CONFIG_FILES[exists.indexOf(true)];
+  if (!file) return undefined;
+  try {
+    const hit = findMinifyDisabled(await rt.readFile(rt.join(cwd, file)));
+    return hit ? { file, line: hit.line } : undefined;
+  } catch {
+    return undefined; // unreadable config — don't guess
   }
-  return undefined;
 }
 
 /** Precompute project-wide facts for project-scope rules (design §10, §11, §17). */
