@@ -55871,12 +55871,13 @@ async function collectKitModuleFacts(rt, cwd) {
   );
 }
 function propOf(obj, name) {
+  let found;
   for (const p of obj.properties ?? []) {
     if (p?.type !== "Property" || p.computed) continue;
-    if (p.key?.type === "Identifier" && p.key.name === name) return p;
-    if (p.key?.type === "Literal" && p.key.value === name) return p;
+    if (p.key?.type === "Identifier" && p.key.name === name) found = p;
+    else if (p.key?.type === "Literal" && p.key.value === name) found = p;
   }
-  return void 0;
+  return found;
 }
 function resolveConfigObject(program) {
   let exported;
