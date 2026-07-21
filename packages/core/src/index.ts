@@ -92,6 +92,7 @@ export {
   seo028TitleUnique,
   seo029DescriptionUnique,
   seo030HeadingOrder,
+  seo031SsrDisabled,
   correct001EachKey,
   correct002EffectDerived,
   correct003EffectAsOnMount,

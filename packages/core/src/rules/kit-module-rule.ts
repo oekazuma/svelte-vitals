@@ -14,8 +14,8 @@ export interface KitModuleIssue {
 export interface KitModuleRuleOptions {
   id: string;
   title: string;
-  /** The SSR shared-state rules are Security rules. */
-  category: 'security';
+  /** Kit-file rules report as Security (SEC003–005) or SEO (SEO031). */
+  category: 'security' | 'seo';
   /** Default 'warning'. */
   severity?: Severity;
   /** Pass message / category label. */
@@ -34,7 +34,7 @@ function isSuppressed(m: KitModuleFacts, ruleId: string, line: number): boolean 
 }
 
 /**
- * Build a Kit-module-scoped rule (SEC003–005) over `ctx.kitModules`. Static/CLI and
+ * Build a Kit-module-scoped rule (SEC003–005, SEO031) over `ctx.kitModules`. Static/CLI and
  * vite build mode only — `ctx.kitModules` is unset in rendered mode, so it emits
  * nothing there. Findings use the source file as the scoring unit.
  */
