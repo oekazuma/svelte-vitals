@@ -21,88 +21,88 @@ v1.0未満のため後方互換は不要(旧IDのエイリアスは作らない)
 
 ### architecture (2)
 
-| 旧ID | title | 新ID | 新ファイル |
-|---|---|---|---|
+| 旧ID    | title          | 新ID                          | 新ファイル                       |
+| ------- | -------------- | ----------------------------- | -------------------------------- |
 | ARCH001 | Component size | `architecture/component-size` | `architecture/component-size.ts` |
-| ARCH002 | Prop count | `architecture/prop-count` | `architecture/prop-count.ts` |
+| ARCH002 | Prop count     | `architecture/prop-count`     | `architecture/prop-count.ts`     |
 
 ### correctness (9)
 
-| 旧ID | title | 新ID | 新ファイル |
-|---|---|---|---|
-| CORRECT001 | Keyed each block | `correctness/each-key` | `correctness/each-key.ts` |
-| CORRECT002 | Effect used to derive state | `correctness/effect-as-derived` | `correctness/effect-as-derived.ts` |
-| CORRECT003 | Effect used as onMount | `correctness/effect-as-onmount` | `correctness/effect-as-onmount.ts` |
-| CORRECT004 | Unmutated $state | `correctness/unmutated-state` | `correctness/unmutated-state.ts` |
-| CORRECT005 | Mutated non-bindable prop | `correctness/prop-mutation` | `correctness/prop-mutation.ts` |
-| CORRECT006 | Orphan $effect | `correctness/orphan-effect` | `correctness/orphan-effect.ts` |
-| CORRECT007 | Lifecycle call outside component initialisation | `correctness/orphan-lifecycle` | `correctness/orphan-lifecycle.ts` |
-| CORRECT008 | Browser global in server module code | `correctness/server-browser-global` | `correctness/server-browser-global.ts` |
-| CORRECT009 | Browser global during component initialisation | `correctness/instance-browser-global` | `correctness/instance-browser-global.ts` |
+| 旧ID       | title                                           | 新ID                                  | 新ファイル                               |
+| ---------- | ----------------------------------------------- | ------------------------------------- | ---------------------------------------- |
+| CORRECT001 | Keyed each block                                | `correctness/each-key`                | `correctness/each-key.ts`                |
+| CORRECT002 | Effect used to derive state                     | `correctness/effect-as-derived`       | `correctness/effect-as-derived.ts`       |
+| CORRECT003 | Effect used as onMount                          | `correctness/effect-as-onmount`       | `correctness/effect-as-onmount.ts`       |
+| CORRECT004 | Unmutated $state                                | `correctness/unmutated-state`         | `correctness/unmutated-state.ts`         |
+| CORRECT005 | Mutated non-bindable prop                       | `correctness/prop-mutation`           | `correctness/prop-mutation.ts`           |
+| CORRECT006 | Orphan $effect                                  | `correctness/orphan-effect`           | `correctness/orphan-effect.ts`           |
+| CORRECT007 | Lifecycle call outside component initialisation | `correctness/orphan-lifecycle`        | `correctness/orphan-lifecycle.ts`        |
+| CORRECT008 | Browser global in server module code            | `correctness/server-browser-global`   | `correctness/server-browser-global.ts`   |
+| CORRECT009 | Browser global during component initialisation  | `correctness/instance-browser-global` | `correctness/instance-browser-global.ts` |
 
 ### performance (13)
 
-| 旧ID | title | 新ID | 新ファイル |
-|---|---|---|---|
-| PERF001 | Image dimensions | `performance/image-dimensions` | `perf/image-dimensions.ts` |
-| PERF002 | Image loading hint | `performance/image-loading-hint` | `perf/image-loading-hint.ts` |
-| PERF003 | Preload missing as | `performance/preload-missing-as` | `perf/preload-missing-as.ts` |
+| 旧ID    | title                            | 新ID                                   | 新ファイル                         |
+| ------- | -------------------------------- | -------------------------------------- | ---------------------------------- |
+| PERF001 | Image dimensions                 | `performance/image-dimensions`         | `perf/image-dimensions.ts`         |
+| PERF002 | Image loading hint               | `performance/image-loading-hint`       | `perf/image-loading-hint.ts`       |
+| PERF003 | Preload missing as               | `performance/preload-missing-as`       | `perf/preload-missing-as.ts`       |
 | PERF004 | Font preload missing crossorigin | `performance/font-preload-crossorigin` | `perf/font-preload-crossorigin.ts` |
-| PERF005 | LCP image eager loading | `performance/lcp-image` | `perf/lcp-image.ts` |
-| PERF006 | Responsive image | `performance/responsive-image` | `perf/responsive-image.ts` |
-| PERF007 | Render-blocking script | `performance/render-blocking-script` | `perf/render-blocking-script.ts` |
-| PERF008 | Preconnect third-party origin | `performance/preconnect` | `perf/preconnect.ts` |
-| PERF009 | Heavy dependency import | `performance/heavy-import` | `perf/heavy-import.ts` |
-| PERF010 | Namespace import | `performance/namespace-import` | `perf/namespace-import.ts` |
-| PERF011 | Load waterfall | `performance/load-waterfall` | `perf/load-waterfall.ts` |
-| PERF012 | Minification disabled | `performance/minify-disabled` | `perf/minify-disabled.ts` |
-| PERF013 | Sequential independent awaits | `performance/sequential-awaits` | `perf/sequential-awaits.ts` |
+| PERF005 | LCP image eager loading          | `performance/lcp-image`                | `perf/lcp-image.ts`                |
+| PERF006 | Responsive image                 | `performance/responsive-image`         | `perf/responsive-image.ts`         |
+| PERF007 | Render-blocking script           | `performance/render-blocking-script`   | `perf/render-blocking-script.ts`   |
+| PERF008 | Preconnect third-party origin    | `performance/preconnect`               | `perf/preconnect.ts`               |
+| PERF009 | Heavy dependency import          | `performance/heavy-import`             | `perf/heavy-import.ts`             |
+| PERF010 | Namespace import                 | `performance/namespace-import`         | `perf/namespace-import.ts`         |
+| PERF011 | Load waterfall                   | `performance/load-waterfall`           | `perf/load-waterfall.ts`           |
+| PERF012 | Minification disabled            | `performance/minify-disabled`          | `perf/minify-disabled.ts`          |
+| PERF013 | Sequential independent awaits    | `performance/sequential-awaits`        | `perf/sequential-awaits.ts`        |
 
 ### security (5)
 
-| 旧ID | title | 新ID | 新ファイル |
-|---|---|---|---|
-| SEC001 | Raw HTML render | `security/raw-html` | `security/raw-html.ts` |
-| SEC002 | javascript: URL | `security/javascript-url` | `security/javascript-url.ts` |
-| SEC003 | Handler writes imported state | `security/handler-state-write` | `security/handler-state-write.ts` |
-| SEC004 | Server module-scope state | `security/server-module-state` | `security/server-module-state.ts` |
+| 旧ID   | title                                   | 新ID                           | 新ファイル                        |
+| ------ | --------------------------------------- | ------------------------------ | --------------------------------- |
+| SEC001 | Raw HTML render                         | `security/raw-html`            | `security/raw-html.ts`            |
+| SEC002 | javascript: URL                         | `security/javascript-url`      | `security/javascript-url.ts`      |
+| SEC003 | Handler writes imported state           | `security/handler-state-write` | `security/handler-state-write.ts` |
+| SEC004 | Server module-scope state               | `security/server-module-state` | `security/server-module-state.ts` |
 | SEC005 | Shared runes-state import on the server | `security/shared-state-import` | `security/shared-state-import.ts` |
 
 ### seo (31)
 
-| 旧ID | title | 新ID | 新ファイル |
-|---|---|---|---|
-| SEO001 | Title presence | `seo/title-presence` | `seo/title-presence.ts` |
-| SEO002 | Description presence | `seo/description-presence` | `seo/description-presence.ts` |
-| SEO003 | Canonical URL | `seo/canonical-url` | `seo/canonical-url.ts` |
-| SEO004 | Open Graph image | `seo/og-image` | `seo/og-image.ts` |
-| SEO005 | Open Graph title | `seo/og-title` | `seo/og-title.ts` |
-| SEO006 | robots.txt | `seo/robots-txt` | `seo/robots-txt.ts` |
-| SEO007 | sitemap.xml | `seo/sitemap-xml` | `seo/sitemap-xml.ts` |
-| SEO008 | JSON-LD structured data | `seo/json-ld` | `seo/json-ld.ts` |
-| SEO009 | `<html lang>` | `seo/html-lang` | `seo/html-lang.ts` |
-| SEO010 | Indexability | `seo/indexability` | `seo/indexability.ts` |
-| SEO011 | Twitter Card | `seo/twitter-card` | `seo/twitter-card.ts` |
-| SEO012 | Open Graph description | `seo/og-description` | `seo/og-description.ts` |
-| SEO013 | Open Graph URL | `seo/og-url` | `seo/og-url.ts` |
-| SEO014 | Viewport | `seo/viewport` | `seo/viewport.ts` |
-| SEO015 | Sitemap referenced in robots.txt | `seo/sitemap-in-robots` | `seo/sitemap-in-robots.ts` |
-| SEO016 | JSON-LD validity | `seo/json-ld-validity` | `seo/json-ld-validity.ts` |
-| SEO017 | Deprecated structured-data type | `seo/json-ld-deprecated-type` | `seo/json-ld-deprecated-type.ts` |
-| SEO018 | JSON-LD relative URL | `seo/json-ld-relative-url` | `seo/json-ld-relative-url.ts` |
-| SEO019 | JSON-LD date format | `seo/json-ld-date-format` | `seo/json-ld-date-format.ts` |
-| SEO020 | JSON-LD placeholder text | `seo/json-ld-placeholder` | `seo/json-ld-placeholder.ts` |
-| SEO021 | JSON-LD required properties | `seo/json-ld-required-props` | `seo/json-ld-required-props.ts` |
-| SEO022 | Title length | `seo/title-length` | `seo/title-length.ts` |
-| SEO023 | Description length | `seo/description-length` | `seo/description-length.ts` |
-| SEO024 | Character encoding | `seo/charset` | `seo/charset.ts` |
-| SEO025 | Image alt text | `seo/image-alt` | `seo/image-alt.ts` |
-| SEO026 | hreflang validity | `seo/hreflang` | `seo/hreflang.ts` |
-| SEO027 | Heading hierarchy | `seo/single-h1` | `seo/single-h1.ts` |
-| SEO028 | Duplicate title | `seo/duplicate-title` | `seo/duplicate-title.ts` |
-| SEO029 | Duplicate description | `seo/duplicate-description` | `seo/duplicate-description.ts` |
-| SEO030 | Heading order | `seo/heading-level-skip` | `seo/heading-level-skip.ts` |
-| SEO031 | SSR disabled | `seo/ssr-disabled` | `seo/ssr-disabled.ts` |
+| 旧ID   | title                            | 新ID                          | 新ファイル                       |
+| ------ | -------------------------------- | ----------------------------- | -------------------------------- |
+| SEO001 | Title presence                   | `seo/title-presence`          | `seo/title-presence.ts`          |
+| SEO002 | Description presence             | `seo/description-presence`    | `seo/description-presence.ts`    |
+| SEO003 | Canonical URL                    | `seo/canonical-url`           | `seo/canonical-url.ts`           |
+| SEO004 | Open Graph image                 | `seo/og-image`                | `seo/og-image.ts`                |
+| SEO005 | Open Graph title                 | `seo/og-title`                | `seo/og-title.ts`                |
+| SEO006 | robots.txt                       | `seo/robots-txt`              | `seo/robots-txt.ts`              |
+| SEO007 | sitemap.xml                      | `seo/sitemap-xml`             | `seo/sitemap-xml.ts`             |
+| SEO008 | JSON-LD structured data          | `seo/json-ld`                 | `seo/json-ld.ts`                 |
+| SEO009 | `<html lang>`                    | `seo/html-lang`               | `seo/html-lang.ts`               |
+| SEO010 | Indexability                     | `seo/indexability`            | `seo/indexability.ts`            |
+| SEO011 | Twitter Card                     | `seo/twitter-card`            | `seo/twitter-card.ts`            |
+| SEO012 | Open Graph description           | `seo/og-description`          | `seo/og-description.ts`          |
+| SEO013 | Open Graph URL                   | `seo/og-url`                  | `seo/og-url.ts`                  |
+| SEO014 | Viewport                         | `seo/viewport`                | `seo/viewport.ts`                |
+| SEO015 | Sitemap referenced in robots.txt | `seo/sitemap-in-robots`       | `seo/sitemap-in-robots.ts`       |
+| SEO016 | JSON-LD validity                 | `seo/json-ld-validity`        | `seo/json-ld-validity.ts`        |
+| SEO017 | Deprecated structured-data type  | `seo/json-ld-deprecated-type` | `seo/json-ld-deprecated-type.ts` |
+| SEO018 | JSON-LD relative URL             | `seo/json-ld-relative-url`    | `seo/json-ld-relative-url.ts`    |
+| SEO019 | JSON-LD date format              | `seo/json-ld-date-format`     | `seo/json-ld-date-format.ts`     |
+| SEO020 | JSON-LD placeholder text         | `seo/json-ld-placeholder`     | `seo/json-ld-placeholder.ts`     |
+| SEO021 | JSON-LD required properties      | `seo/json-ld-required-props`  | `seo/json-ld-required-props.ts`  |
+| SEO022 | Title length                     | `seo/title-length`            | `seo/title-length.ts`            |
+| SEO023 | Description length               | `seo/description-length`      | `seo/description-length.ts`      |
+| SEO024 | Character encoding               | `seo/charset`                 | `seo/charset.ts`                 |
+| SEO025 | Image alt text                   | `seo/image-alt`               | `seo/image-alt.ts`               |
+| SEO026 | hreflang validity                | `seo/hreflang`                | `seo/hreflang.ts`                |
+| SEO027 | Heading hierarchy                | `seo/single-h1`               | `seo/single-h1.ts`               |
+| SEO028 | Duplicate title                  | `seo/duplicate-title`         | `seo/duplicate-title.ts`         |
+| SEO029 | Duplicate description            | `seo/duplicate-description`   | `seo/duplicate-description.ts`   |
+| SEO030 | Heading order                    | `seo/heading-level-skip`      | `seo/heading-level-skip.ts`      |
+| SEO031 | SSR disabled                     | `seo/ssr-disabled`            | `seo/ssr-disabled.ts`            |
 
 複数ルールが1ファイルにまとまっていた既存ファイル(`correct001-002.ts`、`images.ts`、`resource-hints.ts`、`seo002-005-008.ts`、`seo010-015.ts`、`seo016-021.ts`、`seo022-023.ts`、`seo028-029-uniqueness.ts`、`sec001-002.ts`)は、この移行でルールごとに1ファイルへ分割する。共有ヘルパー(`head-tag-rule.ts`、`jsonld-engine.ts`、`component-rule.ts`、`kit-module-rule.ts`、`image-rule.ts`、`link-rule.ts`、`detection.ts`、`text-metrics.ts`、`project-rules.ts`の共通処理)はそのまま維持し、`project-rules.ts`(`robots-txt`/`sitemap-xml`/`html-lang`の3ルールを含む)のみ同様に分割する。
 
@@ -113,9 +113,11 @@ v1.0未満のため後方互換は不要(旧IDのエイリアスは作らない)
 ### 抑制コメントの正規表現(`packages/core/src/component-parse.ts`)
 
 現行:
+
 ```ts
 const JS_DIRECTIVE = /^\s*\/\/\s*svelte-vitals-disable-next-line(?:\s+([A-Za-z]+\d+(?:\s*,\s*[A-Za-z]+\d+)*))?\s*$/;
-const HTML_DIRECTIVE = /^\s*<!--\s*svelte-vitals-disable-next-line(?:\s+([A-Za-z]+\d+(?:\s*,\s*[A-Za-z]+\d+)*))?\s*-->\s*$/;
+const HTML_DIRECTIVE =
+  /^\s*<!--\s*svelte-vitals-disable-next-line(?:\s+([A-Za-z]+\d+(?:\s*,\s*[A-Za-z]+\d+)*))?\s*-->\s*$/;
 ```
 
 `[A-Za-z]+\d+`(英字列+数字)を `[a-z]+\/[a-z][a-z0-9-]*`(小文字カテゴリ + スラッシュ + kebab-case名)に置き換える。マッチ後に行っていた `.toUpperCase()` 正規化(該当箇所)は削除し、大文字小文字を区別する — ESLintのルール名同様、新IDは小文字固定とする。
@@ -125,6 +127,7 @@ const HTML_DIRECTIVE = /^\s*<!--\s*svelte-vitals-disable-next-line(?:\s+([A-Za-z
 `config.rules[rule.id]` などの完全一致照合ロジック自体は変更不要(元々プレフィックスに依存していない)。CLIの `--rules`/`--ignore`(`packages/cli/src/rules-config.ts`・`resolve-args.ts`)はそもそも大文字小文字を正規化せず完全一致で照合しているため変更不要。
 
 現に大文字小文字非依存(`.toUpperCase()`)で正規化している箇所は次の2つで、これらは正規化を削除するかケースセンシティブ前提に書き換える:
+
 - `packages/mcp/src/tools/analyze.ts:97-98`(`analyze` ツールの `rules`/`ignore` 引数)
 - `packages/core/src/rules/index.ts:196-197`(`explainRule`。同ファイル195行目のJSDoc「matched case-insensitively」も実態に合わせて修正する)
 
@@ -139,6 +142,7 @@ export function docsUrlFor(id: string): string {
   return `https://oekazuma.github.io/svelte-vitals/rules/${id.toLowerCase()}`;
 }
 ```
+
 IDが最初から小文字なので実質的にロジック変更は不要(`.toLowerCase()`は冗長だが害もない)。生成されるURLは `https://oekazuma.github.io/svelte-vitals/rules/seo/ssr-disabled` のようにスラッシュを含むパスになる。
 
 ## ドキュメント(en/ja)の移行
@@ -157,6 +161,7 @@ front matterの `title` は `title: SEO031 · SSR disabled` → `title: seo/ssr-
 ### guides・README・スキャフォールドのサンプルID
 
 ルールページ以外にも、旧ID(`SEO001`等)を出力例・config例として掲載している箇所がある。移行時に合わせて更新する:
+
 - `docs/src/content/docs/guides/{ci,cli,getting-started,dev-dashboard,mcp}.md`、`configuration.mdx`(en)とその日本語版6ファイル(計12ファイル)
 - `packages/cli/README.md`、`packages/mcp/README.md`
 - `packages/cli/src/install/config-content.ts:12`(scaffold コメント `{ SEO001: 'off' }`)— キーにスラッシュが入るためクォート必須化も反映

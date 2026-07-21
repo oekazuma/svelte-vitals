@@ -130,7 +130,12 @@ describe('installUiMiddleware', () => {
           results: [
             {}, // not an object-shaped finding
             { id: 'seo/description-presence', detection: { presence: 'none', value: 'absent' } }, // missing message/severity
-            { id: 'seo/canonical-url', message: 'm', severity: 'bogus', detection: { presence: 'none', value: 'absent' } }, // invalid severity
+            {
+              id: 'seo/canonical-url',
+              message: 'm',
+              severity: 'bogus',
+              detection: { presence: 'none', value: 'absent' }
+            }, // invalid severity
             {
               id: 'seo/title-presence',
               detection: { presence: 'none', value: 'absent' },

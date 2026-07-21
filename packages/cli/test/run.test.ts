@@ -120,9 +120,17 @@ describe('run() reporters and gating', () => {
 
   it('disabling a rule via rules:{id:off} removes its findings', async () => {
     const cap = capture();
-    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json', rules: { 'seo/description-presence': 'off' } });
+    await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      reporter: 'json',
+      rules: { 'seo/description-presence': 'off' }
+    });
     const json = JSON.parse(cap.out.join('\n'));
-    const anySEO002 = json.routes.some((r: { issues: { id: string }[] }) => r.issues.some((i) => i.id === 'seo/description-presence'));
+    const anySEO002 = json.routes.some((r: { issues: { id: string }[] }) =>
+      r.issues.some((i) => i.id === 'seo/description-presence')
+    );
     expect(anySEO002).toBe(false);
   });
 });
@@ -204,7 +212,9 @@ describe('run() sarif & github reporters', () => {
     await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'sarif', env: CLEAN_ENV });
     const sarif = JSON.parse(cap.out.join('\n'));
     expect(sarif.version).toBe('2.1.0');
-    const seo001 = sarif.runs[0].results.find((r: { ruleId: string; level: string }) => r.ruleId === 'seo/title-presence');
+    const seo001 = sarif.runs[0].results.find(
+      (r: { ruleId: string; level: string }) => r.ruleId === 'seo/title-presence'
+    );
     expect(seo001.level).toBe('error');
   });
 

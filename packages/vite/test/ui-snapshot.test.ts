@@ -22,7 +22,9 @@ describe('buildSnapshot', () => {
     const snapshot = buildSnapshot(store, defineConfig({}), { version: '9.9.9', coreVersion: '0.21.0' });
 
     expect(
-      snapshot.report.routes.some((route) => route.route === '/a' && route.issues.some((i) => i.id === 'seo/title-presence'))
+      snapshot.report.routes.some(
+        (route) => route.route === '/a' && route.issues.some((i) => i.id === 'seo/title-presence')
+      )
     ).toBe(true);
     expect(snapshot.badges).toEqual({ '/a': 'static' });
     expect(snapshot.analyzing).toBe(true);
@@ -39,7 +41,9 @@ describe('buildSnapshot', () => {
     const snapshot = buildSnapshot(store, defineConfig({}), { version: '9.9.9' });
     const issues = snapshot.report.routes.find((route) => route.route === '/a')!.issues;
     expect(issues.find((i) => i.id === 'seo/title-presence')!.docsUrl).toBeUndefined();
-    expect(issues.find((i) => i.id === 'seo/description-presence')!.docsUrl).toBe('https://svelte-vitals.dev/rules/seo/description-presence');
+    expect(issues.find((i) => i.id === 'seo/description-presence')!.docsUrl).toBe(
+      'https://svelte-vitals.dev/rules/seo/description-presence'
+    );
   });
 
   it('sequence reflects the snapshot at build time, not a live reference', () => {

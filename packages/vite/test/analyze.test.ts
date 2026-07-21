@@ -31,9 +31,9 @@ describe('analyze', () => {
     expect(r.routeCount).toBe(2);
     // /bad is missing <title> (critical) -> headline capped at 79
     expect(r.score).toBeLessThanOrEqual(79);
-    expect(r.results.some((x) => x.id === 'seo/title-presence' && x.route === '/bad' && x.detection.presence === 'none')).toBe(
-      true
-    );
+    expect(
+      r.results.some((x) => x.id === 'seo/title-presence' && x.route === '/bad' && x.detection.presence === 'none')
+    ).toBe(true);
     // html lang present (en) -> seo/html-lang not a site issue
     const json = JSON.parse(r.jsonReport);
     expect(json.siteIssues.map((i: { id: string }) => i.id)).not.toContain('seo/html-lang');
@@ -51,7 +51,8 @@ describe('analyze', () => {
     const r = await analyze(pages, cwd, { report: false });
     expect(
       r.results.some(
-        (x) => x.id === 'correctness/each-key' && x.location === 'src/lib/List.svelte' && x.detection.presence === 'none'
+        (x) =>
+          x.id === 'correctness/each-key' && x.location === 'src/lib/List.svelte' && x.detection.presence === 'none'
       )
     ).toBe(true);
     expect(r.consoleReport).toContain('Scanned 1 component(s) under src/');

@@ -56,7 +56,9 @@ describe('inline suppression directive — end-to-end (issue #92)', () => {
   });
 
   it('security/raw-html passes for a real template-side {@html} suppressed via an HTML-comment directive', async () => {
-    const src = ['<!-- svelte-vitals-disable-next-line security/raw-html -->', '<div>{@html trustedMarkup}</div>'].join('\n');
+    const src = ['<!-- svelte-vitals-disable-next-line security/raw-html -->', '<div>{@html trustedMarkup}</div>'].join(
+      '\n'
+    );
     const facts = parseComponentFacts(src, 'src/lib/C.svelte');
     const ctx: RuleContext = {
       components: [comp({ htmlTags: facts.htmlTags, suppressions: facts.suppressions })],

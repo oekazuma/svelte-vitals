@@ -127,8 +127,15 @@ describe('writeSuppressions', () => {
 
 describe('applySuppressions', () => {
   it('removes penalized findings matching an entry', () => {
-    const results: Result[] = [r({ id: 'seo/title-presence', route: '/blog' }), r({ id: 'seo/description-presence', route: '/other' })];
-    const { results: kept, suppressed, stale } = applySuppressions(results, [{ id: 'seo/title-presence', route: '/blog' }], config);
+    const results: Result[] = [
+      r({ id: 'seo/title-presence', route: '/blog' }),
+      r({ id: 'seo/description-presence', route: '/other' })
+    ];
+    const {
+      results: kept,
+      suppressed,
+      stale
+    } = applySuppressions(results, [{ id: 'seo/title-presence', route: '/blog' }], config);
     expect(kept.map((x) => x.id)).toEqual(['seo/description-presence']);
     expect(suppressed).toBe(1);
     expect(stale).toBe(0);
@@ -136,7 +143,11 @@ describe('applySuppressions', () => {
 
   it('never removes a passing seed even if its key matches an entry', () => {
     const results: Result[] = [passing({ id: 'seo/title-presence', route: '/blog' })];
-    const { results: kept, suppressed } = applySuppressions(results, [{ id: 'seo/title-presence', route: '/blog' }], config);
+    const { results: kept, suppressed } = applySuppressions(
+      results,
+      [{ id: 'seo/title-presence', route: '/blog' }],
+      config
+    );
     expect(kept).toEqual(results);
     expect(suppressed).toBe(0);
   });

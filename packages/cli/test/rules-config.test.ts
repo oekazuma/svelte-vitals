@@ -10,7 +10,10 @@ describe('buildRulesConfig', () => {
   });
 
   it('an ignore-list disables only the listed rules', () => {
-    expect(buildRulesConfig([], ['seo/description-presence', 'seo/canonical-url'])).toEqual({ 'seo/description-presence': 'off', 'seo/canonical-url': 'off' });
+    expect(buildRulesConfig([], ['seo/description-presence', 'seo/canonical-url'])).toEqual({
+      'seo/description-presence': 'off',
+      'seo/canonical-url': 'off'
+    });
   });
 
   it('deny wins over allow', () => {

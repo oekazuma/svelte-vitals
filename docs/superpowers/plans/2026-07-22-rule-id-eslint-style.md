@@ -24,10 +24,12 @@
 ## Task 1: 移行マッピングの作成
 
 **Files:**
+
 - Create: `/private/tmp/claude-501/-Users-oekazuma-localRepo-svelte-vitals/ad91d3ba-700b-4a5e-9fa8-bf7974cdb1e1/scratchpad/rule-id-map.json`(以下 `scratchpad/rule-id-map.json` と表記。セッションのスクラッチパッドが変わっている場合は同内容のファイルをそこに作成する)
 - Create: `/private/tmp/claude-501/-Users-oekazuma-localRepo-svelte-vitals/ad91d3ba-700b-4a5e-9fa8-bf7974cdb1e1/scratchpad/replace-rule-ids.mjs`(以下 `scratchpad/replace-rule-ids.mjs`)
 
 **Interfaces:**
+
 - Produces: `rule-id-map.json` は `[{ "oldId": "SEO001", "newId": "seo/title-presence" }, ...]` という60要素の配列。Task 11〜13・17でこのファイルをNode script経由で読み込み、テキスト一括置換に使う。
 
 - [ ] **Step 1: マッピングJSONを作成する**
@@ -162,12 +164,14 @@ Expected: `Usage:` エラーにならず、対象ディレクトリが空/存在
 ## Task 2: architecture カテゴリのルール分割
 
 **Files:**
+
 - Create: `packages/core/src/rules/architecture/component-size.ts`
 - Create: `packages/core/src/rules/architecture/prop-count.ts`
 - Delete: `packages/core/src/rules/architecture/arch001-002.ts`
 - Modify: `packages/core/src/rules/index.ts:52`(このタスクでは変更しない — importパスの一括更新はTask 8で行う。分割ファイルは一旦旧ファイルと共存させず、このタスク内でindex.tsの該当1行だけ先に直す)
 
 **Interfaces:**
+
 - Produces: `arch001ComponentSize`(`id: 'architecture/component-size'`)、`arch002PropCount`(`id: 'architecture/prop-count'`)。識別子名は変更なし。
 
 - [ ] **Step 1: `component-size.ts` を作成**
@@ -248,6 +252,7 @@ git commit -m "refactor(core): split architecture rules into per-rule files with
 ## Task 3: correctness カテゴリのルール分割
 
 **Files:**
+
 - Create: `packages/core/src/rules/correctness/each-key.ts`
 - Create: `packages/core/src/rules/correctness/effect-as-derived.ts`
 - Create: `packages/core/src/rules/correctness/effect-as-onmount.ts`
@@ -261,6 +266,7 @@ git commit -m "refactor(core): split architecture rules into per-rule files with
 - Modify: `packages/core/src/rules/index.ts`(該当import群)
 
 **Interfaces:**
+
 - Produces: `correct001EachKey`(`id: 'correctness/each-key'`)、`correct002EffectDerived`(`id: 'correctness/effect-as-derived'`)、`correct003EffectAsOnMount`(`id: 'correctness/effect-as-onmount'`)、`correct004UnmutatedState`(`id: 'correctness/unmutated-state'`)、`correct005PropMutation`(`id: 'correctness/prop-mutation'`)、`correct006OrphanEffect`(`id: 'correctness/orphan-effect'`)、`correct007OrphanLifecycle`(`id: 'correctness/orphan-lifecycle'`)、`correct008BrowserGlobals`(`id: 'correctness/server-browser-global'`)、`correct009InstanceBrowserGlobals`(`id: 'correctness/instance-browser-global'`)。識別子名は変更なし。
 
 - [ ] **Step 1: `each-key.ts` を作成**
@@ -395,6 +401,7 @@ git commit -m "refactor(core): split correctness rules into per-rule files with 
 ## Task 4: security カテゴリのルール分割
 
 **Files:**
+
 - Create: `packages/core/src/rules/security/raw-html.ts`
 - Create: `packages/core/src/rules/security/javascript-url.ts`
 - Modify(rename): `sec003-load-state-write.ts` → `handler-state-write.ts`
@@ -404,6 +411,7 @@ git commit -m "refactor(core): split correctness rules into per-rule files with 
 - Modify: `packages/core/src/rules/index.ts`(該当import群)
 
 **Interfaces:**
+
 - Produces: `sec001Html`(`id: 'security/raw-html'`)、`sec002JavascriptUrl`(`id: 'security/javascript-url'`)、`sec003LoadStateWrite`(`id: 'security/handler-state-write'`)、`sec004ServerModuleState`(`id: 'security/server-module-state'`)、`sec005SharedStateImport`(`id: 'security/shared-state-import'`)。識別子名は変更なし。
 
 - [ ] **Step 1: `raw-html.ts` を作成**
@@ -496,6 +504,7 @@ git commit -m "refactor(core): split security rules into per-rule files with new
 ## Task 5: performance カテゴリのルール分割
 
 **Files:**
+
 - Create: `packages/core/src/rules/perf/image-dimensions.ts`、`image-loading-hint.ts`、`responsive-image.ts`
 - Create: `packages/core/src/rules/perf/preload-missing-as.ts`、`font-preload-crossorigin.ts`
 - Modify(rename): `perf005-lcp-image.ts` → `lcp-image.ts`
@@ -510,6 +519,7 @@ git commit -m "refactor(core): split security rules into per-rule files with new
 - Modify: `packages/core/src/rules/index.ts`
 
 **Interfaces:**
+
 - Produces: 13ルール全ての `id` が `performance/...` になる。識別子名は変更なし。`docsUrlFor('PERF005')` のような直書きリテラル引数を持つファイル(`lcp-image.ts`、`render-blocking-script.ts`、`preconnect.ts`)は、そのファイル内の**全出現箇所**を書き換える必要がある(定数化されていないため)。
 
 - [ ] **Step 1: `image-dimensions.ts` を作成**
@@ -714,6 +724,7 @@ git commit -m "refactor(core): split performance rules into per-rule files with 
 ## Task 6: seo カテゴリ前半(SEO001-015)のルール分割
 
 **Files:**
+
 - Create: `packages/core/src/rules/seo/title-presence.ts`
 - Create: `packages/core/src/rules/seo/description-presence.ts`、`canonical-url.ts`、`og-image.ts`、`og-title.ts`、`json-ld.ts`
 - Create: `packages/core/src/rules/seo/robots-txt.ts`、`sitemap-xml.ts`、`html-lang.ts`
@@ -722,6 +733,7 @@ git commit -m "refactor(core): split performance rules into per-rule files with 
 - Modify: `packages/core/src/rules/index.ts`
 
 **Interfaces:**
+
 - Produces: `seo001Title`(`id: 'seo/title-presence'`)、`seo002Description`(`id: 'seo/description-presence'`)、`seo003Canonical`(`id: 'seo/canonical-url'`)、`seo004OgImage`(`id: 'seo/og-image'`)、`seo005OgTitle`(`id: 'seo/og-title'`)、`seo006Robots`(`id: 'seo/robots-txt'`)、`seo007Sitemap`(`id: 'seo/sitemap-xml'`)、`seo008JsonLd`(`id: 'seo/json-ld'`)、`seo009HtmlLang`(`id: 'seo/html-lang'`)、`seo010Indexability`(`id: 'seo/indexability'`)、`seo011TwitterCard`(`id: 'seo/twitter-card'`)、`seo012OgDescription`(`id: 'seo/og-description'`)、`seo013OgUrl`(`id: 'seo/og-url'`)、`seo014Viewport`(`id: 'seo/viewport'`)、`seo015SitemapInRobots`(`id: 'seo/sitemap-in-robots'`)。識別子名は変更なし。
 
 - [ ] **Step 1: `title-presence.ts` を作成**(`seo001-title.ts` を新ファイルへ、`'SEO001'` の2箇所を置換)
@@ -1304,6 +1316,7 @@ git commit -m "refactor(core): split seo rules (title/description/og/robots/site
 ## Task 7: seo カテゴリ後半(SEO016-031)のルール分割
 
 **Files:**
+
 - Modify: `packages/core/src/rules/seo/jsonld-engine.ts`(`jsonldRule`・`jsonldTags`ヘルパーを追加)
 - Create: `packages/core/src/rules/seo/json-ld-validity.ts`、`json-ld-deprecated-type.ts`、`json-ld-relative-url.ts`、`json-ld-date-format.ts`、`json-ld-placeholder.ts`、`json-ld-required-props.ts`
 - Create: `packages/core/src/rules/seo/length-rule.ts`(新規共有ヘルパー)、`title-length.ts`、`description-length.ts`
@@ -1318,6 +1331,7 @@ git commit -m "refactor(core): split seo rules (title/description/og/robots/site
 - Modify: `packages/core/src/rules/index.ts`
 
 **Interfaces:**
+
 - Consumes: `packages/core/src/rules/seo/jsonld-engine.ts` の既存export(`parseJsonLd`、`typeOf`、`collectValues`、`nodeStringValues`、`isAbsoluteUrl`、`isIso8601`、`hasPlaceholder`、`hasNonEmpty`、`URL_KEYS`、`DATE_KEYS`、`DEPRECATED_TYPES`、`REQUIRED_PROPS`、`JsonLdNode` 型)
 - Produces: `jsonld-engine.ts` に新規追加する `jsonldTags(head): HeadTag[]` と `jsonldRule(opts: JsonLdRuleOptions): Rule`(`JsonLdRuleOptions` 型も同ファイルでexport)。`length-rule.ts` の `lengthRule(opts: LengthRuleOptions): Rule`(`LengthRuleOptions` 型もexport)。`uniqueness-rule.ts` の `uniquenessRule(opts: UniquenessRuleOptions): Rule`(`UniquenessRuleOptions` 型もexport)。全16ルールの `id` が `seo/...` になる。識別子名は変更なし。
 
@@ -1335,7 +1349,6 @@ import { PENALIZED, PASS } from './detection.js';
 ファイル末尾に以下を追加する(`seo016-021.ts` から移動、`docsUrlFor` 呼び出し以外はロジック変更なし):
 
 ```ts
-
 /** Static jsonld tags on a head (those with captured raw content). */
 export function jsonldTags(head: { tags: HeadTag[] }): HeadTag[] {
   return head.tags.filter((t) => t.kind === 'jsonld' && typeof t.jsonld === 'string');
@@ -2047,9 +2060,11 @@ git commit -m "refactor(core): split remaining seo rules (json-ld/*, length/uniq
 ## Task 8: index.ts全体の整合性確認とcoreビルド
 
 **Files:**
+
 - Modify: `packages/core/src/rules/index.ts`(確認のみ、Task 2-7で既に完成しているはず)
 
 **Interfaces:**
+
 - Consumes: Task 2-7で作成した全60ファイルのexport
 - Produces: `allRules: Rule[]`(60要素、順序は変更なし)、`explainRule(id: string)`(Task 10で正規化を変更するまでは大文字小文字非依存のまま)
 
@@ -2061,6 +2076,7 @@ Expected: 60個のimport文すべてが新ファイルパス(`.js` 拡張子付�
 - [ ] **Step 2: 全ルールの `id` が新形式であることを確認**
 
 Run:
+
 ```bash
 node -e "
 const { allRules } = require('./packages/core/dist/rules/index.js');
@@ -2068,6 +2084,7 @@ const bad = allRules.filter(r => !/^[a-z]+\/[a-z][a-z0-9-]*$/.test(r.id));
 console.log('total:', allRules.length, 'bad:', bad.map(r => r.id));
 "
 ```
+
 (先に `pnpm --filter @svelte-vitals/core build` を実行してdistを生成しておくこと)
 
 Expected: `total: 60 bad: []`
@@ -2084,10 +2101,12 @@ Expected: エラーなし
 ## Task 9: 抑制コメント正規表現の変更
 
 **Files:**
+
 - Modify: `packages/core/src/component-parse.ts:555-556,571`
 - Test: `packages/core/test/component-parse.test.ts`(既存の抑制コメント関連テストを確認・更新)
 
 **Interfaces:**
+
 - Consumes: なし
 - Produces: `JS_DIRECTIVE`・`HTML_DIRECTIVE` の新しい正規表現。`ruleIds: string[] | undefined` の値が小文字の新ID(例: `['seo/ssr-disabled']`)になる。
 
@@ -2136,6 +2155,7 @@ const ruleIds = m[1]?.split(',').map((s) => s.trim());
 - [ ] **Step 4: 一時的な手動テストで正規表現の動作を確認**
 
 Run:
+
 ```bash
 node -e "
 const RULE_ID_RE = '[a-z]+\\\\/[a-z][a-z0-9-]*';
@@ -2145,6 +2165,7 @@ console.log(JS_DIRECTIVE.exec('// svelte-vitals-disable-next-line seo/ssr-disabl
 console.log(JS_DIRECTIVE.exec('// svelte-vitals-disable-next-line SEO031')); // should be null (old format no longer matches)
 "
 ```
+
 Expected: 最初の2つはマッチ(グループ1にID文字列)、3つ目は `null`
 
 - [ ] **Step 5: ビルド確認**
@@ -2164,9 +2185,11 @@ git commit -m "refactor(core): update suppression-comment regex for category/keb
 ## Task 10: coreの大文字小文字正規化削除(explainRule)
 
 **Files:**
+
 - Modify: `packages/core/src/rules/index.ts:195-198`
 
 **Interfaces:**
+
 - Consumes: `allRules`(Task 8で完成済み)
 - Produces: `explainRule(id: string): RuleInfo | undefined` — 完全一致(大文字小文字区別)の照合に変更
 
@@ -2206,9 +2229,11 @@ git commit -m "refactor(core): make explainRule match rule ids case-sensitively"
 ## Task 11: coreテストコードの一括置換とテスト実行
 
 **Files:**
+
 - Modify: `packages/core/test/**/*.ts`(旧ID文字列を含む全ファイル)
 
 **Interfaces:**
+
 - Consumes: `scratchpad/rule-id-map.json`、`scratchpad/replace-rule-ids.mjs`(Task 1で作成)
 
 - [ ] **Step 1: 一括置換を実行**
@@ -2241,11 +2266,13 @@ git commit -m "test(core): update rule id references to category/kebab-case form
 ## Task 12: MCPの正規化削除とテスト一括置換
 
 **Files:**
+
 - Modify: `packages/mcp/src/tools/analyze.ts:97-98`
 - Modify: `packages/mcp/src/tools/explain-rule.ts:7`(zodのdescription例を更新)
 - Modify: `packages/mcp/test/**/*.ts`
 
 **Interfaces:**
+
 - Consumes: `findUnknownRuleIds`・`knownRuleIds`(`packages/cli/src/rules-config.ts` からimportしている既存関数、シグネチャ変更なし)
 
 - [ ] **Step 1: `analyze.ts` の正規化を削除**
@@ -2254,17 +2281,17 @@ git commit -m "test(core): update rule id references to category/kebab-case form
 
 ```ts
 // before
-  // Rule ids are accepted case-insensitively; normalize to the canonical
-  // uppercase form before validation and config building.
-  const allow = (args.rules ?? []).map((id) => id.toUpperCase());
-  const ignore = (args.ignore ?? []).map((id) => id.toUpperCase());
+// Rule ids are accepted case-insensitively; normalize to the canonical
+// uppercase form before validation and config building.
+const allow = (args.rules ?? []).map((id) => id.toUpperCase());
+const ignore = (args.ignore ?? []).map((id) => id.toUpperCase());
 ```
 
 ```ts
 // after
-  // Rule ids are category/kebab-case (e.g. "seo/ssr-disabled") and matched exactly.
-  const allow = args.rules ?? [];
-  const ignore = args.ignore ?? [];
+// Rule ids are category/kebab-case (e.g. "seo/ssr-disabled") and matched exactly.
+const allow = args.rules ?? [];
+const ignore = args.ignore ?? [];
 ```
 
 - [ ] **Step 2: `explain-rule.ts` のサンプルIDを更新**
@@ -2273,12 +2300,12 @@ git commit -m "test(core): update rule id references to category/kebab-case form
 
 ```ts
 // before
-  id: z.string().describe('Rule id to explain, e.g. "SEO001".')
+id: z.string().describe('Rule id to explain, e.g. "SEO001".');
 ```
 
 ```ts
 // after
-  id: z.string().describe('Rule id to explain, e.g. "seo/title-presence".')
+id: z.string().describe('Rule id to explain, e.g. "seo/title-presence".');
 ```
 
 - [ ] **Step 3: mcpテストの一括置換を実行**
@@ -2307,11 +2334,13 @@ git commit -m "refactor(mcp): match rule ids case-sensitively and update sample 
 ## Task 13: CLI/viteのサンプルID更新とテスト一括置換
 
 **Files:**
+
 - Modify: `packages/cli/src/install/config-content.ts:12`
 - Modify: `packages/vite/src/hooks/options.ts:7`
 - Modify: `packages/cli/test/**/*.ts`、`packages/vite/test/**/*.ts`
 
 **Interfaces:**
+
 - Consumes: なし(このタスクではCLI本体の照合ロジックは変更しない — 設計書の通りCLIは元々ケースセンシティブな完全一致のため変更不要)
 
 - [ ] **Step 1: `config-content.ts` のscaffoldコメントを更新**
@@ -2320,12 +2349,12 @@ git commit -m "refactor(mcp): match rule ids case-sensitively and update sample 
 
 ```ts
 // before
-  // rules: {}, // e.g. { SEO001: 'off' } to disable a rule
+// rules: {}, // e.g. { SEO001: 'off' } to disable a rule
 ```
 
 ```ts
 // after
-  // rules: {}, // e.g. { 'seo/title-presence': 'off' } to disable a rule
+// rules: {}, // e.g. { 'seo/title-presence': 'off' } to disable a rule
 ```
 
 - [ ] **Step 2: `vite/src/hooks/options.ts` のJSDoc例を更新**
@@ -2334,12 +2363,12 @@ git commit -m "refactor(mcp): match rule ids case-sensitively and update sample 
 
 ```ts
 // before
-  /** Per-rule overrides keyed by rule id, e.g. `{ SEO008: 'off' }`. Mirrors the plugin option. */
+/** Per-rule overrides keyed by rule id, e.g. `{ SEO008: 'off' }`. Mirrors the plugin option. */
 ```
 
 ```ts
 // after
-  /** Per-rule overrides keyed by rule id, e.g. `{ 'seo/json-ld': 'off' }`. Mirrors the plugin option. */
+/** Per-rule overrides keyed by rule id, e.g. `{ 'seo/json-ld': 'off' }`. Mirrors the plugin option. */
 ```
 
 - [ ] **Step 3: cli/viteテストの一括置換を実行**
@@ -2376,10 +2405,12 @@ git commit -m "refactor(cli,vite): update sample rule ids and test references to
 ## Task 14: docs(en)ルールページの移行
 
 **Files:**
+
 - Move: `docs/src/content/docs/rules/*.md`(60ファイル)を `docs/src/content/docs/rules/<category>/<name>.md` へ
 - Create: `/private/tmp/claude-501/-Users-oekazuma-localRepo-svelte-vitals/ad91d3ba-700b-4a5e-9fa8-bf7974cdb1e1/scratchpad/migrate-docs.mjs`
 
 **Interfaces:**
+
 - Consumes: `scratchpad/rule-id-map.json`
 
 - [ ] **Step 1: docs移行スクリプトを作成**
@@ -2438,6 +2469,7 @@ Expected: 60行の `<oldPath> -> <newPath>` が出力され、`missing (skipped)
 
 Run: `head -3 docs/src/content/docs/rules/seo/ssr-disabled.md`
 Expected:
+
 ```
 ---
 title: seo/ssr-disabled · SSR disabled
@@ -2461,9 +2493,11 @@ git commit -m "docs: move en rule pages into category subdirectories with new id
 ## Task 15: docs(ja)ルールページの移行
 
 **Files:**
+
 - Move: `docs/src/content/docs/ja/rules/*.md`(60ファイル)を `docs/src/content/docs/ja/rules/<category>/<name>.md` へ
 
 **Interfaces:**
+
 - Consumes: `scratchpad/migrate-docs.mjs`(Task 14で作成済み、再利用)
 
 - [ ] **Step 1: 日本語docsに対して同スクリプトを実行**
@@ -2476,6 +2510,7 @@ Expected: 60行の `<oldPath> -> <newPath>` が出力され、`missing (skipped)
 
 Run: `head -3 docs/src/content/docs/ja/rules/seo/ssr-disabled.md`
 Expected:
+
 ```
 ---
 title: seo/ssr-disabled · SSR の無効化
@@ -2499,9 +2534,11 @@ git commit -m "docs(ja): move rule pages into category subdirectories with new i
 ## Task 16: docs-links.test.tsの更新
 
 **Files:**
+
 - Modify: `packages/cli/test/docs-links.test.ts`
 
 **Interfaces:**
+
 - Consumes: `allRules`(`@svelte-vitals/core`、Task 8完成済み、`r.id` が `category/kebab-case` 形式)
 
 - [ ] **Step 1: 現状のテストを完全に読む**
@@ -2573,11 +2610,13 @@ git commit -m "test(cli): recurse into category subdirectories for docs-links ch
 ## Task 17: guides・READMEのサンプルID更新
 
 **Files:**
+
 - Modify: `docs/src/content/docs/guides/{ci,cli,getting-started,dev-dashboard,mcp}.md`、`configuration.mdx`
 - Modify: `docs/src/content/docs/ja/guides/{ci,cli,getting-started,dev-dashboard,mcp}.md`、`configuration.mdx`
 - Modify: `packages/cli/README.md`、`packages/mcp/README.md`
 
 **Interfaces:**
+
 - Consumes: `scratchpad/replace-rule-ids.mjs`(Task 1で作成済み、再利用)
 
 - [ ] **Step 1: 一括置換を実行**
@@ -2587,6 +2626,7 @@ Run: `node /path/to/scratchpad/replace-rule-ids.mjs /Users/oekazuma/localRepo/sv
 `replace-rule-ids.mjs` の `walk` は単一ファイルパスを渡すと `statSync` が directory でない場合に失敗するため、`packages/cli/README.md` のような単一ファイル引数を渡す場合は次の一行版で代替する:
 
 Run:
+
 ```bash
 node -e "
 const fs = require('fs');
@@ -2627,9 +2667,11 @@ git commit -m "docs: update guide/readme sample rule ids to category/kebab-case 
 ## Task 18: changeset作成
 
 **Files:**
+
 - Create: `.changeset/rule-id-eslint-style.md`
 
 **Interfaces:**
+
 - なし
 
 - [ ] **Step 1: changesetを作成**
@@ -2668,6 +2710,7 @@ git commit -m "chore: add changeset for rule-id migration"
 ## Task 19: 全体最終検証
 
 **Files:**
+
 - なし(検証のみ)
 
 - [ ] **Step 1: 全パッケージのビルド・型チェック**
@@ -2709,6 +2752,7 @@ Expected: `OK: found seo/ssr-disabled` と `OK: old id gone`
 - [ ] **Step 7: 手動動作確認 — 抑制コメント**
 
 Run:
+
 ```bash
 node -e "
 const RULE_ID_RE = '[a-z]+\\\\/[a-z][a-z0-9-]*';
@@ -2717,6 +2761,7 @@ const m = JS_DIRECTIVE.exec('// svelte-vitals-disable-next-line security/handler
 console.log(m ? 'OK: ' + m[1] : 'FAIL');
 "
 ```
+
 Expected: `OK: security/handler-state-write`
 
 - [ ] **Step 8: 最終確認(コミット不要、報告のみ)**
