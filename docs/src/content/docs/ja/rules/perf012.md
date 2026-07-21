@@ -7,7 +7,7 @@ description: vite.config に残った build.minify:false は、ミニファイ�
 
 ## チェック内容
 
-本番ビルドのミニファイを `build.minify: false` で無効化している Vite 設定を検出します。CLI は `vite.config.*`（Vite 自身の解決順で最初に見つかったファイル）を静的解析し、リテラル形式（`export default { … }`、`defineConfig({ … })`（同一ファイル内の識別子を引数に渡す形も含む）、同一ファイル内のエイリアスエクスポート、または CommonJS の `module.exports = { … }` 形式。`satisfies`／`as` は unwrap）を検出します。Vite プラグインは `vite build` 中に**解決済み**の設定値を読むため、関数形式や条件分岐の設定も検出でき、実際のビルドに適用されないオーバーライドを誤検知することもありません。
+本番ビルドのミニファイを `build.minify: false` で無効化している Vite 設定を検出します。CLI は `vite.config.*`（Vite 自身の解決順で最初に見つかったファイル）を静的解析し、リテラル形式（`export default { … }`、`defineConfig({ … })`（同一ファイル内の識別子を引数に渡す形も含む）、同一ファイル内のエイリアスエクスポート、または CommonJS の `module.exports = { … }` 形式。`satisfies`/`as` は unwrap）を検出します。Vite プラグインは `vite build` 中に**解決済み**の設定値を読むため、関数形式や条件分岐の設定も検出でき、実際のビルドに適用されないオーバーライドを誤検知することもありません。
 
 検出しないもの: `minify: 'esbuild' | 'terser' | true`、`build` オブジェクト外の `minify` キー、Vite 設定を持たないプロジェクト。リテラルの後でオブジェクトスプレッドが `minify` を上書きしうる場合（例: `{ minify: false, ...prod }`）、CLI にとって実際の値は判定不能になるため、検出を保守的にスキップします（プラグインチャネルは実際に解決された値で判定するため、この場合も引き続き検出します）。
 
