@@ -311,10 +311,12 @@ export const ssr = false; // fine — suppress or turn the rule off if this is d
 For a deliberate full SPA, disable the rule in your config:
 
 ```js
-// svelte-vitals config
-rules: {
-  SEO031: 'off';
-}
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    SEO031: 'off'
+  }
+};
 ```
 
 or add `// svelte-vitals-disable-next-line SEO031` above the declaration.
@@ -356,10 +358,12 @@ export const ssr = false; // これが意図的なら suppression するかル�
 意図的な完全 SPA の場合は、config でルールを無効化します:
 
 ```js
-// svelte-vitals config
-rules: {
-  SEO031: 'off';
-}
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    SEO031: 'off'
+  }
+};
 ```
 
 または宣言の直前に `// svelte-vitals-disable-next-line SEO031` を書いてください。
