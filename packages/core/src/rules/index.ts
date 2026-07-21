@@ -1,14 +1,14 @@
 import type { Category, Fix, Severity } from '../types.js';
 import { docsUrlFor, type Rule } from '../rule.js';
-import { seo001Title } from './seo/seo001-title.js';
-import {
-  seo002Description,
-  seo003Canonical,
-  seo004OgImage,
-  seo005OgTitle,
-  seo008JsonLd
-} from './seo/seo002-005-008.js';
-import { seo006Robots, seo007Sitemap, seo009HtmlLang } from './seo/project-rules.js';
+import { seo001Title } from './seo/title-presence.js';
+import { seo002Description } from './seo/description-presence.js';
+import { seo003Canonical } from './seo/canonical-url.js';
+import { seo004OgImage } from './seo/og-image.js';
+import { seo005OgTitle } from './seo/og-title.js';
+import { seo008JsonLd } from './seo/json-ld.js';
+import { seo006Robots } from './seo/robots-txt.js';
+import { seo007Sitemap } from './seo/sitemap-xml.js';
+import { seo009HtmlLang } from './seo/html-lang.js';
 import { perf001ImageDimensions } from './perf/image-dimensions.js';
 import { perf002ImageLoading } from './perf/image-loading-hint.js';
 import { perf006ResponsiveImage } from './perf/responsive-image.js';
@@ -17,14 +17,12 @@ import { perf004FontPreloadCrossorigin } from './perf/font-preload-crossorigin.j
 import { perf005LcpImage } from './perf/lcp-image.js';
 import { perf007RenderBlockingScript } from './perf/render-blocking-script.js';
 import { perf008Preconnect } from './perf/preconnect.js';
-import {
-  seo010Indexability,
-  seo011TwitterCard,
-  seo012OgDescription,
-  seo013OgUrl,
-  seo014Viewport,
-  seo015SitemapInRobots
-} from './seo/seo010-015.js';
+import { seo010Indexability } from './seo/indexability.js';
+import { seo011TwitterCard } from './seo/twitter-card.js';
+import { seo012OgDescription } from './seo/og-description.js';
+import { seo013OgUrl } from './seo/og-url.js';
+import { seo014Viewport } from './seo/viewport.js';
+import { seo015SitemapInRobots } from './seo/sitemap-in-robots.js';
 import {
   seo016JsonLdValidity,
   seo017DeprecatedType,

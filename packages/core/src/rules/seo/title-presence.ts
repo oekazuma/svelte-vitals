@@ -24,12 +24,12 @@ function messageFor(detection: Detection): string {
 }
 
 /**
- * SEO001 — every route should resolve a non-empty <title> (design §11).
+ * seo/title-presence — every route should resolve a non-empty <title> (design §11).
  * A dynamic title (`{data.title}`) is the most common correct pattern and must
  * never be flagged as missing; it surfaces as value 'dynamic' (design §4).
  */
 export const seo001Title: Rule = {
-  id: 'SEO001',
+  id: 'seo/title-presence',
   title: 'Title presence',
   category: 'seo',
   severity: 'critical',
@@ -42,7 +42,7 @@ export const seo001Title: Rule = {
     return ctx.heads.map((head) => {
       const detection = detectTitle(head);
       return {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         category: 'seo',
         severity: 'critical',
         detection,
@@ -52,7 +52,7 @@ export const seo001Title: Rule = {
         recommendation:
           'Add a <title> inside <svelte:head>, e.g. <title>{data.title}</title>, ' +
           'or set it via your meta component.',
-        docsUrl: docsUrlFor('SEO001'),
+        docsUrl: docsUrlFor('seo/title-presence'),
         fix: { ...FIX }
       } satisfies Result;
     });
