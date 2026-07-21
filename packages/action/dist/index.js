@@ -55678,6 +55678,13 @@ function isParentCall(arg) {
   if (callee?.type === "Identifier" && callee.name === "parent") return true;
   return callee?.type === "MemberExpression" && !callee.computed && callee.property?.name === "parent";
 }
+var BODY_METHODS = /* @__PURE__ */ new Set(["json", "text", "blob", "arrayBuffer", "formData", "bytes"]);
+function isBodyParseCall(arg) {
+  const e2 = unwrapTs(arg);
+  if (e2?.type !== "CallExpression" || e2.arguments?.length) return false;
+  const callee = e2.callee;
+  return callee?.type === "MemberExpression" && !callee.computed && BODY_METHODS.has(callee.property?.name);
+}
 function refsTainted(node, tainted) {
   let hit = false;
   const walk2 = (n, shadowed) => {
@@ -55721,7 +55728,7 @@ function collectLoadWaterfalls(program, wrapped) {
   let sawAwaitSite = false;
   for (const stmt2 of statements) {
     if (stmt2.type === "VariableDeclaration" || stmt2.type === "ExpressionStatement" || stmt2.type === "ReturnStatement") {
-      const sites = collectAwaits(stmt2).filter((a) => !isParentCall(a.argument));
+      const sites = collectAwaits(stmt2).filter((a) => !isParentCall(a.argument) && !isBodyParseCall(a.argument));
       if (sites.length > 0) {
         const first = sites.reduce((m, a) => a.start < m.start ? a : m);
         if (sites.some((a) => refsTainted(a.argument, tainted))) dependentLines.push(line(first.start));
@@ -55732,6 +55739,13 @@ function collectLoadWaterfalls(program, wrapped) {
         for (const d of stmt2.declarations ?? []) {
           if (!d?.id || !d.init) continue;
           if (collectAwaits(d.init).length > 0 || refsTainted(d.init, tainted)) addBoundNames(d.id, tainted);
+        }
+      } else if (stmt2.type === "ExpressionStatement") {
+        const expr = unwrapTs(stmt2.expression);
+        if (expr?.type === "AssignmentExpression" && expr.operator === "=") {
+          if (collectAwaits(expr.right).length > 0 || refsTainted(expr.right, tainted)) {
+            addBoundNames(expr.left, tainted);
+          }
         }
       }
     }
