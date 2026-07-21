@@ -2,7 +2,7 @@ import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { PENALIZED, PASS } from './detection.js';
 
-const docsUrl = docsUrlFor('SEO026');
+const docsUrl = docsUrlFor('seo/hreflang');
 const recommendation =
   'Use valid hreflang codes (e.g. "en", "en-US", "x-default") and include an x-default when you have multiple language alternates.';
 
@@ -23,7 +23,7 @@ function isValidHreflang(v: string): boolean {
  * two or more must declare an x-default. Works in both modes.
  */
 export const seo026Hreflang: Rule = {
-  id: 'SEO026',
+  id: 'seo/hreflang',
   title: 'hreflang validity',
   category: 'seo',
   severity: 'warning',
@@ -52,7 +52,7 @@ export const seo026Hreflang: Rule = {
       out.push(
         problem
           ? {
-              id: 'SEO026',
+              id: 'seo/hreflang',
               category: 'seo',
               severity: 'warning',
               detection: PENALIZED,
@@ -63,7 +63,7 @@ export const seo026Hreflang: Rule = {
               docsUrl
             }
           : {
-              id: 'SEO026',
+              id: 'seo/hreflang',
               category: 'seo',
               severity: 'warning',
               detection: PASS,

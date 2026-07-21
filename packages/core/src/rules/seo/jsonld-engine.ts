@@ -1,4 +1,9 @@
 // Pure JSON-LD inspection helpers + curated data. No node:, no deps (JSON.parse only).
+import type { Fix, Result } from '../../types.js';
+import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
+import type { HeadTag } from '../../head.js';
+import { PENALIZED, PASS } from './detection.js';
+
 export type JsonLdNode = Record<string, unknown>;
 
 /** Parse JSON-LD and flatten to structured-data objects: root, top-level array members, and @graph members. */
@@ -167,3 +172,78 @@ export const REQUIRED_PROPS: Record<string, string[]> = {
   VideoObject: ['name', 'description', 'thumbnailUrl', 'uploadDate'],
   LocalBusiness: ['name', 'address']
 };
+
+/** Static jsonld tags on a head (those with captured raw content). */
+export function jsonldTags(head: { tags: HeadTag[] }): HeadTag[] {
+  return head.tags.filter((t) => t.kind === 'jsonld' && typeof t.jsonld === 'string');
+}
+
+export interface JsonLdRuleOptions {
+  id: string;
+  title: string;
+  severity: 'warning' | 'info';
+  label: string;
+  recommendation: string;
+  rationale: string;
+  fix?: Fix;
+  /**
+   * Returns a problem message (fail), undefined (pass), or false (no signal — emit nothing).
+   * Only called on parseable JSON-LD.
+   */
+  problem: (nodes: JsonLdNode[]) => string | false | undefined;
+}
+
+/** Build a route-scoped JSON-LD rule that runs `problem` over each static, parseable JSON-LD on a route. */
+export function jsonldRule(opts: JsonLdRuleOptions): Rule {
+  const docsUrl = docsUrlFor(opts.id);
+  return {
+    id: opts.id,
+    title: opts.title,
+    category: 'seo',
+    severity: opts.severity,
+    scope: 'route',
+    rationale: opts.rationale,
+    ...(opts.fix ? { fix: opts.fix } : {}),
+    async check(ctx: RuleContext): Promise<Result[]> {
+      const out: Result[] = [];
+      for (const head of ctx.heads) {
+        for (const tag of jsonldTags(head)) {
+          const parsed = parseJsonLd(tag.jsonld as string);
+          if (!parsed.ok) continue; // seo/json-ld-validity owns parse failures
+          // seo/json-ld-validity owns the @context/@type validity gate; the other JSON-LD
+          // rules only inspect JSON-LD it considers valid, so they never emit passes for
+          // structurally-invalid data.
+          if (!parsed.nodes.some((n) => '@context' in n) || !parsed.nodes.some((n) => typeOf(n).length > 0)) continue;
+          const problem = opts.problem(parsed.nodes);
+          if (problem === false) continue; // no signal — rule is not applicable to these nodes
+          out.push(
+            problem
+              ? {
+                  id: opts.id,
+                  category: 'seo',
+                  severity: opts.severity,
+                  detection: PENALIZED,
+                  route: head.route,
+                  location: head.file,
+                  message: problem,
+                  recommendation: opts.recommendation,
+                  docsUrl,
+                  ...(opts.fix ? { fix: { ...opts.fix } } : {})
+                }
+              : {
+                  id: opts.id,
+                  category: 'seo',
+                  severity: opts.severity,
+                  detection: PASS,
+                  route: head.route,
+                  message: opts.label,
+                  recommendation: opts.recommendation,
+                  docsUrl
+                }
+          );
+        }
+      }
+      return out;
+    }
+  };
+}

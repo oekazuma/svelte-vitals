@@ -2,17 +2,17 @@ import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { PENALIZED, PASS } from './detection.js';
 
-const docsUrl = docsUrlFor('SEO027');
+const docsUrl = docsUrlFor('seo/single-h1');
 const recommendation = 'Use exactly one <h1> per page for its main topic; demote extra top-level headings to <h2>+.';
 
 /**
- * SEO027 — Heading hierarchy (single H1). Reads the per-route page-body headings
+ * seo/single-h1 — Heading hierarchy (single H1). Reads the per-route page-body headings
  * channel (collected by both providers). Zero <h1> (no primary heading) and two
  * or more (diluted topic) are both flagged; exactly one passes. A route whose
  * headings were not collected (channel unset) emits nothing.
  */
 export const seo027Heading: Rule = {
-  id: 'SEO027',
+  id: 'seo/single-h1',
   title: 'Heading hierarchy',
   category: 'seo',
   severity: 'warning',
@@ -37,7 +37,7 @@ export const seo027Heading: Rule = {
       out.push(
         problem
           ? {
-              id: 'SEO027',
+              id: 'seo/single-h1',
               category: 'seo',
               severity: 'warning',
               detection: PENALIZED,
@@ -48,7 +48,7 @@ export const seo027Heading: Rule = {
               docsUrl
             }
           : {
-              id: 'SEO027',
+              id: 'seo/single-h1',
               category: 'seo',
               severity: 'warning',
               detection: PASS,

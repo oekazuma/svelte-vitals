@@ -6,7 +6,7 @@ import { headTagRule } from './head-tag-rule.js';
  * (viewport). Static route analysis emits nothing instead of false-flagging it.
  */
 export const seo024Charset = headTagRule({
-  id: 'SEO024',
+  id: 'seo/charset',
   title: 'Character encoding',
   severity: 'warning',
   match: (t) => t.kind === 'meta' && t.name === 'charset',

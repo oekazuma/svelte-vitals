@@ -4,7 +4,7 @@ import type { HeadTag } from '../../head.js';
 import { visibleLength } from './text-metrics.js';
 import { PENALIZED, PASS } from './detection.js';
 
-interface LengthRuleOptions {
+export interface LengthRuleOptions {
   id: string;
   title: string;
   label: string;
@@ -17,7 +17,7 @@ interface LengthRuleOptions {
 }
 
 /** Build a route-scoped length rule that runs only on a static (captured) title/description text. */
-function lengthRule(opts: LengthRuleOptions): Rule {
+export function lengthRule(opts: LengthRuleOptions): Rule {
   const docsUrl = docsUrlFor(opts.id);
   return {
     id: opts.id,
@@ -30,7 +30,8 @@ function lengthRule(opts: LengthRuleOptions): Rule {
       const out: Result[] = [];
       for (const head of ctx.heads) {
         const tag = head.tags.find(opts.match);
-        // No tag, or dynamic/absent text → presence is SEO001/SEO002's concern, emit nothing.
+        // No tag, or dynamic/absent text → presence is seo/title-presence's or
+        // seo/description-presence's concern, emit nothing.
         if (!tag || typeof tag.text !== 'string') continue;
         const len = visibleLength(tag.text);
         let problem: string | undefined;
@@ -65,29 +66,3 @@ function lengthRule(opts: LengthRuleOptions): Rule {
     }
   };
 }
-
-export const seo022TitleLength = lengthRule({
-  id: 'SEO022',
-  title: 'Title length',
-  label: 'Title length',
-  noun: 'Title',
-  match: (t) => t.kind === 'title',
-  min: 30,
-  max: 60,
-  recommendation: 'Aim for a title of 30–60 characters so it is not truncated in search results.',
-  rationale:
-    'A title that is too short wastes the strongest on-page signal; one that is too long is truncated in the SERP.'
-});
-
-export const seo023DescriptionLength = lengthRule({
-  id: 'SEO023',
-  title: 'Description length',
-  label: 'Description length',
-  noun: 'Description',
-  match: (t) => t.kind === 'meta' && t.name === 'description',
-  min: 70,
-  max: 160,
-  recommendation: 'Aim for a meta description of 70–160 characters so it is not truncated in search results.',
-  rationale:
-    'A description that is too short under-uses the SERP snippet; one that is too long is truncated by search engines.'
-});

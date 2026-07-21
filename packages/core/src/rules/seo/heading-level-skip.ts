@@ -2,17 +2,17 @@ import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { PENALIZED, PASS } from './detection.js';
 
-const docsUrl = docsUrlFor('SEO030');
+const docsUrl = docsUrlFor('seo/heading-level-skip');
 const recommendation = 'Increase heading levels one step at a time (do not jump, e.g. from <h2> straight to <h4>).';
 
 /**
- * SEO030 — Skipped heading level. Walking a route's body headings in document
- * order, a level that jumps more than +1 over the previous heading (e.g. h2 → h4)
- * breaks the outline. The first heading has no predecessor (missing/multiple
- * <h1> stays SEO027's concern). A route with no headings emits nothing.
+ * seo/heading-level-skip — Skipped heading level. Walking a route's body headings in
+ * document order, a level that jumps more than +1 over the previous heading (e.g.
+ * h2 → h4) breaks the outline. The first heading has no predecessor (missing/multiple
+ * <h1> stays seo/single-h1's concern). A route with no headings emits nothing.
  */
 export const seo030HeadingOrder: Rule = {
-  id: 'SEO030',
+  id: 'seo/heading-level-skip',
   title: 'Heading order',
   category: 'seo',
   severity: 'info',
@@ -36,7 +36,7 @@ export const seo030HeadingOrder: Rule = {
       out.push(
         skip
           ? {
-              id: 'SEO030',
+              id: 'seo/heading-level-skip',
               category: 'seo',
               severity: 'info',
               detection: PENALIZED,
@@ -48,7 +48,7 @@ export const seo030HeadingOrder: Rule = {
               docsUrl
             }
           : {
-              id: 'SEO030',
+              id: 'seo/heading-level-skip',
               category: 'seo',
               severity: 'info',
               detection: PASS,

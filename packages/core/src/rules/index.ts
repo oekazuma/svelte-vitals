@@ -23,22 +23,22 @@ import { seo012OgDescription } from './seo/og-description.js';
 import { seo013OgUrl } from './seo/og-url.js';
 import { seo014Viewport } from './seo/viewport.js';
 import { seo015SitemapInRobots } from './seo/sitemap-in-robots.js';
-import {
-  seo016JsonLdValidity,
-  seo017DeprecatedType,
-  seo018RelativeUrl,
-  seo019DateFormat,
-  seo020Placeholder,
-  seo021RequiredProps
-} from './seo/seo016-021.js';
-import { seo022TitleLength, seo023DescriptionLength } from './seo/seo022-023.js';
-import { seo024Charset } from './seo/seo024-charset.js';
-import { seo025ImageAlt } from './seo/seo025-image-alt.js';
-import { seo026Hreflang } from './seo/seo026-hreflang.js';
-import { seo027Heading } from './seo/seo027-heading.js';
-import { seo028TitleUnique, seo029DescriptionUnique } from './seo/seo028-029-uniqueness.js';
-import { seo030HeadingOrder } from './seo/seo030-heading-order.js';
-import { seo031SsrDisabled } from './seo/seo031-ssr-disabled.js';
+import { seo016JsonLdValidity } from './seo/json-ld-validity.js';
+import { seo017DeprecatedType } from './seo/json-ld-deprecated-type.js';
+import { seo018RelativeUrl } from './seo/json-ld-relative-url.js';
+import { seo019DateFormat } from './seo/json-ld-date-format.js';
+import { seo020Placeholder } from './seo/json-ld-placeholder.js';
+import { seo021RequiredProps } from './seo/json-ld-required-props.js';
+import { seo022TitleLength } from './seo/title-length.js';
+import { seo023DescriptionLength } from './seo/description-length.js';
+import { seo024Charset } from './seo/charset.js';
+import { seo025ImageAlt } from './seo/image-alt.js';
+import { seo026Hreflang } from './seo/hreflang.js';
+import { seo027Heading } from './seo/single-h1.js';
+import { seo028TitleUnique } from './seo/duplicate-title.js';
+import { seo029DescriptionUnique } from './seo/duplicate-description.js';
+import { seo030HeadingOrder } from './seo/heading-level-skip.js';
+import { seo031SsrDisabled } from './seo/ssr-disabled.js';
 import { correct001EachKey } from './correctness/each-key.js';
 import { correct002EffectDerived } from './correctness/effect-as-derived.js';
 import { correct003EffectAsOnMount } from './correctness/effect-as-onmount.js';

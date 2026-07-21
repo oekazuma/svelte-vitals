@@ -7,7 +7,7 @@ import { imageRule } from '../perf/image-rule.js';
  * passes; a spread `{...rest}` may supply alt, so it is not flagged.
  */
 export const seo025ImageAlt = imageRule({
-  id: 'SEO025',
+  id: 'seo/image-alt',
   title: 'Image alt text',
   category: 'seo',
   severity: 'warning',

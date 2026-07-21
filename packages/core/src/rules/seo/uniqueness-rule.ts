@@ -4,7 +4,7 @@ import type { HeadTag } from '../../head.js';
 import { PENALIZED, PASS } from './detection.js';
 import { collapseWhitespace } from './text-metrics.js';
 
-interface UniquenessRuleOptions {
+export interface UniquenessRuleOptions {
   id: string;
   title: string;
   label: string;
@@ -19,7 +19,7 @@ interface UniquenessRuleOptions {
  * routes. A route-scoped rule still sees every route in `ctx.heads`, so it can
  * group by normalized text. Dynamic/absent values (no captured `text`) are skipped.
  */
-function uniquenessRule(opts: UniquenessRuleOptions): Rule {
+export function uniquenessRule(opts: UniquenessRuleOptions): Rule {
   const docsUrl = docsUrlFor(opts.id);
   return {
     id: opts.id,
@@ -68,25 +68,3 @@ function uniquenessRule(opts: UniquenessRuleOptions): Rule {
     }
   };
 }
-
-export const seo028TitleUnique = uniquenessRule({
-  id: 'SEO028',
-  title: 'Duplicate title',
-  label: 'Unique title',
-  noun: 'Title',
-  match: (t) => t.kind === 'title',
-  recommendation: 'Give each route a unique <title> that describes that page specifically.',
-  rationale:
-    'Duplicate titles across pages make them compete in search results and weaken each page’s relevance signal.'
-});
-
-export const seo029DescriptionUnique = uniquenessRule({
-  id: 'SEO029',
-  title: 'Duplicate description',
-  label: 'Unique description',
-  noun: 'Description',
-  match: (t) => t.kind === 'meta' && t.name === 'description',
-  recommendation: 'Write a unique meta description per route so each search snippet is page-specific.',
-  rationale:
-    'Duplicate meta descriptions give search engines no per-page summary, so they are often ignored or rewritten.'
-});

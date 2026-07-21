@@ -7,7 +7,7 @@ const ROOT_LAYOUT_RE = /^src\/routes\/\+layout(\.server)?\.(ts|js)$/;
 const PAGE_OPTION_FILE_RE = /\+(page|layout)(\.server)?\.(ts|js)$/;
 
 export const seo031SsrDisabled = kitModuleRule({
-  id: 'SEO031',
+  id: 'seo/ssr-disabled',
   title: 'SSR disabled',
   category: 'seo',
   label: 'SSR enabled',
