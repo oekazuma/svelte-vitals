@@ -1,7 +1,7 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 
-const docsUrl = docsUrlFor('PERF007');
+const docsUrl = docsUrlFor('performance/render-blocking-script');
 const recommendation = 'Add defer (or type="module"), or async, to the <script> so it does not block HTML parsing.';
 
 /**
@@ -12,7 +12,7 @@ const recommendation = 'Add defer (or type="module"), or async, to the <script> 
  * emits nothing (no signal), like the image rules.
  */
 export const perf007RenderBlockingScript: Rule = {
-  id: 'PERF007',
+  id: 'performance/render-blocking-script',
   title: 'Render-blocking script',
   category: 'performance',
   severity: 'warning',
@@ -33,7 +33,7 @@ export const perf007RenderBlockingScript: Rule = {
       if (blocking.length > 0) {
         for (const tag of blocking) {
           out.push({
-            id: 'PERF007',
+            id: 'performance/render-blocking-script',
             category: 'performance',
             severity: 'warning',
             detection: { presence: 'none', value: 'absent' },
@@ -48,7 +48,7 @@ export const perf007RenderBlockingScript: Rule = {
         }
       } else {
         out.push({
-          id: 'PERF007',
+          id: 'performance/render-blocking-script',
           category: 'performance',
           severity: 'warning',
           detection: { presence: 'own', value: 'static' },

@@ -1,7 +1,7 @@
 import { componentRule } from '../component-rule.js';
 
 export const perf010NamespaceImport = componentRule({
-  id: 'PERF010',
+  id: 'performance/namespace-import',
   title: 'Namespace import',
   category: 'performance',
   severity: 'info',

@@ -10,7 +10,7 @@ const MESSAGE =
  * runtime the universal load only runs during SSR.
  */
 export const perf011LoadWaterfall = kitModuleRule({
-  id: 'PERF011',
+  id: 'performance/load-waterfall',
   title: 'Load waterfall',
   category: 'performance',
   severity: 'warning',

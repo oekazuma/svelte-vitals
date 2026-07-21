@@ -1,7 +1,7 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 
-const docsUrl = docsUrlFor('PERF005');
+const docsUrl = docsUrlFor('performance/lcp-image');
 const recommendation =
   'Remove loading="lazy" from the LCP/first image and consider fetchpriority="high" so it loads as early as possible.';
 
@@ -12,7 +12,7 @@ const recommendation =
  * static (CLI) and rendered (vite) mode, since both providers collect <img>.
  */
 export const perf005LcpImage: Rule = {
-  id: 'PERF005',
+  id: 'performance/lcp-image',
   title: 'LCP image eager loading',
   category: 'performance',
   severity: 'warning',
@@ -32,7 +32,7 @@ export const perf005LcpImage: Rule = {
       out.push(
         first.lazy
           ? {
-              id: 'PERF005',
+              id: 'performance/lcp-image',
               category: 'performance',
               severity: 'warning',
               detection: { presence: 'none', value: 'absent' },
@@ -45,7 +45,7 @@ export const perf005LcpImage: Rule = {
               fix: { ...(perf005LcpImage.fix as NonNullable<Rule['fix']>) }
             }
           : {
-              id: 'PERF005',
+              id: 'performance/lcp-image',
               category: 'performance',
               severity: 'warning',
               detection: { presence: 'own', value: 'static' },

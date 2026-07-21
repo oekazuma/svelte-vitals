@@ -20,7 +20,7 @@ const RECOMMENDATION =
  * (exact). Emits a finding only when the fact is set — no pass result.
  */
 export const perf012MinifyDisabled: Rule = {
-  id: 'PERF012',
+  id: 'performance/minify-disabled',
   title: 'Minification disabled',
   category: 'performance',
   severity: 'warning',
@@ -39,7 +39,7 @@ export const perf012MinifyDisabled: Rule = {
           : '';
     return [
       {
-        id: 'PERF012',
+        id: 'performance/minify-disabled',
         category: 'performance',
         severity: 'warning',
         detection: PENALIZED,
@@ -49,7 +49,7 @@ export const perf012MinifyDisabled: Rule = {
           'JS/CSS minification is disabled (build.minify: false) — production bundles ship unminified and several times larger.' +
           provenance,
         recommendation: RECOMMENDATION,
-        docsUrl: docsUrlFor('PERF012'),
+        docsUrl: docsUrlFor('performance/minify-disabled'),
         fix: { ...PERF012_FIX }
       }
     ];

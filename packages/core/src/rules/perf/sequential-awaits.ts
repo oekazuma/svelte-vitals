@@ -9,7 +9,7 @@ const MESSAGE =
  * on), so the parallelize suggestion stays advisory.
  */
 export const perf013SequentialAwaits = kitModuleRule({
-  id: 'PERF013',
+  id: 'performance/sequential-awaits',
   title: 'Sequential independent awaits',
   category: 'performance',
   severity: 'info',

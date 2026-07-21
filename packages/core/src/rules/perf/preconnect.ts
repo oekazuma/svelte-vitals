@@ -1,7 +1,7 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 
-const docsUrl = docsUrlFor('PERF008');
+const docsUrl = docsUrlFor('performance/preconnect');
 const recommendation =
   'Add <link rel="preconnect"> (or dns-prefetch) for the third-party origin so the connection is set up early.';
 
@@ -26,7 +26,7 @@ function hostOf(href: string): string | undefined {
  * allowlist are checked; routes referencing none emit nothing.
  */
 export const perf008Preconnect: Rule = {
-  id: 'PERF008',
+  id: 'performance/preconnect',
   title: 'Preconnect third-party origin',
   category: 'performance',
   severity: 'info',
@@ -54,7 +54,7 @@ export const perf008Preconnect: Rule = {
       const missing = [...referenced].filter(([host]) => !covered.has(host));
       if (missing.length === 0) {
         out.push({
-          id: 'PERF008',
+          id: 'performance/preconnect',
           category: 'performance',
           severity: 'info',
           detection: { presence: 'own', value: 'static' },
@@ -67,7 +67,7 @@ export const perf008Preconnect: Rule = {
       }
       for (const [host, file] of missing) {
         out.push({
-          id: 'PERF008',
+          id: 'performance/preconnect',
           category: 'performance',
           severity: 'info',
           detection: { presence: 'none', value: 'absent' },

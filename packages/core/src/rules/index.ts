@@ -9,11 +9,14 @@ import {
   seo008JsonLd
 } from './seo/seo002-005-008.js';
 import { seo006Robots, seo007Sitemap, seo009HtmlLang } from './seo/project-rules.js';
-import { perf001ImageDimensions, perf002ImageLoading, perf006ResponsiveImage } from './perf/images.js';
-import { perf003PreloadAs, perf004FontPreloadCrossorigin } from './perf/resource-hints.js';
-import { perf005LcpImage } from './perf/perf005-lcp-image.js';
-import { perf007RenderBlockingScript } from './perf/perf007-render-blocking.js';
-import { perf008Preconnect } from './perf/perf008-preconnect.js';
+import { perf001ImageDimensions } from './perf/image-dimensions.js';
+import { perf002ImageLoading } from './perf/image-loading-hint.js';
+import { perf006ResponsiveImage } from './perf/responsive-image.js';
+import { perf003PreloadAs } from './perf/preload-missing-as.js';
+import { perf004FontPreloadCrossorigin } from './perf/font-preload-crossorigin.js';
+import { perf005LcpImage } from './perf/lcp-image.js';
+import { perf007RenderBlockingScript } from './perf/render-blocking-script.js';
+import { perf008Preconnect } from './perf/preconnect.js';
 import {
   seo010Indexability,
   seo011TwitterCard,
@@ -54,11 +57,11 @@ import { sec004ServerModuleState } from './security/server-module-state.js';
 import { sec005SharedStateImport } from './security/shared-state-import.js';
 import { arch001ComponentSize } from './architecture/component-size.js';
 import { arch002PropCount } from './architecture/prop-count.js';
-import { perf009HeavyImport } from './perf/perf009-heavy-import.js';
-import { perf010NamespaceImport } from './perf/perf010-namespace-import.js';
-import { perf012MinifyDisabled } from './perf/perf012-minify-disabled.js';
-import { perf011LoadWaterfall } from './perf/perf011-load-waterfall.js';
-import { perf013SequentialAwaits } from './perf/perf013-sequential-awaits.js';
+import { perf009HeavyImport } from './perf/heavy-import.js';
+import { perf010NamespaceImport } from './perf/namespace-import.js';
+import { perf012MinifyDisabled } from './perf/minify-disabled.js';
+import { perf011LoadWaterfall } from './perf/load-waterfall.js';
+import { perf013SequentialAwaits } from './perf/sequential-awaits.js';
 
 export const allRules: Rule[] = [
   seo001Title,

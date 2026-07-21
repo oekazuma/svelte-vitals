@@ -10,7 +10,7 @@ const HEAVY_PACKAGES: Record<string, string> = {
 };
 
 export const perf009HeavyImport = componentRule({
-  id: 'PERF009',
+  id: 'performance/heavy-import',
   title: 'Heavy dependency import',
   category: 'performance',
   severity: 'info',
