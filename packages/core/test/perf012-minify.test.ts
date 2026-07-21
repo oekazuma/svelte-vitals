@@ -19,7 +19,7 @@ describe('PERF012 minify disabled', () => {
   it('emits one warning finding at the config file and line', async () => {
     const results = await perf012MinifyDisabled.check(ctx({ file: 'vite.config.ts', line: 5 }));
     expect(results).toHaveLength(1);
-    const r = results[0];
+    const r = results[0]!;
     expect(r.id).toBe('PERF012');
     expect(r.category).toBe('performance');
     expect(r.severity).toBe('warning');

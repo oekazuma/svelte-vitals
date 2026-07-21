@@ -28,12 +28,14 @@
 ### Task 1: Core parser `findMinifyDisabled`
 
 **Files:**
+
 - Create: `packages/core/src/vite-config-parse.ts`
 - Modify: `packages/core/src/kit-module-parse.ts` (export two existing private helpers)
 - Modify: `packages/core/src/index.ts` (export `findMinifyDisabled`)
 - Test: `packages/core/test/vite-config-parse.test.ts`
 
 **Interfaces:**
+
 - Consumes: `parseModuleProgram(source, filename)` from `./component-parse.js` (returns `{ program, wrapped }`), `lineOf(source, offset)` from `./svelte-ast.js`, and `unwrapTs` / `collectTopLevelBindings` from `./kit-module-parse.js` (exported in this task).
 - Produces: `findMinifyDisabled(source: string): { line: number } | undefined` — exported from core's index for the CLI and Vite packages (Tasks 3–4).
 
@@ -273,6 +275,7 @@ git commit -m "feat(core): add findMinifyDisabled Vite-config parser for PERF012
 ### Task 2: `Project` fact + PERF012 rule + registration
 
 **Files:**
+
 - Modify: `packages/core/src/types.ts` (Project interface)
 - Create: `packages/core/src/rules/perf/perf012-minify-disabled.ts`
 - Modify: `packages/core/src/rules/index.ts` (import + `allRules` + re-export)
@@ -280,6 +283,7 @@ git commit -m "feat(core): add findMinifyDisabled Vite-config parser for PERF012
 - Test: `packages/core/test/perf012-minify.test.ts`
 
 **Interfaces:**
+
 - Consumes: `Project` from Task 1's package state; `docsUrlFor`, `Rule`, `RuleContext` from `../../rule.js`.
 - Produces: `Project.viteMinifyDisabled?: { file: string; line: number }` (Tasks 3–4 set it) and the exported rule object `perf012MinifyDisabled`.
 
@@ -441,6 +445,7 @@ git commit -m "feat(core): add PERF012 minification-disabled project rule"
 ### Task 3: CLI producer
 
 **Files:**
+
 - Modify: `packages/cli/src/providers/source/project.ts` (extend `collectProjectFacts`)
 - Test: `packages/cli/test/project-facts.test.ts` (extend)
 - Create: `packages/cli/test/fixtures/minify-disabled-project/package.json`
@@ -450,6 +455,7 @@ git commit -m "feat(core): add PERF012 minification-disabled project rule"
 - Test: `packages/cli/test/analyze-project.test.ts` (add one integration case)
 
 **Interfaces:**
+
 - Consumes: `findMinifyDisabled` from `@svelte-vitals/core` (Task 1), `Project.viteMinifyDisabled` (Task 2), the existing `Runtime` and memory-runtime test helper.
 - Produces: `collectProjectFacts` now sets `viteMinifyDisabled` when the first-resolved Vite config carries the literal override.
 
@@ -462,33 +468,33 @@ Run: `pnpm --filter @svelte-vitals/core build`
 Append to the `describe('collectProjectFacts', …)` block in `packages/cli/test/project-facts.test.ts`:
 
 ```ts
-  it('detects build.minify: false in the Vite config', async () => {
-    const rt = createMemoryRuntime({
-      'vite.config.ts': `export default {\n  build: {\n    minify: false\n  }\n};\n`
-    });
-    const p = await collectProjectFacts(rt, '');
-    expect(p.viteMinifyDisabled).toEqual({ file: 'vite.config.ts', line: 3 });
+it('detects build.minify: false in the Vite config', async () => {
+  const rt = createMemoryRuntime({
+    'vite.config.ts': `export default {\n  build: {\n    minify: false\n  }\n};\n`
   });
+  const p = await collectProjectFacts(rt, '');
+  expect(p.viteMinifyDisabled).toEqual({ file: 'vite.config.ts', line: 3 });
+});
 
-  it('leaves the fact unset for a clean or absent Vite config', async () => {
-    const clean = await collectProjectFacts(
-      createMemoryRuntime({ 'vite.config.ts': `export default { build: { minify: 'terser' } };\n` }),
-      ''
-    );
-    expect(clean.viteMinifyDisabled).toBeUndefined();
-    const absent = await collectProjectFacts(createMemoryRuntime({}), '');
-    expect(absent.viteMinifyDisabled).toBeUndefined();
-  });
+it('leaves the fact unset for a clean or absent Vite config', async () => {
+  const clean = await collectProjectFacts(
+    createMemoryRuntime({ 'vite.config.ts': `export default { build: { minify: 'terser' } };\n` }),
+    ''
+  );
+  expect(clean.viteMinifyDisabled).toBeUndefined();
+  const absent = await collectProjectFacts(createMemoryRuntime({}), '');
+  expect(absent.viteMinifyDisabled).toBeUndefined();
+});
 
-  it("analyzes only the first config in Vite's resolution order", async () => {
-    // Vite loads vite.config.js before vite.config.ts — the stale .ts must be ignored.
-    const rt = createMemoryRuntime({
-      'vite.config.js': `export default { build: {} };\n`,
-      'vite.config.ts': `export default { build: { minify: false } };\n`
-    });
-    const p = await collectProjectFacts(rt, '');
-    expect(p.viteMinifyDisabled).toBeUndefined();
+it("analyzes only the first config in Vite's resolution order", async () => {
+  // Vite loads vite.config.js before vite.config.ts — the stale .ts must be ignored.
+  const rt = createMemoryRuntime({
+    'vite.config.js': `export default { build: {} };\n`,
+    'vite.config.ts': `export default { build: { minify: false } };\n`
   });
+  const p = await collectProjectFacts(rt, '');
+  expect(p.viteMinifyDisabled).toBeUndefined();
+});
 ```
 
 Note: check `packages/cli/test/helpers/memory-runtime.ts` first — if its `join('', 'vite.config.ts')` produces a leading-slash or different key shape, adapt the fixture keys the same way the existing robots/sitemap tests in this file do.
@@ -653,6 +659,7 @@ git commit -m "feat(cli): produce the PERF012 vite.config minify fact in project
 ### Task 4: Vite plugin producer
 
 **Files:**
+
 - Create: `packages/vite/src/minify-flag.ts`
 - Modify: `packages/vite/src/analyze.ts` (optional 4th parameter, merge into project facts)
 - Modify: `packages/vite/src/plugin.ts` (capture in `configResolved`, pass through `closeBundle`)
@@ -660,6 +667,7 @@ git commit -m "feat(cli): produce the PERF012 vite.config minify fact in project
 - Test: `packages/vite/test/analyze.test.ts` (one added case)
 
 **Interfaces:**
+
 - Consumes: `findMinifyDisabled` and `Project` type from `@svelte-vitals/core`; Vite's `ResolvedConfig` (`config.build.minify`, `config.configFile`, `config.root`).
 - Produces: `resolveMinifyDisabled(minify: unknown, configFile: string | undefined, root: string): Promise<Project['viteMinifyDisabled']>`; `analyze(prerenderPagesDir, cwd, options, viteMinifyDisabled?)`.
 
@@ -783,16 +791,16 @@ In `packages/vite/src/analyze.ts`:
 Add a test case to `packages/vite/test/analyze.test.ts` inside the existing `describe` (reusing its `pages`/`cwd` setup):
 
 ```ts
-  it('threads a resolved minify-disabled fact into PERF012', async () => {
-    const r = await analyze(pages, cwd, { report: false }, { file: 'vite.config.ts', line: 3 });
-    const hit = r.results.find((x) => x.id === 'PERF012');
-    expect(hit).toBeDefined();
-    expect(hit?.location).toBe('vite.config.ts');
-    expect(hit?.line).toBe(3);
+it('threads a resolved minify-disabled fact into PERF012', async () => {
+  const r = await analyze(pages, cwd, { report: false }, { file: 'vite.config.ts', line: 3 });
+  const hit = r.results.find((x) => x.id === 'PERF012');
+  expect(hit).toBeDefined();
+  expect(hit?.location).toBe('vite.config.ts');
+  expect(hit?.line).toBe(3);
 
-    const clean = await analyze(pages, cwd, { report: false });
-    expect(clean.results.some((x) => x.id === 'PERF012')).toBe(false);
-  });
+  const clean = await analyze(pages, cwd, { report: false });
+  expect(clean.results.some((x) => x.id === 'PERF012')).toBe(false);
+});
 ```
 
 - [ ] **Step 6: Capture the resolved config in the plugin**
@@ -837,12 +845,14 @@ git commit -m "feat(vite): feed PERF012 from the resolved Vite config"
 ### Task 5: Docs (en/ja), changeset, action dist, full verify
 
 **Files:**
+
 - Create: `docs/src/content/docs/rules/perf012.md`
 - Create: `docs/src/content/docs/ja/rules/perf012.md`
 - Create: `.changeset/perf012-minify-disabled.md`
 - Modify: `packages/action/dist/*` (rebuild artifact, committed by convention)
 
 **Interfaces:**
+
 - Consumes: rule behavior fixed in Tasks 1–4.
 - Produces: docs pages required by `packages/cli/test/docs-links.test.ts`; release changeset.
 
