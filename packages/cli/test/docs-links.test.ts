@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { readdirSync, existsSync } from 'node:fs';
+import { readdirSync, existsSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { allRules } from '@svelte-vitals/core';
@@ -12,20 +12,32 @@ const jaRules = join(repoRoot, 'docs', 'src', 'content', 'docs', 'ja', 'rules');
 const DOCUMENTED_CATEGORIES = new Set(['seo', 'performance', 'correctness', 'security', 'architecture']);
 const documented = allRules.filter((r) => DOCUMENTED_CATEGORIES.has(r.category));
 
+/** Recursively list every file under `dir`, as paths relative to `dir` (POSIX-style, e.g. "seo/ssr-disabled.md"). */
+function listFilesRecursive(dir: string, prefix = ''): string[] {
+  const out: string[] = [];
+  for (const entry of readdirSync(dir)) {
+    const abs = join(dir, entry);
+    const rel = prefix ? `${prefix}/${entry}` : entry;
+    if (statSync(abs).isDirectory()) out.push(...listFilesRecursive(abs, rel));
+    else out.push(rel);
+  }
+  return out;
+}
+
 describe('docs: every documented rule has a reference page (en + ja)', () => {
-  it('has an en page per rule id (lowercased slug)', () => {
+  it('has an en page per rule id', () => {
     for (const r of documented) {
-      expect(existsSync(join(enRules, `${r.id.toLowerCase()}.md`)), `${r.id} en page`).toBe(true);
+      expect(existsSync(join(enRules, `${r.id}.md`)), `${r.id} en page`).toBe(true);
     }
   });
   it('has a ja page per rule id', () => {
     for (const r of documented) {
-      expect(existsSync(join(jaRules, `${r.id.toLowerCase()}.md`)), `${r.id} ja page`).toBe(true);
+      expect(existsSync(join(jaRules, `${r.id}.md`)), `${r.id} ja page`).toBe(true);
     }
   });
   it('has no stray rule pages without a matching rule', () => {
-    const ids = new Set(documented.map((r) => `${r.id.toLowerCase()}.md`));
+    const ids = new Set(documented.map((r) => `${r.id}.md`));
     for (const dir of [enRules, jaRules])
-      for (const f of readdirSync(dir)) expect(ids.has(f), `stray ${f} in ${dir}`).toBe(true);
+      for (const f of listFilesRecursive(dir)) expect(ids.has(f), `stray ${f} in ${dir}`).toBe(true);
   });
 });
