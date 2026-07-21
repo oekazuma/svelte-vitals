@@ -38,15 +38,67 @@ describe('collectLoadWaterfalls — dependent chains', () => {
     expect(wf(src)).toEqual({ dependentLines: [3], independentLines: [] });
   });
 
-  it('classifies a chained member await as dependent', () => {
+  it('does not treat a response-body parse as a hop', () => {
     const src = [
       'export async function load({ fetch }) {',
       '  const res = await fetch("/api/user");',
-      '  const data = (await res.json()).items;',
+      '  const data = await res.json();',
       '  return { data };',
       '}'
     ].join('\n');
-    expect(wf(src)).toEqual({ dependentLines: [3], independentLines: [] });
+    expect(wf(src)).toBeUndefined();
+  });
+
+  it('keeps dependency through a body parse', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  const res = await fetch("/api/user");',
+      '  const data = await res.json();',
+      '  const posts = await fetch(`/api/posts/${data.id}`);',
+      '  return { posts };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [] });
+  });
+
+  it('does not exempt member calls named like body parsers when they take arguments', () => {
+    const src = [
+      'export async function load() {',
+      '  const a = await api.json("users");',
+      '  const b = await api.json("posts");',
+      '  return { a, b };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [], independentLines: [3] });
+  });
+
+  it('taints assignment targets so try-wrapped chains stay dependent', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  let user;',
+      '  try {',
+      '    user = await fetch("/api/user").then((r) => r.json());',
+      '  } catch {',
+      '    user = null;',
+      '  }',
+      '  const posts = await fetch(`/api/posts/${user.id}`);',
+      '  return { user, posts };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [8], independentLines: [] });
+  });
+
+  it('propagates taint through a non-await assignment', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  const res = await fetch("/api/a");',
+      '  let key;',
+      '  key = res.key;',
+      '  const b = await fetch(`/api/b/${key}`);',
+      '  return { b };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [5], independentLines: [] });
   });
 });
 

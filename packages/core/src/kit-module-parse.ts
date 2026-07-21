@@ -261,13 +261,32 @@ function collectAwaits(node: Node, out: Node[] = []): Node[] {
   return out;
 }
 
-/** Whether `await`'s argument is a `parent()` / `<x>.parent()` call (Kit's parent-load step, PERF011/013-exempt). */
+/**
+ * Whether `await`'s argument is a `parent()` / `<x>.parent()` call (Kit's parent-load
+ * step, PERF011/013-exempt). Any `<expr>.parent()` member call matches — over-broad
+ * in the false-negative direction only, which is the conservative side.
+ */
 function isParentCall(arg: Node): boolean {
   const e = unwrapTs(arg);
   if (e?.type !== 'CallExpression') return false;
   const callee = e.callee;
   if (callee?.type === 'Identifier' && callee.name === 'parent') return true;
   return callee?.type === 'MemberExpression' && !callee.computed && callee.property?.name === 'parent';
+}
+
+const BODY_METHODS = new Set(['json', 'text', 'blob', 'arrayBuffer', 'formData', 'bytes']);
+
+/**
+ * Whether `await`'s argument is a response-body read (`res.json()`, `res.text()`, …):
+ * parsing an already-received body costs no extra round trip, so it is not a
+ * waterfall hop. Like `parent()`, exempt from classification while its bindings
+ * still taint (the parsed data IS derived from the earlier request).
+ */
+function isBodyParseCall(arg: Node): boolean {
+  const e = unwrapTs(arg);
+  if (e?.type !== 'CallExpression' || e.arguments?.length) return false;
+  const callee = e.callee;
+  return callee?.type === 'MemberExpression' && !callee.computed && BODY_METHODS.has(callee.property?.name);
 }
 
 /**
@@ -335,7 +354,7 @@ function collectLoadWaterfalls(
 
   for (const stmt of statements) {
     if (stmt.type === 'VariableDeclaration' || stmt.type === 'ExpressionStatement' || stmt.type === 'ReturnStatement') {
-      const sites = collectAwaits(stmt).filter((a) => !isParentCall(a.argument));
+      const sites = collectAwaits(stmt).filter((a) => !isParentCall(a.argument) && !isBodyParseCall(a.argument));
       if (sites.length > 0) {
         const first = sites.reduce((m, a) => (a.start < m.start ? a : m));
         if (sites.some((a) => refsTainted(a.argument, tainted))) dependentLines.push(line(first.start));
@@ -346,6 +365,13 @@ function collectLoadWaterfalls(
         for (const d of stmt.declarations ?? []) {
           if (!d?.id || !d.init) continue;
           if (collectAwaits(d.init).length > 0 || refsTainted(d.init, tainted)) addBoundNames(d.id, tainted);
+        }
+      } else if (stmt.type === 'ExpressionStatement') {
+        const expr = unwrapTs(stmt.expression);
+        if (expr?.type === 'AssignmentExpression' && expr.operator === '=') {
+          if (collectAwaits(expr.right).length > 0 || refsTainted(expr.right, tainted)) {
+            addBoundNames(expr.left, tainted);
+          }
         }
       }
     }
