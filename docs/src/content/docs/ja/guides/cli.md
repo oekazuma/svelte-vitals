@@ -178,7 +178,7 @@ Health スコア発表時のアニメーションと、解析中に表示され�
 指定したルールのみを有効にし、他はすべて無効にします。ルール ID のカンマ区切りリストを受け付けます。
 
 ```bash
-svelte-vitals --rules SEO001,SEO002
+svelte-vitals --rules seo/title-presence,seo/description-presence
 ```
 
 ### `--ignore <ids>`
@@ -186,7 +186,7 @@ svelte-vitals --rules SEO001,SEO002
 指定したルールを無効にします。ルール ID のカンマ区切りリストを受け付けます。
 
 ```bash
-svelte-vitals --ignore PERF001
+svelte-vitals --ignore performance/image-dimensions
 ```
 
 ### `--category <cats>`
@@ -218,7 +218,7 @@ svelte-vitals --weights seo=2,performance=1
 <script>
   // プリレンダリングされたHTMLは常に非表示。canVibrate() はマウント後にのみ評価する必要があり、
   // そうしないとハイドレーション不一致が発生する。$derived だとハイドレーション中にも評価される。
-  // svelte-vitals-disable-next-line CORRECT002
+  // svelte-vitals-disable-next-line correctness/effect-as-derived
   $effect(() => {
     mounted = true;
   });
@@ -228,11 +228,11 @@ svelte-vitals --weights seo=2,performance=1
 マークアップ内では HTML コメントを使います。
 
 ```html
-<!-- svelte-vitals-disable-next-line SEC001 -->
+<!-- svelte-vitals-disable-next-line security/raw-html -->
 <div>{@html trustedMarkup}</div>
 ```
 
-ルール ID を省略すると次の行のすべてのルールを抑制します。複数指定する場合はカンマ区切りで書けます（`CORRECT002, SEC001`）。
+ルール ID を省略すると次の行のすべてのルールを抑制します。複数指定する場合はカンマ区切りで書けます（`correctness/effect-as-derived, security/raw-html`）。
 
 2つの制約があります。コメントはその行に単独で書かれている必要があり（同一行の末尾コメントは認識されません）、対象行の**直前**の行になければなりません（間に空行があると一致しません）。
 

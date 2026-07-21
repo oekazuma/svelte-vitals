@@ -53,15 +53,15 @@ SEO Score: 79/100   (route avg 96 · capped at 79: critical present)
 
 Critical (1)
 ────────────────────────
-✗ SEO001  Missing <title>
+✗ seo/title-presence  Missing <title>
             /none
             src/routes/none/+page.svelte
 
 Passed (3)
 ────────────────────────
-✓ SEO001  <title>  /blog
-✓ SEO001  <title>  ↯ dynamic  /dynamic
-✓ SEO001  <title>  /static
+✓ seo/title-presence  <title>  /blog
+✓ seo/title-presence  <title>  ↯ dynamic  /dynamic
+✓ seo/title-presence  <title>  /static
 
 ↯ = set dynamically (verified at runtime).
 ```

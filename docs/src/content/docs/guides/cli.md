@@ -178,7 +178,7 @@ Disable the Health-score reveal animation and the analysis-phase mascot. Both on
 Enable only the specified rules; all others are disabled. Accepts a comma-separated list of rule IDs.
 
 ```bash
-svelte-vitals --rules SEO001,SEO002
+svelte-vitals --rules seo/title-presence,seo/description-presence
 ```
 
 ### `--ignore <ids>`
@@ -186,7 +186,7 @@ svelte-vitals --rules SEO001,SEO002
 Disable the specified rules. Accepts a comma-separated list of rule IDs.
 
 ```bash
-svelte-vitals --ignore PERF001
+svelte-vitals --ignore performance/image-dimensions
 ```
 
 ### `--category <cats>`
@@ -222,7 +222,7 @@ rules resolve across files, so they can't be silenced this way.)
 <script>
   // The prerendered HTML always renders this hidden; canVibrate() must run only
   // after mount, or hydration mismatches. $derived would re-run during hydration.
-  // svelte-vitals-disable-next-line CORRECT002
+  // svelte-vitals-disable-next-line correctness/effect-as-derived
   $effect(() => {
     mounted = true;
   });
@@ -232,12 +232,12 @@ rules resolve across files, so they can't be silenced this way.)
 In markup, use an HTML comment instead:
 
 ```html
-<!-- svelte-vitals-disable-next-line SEC001 -->
+<!-- svelte-vitals-disable-next-line security/raw-html -->
 <div>{@html trustedMarkup}</div>
 ```
 
 Omit the rule id to suppress every rule on the next line, or list several
-comma-separated (`CORRECT002, SEC001`).
+comma-separated (`correctness/effect-as-derived, security/raw-html`).
 
 Two constraints: the comment must be the only thing on its line (a trailing
 same-line comment is not recognized), and it must be the line **immediately**

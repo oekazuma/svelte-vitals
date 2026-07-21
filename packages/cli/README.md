@@ -33,16 +33,16 @@ Architecture Score: 100/100   (route avg 100)
 
 Critical (2)
 ────────────────────────
-✗ SEO001  Missing <title>
+✗ seo/title-presence  Missing <title>
             /
             src/routes/+page.svelte
-✗ SEO002  Missing <meta name="description">
+✗ seo/description-presence  Missing <meta name="description">
             /
             src/routes/+page.svelte
 
 Warnings (10)
 ────────────────────────
-✗ SEO003  Missing <link rel="canonical">
+✗ seo/canonical-url  Missing <link rel="canonical">
             /
             src/routes/+page.svelte
             …and 1 more

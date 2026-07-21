@@ -35,7 +35,7 @@ The first match wins. If none exist, svelte-vitals runs with its built-in defaul
       treatDynamicAs: 'warn',
       metaComponents: ['Seo'],
       rules: {
-        SEO008: 'off'
+        'seo/json-ld': 'off'
       },
       failOn: 'warning',
       weights: {
@@ -52,7 +52,7 @@ The first match wins. If none exist, svelte-vitals runs with its built-in defaul
       treatDynamicAs: 'warn',
       metaComponents: ['Seo'],
       rules: {
-        SEO008: 'off'
+        'seo/json-ld': 'off'
       },
       failOn: 'warning',
       weights: {
@@ -95,8 +95,8 @@ export default {
   overrides: [
     // Everything in the (app) route group: no SEO checks at all.
     { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
-    // /admin and everything under it: keep SEO001, but only as info.
-    { route: '/admin/**', rules: { SEO001: 'info' } }
+    // /admin and everything under it: keep seo/title-presence, but only as info.
+    { route: '/admin/**', rules: { 'seo/title-presence': 'info' } }
   ]
 };
 ```

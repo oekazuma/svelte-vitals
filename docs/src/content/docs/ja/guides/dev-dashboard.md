@@ -63,10 +63,10 @@ export const handle = sequence(svelteVitalsHandle());
 
 `svelteVitalsHandle` はオプションのオブジェクトを受け付けます:
 
-| オプション       | 型                            | 説明                                              |
-| ---------------- | ----------------------------- | ------------------------------------------------- |
-| `metaComponents` | `string[]`                    | ヘッドメタデータソースとして扱うコンポーネント名  |
-| `rules`          | `Record<string, RuleSetting>` | ルールごとの上書き設定（例：`{ SEO008: 'off' }`） |
+| オプション       | 型                            | 説明                                                     |
+| ---------------- | ----------------------------- | -------------------------------------------------------- |
+| `metaComponents` | `string[]`                    | ヘッドメタデータソースとして扱うコンポーネント名         |
+| `rules`          | `Record<string, RuleSetting>` | ルールごとの上書き設定（例：`{ 'seo/json-ld': 'off' }`） |
 
 例:
 
@@ -74,7 +74,7 @@ export const handle = sequence(svelteVitalsHandle());
 export const handle = sequence(
   svelteVitalsHandle({
     metaComponents: ['SeoHead'],
-    rules: { SEO008: 'off' }
+    rules: { 'seo/json-ld': 'off' }
   })
 );
 ```
@@ -93,7 +93,7 @@ export const handle = sequence(
 ````text
 Fix this svelte-vitals finding:
 
-- Rule: SEO001 — Missing <title> (critical)
+- Rule: seo/title-presence — Missing <title> (critical)
 - Route: /blog/hello
 - Location: src/routes/blog/hello/+page.svelte:3
 - Recommendation: Add a <title> inside <svelte:head>.
@@ -105,9 +105,9 @@ Fix this svelte-vitals finding:
 </svelte:head>
 ```
 
-- Docs: https://oekazuma.github.io/svelte-vitals/rules/seo001
+- Docs: https://oekazuma.github.io/svelte-vitals/ja/rules/seo/title-presence
 
-After fixing, re-run `svelte-vitals --diff` (or revisit this route) to confirm SEO001 passes for /blog/hello.
+After fixing, re-run `svelte-vitals --diff` (or revisit this route) to confirm seo/title-presence passes for /blog/hello.
 ````
 
 プロンプトの生成にAI呼び出しは一切ありません。ダッシュボードのスナップショットに既にある svelte-vitals 自身のルールデータから即座に組み立てられます。[`agent` レポーター](/svelte-vitals/ja/guides/reporters/)が修正ドキュメントに使うのと同じフィールドです。ルールの実際の推奨事項ではない修正を捏造することはできません。
