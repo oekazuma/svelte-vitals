@@ -552,9 +552,13 @@ function collectNamespaceImports(program: Node, source: string, acc: { source: s
   });
 }
 
-const JS_DIRECTIVE = /^\s*\/\/\s*svelte-vitals-disable-next-line(?:\s+([A-Za-z]+\d+(?:\s*,\s*[A-Za-z]+\d+)*))?\s*$/;
-const HTML_DIRECTIVE =
-  /^\s*<!--\s*svelte-vitals-disable-next-line(?:\s+([A-Za-z]+\d+(?:\s*,\s*[A-Za-z]+\d+)*))?\s*-->\s*$/;
+const RULE_ID_RE = '[a-z]+\\/[a-z][a-z0-9-]*';
+const JS_DIRECTIVE = new RegExp(
+  `^\\s*//\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*$`
+);
+const HTML_DIRECTIVE = new RegExp(
+  `^\\s*<!--\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*-->\\s*$`
+);
 
 /**
  * Inline `svelte-vitals-disable-next-line` directives (issue #92). A plain text scan, not an
@@ -568,7 +572,7 @@ export function collectSuppressions(source: string): SuppressionDirective[] {
   lines.forEach((line, i) => {
     const m = JS_DIRECTIVE.exec(line) ?? HTML_DIRECTIVE.exec(line);
     if (!m) return;
-    const ruleIds = m[1]?.split(',').map((s) => s.trim().toUpperCase());
+    const ruleIds = m[1]?.split(',').map((s) => s.trim());
     out.push({ line: i + 2, ruleIds });
   });
   return out;
