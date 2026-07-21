@@ -1,6 +1,7 @@
 import {
   ROBOTS_SOURCE_PATHS,
   SITEMAP_SOURCE_PATHS,
+  findMinifyDisabled,
   type Project,
   type Detection,
   type Runtime
@@ -88,18 +89,44 @@ async function robotsRefsSitemap(rt: Runtime, cwd: string): Promise<boolean | un
   }
 }
 
+/** Vite's own config resolution order — only the first existing file is the one Vite loads. */
+const VITE_CONFIG_FILES = [
+  'vite.config.js',
+  'vite.config.mjs',
+  'vite.config.ts',
+  'vite.config.cjs',
+  'vite.config.mts',
+  'vite.config.cts'
+] as const;
+
+async function detectViteMinifyDisabled(rt: Runtime, cwd: string): Promise<Project['viteMinifyDisabled']> {
+  for (const file of VITE_CONFIG_FILES) {
+    const p = rt.join(cwd, file);
+    if (!(await rt.exists(p))) continue;
+    try {
+      const hit = findMinifyDisabled(await rt.readFile(p));
+      return hit ? { file, line: hit.line } : undefined;
+    } catch {
+      return undefined; // unreadable config — don't guess
+    }
+  }
+  return undefined;
+}
+
 /** Precompute project-wide facts for project-scope rules (design §10, §11, §17). */
 export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Project> {
-  const [hasRobotsTxt, hasSitemap, htmlLang] = await Promise.all([
+  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled] = await Promise.all([
     existsAny(rt, cwd, ROBOTS_SOURCE_PATHS),
     existsAny(rt, cwd, SITEMAP_SOURCE_PATHS),
-    detectAppHtmlLang(rt, cwd)
+    detectAppHtmlLang(rt, cwd),
+    detectViteMinifyDisabled(rt, cwd)
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
   return {
     hasRobotsTxt,
     hasSitemap,
     htmlLang,
-    ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {})
+    ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}),
+    ...(viteMinifyDisabled ? { viteMinifyDisabled } : {})
   };
 }

@@ -30,4 +30,32 @@ describe('collectProjectFacts', () => {
     const single = await collectProjectFacts(createMemoryRuntime({ 'src/app.html': "<html lang='ja'>" }), '');
     expect(single.htmlLang).toEqual({ presence: 'own', value: 'static' });
   });
+
+  it('detects build.minify: false in the Vite config', async () => {
+    const rt = createMemoryRuntime({
+      'vite.config.ts': `export default {\n  build: {\n    minify: false\n  }\n};\n`
+    });
+    const p = await collectProjectFacts(rt, '');
+    expect(p.viteMinifyDisabled).toEqual({ file: 'vite.config.ts', line: 3 });
+  });
+
+  it('leaves the fact unset for a clean or absent Vite config', async () => {
+    const clean = await collectProjectFacts(
+      createMemoryRuntime({ 'vite.config.ts': `export default { build: { minify: 'terser' } };\n` }),
+      ''
+    );
+    expect(clean.viteMinifyDisabled).toBeUndefined();
+    const absent = await collectProjectFacts(createMemoryRuntime({}), '');
+    expect(absent.viteMinifyDisabled).toBeUndefined();
+  });
+
+  it("analyzes only the first config in Vite's resolution order", async () => {
+    // Vite loads vite.config.js before vite.config.ts — the stale .ts must be ignored.
+    const rt = createMemoryRuntime({
+      'vite.config.js': `export default { build: {} };\n`,
+      'vite.config.ts': `export default { build: { minify: false } };\n`
+    });
+    const p = await collectProjectFacts(rt, '');
+    expect(p.viteMinifyDisabled).toBeUndefined();
+  });
 });
