@@ -42,6 +42,12 @@ describe('PERF011 load waterfall', () => {
     );
     expect(results).toEqual([]);
   });
+
+  it('does not fire for csr=false universal files', async () => {
+    const m = mod('src/routes/+page.ts', 'universal', { dependentLines: [3], independentLines: [] });
+    const results = await perf011LoadWaterfall.check(ctx([{ ...m, csrDisabled: { line: 1 } }]));
+    expect(results).toEqual([]);
+  });
 });
 
 describe('PERF013 sequential independent awaits', () => {

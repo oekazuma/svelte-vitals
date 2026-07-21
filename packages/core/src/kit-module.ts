@@ -31,6 +31,8 @@ export interface KitModuleFacts {
   }[];
   /** Set when this file disables SSR via `export const ssr = false` (inline or same-file alias export) — the declaration's line (SEO031). */
   ssrDisabled?: { line: number };
+  /** Set when this file disables client-side rendering via `export const csr = false` (inline or same-file alias export). With no client runtime, a universal load only runs during SSR — PERF011's browser-waterfall premise doesn't hold. */
+  csrDisabled?: { line: number };
   /** Sequential-await analysis of the exported `load` function (PERF011/PERF013): 1-based lines of await sites that depend on an earlier await's result, and of sites independent of all earlier awaits. Set only when at least one list is non-empty. */
   loadWaterfalls?: { dependentLines: number[]; independentLines: number[] };
   /** Inline `svelte-vitals-disable-next-line` directives in this file. */

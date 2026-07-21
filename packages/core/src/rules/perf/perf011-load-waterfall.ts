@@ -6,7 +6,8 @@ const MESSAGE =
 /**
  * PERF011 — dependent await chains in universal loads. Server loads are exempt:
  * a dependent chain cannot be parallelized, and on the server there is no better
- * placement to suggest.
+ * placement to suggest. csr = false files are exempt too — without a client
+ * runtime the universal load only runs during SSR.
  */
 export const perf011LoadWaterfall = kitModuleRule({
   id: 'PERF011',
@@ -25,6 +26,7 @@ export const perf011LoadWaterfall = kitModuleRule({
       '// +page.server.ts — same chain, server-side hops\nexport async function load({ fetch }) {\n  const user = await fetch(`/api/user`).then((r) => r.json());\n  const posts = await fetch(`/api/posts/${user.id}`).then((r) => r.json());\n  return { user, posts };\n}',
     lang: 'ts'
   },
-  applies: (m) => m.kind === 'universal' && (m.loadWaterfalls?.dependentLines.length ?? 0) > 0,
+  applies: (m) =>
+    m.kind === 'universal' && m.csrDisabled === undefined && (m.loadWaterfalls?.dependentLines.length ?? 0) > 0,
   bad: (m) => m.loadWaterfalls!.dependentLines.map((line) => ({ line, message: MESSAGE }))
 });

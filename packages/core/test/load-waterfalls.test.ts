@@ -224,4 +224,86 @@ describe('collectLoadWaterfalls — exclusions and scope', () => {
     // and falls back to emptyKitModuleFacts (already pinned by the existing
     // malformed-file tests), so `loadWaterfalls` stays unset there too.
   });
+
+  it('taints member-expression assignment targets via their root object', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  const state = {};',
+      '  state.user = await fetch("/api/user").then((r) => r.json());',
+      '  const posts = await fetch(`/api/posts/${state.user.id}`);',
+      '  return { state, posts };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [] });
+  });
+
+  it('propagates taint from assignments inside if blocks without classifying them', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  const a = await fetch("/api/a");',
+      '  let user;',
+      '  if (!a.cached) {',
+      '    user = await fetch("/api/user").then((r) => r.json());',
+      '  }',
+      '  const posts = await fetch(`/api/posts/${user.id}`);',
+      '  return { a, posts };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [7], independentLines: [] });
+  });
+
+  it('taints compound-assignment targets', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  let user;',
+      '  user ??= await fetch("/api/user").then((r) => r.json());',
+      '  const posts = await fetch(`/api/posts/${user.id}`);',
+      '  return { user, posts };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [4], independentLines: [] });
+  });
+
+  it('anchors a dependent statement at its first dependent await', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  const user = await fetch("/api/user").then((r) => r.json());',
+      '  return {',
+      '    a: await fetch("/api/a"),',
+      '    b: await fetch(`/api/b/${user.id}`)',
+      '  };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [5], independentLines: [] });
+  });
+
+  it('does not flag awaits of pre-started promises', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  const aP = fetch("/api/a");',
+      '  const bP = fetch("/api/b");',
+      '  const a = await aP;',
+      '  const b = await bP;',
+      '  return { a, b };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toBeUndefined();
+  });
+
+  it('still flags a work-starting await after a pre-started one', () => {
+    const src = [
+      'export async function load({ fetch }) {',
+      '  const aP = fetch("/api/a");',
+      '  const a = await aP;',
+      '  const b = await fetch("/api/b");',
+      '  return { a, b };',
+      '}'
+    ].join('\n');
+    expect(wf(src)).toEqual({ dependentLines: [], independentLines: [4] });
+  });
+
+  it('records the csr=false opt-out', () => {
+    const src = 'export const csr = false;\nexport async function load({ fetch }) {\n  return {};\n}';
+    expect(parseKitModuleFacts(src, 'src/routes/+page.ts').csrDisabled).toEqual({ line: 1 });
+  });
 });
