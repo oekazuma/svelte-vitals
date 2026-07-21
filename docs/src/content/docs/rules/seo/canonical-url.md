@@ -1,0 +1,24 @@
+---
+title: seo/canonical-url · Canonical URL
+description: Every route should include a <link rel="canonical"> tag.
+---
+
+**Severity:** warning
+
+## What it checks
+
+Every route must include a `<link rel="canonical">` tag (own or inherited through the layout chain). A missing canonical link is flagged.
+
+## Why it matters
+
+A canonical URL tells search engines which URL is authoritative, preventing duplicate-content dilution across query strings and trailing-slash variants.
+
+## How to fix
+
+Add `<link rel="canonical">` in `<svelte:head>`, or set the canonical prop on your meta component:
+
+```svelte
+<svelte:head>
+  <link rel="canonical" href="https://example.com/this-page" />
+</svelte:head>
+```

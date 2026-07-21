@@ -1,0 +1,24 @@
+---
+title: seo/json-ld-validity · JSON-LD validity
+description: A page's JSON-LD must be valid JSON with @context and @type.
+---
+
+**Severity:** warning
+
+## What it checks
+
+For each static `<script type="application/ld+json">`, the content must parse as JSON and contain both `@context` and `@type`. Invalid or incomplete JSON-LD is flagged. A dynamically-built JSON-LD is not checked in static mode.
+
+## Why it matters
+
+Invalid JSON-LD — unparseable, or missing `@context`/`@type` — is silently ignored by search engines, so the structured data does nothing.
+
+## How to fix
+
+```svelte
+<svelte:head>
+  <script type="application/ld+json">
+    { "@context": "https://schema.org", "@type": "WebPage", "name": "…" }
+  </script>
+</svelte:head>
+```

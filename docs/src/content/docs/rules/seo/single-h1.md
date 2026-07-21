@@ -1,0 +1,32 @@
+---
+title: seo/single-h1 · Heading hierarchy
+description: Each page should have exactly one <h1>.
+---
+
+**Severity:** warning
+
+## What it checks
+
+Flags a page with zero `<h1>` (no primary heading) or two or more `<h1>` (diluted topic). Exactly one `<h1>` passes. Headings from the page's layout chain count toward the route, so an `<h1>` in `+layout.svelte` is credited.
+
+## Why it matters
+
+The `<h1>` names a page's main topic — one of the strongest on-page structure signals. Missing it leaves the page without a primary heading; several compete and weaken the topic signal.
+
+## How to fix
+
+```svelte
+<!-- +page.svelte -->
+<h1>The page's single, descriptive main heading</h1>
+<h2>A subsection</h2>
+<h2>Another subsection</h2>
+```
+
+## Mode differences
+
+Headings are collected in both modes, but from different sources, so results can differ:
+
+- **Static (CLI)** walks the route's `.svelte` templates, so it counts headings in branches that may not render (e.g. inside `{#if false}`) and cannot see headings rendered by imported child components.
+- **Rendered (vite)** reads the final HTML, so it sees component-rendered headings and only the branches that actually rendered.
+
+When the two disagree, trust the rendered result — it reflects what ships to the browser.
