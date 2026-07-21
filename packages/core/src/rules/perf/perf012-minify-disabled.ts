@@ -31,16 +31,23 @@ export const perf012MinifyDisabled: Rule = {
   async check(ctx: RuleContext): Promise<Result[]> {
     const hit = ctx.project.viteMinifyDisabled;
     if (!hit) return [];
+    const provenance =
+      hit.file === undefined
+        ? ' The override comes from an inline (programmatic) Vite config.'
+        : hit.line === undefined
+          ? ' The override was resolved from the actual build — it may come from a plugin or a conditional config, not a literal in the file.'
+          : '';
     return [
       {
         id: 'PERF012',
         category: 'performance',
         severity: 'warning',
         detection: PENALIZED,
-        location: hit.file,
-        line: hit.line,
+        ...(hit.file !== undefined ? { location: hit.file } : {}),
+        ...(hit.line !== undefined ? { line: hit.line } : {}),
         message:
-          'JS/CSS minification is disabled (build.minify: false) — production bundles ship unminified and several times larger.',
+          'JS/CSS minification is disabled (build.minify: false) — production bundles ship unminified and several times larger.' +
+          provenance,
         recommendation: RECOMMENDATION,
         docsUrl: docsUrlFor('PERF012'),
         fix: { ...PERF012_FIX }

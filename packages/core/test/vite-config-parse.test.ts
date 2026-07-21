@@ -107,4 +107,49 @@ export default { build: { [k]: false } };
     });
     expect(findMinifyDisabled(`export default { build: { minify: false, minify: 'esbuild' } };\n`)).toBeUndefined();
   });
+
+  it('skips when a spread after minify:false could re-enable it', () => {
+    const src = `const prod = { minify: 'esbuild' };
+export default { build: { minify: false, ...prod } };
+`;
+    expect(findMinifyDisabled(src)).toBeUndefined();
+  });
+
+  it('still flags when the spread comes before the literal', () => {
+    const src = `const base = { sourcemap: true };
+export default { build: { ...base, minify: false } };
+`;
+    expect(findMinifyDisabled(src)).toEqual({ line: 2 });
+  });
+
+  it('skips when a spread after build could replace the build object', () => {
+    const src = `const extra = {};
+export default { build: { minify: false }, ...extra };
+`;
+    expect(findMinifyDisabled(src)).toBeUndefined();
+  });
+
+  it('resolves an identifier argument of defineConfig', () => {
+    const src = `import { defineConfig } from 'vite';
+const config = {
+  build: {
+    minify: false
+  }
+};
+export default defineConfig(config);
+`;
+    expect(findMinifyDisabled(src)).toEqual({ line: 4 });
+  });
+
+  it('detects the CommonJS module.exports form', () => {
+    const src = `module.exports = {
+  build: { minify: false }
+};
+`;
+    expect(findMinifyDisabled(src)).toEqual({ line: 2 });
+  });
+
+  it('does not flag clean CommonJS configs', () => {
+    expect(findMinifyDisabled(`module.exports = { build: {} };\n`)).toBeUndefined();
+  });
 });

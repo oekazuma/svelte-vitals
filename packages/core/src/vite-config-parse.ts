@@ -4,7 +4,9 @@
  * string. Uses the shared wrap parser; unlike `findSsrFalseOptOut` (which gets an
  * already-wrapped program and leaves the −1 shift to its caller), this function
  * takes the raw source and returns lines already shifted to the original
- * source's coordinates.
+ * source's coordinates. Supports ESM (`export default {…}` /
+ * `defineConfig({…})` / a same-file alias, including a same-file identifier
+ * passed as `defineConfig`'s argument) and CJS (`module.exports = {…}`) forms.
  */
 import { parseModuleProgram } from './component-parse.js';
 import { unwrapTs, collectTopLevelBindings } from './kit-module-parse.js';
@@ -17,11 +19,19 @@ type Node = any;
 /**
  * Non-computed property of an object literal, by key name (`build` or `'build'`).
  * Returns the LAST matching property, honoring JavaScript object semantics where
- * duplicate keys are resolved to the rightmost value.
+ * duplicate keys are resolved to the rightmost value — UNLESS a `SpreadElement`
+ * appears after that match in the same object literal, in which case the spread
+ * could re-introduce or overwrite the key at runtime and the effective value is
+ * unknowable, so this conservatively returns undefined. A spread BEFORE the
+ * match doesn't matter — the literal property still wins.
  */
 function propOf(obj: Node, name: string): Node | undefined {
   let found: Node | undefined;
   for (const p of obj.properties ?? []) {
+    if (p?.type === 'SpreadElement') {
+      if (found) found = undefined; // a match already found is now unknowable
+      continue;
+    }
     if (p?.type !== 'Property' || p.computed) continue;
     if (p.key?.type === 'Identifier' && p.key.name === name) found = p;
     else if (p.key?.type === 'Literal' && p.key.value === name) found = p;
@@ -30,30 +40,80 @@ function propOf(obj: Node, name: string): Node | undefined {
 }
 
 /**
- * Resolve the default-exported config expression to an object literal:
- * `export default {…}`, `export default defineConfig({…})` (any call's first
- * argument — the callee name is not verified), or a same-file alias
- * (`const config = {…}; export default config`), with `satisfies`/`as`
- * unwrapped at every step. Function-form configs and anything else resolve to
- * undefined — the CLI channel is deliberately literal-only; the Vite plugin
- * channel sees the resolved value instead.
+ * Unwrap an expression to an object literal, resolving up to 4 steps of: TS
+ * wrappers (`satisfies`/`as`), an `Identifier` through same-file top-level
+ * `bindings`, and a `CallExpression`'s first argument (so both
+ * `defineConfig({…})` and `defineConfig(config)` — a same-file identifier
+ * argument — resolve, and so does either nested inside the other). Stops as
+ * soon as an `ObjectExpression` is reached, or when a step can't make further
+ * progress (an unresolvable identifier, or anything else that isn't a wrapper,
+ * identifier, or call).
  */
-function resolveConfigObject(program: Node): Node | undefined {
+function unwrapToObjectExpression(expr: Node, bindings: Map<string, Node>): Node | undefined {
+  for (let i = 0; i < 4 && expr; i++) {
+    expr = unwrapTs(expr);
+    if (expr?.type === 'ObjectExpression') return expr;
+    if (expr?.type === 'Identifier') {
+      expr = bindings.get(expr.name);
+      continue;
+    }
+    if (expr?.type === 'CallExpression') {
+      expr = expr.arguments?.[0];
+      continue;
+    }
+    return undefined;
+  }
+  return expr?.type === 'ObjectExpression' ? expr : undefined;
+}
+
+/**
+ * The exported config expression's raw (un-unwrapped) node: an ESM
+ * `export default …` declaration, or — when no default export exists — the
+ * RHS of the LAST top-level CJS `module.exports = …` assignment (mirrors
+ * JavaScript's last-assignment-wins semantics, same rationale as `propOf`'s
+ * last-wins). Undefined when neither form is present.
+ */
+function findExportedExpression(program: Node): Node | undefined {
   let exported: Node | undefined;
   for (const stmt of program.body ?? []) {
     if (stmt?.type === 'ExportDefaultDeclaration') exported = stmt.declaration;
   }
+  if (exported) return exported;
+
+  let cjsExported: Node | undefined;
+  for (const stmt of program.body ?? []) {
+    if (stmt?.type !== 'ExpressionStatement') continue;
+    const expr = stmt.expression;
+    if (expr?.type !== 'AssignmentExpression' || expr.operator !== '=') continue;
+    const left = expr.left;
+    if (
+      left?.type === 'MemberExpression' &&
+      !left.computed &&
+      left.object?.type === 'Identifier' &&
+      left.object.name === 'module' &&
+      left.property?.type === 'Identifier' &&
+      left.property.name === 'exports'
+    ) {
+      cjsExported = expr.right;
+    }
+  }
+  return cjsExported;
+}
+
+/**
+ * Resolve the exported config expression to an object literal: ESM
+ * `export default {…}`, `export default defineConfig({…})` (any call's first
+ * argument — the callee name is not verified), a same-file alias
+ * (`const config = {…}; export default config`) including one passed as
+ * `defineConfig`'s argument, or CJS `module.exports = {…}` in the same forms —
+ * with `satisfies`/`as` unwrapped at every step. Function-form configs and
+ * anything else resolve to undefined — the CLI channel is deliberately
+ * literal-only; the Vite plugin channel sees the resolved value instead.
+ */
+function resolveConfigObject(program: Node): Node | undefined {
+  const exported = findExportedExpression(program);
   if (!exported) return undefined;
-  let expr = unwrapTs(exported);
-  if (expr?.type === 'Identifier') {
-    const resolved = collectTopLevelBindings(program).get(expr.name);
-    if (!resolved) return undefined;
-    expr = unwrapTs(resolved);
-  }
-  if (expr?.type === 'CallExpression') {
-    expr = expr.arguments?.[0] ? unwrapTs(expr.arguments[0]) : undefined;
-  }
-  return expr?.type === 'ObjectExpression' ? expr : undefined;
+  return unwrapToObjectExpression(exported, collectTopLevelBindings(program));
 }
 
 /**

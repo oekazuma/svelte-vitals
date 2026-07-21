@@ -3,7 +3,7 @@ import { perf012MinifyDisabled } from '../src/rules/perf/perf012-minify-disabled
 import { defaultProject, defaultConfig } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 
-function ctx(viteMinifyDisabled?: { file: string; line: number }): RuleContext {
+function ctx(viteMinifyDisabled?: { file?: string; line?: number }): RuleContext {
   return {
     heads: [],
     project: { ...defaultProject, ...(viteMinifyDisabled ? { viteMinifyDisabled } : {}) },
@@ -32,6 +32,20 @@ describe('PERF012 minify disabled', () => {
     );
     expect(r.fix?.description).toBeTruthy();
     expect(r.docsUrl).toContain('perf012');
+  });
+
+  it('omits the line and explains build-time provenance when only the file is known', async () => {
+    const results = await perf012MinifyDisabled.check(ctx({ file: 'vite.config.ts' }));
+    expect(results[0]!.line).toBeUndefined();
+    expect(results[0]!.location).toBe('vite.config.ts');
+    expect(results[0]!.message).toContain('resolved from the actual build');
+  });
+
+  it('omits the location and names the inline config when no file is known', async () => {
+    const results = await perf012MinifyDisabled.check(ctx({}));
+    expect(results[0]!.location).toBeUndefined();
+    expect(results[0]!.line).toBeUndefined();
+    expect(results[0]!.message).toContain('inline (programmatic) Vite config');
   });
 
   it('is registered with project scope', async () => {
