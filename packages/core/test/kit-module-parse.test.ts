@@ -363,3 +363,24 @@ describe('parseKitModuleFacts — browser-global refs (CORRECT008)', () => {
     ]);
   });
 });
+
+describe('parseKitModuleFacts — ssrDisabled (SEO031)', () => {
+  it('records the declaration line for an inline export const ssr = false', () => {
+    const src = 'export const prerender = true;\nexport const ssr = false;';
+    expect(facts(src, 'src/routes/+page.ts').ssrDisabled).toEqual({ line: 2 });
+  });
+  it('handles satisfies and the alias-export form', () => {
+    expect(facts('export const ssr = false satisfies boolean;', 'src/routes/+page.ts').ssrDisabled).toEqual({
+      line: 1
+    });
+    expect(facts('const ssr = false;\nexport { ssr };', 'src/routes/+page.ts').ssrDisabled).toEqual({ line: 1 });
+  });
+  it('is absent for csr = false, ssr = true, non-literal, and non-exported forms', () => {
+    expect(facts('export const csr = false;', 'src/routes/+page.ts').ssrDisabled).toBeUndefined();
+    expect(facts('export const ssr = true;', 'src/routes/+page.ts').ssrDisabled).toBeUndefined();
+    expect(
+      facts("import { dev } from '$app/environment';\nexport const ssr = dev;", 'src/routes/+page.ts').ssrDisabled
+    ).toBeUndefined();
+    expect(facts('const ssr = false;', 'src/routes/+page.ts').ssrDisabled).toBeUndefined();
+  });
+});

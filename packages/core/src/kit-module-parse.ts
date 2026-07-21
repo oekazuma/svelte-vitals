@@ -37,7 +37,7 @@ const HANDLER_NAMES = new Set([
 ]);
 
 /** Unwrap TS wrapper expressions (`x satisfies T`, `x as T`) to the underlying expression. */
-function unwrapTs(expr: Node): Node {
+export function unwrapTs(expr: Node): Node {
   let cur = expr;
   while (cur?.type === 'TSSatisfiesExpression' || cur?.type === 'TSAsExpression') cur = cur.expression;
   return cur;
@@ -55,7 +55,7 @@ function isFunctionNode(n: Node): boolean {
  * inline `export` declarations. Cross-file re-exports (`export { load } from …`)
  * stay unresolved — conservative, matching the design's direct-analysis scope.
  */
-function collectTopLevelBindings(program: Node): Map<string, Node> {
+export function collectTopLevelBindings(program: Node): Map<string, Node> {
   const bindings = new Map<string, Node>();
   for (const stmt of program.body ?? []) {
     const decl = unwrapExport(stmt);
@@ -80,41 +80,45 @@ function addActionsMembers(obj: Node, handlers: Set<Node>): void {
 }
 
 /**
- * Same-file alias exports (`export { load }`, `export { handler as GET }`, an
- * alias-exported `actions` object) resolved against `bindings` and folded into
- * `handlers` — mirrors the classification inline `export` declarations get.
+ * Iterate the module's named exports, calling `visit(name, value, anchor)` for
+ * each: first inline `export` declarations (`export function f` yields the
+ * declaration itself; `export const x = …` yields each declarator's TS-unwrapped
+ * init), then same-file alias specifiers (`export { local as name }`) resolved
+ * through `collectTopLevelBindings` — type-only exports and cross-file re-exports
+ * are skipped. `anchor` is the node whose `start` carries the export's source
+ * position (the declarator/declaration inline, the resolved node for aliases).
+ * A visitor returning `true` stops the walk (first-match finders). Bindings are
+ * built lazily, once, and only when an alias specifier actually resolves a pass.
+ * Replaces the four hand-rolled copies that classified handlers, the `init`
+ * hook, `ssr`/`csr` opt-outs, and the `load` function.
  */
-function resolveAliasHandlerExports(program: Node, bindings: Map<string, Node>, handlers: Set<Node>): void {
+function forEachNamedExport(
+  program: Node,
+  visit: (name: string, value: Node, anchor: Node) => boolean | undefined
+): void {
   for (const stmt of program.body ?? []) {
-    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.specifiers || stmt.source || stmt.exportKind === 'type')
+    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.declaration) continue;
+    const decl = stmt.declaration;
+    if (decl.type === 'FunctionDeclaration' && decl.id?.type === 'Identifier') {
+      if (visit(decl.id.name, decl, decl)) return;
       continue;
-    for (const s of stmt.specifiers) {
-      if (s?.exportKind === 'type' || s?.exported?.type !== 'Identifier' || s?.local?.type !== 'Identifier') continue;
-      const exportedName = s.exported.name;
-      const resolved = bindings.get(s.local.name);
-      if (HANDLER_NAMES.has(exportedName) && isFunctionNode(resolved)) {
-        handlers.add(resolved);
-      } else if (exportedName === 'actions' && resolved?.type === 'ObjectExpression') {
-        addActionsMembers(resolved, handlers);
-      }
+    }
+    if (decl.type !== 'VariableDeclaration') continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type !== 'Identifier' || !d.init) continue;
+      if (visit(d.id.name, unwrapTs(d.init), d)) return;
     }
   }
-}
-
-/**
- * Same-file alias exports of the `init` startup hook (`export { init }`) resolved
- * against `bindings` and folded into `startup` — mirrors the classification an
- * inline `export async function init() {}` gets.
- */
-function resolveAliasStartupExports(program: Node, bindings: Map<string, Node>, startup: Set<Node>): void {
+  let bindings: Map<string, Node> | undefined;
   for (const stmt of program.body ?? []) {
     if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.specifiers || stmt.source || stmt.exportKind === 'type')
       continue;
     for (const s of stmt.specifiers) {
       if (s?.exportKind === 'type' || s?.exported?.type !== 'Identifier' || s?.local?.type !== 'Identifier') continue;
-      if (s.exported.name !== 'init') continue;
+      bindings ??= collectTopLevelBindings(program);
       const resolved = bindings.get(s.local.name);
-      if (isFunctionNode(resolved)) startup.add(resolved);
+      if (resolved === undefined) continue;
+      if (visit(s.exported.name, resolved, resolved)) return;
     }
   }
 }
@@ -129,25 +133,11 @@ function resolveAliasStartupExports(program: Node, bindings: Map<string, Node>, 
  */
 function collectHandlerFunctions(program: Node): Set<Node> {
   const handlers = new Set<Node>();
-  for (const stmt of program.body ?? []) {
-    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.declaration) continue;
-    const decl = stmt.declaration;
-    if (decl.type === 'FunctionDeclaration' && decl.id?.type === 'Identifier' && HANDLER_NAMES.has(decl.id.name)) {
-      handlers.add(decl);
-      continue;
-    }
-    if (decl.type !== 'VariableDeclaration') continue;
-    for (const d of decl.declarations ?? []) {
-      if (d?.id?.type !== 'Identifier' || !d.init) continue;
-      const init = unwrapTs(d.init);
-      if (HANDLER_NAMES.has(d.id.name) && isFunctionNode(init)) {
-        handlers.add(init);
-      } else if (d.id.name === 'actions' && init?.type === 'ObjectExpression') {
-        addActionsMembers(init, handlers);
-      }
-    }
-  }
-  resolveAliasHandlerExports(program, collectTopLevelBindings(program), handlers);
+  forEachNamedExport(program, (name, value) => {
+    if (HANDLER_NAMES.has(name) && isFunctionNode(value)) handlers.add(value);
+    else if (name === 'actions' && value?.type === 'ObjectExpression') addActionsMembers(value, handlers);
+    return undefined;
+  });
   return handlers;
 }
 
@@ -160,56 +150,233 @@ function collectHandlerFunctions(program: Node): Set<Node> {
  */
 function collectStartupFunctions(program: Node): Set<Node> {
   const startup = new Set<Node>();
-  for (const stmt of program.body ?? []) {
-    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.declaration) continue;
-    const decl = stmt.declaration;
-    if (decl.type === 'FunctionDeclaration' && decl.id?.type === 'Identifier' && decl.id.name === 'init') {
-      startup.add(decl);
-      continue;
-    }
-    if (decl.type !== 'VariableDeclaration') continue;
-    for (const d of decl.declarations ?? []) {
-      if (d?.id?.type !== 'Identifier' || !d.init) continue;
-      const init = unwrapTs(d.init);
-      if (d.id.name === 'init' && isFunctionNode(init)) startup.add(init);
-    }
-  }
-  resolveAliasStartupExports(program, collectTopLevelBindings(program), startup);
+  forEachNamedExport(program, (name, value) => {
+    if (name === 'init' && isFunctionNode(value)) startup.add(value);
+    return undefined;
+  });
   return startup;
 }
 
 /**
- * Whether this file opts out of the server entirely via `export const ssr = false`
- * (satisfies-unwrapped; same-file alias export `export { ssr }` resolved). Such a file
- * never runs on the server, so browser globals in it are legal (CORRECT008).
+ * The `export const ssr = false` / `export const csr = false` opt-out, when
+ * present: inline form (`satisfies`/`as` unwrapped) or same-file alias export
+ * (`const ssr = false; export { ssr };`). Returns the declaration's line in the
+ * WRAPPED source (the caller applies the −1 shift). An `ssr = false` file never
+ * runs on the server — CORRECT008 skips its browser-global scan, and SEO031
+ * reports the flag itself. A `csr = false` file never ships a client runtime —
+ * PERF011 exempts it (see `csrDisabled` on `KitModuleFacts`).
  */
-function hasSsrFalseOptOut(program: Node): boolean {
-  const isFalse = (init: Node): boolean => {
-    const v = unwrapTs(init);
-    return v?.type === 'Literal' && v.value === false;
+function findFalseOptOut(program: Node, source: string, name: 'ssr' | 'csr'): { line: number } | undefined {
+  let hit: { line: number } | undefined;
+  forEachNamedExport(program, (exported, value, anchor) => {
+    if (exported !== name || value?.type !== 'Literal' || value.value !== false) return undefined;
+    hit = { line: lineOf(source, anchor.start) };
+    return true;
+  });
+  return hit;
+}
+
+/**
+ * The exported `load` function node (inline `export function load` / `export const
+ * load = …`, `satisfies`/`as` unwrapped) or a same-file alias export. Cross-file
+ * re-exports stay unresolved, matching the other collectors' scope.
+ */
+function findLoadFunction(program: Node): Node | undefined {
+  let load: Node | undefined;
+  forEachNamedExport(program, (name, value) => {
+    if (name !== 'load' || !isFunctionNode(value)) return undefined;
+    load = value;
+    return true;
+  });
+  return load;
+}
+
+/** All AwaitExpression nodes in `node`, not descending into nested functions. */
+function collectAwaits(node: Node, out: Node[] = []): Node[] {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAwaits(child, out);
+    return out;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return out;
+  if (isFunctionNode(node)) return out;
+  if (node.type === 'AwaitExpression') out.push(node);
+  for (const key of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key)) continue;
+    collectAwaits(node[key], out);
+  }
+  return out;
+}
+
+/**
+ * Whether `await`'s argument is a `parent()` / `<x>.parent()` call (Kit's parent-load
+ * step, PERF011/013-exempt). Any `<expr>.parent()` member call matches — over-broad
+ * in the false-negative direction only, which is the conservative side.
+ */
+function isParentCall(arg: Node): boolean {
+  const e = unwrapTs(arg);
+  if (e?.type !== 'CallExpression') return false;
+  const callee = e.callee;
+  if (callee?.type === 'Identifier' && callee.name === 'parent') return true;
+  return callee?.type === 'MemberExpression' && !callee.computed && callee.property?.name === 'parent';
+}
+
+const BODY_METHODS = new Set(['json', 'text', 'blob', 'arrayBuffer', 'formData', 'bytes']);
+
+/**
+ * Whether `await`'s argument is a response-body read (`res.json()`, `res.text()`, …):
+ * parsing an already-received body costs no extra round trip, so it is not a
+ * waterfall hop. Like `parent()`, exempt from classification while its bindings
+ * still taint (the parsed data IS derived from the earlier request).
+ */
+function isBodyParseCall(arg: Node): boolean {
+  const e = unwrapTs(arg);
+  if (e?.type !== 'CallExpression' || e.arguments?.length) return false;
+  const callee = e.callee;
+  return callee?.type === 'MemberExpression' && !callee.computed && BODY_METHODS.has(callee.property?.name);
+}
+
+/**
+ * Whether the expression references any tainted name. Threads nested-function
+ * shadowing (`scopeIntroducedNames`) so a callback parameter that shadows a
+ * tainted binding does not create a false dependency; non-computed member
+ * properties and object keys don't count as references.
+ */
+function refsTainted(node: Node, tainted: Set<string>): boolean {
+  let hit = false;
+  const walk = (n: Node, shadowed: Set<string>): void => {
+    if (hit) return;
+    if (Array.isArray(n)) {
+      for (const child of n) walk(child, shadowed);
+      return;
+    }
+    if (!n || typeof n !== 'object' || typeof n.type !== 'string') return;
+    const introduced = scopeIntroducedNames(n);
+    const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
+    if (n.type === 'Identifier' && tainted.has(n.name) && !scope.has(n.name)) {
+      hit = true;
+      return;
+    }
+    for (const key of Object.keys(n)) {
+      if (WALK_IGNORED_KEYS.has(key)) continue;
+      if (n.type === 'MemberExpression' && key === 'property' && !n.computed) continue;
+      if (n.type === 'Property' && key === 'key' && !n.computed) continue;
+      walk(n[key], scope);
+    }
   };
-  for (const stmt of program.body ?? []) {
-    const decl = unwrapExport(stmt);
-    if (decl?.type !== 'VariableDeclaration') continue;
-    for (const d of decl.declarations ?? []) {
-      if (d?.id?.type === 'Identifier' && d.id.name === 'ssr' && d.init && isFalse(d.init)) {
-        if (stmt.type === 'ExportNamedDeclaration') return true;
+  walk(node, new Set());
+  return hit;
+}
+
+/**
+ * PERF011/PERF013 — forward-taint analysis of the exported `load`'s straight-line
+ * statements (direct `try` blocks inlined; `if`/loops/`switch` are not classified
+ * but still propagate taint from their assignments; nested functions are never
+ * entered). One await site per statement; a site whose awaits' argument subtrees
+ * reference an earlier site's bindings (transitively, through intermediate consts
+ * and assignments — member-expression targets taint their root object) is
+ * dependent, anchored at the first dependent await; otherwise independent when a
+ * prior site exists, unless every await merely resumes an already-created promise
+ * (a bare identifier argument starts no request). `await parent()` and
+ * response-body reads are never sites, but their bindings taint. Lines are
+ * returned in ORIGINAL-source coordinates (the −1 wrap shift is applied here).
+ */
+function collectLoadWaterfalls(
+  program: Node,
+  wrapped: string
+): { dependentLines: number[]; independentLines: number[] } {
+  const dependentLines: number[] = [];
+  const independentLines: number[] = [];
+  const load = findLoadFunction(program);
+  if (!load?.body || load.body.type !== 'BlockStatement') return { dependentLines, independentLines };
+
+  const line = (start: number) => Math.max(0, lineOf(wrapped, start) - 1);
+  const tainted = new Set<string>();
+  let sawAwaitSite = false;
+
+  const taintAssignTarget = (left: Node): void => {
+    if (left?.type === 'MemberExpression') {
+      const root = rootObjectName(left);
+      if (root) tainted.add(root);
+    } else {
+      addBoundNames(left, tainted);
+    }
+  };
+
+  // Taint-only scan for regions we don't classify: assignments/declarations whose
+  // RHS contains an await or references taint taint their target. Never enters
+  // nested functions; creates no sites.
+  const taintOnly = (node: Node): void => {
+    if (Array.isArray(node)) {
+      for (const child of node) taintOnly(child);
+      return;
+    }
+    if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+    if (isFunctionNode(node)) return;
+    if (node.type === 'AssignmentExpression') {
+      if (collectAwaits(node.right).length > 0 || refsTainted(node.right, tainted)) taintAssignTarget(node.left);
+    } else if (node.type === 'VariableDeclaration') {
+      for (const d of node.declarations ?? []) {
+        if (d?.id && d.init && (collectAwaits(d.init).length > 0 || refsTainted(d.init, tainted))) {
+          addBoundNames(d.id, tainted);
+        }
       }
     }
-  }
-  // Alias export: `const ssr = false; export { ssr };`
-  const bindings = collectTopLevelBindings(program);
-  for (const stmt of program.body ?? []) {
-    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.specifiers || stmt.source || stmt.exportKind === 'type')
-      continue;
-    for (const s of stmt.specifiers) {
-      if (s?.exportKind === 'type' || s?.exported?.type !== 'Identifier' || s?.local?.type !== 'Identifier') continue;
-      if (s.exported.name !== 'ssr') continue;
-      const resolved = bindings.get(s.local.name);
-      if (resolved?.type === 'Literal' && resolved.value === false) return true;
+    for (const key of Object.keys(node)) {
+      if (WALK_IGNORED_KEYS.has(key)) continue;
+      taintOnly(node[key]);
     }
-  }
-  return false;
+  };
+
+  const processStatements = (body: Node[]): void => {
+    for (const stmt of body ?? []) {
+      if (!stmt) continue;
+      if (stmt.type === 'TryStatement') {
+        if (stmt.block?.type === 'BlockStatement') processStatements(stmt.block.body);
+        if (stmt.handler) taintOnly(stmt.handler);
+        if (stmt.finalizer) taintOnly(stmt.finalizer);
+        continue;
+      }
+      if (
+        stmt.type === 'VariableDeclaration' ||
+        stmt.type === 'ExpressionStatement' ||
+        stmt.type === 'ReturnStatement'
+      ) {
+        const sites = collectAwaits(stmt).filter((a) => !isParentCall(a.argument) && !isBodyParseCall(a.argument));
+        if (sites.length > 0) {
+          const dependent = sites.filter((a) => refsTainted(a.argument, tainted));
+          if (dependent.length > 0) {
+            const anchor = dependent.reduce((m, a) => (a.start < m.start ? a : m));
+            dependentLines.push(line(anchor.start));
+          } else if (sawAwaitSite) {
+            // Awaiting an already-created promise (bare identifier) starts no request —
+            // only awaits that start work can be needlessly sequential.
+            const workSites = sites.filter((a) => unwrapTs(a.argument)?.type !== 'Identifier');
+            if (workSites.length > 0) {
+              const anchor = workSites.reduce((m, a) => (a.start < m.start ? a : m));
+              independentLines.push(line(anchor.start));
+            }
+          }
+          sawAwaitSite = true;
+        }
+        if (stmt.type === 'VariableDeclaration') {
+          for (const d of stmt.declarations ?? []) {
+            if (!d?.id || !d.init) continue;
+            if (collectAwaits(d.init).length > 0 || refsTainted(d.init, tainted)) addBoundNames(d.id, tainted);
+          }
+        } else if (stmt.type === 'ExpressionStatement') {
+          const expr = unwrapTs(stmt.expression);
+          if (expr?.type === 'AssignmentExpression') {
+            if (collectAwaits(expr.right).length > 0 || refsTainted(expr.right, tainted)) taintAssignTarget(expr.left);
+          }
+        }
+      } else {
+        taintOnly(stmt);
+      }
+    }
+  };
+
+  processStatements(load.body.body);
+  return { dependentLines, independentLines };
 }
 
 /**
@@ -384,7 +551,10 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
   // at function boundaries, so run it once over the program (top level) and once per
   // handler/init body; closures nested inside handlers are deliberately not entered
   // (they are typically client-side callbacks returned to components).
-  if (!hasSsrFalseOptOut(program)) {
+  const ssrOptOut = findFalseOptOut(program, wrapped, 'ssr');
+  const csrOptOut = findFalseOptOut(program, wrapped, 'csr');
+  const waterfalls = collectLoadWaterfalls(program, wrapped);
+  if (!ssrOptOut) {
     // The scanner returns line numbers computed against `wrapped` — subtract the
     // 1-line wrap prefix (the local `line()` helper takes a byte OFFSET, not a line,
     // so it must not be used here).
@@ -513,6 +683,11 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
     runesModuleImports: byLine(runesModuleImports),
     lifecycleCalls: byLine(lifecycleCalls),
     browserGlobalRefs: byLine(browserGlobalRefs),
+    ...(ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {}),
+    ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),
+    ...(waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0
+      ? { loadWaterfalls: waterfalls }
+      : {}),
     suppressions
   };
 }

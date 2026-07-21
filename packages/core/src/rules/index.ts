@@ -37,6 +37,7 @@ import { seo026Hreflang } from './seo/seo026-hreflang.js';
 import { seo027Heading } from './seo/seo027-heading.js';
 import { seo028TitleUnique, seo029DescriptionUnique } from './seo/seo028-029-uniqueness.js';
 import { seo030HeadingOrder } from './seo/seo030-heading-order.js';
+import { seo031SsrDisabled } from './seo/seo031-ssr-disabled.js';
 import { correct001EachKey, correct002EffectDerived, correct003EffectAsOnMount } from './correctness/correct001-002.js';
 import { correct004UnmutatedState } from './correctness/correct004-unmutated-state.js';
 import { correct005PropMutation } from './correctness/correct005-prop-mutation.js';
@@ -51,6 +52,9 @@ import { sec005SharedStateImport } from './security/sec005-shared-state-import.j
 import { arch001ComponentSize, arch002PropCount } from './architecture/arch001-002.js';
 import { perf009HeavyImport } from './perf/perf009-heavy-import.js';
 import { perf010NamespaceImport } from './perf/perf010-namespace-import.js';
+import { perf012MinifyDisabled } from './perf/perf012-minify-disabled.js';
+import { perf011LoadWaterfall } from './perf/perf011-load-waterfall.js';
+import { perf013SequentialAwaits } from './perf/perf013-sequential-awaits.js';
 
 export const allRules: Rule[] = [
   seo001Title,
@@ -91,6 +95,7 @@ export const allRules: Rule[] = [
   seo028TitleUnique,
   seo029DescriptionUnique,
   seo030HeadingOrder,
+  seo031SsrDisabled,
   correct001EachKey,
   correct002EffectDerived,
   correct003EffectAsOnMount,
@@ -108,7 +113,10 @@ export const allRules: Rule[] = [
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,
-  perf010NamespaceImport
+  perf010NamespaceImport,
+  perf012MinifyDisabled,
+  perf011LoadWaterfall,
+  perf013SequentialAwaits
 ];
 
 export {
@@ -150,6 +158,7 @@ export {
   seo028TitleUnique,
   seo029DescriptionUnique,
   seo030HeadingOrder,
+  seo031SsrDisabled,
   correct001EachKey,
   correct002EffectDerived,
   correct003EffectAsOnMount,
@@ -167,7 +176,10 @@ export {
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,
-  perf010NamespaceImport
+  perf010NamespaceImport,
+  perf012MinifyDisabled,
+  perf011LoadWaterfall,
+  perf013SequentialAwaits
 };
 
 export interface RuleInfo {

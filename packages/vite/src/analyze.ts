@@ -12,7 +12,8 @@ import {
   defineConfig,
   type Result,
   type Summary,
-  type Severity
+  type Severity,
+  type Project
 } from '@svelte-vitals/core';
 import { loadConfigFile } from 'svelte-vitals';
 import type { SvelteVitalsOptions } from './plugin.js';
@@ -43,7 +44,8 @@ export interface AnalyzeResult {
 export async function analyze(
   prerenderPagesDir: string,
   cwd: string,
-  options: SvelteVitalsOptions
+  options: SvelteVitalsOptions,
+  extraProjectFacts?: Partial<Project>
 ): Promise<AnalyzeResult> {
   const loaded = await loadConfigFile(cwd);
   const fileConfig = loaded?.config;
@@ -61,7 +63,10 @@ export async function analyze(
   });
 
   const { heads, headings, images, htmlLang } = await collectRenderedHeads(prerenderPagesDir);
-  const project = await collectRenderedProject(cwd, htmlLang);
+  const project = {
+    ...(await collectRenderedProject(cwd, htmlLang)),
+    ...(extraProjectFacts ?? {})
+  };
   const components = await collectComponentFacts(cwd);
   const kitModules = await collectKitModuleFacts(cwd);
   const results = applyOverrides(

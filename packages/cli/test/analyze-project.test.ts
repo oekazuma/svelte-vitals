@@ -9,6 +9,8 @@ const fixtureDir = join(here, 'fixtures', 'basic-project');
 const configFileFixtureDir = join(here, 'fixtures', 'config-file-project');
 const configFileInvalidFixtureDir = join(here, 'fixtures', 'config-file-invalid-project');
 const configFileWarningsFixtureDir = join(here, 'fixtures', 'config-file-warnings');
+const minifyDisabledFixtureDir = join(here, 'fixtures', 'minify-disabled-project');
+const waterfallProjectFixtureDir = join(here, 'fixtures', 'waterfall-project');
 
 describe('analyzeProject', () => {
   it('returns results, config, version and warnings for a SvelteKit project', async () => {
@@ -43,6 +45,34 @@ describe('analyzeProject', () => {
       r.detection.presence === 'none' || r.detection.value === 'absent';
     expect(seoOf('/dashboard').filter(penalized)).toEqual([]);
     expect(seoOf('/public').some((r) => r.id === 'SEO001' && penalized(r))).toBe(true);
+  });
+
+  it('flags PERF012 when vite.config disables minification', async () => {
+    const { results } = await analyzeProject({ cwd: minifyDisabledFixtureDir });
+    const hit = results.find((r) => r.id === 'PERF012');
+    expect(hit).toBeDefined();
+    expect(hit?.detection.presence).toBe('none');
+    expect(hit?.location).toBe('vite.config.ts');
+    expect(hit?.line).toBe(5);
+    expect(hit?.route).toBeUndefined();
+  });
+
+  it('emits no PERF012 result for a project without the override', async () => {
+    const { results } = await analyzeProject({ cwd: fixtureDir });
+    expect(results.some((r) => r.id === 'PERF012')).toBe(false);
+  });
+
+  it('flags PERF011 and PERF013 in a universal load, PERF013 only in a server load', async () => {
+    const { results } = await analyzeProject({ cwd: waterfallProjectFixtureDir });
+    const perf011 = results.filter((r) => r.id === 'PERF011' && r.detection.presence === 'none');
+    expect(perf011.map((r) => ({ file: r.location, line: r.line }))).toEqual([
+      { file: 'src/routes/+page.ts', line: 3 }
+    ]);
+    const perf013 = results.filter((r) => r.id === 'PERF013' && r.detection.presence === 'none');
+    expect(perf013.map((r) => ({ file: r.location, line: r.line }))).toEqual([
+      { file: 'src/routes/+page.ts', line: 4 },
+      { file: 'src/routes/server/+page.server.ts', line: 4 }
+    ]);
   });
 });
 

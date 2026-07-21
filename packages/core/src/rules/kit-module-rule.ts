@@ -1,4 +1,4 @@
-import type { Result, Severity } from '../types.js';
+import type { Fix, Result, Severity } from '../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../rule.js';
 import type { KitModuleFacts } from '../kit-module.js';
 
@@ -14,14 +14,16 @@ export interface KitModuleIssue {
 export interface KitModuleRuleOptions {
   id: string;
   title: string;
-  /** The SSR shared-state rules are Security rules. */
-  category: 'security';
+  /** Kit-file rules report as Security (SEC003–005), SEO (SEO031), or Performance (PERF011/PERF013). */
+  category: 'security' | 'seo' | 'performance';
   /** Default 'warning'. */
   severity?: Severity;
   /** Pass message / category label. */
   label: string;
   recommendation: string;
   rationale: string;
+  /** Agent-actionable remediation attached to the rule and each penalized finding. */
+  fix?: Fix;
   /** Whether this file carries the signal at all (no signal → emit nothing for the file). */
   applies: (m: KitModuleFacts, ctx: RuleContext) => boolean;
   /** The offending occurrences (empty → the file passes). `ctx` lets SEC005 read ctx.components. */
@@ -34,7 +36,7 @@ function isSuppressed(m: KitModuleFacts, ruleId: string, line: number): boolean 
 }
 
 /**
- * Build a Kit-module-scoped rule (SEC003–005) over `ctx.kitModules`. Static/CLI and
+ * Build a Kit-module-scoped rule (SEC003–005, SEO031) over `ctx.kitModules`. Static/CLI and
  * vite build mode only — `ctx.kitModules` is unset in rendered mode, so it emits
  * nothing there. Findings use the source file as the scoring unit.
  */
@@ -48,6 +50,7 @@ export function kitModuleRule(opts: KitModuleRuleOptions): Rule {
     severity,
     scope: 'component',
     rationale: opts.rationale,
+    ...(opts.fix ? { fix: opts.fix } : {}),
     async check(ctx: RuleContext): Promise<Result[]> {
       const out: Result[] = [];
       for (const m of ctx.kitModules ?? []) {
@@ -77,7 +80,8 @@ export function kitModuleRule(opts: KitModuleRuleOptions): Rule {
             ...(b.line > 0 ? { line: b.line } : {}),
             message: b.message,
             recommendation: opts.recommendation,
-            docsUrl
+            docsUrl,
+            ...(opts.fix ? { fix: { ...opts.fix } } : {})
           });
         }
       }

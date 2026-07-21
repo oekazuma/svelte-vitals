@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { sec003LoadStateWrite, sec004ServerModuleState, sec005SharedStateImport } from '../src/index.js';
+import {
+  sec003LoadStateWrite,
+  sec004ServerModuleState,
+  sec005SharedStateImport,
+  seo031SsrDisabled
+} from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { KitModuleFacts } from '../src/kit-module.js';
@@ -144,5 +149,41 @@ describe('SEC005 shared runes-state import on the server', () => {
       })
     );
     expect(fails(noState)).toHaveLength(0);
+  });
+});
+
+describe('SEO031 SSR disabled', () => {
+  it('flags a leaf route with the per-route message as an seo warning', async () => {
+    const rs = await seo031SsrDisabled.check(
+      ctx([kit({ file: 'src/routes/dash/+page.ts', kind: 'universal', ssrDisabled: { line: 1 } })])
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.severity).toBe('warning');
+    expect(rs[0]!.category).toBe('seo');
+    expect(rs[0]!.line).toBe(1);
+    expect(rs[0]!.message).toContain('this route');
+  });
+  it('uses the app-wide message for the root layout', async () => {
+    const rs = await seo031SsrDisabled.check(
+      ctx([kit({ file: 'src/routes/+layout.ts', kind: 'universal', ssrDisabled: { line: 2 } })])
+    );
+    expect(fails(rs)[0]!.message).toContain('whole app');
+  });
+  it('does not fire for hooks.server or +server files (ssr is a page option)', async () => {
+    const rs = await seo031SsrDisabled.check(
+      ctx([
+        kit({ file: 'src/hooks.server.ts', kind: 'server', ssrDisabled: { line: 1 } }),
+        kit({ file: 'src/routes/api/+server.ts', kind: 'server', ssrDisabled: { line: 1 } })
+      ])
+    );
+    expect(rs).toHaveLength(0);
+  });
+  it('emits nothing without the flag, honours suppression, and no-ops in rendered mode', async () => {
+    expect(await seo031SsrDisabled.check(ctx([kit({})]))).toHaveLength(0);
+    const suppressed = await seo031SsrDisabled.check(
+      ctx([kit({ ssrDisabled: { line: 3 }, suppressions: [{ line: 3, ruleIds: ['SEO031'] }] })])
+    );
+    expect(fails(suppressed)).toHaveLength(0);
+    expect(await seo031SsrDisabled.check(base as RuleContext)).toHaveLength(0);
   });
 });

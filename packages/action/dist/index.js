@@ -55535,102 +55535,201 @@ function addActionsMembers(obj, handlers) {
     if (isFunctionNode(v)) handlers.add(v);
   }
 }
-function resolveAliasHandlerExports(program, bindings, handlers) {
+function forEachNamedExport(program, visit) {
   for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source || stmt2.exportKind === "type")
+    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.declaration) continue;
+    const decl = stmt2.declaration;
+    if (decl.type === "FunctionDeclaration" && decl.id?.type === "Identifier") {
+      if (visit(decl.id.name, decl, decl)) return;
       continue;
-    for (const s of stmt2.specifiers) {
-      if (s?.exportKind === "type" || s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
-      const exportedName = s.exported.name;
-      const resolved = bindings.get(s.local.name);
-      if (HANDLER_NAMES.has(exportedName) && isFunctionNode(resolved)) {
-        handlers.add(resolved);
-      } else if (exportedName === "actions" && resolved?.type === "ObjectExpression") {
-        addActionsMembers(resolved, handlers);
-      }
+    }
+    if (decl.type !== "VariableDeclaration") continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type !== "Identifier" || !d.init) continue;
+      if (visit(d.id.name, unwrapTs(d.init), d)) return;
     }
   }
-}
-function resolveAliasStartupExports(program, bindings, startup) {
+  let bindings;
   for (const stmt2 of program.body ?? []) {
     if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source || stmt2.exportKind === "type")
       continue;
     for (const s of stmt2.specifiers) {
       if (s?.exportKind === "type" || s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
-      if (s.exported.name !== "init") continue;
+      bindings ??= collectTopLevelBindings(program);
       const resolved = bindings.get(s.local.name);
-      if (isFunctionNode(resolved)) startup.add(resolved);
+      if (resolved === void 0) continue;
+      if (visit(s.exported.name, resolved, resolved)) return;
     }
   }
 }
 function collectHandlerFunctions(program) {
   const handlers = /* @__PURE__ */ new Set();
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.declaration) continue;
-    const decl = stmt2.declaration;
-    if (decl.type === "FunctionDeclaration" && decl.id?.type === "Identifier" && HANDLER_NAMES.has(decl.id.name)) {
-      handlers.add(decl);
-      continue;
-    }
-    if (decl.type !== "VariableDeclaration") continue;
-    for (const d of decl.declarations ?? []) {
-      if (d?.id?.type !== "Identifier" || !d.init) continue;
-      const init2 = unwrapTs(d.init);
-      if (HANDLER_NAMES.has(d.id.name) && isFunctionNode(init2)) {
-        handlers.add(init2);
-      } else if (d.id.name === "actions" && init2?.type === "ObjectExpression") {
-        addActionsMembers(init2, handlers);
-      }
-    }
-  }
-  resolveAliasHandlerExports(program, collectTopLevelBindings(program), handlers);
+  forEachNamedExport(program, (name, value) => {
+    if (HANDLER_NAMES.has(name) && isFunctionNode(value)) handlers.add(value);
+    else if (name === "actions" && value?.type === "ObjectExpression") addActionsMembers(value, handlers);
+    return void 0;
+  });
   return handlers;
 }
 function collectStartupFunctions(program) {
   const startup = /* @__PURE__ */ new Set();
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.declaration) continue;
-    const decl = stmt2.declaration;
-    if (decl.type === "FunctionDeclaration" && decl.id?.type === "Identifier" && decl.id.name === "init") {
-      startup.add(decl);
-      continue;
-    }
-    if (decl.type !== "VariableDeclaration") continue;
-    for (const d of decl.declarations ?? []) {
-      if (d?.id?.type !== "Identifier" || !d.init) continue;
-      const init2 = unwrapTs(d.init);
-      if (d.id.name === "init" && isFunctionNode(init2)) startup.add(init2);
-    }
-  }
-  resolveAliasStartupExports(program, collectTopLevelBindings(program), startup);
+  forEachNamedExport(program, (name, value) => {
+    if (name === "init" && isFunctionNode(value)) startup.add(value);
+    return void 0;
+  });
   return startup;
 }
-function hasSsrFalseOptOut(program) {
-  const isFalse = (init2) => {
-    const v = unwrapTs(init2);
-    return v?.type === "Literal" && v.value === false;
+function findFalseOptOut(program, source2, name) {
+  let hit;
+  forEachNamedExport(program, (exported, value, anchor) => {
+    if (exported !== name || value?.type !== "Literal" || value.value !== false) return void 0;
+    hit = { line: lineOf(source2, anchor.start) };
+    return true;
+  });
+  return hit;
+}
+function findLoadFunction(program) {
+  let load;
+  forEachNamedExport(program, (name, value) => {
+    if (name !== "load" || !isFunctionNode(value)) return void 0;
+    load = value;
+    return true;
+  });
+  return load;
+}
+function collectAwaits(node, out = []) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAwaits(child, out);
+    return out;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return out;
+  if (isFunctionNode(node)) return out;
+  if (node.type === "AwaitExpression") out.push(node);
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    collectAwaits(node[key2], out);
+  }
+  return out;
+}
+function isParentCall(arg) {
+  const e2 = unwrapTs(arg);
+  if (e2?.type !== "CallExpression") return false;
+  const callee = e2.callee;
+  if (callee?.type === "Identifier" && callee.name === "parent") return true;
+  return callee?.type === "MemberExpression" && !callee.computed && callee.property?.name === "parent";
+}
+var BODY_METHODS = /* @__PURE__ */ new Set(["json", "text", "blob", "arrayBuffer", "formData", "bytes"]);
+function isBodyParseCall(arg) {
+  const e2 = unwrapTs(arg);
+  if (e2?.type !== "CallExpression" || e2.arguments?.length) return false;
+  const callee = e2.callee;
+  return callee?.type === "MemberExpression" && !callee.computed && BODY_METHODS.has(callee.property?.name);
+}
+function refsTainted(node, tainted) {
+  let hit = false;
+  const walk2 = (n, shadowed) => {
+    if (hit) return;
+    if (Array.isArray(n)) {
+      for (const child of n) walk2(child, shadowed);
+      return;
+    }
+    if (!n || typeof n !== "object" || typeof n.type !== "string") return;
+    const introduced = scopeIntroducedNames(n);
+    const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+    if (n.type === "Identifier" && tainted.has(n.name) && !scope.has(n.name)) {
+      hit = true;
+      return;
+    }
+    for (const key2 of Object.keys(n)) {
+      if (WALK_IGNORED_KEYS.has(key2)) continue;
+      if (n.type === "MemberExpression" && key2 === "property" && !n.computed) continue;
+      if (n.type === "Property" && key2 === "key" && !n.computed) continue;
+      walk2(n[key2], scope);
+    }
   };
-  for (const stmt2 of program.body ?? []) {
-    const decl = unwrapExport(stmt2);
-    if (decl?.type !== "VariableDeclaration") continue;
-    for (const d of decl.declarations ?? []) {
-      if (d?.id?.type === "Identifier" && d.id.name === "ssr" && d.init && isFalse(d.init)) {
-        if (stmt2.type === "ExportNamedDeclaration") return true;
+  walk2(node, /* @__PURE__ */ new Set());
+  return hit;
+}
+function collectLoadWaterfalls(program, wrapped) {
+  const dependentLines = [];
+  const independentLines = [];
+  const load = findLoadFunction(program);
+  if (!load?.body || load.body.type !== "BlockStatement") return { dependentLines, independentLines };
+  const line = (start) => Math.max(0, lineOf(wrapped, start) - 1);
+  const tainted = /* @__PURE__ */ new Set();
+  let sawAwaitSite = false;
+  const taintAssignTarget = (left) => {
+    if (left?.type === "MemberExpression") {
+      const root = rootObjectName(left);
+      if (root) tainted.add(root);
+    } else {
+      addBoundNames(left, tainted);
+    }
+  };
+  const taintOnly = (node) => {
+    if (Array.isArray(node)) {
+      for (const child of node) taintOnly(child);
+      return;
+    }
+    if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+    if (isFunctionNode(node)) return;
+    if (node.type === "AssignmentExpression") {
+      if (collectAwaits(node.right).length > 0 || refsTainted(node.right, tainted)) taintAssignTarget(node.left);
+    } else if (node.type === "VariableDeclaration") {
+      for (const d of node.declarations ?? []) {
+        if (d?.id && d.init && (collectAwaits(d.init).length > 0 || refsTainted(d.init, tainted))) {
+          addBoundNames(d.id, tainted);
+        }
       }
     }
-  }
-  const bindings = collectTopLevelBindings(program);
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ExportNamedDeclaration" || !stmt2.specifiers || stmt2.source || stmt2.exportKind === "type")
-      continue;
-    for (const s of stmt2.specifiers) {
-      if (s?.exportKind === "type" || s?.exported?.type !== "Identifier" || s?.local?.type !== "Identifier") continue;
-      if (s.exported.name !== "ssr") continue;
-      const resolved = bindings.get(s.local.name);
-      if (resolved?.type === "Literal" && resolved.value === false) return true;
+    for (const key2 of Object.keys(node)) {
+      if (WALK_IGNORED_KEYS.has(key2)) continue;
+      taintOnly(node[key2]);
     }
-  }
-  return false;
+  };
+  const processStatements = (body) => {
+    for (const stmt2 of body ?? []) {
+      if (!stmt2) continue;
+      if (stmt2.type === "TryStatement") {
+        if (stmt2.block?.type === "BlockStatement") processStatements(stmt2.block.body);
+        if (stmt2.handler) taintOnly(stmt2.handler);
+        if (stmt2.finalizer) taintOnly(stmt2.finalizer);
+        continue;
+      }
+      if (stmt2.type === "VariableDeclaration" || stmt2.type === "ExpressionStatement" || stmt2.type === "ReturnStatement") {
+        const sites = collectAwaits(stmt2).filter((a) => !isParentCall(a.argument) && !isBodyParseCall(a.argument));
+        if (sites.length > 0) {
+          const dependent = sites.filter((a) => refsTainted(a.argument, tainted));
+          if (dependent.length > 0) {
+            const anchor = dependent.reduce((m, a) => a.start < m.start ? a : m);
+            dependentLines.push(line(anchor.start));
+          } else if (sawAwaitSite) {
+            const workSites = sites.filter((a) => unwrapTs(a.argument)?.type !== "Identifier");
+            if (workSites.length > 0) {
+              const anchor = workSites.reduce((m, a) => a.start < m.start ? a : m);
+              independentLines.push(line(anchor.start));
+            }
+          }
+          sawAwaitSite = true;
+        }
+        if (stmt2.type === "VariableDeclaration") {
+          for (const d of stmt2.declarations ?? []) {
+            if (!d?.id || !d.init) continue;
+            if (collectAwaits(d.init).length > 0 || refsTainted(d.init, tainted)) addBoundNames(d.id, tainted);
+          }
+        } else if (stmt2.type === "ExpressionStatement") {
+          const expr = unwrapTs(stmt2.expression);
+          if (expr?.type === "AssignmentExpression") {
+            if (collectAwaits(expr.right).length > 0 || refsTainted(expr.right, tainted)) taintAssignTarget(expr.left);
+          }
+        }
+      } else {
+        taintOnly(stmt2);
+      }
+    }
+  };
+  processStatements(load.body.body);
+  return { dependentLines, independentLines };
 }
 function walkKit(node, handlerFns, startupFns, visit, shadowed = /* @__PURE__ */ new Set(), inFunction = false, inHandler = false, inStartup = false) {
   if (Array.isArray(node)) {
@@ -55727,7 +55826,10 @@ function parseKitModuleFacts(source2, filename2) {
   const handlerFns = collectHandlerFunctions(program);
   const startupFns = collectStartupFunctions(program);
   const svelteImports = collectSvelteLifecycleImports(program);
-  if (!hasSsrFalseOptOut(program)) {
+  const ssrOptOut = findFalseOptOut(program, wrapped, "ssr");
+  const csrOptOut = findFalseOptOut(program, wrapped, "csr");
+  const waterfalls = collectLoadWaterfalls(program, wrapped);
+  if (!ssrOptOut) {
     const shiftLine = (l) => Math.max(0, l - 1);
     const browserImports = collectBrowserGuardImports(program);
     const guards = /* @__PURE__ */ new Set([...browserImports, ...collectDerivedGuardBindings(program, browserImports)]);
@@ -55827,6 +55929,9 @@ function parseKitModuleFacts(source2, filename2) {
     runesModuleImports: byLine(runesModuleImports),
     lifecycleCalls: byLine(lifecycleCalls),
     browserGlobalRefs: byLine(browserGlobalRefs),
+    ...ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {},
+    ...csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {},
+    ...waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0 ? { loadWaterfalls: waterfalls } : {},
     suppressions
   };
 }
@@ -55867,6 +55972,77 @@ async function collectKitModuleFacts(rt, cwd) {
       }
     })
   );
+}
+function propOf(obj, name) {
+  let found;
+  for (const p of obj.properties ?? []) {
+    if (p?.type === "SpreadElement") {
+      if (found) found = void 0;
+      continue;
+    }
+    if (p?.type !== "Property" || p.computed) continue;
+    if (p.key?.type === "Identifier" && p.key.name === name) found = p;
+    else if (p.key?.type === "Literal" && p.key.value === name) found = p;
+  }
+  return found;
+}
+function unwrapToObjectExpression(expr, bindings) {
+  for (let i = 0; i < 4 && expr; i++) {
+    expr = unwrapTs(expr);
+    if (expr?.type === "ObjectExpression") return expr;
+    if (expr?.type === "Identifier") {
+      expr = bindings.get(expr.name);
+      continue;
+    }
+    if (expr?.type === "CallExpression") {
+      expr = expr.arguments?.[0];
+      continue;
+    }
+    return void 0;
+  }
+  return expr?.type === "ObjectExpression" ? expr : void 0;
+}
+function findExportedExpression(program) {
+  let exported;
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type === "ExportDefaultDeclaration") exported = stmt2.declaration;
+  }
+  if (exported) return exported;
+  let cjsExported;
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExpressionStatement") continue;
+    const expr = stmt2.expression;
+    if (expr?.type !== "AssignmentExpression" || expr.operator !== "=") continue;
+    const left = expr.left;
+    if (left?.type === "MemberExpression" && !left.computed && left.object?.type === "Identifier" && left.object.name === "module" && left.property?.type === "Identifier" && left.property.name === "exports") {
+      cjsExported = expr.right;
+    }
+  }
+  return cjsExported;
+}
+function resolveConfigObject(program) {
+  const exported = findExportedExpression(program);
+  if (!exported) return void 0;
+  return unwrapToObjectExpression(exported, collectTopLevelBindings(program));
+}
+function findMinifyDisabled(source2) {
+  let program;
+  let wrapped;
+  try {
+    ({ program, wrapped } = parseModuleProgram(source2, "vite.config.ts"));
+  } catch {
+    return void 0;
+  }
+  if (!program) return void 0;
+  const config = resolveConfigObject(program);
+  if (!config) return void 0;
+  const build2 = propOf(config, "build");
+  const buildValue = build2 ? unwrapTs(build2.value) : void 0;
+  if (buildValue?.type !== "ObjectExpression") return void 0;
+  const minify = propOf(buildValue, "minify");
+  const minifyValue = minify ? unwrapTs(minify.value) : void 0;
+  if (minifyValue?.type !== "Literal" || minifyValue.value !== false) return void 0;
+  return { line: Math.max(0, lineOf(wrapped, minify.start) - 1) };
 }
 var ROBOTS_SOURCE_PATHS = [
   "static/robots.txt",
@@ -57239,7 +57415,78 @@ var seo030HeadingOrder = {
 };
 var PENALIZED2 = { presence: "none", value: "absent" };
 var PASS2 = { presence: "own", value: "static" };
-function isSuppressed(c, ruleId, line) {
+function isSuppressed(m, ruleId, line) {
+  return (m.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
+}
+function kitModuleRule(opts) {
+  const docsUrl7 = docsUrlFor(opts.id);
+  const severity = opts.severity ?? "warning";
+  return {
+    id: opts.id,
+    title: opts.title,
+    category: opts.category,
+    severity,
+    scope: "component",
+    rationale: opts.rationale,
+    ...opts.fix ? { fix: opts.fix } : {},
+    async check(ctx) {
+      const out = [];
+      for (const m of ctx.kitModules ?? []) {
+        if (!opts.applies(m, ctx)) continue;
+        const bad = opts.bad(m, ctx).filter((b) => !(b.line > 0 && isSuppressed(m, opts.id, b.line)));
+        if (bad.length === 0) {
+          out.push({
+            id: opts.id,
+            category: opts.category,
+            severity,
+            detection: PASS2,
+            route: m.file,
+            message: opts.label,
+            recommendation: opts.recommendation,
+            docsUrl: docsUrl7
+          });
+          continue;
+        }
+        for (const b of bad) {
+          out.push({
+            id: opts.id,
+            category: opts.category,
+            severity,
+            detection: PENALIZED2,
+            route: m.file,
+            location: m.file,
+            ...b.line > 0 ? { line: b.line } : {},
+            message: b.message,
+            recommendation: opts.recommendation,
+            docsUrl: docsUrl7,
+            ...opts.fix ? { fix: { ...opts.fix } } : {}
+          });
+        }
+      }
+      return out;
+    }
+  };
+}
+var ROOT_LAYOUT_RE = /^src\/routes\/\+layout(\.server)?\.(ts|js)$/;
+var PAGE_OPTION_FILE_RE = /\+(page|layout)(\.server)?\.(ts|js)$/;
+var seo031SsrDisabled = kitModuleRule({
+  id: "SEO031",
+  title: "SSR disabled",
+  category: "seo",
+  label: "SSR enabled",
+  recommendation: "Keep SSR on for indexable pages; restrict ssr = false to routes that don't need SEO (authenticated dashboards, app-only views). For a deliberate SPA, turn this rule off in the config or add an inline suppression.",
+  rationale: "SvelteKit's SEO guidance is to leave SSR on unless there is a good reason not to: server-rendered content is indexed more frequently and reliably, and SPA mode costs an extra network round trip before anything renders.",
+  applies: (m) => m.ssrDisabled !== void 0 && PAGE_OPTION_FILE_RE.test(m.file),
+  bad: (m) => [
+    {
+      line: m.ssrDisabled.line,
+      message: ROOT_LAYOUT_RE.test(m.file) ? "SSR is disabled for the whole app \u2014 search engines index server-rendered content more reliably, and SPA mode adds a network round trip before first paint" : "SSR is disabled for this route \u2014 its content is invisible to crawlers that don't execute JavaScript and indexes less reliably"
+    }
+  ]
+});
+var PENALIZED3 = { presence: "none", value: "absent" };
+var PASS3 = { presence: "own", value: "static" };
+function isSuppressed2(c, ruleId, line) {
   return (c.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
 }
 function componentRule(opts) {
@@ -57256,13 +57503,13 @@ function componentRule(opts) {
       const out = [];
       for (const c of ctx.components ?? []) {
         if (!opts.applies(c)) continue;
-        const bad = opts.bad(c).filter((b) => !(b.line > 0 && isSuppressed(c, opts.id, b.line)));
+        const bad = opts.bad(c).filter((b) => !(b.line > 0 && isSuppressed2(c, opts.id, b.line)));
         if (bad.length === 0) {
           out.push({
             id: opts.id,
             category: opts.category,
             severity,
-            detection: PASS2,
+            detection: PASS3,
             route: c.file,
             message: opts.label,
             recommendation: opts.recommendation,
@@ -57275,7 +57522,7 @@ function componentRule(opts) {
             id: opts.id,
             category: opts.category,
             severity,
-            detection: PENALIZED2,
+            detection: PENALIZED3,
             route: c.file,
             location: c.file,
             ...b.line > 0 ? { line: b.line } : {},
@@ -57363,24 +57610,24 @@ var correct006OrphanEffect = componentRule({
     message: o.kind === "top-level" ? "$effect at module scope runs outside component initialisation \u2014 it throws effect_orphan at runtime" : `class "${o.className}" runs $effect in its constructor and is instantiated at module scope \u2014 it throws effect_orphan at runtime`
   }))
 });
-var PENALIZED3 = { presence: "none", value: "absent" };
-var PASS3 = { presence: "own", value: "static" };
+var PENALIZED4 = { presence: "none", value: "absent" };
+var PASS4 = { presence: "own", value: "static" };
 var ID = "CORRECT007";
 var DOCS_URL = docsUrlFor(ID);
 var LABEL = "Lifecycle-call context";
 var RECOMMENDATION = "Call lifecycle/context functions during component initialisation (the top level of a component's <script>). In load, return the data and call setContext in a layout/page component; in shared modules, expose a setup function that components call during init.";
 var topLevelMessage = (name) => `${name}() runs at module evaluation, outside component initialisation \u2014 it throws lifecycle_outside_component at runtime`;
-function isSuppressed2(suppressions, line) {
+function isSuppressed3(suppressions, line) {
   return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID)));
 }
 function emitFile(out, file, issues, suppressions) {
-  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed2(suppressions, b.line)));
+  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed3(suppressions, b.line)));
   if (bad.length === 0) {
     out.push({
       id: ID,
       category: "correctness",
       severity: "critical",
-      detection: PASS3,
+      detection: PASS4,
       route: file,
       message: LABEL,
       recommendation: RECOMMENDATION,
@@ -57393,7 +57640,7 @@ function emitFile(out, file, issues, suppressions) {
       id: ID,
       category: "correctness",
       severity: "critical",
-      detection: PENALIZED3,
+      detection: PENALIZED4,
       route: file,
       location: file,
       ...b.line > 0 ? { line: b.line } : {},
@@ -57441,24 +57688,24 @@ var correct007OrphanLifecycle = {
     return out;
   }
 };
-var PENALIZED4 = { presence: "none", value: "absent" };
-var PASS4 = { presence: "own", value: "static" };
+var PENALIZED5 = { presence: "none", value: "absent" };
+var PASS5 = { presence: "own", value: "static" };
 var ID2 = "CORRECT008";
 var DOCS_URL2 = docsUrlFor(ID2);
 var LABEL2 = "Server-safe module code";
 var RECOMMENDATION2 = "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).";
 var moduleMessage = (name) => `${name} is accessed at module scope \u2014 it does not exist on the server, so importing this file crashes SSR with "${name} is not defined"`;
-function isSuppressed3(suppressions, line) {
+function isSuppressed4(suppressions, line) {
   return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID2)));
 }
 function emitFile2(out, file, issues, suppressions) {
-  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed3(suppressions, b.line)));
+  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed4(suppressions, b.line)));
   if (bad.length === 0) {
     out.push({
       id: ID2,
       category: "correctness",
       severity: "critical",
-      detection: PASS4,
+      detection: PASS5,
       route: file,
       message: LABEL2,
       recommendation: RECOMMENDATION2,
@@ -57471,7 +57718,7 @@ function emitFile2(out, file, issues, suppressions) {
       id: ID2,
       category: "correctness",
       severity: "critical",
-      detection: PENALIZED4,
+      detection: PENALIZED5,
       route: file,
       location: file,
       ...b.line > 0 ? { line: b.line } : {},
@@ -57549,58 +57796,6 @@ var sec002JavascriptUrl = componentRule({
   applies: (c) => c.javascriptUrls.length > 0,
   bad: (c) => c.javascriptUrls.map((u) => ({ line: u.line, message: "javascript: URL in an attribute" }))
 });
-var PENALIZED5 = { presence: "none", value: "absent" };
-var PASS5 = { presence: "own", value: "static" };
-function isSuppressed4(m, ruleId, line) {
-  return (m.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
-}
-function kitModuleRule(opts) {
-  const docsUrl7 = docsUrlFor(opts.id);
-  const severity = opts.severity ?? "warning";
-  return {
-    id: opts.id,
-    title: opts.title,
-    category: opts.category,
-    severity,
-    scope: "component",
-    rationale: opts.rationale,
-    async check(ctx) {
-      const out = [];
-      for (const m of ctx.kitModules ?? []) {
-        if (!opts.applies(m, ctx)) continue;
-        const bad = opts.bad(m, ctx).filter((b) => !(b.line > 0 && isSuppressed4(m, opts.id, b.line)));
-        if (bad.length === 0) {
-          out.push({
-            id: opts.id,
-            category: opts.category,
-            severity,
-            detection: PASS5,
-            route: m.file,
-            message: opts.label,
-            recommendation: opts.recommendation,
-            docsUrl: docsUrl7
-          });
-          continue;
-        }
-        for (const b of bad) {
-          out.push({
-            id: opts.id,
-            category: opts.category,
-            severity,
-            detection: PENALIZED5,
-            route: m.file,
-            location: m.file,
-            ...b.line > 0 ? { line: b.line } : {},
-            message: b.message,
-            recommendation: opts.recommendation,
-            docsUrl: docsUrl7
-          });
-        }
-      }
-      return out;
-    }
-  };
-}
 var sec003LoadStateWrite = kitModuleRule({
   id: "SEC003",
   title: "Handler writes imported state",
@@ -57732,6 +57927,75 @@ var perf010NamespaceImport = componentRule({
     }));
   }
 });
+var PENALIZED6 = { presence: "none", value: "absent" };
+var PERF012_FIX = {
+  description: "Remove the minify: false override from vite.config (Vite minifies with esbuild by default), or scope it to non-production builds.",
+  snippet: "export default defineConfig({\n  build: {\n    minify: 'esbuild'\n  }\n});",
+  lang: "ts"
+};
+var RECOMMENDATION3 = "Remove build.minify: false from vite.config, or scope it to non-production builds if it is intentional.";
+var perf012MinifyDisabled = {
+  id: "PERF012",
+  title: "Minification disabled",
+  category: "performance",
+  severity: "warning",
+  scope: "project",
+  rationale: "Disabling minification ships unminified JS/CSS to production, inflating bundle size several-fold and slowing every page load; the override is usually a leftover from debugging.",
+  fix: PERF012_FIX,
+  async check(ctx) {
+    const hit = ctx.project.viteMinifyDisabled;
+    if (!hit) return [];
+    const provenance = hit.file === void 0 ? " The override comes from an inline (programmatic) Vite config." : hit.line === void 0 ? " The override was resolved from the actual build \u2014 it may come from a plugin or a conditional config, not a literal in the file." : "";
+    return [
+      {
+        id: "PERF012",
+        category: "performance",
+        severity: "warning",
+        detection: PENALIZED6,
+        ...hit.file !== void 0 ? { location: hit.file } : {},
+        ...hit.line !== void 0 ? { line: hit.line } : {},
+        message: "JS/CSS minification is disabled (build.minify: false) \u2014 production bundles ship unminified and several times larger." + provenance,
+        recommendation: RECOMMENDATION3,
+        docsUrl: docsUrlFor("PERF012"),
+        fix: { ...PERF012_FIX }
+      }
+    ];
+  }
+};
+var MESSAGE = "Sequential dependent awaits in a universal load create a client-side request waterfall \u2014 each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.";
+var perf011LoadWaterfall = kitModuleRule({
+  id: "PERF011",
+  title: "Load waterfall",
+  category: "performance",
+  severity: "warning",
+  label: "No load waterfalls",
+  recommendation: "Move the dependent await chain into a server load (+page.server.ts / +layout.server.ts), where the hops run server-to-server.",
+  rationale: "In a universal load, every await that depends on a previous result costs a full network round trip from the browser on client-side navigation; chains multiply latency on every page visit. A server load runs the same hops server-side.",
+  fix: {
+    description: "Move the dependent await chain into a server load (+page.server.ts), where hops run server-to-server.",
+    snippet: "// +page.server.ts \u2014 same chain, server-side hops\nexport async function load({ fetch }) {\n  const user = await fetch(`/api/user`).then((r) => r.json());\n  const posts = await fetch(`/api/posts/${user.id}`).then((r) => r.json());\n  return { user, posts };\n}",
+    lang: "ts"
+  },
+  applies: (m) => m.kind === "universal" && m.csrDisabled === void 0 && (m.loadWaterfalls?.dependentLines.length ?? 0) > 0,
+  bad: (m) => m.loadWaterfalls.dependentLines.map((line) => ({ line, message: MESSAGE }))
+});
+var MESSAGE2 = "This await does not use the results of the awaits before it \u2014 the requests run sequentially for no reason. Start them together and await them with Promise.all.";
+var perf013SequentialAwaits = kitModuleRule({
+  id: "PERF013",
+  title: "Sequential independent awaits",
+  category: "performance",
+  severity: "info",
+  label: "No needlessly sequential awaits",
+  recommendation: "Start the independent requests together and await them with Promise.all.",
+  rationale: "Awaits that do not use each other's results still run one after another, adding their latencies; starting them together costs nothing and bounds the wait to the slowest request.",
+  fix: {
+    description: "Start the independent requests together and await them with Promise.all.",
+    snippet: "const [a, b] = await Promise.all([fetchA(), fetchB()]);",
+    lang: "ts"
+  },
+  applies: (m) => (m.loadWaterfalls?.independentLines.length ?? 0) > 0,
+  bad: (m) => m.loadWaterfalls.independentLines.map((line) => ({ line, message: MESSAGE2 }))
+});
 var allRules = [
   seo001Title,
   seo002Description,
@@ -57771,6 +58035,7 @@ var allRules = [
   seo028TitleUnique,
   seo029DescriptionUnique,
   seo030HeadingOrder,
+  seo031SsrDisabled,
   correct001EachKey,
   correct002EffectDerived,
   correct003EffectAsOnMount,
@@ -57788,7 +58053,10 @@ var allRules = [
   arch001ComponentSize,
   arch002PropCount,
   perf009HeavyImport,
-  perf010NamespaceImport
+  perf010NamespaceImport,
+  perf012MinifyDisabled,
+  perf011LoadWaterfall,
+  perf013SequentialAwaits
 ];
 function classify(result, config) {
   if (isPenalized(result.detection, config.treatDynamicAs)) return "fail";
@@ -58086,7 +58354,7 @@ function applyOverrides(results, config) {
   return out;
 }
 
-// ../cli/dist/chunk-QBXO46PU.js
+// ../cli/dist/chunk-DFWOXJRI.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -58864,7 +59132,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-QBXO46PU.js
+// ../cli/dist/chunk-DFWOXJRI.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -58952,18 +59220,39 @@ async function robotsRefsSitemap(rt, cwd) {
     return void 0;
   }
 }
+var VITE_CONFIG_FILES = [
+  "vite.config.js",
+  "vite.config.mjs",
+  "vite.config.ts",
+  "vite.config.cjs",
+  "vite.config.mts",
+  "vite.config.cts"
+];
+async function detectViteMinifyDisabled(rt, cwd) {
+  const exists2 = await Promise.all(VITE_CONFIG_FILES.map((f) => rt.exists(rt.join(cwd, f))));
+  const file = VITE_CONFIG_FILES[exists2.indexOf(true)];
+  if (!file) return void 0;
+  try {
+    const hit = findMinifyDisabled(await rt.readFile(rt.join(cwd, file)));
+    return hit ? { file, line: hit.line } : void 0;
+  } catch {
+    return void 0;
+  }
+}
 async function collectProjectFacts(rt, cwd) {
-  const [hasRobotsTxt, hasSitemap, htmlLang] = await Promise.all([
+  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled] = await Promise.all([
     existsAny(rt, cwd, ROBOTS_SOURCE_PATHS),
     existsAny(rt, cwd, SITEMAP_SOURCE_PATHS),
-    detectAppHtmlLang(rt, cwd)
+    detectAppHtmlLang(rt, cwd),
+    detectViteMinifyDisabled(rt, cwd)
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
   return {
     hasRobotsTxt,
     hasSitemap,
     htmlLang,
-    ...robotsReferencesSitemap !== void 0 ? { robotsReferencesSitemap } : {}
+    ...robotsReferencesSitemap !== void 0 ? { robotsReferencesSitemap } : {},
+    ...viteMinifyDisabled ? { viteMinifyDisabled } : {}
   };
 }
 function exprValue(node) {
