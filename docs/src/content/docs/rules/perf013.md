@@ -7,7 +7,7 @@ description: Awaits that don't use each other's results still run one after anot
 
 ## What it checks
 
-Flags an await in a `load` function (universal or server) that does not use the results of any await before it — the requests serialize for no data-flow reason. Detection uses the same conservative straight-line scan as PERF011: forward taint through bindings and intermediate constants, callback-parameter shadowing respected, `await parent()` exempt.
+Flags an await in a `load` function (universal or server) that does not use the results of any await before it — the requests serialize for no data-flow reason. Detection uses the same conservative straight-line scan as PERF011: forward taint through bindings and intermediate constants, callback-parameter shadowing respected, `await parent()` exempt. Awaiting an already-created promise (`await somePromise`) starts no request and is never flagged.
 
 ## Why it matters
 

@@ -54,7 +54,7 @@ Only the exported `load` — inline `export function load` / `export const load 
 
 ### Statement scan
 
-Walk the load body's **direct statements in order**, extending into the direct statements of `try` blocks (a `try`-wrapped load body is still straight-line). Do NOT descend into `if`/`else`, loops, `switch`, `catch`/`finally`, or nested functions.
+Walk the load body's **direct statements in order**, extending into the direct statements of `try` blocks (a `try`-wrapped load body is still straight-line). `if`/`else`, loops, `switch`, and a `try`'s `catch`/`finally` are not classified — no sites are created inside them — but they DO get a taint-only scan (see below) so an assignment inside a branch still propagates taint to statements after it. Nested functions are never entered, for classification or taint.
 
 ### Await sites, in order
 
@@ -69,14 +69,20 @@ Walk the load body's **direct statements in order**, extending into the direct s
 
 - Maintain a tainted-name set, seeded by each await site's bound names.
 - A non-await `VariableDeclaration` whose init references a tainted name taints its own bound names (forward transitivity through intermediate consts).
-- An `ExpressionStatement` whose expression is a plain `=` `AssignmentExpression` (e.g. `user = await fetch(...).then(...)` inside a `try`, or a later `key = res.key`) taints its left-hand-side's bound names the same way, when its right-hand side contains an await or already references a tainted name — otherwise a `try`-wrapped chain's target, or a plain reassignment from a tainted value, would never taint and a real dependency downstream would be misclassified independent.
+- An `ExpressionStatement` whose expression is an `AssignmentExpression` of ANY operator (`=`, `??=`, `||=`, `+=`, …) taints its target the same way, when its right-hand side contains an await or already references a tainted name — otherwise a `try`-wrapped chain's target, a compound-assigned target, or a plain reassignment from a tainted value, would never taint and a real dependency downstream would be misclassified independent. A member-expression target (`state.user = await …`) taints its ROOT object name (`state`), via the existing `rootObjectName` helper — the whole object is treated as tainted once one of its properties is.
+- Regions the statement scan does not classify (`if`/loops/`switch` bodies, and a `try`'s `catch`/`finally`) still get a **taint-only scan**: a recursive walk (never entering nested functions) that applies the same assignment/declaration taint rule above to every `AssignmentExpression`/`VariableDeclaration` found anywhere inside, without creating any sites. This is how an assignment inside an `if` block still taints a statement that comes after the block.
 - For each await site after the first, collect the identifiers referenced in its expression subtree, threading nested-function shadowing with the existing scope machinery (`scopeIntroducedNames`-style), so a callback parameter that shadows a tainted name does not create a false dependency. Property keys and member-expression property names don't count as references.
-- References ∩ tainted ≠ ∅ → push the site's line to `dependentLines`; otherwise (and at least one earlier non-excluded await site exists) → push to `independentLines`.
+- A statement's sites are checked for a tainted reference individually (not the statement as a whole); when at least one is dependent, the statement's line is anchored at the FIRST dependent await (in source order) — not necessarily the first await overall. Otherwise, when a prior await site exists, the statement is independent, anchored at the first await whose argument actually starts work.
+- "Starts work" excludes awaiting a bare identifier (`await somePromise`): a promise already created by an earlier, unawaited call resumes rather than starts a request. Such awaits are exempt from the `independentLines` push — they still count as a prior site (so a later real request after them is still classified relative to them), and they still classify as dependent normally if their argument identifier is itself tainted.
 - Reassignment of a tainted `let` to an untainted value is ignored (stays tainted) — over-approximation toward "dependent", which is the conservative direction for PERF013; for PERF011 it is mitigated by the shadow-threading above and by straight-line scope (plain reassignment between awaits is rare in load bodies).
+
+### `csr = false` fact and PERF011 gate
+
+`KitModuleFacts` also gains `csrDisabled?: { line: number }`, parsed the same way as `ssrDisabled` — `findSsrFalseOptOut` is generalized to `findFalseOptOut(program, source, name: 'ssr' | 'csr')`, called once for each flag. A `csr = false` file ships no client runtime, so a universal load only ever runs during SSR — PERF011's browser-waterfall premise doesn't hold, and its `applies` predicate gates on `m.csrDisabled === undefined` in addition to `kind === 'universal'` and non-empty `dependentLines`. PERF013 is intentionally NOT gated by `csrDisabled`: sequential independent awaits still waste server-side wall-clock time even with no client runtime.
 
 ### Not detected (summary)
 
-Single-await loads; awaits inside `if`/loops/`switch`/`catch`/nested closures; `await parent()` itself; dependent chains in server loads (fact recorded, rule filters); files without a `load` export; malformed sources (existing pipeline behavior: `parseKitModuleFacts` may throw, and `collectKitModuleFacts`'s catch yields empty facts).
+Single-await loads; awaits inside `if`/loops/`switch`/`catch`/nested closures (though assignments there still taint via the taint-only scan); `await parent()` itself; dependent chains in server loads (fact recorded, rule filters); dependent chains in `csr = false` universal files (PERF011 only — PERF013 still fires); awaits of already-created promises (bare identifier argument); files without a `load` export; malformed sources (existing pipeline behavior: `parseKitModuleFacts` may throw, and `collectKitModuleFacts`'s catch yields empty facts).
 
 ## Suppression
 
