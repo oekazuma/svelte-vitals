@@ -58213,7 +58213,7 @@ function applyOverrides(results, config) {
   return out;
 }
 
-// ../cli/dist/chunk-ZEDDYYDF.js
+// ../cli/dist/chunk-DFWOXJRI.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -58991,7 +58991,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-ZEDDYYDF.js
+// ../cli/dist/chunk-DFWOXJRI.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -59088,17 +59088,15 @@ var VITE_CONFIG_FILES = [
   "vite.config.cts"
 ];
 async function detectViteMinifyDisabled(rt, cwd) {
-  for (const file of VITE_CONFIG_FILES) {
-    const p = rt.join(cwd, file);
-    if (!await rt.exists(p)) continue;
-    try {
-      const hit = findMinifyDisabled(await rt.readFile(p));
-      return hit ? { file, line: hit.line } : void 0;
-    } catch {
-      return void 0;
-    }
+  const exists2 = await Promise.all(VITE_CONFIG_FILES.map((f) => rt.exists(rt.join(cwd, f))));
+  const file = VITE_CONFIG_FILES[exists2.indexOf(true)];
+  if (!file) return void 0;
+  try {
+    const hit = findMinifyDisabled(await rt.readFile(rt.join(cwd, file)));
+    return hit ? { file, line: hit.line } : void 0;
+  } catch {
+    return void 0;
   }
-  return void 0;
 }
 async function collectProjectFacts(rt, cwd) {
   const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled] = await Promise.all([
