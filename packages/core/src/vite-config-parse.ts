@@ -14,14 +14,19 @@ import { lineOf } from './svelte-ast.js';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type Node = any;
 
-/** Non-computed property of an object literal, by key name (`build` or `'build'`). */
+/**
+ * Non-computed property of an object literal, by key name (`build` or `'build'`).
+ * Returns the LAST matching property, honoring JavaScript object semantics where
+ * duplicate keys are resolved to the rightmost value.
+ */
 function propOf(obj: Node, name: string): Node | undefined {
+  let found: Node | undefined;
   for (const p of obj.properties ?? []) {
     if (p?.type !== 'Property' || p.computed) continue;
-    if (p.key?.type === 'Identifier' && p.key.name === name) return p;
-    if (p.key?.type === 'Literal' && p.key.value === name) return p;
+    if (p.key?.type === 'Identifier' && p.key.name === name) found = p;
+    else if (p.key?.type === 'Literal' && p.key.value === name) found = p;
   }
-  return undefined;
+  return found;
 }
 
 /**

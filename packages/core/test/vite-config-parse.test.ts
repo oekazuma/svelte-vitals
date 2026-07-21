@@ -97,4 +97,14 @@ export default { build: { [k]: false } };
     expect(findMinifyDisabled(`export default {{{`)).toBeUndefined();
     expect(findMinifyDisabled(``)).toBeUndefined();
   });
+
+  it('honors last-wins for duplicate keys, matching JS object semantics', () => {
+    expect(
+      findMinifyDisabled(`export default { build: { minify: false }, build: { sourcemap: true } };\n`)
+    ).toBeUndefined();
+    expect(
+      findMinifyDisabled(`export default { build: { sourcemap: true }, build: { minify: false } };\n`)
+    ).toEqual({ line: 1 });
+    expect(findMinifyDisabled(`export default { build: { minify: false, minify: 'esbuild' } };\n`)).toBeUndefined();
+  });
 });
