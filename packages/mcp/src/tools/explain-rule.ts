@@ -4,7 +4,7 @@ import { knownRuleIds } from 'svelte-vitals';
 import type { McpToolResult } from './analyze.js';
 
 const explainRuleInputSchema = z.object({
-  id: z.string().describe('Rule id to explain, e.g. "SEO001".')
+  id: z.string().describe('Rule id to explain, e.g. "seo/title-presence".')
 });
 
 export const explainRuleInputShape = explainRuleInputSchema.shape;
