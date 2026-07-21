@@ -35,8 +35,8 @@ describe('run(): monorepo app discovery + picker (design doc 2026-07-08-monorepo
       selectApp
     });
     expect(selectApp).toHaveBeenCalledWith(['apps/admin', 'apps/mobile', 'apps/web']);
-    expect(code).toBe(1); // all fixture apps are missing a <title> -> SEO001 critical
-    expect(cap.out.join('\n')).toContain('SEO001');
+    expect(code).toBe(1); // all fixture apps are missing a <title> -> seo/title-presence critical
+    expect(cap.out.join('\n')).toContain('seo/title-presence');
   });
 
   it('TTY + multiple apps + cancel (selectApp returns null): exit 0, "Cancelled."', async () => {
@@ -152,6 +152,6 @@ describe('run(): monorepo discovery, exactly one app found', () => {
     expect(selectApp).not.toHaveBeenCalled();
     expect(cap.err.join('\n')).toContain('detected SvelteKit app at apps/web; analyzing it.');
     expect(code).toBe(1);
-    expect(cap.out.join('\n')).toContain('SEO001');
+    expect(cap.out.join('\n')).toContain('seo/title-presence');
   });
 });

@@ -52,7 +52,7 @@ const seoFinding = {
   route: '/a',
   results: [
     {
-      id: 'SEO001',
+      id: 'seo/title-presence',
       message: 'Missing <title>',
       category: 'seo',
       detection: { presence: 'none', value: 'absent' },

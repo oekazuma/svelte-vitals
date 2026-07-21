@@ -34,7 +34,7 @@ describe('loadConfigFile', () => {
     expect(loaded?.config).toEqual({
       treatDynamicAs: 'warn',
       failOn: 'warning',
-      rules: { SEO001: 'off' }
+      rules: { 'seo/title-presence': 'off' }
     });
   });
 
@@ -105,7 +105,7 @@ describe('loadConfigFile', () => {
     expect(loaded?.warnings).toEqual([]);
     expect(loaded?.config.overrides).toEqual([
       { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
-      { route: ['/admin', '/admin/**'], rules: { SEO001: 'warning' } }
+      { route: ['/admin', '/admin/**'], rules: { 'seo/title-presence': 'warning' } }
     ]);
   });
 
@@ -153,7 +153,7 @@ describe('loadConfigFile', () => {
 
   it('rejects an overrides rules value that is not off or a severity', async () => {
     await expect(loadConfigFile(fixture('config-file-overrides-bad-value'))).rejects.toThrow(
-      /overrides\[0\]\.rules\.SEO001: invalid setting 'nope'/
+      /overrides\[0\]\.rules\.seo\/title-presence: invalid setting 'nope'/
     );
   });
 

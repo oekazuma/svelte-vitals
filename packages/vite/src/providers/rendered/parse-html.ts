@@ -8,7 +8,7 @@ function attrValue(v: string | undefined): Value {
 export interface ParsedHtmlHead {
   tags: HeadTag[];
   htmlLang: { presence: 'own' | 'none'; value: Value };
-  /** Page-body heading levels (the `n` in <hn>) found in the document (SEO027). */
+  /** Page-body heading levels (the `n` in <hn>) found in the document (seo/single-h1). */
   headings: number[];
   /** Page <img> elements (the caller fills `file`); enables the image rules in rendered mode. */
   images: Omit<ImageInfo, 'file'>[];
@@ -36,7 +36,7 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
     const property = meta.getAttribute('property');
     const charset = meta.getAttribute('charset');
     if (charset != null) {
-      // <meta charset="…"> carries neither name nor property; model it as name:'charset' (SEO024).
+      // <meta charset="…"> carries neither name nor property; model it as name:'charset' (seo/charset).
       tags.push({ kind: 'meta', name: 'charset', presence: 'own', value: attrValue(charset) });
       continue;
     }
@@ -69,7 +69,7 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
       value: attrValue(href),
       ...(asAttr != null ? { hasAs: true, as: asAttr } : {}),
       ...(hasCrossorigin ? { hasCrossorigin: true } : {}),
-      // Keep a literal empty hreflang="" (present-but-invalid) so SEO026 can flag it.
+      // Keep a literal empty hreflang="" (present-but-invalid) so seo/hreflang can flag it.
       ...(hreflang != null ? { hreflang } : {}),
       ...(href ? { href } : {})
     });
@@ -80,7 +80,7 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
     if (type === 'application/ld+json') {
       // `<script>` is a raw-text element — browsers and search engines read its body verbatim and do
       // NOT decode HTML entities. `.text` decodes (e.g. `&quot;` -> `"`), which would corrupt the JSON
-      // before SEO016 parses it; `.rawText` preserves exactly what the crawler sees.
+      // before seo/json-ld-validity parses it; `.rawText` preserves exactly what the crawler sees.
       const raw = script.rawText;
       tags.push({
         kind: 'jsonld',
@@ -90,7 +90,7 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
       });
       continue;
     }
-    // External <script src> in <head> (PERF007/PERF008). Render-blocking unless
+    // External <script src> in <head> (performance/render-blocking-script, performance/preconnect). Render-blocking unless
     // defer/async/type=module; the src URL feeds third-party origin analysis.
     const src = script.getAttribute('src');
     if (src) {
@@ -112,7 +112,7 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
       ? { presence: 'none' as const, value: 'absent' as const }
       : { presence: 'own' as const, value: attrValue(lang) };
 
-  // Page-body headings (SEO027). Walk the parsed tree in document order so the
+  // Page-body headings (seo/single-h1). Walk the parsed tree in document order so the
   // levels match the static provider (which collects in AST order) — grouping by
   // level would diverge for inputs like <h2>…<h1>. Scope to <body> so a stray
   // heading in <head> is not counted (fallback to root for fragment HTML).
@@ -128,8 +128,9 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
   };
   collectHeadings(root.querySelector('body') ?? root);
 
-  // Page <img> elements (PERF001/002/005/006, SEO025). Scope to <body> (like the
-  // heading scan) so a stray <head><img> isn't reported. Document order so PERF005's
+  // Page <img> elements (performance/image-dimensions, performance/image-loading-hint, performance/lcp-image,
+  // performance/responsive-image, seo/image-alt). Scope to <body> (like the
+  // heading scan) so a stray <head><img> isn't reported. Document order so performance/lcp-image's
   // "first image ≈ LCP" heuristic matches the static provider. line 0 = unknown.
   const images = (root.querySelector('body') ?? root).querySelectorAll('img').map((img) => ({
     hasWidth: img.hasAttribute('width'),

@@ -23,7 +23,7 @@ function snapshotJson(): string {
           score: 50,
           issues: [
             {
-              id: 'SEO001',
+              id: 'seo/title-presence',
               category: 'seo',
               title: 'Missing <title>',
               severity: 'critical',
@@ -35,7 +35,7 @@ function snapshotJson(): string {
                 snippet: '<svelte:head>\n  <title>Hello</title>\n</svelte:head>',
                 lang: 'svelte'
               },
-              docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo001/'
+              docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence'
             }
           ]
         }
@@ -78,12 +78,12 @@ describe('dashboard client script — AI Prompt disclosure', () => {
     expect(details.querySelector('summary')!.textContent).toBe('AI Prompt');
 
     const text = details.querySelector('.dv-ai-prompt-pre')!.textContent!;
-    expect(text).toContain('SEO001');
+    expect(text).toContain('seo/title-presence');
     expect(text).toContain('Route: /blog/hello');
     expect(text).toContain('src/routes/blog/hello/+page.svelte:3');
     expect(text).toContain('Add a <title> inside <svelte:head>.');
     expect(text).toContain('```svelte');
-    expect(text).toContain('https://oekazuma.github.io/svelte-vitals/rules/seo001/');
+    expect(text).toContain('https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence');
   });
 
   it('shows "Copied!" when navigator.clipboard.writeText succeeds', async () => {

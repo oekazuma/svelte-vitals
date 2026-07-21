@@ -30,7 +30,7 @@ describe('run() --diff / --staged gating', () => {
     const cap = capture();
     const code = await run({ cwd: fixtureDir, diffBase: 'HEAD', log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
     expect(code).toBe(0);
-    expect(cap.out.join('\n')).not.toContain('SEO001');
+    expect(cap.out.join('\n')).not.toContain('seo/title-presence');
   });
 
   it('--staged queries staged files and takes precedence over diffBase', async () => {
@@ -53,6 +53,6 @@ describe('run() --diff / --staged gating', () => {
     const code = await run({ cwd: fixtureDir, diffBase: 'HEAD', log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
     expect(cap.err.join('\n')).toContain('could not determine changed files');
     expect(code).toBe(1); // same as an unscoped run — findings still surface
-    expect(cap.out.join('\n')).toContain('SEO001');
+    expect(cap.out.join('\n')).toContain('seo/title-presence');
   });
 });

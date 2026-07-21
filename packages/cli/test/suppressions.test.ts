@@ -79,10 +79,10 @@ describe('loadSuppressions', () => {
       JSON.stringify({
         version: 1,
         extra: 'ignored',
-        suppressions: [{ id: 'SEO001', route: '/blog', location: 'a.svelte', future: 'ignored' }]
+        suppressions: [{ id: 'seo/title-presence', route: '/blog', location: 'a.svelte', future: 'ignored' }]
       })
     );
-    expect(loadSuppressions(dir)).toEqual([{ id: 'SEO001', route: '/blog', location: 'a.svelte' }]);
+    expect(loadSuppressions(dir)).toEqual([{ id: 'seo/title-presence', route: '/blog', location: 'a.svelte' }]);
   });
 });
 
@@ -90,10 +90,10 @@ describe('writeSuppressions', () => {
   it('writes only penalized findings, sorted and de-duplicated', () => {
     const dir = makeDir();
     const results: Result[] = [
-      r({ id: 'SEO002', route: '/blog' }),
-      r({ id: 'SEO001', route: '/a' }),
-      r({ id: 'SEO001', route: '/a' }), // duplicate key, should collapse
-      passing({ id: 'SEO003', route: '/pass' }) // passing seed, must not be written
+      r({ id: 'seo/description-presence', route: '/blog' }),
+      r({ id: 'seo/title-presence', route: '/a' }),
+      r({ id: 'seo/title-presence', route: '/a' }), // duplicate key, should collapse
+      passing({ id: 'seo/canonical-url', route: '/pass' }) // passing seed, must not be written
     ];
     const count = writeSuppressions(dir, results, config);
     expect(count).toBe(2);
@@ -102,8 +102,8 @@ describe('writeSuppressions', () => {
     expect(written).toEqual({
       version: 1,
       suppressions: [
-        { id: 'SEO001', route: '/a' },
-        { id: 'SEO002', route: '/blog' }
+        { id: 'seo/description-presence', route: '/blog' },
+        { id: 'seo/title-presence', route: '/a' }
       ]
     });
   });
@@ -118,7 +118,7 @@ describe('writeSuppressions', () => {
 
   it('writes an empty suppressions array when nothing is penalized', () => {
     const dir = makeDir();
-    const count = writeSuppressions(dir, [passing({ id: 'SEO003' })], config);
+    const count = writeSuppressions(dir, [passing({ id: 'seo/canonical-url' })], config);
     expect(count).toBe(0);
     const written = JSON.parse(readFileSync(join(dir, SUPPRESSIONS_FILE), 'utf8'));
     expect(written).toEqual({ version: 1, suppressions: [] });
@@ -127,22 +127,22 @@ describe('writeSuppressions', () => {
 
 describe('applySuppressions', () => {
   it('removes penalized findings matching an entry', () => {
-    const results: Result[] = [r({ id: 'SEO001', route: '/blog' }), r({ id: 'SEO002', route: '/other' })];
-    const { results: kept, suppressed, stale } = applySuppressions(results, [{ id: 'SEO001', route: '/blog' }], config);
-    expect(kept.map((x) => x.id)).toEqual(['SEO002']);
+    const results: Result[] = [r({ id: 'seo/title-presence', route: '/blog' }), r({ id: 'seo/description-presence', route: '/other' })];
+    const { results: kept, suppressed, stale } = applySuppressions(results, [{ id: 'seo/title-presence', route: '/blog' }], config);
+    expect(kept.map((x) => x.id)).toEqual(['seo/description-presence']);
     expect(suppressed).toBe(1);
     expect(stale).toBe(0);
   });
 
   it('never removes a passing seed even if its key matches an entry', () => {
-    const results: Result[] = [passing({ id: 'SEO001', route: '/blog' })];
-    const { results: kept, suppressed } = applySuppressions(results, [{ id: 'SEO001', route: '/blog' }], config);
+    const results: Result[] = [passing({ id: 'seo/title-presence', route: '/blog' })];
+    const { results: kept, suppressed } = applySuppressions(results, [{ id: 'seo/title-presence', route: '/blog' }], config);
     expect(kept).toEqual(results);
     expect(suppressed).toBe(0);
   });
 
   it('counts entries that matched nothing as stale', () => {
-    const results: Result[] = [r({ id: 'SEO001', route: '/blog' })];
+    const results: Result[] = [r({ id: 'seo/title-presence', route: '/blog' })];
     const {
       results: kept,
       suppressed,
@@ -150,7 +150,7 @@ describe('applySuppressions', () => {
     } = applySuppressions(
       results,
       [
-        { id: 'SEO001', route: '/blog' },
+        { id: 'seo/title-presence', route: '/blog' },
         { id: 'SEO999', route: '/gone' }
       ],
       config
@@ -161,7 +161,7 @@ describe('applySuppressions', () => {
   });
 
   it('is a no-op with an empty entry list', () => {
-    const results: Result[] = [r({ id: 'SEO001', route: '/blog' })];
+    const results: Result[] = [r({ id: 'seo/title-presence', route: '/blog' })];
     const { results: kept, suppressed, stale } = applySuppressions(results, [], config);
     expect(kept).toEqual(results);
     expect(suppressed).toBe(0);

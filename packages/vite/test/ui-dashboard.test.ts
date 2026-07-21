@@ -15,7 +15,7 @@ const baseSnapshot: DashboardSnapshot = {
         score: 80,
         issues: [
           {
-            id: 'SEO001',
+            id: 'seo/title-presence',
             category: 'seo',
             title: 'Missing <title>',
             severity: 'critical',
@@ -66,7 +66,7 @@ describe('renderDashboardShell', () => {
             score: 80,
             issues: [
               {
-                id: 'SEO001',
+                id: 'seo/title-presence',
                 category: 'seo',
                 title: '</script><script>alert(1)</script>',
                 severity: 'critical',
@@ -112,7 +112,7 @@ describe('renderDashboardShell', () => {
             score: 50,
             issues: [
               {
-                id: 'SEO001',
+                id: 'seo/title-presence',
                 category: 'seo',
                 title: 'Missing <title>',
                 severity: 'critical',

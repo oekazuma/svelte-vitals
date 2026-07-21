@@ -52,14 +52,14 @@ describe('run() svelte-vitals-suppressions.json', () => {
       JSON.stringify({
         version: 1,
         suppressions: [
-          { id: 'SEO001', route: '/none', location: 'src/routes/none/+page.svelte' },
-          { id: 'SEO001', route: '/widget', location: 'src/routes/widget/+page.svelte' }
+          { id: 'seo/title-presence', route: '/none', location: 'src/routes/none/+page.svelte' },
+          { id: 'seo/title-presence', route: '/widget', location: 'src/routes/widget/+page.svelte' }
         ]
       })
     );
     const cap = capture();
     await run({ cwd: dir, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
-    expect(cap.out.join('\n')).not.toContain('SEO001');
+    expect(cap.out.join('\n')).not.toContain('seo/title-presence');
     expect(cap.err.join('\n')).toContain(`2 finding(s) suppressed by ${SUPPRESSIONS_FILE}`);
   });
 
@@ -69,12 +69,12 @@ describe('run() svelte-vitals-suppressions.json', () => {
       join(dir, SUPPRESSIONS_FILE),
       JSON.stringify({
         version: 1,
-        suppressions: [{ id: 'SEO001', route: '/none', location: 'src/routes/none/+page.svelte' }]
+        suppressions: [{ id: 'seo/title-presence', route: '/none', location: 'src/routes/none/+page.svelte' }]
       })
     );
     const cap = capture();
     await run({ cwd: dir, noSuppressions: true, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
-    expect(cap.out.join('\n')).toContain('SEO001');
+    expect(cap.out.join('\n')).toContain('seo/title-presence');
     expect(cap.err.join('\n')).not.toContain('suppressed by');
   });
 
@@ -95,7 +95,7 @@ describe('run() svelte-vitals-suppressions.json', () => {
     const written = JSON.parse(readFileSync(join(dir, SUPPRESSIONS_FILE), 'utf8'));
     expect(written.version).toBe(1);
     expect(written.suppressions.length).toBeGreaterThan(0);
-    expect(written.suppressions.some((e: { id: string }) => e.id === 'SEO001')).toBe(true);
+    expect(written.suppressions.some((e: { id: string }) => e.id === 'seo/title-presence')).toBe(true);
   });
 
   it('adoption-ramp sequence: update accepts everything, a re-run suppresses it all, and a subsequently-un-suppressed finding still fails', async () => {
@@ -121,7 +121,7 @@ describe('run() svelte-vitals-suppressions.json', () => {
       env: CLEAN_ENV
     });
     expect(allSuppressedCode).toBe(0);
-    expect(allSuppressedCap.out.join('\n')).not.toContain('SEO001');
+    expect(allSuppressedCap.out.join('\n')).not.toContain('seo/title-presence');
 
     // 3. Simulate a new/un-suppressed finding by dropping one accepted entry from the
     //    file — the corresponding finding is "new" relative to the suppressions file
@@ -132,7 +132,7 @@ describe('run() svelte-vitals-suppressions.json', () => {
     };
     const withoutOneEntry = {
       version: 1,
-      suppressions: written.suppressions.filter((e) => !(e.id === 'SEO001' && e.route === '/none'))
+      suppressions: written.suppressions.filter((e) => !(e.id === 'seo/title-presence' && e.route === '/none'))
     };
     writeFileSync(join(dir, SUPPRESSIONS_FILE), JSON.stringify(withoutOneEntry));
 
@@ -143,7 +143,7 @@ describe('run() svelte-vitals-suppressions.json', () => {
       errorLog: newFindingCap.errorLog,
       env: CLEAN_ENV
     });
-    expect(newFindingCap.out.join('\n')).toContain('SEO001');
+    expect(newFindingCap.out.join('\n')).toContain('seo/title-presence');
     expect(newFindingCode).toBe(1);
   });
 
@@ -154,7 +154,7 @@ describe('run() svelte-vitals-suppressions.json', () => {
       JSON.stringify({
         version: 1,
         suppressions: [
-          { id: 'SEO001', route: '/none', location: 'src/routes/none/+page.svelte' },
+          { id: 'seo/title-presence', route: '/none', location: 'src/routes/none/+page.svelte' },
           { id: 'SEO999', route: '/does-not-exist' } // never matches -> stale
         ]
       })
@@ -176,21 +176,21 @@ describe('run() svelte-vitals-suppressions.json', () => {
 
   it('applies after --diff: diff narrows first, suppressions removes what remains', async () => {
     const dir = makeProjectCopy();
-    // The "none" route's file has several penalized findings (SEO001, SEO003, ...);
-    // only SEO001 is accepted here, so it must be gone from the output while a
+    // The "none" route's file has several penalized findings (seo/title-presence, seo/canonical-url, ...);
+    // only seo/title-presence is accepted here, so it must be gone from the output while a
     // sibling finding on the same (diff-narrowed) file still surfaces.
     writeFileSync(
       join(dir, SUPPRESSIONS_FILE),
       JSON.stringify({
         version: 1,
-        suppressions: [{ id: 'SEO001', route: '/none', location: 'src/routes/none/+page.svelte' }]
+        suppressions: [{ id: 'seo/title-presence', route: '/none', location: 'src/routes/none/+page.svelte' }]
       })
     );
     mockGet.mockReturnValue(new Set(['src/routes/none/+page.svelte']));
     const cap = capture();
-    // SEO001 is 'critical' (suppressed here) but SEO003 is only 'warning' — force
-    // --fail-on warning so the still-unsuppressed SEO003 keeps the gate failing,
-    // proving suppressions removed exactly SEO001 and nothing more.
+    // seo/title-presence is 'critical' (suppressed here) but seo/canonical-url is only 'warning' — force
+    // --fail-on warning so the still-unsuppressed seo/canonical-url keeps the gate failing,
+    // proving suppressions removed exactly seo/title-presence and nothing more.
     const code = await run({
       cwd: dir,
       diffBase: 'main',
@@ -201,8 +201,8 @@ describe('run() svelte-vitals-suppressions.json', () => {
     });
     expect(mockGet).toHaveBeenCalledWith(dir, { base: 'main' });
     expect(cap.err.join('\n')).toContain(`1 finding(s) suppressed by ${SUPPRESSIONS_FILE}`);
-    expect(cap.out.join('\n')).not.toContain('SEO001');
-    expect(cap.out.join('\n')).toContain('SEO003'); // same diff-narrowed file, not suppressed -> still fails the gate
+    expect(cap.out.join('\n')).not.toContain('seo/title-presence');
+    expect(cap.out.join('\n')).toContain('seo/canonical-url'); // same diff-narrowed file, not suppressed -> still fails the gate
     expect(code).toBe(1);
   });
 });

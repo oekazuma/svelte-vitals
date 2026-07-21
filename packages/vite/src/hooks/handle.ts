@@ -59,8 +59,8 @@ async function analyzeAndIngest(
       { route, headings: levels.map((level) => ({ level, line: 0, file: route })) }
     ];
     const images: ResolvedImages[] = [{ route, images: imgs.map((img) => ({ ...img, file: route })) }];
-    // robots/sitemap are not page-scoped, so mark them present to suppress SEO006/SEO007;
-    // htmlLang comes from the rendered document so SEO009 is evaluated against reality.
+    // robots/sitemap are not page-scoped, so mark them present to suppress seo/robots-txt, seo/sitemap-xml;
+    // htmlLang comes from the rendered document so seo/html-lang is evaluated against reality.
     const project: Project = { hasRobotsTxt: true, hasSitemap: true, htmlLang };
     const results = applyRuleSeverities(
       await runRules(rules, { heads: [head], headings, images, project, config }),

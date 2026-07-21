@@ -9,7 +9,7 @@ describe('parse: jsonld raw capture (static)', () => {
     const src = head('<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage"}</script>');
     expect(jsonld(parseHeadTags(src, 'x.svelte')).jsonld).toBe('{"@context":"https://schema.org","@type":"WebPage"}');
   });
-  it('captures the literal text even when it is not valid JSON (SEO016 flags it later)', () => {
+  it('captures the literal text even when it is not valid JSON (seo/json-ld-validity flags it later)', () => {
     const src = head('<script type="application/ld+json">{@html ld}</script>');
     expect(jsonld(parseHeadTags(src, 'x.svelte')).jsonld).toBe('{@html ld}');
   });

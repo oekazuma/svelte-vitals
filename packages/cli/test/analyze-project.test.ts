@@ -16,7 +16,7 @@ describe('analyzeProject', () => {
   it('returns results, config, version and warnings for a SvelteKit project', async () => {
     const { results, config, version, warnings } = await analyzeProject({ cwd: fixtureDir });
     expect(results.length).toBeGreaterThan(0);
-    expect(results.some((r) => r.id === 'SEO001')).toBe(true);
+    expect(results.some((r) => r.id === 'seo/title-presence')).toBe(true);
     expect(config.treatDynamicAs).toBe('pass');
     expect(typeof version).toBe('string');
     // basic-project has no config file, so warnings must stay empty (equivalence regression check).
@@ -44,12 +44,12 @@ describe('analyzeProject', () => {
     const penalized = (r: { detection: { presence: string; value: string } }) =>
       r.detection.presence === 'none' || r.detection.value === 'absent';
     expect(seoOf('/dashboard').filter(penalized)).toEqual([]);
-    expect(seoOf('/public').some((r) => r.id === 'SEO001' && penalized(r))).toBe(true);
+    expect(seoOf('/public').some((r) => r.id === 'seo/title-presence' && penalized(r))).toBe(true);
   });
 
-  it('flags PERF012 when vite.config disables minification', async () => {
+  it('flags performance/minify-disabled when vite.config disables minification', async () => {
     const { results } = await analyzeProject({ cwd: minifyDisabledFixtureDir });
-    const hit = results.find((r) => r.id === 'PERF012');
+    const hit = results.find((r) => r.id === 'performance/minify-disabled');
     expect(hit).toBeDefined();
     expect(hit?.detection.presence).toBe('none');
     expect(hit?.location).toBe('vite.config.ts');
@@ -57,18 +57,18 @@ describe('analyzeProject', () => {
     expect(hit?.route).toBeUndefined();
   });
 
-  it('emits no PERF012 result for a project without the override', async () => {
+  it('emits no performance/minify-disabled result for a project without the override', async () => {
     const { results } = await analyzeProject({ cwd: fixtureDir });
-    expect(results.some((r) => r.id === 'PERF012')).toBe(false);
+    expect(results.some((r) => r.id === 'performance/minify-disabled')).toBe(false);
   });
 
-  it('flags PERF011 and PERF013 in a universal load, PERF013 only in a server load', async () => {
+  it('flags performance/load-waterfall and performance/sequential-awaits in a universal load, performance/sequential-awaits only in a server load', async () => {
     const { results } = await analyzeProject({ cwd: waterfallProjectFixtureDir });
-    const perf011 = results.filter((r) => r.id === 'PERF011' && r.detection.presence === 'none');
+    const perf011 = results.filter((r) => r.id === 'performance/load-waterfall' && r.detection.presence === 'none');
     expect(perf011.map((r) => ({ file: r.location, line: r.line }))).toEqual([
       { file: 'src/routes/+page.ts', line: 3 }
     ]);
-    const perf013 = results.filter((r) => r.id === 'PERF013' && r.detection.presence === 'none');
+    const perf013 = results.filter((r) => r.id === 'performance/sequential-awaits' && r.detection.presence === 'none');
     expect(perf013.map((r) => ({ file: r.location, line: r.line }))).toEqual([
       { file: 'src/routes/+page.ts', line: 4 },
       { file: 'src/routes/server/+page.server.ts', line: 4 }
@@ -82,7 +82,7 @@ describe('analyzeProject config-file precedence (design doc 2026-07-05-config-fi
     expect(config.failOn).toBe('warning');
     expect(config.metaComponents).toEqual(['Seo']);
     expect(config.treatDynamicAs).toBe('warn');
-    expect(config.rules).toEqual({ SEO001: 'off' });
+    expect(config.rules).toEqual({ 'seo/title-presence': 'off' });
     expect(config.weights).toEqual({ seo: 2 });
   });
 
@@ -99,9 +99,9 @@ describe('analyzeProject config-file precedence (design doc 2026-07-05-config-fi
     expect(config.weights).toEqual({ performance: 3 });
   });
 
-  it('SEO001 is disabled by the file, changing findings vs the same project without the config file', async () => {
+  it('seo/title-presence is disabled by the file, changing findings vs the same project without the config file', async () => {
     const { results } = await analyzeProject({ cwd: configFileFixtureDir });
-    expect(results.some((r) => r.id === 'SEO001')).toBe(false);
+    expect(results.some((r) => r.id === 'seo/title-presence')).toBe(false);
   });
 
   it('rejects an unknown rule id in the file rules, listing known rule ids', async () => {

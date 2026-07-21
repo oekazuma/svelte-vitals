@@ -16,8 +16,8 @@ const r = (over: Partial<Result>): Result => ({
 
 describe('findingKey', () => {
   it('combines id, route, and location', () => {
-    expect(findingKey(r({ id: 'SEO001', route: '/blog', location: 'src/routes/blog/+page.svelte' }))).toBe(
-      'SEO001::/blog::src/routes/blog/+page.svelte'
+    expect(findingKey(r({ id: 'seo/title-presence', route: '/blog', location: 'src/routes/blog/+page.svelte' }))).toBe(
+      'seo/title-presence::/blog::src/routes/blog/+page.svelte'
     );
   });
 
@@ -26,8 +26,8 @@ describe('findingKey', () => {
   });
 
   it('ignores line — two findings differing only by line share a key', () => {
-    const a = findingKey(r({ id: 'SEO001', location: 'a.svelte', line: 3 }));
-    const b = findingKey(r({ id: 'SEO001', location: 'a.svelte', line: 42 }));
+    const a = findingKey(r({ id: 'seo/title-presence', location: 'a.svelte', line: 3 }));
+    const b = findingKey(r({ id: 'seo/title-presence', location: 'a.svelte', line: 42 }));
     expect(a).toBe(b);
   });
 });

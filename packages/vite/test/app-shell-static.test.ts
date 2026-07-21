@@ -22,7 +22,7 @@ const report: JsonReport = {
       score: 50,
       issues: [
         {
-          id: 'SEO001',
+          id: 'seo/title-presence',
           category: 'seo',
           title: 'Missing <title>',
           detection: { presence: 'none', value: 'absent' },

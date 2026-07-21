@@ -6,14 +6,14 @@ const config = defineConfig({});
 
 const failing: Result[] = [
   {
-    id: 'SEO003',
+    id: 'seo/canonical-url',
     severity: 'warning',
     detection: { presence: 'none', value: 'absent' },
     route: '/p',
     message: 'Missing <link rel="canonical">'
   },
   {
-    id: 'SEO001',
+    id: 'seo/title-presence',
     severity: 'critical',
     detection: { presence: 'none', value: 'absent' },
     route: '/p',
@@ -23,7 +23,7 @@ const failing: Result[] = [
 
 const passing: Result[] = [
   {
-    id: 'SEO001',
+    id: 'seo/title-presence',
     severity: 'critical',
     detection: { presence: 'own', value: 'static' },
     route: '/p',
@@ -47,7 +47,7 @@ describe('findingSignature', () => {
   it('distinguishes a missing tag from an empty one (same id and severity)', () => {
     const missing: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/p',
@@ -56,7 +56,7 @@ describe('findingSignature', () => {
     ];
     const empty: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'own', value: 'absent' },
         route: '/p',

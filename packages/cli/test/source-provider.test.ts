@@ -47,7 +47,7 @@ describe('SourceHeadProvider (Node runtime, real fixture)', () => {
     expect(titleDetection(byRoute.get('/blog')!)).toEqual({ presence: 'inherited', value: 'static' });
   });
 
-  it('feeds SEO001 to produce one critical failure (the missing title)', async () => {
+  it('feeds seo/title-presence to produce one critical failure (the missing title)', async () => {
     const rt = createNodeRuntime();
     const heads = await sourceHeadProvider.collect(rt, fixtureDir);
     const results = await seo001Title.check({ heads, project: defaultProject, config: defineConfig({}) });

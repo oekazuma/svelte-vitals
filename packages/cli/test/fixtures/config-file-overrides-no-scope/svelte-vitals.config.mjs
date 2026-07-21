@@ -1,4 +1,4 @@
 /** An override entry must set route and/or files. */
 export default {
-  overrides: [{ rules: { SEO001: 'off' } }]
+  overrides: [{ rules: { 'seo/title-presence': 'off' } }]
 };

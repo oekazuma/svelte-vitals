@@ -24,7 +24,7 @@ describe('isRelevant (dev-dashboard watcher filter)', () => {
     expect(isRelevant(join(root, 'svelte-vitals.config.ts'), root)).toBe(true);
   });
 
-  it('is relevant for vite.config.* at the project root (PERF012 depends on it)', () => {
+  it('is relevant for vite.config.* at the project root (performance/minify-disabled depends on it)', () => {
     expect(isRelevant(join(root, 'vite.config.js'), root)).toBe(true);
     expect(isRelevant(join(root, 'vite.config.mjs'), root)).toBe(true);
     expect(isRelevant(join(root, 'vite.config.ts'), root)).toBe(true);

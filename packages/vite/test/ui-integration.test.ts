@@ -54,7 +54,7 @@ describe('dev dashboard whole-project integration (real analyzeProject)', () => 
     expect(snapshot.some((r) => r.route === undefined)).toBe(true);
 
     // '/' has no <svelte:head> in the fixture → missing-title finding from static analysis.
-    expect(snapshot.some((r) => r.id === 'SEO001' && r.route === '/')).toBe(true);
+    expect(snapshot.some((r) => r.id === 'seo/title-presence' && r.route === '/')).toBe(true);
 
     // Every route in the badge map is static — nothing was measured yet.
     const badges = store.badges();
@@ -70,18 +70,18 @@ describe('dev dashboard whole-project integration (real analyzeProject)', () => 
     const staticAbout = staticSnapshot.filter((r) => r.route === '/about');
     expect(staticHome.length).toBeGreaterThan(1); // more ids than the live payload below
 
-    // Visit '/': the rendered page evaluated only SEO001 (payload rule-id set = {SEO001}).
-    store.set('/', [live('SEO001', '/')]);
+    // Visit '/': the rendered page evaluated only seo/title-presence (payload rule-id set = {seo/title-presence}).
+    store.set('/', [live('seo/title-presence', '/')]);
     const merged = store.snapshot();
 
-    // The live result replaced the static SEO001 on '/'...
-    const home001 = merged.filter((r) => r.id === 'SEO001' && r.route === '/');
+    // The live result replaced the static seo/title-presence on '/'...
+    const home001 = merged.filter((r) => r.id === 'seo/title-presence' && r.route === '/');
     expect(home001).toHaveLength(1);
-    expect(home001[0]!.message).toBe('SEO001 (live)');
+    expect(home001[0]!.message).toBe('seo/title-presence (live)');
 
     // ...while static findings on '/' whose id was NOT in the live payload are kept.
     const homeIds = merged.filter((r) => r.route === '/').map((r) => r.id);
-    for (const kept of staticHome.filter((r) => r.id !== 'SEO001')) {
+    for (const kept of staticHome.filter((r) => r.id !== 'seo/title-presence')) {
       expect(homeIds).toContain(kept.id);
     }
 

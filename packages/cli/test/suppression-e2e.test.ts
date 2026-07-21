@@ -35,11 +35,11 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
 });
 
 describe('inline suppression directive — end-to-end (issue #92)', () => {
-  it('CORRECT002 passes for the real mount-signal $effect source, suppressed via inline directive', async () => {
+  it('correctness/effect-as-derived passes for the real mount-signal $effect source, suppressed via inline directive', async () => {
     const src = [
       '<script>',
       '  let mounted = $state(false);',
-      '  // svelte-vitals-disable-next-line CORRECT002',
+      '  // svelte-vitals-disable-next-line correctness/effect-as-derived',
       '  $effect(() => {',
       '    mounted = true;',
       '  });',
@@ -55,8 +55,8 @@ describe('inline suppression directive — end-to-end (issue #92)', () => {
     expect(fails(rs)).toHaveLength(0);
   });
 
-  it('SEC001 passes for a real template-side {@html} suppressed via an HTML-comment directive', async () => {
-    const src = ['<!-- svelte-vitals-disable-next-line SEC001 -->', '<div>{@html trustedMarkup}</div>'].join('\n');
+  it('security/raw-html passes for a real template-side {@html} suppressed via an HTML-comment directive', async () => {
+    const src = ['<!-- svelte-vitals-disable-next-line security/raw-html -->', '<div>{@html trustedMarkup}</div>'].join('\n');
     const facts = parseComponentFacts(src, 'src/lib/C.svelte');
     const ctx: RuleContext = {
       components: [comp({ htmlTags: facts.htmlTags, suppressions: facts.suppressions })],
@@ -70,7 +70,7 @@ describe('inline suppression directive — end-to-end (issue #92)', () => {
     const src = [
       '<script>',
       '  let mounted = $state(false);',
-      '  // svelte-vitals-disable-next-line CORRECT002',
+      '  // svelte-vitals-disable-next-line correctness/effect-as-derived',
       '',
       '  $effect(() => {',
       '    mounted = true;',

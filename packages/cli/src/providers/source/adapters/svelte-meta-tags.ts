@@ -30,7 +30,7 @@ export const svelteMetaTagsAdapter: Adapter = {
       const value = attrValueOf(title);
       // Capture measurable text only for a bare static title — not the template itself
       // (a `%s | …` pattern), and not when a titleTemplate wraps the title (the rendered
-      // title would be longer, so measuring the literal alone would false-positive SEO022).
+      // title would be longer, so measuring the literal alone would false-positive seo/title-length).
       const text = titleAttr && !templateAttr && value === 'static' ? attrTextOf(titleAttr) : undefined;
       tags.push({ kind: 'title', value, ...(text !== undefined ? { text } : {}) });
     }

@@ -52,12 +52,12 @@ describe('[SPIKE, plan 036] scoped diff analysis feasibility', () => {
     expect(new Set(affectedByLayout)).toEqual(new Set(pages));
   });
 
-  it('a route-independent rule (SEO001) gives an identical verdict whether or not sibling routes are included', async () => {
+  it('a route-independent rule (seo/title-presence) gives an identical verdict whether or not sibling routes are included', async () => {
     const rt = createMemoryRuntime({
       'src/routes/+layout.svelte': `<slot />`,
       'src/routes/a/+page.svelte': `<svelte:head><title>Title A</title></svelte:head>`,
       'src/routes/b/+page.svelte': `<svelte:head><title>Title B</title></svelte:head>`,
-      'src/routes/c/+page.svelte': `<slot />` // no <title> — SEO001 should flag this one
+      'src/routes/c/+page.svelte': `<slot />` // no <title> — seo/title-presence should flag this one
     });
 
     // "Full" run: every route resolved.
@@ -75,10 +75,10 @@ describe('[SPIKE, plan 036] scoped diff analysis feasibility', () => {
     const fullForC = fullResults.find((r) => r.route === '/c');
     const scopedForC = scopedResults.find((r) => r.route === '/c');
     expect(scopedForC).toEqual(fullForC);
-    expect(fullForC?.detection.presence).toBe('none'); // confirms SEO001 did flag /c as missing
+    expect(fullForC?.detection.presence).toBe('none'); // confirms seo/title-presence did flag /c as missing
   });
 
-  it('DANGER CASE — a cross-route rule (SEO028 duplicate title) silently under-reports when scoped to only the changed route', async () => {
+  it('DANGER CASE — a cross-route rule (seo/duplicate-title duplicate title) silently under-reports when scoped to only the changed route', async () => {
     const rt = createMemoryRuntime({
       'src/routes/+layout.svelte': `<slot />`,
       'src/routes/a/+page.svelte': `<svelte:head><title>Same Title</title></svelte:head>`,

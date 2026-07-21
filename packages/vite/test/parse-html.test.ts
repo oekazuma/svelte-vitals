@@ -92,7 +92,7 @@ describe('parse-html: jsonld raw capture', () => {
     expect(tags.find((t) => t.kind === 'jsonld')!.jsonld).toBe('{"@type":"WebPage"}');
   });
   it('preserves HTML entities verbatim (script is raw-text; crawlers do not decode)', () => {
-    // `&quot;` must NOT be decoded to `"` — doing so would corrupt the JSON and make SEO016 misreport.
+    // `&quot;` must NOT be decoded to `"` — doing so would corrupt the JSON and make seo/json-ld-validity misreport.
     const body = '{"@context":"https://schema.org","@type":"Org","name":"Tom &quot;Cat&quot; Jones"}';
     const { tags } = parseHtmlHead(
       `<html><head><script type="application/ld+json">${body}</script></head><body></body></html>`
@@ -118,20 +118,20 @@ describe('parse-html: title/description text capture', () => {
   });
 });
 
-describe('parse-html: static-gaps capture (SEO024/026/027)', () => {
-  it('captures <meta charset> as a name:charset tag (SEO024)', () => {
+describe('parse-html: static-gaps capture (seo/charset, seo/hreflang, seo/single-h1)', () => {
+  it('captures <meta charset> as a name:charset tag (seo/charset)', () => {
     const { tags } = parseHtmlHead(html('<meta charset="utf-8" />'));
     expect(tags).toContainEqual({ kind: 'meta', name: 'charset', presence: 'own', value: 'static' });
   });
 
-  it('captures hreflang on a rel=alternate link (SEO026)', () => {
+  it('captures hreflang on a rel=alternate link (seo/hreflang)', () => {
     const { tags } = parseHtmlHead(html('<link rel="alternate" hreflang="en-US" href="/en" />'));
     const link = tags.find((t) => t.kind === 'link')!;
     expect(link.rel).toBe('alternate');
     expect(link.hreflang).toBe('en-US');
   });
 
-  it('collects page-body heading levels in document order (SEO027)', () => {
+  it('collects page-body heading levels in document order (seo/single-h1)', () => {
     // h2 before h1 locks document order (not level-grouped) and matches the static provider.
     const doc =
       '<!doctype html><html lang="en"><head><title>t</title></head>' +
@@ -139,16 +139,16 @@ describe('parse-html: static-gaps capture (SEO024/026/027)', () => {
     expect(parseHtmlHead(doc).headings).toEqual([2, 1, 2]);
   });
 
-  it('reports an empty body as no headings (SEO027)', () => {
+  it('reports an empty body as no headings (seo/single-h1)', () => {
     expect(parseHtmlHead(html('<title>t</title>')).headings).toEqual([]);
   });
 
-  it('ignores headings outside <body> (SEO027)', () => {
+  it('ignores headings outside <body> (seo/single-h1)', () => {
     const doc = '<!doctype html><html lang="en"><head><h1>nope</h1></head><body><h1>A</h1></body></html>';
     expect(parseHtmlHead(doc).headings).toEqual([1]);
   });
 
-  it('keeps a literal empty hreflang="" (SEO026)', () => {
+  it('keeps a literal empty hreflang="" (seo/hreflang)', () => {
     const { tags } = parseHtmlHead(html('<link rel="alternate" hreflang="" href="/en" />'));
     expect(tags.find((t) => t.kind === 'link')!.hreflang).toBe('');
   });
@@ -188,7 +188,7 @@ describe('parse-html: image capture (rendered image-rule parity)', () => {
   });
 });
 
-describe('parse-html: script capture (PERF007/008)', () => {
+describe('parse-html: script capture (performance/render-blocking-script, performance/preconnect)', () => {
   it('marks a sync <script src> in head as blocking', () => {
     const { tags } = parseHtmlHead(html('<script src="/a.js"></script>'));
     const s = tags.find((t) => t.kind === 'script')!;

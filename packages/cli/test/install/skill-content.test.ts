@@ -21,9 +21,9 @@ describe('buildSkillMarkdown', () => {
     }
   });
 
-  it('lists a known rule from each end of the registry (SEO001, ARCH002)', () => {
-    expect(md).toMatch(/- \*\*SEO001 — .+\*\* \(critical\): .+\(\[docs\]\(.+seo001\)\)/);
-    expect(md).toMatch(/- \*\*ARCH002 — .+\*\* \(\w+\): .+\(\[docs\]\(.+arch002\)\)/);
+  it('lists a known rule from each end of the registry (seo/title-presence, architecture/prop-count)', () => {
+    expect(md).toMatch(/- \*\*seo\/title-presence — .+\*\* \(critical\): .+\(\[docs\]\(.+seo\/title-presence\)\)/);
+    expect(md).toMatch(/- \*\*architecture\/prop-count — .+\*\* \(\w+\): .+\(\[docs\]\(.+architecture\/prop-count\)\)/);
   });
 
   it('has one rule line per registered rule', () => {
@@ -55,9 +55,9 @@ describe('buildCursorRules', () => {
     }
   });
 
-  it('lists SEO001 and ARCH002', () => {
-    expect(mdc).toContain('SEO001');
-    expect(mdc).toContain('ARCH002');
+  it('lists seo/title-presence and architecture/prop-count', () => {
+    expect(mdc).toContain('seo/title-presence');
+    expect(mdc).toContain('architecture/prop-count');
   });
 });
 

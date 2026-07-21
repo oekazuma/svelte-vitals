@@ -9,7 +9,7 @@ export function buildConfigFileTemplate(opts: { useDefineConfig?: boolean; useCo
   const header = '// svelte-vitals config file — https://oekazuma.github.io/svelte-vitals/guides/configuration/\n';
   const options = `  // treatDynamicAs: 'pass', // 'pass' | 'warn' | 'fail' — how {data.title}-style dynamic values are scored
   // metaComponents: ['Seo'], // component names that resolve SEO tags into <head>
-  // rules: {}, // e.g. { SEO001: 'off' } to disable a rule
+  // rules: {}, // e.g. { 'seo/title-presence': 'off' } to disable a rule
   // failOn: 'critical', // 'critical' | 'warning' | 'info'
   // weights: {} // e.g. { seo: 2 } — per-category weight for the combined Health score`;
   // .ts configs use defineConfig — it's the whole reason to pick .ts over .mjs (real

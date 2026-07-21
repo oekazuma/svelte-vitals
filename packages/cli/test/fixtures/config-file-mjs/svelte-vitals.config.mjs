@@ -3,6 +3,6 @@ export default {
   treatDynamicAs: 'warn',
   failOn: 'warning',
   rules: {
-    SEO001: 'off'
+    'seo/title-presence': 'off'
   }
 };

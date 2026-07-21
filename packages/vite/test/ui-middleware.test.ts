@@ -79,7 +79,7 @@ const ingestBody = JSON.stringify({
   route: '/a',
   results: [
     {
-      id: 'SEO001',
+      id: 'seo/title-presence',
       message: 'Missing <title>',
       category: 'seo',
       detection: { presence: 'none', value: 'absent' },
@@ -101,7 +101,7 @@ describe('installUiMiddleware', () => {
     const gr = res();
     call(getReq('/'), gr);
     const html = gr.chunks.join('');
-    expect(html).toContain('SEO001');
+    expect(html).toContain('seo/title-presence');
     expect(gr.headers['Content-Type']).toContain('text/html');
   });
 
@@ -129,10 +129,10 @@ describe('installUiMiddleware', () => {
           route: '/x',
           results: [
             {}, // not an object-shaped finding
-            { id: 'SEO002', detection: { presence: 'none', value: 'absent' } }, // missing message/severity
-            { id: 'SEO003', message: 'm', severity: 'bogus', detection: { presence: 'none', value: 'absent' } }, // invalid severity
+            { id: 'seo/description-presence', detection: { presence: 'none', value: 'absent' } }, // missing message/severity
+            { id: 'seo/canonical-url', message: 'm', severity: 'bogus', detection: { presence: 'none', value: 'absent' } }, // invalid severity
             {
-              id: 'SEO001',
+              id: 'seo/title-presence',
               detection: { presence: 'none', value: 'absent' },
               message: 'm',
               category: 'seo',
@@ -148,9 +148,9 @@ describe('installUiMiddleware', () => {
     call(getReq('/'), gr);
     const html = gr.chunks.join('');
     expect(html.startsWith('<!doctype html>')).toBe(true); // did not crash on the malformed entries
-    expect(html).toContain('SEO001'); // the valid finding survived
-    expect(html).not.toContain('SEO002'); // missing message/severity → dropped
-    expect(html).not.toContain('SEO003'); // invalid severity → dropped
+    expect(html).toContain('seo/title-presence'); // the valid finding survived
+    expect(html).not.toContain('seo/description-presence'); // missing message/severity → dropped
+    expect(html).not.toContain('seo/canonical-url'); // invalid severity → dropped
   });
 
   it('decodes a multibyte ingest body split across chunk boundaries', async () => {
@@ -161,7 +161,7 @@ describe('installUiMiddleware', () => {
         route: '/x',
         results: [
           {
-            id: 'SEO001',
+            id: 'seo/title-presence',
             message: '日本語タイトルがありません',
             category: 'seo',
             detection: { presence: 'none', value: 'absent' },
@@ -181,7 +181,7 @@ describe('installUiMiddleware', () => {
     const gr = res();
     call(getReq('/'), gr);
     const html = gr.chunks.join('');
-    expect(html).toContain('SEO001'); // body parsed despite the split → finding survived
+    expect(html).toContain('seo/title-presence'); // body parsed despite the split → finding survived
   });
 
   it('ends open SSE connections when the dev server closes', () => {
@@ -206,7 +206,7 @@ describe('installUiMiddleware', () => {
     const gr = res();
     call(getReq('/'), gr);
     expect(gr.statusCode).not.toBe(403);
-    expect(gr.chunks.join('')).not.toContain('SEO001');
+    expect(gr.chunks.join('')).not.toContain('seo/title-presence');
   });
 
   it('accepts an ingest POST without an Origin header (server-side postIngest behavior)', async () => {
@@ -220,7 +220,7 @@ describe('installUiMiddleware', () => {
     expect(ir.statusCode).toBe(204);
     const gr = res();
     call(getReq('/'), gr);
-    expect(gr.chunks.join('')).toContain('SEO001'); // stored and rendered
+    expect(gr.chunks.join('')).toContain('seo/title-presence'); // stored and rendered
   });
 
   it('rejects a dashboard GET with a non-loopback Host (DNS rebinding)', () => {
@@ -242,7 +242,7 @@ describe('installUiMiddleware', () => {
           route: '/x',
           results: [
             {
-              id: 'SEO009',
+              id: 'seo/html-lang',
               message: 'm',
               category: 123, // would pass `?? 'seo'` and throw inside escapeHtml
               detection: { presence: 'none', value: 'absent' },
@@ -259,7 +259,7 @@ describe('installUiMiddleware', () => {
     const html = gr.chunks.join('');
     expect(gr.statusCode).not.toBe(500); // dashboard did not crash
     expect(html.startsWith('<!doctype html>')).toBe(true);
-    expect(html).not.toContain('SEO009'); // malformed finding was filtered out
+    expect(html).not.toContain('seo/html-lang'); // malformed finding was filtered out
   });
 
   it('surfaces the resolved @svelte-vitals/core version in the embedded snapshot when passed', () => {
@@ -285,7 +285,7 @@ describe('installUiMiddleware', () => {
           route: '/x',
           results: [
             {
-              id: 'SEO010',
+              id: 'seo/indexability',
               message: 'm',
               category: 'seo',
               detection: { presence: 'none', value: 'absent' },
@@ -303,7 +303,7 @@ describe('installUiMiddleware', () => {
     const html = gr.chunks.join('');
     expect(gr.statusCode).not.toBe(500); // dashboard did not crash
     expect(html.startsWith('<!doctype html>')).toBe(true);
-    expect(html).not.toContain('SEO010'); // malformed finding was filtered out
+    expect(html).not.toContain('seo/indexability'); // malformed finding was filtered out
   });
 
   it('GET /data.json returns the same snapshot the dashboard embeds', async () => {

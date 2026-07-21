@@ -15,26 +15,26 @@ const r = (id: string, route?: string): Result =>
 describe('createStore', () => {
   it('flattens results across routes in snapshot()', () => {
     const s = createStore();
-    s.set('/a', [r('SEO001', '/a')]);
-    s.set('/b', [r('SEO002', '/b')]);
+    s.set('/a', [r('seo/title-presence', '/a')]);
+    s.set('/b', [r('seo/description-presence', '/b')]);
     expect(
       s
         .snapshot()
         .map((x) => x.id)
         .sort()
-    ).toEqual(['SEO001', 'SEO002']);
+    ).toEqual(['seo/description-presence', 'seo/title-presence']);
   });
 
   it('replaces (not appends) a route on re-set', () => {
     const s = createStore();
-    s.set('/a', [r('SEO001', '/a')]);
-    s.set('/a', [r('SEO002', '/a')]);
-    expect(s.snapshot().map((x) => x.id)).toEqual(['SEO002']);
+    s.set('/a', [r('seo/title-presence', '/a')]);
+    s.set('/a', [r('seo/description-presence', '/a')]);
+    expect(s.snapshot().map((x) => x.id)).toEqual(['seo/description-presence']);
   });
 
   it('stamps the route onto results missing one', () => {
     const s = createStore();
-    s.set('/a', [r('SEO001')]); // no route on the result
+    s.set('/a', [r('seo/title-presence')]); // no route on the result
     expect(s.snapshot()[0]!.route).toBe('/a');
   });
 
@@ -42,10 +42,10 @@ describe('createStore', () => {
     const s = createStore();
     const fn = vi.fn();
     const off = s.subscribe(fn);
-    s.set('/a', [r('SEO001', '/a')]);
+    s.set('/a', [r('seo/title-presence', '/a')]);
     expect(fn).toHaveBeenCalledTimes(1);
     off();
-    s.set('/b', [r('SEO002', '/b')]);
+    s.set('/b', [r('seo/description-presence', '/b')]);
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
@@ -53,79 +53,79 @@ describe('createStore', () => {
     const s = createStore();
     const fn = vi.fn();
     s.subscribe(fn);
-    s.setStatic([r('SEO001', '/a')]);
+    s.setStatic([r('seo/title-presence', '/a')]);
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
   it('snapshot() includes the static layer alone when no live layer exists', () => {
     const s = createStore();
-    s.setStatic([r('SEO001', '/a'), r('SEO002', '/b')]);
+    s.setStatic([r('seo/title-presence', '/a'), r('seo/description-presence', '/b')]);
     expect(
       s
         .snapshot()
         .map((x) => x.id)
         .sort()
-    ).toEqual(['SEO001', 'SEO002']);
+    ).toEqual(['seo/description-presence', 'seo/title-presence']);
   });
 
   it('badges() marks every static-only route as static', () => {
     const s = createStore();
-    s.setStatic([r('SEO001', '/a'), r('SEO002', '/b')]);
+    s.setStatic([r('seo/title-presence', '/a'), r('seo/description-presence', '/b')]);
     expect(s.badges()).toEqual({ '/a': 'static', '/b': 'static' });
   });
 
   it('live overrides the static result for a matching rule id on a visited route', () => {
     const s = createStore();
-    s.setStatic([r('SEO001', '/a')]);
-    s.set('/a', [{ ...r('SEO001', '/a'), message: 'live version' }]);
-    const found = s.snapshot().filter((x) => x.id === 'SEO001' && x.route === '/a');
+    s.setStatic([r('seo/title-presence', '/a')]);
+    s.set('/a', [{ ...r('seo/title-presence', '/a'), message: 'live version' }]);
+    const found = s.snapshot().filter((x) => x.id === 'seo/title-presence' && x.route === '/a');
     expect(found).toHaveLength(1);
     expect(found[0]!.message).toBe('live version');
   });
 
   it('keeps a static rule id on a visited route when live did not evaluate that id', () => {
     const s = createStore();
-    s.setStatic([r('SEO001', '/a'), r('SEO002', '/a')]);
-    s.set('/a', [r('SEO002', '/a')]); // live only re-evaluated SEO002
+    s.setStatic([r('seo/title-presence', '/a'), r('seo/description-presence', '/a')]);
+    s.set('/a', [r('seo/description-presence', '/a')]); // live only re-evaluated seo/description-presence
     const ids = s
       .snapshot()
       .filter((x) => x.route === '/a')
       .map((x) => x.id)
       .sort();
-    expect(ids).toEqual(['SEO001', 'SEO002']);
+    expect(ids).toEqual(['seo/description-presence', 'seo/title-presence']);
   });
 
   it('preserves routeless (component/site-scoped) static findings untouched by live', () => {
     const s = createStore();
-    s.setStatic([r('CORRECT001'), r('SEO001', '/a')]);
-    s.set('/a', [r('SEO001', '/a')]);
-    expect(s.snapshot().some((x) => x.id === 'CORRECT001' && x.route === undefined)).toBe(true);
+    s.setStatic([r('correctness/each-key'), r('seo/title-presence', '/a')]);
+    s.set('/a', [r('seo/title-presence', '/a')]);
+    expect(s.snapshot().some((x) => x.id === 'correctness/each-key' && x.route === undefined)).toBe(true);
   });
 
   it('keeps an unvisited route on the static layer', () => {
     const s = createStore();
-    s.setStatic([r('SEO001', '/a'), r('SEO002', '/never-visited')]);
-    s.set('/a', [r('SEO001', '/a')]);
-    expect(s.snapshot().some((x) => x.id === 'SEO002' && x.route === '/never-visited')).toBe(true);
+    s.setStatic([r('seo/title-presence', '/a'), r('seo/description-presence', '/never-visited')]);
+    s.set('/a', [r('seo/title-presence', '/a')]);
+    expect(s.snapshot().some((x) => x.id === 'seo/description-presence' && x.route === '/never-visited')).toBe(true);
   });
 
   it('keeps a live-only route (not present in the static layer) as-is', () => {
     const s = createStore();
-    s.setStatic([r('SEO001', '/a')]);
-    s.set('/brand-new', [r('SEO003', '/brand-new')]);
-    expect(s.snapshot().some((x) => x.id === 'SEO003' && x.route === '/brand-new')).toBe(true);
+    s.setStatic([r('seo/title-presence', '/a')]);
+    s.set('/brand-new', [r('seo/canonical-url', '/brand-new')]);
+    expect(s.snapshot().some((x) => x.id === 'seo/canonical-url' && x.route === '/brand-new')).toBe(true);
   });
 
   it('badges() reports measured for a visited route and static for the rest', () => {
     const s = createStore();
-    s.setStatic([r('SEO001', '/a'), r('SEO002', '/b')]);
-    s.set('/a', [r('SEO001', '/a')]);
+    s.setStatic([r('seo/title-presence', '/a'), r('seo/description-presence', '/b')]);
+    s.set('/a', [r('seo/title-presence', '/a')]);
     expect(s.badges()).toEqual({ '/a': 'measured', '/b': 'static' });
   });
 
   it('badges() reports measured for every route when the static layer is empty', () => {
     const s = createStore();
-    s.set('/a', [r('SEO001', '/a')]);
+    s.set('/a', [r('seo/title-presence', '/a')]);
     expect(s.badges()).toEqual({ '/a': 'measured' });
   });
 
@@ -145,10 +145,10 @@ describe('createStore', () => {
   it('sequence() strictly increases across set/setStatic/setAnalyzing', () => {
     const s = createStore();
     const seq0 = s.sequence();
-    s.set('/a', [r('SEO001', '/a')]);
+    s.set('/a', [r('seo/title-presence', '/a')]);
     const seq1 = s.sequence();
     expect(seq1).toBeGreaterThan(seq0);
-    s.setStatic([r('SEO002', '/b')]);
+    s.setStatic([r('seo/description-presence', '/b')]);
     const seq2 = s.sequence();
     expect(seq2).toBeGreaterThan(seq1);
     s.setAnalyzing(true);
@@ -159,8 +159,8 @@ describe('createStore', () => {
 
 describe('composeSnapshot / composeBadges (pure)', () => {
   it('composeSnapshot returns only the static layer when the live map is empty', () => {
-    const out = composeSnapshot([r('SEO001', '/a')], new Map());
-    expect(out.map((x) => x.id)).toEqual(['SEO001']);
+    const out = composeSnapshot([r('seo/title-presence', '/a')], new Map());
+    expect(out.map((x) => x.id)).toEqual(['seo/title-presence']);
   });
 
   it('composeBadges returns an empty map when both layers are empty', () => {
