@@ -34,7 +34,7 @@ function isSuppressed(m: KitModuleFacts, ruleId: string, line: number): boolean 
 }
 
 /**
- * Build a Kit-module-scoped rule (SEC003–005) over `ctx.kitModules`. Static/CLI and
+ * Build a Kit-module-scoped rule (SEC003–005, SEO031) over `ctx.kitModules`. Static/CLI and
  * vite build mode only — `ctx.kitModules` is unset in rendered mode, so it emits
  * nothing there. Findings use the source file as the scoring unit.
  */

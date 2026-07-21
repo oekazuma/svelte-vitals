@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { sec003LoadStateWrite, sec004ServerModuleState, sec005SharedStateImport, seo031SsrDisabled } from '../src/index.js';
+import {
+  sec003LoadStateWrite,
+  sec004ServerModuleState,
+  sec005SharedStateImport,
+  seo031SsrDisabled
+} from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { KitModuleFacts } from '../src/kit-module.js';
