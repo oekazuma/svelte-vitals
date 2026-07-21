@@ -1,0 +1,20 @@
+---
+title: seo/json-ld-date-format · JSON-LD の日付形式
+description: JSON-LD の日付プロパティは ISO-8601 であるべきです。
+---
+
+**重大度:** info
+
+## チェック内容
+
+既知の日付キー（`datePublished`、`dateModified`、`startDate` など）が ISO-8601 でない値を検出します。schema.org が許容する縮約精度（年 `2026`、年月 `2026-06`、完全な日付、日時）はいずれも有効として扱います。
+
+## なぜ重要か
+
+schema.org の日付プロパティは ISO-8601 を期待します。他の形式は無視または誤解析される可能性があります。
+
+## 修正方法
+
+```json
+"datePublished": "2026-06-26"
+```
