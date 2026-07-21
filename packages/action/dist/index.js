@@ -55873,28 +55873,54 @@ async function collectKitModuleFacts(rt, cwd) {
 function propOf(obj, name) {
   let found;
   for (const p of obj.properties ?? []) {
+    if (p?.type === "SpreadElement") {
+      if (found) found = void 0;
+      continue;
+    }
     if (p?.type !== "Property" || p.computed) continue;
     if (p.key?.type === "Identifier" && p.key.name === name) found = p;
     else if (p.key?.type === "Literal" && p.key.value === name) found = p;
   }
   return found;
 }
-function resolveConfigObject(program) {
+function unwrapToObjectExpression(expr, bindings) {
+  for (let i = 0; i < 4 && expr; i++) {
+    expr = unwrapTs(expr);
+    if (expr?.type === "ObjectExpression") return expr;
+    if (expr?.type === "Identifier") {
+      expr = bindings.get(expr.name);
+      continue;
+    }
+    if (expr?.type === "CallExpression") {
+      expr = expr.arguments?.[0];
+      continue;
+    }
+    return void 0;
+  }
+  return expr?.type === "ObjectExpression" ? expr : void 0;
+}
+function findExportedExpression(program) {
   let exported;
   for (const stmt2 of program.body ?? []) {
     if (stmt2?.type === "ExportDefaultDeclaration") exported = stmt2.declaration;
   }
+  if (exported) return exported;
+  let cjsExported;
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExpressionStatement") continue;
+    const expr = stmt2.expression;
+    if (expr?.type !== "AssignmentExpression" || expr.operator !== "=") continue;
+    const left = expr.left;
+    if (left?.type === "MemberExpression" && !left.computed && left.object?.type === "Identifier" && left.object.name === "module" && left.property?.type === "Identifier" && left.property.name === "exports") {
+      cjsExported = expr.right;
+    }
+  }
+  return cjsExported;
+}
+function resolveConfigObject(program) {
+  const exported = findExportedExpression(program);
   if (!exported) return void 0;
-  let expr = unwrapTs(exported);
-  if (expr?.type === "Identifier") {
-    const resolved = collectTopLevelBindings(program).get(expr.name);
-    if (!resolved) return void 0;
-    expr = unwrapTs(resolved);
-  }
-  if (expr?.type === "CallExpression") {
-    expr = expr.arguments?.[0] ? unwrapTs(expr.arguments[0]) : void 0;
-  }
-  return expr?.type === "ObjectExpression" ? expr : void 0;
+  return unwrapToObjectExpression(exported, collectTopLevelBindings(program));
 }
 function findMinifyDisabled(source2) {
   let program;
@@ -57814,15 +57840,16 @@ var perf012MinifyDisabled = {
   async check(ctx) {
     const hit = ctx.project.viteMinifyDisabled;
     if (!hit) return [];
+    const provenance = hit.file === void 0 ? " The override comes from an inline (programmatic) Vite config." : hit.line === void 0 ? " The override was resolved from the actual build \u2014 it may come from a plugin or a conditional config, not a literal in the file." : "";
     return [
       {
         id: "PERF012",
         category: "performance",
         severity: "warning",
         detection: PENALIZED6,
-        location: hit.file,
-        line: hit.line,
-        message: "JS/CSS minification is disabled (build.minify: false) \u2014 production bundles ship unminified and several times larger.",
+        ...hit.file !== void 0 ? { location: hit.file } : {},
+        ...hit.line !== void 0 ? { line: hit.line } : {},
+        message: "JS/CSS minification is disabled (build.minify: false) \u2014 production bundles ship unminified and several times larger." + provenance,
         recommendation: RECOMMENDATION3,
         docsUrl: docsUrlFor("PERF012"),
         fix: { ...PERF012_FIX }
