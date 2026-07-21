@@ -33,7 +33,7 @@ Rewritten call sites (all four keep their exact current semantics, including inl
 
 ## Non-goals
 
-- No behavior change anywhere — the existing core test suite (595 tests pinning SEC003–005, CORRECT007–008, SEO031, PERF011/PERF013) is the acceptance gate, plus a dist regression probe.
+- No behavior change anywhere — the existing core test suite (pinning security, correctness, SEO, and performance rules) is the acceptance gate, plus a dist regression probe.
 - No new export forms (`export default`, cross-file re-exports) — same conservative scope as today.
 - Review finding #9 (double `collectAwaits` walk in `collectLoadWaterfalls`) stays as-is: negligible cost, clearer code.
 
