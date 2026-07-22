@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import type { AST } from 'svelte/compiler';
 import {
   valueFromNodes,
   textFromNodes,
@@ -10,16 +11,32 @@ import {
   attrTextOf
 } from '../src/svelte-ast.js';
 
+/** Test-only builders: fill in the position/expression fields real AST nodes carry but this module never reads. */
+function text(data: string): AST.Text {
+  return { type: 'Text', data, raw: data, start: 0, end: 0 };
+}
+function exprTag(): AST.ExpressionTag {
+  return {
+    type: 'ExpressionTag',
+    expression: { type: 'Identifier', name: '_' } as AST.ExpressionTag['expression'],
+    start: 0,
+    end: 0
+  };
+}
+function attr(name: string, value: AST.Attribute['value']): AST.Attribute {
+  return { type: 'Attribute', name, name_loc: null, value, start: 0, end: 0 };
+}
+
 describe('valueFromNodes', () => {
   it('is dynamic when any node is an ExpressionTag', () => {
-    expect(valueFromNodes([{ type: 'ExpressionTag' }])).toBe('dynamic');
+    expect(valueFromNodes([exprTag()])).toBe('dynamic');
   });
   it('is static when there is non-whitespace text', () => {
-    expect(valueFromNodes([{ type: 'Text', data: 'hello' }])).toBe('static');
+    expect(valueFromNodes([text('hello')])).toBe('static');
   });
   it('is absent when empty or whitespace-only', () => {
     expect(valueFromNodes([])).toBe('absent');
-    expect(valueFromNodes([{ type: 'Text', data: '   ' }])).toBe('absent');
+    expect(valueFromNodes([text('   ')])).toBe('absent');
   });
   it('is absent for a non-array', () => {
     expect(valueFromNodes(undefined as unknown as never[])).toBe('absent');
@@ -28,23 +45,23 @@ describe('valueFromNodes', () => {
 
 describe('textFromNodes', () => {
   it('returns the literal text when fully static', () => {
-    expect(textFromNodes([{ type: 'Text', data: 'hello' }])).toBe('hello');
+    expect(textFromNodes([text('hello')])).toBe('hello');
   });
   it('returns undefined when any node is an ExpressionTag', () => {
-    expect(textFromNodes([{ type: 'ExpressionTag' }])).toBeUndefined();
+    expect(textFromNodes([exprTag()])).toBeUndefined();
   });
   it('returns undefined for whitespace-only text', () => {
-    expect(textFromNodes([{ type: 'Text', data: '  ' }])).toBeUndefined();
+    expect(textFromNodes([text('  ')])).toBeUndefined();
   });
 });
 
 describe('findAttr', () => {
   it('finds an attribute by name', () => {
-    const attrs = [{ type: 'Attribute', name: 'href', value: true }];
+    const attrs = [attr('href', true)];
     expect(findAttr(attrs, 'href')).toBe(attrs[0]);
   });
   it('returns undefined when absent', () => {
-    expect(findAttr([{ type: 'Attribute', name: 'href', value: true }], 'src')).toBeUndefined();
+    expect(findAttr([attr('href', true)], 'src')).toBeUndefined();
   });
   it('returns undefined for a non-array', () => {
     expect(findAttr(undefined as unknown as never[], 'href')).toBeUndefined();
@@ -53,25 +70,19 @@ describe('findAttr', () => {
 
 describe('attrText', () => {
   it('returns the literal string of a static attribute', () => {
-    const attrs = [{ type: 'Attribute', name: 'name', value: [{ type: 'Text', data: 'description' }] }];
+    const attrs = [attr('name', [text('description')])];
     expect(attrText(attrs, 'name')).toBe('description');
   });
   it('returns empty string for a boolean attribute', () => {
-    const attrs = [{ type: 'Attribute', name: 'disabled', value: true }];
+    const attrs = [attr('disabled', true)];
     expect(attrText(attrs, 'disabled')).toBe('');
   });
   it('returns undefined for a dynamic attribute', () => {
-    const attrs = [{ type: 'Attribute', name: 'name', value: { type: 'ExpressionTag' } }];
+    const attrs = [attr('name', exprTag())];
     expect(attrText(attrs, 'name')).toBeUndefined();
   });
   it('returns undefined for a mixed static/dynamic attribute (e.g. href="prefix{expr}")', () => {
-    const attrs = [
-      {
-        type: 'Attribute',
-        name: 'href',
-        value: [{ type: 'Text', data: 'prefix' }, { type: 'ExpressionTag' }]
-      }
-    ];
+    const attrs = [attr('href', [text('prefix'), exprTag()])];
     expect(attrText(attrs, 'href')).toBeUndefined();
   });
   it('returns undefined when the attribute is absent', () => {
@@ -81,29 +92,29 @@ describe('attrText', () => {
 
 describe('attrValue', () => {
   it('is dynamic for content={expr}', () => {
-    const attrs = [{ type: 'Attribute', name: 'content', value: { type: 'ExpressionTag' } }];
+    const attrs = [attr('content', exprTag())];
     expect(attrValue(attrs, 'content')).toBe('dynamic');
   });
   it('is static for a literal content', () => {
-    const attrs = [{ type: 'Attribute', name: 'content', value: [{ type: 'Text', data: 'hi' }] }];
+    const attrs = [attr('content', [text('hi')])];
     expect(attrValue(attrs, 'content')).toBe('static');
   });
   it('is absent when the attribute is missing or boolean', () => {
     expect(attrValue([], 'content')).toBe('absent');
-    expect(attrValue([{ type: 'Attribute', name: 'content', value: true }], 'content')).toBe('absent');
+    expect(attrValue([attr('content', true)], 'content')).toBe('absent');
   });
 });
 
 describe('attrValueOf / attrTextOf', () => {
   it('attrValueOf mirrors attrValue for a single attribute node', () => {
-    expect(attrValueOf({ value: { type: 'ExpressionTag' } })).toBe('dynamic');
-    expect(attrValueOf({ value: [{ type: 'Text', data: 'hi' }] })).toBe('static');
-    expect(attrValueOf({ value: true })).toBe('absent');
+    expect(attrValueOf(attr('x', exprTag()))).toBe('dynamic');
+    expect(attrValueOf(attr('x', [text('hi')]))).toBe('static');
+    expect(attrValueOf(attr('x', true))).toBe('absent');
   });
   it('attrTextOf returns the literal text or undefined if dynamic/absent', () => {
-    expect(attrTextOf({ value: [{ type: 'Text', data: 'hi' }] })).toBe('hi');
-    expect(attrTextOf({ value: [{ type: 'ExpressionTag' }] })).toBeUndefined();
-    expect(attrTextOf({ value: true })).toBeUndefined();
+    expect(attrTextOf(attr('x', [text('hi')]))).toBe('hi');
+    expect(attrTextOf(attr('x', [exprTag()]))).toBeUndefined();
+    expect(attrTextOf(attr('x', true))).toBeUndefined();
   });
 });
 
