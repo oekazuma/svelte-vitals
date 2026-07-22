@@ -24,6 +24,26 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
     const c = parseComponentFacts('{#each { length: 8 }, rank (rank)}<div>{rank}</div>{/each}', 'C.svelte');
     expect(c.eachBlocks).toEqual([]);
   });
+  it('flags an each block keyed by its index', () => {
+    const c = parseComponentFacts('{#each items as item, i (i)}<li>{item}</li>{/each}', 'C.svelte');
+    expect(c.eachBlocks).toEqual([{ hasKey: true, line: 1, indexKey: true }]);
+  });
+  it('flags a renamed index key', () => {
+    const c = parseComponentFacts('{#each items as item, idx (idx)}<li>{item}</li>{/each}', 'C.svelte');
+    expect(c.eachBlocks).toEqual([{ hasKey: true, line: 1, indexKey: true }]);
+  });
+  it('does not set indexKey for item-based keys, other identifiers, or missing index', () => {
+    const byId = parseComponentFacts('{#each items as item, i (item.id)}<li>{item}</li>{/each}', 'C.svelte');
+    expect(byId.eachBlocks).toEqual([{ hasKey: true, line: 1 }]);
+    const otherIdent = parseComponentFacts('{#each items as item, i (globalKey)}<li>{item}</li>{/each}', 'C.svelte');
+    expect(otherIdent.eachBlocks).toEqual([{ hasKey: true, line: 1 }]);
+    const noIndex = parseComponentFacts('{#each items as item (item)}<li>{item}</li>{/each}', 'C.svelte');
+    expect(noIndex.eachBlocks).toEqual([{ hasKey: true, line: 1 }]);
+  });
+  it('does not set indexKey on composite keys containing the index', () => {
+    const c = parseComponentFacts('{#each items as item, i (item.id + "-" + i)}<li>{item}</li>{/each}', 'C.svelte');
+    expect(c.eachBlocks).toEqual([{ hasKey: true, line: 1 }]);
+  });
 });
 
 describe('parseComponentFacts — $effect (correctness/effect-as-derived)', () => {

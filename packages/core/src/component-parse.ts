@@ -33,6 +33,20 @@ function isConstantListEach(node: Node): boolean {
   );
 }
 
+/**
+ * Whether the block's key expression is exactly its index binding
+ * (`{#each items as item, i (i)}`) — position-based identity, the anti-pattern
+ * Svelte's docs call out ("do not use the index as a key"). Exact-identifier
+ * match only: composite keys that merely CONTAIN the index add uniqueness and
+ * are legitimate (correctness/each-index-key).
+ */
+function isIndexKey(each: Node): boolean {
+  if (typeof each.index !== 'string' || each.key == null) return false;
+  let key = each.key;
+  while (key?.type === 'TSSatisfiesExpression' || key?.type === 'TSAsExpression') key = key.expression;
+  return key?.type === 'Identifier' && key.name === each.index;
+}
+
 /** Recursively collect every `{#each}` block in the template (correctness/each-key). */
 function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): void {
   if (Array.isArray(node)) {
@@ -44,7 +58,11 @@ function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): vo
   // e.g. a chess board) has no item identity to key on; the only possible key is
   // the index itself, which is a no-op. Flagging it would be a false positive.
   if (node.type === 'EachBlock' && node.context != null && !isConstantListEach(node)) {
-    acc.push({ hasKey: node.key != null, line: lineOf(source, node.start) });
+    acc.push({
+      hasKey: node.key != null,
+      line: lineOf(source, node.start),
+      ...(isIndexKey(node) ? { indexKey: true } : {})
+    });
   }
   for (const key of CHILD_NODE_KEYS) {
     if (key in node) collectEachBlocks(node[key], source, acc);
