@@ -1,4 +1,6 @@
 import { parse } from 'svelte/compiler';
+import type { Expression } from 'estree';
+import type { AST } from 'svelte/compiler';
 import type {
   BrowserGlobalRefFact,
   ComponentFacts,
@@ -18,16 +20,40 @@ import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf } from './svelte-ast.js';
 /* oxlint-disable @typescript-eslint/no-explicit-any */
 type Node = any;
 
+// TypeScript wrapper expressions the Svelte script parser emits for `x satisfies T` /
+// `x as T` / `x!` — not part of estree's own type set, so declared here. `unwrapTs`
+// is shared with the Kit-module and Vite-config parsers, hence exported alongside them.
+export interface TSSatisfiesExpression {
+  type: 'TSSatisfiesExpression';
+  start: number;
+  end: number;
+  expression: TsExpression;
+}
+export interface TSAsExpression {
+  type: 'TSAsExpression';
+  start: number;
+  end: number;
+  expression: TsExpression;
+}
+export interface TSNonNullExpression {
+  type: 'TSNonNullExpression';
+  start: number;
+  end: number;
+  expression: TsExpression;
+}
+/** An estree `Expression`, optionally wrapped in one or more of the three TS wrappers above. */
+export type TsExpression = Expression | TSSatisfiesExpression | TSAsExpression | TSNonNullExpression;
+
 /** Unwrap TS wrapper expressions (`x satisfies T`, `x as T`, `x!`) to the underlying expression. Shared with the Kit-module and Vite-config parsers. */
-export function unwrapTs(expr: Node): Node {
+export function unwrapTs(expr: TsExpression): Expression {
   let cur = expr;
-  while (cur?.type === 'TSSatisfiesExpression' || cur?.type === 'TSAsExpression' || cur?.type === 'TSNonNullExpression')
+  while (cur.type === 'TSSatisfiesExpression' || cur.type === 'TSAsExpression' || cur.type === 'TSNonNullExpression')
     cur = cur.expression;
   return cur;
 }
 
 /** Whether `expr` is a length-only list constructor: `Array(n)` / `new Array(n)` (single argument = length semantics) or `Array.from({ length: n }, …)`. */
-function isLengthOnlyArrayCall(expr: Node): boolean {
+function isLengthOnlyArrayCall(expr: TsExpression): boolean {
   const e = unwrapTs(expr);
   if (!e) return false;
   if (
@@ -43,7 +69,8 @@ function isLengthOnlyArrayCall(expr: Node): boolean {
     !e.callee.computed &&
     e.callee.object?.type === 'Identifier' &&
     e.callee.object.name === 'Array' &&
-    e.callee.property?.name === 'from' &&
+    e.callee.property.type === 'Identifier' &&
+    e.callee.property.name === 'from' &&
     e.arguments?.[0]?.type === 'ObjectExpression'
   ) {
     return (e.arguments[0].properties ?? []).some(
@@ -61,10 +88,10 @@ function isLengthOnlyArrayCall(expr: Node): boolean {
  * length-only list. Such blocks are skipped entirely — neither each-key nor
  * each-index-key can give useful advice on them.
  */
-function isIdentityFreeEach(node: Node): boolean {
-  const expr = unwrapTs(node?.expression);
-  if (expr?.type === 'ArrayExpression' && Array.isArray(expr.elements)) {
-    return expr.elements.every((el: Node) => el?.type !== 'SpreadElement' || isLengthOnlyArrayCall(el.argument));
+function isIdentityFreeEach(node: AST.EachBlock): boolean {
+  const expr = unwrapTs(node.expression);
+  if (expr.type === 'ArrayExpression' && Array.isArray(expr.elements)) {
+    return expr.elements.every((el) => el?.type !== 'SpreadElement' || isLengthOnlyArrayCall(el.argument));
   }
   return isLengthOnlyArrayCall(expr);
 }
@@ -77,39 +104,40 @@ function isIdentityFreeEach(node: Node): boolean {
  * and NOT matched: composite keys may be a deliberate uniqueness workaround for
  * duplicate items.
  */
-function isIndexExpression(expr: Node, index: string): boolean {
+function isIndexExpression(expr: TsExpression, index: string): boolean {
   const e = unwrapTs(expr);
-  if (e?.type === 'Identifier') return e.name === index;
-  if (e?.type === 'CallExpression') {
+  if (e.type === 'Identifier') return e.name === index;
+  if (e.type === 'CallExpression') {
     const callee = e.callee;
     if (
-      callee?.type === 'Identifier' &&
+      callee.type === 'Identifier' &&
       (callee.name === 'String' || callee.name === 'Number') &&
-      e.arguments?.length === 1
+      e.arguments.length === 1
     ) {
-      return isIndexExpression(e.arguments[0], index);
+      return isIndexExpression(e.arguments[0] as Expression, index);
     }
     if (
-      callee?.type === 'MemberExpression' &&
+      callee.type === 'MemberExpression' &&
       !callee.computed &&
-      callee.property?.name === 'toString' &&
-      (e.arguments?.length ?? 0) === 0
+      callee.property.type === 'Identifier' &&
+      callee.property.name === 'toString' &&
+      e.arguments.length === 0
     ) {
-      return isIndexExpression(callee.object, index);
+      return isIndexExpression(callee.object as Expression, index);
     }
     return false;
   }
-  if (e?.type === 'TemplateLiteral') {
-    const exprs = e.expressions ?? [];
+  if (e.type === 'TemplateLiteral') {
+    const exprs = e.expressions;
     if (exprs.length !== 1) return false;
-    const hasText = (e.quasis ?? []).some((q: Node) => (q?.value?.cooked ?? q?.value?.raw ?? '') !== '');
+    const hasText = e.quasis.some((q) => (q.value.cooked ?? q.value.raw) !== '');
     if (hasText) return false;
-    return isIndexExpression(exprs[0], index);
+    return isIndexExpression(exprs[0]!, index);
   }
-  if (e?.type === 'BinaryExpression' && e.operator === '+') {
-    const emptyString = (n: Node) => n?.type === 'Literal' && n.value === '';
-    if (emptyString(e.left)) return isIndexExpression(e.right, index);
-    if (emptyString(e.right)) return isIndexExpression(e.left, index);
+  if (e.type === 'BinaryExpression' && e.operator === '+') {
+    const emptyString = (n: Expression): boolean => n.type === 'Literal' && n.value === '';
+    if (emptyString(e.left as Expression)) return isIndexExpression(e.right, index);
+    if (emptyString(e.right)) return isIndexExpression(e.left as Expression, index);
   }
   return false;
 }
@@ -122,7 +150,7 @@ function isIndexExpression(expr: Node, index: string): boolean {
  * merely CONTAIN the index add uniqueness and are never matched
  * (correctness/each-index-key).
  */
-function isIndexKey(each: Node): boolean {
+function isIndexKey(each: AST.EachBlock): boolean {
   if (typeof each.index !== 'string' || each.key == null) return false;
   return isIndexExpression(each.key, each.index);
 }
