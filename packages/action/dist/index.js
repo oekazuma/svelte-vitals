@@ -54961,7 +54961,8 @@ function collectEachContextTaint(node, names, acc, shadowed = /* @__PURE__ */ ne
   const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
   if (node.type === "EachBlock") {
     const expr = unwrapTs(node.expression);
-    if (expr?.type === "Identifier" && names.has(expr.name) && !shadowed.has(expr.name)) {
+    const target = expr?.type === "Identifier" ? expr.name : expr?.type === "MemberExpression" ? rootObjectName(expr) : void 0;
+    if (target !== void 0 && names.has(target) && !shadowed.has(target)) {
       const ctxNames = /* @__PURE__ */ new Set();
       addBoundNames(node.context, ctxNames);
       if (typeof node.index === "string") ctxNames.add(node.index);
@@ -54974,7 +54975,7 @@ function collectEachContextTaint(node, names, acc, shadowed = /* @__PURE__ */ ne
           const k = kinds.get(n);
           return !k || [...k].some((kind) => kind !== "reassign");
         });
-        if (dirty) acc.add(expr.name);
+        if (dirty) acc.add(target);
       }
     }
   }
@@ -55073,6 +55074,26 @@ function collectTemplateEscapes(node, stateNames, acc, kinds) {
   }
   for (const key2 of CHILD_NODE_KEYS) {
     if (key2 in node) collectTemplateEscapes(node[key2], stateNames, acc, kinds);
+  }
+}
+var DIRECTIVE_ESCAPE_TYPES = /* @__PURE__ */ new Set(["UseDirective", "TransitionDirective", "AnimateDirective"]);
+function collectDirectiveEscapes(node, names, acc) {
+  if (Array.isArray(node)) {
+    for (const c of node) collectDirectiveEscapes(c, names, acc);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (Array.isArray(node.attributes)) {
+    for (const attr of node.attributes) {
+      if (DIRECTIVE_ESCAPE_TYPES.has(attr?.type) && attr.expression) {
+        walkEstree(attr.expression, (m) => {
+          if (m?.type === "Identifier" && names.has(m.name)) acc.add(m.name);
+        });
+      }
+    }
+  }
+  for (const key2 of CHILD_NODE_KEYS) {
+    if (key2 in node) collectDirectiveEscapes(node[key2], names, acc);
   }
 }
 var RUNE_NAMES = /* @__PURE__ */ new Set(["$state", "$derived", "$effect", "$props", "$bindable", "$inspect", "$host"]);
@@ -55738,6 +55759,7 @@ function parseComponentFacts(source2, filename2) {
       const eachTaint = /* @__PURE__ */ new Set();
       if (ast.fragment) {
         collectFragmentAliasRefs(ast.fragment, candNames, aliasEscapes);
+        collectDirectiveEscapes(ast.fragment, candNames, aliasEscapes);
         collectEachContextTaint(ast.fragment, candNames, eachTaint);
       }
       for (const c of rawableCandidates) {
