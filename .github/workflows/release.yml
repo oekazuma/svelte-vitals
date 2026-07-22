@@ -23,6 +23,40 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Build packages
         run: pnpm build
+      - name: Commit refreshed action dist if stale
+        # packages/action/dist is a committed bundle (embeds the CLI + its dependencies), so
+        # any change reachable from that bundle graph leaves it stale. This used to be a
+        # PR-blocking CI check — every PR touching core/cli needed its own "rebuild dist"
+        # commit, which conflicted constantly across concurrent branches (large generated
+        # bundle, ~zero semantic diff overlap). Now it's fixed here instead: every push to
+        # main self-heals main's dist, so PRs never need to touch it at all (ci.yml's "Verify
+        # action dist is up to date" step only runs on push, as a safety net).
+        #
+        # main requires 1 approving review (required_pull_request_reviews), but
+        # enforce_admins is off — so only a push authenticated as an actual repo admin can
+        # land directly on main. GITHUB_TOKEN acts as github-actions[bot], not an admin, and
+        # would be rejected; ACTION_DIST_PAT (a fine-grained PAT minted from an admin account,
+        # Contents: read/write) is what makes this push allowed at all.
+        # `[skip ci]` deliberately suppresses the re-trigger this PAT push would otherwise
+        # cause: the dist this commits was just produced by *this* job's own `pnpm build`, so
+        # there's nothing new to validate — re-running the full pipeline (and this workflow
+        # again) would be pure overhead, not signal.
+        env:
+          PAT: ${{ secrets.ACTION_DIST_PAT }}
+        run: |
+          if git diff --quiet -- packages/action/dist; then
+            echo "packages/action/dist is up to date — nothing to do."
+            exit 0
+          fi
+          if [ -z "$PAT" ]; then
+            echo "::error::packages/action/dist is stale but the ACTION_DIST_PAT secret is not set. Rebuild manually (pnpm build) and commit packages/action/dist, or add the secret."
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add packages/action/dist
+          git commit -m "chore(action): rebuild dist [skip ci]"
+          git push "https://x-access-token:${PAT}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0

@@ -58,7 +58,14 @@ jobs:
       - name: Build packages
         run: pnpm build
       - parallel:
+          # PR-blocking on a freshly-built packages/action/dist forced every PR touching
+          # core/cli (or their dependencies) to carry a "chore(action): rebuild dist" commit,
+          # which conflicts constantly across concurrent branches (large generated bundle,
+          # near-zero semantic diff overlap). release.yml now self-heals main's dist right
+          # before publishing instead, so this only needs to catch main ever drifting —
+          # push-to-main only, never a PR gate.
           - name: Verify action dist is up to date
+            if: github.event_name == 'push'
             run: git diff --exit-code -- packages/action/dist
           - name: Typecheck
             run: pnpm typecheck
