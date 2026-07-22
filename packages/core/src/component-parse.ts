@@ -276,13 +276,15 @@ export function rootObjectName(node: Node): string | undefined {
  * same name for everything nested inside it: function/arrow-function parameters, a
  * `catch` clause's parameter, a block's own `let`/`const` declarations (not `var`, which
  * is function-scoped and already covered by the enclosing function's params test), a
- * `for`/`for-of`/`for-in` loop's declared variable, and a Svelte `{#each ... as x}`
- * block's context. Used by `walkScoped` so a write/mutation detector doesn't misattribute
- * a write to one of these locals as a write to an outer `$state`/prop of the same name
- * (issue #140 — a deliberately partial mitigation: `{#snippet}`/`{:then}`/`{:catch}`
- * bindings are not tracked, and a block's own `let` shadows the whole block, not just the
- * statements after its declaration — over-conservative, not exhaustive scope resolution).
- * Shared with the Kit-module parser (the security kit-module rules).
+ * `for`/`for-of`/`for-in` loop's declared variable, a Svelte `{#each ... as x, i}` block's
+ * context AND index binding, a `{#snippet}` block's parameters, and an `{#await}` block's
+ * `then`/`catch` value/error bindings. Used by `walkScoped` so a write/mutation detector
+ * doesn't misattribute a write to one of these locals as a write to an outer `$state`/prop
+ * of the same name (issue #140 — originally a deliberately partial mitigation that left
+ * `{#snippet}`/`{:then}`/`{:catch}` bindings untracked; now covered too. A block's own
+ * `let` still shadows the whole block, not just the statements after its declaration —
+ * over-conservative, not exhaustive scope resolution). Shared with the Kit-module parser
+ * (the security kit-module rules).
  */
 export function scopeIntroducedNames(node: Node): Set<string> {
   const introduced = new Set<string>();
@@ -307,6 +309,12 @@ export function scopeIntroducedNames(node: Node): Set<string> {
     }
   } else if (node.type === 'EachBlock' && node.context) {
     addBoundNames(node.context, introduced);
+    if (typeof node.index === 'string') introduced.add(node.index);
+  } else if (node.type === 'SnippetBlock') {
+    for (const p of node.parameters ?? []) addBoundNames(p, introduced);
+  } else if (node.type === 'AwaitBlock') {
+    if (node.value) addBoundNames(node.value, introduced);
+    if (node.error) addBoundNames(node.error, introduced);
   }
   return introduced;
 }
@@ -378,6 +386,98 @@ function collectStateWrites(root: Node, stateNames: Set<string>, acc: Set<string
       }
     }
   });
+}
+
+/** Function-shaped nodes whose bodies defer evaluation — prop reads inside them stay reactive (compiled to call-time reads). */
+function isDeferredBody(n: Node): boolean {
+  return n?.type === 'FunctionDeclaration' || n?.type === 'FunctionExpression' || n?.type === 'ArrowFunctionExpression';
+}
+
+/**
+ * Whether `node` references any of `names` in an EAGER position: nested
+ * function/arrow bodies (incl. object getters/methods, whose values are
+ * FunctionExpressions) are skipped — the compiler defers those reads to call
+ * time, so they stay reactive. Non-computed member properties and object keys
+ * are not references. Shadow-aware via `scopeIntroducedNames`.
+ */
+function refsNamesEagerly(node: Node, names: Set<string>, shadowed: Set<string> = new Set()): boolean {
+  if (Array.isArray(node)) return node.some((c) => refsNamesEagerly(c, names, shadowed));
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return false;
+  if (isDeferredBody(node)) return false;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === 'Identifier' && names.has(node.name) && !scope.has(node.name)) return true;
+  for (const key of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key)) continue;
+    if (node.type === 'MemberExpression' && key === 'property' && !node.computed) continue;
+    if (node.type === 'Property' && key === 'key' && !node.computed) continue;
+    if (refsNamesEagerly(node[key], names, scope)) return true;
+  }
+  return false;
+}
+
+/** Whether the subtree contains any call, construction, or await — used to keep stale-prop candidates to plain expressions (rune wrappers and helper/service calls are all excluded structurally). */
+function containsCallLike(node: Node): boolean {
+  let found = false;
+  walkEstree(node, (n: Node) => {
+    if (n?.type === 'CallExpression' || n?.type === 'NewExpression' || n?.type === 'AwaitExpression') found = true;
+  });
+  return found;
+}
+
+/**
+ * Names from `names` referenced in the template fragment in an eager position:
+ * expression tags, attribute/directive expressions, and block expressions count;
+ * inline-handler function bodies do NOT (deferred reads never render), while
+ * `{#snippet}` bodies DO (render content). Shadow-aware for template scopes
+ * (each contexts + index, snippet parameters, await value/error).
+ */
+function collectFragmentRefs(
+  node: Node,
+  names: Set<string>,
+  acc: Set<string>,
+  shadowed: Set<string> = new Set()
+): void {
+  if (Array.isArray(node)) {
+    for (const c of node) collectFragmentRefs(c, names, acc, shadowed);
+    return;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+  if (isDeferredBody(node)) return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === 'Identifier' && names.has(node.name) && !scope.has(node.name)) acc.add(node.name);
+  if (Array.isArray(node.attributes)) collectFragmentRefs(node.attributes, names, acc, scope);
+  for (const key of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key) || key === 'attributes') continue;
+    if (node.type === 'MemberExpression' && key === 'property' && !node.computed) continue;
+    if (node.type === 'Property' && key === 'key' && !node.computed) continue;
+    collectFragmentRefs(node[key], names, acc, scope);
+  }
+}
+
+/**
+ * Stale prop derivations (correctness/stale-prop-derivation): top-level
+ * const/let/var Identifier declarators whose CALL-FREE initializer references a
+ * prop eagerly. Reassignment/escape and template-reference filtering happen at
+ * the call site, where the fragment is available.
+ */
+function collectStalePropCandidates(
+  program: Node,
+  propNames: Set<string>,
+  source: string
+): { name: string; line: number }[] {
+  const out: { name: string; line: number }[] = [];
+  for (const stmt of program.body ?? []) {
+    if (stmt?.type !== 'VariableDeclaration') continue;
+    for (const d of stmt.declarations ?? []) {
+      if (d?.id?.type !== 'Identifier' || !d.init) continue;
+      if (containsCallLike(d.init)) continue;
+      if (!refsNamesEagerly(d.init, propNames)) continue;
+      out.push({ name: d.id.name, line: lineOf(source, d.start) });
+    }
+  }
+  return out;
 }
 
 /**
@@ -508,16 +608,17 @@ function isBindableCall(node: Node): boolean {
 }
 
 /**
- * Local identifier names bound to a non-`$bindable` prop from `$props()` (correctness/prop-mutation):
- * plain and renamed destructured names, and the `...rest` binding (rest props can never
- * be individually declared `$bindable` — that requires a per-prop destructuring default).
- * A prop initialized with `$bindable(...)` is excluded — mutating it is the intended
- * contract. `let props = $props()` (no destructuring) tracks `props` itself, since none
- * of its fields can be `$bindable` either. Returns an empty set when `$props()` appears
- * more than once, or a destructuring shape is ambiguous (nested pattern) — conservative,
- * to avoid false positives rather than chase every shape.
+ * Local identifier names bound to a prop from `$props()`: plain and renamed destructured
+ * names, and the `...rest` binding. `includeBindable` controls whether a prop initialized
+ * with `$bindable(...)` is included — `false` excludes it (correctness/prop-mutation: mutating
+ * a `$bindable` prop is the intended contract), `true` includes it (correctness/stale-prop-derivation:
+ * a `$bindable` prop can still be derived-from-at-init just like any other prop). `let props
+ * = $props()` (no destructuring) tracks `props` itself, since none of its fields can be
+ * `$bindable` either. Returns an empty set when `$props()` appears more than once, or a
+ * destructuring shape is ambiguous (nested pattern) — conservative, to avoid false positives
+ * rather than chase every shape.
  */
-function collectNonBindableProps(program: Node): Set<string> {
+function collectPropNames(program: Node, includeBindable: boolean): Set<string> {
   const names = new Set<string>();
   let seen = 0;
   let ambiguous = false;
@@ -537,7 +638,8 @@ function collectNonBindableProps(program: Node): Set<string> {
         addBoundNames(p.argument, names);
       } else if (p?.type === 'Property') {
         if (p.value?.type === 'AssignmentPattern') {
-          if (!isBindableCall(p.value.right) && p.value.left?.type === 'Identifier') names.add(p.value.left.name);
+          if ((includeBindable || !isBindableCall(p.value.right)) && p.value.left?.type === 'Identifier')
+            names.add(p.value.left.name);
         } else if (p.value?.type === 'Identifier') {
           names.add(p.value.name);
         }
@@ -1279,6 +1381,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     namespaceImports: [],
     constableStates: [],
     mutatedProps: [],
+    stalePropDerivations: [],
     suppressions: collectSuppressions(source),
     orphanEffects,
     orphanLifecycleCalls,
@@ -1326,15 +1429,34 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   const effects: EffectFact[] = [];
   const constableStates: { name: string; line: number }[] = [];
   const mutatedProps: { name: string; line: number }[] = [];
+  const stalePropDerivations: { name: string; line: number }[] = [];
   let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
     collectImportSources(program, source, importSpans);
     collectNamespaceImports(program, source, namespaceImports);
     propCount = countProps(program);
-    const nonBindableProps = collectNonBindableProps(program);
+    const nonBindableProps = collectPropNames(program, false);
     collectPropMutations(program, nonBindableProps, source, mutatedProps);
     if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source, mutatedProps);
+    const allPropNames = collectPropNames(program, true);
+    if (allPropNames.size > 0) {
+      const candidates = collectStalePropCandidates(program, allPropNames, source);
+      if (candidates.length > 0) {
+        const candidateNames = new Set(candidates.map((c) => c.name));
+        const disqualified = new Set<string>();
+        collectStateWrites(program, candidateNames, disqualified);
+        if (ast.fragment) {
+          collectStateWrites(ast.fragment, candidateNames, disqualified);
+          collectTemplateEscapes(ast.fragment, candidateNames, disqualified);
+        }
+        const referenced = new Set<string>();
+        if (ast.fragment) collectFragmentRefs(ast.fragment, candidateNames, referenced);
+        for (const c of candidates) {
+          if (!disqualified.has(c.name) && referenced.has(c.name)) stalePropDerivations.push(c);
+        }
+      }
+    }
     const stateNames = new Set<string>();
     const reactiveNames = new Set<string>();
     const stateDecls: { name: string; line: number }[] = [];
@@ -1394,6 +1516,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     namespaceImports,
     constableStates,
     mutatedProps,
+    stalePropDerivations,
     orphanEffects,
     orphanLifecycleCalls,
     browserGlobalRefs,

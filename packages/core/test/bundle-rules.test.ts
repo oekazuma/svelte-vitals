@@ -25,6 +25,7 @@ const comp = (
   namespaceImports: [],
   constableStates: [],
   mutatedProps: [],
+  stalePropDerivations: [],
   orphanEffects: [],
   orphanLifecycleCalls: [],
   browserGlobalRefs: [],
