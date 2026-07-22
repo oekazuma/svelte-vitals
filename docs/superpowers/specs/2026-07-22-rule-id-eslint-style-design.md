@@ -135,6 +135,12 @@ const HTML_DIRECTIVE =
 
 configファイルの例も変わる: `rules: { SEO031: 'off' }` → `rules: { 'seo/ssr-disabled': 'off' }`(キーにスラッシュを含むためクォート必須。ESLintの`.eslintrc`と同じ形)。
 
+### per-ruleエクスポート名(`@svelte-vitals/core` 公開API)
+
+各ルールオブジェクトのエクスポート名(旧: `seo031SsrDisabled`、`sec003LoadStateWrite` 等)も、新IDのcamelCase形にリネームする: `<category><KebabをPascal化した名前>`(例: `seo/ssr-disabled` → `seoSsrDisabled`、`security/handler-state-write` → `securityHandlerStateWrite`、`performance/load-waterfall` → `performanceLoadWaterfall`)。旧名はIDと同様に体系ごと廃止されるため、公開APIに旧ID由来の名前を残すとIDとAPIの語彙が二重化する。エイリアスなしの破壊的変更を行う本移行が、これらをリネームできる唯一のタイミングである(changesetにも明記する)。
+
+同じ理由で、旧IDを含む内部識別子(`PERF012_FIX` → `MINIFY_DISABLED_FIX`)と、src内コメントの旧ID参照(単独ID・`CORRECT008/009` のような複合表記)も新IDに更新する。ID範囲(`SEC003–005` 等)への言及はAGENTS.mdの方針(範囲表記はルール追加で陳腐化する)に従い、ID列挙ではなくカテゴリ表現(「the security kit-module rules」等)に置き換える。
+
 ### `docsUrlFor`(`packages/core/src/rule.ts`)
 
 ```ts
@@ -191,4 +197,4 @@ front matterの `title` は `title: SEO031 · SSR disabled` → `title: seo/ssr-
 - `pnpm build` / `pnpm typecheck` / `pnpm test`(core・cli・vite・mcp・action全パッケージ) / `pnpm lint` / `pnpm check:publish`
 - `pnpm --filter docs build`(en/ja 双方のルールページがビルドできること、`docs-links.test.ts` が新パス規則・再帰的stray検出の両方で全ページの存在を検証すること)
 - 手動確認: config例(`rules: { 'seo/ssr-disabled': 'off' }`)と抑制コメント(`// svelte-vitals-disable-next-line seo/ssr-disabled`)がそれぞれ実際に効くこと
-- changeset必須(user-facing / 破壊的変更のため `pnpm changeset` で major bump相当を記録。本文に抑制ベースラインファイルの再生成手順を含める)
+- changeset必須(user-facing / 破壊的変更。ただしプロジェクトは0.x運用であり、changesetsは `major` 指定を 0.x からでも 1.0.0 に上げてしまうため、過去の破壊的変更(a11y削除 = 0.10.0、JSONレポート変更 = 0.9.0)と同様 **minor** で記録する。本文に抑制ベースラインファイルの再生成手順を含める)
