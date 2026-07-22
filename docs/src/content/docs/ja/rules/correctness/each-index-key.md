@@ -1,0 +1,39 @@
+---
+title: correctness/each-index-key · Index used as each key
+description: '{#each} ブロックのキーに index を使うと、アイテムの同一性が位置ベースになります。キーなしと同じバグが、隠れた形で起こります。'
+---
+
+**重大度:** warning · **カテゴリ:** correctness
+
+## チェック内容
+
+キーが index 束縛そのものになっている `{#each}` ブロック（例: `{#each items as item, i (i)}`）を検出します。CLI の静的解析が `src/` 配下のすべての `.svelte` コンポーネントを対象にチェックします。
+
+検出しないもの: index を含むだけの複合キー（`(item.id + '-' + i)` は一意性を足す正当な用途）、ラッパー形式（`(String(i))`）、アイテム由来の値によるキー、アイテムなし・定数リストのブロック（keyed-each ルールが既に除外している形）。
+
+## 重要な理由
+
+Svelte 公式ガイダンスは明確です。キーはオブジェクトを一意に識別しなければならず、index をキーに使ってはいけません。index キーではアイテムの同一性がリスト内の位置に従うため、並べ替えや途中への挿入・削除が起きると、要素の状態（フォーカス、入力値、トランジション）がアイテムではなく位置に張り付きます。これはキーなしブロックとまったく同じ故障モードです。しかもキーが見えている分だけ安全そうに見え、バグはレビューではなく本番で発覚しがちです。
+
+## 修正方法
+
+アイテムを一意に識別する値でキーを付けます:
+
+```svelte
+{#each items as item (item.id)}
+  <li>{item.name}</li>
+{/each}
+```
+
+## 無効化
+
+リストが並べ替えも途中挿入・削除も起こさないと確実に言える場合は、`<!-- svelte-vitals-disable-next-line correctness/each-index-key -->` で個別に抑制するか、ルールを無効化してください:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/each-index-key': 'off'
+  }
+};
+```
