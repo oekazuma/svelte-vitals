@@ -1,0 +1,54 @@
+---
+title: correctness/stale-prop-derivation · Stale prop derivation
+description: 'A value computed from a prop without $derived is evaluated once — the UI silently stops tracking the parent.'
+---
+
+**Severity:** warning · **Category:** correctness
+
+## What it checks
+
+Flags a top-level `const`/`let` whose initializer is computed from a `$props()` prop without `$derived`, when that binding is rendered in the template:
+
+```svelte
+<script>
+  let { type } = $props();
+
+  // flagged — freezes the first render's value
+  let color = type === 'danger' ? 'red' : 'green';
+</script>
+
+<p class={color}>...</p>
+```
+
+Detection is deliberately conservative — all of these must hold: the initializer references a prop in an eager position (references inside functions/arrow bodies/getters stay reactive and don't count), contains no function calls, `new`, or `await` (so `$state(initial)` capture, `$derived`, and service construction are structurally exempt), the binding is never reassigned or passed around, and it is actually rendered (bindings used only inside event handlers don't count).
+
+## Why it matters
+
+Svelte's guidance is to treat props as though they will change. The plain form evaluates once, at initialization: the component renders correctly on first mount and silently stops tracking the parent afterwards — a stale-UI bug that survives review and surfaces in production, because nothing in the compiler or svelte-check warns about it.
+
+## How to fix
+
+```svelte
+<script>
+  let { type } = $props();
+
+  let color = $derived(type === 'danger' ? 'red' : 'green');
+</script>
+```
+
+Use `$derived.by(() => ...)` when the computation needs a function body. If you genuinely want a one-time snapshot (an uncontrolled component's initial value), `let value = $state(initialValue)` is the documented pattern — and it is not flagged.
+
+## Limitations
+
+The call-free restriction means method derivations (`type.toUpperCase()`, `items.filter(...)`) are not detected in v1 — a deliberate precision-first trade-off; a future version may allow-list pure built-ins. The rule cannot know whether the parent ever changes the prop; even when it doesn't, `$derived` costs nothing and keeps the code correct under change. Note the interplay with `correctness/unmutated-state`: for never-written `$state` computed from a prop, the right fix is `$derived`, not `const`.
+
+## Disabling
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/stale-prop-derivation': 'off'
+  }
+};
+```
