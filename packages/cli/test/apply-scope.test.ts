@@ -23,7 +23,7 @@ const mockCheckout = vi.mocked(checkoutBaseline);
 
 function result(over: Partial<Result> = {}): Result {
   return {
-    id: 'SEO001',
+    id: 'seo/title-presence',
     severity: 'critical',
     detection: { presence: 'own', value: 'static' },
     message: 'test finding',
@@ -72,7 +72,7 @@ describe('applyScope', () => {
     // Point the "baseline checkout" at the same fixture project as `cwd` — baseline
     // analysis then finds the exact same findings as current, so filterToNewFindings
     // removes everything. Mirrors run-baseline.test.ts's proven pattern. The synthetic
-    // finding below matches the SEO001 the fixture's blog route actually produces
+    // finding below matches the seo/title-presence the fixture's blog route actually produces
     // (id::route::location is the baseline dedup key — see baseline.ts's findingKey).
     const cleanup = vi.fn();
     mockCheckout.mockReturnValue({ analyzeCwd: fixtureDir, cleanup });

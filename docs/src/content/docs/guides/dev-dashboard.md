@@ -63,10 +63,10 @@ The handle is a **no-op outside dev**: the `DEV` flag from `esm-env` resolves st
 
 `svelteVitalsHandle` accepts an optional options object:
 
-| Option           | Type                          | Description                                      |
-| ---------------- | ----------------------------- | ------------------------------------------------ |
-| `metaComponents` | `string[]`                    | Component names treated as head-metadata sources |
-| `rules`          | `Record<string, RuleSetting>` | Per-rule overrides, e.g. `{ SEO008: 'off' }`     |
+| Option           | Type                          | Description                                         |
+| ---------------- | ----------------------------- | --------------------------------------------------- |
+| `metaComponents` | `string[]`                    | Component names treated as head-metadata sources    |
+| `rules`          | `Record<string, RuleSetting>` | Per-rule overrides, e.g. `{ 'seo/json-ld': 'off' }` |
 
 Example:
 
@@ -74,7 +74,7 @@ Example:
 export const handle = sequence(
   svelteVitalsHandle({
     metaComponents: ['SeoHead'],
-    rules: { SEO008: 'off' }
+    rules: { 'seo/json-ld': 'off' }
   })
 );
 ```
@@ -93,7 +93,7 @@ Every finding card has a collapsed **AI Prompt** disclosure — expand it and hi
 ````text
 Fix this svelte-vitals finding:
 
-- Rule: SEO001 — Missing <title> (critical)
+- Rule: seo/title-presence — Missing <title> (critical)
 - Route: /blog/hello
 - Location: src/routes/blog/hello/+page.svelte:3
 - Recommendation: Add a <title> inside <svelte:head>.
@@ -105,9 +105,9 @@ Fix this svelte-vitals finding:
 </svelte:head>
 ```
 
-- Docs: https://oekazuma.github.io/svelte-vitals/rules/seo001
+- Docs: https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence
 
-After fixing, re-run `svelte-vitals --diff` (or revisit this route) to confirm SEO001 passes for /blog/hello.
+After fixing, re-run `svelte-vitals --diff` (or revisit this route) to confirm seo/title-presence passes for /blog/hello.
 ````
 
 No AI call generates it — the prompt is assembled instantly from svelte-vitals' own rule data already in the dashboard's snapshot, the same fields the [`agent` reporter](/svelte-vitals/guides/reporters/) uses for its remediation document. It can't hallucinate a fix that isn't the rule's actual recommendation.

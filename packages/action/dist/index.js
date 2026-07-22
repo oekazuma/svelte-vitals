@@ -54987,15 +54987,20 @@ function collectNamespaceImports(program, source2, acc) {
     }
   });
 }
-var JS_DIRECTIVE = /^\s*\/\/\s*svelte-vitals-disable-next-line(?:\s+([A-Za-z]+\d+(?:\s*,\s*[A-Za-z]+\d+)*))?\s*$/;
-var HTML_DIRECTIVE = /^\s*<!--\s*svelte-vitals-disable-next-line(?:\s+([A-Za-z]+\d+(?:\s*,\s*[A-Za-z]+\d+)*))?\s*-->\s*$/;
+var RULE_ID_RE = "[a-z]+\\/[a-z][a-z0-9-]*";
+var JS_DIRECTIVE = new RegExp(
+  `^\\s*//\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*$`
+);
+var HTML_DIRECTIVE = new RegExp(
+  `^\\s*<!--\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*-->\\s*$`
+);
 function collectSuppressions(source2) {
   const out = [];
   const lines = source2.split("\n");
   lines.forEach((line, i) => {
     const m = JS_DIRECTIVE.exec(line) ?? HTML_DIRECTIVE.exec(line);
     if (!m) return;
-    const ruleIds = m[1]?.split(",").map((s) => s.trim().toUpperCase());
+    const ruleIds = m[1]?.split(",").map((s) => s.trim());
     out.push({ line: i + 2, ruleIds });
   });
   return out;
@@ -56084,8 +56089,8 @@ function messageFor(detection) {
   if (detection.value === "absent") return "Empty <title>";
   return "<title>";
 }
-var seo001Title = {
-  id: "SEO001",
+var seoTitlePresence = {
+  id: "seo/title-presence",
   title: "Title presence",
   category: "seo",
   severity: "critical",
@@ -56096,7 +56101,7 @@ var seo001Title = {
     return ctx.heads.map((head) => {
       const detection = detectTitle(head);
       return {
-        id: "SEO001",
+        id: "seo/title-presence",
         category: "seo",
         severity: "critical",
         detection,
@@ -56104,7 +56109,7 @@ var seo001Title = {
         location: head.file,
         message: messageFor(detection),
         recommendation: "Add a <title> inside <svelte:head>, e.g. <title>{data.title}</title>, or set it via your meta component.",
-        docsUrl: docsUrlFor("SEO001"),
+        docsUrl: docsUrlFor("seo/title-presence"),
         fix: { ...FIX }
       };
     });
@@ -56147,8 +56152,8 @@ function headTagRule(opts) {
     }
   };
 }
-var seo002Description = headTagRule({
-  id: "SEO002",
+var seoDescriptionPresence = headTagRule({
+  id: "seo/description-presence",
   title: "Description presence",
   severity: "critical",
   match: (t) => t.kind === "meta" && t.name === "description",
@@ -56161,8 +56166,8 @@ var seo002Description = headTagRule({
     lang: "svelte"
   }
 });
-var seo003Canonical = headTagRule({
-  id: "SEO003",
+var seoCanonicalUrl = headTagRule({
+  id: "seo/canonical-url",
   title: "Canonical URL",
   severity: "warning",
   match: (t) => t.kind === "link" && t.rel === "canonical",
@@ -56175,8 +56180,8 @@ var seo003Canonical = headTagRule({
     lang: "svelte"
   }
 });
-var seo004OgImage = headTagRule({
-  id: "SEO004",
+var seoOgImage = headTagRule({
+  id: "seo/og-image",
   title: "Open Graph image",
   severity: "warning",
   match: (t) => t.kind === "meta" && t.property === "og:image",
@@ -56189,8 +56194,8 @@ var seo004OgImage = headTagRule({
     lang: "svelte"
   }
 });
-var seo005OgTitle = headTagRule({
-  id: "SEO005",
+var seoOgTitle = headTagRule({
+  id: "seo/og-title",
   title: "Open Graph title",
   severity: "warning",
   match: (t) => t.kind === "meta" && t.property === "og:title",
@@ -56203,8 +56208,8 @@ var seo005OgTitle = headTagRule({
     lang: "svelte"
   }
 });
-var seo008JsonLd = headTagRule({
-  id: "SEO008",
+var seoJsonLd = headTagRule({
+  id: "seo/json-ld",
   title: "JSON-LD structured data",
   severity: "info",
   match: (t) => t.kind === "jsonld",
@@ -56222,90 +56227,92 @@ var seo008JsonLd = headTagRule({
 });
 var present = { presence: "own", value: "static" };
 var absent = { presence: "none", value: "absent" };
-var SEO006_FIX = {
+var FIX2 = {
   description: "Create static/robots.txt (or a src/routes/robots.txt/+server endpoint).",
   snippet: "User-agent: *\nAllow: /\n\nSitemap: https://example.com/sitemap.xml",
   lang: "text"
 };
-var seo006Robots = {
-  id: "SEO006",
+var seoRobotsTxt = {
+  id: "seo/robots-txt",
   title: "robots.txt",
   category: "seo",
   severity: "warning",
   scope: "project",
   rationale: "robots.txt tells crawlers which paths they may fetch and points them to your sitemap; missing it leaves crawl behaviour to defaults.",
-  fix: SEO006_FIX,
+  fix: FIX2,
   async check(ctx) {
     const detection = ctx.project.hasRobotsTxt ? present : absent;
     return [
       {
-        id: "SEO006",
+        id: "seo/robots-txt",
         category: "seo",
         severity: "warning",
         detection,
         message: ctx.project.hasRobotsTxt ? "robots.txt" : "Missing robots.txt",
         recommendation: "Add static/robots.txt or a src/routes/robots.txt/+server endpoint.",
-        docsUrl: docsUrlFor("SEO006"),
-        fix: { ...SEO006_FIX }
+        docsUrl: docsUrlFor("seo/robots-txt"),
+        fix: { ...FIX2 }
       }
     ];
   }
 };
-var SEO007_FIX = {
+var present2 = { presence: "own", value: "static" };
+var absent2 = { presence: "none", value: "absent" };
+var FIX3 = {
   description: "Create static/sitemap.xml (or a src/routes/sitemap.xml/+server endpoint).",
   snippet: '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>https://example.com/</loc></url>\n</urlset>',
   lang: "xml"
 };
-var seo007Sitemap = {
-  id: "SEO007",
+var seoSitemapXml = {
+  id: "seo/sitemap-xml",
   title: "sitemap.xml",
   category: "seo",
   severity: "warning",
   scope: "project",
   rationale: "A sitemap.xml lists your URLs so search engines can discover and prioritise them, especially pages not well linked internally.",
-  fix: SEO007_FIX,
+  fix: FIX3,
   async check(ctx) {
-    const detection = ctx.project.hasSitemap ? present : absent;
+    const detection = ctx.project.hasSitemap ? present2 : absent2;
     return [
       {
-        id: "SEO007",
+        id: "seo/sitemap-xml",
         category: "seo",
         severity: "warning",
         detection,
         message: ctx.project.hasSitemap ? "sitemap.xml" : "Missing sitemap.xml",
         recommendation: "Add static/sitemap.xml or a src/routes/sitemap.xml/+server endpoint.",
-        docsUrl: docsUrlFor("SEO007"),
-        fix: { ...SEO007_FIX }
+        docsUrl: docsUrlFor("seo/sitemap-xml"),
+        fix: { ...FIX3 }
       }
     ];
   }
 };
-var SEO009_FIX = {
+var FIX4 = {
   description: "Set the lang attribute on <html> in src/app.html.",
   snippet: '<html lang="en">',
   lang: "html"
 };
-var seo009HtmlLang = {
-  id: "SEO009",
+var seoHtmlLang = {
+  id: "seo/html-lang",
   title: "<html lang>",
   category: "seo",
   severity: "warning",
   scope: "project",
   rationale: "The <html lang> attribute declares the page language for search engines, screen readers, and translation tools.",
-  fix: SEO009_FIX,
+  fix: FIX4,
   async check(ctx) {
     const detection = ctx.project.htmlLang;
     const message = detection.presence === "none" ? "Missing <html lang>" : detection.value === "absent" ? "Empty <html lang>" : "<html lang>";
     return [
       {
-        id: "SEO009",
+        id: "seo/html-lang",
         category: "seo",
         severity: "warning",
         detection,
         message,
         recommendation: 'Set <html lang="..."> in src/app.html.',
-        docsUrl: docsUrlFor("SEO009"),
-        fix: { ...SEO009_FIX }
+        docsUrl: docsUrlFor("seo/html-lang"),
+        fix: { ...FIX4 }
       }
     ];
   }
@@ -56359,8 +56366,8 @@ function imageRule(opts) {
     }
   };
 }
-var perf001ImageDimensions = imageRule({
-  id: "PERF001",
+var performanceImageDimensions = imageRule({
+  id: "performance/image-dimensions",
   title: "Image dimensions",
   severity: "warning",
   label: "<img> width/height",
@@ -56373,8 +56380,8 @@ var perf001ImageDimensions = imageRule({
   },
   ok: (img) => img.hasWidth && img.hasHeight
 });
-var perf002ImageLoading = imageRule({
-  id: "PERF002",
+var performanceImageLoadingHint = imageRule({
+  id: "performance/image-loading-hint",
   title: "Image loading hint",
   severity: "info",
   label: "<img> loading attribute",
@@ -56387,8 +56394,8 @@ var perf002ImageLoading = imageRule({
   },
   ok: (img) => img.hasLoading
 });
-var perf006ResponsiveImage = imageRule({
-  id: "PERF006",
+var performanceResponsiveImage = imageRule({
+  id: "performance/responsive-image",
   title: "Responsive image",
   severity: "info",
   label: "<img> srcset",
@@ -56452,8 +56459,8 @@ function linkRule(opts) {
     }
   };
 }
-var perf003PreloadAs = linkRule({
-  id: "PERF003",
+var performancePreloadMissingAs = linkRule({
+  id: "performance/preload-missing-as",
   title: "Preload missing as",
   severity: "warning",
   label: "`as` on a preloaded `<link>`",
@@ -56467,8 +56474,8 @@ var perf003PreloadAs = linkRule({
   relevant: (t) => t.rel === "preload",
   ok: (t) => t.hasAs === true
 });
-var perf004FontPreloadCrossorigin = linkRule({
-  id: "PERF004",
+var performanceFontPreloadCrossorigin = linkRule({
+  id: "performance/font-preload-crossorigin",
   title: "Font preload missing crossorigin",
   severity: "warning",
   label: "`crossorigin` on a font preload",
@@ -56482,10 +56489,10 @@ var perf004FontPreloadCrossorigin = linkRule({
   relevant: (t) => t.rel === "preload" && t.as === "font",
   ok: (t) => t.hasCrossorigin === true
 });
-var docsUrl = docsUrlFor("PERF005");
+var docsUrl = docsUrlFor("performance/lcp-image");
 var recommendation = 'Remove loading="lazy" from the LCP/first image and consider fetchpriority="high" so it loads as early as possible.';
-var perf005LcpImage = {
-  id: "PERF005",
+var performanceLcpImage = {
+  id: "performance/lcp-image",
   title: "LCP image eager loading",
   category: "performance",
   severity: "warning",
@@ -56503,7 +56510,7 @@ var perf005LcpImage = {
       if (!first) continue;
       out.push(
         first.lazy ? {
-          id: "PERF005",
+          id: "performance/lcp-image",
           category: "performance",
           severity: "warning",
           detection: { presence: "none", value: "absent" },
@@ -56513,9 +56520,9 @@ var perf005LcpImage = {
           message: 'First image (likely LCP) is loading="lazy"',
           recommendation,
           docsUrl,
-          fix: { ...perf005LcpImage.fix }
+          fix: { ...performanceLcpImage.fix }
         } : {
-          id: "PERF005",
+          id: "performance/lcp-image",
           category: "performance",
           severity: "warning",
           detection: { presence: "own", value: "static" },
@@ -56529,10 +56536,10 @@ var perf005LcpImage = {
     return out;
   }
 };
-var docsUrl2 = docsUrlFor("PERF007");
+var docsUrl2 = docsUrlFor("performance/render-blocking-script");
 var recommendation2 = 'Add defer (or type="module"), or async, to the <script> so it does not block HTML parsing.';
-var perf007RenderBlockingScript = {
-  id: "PERF007",
+var performanceRenderBlockingScript = {
+  id: "performance/render-blocking-script",
   title: "Render-blocking script",
   category: "performance",
   severity: "warning",
@@ -56552,7 +56559,7 @@ var perf007RenderBlockingScript = {
       if (blocking.length > 0) {
         for (const tag2 of blocking) {
           out.push({
-            id: "PERF007",
+            id: "performance/render-blocking-script",
             category: "performance",
             severity: "warning",
             detection: { presence: "none", value: "absent" },
@@ -56562,12 +56569,12 @@ var perf007RenderBlockingScript = {
             message: `Render-blocking <script>${tag2.href ? ` (${tag2.href})` : ""} in <head>`,
             recommendation: recommendation2,
             docsUrl: docsUrl2,
-            fix: { ...perf007RenderBlockingScript.fix }
+            fix: { ...performanceRenderBlockingScript.fix }
           });
         }
       } else {
         out.push({
-          id: "PERF007",
+          id: "performance/render-blocking-script",
           category: "performance",
           severity: "warning",
           detection: { presence: "own", value: "static" },
@@ -56581,15 +56588,15 @@ var perf007RenderBlockingScript = {
     return out;
   }
 };
-var docsUrl3 = docsUrlFor("PERF008");
+var docsUrl3 = docsUrlFor("performance/preconnect");
 var recommendation3 = 'Add <link rel="preconnect"> (or dns-prefetch) for the third-party origin so the connection is set up early.';
 var THIRD_PARTY_ORIGINS = /* @__PURE__ */ new Set(["fonts.googleapis.com", "fonts.gstatic.com"]);
 function hostOf(href) {
   const m = /^(?:https?:)?\/\/([^/?#]+)/i.exec(href);
   return m ? m[1].toLowerCase() : void 0;
 }
-var perf008Preconnect = {
-  id: "PERF008",
+var performancePreconnect = {
+  id: "performance/preconnect",
   title: "Preconnect third-party origin",
   category: "performance",
   severity: "info",
@@ -56616,7 +56623,7 @@ var perf008Preconnect = {
       const missing = [...referenced].filter(([host]) => !covered.has(host));
       if (missing.length === 0) {
         out.push({
-          id: "PERF008",
+          id: "performance/preconnect",
           category: "performance",
           severity: "info",
           detection: { presence: "own", value: "static" },
@@ -56629,7 +56636,7 @@ var perf008Preconnect = {
       }
       for (const [host, file] of missing) {
         out.push({
-          id: "PERF008",
+          id: "performance/preconnect",
           category: "performance",
           severity: "info",
           detection: { presence: "none", value: "absent" },
@@ -56638,34 +56645,34 @@ var perf008Preconnect = {
           message: `Third-party origin ${host} used without a preconnect`,
           recommendation: recommendation3,
           docsUrl: docsUrl3,
-          fix: { ...perf008Preconnect.fix }
+          fix: { ...performancePreconnect.fix }
         });
       }
     }
     return out;
   }
 };
-var SEO010_FIX = {
+var FIX5 = {
   description: 'If this route should be indexed, drop noindex from its <meta name="robots">.',
   snippet: '<svelte:head>\n  <meta name="robots" content="index, follow" />\n</svelte:head>',
   lang: "svelte"
 };
-var seo010Indexability = {
-  id: "SEO010",
+var seoIndexability = {
+  id: "seo/indexability",
   title: "Indexability",
   category: "seo",
   severity: "info",
   scope: "route",
   rationale: "A noindex directive removes the page from search results; an accidental noindex on a public route silently deindexes it.",
-  fix: SEO010_FIX,
+  fix: FIX5,
   async check(ctx) {
-    const docsUrl7 = docsUrlFor("SEO010");
+    const docsUrl7 = docsUrlFor("seo/indexability");
     const out = [];
     for (const head of ctx.heads) {
       const noindexed = head.tags.some((t) => t.kind === "meta" && t.name === "robots" && t.noindex === true);
       if (!noindexed) continue;
       out.push({
-        id: "SEO010",
+        id: "seo/indexability",
         category: "seo",
         severity: "info",
         detection: { presence: "none", value: "absent" },
@@ -56675,14 +56682,14 @@ var seo010Indexability = {
         message: "Route is noindex \u2014 verify this is intentional",
         recommendation: 'If this route should be indexed, remove noindex from its <meta name="robots">.',
         docsUrl: docsUrl7,
-        fix: { ...SEO010_FIX }
+        fix: { ...FIX5 }
       });
     }
     return out;
   }
 };
-var seo011TwitterCard = headTagRule({
-  id: "SEO011",
+var seoTwitterCard = headTagRule({
+  id: "seo/twitter-card",
   title: "Twitter Card",
   severity: "info",
   match: (t) => t.kind === "meta" && t.name === "twitter:card",
@@ -56695,8 +56702,8 @@ var seo011TwitterCard = headTagRule({
     lang: "svelte"
   }
 });
-var seo012OgDescription = headTagRule({
-  id: "SEO012",
+var seoOgDescription = headTagRule({
+  id: "seo/og-description",
   title: "Open Graph description",
   severity: "warning",
   match: (t) => t.kind === "meta" && t.property === "og:description",
@@ -56709,8 +56716,8 @@ var seo012OgDescription = headTagRule({
     lang: "svelte"
   }
 });
-var seo013OgUrl = headTagRule({
-  id: "SEO013",
+var seoOgUrl = headTagRule({
+  id: "seo/og-url",
   title: "Open Graph URL",
   severity: "info",
   match: (t) => t.kind === "meta" && t.property === "og:url",
@@ -56723,8 +56730,8 @@ var seo013OgUrl = headTagRule({
     lang: "svelte"
   }
 });
-var seo014Viewport = headTagRule({
-  id: "SEO014",
+var seoViewport = headTagRule({
+  id: "seo/viewport",
   title: "Viewport",
   severity: "warning",
   match: (t) => t.kind === "meta" && t.name === "viewport",
@@ -56741,36 +56748,38 @@ var seo014Viewport = headTagRule({
     lang: "html"
   }
 });
-var SEO015_FIX = {
+var FIX6 = {
   description: "Add a Sitemap: line to static/robots.txt.",
   snippet: "User-agent: *\nAllow: /\n\nSitemap: https://example.com/sitemap.xml",
   lang: "text"
 };
-var seo015SitemapInRobots = {
-  id: "SEO015",
+var seoSitemapInRobots = {
+  id: "seo/sitemap-in-robots",
   title: "Sitemap referenced in robots.txt",
   category: "seo",
   severity: "info",
   scope: "project",
   rationale: "A Sitemap: line in robots.txt helps crawlers discover your sitemap; without it discovery relies on manual submission.",
-  fix: SEO015_FIX,
+  fix: FIX6,
   async check(ctx) {
     const { hasRobotsTxt, hasSitemap, robotsReferencesSitemap } = ctx.project;
     if (!(hasRobotsTxt && hasSitemap && robotsReferencesSitemap === false)) return [];
     return [
       {
-        id: "SEO015",
+        id: "seo/sitemap-in-robots",
         category: "seo",
         severity: "info",
         detection: { presence: "none", value: "absent" },
         message: "robots.txt does not reference your sitemap",
         recommendation: "Add a Sitemap: line to static/robots.txt pointing at your sitemap.xml.",
-        docsUrl: docsUrlFor("SEO015"),
-        fix: { ...SEO015_FIX }
+        docsUrl: docsUrlFor("seo/sitemap-in-robots"),
+        fix: { ...FIX6 }
       }
     ];
   }
 };
+var PENALIZED = { presence: "none", value: "absent" };
+var PASS = { presence: "own", value: "static" };
 function parseJsonLd(raw) {
   let data2;
   try {
@@ -56905,61 +56914,9 @@ var REQUIRED_PROPS = {
   VideoObject: ["name", "description", "thumbnailUrl", "uploadDate"],
   LocalBusiness: ["name", "address"]
 };
-var PENALIZED = { presence: "none", value: "absent" };
-var PASS = { presence: "own", value: "static" };
 function jsonldTags(head) {
   return head.tags.filter((t) => t.kind === "jsonld" && typeof t.jsonld === "string");
 }
-var seo016JsonLdValidity = {
-  id: "SEO016",
-  title: "JSON-LD validity",
-  category: "seo",
-  severity: "warning",
-  scope: "route",
-  rationale: "Invalid JSON-LD \u2014 unparseable, or missing @context/@type \u2014 is silently ignored by search engines, so the structured data does nothing.",
-  fix: {
-    description: "Make the JSON-LD valid: parseable JSON with both @context (schema.org) and @type.",
-    snippet: '<svelte:head>\n  <script type="application/ld+json">\n    {"@context":"https://schema.org","@type":"WebPage","name":"\u2026"}\n  </script>\n</svelte:head>',
-    lang: "svelte"
-  },
-  async check(ctx) {
-    const docsUrl7 = docsUrlFor("SEO016");
-    const out = [];
-    for (const head of ctx.heads) {
-      for (const tag2 of jsonldTags(head)) {
-        const parsed = parseJsonLd(tag2.jsonld);
-        let problem;
-        if (!parsed.ok) problem = "JSON-LD is not valid JSON";
-        else if (!parsed.nodes.some((n) => "@context" in n)) problem = "JSON-LD is missing @context";
-        else if (!parsed.nodes.some((n) => typeOf(n).length > 0)) problem = "JSON-LD is missing @type";
-        out.push(
-          problem ? {
-            id: "SEO016",
-            category: "seo",
-            severity: "warning",
-            detection: PENALIZED,
-            route: head.route,
-            location: head.file,
-            message: problem,
-            recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
-            docsUrl: docsUrl7,
-            fix: { ...seo016JsonLdValidity.fix }
-          } : {
-            id: "SEO016",
-            category: "seo",
-            severity: "warning",
-            detection: PASS,
-            route: head.route,
-            message: "JSON-LD validity",
-            recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
-            docsUrl: docsUrl7
-          }
-        );
-      }
-    }
-    return out;
-  }
-};
 function jsonldRule(opts) {
   const docsUrl7 = docsUrlFor(opts.id);
   return {
@@ -57008,8 +56965,58 @@ function jsonldRule(opts) {
     }
   };
 }
-var seo017DeprecatedType = jsonldRule({
-  id: "SEO017",
+var seoJsonLdValidity = {
+  id: "seo/json-ld-validity",
+  title: "JSON-LD validity",
+  category: "seo",
+  severity: "warning",
+  scope: "route",
+  rationale: "Invalid JSON-LD \u2014 unparseable, or missing @context/@type \u2014 is silently ignored by search engines, so the structured data does nothing.",
+  fix: {
+    description: "Make the JSON-LD valid: parseable JSON with both @context (schema.org) and @type.",
+    snippet: '<svelte:head>\n  <script type="application/ld+json">\n    {"@context":"https://schema.org","@type":"WebPage","name":"\u2026"}\n  </script>\n</svelte:head>',
+    lang: "svelte"
+  },
+  async check(ctx) {
+    const docsUrl7 = docsUrlFor("seo/json-ld-validity");
+    const out = [];
+    for (const head of ctx.heads) {
+      for (const tag2 of jsonldTags(head)) {
+        const parsed = parseJsonLd(tag2.jsonld);
+        let problem;
+        if (!parsed.ok) problem = "JSON-LD is not valid JSON";
+        else if (!parsed.nodes.some((n) => "@context" in n)) problem = "JSON-LD is missing @context";
+        else if (!parsed.nodes.some((n) => typeOf(n).length > 0)) problem = "JSON-LD is missing @type";
+        out.push(
+          problem ? {
+            id: "seo/json-ld-validity",
+            category: "seo",
+            severity: "warning",
+            detection: PENALIZED,
+            route: head.route,
+            location: head.file,
+            message: problem,
+            recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
+            docsUrl: docsUrl7,
+            fix: { ...seoJsonLdValidity.fix }
+          } : {
+            id: "seo/json-ld-validity",
+            category: "seo",
+            severity: "warning",
+            detection: PASS,
+            route: head.route,
+            message: "JSON-LD validity",
+            recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
+            docsUrl: docsUrl7
+          }
+        );
+      }
+    }
+    return out;
+  }
+};
+var seoJsonLdDeprecatedType = jsonldRule({
+  id: "seo/json-ld-deprecated-type",
   title: "Deprecated structured-data type",
   severity: "info",
   label: "Structured-data type",
@@ -57020,8 +57027,8 @@ var seo017DeprecatedType = jsonldRule({
     return dep ? `@type "${dep}" no longer reliably produces a Google rich result` : void 0;
   }
 });
-var seo018RelativeUrl = jsonldRule({
-  id: "SEO018",
+var seoJsonLdRelativeUrl = jsonldRule({
+  id: "seo/json-ld-relative-url",
   title: "JSON-LD relative URL",
   severity: "warning",
   label: "JSON-LD URLs",
@@ -57037,8 +57044,8 @@ var seo018RelativeUrl = jsonldRule({
     return bad ? `Relative URL in JSON-LD: "${bad}" \u2014 use an absolute URL` : void 0;
   }
 });
-var seo019DateFormat = jsonldRule({
-  id: "SEO019",
+var seoJsonLdDateFormat = jsonldRule({
+  id: "seo/json-ld-date-format",
   title: "JSON-LD date format",
   severity: "info",
   label: "JSON-LD dates",
@@ -57054,8 +57061,8 @@ var seo019DateFormat = jsonldRule({
     return bad ? `Non-ISO-8601 date in JSON-LD: "${bad}"` : void 0;
   }
 });
-var seo020Placeholder = jsonldRule({
-  id: "SEO020",
+var seoJsonLdPlaceholder = jsonldRule({
+  id: "seo/json-ld-placeholder",
   title: "JSON-LD placeholder text",
   severity: "info",
   label: "JSON-LD content",
@@ -57066,8 +57073,8 @@ var seo020Placeholder = jsonldRule({
     return bad ? `Placeholder text in JSON-LD: "${bad}"` : void 0;
   }
 });
-var seo021RequiredProps = jsonldRule({
-  id: "SEO021",
+var seoJsonLdRequiredProps = jsonldRule({
+  id: "seo/json-ld-required-props",
   title: "JSON-LD required properties",
   severity: "warning",
   label: "JSON-LD required properties",
@@ -57141,8 +57148,8 @@ function lengthRule(opts) {
     }
   };
 }
-var seo022TitleLength = lengthRule({
-  id: "SEO022",
+var seoTitleLength = lengthRule({
+  id: "seo/title-length",
   title: "Title length",
   label: "Title length",
   noun: "Title",
@@ -57152,8 +57159,8 @@ var seo022TitleLength = lengthRule({
   recommendation: "Aim for a title of 30\u201360 characters so it is not truncated in search results.",
   rationale: "A title that is too short wastes the strongest on-page signal; one that is too long is truncated in the SERP."
 });
-var seo023DescriptionLength = lengthRule({
-  id: "SEO023",
+var seoDescriptionLength = lengthRule({
+  id: "seo/description-length",
   title: "Description length",
   label: "Description length",
   noun: "Description",
@@ -57163,8 +57170,8 @@ var seo023DescriptionLength = lengthRule({
   recommendation: "Aim for a meta description of 70\u2013160 characters so it is not truncated in search results.",
   rationale: "A description that is too short under-uses the SERP snippet; one that is too long is truncated by search engines."
 });
-var seo024Charset = headTagRule({
-  id: "SEO024",
+var seoCharset = headTagRule({
+  id: "seo/charset",
   title: "Character encoding",
   severity: "warning",
   match: (t) => t.kind === "meta" && t.name === "charset",
@@ -57178,8 +57185,8 @@ var seo024Charset = headTagRule({
     lang: "html"
   }
 });
-var seo025ImageAlt = imageRule({
-  id: "SEO025",
+var seoImageAlt = imageRule({
+  id: "seo/image-alt",
   title: "Image alt text",
   category: "seo",
   severity: "warning",
@@ -57193,14 +57200,14 @@ var seo025ImageAlt = imageRule({
   },
   ok: (img) => img.hasAlt
 });
-var docsUrl4 = docsUrlFor("SEO026");
+var docsUrl4 = docsUrlFor("seo/hreflang");
 var recommendation4 = 'Use valid hreflang codes (e.g. "en", "en-US", "x-default") and include an x-default when you have multiple language alternates.';
 var HREFLANG_RE = /^[a-z]{2,3}(-[a-z]{4})?(-([a-z]{2}|\d{3}))?$/i;
 function isValidHreflang(v) {
   return v.toLowerCase() === "x-default" || HREFLANG_RE.test(v);
 }
-var seo026Hreflang = {
-  id: "SEO026",
+var seoHreflang = {
+  id: "seo/hreflang",
   title: "hreflang validity",
   category: "seo",
   severity: "warning",
@@ -57225,7 +57232,7 @@ var seo026Hreflang = {
       }
       out.push(
         problem ? {
-          id: "SEO026",
+          id: "seo/hreflang",
           category: "seo",
           severity: "warning",
           detection: PENALIZED,
@@ -57235,7 +57242,7 @@ var seo026Hreflang = {
           recommendation: recommendation4,
           docsUrl: docsUrl4
         } : {
-          id: "SEO026",
+          id: "seo/hreflang",
           category: "seo",
           severity: "warning",
           detection: PASS,
@@ -57249,10 +57256,10 @@ var seo026Hreflang = {
     return out;
   }
 };
-var docsUrl5 = docsUrlFor("SEO027");
+var docsUrl5 = docsUrlFor("seo/single-h1");
 var recommendation5 = "Use exactly one <h1> per page for its main topic; demote extra top-level headings to <h2>+.";
-var seo027Heading = {
-  id: "SEO027",
+var seoSingleH1 = {
+  id: "seo/single-h1",
   title: "Heading hierarchy",
   category: "seo",
   severity: "warning",
@@ -57275,7 +57282,7 @@ var seo027Heading = {
       }
       out.push(
         problem ? {
-          id: "SEO027",
+          id: "seo/single-h1",
           category: "seo",
           severity: "warning",
           detection: PENALIZED,
@@ -57285,7 +57292,7 @@ var seo027Heading = {
           recommendation: recommendation5,
           docsUrl: docsUrl5
         } : {
-          id: "SEO027",
+          id: "seo/single-h1",
           category: "seo",
           severity: "warning",
           detection: PASS,
@@ -57345,8 +57352,8 @@ function uniquenessRule(opts) {
     }
   };
 }
-var seo028TitleUnique = uniquenessRule({
-  id: "SEO028",
+var seoDuplicateTitle = uniquenessRule({
+  id: "seo/duplicate-title",
   title: "Duplicate title",
   label: "Unique title",
   noun: "Title",
@@ -57354,8 +57361,8 @@ var seo028TitleUnique = uniquenessRule({
   recommendation: "Give each route a unique <title> that describes that page specifically.",
   rationale: "Duplicate titles across pages make them compete in search results and weaken each page\u2019s relevance signal."
 });
-var seo029DescriptionUnique = uniquenessRule({
-  id: "SEO029",
+var seoDuplicateDescription = uniquenessRule({
+  id: "seo/duplicate-description",
   title: "Duplicate description",
   label: "Unique description",
   noun: "Description",
@@ -57363,10 +57370,10 @@ var seo029DescriptionUnique = uniquenessRule({
   recommendation: "Write a unique meta description per route so each search snippet is page-specific.",
   rationale: "Duplicate meta descriptions give search engines no per-page summary, so they are often ignored or rewritten."
 });
-var docsUrl6 = docsUrlFor("SEO030");
+var docsUrl6 = docsUrlFor("seo/heading-level-skip");
 var recommendation6 = "Increase heading levels one step at a time (do not jump, e.g. from <h2> straight to <h4>).";
-var seo030HeadingOrder = {
-  id: "SEO030",
+var seoHeadingLevelSkip = {
+  id: "seo/heading-level-skip",
   title: "Heading order",
   category: "seo",
   severity: "info",
@@ -57388,7 +57395,7 @@ var seo030HeadingOrder = {
       }
       out.push(
         skip ? {
-          id: "SEO030",
+          id: "seo/heading-level-skip",
           category: "seo",
           severity: "info",
           detection: PENALIZED,
@@ -57399,7 +57406,7 @@ var seo030HeadingOrder = {
           recommendation: recommendation6,
           docsUrl: docsUrl6
         } : {
-          id: "SEO030",
+          id: "seo/heading-level-skip",
           category: "seo",
           severity: "info",
           detection: PASS,
@@ -57469,8 +57476,8 @@ function kitModuleRule(opts) {
 }
 var ROOT_LAYOUT_RE = /^src\/routes\/\+layout(\.server)?\.(ts|js)$/;
 var PAGE_OPTION_FILE_RE = /\+(page|layout)(\.server)?\.(ts|js)$/;
-var seo031SsrDisabled = kitModuleRule({
-  id: "SEO031",
+var seoSsrDisabled = kitModuleRule({
+  id: "seo/ssr-disabled",
   title: "SSR disabled",
   category: "seo",
   label: "SSR enabled",
@@ -57536,8 +57543,8 @@ function componentRule(opts) {
     }
   };
 }
-var correct001EachKey = componentRule({
-  id: "CORRECT001",
+var correctnessEachKey = componentRule({
+  id: "correctness/each-key",
   title: "Keyed each block",
   category: "correctness",
   label: "Keyed {#each}",
@@ -57546,8 +57553,8 @@ var correct001EachKey = componentRule({
   applies: (c) => c.eachBlocks.length > 0,
   bad: (c) => c.eachBlocks.filter((e2) => !e2.hasKey).map((e2) => ({ line: e2.line, message: "{#each} block has no key" }))
 });
-var correct002EffectDerived = componentRule({
-  id: "CORRECT002",
+var correctnessEffectAsDerived = componentRule({
+  id: "correctness/effect-as-derived",
   title: "Effect used to derive state",
   category: "correctness",
   label: "$effect usage",
@@ -57556,8 +57563,8 @@ var correct002EffectDerived = componentRule({
   applies: (c) => c.effects.length > 0,
   bad: (c) => c.effects.filter((e2) => e2.assignsOnlyState).map((e2) => ({ line: e2.line, message: "$effect only assigns state \u2014 use $derived instead" }))
 });
-var correct003EffectAsOnMount = componentRule({
-  id: "CORRECT003",
+var correctnessEffectAsOnMount = componentRule({
+  id: "correctness/effect-as-onmount",
   title: "Effect used as onMount",
   category: "correctness",
   label: "$effect usage",
@@ -57566,8 +57573,8 @@ var correct003EffectAsOnMount = componentRule({
   applies: (c) => c.effects.length > 0,
   bad: (c) => c.effects.filter((e2) => e2.mountOnly).map((e2) => ({ line: e2.line, message: "$effect reads no reactive value \u2014 use onMount instead" }))
 });
-var correct004UnmutatedState = componentRule({
-  id: "CORRECT004",
+var correctnessUnmutatedState = componentRule({
+  id: "correctness/unmutated-state",
   title: "Unmutated $state",
   category: "correctness",
   severity: "info",
@@ -57580,8 +57587,8 @@ var correct004UnmutatedState = componentRule({
     message: `$state "${s.name}" is never mutated \u2014 use const (or $state.raw if you only reassign it)`
   }))
 });
-var correct005PropMutation = componentRule({
-  id: "CORRECT005",
+var correctnessPropMutation = componentRule({
+  id: "correctness/prop-mutation",
   title: "Mutated non-bindable prop",
   category: "correctness",
   label: "Prop mutation",
@@ -57593,8 +57600,8 @@ var correct005PropMutation = componentRule({
     message: `Prop "${m.name}" is mutated, but it is not declared $bindable`
   }))
 });
-var correct006OrphanEffect = componentRule({
-  id: "CORRECT006",
+var correctnessOrphanEffect = componentRule({
+  id: "correctness/orphan-effect",
   title: "Orphan $effect",
   category: "correctness",
   severity: "critical",
@@ -57612,7 +57619,7 @@ var correct006OrphanEffect = componentRule({
 });
 var PENALIZED4 = { presence: "none", value: "absent" };
 var PASS4 = { presence: "own", value: "static" };
-var ID = "CORRECT007";
+var ID = "correctness/orphan-lifecycle";
 var DOCS_URL = docsUrlFor(ID);
 var LABEL = "Lifecycle-call context";
 var RECOMMENDATION = "Call lifecycle/context functions during component initialisation (the top level of a component's <script>). In load, return the data and call setContext in a layout/page component; in shared modules, expose a setup function that components call during init.";
@@ -57650,7 +57657,7 @@ function emitFile(out, file, issues, suppressions) {
     });
   }
 }
-var correct007OrphanLifecycle = {
+var correctnessOrphanLifecycle = {
   id: ID,
   title: "Lifecycle call outside component initialisation",
   category: "correctness",
@@ -57690,7 +57697,7 @@ var correct007OrphanLifecycle = {
 };
 var PENALIZED5 = { presence: "none", value: "absent" };
 var PASS5 = { presence: "own", value: "static" };
-var ID2 = "CORRECT008";
+var ID2 = "correctness/server-browser-global";
 var DOCS_URL2 = docsUrlFor(ID2);
 var LABEL2 = "Server-safe module code";
 var RECOMMENDATION2 = "Move browser-only code into onMount or $effect (they never run on the server), or guard it with browser from $app/environment (or a typeof check).";
@@ -57728,7 +57735,7 @@ function emitFile2(out, file, issues, suppressions) {
     });
   }
 }
-var correct008BrowserGlobals = {
+var correctnessServerBrowserGlobal = {
   id: ID2,
   title: "Browser global in server module code",
   category: "correctness",
@@ -57763,8 +57770,8 @@ var correct008BrowserGlobals = {
     return out;
   }
 };
-var correct009InstanceBrowserGlobals = componentRule({
-  id: "CORRECT009",
+var correctnessInstanceBrowserGlobal = componentRule({
+  id: "correctness/instance-browser-global",
   title: "Browser global during component initialisation",
   category: "correctness",
   label: "Server-safe component init",
@@ -57776,8 +57783,8 @@ var correct009InstanceBrowserGlobals = componentRule({
     message: `${r.name} is accessed during component initialisation \u2014 during SSR this runs on the server, where ${r.name} is not defined`
   }))
 });
-var sec001Html = componentRule({
-  id: "SEC001",
+var securityRawHtml = componentRule({
+  id: "security/raw-html",
   title: "Raw HTML render",
   category: "security",
   label: "{@html} usage",
@@ -57786,8 +57793,8 @@ var sec001Html = componentRule({
   applies: (c) => c.htmlTags.length > 0,
   bad: (c) => c.htmlTags.map((h) => ({ line: h.line, message: "{@html} renders unescaped HTML \u2014 ensure it is sanitized" }))
 });
-var sec002JavascriptUrl = componentRule({
-  id: "SEC002",
+var securityJavascriptUrl = componentRule({
+  id: "security/javascript-url",
   title: "javascript: URL",
   category: "security",
   label: "No javascript: URLs",
@@ -57796,8 +57803,8 @@ var sec002JavascriptUrl = componentRule({
   applies: (c) => c.javascriptUrls.length > 0,
   bad: (c) => c.javascriptUrls.map((u) => ({ line: u.line, message: "javascript: URL in an attribute" }))
 });
-var sec003LoadStateWrite = kitModuleRule({
-  id: "SEC003",
+var securityHandlerStateWrite = kitModuleRule({
+  id: "security/handler-state-write",
   title: "Handler writes imported state",
   category: "security",
   severity: "critical",
@@ -57810,8 +57817,8 @@ var sec003LoadStateWrite = kitModuleRule({
     message: `a server-executed handler writes imported module state "${w2.name}" \u2014 shared across all requests on the server, one user's data can leak to another`
   }))
 });
-var sec004ServerModuleState = kitModuleRule({
-  id: "SEC004",
+var securityServerModuleState = kitModuleRule({
+  id: "security/server-module-state",
   title: "Server module-scope state",
   category: "security",
   label: "Server module state",
@@ -57826,8 +57833,8 @@ var sec004ServerModuleState = kitModuleRule({
 function extSibling(path) {
   return path.endsWith(".svelte.ts") ? path.replace(/\.svelte\.ts$/, ".svelte.js") : path.replace(/\.svelte\.js$/, ".svelte.ts");
 }
-var sec005SharedStateImport = kitModuleRule({
-  id: "SEC005",
+var securitySharedStateImport = kitModuleRule({
+  id: "security/shared-state-import",
   title: "Shared runes-state import on the server",
   category: "security",
   label: "Server state imports",
@@ -57853,9 +57860,8 @@ var sec005SharedStateImport = kitModuleRule({
   }
 });
 var MAX_LOC = 400;
-var MAX_PROPS = 10;
-var arch001ComponentSize = componentRule({
-  id: "ARCH001",
+var architectureComponentSize = componentRule({
+  id: "architecture/component-size",
   title: "Component size",
   category: "architecture",
   severity: "info",
@@ -57866,8 +57872,9 @@ var arch001ComponentSize = componentRule({
   // skip unanalyzable files (loc 0 = read/parse failure), don't PASS them
   bad: (c) => c.loc > MAX_LOC ? [{ line: 1, message: `Component is ${c.loc} lines (over ${MAX_LOC})` }] : []
 });
-var arch002PropCount = componentRule({
-  id: "ARCH002",
+var MAX_PROPS = 10;
+var architecturePropCount = componentRule({
+  id: "architecture/prop-count",
   title: "Prop count",
   category: "architecture",
   severity: "info",
@@ -57882,8 +57889,8 @@ var HEAVY_PACKAGES = {
   lodash: "import a submodule (lodash/debounce) or use lodash-es for tree-shaking",
   moment: "use a lighter date library (date-fns or dayjs) \u2014 moment is large and not tree-shakeable"
 };
-var perf009HeavyImport = componentRule({
-  id: "PERF009",
+var performanceHeavyImport = componentRule({
+  id: "performance/heavy-import",
   title: "Heavy dependency import",
   category: "performance",
   severity: "info",
@@ -57906,8 +57913,8 @@ var perf009HeavyImport = componentRule({
     return out;
   }
 });
-var perf010NamespaceImport = componentRule({
-  id: "PERF010",
+var performanceNamespaceImport = componentRule({
+  id: "performance/namespace-import",
   title: "Namespace import",
   category: "performance",
   severity: "info",
@@ -57928,27 +57935,27 @@ var perf010NamespaceImport = componentRule({
   }
 });
 var PENALIZED6 = { presence: "none", value: "absent" };
-var PERF012_FIX = {
+var MINIFY_DISABLED_FIX = {
   description: "Remove the minify: false override from vite.config (Vite minifies with esbuild by default), or scope it to non-production builds.",
   snippet: "export default defineConfig({\n  build: {\n    minify: 'esbuild'\n  }\n});",
   lang: "ts"
 };
 var RECOMMENDATION3 = "Remove build.minify: false from vite.config, or scope it to non-production builds if it is intentional.";
-var perf012MinifyDisabled = {
-  id: "PERF012",
+var performanceMinifyDisabled = {
+  id: "performance/minify-disabled",
   title: "Minification disabled",
   category: "performance",
   severity: "warning",
   scope: "project",
   rationale: "Disabling minification ships unminified JS/CSS to production, inflating bundle size several-fold and slowing every page load; the override is usually a leftover from debugging.",
-  fix: PERF012_FIX,
+  fix: MINIFY_DISABLED_FIX,
   async check(ctx) {
     const hit = ctx.project.viteMinifyDisabled;
     if (!hit) return [];
     const provenance = hit.file === void 0 ? " The override comes from an inline (programmatic) Vite config." : hit.line === void 0 ? " The override was resolved from the actual build \u2014 it may come from a plugin or a conditional config, not a literal in the file." : "";
     return [
       {
-        id: "PERF012",
+        id: "performance/minify-disabled",
         category: "performance",
         severity: "warning",
         detection: PENALIZED6,
@@ -57956,15 +57963,15 @@ var perf012MinifyDisabled = {
         ...hit.line !== void 0 ? { line: hit.line } : {},
         message: "JS/CSS minification is disabled (build.minify: false) \u2014 production bundles ship unminified and several times larger." + provenance,
         recommendation: RECOMMENDATION3,
-        docsUrl: docsUrlFor("PERF012"),
-        fix: { ...PERF012_FIX }
+        docsUrl: docsUrlFor("performance/minify-disabled"),
+        fix: { ...MINIFY_DISABLED_FIX }
       }
     ];
   }
 };
 var MESSAGE = "Sequential dependent awaits in a universal load create a client-side request waterfall \u2014 each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.";
-var perf011LoadWaterfall = kitModuleRule({
-  id: "PERF011",
+var performanceLoadWaterfall = kitModuleRule({
+  id: "performance/load-waterfall",
   title: "Load waterfall",
   category: "performance",
   severity: "warning",
@@ -57980,8 +57987,8 @@ var perf011LoadWaterfall = kitModuleRule({
   bad: (m) => m.loadWaterfalls.dependentLines.map((line) => ({ line, message: MESSAGE }))
 });
 var MESSAGE2 = "This await does not use the results of the awaits before it \u2014 the requests run sequentially for no reason. Start them together and await them with Promise.all.";
-var perf013SequentialAwaits = kitModuleRule({
-  id: "PERF013",
+var performanceSequentialAwaits = kitModuleRule({
+  id: "performance/sequential-awaits",
   title: "Sequential independent awaits",
   category: "performance",
   severity: "info",
@@ -57997,66 +58004,66 @@ var perf013SequentialAwaits = kitModuleRule({
   bad: (m) => m.loadWaterfalls.independentLines.map((line) => ({ line, message: MESSAGE2 }))
 });
 var allRules = [
-  seo001Title,
-  seo002Description,
-  seo003Canonical,
-  seo004OgImage,
-  seo005OgTitle,
-  seo006Robots,
-  seo007Sitemap,
-  seo008JsonLd,
-  seo009HtmlLang,
-  perf001ImageDimensions,
-  perf002ImageLoading,
-  perf003PreloadAs,
-  perf004FontPreloadCrossorigin,
-  seo010Indexability,
-  seo011TwitterCard,
-  seo012OgDescription,
-  seo013OgUrl,
-  seo014Viewport,
-  seo015SitemapInRobots,
-  seo016JsonLdValidity,
-  seo017DeprecatedType,
-  seo018RelativeUrl,
-  seo019DateFormat,
-  seo020Placeholder,
-  seo021RequiredProps,
-  seo022TitleLength,
-  seo023DescriptionLength,
-  seo024Charset,
-  seo025ImageAlt,
-  seo026Hreflang,
-  seo027Heading,
-  perf005LcpImage,
-  perf006ResponsiveImage,
-  perf007RenderBlockingScript,
-  perf008Preconnect,
-  seo028TitleUnique,
-  seo029DescriptionUnique,
-  seo030HeadingOrder,
-  seo031SsrDisabled,
-  correct001EachKey,
-  correct002EffectDerived,
-  correct003EffectAsOnMount,
-  correct004UnmutatedState,
-  correct005PropMutation,
-  correct006OrphanEffect,
-  correct007OrphanLifecycle,
-  correct008BrowserGlobals,
-  correct009InstanceBrowserGlobals,
-  sec001Html,
-  sec002JavascriptUrl,
-  sec003LoadStateWrite,
-  sec004ServerModuleState,
-  sec005SharedStateImport,
-  arch001ComponentSize,
-  arch002PropCount,
-  perf009HeavyImport,
-  perf010NamespaceImport,
-  perf012MinifyDisabled,
-  perf011LoadWaterfall,
-  perf013SequentialAwaits
+  seoTitlePresence,
+  seoDescriptionPresence,
+  seoCanonicalUrl,
+  seoOgImage,
+  seoOgTitle,
+  seoRobotsTxt,
+  seoSitemapXml,
+  seoJsonLd,
+  seoHtmlLang,
+  performanceImageDimensions,
+  performanceImageLoadingHint,
+  performancePreloadMissingAs,
+  performanceFontPreloadCrossorigin,
+  seoIndexability,
+  seoTwitterCard,
+  seoOgDescription,
+  seoOgUrl,
+  seoViewport,
+  seoSitemapInRobots,
+  seoJsonLdValidity,
+  seoJsonLdDeprecatedType,
+  seoJsonLdRelativeUrl,
+  seoJsonLdDateFormat,
+  seoJsonLdPlaceholder,
+  seoJsonLdRequiredProps,
+  seoTitleLength,
+  seoDescriptionLength,
+  seoCharset,
+  seoImageAlt,
+  seoHreflang,
+  seoSingleH1,
+  performanceLcpImage,
+  performanceResponsiveImage,
+  performanceRenderBlockingScript,
+  performancePreconnect,
+  seoDuplicateTitle,
+  seoDuplicateDescription,
+  seoHeadingLevelSkip,
+  seoSsrDisabled,
+  correctnessEachKey,
+  correctnessEffectAsDerived,
+  correctnessEffectAsOnMount,
+  correctnessUnmutatedState,
+  correctnessPropMutation,
+  correctnessOrphanEffect,
+  correctnessOrphanLifecycle,
+  correctnessServerBrowserGlobal,
+  correctnessInstanceBrowserGlobal,
+  securityRawHtml,
+  securityJavascriptUrl,
+  securityHandlerStateWrite,
+  securityServerModuleState,
+  securitySharedStateImport,
+  architectureComponentSize,
+  architecturePropCount,
+  performanceHeavyImport,
+  performanceNamespaceImport,
+  performanceMinifyDisabled,
+  performanceLoadWaterfall,
+  performanceSequentialAwaits
 ];
 function classify(result, config) {
   if (isPenalized(result.detection, config.treatDynamicAs)) return "fail";
@@ -58354,7 +58361,7 @@ function applyOverrides(results, config) {
   return out;
 }
 
-// ../cli/dist/chunk-DFWOXJRI.js
+// ../cli/dist/chunk-DY7THW6C.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -59132,7 +59139,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-DFWOXJRI.js
+// ../cli/dist/chunk-DY7THW6C.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -59452,7 +59459,7 @@ function tagsFromHead(head) {
         ...hasAs ? { hasAs: true } : {},
         ...asLiteral ? { as: asLiteral } : {},
         ...hasCrossorigin ? { hasCrossorigin: true } : {},
-        // Keep a literal empty hreflang="" (present-but-invalid) so SEO026 can flag it.
+        // Keep a literal empty hreflang="" (present-but-invalid) so seo/hreflang can flag it.
         ...hreflang !== void 0 ? { hreflang } : {},
         ...href ? { href } : {}
       });

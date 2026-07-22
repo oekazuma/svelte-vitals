@@ -29,9 +29,9 @@ export interface HeadTag {
   text?: string;
   /** Literal `hreflang` of a `<link rel="alternate">` (e.g. 'en', 'en-US', 'x-default'). Undefined when dynamic/absent. */
   hreflang?: string;
-  /** Literal href (link) / src (script) URL when static — used for third-party origin analysis (PERF008). */
+  /** Literal href (link) / src (script) URL when static — used for third-party origin analysis (performance/preconnect). */
   href?: string;
-  /** True for a render-blocking `<script src>` in <head> (no defer/async/module) (PERF007). */
+  /** True for a render-blocking `<script src>` in <head> (no defer/async/module) (performance/render-blocking-script). */
   blocking?: boolean;
   /** Where this tag was set relative to the route. Never 'none' (absence = no tag). */
   presence: Exclude<Presence, 'none'>;

@@ -20,8 +20,11 @@ describe('Config.rules and failOn', () => {
   });
 
   it('merges rules and failOn via defineConfig', () => {
-    const config = defineConfig({ rules: { SEO008: 'off', SEO003: 'critical' }, failOn: 'warning' });
-    expect(config.rules).toEqual({ SEO008: 'off', SEO003: 'critical' });
+    const config = defineConfig({
+      rules: { 'seo/json-ld': 'off', 'seo/canonical-url': 'critical' },
+      failOn: 'warning'
+    });
+    expect(config.rules).toEqual({ 'seo/json-ld': 'off', 'seo/canonical-url': 'critical' });
     expect(config.failOn).toBe('warning');
     expect(config.metaComponents).toEqual([]);
   });

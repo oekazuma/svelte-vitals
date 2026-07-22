@@ -24,7 +24,7 @@ describe('svelteMetaTagsAdapter', () => {
     expect(r.tags).toContainEqual({ kind: 'title', value: 'dynamic' });
   });
 
-  it('captures a literal description prop as text (so SEO023 can measure it)', () => {
+  it('captures a literal description prop as text (so seo/description-length can measure it)', () => {
     const r = svelteMetaTagsAdapter.resolve(useOf('<MetaTags description="A concise summary." />'));
     expect(r.tags).toContainEqual({ kind: 'meta', name: 'description', value: 'static', text: 'A concise summary.' });
   });

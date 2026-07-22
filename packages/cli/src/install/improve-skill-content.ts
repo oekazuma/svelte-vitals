@@ -45,7 +45,7 @@ without a judgment call of its own.
    none today, by design), no code edits, no commits, no formatters, no
    dependency installs. Run svelte-vitals read-only, for evidence only.
 3. **Plans must be fully self-contained.** The executor has zero context
-   from this conversation. Never write "fix it like SEO001 above" — inline
+   from this conversation. Never write "fix it like seo/title-presence above" — inline
    the exact file, line, current code, and the exact fix (svelte-vitals'
    \`fix.snippet\`/\`fix.description\` for the rule, quoted verbatim — see
    below).

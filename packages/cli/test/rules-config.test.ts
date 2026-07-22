@@ -3,19 +3,22 @@ import { buildRulesConfig, findUnknownRuleIds, knownRuleIds } from '../src/rules
 
 describe('buildRulesConfig', () => {
   it('an allow-list disables every rule not listed', () => {
-    const cfg = buildRulesConfig(['SEO001'], []);
-    expect(cfg.SEO001).toBeUndefined();
-    expect(cfg.SEO002).toBe('off');
-    expect(cfg.SEO009).toBe('off');
+    const cfg = buildRulesConfig(['seo/title-presence'], []);
+    expect(cfg['seo/title-presence']).toBeUndefined();
+    expect(cfg['seo/description-presence']).toBe('off');
+    expect(cfg['seo/html-lang']).toBe('off');
   });
 
   it('an ignore-list disables only the listed rules', () => {
-    expect(buildRulesConfig([], ['SEO002', 'SEO003'])).toEqual({ SEO002: 'off', SEO003: 'off' });
+    expect(buildRulesConfig([], ['seo/description-presence', 'seo/canonical-url'])).toEqual({
+      'seo/description-presence': 'off',
+      'seo/canonical-url': 'off'
+    });
   });
 
   it('deny wins over allow', () => {
-    const cfg = buildRulesConfig(['SEO001'], ['SEO001']);
-    expect(cfg.SEO001).toBe('off');
+    const cfg = buildRulesConfig(['seo/title-presence'], ['seo/title-presence']);
+    expect(cfg['seo/title-presence']).toBe('off');
   });
 
   it('returns an empty config when no flags are given', () => {
@@ -25,11 +28,11 @@ describe('buildRulesConfig', () => {
 
 describe('findUnknownRuleIds', () => {
   it('flags ids that are not part of the registry (typos)', () => {
-    expect(findUnknownRuleIds(['SEO001', 'SEO999', 'nope'])).toEqual(['SEO999', 'nope']);
+    expect(findUnknownRuleIds(['seo/title-presence', 'SEO999', 'nope'])).toEqual(['SEO999', 'nope']);
   });
 
   it('returns nothing when all ids are known', () => {
-    expect(findUnknownRuleIds(['SEO001', 'SEO009'])).toEqual([]);
+    expect(findUnknownRuleIds(['seo/title-presence', 'seo/html-lang'])).toEqual([]);
   });
 
   it('deduplicates repeated unknown ids', () => {
@@ -40,7 +43,7 @@ describe('findUnknownRuleIds', () => {
 describe('knownRuleIds', () => {
   it('lists the built-in ids sorted', () => {
     const ids = knownRuleIds();
-    expect(ids).toContain('SEO001');
+    expect(ids).toContain('seo/title-presence');
     expect(ids).toEqual([...ids].sort());
   });
 });

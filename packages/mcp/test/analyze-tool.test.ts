@@ -74,25 +74,31 @@ describe('analyze tool', () => {
     const widgetIssues = (report: Report) =>
       report.routes.find((r) => r.route === '/widget')?.issues.map((i) => i.id) ?? [];
 
-    // Baseline: /widget renders <Widget /> with no <title>, so SEO001 fires there.
+    // Baseline: /widget renders <Widget /> with no <title>, so seo/title-presence fires there.
     const base = await handleAnalyze({ path: fixtureDir });
-    expect(widgetIssues(base.structuredContent as Report)).toContain('SEO001');
+    expect(widgetIssues(base.structuredContent as Report)).toContain('seo/title-presence');
 
     // Declaring Widget as a meta component promotes its title to dynamic/pass.
     const withMeta = await handleAnalyze({ path: fixtureDir, metaComponents: ['Widget'] });
     expect(withMeta.isError).toBeFalsy();
-    expect(widgetIssues(withMeta.structuredContent as Report)).not.toContain('SEO001');
+    expect(widgetIssues(withMeta.structuredContent as Report)).not.toContain('seo/title-presence');
   });
 
-  it('accepts rule ids case-insensitively', async () => {
-    const res = await handleAnalyze({ path: fixtureDir, rules: ['seo001'] });
+  it('allow-lists a single rule via its exact id', async () => {
+    const res = await handleAnalyze({ path: fixtureDir, rules: ['seo/title-presence'] });
     expect(res.isError).toBeFalsy();
     const report = res.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
     const ids = new Set(report.routes.flatMap((r) => r.issues.map((i) => i.id)));
-    // Allow-list of a single rule disables the others, so only SEO001 can appear.
-    // Guard against a vacuous pass: the fixture must surface at least one SEO001.
+    // Allow-list of a single rule disables the others, so only seo/title-presence can appear.
+    // Guard against a vacuous pass: the fixture must surface at least one seo/title-presence.
     expect(ids.size).toBeGreaterThan(0);
-    for (const id of ids) expect(id).toBe('SEO001');
+    for (const id of ids) expect(id).toBe('seo/title-presence');
+  });
+
+  it('does not match a rule id with the wrong case (exact match only)', async () => {
+    const res = await handleAnalyze({ path: fixtureDir, rules: ['SEO/TITLE-PRESENCE'] });
+    expect(res.isError).toBe(true);
+    expect(res.content[0]!.text).toContain('Unknown rule id(s): SEO/TITLE-PRESENCE');
   });
 
   it('restricts findings to a single category via categories', async () => {
@@ -102,7 +108,7 @@ describe('analyze tool', () => {
     const ids = new Set(report.routes.flatMap((r) => r.issues.map((i) => i.id)));
     // Guard against a vacuous pass: the fixture must surface at least one SEO finding.
     expect(ids.size).toBeGreaterThan(0);
-    for (const id of ids) expect(id).toMatch(/^SEO/);
+    for (const id of ids) expect(id).toMatch(/^seo\//);
   });
 
   it('returns findings across all categories when categories is not passed', async () => {
@@ -111,7 +117,7 @@ describe('analyze tool', () => {
     const report = res.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
     const ids = new Set(report.routes.flatMap((r) => r.issues.map((i) => i.id)));
     // The unfiltered fixture surfaces findings outside SEO too (unlike the categories: ['seo'] case above).
-    expect([...ids].some((id) => !id.startsWith('SEO'))).toBe(true);
+    expect([...ids].some((id) => !id.startsWith('seo/'))).toBe(true);
   });
 
   it('accepts categories case-insensitively (via the real input schema, not handleAnalyze directly)', async () => {
@@ -160,7 +166,7 @@ describe('analyze tool', () => {
     const text = res.content[0]!.text;
     expect(text).toContain('Unknown rule id(s): NOPE999');
     expect(text).toContain('Known rule ids:');
-    expect(text).toContain('SEO001');
+    expect(text).toContain('seo/title-presence');
   });
 
   it('reports an error for a non-SvelteKit path', async () => {
@@ -170,12 +176,12 @@ describe('analyze tool', () => {
     expect(res.content[0]!.text).toContain('No SvelteKit project found');
   });
 
-  it('reflects a project config file (svelte-vitals.config.mjs disables SEO001 via rules)', async () => {
+  it('reflects a project config file (svelte-vitals.config.mjs disables seo/title-presence via rules)', async () => {
     const res = await handleAnalyze({ path: configFileFixtureDir });
     expect(res.isError).toBeFalsy();
     const report = res.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
     const ids = new Set(report.routes.flatMap((r) => r.issues.map((i) => i.id)));
-    expect(ids.has('SEO001')).toBe(false);
+    expect(ids.has('seo/title-presence')).toBe(false);
   });
 
   it('applies a weights argument to the combined Health score', async () => {
@@ -228,18 +234,18 @@ describe('analyze tool', () => {
   it('scopes findings to files changed vs a git ref via diff', async () => {
     const dir = makeGitProjectCopy();
 
-    // Unscoped: the fixture's usual findings (e.g. /widget's SEO001) are present.
+    // Unscoped: the fixture's usual findings (e.g. /widget's seo/title-presence) are present.
     const unscoped = await handleAnalyze({ path: dir });
     expect(unscoped.isError).toBeFalsy();
     const unscopedReport = unscoped.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
-    expect(unscopedReport.routes.flatMap((r) => r.issues.map((i) => i.id))).toContain('SEO001');
+    expect(unscopedReport.routes.flatMap((r) => r.issues.map((i) => i.id))).toContain('seo/title-presence');
 
     // The repo was just committed with no further changes, so diffing against HEAD
     // finds no changed (or untracked) files — every finding is filtered out.
     const scoped = await handleAnalyze({ path: dir, diff: 'HEAD' });
     expect(scoped.isError).toBeFalsy();
     const scopedReport = scoped.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
-    expect(scopedReport.routes.flatMap((r) => r.issues.map((i) => i.id))).not.toContain('SEO001');
+    expect(scopedReport.routes.flatMap((r) => r.issues.map((i) => i.id))).not.toContain('seo/title-presence');
   });
 
   it('drops findings already present at the baseline ref via baseline', async () => {
@@ -249,14 +255,14 @@ describe('analyze tool', () => {
     const unscoped = await handleAnalyze({ path: dir });
     expect(unscoped.isError).toBeFalsy();
     const unscopedReport = unscoped.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
-    expect(unscopedReport.routes.flatMap((r) => r.issues.map((i) => i.id))).toContain('SEO001');
+    expect(unscopedReport.routes.flatMap((r) => r.issues.map((i) => i.id))).toContain('seo/title-presence');
 
     // The baseline ref (HEAD) is identical to the current project, so every current
     // finding is "already present" there and gets filtered out as not-new.
     const scoped = await handleAnalyze({ path: dir, baseline: 'HEAD' });
     expect(scoped.isError).toBeFalsy();
     const scopedReport = scoped.structuredContent as { routes: Array<{ issues: Array<{ id: string }> }> };
-    expect(scopedReport.routes.flatMap((r) => r.issues.map((i) => i.id))).not.toContain('SEO001');
+    expect(scopedReport.routes.flatMap((r) => r.issues.map((i) => i.id))).not.toContain('seo/title-presence');
   });
 
   it('ignores svelte-vitals-suppressions.json when noSuppressions is set', async () => {
@@ -267,7 +273,7 @@ describe('analyze tool', () => {
       join(dir, 'svelte-vitals-suppressions.json'),
       JSON.stringify({
         version: 1,
-        suppressions: [{ id: 'SEO001', route: '/widget', location: 'src/routes/widget/+page.svelte' }]
+        suppressions: [{ id: 'seo/title-presence', route: '/widget', location: 'src/routes/widget/+page.svelte' }]
       })
     );
 
@@ -275,14 +281,14 @@ describe('analyze tool', () => {
     const widgetIssues = (report: Report) =>
       report.routes.find((r) => r.route === '/widget')?.issues.map((i) => i.id) ?? [];
 
-    // Default: the accepted finding (widget's SEO001) is suppressed and does not surface.
+    // Default: the accepted finding (widget's seo/title-presence) is suppressed and does not surface.
     const suppressed = await handleAnalyze({ path: dir });
     expect(suppressed.isError).toBeFalsy();
-    expect(widgetIssues(suppressed.structuredContent as Report)).not.toContain('SEO001');
+    expect(widgetIssues(suppressed.structuredContent as Report)).not.toContain('seo/title-presence');
 
     // noSuppressions: true bypasses the file, so the finding reappears.
     const unsuppressed = await handleAnalyze({ path: dir, noSuppressions: true });
     expect(unsuppressed.isError).toBeFalsy();
-    expect(widgetIssues(unsuppressed.structuredContent as Report)).toContain('SEO001');
+    expect(widgetIssues(unsuppressed.structuredContent as Report)).toContain('seo/title-presence');
   });
 });

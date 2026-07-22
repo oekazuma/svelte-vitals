@@ -23,7 +23,7 @@ describe('severity level maps', () => {
 
 describe('messageText', () => {
   const base: Result = {
-    id: 'SEO001',
+    id: 'seo/title-presence',
     severity: 'critical',
     detection: { presence: 'none', value: 'absent' },
     message: 'Missing <title>'
@@ -38,23 +38,23 @@ describe('messageText', () => {
 
 describe('ruleMetaById', () => {
   it('returns canonical metadata for a known rule', () => {
-    const m = ruleMetaById('SEO001');
+    const m = ruleMetaById('seo/title-presence');
     expect(m).toEqual({
       title: 'Title presence',
       severity: 'critical',
-      docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo001'
+      docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence'
     });
   });
   it('returns undefined for an unknown rule id', () => {
     expect(ruleMetaById('NOPE999')).toBeUndefined();
   });
   it('sources its docsUrl from docsUrlFor', () => {
-    expect(ruleMetaById('SEO001')?.docsUrl).toBe(docsUrlFor('SEO001'));
+    expect(ruleMetaById('seo/title-presence')?.docsUrl).toBe(docsUrlFor('seo/title-presence'));
   });
 });
 
 describe('docsUrlFor', () => {
   it('builds the canonical rule docs URL', () => {
-    expect(docsUrlFor('SEO001')).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo001');
+    expect(docsUrlFor('seo/title-presence')).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence');
   });
 });

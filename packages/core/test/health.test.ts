@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { computeHealth, defineConfig, type Result } from '../src/index.js';
 
 const seoFail = (route: string): Result => ({
-  id: 'SEO001',
+  id: 'seo/title-presence',
   category: 'seo',
   severity: 'critical',
   detection: { presence: 'none', value: 'absent' },
@@ -40,7 +40,7 @@ describe('computeHealth', () => {
   });
 
   it('excludes absent categories and re-normalizes (only SEO present)', () => {
-    const results = [pass('SEO001', 'seo', '/a')];
+    const results = [pass('seo/title-presence', 'seo', '/a')];
     const { health, categories, weights } = computeHealth(results, defineConfig({}));
     expect(Object.keys(categories)).toEqual(['seo']);
     expect(weights).toEqual({ seo: 1 });

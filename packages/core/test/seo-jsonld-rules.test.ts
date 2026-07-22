@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import {
-  seo016JsonLdValidity,
-  seo017DeprecatedType,
-  seo018RelativeUrl,
-  seo019DateFormat,
-  seo020Placeholder,
-  seo021RequiredProps
+  seoJsonLdValidity,
+  seoJsonLdDeprecatedType,
+  seoJsonLdRelativeUrl,
+  seoJsonLdDateFormat,
+  seoJsonLdPlaceholder,
+  seoJsonLdRequiredProps
 } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
@@ -20,59 +20,61 @@ const headWithJsonLd = (raw?: string): ResolvedHead => ({
   ]
 });
 const ctx = (head: ResolvedHead): RuleContext => ({ heads: [head], project: defaultProject, config: defineConfig({}) });
-const fails = (rs: Awaited<ReturnType<typeof seo016JsonLdValidity.check>>) =>
+const fails = (rs: Awaited<ReturnType<typeof seoJsonLdValidity.check>>) =>
   rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 
-describe('SEO016 validity', () => {
+describe('seo/json-ld-validity validity', () => {
   it('flags invalid JSON', async () => {
-    expect(fails(await seo016JsonLdValidity.check(ctx(headWithJsonLd('{bad'))))).toHaveLength(1);
+    expect(fails(await seoJsonLdValidity.check(ctx(headWithJsonLd('{bad'))))).toHaveLength(1);
   });
   it('flags missing @context', async () => {
-    expect(fails(await seo016JsonLdValidity.check(ctx(headWithJsonLd('{"@type":"WebPage"}'))))).toHaveLength(1);
+    expect(fails(await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@type":"WebPage"}'))))).toHaveLength(1);
   });
   it('flags missing @type', async () => {
-    expect(
-      fails(await seo016JsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org"}'))))
-    ).toHaveLength(1);
+    expect(fails(await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org"}'))))).toHaveLength(
+      1
+    );
   });
   it('passes valid JSON-LD', async () => {
-    const rs = await seo016JsonLdValidity.check(
+    const rs = await seoJsonLdValidity.check(
       ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"WebPage"}'))
     );
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
   it('skips a dynamic (uncaptured) JSON-LD', async () => {
-    expect(await seo016JsonLdValidity.check(ctx(headWithJsonLd(undefined)))).toHaveLength(0);
+    expect(await seoJsonLdValidity.check(ctx(headWithJsonLd(undefined)))).toHaveLength(0);
   });
 });
 
-describe('SEO017-021', () => {
-  it('SEO017 flags a deprecated type', async () => {
-    expect(
-      fails(await seo017DeprecatedType.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"HowTo"}'))))
-    ).toHaveLength(1);
-  });
-  it('SEO018 flags a relative URL under a known key', async () => {
+describe('seo/json-ld-deprecated-type-021', () => {
+  it('seo/json-ld-deprecated-type flags a deprecated type', async () => {
     expect(
       fails(
-        await seo018RelativeUrl.check(
+        await seoJsonLdDeprecatedType.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"HowTo"}')))
+      )
+    ).toHaveLength(1);
+  });
+  it('seo/json-ld-relative-url flags a relative URL under a known key', async () => {
+    expect(
+      fails(
+        await seoJsonLdRelativeUrl.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Org","image":"/logo.png"}'))
         )
       )
     ).toHaveLength(1);
     expect(
       fails(
-        await seo018RelativeUrl.check(
+        await seoJsonLdRelativeUrl.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Org","image":"https://e.com/l.png"}'))
         )
       )
     ).toHaveLength(0);
   });
-  it('SEO018 does not flag a relative @id (node identifier, not a URL)', async () => {
+  it('seo/json-ld-relative-url does not flag a relative @id (node identifier, not a URL)', async () => {
     expect(
       fails(
-        await seo018RelativeUrl.check(
+        await seoJsonLdRelativeUrl.check(
           ctx(
             headWithJsonLd(
               '{"@context":"https://schema.org","@type":"Org","@id":"#organization","url":"https://e.com"}'
@@ -82,106 +84,108 @@ describe('SEO017-021', () => {
       )
     ).toHaveLength(0);
   });
-  it('SEO018 accepts protocol-relative and data-URI values', async () => {
+  it('seo/json-ld-relative-url accepts protocol-relative and data-URI values', async () => {
     expect(
       fails(
-        await seo018RelativeUrl.check(
+        await seoJsonLdRelativeUrl.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Org","logo":"//cdn.e.com/l.png"}'))
         )
       )
     ).toHaveLength(0);
     expect(
       fails(
-        await seo018RelativeUrl.check(
+        await seoJsonLdRelativeUrl.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Org","image":"data:image/png;base64,AAAA"}'))
         )
       )
     ).toHaveLength(0);
   });
-  it('SEO019 flags a non-ISO date under a known key', async () => {
+  it('seo/json-ld-date-format flags a non-ISO date under a known key', async () => {
     expect(
       fails(
-        await seo019DateFormat.check(
+        await seoJsonLdDateFormat.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Article","datePublished":"June 1, 2026"}'))
         )
       )
     ).toHaveLength(1);
     expect(
       fails(
-        await seo019DateFormat.check(
+        await seoJsonLdDateFormat.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Article","datePublished":"2026-06-01"}'))
         )
       )
     ).toHaveLength(0);
   });
-  it('SEO019 accepts schema.org reduced-precision dates (year / year-month)', async () => {
+  it('seo/json-ld-date-format accepts schema.org reduced-precision dates (year / year-month)', async () => {
     expect(
       fails(
-        await seo019DateFormat.check(
+        await seoJsonLdDateFormat.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Event","startDate":"2026"}'))
         )
       )
     ).toHaveLength(0);
     expect(
       fails(
-        await seo019DateFormat.check(
+        await seoJsonLdDateFormat.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Event","startDate":"2026-06"}'))
         )
       )
     ).toHaveLength(0);
   });
-  it('SEO020 flags placeholder text', async () => {
+  it('seo/json-ld-placeholder flags placeholder text', async () => {
     expect(
       fails(
-        await seo020Placeholder.check(
+        await seoJsonLdPlaceholder.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Org","name":"Your Company Name"}'))
         )
       )
     ).toHaveLength(1);
   });
-  it('SEO021 flags a missing required property and ignores unknown types', async () => {
+  it('seo/json-ld-required-props flags a missing required property and ignores unknown types', async () => {
     expect(
       fails(
-        await seo021RequiredProps.check(
+        await seoJsonLdRequiredProps.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Product","name":"x"}'))
         )
       )
     ).toHaveLength(1); // missing offers
     expect(
       fails(
-        await seo021RequiredProps.check(
+        await seoJsonLdRequiredProps.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Product","name":"x","offers":{}}'))
         )
       )
     ).toHaveLength(0);
     expect(
-      await seo021RequiredProps.check(
+      await seoJsonLdRequiredProps.check(
         ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"CustomThing","foo":1}'))
       )
     ).toHaveLength(0); // unknown type → no signal
   });
-  it('SEO021 treats an empty/blank required value as missing', async () => {
+  it('seo/json-ld-required-props treats an empty/blank required value as missing', async () => {
     expect(
       fails(
-        await seo021RequiredProps.check(
+        await seoJsonLdRequiredProps.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Article","headline":""}'))
         )
       )
     ).toHaveLength(1); // blank headline → still missing
     expect(
       fails(
-        await seo021RequiredProps.check(
+        await seoJsonLdRequiredProps.check(
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[]}'))
         )
       )
     ).toHaveLength(1); // empty array → still missing
   });
-  it('SEO017-021 skip parseable JSON-LD that SEO016 deems invalid (missing @context/@type)', async () => {
-    // Relative URL present, but no @context → SEO016 owns the finding; SEO018 stays silent (no misleading pass).
-    expect(await seo018RelativeUrl.check(ctx(headWithJsonLd('{"@type":"Org","image":"/logo.png"}')))).toHaveLength(0);
+  it('seo/json-ld-deprecated-type-021 skip parseable JSON-LD that seo/json-ld-validity deems invalid (missing @context/@type)', async () => {
+    // Relative URL present, but no @context → seo/json-ld-validity owns the finding; seo/json-ld-relative-url stays silent (no misleading pass).
+    expect(await seoJsonLdRelativeUrl.check(ctx(headWithJsonLd('{"@type":"Org","image":"/logo.png"}')))).toHaveLength(
+      0
+    );
     // @context but no @type → likewise skipped.
     expect(
-      await seo021RequiredProps.check(ctx(headWithJsonLd('{"@context":"https://schema.org","name":"x"}')))
+      await seoJsonLdRequiredProps.check(ctx(headWithJsonLd('{"@context":"https://schema.org","name":"x"}')))
     ).toHaveLength(0);
   });
 });

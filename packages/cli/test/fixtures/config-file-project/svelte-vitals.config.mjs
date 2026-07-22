@@ -4,7 +4,7 @@ export default {
   metaComponents: ['Seo'],
   treatDynamicAs: 'warn',
   rules: {
-    SEO001: 'off'
+    'seo/title-presence': 'off'
   },
   weights: {
     seo: 2

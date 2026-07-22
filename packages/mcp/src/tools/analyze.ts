@@ -92,10 +92,9 @@ export type AnalyzeArgs = z.infer<typeof analyzeInputSchema>;
  * and non-SvelteKit paths are returned as `isError` results, not thrown.
  */
 export async function handleAnalyze(args: AnalyzeArgs): Promise<McpToolResult> {
-  // Rule ids are accepted case-insensitively; normalize to the canonical
-  // uppercase form before validation and config building.
-  const allow = (args.rules ?? []).map((id) => id.toUpperCase());
-  const ignore = (args.ignore ?? []).map((id) => id.toUpperCase());
+  // Rule ids are category/kebab-case (e.g. "seo/ssr-disabled") and matched exactly.
+  const allow = args.rules ?? [];
+  const ignore = args.ignore ?? [];
   const unknown = findUnknownRuleIds([...allow, ...ignore]);
   if (unknown.length > 0) {
     return textError(`Unknown rule id(s): ${unknown.join(', ')}. Known rule ids: ${knownRuleIds().join(', ')}.`);

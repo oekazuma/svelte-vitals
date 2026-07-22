@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { seo024Charset, seo025ImageAlt, seo026Hreflang, seo027Heading } from '../src/index.js';
+import { seoCharset, seoImageAlt, seoHreflang, seoSingleH1 } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
 import type { ImageInfo, ResolvedImages } from '../src/images.js';
@@ -19,18 +19,18 @@ const head = (source: 'static' | 'rendered', tags: Partial<HeadTag>[]): Resolved
 });
 const headsCtx = (h: ResolvedHead): RuleContext => ({ heads: [h], ...base });
 
-describe('SEO024 charset', () => {
+describe('seo/charset charset', () => {
   it('passes a rendered page with <meta charset>', async () => {
-    const rs = await seo024Charset.check(headsCtx(head('rendered', [{ kind: 'meta', name: 'charset' }])));
+    const rs = await seoCharset.check(headsCtx(head('rendered', [{ kind: 'meta', name: 'charset' }])));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
   it('flags a rendered page without <meta charset>', async () => {
-    const rs = await seo024Charset.check(headsCtx(head('rendered', [{ kind: 'title' }])));
+    const rs = await seoCharset.check(headsCtx(head('rendered', [{ kind: 'title' }])));
     expect(fails(rs)).toHaveLength(1);
   });
   it('emits nothing in static mode (charset lives in app.html)', async () => {
-    expect(await seo024Charset.check(headsCtx(head('static', [{ kind: 'title' }])))).toHaveLength(0);
+    expect(await seoCharset.check(headsCtx(head('static', [{ kind: 'title' }])))).toHaveLength(0);
   });
 });
 
@@ -47,19 +47,19 @@ const img = (over: Partial<ImageInfo>): ImageInfo => ({
 });
 const imagesCtx = (images: ResolvedImages[]): RuleContext => ({ heads: [], images, ...base });
 
-describe('SEO025 image alt', () => {
+describe('seo/image-alt image alt', () => {
   it('passes an <img> with an alt attribute (incl. empty alt="")', async () => {
-    const rs = await seo025ImageAlt.check(imagesCtx([{ route: '/a', images: [img({ hasAlt: true })] }]));
+    const rs = await seoImageAlt.check(imagesCtx([{ route: '/a', images: [img({ hasAlt: true })] }]));
     expect(rs[0]!.category).toBe('seo');
     expect(fails(rs)).toHaveLength(0);
   });
   it('flags an <img> with no alt attribute', async () => {
-    const rs = await seo025ImageAlt.check(imagesCtx([{ route: '/a', images: [img({ hasAlt: false })] }]));
+    const rs = await seoImageAlt.check(imagesCtx([{ route: '/a', images: [img({ hasAlt: false })] }]));
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.category).toBe('seo');
   });
   it('emits nothing in rendered mode (no images collected)', async () => {
-    expect(await seo025ImageAlt.check({ heads: [], ...base })).toHaveLength(0);
+    expect(await seoImageAlt.check({ heads: [], ...base })).toHaveLength(0);
   });
 });
 
@@ -69,42 +69,42 @@ const alt = (hreflang?: string): Partial<HeadTag> => ({
   ...(hreflang !== undefined ? { hreflang } : {})
 });
 
-describe('SEO026 hreflang', () => {
+describe('seo/hreflang hreflang', () => {
   it('emits nothing when there are no hreflang alternates', async () => {
-    const rs = await seo026Hreflang.check(headsCtx(head('rendered', [{ kind: 'link', rel: 'canonical' }])));
+    const rs = await seoHreflang.check(headsCtx(head('rendered', [{ kind: 'link', rel: 'canonical' }])));
     expect(rs).toHaveLength(0);
   });
   it('passes a valid set with an x-default', async () => {
-    const rs = await seo026Hreflang.check(headsCtx(head('rendered', [alt('en'), alt('en-US'), alt('x-default')])));
+    const rs = await seoHreflang.check(headsCtx(head('rendered', [alt('en'), alt('en-US'), alt('x-default')])));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
   it('flags a malformed hreflang value', async () => {
-    const rs = await seo026Hreflang.check(headsCtx(head('rendered', [alt('english'), alt('x-default')])));
+    const rs = await seoHreflang.check(headsCtx(head('rendered', [alt('english'), alt('x-default')])));
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toContain('english');
   });
   it('accepts BCP-47 script and UN M49 numeric-region codes', async () => {
-    const rs = await seo026Hreflang.check(
+    const rs = await seoHreflang.check(
       headsCtx(head('rendered', [alt('zh-Hant-TW'), alt('es-419'), alt('x-default')]))
     );
     expect(fails(rs)).toHaveLength(0);
   });
   it('flags an empty hreflang="" as invalid', async () => {
-    const rs = await seo026Hreflang.check(headsCtx(head('rendered', [alt(''), alt('x-default')])));
+    const rs = await seoHreflang.check(headsCtx(head('rendered', [alt(''), alt('x-default')])));
     expect(fails(rs)).toHaveLength(1);
   });
   it('treats x-default case-insensitively', async () => {
-    const rs = await seo026Hreflang.check(headsCtx(head('rendered', [alt('en'), alt('de'), alt('X-default')])));
+    const rs = await seoHreflang.check(headsCtx(head('rendered', [alt('en'), alt('de'), alt('X-default')])));
     expect(fails(rs)).toHaveLength(0);
   });
   it('flags two or more alternates without an x-default', async () => {
-    const rs = await seo026Hreflang.check(headsCtx(head('rendered', [alt('en'), alt('de')])));
+    const rs = await seoHreflang.check(headsCtx(head('rendered', [alt('en'), alt('de')])));
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toContain('x-default');
   });
   it('passes a single self-referential alternate without x-default', async () => {
-    const rs = await seo026Hreflang.check(headsCtx(head('rendered', [alt('en')])));
+    const rs = await seoHreflang.check(headsCtx(head('rendered', [alt('en')])));
     expect(fails(rs)).toHaveLength(0);
   });
 });
@@ -115,23 +115,23 @@ const hs = (levels: number[]): ResolvedHeadings => ({
   headings: levels.map((level) => ({ level, line: 0, file: 'x' }))
 });
 
-describe('SEO027 heading hierarchy', () => {
+describe('seo/single-h1 heading hierarchy', () => {
   it('passes a page with exactly one <h1>', async () => {
-    const rs = await seo027Heading.check(headingsCtx([hs([1, 2, 2])]));
+    const rs = await seoSingleH1.check(headingsCtx([hs([1, 2, 2])]));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
   it('flags a page with no <h1>', async () => {
-    const rs = await seo027Heading.check(headingsCtx([hs([2, 3])]));
+    const rs = await seoSingleH1.check(headingsCtx([hs([2, 3])]));
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toContain('Missing');
   });
   it('flags a page with multiple <h1>', async () => {
-    const rs = await seo027Heading.check(headingsCtx([hs([1, 1])]));
+    const rs = await seoSingleH1.check(headingsCtx([hs([1, 1])]));
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toContain('Multiple');
   });
   it('emits nothing when the headings channel is unset', async () => {
-    expect(await seo027Heading.check({ heads: [], ...base })).toHaveLength(0);
+    expect(await seoSingleH1.check({ heads: [], ...base })).toHaveLength(0);
   });
 });

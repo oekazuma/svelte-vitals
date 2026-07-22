@@ -20,7 +20,7 @@ describe('analyze', () => {
       join(pages, 'bad.html'),
       `<html lang="en"><head><meta charset="utf-8"/></head><body></body></html>`
     );
-    // a component with an unkeyed {#each} (CORRECT001), for the component-scope wiring test
+    // a component with an unkeyed {#each} (correctness/each-key), for the component-scope wiring test
     await mkdir(join(cwd, 'src/lib'), { recursive: true });
     await writeFile(join(cwd, 'src/lib/List.svelte'), '{#each items as item}<li>{item}</li>{/each}');
   });
@@ -31,12 +31,12 @@ describe('analyze', () => {
     expect(r.routeCount).toBe(2);
     // /bad is missing <title> (critical) -> headline capped at 79
     expect(r.score).toBeLessThanOrEqual(79);
-    expect(r.results.some((x) => x.id === 'SEO001' && x.route === '/bad' && x.detection.presence === 'none')).toBe(
-      true
-    );
-    // html lang present (en) -> SEO009 not a site issue
+    expect(
+      r.results.some((x) => x.id === 'seo/title-presence' && x.route === '/bad' && x.detection.presence === 'none')
+    ).toBe(true);
+    // html lang present (en) -> seo/html-lang not a site issue
     const json = JSON.parse(r.jsonReport);
-    expect(json.siteIssues.map((i: { id: string }) => i.id)).not.toContain('SEO009');
+    expect(json.siteIssues.map((i: { id: string }) => i.id)).not.toContain('seo/html-lang');
     // console report must carry the plugin-mode label and not the static-mode label
     expect(r.consoleReport).toContain('Svelte Vitals  ·  rendered / plugin');
     expect(r.consoleReport).not.toContain('static mode');
@@ -51,21 +51,22 @@ describe('analyze', () => {
     const r = await analyze(pages, cwd, { report: false });
     expect(
       r.results.some(
-        (x) => x.id === 'CORRECT001' && x.location === 'src/lib/List.svelte' && x.detection.presence === 'none'
+        (x) =>
+          x.id === 'correctness/each-key' && x.location === 'src/lib/List.svelte' && x.detection.presence === 'none'
       )
     ).toBe(true);
     expect(r.consoleReport).toContain('Scanned 1 component(s) under src/');
   });
 
-  it('threads a resolved minify-disabled fact into PERF012', async () => {
+  it('threads a resolved minify-disabled fact into performance/minify-disabled', async () => {
     const r = await analyze(pages, cwd, { report: false }, { viteMinifyDisabled: { file: 'vite.config.ts', line: 3 } });
-    const hit = r.results.find((x) => x.id === 'PERF012');
+    const hit = r.results.find((x) => x.id === 'performance/minify-disabled');
     expect(hit).toBeDefined();
     expect(hit?.location).toBe('vite.config.ts');
     expect(hit?.line).toBe(3);
 
     const clean = await analyze(pages, cwd, { report: false });
-    expect(clean.results.some((x) => x.id === 'PERF012')).toBe(false);
+    expect(clean.results.some((x) => x.id === 'performance/minify-disabled')).toBe(false);
   });
 });
 
@@ -78,7 +79,7 @@ describe('analyze — svelte-vitals.config.*', () => {
     const cwd = await mkdtemp(join(tmpdir(), 'sv-analyze-config-'));
     const pages = join(cwd, '.svelte-kit/output/prerendered/pages');
     await mkdir(pages, { recursive: true });
-    // missing <title> -> SEO001 -- used to check `rules` from the config file is honored.
+    // missing <title> -> seo/title-presence -- used to check `rules` from the config file is honored.
     await writeFile(
       join(pages, 'index.html'),
       `<html lang="en"><head><meta name="description" content="d"/></head><body></body></html>`
@@ -90,15 +91,15 @@ describe('analyze — svelte-vitals.config.*', () => {
   it('honors rules/weights/failOn from svelte-vitals.config.mjs when no plugin option overrides them', async () => {
     const { cwd, pages } = await makeProject(
       `export default {
-        rules: { SEO001: 'off' },
+        rules: { 'seo/title-presence': 'off' },
         weights: { seo: 5 },
         failOn: 'info'
       };\n`
     );
     try {
       const r = await analyze(pages, cwd, { report: false });
-      // SEO001 disabled by the config file -> no finding for the missing <title>.
-      expect(r.results.some((x) => x.id === 'SEO001')).toBe(false);
+      // seo/title-presence disabled by the config file -> no finding for the missing <title>.
+      expect(r.results.some((x) => x.id === 'seo/title-presence')).toBe(false);
       // weights flow into the emitted JSON report (config.weights, per buildJsonReport/computeHealth).
       const json = JSON.parse(r.jsonReport);
       expect(json.weights.seo).toBe(5);
@@ -126,7 +127,7 @@ describe('analyze — svelte-vitals.config.*', () => {
     );
     try {
       const r = await analyze(pages, cwd, { report: false });
-      expect(r.results.some((x) => x.id === 'SEO001')).toBe(false);
+      expect(r.results.some((x) => x.id === 'seo/title-presence')).toBe(false);
     } finally {
       await rm(cwd, { recursive: true, force: true });
     }

@@ -50,7 +50,7 @@ function tagsFromHead(head: Node): ParsedTag[] {
     if (node.name === 'meta') {
       const charset = attrValue(node.attributes, 'charset');
       if (charset !== 'absent') {
-        // <meta charset="…"> carries neither name nor property; model it as name:'charset' (SEO024).
+        // <meta charset="…"> carries neither name nor property; model it as name:'charset' (seo/charset).
         tags.push({ kind: 'meta', name: 'charset', value: charset });
         continue;
       }
@@ -75,7 +75,7 @@ function tagsFromHead(head: Node): ParsedTag[] {
       const asLiteral = attrText(node.attributes, 'as'); // literal keyword, or undefined for dynamic/absent
       const hasCrossorigin = findAttr(node.attributes, 'crossorigin') !== undefined;
       const hreflang = attrText(node.attributes, 'hreflang'); // literal (incl. '') or undefined for dynamic/absent
-      const href = attrText(node.attributes, 'href'); // literal URL (for PERF008 origin analysis), or undefined
+      const href = attrText(node.attributes, 'href'); // literal URL (for performance/preconnect origin analysis), or undefined
       tags.push({
         kind: 'link',
         ...(rel ? { rel } : {}),
@@ -83,7 +83,7 @@ function tagsFromHead(head: Node): ParsedTag[] {
         ...(hasAs ? { hasAs: true } : {}),
         ...(asLiteral ? { as: asLiteral } : {}),
         ...(hasCrossorigin ? { hasCrossorigin: true } : {}),
-        // Keep a literal empty hreflang="" (present-but-invalid) so SEO026 can flag it.
+        // Keep a literal empty hreflang="" (present-but-invalid) so seo/hreflang can flag it.
         ...(hreflang !== undefined ? { hreflang } : {}),
         ...(href ? { href } : {})
       });
@@ -94,7 +94,7 @@ function tagsFromHead(head: Node): ParsedTag[] {
         const raw = textFromNodes(nodes);
         tags.push({ kind: 'jsonld', value: valueFromNodes(nodes), ...(raw !== undefined ? { jsonld: raw } : {}) });
       } else {
-        // External <script src> in <svelte:head> (PERF007/PERF008). Render-blocking
+        // External <script src> in <svelte:head> (performance/render-blocking-script, performance/preconnect). Render-blocking
         // unless defer/async/type=module; only literal src is modeled.
         const src = attrText(node.attributes, 'src');
         if (src) {
@@ -146,7 +146,7 @@ export interface ParsedImage {
   line: number;
 }
 
-/** A page-body heading (<h1>–<h6>) parsed from one file (SEO027). */
+/** A page-body heading (<h1>–<h6>) parsed from one file (seo/single-h1). */
 export interface ParsedHeading {
   /** Heading level 1–6. */
   level: number;
@@ -179,7 +179,7 @@ function collectImages(node: Node, source: string, acc: ParsedImage[]): void {
   }
 }
 
-/** Recursively collect page-body headings (<h1>–<h6>) anywhere in the template (SEO027). */
+/** Recursively collect page-body headings (<h1>–<h6>) anywhere in the template (seo/single-h1). */
 function collectHeadings(node: Node, source: string, acc: ParsedHeading[]): void {
   if (Array.isArray(node)) {
     for (const child of node) collectHeadings(child, source, acc);

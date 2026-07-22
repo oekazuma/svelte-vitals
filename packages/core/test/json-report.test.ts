@@ -4,14 +4,14 @@ import { buildJsonReport, formatJsonReport, computeHealth, defineConfig, type Re
 const config = defineConfig({});
 const results: Result[] = [
   {
-    id: 'SEO001',
+    id: 'seo/title-presence',
     severity: 'critical',
     detection: { presence: 'own', value: 'static' },
     route: '/a',
     message: '<title>'
   },
   {
-    id: 'SEO002',
+    id: 'seo/description-presence',
     severity: 'critical',
     detection: { presence: 'none', value: 'absent' },
     route: '/a',
@@ -19,7 +19,12 @@ const results: Result[] = [
     message: 'Missing description',
     docsUrl: 'https://oekazuma.github.io/svelte-vitals/rules/seo002'
   },
-  { id: 'SEO006', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'Missing robots.txt' }
+  {
+    id: 'seo/robots-txt',
+    severity: 'warning',
+    detection: { presence: 'none', value: 'absent' },
+    message: 'Missing robots.txt'
+  }
 ];
 
 describe('formatJsonReport', () => {
@@ -27,7 +32,7 @@ describe('formatJsonReport', () => {
     const withPerf: Result[] = [
       ...results,
       {
-        id: 'PERF001',
+        id: 'performance/image-dimensions',
         category: 'performance',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
@@ -55,11 +60,11 @@ describe('formatJsonReport', () => {
     expect(json.summary.critical).toBe(1);
     const routeA = json.routes.find((r: { route: string }) => r.route === '/a');
     expect(routeA.issues).toHaveLength(1);
-    expect(routeA.issues[0].id).toBe('SEO002');
+    expect(routeA.issues[0].id).toBe('seo/description-presence');
     expect(routeA.issues[0].detection).toEqual({ presence: 'none', value: 'absent' });
     expect(routeA.issues[0].docsUrl).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo002');
     expect(json.siteIssues).toHaveLength(1);
-    expect(json.siteIssues[0].id).toBe('SEO006');
+    expect(json.siteIssues[0].id).toBe('seo/robots-txt');
   });
 
   it('top-level score equals the combined Health', () => {

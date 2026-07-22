@@ -29,7 +29,7 @@ export interface Project {
   /** Whether the static static/robots.txt references a sitemap (`Sitemap:` line). Undefined for a +server endpoint / absent / unreadable. */
   robotsReferencesSitemap?: boolean;
   /**
-   * Set when the Vite config disables minification for production builds (PERF012).
+   * Set when the Vite config disables minification for production builds (performance/minify-disabled).
    * `file` is the config path relative to the analyzed root (posix, may start with `../`
    * in monorepos); unset for inline programmatic configs. `line` is 1-based and set only
    * when the literal `minify: false` was located in that file; unset when the value was
@@ -56,7 +56,7 @@ export interface Fix {
 
 /** A single rule finding for one route (or the whole project). */
 export interface Result {
-  /** Rule id, e.g. 'SEO001'. */
+  /** Rule id, e.g. 'seo/title-presence'. */
   id: string;
   severity: Severity;
   detection: Detection;
@@ -102,7 +102,7 @@ export interface RuleOverride {
   route?: string | string[];
   /** Source-path glob(s) matched against a finding's location, e.g. 'src/routes/(app)/**'. */
   files?: string | string[];
-  /** Keys are rule ids ('SEO001') or category names ('seo'). Rule id beats category within an entry. */
+  /** Keys are rule ids ('seo/title-presence') or category names ('seo'). Rule id beats category within an entry. */
   rules: Record<string, RuleSetting>;
 }
 

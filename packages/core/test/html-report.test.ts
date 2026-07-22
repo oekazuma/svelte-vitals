@@ -22,7 +22,7 @@ const report: JsonReport = {
       score: 40,
       issues: [
         {
-          id: 'SEO001',
+          id: 'seo/title-presence',
           category: 'seo',
           title: 'Missing <title>',
           detection: { presence: 'none', value: 'absent' },
@@ -41,7 +41,7 @@ const report: JsonReport = {
   ],
   siteIssues: [
     {
-      id: 'SEO007',
+      id: 'seo/sitemap-xml',
       category: 'seo',
       title: 'No sitemap',
       detection: { presence: 'none', value: 'absent' },
@@ -182,7 +182,7 @@ describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loo
           score: 0,
           issues: [
             {
-              id: 'SEO001',
+              id: 'seo/title-presence',
               category: 'seo',
               title: 't',
               detection: { presence: 'none', value: 'absent' },
@@ -210,7 +210,7 @@ describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loo
           score: 80,
           issues: [
             {
-              id: 'SEO001',
+              id: 'seo/title-presence',
               category: 'seo',
               title: '</script><script>alert(1)</script>',
               detection: { presence: 'none', value: 'absent' },

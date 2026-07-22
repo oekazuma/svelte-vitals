@@ -1,0 +1,24 @@
+---
+title: seo/json-ld-validity · JSON-LD の妥当性
+description: ページの JSON-LD は @context と @type を持つ有効な JSON であるべきです。
+---
+
+**重大度:** warning
+
+## チェック内容
+
+各静的な `<script type="application/ld+json">` の内容が JSON として parse でき、`@context` と `@type` の両方を持つ必要があります。無効または不完全な JSON-LD は検出されます。動的に組み立てる JSON-LD は静的モードでは検査しません。
+
+## なぜ重要か
+
+無効な JSON-LD（parse 不能、または `@context`/`@type` 欠落）は検索エンジンに黙って無視されるため、構造化データが何の役にも立ちません。
+
+## 修正方法
+
+```svelte
+<svelte:head>
+  <script type="application/ld+json">
+    { "@context": "https://schema.org", "@type": "WebPage", "name": "…" }
+  </script>
+</svelte:head>
+```

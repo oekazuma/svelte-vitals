@@ -3,14 +3,14 @@ import { parseHeadTags, parseFile } from '../src/providers/source/parse.js';
 
 const head = (inner: string) => `<svelte:head>${inner}</svelte:head>`;
 
-describe('parse: charset capture (SEO024)', () => {
+describe('parse: charset capture (seo/charset)', () => {
   it('models <meta charset> as a name:charset tag', () => {
     const tags = parseHeadTags(head('<meta charset="utf-8" />'), 'x.svelte');
     expect(tags).toContainEqual({ kind: 'meta', name: 'charset', value: 'static' });
   });
 });
 
-describe('parse: hreflang capture (SEO026)', () => {
+describe('parse: hreflang capture (seo/hreflang)', () => {
   it('captures a literal hreflang on a link', () => {
     const tags = parseHeadTags(head('<link rel="alternate" hreflang="en-US" href="/en" />'), 'x.svelte');
     const link = tags.find((t) => t.kind === 'link')!;
@@ -27,14 +27,14 @@ describe('parse: hreflang capture (SEO026)', () => {
   });
 });
 
-describe('parse: link href capture (PERF008)', () => {
+describe('parse: link href capture (performance/preconnect)', () => {
   it('captures a literal href on a link', () => {
     const tags = parseHeadTags(head('<link rel="preconnect" href="https://fonts.gstatic.com" />'), 'x.svelte');
     expect(tags.find((t) => t.kind === 'link')!.href).toBe('https://fonts.gstatic.com');
   });
 });
 
-describe('parse: head script capture (PERF007/008)', () => {
+describe('parse: head script capture (performance/render-blocking-script, performance/preconnect)', () => {
   it('marks a sync <script src> in svelte:head as blocking', () => {
     const t = parseHeadTags(head('<script src="/a.js"></script>'), 'x.svelte').find((t) => t.kind === 'script')!;
     expect(t.href).toBe('/a.js');
@@ -55,7 +55,7 @@ describe('parse: head script capture (PERF007/008)', () => {
   });
 });
 
-describe('parse: image loading/srcset capture (PERF005/006)', () => {
+describe('parse: image loading/srcset capture (performance/lcp-image, performance/responsive-image)', () => {
   it('records lazy only for a literal loading="lazy"', () => {
     expect(parseFile('<img src="/a.jpg" loading="lazy" />', 'x.svelte').images[0]!.lazy).toBe(true);
     expect(parseFile('<img src="/a.jpg" loading="eager" />', 'x.svelte').images[0]!.lazy).toBe(false);
@@ -67,7 +67,7 @@ describe('parse: image loading/srcset capture (PERF005/006)', () => {
   });
 });
 
-describe('parse: image alt capture (SEO025)', () => {
+describe('parse: image alt capture (seo/image-alt)', () => {
   it('records hasAlt true/false from the alt attribute', () => {
     const withAlt = parseFile('<img src="/a.jpg" alt="A" />', 'x.svelte').images[0]!;
     const noAlt = parseFile('<img src="/a.jpg" />', 'x.svelte').images[0]!;
@@ -82,7 +82,7 @@ describe('parse: image alt capture (SEO025)', () => {
   });
 });
 
-describe('parse: heading capture (SEO027)', () => {
+describe('parse: heading capture (seo/single-h1)', () => {
   it('collects heading levels anywhere in the template', () => {
     const headings = parseFile('<h1>A</h1><section><h2>B</h2></section>', 'x.svelte').headings;
     expect(headings.map((h) => h.level)).toEqual([1, 2]);

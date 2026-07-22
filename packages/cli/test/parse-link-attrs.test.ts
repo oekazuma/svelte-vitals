@@ -14,8 +14,8 @@ describe('parse: link as/crossorigin (static)', () => {
   it('treats a dynamic as={x} as present but with no literal keyword', () => {
     const tags = parseHeadTags(head('<link rel="preload" href="/a.js" as={kind} />'), 'x.svelte');
     const link = tags.find((t) => t.kind === 'link' && t.rel === 'preload')!;
-    expect(link.hasAs).toBe(true); // present → PERF003 won't fire
-    expect(link.as).toBeUndefined(); // not a literal → PERF004 won't fire
+    expect(link.hasAs).toBe(true); // present → performance/preload-missing-as won't fire
+    expect(link.as).toBeUndefined(); // not a literal → performance/font-preload-crossorigin won't fire
   });
   it('leaves fields unset when the attributes are absent', () => {
     const tags = parseHeadTags(head('<link rel="preload" href="/a.js" />'), 'x.svelte');
@@ -28,6 +28,6 @@ describe('parse: link as/crossorigin (static)', () => {
     const tags = parseHeadTags(head('<link rel="preload" href="/base/{slug}" as="font" />'), 'x.svelte');
     const link = tags.find((t) => t.kind === 'link' && t.rel === 'preload')!;
     expect(link.value).toBe('dynamic');
-    expect(link.href).toBeUndefined(); // not "/base/" — PERF008 origin analysis must skip this, not misread it
+    expect(link.href).toBeUndefined(); // not "/base/" — performance/preconnect origin analysis must skip this, not misread it
   });
 });

@@ -145,7 +145,7 @@ function collectHandlerFunctions(program: Node): Set<Node> {
  * The function nodes of this file's SvelteKit startup hooks: exported `init`
  * (function or arrow, `satisfies` unwrapped). Kit calls `init` once at server
  * startup — semantically top-level initialisation, not a per-request handler, so
- * SEC004 should not flag assignments inside it. A same-file alias export
+ * security/server-module-state should not flag assignments inside it. A same-file alias export
  * (`export { init }`) is resolved too; a cross-file re-export is not.
  */
 function collectStartupFunctions(program: Node): Set<Node> {
@@ -162,9 +162,9 @@ function collectStartupFunctions(program: Node): Set<Node> {
  * present: inline form (`satisfies`/`as` unwrapped) or same-file alias export
  * (`const ssr = false; export { ssr };`). Returns the declaration's line in the
  * WRAPPED source (the caller applies the −1 shift). An `ssr = false` file never
- * runs on the server — CORRECT008 skips its browser-global scan, and SEO031
+ * runs on the server — correctness/server-browser-global skips its browser-global scan, and seo/ssr-disabled
  * reports the flag itself. A `csr = false` file never ships a client runtime —
- * PERF011 exempts it (see `csrDisabled` on `KitModuleFacts`).
+ * performance/load-waterfall exempts it (see `csrDisabled` on `KitModuleFacts`).
  */
 function findFalseOptOut(program: Node, source: string, name: 'ssr' | 'csr'): { line: number } | undefined {
   let hit: { line: number } | undefined;
@@ -209,7 +209,7 @@ function collectAwaits(node: Node, out: Node[] = []): Node[] {
 
 /**
  * Whether `await`'s argument is a `parent()` / `<x>.parent()` call (Kit's parent-load
- * step, PERF011/013-exempt). Any `<expr>.parent()` member call matches — over-broad
+ * step, exempt from performance/load-waterfall and performance/sequential-awaits). Any `<expr>.parent()` member call matches — over-broad
  * in the false-negative direction only, which is the conservative side.
  */
 function isParentCall(arg: Node): boolean {
@@ -268,7 +268,7 @@ function refsTainted(node: Node, tainted: Set<string>): boolean {
 }
 
 /**
- * PERF011/PERF013 — forward-taint analysis of the exported `load`'s straight-line
+ * performance/load-waterfall, performance/sequential-awaits — forward-taint analysis of the exported `load`'s straight-line
  * statements (direct `try` blocks inlined; `if`/loops/`switch` are not classified
  * but still propagate taint from their assignments; nested functions are never
  * entered). One await site per statement; a site whose awaits' argument subtrees
@@ -457,7 +457,7 @@ function resolveRepoLocalPath(spec: string, importerFile: string): string | unde
  * undefined when it cannot be a runes module: `$lib/` maps to `src/lib/`, `./`/`../`
  * resolve against the importing file's directory; bare packages, other aliases, and
  * a relative specifier whose `..` segments escape the repo root are skipped. An
- * extensionless `…/x.svelte` specifier canonicalises to `….svelte.ts` (SEC005 also
+ * extensionless `…/x.svelte` specifier canonicalises to `….svelte.ts` (security/shared-state-import also
  * tries the `.js` sibling when matching).
  */
 export function resolveRunesModuleSpecifier(spec: string, importerFile: string): string | undefined {
@@ -491,7 +491,7 @@ function isLocalStateSpecifier(spec: string, importerFile: string): boolean {
 }
 
 /**
- * Parse one SvelteKit route/hooks file's SSR shared-state facts (SEC003–005). Uses
+ * Parse one SvelteKit route/hooks file's SSR shared-state facts (the security kit-module rules). Uses
  * the shared wrap parser (`parseModuleProgram`), so reported lines subtract the
  * 1-line wrap prefix; suppressions are scanned on the unwrapped source.
  */
@@ -518,7 +518,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
   const line = (start: number) => Math.max(0, lineOf(wrapped, start) - 1);
 
   // Imported value bindings (type-only skipped): local name → raw specifier, plus
-  // the subset whose specifier resolves to a repo-local runes module (SEC005).
+  // the subset whose specifier resolves to a repo-local runes module (security/shared-state-import).
   const importedSpecifiers = new Map<string, string>();
   for (const stmt of program.body ?? []) {
     if (stmt?.type !== 'ImportDeclaration' || stmt.importKind === 'type') continue;
@@ -534,7 +534,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
     if (resolved) runesModuleImports.push({ source: spec, resolved, names, line: line(stmt.start) });
   }
 
-  // Module-scope let/var bindings (top-level, export-unwrapped) — SEC004's targets.
+  // Module-scope let/var bindings (top-level, export-unwrapped) — security/server-module-state's targets.
   const moduleLets = new Set<string>();
   for (const stmt of program.body ?? []) {
     const decl = unwrapExport(stmt);
@@ -547,7 +547,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
   const startupFns = collectStartupFunctions(program);
   const svelteImports = collectSvelteLifecycleImports(program);
 
-  // CORRECT008 — browser-global reads in server-executed positions. The scanner stops
+  // correctness/server-browser-global — browser-global reads in server-executed positions. The scanner stops
   // at function boundaries, so run it once over the program (top level) and once per
   // handler/init body; closures nested inside handlers are deliberately not entered
   // (they are typically client-side callbacks returned to components).
@@ -588,10 +588,10 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
 
   walkKit(program, handlerFns, startupFns, (n, shadowed, inFunction, inHandler, inStartup) => {
     if (inFunction && !inStartup) {
-      // SEC004 — module-scope let/var reassigned from inside a function body.
+      // security/server-module-state — module-scope let/var reassigned from inside a function body.
       // Top-level reassignment is initialisation, not shared-state mutation;
       // assignment from inside Kit's `init` startup hook is likewise
-      // initialisation, not exempted for SEC003/SEC005 write detection below.
+      // initialisation, not exempted for security/handler-state-write, security/shared-state-import write detection below.
       const flagLet = (name: string | undefined) => {
         if (name && !shadowed.has(name) && moduleLets.has(name)) {
           moduleStateReassignments.push({ name, line: line(n.start), inHandler });
@@ -609,7 +609,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
       }
     }
 
-    // SEC003 / SEC005 — a write whose root binding is an import.
+    // security/handler-state-write / security/shared-state-import — a write whose root binding is an import.
     let write: { name: string; via: 'assignment' | 'set-call' } | undefined;
     const importedRoot = (expr: Node): string | undefined => {
       const r = rootObjectName(expr);
@@ -662,7 +662,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
       else importedStateWritesOutsideHandlers.push({ name: write.name, line: line(n.start) });
     }
 
-    // CORRECT007 — svelte lifecycle/context calls outside component initialisation:
+    // correctness/orphan-lifecycle — svelte lifecycle/context calls outside component initialisation:
     // top level (crashes at import), handler bodies (crashes per request — getContext
     // in load), and the `init` hook (crashes at boot). Helper functions are exempt:
     // a component may legally call them during its own initialisation.

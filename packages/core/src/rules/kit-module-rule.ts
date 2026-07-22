@@ -14,7 +14,7 @@ export interface KitModuleIssue {
 export interface KitModuleRuleOptions {
   id: string;
   title: string;
-  /** Kit-file rules report as Security (SEC003–005), SEO (SEO031), or Performance (PERF011/PERF013). */
+  /** Kit-file rules report as Security (security/*), SEO (seo/ssr-disabled), or Performance (performance/load-waterfall, performance/sequential-awaits). */
   category: 'security' | 'seo' | 'performance';
   /** Default 'warning'. */
   severity?: Severity;
@@ -26,7 +26,7 @@ export interface KitModuleRuleOptions {
   fix?: Fix;
   /** Whether this file carries the signal at all (no signal → emit nothing for the file). */
   applies: (m: KitModuleFacts, ctx: RuleContext) => boolean;
-  /** The offending occurrences (empty → the file passes). `ctx` lets SEC005 read ctx.components. */
+  /** The offending occurrences (empty → the file passes). `ctx` lets security/shared-state-import read ctx.components. */
   bad: (m: KitModuleFacts, ctx: RuleContext) => KitModuleIssue[];
 }
 
@@ -36,7 +36,7 @@ function isSuppressed(m: KitModuleFacts, ruleId: string, line: number): boolean 
 }
 
 /**
- * Build a Kit-module-scoped rule (SEC003–005, SEO031) over `ctx.kitModules`. Static/CLI and
+ * Build a Kit-module-scoped rule (the security kit-module rules, seo/ssr-disabled) over `ctx.kitModules`. Static/CLI and
  * vite build mode only — `ctx.kitModules` is unset in rendered mode, so it emits
  * nothing there. Findings use the source file as the scoring unit.
  */

@@ -35,13 +35,13 @@ afterEach(() => {
 
 describe('createAnalysisRunner', () => {
   it('start() runs the analysis once and reports results', async () => {
-    const analyze = vi.fn<AnalyzeFn>(async () => ({ results: [R('SEO001')] }));
+    const analyze = vi.fn<AnalyzeFn>(async () => ({ results: [R('seo/title-presence')] }));
     const onResults = vi.fn();
     const onError = vi.fn();
     const runner = createAnalysisRunner({ root: '/proj', analyze, onResults, onError });
     runner.start();
     await vi.waitFor(() => expect(analyze).toHaveBeenCalledTimes(1));
-    expect(onResults).toHaveBeenCalledWith([R('SEO001')]);
+    expect(onResults).toHaveBeenCalledWith([R('seo/title-presence')]);
     expect(onError).not.toHaveBeenCalled();
     expect(analyze).toHaveBeenCalledWith({
       cwd: '/proj',

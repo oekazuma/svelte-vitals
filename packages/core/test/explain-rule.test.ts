@@ -3,20 +3,17 @@ import { explainRule, allRules } from '../src/index.js';
 
 describe('explainRule', () => {
   it('returns info for a known rule id', () => {
-    const info = explainRule('SEO001');
+    const info = explainRule('seo/title-presence');
     expect(info).toBeDefined();
-    expect(info!.id).toBe('SEO001');
+    expect(info!.id).toBe('seo/title-presence');
     expect(info!.severity).toBe('critical');
-    expect(info!.docsUrl).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo001');
+    expect(info!.docsUrl).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence');
     expect(info!.rationale.length).toBeGreaterThan(0);
     expect(info!.fix?.description.length).toBeGreaterThan(0);
   });
 
-  it('resolves a rule id case-insensitively and returns the canonical id', () => {
-    const info = explainRule('seo001');
-    expect(info).toBeDefined();
-    expect(info!.id).toBe('SEO001');
-    expect(info!.docsUrl).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo001');
+  it('does not match a rule id with the wrong case (exact match only)', () => {
+    expect(explainRule('SEO/TITLE-PRESENCE')).toBeUndefined();
   });
 
   it('returns undefined for an unknown id', () => {

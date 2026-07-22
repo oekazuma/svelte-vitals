@@ -35,7 +35,7 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
       treatDynamicAs: 'warn',
       metaComponents: ['Seo'],
       rules: {
-        SEO008: 'off'
+        'seo/json-ld': 'off'
       },
       failOn: 'warning',
       weights: {
@@ -52,7 +52,7 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
       treatDynamicAs: 'warn',
       metaComponents: ['Seo'],
       rules: {
-        SEO008: 'off'
+        'seo/json-ld': 'off'
       },
       failOn: 'warning',
       weights: {
@@ -93,8 +93,8 @@ export default {
   overrides: [
     // (app) ルートグループ配下：SEO チェックを一切行わない。
     { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
-    // /admin とその配下：SEO001 は残すが info に格下げ。
-    { route: '/admin/**', rules: { SEO001: 'info' } }
+    // /admin とその配下：seo/title-presence は残すが info に格下げ。
+    { route: '/admin/**', rules: { 'seo/title-presence': 'info' } }
   ]
 };
 ```

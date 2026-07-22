@@ -47,7 +47,7 @@ describe('run() --baseline gating', () => {
       env: CLEAN_ENV
     });
     // Baseline == current project, so every current finding is "already present" -> removed.
-    expect(cap.out.join('\n')).not.toContain('SEO001');
+    expect(cap.out.join('\n')).not.toContain('seo/title-presence');
     expect(code).toBe(0);
     expect(cleanup).toHaveBeenCalledTimes(1);
   });
@@ -63,7 +63,7 @@ describe('run() --baseline gating', () => {
       env: CLEAN_ENV
     });
     expect(cap.err.join('\n')).toContain("could not analyze baseline 'origin/main'");
-    expect(cap.out.join('\n')).toContain('SEO001');
+    expect(cap.out.join('\n')).toContain('seo/title-presence');
     expect(code).toBe(1);
   });
 

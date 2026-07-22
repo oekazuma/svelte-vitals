@@ -82,11 +82,11 @@ comment):
 >
 > **Findings**
 >
-> | Severity    | Rule                                                              | Location                     | Message                                                                                                                          |
-> | ----------- | ----------------------------------------------------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-> | 🔴 critical | [SEO001](https://oekazuma.github.io/svelte-vitals/rules/seo001)   | src/routes/blog/+page.svelte | Missing `<title>` Add a `<title>` inside `<svelte:head>`, e.g. `<title>{data.title}</title>`, or set it via your meta component. |
-> | 🟡 warning  | [PERF001](https://oekazuma.github.io/svelte-vitals/rules/perf001) | src/routes/+page.svelte:12   | Missing `<img>` width/height Set explicit width and height on `<img>` to reserve space and avoid layout shift (CLS).             |
-> | 🔵 info     | [PERF009](https://oekazuma.github.io/svelte-vitals/rules/perf009) | src/routes/+page.svelte:3    | Heavy import "lodash" — 71 KB Import a submodule or switch to a lighter, tree-shakeable alternative.                             |
+> | Severity    | Rule                                                                                                        | Location                     | Message                                                                                                                          |
+> | ----------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+> | 🔴 critical | [seo/title-presence](https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence)                     | src/routes/blog/+page.svelte | Missing `<title>` Add a `<title>` inside `<svelte:head>`, e.g. `<title>{data.title}</title>`, or set it via your meta component. |
+> | 🟡 warning  | [performance/image-dimensions](https://oekazuma.github.io/svelte-vitals/rules/performance/image-dimensions) | src/routes/+page.svelte:12   | Missing `<img>` width/height Set explicit width and height on `<img>` to reserve space and avoid layout shift (CLS).             |
+> | 🔵 info     | [performance/heavy-import](https://oekazuma.github.io/svelte-vitals/rules/performance/heavy-import)         | src/routes/+page.svelte:3    | Heavy import "lodash" — 71 KB Import a submodule or switch to a lighter, tree-shakeable alternative.                             |
 
 A few things worth knowing before you see the real thing:
 
@@ -132,7 +132,7 @@ Vite plugin, and this action. Pick by intent:
   ```js
   // svelte-vitals.config.mjs
   export default {
-    rules: { SEO008: 'off' }
+    rules: { 'seo/json-ld': 'off' }
   };
   ```
 

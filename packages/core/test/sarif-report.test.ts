@@ -5,7 +5,7 @@ const config = defineConfig({});
 
 const results: Result[] = [
   {
-    id: 'SEO001',
+    id: 'seo/title-presence',
     severity: 'critical',
     detection: { presence: 'none', value: 'absent' },
     route: '/none',
@@ -16,14 +16,14 @@ const results: Result[] = [
   },
   // project-scoped: no location, no route
   {
-    id: 'SEO006',
+    id: 'seo/robots-txt',
     severity: 'warning',
     detection: { presence: 'none', value: 'absent' },
     message: 'Missing robots.txt'
   },
   // passing finding → must be excluded
   {
-    id: 'SEO002',
+    id: 'seo/description-presence',
     severity: 'critical',
     detection: { presence: 'own', value: 'static' },
     route: '/ok',
@@ -43,7 +43,7 @@ describe('formatSarifReport', () => {
 
   it('emits only penalized findings, in order', () => {
     const run = JSON.parse(formatSarifReport(results, config, { version: '0.0.0' })).runs[0];
-    expect(run.results.map((r: { ruleId: string }) => r.ruleId)).toEqual(['SEO001', 'SEO006']);
+    expect(run.results.map((r: { ruleId: string }) => r.ruleId)).toEqual(['seo/title-presence', 'seo/robots-txt']);
   });
 
   it('maps severity to SARIF level', () => {
@@ -55,8 +55,8 @@ describe('formatSarifReport', () => {
   it('builds a deduplicated rules table that ruleIndex points into', () => {
     const run = JSON.parse(formatSarifReport(results, config, { version: '0.0.0' })).runs[0];
     const r0 = run.results[0];
-    expect(run.tool.driver.rules[r0.ruleIndex].id).toBe('SEO001');
-    const seo001 = run.tool.driver.rules.find((x: { id: string }) => x.id === 'SEO001');
+    expect(run.tool.driver.rules[r0.ruleIndex].id).toBe('seo/title-presence');
+    const seo001 = run.tool.driver.rules.find((x: { id: string }) => x.id === 'seo/title-presence');
     expect(seo001.name).toBe('Title presence');
     expect(seo001.shortDescription.text).toBe('Title presence');
     expect(seo001.helpUri).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo001');
@@ -72,14 +72,14 @@ describe('formatSarifReport', () => {
   it('sets message text and partial fingerprints', () => {
     const run = JSON.parse(formatSarifReport(results, config, { version: '0.0.0' })).runs[0];
     expect(run.results[0].message.text).toBe('Missing <title> Add a <title>.');
-    expect(run.results[0].partialFingerprints['svelteVitals/v1']).toBe('SEO001:/none');
-    expect(run.results[1].partialFingerprints['svelteVitals/v1']).toBe('SEO006:project');
+    expect(run.results[0].partialFingerprints['svelteVitals/v1']).toBe('seo/title-presence:/none');
+    expect(run.results[1].partialFingerprints['svelteVitals/v1']).toBe('seo/robots-txt:project');
   });
 
   it('uses result.line as startLine when present', () => {
     const withLine: Result[] = [
       {
-        id: 'PERF001',
+        id: 'performance/image-dimensions',
         category: 'performance',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
@@ -96,7 +96,7 @@ describe('formatSarifReport', () => {
   it('produces distinct partialFingerprints for same (id, route) but different line', () => {
     const twoImages: Result[] = [
       {
-        id: 'PERF001',
+        id: 'performance/image-dimensions',
         category: 'performance',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
@@ -106,7 +106,7 @@ describe('formatSarifReport', () => {
         message: 'Missing <img> width/height at line 10'
       },
       {
-        id: 'PERF001',
+        id: 'performance/image-dimensions',
         category: 'performance',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
@@ -119,15 +119,15 @@ describe('formatSarifReport', () => {
     const run = JSON.parse(formatSarifReport(twoImages, config, { version: '0.0.0' })).runs[0];
     const fp0 = run.results[0].partialFingerprints['svelteVitals/v1'];
     const fp1 = run.results[1].partialFingerprints['svelteVitals/v1'];
-    expect(fp0).toBe('PERF001:/blog:src/routes/blog/+page.svelte:10');
-    expect(fp1).toBe('PERF001:/blog:src/routes/blog/+page.svelte:20');
+    expect(fp0).toBe('performance/image-dimensions:/blog:src/routes/blog/+page.svelte:10');
+    expect(fp1).toBe('performance/image-dimensions:/blog:src/routes/blog/+page.svelte:20');
     expect(fp0).not.toBe(fp1);
   });
 
   it('produces distinct partialFingerprints for same (id, route, line) but different location (file)', () => {
     const sameLineDiffFile: Result[] = [
       {
-        id: 'PERF001',
+        id: 'performance/image-dimensions',
         category: 'performance',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
@@ -137,7 +137,7 @@ describe('formatSarifReport', () => {
         message: 'Missing <img> width/height in page'
       },
       {
-        id: 'PERF001',
+        id: 'performance/image-dimensions',
         category: 'performance',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
@@ -150,15 +150,15 @@ describe('formatSarifReport', () => {
     const run = JSON.parse(formatSarifReport(sameLineDiffFile, config, { version: '0.0.0' })).runs[0];
     const fp0 = run.results[0].partialFingerprints['svelteVitals/v1'];
     const fp1 = run.results[1].partialFingerprints['svelteVitals/v1'];
-    expect(fp0).toBe('PERF001:/blog:src/routes/blog/+page.svelte:5');
-    expect(fp1).toBe('PERF001:/blog:src/routes/blog/Card.svelte:5');
+    expect(fp0).toBe('performance/image-dimensions:/blog:src/routes/blog/+page.svelte:5');
+    expect(fp1).toBe('performance/image-dimensions:/blog:src/routes/blog/Card.svelte:5');
     expect(fp0).not.toBe(fp1);
   });
 
   it('SEO fingerprints (no line) are unchanged by the location-in-fingerprint change', () => {
     const run = JSON.parse(formatSarifReport(results, config, { version: '0.0.0' })).runs[0];
-    expect(run.results[0].partialFingerprints['svelteVitals/v1']).toBe('SEO001:/none');
-    expect(run.results[1].partialFingerprints['svelteVitals/v1']).toBe('SEO006:project');
+    expect(run.results[0].partialFingerprints['svelteVitals/v1']).toBe('seo/title-presence:/none');
+    expect(run.results[1].partialFingerprints['svelteVitals/v1']).toBe('seo/robots-txt:project');
   });
 
   it('emits a valid empty log when there are no penalized findings', () => {
@@ -171,7 +171,7 @@ describe('formatSarifReport', () => {
   it('emits a dynamic finding only when treatDynamicAs penalizes it', () => {
     const dyn: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'own', value: 'dynamic' },
         route: '/d',

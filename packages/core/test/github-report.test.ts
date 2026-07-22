@@ -7,7 +7,7 @@ describe('formatGithubReport', () => {
   it('emits a workflow command per penalized finding with mapped level and file', () => {
     const results: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/none',
@@ -16,19 +16,21 @@ describe('formatGithubReport', () => {
       }
     ];
     const out = formatGithubReport(results, config);
-    expect(out).toBe('::error file=src/routes/none/+page.svelte,title=SEO001%3A Title presence::Missing <title>');
+    expect(out).toBe(
+      '::error file=src/routes/none/+page.svelte,title=seo/title-presence%3A Title presence::Missing <title>'
+    );
   });
 
   it('omits file= for findings without a location and maps info → notice', () => {
     const results: Result[] = [
       {
-        id: 'SEO006',
+        id: 'seo/robots-txt',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
         message: 'Missing robots.txt'
       },
       {
-        id: 'SEO008',
+        id: 'seo/json-ld',
         severity: 'info',
         detection: { presence: 'none', value: 'absent' },
         route: '/x',
@@ -37,16 +39,16 @@ describe('formatGithubReport', () => {
       }
     ];
     const lines = formatGithubReport(results, config).split('\n');
-    expect(lines[0]).toBe('::warning title=SEO006%3A robots.txt::Missing robots.txt');
+    expect(lines[0]).toBe('::warning title=seo/robots-txt%3A robots.txt::Missing robots.txt');
     expect(lines[1]).toBe(
-      '::notice file=src/routes/x/+page.svelte,title=SEO008%3A JSON-LD structured data::JSON-LD missing'
+      '::notice file=src/routes/x/+page.svelte,title=seo/json-ld%3A JSON-LD structured data::JSON-LD missing'
     );
   });
 
   it('escapes property values (: ,) and message data (newline), but not : or , in message data', () => {
     const results: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/a',
@@ -57,7 +59,7 @@ describe('formatGithubReport', () => {
     ];
     const out = formatGithubReport(results, config);
     // title property: colon escaped to %3A
-    expect(out).toContain('title=SEO001%3A Title presence');
+    expect(out).toContain('title=seo/title-presence%3A Title presence');
     // message data: newline → %0A; colon and comma stay literal
     expect(out).toContain('::Missing title: needed Add <title>, set it.%0ASecond line');
   });
@@ -65,7 +67,7 @@ describe('formatGithubReport', () => {
   it('uses result.line in the annotation when present', () => {
     const results: Result[] = [
       {
-        id: 'PERF001',
+        id: 'performance/image-dimensions',
         category: 'performance',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
@@ -82,7 +84,7 @@ describe('formatGithubReport', () => {
   it('returns an empty string when there are no penalized findings', () => {
     const passing: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'own', value: 'static' },
         route: '/ok',

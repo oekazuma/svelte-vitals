@@ -21,9 +21,9 @@ describe('buildImproveSkillMarkdown', () => {
     }
   });
 
-  it('lists a known rule from each end of the registry (SEO001, ARCH002)', () => {
-    expect(md).toMatch(/- \*\*SEO001 — .+\*\* \(critical\): .+\(\[docs\]\(.+seo001\)\)/);
-    expect(md).toMatch(/- \*\*ARCH002 — .+\*\* \(\w+\): .+\(\[docs\]\(.+arch002\)\)/);
+  it('lists a known rule from each end of the registry (seo/title-presence, architecture/prop-count)', () => {
+    expect(md).toMatch(/- \*\*seo\/title-presence — .+\*\* \(critical\): .+\(\[docs\]\(.+seo\/title-presence\)\)/);
+    expect(md).toMatch(/- \*\*architecture\/prop-count — .+\*\* \(\w+\): .+\(\[docs\]\(.+architecture\/prop-count\)\)/);
   });
 
   it('contains the structural headings that make up the advisor workflow', () => {

@@ -41,7 +41,7 @@ const PAGE_OK =
   '<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Home","url":"https://e.com/"}</script></head><body><h1>Quality Widgets</h1></body></html>';
 
 // PAGE_OK with a second <h1> in the body — everything else stays clean, so the
-// only finding is SEO027 (heading hierarchy), confirming the rule sees the
+// only finding is seo/single-h1 (heading hierarchy), confirming the rule sees the
 // rendered body through the dev hook.
 const PAGE_TWO_H1 = PAGE_OK.replace('</body>', '<h1>Second heading</h1></body>');
 
@@ -84,7 +84,7 @@ describe('svelteVitalsHandle', () => {
     await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
     await flush();
     expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(penalizedIds(sentResults(fetchMock))).toContain('SEO001');
+    expect(penalizedIds(sentResults(fetchMock))).toContain('seo/title-presence');
   });
 
   it('reports no penalized findings for a clean page', async () => {
@@ -96,12 +96,12 @@ describe('svelteVitalsHandle', () => {
     expect(penalizedIds(sentResults(fetchMock))).toEqual([]);
   });
 
-  it('reports multiple <h1> from the rendered body (SEO027)', async () => {
+  it('reports multiple <h1> from the rendered body (seo/single-h1)', async () => {
     const fetchMock = setup();
     const handle = svelteVitalsHandle();
     await handle({ event: fakeEvent('/two-h1', '/two-h1'), resolve: resolveWith([PAGE_TWO_H1]) });
     await flush();
-    expect(penalizedIds(sentResults(fetchMock))).toContain('SEO027');
+    expect(penalizedIds(sentResults(fetchMock))).toContain('seo/single-h1');
   });
 
   it('reports a rendered <img> missing alt/dimensions (image rules in rendered mode)', async () => {
@@ -110,8 +110,8 @@ describe('svelteVitalsHandle', () => {
     await handle({ event: fakeEvent('/img', '/img'), resolve: resolveWith([PAGE_BAD_IMG]) });
     await flush();
     const ids = penalizedIds(sentResults(fetchMock));
-    expect(ids).toContain('SEO025'); // missing alt
-    expect(ids).toContain('PERF001'); // missing width/height
+    expect(ids).toContain('seo/image-alt'); // missing alt
+    expect(ids).toContain('performance/image-dimensions'); // missing width/height
   });
 
   it('returns each chunk unchanged', async () => {
@@ -167,12 +167,12 @@ describe('svelteVitalsHandle', () => {
 
   it('honors per-rule overrides from options (rules)', async () => {
     const fetchMock = setup();
-    const handle = svelteVitalsHandle({ rules: { SEO001: 'off' } });
+    const handle = svelteVitalsHandle({ rules: { 'seo/title-presence': 'off' } });
     await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
     await flush();
-    // The page still trips other rules, so results are still sent — but with SEO001
+    // The page still trips other rules, so results are still sent — but with seo/title-presence
     // disabled, it's excluded from the penalized set. Proves options flow into the config.
-    expect(penalizedIds(sentResults(fetchMock))).not.toContain('SEO001');
+    expect(penalizedIds(sentResults(fetchMock))).not.toContain('seo/title-presence');
   });
 
   it('surfaces swallowed analysis errors when SVELTE_VITALS_DEBUG is set', async () => {

@@ -2,6 +2,6 @@
 export default {
   overrides: [
     { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
-    { route: ['/admin', '/admin/**'], rules: { SEO001: 'warning' } }
+    { route: ['/admin', '/admin/**'], rules: { 'seo/title-presence': 'warning' } }
   ]
 };

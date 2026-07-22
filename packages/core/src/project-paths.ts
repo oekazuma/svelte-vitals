@@ -4,14 +4,14 @@
  * module is pure data: no I/O, no `node:` imports (design §8).
  */
 
-/** Locations that satisfy the robots.txt project rule (SEO006). */
+/** Locations that satisfy the robots.txt project rule (seo/robots-txt). */
 export const ROBOTS_SOURCE_PATHS = [
   'static/robots.txt',
   'src/routes/robots.txt/+server.ts',
   'src/routes/robots.txt/+server.js'
 ] as const;
 
-/** Locations that satisfy the sitemap.xml project rule (SEO007). */
+/** Locations that satisfy the sitemap.xml project rule (seo/sitemap-xml). */
 export const SITEMAP_SOURCE_PATHS = [
   'static/sitemap.xml',
   'src/routes/sitemap.xml/+server.ts',

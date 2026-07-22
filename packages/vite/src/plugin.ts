@@ -32,7 +32,7 @@ const IGNORED_SEGMENTS = new Set(['node_modules', '.svelte-kit', 'build', 'dist'
  * Whether a `server.watcher` event on `file` should trigger a dev-dashboard re-analysis:
  * anything under `src/` or `static/` (the default SvelteKit layout this dashboard assumes),
  * or a `svelte.config.*` / `svelte-vitals.config.*` / `vite.config.*` at any depth (editing
- * the Vite config can change the PERF012 minify-disabled fact) — excluding build/dependency
+ * the Vite config can change the performance/minify-disabled fact) — excluding build/dependency
  * output so their churn never triggers a spurious re-run. Exported for tests.
  */
 export function isRelevant(file: string, root: string): boolean {

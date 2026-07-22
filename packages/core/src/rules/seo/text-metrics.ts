@@ -7,7 +7,7 @@ const segmenter =
 /**
  * Trim and collapse internal whitespace runs to a single space — the canonical
  * normalization for visible text. Shared so length (visibleLength) and uniqueness
- * (SEO028/029) measure identical text the same way and never drift.
+ * (seo/duplicate-title, seo/duplicate-description) measure identical text the same way and never drift.
  */
 export function collapseWhitespace(s: string): string {
   return s.trim().replace(/\s+/g, ' ');

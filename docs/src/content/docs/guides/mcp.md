@@ -42,9 +42,9 @@ Return documentation for a single rule.
 
 **Inputs:**
 
-| Parameter | Type     | Description             |
-| --------- | -------- | ----------------------- |
-| `ruleId`  | `string` | Rule ID (e.g. `SEO001`) |
+| Parameter | Type     | Description                         |
+| --------- | -------- | ----------------------------------- |
+| `ruleId`  | `string` | Rule ID (e.g. `seo/title-presence`) |
 
 **Returns:** the rule's title, category, severity, rationale, docs URL, and fix template.
 

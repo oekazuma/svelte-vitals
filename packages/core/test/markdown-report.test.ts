@@ -7,7 +7,7 @@ describe('formatMarkdownReport', () => {
   it('renders the Health header, a per-category score table, and a findings table', () => {
     const results: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/none',
@@ -15,7 +15,7 @@ describe('formatMarkdownReport', () => {
         message: 'Missing <title>'
       },
       {
-        id: 'PERF001',
+        id: 'performance/image-dimensions',
         category: 'performance',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
@@ -35,7 +35,7 @@ describe('formatMarkdownReport', () => {
     expect(out).toContain('**1 critical · 1 warning · 0 info**');
     expect(out).toContain('### Findings');
     expect(out).toContain('| Severity | Rule | Location | Message |');
-    expect(out).toContain('[SEO001](https://oekazuma.github.io/svelte-vitals/rules/seo001)');
+    expect(out).toContain('[seo/title-presence](https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence)');
     expect(out).toContain('src/routes/none/+page.svelte');
     expect(out).toContain('Missing <title>');
     expect(out).toContain('src/routes/blog/+page.svelte:42');
@@ -50,14 +50,14 @@ describe('formatMarkdownReport', () => {
   it('falls back to the route when a finding has no location, and to "-" when neither is set', () => {
     const results: Result[] = [
       {
-        id: 'SEO006',
+        id: 'seo/robots-txt',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
         route: '/no-location',
         message: 'Missing something'
       },
       {
-        id: 'SEO008',
+        id: 'seo/json-ld',
         severity: 'info',
         detection: { presence: 'none', value: 'absent' },
         message: 'Site-wide finding with no route or location'
@@ -65,15 +65,17 @@ describe('formatMarkdownReport', () => {
     ];
     const out = formatMarkdownReport(results, config, { version: '1.0.0' });
     expect(out).toContain(
-      '| 🟡 warning | [SEO006](https://oekazuma.github.io/svelte-vitals/rules/seo006) | /no-location |'
+      '| 🟡 warning | [seo/robots-txt](https://oekazuma.github.io/svelte-vitals/rules/seo/robots-txt) | /no-location |'
     );
-    expect(out).toContain('| 🔵 info | [SEO008](https://oekazuma.github.io/svelte-vitals/rules/seo008) | - |');
+    expect(out).toContain(
+      '| 🔵 info | [seo/json-ld](https://oekazuma.github.io/svelte-vitals/rules/seo/json-ld) | - |'
+    );
   });
 
   it('prints a clean-run message and omits the findings section when there are no penalized findings', () => {
     const results: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'own', value: 'static' },
         route: '/ok',
@@ -90,7 +92,7 @@ describe('formatMarkdownReport', () => {
   it('appends an exclusion-docs footer when findings exist, and omits it on a clean run', () => {
     const failing: Result[] = [
       {
-        id: 'SEO001',
+        id: 'seo/title-presence',
         severity: 'critical',
         detection: { presence: 'none', value: 'absent' },
         route: '/none',
@@ -107,7 +109,7 @@ describe('formatMarkdownReport', () => {
 
   it('truncates to 50 findings and appends a "…and N more" note', () => {
     const results: Result[] = Array.from({ length: 60 }, (_, i) => ({
-      id: 'SEO006',
+      id: 'seo/robots-txt',
       severity: 'info' as const,
       detection: { presence: 'none' as const, value: 'absent' as const },
       route: `/r${i}`,
@@ -123,7 +125,7 @@ describe('formatMarkdownReport', () => {
   it('appends the recommendation to the message cell when present, for actionable context', () => {
     const results: Result[] = [
       {
-        id: 'SEO006',
+        id: 'seo/robots-txt',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
         route: '/a',
@@ -138,7 +140,7 @@ describe('formatMarkdownReport', () => {
   it('escapes pipes and newlines inside message cells', () => {
     const results: Result[] = [
       {
-        id: 'SEO006',
+        id: 'seo/robots-txt',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
         route: '/a',

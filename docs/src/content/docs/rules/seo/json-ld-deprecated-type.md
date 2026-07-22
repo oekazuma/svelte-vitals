@@ -1,0 +1,18 @@
+---
+title: seo/json-ld-deprecated-type · Deprecated structured-data type
+description: Some schema types no longer produce Google rich results.
+---
+
+**Severity:** info
+
+## What it checks
+
+Flags a JSON-LD `@type` whose Google rich result was dropped or restricted (e.g. `HowTo`, `FAQPage`, `ClaimReview`).
+
+## Why it matters
+
+These types no longer reliably produce rich results, so the markup adds page weight without the SERP benefit.
+
+## How to fix
+
+Verify the type's current rich-result status in Google's documentation; remove or replace it if it no longer earns a rich result.

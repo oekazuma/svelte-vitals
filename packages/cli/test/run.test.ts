@@ -35,7 +35,7 @@ describe('run() end-to-end', () => {
 
     const report = cap.out.join('\n');
     expect(report).toContain('Critical (2)');
-    expect(report).toContain('✗ SEO001  Missing <title>');
+    expect(report).toContain('✗ seo/title-presence  Missing <title>');
     expect(report).toContain('/none');
     expect(report).toContain('↯ dynamic'); // /dynamic passes with marker
   });
@@ -63,11 +63,11 @@ describe('run() flags', () => {
       env: CLEAN_ENV
     });
     const report = cap.out.join('\n');
-    // The Critical section should list /none (SEO001 missing title) but NOT /widget —
+    // The Critical section should list /none (seo/title-presence missing title) but NOT /widget —
     // Widget suppression promotes /widget's title detection to dynamic/pass.
     // Extract the Critical block (from header up to the next severity header or Passed).
     const criticalBlock = report.split(/\n(?:Warnings|Info|Passed)\s*\(/)[0];
-    expect(criticalBlock).toContain('SEO001  Missing <title>');
+    expect(criticalBlock).toContain('seo/title-presence  Missing <title>');
     expect(criticalBlock).toContain('/none');
     expect(criticalBlock).not.toContain('/widget');
     expect(code).toBe(1); // /none is still a missing-title critical
@@ -101,9 +101,9 @@ describe('run() reporters and gating', () => {
     await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json' });
     const json = JSON.parse(cap.out.join('\n'));
     const siteIds = json.siteIssues.map((i: { id: string }) => i.id);
-    expect(siteIds).not.toContain('SEO006'); // robots.txt present
-    expect(siteIds).not.toContain('SEO007'); // sitemap present
-    expect(siteIds).not.toContain('SEO009'); // html lang present
+    expect(siteIds).not.toContain('seo/robots-txt'); // robots.txt present
+    expect(siteIds).not.toContain('seo/sitemap-xml'); // sitemap present
+    expect(siteIds).not.toContain('seo/html-lang'); // html lang present
   });
 
   it('fails on warning when failOn=warning', async () => {
@@ -120,9 +120,17 @@ describe('run() reporters and gating', () => {
 
   it('disabling a rule via rules:{id:off} removes its findings', async () => {
     const cap = capture();
-    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json', rules: { SEO002: 'off' } });
+    await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      reporter: 'json',
+      rules: { 'seo/description-presence': 'off' }
+    });
     const json = JSON.parse(cap.out.join('\n'));
-    const anySEO002 = json.routes.some((r: { issues: { id: string }[] }) => r.issues.some((i) => i.id === 'SEO002'));
+    const anySEO002 = json.routes.some((r: { issues: { id: string }[] }) =>
+      r.issues.some((i) => i.id === 'seo/description-presence')
+    );
     expect(anySEO002).toBe(false);
   });
 });
@@ -134,7 +142,7 @@ describe('run() performance rules', () => {
     const json = JSON.parse(cap.out.join('\n'));
     expect(json.categories.performance).toBeDefined();
     const img = json.routes.find((r: { route: string }) => r.route === '/img');
-    expect(img.issues.some((i: { id: string }) => i.id === 'PERF001')).toBe(true);
+    expect(img.issues.some((i: { id: string }) => i.id === 'performance/image-dimensions')).toBe(true);
   });
 });
 
@@ -180,7 +188,7 @@ describe('run() agent reporter', () => {
     await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'agent' });
     const out = cap.out.join('\n');
     expect(out).toContain('# svelte-vitals — fixes');
-    expect(out).toMatch(/### SEO00\d/);
+    expect(out).toMatch(/### seo\/[a-z-]+/);
     expect(out).toContain('- Fix:');
   });
 
@@ -204,14 +212,16 @@ describe('run() sarif & github reporters', () => {
     await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'sarif', env: CLEAN_ENV });
     const sarif = JSON.parse(cap.out.join('\n'));
     expect(sarif.version).toBe('2.1.0');
-    const seo001 = sarif.runs[0].results.find((r: { ruleId: string; level: string }) => r.ruleId === 'SEO001');
+    const seo001 = sarif.runs[0].results.find(
+      (r: { ruleId: string; level: string }) => r.ruleId === 'seo/title-presence'
+    );
     expect(seo001.level).toBe('error');
   });
 
   it('emits github workflow commands for the missing-title finding', async () => {
     const cap = capture();
     await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'github', env: CLEAN_ENV });
-    expect(cap.out.join('\n')).toMatch(/::error file=.*\+page\.svelte,title=SEO001%3A/);
+    expect(cap.out.join('\n')).toMatch(/::error file=.*\+page\.svelte,title=seo\/title-presence%3A/);
   });
 
   it('auto-selects github under GitHub Actions and hints how to override', async () => {
@@ -251,14 +261,14 @@ describe('run() sarif & github reporters', () => {
 });
 
 describe('run() config file (design doc 2026-07-05-config-file-design.md)', () => {
-  it('reflects the config file in findings (SEO001 disabled by rules) and prints its warnings', async () => {
+  it('reflects the config file in findings (seo/title-presence disabled by rules) and prints its warnings', async () => {
     const cap = capture();
     const code = await run({ cwd: configFileFixtureDir, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
-    // failOn: 'warning' (from the file) + a critical SEO002 finding present → exit 1.
+    // failOn: 'warning' (from the file) + a critical seo/description-presence finding present → exit 1.
     expect(code).toBe(1);
     const report = cap.out.join('\n');
-    expect(report).not.toContain('SEO001');
-    expect(report).toContain('SEO002');
+    expect(report).not.toContain('seo/title-presence');
+    expect(report).toContain('seo/description-presence');
   });
 
   it('exits 2 with the loader validation message for a config file with an unknown rule id', async () => {
@@ -288,10 +298,10 @@ describe('run() --category', () => {
     expect(Object.keys(json.categories)).toEqual(['seo']);
     const allIds: string[] = [];
     for (const r of json.routes) for (const i of r.issues) allIds.push(i.id);
-    expect(allIds.every((id: string) => id.startsWith('SEO'))).toBe(true);
-    // PERF001 (missing <img> dimensions) is present without a category filter (see
+    expect(allIds.every((id: string) => id.startsWith('seo/'))).toBe(true);
+    // performance/image-dimensions (missing <img> dimensions) is present without a category filter (see
     // 'run() performance rules' above); it must not survive a seo-only filter.
-    expect(allIds).not.toContain('PERF001');
+    expect(allIds).not.toContain('performance/image-dimensions');
   });
 });
 

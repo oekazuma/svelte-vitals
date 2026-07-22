@@ -79,7 +79,7 @@ describe('predicates', () => {
     expect(hasPlaceholder('Your Company Name')).toBe(true);
     expect(hasPlaceholder('Acme Corp')).toBe(false);
   });
-  it('nodeStringValues collects nested + array strings (so SEO020 sees publisher.name etc.)', () => {
+  it('nodeStringValues collects nested + array strings (so seo/json-ld-placeholder sees publisher.name etc.)', () => {
     const node = { name: 'Acme', publisher: { name: 'Your Company Name' }, sameAs: ['https://a.test'] };
     expect(nodeStringValues(node)).toEqual(expect.arrayContaining(['Acme', 'Your Company Name', 'https://a.test']));
   });

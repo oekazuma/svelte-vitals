@@ -3,7 +3,7 @@ import { applyOverrides, defineConfig, type Result } from '../src/index.js';
 
 function finding(overrides: Partial<Result> = {}): Result {
   return {
-    id: 'SEO001',
+    id: 'seo/title-presence',
     severity: 'critical',
     detection: { presence: 'none', value: 'absent' },
     route: '/dashboard',
@@ -25,12 +25,12 @@ describe('applyOverrides', () => {
     const failing = finding();
     const passing = finding({ detection: { presence: 'own', value: 'static' } });
     const otherRoute = finding({ route: '/blog', location: 'src/routes/blog/+page.svelte' });
-    const config = defineConfig({ overrides: [{ route: '/dashboard/**', rules: { SEO001: 'off' } }] });
+    const config = defineConfig({ overrides: [{ route: '/dashboard/**', rules: { 'seo/title-presence': 'off' } }] });
     expect(applyOverrides([failing, passing, otherRoute], config)).toEqual([otherRoute]);
   });
 
   it('rewrites severity for matched results', () => {
-    const config = defineConfig({ overrides: [{ route: '/dashboard', rules: { SEO001: 'info' } }] });
+    const config = defineConfig({ overrides: [{ route: '/dashboard', rules: { 'seo/title-presence': 'info' } }] });
     const out = applyOverrides([finding()], config);
     expect(out).toHaveLength(1);
     expect(out[0]!.severity).toBe('info');
@@ -38,14 +38,14 @@ describe('applyOverrides', () => {
 
   it('applies category keys to every rule in that category, defaulting absent category to seo', () => {
     const seo = finding({ category: undefined });
-    const perf = finding({ id: 'PERF001', category: 'performance' });
+    const perf = finding({ id: 'performance/image-dimensions', category: 'performance' });
     const config = defineConfig({ overrides: [{ route: '/dashboard', rules: { seo: 'off' } }] });
     expect(applyOverrides([seo, perf], config)).toEqual([perf]);
   });
 
   it('lets a rule-id key beat a category key within one entry', () => {
     const config = defineConfig({
-      overrides: [{ route: '/dashboard', rules: { seo: 'off', SEO001: 'warning' } }]
+      overrides: [{ route: '/dashboard', rules: { seo: 'off', 'seo/title-presence': 'warning' } }]
     });
     const out = applyOverrides([finding()], config);
     expect(out).toHaveLength(1);
@@ -55,8 +55,8 @@ describe('applyOverrides', () => {
   it('lets later entries win over earlier ones', () => {
     const config = defineConfig({
       overrides: [
-        { route: '/dashboard/**', rules: { SEO001: 'off' } },
-        { route: '/dashboard', rules: { SEO001: 'info' } }
+        { route: '/dashboard/**', rules: { 'seo/title-presence': 'off' } },
+        { route: '/dashboard', rules: { 'seo/title-presence': 'info' } }
       ]
     });
     const out = applyOverrides([finding()], config);
@@ -65,7 +65,9 @@ describe('applyOverrides', () => {
   });
 
   it('accepts an array of route globs on one entry', () => {
-    const config = defineConfig({ overrides: [{ route: ['/admin', '/account/**'], rules: { SEO001: 'off' } }] });
+    const config = defineConfig({
+      overrides: [{ route: ['/admin', '/account/**'], rules: { 'seo/title-presence': 'off' } }]
+    });
     const results = [
       finding({ route: '/admin' }),
       finding({ route: '/account/settings' }),
@@ -86,20 +88,20 @@ describe('applyOverrides', () => {
     const byFile = finding({ route: '/elsewhere' });
     const neither = finding({ route: '/blog', location: 'src/routes/blog/+page.svelte' });
     const config = defineConfig({
-      overrides: [{ route: '/dashboard', files: 'src/routes/(app)/**', rules: { SEO001: 'off' } }]
+      overrides: [{ route: '/dashboard', files: 'src/routes/(app)/**', rules: { 'seo/title-presence': 'off' } }]
     });
     expect(applyOverrides([byRoute, byFile, neither], config)).toEqual([neither]);
   });
 
   it('never matches findings that lack both route and location', () => {
     const project = finding({ route: undefined, location: undefined });
-    const config = defineConfig({ overrides: [{ route: '**', files: '**', rules: { SEO001: 'off' } }] });
+    const config = defineConfig({ overrides: [{ route: '**', files: '**', rules: { 'seo/title-presence': 'off' } }] });
     expect(applyOverrides([project], config)).toEqual([project]);
   });
 
   describe('glob matching', () => {
     function matches(pattern: string, route: string): boolean {
-      const config = defineConfig({ overrides: [{ route: pattern, rules: { SEO001: 'off' } }] });
+      const config = defineConfig({ overrides: [{ route: pattern, rules: { 'seo/title-presence': 'off' } }] });
       return applyOverrides([finding({ route, location: undefined })], config).length === 0;
     }
 

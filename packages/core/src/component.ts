@@ -18,11 +18,11 @@ export interface EffectFact {
   line: number;
   /** True when the effect body only assigns to `$state` variables (the "use $derived" smell). */
   assignsOnlyState: boolean;
-  /** True when this $effect has a NON-EMPTY body that reads no reactive value and makes no bare call — it never re-runs, so it should be onMount (CORRECT003). */
+  /** True when this $effect has a NON-EMPTY body that reads no reactive value and makes no bare call — it never re-runs, so it should be onMount (correctness/effect-as-onmount). */
   mountOnly: boolean;
 }
 
-/** A `$effect` guaranteed to run outside component initialisation — it throws `effect_orphan` at runtime (CORRECT006). */
+/** A `$effect` guaranteed to run outside component initialisation — it throws `effect_orphan` at runtime (correctness/orphan-effect). */
 export interface OrphanEffectFact {
   /** 1-based source line, or 0 if unknown. For 'constructor-instantiated', the module-scope `new` site. */
   line: number;
@@ -32,7 +32,7 @@ export interface OrphanEffectFact {
   className?: string;
 }
 
-/** A svelte lifecycle/context call guaranteed to run outside component initialisation — it throws `lifecycle_outside_component` at runtime (CORRECT007). */
+/** A svelte lifecycle/context call guaranteed to run outside component initialisation — it throws `lifecycle_outside_component` at runtime (correctness/orphan-lifecycle). */
 export interface OrphanLifecycleCallFact {
   /** Canonical svelte export name (alias-resolved), e.g. 'onMount'. */
   name: string;
@@ -44,13 +44,13 @@ export interface OrphanLifecycleCallFact {
   className?: string;
 }
 
-/** A browser-only global read in code that runs on the server — SSR crashes with "<name> is not defined" (CORRECT008/009). */
+/** A browser-only global read in code that runs on the server — SSR crashes with "<name> is not defined" (correctness/server-browser-global, correctness/instance-browser-global). */
 export interface BrowserGlobalRefFact {
   /** The global's name, e.g. 'window'. */
   name: string;
   /** 1-based source line, or 0 if unknown. */
   line: number;
-  /** 'module' = module evaluation (script module / runes module — CORRECT008); 'instance' = component-init top level (runs on the server during SSR — CORRECT009). */
+  /** 'module' = module evaluation (script module / runes module — correctness/server-browser-global); 'instance' = component-init top level (runs on the server during SSR — correctness/instance-browser-global). */
   context: 'module' | 'instance';
 }
 
@@ -74,31 +74,31 @@ export interface ComponentFacts {
   file: string;
   eachBlocks: EachBlockFact[];
   effects: EffectFact[];
-  /** `{@html …}` occurrences — raw-HTML render surfaces (Security SEC001). */
+  /** `{@html …}` occurrences — raw-HTML render surfaces (security/raw-html). */
   htmlTags: SourceSpan[];
-  /** Element attributes with a literal `javascript:` URL (Security SEC002). */
+  /** Element attributes with a literal `javascript:` URL (security/javascript-url). */
   javascriptUrls: SourceSpan[];
-  /** Source line count of the component file (Architecture ARCH001). */
+  /** Source line count of the component file (architecture/component-size). */
   loc: number;
-  /** Named props destructured from `$props()`; 0 when unknowable (rest / non-destructured) (Architecture ARCH002). */
+  /** Named props destructured from `$props()`; 0 when unknowable (rest / non-destructured) (architecture/prop-count). */
   propCount: number;
-  /** Module specifiers of every `import` in the instance + module scripts (Bundle PERF009). */
+  /** Module specifiers of every `import` in the instance + module scripts (performance/heavy-import). */
   imports: string[];
-  /** Module specifiers of every `import`, each with its source line (Bundle PERF009). */
+  /** Module specifiers of every `import`, each with its source line (performance/heavy-import). */
   importSpans: { source: string; line: number }[];
-  /** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — Bundle PERF010. */
+  /** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — performance/namespace-import. */
   namespaceImports: { source: string; line: number }[];
-  /** `$state` declarations never written or escaped anywhere in the component — candidates for const (CORRECT004). */
+  /** `$state` declarations never written or escaped anywhere in the component — candidates for const (correctness/unmutated-state). */
   constableStates: { name: string; line: number }[];
-  /** Mutations of a non-`$bindable` prop from `$props()` — member writes, `delete`, or a mutating method call (CORRECT005). */
+  /** Mutations of a non-`$bindable` prop from `$props()` — member writes, `delete`, or a mutating method call (correctness/prop-mutation). */
   mutatedProps: { name: string; line: number }[];
-  /** `$effect` calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (CORRECT006). */
+  /** `$effect` calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (correctness/orphan-effect). */
   orphanEffects: OrphanEffectFact[];
-  /** Svelte lifecycle/context calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (CORRECT007). */
+  /** Svelte lifecycle/context calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (correctness/orphan-lifecycle). */
   orphanLifecycleCalls: OrphanLifecycleCallFact[];
-  /** Browser-global reads in server-executed positions of this file (CORRECT008/009). */
+  /** Browser-global reads in server-executed positions of this file (correctness/server-browser-global, correctness/instance-browser-global). */
   browserGlobalRefs: BrowserGlobalRefFact[];
-  /** Module-scope `$state` declarations in a `.svelte.ts`/`.svelte.js` runes module — on a server, one instance shared by every request (SEC005). Always empty for `.svelte` files. */
+  /** Module-scope `$state` declarations in a `.svelte.ts`/`.svelte.js` runes module — on a server, one instance shared by every request (security/shared-state-import). Always empty for `.svelte` files. */
   moduleStateDecls: { name: string; line: number }[];
   /** Inline `svelte-vitals-disable-next-line` directives found in this file's source — component-rule escape hatch (issue #92). Optional: absent is equivalent to no directives, so existing external constructors of `ComponentFacts` are unaffected. */
   suppressions?: SuppressionDirective[];
