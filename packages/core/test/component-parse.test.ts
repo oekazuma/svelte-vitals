@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { parseComponentFacts } from '../src/component-parse.js';
 
 describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
+  const facts = (src: string) => parseComponentFacts(src, 'C.svelte');
   it('detects keyed vs unkeyed {#each}', () => {
     const keyed = parseComponentFacts('{#each items as item (item.id)}<li>{item.name}</li>{/each}', 'C.svelte');
     expect(keyed.eachBlocks).toEqual([{ hasKey: true, line: 1 }]);
@@ -23,6 +24,73 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
   it('ignores an itemless each even if it is (pointlessly) given an index key', () => {
     const c = parseComponentFacts('{#each { length: 8 }, rank (rank)}<div>{rank}</div>{/each}', 'C.svelte');
     expect(c.eachBlocks).toEqual([]);
+  });
+  it('flags an each block keyed by its index', () => {
+    const c = parseComponentFacts('{#each items as item, i (i)}<li>{item}</li>{/each}', 'C.svelte');
+    expect(c.eachBlocks).toEqual([{ hasKey: true, line: 1, indexKey: true }]);
+  });
+  it('flags a renamed index key', () => {
+    const c = parseComponentFacts('{#each items as item, idx (idx)}<li>{item}</li>{/each}', 'C.svelte');
+    expect(c.eachBlocks).toEqual([{ hasKey: true, line: 1, indexKey: true }]);
+  });
+  it('does not set indexKey for item-based keys, other identifiers, or missing index', () => {
+    const byId = parseComponentFacts('{#each items as item, i (item.id)}<li>{item}</li>{/each}', 'C.svelte');
+    expect(byId.eachBlocks).toEqual([{ hasKey: true, line: 1 }]);
+    const otherIdent = parseComponentFacts('{#each items as item, i (globalKey)}<li>{item}</li>{/each}', 'C.svelte');
+    expect(otherIdent.eachBlocks).toEqual([{ hasKey: true, line: 1 }]);
+    const noIndex = parseComponentFacts('{#each items as item (item)}<li>{item}</li>{/each}', 'C.svelte');
+    expect(noIndex.eachBlocks).toEqual([{ hasKey: true, line: 1 }]);
+  });
+  it('does not set indexKey on composite keys containing the index', () => {
+    const c = parseComponentFacts('{#each items as item, i (item.id + "-" + i)}<li>{item}</li>{/each}', 'C.svelte');
+    expect(c.eachBlocks).toEqual([{ hasKey: true, line: 1 }]);
+  });
+  it('flags trivial stringifications of the index', () => {
+    for (const key of ['String(i)', '`${i}`', 'i.toString()', 'String(i as number)']) {
+      const c = parseComponentFacts(
+        `<script lang="ts"></script>{#each items as item, i (${key})}<li>{item}</li>{/each}`,
+        'C.svelte'
+      );
+      expect(c.eachBlocks, key).toEqual([{ hasKey: true, line: 1, indexKey: true }]);
+    }
+  });
+  it('does not flag stringifications of non-index values or composite templates', () => {
+    for (const key of ['String(item.id)', '`${item.id}`', '`row-${i}`', '`${i}-${item.id}`', 'item.id.toString()']) {
+      const c = parseComponentFacts(`{#each items as item, i (${key})}<li>{item}</li>{/each}`, 'C.svelte');
+      expect(c.eachBlocks, key).toEqual([{ hasKey: true, line: 1 }]);
+    }
+  });
+
+  it('skips length-only placeholder lists entirely', () => {
+    for (const list of ['Array(n)', 'new Array(8)', '[...Array(n)]', 'Array.from({ length: n })']) {
+      const c = facts(`{#each ${list} as _, i (i)}<li>{i}</li>{/each}`);
+      expect(c.eachBlocks, list).toEqual([]);
+    }
+    const unkeyed = facts('{#each [...Array(n)] as _, i}<li>{i}</li>{/each}');
+    expect(unkeyed.eachBlocks).toEqual([]);
+  });
+
+  it('still collects spread lists with real items', () => {
+    const c = facts('{#each [...items] as item, i (i)}<li>{item}</li>{/each}');
+    expect(c.eachBlocks).toEqual([{ hasKey: true, line: 1, indexKey: true }]);
+  });
+
+  it('flags non-null-asserted and coerced index keys', () => {
+    const withTs = (key: string) =>
+      facts(`<script lang="ts"></script>{#each items as item, i (${key})}<li>{item}</li>{/each}`);
+    expect(withTs('i!').eachBlocks).toEqual([{ hasKey: true, line: 1, indexKey: true }]);
+    expect(withTs('String(i)!').eachBlocks).toEqual([{ hasKey: true, line: 1, indexKey: true }]);
+    for (const key of ["i + ''", "'' + i", 'Number(i)']) {
+      const c = facts(`{#each items as item, i (${key})}<li>{item}</li>{/each}`);
+      expect(c.eachBlocks, key).toEqual([{ hasKey: true, line: 1, indexKey: true }]);
+    }
+  });
+
+  it('does not flag composite concatenations or non-index coercions', () => {
+    for (const key of ["i + '-row'", "'row' + i", 'Number(item.id)']) {
+      const c = facts(`{#each items as item, i (${key})}<li>{item}</li>{/each}`);
+      expect(c.eachBlocks, key).toEqual([{ hasKey: true, line: 1 }]);
+    }
   });
 });
 

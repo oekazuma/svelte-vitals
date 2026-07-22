@@ -8,8 +8,8 @@
  * `defineConfig({…})` / a same-file alias, including a same-file identifier
  * passed as `defineConfig`'s argument) and CJS (`module.exports = {…}`) forms.
  */
-import { parseModuleProgram } from './component-parse.js';
-import { unwrapTs, collectTopLevelBindings } from './kit-module-parse.js';
+import { parseModuleProgram, unwrapTs } from './component-parse.js';
+import { collectTopLevelBindings } from './kit-module-parse.js';
 import { lineOf } from './svelte-ast.js';
 
 // Same pragmatic typing stance as component-parse.ts.

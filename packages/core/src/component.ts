@@ -10,6 +10,8 @@ export interface EachBlockFact {
   hasKey: boolean;
   /** 1-based source line, or 0 if unknown. */
   line: number;
+  /** Set when the block's key expression is its index binding or a trivial coercion of it — `(i)`, `(String(i))`, `(Number(i))`, `` (`${i}`) ``, `(i.toString())`, `(i + '')` — correctness/each-index-key. */
+  indexKey?: boolean;
 }
 
 /** An `$effect(...)` / `$effect.pre(...)` call in a component's instance script. */

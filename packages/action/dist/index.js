@@ -54630,9 +54630,62 @@ function attrTextOf(attr) {
   const text2 = v.filter((n) => n?.type === "Text").map((n) => String(n.data ?? "")).join("");
   return text2.trim().length > 0 ? text2 : void 0;
 }
-function isConstantListEach(node) {
-  const expr = node?.expression;
-  return expr?.type === "ArrayExpression" && Array.isArray(expr.elements) && !expr.elements.some((el) => el?.type === "SpreadElement");
+function unwrapTs(expr) {
+  let cur = expr;
+  while (cur?.type === "TSSatisfiesExpression" || cur?.type === "TSAsExpression" || cur?.type === "TSNonNullExpression")
+    cur = cur.expression;
+  return cur;
+}
+function isLengthOnlyArrayCall(expr) {
+  const e2 = unwrapTs(expr);
+  if (!e2) return false;
+  if ((e2.type === "CallExpression" || e2.type === "NewExpression") && e2.callee?.type === "Identifier" && e2.callee.name === "Array") {
+    return (e2.arguments?.length ?? 0) === 1;
+  }
+  if (e2.type === "CallExpression" && e2.callee?.type === "MemberExpression" && !e2.callee.computed && e2.callee.object?.type === "Identifier" && e2.callee.object.name === "Array" && e2.callee.property?.name === "from" && e2.arguments?.[0]?.type === "ObjectExpression") {
+    return (e2.arguments[0].properties ?? []).some(
+      (p) => p?.type === "Property" && !p.computed && (p.key?.name === "length" || p.key?.value === "length")
+    );
+  }
+  return false;
+}
+function isIdentityFreeEach(node) {
+  const expr = unwrapTs(node?.expression);
+  if (expr?.type === "ArrayExpression" && Array.isArray(expr.elements)) {
+    return expr.elements.every((el) => el?.type !== "SpreadElement" || isLengthOnlyArrayCall(el.argument));
+  }
+  return isLengthOnlyArrayCall(expr);
+}
+function isIndexExpression(expr, index) {
+  const e2 = unwrapTs(expr);
+  if (e2?.type === "Identifier") return e2.name === index;
+  if (e2?.type === "CallExpression") {
+    const callee = e2.callee;
+    if (callee?.type === "Identifier" && (callee.name === "String" || callee.name === "Number") && e2.arguments?.length === 1) {
+      return isIndexExpression(e2.arguments[0], index);
+    }
+    if (callee?.type === "MemberExpression" && !callee.computed && callee.property?.name === "toString" && (e2.arguments?.length ?? 0) === 0) {
+      return isIndexExpression(callee.object, index);
+    }
+    return false;
+  }
+  if (e2?.type === "TemplateLiteral") {
+    const exprs = e2.expressions ?? [];
+    if (exprs.length !== 1) return false;
+    const hasText = (e2.quasis ?? []).some((q) => (q?.value?.cooked ?? q?.value?.raw ?? "") !== "");
+    if (hasText) return false;
+    return isIndexExpression(exprs[0], index);
+  }
+  if (e2?.type === "BinaryExpression" && e2.operator === "+") {
+    const emptyString = (n) => n?.type === "Literal" && n.value === "";
+    if (emptyString(e2.left)) return isIndexExpression(e2.right, index);
+    if (emptyString(e2.right)) return isIndexExpression(e2.left, index);
+  }
+  return false;
+}
+function isIndexKey(each) {
+  if (typeof each.index !== "string" || each.key == null) return false;
+  return isIndexExpression(each.key, each.index);
 }
 function collectEachBlocks(node, source2, acc) {
   if (Array.isArray(node)) {
@@ -54640,8 +54693,12 @@ function collectEachBlocks(node, source2, acc) {
     return;
   }
   if (!node || typeof node !== "object") return;
-  if (node.type === "EachBlock" && node.context != null && !isConstantListEach(node)) {
-    acc.push({ hasKey: node.key != null, line: lineOf(source2, node.start) });
+  if (node.type === "EachBlock" && node.context != null && !isIdentityFreeEach(node)) {
+    acc.push({
+      hasKey: node.key != null,
+      line: lineOf(source2, node.start),
+      ...isIndexKey(node) ? { indexKey: true } : {}
+    });
   }
   for (const key2 of CHILD_NODE_KEYS) {
     if (key2 in node) collectEachBlocks(node[key2], source2, acc);
@@ -55511,11 +55568,6 @@ var HANDLER_NAMES = /* @__PURE__ */ new Set([
   "OPTIONS",
   "fallback"
 ]);
-function unwrapTs(expr) {
-  let cur = expr;
-  while (cur?.type === "TSSatisfiesExpression" || cur?.type === "TSAsExpression") cur = cur.expression;
-  return cur;
-}
 function isFunctionNode(n) {
   return n?.type === "FunctionDeclaration" || n?.type === "FunctionExpression" || n?.type === "ArrowFunctionExpression";
 }
@@ -57553,6 +57605,19 @@ var correctnessEachKey = componentRule({
   applies: (c) => c.eachBlocks.length > 0,
   bad: (c) => c.eachBlocks.filter((e2) => !e2.hasKey).map((e2) => ({ line: e2.line, message: "{#each} block has no key" }))
 });
+var correctnessEachIndexKey = componentRule({
+  id: "correctness/each-index-key",
+  title: "Index used as each key",
+  category: "correctness",
+  label: "Item-keyed {#each}",
+  recommendation: "Key by a value that uniquely identifies the item, e.g. (item.id).",
+  rationale: "Svelte's guidance is explicit: the key must uniquely identify the object \u2014 do not use the index. An index key gives items position-based identity, so element state (focus, inputs, transitions) sticks to positions when the list reorders or items are inserted or removed, exactly like an unkeyed block \u2014 but the visible key masks the problem.",
+  applies: (c) => c.eachBlocks.some((e2) => e2.indexKey),
+  bad: (c) => c.eachBlocks.filter((e2) => e2.indexKey).map((e2) => ({
+    line: e2.line,
+    message: "{#each} is keyed by its index \u2014 identity follows position, exactly like an unkeyed block, but the key makes it look safe."
+  }))
+});
 var correctnessEffectAsDerived = componentRule({
   id: "correctness/effect-as-derived",
   title: "Effect used to derive state",
@@ -58044,6 +58109,7 @@ var allRules = [
   seoHeadingLevelSkip,
   seoSsrDisabled,
   correctnessEachKey,
+  correctnessEachIndexKey,
   correctnessEffectAsDerived,
   correctnessEffectAsOnMount,
   correctnessUnmutatedState,

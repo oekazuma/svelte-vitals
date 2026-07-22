@@ -2,6 +2,7 @@ import {
   parseModuleProgram,
   collectSuppressions,
   unwrapExport,
+  unwrapTs,
   addBoundNames,
   scopeIntroducedNames,
   rootObjectName,
@@ -35,13 +36,6 @@ const HANDLER_NAMES = new Set([
   'OPTIONS',
   'fallback'
 ]);
-
-/** Unwrap TS wrapper expressions (`x satisfies T`, `x as T`) to the underlying expression. */
-export function unwrapTs(expr: Node): Node {
-  let cur = expr;
-  while (cur?.type === 'TSSatisfiesExpression' || cur?.type === 'TSAsExpression') cur = cur.expression;
-  return cur;
-}
 
 function isFunctionNode(n: Node): boolean {
   return n?.type === 'FunctionDeclaration' || n?.type === 'FunctionExpression' || n?.type === 'ArrowFunctionExpression';

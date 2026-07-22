@@ -95,6 +95,7 @@ export {
   seoHeadingLevelSkip,
   seoSsrDisabled,
   correctnessEachKey,
+  correctnessEachIndexKey,
   correctnessEffectAsDerived,
   correctnessEffectAsOnMount,
   correctnessUnmutatedState,
