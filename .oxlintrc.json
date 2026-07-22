@@ -1,9 +1,6 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["typescript"],
-  "categories": {
-    "correctness": "off"
-  },
+  "plugins": ["typescript", "unicorn", "oxc"],
   "env": {
     "builtin": true,
     "node": true
@@ -11,6 +8,10 @@
   "ignorePatterns": [
     "**/node_modules/",
     "**/dist/",
+    // packages/action/dist is negated in .gitignore (committed so GitHub Actions can
+    // consume it directly), which un-ignores it from **/dist/ above — the final entry
+    // below re-excludes it from lint explicitly, since it's a machine-generated esbuild
+    // bundle, not hand-written source.
     "!packages/action/dist/",
     "**/*.log",
     "**/.DS_Store",
