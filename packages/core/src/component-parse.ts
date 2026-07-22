@@ -33,18 +33,59 @@ function isConstantListEach(node: Node): boolean {
   );
 }
 
+/** Unwrap TS wrapper expressions (`x satisfies T`, `x as T`) in a key expression. */
+function unwrapKeyTs(expr: Node): Node {
+  let cur = expr;
+  while (cur?.type === 'TSSatisfiesExpression' || cur?.type === 'TSAsExpression') cur = cur.expression;
+  return cur;
+}
+
 /**
- * Whether the block's key expression is exactly its index binding
- * (`{#each items as item, i (i)}`) — position-based identity, the anti-pattern
- * Svelte's docs call out ("do not use the index as a key"). Exact-identifier
- * match only: composite keys that merely CONTAIN the index add uniqueness and
- * are legitimate (correctness/each-index-key).
+ * Whether `expr` is the index binding itself or a trivial stringification of it —
+ * `i`, `String(i)`, `` `${i}` ``, `i.toString()` — all position-based identity.
+ * A template with any literal text (`` `row-${i}` ``) or extra expressions is
+ * treated as composite and NOT matched: composite keys may be a deliberate
+ * uniqueness workaround for duplicate items.
+ */
+function isIndexExpression(expr: Node, index: string): boolean {
+  const e = unwrapKeyTs(expr);
+  if (e?.type === 'Identifier') return e.name === index;
+  if (e?.type === 'CallExpression') {
+    const callee = e.callee;
+    if (callee?.type === 'Identifier' && callee.name === 'String' && e.arguments?.length === 1) {
+      return isIndexExpression(e.arguments[0], index);
+    }
+    if (
+      callee?.type === 'MemberExpression' &&
+      !callee.computed &&
+      callee.property?.name === 'toString' &&
+      (e.arguments?.length ?? 0) === 0
+    ) {
+      return isIndexExpression(callee.object, index);
+    }
+    return false;
+  }
+  if (e?.type === 'TemplateLiteral') {
+    const exprs = e.expressions ?? [];
+    if (exprs.length !== 1) return false;
+    const hasText = (e.quasis ?? []).some((q: Node) => (q?.value?.cooked ?? q?.value?.raw ?? '') !== '');
+    if (hasText) return false;
+    return isIndexExpression(exprs[0], index);
+  }
+  return false;
+}
+
+/**
+ * Whether the block's key expression is its index binding or a trivial
+ * stringification of it (`{#each items as item, i (i)}`, `(String(i))`,
+ * `` (`${i}`) ``, `(i.toString())`) — position-based identity, the anti-pattern
+ * Svelte's docs call out ("do not use the index as a key"). Composite keys that
+ * merely CONTAIN the index add uniqueness and are never matched
+ * (correctness/each-index-key).
  */
 function isIndexKey(each: Node): boolean {
   if (typeof each.index !== 'string' || each.key == null) return false;
-  let key = each.key;
-  while (key?.type === 'TSSatisfiesExpression' || key?.type === 'TSAsExpression') key = key.expression;
-  return key?.type === 'Identifier' && key.name === each.index;
+  return isIndexExpression(each.key, each.index);
 }
 
 /** Recursively collect every `{#each}` block in the template (correctness/each-key). */

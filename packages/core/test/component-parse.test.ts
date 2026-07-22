@@ -44,6 +44,21 @@ describe('parseComponentFacts — each blocks (correctness/each-key)', () => {
     const c = parseComponentFacts('{#each items as item, i (item.id + "-" + i)}<li>{item}</li>{/each}', 'C.svelte');
     expect(c.eachBlocks).toEqual([{ hasKey: true, line: 1 }]);
   });
+  it('flags trivial stringifications of the index', () => {
+    for (const key of ['String(i)', '`${i}`', 'i.toString()', 'String(i as number)']) {
+      const c = parseComponentFacts(
+        `<script lang="ts"></script>{#each items as item, i (${key})}<li>{item}</li>{/each}`,
+        'C.svelte'
+      );
+      expect(c.eachBlocks, key).toEqual([{ hasKey: true, line: 1, indexKey: true }]);
+    }
+  });
+  it('does not flag stringifications of non-index values or composite templates', () => {
+    for (const key of ['String(item.id)', '`${item.id}`', '`row-${i}`', '`${i}-${item.id}`', 'item.id.toString()']) {
+      const c = parseComponentFacts(`{#each items as item, i (${key})}<li>{item}</li>{/each}`, 'C.svelte');
+      expect(c.eachBlocks, key).toEqual([{ hasKey: true, line: 1 }]);
+    }
+  });
 });
 
 describe('parseComponentFacts — $effect (correctness/effect-as-derived)', () => {
