@@ -54823,41 +54823,165 @@ function walkScoped(node, visit, shadowed = /* @__PURE__ */ new Set()) {
     walkScoped(node[key2], visit, scope);
   }
 }
-function collectStateWrites(root, stateNames, acc) {
+function collectStateWrites(root, stateNames, acc, kinds) {
+  const record = (name, kind) => {
+    acc.add(name);
+    if (kinds) {
+      let set2 = kinds.get(name);
+      if (!set2) kinds.set(name, set2 = /* @__PURE__ */ new Set());
+      set2.add(kind);
+    }
+  };
   walkScoped(root, (n, scope) => {
     const shadowed = (name) => name === void 0 || scope.has(name);
     if (n?.type === "AssignmentExpression") {
       if (n.left?.type === "Identifier" && stateNames.has(n.left.name) && !shadowed(n.left.name)) {
-        acc.add(n.left.name);
+        record(n.left.name, "reassign");
       } else if (n.left?.type === "MemberExpression") {
         const r = rootObjectName(n.left);
-        if (r && stateNames.has(r) && !shadowed(r)) acc.add(r);
+        if (r && stateNames.has(r) && !shadowed(r)) record(r, "mutate");
       } else if (n.left?.type === "ObjectPattern" || n.left?.type === "ArrayPattern") {
         const bound = /* @__PURE__ */ new Set();
         addBoundNames(n.left, bound);
-        for (const name of bound) if (stateNames.has(name) && !shadowed(name)) acc.add(name);
+        for (const name of bound) if (stateNames.has(name) && !shadowed(name)) record(name, "reassign");
       }
     } else if (n?.type === "UpdateExpression") {
-      const r = rootObjectName(n.argument);
-      if (r && stateNames.has(r) && !shadowed(r)) acc.add(r);
+      if (n.argument?.type === "Identifier") {
+        if (stateNames.has(n.argument.name) && !shadowed(n.argument.name)) record(n.argument.name, "reassign");
+      } else {
+        const r = rootObjectName(n.argument);
+        if (r && stateNames.has(r) && !shadowed(r)) record(r, "mutate");
+      }
     } else if (n?.type === "UnaryExpression" && n.operator === "delete") {
       const r = rootObjectName(n.argument);
-      if (r && stateNames.has(r) && !shadowed(r)) acc.add(r);
+      if (r && stateNames.has(r) && !shadowed(r)) record(r, "mutate");
     } else if (n?.type === "CallExpression") {
       if (n.callee?.type === "MemberExpression") {
         const r = rootObjectName(n.callee);
-        if (r && stateNames.has(r) && !shadowed(r)) acc.add(r);
+        if (r && stateNames.has(r) && !shadowed(r)) record(r, "mutate");
       }
       for (const a of n.arguments ?? []) {
         const arg = a?.type === "SpreadElement" ? a.argument : a;
         const r = rootObjectName(arg);
-        if (r && stateNames.has(r) && !shadowed(r)) acc.add(r);
+        if (r && stateNames.has(r) && !shadowed(r)) record(r, "escape");
       }
     }
   });
 }
 function isDeferredBody(n) {
   return n?.type === "FunctionDeclaration" || n?.type === "FunctionExpression" || n?.type === "ArrowFunctionExpression";
+}
+function isPlainStateCall(node) {
+  return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$state";
+}
+function collectPatternAliasRefs(node, names, acc, scope, ownRhs) {
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (node.type === "Identifier") return;
+  if (node.type === "ObjectPattern") {
+    for (const prop2 of node.properties ?? []) {
+      if (prop2?.type === "RestElement") {
+        collectPatternAliasRefs(prop2.argument, names, acc, scope, ownRhs);
+      } else if (prop2?.type === "Property") {
+        if (prop2.computed) collectAliasRefs(prop2.key, names, acc, scope, ownRhs);
+        collectPatternAliasRefs(prop2.value, names, acc, scope, ownRhs);
+      }
+    }
+    return;
+  }
+  if (node.type === "ArrayPattern") {
+    for (const el of node.elements ?? []) collectPatternAliasRefs(el, names, acc, scope, ownRhs);
+    return;
+  }
+  if (node.type === "AssignmentPattern") {
+    collectPatternAliasRefs(node.left, names, acc, scope, ownRhs);
+    collectAliasRefs(node.right, names, acc, scope, ownRhs);
+    return;
+  }
+  if (node.type === "RestElement") {
+    collectPatternAliasRefs(node.argument, names, acc, scope, ownRhs);
+  }
+}
+function collectAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set(), ownRhs = null) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAliasRefs(child, names, acc, shadowed, ownRhs);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === "AssignmentExpression") {
+    const lhsIsCandidate = node.left?.type === "Identifier" && names.has(node.left.name) && !scope.has(node.left.name);
+    if (!lhsIsCandidate) collectAliasRefs(node.left, names, acc, scope, null);
+    collectAliasRefs(node.right, names, acc, scope, lhsIsCandidate ? node.left.name : null);
+    return;
+  }
+  if (node.type === "VariableDeclarator") {
+    collectPatternAliasRefs(node.id, names, acc, scope, ownRhs);
+    if (node.init) collectAliasRefs(node.init, names, acc, scope, ownRhs);
+    return;
+  }
+  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name) && node.name !== ownRhs) {
+    acc.add(node.name);
+    return;
+  }
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
+    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
+    collectAliasRefs(node[key2], names, acc, scope, ownRhs);
+  }
+}
+function collectFragmentAliasRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectFragmentAliasRefs(child, names, acc, shadowed);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (isDeferredBody(node)) {
+    const introduced2 = scopeIntroducedNames(node);
+    const scope2 = introduced2.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced2]) : shadowed;
+    collectAliasRefs(node.body, names, acc, scope2, null);
+    return;
+  }
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (Array.isArray(node.attributes)) collectFragmentAliasRefs(node.attributes, names, acc, scope);
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2) || key2 === "attributes") continue;
+    collectFragmentAliasRefs(node[key2], names, acc, scope);
+  }
+}
+function collectEachContextTaint(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectEachContextTaint(child, names, acc, shadowed);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === "EachBlock") {
+    const expr = unwrapTs(node.expression);
+    if (expr?.type === "Identifier" && names.has(expr.name) && !shadowed.has(expr.name)) {
+      const ctxNames = /* @__PURE__ */ new Set();
+      addBoundNames(node.context, ctxNames);
+      if (typeof node.index === "string") ctxNames.add(node.index);
+      if (ctxNames.size > 0) {
+        const union = /* @__PURE__ */ new Set();
+        const kinds = /* @__PURE__ */ new Map();
+        collectStateWrites(node.body, ctxNames, union, kinds);
+        collectTemplateEscapes(node.body, ctxNames, union, kinds);
+        const dirty = [...union].some((n) => {
+          const k = kinds.get(n);
+          return !k || [...k].some((kind) => kind !== "reassign");
+        });
+        if (dirty) acc.add(expr.name);
+      }
+    }
+  }
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    collectEachContextTaint(node[key2], names, acc, scope);
+  }
 }
 function refsNamesEagerly(node, names, shadowed = /* @__PURE__ */ new Set()) {
   if (Array.isArray(node)) return node.some((c) => refsNamesEagerly(c, names, shadowed));
@@ -54921,9 +55045,17 @@ function collectStalePropCandidates(program, propNames, source2) {
   return out;
 }
 var COMPONENT_LIKE_TYPES = /* @__PURE__ */ new Set(["Component", "SvelteComponent", "SvelteSelf"]);
-function collectTemplateEscapes(node, stateNames, acc) {
+function collectTemplateEscapes(node, stateNames, acc, kinds) {
+  const record = (name) => {
+    acc.add(name);
+    if (kinds) {
+      let set2 = kinds.get(name);
+      if (!set2) kinds.set(name, set2 = /* @__PURE__ */ new Set());
+      set2.add("escape");
+    }
+  };
   if (Array.isArray(node)) {
-    for (const c of node) collectTemplateEscapes(c, stateNames, acc);
+    for (const c of node) collectTemplateEscapes(c, stateNames, acc, kinds);
     return;
   }
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
@@ -54931,16 +55063,16 @@ function collectTemplateEscapes(node, stateNames, acc) {
     for (const attr of node.attributes) {
       if (attr?.type === "BindDirective") {
         const r = rootObjectName(attr.expression);
-        if (r && stateNames.has(r)) acc.add(r);
+        if (r && stateNames.has(r)) record(r);
       } else if (COMPONENT_LIKE_TYPES.has(node.type)) {
         walkEstree(attr, (m) => {
-          if (m?.type === "Identifier" && stateNames.has(m.name)) acc.add(m.name);
+          if (m?.type === "Identifier" && stateNames.has(m.name)) record(m.name);
         });
       }
     }
   }
   for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectTemplateEscapes(node[key2], stateNames, acc);
+    if (key2 in node) collectTemplateEscapes(node[key2], stateNames, acc, kinds);
   }
 }
 var RUNE_NAMES = /* @__PURE__ */ new Set(["$state", "$derived", "$effect", "$props", "$bindable", "$inspect", "$host"]);
@@ -55485,6 +55617,7 @@ function parseModuleFacts(source2, filename2) {
     constableStates: [],
     mutatedProps: [],
     stalePropDerivations: [],
+    rawableStates: [],
     suppressions: collectSuppressions(source2),
     orphanEffects,
     orphanLifecycleCalls,
@@ -55521,6 +55654,7 @@ function parseComponentFacts(source2, filename2) {
   const constableStates = [];
   const mutatedProps = [];
   const stalePropDerivations = [];
+  const rawableStates = [];
   let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
@@ -55579,6 +55713,40 @@ function parseComponentFacts(source2, filename2) {
     for (const d of stateDecls) {
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
     }
+    const rawableCandidates = [];
+    for (const stmt2 of program.body ?? []) {
+      if (stmt2?.type !== "VariableDeclaration") continue;
+      for (const d of stmt2.declarations ?? []) {
+        if (d?.id?.type !== "Identifier" || !d.init || !isPlainStateCall(d.init)) continue;
+        const arg = unwrapTs(d.init.arguments?.[0]);
+        if (arg?.type === "ObjectExpression" || arg?.type === "ArrayExpression") {
+          rawableCandidates.push({ name: d.id.name, line: lineOf(source2, d.start) });
+        }
+      }
+    }
+    if (rawableCandidates.length > 0) {
+      const candNames = new Set(rawableCandidates.map((c) => c.name));
+      const union = /* @__PURE__ */ new Set();
+      const kinds = /* @__PURE__ */ new Map();
+      collectStateWrites(program, candNames, union, kinds);
+      if (ast.fragment) {
+        collectStateWrites(ast.fragment, candNames, union, kinds);
+        collectTemplateEscapes(ast.fragment, candNames, union, kinds);
+      }
+      const aliasEscapes = /* @__PURE__ */ new Set();
+      collectAliasRefs(program, candNames, aliasEscapes);
+      const eachTaint = /* @__PURE__ */ new Set();
+      if (ast.fragment) {
+        collectFragmentAliasRefs(ast.fragment, candNames, aliasEscapes);
+        collectEachContextTaint(ast.fragment, candNames, eachTaint);
+      }
+      for (const c of rawableCandidates) {
+        const k = kinds.get(c.name);
+        const reassigned = k?.has("reassign") ?? false;
+        const dirty = k !== void 0 && [...k].some((kind) => kind !== "reassign") || aliasEscapes.has(c.name) || eachTaint.has(c.name);
+        if (reassigned && !dirty) rawableStates.push(c);
+      }
+    }
     let moduleExtra;
     if (moduleProgram) {
       const moduleBrowserImports = collectBrowserGuardImports(moduleProgram);
@@ -55605,6 +55773,7 @@ function parseComponentFacts(source2, filename2) {
     constableStates,
     mutatedProps,
     stalePropDerivations,
+    rawableStates,
     orphanEffects,
     orphanLifecycleCalls,
     browserGlobalRefs,
@@ -55627,6 +55796,7 @@ function emptyComponentFacts(file) {
     constableStates: [],
     mutatedProps: [],
     stalePropDerivations: [],
+    rawableStates: [],
     orphanEffects: [],
     orphanLifecycleCalls: [],
     browserGlobalRefs: [],
@@ -58182,6 +58352,23 @@ var performanceSequentialAwaits = kitModuleRule({
   applies: (m) => (m.loadWaterfalls?.independentLines.length ?? 0) > 0,
   bad: (m) => m.loadWaterfalls.independentLines.map((line) => ({ line, message: MESSAGE2 }))
 });
+var performanceStateRaw = componentRule({
+  id: "performance/state-raw",
+  title: "Raw state opportunity",
+  category: "performance",
+  severity: "info",
+  label: "Deep reactivity only where mutated",
+  recommendation: "Declare it with $state.raw(...) \u2014 reassignment stays reactive; only property-level mutation needs the deep proxy.",
+  rationale: "Objects and arrays in $state are made deeply reactive through proxying, which taxes every property access. A binding that is only ever reassigned \u2014 API responses are the canonical case \u2014 never uses that machinery; Svelte's own guidance is to use $state.raw for it.",
+  fix: {
+    description: "Replace $state(...) with $state.raw(...); keep the same initializer."
+  },
+  applies: (c) => c.rawableStates.length > 0,
+  bad: (c) => c.rawableStates.map((s) => ({
+    line: s.line,
+    message: `"${s.name}" is an object/array $state that is only ever reassigned, never mutated \u2014 $state.raw skips the deep-proxy overhead (reassignment stays reactive).`
+  }))
+});
 var allRules = [
   seoTitlePresence,
   seoDescriptionPresence,
@@ -58244,7 +58431,8 @@ var allRules = [
   performanceNamespaceImport,
   performanceMinifyDisabled,
   performanceLoadWaterfall,
-  performanceSequentialAwaits
+  performanceSequentialAwaits,
+  performanceStateRaw
 ];
 function classify(result, config) {
   if (isPenalized(result.detection, config.treatDynamicAs)) return "fail";
