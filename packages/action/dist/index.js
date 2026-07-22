@@ -58540,7 +58540,7 @@ function applyOverrides(results, config) {
   return out;
 }
 
-// ../cli/dist/chunk-DY7THW6C.js
+// ../cli/dist/chunk-YRLO56SA.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -59318,7 +59318,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-DY7THW6C.js
+// ../cli/dist/chunk-YRLO56SA.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -59451,16 +59451,16 @@ function exprValue(node) {
 }
 function resolveMetaObject(attr, keyMap) {
   if (!attr) return { tags: [], opaque: false };
-  const expr = attr.value?.type === "ExpressionTag" ? attr.value.expression : void 0;
+  const expr = attr.value !== true && !Array.isArray(attr.value) ? attr.value.expression : void 0;
   if (!expr || expr.type !== "ObjectExpression") return { tags: [], opaque: true };
   const tags = [];
   let opaque = false;
-  for (const prop2 of expr.properties ?? []) {
-    if (prop2?.type !== "Property" || prop2.computed) {
+  for (const prop2 of expr.properties) {
+    if (prop2.type !== "Property" || prop2.computed) {
       opaque = true;
       continue;
     }
-    const key2 = prop2.key?.name ?? prop2.key?.value;
+    const key2 = prop2.key.type === "Identifier" ? prop2.key.name : prop2.key.type === "Literal" ? prop2.key.value : void 0;
     const make = typeof key2 === "string" ? keyMap[key2] : void 0;
     if (make) tags.push(make(exprValue(prop2.value)));
   }
@@ -59562,24 +59562,24 @@ function findAdapter(info2) {
 }
 function addImportsFromProgram(program, map) {
   for (const node of program?.body ?? []) {
-    if (node?.type !== "ImportDeclaration") continue;
-    const source2 = String(node.source?.value ?? "");
-    for (const spec of node.specifiers ?? []) {
-      const local = spec?.local?.name;
+    if (node.type !== "ImportDeclaration") continue;
+    const source2 = String(node.source.value ?? "");
+    for (const spec of node.specifiers) {
+      const local = spec.local?.name;
       if (!local) continue;
       if (spec.type === "ImportDefaultSpecifier") {
         map.set(local, { source: source2, imported: "default" });
       } else if (spec.type === "ImportSpecifier") {
-        map.set(local, { source: source2, imported: spec.imported?.name ?? spec.imported?.value ?? local });
+        const imported = spec.imported.type === "Identifier" ? spec.imported.name : spec.imported.value;
+        map.set(local, { source: source2, imported: typeof imported === "string" ? imported : local });
       }
     }
   }
 }
 function collectImports(ast) {
-  const root = ast;
   const map = /* @__PURE__ */ new Map();
-  addImportsFromProgram(root?.instance?.content, map);
-  addImportsFromProgram(root?.module?.content, map);
+  addImportsFromProgram(ast.instance?.content, map);
+  addImportsFromProgram(ast.module?.content, map);
   return map;
 }
 function collectSvelteHeads(node, acc) {

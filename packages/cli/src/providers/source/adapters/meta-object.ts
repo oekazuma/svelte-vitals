@@ -1,11 +1,10 @@
-/* oxlint-disable @typescript-eslint/no-explicit-any */
+import type { Expression, Pattern } from 'estree';
+import type { AST } from 'svelte/compiler';
 import type { Value } from '@svelte-vitals/core';
 import type { ParsedTag } from '../parse.js';
 
-type Node = any;
-
 /** Value kind of an ESTree expression used as a prop or object-property value. */
-export function exprValue(node: Node): Value {
+export function exprValue(node: Expression | Pattern | null | undefined): Value {
   if (!node) return 'absent';
   if (node.type === 'Literal') {
     // A non-empty string literal is a concrete static value; other literals
@@ -35,24 +34,25 @@ export interface MetaObjectResult {
  * reported opaque for the caller to broaden.
  */
 export function resolveMetaObject(
-  attr: Node | undefined,
+  attr: AST.Attribute | undefined,
   keyMap: Record<string, (value: Value) => ParsedTag>
 ): MetaObjectResult {
   if (!attr) return { tags: [], opaque: false };
-  const expr = attr.value?.type === 'ExpressionTag' ? attr.value.expression : undefined;
+  const expr = attr.value !== true && !Array.isArray(attr.value) ? attr.value.expression : undefined;
   if (!expr || expr.type !== 'ObjectExpression') return { tags: [], opaque: true };
 
   const tags: ParsedTag[] = [];
   let opaque = false;
-  for (const prop of expr.properties ?? []) {
+  for (const prop of expr.properties) {
     // A SpreadElement (`{...d}`) or a computed key (`{ [k]: v }`) can't be
     // enumerated statically — fall back to broad coverage rather than silently
     // under-reporting a key we can't resolve.
-    if (prop?.type !== 'Property' || prop.computed) {
+    if (prop.type !== 'Property' || prop.computed) {
       opaque = true;
       continue;
     }
-    const key = prop.key?.name ?? prop.key?.value;
+    const key =
+      prop.key.type === 'Identifier' ? prop.key.name : prop.key.type === 'Literal' ? prop.key.value : undefined;
     const make = typeof key === 'string' ? keyMap[key] : undefined;
     if (make) tags.push(make(exprValue(prop.value)));
   }
