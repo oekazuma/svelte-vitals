@@ -43,11 +43,14 @@ When an `EachBlock` node has both an index binding and a key expression: unwrap 
 
 `String(i as number)` and similar TS-wrapped variants also match, since the TS unwrap runs at each recursion step, not just the outermost one. (Verify the modern-AST shape during implementation: `node.index` carries the index binding, `node.key` the key expression; the existing `isConstantListEach` skip and `hasKey` computation stay untouched.)
 
+Update (review-wave 2): the trivial coercions actually detected are `String(i)`, `Number(i)`, `` `${i}` ``, `i.toString()`, and `i + ''` (either operand order) — the shared `unwrapTs` helper unwraps TS wrappers, including non-null assertions (`i!`), at every recursion step.
+
 Not detected (non-goals):
 
 - Composite keys that contain the index alongside item data — `(item.id + '-' + i)`, ``(`${item.id}-${i}`)``: appending an index is sometimes a deliberate workaround for lists with duplicate items, where a bare item key would throw Svelte's duplicate-key error. This is a documented trade-off, not an unconditional endorsement — such a key still changes when an item moves position, so moved items are destroyed and recreated instead of tracked; a truly unique id is preferable when available. Never flagged either way.
 - Stringifications of a non-index value (`String(item.id)`, `` `${item.id}` ``, `item.id.toString()`) — not position-based identity, so out of scope.
 - Blocks without an index binding, unkeyed blocks (that's `each-key`'s job), constant-list each blocks (already skipped by the collector).
+- Length-only lists (`Array(n)`, `[...Array(n)]`, `Array.from({ length: n })`) — placeholder/skeleton lists with a fixed, order-free shape a key cannot help. Skipped at the collector (`isIdentityFreeEach`), exempting BOTH `each-key` and `each-index-key`.
 
 ## Registration, docs, changeset
 
@@ -59,6 +62,6 @@ Not detected (non-goals):
 ## Testing
 
 - **Parse unit**: `(i)` with index `i` → flag; `(item.id)` → no flag; keyed by a DIFFERENT identifier than the index (e.g. `(id)` where `id` isn't the index) → no flag; no index binding → no flag; unkeyed → `hasKey: false` and no `indexKey`; `satisfies`-wrapped key; renamed index (`as item, idx (idx)`) → flag.
-- **Rule unit**: fires per flagged block with the pinned message/line; components without the flag emit pass results only; verify a single component with one unkeyed and one index-keyed block triggers `each-key` once and `each-index-key` once (no overlap).
+- **Rule unit**: fires per flagged block with the pinned message/line; components without the flag emit no results (the applies gate short-circuits); verify a single component with one unkeyed and one index-keyed block triggers `each-key` once and `each-index-key` once (no overlap).
 - **Integration**: existing component-channel wiring is already covered; docs-links gate enforces the doc pages.
 - Final review: adversarial probes against built dist.
