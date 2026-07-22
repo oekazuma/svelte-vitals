@@ -5,7 +5,7 @@ Status: Approved
 
 ## Problem
 
-Svelte's best-practices doc (`documentation/docs/07-misc/01-best-practices.md`, "$state") advises: objects and arrays in `$state`are made deeply reactive via proxying, which has overhead; "In cases where you're dealing with large objects that are only ever reassigned (rather than mutated), use`$state.raw` instead. This is often the case with API responses, for example." Nothing surfaces this: the deep proxy silently taxes every property access on state that never needed it.
+Svelte's best-practices doc (`documentation/docs/07-misc/01-best-practices.md`, the `$state` section) advises: objects and arrays in `$state` are made deeply reactive via proxying, which has overhead; "In cases where you're dealing with large objects that are only ever reassigned (rather than mutated), use `$state.raw` instead. This is often the case with API responses, for example." Nothing surfaces this: the deep proxy silently taxes every property access on state that never needed it.
 
 Sourced from the Svelte best-practices survey (2026-07-22) — candidate C of three, the last (B: each-index-key and A: stale-prop-derivation shipped).
 
