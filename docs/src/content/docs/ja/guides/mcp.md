@@ -5,7 +5,7 @@ sidebar:
   order: 6
 ---
 
-`@svelte-vitals/mcp` は、svelte-vitals をツールとして公開する [Model Context Protocol](https://modelcontextprotocol.io) サーバーです。AI エージェントはそのツールループ内でこれらのツールを呼び出せます。エージェントは構造化された実行可能な検出結果を受け取ります。それぞれに `fix`、`recommendation`、`docsUrl` が含まれており、CLI サブプロセスを手動で起動する必要はありません。
+`@svelte-vitals/mcp` は、svelte-vitals を AI エージェントがツールループ内から呼び出せるツールとして公開する [Model Context Protocol](https://modelcontextprotocol.io) サーバーです。エージェントは、構造化されそのまま対処に使える検出結果（各項目に `fix`、`recommendation`、`docsUrl` 付き）を受け取れるため、CLI をサブプロセスとして手動で起動する必要はありません。
 
 > **ESM のみ**（Node 22.13+）。ES モジュールのみを提供します。`require()` は設計上サポートされていません。
 
@@ -52,17 +52,17 @@ SvelteKit プロジェクトの静的モード分析を実行します。
 
 ### クイックセットアップ（推奨）
 
-プロジェクトルートで対話式インストーラーを実行すると、MCP サーバーを自動で設定します：
+プロジェクトルートで対話式インストーラーを実行すれば、MCP サーバーは自動で設定されます：
 
 ```bash
 npx svelte-vitals@latest install
 ```
 
-**Claude Code**、**Cursor**、**Codex** に対応しており、各クライアントの設定にサーバーエントリをマージします（既存の他のサーバーはそのまま維持されます）。利用可能なフラグ（`--client`、`--scope`、`--yes`、`--dry-run`、`--force`）については [`svelte-vitals install`](/svelte-vitals/ja/guides/install/) を参照してください。
+**Claude Code**、**Cursor**、**Codex** に対応しており、サーバーエントリを各クライアントの設定にマージします。既存の他のサーバーには手を加えません。利用可能なフラグ（`--client`、`--scope`、`--yes`、`--dry-run`、`--force`）については [`svelte-vitals install`](/svelte-vitals/ja/guides/install/) を参照してください。
 
 ### 手動セットアップ
 
-stdio トランスポートをサポートする任意の MCP クライアントは手動で設定できます。クライアントの設定（例：Claude Code の `.mcp.json` や `~/.claude.json`）に以下を追加します：
+stdio トランスポートをサポートする MCP クライアントであれば、手動でも設定できます。クライアントの設定（例：Claude Code の `.mcp.json` や `~/.claude.json`）に以下を追加します：
 
 ```json
 {

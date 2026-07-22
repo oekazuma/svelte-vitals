@@ -1,21 +1,21 @@
 ---
 title: seo/json-ld-required-props · JSON-LD の必須プロパティ
-description: 認識される @type は、そのリッチリザルトに必要なプロパティを含むべきです。
+description: 既知の @type には、対応するリッチリザルトに必要なプロパティを含めるべきです。
 ---
 
 **重大度:** warning
 
 ## チェック内容
 
-認識される `@type`（Article、Product、BreadcrumbList、Organization、WebSite、Event、Recipe、Person、VideoObject、LocalBusiness）について、Google が必要とするプロパティの有無を確認します。未知/カスタム型は検出しません。
+既知の `@type`（Article、Product、BreadcrumbList、Organization、WebSite、Event、Recipe、Person、VideoObject、LocalBusiness）について、Google が必須とするプロパティがそろっているかを確認します。未知の型やカスタム型は検出しません。
 
 ## なぜ重要か
 
-認識される `@type` が必須プロパティを欠くと、対応するリッチリザルトの対象外になります。
+既知の `@type` に必須プロパティが欠けていると、対応するリッチリザルトの対象外になります。
 
 ## 修正方法
 
-不足プロパティを追加します。例えば `Product` は `name` と `offers` が必要です：
+不足しているプロパティを追加します。例えば `Product` には `name` と `offers` が必要です：
 
 ```json
 { "@context": "https://schema.org", "@type": "Product", "name": "…", "offers": { "@type": "Offer", "price": "…" } }

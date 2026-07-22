@@ -1,32 +1,32 @@
 ---
 title: seo/ssr-disabled · SSR の無効化
-description: export const ssr = false は、JS を実行しないクローラーからコンテンツを見えなくし、初回描画も遅くします。
+description: export const ssr = false にすると、JS を実行しないクローラーからコンテンツが見えなくなり、初回描画も遅くなります。
 ---
 
 **重大度:** warning · **カテゴリ:** seo
 
 ## チェック内容
 
-`export const ssr = false` でサーバーサイドレンダリングを無効化している SvelteKit のルートファイルを検出します（`satisfies`/`as` 形式や同一ファイル内のエイリアス export も対象）。ルートの `+layout` での無効化（アプリ全体が SPA になる）には、より強いアプリ全体向けのメッセージを出します。
+`export const ssr = false` でサーバーサイドレンダリングを無効化している SvelteKit のルートファイルを検出します（`satisfies`/`as` 形式や同一ファイル内のエイリアス export も対象）。ルートの `+layout` で無効化するとアプリ全体が SPA になるため、その場合はより強い、アプリ全体を対象としたメッセージを出します。
 
 検出対象外: `csr = false`（サーバー専用レンダリングであり、SEO にはむしろ良い）、`export const ssr = dev` のような非リテラル値（静的に評価不能）、export されていない `const ssr = false`（SvelteKit では効果がない）。
 
-## 重要な理由
+## なぜ重要か
 
-SvelteKit 公式の SEO ガイダンスいわく、サーバーレンダリングされたコンテンツはより頻繁に、確実にインデックスされます。正当な理由がない限り SSR は有効のままにすべきです。インデックスのリスクに加えて、SPA モードは空のページを配信して JavaScript の取得・実行を待つため、何かが描画されるまでにネットワークラウンドトリップが1回増えます。
+SvelteKit 公式の SEO ガイダンスによれば、サーバーレンダリングされたコンテンツはより頻繁に、そして確実にインデックスされます。正当な理由がない限り SSR は有効のままにすべきです。インデックスへのリスクに加えて、SPA モードは空のページを配信し、JavaScript を取得して実行するまで何も描画しないため、最初の描画までにネットワークラウンドトリップが 1 回増えます。
 
 `prerender = true` を併用してもこの問題は解消されません。`ssr = false` では事前レンダリングの出力も空のシェルになります。
 
 ## 修正方法
 
-`ssr = false` は SEO が本当に不要なルートに限定します:
+`ssr = false` は、SEO が本当に不要なルートに限定します：
 
 ```ts
 // src/routes/(app)/dashboard/+page.ts — 認証必須、インデックス不要
 export const ssr = false; // これが意図的なら suppression するかルールを off に
 ```
 
-意図的な完全 SPA の場合は、config でルールを無効化します:
+意図して完全な SPA にしている場合は、config でルールを無効化します：
 
 ```js
 // svelte-vitals.config.mjs

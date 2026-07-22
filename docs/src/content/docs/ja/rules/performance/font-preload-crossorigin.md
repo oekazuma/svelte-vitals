@@ -1,13 +1,13 @@
 ---
 title: performance/font-preload-crossorigin · フォント preload に crossorigin がない
-description: フォントの preload は crossorigin を指定しないと使われません。
+description: crossorigin を指定しないと、preload したフォントは使われません。
 ---
 
 **重大度:** warning
 
 ## チェック内容
 
-すべての `<link rel="preload" as="font">` は `crossorigin` 属性を含む必要があります。これがないフォント preload は検出されます。
+すべての `<link rel="preload" as="font">` には `crossorigin` 属性が必要です。`crossorigin` のないフォント preload を検出します。
 
 ## なぜ重要か
 

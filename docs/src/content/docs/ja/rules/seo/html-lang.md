@@ -1,21 +1,21 @@
 ---
 title: seo/html-lang · <html lang>
-description: プロジェクトの app.html は <html> に lang 属性を設定する必要があります。
+description: プロジェクトの app.html で <html> に lang 属性を設定すべきです。
 ---
 
 **重大度:** warning
 
 ## チェック内容
 
-`src/app.html` の `<html>` 要素は空でない `lang` 属性を持つ必要があります。欠落または空の `lang` 属性は指摘されます。
+`src/app.html` の `<html>` 要素には空でない `lang` 属性が必要です。`lang` 属性がない、または空の場合に検出します。
 
 ## なぜ重要か
 
-`<html lang>` 属性は、検索エンジン、スクリーンリーダー、翻訳ツールのためにページの言語を宣言します。
+`<html lang>` 属性は、ページの言語を検索エンジンやスクリーンリーダー、翻訳ツールに伝えます。
 
 ## 修正方法
 
-`src/app.html` の `<html lang="...">` を設定します：
+`src/app.html` で `<html lang="...">` を設定します：
 
 ```html
 <html lang="en"></html>

@@ -7,11 +7,11 @@ description: robots.txt はクローラーに sitemap を示すべきです。
 
 ## チェック内容
 
-robots.txt と sitemap の両方が存在する場合、静的な `static/robots.txt` に `Sitemap:` 行があるべきです。（`+server` の robots エンドポイントは静的には検査しません。）
+robots.txt と sitemap の両方が存在する場合、静的ファイルの `static/robots.txt` には `Sitemap:` 行があるべきです（`+server` の robots エンドポイントは静的解析では検査しません）。
 
 ## なぜ重要か
 
-robots.txt の `Sitemap:` 行はクローラーによる sitemap の発見を助けます。ない場合は手動送信に依存します。
+robots.txt に `Sitemap:` 行があると、クローラーが sitemap を見つけやすくなります。ない場合は、手動での送信に頼ることになります。
 
 ## 修正方法
 

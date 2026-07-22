@@ -1,21 +1,21 @@
 ---
 title: seo/json-ld · JSON-LD 構造化データ
-description: すべてのルートは JSON-LD 構造化データを含む必要があります。
+description: すべてのルートに JSON-LD 構造化データを含めるべきです。
 ---
 
 **重大度:** info
 
 ## チェック内容
 
-すべてのルートは `<script type="application/ld+json">` の JSON-LD ブロックを含む必要があります（直接指定またはレイアウトチェーンを通じた継承）。欠落している JSON-LD ブロックは指摘されます。
+すべてのルートに `<script type="application/ld+json">` の JSON-LD ブロックが必要です（直接指定でも、レイアウトチェーン経由の継承でも構いません）。JSON-LD ブロックがないルートを検出します。
 
 ## なぜ重要か
 
-JSON-LD 構造化データにより、検索エンジンはページに対してリッチリザルト（パンくずリスト、記事、商品など）をレンダリングできます。
+JSON-LD 構造化データがあると、検索エンジンはそのページにリッチリザルト（パンくずリスト、記事、商品など）を表示できます。
 
 ## 修正方法
 
-`<svelte:head>` 内にリテラル JSON で JSON-LD `<script>` を追加します（Svelte はスクリプトボディをそのまま出力するため、リテラル JSON を使用してください。`{JSON.stringify(...)}` のような補間はそのリテラル文字列として出力され、無効な JSON-LD になります）：
+`<svelte:head>` 内に、リテラル JSON で JSON-LD の `<script>` を追加します。Svelte はスクリプトの中身をそのまま出力するので、`{JSON.stringify(...)}` のような補間を書くと、その文字列がリテラルのまま出力されて無効な JSON-LD になります：
 
 ```svelte
 <svelte:head>

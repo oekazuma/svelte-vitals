@@ -13,36 +13,36 @@ sidebar:
 npx svelte-vitals@latest ci install
 ```
 
-これにより `.github/workflows/svelte-vitals.yml` が書き出されます。コミットしてプルリクエストを開けば、実行される様子を確認できます。
+このコマンドは `.github/workflows/svelte-vitals.yml` を書き出します。コミットしてプルリクエストを開けば、実行される様子を確認できます。
 
-MCP サーバー、Vite との連携、Agent Skills と一緒にセットアップしたい場合は、[`svelte-vitals install`](/svelte-vitals/ja/guides/install/#--client-ids) でも `ci-workflow` が選択可能なターゲットになっています。このコマンドを別途実行する代わりに、そちらで同じワークフローファイルを同じ実行の中で書き出せます。`ci upgrade`（下記）にはウィザード側の対応物はなく、引き続き単体のコマンドです。
+MCP サーバーや Vite との連携、Agent Skills と一緒にセットアップするなら、[`svelte-vitals install`](/svelte-vitals/ja/guides/install/#--client-ids) でも `ci-workflow` をターゲットとして選べます。`ci install` を別途実行しなくても、同じワークフローファイルを同じ実行の中で書き出せます。`ci upgrade`（後述）にはウィザード側の対応はなく、引き続き単体のコマンドです。
 
 ```bash
 npx svelte-vitals@latest ci install --dry-run   # 書き込まずにプレビュー
 npx svelte-vitals@latest ci install --force     # 既存のワークフローファイルを再生成
 ```
 
-`--force` を付けずに `ci install` を再実行しても、ファイルが既に存在する場合は何も行いません（冪等なので、svelte-vitals をアップグレードした後に再実行しても安全です）。以前のバージョンの svelte-vitals が生成したワークフローが既にある場合は、`--force` で再実行すると現行の短いテンプレートに移行できます。
+ファイルが既に存在する場合、`--force` を付けずに `ci install` を再実行しても何もしません（冪等なので、svelte-vitals をアップグレードした後に再実行しても安全です）。以前のバージョンの svelte-vitals が生成したワークフローが既にある場合は、`--force` を付けて再実行すると現行の短いテンプレートに移行できます。
 
 ## 既存プロジェクトへの導入
 
-リポジトリに既に検出結果の蓄積がある場合は、まずローカルで `svelte-vitals --update-suppressions` を実行してください。現在のすべての検出結果を受け入れる `svelte-vitals-suppressions.json` が一度で書き出されます。そのファイルをコミットしてから、好きなゲート（`--fail-on`、`--min-health`、pre-commit フック、あるいはこのワークフロー）を有効にすれば、以降はそれ以後に導入された検出結果だけで失敗するようになり、蓄積分を事前に直す必要はありません。詳しくは CLI リファレンスの [`--update-suppressions`](/svelte-vitals/ja/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions) を参照してください。`@svelte-vitals/action` もこのファイルを自動的に適用するため、有効にするための追加の入力は不要です。以下で説明する `diff`/`baseline` によるスコープ絞り込みは、この _ワークフロー_ を既に PR 自体の変更分に限定していますが、リポジトリに抑制ファイルが存在すれば、それに加えて PR の外（たとえばローカルの pre-commit フックでの `--fail-on`）でも、同じ蓄積問題なしにゲートを有効にできます。
+リポジトリに既に検出結果の蓄積がある場合は、まずローカルで `svelte-vitals --update-suppressions` を実行してください。現在のすべての検出結果を受け入れる `svelte-vitals-suppressions.json` が一度で書き出されます。そのファイルをコミットしてから、好きなゲート（`--fail-on`、`--min-health`、pre-commit フック、あるいはこのワークフロー）を有効にすれば、以降はコミット後に導入された検出結果だけで失敗するようになり、蓄積分を事前に直す必要はありません。詳しくは CLI リファレンスの [`--update-suppressions`](/svelte-vitals/ja/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions) を参照してください。リポジトリにこのファイルがあれば `@svelte-vitals/action` も自動的に適用するため、有効化のための追加の入力は不要です。後述の `diff`/`baseline` によるスコープ絞り込みだけでも、この _ワークフロー_ は PR 自体の変更分に限定されます。抑制ファイルがあれば、それに加えて PR の外（たとえばローカルの pre-commit フックでの `--fail-on`）でも、同じ蓄積の問題に悩まされずにゲートを有効にできます。
 
 ## ワークフローの動作
 
 `pull_request` イベントが発生するたびに、生成されるワークフローは以下を行います：
 
 1. `fetch-depth: 0` でリポジトリをフル履歴でチェックアウトし、Action が `diff`/`baseline` のために PR のベース ref を解決できるようにします。
-2. `@svelte-vitals/action` を呼び出します。この Action は svelte-vitals を**インプロセスで**（`npx` なし、Node セットアップステップなし、出力ごとの個別スキャンなしで）PR にスコープを絞って実行します：`diff: origin/<base>` は PR が変更したファイルに検出結果を限定し、[`baseline: origin/<base>`](/svelte-vitals/ja/guides/cli/) はさらに PR によって**新たに導入された**検出結果に絞り込みます。変更されたファイル内の既存の問題はブロックしません。
+2. `@svelte-vitals/action` を呼び出します。この Action は svelte-vitals を**インプロセスで**（`npx` なし、Node セットアップステップなし、出力ごとの個別スキャンなしで）PR にスコープを絞って実行します。`diff: origin/<base>` は PR が変更したファイルに検出結果を限定し、[`baseline: origin/<base>`](/svelte-vitals/ja/guides/cli/) はさらに PR が**新たに導入した**検出結果だけに絞り込みます。変更したファイルに元からあった問題が PR をブロックすることはありません。
 3. この単一の解析結果から、Action は3つの出力をまとめて生成します：
    - diff 上のインラインアノテーション。
    - ジョブサマリー。
    - スティッキー PR コメント。隠された `<!-- svelte-vitals-report -->` マーカーにより、以降のプッシュで新しいコメントを積み上げるのではなく同じコメントを更新します。
-4. スキャンでゲート対象の検出結果が見つかった場合、サマリー/コメントが既に書き込まれた**後に**ジョブを失敗させます。そのため、失敗した実行でも常に PR コメントを得られます。
+4. スキャンでゲート対象の検出結果が見つかった場合、サマリーとコメントを書き込んだ**後に**ジョブを失敗させます。そのため、失敗した実行でも PR コメントは必ず残ります。
 
 ## コメントの見た目
 
-何もインストールする前に、`@svelte-vitals/action` が投稿するスティッキー PR コメントのプレビューを示します。実際に生成されるコメントはこのようにレンダリングされます（以下の行は実際のルール出力を、説明のためにまとめたものです。太字の行は、実際の GitHub のコメント上では見出しとして表示されます）：
+インストールする前に、`@svelte-vitals/action` が投稿するスティッキー PR コメントのプレビューを見ておきましょう。実際のコメントは次のようにレンダリングされます（検出結果の各行は実際のルール出力ですが、説明のためにここに寄せ集めたものです。太字の行は、実際の GitHub のコメント上では見出しとして表示されます）：
 
 > **svelte-vitals — Health 78/100**
 >
@@ -80,7 +80,7 @@ npx svelte-vitals@latest ci install --force     # 既存のワークフローフ
 | `baseline`     | この git ref にまだ存在しない検出結果のみを報告                               | （未指定）            |
 | `github-token` | スティッキー PR コメントの読み取り、投稿、更新に使うトークン                  | `${{ github.token }}` |
 
-`reporter` という入力はありません。Action は常にアノテーション、ジョブサマリー、スティッキーコメントを1回のパスでまとめて生成します。この出力の振り分けは個別に設定するものではなくなりました。
+`reporter` という入力はありません。Action は常にアノテーション、ジョブサマリー、スティッキーコメントを1回のパスでまとめて生成します。この出力の振り分けは、個別に設定するものではありません。
 
 上記の入力が設定のすべてでは**ありません**。Action は CLI と同じ解析を実行するため、コミット済みの
 [`svelte-vitals.config.*`](/svelte-vitals/ja/guides/configuration/) と
@@ -124,7 +124,7 @@ permissions:
   pull-requests: write
 ```
 
-PR コメントの投稿と更新には `pull-requests: write` が必要です。**フォークからの**プルリクエストによってトリガーされたワークフローでは、ワークフローの宣言内容にかかわらず GitHub Actions がトークンの権限を降格するため、`@svelte-vitals/action` はフォーク PR を検出してそこではスティッキーコメントをスキップします（これによってジョブが失敗することはありません）。その場合でもインラインアノテーションとジョブサマリーは機能します。
+PR コメントの投稿と更新には `pull-requests: write` が必要です。**フォークからの**プルリクエストでトリガーされたワークフローでは、ワークフローの宣言内容にかかわらず GitHub Actions がトークンの権限を降格します。そのため `@svelte-vitals/action` はフォーク PR を検出した場合、スティッキーコメントをスキップします（これでジョブが失敗することはありません）。その場合でも、インラインアノテーションとジョブサマリーは機能します。
 
 ## 手書きする場合
 
@@ -155,25 +155,25 @@ jobs:
           baseline: origin/${{ github.base_ref }}
 ```
 
-`ci install` は `<sha>`/`<version>` に、このリポジトリ内で実在する動作可能なコミット SHA を（`svelte-vitals` 自身のビルド時に解決して）自動的に埋め込みます。これは必ずしも `@svelte-vitals/action@<version>` のリリースタグが指す、まさにそのコミットとは限りませんが、どのコミットであっても、その `packages/action/dist` は該当バージョンの内容と一致することが保証されています。いずれにせよ、動作するピン留めを得る一番簡単な方法はインストーラーを実行することです。手書きする場合は、[リポジトリ](https://github.com/oekazuma/svelte-vitals/releases)にある最新の `@svelte-vitals/action@<version>` リリースタグのコミット SHA とバージョンを使ってください。
+`ci install` は `<sha>`/`<version>` に、このリポジトリに実在する動作可能なコミット SHA を（`svelte-vitals` 自身のビルド時に解決して）自動的に埋め込みます。埋め込まれるのは `@svelte-vitals/action@<version>` のリリースタグが指すコミットそのものとは限りませんが、`packages/action/dist` の内容が該当バージョンと一致するコミットであることは保証されています。いずれにせよ、動作するピンを得る一番簡単な方法はインストーラーの実行です。手書きする場合は、[リポジトリ](https://github.com/oekazuma/svelte-vitals/releases)にある最新の `@svelte-vitals/action@<version>` リリースタグのコミット SHA とバージョンを使ってください。
 
 Action を経由せず svelte-vitals を直接実行したい場合の `--diff` や `--baseline` などの対応フラグについては[CLI リファレンス](/svelte-vitals/ja/guides/cli/)を、Action のサマリーとコメントが基づいている出力フォーマットについては[レポーターガイド](/svelte-vitals/ja/guides/reporters/)を参照してください。
 
 ## ピン留めされた Action の更新
 
-`@svelte-vitals/action` はサプライチェーンの安全性のためコミット SHA でピン留めされているため、新しいリリースが出るたびにワークフロー内のピンは古くなります。ファイル全体を `ci install --force` で再生成することもできますが、それではワークフローに加えたカスタマイズ（追加のトリガーやステップなど）が失われてしまいます。
+`@svelte-vitals/action` はサプライチェーンの安全性のためにコミット SHA でピン留めされています。そのため、新しいリリースが出るたびにワークフロー内のピンは古くなります。ファイル全体を `ci install --force` で再生成することもできますが、それではワークフローに加えたカスタマイズ（追加のトリガーやステップなど）が失われてしまいます。
 
-`svelte-vitals ci upgrade` はより外科的な代替手段です。既存のワークフロー内の `uses: oekazuma/svelte-vitals/packages/action@<sha>` の行**だけ**を、実行している CLI に同梱されたピンへ書き換えます。それ以外の内容（`actions/checkout` など他の `uses:` ピン、独自のトリガー、追加ステップ）はそのまま残ります。
+`svelte-vitals ci upgrade` を使えば、必要な行だけをピンポイントで書き換えられます。既存のワークフロー内の `uses: oekazuma/svelte-vitals/packages/action@<sha>` の行**だけ**を、実行している CLI に同梱されたピンへ書き換え、それ以外の内容（`actions/checkout` など他の `uses:` ピン、独自のトリガー、追加ステップ）はそのまま残します。
 
 ```bash
 npx svelte-vitals@latest ci upgrade              # その場でピンを書き換える
 npx svelte-vitals@latest ci upgrade --dry-run    # 書き込まずに変更前後をプレビュー
 ```
 
-`ci upgrade` が書き込むピンはネットワーク経由の取得ではなく CLI のビルドに焼き込まれた値です。最新のピンを得るには（上記のように）`@latest` を付けて実行してください。想定される結果：
+`ci upgrade` が書き込むピンは、ネットワークから取得するのではなく CLI のビルド時に埋め込まれた値です。最新のピンを得るには（上記のように）`@latest` を付けて実行してください。結果は次の3通りです：
 
 - **アップグレードされた場合**：参照行が同梱ピンと一致していなかったため書き換えられ、行のコメント（`# @svelte-vitals/action@X.Y.Z`）から読み取った旧バージョンが表示されます。
 - **既に最新の場合**：すべての参照が既に同梱ピンと一致しており、何も書き込まれません。
 - **ワークフローが見つからない / action の参照が見つからない場合**：`ci install` を先に実行するよう促すエラーで終了します。`ci upgrade` はワークフローをゼロから作成することはありません。
 
-Renovate など別のツールで直接ピンを更新している場合でも、`ci upgrade` と競合することはありません。どちらも同じ `uses: ... @<sha> # @svelte-vitals/action@<version>` という形式の同じ行を保ちます。
+Renovate など別のツールで直接ピンを更新している場合でも、`ci upgrade` と競合することはありません。どちらも同じ行を `uses: ... @<sha> # @svelte-vitals/action@<version>` という同じ形式のまま保つためです。

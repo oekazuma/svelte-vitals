@@ -1,6 +1,6 @@
 ---
 title: correctness/server-browser-global · サーバー実行モジュールコードでの browser global
-description: モジュールスコープや load/handler での window、document、localStorage の参照は SSR を ReferenceError でクラッシュさせます。
+description: モジュールスコープや load/handler で window、document、localStorage を参照すると、SSR が ReferenceError でクラッシュします。
 ---
 
 **重大度:** critical · **カテゴリ:** correctness

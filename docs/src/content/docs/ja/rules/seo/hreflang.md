@@ -10,11 +10,11 @@ description: hreflang の alternate は有効なコードを使い、x-default �
 `<link rel="alternate" hreflang="…">` の alternate を検証します。本ルールはオプトインで、hreflang alternate のないページは検出しません。alternate が存在する場合、次を検出します。
 
 - 不正な `hreflang` 値（`x-default` でも、`en`、`en-US`、`zh-Hant`、`es-419` のような整形式の BCP-47 コードでもないもの）
-- 2つ以上の alternate があるのに `x-default` がない場合
+- alternate が 2 つ以上あるのに `x-default` がない場合
 
 ## なぜ重要か
 
-不正な hreflang コードや `x-default` の欠落は国際的なターゲティングを壊し、検索エンジンが誤った言語版を表示したり、アノテーションを無視したりする原因になります。
+hreflang コードが不正だったり `x-default` が欠けていたりすると国際ターゲティングが機能せず、検索エンジンが誤った言語版を表示したり、アノテーション自体を無視したりします。
 
 ## 修正方法
 

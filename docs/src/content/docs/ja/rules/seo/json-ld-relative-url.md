@@ -7,13 +7,13 @@ description: JSON-LD の URL は絶対 URL であるべきです。
 
 ## チェック内容
 
-JSON-LD の既知の URL キー（`url`、`image`、`logo`、`sameAs`、`contentUrl`、`thumbnailUrl`）の相対値を検出します。URI スキーム（`https:`、`data:`、`mailto:` など）を持つ値やプロトコル相対（`//host/…`）は絶対とみなし、`/logo.png` のようなスキームなしのパスのみを検出します。
+JSON-LD の既知の URL キー（`url`、`image`、`logo`、`sameAs`、`contentUrl`、`thumbnailUrl`）に相対 URL が入っている場合に検出します。URI スキーム（`https:`、`data:`、`mailto:` など）を持つ値とプロトコル相対（`//host/…`）は絶対 URL とみなし、`/logo.png` のようなスキームなしのパスだけを検出します。
 
-`@id` は検査しません。`@id` はノードの識別子であり、同一 `@graph` 内のノードを相互参照する相対フラグメント（例: `#organization`）として使われることが多く、これは壊れた URL ではなく正当なパターンだからです。
+`@id` は検査しません。`@id` はノードの識別子であり、同一 `@graph` 内のノードを相互参照する相対フラグメント（例: `#organization`）としてよく使われます。これは正当なパターンであって、壊れた URL ではないためです。
 
 ## なぜ重要か
 
-検索エンジンは構造化データに絶対 URL を必要とします。相対 URL は確実に解決できません。
+検索エンジンは構造化データに絶対 URL を要求します。相対 URL は確実には解決できません。
 
 ## 修正方法
 

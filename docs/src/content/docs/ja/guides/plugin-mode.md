@@ -5,7 +5,7 @@ sidebar:
   order: 4
 ---
 
-`@svelte-vitals/vite` は Vite / SvelteKit プラグインで、`vite build` に便乗して**プリレンダリングされた HTML の `<head>`** を解析し、CLI と同じ SEO およびパフォーマンスルールを実行します。実際の HTML 出力を検査するため、ライブラリに依存しません。ビルドモードではさらに、`src/` 配下のソース（コンポーネント、runes モジュール（`.svelte.ts`/`.svelte.js`）、SvelteKit のルート/フックファイル）を走査し、Correctness、Security、Architecture、およびコンポーネントスコープの Performance（バンドル）ルールも検証します。CLI と同じファイルスコープのルールで、デフォルトで有効です。検出結果が `failOn` の閾値に達するとビルドが失敗します。
+`@svelte-vitals/vite` は Vite / SvelteKit プラグインで、`vite build` に便乗して**プリレンダリングされた HTML の `<head>`** を解析し、CLI と同じ SEO と Performance のルールを実行します。実際の HTML 出力を検査するので、使っているライブラリを問いません。ビルドモードではさらに、`src/` 配下のソース（コンポーネント、runes モジュール（`.svelte.ts`/`.svelte.js`）、SvelteKit のルート/フックファイル）を走査し、Correctness、Security、Architecture、およびコンポーネントスコープの Performance（バンドル）ルールも実行します。これらは CLI が実行するのと同じファイルスコープのルールで、デフォルトで有効です。検出結果が `failOn` の閾値に達するとビルドが失敗します。
 
 > **ESM のみ**（Node 22.13+）。ES モジュールのみを提供します。`require()` は設計上サポートされていません。
 
@@ -48,7 +48,7 @@ export default {
 
 ## 設定ファイル
 
-`@svelte-vitals/vite` はプロジェクトルートの `svelte-vitals.config.*` を自動的に読み込みます。上記の明示的なオプションは常に設定ファイルの値より優先されます。優先順位のルールと、ライブダッシュボードでの利用方法については [設定ファイル § Vite プラグインで設定ファイルを再利用する](/svelte-vitals/ja/guides/configuration/#vite-プラグインで設定ファイルを再利用する) を参照してください。
+`@svelte-vitals/vite` はプロジェクトルートの `svelte-vitals.config.*` を自動的に読み込みます。上記の明示的なオプションは常に設定ファイルの値より優先されます。優先順位のルールと、ライブダッシュボードが設定ファイルをどう利用するかは [設定ファイル § Vite プラグインで設定ファイルを再利用する](/svelte-vitals/ja/guides/configuration/#vite-プラグインで設定ファイルを再利用する) を参照してください。
 
 ## 対象範囲
 
@@ -56,7 +56,7 @@ export default {
 
 ## 動作の仕組み
 
-`vite build` 中、SvelteKit がページをプリレンダリングした後、`@svelte-vitals/vite` は出力された HTML ファイルを探して各ページの `<head>` を解析し、完全なルールセットを実行します。いずれかの検出結果が `failOn` の閾値に達すると、ビルドプロセスは非ゼロのコードで終了します。
+`vite build` 中、SvelteKit がページをプリレンダリングした後、`@svelte-vitals/vite` は出力された HTML ファイルを探して各ページの `<head>` を解析し、ルールセット全体を実行します。いずれかの検出結果が `failOn` の閾値に達すると、ビルドプロセスは非ゼロの終了コードで終わります。
 
 ## ライブダッシュボード
 

@@ -5,7 +5,7 @@ sidebar:
   order: 6.5
 ---
 
-svelte-vitals は、**Claude Code**、**Cursor**、**Codex** で同一に動作する可搬性のある `SKILL.md` ファイルとして、2つの Agent Skills を提供します。3つのツールはいずれも同じフロントマター形式の規約を読むためです。どちらもプロジェクトの現在のルールセットから一度だけ生成され、各ツールの慣例的な場所に書き出されます。インストールは [`svelte-vitals install`](/svelte-vitals/ja/guides/install/) で行います。
+svelte-vitals は2つの Agent Skills を提供します。どちらも **Claude Code**、**Cursor**、**Codex** で同じように動くポータブルな `SKILL.md` ファイルです。3つのツールがいずれも同じフロントマター形式の規約を解釈するため、1つのファイルがそのまま使い回せます。スキルはプロジェクトの現在のルールセットから一度生成され、各ツールの規約どおりの場所に書き出されます。インストールは [`svelte-vitals install`](/svelte-vitals/ja/guides/install/) で行います。
 
 ```bash
 npx svelte-vitals@latest install --client claude-skill,claude-skill-improve --yes
@@ -13,7 +13,7 @@ npx svelte-vitals@latest install --client claude-skill,claude-skill-improve --ye
 
 ## `/svelte-vitals`
 
-毎回の編集に寄り添うスキルです。ルールカタログ全体（各ルールの id、タイトル、severity、rationale をカテゴリごとにまとめたもの）を埋め込んでいるため、エージェントはコードを書く前からルールを把握しており、書き終えたら `svelte-vitals --diff`／`--staged` を回帰チェックとして実行すべきことも知っています。
+編集のたびに使うスキルです。ルールカタログ全体（各ルールの id、タイトル、severity、rationale をカテゴリごとにまとめたもの）を埋め込んでいるため、エージェントはコードを書く前からルールを把握しており、書き終えたら回帰チェックとして `svelte-vitals --diff`／`--staged` を実行すべきことも知っています。
 
 書き出される場所：
 
@@ -25,9 +25,9 @@ npx svelte-vitals@latest install --client claude-skill,claude-skill-improve --ye
 
 ## `/improve-svelte`
 
-読み取り専用の、プロジェクト全体を対象とした監査スキルです。「この SvelteKit アプリをレビューして」という依頼を、根拠に基づく優先順位付きのプランへと変えます。プロジェクト全体をスキャンし、ルールの生の severity ではなく実際のユーザーや検索エンジンへの影響度で指摘に優先順位を付け（たとえばホームページの canonical URL 欠落は、誰も見ないページの同じ指摘より優先されます）、選ばれた指摘を1件ずつ `plans/` 配下の自己完結型の実装プランとして書き出します。別のエージェント（より安価なモデルでも）や人間が、文脈を再構築せずにそのまま着手できる精度です。
+読み取り専用の、プロジェクト全体を対象とした監査スキルです。「この SvelteKit アプリをレビューして」という依頼を、根拠に基づく優先順位付きのプランへと変えます。プロジェクト全体をスキャンし、ルール定義上の severity ではなく実際のユーザーや検索エンジンへの影響度で指摘に優先順位を付けます（たとえばホームページの canonical URL 欠落は、誰も見ないページの同じ指摘より優先されます）。選んだ指摘は1件ずつ、`plans/` 配下の自己完結型の実装プランとして書き出します。別のエージェント（より安価なモデルでも）や人間が、文脈を再構築せずにそのまま着手できる精度です。
 
-各修正内容は svelte-vitals 自身のルールカタログ（`/svelte-vitals` が埋め込むのと同じもの）由来なので、その場ででっち上げたものではなく、ネットワーク取得も不要です。ソース自体は一切編集しないため、いつ実行しても安全です。`/svelte-vitals` が毎回の編集ごとの回帰チェックであるのに対し、`/improve-svelte` は push 前やリファクタ前、SEOやパフォーマンス強化の際などに使う「優先順位付きロードマップが欲しい」ときのための、定期的なパスです。
+修正の提案はすべて svelte-vitals 自身のルールカタログ（`/svelte-vitals` が埋め込むのと同じもの）に由来します。その場の思いつきではなく、ネットワークアクセスも必要ありません。ソース自体は一切編集しないため、いつ実行しても安全です。`/svelte-vitals` が編集のたびに回す回帰チェックだとすれば、`/improve-svelte` は「優先順位付きのロードマップが欲しい」ときに定期的に回すパスです。push 前、リファクタ前、SEO やパフォーマンスの集中改善の前に実行するとよいでしょう。
 
 書き出される場所：
 
@@ -37,7 +37,7 @@ npx svelte-vitals@latest install --client claude-skill,claude-skill-improve --ye
 
 ## スキルを最新に保つ
 
-ルールはリリースごとに変わります。最初にどのスキルをインストールしたか覚えていなくても、アップグレード後にインストール済みのスキルファイルを再生成できます：
+ルールはリリースごとに変わります。アップグレード後は、最初にどのスキルを入れたか覚えていなくても、インストール済みのスキルファイルをまとめて再生成できます：
 
 ```bash
 npx svelte-vitals@latest install --refresh

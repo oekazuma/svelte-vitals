@@ -1,17 +1,17 @@
 ---
 title: seo/twitter-card · Twitter Card
-description: X/Twitter でのリッチ共有のため twitter:card を宣言すべきです。
+description: X/Twitter でのシェアをリッチ表示にするため、twitter:card を宣言すべきです。
 ---
 
 **重大度:** info
 
 ## チェック内容
 
-すべてのルートは `<meta name="twitter:card">` を持つべきです（直接指定または継承）。欠落していると検出されます。
+すべてのルートは `<meta name="twitter:card">` を持つべきです（直接指定でも継承でも構いません）。欠けているルートを検出します。
 
 ## なぜ重要か
 
-twitter:card は X/Twitter で共有された際の表示形式を決めます。ない場合は基本的なリンク表示になります（カードのタイトルや画像は Open Graph タグがフォールバックとして使われます）。
+twitter:card は、ページが X/Twitter で共有されたときの表示形式を決めます。ない場合は簡素なリンク表示になります（カードのタイトルや画像には Open Graph タグがフォールバックとして使われます）。
 
 ## 修正方法
 
