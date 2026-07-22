@@ -18,7 +18,7 @@ import { lineOf } from './svelte-ast.js';
 import type { KitModuleFacts } from './kit-module.js';
 
 // Same pragmatic typing stance as component-parse.ts.
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 type Node = any;
 
 /** Exported names whose function bodies run on the server per request (SvelteKit's contract). */

@@ -19,8 +19,8 @@ pnpm install
 pnpm build          # build all packages (tsup)
 pnpm test           # vitest
 pnpm typecheck      # tsc --noEmit
-pnpm lint           # prettier --check + eslint
-pnpm format         # prettier --write
+pnpm lint           # oxlint + oxfmt --check
+pnpm format         # oxfmt --write
 pnpm check:publish  # publint + attw (--profile esm-only)
 ```
 

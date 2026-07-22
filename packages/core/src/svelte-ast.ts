@@ -4,7 +4,7 @@ import type { Value } from './types.js';
 // so traversal uses `any`. The node-type strings below are verified against
 // svelte 5 output (see Slice 0 AST probe): <title> is `TitleElement` (not a
 // RegularElement), and `{expr}` is `ExpressionTag`.
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 type Node = any;
 
 /**

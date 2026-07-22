@@ -13,8 +13,8 @@ svelte-vitals is a static code-health checker for SvelteKit — not a runtime We
 | Build          | `pnpm build`         | `pnpm -r build`                       |
 | Typecheck      | `pnpm typecheck`     | `pnpm -r typecheck`                   |
 | Test           | `pnpm test`          | `pnpm -r test` (vitest)               |
-| Lint           | `pnpm lint`          | `prettier --check .` + `eslint .`     |
-| Format         | `pnpm format`        | `prettier --write .`                  |
+| Lint           | `pnpm lint`          | `oxlint .` + `oxfmt --check .`        |
+| Format         | `pnpm format`        | `oxfmt --write .`                     |
 | Publish checks | `pnpm check:publish` | publint + attw (`--profile esm-only`) |
 
 CI (`.github/workflows/ci.yml`) runs four jobs: `lint`, `check` (build + typecheck + check:publish), `test`, `docs`. Run the relevant verify commands yourself and confirm they pass **before** claiming a task is complete.

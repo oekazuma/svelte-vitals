@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect } from 'vitest';
 import { parse } from 'svelte/compiler';
 import {
@@ -68,14 +68,14 @@ describe('resolveMetaObject', () => {
 describe('exprValue', () => {
   it('classifies a non-empty string literal as static', () => {
     const attr = attrOf('<MetaTags openGraph={{ url: "https://x" }} />', 'openGraph');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // oxlint-disable-next-line @typescript-eslint/no-explicit-any
     const prop = (attr.value.expression.properties as any[])[0];
     expect(exprValue(prop.value)).toBe('static');
   });
 
   it('classifies an identifier as dynamic', () => {
     const attr = attrOf('<MetaTags openGraph={{ url: SITE }} />', 'openGraph');
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // oxlint-disable-next-line @typescript-eslint/no-explicit-any
     const prop = (attr.value.expression.properties as any[])[0];
     expect(exprValue(prop.value)).toBe('dynamic');
   });
