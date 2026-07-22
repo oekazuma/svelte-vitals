@@ -5,8 +5,8 @@ import { attrValueOf, attrTextOf } from '@svelte-vitals/core';
 import { resolveMetaObject, OPEN_GRAPH_KEYS, TWITTER_KEYS } from './meta-object.js';
 import type { Adapter, AdapterResult } from './types.js';
 
-function findAttr(attributes: AST.Attribute[], name: string): AST.Attribute | undefined {
-  return attributes.find((a) => a?.type === 'Attribute' && a.name === name);
+function findAttr(attributes: ComponentUse['attributes'], name: string): AST.Attribute | undefined {
+  return attributes.find((a): a is AST.Attribute => a.type === 'Attribute' && a.name === name);
 }
 
 export const svelteSeoAdapter: Adapter = {

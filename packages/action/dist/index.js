@@ -58542,7 +58542,7 @@ function applyOverrides(results, config) {
   return out;
 }
 
-// ../cli/dist/chunk-YRLO56SA.js
+// ../cli/dist/chunk-3YO2A3YF.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -59320,7 +59320,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-YRLO56SA.js
+// ../cli/dist/chunk-3YO2A3YF.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -59480,7 +59480,7 @@ var TWITTER_KEYS = {
   card: (value) => ({ kind: "meta", name: "twitter:card", value })
 };
 function findAttr2(attributes, name) {
-  return attributes.find((a) => a?.type === "Attribute" && a.name === name);
+  return attributes.find((a) => a.type === "Attribute" && a.name === name);
 }
 var svelteMetaTagsAdapter = {
   match(info2) {
@@ -59528,7 +59528,7 @@ var svelteMetaTagsJsonLdAdapter = {
   }
 };
 function findAttr22(attributes, name) {
-  return attributes.find((a) => a?.type === "Attribute" && a.name === name);
+  return attributes.find((a) => a.type === "Attribute" && a.name === name);
 }
 var svelteSeoAdapter = {
   match(info2) {
@@ -59584,6 +59584,9 @@ function collectImports(ast) {
   addImportsFromProgram(ast.module?.content, map);
   return map;
 }
+function childOf(node, key2) {
+  return node[key2];
+}
 function collectSvelteHeads(node, acc) {
   if (Array.isArray(node)) {
     for (const child of node) collectSvelteHeads(child, acc);
@@ -59592,32 +59595,33 @@ function collectSvelteHeads(node, acc) {
   if (!node || typeof node !== "object") return;
   if (node.type === "SvelteHead") acc.push(node);
   for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectSvelteHeads(node[key2], acc);
+    if (key2 in node) collectSvelteHeads(childOf(node, key2), acc);
   }
 }
 function tagsFromHead(head) {
   const tags = [];
-  const children = head?.fragment?.nodes ?? [];
+  const children = head.fragment.nodes;
   for (const node of children) {
-    if (node?.type === "TitleElement") {
-      const titleNodes = node.fragment?.nodes ?? [];
+    if (node.type === "TitleElement") {
+      const titleNodes = node.fragment.nodes;
       const text2 = textFromNodes(titleNodes);
       tags.push({ kind: "title", value: valueFromNodes(titleNodes), ...text2 !== void 0 ? { text: text2 } : {} });
       continue;
     }
-    if (node?.type !== "RegularElement") continue;
+    if (node.type !== "RegularElement") continue;
+    const attributes = node.attributes;
     if (node.name === "meta") {
-      const charset = attrValue(node.attributes, "charset");
+      const charset = attrValue(attributes, "charset");
       if (charset !== "absent") {
         tags.push({ kind: "meta", name: "charset", value: charset });
         continue;
       }
-      const name = attrText(node.attributes, "name");
-      const property = attrText(node.attributes, "property");
-      const content = name === "robots" ? attrText(node.attributes, "content") : void 0;
+      const name = attrText(attributes, "name");
+      const property = attrText(attributes, "property");
+      const content = name === "robots" ? attrText(attributes, "content") : void 0;
       const noindex = content !== void 0 && /(^|[\s,])(noindex|none)([\s,]|$)/i.test(content);
-      const contentValue = attrValue(node.attributes, "content");
-      const descText = name === "description" && contentValue === "static" ? attrText(node.attributes, "content") : void 0;
+      const contentValue = attrValue(attributes, "content");
+      const descText = name === "description" && contentValue === "static" ? attrText(attributes, "content") : void 0;
       tags.push({
         kind: "meta",
         ...name ? { name } : {},
@@ -59627,16 +59631,16 @@ function tagsFromHead(head) {
         ...descText !== void 0 ? { text: descText } : {}
       });
     } else if (node.name === "link") {
-      const rel = attrText(node.attributes, "rel");
-      const hasAs = findAttr(node.attributes, "as") !== void 0;
-      const asLiteral = attrText(node.attributes, "as");
-      const hasCrossorigin = findAttr(node.attributes, "crossorigin") !== void 0;
-      const hreflang = attrText(node.attributes, "hreflang");
-      const href = attrText(node.attributes, "href");
+      const rel = attrText(attributes, "rel");
+      const hasAs = findAttr(attributes, "as") !== void 0;
+      const asLiteral = attrText(attributes, "as");
+      const hasCrossorigin = findAttr(attributes, "crossorigin") !== void 0;
+      const hreflang = attrText(attributes, "hreflang");
+      const href = attrText(attributes, "href");
       tags.push({
         kind: "link",
         ...rel ? { rel } : {},
-        value: attrValue(node.attributes, "href"),
+        value: attrValue(attributes, "href"),
         ...hasAs ? { hasAs: true } : {},
         ...asLiteral ? { as: asLiteral } : {},
         ...hasCrossorigin ? { hasCrossorigin: true } : {},
@@ -59645,15 +59649,15 @@ function tagsFromHead(head) {
         ...href ? { href } : {}
       });
     } else if (node.name === "script") {
-      const type = attrText(node.attributes, "type");
+      const type = attrText(attributes, "type");
       if (type === "application/ld+json") {
-        const nodes = node.fragment?.nodes ?? [];
+        const nodes = node.fragment.nodes;
         const raw = textFromNodes(nodes);
         tags.push({ kind: "jsonld", value: valueFromNodes(nodes), ...raw !== void 0 ? { jsonld: raw } : {} });
       } else {
-        const src = attrText(node.attributes, "src");
+        const src = attrText(attributes, "src");
         if (src) {
-          const blocking = findAttr(node.attributes, "defer") === void 0 && findAttr(node.attributes, "async") === void 0 && type !== "module";
+          const blocking = findAttr(attributes, "defer") === void 0 && findAttr(attributes, "async") === void 0 && type !== "module";
           tags.push({ kind: "script", value: "static", href: src, ...blocking ? { blocking: true } : {} });
         }
       }
@@ -59667,16 +59671,16 @@ function collectComponents(node, acc) {
     return;
   }
   if (!node || typeof node !== "object") return;
-  if (node.type === "Component" && typeof node.name === "string") {
-    const attributes = node.attributes ?? [];
+  if (node.type === "Component") {
+    const attributes = node.attributes;
     acc.push({
       name: node.name,
       attributes,
-      hasSpread: attributes.some((a) => a?.type === "SpreadAttribute")
+      hasSpread: attributes.some((a) => a.type === "SpreadAttribute")
     });
   }
   for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectComponents(node[key2], acc);
+    if (key2 in node) collectComponents(childOf(node, key2), acc);
   }
 }
 function collectImages(node, source2, acc) {
@@ -59686,8 +59690,8 @@ function collectImages(node, source2, acc) {
   }
   if (!node || typeof node !== "object") return;
   if (node.type === "RegularElement" && node.name === "img") {
-    const attrs = node.attributes ?? [];
-    const hasSpread = attrs.some((a) => a?.type === "SpreadAttribute");
+    const attrs = node.attributes;
+    const hasSpread = node.attributes.some((a) => a.type === "SpreadAttribute");
     acc.push({
       hasWidth: hasSpread || Boolean(findAttr(attrs, "width")),
       hasHeight: hasSpread || Boolean(findAttr(attrs, "height")),
@@ -59700,7 +59704,7 @@ function collectImages(node, source2, acc) {
     });
   }
   for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectImages(node[key2], source2, acc);
+    if (key2 in node) collectImages(childOf(node, key2), source2, acc);
   }
 }
 function collectHeadings(node, source2, acc) {
@@ -59710,23 +59714,23 @@ function collectHeadings(node, source2, acc) {
   }
   if (!node || typeof node !== "object") return;
   if (node.type === "SvelteHead") return;
-  if (node.type === "RegularElement" && typeof node.name === "string" && /^h[1-6]$/.test(node.name)) {
+  if (node.type === "RegularElement" && /^h[1-6]$/.test(node.name)) {
     acc.push({ level: Number(node.name[1]), line: lineOf(source2, node.start) });
   }
   for (const key2 of CHILD_NODE_KEYS) {
-    if (key2 in node) collectHeadings(node[key2], source2, acc);
+    if (key2 in node) collectHeadings(childOf(node, key2), source2, acc);
   }
 }
 function parseFile(source2, filename2) {
   const ast = parse8(source2, { modern: true, filename: filename2 });
   const heads = [];
-  collectSvelteHeads(ast.fragment ?? ast, heads);
+  collectSvelteHeads(ast.fragment, heads);
   const components = [];
-  collectComponents(ast.fragment ?? ast, components);
+  collectComponents(ast.fragment, components);
   const images = [];
-  collectImages(ast.fragment ?? ast, source2, images);
+  collectImages(ast.fragment, source2, images);
   const headings = [];
-  collectHeadings(ast.fragment ?? ast, source2, headings);
+  collectHeadings(ast.fragment, source2, headings);
   return {
     headTags: heads.flatMap(tagsFromHead),
     components,
