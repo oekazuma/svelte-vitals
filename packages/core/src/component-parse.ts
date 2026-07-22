@@ -578,11 +578,12 @@ function collectFragmentAliasRefs(
 }
 
 /**
- * Each-context taint (performance/state-raw condition 5): for `{#each candidate as item}`,
- * any mutate/escape of the context binding (or index) inside the block — member writes,
- * method calls, call arguments, `bind:`, component props — disqualifies the candidate:
- * item-level edits stop being reactive under $state.raw. Pure reassignments of the
- * context name are ignored (they don't touch the list's contents).
+ * Each-context taint (performance/state-raw condition 5): for `{#each candidate as item}`
+ * or `{#each candidate.path as item}`, any mutate/escape of the context binding (or index)
+ * inside the block — member writes, method calls, call arguments, `bind:`, component props —
+ * disqualifies the candidate over the candidate or a member path of it
+ * (`{#each obj.items as item}`): item-level edits stop being reactive under $state.raw.
+ * Pure reassignments of the context name are ignored (they don't touch the list's contents).
  */
 function collectEachContextTaint(
   node: Node,
@@ -599,7 +600,9 @@ function collectEachContextTaint(
   const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
   if (node.type === 'EachBlock') {
     const expr = unwrapTs(node.expression);
-    if (expr?.type === 'Identifier' && names.has(expr.name) && !shadowed.has(expr.name)) {
+    const target =
+      expr?.type === 'Identifier' ? expr.name : expr?.type === 'MemberExpression' ? rootObjectName(expr) : undefined;
+    if (target !== undefined && names.has(target) && !shadowed.has(target)) {
       const ctxNames = new Set<string>();
       addBoundNames(node.context, ctxNames);
       if (typeof node.index === 'string') ctxNames.add(node.index);
@@ -612,7 +615,7 @@ function collectEachContextTaint(
           const k = kinds.get(n);
           return !k || [...k].some((kind) => kind !== 'reassign');
         });
-        if (dirty) acc.add(expr.name);
+        if (dirty) acc.add(target);
       }
     }
   }
@@ -768,6 +771,35 @@ function collectTemplateEscapes(
   }
   for (const key of CHILD_NODE_KEYS) {
     if (key in node) collectTemplateEscapes(node[key], stateNames, acc, kinds);
+  }
+}
+
+/** Directive types verified against svelte 5 modern-AST output: `use:x={obj}` → `UseDirective`, `transition:x={obj}` → `TransitionDirective`, `animate:x={obj}` → `AnimateDirective`. */
+const DIRECTIVE_ESCAPE_TYPES = new Set(['UseDirective', 'TransitionDirective', 'AnimateDirective']);
+
+/**
+ * Directive expressions that hand a candidate to arbitrary code — `use:action={obj}`,
+ * `transition:fn={obj}`, `animate:fn={obj}` — are reference handoffs, the same class
+ * as a call argument (performance/state-raw only; the shared template-escape
+ * collector deliberately stays unchanged for correctness/unmutated-state).
+ */
+function collectDirectiveEscapes(node: Node, names: Set<string>, acc: Set<string>): void {
+  if (Array.isArray(node)) {
+    for (const c of node) collectDirectiveEscapes(c, names, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+  if (Array.isArray(node.attributes)) {
+    for (const attr of node.attributes) {
+      if (DIRECTIVE_ESCAPE_TYPES.has(attr?.type) && attr.expression) {
+        walkEstree(attr.expression, (m: Node) => {
+          if (m?.type === 'Identifier' && names.has(m.name)) acc.add(m.name);
+        });
+      }
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectDirectiveEscapes(node[key], names, acc);
   }
 }
 
@@ -1770,6 +1802,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
       const eachTaint = new Set<string>();
       if (ast.fragment) {
         collectFragmentAliasRefs(ast.fragment, candNames, aliasEscapes);
+        collectDirectiveEscapes(ast.fragment, candNames, aliasEscapes);
         collectEachContextTaint(ast.fragment, candNames, eachTaint);
       }
       for (const c of rawableCandidates) {

@@ -96,6 +96,29 @@ describe('rawableStates — exclusions', () => {
     expect(raw(memberWrite)).toEqual([]);
   });
 
+  it('taints each blocks over a member path of the candidate', () => {
+    const src = script(
+      `let obj = $state({ items: [] });\nfunction set(n) {\n  obj = n;\n}`,
+      '{#each obj.items as item (item.id)}<input bind:value={item.text} />{/each}'
+    );
+    expect(raw(src)).toEqual([]);
+    const readOnly = script(
+      `let obj = $state({ items: [] });\nfunction set(n) {\n  obj = n;\n}`,
+      '{#each obj.items as item (item.id)}<li>{item.name}</li>{/each}'
+    );
+    expect(raw(readOnly)).toEqual([{ name: 'obj', line: 2 }]);
+  });
+
+  it('treats directive expressions as escapes', () => {
+    const use = script(`let obj = $state({});\nfunction f() {\n  obj = {};\n}`, '<div use:tooltip={obj}>x</div>');
+    expect(raw(use)).toEqual([]);
+    const transition = script(
+      `let obj = $state({});\nfunction f() {\n  obj = {};\n}`,
+      '<div transition:fly={obj}>x</div>'
+    );
+    expect(raw(transition)).toEqual([]);
+  });
+
   it('excludes non-candidates: raw already, non-literal, primitive, non-top-level', () => {
     expect(raw(script(`let a = $state.raw({});\nfunction f() {\n  a = {};\n}`))).toEqual([]);
     expect(raw(script(`let b = $state(new Map());\nfunction f() {\n  b = new Map();\n}`))).toEqual([]);
