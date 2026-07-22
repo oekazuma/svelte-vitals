@@ -99,6 +99,11 @@ export interface ComponentFacts {
     name: string;
     line: number;
   }[];
+  /** Object/array-literal $state bindings reassigned at least once but never mutated, escaped, aliased, or item-edited — $state.raw candidates (performance/state-raw). */
+  rawableStates: {
+    name: string;
+    line: number;
+  }[];
   /** `$effect` calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (correctness/orphan-effect). */
   orphanEffects: OrphanEffectFact[];
   /** Svelte lifecycle/context calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (correctness/orphan-lifecycle). */

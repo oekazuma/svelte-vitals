@@ -23,6 +23,7 @@ export function emptyComponentFacts(file: string): ComponentFacts {
     constableStates: [],
     mutatedProps: [],
     stalePropDerivations: [],
+    rawableStates: [],
     orphanEffects: [],
     orphanLifecycleCalls: [],
     browserGlobalRefs: [],
