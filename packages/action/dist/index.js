@@ -54891,6 +54891,14 @@ function collectFragmentRefs(node, names, acc, shadowed = /* @__PURE__ */ new Se
   const introduced = scopeIntroducedNames(node);
   const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
   if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name)) acc.add(node.name);
+  if (node.type === "EachBlock" || node.type === "AwaitBlock") {
+    collectFragmentRefs(node.expression, names, acc, shadowed);
+    for (const key2 of Object.keys(node)) {
+      if (WALK_IGNORED_KEYS.has(key2) || key2 === "expression") continue;
+      collectFragmentRefs(node[key2], names, acc, scope);
+    }
+    return;
+  }
   if (Array.isArray(node.attributes)) collectFragmentRefs(node.attributes, names, acc, scope);
   for (const key2 of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key2) || key2 === "attributes") continue;
@@ -57761,9 +57769,7 @@ var correctnessStalePropDerivation = componentRule({
   recommendation: "Wrap the computation in $derived(...), or $derived.by(() => ...) when it needs a function body.",
   rationale: "Svelte's guidance is to treat props as though they will change: a plain `let color = type === 'danger' ? 'red' : 'green'` freezes the first render's value, so the UI silently stops tracking the parent when the prop changes. $derived keeps the computation live at no cost.",
   fix: {
-    description: "Wrap the prop-derived computation in $derived.",
-    snippet: "let color = $derived(type === 'danger' ? 'red' : 'green');",
-    lang: "js"
+    description: "Wrap the prop-derived computation in $derived(...) (or $derived.by(() => ...) for a function body), keeping the same expression."
   },
   applies: (c) => c.stalePropDerivations.length > 0,
   bad: (c) => c.stalePropDerivations.map((s) => ({
