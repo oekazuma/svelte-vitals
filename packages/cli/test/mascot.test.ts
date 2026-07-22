@@ -99,7 +99,7 @@ describe('mascot rendering', () => {
       renderMascotReaction('happy'),
       renderMascotReaction('ecstatic')
     ]) {
-      // eslint-disable-next-line no-control-regex -- \x1b matches the ANSI escape prefix, intentional
+      // oxlint-disable-next-line no-control-regex -- \x1b matches the ANSI escape prefix, intentional
       const colorCodes = block.match(/\x1b\[38;2;\d+;\d+;\d+m/g) ?? [];
       expect(new Set(colorCodes)).toEqual(new Set(['\x1b[38;2;255;62;0m']));
     }

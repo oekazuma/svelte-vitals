@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 import type { ImportInfo } from '../imports.js';
 import type { ComponentUse, ParsedTag } from '../parse.js';
 import { attrValueOf, attrTextOf } from '@svelte-vitals/core';

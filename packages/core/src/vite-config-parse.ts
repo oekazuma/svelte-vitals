@@ -13,7 +13,7 @@ import { collectTopLevelBindings } from './kit-module-parse.js';
 import { lineOf } from './svelte-ast.js';
 
 // Same pragmatic typing stance as component-parse.ts.
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 type Node = any;
 
 /**

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 type Node = any;
 
 /** A resolved import binding: which module, and which export ('default' for default imports). */

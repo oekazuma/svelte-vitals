@@ -18,7 +18,7 @@ export type ParsedTag = Omit<HeadTag, 'presence' | 'file'>;
 // so traversal uses `any`. The node-type strings below are verified against
 // svelte 5 output (see Slice 0 AST probe): <title> is `TitleElement` (not a
 // RegularElement), and `{expr}` is `ExpressionTag`.
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 type Node = any;
 
 /** Recursively collect every <svelte:head> node anywhere in the template. */

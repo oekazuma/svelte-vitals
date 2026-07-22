@@ -15,7 +15,7 @@ import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf } from './svelte-ast.js';
 // so traversal uses `any`. The node-type strings below are verified against
 // svelte 5 output (see Slice 0 AST probe): <title> is `TitleElement` (not a
 // RegularElement), and `{expr}` is `ExpressionTag`.
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* oxlint-disable @typescript-eslint/no-explicit-any */
 type Node = any;
 
 /** Unwrap TS wrapper expressions (`x satisfies T`, `x as T`, `x!`) to the underlying expression. Shared with the Kit-module and Vite-config parsers. */
