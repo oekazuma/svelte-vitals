@@ -56151,7 +56151,8 @@ function unwrapToObjectExpression(expr, bindings) {
     }
     return void 0;
   }
-  return current2?.type === "ObjectExpression" ? current2 : void 0;
+  const final = current2 ? unwrapTs(current2) : void 0;
+  return final?.type === "ObjectExpression" ? final : void 0;
 }
 function findExportedExpression(program) {
   let exported;

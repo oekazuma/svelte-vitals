@@ -64,7 +64,8 @@ function unwrapToObjectExpression(
     }
     return undefined;
   }
-  return current?.type === 'ObjectExpression' ? current : undefined;
+  const final = current ? unwrapTs(current) : undefined;
+  return final?.type === 'ObjectExpression' ? final : undefined;
 }
 
 /**

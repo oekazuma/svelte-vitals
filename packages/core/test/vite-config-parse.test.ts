@@ -141,6 +141,20 @@ export default defineConfig(config);
     expect(findMinifyDisabled(src)).toEqual({ line: 4 });
   });
 
+  it('unwraps a satisfies-wrapped object literal reached on the 4th (final) resolution hop', () => {
+    // Each wrapper call is one hop; the object literal only becomes reachable
+    // on the 4th hop, which used to skip the final unwrapTs pass (see PR #273 review).
+    const src = `import { defineConfig } from 'vite';
+import type { UserConfig } from 'vite';
+export default defineConfig(a(b(c({
+  build: {
+    minify: false
+  }
+} satisfies UserConfig))));
+`;
+    expect(findMinifyDisabled(src)).toEqual({ line: 5 });
+  });
+
   it('detects the CommonJS module.exports form', () => {
     const src = `module.exports = {
   build: { minify: false }
