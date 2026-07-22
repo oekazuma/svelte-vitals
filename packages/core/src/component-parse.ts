@@ -378,39 +378,63 @@ function walkScoped(
  * as a call argument. Run over the instance program AND the template fragment
  * (inline handlers mutate state in the template). Scope-aware (issue #140): a local
  * that shadows a state's name (a function param, block-scoped let/const, {#each}
- * context, …) does not mark the outer state as written/escaped.
+ * context, …) does not mark the outer state as written/escaped. The optional
+ * `kinds` map additionally classifies each hit — 'reassign' (whole-binding
+ * writes), 'mutate' (member/element writes, delete, member updates, method
+ * calls), 'escape' (call arguments) — for consumers that need the distinction
+ * (performance/state-raw); the `acc` union contract is unchanged.
  */
-function collectStateWrites(root: Node, stateNames: Set<string>, acc: Set<string>): void {
+type WriteKind = 'reassign' | 'mutate' | 'escape';
+
+function collectStateWrites(
+  root: Node,
+  stateNames: Set<string>,
+  acc: Set<string>,
+  kinds?: Map<string, Set<WriteKind>>
+): void {
+  const record = (name: string, kind: WriteKind): void => {
+    acc.add(name);
+    if (kinds) {
+      let set = kinds.get(name);
+      if (!set) kinds.set(name, (set = new Set()));
+      set.add(kind);
+    }
+  };
   walkScoped(root, (n: Node, scope: Set<string>) => {
     const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);
     if (n?.type === 'AssignmentExpression') {
       if (n.left?.type === 'Identifier' && stateNames.has(n.left.name) && !shadowed(n.left.name)) {
-        acc.add(n.left.name);
+        record(n.left.name, 'reassign');
       } else if (n.left?.type === 'MemberExpression') {
         const r = rootObjectName(n.left);
-        if (r && stateNames.has(r) && !shadowed(r)) acc.add(r);
+        if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate');
       } else if (n.left?.type === 'ObjectPattern' || n.left?.type === 'ArrayPattern') {
         // Destructuring-assignment target, e.g. `({ count } = obj)` or `[count] = arr`.
         const bound = new Set<string>();
         addBoundNames(n.left, bound);
-        for (const name of bound) if (stateNames.has(name) && !shadowed(name)) acc.add(name);
+        for (const name of bound) if (stateNames.has(name) && !shadowed(name)) record(name, 'reassign');
       }
     } else if (n?.type === 'UpdateExpression') {
-      const r = rootObjectName(n.argument);
-      if (r && stateNames.has(r) && !shadowed(r)) acc.add(r); // x++, x.count++, x[i]++
+      // A bare `x++` rewrites the whole binding (reassign); `x.count++` mutates within it.
+      if (n.argument?.type === 'Identifier') {
+        if (stateNames.has(n.argument.name) && !shadowed(n.argument.name)) record(n.argument.name, 'reassign');
+      } else {
+        const r = rootObjectName(n.argument);
+        if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate'); // x.count++, x[i]++
+      }
     } else if (n?.type === 'UnaryExpression' && n.operator === 'delete') {
       const r = rootObjectName(n.argument);
-      if (r && stateNames.has(r) && !shadowed(r)) acc.add(r);
+      if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate');
     } else if (n?.type === 'CallExpression') {
       if (n.callee?.type === 'MemberExpression') {
         const r = rootObjectName(n.callee);
-        if (r && stateNames.has(r) && !shadowed(r)) acc.add(r); // x.push(), x.foo()
+        if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate'); // x.push(), x.foo()
       }
       for (const a of n.arguments ?? []) {
         // Unwrap a spread argument (`f(...x)`, `f(...x.items)`) to its expression.
         const arg = a?.type === 'SpreadElement' ? a.argument : a;
         const r = rootObjectName(arg);
-        if (r && stateNames.has(r) && !shadowed(r)) acc.add(r); // f(x), f(x.a), f(...x)
+        if (r && stateNames.has(r) && !shadowed(r)) record(r, 'escape'); // f(x), f(x.a), f(...x)
       }
     }
   });
@@ -531,10 +555,25 @@ const COMPONENT_LIKE_TYPES = new Set(['Component', 'SvelteComponent', 'SvelteSel
  * element, or passed as a prop to a component (static `<Foo>`, or dynamic
  * `<svelte:component>`/`<svelte:self>`). Slot children / DOM-attribute reads do
  * not escape. `CHILD_NODE_KEYS` omits `attributes`, so inspect them explicitly.
+ * The optional `kinds` map records every hit as 'escape' for consumers that need
+ * the classification (performance/state-raw); the `acc` union contract is unchanged.
  */
-function collectTemplateEscapes(node: Node, stateNames: Set<string>, acc: Set<string>): void {
+function collectTemplateEscapes(
+  node: Node,
+  stateNames: Set<string>,
+  acc: Set<string>,
+  kinds?: Map<string, Set<WriteKind>>
+): void {
+  const record = (name: string): void => {
+    acc.add(name);
+    if (kinds) {
+      let set = kinds.get(name);
+      if (!set) kinds.set(name, (set = new Set()));
+      set.add('escape');
+    }
+  };
   if (Array.isArray(node)) {
-    for (const c of node) collectTemplateEscapes(c, stateNames, acc);
+    for (const c of node) collectTemplateEscapes(c, stateNames, acc, kinds);
     return;
   }
   if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
@@ -542,16 +581,16 @@ function collectTemplateEscapes(node: Node, stateNames: Set<string>, acc: Set<st
     for (const attr of node.attributes) {
       if (attr?.type === 'BindDirective') {
         const r = rootObjectName(attr.expression);
-        if (r && stateNames.has(r)) acc.add(r);
+        if (r && stateNames.has(r)) record(r);
       } else if (COMPONENT_LIKE_TYPES.has(node.type)) {
         walkEstree(attr, (m: Node) => {
-          if (m?.type === 'Identifier' && stateNames.has(m.name)) acc.add(m.name);
+          if (m?.type === 'Identifier' && stateNames.has(m.name)) record(m.name);
         });
       }
     }
   }
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectTemplateEscapes(node[key], stateNames, acc);
+    if (key in node) collectTemplateEscapes(node[key], stateNames, acc, kinds);
   }
 }
 
