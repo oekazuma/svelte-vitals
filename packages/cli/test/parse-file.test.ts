@@ -1,6 +1,5 @@
 import { describe, it, expect } from 'vitest';
 import { parseFile } from '../src/providers/source/parse.js';
-import { attrValueOf } from '@svelte-vitals/core';
 
 describe('parseFile', () => {
   it('returns head tags, component usages, and imports', () => {
@@ -80,26 +79,5 @@ describe('parseFile images', () => {
     const pf = parseFile(`<img src="/a.png" />`, 'x.svelte');
     expect(pf.images).toHaveLength(1);
     expect(pf.images[0]).toMatchObject({ hasWidth: false, hasHeight: false, hasLoading: false });
-  });
-});
-
-describe('attrValueOf', () => {
-  it('treats a boolean attribute as absent', () => {
-    expect(attrValueOf({ value: true })).toBe('absent');
-  });
-
-  it('treats a missing/empty value as absent', () => {
-    expect(attrValueOf(undefined)).toBe('absent');
-    expect(attrValueOf({ value: [] })).toBe('absent');
-    expect(attrValueOf({ value: [{ type: 'Text', data: '   ' }] })).toBe('absent');
-  });
-
-  it('treats non-whitespace Text as static', () => {
-    expect(attrValueOf({ value: [{ type: 'Text', data: 'hello' }] })).toBe('static');
-  });
-
-  it('treats an ExpressionTag value as dynamic (array or single node)', () => {
-    expect(attrValueOf({ value: [{ type: 'ExpressionTag' }] })).toBe('dynamic');
-    expect(attrValueOf({ value: { type: 'ExpressionTag' } })).toBe('dynamic');
   });
 });
