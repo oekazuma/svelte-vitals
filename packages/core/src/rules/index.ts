@@ -62,6 +62,7 @@ import { performanceNamespaceImport } from './perf/namespace-import.js';
 import { performanceMinifyDisabled } from './perf/minify-disabled.js';
 import { performanceLoadWaterfall } from './perf/load-waterfall.js';
 import { performanceSequentialAwaits } from './perf/sequential-awaits.js';
+import { performanceStateRaw } from './perf/state-raw.js';
 
 export const allRules: Rule[] = [
   seoTitlePresence,
@@ -125,7 +126,8 @@ export const allRules: Rule[] = [
   performanceNamespaceImport,
   performanceMinifyDisabled,
   performanceLoadWaterfall,
-  performanceSequentialAwaits
+  performanceSequentialAwaits,
+  performanceStateRaw
 ];
 
 export {
@@ -190,7 +192,8 @@ export {
   performanceNamespaceImport,
   performanceMinifyDisabled,
   performanceLoadWaterfall,
-  performanceSequentialAwaits
+  performanceSequentialAwaits,
+  performanceStateRaw
 };
 
 export interface RuleInfo {
