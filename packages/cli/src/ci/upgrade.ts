@@ -1,3 +1,5 @@
+import { actionPinComment, ACTION_PIN_COMMENT_RE } from './action-pin-comment.js';
+
 export interface UpgradeOutcome {
   status: 'upgraded' | 'up-to-date' | 'no-reference';
   /** status='upgraded' only: the full file content with the pin(s) replaced. */
@@ -12,18 +14,25 @@ export interface UpgradeOutcome {
 // Matches lines like (indentation, an optional YAML anchor `&name`, and the trailing
 // version comment, are all optional so a user's hand-edited workflow still matches):
 //   - uses: oekazuma/svelte-vitals/packages/action@<ref>
-//   - uses: oekazuma/svelte-vitals/packages/action@<ref> # @svelte-vitals/action@1.2.3
-//   - uses: &vitals_action oekazuma/svelte-vitals/packages/action@<ref> # @svelte-vitals/action@1.2.3
+//   - uses: oekazuma/svelte-vitals/packages/action@<ref> # action-v1.2.3
+//   - uses: &vitals_action oekazuma/svelte-vitals/packages/action@<ref> # action-v1.2.3
+// The comment also still matches the pre-fix `# @svelte-vitals/action@1.2.3` format (see
+// action-pin-comment.ts) so a workflow installed before that fix still upgrades cleanly.
 // An anchor definition's value is shared by every `*name` alias line elsewhere in the
 // file (YAML semantics) — rewriting only the anchor line's ref is sufficient; alias
 // lines need no separate rewrite.
 const ACTION_USES_LINE =
   /^(?<indent>\s*-\s*uses:\s*(?:&\S+\s+)?oekazuma\/svelte-vitals\/packages\/action@)(?<ref>[^\s#]+)(?<comment>\s*#.*)?$/;
 
+// The pre-fix npm-scoped comment (`# @svelte-vitals/action@X.Y.Z`) isn't parseable by
+// Renovate's github-actions manager — a line already pinned to the current sha but still
+// carrying this comment shape needs its comment normalized, not just a sha check.
+const LEGACY_COMMENT = /#\s*@svelte-vitals\/action@/;
+
 /**
  * Rewrite every `uses: oekazuma/svelte-vitals/packages/action@<ref>` line in `content` to pin
- * `sha`, with a same-line `# @svelte-vitals/action@<version>` comment — leaving every other line
- * (including other `uses:` pins, like `actions/checkout`) untouched.
+ * `sha`, with a same-line `# action-v<version>` comment — leaving every other line (including
+ * other `uses:` pins, like `actions/checkout`) untouched.
  */
 export function upgradeActionPin(content: string, sha: string, version: string): UpgradeOutcome {
   const lines = content.split('\n');
@@ -41,15 +50,16 @@ export function upgradeActionPin(content: string, sha: string, version: string):
 
     const { indent, ref } = match.groups;
     if (indent === undefined || ref === undefined) return line;
-    if (ref === sha) return line; // already pinned to the current sha
+    const comment = match.groups.comment ?? '';
+    if (ref === sha && !LEGACY_COMMENT.test(comment)) return line; // already pinned and comment is already canonical
 
     if (from === undefined) {
-      const commentMatch = /#\s*@svelte-vitals\/action@(\S+)/.exec(match.groups.comment ?? '');
+      const commentMatch = ACTION_PIN_COMMENT_RE.exec(comment);
       from = commentMatch ? commentMatch[1] : ref.slice(0, 7);
     }
 
     replaced += 1;
-    return `${indent}${sha} # @svelte-vitals/action@${version}${eol}`;
+    return `${indent}${sha} # ${actionPinComment(version)}${eol}`;
   });
 
   if (replaced === 0) {

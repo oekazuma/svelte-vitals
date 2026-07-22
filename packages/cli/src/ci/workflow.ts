@@ -1,3 +1,5 @@
+import { actionPinComment } from './action-pin-comment.js';
+
 export const WORKFLOW_PATH = '.github/workflows/svelte-vitals.yml';
 
 // Kept in lockstep with the pin this repo's own workflows use (.github/workflows/ci.yml,
@@ -29,7 +31,8 @@ export function planWorkflowWrite(existing: string | undefined, force: boolean):
  * gate — `ci install` only scaffolds the call, pinned to a commit SHA with a same-line
  * version comment. `actions/checkout` is pinned the same way, matching this repo's own
  * `actions/checkout@<sha> # vX.Y.Z` convention (.github/workflows/ci.yml etc.) rather than
- * a floating tag.
+ * a floating tag. The comment format (`action-vX.Y.Z`, see `action-pin-comment.ts`) is chosen
+ * so Renovate's github-actions manager can parse a version out of it and propose SHA bumps.
  */
 export function buildWorkflowYaml(opts: { actionSha: string; actionVersion: string }): string {
   const { actionSha, actionVersion } = opts;
@@ -52,7 +55,7 @@ export function buildWorkflowYaml(opts: { actionSha: string; actionVersion: stri
     `      - uses: actions/checkout@${CHECKOUT_SHA} # ${CHECKOUT_VERSION}`,
     '        with:',
     '          fetch-depth: 0',
-    `      - uses: oekazuma/svelte-vitals/packages/action@${actionSha} # @svelte-vitals/action@${actionVersion}`,
+    `      - uses: oekazuma/svelte-vitals/packages/action@${actionSha} # ${actionPinComment(actionVersion)}`,
     '        with:',
     '          diff: origin/${{ github.base_ref }}',
     '          baseline: origin/${{ github.base_ref }}',
