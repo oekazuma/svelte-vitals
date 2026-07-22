@@ -34,6 +34,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   constableStates: [],
   mutatedProps: [],
   stalePropDerivations: [],
+  rawableStates: [],
   orphanEffects: [],
   orphanLifecycleCalls: [],
   browserGlobalRefs: [],

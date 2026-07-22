@@ -116,7 +116,8 @@ export {
   performanceNamespaceImport,
   performanceMinifyDisabled,
   performanceLoadWaterfall,
-  performanceSequentialAwaits
+  performanceSequentialAwaits,
+  performanceStateRaw
 } from './rules/index.js';
 export type { RuleInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

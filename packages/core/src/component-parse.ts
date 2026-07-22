@@ -378,39 +378,63 @@ function walkScoped(
  * as a call argument. Run over the instance program AND the template fragment
  * (inline handlers mutate state in the template). Scope-aware (issue #140): a local
  * that shadows a state's name (a function param, block-scoped let/const, {#each}
- * context, …) does not mark the outer state as written/escaped.
+ * context, …) does not mark the outer state as written/escaped. The optional
+ * `kinds` map additionally classifies each hit — 'reassign' (whole-binding
+ * writes), 'mutate' (member/element writes, delete, member updates, method
+ * calls), 'escape' (call arguments) — for consumers that need the distinction
+ * (performance/state-raw); the `acc` union contract is unchanged.
  */
-function collectStateWrites(root: Node, stateNames: Set<string>, acc: Set<string>): void {
+type WriteKind = 'reassign' | 'mutate' | 'escape';
+
+function collectStateWrites(
+  root: Node,
+  stateNames: Set<string>,
+  acc: Set<string>,
+  kinds?: Map<string, Set<WriteKind>>
+): void {
+  const record = (name: string, kind: WriteKind): void => {
+    acc.add(name);
+    if (kinds) {
+      let set = kinds.get(name);
+      if (!set) kinds.set(name, (set = new Set()));
+      set.add(kind);
+    }
+  };
   walkScoped(root, (n: Node, scope: Set<string>) => {
     const shadowed = (name: string | undefined): boolean => name === undefined || scope.has(name);
     if (n?.type === 'AssignmentExpression') {
       if (n.left?.type === 'Identifier' && stateNames.has(n.left.name) && !shadowed(n.left.name)) {
-        acc.add(n.left.name);
+        record(n.left.name, 'reassign');
       } else if (n.left?.type === 'MemberExpression') {
         const r = rootObjectName(n.left);
-        if (r && stateNames.has(r) && !shadowed(r)) acc.add(r);
+        if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate');
       } else if (n.left?.type === 'ObjectPattern' || n.left?.type === 'ArrayPattern') {
         // Destructuring-assignment target, e.g. `({ count } = obj)` or `[count] = arr`.
         const bound = new Set<string>();
         addBoundNames(n.left, bound);
-        for (const name of bound) if (stateNames.has(name) && !shadowed(name)) acc.add(name);
+        for (const name of bound) if (stateNames.has(name) && !shadowed(name)) record(name, 'reassign');
       }
     } else if (n?.type === 'UpdateExpression') {
-      const r = rootObjectName(n.argument);
-      if (r && stateNames.has(r) && !shadowed(r)) acc.add(r); // x++, x.count++, x[i]++
+      // A bare `x++` rewrites the whole binding (reassign); `x.count++` mutates within it.
+      if (n.argument?.type === 'Identifier') {
+        if (stateNames.has(n.argument.name) && !shadowed(n.argument.name)) record(n.argument.name, 'reassign');
+      } else {
+        const r = rootObjectName(n.argument);
+        if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate'); // x.count++, x[i]++
+      }
     } else if (n?.type === 'UnaryExpression' && n.operator === 'delete') {
       const r = rootObjectName(n.argument);
-      if (r && stateNames.has(r) && !shadowed(r)) acc.add(r);
+      if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate');
     } else if (n?.type === 'CallExpression') {
       if (n.callee?.type === 'MemberExpression') {
         const r = rootObjectName(n.callee);
-        if (r && stateNames.has(r) && !shadowed(r)) acc.add(r); // x.push(), x.foo()
+        if (r && stateNames.has(r) && !shadowed(r)) record(r, 'mutate'); // x.push(), x.foo()
       }
       for (const a of n.arguments ?? []) {
         // Unwrap a spread argument (`f(...x)`, `f(...x.items)`) to its expression.
         const arg = a?.type === 'SpreadElement' ? a.argument : a;
         const r = rootObjectName(arg);
-        if (r && stateNames.has(r) && !shadowed(r)) acc.add(r); // f(x), f(x.a), f(...x)
+        if (r && stateNames.has(r) && !shadowed(r)) record(r, 'escape'); // f(x), f(x.a), f(...x)
       }
     }
   });
@@ -419,6 +443,186 @@ function collectStateWrites(root: Node, stateNames: Set<string>, acc: Set<string
 /** Function-shaped nodes whose bodies defer evaluation — prop reads inside them stay reactive (compiled to call-time reads). */
 function isDeferredBody(n: Node): boolean {
   return n?.type === 'FunctionDeclaration' || n?.type === 'FunctionExpression' || n?.type === 'ArrowFunctionExpression';
+}
+
+/** A plain `$state(...)` call — bare-Identifier callee, never `$state.raw`/`$state.frozen` (performance/state-raw candidates only; `isStateDeclaration` stays raw-inclusive for `stateNames`). */
+function isPlainStateCall(node: Node): boolean {
+  return node?.type === 'CallExpression' && node.callee?.type === 'Identifier' && node.callee.name === '$state';
+}
+
+/**
+ * Scan a binding pattern (a `VariableDeclarator.id`, or nested inside one) for
+ * real references hiding inside it, while skipping the bound identifiers
+ * themselves — a binding site is never a read. `const { a } = x` binds `a`,
+ * no reference to anything; `const { a = obj } = x` reads `obj` (an
+ * `AssignmentPattern`'s default-value RHS is a real expression position);
+ * `const { [obj]: a } = x` reads `obj` as a computed key. Both cases hand off
+ * to `collectAliasRefs` (normal expression-walk semantics) for the referenced
+ * subtree; only the pattern shape itself (`ObjectPattern`/`ArrayPattern`/
+ * `RestElement`/`AssignmentPattern` bound side) is walked specially here.
+ */
+function collectPatternAliasRefs(
+  node: Node,
+  names: Set<string>,
+  acc: Set<string>,
+  scope: Set<string>,
+  ownRhs: string | null
+): void {
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+  if (node.type === 'Identifier') return; // bound name, not a reference
+  if (node.type === 'ObjectPattern') {
+    for (const prop of node.properties ?? []) {
+      if (prop?.type === 'RestElement') {
+        collectPatternAliasRefs(prop.argument, names, acc, scope, ownRhs);
+      } else if (prop?.type === 'Property') {
+        if (prop.computed) collectAliasRefs(prop.key, names, acc, scope, ownRhs);
+        collectPatternAliasRefs(prop.value, names, acc, scope, ownRhs);
+      }
+    }
+    return;
+  }
+  if (node.type === 'ArrayPattern') {
+    for (const el of node.elements ?? []) collectPatternAliasRefs(el, names, acc, scope, ownRhs);
+    return;
+  }
+  if (node.type === 'AssignmentPattern') {
+    collectPatternAliasRefs(node.left, names, acc, scope, ownRhs);
+    collectAliasRefs(node.right, names, acc, scope, ownRhs);
+    return;
+  }
+  if (node.type === 'RestElement') {
+    collectPatternAliasRefs(node.argument, names, acc, scope, ownRhs);
+  }
+}
+
+/**
+ * Bare references to candidate names outside their own reassignments — aliasing
+ * escapes (performance/state-raw condition 4). Nearest-enclosing-assignment
+ * semantics: a reference is exempt only while the CLOSEST surrounding
+ * AssignmentExpression assigns to that same candidate (`list = [...list, x]`
+ * qualifies; `obj = (cache = obj)` does not). Skips the assignment LHS itself
+ * and non-computed member properties/keys; shadow-aware. A `VariableDeclarator`
+ * routes its `id` through `collectPatternAliasRefs` — bound names in the
+ * pattern are never references, but destructuring defaults and computed keys
+ * are — so the candidate's own `$state(literal)` declarator contains no
+ * self-reference; `let b = $state([...list])` referencing ANOTHER candidate
+ * still correctly counts as an alias escape of `list` via `init`. Walks
+ * whatever subtree it is given — callers choose the roots.
+ */
+function collectAliasRefs(
+  node: Node,
+  names: Set<string>,
+  acc: Set<string>,
+  shadowed: Set<string> = new Set(),
+  ownRhs: string | null = null
+): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAliasRefs(child, names, acc, shadowed, ownRhs);
+    return;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === 'AssignmentExpression') {
+    const lhsIsCandidate = node.left?.type === 'Identifier' && names.has(node.left.name) && !scope.has(node.left.name);
+    if (!lhsIsCandidate) collectAliasRefs(node.left, names, acc, scope, null);
+    collectAliasRefs(node.right, names, acc, scope, lhsIsCandidate ? node.left.name : null);
+    return;
+  }
+  if (node.type === 'VariableDeclarator') {
+    collectPatternAliasRefs(node.id, names, acc, scope, ownRhs);
+    if (node.init) collectAliasRefs(node.init, names, acc, scope, ownRhs);
+    return;
+  }
+  if (node.type === 'Identifier' && names.has(node.name) && !scope.has(node.name) && node.name !== ownRhs) {
+    acc.add(node.name);
+    return;
+  }
+  for (const key of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key)) continue;
+    if (node.type === 'MemberExpression' && key === 'property' && !node.computed) continue;
+    if (node.type === 'Property' && key === 'key' && !node.computed) continue;
+    collectAliasRefs(node[key], names, acc, scope, ownRhs);
+  }
+}
+
+/**
+ * Alias scan over the fragment: template READ positions are exempt, but function
+ * bodies inside the template (inline handlers) are not — `onclick={() => (cache = obj)}`
+ * escapes. Threads template shadowing (each contexts etc.) into the handler scan.
+ */
+function collectFragmentAliasRefs(
+  node: Node,
+  names: Set<string>,
+  acc: Set<string>,
+  shadowed: Set<string> = new Set()
+): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectFragmentAliasRefs(child, names, acc, shadowed);
+    return;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+  if (isDeferredBody(node)) {
+    const introduced = scopeIntroducedNames(node);
+    const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
+    collectAliasRefs(node.body, names, acc, scope, null);
+    return;
+  }
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
+  if (Array.isArray(node.attributes)) collectFragmentAliasRefs(node.attributes, names, acc, scope);
+  for (const key of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key) || key === 'attributes') continue;
+    collectFragmentAliasRefs(node[key], names, acc, scope);
+  }
+}
+
+/**
+ * Each-context taint (performance/state-raw condition 5): for `{#each candidate as item}`
+ * or `{#each candidate.path as item}`, any mutate/escape of the context binding (or index)
+ * inside the block — member writes, method calls, call arguments, `bind:`, component props —
+ * disqualifies the candidate over the candidate or a member path of it
+ * (`{#each obj.items as item}`): item-level edits stop being reactive under $state.raw.
+ * Pure reassignments of the context name are ignored (they don't touch the list's contents).
+ */
+function collectEachContextTaint(
+  node: Node,
+  names: Set<string>,
+  acc: Set<string>,
+  shadowed: Set<string> = new Set()
+): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectEachContextTaint(child, names, acc, shadowed);
+    return;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === 'EachBlock') {
+    const expr = unwrapTs(node.expression);
+    const target =
+      expr?.type === 'Identifier' ? expr.name : expr?.type === 'MemberExpression' ? rootObjectName(expr) : undefined;
+    if (target !== undefined && names.has(target) && !shadowed.has(target)) {
+      const ctxNames = new Set<string>();
+      addBoundNames(node.context, ctxNames);
+      if (typeof node.index === 'string') ctxNames.add(node.index);
+      if (ctxNames.size > 0) {
+        const union = new Set<string>();
+        const kinds = new Map<string, Set<WriteKind>>();
+        collectStateWrites(node.body, ctxNames, union, kinds);
+        collectTemplateEscapes(node.body, ctxNames, union, kinds);
+        const dirty = [...union].some((n) => {
+          const k = kinds.get(n);
+          return !k || [...k].some((kind) => kind !== 'reassign');
+        });
+        if (dirty) acc.add(target);
+      }
+    }
+  }
+  for (const key of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key)) continue;
+    collectEachContextTaint(node[key], names, acc, scope);
+  }
 }
 
 /**
@@ -531,10 +735,25 @@ const COMPONENT_LIKE_TYPES = new Set(['Component', 'SvelteComponent', 'SvelteSel
  * element, or passed as a prop to a component (static `<Foo>`, or dynamic
  * `<svelte:component>`/`<svelte:self>`). Slot children / DOM-attribute reads do
  * not escape. `CHILD_NODE_KEYS` omits `attributes`, so inspect them explicitly.
+ * The optional `kinds` map records every hit as 'escape' for consumers that need
+ * the classification (performance/state-raw); the `acc` union contract is unchanged.
  */
-function collectTemplateEscapes(node: Node, stateNames: Set<string>, acc: Set<string>): void {
+function collectTemplateEscapes(
+  node: Node,
+  stateNames: Set<string>,
+  acc: Set<string>,
+  kinds?: Map<string, Set<WriteKind>>
+): void {
+  const record = (name: string): void => {
+    acc.add(name);
+    if (kinds) {
+      let set = kinds.get(name);
+      if (!set) kinds.set(name, (set = new Set()));
+      set.add('escape');
+    }
+  };
   if (Array.isArray(node)) {
-    for (const c of node) collectTemplateEscapes(c, stateNames, acc);
+    for (const c of node) collectTemplateEscapes(c, stateNames, acc, kinds);
     return;
   }
   if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
@@ -542,16 +761,45 @@ function collectTemplateEscapes(node: Node, stateNames: Set<string>, acc: Set<st
     for (const attr of node.attributes) {
       if (attr?.type === 'BindDirective') {
         const r = rootObjectName(attr.expression);
-        if (r && stateNames.has(r)) acc.add(r);
+        if (r && stateNames.has(r)) record(r);
       } else if (COMPONENT_LIKE_TYPES.has(node.type)) {
         walkEstree(attr, (m: Node) => {
-          if (m?.type === 'Identifier' && stateNames.has(m.name)) acc.add(m.name);
+          if (m?.type === 'Identifier' && stateNames.has(m.name)) record(m.name);
         });
       }
     }
   }
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectTemplateEscapes(node[key], stateNames, acc);
+    if (key in node) collectTemplateEscapes(node[key], stateNames, acc, kinds);
+  }
+}
+
+/** Directive types verified against svelte 5 modern-AST output: `use:x={obj}` → `UseDirective`, `transition:x={obj}` → `TransitionDirective`, `animate:x={obj}` → `AnimateDirective`. */
+const DIRECTIVE_ESCAPE_TYPES = new Set(['UseDirective', 'TransitionDirective', 'AnimateDirective']);
+
+/**
+ * Directive expressions that hand a candidate to arbitrary code — `use:action={obj}`,
+ * `transition:fn={obj}`, `animate:fn={obj}` — are reference handoffs, the same class
+ * as a call argument (performance/state-raw only; the shared template-escape
+ * collector deliberately stays unchanged for correctness/unmutated-state).
+ */
+function collectDirectiveEscapes(node: Node, names: Set<string>, acc: Set<string>): void {
+  if (Array.isArray(node)) {
+    for (const c of node) collectDirectiveEscapes(c, names, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+  if (Array.isArray(node.attributes)) {
+    for (const attr of node.attributes) {
+      if (DIRECTIVE_ESCAPE_TYPES.has(attr?.type) && attr.expression) {
+        walkEstree(attr.expression, (m: Node) => {
+          if (m?.type === 'Identifier' && names.has(m.name)) acc.add(m.name);
+        });
+      }
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectDirectiveEscapes(node[key], names, acc);
   }
 }
 
@@ -1421,6 +1669,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     constableStates: [],
     mutatedProps: [],
     stalePropDerivations: [],
+    rawableStates: [],
     suppressions: collectSuppressions(source),
     orphanEffects,
     orphanLifecycleCalls,
@@ -1469,6 +1718,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   const constableStates: { name: string; line: number }[] = [];
   const mutatedProps: { name: string; line: number }[] = [];
   const stalePropDerivations: { name: string; line: number }[] = [];
+  const rawableStates: { name: string; line: number }[] = [];
   let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
@@ -1527,6 +1777,44 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     for (const d of stateDecls) {
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
     }
+    const rawableCandidates: { name: string; line: number }[] = [];
+    for (const stmt of program.body ?? []) {
+      if (stmt?.type !== 'VariableDeclaration') continue;
+      for (const d of stmt.declarations ?? []) {
+        if (d?.id?.type !== 'Identifier' || !d.init || !isPlainStateCall(d.init)) continue;
+        const arg = unwrapTs(d.init.arguments?.[0]);
+        if (arg?.type === 'ObjectExpression' || arg?.type === 'ArrayExpression') {
+          rawableCandidates.push({ name: d.id.name, line: lineOf(source, d.start) });
+        }
+      }
+    }
+    if (rawableCandidates.length > 0) {
+      const candNames = new Set(rawableCandidates.map((c) => c.name));
+      const union = new Set<string>();
+      const kinds = new Map<string, Set<WriteKind>>();
+      collectStateWrites(program, candNames, union, kinds);
+      if (ast.fragment) {
+        collectStateWrites(ast.fragment, candNames, union, kinds);
+        collectTemplateEscapes(ast.fragment, candNames, union, kinds);
+      }
+      const aliasEscapes = new Set<string>();
+      collectAliasRefs(program, candNames, aliasEscapes);
+      const eachTaint = new Set<string>();
+      if (ast.fragment) {
+        collectFragmentAliasRefs(ast.fragment, candNames, aliasEscapes);
+        collectDirectiveEscapes(ast.fragment, candNames, aliasEscapes);
+        collectEachContextTaint(ast.fragment, candNames, eachTaint);
+      }
+      for (const c of rawableCandidates) {
+        const k = kinds.get(c.name);
+        const reassigned = k?.has('reassign') ?? false;
+        const dirty =
+          (k !== undefined && [...k].some((kind) => kind !== 'reassign')) ||
+          aliasEscapes.has(c.name) ||
+          eachTaint.has(c.name);
+        if (reassigned && !dirty) rawableStates.push(c);
+      }
+    }
     // Instance top level runs on the server during SSR (correctness/instance-browser-global). The module
     // script's guard bindings (raw browser imports + module-level derived guards)
     // and top-level bindings are visible here — pass them in.
@@ -1556,6 +1844,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     constableStates,
     mutatedProps,
     stalePropDerivations,
+    rawableStates,
     orphanEffects,
     orphanLifecycleCalls,
     browserGlobalRefs,
