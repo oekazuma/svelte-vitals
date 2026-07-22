@@ -54800,6 +54800,12 @@ function scopeIntroducedNames(node) {
     }
   } else if (node.type === "EachBlock" && node.context) {
     addBoundNames(node.context, introduced);
+    if (typeof node.index === "string") introduced.add(node.index);
+  } else if (node.type === "SnippetBlock") {
+    for (const p of node.parameters ?? []) addBoundNames(p, introduced);
+  } else if (node.type === "AwaitBlock") {
+    if (node.value) addBoundNames(node.value, introduced);
+    if (node.error) addBoundNames(node.error, introduced);
   }
   return introduced;
 }
@@ -54849,6 +54855,70 @@ function collectStateWrites(root, stateNames, acc) {
       }
     }
   });
+}
+function isDeferredBody(n) {
+  return n?.type === "FunctionDeclaration" || n?.type === "FunctionExpression" || n?.type === "ArrowFunctionExpression";
+}
+function refsNamesEagerly(node, names, shadowed = /* @__PURE__ */ new Set()) {
+  if (Array.isArray(node)) return node.some((c) => refsNamesEagerly(c, names, shadowed));
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return false;
+  if (isDeferredBody(node)) return false;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name)) return true;
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
+    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
+    if (refsNamesEagerly(node[key2], names, scope)) return true;
+  }
+  return false;
+}
+function containsCallLike(node) {
+  let found = false;
+  walkEstree(node, (n) => {
+    if (n?.type === "CallExpression" || n?.type === "NewExpression" || n?.type === "AwaitExpression") found = true;
+  });
+  return found;
+}
+function collectFragmentRefs(node, names, acc, shadowed = /* @__PURE__ */ new Set()) {
+  if (Array.isArray(node)) {
+    for (const c of node) collectFragmentRefs(c, names, acc, shadowed);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  if (isDeferredBody(node)) return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  if (node.type === "Identifier" && names.has(node.name) && !scope.has(node.name)) acc.add(node.name);
+  if (node.type === "EachBlock" || node.type === "AwaitBlock") {
+    collectFragmentRefs(node.expression, names, acc, shadowed);
+    for (const key2 of Object.keys(node)) {
+      if (WALK_IGNORED_KEYS.has(key2) || key2 === "expression") continue;
+      collectFragmentRefs(node[key2], names, acc, scope);
+    }
+    return;
+  }
+  if (Array.isArray(node.attributes)) collectFragmentRefs(node.attributes, names, acc, scope);
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2) || key2 === "attributes") continue;
+    if (node.type === "MemberExpression" && key2 === "property" && !node.computed) continue;
+    if (node.type === "Property" && key2 === "key" && !node.computed) continue;
+    collectFragmentRefs(node[key2], names, acc, scope);
+  }
+}
+function collectStalePropCandidates(program, propNames, source2) {
+  const out = [];
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "VariableDeclaration") continue;
+    for (const d of stmt2.declarations ?? []) {
+      if (d?.id?.type !== "Identifier" || !d.init) continue;
+      if (containsCallLike(d.init)) continue;
+      if (!refsNamesEagerly(d.init, propNames)) continue;
+      out.push({ name: d.id.name, line: lineOf(source2, d.start) });
+    }
+  }
+  return out;
 }
 var COMPONENT_LIKE_TYPES = /* @__PURE__ */ new Set(["Component", "SvelteComponent", "SvelteSelf"]);
 function collectTemplateEscapes(node, stateNames, acc) {
@@ -54942,7 +55012,7 @@ function isPropsCall(node) {
 function isBindableCall(node) {
   return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$bindable";
 }
-function collectNonBindableProps(program) {
+function collectPropNames(program, includeBindable) {
   const names = /* @__PURE__ */ new Set();
   let seen = 0;
   let ambiguous = false;
@@ -54962,7 +55032,8 @@ function collectNonBindableProps(program) {
         addBoundNames(p.argument, names);
       } else if (p?.type === "Property") {
         if (p.value?.type === "AssignmentPattern") {
-          if (!isBindableCall(p.value.right) && p.value.left?.type === "Identifier") names.add(p.value.left.name);
+          if ((includeBindable || !isBindableCall(p.value.right)) && p.value.left?.type === "Identifier")
+            names.add(p.value.left.name);
         } else if (p.value?.type === "Identifier") {
           names.add(p.value.name);
         }
@@ -55413,6 +55484,7 @@ function parseModuleFacts(source2, filename2) {
     namespaceImports: [],
     constableStates: [],
     mutatedProps: [],
+    stalePropDerivations: [],
     suppressions: collectSuppressions(source2),
     orphanEffects,
     orphanLifecycleCalls,
@@ -55448,15 +55520,34 @@ function parseComponentFacts(source2, filename2) {
   const effects = [];
   const constableStates = [];
   const mutatedProps = [];
+  const stalePropDerivations = [];
   let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
     collectImportSources(program, source2, importSpans);
     collectNamespaceImports(program, source2, namespaceImports);
     propCount = countProps(program);
-    const nonBindableProps = collectNonBindableProps(program);
+    const nonBindableProps = collectPropNames(program, false);
     collectPropMutations(program, nonBindableProps, source2, mutatedProps);
     if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source2, mutatedProps);
+    const allPropNames = collectPropNames(program, true);
+    if (allPropNames.size > 0) {
+      const candidates = collectStalePropCandidates(program, allPropNames, source2);
+      if (candidates.length > 0) {
+        const candidateNames = new Set(candidates.map((c) => c.name));
+        const disqualified = /* @__PURE__ */ new Set();
+        collectStateWrites(program, candidateNames, disqualified);
+        if (ast.fragment) {
+          collectStateWrites(ast.fragment, candidateNames, disqualified);
+          collectTemplateEscapes(ast.fragment, candidateNames, disqualified);
+        }
+        const referenced = /* @__PURE__ */ new Set();
+        if (ast.fragment) collectFragmentRefs(ast.fragment, candidateNames, referenced);
+        for (const c of candidates) {
+          if (!disqualified.has(c.name) && referenced.has(c.name)) stalePropDerivations.push(c);
+        }
+      }
+    }
     const stateNames = /* @__PURE__ */ new Set();
     const reactiveNames = /* @__PURE__ */ new Set();
     const stateDecls = [];
@@ -55513,6 +55604,7 @@ function parseComponentFacts(source2, filename2) {
     namespaceImports,
     constableStates,
     mutatedProps,
+    stalePropDerivations,
     orphanEffects,
     orphanLifecycleCalls,
     browserGlobalRefs,
@@ -55534,6 +55626,7 @@ function emptyComponentFacts(file) {
     namespaceImports: [],
     constableStates: [],
     mutatedProps: [],
+    stalePropDerivations: [],
     orphanEffects: [],
     orphanLifecycleCalls: [],
     browserGlobalRefs: [],
@@ -57558,6 +57651,7 @@ function componentRule(opts) {
     severity,
     scope: "component",
     rationale: opts.rationale,
+    ...opts.fix ? { fix: opts.fix } : {},
     async check(ctx) {
       const out = [];
       for (const c of ctx.components ?? []) {
@@ -57587,7 +57681,8 @@ function componentRule(opts) {
             ...b.line > 0 ? { line: b.line } : {},
             message: b.message,
             recommendation: opts.recommendation,
-            docsUrl: docsUrl7
+            docsUrl: docsUrl7,
+            ...opts.fix ? { fix: { ...opts.fix } } : {}
           });
         }
       }
@@ -57644,7 +57739,7 @@ var correctnessUnmutatedState = componentRule({
   category: "correctness",
   severity: "info",
   label: "$state usage",
-  recommendation: "If a value never changes, use const; if you only ever reassign it wholesale (never mutate its properties), use $state.raw to skip deep proxying.",
+  recommendation: "If a value never changes, use const \u2014 or $derived if it is computed from props or state; if you only ever reassign it wholesale (never mutate its properties), use $state.raw to skip deep proxying.",
   rationale: "A $state that is never mutated pays for reactivity (deep proxying, tracking) it never uses; const (or $state.raw) is clearer and cheaper.",
   applies: (c) => c.constableStates.length > 0,
   bad: (c) => c.constableStates.map((s) => ({
@@ -57663,6 +57758,23 @@ var correctnessPropMutation = componentRule({
   bad: (c) => c.mutatedProps.map((m) => ({
     line: m.line,
     message: `Prop "${m.name}" is mutated, but it is not declared $bindable`
+  }))
+});
+var correctnessStalePropDerivation = componentRule({
+  id: "correctness/stale-prop-derivation",
+  title: "Stale prop derivation",
+  category: "correctness",
+  severity: "warning",
+  label: "Props derived reactively",
+  recommendation: "Wrap the computation in $derived(...), or $derived.by(() => ...) when it needs a function body.",
+  rationale: "Svelte's guidance is to treat props as though they will change: a plain `let color = type === 'danger' ? 'red' : 'green'` freezes the first render's value, so the UI silently stops tracking the parent when the prop changes. $derived keeps the computation live at no cost.",
+  fix: {
+    description: "Wrap the prop-derived computation in $derived(...) (or $derived.by(() => ...) for a function body), keeping the same expression."
+  },
+  applies: (c) => c.stalePropDerivations.length > 0,
+  bad: (c) => c.stalePropDerivations.map((s) => ({
+    line: s.line,
+    message: `"${s.name}" is computed from a prop once, at initialization \u2014 it will not update when the prop changes. Wrap it in $derived.`
   }))
 });
 var correctnessOrphanEffect = componentRule({
@@ -58114,6 +58226,7 @@ var allRules = [
   correctnessEffectAsOnMount,
   correctnessUnmutatedState,
   correctnessPropMutation,
+  correctnessStalePropDerivation,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
   correctnessServerBrowserGlobal,

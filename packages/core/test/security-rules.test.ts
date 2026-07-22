@@ -22,6 +22,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   namespaceImports: [],
   constableStates: [],
   mutatedProps: [],
+  stalePropDerivations: [],
   orphanEffects: [],
   orphanLifecycleCalls: [],
   browserGlobalRefs: [],

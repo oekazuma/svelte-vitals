@@ -1,4 +1,4 @@
-import type { Category, Result, Severity } from '../types.js';
+import type { Category, Fix, Result, Severity } from '../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../rule.js';
 import type { ComponentFacts } from '../component.js';
 
@@ -25,6 +25,8 @@ export interface ComponentRuleOptions {
   label: string;
   recommendation: string;
   rationale: string;
+  /** Agent-actionable remediation attached to the rule and each penalized finding. */
+  fix?: Fix;
   /** Whether this component carries the signal at all (no signal → emit nothing for the file). */
   applies: (c: ComponentFacts) => boolean;
   /** The offending occurrences in a component (empty → the file passes). */
@@ -51,6 +53,7 @@ export function componentRule(opts: ComponentRuleOptions): Rule {
     severity,
     scope: 'component',
     rationale: opts.rationale,
+    ...(opts.fix ? { fix: opts.fix } : {}),
     async check(ctx: RuleContext): Promise<Result[]> {
       const out: Result[] = [];
       for (const c of ctx.components ?? []) {
@@ -80,7 +83,8 @@ export function componentRule(opts: ComponentRuleOptions): Rule {
             ...(b.line > 0 ? { line: b.line } : {}),
             message: b.message,
             recommendation: opts.recommendation,
-            docsUrl
+            docsUrl,
+            ...(opts.fix ? { fix: { ...opts.fix } } : {})
           });
         }
       }

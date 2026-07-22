@@ -7,7 +7,7 @@ export const correctnessUnmutatedState = componentRule({
   severity: 'info',
   label: '$state usage',
   recommendation:
-    'If a value never changes, use const; if you only ever reassign it wholesale (never mutate its properties), use $state.raw to skip deep proxying.',
+    'If a value never changes, use const — or $derived if it is computed from props or state; if you only ever reassign it wholesale (never mutate its properties), use $state.raw to skip deep proxying.',
   rationale:
     'A $state that is never mutated pays for reactivity (deep proxying, tracking) it never uses; const (or $state.raw) is clearer and cheaper.',
   applies: (c) => c.constableStates.length > 0,

@@ -94,6 +94,11 @@ export interface ComponentFacts {
   constableStates: { name: string; line: number }[];
   /** Mutations of a non-`$bindable` prop from `$props()` — member writes, `delete`, or a mutating method call (correctness/prop-mutation). */
   mutatedProps: { name: string; line: number }[];
+  /** Top-level const/let bindings computed from a $props() prop without $derived, never reassigned or escaped, and referenced (eagerly) in the template — frozen at init (correctness/stale-prop-derivation). */
+  stalePropDerivations: {
+    name: string;
+    line: number;
+  }[];
   /** `$effect` calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (correctness/orphan-effect). */
   orphanEffects: OrphanEffectFact[];
   /** Svelte lifecycle/context calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (correctness/orphan-lifecycle). */

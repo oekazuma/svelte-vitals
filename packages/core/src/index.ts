@@ -100,6 +100,7 @@ export {
   correctnessEffectAsOnMount,
   correctnessUnmutatedState,
   correctnessPropMutation,
+  correctnessStalePropDerivation,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
   correctnessServerBrowserGlobal,

@@ -91,6 +91,7 @@ const stateModule = (file: string): ComponentFacts => ({
   namespaceImports: [],
   constableStates: [],
   mutatedProps: [],
+  stalePropDerivations: [],
   orphanEffects: [],
   orphanLifecycleCalls: [],
   browserGlobalRefs: [],
