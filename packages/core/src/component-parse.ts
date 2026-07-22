@@ -18,41 +18,75 @@ import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf } from './svelte-ast.js';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type Node = any;
 
-/**
- * Whether an `{#each}` iterates a constant inline array literal (`{#each [a, b] as x}`).
- * Such a list has a fixed length and never reorders, so a key can't help — flagging it
- * would be a false positive. A spread element (`[...xs]`) makes it dynamic again, so it
- * is NOT treated as constant.
- */
-function isConstantListEach(node: Node): boolean {
-  const expr = node?.expression;
-  return (
-    expr?.type === 'ArrayExpression' &&
-    Array.isArray(expr.elements) &&
-    !expr.elements.some((el: Node) => el?.type === 'SpreadElement')
-  );
-}
-
-/** Unwrap TS wrapper expressions (`x satisfies T`, `x as T`) in a key expression. */
-function unwrapKeyTs(expr: Node): Node {
+/** Unwrap TS wrapper expressions (`x satisfies T`, `x as T`, `x!`) to the underlying expression. Shared with the Kit-module and Vite-config parsers. */
+export function unwrapTs(expr: Node): Node {
   let cur = expr;
-  while (cur?.type === 'TSSatisfiesExpression' || cur?.type === 'TSAsExpression') cur = cur.expression;
+  while (cur?.type === 'TSSatisfiesExpression' || cur?.type === 'TSAsExpression' || cur?.type === 'TSNonNullExpression')
+    cur = cur.expression;
   return cur;
 }
 
+/** Whether `expr` is a length-only list constructor: `Array(n)` / `new Array(n)` (single argument = length semantics) or `Array.from({ length: n }, …)`. */
+function isLengthOnlyArrayCall(expr: Node): boolean {
+  const e = unwrapTs(expr);
+  if (!e) return false;
+  if (
+    (e.type === 'CallExpression' || e.type === 'NewExpression') &&
+    e.callee?.type === 'Identifier' &&
+    e.callee.name === 'Array'
+  ) {
+    return (e.arguments?.length ?? 0) === 1;
+  }
+  if (
+    e.type === 'CallExpression' &&
+    e.callee?.type === 'MemberExpression' &&
+    !e.callee.computed &&
+    e.callee.object?.type === 'Identifier' &&
+    e.callee.object.name === 'Array' &&
+    e.callee.property?.name === 'from' &&
+    e.arguments?.[0]?.type === 'ObjectExpression'
+  ) {
+    return (e.arguments[0].properties ?? []).some(
+      (p: Node) => p?.type === 'Property' && !p.computed && (p.key?.name === 'length' || p.key?.value === 'length')
+    );
+  }
+  return false;
+}
+
 /**
- * Whether `expr` is the index binding itself or a trivial stringification of it —
- * `i`, `String(i)`, `` `${i}` ``, `i.toString()` — all position-based identity.
- * A template with any literal text (`` `row-${i}` ``) or extra expressions is
- * treated as composite and NOT matched: composite keys may be a deliberate
- * uniqueness workaround for duplicate items.
+ * Whether the each expression yields no item identity to key on: a constant
+ * inline array literal (fixed length, never reorders), a length-only list
+ * (`Array(n)`, `new Array(n)`, `[...Array(n)]`, `Array.from({ length: n })` —
+ * placeholder/skeleton lists), or a spread array whose every element spreads a
+ * length-only list. Such blocks are skipped entirely — neither each-key nor
+ * each-index-key can give useful advice on them.
+ */
+function isIdentityFreeEach(node: Node): boolean {
+  const expr = unwrapTs(node?.expression);
+  if (expr?.type === 'ArrayExpression' && Array.isArray(expr.elements)) {
+    return expr.elements.every((el: Node) => el?.type !== 'SpreadElement' || isLengthOnlyArrayCall(el.argument));
+  }
+  return isLengthOnlyArrayCall(expr);
+}
+
+/**
+ * Whether `expr` is the index binding itself or a trivial coercion of it —
+ * `i`, `String(i)`, `Number(i)`, `` `${i}` ``, `i.toString()`, `i + ''` — all
+ * position-based identity. A template or concatenation with any literal text
+ * (`` `row-${i}` ``, `i + '-row'`) or extra expressions is treated as composite
+ * and NOT matched: composite keys may be a deliberate uniqueness workaround for
+ * duplicate items.
  */
 function isIndexExpression(expr: Node, index: string): boolean {
-  const e = unwrapKeyTs(expr);
+  const e = unwrapTs(expr);
   if (e?.type === 'Identifier') return e.name === index;
   if (e?.type === 'CallExpression') {
     const callee = e.callee;
-    if (callee?.type === 'Identifier' && callee.name === 'String' && e.arguments?.length === 1) {
+    if (
+      callee?.type === 'Identifier' &&
+      (callee.name === 'String' || callee.name === 'Number') &&
+      e.arguments?.length === 1
+    ) {
       return isIndexExpression(e.arguments[0], index);
     }
     if (
@@ -71,6 +105,11 @@ function isIndexExpression(expr: Node, index: string): boolean {
     const hasText = (e.quasis ?? []).some((q: Node) => (q?.value?.cooked ?? q?.value?.raw ?? '') !== '');
     if (hasText) return false;
     return isIndexExpression(exprs[0], index);
+  }
+  if (e?.type === 'BinaryExpression' && e.operator === '+') {
+    const emptyString = (n: Node) => n?.type === 'Literal' && n.value === '';
+    if (emptyString(e.left)) return isIndexExpression(e.right, index);
+    if (emptyString(e.right)) return isIndexExpression(e.left, index);
   }
   return false;
 }
@@ -98,7 +137,7 @@ function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): vo
   // Itemless each (`{#each { length: 8 }, i}` — the docs' "render N times" pattern,
   // e.g. a chess board) has no item identity to key on; the only possible key is
   // the index itself, which is a no-op. Flagging it would be a false positive.
-  if (node.type === 'EachBlock' && node.context != null && !isConstantListEach(node)) {
+  if (node.type === 'EachBlock' && node.context != null && !isIdentityFreeEach(node)) {
     acc.push({
       hasKey: node.key != null,
       line: lineOf(source, node.start),

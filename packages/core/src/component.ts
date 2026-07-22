@@ -10,7 +10,7 @@ export interface EachBlockFact {
   hasKey: boolean;
   /** 1-based source line, or 0 if unknown. */
   line: number;
-  /** Set when the block's key expression is exactly its index binding (`{#each items as item, i (i)}`) — correctness/each-index-key. */
+  /** Set when the block's key expression is its index binding or a trivial coercion of it — `(i)`, `(String(i))`, `(Number(i))`, `` (`${i}`) ``, `(i.toString())`, `(i + '')` — correctness/each-index-key. */
   indexKey?: boolean;
 }
 
