@@ -15,9 +15,8 @@ export const correctnessStalePropDerivation = componentRule({
   rationale:
     "Svelte's guidance is to treat props as though they will change: a plain `let color = type === 'danger' ? 'red' : 'green'` freezes the first render's value, so the UI silently stops tracking the parent when the prop changes. $derived keeps the computation live at no cost.",
   fix: {
-    description: 'Wrap the prop-derived computation in $derived.',
-    snippet: "let color = $derived(type === 'danger' ? 'red' : 'green');",
-    lang: 'js'
+    description:
+      'Wrap the prop-derived computation in $derived(...) (or $derived.by(() => ...) for a function body), keeping the same expression.'
   },
   applies: (c) => c.stalePropDerivations.length > 0,
   bad: (c) =>
