@@ -46,6 +46,16 @@ describe('stalePropDerivations — flags', () => {
     );
     expect(spd(snippet)).toEqual([{ name: 'color', line: 3 }]);
   });
+
+  it('counts same-name block-header references (block bindings scope to the body only)', () => {
+    const each = script(
+      `let { list } = $props();\nconst items = [...list];`,
+      '{#each items as items (items.id)}<i>{items.name}</i>{/each}'
+    );
+    expect(spd(each)).toEqual([{ name: 'items', line: 3 }]);
+    const awaited = script(`let { promise } = $props();\nconst p = promise;`, '{#await p then p}<i>{p}</i>{/await}');
+    expect(spd(awaited)).toEqual([{ name: 'p', line: 3 }]);
+  });
 });
 
 describe('stalePropDerivations — exclusions', () => {

@@ -447,6 +447,17 @@ function collectFragmentRefs(
   const introduced = scopeIntroducedNames(node);
   const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
   if (node.type === 'Identifier' && names.has(node.name) && !scope.has(node.name)) acc.add(node.name);
+  if (node.type === 'EachBlock' || node.type === 'AwaitBlock') {
+    // The header expression evaluates in the OUTER scope — the block's own
+    // bindings (each context/index, await value/error) exist only in its body
+    // and key, not in the expression that feeds the block.
+    collectFragmentRefs(node.expression, names, acc, shadowed);
+    for (const key of Object.keys(node)) {
+      if (WALK_IGNORED_KEYS.has(key) || key === 'expression') continue;
+      collectFragmentRefs(node[key], names, acc, scope);
+    }
+    return;
+  }
   if (Array.isArray(node.attributes)) collectFragmentRefs(node.attributes, names, acc, scope);
   for (const key of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key) || key === 'attributes') continue;
