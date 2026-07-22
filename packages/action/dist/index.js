@@ -54634,6 +54634,12 @@ function isConstantListEach(node) {
   const expr = node?.expression;
   return expr?.type === "ArrayExpression" && Array.isArray(expr.elements) && !expr.elements.some((el) => el?.type === "SpreadElement");
 }
+function isIndexKey(each) {
+  if (typeof each.index !== "string" || each.key == null) return false;
+  let key2 = each.key;
+  while (key2?.type === "TSSatisfiesExpression" || key2?.type === "TSAsExpression") key2 = key2.expression;
+  return key2?.type === "Identifier" && key2.name === each.index;
+}
 function collectEachBlocks(node, source2, acc) {
   if (Array.isArray(node)) {
     for (const child of node) collectEachBlocks(child, source2, acc);
@@ -54641,7 +54647,11 @@ function collectEachBlocks(node, source2, acc) {
   }
   if (!node || typeof node !== "object") return;
   if (node.type === "EachBlock" && node.context != null && !isConstantListEach(node)) {
-    acc.push({ hasKey: node.key != null, line: lineOf(source2, node.start) });
+    acc.push({
+      hasKey: node.key != null,
+      line: lineOf(source2, node.start),
+      ...isIndexKey(node) ? { indexKey: true } : {}
+    });
   }
   for (const key2 of CHILD_NODE_KEYS) {
     if (key2 in node) collectEachBlocks(node[key2], source2, acc);
@@ -57553,6 +57563,19 @@ var correctnessEachKey = componentRule({
   applies: (c) => c.eachBlocks.length > 0,
   bad: (c) => c.eachBlocks.filter((e2) => !e2.hasKey).map((e2) => ({ line: e2.line, message: "{#each} block has no key" }))
 });
+var correctnessEachIndexKey = componentRule({
+  id: "correctness/each-index-key",
+  title: "Index used as each key",
+  category: "correctness",
+  label: "Item-keyed {#each}",
+  recommendation: "Key by a value that uniquely identifies the item, e.g. (item.id).",
+  rationale: "Svelte's guidance is explicit: the key must uniquely identify the object \u2014 do not use the index. An index key gives items position-based identity, so element state (focus, inputs, transitions) sticks to positions when the list reorders or items are inserted or removed, exactly like an unkeyed block \u2014 but the visible key masks the problem.",
+  applies: (c) => c.eachBlocks.some((e2) => e2.indexKey),
+  bad: (c) => c.eachBlocks.filter((e2) => e2.indexKey).map((e2) => ({
+    line: e2.line,
+    message: "{#each} is keyed by its index \u2014 identity follows position, exactly like an unkeyed block, but the key makes it look safe."
+  }))
+});
 var correctnessEffectAsDerived = componentRule({
   id: "correctness/effect-as-derived",
   title: "Effect used to derive state",
@@ -58044,6 +58067,7 @@ var allRules = [
   seoHeadingLevelSkip,
   seoSsrDisabled,
   correctnessEachKey,
+  correctnessEachIndexKey,
   correctnessEffectAsDerived,
   correctnessEffectAsOnMount,
   correctnessUnmutatedState,
