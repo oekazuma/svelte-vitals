@@ -54634,11 +54634,36 @@ function isConstantListEach(node) {
   const expr = node?.expression;
   return expr?.type === "ArrayExpression" && Array.isArray(expr.elements) && !expr.elements.some((el) => el?.type === "SpreadElement");
 }
+function unwrapKeyTs(expr) {
+  let cur = expr;
+  while (cur?.type === "TSSatisfiesExpression" || cur?.type === "TSAsExpression") cur = cur.expression;
+  return cur;
+}
+function isIndexExpression(expr, index) {
+  const e2 = unwrapKeyTs(expr);
+  if (e2?.type === "Identifier") return e2.name === index;
+  if (e2?.type === "CallExpression") {
+    const callee = e2.callee;
+    if (callee?.type === "Identifier" && callee.name === "String" && e2.arguments?.length === 1) {
+      return isIndexExpression(e2.arguments[0], index);
+    }
+    if (callee?.type === "MemberExpression" && !callee.computed && callee.property?.name === "toString" && (e2.arguments?.length ?? 0) === 0) {
+      return isIndexExpression(callee.object, index);
+    }
+    return false;
+  }
+  if (e2?.type === "TemplateLiteral") {
+    const exprs = e2.expressions ?? [];
+    if (exprs.length !== 1) return false;
+    const hasText = (e2.quasis ?? []).some((q) => (q?.value?.cooked ?? q?.value?.raw ?? "") !== "");
+    if (hasText) return false;
+    return isIndexExpression(exprs[0], index);
+  }
+  return false;
+}
 function isIndexKey(each) {
   if (typeof each.index !== "string" || each.key == null) return false;
-  let key2 = each.key;
-  while (key2?.type === "TSSatisfiesExpression" || key2?.type === "TSAsExpression") key2 = key2.expression;
-  return key2?.type === "Identifier" && key2.name === each.index;
+  return isIndexExpression(each.key, each.index);
 }
 function collectEachBlocks(node, source2, acc) {
   if (Array.isArray(node)) {
