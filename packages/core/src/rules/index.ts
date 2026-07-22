@@ -40,6 +40,7 @@ import { seoDuplicateDescription } from './seo/duplicate-description.js';
 import { seoHeadingLevelSkip } from './seo/heading-level-skip.js';
 import { seoSsrDisabled } from './seo/ssr-disabled.js';
 import { correctnessEachKey } from './correctness/each-key.js';
+import { correctnessEachIndexKey } from './correctness/each-index-key.js';
 import { correctnessEffectAsDerived } from './correctness/effect-as-derived.js';
 import { correctnessEffectAsOnMount } from './correctness/effect-as-onmount.js';
 import { correctnessUnmutatedState } from './correctness/unmutated-state.js';
@@ -102,6 +103,7 @@ export const allRules: Rule[] = [
   seoHeadingLevelSkip,
   seoSsrDisabled,
   correctnessEachKey,
+  correctnessEachIndexKey,
   correctnessEffectAsDerived,
   correctnessEffectAsOnMount,
   correctnessUnmutatedState,
@@ -165,6 +167,7 @@ export {
   seoHeadingLevelSkip,
   seoSsrDisabled,
   correctnessEachKey,
+  correctnessEachIndexKey,
   correctnessEffectAsDerived,
   correctnessEffectAsOnMount,
   correctnessUnmutatedState,
