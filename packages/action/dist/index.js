@@ -56125,46 +56125,47 @@ async function collectKitModuleFacts(rt, cwd) {
 }
 function propOf(obj, name) {
   let found;
-  for (const p of obj.properties ?? []) {
-    if (p?.type === "SpreadElement") {
+  for (const p of obj.properties) {
+    if (p.type === "SpreadElement") {
       if (found) found = void 0;
       continue;
     }
-    if (p?.type !== "Property" || p.computed) continue;
-    if (p.key?.type === "Identifier" && p.key.name === name) found = p;
-    else if (p.key?.type === "Literal" && p.key.value === name) found = p;
+    if (p.type !== "Property" || p.computed) continue;
+    if (p.key.type === "Identifier" && p.key.name === name) found = p;
+    else if (p.key.type === "Literal" && p.key.value === name) found = p;
   }
   return found;
 }
 function unwrapToObjectExpression(expr, bindings) {
-  for (let i = 0; i < 4 && expr; i++) {
-    expr = unwrapTs(expr);
-    if (expr?.type === "ObjectExpression") return expr;
-    if (expr?.type === "Identifier") {
-      expr = bindings.get(expr.name);
+  let current2 = expr;
+  for (let i = 0; i < 4 && current2; i++) {
+    const e2 = unwrapTs(current2);
+    if (e2.type === "ObjectExpression") return e2;
+    if (e2.type === "Identifier") {
+      current2 = bindings.get(e2.name);
       continue;
     }
-    if (expr?.type === "CallExpression") {
-      expr = expr.arguments?.[0];
+    if (e2.type === "CallExpression") {
+      current2 = e2.arguments[0];
       continue;
     }
     return void 0;
   }
-  return expr?.type === "ObjectExpression" ? expr : void 0;
+  return current2?.type === "ObjectExpression" ? current2 : void 0;
 }
 function findExportedExpression(program) {
   let exported;
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type === "ExportDefaultDeclaration") exported = stmt2.declaration;
+  for (const stmt2 of program.body) {
+    if (stmt2.type === "ExportDefaultDeclaration") exported = stmt2.declaration;
   }
   if (exported) return exported;
   let cjsExported;
-  for (const stmt2 of program.body ?? []) {
-    if (stmt2?.type !== "ExpressionStatement") continue;
+  for (const stmt2 of program.body) {
+    if (stmt2.type !== "ExpressionStatement") continue;
     const expr = stmt2.expression;
-    if (expr?.type !== "AssignmentExpression" || expr.operator !== "=") continue;
+    if (expr.type !== "AssignmentExpression" || expr.operator !== "=") continue;
     const left = expr.left;
-    if (left?.type === "MemberExpression" && !left.computed && left.object?.type === "Identifier" && left.object.name === "module" && left.property?.type === "Identifier" && left.property.name === "exports") {
+    if (left.type === "MemberExpression" && !left.computed && left.object.type === "Identifier" && left.object.name === "module" && left.property.type === "Identifier" && left.property.name === "exports") {
       cjsExported = expr.right;
     }
   }
@@ -56191,7 +56192,7 @@ function findMinifyDisabled(source2) {
   if (buildValue?.type !== "ObjectExpression") return void 0;
   const minify = propOf(buildValue, "minify");
   const minifyValue = minify ? unwrapTs(minify.value) : void 0;
-  if (minifyValue?.type !== "Literal" || minifyValue.value !== false) return void 0;
+  if (!minify || minifyValue?.type !== "Literal" || minifyValue.value !== false) return void 0;
   return { line: Math.max(0, lineOf(wrapped, minify.start) - 1) };
 }
 var ROBOTS_SOURCE_PATHS = [
