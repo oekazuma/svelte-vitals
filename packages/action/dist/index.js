@@ -54630,21 +54630,38 @@ function attrTextOf(attr) {
   const text2 = v.filter((n) => n?.type === "Text").map((n) => String(n.data ?? "")).join("");
   return text2.trim().length > 0 ? text2 : void 0;
 }
-function isConstantListEach(node) {
-  const expr = node?.expression;
-  return expr?.type === "ArrayExpression" && Array.isArray(expr.elements) && !expr.elements.some((el) => el?.type === "SpreadElement");
-}
-function unwrapKeyTs(expr) {
+function unwrapTs(expr) {
   let cur = expr;
-  while (cur?.type === "TSSatisfiesExpression" || cur?.type === "TSAsExpression") cur = cur.expression;
+  while (cur?.type === "TSSatisfiesExpression" || cur?.type === "TSAsExpression" || cur?.type === "TSNonNullExpression")
+    cur = cur.expression;
   return cur;
 }
+function isLengthOnlyArrayCall(expr) {
+  const e2 = unwrapTs(expr);
+  if (!e2) return false;
+  if ((e2.type === "CallExpression" || e2.type === "NewExpression") && e2.callee?.type === "Identifier" && e2.callee.name === "Array") {
+    return (e2.arguments?.length ?? 0) === 1;
+  }
+  if (e2.type === "CallExpression" && e2.callee?.type === "MemberExpression" && !e2.callee.computed && e2.callee.object?.type === "Identifier" && e2.callee.object.name === "Array" && e2.callee.property?.name === "from" && e2.arguments?.[0]?.type === "ObjectExpression") {
+    return (e2.arguments[0].properties ?? []).some(
+      (p) => p?.type === "Property" && !p.computed && (p.key?.name === "length" || p.key?.value === "length")
+    );
+  }
+  return false;
+}
+function isIdentityFreeEach(node) {
+  const expr = unwrapTs(node?.expression);
+  if (expr?.type === "ArrayExpression" && Array.isArray(expr.elements)) {
+    return expr.elements.every((el) => el?.type !== "SpreadElement" || isLengthOnlyArrayCall(el.argument));
+  }
+  return isLengthOnlyArrayCall(expr);
+}
 function isIndexExpression(expr, index) {
-  const e2 = unwrapKeyTs(expr);
+  const e2 = unwrapTs(expr);
   if (e2?.type === "Identifier") return e2.name === index;
   if (e2?.type === "CallExpression") {
     const callee = e2.callee;
-    if (callee?.type === "Identifier" && callee.name === "String" && e2.arguments?.length === 1) {
+    if (callee?.type === "Identifier" && (callee.name === "String" || callee.name === "Number") && e2.arguments?.length === 1) {
       return isIndexExpression(e2.arguments[0], index);
     }
     if (callee?.type === "MemberExpression" && !callee.computed && callee.property?.name === "toString" && (e2.arguments?.length ?? 0) === 0) {
@@ -54659,6 +54676,11 @@ function isIndexExpression(expr, index) {
     if (hasText) return false;
     return isIndexExpression(exprs[0], index);
   }
+  if (e2?.type === "BinaryExpression" && e2.operator === "+") {
+    const emptyString = (n) => n?.type === "Literal" && n.value === "";
+    if (emptyString(e2.left)) return isIndexExpression(e2.right, index);
+    if (emptyString(e2.right)) return isIndexExpression(e2.left, index);
+  }
   return false;
 }
 function isIndexKey(each) {
@@ -54671,7 +54693,7 @@ function collectEachBlocks(node, source2, acc) {
     return;
   }
   if (!node || typeof node !== "object") return;
-  if (node.type === "EachBlock" && node.context != null && !isConstantListEach(node)) {
+  if (node.type === "EachBlock" && node.context != null && !isIdentityFreeEach(node)) {
     acc.push({
       hasKey: node.key != null,
       line: lineOf(source2, node.start),
@@ -55546,11 +55568,6 @@ var HANDLER_NAMES = /* @__PURE__ */ new Set([
   "OPTIONS",
   "fallback"
 ]);
-function unwrapTs(expr) {
-  let cur = expr;
-  while (cur?.type === "TSSatisfiesExpression" || cur?.type === "TSAsExpression") cur = cur.expression;
-  return cur;
-}
 function isFunctionNode(n) {
   return n?.type === "FunctionDeclaration" || n?.type === "FunctionExpression" || n?.type === "ArrowFunctionExpression";
 }
