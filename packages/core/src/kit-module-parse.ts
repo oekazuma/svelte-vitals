@@ -211,7 +211,12 @@ function isParentCall(arg: Node): boolean {
   if (e?.type !== 'CallExpression') return false;
   const callee = e.callee;
   if (callee?.type === 'Identifier' && callee.name === 'parent') return true;
-  return callee?.type === 'MemberExpression' && !callee.computed && callee.property?.name === 'parent';
+  return (
+    callee?.type === 'MemberExpression' &&
+    !callee.computed &&
+    callee.property.type === 'Identifier' &&
+    callee.property.name === 'parent'
+  );
 }
 
 const BODY_METHODS = new Set(['json', 'text', 'blob', 'arrayBuffer', 'formData', 'bytes']);
@@ -226,7 +231,12 @@ function isBodyParseCall(arg: Node): boolean {
   const e = unwrapTs(arg);
   if (e?.type !== 'CallExpression' || e.arguments?.length) return false;
   const callee = e.callee;
-  return callee?.type === 'MemberExpression' && !callee.computed && BODY_METHODS.has(callee.property?.name);
+  return (
+    callee?.type === 'MemberExpression' &&
+    !callee.computed &&
+    callee.property.type === 'Identifier' &&
+    BODY_METHODS.has(callee.property.name)
+  );
 }
 
 /**

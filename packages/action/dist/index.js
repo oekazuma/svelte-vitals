@@ -54632,7 +54632,7 @@ function attrTextOf(attr) {
 }
 function unwrapTs(expr) {
   let cur = expr;
-  while (cur?.type === "TSSatisfiesExpression" || cur?.type === "TSAsExpression" || cur?.type === "TSNonNullExpression")
+  while (cur.type === "TSSatisfiesExpression" || cur.type === "TSAsExpression" || cur.type === "TSNonNullExpression")
     cur = cur.expression;
   return cur;
 }
@@ -54642,7 +54642,7 @@ function isLengthOnlyArrayCall(expr) {
   if ((e2.type === "CallExpression" || e2.type === "NewExpression") && e2.callee?.type === "Identifier" && e2.callee.name === "Array") {
     return (e2.arguments?.length ?? 0) === 1;
   }
-  if (e2.type === "CallExpression" && e2.callee?.type === "MemberExpression" && !e2.callee.computed && e2.callee.object?.type === "Identifier" && e2.callee.object.name === "Array" && e2.callee.property?.name === "from" && e2.arguments?.[0]?.type === "ObjectExpression") {
+  if (e2.type === "CallExpression" && e2.callee?.type === "MemberExpression" && !e2.callee.computed && e2.callee.object?.type === "Identifier" && e2.callee.object.name === "Array" && e2.callee.property.type === "Identifier" && e2.callee.property.name === "from" && e2.arguments?.[0]?.type === "ObjectExpression") {
     return (e2.arguments[0].properties ?? []).some(
       (p) => p?.type === "Property" && !p.computed && (p.key?.name === "length" || p.key?.value === "length")
     );
@@ -54650,34 +54650,34 @@ function isLengthOnlyArrayCall(expr) {
   return false;
 }
 function isIdentityFreeEach(node) {
-  const expr = unwrapTs(node?.expression);
-  if (expr?.type === "ArrayExpression" && Array.isArray(expr.elements)) {
+  const expr = unwrapTs(node.expression);
+  if (expr.type === "ArrayExpression" && Array.isArray(expr.elements)) {
     return expr.elements.every((el) => el?.type !== "SpreadElement" || isLengthOnlyArrayCall(el.argument));
   }
   return isLengthOnlyArrayCall(expr);
 }
 function isIndexExpression(expr, index) {
   const e2 = unwrapTs(expr);
-  if (e2?.type === "Identifier") return e2.name === index;
-  if (e2?.type === "CallExpression") {
+  if (e2.type === "Identifier") return e2.name === index;
+  if (e2.type === "CallExpression") {
     const callee = e2.callee;
-    if (callee?.type === "Identifier" && (callee.name === "String" || callee.name === "Number") && e2.arguments?.length === 1) {
+    if (callee.type === "Identifier" && (callee.name === "String" || callee.name === "Number") && e2.arguments.length === 1) {
       return isIndexExpression(e2.arguments[0], index);
     }
-    if (callee?.type === "MemberExpression" && !callee.computed && callee.property?.name === "toString" && (e2.arguments?.length ?? 0) === 0) {
+    if (callee.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && callee.property.name === "toString" && e2.arguments.length === 0) {
       return isIndexExpression(callee.object, index);
     }
     return false;
   }
-  if (e2?.type === "TemplateLiteral") {
-    const exprs = e2.expressions ?? [];
+  if (e2.type === "TemplateLiteral") {
+    const exprs = e2.expressions;
     if (exprs.length !== 1) return false;
-    const hasText = (e2.quasis ?? []).some((q) => (q?.value?.cooked ?? q?.value?.raw ?? "") !== "");
+    const hasText = e2.quasis.some((q) => (q.value.cooked ?? q.value.raw) !== "");
     if (hasText) return false;
     return isIndexExpression(exprs[0], index);
   }
-  if (e2?.type === "BinaryExpression" && e2.operator === "+") {
-    const emptyString = (n) => n?.type === "Literal" && n.value === "";
+  if (e2.type === "BinaryExpression" && e2.operator === "+") {
+    const emptyString = (n) => n.type === "Literal" && n.value === "";
     if (emptyString(e2.left)) return isIndexExpression(e2.right, index);
     if (emptyString(e2.right)) return isIndexExpression(e2.left, index);
   }
@@ -55766,14 +55766,14 @@ function isParentCall(arg) {
   if (e2?.type !== "CallExpression") return false;
   const callee = e2.callee;
   if (callee?.type === "Identifier" && callee.name === "parent") return true;
-  return callee?.type === "MemberExpression" && !callee.computed && callee.property?.name === "parent";
+  return callee?.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && callee.property.name === "parent";
 }
 var BODY_METHODS = /* @__PURE__ */ new Set(["json", "text", "blob", "arrayBuffer", "formData", "bytes"]);
 function isBodyParseCall(arg) {
   const e2 = unwrapTs(arg);
   if (e2?.type !== "CallExpression" || e2.arguments?.length) return false;
   const callee = e2.callee;
-  return callee?.type === "MemberExpression" && !callee.computed && BODY_METHODS.has(callee.property?.name);
+  return callee?.type === "MemberExpression" && !callee.computed && callee.property.type === "Identifier" && BODY_METHODS.has(callee.property.name);
 }
 function refsTainted(node, tainted) {
   let hit = false;
