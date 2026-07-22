@@ -1,7 +1,7 @@
 import type { HeadTag } from '../../head.js';
 import { headTagRule } from './head-tag-rule.js';
 
-export const seo008JsonLd = headTagRule({
+export const seoJsonLd = headTagRule({
   id: 'seo/json-ld',
   title: 'JSON-LD structured data',
   severity: 'info',

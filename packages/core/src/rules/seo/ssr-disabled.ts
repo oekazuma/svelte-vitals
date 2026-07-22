@@ -6,7 +6,7 @@ const ROOT_LAYOUT_RE = /^src\/routes\/\+layout(\.server)?\.(ts|js)$/;
 /** `ssr` is a page option — it has no effect in `+server` endpoints or hooks files. */
 const PAGE_OPTION_FILE_RE = /\+(page|layout)(\.server)?\.(ts|js)$/;
 
-export const seo031SsrDisabled = kitModuleRule({
+export const seoSsrDisabled = kitModuleRule({
   id: 'seo/ssr-disabled',
   title: 'SSR disabled',
   category: 'seo',

@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest';
 import {
-  perf005LcpImage,
-  perf006ResponsiveImage,
-  perf007RenderBlockingScript,
-  perf008Preconnect
+  performanceLcpImage,
+  performanceResponsiveImage,
+  performanceRenderBlockingScript,
+  performancePreconnect
 } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
@@ -30,34 +30,36 @@ const imagesCtx = (images: ResolvedImages[]): RuleContext => ({ heads: [], image
 
 describe('performance/lcp-image LCP image eager loading', () => {
   it('flags a lazy first image', async () => {
-    const rs = await perf005LcpImage.check(imagesCtx([{ route: '/a', images: [img({ lazy: true })] }]));
+    const rs = await performanceLcpImage.check(imagesCtx([{ route: '/a', images: [img({ lazy: true })] }]));
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.line).toBe(3);
   });
   it('passes an eager first image', async () => {
-    const rs = await perf005LcpImage.check(imagesCtx([{ route: '/a', images: [img({ lazy: false })] }]));
+    const rs = await performanceLcpImage.check(imagesCtx([{ route: '/a', images: [img({ lazy: false })] }]));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
   it('only inspects the first image (a later lazy image is not flagged)', async () => {
-    const rs = await perf005LcpImage.check(
+    const rs = await performanceLcpImage.check(
       imagesCtx([{ route: '/a', images: [img({ lazy: false }), img({ lazy: true })] }])
     );
     expect(fails(rs)).toHaveLength(0);
   });
   it('emits nothing for a route with no images', async () => {
-    expect(await perf005LcpImage.check(imagesCtx([{ route: '/a', images: [] }]))).toHaveLength(0);
+    expect(await performanceLcpImage.check(imagesCtx([{ route: '/a', images: [] }]))).toHaveLength(0);
   });
 });
 
 describe('performance/responsive-image responsive image', () => {
   it('flags an <img> without srcset (info)', async () => {
-    const rs = await perf006ResponsiveImage.check(imagesCtx([{ route: '/a', images: [img({ hasSrcset: false })] }]));
+    const rs = await performanceResponsiveImage.check(
+      imagesCtx([{ route: '/a', images: [img({ hasSrcset: false })] }])
+    );
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.severity).toBe('info');
   });
   it('passes an <img> with srcset', async () => {
-    const rs = await perf006ResponsiveImage.check(imagesCtx([{ route: '/a', images: [img({ hasSrcset: true })] }]));
+    const rs = await performanceResponsiveImage.check(imagesCtx([{ route: '/a', images: [img({ hasSrcset: true })] }]));
     expect(fails(rs)).toHaveLength(0);
   });
 });
@@ -72,25 +74,29 @@ const headsCtx = (h: ResolvedHead): RuleContext => ({ heads: [h], ...base });
 
 describe('performance/render-blocking-script render-blocking script', () => {
   it('flags a blocking head script (rendered)', async () => {
-    const rs = await perf007RenderBlockingScript.check(
+    const rs = await performanceRenderBlockingScript.check(
       headsCtx(head('rendered', [{ kind: 'script', href: '/a.js', blocking: true }]))
     );
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toContain('/a.js');
   });
   it('passes a head with a non-blocking script', async () => {
-    const rs = await perf007RenderBlockingScript.check(headsCtx(head('rendered', [{ kind: 'script', href: '/a.js' }])));
+    const rs = await performanceRenderBlockingScript.check(
+      headsCtx(head('rendered', [{ kind: 'script', href: '/a.js' }]))
+    );
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
   it('also flags a blocking script in static mode (svelte:head)', async () => {
-    const rs = await perf007RenderBlockingScript.check(
+    const rs = await performanceRenderBlockingScript.check(
       headsCtx(head('static', [{ kind: 'script', href: '/a.js', blocking: true }]))
     );
     expect(fails(rs)).toHaveLength(1);
   });
   it('emits nothing for a head with no <script> at all', async () => {
-    expect(await perf007RenderBlockingScript.check(headsCtx(head('rendered', [{ kind: 'title' }])))).toHaveLength(0);
+    expect(await performanceRenderBlockingScript.check(headsCtx(head('rendered', [{ kind: 'title' }])))).toHaveLength(
+      0
+    );
   });
 });
 
@@ -98,14 +104,14 @@ const link = (rel: string, href: string): Partial<HeadTag> => ({ kind: 'link', r
 
 describe('performance/preconnect preconnect third-party origin', () => {
   it('flags a third-party stylesheet with no preconnect', async () => {
-    const rs = await perf008Preconnect.check(
+    const rs = await performancePreconnect.check(
       headsCtx(head('rendered', [link('stylesheet', 'https://fonts.googleapis.com/css2?x')]))
     );
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toContain('fonts.googleapis.com');
   });
   it('passes when the origin is preconnected', async () => {
-    const rs = await perf008Preconnect.check(
+    const rs = await performancePreconnect.check(
       headsCtx(
         head('rendered', [
           link('preconnect', 'https://fonts.googleapis.com'),
@@ -117,7 +123,9 @@ describe('performance/preconnect preconnect third-party origin', () => {
     expect(rs).toHaveLength(1);
   });
   it('emits nothing when no third-party origin is referenced', async () => {
-    const rs = await perf008Preconnect.check(headsCtx(head('rendered', [link('canonical', 'https://example.com/')])));
+    const rs = await performancePreconnect.check(
+      headsCtx(head('rendered', [link('canonical', 'https://example.com/')]))
+    );
     expect(rs).toHaveLength(0);
   });
 });

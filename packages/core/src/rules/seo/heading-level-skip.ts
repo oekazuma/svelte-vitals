@@ -11,7 +11,7 @@ const recommendation = 'Increase heading levels one step at a time (do not jump,
  * h2 → h4) breaks the outline. The first heading has no predecessor (missing/multiple
  * <h1> stays seo/single-h1's concern). A route with no headings emits nothing.
  */
-export const seo030HeadingOrder: Rule = {
+export const seoHeadingLevelSkip: Rule = {
   id: 'seo/heading-level-skip',
   title: 'Heading order',
   category: 'seo',

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { perf012MinifyDisabled } from '../src/rules/perf/minify-disabled.js';
+import { performanceMinifyDisabled } from '../src/rules/perf/minify-disabled.js';
 import { defaultProject, defaultConfig } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 
@@ -13,11 +13,11 @@ function ctx(viteMinifyDisabled?: { file?: string; line?: number }): RuleContext
 
 describe('performance/minify-disabled minify disabled', () => {
   it('emits nothing when the fact is unset', async () => {
-    expect(await perf012MinifyDisabled.check(ctx())).toEqual([]);
+    expect(await performanceMinifyDisabled.check(ctx())).toEqual([]);
   });
 
   it('emits one warning finding at the config file and line', async () => {
-    const results = await perf012MinifyDisabled.check(ctx({ file: 'vite.config.ts', line: 5 }));
+    const results = await performanceMinifyDisabled.check(ctx({ file: 'vite.config.ts', line: 5 }));
     expect(results).toHaveLength(1);
     const r = results[0]!;
     expect(r.id).toBe('performance/minify-disabled');
@@ -35,14 +35,14 @@ describe('performance/minify-disabled minify disabled', () => {
   });
 
   it('omits the line and explains build-time provenance when only the file is known', async () => {
-    const results = await perf012MinifyDisabled.check(ctx({ file: 'vite.config.ts' }));
+    const results = await performanceMinifyDisabled.check(ctx({ file: 'vite.config.ts' }));
     expect(results[0]!.line).toBeUndefined();
     expect(results[0]!.location).toBe('vite.config.ts');
     expect(results[0]!.message).toContain('resolved from the actual build');
   });
 
   it('omits the location and names the inline config when no file is known', async () => {
-    const results = await perf012MinifyDisabled.check(ctx({}));
+    const results = await performanceMinifyDisabled.check(ctx({}));
     expect(results[0]!.location).toBeUndefined();
     expect(results[0]!.line).toBeUndefined();
     expect(results[0]!.message).toContain('inline (programmatic) Vite config');

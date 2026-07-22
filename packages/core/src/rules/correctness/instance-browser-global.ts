@@ -1,6 +1,6 @@
 import { componentRule } from '../component-rule.js';
 
-export const correct009InstanceBrowserGlobals = componentRule({
+export const correctnessInstanceBrowserGlobal = componentRule({
   id: 'correctness/instance-browser-global',
   title: 'Browser global during component initialisation',
   category: 'correctness',

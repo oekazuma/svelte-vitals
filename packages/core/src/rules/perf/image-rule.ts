@@ -6,7 +6,7 @@ export interface ImageRuleOptions {
   id: string;
   title: string;
   severity: Severity;
-  /** Vitals category (default 'performance'); SEO025 (alt text) reports under 'seo'. */
+  /** Vitals category (default 'performance'); seo/image-alt (alt text) reports under 'seo'. */
   category?: Category;
   /** Noun phrase for messages, e.g. '<img> width/height'. */
   label: string;

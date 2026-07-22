@@ -1,6 +1,6 @@
 import { headTagRule } from './head-tag-rule.js';
 
-export const seo011TwitterCard = headTagRule({
+export const seoTwitterCard = headTagRule({
   id: 'seo/twitter-card',
   title: 'Twitter Card',
   severity: 'info',

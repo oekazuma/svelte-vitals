@@ -1,7 +1,7 @@
 import type { HeadTag } from '../../head.js';
 import { headTagRule } from './head-tag-rule.js';
 
-export const seo002Description = headTagRule({
+export const seoDescriptionPresence = headTagRule({
   id: 'seo/description-presence',
   title: 'Description presence',
   severity: 'critical',

@@ -1,6 +1,6 @@
 import { headTagRule } from './head-tag-rule.js';
 
-export const seo013OgUrl = headTagRule({
+export const seoOgUrl = headTagRule({
   id: 'seo/og-url',
   title: 'Open Graph URL',
   severity: 'info',

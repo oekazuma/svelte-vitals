@@ -10,7 +10,7 @@ export interface RuleContext {
   heads: ResolvedHead[];
   /** Per-route <img> elements for Performance rules (absent in modes that don't collect them). */
   images?: ResolvedImages[];
-  /** Per-route page-body headings for SEO027 (absent in modes that don't collect them). */
+  /** Per-route page-body headings for seo/single-h1 (absent in modes that don't collect them). */
   headings?: ResolvedHeadings[];
   /** Per-file component-body facts for Correctness rules (static/CLI mode only). */
   components?: ComponentFacts[];

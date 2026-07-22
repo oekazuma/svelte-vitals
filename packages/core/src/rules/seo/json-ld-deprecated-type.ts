@@ -1,7 +1,7 @@
 import { jsonldRule } from './jsonld-engine.js';
 import { typeOf, DEPRECATED_TYPES } from './jsonld-engine.js';
 
-export const seo017DeprecatedType = jsonldRule({
+export const seoJsonLdDeprecatedType = jsonldRule({
   id: 'seo/json-ld-deprecated-type',
   title: 'Deprecated structured-data type',
   severity: 'info',

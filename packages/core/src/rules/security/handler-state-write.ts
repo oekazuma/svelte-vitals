@@ -1,6 +1,6 @@
 import { kitModuleRule } from '../kit-module-rule.js';
 
-export const sec003LoadStateWrite = kitModuleRule({
+export const securityHandlerStateWrite = kitModuleRule({
   id: 'security/handler-state-write',
   title: 'Handler writes imported state',
   category: 'security',

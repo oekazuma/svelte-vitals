@@ -1,6 +1,6 @@
 import { headTagRule } from './head-tag-rule.js';
 
-export const seo014Viewport = headTagRule({
+export const seoViewport = headTagRule({
   id: 'seo/viewport',
   title: 'Viewport',
   severity: 'warning',

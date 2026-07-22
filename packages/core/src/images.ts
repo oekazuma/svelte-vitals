@@ -7,11 +7,11 @@ export interface ImageInfo {
   hasWidth: boolean;
   hasHeight: boolean;
   hasLoading: boolean;
-  /** True when the <img> has an `alt` attribute at all (incl. empty `alt=""` decorative; SEO025). */
+  /** True when the <img> has an `alt` attribute at all (incl. empty `alt=""` decorative; seo/image-alt). */
   hasAlt: boolean;
-  /** True when the <img> has a literal `loading="lazy"` (PERF005). Dynamic/spread → false. */
+  /** True when the <img> has a literal `loading="lazy"` (performance/lcp-image). Dynamic/spread → false. */
   lazy: boolean;
-  /** True when the <img> has a `srcset` attribute (PERF006). */
+  /** True when the <img> has a `srcset` attribute (performance/responsive-image). */
   hasSrcset: boolean;
   /** 1-based source line, or 0 if unknown. */
   line: number;

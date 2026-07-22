@@ -29,7 +29,7 @@ export interface Project {
   /** Whether the static static/robots.txt references a sitemap (`Sitemap:` line). Undefined for a +server endpoint / absent / unreadable. */
   robotsReferencesSitemap?: boolean;
   /**
-   * Set when the Vite config disables minification for production builds (PERF012).
+   * Set when the Vite config disables minification for production builds (performance/minify-disabled).
    * `file` is the config path relative to the analyzed root (posix, may start with `../`
    * in monorepos); unset for inline programmatic configs. `line` is 1-based and set only
    * when the literal `minify: false` was located in that file; unset when the value was

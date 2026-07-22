@@ -1,7 +1,7 @@
 import { jsonldRule } from './jsonld-engine.js';
 import { typeOf, hasNonEmpty, REQUIRED_PROPS } from './jsonld-engine.js';
 
-export const seo021RequiredProps = jsonldRule({
+export const seoJsonLdRequiredProps = jsonldRule({
   id: 'seo/json-ld-required-props',
   title: 'JSON-LD required properties',
   severity: 'warning',

@@ -1,190 +1,190 @@
 import type { Category, Fix, Severity } from '../types.js';
 import { docsUrlFor, type Rule } from '../rule.js';
-import { seo001Title } from './seo/title-presence.js';
-import { seo002Description } from './seo/description-presence.js';
-import { seo003Canonical } from './seo/canonical-url.js';
-import { seo004OgImage } from './seo/og-image.js';
-import { seo005OgTitle } from './seo/og-title.js';
-import { seo008JsonLd } from './seo/json-ld.js';
-import { seo006Robots } from './seo/robots-txt.js';
-import { seo007Sitemap } from './seo/sitemap-xml.js';
-import { seo009HtmlLang } from './seo/html-lang.js';
-import { perf001ImageDimensions } from './perf/image-dimensions.js';
-import { perf002ImageLoading } from './perf/image-loading-hint.js';
-import { perf006ResponsiveImage } from './perf/responsive-image.js';
-import { perf003PreloadAs } from './perf/preload-missing-as.js';
-import { perf004FontPreloadCrossorigin } from './perf/font-preload-crossorigin.js';
-import { perf005LcpImage } from './perf/lcp-image.js';
-import { perf007RenderBlockingScript } from './perf/render-blocking-script.js';
-import { perf008Preconnect } from './perf/preconnect.js';
-import { seo010Indexability } from './seo/indexability.js';
-import { seo011TwitterCard } from './seo/twitter-card.js';
-import { seo012OgDescription } from './seo/og-description.js';
-import { seo013OgUrl } from './seo/og-url.js';
-import { seo014Viewport } from './seo/viewport.js';
-import { seo015SitemapInRobots } from './seo/sitemap-in-robots.js';
-import { seo016JsonLdValidity } from './seo/json-ld-validity.js';
-import { seo017DeprecatedType } from './seo/json-ld-deprecated-type.js';
-import { seo018RelativeUrl } from './seo/json-ld-relative-url.js';
-import { seo019DateFormat } from './seo/json-ld-date-format.js';
-import { seo020Placeholder } from './seo/json-ld-placeholder.js';
-import { seo021RequiredProps } from './seo/json-ld-required-props.js';
-import { seo022TitleLength } from './seo/title-length.js';
-import { seo023DescriptionLength } from './seo/description-length.js';
-import { seo024Charset } from './seo/charset.js';
-import { seo025ImageAlt } from './seo/image-alt.js';
-import { seo026Hreflang } from './seo/hreflang.js';
-import { seo027Heading } from './seo/single-h1.js';
-import { seo028TitleUnique } from './seo/duplicate-title.js';
-import { seo029DescriptionUnique } from './seo/duplicate-description.js';
-import { seo030HeadingOrder } from './seo/heading-level-skip.js';
-import { seo031SsrDisabled } from './seo/ssr-disabled.js';
-import { correct001EachKey } from './correctness/each-key.js';
-import { correct002EffectDerived } from './correctness/effect-as-derived.js';
-import { correct003EffectAsOnMount } from './correctness/effect-as-onmount.js';
-import { correct004UnmutatedState } from './correctness/unmutated-state.js';
-import { correct005PropMutation } from './correctness/prop-mutation.js';
-import { correct006OrphanEffect } from './correctness/orphan-effect.js';
-import { correct007OrphanLifecycle } from './correctness/orphan-lifecycle.js';
-import { correct008BrowserGlobals } from './correctness/server-browser-global.js';
-import { correct009InstanceBrowserGlobals } from './correctness/instance-browser-global.js';
-import { sec001Html } from './security/raw-html.js';
-import { sec002JavascriptUrl } from './security/javascript-url.js';
-import { sec003LoadStateWrite } from './security/handler-state-write.js';
-import { sec004ServerModuleState } from './security/server-module-state.js';
-import { sec005SharedStateImport } from './security/shared-state-import.js';
-import { arch001ComponentSize } from './architecture/component-size.js';
-import { arch002PropCount } from './architecture/prop-count.js';
-import { perf009HeavyImport } from './perf/heavy-import.js';
-import { perf010NamespaceImport } from './perf/namespace-import.js';
-import { perf012MinifyDisabled } from './perf/minify-disabled.js';
-import { perf011LoadWaterfall } from './perf/load-waterfall.js';
-import { perf013SequentialAwaits } from './perf/sequential-awaits.js';
+import { seoTitlePresence } from './seo/title-presence.js';
+import { seoDescriptionPresence } from './seo/description-presence.js';
+import { seoCanonicalUrl } from './seo/canonical-url.js';
+import { seoOgImage } from './seo/og-image.js';
+import { seoOgTitle } from './seo/og-title.js';
+import { seoJsonLd } from './seo/json-ld.js';
+import { seoRobotsTxt } from './seo/robots-txt.js';
+import { seoSitemapXml } from './seo/sitemap-xml.js';
+import { seoHtmlLang } from './seo/html-lang.js';
+import { performanceImageDimensions } from './perf/image-dimensions.js';
+import { performanceImageLoadingHint } from './perf/image-loading-hint.js';
+import { performanceResponsiveImage } from './perf/responsive-image.js';
+import { performancePreloadMissingAs } from './perf/preload-missing-as.js';
+import { performanceFontPreloadCrossorigin } from './perf/font-preload-crossorigin.js';
+import { performanceLcpImage } from './perf/lcp-image.js';
+import { performanceRenderBlockingScript } from './perf/render-blocking-script.js';
+import { performancePreconnect } from './perf/preconnect.js';
+import { seoIndexability } from './seo/indexability.js';
+import { seoTwitterCard } from './seo/twitter-card.js';
+import { seoOgDescription } from './seo/og-description.js';
+import { seoOgUrl } from './seo/og-url.js';
+import { seoViewport } from './seo/viewport.js';
+import { seoSitemapInRobots } from './seo/sitemap-in-robots.js';
+import { seoJsonLdValidity } from './seo/json-ld-validity.js';
+import { seoJsonLdDeprecatedType } from './seo/json-ld-deprecated-type.js';
+import { seoJsonLdRelativeUrl } from './seo/json-ld-relative-url.js';
+import { seoJsonLdDateFormat } from './seo/json-ld-date-format.js';
+import { seoJsonLdPlaceholder } from './seo/json-ld-placeholder.js';
+import { seoJsonLdRequiredProps } from './seo/json-ld-required-props.js';
+import { seoTitleLength } from './seo/title-length.js';
+import { seoDescriptionLength } from './seo/description-length.js';
+import { seoCharset } from './seo/charset.js';
+import { seoImageAlt } from './seo/image-alt.js';
+import { seoHreflang } from './seo/hreflang.js';
+import { seoSingleH1 } from './seo/single-h1.js';
+import { seoDuplicateTitle } from './seo/duplicate-title.js';
+import { seoDuplicateDescription } from './seo/duplicate-description.js';
+import { seoHeadingLevelSkip } from './seo/heading-level-skip.js';
+import { seoSsrDisabled } from './seo/ssr-disabled.js';
+import { correctnessEachKey } from './correctness/each-key.js';
+import { correctnessEffectAsDerived } from './correctness/effect-as-derived.js';
+import { correctnessEffectAsOnMount } from './correctness/effect-as-onmount.js';
+import { correctnessUnmutatedState } from './correctness/unmutated-state.js';
+import { correctnessPropMutation } from './correctness/prop-mutation.js';
+import { correctnessOrphanEffect } from './correctness/orphan-effect.js';
+import { correctnessOrphanLifecycle } from './correctness/orphan-lifecycle.js';
+import { correctnessServerBrowserGlobal } from './correctness/server-browser-global.js';
+import { correctnessInstanceBrowserGlobal } from './correctness/instance-browser-global.js';
+import { securityRawHtml } from './security/raw-html.js';
+import { securityJavascriptUrl } from './security/javascript-url.js';
+import { securityHandlerStateWrite } from './security/handler-state-write.js';
+import { securityServerModuleState } from './security/server-module-state.js';
+import { securitySharedStateImport } from './security/shared-state-import.js';
+import { architectureComponentSize } from './architecture/component-size.js';
+import { architecturePropCount } from './architecture/prop-count.js';
+import { performanceHeavyImport } from './perf/heavy-import.js';
+import { performanceNamespaceImport } from './perf/namespace-import.js';
+import { performanceMinifyDisabled } from './perf/minify-disabled.js';
+import { performanceLoadWaterfall } from './perf/load-waterfall.js';
+import { performanceSequentialAwaits } from './perf/sequential-awaits.js';
 
 export const allRules: Rule[] = [
-  seo001Title,
-  seo002Description,
-  seo003Canonical,
-  seo004OgImage,
-  seo005OgTitle,
-  seo006Robots,
-  seo007Sitemap,
-  seo008JsonLd,
-  seo009HtmlLang,
-  perf001ImageDimensions,
-  perf002ImageLoading,
-  perf003PreloadAs,
-  perf004FontPreloadCrossorigin,
-  seo010Indexability,
-  seo011TwitterCard,
-  seo012OgDescription,
-  seo013OgUrl,
-  seo014Viewport,
-  seo015SitemapInRobots,
-  seo016JsonLdValidity,
-  seo017DeprecatedType,
-  seo018RelativeUrl,
-  seo019DateFormat,
-  seo020Placeholder,
-  seo021RequiredProps,
-  seo022TitleLength,
-  seo023DescriptionLength,
-  seo024Charset,
-  seo025ImageAlt,
-  seo026Hreflang,
-  seo027Heading,
-  perf005LcpImage,
-  perf006ResponsiveImage,
-  perf007RenderBlockingScript,
-  perf008Preconnect,
-  seo028TitleUnique,
-  seo029DescriptionUnique,
-  seo030HeadingOrder,
-  seo031SsrDisabled,
-  correct001EachKey,
-  correct002EffectDerived,
-  correct003EffectAsOnMount,
-  correct004UnmutatedState,
-  correct005PropMutation,
-  correct006OrphanEffect,
-  correct007OrphanLifecycle,
-  correct008BrowserGlobals,
-  correct009InstanceBrowserGlobals,
-  sec001Html,
-  sec002JavascriptUrl,
-  sec003LoadStateWrite,
-  sec004ServerModuleState,
-  sec005SharedStateImport,
-  arch001ComponentSize,
-  arch002PropCount,
-  perf009HeavyImport,
-  perf010NamespaceImport,
-  perf012MinifyDisabled,
-  perf011LoadWaterfall,
-  perf013SequentialAwaits
+  seoTitlePresence,
+  seoDescriptionPresence,
+  seoCanonicalUrl,
+  seoOgImage,
+  seoOgTitle,
+  seoRobotsTxt,
+  seoSitemapXml,
+  seoJsonLd,
+  seoHtmlLang,
+  performanceImageDimensions,
+  performanceImageLoadingHint,
+  performancePreloadMissingAs,
+  performanceFontPreloadCrossorigin,
+  seoIndexability,
+  seoTwitterCard,
+  seoOgDescription,
+  seoOgUrl,
+  seoViewport,
+  seoSitemapInRobots,
+  seoJsonLdValidity,
+  seoJsonLdDeprecatedType,
+  seoJsonLdRelativeUrl,
+  seoJsonLdDateFormat,
+  seoJsonLdPlaceholder,
+  seoJsonLdRequiredProps,
+  seoTitleLength,
+  seoDescriptionLength,
+  seoCharset,
+  seoImageAlt,
+  seoHreflang,
+  seoSingleH1,
+  performanceLcpImage,
+  performanceResponsiveImage,
+  performanceRenderBlockingScript,
+  performancePreconnect,
+  seoDuplicateTitle,
+  seoDuplicateDescription,
+  seoHeadingLevelSkip,
+  seoSsrDisabled,
+  correctnessEachKey,
+  correctnessEffectAsDerived,
+  correctnessEffectAsOnMount,
+  correctnessUnmutatedState,
+  correctnessPropMutation,
+  correctnessOrphanEffect,
+  correctnessOrphanLifecycle,
+  correctnessServerBrowserGlobal,
+  correctnessInstanceBrowserGlobal,
+  securityRawHtml,
+  securityJavascriptUrl,
+  securityHandlerStateWrite,
+  securityServerModuleState,
+  securitySharedStateImport,
+  architectureComponentSize,
+  architecturePropCount,
+  performanceHeavyImport,
+  performanceNamespaceImport,
+  performanceMinifyDisabled,
+  performanceLoadWaterfall,
+  performanceSequentialAwaits
 ];
 
 export {
-  seo001Title,
-  seo002Description,
-  seo003Canonical,
-  seo004OgImage,
-  seo005OgTitle,
-  seo006Robots,
-  seo007Sitemap,
-  seo008JsonLd,
-  seo009HtmlLang,
-  perf001ImageDimensions,
-  perf002ImageLoading,
-  perf003PreloadAs,
-  perf004FontPreloadCrossorigin,
-  seo010Indexability,
-  seo011TwitterCard,
-  seo012OgDescription,
-  seo013OgUrl,
-  seo014Viewport,
-  seo015SitemapInRobots,
-  seo016JsonLdValidity,
-  seo017DeprecatedType,
-  seo018RelativeUrl,
-  seo019DateFormat,
-  seo020Placeholder,
-  seo021RequiredProps,
-  seo022TitleLength,
-  seo023DescriptionLength,
-  seo024Charset,
-  seo025ImageAlt,
-  seo026Hreflang,
-  seo027Heading,
-  perf005LcpImage,
-  perf006ResponsiveImage,
-  perf007RenderBlockingScript,
-  perf008Preconnect,
-  seo028TitleUnique,
-  seo029DescriptionUnique,
-  seo030HeadingOrder,
-  seo031SsrDisabled,
-  correct001EachKey,
-  correct002EffectDerived,
-  correct003EffectAsOnMount,
-  correct004UnmutatedState,
-  correct005PropMutation,
-  correct006OrphanEffect,
-  correct007OrphanLifecycle,
-  correct008BrowserGlobals,
-  correct009InstanceBrowserGlobals,
-  sec001Html,
-  sec002JavascriptUrl,
-  sec003LoadStateWrite,
-  sec004ServerModuleState,
-  sec005SharedStateImport,
-  arch001ComponentSize,
-  arch002PropCount,
-  perf009HeavyImport,
-  perf010NamespaceImport,
-  perf012MinifyDisabled,
-  perf011LoadWaterfall,
-  perf013SequentialAwaits
+  seoTitlePresence,
+  seoDescriptionPresence,
+  seoCanonicalUrl,
+  seoOgImage,
+  seoOgTitle,
+  seoRobotsTxt,
+  seoSitemapXml,
+  seoJsonLd,
+  seoHtmlLang,
+  performanceImageDimensions,
+  performanceImageLoadingHint,
+  performancePreloadMissingAs,
+  performanceFontPreloadCrossorigin,
+  seoIndexability,
+  seoTwitterCard,
+  seoOgDescription,
+  seoOgUrl,
+  seoViewport,
+  seoSitemapInRobots,
+  seoJsonLdValidity,
+  seoJsonLdDeprecatedType,
+  seoJsonLdRelativeUrl,
+  seoJsonLdDateFormat,
+  seoJsonLdPlaceholder,
+  seoJsonLdRequiredProps,
+  seoTitleLength,
+  seoDescriptionLength,
+  seoCharset,
+  seoImageAlt,
+  seoHreflang,
+  seoSingleH1,
+  performanceLcpImage,
+  performanceResponsiveImage,
+  performanceRenderBlockingScript,
+  performancePreconnect,
+  seoDuplicateTitle,
+  seoDuplicateDescription,
+  seoHeadingLevelSkip,
+  seoSsrDisabled,
+  correctnessEachKey,
+  correctnessEffectAsDerived,
+  correctnessEffectAsOnMount,
+  correctnessUnmutatedState,
+  correctnessPropMutation,
+  correctnessOrphanEffect,
+  correctnessOrphanLifecycle,
+  correctnessServerBrowserGlobal,
+  correctnessInstanceBrowserGlobal,
+  securityRawHtml,
+  securityJavascriptUrl,
+  securityHandlerStateWrite,
+  securityServerModuleState,
+  securitySharedStateImport,
+  architectureComponentSize,
+  architecturePropCount,
+  performanceHeavyImport,
+  performanceNamespaceImport,
+  performanceMinifyDisabled,
+  performanceLoadWaterfall,
+  performanceSequentialAwaits
 };
 
 export interface RuleInfo {

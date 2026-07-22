@@ -1,7 +1,7 @@
 import { jsonldRule } from './jsonld-engine.js';
 import { nodeStringValues, hasPlaceholder } from './jsonld-engine.js';
 
-export const seo020Placeholder = jsonldRule({
+export const seoJsonLdPlaceholder = jsonldRule({
   id: 'seo/json-ld-placeholder',
   title: 'JSON-LD placeholder text',
   severity: 'info',

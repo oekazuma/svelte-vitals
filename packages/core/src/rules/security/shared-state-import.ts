@@ -7,7 +7,7 @@ function extSibling(path: string): string {
     : path.replace(/\.svelte\.js$/, '.svelte.ts');
 }
 
-export const sec005SharedStateImport = kitModuleRule({
+export const securitySharedStateImport = kitModuleRule({
   id: 'security/shared-state-import',
   title: 'Shared runes-state import on the server',
   category: 'security',
@@ -24,7 +24,7 @@ export const sec005SharedStateImport = kitModuleRule({
     const out: KitModuleIssue[] = [];
     for (const imp of m.runesModuleImports) {
       if (!stateFiles.has(imp.resolved) && !stateFiles.has(extSibling(imp.resolved))) continue;
-      // A binding already reported (critical) by SEC003 is not double-reported here.
+      // A binding already reported (critical) by security/handler-state-write is not double-reported here.
       const names = imp.names.filter((n) => !writtenInHandler.has(n));
       if (names.length === 0) continue;
       const mutates = names.some((n) => writtenOutside.has(n));

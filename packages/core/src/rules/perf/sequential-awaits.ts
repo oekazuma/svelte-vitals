@@ -4,11 +4,11 @@ const MESSAGE =
   'This await does not use the results of the awaits before it — the requests run sequentially for no reason. Start them together and await them with Promise.all.';
 
 /**
- * PERF013 — independent sequential awaits in any load. Info severity: static
+ * performance/sequential-awaits — independent sequential awaits in any load. Info severity: static
  * data flow cannot see side-effect ordering (e.g. a setup call an API relies
  * on), so the parallelize suggestion stays advisory.
  */
-export const perf013SequentialAwaits = kitModuleRule({
+export const performanceSequentialAwaits = kitModuleRule({
   id: 'performance/sequential-awaits',
   title: 'Sequential independent awaits',
   category: 'performance',

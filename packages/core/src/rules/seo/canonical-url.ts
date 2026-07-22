@@ -1,7 +1,7 @@
 import type { HeadTag } from '../../head.js';
 import { headTagRule } from './head-tag-rule.js';
 
-export const seo003Canonical = headTagRule({
+export const seoCanonicalUrl = headTagRule({
   id: 'seo/canonical-url',
   title: 'Canonical URL',
   severity: 'warning',

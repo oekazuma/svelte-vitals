@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import {
   parseComponentFacts,
-  correct002EffectDerived,
-  sec001Html,
+  correctnessEffectAsDerived,
+  securityRawHtml,
   defineConfig,
   defaultProject
 } from '@svelte-vitals/core';
@@ -51,7 +51,7 @@ describe('inline suppression directive — end-to-end (issue #92)', () => {
       components: [comp({ effects: facts.effects, suppressions: facts.suppressions })],
       ...base
     };
-    const rs = await correct002EffectDerived.check(ctx);
+    const rs = await correctnessEffectAsDerived.check(ctx);
     expect(fails(rs)).toHaveLength(0);
   });
 
@@ -64,7 +64,7 @@ describe('inline suppression directive — end-to-end (issue #92)', () => {
       components: [comp({ htmlTags: facts.htmlTags, suppressions: facts.suppressions })],
       ...base
     };
-    const rs = await sec001Html.check(ctx);
+    const rs = await securityRawHtml.check(ctx);
     expect(fails(rs)).toHaveLength(0);
   });
 
@@ -81,7 +81,7 @@ describe('inline suppression directive — end-to-end (issue #92)', () => {
     ].join('\n');
     const facts = parseComponentFacts(src, 'src/lib/C.svelte');
     const ctx: RuleContext = { components: [{ file: 'src/lib/C.svelte', ...facts }], ...base };
-    const rs = await correct002EffectDerived.check(ctx);
+    const rs = await correctnessEffectAsDerived.check(ctx);
     expect(fails(rs)).toHaveLength(1);
   });
 });

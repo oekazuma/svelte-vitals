@@ -1,6 +1,6 @@
 import { componentRule } from '../component-rule.js';
 
-export const correct001EachKey = componentRule({
+export const correctnessEachKey = componentRule({
   id: 'correctness/each-key',
   title: 'Keyed each block',
   category: 'correctness',

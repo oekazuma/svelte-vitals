@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
-  seo001Title,
+  seoTitlePresence,
   runRules,
   summarize,
   classify,
@@ -36,26 +36,26 @@ const inheritedHead = head('/child', 'src/routes/child/+page.svelte', {
 
 describe('seo/title-presence title detection', () => {
   it('detects a static title as present (own/static)', async () => {
-    const [result] = await seo001Title.check({ heads: [staticHead], project: defaultProject, config });
+    const [result] = await seoTitlePresence.check({ heads: [staticHead], project: defaultProject, config });
     expect(result!.detection).toEqual({ presence: 'own', value: 'static' });
     expect(classify(result!, config)).toBe('pass');
   });
 
   it('treats a dynamic title as present and never penalizes it', async () => {
-    const [result] = await seo001Title.check({ heads: [dynamicHead], project: defaultProject, config });
+    const [result] = await seoTitlePresence.check({ heads: [dynamicHead], project: defaultProject, config });
     expect(result!.detection).toEqual({ presence: 'own', value: 'dynamic' });
     expect(classify(result!, config)).toBe('dynamic');
   });
 
   it('flags a missing title as none/absent (fail)', async () => {
-    const [result] = await seo001Title.check({ heads: [noneHead], project: defaultProject, config });
+    const [result] = await seoTitlePresence.check({ heads: [noneHead], project: defaultProject, config });
     expect(result!.detection).toEqual({ presence: 'none', value: 'absent' });
     expect(classify(result!, config)).toBe('fail');
     expect(result!.message).toBe('Missing <title>');
   });
 
   it('passes an inherited title', async () => {
-    const [result] = await seo001Title.check({ heads: [inheritedHead], project: defaultProject, config });
+    const [result] = await seoTitlePresence.check({ heads: [inheritedHead], project: defaultProject, config });
     expect(result!.detection).toEqual({ presence: 'inherited', value: 'static' });
     expect(classify(result!, config)).toBe('pass');
   });
@@ -63,7 +63,7 @@ describe('seo/title-presence title detection', () => {
 
 describe('summary + reporter', () => {
   it('summarizes a mixed project', async () => {
-    const results = await runRules([seo001Title], {
+    const results = await runRules([seoTitlePresence], {
       heads: [staticHead, dynamicHead, noneHead],
       project: defaultProject,
       config
@@ -73,7 +73,7 @@ describe('summary + reporter', () => {
   });
 
   it('renders ✗ for missing and ↯ for dynamic', async () => {
-    const results = await runRules([seo001Title], {
+    const results = await runRules([seoTitlePresence], {
       heads: [staticHead, dynamicHead, noneHead],
       project: defaultProject,
       config

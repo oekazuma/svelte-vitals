@@ -5,7 +5,7 @@ import { jsonldTags } from './jsonld-engine.js';
 import { PENALIZED, PASS } from './detection.js';
 
 // seo/json-ld-validity — validity (parse + @context + @type), custom because it owns parse failures.
-export const seo016JsonLdValidity: Rule = {
+export const seoJsonLdValidity: Rule = {
   id: 'seo/json-ld-validity',
   title: 'JSON-LD validity',
   category: 'seo',
@@ -41,7 +41,7 @@ export const seo016JsonLdValidity: Rule = {
                 message: problem,
                 recommendation: 'Make the JSON-LD valid JSON with both @context and @type.',
                 docsUrl,
-                fix: { ...(seo016JsonLdValidity.fix as Fix) }
+                fix: { ...(seoJsonLdValidity.fix as Fix) }
               }
             : {
                 id: 'seo/json-ld-validity',

@@ -24,7 +24,7 @@ function kindOf(file: string): KitModuleFacts['kind'] {
 }
 
 /**
- * Scan SvelteKit route/hooks files for SSR shared-state facts (SEC003–005): route
+ * Scan SvelteKit route/hooks files for SSR shared-state facts (the security kit-module rules): route
  * `+page`/`+layout` server and universal modules, `+server` endpoints, and
  * `src/hooks.server`. `src/lib/server/**` is deliberately NOT scanned — legitimate
  * module singletons (DB connections, clients) live there (design). A file that

@@ -1,14 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import {
-  seo001Title,
-  seo002Description,
-  seo003Canonical,
-  seo004OgImage,
-  seo005OgTitle,
-  seo006Robots,
-  seo007Sitemap,
-  seo008JsonLd,
-  seo009HtmlLang,
+  seoTitlePresence,
+  seoDescriptionPresence,
+  seoCanonicalUrl,
+  seoOgImage,
+  seoOgTitle,
+  seoRobotsTxt,
+  seoSitemapXml,
+  seoJsonLd,
+  seoHtmlLang,
   defaultProject,
   defaultConfig,
   type ResolvedHead
@@ -21,7 +21,7 @@ const projectCtx = { heads: [], project: defaultProject, config };
 
 describe('rule fixes', () => {
   it('route-scope rules attach a fix with a description', async () => {
-    for (const rule of [seo001Title, seo002Description, seo003Canonical, seo004OgImage, seo005OgTitle, seo008JsonLd]) {
+    for (const rule of [seoTitlePresence, seoDescriptionPresence, seoCanonicalUrl, seoOgImage, seoOgTitle, seoJsonLd]) {
       const [r] = await rule.check(routeCtx);
       expect(r!.fix, `${rule.id} fix`).toBeDefined();
       expect(typeof r!.fix!.description).toBe('string');
@@ -30,7 +30,7 @@ describe('rule fixes', () => {
   });
 
   it('project-scope rules attach a fix', async () => {
-    for (const rule of [seo006Robots, seo007Sitemap, seo009HtmlLang]) {
+    for (const rule of [seoRobotsTxt, seoSitemapXml, seoHtmlLang]) {
       const [r] = await rule.check(projectCtx);
       expect(r!.fix, `${rule.id} fix`).toBeDefined();
       expect(r!.fix!.description.length).toBeGreaterThan(0);
@@ -38,7 +38,7 @@ describe('rule fixes', () => {
   });
 
   it('seo/description-presence fix snippet is a description meta tag', async () => {
-    const [r] = await seo002Description.check(routeCtx);
+    const [r] = await seoDescriptionPresence.check(routeCtx);
     expect(r!.fix!.snippet).toContain('name="description"');
   });
 });

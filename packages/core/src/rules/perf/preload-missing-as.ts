@@ -1,6 +1,6 @@
 import { linkRule } from './link-rule.js';
 
-export const perf003PreloadAs = linkRule({
+export const performancePreloadMissingAs = linkRule({
   id: 'performance/preload-missing-as',
   title: 'Preload missing as',
   severity: 'warning',

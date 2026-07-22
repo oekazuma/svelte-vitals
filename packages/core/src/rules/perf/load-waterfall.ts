@@ -4,12 +4,12 @@ const MESSAGE =
   'Sequential dependent awaits in a universal load create a client-side request waterfall — each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.';
 
 /**
- * PERF011 — dependent await chains in universal loads. Server loads are exempt:
+ * performance/load-waterfall — dependent await chains in universal loads. Server loads are exempt:
  * a dependent chain cannot be parallelized, and on the server there is no better
  * placement to suggest. csr = false files are exempt too — without a client
  * runtime the universal load only runs during SSR.
  */
-export const perf011LoadWaterfall = kitModuleRule({
+export const performanceLoadWaterfall = kitModuleRule({
   id: 'performance/load-waterfall',
   title: 'Load waterfall',
   category: 'performance',

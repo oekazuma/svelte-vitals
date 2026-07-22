@@ -9,7 +9,7 @@ const HEAVY_PACKAGES: Record<string, string> = {
   moment: 'use a lighter date library (date-fns or dayjs) — moment is large and not tree-shakeable'
 };
 
-export const perf009HeavyImport = componentRule({
+export const performanceHeavyImport = componentRule({
   id: 'performance/heavy-import',
   title: 'Heavy dependency import',
   category: 'performance',

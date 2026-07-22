@@ -1,7 +1,7 @@
 import type { HeadTag } from '../../head.js';
 import { headTagRule } from './head-tag-rule.js';
 
-export const seo004OgImage = headTagRule({
+export const seoOgImage = headTagRule({
   id: 'seo/og-image',
   title: 'Open Graph image',
   severity: 'warning',

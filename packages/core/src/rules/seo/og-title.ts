@@ -1,7 +1,7 @@
 import type { HeadTag } from '../../head.js';
 import { headTagRule } from './head-tag-rule.js';
 
-export const seo005OgTitle = headTagRule({
+export const seoOgTitle = headTagRule({
   id: 'seo/og-title',
   title: 'Open Graph title',
   severity: 'warning',

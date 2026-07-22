@@ -10,7 +10,7 @@ const FIX: Fix = {
   lang: 'text'
 };
 
-export const seo006Robots: Rule = {
+export const seoRobotsTxt: Rule = {
   id: 'seo/robots-txt',
   title: 'robots.txt',
   category: 'seo',

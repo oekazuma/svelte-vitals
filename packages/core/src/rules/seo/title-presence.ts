@@ -28,7 +28,7 @@ function messageFor(detection: Detection): string {
  * A dynamic title (`{data.title}`) is the most common correct pattern and must
  * never be flagged as missing; it surfaces as value 'dynamic' (design §4).
  */
-export const seo001Title: Rule = {
+export const seoTitlePresence: Rule = {
   id: 'seo/title-presence',
   title: 'Title presence',
   category: 'seo',

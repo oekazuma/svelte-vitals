@@ -1,6 +1,6 @@
 import { imageRule } from './image-rule.js';
 
-export const perf006ResponsiveImage = imageRule({
+export const performanceResponsiveImage = imageRule({
   id: 'performance/responsive-image',
   title: 'Responsive image',
   severity: 'info',

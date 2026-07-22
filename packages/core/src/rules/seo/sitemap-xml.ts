@@ -11,7 +11,7 @@ const FIX: Fix = {
   lang: 'xml'
 };
 
-export const seo007Sitemap: Rule = {
+export const seoSitemapXml: Rule = {
   id: 'seo/sitemap-xml',
   title: 'sitemap.xml',
   category: 'seo',

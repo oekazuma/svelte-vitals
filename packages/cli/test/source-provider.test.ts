@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import {
-  seo001Title,
+  seoTitlePresence,
   type Detection,
   type HeadTag,
   type ImageInfo,
@@ -50,7 +50,7 @@ describe('SourceHeadProvider (Node runtime, real fixture)', () => {
   it('feeds seo/title-presence to produce one critical failure (the missing title)', async () => {
     const rt = createNodeRuntime();
     const heads = await sourceHeadProvider.collect(rt, fixtureDir);
-    const results = await seo001Title.check({ heads, project: defaultProject, config: defineConfig({}) });
+    const results = await seoTitlePresence.check({ heads, project: defaultProject, config: defineConfig({}) });
     const failing = results.filter((r) => r.detection.presence === 'none');
     expect(failing).toHaveLength(2);
     expect(failing.map((r) => r.route).sort()).toEqual(['/none', '/widget']);

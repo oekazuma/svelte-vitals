@@ -1,6 +1,6 @@
 import { componentRule } from '../component-rule.js';
 
-export const correct005PropMutation = componentRule({
+export const correctnessPropMutation = componentRule({
   id: 'correctness/prop-mutation',
   title: 'Mutated non-bindable prop',
   category: 'correctness',

@@ -1,12 +1,12 @@
 import { imageRule } from '../perf/image-rule.js';
 
 /**
- * SEO025 — Image alt text. Reuses the <img> collection from both providers — the
- * static (CLI) source parser and the rendered (vite) HTML parser — like PERF001/002.
+ * seo/image-alt — Image alt text. Reuses the <img> collection from both providers — the
+ * static (CLI) source parser and the rendered (vite) HTML parser — like performance/image-dimensions, performance/image-loading-hint.
  * Presence only: an explicit empty `alt=""` is a valid decorative-image signal and
  * passes; a spread `{...rest}` may supply alt, so it is not flagged.
  */
-export const seo025ImageAlt = imageRule({
+export const seoImageAlt = imageRule({
   id: 'seo/image-alt',
   title: 'Image alt text',
   category: 'seo',

@@ -1,6 +1,6 @@
 import { componentRule } from '../component-rule.js';
 
-export const perf010NamespaceImport = componentRule({
+export const performanceNamespaceImport = componentRule({
   id: 'performance/namespace-import',
   title: 'Namespace import',
   category: 'performance',

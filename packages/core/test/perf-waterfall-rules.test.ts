@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { perf011LoadWaterfall } from '../src/rules/perf/load-waterfall.js';
-import { perf013SequentialAwaits } from '../src/rules/perf/sequential-awaits.js';
+import { performanceLoadWaterfall } from '../src/rules/perf/load-waterfall.js';
+import { performanceSequentialAwaits } from '../src/rules/perf/sequential-awaits.js';
 import { emptyKitModuleFacts } from '../src/kit-module-collect.js';
 import { defaultProject, defaultConfig } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
@@ -20,7 +20,7 @@ function mod(
 
 describe('performance/load-waterfall load waterfall', () => {
   it('flags dependent lines in universal files only', async () => {
-    const results = await perf011LoadWaterfall.check(
+    const results = await performanceLoadWaterfall.check(
       ctx([
         mod('src/routes/+page.ts', 'universal', { dependentLines: [3, 7], independentLines: [] }),
         mod('src/routes/admin/+page.server.ts', 'server', { dependentLines: [4], independentLines: [] })
@@ -37,7 +37,7 @@ describe('performance/load-waterfall load waterfall', () => {
   });
 
   it('emits nothing without dependent lines', async () => {
-    const results = await perf011LoadWaterfall.check(
+    const results = await performanceLoadWaterfall.check(
       ctx([mod('src/routes/+page.ts', 'universal', { dependentLines: [], independentLines: [2] })])
     );
     expect(results).toEqual([]);
@@ -45,14 +45,14 @@ describe('performance/load-waterfall load waterfall', () => {
 
   it('does not fire for csr=false universal files', async () => {
     const m = mod('src/routes/+page.ts', 'universal', { dependentLines: [3], independentLines: [] });
-    const results = await perf011LoadWaterfall.check(ctx([{ ...m, csrDisabled: { line: 1 } }]));
+    const results = await performanceLoadWaterfall.check(ctx([{ ...m, csrDisabled: { line: 1 } }]));
     expect(results).toEqual([]);
   });
 });
 
 describe('performance/sequential-awaits sequential independent awaits', () => {
   it('flags independent lines in both kinds at info severity', async () => {
-    const results = await perf013SequentialAwaits.check(
+    const results = await performanceSequentialAwaits.check(
       ctx([
         mod('src/routes/+page.ts', 'universal', { dependentLines: [], independentLines: [3] }),
         mod('src/routes/+page.server.ts', 'server', { dependentLines: [], independentLines: [5] })

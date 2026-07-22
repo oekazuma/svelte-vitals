@@ -1,7 +1,7 @@
 import { jsonldRule } from './jsonld-engine.js';
 import { collectValues, isAbsoluteUrl, URL_KEYS } from './jsonld-engine.js';
 
-export const seo018RelativeUrl = jsonldRule({
+export const seoJsonLdRelativeUrl = jsonldRule({
   id: 'seo/json-ld-relative-url',
   title: 'JSON-LD relative URL',
   severity: 'warning',

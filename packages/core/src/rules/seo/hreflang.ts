@@ -17,12 +17,12 @@ function isValidHreflang(v: string): boolean {
 }
 
 /**
- * SEO026 — hreflang / x-default validity. Opt-in: a route with no
+ * seo/hreflang — hreflang / x-default validity. Opt-in: a route with no
  * `<link rel="alternate" hreflang>` emits nothing (monolingual sites are never
  * flagged). When alternates exist, every code must be well-formed and a set of
  * two or more must declare an x-default. Works in both modes.
  */
-export const seo026Hreflang: Rule = {
+export const seoHreflang: Rule = {
   id: 'seo/hreflang',
   title: 'hreflang validity',
   category: 'seo',
@@ -41,7 +41,7 @@ export const seo026Hreflang: Rule = {
       const badTag = alternates.find((t) => !isValidHreflang(t.hreflang as string));
       let problem: string | undefined;
       // Point the finding at the alternate's own source file (inherited from a layout),
-      // falling back to the route head file, matching the SEO022/023 convention.
+      // falling back to the route head file, matching the seo/title-length, seo/description-length convention.
       let location = head.file;
       if (badTag) {
         problem = `Invalid hreflang value "${badTag.hreflang}"`;

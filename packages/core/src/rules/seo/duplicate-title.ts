@@ -1,6 +1,6 @@
 import { uniquenessRule } from './uniqueness-rule.js';
 
-export const seo028TitleUnique = uniquenessRule({
+export const seoDuplicateTitle = uniquenessRule({
   id: 'seo/duplicate-title',
   title: 'Duplicate title',
   label: 'Unique title',

@@ -1,6 +1,6 @@
 import { componentRule } from '../component-rule.js';
 
-export const sec001Html = componentRule({
+export const securityRawHtml = componentRule({
   id: 'security/raw-html',
   title: 'Raw HTML render',
   category: 'security',

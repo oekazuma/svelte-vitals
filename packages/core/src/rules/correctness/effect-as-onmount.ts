@@ -1,6 +1,6 @@
 import { componentRule } from '../component-rule.js';
 
-export const correct003EffectAsOnMount = componentRule({
+export const correctnessEffectAsOnMount = componentRule({
   id: 'correctness/effect-as-onmount',
   title: 'Effect used as onMount',
   category: 'correctness',

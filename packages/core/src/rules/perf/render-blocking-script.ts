@@ -5,13 +5,13 @@ const docsUrl = docsUrlFor('performance/render-blocking-script');
 const recommendation = 'Add defer (or type="module"), or async, to the <script> so it does not block HTML parsing.';
 
 /**
- * PERF007 — Render-blocking <script> in <head>. A <script src> without
+ * performance/render-blocking-script — Render-blocking <script> in <head>. A <script src> without
  * defer/async/type=module blocks the parser. SvelteKit's own scripts are
  * module/deferred, so this catches hand-added blocking scripts — in app.html
  * (rendered mode) or in <svelte:head> (static mode). A head with no <script>
  * emits nothing (no signal), like the image rules.
  */
-export const perf007RenderBlockingScript: Rule = {
+export const performanceRenderBlockingScript: Rule = {
   id: 'performance/render-blocking-script',
   title: 'Render-blocking script',
   category: 'performance',
@@ -43,7 +43,7 @@ export const perf007RenderBlockingScript: Rule = {
             message: `Render-blocking <script>${tag.href ? ` (${tag.href})` : ''} in <head>`,
             recommendation,
             docsUrl,
-            fix: { ...(perf007RenderBlockingScript.fix as NonNullable<Rule['fix']>) }
+            fix: { ...(performanceRenderBlockingScript.fix as NonNullable<Rule['fix']>) }
           });
         }
       } else {

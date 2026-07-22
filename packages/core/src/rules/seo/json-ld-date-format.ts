@@ -1,7 +1,7 @@
 import { jsonldRule } from './jsonld-engine.js';
 import { collectValues, isIso8601, DATE_KEYS } from './jsonld-engine.js';
 
-export const seo019DateFormat = jsonldRule({
+export const seoJsonLdDateFormat = jsonldRule({
   id: 'seo/json-ld-date-format',
   title: 'JSON-LD date format',
   severity: 'info',

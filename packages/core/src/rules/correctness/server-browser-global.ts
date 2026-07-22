@@ -56,13 +56,13 @@ function emitFile(
 }
 
 /**
- * CORRECT008 — browser globals read in server-executed MODULE code: module scope of
+ * correctness/server-browser-global — browser globals read in server-executed MODULE code: module scope of
  * runes modules / `<script module>`, and Kit route/hooks files (top level, handler
  * bodies, the `init` hook). All of it runs on the server, where these globals do not
- * exist — SSR crashes with a ReferenceError. Instance-script reads are CORRECT009's
+ * exist — SSR crashes with a ReferenceError. Instance-script reads are correctness/instance-browser-global's
  * (warning) territory. A custom check because the facts live on both channels.
  */
-export const correct008BrowserGlobals: Rule = {
+export const correctnessServerBrowserGlobal: Rule = {
   id: ID,
   title: 'Browser global in server module code',
   category: 'correctness',

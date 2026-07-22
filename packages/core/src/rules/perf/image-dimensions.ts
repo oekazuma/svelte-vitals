@@ -1,6 +1,6 @@
 import { imageRule } from './image-rule.js';
 
-export const perf001ImageDimensions = imageRule({
+export const performanceImageDimensions = imageRule({
   id: 'performance/image-dimensions',
   title: 'Image dimensions',
   severity: 'warning',

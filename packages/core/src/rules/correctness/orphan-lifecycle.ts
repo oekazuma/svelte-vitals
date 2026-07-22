@@ -56,12 +56,12 @@ function emitFile(
 }
 
 /**
- * CORRECT007 — svelte lifecycle/context calls guaranteed to run outside component
+ * correctness/orphan-lifecycle — svelte lifecycle/context calls guaranteed to run outside component
  * initialisation: module scope in runes modules / `<script module>`, the constructor of
  * a module-scope-instantiated class, and Kit load/handler/`init` bodies. A custom check
  * because the facts live on BOTH the component channel and the Kit-module channel.
  */
-export const correct007OrphanLifecycle: Rule = {
+export const correctnessOrphanLifecycle: Rule = {
   id: ID,
   title: 'Lifecycle call outside component initialisation',
   category: 'correctness',

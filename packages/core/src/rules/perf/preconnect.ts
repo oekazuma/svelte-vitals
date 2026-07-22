@@ -20,12 +20,12 @@ function hostOf(href: string): string | undefined {
 }
 
 /**
- * PERF008 — Preconnect for third-party origins. A resource from a well-known
+ * performance/preconnect — Preconnect for third-party origins. A resource from a well-known
  * third-party origin (e.g. Google Fonts) without a preconnect/dns-prefetch pays a
  * connection-setup round-trip. Opt-in by construction: only origins in the
  * allowlist are checked; routes referencing none emit nothing.
  */
-export const perf008Preconnect: Rule = {
+export const performancePreconnect: Rule = {
   id: 'performance/preconnect',
   title: 'Preconnect third-party origin',
   category: 'performance',
@@ -76,7 +76,7 @@ export const perf008Preconnect: Rule = {
           message: `Third-party origin ${host} used without a preconnect`,
           recommendation,
           docsUrl,
-          fix: { ...(perf008Preconnect.fix as NonNullable<Rule['fix']>) }
+          fix: { ...(performancePreconnect.fix as NonNullable<Rule['fix']>) }
         });
       }
     }

@@ -1,6 +1,6 @@
 import { imageRule } from './image-rule.js';
 
-export const perf002ImageLoading = imageRule({
+export const performanceImageLoadingHint = imageRule({
   id: 'performance/image-loading-hint',
   title: 'Image loading hint',
   severity: 'info',

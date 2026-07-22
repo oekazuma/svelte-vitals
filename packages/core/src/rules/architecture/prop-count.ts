@@ -3,7 +3,7 @@ import { componentRule } from '../component-rule.js';
 /** More destructured props than this suggests the component is doing too much. */
 const MAX_PROPS = 10;
 
-export const arch002PropCount = componentRule({
+export const architecturePropCount = componentRule({
   id: 'architecture/prop-count',
   title: 'Prop count',
   category: 'architecture',

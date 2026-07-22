@@ -1,6 +1,6 @@
 import { linkRule } from './link-rule.js';
 
-export const perf004FontPreloadCrossorigin = linkRule({
+export const performanceFontPreloadCrossorigin = linkRule({
   id: 'performance/font-preload-crossorigin',
   title: 'Font preload missing crossorigin',
   severity: 'warning',

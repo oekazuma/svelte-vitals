@@ -15,8 +15,8 @@ import { describe, it, expect } from 'vitest';
 import { defaultConfig, defaultProject, type RuleContext } from '@svelte-vitals/core';
 import { collectLayouts, collectRoutes, chainFiles } from '../src/providers/source/routes.js';
 import { enumerateRoutePages } from '../src/providers/source/project.js';
-import { seo001Title } from '@svelte-vitals/core';
-import { seo028TitleUnique } from '@svelte-vitals/core';
+import { seoTitlePresence } from '@svelte-vitals/core';
+import { seoDuplicateTitle } from '@svelte-vitals/core';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';
 
 /**
@@ -62,7 +62,7 @@ describe('[SPIKE, plan 036] scoped diff analysis feasibility', () => {
 
     // "Full" run: every route resolved.
     const full = await collectRoutes(rt, '');
-    const fullResults = await seo001Title.check(ctxFor(full.heads));
+    const fullResults = await seoTitlePresence.check(ctxFor(full.heads));
 
     // "Scoped" run: simulate only walking the affected route's chain by
     // filtering the resolved heads down to /c before handing them to the rule
@@ -70,7 +70,7 @@ describe('[SPIKE, plan 036] scoped diff analysis feasibility', () => {
     // spike doesn't refactor collectRoutes to prove that; it isolates the
     // *correctness* question: does the rule's verdict for /c change?).
     const scopedHeads = full.heads.filter((h) => h.route === '/c');
-    const scopedResults = await seo001Title.check(ctxFor(scopedHeads));
+    const scopedResults = await seoTitlePresence.check(ctxFor(scopedHeads));
 
     const fullForC = fullResults.find((r) => r.route === '/c');
     const scopedForC = scopedResults.find((r) => r.route === '/c');
@@ -87,7 +87,7 @@ describe('[SPIKE, plan 036] scoped diff analysis feasibility', () => {
     });
 
     const full = await collectRoutes(rt, '');
-    const fullResults = await seo028TitleUnique.check(ctxFor(full.heads));
+    const fullResults = await seoDuplicateTitle.check(ctxFor(full.heads));
     const fullForA = fullResults.find((r) => r.route === '/a')!;
     // Ground truth: analyzing the whole project correctly flags /a as a duplicate of /b.
     expect(fullForA.detection).toEqual({ presence: 'none', value: 'absent' }); // PENALIZED sentinel (see detection.ts)
@@ -97,7 +97,7 @@ describe('[SPIKE, plan 036] scoped diff analysis feasibility', () => {
     // "resolve only the affected route's chain" scoping would hand the rule
     // only /a's head, with /b invisible.
     const scopedHeads = full.heads.filter((h) => h.route === '/a');
-    const scopedResults = await seo028TitleUnique.check(ctxFor(scopedHeads));
+    const scopedResults = await seoDuplicateTitle.check(ctxFor(scopedHeads));
     const scopedForA = scopedResults.find((r) => r.route === '/a')!;
 
     // The scoped run does NOT see the duplicate — this is exactly the "silent

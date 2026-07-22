@@ -7,7 +7,7 @@ const FIX: Fix = {
   lang: 'html'
 };
 
-export const seo009HtmlLang: Rule = {
+export const seoHtmlLang: Rule = {
   id: 'seo/html-lang',
   title: '<html lang>',
   category: 'seo',

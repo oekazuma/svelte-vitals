@@ -8,7 +8,7 @@ const FIX: Fix = {
 };
 
 // seo/sitemap-in-robots — project rule: robots.txt should point crawlers at the sitemap.
-export const seo015SitemapInRobots: Rule = {
+export const seoSitemapInRobots: Rule = {
   id: 'seo/sitemap-in-robots',
   title: 'Sitemap referenced in robots.txt',
   category: 'seo',

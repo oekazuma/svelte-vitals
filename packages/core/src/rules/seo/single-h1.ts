@@ -11,7 +11,7 @@ const recommendation = 'Use exactly one <h1> per page for its main topic; demote
  * or more (diluted topic) are both flagged; exactly one passes. A route whose
  * headings were not collected (channel unset) emits nothing.
  */
-export const seo027Heading: Rule = {
+export const seoSingleH1: Rule = {
   id: 'seo/single-h1',
   title: 'Heading hierarchy',
   category: 'seo',

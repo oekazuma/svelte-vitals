@@ -1,11 +1,11 @@
 import { headTagRule } from './head-tag-rule.js';
 
 /**
- * SEO024 — Character encoding. The charset meta lives in `src/app.html`, so it is
- * only visible to rendered analysis (`appliesTo: rendered`), exactly like SEO014
+ * seo/charset — Character encoding. The charset meta lives in `src/app.html`, so it is
+ * only visible to rendered analysis (`appliesTo: rendered`), exactly like seo/viewport
  * (viewport). Static route analysis emits nothing instead of false-flagging it.
  */
-export const seo024Charset = headTagRule({
+export const seoCharset = headTagRule({
   id: 'seo/charset',
   title: 'Character encoding',
   severity: 'warning',

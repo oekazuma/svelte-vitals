@@ -1,6 +1,6 @@
 import { componentRule } from '../component-rule.js';
 
-export const sec002JavascriptUrl = componentRule({
+export const securityJavascriptUrl = componentRule({
   id: 'security/javascript-url',
   title: 'javascript: URL',
   category: 'security',

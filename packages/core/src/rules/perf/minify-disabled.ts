@@ -3,7 +3,7 @@ import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 
 const PENALIZED = { presence: 'none', value: 'absent' } as const;
 
-const PERF012_FIX: Fix = {
+const MINIFY_DISABLED_FIX: Fix = {
   description:
     'Remove the minify: false override from vite.config (Vite minifies with esbuild by default), or scope it to non-production builds.',
   snippet: "export default defineConfig({\n  build: {\n    minify: 'esbuild'\n  }\n});",
@@ -14,12 +14,12 @@ const RECOMMENDATION =
   'Remove build.minify: false from vite.config, or scope it to non-production builds if it is intentional.';
 
 /**
- * PERF012 — a `build.minify: false` left in vite.config ships unminified JS/CSS
+ * performance/minify-disabled — a `build.minify: false` left in vite.config ships unminified JS/CSS
  * to production. Project-scope: the fact is produced by the CLI's static parse
  * of vite.config.* (literal-only) or by the Vite plugin's resolved config
  * (exact). Emits a finding only when the fact is set — no pass result.
  */
-export const perf012MinifyDisabled: Rule = {
+export const performanceMinifyDisabled: Rule = {
   id: 'performance/minify-disabled',
   title: 'Minification disabled',
   category: 'performance',
@@ -27,7 +27,7 @@ export const perf012MinifyDisabled: Rule = {
   scope: 'project',
   rationale:
     'Disabling minification ships unminified JS/CSS to production, inflating bundle size several-fold and slowing every page load; the override is usually a leftover from debugging.',
-  fix: PERF012_FIX,
+  fix: MINIFY_DISABLED_FIX,
   async check(ctx: RuleContext): Promise<Result[]> {
     const hit = ctx.project.viteMinifyDisabled;
     if (!hit) return [];
@@ -50,7 +50,7 @@ export const perf012MinifyDisabled: Rule = {
           provenance,
         recommendation: RECOMMENDATION,
         docsUrl: docsUrlFor('performance/minify-disabled'),
-        fix: { ...PERF012_FIX }
+        fix: { ...MINIFY_DISABLED_FIX }
       }
     ];
   }

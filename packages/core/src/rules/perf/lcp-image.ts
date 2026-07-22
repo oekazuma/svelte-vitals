@@ -6,12 +6,12 @@ const recommendation =
   'Remove loading="lazy" from the LCP/first image and consider fetchpriority="high" so it loads as early as possible.';
 
 /**
- * PERF005 — LCP image not lazy-loaded. Lazy-loading the largest contentful paint
+ * performance/lcp-image — LCP image not lazy-loaded. Lazy-loading the largest contentful paint
  * image delays it. Analysis approximates the LCP as the first <img> in document
  * order for the route; if that image is loading="lazy", flag it. Runs in both
  * static (CLI) and rendered (vite) mode, since both providers collect <img>.
  */
-export const perf005LcpImage: Rule = {
+export const performanceLcpImage: Rule = {
   id: 'performance/lcp-image',
   title: 'LCP image eager loading',
   category: 'performance',
@@ -42,7 +42,7 @@ export const perf005LcpImage: Rule = {
               message: 'First image (likely LCP) is loading="lazy"',
               recommendation,
               docsUrl,
-              fix: { ...(perf005LcpImage.fix as NonNullable<Rule['fix']>) }
+              fix: { ...(performanceLcpImage.fix as NonNullable<Rule['fix']>) }
             }
           : {
               id: 'performance/lcp-image',

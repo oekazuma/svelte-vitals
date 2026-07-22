@@ -1,6 +1,6 @@
 import { componentRule } from '../component-rule.js';
 
-export const correct002EffectDerived = componentRule({
+export const correctnessEffectAsDerived = componentRule({
   id: 'correctness/effect-as-derived',
   title: 'Effect used to derive state',
   category: 'correctness',

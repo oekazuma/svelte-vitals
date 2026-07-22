@@ -3,7 +3,7 @@ import { componentRule } from '../component-rule.js';
 /** A component longer than this many lines is a "god component" smell. */
 const MAX_LOC = 400;
 
-export const arch001ComponentSize = componentRule({
+export const architectureComponentSize = componentRule({
   id: 'architecture/component-size',
   title: 'Component size',
   category: 'architecture',

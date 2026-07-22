@@ -1,6 +1,6 @@
 import { componentRule } from '../component-rule.js';
 
-export const correct004UnmutatedState = componentRule({
+export const correctnessUnmutatedState = componentRule({
   id: 'correctness/unmutated-state',
   title: 'Unmutated $state',
   category: 'correctness',

@@ -1,6 +1,6 @@
 import { lengthRule } from './length-rule.js';
 
-export const seo022TitleLength = lengthRule({
+export const seoTitleLength = lengthRule({
   id: 'seo/title-length',
   title: 'Title length',
   label: 'Title length',

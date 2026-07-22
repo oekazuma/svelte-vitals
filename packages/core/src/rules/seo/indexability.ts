@@ -8,7 +8,7 @@ const FIX: Fix = {
 };
 
 // seo/indexability — flag-on-presence: a route whose robots meta is noindex. info advisory.
-export const seo010Indexability: Rule = {
+export const seoIndexability: Rule = {
   id: 'seo/indexability',
   title: 'Indexability',
   category: 'seo',

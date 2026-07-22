@@ -33,7 +33,7 @@ function isConstantListEach(node: Node): boolean {
   );
 }
 
-/** Recursively collect every `{#each}` block in the template (Correctness CORRECT001). */
+/** Recursively collect every `{#each}` block in the template (correctness/each-key). */
 function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): void {
   if (Array.isArray(node)) {
     for (const child of node) collectEachBlocks(child, source, acc);
@@ -51,7 +51,7 @@ function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): vo
   }
 }
 
-/** AST metadata keys every walker skips — never traversed as child nodes. Shared with the Kit-module parser (SEC003–005). */
+/** AST metadata keys every walker skips — never traversed as child nodes. Shared with the Kit-module parser (the security kit-module rules). */
 export const WALK_IGNORED_KEYS = new Set(['type', 'start', 'end', 'loc', 'range']);
 
 /** Generic ESTree walk over a `<script>` program: visit every node with a `.type`. */
@@ -71,7 +71,7 @@ function walkEstree(node: Node, visit: (n: Node) => void): void {
 /**
  * Whether a CallExpression *creates an effect*: `$effect(...)` or `$effect.pre(...)`.
  * Excludes the non-effect `$effect.*` readers (`$effect.tracking()`, `$effect.root()`),
- * which would otherwise be recorded as effects and seed spurious CORRECT002 pass units.
+ * which would otherwise be recorded as effects and seed spurious correctness/effect-as-derived pass units.
  */
 function isEffectCall(node: Node): boolean {
   const c = node?.callee;
@@ -82,7 +82,7 @@ function isEffectCall(node: Node): boolean {
   return false;
 }
 
-/** Whether a CallExpression is `$effect.root(...)` — a legal standalone reactive scope (CORRECT006). */
+/** Whether a CallExpression is `$effect.root(...)` — a legal standalone reactive scope (correctness/orphan-effect). */
 function isEffectRootCall(node: Node): boolean {
   const c = node?.callee;
   return (
@@ -97,7 +97,7 @@ function isEffectRootCall(node: Node): boolean {
 /**
  * Whether a CallExpression is a `$state` *declaration* form: `$state(...)`,
  * `$state.raw(...)`, or `$state.frozen(...)` — but NOT readers like
- * `$state.snapshot(...)`, which would otherwise pollute the state-name set (CORRECT002).
+ * `$state.snapshot(...)`, which would otherwise pollute the state-name set (correctness/effect-as-derived).
  */
 function isStateDeclaration(node: Node): boolean {
   const c = node?.callee;
@@ -108,7 +108,7 @@ function isStateDeclaration(node: Node): boolean {
   return false;
 }
 
-/** True when a function's body does nothing but assign to `$state` identifiers (CORRECT002). */
+/** True when a function's body does nothing but assign to `$state` identifiers (correctness/effect-as-derived). */
 function bodyOnlyAssignsState(fn: Node, stateNames: Set<string>): boolean {
   // Only a plain `=` is a derive candidate. Compound assignments (`+=`, `*=`, `??=`, …)
   // read the previous value, so they accumulate rather than derive and can't become a
@@ -139,8 +139,8 @@ function isDerivedDeclaration(node: Node): boolean {
  * Add every name a binding target introduces to `acc`, recursing through all
  * destructuring forms: defaults (`{ a = 1 }`), nested (`{ a: { b } }`), arrays,
  * and rest. Missing a bound prop would drop it from `reactiveNames` and risk a
- * false-positive CORRECT003 flag, so this must cover the full pattern grammar.
- * Shared with the Kit-module parser (SEC003–005).
+ * false-positive correctness/effect-as-onmount flag, so this must cover the full pattern grammar.
+ * Shared with the Kit-module parser (the security kit-module rules).
  */
 export function addBoundNames(id: Node, acc: Set<string>): void {
   if (!id) return;
@@ -166,7 +166,7 @@ export function addBoundNames(id: Node, acc: Set<string>): void {
   }
 }
 
-/** The base identifier name of a (possibly nested) member expression or identifier, else undefined. Shared with the Kit-module parser (SEC003–005). */
+/** The base identifier name of a (possibly nested) member expression or identifier, else undefined. Shared with the Kit-module parser (the security kit-module rules). */
 export function rootObjectName(node: Node): string | undefined {
   let cur = node;
   while (cur?.type === 'MemberExpression') cur = cur.object;
@@ -184,7 +184,7 @@ export function rootObjectName(node: Node): string | undefined {
  * (issue #140 — a deliberately partial mitigation: `{#snippet}`/`{:then}`/`{:catch}`
  * bindings are not tracked, and a block's own `let` shadows the whole block, not just the
  * statements after its declaration — over-conservative, not exhaustive scope resolution).
- * Shared with the Kit-module parser (SEC003–005).
+ * Shared with the Kit-module parser (the security kit-module rules).
  */
 export function scopeIntroducedNames(node: Node): Set<string> {
   const introduced = new Set<string>();
@@ -239,7 +239,7 @@ function walkScoped(
 }
 
 /**
- * Add state names that are WRITTEN or ESCAPED (CORRECT004 rules 1–4): reassignment,
+ * Add state names that are WRITTEN or ESCAPED (correctness/unmutated-state rules 1–4): reassignment,
  * update, member/element assignment, method call on the state, or the state passed
  * as a call argument. Run over the instance program AND the template fragment
  * (inline handlers mutate state in the template). Scope-aware (issue #140): a local
@@ -290,7 +290,7 @@ function collectStateWrites(root: Node, stateNames: Set<string>, acc: Set<string
 const COMPONENT_LIKE_TYPES = new Set(['Component', 'SvelteComponent', 'SvelteSelf']);
 
 /**
- * Add state names ESCAPED via the template (CORRECT004 rules 5–6): a `bind:` on any
+ * Add state names ESCAPED via the template (correctness/unmutated-state rules 5–6): a `bind:` on any
  * element, or passed as a prop to a component (static `<Foo>`, or dynamic
  * `<svelte:component>`/`<svelte:self>`). Slot children / DOM-attribute reads do
  * not escape. `CHILD_NODE_KEYS` omits `attributes`, so inspect them explicitly.
@@ -321,7 +321,7 @@ function collectTemplateEscapes(node: Node, stateNames: Set<string>, acc: Set<st
 const RUNE_NAMES = new Set(['$state', '$derived', '$effect', '$props', '$bindable', '$inspect', '$host']);
 
 /**
- * Whether an $effect callback body reads a reactive value (CORRECT003, conservative):
+ * Whether an $effect callback body reads a reactive value (correctness/effect-as-onmount, conservative):
  * a reactive name, a `$`-prefixed store subscription, or any bare-identifier call.
  */
 function bodyReadsReactive(fn: Node, reactiveNames: Set<string>): boolean {
@@ -370,10 +370,10 @@ function bodyIsEmpty(fn: Node): boolean {
   return false;
 }
 
-/** Attributes whose value navigates/executes — a literal `javascript:` here is an XSS vector (SEC002). */
+/** Attributes whose value navigates/executes — a literal `javascript:` here is an XSS vector (security/javascript-url). */
 const URL_ATTRS = ['href', 'src', 'action', 'formaction'];
 
-/** Recursively collect Security facts: `{@html}` tags and literal `javascript:` URLs (SEC001/SEC002). */
+/** Recursively collect Security facts: `{@html}` tags and literal `javascript:` URLs (security/raw-html, security/javascript-url). */
 function collectSecurityFacts(node: Node, source: string, htmlTags: SourceSpan[], jsUrls: SourceSpan[]): void {
   if (Array.isArray(node)) {
     for (const child of node) collectSecurityFacts(child, source, htmlTags, jsUrls);
@@ -410,7 +410,7 @@ function isBindableCall(node: Node): boolean {
 }
 
 /**
- * Local identifier names bound to a non-`$bindable` prop from `$props()` (CORRECT005):
+ * Local identifier names bound to a non-`$bindable` prop from `$props()` (correctness/prop-mutation):
  * plain and renamed destructured names, and the `...rest` binding (rest props can never
  * be individually declared `$bindable` — that requires a per-prop destructuring default).
  * A prop initialized with `$bindable(...)` is excluded — mutating it is the intended
@@ -450,7 +450,7 @@ function collectNonBindableProps(program: Node): Set<string> {
   return ambiguous || seen > 1 ? new Set() : names;
 }
 
-/** Mutating array/Set/Map methods — a call to one of these on a non-bindable prop mutates it (CORRECT005). */
+/** Mutating array/Set/Map methods — a call to one of these on a non-bindable prop mutates it (correctness/prop-mutation). */
 const MUTATING_METHODS = new Set([
   'push',
   'pop',
@@ -468,7 +468,7 @@ const MUTATING_METHODS = new Set([
 ]);
 
 /**
- * Flag mutations of a non-`$bindable` prop (CORRECT005): a member-expression write
+ * Flag mutations of a non-`$bindable` prop (correctness/prop-mutation): a member-expression write
  * (`prop.x = …`, `prop.x += …`, `prop.x++`), `delete prop.x`, or a call to a mutating
  * method on the prop (`prop.push(...)`). Plain reassignment of the prop identifier
  * itself (`prop = 5`) is NOT flagged — Svelte's docs explicitly sanction temporary
@@ -500,7 +500,7 @@ function collectPropMutations(
   });
 }
 
-/** Named props destructured from `$props()`, or 0 when unknowable (ARCH002). */
+/** Named props destructured from `$props()`, or 0 when unknowable (architecture/prop-count). */
 function countProps(program: Node): number {
   let count = 0;
   let seen = 0;
@@ -520,13 +520,13 @@ function countProps(program: Node): number {
   return uncountable || seen > 1 ? 0 : count;
 }
 
-/** Source line count, not over-counting a single trailing newline (ARCH001). */
+/** Source line count, not over-counting a single trailing newline (architecture/component-size). */
 function countLines(source: string): number {
   if (source.length === 0) return 0;
   return source.split('\n').length - (source.endsWith('\n') ? 1 : 0);
 }
 
-/** Module specifiers of every `import`, each with its source line (Bundle PERF009). */
+/** Module specifiers of every `import`, each with its source line (performance/heavy-import). */
 function collectImportSources(program: Node, source: string, acc: { source: string; line: number }[]): void {
   walkEstree(program, (n) => {
     if (n.type === 'ImportDeclaration' && typeof n.source?.value === 'string') {
@@ -540,7 +540,7 @@ function isBareSpecifier(s: string): boolean {
   return !/^[./$#]/.test(s);
 }
 
-/** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — Bundle PERF010. */
+/** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — performance/namespace-import. */
 function collectNamespaceImports(program: Node, source: string, acc: { source: string; line: number }[]): void {
   walkEstree(program, (n) => {
     if (n.type !== 'ImportDeclaration' || n.importKind === 'type') return;
@@ -564,7 +564,7 @@ const HTML_DIRECTIVE = new RegExp(
  * Inline `svelte-vitals-disable-next-line` directives (issue #92). A plain text scan, not an
  * AST walk, so `<script>` (`//`) and template (`<!-- -->`) comments are covered uniformly. The
  * directive must be the entire content of its line; the suppressed line is directive-line + 1.
- * Shared with the Kit-module parser (SEC003–005).
+ * Shared with the Kit-module parser (the security kit-module rules).
  */
 export function collectSuppressions(source: string): SuppressionDirective[] {
   const out: SuppressionDirective[] = [];
@@ -578,7 +578,7 @@ export function collectSuppressions(source: string): SuppressionDirective[] {
   return out;
 }
 
-/** Nodes whose bodies do NOT run when the surrounding code is evaluated: functions run when called; class member/constructor code runs on construction (CORRECT006). */
+/** Nodes whose bodies do NOT run when the surrounding code is evaluated: functions run when called; class member/constructor code runs on construction (correctness/orphan-effect). */
 const EVAL_SCOPE_BOUNDARIES = new Set([
   'FunctionDeclaration',
   'FunctionExpression',
@@ -591,10 +591,10 @@ const EVAL_SCOPE_BOUNDARIES = new Set([
  * Walk only the code that executes when `node` itself is evaluated: every node is
  * visited, but children of eval-scope boundaries (function/class bodies) are not
  * entered. `visit` returning true skips a node's children — used to exempt
- * `$effect.root(...)` callbacks (CORRECT006). Like `walkScoped`, threads a "shadowed
+ * `$effect.root(...)` callbacks (correctness/orphan-effect). Like `walkScoped`, threads a "shadowed
  * names" set down through scope-introducing constructs (`scopeIntroducedNames`) so
  * `visit` can check whether a candidate identifier is locally shadowed before
- * treating it as a match against an outer (e.g. imported) binding (CORRECT007).
+ * treating it as a match against an outer (e.g. imported) binding (correctness/orphan-lifecycle).
  */
 function walkEvalScope(
   node: Node,
@@ -617,10 +617,10 @@ function walkEvalScope(
 }
 
 /**
- * Calls matching `matcher` that run when `root` itself is evaluated (CORRECT006/007).
- * `skipSubtree` exempts a call's children — CORRECT006 uses it for `$effect.root(...)`
+ * Calls matching `matcher` that run when `root` itself is evaluated (correctness/orphan-effect, correctness/orphan-lifecycle).
+ * `skipSubtree` exempts a call's children — correctness/orphan-effect uses it for `$effect.root(...)`
  * callbacks, which are a legal standalone reactive scope. `initialShadowed` seeds the
- * shadow set threaded through `walkEvalScope` (CORRECT007 uses it to seed a
+ * shadow set threaded through `walkEvalScope` (correctness/orphan-lifecycle uses it to seed a
  * constructor's own parameters before scanning its body).
  */
 function collectEvalScopeCalls(
@@ -649,7 +649,7 @@ function collectEvalScopeCalls(
  * Unwrap a top-level statement's `export`/`export default` wrapper to the declaration
  * (or expression) it wraps; a non-export statement is returned as-is. Used so pattern 2
  * (below) treats `export class Store {…}` / `export const s = new Store()` the same as
- * their unexported forms. Shared with the Kit-module parser (SEC003–005).
+ * their unexported forms. Shared with the Kit-module parser (the security kit-module rules).
  */
 export function unwrapExport(stmt: Node): Node {
   if (stmt.type === 'ExportNamedDeclaration') return stmt.declaration ?? stmt;
@@ -658,7 +658,7 @@ export function unwrapExport(stmt: Node): Node {
 }
 
 /**
- * Matcher-parameterised orphan-call collector (CORRECT006/007): (1) matching calls that
+ * Matcher-parameterised orphan-call collector (correctness/orphan-effect, correctness/orphan-lifecycle): (1) matching calls that
  * run at module evaluation time, (2) a module-scope `new` (direct top-level statements
  * only, export-unwrapped) of a same-file top-level class whose constructor directly
  * makes a matching call. See `collectOrphanEffects`'s doc comment for why pattern 2 is
@@ -687,7 +687,7 @@ function collectOrphanCalls(
     if (!ctor) continue;
     // Seed the shadow set with the constructor's own parameters — a parameter that
     // shadows an imported lifecycle name makes a same-named call inside the body a
-    // legal local call, not the tracked import (CORRECT007 false positive).
+    // legal local call, not the tracked import (correctness/orphan-lifecycle false positive).
     const ctorShadow = new Set<string>();
     for (const p of ctor.value.params ?? []) addBoundNames(p, ctorShadow);
     const calls = collectEvalScopeCalls(ctor.value.body, source, matcher, skipSubtree, ctorShadow);
@@ -726,7 +726,7 @@ function collectOrphanCalls(
 }
 
 /**
- * Orphan `$effect` facts for a module-context program (CORRECT006): (1) effects that run
+ * Orphan `$effect` facts for a module-context program (correctness/orphan-effect): (1) effects that run
  * at module evaluation time, (2) a module-scope `new` of a same-file class whose
  * constructor creates a bare effect. Conservative by construction — never crosses a
  * function boundary, so factory functions, IIFEs, and cross-file classes are not flagged.
@@ -740,7 +740,7 @@ function collectOrphanCalls(
  * expression, never as a module-scope binding. This matches the design spec's own wording
  * for pattern 2: "flag top-level `new ClassName(...)` statements". Pattern 1 (top-level
  * `$effect`, including inside top-level blocks/if) is unaffected — see
- * `collectEvalScopeCalls` above. Generalised as `collectOrphanCalls` — CORRECT007 reuses
+ * `collectEvalScopeCalls` above. Generalised as `collectOrphanCalls` — correctness/orphan-lifecycle reuses
  * the same walk with a lifecycle-import matcher.
  */
 function collectOrphanEffects(program: Node, source: string): OrphanEffectFact[] {
@@ -749,7 +749,7 @@ function collectOrphanEffects(program: Node, source: string): OrphanEffectFact[]
   );
 }
 
-/** Svelte exports that throw `lifecycle_outside_component` when called without an active component context (CORRECT007). */
+/** Svelte exports that throw `lifecycle_outside_component` when called without an active component context (correctness/orphan-lifecycle). */
 export const LIFECYCLE_NAMES = new Set([
   'onMount',
   'onDestroy',
@@ -763,7 +763,7 @@ export const LIFECYCLE_NAMES = new Set([
 ]);
 
 /**
- * Tracked svelte lifecycle/context bindings in a module program (CORRECT007): local
+ * Tracked svelte lifecycle/context bindings in a module program (correctness/orphan-lifecycle): local
  * alias → canonical name for named value imports from 'svelte', plus namespace locals
  * (`import * as s from 'svelte'`). Type-only imports/specifiers excluded; same-named
  * imports from any other module are never tracked. Shared with the Kit-module parser.
@@ -786,7 +786,7 @@ export function collectSvelteLifecycleImports(program: Node): { locals: Map<stri
 }
 
 /**
- * Whether a CallExpression calls a tracked svelte lifecycle/context binding (CORRECT007):
+ * Whether a CallExpression calls a tracked svelte lifecycle/context binding (correctness/orphan-lifecycle):
  * a direct call to a (possibly aliased) named import, or a non-computed member call on a
  * `svelte` namespace import. Returns the canonical name plus the local root binding (for
  * shadow checks in the Kit parser). Shared with the Kit-module parser.
@@ -813,7 +813,7 @@ export function matchLifecycleCall(
   return undefined;
 }
 
-/** Orphan lifecycle-call facts for a module-context program (CORRECT007). */
+/** Orphan lifecycle-call facts for a module-context program (correctness/orphan-lifecycle). */
 function collectOrphanLifecycleCalls(program: Node, source: string): OrphanLifecycleCallFact[] {
   const imports = collectSvelteLifecycleImports(program);
   if (imports.locals.size === 0 && imports.namespaces.size === 0) return [];
@@ -823,7 +823,7 @@ function collectOrphanLifecycleCalls(program: Node, source: string): OrphanLifec
   });
 }
 
-/** Browser-only globals worth flagging in server-executed code (CORRECT008/009) — curated high-signal names absent from Node; NOT the full `globals.browser` list, which would false-positive on generic identifiers without scope analysis. */
+/** Browser-only globals worth flagging in server-executed code (correctness/server-browser-global, correctness/instance-browser-global) — curated high-signal names absent from Node; NOT the full `globals.browser` list, which would false-positive on generic identifiers without scope analysis. */
 export const BROWSER_GLOBALS = new Set([
   'window',
   'document',
@@ -846,7 +846,7 @@ export const BROWSER_GLOBALS = new Set([
 
 /**
  * Local names of `browser` value-imported from '$app/environment' (alias-resolved) —
- * the guard binding recognised by the browser-global scanner (CORRECT008/009).
+ * the guard binding recognised by the browser-global scanner (correctness/server-browser-global, correctness/instance-browser-global).
  * Shared with the Kit-module parser.
  */
 export function collectBrowserGuardImports(program: Node): Set<string> {
@@ -868,7 +868,7 @@ export function collectBrowserGuardImports(program: Node): Set<string> {
  * Names bound at the program's top level: every import's local name plus every
  * export-unwrapped declaration name. A tracked global with such a binding is a real
  * binding, not a global read (`const document = …`, `import { window } from …`) —
- * disqualified program-wide by the browser-global scanner (CORRECT008/009).
+ * disqualified program-wide by the browser-global scanner (correctness/server-browser-global, correctness/instance-browser-global).
  * Shared with the Kit-module parser.
  */
 export function collectProgramBindings(program: Node): Set<string> {
@@ -891,7 +891,7 @@ export function collectProgramBindings(program: Node): Set<string> {
   return bound;
 }
 
-/** Whether a guard's consequent unconditionally exits (return/throw) — code after it never runs in the guarded environment (CORRECT008/009). */
+/** Whether a guard's consequent unconditionally exits (return/throw) — code after it never runs in the guarded environment (correctness/server-browser-global, correctness/instance-browser-global). */
 function guardTerminates(consequent: Node): boolean {
   if (!consequent) return false;
   if (consequent.type === 'ReturnStatement' || consequent.type === 'ThrowStatement') return true;
@@ -905,7 +905,7 @@ function guardTerminates(consequent: Node): boolean {
 /**
  * Whether a guard-clause test establishes a browser environment: it references the
  * `$app/environment` `browser` binding, or contains a
- * `typeof <tracked-global> === | !== 'undefined'` comparison (CORRECT008/009).
+ * `typeof <tracked-global> === | !== 'undefined'` comparison (correctness/server-browser-global, correctness/instance-browser-global).
  * Over-matching here only widens the skip — a conservative miss, never a false positive.
  */
 function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
@@ -935,7 +935,7 @@ function isBrowserGuardTest(test: Node, guardBindings: Set<string>): boolean {
  * later `if (canUse) { … }`. Over-matching here only widens the skip (conservative
  * miss). The scanner runs this on its own program; the Kit parser and the `.svelte`
  * instance scan also run it on the module program so a module-level derived guard is
- * recognised inside handlers / the instance script (CORRECT008/009).
+ * recognised inside handlers / the instance script (correctness/server-browser-global, correctness/instance-browser-global).
  * Shared with the Kit-module parser.
  */
 export function collectDerivedGuardBindings(program: Node, guards: Set<string>): Set<string> {
@@ -954,7 +954,7 @@ export function collectDerivedGuardBindings(program: Node, guards: Set<string>):
 
 /**
  * Browser-global reads in code that executes when `program` (or a passed function body)
- * is evaluated (CORRECT008/009). Position-aware — only read positions match: never a
+ * is evaluated (correctness/server-browser-global, correctness/instance-browser-global). Position-aware — only read positions match: never a
  * non-computed member property or object key, a declaration id, an import/export
  * specifier, a label, or a bare `typeof` operand (that idiom never throws). Never
  * descends into TS type-only subtrees (type aliases, interfaces, `TSTypeQuery`'s
@@ -1034,7 +1034,7 @@ export function collectBrowserGlobalRefs(
         // key-walk) so a terminating early-return guard (`if (!browser) return
         // {};`) can stop scanning the rest of the container — the remaining
         // statements are server-unreachable in the guarded environment
-        // (CORRECT008/009). The guard statement itself is still skipped by the
+        // (correctness/server-browser-global, correctness/instance-browser-global). The guard statement itself is still skipped by the
         // IfStatement check above; `Program` can't contain a `return`, so its
         // early-break only ever triggers on a `throw`-terminated guard.
         for (const stmt of n.body ?? []) {
@@ -1076,7 +1076,7 @@ export function collectBrowserGlobalRefs(
   return out;
 }
 
-/** A Svelte runes module file — the whole file is one module-scope program (CORRECT006). */
+/** A Svelte runes module file — the whole file is one module-scope program (correctness/orphan-effect). */
 const MODULE_FILE_RE = /\.svelte\.(ts|js)$/;
 
 /** What the per-file parsers produce — `ComponentFacts` minus `file`, with `suppressions` always present. */
@@ -1089,7 +1089,7 @@ type ParsedFacts = Omit<ComponentFacts, 'file' | 'suppressions'> & { suppression
  * placeholder first (string contents don't affect fact extraction; offsets are
  * preserved). Returns the ESTree Program and the wrapped source — wrapped line
  * numbers are +1 relative to the input, so callers subtract 1. Shared by the
- * runes-module facts (CORRECT006) and the Kit-module facts (SEC003–005).
+ * runes-module facts (correctness/orphan-effect) and the Kit-module facts (the security kit-module rules).
  */
 export function parseModuleProgram(source: string, filename: string): { program: Node | undefined; wrapped: string } {
   const neutralized = source.replace(/<\/script/gi, '<_script');
@@ -1099,12 +1099,12 @@ export function parseModuleProgram(source: string, filename: string): { program:
 }
 
 /**
- * Module-scope reactive-state declarations in a runes module (SEC005): a top-level
+ * Module-scope reactive-state declarations in a runes module (security/shared-state-import): a top-level
  * `let|const x = $state(...)` / `$state.raw(...)` declaration, and a module-scope
  * `new` (in a top-level variable declaration) of a same-file top-level class with a
  * `$state` field initializer — recorded under the instance binding's name at the
  * declaration line. Direct top-level statements only (export-unwrapped), mirroring
- * CORRECT006's pattern-2 conservatism.
+ * correctness/orphan-effect's pattern-2 conservatism.
  */
 function collectModuleStateDecls(program: Node, source: string): { name: string; line: number }[] {
   const out: { name: string; line: number }[] = [];
@@ -1147,10 +1147,10 @@ function collectModuleStateDecls(program: Node, source: string): { name: string;
 }
 
 /**
- * Facts for a `.svelte.ts`/`.svelte.js` runes module (CORRECT006/007/008). The whole file runs
+ * Facts for a `.svelte.ts`/`.svelte.js` runes module (correctness/orphan-effect, correctness/orphan-lifecycle, correctness/server-browser-global). The whole file runs
  * at import time, so only `orphanEffects`, `orphanLifecycleCalls`, `browserGlobalRefs`,
  * `moduleStateDecls`, and `suppressions` are populated — component-only facts stay empty and
- * `loc` is 0 so ARCH001/PERF009 don't fire on module files. Uses `parseModuleProgram` to get
+ * `loc` is 0 so architecture/component-size and performance/heavy-import don't fire on module files. Uses `parseModuleProgram` to get
  * the ESTree program from the wrapped source; the 1-line wrap prefix is subtracted from every
  * reported line.
  */
@@ -1192,7 +1192,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
 /**
  * Parse one source file's facts (CLI/static + vite build mode): a `.svelte` component's
  * reactivity/correctness + security + architecture facts, or a `.svelte.ts`/`.svelte.js`
- * runes module's orphan-$effect facts (CORRECT006).
+ * runes module's orphan-$effect facts (correctness/orphan-effect).
  */
 export function parseComponentFacts(source: string, filename: string): ParsedFacts {
   if (MODULE_FILE_RE.test(filename)) return parseModuleFacts(source, filename);
@@ -1268,7 +1268,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     for (const d of stateDecls) {
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
     }
-    // Instance top level runs on the server during SSR (CORRECT009). The module
+    // Instance top level runs on the server during SSR (correctness/instance-browser-global). The module
     // script's guard bindings (raw browser imports + module-level derived guards)
     // and top-level bindings are visible here — pass them in.
     let moduleExtra: { guards: Set<string>; bound: Set<string> } | undefined;
