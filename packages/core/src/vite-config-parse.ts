@@ -8,13 +8,10 @@
  * `defineConfig({…})` / a same-file alias, including a same-file identifier
  * passed as `defineConfig`'s argument) and CJS (`module.exports = {…}`) forms.
  */
-import { parseModuleProgram, unwrapTs } from './component-parse.js';
+import type { Expression, ObjectExpression, Program, Property } from 'estree';
+import { parseModuleProgram, unwrapTs, type TsExpression } from './component-parse.js';
 import { collectTopLevelBindings } from './kit-module-parse.js';
 import { lineOf } from './svelte-ast.js';
-
-// Same pragmatic typing stance as component-parse.ts.
-/* oxlint-disable @typescript-eslint/no-explicit-any */
-type Node = any;
 
 /**
  * Non-computed property of an object literal, by key name (`build` or `'build'`).
@@ -25,16 +22,16 @@ type Node = any;
  * unknowable, so this conservatively returns undefined. A spread BEFORE the
  * match doesn't matter — the literal property still wins.
  */
-function propOf(obj: Node, name: string): Node | undefined {
-  let found: Node | undefined;
-  for (const p of obj.properties ?? []) {
-    if (p?.type === 'SpreadElement') {
+function propOf(obj: ObjectExpression, name: string): Property | undefined {
+  let found: Property | undefined;
+  for (const p of obj.properties) {
+    if (p.type === 'SpreadElement') {
       if (found) found = undefined; // a match already found is now unknowable
       continue;
     }
-    if (p?.type !== 'Property' || p.computed) continue;
-    if (p.key?.type === 'Identifier' && p.key.name === name) found = p;
-    else if (p.key?.type === 'Literal' && p.key.value === name) found = p;
+    if (p.type !== 'Property' || p.computed) continue;
+    if (p.key.type === 'Identifier' && p.key.name === name) found = p;
+    else if (p.key.type === 'Literal' && p.key.value === name) found = p;
   }
   return found;
 }
@@ -49,21 +46,26 @@ function propOf(obj: Node, name: string): Node | undefined {
  * progress (an unresolvable identifier, or anything else that isn't a wrapper,
  * identifier, or call).
  */
-function unwrapToObjectExpression(expr: Node, bindings: Map<string, Node>): Node | undefined {
-  for (let i = 0; i < 4 && expr; i++) {
-    expr = unwrapTs(expr);
-    if (expr?.type === 'ObjectExpression') return expr;
-    if (expr?.type === 'Identifier') {
-      expr = bindings.get(expr.name);
+function unwrapToObjectExpression(
+  expr: TsExpression | undefined,
+  bindings: Map<string, TsExpression>
+): ObjectExpression | undefined {
+  let current: TsExpression | undefined = expr;
+  for (let i = 0; i < 4 && current; i++) {
+    const e = unwrapTs(current);
+    if (e.type === 'ObjectExpression') return e;
+    if (e.type === 'Identifier') {
+      current = bindings.get(e.name);
       continue;
     }
-    if (expr?.type === 'CallExpression') {
-      expr = expr.arguments?.[0];
+    if (e.type === 'CallExpression') {
+      current = e.arguments[0] as Expression | undefined;
       continue;
     }
     return undefined;
   }
-  return expr?.type === 'ObjectExpression' ? expr : undefined;
+  const final = current ? unwrapTs(current) : undefined;
+  return final?.type === 'ObjectExpression' ? final : undefined;
 }
 
 /**
@@ -73,25 +75,25 @@ function unwrapToObjectExpression(expr: Node, bindings: Map<string, Node>): Node
  * JavaScript's last-assignment-wins semantics, same rationale as `propOf`'s
  * last-wins). Undefined when neither form is present.
  */
-function findExportedExpression(program: Node): Node | undefined {
-  let exported: Node | undefined;
-  for (const stmt of program.body ?? []) {
-    if (stmt?.type === 'ExportDefaultDeclaration') exported = stmt.declaration;
+function findExportedExpression(program: Program): Expression | undefined {
+  let exported: Expression | undefined;
+  for (const stmt of program.body) {
+    if (stmt.type === 'ExportDefaultDeclaration') exported = stmt.declaration as Expression;
   }
   if (exported) return exported;
 
-  let cjsExported: Node | undefined;
-  for (const stmt of program.body ?? []) {
-    if (stmt?.type !== 'ExpressionStatement') continue;
+  let cjsExported: Expression | undefined;
+  for (const stmt of program.body) {
+    if (stmt.type !== 'ExpressionStatement') continue;
     const expr = stmt.expression;
-    if (expr?.type !== 'AssignmentExpression' || expr.operator !== '=') continue;
+    if (expr.type !== 'AssignmentExpression' || expr.operator !== '=') continue;
     const left = expr.left;
     if (
-      left?.type === 'MemberExpression' &&
+      left.type === 'MemberExpression' &&
       !left.computed &&
-      left.object?.type === 'Identifier' &&
+      left.object.type === 'Identifier' &&
       left.object.name === 'module' &&
-      left.property?.type === 'Identifier' &&
+      left.property.type === 'Identifier' &&
       left.property.name === 'exports'
     ) {
       cjsExported = expr.right;
@@ -110,7 +112,7 @@ function findExportedExpression(program: Node): Node | undefined {
  * anything else resolve to undefined — the CLI channel is deliberately
  * literal-only; the Vite plugin channel sees the resolved value instead.
  */
-function resolveConfigObject(program: Node): Node | undefined {
+function resolveConfigObject(program: Program): ObjectExpression | undefined {
   const exported = findExportedExpression(program);
   if (!exported) return undefined;
   return unwrapToObjectExpression(exported, collectTopLevelBindings(program));
@@ -122,7 +124,7 @@ function resolveConfigObject(program: Node): Node | undefined {
  * dynamic, or unparsable configs (never throws).
  */
 export function findMinifyDisabled(source: string): { line: number } | undefined {
-  let program: Node | undefined;
+  let program: Program | undefined;
   let wrapped: string;
   try {
     ({ program, wrapped } = parseModuleProgram(source, 'vite.config.ts'));
@@ -133,10 +135,11 @@ export function findMinifyDisabled(source: string): { line: number } | undefined
   const config = resolveConfigObject(program);
   if (!config) return undefined;
   const build = propOf(config, 'build');
-  const buildValue = build ? unwrapTs(build.value) : undefined;
+  const buildValue = build ? unwrapTs(build.value as Expression) : undefined;
   if (buildValue?.type !== 'ObjectExpression') return undefined;
   const minify = propOf(buildValue, 'minify');
-  const minifyValue = minify ? unwrapTs(minify.value) : undefined;
-  if (minifyValue?.type !== 'Literal' || minifyValue.value !== false) return undefined;
-  return { line: Math.max(0, lineOf(wrapped, minify.start) - 1) };
+  const minifyValue = minify ? unwrapTs(minify.value as Expression) : undefined;
+  if (!minify || minifyValue?.type !== 'Literal' || minifyValue.value !== false) return undefined;
+  // acorn attaches start/end offsets that @types/estree's BaseNode doesn't declare.
+  return { line: Math.max(0, lineOf(wrapped, (minify as unknown as { start: number }).start) - 1) };
 }
