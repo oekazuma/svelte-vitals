@@ -1,6 +1,7 @@
-/* oxlint-disable @typescript-eslint/no-explicit-any */
 import { describe, it, expect } from 'vitest';
 import { parse } from 'svelte/compiler';
+import type { AST } from 'svelte/compiler';
+import type { ObjectExpression, Property } from 'estree';
 import {
   exprValue,
   resolveMetaObject,
@@ -8,11 +9,16 @@ import {
   TWITTER_KEYS
 } from '../src/providers/source/adapters/meta-object.js';
 
-// The Svelte AST is only partially typed for our needs, so this test helper traverses with `any`.
-function attrOf(tag: string, name: string): any {
-  const ast = parse(`<script></script>${tag}`, { modern: true, filename: 'x.svelte' }) as any;
-  const component = ast.fragment.nodes.find((n: any) => n.type === 'Component');
-  return component.attributes.find((a: any) => a.type === 'Attribute' && a.name === name);
+function attrOf(tag: string, name: string): AST.Attribute | undefined {
+  const ast = parse(`<script></script>${tag}`, { modern: true, filename: 'x.svelte' });
+  const component = ast.fragment.nodes.find((n): n is AST.Component => n.type === 'Component');
+  return component?.attributes.find((a): a is AST.Attribute => a.type === 'Attribute' && a.name === name);
+}
+
+/** The first property of an attribute's inline object-literal value, e.g. `openGraph={{ url: … }}`. */
+function firstObjectProp(attr: AST.Attribute): Property {
+  const expr = (attr.value as AST.ExpressionTag).expression as ObjectExpression;
+  return expr.properties[0] as Property;
 }
 
 describe('resolveMetaObject', () => {
@@ -67,16 +73,12 @@ describe('resolveMetaObject', () => {
 
 describe('exprValue', () => {
   it('classifies a non-empty string literal as static', () => {
-    const attr = attrOf('<MetaTags openGraph={{ url: "https://x" }} />', 'openGraph');
-    // oxlint-disable-next-line @typescript-eslint/no-explicit-any
-    const prop = (attr.value.expression.properties as any[])[0];
-    expect(exprValue(prop.value)).toBe('static');
+    const attr = attrOf('<MetaTags openGraph={{ url: "https://x" }} />', 'openGraph')!;
+    expect(exprValue(firstObjectProp(attr).value)).toBe('static');
   });
 
   it('classifies an identifier as dynamic', () => {
-    const attr = attrOf('<MetaTags openGraph={{ url: SITE }} />', 'openGraph');
-    // oxlint-disable-next-line @typescript-eslint/no-explicit-any
-    const prop = (attr.value.expression.properties as any[])[0];
-    expect(exprValue(prop.value)).toBe('dynamic');
+    const attr = attrOf('<MetaTags openGraph={{ url: SITE }} />', 'openGraph')!;
+    expect(exprValue(firstObjectProp(attr).value)).toBe('dynamic');
   });
 });
