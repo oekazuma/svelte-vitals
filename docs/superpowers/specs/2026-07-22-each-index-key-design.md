@@ -34,12 +34,19 @@ Optional → zero churn for existing tests that build `EachBlockFact` literals.
 
 ## Detection (in `collectEachBlocks`, `packages/core/src/component-parse.ts`)
 
-When an `EachBlock` node has both an index binding and a key expression: unwrap the key through TS wrappers (`satisfies`/`as`), and set `indexKey: true` iff the result is an `Identifier` whose name equals the block's index binding name. (Verify the modern-AST shape during implementation: `node.index` carries the index binding, `node.key` the key expression; the existing `isConstantListEach` skip and `hasKey` computation stay untouched.)
+When an `EachBlock` node has both an index binding and a key expression: unwrap the key through TS wrappers (`satisfies`/`as`) at every recursion step, and set `indexKey: true` iff the (unwrapped) key expression is the index binding itself, or a trivial stringification of it:
+
+- the bare `Identifier` matching the index name (`(i)`);
+- `String(i)` — a call to the global `String` with exactly the (recursively-checked) index expression as its sole argument;
+- `` `${i}` `` — a `TemplateLiteral` with exactly one interpolated expression (the recursively-checked index expression) and no literal text in any quasi;
+- `i.toString()` — a zero-argument, non-computed `.toString()` call on the (recursively-checked) index expression.
+
+`String(i as number)` and similar TS-wrapped variants also match, since the TS unwrap runs at each recursion step, not just the outermost one. (Verify the modern-AST shape during implementation: `node.index` carries the index binding, `node.key` the key expression; the existing `isConstantListEach` skip and `hasKey` computation stay untouched.)
 
 Not detected (non-goals):
 
-- Wrapped forms — `(String(i))`, ``(`${i}`)``: rare, exact-identifier only in v1.
-- Composite keys containing the index — `(item.id + '-' + i)`: appending an index to add uniqueness is a legitimate pattern; never flagged.
+- Composite keys that contain the index alongside item data — `(item.id + '-' + i)`, ``(`${item.id}-${i}`)``: appending an index is sometimes a deliberate workaround for lists with duplicate items, where a bare item key would throw Svelte's duplicate-key error. This is a documented trade-off, not an unconditional endorsement — such a key still changes when an item moves position, so moved items are destroyed and recreated instead of tracked; a truly unique id is preferable when available. Never flagged either way.
+- Stringifications of a non-index value (`String(item.id)`, `` `${item.id}` ``, `item.id.toString()`) — not position-based identity, so out of scope.
 - Blocks without an index binding, unkeyed blocks (that's `each-key`'s job), constant-list each blocks (already skipped by the collector).
 
 ## Registration, docs, changeset
