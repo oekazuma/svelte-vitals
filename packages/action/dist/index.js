@@ -56089,7 +56089,7 @@ function messageFor(detection) {
   if (detection.value === "absent") return "Empty <title>";
   return "<title>";
 }
-var seo001Title = {
+var seoTitlePresence = {
   id: "seo/title-presence",
   title: "Title presence",
   category: "seo",
@@ -56152,7 +56152,7 @@ function headTagRule(opts) {
     }
   };
 }
-var seo002Description = headTagRule({
+var seoDescriptionPresence = headTagRule({
   id: "seo/description-presence",
   title: "Description presence",
   severity: "critical",
@@ -56166,7 +56166,7 @@ var seo002Description = headTagRule({
     lang: "svelte"
   }
 });
-var seo003Canonical = headTagRule({
+var seoCanonicalUrl = headTagRule({
   id: "seo/canonical-url",
   title: "Canonical URL",
   severity: "warning",
@@ -56180,7 +56180,7 @@ var seo003Canonical = headTagRule({
     lang: "svelte"
   }
 });
-var seo004OgImage = headTagRule({
+var seoOgImage = headTagRule({
   id: "seo/og-image",
   title: "Open Graph image",
   severity: "warning",
@@ -56194,7 +56194,7 @@ var seo004OgImage = headTagRule({
     lang: "svelte"
   }
 });
-var seo005OgTitle = headTagRule({
+var seoOgTitle = headTagRule({
   id: "seo/og-title",
   title: "Open Graph title",
   severity: "warning",
@@ -56208,7 +56208,7 @@ var seo005OgTitle = headTagRule({
     lang: "svelte"
   }
 });
-var seo008JsonLd = headTagRule({
+var seoJsonLd = headTagRule({
   id: "seo/json-ld",
   title: "JSON-LD structured data",
   severity: "info",
@@ -56232,7 +56232,7 @@ var FIX2 = {
   snippet: "User-agent: *\nAllow: /\n\nSitemap: https://example.com/sitemap.xml",
   lang: "text"
 };
-var seo006Robots = {
+var seoRobotsTxt = {
   id: "seo/robots-txt",
   title: "robots.txt",
   category: "seo",
@@ -56263,7 +56263,7 @@ var FIX3 = {
   snippet: '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url><loc>https://example.com/</loc></url>\n</urlset>',
   lang: "xml"
 };
-var seo007Sitemap = {
+var seoSitemapXml = {
   id: "seo/sitemap-xml",
   title: "sitemap.xml",
   category: "seo",
@@ -56292,7 +56292,7 @@ var FIX4 = {
   snippet: '<html lang="en">',
   lang: "html"
 };
-var seo009HtmlLang = {
+var seoHtmlLang = {
   id: "seo/html-lang",
   title: "<html lang>",
   category: "seo",
@@ -56366,7 +56366,7 @@ function imageRule(opts) {
     }
   };
 }
-var perf001ImageDimensions = imageRule({
+var performanceImageDimensions = imageRule({
   id: "performance/image-dimensions",
   title: "Image dimensions",
   severity: "warning",
@@ -56380,7 +56380,7 @@ var perf001ImageDimensions = imageRule({
   },
   ok: (img) => img.hasWidth && img.hasHeight
 });
-var perf002ImageLoading = imageRule({
+var performanceImageLoadingHint = imageRule({
   id: "performance/image-loading-hint",
   title: "Image loading hint",
   severity: "info",
@@ -56394,7 +56394,7 @@ var perf002ImageLoading = imageRule({
   },
   ok: (img) => img.hasLoading
 });
-var perf006ResponsiveImage = imageRule({
+var performanceResponsiveImage = imageRule({
   id: "performance/responsive-image",
   title: "Responsive image",
   severity: "info",
@@ -56459,7 +56459,7 @@ function linkRule(opts) {
     }
   };
 }
-var perf003PreloadAs = linkRule({
+var performancePreloadMissingAs = linkRule({
   id: "performance/preload-missing-as",
   title: "Preload missing as",
   severity: "warning",
@@ -56474,7 +56474,7 @@ var perf003PreloadAs = linkRule({
   relevant: (t) => t.rel === "preload",
   ok: (t) => t.hasAs === true
 });
-var perf004FontPreloadCrossorigin = linkRule({
+var performanceFontPreloadCrossorigin = linkRule({
   id: "performance/font-preload-crossorigin",
   title: "Font preload missing crossorigin",
   severity: "warning",
@@ -56491,7 +56491,7 @@ var perf004FontPreloadCrossorigin = linkRule({
 });
 var docsUrl = docsUrlFor("performance/lcp-image");
 var recommendation = 'Remove loading="lazy" from the LCP/first image and consider fetchpriority="high" so it loads as early as possible.';
-var perf005LcpImage = {
+var performanceLcpImage = {
   id: "performance/lcp-image",
   title: "LCP image eager loading",
   category: "performance",
@@ -56520,7 +56520,7 @@ var perf005LcpImage = {
           message: 'First image (likely LCP) is loading="lazy"',
           recommendation,
           docsUrl,
-          fix: { ...perf005LcpImage.fix }
+          fix: { ...performanceLcpImage.fix }
         } : {
           id: "performance/lcp-image",
           category: "performance",
@@ -56538,7 +56538,7 @@ var perf005LcpImage = {
 };
 var docsUrl2 = docsUrlFor("performance/render-blocking-script");
 var recommendation2 = 'Add defer (or type="module"), or async, to the <script> so it does not block HTML parsing.';
-var perf007RenderBlockingScript = {
+var performanceRenderBlockingScript = {
   id: "performance/render-blocking-script",
   title: "Render-blocking script",
   category: "performance",
@@ -56569,7 +56569,7 @@ var perf007RenderBlockingScript = {
             message: `Render-blocking <script>${tag2.href ? ` (${tag2.href})` : ""} in <head>`,
             recommendation: recommendation2,
             docsUrl: docsUrl2,
-            fix: { ...perf007RenderBlockingScript.fix }
+            fix: { ...performanceRenderBlockingScript.fix }
           });
         }
       } else {
@@ -56595,7 +56595,7 @@ function hostOf(href) {
   const m = /^(?:https?:)?\/\/([^/?#]+)/i.exec(href);
   return m ? m[1].toLowerCase() : void 0;
 }
-var perf008Preconnect = {
+var performancePreconnect = {
   id: "performance/preconnect",
   title: "Preconnect third-party origin",
   category: "performance",
@@ -56645,7 +56645,7 @@ var perf008Preconnect = {
           message: `Third-party origin ${host} used without a preconnect`,
           recommendation: recommendation3,
           docsUrl: docsUrl3,
-          fix: { ...perf008Preconnect.fix }
+          fix: { ...performancePreconnect.fix }
         });
       }
     }
@@ -56657,7 +56657,7 @@ var FIX5 = {
   snippet: '<svelte:head>\n  <meta name="robots" content="index, follow" />\n</svelte:head>',
   lang: "svelte"
 };
-var seo010Indexability = {
+var seoIndexability = {
   id: "seo/indexability",
   title: "Indexability",
   category: "seo",
@@ -56688,7 +56688,7 @@ var seo010Indexability = {
     return out;
   }
 };
-var seo011TwitterCard = headTagRule({
+var seoTwitterCard = headTagRule({
   id: "seo/twitter-card",
   title: "Twitter Card",
   severity: "info",
@@ -56702,7 +56702,7 @@ var seo011TwitterCard = headTagRule({
     lang: "svelte"
   }
 });
-var seo012OgDescription = headTagRule({
+var seoOgDescription = headTagRule({
   id: "seo/og-description",
   title: "Open Graph description",
   severity: "warning",
@@ -56716,7 +56716,7 @@ var seo012OgDescription = headTagRule({
     lang: "svelte"
   }
 });
-var seo013OgUrl = headTagRule({
+var seoOgUrl = headTagRule({
   id: "seo/og-url",
   title: "Open Graph URL",
   severity: "info",
@@ -56730,7 +56730,7 @@ var seo013OgUrl = headTagRule({
     lang: "svelte"
   }
 });
-var seo014Viewport = headTagRule({
+var seoViewport = headTagRule({
   id: "seo/viewport",
   title: "Viewport",
   severity: "warning",
@@ -56753,7 +56753,7 @@ var FIX6 = {
   snippet: "User-agent: *\nAllow: /\n\nSitemap: https://example.com/sitemap.xml",
   lang: "text"
 };
-var seo015SitemapInRobots = {
+var seoSitemapInRobots = {
   id: "seo/sitemap-in-robots",
   title: "Sitemap referenced in robots.txt",
   category: "seo",
@@ -56965,7 +56965,7 @@ function jsonldRule(opts) {
     }
   };
 }
-var seo016JsonLdValidity = {
+var seoJsonLdValidity = {
   id: "seo/json-ld-validity",
   title: "JSON-LD validity",
   category: "seo",
@@ -56998,7 +56998,7 @@ var seo016JsonLdValidity = {
             message: problem,
             recommendation: "Make the JSON-LD valid JSON with both @context and @type.",
             docsUrl: docsUrl7,
-            fix: { ...seo016JsonLdValidity.fix }
+            fix: { ...seoJsonLdValidity.fix }
           } : {
             id: "seo/json-ld-validity",
             category: "seo",
@@ -57015,7 +57015,7 @@ var seo016JsonLdValidity = {
     return out;
   }
 };
-var seo017DeprecatedType = jsonldRule({
+var seoJsonLdDeprecatedType = jsonldRule({
   id: "seo/json-ld-deprecated-type",
   title: "Deprecated structured-data type",
   severity: "info",
@@ -57027,7 +57027,7 @@ var seo017DeprecatedType = jsonldRule({
     return dep ? `@type "${dep}" no longer reliably produces a Google rich result` : void 0;
   }
 });
-var seo018RelativeUrl = jsonldRule({
+var seoJsonLdRelativeUrl = jsonldRule({
   id: "seo/json-ld-relative-url",
   title: "JSON-LD relative URL",
   severity: "warning",
@@ -57044,7 +57044,7 @@ var seo018RelativeUrl = jsonldRule({
     return bad ? `Relative URL in JSON-LD: "${bad}" \u2014 use an absolute URL` : void 0;
   }
 });
-var seo019DateFormat = jsonldRule({
+var seoJsonLdDateFormat = jsonldRule({
   id: "seo/json-ld-date-format",
   title: "JSON-LD date format",
   severity: "info",
@@ -57061,7 +57061,7 @@ var seo019DateFormat = jsonldRule({
     return bad ? `Non-ISO-8601 date in JSON-LD: "${bad}"` : void 0;
   }
 });
-var seo020Placeholder = jsonldRule({
+var seoJsonLdPlaceholder = jsonldRule({
   id: "seo/json-ld-placeholder",
   title: "JSON-LD placeholder text",
   severity: "info",
@@ -57073,7 +57073,7 @@ var seo020Placeholder = jsonldRule({
     return bad ? `Placeholder text in JSON-LD: "${bad}"` : void 0;
   }
 });
-var seo021RequiredProps = jsonldRule({
+var seoJsonLdRequiredProps = jsonldRule({
   id: "seo/json-ld-required-props",
   title: "JSON-LD required properties",
   severity: "warning",
@@ -57148,7 +57148,7 @@ function lengthRule(opts) {
     }
   };
 }
-var seo022TitleLength = lengthRule({
+var seoTitleLength = lengthRule({
   id: "seo/title-length",
   title: "Title length",
   label: "Title length",
@@ -57159,7 +57159,7 @@ var seo022TitleLength = lengthRule({
   recommendation: "Aim for a title of 30\u201360 characters so it is not truncated in search results.",
   rationale: "A title that is too short wastes the strongest on-page signal; one that is too long is truncated in the SERP."
 });
-var seo023DescriptionLength = lengthRule({
+var seoDescriptionLength = lengthRule({
   id: "seo/description-length",
   title: "Description length",
   label: "Description length",
@@ -57170,7 +57170,7 @@ var seo023DescriptionLength = lengthRule({
   recommendation: "Aim for a meta description of 70\u2013160 characters so it is not truncated in search results.",
   rationale: "A description that is too short under-uses the SERP snippet; one that is too long is truncated by search engines."
 });
-var seo024Charset = headTagRule({
+var seoCharset = headTagRule({
   id: "seo/charset",
   title: "Character encoding",
   severity: "warning",
@@ -57185,7 +57185,7 @@ var seo024Charset = headTagRule({
     lang: "html"
   }
 });
-var seo025ImageAlt = imageRule({
+var seoImageAlt = imageRule({
   id: "seo/image-alt",
   title: "Image alt text",
   category: "seo",
@@ -57206,7 +57206,7 @@ var HREFLANG_RE = /^[a-z]{2,3}(-[a-z]{4})?(-([a-z]{2}|\d{3}))?$/i;
 function isValidHreflang(v) {
   return v.toLowerCase() === "x-default" || HREFLANG_RE.test(v);
 }
-var seo026Hreflang = {
+var seoHreflang = {
   id: "seo/hreflang",
   title: "hreflang validity",
   category: "seo",
@@ -57258,7 +57258,7 @@ var seo026Hreflang = {
 };
 var docsUrl5 = docsUrlFor("seo/single-h1");
 var recommendation5 = "Use exactly one <h1> per page for its main topic; demote extra top-level headings to <h2>+.";
-var seo027Heading = {
+var seoSingleH1 = {
   id: "seo/single-h1",
   title: "Heading hierarchy",
   category: "seo",
@@ -57352,7 +57352,7 @@ function uniquenessRule(opts) {
     }
   };
 }
-var seo028TitleUnique = uniquenessRule({
+var seoDuplicateTitle = uniquenessRule({
   id: "seo/duplicate-title",
   title: "Duplicate title",
   label: "Unique title",
@@ -57361,7 +57361,7 @@ var seo028TitleUnique = uniquenessRule({
   recommendation: "Give each route a unique <title> that describes that page specifically.",
   rationale: "Duplicate titles across pages make them compete in search results and weaken each page\u2019s relevance signal."
 });
-var seo029DescriptionUnique = uniquenessRule({
+var seoDuplicateDescription = uniquenessRule({
   id: "seo/duplicate-description",
   title: "Duplicate description",
   label: "Unique description",
@@ -57372,7 +57372,7 @@ var seo029DescriptionUnique = uniquenessRule({
 });
 var docsUrl6 = docsUrlFor("seo/heading-level-skip");
 var recommendation6 = "Increase heading levels one step at a time (do not jump, e.g. from <h2> straight to <h4>).";
-var seo030HeadingOrder = {
+var seoHeadingLevelSkip = {
   id: "seo/heading-level-skip",
   title: "Heading order",
   category: "seo",
@@ -57476,7 +57476,7 @@ function kitModuleRule(opts) {
 }
 var ROOT_LAYOUT_RE = /^src\/routes\/\+layout(\.server)?\.(ts|js)$/;
 var PAGE_OPTION_FILE_RE = /\+(page|layout)(\.server)?\.(ts|js)$/;
-var seo031SsrDisabled = kitModuleRule({
+var seoSsrDisabled = kitModuleRule({
   id: "seo/ssr-disabled",
   title: "SSR disabled",
   category: "seo",
@@ -57543,7 +57543,7 @@ function componentRule(opts) {
     }
   };
 }
-var correct001EachKey = componentRule({
+var correctnessEachKey = componentRule({
   id: "correctness/each-key",
   title: "Keyed each block",
   category: "correctness",
@@ -57553,7 +57553,7 @@ var correct001EachKey = componentRule({
   applies: (c) => c.eachBlocks.length > 0,
   bad: (c) => c.eachBlocks.filter((e2) => !e2.hasKey).map((e2) => ({ line: e2.line, message: "{#each} block has no key" }))
 });
-var correct002EffectDerived = componentRule({
+var correctnessEffectAsDerived = componentRule({
   id: "correctness/effect-as-derived",
   title: "Effect used to derive state",
   category: "correctness",
@@ -57563,7 +57563,7 @@ var correct002EffectDerived = componentRule({
   applies: (c) => c.effects.length > 0,
   bad: (c) => c.effects.filter((e2) => e2.assignsOnlyState).map((e2) => ({ line: e2.line, message: "$effect only assigns state \u2014 use $derived instead" }))
 });
-var correct003EffectAsOnMount = componentRule({
+var correctnessEffectAsOnMount = componentRule({
   id: "correctness/effect-as-onmount",
   title: "Effect used as onMount",
   category: "correctness",
@@ -57573,7 +57573,7 @@ var correct003EffectAsOnMount = componentRule({
   applies: (c) => c.effects.length > 0,
   bad: (c) => c.effects.filter((e2) => e2.mountOnly).map((e2) => ({ line: e2.line, message: "$effect reads no reactive value \u2014 use onMount instead" }))
 });
-var correct004UnmutatedState = componentRule({
+var correctnessUnmutatedState = componentRule({
   id: "correctness/unmutated-state",
   title: "Unmutated $state",
   category: "correctness",
@@ -57587,7 +57587,7 @@ var correct004UnmutatedState = componentRule({
     message: `$state "${s.name}" is never mutated \u2014 use const (or $state.raw if you only reassign it)`
   }))
 });
-var correct005PropMutation = componentRule({
+var correctnessPropMutation = componentRule({
   id: "correctness/prop-mutation",
   title: "Mutated non-bindable prop",
   category: "correctness",
@@ -57600,7 +57600,7 @@ var correct005PropMutation = componentRule({
     message: `Prop "${m.name}" is mutated, but it is not declared $bindable`
   }))
 });
-var correct006OrphanEffect = componentRule({
+var correctnessOrphanEffect = componentRule({
   id: "correctness/orphan-effect",
   title: "Orphan $effect",
   category: "correctness",
@@ -57657,7 +57657,7 @@ function emitFile(out, file, issues, suppressions) {
     });
   }
 }
-var correct007OrphanLifecycle = {
+var correctnessOrphanLifecycle = {
   id: ID,
   title: "Lifecycle call outside component initialisation",
   category: "correctness",
@@ -57735,7 +57735,7 @@ function emitFile2(out, file, issues, suppressions) {
     });
   }
 }
-var correct008BrowserGlobals = {
+var correctnessServerBrowserGlobal = {
   id: ID2,
   title: "Browser global in server module code",
   category: "correctness",
@@ -57770,7 +57770,7 @@ var correct008BrowserGlobals = {
     return out;
   }
 };
-var correct009InstanceBrowserGlobals = componentRule({
+var correctnessInstanceBrowserGlobal = componentRule({
   id: "correctness/instance-browser-global",
   title: "Browser global during component initialisation",
   category: "correctness",
@@ -57783,7 +57783,7 @@ var correct009InstanceBrowserGlobals = componentRule({
     message: `${r.name} is accessed during component initialisation \u2014 during SSR this runs on the server, where ${r.name} is not defined`
   }))
 });
-var sec001Html = componentRule({
+var securityRawHtml = componentRule({
   id: "security/raw-html",
   title: "Raw HTML render",
   category: "security",
@@ -57793,7 +57793,7 @@ var sec001Html = componentRule({
   applies: (c) => c.htmlTags.length > 0,
   bad: (c) => c.htmlTags.map((h) => ({ line: h.line, message: "{@html} renders unescaped HTML \u2014 ensure it is sanitized" }))
 });
-var sec002JavascriptUrl = componentRule({
+var securityJavascriptUrl = componentRule({
   id: "security/javascript-url",
   title: "javascript: URL",
   category: "security",
@@ -57803,7 +57803,7 @@ var sec002JavascriptUrl = componentRule({
   applies: (c) => c.javascriptUrls.length > 0,
   bad: (c) => c.javascriptUrls.map((u) => ({ line: u.line, message: "javascript: URL in an attribute" }))
 });
-var sec003LoadStateWrite = kitModuleRule({
+var securityHandlerStateWrite = kitModuleRule({
   id: "security/handler-state-write",
   title: "Handler writes imported state",
   category: "security",
@@ -57817,7 +57817,7 @@ var sec003LoadStateWrite = kitModuleRule({
     message: `a server-executed handler writes imported module state "${w2.name}" \u2014 shared across all requests on the server, one user's data can leak to another`
   }))
 });
-var sec004ServerModuleState = kitModuleRule({
+var securityServerModuleState = kitModuleRule({
   id: "security/server-module-state",
   title: "Server module-scope state",
   category: "security",
@@ -57833,7 +57833,7 @@ var sec004ServerModuleState = kitModuleRule({
 function extSibling(path) {
   return path.endsWith(".svelte.ts") ? path.replace(/\.svelte\.ts$/, ".svelte.js") : path.replace(/\.svelte\.js$/, ".svelte.ts");
 }
-var sec005SharedStateImport = kitModuleRule({
+var securitySharedStateImport = kitModuleRule({
   id: "security/shared-state-import",
   title: "Shared runes-state import on the server",
   category: "security",
@@ -57860,7 +57860,7 @@ var sec005SharedStateImport = kitModuleRule({
   }
 });
 var MAX_LOC = 400;
-var arch001ComponentSize = componentRule({
+var architectureComponentSize = componentRule({
   id: "architecture/component-size",
   title: "Component size",
   category: "architecture",
@@ -57873,7 +57873,7 @@ var arch001ComponentSize = componentRule({
   bad: (c) => c.loc > MAX_LOC ? [{ line: 1, message: `Component is ${c.loc} lines (over ${MAX_LOC})` }] : []
 });
 var MAX_PROPS = 10;
-var arch002PropCount = componentRule({
+var architecturePropCount = componentRule({
   id: "architecture/prop-count",
   title: "Prop count",
   category: "architecture",
@@ -57889,7 +57889,7 @@ var HEAVY_PACKAGES = {
   lodash: "import a submodule (lodash/debounce) or use lodash-es for tree-shaking",
   moment: "use a lighter date library (date-fns or dayjs) \u2014 moment is large and not tree-shakeable"
 };
-var perf009HeavyImport = componentRule({
+var performanceHeavyImport = componentRule({
   id: "performance/heavy-import",
   title: "Heavy dependency import",
   category: "performance",
@@ -57913,7 +57913,7 @@ var perf009HeavyImport = componentRule({
     return out;
   }
 });
-var perf010NamespaceImport = componentRule({
+var performanceNamespaceImport = componentRule({
   id: "performance/namespace-import",
   title: "Namespace import",
   category: "performance",
@@ -57935,20 +57935,20 @@ var perf010NamespaceImport = componentRule({
   }
 });
 var PENALIZED6 = { presence: "none", value: "absent" };
-var PERF012_FIX = {
+var MINIFY_DISABLED_FIX = {
   description: "Remove the minify: false override from vite.config (Vite minifies with esbuild by default), or scope it to non-production builds.",
   snippet: "export default defineConfig({\n  build: {\n    minify: 'esbuild'\n  }\n});",
   lang: "ts"
 };
 var RECOMMENDATION3 = "Remove build.minify: false from vite.config, or scope it to non-production builds if it is intentional.";
-var perf012MinifyDisabled = {
+var performanceMinifyDisabled = {
   id: "performance/minify-disabled",
   title: "Minification disabled",
   category: "performance",
   severity: "warning",
   scope: "project",
   rationale: "Disabling minification ships unminified JS/CSS to production, inflating bundle size several-fold and slowing every page load; the override is usually a leftover from debugging.",
-  fix: PERF012_FIX,
+  fix: MINIFY_DISABLED_FIX,
   async check(ctx) {
     const hit = ctx.project.viteMinifyDisabled;
     if (!hit) return [];
@@ -57964,13 +57964,13 @@ var perf012MinifyDisabled = {
         message: "JS/CSS minification is disabled (build.minify: false) \u2014 production bundles ship unminified and several times larger." + provenance,
         recommendation: RECOMMENDATION3,
         docsUrl: docsUrlFor("performance/minify-disabled"),
-        fix: { ...PERF012_FIX }
+        fix: { ...MINIFY_DISABLED_FIX }
       }
     ];
   }
 };
 var MESSAGE = "Sequential dependent awaits in a universal load create a client-side request waterfall \u2014 each hop is a network round trip from the browser. Move this chain to a server load (+page.server.ts / +layout.server.ts), where the hops run server-side.";
-var perf011LoadWaterfall = kitModuleRule({
+var performanceLoadWaterfall = kitModuleRule({
   id: "performance/load-waterfall",
   title: "Load waterfall",
   category: "performance",
@@ -57987,7 +57987,7 @@ var perf011LoadWaterfall = kitModuleRule({
   bad: (m) => m.loadWaterfalls.dependentLines.map((line) => ({ line, message: MESSAGE }))
 });
 var MESSAGE2 = "This await does not use the results of the awaits before it \u2014 the requests run sequentially for no reason. Start them together and await them with Promise.all.";
-var perf013SequentialAwaits = kitModuleRule({
+var performanceSequentialAwaits = kitModuleRule({
   id: "performance/sequential-awaits",
   title: "Sequential independent awaits",
   category: "performance",
@@ -58004,66 +58004,66 @@ var perf013SequentialAwaits = kitModuleRule({
   bad: (m) => m.loadWaterfalls.independentLines.map((line) => ({ line, message: MESSAGE2 }))
 });
 var allRules = [
-  seo001Title,
-  seo002Description,
-  seo003Canonical,
-  seo004OgImage,
-  seo005OgTitle,
-  seo006Robots,
-  seo007Sitemap,
-  seo008JsonLd,
-  seo009HtmlLang,
-  perf001ImageDimensions,
-  perf002ImageLoading,
-  perf003PreloadAs,
-  perf004FontPreloadCrossorigin,
-  seo010Indexability,
-  seo011TwitterCard,
-  seo012OgDescription,
-  seo013OgUrl,
-  seo014Viewport,
-  seo015SitemapInRobots,
-  seo016JsonLdValidity,
-  seo017DeprecatedType,
-  seo018RelativeUrl,
-  seo019DateFormat,
-  seo020Placeholder,
-  seo021RequiredProps,
-  seo022TitleLength,
-  seo023DescriptionLength,
-  seo024Charset,
-  seo025ImageAlt,
-  seo026Hreflang,
-  seo027Heading,
-  perf005LcpImage,
-  perf006ResponsiveImage,
-  perf007RenderBlockingScript,
-  perf008Preconnect,
-  seo028TitleUnique,
-  seo029DescriptionUnique,
-  seo030HeadingOrder,
-  seo031SsrDisabled,
-  correct001EachKey,
-  correct002EffectDerived,
-  correct003EffectAsOnMount,
-  correct004UnmutatedState,
-  correct005PropMutation,
-  correct006OrphanEffect,
-  correct007OrphanLifecycle,
-  correct008BrowserGlobals,
-  correct009InstanceBrowserGlobals,
-  sec001Html,
-  sec002JavascriptUrl,
-  sec003LoadStateWrite,
-  sec004ServerModuleState,
-  sec005SharedStateImport,
-  arch001ComponentSize,
-  arch002PropCount,
-  perf009HeavyImport,
-  perf010NamespaceImport,
-  perf012MinifyDisabled,
-  perf011LoadWaterfall,
-  perf013SequentialAwaits
+  seoTitlePresence,
+  seoDescriptionPresence,
+  seoCanonicalUrl,
+  seoOgImage,
+  seoOgTitle,
+  seoRobotsTxt,
+  seoSitemapXml,
+  seoJsonLd,
+  seoHtmlLang,
+  performanceImageDimensions,
+  performanceImageLoadingHint,
+  performancePreloadMissingAs,
+  performanceFontPreloadCrossorigin,
+  seoIndexability,
+  seoTwitterCard,
+  seoOgDescription,
+  seoOgUrl,
+  seoViewport,
+  seoSitemapInRobots,
+  seoJsonLdValidity,
+  seoJsonLdDeprecatedType,
+  seoJsonLdRelativeUrl,
+  seoJsonLdDateFormat,
+  seoJsonLdPlaceholder,
+  seoJsonLdRequiredProps,
+  seoTitleLength,
+  seoDescriptionLength,
+  seoCharset,
+  seoImageAlt,
+  seoHreflang,
+  seoSingleH1,
+  performanceLcpImage,
+  performanceResponsiveImage,
+  performanceRenderBlockingScript,
+  performancePreconnect,
+  seoDuplicateTitle,
+  seoDuplicateDescription,
+  seoHeadingLevelSkip,
+  seoSsrDisabled,
+  correctnessEachKey,
+  correctnessEffectAsDerived,
+  correctnessEffectAsOnMount,
+  correctnessUnmutatedState,
+  correctnessPropMutation,
+  correctnessOrphanEffect,
+  correctnessOrphanLifecycle,
+  correctnessServerBrowserGlobal,
+  correctnessInstanceBrowserGlobal,
+  securityRawHtml,
+  securityJavascriptUrl,
+  securityHandlerStateWrite,
+  securityServerModuleState,
+  securitySharedStateImport,
+  architectureComponentSize,
+  architecturePropCount,
+  performanceHeavyImport,
+  performanceNamespaceImport,
+  performanceMinifyDisabled,
+  performanceLoadWaterfall,
+  performanceSequentialAwaits
 ];
 function classify(result, config) {
   if (isPenalized(result.detection, config.treatDynamicAs)) return "fail";
