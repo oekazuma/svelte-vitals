@@ -72,6 +72,10 @@ describe('rawableStates — exclusions', () => {
     expect(raw(nested)).toEqual([]);
     const intoState = script(`let list = $state([]);\nfunction f() {\n  list = [];\n}\nlet copy = $state([...list]);`);
     expect(raw(intoState).map((r) => r.name)).not.toContain('list');
+    const destructureDefault = script(`let obj = $state({});\nfunction f() {\n  obj = {};\n}\nconst { a = obj } = x;`);
+    expect(raw(destructureDefault)).toEqual([]);
+    const plainDestructure = script(`let obj = $state({});\nfunction f() {\n  obj = {};\n}\nconst { a } = x;`);
+    expect(raw(plainDestructure)).toEqual([{ name: 'obj', line: 2 }]);
   });
 
   it('excludes each-context taint (editable lists)', () => {
