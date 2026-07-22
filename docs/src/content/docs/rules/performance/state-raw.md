@@ -19,7 +19,7 @@ Flags a top-level object- or array-literal `$state` binding that is reassigned a
 </script>
 ```
 
-Detection is deliberately conservative. A candidate survives only if nothing could depend on deep reactivity: no property/element writes, `delete`, or method calls; no escapes (call arguments, component props, `bind:`); no aliasing references (`const inner = obj.items`, a helper `return obj`, an inline handler storing it elsewhere); and no item-level edits inside `{#each}` blocks over it (`bind:value={item.text}`, `<Row {item} />` — an editable list must stay deeply reactive).
+Detection is deliberately conservative. A candidate survives only if nothing could depend on deep reactivity: no property/element writes, `delete`, or method calls; no escapes (call arguments, component props, `bind:`, `use:`/`transition:`/`animate:` directive expressions); no aliasing references (`const inner = obj.items`, a helper `return obj`, an inline handler storing it elsewhere); and no item-level edits inside `{#each}` blocks over it or a member path of it (e.g. `{#each obj.items as item}`) (`bind:value={item.text}`, `<Row {item} />` — an editable list must stay deeply reactive).
 
 ## Why it matters
 
