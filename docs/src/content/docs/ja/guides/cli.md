@@ -13,7 +13,7 @@ svelte-vitals [path] [options]
 
 `path` は省略可能で、デフォルトはカレントディレクトリです。
 
-> AI エージェントのクライアントに MCP サーバー、[Agent Skills](/svelte-vitals/ja/guides/agent-skills/)、Vite との連携をセットアップするための [`install` サブコマンド](/svelte-vitals/ja/guides/install/) と、GitHub Actions の PR ゲートを生成する `ci install` サブコマンドもあります。詳しくは [CI 連携](/svelte-vitals/ja/guides/ci/) を参照してください。
+> サブコマンドもあります。[`install`](/svelte-vitals/ja/guides/install/) は MCP サーバー、[Agent Skills](/svelte-vitals/ja/guides/agent-skills/)、Vite との連携を AI エージェントのクライアントにセットアップし、`ci install` は GitHub Actions の PR ゲートを生成します（詳しくは [CI 連携](/svelte-vitals/ja/guides/ci/) を参照してください）。
 
 以下のフラグは、毎回の実行で指定する代わりに、プロジェクトルートの `svelte-vitals.config` ファイルにまとめて一度だけ設定することもできます。詳しくは [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。フラグは常に設定ファイルより優先されます。
 
@@ -50,13 +50,13 @@ npx svelte-vitals@latest apps/web     # 検出をスキップし、apps/web を�
 | `html`    | ブラウザで開く自己完結の HTML レポート                           |
 | `md`      | PR コメント / ジョブサマリー向けのコンパクトな Markdown サマリー |
 
-指定できる値：`console, json, agent, sarif, github, html, md のいずれか`
+指定できる値：`console, json, agent, sarif, github, html, md` のいずれか
 
-**自動選択：** 既知の AI エージェント環境（例：Claude Code が `CLAUDECODE` を設定）で実行された場合、`agent` レポーターが自動的に選択されます。GitHub Actions（`GITHUB_ACTIONS=true`）で実行された場合は `github` レポーターが自動選択されます。明示的な `--reporter` フラグは常に自動選択よりも優先されます。`SVELTE_VITALS_REPORTER` 環境変数でも上書きできます。
+**自動選択：** 既知の AI エージェント環境（例：Claude Code は `CLAUDECODE` を設定します）では `agent` レポーターを、GitHub Actions（`GITHUB_ACTIONS=true`）では `github` レポーターを自動的に選択します。`--reporter` を明示的に指定すれば、常に自動選択より優先されます。`SVELTE_VITALS_REPORTER` 環境変数でも上書きできます。
 
 ### `--out-file <path>`
 
-`--reporter html` の出力先パス（既定 `svelte-vitals-report.html`、`-` で標準出力）。
+`--reporter html` の出力先パスです（デフォルトは `svelte-vitals-report.html`、`-` を指定すると標準出力）。
 
 ### `--fail-on <severity>`
 
@@ -82,7 +82,7 @@ svelte-vitals --min-health 80
 
 ### `--score`
 
-組み合わせた Health スコア（整数）のみを stdout に出力し、他のレポーター出力をすべて抑制します。数値をパースせずにシェルプロンプトやスクリプトから使いたい場合に便利です。
+組み合わせた Health スコア（整数）のみを stdout に出力し、他のレポーター出力をすべて抑制します。JSON をパースせずに数値だけを使いたいシェルプロンプトやスクリプトに便利です。
 
 ```bash
 svelte-vitals --score
@@ -93,7 +93,7 @@ svelte-vitals --score --min-health 80   # スコアでゲートする。終了�
 
 ### `--route <glob>`
 
-指定した glob パターンに一致するルートのみを分析します。
+指定した glob パターンに一致するルートのみを解析します。
 
 ```bash
 svelte-vitals --route "/blog/**"
@@ -101,7 +101,7 @@ svelte-vitals --route "/blog/**"
 
 ### `--diff [ref]`
 
-`ref`（デフォルトは `HEAD`、つまり未コミットの変更）と比較して**変更された**ファイルにある検出結果のみを報告します。`ref` との**マージベース**を基準に比較し、追跡されていない（新規）ファイルも含まれます。そのため `--diff main` は「このブランチで変更した内容」を意味します。PR チェックとして最適です。
+`ref`（デフォルトは `HEAD`、つまり未コミットの変更）と比較して**変更された**ファイルにある検出結果のみを報告します。比較の基準は `ref` との**マージベース**で、追跡されていない（新規）ファイルも対象に含みます。そのため `--diff main` は「このブランチで変更した内容」を意味します。PR チェックとして最適です。
 
 ```bash
 svelte-vitals --diff          # HEAD と比較した未コミットの変更
@@ -116,11 +116,11 @@ svelte-vitals --diff main     # main と比較してこのブランチが変更�
 svelte-vitals --staged --fail-on warning
 ```
 
-> どちらのフラグも、検出結果をそのソースファイルの場所でフィルタリングします。分析対象のプロジェクトが git リポジトリのサブディレクトリ（例:モノレポの `apps/web/`）にある場合でも正しく動作します。ディレクトリが git リポジトリでない場合、git 自体が利用できない場合、または `ref` が無効な場合、svelte-vitals は警告を表示し、代わりにプロジェクト全体を分析します。
+> どちらのフラグも、検出結果をそのソースファイルの場所でフィルタリングします。解析対象のプロジェクトが git リポジトリのサブディレクトリ（例：モノレポの `apps/web/`）にある場合でも正しく動作します。ディレクトリが git リポジトリでない場合、git 自体が利用できない場合、または `ref` が無効な場合、svelte-vitals は警告を表示し、代わりにプロジェクト全体を解析します。
 
 ### `--baseline <ref>`
 
-`ref` と比較して**新規に**追加された検出結果のみを報告します。つまり、`ref` に対して同じ解析を実行したときには存在しなかった検出結果です。`--diff`/`--staged`（ファイル単位でスコープする）とは異なり、`--baseline` は検出結果の同一性でスコープするため、変更したファイルに元からあった既存の issue ではゲートが失敗せず、その変更が実際に**導入した** issue だけが対象になります。デフォルトの `ref` はなく、明示的に指定する必要があります。
+`ref` と比較して**新規に**追加された検出結果のみを報告します。つまり、`ref` に対して同じ解析を実行したときには存在しなかった検出結果です。ファイル単位でスコープする `--diff`/`--staged` とは異なり、`--baseline` は検出結果の同一性でスコープします。そのため、変更したファイルに元からあった問題でゲートが失敗することはなく、その変更が実際に**導入した**問題だけが対象になります。デフォルトの `ref` はなく、明示的に指定する必要があります。
 
 内部的には、svelte-vitals は `ref` を一時的な git worktree にチェックアウトして解析し、その検出結果（ルール ID + route + location で照合）を現在の実行結果から差し引きます。チェックアウトに失敗した場合（git リポジトリでない、git が利用できない、`ref` が無効）、svelte-vitals は警告を表示し、実行を失敗させる代わりにすべての検出結果を報告します。
 
@@ -141,15 +141,15 @@ git add svelte-vitals-suppressions.json && git commit -m "chore: accept existing
 svelte-vitals --fail-on warning       # 以降はこのコミット以後に導入された検出結果だけをゲート対象にする
 ```
 
-`--update-suppressions` はプロジェクト全体を解析し（`--diff`/`--staged`/`--baseline` によるスコープ絞り込みは無視されます。このファイルは差分ではなくプロジェクト全体の状態を記録するためのものです）、現在ペナルティ対象になっているすべての検出結果を解析対象ディレクトリの `svelte-vitals-suppressions.json` に書き込み（パスしている検出結果は書き込まれません）、stderr にサマリーを表示して、レポートを出力せずに終了コード `0` で終了します。
+`--update-suppressions` はプロジェクト全体を解析し（`--diff`/`--staged`/`--baseline` によるスコープ絞り込みは無視されます。このファイルは差分ではなくプロジェクト全体の状態を記録するためのものです）、現在スコアの減点対象になっているすべての検出結果を解析対象ディレクトリの `svelte-vitals-suppressions.json` に書き込みます（パスしている検出結果は書き込みません）。そして stderr にサマリーを表示し、レポートは出力せずに終了コード `0` で終了します。
 
-ファイルが存在すると、以降の実行では**自動的に**（`--diff`/`--staged` と `--baseline` の後に）適用され、ルール ID、route、location がエントリと一致するペナルティ対象の検出結果を取り除いたうえで、抑制した件数を表示します:
+ファイルが存在すると、以降の実行では**自動的に**（`--diff`/`--staged` と `--baseline` の後に）適用されます。ルール ID、route、location がエントリと一致する減点対象の検出結果を取り除き、抑制した件数を表示します:
 
 ```
 svelte-vitals: 12 finding(s) suppressed by svelte-vitals-suppressions.json.
 ```
 
-受け入れ済みの検出結果を修正すると、そのエントリは**stale（未使用）**になります（何にも一致しなくなります）。svelte-vitals は stale の件数を stderr に表示してプルーニングを促しますが、それだけで実行を失敗させることはありません:
+受け入れ済みの検出結果を修正すると、そのエントリは何にも一致しなくなり、**stale（未使用）**になります。svelte-vitals は stale の件数を stderr に表示して整理（プルーニング）を促しますが、stale があるだけで実行を失敗させることはありません:
 
 ```
 svelte-vitals: 3 finding(s) suppressed by svelte-vitals-suppressions.json (1 stale entry — re-run --update-suppressions to prune).
@@ -157,7 +157,7 @@ svelte-vitals: 3 finding(s) suppressed by svelte-vitals-suppressions.json (1 sta
 
 `--no-suppressions` を使うと、その回の実行だけファイルを無視できます（例えばプロジェクトの本当の現状を確認したいとき）。壊れた `svelte-vitals-suppressions.json`（JSON として不正、`version` が一致しない、エントリに `id` がない、など）は黙って無視されるのではなく、致命的エラー（終了コード `2`）になります。タイプミスのあるファイルが CI のゲートを黙って無効化してしまうことを防ぐためです。
 
-**`--baseline <ref>` との違い:** `--baseline` は実行のたびに git の ref を再解析して「何が既存か」を導出します。コミットは不要ですが、常に 1 つの ref としか比較できません。抑制ファイルは、一度だけ（または意図的に）構築してコミットする永続的な記録で、どの ref 上にいても適用され続けます。
+**`--baseline <ref>` との違い:** `--baseline` は実行のたびに git の ref を再解析して「何が既存か」を導出します。コミットは不要ですが、常に 1 つの ref としか比較できません。抑制ファイルは、一度作って（あるいは意図したときにだけ更新して）コミットする永続的な記録で、どの ref 上にいても適用され続けます。
 
 > `--baseline` と同様、エントリは行番号なしで照合されます。受け入れ済みのルールの 2 件目の違反が同じファイルの下の方に追加されても「新規」としては表示されません。このファイルは v1 では CLI にのみ影響します。まだ `@svelte-vitals/vite`、`@svelte-vitals/mcp`、GitHub Action からは読み込まれません。
 
@@ -167,11 +167,11 @@ svelte-vitals: 3 finding(s) suppressed by svelte-vitals-suppressions.json (1 sta
 
 ### `--verbose`
 
-すべての指摘を、集約やグループ化なしで表示します（このオプションが導入される前の挙動と同じです）。デフォルトのコンソール出力では、失敗した指摘をルールごとにグループ化し（severityごとに上位5ルールのみ表示、それぞれ代表1件の場所+「他N件」という件数表示）、Passedセクションは件数のみに集約し、`--by-route`はスコアが低い順に上位10ルートまでに制限します。
+すべての検出結果を、集約もグループ化もせずに表示します（このオプションが導入される前の出力と同じです）。デフォルトのコンソール出力は、失敗した検出結果をルールごとにグループ化し（severityごとに上位5ルールのみを、それぞれ代表1件の場所と「他N件」の件数付きで表示）、Passedセクションを件数のみに集約し、`--by-route`をスコアが低い順に上位10ルートまでに制限します。
 
 ### `--no-animation`
 
-Health スコア発表時のアニメーションと、解析中に表示されるマスコットを無効にします。どちらもインタラクティブな端末で色が有効な場合のみ再生されます（CI、パイプ/リダイレクトされた出力、AI エージェントのシェルでは再生されません）。このフラグは、それ以外の条件を満たす端末上で個別に無効化したいときにのみ必要です。マスコットの絵はさらに 20 カラム以上の幅を必要とし、それより狭い端末ではこのフラグを指定しなくてもマスコットだけが省略されます（スコアアニメーション自体はマスコットなしで引き続き再生されます）。解析中はプレーンなスピナーに、スコア発表はマスコットなしのアニメーションにフォールバックします。
+Health スコア発表時のアニメーションと、解析中に表示されるマスコットを無効にします。どちらも、色が有効なインタラクティブ端末でしか再生されません（CI、パイプやリダイレクトされた出力、AI エージェントのシェルでは再生されません）。このフラグが必要になるのは、本来なら再生される端末で個別に無効化したいときだけです。マスコットの絵にはさらに 20 カラム以上の幅が必要で、それより狭い端末ではこのフラグを指定しなくてもマスコットだけが省略されます（スコアアニメーション自体はマスコットなしで引き続き再生されます）。無効化した場合、解析中はプレーンなスピナーに、スコア発表はマスコットなしのアニメーションにフォールバックします。
 
 ### `--rules <ids>`
 
@@ -191,18 +191,18 @@ svelte-vitals --ignore performance/image-dimensions
 
 ### `--category <cats>`
 
-指定したカテゴリのルールのみに分析を限定します。カンマ区切りのリストを受け付け、大文字小文字は区別しません: `seo`、`performance`、`correctness`、`security`、`architecture`。
+指定したカテゴリのルールのみに解析を限定します。カンマ区切りのリストを受け付け、大文字小文字は区別しません: `seo`、`performance`、`correctness`、`security`、`architecture`。
 
 ```bash
 svelte-vitals --category seo
 svelte-vitals --category seo,performance
 ```
 
-`--category` は `--rules`/`--ignore`/設定ファイルのルール選択と積集合になります。ルールは両方を通過した場合のみ実行されます。カテゴリを絞り込むと [Health スコア](/svelte-vitals/ja/guides/health-report/) も絞り込まれます。組み合わせたスコアは、検出結果が存在するカテゴリのみの加重平均になるため、フィルタなしの実行結果と直接比較することはできません。未知のカテゴリを指定するとエラーになります（終了コード `2`）。
+`--category` は `--rules`/`--ignore`/設定ファイルのルール選択と積集合になります。ルールは両方を通過した場合のみ実行されます。カテゴリを絞り込むと [Health スコア](/svelte-vitals/ja/guides/health-report/) も絞り込まれます。組み合わせたスコアが、検出結果の存在するカテゴリだけの加重平均になるため、フィルタなしの実行結果とは直接比較できません。未知のカテゴリを指定するとエラーになります（終了コード `2`）。
 
 ### `--weights <pairs>`
 
-組み合わせた [Health スコア](/svelte-vitals/ja/guides/health-report/) のカテゴリごとの重み上書きです。カンマ区切りの `category=number` ペアを受け付けます。カテゴリ名は大文字小文字を区別しません。指定しなかったカテゴリはデフォルトの重み `1` になります。
+組み合わせた [Health スコア](/svelte-vitals/ja/guides/health-report/) のカテゴリごとの重みを上書きします。カンマ区切りの `category=number` ペアを受け付け、カテゴリ名の大文字小文字は区別しません。指定しなかったカテゴリはデフォルトの重み `1` になります。
 
 ```bash
 svelte-vitals --weights seo=2,performance=1
@@ -238,7 +238,7 @@ svelte-vitals --weights seo=2,performance=1
 
 ### `--meta-components <names>`
 
-`<head>` メタデータを出力するカスタムコンポーネント名のカンマ区切りリストです。アナライザーにそれらのコンポーネントをヘッドメタデータエミッターとして扱うよう指示します。
+`<head>` メタデータを出力するカスタムコンポーネント名のカンマ区切りリストです。指定したコンポーネントは、`<head>` メタデータの出力元として解析されます。
 
 ```bash
 svelte-vitals --meta-components "SeoHead,PageMeta"

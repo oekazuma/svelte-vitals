@@ -7,11 +7,11 @@ description: ページの JSON-LD は @context と @type を持つ有効な JSON
 
 ## チェック内容
 
-各静的な `<script type="application/ld+json">` の内容が JSON として parse でき、`@context` と `@type` の両方を持つ必要があります。無効または不完全な JSON-LD は検出されます。動的に組み立てる JSON-LD は静的モードでは検査しません。
+静的な `<script type="application/ld+json">` それぞれについて、内容が JSON としてパースでき、`@context` と `@type` の両方を含むことを確認します。無効または不完全な JSON-LD を検出します。動的に組み立てる JSON-LD は、静的モードでは検査しません。
 
 ## なぜ重要か
 
-無効な JSON-LD（parse 不能、または `@context`/`@type` 欠落）は検索エンジンに黙って無視されるため、構造化データが何の役にも立ちません。
+パースできない、あるいは `@context` や `@type` を欠く JSON-LD を、検索エンジンは黙って無視します。その構造化データは何の役にも立ちません。
 
 ## 修正方法
 

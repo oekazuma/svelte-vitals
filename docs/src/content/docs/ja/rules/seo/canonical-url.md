@@ -1,21 +1,21 @@
 ---
 title: seo/canonical-url · Canonical URL
-description: すべてのルートは <link rel="canonical"> タグを含む必要があります。
+description: すべてのルートに <link rel="canonical"> タグが必要です。
 ---
 
 **重大度:** warning
 
 ## チェック内容
 
-すべてのルートは `<link rel="canonical">` タグを含む必要があります（直接指定またはレイアウトチェーンを通じた継承）。欠落している Canonical リンクは指摘されます。
+すべてのルートには、直接指定またはレイアウトチェーンからの継承で `<link rel="canonical">` タグが必要です。canonical リンクのないルートを検出します。
 
 ## なぜ重要か
 
-Canonical URL は、クエリ文字列やスラッシュのバリアントにわたる重複コンテンツの希薄化を防ぐため、どの URL が正規のものかを検索エンジンに伝えます。
+canonical URL は、どの URL が正規かを検索エンジンに伝えます。これにより、クエリ文字列や末尾スラッシュの有無だけが違う URL に評価が分散する、重複コンテンツの問題を防げます。
 
 ## 修正方法
 
-`<svelte:head>` 内に `<link rel="canonical">` を追加するか、メタコンポーネントの Canonical プロパティを設定します：
+`<svelte:head>` 内に `<link rel="canonical">` を追加するか、メタコンポーネントの canonical プロップを設定します：
 
 ```svelte
 <svelte:head>
