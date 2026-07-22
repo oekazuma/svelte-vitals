@@ -65,7 +65,7 @@ export async function analyze(
   const { heads, headings, images, htmlLang } = await collectRenderedHeads(prerenderPagesDir);
   const project = {
     ...(await collectRenderedProject(cwd, htmlLang)),
-    ...(extraProjectFacts ?? {})
+    ...extraProjectFacts
   };
   const components = await collectComponentFacts(cwd);
   const kitModules = await collectKitModuleFacts(cwd);
