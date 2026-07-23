@@ -201,11 +201,13 @@ jobs:
           baseline: origin/${{ github.base_ref }}
 ```
 
-`ci install` fills in `<sha>`/`<version>` automatically with the latest release of
-[oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) (resolved at
-`svelte-vitals`'s own build time). Running the installer is the easiest way to get a working pin.
-Writing this by hand, use the commit SHA and version from the latest release tag in that
-[repository](https://github.com/oekazuma/svelte-vitals-action/releases).
+`ci install` fills in `<sha>`/`<version>` with the pin bundled into the `svelte-vitals` CLI
+you're running — a maintainer resolves the latest
+[oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) release and
+commits it before each `svelte-vitals` release; `ci install` itself never queries GitHub. Running
+the installer (with `@latest`, to get the most recently bundled pin) is the easiest way to get a
+working pin. Writing this by hand, use the commit SHA and version from the latest release tag in
+that [repository](https://github.com/oekazuma/svelte-vitals-action/releases).
 
 See the [CLI reference](/svelte-vitals/guides/cli/) for `--diff`, `--baseline`, and the equivalent
 flags if you'd rather run svelte-vitals directly instead of through the action, and the
@@ -219,12 +221,14 @@ workflow goes stale as new releases ship. Regenerating the whole file with `ci i
 works, but it throws away any customizations you've made to the workflow (extra triggers, added
 steps, etc).
 
-`svelte-vitals ci upgrade` is the surgical alternative: it rewrites **only** the
-`uses: oekazuma/svelte-vitals-action@<sha>` line(s) in your existing workflow to the pin bundled
-with the CLI you're running — everything else in the file (other `uses:` pins like
-`actions/checkout`, your triggers, extra steps) is left untouched. `svelte-vitals-action` lives in
-its own repository with plain `vX.Y.Z` release tags, so Renovate also proposes these updates
-automatically, no extra Renovate configuration needed.
+`svelte-vitals ci upgrade` is the surgical alternative: it rewrites **only** the action `uses:`
+line(s) in your existing workflow to the pin bundled with the CLI you're running — both the
+current `uses: oekazuma/svelte-vitals-action@<sha>` form and the pre-migration
+`uses: oekazuma/svelte-vitals/packages/action@<sha>` form (from a workflow generated before the
+action moved to its own repository) are recognized and migrated. Everything else in the file
+(other `uses:` pins like `actions/checkout`, your triggers, extra steps) is left untouched.
+`svelte-vitals-action` lives in its own repository with plain `vX.Y.Z` release tags, so Renovate
+also proposes these updates automatically, no extra Renovate configuration needed.
 
 ```bash
 npx svelte-vitals@latest ci upgrade              # rewrite the pin in place
@@ -238,7 +242,7 @@ The pin `ci upgrade` writes comes from the CLI build itself, not a network looku
   the SHA is current but the comment isn't — e.g. it's missing, unrelated, or still in a
   pre-migration shape, `# action-vX.Y.Z` or `# @svelte-vitals/action@X.Y.Z`); they're rewritten
   and the old version (read from the line's comment, in any recognized format, or the old SHA's
-  first 7 characters if there was no comment at all) is reported.
+  first 7 characters if there was no recognized version comment at all) is reported.
 - **Already up to date** — every reference already matches the bundled pin **and** already
   carries the canonical `# vX.Y.Z` comment; nothing is written.
 - **No workflow found** / **no action reference found** — exits with an error telling you to run

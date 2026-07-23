@@ -29,10 +29,15 @@ const ACTION_USES_LINE =
 // of the pre-migration monorepo forms (`action-v1.2.3`, the older `@svelte-vitals/action@1.2.3`).
 const PIN_COMMENT_RE = /#\s*(?:v|action-v|@svelte-vitals\/action@)(\S+)/;
 
-// The canonical comment is exactly `# v<version>` — a line already pinned to the current sha
-// but still carrying a pre-migration comment shape (`action-v...`, `@svelte-vitals/action@...`)
-// needs its comment normalized too, not just a sha check.
-const CANONICAL_COMMENT_RE = /^#\s*v\S+$/;
+/**
+ * A comment is canonical only if it's exactly `# v<version>` for THIS target version — a line
+ * already pinned to the current sha but carrying a pre-migration shape (`action-v...`,
+ * `@svelte-vitals/action@...`) or a stale/mismatched version number both need rewriting, not
+ * just a sha check.
+ */
+function isCanonicalComment(comment: string, version: string): boolean {
+  return comment.trim() === `# v${version}`;
+}
 
 /**
  * Rewrite every `uses: oekazuma/svelte-vitals-action@<ref>` line (or the pre-migration
@@ -58,10 +63,10 @@ export function upgradeActionPin(content: string, sha: string, version: string):
     if (indent === undefined || repoPath === undefined || ref === undefined) return line;
     const comment = match.groups.comment ?? '';
     const commentMatch = PIN_COMMENT_RE.exec(comment);
-    const isCanonicalComment = CANONICAL_COMMENT_RE.test(comment.trim());
-    // Already fully up to date only if the sha, comment, AND path (not still the
-    // pre-migration monorepo path) are all already canonical.
-    if (ref === sha && isCanonicalComment && repoPath === CANONICAL_PATH) return line;
+    // Already fully up to date only if the sha, comment (matching THIS version, not just
+    // shaped like one), AND path (not still the pre-migration monorepo path) are all
+    // already canonical.
+    if (ref === sha && isCanonicalComment(comment, version) && repoPath === CANONICAL_PATH) return line;
 
     if (from === undefined) {
       from = commentMatch ? commentMatch[1] : ref.slice(0, 7);

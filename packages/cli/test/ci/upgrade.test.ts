@@ -110,6 +110,19 @@ describe('upgradeActionPin', () => {
     expect(outcome.content).toContain('run: echo done');
   });
 
+  it('rewrites the comment when the sha matches but the version does not (stale/mismatched comment)', () => {
+    // NEW_SHA paired with a comment for a different version — the comment must be trusted
+    // over a bare sha match, not treated as "canonical enough" just because it's shaped
+    // like `# v<something>`.
+    const content = `      - uses: oekazuma/svelte-vitals-action@${NEW_SHA} # v1.0.0`;
+    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
+
+    expect(outcome.status).toBe('upgraded');
+    expect(outcome.replaced).toBe(1);
+    expect(outcome.from).toBe('1.0.0');
+    expect(outcome.content).toBe(`      - uses: oekazuma/svelte-vitals-action@${NEW_SHA} # v2.0.0`);
+  });
+
   it('reports up-to-date when the pin already matches', () => {
     const content = `      - uses: oekazuma/svelte-vitals-action@${NEW_SHA} # v2.0.0`;
     const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
