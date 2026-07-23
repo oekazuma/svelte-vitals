@@ -75,28 +75,59 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
-      - name: Tag private package releases
+      - name: Tag and release private packages
         # @changesets/cli@2.31.0 (latest stable; the tag-only-for-private-packages behavior
-        # only exists in the unreleased 3.0 line) only tags packages it publishes to npm, so
-        # our private, changesets-versioned packages (currently just @svelte-vitals/action,
-        # distributed via git tag/SHA instead of npm) never get tagged by the step above.
+        # only exists in the unreleased 3.0 line) only tags (and creates a GitHub Release for)
+        # packages it publishes to npm, so our private, changesets-versioned packages
+        # (currently just @svelte-vitals/action, distributed via git tag/SHA instead of npm)
+        # get neither from the step above — version bump and CHANGELOG.md still happen
+        # normally (changesets doesn't skip private packages for those), only the publish+tag+
+        # release trio is skipped. This step fills in the tag and the Release so a private
+        # package still gets equivalent visibility, without actually publishing to npm.
+        #
         # Tag as <dir-basename>-v<version> (e.g. action-v0.3.5), not the npm-scoped
-        # `$name@$version` form used pre-fix — Renovate's github-actions manager parses a
-        # version out of the SHA-pinned `uses:` line's trailing comment (packages/cli/src/ci/
-        # action-pin-comment.ts writes the same format there) and its regex doesn't recognize
-        # npm scope syntax, so the old tag shape made this action invisible to Renovate.
-        # Idempotent: skips any package whose tag already exists on origin.
+        # `$name@$version` form changesets itself would use — Renovate's github-actions
+        # manager parses a version out of the SHA-pinned `uses:` line's trailing comment
+        # (packages/cli/src/ci/action-pin-comment.ts writes the same format there) and its
+        # regex doesn't recognize npm scope syntax, so that shape would make the action
+        # invisible to Renovate.
+        # Idempotent: the tag and the Release are checked (and created) independently, so a
+        # prior partial failure (e.g. tag pushed but release creation dropped) is retried
+        # rather than permanently skipped just because the tag already exists.
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           for pkg_dir in packages/action; do
+            name=$(node -p "require('./$pkg_dir/package.json').name")
             version=$(node -p "require('./$pkg_dir/package.json').version")
             tag="$(basename "$pkg_dir")-v$version"
+
             if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
-              echo "$tag already exists on origin, skipping"
+              echo "$tag already exists on origin"
             else
               git config user.name "github-actions[bot]"
               git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
               git tag "$tag"
               git push origin "$tag"
               echo "created and pushed $tag"
+            fi
+
+            if gh release view "$tag" >/dev/null 2>&1; then
+              echo "release for $tag already exists, skipping"
+            else
+              # Extract this version's own section from CHANGELOG.md (between its
+              # "## <version>" heading and the next "## " heading, or EOF) as the release
+              # body. Fail closed (not an empty-body release) if the heading is missing.
+              if ! notes="$(awk -v ver="$version" '
+                $0 == "## " ver { found=1; next }
+                found && /^## / { exit }
+                found { print }
+                END { if (!found) exit 1 }
+              ' "$pkg_dir/CHANGELOG.md")"; then
+                echo "::error::No changelog section found for $name@$version"
+                exit 1
+              fi
+              gh release create "$tag" --title "$name@$version" --notes "$notes"
+              echo "created release for $tag"
             fi
           done
