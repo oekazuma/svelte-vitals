@@ -1,6 +1,6 @@
 ---
 title: correctness/nonreactive-builtin-state · Non-reactive built-in in $state
-description: 'A plain Map, Set, Date, or URL in $state is not proxied — its mutations are invisible to reactivity, and the UI silently stops updating.'
+description: 'A plain Map, Set, Date, URL, or URLSearchParams in $state is not proxied — its mutations are invisible to reactivity, and the UI silently stops updating.'
 ---
 
 **Severity:** warning · **Category:** correctness
