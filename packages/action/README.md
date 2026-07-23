@@ -27,13 +27,13 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0 # full history, so diff/baseline can resolve the base ref
-      - uses: oekazuma/svelte-vitals/packages/action@<sha> # @svelte-vitals/action@<version>
+      - uses: oekazuma/svelte-vitals/packages/action@<sha> # action-v<version>
         with:
           diff: origin/${{ github.base_ref }}
           baseline: origin/${{ github.base_ref }}
 ```
 
-Pin `<sha>`/`<version>` from the latest `@svelte-vitals/action@X.Y.Z` [release tag](https://github.com/oekazuma/svelte-vitals/releases); `npx svelte-vitals ci upgrade` rewrites the pin in an existing workflow.
+Pin `<sha>`/`<version>` from the latest `action-vX.Y.Z` [release tag](https://github.com/oekazuma/svelte-vitals/releases); `npx svelte-vitals ci upgrade` rewrites the pin in an existing workflow.
 
 ## Inputs
 

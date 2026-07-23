@@ -31,7 +31,7 @@ describe('buildWorkflowYaml', () => {
   });
 
   it('calls the action pinned to a commit SHA with a same-line version comment', () => {
-    expect(yaml).toContain(`uses: oekazuma/svelte-vitals/packages/action@${sha} # @svelte-vitals/action@1.2.3`);
+    expect(yaml).toContain(`uses: oekazuma/svelte-vitals/packages/action@${sha} # action-v1.2.3`);
   });
 
   it('pins actions/checkout to a commit SHA with a same-line version comment, not a floating tag', () => {

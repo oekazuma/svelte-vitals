@@ -195,19 +195,18 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
-      - uses: oekazuma/svelte-vitals/packages/action@<sha> # @svelte-vitals/action@<version>
+      - uses: oekazuma/svelte-vitals/packages/action@<sha> # action-v<version>
         with:
           diff: origin/${{ github.base_ref }}
           baseline: origin/${{ github.base_ref }}
 ```
 
 `ci install` fills in `<sha>`/`<version>` automatically with a real, working commit SHA from this
-repository (resolved at `svelte-vitals`'s own build time) — not necessarily the exact commit
-`@svelte-vitals/action@<version>`'s release tag points at, but always a commit whose
-`packages/action/dist` matches that version. Running the installer is the easiest way to get a
-working pin either way. Writing this by hand, use the commit SHA and version from the latest
-`@svelte-vitals/action@<version>` release tag in the
-[repository](https://github.com/oekazuma/svelte-vitals/releases).
+repository (resolved at `svelte-vitals`'s own build time) — not necessarily the exact commit the
+`action-v<version>` release tag points at, but always a commit whose `packages/action/dist`
+matches that version. Running the installer is the easiest way to get a working pin either way.
+Writing this by hand, use the commit SHA and version from the latest `action-v<version>` release
+tag in the [repository](https://github.com/oekazuma/svelte-vitals/releases).
 
 See the [CLI reference](/svelte-vitals/guides/cli/) for `--diff`, `--baseline`, and the equivalent
 flags if you'd rather run svelte-vitals directly instead of through the action, and the
@@ -234,12 +233,16 @@ npx svelte-vitals@latest ci upgrade --dry-run    # preview the before/after with
 The pin `ci upgrade` writes comes from the CLI build itself, not a network lookup — run it with
 `@latest` (as above) to pick up the most recent one. Possible outcomes:
 
-- **Upgraded** — the reference line(s) didn't match the bundled pin; they're rewritten and the
-  old version (read from the line's `# @svelte-vitals/action@X.Y.Z` comment) is reported.
-- **Already up to date** — every reference already matches the bundled pin; nothing is written.
+- **Upgraded** — the reference line(s) didn't match the bundled pin (either the SHA is stale, or
+  the SHA is current but the comment isn't — e.g. it's missing, unrelated, or still in the
+  pre-fix `# @svelte-vitals/action@X.Y.Z` shape); they're rewritten and the old version (read
+  from the line's comment, in either format, or the old SHA's first 7 characters if there was no
+  comment at all) is reported.
+- **Already up to date** — every reference already matches the bundled pin **and** already
+  carries the canonical `# action-vX.Y.Z` comment; nothing is written.
 - **No workflow found** / **no action reference found** — exits with an error telling you to run
   `ci install` first; `ci upgrade` never creates a workflow from scratch.
 
-If you use Renovate (or another tool) to bump the pin directly, `ci upgrade` won't conflict with
-it — both keep the same line in the same `uses: ... @<sha> # @svelte-vitals/action@<version>`
-shape.
+The `action-v<version>` comment format is deliberately Renovate-parseable, so if you use Renovate
+(or another tool) to bump the pin directly, `ci upgrade` won't conflict with it — both keep the
+same line in the same `uses: ... @<sha> # action-v<version>` shape.
