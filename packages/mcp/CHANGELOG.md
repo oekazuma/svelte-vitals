@@ -1,5 +1,23 @@
 # @svelte-vitals/mcp
 
+## 0.15.0
+
+### Minor Changes
+
+- 40a6dc6: Add `correctness/nonreactive-builtin-state`: flags plain `Map`/`Set`/`Date`/`URL`/`URLSearchParams` in `$state` whose mutations are observed — `$state`'s deep proxy covers plain objects and arrays only, so such mutations are untracked and the UI silently stops updating. Precision-first: only type-specific mutating operations count, and mutate-then-reassign usage (which works) is not flagged.
+
+### Patch Changes
+
+- 48f6d24: Scope resolution now treats `var` declarations and nested `function`/`class` declaration names as shadowing bindings, so writes to such locals are no longer misattributed to a same-named top-level `$state` (fewer false positives across the component-analysis rules).
+- 2ed7450: `correctness/unmutated-state` no longer flags `$state` passed to a `use:`/`transition:`/`animate:` directive — the receiving code holds the proxy reference and may mutate it invisibly, so the previous `$state.raw` suggestion could break it.
+- Updated dependencies [3389594]
+- Updated dependencies [40a6dc6]
+- Updated dependencies [48f6d24]
+- Updated dependencies [74d871f]
+- Updated dependencies [2ed7450]
+  - @svelte-vitals/core@0.29.0
+  - svelte-vitals@0.32.0
+
 ## 0.14.1
 
 ### Patch Changes
