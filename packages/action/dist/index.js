@@ -54789,8 +54789,10 @@ function scopeIntroducedNames(node) {
     addBoundNames(node.param, introduced);
   } else if (node.type === "BlockStatement") {
     for (const stmt2 of node.body ?? []) {
-      if (stmt2?.type === "VariableDeclaration" && stmt2.kind !== "var") {
+      if (stmt2?.type === "VariableDeclaration") {
         for (const d of stmt2.declarations ?? []) addBoundNames(d.id, introduced);
+      } else if ((stmt2?.type === "FunctionDeclaration" || stmt2?.type === "ClassDeclaration") && typeof stmt2.id?.name === "string") {
+        introduced.add(stmt2.id.name);
       }
     }
   } else if (node.type === "ForStatement" || node.type === "ForOfStatement" || node.type === "ForInStatement") {
@@ -54924,14 +54926,14 @@ function collectBuiltinStateSignals(node, candidates, mutated, reassigned, shado
       }
     } else if (node.left?.type === "MemberExpression" && inFunction) {
       const n = hit(rootObjectName(node.left));
-      if (n) mutated.add(n);
+      if (n && candidates.get(n) === "URL") mutated.add(n);
     }
   } else if (node.type === "UpdateExpression" && node.argument?.type === "MemberExpression" && inFunction) {
     const n = hit(rootObjectName(node.argument));
-    if (n) mutated.add(n);
+    if (n && candidates.get(n) === "URL") mutated.add(n);
   } else if (node.type === "UnaryExpression" && node.operator === "delete" && inFunction) {
     const n = hit(rootObjectName(node.argument));
-    if (n) mutated.add(n);
+    if (n && candidates.get(n) === "URL") mutated.add(n);
   } else if (node.type === "CallExpression" && node.callee?.type === "MemberExpression" && !node.callee.computed && inFunction) {
     const method2 = node.callee.property?.name;
     if (typeof method2 === "string") {
