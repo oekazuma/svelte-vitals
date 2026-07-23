@@ -778,10 +778,13 @@ function collectTemplateEscapes(
 const DIRECTIVE_ESCAPE_TYPES = new Set(['UseDirective', 'TransitionDirective', 'AnimateDirective']);
 
 /**
- * Directive expressions that hand a candidate to arbitrary code — `use:action={obj}`,
+ * Directive expressions that hand a value to arbitrary code — `use:action={obj}`,
  * `transition:fn={obj}`, `animate:fn={obj}` — are reference handoffs, the same class
- * as a call argument (performance/state-raw only; the shared template-escape
- * collector deliberately stays unchanged for correctness/unmutated-state).
+ * as a call argument. Serves `performance/state-raw` and `correctness/unmutated-state`
+ * (the receiving code may mutate the proxy invisibly, so such state is neither
+ * raw-able nor "unused"). The shared template-escape collector deliberately still
+ * excludes directives so `correctness/stale-prop-derivation`'s disqualification set
+ * is unchanged — a stale prop-derived value handed to an action is still worth flagging.
  */
 function collectDirectiveEscapes(node: Node, names: Set<string>, acc: Set<string>): void {
   if (Array.isArray(node)) {
@@ -1773,6 +1776,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     if (ast.fragment) {
       collectStateWrites(ast.fragment, stateNames, writtenOrEscaped);
       collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
+      collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
     }
     for (const d of stateDecls) {
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);
