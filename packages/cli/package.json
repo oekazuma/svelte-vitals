@@ -39,9 +39,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "node scripts/gen-action-pin.mjs && tsup",
-    "typecheck": "node scripts/gen-action-pin.mjs && tsc --noEmit",
-    "test": "node scripts/gen-action-pin.mjs && vitest run"
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "update-action-pin": "node scripts/gen-action-pin.mjs"
   },
   "dependencies": {
     "@svelte-vitals/core": "workspace:*",

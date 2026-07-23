@@ -5,14 +5,6 @@ on:
     branches:
       - main
 
-# Serializes runs (never cancels one in flight) so two merges landing close together can't
-# both reach the "Commit refreshed action dist if stale" step at once — concurrent runs would
-# each push to main from their own stale local HEAD, and the second push would be rejected as
-# non-fast-forward.
-concurrency:
-  group: release-main
-  cancel-in-progress: false
-
 permissions: {}
 jobs:
   release:
@@ -25,64 +17,12 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-        with:
-          # Full history (not the default shallow fetch-depth: 1) is required below: the
-          # private-package tagging step verifies an existing tag is an ancestor of HEAD, which
-          # needs the actual commit graph, not just the tip commit.
-          fetch-depth: 0
       - name: Setup Node.js and dependencies
         uses: ./.github/workflows/setup-node
         with:
           registry-url: 'https://registry.npmjs.org'
       - name: Build packages
         run: pnpm build
-      - name: Open a PR to refresh action dist if stale
-        # packages/action/dist is a committed bundle (embeds the CLI + its dependencies), so
-        # any change reachable from that bundle graph leaves it stale. This used to be a
-        # PR-blocking CI check — every PR touching core/cli needed its own "rebuild dist"
-        # commit, which conflicted constantly across concurrent branches (large generated
-        # bundle, ~zero semantic diff overlap). Now it's fixed here instead: PRs never need to
-        # touch it at all (ci.yml's "Verify action dist is up to date" step only runs on push,
-        # as a safety net) — a stale dist gets a small, single-purpose PR here instead.
-        #
-        # This used to push straight to main with a PAT, on the theory that
-        # enforce_admins:false lets an admin-owned PAT bypass the required-review rule. That
-        # theory was wrong in practice (see #287's post-merge CI failure: GH006 "Changes must
-        # be made through a pull request") — direct pushes to main are rejected regardless, and
-        # worse, the failure (with no continue-on-error) skipped every step after it, silently
-        # blocking the real changesets publish/tag steps below on *every* push to main until
-        # fixed. `continue-on-error: true` here means this step can never do that again — dist
-        # stays a best-effort side task, not a gate on the actual release.
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          # git status (not diff): a future tsup output change (e.g. a new chunk file) would
-          # show up as untracked, which `git diff` alone would silently miss.
-          if [ -z "$(git status --porcelain -- packages/action/dist)" ]; then
-            echo "packages/action/dist is up to date — nothing to do."
-            exit 0
-          fi
-          branch="chore/rebuild-action-dist"
-          # Capture existing-PR state BEFORE rebuilding, not as a reason to skip the rebuild —
-          # if a PR from an earlier drift is still open when a later merge drifts dist further,
-          # the branch must still be updated (force-push), or merging the stale PR would leave
-          # main just as stale as before, needing yet another repair cycle. Only `gh pr create`
-          # itself is conditional: force-pushing new commits to an already-open PR's branch
-          # updates that PR in place, so creating a second one would just duplicate it.
-          existing_pr="$(gh pr list --head "$branch" --base main --state open --json number --jq '.[0].number')"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -B "$branch"
-          git add packages/action/dist
-          git commit -m "chore(action): rebuild dist"
-          git push --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$branch"
-          if [ -n "$existing_pr" ]; then
-            echo "Updated the existing rebuild-action-dist PR (#$existing_pr)."
-          else
-            gh pr create --title "chore(action): rebuild dist" --base main --head "$branch" --body \
-              "Automated: \`packages/action/dist\` drifted from the source it's built from after the latest merge to \`main\`. Merging this keeps the committed bundle in sync — safe to approve once CI is green."
-          fi
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
@@ -91,75 +31,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: true
-      - name: Tag and release private packages
-        # @changesets/cli@2.31.0 (latest stable; the tag-only-for-private-packages behavior
-        # only exists in the unreleased 3.0 line) only tags (and creates a GitHub Release for)
-        # packages it publishes to npm, so our private, changesets-versioned packages
-        # (currently just @svelte-vitals/action, distributed via git tag/SHA instead of npm)
-        # get neither from the step above — version bump and CHANGELOG.md still happen
-        # normally (changesets doesn't skip private packages for those), only the publish+tag+
-        # release trio is skipped. This step fills in the tag and the Release so a private
-        # package still gets equivalent visibility, without actually publishing to npm.
-        #
-        # Tag as <dir-basename>-v<version> (e.g. action-v0.3.5), not the npm-scoped
-        # `$name@$version` form changesets itself would use — Renovate's github-actions
-        # manager parses a version out of the SHA-pinned `uses:` line's trailing comment
-        # (packages/cli/src/ci/action-pin-comment.ts writes the same format there) and its
-        # regex doesn't recognize npm scope syntax, so that shape would make the action
-        # invisible to Renovate.
-        # Idempotent: the tag and the Release are checked (and created) independently, so a
-        # prior partial failure (e.g. tag pushed but release creation dropped) is retried
-        # rather than permanently skipped just because the tag already exists.
-        #
-        # Ancestry-checked: a real incident shipped action-v0.3.8 pointing at an orphaned commit
-        # (from an abandoned Version Packages branch iteration, never part of main) that happened
-        # to land on the same version number as the real release — "tag already exists" alone
-        # can't distinguish "already released, correctly" from "name collision with unrelated
-        # history". Skipping silently on a name match let the wrong dist ship under a real
-        # version tag. Now a pre-existing tag is only trusted if it's actually an ancestor of
-        # this run's HEAD; otherwise the step fails loudly instead of shipping wrong content.
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          for pkg_dir in packages/action; do
-            name=$(node -p "require('./$pkg_dir/package.json').name")
-            version=$(node -p "require('./$pkg_dir/package.json').version")
-            tag="$(basename "$pkg_dir")-v$version"
-
-            if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
-              # Fetch the tag's actual object: an orphaned commit (reachable only via this tag
-              # ref, not any branch) won't be present from the branch history fetched above.
-              git fetch origin "refs/tags/$tag:refs/tags/$tag" --force
-              if git merge-base --is-ancestor "refs/tags/$tag" HEAD; then
-                echo "$tag already exists on origin and is part of this release's history"
-              else
-                echo "::error::$tag already exists on origin, but its commit is NOT an ancestor of HEAD — likely an orphaned tag from an earlier/abandoned run colliding with this version number (this exact scenario shipped action-v0.3.8 with stale dist). Refusing to silently skip. Investigate and delete the incorrect tag/release, then re-run this workflow."
-                exit 1
-              fi
-            else
-              git config user.name "github-actions[bot]"
-              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-              git tag "$tag"
-              git push origin "$tag"
-              echo "created and pushed $tag"
-            fi
-
-            if gh release view "$tag" >/dev/null 2>&1; then
-              echo "release for $tag already exists, skipping"
-            else
-              # Extract this version's own section from CHANGELOG.md (between its
-              # "## <version>" heading and the next "## " heading, or EOF) as the release
-              # body. Fail closed (not an empty-body release) if the heading is missing.
-              if ! notes="$(awk -v ver="$version" '
-                $0 == "## " ver { found=1; next }
-                found && /^## / { exit }
-                found { print }
-                END { if (!found) exit 1 }
-              ' "$pkg_dir/CHANGELOG.md")"; then
-                echo "::error::No changelog section found for $name@$version"
-                exit 1
-              fi
-              gh release create "$tag" --title "$name@$version" --notes "$notes"
-              echo "created release for $tag"
-            fi
-          done

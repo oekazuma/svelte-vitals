@@ -26,15 +26,16 @@ pnpm check:publish  # publint + attw (--profile esm-only)
 
 ## Packages
 
-| Package                                      | Description                                                                 |
-| -------------------------------------------- | --------------------------------------------------------------------------- |
-| [`svelte-vitals`](./packages/cli)            | CLI + static mode (`npx svelte-vitals@latest`)                              |
-| [`@svelte-vitals/core`](./packages/core)     | Runtime-agnostic core: types, rule engine, scorer, reporters, full rule set |
-| [`@svelte-vitals/vite`](./packages/vite)     | Plugin mode (build-time) + the live dev dashboard                           |
-| [`@svelte-vitals/mcp`](./packages/mcp)       | MCP server: run analysis inside an agent's tool loop                        |
-| [`@svelte-vitals/action`](./packages/action) | First-party GitHub Action: annotations, job summary, sticky PR comment      |
+| Package                                  | Description                                                                 |
+| ---------------------------------------- | --------------------------------------------------------------------------- |
+| [`svelte-vitals`](./packages/cli)        | CLI + static mode (`npx svelte-vitals@latest`)                              |
+| [`@svelte-vitals/core`](./packages/core) | Runtime-agnostic core: types, rule engine, scorer, reporters, full rule set |
+| [`@svelte-vitals/vite`](./packages/vite) | Plugin mode (build-time) + the live dev dashboard                           |
+| [`@svelte-vitals/mcp`](./packages/mcp)   | MCP server: run analysis inside an agent's tool loop                        |
 
 Each package also exposes its own `build`, `test`, and `typecheck` scripts, runnable via `pnpm --filter <package> <script>`.
+
+The first-party GitHub Action lives in its own repository, [oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) — not a subdirectory of this monorepo (see `docs/superpowers/specs/2026-07-22-action-dist-post-merge-only.md` for why).
 
 ## Documentation site
 

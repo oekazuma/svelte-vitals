@@ -195,18 +195,17 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
-      - uses: oekazuma/svelte-vitals/packages/action@<sha> # action-v<version>
+      - uses: oekazuma/svelte-vitals-action@<sha> # v<version>
         with:
           diff: origin/${{ github.base_ref }}
           baseline: origin/${{ github.base_ref }}
 ```
 
-`ci install` fills in `<sha>`/`<version>` automatically with a real, working commit SHA from this
-repository (resolved at `svelte-vitals`'s own build time) — not necessarily the exact commit the
-`action-v<version>` release tag points at, but always a commit whose `packages/action/dist`
-matches that version. Running the installer is the easiest way to get a working pin either way.
-Writing this by hand, use the commit SHA and version from the latest `action-v<version>` release
-tag in the [repository](https://github.com/oekazuma/svelte-vitals/releases).
+`ci install` fills in `<sha>`/`<version>` automatically with the latest release of
+[oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) (resolved at
+`svelte-vitals`'s own build time). Running the installer is the easiest way to get a working pin.
+Writing this by hand, use the commit SHA and version from the latest release tag in that
+[repository](https://github.com/oekazuma/svelte-vitals-action/releases).
 
 See the [CLI reference](/svelte-vitals/guides/cli/) for `--diff`, `--baseline`, and the equivalent
 flags if you'd rather run svelte-vitals directly instead of through the action, and the
@@ -221,9 +220,11 @@ works, but it throws away any customizations you've made to the workflow (extra 
 steps, etc).
 
 `svelte-vitals ci upgrade` is the surgical alternative: it rewrites **only** the
-`uses: oekazuma/svelte-vitals/packages/action@<sha>` line(s) in your existing workflow to the pin
-bundled with the CLI you're running — everything else in the file (other `uses:` pins like
-`actions/checkout`, your triggers, extra steps) is left untouched.
+`uses: oekazuma/svelte-vitals-action@<sha>` line(s) in your existing workflow to the pin bundled
+with the CLI you're running — everything else in the file (other `uses:` pins like
+`actions/checkout`, your triggers, extra steps) is left untouched. `svelte-vitals-action` lives in
+its own repository with plain `vX.Y.Z` release tags, so Renovate also proposes these updates
+automatically, no extra Renovate configuration needed.
 
 ```bash
 npx svelte-vitals@latest ci upgrade              # rewrite the pin in place
@@ -234,15 +235,16 @@ The pin `ci upgrade` writes comes from the CLI build itself, not a network looku
 `@latest` (as above) to pick up the most recent one. Possible outcomes:
 
 - **Upgraded** — the reference line(s) didn't match the bundled pin (either the SHA is stale, or
-  the SHA is current but the comment isn't — e.g. it's missing, unrelated, or still in the
-  pre-fix `# @svelte-vitals/action@X.Y.Z` shape); they're rewritten and the old version (read
-  from the line's comment, in either format, or the old SHA's first 7 characters if there was no
-  comment at all) is reported.
+  the SHA is current but the comment isn't — e.g. it's missing, unrelated, or still in a
+  pre-migration shape, `# action-vX.Y.Z` or `# @svelte-vitals/action@X.Y.Z`); they're rewritten
+  and the old version (read from the line's comment, in any recognized format, or the old SHA's
+  first 7 characters if there was no comment at all) is reported.
 - **Already up to date** — every reference already matches the bundled pin **and** already
-  carries the canonical `# action-vX.Y.Z` comment; nothing is written.
+  carries the canonical `# vX.Y.Z` comment; nothing is written.
 - **No workflow found** / **no action reference found** — exits with an error telling you to run
   `ci install` first; `ci upgrade` never creates a workflow from scratch.
 
-The `action-v<version>` comment format is deliberately Renovate-parseable, so if you use Renovate
-(or another tool) to bump the pin directly, `ci upgrade` won't conflict with it — both keep the
-same line in the same `uses: ... @<sha> # action-v<version>` shape.
+The `vX.Y.Z` tags on [oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action)
+are plain semver, so Renovate's built-in github-actions manager already understands them — if you
+use Renovate (or another tool) to bump the pin directly, `ci upgrade` won't conflict with it —
+both keep the same line in the same `uses: ... @<sha> # v<version>` shape.

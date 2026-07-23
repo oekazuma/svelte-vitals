@@ -1,5 +1,3 @@
-import { actionPinComment, ACTION_PIN_COMMENT_RE } from './action-pin-comment.js';
-
 export interface UpgradeOutcome {
   status: 'upgraded' | 'up-to-date' | 'no-reference';
   /** status='upgraded' only: the full file content with the pin(s) replaced. */
@@ -11,28 +9,36 @@ export interface UpgradeOutcome {
   from?: string;
 }
 
+const CANONICAL_PATH = 'oekazuma/svelte-vitals-action';
+
 // Matches lines like (indentation, an optional YAML anchor `&name`, and the trailing
 // version comment, are all optional so a user's hand-edited workflow still matches):
-//   - uses: oekazuma/svelte-vitals/packages/action@<ref>
-//   - uses: oekazuma/svelte-vitals/packages/action@<ref> # action-v1.2.3
-//   - uses: &vitals_action oekazuma/svelte-vitals/packages/action@<ref> # action-v1.2.3
-// The comment also still matches the pre-fix `# @svelte-vitals/action@1.2.3` format (see
-// action-pin-comment.ts) so a workflow installed before that fix still upgrades cleanly.
-// An anchor definition's value is shared by every `*name` alias line elsewhere in the
-// file (YAML semantics) — rewriting only the anchor line's ref is sufficient; alias
+//   - uses: oekazuma/svelte-vitals-action@<ref>
+//   - uses: oekazuma/svelte-vitals-action@<ref> # v1.2.3
+//   - uses: &vitals_action oekazuma/svelte-vitals-action@<ref> # v1.2.3
+// `repoPath` also matches the pre-migration path (`oekazuma/svelte-vitals/packages/action`) so
+// a workflow installed before the action moved to its own repository still upgrades cleanly —
+// captured separately from `indent` so a rewrite always emits the canonical path, not whatever
+// variant matched. An anchor definition's value is shared by every `*name` alias line elsewhere
+// in the file (YAML semantics) — rewriting only the anchor line's ref is sufficient; alias
 // lines need no separate rewrite.
 const ACTION_USES_LINE =
-  /^(?<indent>\s*-\s*uses:\s*(?:&\S+\s+)?oekazuma\/svelte-vitals\/packages\/action@)(?<ref>[^\s#]+)(?<comment>\s*#.*)?$/;
+  /^(?<indent>\s*-\s*uses:\s*(?:&\S+\s+)?)(?<repoPath>oekazuma\/svelte-vitals(?:-action|\/packages\/action))@(?<ref>[^\s#]+)(?<comment>\s*#.*)?$/;
 
-// The pre-fix npm-scoped comment (`# @svelte-vitals/action@X.Y.Z`) isn't parseable by
-// Renovate's github-actions manager — a line already pinned to the current sha but still
-// carrying this comment shape needs its comment normalized, not just a sha check.
-const LEGACY_COMMENT = /#\s*@svelte-vitals\/action@/;
+// Matches a version out of the trailing comment: the current plain `v1.2.3` form, or either
+// of the pre-migration monorepo forms (`action-v1.2.3`, the older `@svelte-vitals/action@1.2.3`).
+const PIN_COMMENT_RE = /#\s*(?:v|action-v|@svelte-vitals\/action@)(\S+)/;
+
+// The canonical comment is exactly `# v<version>` — a line already pinned to the current sha
+// but still carrying a pre-migration comment shape (`action-v...`, `@svelte-vitals/action@...`)
+// needs its comment normalized too, not just a sha check.
+const CANONICAL_COMMENT_RE = /^#\s*v\S+$/;
 
 /**
- * Rewrite every `uses: oekazuma/svelte-vitals/packages/action@<ref>` line in `content` to pin
- * `sha`, with a same-line `# action-v<version>` comment — leaving every other line (including
- * other `uses:` pins, like `actions/checkout`) untouched.
+ * Rewrite every `uses: oekazuma/svelte-vitals-action@<ref>` line (or the pre-migration
+ * `oekazuma/svelte-vitals/packages/action@<ref>` form) in `content` to pin `sha`, with a
+ * same-line `# v<version>` comment — leaving every other line (including other `uses:`
+ * pins, like `actions/checkout`) untouched.
  */
 export function upgradeActionPin(content: string, sha: string, version: string): UpgradeOutcome {
   const lines = content.split('\n');
@@ -48,23 +54,21 @@ export function upgradeActionPin(content: string, sha: string, version: string):
     const match = ACTION_USES_LINE.exec(bare);
     if (!match || !match.groups) return line;
 
-    const { indent, ref } = match.groups;
-    if (indent === undefined || ref === undefined) return line;
+    const { indent, repoPath, ref } = match.groups;
+    if (indent === undefined || repoPath === undefined || ref === undefined) return line;
     const comment = match.groups.comment ?? '';
-    const commentMatch = ACTION_PIN_COMMENT_RE.exec(comment);
-    // Canonical requires an actual action-v<version> match, not merely "not the legacy
-    // format" — a current-sha line with no comment at all (or an unrelated one) previously
-    // slipped through as "already up to date" without ever gaining the Renovate-parseable
-    // comment, since an absent/unrelated comment also fails the legacy-format test.
-    const isCanonicalComment = commentMatch !== null && !LEGACY_COMMENT.test(comment);
-    if (ref === sha && isCanonicalComment) return line; // already pinned and comment is already canonical
+    const commentMatch = PIN_COMMENT_RE.exec(comment);
+    const isCanonicalComment = CANONICAL_COMMENT_RE.test(comment.trim());
+    // Already fully up to date only if the sha, comment, AND path (not still the
+    // pre-migration monorepo path) are all already canonical.
+    if (ref === sha && isCanonicalComment && repoPath === CANONICAL_PATH) return line;
 
     if (from === undefined) {
       from = commentMatch ? commentMatch[1] : ref.slice(0, 7);
     }
 
     replaced += 1;
-    return `${indent}${sha} # ${actionPinComment(version)}${eol}`;
+    return `${indent}${CANONICAL_PATH}@${sha} # v${version}${eol}`;
   });
 
   if (replaced === 0) {

@@ -149,13 +149,13 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           fetch-depth: 0
-      - uses: oekazuma/svelte-vitals/packages/action@<sha> # action-v<version>
+      - uses: oekazuma/svelte-vitals-action@<sha> # v<version>
         with:
           diff: origin/${{ github.base_ref }}
           baseline: origin/${{ github.base_ref }}
 ```
 
-`ci install` は `<sha>`/`<version>` に、このリポジトリに実在する動作可能なコミット SHA を（`svelte-vitals` 自身のビルド時に解決して）自動的に埋め込みます。埋め込まれるのは `action-v<version>` リリースタグが指すコミットそのものとは限りませんが、`packages/action/dist` の内容が該当バージョンと一致するコミットであることは保証されています。いずれにせよ、動作するピンを得る一番簡単な方法はインストーラーの実行です。手書きする場合は、[リポジトリ](https://github.com/oekazuma/svelte-vitals/releases)にある最新の `action-v<version>` リリースタグのコミット SHA とバージョンを使ってください。
+`ci install` は `<sha>`/`<version>` に、[oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) の最新リリースを(`svelte-vitals` 自身のビルド時に解決して)自動的に埋め込みます。動作するピンを得る一番簡単な方法はインストーラーの実行です。手書きする場合は、その[リポジトリ](https://github.com/oekazuma/svelte-vitals-action/releases)にある最新リリースタグのコミット SHA とバージョンを使ってください。
 
 Action を経由せず svelte-vitals を直接実行したい場合の `--diff` や `--baseline` などの対応フラグについては[CLI リファレンス](/svelte-vitals/ja/guides/cli/)を、Action のサマリーとコメントが基づいている出力フォーマットについては[レポーターガイド](/svelte-vitals/ja/guides/reporters/)を参照してください。
 
@@ -163,7 +163,7 @@ Action を経由せず svelte-vitals を直接実行したい場合の `--diff` 
 
 `@svelte-vitals/action` はサプライチェーンの安全性のためにコミット SHA でピン留めされています。そのため、新しいリリースが出るたびにワークフロー内のピンは古くなります。ファイル全体を `ci install --force` で再生成することもできますが、それではワークフローに加えたカスタマイズ（追加のトリガーやステップなど）が失われてしまいます。
 
-`svelte-vitals ci upgrade` を使えば、必要な行だけをピンポイントで書き換えられます。既存のワークフロー内の `uses: oekazuma/svelte-vitals/packages/action@<sha>` の行**だけ**を、実行している CLI に同梱されたピンへ書き換え、それ以外の内容（`actions/checkout` など他の `uses:` ピン、独自のトリガー、追加ステップ）はそのまま残します。
+`svelte-vitals ci upgrade` を使えば、必要な行だけをピンポイントで書き換えられます。既存のワークフロー内の `uses: oekazuma/svelte-vitals-action@<sha>` の行**だけ**を、実行している CLI に同梱されたピンへ書き換え、それ以外の内容(`actions/checkout` など他の `uses:` ピン、独自のトリガー、追加ステップ)はそのまま残します。`svelte-vitals-action` は独自リポジトリで管理されており、リリースタグも素の `vX.Y.Z` 形式なので、Renovate も追加設定なしでこの更新を自動的に提案します。
 
 ```bash
 npx svelte-vitals@latest ci upgrade              # その場でピンを書き換える
@@ -172,8 +172,8 @@ npx svelte-vitals@latest ci upgrade --dry-run    # 書き込まずに変更前�
 
 `ci upgrade` が書き込むピンは、ネットワークから取得するのではなく CLI のビルド時に埋め込まれた値です。最新のピンを得るには（上記のように）`@latest` を付けて実行してください。結果は次の3通りです：
 
-- **アップグレードされた場合**：参照行が同梱ピンと一致していなかったため（SHA自体が古い場合に加え、SHAは最新でもコメントが最新でない場合――コメントが無い、無関係な内容、または旧形式`# @svelte-vitals/action@X.Y.Z`のままの場合も含む）書き換えられ、行のコメント（どちらの形式でも）から読み取った旧バージョン、コメントが無ければ旧SHAの先頭7文字が表示されます。
-- **既に最新の場合**：すべての参照が既に同梱ピンと一致し、かつ正規の`# action-vX.Y.Z`コメントも既に付いており、何も書き込まれません。
+- **アップグレードされた場合**：参照行が同梱ピンと一致していなかったため（SHA自体が古い場合に加え、SHAは最新でもコメントが最新でない場合――コメントが無い、無関係な内容、または移行前の旧形式`# action-vX.Y.Z`・`# @svelte-vitals/action@X.Y.Z`のままの場合も含む）書き換えられ、行のコメント（認識できるどの形式でも）から読み取った旧バージョン、コメントが無ければ旧SHAの先頭7文字が表示されます。
+- **既に最新の場合**：すべての参照が既に同梱ピンと一致し、かつ正規の`# vX.Y.Z`コメントも既に付いており、何も書き込まれません。
 - **ワークフローが見つからない / action の参照が見つからない場合**：`ci install` を先に実行するよう促すエラーで終了します。`ci upgrade` はワークフローをゼロから作成することはありません。
 
-`action-v<version>` というコメント形式は Renovate が解析できるよう意図的に選んでいます。そのため Renovate など別のツールで直接ピンを更新している場合でも、`ci upgrade` と競合することはありません。どちらも同じ行を `uses: ... @<sha> # action-v<version>` という同じ形式のまま保つためです。
+[oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) のリリースタグは素の `vX.Y.Z` 形式なので、Renovate 組み込みの github-actions マネージャーがそのまま解析できます。そのため Renovate など別のツールで直接ピンを更新している場合でも、`ci upgrade` と競合することはありません。どちらも同じ行を `uses: ... @<sha> # v<version>` という同じ形式のまま保つためです。

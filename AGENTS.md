@@ -27,6 +27,15 @@ CI (`.github/workflows/ci.yml`) runs four jobs: `lint`, `check` (build + typeche
 - `packages/mcp` — Model Context Protocol server exposing svelte-vitals to agent tool loops.
 - `docs` — Astro Starlight docs site, English + Japanese (`docs/src/content/docs/` and `docs/src/content/docs/ja/`).
 
+The first-party GitHub Action is **not** part of this monorepo — it lives in its own repository,
+[oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action), depending on
+the published `svelte-vitals`/`@svelte-vitals/core` npm packages like any other consumer (regular
+semver ranges, not workspace links). See `docs/superpowers/specs/2026-07-22-action-dist-post-merge-only.md`
+for why it was split out. `packages/cli/scripts/gen-action-pin.mjs` (run manually via
+`pnpm --filter svelte-vitals run update-action-pin`, not on every build) fetches that repo's
+latest release into the committed `packages/cli/src/ci/action-pin.generated.ts`, which `ci
+install`/`ci upgrade` bundle into scaffolded workflows.
+
 ## Hard rules
 
 - **Core purity**: `packages/core/src/index.ts` states verbatim: "runtime-agnostic core (design §8). No `node:` imports, no I/O, no runtime-specific globals." All I/O is injected through the `Runtime` interface (`packages/core/src/runtime.ts`). Never add a `node:` import or direct I/O call inside `packages/core`.

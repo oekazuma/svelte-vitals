@@ -652,7 +652,7 @@ describe('runInstall — ci-workflow target', () => {
     expect(code).toBe(0);
     const content = writes['/proj/.github/workflows/svelte-vitals.yml'];
     expect(content).toContain('name: svelte-vitals');
-    expect(content).toContain('oekazuma/svelte-vitals/packages/action@');
+    expect(content).toContain('oekazuma/svelte-vitals-action@');
   });
 
   it('a second run without --force reports exists and writes nothing', async () => {
