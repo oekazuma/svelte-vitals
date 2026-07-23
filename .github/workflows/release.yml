@@ -59,18 +59,25 @@ jobs:
             exit 0
           fi
           branch="chore/rebuild-action-dist"
-          if gh pr list --head "$branch" --state open --json number --jq 'length' | grep -qv '^0$'; then
-            echo "A rebuild-action-dist PR is already open — not opening a duplicate."
-            exit 0
-          fi
+          # Capture existing-PR state BEFORE rebuilding, not as a reason to skip the rebuild —
+          # if a PR from an earlier drift is still open when a later merge drifts dist further,
+          # the branch must still be updated (force-push), or merging the stale PR would leave
+          # main just as stale as before, needing yet another repair cycle. Only `gh pr create`
+          # itself is conditional: force-pushing new commits to an already-open PR's branch
+          # updates that PR in place, so creating a second one would just duplicate it.
+          existing_pr="$(gh pr list --head "$branch" --base main --state open --json number --jq '.[0].number')"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -B "$branch"
           git add packages/action/dist
           git commit -m "chore(action): rebuild dist"
           git push --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$branch"
-          gh pr create --title "chore(action): rebuild dist" --base main --head "$branch" --body \
-            "Automated: \`packages/action/dist\` drifted from the source it's built from after the latest merge to \`main\`. Merging this keeps the committed bundle in sync — safe to approve once CI is green."
+          if [ -n "$existing_pr" ]; then
+            echo "Updated the existing rebuild-action-dist PR (#$existing_pr)."
+          else
+            gh pr create --title "chore(action): rebuild dist" --base main --head "$branch" --body \
+              "Automated: \`packages/action/dist\` drifted from the source it's built from after the latest merge to \`main\`. Merging this keeps the committed bundle in sync — safe to approve once CI is green."
+          fi
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
