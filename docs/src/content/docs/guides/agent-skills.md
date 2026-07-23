@@ -5,7 +5,7 @@ sidebar:
   order: 6.5
 ---
 
-svelte-vitals ships two Agent Skills — portable `SKILL.md` files that work identically in **Claude Code**, **Cursor**, and **Codex**, since all three tools read the same frontmatter-driven convention. Both are generated once from the project's current rule set and written to each tool's conventional location; install them with [`svelte-vitals install`](/svelte-vitals/guides/install/):
+svelte-vitals ships two Agent Skills — portable `SKILL.md` files that work identically in **Claude Code**, **Cursor**, and **Codex**, since all three tools read the same frontmatter-driven convention. Both are generated once from the project's current rule set and written to each tool's conventional location; install them with [`svelte-vitals install`](/guides/install):
 
 ```bash
 npx svelte-vitals@latest install --client claude-skill,claude-skill-improve --yes
@@ -17,9 +17,9 @@ The every-edit companion. It embeds the full rule catalog — every rule's id, t
 
 Written to:
 
-- `.claude/skills/svelte-vitals/SKILL.md` (Claude Code)
-- `.agents/skills/svelte-vitals/SKILL.md` (Codex)
-- `.cursor/skills/svelte-vitals/SKILL.md` (Cursor)
+- `.claude/skills/SKILL.md` (Claude Code)
+- `.agents/skills/SKILL.md` (Codex)
+- `.cursor/skills/SKILL.md` (Cursor)
 
 All three files are byte-identical.
 
@@ -43,8 +43,8 @@ Rules change between releases. Regenerate any already-installed skill file after
 npx svelte-vitals@latest install --refresh
 ```
 
-See [`--refresh`](/svelte-vitals/guides/install/#--refresh) for details.
+See [`--refresh`](/guides/install#--refresh) for details.
 
 ## Agent Skills vs. Cursor rules
 
-`cursor-rules` (`.cursor/rules/svelte-vitals.mdc`) is a separate, Cursor-only mechanism — an always-applied project rules file, not a slash-command skill. See [`--client`](/svelte-vitals/guides/install/#--client-ids) for how it's generated alongside the two skills above.
+`cursor-rules` (`.cursor/rules/svelte-vitals.mdc`) is a separate, Cursor-only mechanism — an always-applied project rules file, not a slash-command skill. See [`--client`](/guides/install#--client-ids) for how it's generated alongside the two skills above.

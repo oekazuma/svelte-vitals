@@ -15,7 +15,7 @@ npx svelte-vitals@latest ci install
 
 このコマンドは `.github/workflows/svelte-vitals.yml` を書き出します。コミットしてプルリクエストを開けば、実行される様子を確認できます。
 
-MCP サーバーや Vite との連携、Agent Skills と一緒にセットアップするなら、[`svelte-vitals install`](/svelte-vitals/ja/guides/install/#--client-ids) でも `ci-workflow` をターゲットとして選べます。`ci install` を別途実行しなくても、同じワークフローファイルを同じ実行の中で書き出せます。`ci upgrade`（後述）にはウィザード側の対応はなく、引き続き単体のコマンドです。
+MCP サーバーや Vite との連携、Agent Skills と一緒にセットアップするなら、[`svelte-vitals install`](/ja/guides/install#--client-ids) でも `ci-workflow` をターゲットとして選べます。`ci install` を別途実行しなくても、同じワークフローファイルを同じ実行の中で書き出せます。`ci upgrade`（後述）にはウィザード側の対応はなく、引き続き単体のコマンドです。
 
 ```bash
 npx svelte-vitals@latest ci install --dry-run   # 書き込まずにプレビュー
@@ -26,14 +26,14 @@ npx svelte-vitals@latest ci install --force     # 既存のワークフローフ
 
 ## 既存プロジェクトへの導入
 
-リポジトリに既に検出結果の蓄積がある場合は、まずローカルで `svelte-vitals --update-suppressions` を実行してください。現在のすべての検出結果を受け入れる `svelte-vitals-suppressions.json` が一度で書き出されます。そのファイルをコミットしてから、好きなゲート（`--fail-on`、`--min-health`、pre-commit フック、あるいはこのワークフロー）を有効にすれば、以降はコミット後に導入された検出結果だけで失敗するようになり、蓄積分を事前に直す必要はありません。詳しくは CLI リファレンスの [`--update-suppressions`](/svelte-vitals/ja/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions) を参照してください。リポジトリにこのファイルがあれば `@svelte-vitals/action` も自動的に適用するため、有効化のための追加の入力は不要です。後述の `diff`/`baseline` によるスコープ絞り込みだけでも、この _ワークフロー_ は PR 自体の変更分に限定されます。抑制ファイルがあれば、それに加えて PR の外（たとえばローカルの pre-commit フックでの `--fail-on`）でも、同じ蓄積の問題に悩まされずにゲートを有効にできます。
+リポジトリに既に検出結果の蓄積がある場合は、まずローカルで `svelte-vitals --update-suppressions` を実行してください。現在のすべての検出結果を受け入れる `svelte-vitals-suppressions.json` が一度で書き出されます。そのファイルをコミットしてから、好きなゲート（`--fail-on`、`--min-health`、pre-commit フック、あるいはこのワークフロー）を有効にすれば、以降はコミット後に導入された検出結果だけで失敗するようになり、蓄積分を事前に直す必要はありません。詳しくは CLI リファレンスの [`--update-suppressions`](/ja/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions) を参照してください。リポジトリにこのファイルがあれば `@svelte-vitals/action` も自動的に適用するため、有効化のための追加の入力は不要です。後述の `diff`/`baseline` によるスコープ絞り込みだけでも、この _ワークフロー_ は PR 自体の変更分に限定されます。抑制ファイルがあれば、それに加えて PR の外（たとえばローカルの pre-commit フックでの `--fail-on`）でも、同じ蓄積の問題に悩まされずにゲートを有効にできます。
 
 ## ワークフローの動作
 
 `pull_request` イベントが発生するたびに、生成されるワークフローは以下を行います：
 
 1. `fetch-depth: 0` でリポジトリをフル履歴でチェックアウトし、Action が `diff`/`baseline` のために PR のベース ref を解決できるようにします。
-2. `@svelte-vitals/action` を呼び出します。この Action は svelte-vitals を**インプロセスで**（`npx` なし、Node セットアップステップなし、出力ごとの個別スキャンなしで）PR にスコープを絞って実行します。`diff: origin/<base>` は PR が変更したファイルに検出結果を限定し、[`baseline: origin/<base>`](/svelte-vitals/ja/guides/cli/) はさらに PR が**新たに導入した**検出結果だけに絞り込みます。変更したファイルに元からあった問題が PR をブロックすることはありません。
+2. `@svelte-vitals/action` を呼び出します。この Action は svelte-vitals を**インプロセスで**（`npx` なし、Node セットアップステップなし、出力ごとの個別スキャンなしで）PR にスコープを絞って実行します。`diff: origin/<base>` は PR が変更したファイルに検出結果を限定し、[`baseline: origin/<base>`](/ja/guides/cli) はさらに PR が**新たに導入した**検出結果だけに絞り込みます。変更したファイルに元からあった問題が PR をブロックすることはありません。
 3. この単一の解析結果から、Action は3つの出力をまとめて生成します：
    - diff 上のインラインアノテーション。
    - ジョブサマリー。
@@ -83,15 +83,15 @@ npx svelte-vitals@latest ci install --force     # 既存のワークフローフ
 `reporter` という入力はありません。Action は常にアノテーション、ジョブサマリー、スティッキーコメントを1回のパスでまとめて生成します。この出力の振り分けは、個別に設定するものではありません。
 
 上記の入力が設定のすべてでは**ありません**。Action は CLI と同じ解析を実行するため、コミット済みの
-[`svelte-vitals.config.*`](/svelte-vitals/ja/guides/configuration/) と
-[`svelte-vitals-suppressions.json`](/svelte-vitals/ja/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
+[`svelte-vitals.config.*`](/ja/guides/configuration) と
+[`svelte-vitals-suppressions.json`](/ja/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
 を自動的に読み取ります。次のセクションを参照してください。
 
 ## ルートやルールを除外する
 
 CI 導入時によくぶつかる壁があります。意図的に公開していないルート（認証必須のページや管理画面）が SEO ルールに大量に引っかかるのに、それを除外する Action の入力が見当たらない、というものです。除外の仕組みは、Action がすでに読み取っているファイル側にあります。そのため同じ設定が CLI、MCP サーバー、Vite プラグイン、この Action のすべてに同一に適用されます。意図に応じて選んでください：
 
-- **そのルールが一切不要なら**、[`svelte-vitals.config.*`](/svelte-vitals/ja/guides/configuration/) でグローバルに無効化します：
+- **そのルールが一切不要なら**、[`svelte-vitals.config.*`](/ja/guides/configuration) でグローバルに無効化します：
 
   ```js
   // svelte-vitals.config.mjs
@@ -100,7 +100,7 @@ CI 導入時によくぶつかる壁があります。意図的に公開して�
   };
   ```
 
-- **アプリの一部にだけルールやカテゴリが当てはまらないなら**（認証必須ルートのケース）、[`overrides`](/svelte-vitals/ja/guides/configuration/#ルールをルートやファイルにスコープする-overrides) でスコープします。これは恒久的なポリシーで、あとから glob 配下に追加したルートも除外されます。
+- **アプリの一部にだけルールやカテゴリが当てはまらないなら**（認証必須ルートのケース）、[`overrides`](/ja/guides/configuration#ルールをルートやファイルにスコープする-overrides) でスコープします。これは恒久的なポリシーで、あとから glob 配下に追加したルートも除外されます。
 
   ```js
   // svelte-vitals.config.mjs
@@ -157,7 +157,7 @@ jobs:
 
 `ci install` は `<sha>`/`<version>` に、実行している `svelte-vitals` CLI に同梱されたピンを埋め込みます — メンテナーが [oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) の最新リリースを解決し、`svelte-vitals` の各リリース前にコミットしたものです。`ci install` 自体が GitHub に問い合わせることはありません。動作するピンを得る一番簡単な方法は(最新の同梱ピンを得るために `@latest` を付けて)インストーラーを実行することです。手書きする場合は、その[リポジトリ](https://github.com/oekazuma/svelte-vitals-action/releases)にある最新リリースタグのコミット SHA とバージョンを使ってください。
 
-Action を経由せず svelte-vitals を直接実行したい場合の `--diff` や `--baseline` などの対応フラグについては[CLI リファレンス](/svelte-vitals/ja/guides/cli/)を、Action のサマリーとコメントが基づいている出力フォーマットについては[レポーターガイド](/svelte-vitals/ja/guides/reporters/)を参照してください。
+Action を経由せず svelte-vitals を直接実行したい場合の `--diff` や `--baseline` などの対応フラグについては[CLI リファレンス](/ja/guides/cli)を、Action のサマリーとコメントが基づいている出力フォーマットについては[レポーターガイド](/ja/guides/reporters)を参照してください。
 
 ## ピン留めされた Action の更新
 

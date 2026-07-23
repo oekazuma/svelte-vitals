@@ -65,7 +65,7 @@ svelte-vitals --reporter github
 
 ### `md`
 
-コンパクトな Markdown サマリーです。Health スコア、カテゴリ別スコア表、重大度別件数、各ルールのドキュメントページへのリンク付き検出結果テーブルを含みます。GitHub Actions のジョブサマリーや PR コメント向けに設計されており、GitHub のコメントサイズ制限内に収まるよう検出結果の行数は 50 件に制限されます。このレポーターを自動的にワークフローへ組み込む `svelte-vitals ci install` については [CI 連携ガイド](/svelte-vitals/ja/guides/ci/) を参照してください。
+コンパクトな Markdown サマリーです。Health スコア、カテゴリ別スコア表、重大度別件数、各ルールのドキュメントページへのリンク付き検出結果テーブルを含みます。GitHub Actions のジョブサマリーや PR コメント向けに設計されており、GitHub のコメントサイズ制限内に収まるよう検出結果の行数は 50 件に制限されます。このレポーターを自動的にワークフローへ組み込む `svelte-vitals ci install` については [CI 連携ガイド](/ja/guides/ci) を参照してください。
 
 ```bash
 svelte-vitals --reporter md
@@ -73,7 +73,7 @@ svelte-vitals --reporter md
 
 ## HTML レポート
 
-`--reporter html` は、ブラウザで開ける自己完結の HTML レポートを出力します。これは**[ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/)と同じ UI** です。レンダラーを 1 つ共有しているため、両者が乖離することはありません。検索と並び替えができるルート一覧を備えたマスター/ディテールレイアウト、重大度やカテゴリのフィルター、ダークモード、そして検出結果ごとにコピーできる [AI Prompt](/svelte-vitals/ja/guides/dev-dashboard/#指摘ごとに修正プロンプトをコピーする) が使えます。唯一の違いは、静的ファイルには背後に dev サーバーがないため、ライブ更新の仕組み（SSE 接続、ページ閲覧に応じた `measured` への精緻化）がないことです。CSS と JS をすべてインライン化しているためオフラインで動作し、CI 成果物として添付したり共有したりするのも簡単です。
+`--reporter html` は、ブラウザで開ける自己完結の HTML レポートを出力します。これは**[ライブダッシュボード](/ja/guides/dev-dashboard)と同じ UI** です。レンダラーを 1 つ共有しているため、両者が乖離することはありません。検索と並び替えができるルート一覧を備えたマスター/ディテールレイアウト、重大度やカテゴリのフィルター、ダークモード、そして検出結果ごとにコピーできる [AI Prompt](/ja/guides/dev-dashboard#指摘ごとに修正プロンプトをコピーする) が使えます。唯一の違いは、静的ファイルには背後に dev サーバーがないため、ライブ更新の仕組み（SSE 接続、ページ閲覧に応じた `measured` への精緻化）がないことです。CSS と JS をすべてインライン化しているためオフラインで動作し、CI 成果物として添付したり共有したりするのも簡単です。
 
 ```bash
 svelte-vitals --reporter html                 # svelte-vitals-report.html を出力

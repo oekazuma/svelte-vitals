@@ -5,9 +5,7 @@ sidebar:
   order: 3.5
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-
-`--rules`、`--ignore`、`--fail-on`、`--weights` を実行のたびに指定する代わりに、プロジェクトルートに `svelte-vitals.config` ファイルを置いて設定をまとめられます。CLI、[MCP サーバー](/svelte-vitals/ja/guides/mcp/)、[Vite プラグイン](/svelte-vitals/ja/guides/plugin-mode/) はいずれもこのファイルを自動的に読み込みます（MCP サーバーは CLI と同じ `analyzeProject` 関数を呼び出しているためこの機能をそのまま引き継ぎ、Vite プラグインは直接読み込みます。詳細は下記の [Vite プラグインで設定ファイルを再利用する](#vite-プラグインで設定ファイルを再利用する) を参照）。
+`--rules`、`--ignore`、`--fail-on`、`--weights` を実行のたびに指定する代わりに、プロジェクトルートに `svelte-vitals.config` ファイルを置いて設定をまとめられます。CLI、[MCP サーバー](/ja/guides/mcp)、[Vite プラグイン](/ja/guides/plugin-mode) はいずれもこのファイルを自動的に読み込みます（MCP サーバーは CLI と同じ `analyzeProject` 関数を呼び出しているためこの機能をそのまま引き継ぎ、Vite プラグインは直接読み込みます。詳細は下記の [Vite プラグインで設定ファイルを再利用する](#vite-プラグインで設定ファイルを再利用する) を参照）。
 
 `svelte-vitals install --client config-file` を実行すると、以下のオプションをすべてコメントアウトした状態の雛形を生成できます。
 
@@ -25,8 +23,8 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
 
 ## 例
 
-<Tabs syncKey="config-ext">
-  <TabItem label="TypeScript">
+<Tabs>
+  <Tab title="TypeScript">
     ```ts
     // svelte-vitals.config.ts
     import { defineConfig } from 'svelte-vitals';
@@ -44,8 +42,8 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
     });
     ```
 
-  </TabItem>
-  <TabItem label="JavaScript">
+  </Tab>
+  <Tab title="JavaScript">
     ```js
     // svelte-vitals.config.mjs
     export default {
@@ -61,7 +59,7 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
     };
     ```
 
-  </TabItem>
+  </Tab>
 </Tabs>
 
 `defineConfig` は、渡したオブジェクトを組み込みのデフォルトにマージするだけの薄いヘルパーで、`.ts` ファイルでの型チェックとエディタの補完のために存在します。プレーンな `export default {...}` オブジェクトでも実行時の挙動はまったく同じです。`.mjs`/`.js` ファイルではどちらにしても型チェックの恩恵はないので、（JavaScript タブが示すように）プレーンなオブジェクトのままで構いません。しかも import と違い、svelte-vitals を `npx` 経由でしか実行せず `node_modules` に存在しない場合でも動作します。
@@ -76,7 +74,7 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
 | `metaComponents` | `string[]`                                                   | `[]`           | `<head>` メタデータを出力するカスタムコンポーネント名                                                |
 | `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`           | ルールごとの上書き（ルールを無効化するか重大度を変更する）                                           |
 | `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'`   | 実行を失敗させる（終了コード `1`）最低重大度                                                         |
-| `weights`        | `Partial<Record<Category, number>>`                          | 各カテゴリ `1` | 組み合わせた [Health スコア](/svelte-vitals/ja/guides/health-report/) のカテゴリごとの重み           |
+| `weights`        | `Partial<Record<Category, number>>`                          | 各カテゴリ `1` | 組み合わせた [Health スコア](/ja/guides/health-report) のカテゴリごとの重み                          |
 | `overrides`      | `RuleOverride[]`                                             | （なし）       | ルート/ファイル単位のルール上書き（[下記](#ルールをルートやファイルにスコープする-overrides)を参照） |
 
 `Category` は `'seo' | 'performance' | 'correctness' | 'security' | 'architecture'` です。
@@ -111,7 +109,7 @@ glob の構文はあえて最小限に絞ってあります：`*` はパスセ�
 - `'off'` はマッチした検出結果を完全に取り除きます。実行を失敗させず、スコアも下げません。そのルールがそこでは実行されなかったのと同じ扱いです。一方、重大度の値を指定した場合は、取り除くのではなくその重大度に再分類します。
 - エントリは順に評価され、**後のエントリが勝ちます**。1つのエントリ内ではルール ID のキーがカテゴリのキーに勝ちます。マッチした箇所ではオーバーライドが常にグローバルの `rules` 設定に勝ちます。
 - ルートにもファイルにも紐付かない検出結果（robots.txt などプロジェクト全体のチェック）には一切影響しません。そちらは `rules` を使ってください。
-- 「アプリのこの部分は恒久的に対象外」というポリシーには、[suppressions ファイル](/svelte-vitals/ja/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)より `overrides` を選んでください：suppressions はファイルを書き出した時点で存在した検出結果だけを受け入れるため、あとから追加したルートは再び失敗します。overrides は同じ glob 配下の新しいルートにもマッチし続けます。
+- 「アプリのこの部分は恒久的に対象外」というポリシーには、[suppressions ファイル](/ja/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)より `overrides` を選んでください：suppressions はファイルを書き出した時点で存在した検出結果だけを受け入れるため、あとから追加したルートは再び失敗します。overrides は同じ glob 配下の新しいルートにもマッチし続けます。
 
 ## 優先順位
 
@@ -136,7 +134,7 @@ glob の構文はあえて最小限に絞ってあります：`*` はパスセ�
 
 ## Vite プラグインで設定ファイルを再利用する
 
-`@svelte-vitals/vite` は CLI と同じ方法で `svelte-vitals.config.*` を読み込みます。追加の配線は不要です。ビルド時のゲート（`vite build`）と[ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/)（`vite dev`）のどちらも、プロジェクトルート（`svelteVitals({ ... })` に渡す `cwd`、省略時は Vite の config root）からこのファイルを解決し、CLI と同じフィールド単位の優先順位を適用します: **`svelteVitals({ ... })` に明示的に渡したオプションが優先され、次に設定ファイルの値、最後に組み込みのデフォルトが使われます**。これには `weights` も含まれており、CLI や MCP サーバーと同様にプラグインの Health スコアに反映されるようになりました。
+`@svelte-vitals/vite` は CLI と同じ方法で `svelte-vitals.config.*` を読み込みます。追加の配線は不要です。ビルド時のゲート（`vite build`）と[ライブダッシュボード](/ja/guides/dev-dashboard)（`vite dev`）のどちらも、プロジェクトルート（`svelteVitals({ ... })` に渡す `cwd`、省略時は Vite の config root）からこのファイルを解決し、CLI と同じフィールド単位の優先順位を適用します: **`svelteVitals({ ... })` に明示的に渡したオプションが優先され、次に設定ファイルの値、最後に組み込みのデフォルトが使われます**。これには `weights` も含まれており、CLI や MCP サーバーと同様にプラグインの Health スコアに反映されるようになりました。
 
 ```ts
 // vite.config.ts

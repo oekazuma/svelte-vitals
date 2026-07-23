@@ -7,7 +7,7 @@ sidebar:
 
 svelte-vitals は `svelte-vitals`（CLI）、`@svelte-vitals/vite`（プラグイン + ライブダッシュボード）、`@svelte-vitals/mcp`（MCP サーバー）という3つのnpmパッケージで構成されています。これに加えて、npmからはインストールしないサーフェスが2つあります。リポジトリから直接参照して使うファーストパーティの GitHub Action **`@svelte-vitals/action`** と、CLIがプロジェクト内に生成する `SKILL.md` ファイルの **Agent Skills** です。いずれも同じルールエンジンとスコアリングを共有していますが、読み取る対象とカバーする範囲が異なります。ほとんどのプロジェクトでは複数を組み合わせて使うことになります。
 
-各パッケージは独立してバージョン管理されており、共有ルールエンジンである `@svelte-vitals/core` にはそれぞれ自分の semver 範囲で依存しています。そのため「同時に」インストールした2つのパッケージが、実際には異なる core バージョンに解決されることがあります。CLI と Vite プラグインで検出結果が食い違う場合は[ライブダッシュボード § バージョンのずれ](/svelte-vitals/ja/guides/dev-dashboard/#バージョンのずれ)を参照してください。
+各パッケージは独立してバージョン管理されており、共有ルールエンジンである `@svelte-vitals/core` にはそれぞれ自分の semver 範囲で依存しています。そのため「同時に」インストールした2つのパッケージが、実際には異なる core バージョンに解決されることがあります。CLI と Vite プラグインで検出結果が食い違う場合は[ライブダッシュボード § バージョンのずれ](/ja/guides/dev-dashboard#バージョンのずれ)を参照してください。
 
 ## 早見表
 
@@ -44,25 +44,25 @@ devで実際にルートを訪問すると、ダッシュボードはさらに�
 
 ### 最も広いカバー範囲を持つ CLI
 
-`svelte-vitals` はプロジェクトのソースを直接読むため、全ルート（SSR、動的ルートを含む）と全5カテゴリをカバーできる唯一の経路です。ビルド不要で、Node が動く環境（ターミナル、CIジョブ、`--staged` によるpre-commitフック、`--diff main` によるPRチェックなど）ならどこでも実行できます。CIゲートを組むなら、まずここから始めてください。詳細は [CLIリファレンス](/svelte-vitals/ja/guides/cli/) を参照してください。
+`svelte-vitals` はプロジェクトのソースを直接読むため、全ルート（SSR、動的ルートを含む）と全5カテゴリをカバーできる唯一の経路です。ビルド不要で、Node が動く環境（ターミナル、CIジョブ、`--staged` によるpre-commitフック、`--diff main` によるPRチェックなど）ならどこでも実行できます。CIゲートを組むなら、まずここから始めてください。詳細は [CLIリファレンス](/ja/guides/cli) を参照してください。
 
 ### ビルド成果物を正確に検証する Vite プラグイン
 
-`@svelte-vitals/vite` のビルドモードは `vite build` の実行中に、**実際にプレレンダリングされたHTML**を解析してSEO/Performanceを検証します。そのため、ソーススキャナーが認識しないコンポーネントにごまかされることがありません。タグが出力HTMLに存在しなければ、それだけで検出されます。加えて `.svelte` ソースも直接走査し、CLIと同じ Correctness、Security、Architecture の各ルールと、コンポーネントスコープの Performance ルールも検証します。残るトレードオフはルートの範囲です。HTMLベースのSEO/Performance検証はプレレンダリングされたルートのみが対象です（コンポーネントスコープのルールはプロジェクト全体が対象）。詳細は [プラグインモード](/svelte-vitals/ja/guides/plugin-mode/) を参照してください。
+`@svelte-vitals/vite` のビルドモードは `vite build` の実行中に、**実際にプレレンダリングされたHTML**を解析してSEO/Performanceを検証します。そのため、ソーススキャナーが認識しないコンポーネントにごまかされることがありません。タグが出力HTMLに存在しなければ、それだけで検出されます。加えて `.svelte` ソースも直接走査し、CLIと同じ Correctness、Security、Architecture の各ルールと、コンポーネントスコープの Performance ルールも検証します。残るトレードオフはルートの範囲です。HTMLベースのSEO/Performance検証はプレレンダリングされたルートのみが対象です（コンポーネントスコープのルールはプロジェクト全体が対象）。詳細は [プラグインモード](/ja/guides/plugin-mode) を参照してください。
 
-同じパッケージは `vite dev` 中に `/__svelte-vitals/` で**ライブダッシュボード**もデフォルトで配信しています。ビルドは不要で、起動時からプロジェクト全体をカバーし、ページを閲覧するにつれて実際のレンダリング結果へと精緻化されます。これはゲートではなくフィードバックであり、ビルドやCIを失敗させることはありません。詳細は [ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/) を参照してください。
+同じパッケージは `vite dev` 中に `/__svelte-vitals/` で**ライブダッシュボード**もデフォルトで配信しています。ビルドは不要で、起動時からプロジェクト全体をカバーし、ページを閲覧するにつれて実際のレンダリング結果へと精緻化されます。これはゲートではなくフィードバックであり、ビルドやCIを失敗させることはありません。詳細は [ライブダッシュボード](/ja/guides/dev-dashboard) を参照してください。
 
 ### AI エージェントのワークフロー向けの MCP サーバー
 
-`@svelte-vitals/mcp` はCLIそのものの解析（全5カテゴリ、全ルート）を `analyze` と `explain_rule` というModel Context Protocolのツールとして公開します。エージェントはCLIをシェルで実行してテキスト出力をパースする代わりに、会話の途中でツールとして直接呼び出せます。AIコーディングエージェントを日常的に使っているなら有用ですが、CIゲートの代わりにはなりません。`npx svelte-vitals@latest install` でセットアップできます。詳細は [MCP サーバー](/svelte-vitals/ja/guides/mcp/) を参照してください。
+`@svelte-vitals/mcp` はCLIそのものの解析（全5カテゴリ、全ルート）を `analyze` と `explain_rule` というModel Context Protocolのツールとして公開します。エージェントはCLIをシェルで実行してテキスト出力をパースする代わりに、会話の途中でツールとして直接呼び出せます。AIコーディングエージェントを日常的に使っているなら有用ですが、CIゲートの代わりにはなりません。`npx svelte-vitals@latest install` でセットアップできます。詳細は [MCP サーバー](/ja/guides/mcp) を参照してください。
 
 ### YAMLを書かずにPRをゲートする GitHub Action
 
-`@svelte-vitals/action` はプルリクエストごとにCLIと同じエンジンを実行し、検出結果をGitHubネイティブなフィードバック（変更行へのインラインアノテーション、ジョブサマリー、その場で更新される単一のスティッキーPRコメント）に変換します。npmからインストールするものではありません。`npx svelte-vitals@latest ci install`（または `svelte-vitals install` 内の `ci-workflow` ターゲット）が、コミットSHAでピン留めした呼び出しを含むワークフローを生成します。ピンは後から `svelte-vitals ci upgrade` で更新できます。生成されるワークフローは `--diff`/`--baseline` で検出結果をそのPR自身の変更分に絞るため、既存の問題が他の人のPRを失敗させることはありません。詳細は [CI 連携](/svelte-vitals/ja/guides/ci/) を参照してください。
+`@svelte-vitals/action` はプルリクエストごとにCLIと同じエンジンを実行し、検出結果をGitHubネイティブなフィードバック（変更行へのインラインアノテーション、ジョブサマリー、その場で更新される単一のスティッキーPRコメント）に変換します。npmからインストールするものではありません。`npx svelte-vitals@latest ci install`（または `svelte-vitals install` 内の `ci-workflow` ターゲット）が、コミットSHAでピン留めした呼び出しを含むワークフローを生成します。ピンは後から `svelte-vitals ci upgrade` で更新できます。生成されるワークフローは `--diff`/`--baseline` で検出結果をそのPR自身の変更分に絞るため、既存の問題が他の人のPRを失敗させることはありません。詳細は [CI 連携](/ja/guides/ci) を参照してください。
 
 ### エージェントに前もってルールの知識を与える Agent Skills
 
-MCP サーバーがエージェントに解析を「実行させる」ものだとすれば、[Agent Skills](/svelte-vitals/ja/guides/agent-skills/) はエージェントが「コードを書く前からルールを知っている」状態を作るものです。`svelte-vitals install` は、Claude Code、Codex、Cursor で同じように動くポータブルな `SKILL.md` を2つ生成します。**`/svelte-vitals`** はルールカタログ全体と「編集のたびにスキャナーを実行する」プレイブックを埋め込んだスキル、**`/improve-svelte`** は「アプリをレビューして」という依頼を影響度順の自己完結型実装プランに変える読み取り専用の監査スキルです。MCP サーバーを置き換えるのではなく補完します。知識は前もって、解析は必要なときに、という分担です。詳細は [Agent Skills](/svelte-vitals/ja/guides/agent-skills/) を参照してください。
+MCP サーバーがエージェントに解析を「実行させる」ものだとすれば、[Agent Skills](/ja/guides/agent-skills) はエージェントが「コードを書く前からルールを知っている」状態を作るものです。`svelte-vitals install` は、Claude Code、Codex、Cursor で同じように動くポータブルな `SKILL.md` を2つ生成します。**`/svelte-vitals`** はルールカタログ全体と「編集のたびにスキャナーを実行する」プレイブックを埋め込んだスキル、**`/improve-svelte`** は「アプリをレビューして」という依頼を影響度順の自己完結型実装プランに変える読み取り専用の監査スキルです。MCP サーバーを置き換えるのではなく補完します。知識は前もって、解析は必要なときに、という分担です。詳細は [Agent Skills](/ja/guides/agent-skills) を参照してください。
 
 ## おすすめの組み合わせ
 

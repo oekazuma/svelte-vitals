@@ -1,0 +1,27 @@
+/*
+ * Swap a light/dark screenshot pair based on Blume's `data-theme` attribute on
+ * <html> (unset/default = light, set to 'dark' in dark mode — see Blume's
+ * theming docs). This is the opposite default from Starlight (which defaults
+ * to dark and flips to 'light'), so the selectors below are flipped from the
+ * original Starlight version of this file.
+ */
+.theme-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  border: 1px solid var(--blume-border);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+.theme-img-dark {
+  display: none;
+}
+
+:root[data-theme='dark'] .theme-img-dark {
+  display: block;
+}
+
+:root[data-theme='dark'] .theme-img-light {
+  display: none;
+}

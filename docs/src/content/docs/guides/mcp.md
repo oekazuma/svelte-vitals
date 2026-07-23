@@ -34,7 +34,7 @@ Run static-mode analysis on a SvelteKit project.
 
 **Returns:** per-route and site-wide scores plus a list of findings, each with `fix`, `recommendation`, and `docsUrl`.
 
-A project-level `svelte-vitals.config` file (see [Config file](/svelte-vitals/guides/configuration/)) is also read automatically — these tool arguments override it the same way CLI flags do.
+A project-level `svelte-vitals.config` file (see [Config file](/guides/configuration)) is also read automatically — these tool arguments override it the same way CLI flags do.
 
 ### `explain_rule`
 
@@ -58,7 +58,7 @@ Run the interactive installer from your project root — it configures the MCP s
 npx svelte-vitals@latest install
 ```
 
-It supports **Claude Code**, **Cursor**, and **Codex**, merging the server entry into each client's config without touching your other servers. See [`svelte-vitals install`](/svelte-vitals/guides/install/) for the available flags (`--client`, `--scope`, `--yes`, `--dry-run`, `--force`).
+It supports **Claude Code**, **Cursor**, and **Codex**, merging the server entry into each client's config without touching your other servers. See [`svelte-vitals install`](/guides/install) for the available flags (`--client`, `--scope`, `--yes`, `--dry-run`, `--force`).
 
 ### Manual setup
 

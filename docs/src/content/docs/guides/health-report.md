@@ -34,7 +34,7 @@ Health = (SEO_score × w_seo + Performance_score × w_perf) / (w_seo + w_perf)
 
 The formula shows two categories for brevity — the same weighted average runs over **all** categories present in the results, up to five (SEO, Performance, Correctness, Security, Architecture).
 
-Set weights with the `--weights` flag or the config file's `weights` field — see [Config file](/svelte-vitals/guides/configuration/) for both. For example, to make SEO count double:
+Set weights with the `--weights` flag or the config file's `weights` field — see [Config file](/guides/configuration) for both. For example, to make SEO count double:
 
 ```bash
 svelte-vitals --weights seo=2

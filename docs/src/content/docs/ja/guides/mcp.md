@@ -34,7 +34,7 @@ SvelteKit プロジェクトの静的モード分析を実行します。
 
 **返り値：** ルートごとおよびサイト全体のスコアと検出結果のリスト。各検出結果には `fix`、`recommendation`、`docsUrl` が含まれます。
 
-プロジェクトルートの `svelte-vitals.config` ファイル（[設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照）も自動的に読み込まれます。これらのツール引数は、CLI フラグと同じように設定ファイルより優先されます。
+プロジェクトルートの `svelte-vitals.config` ファイル（[設定ファイル](/ja/guides/configuration) を参照）も自動的に読み込まれます。これらのツール引数は、CLI フラグと同じように設定ファイルより優先されます。
 
 ### `explain_rule`
 
@@ -58,7 +58,7 @@ SvelteKit プロジェクトの静的モード分析を実行します。
 npx svelte-vitals@latest install
 ```
 
-**Claude Code**、**Cursor**、**Codex** に対応しており、サーバーエントリを各クライアントの設定にマージします。既存の他のサーバーには手を加えません。利用可能なフラグ（`--client`、`--scope`、`--yes`、`--dry-run`、`--force`）については [`svelte-vitals install`](/svelte-vitals/ja/guides/install/) を参照してください。
+**Claude Code**、**Cursor**、**Codex** に対応しており、サーバーエントリを各クライアントの設定にマージします。既存の他のサーバーには手を加えません。利用可能なフラグ（`--client`、`--scope`、`--yes`、`--dry-run`、`--force`）については [`svelte-vitals install`](/ja/guides/install) を参照してください。
 
 ### 手動セットアップ
 

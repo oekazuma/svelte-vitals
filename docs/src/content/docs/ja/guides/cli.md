@@ -13,9 +13,9 @@ svelte-vitals [path] [options]
 
 `path` は省略可能で、デフォルトはカレントディレクトリです。
 
-> サブコマンドもあります。[`install`](/svelte-vitals/ja/guides/install/) は MCP サーバー、[Agent Skills](/svelte-vitals/ja/guides/agent-skills/)、Vite との連携を AI エージェントのクライアントにセットアップし、`ci install` は GitHub Actions の PR ゲートを生成します（詳しくは [CI 連携](/svelte-vitals/ja/guides/ci/) を参照してください）。
+> サブコマンドもあります。[`install`](/ja/guides/install) は MCP サーバー、[Agent Skills](/ja/guides/agent-skills)、Vite との連携を AI エージェントのクライアントにセットアップし、`ci install` は GitHub Actions の PR ゲートを生成します（詳しくは [CI 連携](/ja/guides/ci) を参照してください）。
 
-以下のフラグは、毎回の実行で指定する代わりに、プロジェクトルートの `svelte-vitals.config` ファイルにまとめて一度だけ設定することもできます。詳しくは [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。フラグは常に設定ファイルより優先されます。
+以下のフラグは、毎回の実行で指定する代わりに、プロジェクトルートの `svelte-vitals.config` ファイルにまとめて一度だけ設定することもできます。詳しくは [設定ファイル](/ja/guides/configuration) を参照してください。フラグは常に設定ファイルより優先されます。
 
 ## モノレポ
 
@@ -78,7 +78,7 @@ npx svelte-vitals@latest apps/web     # 検出をスキップし、apps/web を�
 svelte-vitals --min-health 80
 ```
 
-スコアの計算方法については [Health レポート](/svelte-vitals/ja/guides/health-report/) を参照してください。
+スコアの計算方法については [Health レポート](/ja/guides/health-report) を参照してください。
 
 ### `--score`
 
@@ -198,11 +198,11 @@ svelte-vitals --category seo
 svelte-vitals --category seo,performance
 ```
 
-`--category` は `--rules`/`--ignore`/設定ファイルのルール選択と積集合になります。ルールは両方を通過した場合のみ実行されます。カテゴリを絞り込むと [Health スコア](/svelte-vitals/ja/guides/health-report/) も絞り込まれます。組み合わせたスコアが、検出結果の存在するカテゴリだけの加重平均になるため、フィルタなしの実行結果とは直接比較できません。未知のカテゴリを指定するとエラーになります（終了コード `2`）。
+`--category` は `--rules`/`--ignore`/設定ファイルのルール選択と積集合になります。ルールは両方を通過した場合のみ実行されます。カテゴリを絞り込むと [Health スコア](/ja/guides/health-report) も絞り込まれます。組み合わせたスコアが、検出結果の存在するカテゴリだけの加重平均になるため、フィルタなしの実行結果とは直接比較できません。未知のカテゴリを指定するとエラーになります（終了コード `2`）。
 
 ### `--weights <pairs>`
 
-組み合わせた [Health スコア](/svelte-vitals/ja/guides/health-report/) のカテゴリごとの重みを上書きします。カンマ区切りの `category=number` ペアを受け付け、カテゴリ名の大文字小文字は区別しません。指定しなかったカテゴリはデフォルトの重み `1` になります。
+組み合わせた [Health スコア](/ja/guides/health-report) のカテゴリごとの重みを上書きします。カンマ区切りの `category=number` ペアを受け付け、カテゴリ名の大文字小文字は区別しません。指定しなかったカテゴリはデフォルトの重み `1` になります。
 
 ```bash
 svelte-vitals --weights seo=2,performance=1
@@ -260,15 +260,15 @@ svelte-vitals --meta-components "SeoHead,PageMeta"
 
 ### `-v, --version`
 
-CLI 自身のバージョンと、解決された `@svelte-vitals/core` のバージョンを表示して終了します（例：`0.20.0 (core 0.21.0)`）。`svelte-vitals` と `@svelte-vitals/vite` はそれぞれ独立してバージョン管理されており、異なる `@svelte-vitals/core` リリースに依存する状態になり得ます。CLI と[ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/#バージョンのずれ)で検出結果が食い違う場合は、この `core` バージョンをダッシュボードのトップバーに表示される値と比較してください。
+CLI 自身のバージョンと、解決された `@svelte-vitals/core` のバージョンを表示して終了します（例：`0.20.0 (core 0.21.0)`）。`svelte-vitals` と `@svelte-vitals/vite` はそれぞれ独立してバージョン管理されており、異なる `@svelte-vitals/core` リリースに依存する状態になり得ます。CLI と[ライブダッシュボード](/ja/guides/dev-dashboard#バージョンのずれ)で検出結果が食い違う場合は、この `core` バージョンをダッシュボードのトップバーに表示される値と比較してください。
 
 ## 対応する Svelte/SvelteKit バージョン
 
 ルールは **Svelte 5+（runes）** と **SvelteKit 2+** を前提としています。解析対象プロジェクトの
 `package.json` がそれより古い `svelte`/`@sveltejs/kit` バージョンを宣言している場合、stderr に
 警告が表示されます — 解析自体は通常どおり実行されますが、
-[correctness/stale-prop-derivation](/svelte-vitals/ja/rules/correctness/stale-prop-derivation/)や
-[correctness/prop-mutation](/svelte-vitals/ja/rules/correctness/prop-mutation/)のように runes
+[correctness/stale-prop-derivation](/ja/rules/correctness/stale-prop-derivation)や
+[correctness/prop-mutation](/ja/rules/correctness/prop-mutation)のように runes
 構文を手がかりにするルールは、同じバグの legacy 構文（`export let` / `$:`）版を認識できないため、
 runes へまだ移行していないコンポーネントでは検出結果が不完全になる場合があります。
 

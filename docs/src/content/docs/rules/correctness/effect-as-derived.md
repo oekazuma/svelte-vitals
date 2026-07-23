@@ -47,5 +47,5 @@ tick after mount, which is the whole point here. Converting this specific shape
 to `$derived` is not a style preference — it reintroduces the bug the `$effect`
 was added to prevent. If your finding is this pattern, don't "fix" it; suppress
 it instead with a
-[`svelte-vitals-disable-next-line`](/svelte-vitals/guides/cli/#suppressing-a-single-finding-inline)
+[`svelte-vitals-disable-next-line`](/guides/cli#suppressing-a-single-finding-inline)
 comment.

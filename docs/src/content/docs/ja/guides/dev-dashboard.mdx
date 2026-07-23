@@ -24,12 +24,12 @@ export default {
 
 <img
   class="theme-img theme-img-dark"
-  src="/svelte-vitals/dashboard-dark.png"
+  src={`${import.meta.env.BASE_URL}/dashboard-dark.png`.replace(/\/{2,}/g, '/')}
   alt="svelte-vitals ライブダッシュボードの Overview ペイン。Health スコアのリング、カテゴリ別バー、重要度、ルール ID、場所、修正スニペット付きの指摘一覧が表示されている。"
 />
 <img
   class="theme-img theme-img-light"
-  src="/svelte-vitals/dashboard-light.png"
+  src={`${import.meta.env.BASE_URL}/dashboard-light.png`.replace(/\/{2,}/g, '/')}
   alt="svelte-vitals ライブダッシュボードの Overview ペイン。Health スコアのリング、カテゴリ別バー、重要度、ルール ID、場所、修正スニペット付きの指摘一覧が表示されている。"
 />
 
@@ -110,11 +110,11 @@ Fix this svelte-vitals finding:
 After fixing, re-run `svelte-vitals --diff` (or revisit this route) to confirm seo/title-presence passes for /blog/hello.
 ````
 
-プロンプトの生成に AI は一切関与しません。ダッシュボードのスナップショットに既に含まれている svelte-vitals 自身のルールデータ、つまり[`agent` レポーター](/svelte-vitals/ja/guides/reporters/)が修正ドキュメントに使うのと同じフィールドから即座に組み立てるため、ルールの実際の推奨にない修正が捏造される余地はありません。
+プロンプトの生成に AI は一切関与しません。ダッシュボードのスナップショットに既に含まれている svelte-vitals 自身のルールデータ、つまり[`agent` レポーター](/ja/guides/reporters)が修正ドキュメントに使うのと同じフィールドから即座に組み立てるため、ルールの実際の推奨にない修正が捏造される余地はありません。
 
 ## 無効化する
 
-ダッシュボードはデフォルトで有効です。[ビルド時ゲート](/svelte-vitals/ja/guides/plugin-mode/)だけが必要で、dev 時のダッシュボードは不要な場合（例:起動時や再解析のコストを避けたい大規模なプロジェクト）は、`ui: false` を指定してください:
+ダッシュボードはデフォルトで有効です。[ビルド時ゲート](/ja/guides/plugin-mode)だけが必要で、dev 時のダッシュボードは不要な場合（例:起動時や再解析のコストを避けたい大規模なプロジェクト）は、`ui: false` を指定してください:
 
 ```js
 export default {

@@ -5,7 +5,7 @@ sidebar:
   order: 6.5
 ---
 
-svelte-vitals は2つの Agent Skills を提供します。どちらも **Claude Code**、**Cursor**、**Codex** で同じように動くポータブルな `SKILL.md` ファイルです。3つのツールがいずれも同じフロントマター形式の規約を解釈するため、1つのファイルがそのまま使い回せます。スキルはプロジェクトの現在のルールセットから一度生成され、各ツールの規約どおりの場所に書き出されます。インストールは [`svelte-vitals install`](/svelte-vitals/ja/guides/install/) で行います。
+svelte-vitals は2つの Agent Skills を提供します。どちらも **Claude Code**、**Cursor**、**Codex** で同じように動くポータブルな `SKILL.md` ファイルです。3つのツールがいずれも同じフロントマター形式の規約を解釈するため、1つのファイルがそのまま使い回せます。スキルはプロジェクトの現在のルールセットから一度生成され、各ツールの規約どおりの場所に書き出されます。インストールは [`svelte-vitals install`](/ja/guides/install) で行います。
 
 ```bash
 npx svelte-vitals@latest install --client claude-skill,claude-skill-improve --yes
@@ -17,9 +17,9 @@ npx svelte-vitals@latest install --client claude-skill,claude-skill-improve --ye
 
 書き出される場所：
 
-- `.claude/skills/svelte-vitals/SKILL.md`（Claude Code）
-- `.agents/skills/svelte-vitals/SKILL.md`（Codex）
-- `.cursor/skills/svelte-vitals/SKILL.md`（Cursor）
+- `.claude/skills/SKILL.md`（Claude Code）
+- `.agents/skills/SKILL.md`（Codex）
+- `.cursor/skills/SKILL.md`（Cursor）
 
 3ファイルともバイト単位で同一です。
 
@@ -43,8 +43,8 @@ npx svelte-vitals@latest install --client claude-skill,claude-skill-improve --ye
 npx svelte-vitals@latest install --refresh
 ```
 
-詳しくは [`--refresh`](/svelte-vitals/ja/guides/install/#--refresh) を参照してください。
+詳しくは [`--refresh`](/ja/guides/install#--refresh) を参照してください。
 
 ## Agent Skills と Cursor rules の違い
 
-`cursor-rules`（`.cursor/rules/svelte-vitals.mdc`）は Cursor 専用の別の仕組みです。常時適用されるプロジェクトルールファイルであり、スラッシュコマンドのスキルではありません。上記2つのスキルと合わせてどう生成されるかは [`--client`](/svelte-vitals/ja/guides/install/#--client-ids) を参照してください。
+`cursor-rules`（`.cursor/rules/svelte-vitals.mdc`）は Cursor 専用の別の仕組みです。常時適用されるプロジェクトルールファイルであり、スラッシュコマンドのスキルではありません。上記2つのスキルと合わせてどう生成されるかは [`--client`](/ja/guides/install#--client-ids) を参照してください。

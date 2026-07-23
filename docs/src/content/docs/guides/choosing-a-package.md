@@ -7,7 +7,7 @@ sidebar:
 
 svelte-vitals ships as three npm packages — `svelte-vitals` (CLI), `@svelte-vitals/vite` (plugin + live dashboard), and `@svelte-vitals/mcp` (MCP server) — plus two surfaces you don't install from npm: **`@svelte-vitals/action`**, a first-party GitHub Action consumed straight from the repo, and **Agent Skills**, `SKILL.md` files the CLI generates into your project. They all share the same rule engine and scoring, but read different input and cover different ground. Most projects end up using more than one.
 
-Each package is versioned independently and depends on `@svelte-vitals/core` (the shared rule engine) as its own semver range, so two packages installed at the "same time" can still resolve to different core versions — see [live dashboard: Version drift](/svelte-vitals/guides/dev-dashboard/#version-drift) if the CLI and the Vite plugin ever disagree on findings for the same project.
+Each package is versioned independently and depends on `@svelte-vitals/core` (the shared rule engine) as its own semver range, so two packages installed at the "same time" can still resolve to different core versions — see [live dashboard: Version drift](/guides/dev-dashboard#version-drift) if the CLI and the Vite plugin ever disagree on findings for the same project.
 
 ## Quick answer
 
@@ -44,25 +44,25 @@ Once you actually visit a route in dev, the dashboard additionally re-checks tha
 
 ### CLI — broadest coverage
 
-`svelte-vitals` reads your project's source directly, so it's the only path that covers every route (including SSR and dynamic ones) and all five categories. It needs no build and runs anywhere Node does — a terminal, a CI job, a pre-commit hook via `--staged`, or a PR check via `--diff main`. Start here for CI gating; see the [CLI reference](/svelte-vitals/guides/cli/).
+`svelte-vitals` reads your project's source directly, so it's the only path that covers every route (including SSR and dynamic ones) and all five categories. It needs no build and runs anywhere Node does — a terminal, a CI job, a pre-commit hook via `--staged`, or a PR check via `--diff main`. Start here for CI gating; see the [CLI reference](/guides/cli).
 
 ### Vite plugin — exact, build-time verification
 
-`@svelte-vitals/vite`'s build mode runs during `vite build` and parses the **actual prerendered HTML** for SEO/Performance, so it can't be fooled by a component the source scanner doesn't recognize — if the tag isn't in the shipped output, it fails. It also scans `.svelte` source directly for Correctness, Security, Architecture, and the component-scoped Performance rules, the same as the CLI. The remaining trade-off is route scope: only prerendered routes get the HTML-based SEO/Performance verification (component-scoped rules apply project-wide). See [Plugin mode](/svelte-vitals/guides/plugin-mode/).
+`@svelte-vitals/vite`'s build mode runs during `vite build` and parses the **actual prerendered HTML** for SEO/Performance, so it can't be fooled by a component the source scanner doesn't recognize — if the tag isn't in the shipped output, it fails. It also scans `.svelte` source directly for Correctness, Security, Architecture, and the component-scoped Performance rules, the same as the CLI. The remaining trade-off is route scope: only prerendered routes get the HTML-based SEO/Performance verification (component-scoped rules apply project-wide). See [Plugin mode](/guides/plugin-mode).
 
-The same package also serves a **live dashboard** at `/__svelte-vitals/` during `vite dev`, on by default, with zero build step — whole-project coverage from startup, refined to real rendered results as you browse. It's feedback, not a gate: nothing here fails a build or a CI run. See [Live dashboard](/svelte-vitals/guides/dev-dashboard/).
+The same package also serves a **live dashboard** at `/__svelte-vitals/` during `vite dev`, on by default, with zero build step — whole-project coverage from startup, refined to real rendered results as you browse. It's feedback, not a gate: nothing here fails a build or a CI run. See [Live dashboard](/guides/dev-dashboard).
 
 ### MCP server — for AI-agent workflows
 
-`@svelte-vitals/mcp` exposes the CLI's own analysis (all 5 categories, every route) as `analyze` and `explain_rule` tools over the Model Context Protocol, so an agent can call it mid-conversation instead of shelling out and parsing text output. Useful once you're working with an AI coding agent day to day; not a replacement for a CI gate. Set it up with `npx svelte-vitals@latest install`. See [MCP server](/svelte-vitals/guides/mcp/).
+`@svelte-vitals/mcp` exposes the CLI's own analysis (all 5 categories, every route) as `analyze` and `explain_rule` tools over the Model Context Protocol, so an agent can call it mid-conversation instead of shelling out and parsing text output. Useful once you're working with an AI coding agent day to day; not a replacement for a CI gate. Set it up with `npx svelte-vitals@latest install`. See [MCP server](/guides/mcp).
 
 ### GitHub Action — PR gating with zero YAML
 
-`@svelte-vitals/action` runs the same engine as the CLI on every pull request and turns the findings into GitHub-native feedback: inline annotations on the changed lines, a job summary, and a single sticky PR comment that updates in place. You don't install it from npm — `npx svelte-vitals@latest ci install` (or the `ci-workflow` target inside `svelte-vitals install`) scaffolds a workflow that calls it pinned to a commit SHA, and `svelte-vitals ci upgrade` bumps that pin later. The generated workflow scopes findings to the PR's own changes via `--diff`/`--baseline`, so pre-existing issues don't fail other people's PRs. See [CI integration](/svelte-vitals/guides/ci/).
+`@svelte-vitals/action` runs the same engine as the CLI on every pull request and turns the findings into GitHub-native feedback: inline annotations on the changed lines, a job summary, and a single sticky PR comment that updates in place. You don't install it from npm — `npx svelte-vitals@latest ci install` (or the `ci-workflow` target inside `svelte-vitals install`) scaffolds a workflow that calls it pinned to a commit SHA, and `svelte-vitals ci upgrade` bumps that pin later. The generated workflow scopes findings to the PR's own changes via `--diff`/`--baseline`, so pre-existing issues don't fail other people's PRs. See [CI integration](/guides/ci).
 
 ### Agent Skills — rule knowledge for your agent, up front
 
-Where the MCP server lets an agent _run_ the analysis, [Agent Skills](/svelte-vitals/guides/agent-skills/) make it _know the rules before it writes code_. `svelte-vitals install` generates two portable `SKILL.md` files that work identically in Claude Code, Codex, and Cursor: **`/svelte-vitals`** embeds the full rule catalog plus a run-the-scanner-after-every-edit playbook, and **`/improve-svelte`** is a read-only audit that turns "review my app" into impact-ranked, self-contained implementation plans. They complement the MCP server rather than replacing it — knowledge up front, analysis on demand. See [Agent Skills](/svelte-vitals/guides/agent-skills/).
+Where the MCP server lets an agent _run_ the analysis, [Agent Skills](/guides/agent-skills) make it _know the rules before it writes code_. `svelte-vitals install` generates two portable `SKILL.md` files that work identically in Claude Code, Codex, and Cursor: **`/svelte-vitals`** embeds the full rule catalog plus a run-the-scanner-after-every-edit playbook, and **`/improve-svelte`** is a read-only audit that turns "review my app" into impact-ranked, self-contained implementation plans. They complement the MCP server rather than replacing it — knowledge up front, analysis on demand. See [Agent Skills](/guides/agent-skills).
 
 ## Recommended setups
 
