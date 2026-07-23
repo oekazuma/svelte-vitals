@@ -940,6 +940,25 @@ function collectPropNames(program: Node, includeBindable: boolean): Set<string> 
   return ambiguous || seen > 1 ? new Set() : names;
 }
 
+/**
+ * Local identifier names bound to a prop via legacy `export let foo` / `export let foo = default`
+ * (correctness/stale-prop-derivation, correctness/prop-mutation: the same two bugs exist under
+ * legacy reactivity, just with a different fix). Top-level only, plain identifiers only — a
+ * component can't mix legacy `export let` props with runes-mode `$props()` in the same file
+ * (a Svelte compile error), so this and `collectPropNames`'s result are never both non-empty
+ * for the same component.
+ */
+function collectLegacyPropNames(program: Node): Set<string> {
+  const names = new Set<string>();
+  for (const stmt of program.body ?? []) {
+    if (stmt?.type !== 'ExportNamedDeclaration' || stmt.declaration?.type !== 'VariableDeclaration') continue;
+    for (const d of stmt.declaration.declarations ?? []) {
+      if (d?.id?.type === 'Identifier') names.add(d.id.name);
+    }
+  }
+  return names;
+}
+
 /** Mutating array/Set/Map methods — a call to one of these on a non-bindable prop mutates it (correctness/prop-mutation). */
 const MUTATING_METHODS = new Set([
   'push',
@@ -1719,8 +1738,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
 
   const effects: EffectFact[] = [];
   const constableStates: { name: string; line: number }[] = [];
-  const mutatedProps: { name: string; line: number }[] = [];
-  const stalePropDerivations: { name: string; line: number }[] = [];
+  const mutatedProps: { name: string; line: number; legacy?: boolean }[] = [];
+  const stalePropDerivations: { name: string; line: number; legacy?: boolean }[] = [];
   const rawableStates: { name: string; line: number }[] = [];
   let propCount = 0;
   const program = ast.instance?.content;
@@ -1728,10 +1747,15 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     collectImportSources(program, source, importSpans);
     collectNamespaceImports(program, source, namespaceImports);
     propCount = countProps(program);
-    const nonBindableProps = collectPropNames(program, false);
-    collectPropMutations(program, nonBindableProps, source, mutatedProps);
-    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source, mutatedProps);
-    const allPropNames = collectPropNames(program, true);
+    // A component is either runes-mode ($props()) or legacy-mode (export let), never both —
+    // Svelte rejects mixing them — so at most one of these two sets is ever non-empty.
+    const legacyPropNames = collectLegacyPropNames(program);
+    const nonBindableProps = new Set([...collectPropNames(program, false), ...legacyPropNames]);
+    const rawMutations: { name: string; line: number }[] = [];
+    collectPropMutations(program, nonBindableProps, source, rawMutations);
+    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source, rawMutations);
+    for (const m of rawMutations) mutatedProps.push(legacyPropNames.has(m.name) ? { ...m, legacy: true } : m);
+    const allPropNames = new Set([...collectPropNames(program, true), ...legacyPropNames]);
     if (allPropNames.size > 0) {
       const candidates = collectStalePropCandidates(program, allPropNames, source);
       if (candidates.length > 0) {
@@ -1744,8 +1768,14 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
         }
         const referenced = new Set<string>();
         if (ast.fragment) collectFragmentRefs(ast.fragment, candidateNames, referenced);
+        // `c.name` is the derived LOCAL variable (e.g. `color`), never the prop itself (e.g.
+        // `type`) — legacy-ness is a per-component property (export let vs $props(), never
+        // mixed), not per-candidate, so every candidate here shares the same flag.
+        const isLegacy = legacyPropNames.size > 0;
         for (const c of candidates) {
-          if (!disqualified.has(c.name) && referenced.has(c.name)) stalePropDerivations.push(c);
+          if (!disqualified.has(c.name) && referenced.has(c.name)) {
+            stalePropDerivations.push(isLegacy ? { ...c, legacy: true } : c);
+          }
         }
       }
     }

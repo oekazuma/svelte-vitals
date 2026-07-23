@@ -92,12 +92,13 @@ export interface ComponentFacts {
   namespaceImports: { source: string; line: number }[];
   /** `$state` declarations never written or escaped anywhere in the component — candidates for const (correctness/unmutated-state). */
   constableStates: { name: string; line: number }[];
-  /** Mutations of a non-`$bindable` prop from `$props()` — member writes, `delete`, or a mutating method call (correctness/prop-mutation). */
-  mutatedProps: { name: string; line: number }[];
-  /** Top-level const/let bindings computed from a $props() prop without $derived, never reassigned or escaped, and referenced (eagerly) in the template — frozen at init (correctness/stale-prop-derivation). */
+  /** Mutations of a non-`$bindable` prop from `$props()`, or a legacy `export let` prop — member writes, `delete`, or a mutating method call (correctness/prop-mutation). `legacy` distinguishes which mode the prop was declared in (absent/false: `$props()`), since the fix differs — optional so existing external constructors of `ComponentFacts` are unaffected. */
+  mutatedProps: { name: string; line: number; legacy?: boolean }[];
+  /** Top-level const/let bindings computed from a $props() or legacy `export let` prop without $derived (or `$:`), never reassigned or escaped, and referenced (eagerly) in the template — frozen at init (correctness/stale-prop-derivation). `legacy` distinguishes which mode the prop was declared in, since the fix differs — optional so existing external constructors of `ComponentFacts` are unaffected. */
   stalePropDerivations: {
     name: string;
     line: number;
+    legacy?: boolean;
   }[];
   /** Object/array-literal $state bindings reassigned at least once but never mutated, escaped, aliased, or item-edited — $state.raw candidates (performance/state-raw). */
   rawableStates: {

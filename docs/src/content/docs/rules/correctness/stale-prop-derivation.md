@@ -38,6 +38,29 @@ Svelte's guidance is to treat props as though they will change. The plain form e
 
 Use `$derived.by(() => ...)` when the computation needs a function body. If you genuinely want a one-time snapshot (an uncontrolled component's initial value), `let value = $state(initialValue)` is the documented pattern — and it is not flagged.
 
+### Legacy mode (`export let`)
+
+The same bug exists in legacy-mode components, with a different fix — Svelte can't mix `export let` and `$props()` in one file, so this rule recognizes both prop styles and tailors its message accordingly:
+
+```svelte
+<script>
+  export let type;
+
+  // flagged — freezes the first render's value
+  let color = type === 'danger' ? 'red' : 'green';
+</script>
+```
+
+```svelte
+<script>
+  export let type;
+
+  $: color = type === 'danger' ? 'red' : 'green';
+</script>
+```
+
+Prefixing the assignment with `$:` (a reactive statement) is the legacy-mode equivalent of `$derived` — it re-runs whenever `type` changes, instead of only once at initialization.
+
 ## Limitations
 
 The call-free restriction means method derivations (`type.toUpperCase()`, `items.filter(...)`) are not detected in v1 — a deliberate precision-first trade-off; a future version may allow-list pure built-ins. The rule cannot know whether the parent ever changes the prop; even when it doesn't, `$derived` costs nothing and keeps the code correct under change. Note the interplay with `correctness/unmutated-state`: for never-written `$state` computed from a prop, the right fix is `$derived`, not `const`.

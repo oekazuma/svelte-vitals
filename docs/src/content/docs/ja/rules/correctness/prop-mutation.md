@@ -42,3 +42,31 @@ Svelte の公式ドキュメントは明確に「`$bindable` でない限り pro
   let { user = $bindable() } = $props();
 </script>
 ```
+
+### legacy mode（`export let`）
+
+同じ種類のバグは legacy mode のコンポーネントにも、別の理由で存在します。Svelte の legacy なリアクティビティは代入ベースなので、`bind:` で渡された prop であっても、変異メソッド呼び出しだけでは更新がトリガーされません:
+
+```svelte
+<script>
+  export let items;
+
+  // 検出対象 — 変異自体は更新をトリガーしない
+  function addItem(item) {
+    items.push(item);
+  }
+</script>
+```
+
+リアクティビティを再トリガーするには、変異後に prop を再代入してください — これは回避策ではなく、Svelte 自身が公式に示しているパターンです:
+
+```svelte
+<script>
+  export let items;
+
+  function addItem(item) {
+    items.push(item);
+    items = items; // items が変わったことをコンパイラに伝える
+  }
+</script>
+```
