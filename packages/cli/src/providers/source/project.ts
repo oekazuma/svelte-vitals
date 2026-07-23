@@ -18,6 +18,64 @@ export class ProjectError extends Error {
 const ROUTES_DIR = 'src/routes';
 
 /**
+ * Minimum Svelte/SvelteKit major versions this tool's rules assume (Svelte 5 runes —
+ * `$props()`/`$state()`/`$derived()` — and SvelteKit 2 APIs). Advisory only: an older
+ * project still gets analyzed normally, but rules that key off runes syntax (e.g.
+ * correctness/stale-prop-derivation, correctness/prop-mutation) can't recognize the
+ * legacy (`export let`, `$:`) equivalent of the same bugs, so findings may be incomplete.
+ */
+const MIN_SVELTE_MAJOR = 5;
+const MIN_KIT_MAJOR = 2;
+
+/**
+ * The leading integer in a semver range specifier (`^5.56.6` → 5, `>=4.0.0` → 4); undefined
+ * for an empty/unparsable string (`*`, `latest`, `workspace:*`, …) — never guessed. Anchored
+ * to the start of the (optionally operator-prefixed) string, not a bare digit search — a
+ * `file:../svelte-4` path or a `github:sveltejs/svelte#v4` git specifier contains a `4` too,
+ * but isn't a version declaration at all, so it must not be read as "major 4".
+ */
+function leadingMajor(range: string | undefined): number | undefined {
+  const m = range ? /^(?:[\^~]|>=|<=|>|<|=)?\s*(\d+)/.exec(range.trim()) : null;
+  return m ? Number(m[1]) : undefined;
+}
+
+/**
+ * Warn (never block) when the analyzed project declares a Svelte or SvelteKit version
+ * below the floor rules assume — read from package.json's declared range, same source
+ * `detectProject` already uses for the `@sveltejs/kit` presence check. A missing/
+ * unparsable package.json or an unparsable version range yields no warning (silent,
+ * consistent with `detectProject`'s own conservative fallbacks) rather than guessing.
+ */
+export async function checkVersionFloor(rt: Runtime, cwd: string): Promise<string[]> {
+  const pkgPath = rt.join(cwd, 'package.json');
+  if (!(await rt.exists(pkgPath))) return [];
+  let pkg: { dependencies?: Record<string, string>; devDependencies?: Record<string, string> };
+  try {
+    pkg = JSON.parse(await rt.readFile(pkgPath));
+  } catch {
+    return [];
+  }
+
+  const warnings: string[] = [];
+  const svelteRange = pkg.dependencies?.svelte ?? pkg.devDependencies?.svelte;
+  const svelteMajor = leadingMajor(svelteRange);
+  if (svelteMajor !== undefined && svelteMajor < MIN_SVELTE_MAJOR) {
+    warnings.push(
+      `this project declares svelte "${svelteRange}", but rules assume Svelte ${MIN_SVELTE_MAJOR}+ (runes) — ` +
+        `findings may miss the legacy (export let / $:) equivalent of runes-only checks.`
+    );
+  }
+  const kitRange = pkg.dependencies?.['@sveltejs/kit'] ?? pkg.devDependencies?.['@sveltejs/kit'];
+  const kitMajor = leadingMajor(kitRange);
+  if (kitMajor !== undefined && kitMajor < MIN_KIT_MAJOR) {
+    warnings.push(
+      `this project declares @sveltejs/kit "${kitRange}", but rules assume SvelteKit ${MIN_KIT_MAJOR}+ — some checks may not apply.`
+    );
+  }
+  return warnings;
+}
+
+/**
  * Verify the cwd is a SvelteKit project (design §17): either `@sveltejs/kit`
  * appears in package.json, or a svelte.config.js exists alongside src/routes/.
  * Throws ProjectError with a friendly message otherwise.

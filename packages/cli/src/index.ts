@@ -28,7 +28,7 @@ import { createNodeRuntime } from './runtime/node.js';
 import { collectRoutes } from './providers/source/routes.js';
 import type { ParseCache } from './providers/source/resolve.js';
 import { collectComponentFacts } from './providers/source/components.js';
-import { detectProject, ProjectError, collectProjectFacts } from './providers/source/project.js';
+import { detectProject, ProjectError, collectProjectFacts, checkVersionFloor } from './providers/source/project.js';
 import { discoverApps } from './discover-apps.js';
 import { readPackageVersion, readCoreVersion } from './version.js';
 import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
@@ -190,7 +190,6 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
 
   const loaded = await loadConfigFile(cwd);
   const file = loaded?.config;
-  const warnings = loaded?.warnings ?? [];
 
   const weights = opts.weights ?? file?.weights;
   const config = defineConfig({
@@ -203,6 +202,7 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   });
 
   await detectProject(rt, cwd); // throws ProjectError if not a SvelteKit project
+  const warnings = [...(loaded?.warnings ?? []), ...(await checkVersionFloor(rt, cwd))];
 
   const matches = routeMatcher(opts.route);
   const collected = await collectRoutes(rt, cwd, config, opts.parseCache);
