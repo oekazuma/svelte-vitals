@@ -31,26 +31,26 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Build packages
         run: pnpm build
-      - name: Commit refreshed action dist if stale
+      - name: Open a PR to refresh action dist if stale
         # packages/action/dist is a committed bundle (embeds the CLI + its dependencies), so
         # any change reachable from that bundle graph leaves it stale. This used to be a
         # PR-blocking CI check — every PR touching core/cli needed its own "rebuild dist"
         # commit, which conflicted constantly across concurrent branches (large generated
-        # bundle, ~zero semantic diff overlap). Now it's fixed here instead: every push to
-        # main self-heals main's dist, so PRs never need to touch it at all (ci.yml's "Verify
-        # action dist is up to date" step only runs on push, as a safety net).
+        # bundle, ~zero semantic diff overlap). Now it's fixed here instead: PRs never need to
+        # touch it at all (ci.yml's "Verify action dist is up to date" step only runs on push,
+        # as a safety net) — a stale dist gets a small, single-purpose PR here instead.
         #
-        # main requires 1 approving review (required_pull_request_reviews), but
-        # enforce_admins is off — so only a push authenticated as an actual repo admin can
-        # land directly on main. GITHUB_TOKEN acts as github-actions[bot], not an admin, and
-        # would be rejected; ACTION_DIST_PAT (a fine-grained PAT minted from an admin account,
-        # Contents: read/write) is what makes this push allowed at all.
-        # `[skip ci]` deliberately suppresses the re-trigger this PAT push would otherwise
-        # cause: the dist this commits was just produced by *this* job's own `pnpm build`, so
-        # there's nothing new to validate — re-running the full pipeline (and this workflow
-        # again) would be pure overhead, not signal.
+        # This used to push straight to main with a PAT, on the theory that
+        # enforce_admins:false lets an admin-owned PAT bypass the required-review rule. That
+        # theory was wrong in practice (see #287's post-merge CI failure: GH006 "Changes must
+        # be made through a pull request") — direct pushes to main are rejected regardless, and
+        # worse, the failure (with no continue-on-error) skipped every step after it, silently
+        # blocking the real changesets publish/tag steps below on *every* push to main until
+        # fixed. `continue-on-error: true` here means this step can never do that again — dist
+        # stays a best-effort side task, not a gate on the actual release.
+        continue-on-error: true
         env:
-          PAT: ${{ secrets.ACTION_DIST_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # git status (not diff): a future tsup output change (e.g. a new chunk file) would
           # show up as untracked, which `git diff` alone would silently miss.
@@ -58,15 +58,26 @@ jobs:
             echo "packages/action/dist is up to date — nothing to do."
             exit 0
           fi
-          if [ -z "$PAT" ]; then
-            echo "::error::packages/action/dist is stale but the ACTION_DIST_PAT secret is not set. Rebuild manually (pnpm build) and commit packages/action/dist, or add the secret."
-            exit 1
-          fi
+          branch="chore/rebuild-action-dist"
+          # Capture existing-PR state BEFORE rebuilding, not as a reason to skip the rebuild —
+          # if a PR from an earlier drift is still open when a later merge drifts dist further,
+          # the branch must still be updated (force-push), or merging the stale PR would leave
+          # main just as stale as before, needing yet another repair cycle. Only `gh pr create`
+          # itself is conditional: force-pushing new commits to an already-open PR's branch
+          # updates that PR in place, so creating a second one would just duplicate it.
+          existing_pr="$(gh pr list --head "$branch" --base main --state open --json number --jq '.[0].number')"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
           git add packages/action/dist
-          git commit -m "chore(action): rebuild dist [skip ci]"
-          git push "https://x-access-token:${PAT}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
+          git commit -m "chore(action): rebuild dist"
+          git push --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$branch"
+          if [ -n "$existing_pr" ]; then
+            echo "Updated the existing rebuild-action-dist PR (#$existing_pr)."
+          else
+            gh pr create --title "chore(action): rebuild dist" --base main --head "$branch" --body \
+              "Automated: \`packages/action/dist\` drifted from the source it's built from after the latest merge to \`main\`. Merging this keeps the committed bundle in sync — safe to approve once CI is green."
+          fi
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@a45c4d594aa4e2c509dc14a9f2b3b67ba3780d0d # v1.9.0
