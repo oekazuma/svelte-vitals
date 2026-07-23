@@ -31,6 +31,17 @@ describe('correctness/stale-prop-derivation', () => {
     expect(penalized[0]!.fix?.description).toBeTruthy();
   });
 
+  it('recommends $: (not $derived) for a legacy-mode (export let) prop', async () => {
+    const results = await correctnessStalePropDerivation.check(
+      ctx([comp('src/lib/Badge.svelte', [{ name: 'color', line: 3, legacy: true }])])
+    );
+    const penalized = results.filter((r) => r.detection.presence === 'none');
+    expect(penalized).toHaveLength(1);
+    expect(penalized[0]!.message).toBe(
+      '"color" is computed from a prop once, at initialization — it will not update when the prop changes. Prefix the assignment with $: to make it a reactive statement.'
+    );
+  });
+
   it('emits nothing without the fact', async () => {
     expect(await correctnessStalePropDerivation.check(ctx([comp('src/lib/Ok.svelte', [])]))).toEqual([]);
   });

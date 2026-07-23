@@ -445,6 +445,18 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
       names('<script>let { items } = $props(); if (true) { let items = []; items.push(1); } items.sort();</script>')
     ).toEqual(['items']);
   });
+
+  it('flags a mutating method call on a legacy `export let` prop, marked legacy', () => {
+    const facts = parseComponentFacts('<script>export let items; items.push(1);</script>', 'C.svelte');
+    expect(facts.mutatedProps).toEqual([{ name: 'items', line: 1, legacy: true }]);
+  });
+  it('flags a member-expression write on a legacy `export let` prop with a default value', () => {
+    const facts = parseComponentFacts('<script>export let user = {}; user.name = "x";</script>', 'C.svelte');
+    expect(facts.mutatedProps).toEqual([{ name: 'user', line: 1, legacy: true }]);
+  });
+  it('does not flag plain reassignment of a legacy prop (the sanctioned pattern for re-triggering reactivity)', () => {
+    expect(names('<script>export let items; items = items;</script>')).toEqual([]);
+  });
 });
 
 describe('parseComponentFacts — suppression directives (issue #92)', () => {

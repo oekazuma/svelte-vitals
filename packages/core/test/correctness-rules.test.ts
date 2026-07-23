@@ -183,6 +183,15 @@ describe('correctness/prop-mutation mutated non-bindable prop', () => {
     const rs = await correctnessPropMutation.check(ctx([comp({ mutatedProps: [] })]));
     expect(rs).toHaveLength(0);
   });
+  it('recommends reassignment (not $bindable) for a legacy-mode (export let) prop', async () => {
+    const rs = await correctnessPropMutation.check(
+      ctx([comp({ mutatedProps: [{ name: 'list', line: 4, legacy: true }] })])
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.message).toBe(
+      'Prop "list" is mutated directly — Svelte\'s legacy-mode reactivity is assignment-based, so this alone will not update the UI. Reassign it after mutating (e.g. "list = list").'
+    );
+  });
 });
 
 describe('correctness/orphan-effect orphan $effect', () => {

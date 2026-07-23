@@ -42,3 +42,31 @@ Static analysis catches all three at review/CI time, before the code path has to
   let { user = $bindable() } = $props();
 </script>
 ```
+
+### Legacy mode (`export let`)
+
+The same class of bug exists in legacy-mode components, for a different reason — Svelte's legacy reactivity is assignment-based, so a mutating method call never triggers an update on its own, even when the prop is passed with `bind:`:
+
+```svelte
+<script>
+  export let items;
+
+  // flagged — the mutation itself doesn't trigger an update
+  function addItem(item) {
+    items.push(item);
+  }
+</script>
+```
+
+Reassign the prop after mutating it to re-trigger reactivity — this is Svelte's own documented pattern, not a workaround:
+
+```svelte
+<script>
+  export let items;
+
+  function addItem(item) {
+    items.push(item);
+    items = items; // tells the compiler `items` changed
+  }
+</script>
+```

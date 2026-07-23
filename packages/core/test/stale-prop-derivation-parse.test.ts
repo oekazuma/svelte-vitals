@@ -58,6 +58,30 @@ describe('stalePropDerivations — flags', () => {
   });
 });
 
+describe('stalePropDerivations — legacy mode (export let)', () => {
+  it("flags the export-let equivalent of the official don't example, marked legacy", () => {
+    const src = script(`export let type;\nlet color = type === 'danger' ? 'red' : 'green';`, '<p class={color}>x</p>');
+    expect(spd(src)).toEqual([{ name: 'color', line: 3, legacy: true }]);
+  });
+
+  it('flags a bare alias derived from an export-let prop with a default value', () => {
+    const src = script(`export let type = 'ok';\nconst color = type;`);
+    expect(spd(src)).toEqual([{ name: 'color', line: 3, legacy: true }]);
+  });
+
+  it('does not flag a correct legacy reactive statement ($: is not a VariableDeclaration)', () => {
+    const src = script(`export let type;\n$: color = type === 'danger' ? 'red' : 'green';`);
+    expect(spd(src)).toEqual([]);
+  });
+
+  it('does not flag reassigned or escaped bindings derived from an export-let prop', () => {
+    const reassigned = script(`export let type;\nlet color = type;\ncolor = 'x';`);
+    expect(spd(reassigned)).toEqual([]);
+    const escaped = script(`export let type;\nconst color = type;\nregister(color);`);
+    expect(spd(escaped)).toEqual([]);
+  });
+});
+
 describe('stalePropDerivations — exclusions', () => {
   it('does not flag $derived, $state capture, calls, new, or await', () => {
     for (const init of [
