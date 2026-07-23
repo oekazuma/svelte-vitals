@@ -4,10 +4,10 @@ Reverses one call made in `2026-07-09-github-action-design.md` §4: "No release-
 
 ## Decision
 
-Dist freshness is now enforced (and self-healed) only on `main`, never on a PR:
+Dist freshness is now enforced (and self-healed) only on `main`, never on a PR, and by exactly one mechanism:
 
-- `.github/workflows/ci.yml`'s `check` job: the "Verify action dist is up to date" step gets `if: github.event_name == 'push'` — it still runs (and would fail loudly) on push to `main`, but never blocks a PR.
-- `.github/workflows/release.yml`: a new "Commit refreshed action dist if stale" step, right after `pnpm build` and before the changesets publish step, rebuilds and — if `packages/action/dist` differs — commits and pushes it straight to `main`. This runs on **every** push to `main` (not just release-triggering ones), so any merge that leaves dist stale gets fixed within the same CI run, before a human ever notices.
+- `.github/workflows/ci.yml`'s `check` job **no longer checks dist freshness at all** — an earlier iteration of this change added a push-only `if: github.event_name == 'push'` verification step here, but that's actively wrong: `ci.yml` and `release.yml` are independent workflows that both trigger on the same push and run concurrently. `ci.yml`'s checkout is pinned to the original commit and can never observe the fix-up commit `release.yml` produces moments later — so a check here would fail red on exactly the merges the self-heal exists to handle, for zero additional protection (caught in review, not shipped).
+- `.github/workflows/release.yml`: a new "Commit refreshed action dist if stale" step, right after `pnpm build` and before the changesets publish step, rebuilds and — if `packages/action/dist` differs — commits and pushes it straight to `main`. This runs on **every** push to `main` (not just release-triggering ones), so any merge that leaves dist stale gets fixed within the same CI run, before a human ever notices. This is now the sole enforcement point.
 - `.github/workflows/rebuild-action-dist.yml` (the Renovate-branch-only version of this same fix, added earlier as a narrower patch) is deleted — superseded, since Renovate PRs no longer need dist touched at all.
 
 ## Why a PAT, and why `[skip ci]`
@@ -19,3 +19,8 @@ The commit message includes `[skip ci]` deliberately: a PAT-authenticated push (
 ## Consequence accepted
 
 Between a merge landing on `main` and this step running, `main`'s committed dist can be momentarily stale. Nothing reads `packages/action/dist` in that window except a human manually cloning at that exact moment or another CI run mid-flight — accepted as strictly better than the prior PR-blocking cost.
+
+## Follow-up fixes (review)
+
+- Staleness detection uses `git status --porcelain` (not `git diff`), in both this doc's original design and the shipped release.yml step — `git diff` alone only sees changes to already-tracked files and would silently miss a future tsup output change that adds a new untracked file.
+- `release.yml` gained a `concurrency: { group: release-main, cancel-in-progress: false }` block: two merges landing close together would otherwise let two runs race on the dist-commit push to `main`, non-fast-forwarding one of them.
