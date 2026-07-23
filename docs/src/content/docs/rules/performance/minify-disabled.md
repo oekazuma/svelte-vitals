@@ -44,7 +44,7 @@ If unminified production output is intentional, turn the rule off in your config
 // svelte-vitals.config.mjs
 export default {
   rules: {
-    PERF012: 'off'
+    'performance/minify-disabled': 'off'
   }
 };
 ```

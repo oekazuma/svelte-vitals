@@ -28,11 +28,11 @@ export async function load({ fetch }) {
 }
 ```
 
-一部のデータが独立している場合は、切り出して並列化してください（PERF013 を参照）。
+一部のデータが独立している場合は、切り出して並列化してください（`performance/sequential-awaits` を参照）。
 
 ## 制限事項
 
-検出できるのは、依存チェーンがそのままの形で書かれている場合だけです。分岐、ループ、ヘルパー関数、モジュールレベルのキャッシュの背後に隠れたチェーンは検出できません。特定の行だけ抑制するには `// svelte-vitals-disable-next-line PERF011` を使います。
+検出できるのは、依存チェーンがそのままの形で書かれている場合だけです。分岐、ループ、ヘルパー関数、モジュールレベルのキャッシュの背後に隠れたチェーンは検出できません。特定の行だけ抑制するには `// svelte-vitals-disable-next-line performance/load-waterfall` を使います。
 
 ## 無効化
 
@@ -40,7 +40,7 @@ export async function load({ fetch }) {
 // svelte-vitals.config.mjs
 export default {
   rules: {
-    PERF011: 'off'
+    'performance/load-waterfall': 'off'
   }
 };
 ```

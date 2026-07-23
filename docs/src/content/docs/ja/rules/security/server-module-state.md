@@ -31,4 +31,4 @@ export const actions = {
 };
 ```
 
-cookies/`locals` で認証し、ユーザー別データはデータベースへ永続化します。意図的なプロセス全体キャッシュには `const` コンテナを使うか、代入行の直前に `// svelte-vitals-disable-next-line SEC004` を書いてください。
+cookies/`locals` で認証し、ユーザー別データはデータベースへ永続化します。意図的なプロセス全体キャッシュには `const` コンテナを使うか、代入行の直前に `// svelte-vitals-disable-next-line security/server-module-state` を書いてください。

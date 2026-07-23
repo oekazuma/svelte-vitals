@@ -7,7 +7,7 @@ description: Awaits that don't use each other's results still run one after anot
 
 ## What it checks
 
-Flags an await in a `load` function (universal or server) that does not use the results of any await before it — the requests serialize for no data-flow reason. Detection uses the same conservative straight-line scan as PERF011: forward taint through bindings and intermediate constants, callback-parameter shadowing respected, `await parent()` exempt. Awaiting an already-created promise (`await somePromise`) starts no request and is never flagged.
+Flags an await in a `load` function (universal or server) that does not use the results of any await before it — the requests serialize for no data-flow reason. Detection uses the same conservative straight-line scan as `performance/load-waterfall`: forward taint through bindings and intermediate constants, callback-parameter shadowing respected, `await parent()` exempt. Awaiting an already-created promise (`await somePromise`) starts no request and is never flagged.
 
 ## Why it matters
 
@@ -21,7 +21,7 @@ const [a, b] = await Promise.all([fetchA(), fetchB()]);
 
 ## Limitations
 
-Static data flow cannot see side-effect ordering. If an earlier await performs setup a later request relies on (sessions, locale, cache warming), the sequence is intentional — that is why this rule reports at `info` severity. Suppress a deliberate sequence per line with `// svelte-vitals-disable-next-line PERF013`, or raise/lower the severity in your config.
+Static data flow cannot see side-effect ordering. If an earlier await performs setup a later request relies on (sessions, locale, cache warming), the sequence is intentional — that is why this rule reports at `info` severity. Suppress a deliberate sequence per line with `// svelte-vitals-disable-next-line performance/sequential-awaits`, or raise/lower the severity in your config.
 
 ## Disabling
 
@@ -29,7 +29,7 @@ Static data flow cannot see side-effect ordering. If an earlier await performs s
 // svelte-vitals.config.mjs
 export default {
   rules: {
-    PERF013: 'off'
+    'performance/sequential-awaits': 'off'
   }
 };
 ```
