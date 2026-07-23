@@ -55730,6 +55730,7 @@ function parseComponentFacts(source2, filename2) {
     if (ast.fragment) {
       collectStateWrites(ast.fragment, stateNames, writtenOrEscaped);
       collectTemplateEscapes(ast.fragment, stateNames, writtenOrEscaped);
+      collectDirectiveEscapes(ast.fragment, stateNames, writtenOrEscaped);
     }
     for (const d of stateDecls) {
       if (!writtenOrEscaped.has(d.name)) constableStates.push(d);

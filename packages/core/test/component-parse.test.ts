@@ -931,3 +931,22 @@ describe('parseComponentFacts — browser-global refs (correctness/server-browse
     expect(parseComponentFacts(src, 'C.svelte').browserGlobalRefs).toEqual([]);
   });
 });
+
+describe('constableStates — directive escapes', () => {
+  const constable = (src: string) => parseComponentFacts(src, 'A.svelte').constableStates;
+
+  it('does not report $state handed to a use: directive', () => {
+    const src = `<script>\nlet obj = $state({});\n</script>\n<div use:draggable={obj}>x</div>`;
+    expect(constable(src)).toEqual([]);
+  });
+
+  it('does not report $state handed to a transition: directive', () => {
+    const src = `<script>\nlet params = $state({ duration: 200 });\n</script>\n<div transition:fly={params}>x</div>`;
+    expect(constable(src)).toEqual([]);
+  });
+
+  it('still reports untouched $state, including next to unrelated directives', () => {
+    const src = `<script>\nlet obj = $state({});\nlet other = $state({});\n</script>\n<div use:draggable={other}>x</div>`;
+    expect(constable(src)).toEqual([{ name: 'obj', line: 2 }]);
+  });
+});

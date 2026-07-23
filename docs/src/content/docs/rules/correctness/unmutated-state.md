@@ -9,6 +9,8 @@ description: Use const (or $state.raw) for a $state that is never mutated.
 
 Flags a `let x = $state(...)` whose value is never written or escaped anywhere in the component — not reassigned, not mutated (`x.a = …`, `x.push()`), not bound (`bind:value={x}`), not passed to a function or component. Checked by static (CLI) analysis of the component script and template.
 
+State passed to a `use:`/`transition:`/`animate:` directive is not flagged either — the receiving code holds the reference and may mutate it invisibly.
+
 ## Why it matters
 
 A `$state` that is never mutated pays for reactivity — deep proxying and dependency tracking — that it never uses. `const` is clearer and cheaper; `$state.raw` fits when you only ever reassign the value wholesale (never mutate its properties).
