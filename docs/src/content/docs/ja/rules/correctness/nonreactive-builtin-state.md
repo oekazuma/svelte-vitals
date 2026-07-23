@@ -1,13 +1,13 @@
 ---
 title: correctness/nonreactive-builtin-state · Non-reactive built-in in $state
-description: '$state に入れた素の Map・Set・Date・URL・URLSearchParams はプロキシされず、変更がリアクティビティに届きません。UI は静かに更新を止めます。'
+description: '$state に入れた素の Map・Set・Date・URL・URLSearchParams はプロキシされないため、変更してもリアクティビティに検知されず、UI が更新されなくなります。'
 ---
 
 **重大度:** warning · **カテゴリ:** correctness
 
 ## チェック内容
 
-素の組み込みクラス（`Map`・`Set`・`Date`・`URL`・`URLSearchParams`）で初期化されたトップレベルの `$state` 束縛のうち、そのインスタンスへの変更が関数内またはテンプレートのハンドラー内で観測されたものを検出します:
+素の組み込みクラス（`Map`・`Set`・`Date`・`URL`・`URLSearchParams`）をそのまま `$state` に入れたトップレベルの変数のうち、関数内またはテンプレートのハンドラー内でそのインスタンスに変更を加えているものを検出します:
 
 ```svelte
 <script>
@@ -21,11 +21,11 @@ description: '$state に入れた素の Map・Set・Date・URL・URLSearchParams
 {#each [...tags] as tag}<span>{tag}</span>{/each}
 ```
 
-検出は意図的に保守的です。型ごとの変更操作だけを数え（`map.set`、`set.add`、`date.setHours`、`params.append`、`url.href = …`、`url.searchParams.set(…)` など）、読み取りメソッドは数えません。変更のあとに再代入している運用（`tags = new Set(tags)`）は正しく動くため検出しませんが、素の自己代入 `tags = tags` は Svelte 5 では no-op なので免除になりません。スクリプトのトップレベルでの変更は初回描画前に一度実行されるだけなので、これも検出しません。
+検出条件はあえて絞り込んであります。対象になるのは型ごとの変更操作だけで（`map.set`、`set.add`、`date.setHours`、`params.append`、`url.href = …`、`url.searchParams.set(…)` など）、読み取りメソッドには反応しません。変更後に新しいインスタンスを再代入するコード（`tags = new Set(tags)`）は正しく動くため検出しません。ただし `tags = tags` のような単純な自己代入は、Svelte 5 では何も起こさないため検出対象のままです。スクリプトのトップレベルで行う変更も、初回描画の前に一度実行されるだけなので検出しません。
 
 ## なぜ重要か
 
-`$state` の深いプロキシが対象にするのは素のオブジェクトと配列だけです。素の組み込みインスタンスはデータとしては動き続けます（`set` も `add` も成功します）が、リアクティビティには何も届きません。effect は再実行されず、derived は再計算されず、テンプレートは古い内容を表示し続けます。コンポーネントは初回だけ正しく描画され、本番で静かに更新を止めます。コンパイラも svelte-check も警告しません。Svelte が `svelte/reactivity` を提供しているのは、まさにこのためです。
+`$state` がプロキシ化するのは素のオブジェクトと配列だけです。素の組み込みインスタンスでもデータ操作そのものは問題なく動きます（`set` も `add` も成功します）が、その変更はリアクティビティに一切伝わりません。effect は再実行されず、derived は再計算されず、テンプレートには古い内容が表示されたままになります。初回の描画は正しく行われるため、本番環境で気づかないうちに UI が更新されなくなるのです。コンパイラも svelte-check も警告してくれません。Svelte が `svelte/reactivity` を提供しているのは、まさにこのためです。
 
 ## 修正方法
 
@@ -37,11 +37,11 @@ description: '$state に入れた素の Map・Set・Date・URL・URLSearchParams
 </script>
 ```
 
-`SvelteMap`・`SvelteSet`・`SvelteDate`・`SvelteURL`・`SvelteURLSearchParams` は API 互換のドロップイン置換です。素の組み込みのまま、変更のたびに新しいインスタンスを再代入する運用（`tags = new Set(tags)`）でも動きます。このルールはそのパターンを認識して検出しません。
+`SvelteMap`・`SvelteSet`・`SvelteDate`・`SvelteURL`・`SvelteURLSearchParams` は API がまったく同じなので、そのまま置き換えられます。素の組み込みクラスを使い続けたい場合は、変更のたびに新しいインスタンスを再代入する書き方（`tags = new Set(tags)`）でも正しく動きます。このルールはそのパターンを認識するので、検出されません。
 
 ## 制限事項
 
-コンポーネントの外で起きる変更（ヘルパーやストア、子コンポーネントに渡した先での変更）は静的解析の射程外です。このルールは観測できた変更だけを数えるため、渡すだけの使い方は検出されません。組み込みクラス名をシャドーするローカルクラス（`class Map { … }`）があると誤帰属しますが、グローバルの組み込み名のシャドーはそれ自体が問題です。runes モジュール（`.svelte.ts`）とクラスフィールドの `$state` はこのバージョンでは対象外です。
+コンポーネントの外で起きる変更（ヘルパーやストア、子コンポーネントに渡した先での変更）までは静的解析では追えません。このルールは実際に見つけた変更だけを根拠にするため、インスタンスを渡すだけの使い方は検出されません。組み込みクラスと同じ名前のローカルクラス（`class Map { … }`）を定義していると誤って検出することがありますが、グローバルの組み込みクラス名を覆い隠すコードはそれ自体が混乱のもとです。runes モジュール（`.svelte.ts`）とクラスフィールドの `$state` は、このバージョンでは対象外です。
 
 ## 無効化
 
