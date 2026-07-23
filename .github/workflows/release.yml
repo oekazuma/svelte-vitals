@@ -116,12 +116,17 @@ jobs:
               echo "release for $tag already exists, skipping"
             else
               # Extract this version's own section from CHANGELOG.md (between its
-              # "## <version>" heading and the next "## " heading, or EOF) as the release body.
-              notes=$(awk -v ver="$version" '
+              # "## <version>" heading and the next "## " heading, or EOF) as the release
+              # body. Fail closed (not an empty-body release) if the heading is missing.
+              if ! notes="$(awk -v ver="$version" '
                 $0 == "## " ver { found=1; next }
                 found && /^## / { exit }
                 found { print }
-              ' "$pkg_dir/CHANGELOG.md")
+                END { if (!found) exit 1 }
+              ' "$pkg_dir/CHANGELOG.md")"; then
+                echo "::error::No changelog section found for $name@$version"
+                exit 1
+              fi
               gh release create "$tag" --title "$name@$version" --notes "$notes"
               echo "created release for $tag"
             fi
