@@ -66,7 +66,14 @@ jobs:
           # push-to-main only, never a PR gate.
           - name: Verify action dist is up to date
             if: github.event_name == 'push'
-            run: git diff --exit-code -- packages/action/dist
+            # git status (not diff): a future tsup output change (e.g. a new chunk file)
+            # would show up as untracked, which `git diff` alone would silently miss.
+            run: |
+              if [ -n "$(git status --porcelain -- packages/action/dist)" ]; then
+                git status --porcelain -- packages/action/dist
+                echo "::error::packages/action/dist is stale. release.yml should self-heal this on its next run."
+                exit 1
+              fi
           - name: Typecheck
             run: pnpm typecheck
           - name: Validate publishable packages

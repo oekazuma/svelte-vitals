@@ -5,6 +5,14 @@ on:
     branches:
       - main
 
+# Serializes runs (never cancels one in flight) so two merges landing close together can't
+# both reach the "Commit refreshed action dist if stale" step at once — concurrent runs would
+# each push to main from their own stale local HEAD, and the second push would be rejected as
+# non-fast-forward.
+concurrency:
+  group: release-main
+  cancel-in-progress: false
+
 permissions: {}
 jobs:
   release:
@@ -44,7 +52,9 @@ jobs:
         env:
           PAT: ${{ secrets.ACTION_DIST_PAT }}
         run: |
-          if git diff --quiet -- packages/action/dist; then
+          # git status (not diff): a future tsup output change (e.g. a new chunk file) would
+          # show up as untracked, which `git diff` alone would silently miss.
+          if [ -z "$(git status --porcelain -- packages/action/dist)" ]; then
             echo "packages/action/dist is up to date — nothing to do."
             exit 0
           fi
