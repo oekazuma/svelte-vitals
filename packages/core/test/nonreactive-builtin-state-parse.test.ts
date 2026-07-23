@@ -83,4 +83,28 @@ describe('nonreactiveBuiltinStates — exclusions', () => {
     const deepOnNonUrl = script(`let m = $state(new Map());\nfunction f() {\n  m.get("k").sort();\n}`);
     expect(nrb(deepOnNonUrl)).toEqual([]);
   });
+
+  it('does not count property writes on non-URL types (URL mutates via properties, the rest via methods)', () => {
+    const cases: [string, string][] = [
+      ['new Map()', 'm.foo = 1;'],
+      ['new Set()', 'm.foo++;'],
+      ['new Date()', 'delete m.foo;'],
+      ['new URLSearchParams()', 'm.foo = 1;']
+    ];
+    for (const [ctor, write] of cases) {
+      const src = script(`let m = $state(${ctor});\nfunction f() {\n  ${write}\n}`);
+      expect(nrb(src), `${ctor} / ${write}`).toEqual([]);
+    }
+    const url = script(`let u = $state(new URL("https://x.dev"));\nfunction f() {\n  u.hash = "#a";\n}`);
+    expect(nrb(url)).toEqual([{ name: 'u', type: 'URL', line: 2 }]);
+  });
+
+  it('resolves function-scoped var and nested declaration shadows', () => {
+    const varShadow = script(`let m = $state(new Map());\nfunction f() {\n  var m = new Map();\n  m.set("k", 1);\n}`);
+    expect(nrb(varShadow)).toEqual([]);
+    const fnShadow = script(`let m = $state(new Map());\nfunction outer() {\n  function m() {}\n  m.set("k", 1);\n}`);
+    expect(nrb(fnShadow)).toEqual([]);
+    const classShadow = script(`let m = $state(new Map());\nfunction outer() {\n  class m {}\n  m.set("k", 1);\n}`);
+    expect(nrb(classShadow)).toEqual([]);
+  });
 });

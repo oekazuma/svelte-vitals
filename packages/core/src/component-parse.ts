@@ -302,8 +302,10 @@ export function rootObjectName(node: Node): string | undefined {
 /**
  * Names newly bound AT `node` (not by its children) that shadow an outer binding of the
  * same name for everything nested inside it: function/arrow-function parameters, a
- * `catch` clause's parameter, a block's own `let`/`const` declarations (not `var`, which
- * is function-scoped and already covered by the enclosing function's params test), a
+ * `catch` clause's parameter, a block's own variable declarations (`let`/`const`/`var` —
+ * a `var` is really function-scoped, so treating it block-scoped leaves a nested block's
+ * `var` invisible to sibling blocks; accepted imprecision) plus its own `function`/`class`
+ * declaration names, a
  * `for`/`for-of`/`for-in` loop's declared variable, a Svelte `{#each ... as x, i}` block's
  * context AND index binding, a `{#snippet}` block's parameters, and an `{#await}` block's
  * `then`/`catch` value/error bindings. Used by `walkScoped` so a write/mutation detector
@@ -326,8 +328,13 @@ export function scopeIntroducedNames(node: Node): Set<string> {
     addBoundNames(node.param, introduced);
   } else if (node.type === 'BlockStatement') {
     for (const stmt of node.body ?? []) {
-      if (stmt?.type === 'VariableDeclaration' && stmt.kind !== 'var') {
+      if (stmt?.type === 'VariableDeclaration') {
         for (const d of stmt.declarations ?? []) addBoundNames(d.id, introduced);
+      } else if (
+        (stmt?.type === 'FunctionDeclaration' || stmt?.type === 'ClassDeclaration') &&
+        typeof stmt.id?.name === 'string'
+      ) {
+        introduced.add(stmt.id.name);
       }
     }
   } else if (node.type === 'ForStatement' || node.type === 'ForOfStatement' || node.type === 'ForInStatement') {
@@ -486,10 +493,14 @@ const BUILTIN_MUTATIONS: Record<string, Set<string>> = {
  * render and can never leave the UI stale); `reassigned` collects whole-binding
  * reassignments ANYWHERE (a fresh reassignment after mutation makes the code
  * work) — except the bare self-assignment `b = b`, a no-op under $state's
- * referential equality in Svelte 5, which must not exempt. Deep member calls
- * count as mutation only for URL bindings (final method in the URLSearchParams
- * set: `u.searchParams.set(...)`); deep reads (`get`, `has`, …) never count.
- * Shadow-aware; class bodies count as function depth.
+ * referential equality in Svelte 5, which must not exempt. Member writes
+ * (assignment / update / `delete`) and deep member calls count as mutation
+ * only for URL bindings (URL mutates via properties: `u.href = …`,
+ * `u.searchParams.set(...)` — final method in the URLSearchParams set); the
+ * other types count only direct calls from their own method table, so an
+ * expando-property write on a Map never flags (SvelteMap would not track it
+ * either). Deep reads (`get`, `has`, …) never count. Shadow-aware; class
+ * bodies count as function depth.
  */
 function collectBuiltinStateSignals(
   node: Node,
@@ -525,14 +536,14 @@ function collectBuiltinStateSignals(
       }
     } else if (node.left?.type === 'MemberExpression' && inFunction) {
       const n = hit(rootObjectName(node.left));
-      if (n) mutated.add(n);
+      if (n && candidates.get(n) === 'URL') mutated.add(n);
     }
   } else if (node.type === 'UpdateExpression' && node.argument?.type === 'MemberExpression' && inFunction) {
     const n = hit(rootObjectName(node.argument));
-    if (n) mutated.add(n);
+    if (n && candidates.get(n) === 'URL') mutated.add(n);
   } else if (node.type === 'UnaryExpression' && node.operator === 'delete' && inFunction) {
     const n = hit(rootObjectName(node.argument));
-    if (n) mutated.add(n);
+    if (n && candidates.get(n) === 'URL') mutated.add(n);
   } else if (
     node.type === 'CallExpression' &&
     node.callee?.type === 'MemberExpression' &&
