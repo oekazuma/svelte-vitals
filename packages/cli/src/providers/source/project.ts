@@ -27,10 +27,16 @@ const ROUTES_DIR = 'src/routes';
 const MIN_SVELTE_MAJOR = 5;
 const MIN_KIT_MAJOR = 2;
 
-/** The leading integer in a semver range specifier (`^5.56.6` → 5, `>=4.0.0` → 4); undefined for an empty/unparsable string (`*`, `latest`, `workspace:*`, …) — never guessed. */
+/**
+ * The leading integer in a semver range specifier (`^5.56.6` → 5, `>=4.0.0` → 4); undefined
+ * for an empty/unparsable string (`*`, `latest`, `workspace:*`, …) — never guessed. Anchored
+ * to the start of the (optionally operator-prefixed) string, not a bare digit search — a
+ * `file:../svelte-4` path or a `github:sveltejs/svelte#v4` git specifier contains a `4` too,
+ * but isn't a version declaration at all, so it must not be read as "major 4".
+ */
 function leadingMajor(range: string | undefined): number | undefined {
-  const m = range ? /\d+/.exec(range) : null;
-  return m ? Number(m[0]) : undefined;
+  const m = range ? /^(?:[\^~]|>=|<=|>|<|=)?\s*(\d+)/.exec(range.trim()) : null;
+  return m ? Number(m[1]) : undefined;
 }
 
 /**

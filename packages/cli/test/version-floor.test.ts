@@ -48,6 +48,15 @@ describe('checkVersionFloor', () => {
     expect(await checkVersionFloor(rt, '')).toEqual([]);
   });
 
+  it('does not mistake a digit inside a non-semver specifier for a version (file:/git specifiers)', async () => {
+    const rt = createMemoryRuntime({
+      'package.json': JSON.stringify({
+        dependencies: { svelte: 'file:../svelte-4', '@sveltejs/kit': 'github:sveltejs/kit#v1' }
+      })
+    });
+    expect(await checkVersionFloor(rt, '')).toEqual([]);
+  });
+
   it('checks devDependencies when the package is not in dependencies', async () => {
     const rt = createMemoryRuntime({ 'package.json': JSON.stringify({ devDependencies: { svelte: '^3.0.0' } }) });
     const warnings = await checkVersionFloor(rt, '');
