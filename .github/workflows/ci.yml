@@ -45,24 +45,8 @@ jobs:
         with:
           path: packages/*/dist
           key: dist-${{ hashFiles('packages/*/src/**', 'pnpm-lock.yaml', 'packages/*/tsup.config.ts') }}
-      # This key doesn't vary with the commit SHA, even though `pnpm build`'s prebuild
-      # step (scripts/gen-action-pin.mjs) embeds `git rev-parse HEAD` into a generated,
-      # gitignored source file — so two commits with identical src/**/lockfile/tsup
-      # config can share a cache entry despite producing a different action-pin. This is
-      # safe today only because nothing downstream reads that stale `dist`'s embedded SHA:
-      # `pnpm build` below is unconditional (always fresh, so `check:publish` never sees a
-      # cache-restored dist), and the `test` job's own `pnpm test` regenerates
-      # action-pin.generated.ts fresh before vitest runs (no test imports from dist/). If
-      # either of those stops being true, this key needs `github.sha` (or an equivalent) added.
       - name: Build packages
         run: pnpm build
-      # No "is packages/action/dist stale" check here (removed — see design doc
-      # docs/superpowers/specs/2026-07-22-action-dist-post-merge-only.md). release.yml's
-      # push-triggered self-heal runs as an *independent, concurrent* workflow on the same
-      # push — this job's checkout is pinned to the original commit and can never observe
-      # release.yml's fix-up commit, so a stale-dist check here would fail red on exactly the
-      # merges the self-heal exists to handle, with no protection gained (release.yml already
-      # verifies and repairs on every push regardless of what this workflow reports).
       - parallel:
           - name: Typecheck
             run: pnpm typecheck
@@ -96,10 +80,6 @@ jobs:
         with:
           path: packages/*/dist
           key: dist-${{ hashFiles('packages/*/src/**', 'pnpm-lock.yaml', 'packages/*/tsup.config.ts') }}
-      # See the matching comment on the `check` job's cache step: this key doesn't
-      # account for scripts/gen-action-pin.mjs's embedded commit SHA, but a stale
-      # cache-restored `dist` here is harmless — `pnpm test` below regenerates
-      # action-pin.generated.ts fresh for every commit, and no test reads from dist/.
       - name: Build packages
         if: steps.dist-cache.outputs.cache-hit != 'true'
         run: pnpm build

@@ -122,9 +122,7 @@ describe('runCiCli upgrade', () => {
   it('upgrades a stale pin, rewriting only the action line', async () => {
     const { io, writes, out } = fakeIO({ files: { [PATH]: oldWorkflow } });
     expect(await runCiCli(['upgrade'], io)).toBe(0);
-    expect(writes[PATH]).toContain(
-      `uses: oekazuma/svelte-vitals/packages/action@${ACTION_SHA} # action-v${ACTION_VERSION}`
-    );
+    expect(writes[PATH]).toContain(`uses: oekazuma/svelte-vitals-action@${ACTION_SHA} # v${ACTION_VERSION}`);
     // The other pinned action (actions/checkout) is untouched.
     expect(writes[PATH]).toContain('uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0');
     expect(out.join('\n')).toContain('upgraded @svelte-vitals/action');
