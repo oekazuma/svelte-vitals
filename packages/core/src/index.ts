@@ -101,6 +101,7 @@ export {
   correctnessUnmutatedState,
   correctnessPropMutation,
   correctnessStalePropDerivation,
+  correctnessNonreactiveBuiltinState,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
   correctnessServerBrowserGlobal,

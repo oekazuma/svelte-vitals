@@ -104,6 +104,12 @@ export interface ComponentFacts {
     name: string;
     line: number;
   }[];
+  /** Plain built-in instances (Map/Set/Date/URL/URLSearchParams) in $state whose type-specific mutations were observed inside functions, with no exempting reassignment — untracked by reactivity (correctness/nonreactive-builtin-state). */
+  nonreactiveBuiltinStates: {
+    name: string;
+    type: string;
+    line: number;
+  }[];
   /** `$effect` calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (correctness/orphan-effect). */
   orphanEffects: OrphanEffectFact[];
   /** Svelte lifecycle/context calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (correctness/orphan-lifecycle). */

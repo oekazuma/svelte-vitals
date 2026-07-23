@@ -46,6 +46,7 @@ import { correctnessEffectAsOnMount } from './correctness/effect-as-onmount.js';
 import { correctnessUnmutatedState } from './correctness/unmutated-state.js';
 import { correctnessPropMutation } from './correctness/prop-mutation.js';
 import { correctnessStalePropDerivation } from './correctness/stale-prop-derivation.js';
+import { correctnessNonreactiveBuiltinState } from './correctness/nonreactive-builtin-state.js';
 import { correctnessOrphanEffect } from './correctness/orphan-effect.js';
 import { correctnessOrphanLifecycle } from './correctness/orphan-lifecycle.js';
 import { correctnessServerBrowserGlobal } from './correctness/server-browser-global.js';
@@ -111,6 +112,7 @@ export const allRules: Rule[] = [
   correctnessUnmutatedState,
   correctnessPropMutation,
   correctnessStalePropDerivation,
+  correctnessNonreactiveBuiltinState,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
   correctnessServerBrowserGlobal,
@@ -177,6 +179,7 @@ export {
   correctnessUnmutatedState,
   correctnessPropMutation,
   correctnessStalePropDerivation,
+  correctnessNonreactiveBuiltinState,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
   correctnessServerBrowserGlobal,
