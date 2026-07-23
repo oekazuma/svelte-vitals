@@ -77,6 +77,8 @@ describe('stalePropDerivations — legacy mode (export let)', () => {
   it('does not flag reassigned or escaped bindings derived from an export-let prop', () => {
     const reassigned = script(`export let type;\nlet color = type;\ncolor = 'x';`);
     expect(spd(reassigned)).toEqual([]);
+    const escaped = script(`export let type;\nconst color = type;\nregister(color);`);
+    expect(spd(escaped)).toEqual([]);
   });
 });
 
