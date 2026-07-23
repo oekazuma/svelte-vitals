@@ -25,6 +25,11 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          # Full history (not the default shallow fetch-depth: 1) is required below: the
+          # private-package tagging step verifies an existing tag is an ancestor of HEAD, which
+          # needs the actual commit graph, not just the tip commit.
+          fetch-depth: 0
       - name: Setup Node.js and dependencies
         uses: ./.github/workflows/setup-node
         with:
@@ -105,6 +110,14 @@ jobs:
         # Idempotent: the tag and the Release are checked (and created) independently, so a
         # prior partial failure (e.g. tag pushed but release creation dropped) is retried
         # rather than permanently skipped just because the tag already exists.
+        #
+        # Ancestry-checked: a real incident shipped action-v0.3.8 pointing at an orphaned commit
+        # (from an abandoned Version Packages branch iteration, never part of main) that happened
+        # to land on the same version number as the real release — "tag already exists" alone
+        # can't distinguish "already released, correctly" from "name collision with unrelated
+        # history". Skipping silently on a name match let the wrong dist ship under a real
+        # version tag. Now a pre-existing tag is only trusted if it's actually an ancestor of
+        # this run's HEAD; otherwise the step fails loudly instead of shipping wrong content.
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -114,7 +127,15 @@ jobs:
             tag="$(basename "$pkg_dir")-v$version"
 
             if git ls-remote --exit-code --tags origin "refs/tags/$tag" >/dev/null 2>&1; then
-              echo "$tag already exists on origin"
+              # Fetch the tag's actual object: an orphaned commit (reachable only via this tag
+              # ref, not any branch) won't be present from the branch history fetched above.
+              git fetch origin "refs/tags/$tag:refs/tags/$tag" --force
+              if git merge-base --is-ancestor "refs/tags/$tag" HEAD; then
+                echo "$tag already exists on origin and is part of this release's history"
+              else
+                echo "::error::$tag already exists on origin, but its commit is NOT an ancestor of HEAD — likely an orphaned tag from an earlier/abandoned run colliding with this version number (this exact scenario shipped action-v0.3.8 with stale dist). Refusing to silently skip. Investigate and delete the incorrect tag/release, then re-run this workflow."
+                exit 1
+              fi
             else
               git config user.name "github-actions[bot]"
               git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
