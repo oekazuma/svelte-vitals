@@ -93,6 +93,7 @@ const stateModule = (file: string): ComponentFacts => ({
   mutatedProps: [],
   stalePropDerivations: [],
   rawableStates: [],
+  nonreactiveBuiltinStates: [],
   orphanEffects: [],
   orphanLifecycleCalls: [],
   browserGlobalRefs: [],

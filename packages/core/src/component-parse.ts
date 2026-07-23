@@ -450,6 +450,113 @@ function isPlainStateCall(node: Node): boolean {
   return node?.type === 'CallExpression' && node.callee?.type === 'Identifier' && node.callee.name === '$state';
 }
 
+/** Built-in classes with reactive drop-ins in svelte/reactivity — plain instances in $state are NOT deep-proxied, so their mutations are untracked (correctness/nonreactive-builtin-state). */
+const BUILTIN_STATE_TYPES = new Set(['Map', 'Set', 'Date', 'URL', 'URLSearchParams']);
+
+/** Type-specific mutating methods. URL mutates via property writes and deep searchParams calls only. */
+const BUILTIN_MUTATIONS: Record<string, Set<string>> = {
+  Map: new Set(['set', 'delete', 'clear']),
+  Set: new Set(['add', 'delete', 'clear']),
+  Date: new Set([
+    'setTime',
+    'setFullYear',
+    'setMonth',
+    'setDate',
+    'setHours',
+    'setMinutes',
+    'setSeconds',
+    'setMilliseconds',
+    'setYear',
+    'setUTCFullYear',
+    'setUTCMonth',
+    'setUTCDate',
+    'setUTCHours',
+    'setUTCMinutes',
+    'setUTCSeconds',
+    'setUTCMilliseconds'
+  ]),
+  URL: new Set<string>(),
+  URLSearchParams: new Set(['append', 'set', 'delete', 'sort'])
+};
+
+/**
+ * Signals for correctness/nonreactive-builtin-state, per candidate binding
+ * (name → constructor type): `mutated` collects type-specific mutations that
+ * happen INSIDE a function body (a top-level init mutation runs before first
+ * render and can never leave the UI stale); `reassigned` collects whole-binding
+ * reassignments ANYWHERE (a fresh reassignment after mutation makes the code
+ * work) — except the bare self-assignment `b = b`, a no-op under $state's
+ * referential equality in Svelte 5, which must not exempt. Deep member calls
+ * count as mutation only for URL bindings (final method in the URLSearchParams
+ * set: `u.searchParams.set(...)`); deep reads (`get`, `has`, …) never count.
+ * Shadow-aware; class bodies count as function depth.
+ */
+function collectBuiltinStateSignals(
+  node: Node,
+  candidates: Map<string, string>,
+  mutated: Set<string>,
+  reassigned: Set<string>,
+  shadowed: Set<string> = new Set(),
+  inFunction = false
+): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectBuiltinStateSignals(child, candidates, mutated, reassigned, shadowed, inFunction);
+    return;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
+  const boundary = isDeferredBody(node) || node.type === 'ClassDeclaration' || node.type === 'ClassExpression';
+  const nextInFunction = inFunction || boundary;
+  const hit = (name: unknown): string | undefined =>
+    typeof name === 'string' && candidates.has(name) && !scope.has(name) ? name : undefined;
+
+  if (node.type === 'AssignmentExpression') {
+    if (node.left?.type === 'Identifier') {
+      const n = hit(node.left.name);
+      const isBareSelfAssign = node.right?.type === 'Identifier' && node.right.name === n;
+      if (n && !isBareSelfAssign) reassigned.add(n);
+    } else if (node.left?.type === 'ObjectPattern' || node.left?.type === 'ArrayPattern') {
+      const bound = new Set<string>();
+      addBoundNames(node.left, bound);
+      for (const name of bound) {
+        const n = hit(name);
+        if (n) reassigned.add(n);
+      }
+    } else if (node.left?.type === 'MemberExpression' && inFunction) {
+      const n = hit(rootObjectName(node.left));
+      if (n) mutated.add(n);
+    }
+  } else if (node.type === 'UpdateExpression' && node.argument?.type === 'MemberExpression' && inFunction) {
+    const n = hit(rootObjectName(node.argument));
+    if (n) mutated.add(n);
+  } else if (node.type === 'UnaryExpression' && node.operator === 'delete' && inFunction) {
+    const n = hit(rootObjectName(node.argument));
+    if (n) mutated.add(n);
+  } else if (
+    node.type === 'CallExpression' &&
+    node.callee?.type === 'MemberExpression' &&
+    !node.callee.computed &&
+    inFunction
+  ) {
+    const method = node.callee.property?.name;
+    if (typeof method === 'string') {
+      if (node.callee.object?.type === 'Identifier') {
+        const n = hit(node.callee.object.name);
+        if (n && BUILTIN_MUTATIONS[candidates.get(n)!]?.has(method)) mutated.add(n);
+      } else if (node.callee.object?.type === 'MemberExpression') {
+        const n = hit(rootObjectName(node.callee));
+        if (n && candidates.get(n) === 'URL' && BUILTIN_MUTATIONS.URLSearchParams!.has(method)) mutated.add(n);
+      }
+    }
+  }
+
+  for (const key of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key)) continue;
+    collectBuiltinStateSignals(node[key], candidates, mutated, reassigned, scope, nextInFunction);
+  }
+}
+
 /**
  * Scan a binding pattern (a `VariableDeclarator.id`, or nested inside one) for
  * real references hiding inside it, while skipping the bound identifiers
@@ -1673,6 +1780,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     mutatedProps: [],
     stalePropDerivations: [],
     rawableStates: [],
+    nonreactiveBuiltinStates: [],
     suppressions: collectSuppressions(source),
     orphanEffects,
     orphanLifecycleCalls,
@@ -1722,6 +1830,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   const mutatedProps: { name: string; line: number }[] = [];
   const stalePropDerivations: { name: string; line: number }[] = [];
   const rawableStates: { name: string; line: number }[] = [];
+  const nonreactiveBuiltinStates: { name: string; type: string; line: number }[] = [];
   let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
@@ -1819,6 +1928,33 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
         if (reassigned && !dirty) rawableStates.push(c);
       }
     }
+    const builtinCandidates = new Map<string, { type: string; line: number }>();
+    for (const stmt of program.body ?? []) {
+      if (stmt?.type !== 'VariableDeclaration') continue;
+      for (const d of stmt.declarations ?? []) {
+        if (d?.id?.type !== 'Identifier' || !d.init || !isPlainStateCall(d.init)) continue;
+        const arg = unwrapTs(d.init.arguments?.[0]);
+        if (
+          arg?.type === 'NewExpression' &&
+          arg.callee?.type === 'Identifier' &&
+          BUILTIN_STATE_TYPES.has(arg.callee.name)
+        ) {
+          builtinCandidates.set(d.id.name, { type: arg.callee.name, line: lineOf(source, d.start) });
+        }
+      }
+    }
+    if (builtinCandidates.size > 0) {
+      const types = new Map([...builtinCandidates].map(([n, meta]) => [n, meta.type]));
+      const mutatedBuiltins = new Set<string>();
+      const reassignedBuiltins = new Set<string>();
+      collectBuiltinStateSignals(program, types, mutatedBuiltins, reassignedBuiltins);
+      if (ast.fragment) collectBuiltinStateSignals(ast.fragment, types, mutatedBuiltins, reassignedBuiltins);
+      for (const [name, meta] of builtinCandidates) {
+        if (mutatedBuiltins.has(name) && !reassignedBuiltins.has(name)) {
+          nonreactiveBuiltinStates.push({ name, type: meta.type, line: meta.line });
+        }
+      }
+    }
     // Instance top level runs on the server during SSR (correctness/instance-browser-global). The module
     // script's guard bindings (raw browser imports + module-level derived guards)
     // and top-level bindings are visible here — pass them in.
@@ -1849,6 +1985,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     mutatedProps,
     stalePropDerivations,
     rawableStates,
+    nonreactiveBuiltinStates,
     orphanEffects,
     orphanLifecycleCalls,
     browserGlobalRefs,
