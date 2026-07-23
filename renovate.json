@@ -7,7 +7,13 @@
     "enabled": true
   },
   "rangeStrategy": "bump",
+  "platformAutomerge": true,
   "packageRules": [
+    {
+      "description": "Auto-merge everything except major updates (those need review) — CI still has to pass first. The Renovate app is on main's ruleset bypass list specifically so these can merge without a human review.",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    },
     {
       "description": "Published packages' engines.node is a public compatibility floor for consumers, not a dev-toolchain pin — never auto-bump it.",
       "matchDepTypes": ["engines"],
