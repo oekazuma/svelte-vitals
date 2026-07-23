@@ -269,6 +269,16 @@ Print the help text and exit.
 
 Print the CLI's own version and the resolved `@svelte-vitals/core` version, e.g. `0.20.0 (core 0.21.0)`. `svelte-vitals` and `@svelte-vitals/vite` are versioned independently and can end up depending on different `@svelte-vitals/core` releases — compare this `core` version against the one shown in the [live dashboard](/svelte-vitals/guides/dev-dashboard/#version-drift) topbar if the two surfaces ever disagree on findings.
 
+## Supported Svelte/SvelteKit versions
+
+Rules assume **Svelte 5+ (runes)** and **SvelteKit 2+**. If the analyzed project declares an
+older `svelte` or `@sveltejs/kit` version in `package.json`, a warning is printed to stderr —
+the analysis still runs normally, but rules that key off runes syntax (e.g.
+[correctness/stale-prop-derivation](/svelte-vitals/rules/correctness/stale-prop-derivation/),
+[correctness/prop-mutation](/svelte-vitals/rules/correctness/prop-mutation/)) can't recognize
+the legacy (`export let` / `$:`) equivalent of the same bugs, so findings may be incomplete for
+components that haven't migrated to runes yet.
+
 ## Exit codes
 
 | Code | Meaning                                                                     |

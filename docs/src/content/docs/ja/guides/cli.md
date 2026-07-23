@@ -262,6 +262,16 @@ svelte-vitals --meta-components "SeoHead,PageMeta"
 
 CLI 自身のバージョンと、解決された `@svelte-vitals/core` のバージョンを表示して終了します（例：`0.20.0 (core 0.21.0)`）。`svelte-vitals` と `@svelte-vitals/vite` はそれぞれ独立してバージョン管理されており、異なる `@svelte-vitals/core` リリースに依存する状態になり得ます。CLI と[ライブダッシュボード](/svelte-vitals/ja/guides/dev-dashboard/#バージョンのずれ)で検出結果が食い違う場合は、この `core` バージョンをダッシュボードのトップバーに表示される値と比較してください。
 
+## 対応する Svelte/SvelteKit バージョン
+
+ルールは **Svelte 5+（runes）** と **SvelteKit 2+** を前提としています。解析対象プロジェクトの
+`package.json` がそれより古い `svelte`/`@sveltejs/kit` バージョンを宣言している場合、stderr に
+警告が表示されます — 解析自体は通常どおり実行されますが、
+[correctness/stale-prop-derivation](/svelte-vitals/ja/rules/correctness/stale-prop-derivation/)や
+[correctness/prop-mutation](/svelte-vitals/ja/rules/correctness/prop-mutation/)のように runes
+構文を手がかりにするルールは、同じバグの legacy 構文（`export let` / `$:`）版を認識できないため、
+runes へまだ移行していないコンポーネントでは検出結果が不完全になる場合があります。
+
 ## 終了コード
 
 | コード | 意味                                                                                 |
