@@ -55272,6 +55272,16 @@ function collectPropNames(program, includeBindable) {
   });
   return ambiguous || seen > 1 ? /* @__PURE__ */ new Set() : names;
 }
+function collectLegacyPropNames(program) {
+  const names = /* @__PURE__ */ new Set();
+  for (const stmt2 of program.body ?? []) {
+    if (stmt2?.type !== "ExportNamedDeclaration" || stmt2.declaration?.type !== "VariableDeclaration") continue;
+    for (const d of stmt2.declaration.declarations ?? []) {
+      if (d?.id?.type === "Identifier") names.add(d.id.name);
+    }
+  }
+  return names;
+}
 var MUTATING_METHODS = /* @__PURE__ */ new Set([
   "push",
   "pop",
@@ -55761,10 +55771,13 @@ function parseComponentFacts(source2, filename2) {
     collectImportSources(program, source2, importSpans);
     collectNamespaceImports(program, source2, namespaceImports);
     propCount = countProps(program);
-    const nonBindableProps = collectPropNames(program, false);
-    collectPropMutations(program, nonBindableProps, source2, mutatedProps);
-    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source2, mutatedProps);
-    const allPropNames = collectPropNames(program, true);
+    const legacyPropNames = collectLegacyPropNames(program);
+    const nonBindableProps = /* @__PURE__ */ new Set([...collectPropNames(program, false), ...legacyPropNames]);
+    const rawMutations = [];
+    collectPropMutations(program, nonBindableProps, source2, rawMutations);
+    if (ast.fragment) collectPropMutations(ast.fragment, nonBindableProps, source2, rawMutations);
+    for (const m of rawMutations) mutatedProps.push(legacyPropNames.has(m.name) ? { ...m, legacy: true } : m);
+    const allPropNames = /* @__PURE__ */ new Set([...collectPropNames(program, true), ...legacyPropNames]);
     if (allPropNames.size > 0) {
       const candidates = collectStalePropCandidates(program, allPropNames, source2);
       if (candidates.length > 0) {
@@ -55777,8 +55790,11 @@ function parseComponentFacts(source2, filename2) {
         }
         const referenced = /* @__PURE__ */ new Set();
         if (ast.fragment) collectFragmentRefs(ast.fragment, candidateNames, referenced);
+        const isLegacy = legacyPropNames.size > 0;
         for (const c of candidates) {
-          if (!disqualified.has(c.name) && referenced.has(c.name)) stalePropDerivations.push(c);
+          if (!disqualified.has(c.name) && referenced.has(c.name)) {
+            stalePropDerivations.push(isLegacy ? { ...c, legacy: true } : c);
+          }
         }
       }
     }
@@ -58051,12 +58067,12 @@ var correctnessPropMutation = componentRule({
   title: "Mutated non-bindable prop",
   category: "correctness",
   label: "Prop mutation",
-  recommendation: "Clone the value before mutating it, communicate the change via a callback prop, or declare the prop $bindable if the parent and child should share it.",
-  rationale: "Svelte's docs say plainly: don't mutate props unless they are $bindable. A plain-object prop mutation is a silent no-op (the object isn't a state proxy); a reactive-state-proxy prop mutation works but triggers the ownership_invalid_mutation dev warning only when that code path actually runs. Neither is caught by the compiler, so this rule catches both statically.",
+  recommendation: "Runes mode: clone the value before mutating it, communicate the change via a callback prop, or declare the prop $bindable if the parent and child should share it. Legacy mode: reassign the prop after mutating it (e.g. `list = list`) so Svelte's assignment-based reactivity picks up the change.",
+  rationale: "Svelte's docs say plainly: don't mutate props unless they are $bindable. A plain-object prop mutation is a silent no-op (the object isn't a state proxy); a reactive-state-proxy prop mutation works but triggers the ownership_invalid_mutation dev warning only when that code path actually runs. In legacy mode, mutating methods like .push()/.splice() never trigger an update on their own \u2014 Svelte's reactivity there is based on assignments, not mutations. Neither case is caught by the compiler, so this rule catches both statically.",
   applies: (c) => c.mutatedProps.length > 0,
   bad: (c) => c.mutatedProps.map((m) => ({
     line: m.line,
-    message: `Prop "${m.name}" is mutated, but it is not declared $bindable`
+    message: m.legacy ? `Prop "${m.name}" is mutated directly \u2014 Svelte's legacy-mode reactivity is assignment-based, so this alone will not update the UI. Reassign it after mutating (e.g. "${m.name} = ${m.name}").` : `Prop "${m.name}" is mutated, but it is not declared $bindable`
   }))
 });
 var correctnessStalePropDerivation = componentRule({
@@ -58065,15 +58081,15 @@ var correctnessStalePropDerivation = componentRule({
   category: "correctness",
   severity: "warning",
   label: "Props derived reactively",
-  recommendation: "Wrap the computation in $derived(...), or $derived.by(() => ...) when it needs a function body.",
-  rationale: "Svelte's guidance is to treat props as though they will change: a plain `let color = type === 'danger' ? 'red' : 'green'` freezes the first render's value, so the UI silently stops tracking the parent when the prop changes. $derived keeps the computation live at no cost.",
+  recommendation: "Wrap the computation in $derived(...) (or $derived.by(() => ...) for a function body) in runes-mode components; prefix the assignment with $: in legacy-mode components.",
+  rationale: "Svelte's guidance is to treat props as though they will change: a plain `let color = type === 'danger' ? 'red' : 'green'` freezes the first render's value, so the UI silently stops tracking the parent when the prop changes. In runes mode, $derived keeps the computation live at no cost; in legacy mode (export let props), a $: reactive statement does the same job.",
   fix: {
-    description: "Wrap the prop-derived computation in $derived(...) (or $derived.by(() => ...) for a function body), keeping the same expression."
+    description: "Wrap the prop-derived computation in $derived(...) (or $derived.by(() => ...) for a function body) in runes mode, or prefix the assignment with $: in legacy mode, keeping the same expression."
   },
   applies: (c) => c.stalePropDerivations.length > 0,
   bad: (c) => c.stalePropDerivations.map((s) => ({
     line: s.line,
-    message: `"${s.name}" is computed from a prop once, at initialization \u2014 it will not update when the prop changes. Wrap it in $derived.`
+    message: s.legacy ? `"${s.name}" is computed from a prop once, at initialization \u2014 it will not update when the prop changes. Prefix the assignment with $: to make it a reactive statement.` : `"${s.name}" is computed from a prop once, at initialization \u2014 it will not update when the prop changes. Wrap it in $derived.`
   }))
 });
 var correctnessNonreactiveBuiltinState = componentRule({
@@ -58875,7 +58891,7 @@ function applyOverrides(results, config) {
   return out;
 }
 
-// ../cli/dist/chunk-3YO2A3YF.js
+// ../cli/dist/chunk-CWCO6A5B.js
 import { readFile, access as access2 } from "fs/promises";
 import { join } from "path";
 
@@ -59653,7 +59669,7 @@ async function glob(globInput, options) {
   return crawler ? formatPaths(await crawler.withPromise(), relative2) : [];
 }
 
-// ../cli/dist/chunk-3YO2A3YF.js
+// ../cli/dist/chunk-CWCO6A5B.js
 import { readFileSync as readFileSync2 } from "fs";
 import { execFileSync } from "child_process";
 import { execFileSync as execFileSync2 } from "child_process";
@@ -59693,6 +59709,38 @@ var ProjectError = class extends Error {
   }
 };
 var ROUTES_DIR = "src/routes";
+var MIN_SVELTE_MAJOR = 5;
+var MIN_KIT_MAJOR = 2;
+function leadingMajor(range) {
+  const m = range ? /^(?:[\^~]|>=|<=|>|<|=)?\s*(\d+)/.exec(range.trim()) : null;
+  return m ? Number(m[1]) : void 0;
+}
+async function checkVersionFloor(rt, cwd) {
+  const pkgPath = rt.join(cwd, "package.json");
+  if (!await rt.exists(pkgPath)) return [];
+  let pkg;
+  try {
+    pkg = JSON.parse(await rt.readFile(pkgPath));
+  } catch {
+    return [];
+  }
+  const warnings2 = [];
+  const svelteRange = pkg.dependencies?.svelte ?? pkg.devDependencies?.svelte;
+  const svelteMajor = leadingMajor(svelteRange);
+  if (svelteMajor !== void 0 && svelteMajor < MIN_SVELTE_MAJOR) {
+    warnings2.push(
+      `this project declares svelte "${svelteRange}", but rules assume Svelte ${MIN_SVELTE_MAJOR}+ (runes) \u2014 findings may miss the legacy (export let / $:) equivalent of runes-only checks.`
+    );
+  }
+  const kitRange = pkg.dependencies?.["@sveltejs/kit"] ?? pkg.devDependencies?.["@sveltejs/kit"];
+  const kitMajor = leadingMajor(kitRange);
+  if (kitMajor !== void 0 && kitMajor < MIN_KIT_MAJOR) {
+    warnings2.push(
+      `this project declares @sveltejs/kit "${kitRange}", but rules assume SvelteKit ${MIN_KIT_MAJOR}+ \u2014 some checks may not apply.`
+    );
+  }
+  return warnings2;
+}
 async function detectProject(rt, cwd) {
   const pkgPath = rt.join(cwd, "package.json");
   let hasKitDep = false;
@@ -60578,7 +60626,6 @@ async function analyzeProject(opts = {}) {
   const rt = createNodeRuntime();
   const loaded = await loadConfigFile(cwd);
   const file = loaded?.config;
-  const warnings2 = loaded?.warnings ?? [];
   const weights = opts.weights ?? file?.weights;
   const config = defineConfig({
     treatDynamicAs: opts.treatDynamicAs ?? file?.treatDynamicAs ?? "pass",
@@ -60589,6 +60636,7 @@ async function analyzeProject(opts = {}) {
     ...file?.overrides !== void 0 ? { overrides: file.overrides } : {}
   });
   await detectProject(rt, cwd);
+  const warnings2 = [...loaded?.warnings ?? [], ...await checkVersionFloor(rt, cwd)];
   const matches = routeMatcher(opts.route);
   const collected = await collectRoutes(rt, cwd, config, opts.parseCache);
   const heads = collected.heads.filter((h) => matches(h.route));
