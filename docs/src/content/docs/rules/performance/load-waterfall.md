@@ -28,11 +28,11 @@ export async function load({ fetch }) {
 }
 ```
 
-If part of the data is independent, split it out and parallelize (see PERF013).
+If part of the data is independent, split it out and parallelize (see `performance/sequential-awaits`).
 
 ## Limitations
 
-Only the literal dependent-chain shape is detected; chains hidden behind branches, loops, helper functions, or module-level caches are not. A finding can be silenced per line with `// svelte-vitals-disable-next-line PERF011`.
+Only the literal dependent-chain shape is detected; chains hidden behind branches, loops, helper functions, or module-level caches are not. A finding can be silenced per line with `// svelte-vitals-disable-next-line performance/load-waterfall`.
 
 ## Disabling
 
@@ -40,7 +40,7 @@ Only the literal dependent-chain shape is detected; chains hidden behind branche
 // svelte-vitals.config.mjs
 export default {
   rules: {
-    PERF011: 'off'
+    'performance/load-waterfall': 'off'
   }
 };
 ```

@@ -14,7 +14,7 @@ Flags `$effect` / `$effect.pre` calls that are guaranteed to run outside compone
 
 Not flagged: effects inside functions (including factory functions and IIFEs), effects inside an `$effect.root(...)` callback, classes that are only instantiated inside components, classes imported from another file, effects in class field initializers or static blocks, and effects in anonymous class expressions (`const Store = class { … }`). Detection never crosses a function boundary, so it has no false positives by construction — at the cost of missing cross-file and factory variants.
 
-A conditionally-guarded effect — behind a top-level `if`, or behind a constructor-argument check (`constructor(persist) { if (persist) $effect(...) }`) — is still flagged even if the guard is never true at runtime, because the guard can't be evaluated statically. Use an inline suppression (`svelte-vitals-disable-next-line CORRECT006`) if the guard is intentional.
+A conditionally-guarded effect — behind a top-level `if`, or behind a constructor-argument check (`constructor(persist) { if (persist) $effect(...) }`) — is still flagged even if the guard is never true at runtime, because the guard can't be evaluated statically. Use an inline suppression (`svelte-vitals-disable-next-line correctness/orphan-effect`) if the guard is intentional.
 
 ## Why it matters
 

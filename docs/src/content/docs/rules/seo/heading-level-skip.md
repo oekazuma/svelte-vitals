@@ -7,7 +7,7 @@ description: Heading levels should not be skipped.
 
 ## What it checks
 
-Flags a heading whose level jumps more than one step over the previous heading (for example `<h2>` directly followed by `<h4>`). Presence of a single `<h1>` is covered by SEO027.
+Flags a heading whose level jumps more than one step over the previous heading (for example `<h2>` directly followed by `<h4>`). Presence of a single `<h1>` is covered by `seo/single-h1`.
 
 ## Why it matters
 

@@ -32,9 +32,9 @@ export const ssr = false; // これが意図的なら suppression するかル�
 // svelte-vitals.config.mjs
 export default {
   rules: {
-    SEO031: 'off'
+    'seo/ssr-disabled': 'off'
   }
 };
 ```
 
-または宣言の直前に `// svelte-vitals-disable-next-line SEO031` を書いてください。
+または宣言の直前に `// svelte-vitals-disable-next-line seo/ssr-disabled` を書いてください。

@@ -44,7 +44,7 @@ CLI の静的解析はこの条件分岐形式を意図的にスキップしま�
 // svelte-vitals.config.mjs
 export default {
   rules: {
-    PERF012: 'off'
+    'performance/minify-disabled': 'off'
   }
 };
 ```

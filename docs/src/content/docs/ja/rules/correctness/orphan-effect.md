@@ -14,7 +14,7 @@ description: コンポーネント初期化の外で作られた $effect はラ�
 
 検出対象外: 関数内の effect（ファクトリ関数や IIFE を含む）、`$effect.root(...)` コールバック内の effect、コンポーネント内でのみインスタンス化されるクラス、他ファイルから import されたクラス、クラスフィールド初期化子や static ブロック内の effect、名前のないクラス式（`const Store = class { … }`）内の effect。検出は関数境界を決して越えないため、構造上誤検出はありません。その代わりクロスファイルやファクトリ経由のケースは検出できません。
 
-トップレベルの `if` や、constructor 引数によるチェック（`constructor(persist) { if (persist) $effect(...) }`）で条件付きでガードされた effect は、そのガードが実行時に決して真にならない場合でも検出されます。ガードは静的に評価できないためです。ガードが意図的なものであれば、インラインの抑制コメント（`svelte-vitals-disable-next-line CORRECT006`）を使ってください。
+トップレベルの `if` や、constructor 引数によるチェック（`constructor(persist) { if (persist) $effect(...) }`）で条件付きでガードされた effect は、そのガードが実行時に決して真にならない場合でも検出されます。ガードは静的に評価できないためです。ガードが意図的なものであれば、インラインの抑制コメント（`svelte-vitals-disable-next-line correctness/orphan-effect`）を使ってください。
 
 ## なぜ重要か
 

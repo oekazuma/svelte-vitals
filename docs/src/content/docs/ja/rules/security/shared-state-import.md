@@ -9,7 +9,7 @@ description: Kit の server/universal ファイルが、モジュールスコー
 
 SvelteKit のルート/フックファイルの import のうち、解決先がリポジトリ内の `.svelte.ts`/`.svelte.js` モジュールで、そのモジュールが**モジュールスコープの `$state`**（トップレベルの `$state(...)` 宣言、または `$state` フィールドを持つクラスのモジュールスコープインスタンス）を持つものを検出します。検出には2つの形があります。
 
-- サーバーコードがその状態を**変異させている**（handler 外での書き込み。handler 内の書き込みは SEC003 が critical で報告します）
+- サーバーコードがその状態を**変異させている**（handler 外での書き込み。handler 内の書き込みは `security/handler-state-write` が critical で報告します）
 - import が**読み取り専用**（それでもサーバー上では、起動時の値を持ち続ける1つのインスタンスを全リクエストが共有します）
 
 対象は直接 import（`$lib/…` と相対パス）のみで、`import type` は対象外です。こうしたモジュールをクライアント専用で使うのは慣用的な共有ストアパターンとして正当であり、検出しません。サーバーで実行されるファイルからの import だけを対象とします。
@@ -33,4 +33,4 @@ export async function load({ locals }) {
 }
 ```
 
-モジュールが本当にクライアント専用なら、server ファイルから import しない構造に変えます。import が意図的で安全なら、その直前に `// svelte-vitals-disable-next-line SEC005` を書いてください。
+モジュールが本当にクライアント専用なら、server ファイルから import しない構造に変えます。import が意図的で安全なら、その直前に `// svelte-vitals-disable-next-line security/shared-state-import` を書いてください。

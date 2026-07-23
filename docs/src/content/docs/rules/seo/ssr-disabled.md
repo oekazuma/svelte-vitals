@@ -32,9 +32,9 @@ For a deliberate full SPA, disable the rule in your config:
 // svelte-vitals.config.mjs
 export default {
   rules: {
-    SEO031: 'off'
+    'seo/ssr-disabled': 'off'
   }
 };
 ```
 
-or add `// svelte-vitals-disable-next-line SEO031` above the declaration.
+or add `// svelte-vitals-disable-next-line seo/ssr-disabled` above the declaration.
