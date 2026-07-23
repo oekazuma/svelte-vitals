@@ -54874,6 +54874,81 @@ function isDeferredBody(n) {
 function isPlainStateCall(node) {
   return node?.type === "CallExpression" && node.callee?.type === "Identifier" && node.callee.name === "$state";
 }
+var BUILTIN_STATE_TYPES = /* @__PURE__ */ new Set(["Map", "Set", "Date", "URL", "URLSearchParams"]);
+var BUILTIN_MUTATIONS = {
+  Map: /* @__PURE__ */ new Set(["set", "delete", "clear"]),
+  Set: /* @__PURE__ */ new Set(["add", "delete", "clear"]),
+  Date: /* @__PURE__ */ new Set([
+    "setTime",
+    "setFullYear",
+    "setMonth",
+    "setDate",
+    "setHours",
+    "setMinutes",
+    "setSeconds",
+    "setMilliseconds",
+    "setYear",
+    "setUTCFullYear",
+    "setUTCMonth",
+    "setUTCDate",
+    "setUTCHours",
+    "setUTCMinutes",
+    "setUTCSeconds",
+    "setUTCMilliseconds"
+  ]),
+  URL: /* @__PURE__ */ new Set(),
+  URLSearchParams: /* @__PURE__ */ new Set(["append", "set", "delete", "sort"])
+};
+function collectBuiltinStateSignals(node, candidates, mutated, reassigned, shadowed = /* @__PURE__ */ new Set(), inFunction = false) {
+  if (Array.isArray(node)) {
+    for (const child of node) collectBuiltinStateSignals(child, candidates, mutated, reassigned, shadowed, inFunction);
+    return;
+  }
+  if (!node || typeof node !== "object" || typeof node.type !== "string") return;
+  const introduced = scopeIntroducedNames(node);
+  const scope = introduced.size > 0 ? /* @__PURE__ */ new Set([...shadowed, ...introduced]) : shadowed;
+  const boundary = isDeferredBody(node) || node.type === "ClassDeclaration" || node.type === "ClassExpression";
+  const nextInFunction = inFunction || boundary;
+  const hit = (name) => typeof name === "string" && candidates.has(name) && !scope.has(name) ? name : void 0;
+  if (node.type === "AssignmentExpression") {
+    if (node.left?.type === "Identifier") {
+      const n = hit(node.left.name);
+      const isBareSelfAssign = node.right?.type === "Identifier" && node.right.name === n;
+      if (n && !isBareSelfAssign) reassigned.add(n);
+    } else if (node.left?.type === "ObjectPattern" || node.left?.type === "ArrayPattern") {
+      const bound = /* @__PURE__ */ new Set();
+      addBoundNames(node.left, bound);
+      for (const name of bound) {
+        const n = hit(name);
+        if (n) reassigned.add(n);
+      }
+    } else if (node.left?.type === "MemberExpression" && inFunction) {
+      const n = hit(rootObjectName(node.left));
+      if (n) mutated.add(n);
+    }
+  } else if (node.type === "UpdateExpression" && node.argument?.type === "MemberExpression" && inFunction) {
+    const n = hit(rootObjectName(node.argument));
+    if (n) mutated.add(n);
+  } else if (node.type === "UnaryExpression" && node.operator === "delete" && inFunction) {
+    const n = hit(rootObjectName(node.argument));
+    if (n) mutated.add(n);
+  } else if (node.type === "CallExpression" && node.callee?.type === "MemberExpression" && !node.callee.computed && inFunction) {
+    const method2 = node.callee.property?.name;
+    if (typeof method2 === "string") {
+      if (node.callee.object?.type === "Identifier") {
+        const n = hit(node.callee.object.name);
+        if (n && BUILTIN_MUTATIONS[candidates.get(n)]?.has(method2)) mutated.add(n);
+      } else if (node.callee.object?.type === "MemberExpression") {
+        const n = hit(rootObjectName(node.callee));
+        if (n && candidates.get(n) === "URL" && BUILTIN_MUTATIONS.URLSearchParams.has(method2)) mutated.add(n);
+      }
+    }
+  }
+  for (const key2 of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key2)) continue;
+    collectBuiltinStateSignals(node[key2], candidates, mutated, reassigned, scope, nextInFunction);
+  }
+}
 function collectPatternAliasRefs(node, names, acc, scope, ownRhs) {
   if (!node || typeof node !== "object" || typeof node.type !== "string") return;
   if (node.type === "Identifier") return;
@@ -55639,6 +55714,7 @@ function parseModuleFacts(source2, filename2) {
     mutatedProps: [],
     stalePropDerivations: [],
     rawableStates: [],
+    nonreactiveBuiltinStates: [],
     suppressions: collectSuppressions(source2),
     orphanEffects,
     orphanLifecycleCalls,
@@ -55676,6 +55752,7 @@ function parseComponentFacts(source2, filename2) {
   const mutatedProps = [];
   const stalePropDerivations = [];
   const rawableStates = [];
+  const nonreactiveBuiltinStates = [];
   let propCount = 0;
   const program = ast.instance?.content;
   if (program) {
@@ -55770,6 +55847,29 @@ function parseComponentFacts(source2, filename2) {
         if (reassigned && !dirty) rawableStates.push(c);
       }
     }
+    const builtinCandidates = /* @__PURE__ */ new Map();
+    for (const stmt2 of program.body ?? []) {
+      if (stmt2?.type !== "VariableDeclaration") continue;
+      for (const d of stmt2.declarations ?? []) {
+        if (d?.id?.type !== "Identifier" || !d.init || !isPlainStateCall(d.init)) continue;
+        const arg = unwrapTs(d.init.arguments?.[0]);
+        if (arg?.type === "NewExpression" && arg.callee?.type === "Identifier" && BUILTIN_STATE_TYPES.has(arg.callee.name)) {
+          builtinCandidates.set(d.id.name, { type: arg.callee.name, line: lineOf(source2, d.start) });
+        }
+      }
+    }
+    if (builtinCandidates.size > 0) {
+      const types2 = new Map([...builtinCandidates].map(([n, meta]) => [n, meta.type]));
+      const mutatedBuiltins = /* @__PURE__ */ new Set();
+      const reassignedBuiltins = /* @__PURE__ */ new Set();
+      collectBuiltinStateSignals(program, types2, mutatedBuiltins, reassignedBuiltins);
+      if (ast.fragment) collectBuiltinStateSignals(ast.fragment, types2, mutatedBuiltins, reassignedBuiltins);
+      for (const [name, meta] of builtinCandidates) {
+        if (mutatedBuiltins.has(name) && !reassignedBuiltins.has(name)) {
+          nonreactiveBuiltinStates.push({ name, type: meta.type, line: meta.line });
+        }
+      }
+    }
     let moduleExtra;
     if (moduleProgram) {
       const moduleBrowserImports = collectBrowserGuardImports(moduleProgram);
@@ -55797,6 +55897,7 @@ function parseComponentFacts(source2, filename2) {
     mutatedProps,
     stalePropDerivations,
     rawableStates,
+    nonreactiveBuiltinStates,
     orphanEffects,
     orphanLifecycleCalls,
     browserGlobalRefs,
@@ -55820,6 +55921,7 @@ function emptyComponentFacts(file) {
     mutatedProps: [],
     stalePropDerivations: [],
     rawableStates: [],
+    nonreactiveBuiltinStates: [],
     orphanEffects: [],
     orphanLifecycleCalls: [],
     browserGlobalRefs: [],
@@ -57972,6 +58074,23 @@ var correctnessStalePropDerivation = componentRule({
     message: `"${s.name}" is computed from a prop once, at initialization \u2014 it will not update when the prop changes. Wrap it in $derived.`
   }))
 });
+var correctnessNonreactiveBuiltinState = componentRule({
+  id: "correctness/nonreactive-builtin-state",
+  title: "Non-reactive built-in in $state",
+  category: "correctness",
+  severity: "warning",
+  label: "Reactive collections in $state",
+  recommendation: "Import the reactive equivalent from 'svelte/reactivity' (SvelteMap, SvelteSet, SvelteDate, SvelteURL, SvelteURLSearchParams) and construct that instead.",
+  rationale: "$state deep-proxies plain objects and arrays only; built-in collection, date, and URL instances stay untracked, so property-level changes never reach effects, deriveds, or the template. Svelte's own answer is the drop-in classes in svelte/reactivity.",
+  fix: {
+    description: "Import Svelte<Type> from 'svelte/reactivity' and replace new <Type>(...) with new Svelte<Type>(...) \u2014 the API is identical."
+  },
+  applies: (c) => c.nonreactiveBuiltinStates.length > 0,
+  bad: (c) => c.nonreactiveBuiltinStates.map((s) => ({
+    line: s.line,
+    message: `"${s.name}" is a plain ${s.type} in $state \u2014 its mutations are not tracked, so the UI silently stops updating when it changes. Use Svelte${s.type} from 'svelte/reactivity'.`
+  }))
+});
 var correctnessOrphanEffect = componentRule({
   id: "correctness/orphan-effect",
   title: "Orphan $effect",
@@ -58439,6 +58558,7 @@ var allRules = [
   correctnessUnmutatedState,
   correctnessPropMutation,
   correctnessStalePropDerivation,
+  correctnessNonreactiveBuiltinState,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
   correctnessServerBrowserGlobal,
