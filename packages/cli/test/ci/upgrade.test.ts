@@ -120,6 +120,25 @@ describe('upgradeActionPin', () => {
     expect(outcome.content).toBe(`      - uses: oekazuma/svelte-vitals/packages/action@${NEW_SHA} # action-v2.0.0`);
   });
 
+  it('normalizes a current-sha line with no trailing comment (missing the Renovate-parseable comment entirely)', () => {
+    const content = `      - uses: oekazuma/svelte-vitals/packages/action@${NEW_SHA}`;
+    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
+
+    expect(outcome.status).toBe('upgraded');
+    expect(outcome.replaced).toBe(1);
+    expect(outcome.from).toBe(NEW_SHA.slice(0, 7));
+    expect(outcome.content).toBe(`      - uses: oekazuma/svelte-vitals/packages/action@${NEW_SHA} # action-v2.0.0`);
+  });
+
+  it('normalizes a current-sha line with an unrelated trailing comment', () => {
+    const content = `      - uses: oekazuma/svelte-vitals/packages/action@${NEW_SHA} # pinned manually, do not touch`;
+    const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');
+
+    expect(outcome.status).toBe('upgraded');
+    expect(outcome.replaced).toBe(1);
+    expect(outcome.content).toBe(`      - uses: oekazuma/svelte-vitals/packages/action@${NEW_SHA} # action-v2.0.0`);
+  });
+
   it('reports no-reference when the workflow has no action reference at all', () => {
     const content = ['on:', '  pull_request:', 'jobs:', '  build:', '    steps:', '      - run: echo hi'].join('\n');
     const outcome = upgradeActionPin(content, NEW_SHA, '2.0.0');

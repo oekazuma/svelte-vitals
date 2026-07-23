@@ -233,9 +233,13 @@ npx svelte-vitals@latest ci upgrade --dry-run    # preview the before/after with
 The pin `ci upgrade` writes comes from the CLI build itself, not a network lookup — run it with
 `@latest` (as above) to pick up the most recent one. Possible outcomes:
 
-- **Upgraded** — the reference line(s) didn't match the bundled pin; they're rewritten and the
-  old version (read from the line's `# action-vX.Y.Z` comment) is reported.
-- **Already up to date** — every reference already matches the bundled pin; nothing is written.
+- **Upgraded** — the reference line(s) didn't match the bundled pin (either the SHA is stale, or
+  the SHA is current but the comment isn't — e.g. it's missing, unrelated, or still in the
+  pre-fix `# @svelte-vitals/action@X.Y.Z` shape); they're rewritten and the old version (read
+  from the line's comment, in either format, or the old SHA's first 7 characters if there was no
+  comment at all) is reported.
+- **Already up to date** — every reference already matches the bundled pin **and** already
+  carries the canonical `# action-vX.Y.Z` comment; nothing is written.
 - **No workflow found** / **no action reference found** — exits with an error telling you to run
   `ci install` first; `ci upgrade` never creates a workflow from scratch.
 

@@ -51,10 +51,15 @@ export function upgradeActionPin(content: string, sha: string, version: string):
     const { indent, ref } = match.groups;
     if (indent === undefined || ref === undefined) return line;
     const comment = match.groups.comment ?? '';
-    if (ref === sha && !LEGACY_COMMENT.test(comment)) return line; // already pinned and comment is already canonical
+    const commentMatch = ACTION_PIN_COMMENT_RE.exec(comment);
+    // Canonical requires an actual action-v<version> match, not merely "not the legacy
+    // format" — a current-sha line with no comment at all (or an unrelated one) previously
+    // slipped through as "already up to date" without ever gaining the Renovate-parseable
+    // comment, since an absent/unrelated comment also fails the legacy-format test.
+    const isCanonicalComment = commentMatch !== null && !LEGACY_COMMENT.test(comment);
+    if (ref === sha && isCanonicalComment) return line; // already pinned and comment is already canonical
 
     if (from === undefined) {
-      const commentMatch = ACTION_PIN_COMMENT_RE.exec(comment);
       from = commentMatch ? commentMatch[1] : ref.slice(0, 7);
     }
 
