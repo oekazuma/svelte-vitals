@@ -3,6 +3,7 @@ import type { Expression } from 'estree';
 import type { AST } from 'svelte/compiler';
 import type {
   BrowserGlobalRefFact,
+  CheckableBindValueFact,
   ComponentFacts,
   EachBlockFact,
   EffectFact,
@@ -1821,6 +1822,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     stalePropDerivations: [],
     rawableStates: [],
     nonreactiveBuiltinStates: [],
+    checkableBindValues: [],
     suppressions: collectSuppressions(source),
     orphanEffects,
     orphanLifecycleCalls,

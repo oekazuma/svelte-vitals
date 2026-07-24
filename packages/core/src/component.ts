@@ -70,6 +70,17 @@ export interface SuppressionDirective {
   ruleIds?: string[];
 }
 
+/** An `<input type="checkbox">` / `<input type="radio">` element carrying a `bind:value`
+ *  directive — `bind:value` observes the DOM `value` property, which checkbox/radio
+ *  interaction never changes, so the bound state silently never updates
+ *  (correctness/checkable-bind-value). */
+export interface CheckableBindValueFact {
+  /** Which checkable input type was flagged — selects the message wording. */
+  kind: 'checkbox' | 'radio';
+  /** 1-based source line, or 0 if unknown. */
+  line: number;
+}
+
 /** Reactivity/correctness + security + architecture facts parsed from one `.svelte` component. */
 export interface ComponentFacts {
   /** Source file the component came from. */
@@ -111,6 +122,9 @@ export interface ComponentFacts {
     type: string;
     line: number;
   }[];
+  /** `<input type="checkbox">` / `<input type="radio">` elements bound with `bind:value`
+   * instead of `bind:checked`/`bind:group` (correctness/checkable-bind-value). */
+  checkableBindValues: CheckableBindValueFact[];
   /** `$effect` calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (correctness/orphan-effect). */
   orphanEffects: OrphanEffectFact[];
   /** Svelte lifecycle/context calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (correctness/orphan-lifecycle). */
