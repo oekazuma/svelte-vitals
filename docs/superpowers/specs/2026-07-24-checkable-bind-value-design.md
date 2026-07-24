@@ -7,7 +7,7 @@ Status: Approved
 
 `<input type="checkbox" bind:value={x}>` and `<input type="radio" bind:value={x}>` compile
 and run without any warning, but `bind:value` binds the DOM `value` property — on a checkable
-input the user's interaction toggles *checkedness*, which `bind:value` never observes. The
+input the user's interaction toggles _checkedness_, which `bind:value` never observes. The
 bound variable is silently frozen at its initial value forever; the form looks fine in
 development and never updates in production. The correct bindings are `bind:checked` (single
 checkbox) or `bind:group` (radio groups / checkbox lists).
@@ -32,21 +32,21 @@ real deploy-blocker (state never updates in production) that only static analysi
   `packages/core/src/rules/correctness/checkable-bind-value.ts`; label
   `bind:checked / bind:group on checkable inputs`
 - message (checkbox): `bind:value on a checkbox does not track its checked state — the bound
-  value silently never updates when the user toggles it. Use bind:checked (single checkbox) or
-  bind:group (checkbox list) instead.`
+value silently never updates when the user toggles it. Use bind:checked (single checkbox) or
+bind:group (checkbox list) instead.`
 - message (radio): `bind:value on a radio input does not track which option is selected — the
-  bound value silently never updates when the user picks one. Use bind:group with a shared
-  group variable across the radio inputs instead.`
+bound value silently never updates when the user picks one. Use bind:group with a shared
+group variable across the radio inputs instead.`
 - recommendation: `Replace bind:value with bind:checked (single checkbox) or bind:group
-  (checkbox list / radio group).`
+(checkbox list / radio group).`
 - rationale: `bind:value binds the DOM value property. A checkbox/radio's user interaction
-  toggles checkedness, which bind:value never observes — the bound state is frozen at its
-  initial value. Svelte's checked/grouped bindings (bind:checked, bind:group) are built for
-  exactly this.`
+toggles checkedness, which bind:value never observes — the bound state is frozen at its
+initial value. Svelte's checked/grouped bindings (bind:checked, bind:group) are built for
+exactly this.`
 - fix (description-only): `For a single checkbox, replace bind:value={x} with
-  bind:checked={x} (x becomes a boolean). For a checkbox list or radio group, replace
-  bind:value={x} with bind:group={x} on every input sharing the same group, keeping each
-  input's static value attribute (or a shared "value" binding) to identify the option.`
+bind:checked={x} (x becomes a boolean). For a checkbox list or radio group, replace
+bind:value={x} with bind:group={x} on every input sharing the same group, keeping each
+input's static value attribute (or a shared "value" binding) to identify the option.`
 
 ## Scope (v1)
 
@@ -76,7 +76,8 @@ parser's return object both gain the empty default):
 checkableBindValues: {
   kind: 'checkbox' | 'radio';
   line: number;
-}[];
+}
+[];
 ```
 
 ## Detection (component-parse)
@@ -121,12 +122,12 @@ is the CORRECT pattern for `bind:group`, never flagged).
 ## Testing
 
 - **Parse unit** (mirrors `nonreactive-builtin-state-parse.test.ts`): `<input type="checkbox"
-  bind:value={x}>` → recorded with `kind: 'checkbox'`; `<input type="radio" bind:value={x}>` →
+bind:value={x}>` → recorded with `kind: 'checkbox'`; `<input type="radio" bind:value={x}>` →
   recorded with `kind: 'radio'`; `<input type="checkbox" bind:checked={x}>` → not recorded;
   `<input type="checkbox" value="x">` (plain attribute, feeding `bind:group` elsewhere) → not
   recorded; `<input type="text" bind:value={x}>` → not recorded (not checkable);
   `<input type={dynamicExpr} bind:value={x}>` → not recorded (dynamic type); `<svelte:element
-  this="input" type="checkbox" bind:value={x}>` → not recorded; `<select bind:value={x}>` → not
+this="input" type="checkbox" bind:value={x}>` → not recorded; `<select bind:value={x}>` → not
   recorded; multiple checkable inputs in one file → each recorded with its own line.
 - **Rule unit** (mirrors `nonreactive-builtin-state-rule.test.ts`): checkbox fact → the
   checkbox-specific message, severity `warning`, fix description present; radio fact → the

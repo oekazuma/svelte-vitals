@@ -26,11 +26,13 @@ Issue: https://github.com/oekazuma/svelte-vitals/issues/299
 ### Task 1: `ComponentFacts` fact scaffolding
 
 **Files:**
+
 - Modify: `packages/core/src/component.ts`
 - Modify: `packages/core/src/component-collect.ts`
 - Modify: `packages/core/src/component-parse.ts` (import list + `parseModuleFacts`'s empty default only — the real collector is Task 2)
 
 **Interfaces:**
+
 - Produces: `CheckableBindValueFact` (`{ kind: 'checkbox' | 'radio'; line: number }`), and `ComponentFacts.checkableBindValues: CheckableBindValueFact[]`. Every later task reads/writes this exact field name and shape.
 
 This task only adds the type and its empty defaults everywhere `ComponentFacts` is constructed, so the codebase keeps compiling. No detection logic yet — that's Task 2, done in a real TDD red/green cycle against a working type.
@@ -99,7 +101,7 @@ Runes-module files (`.svelte.ts`/`.svelte.js`) have no template, so this fact is
 - [ ] **Step 4: Typecheck to confirm every `ComponentFacts` construction site is updated**
 
 Run: `pnpm --filter @svelte-vitals/core typecheck`
-Expected: FAILS, pointing at the `parseComponentFacts` function's return object in `component-parse.ts` (around line 2039) — it constructs a `ParsedFacts` object missing the new `checkableBindValues` field. This is expected; Task 2 adds it together with the real detection logic. Confirm the *only* error is this one missing-property error (no other file was missed).
+Expected: FAILS, pointing at the `parseComponentFacts` function's return object in `component-parse.ts` (around line 2039) — it constructs a `ParsedFacts` object missing the new `checkableBindValues` field. This is expected; Task 2 adds it together with the real detection logic. Confirm the _only_ error is this one missing-property error (no other file was missed).
 
 - [ ] **Step 5: Commit**
 
@@ -115,10 +117,12 @@ git commit -m "feat(core): add checkableBindValues fact scaffolding (issue #299)
 ### Task 2: Template detection in `component-parse.ts`
 
 **Files:**
+
 - Modify: `packages/core/src/component-parse.ts`
 - Create: `packages/core/test/checkable-bind-value-parse.test.ts`
 
 **Interfaces:**
+
 - Consumes: `CheckableBindValueFact` from Task 1 (`{ kind: 'checkbox' | 'radio'; line: number }`); `CHILD_NODE_KEYS`, `lineOf`, `findAttr`, `attrTextOf` from `./svelte-ast.js` (already imported at the top of `component-parse.ts`).
 - Produces: `parseComponentFacts(source, filename).checkableBindValues` — populated for `.svelte` files, always `[]` for `.svelte.ts`/`.svelte.js` (handled in Task 1).
 
@@ -134,16 +138,14 @@ const cbv = (src: string) => parseComponentFacts(src, 'A.svelte').checkableBindV
 
 describe('checkableBindValues — records', () => {
   it('records a checkbox with bind:value', () => {
-    const src = ['<script>', "  let x = $state(false);", '</script>', '<input type="checkbox" bind:value={x} />'].join(
+    const src = ['<script>', '  let x = $state(false);', '</script>', '<input type="checkbox" bind:value={x} />'].join(
       '\n'
     );
     expect(cbv(src)).toEqual([{ kind: 'checkbox', line: 4 }]);
   });
 
   it('records a radio with bind:value', () => {
-    const src = ['<script>', "  let x = $state('a');", '</script>', '<input type="radio" bind:value={x} />'].join(
-      '\n'
-    );
+    const src = ['<script>', "  let x = $state('a');", '</script>', '<input type="radio" bind:value={x} />'].join('\n');
     expect(cbv(src)).toEqual([{ kind: 'radio', line: 4 }]);
   });
 
@@ -256,11 +258,11 @@ function collectCheckableBindValues(node: Node, source: string, acc: CheckableBi
 In `packages/core/src/component-parse.ts`, inside `parseComponentFacts` (the `.svelte`-file branch, not `parseModuleFacts`), add the collection call right after the existing `collectSecurityFacts` call (around line 1845):
 
 ```ts
-  const htmlTags: SourceSpan[] = [];
-  const javascriptUrls: SourceSpan[] = [];
-  collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
-  const checkableBindValues: CheckableBindValueFact[] = [];
-  collectCheckableBindValues(ast.fragment ?? ast, source, checkableBindValues);
+const htmlTags: SourceSpan[] = [];
+const javascriptUrls: SourceSpan[] = [];
+collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
+const checkableBindValues: CheckableBindValueFact[] = [];
+collectCheckableBindValues(ast.fragment ?? ast, source, checkableBindValues);
 ```
 
 Then add `checkableBindValues,` to the function's final return object, right after `nonreactiveBuiltinStates,` (around line 2039):
@@ -292,12 +294,14 @@ git commit -m "feat(core): detect bind:value on checkable inputs (issue #299)"
 ### Task 3: The rule + registration
 
 **Files:**
+
 - Create: `packages/core/src/rules/correctness/checkable-bind-value.ts`
 - Modify: `packages/core/src/rules/index.ts`
 - Modify: `packages/core/src/index.ts`
 - Create: `packages/core/test/checkable-bind-value-rule.test.ts`
 
 **Interfaces:**
+
 - Consumes: `componentRule()` from `../component-rule.js`; `ComponentFacts.checkableBindValues` from Task 1/2.
 - Produces: `correctnessCheckableBindValue` (a `Rule`, id `correctness/checkable-bind-value`) — exported from `packages/core/src/rules/index.ts` and re-exported from `packages/core/src/index.ts`, consumed by Task 4's docs-links test and any CLI/report consumer.
 
@@ -401,8 +405,7 @@ export const correctnessCheckableBindValue = componentRule({
   category: 'correctness',
   severity: 'warning',
   label: 'bind:checked / bind:group on checkable inputs',
-  recommendation:
-    'Replace bind:value with bind:checked (single checkbox) or bind:group (checkbox list / radio group).',
+  recommendation: 'Replace bind:value with bind:checked (single checkbox) or bind:group (checkbox list / radio group).',
   rationale:
     "bind:value binds the DOM value property. A checkbox/radio's user interaction toggles checkedness, which bind:value never observes — the bound state is frozen at its initial value. Svelte's checked/grouped bindings (bind:checked, bind:group) are built for exactly this.",
   fix: {
@@ -474,17 +477,19 @@ git commit -m "feat(core): add correctness/checkable-bind-value rule (issue #299
 ### Task 4: Documentation (en + ja)
 
 **Files:**
+
 - Create: `docs/src/content/docs/rules/correctness/checkable-bind-value.md`
 - Create: `docs/src/content/docs/ja/rules/correctness/checkable-bind-value.md`
 
 **Interfaces:**
+
 - Consumes: rule id `correctness/checkable-bind-value`, severity `warning`, category `correctness` from Task 3 — `packages/cli/test/docs-links.test.ts` asserts both files exist at exactly these paths (`{category}/{rule-name}.md` under each locale's `rules/` dir).
 
 - [ ] **Step 1: Create the English doc page**
 
 Create `docs/src/content/docs/rules/correctness/checkable-bind-value.md`:
 
-```markdown
+````markdown
 ---
 title: correctness/checkable-bind-value · bind:value on a checkable input
 description: 'bind:value on a checkbox or radio input binds the DOM value property, which checkbox/radio interaction never changes — the bound state silently never updates.'
@@ -499,8 +504,9 @@ Flags a native `<input type="checkbox">` or `<input type="radio">` element that 
 ```svelte
 <input type="checkbox" bind:value={subscribed} />
 ```
+````
 
-`bind:value` binds the DOM `value` property. A checkbox/radio's user interaction toggles *checkedness*, not `value` — so `subscribed` is frozen at its initial value and never updates when the user clicks the checkbox.
+`bind:value` binds the DOM `value` property. A checkbox/radio's user interaction toggles _checkedness_, not `value` — so `subscribed` is frozen at its initial value and never updates when the user clicks the checkbox.
 
 Detection is template-only and static: the `type` attribute must be a literal `"checkbox"` or `"radio"` — a dynamic `type={expr}`, or a dynamic tag via `<svelte:element this="input" …>`, is out of static reach and is not flagged. A plain `value="…"` attribute (not the `bind:value` directive) is the correct pattern for `bind:group` and is never confused with the flagged case.
 
@@ -537,7 +543,8 @@ export default {
   }
 };
 ```
-```
+
+````
 
 - [ ] **Step 2: Create the Japanese doc page**
 
@@ -557,9 +564,9 @@ description: 'checkbox や radio に対する bind:value は DOM の value プ�
 
 ```svelte
 <input type="checkbox" bind:value={subscribed} />
-```
+````
 
-`bind:value` は DOM の `value` プロパティを束縛します。checkbox・radio のユーザー操作が切り替えるのは *チェック状態* であって `value` ではないため、`subscribed` は初期値のまま固まってしまい、ユーザーがチェックボックスをクリックしても更新されません。
+`bind:value` は DOM の `value` プロパティを束縛します。checkbox・radio のユーザー操作が切り替えるのは _チェック状態_ であって `value` ではないため、`subscribed` は初期値のまま固まってしまい、ユーザーがチェックボックスをクリックしても更新されません。
 
 検出はテンプレートのみを対象にした静的解析です。`type` 属性がリテラルの `"checkbox"` または `"radio"` である場合のみ対象になります — 動的な `type={expr}` や、動的なタグ名を使う `<svelte:element this="input" …>` は静的解析の範囲外のため検出しません。素の `value="…"` 属性（`bind:value` ディレクティブではないもの）は `bind:group` の正しい使い方であり、検出対象と混同することはありません。
 
@@ -596,7 +603,8 @@ export default {
   }
 };
 ```
-```
+
+````
 
 - [ ] **Step 3: Run the docs-links test**
 
@@ -608,16 +616,18 @@ Expected: PASS (both the en-page and ja-page checks now find `correctness/checka
 ```bash
 git add docs/src/content/docs/rules/correctness/checkable-bind-value.md docs/src/content/docs/ja/rules/correctness/checkable-bind-value.md
 git commit -m "docs: add checkable-bind-value rule pages (en/ja)"
-```
+````
 
 ---
 
 ### Task 5: Changeset and full verification
 
 **Files:**
+
 - Create: `.changeset/checkable-bind-value-rule.md`
 
 **Interfaces:**
+
 - Consumes: nothing new — this task only adds the changeset and runs the repo's full verify suite (per `AGENTS.md`) as the final gate before calling the feature done.
 
 - [ ] **Step 1: Create the changeset**

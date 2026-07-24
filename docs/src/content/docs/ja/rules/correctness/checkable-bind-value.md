@@ -13,7 +13,7 @@ description: 'checkbox や radio に対する bind:value は DOM の value プ�
 <input type="checkbox" bind:value={subscribed} />
 ```
 
-`bind:value` は DOM の `value` プロパティを束縛します。checkbox・radio のユーザー操作が切り替えるのは *チェック状態* であって `value` ではないため、`subscribed` は初期値のまま固まってしまい、ユーザーがチェックボックスをクリックしても更新されません。
+`bind:value` は DOM の `value` プロパティを束縛します。checkbox・radio のユーザー操作が切り替えるのは _チェック状態_ であって `value` ではないため、`subscribed` は初期値のまま固まってしまい、ユーザーがチェックボックスをクリックしても更新されません。
 
 検出はテンプレートのみを対象にした静的解析です。`type` 属性がリテラルの `"checkbox"` または `"radio"` である場合のみ対象になります — 動的な `type={expr}` や、動的なタグ名を使う `<svelte:element this="input" …>` は静的解析の範囲外のため検出しません。素の `value="…"` 属性（`bind:value` ディレクティブではないもの）は `bind:group` の正しい使い方であり、検出対象と混同することはありません。
 

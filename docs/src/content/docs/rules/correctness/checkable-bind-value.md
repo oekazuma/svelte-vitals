@@ -13,7 +13,7 @@ Flags a native `<input type="checkbox">` or `<input type="radio">` element that 
 <input type="checkbox" bind:value={subscribed} />
 ```
 
-`bind:value` binds the DOM `value` property. A checkbox/radio's user interaction toggles *checkedness*, not `value` — so `subscribed` is frozen at its initial value and never updates when the user clicks the checkbox.
+`bind:value` binds the DOM `value` property. A checkbox/radio's user interaction toggles _checkedness_, not `value` — so `subscribed` is frozen at its initial value and never updates when the user clicks the checkbox.
 
 Detection is template-only and static: the `type` attribute must be a literal `"checkbox"` or `"radio"` — a dynamic `type={expr}`, or a dynamic tag via `<svelte:element this="input" …>`, is out of static reach and is not flagged. A plain `value="…"` attribute (not the `bind:value` directive) is the correct pattern for `bind:group` and is never confused with the flagged case.
 

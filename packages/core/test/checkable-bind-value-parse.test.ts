@@ -5,16 +5,14 @@ const cbv = (src: string) => parseComponentFacts(src, 'A.svelte').checkableBindV
 
 describe('checkableBindValues — records', () => {
   it('records a checkbox with bind:value', () => {
-    const src = ['<script>', "  let x = $state(false);", '</script>', '<input type="checkbox" bind:value={x} />'].join(
+    const src = ['<script>', '  let x = $state(false);', '</script>', '<input type="checkbox" bind:value={x} />'].join(
       '\n'
     );
     expect(cbv(src)).toEqual([{ kind: 'checkbox', line: 4 }]);
   });
 
   it('records a radio with bind:value', () => {
-    const src = ['<script>', "  let x = $state('a');", '</script>', '<input type="radio" bind:value={x} />'].join(
-      '\n'
-    );
+    const src = ['<script>', "  let x = $state('a');", '</script>', '<input type="radio" bind:value={x} />'].join('\n');
     expect(cbv(src)).toEqual([{ kind: 'radio', line: 4 }]);
   });
 

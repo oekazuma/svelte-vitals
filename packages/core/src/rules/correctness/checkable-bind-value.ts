@@ -13,8 +13,7 @@ export const correctnessCheckableBindValue = componentRule({
   category: 'correctness',
   severity: 'warning',
   label: 'bind:checked / bind:group on checkable inputs',
-  recommendation:
-    'Replace bind:value with bind:checked (single checkbox) or bind:group (checkbox list / radio group).',
+  recommendation: 'Replace bind:value with bind:checked (single checkbox) or bind:group (checkbox list / radio group).',
   rationale:
     "bind:value binds the DOM value property. A checkbox/radio's user interaction toggles checkedness, which bind:value never observes — the bound state is frozen at its initial value. Svelte's checked/grouped bindings (bind:checked, bind:group) are built for exactly this.",
   fix: {
