@@ -107,6 +107,19 @@ describe('nonreactiveBuiltinStates — exclusions', () => {
     expect(nrb(src)).toEqual([]);
   });
 
+  it('does not count mutations of {let}/{const} declaration-tag aliases either', () => {
+    const letTag = script(
+      `let tags = $state(new Set());`,
+      `{#each groups as g}{let tags = g.tags}<button onclick={() => tags.add("x")}>x</button>{/each}`
+    );
+    expect(nrb(letTag)).toEqual([]);
+    const constTag = script(
+      `let tags = $state(new Set());`,
+      `{#each groups as g}{const tags = g.tags}<button onclick={() => tags.add("x")}>x</button>{/each}`
+    );
+    expect(nrb(constTag)).toEqual([]);
+  });
+
   it('resolves function-scoped var and nested declaration shadows', () => {
     const varShadow = script(`let m = $state(new Map());\nfunction f() {\n  var m = new Map();\n  m.set("k", 1);\n}`);
     expect(nrb(varShadow)).toEqual([]);
