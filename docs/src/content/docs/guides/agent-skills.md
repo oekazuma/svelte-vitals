@@ -17,9 +17,9 @@ The every-edit companion. It embeds the full rule catalog — every rule's id, t
 
 Written to:
 
-- `.claude/skills/SKILL.md` (Claude Code)
-- `.agents/skills/SKILL.md` (Codex)
-- `.cursor/skills/SKILL.md` (Cursor)
+- `.claude/skills/svelte-vitals/SKILL.md` (Claude Code)
+- `.agents/skills/svelte-vitals/SKILL.md` (Codex)
+- `.cursor/skills/svelte-vitals/SKILL.md` (Cursor)
 
 All three files are byte-identical.
 

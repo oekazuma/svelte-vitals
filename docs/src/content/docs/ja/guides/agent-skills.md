@@ -17,9 +17,9 @@ npx svelte-vitals@latest install --client claude-skill,claude-skill-improve --ye
 
 書き出される場所：
 
-- `.claude/skills/SKILL.md`（Claude Code）
-- `.agents/skills/SKILL.md`（Codex）
-- `.cursor/skills/SKILL.md`（Cursor）
+- `.claude/skills/svelte-vitals/SKILL.md`（Claude Code）
+- `.agents/skills/svelte-vitals/SKILL.md`（Codex）
+- `.cursor/skills/svelte-vitals/SKILL.md`（Cursor）
 
 3ファイルともバイト単位で同一です。
 
