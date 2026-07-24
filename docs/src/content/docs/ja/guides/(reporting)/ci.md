@@ -2,7 +2,7 @@
 title: CI 連携
 description: 生成された GitHub Actions ワークフローで、svelte-vitals の検出結果に基づいてプルリクエストをゲートします。
 sidebar:
-  order: 9
+  order: 3
 ---
 
 `svelte-vitals ci install` は、すべてのプルリクエストでファーストパーティの GitHub Action である **`@svelte-vitals/action`** を呼び出す GitHub Actions ワークフローを生成します。インラインアノテーション、ジョブサマリー、単一のスティッキー PR コメントまで揃い、YAML を手書きする必要はありません。

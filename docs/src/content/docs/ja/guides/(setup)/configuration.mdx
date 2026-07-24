@@ -2,7 +2,7 @@
 title: 設定ファイル
 description: 毎回フラグを指定する代わりに、svelte-vitals.config で一度だけ設定します。
 sidebar:
-  order: 3.5
+  order: 3
 ---
 
 `--rules`、`--ignore`、`--fail-on`、`--weights` を実行のたびに指定する代わりに、プロジェクトルートに `svelte-vitals.config` ファイルを置いて設定をまとめられます。CLI、[MCP サーバー](/ja/guides/mcp)、[Vite プラグイン](/ja/guides/plugin-mode) はいずれもこのファイルを自動的に読み込みます（MCP サーバーは CLI と同じ `analyzeProject` 関数を呼び出しているためこの機能をそのまま引き継ぎ、Vite プラグインは直接読み込みます。詳細は下記の [Vite プラグインで設定ファイルを再利用する](#vite-プラグインで設定ファイルを再利用する) を参照）。

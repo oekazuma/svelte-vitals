@@ -2,7 +2,7 @@
 title: CLI reference
 description: Complete reference for all svelte-vitals command-line flags.
 sidebar:
-  order: 3
+  order: 1
 ---
 
 ## Usage
@@ -78,7 +78,7 @@ Exit with code `1` when the combined Health score is below the given value. Acce
 svelte-vitals --min-health 80
 ```
 
-See [Health report](/guides/health-report) for how the score is calculated.
+See [Health score](/guides/health-report) for how the score is calculated.
 
 ### `--score`
 

@@ -2,7 +2,7 @@
 title: Reporters
 description: Choose how svelte-vitals formats and outputs its findings.
 sidebar:
-  order: 7
+  order: 1
 ---
 
 svelte-vitals supports seven output reporters. Select one with `--reporter <fmt>`, or let auto-selection pick the right one for your environment.
