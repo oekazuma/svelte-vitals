@@ -7,7 +7,7 @@
 
 ## 目的
 
-`docs/` の Astro + Starlight 製ドキュメントサイトを [blume](https://github.com/haydenbleasel/blume)(v1.1.4)に置き換える。英語 + 日本語の2ロケール構成と GitHub Pages(`/svelte-vitals` サブパス)へのデプロイを維持する。`docs/demo/`(別ワークスペースパッケージ、プロモ用GIF生成アプリ)は対象外、一切変更しない。
+`docs/` の Astro + Starlight 製ドキュメントサイトを [blume](https://github.com/haydenbleasel/blume)(v1.1.2 — `minimumReleaseAge` の3日ポリシーにより最新の v1.1.4 はまだ導入できないため)に置き換える。英語 + 日本語の2ロケール構成と GitHub Pages(`/svelte-vitals` サブパス)へのデプロイを維持する。`docs/demo/`(別ワークスペースパッケージ、プロモ用GIF生成アプリ)は対象外、一切変更しない。
 
 ## 決定事項
 
@@ -84,7 +84,7 @@ export default defineConfig({
 }
 ```
 
-- ルート `pnpm-workspace.yaml` の catalog: `@astrojs/check`・`@astrojs/starlight`・`astro`・`starlight-llms-txt`・`sharp` を削除(docs以外での使用なしを確認済み)、`blume: ^1.1.4` を追加。
+- ルート `pnpm-workspace.yaml` の catalog: `@astrojs/check`・`@astrojs/starlight`・`astro`・`starlight-llms-txt`・`sharp` を削除(docs以外での使用なしを確認済み)、`blume: ^1.1.2` を追加。`docs/tsconfig.json` の `extends: "astro/tsconfigs/strict"` はpnpmの厳格な(非hoisting)node_modules構成では解決できない(一度 `astro` を直接devDependencyとして再追加して解決を試みたが、Blumeが内部でバンドルするastroとは別インスタンスの"split install"を生み、`@astrojs/mdx` が誤ったastroコピーにバインドされて `blume build`/`check` 自体が壊れることが判明)ため、`extends` をやめて `astro/tsconfigs/base.json`+`strict.json`相当の compilerOptions を `docs/tsconfig.json` に直接インライン化した。
 
 ### `.github/workflows/deploy-docs.yml`
 

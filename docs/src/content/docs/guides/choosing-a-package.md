@@ -23,20 +23,20 @@ Each package is versioned independently and depends on `@svelte-vitals/core` (th
 
 ## Comparison
 
-|                | CLI (`svelte-vitals`)                                         | Vite plugin — build mode                                      | Vite plugin — live dashboard                                                        | MCP server                       |
-| -------------- | ------------------------------------------------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------- |
-| Reads          | Source (`.svelte` files, layout chain)                        | Prerendered HTML output + `.svelte` source (component rules)  | Source at startup; rendered HTML for routes you've visited                          | Source (same engine as the CLI)  |
-| Categories     | All 5 — SEO, Performance, Correctness, Security, Architecture | All 5 — SEO, Performance, Correctness, Security, Architecture | All 5 (static baseline); visited routes refine to rendered SEO/Performance accuracy | All 5                            |
-| Routes covered | Every route — SSR, dynamic, prerendered                       | Prerendered routes only                                       | Every route from startup — visited routes upgrade to `measured`                     | Every route                      |
-| Runs           | On demand — terminal, CI, pre-commit                          | Every `vite build`                                            | Live, while `vite dev` runs                                                         | On demand — an agent's tool call |
-| Needs a build  | No                                                            | Yes                                                           | No                                                                                  | No                               |
-| Typical home   | CI, pre-commit hooks, one-off audits                          | Build pipeline gate                                           | Local dev feedback (on by default)                                                  | An AI agent's tool loop          |
+|                | CLI (`svelte-vitals`)                                                  | Vite plugin — build mode                                               | Vite plugin — live dashboard                                                                 | MCP server                       |
+| -------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------- |
+| Reads          | Source (`.svelte` files, layout chain)                                 | Prerendered HTML output + `.svelte` source (component rules)           | Source at startup; rendered HTML for routes you've visited                                   | Source (same engine as the CLI)  |
+| Categories     | All categories — SEO, Performance, Correctness, Security, Architecture | All categories — SEO, Performance, Correctness, Security, Architecture | All categories (static baseline); visited routes refine to rendered SEO/Performance accuracy | All categories                   |
+| Routes covered | Every route — SSR, dynamic, prerendered                                | Prerendered routes only                                                | Every route from startup — visited routes upgrade to `measured`                              | Every route                      |
+| Runs           | On demand — terminal, CI, pre-commit                                   | Every `vite build`                                                     | Live, while `vite dev` runs                                                                  | On demand — an agent's tool call |
+| Needs a build  | No                                                                     | Yes                                                                    | No                                                                                           | No                               |
+| Typical home   | CI, pre-commit hooks, one-off audits                                   | Build pipeline gate                                                    | Local dev feedback (on by default)                                                           | An AI agent's tool loop          |
 
 Two surfaces are intentionally absent from this table: the **GitHub Action** runs the CLI's own engine in-process, so its coverage is the CLI column — what it adds is the PR experience (annotations, summary, sticky comment) rather than different analysis. **Agent Skills** run no analysis of their own at all — they give the agent the rule knowledge and tell it when to run the scanner.
 
 ### Why build-mode coverage is close to the CLI's
 
-Correctness, Security, and Architecture rules read component **source** — `$effect` bodies, `{@html}` calls, prop counts — which only exists before compilation. The CLI, MCP (which runs the CLI's own analysis engine), the Vite plugin's **build mode**, and the live dashboard's whole-project static baseline all read this source directly, so all four cover the full 5-category rule set.
+Correctness, Security, and Architecture rules read component **source** — `$effect` bodies, `{@html}` calls, prop counts — which only exists before compilation. The CLI, MCP (which runs the CLI's own analysis engine), the Vite plugin's **build mode**, and the live dashboard's whole-project static baseline all read this source directly, so all four cover the full rule set across every category.
 
 Once you actually visit a route in dev, the dashboard additionally re-checks that route's **rendered HTML** (via `svelteVitalsHandle`) for SEO/Performance — library-agnostic and exact for the pages it covers: whatever produced the `<head>`, if it's missing from the shipped HTML, it's seen. That per-route rendered re-check is the one thing the dashboard's static baseline alone doesn't give you. Build mode reads rendered HTML too (for the same exact-verification reason), _in addition to_ the source scan — it's the only build-time path that gets both.
 
@@ -44,7 +44,7 @@ Once you actually visit a route in dev, the dashboard additionally re-checks tha
 
 ### CLI — broadest coverage
 
-`svelte-vitals` reads your project's source directly, so it's the only path that covers every route (including SSR and dynamic ones) and all five categories. It needs no build and runs anywhere Node does — a terminal, a CI job, a pre-commit hook via `--staged`, or a PR check via `--diff main`. Start here for CI gating; see the [CLI reference](/guides/cli).
+`svelte-vitals` reads your project's source directly, so it's the only path that covers every route (including SSR and dynamic ones) and all categories. It needs no build and runs anywhere Node does — a terminal, a CI job, a pre-commit hook via `--staged`, or a PR check via `--diff main`. Start here for CI gating; see the [CLI reference](/guides/cli).
 
 ### Vite plugin — exact, build-time verification
 
@@ -54,7 +54,7 @@ The same package also serves a **live dashboard** at `/__svelte-vitals/` during 
 
 ### MCP server — for AI-agent workflows
 
-`@svelte-vitals/mcp` exposes the CLI's own analysis (all 5 categories, every route) as `analyze` and `explain_rule` tools over the Model Context Protocol, so an agent can call it mid-conversation instead of shelling out and parsing text output. Useful once you're working with an AI coding agent day to day; not a replacement for a CI gate. Set it up with `npx svelte-vitals@latest install`. See [MCP server](/guides/mcp).
+`@svelte-vitals/mcp` exposes the CLI's own analysis (all categories, every route) as `analyze` and `explain_rule` tools over the Model Context Protocol, so an agent can call it mid-conversation instead of shelling out and parsing text output. Useful once you're working with an AI coding agent day to day; not a replacement for a CI gate. Set it up with `npx svelte-vitals@latest install`. See [MCP server](/guides/mcp).
 
 ### GitHub Action — PR gating with zero YAML
 
@@ -66,7 +66,7 @@ Where the MCP server lets an agent _run_ the analysis, [Agent Skills](/guides/ag
 
 ## Recommended setups
 
-- **Just starting out:** run `npx svelte-vitals@latest` locally, then add it to CI (`pnpm build && npx svelte-vitals@latest --fail-on critical`). This alone covers all 5 categories and every route.
+- **Just starting out:** run `npx svelte-vitals@latest` locally, then add it to CI (`pnpm build && npx svelte-vitals@latest --fail-on critical`). This alone covers all categories and every route.
 - **Hosting on GitHub:** `npx svelte-vitals@latest ci install` instead of hand-writing that CI step — same engine, plus inline PR annotations and the sticky comment, scoped to each PR's own changes.
 - **Coding with an AI agent:** add the MCP server and Agent Skills in one pass (`npx svelte-vitals@latest install`) — the skills give the agent the rules before it writes code, the MCP server lets it verify after.
 - **Polishing prerendered/marketing pages:** add the Vite plugin's build mode for an exact, build-time gate on shipped HTML — its live dashboard (on by default) gives you feedback while you write, no extra setup needed.
