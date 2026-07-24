@@ -47,6 +47,7 @@ import { correctnessUnmutatedState } from './correctness/unmutated-state.js';
 import { correctnessPropMutation } from './correctness/prop-mutation.js';
 import { correctnessStalePropDerivation } from './correctness/stale-prop-derivation.js';
 import { correctnessNonreactiveBuiltinState } from './correctness/nonreactive-builtin-state.js';
+import { correctnessCheckableBindValue } from './correctness/checkable-bind-value.js';
 import { correctnessOrphanEffect } from './correctness/orphan-effect.js';
 import { correctnessOrphanLifecycle } from './correctness/orphan-lifecycle.js';
 import { correctnessServerBrowserGlobal } from './correctness/server-browser-global.js';
@@ -113,6 +114,7 @@ export const allRules: Rule[] = [
   correctnessPropMutation,
   correctnessStalePropDerivation,
   correctnessNonreactiveBuiltinState,
+  correctnessCheckableBindValue,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
   correctnessServerBrowserGlobal,
@@ -180,6 +182,7 @@ export {
   correctnessPropMutation,
   correctnessStalePropDerivation,
   correctnessNonreactiveBuiltinState,
+  correctnessCheckableBindValue,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
   correctnessServerBrowserGlobal,
