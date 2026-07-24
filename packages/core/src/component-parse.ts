@@ -307,8 +307,11 @@ export function rootObjectName(node: Node): string | undefined {
  * `var` invisible to sibling blocks; accepted imprecision) plus its own `function`/`class`
  * declaration names, a
  * `for`/`for-of`/`for-in` loop's declared variable, a Svelte `{#each ... as x, i}` block's
- * context AND index binding, a `{#snippet}` block's parameters, and an `{#await}` block's
- * `then`/`catch` value/error bindings. Used by `walkScoped` so a write/mutation detector
+ * context AND index binding, a `{#snippet}` block's parameters, an `{#await}` block's
+ * `then`/`catch` value/error bindings, and a fragment's own `{@const ...}` declarations
+ * (attributed to the enclosing Fragment, shadowing the whole fragment like a block's
+ * `let` — `{@const}` bindings are read-only, so a "write" to one was always a
+ * misattribution). Used by `walkScoped` so a write/mutation detector
  * doesn't misattribute a write to one of these locals as a write to an outer `$state`/prop
  * of the same name (issue #140 — originally a deliberately partial mitigation that left
  * `{#snippet}`/`{:then}`/`{:catch}` bindings untracked; now covered too. A block's own
@@ -350,6 +353,12 @@ export function scopeIntroducedNames(node: Node): Set<string> {
   } else if (node.type === 'AwaitBlock') {
     if (node.value) addBoundNames(node.value, introduced);
     if (node.error) addBoundNames(node.error, introduced);
+  } else if (node.type === 'Fragment') {
+    for (const child of node.nodes ?? []) {
+      if (child?.type === 'ConstTag') {
+        for (const d of child.declaration?.declarations ?? []) addBoundNames(d.id, introduced);
+      }
+    }
   }
   return introduced;
 }
