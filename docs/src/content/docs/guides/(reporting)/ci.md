@@ -2,7 +2,7 @@
 title: CI integration
 description: Gate pull requests on svelte-vitals findings with a generated GitHub Actions workflow.
 sidebar:
-  order: 9
+  order: 3
 ---
 
 `svelte-vitals ci install` scaffolds a GitHub Actions workflow that calls **`@svelte-vitals/action`**, a

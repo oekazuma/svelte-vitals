@@ -29,7 +29,7 @@ npx svelte-vitals@latest
 
 ## Categories
 
-Five categories — **SEO**, **Performance**, **Correctness**, **Security**, **Architecture** — each scored independently and rolled into a single weighted **Health** score. → [Health Report](https://oekazuma.github.io/svelte-vitals/guides/health-report/)
+Five categories — **SEO**, **Performance**, **Correctness**, **Security**, **Architecture** — each scored independently and rolled into a single weighted **Health** score. → [Health score](https://oekazuma.github.io/svelte-vitals/guides/health-report/)
 
 ## Features
 

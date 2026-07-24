@@ -44,7 +44,7 @@ Once you actually visit a route in dev, the dashboard additionally re-checks tha
 
 ### CLI — broadest coverage
 
-`svelte-vitals` reads your project's source directly, so it's the only path that covers every route (including SSR and dynamic ones) and all categories. It needs no build and runs anywhere Node does — a terminal, a CI job, a pre-commit hook via `--staged`, or a PR check via `--diff main`. Start here for CI gating; see the [CLI reference](/guides/cli).
+`svelte-vitals` reads your project's source directly, so it's the only direct path that covers every route (including SSR and dynamic ones) and all categories. It needs no build and runs anywhere Node does — a terminal, a CI job, a pre-commit hook via `--staged`, or a PR check via `--diff main`. Start here for CI gating; see the [CLI reference](/guides/cli).
 
 ### Vite plugin — exact, build-time verification
 

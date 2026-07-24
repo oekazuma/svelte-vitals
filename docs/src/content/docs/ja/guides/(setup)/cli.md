@@ -2,7 +2,7 @@
 title: CLI リファレンス
 description: svelte-vitals のすべてのコマンドラインフラグの完全なリファレンス。
 sidebar:
-  order: 3
+  order: 1
 ---
 
 ## 使用方法
@@ -78,7 +78,7 @@ npx svelte-vitals@latest apps/web     # 検出をスキップし、apps/web を�
 svelte-vitals --min-health 80
 ```
 
-スコアの計算方法については [Health レポート](/ja/guides/health-report) を参照してください。
+スコアの計算方法については [Health スコア](/ja/guides/health-report) を参照してください。
 
 ### `--score`
 

@@ -2,7 +2,7 @@
 title: svelte-vitals install
 description: AI エージェントのクライアント向けに MCP サーバー、Vite との連携、Agent Skills をセットアップする。
 sidebar:
-  order: 3.2
+  order: 2
 ---
 
 svelte-vitals の [MCP サーバー](/ja/guides/mcp)、Vite との連携、[Agent Skills](/ja/guides/agent-skills) を、AI エージェントのクライアント（**Claude Code**、**Cursor**、**Codex**）向けに対話的にセットアップします。サーバーエントリは各クライアントの設定にマージし、既存の他のサーバーには手を加えません。

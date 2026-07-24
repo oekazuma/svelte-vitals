@@ -2,7 +2,7 @@
 title: プラグインモード
 description: ビルド時にプリレンダリングされた HTML を分析するために svelte-vitals を vite build に統合します。
 sidebar:
-  order: 4
+  order: 1
 ---
 
 `@svelte-vitals/vite` は Vite / SvelteKit プラグインで、`vite build` に便乗して**プリレンダリングされた HTML の `<head>`** を解析し、CLI と同じ SEO と Performance のルールを実行します。実際の HTML 出力を検査するので、使っているライブラリを問いません。ビルドモードではさらに、`src/` 配下のソース（コンポーネント、runes モジュール（`.svelte.ts`/`.svelte.js`）、SvelteKit のルート/フックファイル）を走査し、Correctness、Security、Architecture、およびコンポーネントスコープの Performance（バンドル）ルールも実行します。これらは CLI が実行するのと同じファイルスコープのルールで、デフォルトで有効です。検出結果が `failOn` の閾値に達するとビルドが失敗します。

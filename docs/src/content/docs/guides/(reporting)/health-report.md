@@ -1,8 +1,8 @@
 ---
-title: Health report
+title: Health score
 description: Understand the weighted Health score and use --min-health as a CI gate.
 sidebar:
-  order: 8
+  order: 2
 ---
 
 The **Health score** is a single 0–100 number that summarizes your project's overall quality across the categories present in the analysis results. It is used by the `--min-health` flag to gate CI pipelines.

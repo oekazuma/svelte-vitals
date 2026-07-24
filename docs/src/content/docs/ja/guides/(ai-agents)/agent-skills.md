@@ -2,7 +2,7 @@
 title: Agent Skills
 description: Claude Code、Cursor、Codex に svelte-vitals のルールを教え、プロジェクト全体の改善監査を実行させるスラッシュコマンドのスキル。
 sidebar:
-  order: 6.5
+  order: 2
 ---
 
 svelte-vitals は2つの Agent Skills を提供します。どちらも **Claude Code**、**Cursor**、**Codex** で同じように動くポータブルな `SKILL.md` ファイルです。3つのツールがいずれも同じフロントマター形式の規約を解釈するため、1つのファイルがそのまま使い回せます。スキルはプロジェクトの現在のルールセットから一度生成され、各ツールの規約どおりの場所に書き出されます。インストールは [`svelte-vitals install`](/ja/guides/install) で行います。

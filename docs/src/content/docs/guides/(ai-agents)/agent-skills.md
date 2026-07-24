@@ -2,7 +2,7 @@
 title: Agent Skills
 description: Slash-command skills that teach Claude Code, Cursor, and Codex svelte-vitals' rules and how to run a project-wide improvement audit.
 sidebar:
-  order: 6.5
+  order: 2
 ---
 
 svelte-vitals ships two Agent Skills — portable `SKILL.md` files that work identically in **Claude Code**, **Cursor**, and **Codex**, since all three tools read the same frontmatter-driven convention. Both are generated once from the project's current rule set and written to each tool's conventional location; install them with [`svelte-vitals install`](/guides/install):

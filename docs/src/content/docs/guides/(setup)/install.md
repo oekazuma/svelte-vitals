@@ -2,7 +2,7 @@
 title: svelte-vitals install
 description: Set up the MCP server, Vite integration, and Agent Skills for your AI-agent clients.
 sidebar:
-  order: 3.2
+  order: 2
 ---
 
 Interactively set up the svelte-vitals [MCP server](/guides/mcp), the Vite integration, and [Agent Skills](/guides/agent-skills) for your AI-agent clients — **Claude Code**, **Cursor**, and **Codex** — by merging the server entry into each client's config (your other servers are left untouched).
