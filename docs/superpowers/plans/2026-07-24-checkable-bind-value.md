@@ -19,7 +19,7 @@ Issue: https://github.com/oekazuma/svelte-vitals/issues/299
 - **Doc pages required** at `docs/src/content/docs/rules/correctness/checkable-bind-value.md` (en) and `docs/src/content/docs/ja/rules/correctness/checkable-bind-value.md` (ja) — `packages/cli/test/docs-links.test.ts` fails the build without both.
 - **Changeset required** (new user-facing rule) — `minor` bump for `@svelte-vitals/core`, `svelte-vitals`, `@svelte-vitals/vite`, `@svelte-vitals/mcp` (mirrors `.changeset` history for the sibling rule `nonreactive-builtin-state`, commit `40a6dc6`).
 - **Never hard-code rule counts/ID ranges** in prose outside this rule's own doc pages.
-- All shell commands below assume the repo root (`/Users/oekazuma/localRepo/svelte-vitals`) as the working directory.
+- All shell commands below assume the repository root as the working directory.
 
 ---
 
@@ -504,7 +504,6 @@ Flags a native `<input type="checkbox">` or `<input type="radio">` element that 
 ```svelte
 <input type="checkbox" bind:value={subscribed} />
 ```
-````
 
 `bind:value` binds the DOM `value` property. A checkbox/radio's user interaction toggles _checkedness_, not `value` — so `subscribed` is frozen at its initial value and never updates when the user clicks the checkbox.
 
@@ -543,14 +542,13 @@ export default {
   }
 };
 ```
-
 ````
 
 - [ ] **Step 2: Create the Japanese doc page**
 
 Create `docs/src/content/docs/ja/rules/correctness/checkable-bind-value.md`:
 
-```markdown
+````markdown
 ---
 title: correctness/checkable-bind-value · bind:value on a checkable input
 description: 'checkbox や radio に対する bind:value は DOM の value プロパティを束縛するため、チェックの切り替えを検知できず、束縛した値が更新されなくなります。'
@@ -564,15 +562,15 @@ description: 'checkbox や radio に対する bind:value は DOM の value プ�
 
 ```svelte
 <input type="checkbox" bind:value={subscribed} />
-````
+```
 
 `bind:value` は DOM の `value` プロパティを束縛します。checkbox・radio のユーザー操作が切り替えるのは _チェック状態_ であって `value` ではないため、`subscribed` は初期値のまま固まってしまい、ユーザーがチェックボックスをクリックしても更新されません。
 
-検出はテンプレートのみを対象にした静的解析です。`type` 属性がリテラルの `"checkbox"` または `"radio"` である場合のみ対象になります — 動的な `type={expr}` や、動的なタグ名を使う `<svelte:element this="input" …>` は静的解析の範囲外のため検出しません。素の `value="…"` 属性（`bind:value` ディレクティブではないもの）は `bind:group` の正しい使い方であり、検出対象と混同することはありません。
+検出はテンプレートのみを対象にした静的解析です。`type` 属性がリテラルの `"checkbox"` または `"radio"` である場合のみ対象になります — 動的な `type={expr}` や、動的なタグ名を使う `<svelte:element this="input" …>` は静的解析の範囲外のため検出しません。素の `value="…"` 属性(`bind:value` ディレクティブではないもの)は `bind:group` の正しい使い方であり、検出対象と混同することはありません。
 
 ## なぜ重要か
 
-Svelte のコンパイラ自身は、checkbox や radio に `bind:value` を使っても警告もエラーも一切出しません — Svelte 5 に対して直接検証済みです（`svelte.compile()` はこのパターンに対して警告ゼロを報告します）。コンポーネントは最初の描画では正しく見えます（束縛した変数の初期値が表示される）が、ユーザーが入力を操作した瞬間から静かに更新が止まります。開発中は何もそのバグを教えてくれず、本番環境で「フォームの変更が保存されない」という形で表面化します。
+Svelte のコンパイラ自身は、checkbox や radio に `bind:value` を使っても警告もエラーも一切出しません — Svelte 5 に対して直接検証済みです(`svelte.compile()` はこのパターンに対して警告ゼロを報告します)。コンポーネントは最初の描画では正しく見えます(束縛した変数の初期値が表示される)が、ユーザーが入力を操作した瞬間から静かに更新が止まります。開発中は何もそのバグを教えてくれず、本番環境で「フォームの変更が保存されない」という形で表面化します。
 
 ## 修正方法
 
@@ -591,7 +589,7 @@ Svelte のコンパイラ自身は、checkbox や radio に `bind:value` を使�
 
 ## 制限事項
 
-対象になるのは `type` が静的なリテラルであるネイティブの `<input>` 要素だけです。動的な `type={expr}`、`<svelte:element this="input" …>`、`<select bind:value>`、そして `bind:value` 風の prop を受け取る自作コンポーネント（例: 自前の `<Checkbox bind:value>`）は、いずれも静的解析の範囲外のため検出されません。
+対象になるのは `type` が静的なリテラルであるネイティブの `<input>` 要素だけです。動的な `type={expr}`、`<svelte:element this="input" …>`、`<select bind:value>`、そして `bind:value` 風の prop を受け取る自作コンポーネント(例: 自前の `<Checkbox bind:value>`)は、いずれも静的解析の範囲外のため検出されません。
 
 ## 無効化
 
@@ -603,7 +601,6 @@ export default {
   }
 };
 ```
-
 ````
 
 - [ ] **Step 3: Run the docs-links test**
@@ -616,7 +613,7 @@ Expected: PASS (both the en-page and ja-page checks now find `correctness/checka
 ```bash
 git add docs/src/content/docs/rules/correctness/checkable-bind-value.md docs/src/content/docs/ja/rules/correctness/checkable-bind-value.md
 git commit -m "docs: add checkable-bind-value rule pages (en/ja)"
-````
+```
 
 ---
 
