@@ -19,7 +19,7 @@ This writes `.github/workflows/svelte-vitals.yml`. Commit it and open a pull req
 run.
 
 Setting this up alongside the MCP server, Vite integration, or Agent Skills? `ci-workflow` is also
-a selectable target in [`svelte-vitals install`](/svelte-vitals/guides/install/#--client-ids) — pick
+a selectable target in [`svelte-vitals install`](/guides/install#--client-ids) — pick
 it there to write the same workflow file in the same pass, instead of running this command
 separately. `ci upgrade` (below) has no wizard equivalent and stays a standalone command.
 
@@ -38,7 +38,7 @@ If the repo already has a backlog of findings, run `svelte-vitals --update-suppr
 first: it writes `svelte-vitals-suppressions.json`, accepting every current finding in one shot.
 Commit that file, then enable whatever gate you want (`--fail-on`, `--min-health`, a pre-commit
 hook, or this workflow) — from then on it only fails on findings introduced afterward, without
-having to fix the backlog up front. See [`--update-suppressions`](/svelte-vitals/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
+having to fix the backlog up front. See [`--update-suppressions`](/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
 in the CLI reference for the full behavior. `@svelte-vitals/action` applies this file
 automatically too, whenever it's present in the repo — no extra input needed to enable it. Its own
 `diff`/`baseline` scoping below already limits _this_ workflow to a PR's own changes; the
@@ -53,7 +53,7 @@ On every `pull_request` event, the generated workflow:
    base ref for `diff`/`baseline`.
 2. Calls `@svelte-vitals/action`, which runs svelte-vitals **in-process** (no `npx`, no Node setup
    step, no separate scan per output) scoped to the PR: `diff: origin/<base>` limits findings to
-   files the PR touched, and [`baseline: origin/<base>`](/svelte-vitals/guides/cli/) further
+   files the PR touched, and [`baseline: origin/<base>`](/guides/cli) further
    narrows to findings **newly introduced** by the PR — pre-existing issues in touched files
    don't block it.
 3. From that single analysis, the action produces all three outputs together:
@@ -115,8 +115,8 @@ sticky comment together in one pass; that fan-out isn't something you configure 
 
 The inputs above are **not** the whole configuration surface: the action runs the same analysis
 as the CLI, so it automatically picks up your committed
-[`svelte-vitals.config.*`](/svelte-vitals/guides/configuration/) and
-[`svelte-vitals-suppressions.json`](/svelte-vitals/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
+[`svelte-vitals.config.*`](/guides/configuration) and
+[`svelte-vitals-suppressions.json`](/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
 — see the next section.
 
 ## Excluding routes or rules
@@ -127,7 +127,7 @@ live in files the action already reads, so they apply identically to the CLI, th
 Vite plugin, and this action. Pick by intent:
 
 - **Never want a rule at all** — turn it off globally in
-  [`svelte-vitals.config.*`](/svelte-vitals/guides/configuration/):
+  [`svelte-vitals.config.*`](/guides/configuration):
 
   ```js
   // svelte-vitals.config.mjs
@@ -137,7 +137,7 @@ Vite plugin, and this action. Pick by intent:
   ```
 
 - **A rule or category doesn't apply to part of the app** (the auth-only case) — scope it with
-  [`overrides`](/svelte-vitals/guides/configuration/#scoping-rules-to-routes-or-files-overrides).
+  [`overrides`](/guides/configuration#scoping-rules-to-routes-or-files-overrides).
   This is durable policy: routes added under the glob later are excluded too.
 
   ```js
@@ -209,9 +209,9 @@ the installer (with `@latest`, to get the most recently bundled pin) is the easi
 working pin. Writing this by hand, use the commit SHA and version from the latest release tag in
 that [repository](https://github.com/oekazuma/svelte-vitals-action/releases).
 
-See the [CLI reference](/svelte-vitals/guides/cli/) for `--diff`, `--baseline`, and the equivalent
+See the [CLI reference](/guides/cli) for `--diff`, `--baseline`, and the equivalent
 flags if you'd rather run svelte-vitals directly instead of through the action, and the
-[Reporters guide](/svelte-vitals/guides/reporters/) for the output formats the action's summary
+[Reporters guide](/guides/reporters) for the output formats the action's summary
 and comment build on.
 
 ## Upgrading the pinned action

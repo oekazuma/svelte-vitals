@@ -24,12 +24,12 @@ export default {
 
 <img
   class="theme-img theme-img-dark"
-  src="/svelte-vitals/dashboard-dark.png"
+  src={`${import.meta.env.BASE_URL}/dashboard-dark.png`.replace(/\/{2,}/g, '/')}
   alt="The svelte-vitals live dashboard's Overview pane, showing the Health score ring, per-category bars, and a list of findings with severity, rule id, location, and a fix snippet."
 />
 <img
   class="theme-img theme-img-light"
-  src="/svelte-vitals/dashboard-light.png"
+  src={`${import.meta.env.BASE_URL}/dashboard-light.png`.replace(/\/{2,}/g, '/')}
   alt="The svelte-vitals live dashboard's Overview pane, showing the Health score ring, per-category bars, and a list of findings with severity, rule id, location, and a fix snippet."
 />
 
@@ -110,11 +110,11 @@ Fix this svelte-vitals finding:
 After fixing, re-run `svelte-vitals --diff` (or revisit this route) to confirm seo/title-presence passes for /blog/hello.
 ````
 
-No AI call generates it — the prompt is assembled instantly from svelte-vitals' own rule data already in the dashboard's snapshot, the same fields the [`agent` reporter](/svelte-vitals/guides/reporters/) uses for its remediation document. It can't hallucinate a fix that isn't the rule's actual recommendation.
+No AI call generates it — the prompt is assembled instantly from svelte-vitals' own rule data already in the dashboard's snapshot, the same fields the [`agent` reporter](/guides/reporters) uses for its remediation document. It can't hallucinate a fix that isn't the rule's actual recommendation.
 
 ## Disabling it
 
-The dashboard is on by default. If you only want the [build-time gate](/svelte-vitals/guides/plugin-mode/) and not the dev-time dashboard — for example on a very large project where you'd rather avoid the startup/re-analysis cost — pass `ui: false`:
+The dashboard is on by default. If you only want the [build-time gate](/guides/plugin-mode) and not the dev-time dashboard — for example on a very large project where you'd rather avoid the startup/re-analysis cost — pass `ui: false`:
 
 ```js
 export default {

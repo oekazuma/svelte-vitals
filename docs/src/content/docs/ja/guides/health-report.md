@@ -34,7 +34,7 @@ Health = (SEO_score × w_seo + Performance_score × w_perf) / (w_seo + w_perf)
 
 この式は簡潔にするため2カテゴリで示していますが、実際には結果に存在する**すべて**のカテゴリ（最大5つ：SEO、Performance、Correctness、Security、Architecture）で同じ加重平均を取ります。
 
-重みは `--weights` フラグまたは設定ファイルの `weights` フィールドで指定します。両方の詳細は [設定ファイル](/svelte-vitals/ja/guides/configuration/) を参照してください。例えば SEO の重みを2倍にするには：
+重みは `--weights` フラグまたは設定ファイルの `weights` フィールドで指定します。両方の詳細は [設定ファイル](/ja/guides/configuration) を参照してください。例えば SEO の重みを2倍にするには：
 
 ```bash
 svelte-vitals --weights seo=2

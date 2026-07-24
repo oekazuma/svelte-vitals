@@ -1,15 +1,13 @@
 ---
 title: svelte-vitals
 description: SvelteKit 向けの静的コードヘルスチェッカー。SEO、Performance、Correctness、Security、Architecture をソースコードから診断します。
-template: splash
-hero:
-  title: '<img src="/svelte-vitals/wordmark.svg" alt="svelte-vitals" style="height: 3.5rem; max-width: 100%;" />'
-  tagline: ビルドもブラウザも不要。ソースコードを読むだけで、SvelteKitアプリの健康状態がわかります。
-  actions:
-    - text: はじめに
-      link: /svelte-vitals/ja/guides/getting-started/
-      icon: right-arrow
 ---
+
+ビルドもブラウザも不要。ソースコードを読むだけで、SvelteKitアプリの健康状態がわかります。
+
+<Card title="はじめに" href="/ja/guides/getting-started" icon="rocket">
+  svelte-vitals をSvelteKitプロジェクトにインストールして、すぐに実行できます。
+</Card>
 
 <div class="demo-terminal">
   <div class="demo-terminal-bar">
@@ -20,12 +18,12 @@ hero:
   </div>
   <img
     class="demo-gif-animated"
-    src="/svelte-vitals/demo.gif"
+    src={`${import.meta.env.BASE_URL}/demo.gif`.replace(/\/{2,}/g, '/')}
     alt="端末で svelte-vitals を実行し、Health スコアがアニメーションして確定する様子の録画。"
   />
   <img
     class="demo-gif-static"
-    src="/svelte-vitals/demo-poster.png"
+    src={`${import.meta.env.BASE_URL}/demo-poster.png`.replace(/\/{2,}/g, '/')}
     alt="svelte-vitals 実行後、最終的な Health スコアとカテゴリ内訳が表示された端末のスクリーンショット。"
   />
 </div>
@@ -37,7 +35,7 @@ hero:
     margin: 1rem auto 2.5rem;
     border-radius: 0.75rem;
     overflow: hidden;
-    border: 1px solid var(--sl-color-gray-5);
+    border: 1px solid var(--blume-border);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
   }
   .demo-terminal-bar {
@@ -55,8 +53,8 @@ hero:
   }
   .demo-terminal-title {
     margin-inline-start: 0.5rem;
-    font-family: var(--__sl-font-mono, monospace);
-    font-size: var(--sl-text-xs);
+    font-family: var(--blume-font-mono, monospace);
+    font-size: 0.75rem;
     color: #8b8fa3;
   }
   .demo-terminal img {

@@ -5,9 +5,7 @@ sidebar:
   order: 3.5
 ---
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
-
-Instead of repeating `--rules`, `--ignore`, `--fail-on`, and `--weights` on every invocation, put them in a `svelte-vitals.config` file at your project root. The CLI, the [MCP server](/svelte-vitals/guides/mcp/), and the [Vite plugin](/svelte-vitals/guides/plugin-mode/) all read it automatically (the MCP server inherits it because it calls the same `analyzeProject` function as the CLI; the Vite plugin reads it directly — see [Using the config file with the Vite plugin](#using-the-config-file-with-the-vite-plugin) below).
+Instead of repeating `--rules`, `--ignore`, `--fail-on`, and `--weights` on every invocation, put them in a `svelte-vitals.config` file at your project root. The CLI, the [MCP server](/guides/mcp), and the [Vite plugin](/guides/plugin-mode) all read it automatically (the MCP server inherits it because it calls the same `analyzeProject` function as the CLI; the Vite plugin reads it directly — see [Using the config file with the Vite plugin](#using-the-config-file-with-the-vite-plugin) below).
 
 Run `svelte-vitals install --client config-file` to scaffold one with every option below commented out.
 
@@ -25,8 +23,8 @@ The first match wins. If none exist, svelte-vitals runs with its built-in defaul
 
 ## Example
 
-<Tabs syncKey="config-ext">
-  <TabItem label="TypeScript">
+<Tabs>
+  <Tab title="TypeScript">
     ```ts
     // svelte-vitals.config.ts
     import { defineConfig } from 'svelte-vitals';
@@ -44,8 +42,8 @@ The first match wins. If none exist, svelte-vitals runs with its built-in defaul
     });
     ```
 
-  </TabItem>
-  <TabItem label="JavaScript">
+  </Tab>
+  <Tab title="JavaScript">
     ```js
     // svelte-vitals.config.mjs
     export default {
@@ -61,7 +59,7 @@ The first match wins. If none exist, svelte-vitals runs with its built-in defaul
     };
     ```
 
-  </TabItem>
+  </Tab>
 </Tabs>
 
 `defineConfig` is just a thin helper that merges your object over the built-in defaults — it exists for type-checking and editor autocomplete in a `.ts` file. A plain `export default {...}` object works exactly the same at runtime with or without it; in a `.mjs`/`.js` file there's no type-checking to gain either way, so a bare object (as the JavaScript tab shows) is just as good there — and, unlike the import, it works even when svelte-vitals is only ever run via `npx` and isn't in your `node_modules`.
@@ -76,7 +74,7 @@ The `defineConfig` import in a `.ts` config is a **runtime** import — it resol
 | `metaComponents` | `string[]`                                                   | `[]`               | Custom component names that emit `<head>` metadata                                           |
 | `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`               | Per-rule overrides — disable a rule or change its severity                                   |
 | `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'`       | Minimum severity that fails the run (exit code `1`)                                          |
-| `weights`        | `Partial<Record<Category, number>>`                          | every category `1` | Per-category weights for the combined [Health score](/svelte-vitals/guides/health-report/)   |
+| `weights`        | `Partial<Record<Category, number>>`                          | every category `1` | Per-category weights for the combined [Health score](/guides/health-report)                  |
 | `overrides`      | `RuleOverride[]`                                             | (none)             | Route-/file-scoped rule overrides — see [below](#scoping-rules-to-routes-or-files-overrides) |
 
 `Category` is `'seo' | 'performance' | 'correctness' | 'security' | 'architecture'`.
@@ -124,7 +122,7 @@ Semantics worth knowing:
 - Findings that aren't attached to a route or file (project-wide checks like robots.txt) are
   never affected — use `rules` for those.
 - For a permanent "this part of the app is exempt" policy, prefer `overrides` over the
-  [suppressions file](/svelte-vitals/guides/cli/#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions):
+  [suppressions file](/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions):
   suppressions accept only the findings that existed when the file was written, so newly added
   routes fail again; overrides keep matching new routes under the same glob.
 
@@ -151,7 +149,7 @@ One exception: `rules` is replaced as a whole, not merged key-by-key. If you pas
 
 ## Using the config file with the Vite plugin
 
-`@svelte-vitals/vite` reads `svelte-vitals.config.*` the same way the CLI does — no extra wiring needed. Both the build-time gate (`vite build`) and the [live dashboard](/svelte-vitals/guides/dev-dashboard/) (`vite dev`) resolve it from the project root (`cwd` passed to `svelteVitals({ ... })`, or the Vite config root when `cwd` is omitted), with the same per-field precedence as the CLI: **an explicit `svelteVitals({ ... })` option wins, otherwise the config file's value, otherwise the built-in default**. This includes `weights`, which now flows into the plugin's Health score exactly like it does for the CLI and MCP server.
+`@svelte-vitals/vite` reads `svelte-vitals.config.*` the same way the CLI does — no extra wiring needed. Both the build-time gate (`vite build`) and the [live dashboard](/guides/dev-dashboard) (`vite dev`) resolve it from the project root (`cwd` passed to `svelteVitals({ ... })`, or the Vite config root when `cwd` is omitted), with the same per-field precedence as the CLI: **an explicit `svelteVitals({ ... })` option wins, otherwise the config file's value, otherwise the built-in default**. This includes `weights`, which now flows into the plugin's Health score exactly like it does for the CLI and MCP server.
 
 ```ts
 // vite.config.ts

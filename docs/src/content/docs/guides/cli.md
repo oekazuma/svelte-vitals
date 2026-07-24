@@ -13,9 +13,9 @@ svelte-vitals [path] [options]
 
 `path` is optional and defaults to the current directory.
 
-> There is also an [`install` subcommand](/svelte-vitals/guides/install/) for setting up the MCP server, [Agent Skills](/svelte-vitals/guides/agent-skills/), and the Vite integration in your AI-agent clients, and a `ci install` subcommand that scaffolds a GitHub Actions PR gate — see [CI integration](/svelte-vitals/guides/ci/).
+> There is also an [`install` subcommand](/guides/install) for setting up the MCP server, [Agent Skills](/guides/agent-skills), and the Vite integration in your AI-agent clients, and a `ci install` subcommand that scaffolds a GitHub Actions PR gate — see [CI integration](/guides/ci).
 
-Flags below can also be set once in a `svelte-vitals.config` file at the project root instead of being repeated on every invocation — see [Config file](/svelte-vitals/guides/configuration/). A flag always overrides the config file.
+Flags below can also be set once in a `svelte-vitals.config` file at the project root instead of being repeated on every invocation — see [Config file](/guides/configuration). A flag always overrides the config file.
 
 ## Monorepos
 
@@ -78,7 +78,7 @@ Exit with code `1` when the combined Health score is below the given value. Acce
 svelte-vitals --min-health 80
 ```
 
-See [Health report](/svelte-vitals/guides/health-report/) for how the score is calculated.
+See [Health report](/guides/health-report) for how the score is calculated.
 
 ### `--score`
 
@@ -198,11 +198,11 @@ svelte-vitals --category seo
 svelte-vitals --category seo,performance
 ```
 
-`--category` intersects with `--rules`/`--ignore`/config-file rule selection — a rule only runs if it survives both. Narrowing to a subset of categories also narrows the [Health score](/svelte-vitals/guides/health-report/): the combined score becomes the weighted average of only the categories that have findings, so it isn't directly comparable to an unfiltered run. An unknown category is an error (exit `2`).
+`--category` intersects with `--rules`/`--ignore`/config-file rule selection — a rule only runs if it survives both. Narrowing to a subset of categories also narrows the [Health score](/guides/health-report): the combined score becomes the weighted average of only the categories that have findings, so it isn't directly comparable to an unfiltered run. An unknown category is an error (exit `2`).
 
 ### `--weights <pairs>`
 
-Per-category weight overrides for the combined [Health score](/svelte-vitals/guides/health-report/). Accepts comma-separated `category=number` pairs; categories are matched case-insensitively. Unlisted categories default to weight `1`.
+Per-category weight overrides for the combined [Health score](/guides/health-report). Accepts comma-separated `category=number` pairs; categories are matched case-insensitively. Unlisted categories default to weight `1`.
 
 ```bash
 svelte-vitals --weights seo=2,performance=1
@@ -267,15 +267,15 @@ Print the help text and exit.
 
 ### `-v, --version`
 
-Print the CLI's own version and the resolved `@svelte-vitals/core` version, e.g. `0.20.0 (core 0.21.0)`. `svelte-vitals` and `@svelte-vitals/vite` are versioned independently and can end up depending on different `@svelte-vitals/core` releases — compare this `core` version against the one shown in the [live dashboard](/svelte-vitals/guides/dev-dashboard/#version-drift) topbar if the two surfaces ever disagree on findings.
+Print the CLI's own version and the resolved `@svelte-vitals/core` version, e.g. `0.20.0 (core 0.21.0)`. `svelte-vitals` and `@svelte-vitals/vite` are versioned independently and can end up depending on different `@svelte-vitals/core` releases — compare this `core` version against the one shown in the [live dashboard](/guides/dev-dashboard#version-drift) topbar if the two surfaces ever disagree on findings.
 
 ## Supported Svelte/SvelteKit versions
 
 Rules assume **Svelte 5+ (runes)** and **SvelteKit 2+**. If the analyzed project declares an
 older `svelte` or `@sveltejs/kit` version in `package.json`, a warning is printed to stderr —
 the analysis still runs normally, but rules that key off runes syntax (e.g.
-[correctness/stale-prop-derivation](/svelte-vitals/rules/correctness/stale-prop-derivation/),
-[correctness/prop-mutation](/svelte-vitals/rules/correctness/prop-mutation/)) can't recognize
+[correctness/stale-prop-derivation](/rules/correctness/stale-prop-derivation),
+[correctness/prop-mutation](/rules/correctness/prop-mutation)) can't recognize
 the legacy (`export let` / `$:`) equivalent of the same bugs, so findings may be incomplete for
 components that haven't migrated to runes yet.
 

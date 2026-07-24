@@ -7,7 +7,7 @@ description: コンポーネントのインスタンススクリプトは SSR �
 
 ## チェック内容
 
-**コンポーネントの `<script>` トップレベル**での browser 専用 global（[correctness/server-browser-global](/svelte-vitals/ja/rules/correctness/server-browser-global) と同じリスト）の読み取りを検出します。このコードはコンポーネントの SSR レンダリングのたびにサーバーで実行されます。ガードの扱いも同じです: `$app/environment` の `browser`、`typeof` チェック（early-return ガードを含む）、`onMount`/`$effect` 本体、自前の binding、シャドーされたローカルは検出されません。
+**コンポーネントの `<script>` トップレベル**での browser 専用 global（[correctness/server-browser-global](/ja/rules/correctness/server-browser-global) と同じリスト）の読み取りを検出します。このコードはコンポーネントの SSR レンダリングのたびにサーバーで実行されます。ガードの扱いも同じです: `$app/environment` の `browser`、`typeof` チェック（early-return ガードを含む）、`onMount`/`$effect` 本体、自前の binding、シャドーされたローカルは検出されません。
 
 ## なぜ重要か
 

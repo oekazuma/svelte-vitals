@@ -40,4 +40,4 @@ description: 状態を代入するだけの $effect は $derived に置き換え
 </script>
 ```
 
-`$derived` は hydration 中も含めて即座に評価されますが、`$effect` は mount の1ティック後に実行されます。それこそがこのパターンの狙いです。この形を `$derived` に置き換えるのは単なるスタイルの選択ではなく、`$effect` が防ごうとしていたバグの再発です。検出された箇所がこのパターンである場合は「修正」せず、代わりに [`svelte-vitals-disable-next-line`](/svelte-vitals/ja/guides/cli/#特定の指摘だけをインラインで抑制する) コメントで抑制してください。
+`$derived` は hydration 中も含めて即座に評価されますが、`$effect` は mount の1ティック後に実行されます。それこそがこのパターンの狙いです。この形を `$derived` に置き換えるのは単なるスタイルの選択ではなく、`$effect` が防ごうとしていたバグの再発です。検出された箇所がこのパターンである場合は「修正」せず、代わりに [`svelte-vitals-disable-next-line`](/ja/guides/cli#特定の指摘だけをインラインで抑制する) コメントで抑制してください。
