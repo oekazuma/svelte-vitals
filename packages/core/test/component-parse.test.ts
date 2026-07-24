@@ -962,3 +962,17 @@ describe('constableStates — directive escapes', () => {
     expect(constable(src)).toEqual([{ name: 'obj', line: 2 }]);
   });
 });
+
+describe('constableStates — {@const} shadowing', () => {
+  const constable = (src: string) => parseComponentFacts(src, 'A.svelte').constableStates;
+
+  it('does not attribute a write to an {@const} alias to a same-named untouched $state', () => {
+    const src = `<script>\nlet obj = $state({});\n</script>\n{#each list as g}{@const obj = g.o}<button onclick={() => {\n  obj.x = 1;\n}}>x</button>{/each}`;
+    expect(constable(src)).toEqual([{ name: 'obj', line: 2 }]);
+  });
+
+  it('does not attribute a reassignment of a {let} declaration tag to a same-named untouched $state', () => {
+    const src = `<script>\nlet obj = $state({});\n</script>\n{#each list as g}{let obj = g.o}<button onclick={() => {\n  obj = g.p;\n}}>x</button>{/each}`;
+    expect(constable(src)).toEqual([{ name: 'obj', line: 2 }]);
+  });
+});
