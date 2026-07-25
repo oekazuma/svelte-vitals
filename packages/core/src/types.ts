@@ -36,6 +36,14 @@ export interface Project {
    * resolved at build time (plugin/conditional config).
    */
   viteMinifyDisabled?: { file?: string; line?: number };
+  /**
+   * Set when the project configures a non-empty `kit.paths.base` — read from the `sveltekit()`
+   * Vite plugin config, else `svelte.config.{js,ts}` (correctness/base-path-navigation).
+   * `value` is the literal base when statically resolvable, unset when the config computes it
+   * (e.g. `dev ? '' : '/repo'`). `file` is the config path relative to the analyzed root (posix).
+   * Absent means the app is served at the root — the rule stays silent.
+   */
+  kitPathsBase?: { value?: string; file: string };
 }
 
 export const defaultProject: Project = {

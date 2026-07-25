@@ -29,6 +29,7 @@ const comp = (
   rawableStates: [],
   nonreactiveBuiltinStates: [],
   checkableBindValues: [],
+  basePathLinks: [],
   orphanEffects: [],
   orphanLifecycleCalls: [],
   browserGlobalRefs: [],

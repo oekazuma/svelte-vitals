@@ -13,6 +13,7 @@ export function emptyKitModuleFacts(file: string, kind: KitModuleFacts['kind']):
     runesModuleImports: [],
     lifecycleCalls: [],
     browserGlobalRefs: [],
+    basePathLinks: [],
     suppressions: []
   };
 }

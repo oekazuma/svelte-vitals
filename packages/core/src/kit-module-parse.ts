@@ -12,10 +12,13 @@ import {
   collectBrowserGlobalRefs,
   collectBrowserGuardImports,
   collectDerivedGuardBindings,
-  collectProgramBindings
+  collectProgramBindings,
+  collectNamedImportAliases
 } from './component-parse.js';
 import { lineOf } from './svelte-ast.js';
+import { isRootRelativePath } from './base-path.js';
 import type { KitModuleFacts } from './kit-module.js';
+import type { BasePathLinkFact } from './component.js';
 
 // Same pragmatic typing stance as component-parse.ts.
 /* oxlint-disable @typescript-eslint/no-explicit-any */
@@ -197,6 +200,30 @@ function collectAwaits(node: Node, out: Node[] = []): Node[] {
   for (const key of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key)) continue;
     collectAwaits(node[key], out);
+  }
+  return out;
+}
+
+const REDIRECT_NAMES = new Set(['redirect']);
+
+/**
+ * Root-relative `redirect(status, '/…')` targets (correctness/base-path-navigation). Argument 1
+ * is the location (argument 0 is the status). Only a plain string literal counts, which
+ * self-excludes `redirect(303, resolve('/x'))` and ``redirect(303, `${base}/x`)``. A `throw
+ * redirect(...)` is the same CallExpression, so both call styles are covered.
+ */
+function collectRedirectCalls(node: Node, locals: Set<string>, out: Node[] = []): Node[] {
+  if (Array.isArray(node)) {
+    for (const child of node) collectRedirectCalls(child, locals, out);
+    return out;
+  }
+  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return out;
+  if (node.type === 'CallExpression' && node.callee?.type === 'Identifier' && locals.has(node.callee.name)) {
+    out.push(node);
+  }
+  for (const key of Object.keys(node)) {
+    if (WALK_IGNORED_KEYS.has(key)) continue;
+    collectRedirectCalls(node[key], locals, out);
   }
   return out;
 }
@@ -516,6 +543,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
       runesModuleImports,
       lifecycleCalls,
       browserGlobalRefs,
+      basePathLinks: [],
       suppressions
     };
   }
@@ -680,6 +708,16 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
 
   const byLine = <T extends { line: number }>(arr: T[]): T[] => arr.sort((a, b) => a.line - b.line);
 
+  const basePathLinks: BasePathLinkFact[] = [];
+  const redirectLocals = collectNamedImportAliases(program, '@sveltejs/kit', REDIRECT_NAMES);
+  if (redirectLocals.size > 0) {
+    for (const call of collectRedirectCalls(program, redirectLocals)) {
+      const arg = call.arguments?.[1];
+      if (arg?.type !== 'Literal' || typeof arg.value !== 'string' || !isRootRelativePath(arg.value)) continue;
+      basePathLinks.push({ kind: 'redirect', path: arg.value, line: line(call.start) });
+    }
+  }
+
   return {
     moduleStateReassignments: byLine(moduleStateReassignments),
     importedStateWrites: byLine(importedStateWrites),
@@ -687,6 +725,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
     runesModuleImports: byLine(runesModuleImports),
     lifecycleCalls: byLine(lifecycleCalls),
     browserGlobalRefs: byLine(browserGlobalRefs),
+    basePathLinks: byLine(basePathLinks),
     ...(ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {}),
     ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),
     ...(waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0

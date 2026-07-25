@@ -50,6 +50,7 @@ import { correctnessNonreactiveBuiltinState } from './correctness/nonreactive-bu
 import { correctnessCheckableBindValue } from './correctness/checkable-bind-value.js';
 import { correctnessOrphanEffect } from './correctness/orphan-effect.js';
 import { correctnessOrphanLifecycle } from './correctness/orphan-lifecycle.js';
+import { correctnessBasePathNavigation } from './correctness/base-path-navigation.js';
 import { correctnessServerBrowserGlobal } from './correctness/server-browser-global.js';
 import { correctnessInstanceBrowserGlobal } from './correctness/instance-browser-global.js';
 import { securityRawHtml } from './security/raw-html.js';
@@ -117,6 +118,7 @@ export const allRules: Rule[] = [
   correctnessCheckableBindValue,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
+  correctnessBasePathNavigation,
   correctnessServerBrowserGlobal,
   correctnessInstanceBrowserGlobal,
   securityRawHtml,
@@ -185,6 +187,7 @@ export {
   correctnessCheckableBindValue,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
+  correctnessBasePathNavigation,
   correctnessServerBrowserGlobal,
   correctnessInstanceBrowserGlobal,
   securityRawHtml,

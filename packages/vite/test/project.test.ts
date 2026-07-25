@@ -57,3 +57,57 @@ describe('collectRenderedProject: robotsReferencesSitemap', () => {
     ).toBeUndefined();
   });
 });
+
+describe('collectRenderedProject: kitPathsBase', () => {
+  let cwd: string;
+  const htmlLang = { presence: 'none', value: 'absent' } as const;
+  beforeEach(async () => {
+    cwd = await mkdtemp(join(tmpdir(), 'sv-base-vite-'));
+  });
+  afterEach(async () => rm(cwd, { recursive: true, force: true }));
+
+  it('reads a literal base from svelte.config.js', async () => {
+    await writeFile(join(cwd, 'svelte.config.js'), `export default { kit: { paths: { base: '/docs' } } };`);
+    expect((await collectRenderedProject(cwd, htmlLang)).kitPathsBase).toEqual({
+      value: '/docs',
+      file: 'svelte.config.js'
+    });
+  });
+
+  it('omits the fact when no config declares a base', async () => {
+    await writeFile(join(cwd, 'svelte.config.js'), `export default { kit: {} };`);
+    expect((await collectRenderedProject(cwd, htmlLang)).kitPathsBase).toBeUndefined();
+  });
+
+  it('picks up the sveltekit({ paths: { base } }) shape in vite.config.ts', async () => {
+    await writeFile(
+      join(cwd, 'vite.config.ts'),
+      [
+        `import { sveltekit } from '@sveltejs/kit/vite';`,
+        `export default { plugins: [sveltekit({ paths: { base: '/from-vite' } })] };`
+      ].join('\n')
+    );
+    expect((await collectRenderedProject(cwd, htmlLang)).kitPathsBase).toEqual({
+      value: '/from-vite',
+      file: 'vite.config.ts'
+    });
+  });
+
+  it('prefers the vite.config plugin form when both config files are present', async () => {
+    await writeFile(
+      join(cwd, 'svelte.config.js'),
+      `export default { kit: { paths: { base: '/from-svelte-config' } } };`
+    );
+    await writeFile(
+      join(cwd, 'vite.config.ts'),
+      [
+        `import { sveltekit } from '@sveltejs/kit/vite';`,
+        `export default { plugins: [sveltekit({ paths: { base: '/from-vite' } })] };`
+      ].join('\n')
+    );
+    expect((await collectRenderedProject(cwd, htmlLang)).kitPathsBase).toEqual({
+      value: '/from-vite',
+      file: 'vite.config.ts'
+    });
+  });
+});

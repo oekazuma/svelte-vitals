@@ -2,6 +2,7 @@ import { parse } from 'svelte/compiler';
 import type { Expression } from 'estree';
 import type { AST } from 'svelte/compiler';
 import type {
+  BasePathLinkFact,
   BrowserGlobalRefFact,
   CheckableBindValueFact,
   ComponentFacts,
@@ -12,6 +13,7 @@ import type {
   SourceSpan,
   SuppressionDirective
 } from './component.js';
+import { isRootRelativePath } from './base-path.js';
 import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf } from './svelte-ast.js';
 
 // The Svelte AST is structurally complex and only partially typed for our needs,
@@ -1051,6 +1053,53 @@ function collectCheckableBindValues(node: Node, source: string, acc: CheckableBi
   }
 }
 
+/**
+ * Root-relative `<a href="/…">` literals (correctness/base-path-navigation). Only
+ * `RegularElement` anchors with a fully static href are considered, which is what makes the
+ * correct forms self-excluding: `href="{base}/x"` and `href={resolve('/x')}` contain an
+ * `ExpressionTag`, so `attrTextOf` returns undefined. `<svelte:element this="a">` is a
+ * different node type and is out of static reach.
+ */
+function collectHrefLinks(node: Node, source: string, acc: BasePathLinkFact[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectHrefLinks(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && node.name === 'a' && Array.isArray(node.attributes)) {
+    const attr = findAttr(node.attributes, 'href');
+    const value = attr ? attrTextOf(attr) : undefined;
+    if (value !== undefined && isRootRelativePath(value)) {
+      acc.push({ kind: 'href', path: value, line: lineOf(source, attr?.start ?? node.start) });
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectHrefLinks(node[key], source, acc);
+  }
+}
+
+const GOTO_NAMES = new Set(['goto']);
+
+/**
+ * Root-relative `goto('/…')` calls (correctness/base-path-navigation). Only a plain string
+ * literal argument counts, which self-excludes the correct forms — `goto(resolve('/x'))` is a
+ * CallExpression and ``goto(`${base}/x`)`` is a TemplateLiteral. `roots` are the nodes to walk
+ * (the instance program plus the template fragment, so inline handlers are covered); `locals`
+ * comes from the same program's imports.
+ */
+function collectGotoLinks(locals: Set<string>, roots: Node[], source: string, acc: BasePathLinkFact[]): void {
+  if (locals.size === 0) return;
+  for (const root of roots) {
+    if (!root) continue;
+    walkEstree(root, (n: Node) => {
+      if (n.type !== 'CallExpression' || n.callee?.type !== 'Identifier' || !locals.has(n.callee.name)) return;
+      const arg = n.arguments?.[0];
+      if (arg?.type !== 'Literal' || typeof arg.value !== 'string' || !isRootRelativePath(arg.value)) return;
+      acc.push({ kind: 'goto', path: arg.value, line: lineOf(source, n.start) });
+    });
+  }
+}
+
 /** Whether a CallExpression is a bare `$props()` call. */
 function isPropsCall(node: Node): boolean {
   return node?.type === 'CallExpression' && node.callee?.type === 'Identifier' && node.callee.name === '$props';
@@ -1518,23 +1567,36 @@ export const BROWSER_GLOBALS = new Set([
 ]);
 
 /**
- * Local names of `browser` value-imported from '$app/environment' (alias-resolved) —
- * the guard binding recognised by the browser-global scanner (correctness/server-browser-global, correctness/instance-browser-global).
- * Shared with the Kit-module parser.
+ * Local names bound to any of `names` VALUE-imported from `moduleSource` (alias-resolved;
+ * type-only imports and specifiers skipped). Namespace imports (`import * as x from …`) are
+ * deliberately not resolved — the callers that need them handle namespaces themselves.
+ * Shared by the browser-guard, `goto`, and `redirect` collectors.
  */
-export function collectBrowserGuardImports(program: Node): Set<string> {
+export function collectNamedImportAliases(program: Node, moduleSource: string, names: Set<string>): Set<string> {
   const out = new Set<string>();
   for (const stmt of program.body ?? []) {
-    if (stmt?.type !== 'ImportDeclaration' || stmt.importKind === 'type' || stmt.source?.value !== '$app/environment')
+    if (stmt?.type !== 'ImportDeclaration' || stmt.importKind === 'type' || stmt.source?.value !== moduleSource) {
       continue;
+    }
     for (const s of stmt.specifiers ?? []) {
       if (s?.importKind === 'type' || s?.local?.type !== 'Identifier') continue;
-      if (s.type === 'ImportSpecifier' && s.imported?.type === 'Identifier' && s.imported.name === 'browser') {
+      if (s.type === 'ImportSpecifier' && s.imported?.type === 'Identifier' && names.has(s.imported.name)) {
         out.add(s.local.name);
       }
     }
   }
   return out;
+}
+
+const BROWSER_GUARD_NAMES = new Set(['browser']);
+
+/**
+ * Local names of `browser` value-imported from '$app/environment' (alias-resolved) —
+ * the guard binding recognised by the browser-global scanner (correctness/server-browser-global, correctness/instance-browser-global).
+ * Shared with the Kit-module parser.
+ */
+export function collectBrowserGuardImports(program: Node): Set<string> {
+  return collectNamedImportAliases(program, '$app/environment', BROWSER_GUARD_NAMES);
 }
 
 /**
@@ -1842,6 +1904,14 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
   const moduleStateDecls = program
     ? collectModuleStateDecls(program, wrapped).map((d) => ({ ...d, line: shift(d.line) }))
     : [];
+  const basePathLinks: BasePathLinkFact[] = [];
+  if (program) {
+    const locals = collectNamedImportAliases(program, '$app/navigation', GOTO_NAMES);
+    const raw: BasePathLinkFact[] = [];
+    collectGotoLinks(locals, [program], wrapped, raw);
+    for (const l of raw) basePathLinks.push({ ...l, line: shift(l.line) });
+    basePathLinks.sort((a, b) => a.line - b.line);
+  }
   return {
     eachBlocks: [],
     effects: [],
@@ -1858,6 +1928,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     rawableStates: [],
     nonreactiveBuiltinStates: [],
     checkableBindValues: [],
+    basePathLinks,
     suppressions: collectSuppressions(source),
     orphanEffects,
     orphanLifecycleCalls,
@@ -1882,6 +1953,16 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
   const checkableBindValues: CheckableBindValueFact[] = [];
   collectCheckableBindValues(ast.fragment ?? ast, source, checkableBindValues);
+  const basePathLinks: BasePathLinkFact[] = [];
+  collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
+  const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
+  const gotoLocals = new Set<string>();
+  for (const p of gotoPrograms)
+    for (const n of collectNamedImportAliases(p, '$app/navigation', GOTO_NAMES)) {
+      gotoLocals.add(n);
+    }
+  collectGotoLinks(gotoLocals, [...gotoPrograms, ast.fragment], source, basePathLinks);
+  basePathLinks.sort((a, b) => a.line - b.line);
   const loc = countLines(source);
   const suppressions = collectSuppressions(source);
 
@@ -2077,6 +2158,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     rawableStates,
     nonreactiveBuiltinStates,
     checkableBindValues,
+    basePathLinks,
     orphanEffects,
     orphanLifecycleCalls,
     browserGlobalRefs,

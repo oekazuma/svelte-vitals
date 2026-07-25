@@ -37,6 +37,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   rawableStates: [],
   nonreactiveBuiltinStates: [],
   checkableBindValues: [],
+  basePathLinks: [],
   orphanEffects: [],
   orphanLifecycleCalls: [],
   browserGlobalRefs: [],
@@ -54,6 +55,7 @@ const kitFacts = (over: Partial<KitModuleFacts>): KitModuleFacts => ({
   runesModuleImports: [],
   lifecycleCalls: [],
   browserGlobalRefs: [],
+  basePathLinks: [],
   suppressions: [],
   ...over
 });

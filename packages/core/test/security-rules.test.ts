@@ -26,6 +26,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   rawableStates: [],
   nonreactiveBuiltinStates: [],
   checkableBindValues: [],
+  basePathLinks: [],
   orphanEffects: [],
   orphanLifecycleCalls: [],
   browserGlobalRefs: [],
