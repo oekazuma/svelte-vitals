@@ -56,3 +56,68 @@ describe('basePathLinks — <a href> exclusions', () => {
     expect(links(`<a>x</a>`)).toEqual([]);
   });
 });
+
+const script = (body: string, template = '<p>x</p>') => `<script>\n${body}\n</script>\n${template}`;
+
+describe('basePathLinks — goto()', () => {
+  const importGoto = `import { goto } from '$app/navigation';`;
+
+  it('records a root-relative goto in a function', () => {
+    const src = script([importGoto, `function submit() {`, `  goto('/dashboard');`, `}`].join('\n'));
+    expect(links(src)).toEqual([{ kind: 'goto', path: '/dashboard', line: 4 }]);
+  });
+
+  it('records a goto in a template inline handler', () => {
+    const src = script(importGoto, `<button onclick={() => goto('/dashboard')}>go</button>`);
+    expect(links(src)).toEqual([{ kind: 'goto', path: '/dashboard', line: 4 }]);
+  });
+
+  it('records an aliased goto import', () => {
+    const src = script(
+      [`import { goto as navigate } from '$app/navigation';`, `function f() {`, `  navigate('/x');`, `}`].join('\n')
+    );
+    expect(links(src)).toEqual([{ kind: 'goto', path: '/x', line: 4 }]);
+  });
+
+  it('records a goto in a <script module>', () => {
+    const src = [`<script module>`, importGoto, `function f() {`, `  goto('/x');`, `}`, `</script>`, `<p>x</p>`].join(
+      '\n'
+    );
+    expect(links(src)).toEqual([{ kind: 'goto', path: '/x', line: 4 }]);
+  });
+
+  it('does not record a resolve-wrapped or base-prefixed goto', () => {
+    const wrapped = script([importGoto, `function f() {`, `  goto(resolve('/x'));`, `}`].join('\n'));
+    expect(links(wrapped)).toEqual([]);
+    const prefixed = script([importGoto, `function f() {`, '  goto(`${base}/x`);', `}`].join('\n'));
+    expect(links(prefixed)).toEqual([]);
+  });
+
+  it('does not record non-root-relative or non-literal goto arguments', () => {
+    const external = script([importGoto, `function f() {`, `  goto('https://example.com');`, `}`].join('\n'));
+    expect(links(external)).toEqual([]);
+    const hash = script([importGoto, `function f() {`, `  goto('#top');`, `}`].join('\n'));
+    expect(links(hash)).toEqual([]);
+    const variable = script([importGoto, `function f(url) {`, `  goto(url);`, `}`].join('\n'));
+    expect(links(variable)).toEqual([]);
+  });
+
+  it('does not record a goto imported from somewhere else', () => {
+    const src = script([`import { goto } from './my-router.js';`, `function f() {`, `  goto('/x');`, `}`].join('\n'));
+    expect(links(src)).toEqual([]);
+  });
+
+  it('does not record a namespace-imported goto (documented limitation)', () => {
+    const src = script(
+      [`import * as nav from '$app/navigation';`, `function f() {`, `  nav.goto('/x');`, `}`].join('\n')
+    );
+    expect(links(src)).toEqual([]);
+  });
+});
+
+describe('basePathLinks — runes modules', () => {
+  it('records a goto in a .svelte.ts module', () => {
+    const src = [`import { goto } from '$app/navigation';`, `export function f() {`, `  goto('/x');`, `}`].join('\n');
+    expect(parseComponentFacts(src, 'nav.svelte.ts').basePathLinks).toEqual([{ kind: 'goto', path: '/x', line: 3 }]);
+  });
+});
