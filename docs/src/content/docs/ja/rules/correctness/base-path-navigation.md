@@ -52,7 +52,7 @@ redirect(303, resolve('/login'));
 
 ## 制限事項
 
-`<form action="/…">`、`fetch('/api/…')`、静的アセット(`<img src="/logo.png">`、`<link href>`)は対象外です。アセットも同じように壊れますが、修正には `resolve()` ではなく `asset()` を使うため、別のルールに委ねています。動的なパスはすべて静的解析の範囲外で、`<svelte:element this="a">` や名前空間インポートの `goto`/`redirect`(`import * as nav from '$app/navigation'`)も同様です。Vite の設定の `sveltekit()` に静的に読めない引数(別ファイルからインポートした設定オブジェクトなど)が渡されている場合は、推測せずに沈黙します。
+`<form action="/…">`、`fetch('/api/…')`、静的アセット(`<img src="/logo.png">`、`<link href>`)は対象外です。アセットも同じように壊れますが、修正には `resolve()` ではなく `asset()` を使うため、別のルールに委ねています。動的なパスはすべて静的解析の範囲外で、`<svelte:element this="a">` や名前空間インポートの `goto`/`redirect`(`import * as nav from '$app/navigation'`)も同様です。Vite の設定の `sveltekit()` に静的に読めない引数(別ファイルからインポートした設定オブジェクトなど)が渡されている場合は、推測せずに沈黙します。また、コンポーネント側の収集対象は `.svelte`・`.svelte.ts`・`.svelte.js` に限られるため、素の `.ts`/`.js` モジュールに書かれた `goto()` は走査されず、`src/hooks.client.ts` や `src/hooks.ts` の `redirect()` も Kit モジュール側の収集対象から外れているため同様に検出できません。
 
 ## 無効化
 

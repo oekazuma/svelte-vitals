@@ -52,7 +52,7 @@ redirect(303, resolve('/login'));
 
 ## Limitations
 
-`<form action="/…">`, `fetch('/api/…')`, and static assets (`<img src="/logo.png">`, `<link href>`) are not covered — assets break the same way but are fixed with `asset()` rather than `resolve()`, so they are left to a future rule. Dynamic paths of any kind are out of static reach, as are `<svelte:element this="a">` and namespace-imported `goto`/`redirect` (`import * as nav from '$app/navigation'`). If your Vite config passes a `sveltekit()` argument that cannot be read statically — an imported config object, for example — the rule stays silent rather than guessing.
+`<form action="/…">`, `fetch('/api/…')`, and static assets (`<img src="/logo.png">`, `<link href>`) are not covered — assets break the same way but are fixed with `asset()` rather than `resolve()`, so they are left to a future rule. Dynamic paths of any kind are out of static reach, as are `<svelte:element this="a">` and namespace-imported `goto`/`redirect` (`import * as nav from '$app/navigation'`). If your Vite config passes a `sveltekit()` argument that cannot be read statically — an imported config object, for example — the rule stays silent rather than guessing. A `goto()` written in a plain `.ts`/`.js` module is never scanned either, since only `.svelte`, `.svelte.ts`, and `.svelte.js` files are read for component facts, and neither are `redirect()` calls in `src/hooks.client.ts` or `src/hooks.ts`, which fall outside the Kit-module collector's file set.
 
 ## Disabling
 

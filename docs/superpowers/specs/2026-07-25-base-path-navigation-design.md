@@ -234,8 +234,12 @@ projects whose `sveltekit()` plugin argument cannot be statically resolved.
 
 - Four standard registration places (`packages/core/src/rules/index.ts` import + `allRules` +
   re-export block, and `packages/core/src/index.ts`'s re-export list).
-- Core's public surface additionally exports the new parser functions and `BasePathLinkFact`,
-  since the CLI and Vite providers consume them (mirrors `findMinifyDisabled`).
+- Core's public surface additionally exports the new parser functions and the
+  `findKitPathsBaseInSvelteConfig`/`findKitPathsBaseInViteConfig`/`resolveKitPathsBase` config-path
+  helpers, since the CLI and Vite providers consume them (mirrors `findMinifyDisabled`).
+  `BasePathLinkFact` itself is deliberately NOT re-exported from `packages/core/src/index.ts` —
+  the providers never consume the fact type directly, only the parser functions that produce it —
+  matching its peers `BrowserGlobalRefFact` and `OrphanLifecycleCallFact`.
 - Docs: `docs/src/content/docs/rules/correctness/base-path-navigation.md` + the `ja/` mirror.
   Both must cover: what opens the gate (including the dynamic-`base` decision and the
   vite.config-vs-svelte.config precedence), the three surfaces, the `resolve()` fix, and the
