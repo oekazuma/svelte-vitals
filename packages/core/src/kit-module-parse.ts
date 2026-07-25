@@ -516,6 +516,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
       runesModuleImports,
       lifecycleCalls,
       browserGlobalRefs,
+      basePathLinks: [],
       suppressions
     };
   }
@@ -687,6 +688,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
     runesModuleImports: byLine(runesModuleImports),
     lifecycleCalls: byLine(lifecycleCalls),
     browserGlobalRefs: byLine(browserGlobalRefs),
+    basePathLinks: [],
     ...(ssrOptOut ? { ssrDisabled: { line: Math.max(0, ssrOptOut.line - 1) } } : {}),
     ...(csrOptOut ? { csrDisabled: { line: Math.max(0, csrOptOut.line - 1) } } : {}),
     ...(waterfalls.dependentLines.length > 0 || waterfalls.independentLines.length > 0

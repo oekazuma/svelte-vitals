@@ -1,4 +1,4 @@
-import type { SuppressionDirective } from './component.js';
+import type { BasePathLinkFact, SuppressionDirective } from './component.js';
 
 /**
  * Facts parsed from one SvelteKit route/hooks file for the SSR shared-state rules
@@ -29,6 +29,8 @@ export interface KitModuleFacts {
     line: number;
     inHandler: boolean;
   }[];
+  /** Root-relative `redirect()` literals in this Kit module (correctness/base-path-navigation). */
+  basePathLinks: BasePathLinkFact[];
   /** Set when this file disables SSR via `export const ssr = false` (inline or same-file alias export) — the declaration's line (seo/ssr-disabled). */
   ssrDisabled?: { line: number };
   /** Set when this file disables client-side rendering via `export const csr = false` (inline or same-file alias export). With no client runtime, a universal load only runs during SSR — performance/load-waterfall's browser-waterfall premise doesn't hold. */

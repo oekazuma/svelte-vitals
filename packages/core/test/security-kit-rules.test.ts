@@ -28,6 +28,7 @@ const kit = (over: Partial<KitModuleFacts>): KitModuleFacts => ({
   runesModuleImports: [],
   lifecycleCalls: [],
   browserGlobalRefs: [],
+  basePathLinks: [],
   suppressions: [],
   ...over
 });
@@ -94,6 +95,7 @@ const stateModule = (file: string): ComponentFacts => ({
   stalePropDerivations: [],
   rawableStates: [],
   nonreactiveBuiltinStates: [],
+  basePathLinks: [],
   orphanEffects: [],
   orphanLifecycleCalls: [],
   browserGlobalRefs: [],

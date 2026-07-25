@@ -45,6 +45,7 @@ describe('emptyComponentFacts', () => {
       stalePropDerivations: [],
       rawableStates: [],
       nonreactiveBuiltinStates: [],
+      basePathLinks: [],
       orphanEffects: [],
       orphanLifecycleCalls: [],
       browserGlobalRefs: [],

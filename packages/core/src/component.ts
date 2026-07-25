@@ -70,6 +70,17 @@ export interface SuppressionDirective {
   ruleIds?: string[];
 }
 
+/** A root-relative navigation literal — broken when the app is served under `kit.paths.base`
+ *  (correctness/base-path-navigation). Shared by the component and Kit-module channels. */
+export interface BasePathLinkFact {
+  /** Which navigation surface it was written on — selects the message wording. */
+  kind: 'href' | 'goto' | 'redirect';
+  /** The literal path as written, e.g. '/about'. */
+  path: string;
+  /** 1-based source line, or 0 if unknown. */
+  line: number;
+}
+
 /** Reactivity/correctness + security + architecture facts parsed from one `.svelte` component. */
 export interface ComponentFacts {
   /** Source file the component came from. */
@@ -111,6 +122,8 @@ export interface ComponentFacts {
     type: string;
     line: number;
   }[];
+  /** Root-relative `<a href>` and `goto()` literals in this component (correctness/base-path-navigation). */
+  basePathLinks: BasePathLinkFact[];
   /** `$effect` calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (correctness/orphan-effect). */
   orphanEffects: OrphanEffectFact[];
   /** Svelte lifecycle/context calls guaranteed to run outside component initialisation — module scope in `.svelte.ts`/`.svelte.js` or `<script module>` (correctness/orphan-lifecycle). */

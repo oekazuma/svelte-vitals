@@ -2,6 +2,7 @@ import { parse } from 'svelte/compiler';
 import type { Expression } from 'estree';
 import type { AST } from 'svelte/compiler';
 import type {
+  BasePathLinkFact,
   BrowserGlobalRefFact,
   ComponentFacts,
   EachBlockFact,
@@ -11,6 +12,7 @@ import type {
   SourceSpan,
   SuppressionDirective
 } from './component.js';
+import { isRootRelativePath } from './base-path.js';
 import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf } from './svelte-ast.js';
 
 // The Svelte AST is structurally complex and only partially typed for our needs,
@@ -1015,6 +1017,31 @@ function collectSecurityFacts(node: Node, source: string, htmlTags: SourceSpan[]
   }
 }
 
+/**
+ * Root-relative `<a href="/…">` literals (correctness/base-path-navigation). Only
+ * `RegularElement` anchors with a fully static href are considered, which is what makes the
+ * correct forms self-excluding: `href="{base}/x"` and `href={resolve('/x')}` contain an
+ * `ExpressionTag`, so `attrTextOf` returns undefined. `<svelte:element this="a">` is a
+ * different node type and is out of static reach.
+ */
+function collectHrefLinks(node: Node, source: string, acc: BasePathLinkFact[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectHrefLinks(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && node.name === 'a' && Array.isArray(node.attributes)) {
+    const attr = findAttr(node.attributes, 'href');
+    const value = attr ? attrTextOf(attr) : undefined;
+    if (value !== undefined && isRootRelativePath(value)) {
+      acc.push({ kind: 'href', path: value, line: lineOf(source, attr?.start ?? node.start) });
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectHrefLinks(node[key], source, acc);
+  }
+}
+
 /** Whether a CallExpression is a bare `$props()` call. */
 function isPropsCall(node: Node): boolean {
   return node?.type === 'CallExpression' && node.callee?.type === 'Identifier' && node.callee.name === '$props';
@@ -1821,6 +1848,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     stalePropDerivations: [],
     rawableStates: [],
     nonreactiveBuiltinStates: [],
+    basePathLinks: [],
     suppressions: collectSuppressions(source),
     orphanEffects,
     orphanLifecycleCalls,
@@ -1843,6 +1871,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   const htmlTags: SourceSpan[] = [];
   const javascriptUrls: SourceSpan[] = [];
   collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
+  const basePathLinks: BasePathLinkFact[] = [];
+  collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
   const loc = countLines(source);
   const suppressions = collectSuppressions(source);
 
@@ -2037,6 +2067,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     stalePropDerivations,
     rawableStates,
     nonreactiveBuiltinStates,
+    basePathLinks,
     orphanEffects,
     orphanLifecycleCalls,
     browserGlobalRefs,

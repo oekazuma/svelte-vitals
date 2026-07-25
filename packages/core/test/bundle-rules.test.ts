@@ -28,6 +28,7 @@ const comp = (
   stalePropDerivations: [],
   rawableStates: [],
   nonreactiveBuiltinStates: [],
+  basePathLinks: [],
   orphanEffects: [],
   orphanLifecycleCalls: [],
   browserGlobalRefs: [],
