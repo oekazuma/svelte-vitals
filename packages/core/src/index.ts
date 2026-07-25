@@ -110,6 +110,7 @@ export {
   correctnessNonreactiveBuiltinState,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
+  correctnessBasePathNavigation,
   correctnessServerBrowserGlobal,
   correctnessInstanceBrowserGlobal,
   securityRawHtml,
