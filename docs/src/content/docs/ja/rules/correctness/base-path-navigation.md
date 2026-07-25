@@ -43,9 +43,10 @@ base path の読み取り方は SvelteKit 自身と同じです。Vite の設定
 ```js
 import { resolve } from '$app/paths';
 import { goto } from '$app/navigation';
+import { redirect } from '@sveltejs/kit';
 
-goto(resolve('/dashboard'));
-redirect(303, resolve('/login'));
+goto(resolve('/dashboard')); // コンポーネントや .svelte.ts モジュールで
+redirect(303, resolve('/login')); // load 関数や form action で
 ```
 
 `resolve()`(SvelteKit 2.26以降)が base path を前置してくれます。ルートIDを渡せばルートパラメータの埋め込みも行います。非推奨になった `base` と `resolveRoute` の置き換えです。

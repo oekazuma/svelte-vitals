@@ -43,9 +43,10 @@ Wrap the path in `resolve()` from `$app/paths`:
 ```js
 import { resolve } from '$app/paths';
 import { goto } from '$app/navigation';
+import { redirect } from '@sveltejs/kit';
 
-goto(resolve('/dashboard'));
-redirect(303, resolve('/login'));
+goto(resolve('/dashboard')); // in a component or a .svelte.ts module
+redirect(303, resolve('/login')); // in a load function or form action
 ```
 
 `resolve()` (SvelteKit 2.26+) prefixes the base path for you, and also populates route parameters when you pass a route ID. It supersedes both `base` and `resolveRoute`, which are deprecated.

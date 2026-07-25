@@ -409,7 +409,7 @@ export function resolveKitPathsBase(
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `pnpm --filter @svelte-vitals/core exec vitest run test/svelte-config-parse.test.ts`
-Expected: PASS (26 cases).
+Expected: PASS (23 cases).
 
 - [ ] **Step 5: Typecheck**
 
@@ -931,7 +931,7 @@ Each is a `ComponentFacts`/`KitModuleFacts` object literal that lists every fiel
 - [ ] **Step 9: Run the new test, then the full core suite and monorepo typecheck**
 
 Run: `pnpm --filter @svelte-vitals/core exec vitest run test/base-path-links-parse.test.ts`
-Expected: PASS (12 cases).
+Expected: PASS (9 cases).
 
 Run: `pnpm --filter @svelte-vitals/core test && pnpm typecheck`
 Expected: PASS. The monorepo typecheck is what proves the two `packages/cli` helper files were updated.
@@ -1577,7 +1577,7 @@ In the single `export { ... } from './rules/index.js';` list, add it directly af
   correctnessBasePathNavigation,
 ```
 
-Then verify all four places are present: `grep -rn "correctnessBasePathNavigation" packages/core/src/` must print exactly 4 lines (the definition file plus import, `allRules`, and the two re-export lists — 5 lines total including the `export const` in the rule file itself).
+Then verify all four registration places are present: `grep -rn "correctnessBasePathNavigation" packages/core/src/` must print exactly 5 lines — the four registrations (the import, the `allRules` entry, the `rules/index.ts` re-export, and the `index.ts` re-export) plus the `export const` in the rule file itself.
 
 - [ ] **Step 6: Run the test to verify it passes**
 
