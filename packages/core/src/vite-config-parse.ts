@@ -1,7 +1,7 @@
 /**
  * Static detection of a literal `build.minify: false` in a Vite config source
  * (performance/minify-disabled). Pure module (design §8): callers read the file and pass the source
- * string. Uses the shared config-object helpers; unlike `findFalseOptOut` (which gets an
+ * string. Uses the shared wrap parser; unlike `findFalseOptOut` (which gets an
  * already-wrapped program and leaves the −1 shift to its caller), this function
  * takes the raw source and returns lines already shifted to the original
  * source's coordinates. Supports ESM (`export default {…}` /
