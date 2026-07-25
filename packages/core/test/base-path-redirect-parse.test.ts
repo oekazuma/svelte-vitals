@@ -33,9 +33,7 @@ describe('basePathLinks — redirect()', () => {
   it('does not record a resolve-wrapped or base-prefixed target', () => {
     const wrapped = [importRedirect, `export function load() {`, `  redirect(303, resolve('/x'));`, `}`].join('\n');
     expect(links(wrapped)).toEqual([]);
-    const prefixed = [importRedirect, `export function load() {`, '  redirect(303, `${base}/x`);', `}`].join(
-      '\n'
-    );
+    const prefixed = [importRedirect, `export function load() {`, '  redirect(303, `${base}/x`);', `}`].join('\n');
     expect(links(prefixed)).toEqual([]);
   });
 
