@@ -17,3 +17,16 @@ export const SITEMAP_SOURCE_PATHS = [
   'src/routes/sitemap.xml/+server.ts',
   'src/routes/sitemap.xml/+server.js'
 ] as const;
+
+/** Vite's own config resolution order — only the first existing file is the one Vite loads. */
+export const VITE_CONFIG_FILES = [
+  'vite.config.js',
+  'vite.config.mjs',
+  'vite.config.ts',
+  'vite.config.cjs',
+  'vite.config.mts',
+  'vite.config.cts'
+] as const;
+
+/** SvelteKit's config resolution order (`@sveltejs/kit` checks js before ts). */
+export const SVELTE_CONFIG_FILES = ['svelte.config.js', 'svelte.config.ts'] as const;

@@ -1,7 +1,10 @@
 import {
   ROBOTS_SOURCE_PATHS,
   SITEMAP_SOURCE_PATHS,
+  SVELTE_CONFIG_FILES,
+  VITE_CONFIG_FILES,
   findMinifyDisabled,
+  resolveKitPathsBase,
   type Project,
   type Detection,
   type Runtime
@@ -147,16 +150,6 @@ async function robotsRefsSitemap(rt: Runtime, cwd: string): Promise<boolean | un
   }
 }
 
-/** Vite's own config resolution order — only the first existing file is the one Vite loads. */
-const VITE_CONFIG_FILES = [
-  'vite.config.js',
-  'vite.config.mjs',
-  'vite.config.ts',
-  'vite.config.cjs',
-  'vite.config.mts',
-  'vite.config.cts'
-] as const;
-
 async function detectViteMinifyDisabled(rt: Runtime, cwd: string): Promise<Project['viteMinifyDisabled']> {
   const exists = await Promise.all(VITE_CONFIG_FILES.map((f) => rt.exists(rt.join(cwd, f))));
   const file = VITE_CONFIG_FILES[exists.indexOf(true)];
@@ -169,13 +162,44 @@ async function detectViteMinifyDisabled(rt: Runtime, cwd: string): Promise<Proje
   }
 }
 
+/**
+ * The first config file that exists, with its source. Only the FIRST existing candidate is
+ * considered — that is the one the tool would load — so an unreadable first candidate yields
+ * undefined rather than silently falling through to a file that is never loaded.
+ */
+async function readFirstConfig(
+  rt: Runtime,
+  cwd: string,
+  files: readonly string[]
+): Promise<{ file: string; source: string } | undefined> {
+  for (const file of files) {
+    const path = rt.join(cwd, file);
+    if (!(await rt.exists(path))) continue;
+    try {
+      return { file, source: await rt.readFile(path) };
+    } catch {
+      return undefined; // unreadable config — don't guess
+    }
+  }
+  return undefined;
+}
+
+async function detectKitPathsBase(rt: Runtime, cwd: string): Promise<Project['kitPathsBase']> {
+  const [viteConfig, svelteConfig] = await Promise.all([
+    readFirstConfig(rt, cwd, VITE_CONFIG_FILES),
+    readFirstConfig(rt, cwd, SVELTE_CONFIG_FILES)
+  ]);
+  return resolveKitPathsBase(viteConfig, svelteConfig);
+}
+
 /** Precompute project-wide facts for project-scope rules (design §10, §11, §17). */
 export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Project> {
-  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled] = await Promise.all([
+  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled, kitPathsBase] = await Promise.all([
     existsAny(rt, cwd, ROBOTS_SOURCE_PATHS),
     existsAny(rt, cwd, SITEMAP_SOURCE_PATHS),
     detectAppHtmlLang(rt, cwd),
-    detectViteMinifyDisabled(rt, cwd)
+    detectViteMinifyDisabled(rt, cwd),
+    detectKitPathsBase(rt, cwd)
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
   return {
@@ -183,6 +207,7 @@ export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Pro
     hasSitemap,
     htmlLang,
     ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}),
-    ...(viteMinifyDisabled ? { viteMinifyDisabled } : {})
+    ...(viteMinifyDisabled ? { viteMinifyDisabled } : {}),
+    ...(kitPathsBase ? { kitPathsBase } : {})
   };
 }

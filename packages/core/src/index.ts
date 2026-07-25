@@ -36,6 +36,12 @@ export { parseKitModuleFacts, resolveRunesModuleSpecifier } from './kit-module-p
 export { collectKitModuleFacts, emptyKitModuleFacts } from './kit-module-collect.js';
 export { findMinifyDisabled } from './vite-config-parse.js';
 export {
+  findKitPathsBaseInSvelteConfig,
+  findKitPathsBaseInViteConfig,
+  resolveKitPathsBase
+} from './svelte-config-parse.js';
+export type { ViteKitConfigResult } from './svelte-config-parse.js';
+export {
   CHILD_NODE_KEYS,
   lineOf,
   findAttr,
@@ -46,7 +52,7 @@ export {
   attrValueOf,
   attrTextOf
 } from './svelte-ast.js';
-export { ROBOTS_SOURCE_PATHS, SITEMAP_SOURCE_PATHS } from './project-paths.js';
+export { ROBOTS_SOURCE_PATHS, SITEMAP_SOURCE_PATHS, VITE_CONFIG_FILES, SVELTE_CONFIG_FILES } from './project-paths.js';
 export type { Runtime } from './runtime.js';
 export type { Rule, RuleContext } from './rule.js';
 export { isPenalized, docsUrlFor } from './rule.js';
