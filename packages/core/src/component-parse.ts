@@ -1874,6 +1874,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     const raw: BasePathLinkFact[] = [];
     collectGotoLinks(locals, [program], wrapped, raw);
     for (const l of raw) basePathLinks.push({ ...l, line: shift(l.line) });
+    basePathLinks.sort((a, b) => a.line - b.line);
   }
   return {
     eachBlocks: [],
@@ -1922,6 +1923,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
       gotoLocals.add(n);
     }
   collectGotoLinks(gotoLocals, [...gotoPrograms, ast.fragment], source, basePathLinks);
+  basePathLinks.sort((a, b) => a.line - b.line);
   const loc = countLines(source);
   const suppressions = collectSuppressions(source);
 

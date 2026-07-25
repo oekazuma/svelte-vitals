@@ -90,6 +90,19 @@ describe('correctness/base-path-navigation', () => {
     expect(results.filter((r) => r.detection.presence === 'none')).toHaveLength(2);
   });
 
+  it('passes with a PASS result when every finding is suppressed', async () => {
+    const results = await correctnessBasePathNavigation.check(
+      ctx(withBase, [
+        {
+          ...comp('src/routes/+page.svelte', [{ kind: 'href', path: '/about', line: 3 }]),
+          suppressions: [{ line: 3, ruleIds: ['correctness/base-path-navigation'] }]
+        }
+      ])
+    );
+    expect(results.filter((r) => r.detection.presence === 'own')).toHaveLength(1);
+    expect(results.filter((r) => r.detection.presence === 'none')).toHaveLength(0);
+  });
+
   it('emits nothing for files with no links', async () => {
     const results = await correctnessBasePathNavigation.check(
       ctx(withBase, [comp('src/routes/+page.svelte', [])], [kit('src/routes/+page.server.ts', [])])

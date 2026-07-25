@@ -48,6 +48,10 @@ describe('findKitPathsBaseInViteConfig', () => {
     });
   });
 
+  it('ignores an empty-string base in the plugin config', () => {
+    expect(findKitPathsBaseInViteConfig(vite(`sveltekit({ paths: { base: '' } })`))).toEqual({ kind: 'resolved' });
+  });
+
   it('reports a dynamic base in the plugin config as present-but-unknown', () => {
     expect(findKitPathsBaseInViteConfig(vite(`sveltekit({ paths: { base: process.env.BASE ?? '' } })`))).toEqual({
       kind: 'resolved',

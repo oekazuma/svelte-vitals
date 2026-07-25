@@ -6,7 +6,7 @@
  * are passed via your Vite config"), otherwise `svelte.config.{js,ts}` is read. Never throws.
  */
 import type { Expression, ObjectExpression, Program } from 'estree';
-import { parseModuleProgram, unwrapTs, type TsExpression } from './component-parse.js';
+import { collectNamedImportAliases, parseModuleProgram, unwrapTs, type TsExpression } from './component-parse.js';
 import { collectTopLevelBindings } from './kit-module-parse.js';
 import { propOf, resolveConfigObject, unwrapToObjectExpression } from './config-object.js';
 
@@ -65,15 +65,7 @@ export function findKitPathsBaseInSvelteConfig(source: string): { value?: string
  * shape is distinctive enough that a false match is not a realistic concern.
  */
 function sveltekitLocalNames(program: Program): Set<string> {
-  const out = new Set<string>();
-  for (const stmt of program.body) {
-    if (stmt.type !== 'ImportDeclaration' || stmt.source.value !== '@sveltejs/kit/vite') continue;
-    for (const s of stmt.specifiers) {
-      if (s.type === 'ImportSpecifier' && s.imported.type === 'Identifier' && s.imported.name === 'sveltekit') {
-        out.add(s.local.name);
-      }
-    }
-  }
+  const out = collectNamedImportAliases(program, '@sveltejs/kit/vite', new Set(['sveltekit']));
   if (out.size === 0) out.add('sveltekit');
   return out;
 }
