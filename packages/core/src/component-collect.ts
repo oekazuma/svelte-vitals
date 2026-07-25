@@ -25,6 +25,7 @@ export function emptyComponentFacts(file: string): ComponentFacts {
     stalePropDerivations: [],
     rawableStates: [],
     nonreactiveBuiltinStates: [],
+    checkableBindValues: [],
     basePathLinks: [],
     orphanEffects: [],
     orphanLifecycleCalls: [],

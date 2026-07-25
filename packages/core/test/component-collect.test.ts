@@ -49,6 +49,7 @@ describe('emptyComponentFacts', () => {
       orphanEffects: [],
       orphanLifecycleCalls: [],
       browserGlobalRefs: [],
+      checkableBindValues: [],
       moduleStateDecls: [],
       suppressions: []
     });

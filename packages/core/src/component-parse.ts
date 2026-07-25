@@ -4,6 +4,7 @@ import type { AST } from 'svelte/compiler';
 import type {
   BasePathLinkFact,
   BrowserGlobalRefFact,
+  CheckableBindValueFact,
   ComponentFacts,
   EachBlockFact,
   EffectFact,
@@ -991,6 +992,9 @@ function bodyIsEmpty(fn: Node): boolean {
 /** Attributes whose value navigates/executes — a literal `javascript:` here is an XSS vector (security/javascript-url). */
 const URL_ATTRS = ['href', 'src', 'action', 'formaction'];
 
+/** Native checkable input types where bind:value binds the wrong DOM property (correctness/checkable-bind-value). */
+const CHECKABLE_INPUT_TYPES = new Set(['checkbox', 'radio']);
+
 /** Recursively collect Security facts: `{@html}` tags and literal `javascript:` URLs (security/raw-html, security/javascript-url). */
 function collectSecurityFacts(node: Node, source: string, htmlTags: SourceSpan[], jsUrls: SourceSpan[]): void {
   if (Array.isArray(node)) {
@@ -1014,6 +1018,38 @@ function collectSecurityFacts(node: Node, source: string, htmlTags: SourceSpan[]
   }
   for (const key of CHILD_NODE_KEYS) {
     if (key in node) collectSecurityFacts(node[key], source, htmlTags, jsUrls);
+  }
+}
+
+/**
+ * `<input type="checkbox">` / `<input type="radio">` elements carrying a `bind:value`
+ * directive (correctness/checkable-bind-value) — bind:value binds the DOM value property,
+ * which checkbox/radio interaction never changes, so the bound state silently never updates.
+ * Only `RegularElement` (a static `<input>`) is checked, so a dynamic tag via
+ * `<svelte:element this="input" …>` is naturally skipped (it is a different node type). A
+ * dynamic `type={expr}` makes `attrTextOf` return `undefined`, which is also skipped.
+ */
+function collectCheckableBindValues(node: Node, source: string, acc: CheckableBindValueFact[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectCheckableBindValues(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && node.name === 'input' && Array.isArray(node.attributes)) {
+    const typeAttr = findAttr(node.attributes, 'type');
+    const typeValue = typeAttr ? attrTextOf(typeAttr) : undefined;
+    if (typeValue && CHECKABLE_INPUT_TYPES.has(typeValue)) {
+      const bindValue = node.attributes.find((a: Node) => a?.type === 'BindDirective' && a.name === 'value');
+      if (bindValue) {
+        acc.push({
+          kind: typeValue as 'checkbox' | 'radio',
+          line: lineOf(source, bindValue.start ?? node.start)
+        });
+      }
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectCheckableBindValues(node[key], source, acc);
   }
 }
 
@@ -1891,6 +1927,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     stalePropDerivations: [],
     rawableStates: [],
     nonreactiveBuiltinStates: [],
+    checkableBindValues: [],
     basePathLinks,
     suppressions: collectSuppressions(source),
     orphanEffects,
@@ -1914,6 +1951,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   const htmlTags: SourceSpan[] = [];
   const javascriptUrls: SourceSpan[] = [];
   collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
+  const checkableBindValues: CheckableBindValueFact[] = [];
+  collectCheckableBindValues(ast.fragment ?? ast, source, checkableBindValues);
   const basePathLinks: BasePathLinkFact[] = [];
   collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
   const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
@@ -2118,6 +2157,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     stalePropDerivations,
     rawableStates,
     nonreactiveBuiltinStates,
+    checkableBindValues,
     basePathLinks,
     orphanEffects,
     orphanLifecycleCalls,

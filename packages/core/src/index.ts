@@ -108,6 +108,7 @@ export {
   correctnessPropMutation,
   correctnessStalePropDerivation,
   correctnessNonreactiveBuiltinState,
+  correctnessCheckableBindValue,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
   correctnessBasePathNavigation,
