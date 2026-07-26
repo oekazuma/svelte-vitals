@@ -16,7 +16,7 @@ Design doc: [docs/superpowers/specs/2026-07-25-architecture-threshold-recalibrat
 - **Nothing else about either rule changes**: both stay `severity: 'info'`, both stay component-scoped, and the detection predicates keep their current shape. The `recommendation` strings already interpolate the constants, so they update themselves — do not hand-edit the interpolated number into them.
 - **Core purity**: no `node:` imports, no I/O, no runtime-specific globals in `packages/core/src/`.
 - **Doc pages must stay in sync**: `docs/src/content/docs/rules/architecture/` (en) and `docs/src/content/docs/ja/rules/architecture/` (ja) are updated together.
-- **Changeset required** — `minor` for `@svelte-vitals/core`, `svelte-vitals`, `@svelte-vitals/vite`, `@svelte-vitals/mcp`. This is a visible behaviour change, not a bug fix: existing projects will see new `info` findings and a lower Architecture score (each `info` finding deducts 1 point).
+- **Changeset required** — `minor` for `@svelte-vitals/core`, `svelte-vitals`, `@svelte-vitals/vite`, `@svelte-vitals/mcp`. This is a visible behaviour change, not a bug fix: existing projects will see new `info` findings. The Architecture score itself barely moves — component-scoped rules score per file and the per-file scores are averaged, so over half a project's components must be flagged to lose even one point — but anyone running `--fail-on info` / `failOn: 'info'` will newly fail on components that passed before.
 - **Historical CHANGELOG entries are not edited.** `packages/*/CHANGELOG.md` lines mentioning "over 400 lines" / "more than 10 props" describe what those releases actually did and stay as they are.
 - All shell commands assume the repository root as the working directory.
 
@@ -279,7 +279,7 @@ Recalibrate the Architecture thresholds against real Svelte code: `architecture/
 
 Both numbers were previously guesses. They are now derived by measuring 2,239 components across 7 real Svelte 5 codebases and taking the median of each repository's 90th percentile — the same benchmark-based method ReactSniffer uses for React. At the old values these rules almost never fired on a typical Svelte project.
 
-Expect new `info` findings and a correspondingly lower Architecture score on existing projects; each `info` finding deducts 1 point. Turn a rule off in `svelte-vitals.config.mjs` (`rules: { 'architecture/prop-count': 'off' }`) if its default does not suit your codebase — per-rule thresholds are not configurable yet.
+Expect new `info` findings on existing projects. The Architecture score itself will barely move: component-scoped rules score per file (each flagged file loses 1 point for an `info` finding, then per-file scores are averaged across the project), so more than half of a project's components would have to be flagged before the Architecture score drops by even a single point. Nothing fails by default, since `failOn` defaults to `'critical'` — but if you run with `--fail-on info` or `failOn: 'info'` in `svelte-vitals.config.mjs` (including the Vite plugin's build mode, where it fails the `vite build`), components that passed before this change will now fail. Turn a rule off in `svelte-vitals.config.mjs` (`rules: { 'architecture/prop-count': 'off' }`) if its default does not suit your codebase — per-rule thresholds are not configurable yet.
 ```
 
 - [ ] **Step 6: Run the full verification suite**
