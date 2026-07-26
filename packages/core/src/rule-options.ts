@@ -174,3 +174,54 @@ export function validateRuleOptions(
   }
   return errors;
 }
+
+/** Whether `value` is a plain object (not null, not an array) — usable with Object.keys/entries. */
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+/**
+ * Whether some *other* entry in `overrides` narrows the opposite side of a
+ * min/max range for the same rule key. Two override entries can both apply
+ * to the same target at once (a `files:` scope and a `route:` scope are not
+ * mutually exclusive, and even two `files:` scopes can overlap), so an entry
+ * that narrows only `min` might combine with another entry's `max` at a
+ * shared target and be valid there — but which entries actually co-apply
+ * depends on the target's route/file, which is unknowable at config-load
+ * time. This is therefore a conservative "might they?" check: `true` means
+ * the single-layer baseline this entry would otherwise be validated against
+ * can't be trusted, so the caller skips the range cross-check for this entry
+ * rather than risk rejecting a config that is valid at every target (design
+ * 2026-07-26 review, Finding A, third pass).
+ *
+ * Two false negatives follow from that conservatism and stay undetected:
+ * two entries that each look valid alone but jointly invert the range where
+ * both apply, and an entry that IS inverted against defaults + the global
+ * `rules` layer but is skipped because some unrelated sibling entry happens
+ * to set the opposite side. Both are statically undecidable for the same
+ * reason, and both cost at most an odd-looking runtime message — never a
+ * valid config rejected, which is the failure mode worth avoiding here.
+ * See the design doc's "Out of scope" section.
+ *
+ * `overrides` is deliberately `readonly unknown[]`: the CLI's config-file
+ * loader calls this before its own shape validation has run (so entries may
+ * not yet be known to be objects), while the Vite plugin calls it on
+ * already-typed `RuleOverride[]`. Both shapes satisfy `unknown[]` without
+ * a cast, and the defensive `isPlainObject` checks below make the two
+ * call sites' behaviour identical for well-formed input (design 2026-07-26
+ * review, Finding 2 — this function previously existed verbatim, with this
+ * same rationale comment, in both `packages/cli/src/config-file.ts` and
+ * `packages/vite/src/plugin.ts`).
+ */
+export function otherOverrideNarrowsOppositeSide(
+  overrides: readonly unknown[],
+  selfIndex: number,
+  key: string,
+  side: 'min' | 'max'
+): boolean {
+  return overrides.some((entry, i) => {
+    if (i === selfIndex || !isPlainObject(entry) || !isPlainObject(entry.rules)) return false;
+    const setting = entry.rules[key];
+    return isPlainObject(setting) && isPlainObject(setting.options) && side in setting.options;
+  });
+}

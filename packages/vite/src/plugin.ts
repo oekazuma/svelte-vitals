@@ -3,7 +3,13 @@ import { writeFile, mkdir } from 'node:fs/promises';
 import { join, isAbsolute, dirname, relative, basename, sep } from 'node:path';
 import type { Plugin, ViteDevServer } from 'vite';
 import type { Category, RuleOptions, RuleOverride, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
-import { defaultConfig, defineConfig, resolveRuleOptions, validateRuleOptions } from '@svelte-vitals/core';
+import {
+  defaultConfig,
+  defineConfig,
+  otherOverrideNarrowsOppositeSide,
+  resolveRuleOptions,
+  validateRuleOptions
+} from '@svelte-vitals/core';
 import { findUnknownRuleIds, knownRuleIds, loadConfigFile, ruleOptionsSpec } from 'svelte-vitals';
 import { analyze } from './analyze.js';
 import { resolveMinifyDisabled } from './minify-flag.js';
@@ -102,41 +108,6 @@ function validateRulesOption(rules: Record<string, RuleSetting> | undefined): vo
     errors.push(...validateRuleOptions(id, ruleOptionsSpec(id), setting.options));
   }
   if (errors.length > 0) throw new Error(`svelte-vitals: invalid \`rules\` option — ${errors.join(' ')}`);
-}
-
-/**
- * Whether some *other* entry in `overrides` narrows the opposite side of a
- * min/max range for the same rule key. Two override entries can both apply
- * to the same target at once (their `route`/`files` scopes are not mutually
- * exclusive), so an entry that narrows only `min` might combine with another
- * entry's `max` at a shared target and be valid there — but which entries
- * actually co-apply depends on the target's route/file, which is unknowable
- * at plugin-construction time. This is therefore a conservative "might
- * they?" check: `true` means the single-layer baseline this entry would
- * otherwise be validated against can't be trusted, so the caller skips the
- * range cross-check for this entry rather than risk rejecting a config that
- * is valid at every target (design 2026-07-26 review, Finding A, third
- * pass; mirrors the CLI's `otherOverrideNarrowsOppositeSide` in
- * packages/cli/src/config-file.ts).
- *
- * Two false negatives follow, for the same reason: two entries that each
- * look valid alone but jointly invert the range where both apply, and an
- * entry that IS inverted against defaults + the global `rules` layer but is
- * skipped because an unrelated sibling entry sets the opposite side. Both
- * cost at most an odd-looking runtime message, never a valid config
- * rejected; see the design doc's "Out of scope" section.
- */
-function otherOverrideNarrowsOppositeSide(
-  overrides: RuleOverride[],
-  selfIndex: number,
-  key: string,
-  side: 'min' | 'max'
-): boolean {
-  return overrides.some((entry, i) => {
-    if (i === selfIndex) return false;
-    const setting = entry.rules?.[key];
-    return typeof setting === 'object' && setting !== null && setting.options !== undefined && side in setting.options;
-  });
 }
 
 /**
