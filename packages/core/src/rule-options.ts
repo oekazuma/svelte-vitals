@@ -81,13 +81,24 @@ export function resolveRuleOptions(
  * instead of the spec's own default, so a layer that only sets one side of a
  * range is checked against what it actually inherits (design 2026-07-26
  * review, Finding A). Omit it to check `options` against the spec defaults
- * alone, as when validating the global layer itself.
+ * alone, as when validating the global layer itself. A `baseline` that is
+ * only partially resolved (missing `min` or `max`) is treated as "can't
+ * determine that side" rather than silently comparing against `undefined` —
+ * see the `typeof` guard below.
+ *
+ * `skipRangeCheck`, when true, skips the min/max cross-check entirely
+ * regardless of `baseline`. A caller sets this when it statically cannot
+ * rule out that some *other* config layer narrows the opposite side of the
+ * range at the same target — see the CLI's and the Vite plugin's
+ * `overrides[]` validation (design 2026-07-26 review, Finding A, third
+ * pass).
  */
 export function validateRuleOptions(
   ruleId: string,
   spec: RuleOptionsSpec | undefined,
   options: RuleOptions,
-  baseline?: RuleOptions
+  baseline?: RuleOptions,
+  skipRangeCheck?: boolean
 ): string[] {
   if (!spec) return [`${ruleId} takes no options.`];
   const errors: string[] = [];
@@ -139,11 +150,27 @@ export function validateRuleOptions(
   // since both funnel through this function.
   const minSpec = spec.min;
   const maxSpec = spec.max;
-  if (minSpec?.kind === 'integer' && maxSpec?.kind === 'integer' && !badKeys.has('min') && !badKeys.has('max')) {
+  if (
+    minSpec?.kind === 'integer' &&
+    maxSpec?.kind === 'integer' &&
+    !badKeys.has('min') &&
+    !badKeys.has('max') &&
+    !skipRangeCheck
+  ) {
     const base = baseline ?? defaultsOf(spec);
-    const minVal = 'min' in options ? (options.min as number) : (base.min as number);
-    const maxVal = 'max' in options ? (options.max as number) : (base.max as number);
-    if (minVal > maxVal) errors.push(`${ruleId}: min (${minVal}) must be <= max (${maxVal}).`);
+    const minVal = 'min' in options ? (options.min as number) : base.min;
+    const maxVal = 'max' in options ? (options.max as number) : base.max;
+    // A partial `baseline` (e.g. `{ min: 40 }`, no `max`) leaves the other side
+    // `undefined`. Comparing `minVal > maxVal` in that case is always `false` in
+    // JS regardless of the actual values, which would silently no-op the check
+    // rather than flag that this side is unresolved — guard explicitly instead
+    // of relying on that comparison quirk (design 2026-07-26 review, Finding 3,
+    // third pass). Every in-repo caller passes a fully resolved baseline; this
+    // only matters for `validateRuleOptions` as a public `@svelte-vitals/core`
+    // entry point.
+    if (typeof minVal === 'number' && typeof maxVal === 'number' && minVal > maxVal) {
+      errors.push(`${ruleId}: min (${minVal}) must be <= max (${maxVal}).`);
+    }
   }
   return errors;
 }

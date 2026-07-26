@@ -124,4 +124,16 @@ describe('svelteVitals overrides option validation', () => {
   it('accepts no overrides option at all', () => {
     expect(() => svelteVitals({ ui: false })).not.toThrow();
   });
+
+  it('accepts two override entries that jointly widen a range, when validating one against the built-in default alone would falsely invert it (Finding A, third pass)', () => {
+    expect(() =>
+      svelteVitals({
+        ui: false,
+        overrides: [
+          { files: 'src/routes/**', rules: { 'seo/title-length': { options: { max: 200 } } } },
+          { route: '/landing', rules: { 'seo/title-length': { options: { min: 100 } } } }
+        ]
+      })
+    ).not.toThrow();
+  });
 });

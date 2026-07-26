@@ -105,6 +105,38 @@ function validateRulesOption(rules: Record<string, RuleSetting> | undefined): vo
 }
 
 /**
+ * Whether some *other* entry in `overrides` narrows the opposite side of a
+ * min/max range for the same rule key. Two override entries can both apply
+ * to the same target at once (their `route`/`files` scopes are not mutually
+ * exclusive), so an entry that narrows only `min` might combine with another
+ * entry's `max` at a shared target and be valid there — but which entries
+ * actually co-apply depends on the target's route/file, which is unknowable
+ * at plugin-construction time. This is therefore a conservative "might
+ * they?" check: `true` means the single-layer baseline this entry would
+ * otherwise be validated against can't be trusted, so the caller skips the
+ * range cross-check for this entry rather than risk rejecting a config that
+ * is valid at every target (design 2026-07-26 review, Finding A, third
+ * pass; mirrors the CLI's `otherOverrideNarrowsOppositeSide` in
+ * packages/cli/src/config-file.ts).
+ *
+ * The reverse failure mode — two entries that each look valid alone but
+ * jointly invert the range at a target where both apply — stays undetected,
+ * for the same reason; see the design doc's "Out of scope" section.
+ */
+function otherOverrideNarrowsOppositeSide(
+  overrides: RuleOverride[],
+  selfIndex: number,
+  key: string,
+  side: 'min' | 'max'
+): boolean {
+  return overrides.some((entry, i) => {
+    if (i === selfIndex) return false;
+    const setting = entry.rules?.[key];
+    return typeof setting === 'object' && setting !== null && setting.options !== undefined && side in setting.options;
+  });
+}
+
+/**
  * Validate the plugin's `overrides` option (2026-07-26 second review, Finding C):
  * previously only `options.rules` was validated, so a typo inside
  * `overrides[].rules[id].options` — the field the changeset advertises as the
@@ -115,7 +147,9 @@ function validateRulesOption(rules: Record<string, RuleSetting> | undefined): vo
  * key's options are validated against the baseline resolved from `rules`
  * (built-in defaults + the plugin's own `rules` option), so an override that
  * only narrows one side of an already-widened range isn't falsely rejected
- * (Finding A).
+ * (Finding A) — including when the widening comes from another `overrides[]`
+ * entry rather than the global `rules` layer (Finding A, third pass; see
+ * `otherOverrideNarrowsOppositeSide`).
  */
 function validateOverridesOption(
   overrides: RuleOverride[] | undefined,
@@ -142,8 +176,15 @@ function validateOverridesOption(
         continue;
       }
       const baseline: RuleOptions = resolveRuleOptions(key, ruleOptionsSpec(key), baseConfig);
+      const setsMin = 'min' in setting.options;
+      const setsMax = 'max' in setting.options;
+      const skipRangeCheck =
+        (setsMin && !setsMax && otherOverrideNarrowsOppositeSide(overrides, i, key, 'max')) ||
+        (setsMax && !setsMin && otherOverrideNarrowsOppositeSide(overrides, i, key, 'min'));
       errors.push(
-        ...validateRuleOptions(key, ruleOptionsSpec(key), setting.options, baseline).map((e) => `overrides[${i}]: ${e}`)
+        ...validateRuleOptions(key, ruleOptionsSpec(key), setting.options, baseline, skipRangeCheck).map(
+          (e) => `overrides[${i}]: ${e}`
+        )
       );
     }
   });

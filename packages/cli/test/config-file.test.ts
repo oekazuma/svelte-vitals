@@ -214,6 +214,12 @@ describe('loadConfigFile', () => {
     );
   });
 
+  it('accepts two override entries that jointly widen a range, when validating one against the built-in default alone would falsely invert it (Finding A, third pass)', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-overrides-options-joint-range'));
+    expect(loaded?.config.overrides![0]!.rules['seo/title-length']).toEqual({ options: { max: 200 } });
+    expect(loaded?.config.overrides![1]!.rules['seo/title-length']).toEqual({ options: { min: 100 } });
+  });
+
   it('rejects an unknown key inside a setting object', async () => {
     await expect(loadConfigFile(fixture('config-file-setting-unknown-key'))).rejects.toThrow(/unknown key/);
   });

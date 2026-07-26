@@ -60,6 +60,12 @@ export interface LoadedConfigFile {
  * review, Finding A). Omitted for the global `rules` layer itself, so its
  * min/max cross-check (inside `validateRuleOptions`) falls back to the rule's
  * own built-in default, as before.
+ *
+ * `skipRangeCheck`, when true, tells `validateRuleOptions` to skip the
+ * min/max cross-check entirely — used when some other `overrides[]` entry
+ * narrows the opposite side of the range, so `baseline` alone can't be
+ * trusted to judge this entry (design 2026-07-26 review, Finding A, third
+ * pass; see `otherOverrideNarrowsOppositeSide` below).
  */
 function validateSetting(
   path: string,
@@ -67,7 +73,8 @@ function validateSetting(
   key: string,
   setting: unknown,
   allowOptions: boolean,
-  baseline?: RuleOptions
+  baseline?: RuleOptions,
+  skipRangeCheck?: boolean
 ): void {
   if (typeof setting === 'string') {
     if (!RULE_SETTING_VALUES.includes(setting)) {
@@ -99,8 +106,41 @@ function validateSetting(
   if (!isPlainObject(setting.options)) {
     throw new Error(`${path}: ${where}.${key}.options: must be an object.`);
   }
-  const errors = validateRuleOptions(key, ruleOptionsSpec(key), setting.options, baseline);
+  const errors = validateRuleOptions(key, ruleOptionsSpec(key), setting.options, baseline, skipRangeCheck);
   if (errors.length > 0) throw new Error(`${path}: ${where}.${key}: ${errors.join(' ')}`);
+}
+
+/**
+ * Whether some *other* entry in `overrides` narrows the opposite side of a
+ * min/max range for the same rule key. Two override entries can both apply
+ * to the same target at once (a `files:` scope and a `route:` scope are not
+ * mutually exclusive, and even two `files:` scopes can overlap), so an entry
+ * that narrows only `min` might combine with another entry's `max` at a
+ * shared target and be valid there — but which entries actually co-apply
+ * depends on the target's route/file, which is unknowable at config-load
+ * time. This is therefore a conservative "might they?" check: `true` means
+ * the single-layer baseline this entry would otherwise be validated against
+ * can't be trusted, so the caller skips the range cross-check for this entry
+ * rather than risk rejecting a config that is valid at every target (design
+ * 2026-07-26 review, Finding A, third pass).
+ *
+ * The reverse failure mode — two entries that each look valid alone but
+ * jointly invert the range at a target where both apply — stays undetected;
+ * it is statically undecidable for the same reason, and its worst outcome is
+ * an odd-looking runtime message rather than a valid config being rejected.
+ * See the design doc's "Out of scope" section.
+ */
+function otherOverrideNarrowsOppositeSide(
+  overrides: unknown[],
+  selfIndex: number,
+  key: string,
+  side: 'min' | 'max'
+): boolean {
+  return overrides.some((entry, i) => {
+    if (i === selfIndex || !isPlainObject(entry) || !isPlainObject(entry.rules)) return false;
+    const setting = entry.rules[key];
+    return isPlainObject(setting) && isPlainObject(setting.options) && side in setting.options;
+  });
 }
 
 /**
@@ -175,7 +215,8 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
     const isGlobs = (v: unknown): v is RuleOverride['route'] =>
       isGlob(v) || (Array.isArray(v) && v.length > 0 && v.every(isGlob));
     const overrides: RuleOverride[] = [];
-    raw.overrides.forEach((entry: unknown, i: number) => {
+    const rawOverrides = raw.overrides; // narrowed to an array by the check above
+    rawOverrides.forEach((entry: unknown, i: number) => {
       if (!isPlainObject(entry)) {
         throw new Error(`${path}: overrides[${i}] must be an object with 'route' and/or 'files', and 'rules'.`);
       }
@@ -217,7 +258,19 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
         const baseline = isCategory
           ? undefined
           : resolveRuleOptions(key, ruleOptionsSpec(key), { ...defaultConfig, rules: config.rules ?? {} });
-        validateSetting(path, `overrides[${i}].rules`, key, setting, !isCategory, baseline);
+        // If this entry narrows only one side of a min/max range, and some other
+        // overrides[] entry narrows the opposite side, `baseline` above can't be
+        // trusted to judge this entry alone — skip the cross-check rather than
+        // risk rejecting a config that is valid at every target it actually
+        // applies to (design 2026-07-26 review, Finding A, third pass).
+        const entryOptions = isPlainObject(setting) && isPlainObject(setting.options) ? setting.options : undefined;
+        const setsMin = entryOptions !== undefined && 'min' in entryOptions;
+        const setsMax = entryOptions !== undefined && 'max' in entryOptions;
+        const skipRangeCheck =
+          !isCategory &&
+          ((setsMin && !setsMax && otherOverrideNarrowsOppositeSide(rawOverrides, i, key, 'max')) ||
+            (setsMax && !setsMin && otherOverrideNarrowsOppositeSide(rawOverrides, i, key, 'min')));
+        validateSetting(path, `overrides[${i}].rules`, key, setting, !isCategory, baseline, skipRangeCheck);
       }
       overrides.push({
         ...(entry.route !== undefined ? { route: entry.route as RuleOverride['route'] } : {}),

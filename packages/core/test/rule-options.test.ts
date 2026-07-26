@@ -169,6 +169,38 @@ describe('validateRuleOptions', () => {
         const errors = validateRuleOptions('seo/title-length', lengthSpec, { max: 35 }, { min: 40, max: 60 });
         expect(errors[0]).toContain('min (40) must be <= max (35)');
       });
+
+      // Task 3 (Minor, 2026-07-26 third review): a partial baseline used to
+      // silently no-op the cross-check, since `minVal > maxVal` is always
+      // `false` in JS when either side is `undefined`. Every in-repo caller
+      // passes a fully resolved baseline, but `validateRuleOptions` is a
+      // public `@svelte-vitals/core` export, so a caller that passes a
+      // partial baseline must not have the check quietly do nothing.
+      it('does not report a false positive when the baseline only has one side (missing side unresolved)', () => {
+        expect(validateRuleOptions('seo/title-length', lengthSpec, { min: 50 }, { min: 40 })).toEqual([]);
+      });
+      it('still catches an inversion when the baseline is partial but options sets both sides', () => {
+        const errors = validateRuleOptions('seo/title-length', lengthSpec, { min: 50, max: 10 }, { min: 40 });
+        expect(errors[0]).toContain('min (50) must be <= max (10)');
+      });
+    });
+
+    // Task 2 (2026-07-26 third review, Finding A continued): a caller can tell
+    // `validateRuleOptions` to skip the cross-check entirely when it statically
+    // cannot rule out that some other config layer (e.g. a sibling `overrides[]`
+    // entry) narrows the opposite side at the same target — see the CLI's and
+    // the Vite plugin's `otherOverrideNarrowsOppositeSide`.
+    describe('skipRangeCheck', () => {
+      it('suppresses the cross-check even when options+baseline would otherwise invert', () => {
+        expect(validateRuleOptions('seo/title-length', lengthSpec, { min: 100 }, { min: 30, max: 60 }, true)).toEqual(
+          []
+        );
+      });
+      it('still reports non-range errors (e.g. an unknown key) while the range check is skipped', () => {
+        const errors = validateRuleOptions('seo/title-length', lengthSpec, { min: 100, foo: 1 }, undefined, true);
+        expect(errors).toHaveLength(1);
+        expect(errors[0]).toContain("unknown option 'foo'");
+      });
     });
   });
 });
