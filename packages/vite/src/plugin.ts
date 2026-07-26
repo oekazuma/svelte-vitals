@@ -2,9 +2,9 @@ import { existsSync } from 'node:fs';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join, isAbsolute, dirname, relative, basename, sep } from 'node:path';
 import type { Plugin, ViteDevServer } from 'vite';
-import type { Category, RuleOverride, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
-import { defineConfig, validateRuleOptions } from '@svelte-vitals/core';
-import { loadConfigFile, ruleOptionsSpec } from 'svelte-vitals';
+import type { Category, RuleOptions, RuleOverride, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
+import { defaultConfig, defineConfig, resolveRuleOptions, validateRuleOptions } from '@svelte-vitals/core';
+import { findUnknownRuleIds, knownRuleIds, loadConfigFile, ruleOptionsSpec } from 'svelte-vitals';
 import { analyze } from './analyze.js';
 import { resolveMinifyDisabled } from './minify-flag.js';
 import { installUiMiddleware } from './ui/middleware.js';
@@ -73,18 +73,29 @@ export interface SvelteVitalsOptions {
 
 const DEFAULT_PRERENDER_DIR = '.svelte-kit/output/prerendered/pages';
 
+const CATEGORIES: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
+
 /**
  * Validate the plugin's `rules` option the same way the CLI's config-file loader
  * validates a config file's `rules` map (design 2026-07-26, Finding 4): an unknown
- * option key or a type/bounds/range violation is fatal, not silently dropped.
- * `options.rules` never passes through `loadConfigFile` (that only validates
- * `svelte-vitals.config.*`), so this is the only check a plugin-option `rules`
- * value gets. Kept intentionally narrow — same scope as the finding — options
- * are the thing `resolveRuleOptions` would otherwise drop unknown keys from
- * silently; severity strings are still caught by TypeScript for TS consumers.
+ * rule id, or (for a known id) an unknown option key or a type/bounds/range
+ * violation, is fatal, not silently dropped. `options.rules` never passes through
+ * `loadConfigFile` (that only validates `svelte-vitals.config.*`), so this is the
+ * only check a plugin-option `rules` value gets. Unknown ids are rejected first —
+ * as the CLI does — so a typo'd id with options reports "unknown rule id", not a
+ * misleading "takes no options" (2026-07-26 second review, Finding D). Severity
+ * strings are still caught by TypeScript for TS consumers; this covers options,
+ * which `resolveRuleOptions` would otherwise drop unknown keys from silently.
  */
 function validateRulesOption(rules: Record<string, RuleSetting> | undefined): void {
   if (!rules) return;
+  const unknown = findUnknownRuleIds(Object.keys(rules));
+  if (unknown.length > 0) {
+    throw new Error(
+      `svelte-vitals: invalid \`rules\` option — unknown rule id(s): ${unknown.join(', ')}. ` +
+        `Known rule ids: ${knownRuleIds().join(', ')}`
+    );
+  }
   const errors: string[] = [];
   for (const [id, setting] of Object.entries(rules)) {
     if (typeof setting === 'string' || setting.options === undefined) continue;
@@ -93,9 +104,56 @@ function validateRulesOption(rules: Record<string, RuleSetting> | undefined): vo
   if (errors.length > 0) throw new Error(`svelte-vitals: invalid \`rules\` option — ${errors.join(' ')}`);
 }
 
+/**
+ * Validate the plugin's `overrides` option (2026-07-26 second review, Finding C):
+ * previously only `options.rules` was validated, so a typo inside
+ * `overrides[].rules[id].options` — the field the changeset advertises as the
+ * per-path home for options — silently dropped the option instead of failing
+ * loudly. Same fatal/known-id/carve-out rules as the CLI's config-file loader:
+ * unknown rule ids (rejected before options, per Finding D) or categories are
+ * fatal; a category key may carry a severity but never `options`; a rule-id
+ * key's options are validated against the baseline resolved from `rules`
+ * (built-in defaults + the plugin's own `rules` option), so an override that
+ * only narrows one side of an already-widened range isn't falsely rejected
+ * (Finding A).
+ */
+function validateOverridesOption(
+  overrides: RuleOverride[] | undefined,
+  rules: Record<string, RuleSetting> | undefined
+): void {
+  if (!overrides) return;
+  const baseConfig = { ...defaultConfig, rules: rules ?? {} };
+  const errors: string[] = [];
+  overrides.forEach((entry, i) => {
+    const entryRules = entry.rules ?? {};
+    const nonCategoryKeys = Object.keys(entryRules).filter((k) => !CATEGORIES.includes(k as Category));
+    const unknown = findUnknownRuleIds(nonCategoryKeys);
+    if (unknown.length > 0) {
+      throw new Error(
+        `svelte-vitals: invalid \`overrides\` option — overrides[${i}]: unknown rule id(s) or categories: ` +
+          `${unknown.join(', ')}. Known categories: ${CATEGORIES.join(', ')}. Known rule ids: ${knownRuleIds().join(', ')}`
+      );
+    }
+    for (const [key, setting] of Object.entries(entryRules)) {
+      if (typeof setting === 'string' || setting.options === undefined) continue;
+      const isCategory = CATEGORIES.includes(key as Category);
+      if (isCategory) {
+        errors.push(`overrides[${i}].rules.${key}: options are not allowed on a category key.`);
+        continue;
+      }
+      const baseline: RuleOptions = resolveRuleOptions(key, ruleOptionsSpec(key), baseConfig);
+      errors.push(
+        ...validateRuleOptions(key, ruleOptionsSpec(key), setting.options, baseline).map((e) => `overrides[${i}]: ${e}`)
+      );
+    }
+  });
+  if (errors.length > 0) throw new Error(`svelte-vitals: invalid \`overrides\` option — ${errors.join(' ')}`);
+}
+
 /** svelte-vitals Vite/SvelteKit plugin. */
 export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin[] {
   validateRulesOption(options.rules);
+  validateOverridesOption(options.overrides, options.rules);
   let root = options.cwd ?? process.cwd();
   let minifyFlag: { minify: unknown; configFile: string | undefined } | undefined;
   const buildPlugin: Plugin = {

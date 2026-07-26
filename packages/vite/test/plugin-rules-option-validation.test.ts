@@ -48,4 +48,80 @@ describe('svelteVitals rules option validation', () => {
   it('accepts no rules option at all', () => {
     expect(() => svelteVitals({ ui: false })).not.toThrow();
   });
+
+  // 2026-07-26 second review, Finding D: an unknown rule id with options used to
+  // report the misleading "takes no options" (ruleOptionsSpec returns undefined
+  // for an unknown id), instead of pointing at the actual problem — the typo'd id.
+  it('throws "unknown rule id" (not "takes no options") for a typo\'d id carrying options', () => {
+    expect(() => svelteVitals({ ui: false, rules: { 'seo/titel-length': { options: { max: 10 } } } })).toThrowError(
+      /unknown rule id\(s\): seo\/titel-length/
+    );
+  });
+
+  it('throws "unknown rule id" for a typo\'d id with no options at all (pre-existing silent gap, now closed)', () => {
+    expect(() => svelteVitals({ ui: false, rules: { 'seo/titel-length': 'off' } })).toThrowError(
+      /unknown rule id\(s\): seo\/titel-length/
+    );
+  });
+});
+
+// 2026-07-26 second review, Finding C: only `options.rules` was validated, so a
+// typo inside `options.overrides[].rules[id].options` was silently dropped by
+// `resolveRuleOptions` instead of failing loudly — the exact failure mode the
+// per-rule-options feature exists to prevent, in the field the changeset
+// advertises as the per-path home for options.
+describe('svelteVitals overrides option validation', () => {
+  it('throws synchronously on an unknown option key inside an override', () => {
+    expect(() =>
+      svelteVitals({
+        ui: false,
+        overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { maxx: 10 } } } }]
+      })
+    ).toThrow(/unknown option 'maxx'/);
+  });
+
+  it('throws synchronously on an unknown rule id inside an override', () => {
+    expect(() =>
+      svelteVitals({ ui: false, overrides: [{ route: '/x', rules: { 'seo/titel-length': { options: { max: 10 } } } }] })
+    ).toThrow(/unknown rule id\(s\) or categories: seo\/titel-length/);
+  });
+
+  it('throws synchronously on options under a category key inside an override', () => {
+    expect(() =>
+      svelteVitals({ ui: false, overrides: [{ route: '/x', rules: { seo: { options: { max: 10 } } } }] })
+    ).toThrow(/options are not allowed on a category key/);
+  });
+
+  it('accepts a valid overrides option', () => {
+    expect(() =>
+      svelteVitals({
+        ui: false,
+        overrides: [{ route: '/x', rules: { 'architecture/prop-count': { options: { max: 4 } } } }]
+      })
+    ).not.toThrow();
+  });
+
+  it('accepts an override that only narrows one side of an otherwise-valid global range (Finding A)', () => {
+    expect(() =>
+      svelteVitals({
+        ui: false,
+        rules: { 'seo/title-length': { options: { min: 100, max: 200 } } },
+        overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { min: 150 } } } }]
+      })
+    ).not.toThrow();
+  });
+
+  it('rejects an override whose resolved range is inverted even though neither layer is inverted alone (Finding A)', () => {
+    expect(() =>
+      svelteVitals({
+        ui: false,
+        rules: { 'seo/title-length': { options: { min: 40 } } },
+        overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { max: 35 } } } }]
+      })
+    ).toThrow(/min \(40\) must be <= max \(35\)/);
+  });
+
+  it('accepts no overrides option at all', () => {
+    expect(() => svelteVitals({ ui: false })).not.toThrow();
+  });
 });
