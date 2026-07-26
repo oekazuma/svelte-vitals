@@ -3,8 +3,8 @@ import { writeFile, mkdir } from 'node:fs/promises';
 import { join, isAbsolute, dirname, relative, basename, sep } from 'node:path';
 import type { Plugin, ViteDevServer } from 'vite';
 import type { Category, RuleOverride, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
-import { defineConfig } from '@svelte-vitals/core';
-import { loadConfigFile } from 'svelte-vitals';
+import { defineConfig, validateRuleOptions } from '@svelte-vitals/core';
+import { loadConfigFile, ruleOptionsSpec } from 'svelte-vitals';
 import { analyze } from './analyze.js';
 import { resolveMinifyDisabled } from './minify-flag.js';
 import { installUiMiddleware } from './ui/middleware.js';
@@ -73,8 +73,29 @@ export interface SvelteVitalsOptions {
 
 const DEFAULT_PRERENDER_DIR = '.svelte-kit/output/prerendered/pages';
 
+/**
+ * Validate the plugin's `rules` option the same way the CLI's config-file loader
+ * validates a config file's `rules` map (design 2026-07-26, Finding 4): an unknown
+ * option key or a type/bounds/range violation is fatal, not silently dropped.
+ * `options.rules` never passes through `loadConfigFile` (that only validates
+ * `svelte-vitals.config.*`), so this is the only check a plugin-option `rules`
+ * value gets. Kept intentionally narrow — same scope as the finding — options
+ * are the thing `resolveRuleOptions` would otherwise drop unknown keys from
+ * silently; severity strings are still caught by TypeScript for TS consumers.
+ */
+function validateRulesOption(rules: Record<string, RuleSetting> | undefined): void {
+  if (!rules) return;
+  const errors: string[] = [];
+  for (const [id, setting] of Object.entries(rules)) {
+    if (typeof setting === 'string' || setting.options === undefined) continue;
+    errors.push(...validateRuleOptions(id, ruleOptionsSpec(id), setting.options));
+  }
+  if (errors.length > 0) throw new Error(`svelte-vitals: invalid \`rules\` option — ${errors.join(' ')}`);
+}
+
 /** svelte-vitals Vite/SvelteKit plugin. */
 export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin[] {
+  validateRulesOption(options.rules);
   let root = options.cwd ?? process.cwd();
   let minifyFlag: { minify: unknown; configFile: string | undefined } | undefined;
   const buildPlugin: Plugin = {
