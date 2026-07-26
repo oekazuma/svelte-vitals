@@ -918,8 +918,6 @@ Then switch both rule files to the callable form.
 
 Leave the rest of the loop body — the `out.push(…)` calls — otherwise untouched.
 
-`opts.recommendation` in this factory is a plain string that quotes the bounds ("Aim for a title of 30–60 characters…"). Leave it as-is: the per-finding `message` already carries the effective bounds, and no test asserts the recommendation here. Note this asymmetry with `componentRule` in the rule docs rather than adding a second callable-recommendation path.
-
 - [ ] **Step 4: Run tests**
 
 Run: `pnpm --filter @svelte-vitals/core test`
