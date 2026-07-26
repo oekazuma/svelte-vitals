@@ -2,7 +2,8 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import type { Category, Config, RuleOverride } from '@svelte-vitals/core';
-import { findUnknownRuleIds, knownRuleIds } from './rules-config.js';
+import { validateRuleOptions } from '@svelte-vitals/core';
+import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
 
 /**
  * Loads `svelte-vitals.config.{mjs,js,ts}` from the analyzed directory (design
@@ -47,11 +48,55 @@ export interface LoadedConfigFile {
 }
 
 /**
+ * Validate one rule setting — the bare severity string or the object form.
+ * `allowOptions` is false for category keys in `overrides[].rules`: a category
+ * may carry a severity, but options are rule-specific and meaningless there.
+ * Everything here is fatal, on the same reasoning as unknown rule ids — a typo
+ * that silently leaves the config inert is the failure being prevented.
+ */
+function validateSetting(path: string, where: string, key: string, setting: unknown, allowOptions: boolean): void {
+  if (typeof setting === 'string') {
+    if (!RULE_SETTING_VALUES.includes(setting)) {
+      throw new Error(
+        `${path}: ${where}.${key}: invalid setting '${setting}'; expected ${RULE_SETTING_VALUES.join('|')}.`
+      );
+    }
+    return;
+  }
+  if (!isPlainObject(setting)) {
+    throw new Error(
+      `${path}: ${where}.${key}: must be ${RULE_SETTING_VALUES.join('|')} or an object with 'severity' and/or 'options'.`
+    );
+  }
+  const unknownKeys = Object.keys(setting).filter((k) => k !== 'severity' && k !== 'options');
+  if (unknownKeys.length > 0) {
+    throw new Error(`${path}: ${where}.${key}: unknown key(s) ${unknownKeys.join(', ')}; expected severity, options.`);
+  }
+  if (setting.severity !== undefined && !RULE_SETTING_VALUES.includes(setting.severity as string)) {
+    throw new Error(
+      `${path}: ${where}.${key}.severity: invalid setting '${String(setting.severity)}'; ` +
+        `expected ${RULE_SETTING_VALUES.join('|')}.`
+    );
+  }
+  if (setting.options === undefined) return;
+  if (!allowOptions) {
+    throw new Error(`${path}: ${where}.${key}: options are not allowed on a category key.`);
+  }
+  if (!isPlainObject(setting.options)) {
+    throw new Error(`${path}: ${where}.${key}.options: must be an object.`);
+  }
+  const errors = validateRuleOptions(key, ruleOptionsSpec(key), setting.options);
+  if (errors.length > 0) throw new Error(`${path}: ${where}.${key}: ${errors.join(' ')}`);
+}
+
+/**
  * Validate a config file's default export (design doc §4):
  *
  * - **Fatal (thrown)**: unknown rule ids in `rules` (reuses `findUnknownRuleIds`
  *   / `knownRuleIds`, same message shape as the `--rules`/`--ignore` error);
- *   unknown category keys or negative/non-finite values in `weights`.
+ *   unknown category keys or negative/non-finite values in `weights`; an
+ *   invalid rule setting (string or object form) or invalid rule options,
+ *   in both `rules` and `overrides[].rules` (see `validateSetting`).
  * - **Warning (returned, field dropped)**: invalid enum values for
  *   `treatDynamicAs` / `failOn`; unknown top-level keys (forward-compatibility).
  */
@@ -102,6 +147,7 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
         `${path}: unknown rule id(s) in rules: ${unknown.join(', ')}. Known rule ids: ${knownRuleIds().join(', ')}`
       );
     }
+    for (const [key, setting] of Object.entries(rules)) validateSetting(path, 'rules', key, setting, true);
     config.rules = rules;
   }
 
@@ -149,12 +195,8 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
         );
       }
       for (const [key, setting] of Object.entries(entry.rules)) {
-        if (!RULE_SETTING_VALUES.includes(setting as string)) {
-          throw new Error(
-            `${path}: overrides[${i}].rules.${key}: invalid setting '${String(setting)}'; ` +
-              `expected ${RULE_SETTING_VALUES.join('|')}.`
-          );
-        }
+        const isCategory = CATEGORIES.includes(key as Category);
+        validateSetting(path, `overrides[${i}].rules`, key, setting, !isCategory);
       }
       overrides.push({
         ...(entry.route !== undefined ? { route: entry.route as RuleOverride['route'] } : {}),

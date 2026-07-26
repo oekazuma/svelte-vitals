@@ -1,6 +1,7 @@
-import { allRules, type RuleSetting } from '@svelte-vitals/core';
+import { allRules, type RuleOptionsSpec, type RuleSetting } from '@svelte-vitals/core';
 
 const KNOWN_IDS = new Set(allRules.map((r) => r.id));
+const RULE_BY_ID = new Map(allRules.map((r) => [r.id, r]));
 
 /** Rule ids passed to --rules/--ignore that aren't part of the built-in registry. */
 export function findUnknownRuleIds(ids: string[]): string[] {
@@ -10,6 +11,11 @@ export function findUnknownRuleIds(ids: string[]): string[] {
 /** All built-in rule ids, sorted — for help and error messages. */
 export function knownRuleIds(): string[] {
   return [...KNOWN_IDS].sort();
+}
+
+/** The options a rule declares, or undefined when it takes none. */
+export function ruleOptionsSpec(id: string): RuleOptionsSpec | undefined {
+  return RULE_BY_ID.get(id)?.options;
 }
 
 /**
