@@ -1,7 +1,15 @@
 import { componentRule } from '../component-rule.js';
 
-/** More destructured props than this suggests the component is doing too much. */
-const MAX_PROPS = 10;
+/**
+ * More destructured props than this suggests the component is doing too much.
+ *
+ * Derived empirically (2026-07-25): the median of the per-repository 90th percentile across
+ * 2,239 countable components in 7 real Svelte 5 codebases (4 libraries, 3 applications) — see
+ * docs/superpowers/specs/2026-07-25-architecture-threshold-recalibration-design.md for the
+ * corpus and method. Pooling every repository into one distribution instead gives 9, but that
+ * figure is set by a single outlier project contributing 56% of the sample.
+ */
+const MAX_PROPS = 6;
 
 export const architecturePropCount = componentRule({
   id: 'architecture/prop-count',
