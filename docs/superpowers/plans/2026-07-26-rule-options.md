@@ -4,7 +4,7 @@
 
 **Goal:** Extend `RuleSetting` so rule thresholds and built-in lists can be configured globally and per-path, unblocking Architecture category expansion.
 
-**Architecture:** `RuleSetting` gains an object member `{ severity?, options? }`. Each rule declares an options *spec* (`Rule.options`) whose `kind` determines merge semantics — `integer` replaces, `string-list`/`string-map` add to the built-in default. Severity keeps resolving after rules run; options resolve *during* the run from `ctx.config`, because a threshold is an input to the verdict. Both paths share one glob-matching implementation.
+**Architecture:** `RuleSetting` gains an object member `{ severity?, options? }`. Each rule declares an options _spec_ (`Rule.options`) whose `kind` determines merge semantics — `integer` replaces, `string-list`/`string-map` add to the built-in default. Severity keeps resolving after rules run; options resolve _during_ the run from `ctx.config`, because a threshold is an input to the verdict. Both paths share one glob-matching implementation.
 
 **Tech Stack:** TypeScript, vitest, pnpm workspaces. `packages/core` (rule engine) and `packages/cli` (config loading/validation).
 
@@ -21,21 +21,21 @@
 
 ## File Structure
 
-| File | Responsibility |
-| ---- | -------------- |
-| `packages/core/src/types.ts` (modify) | `RuleSettingObject`, widened `RuleSetting`, `RuleOptions` |
-| `packages/core/src/config-apply.ts` (modify) | `settingSeverity`/`settingOptions` accessors; extracted `compileOverrides`/`overrideMatches`; existing post-pass functions migrated onto them |
-| `packages/core/src/rule-options.ts` (create) | `RuleOptionSpec`, `RuleOptionsSpec`, `resolveRuleOptions`, `validateRuleOptions`. Deliberately does **not** import `rule.ts` — that would cycle, since `rule.ts` imports `RuleOptionsSpec` from here |
-| `packages/core/src/rule.ts` (modify) | `Rule.options?: RuleOptionsSpec` |
-| `packages/core/src/rules/component-rule.ts` (modify) | resolve options per component; pass to `applies`/`bad`; support callable `recommendation` |
-| `packages/core/src/rules/seo/length-rule.ts` (modify) | same, per route |
-| `packages/core/src/rules/architecture/{prop-count,component-size}.ts` (modify) | declare `max` |
-| `packages/core/src/rules/seo/{title-length,description-length}.ts` (modify) | inherit `min`/`max` options from the factory |
-| `packages/core/src/rules/perf/heavy-import.ts` (modify) | declare `packages` (`string-map`) |
-| `packages/core/src/rules/perf/preconnect.ts` (modify) | declare `origins` (`string-list`), resolve inline |
-| `packages/core/src/index.ts` (modify) | export the new public surface |
-| `packages/cli/src/rules-config.ts` (modify) | `ruleOptionsSpec(id)` lookup |
-| `packages/cli/src/config-file.ts` (modify) | validate the object form in `rules` and `overrides[].rules` |
+| File                                                                           | Responsibility                                                                                                                                                                                       |
+| ------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `packages/core/src/types.ts` (modify)                                          | `RuleSettingObject`, widened `RuleSetting`, `RuleOptions`                                                                                                                                            |
+| `packages/core/src/config-apply.ts` (modify)                                   | `settingSeverity`/`settingOptions` accessors; extracted `compileOverrides`/`overrideMatches`; existing post-pass functions migrated onto them                                                        |
+| `packages/core/src/rule-options.ts` (create)                                   | `RuleOptionSpec`, `RuleOptionsSpec`, `resolveRuleOptions`, `validateRuleOptions`. Deliberately does **not** import `rule.ts` — that would cycle, since `rule.ts` imports `RuleOptionsSpec` from here |
+| `packages/core/src/rule.ts` (modify)                                           | `Rule.options?: RuleOptionsSpec`                                                                                                                                                                     |
+| `packages/core/src/rules/component-rule.ts` (modify)                           | resolve options per component; pass to `applies`/`bad`; support callable `recommendation`                                                                                                            |
+| `packages/core/src/rules/seo/length-rule.ts` (modify)                          | same, per route                                                                                                                                                                                      |
+| `packages/core/src/rules/architecture/{prop-count,component-size}.ts` (modify) | declare `max`                                                                                                                                                                                        |
+| `packages/core/src/rules/seo/{title-length,description-length}.ts` (modify)    | inherit `min`/`max` options from the factory                                                                                                                                                         |
+| `packages/core/src/rules/perf/heavy-import.ts` (modify)                        | declare `packages` (`string-map`)                                                                                                                                                                    |
+| `packages/core/src/rules/perf/preconnect.ts` (modify)                          | declare `origins` (`string-list`), resolve inline                                                                                                                                                    |
+| `packages/core/src/index.ts` (modify)                                          | export the new public surface                                                                                                                                                                        |
+| `packages/cli/src/rules-config.ts` (modify)                                    | `ruleOptionsSpec(id)` lookup                                                                                                                                                                         |
+| `packages/cli/src/config-file.ts` (modify)                                     | validate the object form in `rules` and `overrides[].rules`                                                                                                                                          |
 
 ---
 
@@ -44,12 +44,14 @@
 The riskiest part of the whole change: `selectRules` compares `config.rules[id] !== 'off'` directly. The moment a user writes the object form, that comparison stops disabling rules — silently. Accessors first, everything else after.
 
 **Files:**
+
 - Modify: `packages/core/src/types.ts:94` (the `RuleSetting` definition)
 - Modify: `packages/core/src/config-apply.ts:1-15` (`selectRules`, `applyRuleSeverities`), `:50-76` (`applyOverrides`)
 - Modify: `packages/core/src/index.ts`
 - Test: `packages/core/test/config-apply.test.ts`
 
 **Interfaces:**
+
 - Produces: `RuleSettingObject`, `RuleOptions`, widened `RuleSetting` (all from `types.ts`); `settingSeverity(setting): Severity | 'off' | undefined` and `settingOptions(setting): RuleOptions | undefined` (from `config-apply.ts`).
 
 - [ ] **Step 1: Write the failing tests**
@@ -146,23 +148,23 @@ export function applyRuleSeverities(results: Result[], config: Config): Result[]
 Then in `applyOverrides`, replace the accumulation loop body so it tracks a severity rather than a raw setting:
 
 ```ts
-  const out: Result[] = [];
-  for (const result of results) {
-    const { route, location } = result;
-    let severity: Severity | 'off' | undefined;
-    for (const o of compiled) {
-      const matched =
-        (route !== undefined && o.routes.some((p) => p.test(route))) ||
-        (location !== undefined && o.files.some((p) => p.test(location)));
-      if (!matched) continue;
-      const s = o.rules[result.id] ?? o.rules[result.category ?? 'seo'];
-      // An options-only entry carries no severity — it must not clear one set earlier.
-      if (s !== undefined) severity = settingSeverity(s) ?? severity;
-    }
-    if (severity === undefined) out.push(result);
-    else if (severity !== 'off') out.push({ ...result, severity });
+const out: Result[] = [];
+for (const result of results) {
+  const { route, location } = result;
+  let severity: Severity | 'off' | undefined;
+  for (const o of compiled) {
+    const matched =
+      (route !== undefined && o.routes.some((p) => p.test(route))) ||
+      (location !== undefined && o.files.some((p) => p.test(location)));
+    if (!matched) continue;
+    const s = o.rules[result.id] ?? o.rules[result.category ?? 'seo'];
+    // An options-only entry carries no severity — it must not clear one set earlier.
+    if (s !== undefined) severity = settingSeverity(s) ?? severity;
   }
-  return out;
+  if (severity === undefined) out.push(result);
+  else if (severity !== 'off') out.push({ ...result, severity });
+}
+return out;
 ```
 
 - [ ] **Step 5: Export the new surface**
@@ -195,10 +197,12 @@ git commit -m "feat(core): accept an object form of RuleSetting"
 ### Task 2: Extract the shared glob matcher
 
 **Files:**
+
 - Modify: `packages/core/src/config-apply.ts` (`applyOverrides`)
 - Test: `packages/core/test/config-apply.test.ts`
 
 **Interfaces:**
+
 - Consumes: `settingSeverity` (Task 1).
 - Produces: `CompiledOverride` (`{ routes: RegExp[]; files: RegExp[]; rules: Record<string, RuleSetting> }`), `compileOverrides(config): CompiledOverride[]`, `overrideMatches(o, target: { route?: string; file?: string }): boolean`.
 
@@ -318,11 +322,13 @@ git commit -m "refactor(core): extract override glob matching into a shared help
 ### Task 3: `resolveRuleOptions` and `validateRuleOptions`
 
 **Files:**
+
 - Create: `packages/core/src/rule-options.ts`
 - Create: `packages/core/test/rule-options.test.ts`
 - Modify: `packages/core/src/index.ts`
 
 **Interfaces:**
+
 - Consumes: `compileOverrides`, `overrideMatches`, `settingOptions` (Tasks 1–2).
 - Produces:
   - `RuleOptionSpec` = `{ kind: 'integer'; default: number; min?: number; max?: number }` | `{ kind: 'string-list'; default: readonly string[] }` | `{ kind: 'string-map'; default: Readonly<Record<string, string>> }`
@@ -531,11 +537,7 @@ export function resolveRuleOptions(
  * (empty = valid). Callers treat any result as fatal: a typo that silently
  * leaves the config inert is the failure this exists to prevent.
  */
-export function validateRuleOptions(
-  ruleId: string,
-  spec: RuleOptionsSpec | undefined,
-  options: RuleOptions
-): string[] {
+export function validateRuleOptions(ruleId: string, spec: RuleOptionsSpec | undefined, options: RuleOptions): string[] {
   if (!spec) return [`${ruleId} takes no options.`];
   const errors: string[] = [];
   const isNonEmptyString = (v: unknown): boolean => typeof v === 'string' && v.length > 0;
@@ -595,12 +597,14 @@ git commit -m "feat(core): add rule option specs, resolution and validation"
 Note the `recommendation` problem this task solves: `architecture/prop-count`'s recommendation string interpolates the threshold at module load. Once `max` is configurable, a static string would tell a user who set `max: 10` to split at 6. `recommendation` therefore becomes optionally callable.
 
 **Files:**
+
 - Modify: `packages/core/src/rule.ts` (the `Rule` interface)
 - Modify: `packages/core/src/rules/component-rule.ts`
 - Modify: `packages/core/src/rules/architecture/prop-count.ts`, `packages/core/src/rules/architecture/component-size.ts`
 - Test: `packages/core/test/architecture-rules.test.ts`
 
 **Interfaces:**
+
 - Consumes: `resolveRuleOptions`, `RuleOptionsSpec` (Task 3); `compileOverrides` (Task 2).
 - Produces: `Rule.options?: RuleOptionsSpec`; `ComponentRuleOptions.options?: RuleOptionsSpec`; `applies`/`bad` signatures widened to `(c: ComponentFacts, o: RuleOptions)`; `recommendation: string | ((o: RuleOptions) => string)`.
 
@@ -783,10 +787,12 @@ git commit -m "feat(core): make the architecture thresholds configurable"
 ### Task 5: Wire options into `lengthRule`
 
 **Files:**
+
 - Modify: `packages/core/src/rules/seo/length-rule.ts`, `packages/core/src/rules/seo/title-length.ts`, `packages/core/src/rules/seo/description-length.ts`
 - Test: `packages/core/test/seo-length-rules.test.ts`
 
 **Interfaces:**
+
 - Consumes: `resolveRuleOptions`, `compileOverrides`.
 - Produces: `seo/title-length` and `seo/description-length` both carrying `{ min, max }` integer options.
 
@@ -854,10 +860,10 @@ Inside `lengthRule`, above the returned object (next to the existing `const docs
 build the spec once so the rule declaration and the per-route resolution share one literal:
 
 ```ts
-  const spec: RuleOptionsSpec = {
-    min: { kind: 'integer', default: opts.min, min: 0 },
-    max: { kind: 'integer', default: opts.max, min: 1 }
-  };
+const spec: RuleOptionsSpec = {
+  min: { kind: 'integer', default: opts.min, min: 0 },
+  max: { kind: 'integer', default: opts.max, min: 1 }
+};
 ```
 
 Add `options: spec,` to the returned rule object (after `rationale`), then rewrite the head of the
@@ -883,13 +889,13 @@ Make `recommendation` callable exactly as `componentRule` does, so a configured 
 to aim for the built-in bounds. In `LengthRuleOptions`:
 
 ```ts
-  recommendation: string | ((o: RuleOptions) => string);
+recommendation: string | ((o: RuleOptions) => string);
 ```
 
 and in `check`, right after resolving `o`:
 
 ```ts
-        const recommendation = typeof opts.recommendation === 'function' ? opts.recommendation(o) : opts.recommendation;
+const recommendation = typeof opts.recommendation === 'function' ? opts.recommendation(o) : opts.recommendation;
 ```
 
 Replace every `recommendation: opts.recommendation` in the emitted results with `recommendation`.
@@ -931,10 +937,12 @@ git commit -m "feat(core): make the SEO title/description length bounds configur
 ### Task 6: Extendable lists — `heavy-import` and `preconnect`
 
 **Files:**
+
 - Modify: `packages/core/src/rules/perf/heavy-import.ts`, `packages/core/src/rules/perf/preconnect.ts`
 - Test: `packages/core/test/bundle-rules.test.ts` (heavy-import), `packages/core/test/perf-loading-rules.test.ts` (preconnect)
 
 **Interfaces:**
+
 - Consumes: `resolveRuleOptions`, `compileOverrides`, the widened `componentRule` signature (Task 4).
 - Produces: `performance/heavy-import` with a `packages` `string-map`; `performance/preconnect` with an `origins` `string-list`.
 
@@ -946,33 +954,33 @@ git commit -m "feat(core): make the SEO title/description length bounds configur
 not an object:
 
 ```ts
-  const cfgCtx = (components: ComponentFacts[], cfg: Parameters<typeof defineConfig>[0]): RuleContext => ({
-    components,
-    heads: [],
-    project: defaultProject,
-    config: defineConfig(cfg)
-  });
-  const extra = {
-    rules: { 'performance/heavy-import': { options: { packages: { 'chart.js': 'import chart.js/auto' } } } }
-  };
+const cfgCtx = (components: ComponentFacts[], cfg: Parameters<typeof defineConfig>[0]): RuleContext => ({
+  components,
+  heads: [],
+  project: defaultProject,
+  config: defineConfig(cfg)
+});
+const extra = {
+  rules: { 'performance/heavy-import': { options: { packages: { 'chart.js': 'import chart.js/auto' } } } }
+};
 
-  it('still flags the built-in heavy packages', async () => {
-    const rs = await performanceHeavyImport.check(ctx([comp([{ source: 'lodash', line: 3 }])]));
-    expect(fails(rs)).toHaveLength(1);
-  });
-  it('flags a package added through config', async () => {
-    const rs = await performanceHeavyImport.check(cfgCtx([comp([{ source: 'chart.js', line: 2 }])], extra));
-    expect(fails(rs)).toHaveLength(1);
-    expect(fails(rs)[0]!.message).toContain('import chart.js/auto');
-  });
-  it('keeps the built-ins when config adds a package', async () => {
-    const rs = await performanceHeavyImport.check(cfgCtx([comp([{ source: 'moment', line: 1 }])], extra));
-    expect(fails(rs)).toHaveLength(1);
-  });
-  it('leaves an unlisted package alone', async () => {
-    const rs = await performanceHeavyImport.check(cfgCtx([comp([{ source: 'dayjs', line: 1 }])], extra));
-    expect(rs).toHaveLength(0);
-  });
+it('still flags the built-in heavy packages', async () => {
+  const rs = await performanceHeavyImport.check(ctx([comp([{ source: 'lodash', line: 3 }])]));
+  expect(fails(rs)).toHaveLength(1);
+});
+it('flags a package added through config', async () => {
+  const rs = await performanceHeavyImport.check(cfgCtx([comp([{ source: 'chart.js', line: 2 }])], extra));
+  expect(fails(rs)).toHaveLength(1);
+  expect(fails(rs)[0]!.message).toContain('import chart.js/auto');
+});
+it('keeps the built-ins when config adds a package', async () => {
+  const rs = await performanceHeavyImport.check(cfgCtx([comp([{ source: 'moment', line: 1 }])], extra));
+  expect(fails(rs)).toHaveLength(1);
+});
+it('leaves an unlisted package alone', async () => {
+  const rs = await performanceHeavyImport.check(cfgCtx([comp([{ source: 'dayjs', line: 1 }])], extra));
+  expect(rs).toHaveLength(0);
+});
 ```
 
 `packages/core/test/perf-loading-rules.test.ts` already defines `head(source, tags)`,
@@ -980,32 +988,32 @@ not an object:
 inside its `describe('performance/preconnect …')` block:
 
 ```ts
-  const cfgHeadsCtx = (h: ResolvedHead, cfg: Parameters<typeof defineConfig>[0]): RuleContext => ({
-    heads: [h],
-    project: defaultProject,
-    config: defineConfig(cfg)
-  });
-  const extra = { rules: { 'performance/preconnect': { options: { origins: ['cdn.example.com'] } } } };
+const cfgHeadsCtx = (h: ResolvedHead, cfg: Parameters<typeof defineConfig>[0]): RuleContext => ({
+  heads: [h],
+  project: defaultProject,
+  config: defineConfig(cfg)
+});
+const extra = { rules: { 'performance/preconnect': { options: { origins: ['cdn.example.com'] } } } };
 
-  it('flags an origin added through config', async () => {
-    const rs = await performancePreconnect.check(
-      cfgHeadsCtx(head('rendered', [link('stylesheet', 'https://cdn.example.com/app.css')]), extra)
-    );
-    expect(fails(rs)).toHaveLength(1);
-    expect(rs[0]!.message).toContain('cdn.example.com');
-  });
-  it('keeps the built-in origins when config adds one', async () => {
-    const rs = await performancePreconnect.check(
-      cfgHeadsCtx(head('rendered', [link('stylesheet', 'https://fonts.googleapis.com/css2?x')]), extra)
-    );
-    expect(fails(rs)).toHaveLength(1);
-  });
-  it('emits nothing for an origin on neither list', async () => {
-    const rs = await performancePreconnect.check(
-      cfgHeadsCtx(head('rendered', [link('stylesheet', 'https://other.example.com/app.css')]), extra)
-    );
-    expect(rs).toHaveLength(0);
-  });
+it('flags an origin added through config', async () => {
+  const rs = await performancePreconnect.check(
+    cfgHeadsCtx(head('rendered', [link('stylesheet', 'https://cdn.example.com/app.css')]), extra)
+  );
+  expect(fails(rs)).toHaveLength(1);
+  expect(rs[0]!.message).toContain('cdn.example.com');
+});
+it('keeps the built-in origins when config adds one', async () => {
+  const rs = await performancePreconnect.check(
+    cfgHeadsCtx(head('rendered', [link('stylesheet', 'https://fonts.googleapis.com/css2?x')]), extra)
+  );
+  expect(fails(rs)).toHaveLength(1);
+});
+it('emits nothing for an origin on neither list', async () => {
+  const rs = await performancePreconnect.check(
+    cfgHeadsCtx(head('rendered', [link('stylesheet', 'https://other.example.com/app.css')]), extra)
+  );
+  expect(rs).toHaveLength(0);
+});
 ```
 
 - [ ] **Step 2: Run to verify they fail**
@@ -1026,20 +1034,20 @@ existing comment explains why (`in` would match inherited keys like `toString`, 
 user-supplied map is exactly the case where that matters):
 
 ```ts
-  bad: (c, o) => {
-    const packages = o.packages as Record<string, string>;
-    // `Object.hasOwn` (not `in`) so inherited keys like `toString` never match;
-    // dedupe so the same package imported in both scripts isn't double-penalized.
-    const seen = new Set<string>();
-    const out: { line: number; message: string }[] = [];
-    const spans = c.importSpans ?? c.imports.map((source) => ({ source, line: 0 }));
-    for (const { source: src, line } of spans) {
-      if (!Object.hasOwn(packages, src) || seen.has(src)) continue;
-      seen.add(src);
-      out.push({ line, message: `Heavy import "${src}" — ${packages[src]}` });
-    }
-    return out;
+bad: (c, o) => {
+  const packages = o.packages as Record<string, string>;
+  // `Object.hasOwn` (not `in`) so inherited keys like `toString` never match;
+  // dedupe so the same package imported in both scripts isn't double-penalized.
+  const seen = new Set<string>();
+  const out: { line: number; message: string }[] = [];
+  const spans = c.importSpans ?? c.imports.map((source) => ({ source, line: 0 }));
+  for (const { source: src, line } of spans) {
+    if (!Object.hasOwn(packages, src) || seen.has(src)) continue;
+    seen.add(src);
+    out.push({ line, message: `Heavy import "${src}" — ${packages[src]}` });
   }
+  return out;
+};
 ```
 
 `applies` is unchanged — only the source of the package table moves.
@@ -1086,14 +1094,16 @@ git commit -m "feat(core): let config extend the heavy-import and preconnect lis
 
 ### Task 7: CLI config-file validation
 
-Note a deliberate strictness increase: today `validateConfigFile` checks `rules` keys but never its *values* — an invalid severity is assigned straight through. This task validates values in `rules` too, matching what `overrides[].rules` already does.
+Note a deliberate strictness increase: today `validateConfigFile` checks `rules` keys but never its _values_ — an invalid severity is assigned straight through. This task validates values in `rules` too, matching what `overrides[].rules` already does.
 
 **Files:**
+
 - Modify: `packages/cli/src/rules-config.ts`
 - Modify: `packages/cli/src/config-file.ts:94-166`
 - Test: `packages/cli/test/config-file.test.ts`
 
 **Interfaces:**
+
 - Consumes: `validateRuleOptions`, `RuleOptionsSpec` (Task 3); `Rule.options` (Task 4).
 - Produces: `ruleOptionsSpec(id): RuleOptionsSpec | undefined` from `rules-config.ts`.
 
@@ -1114,9 +1124,9 @@ it('rejects an unknown option key', async () => {
   ).rejects.toThrow(/unknown option 'maxx'/);
 });
 it('rejects options on a rule that takes none', async () => {
-  await expect(
-    loadConfigFrom(`export default { rules: { 'seo/charset': { options: { max: 1 } } } };`)
-  ).rejects.toThrow(/takes no options/);
+  await expect(loadConfigFrom(`export default { rules: { 'seo/charset': { options: { max: 1 } } } };`)).rejects.toThrow(
+    /takes no options/
+  );
 });
 it('rejects an out-of-range integer option', async () => {
   await expect(
@@ -1233,16 +1243,16 @@ function validateSetting(path: string, where: string, key: string, setting: unkn
 In the `rules` block, after the unknown-id check and before `config.rules = rules`:
 
 ```ts
-    for (const [key, setting] of Object.entries(rules)) validateSetting(path, 'rules', key, setting, true);
+for (const [key, setting] of Object.entries(rules)) validateSetting(path, 'rules', key, setting, true);
 ```
 
 In the `overrides` block, replace the existing per-setting loop:
 
 ```ts
-      for (const [key, setting] of Object.entries(entry.rules)) {
-        const isCategory = CATEGORIES.includes(key as Category);
-        validateSetting(path, `overrides[${i}].rules`, key, setting, !isCategory);
-      }
+for (const [key, setting] of Object.entries(entry.rules)) {
+  const isCategory = CATEGORIES.includes(key as Category);
+  validateSetting(path, `overrides[${i}].rules`, key, setting, !isCategory);
+}
 ```
 
 - [ ] **Step 5: Run the CLI suite**
@@ -1267,6 +1277,7 @@ git commit -m "feat(cli): validate the object form of rule settings and their op
 ### Task 8: Docs and changeset
 
 **Files:**
+
 - Modify: `docs/src/content/docs/guides/(setup)/configuration.mdx` and `docs/src/content/docs/ja/guides/(setup)/configuration.mdx`
 - Modify: 6 rule pages under `docs/src/content/docs/rules/` and their `ja/` mirrors: `architecture/prop-count.md`, `architecture/component-size.md`, `seo/title-length.md`, `seo/description-length.md`, `performance/heavy-import.md`, `performance/preconnect.md`
 - Create: `.changeset/<name>.md`
@@ -1295,12 +1306,12 @@ Apply the same section to the `ja/` file. The two files are updated together by 
 
 For each page, state the option name, its kind, and its default. For example, in `docs/src/content/docs/rules/architecture/prop-count.md`:
 
-```markdown
+````markdown
 ## Configuration
 
-| Option | Type | Default |
-| ------ | ---- | ------: |
-| `max` | integer | 6 |
+| Option | Type    | Default |
+| ------ | ------- | ------: |
+| `max`  | integer |       6 |
 
 ```js
 // svelte-vitals.config.js
@@ -1308,7 +1319,9 @@ export default {
   rules: { 'architecture/prop-count': { options: { max: 10 } } }
 };
 ```
-```
+````
+
+````
 
 For `heavy-import` and `preconnect`, state explicitly that the configured value is **added to** the built-in list, not a replacement.
 
@@ -1337,7 +1350,7 @@ Two notes for existing setups. Values in the config file's `rules` map are now v
 an invalid severity that was previously passed through unchecked is now a fatal config error.
 And the `RuleSetting` union has gained a member, which can make an exhaustive `switch` over it
 in external TypeScript code non-exhaustive.
-```
+````
 
 - [ ] **Step 6: Final verification and commit**
 

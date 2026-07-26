@@ -24,11 +24,11 @@ project-wide number is insufficient even for a single project.
 This spec was reached while brainstorming an expansion of the Architecture category. Architecture
 rules divide into three layers by how much of the judgement belongs to svelte-vitals:
 
-| Layer | What decides it | Treatment |
-| ----- | --------------- | --------- |
-| L1 | The framework's mechanics — "written this way, SvelteKit will eventually break it" | Default on, no configuration |
-| L2 | The project's own dominant pattern — deviation, not preference | Self-calibrating against the project |
-| L3 | Genuine preference — feature-based vs layer-based layout, and the like | Only checked when the user declares the convention |
+| Layer | What decides it                                                                    | Treatment                                          |
+| ----- | ---------------------------------------------------------------------------------- | -------------------------------------------------- |
+| L1    | The framework's mechanics — "written this way, SvelteKit will eventually break it" | Default on, no configuration                       |
+| L2    | The project's own dominant pattern — deviation, not preference                     | Self-calibrating against the project               |
+| L3    | Genuine preference — feature-based vs layer-based layout, and the like             | Only checked when the user declares the convention |
 
 Directory-structure rules, the most-requested Architecture expansion, are overwhelmingly L3: the
 user must be able to state the convention before anything can be checked against it. There is no
@@ -40,29 +40,29 @@ follow-up document.
 
 All 63 rules were surveyed for hard-coded policy constants. They sort into four groups:
 
-| Group | Treatment |
-| ----- | --------- |
-| Policy that legitimately differs by user or market | Give it an option |
-| A project-specific fact the user needs to **add** | Give it an extension option |
-| An external fact svelte-vitals should track | **No option** — the user is not the authority; we are responsible for keeping up |
-| Mechanical binary detection | **No option** — there is no threshold to set |
+| Group                                              | Treatment                                                                        |
+| -------------------------------------------------- | -------------------------------------------------------------------------------- |
+| Policy that legitimately differs by user or market | Give it an option                                                                |
+| A project-specific fact the user needs to **add**  | Give it an extension option                                                      |
+| An external fact svelte-vitals should track        | **No option** — the user is not the authority; we are responsible for keeping up |
+| Mechanical binary detection                        | **No option** — there is no threshold to set                                     |
 
 Result:
 
-| Rule | Constant | Current | Option | Rationale |
-| ---- | -------- | ------: | :----: | --------- |
-| `architecture/prop-count` | `MAX_PROPS` | 6 | `max` | measured per-repo p90 spans 3–10 |
-| `architecture/component-size` | `MAX_LOC` | 200 | `max` | same, plus the scoped-`<style>` caveat recorded in the recalibration spec |
-| `seo/title-length` | `min`/`max` | 30/60 | `min`, `max` | SERP truncation differs by market and script; character count means something different in Japanese |
-| `seo/description-length` | `min`/`max` | 70/160 | `min`, `max` | same |
-| `performance/heavy-import` | `HEAVY_PACKAGES` | 2 entries | `packages` | projects have their own heavyweight dependencies |
-| `performance/preconnect` | `THIRD_PARTY_ORIGINS` | 2 entries | `origins` | first-party CDNs and other font hosts |
-| `seo/json-ld-deprecated-type` | `DEPRECATED_TYPES` | 3 entries | — | Google's fact, not the user's setting |
-| `seo/json-ld-required-props` | `REQUIRED_PROPS` | curated | — | same |
-| `correctness/*` (11 rules) | — | — | — | mechanical binary detection throughout |
-| `security/*` (5 rules) | — | — | — | same |
-| `performance` image/link rules | — | — | — | same |
-| `seo` presence/structure rules | — | — | — | same |
+| Rule                           | Constant              |   Current |    Option    | Rationale                                                                                           |
+| ------------------------------ | --------------------- | --------: | :----------: | --------------------------------------------------------------------------------------------------- |
+| `architecture/prop-count`      | `MAX_PROPS`           |         6 |    `max`     | measured per-repo p90 spans 3–10                                                                    |
+| `architecture/component-size`  | `MAX_LOC`             |       200 |    `max`     | same, plus the scoped-`<style>` caveat recorded in the recalibration spec                           |
+| `seo/title-length`             | `min`/`max`           |     30/60 | `min`, `max` | SERP truncation differs by market and script; character count means something different in Japanese |
+| `seo/description-length`       | `min`/`max`           |    70/160 | `min`, `max` | same                                                                                                |
+| `performance/heavy-import`     | `HEAVY_PACKAGES`      | 2 entries |  `packages`  | projects have their own heavyweight dependencies                                                    |
+| `performance/preconnect`       | `THIRD_PARTY_ORIGINS` | 2 entries |  `origins`   | first-party CDNs and other font hosts                                                               |
+| `seo/json-ld-deprecated-type`  | `DEPRECATED_TYPES`    | 3 entries |      —       | Google's fact, not the user's setting                                                               |
+| `seo/json-ld-required-props`   | `REQUIRED_PROPS`      |   curated |      —       | same                                                                                                |
+| `correctness/*` (11 rules)     | —                     |         — |      —       | mechanical binary detection throughout                                                              |
+| `security/*` (5 rules)         | —                     |         — |      —       | same                                                                                                |
+| `performance` image/link rules | —                     |         — |      —       | same                                                                                                |
+| `seo` presence/structure rules | —                     |         — |      —       | same                                                                                                |
 
 **Six rules out of 63, and only two option shapes**: a bounded integer, and an addition to a
 built-in collection. (The latter is expressed as two `kind` values below — a list and a map differ
@@ -93,9 +93,7 @@ export default {
     'seo/title-length': { severity: 'warning', options: { min: 20, max: 40 } },
     'performance/heavy-import': { options: { packages: { 'chart.js': 'import chart.js/auto' } } }
   },
-  overrides: [
-    { files: 'src/lib/**', rules: { 'architecture/prop-count': { options: { max: 4 } } } }
-  ]
+  overrides: [{ files: 'src/lib/**', rules: { 'architecture/prop-count': { options: { max: 4 } } } }]
 };
 ```
 
@@ -150,11 +148,7 @@ so it is worth the extra verbosity over a bare name list.
 ## Resolution
 
 ```ts
-export function resolveRuleOptions(
-  rule: Rule,
-  config: Config,
-  target?: { route?: string; file?: string }
-): RuleOptions;
+export function resolveRuleOptions(rule: Rule, config: Config, target?: { route?: string; file?: string }): RuleOptions;
 ```
 
 Order: **built-in defaults → `config.rules[rule.id].options` → each matching `config.overrides`
