@@ -1319,8 +1319,6 @@ export default {
 ```
 ````
 
-````
-
 For `heavy-import` and `preconnect`, state explicitly that the configured value is **added to** the built-in list, not a replacement.
 
 - [ ] **Step 4: Verify the docs build**
@@ -1348,7 +1346,7 @@ Two notes for existing setups. Values in the config file's `rules` map are now v
 an invalid severity that was previously passed through unchecked is now a fatal config error.
 And the `RuleSetting` union has gained a member, which can make an exhaustive `switch` over it
 in external TypeScript code non-exhaustive.
-````
+```
 
 - [ ] **Step 6: Final verification and commit**
 
