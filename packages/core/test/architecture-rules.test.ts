@@ -131,4 +131,19 @@ describe('architecture rule options', () => {
     expect(rs[0]!.message).toContain('over 10');
     expect(rs[0]!.recommendation).toContain('10');
   });
+
+  it('honours a configured component-size max', async () => {
+    const cfg = { rules: { 'architecture/component-size': { options: { max: 400 } } } };
+    // A regression that ignored the resolved `o.max` and kept using the built-in
+    // MAX_LOC (200) constant would flag this pass case and pass this fail case,
+    // so both sides of the boundary must be asserted against the configured value.
+    expect(fails(await architectureComponentSize.check(ctxWith(cfg, [comp({ loc: 400 })])))).toHaveLength(0);
+    expect(fails(await architectureComponentSize.check(ctxWith(cfg, [comp({ loc: 401 })])))).toHaveLength(1);
+  });
+  it('reports the configured component-size threshold in the message and recommendation', async () => {
+    const cfg = { rules: { 'architecture/component-size': { options: { max: 400 } } } };
+    const rs = fails(await architectureComponentSize.check(ctxWith(cfg, [comp({ loc: 401 })])));
+    expect(rs[0]!.message).toContain('over 400');
+    expect(rs[0]!.recommendation).toContain('400');
+  });
 });
