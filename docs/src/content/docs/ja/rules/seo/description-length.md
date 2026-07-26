@@ -25,3 +25,17 @@ description: meta description は 70〜160 文字であるべきです。
   />
 </svelte:head>
 ```
+
+## 設定
+
+| オプション | 型      | デフォルト |
+| ---------- | ------- | ---------: |
+| `min`      | integer |         70 |
+| `max`      | integer |        160 |
+
+```js
+// svelte-vitals.config.js
+export default {
+  rules: { 'seo/description-length': { options: { min: 50, max: 155 } } }
+};
+```

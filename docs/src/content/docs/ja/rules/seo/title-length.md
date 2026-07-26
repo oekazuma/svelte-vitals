@@ -22,3 +22,17 @@ description: ドキュメントのタイトルは 30〜60 文字であるべき�
   <title>検索結果で目を引く、簡潔でわかりやすいページタイトルの付け方ガイド</title>
 </svelte:head>
 ```
+
+## 設定
+
+| オプション | 型      | デフォルト |
+| ---------- | ------- | ---------: |
+| `min`      | integer |         30 |
+| `max`      | integer |         60 |
+
+```js
+// svelte-vitals.config.js
+export default {
+  rules: { 'seo/title-length': { options: { min: 20, max: 40 } } }
+};
+```

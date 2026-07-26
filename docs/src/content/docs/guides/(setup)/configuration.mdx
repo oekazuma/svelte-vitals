@@ -68,14 +68,14 @@ The `defineConfig` import in a `.ts` config is a **runtime** import — it resol
 
 ## Available options
 
-| Option           | Type                                                         | Default            | Description                                                                                  |
-| ---------------- | ------------------------------------------------------------ | ------------------ | -------------------------------------------------------------------------------------------- |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`           | How to score routes where a metadata value is set dynamically                                |
-| `metaComponents` | `string[]`                                                   | `[]`               | Custom component names that emit `<head>` metadata                                           |
-| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`               | Per-rule overrides — disable a rule or change its severity                                   |
-| `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'`       | Minimum severity that fails the run (exit code `1`)                                          |
-| `weights`        | `Partial<Record<Category, number>>`                          | every category `1` | Per-category weights for the combined [Health score](/guides/health-report)                  |
-| `overrides`      | `RuleOverride[]`                                             | (none)             | Route-/file-scoped rule overrides — see [below](#scoping-rules-to-routes-or-files-overrides) |
+| Option           | Type                                                                                    | Default            | Description                                                                                       |
+| ---------------- | --------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------- |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                                            | `'pass'`           | How to score routes where a metadata value is set dynamically                                     |
+| `metaComponents` | `string[]`                                                                              | `[]`               | Custom component names that emit `<head>` metadata                                                |
+| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info' \| { severity?, options? }>` | `{}`               | Per-rule overrides — disable a rule, change its severity, and/or set its [options](#rule-options) |
+| `failOn`         | `'critical' \| 'warning' \| 'info'`                                                     | `'critical'`       | Minimum severity that fails the run (exit code `1`)                                               |
+| `weights`        | `Partial<Record<Category, number>>`                                                     | every category `1` | Per-category weights for the combined [Health score](/guides/health-report)                       |
+| `overrides`      | `RuleOverride[]`                                                                        | (none)             | Route-/file-scoped rule overrides — see [below](#scoping-rules-to-routes-or-files-overrides)      |
 
 `Category` is `'seo' | 'performance' | 'correctness' | 'security' | 'architecture'`.
 
@@ -100,7 +100,8 @@ export default {
 ```
 
 Each entry has `rules` (keys are **rule ids or category names**, values are
-`'off' | 'critical' | 'warning' | 'info'`) plus at least one scope:
+`'off' | 'critical' | 'warning' | 'info'` or the object form described in
+[Rule options](#rule-options) below) plus at least one scope:
 
 - **`route`** — glob(s) matched against the finding's route id as shown in reports (e.g.
   `/blog/[slug]`). Note that SvelteKit `(group)` segments are **not** part of the route id
@@ -126,6 +127,51 @@ Semantics worth knowing:
   suppressions accept only the findings that existed when the file was written, so newly added
   routes fail again; overrides keep matching new routes under the same glob.
 
+## Rule options
+
+Beyond the bare severity string, a rule setting can be an object, `{ severity?, options? }`:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/prop-count': { options: { max: 10 } },
+    'performance/heavy-import': { options: { packages: { 'chart.js': 'import chart.js/auto' } } }
+  },
+  overrides: [{ files: 'src/lib/**', rules: { 'architecture/prop-count': { options: { max: 4 } } } }]
+};
+```
+
+`severity` is optional — omit it to keep the rule's built-in severity while only changing its
+options. `{ severity: 'off', ... }` disables the rule as usual, and any `options` alongside it are
+inert. The bare string forms (`'off'`, `'critical'`, `'warning'`, `'info'`) still work unchanged;
+the object form is additive, not a replacement for them.
+
+Options work inside `overrides` entries the same way they work in the top-level `rules` map,
+scoped by `route` / `files` like any other override setting — but only on a **rule-id key, never
+on a category key**: a category may carry a severity, but its options are meaningless without
+knowing which rule they belong to.
+
+How a value from multiple layers combines — built-in default, then `rules`, then each matching
+`overrides` entry in order — depends on the option itself: an **integer** option replaces, so the
+last one set wins. A **list** or **map** option instead **adds** to the built-in set, never
+replacing it, so a project keeps benefiting from new built-in entries in later svelte-vitals
+releases instead of being frozen at the list as of the day it wrote its config.
+
+Only some rules take options — passing `options` to a rule that doesn't accept any is a fatal
+config error, same as an unknown option name or a value of the wrong type. The rules below do;
+every other rule takes a bare severity/`off` only. Each rule's own page has a "Configuration"
+section with its exact option names and defaults.
+
+- [`architecture/prop-count`](/rules/architecture/prop-count) and
+  [`architecture/component-size`](/rules/architecture/component-size) — an integer `max`.
+- [`seo/title-length`](/rules/seo/title-length) and
+  [`seo/description-length`](/rules/seo/description-length) — integer `min` / `max`.
+- [`performance/heavy-import`](/rules/performance/heavy-import) — a `packages` map of package
+  specifier → remediation advice, added to the built-in list.
+- [`performance/preconnect`](/rules/performance/preconnect) — an `origins` list of hostnames,
+  added to the built-in list.
+
 ## Precedence
 
 For each field, the first of these that is set wins: **CLI flag > config file > built-in default**. This is per field, not all-or-nothing — a one-off `--fail-on info` does not discard the rest of your config file.
@@ -136,7 +182,7 @@ One exception: `rules` is replaced as a whole, not merged key-by-key. If you pas
 
 ## Validation
 
-- **Invalid and svelte-vitals stops (exit `2`)**: the file can't be loaded (syntax error, no default export, or a `.ts` file on a Node version that can't load it — see below); an unknown rule id inside `rules`; an unknown category or a negative/non-numeric value inside `weights`; a malformed `overrides` entry (not `{ route/files, rules }`-shaped, a scope that isn't a string / non-empty string array, a key in its `rules` that is neither a known rule id nor a category, or a setting other than `off`/`critical`/`warning`/`info`).
+- **Invalid and svelte-vitals stops (exit `2`)**: the file can't be loaded (syntax error, no default export, or a `.ts` file on a Node version that can't load it — see below); an unknown rule id inside `rules`; an unknown category or a negative/non-numeric value inside `weights`; a malformed `overrides` entry (not `{ route/files, rules }`-shaped, a scope that isn't a string / non-empty string array, or a key in its `rules` that is neither a known rule id nor a category); an invalid rule setting, in either `rules` or an `overrides` entry's `rules` — a bare string other than `off`/`critical`/`warning`/`info`, an object form with an unrecognized key or an invalid `severity`, options on a rule that takes none, an unknown option name, an option value of the wrong type or out of range, or options on a category key.
 - **Invalid but ignored, with a warning (analysis still runs)**: an unrecognized `treatDynamicAs` or `failOn` value (falls back to flag/default); an unrecognized top-level key (forward-compatible with future config fields).
 
 ## TypeScript configs

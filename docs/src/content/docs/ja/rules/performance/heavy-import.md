@@ -24,3 +24,22 @@ description: サイズが大きく、ツリーシェイクもできないパッ�
   import { format } from 'date-fns'; // または dayjs
 </script>
 ```
+
+## 設定
+
+| オプション | 型                              | デフォルト         |
+| ---------- | ------------------------------- | ------------------ |
+| `packages` | マップ（パッケージ → 対処方法） | `lodash`、`moment` |
+
+設定したパッケージは組み込みリストを**置き換えるのではなく追加**します。独自のエントリを追加した後も
+`lodash` と `moment` は引き続き検出され、以降の svelte-vitals リリースで組み込みリストが拡張されれば
+その恩恵も受けられます。
+
+```js
+// svelte-vitals.config.js
+export default {
+  rules: {
+    'performance/heavy-import': { options: { packages: { 'chart.js': 'import chart.js/auto' } } }
+  }
+};
+```

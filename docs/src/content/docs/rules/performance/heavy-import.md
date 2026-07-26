@@ -24,3 +24,22 @@ Importing a large, non-tree-shakeable package pulls its whole weight into the bu
   import { format } from 'date-fns'; // or dayjs
 </script>
 ```
+
+## Configuration
+
+| Option     | Type                               | Default            |
+| ---------- | ---------------------------------- | ------------------ |
+| `packages` | map (package → remediation advice) | `lodash`, `moment` |
+
+Configured packages are **added to** the built-in list, not a replacement for it — a project keeps
+flagging `lodash` and `moment` even after adding its own entries, and picks up any package the
+built-in list grows to cover in a later svelte-vitals release.
+
+```js
+// svelte-vitals.config.js
+export default {
+  rules: {
+    'performance/heavy-import': { options: { packages: { 'chart.js': 'import chart.js/auto' } } }
+  }
+};
+```

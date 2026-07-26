@@ -22,3 +22,17 @@ A description that is too short under-uses the search snippet; one that is too l
   <meta name="description" content="A concise, compelling summary of the page in roughly 70–160 characters." />
 </svelte:head>
 ```
+
+## Configuration
+
+| Option | Type    | Default |
+| ------ | ------- | ------: |
+| `min`  | integer |      70 |
+| `max`  | integer |     160 |
+
+```js
+// svelte-vitals.config.js
+export default {
+  rules: { 'seo/description-length': { options: { min: 50, max: 155 } } }
+};
+```

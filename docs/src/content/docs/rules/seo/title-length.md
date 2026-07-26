@@ -22,3 +22,17 @@ A title that is too short wastes the strongest on-page SEO signal; one that is t
   <title>Concise, descriptive page title (30–60 chars)</title>
 </svelte:head>
 ```
+
+## Configuration
+
+| Option | Type    | Default |
+| ------ | ------- | ------: |
+| `min`  | integer |      30 |
+| `max`  | integer |      60 |
+
+```js
+// svelte-vitals.config.js
+export default {
+  rules: { 'seo/title-length': { options: { min: 20, max: 40 } } }
+};
+```

@@ -23,3 +23,16 @@ A component with a large prop surface is usually doing too much; grouping relate
   let { user, layout } = $props(); // user: { name, avatar, … }
 </script>
 ```
+
+## Configuration
+
+| Option | Type    | Default |
+| ------ | ------- | ------: |
+| `max`  | integer |       6 |
+
+```js
+// svelte-vitals.config.js
+export default {
+  rules: { 'architecture/prop-count': { options: { max: 10 } } }
+};
+```

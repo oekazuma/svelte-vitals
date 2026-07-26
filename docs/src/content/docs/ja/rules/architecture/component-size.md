@@ -18,3 +18,16 @@ description: 巨大なコンポーネントは分割すべきです。
 ## 修正方法
 
 小さく役割を絞った子コンポーネント（ロジックは再利用可能な `.svelte.ts` モジュール）に切り出します。
+
+## 設定
+
+| オプション | 型      | デフォルト |
+| ---------- | ------- | ---------: |
+| `max`      | integer |        200 |
+
+```js
+// svelte-vitals.config.js
+export default {
+  rules: { 'architecture/component-size': { options: { max: 300 } } }
+};
+```

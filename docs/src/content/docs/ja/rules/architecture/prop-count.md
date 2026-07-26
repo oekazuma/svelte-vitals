@@ -23,3 +23,16 @@ description: 多くのプロップを受け取るコンポーネントは責務�
   let { user, layout } = $props(); // user: { name, avatar, … }
 </script>
 ```
+
+## 設定
+
+| オプション | 型      | デフォルト |
+| ---------- | ------- | ---------: |
+| `max`      | integer |          6 |
+
+```js
+// svelte-vitals.config.js
+export default {
+  rules: { 'architecture/prop-count': { options: { max: 10 } } }
+};
+```

@@ -68,14 +68,14 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
 
 ## 利用可能なオプション
 
-| オプション       | 型                                                           | デフォルト     | 説明                                                                                                 |
-| ---------------- | ------------------------------------------------------------ | -------------- | ---------------------------------------------------------------------------------------------------- |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`       | メタデータの値が動的に設定されているルートをどう採点するか                                           |
-| `metaComponents` | `string[]`                                                   | `[]`           | `<head>` メタデータを出力するカスタムコンポーネント名                                                |
-| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`           | ルールごとの上書き（ルールを無効化するか重大度を変更する）                                           |
-| `failOn`         | `'critical' \| 'warning' \| 'info'`                          | `'critical'`   | 実行を失敗させる（終了コード `1`）最低重大度                                                         |
-| `weights`        | `Partial<Record<Category, number>>`                          | 各カテゴリ `1` | 組み合わせた [Health スコア](/ja/guides/health-report) のカテゴリごとの重み                          |
-| `overrides`      | `RuleOverride[]`                                             | （なし）       | ルート/ファイル単位のルール上書き（[下記](#ルールをルートやファイルにスコープする-overrides)を参照） |
+| オプション       | 型                                                                                      | デフォルト     | 説明                                                                                                  |
+| ---------------- | --------------------------------------------------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------------------- |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                                            | `'pass'`       | メタデータの値が動的に設定されているルートをどう採点するか                                            |
+| `metaComponents` | `string[]`                                                                              | `[]`           | `<head>` メタデータを出力するカスタムコンポーネント名                                                 |
+| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info' \| { severity?, options? }>` | `{}`           | ルールごとの上書き（ルールを無効化する、重大度を変更する、[オプション](#ルールオプション)を設定する） |
+| `failOn`         | `'critical' \| 'warning' \| 'info'`                                                     | `'critical'`   | 実行を失敗させる（終了コード `1`）最低重大度                                                          |
+| `weights`        | `Partial<Record<Category, number>>`                                                     | 各カテゴリ `1` | 組み合わせた [Health スコア](/ja/guides/health-report) のカテゴリごとの重み                           |
+| `overrides`      | `RuleOverride[]`                                                                        | （なし）       | ルート/ファイル単位のルール上書き（[下記](#ルールをルートやファイルにスコープする-overrides)を参照）  |
 
 `Category` は `'seo' | 'performance' | 'correctness' | 'security' | 'architecture'` です。
 
@@ -97,7 +97,7 @@ export default {
 };
 ```
 
-各エントリは `rules`（キーは**ルール ID またはカテゴリ名**、値は `'off' | 'critical' | 'warning' | 'info'`）と、少なくとも1つのスコープを持ちます：
+各エントリは `rules`（キーは**ルール ID またはカテゴリ名**、値は `'off' | 'critical' | 'warning' | 'info'`、または後述の[ルールオプション](#ルールオプション)で説明するオブジェクト形式）と、少なくとも1つのスコープを持ちます：
 
 - **`route`**：レポートに表示されるルート ID（例: `/blog/[slug]`）にマッチする glob。SvelteKit の `(group)` セグメントはルート ID に**含まれない**点に注意してください（`src/routes/(app)/dashboard` は `/dashboard` として報告されます）。グループを対象にするには `files` を使います。
 - **`files`**：検出結果のソースパス（例: `src/routes/(app)/dashboard/+page.svelte`）にマッチする glob。
@@ -111,6 +111,38 @@ glob の構文はあえて最小限に絞ってあります：`*` はパスセ�
 - ルートにもファイルにも紐付かない検出結果（robots.txt などプロジェクト全体のチェック）には一切影響しません。そちらは `rules` を使ってください。
 - 「アプリのこの部分は恒久的に対象外」というポリシーには、[suppressions ファイル](/ja/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)より `overrides` を選んでください：suppressions はファイルを書き出した時点で存在した検出結果だけを受け入れるため、あとから追加したルートは再び失敗します。overrides は同じ glob 配下の新しいルートにもマッチし続けます。
 
+## ルールオプション
+
+単なる重大度の文字列に加えて、ルール設定にはオブジェクト形式 `{ severity?, options? }` も指定できます：
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/prop-count': { options: { max: 10 } },
+    'performance/heavy-import': { options: { packages: { 'chart.js': 'import chart.js/auto' } } }
+  },
+  overrides: [{ files: 'src/lib/**', rules: { 'architecture/prop-count': { options: { max: 4 } } } }]
+};
+```
+
+`severity` は省略可能です。省略すると、そのルールの組み込みの重大度を保ったままオプションだけを変更できます。`{ severity: 'off', ... }` はいつも通りそのルールを無効化し、一緒に指定した `options` はその場合無効(inert)になります。文字列だけの形式（`'off'`、`'critical'`、`'warning'`、`'info'`）も変わらず使えます。オブジェクト形式はそれらを置き換えるものではなく、追加の選択肢です。
+
+オプションは `overrides` エントリの中でもトップレベルの `rules` マップと同じように使え、他の override 設定と同様に `route` / `files` でスコープできます。ただし指定できるのは**ルール ID のキーだけで、カテゴリのキーには指定できません**：カテゴリには重大度を指定できますが、オプションはどのルール向けかが分からなければ意味を持たないためです。
+
+複数の層（組み込みのデフォルト → `rules` → マッチする `overrides` エントリを順に）の値がどう組み合わさるかは、オプションの種類によって決まります。**整数**のオプションは置き換わり、最後に設定された値が勝ちます。**リスト**または**マップ**のオプションは組み込みのセットを置き換えるのではなく**追加**します。そのため、設定ファイルを書いた時点のリストに固定されるのではなく、以降の svelte-vitals のリリースで組み込みのエントリが増えても、プロジェクトはその恩恵を受け続けられます。
+
+オプションを受け付けるのは一部のルールだけです。オプションを受け付けないルールに `options` を渡すのは、未知のオプション名や型の誤ったオプション値と同じく致命的な設定エラーになります。以下のルールはオプションを受け付け、それ以外のルールは重大度文字列 / `off` のみを受け付けます。各ルールのページには「設定」節があり、正確なオプション名とデフォルト値が書かれています。
+
+- [`architecture/prop-count`](/ja/rules/architecture/prop-count) と
+  [`architecture/component-size`](/ja/rules/architecture/component-size) — 整数の `max`。
+- [`seo/title-length`](/ja/rules/seo/title-length) と
+  [`seo/description-length`](/ja/rules/seo/description-length) — 整数の `min` / `max`。
+- [`performance/heavy-import`](/ja/rules/performance/heavy-import) — パッケージ指定子 →
+  対処方法の文字列という `packages` マップ。組み込みリストに追加されます。
+- [`performance/preconnect`](/ja/rules/performance/preconnect) — ホスト名の `origins` リスト。
+  組み込みリストに追加されます。
+
 ## 優先順位
 
 各フィールドについて、次のうち最初に設定されているものが優先されます:**CLI フラグ > 設定ファイル > 組み込みのデフォルト**。この優先順位はフィールドごとに独立して働きます。一度きりの `--fail-on info` を指定しても、設定ファイルの他のフィールドはそのまま生きています。
@@ -121,7 +153,7 @@ glob の構文はあえて最小限に絞ってあります：`*` はパスセ�
 
 ## バリデーション
 
-- **無効で svelte-vitals が停止する（終了コード `2`）**:ファイルを読み込めない（構文エラー、default export がない、または後述する Node のバージョンで `.ts` ファイルを読み込めない場合）、`rules` 内に未知のルール ID がある、`weights` 内に未知のカテゴリまたは負の値や数値でない値がある場合、`overrides` のエントリが不正な場合（`{ route/files, rules }` の形でない、スコープが文字列でも空でない文字列配列でもない、`rules` 内のキーが既知のルール ID でもカテゴリ名でもない、設定値が `off`/`critical`/`warning`/`info` 以外）。
+- **無効で svelte-vitals が停止する（終了コード `2`）**:ファイルを読み込めない（構文エラー、default export がない、または後述する Node のバージョンで `.ts` ファイルを読み込めない場合）、`rules` 内に未知のルール ID がある、`weights` 内に未知のカテゴリまたは負の値や数値でない値がある場合、`overrides` のエントリが不正な場合（`{ route/files, rules }` の形でない、スコープが文字列でも空でない文字列配列でもない、`rules` 内のキーが既知のルール ID でもカテゴリ名でもない）、`rules` または `overrides` エントリの `rules` 内のルール設定が不正な場合（`off`/`critical`/`warning`/`info` 以外の文字列、未知のキーを含むオブジェクト形式、オブジェクト内の不正な `severity`、オプションを受け付けないルールへの `options`、未知のオプション名、型が誤っているか範囲外のオプション値、カテゴリのキーへの `options` のいずれか）。
 - **無効だが無視され、警告が出る（分析は続行される）**:認識できない `treatDynamicAs` または `failOn` の値（フラグ／デフォルトにフォールバック）、認識できないトップレベルキー（将来の設定フィールドとの前方互換性のため）。
 
 ## TypeScript の設定ファイル
