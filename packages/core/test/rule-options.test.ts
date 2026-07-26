@@ -112,4 +112,31 @@ describe('validateRuleOptions', () => {
     expect(validateRuleOptions('r', spec, { packages: ['lodash'] })[0]).toContain('string → non-empty string');
     expect(validateRuleOptions('r', spec, { packages: { lodash: 1 } })[0]).toContain('string → non-empty string');
   });
+
+  describe('min/max cross-check (Finding 3)', () => {
+    const lengthSpec: RuleOptionsSpec = {
+      min: { kind: 'integer', default: 30, min: 0 },
+      max: { kind: 'integer', default: 60, min: 1 }
+    };
+    it('rejects a configured min above the built-in max', () => {
+      const errors = validateRuleOptions('seo/title-length', lengthSpec, { min: 100 });
+      expect(errors[0]).toContain('min (100) must be <= max (60)');
+    });
+    it('rejects a configured max below the built-in min', () => {
+      const errors = validateRuleOptions('seo/title-length', lengthSpec, { max: 1 });
+      expect(errors[0]).toContain('min (30) must be <= max (1)');
+    });
+    it('rejects both sides configured but inverted', () => {
+      const errors = validateRuleOptions('seo/title-length', lengthSpec, { min: 20, max: 10 });
+      expect(errors[0]).toContain('min (20) must be <= max (10)');
+    });
+    it('accepts a valid configured range', () => {
+      expect(validateRuleOptions('seo/title-length', lengthSpec, { min: 5, max: 10 })).toEqual([]);
+    });
+    it('does not double-report when a per-key type error already fired', () => {
+      const errors = validateRuleOptions('seo/title-length', lengthSpec, { min: '100' as unknown as number });
+      expect(errors).toHaveLength(1);
+      expect(errors[0]).toContain('must be an integer');
+    });
+  });
 });

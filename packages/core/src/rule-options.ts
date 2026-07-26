@@ -102,5 +102,19 @@ export function validateRuleOptions(ruleId: string, spec: RuleOptionsSpec | unde
       errors.push(`${ruleId}.${key} must be an object of string → non-empty string.`);
     }
   }
+
+  // Cross-field: a rule that declares both an integer `min` and `max` (the length
+  // rules) must not end up with an inverted range. Merge each side with the spec's
+  // own default so a config that only sets one side (e.g. `{ min: 100 }` against a
+  // built-in `max` of 60) is still caught — this is the only case that fires for
+  // both the CLI config-file loader and the Vite plugin (Finding 3/4), since both
+  // funnel through this function.
+  const minSpec = spec.min;
+  const maxSpec = spec.max;
+  if (minSpec?.kind === 'integer' && maxSpec?.kind === 'integer' && errors.length === 0) {
+    const minVal = 'min' in options ? (options.min as number) : minSpec.default;
+    const maxVal = 'max' in options ? (options.max as number) : maxSpec.default;
+    if (minVal > maxVal) errors.push(`${ruleId}: min (${minVal}) must be <= max (${maxVal}).`);
+  }
   return errors;
 }
