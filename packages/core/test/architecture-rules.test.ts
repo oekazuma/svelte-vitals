@@ -48,6 +48,17 @@ describe('architecture/component-size component size', () => {
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
+  it('passes a component at exactly the line limit', async () => {
+    const rs = await architectureComponentSize.check(ctx([comp({ loc: 200 })]));
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(1);
+  });
+  it('flags a component one line over the limit', async () => {
+    const rs = await architectureComponentSize.check(ctx([comp({ loc: 201 })]));
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.message).toContain('201');
+    expect(rs[0]!.message).toContain('over 200');
+  });
   it('emits nothing when the component channel is unset (rendered mode)', async () => {
     expect(await architectureComponentSize.check(base as RuleContext)).toHaveLength(0);
   });
