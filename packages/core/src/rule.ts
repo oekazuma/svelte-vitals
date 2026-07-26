@@ -4,6 +4,7 @@ import type { ResolvedImages } from './images.js';
 import type { ResolvedHeadings } from './headings.js';
 import type { ComponentFacts } from './component.js';
 import type { KitModuleFacts } from './kit-module.js';
+import type { RuleOptionsSpec } from './rule-options.js';
 
 /** Input given to every rule. Mode-independent: rules see only ResolvedHead[] (design §8, §10). */
 export interface RuleContext {
@@ -32,6 +33,8 @@ export interface Rule {
   rationale: string;
   /** Canonical remediation template, shared by findings and explain_rule (issue #24). */
   fix?: Fix;
+  /** Configurable options for this rule; absent means the rule takes none. */
+  options?: RuleOptionsSpec;
   /**
    * Evaluate the resolved heads. A single rule may return one Result per route,
    * so it always returns an array. Project-scoped rules return a single element.
