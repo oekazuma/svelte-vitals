@@ -783,7 +783,7 @@ git commit -m "feat(core): make the architecture thresholds configurable"
 ### Task 5: Wire options into `lengthRule`
 
 **Files:**
-- Modify: `packages/core/src/rules/seo/length-rule.ts`
+- Modify: `packages/core/src/rules/seo/length-rule.ts`, `packages/core/src/rules/seo/title-length.ts`, `packages/core/src/rules/seo/description-length.ts`
 - Test: `packages/core/test/seo-length-rules.test.ts`
 
 **Interfaces:**
@@ -821,9 +821,10 @@ describe('seo length rule options', () => {
     expect(fails(await seoTitleLength.check(cfgCtx(title('a'.repeat(15)), opts)))).toHaveLength(0);
     expect(fails(await seoTitleLength.check(cfgCtx(title('a'.repeat(25)), opts)))).toHaveLength(1);
   });
-  it('quotes the configured bounds in the message', async () => {
+  it('quotes the configured bounds in the message and recommendation', async () => {
     const rs = fails(await seoTitleLength.check(cfgCtx(title('a'.repeat(25)), opts)));
     expect(rs[0]!.message).toContain('10–20');
+    expect(rs[0]!.recommendation).toContain('10–20');
   });
   it('honours a per-route bound', async () => {
     const scoped = { overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { min: 1, max: 5 } } } }] };
@@ -878,7 +879,38 @@ Add `options: spec,` to the returned rule object (after `rationale`), then rewri
         else if (len > max) problem = `${opts.noun} is too long (${len} chars; aim for ${min}–${max})`;
 ```
 
-Leave the rest of the loop body — the `out.push(…)` calls — untouched.
+Make `recommendation` callable exactly as `componentRule` does, so a configured project is not told
+to aim for the built-in bounds. In `LengthRuleOptions`:
+
+```ts
+  recommendation: string | ((o: RuleOptions) => string);
+```
+
+and in `check`, right after resolving `o`:
+
+```ts
+        const recommendation = typeof opts.recommendation === 'function' ? opts.recommendation(o) : opts.recommendation;
+```
+
+Replace every `recommendation: opts.recommendation` in the emitted results with `recommendation`.
+Add `import type { RuleOptions } from '../../types.js';` alongside the other imports.
+
+Then switch both rule files to the callable form.
+`packages/core/src/rules/seo/title-length.ts`:
+
+```ts
+  recommendation: (o) =>
+    `Aim for a title of ${o.min as number}–${o.max as number} characters so it is not truncated in search results.`,
+```
+
+`packages/core/src/rules/seo/description-length.ts`:
+
+```ts
+  recommendation: (o) =>
+    `Aim for a meta description of ${o.min as number}–${o.max as number} characters so it is not truncated in search results.`,
+```
+
+Leave the rest of the loop body — the `out.push(…)` calls — otherwise untouched.
 
 `opts.recommendation` in this factory is a plain string that quotes the bounds ("Aim for a title of 30–60 characters…"). Leave it as-is: the per-finding `message` already carries the effective bounds, and no test asserts the recommendation here. Note this asymmetry with `componentRule` in the rule docs rather than adding a second callable-recommendation path.
 
