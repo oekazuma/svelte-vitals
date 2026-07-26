@@ -50,6 +50,38 @@ function toPatterns(globs: string | string[] | undefined): RegExp[] {
   return (Array.isArray(globs) ? globs : [globs]).map(routeGlobToRegExp);
 }
 
+/** An override entry with its globs compiled once. Build with `compileOverrides`. */
+export interface CompiledOverride {
+  routes: RegExp[];
+  files: RegExp[];
+  rules: Record<string, RuleSetting>;
+}
+
+/**
+ * Compile every override entry's globs to RegExp, once. Callers that match many
+ * targets (every component, every route) must hoist this out of their loop.
+ */
+export function compileOverrides(config: Config): CompiledOverride[] {
+  return (config.overrides ?? []).map((o) => ({
+    routes: toPatterns(o.route),
+    files: toPatterns(o.files),
+    rules: o.rules
+  }));
+}
+
+/**
+ * Whether an override entry applies to a target. THE single definition of that
+ * question — the result post-pass and in-run option resolution both call it, so
+ * a severity override and an option override can never select different files.
+ */
+export function overrideMatches(o: CompiledOverride, target: { route?: string; file?: string }): boolean {
+  const { route, file } = target;
+  return (
+    (route !== undefined && o.routes.some((p) => p.test(route))) ||
+    (file !== undefined && o.files.some((p) => p.test(file)))
+  );
+}
+
 /**
  * Apply route-/file-scoped overrides to results (design 2026-07-18). An entry
  * matches when any `route` glob matches the finding's route id or any `files`
@@ -60,24 +92,14 @@ function toPatterns(globs: string | string[] | undefined): RegExp[] {
  * rule-id key beats a category key.
  */
 export function applyOverrides(results: Result[], config: Config): Result[] {
-  const overrides = config.overrides;
-  if (!overrides || overrides.length === 0) return results;
-
-  const compiled = overrides.map((o) => ({
-    routes: toPatterns(o.route),
-    files: toPatterns(o.files),
-    rules: o.rules
-  }));
+  const compiled = compileOverrides(config);
+  if (compiled.length === 0) return results;
 
   const out: Result[] = [];
   for (const result of results) {
-    const { route, location } = result;
     let severity: Severity | 'off' | undefined;
     for (const o of compiled) {
-      const matched =
-        (route !== undefined && o.routes.some((p) => p.test(route))) ||
-        (location !== undefined && o.files.some((p) => p.test(location)));
-      if (!matched) continue;
+      if (!overrideMatches(o, { route: result.route, file: result.location })) continue;
       const s = o.rules[result.id] ?? o.rules[result.category ?? 'seo'];
       // An options-only entry carries no severity — it must not clear one set earlier.
       if (s !== undefined) severity = settingSeverity(s) ?? severity;

@@ -3,6 +3,8 @@ import {
   selectRules,
   applyRuleSeverities,
   applyOverrides,
+  compileOverrides,
+  overrideMatches,
   defineConfig,
   type Rule,
   type Result
@@ -121,5 +123,27 @@ describe('config application', () => {
     const out = applyOverrides(results, config);
     expect(out).toHaveLength(1);
     expect(out[0]!.severity).toBe('warning');
+  });
+});
+
+describe('override matching', () => {
+  const config = defineConfig({
+    overrides: [{ files: 'src/lib/**', rules: { 'architecture/prop-count': 'off' } }]
+  });
+  it('matches a file under the glob', () => {
+    const [o] = compileOverrides(config);
+    expect(overrideMatches(o!, { file: 'src/lib/Button.svelte' })).toBe(true);
+  });
+  it('does not match a file outside the glob', () => {
+    const [o] = compileOverrides(config);
+    expect(overrideMatches(o!, { file: 'src/routes/+page.svelte' })).toBe(false);
+  });
+  it('matches on route when only a route target is given', () => {
+    const [o] = compileOverrides(defineConfig({ overrides: [{ route: '/admin/**', rules: { seo: 'off' } }] }));
+    expect(overrideMatches(o!, { route: '/admin/users' })).toBe(true);
+    expect(overrideMatches(o!, { route: '/about' })).toBe(false);
+  });
+  it('returns an empty list when the config has no overrides', () => {
+    expect(compileOverrides(defineConfig({}))).toEqual([]);
   });
 });
