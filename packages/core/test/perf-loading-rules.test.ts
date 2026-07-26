@@ -190,4 +190,34 @@ describe('performance/preconnect preconnect third-party origin', () => {
     const out = applyOverrides(rs, defineConfig(cfg));
     expect(out.find((r) => r.detection.value === 'absent')?.severity).toBe('warning');
   });
+
+  it('a layout-owned tag (tag.file differs from head.file) applies both severity and options from a files:-scoped override (Finding 1 containment)', async () => {
+    // The tag carries its own `file` (as an inherited layout tag would), distinct from
+    // head.file ('x' via the head() helper). Before the fix, options were resolved once
+    // per head keyed on head.file, so a files: override scoped to the layout file would
+    // rewrite severity (matched against the finding's tag-file location in the post-pass)
+    // while never being consulted for options during the run — the origin would never be
+    // added, so no finding would even be emitted.
+    const layoutTag = { ...link('stylesheet', 'https://cdn.example.com/app.css'), file: 'src/routes/+layout.svelte' };
+    const cfg = {
+      overrides: [
+        {
+          files: 'src/routes/+layout.svelte',
+          rules: {
+            'performance/preconnect': { severity: 'warning' as const, options: { origins: ['cdn.example.com'] } }
+          }
+        }
+      ]
+    };
+    const rs = await performancePreconnect.check(cfgHeadsCtx(head('rendered', [layoutTag]), cfg));
+    // Options resolved during the run, keyed on the tag's own file: cdn.example.com is
+    // only in scope because of the override targeting the layout file.
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.location).toBe('src/routes/+layout.svelte');
+    expect(rs[0]!.message).toContain('cdn.example.com');
+    // Severity resolved in the post-pass, matched by the same `files` glob against the
+    // same tag-file location.
+    const out = applyOverrides(rs, defineConfig(cfg));
+    expect(out.find((r) => r.detection.value === 'absent')?.severity).toBe('warning');
+  });
 });

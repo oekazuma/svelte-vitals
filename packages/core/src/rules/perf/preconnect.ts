@@ -47,27 +47,28 @@ export const performancePreconnect: Rule = {
     // Hoisted: compiling every override's globs once, not once per head.
     const compiled = compileOverrides(ctx.config);
     for (const head of ctx.heads) {
-      // file: head.file closes the common case for files:-scoped overrides (design
-      // 2026-07-26 Finding 1) — it matches what an unmatched tag's own `location`
-      // falls back to below. Residual gap: a tag inherited from a layout can carry a
-      // different file than head.file, and a files:-scoped option override keyed to
-      // that layout file (rather than the route's own file) would still miss it here.
-      // Resolving that would mean moving option resolution inside the per-tag loop
-      // below (keyed per referencing tag), which this rule doesn't do.
-      const o = resolveRuleOptions(
-        'performance/preconnect',
-        OPTIONS,
-        ctx.config,
-        { route: head.route, file: head.file },
-        compiled
-      );
-      const origins = new Set(o.origins as string[]);
       const referenced = new Map<string, string | undefined>(); // host → referencing file
       const covered = new Set<string>(); // host with preconnect/dns-prefetch
       for (const tag of head.tags) {
         if ((tag.kind !== 'link' && tag.kind !== 'script') || typeof tag.href !== 'string') continue;
         const host = hostOf(tag.href);
-        if (!host || !origins.has(host)) continue;
+        if (!host) continue;
+        // Resolved per tag, keyed on the same file expression the resulting finding's
+        // `location` uses below — a tag inherited from a layout carries its own `file`,
+        // distinct from head.file, and a files:-scoped option override keyed to that
+        // layout file must reach it (design 2026-07-26 Finding 1). `origins` is
+        // addition-only (never narrowed by an override — design §"Option specs"), so
+        // resolving per tag can only ever widen which hosts are in scope, never
+        // disagree with a head-level resolution about a host both would already include.
+        const o = resolveRuleOptions(
+          'performance/preconnect',
+          OPTIONS,
+          ctx.config,
+          { route: head.route, file: tag.file ?? head.file },
+          compiled
+        );
+        const origins = new Set(o.origins as string[]);
+        if (!origins.has(host)) continue;
         if (tag.kind === 'link' && (tag.rel === 'preconnect' || tag.rel === 'dns-prefetch')) covered.add(host);
         else if (!referenced.has(host)) referenced.set(host, tag.file);
       }
