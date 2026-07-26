@@ -124,10 +124,13 @@ function validateSetting(
  * rather than risk rejecting a config that is valid at every target (design
  * 2026-07-26 review, Finding A, third pass).
  *
- * The reverse failure mode — two entries that each look valid alone but
- * jointly invert the range at a target where both apply — stays undetected;
- * it is statically undecidable for the same reason, and its worst outcome is
- * an odd-looking runtime message rather than a valid config being rejected.
+ * Two false negatives follow from that conservatism and stay undetected:
+ * two entries that each look valid alone but jointly invert the range where
+ * both apply, and an entry that IS inverted against defaults + the global
+ * `rules` layer but is skipped because some unrelated sibling entry happens
+ * to set the opposite side. Both are statically undecidable for the same
+ * reason, and both cost at most an odd-looking runtime message — never a
+ * valid config rejected, which is the failure mode worth avoiding here.
  * See the design doc's "Out of scope" section.
  */
 function otherOverrideNarrowsOppositeSide(

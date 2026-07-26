@@ -260,17 +260,25 @@ accidental edit to either constant would not have failed a test. That gap must n
   `severity: 'off'` on a `files:`-scoped entry silently fails to remove the passing seed for these
   rules — the seed survives and stays counted, even when the same override's `options` are what
   turned the finding into a PASS in the first place. This is a pre-existing gap, not something
-  introduced on this branch: PASS results have never carried a `location` for any rule. It was
-  fixed on this branch (commit `e67ed9a`) and then reverted after review found two CLI consumers
-  that read `.location` on _all_ results, not just penalized ones — `filterToChangedFiles`
-  (`packages/cli/src/changed-files.ts`) uses "no location" as its definition of a droppable
-  passing seed, and `findingKey` (`packages/cli/src/baseline.ts`) uses `id::route::location` as a
-  collision-free identity key precisely because passing seeds never carried a location. Giving
-  these three rules' PASS results a `location` made them the only PASS-emitting rules in the
-  engine with one, which broke both of those assumptions (verified: a changed-file health
-  computation flipped from 79 to 90 with a single extra PASS seed; a baseline run could collide
-  passing and penalized results for the same route/file). Closing this gap properly means giving
-  _every_ PASS-emitting rule a location (not just these three) and updating
-  `filterToChangedFiles` and `findingKey` to a new, still-correct definition of "droppable /
-  identifying passing seed" at the same time — a larger, deliberate change, not a one-file patch.
-  Deferred to a future spec.
+  introduced on this branch.
+
+  It was fixed on this branch (commit `e67ed9a`) and then reverted after review found two CLI
+  consumers that read `.location` on _all_ results, not just penalized ones —
+  `filterToChangedFiles` (`packages/cli/src/changed-files.ts`) uses "no location" as its
+  definition of a droppable passing seed, and `findingKey` (`packages/cli/src/baseline.ts`) uses
+  `id::route::location` as an identity key. Adding a location to these three rules' PASS results
+  broke both assumptions: a changed-file health computation flipped from 79 to 90 on a single
+  extra PASS seed, and a baseline run could collide a passing with a penalized result for the same
+  route and file.
+
+  **Which PASS results carry a location is currently inconsistent, and that is the real problem
+  here.** `headTagRule` (`packages/core/src/rules/seo/head-tag-rule.ts`, backing `seo/canonical-url`,
+  `og-title`, `og-image`, `charset`, `viewport`, `twitter-card`, `description-presence`,
+  `og-description`, `json-ld`) and `seo/title-presence` already set `location` unconditionally,
+  including on passing results; the component- and Kit-module-scoped factories and the remaining
+  route-scoped rules do not. So `filterToChangedFiles`'s premise — that a passing seed is
+  recognisable by having no location — is already only partly true today, independently of this
+  branch. Closing the gap properly means picking one convention for every PASS-emitting rule and
+  giving `filterToChangedFiles` and `findingKey` a definition that does not rely on `location`'s
+  absence to mean "passing" — a deliberate change of its own, not a one-file patch. Deferred to a
+  future spec.

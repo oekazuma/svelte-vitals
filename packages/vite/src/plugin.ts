@@ -119,9 +119,12 @@ function validateRulesOption(rules: Record<string, RuleSetting> | undefined): vo
  * pass; mirrors the CLI's `otherOverrideNarrowsOppositeSide` in
  * packages/cli/src/config-file.ts).
  *
- * The reverse failure mode — two entries that each look valid alone but
- * jointly invert the range at a target where both apply — stays undetected,
- * for the same reason; see the design doc's "Out of scope" section.
+ * Two false negatives follow, for the same reason: two entries that each
+ * look valid alone but jointly invert the range where both apply, and an
+ * entry that IS inverted against defaults + the global `rules` layer but is
+ * skipped because an unrelated sibling entry sets the opposite side. Both
+ * cost at most an odd-looking runtime message, never a valid config
+ * rejected; see the design doc's "Out of scope" section.
  */
 function otherOverrideNarrowsOppositeSide(
   overrides: RuleOverride[],
