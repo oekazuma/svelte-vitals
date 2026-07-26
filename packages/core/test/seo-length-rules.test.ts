@@ -30,6 +30,10 @@ describe('seo/title-length title length', () => {
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
+  it('a passing result carries no location (reverted in e67ed9a — see design doc "Out of scope")', async () => {
+    const rs = await seoTitleLength.check(ctx(title('A perfectly reasonable page title here')));
+    expect(rs[0]!.location).toBeUndefined();
+  });
   it('emits nothing for a dynamic/absent title', async () => {
     expect(await seoTitleLength.check(ctx(title(undefined)))).toHaveLength(0);
     // A dynamic title carries no captured text → length is unknowable, emit nothing.
@@ -48,6 +52,10 @@ describe('seo/description-length description length', () => {
     const rs = await seoDescriptionLength.check(ctx(desc('x'.repeat(100))));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
+  });
+  it('a passing result carries no location (reverted in e67ed9a — see design doc "Out of scope")', async () => {
+    const rs = await seoDescriptionLength.check(ctx(desc('x'.repeat(100))));
+    expect(rs[0]!.location).toBeUndefined();
   });
   it('emits nothing for a dynamic/absent description', async () => {
     expect(await seoDescriptionLength.check(ctx(desc(undefined)))).toHaveLength(0);
@@ -108,22 +116,5 @@ describe('seo length rule options', () => {
     // Severity resolved in the post-pass, matched by the same `files` glob on the same location.
     const out = applyOverrides(rs, defineConfig(cfg));
     expect(out.find((r) => r.detection.value === 'absent')?.severity).toBe('warning');
-  });
-
-  it('a files:-scoped "off" override also removes a PASS seed its own options produced (Finding F, second review)', async () => {
-    // headWith() gives the head file 'x' and no tag-level file, matching a files: 'x' override.
-    const cfg = {
-      overrides: [
-        { files: 'x', rules: { 'seo/title-length': { severity: 'off' as const, options: { min: 1, max: 100 } } } }
-      ]
-    };
-    // 80 chars fails the built-in 30-60 bounds, but passes the override's widened 1-100 bounds.
-    const rs = await seoTitleLength.check(cfgCtx(title('a'.repeat(80)), cfg));
-    expect(fails(rs)).toHaveLength(0);
-    expect(rs).toHaveLength(1);
-    // The passing seed must carry a `location` so the same `files: 'x'` override that
-    // supplied its options can also match it in the post-pass and remove it via 'off'.
-    const out = applyOverrides(rs, defineConfig(cfg));
-    expect(out).toHaveLength(0);
   });
 });

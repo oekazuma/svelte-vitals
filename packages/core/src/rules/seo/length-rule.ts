@@ -74,13 +74,6 @@ export function lengthRule(opts: LengthRuleOptions): Rule {
                 severity: 'info',
                 detection: PASS,
                 route: head.route,
-                // Same `location` the penalized branch above uses (design 2026-07-26
-                // second review, Finding F) — without it, a `files:`-scoped override
-                // can flip this result to PASS via its `options` but can never match
-                // it to also apply `severity: 'off'`, so the passing seed survives
-                // `applyOverrides` and stays counted even when the override means to
-                // exclude the check for this file entirely.
-                location,
                 message: opts.label,
                 recommendation,
                 docsUrl

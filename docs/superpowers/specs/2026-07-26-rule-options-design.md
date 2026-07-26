@@ -253,3 +253,24 @@ accidental edit to either constant would not have failed a test. That gap must n
 - **Unifying severity and option resolution** (retiring the `applyOverrides` post-pass). See the
   timing-split section.
 - **`seo/json-ld-placeholder` patterns.** See the inventory section.
+- **A `files:`-scoped override cannot remove a passing seed for a route-scoped rule.**
+  `seo/title-length`, `seo/description-length`, and `performance/preconnect` emit a PASS result
+  with `route` but no `location`. An override's `files:` matcher (`applyOverrides` in
+  `packages/core/src/config-apply.ts`) can only match a result that carries `location`, so
+  `severity: 'off'` on a `files:`-scoped entry silently fails to remove the passing seed for these
+  rules — the seed survives and stays counted, even when the same override's `options` are what
+  turned the finding into a PASS in the first place. This is a pre-existing gap, not something
+  introduced on this branch: PASS results have never carried a `location` for any rule. It was
+  fixed on this branch (commit `e67ed9a`) and then reverted after review found two CLI consumers
+  that read `.location` on _all_ results, not just penalized ones — `filterToChangedFiles`
+  (`packages/cli/src/changed-files.ts`) uses "no location" as its definition of a droppable
+  passing seed, and `findingKey` (`packages/cli/src/baseline.ts`) uses `id::route::location` as a
+  collision-free identity key precisely because passing seeds never carried a location. Giving
+  these three rules' PASS results a `location` made them the only PASS-emitting rules in the
+  engine with one, which broke both of those assumptions (verified: a changed-file health
+  computation flipped from 79 to 90 with a single extra PASS seed; a baseline run could collide
+  passing and penalized results for the same route/file). Closing this gap properly means giving
+  _every_ PASS-emitting rule a location (not just these three) and updating
+  `filterToChangedFiles` and `findingKey` to a new, still-correct definition of "droppable /
+  identifying passing seed" at the same time — a larger, deliberate change, not a one-file patch.
+  Deferred to a future spec.
