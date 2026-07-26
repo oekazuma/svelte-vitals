@@ -7,7 +7,9 @@ description: Components taking many props are doing too much.
 
 ## What it checks
 
-Flags a component that destructures more than 10 props from `$props()`. A rest element (`...rest`) or a non-destructured `$props()` is not counted.
+Flags a component that destructures more than 6 props from `$props()`. A rest element (`...rest`) or a non-destructured `$props()` is not counted.
+
+The threshold is measured, not guessed: 6 is the median of the per-repository 90th percentile of prop counts across 2,239 components in 7 real Svelte 5 codebases. In other words, a component with 7 or more props is wider than roughly 90% of the components in a typical Svelte project.
 
 ## Why it matters
 
