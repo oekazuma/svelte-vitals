@@ -38,4 +38,29 @@ describe('config application', () => {
     ];
     expect(applyRuleSeverities(results, defineConfig({}))[0]!.severity).toBe('warning');
   });
+  it('drops rules disabled through the object form', () => {
+    const kept = selectRules([ruleA, ruleB], defineConfig({ rules: { 'seo/json-ld': { severity: 'off' } } }));
+    expect(kept.map((r) => r.id)).toEqual(['seo/title-presence']);
+  });
+  it('keeps rules whose object form only carries options', () => {
+    const kept = selectRules([ruleA, ruleB], defineConfig({ rules: { 'seo/json-ld': { options: { max: 3 } } } }));
+    expect(kept.map((r) => r.id)).toEqual(['seo/title-presence', 'seo/json-ld']);
+  });
+  it('overrides severity through the object form', () => {
+    const results: Result[] = [
+      { id: 'seo/canonical-url', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'x' }
+    ];
+    const out = applyRuleSeverities(
+      results,
+      defineConfig({ rules: { 'seo/canonical-url': { severity: 'critical' } } })
+    );
+    expect(out[0]!.severity).toBe('critical');
+  });
+  it('leaves severity alone when the object form carries only options', () => {
+    const results: Result[] = [
+      { id: 'seo/canonical-url', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'x' }
+    ];
+    const out = applyRuleSeverities(results, defineConfig({ rules: { 'seo/canonical-url': { options: { max: 1 } } } }));
+    expect(out[0]!.severity).toBe('warning');
+  });
 });

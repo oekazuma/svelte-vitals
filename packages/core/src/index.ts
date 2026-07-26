@@ -13,6 +13,8 @@ export type {
   Category,
   TreatDynamicAs,
   RuleSetting,
+  RuleSettingObject,
+  RuleOptions,
   RuleOverride,
   Config
 } from './types.js';
@@ -150,7 +152,7 @@ export { buildHtmlDocument, formatHtmlReport, escapeHtml, safeHref, scoreBand, B
 export { renderAppShell, APP_SCRIPT, APP_STYLE } from './reporter/app-shell.js';
 export type { AppSnapshot, RouteBadge } from './reporter/app-shell.js';
 
-export { selectRules, applyRuleSeverities, applyOverrides } from './config-apply.js';
+export { selectRules, applyRuleSeverities, applyOverrides, settingSeverity, settingOptions } from './config-apply.js';
 
 export type { ScoreModel, ScoreResult, ScoreOptions, HealthResult } from './scoring/score.js';
 export { computeScore, scoresByCategory, computeHealth } from './scoring/score.js';

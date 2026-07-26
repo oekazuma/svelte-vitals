@@ -1,16 +1,28 @@
-import type { Config, Result, RuleSetting } from './types.js';
+import type { Config, Result, RuleOptions, RuleSetting, Severity } from './types.js';
 import type { Rule } from './rule.js';
+
+/** The severity a setting selects: `'off'`, an explicit severity, or undefined (leave the built-in). */
+export function settingSeverity(setting: RuleSetting | undefined): Severity | 'off' | undefined {
+  if (setting === undefined) return undefined;
+  if (typeof setting === 'string') return setting;
+  return setting.severity;
+}
+
+/** The options a setting carries, or undefined for the string forms. */
+export function settingOptions(setting: RuleSetting | undefined): RuleOptions | undefined {
+  return setting !== undefined && typeof setting !== 'string' ? setting.options : undefined;
+}
 
 /** Drop rules disabled via config (design §6). */
 export function selectRules(rules: Rule[], config: Config): Rule[] {
-  return rules.filter((rule) => config.rules[rule.id] !== 'off');
+  return rules.filter((rule) => settingSeverity(config.rules[rule.id]) !== 'off');
 }
 
 /** Apply per-rule severity overrides to results (design §6). */
 export function applyRuleSeverities(results: Result[], config: Config): Result[] {
   return results.map((result) => {
-    const setting = config.rules[result.id];
-    return setting && setting !== 'off' ? { ...result, severity: setting } : result;
+    const severity = settingSeverity(config.rules[result.id]);
+    return severity !== undefined && severity !== 'off' ? { ...result, severity } : result;
   });
 }
 
@@ -60,17 +72,18 @@ export function applyOverrides(results: Result[], config: Config): Result[] {
   const out: Result[] = [];
   for (const result of results) {
     const { route, location } = result;
-    let setting: RuleSetting | undefined;
+    let severity: Severity | 'off' | undefined;
     for (const o of compiled) {
       const matched =
         (route !== undefined && o.routes.some((p) => p.test(route))) ||
         (location !== undefined && o.files.some((p) => p.test(location)));
       if (!matched) continue;
       const s = o.rules[result.id] ?? o.rules[result.category ?? 'seo'];
-      if (s !== undefined) setting = s;
+      // An options-only entry carries no severity — it must not clear one set earlier.
+      if (s !== undefined) severity = settingSeverity(s) ?? severity;
     }
-    if (setting === undefined) out.push(result);
-    else if (setting !== 'off') out.push({ ...result, severity: setting });
+    if (severity === undefined) out.push(result);
+    else if (severity !== 'off') out.push({ ...result, severity });
   }
   return out;
 }
