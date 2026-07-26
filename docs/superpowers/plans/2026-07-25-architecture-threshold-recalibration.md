@@ -332,6 +332,6 @@ Expected: counts that are small relative to the number of components, but not ze
 - [ ] **Step 8: Commit**
 
 ```bash
-git add docs/src/content/docs/rules/architecture .changeset/architecture-threshold-recalibration.md
+git add docs/src/content/docs/rules/architecture docs/src/content/docs/ja/rules/architecture .changeset/architecture-threshold-recalibration.md
 git commit -m "docs: document the measured architecture thresholds and add a changeset"
 ```

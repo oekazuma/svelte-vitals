@@ -13,7 +13,11 @@ Both Architecture rules carry hard-coded thresholds that were picked without mea
 Measured against real Svelte code (below), both sit far out in the tail of the distribution —
 `prop-count` at roughly the 93rd percentile of the pooled sample and higher still for a typical
 project, `component-size` at about the 98th. On most Svelte codebases neither rule fires at all,
-so the Architecture category contributes almost nothing to a project's health signal.
+so the rules go silent on exactly the components they exist to catch. The payoff of lowering the
+thresholds is findings visibility — real components actually surface — not a change to the
+Architecture score: the scorer averages per-file scores across a project, so the score is largely
+unmoved by this change either way regardless of where the thresholds sit. That is a separate
+question from where to set the thresholds and is out of scope here.
 
 ## Method
 
@@ -74,6 +78,12 @@ alongside two aggregations that do not let one project dominate:
 The per-repo median and the windmill-excluded pool agree at every percentile, which is the
 signal that the pooled figure is the distorted one. **The Svelte p90 for prop count is 6.**
 
+The per-repo median is nonetheless a small-sample statistic: the seven per-repository p90 values
+are 3, 4, 5, 6, 7, 9, 10 — a median over only 7 observations spanning 3 to 10, so adding or
+dropping a single repository could move the result by a point. The windmill-excluded pool
+agreeing is a useful robustness check, but not a fully independent one, since it is a second view
+of the same seven repositories rather than a new sample.
+
 Note this lands well below React's empirical 13. That is consistent with the framework: Svelte
 components pass content through snippets and children, expose two-way state through `bind:`, and
 read shared state from context — all of which are props in React.
@@ -85,6 +95,11 @@ read shared state from context — all of which are props in React.
 | p90        |    165 | 113, 97, 171, 62, 124, 135, 342    |         **124** |
 | p95        |    262 | 150, 146, 203, 103, 183, 179, 516  |         **179** |
 | p99        |    596 | 314, 325, 331, 236, 433, 277, 1029 |         **325** |
+
+Several corpus repositories are Tailwind-heavy and carry little or no scoped `<style>`, so a
+project that does use scoped styles will have longer components at the same complexity and get
+flagged more often than this corpus predicts; 200 is permissive enough that this does not change
+the number, but it remains a known limitation of the line-count measurement.
 
 ## Decision
 
