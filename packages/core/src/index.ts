@@ -163,5 +163,8 @@ export {
 } from './config-apply.js';
 export type { CompiledOverride } from './config-apply.js';
 
+export { resolveRuleOptions, validateRuleOptions } from './rule-options.js';
+export type { RuleOptionSpec, RuleOptionsSpec } from './rule-options.js';
+
 export type { ScoreModel, ScoreResult, ScoreOptions, HealthResult } from './scoring/score.js';
 export { computeScore, scoresByCategory, computeHealth } from './scoring/score.js';
