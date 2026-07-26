@@ -91,8 +91,11 @@ export function overrideMatches(o: CompiledOverride, target: { route?: string; f
  * glob matches its location (OR). `'off'` removes a matched result entirely —
  * passing seeds included, so scoring and "checks passed" counts behave as if
  * the rule never ran there. A severity value rewrites the result's severity.
- * Entries are evaluated in order (later entries win); within one entry a
- * rule-id key beats a category key.
+ * Entries are evaluated in order (later entries win); within one entry, a
+ * rule-id key beats a category key only when it specifies a `severity` — an
+ * options-only rule-id key (no `severity`) contributes its options but leaves
+ * the category key's severity in force, rather than shadowing it (design
+ * 2026-07-26, Finding 2 / second review Finding E).
  */
 export function applyOverrides(results: Result[], config: Config): Result[] {
   const compiled = compileOverrides(config);

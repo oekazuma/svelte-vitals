@@ -119,7 +119,9 @@ Semantics worth knowing:
 - `'off'` removes matching findings entirely — they don't fail the run and don't drag the
   score, as if the rule hadn't run there. A severity value re-classifies instead.
 - Entries are evaluated in order and **later entries win**; within one entry, a rule-id key
-  beats a category key. Overrides always win over the global `rules` setting where they match.
+  beats a category key **when it specifies a severity**. An options-only rule-id key (no
+  `severity`) contributes its options but leaves the category key's severity in force — it
+  doesn't shadow it. Overrides always win over the global `rules` setting where they match.
 - Findings that aren't attached to a route or file (project-wide checks like robots.txt) are
   never affected — use `rules` for those.
 - For a permanent "this part of the app is exempt" policy, prefer `overrides` over the
