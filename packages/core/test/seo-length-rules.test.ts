@@ -109,4 +109,21 @@ describe('seo length rule options', () => {
     const out = applyOverrides(rs, defineConfig(cfg));
     expect(out.find((r) => r.detection.value === 'absent')?.severity).toBe('warning');
   });
+
+  it('a files:-scoped "off" override also removes a PASS seed its own options produced (Finding F, second review)', async () => {
+    // headWith() gives the head file 'x' and no tag-level file, matching a files: 'x' override.
+    const cfg = {
+      overrides: [
+        { files: 'x', rules: { 'seo/title-length': { severity: 'off' as const, options: { min: 1, max: 100 } } } }
+      ]
+    };
+    // 80 chars fails the built-in 30-60 bounds, but passes the override's widened 1-100 bounds.
+    const rs = await seoTitleLength.check(cfgCtx(title('a'.repeat(80)), cfg));
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(1);
+    // The passing seed must carry a `location` so the same `files: 'x'` override that
+    // supplied its options can also match it in the post-pass and remove it via 'off'.
+    const out = applyOverrides(rs, defineConfig(cfg));
+    expect(out).toHaveLength(0);
+  });
 });

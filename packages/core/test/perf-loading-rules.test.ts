@@ -179,4 +179,35 @@ describe('performance/preconnect preconnect third-party origin', () => {
     const out = applyOverrides(rs, defineConfig(cfg));
     expect(out.find((r) => r.detection.value === 'absent')?.severity).toBe('warning');
   });
+
+  it('a files:-scoped "off" override also removes a PASS seed its own options produced (Finding F, second review)', async () => {
+    // head() gives the head file 'x' (no tag-level file), matching a files: 'x' override.
+    // The origin is only third-party per the override's own `origins` option, and is
+    // preconnected, so with the option applied this is a PASS.
+    const cfg = {
+      overrides: [
+        {
+          files: 'x',
+          rules: {
+            'performance/preconnect': { severity: 'off' as const, options: { origins: ['cdn.example.com'] } }
+          }
+        }
+      ]
+    };
+    const rs = await performancePreconnect.check(
+      cfgHeadsCtx(
+        head('rendered', [
+          link('preconnect', 'https://cdn.example.com'),
+          link('stylesheet', 'https://cdn.example.com/app.css')
+        ]),
+        cfg
+      )
+    );
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(1);
+    // The passing seed must carry a `location` so the same `files: 'x'` override that
+    // supplied its options can also match it in the post-pass and remove it via 'off'.
+    const out = applyOverrides(rs, defineConfig(cfg));
+    expect(out).toHaveLength(0);
+  });
 });
