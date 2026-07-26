@@ -57,3 +57,39 @@ describe('seo/description-length description length', () => {
     ).toHaveLength(0);
   });
 });
+
+describe('seo length rule options', () => {
+  const cfgCtx = (head: ResolvedHead, cfg: Parameters<typeof defineConfig>[0]): RuleContext => ({
+    heads: [head],
+    project: defaultProject,
+    config: defineConfig(cfg)
+  });
+  const opts = { rules: { 'seo/title-length': { options: { min: 10, max: 20 } } } };
+
+  it('pins the built-in title bounds', async () => {
+    expect(fails(await seoTitleLength.check(ctx(title('a'.repeat(29)))))).toHaveLength(1);
+    expect(fails(await seoTitleLength.check(ctx(title('a'.repeat(30)))))).toHaveLength(0);
+    expect(fails(await seoTitleLength.check(ctx(title('a'.repeat(60)))))).toHaveLength(0);
+    expect(fails(await seoTitleLength.check(ctx(title('a'.repeat(61)))))).toHaveLength(1);
+  });
+  it('pins the built-in description bounds', async () => {
+    expect(fails(await seoDescriptionLength.check(ctx(desc('a'.repeat(69)))))).toHaveLength(1);
+    expect(fails(await seoDescriptionLength.check(ctx(desc('a'.repeat(70)))))).toHaveLength(0);
+    expect(fails(await seoDescriptionLength.check(ctx(desc('a'.repeat(160)))))).toHaveLength(0);
+    expect(fails(await seoDescriptionLength.check(ctx(desc('a'.repeat(161)))))).toHaveLength(1);
+  });
+  it('honours configured title bounds', async () => {
+    expect(fails(await seoTitleLength.check(cfgCtx(title('a'.repeat(15)), opts)))).toHaveLength(0);
+    expect(fails(await seoTitleLength.check(cfgCtx(title('a'.repeat(25)), opts)))).toHaveLength(1);
+  });
+  it('quotes the configured bounds in the message and recommendation', async () => {
+    const rs = fails(await seoTitleLength.check(cfgCtx(title('a'.repeat(25)), opts)));
+    expect(rs[0]!.message).toContain('10–20');
+    expect(rs[0]!.recommendation).toContain('10–20');
+  });
+  it('honours a per-route bound', async () => {
+    const scoped = { overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { min: 1, max: 5 } } } }] };
+    expect(fails(await seoTitleLength.check(cfgCtx(title('a'.repeat(40)), scoped)))).toHaveLength(1);
+    expect(fails(await seoTitleLength.check(cfgCtx(title('abc'), scoped)))).toHaveLength(0);
+  });
+});

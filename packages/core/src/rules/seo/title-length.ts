@@ -8,7 +8,8 @@ export const seoTitleLength = lengthRule({
   match: (t) => t.kind === 'title',
   min: 30,
   max: 60,
-  recommendation: 'Aim for a title of 30–60 characters so it is not truncated in search results.',
+  recommendation: (o) =>
+    `Aim for a title of ${o.min as number}–${o.max as number} characters so it is not truncated in search results.`,
   rationale:
     'A title that is too short wastes the strongest on-page signal; one that is too long is truncated in the SERP.'
 });

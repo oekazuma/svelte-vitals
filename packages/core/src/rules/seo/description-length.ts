@@ -8,7 +8,8 @@ export const seoDescriptionLength = lengthRule({
   match: (t) => t.kind === 'meta' && t.name === 'description',
   min: 70,
   max: 160,
-  recommendation: 'Aim for a meta description of 70–160 characters so it is not truncated in search results.',
+  recommendation: (o) =>
+    `Aim for a meta description of ${o.min as number}–${o.max as number} characters so it is not truncated in search results.`,
   rationale:
     'A description that is too short under-uses the SERP snippet; one that is too long is truncated by search engines.'
 });
