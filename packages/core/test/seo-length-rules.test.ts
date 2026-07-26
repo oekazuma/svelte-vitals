@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { seoTitleLength, seoDescriptionLength } from '../src/index.js';
+import { seoTitleLength, seoDescriptionLength, applyOverrides } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
 import type { RuleContext } from '../src/rule.js';
@@ -91,5 +91,22 @@ describe('seo length rule options', () => {
     const scoped = { overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { min: 1, max: 5 } } } }] };
     expect(fails(await seoTitleLength.check(cfgCtx(title('a'.repeat(40)), scoped)))).toHaveLength(1);
     expect(fails(await seoTitleLength.check(cfgCtx(title('abc'), scoped)))).toHaveLength(0);
+  });
+  it('a files:-scoped override applies both its severity and its options (Finding 1 parity)', async () => {
+    // headWith() gives the head file 'x' and no tag-level file, so tag.file ?? head.file === 'x'
+    // — the same string the finding's `location` carries, and what a files: 'x' override targets.
+    const cfg = {
+      overrides: [
+        { files: 'x', rules: { 'seo/title-length': { severity: 'warning' as const, options: { min: 5, max: 10 } } } }
+      ]
+    };
+    const rs = await seoTitleLength.check(cfgCtx(title('a'.repeat(26)), cfg));
+    const failing = fails(rs);
+    expect(failing).toHaveLength(1);
+    // Options resolved during the run: the configured 5–10 bounds, not the built-in 30–60.
+    expect(failing[0]!.message).toContain('5–10');
+    // Severity resolved in the post-pass, matched by the same `files` glob on the same location.
+    const out = applyOverrides(rs, defineConfig(cfg));
+    expect(out.find((r) => r.detection.value === 'absent')?.severity).toBe('warning');
   });
 });

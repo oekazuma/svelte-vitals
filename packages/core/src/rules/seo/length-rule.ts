@@ -43,7 +43,11 @@ export function lengthRule(opts: LengthRuleOptions): Rule {
         // No tag, or dynamic/absent text → presence is seo/title-presence's or
         // seo/description-presence's concern, emit nothing.
         if (!tag || typeof tag.text !== 'string') continue;
-        const o = resolveRuleOptions(opts.id, spec, ctx.config, { route: head.route }, compiled);
+        // Same expression the penalized result below uses for `location` — so the
+        // override-matching target used to resolve options is exactly the target a
+        // files:-scoped severity override matches against (design 2026-07-26 Finding 1).
+        const location = tag.file ?? head.file;
+        const o = resolveRuleOptions(opts.id, spec, ctx.config, { route: head.route, file: location }, compiled);
         const min = o.min as number;
         const max = o.max as number;
         const recommendation = typeof opts.recommendation === 'function' ? opts.recommendation(o) : opts.recommendation;
@@ -59,7 +63,7 @@ export function lengthRule(opts: LengthRuleOptions): Rule {
                 severity: 'info',
                 detection: PENALIZED,
                 route: head.route,
-                location: tag.file ?? head.file,
+                location,
                 message: problem,
                 recommendation,
                 docsUrl

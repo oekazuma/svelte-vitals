@@ -47,7 +47,20 @@ export const performancePreconnect: Rule = {
     // Hoisted: compiling every override's globs once, not once per head.
     const compiled = compileOverrides(ctx.config);
     for (const head of ctx.heads) {
-      const o = resolveRuleOptions('performance/preconnect', OPTIONS, ctx.config, { route: head.route }, compiled);
+      // file: head.file closes the common case for files:-scoped overrides (design
+      // 2026-07-26 Finding 1) — it matches what an unmatched tag's own `location`
+      // falls back to below. Residual gap: a tag inherited from a layout can carry a
+      // different file than head.file, and a files:-scoped option override keyed to
+      // that layout file (rather than the route's own file) would still miss it here.
+      // Resolving that would mean moving option resolution inside the per-tag loop
+      // below (keyed per referencing tag), which this rule doesn't do.
+      const o = resolveRuleOptions(
+        'performance/preconnect',
+        OPTIONS,
+        ctx.config,
+        { route: head.route, file: head.file },
+        compiled
+      );
       const origins = new Set(o.origins as string[]);
       const referenced = new Map<string, string | undefined>(); // host → referencing file
       const covered = new Set<string>(); // host with preconnect/dns-prefetch

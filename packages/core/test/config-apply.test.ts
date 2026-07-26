@@ -124,6 +124,47 @@ describe('config application', () => {
     expect(out).toHaveLength(1);
     expect(out[0]!.severity).toBe('warning');
   });
+  it('applyOverrides: an options-only rule-id key does not shadow a category severity (Finding 2)', () => {
+    const results: Result[] = [
+      {
+        id: 'architecture/prop-count',
+        category: 'architecture',
+        severity: 'info',
+        detection: { presence: 'none', value: 'absent' },
+        message: 'x',
+        location: 'src/lib/Button.svelte'
+      }
+    ];
+    const config = defineConfig({
+      overrides: [
+        {
+          files: 'src/lib/**',
+          rules: { architecture: 'critical', 'architecture/prop-count': { options: { max: 4 } } }
+        }
+      ]
+    });
+    const out = applyOverrides(results, config);
+    expect(out).toHaveLength(1);
+    expect(out[0]!.severity).toBe('critical');
+  });
+  it('applyOverrides: a category key carrying only { severity } in object form still applies', () => {
+    const results: Result[] = [
+      {
+        id: 'seo/title-presence',
+        category: 'seo',
+        severity: 'info',
+        detection: { presence: 'none', value: 'absent' },
+        message: 'x',
+        route: '/dashboard'
+      }
+    ];
+    const config = defineConfig({
+      overrides: [{ route: '/dashboard', rules: { seo: { severity: 'critical' } } }]
+    });
+    const out = applyOverrides(results, config);
+    expect(out).toHaveLength(1);
+    expect(out[0]!.severity).toBe('critical');
+  });
 });
 
 describe('override matching', () => {

@@ -71,8 +71,11 @@ export function compileOverrides(config: Config): CompiledOverride[] {
 
 /**
  * Whether an override entry applies to a target. THE single definition of that
- * question — the result post-pass and in-run option resolution both call it, so
- * a severity override and an option override can never select different files.
+ * question — the result post-pass and in-run option resolution both call it.
+ * Sharing this matcher is necessary but not sufficient for a severity override
+ * and an option override to select the same files: each caller must also pass
+ * the same `target` (route and, critically, `file`) the other path effectively
+ * matches against. See Finding 1, docs/superpowers/specs/2026-07-26-rule-options-design.md.
  */
 export function overrideMatches(o: CompiledOverride, target: { route?: string; file?: string }): boolean {
   const { route, file } = target;
@@ -100,9 +103,11 @@ export function applyOverrides(results: Result[], config: Config): Result[] {
     let severity: Severity | 'off' | undefined;
     for (const o of compiled) {
       if (!overrideMatches(o, { route: result.route, file: result.location })) continue;
-      const s = o.rules[result.id] ?? o.rules[result.category ?? 'seo'];
-      // An options-only entry carries no severity — it must not clear one set earlier.
-      if (s !== undefined) severity = settingSeverity(s) ?? severity;
+      // Rule id and category are resolved independently: with the object form, a
+      // rule-id key can exist while carrying no severity (options-only), and must
+      // not shadow a category key that does (Finding 2, design doc as above).
+      const sev = settingSeverity(o.rules[result.id]) ?? settingSeverity(o.rules[result.category ?? 'seo']);
+      if (sev !== undefined) severity = sev;
     }
     if (severity === undefined) out.push(result);
     else if (severity !== 'off') out.push({ ...result, severity });

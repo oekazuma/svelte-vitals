@@ -18,3 +18,9 @@ Two notes for existing setups. Values in the config file's `rules` map are now v
 an invalid severity that was previously passed through unchecked is now a fatal config error.
 And the `RuleSetting` union has gained a member, which can make an exhaustive `switch` over it
 in external TypeScript code non-exhaustive.
+
+In an `overrides[].rules` entry, a rule-id key and a category key are resolved independently:
+a rule-id key that carries no `severity` (an options-only object, e.g.
+`'architecture/prop-count': { options: { max: 4 } }`) does not shadow a category key's
+severity in the same entry — the category's severity still applies, alongside the rule's
+options. Only a rule-id key that _does_ specify a `severity` beats the category key, as before.

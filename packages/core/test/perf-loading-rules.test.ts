@@ -3,7 +3,8 @@ import {
   performanceLcpImage,
   performanceResponsiveImage,
   performanceRenderBlockingScript,
-  performancePreconnect
+  performancePreconnect,
+  applyOverrides
 } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
@@ -154,5 +155,28 @@ describe('performance/preconnect preconnect third-party origin', () => {
       cfgHeadsCtx(head('rendered', [link('stylesheet', 'https://other.example.com/app.css')]), extra)
     );
     expect(rs).toHaveLength(0);
+  });
+
+  it('a files:-scoped override applies both its severity and its options (Finding 1 parity)', async () => {
+    // head() gives the head file 'x' (no tag-level file), matching a files: 'x' override.
+    const cfg = {
+      overrides: [
+        {
+          files: 'x',
+          rules: {
+            'performance/preconnect': { severity: 'warning' as const, options: { origins: ['cdn.example.com'] } }
+          }
+        }
+      ]
+    };
+    const rs = await performancePreconnect.check(
+      cfgHeadsCtx(head('rendered', [link('stylesheet', 'https://cdn.example.com/app.css')]), cfg)
+    );
+    expect(fails(rs)).toHaveLength(1);
+    // Options resolved during the run: cdn.example.com is only checked because of the override.
+    expect(rs[0]!.message).toContain('cdn.example.com');
+    // Severity resolved in the post-pass, matched by the same `files` glob on the same location.
+    const out = applyOverrides(rs, defineConfig(cfg));
+    expect(out.find((r) => r.detection.value === 'absent')?.severity).toBe('warning');
   });
 });
