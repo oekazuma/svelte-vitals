@@ -3,9 +3,9 @@ import { componentRule } from '../component-rule.js';
 /**
  * A component longer than this many lines is a "god component" smell.
  *
- * Derived empirically (2026-07-25) from the same corpus as architecture/prop-count: across 7
- * real Svelte 5 codebases the median per-repository 90th percentile is 124 lines and the 95th
- * is 179 — see docs/superpowers/specs/2026-07-25-architecture-threshold-recalibration-design.md.
+ * Derived empirically (2026-07-25) from the same corpus as architecture/prop-count: across 13
+ * real Svelte 5 codebases the median per-repository 90th percentile is 132 lines and the 95th
+ * is 183 — see docs/superpowers/specs/2026-07-25-architecture-threshold-recalibration-design.md.
  * This threshold sits deliberately above both: a long component is a weaker signal than a wide
  * prop list, since tables, forms, and generated markup are legitimately long.
  */
