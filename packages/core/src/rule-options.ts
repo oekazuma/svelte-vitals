@@ -73,10 +73,29 @@ export function resolveRuleOptions(
  * Problems with a user-supplied options object, as human-readable sentences
  * (empty = valid). Callers treat any result as fatal: a typo that silently
  * leaves the config inert is the failure this exists to prevent.
+ *
+ * `baseline`, when given, is the already-resolved value this `options` layer
+ * is being merged onto — built-in defaults merged with any earlier layer(s)
+ * (e.g. the global `config.rules[id].options`, when `options` is an
+ * `overrides[]` entry). The min/max cross-check below compares against it
+ * instead of the spec's own default, so a layer that only sets one side of a
+ * range is checked against what it actually inherits (design 2026-07-26
+ * review, Finding A). Omit it to check `options` against the spec defaults
+ * alone, as when validating the global layer itself.
  */
-export function validateRuleOptions(ruleId: string, spec: RuleOptionsSpec | undefined, options: RuleOptions): string[] {
+export function validateRuleOptions(
+  ruleId: string,
+  spec: RuleOptionsSpec | undefined,
+  options: RuleOptions,
+  baseline?: RuleOptions
+): string[] {
   if (!spec) return [`${ruleId} takes no options.`];
   const errors: string[] = [];
+  // Tracks which option keys already have a type/bounds error, so the cross-
+  // check below can skip only when min/max itself is unreliable — an
+  // unrelated error (e.g. an unknown key) must not hide a real range problem
+  // (Finding B).
+  const badKeys = new Set<string>();
   const isNonEmptyString = (v: unknown): boolean => typeof v === 'string' && v.length > 0;
 
   for (const [key, value] of Object.entries(options)) {
@@ -86,9 +105,16 @@ export function validateRuleOptions(ruleId: string, spec: RuleOptionsSpec | unde
       continue;
     }
     if (s.kind === 'integer') {
-      if (typeof value !== 'number' || !Number.isInteger(value)) errors.push(`${ruleId}.${key} must be an integer.`);
-      else if (s.min !== undefined && value < s.min) errors.push(`${ruleId}.${key} must be >= ${s.min}.`);
-      else if (s.max !== undefined && value > s.max) errors.push(`${ruleId}.${key} must be <= ${s.max}.`);
+      if (typeof value !== 'number' || !Number.isInteger(value)) {
+        errors.push(`${ruleId}.${key} must be an integer.`);
+        badKeys.add(key);
+      } else if (s.min !== undefined && value < s.min) {
+        errors.push(`${ruleId}.${key} must be >= ${s.min}.`);
+        badKeys.add(key);
+      } else if (s.max !== undefined && value > s.max) {
+        errors.push(`${ruleId}.${key} must be <= ${s.max}.`);
+        badKeys.add(key);
+      }
     } else if (s.kind === 'string-list') {
       if (!Array.isArray(value) || !value.every(isNonEmptyString)) {
         errors.push(`${ruleId}.${key} must be an array of non-empty strings.`);
@@ -104,16 +130,19 @@ export function validateRuleOptions(ruleId: string, spec: RuleOptionsSpec | unde
   }
 
   // Cross-field: a rule that declares both an integer `min` and `max` (the length
-  // rules) must not end up with an inverted range. Merge each side with the spec's
-  // own default so a config that only sets one side (e.g. `{ min: 100 }` against a
-  // built-in `max` of 60) is still caught — this is the only case that fires for
-  // both the CLI config-file loader and the Vite plugin (Finding 3/4), since both
-  // funnel through this function.
+  // rules) must not end up with an inverted EFFECTIVE range. Each side falls back
+  // to `baseline` (or the spec's own default, when no baseline is given) when this
+  // layer's `options` doesn't set it — so a config that only sets one side (e.g.
+  // `{ min: 100 }`) is checked against what it actually inherits, not blindly
+  // against the built-in default of the other side. This is the only case that
+  // fires for both the CLI config-file loader and the Vite plugin (Finding 3/4),
+  // since both funnel through this function.
   const minSpec = spec.min;
   const maxSpec = spec.max;
-  if (minSpec?.kind === 'integer' && maxSpec?.kind === 'integer' && errors.length === 0) {
-    const minVal = 'min' in options ? (options.min as number) : minSpec.default;
-    const maxVal = 'max' in options ? (options.max as number) : maxSpec.default;
+  if (minSpec?.kind === 'integer' && maxSpec?.kind === 'integer' && !badKeys.has('min') && !badKeys.has('max')) {
+    const base = baseline ?? defaultsOf(spec);
+    const minVal = 'min' in options ? (options.min as number) : (base.min as number);
+    const maxVal = 'max' in options ? (options.max as number) : (base.max as number);
     if (minVal > maxVal) errors.push(`${ruleId}: min (${minVal}) must be <= max (${maxVal}).`);
   }
   return errors;

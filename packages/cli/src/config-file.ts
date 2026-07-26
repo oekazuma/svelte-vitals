@@ -1,8 +1,8 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import type { Category, Config, RuleOverride } from '@svelte-vitals/core';
-import { validateRuleOptions } from '@svelte-vitals/core';
+import type { Category, Config, RuleOptions, RuleOverride } from '@svelte-vitals/core';
+import { defaultConfig, resolveRuleOptions, validateRuleOptions } from '@svelte-vitals/core';
 import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
 
 /**
@@ -53,8 +53,22 @@ export interface LoadedConfigFile {
  * may carry a severity, but options are rule-specific and meaningless there.
  * Everything here is fatal, on the same reasoning as unknown rule ids — a typo
  * that silently leaves the config inert is the failure being prevented.
+ *
+ * `baseline`, when given, is the already-resolved options this setting's
+ * `options` would be merged onto at run time — the global `rules[id].options`
+ * layer, for a setting that lives in `overrides[].rules` (design 2026-07-26
+ * review, Finding A). Omitted for the global `rules` layer itself, so its
+ * min/max cross-check (inside `validateRuleOptions`) falls back to the rule's
+ * own built-in default, as before.
  */
-function validateSetting(path: string, where: string, key: string, setting: unknown, allowOptions: boolean): void {
+function validateSetting(
+  path: string,
+  where: string,
+  key: string,
+  setting: unknown,
+  allowOptions: boolean,
+  baseline?: RuleOptions
+): void {
   if (typeof setting === 'string') {
     if (!RULE_SETTING_VALUES.includes(setting)) {
       throw new Error(
@@ -85,7 +99,7 @@ function validateSetting(path: string, where: string, key: string, setting: unkn
   if (!isPlainObject(setting.options)) {
     throw new Error(`${path}: ${where}.${key}.options: must be an object.`);
   }
-  const errors = validateRuleOptions(key, ruleOptionsSpec(key), setting.options);
+  const errors = validateRuleOptions(key, ruleOptionsSpec(key), setting.options, baseline);
   if (errors.length > 0) throw new Error(`${path}: ${where}.${key}: ${errors.join(' ')}`);
 }
 
@@ -196,7 +210,14 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
       }
       for (const [key, setting] of Object.entries(entry.rules)) {
         const isCategory = CATEGORIES.includes(key as Category);
-        validateSetting(path, `overrides[${i}].rules`, key, setting, !isCategory);
+        // The baseline this override entry's options merge onto at run time: built-in
+        // defaults plus the global `rules[key].options` layer (no other override
+        // entries — which ones apply depends on the target, unknowable here). Category
+        // keys never carry options, so they need no baseline.
+        const baseline = isCategory
+          ? undefined
+          : resolveRuleOptions(key, ruleOptionsSpec(key), { ...defaultConfig, rules: config.rules ?? {} });
+        validateSetting(path, `overrides[${i}].rules`, key, setting, !isCategory, baseline);
       }
       overrides.push({
         ...(entry.route !== undefined ? { route: entry.route as RuleOverride['route'] } : {}),

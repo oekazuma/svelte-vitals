@@ -138,5 +138,37 @@ describe('validateRuleOptions', () => {
       expect(errors).toHaveLength(1);
       expect(errors[0]).toContain('must be an integer');
     });
+
+    // 2026-07-26 second review, Finding B: the guard used to be `errors.length
+    // === 0`, so ANY unrelated error (e.g. a typo'd key) suppressed the range
+    // check too, hiding a real inversion behind a fixable typo.
+    it('still reports the range problem alongside an unrelated unknown-key error', () => {
+      const errors = validateRuleOptions('seo/title-length', lengthSpec, { min: 100, foo: 1 });
+      expect(errors).toHaveLength(2);
+      expect(errors.some((e) => e.includes("unknown option 'foo'"))).toBe(true);
+      expect(errors.some((e) => e.includes('min (100) must be <= max (60)'))).toBe(true);
+    });
+
+    // 2026-07-26 second review, Finding A: the cross-check must compare against
+    // the value actually resolved from earlier layers (`baseline`), not blindly
+    // against the spec's own built-in default — otherwise a layer that narrows
+    // one side of an already-widened range is falsely rejected, and a layer that
+    // narrows one side of an already-narrowed range is falsely accepted.
+    describe('with a baseline (resolved earlier layers)', () => {
+      it('accepts a layer that only sets one side, when it is valid against the baseline', () => {
+        // Global range is 100-200; this layer only narrows min to 150, which is
+        // still <= the baseline max of 200 — valid, even though 150 > the spec's
+        // own built-in max of 60.
+        expect(validateRuleOptions('seo/title-length', lengthSpec, { min: 150 }, { min: 100, max: 200 })).toEqual([]);
+      });
+      it('rejects a layer that only sets one side, when it inverts the baseline', () => {
+        // Baseline (an earlier layer) is min: 40, max: 60 — each side alone is
+        // valid against the spec default (40 <= 60, 30 <= 60). This layer sets
+        // only max: 35, which inverts against the baseline's min of 40, even
+        // though 35 >= the spec's own built-in min of 30.
+        const errors = validateRuleOptions('seo/title-length', lengthSpec, { max: 35 }, { min: 40, max: 60 });
+        expect(errors[0]).toContain('min (40) must be <= max (35)');
+      });
+    });
   });
 });

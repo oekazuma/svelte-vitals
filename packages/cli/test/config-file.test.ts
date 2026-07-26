@@ -202,6 +202,18 @@ describe('loadConfigFile', () => {
     );
   });
 
+  it('accepts an override that only narrows one side of an otherwise-valid global range (Finding A, second review)', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-overrides-options-valid-layered-range'));
+    expect(loaded?.config.rules?.['seo/title-length']).toEqual({ options: { min: 100, max: 200 } });
+    expect(loaded?.config.overrides![0]!.rules['seo/title-length']).toEqual({ options: { min: 150 } });
+  });
+
+  it('rejects an override whose RESOLVED range is inverted even though neither layer is inverted alone (Finding A, second review)', async () => {
+    await expect(loadConfigFile(fixture('config-file-overrides-options-resolved-inverted'))).rejects.toThrow(
+      /min \(40\) must be <= max \(35\)/
+    );
+  });
+
   it('rejects an unknown key inside a setting object', async () => {
     await expect(loadConfigFile(fixture('config-file-setting-unknown-key'))).rejects.toThrow(/unknown key/);
   });
