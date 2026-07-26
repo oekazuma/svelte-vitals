@@ -150,11 +150,13 @@ date:
 ```ts
 /**
  * More destructured props than this suggests the component is doing too much.
+ *
  * Derived empirically (2026-07-25): the median of the per-repository 90th percentile across
  * 2,591 countable components in 10 real Svelte 5 codebases (5 libraries, 5 applications) — see
- * docs/superpowers/specs/2026-07-25-architecture-threshold-recalibration-design.md. Pooling
- * every repository into one distribution gives 9, but that figure is set by a single outlier
- * project contributing 56% of the sample.
+ * docs/superpowers/specs/2026-07-25-architecture-threshold-recalibration-design.md for the
+ * corpus and method. Pooling every repository into one distribution instead gives 9, but that
+ * figure is set by a single outlier project contributing about half the sample. Widening the
+ * corpus from 7 repositories to 13 left this value unchanged.
  */
 const MAX_PROPS = 6;
 ```
@@ -162,10 +164,12 @@ const MAX_PROPS = 6;
 ```ts
 /**
  * A component longer than this many lines is a "god component" smell.
- * Derived empirically (2026-07-25) from the same corpus: the per-repository 90th percentile
- * median is 132 lines and the 95th is 183. This threshold sits deliberately above both — a long
- * component is a weaker signal than a wide prop list, since tables, forms, and generated markup
- * are legitimately long.
+ *
+ * Derived empirically (2026-07-25) from the same corpus as architecture/prop-count: across 13
+ * real Svelte 5 codebases the median per-repository 90th percentile is 132 lines and the 95th
+ * is 183 — see docs/superpowers/specs/2026-07-25-architecture-threshold-recalibration-design.md.
+ * This threshold sits deliberately above both: a long component is a weaker signal than a wide
+ * prop list, since tables, forms, and generated markup are legitimately long.
  */
 const MAX_LOC = 200;
 ```

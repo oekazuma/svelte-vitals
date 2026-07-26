@@ -10,6 +10,14 @@
 
 Design doc: [docs/superpowers/specs/2026-07-25-architecture-threshold-recalibration-design.md](../specs/2026-07-25-architecture-threshold-recalibration-design.md)
 
+> **Superseded corpus figures.** After this plan was executed, the measurement corpus was widened
+> from 7 repositories to 13 to test whether the numbers held — they did, and neither constant
+> changed. The doc comments quoted in Tasks 1 and 2 below therefore cite the original 7-repository
+> figures (2,239 components; 124/179 lines); the versions that actually shipped cite the widened
+> corpus. This document is left as the record of what was executed at the time — read
+> `docs/superpowers/specs/2026-07-25-architecture-threshold-recalibration-design.md` or the source
+> files for the current numbers.
+
 ## Global Constraints
 
 - **Thresholds**: `MAX_PROPS = 6` in `packages/core/src/rules/architecture/prop-count.ts`; `MAX_LOC = 200` in `packages/core/src/rules/architecture/component-size.ts`. Both rules fire on `> threshold`.
