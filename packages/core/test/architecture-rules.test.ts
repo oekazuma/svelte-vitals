@@ -48,6 +48,17 @@ describe('architecture/component-size component size', () => {
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
+  it('passes a component at exactly the line limit', async () => {
+    const rs = await architectureComponentSize.check(ctx([comp({ loc: 200 })]));
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(1);
+  });
+  it('flags a component one line over the limit', async () => {
+    const rs = await architectureComponentSize.check(ctx([comp({ loc: 201 })]));
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.message).toContain('201');
+    expect(rs[0]!.message).toContain('over 200');
+  });
   it('emits nothing when the component channel is unset (rendered mode)', async () => {
     expect(await architectureComponentSize.check(base as RuleContext)).toHaveLength(0);
   });
@@ -66,6 +77,17 @@ describe('architecture/prop-count prop count', () => {
     const rs = await architecturePropCount.check(ctx([comp({ propCount: 3 })]));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
+  });
+  it('passes a component at exactly the threshold', async () => {
+    const rs = await architecturePropCount.check(ctx([comp({ propCount: 6 })]));
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(1);
+  });
+  it('flags a component one prop over the threshold', async () => {
+    const rs = await architecturePropCount.check(ctx([comp({ propCount: 7 })]));
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.message).toContain('7');
+    expect(rs[0]!.message).toContain('over 6');
   });
   it('emits nothing for a component with no countable props', async () => {
     expect(await architecturePropCount.check(ctx([comp({ propCount: 0 })]))).toHaveLength(0);

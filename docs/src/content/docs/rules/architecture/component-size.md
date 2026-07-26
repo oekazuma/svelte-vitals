@@ -7,7 +7,9 @@ description: Very large components should be split up.
 
 ## What it checks
 
-Flags a `.svelte` component longer than 400 lines (static/CLI analysis of `src/**/*.svelte`).
+Flags a `.svelte` component longer than 200 lines (static/CLI analysis of `src/**/*.svelte`).
+
+The threshold comes from the same survey of real Svelte 5 codebases as `architecture/prop-count`, and sits deliberately above the measured 90th and 95th percentiles: length is a weaker signal than a wide prop surface, because tables, forms, and generated markup are legitimately long.
 
 ## Why it matters
 
