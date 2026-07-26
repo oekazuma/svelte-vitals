@@ -128,4 +128,31 @@ describe('performance/preconnect preconnect third-party origin', () => {
     );
     expect(rs).toHaveLength(0);
   });
+
+  const cfgHeadsCtx = (h: ResolvedHead, cfg: Parameters<typeof defineConfig>[0]): RuleContext => ({
+    heads: [h],
+    project: defaultProject,
+    config: defineConfig(cfg)
+  });
+  const extra = { rules: { 'performance/preconnect': { options: { origins: ['cdn.example.com'] } } } };
+
+  it('flags an origin added through config', async () => {
+    const rs = await performancePreconnect.check(
+      cfgHeadsCtx(head('rendered', [link('stylesheet', 'https://cdn.example.com/app.css')]), extra)
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.message).toContain('cdn.example.com');
+  });
+  it('keeps the built-in origins when config adds one', async () => {
+    const rs = await performancePreconnect.check(
+      cfgHeadsCtx(head('rendered', [link('stylesheet', 'https://fonts.googleapis.com/css2?x')]), extra)
+    );
+    expect(fails(rs)).toHaveLength(1);
+  });
+  it('emits nothing for an origin on neither list', async () => {
+    const rs = await performancePreconnect.check(
+      cfgHeadsCtx(head('rendered', [link('stylesheet', 'https://other.example.com/app.css')]), extra)
+    );
+    expect(rs).toHaveLength(0);
+  });
 });

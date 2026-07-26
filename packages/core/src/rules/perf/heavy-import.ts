@@ -18,20 +18,22 @@ export const performanceHeavyImport = componentRule({
   recommendation: 'Import a submodule or switch to a lighter, tree-shakeable alternative.',
   rationale:
     'Importing a large, non-tree-shakeable package pulls its whole weight into the bundle even when only a fraction is used, slowing load.',
+  options: { packages: { kind: 'string-map', default: HEAVY_PACKAGES } },
   // ComponentFacts is a public @svelte-vitals/core export — an external caller compiled
   // against an older version may still construct one without importSpans. Fall back to the
   // line-less `imports` (line: 0, the pre-fix behavior) instead of crashing on `undefined`.
   applies: (c) => (c.importSpans ?? c.imports).length > 0,
-  bad: (c) => {
+  bad: (c, o) => {
+    const packages = o.packages as Record<string, string>;
     // `Object.hasOwn` (not `in`) so inherited keys like `toString` never match;
     // dedupe so the same package imported in both scripts isn't double-penalized.
     const seen = new Set<string>();
     const out: { line: number; message: string }[] = [];
     const spans = c.importSpans ?? c.imports.map((source) => ({ source, line: 0 }));
     for (const { source: src, line } of spans) {
-      if (!Object.hasOwn(HEAVY_PACKAGES, src) || seen.has(src)) continue;
+      if (!Object.hasOwn(packages, src) || seen.has(src)) continue;
       seen.add(src);
-      out.push({ line, message: `Heavy import "${src}" — ${HEAVY_PACKAGES[src]}` });
+      out.push({ line, message: `Heavy import "${src}" — ${packages[src]}` });
     }
     return out;
   }

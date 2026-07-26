@@ -1,5 +1,7 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
+import { compileOverrides } from '../../config-apply.js';
+import { resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
 
 const docsUrl = docsUrlFor('performance/preconnect');
 const recommendation =
@@ -8,6 +10,7 @@ const recommendation =
 // Well-known third-party origins worth a preconnect. Allowlist keeps the rule
 // precise (no guessing which absolute URLs are first- vs third-party).
 const THIRD_PARTY_ORIGINS = new Set(['fonts.googleapis.com', 'fonts.gstatic.com']);
+const OPTIONS: RuleOptionsSpec = { origins: { kind: 'string-list', default: [...THIRD_PARTY_ORIGINS] } };
 
 /**
  * Host of an absolute or protocol-relative URL, lowercased; undefined for a
@@ -38,15 +41,20 @@ export const performancePreconnect: Rule = {
     snippet: '<link rel="preconnect" href="https://fonts.googleapis.com" />',
     lang: 'html'
   },
+  options: OPTIONS,
   async check(ctx: RuleContext): Promise<Result[]> {
     const out: Result[] = [];
+    // Hoisted: compiling every override's globs once, not once per head.
+    const compiled = compileOverrides(ctx.config);
     for (const head of ctx.heads) {
+      const o = resolveRuleOptions('performance/preconnect', OPTIONS, ctx.config, { route: head.route }, compiled);
+      const origins = new Set(o.origins as string[]);
       const referenced = new Map<string, string | undefined>(); // host → referencing file
       const covered = new Set<string>(); // host with preconnect/dns-prefetch
       for (const tag of head.tags) {
         if ((tag.kind !== 'link' && tag.kind !== 'script') || typeof tag.href !== 'string') continue;
         const host = hostOf(tag.href);
-        if (!host || !THIRD_PARTY_ORIGINS.has(host)) continue;
+        if (!host || !origins.has(host)) continue;
         if (tag.kind === 'link' && (tag.rel === 'preconnect' || tag.rel === 'dns-prefetch')) covered.add(host);
         else if (!referenced.has(host)) referenced.set(host, tag.file);
       }

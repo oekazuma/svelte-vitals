@@ -1,13 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { performanceHeavyImport, performanceNamespaceImport } from '../src/index.js';
-import { defineConfig, defaultProject } from '../src/types.js';
+import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts, SuppressionDirective } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
 
 const config = defineConfig({});
 const base = { heads: [], project: defaultProject, config };
-const fails = (rs: { detection: { presence: string; value: string } }[]) =>
-  rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
+const fails = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 const ctx = (components: ComponentFacts[]): RuleContext => ({ components, ...base });
 const comp = (
   importSpans: { source: string; line: number }[],
@@ -112,6 +111,34 @@ describe('performance/heavy-import heavy dependency import', () => {
       ctx([comp([{ source: 'lodash', line: 5 }], [{ line: 6, ruleIds: ['performance/heavy-import'] }])])
     );
     expect(fails(rs)).toHaveLength(1);
+  });
+
+  const cfgCtx = (components: ComponentFacts[], cfg: Parameters<typeof defineConfig>[0]): RuleContext => ({
+    components,
+    heads: [],
+    project: defaultProject,
+    config: defineConfig(cfg)
+  });
+  const extra = {
+    rules: { 'performance/heavy-import': { options: { packages: { 'chart.js': 'import chart.js/auto' } } } }
+  };
+
+  it('still flags the built-in heavy packages', async () => {
+    const rs = await performanceHeavyImport.check(ctx([comp([{ source: 'lodash', line: 3 }])]));
+    expect(fails(rs)).toHaveLength(1);
+  });
+  it('flags a package added through config', async () => {
+    const rs = await performanceHeavyImport.check(cfgCtx([comp([{ source: 'chart.js', line: 2 }])], extra));
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.message).toContain('import chart.js/auto');
+  });
+  it('keeps the built-ins when config adds a package', async () => {
+    const rs = await performanceHeavyImport.check(cfgCtx([comp([{ source: 'moment', line: 1 }])], extra));
+    expect(fails(rs)).toHaveLength(1);
+  });
+  it('leaves an unlisted package alone', async () => {
+    const rs = await performanceHeavyImport.check(cfgCtx([comp([{ source: 'dayjs', line: 1 }])], extra));
+    expect(fails(rs)).toHaveLength(0);
   });
 });
 
