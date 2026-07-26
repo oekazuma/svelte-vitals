@@ -191,7 +191,7 @@ walks every `.svelte` file (skipping `node_modules`, `.svelte-kit`, `dist`, `bui
 `parseComponentFacts` from the built core, and reports nearest-rank percentiles of `propCount`
 (where `> 0`) and `loc`. Raw pooled output at the time of writing:
 
-```
+```text
 .svelte files scanned : 6460
 parse failures        : 391
 countable prop counts : 2239
