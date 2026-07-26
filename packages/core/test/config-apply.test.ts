@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { selectRules, applyRuleSeverities, defineConfig, type Rule, type Result } from '../src/index.js';
+import {
+  selectRules,
+  applyRuleSeverities,
+  applyOverrides,
+  defineConfig,
+  type Rule,
+  type Result
+} from '../src/index.js';
 
 const ruleA = {
   id: 'seo/title-presence',
@@ -61,6 +68,58 @@ describe('config application', () => {
       { id: 'seo/canonical-url', severity: 'warning', detection: { presence: 'none', value: 'absent' }, message: 'x' }
     ];
     const out = applyRuleSeverities(results, defineConfig({ rules: { 'seo/canonical-url': { options: { max: 1 } } } }));
+    expect(out[0]!.severity).toBe('warning');
+  });
+  it('applyOverrides: an options-only entry does not clear a severity set by an earlier matching entry', () => {
+    const results: Result[] = [
+      {
+        id: 'seo/title-presence',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        message: 'x',
+        route: '/dashboard'
+      }
+    ];
+    const config = defineConfig({
+      overrides: [
+        { route: '/dashboard', rules: { 'seo/title-presence': { severity: 'critical' } } },
+        { route: '/dashboard', rules: { 'seo/title-presence': { options: { max: 4 } } } }
+      ]
+    });
+    const out = applyOverrides(results, config);
+    expect(out).toHaveLength(1);
+    expect(out[0]!.severity).toBe('critical');
+  });
+  it('applyOverrides: the object form with severity off removes the result, like the bare string', () => {
+    const results: Result[] = [
+      {
+        id: 'seo/title-presence',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        message: 'x',
+        route: '/dashboard'
+      }
+    ];
+    const config = defineConfig({
+      overrides: [{ route: '/dashboard', rules: { 'seo/title-presence': { severity: 'off' } } }]
+    });
+    expect(applyOverrides(results, config)).toEqual([]);
+  });
+  it('applyOverrides: an options-only entry as the sole match leaves severity untouched', () => {
+    const results: Result[] = [
+      {
+        id: 'seo/title-presence',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        message: 'x',
+        route: '/dashboard'
+      }
+    ];
+    const config = defineConfig({
+      overrides: [{ route: '/dashboard', rules: { 'seo/title-presence': { options: { max: 4 } } } }]
+    });
+    const out = applyOverrides(results, config);
+    expect(out).toHaveLength(1);
     expect(out[0]!.severity).toBe('warning');
   });
 });
