@@ -73,10 +73,17 @@ describe('resolveRuleOptions', () => {
     const compiled = compileOverrides(config);
     expect(resolveRuleOptions('r', spec, config, { file: 'src/lib/B.svelte' }, compiled).max).toBe(4);
   });
-  it('does not mutate the spec defaults across calls', () => {
-    const config = defineConfig({ rules: { r: { options: { origins: ['x.example.com'] } } } });
-    resolveRuleOptions('r', spec, config);
+  it('returns a list default the caller can mutate without corrupting the spec', () => {
+    const result = resolveRuleOptions('r', spec, defineConfig({}));
+    (result.origins as string[]).push('mutated.example.com');
+    expect(spec.origins!.default).toEqual(['fonts.googleapis.com']);
     expect(resolveRuleOptions('r', spec, defineConfig({})).origins).toEqual(['fonts.googleapis.com']);
+  });
+  it('returns a map default the caller can mutate without corrupting the spec', () => {
+    const result = resolveRuleOptions('r', spec, defineConfig({}));
+    (result.packages as Record<string, string>).moment = 'use dayjs';
+    expect(spec.packages!.default).toEqual({ lodash: 'use lodash-es' });
+    expect(resolveRuleOptions('r', spec, defineConfig({})).packages).toEqual({ lodash: 'use lodash-es' });
   });
 });
 
