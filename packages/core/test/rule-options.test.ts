@@ -1,5 +1,15 @@
 import { describe, it, expect } from 'vitest';
-import { resolveRuleOptions, validateRuleOptions, compileOverrides, defineConfig } from '../src/index.js';
+import {
+  resolveRuleOptions,
+  validateRuleOptions,
+  validateRuleSetting,
+  shouldSkipRangeCheck,
+  intOption,
+  listOption,
+  mapOption,
+  compileOverrides,
+  defineConfig
+} from '../src/index.js';
 import type { RuleOptionsSpec } from '../src/index.js';
 
 const spec: RuleOptionsSpec = {
@@ -96,6 +106,11 @@ describe('validateRuleOptions', () => {
   });
   it('rejects options on a rule that declares none', () => {
     expect(validateRuleOptions('r', undefined, { max: 1 })[0]).toContain('takes no options');
+  });
+  it('accepts an empty options object on a rule that declares none', () => {
+    // `{ options: {} }` configures nothing, so it can't be the typo this check
+    // exists to catch — failing it would only annoy.
+    expect(validateRuleOptions('r', undefined, {})).toEqual([]);
   });
   it('rejects a non-integer for an integer option', () => {
     expect(validateRuleOptions('r', spec, { max: '10' })[0]).toContain('must be an integer');
@@ -202,5 +217,126 @@ describe('validateRuleOptions', () => {
         expect(errors[0]).toContain("unknown option 'foo'");
       });
     });
+  });
+});
+
+// The whole skip decision, shared by the CLI's config-file loader and the Vite
+// plugin (they held line-for-line copies of it before).
+describe('shouldSkipRangeCheck', () => {
+  const entry = (options: Record<string, unknown>) => ({ rules: { 'seo/title-length': { options } } });
+
+  it('skips when another entry narrows the opposite side', () => {
+    const overrides = [entry({ max: 200 }), entry({ min: 100 })];
+    expect(shouldSkipRangeCheck(overrides, 1, 'seo/title-length', overrides[1]!.rules['seo/title-length'])).toBe(true);
+  });
+  it('does not skip when no other entry touches the opposite side', () => {
+    const overrides = [entry({ min: 100 })];
+    expect(shouldSkipRangeCheck(overrides, 0, 'seo/title-length', overrides[0]!.rules['seo/title-length'])).toBe(false);
+  });
+  it('does not skip when the entry sets both sides itself', () => {
+    const overrides = [entry({ max: 200 }), entry({ min: 100, max: 150 })];
+    expect(shouldSkipRangeCheck(overrides, 1, 'seo/title-length', overrides[1]!.rules['seo/title-length'])).toBe(false);
+  });
+  it('does not skip when the entry sets neither side', () => {
+    const overrides = [entry({ max: 200 }), entry({})];
+    expect(shouldSkipRangeCheck(overrides, 1, 'seo/title-length', overrides[1]!.rules['seo/title-length'])).toBe(false);
+  });
+  it('ignores the same side set by another entry', () => {
+    const overrides = [entry({ min: 40 }), entry({ min: 100 })];
+    expect(shouldSkipRangeCheck(overrides, 1, 'seo/title-length', overrides[1]!.rules['seo/title-length'])).toBe(false);
+  });
+  it('ignores a bare string setting and a malformed entry', () => {
+    expect(shouldSkipRangeCheck([{ rules: { 'seo/title-length': 'off' } }], 0, 'seo/title-length', 'off')).toBe(false);
+    const overrides = [null, entry({ min: 100 })];
+    expect(shouldSkipRangeCheck(overrides, 1, 'seo/title-length', overrides[1]!.rules['seo/title-length'])).toBe(false);
+  });
+});
+
+// The single definition of what a rule setting may look like — the CLI config-file
+// loader and the Vite plugin both funnel through it, so a config file and the
+// equivalent plugin option are accepted or rejected identically.
+describe('validateRuleSetting', () => {
+  const opts = { allowOptions: true };
+
+  it('accepts every bare string form', () => {
+    for (const s of ['off', 'critical', 'warning', 'info']) {
+      expect(validateRuleSetting('rules.r', 'r', s, spec, opts)).toEqual([]);
+    }
+  });
+  it('rejects an unknown bare string', () => {
+    expect(validateRuleSetting('rules.r', 'r', 'error', spec, opts)[0]).toContain("invalid setting 'error'");
+  });
+  it('rejects a non-object, non-string setting', () => {
+    expect(validateRuleSetting('rules.r', 'r', 3, spec, opts)[0]).toContain("an object with 'severity'");
+    expect(validateRuleSetting('rules.r', 'r', ['off'], spec, opts)[0]).toContain("an object with 'severity'");
+  });
+  it('accepts the object form with only a severity, or only options', () => {
+    expect(validateRuleSetting('rules.r', 'r', { severity: 'off' }, spec, opts)).toEqual([]);
+    expect(validateRuleSetting('rules.r', 'r', { options: { max: 4 } }, spec, opts)).toEqual([]);
+  });
+  it('rejects an invalid severity in the object form', () => {
+    expect(validateRuleSetting('rules.r', 'r', { severity: 'error' }, spec, opts)[0]).toContain(
+      "rules.r.severity: invalid setting 'error'"
+    );
+  });
+  it('rejects an unknown key in the object form', () => {
+    expect(validateRuleSetting('rules.r', 'r', { sevrity: 'warning' }, spec, opts)[0]).toContain(
+      'unknown key(s) sevrity'
+    );
+  });
+  it('reports a bad severity and a bad option together', () => {
+    const errors = validateRuleSetting('rules.r', 'r', { severity: 'error', options: { maxx: 1 } }, spec, opts);
+    expect(errors.some((e) => e.includes("invalid setting 'error'"))).toBe(true);
+    expect(errors.some((e) => e.includes("unknown option 'maxx'"))).toBe(true);
+  });
+  it('rejects options on a category key', () => {
+    expect(
+      validateRuleSetting('overrides[0].rules.seo', 'seo', { options: { max: 4 } }, undefined, {
+        allowOptions: false
+      })[0]
+    ).toContain('options are not allowed on a category key');
+  });
+  it('accepts a severity on a category key', () => {
+    expect(
+      validateRuleSetting('overrides[0].rules.seo', 'seo', { severity: 'critical' }, undefined, { allowOptions: false })
+    ).toEqual([]);
+  });
+  it('rejects a non-object options value', () => {
+    expect(validateRuleSetting('rules.r', 'r', { options: 4 }, spec, opts)[0]).toContain(
+      'rules.r.options: must be an object'
+    );
+  });
+  it('passes baseline and skipRangeCheck through to validateRuleOptions', () => {
+    const lengthSpec: RuleOptionsSpec = {
+      min: { kind: 'integer', default: 30, min: 0 },
+      max: { kind: 'integer', default: 60, min: 1 }
+    };
+    const setting = { options: { min: 150 } };
+    expect(validateRuleSetting('rules.r', 'r', setting, lengthSpec, opts)[0]).toContain('must be <= max (60)');
+    expect(
+      validateRuleSetting('rules.r', 'r', setting, lengthSpec, { ...opts, baseline: { min: 100, max: 200 } })
+    ).toEqual([]);
+    expect(validateRuleSetting('rules.r', 'r', setting, lengthSpec, { ...opts, skipRangeCheck: true })).toEqual([]);
+  });
+});
+
+describe('typed option accessors', () => {
+  it('reads a declared value of each kind', () => {
+    const o = resolveRuleOptions('r', spec, defineConfig({}));
+    expect(intOption(o, 'max')).toBe(6);
+    expect(listOption(o, 'origins')).toEqual(['fonts.googleapis.com']);
+    expect(mapOption(o, 'packages')).toEqual({ lodash: 'use lodash-es' });
+  });
+  it('falls back rather than crashing on a key the rule never declared', () => {
+    expect(intOption({}, 'max')).toBe(0);
+    expect(intOption({}, 'max', 6)).toBe(6);
+    expect(listOption({}, 'origins')).toEqual([]);
+    expect(mapOption({}, 'packages')).toEqual({});
+  });
+  it('falls back on a value of the wrong kind', () => {
+    expect(intOption({ max: 'six' }, 'max', 6)).toBe(6);
+    expect(listOption({ origins: 'a.com' }, 'origins')).toEqual([]);
+    expect(mapOption({ packages: ['lodash'] }, 'packages')).toEqual({});
+    expect(mapOption({ packages: null }, 'packages')).toEqual({});
   });
 });

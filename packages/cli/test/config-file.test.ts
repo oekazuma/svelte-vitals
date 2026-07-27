@@ -188,6 +188,11 @@ describe('loadConfigFile', () => {
     await expect(loadConfigFile(fixture('config-file-options-none-allowed'))).rejects.toThrow(/takes no options/);
   });
 
+  it('accepts an empty options object on a rule that takes none', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-options-empty'));
+    expect(loaded?.config.rules!['seo/charset']).toEqual({ options: {} });
+  });
+
   it('rejects an out-of-range integer option', async () => {
     await expect(loadConfigFile(fixture('config-file-options-out-of-range'))).rejects.toThrow(/must be >= 1/);
   });

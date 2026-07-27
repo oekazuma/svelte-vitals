@@ -1,4 +1,5 @@
 import { componentRule } from '../component-rule.js';
+import { mapOption } from '../../rule-options.js';
 
 /**
  * Well-known heavy / non-tree-shakeable packages, mapped to the lighter alternative.
@@ -24,7 +25,7 @@ export const performanceHeavyImport = componentRule({
   // line-less `imports` (line: 0, the pre-fix behavior) instead of crashing on `undefined`.
   applies: (c) => (c.importSpans ?? c.imports).length > 0,
   bad: (c, o) => {
-    const packages = o.packages as Record<string, string>;
+    const packages = mapOption(o, 'packages');
     // `Object.hasOwn` (not `in`) so inherited keys like `toString` never match;
     // dedupe so the same package imported in both scripts isn't double-penalized.
     const seen = new Set<string>();

@@ -22,7 +22,9 @@ export function createServer(): McpServer {
     'explain_rule',
     {
       title: 'Explain an SEO rule',
-      description: "Return a rule's title, category, default severity, rationale, docs URL, and fix template.",
+      description:
+        "Return a rule's title, category, default severity, rationale, docs URL, fix template, and " +
+        'configurable options (name, kind, default, bounds) when it has any.',
       inputSchema: explainRuleInputShape
     },
     async (args) => (await handleExplainRule(args)) as CallToolResult

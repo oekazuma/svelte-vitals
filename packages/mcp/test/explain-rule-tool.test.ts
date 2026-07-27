@@ -26,6 +26,29 @@ describe('explain_rule tool', () => {
     expect(res.content[0]!.text).toContain('https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence');
   });
 
+  it('says nothing about options for a rule that takes none', async () => {
+    const res = await handleExplainRule({ id: 'seo/title-presence' });
+    expect(res.content[0]!.text).not.toContain('Configurable');
+  });
+
+  it("renders a configurable rule's options, defaults, bounds and merge semantics", async () => {
+    // An agent that reads a finding as a threshold disagreement rather than a defect
+    // has to learn the knob's name from somewhere; explain_rule is that somewhere.
+    const res = await handleExplainRule({ id: 'seo/title-length' });
+    const text = res.content[0]!.text;
+    expect(text).toContain("rules: { 'seo/title-length': { options: { … } } }");
+    expect(text).toContain('min (integer, default 30, >= 0) — replaces the default');
+    expect(text).toContain('max (integer, default 60, >= 1) — replaces the default');
+    const info = res.structuredContent as { options?: { name: string }[] };
+    expect(info.options?.map((o) => o.name)).toEqual(['min', 'max']);
+  });
+
+  it('states that a collection option adds to the built-in list', async () => {
+    const res = await handleExplainRule({ id: 'performance/heavy-import' });
+    expect(res.content[0]!.text).toContain('packages (string-map, default {');
+    expect(res.content[0]!.text).toContain('added to the default, never replaces it');
+  });
+
   it('does not match a rule id with the wrong case (exact match only)', async () => {
     const res = await handleExplainRule({ id: 'SEO/TITLE-PRESENCE' });
     expect(res.isError).toBe(true);

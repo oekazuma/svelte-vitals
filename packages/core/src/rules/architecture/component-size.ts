@@ -1,4 +1,5 @@
 import { componentRule } from '../component-rule.js';
+import { intOption } from '../../rule-options.js';
 
 /**
  * A component longer than this many lines is a "god component" smell.
@@ -18,12 +19,12 @@ export const architectureComponentSize = componentRule({
   severity: 'info',
   label: 'Component size',
   options: { max: { kind: 'integer', default: MAX_LOC, min: 1 } },
-  recommendation: (o) => `Split components over ${o.max as number} lines into smaller, focused pieces.`,
+  recommendation: (o) => `Split components over ${intOption(o, 'max', MAX_LOC)} lines into smaller, focused pieces.`,
   rationale:
     'A very large component is hard to read, test, and reuse, and is a common sign that several responsibilities should be split out.',
   applies: (c) => c.loc > 0, // skip unanalyzable files (loc 0 = read/parse failure), don't PASS them
   bad: (c, o) => {
-    const max = o.max as number;
+    const max = intOption(o, 'max', MAX_LOC);
     return c.loc > max ? [{ line: 1, message: `Component is ${c.loc} lines (over ${max})` }] : [];
   }
 });

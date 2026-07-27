@@ -63,6 +63,29 @@ describe('svelteVitals rules option validation', () => {
       /unknown rule id\(s\): seo\/titel-length/
     );
   });
+
+  // The setting shape itself is now checked too, through the same
+  // `validateRuleSetting` the CLI's config-file loader uses. TypeScript catches
+  // these for a `vite.config.ts`, but a `vite.config.js` got no help at all and
+  // the typo'd field silently left the rule at its built-in severity — the exact
+  // failure mode this validation exists to prevent.
+  it('throws on an invalid severity string', () => {
+    expect(() => svelteVitals({ ui: false, rules: { 'architecture/prop-count': 'error' as never } })).toThrow(
+      /invalid setting 'error'/
+    );
+  });
+
+  it('throws on an invalid severity in the object form', () => {
+    expect(() =>
+      svelteVitals({ ui: false, rules: { 'architecture/prop-count': { severity: 'error' as never } } })
+    ).toThrow(/rules\.architecture\/prop-count\.severity: invalid setting 'error'/);
+  });
+
+  it('throws on an unrecognized key in the object form', () => {
+    expect(() =>
+      svelteVitals({ ui: false, rules: { 'architecture/prop-count': { sevrity: 'warning' } as never } })
+    ).toThrow(/unknown key\(s\) sevrity/);
+  });
 });
 
 // 2026-07-26 second review, Finding C: only `options.rules` was validated, so a
@@ -135,5 +158,50 @@ describe('svelteVitals overrides option validation', () => {
         ]
       })
     ).not.toThrow();
+  });
+
+  // With no `rules` option, `analyze()` resolves the global layer from
+  // svelte-vitals.config.* instead — a file this synchronous construction-time
+  // check cannot read. A config file widening `max` while this override narrows
+  // `min` is a valid combination, so judging the override against the built-in
+  // default alone would hard-fail `vite build` over a correct config.
+  it('does not range-check an override when no rules option is given (the config file may widen the range)', () => {
+    expect(() =>
+      svelteVitals({
+        ui: false,
+        overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { min: 100 } } } }]
+      })
+    ).not.toThrow();
+  });
+
+  it('still range-checks an override that inverts on its own once a rules option is given', () => {
+    expect(() =>
+      svelteVitals({
+        ui: false,
+        rules: {},
+        overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { min: 100 } } } }]
+      })
+    ).toThrow(/min \(100\) must be <= max \(60\)/);
+  });
+
+  it('still reports type and unknown-key problems in an override with no rules option', () => {
+    expect(() =>
+      svelteVitals({
+        ui: false,
+        overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { min: 0.5 } } } }]
+      })
+    ).toThrow(/must be an integer/);
+    expect(() =>
+      svelteVitals({ ui: false, overrides: [{ route: '/x', rules: { 'seo/title-length': { options: { mn: 10 } } } }] })
+    ).toThrow(/unknown option 'mn'/);
+  });
+
+  it('validates the setting shape inside an override (severity and unknown keys)', () => {
+    expect(() =>
+      svelteVitals({ ui: false, overrides: [{ route: '/x', rules: { 'seo/title-length': 'error' as never } }] })
+    ).toThrow(/invalid setting 'error'/);
+    expect(() =>
+      svelteVitals({ ui: false, overrides: [{ route: '/x', rules: { seo: { severity: 'error' as never } } }] })
+    ).toThrow(/overrides\[0\]\.rules\.seo\.severity: invalid setting 'error'/);
   });
 });

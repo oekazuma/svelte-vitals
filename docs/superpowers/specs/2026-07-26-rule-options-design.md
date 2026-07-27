@@ -176,6 +176,21 @@ Violating this produces the worst possible bug — an override where the severit
 threshold does not. `routeGlobToRegExp` and the entry-matching predicate are therefore extracted
 from `applyOverrides` into a shared helper that both paths call.
 
+#### Corollary: a rule's own bookkeeping must not straddle the resolution
+
+Resolving options per tag (rather than per head) is what lets a `files:`-scoped entry reach a tag
+a layout owns. The corollary, found in review (2026-07-27): **two tags in one head can now resolve
+different options**, so any cross-tag bookkeeping inside a rule must not be gated on a per-tag
+resolution.
+
+`performance/preconnect` violated this. It recorded a host as `covered` only inside the `origins`
+gate, so a `files:`-scoped `origins` entry that matched the route file but not the shared head
+component holding the `<link rel="preconnect">` left the hint unrecorded, and the rule reported an
+origin as un-preconnected while the hint sat in the document. Coverage is a fact about the
+document, not a policy decision, and is now recorded before the gate; only the _reference_ side is
+gated. The general shape to watch for: gate what the user's configuration selects, never what the
+source plainly states.
+
 ## Wiring
 
 - `componentRule`'s `applies` / `bad` take resolved options as a second argument. Options resolve
@@ -216,6 +231,27 @@ Fatal (thrown, matching the existing stance that an unknown rule id is fatal):
 The failure this prevents is a typo silently leaving the config inert — the same reasoning that
 made unknown rule ids fatal.
 
+### One definition of a valid setting
+
+The setting shape itself (bare string vs object, recognized keys, valid `severity`) is checked by
+`validateRuleSetting` in `packages/core`, and the whole "should this entry's min/max cross-check be
+skipped?" decision by `shouldSkipRangeCheck` beside it. Both the CLI's config-file loader and the
+Vite plugin's `rules`/`overrides` options call them, so a config file and the equivalent plugin
+option cannot be judged differently. The earlier arrangement — the loader validating the shape
+while the plugin validated only `options` — meant a `vite.config.js` (no TypeScript to catch it)
+silently accepted `{ sevrity: 'warning' }` and left the rule at its built-in severity.
+
+### What the plugin cannot know synchronously
+
+`svelteVitals()` validates at construction, but `analyze()` resolves the global `rules` layer from
+`svelte-vitals.config.*` when the plugin got no `rules` option — a file readable only
+asynchronously, after that check. So a config file widening `max` while a plugin `overrides` entry
+narrows `min` is valid at run time but would look inverted at construction. The min/max cross-check
+is therefore skipped for `overrides` entries when no `rules` option was passed; every other check
+still runs, and `loadConfigFile` still validates the file itself. Rejecting a correct config would
+hard-fail `vite build`, which is strictly worse than missing one range inversion that surfaces as
+an odd runtime message.
+
 ## Testing
 
 The recalibration spec found that the existing tests did not pin the thresholds at all: an
@@ -252,6 +288,14 @@ accidental edit to either constant would not have failed a test. That gap must n
   is added.
 - **Unifying severity and option resolution** (retiring the `applyOverrides` post-pass). See the
   timing-split section.
+- **`overrides` in the dev overlay's live layer.** `applyOverrides` runs in the CLI and in the Vite
+  plugin's build gate; the per-request layer (`packages/vite/src/hooks/handle.ts`) never called it,
+  so route-/file-scoped severities have never applied there. Options ride on the same `overrides`
+  array, so they inherit that gap: a per-path threshold shows up in a CLI run and in the build gate
+  but not in the live overlay. Wiring `overrides` through the handle's options and the dashboard's
+  config is its own change — the live layer would need both the config's overrides and an
+  `applyOverrides` call to be consistent rather than half-applied. Documented as a limitation in
+  the configuration guide (en and ja) for now.
 - **`seo/json-ld-placeholder` patterns.** See the inventory section.
 - **A `files:`-scoped override cannot remove a passing seed for a route-scoped rule.**
   `seo/title-length`, `seo/description-length`, and `performance/preconnect` emit a PASS result

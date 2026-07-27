@@ -1,7 +1,7 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { compileOverrides } from '../../config-apply.js';
-import { resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
+import { listOption, resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
 
 const docsUrl = docsUrlFor('performance/preconnect');
 const recommendation =
@@ -53,13 +53,23 @@ export const performancePreconnect: Rule = {
         if ((tag.kind !== 'link' && tag.kind !== 'script') || typeof tag.href !== 'string') continue;
         const host = hostOf(tag.href);
         if (!host) continue;
+        // Coverage is a fact about the document, not a policy decision — recorded BEFORE
+        // the `origins` gate. Options are resolved per tag (below), so two tags in one
+        // head can resolve different `origins`: a files:-scoped override matching the
+        // route file but not the layout file that owns the preconnect would otherwise
+        // leave the hint unrecorded and report the origin as un-preconnected, a false
+        // positive. Gating only the *reference* side keeps the two sides in agreement
+        // whatever each tag resolves.
+        if (tag.kind === 'link' && (tag.rel === 'preconnect' || tag.rel === 'dns-prefetch')) {
+          covered.add(host);
+          continue;
+        }
         // Resolved per tag, keyed on the same file expression the resulting finding's
         // `location` uses below — a tag inherited from a layout carries its own `file`,
         // distinct from head.file, and a files:-scoped option override keyed to that
         // layout file must reach it (design 2026-07-26 Finding 1). `origins` is
         // addition-only (never narrowed by an override — design §"Option specs"), so
-        // resolving per tag can only ever widen which hosts are in scope, never
-        // disagree with a head-level resolution about a host both would already include.
+        // resolving per tag can only ever widen which hosts are in scope.
         const o = resolveRuleOptions(
           'performance/preconnect',
           OPTIONS,
@@ -67,10 +77,8 @@ export const performancePreconnect: Rule = {
           { route: head.route, file: tag.file ?? head.file },
           compiled
         );
-        const origins = new Set(o.origins as string[]);
-        if (!origins.has(host)) continue;
-        if (tag.kind === 'link' && (tag.rel === 'preconnect' || tag.rel === 'dns-prefetch')) covered.add(host);
-        else if (!referenced.has(host)) referenced.set(host, tag.file);
+        if (!listOption(o, 'origins').includes(host)) continue;
+        if (!referenced.has(host)) referenced.set(host, tag.file);
       }
       if (referenced.size === 0) continue; // no third-party origin referenced → not applicable
       const missing = [...referenced].filter(([host]) => !covered.has(host));

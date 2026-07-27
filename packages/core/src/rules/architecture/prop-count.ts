@@ -1,4 +1,5 @@
 import { componentRule } from '../component-rule.js';
+import { intOption } from '../../rule-options.js';
 
 /**
  * More destructured props than this suggests the component is doing too much.
@@ -20,12 +21,12 @@ export const architecturePropCount = componentRule({
   label: 'Prop count',
   options: { max: { kind: 'integer', default: MAX_PROPS, min: 1 } },
   recommendation: (o) =>
-    `Group related props into an object, or split the component, when it takes more than ${o.max as number} props.`,
+    `Group related props into an object, or split the component, when it takes more than ${intOption(o, 'max', MAX_PROPS)} props.`,
   rationale:
     'A component taking many props is usually doing too much; grouping or splitting keeps its API understandable.',
   applies: (c) => c.propCount > 0, // only components whose props we could count
   bad: (c, o) => {
-    const max = o.max as number;
+    const max = intOption(o, 'max', MAX_PROPS);
     return c.propCount > max ? [{ line: 1, message: `Component takes ${c.propCount} props (over ${max})` }] : [];
   }
 });

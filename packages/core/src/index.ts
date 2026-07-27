@@ -18,7 +18,7 @@ export type {
   RuleOverride,
   Config
 } from './types.js';
-export { defaultConfig, defineConfig, defaultProject } from './types.js';
+export { defaultConfig, defineConfig, defaultProject, CATEGORIES } from './types.js';
 
 export type { HeadTag, ResolvedHead, HeadProvider } from './head.js';
 export type { ImageInfo, ResolvedImages } from './images.js';
@@ -130,7 +130,7 @@ export {
   performanceSequentialAwaits,
   performanceStateRaw
 } from './rules/index.js';
-export type { RuleInfo } from './rules/index.js';
+export type { RuleInfo, RuleOptionInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';
 export { imageRule } from './rules/perf/image-rule.js';
 export { linkRule } from './rules/perf/link-rule.js';
@@ -163,7 +163,15 @@ export {
 } from './config-apply.js';
 export type { CompiledOverride } from './config-apply.js';
 
-export { resolveRuleOptions, validateRuleOptions, otherOverrideNarrowsOppositeSide } from './rule-options.js';
+export {
+  resolveRuleOptions,
+  validateRuleOptions,
+  validateRuleSetting,
+  shouldSkipRangeCheck,
+  intOption,
+  listOption,
+  mapOption
+} from './rule-options.js';
 export type { RuleOptionSpec, RuleOptionsSpec } from './rule-options.js';
 
 export type { ScoreModel, ScoreResult, ScoreOptions, HealthResult } from './scoring/score.js';

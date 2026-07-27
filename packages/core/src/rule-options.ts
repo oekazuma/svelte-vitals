@@ -8,6 +8,13 @@ import type { Config, RuleOptions } from './types.js';
 import { compileOverrides, overrideMatches, settingOptions, type CompiledOverride } from './config-apply.js';
 
 /**
+ * Severity strings a rule setting accepts, plus `'off'` — the bare string form.
+ * Module-private: `validateRuleSetting` is the only thing that needs it, and every
+ * caller goes through that rather than re-deriving the list.
+ */
+const RULE_SETTING_VALUES: readonly string[] = ['off', 'critical', 'warning', 'info'];
+
+/**
  * One configurable option. `kind` decides the merge semantics, so no rule
  * writes merge code of its own: `integer` replaces, and the two collection
  * kinds ADD to the built-in default (never replace — see the design doc).
@@ -27,6 +34,32 @@ function defaultsOf(spec: RuleOptionsSpec): RuleOptions {
     out[key] = s.kind === 'integer' ? s.default : s.kind === 'string-list' ? [...s.default] : { ...s.default };
   }
   return out;
+}
+
+/**
+ * Typed reads of a resolved options object. `RuleOptions` values are `unknown`
+ * (the map is open-ended by design), so without these every rule would carry
+ * its own `o.max as number` cast and the "resolution guarantees the declared
+ * kind" invariant would live in a dozen places instead of one. `resolveRuleOptions`
+ * always seeds every declared key from the spec default and validation rejects a
+ * wrongly-typed value up front, so a mismatch here means a rule read a key it
+ * never declared — the `fallback` keeps that a wrong number rather than a crash.
+ */
+export function intOption(options: RuleOptions, key: string, fallback = 0): number {
+  const v = options[key];
+  return typeof v === 'number' ? v : fallback;
+}
+
+/** As `intOption`, for a `string-list` option. */
+export function listOption(options: RuleOptions, key: string): string[] {
+  const v = options[key];
+  return Array.isArray(v) ? (v as string[]) : [];
+}
+
+/** As `intOption`, for a `string-map` option. */
+export function mapOption(options: RuleOptions, key: string): Record<string, string> {
+  const v = options[key];
+  return typeof v === 'object' && v !== null && !Array.isArray(v) ? (v as Record<string, string>) : {};
 }
 
 /**
@@ -100,7 +133,10 @@ export function validateRuleOptions(
   baseline?: RuleOptions,
   skipRangeCheck?: boolean
 ): string[] {
-  if (!spec) return [`${ruleId} takes no options.`];
+  // An empty `options` on a rule that declares none configures nothing, so it can't
+  // be the typo this check exists to catch — accept it rather than failing a config
+  // whose only sin is an empty object.
+  if (!spec) return Object.keys(options).length === 0 ? [] : [`${ruleId} takes no options.`];
   const errors: string[] = [];
   // Tracks which option keys already have a type/bounds error, so the cross-
   // check below can skip only when min/max itself is unreliable — an
@@ -213,7 +249,7 @@ function isPlainObject(value: unknown): value is Record<string, unknown> {
  * same rationale comment, in both `packages/cli/src/config-file.ts` and
  * `packages/vite/src/plugin.ts`).
  */
-export function otherOverrideNarrowsOppositeSide(
+function otherOverrideNarrowsOppositeSide(
   overrides: readonly unknown[],
   selfIndex: number,
   key: string,
@@ -224,4 +260,82 @@ export function otherOverrideNarrowsOppositeSide(
     const setting = entry.rules[key];
     return isPlainObject(setting) && isPlainObject(setting.options) && side in setting.options;
   });
+}
+
+/**
+ * Whether `validateRuleOptions` should skip the min/max cross-check for
+ * `overrides[selfIndex].rules[key]` — the whole decision, so the CLI's
+ * config-file loader and the Vite plugin can't drift apart on it (they held
+ * line-for-line copies of it before).
+ *
+ * An entry that sets both sides, or neither, is judged against its baseline as
+ * usual. An entry that sets only one side is skipped when some *other* entry
+ * sets the opposite side, since the two may co-apply at a shared target and be
+ * valid there — see `otherOverrideNarrowsOppositeSide` for why that is
+ * conservative by necessity and what it lets through.
+ */
+export function shouldSkipRangeCheck(
+  overrides: readonly unknown[],
+  selfIndex: number,
+  key: string,
+  setting: unknown
+): boolean {
+  if (!isPlainObject(setting) || !isPlainObject(setting.options)) return false;
+  const setsMin = 'min' in setting.options;
+  const setsMax = 'max' in setting.options;
+  if (setsMin === setsMax) return false; // both sides or neither → the baseline decides
+  return otherOverrideNarrowsOppositeSide(overrides, selfIndex, key, setsMin ? 'max' : 'min');
+}
+
+/**
+ * Problems with one user-supplied rule setting — the bare severity string or the
+ * object form — as human-readable sentences prefixed with `label` (empty = valid).
+ * THE single definition of what a setting may look like: the CLI's config-file
+ * loader and the Vite plugin both funnel through it, so a config file and the
+ * equivalent plugin option are accepted or rejected identically. Callers treat any
+ * result as fatal, on the same reasoning as an unknown rule id — a typo that
+ * silently leaves the config inert is the failure being prevented.
+ *
+ * `label` names the setting in the message (e.g. `rules.seo/title-length`,
+ * `overrides[0].rules.architecture`); `ruleId` is the key options messages quote.
+ * `allowOptions` is false for a category key: a category may carry a severity, but
+ * options are rule-specific and meaningless there. `baseline` and `skipRangeCheck`
+ * are passed through to `validateRuleOptions`.
+ */
+export function validateRuleSetting(
+  label: string,
+  ruleId: string,
+  setting: unknown,
+  spec: RuleOptionsSpec | undefined,
+  opts: { allowOptions: boolean; baseline?: RuleOptions; skipRangeCheck?: boolean }
+): string[] {
+  const expected = RULE_SETTING_VALUES.join('|');
+  if (typeof setting === 'string') {
+    return RULE_SETTING_VALUES.includes(setting)
+      ? []
+      : [`${label}: invalid setting '${setting}'; expected ${expected}.`];
+  }
+  if (!isPlainObject(setting)) {
+    return [`${label}: must be ${expected} or an object with 'severity' and/or 'options'.`];
+  }
+  const errors: string[] = [];
+  const unknownKeys = Object.keys(setting).filter((k) => k !== 'severity' && k !== 'options');
+  if (unknownKeys.length > 0) {
+    errors.push(`${label}: unknown key(s) ${unknownKeys.join(', ')}; expected severity, options.`);
+  }
+  if (setting.severity !== undefined && !RULE_SETTING_VALUES.includes(setting.severity as string)) {
+    errors.push(`${label}.severity: invalid setting '${String(setting.severity)}'; expected ${expected}.`);
+  }
+  if (setting.options === undefined) return errors;
+  if (!opts.allowOptions) {
+    errors.push(`${label}: options are not allowed on a category key.`);
+    return errors;
+  }
+  if (!isPlainObject(setting.options)) {
+    errors.push(`${label}.options: must be an object.`);
+    return errors;
+  }
+  const optionErrors = validateRuleOptions(ruleId, spec, setting.options, opts.baseline, opts.skipRangeCheck);
+  if (optionErrors.length > 0) errors.push(`${label}: ${optionErrors.join(' ')}`);
+  return errors;
 }

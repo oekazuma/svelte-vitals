@@ -124,6 +124,9 @@ Semantics worth knowing:
   doesn't shadow it. Overrides always win over the global `rules` setting where they match.
 - Findings that aren't attached to a route or file (project-wide checks like robots.txt) are
   never affected — use `rules` for those.
+- `overrides` applies to the CLI and to the Vite plugin's build-time gate. The live dev
+  overlay's per-request layer scores each page as it renders and does not apply them — use the
+  CLI (or the build gate) as the source of truth for an override you have just added.
 - For a permanent "this part of the app is exempt" policy, prefer `overrides` over the
   [suppressions file](/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions):
   suppressions accept only the findings that existed when the file was written, so newly added

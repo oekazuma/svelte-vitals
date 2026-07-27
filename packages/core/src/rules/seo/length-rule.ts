@@ -4,7 +4,7 @@ import type { HeadTag } from '../../head.js';
 import { visibleLength } from './text-metrics.js';
 import { PENALIZED, PASS } from './detection.js';
 import { compileOverrides } from '../../config-apply.js';
-import { resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
+import { intOption, resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
 
 export interface LengthRuleOptions {
   id: string;
@@ -48,8 +48,8 @@ export function lengthRule(opts: LengthRuleOptions): Rule {
         // files:-scoped severity override matches against (design 2026-07-26 Finding 1).
         const location = tag.file ?? head.file;
         const o = resolveRuleOptions(opts.id, spec, ctx.config, { route: head.route, file: location }, compiled);
-        const min = o.min as number;
-        const max = o.max as number;
+        const min = intOption(o, 'min', opts.min);
+        const max = intOption(o, 'max', opts.max);
         const recommendation = typeof opts.recommendation === 'function' ? opts.recommendation(o) : opts.recommendation;
         const len = visibleLength(tag.text);
         let problem: string | undefined;

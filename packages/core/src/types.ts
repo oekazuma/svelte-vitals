@@ -87,6 +87,14 @@ export type Scope = 'route' | 'project' | 'component';
 
 export type Category = 'seo' | 'performance' | 'correctness' | 'security' | 'architecture';
 
+/**
+ * Every category, as a runtime list — for validating a user-supplied category
+ * name and naming the known ones in the error. One definition so a category
+ * added to `Category` can't be accepted by one validator and rejected by
+ * another. Not an ordering: reporters keep their own display order.
+ */
+export const CATEGORIES: readonly Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
+
 /** How dynamic (`{data.title}`) values are treated by scoring (design §4, §12). */
 export type TreatDynamicAs = 'pass' | 'warn' | 'fail';
 

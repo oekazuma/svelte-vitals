@@ -3,10 +3,11 @@ import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import type { Category, Config, RuleOptions, RuleOverride } from '@svelte-vitals/core';
 import {
+  CATEGORIES,
   defaultConfig,
-  otherOverrideNarrowsOppositeSide,
   resolveRuleOptions,
-  validateRuleOptions
+  shouldSkipRangeCheck,
+  validateRuleSetting
 } from '@svelte-vitals/core';
 import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
 
@@ -25,11 +26,9 @@ import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-confi
  */
 export const CONFIG_FILENAMES = ['svelte-vitals.config.mjs', 'svelte-vitals.config.js', 'svelte-vitals.config.ts'];
 
-const CATEGORIES: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
 const TREAT_DYNAMIC_AS_VALUES = ['pass', 'warn', 'fail'];
 const FAIL_ON_VALUES = ['critical', 'warning', 'info'];
 const KNOWN_TOP_LEVEL_KEYS = new Set(['treatDynamicAs', 'metaComponents', 'rules', 'failOn', 'weights', 'overrides']);
-const RULE_SETTING_VALUES = ['off', 'critical', 'warning', 'info'];
 
 /** Whether `value` is a plain object (not null, not an array) — usable with Object.keys/entries. */
 function isPlainObject(value: unknown): value is Record<string, unknown> {
@@ -53,24 +52,19 @@ export interface LoadedConfigFile {
 }
 
 /**
- * Validate one rule setting — the bare severity string or the object form.
- * `allowOptions` is false for category keys in `overrides[].rules`: a category
- * may carry a severity, but options are rule-specific and meaningless there.
- * Everything here is fatal, on the same reasoning as unknown rule ids — a typo
- * that silently leaves the config inert is the failure being prevented.
+ * Validate one rule setting — the bare severity string or the object form — and
+ * throw on the first problem, prefixed with the config file's path. The rules
+ * themselves live in core's `validateRuleSetting`, shared with the Vite plugin's
+ * `rules`/`overrides` options so a config file and the equivalent plugin option
+ * can't be judged differently. Everything is fatal, on the same reasoning as
+ * unknown rule ids — a typo that silently leaves the config inert is the failure
+ * being prevented.
  *
  * `baseline`, when given, is the already-resolved options this setting's
  * `options` would be merged onto at run time — the global `rules[id].options`
  * layer, for a setting that lives in `overrides[].rules` (design 2026-07-26
  * review, Finding A). Omitted for the global `rules` layer itself, so its
- * min/max cross-check (inside `validateRuleOptions`) falls back to the rule's
- * own built-in default, as before.
- *
- * `skipRangeCheck`, when true, tells `validateRuleOptions` to skip the
- * min/max cross-check entirely — used when some other `overrides[]` entry
- * narrows the opposite side of the range, so `baseline` alone can't be
- * trusted to judge this entry (design 2026-07-26 review, Finding A, third
- * pass; see `otherOverrideNarrowsOppositeSide` from `@svelte-vitals/core`).
+ * min/max cross-check falls back to the rule's own built-in default.
  */
 function validateSetting(
   path: string,
@@ -81,38 +75,12 @@ function validateSetting(
   baseline?: RuleOptions,
   skipRangeCheck?: boolean
 ): void {
-  if (typeof setting === 'string') {
-    if (!RULE_SETTING_VALUES.includes(setting)) {
-      throw new Error(
-        `${path}: ${where}.${key}: invalid setting '${setting}'; expected ${RULE_SETTING_VALUES.join('|')}.`
-      );
-    }
-    return;
-  }
-  if (!isPlainObject(setting)) {
-    throw new Error(
-      `${path}: ${where}.${key}: must be ${RULE_SETTING_VALUES.join('|')} or an object with 'severity' and/or 'options'.`
-    );
-  }
-  const unknownKeys = Object.keys(setting).filter((k) => k !== 'severity' && k !== 'options');
-  if (unknownKeys.length > 0) {
-    throw new Error(`${path}: ${where}.${key}: unknown key(s) ${unknownKeys.join(', ')}; expected severity, options.`);
-  }
-  if (setting.severity !== undefined && !RULE_SETTING_VALUES.includes(setting.severity as string)) {
-    throw new Error(
-      `${path}: ${where}.${key}.severity: invalid setting '${String(setting.severity)}'; ` +
-        `expected ${RULE_SETTING_VALUES.join('|')}.`
-    );
-  }
-  if (setting.options === undefined) return;
-  if (!allowOptions) {
-    throw new Error(`${path}: ${where}.${key}: options are not allowed on a category key.`);
-  }
-  if (!isPlainObject(setting.options)) {
-    throw new Error(`${path}: ${where}.${key}.options: must be an object.`);
-  }
-  const errors = validateRuleOptions(key, ruleOptionsSpec(key), setting.options, baseline, skipRangeCheck);
-  if (errors.length > 0) throw new Error(`${path}: ${where}.${key}: ${errors.join(' ')}`);
+  const errors = validateRuleSetting(`${where}.${key}`, key, setting, ruleOptionsSpec(key), {
+    allowOptions,
+    ...(baseline !== undefined ? { baseline } : {}),
+    ...(skipRangeCheck !== undefined ? { skipRangeCheck } : {})
+  });
+  if (errors.length > 0) throw new Error(`${path}: ${errors.join(' ')}`);
 }
 
 /**
@@ -232,16 +200,11 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
           : resolveRuleOptions(key, ruleOptionsSpec(key), { ...defaultConfig, rules: config.rules ?? {} });
         // If this entry narrows only one side of a min/max range, and some other
         // overrides[] entry narrows the opposite side, `baseline` above can't be
-        // trusted to judge this entry alone — skip the cross-check rather than
-        // risk rejecting a config that is valid at every target it actually
-        // applies to (design 2026-07-26 review, Finding A, third pass).
-        const entryOptions = isPlainObject(setting) && isPlainObject(setting.options) ? setting.options : undefined;
-        const setsMin = entryOptions !== undefined && 'min' in entryOptions;
-        const setsMax = entryOptions !== undefined && 'max' in entryOptions;
-        const skipRangeCheck =
-          !isCategory &&
-          ((setsMin && !setsMax && otherOverrideNarrowsOppositeSide(rawOverrides, i, key, 'max')) ||
-            (setsMax && !setsMin && otherOverrideNarrowsOppositeSide(rawOverrides, i, key, 'min')));
+        // trusted to judge this entry alone — the shared helper skips the
+        // cross-check rather than risk rejecting a config that is valid at every
+        // target it actually applies to (design 2026-07-26 review, Finding A,
+        // third pass).
+        const skipRangeCheck = shouldSkipRangeCheck(rawOverrides, i, key, setting);
         validateSetting(path, `overrides[${i}].rules`, key, setting, !isCategory, baseline, skipRangeCheck);
       }
       overrides.push({

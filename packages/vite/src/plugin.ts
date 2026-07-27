@@ -4,11 +4,12 @@ import { join, isAbsolute, dirname, relative, basename, sep } from 'node:path';
 import type { Plugin, ViteDevServer } from 'vite';
 import type { Category, RuleOptions, RuleOverride, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
 import {
+  CATEGORIES,
   defaultConfig,
   defineConfig,
-  otherOverrideNarrowsOppositeSide,
   resolveRuleOptions,
-  validateRuleOptions
+  shouldSkipRangeCheck,
+  validateRuleSetting
 } from '@svelte-vitals/core';
 import { findUnknownRuleIds, knownRuleIds, loadConfigFile, ruleOptionsSpec } from 'svelte-vitals';
 import { analyze } from './analyze.js';
@@ -79,19 +80,19 @@ export interface SvelteVitalsOptions {
 
 const DEFAULT_PRERENDER_DIR = '.svelte-kit/output/prerendered/pages';
 
-const CATEGORIES: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
-
 /**
  * Validate the plugin's `rules` option the same way the CLI's config-file loader
  * validates a config file's `rules` map (design 2026-07-26, Finding 4): an unknown
- * rule id, or (for a known id) an unknown option key or a type/bounds/range
- * violation, is fatal, not silently dropped. `options.rules` never passes through
- * `loadConfigFile` (that only validates `svelte-vitals.config.*`), so this is the
- * only check a plugin-option `rules` value gets. Unknown ids are rejected first —
- * as the CLI does — so a typo'd id with options reports "unknown rule id", not a
- * misleading "takes no options" (2026-07-26 second review, Finding D). Severity
- * strings are still caught by TypeScript for TS consumers; this covers options,
- * which `resolveRuleOptions` would otherwise drop unknown keys from silently.
+ * rule id, an invalid `severity`, an unrecognized key in the object form, or an
+ * unknown/mistyped/out-of-range option is fatal, not silently dropped.
+ * `options.rules` never passes through `loadConfigFile` (that only validates
+ * `svelte-vitals.config.*`), so this is the only check a plugin-option `rules`
+ * value gets. Unknown ids are rejected first — as the CLI does — so a typo'd id
+ * with options reports "unknown rule id", not a misleading "takes no options"
+ * (2026-07-26 second review, Finding D). The setting shape itself is checked by
+ * core's `validateRuleSetting`, shared with the CLI loader: TypeScript already
+ * catches a bad severity for TS consumers, but a `vite.config.js` gets no such
+ * help, and a silently-inert typo is the failure this whole check exists for.
  */
 function validateRulesOption(rules: Record<string, RuleSetting> | undefined): void {
   if (!rules) return;
@@ -104,8 +105,7 @@ function validateRulesOption(rules: Record<string, RuleSetting> | undefined): vo
   }
   const errors: string[] = [];
   for (const [id, setting] of Object.entries(rules)) {
-    if (typeof setting === 'string' || setting.options === undefined) continue;
-    errors.push(...validateRuleOptions(id, ruleOptionsSpec(id), setting.options));
+    errors.push(...validateRuleSetting(`rules.${id}`, id, setting, ruleOptionsSpec(id), { allowOptions: true }));
   }
   if (errors.length > 0) throw new Error(`svelte-vitals: invalid \`rules\` option — ${errors.join(' ')}`);
 }
@@ -115,21 +115,32 @@ function validateRulesOption(rules: Record<string, RuleSetting> | undefined): vo
  * previously only `options.rules` was validated, so a typo inside
  * `overrides[].rules[id].options` — the field the changeset advertises as the
  * per-path home for options — silently dropped the option instead of failing
- * loudly. Same fatal/known-id/carve-out rules as the CLI's config-file loader:
- * unknown rule ids (rejected before options, per Finding D) or categories are
- * fatal; a category key may carry a severity but never `options`; a rule-id
- * key's options are validated against the baseline resolved from `rules`
- * (built-in defaults + the plugin's own `rules` option), so an override that
- * only narrows one side of an already-widened range isn't falsely rejected
- * (Finding A) — including when the widening comes from another `overrides[]`
- * entry rather than the global `rules` layer (Finding A, third pass; see
- * `otherOverrideNarrowsOppositeSide`).
+ * loudly. Same fatal/known-id/carve-out rules as the CLI's config-file loader
+ * (both funnel through core's `validateRuleSetting`): unknown rule ids (rejected
+ * before options, per Finding D) or categories are fatal; a category key may
+ * carry a severity but never `options`; a rule-id key's options are validated
+ * against the baseline resolved from `rules`, so an override that only narrows
+ * one side of an already-widened range isn't falsely rejected (Finding A) —
+ * including when the widening comes from another `overrides[]` entry rather than
+ * the global `rules` layer (Finding A, third pass; see `shouldSkipRangeCheck`).
+ *
+ * `rulesLayerKnown` is false when the plugin got no `rules` option: `analyze()`
+ * then resolves the global layer from `svelte-vitals.config.*` instead
+ * (per-field precedence, `analyze.ts`), and that file can only be read
+ * asynchronously — after this synchronous construction-time check. A config file
+ * widening `max` while an override narrows `min` is a valid combination, so
+ * judging the override against the built-in default alone would hard-fail a
+ * `vite build` over a config that is correct at run time. The min/max
+ * cross-check is therefore skipped in that case; every other check (unknown id,
+ * unknown key, type, bounds) is unaffected, and `analyze()` still validates the
+ * config file itself through `loadConfigFile`.
  */
 function validateOverridesOption(
   overrides: RuleOverride[] | undefined,
   rules: Record<string, RuleSetting> | undefined
 ): void {
   if (!overrides) return;
+  const rulesLayerKnown = rules !== undefined;
   const baseConfig = { ...defaultConfig, rules: rules ?? {} };
   const errors: string[] = [];
   overrides.forEach((entry, i) => {
@@ -143,22 +154,16 @@ function validateOverridesOption(
       );
     }
     for (const [key, setting] of Object.entries(entryRules)) {
-      if (typeof setting === 'string' || setting.options === undefined) continue;
       const isCategory = CATEGORIES.includes(key as Category);
-      if (isCategory) {
-        errors.push(`overrides[${i}].rules.${key}: options are not allowed on a category key.`);
-        continue;
-      }
-      const baseline: RuleOptions = resolveRuleOptions(key, ruleOptionsSpec(key), baseConfig);
-      const setsMin = 'min' in setting.options;
-      const setsMax = 'max' in setting.options;
-      const skipRangeCheck =
-        (setsMin && !setsMax && otherOverrideNarrowsOppositeSide(overrides, i, key, 'max')) ||
-        (setsMax && !setsMin && otherOverrideNarrowsOppositeSide(overrides, i, key, 'min'));
+      const baseline: RuleOptions | undefined = isCategory
+        ? undefined
+        : resolveRuleOptions(key, ruleOptionsSpec(key), baseConfig);
       errors.push(
-        ...validateRuleOptions(key, ruleOptionsSpec(key), setting.options, baseline, skipRangeCheck).map(
-          (e) => `overrides[${i}]: ${e}`
-        )
+        ...validateRuleSetting(`overrides[${i}].rules.${key}`, key, setting, ruleOptionsSpec(key), {
+          allowOptions: !isCategory,
+          ...(baseline !== undefined ? { baseline } : {}),
+          skipRangeCheck: !rulesLayerKnown || shouldSkipRangeCheck(overrides, i, key, setting)
+        })
       );
     }
   });

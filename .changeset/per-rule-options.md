@@ -20,9 +20,17 @@ And the `RuleSetting` union has gained a member, which can make an exhaustive `s
 in external TypeScript code non-exhaustive.
 
 The `svelteVitals()` Vite plugin's `rules` and `overrides` options get the same validation as
-the config file: an unknown rule id, an unknown option key, or an option value outside its
-declared type/bounds is now a fatal, synchronous error at plugin construction, instead of being
-silently ignored (an unknown id) or silently dropped (an invalid option).
+the config file — both funnel through core's `validateRuleSetting`: an unknown rule id, an
+invalid `severity`, an unrecognized key in the object form, an unknown option key, or an option
+value outside its declared type/bounds is now a fatal, synchronous error at plugin construction,
+instead of being silently ignored (an unknown id) or silently dropped (an invalid option). A
+`vite.config.js` gets no help from TypeScript, so a typo there previously left the rule at its
+built-in severity with no signal at all.
+
+`explain_rule` (`@svelte-vitals/mcp`) now reports a rule's configurable options — name, kind,
+default, bounds, and whether the value replaces or extends the default — in both its text and
+`structuredContent`. An agent that reads a finding as a threshold disagreement rather than a
+defect can name the knob without leaving the tool loop.
 
 In an `overrides[].rules` entry, a rule-id key and a category key are resolved independently:
 a rule-id key that carries no `severity` (an options-only object, e.g.

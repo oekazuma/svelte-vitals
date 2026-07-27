@@ -220,4 +220,48 @@ describe('performance/preconnect preconnect third-party origin', () => {
     const out = applyOverrides(rs, defineConfig(cfg));
     expect(out.find((r) => r.detection.value === 'absent')?.severity).toBe('warning');
   });
+
+  it('counts a preconnect owned by a file the origins override does not match', async () => {
+    // Options are resolved per tag, so two tags in one head can resolve different
+    // `origins`. Coverage must not be gated on that: the preconnect lives in a shared
+    // head component the `files:` glob does not match, while the reference it covers
+    // lives in a route file the glob does match. Recording coverage inside the gate
+    // reported the origin as un-preconnected even though the hint was right there.
+    const reference = { ...link('stylesheet', 'https://cdn.example.com/app.css'), file: 'src/routes/+page.svelte' };
+    const hint = { ...link('preconnect', 'https://cdn.example.com'), file: 'src/lib/Head.svelte' };
+    const cfg = {
+      overrides: [
+        { files: 'src/routes/**', rules: { 'performance/preconnect': { options: { origins: ['cdn.example.com'] } } } }
+      ]
+    };
+    const rs = await performancePreconnect.check(cfgHeadsCtx(head('rendered', [hint, reference]), cfg));
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(1);
+    expect(rs[0]!.message).toBe('Third-party origins are preconnected');
+  });
+
+  it('still flags the origin when only the reference exists in that split-file shape', async () => {
+    // The mirror of the case above: without the hint, the same config must still fail —
+    // proving the test above passes because coverage was found, not because the origin
+    // dropped out of scope.
+    const reference = { ...link('stylesheet', 'https://cdn.example.com/app.css'), file: 'src/routes/+page.svelte' };
+    const cfg = {
+      overrides: [
+        { files: 'src/routes/**', rules: { 'performance/preconnect': { options: { origins: ['cdn.example.com'] } } } }
+      ]
+    };
+    const rs = await performancePreconnect.check(cfgHeadsCtx(head('rendered', [reference]), cfg));
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.message).toContain('cdn.example.com');
+  });
+
+  it('does not treat a preconnect for an out-of-scope origin as a reference', async () => {
+    // A preconnect is never itself a reference: a hint for an origin on no list at all
+    // must stay invisible to the rule (no finding either way), not become a `referenced`
+    // entry now that coverage is recorded before the origins gate.
+    const rs = await performancePreconnect.check(
+      headsCtx(head('rendered', [link('preconnect', 'https://other.example.com')]))
+    );
+    expect(rs).toHaveLength(0);
+  });
 });
