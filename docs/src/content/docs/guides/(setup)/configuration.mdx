@@ -159,9 +159,11 @@ knowing which rule they belong to.
 
 How a value from multiple layers combines — built-in default, then `rules`, then each matching
 `overrides` entry in order — depends on the option itself: an **integer** option replaces, so the
-last one set wins. A **list** or **map** option instead **adds** to the built-in set, never
-replacing it, so a project keeps benefiting from new built-in entries in later svelte-vitals
-releases instead of being frozen at the list as of the day it wrote its config.
+last one set wins. A **list** or **map** option instead **adds** to the built-in set rather than
+discarding it, so a project keeps benefiting from new built-in entries in later svelte-vitals
+releases instead of being frozen at the list as of the day it wrote its config. For a **map**,
+a key that already exists in the built-in set keeps that entry but takes your value — which is how
+you reword the built-in advice for one package instead of only adding new ones.
 
 Only some rules take options — passing `options` to a rule that doesn't accept any is a fatal
 config error, same as an unknown option name or a value of the wrong type. The rules below do;

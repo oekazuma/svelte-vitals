@@ -43,10 +43,22 @@ describe('explain_rule tool', () => {
     expect(info.options?.map((o) => o.name)).toEqual(['min', 'max']);
   });
 
-  it('states that a collection option adds to the built-in list', async () => {
+  it('states that a list option appends to the built-in entries', async () => {
+    const res = await handleExplainRule({ id: 'performance/preconnect' });
+    expect(res.content[0]!.text).toContain('origins (string-list, default ["fonts.googleapis.com"');
+    expect(res.content[0]!.text).toContain('added to the default entries, never replaces them');
+  });
+
+  it('states that a map option overrides the value of a built-in key', async () => {
+    // `{ ...defaults, ...configured }` — so `{ lodash: 'my advice' }` rewords the
+    // built-in advice for lodash rather than only extending the list. Saying "never
+    // replaces" here would be wrong, and an agent acting on it would tell the user
+    // their reworded advice cannot take effect.
     const res = await handleExplainRule({ id: 'performance/heavy-import' });
-    expect(res.content[0]!.text).toContain('packages (string-map, default {');
-    expect(res.content[0]!.text).toContain('added to the default, never replaces it');
+    const text = res.content[0]!.text;
+    expect(text).toContain('packages (string-map, default {');
+    expect(text).toContain('a new key is added, a built-in key has its value overridden');
+    expect(text).not.toContain('never replaces');
   });
 
   it('does not match a rule id with the wrong case (exact match only)', async () => {

@@ -12,7 +12,8 @@ built-in lists, globally or per path via `overrides`.
 Configurable rules: `architecture/prop-count` and `architecture/component-size` (`max`),
 `seo/title-length` and `seo/description-length` (`min`, `max`), `performance/heavy-import`
 (`packages`), `performance/preconnect` (`origins`). List and map options are **added** to the
-built-in set, never replacing it, so new built-in entries keep reaching every project.
+built-in set rather than discarding it, so new built-in entries keep reaching every project; in a
+map, a key that already exists built-in keeps its entry and takes the configured value.
 
 Two notes for existing setups. Values in the config file's `rules` map are now validated —
 an invalid severity that was previously passed through unchecked is now a fatal config error.

@@ -132,8 +132,15 @@ export type RuleOptionsSpec = Record<string, RuleOptionSpec>;
 ```
 
 **Merge semantics are a property of `kind`, not of the rule.** `integer` replaces; `string-list`
-and `string-map` add to the built-in default. No rule writes merge code of its own, so the
-semantics cannot drift between rules.
+appends; `string-map` is spread over the built-in default (`{ ...defaults, ...configured }`), so a
+new key is added and a key that already exists built-in keeps its entry but takes the configured
+value. No rule writes merge code of its own, so the semantics cannot drift between rules.
+
+That per-key override is a feature, not a leak in the addition-only stance below: the built-in
+entry stays on the list and only its advice string changes, which is how a project reworks the
+remediation text for one package. Anything user-facing that describes these semantics — the rule
+docs, the configuration guide, `explain_rule` — must say this rather than the shorter "never
+replaces", which is true of the _set_ but false of a duplicate key's _value_.
 
 Addition is the only list semantics offered — no replace, no per-entry exclusion. The reason is
 that when svelte-vitals learns about a new heavyweight package, every user should benefit

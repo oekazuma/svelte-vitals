@@ -33,7 +33,9 @@ Importing a large, non-tree-shakeable package pulls its whole weight into the bu
 
 Configured packages are **added to** the built-in list, not a replacement for it — a project keeps
 flagging `lodash` and `moment` even after adding its own entries, and picks up any package the
-built-in list grows to cover in a later svelte-vitals release.
+built-in list grows to cover in a later svelte-vitals release. Reusing a built-in key keeps the
+package on the list but replaces its advice, so `{ lodash: 'use our own helpers' }` rewords the
+finding instead of adding a second entry.
 
 ```js
 // svelte-vitals.config.js
