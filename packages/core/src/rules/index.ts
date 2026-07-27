@@ -1,5 +1,6 @@
 import type { Category, Fix, Severity } from '../types.js';
 import { docsUrlFor, type Rule } from '../rule.js';
+import type { RuleOptionSpec, RuleOptionsSpec } from '../rule-options.js';
 import { seoTitlePresence } from './seo/title-presence.js';
 import { seoDescriptionPresence } from './seo/description-presence.js';
 import { seoCanonicalUrl } from './seo/canonical-url.js';
@@ -205,6 +206,16 @@ export {
   performanceStateRaw
 };
 
+/** One configurable option of a rule, flattened for explain_rule's consumers. */
+export interface RuleOptionInfo {
+  name: string;
+  /** `integer` replaces the default; `string-list`/`string-map` are ADDED to it. */
+  kind: RuleOptionSpec['kind'];
+  default: number | readonly string[] | Readonly<Record<string, string>>;
+  min?: number;
+  max?: number;
+}
+
 export interface RuleInfo {
   id: string;
   title: string;
@@ -213,6 +224,22 @@ export interface RuleInfo {
   rationale: string;
   docsUrl: string;
   fix?: Fix;
+  /**
+   * The rule's configurable options, omitted when it takes none. An agent that
+   * judges a finding to be a threshold disagreement rather than a defect needs
+   * to know the knob exists and what it is called before it can suggest one.
+   */
+  options?: RuleOptionInfo[];
+}
+
+function optionInfos(spec: RuleOptionsSpec): RuleOptionInfo[] {
+  return Object.entries(spec).map(([name, s]) => ({
+    name,
+    kind: s.kind,
+    default: s.default,
+    ...(s.kind === 'integer' && s.min !== undefined ? { min: s.min } : {}),
+    ...(s.kind === 'integer' && s.max !== undefined ? { max: s.max } : {})
+  }));
 }
 
 /** Look up a rule's static metadata for the MCP explain_rule tool (issue #24). Rule ids are matched exactly (case-sensitive, e.g. "seo/ssr-disabled"). */
@@ -226,6 +253,7 @@ export function explainRule(id: string): RuleInfo | undefined {
     severity: rule.severity,
     rationale: rule.rationale,
     docsUrl: docsUrlFor(rule.id),
-    ...(rule.fix ? { fix: rule.fix } : {})
+    ...(rule.fix ? { fix: rule.fix } : {}),
+    ...(rule.options ? { options: optionInfos(rule.options) } : {})
   };
 }

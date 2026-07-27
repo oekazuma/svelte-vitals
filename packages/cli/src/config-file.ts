@@ -1,8 +1,15 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import type { Category, Config, RuleOverride } from '@svelte-vitals/core';
-import { findUnknownRuleIds, knownRuleIds } from './rules-config.js';
+import type { Category, Config, RuleOptions, RuleOverride } from '@svelte-vitals/core';
+import {
+  CATEGORIES,
+  defaultConfig,
+  resolveRuleOptions,
+  shouldSkipRangeCheck,
+  validateRuleSetting
+} from '@svelte-vitals/core';
+import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
 
 /**
  * Loads `svelte-vitals.config.{mjs,js,ts}` from the analyzed directory (design
@@ -19,11 +26,9 @@ import { findUnknownRuleIds, knownRuleIds } from './rules-config.js';
  */
 export const CONFIG_FILENAMES = ['svelte-vitals.config.mjs', 'svelte-vitals.config.js', 'svelte-vitals.config.ts'];
 
-const CATEGORIES: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
 const TREAT_DYNAMIC_AS_VALUES = ['pass', 'warn', 'fail'];
 const FAIL_ON_VALUES = ['critical', 'warning', 'info'];
 const KNOWN_TOP_LEVEL_KEYS = new Set(['treatDynamicAs', 'metaComponents', 'rules', 'failOn', 'weights', 'overrides']);
-const RULE_SETTING_VALUES = ['off', 'critical', 'warning', 'info'];
 
 /** Whether `value` is a plain object (not null, not an array) — usable with Object.keys/entries. */
 function isPlainObject(value: unknown): value is Record<string, unknown> {
@@ -47,11 +52,45 @@ export interface LoadedConfigFile {
 }
 
 /**
+ * Validate one rule setting — the bare severity string or the object form — and
+ * throw on the first problem, prefixed with the config file's path. The rules
+ * themselves live in core's `validateRuleSetting`, shared with the Vite plugin's
+ * `rules`/`overrides` options so a config file and the equivalent plugin option
+ * can't be judged differently. Everything is fatal, on the same reasoning as
+ * unknown rule ids — a typo that silently leaves the config inert is the failure
+ * being prevented.
+ *
+ * `baseline`, when given, is the already-resolved options this setting's
+ * `options` would be merged onto at run time — the global `rules[id].options`
+ * layer, for a setting that lives in `overrides[].rules` (design 2026-07-26
+ * review, Finding A). Omitted for the global `rules` layer itself, so its
+ * min/max cross-check falls back to the rule's own built-in default.
+ */
+function validateSetting(
+  path: string,
+  where: string,
+  key: string,
+  setting: unknown,
+  allowOptions: boolean,
+  baseline?: RuleOptions,
+  skipRangeCheck?: boolean
+): void {
+  const errors = validateRuleSetting(`${where}.${key}`, key, setting, ruleOptionsSpec(key), {
+    allowOptions,
+    ...(baseline !== undefined ? { baseline } : {}),
+    ...(skipRangeCheck !== undefined ? { skipRangeCheck } : {})
+  });
+  if (errors.length > 0) throw new Error(`${path}: ${errors.join(' ')}`);
+}
+
+/**
  * Validate a config file's default export (design doc §4):
  *
  * - **Fatal (thrown)**: unknown rule ids in `rules` (reuses `findUnknownRuleIds`
  *   / `knownRuleIds`, same message shape as the `--rules`/`--ignore` error);
- *   unknown category keys or negative/non-finite values in `weights`.
+ *   unknown category keys or negative/non-finite values in `weights`; an
+ *   invalid rule setting (string or object form) or invalid rule options,
+ *   in both `rules` and `overrides[].rules` (see `validateSetting`).
  * - **Warning (returned, field dropped)**: invalid enum values for
  *   `treatDynamicAs` / `failOn`; unknown top-level keys (forward-compatibility).
  */
@@ -102,6 +141,7 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
         `${path}: unknown rule id(s) in rules: ${unknown.join(', ')}. Known rule ids: ${knownRuleIds().join(', ')}`
       );
     }
+    for (const [key, setting] of Object.entries(rules)) validateSetting(path, 'rules', key, setting, true);
     config.rules = rules;
   }
 
@@ -115,7 +155,8 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
     const isGlobs = (v: unknown): v is RuleOverride['route'] =>
       isGlob(v) || (Array.isArray(v) && v.length > 0 && v.every(isGlob));
     const overrides: RuleOverride[] = [];
-    raw.overrides.forEach((entry: unknown, i: number) => {
+    const rawOverrides = raw.overrides; // narrowed to an array by the check above
+    rawOverrides.forEach((entry: unknown, i: number) => {
       if (!isPlainObject(entry)) {
         throw new Error(`${path}: overrides[${i}] must be an object with 'route' and/or 'files', and 'rules'.`);
       }
@@ -149,12 +190,22 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
         );
       }
       for (const [key, setting] of Object.entries(entry.rules)) {
-        if (!RULE_SETTING_VALUES.includes(setting as string)) {
-          throw new Error(
-            `${path}: overrides[${i}].rules.${key}: invalid setting '${String(setting)}'; ` +
-              `expected ${RULE_SETTING_VALUES.join('|')}.`
-          );
-        }
+        const isCategory = CATEGORIES.includes(key as Category);
+        // The baseline this override entry's options merge onto at run time: built-in
+        // defaults plus the global `rules[key].options` layer (no other override
+        // entries — which ones apply depends on the target, unknowable here). Category
+        // keys never carry options, so they need no baseline.
+        const baseline = isCategory
+          ? undefined
+          : resolveRuleOptions(key, ruleOptionsSpec(key), { ...defaultConfig, rules: config.rules ?? {} });
+        // If this entry narrows only one side of a min/max range, and some other
+        // overrides[] entry narrows the opposite side, `baseline` above can't be
+        // trusted to judge this entry alone — the shared helper skips the
+        // cross-check rather than risk rejecting a config that is valid at every
+        // target it actually applies to (design 2026-07-26 review, Finding A,
+        // third pass).
+        const skipRangeCheck = shouldSkipRangeCheck(rawOverrides, i, key, setting);
+        validateSetting(path, `overrides[${i}].rules`, key, setting, !isCategory, baseline, skipRangeCheck);
       }
       overrides.push({
         ...(entry.route !== undefined ? { route: entry.route as RuleOverride['route'] } : {}),

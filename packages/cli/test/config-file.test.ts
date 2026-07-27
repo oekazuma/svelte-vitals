@@ -172,6 +172,78 @@ describe('loadConfigFile', () => {
     expect(loaded?.warnings.some((w) => w.includes("unknown config key 'someFutureOption'"))).toBe(true);
   });
 
+  it('accepts the object form with options', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-options-object'));
+    expect(loaded?.config.rules!['architecture/prop-count']).toEqual({
+      severity: 'warning',
+      options: { max: 10 }
+    });
+  });
+
+  it('rejects an unknown option key', async () => {
+    await expect(loadConfigFile(fixture('config-file-options-unknown-key'))).rejects.toThrow(/unknown option 'maxx'/);
+  });
+
+  it('rejects options on a rule that takes none', async () => {
+    await expect(loadConfigFile(fixture('config-file-options-none-allowed'))).rejects.toThrow(/takes no options/);
+  });
+
+  it('accepts an empty options object on a rule that takes none', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-options-empty'));
+    expect(loaded?.config.rules!['seo/charset']).toEqual({ options: {} });
+  });
+
+  it('rejects an out-of-range integer option', async () => {
+    await expect(loadConfigFile(fixture('config-file-options-out-of-range'))).rejects.toThrow(/must be >= 1/);
+  });
+
+  it('rejects a wrongly-typed option', async () => {
+    await expect(loadConfigFile(fixture('config-file-options-wrong-type'))).rejects.toThrow(/must be an integer/);
+  });
+
+  it('rejects an inverted min/max range (Finding 3, 2026-07-26 review)', async () => {
+    await expect(loadConfigFile(fixture('config-file-options-min-max-inverted'))).rejects.toThrow(
+      /min \(100\) must be <= max \(60\)/
+    );
+  });
+
+  it('accepts an override that only narrows one side of an otherwise-valid global range (Finding A, second review)', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-overrides-options-valid-layered-range'));
+    expect(loaded?.config.rules?.['seo/title-length']).toEqual({ options: { min: 100, max: 200 } });
+    expect(loaded?.config.overrides![0]!.rules['seo/title-length']).toEqual({ options: { min: 150 } });
+  });
+
+  it('rejects an override whose RESOLVED range is inverted even though neither layer is inverted alone (Finding A, second review)', async () => {
+    await expect(loadConfigFile(fixture('config-file-overrides-options-resolved-inverted'))).rejects.toThrow(
+      /min \(40\) must be <= max \(35\)/
+    );
+  });
+
+  it('accepts two override entries that jointly widen a range, when validating one against the built-in default alone would falsely invert it (Finding A, third pass)', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-overrides-options-joint-range'));
+    expect(loaded?.config.overrides![0]!.rules['seo/title-length']).toEqual({ options: { max: 200 } });
+    expect(loaded?.config.overrides![1]!.rules['seo/title-length']).toEqual({ options: { min: 100 } });
+  });
+
+  it('rejects an unknown key inside a setting object', async () => {
+    await expect(loadConfigFile(fixture('config-file-setting-unknown-key'))).rejects.toThrow(/unknown key/);
+  });
+
+  it('rejects an invalid severity in the object form', async () => {
+    await expect(loadConfigFile(fixture('config-file-setting-bad-severity'))).rejects.toThrow(/invalid setting/);
+  });
+
+  it('rejects options under a category key in overrides', async () => {
+    await expect(loadConfigFile(fixture('config-file-overrides-options-category'))).rejects.toThrow(
+      /options are not allowed on a category key/
+    );
+  });
+
+  it('accepts options in an override entry', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-overrides-options'));
+    expect(loaded?.config.overrides![0]!.rules['architecture/prop-count']).toEqual({ options: { max: 4 } });
+  });
+
   // Spike finding: this MUST run in a child process. vitest's module runner
   // intercepts and transforms in-process dynamic `import()` calls, so a `.ts`
   // config always loads inside vitest regardless of the host Node's native

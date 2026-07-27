@@ -18,3 +18,16 @@ A very large component is hard to read, test, and reuse, and usually means sever
 ## How to fix
 
 Extract sections into smaller, focused child components (and reusable `.svelte.ts` modules for logic).
+
+## Configuration
+
+| Option | Type    | Default |
+| ------ | ------- | ------: |
+| `max`  | integer |     200 |
+
+```js
+// svelte-vitals.config.js
+export default {
+  rules: { 'architecture/component-size': { options: { max: 300 } } }
+};
+```

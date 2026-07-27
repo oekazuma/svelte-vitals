@@ -21,3 +21,22 @@ description: ページが利用するサードパーティオリジンに precon
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 ```
+
+## 設定
+
+| オプション | 型               | デフォルト                                  |
+| ---------- | ---------------- | ------------------------------------------- |
+| `origins`  | ホスト名のリスト | `fonts.googleapis.com`、`fonts.gstatic.com` |
+
+設定したオリジンは組み込みリストを**置き換えるのではなく追加**します。独自のオリジンを追加した後も
+Google Fonts のオリジンは引き続きチェックされ、以降の svelte-vitals リリースで組み込みリストが
+拡張されればその恩恵も受けられます。
+
+```js
+// svelte-vitals.config.js
+export default {
+  rules: {
+    'performance/preconnect': { options: { origins: ['cdn.example.com'] } }
+  }
+};
+```

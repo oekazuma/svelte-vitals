@@ -1,5 +1,7 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
+import { compileOverrides } from '../../config-apply.js';
+import { listOption, resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
 
 const docsUrl = docsUrlFor('performance/preconnect');
 const recommendation =
@@ -8,6 +10,7 @@ const recommendation =
 // Well-known third-party origins worth a preconnect. Allowlist keeps the rule
 // precise (no guessing which absolute URLs are first- vs third-party).
 const THIRD_PARTY_ORIGINS = new Set(['fonts.googleapis.com', 'fonts.gstatic.com']);
+const OPTIONS: RuleOptionsSpec = { origins: { kind: 'string-list', default: [...THIRD_PARTY_ORIGINS] } };
 
 /**
  * Host of an absolute or protocol-relative URL, lowercased; undefined for a
@@ -38,17 +41,44 @@ export const performancePreconnect: Rule = {
     snippet: '<link rel="preconnect" href="https://fonts.googleapis.com" />',
     lang: 'html'
   },
+  options: OPTIONS,
   async check(ctx: RuleContext): Promise<Result[]> {
     const out: Result[] = [];
+    // Hoisted: compiling every override's globs once, not once per head.
+    const compiled = compileOverrides(ctx.config);
     for (const head of ctx.heads) {
       const referenced = new Map<string, string | undefined>(); // host → referencing file
       const covered = new Set<string>(); // host with preconnect/dns-prefetch
       for (const tag of head.tags) {
         if ((tag.kind !== 'link' && tag.kind !== 'script') || typeof tag.href !== 'string') continue;
         const host = hostOf(tag.href);
-        if (!host || !THIRD_PARTY_ORIGINS.has(host)) continue;
-        if (tag.kind === 'link' && (tag.rel === 'preconnect' || tag.rel === 'dns-prefetch')) covered.add(host);
-        else if (!referenced.has(host)) referenced.set(host, tag.file);
+        if (!host) continue;
+        // Coverage is a fact about the document, not a policy decision — recorded BEFORE
+        // the `origins` gate. Options are resolved per tag (below), so two tags in one
+        // head can resolve different `origins`: a files:-scoped override matching the
+        // route file but not the layout file that owns the preconnect would otherwise
+        // leave the hint unrecorded and report the origin as un-preconnected, a false
+        // positive. Gating only the *reference* side keeps the two sides in agreement
+        // whatever each tag resolves.
+        if (tag.kind === 'link' && (tag.rel === 'preconnect' || tag.rel === 'dns-prefetch')) {
+          covered.add(host);
+          continue;
+        }
+        // Resolved per tag, keyed on the same file expression the resulting finding's
+        // `location` uses below — a tag inherited from a layout carries its own `file`,
+        // distinct from head.file, and a files:-scoped option override keyed to that
+        // layout file must reach it (design 2026-07-26 Finding 1). `origins` is
+        // addition-only (never narrowed by an override — design §"Option specs"), so
+        // resolving per tag can only ever widen which hosts are in scope.
+        const o = resolveRuleOptions(
+          'performance/preconnect',
+          OPTIONS,
+          ctx.config,
+          { route: head.route, file: tag.file ?? head.file },
+          compiled
+        );
+        if (!listOption(o, 'origins').includes(host)) continue;
+        if (!referenced.has(host)) referenced.set(host, tag.file);
       }
       if (referenced.size === 0) continue; // no third-party origin referenced → not applicable
       const missing = [...referenced].filter(([host]) => !covered.has(host));

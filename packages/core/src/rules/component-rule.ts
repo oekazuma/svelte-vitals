@@ -1,6 +1,8 @@
-import type { Category, Fix, Result, Severity } from '../types.js';
+import type { Category, Fix, Result, RuleOptions, Severity } from '../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../rule.js';
 import type { ComponentFacts } from '../component.js';
+import { compileOverrides } from '../config-apply.js';
+import { resolveRuleOptions, type RuleOptionsSpec } from '../rule-options.js';
 
 const PENALIZED = { presence: 'none', value: 'absent' } as const;
 const PASS = { presence: 'own', value: 'static' } as const;
@@ -23,14 +25,17 @@ export interface ComponentRuleOptions {
   severity?: Severity;
   /** Pass message / category label. */
   label: string;
-  recommendation: string;
+  /** Static text, or a function of the resolved options when it quotes a threshold. */
+  recommendation: string | ((o: RuleOptions) => string);
   rationale: string;
+  /** Configurable options for this rule; absent means the rule takes none. */
+  options?: RuleOptionsSpec;
   /** Agent-actionable remediation attached to the rule and each penalized finding. */
   fix?: Fix;
   /** Whether this component carries the signal at all (no signal → emit nothing for the file). */
-  applies: (c: ComponentFacts) => boolean;
+  applies: (c: ComponentFacts, o: RuleOptions) => boolean;
   /** The offending occurrences in a component (empty → the file passes). */
-  bad: (c: ComponentFacts) => ComponentIssue[];
+  bad: (c: ComponentFacts, o: RuleOptions) => ComponentIssue[];
 }
 
 /** Whether `ruleId`'s finding on `line` is silenced by an inline directive on this component. */
@@ -54,11 +59,16 @@ export function componentRule(opts: ComponentRuleOptions): Rule {
     scope: 'component',
     rationale: opts.rationale,
     ...(opts.fix ? { fix: opts.fix } : {}),
+    ...(opts.options ? { options: opts.options } : {}),
     async check(ctx: RuleContext): Promise<Result[]> {
       const out: Result[] = [];
+      // Hoisted: compiling every override's globs once, not once per component.
+      const compiled = compileOverrides(ctx.config);
       for (const c of ctx.components ?? []) {
-        if (!opts.applies(c)) continue; // no signal in this file → neither penalize nor seed
-        const bad = opts.bad(c).filter((b) => !(b.line > 0 && isSuppressed(c, opts.id, b.line)));
+        const o = resolveRuleOptions(opts.id, opts.options, ctx.config, { route: c.file, file: c.file }, compiled);
+        const recommendation = typeof opts.recommendation === 'function' ? opts.recommendation(o) : opts.recommendation;
+        if (!opts.applies(c, o)) continue; // no signal in this file → neither penalize nor seed
+        const bad = opts.bad(c, o).filter((b) => !(b.line > 0 && isSuppressed(c, opts.id, b.line)));
         if (bad.length === 0) {
           out.push({
             id: opts.id,
@@ -67,7 +77,7 @@ export function componentRule(opts: ComponentRuleOptions): Rule {
             detection: PASS,
             route: c.file,
             message: opts.label,
-            recommendation: opts.recommendation,
+            recommendation,
             docsUrl
           });
           continue;
@@ -82,7 +92,7 @@ export function componentRule(opts: ComponentRuleOptions): Rule {
             location: c.file,
             ...(b.line > 0 ? { line: b.line } : {}),
             message: b.message,
-            recommendation: opts.recommendation,
+            recommendation,
             docsUrl,
             ...(opts.fix ? { fix: { ...opts.fix } } : {})
           });

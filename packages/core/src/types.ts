@@ -87,11 +87,33 @@ export type Scope = 'route' | 'project' | 'component';
 
 export type Category = 'seo' | 'performance' | 'correctness' | 'security' | 'architecture';
 
+/**
+ * Every category, as a runtime list — for validating a user-supplied category
+ * name and naming the known ones in the error. One definition so a category
+ * added to `Category` can't be accepted by one validator and rejected by
+ * another. Not an ordering: reporters keep their own display order.
+ */
+export const CATEGORIES: readonly Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
+
 /** How dynamic (`{data.title}`) values are treated by scoring (design §4, §12). */
 export type TreatDynamicAs = 'pass' | 'warn' | 'fail';
 
-/** Per-rule override: disable, or change severity. */
-export type RuleSetting = 'off' | Severity;
+/** Resolved option values handed to a rule at check time. */
+export type RuleOptions = Record<string, unknown>;
+
+/**
+ * Object form of a rule setting. `severity` omitted keeps the rule's built-in
+ * severity — the common case when only a threshold is being moved.
+ * `{ severity: 'off', … }` disables the rule and any `options` beside it are
+ * inert (equivalent to the bare `'off'` string, not an error).
+ */
+export interface RuleSettingObject {
+  severity?: Severity | 'off';
+  options?: RuleOptions;
+}
+
+/** Per-rule override: disable, change severity, and/or set options. */
+export type RuleSetting = 'off' | Severity | RuleSettingObject;
 
 /**
  * Scoped rule override (design 2026-07-18), applied to results after analysis.

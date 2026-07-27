@@ -3,11 +3,11 @@ import { architectureComponentSize, architecturePropCount } from '../src/index.j
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
+import type { Result } from '../src/index.js';
 
 const config = defineConfig({});
 const base = { heads: [], project: defaultProject, config };
-const fails = (rs: { detection: { presence: string; value: string } }[]) =>
-  rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
+const fails = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 const ctx = (components: ComponentFacts[]): RuleContext => ({ components, ...base });
 const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   file: 'src/lib/C.svelte',
@@ -91,5 +91,59 @@ describe('architecture/prop-count prop count', () => {
   });
   it('emits nothing for a component with no countable props', async () => {
     expect(await architecturePropCount.check(ctx([comp({ propCount: 0 })]))).toHaveLength(0);
+  });
+});
+
+describe('architecture rule options', () => {
+  const ctxWith = (cfg: Parameters<typeof defineConfig>[0], components: ComponentFacts[]): RuleContext => ({
+    components,
+    heads: [],
+    project: defaultProject,
+    config: defineConfig(cfg)
+  });
+
+  it('pins the built-in prop-count threshold', async () => {
+    expect(fails(await architecturePropCount.check(ctx([comp({ propCount: 6 })])))).toHaveLength(0);
+    expect(fails(await architecturePropCount.check(ctx([comp({ propCount: 7 })])))).toHaveLength(1);
+  });
+  it('pins the built-in component-size threshold', async () => {
+    expect(fails(await architectureComponentSize.check(ctx([comp({ loc: 200 })])))).toHaveLength(0);
+    expect(fails(await architectureComponentSize.check(ctx([comp({ loc: 201 })])))).toHaveLength(1);
+  });
+  it('honours a configured prop-count max', async () => {
+    const cfg = { rules: { 'architecture/prop-count': { options: { max: 10 } } } };
+    expect(fails(await architecturePropCount.check(ctxWith(cfg, [comp({ propCount: 8 })])))).toHaveLength(0);
+    expect(fails(await architecturePropCount.check(ctxWith(cfg, [comp({ propCount: 11 })])))).toHaveLength(1);
+  });
+  it('honours a per-path prop-count max', async () => {
+    const cfg = {
+      rules: { 'architecture/prop-count': { options: { max: 10 } } },
+      overrides: [{ files: 'src/lib/**', rules: { 'architecture/prop-count': { options: { max: 4 } } } }]
+    };
+    const lib = comp({ file: 'src/lib/Button.svelte', propCount: 6 });
+    const route = comp({ file: 'src/routes/+page.svelte', propCount: 6 });
+    expect(fails(await architecturePropCount.check(ctxWith(cfg, [lib])))).toHaveLength(1);
+    expect(fails(await architecturePropCount.check(ctxWith(cfg, [route])))).toHaveLength(0);
+  });
+  it('reports the configured threshold in the message and recommendation', async () => {
+    const cfg = { rules: { 'architecture/prop-count': { options: { max: 10 } } } };
+    const rs = fails(await architecturePropCount.check(ctxWith(cfg, [comp({ propCount: 11 })])));
+    expect(rs[0]!.message).toContain('over 10');
+    expect(rs[0]!.recommendation).toContain('10');
+  });
+
+  it('honours a configured component-size max', async () => {
+    const cfg = { rules: { 'architecture/component-size': { options: { max: 400 } } } };
+    // A regression that ignored the resolved `o.max` and kept using the built-in
+    // MAX_LOC (200) constant would flag this pass case and pass this fail case,
+    // so both sides of the boundary must be asserted against the configured value.
+    expect(fails(await architectureComponentSize.check(ctxWith(cfg, [comp({ loc: 400 })])))).toHaveLength(0);
+    expect(fails(await architectureComponentSize.check(ctxWith(cfg, [comp({ loc: 401 })])))).toHaveLength(1);
+  });
+  it('reports the configured component-size threshold in the message and recommendation', async () => {
+    const cfg = { rules: { 'architecture/component-size': { options: { max: 400 } } } };
+    const rs = fails(await architectureComponentSize.check(ctxWith(cfg, [comp({ loc: 401 })])));
+    expect(rs[0]!.message).toContain('over 400');
+    expect(rs[0]!.recommendation).toContain('400');
   });
 });
