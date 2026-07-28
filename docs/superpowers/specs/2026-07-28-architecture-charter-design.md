@@ -223,10 +223,22 @@ the flat kinds already available.
 | **M6** Nesting cap for component units                                    | flatten beyond N levels                                                         | **Yes** — `integer`                         |
 | **M7** Dynamic route segments must carry a matcher                        | `[id=integer]`, with exempt subtrees                                            | **Yes** — `string-list`                     |
 | **M8** Test placement and naming                                          | tests adjacent in `tests/`; `.test.svelte.ts` vs `.svelte.test.ts`              | **Partly** — placement yes, the taxonomy no |
+| **M9** A path written in prose must resolve                               | doc and style-guide links inside component comments; a renamed unit's old name  | **Yes** — `string-list` of link shapes      |
 
-Six of the eight need no new option kind. So the sequencing claim in `2026-07-26` was **not** wrong in
+Seven of the nine need no new option kind. So the sequencing claim in `2026-07-26` was **not** wrong in
 the way the paragraph above first suggested: per-rule options did unblock L3, for every convention
 expressible as a flat list or map. Only M4 and part of M8 wait on the second iteration.
+
+M9 was added 2026-07-28 from field evidence rather than from reading the convention document, and its
+evidence is the strongest of the nine. Renaming directories to comply with a convention left **26
+style-guide links inside component comments pointing at paths that no longer existed**, all returning
+404, plus three stale old names in prose. None of the project's existing checks — the filename linter,
+`svelte-check`, the test runner, the formatter — can see a path that only exists inside a comment, so
+every one of them was found by human review. The mechanism is a natural consumer of the same
+file-inventory fact M1/M2/M3 need: extract path-shaped strings from comments and prose, resolve them,
+and report the ones the inventory cannot account for. Its hard part is the precision gate — never
+mistaking an arbitrary string for a path reference — which is why the shapes to treat as links must be
+declared rather than guessed.
 
 **M1, M2 and M3 share one prerequisite**: they must see files that are not Svelte components.
 Collection currently globs `src/**/*.svelte{,.ts,.js}` (`packages/core/src/component-collect.ts`), so a
@@ -250,16 +262,26 @@ from the existing `imports` plus `resolveRepoLocalPath`, M7 from route informati
 | 10  | Component filename convention                                         | L3    | **Blocked on a prerequisite**               | Constraint 2 — needs an enum option kind.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | 11  | `$effect` / `$state` counts per component                             | L0    | **Reject**                                  | No evidence that the count correlates with a problem, and no prior work to supply a reference point meeting L0's evidence standard.                                                                                                                                                                                                                                                                                                                                                                                                |
 
+| 12 | **M9** — a path written in prose must resolve | L3 | **Admit** | Added 2026-07-28 on field evidence: 26 style-guide links inside component comments went 404 after a convention-driven rename, invisible to every existing check and caught only by human review. Consumes the same file-inventory fact as M1/M2/M3. The link shapes must be declared, not guessed — that is the precision gate's whole weight here. |
+
 ## Sequencing
 
-1. **#8 / M5 — private-scope import (L3).** No new facts, no new option kinds. Gives Architecture its
-   first between-files axis, and encodes the principle the rest of the convention family follows from.
-2. **#1 — route-component import (L1).** Also needs nothing new; the default-on counterpart of #8.
-3. **#2 — import fan-out (L0).** Corpus measurement only; the fact already exists.
-4. **A file-inventory fact** → then **M1 / M2 / M3** together, which all depend on it.
-5. **#3 / #4** — each gated on one new fact (a parser depth walk; a packaged-project `Project` fact).
-6. **Rule options, second iteration** (enum + structured-list kinds) → then **M4** and the rest of M8,
-   plus candidates #9 and #10.
+1. **#8 / M5 — private-scope import (L3).** ✅ shipped 2026-07-28. No new facts, no new option kinds.
+   Gave Architecture its first between-files axis, and encodes the principle the rest of the convention
+   family follows from.
+2. **A file-inventory fact + M1** (`architecture/unit-entry-file`, its own spec) — the fact M1/M2/M3
+   all depend on, delivered with the first rule that uses it.
+3. **M2 / M3** on the same fact.
+4. **#1 — route-component import (L1).** Needs nothing new; the default-on counterpart of #8.
+5. **M9** — the highest-evidence mechanism, and the same fact again.
+6. **#2 — import fan-out (L0).** Corpus measurement only; the fact already exists.
+7. **#3 / #4** — each gated on one new fact (a parser depth walk; a packaged-project `Project` fact).
+8. **Rule options, second iteration** (enum + structured-list kinds) → then **M4** and the rest of M8,
+   plus verdict rows 9 and 10 (declared import boundaries, component filename convention). Note the
+   verdict table's row numbers and the mechanism labels are separate sequences — row 9 is not M9.
+
+M9 sits ahead of the L0 metric work despite arriving last, because its evidence is field-measured harm
+rather than a convention read off a document.
 
 Each step is its own spec and plan.
 

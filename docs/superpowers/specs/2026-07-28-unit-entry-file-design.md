@@ -50,8 +50,14 @@ declares its units.
 
 ## Configuration
 
-Two options, both `kind: 'string-map'`, both defaulting to `{}`. A project that sets neither gets no
-output at all.
+Three options. Two declare what a unit is; the third declares what is never one. A project that
+sets none of them gets no output at all.
+
+| Option            | Kind          | Default | Meaning                                                               |
+| ----------------- | ------------- | ------- | --------------------------------------------------------------------- |
+| `units`           | `string-map`  | `{}`    | Directory glob → the entry file's extension. Identified by **path**   |
+| `pascalCaseUnits` | `string-map`  | `{}`    | Root glob → the entry file's extension. Identified by **casing**      |
+| `exclude`         | `string-list` | `[]`    | Directory globs that are never units, pruned with their whole subtree |
 
 ```js
 // svelte-vitals.config.js
@@ -59,22 +65,20 @@ export default {
   rules: {
     'architecture/unit-entry-file': {
       options: {
-        // Identified by PATH: directory glob → the entry file's extension
         units: {
-          'src/**/functions/*': '.ts',
-          'src/**/stores/*': '.svelte.ts',
-          'src/lib/api/*/*': '.ts'
+          'src/lib/api/**/*': '.ts', // nested helper units too, not just two levels
+          'src/**/functions/**/*': '.ts',
+          'src/**/stores/*': '.svelte.ts'
         },
-        // Identified by CASING: root glob → the entry file's extension.
-        // Every PascalCase directory under a matching root is a unit.
-        pascalCaseUnits: { 'src/**': '.svelte' }
+        pascalCaseUnits: { 'src/**': '.svelte' },
+        exclude: ['**/tests', '**/styleGuide', '**/types', '**/e2e', '**/parts', '**/functions', '**/stores']
       }
     }
   }
 };
 ```
 
-### Why two options rather than one
+### Why two declarations rather than one
 
 The two kinds of unit are identified by genuinely different means, and neither subsumes the other:
 
@@ -88,18 +92,57 @@ Collapsing both into one map would mean inferring the identification style from 
 implicit, and wrong the first time a key is ambiguous. Two options keep each declaration's meaning
 on its face.
 
-Both are `string-map`, so no new option kind is needed: this ships without waiting on the second
-rule-options iteration. Their merge semantics are additive with per-key override, so an `overrides`
-entry can add or re-point a declaration per path.
+All three use existing option kinds, so this ships without waiting on the second rule-options
+iteration. Merge semantics are additive — per-key override for the maps, append for the list — so an
+`overrides` entry can add or re-point a declaration per path.
+
+### Why `exclude` exists
+
+`units` alone cannot express a project's real unit set. Measured against a production tree
+(2026-07-28): the two-level glob `src/lib/api/*/*` matched 37 unit directories and **missed two**,
+because that convention nests a helper unit one level deeper inside the unit that owns it. Widening
+to `src/lib/api/**/*` finds those two and then matches 76 directories, of which **37 are `tests/`** —
+producing 37 false positives, since `tests/tests.ts` is not supposed to exist.
+
+So a `units` glob must be able to say what it is _not_. `routeGlobToRegExp` treats everything but
+`*` and `**` as literal, so a negation inside the pattern is unavailable. Two alternatives were
+considered and rejected:
+
+- **Implicitly exempting a set of reserved names** (`tests`, `styleGuide`, `parts`, …). This puts a
+  project's vocabulary inside the rule, which contradicts L3 — the vocabulary is exactly the sort of
+  thing a project declares. It also forbids any project from ever naming a _unit_ `functions`.
+- **Adding negation to `routeGlobToRegExp`.** That compiler is shared with `route:` / `files:`
+  override matching, so changing its semantics would change how every override matches. Too large a
+  blast radius for one rule's need.
+
+`exclude` prunes: a directory is exempt when **it or any ancestor** matches an `exclude` glob, so a
+nested `tests/fixtures/` drops out with its parent. It applies to both identification kinds.
+
+The list a project writes here is the same vocabulary M3 (reserved directory names) will take, so
+the two stay consistent when M3 lands.
+
+The discovery behind this: `pascalCaseUnits` works because casing is a position-independent
+identifier, but **camelCase units are not fully identifiable by position either** — the exclusion is
+what closes the gap.
 
 ### Precedence
 
-1. If any `units` key glob matches the directory, its extension is expected. **When several match,
-   the longest key wins** — the most specific declaration.
-2. Otherwise, if the directory's basename begins `A`–`Z` and any `pascalCaseUnits` key glob matches,
+1. If the directory or any ancestor matches an `exclude` glob, it is never a unit. `exclude` outranks
+   both declarations.
+2. If any `units` key glob matches the directory, its extension is expected. **When several match,
+   the longest key wins** — the most specific declaration. **Among keys of equal length, the
+   lexicographically first wins.**
+3. Otherwise, if the directory's basename begins `A`–`Z` and any `pascalCaseUnits` key glob matches,
    that extension is expected.
-3. **`units` beats `pascalCaseUnits`**: an explicit path declaration outranks a naming convention.
-4. Matching neither leaves the directory unchecked.
+4. **`units` beats `pascalCaseUnits`**: an explicit path declaration outranks a naming convention.
+5. Matching neither leaves the directory unchecked.
+
+The equal-length tie-break is lexicographic rather than declaration order because additive merging
+across config layers (defaults, `rules`, each `overrides` entry) makes key insertion order
+unintuitive. Reporting the tie as a configuration error was considered and rejected: it cannot be
+detected when the config loads, because deciding whether two keys collide needs the file tree, and it
+would add a fourth finding shape. Note the tie-break only changes anything when the two keys carry
+**different** extensions — which is itself a configuration smell, and the rule page says so.
 
 `PascalCase` means **the basename's first character is `A`–`Z`**. That is the whole definition:
 `SeoContents` qualifies; `fairSearch`, `parts` and `[hallId=integer]` do not.
@@ -141,12 +184,13 @@ speculative.
 
 ## Precision — what the rule stays silent about
 
-| Input                                             | Behaviour                     | Why                                                     |
-| ------------------------------------------------- | ----------------------------- | ------------------------------------------------------- |
-| `sourceFiles` absent                              | No results                    | Dev live layer and `--route` mode, as with `components` |
-| Both options empty                                | No results                    | L3 inertness                                            |
-| A directory matched by neither option             | Skipped                       | Not declared                                            |
-| A directory whose basename does not begin `A`–`Z` | Skipped for `pascalCaseUnits` | `parts`, `fairSearch`, `[hallId=integer]`               |
+| Input                                              | Behaviour                     | Why                                                     |
+| -------------------------------------------------- | ----------------------------- | ------------------------------------------------------- |
+| `sourceFiles` absent                               | No results                    | Dev live layer and `--route` mode, as with `components` |
+| `units` and `pascalCaseUnits` both empty           | No results                    | L3 inertness                                            |
+| A directory matched by neither declaration         | Skipped                       | Not declared                                            |
+| A directory whose basename does not begin `A`–`Z`  | Skipped for `pascalCaseUnits` | `parts`, `fairSearch`, `[hallId=integer]`               |
+| A directory or ancestor matching an `exclude` glob | Skipped, subtree included     | Declared never to be a unit                             |
 
 ### The one false positive the convention itself invites
 
@@ -171,23 +215,34 @@ Three kinds.
 
 ### 1. Violation — the entry file is missing
 
-`route` and `location` are **the alphabetically first existing file anywhere under the directory**.
-Not the directory itself: `filterToChangedFiles`
+`route` and `location` are a file, not the directory: `filterToChangedFiles`
 (`packages/cli/src/changed-files.ts`) keeps only results whose `location` is in the changed-file set,
 and a directory never appears in git's changed-file list — so a directory location would make the
 finding invisible in exactly the run meant to catch it. This violation appears when someone creates
 `Card/` containing only `Badge.svelte`, and that file _is_ in the changed set.
 
-The first file _anywhere_ under the directory, rather than directly inside it, because a directory
-may hold only subdirectories. A directory is in the set only because some file sits under it, so
-this always exists.
+Which file: **the lexicographically first file directly inside the directory, falling back to the
+first file anywhere under it.** Preferring a direct child keeps the finding near the directory it is
+about — pointing three levels down at `Card/parts/Foo/Foo.svelte` for a problem with `Card/` reads
+badly. The fallback covers a directory holding only subdirectories; since a directory is in the set
+only because some file sits under it, one always exists.
 
 No `line`. The message names both the directory and the expected file.
 
-`Fix.description`, no `snippet`: "Add an entry file named after this directory, or rename the
-directory to camelCase if it is a grouping." Two remedies are valid, so the text gives the direction
-rather than naming one as canonical — the same latitude the charter's actionability gate grants
-`architecture/component-size`.
+`Fix` carries **no `snippet`**, and the description depends on which declaration matched, because the
+remedies differ. `Rule.fix` holds the generic direction — "make the directory and its entry file
+agree, or stop declaring this directory a unit" — which is what `explain_rule` shows; each finding
+carries the specific one on `Result.fix`:
+
+| Matched by        | `Fix.description`                                                                        |
+| ----------------- | ---------------------------------------------------------------------------------------- |
+| `units`           | Add `{name}{ext}` to this directory, or remove it from the `units` declaration.          |
+| `pascalCaseUnits` | Add the same-named entry file, or rename the directory to camelCase if it is a grouping. |
+
+Splitting them matters: a `units` match like `functions/getFoo/` is **already** camelCase, so telling
+its author to rename it would be nonsense. More than one remedy is valid in both rows, so each gives
+the direction rather than naming one as canonical — the latitude the charter's actionability gate
+grants `architecture/component-size`.
 
 ### 2. Pass — the unit conforms
 
@@ -199,6 +254,20 @@ averages, so a pass keyed on the _directory_ would add one 100 per conforming un
 real finding in the project. Keyed on the entry file, a component unit's pass lands on a `.svelte`
 path that is **already** a score key, so it adds nothing. A function or store unit's `.ts` entry does
 add one key; those are far fewer, and a malformed unit becoming its own scoring subject is defensible.
+
+### `route` means a different file in the two shapes
+
+A violation keys on some file in the unit; a pass keys on the unit's entry file. **Both are real
+paths** — the violation's file comes from the inventory, and the pass's entry file exists by
+definition — and no consumer treats `route` as something to read: the console reporter groups and
+prints it, the agent reporter prefers `location ?? route`, and `computeScore` uses it only as a map
+key. Verified 2026-07-28.
+
+One consequence is worth recording. `findingKey` (`packages/cli/src/baseline.ts`) is
+`id::route::location`, so a violation's baseline identity depends on which file was chosen. **Adding a
+file that sorts earlier inside the directory changes the key, and the unchanged violation looks new.**
+The failure direction is safe — a stale violation resurfaces rather than slipping through — but it is
+a real fragility, shared with any rule whose location is derived rather than intrinsic.
 
 ### 3. Inert declaration — a key matched no directory
 
@@ -229,7 +298,14 @@ intersecting each entry's scope with the directory set. Simplicity wins; the rul
 
 - Each identification kind works independently: `units` only, `pascalCaseUnits` only, both.
 - Precedence: a directory matched by both takes `units`' extension.
-- Longest-key wins when several `units` keys match.
+- Longest-key wins when several `units` keys match; **lexicographically first wins among equal-length
+  keys**.
+- **A `units` key containing `**` reaches a nested unit** one level deeper than a two-level glob would
+  — the case that motivated `exclude`.
+- **A reserved directory swept in by a broad `units` glob is exempted by `exclude`**, and `exclude`
+  prunes the whole subtree (a `tests/fixtures/` under an excluded `tests/` is exempt too).
+- `exclude` outranks both declarations, including a PascalCase directory under a matching root.
+- The two `Fix` descriptions are selected by which declaration matched.
 - PascalCase boundaries: `SeoContents` checked; `fairSearch`, `parts`, `[hallId=integer]` not.
 - Conforming → one pass, `route` = the entry file, no `location`.
 - Missing → one violation, `location` = the first file under the directory, no `line`.
