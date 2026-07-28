@@ -98,14 +98,15 @@ parent" at every level rather than only the outermost one.
 
 ## Precision — what the rule stays silent about
 
-| Input                                                    | Behaviour     | Why                                                                                  |
-| -------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------ |
-| Bare packages, `$app/*`, any unknown alias               | Silent        | Cannot be resolved to a repo-relative path                                           |
-| Custom `svelte.config.js` aliases (`$app-name/lib/…`)    | Silent        | `resolveRepoLocalPath` handles `$lib/` and relative specifiers only — see Follow-ups |
-| A relative specifier whose `..` escapes the repo root    | Silent        | Already `undefined` from the resolver                                                |
-| Imports from `.svelte.ts` / `+page.ts` modules           | Silent        | `KitModuleFacts` carries no general import list — see Follow-ups                     |
-| `scopes` unset or empty                                  | Silent        | L3 inertness                                                                         |
-| A component with no import resolving into a marked scope | Emits nothing | `applies` is false for that file                                                     |
+| Input                                                                    | Behaviour     | Why                                                                                                                                                                             |
+| ------------------------------------------------------------------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bare packages, `$app/*`, any unknown alias                               | Silent        | Cannot be resolved to a repo-relative path                                                                                                                                      |
+| Custom `svelte.config.js` aliases (`$app-name/lib/…`)                    | Silent        | `resolveRepoLocalPath` handles `$lib/` and relative specifiers only — see Follow-ups                                                                                            |
+| A relative specifier whose `..` escapes the repo root                    | Silent        | Already `undefined` from the resolver                                                                                                                                           |
+| Imports written in a `.svelte.ts` / `.svelte.js` module                  | Silent        | Those files are collected as `ComponentFacts`, but `parseModuleFacts` populates only the orphan-effect family — `imports` / `importSpans` stay empty by design — see Follow-ups |
+| Imports written in a Kit module (`+page.ts`, `+server.ts`, `hooks.*.ts`) | Silent        | Outside the component glob entirely, and `KitModuleFacts` carries no general import list — see Follow-ups                                                                       |
+| `scopes` unset or empty                                                  | Silent        | L3 inertness                                                                                                                                                                    |
+| A component with no import resolving into a marked scope                 | Emits nothing | `applies` is false for that file                                                                                                                                                |
 
 Every one of these is a false **negative**. None can produce a false positive, which is what the
 charter's precision gate requires.
@@ -151,8 +152,10 @@ Four changes, no new facts and no new option kinds.
    implementation that could drift.
 3. **`packages/core/src/rules/architecture/private-scope-import.ts`** — a hand-written `Rule`. The
    `componentRule` factory judges one file at a time and cannot express a verdict about a relation
-   between two, so this follows the shape of `performance/preconnect`. Compile the `scopes` globs
-   once per `check`, not once per component.
+   between two, so this follows the shape of `performance/preconnect`. Options resolve per component
+   (an `overrides` entry may declare different scopes for different paths), so the compiled globs are
+   memoised on the resolved list rather than compiled once per `check` — one `check` can legitimately
+   need more than one set, but not one set per file.
 4. **Registration in four places** (AGENTS.md): the import, the `allRules` entry, and the re-export
    block in `packages/core/src/rules/index.ts`, plus the duplicate re-export list in
    `packages/core/src/index.ts`.
@@ -184,8 +187,15 @@ user-facing addition, while a design doc under `docs/superpowers/` is internal a
   precedent in `findKitPathsBaseInSvelteConfig`, and `resolveRepoLocalPath` is the single place that
   would consume it. **To be closed before 1.0** — the charter's out-of-scope entry for module
   resolution now carries that deadline.
-- **Imports from `.svelte.ts` / `+page.ts` modules**, once `KitModuleFacts` carries a general import
-  list.
+- **Imports written in a `.svelte.ts` / `.svelte.js` module.** These files already reach every
+  component rule, so the gap is that `parseModuleFacts` leaves `imports` / `importSpans` empty.
+  Populating them is not a free change: `performance/heavy-import`'s `applies` is
+  `(c) => (c.importSpans ?? c.imports).length > 0`, so it would begin firing on runes modules, which
+  the current emptiness deliberately prevents. Whoever closes this must decide what `heavy-import`
+  should do there rather than change it by accident.
+- **Imports written in a Kit module** (`+page.ts`, `+server.ts`, `hooks.*.ts`), once `KitModuleFacts`
+  carries a general import list. Separate from the item above: those files are outside the component
+  glob altogether.
 
 ## Out of scope
 
