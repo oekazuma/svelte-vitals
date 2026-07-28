@@ -507,6 +507,13 @@ function isPascalCase(name: string): boolean {
   return c >= 65 && c <= 90;
 }
 
+/** A compiled declaration key. `barePrefix` is set only for a `units` key ending in `/**`. */
+interface CompiledKey {
+  key: string;
+  re: RegExp;
+  barePrefix?: string;
+}
+
 /**
  * Every declaration key matching `dir`, and the one that governs it. The longest match wins
  * as the most specific declaration; among equal lengths the lexicographically first wins,
@@ -514,11 +521,20 @@ function isPascalCase(name: string): boolean {
  *
  * `matched` carries ALL of them, not just the winner: a key that matched a directory but lost
  * the tie-break has still done work, and reporting it as an inert declaration would be a lie.
+ *
+ * A key's own `barePrefix` never matches. `routeGlobToRegExp` compiles a trailing `/**` to also
+ * match the bare prefix, so `{ 'src/lib/functions/**': '.ts' }` would otherwise call
+ * `src/lib/functions` a unit and demand a nonsensical `functions/functions.ts`. A `units` key
+ * NAMES unit directories, so "everything under X" must not include X. This does not apply to
+ * `pascalCaseUnits`, whose entries never get a `barePrefix`: there a key names the ROOT under
+ * which the casing convention applies, and whether the root itself is a unit is already decided
+ * by the casing gate at the call site.
  */
-function matchKeys(dir: string, compiled: { key: string; re: RegExp }[]): { matched: string[]; best?: string } {
+function matchKeys(dir: string, compiled: CompiledKey[]): { matched: string[]; best?: string } {
   const matched: string[] = [];
   let best: string | undefined;
-  for (const { key, re } of compiled) {
+  for (const { key, re, barePrefix } of compiled) {
+    if (dir === barePrefix) continue;
     if (!re.test(dir)) continue;
     matched.push(key);
     if (best === undefined || key.length > best.length || (key.length === best.length && key < best)) best = key;
@@ -563,12 +579,16 @@ export const architectureUnitEntryFile: Rule = {
 
     // Compiled patterns are memoised on the resolved declaration, since a project has a
     // handful of distinct declarations and thousands of directories.
-    const cache = new Map<string, { key: string; re: RegExp }[]>();
-    const compile = (globs: string[]): { key: string; re: RegExp }[] => {
-      const cacheKey = JSON.stringify(globs);
+    const cache = new Map<string, CompiledKey[]>();
+    const compile = (globs: string[], bareGuard = false): CompiledKey[] => {
+      const cacheKey = JSON.stringify([globs, bareGuard]);
       let entry = cache.get(cacheKey);
       if (entry === undefined) {
-        entry = globs.map((key) => ({ key, re: routeGlobToRegExp(key) }));
+        entry = globs.map((key) => ({
+          key,
+          re: routeGlobToRegExp(key),
+          ...(bareGuard && key.endsWith('/**') ? { barePrefix: key.slice(0, -3) } : {})
+        }));
         cache.set(cacheKey, entry);
       }
       return entry;
@@ -595,6 +615,15 @@ export const architectureUnitEntryFile: Rule = {
       const pascalUnits = mapOption(o, 'pascalCaseUnits');
       if (Object.keys(units).length === 0 && Object.keys(pascalUnits).length === 0) continue; // inert
 
+      // Matched unconditionally — before `exclude` prunes the directory and before the casing
+      // gate below decides whether `pascalCaseUnits` gets to set `ext`. A key that only ever
+      // matches an excluded directory, or only matches directories a `units` key already won
+      // for, has still done work; bookkeeping it after either gate would falsely call it inert.
+      // `true` on the units side guards a key ending in `/**` from matching its own container.
+      const byPath = matchKeys(dir, compile(Object.keys(units), true));
+      const byCasing = matchKeys(dir, compile(Object.keys(pascalUnits)));
+      for (const k of [...byPath.matched, ...byCasing.matched]) if (globalKeys.has(k)) usedKeys.add(k);
+
       // `exclude` outranks both declarations, and prunes the whole subtree: a directory is
       // exempt when it or any ancestor matches.
       const excluded = compile(listOption(o, 'exclude'));
@@ -607,14 +636,6 @@ export const architectureUnitEntryFile: Rule = {
         ext = byCasing.best === undefined ? undefined : pascalUnits[byCasing.best];
       }
       if (ext === undefined) continue;
-
-      // Matched unconditionally — before `exclude` prunes the directory and before the casing
-      // gate below decides whether `pascalCaseUnits` gets to set `ext`. A key that only ever
-      // matches an excluded directory, or only matches directories a `units` key already won
-      // for, has still done work; bookkeeping it after either gate would falsely call it inert.
-      const byPath = matchKeys(dir, compile(Object.keys(units)));
-      const byCasing = matchKeys(dir, compile(Object.keys(pascalUnits)));
-      for (const k of [...byPath.matched, ...byCasing.matched]) if (globalKeys.has(k)) usedKeys.add(k);
 
       const expected = `${dir}/${baseName(dir)}${ext}`;
       if (fileSet.has(expected)) {
