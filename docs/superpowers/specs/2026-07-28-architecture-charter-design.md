@@ -194,13 +194,39 @@ L1 rules need no new parser work.**
 | Structured pairs (e.g. `{ from, disallow }` boundaries) | **No**                                       |
 | A scalar enum (e.g. `'pascal' \| 'kebab'`)              | **No**                                       |
 
-So the flagship L3 rule — declared import boundaries — **is blocked on a second rule-options
-iteration** adding an enum kind and a structured-list kind. Recorded as a prerequisite spec, not as a
+A rule whose convention needs the second or third shape is blocked on a second rule-options
+iteration adding an enum kind and a structured-list kind. Recorded as a prerequisite spec, not as a
 rejection.
 
-This corrects the sequencing claim in `2026-07-26`. Per-rule options was built to unblock L3
-directory rules; it unblocked only the subset expressible as a flat glob list. **L1 and L0 can ship
-first; the flagship L3 cannot.**
+### L3 revisited against a real convention document
+
+The candidate list below was first drafted abstractly, which made "declared import boundaries" look
+like the flagship L3 rule and made Constraint 2 look fatal to the whole layer. Decomposing an actual
+project-wide structure document (a maintainer-authored `STRUCTURE.md` governing directory layout and
+naming for a production SvelteKit app) into the **general mechanisms** svelte-vitals would ship — with
+that document as the configuration, not as the rule — gives a different picture: most of it needs only
+the flat kinds already available.
+
+| Mechanism                                                                 | Conventions it expresses                                                        | Expressible today                           |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------- |
+| **M1** Unit directory ↔ same-named entry file                             | component units (`.svelte`), function units (`.ts`), store units (`.svelte.ts`) | **Yes** — `string-map` (glob → extension)   |
+| **M2** Directory-name casing per location                                 | PascalCase units vs camelCase grouping; route segments; endpoint segments       | **Yes** — `string-map` (glob → case)        |
+| **M3** Closed vocabulary of reserved directory names                      | "a use these names cannot express requires updating the table first"            | **Yes** — `string-list`                     |
+| **M4** Reserved name → the places it may appear                           | `parts/` only directly under a component unit, and so on                        | **No** — needs a structured list            |
+| **M5** A unit inside a private scope must not be imported from outside it | the promotion ladder: a second importer forces the unit up                      | **Yes** — `string-list`                     |
+| **M6** Nesting cap for component units                                    | flatten beyond N levels                                                         | **Yes** — `integer`                         |
+| **M7** Dynamic route segments must carry a matcher                        | `[id=integer]`, with exempt subtrees                                            | **Yes** — `string-list`                     |
+| **M8** Test placement and naming                                          | tests adjacent in `tests/`; `.test.svelte.ts` vs `.svelte.test.ts`              | **Partly** — placement yes, the taxonomy no |
+
+Six of the eight need no new option kind. So the sequencing claim in `2026-07-26` was **not** wrong in
+the way the paragraph above first suggested: per-rule options did unblock L3, for every convention
+expressible as a flat list or map. Only M4 and part of M8 wait on the second iteration.
+
+**M1, M2 and M3 share one prerequisite**: they must see files that are not Svelte components.
+Collection currently globs `src/**/*.svelte{,.ts,.js}` (`packages/core/src/component-collect.ts`), so a
+plain `functions/foo/foo.ts` is invisible. `Runtime.glob` is general, so one file-inventory fact — a
+collector plus a `RuleContext` field — unlocks all three at once. **M5 and M7 do not need it**: M5 works
+from the existing `imports` plus `resolveRepoLocalPath`, M7 from route information already collected.
 
 ### Verdicts
 
@@ -213,18 +239,21 @@ first; the flagship L3 cannot.**
 | 5   | Circular imports                                                      | L1    | **Hold**                                    | Passes the gates (the reported location is part of the cycle). Blocked on a full import graph: extension and index resolution beyond what `resolveRepoLocalPath` provides. A module-resolution spec of its own.                                                                                                                                                                                                                                                                                                                    |
 | 6   | Server-only module reachable from client code                         | L1    | **Reject**                                  | SvelteKit already errors on the whole import chain, including indirect and dynamic imports (_Server-only modules_). svelte-vitals would add only earlier feedback — too little to pass mission fit. **Overlap is not the reason**; the withdrawn no-overlap condition plays no part.                                                                                                                                                                                                                                               |
 | 7   | Imports between route directories                                     | L3    | **Hold**                                    | Sharing deliberately within a route group is legitimate, so this is preference, not mechanics. Expressible as a glob list, but overlaps heavily with #1 — re-evaluate after #1 ships.                                                                                                                                                                                                                                                                                                                                              |
-| 8   | Permitted directories for components                                  | L3    | **Admit as the first L3**                   | Expressible as a `string-list` defaulting to `[]`, which is inert until declared and consistent with additive merge semantics. The only L3 candidate that clears Constraint 2.                                                                                                                                                                                                                                                                                                                                                     |
+| 8   | **M5** — a unit in a private scope imported from outside it           | L3    | **Admit — the first L3**                    | Supersedes the thinner "permitted directories for components" this row first held; M5 is the mechanism that row was reaching for. Expressible as a `string-list` of scope-marker globs defaulting to `[]`, inert until declared and consistent with additive merge semantics. Encodes the promotion principle rather than surface naming, needs no new fact, and is the one mechanism a file-local tool cannot implement at all.                                                                                                   |
 | 9   | Declared import boundaries (`{ from, disallow }`)                     | L3    | **Blocked on a prerequisite**               | Constraint 2 — needs a structured-list option kind.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 | 10  | Component filename convention                                         | L3    | **Blocked on a prerequisite**               | Constraint 2 — needs an enum option kind.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | 11  | `$effect` / `$state` counts per component                             | L0    | **Reject**                                  | No evidence that the count correlates with a problem, and no prior work to supply a reference point meeting L0's evidence standard.                                                                                                                                                                                                                                                                                                                                                                                                |
 
 ## Sequencing
 
-1. **#1 — route-component import (L1).** No new facts, no new option kinds. Gives Architecture its
-   first between-files axis.
-2. **#2 — import fan-out (L0).** Corpus measurement only; the fact already exists.
-3. **#3 / #4** — each gated on one new fact (a parser depth walk; a packaged-project `Project` fact).
-4. **Rule options, second iteration** (enum + structured-list kinds) → then the flagship L3 (#9, #10).
+1. **#8 / M5 — private-scope import (L3).** No new facts, no new option kinds. Gives Architecture its
+   first between-files axis, and encodes the principle the rest of the convention family follows from.
+2. **#1 — route-component import (L1).** Also needs nothing new; the default-on counterpart of #8.
+3. **#2 — import fan-out (L0).** Corpus measurement only; the fact already exists.
+4. **A file-inventory fact** → then **M1 / M2 / M3** together, which all depend on it.
+5. **#3 / #4** — each gated on one new fact (a parser depth walk; a packaged-project `Project` fact).
+6. **Rule options, second iteration** (enum + structured-list kinds) → then **M4** and the rest of M8,
+   plus candidates #9 and #10.
 
 Each step is its own spec and plan.
 
