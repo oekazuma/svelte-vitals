@@ -46,7 +46,7 @@ svelte-vitals が報告するルールをカテゴリ別にまとめました。
 | [`seo/indexability`](/ja/rules/seo/indexability)                       | 🔵 info     | ルートが誤って noindex になっていないか確認します。                                                                |
 | [`seo/json-ld`](/ja/rules/seo/json-ld)                                 | 🔵 info     | どのルートにも JSON-LD 構造化データを入れましょう。                                                                |
 | [`seo/json-ld-date-format`](/ja/rules/seo/json-ld-date-format)         | 🔵 info     | JSON-LD の日付プロパティは ISO-8601 形式で書きます。                                                               |
-| [`seo/json-ld-deprecated-type`](/ja/rules/seo/json-ld-deprecated-type) | 🔵 info     | 一部のスキーマ型は、Google のリッチリザルトの対象から外れました。                                                  |
+| [`seo/json-ld-deprecated-type`](/ja/rules/seo/json-ld-deprecated-type) | 🔵 info     | 一部のスキーマ型は、Google のリッチリザルトが廃止または制限されました。                                            |
 | [`seo/json-ld-placeholder`](/ja/rules/seo/json-ld-placeholder)         | 🔵 info     | JSON-LD にプレースホルダのまま残っている値がないか確認します。                                                     |
 | [`seo/json-ld-relative-url`](/ja/rules/seo/json-ld-relative-url)       | 🟡 warning  | JSON-LD の URL は絶対 URL で書きます。                                                                             |
 | [`seo/json-ld-required-props`](/ja/rules/seo/json-ld-required-props)   | 🟡 warning  | 認識できる @type には、リッチリザルトに必要なプロパティを揃えましょう。                                            |
@@ -110,7 +110,7 @@ svelte-vitals が報告するルールをカテゴリ別にまとめました。
 | [`security/handler-state-write`](/ja/rules/security/handler-state-write) | 🔴 critical | load 関数や action が、import したモジュールの状態に書き込んでいます。サーバーではこの状態を全リクエストで共有します。                                                 |
 | [`security/javascript-url`](/ja/rules/security/javascript-url)           | 🟡 warning  | 属性に javascript: URL を使わないでください。                                                                                                                          |
 | [`security/raw-html`](/ja/rules/security/raw-html)                       | 🟡 warning  | &#123;@html&#125; は HTML をエスケープせずに描画します。値は必ずサニタイズしてください。                                                                               |
-| [`security/server-module-state`](/ja/rules/security/server-module-state) | 🟡 warning  | server ファイルのモジュールスコープ変数を、関数の中から再代入しています。この変数は全リクエストで共有されます。                                                        |
+| [`security/server-module-state`](/ja/rules/security/server-module-state) | 🟡 warning  | ルートや hooks のファイルで、モジュールスコープの変数を関数の中から再代入しています。サーバーではこの変数を全リクエストで共有します。                                  |
 | [`security/shared-state-import`](/ja/rules/security/shared-state-import) | 🟡 warning  | server / universal ファイルが、モジュールスコープに $state を持つ .svelte.ts を import しています。サーバープロセスでは 1 つのインスタンスを全リクエストで共有します。 |
 
 ## Architecture

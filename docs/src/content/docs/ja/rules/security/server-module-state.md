@@ -1,6 +1,6 @@
 ---
 title: security/server-module-state · サーバーのモジュールスコープ状態
-description: server ファイルのモジュールスコープ変数を、関数の中から再代入しています。この変数は全リクエストで共有されます。
+description: ルートや hooks のファイルで、モジュールスコープの変数を関数の中から再代入しています。サーバーではこの変数を全リクエストで共有します。
 ---
 
 **重大度:** warning · **カテゴリ:** security
