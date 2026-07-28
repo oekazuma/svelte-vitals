@@ -19,7 +19,7 @@ import { loadConfigFile } from 'svelte-vitals';
 import type { SvelteVitalsOptions } from './plugin.js';
 import { collectRenderedHeads } from './providers/rendered/collect.js';
 import { collectRenderedProject } from './providers/rendered/project.js';
-import { collectComponentFacts, collectKitModuleFacts } from './providers/source/components.js';
+import { collectComponentFacts, collectKitModuleFacts, collectSourceFiles } from './providers/source/components.js';
 import { readPackageVersion } from './version.js';
 
 export interface AnalyzeResult {
@@ -69,6 +69,7 @@ export async function analyze(
   };
   const components = await collectComponentFacts(cwd);
   const kitModules = await collectKitModuleFacts(cwd);
+  const sourceFiles = await collectSourceFiles(cwd);
   const results = applyOverrides(
     applyRuleSeverities(
       await runRules(selectRules(allRules, config), {
@@ -78,7 +79,8 @@ export async function analyze(
         project,
         components,
         config,
-        kitModules
+        kitModules,
+        sourceFiles
       }),
       config
     ),

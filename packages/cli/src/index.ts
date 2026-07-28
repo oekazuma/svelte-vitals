@@ -18,6 +18,7 @@ import {
   applyRuleSeverities,
   applyOverrides,
   collectKitModuleFacts,
+  collectSourceFiles,
   type Severity,
   type RuleSetting,
   type Result,
@@ -215,11 +216,12 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   // kitModules is skipped for the same reason.
   const components = opts.route ? [] : await collectComponentFacts(rt, cwd);
   const kitModules = opts.route ? [] : await collectKitModuleFacts(rt, cwd);
+  const sourceFiles = opts.route ? undefined : await collectSourceFiles(rt, cwd);
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
   const results = applyOverrides(
     applyRuleSeverities(
-      await runRules(rules, { heads, images, headings, components, project, config, kitModules }),
+      await runRules(rules, { heads, images, headings, components, project, config, kitModules, sourceFiles }),
       config
     ),
     config
