@@ -37,7 +37,12 @@ describe('docs: every documented rule has a reference page (en + ja)', () => {
   });
   it('has no stray rule pages without a matching rule', () => {
     const ids = new Set(documented.map((r) => `${r.id}.md`));
+    // Generated index pages and sidebar metadata live alongside the rule pages.
+    const basename = (f: string) => f.slice(f.lastIndexOf('/') + 1);
     for (const dir of [enRules, jaRules])
-      for (const f of listFilesRecursive(dir)) expect(ids.has(f), `stray ${f} in ${dir}`).toBe(true);
+      for (const f of listFilesRecursive(dir)) {
+        if (basename(f) === 'index.mdx' || basename(f) === 'meta.ts') continue;
+        expect(ids.has(f), `stray ${f} in ${dir}`).toBe(true);
+      }
   });
 });
