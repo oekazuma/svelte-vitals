@@ -20,7 +20,7 @@ describe('docs: rule index pages are up to date', () => {
   }
 
   for (const locale of LOCALES) {
-    it(`lists every rule exactly once across the category pages (${locale})`, () => {
+    it(`lists every rule exactly once across all category pages combined (${locale})`, () => {
       const dir = localeDir(docsRoot, locale);
       const listed = CATEGORIES.flatMap((category) =>
         parseRuleIds(extractBlock(readFileSync(join(dir, category, 'index.mdx'), 'utf8')))

@@ -9,6 +9,9 @@ import { join } from 'node:path';
 export const START_MARKER = '{/* rules-index:start */}';
 export const END_MARKER = '{/* rules-index:end */}';
 
+// Must track `docs/blume.config.ts`'s `i18n.locales` — adding a locale there without adding
+// it here silently leaves it un-indexed. A new locale also needs TABLE_HEADER, RULE_COUNT,
+// and CATEGORY_BLURB entries.
 export const LOCALES = ['en', 'ja'];
 
 /** Same glyphs the console reporter and the CI job summary use. */
@@ -104,7 +107,13 @@ export function readSummaries(docsRoot, locale, rules) {
   const summaries = new Map();
   for (const rule of rules) {
     const file = join(dir, `${rule.id}.md`);
-    const { description } = parseFrontmatter(readFileSync(file, 'utf8'));
+    let fields;
+    try {
+      fields = parseFrontmatter(readFileSync(file, 'utf8'));
+    } catch (cause) {
+      throw new Error(`${file}: ${cause.message}`, { cause });
+    }
+    const { description } = fields;
     if (!description) throw new Error(`${file}: frontmatter has no description`);
     summaries.set(rule.id, description);
   }
@@ -115,11 +124,19 @@ function byId(a, b) {
   return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
 }
 
+function categoryBlurb(locale, category) {
+  const blurb = CATEGORY_BLURB[locale][category];
+  if (!blurb) throw new Error(`unknown category ${category}`);
+  return blurb;
+}
+
 export function renderTable(locale, rules, summaries) {
   const header = TABLE_HEADER[locale];
   const lines = [`| ${header.join(' | ')} |`, `| ${header.map(() => '---').join(' | ')} |`];
   for (const rule of [...rules].sort(byId)) {
-    const severity = `${SEVERITY_GLYPH[rule.severity]} ${rule.severity}`;
+    const glyph = SEVERITY_GLYPH[rule.severity];
+    if (!glyph) throw new Error(`${rule.id}: unknown severity ${rule.severity}`);
+    const severity = `${glyph} ${rule.severity}`;
     const summary = escapeCell(summaries.get(rule.id));
     lines.push(`| [\`${rule.id}\`](${localeHref(locale, rule.id)}) | ${severity} | ${summary} |`);
   }
@@ -128,7 +145,13 @@ export function renderTable(locale, rules, summaries) {
 
 export function renderCategoryPage(locale, category, rules, summaries) {
   const inCategory = rules.filter((rule) => rule.category === category);
-  return [escapeMdx(CATEGORY_BLURB[locale][category]), '', renderTable(locale, inCategory, summaries)].join('\n');
+  return [escapeMdx(categoryBlurb(locale, category)), '', renderTable(locale, inCategory, summaries)].join('\n');
+}
+
+/** Japanese does not put an ASCII space before a full-width `（` — only en gets a joining space. */
+function withRuleCount(locale, blurb, count) {
+  const suffix = RULE_COUNT[locale](count);
+  return locale === 'ja' ? `${blurb}${suffix}` : `${blurb} ${suffix}`;
 }
 
 export function renderRulesPage(locale, categories, rules, summaries) {
@@ -137,7 +160,7 @@ export function renderRulesPage(locale, categories, rules, summaries) {
     const count = rules.filter((rule) => rule.category === category).length;
     lines.push(
       `  <Card title="${CATEGORY_LABEL[category]}" icon="${CATEGORY_ICON[category]}" href="${localeHref(locale, category)}">`,
-      `    ${escapeMdx(CATEGORY_BLURB[locale][category])} ${RULE_COUNT[locale](count)}`,
+      `    ${withRuleCount(locale, escapeMdx(categoryBlurb(locale, category)), count)}`,
       '  </Card>'
     );
   }
@@ -183,7 +206,9 @@ export function extractBlock(fileText) {
 /**
  * Comparable form of a block. oxfmt pads table cells, re-wraps prose at printWidth, and
  * backslash-escapes markdown-special characters (e.g. a bare `*` becomes `\*`) — so committed
- * text never matches generated text byte-for-byte — compare through this.
+ * text never matches generated text byte-for-byte — compare through this. Every table row still
+ * survives as its own line and every table still contributes its header row, so severity,
+ * summary, link-locale, and membership drift are all still caught.
  */
 export function normalizeBlock(block) {
   const prose = [];

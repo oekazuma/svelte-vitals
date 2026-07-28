@@ -9,6 +9,7 @@ import {
   normalizeBlock,
   parseFrontmatter,
   parseRuleIds,
+  renderCategoryPage,
   renderTable,
   replaceBlock
 } from '../scripts/rules-index.mjs';
@@ -83,6 +84,18 @@ describe('renderTable', () => {
     expect(lines[0]).toBe('| ルール | 重大度 | 概要 |');
     expect(lines[2]).toContain('](/ja/rules/seo/charset)');
   });
+
+  it('throws on an unknown severity instead of rendering "undefined"', () => {
+    const rules = [{ id: 'seo/bogus', category: 'seo', severity: 'bogus' }];
+    const summaries = new Map([['seo/bogus', 'Bogus summary.']]);
+    expect(() => renderTable('en', rules, summaries)).toThrow(/seo\/bogus.*unknown severity/);
+  });
+});
+
+describe('renderCategoryPage', () => {
+  it('throws on an unknown category instead of a cryptic replaceAll TypeError', () => {
+    expect(() => renderCategoryPage('en', 'bogus', [], new Map())).toThrow(/unknown category bogus/);
+  });
 });
 
 describe('normalizeBlock', () => {
@@ -111,6 +124,10 @@ describe('normalizeBlock', () => {
 
   it("ignores oxfmt's markdown escaping", () => {
     expect(normalizeBlock('| a | import \\* as b |')).toBe(normalizeBlock('| a | import * as b |'));
+  });
+
+  it('does not collapse differently escaped cells together', () => {
+    expect(normalizeBlock('| a\\*b |')).not.toBe(normalizeBlock('| a\\|b |'));
   });
 });
 
