@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { resolveRepoLocalPath, routeGlobToRegExp } from '../src/index.js';
+import { resolveRepoLocalPath } from '../src/kit-module-parse.js';
+import { routeGlobToRegExp } from '../src/config-apply.js';
 import { architecturePrivateScopeImport, applyOverrides } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
@@ -32,8 +33,11 @@ describe('routeGlobToRegExp (exported for private-scope-import)', () => {
     expect(re.test('src/routes/a/b/components')).toBe(true);
     expect(re.test('src/routes/components')).toBe(false);
   });
-  it('treats SvelteKit bracket and paren segments as literal', () => {
-    expect(routeGlobToRegExp('src/routes/**/components').test('src/routes/[id=integer]/components')).toBe(true);
+  it('treats SvelteKit bracket segments in the PATTERN as literal, not a character class', () => {
+    // The brackets sit in the pattern here (not just the subject), so this is false if the
+    // escaping pass is removed: an unescaped `[id]` compiles to a one-character class
+    // matching 'i' or 'd', which does not match the four-character literal string '[id]'.
+    expect(routeGlobToRegExp('src/routes/[id]/parts').test('src/routes/[id]/parts')).toBe(true);
   });
 });
 
@@ -108,6 +112,8 @@ describe('architecture/private-scope-import', () => {
     const rs = await architecturePrivateScopeImport.check(scoped([c], SCOPES));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
+    // Pinned wording: a PASS must read as a pass, not echo the violation message.
+    expect(rs[0]!.message).toBe('No private-scope imports');
   });
 
   it('passes a sibling import within the same parts/ directory', async () => {
@@ -206,6 +212,76 @@ describe('architecture/private-scope-import', () => {
     const rs = await architecturePrivateScopeImport.check(scoped([c], ['parts']));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
+  });
+
+  it('flags a type-only import the same as a value import (the coupling survives even though the import is erased at build)', async () => {
+    const c = comp({
+      file: 'src/lib/Other/Other.svelte',
+      importSpans: [{ source: '../Card/parts/types.js', line: 3 }]
+    });
+    const rs = await architecturePrivateScopeImport.check(scoped([c], SCOPES));
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.message).toContain('src/lib/Card/parts/types.js');
+  });
+
+  describe('inline suppression', () => {
+    it('suppresses a violation whose directive sits on the import line, so the file passes', async () => {
+      const c = comp({
+        file: 'src/lib/Other/Other.svelte',
+        importSpans: [{ source: '../Card/parts/Badge.svelte', line: 7 }],
+        suppressions: [{ line: 7, ruleIds: ['architecture/private-scope-import'] }]
+      });
+      const rs = await architecturePrivateScopeImport.check(scoped([c], SCOPES));
+      expect(fails(rs)).toHaveLength(0);
+      expect(rs).toHaveLength(1);
+      expect(rs[0]!.message).toBe('No private-scope imports');
+    });
+
+    it('does not suppress when the directive is on an unrelated line', async () => {
+      const c = comp({
+        file: 'src/lib/Other/Other.svelte',
+        importSpans: [{ source: '../Card/parts/Badge.svelte', line: 7 }],
+        suppressions: [{ line: 12, ruleIds: ['architecture/private-scope-import'] }]
+      });
+      const rs = await architecturePrivateScopeImport.check(scoped([c], SCOPES));
+      expect(fails(rs)).toHaveLength(1);
+      expect(rs[0]!.line).toBe(7);
+    });
+  });
+
+  describe('a trailing /** on a scopes glob', () => {
+    // '**/parts/**' is how a glob would be written elsewhere in this project's own
+    // config, but a trailing '/**' compiles to '(/.*)?' — it also matches the
+    // marker's own subdirectories, which used to make the deepest-match rule pick a
+    // descendant of the marker as the boundary instead of the marker itself: a false
+    // positive against the OWNER. Confirmed repro (design review): with
+    // scopes: ['**/parts/**'], src/lib/Card/Card.svelte importing
+    // ./parts/Badge/Badge.svelte was penalized as private to src/lib/Card/parts.
+    // '**/parts/**' must normalise to behave exactly like '**/parts'.
+    const TRAILING = ['**/parts/**'];
+    const BARE = ['**/parts'];
+
+    it('does not flag the owner importing its own nested parts/ unit', async () => {
+      const c = comp({
+        file: 'src/lib/Card/Card.svelte',
+        importSpans: [{ source: './parts/Badge/Badge.svelte', line: 2 }]
+      });
+      const trailing = await architecturePrivateScopeImport.check(scoped([c], TRAILING));
+      const bare = await architecturePrivateScopeImport.check(scoped([c], BARE));
+      expect(fails(trailing)).toHaveLength(0);
+      expect(trailing).toEqual(bare);
+    });
+
+    it('still flags an import of the parts/ unit from outside its owner', async () => {
+      const c = comp({
+        file: 'src/lib/Other/Other.svelte',
+        importSpans: [{ source: '../Card/parts/Badge.svelte', line: 7 }]
+      });
+      const trailing = await architecturePrivateScopeImport.check(scoped([c], TRAILING));
+      const bare = await architecturePrivateScopeImport.check(scoped([c], BARE));
+      expect(fails(trailing)).toHaveLength(1);
+      expect(trailing).toEqual(bare);
+    });
   });
 });
 

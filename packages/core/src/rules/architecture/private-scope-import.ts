@@ -3,6 +3,7 @@ import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { compileOverrides, routeGlobToRegExp } from '../../config-apply.js';
 import { resolveRepoLocalPath } from '../../kit-module-parse.js';
 import { listOption, resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
+import { isSuppressed } from '../component-rule.js';
 
 const docsUrl = docsUrlFor('architecture/private-scope-import');
 const recommendation =
@@ -73,7 +74,17 @@ export const architecturePrivateScopeImport: Rule = {
       const key = JSON.stringify(scopes);
       let patterns = patternCache.get(key);
       if (patterns === undefined) {
-        patterns = scopes.map(routeGlobToRegExp);
+        patterns = scopes.map((scope) => {
+          // A trailing `/**` matches files INSIDE the marker too (it compiles to `(/.*)?`),
+          // so the marker's own subdirectories would match the glob and `privateScopeOf`'s
+          // deepest-match rule would pick a descendant as the boundary — a false positive
+          // against the owner itself (e.g. `**/parts/**` flagging `parts/Badge/Badge.svelte`
+          // importing a sibling under `parts/`). Stripping it makes `'**/parts/**'` compile
+          // identically to `'**/parts'`, matching how every other `scopes` glob in this
+          // project's own config is written (design 2026-07-28, precision gate).
+          const marker = scope.endsWith('/**') ? scope.slice(0, -3) : scope;
+          return routeGlobToRegExp(marker);
+        });
         patternCache.set(key, patterns);
       }
       return patterns;
@@ -104,20 +115,26 @@ export const architecturePrivateScopeImport: Rule = {
         violations.push({ line, message: `${target} is private to ${boundary}` });
       }
       if (!sawScopedImport) continue; // no signal in this file → neither penalize nor seed
-      if (violations.length === 0) {
+      // Suppressed BEFORE deciding pass-vs-penalize: a file whose only violation is
+      // suppressed must emit the passing result below, not nothing (componentRule's
+      // isSuppressed reused rather than a second copy of the matching logic).
+      const visible = violations.filter(
+        (v) => !(v.line > 0 && isSuppressed(c, 'architecture/private-scope-import', v.line))
+      );
+      if (visible.length === 0) {
         out.push({
           id: 'architecture/private-scope-import',
           category: 'architecture',
           severity: 'info',
           detection: { presence: 'own', value: 'static' },
           route: c.file,
-          message: 'Private-scope import',
+          message: 'No private-scope imports',
           recommendation,
           docsUrl
         });
         continue;
       }
-      for (const v of violations) {
+      for (const v of visible) {
         out.push({
           id: 'architecture/private-scope-import',
           category: 'architecture',

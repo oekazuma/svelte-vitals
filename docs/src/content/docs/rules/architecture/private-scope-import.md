@@ -55,3 +55,7 @@ Imports written through a custom alias configured in `svelte.config.js` are not 
 Only imports written in `.svelte` components are checked. Imports written in a `.svelte.ts` / `.svelte.js` module, or in a Kit module such as `+page.ts` or `+server.ts`, are not checked yet.
 
 Both are gaps being closed, not deliberate exemptions.
+
+A type-only import (`import type { X } from '../parts/types'`) is flagged the same as a value import: the structural coupling to the private unit's location survives into source even though the import itself is erased at build.
+
+An import that names a private directory itself, rather than a file inside it (for example `import { Badge } from '../Card/parts'`), is not checked. This is a deliberate limitation, not a gap: resolving it to the directory's own contents would trade this false negative for a false positive elsewhere.

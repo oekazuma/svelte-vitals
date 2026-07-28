@@ -1,4 +1,4 @@
-import { allRules, docsUrlFor, type Category } from '@svelte-vitals/core';
+import { allRules, docsUrlFor, type Category, type RuleOptionSpec } from '@svelte-vitals/core';
 
 // Category order + labels for the generated rule digest. Kept in the same order the
 // project's docs use elsewhere (SEO, Performance, Correctness, Security, Architecture).
@@ -17,9 +17,31 @@ export function oneLine(text: string): string {
   return text.replace(/\r?\n+/g, ' ').trim();
 }
 
+/** Whether an option's default carries no signal to check against: an empty list or map. An
+ * integer option always has a real numeric default (0 is a meaningful threshold, not "unset"),
+ * so it never counts as empty here. */
+function isEmptyDefault(spec: RuleOptionSpec): boolean {
+  if (spec.kind === 'string-list') return spec.default.length === 0;
+  if (spec.kind === 'string-map') return Object.keys(spec.default).length === 0;
+  return false;
+}
+
+/**
+ * Whether a rule does nothing until a project configures it: it declares options, and every
+ * one of them defaults to empty. Derived from the rule's own `options` spec rather than
+ * hard-coding a rule id, so a future L3-layer rule (declared, never inferred) is picked up the
+ * same way `architecture/private-scope-import` is today.
+ */
+function isInertUntilConfigured(rule: (typeof allRules)[number]): boolean {
+  if (!rule.options) return false;
+  const specs = Object.values(rule.options);
+  return specs.length > 0 && specs.every(isEmptyDefault);
+}
+
 function ruleLine(rule: (typeof allRules)[number]): string {
   const fixPart = rule.fix?.description ? ` Fix: ${oneLine(rule.fix.description)}` : '';
-  return `- **${rule.id} — ${oneLine(rule.title)}** (${rule.severity}): ${oneLine(rule.rationale)}${fixPart} ([docs](${docsUrlFor(rule.id)}))`;
+  const inertPart = isInertUntilConfigured(rule) ? ' (inert until configured)' : '';
+  return `- **${rule.id} — ${oneLine(rule.title)}** (${rule.severity}): ${oneLine(rule.rationale)}${fixPart}${inertPart} ([docs](${docsUrlFor(rule.id)}))`;
 }
 
 export function ruleDigest(): string {

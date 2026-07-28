@@ -34,7 +34,7 @@ export type {
 export { parseComponentFacts } from './component-parse.js';
 export { collectComponentFacts, emptyComponentFacts } from './component-collect.js';
 export type { KitModuleFacts } from './kit-module.js';
-export { parseKitModuleFacts, resolveRunesModuleSpecifier, resolveRepoLocalPath } from './kit-module-parse.js';
+export { parseKitModuleFacts, resolveRunesModuleSpecifier } from './kit-module-parse.js';
 export { collectKitModuleFacts, emptyKitModuleFacts } from './kit-module-collect.js';
 export { findMinifyDisabled } from './vite-config-parse.js';
 export {
@@ -159,7 +159,6 @@ export {
   applyOverrides,
   compileOverrides,
   overrideMatches,
-  routeGlobToRegExp,
   settingSeverity,
   settingOptions
 } from './config-apply.js';
