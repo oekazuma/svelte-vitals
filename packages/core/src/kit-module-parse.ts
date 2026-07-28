@@ -472,8 +472,13 @@ function normalizePosix(path: string): string | undefined {
  * resolve against the importing file's directory; bare packages and other aliases are
  * skipped (they can't be resolved to a repo-local path at all). Also undefined when a
  * relative specifier's `..` segments escape the repo root — see `normalizePosix`.
+ *
+ * Exported because `architecture/private-scope-import` needs resolution that is not
+ * restricted to runes modules, unlike `resolveRunesModuleSpecifier`. Keep every alias
+ * mapping inside this one function: adding `svelte.config.js` alias support later must
+ * stay a single-site change.
  */
-function resolveRepoLocalPath(spec: string, importerFile: string): string | undefined {
+export function resolveRepoLocalPath(spec: string, importerFile: string): string | undefined {
   let path: string;
   if (spec.startsWith('$lib/')) path = `src/lib/${spec.slice('$lib/'.length)}`;
   else if (spec.startsWith('./') || spec.startsWith('../')) {
