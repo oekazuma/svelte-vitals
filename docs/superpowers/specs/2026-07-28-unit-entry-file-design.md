@@ -71,7 +71,7 @@ export default {
           'src/**/stores/*': '.svelte.ts'
         },
         pascalCaseUnits: { 'src/**': '.svelte' },
-        exclude: ['**/tests', '**/styleGuide', '**/types', '**/e2e', '**/parts', '**/functions', '**/stores']
+        exclude: ['**/tests', '**/styleGuide', '**/types', '**/e2e']
       }
     }
   }
@@ -118,8 +118,33 @@ considered and rejected:
 `exclude` prunes: a directory is exempt when **it or any ancestor** matches an `exclude` glob, so a
 nested `tests/fixtures/` drops out with its parent. It applies to both identification kinds.
 
-The list a project writes here is the same vocabulary M3 (reserved directory names) will take, so
-the two stay consistent when M3 lands.
+### What may go in `exclude` — and what must not
+
+Because it prunes the subtree, **`exclude` may only name a directory that is neither a unit itself nor
+holds units beneath it.** Reserved directory names split into two kinds, and only one is excludable:
+
+| Reserved name                | In `exclude`? | Why                                                   |
+| ---------------------------- | ------------- | ----------------------------------------------------- |
+| `tests`, `styleGuide`, `e2e` | **Yes**       | Hold files, never units                               |
+| `types`                      | **Yes**       | Holds split type files, never units                   |
+| `parts`                      | **No**        | Its children **are** PascalCase units                 |
+| `functions`, `stores`        | **No**        | Its children are exactly what a `units` glob declares |
+
+Excluding a container is self-defeating, and measurably so. Against the same production tree
+(2026-07-28), an earlier draft of this spec's example added `**/parts`, `**/functions` and `**/stores`
+to `exclude`. It removed the 245 `tests/` directories as intended — and also **57 of the 166
+PascalCase units** (everything under a `parts/`) and **15 function and store units**, silencing the
+very declarations `units` had just made. Dropping those three entries removes the 245 with **zero**
+collateral. The list in the example above is the corrected one.
+
+A related trap has no `exclude` answer: if a broad `units` glob reaches a _container_ directory —
+`src/lib/api/**/*` would match an api unit's `functions/` — the container itself becomes a unit
+candidate and is reported for the entry file it should not have. The fix is to narrow that `units`
+glob, **not** to exclude the container, since excluding it would take the units inside with it.
+
+The excludable half of this list is the same vocabulary M3 (reserved directory names) will take, so
+the two stay consistent when M3 lands — but M3 will need both halves, since its claim is about which
+names may appear at all rather than which are units.
 
 The discovery behind this: `pascalCaseUnits` works because casing is a position-independent
 identifier, but **camelCase units are not fully identifiable by position either** — the exclusion is
@@ -133,9 +158,9 @@ what closes the gap.
    the longest key wins** — the most specific declaration. **Among keys of equal length, the
    lexicographically first wins.**
 3. Otherwise, if the directory's basename begins `A`–`Z` and any `pascalCaseUnits` key glob matches,
-   that extension is expected.
-4. **`units` beats `pascalCaseUnits`**: an explicit path declaration outranks a naming convention.
-5. Matching neither leaves the directory unchecked.
+   that extension is expected. Reaching this step only when step 2 found nothing is what makes an
+   explicit path declaration outrank the naming convention — there is no separate precedence rule.
+4. Matching neither leaves the directory unchecked.
 
 The equal-length tie-break is lexicographic rather than declaration order because additive merging
 across config layers (defaults, `rules`, each `overrides` entry) makes key insertion order
@@ -315,6 +340,18 @@ intersecting each entry's scope with the directory set. Simplicity wins; the rul
 - A key declared only in an `overrides` entry yields no inertness finding (pins the limitation).
 - Every silent input: `sourceFiles` absent, both options empty, undeclared directories.
 - Per-path options through `overrides` reach the rule (the per-rule-options parity check).
+- **Missing entry-file violations point at a direct child when one exists**, and only fall back to the
+  subtree when the directory holds nothing but subdirectories — the ordering, not just the existence.
+
+### Validate the documented example against a real tree
+
+Both errors this spec's example configuration contained were found by running it over a real project's
+directory tree, not by reading it — first a `units` glob that missed nested units and swept in
+`tests/`, then an `exclude` list that silenced 72 legitimate units. Neither is visible from the prose.
+
+So the plan carries a step for it: with the rule built, run it over a real SvelteKit tree with the
+documented example config and check the counts by hand before the docs ship. A unit test proves the
+mechanism; only a real tree proves the example.
 
 ## Documentation
 
