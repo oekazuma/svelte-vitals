@@ -163,6 +163,17 @@ describe('architecture/unit-entry-file — units', () => {
     // units expects .ts and it exists, so the directory conforms despite pascalCaseUnits wanting .svelte.
     expect(fails(rs)).toHaveLength(0);
   });
+
+  it('does not treat the container itself as a unit for a key ending in /**', async () => {
+    // A trailing /** also matches its bare prefix, so without a guard the functions/
+    // container would be asked for a nonsensical functions/functions.ts.
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/functions/getFoo/getFoo.ts'], { units: { 'src/lib/functions/**': '.ts' } })
+    );
+    expect(fails(rs)).toHaveLength(0);
+    expect(passes(rs)).toHaveLength(1);
+    expect(passes(rs)[0]!.route).toBe('src/lib/functions/getFoo/getFoo.ts');
+  });
 });
 
 describe('architecture/unit-entry-file — exclude', () => {
@@ -195,6 +206,7 @@ describe('architecture/unit-entry-file — inert declarations', () => {
     expect(inert[0]!.location).toBeUndefined();
     expect(inert[0]!.message).toContain('src/nowhere/*');
     expect(inert[0]!.detection.presence).toBe('none');
+    expect(inert[0]!.detection.value).toBe('absent');
   });
 
   it('does not report a key that matched at least one directory', async () => {

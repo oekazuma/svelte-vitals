@@ -36,17 +36,37 @@ function isPascalCase(name: string): boolean {
 }
 
 /**
+ * A compiled declaration key. `barePrefix` is set only for a `units` key ending in `/**`
+ * (never for `pascalCaseUnits` or `exclude`) — see `matchKeys`.
+ */
+interface CompiledKey {
+  key: string;
+  re: RegExp;
+  barePrefix?: string;
+}
+
+/**
  * Every declaration key matching `dir`, and the one that governs it. The longest match wins
  * as the most specific declaration; among equal lengths the lexicographically first wins,
  * because additive merging across config layers makes key insertion order unintuitive.
  *
  * `matched` carries ALL of them, not just the winner: a key that matched a directory but lost
  * the tie-break has still done work, and reporting it as an inert declaration would be a lie.
+ *
+ * An entry whose `barePrefix` equals `dir` is skipped entirely, not merely denied the win: a
+ * trailing `/**` compiles to `(/.*)?`, which also matches the bare prefix itself — `units: {
+ * 'src/lib/functions/**': '.ts' }` would otherwise also call `src/lib/functions` a unit and
+ * demand a nonsensical `functions/functions.ts`. A `units` key NAMES unit directories, so
+ * "everything under X" must not include X itself. This does not apply to `pascalCaseUnits`
+ * (its compiled entries never get a `barePrefix`): there a key names the ROOT under which the
+ * casing convention applies, and whether the root itself is a unit is already decided correctly
+ * by the casing gate at the call site, not by this function.
  */
-function matchKeys(dir: string, compiled: { key: string; re: RegExp }[]): { matched: string[]; best?: string } {
+function matchKeys(dir: string, compiled: CompiledKey[]): { matched: string[]; best?: string } {
   const matched: string[] = [];
   let best: string | undefined;
-  for (const { key, re } of compiled) {
+  for (const { key, re, barePrefix } of compiled) {
+    if (dir === barePrefix) continue;
     if (!re.test(dir)) continue;
     matched.push(key);
     if (best === undefined || key.length > best.length || (key.length === best.length && key < best)) best = key;
@@ -90,13 +110,20 @@ export const architectureUnitEntryFile: Rule = {
     const fileSet = new Set(files);
 
     // Compiled patterns are memoised on the resolved declaration, since a project has a
-    // handful of distinct declarations and thousands of directories.
-    const cache = new Map<string, { key: string; re: RegExp }[]>();
-    const compile = (globs: string[]): { key: string; re: RegExp }[] => {
-      const cacheKey = JSON.stringify(globs);
+    // handful of distinct declarations and thousands of directories. `bareGuard` is true only
+    // for `units` (see `matchKeys`'s doc comment for why `pascalCaseUnits` and `exclude` must
+    // never set it), and is part of the cache key so the same globs compiled both ways don't
+    // collide.
+    const cache = new Map<string, CompiledKey[]>();
+    const compile = (globs: string[], bareGuard = false): CompiledKey[] => {
+      const cacheKey = JSON.stringify([globs, bareGuard]);
       let entry = cache.get(cacheKey);
       if (entry === undefined) {
-        entry = globs.map((key) => ({ key, re: routeGlobToRegExp(key) }));
+        entry = globs.map((key) => ({
+          key,
+          re: routeGlobToRegExp(key),
+          ...(bareGuard && key.endsWith('/**') ? { barePrefix: key.slice(0, -3) } : {})
+        }));
         cache.set(cacheKey, entry);
       }
       return entry;
@@ -129,7 +156,7 @@ export const architectureUnitEntryFile: Rule = {
       // won for, has still done work: every key that matched has done work, whether or not it
       // won the tie-break (same principle as the tie-break case just below), so bookkeeping it
       // after either gate would falsely call it inert.
-      const byPath = matchKeys(dir, compile(Object.keys(units)));
+      const byPath = matchKeys(dir, compile(Object.keys(units), true));
       const byCasing = matchKeys(dir, compile(Object.keys(pascalUnits)));
       for (const k of [...byPath.matched, ...byCasing.matched]) if (globalKeys.has(k)) usedKeys.add(k);
 
