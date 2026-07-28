@@ -407,6 +407,29 @@ sufficient on its own:
 A unit test proves the mechanism; only a real tree proves the example, and only the count proves the
 example is doing anything.
 
+### The tree to validate against
+
+A real SvelteKit application is available in two states, which together cover both failure directions:
+
+| State                | Expectation                                                        |
+| -------------------- | ------------------------------------------------------------------ |
+| Convention-compliant | **Zero** findings, with an examined count matching the population  |
+| Pre-convention       | A **known non-zero** count of findings from the same configuration |
+
+Its population, measured 2026-07-28: 166 PascalCase units, 45 function units plus 8 nested helpers, 7
+store units, 37 api units plus 2 nested helpers. The examined count is what check 2 and check 3 above
+compare against.
+
+On the pre-convention state, **five** PascalCase directories hold no same-named `.svelte`, and those
+are the findings this rule should produce.
+
+**Two other known defects in that state are _not_ this rule's** — 11 occurrences of `types/types.ts`
+and 2 of `types/index.ts`. Both are forbidden _filenames in a location_, a different claim: `types/` is
+not a unit under any declaration here (it sits in `exclude`), so no entry file is expected of it and
+none is missing. Expecting this rule to report them would send the validation step hunting a bug that
+is not there. They belong to a forbidden-filename mechanism, which M2 and M3 do not cover either — the
+charter's inventory has no row for it yet.
+
 ## Documentation
 
 Rule pages in en and ja, the configurable-rules list in `configuration.mdx` (en and ja), and a minor
