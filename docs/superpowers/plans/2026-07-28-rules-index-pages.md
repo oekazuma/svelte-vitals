@@ -23,18 +23,18 @@
 
 ## File Structure
 
-| File | Responsibility |
-| --- | --- |
-| `packages/cli/scripts/rules-index.mjs` | Create. Pure rendering + parsing. No file writes, no core import — everything is injected, so tests can call it with fixtures. |
-| `packages/cli/scripts/gen-rules-index.mjs` | Create. Entry point: reads `allRules`/`CATEGORIES`, calls the renderer, rewrites the marker regions. |
-| `packages/cli/package.json` | Modify. Add the `gen:rules-index` script. |
-| `packages/cli/test/rules-index-render.test.mjs` | Create. Unit tests for the renderer's parsing, escaping, sorting, and normalization. |
-| `packages/cli/test/rules-index.test.mjs` | Create. Guard test: committed index pages match the generator. |
-| `packages/cli/test/docs-links.test.ts` | Modify. Its stray-page check must skip `index.mdx` and `meta.ts`. |
-| `docs/src/content/docs/rules/index.mdx` + 5 category `index.mdx` | Create. en landing pages: frontmatter + hand-written prose + marker region. |
-| `docs/src/content/docs/ja/rules/…` (same 6) | Create. ja counterparts. |
-| `docs/src/content/docs/rules/<category>/meta.ts` ×5 + ja ×5 | Create. Sidebar label and order for each category group. |
-| `AGENTS.md` | Modify. Add the regeneration step to "Adding a rule"; fix the stale rule-filename convention. |
+| File                                                             | Responsibility                                                                                                                 |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `packages/cli/scripts/rules-index.mjs`                           | Create. Pure rendering + parsing. No file writes, no core import — everything is injected, so tests can call it with fixtures. |
+| `packages/cli/scripts/gen-rules-index.mjs`                       | Create. Entry point: reads `allRules`/`CATEGORIES`, calls the renderer, rewrites the marker regions.                           |
+| `packages/cli/package.json`                                      | Modify. Add the `gen:rules-index` script.                                                                                      |
+| `packages/cli/test/rules-index-render.test.mjs`                  | Create. Unit tests for the renderer's parsing, escaping, sorting, and normalization.                                           |
+| `packages/cli/test/rules-index.test.mjs`                         | Create. Guard test: committed index pages match the generator.                                                                 |
+| `packages/cli/test/docs-links.test.ts`                           | Modify. Its stray-page check must skip `index.mdx` and `meta.ts`.                                                              |
+| `docs/src/content/docs/rules/index.mdx` + 5 category `index.mdx` | Create. en landing pages: frontmatter + hand-written prose + marker region.                                                    |
+| `docs/src/content/docs/ja/rules/…` (same 6)                      | Create. ja counterparts.                                                                                                       |
+| `docs/src/content/docs/rules/<category>/meta.ts` ×5 + ja ×5      | Create. Sidebar label and order for each category group.                                                                       |
+| `AGENTS.md`                                                      | Modify. Add the regeneration step to "Adding a rule"; fix the stale rule-filename convention.                                  |
 
 ---
 
@@ -107,7 +107,7 @@ describe('parseFrontmatter', () => {
     });
   });
 
-  it("unwraps a single-quoted description and unescapes doubled quotes", () => {
+  it('unwraps a single-quoted description and unescapes doubled quotes', () => {
     const text = "---\ntitle: T\ndescription: 'Sanitize it — {@html} renders unescaped HTML. It''s unsafe.'\n---\n";
     expect(parseFrontmatter(text).description).toBe("Sanitize it — {@html} renders unescaped HTML. It's unsafe.");
   });
@@ -162,9 +162,13 @@ describe('renderTable', () => {
 
 describe('normalizeBlock', () => {
   it('ignores table padding and prose re-wrapping', () => {
-    const generated = ['Intro sentence that oxfmt will wrap.', '', '| Rule | Severity |', '| --- | --- |', '| a | b |'].join(
-      '\n'
-    );
+    const generated = [
+      'Intro sentence that oxfmt will wrap.',
+      '',
+      '| Rule | Severity |',
+      '| --- | --- |',
+      '| a | b |'
+    ].join('\n');
     const formatted = [
       'Intro sentence that oxfmt',
       'will wrap.',
@@ -795,16 +799,16 @@ Expected: PASS again.
 In `packages/cli/test/docs-links.test.ts`, replace the `has no stray rule pages without a matching rule` case with:
 
 ```ts
-  it('has no stray rule pages without a matching rule', () => {
-    const ids = new Set(documented.map((r) => `${r.id}.md`));
-    // Generated index pages and sidebar metadata live alongside the rule pages.
-    const basename = (f: string) => f.slice(f.lastIndexOf('/') + 1);
-    for (const dir of [enRules, jaRules])
-      for (const f of listFilesRecursive(dir)) {
-        if (basename(f) === 'index.mdx' || basename(f) === 'meta.ts') continue;
-        expect(ids.has(f), `stray ${f} in ${dir}`).toBe(true);
-      }
-  });
+it('has no stray rule pages without a matching rule', () => {
+  const ids = new Set(documented.map((r) => `${r.id}.md`));
+  // Generated index pages and sidebar metadata live alongside the rule pages.
+  const basename = (f: string) => f.slice(f.lastIndexOf('/') + 1);
+  for (const dir of [enRules, jaRules])
+    for (const f of listFilesRecursive(dir)) {
+      if (basename(f) === 'index.mdx' || basename(f) === 'meta.ts') continue;
+      expect(ids.has(f), `stray ${f} in ${dir}`).toBe(true);
+    }
+});
 ```
 
 - [ ] **Step 6: Run the whole cli suite**

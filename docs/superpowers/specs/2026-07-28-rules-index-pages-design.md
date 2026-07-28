@@ -1,6 +1,6 @@
 # Design: Rule index pages for the docs site
 
-The docs site has one reference page per rule under `rules/<category>/<slug>.md`, but nothing at `/rules` or `/rules/<category>`. A reader who wants to know *what svelte-vitals actually checks* has to expand the sidebar and read every leaf label; there is no page that lists the rules with their severity and a one-line summary. This adds those landing pages, generated from the rule registry so they cannot drift.
+The docs site has one reference page per rule under `rules/<category>/<slug>.md`, but nothing at `/rules` or `/rules/<category>`. A reader who wants to know _what svelte-vitals actually checks_ has to expand the sidebar and read every leaf label; there is no page that lists the rules with their severity and a one-line summary. This adds those landing pages, generated from the rule registry so they cannot drift.
 
 ## Goal
 
@@ -33,11 +33,11 @@ Blume maps an `index` file to its folder's route and sorts it first within the f
 
 **Table shape** — three columns:
 
-| Column   | Source                                                        |
-| -------- | ------------------------------------------------------------- |
-| Rule     | `rule.id` as inline code, linked to the rule page              |
+| Column   | Source                                                          |
+| -------- | --------------------------------------------------------------- |
+| Rule     | `rule.id` as inline code, linked to the rule page               |
 | Severity | `rule.severity`, rendered as 🔴 critical / 🟡 warning / 🔵 info |
-| Summary  | the locale's rule page frontmatter `description`               |
+| Summary  | the locale's rule page frontmatter `description`                |
 
 Rows sort by rule id (alphabetical) — predictable to scan and to diff; severity stays visible as its own column. The severity glyphs match the console reporter and the CI job-summary tables, so the docs read the same way as the tool's output.
 
