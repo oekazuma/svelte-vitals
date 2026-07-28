@@ -1,0 +1,93 @@
+---
+title: architecture/unit-entry-file · Unit entry file
+description: A directory declared to be a unit should contain a file named after it.
+---
+
+**Severity:** info · **Category:** architecture
+
+## What it checks
+
+Flags a directory you have declared to be a "unit" that contains no file named after it — `Card/`
+without `Card.svelte`, `getFoo/` without `getFoo.ts`.
+
+This rule is **off until you configure it**. It has no default idea of what a unit is, because that
+is your project's convention, not ours.
+
+## Why it matters
+
+A directory named after a unit but missing that unit's entry file is either an incomplete unit or a
+grouping wearing the wrong name. Either way the tree stops saying what it means, and anyone — or
+anything — resolving by convention starts guessing.
+
+A filename-pattern check cannot catch this. Given a path it can ask whether that filename matches its
+parent directory, but a file that does not exist has no path to check.
+
+## How to fix
+
+Add the entry file, or stop declaring the directory a unit — rename it to camelCase if it is really a
+grouping, or narrow the declaration that swept it in.
+
+## Configuration
+
+| Option            | Type                              | Default |
+| ----------------- | --------------------------------- | ------- |
+| `units`           | map of directory glob → extension | `{}`    |
+| `pascalCaseUnits` | map of root glob → extension      | `{}`    |
+| `exclude`         | list of directory globs           | `[]`    |
+
+```js
+// svelte-vitals.config.js
+export default {
+  rules: {
+    'architecture/unit-entry-file': {
+      options: {
+        units: {
+          'src/lib/api/**/*': '.ts',
+          'src/**/functions/*': '.ts',
+          'src/**/functions/*/*': '.ts',
+          'src/**/stores/*': '.svelte.ts'
+        },
+        pascalCaseUnits: { 'src/**': '.svelte' },
+        exclude: ['**/tests', '**/styleGuide', '**/types', '**/e2e']
+      }
+    }
+  }
+};
+```
+
+**`units`** identifies a unit by where it sits. **`pascalCaseUnits`** identifies one by its name: every
+directory under a matching root whose name begins with an uppercase letter. Both are needed, because a
+camelCase directory may legitimately be a unit _or_ a grouping — only its position can tell them apart
+— while a PascalCase unit nests to arbitrary depth, where no path glob can find it.
+
+A directory matched by `units` takes that declaration; `pascalCaseUnits` applies only to the rest. When
+several `units` globs match, the longest wins, and the alphabetically first among equal-length ties.
+
+### `exclude`
+
+**`exclude` removes a directory and everything beneath it.** So it is only for directories that are
+neither units themselves nor hold units:
+
+| Directory                            | In `exclude`?                                 |
+| ------------------------------------ | --------------------------------------------- |
+| test, style-guide, e2e, type folders | Yes                                           |
+| a folder whose children _are_ units  | **No** — excluding it removes those units too |
+
+If a broad `units` glob sweeps in a folder that holds units, narrow the glob instead of excluding it.
+
+### Glob depth
+
+`*` matches within one path segment and `**` across segments, but the two star forms are not
+symmetric: **a `**` between two segments matches one segment or more, never zero.** So
+`src/lib/api/**/*` requires at least two levels below `api/` — which is what keeps an intermediate
+grouping level from being treated as a unit. A **trailing** `/**` does match zero, so it also matches
+the folder itself; avoid it here.
+
+## Limitations
+
+Only files under `src/` are considered, so a directory outside it is never checked and does not need
+excluding.
+
+A declaration that matches no directory at all is reported, so a glob typo cannot leave the rule
+silently checking nothing. A declaration written **only** inside an `overrides` entry is not checked
+that way — whether it matched anything depends on which paths the override applies to.
