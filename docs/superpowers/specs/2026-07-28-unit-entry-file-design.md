@@ -66,8 +66,9 @@ export default {
     'architecture/unit-entry-file': {
       options: {
         units: {
-          'src/lib/api/**/*': '.ts', // nested helper units too, not just two levels
-          'src/**/functions/**/*': '.ts',
+          'src/lib/api/**/*': '.ts', // fetch units and their nested helpers, never the domain level
+          'src/**/functions/*': '.ts',
+          'src/**/functions/*/*': '.ts', // a helper nested inside a function unit
           'src/**/stores/*': '.svelte.ts'
         },
         pascalCaseUnits: { 'src/**': '.svelte' },
@@ -77,6 +78,36 @@ export default {
   }
 };
 ```
+
+### Glob semantics, and why the keys above look the way they do
+
+The declarations compile through `routeGlobToRegExp` (`packages/core/src/config-apply.ts`), whose two
+star forms are **not** symmetric. Measured by running the compiler, 2026-07-28:
+
+| Glob                    | Compiles to                      | Matches                                                                 |
+| ----------------------- | -------------------------------- | ----------------------------------------------------------------------- |
+| `src/lib/api/**/*`      | `^src/lib/api/.*/[^/]*$`         | `{domain}/{fetch}` and `{domain}/{fetch}/{helper}` — **not** `{domain}` |
+| `src/lib/api/*/**/*`    | `^src/lib/api/[^/]*/.*/[^/]*$`   | `{domain}/{fetch}/{helper}` **only** — misses every plain fetch unit    |
+| `src/**/functions/*`    | `^src/.*/functions/[^/]*$`       | a unit directly under `functions/`                                      |
+| `src/**/functions/*/*`  | `^src/.*/functions/[^/]*/[^/]*$` | a helper nested one level deeper                                        |
+| `src/**/functions/**/*` | `^src/.*/functions/.*/[^/]*$`    | the nested helper **only** — misses the function unit itself            |
+| `src/**/functions/**`   | `^src/.*/functions(/.*)?$`       | everything under `functions/` **and the container itself**              |
+
+Two rules follow, and they are the whole reason the keys are shaped as they are:
+
+1. **A `**` between two segments matches one segment or more — never zero.** So `src/lib/api/**/*`
+   requires at least two levels below `api/`, which is exactly why the domain level is never a unit
+   candidate and needs no exclusion.
+2. **A trailing `/**` matches zero or more**, so it also matches the bare prefix — which is why
+   `src/**/functions/**` would sweep in the `functions/` container and must not be used here.
+
+Rule 1 also means a `**` in the middle needs a segment on each side: `src/**/functions/*` does not
+match a `functions/` sitting directly under `src/`. A project with one there declares it separately.
+
+An earlier draft of this example used `src/**/functions/**/*`, which under rule 1 matches **only**
+nested helpers and checks no function unit at all. `src/lib/api/*/**/*` fails the same way at the
+fetch-unit level. Both were verified against the compiler rather than reasoned about, and the
+example above is what survived.
 
 ### Why two declarations rather than one
 
@@ -199,7 +230,13 @@ speculative.
 ## Verdict
 
 1. `sourceFiles` absent → no results.
-2. Derive the directory set from the file paths.
+2. Derive the directory set: **every ancestor path prefix of every file**, not only the directories
+   that have a file as a direct child. `src/lib/api/hall/fetchHall/fetchHall.ts` contributes `src`,
+   `src/lib`, `src/lib/api`, `src/lib/api/hall` and `src/lib/api/hall/fetchHall` — so a directory
+   holding nothing but subdirectories **is** in the set and **is** checked. Deriving instead from
+   "parents of files" would leave structurally identical directories checked or unchecked depending
+   on whether one of them happens to hold a shared file, which is a difference the convention does
+   not make.
 3. For each directory, resolve options against the target `{ route: dir, file: dir }` — the same
    convention `componentRule` uses, so a `files:`-scoped override reaches it. Compiled globs are
    memoised on the resolved option values, since a project has a handful of distinct declarations
@@ -209,13 +246,14 @@ speculative.
 
 ## Precision — what the rule stays silent about
 
-| Input                                              | Behaviour                     | Why                                                     |
-| -------------------------------------------------- | ----------------------------- | ------------------------------------------------------- |
-| `sourceFiles` absent                               | No results                    | Dev live layer and `--route` mode, as with `components` |
-| `units` and `pascalCaseUnits` both empty           | No results                    | L3 inertness                                            |
-| A directory matched by neither declaration         | Skipped                       | Not declared                                            |
-| A directory whose basename does not begin `A`–`Z`  | Skipped for `pascalCaseUnits` | `parts`, `fairSearch`, `[hallId=integer]`               |
-| A directory or ancestor matching an `exclude` glob | Skipped, subtree included     | Declared never to be a unit                             |
+| Input                                              | Behaviour                     | Why                                                          |
+| -------------------------------------------------- | ----------------------------- | ------------------------------------------------------------ |
+| `sourceFiles` absent                               | No results                    | Dev live layer and `--route` mode, as with `components`      |
+| `units` and `pascalCaseUnits` both empty           | No results                    | L3 inertness                                                 |
+| A directory matched by neither declaration         | Skipped                       | Not declared                                                 |
+| A directory whose basename does not begin `A`–`Z`  | Skipped for `pascalCaseUnits` | `parts`, `fairSearch`, `[hallId=integer]`                    |
+| A directory or ancestor matching an `exclude` glob | Skipped, subtree included     | Declared never to be a unit                                  |
+| A directory with no file anywhere beneath it       | Not in the set at all         | Nothing contributes its prefix; git does not track it either |
 
 ### The one false positive the convention itself invites
 
@@ -327,6 +365,11 @@ intersecting each entry's scope with the directory set. Simplicity wins; the rul
   keys**.
 - **A `units` key containing `**` reaches a nested unit** one level deeper than a two-level glob would
   — the case that motivated `exclude`.
+- **A `**` between two segments does not match zero segments**, pinned on both keys where it matters:
+  `src/lib/api/**/*` does not treat the domain level as a unit, and `src/**/functions/**/*` (the wrong
+  shape) checks no function unit — so a regression in the compiler cannot silently empty a declaration.
+- **A directory whose only children are directories is still checked**, since the set is built from
+  every ancestor prefix rather than from the parents of files.
 - **A reserved directory swept in by a broad `units` glob is exempted by `exclude`**, and `exclude`
   prunes the whole subtree (a `tests/fixtures/` under an excluded `tests/` is exempt too).
 - `exclude` outranks both declarations, including a PascalCase directory under a matching root.
@@ -345,13 +388,24 @@ intersecting each entry's scope with the directory set. Simplicity wins; the rul
 
 ### Validate the documented example against a real tree
 
-Both errors this spec's example configuration contained were found by running it over a real project's
-directory tree, not by reading it — first a `units` glob that missed nested units and swept in
-`tests/`, then an `exclude` list that silenced 72 legitimate units. Neither is visible from the prose.
+Every error this spec's example configuration has contained was found by running it over a real
+project's tree, never by reading it: a `units` glob that missed nested units and swept in `tests/`; an
+`exclude` list that silenced 72 legitimate units; and a `**` in the wrong position that checked no
+function unit at all. None is visible from the prose.
 
-So the plan carries a step for it: with the rule built, run it over a real SvelteKit tree with the
-documented example config and check the counts by hand before the docs ship. A unit test proves the
-mechanism; only a real tree proves the example.
+So the plan carries a step for it, and the step has three checks — because the obvious one is not
+sufficient on its own:
+
+1. **On a tree that already complies, violations must be 0.** Catches false positives.
+2. **Count the directories actually checked.** Zero violations reads identically as "the tree
+   complies" and "the globs matched nothing", and only the count separates them. This is the check
+   that would have caught the `**/functions/**/*` mistake, where violations were 0 because no function
+   unit was examined.
+3. **Compare the count against the tree's real unit count.** A count that is plausible but low is the
+   `exclude`-over-pruning failure — 109 of 166 PascalCase units, with no violations to show for it.
+
+A unit test proves the mechanism; only a real tree proves the example, and only the count proves the
+example is doing anything.
 
 ## Documentation
 
