@@ -24,13 +24,13 @@ declares its private scopes.
 
 ## Rule identity
 
-| Field    | Value                                                                          |
-| -------- | ------------------------------------------------------------------------------ |
-| id       | `architecture/private-scope-import`                                            |
-| category | `architecture`                                                                 |
-| severity | `info` (the landing severity every new rule takes — charter, release contract) |
-| scope    | component                                                                      |
-| layer    | L3 — inert until declared                                                      |
+| Field    | Value                                                                                      |
+| -------- | ------------------------------------------------------------------------------------------ |
+| id       | `architecture/private-scope-import`                                                        |
+| category | `architecture`                                                                             |
+| severity | `info` — the severity of the findings it emits once declared, not a statement that it runs |
+| scope    | component                                                                                  |
+| layer    | L3 — inert until declared                                                                  |
 
 ## Configuration
 
@@ -172,7 +172,10 @@ Four changes, no new facts and no new option kinds.
 
 Rule pages in en and ja, and the configurable-rules list in `configuration.mdx` (en and ja). The
 rule page states in the present tense that alias-resolved imports are not yet checked — a current
-gap being closed, not a standing limitation. Changeset: minor.
+gap being closed, not a standing limitation.
+
+A minor changeset ships **with the implementation**, not with this document: the rule is a
+user-facing addition, while a design doc under `docs/superpowers/` is internal and needs none.
 
 ## Follow-ups (before 1.0)
 
