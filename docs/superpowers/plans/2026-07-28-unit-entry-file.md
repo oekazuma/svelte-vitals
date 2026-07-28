@@ -601,17 +601,20 @@ export const architectureUnitEntryFile: Rule = {
       if (excluded.some(({ re }) => re.test(dir) || ancestorDirs(dir).some((a) => re.test(a)))) continue;
 
       // A `units` key wins over the casing convention purely by being tried first.
-      const byPath = matchKeys(dir, compile(Object.keys(units)));
-      let byCasing: { matched: string[]; best?: string } = { matched: [] };
       let ext = byPath.best === undefined ? undefined : units[byPath.best];
-      let viaUnits = ext !== undefined;
+      const viaUnits = ext !== undefined;
       if (ext === undefined && isPascalCase(baseName(dir))) {
-        byCasing = matchKeys(dir, compile(Object.keys(pascalUnits)));
         ext = byCasing.best === undefined ? undefined : pascalUnits[byCasing.best];
       }
-      // Every key that matched has done work, whether or not it won the tie-break.
-      for (const k of [...byPath.matched, ...byCasing.matched]) if (globalKeys.has(k)) usedKeys.add(k);
       if (ext === undefined) continue;
+
+      // Matched unconditionally — before `exclude` prunes the directory and before the casing
+      // gate below decides whether `pascalCaseUnits` gets to set `ext`. A key that only ever
+      // matches an excluded directory, or only matches directories a `units` key already won
+      // for, has still done work; bookkeeping it after either gate would falsely call it inert.
+      const byPath = matchKeys(dir, compile(Object.keys(units)));
+      const byCasing = matchKeys(dir, compile(Object.keys(pascalUnits)));
+      for (const k of [...byPath.matched, ...byCasing.matched]) if (globalKeys.has(k)) usedKeys.add(k);
 
       const expected = `${dir}/${baseName(dir)}${ext}`;
       if (fileSet.has(expected)) {
