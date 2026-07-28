@@ -1,5 +1,80 @@
 # @svelte-vitals/mcp
 
+## 0.16.0
+
+### Minor Changes
+
+- 0b2fd98: Recalibrate the Architecture thresholds against real Svelte code: `architecture/prop-count` now flags more than 6 props (was 10) and `architecture/component-size` flags components longer than 200 lines (was 400).
+
+  Both numbers were previously guesses. They now come from surveying real Svelte 5 codebases with the same benchmark-based method ReactSniffer uses for React. `prop-count`'s 6 is the median per-repository 90th percentile; `component-size`'s 200 is set deliberately above the measured 90th and 95th percentiles, because length is a weaker signal than a wide prop surface. Both held when the survey was widened. At the old values these rules almost never fired on a typical Svelte project.
+
+  Expect new `info` findings on existing projects. The Architecture score itself will barely move: component-scoped rules score per file (each flagged file loses 1 point for an `info` finding, then per-file scores are averaged across the project), so more than half of a project's components would have to be flagged before the Architecture score drops by even a single point. Nothing fails by default, since `failOn` defaults to `'critical'` — but if you run with `--fail-on info` or `failOn: 'info'` in `svelte-vitals.config.mjs` (including the Vite plugin's build mode, where it fails the `vite build`), components that passed before this change will now fail. Turn a rule off in `svelte-vitals.config.mjs` (`rules: { 'architecture/prop-count': 'off' }`) if its default does not suit your codebase — per-rule thresholds are not configurable yet.
+
+- b1c6f80: Add `correctness/base-path-navigation`: in projects that configure `kit.paths.base`, flags hardcoded root-relative navigation — `<a href="/about">`, `goto('/about')`, `redirect(303, '/login')` — which resolves against the domain root, lands outside the app, and 404s in production while working fine locally. The base path is read from the `sveltekit()` Vite plugin config, else `svelte.config.{js,ts}`, following SvelteKit's own precedence; projects without a base path are never flagged. Detection is literal-only, so `resolve()`-wrapped and `base`-prefixed paths are never reported.
+- 15e0874: Add `correctness/checkable-bind-value`: flags `<input type="checkbox" bind:value={x}>` and `<input type="radio" bind:value={x}>` — `bind:value` binds the DOM `value` property, which checkbox/radio interaction never changes, so the bound state silently never updates. Verified against Svelte 5 directly: the compiler accepts this pattern with zero warnings. Use `bind:checked` (single checkbox) or `bind:group` (checkbox list / radio group) instead.
+- 314a19a: Rule settings now accept an object form, `{ severity?, options? }`, alongside the existing
+  `'off' | Severity` strings. Options let a project move a rule's thresholds or extend its
+  built-in lists, globally or per path via `overrides`.
+
+  Configurable rules: `architecture/prop-count` and `architecture/component-size` (`max`),
+  `seo/title-length` and `seo/description-length` (`min`, `max`), `performance/heavy-import`
+  (`packages`), `performance/preconnect` (`origins`). List and map options are **added** to the
+  built-in set rather than discarding it, so new built-in entries keep reaching every project; in a
+  map, a key that already exists built-in keeps its entry and takes the configured value.
+
+  Two notes for existing setups. Values in the config file's `rules` map are now validated —
+  an invalid severity that was previously passed through unchecked is now a fatal config error.
+  And the `RuleSetting` union has gained a member, which can make an exhaustive `switch` over it
+  in external TypeScript code non-exhaustive.
+
+  The `svelteVitals()` Vite plugin's `rules` and `overrides` options get the same validation as
+  the config file — both funnel through core's `validateRuleSetting`: an unknown rule id, an
+  invalid `severity`, an unrecognized key in the object form, an unknown option key, or an option
+  value outside its declared type/bounds is now a fatal, synchronous error at plugin construction,
+  instead of being silently ignored (an unknown id) or silently dropped (an invalid option). A
+  `vite.config.js` gets no help from TypeScript, so a typo there previously left the rule at its
+  built-in severity with no signal at all.
+
+  `explain_rule` (`@svelte-vitals/mcp`) now reports a rule's configurable options — name, kind,
+  default, bounds, and whether the value replaces or extends the default — in both its text and
+  `structuredContent`. An agent that reads a finding as a threshold disagreement rather than a
+  defect can name the knob without leaving the tool loop.
+
+  In an `overrides[].rules` entry, a rule-id key and a category key are resolved independently:
+  a rule-id key that carries no `severity` (an options-only object, e.g.
+  `'architecture/prop-count': { options: { max: 4 } }`) does not shadow a category key's
+  severity in the same entry — the category's severity still applies, alongside the rule's
+  options. Only a rule-id key that _does_ specify a `severity` beats the category key, as before.
+
+- 0603539: New rule `architecture/private-scope-import`: a unit inside a directory you have declared private
+  must not be imported from outside that directory's owner. It is **inert until configured** — set
+  `scopes` to a list of globs naming your private directories, and nothing changes for projects that
+  do not.
+
+  Each glob matches a private directory and its parent becomes the boundary, so the same directory
+  name can mean different things in different places: with `scopes: ['src/routes/**/components']`, a
+  route's `components/` is private to that route while `src/lib/components` stays shared. When private
+  directories nest, the innermost one wins.
+
+  Only imports written in a `.svelte` component are checked, and only when the specifier is `$lib/` or
+  relative. An import resolved through a custom `svelte.config.js` alias, one written in a
+  `.svelte.ts` / `.svelte.js` module or a Kit module (`+page.ts`, `+server.ts`, `hooks.*.ts`), and one
+  naming a directory rather than a file are all unchecked for now. Each rule page lists the same set.
+  Type-only imports **are** checked — the coupling they create survives into source even though the
+  import is erased at build.
+
+### Patch Changes
+
+- 59bd0d6: Scope resolution now treats template declaration tags — `{@const ...}` and the newer `{let ...}` / `{const ...}` — as shadowing bindings for their enclosing fragment, so a write to such a template-local alias is no longer misattributed to a same-named top-level `$state` (fewer false positives across the component-analysis rules).
+- Updated dependencies [0b2fd98]
+- Updated dependencies [b1c6f80]
+- Updated dependencies [15e0874]
+- Updated dependencies [59bd0d6]
+- Updated dependencies [314a19a]
+- Updated dependencies [0603539]
+  - @svelte-vitals/core@0.30.0
+  - svelte-vitals@0.34.0
+
 ## 0.15.1
 
 ### Patch Changes
