@@ -197,4 +197,14 @@ describe('architecture/private-scope-import', () => {
     };
     expect(await architecturePrivateScopeImport.check(ctx)).toEqual([]);
   });
+
+  it('treats a top-level marker as repo-root scoped, so nothing is outside it', async () => {
+    // A marker at a top-level segment leaves the boundary empty — the repo root — and
+    // every importer is inside it. The rule still recognises the import as scoped, so it
+    // seeds a pass rather than emitting nothing.
+    const c = comp({ file: 'src/lib/C.svelte', importSpans: [{ source: '../../parts/X.svelte', line: 1 }] });
+    const rs = await architecturePrivateScopeImport.check(scoped([c], ['parts']));
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(1);
+  });
 });

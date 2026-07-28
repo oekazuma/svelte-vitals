@@ -21,15 +21,16 @@ function ancestorDirs(file: string): string[] {
 }
 
 /**
- * The private scope containing `target`, as `{ marker, boundary }`, or undefined when
- * none of `patterns` matches an ancestor. The DEEPEST match wins so nested scopes stay
- * private to their immediate owner rather than only to the outermost one.
+ * The boundary of the private scope containing `target` — the marker directory's parent
+ * (`''` when the marker is a top-level segment, i.e. the repo root) — or undefined when none
+ * of `patterns` matches an ancestor. The DEEPEST match wins so nested scopes stay private to
+ * their immediate owner rather than only to the outermost one.
  */
-function privateScopeOf(target: string, patterns: RegExp[]): { marker: string; boundary: string } | undefined {
+function privateScopeOf(target: string, patterns: RegExp[]): string | undefined {
   for (const dir of ancestorDirs(target)) {
     if (!patterns.some((p) => p.test(dir))) continue;
     const cut = dir.lastIndexOf('/');
-    return { marker: dir, boundary: cut === -1 ? '' : dir.slice(0, cut) };
+    return cut === -1 ? '' : dir.slice(0, cut);
   }
   return undefined;
 }
@@ -94,13 +95,13 @@ export const architecturePrivateScopeImport: Rule = {
       for (const { source, line } of spans) {
         const target = resolveRepoLocalPath(source, c.file);
         if (target === undefined) continue; // bare package, unknown alias, or escapes the root
-        const scope = privateScopeOf(target, patterns);
-        if (scope === undefined) continue; // not in a private scope
+        const boundary = privateScopeOf(target, patterns);
+        if (boundary === undefined) continue; // not in a private scope
         sawScopedImport = true;
-        if (isInside(c.file, scope.boundary)) continue;
+        if (isInside(c.file, boundary)) continue;
         // `boundary` is never '' here: an empty boundary is the repo root, and `isInside`
         // already accepted every importer above.
-        violations.push({ line, message: `${target} is private to ${scope.boundary}` });
+        violations.push({ line, message: `${target} is private to ${boundary}` });
       }
       if (!sawScopedImport) continue; // no signal in this file → neither penalize nor seed
       if (violations.length === 0) {
