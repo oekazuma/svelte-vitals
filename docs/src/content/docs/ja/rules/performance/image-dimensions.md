@@ -1,6 +1,6 @@
 ---
 title: performance/image-dimensions · 画像のサイズ指定
-description: すべての <img> に width と height 属性を明示すべきです。
+description: <img> には width と height を明示します。
 ---
 
 **重大度:** warning

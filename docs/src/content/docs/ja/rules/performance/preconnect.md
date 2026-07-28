@@ -1,6 +1,6 @@
 ---
 title: performance/preconnect · サードパーティオリジンへの preconnect
-description: ページが利用するサードパーティオリジンに preconnect します。
+description: ページが使うサードパーティのオリジンには、あらかじめ preconnect しておきましょう。
 ---
 
 **重大度:** info

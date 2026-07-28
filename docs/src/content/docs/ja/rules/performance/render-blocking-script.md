@@ -1,6 +1,6 @@
 ---
 title: performance/render-blocking-script · レンダリングをブロックするスクリプト
-description: head 内の <script src> は解析をブロックすべきではありません。
+description: head の <script src> で HTML の解析を止めないようにしましょう。
 ---
 
 **重大度:** warning

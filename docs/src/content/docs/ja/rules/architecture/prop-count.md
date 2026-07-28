@@ -1,6 +1,6 @@
 ---
 title: architecture/prop-count · プロップ数
-description: 多くのプロップを受け取るコンポーネントは責務過多です。
+description: props が多すぎるコンポーネントは、担っている責務も多すぎます。
 ---
 
 **重大度:** info · **カテゴリ:** architecture

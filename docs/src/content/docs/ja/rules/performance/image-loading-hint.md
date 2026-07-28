@@ -1,6 +1,6 @@
 ---
 title: performance/image-loading-hint · 画像の読み込みヒント
-description: すべての <img> に loading 属性を明示すべきです。
+description: <img> には loading 属性を明示します。
 ---
 
 **重大度:** info

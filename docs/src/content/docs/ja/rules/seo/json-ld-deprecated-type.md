@@ -1,6 +1,6 @@
 ---
 title: seo/json-ld-deprecated-type · 非推奨の構造化データ型
-description: 一部のスキーマ型は Google のリッチリザルトを生成しなくなりました。
+description: 一部のスキーマ型は、Google のリッチリザルトの対象から外れました。
 ---
 
 **重大度:** info

@@ -45,11 +45,12 @@ const CATEGORY_BLURB = {
     architecture: 'Component size and prop surface — signals that a component is doing too much.'
   },
   ja: {
-    seo: '解決後の <head> メタデータ、構造化データ、クロール可能性 — 検索エンジンが実際に見るもの。',
-    performance: '画像、レンダリングを妨げるアセット、インポート、ロードのウォーターフォール — ルートを遅くする要因。',
-    correctness: 'Svelte 5 の runes とライフサイクルの誤用 — コンパイルは通るのに挙動が間違っているコード。',
-    security: 'エスケープされない HTML、安全でない URL、サーバー上でリクエストをまたいで漏れる状態。',
-    architecture: 'コンポーネントの大きさと props の数 — 1 つのコンポーネントが抱えすぎているサイン。'
+    seo: '検索エンジンが実際に目にするもの。解決後の <head> メタデータ、構造化データ、クロールのしやすさを見ます。',
+    performance:
+      'ルートが遅くなる原因。画像、レンダリングを妨げるアセット、import、読み込みのウォーターフォールを見ます。',
+    correctness: 'コンパイルは通るのに、思ったとおりに動かないコード。runes とライフサイクルの使い方を見ます。',
+    security: 'エスケープされない HTML、安全でない URL、サーバーでリクエストをまたいで漏れる状態を見ます。',
+    architecture: 'コンポーネントが抱えすぎているサイン。大きさと props の数を見ます。'
   }
 };
 

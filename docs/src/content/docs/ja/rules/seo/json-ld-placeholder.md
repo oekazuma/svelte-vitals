@@ -1,6 +1,6 @@
 ---
 title: seo/json-ld-placeholder · JSON-LD のプレースホルダ
-description: JSON-LD に未置換のプレースホルダを残すべきではありません。
+description: JSON-LD にプレースホルダのまま残っている値がないか確認します。
 ---
 
 **重大度:** info

@@ -1,6 +1,6 @@
 ---
 title: performance/load-waterfall · Load waterfall
-description: universal load 内で依存関係のある await が連なると、1ホップごとにブラウザからのネットワーク往復が発生します。
+description: universal load で依存関係のある await が数珠つなぎになると、1 ホップごとにブラウザからのネットワーク往復が発生します。
 ---
 
 **重大度:** warning · **カテゴリ:** performance

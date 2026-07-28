@@ -1,6 +1,6 @@
 ---
 title: correctness/instance-browser-global · コンポーネント初期化中の browser global
-description: コンポーネントのインスタンススクリプトは SSR 時にサーバーで実行されます。トップレベルで window や document を参照すると、レンダリングがクラッシュします。
+description: インスタンススクリプトは SSR 時にサーバーでも実行されるため、トップレベルで window や document を参照するとレンダリングが落ちます。
 ---
 
 **重大度:** warning · **カテゴリ:** correctness

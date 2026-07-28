@@ -1,6 +1,6 @@
 ---
 title: correctness/effect-as-onmount · onMount 代わりの $effect
-description: reactive 値を読まない $effect には onMount を使います。
+description: リアクティブな値を読まない $effect は、onMount で十分です。
 ---
 
 **重大度:** warning · **カテゴリ:** correctness

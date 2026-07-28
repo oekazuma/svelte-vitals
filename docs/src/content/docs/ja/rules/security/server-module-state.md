@@ -1,6 +1,6 @@
 ---
 title: security/server-module-state · サーバーのモジュールスコープ状態
-description: Kit の server ファイルのモジュールスコープ変数が関数内から再代入されています。全リクエストで共有されます。
+description: server ファイルのモジュールスコープ変数を、関数の中から再代入しています。この変数は全リクエストで共有されます。
 ---
 
 **重大度:** warning · **カテゴリ:** security

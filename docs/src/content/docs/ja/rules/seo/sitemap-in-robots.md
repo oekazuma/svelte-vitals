@@ -1,6 +1,6 @@
 ---
 title: seo/sitemap-in-robots · robots.txt の sitemap 参照
-description: robots.txt はクローラーに sitemap を示すべきです。
+description: robots.txt から sitemap の場所をクローラーに伝えましょう。
 ---
 
 **重大度:** info

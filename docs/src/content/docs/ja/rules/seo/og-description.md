@@ -1,6 +1,6 @@
 ---
 title: seo/og-description · Open Graph description
-description: すべてのルートに og:description を含めるべきです。
+description: og:description はどのルートにも入れましょう。
 ---
 
 **重大度:** warning

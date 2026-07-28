@@ -1,6 +1,6 @@
 ---
 title: seo/og-url · Open Graph URL
-description: すべてのルートは、正規アドレスを示す og:url を含めるべきです。
+description: og:url には、そのページの正規アドレスを入れましょう。
 ---
 
 **重大度:** info

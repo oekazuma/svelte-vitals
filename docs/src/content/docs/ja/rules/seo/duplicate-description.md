@@ -1,6 +1,6 @@
 ---
 title: seo/duplicate-description · 説明文の重複
-description: 各ルートは一意の meta description を持つべきです。
+description: meta description はルートごとに違う内容にしましょう。
 ---
 
 **重大度:** warning

@@ -1,6 +1,6 @@
 ---
 title: seo/html-lang · <html lang>
-description: プロジェクトの app.html で <html> に lang 属性を設定すべきです。
+description: app.html の <html> に lang 属性を設定しましょう。
 ---
 
 **重大度:** warning

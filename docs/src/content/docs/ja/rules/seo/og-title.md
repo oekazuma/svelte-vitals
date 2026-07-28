@@ -1,6 +1,6 @@
 ---
 title: seo/og-title · Open Graph タイトル
-description: すべてのルートに <meta property="og:title"> タグを含めるべきです。
+description: <meta property="og:title"> タグはどのルートにも必要です。
 ---
 
 **重大度:** warning

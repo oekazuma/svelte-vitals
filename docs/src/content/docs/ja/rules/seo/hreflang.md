@@ -1,6 +1,6 @@
 ---
 title: seo/hreflang · hreflang の妥当性
-description: hreflang の alternate は有効なコードを使い、x-default を宣言すべきです。
+description: hreflang の alternate には有効なコードを使い、x-default も宣言しましょう。
 ---
 
 **重大度:** warning
