@@ -1,0 +1,29 @@
+---
+title: Performance
+description: Every Performance rule svelte-vitals runs.
+---
+
+{/* rules-index:start */}
+
+Images, render-blocking assets, imports, and load waterfalls — what makes a route slow.
+
+| Rule                                                                                  | Severity   | Summary                                                                                                               |
+| ------------------------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------- |
+| [`performance/font-preload-crossorigin`](/rules/performance/font-preload-crossorigin) | 🟡 warning | A font preload must set crossorigin so the preloaded file is actually used.                                           |
+| [`performance/heavy-import`](/rules/performance/heavy-import)                         | 🔵 info    | Avoid importing large, non-tree-shakeable packages.                                                                   |
+| [`performance/image-dimensions`](/rules/performance/image-dimensions)                 | 🟡 warning | Every &lt;img&gt; should have explicit width and height attributes.                                                   |
+| [`performance/image-loading-hint`](/rules/performance/image-loading-hint)             | 🔵 info    | Every &lt;img&gt; should have an explicit loading attribute.                                                          |
+| [`performance/lcp-image`](/rules/performance/lcp-image)                               | 🟡 warning | The first (likely LCP) image should not be lazy-loaded.                                                               |
+| [`performance/load-waterfall`](/rules/performance/load-waterfall)                     | 🟡 warning | Dependent sequential awaits in a universal load cost a network round trip from the browser per hop.                   |
+| [`performance/minify-disabled`](/rules/performance/minify-disabled)                   | 🟡 warning | A build.minify:false left in vite.config ships unminified JS/CSS to production.                                       |
+| [`performance/namespace-import`](/rules/performance/namespace-import)                 | 🔵 info    | Prefer named imports over import \* as for tree-shaking.                                                              |
+| [`performance/preconnect`](/rules/performance/preconnect)                             | 🔵 info    | Preconnect to third-party origins used by the page.                                                                   |
+| [`performance/preload-missing-as`](/rules/performance/preload-missing-as)             | 🟡 warning | Every &lt;link rel="preload"&gt; should declare an as attribute.                                                      |
+| [`performance/render-blocking-script`](/rules/performance/render-blocking-script)     | 🟡 warning | A head &lt;script src&gt; should not block parsing.                                                                   |
+| [`performance/responsive-image`](/rules/performance/responsive-image)                 | 🔵 info    | Large images should provide a srcset.                                                                                 |
+| [`performance/sequential-awaits`](/rules/performance/sequential-awaits)               | 🔵 info    | Awaits that don't use each other's results still run one after another — start them together.                         |
+| [`performance/state-raw`](/rules/performance/state-raw)                               | 🔵 info    | Object/array $state that is only ever reassigned pays for deep reactivity it never uses — $state.raw skips the proxy. |
+
+{/* rules-index:end */}
+
+See [Configuration](/guides/configuration) to change a rule's severity or turn it off.

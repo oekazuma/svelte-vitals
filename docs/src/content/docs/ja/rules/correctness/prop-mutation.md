@@ -1,6 +1,6 @@
 ---
 title: correctness/prop-mutation · 非 bindable prop の変異
-description: $bindable を宣言していない $props() の値を変異させてはいけません。
+description: $bindable を宣言していない $props() の値は書き換えないでください。
 ---
 
 **重大度:** warning · **カテゴリ:** correctness

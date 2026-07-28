@@ -1,6 +1,6 @@
 ---
 title: seo/json-ld · JSON-LD 構造化データ
-description: すべてのルートに JSON-LD 構造化データを含めるべきです。
+description: どのルートにも JSON-LD 構造化データを入れましょう。
 ---
 
 **重大度:** info

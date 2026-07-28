@@ -1,6 +1,6 @@
 ---
 title: seo/json-ld-validity · JSON-LD の妥当性
-description: ページの JSON-LD は @context と @type を持つ有効な JSON であるべきです。
+description: ページの JSON-LD は、@context と @type を備えた妥当な JSON である必要があります。
 ---
 
 **重大度:** warning

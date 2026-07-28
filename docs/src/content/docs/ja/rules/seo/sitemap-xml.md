@@ -1,6 +1,6 @@
 ---
 title: seo/sitemap-xml · sitemap.xml
-description: プロジェクトは sitemap.xml ファイルを提供する必要があります。
+description: プロジェクトに sitemap.xml を用意しましょう。
 ---
 
 **重大度:** warning

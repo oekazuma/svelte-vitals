@@ -1,6 +1,6 @@
 ---
 title: seo/single-h1 · 見出し階層
-description: 各ページは <h1> をちょうど1つ持つべきです。
+description: <h1> は 1 ページにつき 1 つだけにしましょう。
 ---
 
 **重大度:** warning

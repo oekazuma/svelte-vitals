@@ -1,6 +1,6 @@
 ---
 title: seo/charset · 文字エンコーディング
-description: ページは <meta charset> で文字エンコーディングを宣言すべきです。
+description: 文字エンコーディングは <meta charset> で宣言します。
 ---
 
 **重大度:** warning

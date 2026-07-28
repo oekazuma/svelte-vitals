@@ -1,6 +1,6 @@
 ---
 title: correctness/base-path-navigation · Root-relative navigation under a base path
-description: 'ハードコードされたルート相対リンクは kit.paths.base ではなくドメインのルートを指すため、base path 配下ではアプリの外に出てしまい、本番環境で404になります。'
+description: ルート相対リンクをハードコードすると kit.paths.base ではなくドメインのルートを指すため、base path の配下ではアプリの外に出てしまい、本番で 404 になります。
 ---
 
 **重大度:** warning · **カテゴリ:** correctness

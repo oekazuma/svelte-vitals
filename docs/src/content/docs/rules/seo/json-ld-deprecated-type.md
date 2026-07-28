@@ -1,6 +1,6 @@
 ---
 title: seo/json-ld-deprecated-type · Deprecated structured-data type
-description: Some schema types no longer produce Google rich results.
+description: Some schema types had their Google rich result dropped or restricted.
 ---
 
 **Severity:** info

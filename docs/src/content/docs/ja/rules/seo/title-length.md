@@ -1,6 +1,6 @@
 ---
 title: seo/title-length · タイトルの長さ
-description: ドキュメントのタイトルは 30〜60 文字であるべきです。
+description: <title> は 30〜60 文字に収めましょう。
 ---
 
 **重大度:** info

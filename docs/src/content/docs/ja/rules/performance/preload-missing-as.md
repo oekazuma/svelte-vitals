@@ -1,6 +1,6 @@
 ---
 title: performance/preload-missing-as · preload に as がない
-description: すべての <link rel="preload"> は as 属性を指定すべきです。
+description: <link rel="preload"> には as 属性を指定します。
 ---
 
 **重大度:** warning

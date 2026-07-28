@@ -1,6 +1,6 @@
 ---
 title: seo/heading-level-skip · 見出しの順序
-description: 見出しレベルを飛ばすべきではありません。
+description: 見出しのレベルは飛ばさずに使いましょう。
 ---
 
 **重大度:** info

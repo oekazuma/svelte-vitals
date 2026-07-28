@@ -1,6 +1,6 @@
 ---
 title: seo/og-image · Open Graph 画像
-description: すべてのルートに <meta property="og:image"> タグを含めるべきです。
+description: <meta property="og:image"> タグはどのルートにも必要です。
 ---
 
 **重大度:** warning

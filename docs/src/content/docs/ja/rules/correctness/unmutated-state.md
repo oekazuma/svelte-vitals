@@ -1,6 +1,6 @@
 ---
 title: correctness/unmutated-state · 変更されない $state
-description: 変更されない $state には const（または $state.raw）を使います。
+description: 一度も変更しない $state は、const（または $state.raw）で十分です。
 ---
 
 **重大度:** info · **カテゴリ:** correctness

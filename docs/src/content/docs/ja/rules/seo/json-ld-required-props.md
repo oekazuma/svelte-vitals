@@ -1,6 +1,6 @@
 ---
 title: seo/json-ld-required-props · JSON-LD の必須プロパティ
-description: 既知の @type には、対応するリッチリザルトに必要なプロパティを含めるべきです。
+description: 認識できる @type には、リッチリザルトに必要なプロパティを揃えましょう。
 ---
 
 **重大度:** warning

@@ -1,6 +1,6 @@
 ---
 title: seo/image-alt · 画像の alt テキスト
-description: すべての <img> に alt 属性を付けるべきです。
+description: <img> には alt 属性を付けます。
 ---
 
 **重大度:** warning

@@ -1,6 +1,6 @@
 ---
 title: security/handler-state-write · handler から import した状態への書き込み
-description: load 関数や action が import したモジュール状態に書き込んでいます。サーバー上では全リクエストで共有されます。
+description: load 関数や action が、import したモジュールの状態に書き込んでいます。サーバーではこの状態を全リクエストで共有します。
 ---
 
 **重大度:** critical · **カテゴリ:** security

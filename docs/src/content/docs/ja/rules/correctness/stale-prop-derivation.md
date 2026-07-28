@@ -1,6 +1,6 @@
 ---
 title: correctness/stale-prop-derivation · Stale prop derivation
-description: '$derived を使わずに prop から計算した値は一度しか評価されず、UI は気づかないうちに親の変更に追従しなくなります。'
+description: $derived を使わずに prop から計算した値は一度しか評価されず、気づかないうちに親の変更へ追従しなくなります。
 ---
 
 **重大度:** warning · **カテゴリ:** correctness

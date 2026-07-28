@@ -1,6 +1,6 @@
 ---
 title: performance/heavy-import · 重い依存の import
-description: サイズが大きく、ツリーシェイクもできないパッケージの import を避けます。
+description: サイズが大きく、ツリーシェイクも効かないパッケージの import は避けましょう。
 ---
 
 **重大度:** info · **カテゴリ:** performance
