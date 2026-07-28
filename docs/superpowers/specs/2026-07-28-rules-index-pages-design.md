@@ -39,7 +39,7 @@ Blume maps an `index` file to its folder's route and sorts it first within the f
 | Severity | `rule.severity`, rendered as 🔴 critical / 🟡 warning / 🔵 info |
 | Summary  | the locale's rule page frontmatter `description`                |
 
-Rows sort by rule id (alphabetical) — predictable to scan and to diff; severity stays visible as its own column. The severity glyphs match the console reporter and the CI job-summary tables, so the docs read the same way as the tool's output.
+Rows sort by severity — critical, then warning, then info — and by rule id within each severity, so a table reads top-down in the order findings matter. (Shipped sorting by rule id alone; changed on 2026-07-28, right after the first release of these pages.) The severity glyphs match the console reporter and the CI job-summary tables, so the docs read the same way as the tool's output.
 
 Links are root-relative in the style the guides already use: `/rules/seo/title-length` in en, `/ja/rules/seo/title-length` in ja.
 

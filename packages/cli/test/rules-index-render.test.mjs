@@ -68,21 +68,33 @@ describe('localeHref', () => {
 });
 
 describe('renderTable', () => {
-  it('sorts rows by rule id and renders link, severity glyph, and escaped summary', () => {
+  it('sorts rows by severity and renders link, severity glyph, and escaped summary', () => {
     expect(renderTable('en', RULES, SUMMARIES)).toBe(
       [
         '| Rule | Severity | Summary |',
         '| --- | --- | --- |',
-        '| [`seo/charset`](/rules/seo/charset) | 🟡 warning | Declare &#123;charset&#125;, not a \\| pipe. |',
-        '| [`seo/title-presence`](/rules/seo/title-presence) | 🔴 critical | Every route should resolve a non-empty &lt;title&gt;. |'
+        '| [`seo/title-presence`](/rules/seo/title-presence) | 🔴 critical | Every route should resolve a non-empty &lt;title&gt;. |',
+        '| [`seo/charset`](/rules/seo/charset) | 🟡 warning | Declare &#123;charset&#125;, not a \\| pipe. |'
       ].join('\n')
     );
+  });
+
+  it('orders critical before warning before info, then by rule id', () => {
+    const rules = [
+      { id: 'seo/b-info', category: 'seo', severity: 'info' },
+      { id: 'seo/b-warning', category: 'seo', severity: 'warning' },
+      { id: 'seo/a-warning', category: 'seo', severity: 'warning' },
+      { id: 'seo/a-critical', category: 'seo', severity: 'critical' }
+    ];
+    const summaries = new Map(rules.map((rule) => [rule.id, 'Summary.']));
+    const ids = parseRuleIds(renderTable('en', rules, summaries));
+    expect(ids).toEqual(['seo/a-critical', 'seo/a-warning', 'seo/b-warning', 'seo/b-info']);
   });
 
   it('uses the ja header labels and link prefix', () => {
     const lines = renderTable('ja', RULES, SUMMARIES).split('\n');
     expect(lines[0]).toBe('| ルール | 重大度 | 概要 |');
-    expect(lines[2]).toContain('](/ja/rules/seo/charset)');
+    expect(lines[2]).toContain('](/ja/rules/seo/title-presence)');
   });
 
   it('throws on an unknown severity instead of rendering "undefined"', () => {
@@ -137,7 +149,7 @@ describe('normalizeBlock', () => {
 
 describe('parseRuleIds', () => {
   it('collects the rule ids linked from a block', () => {
-    expect(parseRuleIds(renderTable('en', RULES, SUMMARIES))).toEqual(['seo/charset', 'seo/title-presence']);
+    expect(parseRuleIds(renderTable('en', RULES, SUMMARIES))).toEqual(['seo/title-presence', 'seo/charset']);
   });
 });
 
