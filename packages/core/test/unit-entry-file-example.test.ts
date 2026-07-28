@@ -22,6 +22,7 @@ const COMPLIANT = [
   'src/lib/features/fair/FairSummary/FairSummary.svelte',
   'src/lib/features/fair/FairSummary/types.ts',
   'src/lib/features/fair/FairSummary/tests/FairSummary.test.ts',
+  'src/lib/features/fair/FairSummary/tests/Fixtures/dummy.ts',
   'src/lib/features/fair/FairSummary/styleGuide/FairSummary.styleGuide.svelte',
   'src/lib/features/fair/FairSummary/parts/FairBadge/FairBadge.svelte',
   // function unit and a helper nested inside it
@@ -58,10 +59,12 @@ describe('the documented example configuration', () => {
     expect(fails(rs).map((r) => r.message)).toEqual([]);
   });
 
-  it('check 2: examines a non-zero number of directories — zero findings must not mean zero work', async () => {
-    // The pass count IS the examined count: every unit the example declares emits one.
+  it('check 2: examines a known number of directories — zero findings must not mean zero work', async () => {
+    // The pass count IS the examined count: every unit the example declares emits one. Asserted
+    // exactly, not just non-zero, because a declaration that quietly narrows is the failure mode
+    // this whole task exists to catch.
     const rs = await architectureUnitEntryFile.check(ctx(COMPLIANT));
-    expect(passes(rs).length).toBeGreaterThan(0);
+    expect(passes(rs)).toHaveLength(9);
   });
 
   it('check 3: examines every unit kind the example declares, not just some', async () => {
@@ -76,11 +79,14 @@ describe('the documented example configuration', () => {
     expect(examined).toContain('src/lib/api/voice/fetchVoice/fetchVoice.ts'); // api fetch unit
     expect(examined).toContain('src/lib/api/voice/fetchVoice/toQuery/toQuery.ts'); // api nested helper
     expect(examined).toContain('src/routes/search/hallList/components/Search/Search.svelte'); // route component
+    expect(examined).toContain('src/lib/features/fair/fairSearch/SearchBox/SearchBox.svelte'); // unit inside a camelCase grouping
   });
 
   it('check 3b: does not examine what the example must leave alone', async () => {
     const rs = await architectureUnitEntryFile.check(ctx(COMPLIANT));
-    const touched = [...fails(rs), ...passes(rs)].map((r) => r.route ?? '').join('\n');
+    // Messages as well as routes: a wrongly-examined directory reports at a nested child, so its
+    // own name appears only in the message.
+    const touched = [...fails(rs), ...passes(rs)].map((r) => `${r.route ?? ''}\n${r.message}`).join('\n');
     // The api domain level, reserved folders, camelCase groupings and matcher segments.
     expect(touched).not.toContain('src/lib/api/voice/types.ts');
     expect(touched).not.toContain('tests/');
