@@ -80,8 +80,8 @@ If a broad `units` glob sweeps in a folder that holds units, narrow the glob ins
 `*` matches within one path segment and `**` across segments, but the two star forms are not
 symmetric: **a `**` between two segments matches one segment or more, never zero.** So
 `src/lib/api/**/*` requires at least two levels below `api/` — which is what keeps an intermediate
-grouping level from being treated as a unit. A **trailing** `/**` does match zero, so it also matches
-the folder itself; avoid it here.
+grouping level from being treated as a unit. A **trailing** `/**` is safe to write: it means
+"everything under this directory," and the rule will not treat the directory itself as a unit.
 
 ## Limitations
 

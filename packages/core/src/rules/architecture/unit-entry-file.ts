@@ -36,8 +36,8 @@ function isPascalCase(name: string): boolean {
 }
 
 /**
- * A compiled declaration key. `barePrefix` is set only for a `units` key ending in `/**`
- * (never for `pascalCaseUnits` or `exclude`) — see `matchKeys`.
+ * A compiled declaration key. `barePrefix` is set for a `units` or `pascalCaseUnits` key ending
+ * in `/**` (never for `exclude`) — see `matchKeys`.
  */
 interface CompiledKey {
   key: string;
@@ -56,11 +56,15 @@ interface CompiledKey {
  * An entry whose `barePrefix` equals `dir` is skipped entirely, not merely denied the win: a
  * trailing `/**` compiles to `(/.*)?`, which also matches the bare prefix itself — `units: {
  * 'src/lib/functions/**': '.ts' }` would otherwise also call `src/lib/functions` a unit and
- * demand a nonsensical `functions/functions.ts`. A `units` key NAMES unit directories, so
- * "everything under X" must not include X itself. This does not apply to `pascalCaseUnits`
- * (its compiled entries never get a `barePrefix`): there a key names the ROOT under which the
- * casing convention applies, and whether the root itself is a unit is already decided correctly
- * by the casing gate at the call site, not by this function.
+ * demand a nonsensical `functions/functions.ts`. The same guard applies to `pascalCaseUnits`: a
+ * key ending in `/**` means "everything under X" there too, and must not include X itself. It
+ * would be tempting to think the casing gate at the call site already handles this — X is a
+ * unit only if its own basename is PascalCase — but that only holds when X's basename happens to
+ * be lowercase. `pascalCaseUnits: { 'src/Components/**': '.svelte' }` names a root whose basename
+ * IS PascalCase, so without this guard the casing gate would pass `src/Components` itself and
+ * demand a nonsensical `Components/Components.svelte` from what was meant as a container, not a
+ * unit. A rule should not depend on the root happening to be named lowercase, so both
+ * declarations get the guard.
  */
 function matchKeys(dir: string, compiled: CompiledKey[]): { matched: string[]; best?: string } {
   const matched: string[] = [];
@@ -110,10 +114,10 @@ export const architectureUnitEntryFile: Rule = {
     const fileSet = new Set(files);
 
     // Compiled patterns are memoised on the resolved declaration, since a project has a
-    // handful of distinct declarations and thousands of directories. `bareGuard` is true only
-    // for `units` (see `matchKeys`'s doc comment for why `pascalCaseUnits` and `exclude` must
-    // never set it), and is part of the cache key so the same globs compiled both ways don't
-    // collide.
+    // handful of distinct declarations and thousands of directories. `bareGuard` is true for
+    // `units` and `pascalCaseUnits` alike (see `matchKeys`'s doc comment for why both need it,
+    // and why `exclude` must never set it), and is part of the cache key so the same globs
+    // compiled both ways don't collide.
     const cache = new Map<string, CompiledKey[]>();
     const compile = (globs: string[], bareGuard = false): CompiledKey[] => {
       const cacheKey = JSON.stringify([globs, bareGuard]);
@@ -157,7 +161,7 @@ export const architectureUnitEntryFile: Rule = {
       // won the tie-break (same principle as the tie-break case just below), so bookkeeping it
       // after either gate would falsely call it inert.
       const byPath = matchKeys(dir, compile(Object.keys(units), true));
-      const byCasing = matchKeys(dir, compile(Object.keys(pascalUnits)));
+      const byCasing = matchKeys(dir, compile(Object.keys(pascalUnits), true));
       for (const k of [...byPath.matched, ...byCasing.matched]) if (globalKeys.has(k)) usedKeys.add(k);
 
       // `exclude` outranks both declarations, and prunes the whole subtree: a directory is

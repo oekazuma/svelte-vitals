@@ -89,6 +89,16 @@ describe('architecture/unit-entry-file — pascalCaseUnits', () => {
     const rs = await architectureUnitEntryFile.check(ctx(['src/lib/Card/parts/Badge.svelte'], PASCAL));
     expect(fails(rs)[0]!.location).toBe('src/lib/Card/parts/Badge.svelte');
   });
+
+  it('does not treat a PascalCase root as a unit for a key ending in /**', async () => {
+    // The casing gate cannot save this one: `Components` IS PascalCase, so without the guard
+    // the container would be asked for Components/Components.svelte.
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/Components/Card/Card.svelte'], { pascalCaseUnits: { 'src/Components/**': '.svelte' } })
+    );
+    expect(fails(rs)).toHaveLength(0);
+    expect(passes(rs)).toHaveLength(1);
+  });
 });
 
 describe('architecture/unit-entry-file — units', () => {
