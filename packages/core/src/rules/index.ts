@@ -61,6 +61,7 @@ import { securityServerModuleState } from './security/server-module-state.js';
 import { securitySharedStateImport } from './security/shared-state-import.js';
 import { architectureComponentSize } from './architecture/component-size.js';
 import { architecturePropCount } from './architecture/prop-count.js';
+import { architecturePrivateScopeImport } from './architecture/private-scope-import.js';
 import { performanceHeavyImport } from './perf/heavy-import.js';
 import { performanceNamespaceImport } from './perf/namespace-import.js';
 import { performanceMinifyDisabled } from './perf/minify-disabled.js';
@@ -129,6 +130,7 @@ export const allRules: Rule[] = [
   securitySharedStateImport,
   architectureComponentSize,
   architecturePropCount,
+  architecturePrivateScopeImport,
   performanceHeavyImport,
   performanceNamespaceImport,
   performanceMinifyDisabled,
@@ -198,6 +200,7 @@ export {
   securitySharedStateImport,
   architectureComponentSize,
   architecturePropCount,
+  architecturePrivateScopeImport,
   performanceHeavyImport,
   performanceNamespaceImport,
   performanceMinifyDisabled,

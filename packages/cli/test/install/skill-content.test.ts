@@ -36,6 +36,29 @@ describe('buildSkillMarkdown', () => {
     expect(ruleWithFix).toBeDefined();
     expect(md).toContain(`Fix: ${oneLine(ruleWithFix!.fix!.description)}`);
   });
+
+  it('marks a rule as inert until configured when every declared option defaults to empty', () => {
+    // architecture/private-scope-import: its only option, `scopes`, defaults to `[]` — the
+    // rule emits nothing at all until a project declares scopes, so a project that never
+    // configures it must not be told to act on it.
+    const line = md.split('\n').find((l) => l.includes('architecture/private-scope-import — '));
+    expect(line).toBeDefined();
+    expect(line).toContain('(inert until configured)');
+  });
+
+  it('does not mark a rule with no options as inert until configured', () => {
+    const line = md.split('\n').find((l) => l.includes('seo/title-presence — '));
+    expect(line).toBeDefined();
+    expect(line).not.toContain('(inert until configured)');
+  });
+
+  it('does not mark a rule whose option has a non-empty default as inert until configured', () => {
+    // architecture/prop-count's `max` option defaults to a real threshold, not an empty
+    // collection, so the rule already checks something out of the box.
+    const line = md.split('\n').find((l) => l.includes('architecture/prop-count — '));
+    expect(line).toBeDefined();
+    expect(line).not.toContain('(inert until configured)');
+  });
 });
 
 describe('buildCursorRules', () => {

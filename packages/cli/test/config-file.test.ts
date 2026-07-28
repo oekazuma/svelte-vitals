@@ -201,6 +201,18 @@ describe('loadConfigFile', () => {
     await expect(loadConfigFile(fixture('config-file-options-wrong-type'))).rejects.toThrow(/must be an integer/);
   });
 
+  it('rejects an unknown option on architecture/private-scope-import', async () => {
+    await expect(loadConfigFile(fixture('config-file-private-scope-unknown-option'))).rejects.toThrow(
+      /unknown option 'scope'/
+    );
+  });
+
+  it('rejects a non-list scopes value', async () => {
+    await expect(loadConfigFile(fixture('config-file-private-scope-bad-type'))).rejects.toThrow(
+      /must be an array of non-empty strings/
+    );
+  });
+
   it('rejects an inverted min/max range (Finding 3, 2026-07-26 review)', async () => {
     await expect(loadConfigFile(fixture('config-file-options-min-max-inverted'))).rejects.toThrow(
       /min \(100\) must be <= max \(60\)/

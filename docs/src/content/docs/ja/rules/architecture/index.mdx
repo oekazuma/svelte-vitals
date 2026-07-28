@@ -5,12 +5,13 @@ description: svelte-vitals の Architecture ルール一覧。
 
 {/* rules-index:start */}
 
-コンポーネントが抱えすぎているサイン。大きさと props の数を見ます。
+コードの形と置き場所のサイン。コンポーネントの大きさ、props の数、そしてプロジェクトが宣言した import の境界を見ます。
 
-| ルール                                                                 | 重大度  | 概要                                                           |
-| ---------------------------------------------------------------------- | ------- | -------------------------------------------------------------- |
-| [`architecture/component-size`](/ja/rules/architecture/component-size) | 🔵 info | 大きくなりすぎたコンポーネントは分割しましょう。               |
-| [`architecture/prop-count`](/ja/rules/architecture/prop-count)         | 🔵 info | props が多すぎるコンポーネントは、担っている責務も多すぎます。 |
+| ルール                                                                             | 重大度  | 概要                                                                               |
+| ---------------------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------- |
+| [`architecture/component-size`](/ja/rules/architecture/component-size)             | 🔵 info | 大きくなりすぎたコンポーネントは分割しましょう。                                   |
+| [`architecture/private-scope-import`](/ja/rules/architecture/private-scope-import) | 🔵 info | プライベートなディレクトリ内のユニットを、その外から import すべきではありません。 |
+| [`architecture/prop-count`](/ja/rules/architecture/prop-count)                     | 🔵 info | props が多すぎるコンポーネントは、担っている責務も多すぎます。                     |
 
 {/* rules-index:end */}
 

@@ -30,11 +30,18 @@ export function applyRuleSeverities(results: Result[], config: Config): Result[]
  * Compile a route glob to an anchored RegExp: `*` matches within a segment,
  * `**` across segments, a trailing `/**` also matches the bare prefix, and
  * everything else — including SvelteKit's `(`, `)`, `[`, `]` — is literal
- * (design 2026-07-18).
+ * (design 2026-07-18). Paths are matched relative to the analyzed project's
+ * root (the cwd svelte-vitals runs from), not necessarily a repo root.
+ *
+ * Exported (module-internal to `@svelte-vitals/core`, not part of the package's public
+ * barrel — nothing outside `packages/core` consumes it) so a rule that matches paths
+ * against user globs (`architecture/private-scope-import`) compiles them with the same
+ * semantics as `route`/`files` overrides, rather than a second implementation that
+ * could drift.
  */
 // '\u0000' below is a placeholder for '**' so the single-'*' pass can't see it;
 // it cannot occur in a route id or path, and split/join avoids a control-char regex.
-function routeGlobToRegExp(pattern: string): RegExp {
+export function routeGlobToRegExp(pattern: string): RegExp {
   const body = pattern
     .replace(/[.+?^${}()|[\]\\]/g, '\\$&')
     .replace(/\*\*/g, '\u0000')

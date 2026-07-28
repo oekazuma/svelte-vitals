@@ -42,7 +42,8 @@ const CATEGORY_BLURB = {
     performance: 'Images, render-blocking assets, imports, and load waterfalls — what makes a route slow.',
     correctness: 'Svelte 5 runes and lifecycle misuse — code that compiles but behaves wrong.',
     security: 'Unescaped HTML, unsafe URLs, and server state that leaks across requests.',
-    architecture: 'Component size and prop surface — signals that a component is doing too much.'
+    architecture:
+      'Component size, prop surface, and the import boundaries a project declares — signals that code is placed or shaped wrong.'
   },
   ja: {
     seo: '検索エンジンが実際に目にするもの。解決後の <head> メタデータ、構造化データ、クロールのしやすさを見ます。',
@@ -50,7 +51,8 @@ const CATEGORY_BLURB = {
       'ルートが遅くなる原因。画像、レンダリングを妨げるアセット、import、読み込みのウォーターフォールを見ます。',
     correctness: 'コンパイルは通るのに、思ったとおりに動かないコード。runes とライフサイクルの使い方を見ます。',
     security: 'エスケープされない HTML、安全でない URL、サーバーでリクエストをまたいで漏れる状態を見ます。',
-    architecture: 'コンポーネントが抱えすぎているサイン。大きさと props の数を見ます。'
+    architecture:
+      'コードの形と置き場所のサイン。コンポーネントの大きさ、props の数、そしてプロジェクトが宣言した import の境界を見ます。'
   }
 };
 

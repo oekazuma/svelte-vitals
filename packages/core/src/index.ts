@@ -123,6 +123,7 @@ export {
   securitySharedStateImport,
   architectureComponentSize,
   architecturePropCount,
+  architecturePrivateScopeImport,
   performanceHeavyImport,
   performanceNamespaceImport,
   performanceMinifyDisabled,

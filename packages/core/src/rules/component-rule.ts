@@ -38,8 +38,13 @@ export interface ComponentRuleOptions {
   bad: (c: ComponentFacts, o: RuleOptions) => ComponentIssue[];
 }
 
-/** Whether `ruleId`'s finding on `line` is silenced by an inline directive on this component. */
-function isSuppressed(c: ComponentFacts, ruleId: string, line: number): boolean {
+/**
+ * Whether `ruleId`'s finding on `line` is silenced by an inline directive on this component.
+ * Exported so a hand-written rule that also operates on `ComponentFacts`
+ * (`architecture/private-scope-import`) can honour the same directives without a second copy
+ * of the matching logic.
+ */
+export function isSuppressed(c: ComponentFacts, ruleId: string, line: number): boolean {
   return (c.suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ruleId)));
 }
 

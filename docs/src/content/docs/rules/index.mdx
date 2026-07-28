@@ -23,7 +23,8 @@ The severities below are the defaults — see [Configuration](/guides/configurat
     Unescaped HTML, unsafe URLs, and server state that leaks across requests. (5 rules)
   </Card>
   <Card title="Architecture" icon="layers" href="/rules/architecture">
-    Component size and prop surface — signals that a component is doing too much. (2 rules)
+    Component size, prop surface, and the import boundaries a project declares — signals that code is placed or shaped
+    wrong. (3 rules)
   </Card>
 </CardGroup>
 
@@ -113,9 +114,10 @@ The severities below are the defaults — see [Configuration](/guides/configurat
 
 ## Architecture
 
-| Rule                                                                | Severity | Summary                                          |
-| ------------------------------------------------------------------- | -------- | ------------------------------------------------ |
-| [`architecture/component-size`](/rules/architecture/component-size) | 🔵 info  | Very large components should be split up.        |
-| [`architecture/prop-count`](/rules/architecture/prop-count)         | 🔵 info  | Components taking many props are doing too much. |
+| Rule                                                                            | Severity | Summary                                                                   |
+| ------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------- |
+| [`architecture/component-size`](/rules/architecture/component-size)             | 🔵 info  | Very large components should be split up.                                 |
+| [`architecture/private-scope-import`](/rules/architecture/private-scope-import) | 🔵 info  | A unit inside a private directory should not be imported from outside it. |
+| [`architecture/prop-count`](/rules/architecture/prop-count)                     | 🔵 info  | Components taking many props are doing too much.                          |
 
 {/* rules-index:end */}

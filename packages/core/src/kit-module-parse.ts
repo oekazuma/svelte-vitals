@@ -451,8 +451,8 @@ function walkKit(
  * Normalize a posix path, resolving `.` and `..` segments — string-only, no I/O.
  * Returns undefined when a `..` segment pops an empty stack, i.e. the path escapes
  * its root (e.g. `../../../../src/lib/server/db` from a shallow route file): the
- * real target lies outside the repo tree we can see, so there is no repo-relative
- * path to return at all.
+ * real target lies outside the project tree we can see, so there is no
+ * project-relative path to return at all.
  */
 function normalizePosix(path: string): string | undefined {
   const out: string[] = [];
@@ -467,13 +467,22 @@ function normalizePosix(path: string): string | undefined {
 }
 
 /**
- * Resolve an import specifier to a repo-relative path against the importing file, or
- * undefined when it cannot be a repo-local module: `$lib/` maps to `src/lib/`, `./`/`../`
- * resolve against the importing file's directory; bare packages and other aliases are
- * skipped (they can't be resolved to a repo-local path at all). Also undefined when a
- * relative specifier's `..` segments escape the repo root — see `normalizePosix`.
+ * Resolve an import specifier to a path relative to the analyzed project's root (the
+ * cwd svelte-vitals runs from — not necessarily a repo root; in a monorepo the project
+ * may live at e.g. `apps/web/`) against the importing file, or undefined when it cannot
+ * be a project-local module: `$lib/` maps to `src/lib/`, `./`/`../` resolve against the
+ * importing file's directory; bare packages and other aliases are skipped (they can't
+ * be resolved to a project-local path at all). Also undefined when a relative
+ * specifier's `..` segments escape the project root — see `normalizePosix`.
+ *
+ * Exported (module-internal to `@svelte-vitals/core`, not part of the package's public
+ * barrel — nothing outside `packages/core` consumes it) because
+ * `architecture/private-scope-import` needs resolution that is not restricted to runes
+ * modules, unlike `resolveRunesModuleSpecifier`. Keep every alias mapping inside this
+ * one function: adding `svelte.config.js` alias support later must stay a single-site
+ * change.
  */
-function resolveRepoLocalPath(spec: string, importerFile: string): string | undefined {
+export function resolveRepoLocalPath(spec: string, importerFile: string): string | undefined {
   let path: string;
   if (spec.startsWith('$lib/')) path = `src/lib/${spec.slice('$lib/'.length)}`;
   else if (spec.startsWith('./') || spec.startsWith('../')) {
