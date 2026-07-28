@@ -121,7 +121,12 @@ export function readSummaries(docsRoot, locale, rules) {
   return summaries;
 }
 
-function byId(a, b) {
+/** Most severe first, so a table can be read top-down in the order findings matter. */
+const SEVERITY_RANK = { critical: 0, warning: 1, info: 2 };
+
+function bySeverityThenId(a, b) {
+  const rank = SEVERITY_RANK[a.severity] - SEVERITY_RANK[b.severity];
+  if (rank !== 0) return rank;
   return a.id < b.id ? -1 : a.id > b.id ? 1 : 0;
 }
 
@@ -133,11 +138,14 @@ function categoryBlurb(locale, category) {
 
 export function renderTable(locale, rules, summaries) {
   const header = TABLE_HEADER[locale];
+  // Validate before sorting: an unknown severity would make the comparator return NaN,
+  // which silently mis-orders the table instead of failing.
+  for (const rule of rules)
+    if (!SEVERITY_GLYPH[rule.severity]) throw new Error(`${rule.id}: unknown severity ${rule.severity}`);
+
   const lines = [`| ${header.join(' | ')} |`, `| ${header.map(() => '---').join(' | ')} |`];
-  for (const rule of [...rules].sort(byId)) {
-    const glyph = SEVERITY_GLYPH[rule.severity];
-    if (!glyph) throw new Error(`${rule.id}: unknown severity ${rule.severity}`);
-    const severity = `${glyph} ${rule.severity}`;
+  for (const rule of [...rules].sort(bySeverityThenId)) {
+    const severity = `${SEVERITY_GLYPH[rule.severity]} ${rule.severity}`;
     const summary = escapeCell(summaries.get(rule.id));
     lines.push(`| [\`${rule.id}\`](${localeHref(locale, rule.id)}) | ${severity} | ${summary} |`);
   }
