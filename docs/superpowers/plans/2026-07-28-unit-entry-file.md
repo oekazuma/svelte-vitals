@@ -524,11 +524,11 @@ interface CompiledKey {
  *
  * A key's own `barePrefix` never matches. `routeGlobToRegExp` compiles a trailing `/**` to also
  * match the bare prefix, so `{ 'src/lib/functions/**': '.ts' }` would otherwise call
- * `src/lib/functions` a unit and demand a nonsensical `functions/functions.ts`. A `units` key
- * NAMES unit directories, so "everything under X" must not include X. This does not apply to
- * `pascalCaseUnits`, whose entries never get a `barePrefix`: there a key names the ROOT under
- * which the casing convention applies, and whether the root itself is a unit is already decided
- * by the casing gate at the call site.
+ * `src/lib/functions` a unit and demand a nonsensical `functions/functions.ts`. A key ending in
+ * `/**` means "everything under X" in BOTH declarations, so it must not include X itself — the
+ * casing gate hides this for `pascalCaseUnits` only when the root's basename happens to be
+ * lowercase, which is not something to rely on: `{ 'src/Components/**': … }` would otherwise
+ * demand `Components/Components.svelte` from a container.
  */
 function matchKeys(dir: string, compiled: CompiledKey[]): { matched: string[]; best?: string } {
   const matched: string[] = [];
@@ -621,7 +621,7 @@ export const architectureUnitEntryFile: Rule = {
       // for, has still done work; bookkeeping it after either gate would falsely call it inert.
       // `true` on the units side guards a key ending in `/**` from matching its own container.
       const byPath = matchKeys(dir, compile(Object.keys(units), true));
-      const byCasing = matchKeys(dir, compile(Object.keys(pascalUnits)));
+      const byCasing = matchKeys(dir, compile(Object.keys(pascalUnits), true));
       for (const k of [...byPath.matched, ...byCasing.matched]) if (globalKeys.has(k)) usedKeys.add(k);
 
       // `exclude` outranks both declarations, and prunes the whole subtree: a directory is
@@ -969,8 +969,8 @@ If a broad `units` glob sweeps in a folder that holds units, narrow the glob ins
 `*` matches within one path segment and `**` across segments, but the two star forms are not
 symmetric: **a `**` between two segments matches one segment or more, never zero.** So
 `src/lib/api/**/*` requires at least two levels below `api/` — which is what keeps an intermediate
-grouping level from being treated as a unit. A **trailing** `/**` does match zero, so it also matches
-the folder itself; avoid it here.
+grouping level from being treated as a unit. A **trailing** `/**` is safe to write: it means
+"everything under this directory", and the rule will not treat the directory itself as a unit.
 
 ## Limitations
 
@@ -1070,8 +1070,8 @@ PascalCase のユニットは任意の深さに入れ子になるためパスの
 `*` は 1 つのパスセグメント内、`**` はセグメントをまたいでマッチしますが、2 つの形は対称では
 ありません。**2 つのセグメントに挟まれた `**` は 1 セグメント以上にマッチし、0 にはマッチしません。**
 そのため `src/lib/api/**/*` は `api/` の 2 段下以降を要求し、中間のグルーピング階層がユニットとして
-扱われることを防ぎます。**末尾**の `/**` は 0 にもマッチするのでフォルダ自身も含んでしまいます。ここ
-では使わないでください。
+扱われることを防ぎます。**末尾**の `/**` は安全に書けます。「このディレクトリ配下すべて」という意味に
+なり、ディレクトリ自身はユニットとして扱われません。
 
 ## 制限
 
