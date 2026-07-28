@@ -1177,7 +1177,7 @@ findings**, which is why the finding count alone does not settle anything.
 - Consumes: `architectureUnitEntryFile` (Task 2), `collectSourceFiles` (Task 1).
 - Produces: nothing.
 
-- [ ] **Step 1: Write the test that pins the example's coverage**
+- [x] **Step 1: Write the test that pins the example's coverage**
 
 The three checks the spec asks for become one test over a synthetic tree that mirrors a real project's
 shape. A synthetic tree is used rather than a checked-out application because the plan must be
@@ -1298,7 +1298,7 @@ describe('the documented example configuration', () => {
 });
 ```
 
-- [ ] **Step 2: Run it**
+- [x] **Step 2: Run it**
 
 Run: `cd packages/core && ../../node_modules/.bin/vitest run test/unit-entry-file-example.test.ts`
 Expected: all PASS.
@@ -1307,7 +1307,7 @@ If `check 3` fails on a specific key, that key's glob is wrong in **both** the t
 fix the page's example and this test together, and re-read the "Glob depth" guidance on the page before
 choosing a replacement.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add packages/core/test/unit-entry-file-example.test.ts
