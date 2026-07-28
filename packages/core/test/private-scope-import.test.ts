@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { resolveRepoLocalPath, routeGlobToRegExp } from '../src/index.js';
-import { architecturePrivateScopeImport } from '../src/index.js';
+import { architecturePrivateScopeImport, applyOverrides } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -206,5 +206,53 @@ describe('architecture/private-scope-import', () => {
     const rs = await architecturePrivateScopeImport.check(scoped([c], ['parts']));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
+  });
+});
+
+describe('architecture/private-scope-import per-path options', () => {
+  it('applies scopes declared in a files:-scoped override, and its severity too', async () => {
+    const cfg = {
+      overrides: [
+        {
+          files: 'src/lib/**',
+          rules: {
+            'architecture/private-scope-import': {
+              severity: 'warning' as const,
+              options: { scopes: ['**/parts'] }
+            }
+          }
+        }
+      ]
+    };
+    const c = comp({
+      file: 'src/lib/Other/Other.svelte',
+      importSpans: [{ source: '../Card/parts/Badge.svelte', line: 3 }]
+    });
+    const ctx: RuleContext = {
+      components: [c],
+      heads: [],
+      project: defaultProject,
+      config: defineConfig(cfg)
+    };
+    const rs = await architecturePrivateScopeImport.check(ctx);
+    // Options resolved during the run: the scope is only in effect because of the override.
+    expect(fails(rs)).toHaveLength(1);
+    // Severity resolved in the post-pass, matched by the same files glob on the same location.
+    const applied = applyOverrides(rs, defineConfig(cfg));
+    expect(applied.find((r) => r.detection.value === 'absent')?.severity).toBe('warning');
+  });
+
+  it('leaves a file outside the override untouched', async () => {
+    const cfg = {
+      overrides: [
+        { files: 'src/lib/**', rules: { 'architecture/private-scope-import': { options: { scopes: ['**/parts'] } } } }
+      ]
+    };
+    const c = comp({
+      file: 'src/routes/+page.svelte',
+      importSpans: [{ source: '../lib/Card/parts/Badge.svelte', line: 3 }]
+    });
+    const ctx: RuleContext = { components: [c], heads: [], project: defaultProject, config: defineConfig(cfg) };
+    expect(await architecturePrivateScopeImport.check(ctx)).toEqual([]);
   });
 });
