@@ -129,6 +129,10 @@ describe('normalizeBlock', () => {
   it('does not collapse differently escaped cells together', () => {
     expect(normalizeBlock('| a\\*b |')).not.toBe(normalizeBlock('| a\\|b |'));
   });
+
+  it('keeps an escaped pipe distinct from a structural cell split', () => {
+    expect(normalizeBlock('| a\\|b |')).not.toBe(normalizeBlock('| a | b |'));
+  });
 });
 
 describe('parseRuleIds', () => {

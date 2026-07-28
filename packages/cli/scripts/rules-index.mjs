@@ -226,7 +226,7 @@ export function normalizeBlock(block) {
       rows.push(`|${cells.join('|')}|`);
     } else prose.push(trimmed);
   }
-  return [prose.join(' ').replace(/\s+/g, ' '), ...rows].join('\n').replace(/\\([^A-Za-z0-9])/g, '$1');
+  return [prose.join(' ').replace(/\s+/g, ' '), ...rows].join('\n').replace(/\\([^A-Za-z0-9|])/g, '$1');
 }
 
 /** Rule ids linked from a block, in the order they appear. */

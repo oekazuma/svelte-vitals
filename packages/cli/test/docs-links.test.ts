@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { readdirSync, existsSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { allRules } from '@svelte-vitals/core';
+import { allRules, CATEGORIES } from '@svelte-vitals/core';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const enRules = join(repoRoot, 'docs', 'src', 'content', 'docs', 'rules');
@@ -37,11 +37,16 @@ describe('docs: every documented rule has a reference page (en + ja)', () => {
   });
   it('has no stray rule pages without a matching rule', () => {
     const ids = new Set(documented.map((r) => `${r.id}.md`));
-    // Generated index pages and sidebar metadata live alongside the rule pages.
-    const basename = (f: string) => f.slice(f.lastIndexOf('/') + 1);
+    // Generated index pages and sidebar metadata live alongside the rule pages, at exactly
+    // these paths — anything else must be a real `<rule id>.md` page.
+    const allowed = new Set<string>(['index.mdx']);
+    for (const category of CATEGORIES) {
+      allowed.add(`${category}/index.mdx`);
+      allowed.add(`${category}/meta.ts`);
+    }
     for (const dir of [enRules, jaRules])
       for (const f of listFilesRecursive(dir)) {
-        if (basename(f) === 'index.mdx' || basename(f) === 'meta.ts') continue;
+        if (allowed.has(f)) continue;
         expect(ids.has(f), `stray ${f} in ${dir}`).toBe(true);
       }
   });

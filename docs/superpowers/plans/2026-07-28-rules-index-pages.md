@@ -996,7 +996,7 @@ Expected: exit 0.
 git status --porcelain
 ```
 
-Expected: only ` M AGENTS.md`. Anything else means a previous task left a file uncommitted or `pnpm format` reformatted generated output — commit or regenerate as appropriate.
+Expected: the porcelain output begins with a space, followed by `M AGENTS.md`, and nothing else. Anything else means a previous task left a file uncommitted or `pnpm format` reformatted generated output — commit or regenerate as appropriate.
 
 - [ ] **Step 5: Commit**
 

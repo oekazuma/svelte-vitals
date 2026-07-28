@@ -10,7 +10,7 @@ Add a landing page at `/rules` and at each `/rules/<category>`, in both locales,
 
 Twelve new content files (six per locale):
 
-```
+```text
 docs/src/content/docs/rules/index.mdx                 → /rules
 docs/src/content/docs/rules/seo/index.mdx             → /rules/seo
 docs/src/content/docs/rules/performance/index.mdx     → /rules/performance
@@ -47,12 +47,11 @@ No "has options" column. Per-rule options are documented on each rule page and i
 
 ## Sidebar
 
-Add `meta.ts` to the rules folder and to each category folder, in both locales:
+Add `meta.ts` to each category folder, in both locales:
 
-- `rules/meta.ts` — `{ title: 'Rules' }` / `{ title: 'ルール' }`, ordered after Guides.
 - `rules/<category>/meta.ts` — the display label and `order` following core's `CATEGORIES` (seo, performance, correctness, security, architecture), matching the order the CLI reports categories in.
 
-Without this, Blume humanizes the folder name and the SEO group reads `Seo`, and the five groups sort alphabetically rather than in report order.
+Without this, Blume humanizes the folder name and the SEO group reads `Seo`, and the five groups sort alphabetically rather than in report order. There is no top-level `rules/meta.ts`: the group already humanizes to `Rules` on its own, matching how `guides/` has no meta file either.
 
 ## Generation
 
@@ -73,7 +72,7 @@ They live in `packages/cli` because that package already owns the docs-consisten
 
 Each target file contains:
 
-```
+```text
 {/* rules-index:start */}
 …generated…
 {/* rules-index:end */}
@@ -87,7 +86,7 @@ The markers are MDX comments, not HTML comments: `@mdx-js/mdx` rejects a raw `<!
 
 ## Guard test
 
-`packages/cli/test/rules-index.test.ts`:
+`packages/cli/test/rules-index.test.mjs` — `.mjs`, not `.ts`, because `packages/cli/tsconfig.json` includes `test/` and has no `allowJs`, so a `.ts` test importing the `.mjs` renderer would fail `pnpm typecheck`:
 
 - regenerates every block and asserts the committed file content between the markers matches, with a failure message naming the regeneration command;
 - asserts every rule in `allRules` appears exactly once across the category tables.
