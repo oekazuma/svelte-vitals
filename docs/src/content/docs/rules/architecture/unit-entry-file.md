@@ -35,9 +35,11 @@ grouping, or narrow the declaration that swept it in.
 | `pascalCaseUnits` | map of root glob → extension      | `{}`    |
 | `exclude`         | list of directory globs           | `[]`    |
 
-Each option's value is the entry file's extension, written with its leading dot — `'.ts'`, not
-`'ts'`. Option validation accepts any non-empty string either way, so a missing dot fails silently:
-it would look for `getFoots` instead of `getFoo.ts` and never find it.
+In `units` and `pascalCaseUnits` — the two map options — each value is the entry file's extension,
+written with its leading dot — `'.ts'`, not `'ts'`. Option validation accepts any non-empty string
+either way, so a missing dot fails silently: it would look for `getFoots` instead of `getFoo.ts` and
+never find it. `exclude` is a list, not a map, and its values are directory globs rather than
+extensions.
 
 ```js
 // svelte-vitals.config.js
@@ -99,10 +101,16 @@ grouping level from being treated as a unit. A **trailing** `/**` is safe to wri
 Only files under `src/` are considered, so a directory outside it is never checked and does not need
 excluding.
 
-A declaration that matches no directory at all is reported, so a glob typo cannot leave the rule
-silently checking nothing. A declaration written **only** inside an `overrides` entry is not checked
-that way — whether it matched anything depends on which paths the override applies to.
+A `units` or `pascalCaseUnits` declaration that checks no directory is reported, so a glob typo
+cannot leave the rule silently checking nothing. "Checks no directory" is stricter than "matches no
+path": a `pascalCaseUnits` key that matched only lowercase directories has identified no unit, so it
+is reported too — that is what surfaces a key missing the trailing `/**` it was meant to have.
 
-When more than one declaration matches no directory, they are all reported together as a single
+Two things are deliberately left out. A declaration written **only** inside an `overrides` entry is
+not checked this way, because whether it matched anything depends on which paths the override
+applies to. And an `exclude` glob is never checked at all: an exclusion that matches nothing already
+fails loudly, since you get the findings you meant to exclude and notice them.
+
+When more than one declaration checks no directory, they are all reported together as a single
 finding rather than one each, so suppressing that finding suppresses the check for every inert
 declaration at once.

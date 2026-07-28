@@ -223,8 +223,15 @@ export const architectureUnitEntryFile: Rule = {
 
       // Prefer a direct child so the finding sits next to the directory it is about; fall
       // back to the subtree for a directory holding only subdirectories.
+      //
+      // Sorted here rather than trusted from the input. `collectSourceFiles` does sort, and
+      // `RuleContext.sourceFiles` now says so, but which file a finding reports at would
+      // otherwise be decided by a glob's traversal order in whichever adapter built the list —
+      // and this is the field a baseline and `--diff` are keyed on, so an order change would
+      // silently move findings. Only reached on the violation path, so the cost is per finding,
+      // not per directory. Same reason `dirs` is sorted above.
       const prefix = `${dir}/`;
-      const under = files.filter((f) => f.startsWith(prefix));
+      const under = files.filter((f) => f.startsWith(prefix)).sort();
       const at = under.find((f) => !f.slice(prefix.length).includes('/')) ?? under[0];
       if (at === undefined) continue; // unreachable: the directory came from a file's prefix
       out.push({

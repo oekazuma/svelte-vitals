@@ -11,6 +11,7 @@ const configFileInvalidFixtureDir = join(here, 'fixtures', 'config-file-invalid-
 const configFileWarningsFixtureDir = join(here, 'fixtures', 'config-file-warnings');
 const minifyDisabledFixtureDir = join(here, 'fixtures', 'minify-disabled-project');
 const waterfallProjectFixtureDir = join(here, 'fixtures', 'waterfall-project');
+const unitEntryFixtureDir = join(here, 'fixtures', 'unit-entry-project');
 
 describe('analyzeProject', () => {
   it('returns results, config, version and warnings for a SvelteKit project', async () => {
@@ -108,6 +109,24 @@ describe('analyzeProject config-file precedence (design doc 2026-07-05-config-fi
     await expect(analyzeProject({ cwd: configFileInvalidFixtureDir })).rejects.toThrow(
       /unknown rule id\(s\) in rules: NOPE999.*Known rule ids:/s
     );
+  });
+
+  // The source-file inventory (design 2026-07-28) is the only fact no rule can rebuild for itself,
+  // so nothing but an end-to-end run proves it reaches the RuleContext.
+  it('collects the source-file inventory and runs a directory-shaped Architecture rule over it', async () => {
+    const { results } = await analyzeProject({ cwd: unitEntryFixtureDir });
+    const found = results.filter((r) => r.id === 'architecture/unit-entry-file');
+    expect(found).toHaveLength(1);
+    expect(found[0]!.location).toBe('src/lib/Card/index.svelte');
+    expect(found[0]!.message).toContain('src/lib/Card/Card.svelte');
+  });
+
+  it('leaves the inventory unbuilt for a --route run, so directory-shaped rules stay silent', async () => {
+    // A single route says nothing about the shape of the tree, and a partial inventory would call
+    // every unexamined declaration inert. The rule is deliberately given nothing rather than a
+    // subset, so the run emits no unit-entry findings at all — not even the inert-declaration one.
+    const { results } = await analyzeProject({ cwd: unitEntryFixtureDir, route: 'other' });
+    expect(results.filter((r) => r.id === 'architecture/unit-entry-file')).toEqual([]);
   });
 
   it('surfaces config-file warnings (invalid enum value, unknown top-level key) without throwing', async () => {

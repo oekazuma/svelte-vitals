@@ -97,6 +97,22 @@ describe('architecture/unit-entry-file — pascalCaseUnits', () => {
     expect(fails(rs)[0]!.location).toBe('src/lib/Card/parts/Badge.svelte');
   });
 
+  it('picks the same location whatever order sourceFiles arrives in', async () => {
+    // `collectSourceFiles` sorts, but the location a finding reports at is what a baseline and
+    // `--diff` are keyed on, so it must not be decided by an adapter's traversal order. Both
+    // inputs below are given unsorted, and each would pick the wrong file without the rule's
+    // own sort: `.find()` would take zzz over bbb, and the fallback would take z over a.
+    const direct = await architectureUnitEntryFile.check(
+      ctx(['src/lib/Card/zzz.svelte', 'src/lib/Card/bbb.svelte', 'src/lib/Card/aaa/deep.svelte'], PASCAL)
+    );
+    expect(fails(direct)[0]!.location).toBe('src/lib/Card/bbb.svelte');
+
+    const fallback = await architectureUnitEntryFile.check(
+      ctx(['src/lib/Card/parts/z.svelte', 'src/lib/Card/parts/a.svelte'], PASCAL)
+    );
+    expect(fails(fallback)[0]!.location).toBe('src/lib/Card/parts/a.svelte');
+  });
+
   it('does not treat a PascalCase root as a unit for a key ending in /**', async () => {
     // The casing gate cannot save this one: `Components` IS PascalCase, so without the guard
     // the container would be asked for Components/Components.svelte.

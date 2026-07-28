@@ -17,7 +17,11 @@ export interface RuleContext {
   components?: ComponentFacts[];
   /** Per-file SvelteKit route/hooks facts for the SSR shared-state rules (static/CLI + vite build mode only). */
   kitModules?: KitModuleFacts[];
-  /** Every file under `src/` for directory-shaped Architecture rules (static/CLI + vite build mode only). */
+  /**
+   * Every file under `src/`, as project-relative paths, for directory-shaped Architecture rules
+   * (static/CLI + vite build mode only). Sorted — see `collectSourceFiles`, which is what both
+   * adapters use to build it.
+   */
   sourceFiles?: string[];
   project: Project;
   config: Config;
