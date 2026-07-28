@@ -1,0 +1,20 @@
+---
+title: Security
+description: Every Security rule svelte-vitals runs.
+---
+
+{/* rules-index:start */}
+
+Unescaped HTML, unsafe URLs, and server state that leaks across requests.
+
+| Rule                                                                  | Severity    | Summary                                                                                                                        |
+| --------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| [`security/handler-state-write`](/rules/security/handler-state-write) | 🔴 critical | A load function or action writes to imported module state — shared across all requests on the server.                          |
+| [`security/javascript-url`](/rules/security/javascript-url)           | 🟡 warning  | Avoid javascript: URLs in attributes.                                                                                          |
+| [`security/raw-html`](/rules/security/raw-html)                       | 🟡 warning  | Sanitize the value — &#123;@html&#125; renders unescaped HTML.                                                                 |
+| [`security/server-module-state`](/rules/security/server-module-state) | 🟡 warning  | A module-scope variable in a Kit route or hooks file is reassigned from a function — shared across all requests on the server. |
+| [`security/shared-state-import`](/rules/security/shared-state-import) | 🟡 warning  | A Kit server/universal file imports a .svelte.ts module holding module-scope $state — one shared instance per server process.  |
+
+{/* rules-index:end */}
+
+See [Configuration](/guides/configuration) to change a rule's severity or turn it off.

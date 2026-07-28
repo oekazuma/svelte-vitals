@@ -1,6 +1,6 @@
 ---
 title: correctness/each-key · キー付き each ブロック
-description: 動的データの {#each} にはキーを付けるべきです。
+description: 動的なデータを回す {#each} にはキーを付けましょう。
 ---
 
 **重大度:** warning · **カテゴリ:** correctness

@@ -1,6 +1,6 @@
 ---
 title: correctness/checkable-bind-value · bind:value on a checkable input
-description: 'checkbox や radio に対する bind:value は DOM の value プロパティを束縛するため、チェックの切り替えを検知できず、束縛した値が更新されなくなります。'
+description: checkbox や radio の bind:value は DOM の value プロパティを見るため、チェックを切り替えても値が更新されません。
 ---
 
 **重大度:** warning · **カテゴリ:** correctness

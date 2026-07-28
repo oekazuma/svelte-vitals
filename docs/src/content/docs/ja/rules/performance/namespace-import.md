@@ -1,6 +1,6 @@
 ---
 title: performance/namespace-import · namespace import
-description: ツリーシェイクのため、import * as ではなく named import を使います。
+description: ツリーシェイクを効かせるため、import * as ではなく名前付き import を使いましょう。
 ---
 
 **重大度:** info · **カテゴリ:** performance

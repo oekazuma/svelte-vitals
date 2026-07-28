@@ -1,6 +1,6 @@
 ---
 title: seo/description-length · 説明文の長さ
-description: meta description は 70〜160 文字であるべきです。
+description: meta description は 70〜160 文字に収めましょう。
 ---
 
 **重大度:** info

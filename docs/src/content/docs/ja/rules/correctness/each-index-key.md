@@ -1,6 +1,6 @@
 ---
 title: correctness/each-index-key · Index used as each key
-description: '{#each} ブロックのキーに index を使うと、アイテムの同一性が位置ベースになります。キーなしと同じバグが、隠れた形で起こります。'
+description: '{#each} のキーに index を使うと、要素の同一性が位置で決まります。キーを付けないのと同じバグが、見えにくい形で起こります。'
 ---
 
 **重大度:** warning · **カテゴリ:** correctness

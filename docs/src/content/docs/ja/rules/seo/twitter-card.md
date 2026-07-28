@@ -1,6 +1,6 @@
 ---
 title: seo/twitter-card · Twitter Card
-description: X/Twitter でのシェアをリッチ表示にするため、twitter:card を宣言すべきです。
+description: X/Twitter で大きなカード表示にするため、twitter:card を宣言しましょう。
 ---
 
 **重大度:** info

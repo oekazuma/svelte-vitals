@@ -1,6 +1,6 @@
 ---
 title: seo/title-presence · タイトルの存在
-description: すべてのルートは空でない <title> を解決する必要があります。
+description: どのルートでも <title> が空にならないようにしましょう。
 ---
 
 **重大度:** critical

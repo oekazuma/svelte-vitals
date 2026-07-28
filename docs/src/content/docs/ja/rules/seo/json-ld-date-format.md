@@ -1,6 +1,6 @@
 ---
 title: seo/json-ld-date-format · JSON-LD の日付形式
-description: JSON-LD の日付プロパティは ISO-8601 であるべきです。
+description: JSON-LD の日付プロパティは ISO-8601 形式で書きます。
 ---
 
 **重大度:** info

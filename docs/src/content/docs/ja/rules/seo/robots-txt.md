@@ -1,6 +1,6 @@
 ---
 title: seo/robots-txt · robots.txt
-description: プロジェクトは robots.txt ファイルを提供する必要があります。
+description: プロジェクトに robots.txt を用意しましょう。
 ---
 
 **重大度:** warning

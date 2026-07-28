@@ -1,6 +1,6 @@
 ---
 title: correctness/nonreactive-builtin-state · Non-reactive built-in in $state
-description: '$state に入れた素の Map・Set・Date・URL・URLSearchParams はプロキシされないため、変更してもリアクティビティに検知されず、UI が更新されなくなります。'
+description: $state に入れた素の Map・Set・Date・URL・URLSearchParams はプロキシされないため、中身を変えても検知されず、気づかないうちに UI が更新されなくなります。
 ---
 
 **重大度:** warning · **カテゴリ:** correctness

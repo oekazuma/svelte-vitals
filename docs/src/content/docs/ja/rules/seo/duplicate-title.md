@@ -1,6 +1,6 @@
 ---
 title: seo/duplicate-title · タイトルの重複
-description: 各ルートは一意の <title> を持つべきです。
+description: <title> はルートごとに違う内容にしましょう。
 ---
 
 **重大度:** warning

@@ -1,6 +1,6 @@
 ---
 title: seo/viewport · ビューポート
-description: レスポンシブな viewport メタタグを宣言すべきです。
+description: レスポンシブ表示のための viewport メタタグを宣言しましょう。
 ---
 
 **重大度:** warning

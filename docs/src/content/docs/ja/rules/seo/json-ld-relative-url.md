@@ -1,6 +1,6 @@
 ---
 title: seo/json-ld-relative-url · JSON-LD の相対 URL
-description: JSON-LD の URL は絶対 URL であるべきです。
+description: JSON-LD の URL は絶対 URL で書きます。
 ---
 
 **重大度:** warning

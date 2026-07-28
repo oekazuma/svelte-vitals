@@ -1,6 +1,6 @@
 ---
 title: performance/lcp-image · LCP 画像の遅延読み込み
-description: LCP と推定される最初の画像は、遅延読み込みすべきではありません。
+description: LCP になりそうな最初の画像は、遅延読み込みにしないでください。
 ---
 
 **重大度:** warning

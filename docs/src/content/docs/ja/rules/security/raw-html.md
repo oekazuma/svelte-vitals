@@ -1,6 +1,6 @@
 ---
 title: security/raw-html · 生 HTML のレンダリング
-description: '値をサニタイズしてください。{@html} はエスケープされない HTML を描画します。'
+description: '{@html} は HTML をエスケープせずに描画します。値は必ずサニタイズしてください。'
 ---
 
 **重大度:** warning · **カテゴリ:** security

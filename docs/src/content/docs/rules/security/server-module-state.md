@@ -1,6 +1,6 @@
 ---
 title: security/server-module-state · Server module-scope state
-description: A module-scope variable in a Kit server file is reassigned from a function — shared across all requests.
+description: A module-scope variable in a Kit route or hooks file is reassigned from a function — shared across all requests on the server.
 ---
 
 **Severity:** warning · **Category:** security

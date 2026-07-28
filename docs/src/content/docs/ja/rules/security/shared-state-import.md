@@ -1,6 +1,6 @@
 ---
 title: security/shared-state-import · サーバーからの共有 runes 状態の import
-description: Kit の server/universal ファイルが、モジュールスコープ $state を持つ .svelte.ts モジュールを import しています。サーバープロセスでは1つのインスタンスを全員で共有します。
+description: server / universal ファイルが、モジュールスコープに $state を持つ .svelte.ts を import しています。サーバープロセスでは 1 つのインスタンスを全リクエストで共有します。
 ---
 
 **重大度:** warning · **カテゴリ:** security

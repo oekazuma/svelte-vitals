@@ -1,6 +1,6 @@
 ---
 title: correctness/effect-as-derived · 状態の導出に effect を使用
-description: 状態を代入するだけの $effect は $derived に置き換えるべきです。
+description: 状態を代入するだけの $effect は $derived に置き換えましょう。
 ---
 
 **重大度:** warning · **カテゴリ:** correctness

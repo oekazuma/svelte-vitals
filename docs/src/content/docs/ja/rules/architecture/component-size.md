@@ -1,6 +1,6 @@
 ---
 title: architecture/component-size · コンポーネントサイズ
-description: 巨大なコンポーネントは分割すべきです。
+description: 大きくなりすぎたコンポーネントは分割しましょう。
 ---
 
 **重大度:** info · **カテゴリ:** architecture
