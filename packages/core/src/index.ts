@@ -125,6 +125,7 @@ export {
   architectureComponentSize,
   architecturePropCount,
   architecturePrivateScopeImport,
+  architectureUnitEntryFile,
   performanceHeavyImport,
   performanceNamespaceImport,
   performanceMinifyDisabled,
