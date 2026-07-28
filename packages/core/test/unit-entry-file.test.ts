@@ -62,7 +62,14 @@ describe('architecture/unit-entry-file — pascalCaseUnits', () => {
     const rs = await architectureUnitEntryFile.check(
       ctx(['src/lib/fairSearch/x.svelte', 'src/routes/[hallId=integer]/+page.svelte'], PASCAL)
     );
-    expect(rs).toEqual([]);
+    // No directory in this tiny tree is PascalCase, so no violation and no pass is reported, and
+    // 'src/**' never identified a unit here — it is correctly reported inert, a real consequence
+    // of the pascalCaseUnits inertness fix rather than a bug in this test's premise (see the
+    // "inert declarations" describe block below).
+    expect(rs.filter((r) => r.route !== undefined)).toEqual([]);
+    const inert = rs.filter((r) => r.route === undefined);
+    expect(inert).toHaveLength(1);
+    expect(inert[0]!.message).toContain('src/**');
   });
 
   it('checks a directory whose only children are directories', async () => {
@@ -184,6 +191,24 @@ describe('architecture/unit-entry-file — units', () => {
     expect(passes(rs)).toHaveLength(1);
     expect(passes(rs)[0]!.route).toBe('src/lib/functions/getFoo/getFoo.ts');
   });
+
+  it('does not treat the container as a unit when a trailing /** has a wildcard prefix', async () => {
+    // barePrefix must be compiled, not compared: no real directory equals the glob
+    // 'src/**/functions', so a string comparison never fires and the container leaks through.
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/functions/getFoo/getFoo.ts'], { units: { 'src/**/functions/**': '.ts' } })
+    );
+    expect(fails(rs)).toHaveLength(0);
+    expect(passes(rs)).toHaveLength(1);
+  });
+
+  it('does not treat a PascalCase container as a unit when a trailing /** has a wildcard prefix', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/Components/Card/Card.svelte'], { pascalCaseUnits: { 'src/*/Components/**': '.svelte' } })
+    );
+    expect(fails(rs)).toHaveLength(0);
+    expect(passes(rs)).toHaveLength(1);
+  });
 });
 
 describe('architecture/unit-entry-file — exclude', () => {
@@ -222,6 +247,27 @@ describe('architecture/unit-entry-file — inert declarations', () => {
   it('does not report a key that matched at least one directory', async () => {
     const rs = await architectureUnitEntryFile.check(ctx(['src/lib/Card/Card.svelte'], PASCAL));
     expect(rs.filter((r) => r.route === undefined)).toEqual([]);
+  });
+
+  it('reports a pascalCaseUnits key that matched only non-PascalCase directories as inert', async () => {
+    // Forgetting the /** leaves a key that matches one lowercase directory: it identifies no
+    // unit, so it has done no work, and calling it used would hide a typo the user wants told.
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/components/Button/Button.svelte'], { pascalCaseUnits: { 'src/lib/components': '.svelte' } })
+    );
+    const inert = rs.filter((r) => r.route === undefined);
+    expect(inert).toHaveLength(1);
+    expect(inert[0]!.message).toContain('src/lib/components');
+  });
+
+  it('reports all inert declarations as a single finding, so they cannot share a baseline key', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/Card/Card.svelte'], { ...PASCAL, units: { 'src/nowhere/*': '.ts', 'src/elsewhere/*': '.ts' } })
+    );
+    const inert = rs.filter((r) => r.route === undefined);
+    expect(inert).toHaveLength(1);
+    expect(inert[0]!.message).toContain('src/elsewhere/*');
+    expect(inert[0]!.message).toContain('src/nowhere/*');
   });
 
   it('does not check inertness for a key declared only in an overrides entry', async () => {

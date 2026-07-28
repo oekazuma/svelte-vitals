@@ -261,9 +261,16 @@ A convention may mirror source paths into a non-source tree — for instance an 
 reproduces `src/` paths verbatim, PascalCase segments included. Those PascalCase directories legitimately
 contain no `.svelte`.
 
-This is structurally prevented: **the fact only collects `src/`**, so a mirrored asset tree never
-enters the directory set. The root glob (`src/**`) is a second guard. The rule page states that a
-root outside `src/` is neither supported nor needed.
+Collecting only `src/` prevents this for a mirror that lives **outside** `src/` — such a tree never
+enters the directory set at all. It does **not** prevent the same shape when the mirror lives
+**inside** `src/` (an asset tree under `src/lib/assets/`, say) or when a route directory happens to
+be PascalCase (`src/routes/FAQ/`): both sit inside the collected tree, and a broad `pascalCaseUnits`
+root like `src/**` reaches them the same as it reaches a real component unit. Those in-`src/` cases
+are not structurally excluded; closing them is the project's job, done with the root glob and
+`exclude` — narrow the `pascalCaseUnits` root, or add the offending tree to `exclude`. For a route
+segment specifically, the fix is never to rename the directory, since that changes the site's URL.
+The rule page states that a root outside `src/` is neither supported nor needed, and now also
+carries this narrowing guidance.
 
 ### Case-insensitive filesystems
 

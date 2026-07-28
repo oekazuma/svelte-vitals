@@ -35,42 +35,53 @@ function isPascalCase(name: string): boolean {
   return c >= 65 && c <= 90;
 }
 
-/**
- * A compiled declaration key. `barePrefix` is set for a `units` or `pascalCaseUnits` key ending
- * in `/**` (never for `exclude`) — see `matchKeys`.
- */
+// A compiled declaration key. `barePrefixRe` is set for a `units` or `pascalCaseUnits` key ending
+// in a trailing double-star segment (never for `exclude`) — see `matchKeys`. It is a compiled
+// RegExp, not the bare glob string: the prefix is itself a glob whenever the key carries a
+// wildcard before that trailing segment, so no real directory can ever equal it as a plain string,
+// and a string comparison against it never fires. Compiling the prefix lets it match a directory
+// the same way `re` matches the full key. (Written as `//` rather than `/**` because the glob
+// examples in `matchKeys`'s comment below contain the literal two-character sequence that would
+// otherwise close a block comment early.)
 interface CompiledKey {
   key: string;
   re: RegExp;
-  barePrefix?: string;
+  barePrefixRe?: RegExp;
 }
 
-/**
- * Every declaration key matching `dir`, and the one that governs it. The longest match wins
- * as the most specific declaration; among equal lengths the lexicographically first wins,
- * because additive merging across config layers makes key insertion order unintuitive.
- *
- * `matched` carries ALL of them, not just the winner: a key that matched a directory but lost
- * the tie-break has still done work, and reporting it as an inert declaration would be a lie.
- *
- * An entry whose `barePrefix` equals `dir` is skipped entirely, not merely denied the win: a
- * trailing `/**` compiles to `(/.*)?`, which also matches the bare prefix itself — `units: {
- * 'src/lib/functions/**': '.ts' }` would otherwise also call `src/lib/functions` a unit and
- * demand a nonsensical `functions/functions.ts`. The same guard applies to `pascalCaseUnits`: a
- * key ending in `/**` means "everything under X" there too, and must not include X itself. It
- * would be tempting to think the casing gate at the call site already handles this — X is a
- * unit only if its own basename is PascalCase — but that only holds when X's basename happens to
- * be lowercase. `pascalCaseUnits: { 'src/Components/**': '.svelte' }` names a root whose basename
- * IS PascalCase, so without this guard the casing gate would pass `src/Components` itself and
- * demand a nonsensical `Components/Components.svelte` from what was meant as a container, not a
- * unit. A rule should not depend on the root happening to be named lowercase, so both
- * declarations get the guard.
- */
+// Every declaration key matching `dir`, and the one that governs it. The longest match wins
+// as the most specific declaration; among equal lengths the lexicographically first wins,
+// because additive merging across config layers makes key insertion order unintuitive.
+//
+// `matched` carries ALL of them, not just the winner: a key that matched a directory but lost
+// the tie-break has still done work, and reporting it as an inert declaration would be a lie.
+//
+// An entry whose `barePrefixRe` matches `dir` is skipped entirely, not merely denied the win: a
+// trailing `/**` compiles to `(/.*)?`, which also matches the bare prefix itself — `units: {
+// 'src/lib/functions/**': '.ts' }` would otherwise also call `src/lib/functions` a unit and
+// demand a nonsensical `functions/functions.ts`. The prefix is compiled rather than compared as a
+// string because it is itself a glob when the key carries one before the trailing double-star
+// segment — a key of `src/**` then `/functions/**`, and one of `src/*` then `/functions/**`, both
+// have a `barePrefixRe` of `src/**` then `/functions` (respectively `src/*` then `/functions`),
+// which no literal directory string can ever equal, so a `dir === barePrefix` comparison silently
+// never fires for either shape and the container leaks through uncaught. Compiling it closes that
+// gap: `src/**` then `/functions` matches `src/lib/functions` the same way `re` would. The same
+// guard applies to `pascalCaseUnits`: a key ending in `/**` means "everything under X" there too,
+// and must not include X itself. It would be tempting to think the casing gate at the call site
+// already handles this — X is a unit only if its own basename is PascalCase — but that only holds
+// when X's basename happens to be lowercase. `pascalCaseUnits: { 'src/Components/**': '.svelte' }`
+// names a root whose basename IS PascalCase, so without this guard the casing gate would pass
+// `src/Components` itself and demand a nonsensical `Components/Components.svelte` from what was
+// meant as a container, not a unit. A rule should not depend on the root happening to be named
+// lowercase, so both declarations get the guard. (One consequence: a key of `src/**` then `/**`
+// compiles a `barePrefixRe` matching every directory the key itself matches, so that key is inert
+// against itself and reports as a declaration that checks nothing. That is the loud, correct
+// failure mode for a nonsensical glob, not a crash.)
 function matchKeys(dir: string, compiled: CompiledKey[]): { matched: string[]; best?: string } {
   const matched: string[] = [];
   let best: string | undefined;
-  for (const { key, re, barePrefix } of compiled) {
-    if (dir === barePrefix) continue;
+  for (const { key, re, barePrefixRe } of compiled) {
+    if (barePrefixRe?.test(dir)) continue;
     if (!re.test(dir)) continue;
     matched.push(key);
     if (best === undefined || key.length > best.length || (key.length === best.length && key < best)) best = key;
@@ -126,7 +137,10 @@ export const architectureUnitEntryFile: Rule = {
         entry = globs.map((key) => ({
           key,
           re: routeGlobToRegExp(key),
-          ...(bareGuard && key.endsWith('/**') ? { barePrefix: key.slice(0, -3) } : {})
+          // The prefix is compiled, not stored as a string: it is itself a glob whenever the key
+          // carries a wildcard before the trailing /**, and no literal directory can ever equal a
+          // glob (see matchKeys's doc comment).
+          ...(bareGuard && key.endsWith('/**') ? { barePrefixRe: routeGlobToRegExp(key.slice(0, -3)) } : {})
         }));
         cache.set(cacheKey, entry);
       }
@@ -154,20 +168,35 @@ export const architectureUnitEntryFile: Rule = {
       const pascalUnits = mapOption(o, 'pascalCaseUnits');
       if (Object.keys(units).length === 0 && Object.keys(pascalUnits).length === 0) continue; // inert
 
-      // Matched unconditionally — before `exclude` prunes the directory and before the casing
-      // gate below decides whether `pascalCaseUnits` gets to set `ext` here. A key that only
-      // ever matches an excluded directory, or only matches directories a `units` key already
-      // won for, has still done work: every key that matched has done work, whether or not it
-      // won the tie-break (same principle as the tie-break case just below), so bookkeeping it
-      // after either gate would falsely call it inert.
       const byPath = matchKeys(dir, compile(Object.keys(units), true));
       const byCasing = matchKeys(dir, compile(Object.keys(pascalUnits), true));
-      for (const k of [...byPath.matched, ...byCasing.matched]) if (globalKeys.has(k)) usedKeys.add(k);
+
+      // `units`: matched unconditionally, before `exclude` prunes the directory and before the
+      // casing gate below decides whether `pascalCaseUnits` gets to set `ext` here. A key that
+      // only ever matches an excluded directory, or only matches directories a `units` key
+      // already won for, has still done work: every key that matched has done work, whether or
+      // not it won the tie-break (same principle as the tie-break case just below), so
+      // bookkeeping it after either gate would falsely call it inert.
+      for (const k of byPath.matched) if (globalKeys.has(k)) usedKeys.add(k);
+
+      // `pascalCaseUnits` is different in kind, not degree: for `units`, the casing gate plays no
+      // role at all, so marking it unconditionally is correct. For `pascalCaseUnits`, the casing
+      // gate below IS the identification criterion — a directory is never a pascalCaseUnits unit
+      // unless its basename is PascalCase — so a key that matched only non-PascalCase directories
+      // has identified nothing and done no work, regardless of `exclude`. A key like
+      // `'src/lib/components'` (missing the trailing `/**` a project meant to write) can match one
+      // real, lowercase directory; treating that match as "used" would hide exactly the typo the
+      // inert-declaration finding exists to surface.
+      if (isPascalCase(baseName(dir))) {
+        for (const k of byCasing.matched) if (globalKeys.has(k)) usedKeys.add(k);
+      }
 
       // `exclude` outranks both declarations, and prunes the whole subtree: a directory is
-      // exempt when it or any ancestor matches.
+      // exempt when it or any ancestor matches. Hoisted out of the `.some()` below: it does not
+      // depend on which exclude glob is being tested, so re-deriving it once per glob was waste.
       const excluded = compile(listOption(o, 'exclude'));
-      if (excluded.some(({ re }) => re.test(dir) || ancestorDirs(dir).some((a) => re.test(a)))) continue;
+      const ancestors = ancestorDirs(dir);
+      if (excluded.some(({ re }) => re.test(dir) || ancestors.some((a) => re.test(a)))) continue;
 
       // A `units` key wins over the casing convention purely by being tried first.
       let ext = byPath.best === undefined ? undefined : units[byPath.best];
@@ -224,14 +253,27 @@ export const architectureUnitEntryFile: Rule = {
     // the directory set; and `exclude` globs are not checked at all, because an exclusion that
     // matches nothing fails LOUDLY — you get findings you did not want and notice — while a
     // unit declaration that matches nothing fails silently, which is the whole point here.
-    for (const key of [...globalKeys].sort()) {
-      if (usedKeys.has(key)) continue;
+    //
+    // All inert keys are folded into ONE finding rather than one per key. `findingKey`
+    // (`id::route::location`, packages/cli/src/baseline.ts) is built from those three fields, and
+    // every shape here leaves `route` and `location` unset — this is the first rule in the
+    // repository to emit more than one project-scoped result per run, so distinct findings that
+    // collapse to the same baseline/suppression key is a new problem. Emitting one finding removes
+    // the collision entirely (suppressing "these declarations check nothing" is one decision, not
+    // N), without touching baseline.ts or suppressions.ts, which are shared with every other rule.
+    // Sorted so the message is deterministic.
+    const inertKeys = [...globalKeys].filter((key) => !usedKeys.has(key)).sort();
+    if (inertKeys.length > 0) {
+      const message =
+        inertKeys.length === 1
+          ? `The declaration '${inertKeys[0]}' matched no directory, so it checks nothing.`
+          : `These declarations matched no directory, so they check nothing: ${inertKeys.map((k) => `'${k}'`).join(', ')}.`;
       out.push({
         id: 'architecture/unit-entry-file',
         category: 'architecture',
         severity: 'info',
         detection: { presence: 'none', value: 'absent' },
-        message: `The declaration '${key}' matched no directory, so it checks nothing.`,
+        message,
         recommendation: 'Correct the glob, or remove the declaration.',
         docsUrl
       });

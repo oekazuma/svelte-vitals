@@ -13,7 +13,11 @@ const EXAMPLE = {
     'src/**/stores/*': '.svelte.ts'
   },
   pascalCaseUnits: { 'src/**': '.svelte' },
-  exclude: ['**/tests', '**/styleGuide', '**/types', '**/e2e']
+  // 'src/routes/FAQ' is excluded because it is a route segment, not a component unit: the broad
+  // pascalCaseUnits root (`src/**`) is otherwise blind to that distinction and would demand
+  // 'FAQ/FAQ.svelte', whose only other remedy — renaming the directory — would change the site's
+  // URL (see the rule page's guidance on narrowing rather than renaming a route segment).
+  exclude: ['**/tests', '**/styleGuide', '**/types', '**/e2e', 'src/routes/FAQ']
 };
 
 /** A compliant tree: one of every unit kind the example declares, all well-formed. */
@@ -40,7 +44,9 @@ const COMPLIANT = [
   'src/routes/search/hallList/+page.svelte',
   'src/routes/search/hallList/components/Search/Search.svelte',
   'src/routes/search/hallList/e2e/index.spec.ts',
-  'src/routes/[hallId=integer]/+page.svelte'
+  'src/routes/[hallId=integer]/+page.svelte',
+  // a PascalCase route segment, excluded above rather than expected to hold FAQ/FAQ.svelte
+  'src/routes/FAQ/+page.svelte'
 ];
 
 const ctx = (sourceFiles: string[]): RuleContext => ({

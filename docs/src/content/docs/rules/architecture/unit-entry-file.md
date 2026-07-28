@@ -35,6 +35,10 @@ grouping, or narrow the declaration that swept it in.
 | `pascalCaseUnits` | map of root glob → extension      | `{}`    |
 | `exclude`         | list of directory globs           | `[]`    |
 
+Each option's value is the entry file's extension, written with its leading dot — `'.ts'`, not
+`'ts'`. Option validation accepts any non-empty string either way, so a missing dot fails silently:
+it would look for `getFoots` instead of `getFoo.ts` and never find it.
+
 ```js
 // svelte-vitals.config.js
 export default {
@@ -54,6 +58,13 @@ export default {
   }
 };
 ```
+
+`pascalCaseUnits`'s root glob covers **every** capitalized directory beneath it, not only the ones
+that are component units — a route segment or an asset tree mirrored inside `src/` can be
+PascalCase too, and neither is a unit. Narrow the root, or add those trees to `exclude`, rather than
+letting the sweep catch them. This matters most for a route directory: renaming it to satisfy this
+rule changes the site's URL, so for a route segment the fix is to narrow the declaration, never to
+rename the directory.
 
 **`units`** identifies a unit by where it sits. **`pascalCaseUnits`** identifies one by its name: every
 directory under a matching root whose name begins with an uppercase letter. Both are needed, because a
@@ -91,3 +102,7 @@ excluding.
 A declaration that matches no directory at all is reported, so a glob typo cannot leave the rule
 silently checking nothing. A declaration written **only** inside an `overrides` entry is not checked
 that way — whether it matched anything depends on which paths the override applies to.
+
+When more than one declaration matches no directory, they are all reported together as a single
+finding rather than one each, so suppressing that finding suppresses the check for every inert
+declaration at once.
