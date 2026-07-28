@@ -74,12 +74,14 @@ They live in `packages/cli` because that package already owns the docs-consisten
 Each target file contains:
 
 ```
-<!-- rules-index:start -->
+{/* rules-index:start */}
 …generated…
-<!-- rules-index:end -->
+{/* rules-index:end */}
 ```
 
 The generator replaces only what is between the markers; everything else in the file — frontmatter, intro prose, any added notes — is hand-written and preserved.
+
+The markers are MDX comments, not HTML comments: `@mdx-js/mdx` rejects a raw `<!-- … -->` anywhere in an `.mdx` file, so `{/* … */}` is the only form that compiles.
 
 **Escaping** — summaries contain raw angle brackets (`Every route should resolve a non-empty <title>.`). In MDX that parses as JSX and breaks the build, so the renderer escapes `<` → `&lt;`, `{` → `&#123;`, and `|` → `\|` inside table cells.
 

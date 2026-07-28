@@ -4,7 +4,7 @@
 
 **Goal:** Add generated landing pages at `/rules` and `/rules/<category>` (en + ja) that list every rule with its severity and one-line summary.
 
-**Architecture:** A pure rendering module (`packages/cli/scripts/rules-index.mjs`) turns `allRules` plus each locale's rule-page frontmatter into markdown blocks. An entry script writes those blocks into the region between `<!-- rules-index:start -->` / `<!-- rules-index:end -->` markers in twelve hand-written content files. A vitest guard test re-renders the blocks and compares them to what is committed, so a new rule cannot land without regenerating the indexes.
+**Architecture:** A pure rendering module (`packages/cli/scripts/rules-index.mjs`) turns `allRules` plus each locale's rule-page frontmatter into markdown blocks. An entry script writes those blocks into the region between `{/* rules-index:start */}` / `{/* rules-index:end */}` markers in twelve hand-written content files. A vitest guard test re-renders the blocks and compares them to what is committed, so a new rule cannot land without regenerating the indexes.
 
 **Tech Stack:** Node ESM scripts (`.mjs`), vitest, Blume (Astro) docs site, oxlint + oxfmt.
 
@@ -229,8 +229,8 @@ Create `packages/cli/scripts/rules-index.mjs`:
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-export const START_MARKER = '<!-- rules-index:start -->';
-export const END_MARKER = '<!-- rules-index:end -->';
+export const START_MARKER = '{/* rules-index:start */}';
+export const END_MARKER = '{/* rules-index:end */}';
 
 export const LOCALES = ['en', 'ja'];
 
@@ -485,8 +485,8 @@ Every rule svelte-vitals can report, grouped by category. Each rule links to a r
 
 The severities below are the defaults — see [Configuration](/guides/configuration) to change a rule's severity or turn it off.
 
-<!-- rules-index:start -->
-<!-- rules-index:end -->
+{/* rules-index:start */}
+{/* rules-index:end */}
 ```
 
 `docs/src/content/docs/ja/rules/index.mdx`:
@@ -501,8 +501,8 @@ svelte-vitals が報告できるすべてのルールをカテゴリ別に一覧
 
 以下の重大度はデフォルト値です。変更や無効化については [設定](/ja/guides/configuration) を参照してください。
 
-<!-- rules-index:start -->
-<!-- rules-index:end -->
+{/* rules-index:start */}
+{/* rules-index:end */}
 ```
 
 - [ ] **Step 2: Create the five en category pages**
@@ -515,8 +515,8 @@ title: SEO rules
 description: Every SEO rule svelte-vitals runs.
 ---
 
-<!-- rules-index:start -->
-<!-- rules-index:end -->
+{/* rules-index:start */}
+{/* rules-index:end */}
 
 See [Configuration](/guides/configuration) to change a rule's severity or turn it off.
 ```
@@ -529,8 +529,8 @@ title: Performance rules
 description: Every Performance rule svelte-vitals runs.
 ---
 
-<!-- rules-index:start -->
-<!-- rules-index:end -->
+{/* rules-index:start */}
+{/* rules-index:end */}
 
 See [Configuration](/guides/configuration) to change a rule's severity or turn it off.
 ```
@@ -543,8 +543,8 @@ title: Correctness rules
 description: Every Correctness rule svelte-vitals runs.
 ---
 
-<!-- rules-index:start -->
-<!-- rules-index:end -->
+{/* rules-index:start */}
+{/* rules-index:end */}
 
 See [Configuration](/guides/configuration) to change a rule's severity or turn it off.
 ```
@@ -557,8 +557,8 @@ title: Security rules
 description: Every Security rule svelte-vitals runs.
 ---
 
-<!-- rules-index:start -->
-<!-- rules-index:end -->
+{/* rules-index:start */}
+{/* rules-index:end */}
 
 See [Configuration](/guides/configuration) to change a rule's severity or turn it off.
 ```
@@ -571,8 +571,8 @@ title: Architecture rules
 description: Every Architecture rule svelte-vitals runs.
 ---
 
-<!-- rules-index:start -->
-<!-- rules-index:end -->
+{/* rules-index:start */}
+{/* rules-index:end */}
 
 See [Configuration](/guides/configuration) to change a rule's severity or turn it off.
 ```
@@ -587,8 +587,8 @@ title: SEO ルール
 description: svelte-vitals が実行する SEO ルールの一覧。
 ---
 
-<!-- rules-index:start -->
-<!-- rules-index:end -->
+{/* rules-index:start */}
+{/* rules-index:end */}
 
 ルールの重大度を変更したり無効にする方法は [設定](/ja/guides/configuration) を参照してください。
 ```
@@ -601,8 +601,8 @@ title: Performance ルール
 description: svelte-vitals が実行する Performance ルールの一覧。
 ---
 
-<!-- rules-index:start -->
-<!-- rules-index:end -->
+{/* rules-index:start */}
+{/* rules-index:end */}
 
 ルールの重大度を変更したり無効にする方法は [設定](/ja/guides/configuration) を参照してください。
 ```
@@ -615,8 +615,8 @@ title: Correctness ルール
 description: svelte-vitals が実行する Correctness ルールの一覧。
 ---
 
-<!-- rules-index:start -->
-<!-- rules-index:end -->
+{/* rules-index:start */}
+{/* rules-index:end */}
 
 ルールの重大度を変更したり無効にする方法は [設定](/ja/guides/configuration) を参照してください。
 ```
@@ -629,8 +629,8 @@ title: Security ルール
 description: svelte-vitals が実行する Security ルールの一覧。
 ---
 
-<!-- rules-index:start -->
-<!-- rules-index:end -->
+{/* rules-index:start */}
+{/* rules-index:end */}
 
 ルールの重大度を変更したり無効にする方法は [設定](/ja/guides/configuration) を参照してください。
 ```
@@ -643,8 +643,8 @@ title: Architecture ルール
 description: svelte-vitals が実行する Architecture ルールの一覧。
 ---
 
-<!-- rules-index:start -->
-<!-- rules-index:end -->
+{/* rules-index:start */}
+{/* rules-index:end */}
 
 ルールの重大度を変更したり無効にする方法は [設定](/ja/guides/configuration) を参照してください。
 ```
