@@ -1,0 +1,29 @@
+---
+title: Correctness rules
+description: Every Correctness rule svelte-vitals runs.
+---
+
+{/* rules-index:start */}
+
+Svelte 5 runes and lifecycle misuse — code that compiles but behaves wrong.
+
+| Rule                                                                                    | Severity    | Summary                                                                                                                                                        |
+| --------------------------------------------------------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`correctness/base-path-navigation`](/rules/correctness/base-path-navigation)           | 🟡 warning  | A hardcoded root-relative link resolves against the domain root, not kit.paths.base — under a base path it lands outside the app and 404s in production.       |
+| [`correctness/checkable-bind-value`](/rules/correctness/checkable-bind-value)           | 🟡 warning  | bind:value on a checkbox or radio input binds the DOM value property, which checkbox/radio interaction never changes — the bound state silently never updates. |
+| [`correctness/each-index-key`](/rules/correctness/each-index-key)                       | 🟡 warning  | Keying an &#123;#each&#125; block by its index gives items position-based identity — the same bug as no key, masked.                                           |
+| [`correctness/each-key`](/rules/correctness/each-key)                                   | 🟡 warning  | An &#123;#each&#125; block over dynamic data should have a key.                                                                                                |
+| [`correctness/effect-as-derived`](/rules/correctness/effect-as-derived)                 | 🟡 warning  | Use $derived instead of an $effect that only assigns state.                                                                                                    |
+| [`correctness/effect-as-onmount`](/rules/correctness/effect-as-onmount)                 | 🟡 warning  | Use onMount for an $effect that reads no reactive value.                                                                                                       |
+| [`correctness/instance-browser-global`](/rules/correctness/instance-browser-global)     | 🟡 warning  | A component's instance script runs on the server during SSR — window/document reads at its top level crash the render.                                         |
+| [`correctness/nonreactive-builtin-state`](/rules/correctness/nonreactive-builtin-state) | 🟡 warning  | A plain Map, Set, Date, URL, or URLSearchParams in $state is not proxied — its mutations are invisible to reactivity, and the UI silently stops updating.      |
+| [`correctness/orphan-effect`](/rules/correctness/orphan-effect)                         | 🔴 critical | An $effect created outside component initialisation throws effect_orphan at runtime.                                                                           |
+| [`correctness/orphan-lifecycle`](/rules/correctness/orphan-lifecycle)                   | 🔴 critical | onMount, getContext and friends called outside component initialisation throw lifecycle_outside_component at runtime.                                          |
+| [`correctness/prop-mutation`](/rules/correctness/prop-mutation)                         | 🟡 warning  | Don't mutate a prop from $props() unless it is declared $bindable.                                                                                             |
+| [`correctness/server-browser-global`](/rules/correctness/server-browser-global)         | 🔴 critical | window, document, localStorage accessed in module scope or a load/handler crash SSR with a ReferenceError.                                                     |
+| [`correctness/stale-prop-derivation`](/rules/correctness/stale-prop-derivation)         | 🟡 warning  | A value computed from a prop without $derived is evaluated once — the UI silently stops tracking the parent.                                                   |
+| [`correctness/unmutated-state`](/rules/correctness/unmutated-state)                     | 🔵 info     | Use const (or $state.raw) for a $state that is never mutated.                                                                                                  |
+
+{/* rules-index:end */}
+
+See [Configuration](/guides/configuration) to change a rule's severity or turn it off.

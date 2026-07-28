@@ -1,0 +1,122 @@
+---
+title: ルール
+description: svelte-vitals が実行するすべてのチェックをカテゴリ別に一覧します。
+---
+
+svelte-vitals が報告できるすべてのルールをカテゴリ別に一覧します。各ルールは、何をチェックし、なぜ重要で、どう直すかを説明したリファレンスページにリンクしています。
+
+以下の重大度はデフォルト値です。変更や無効化については [設定](/ja/guides/configuration) を参照してください。
+
+{/* rules-index:start */}
+
+<CardGroup cols={2}>
+  <Card title="SEO" icon="search" href="/ja/rules/seo">
+    解決後の &lt;head&gt; メタデータ、構造化データ、クロール可能性 — 検索エンジンが実際に見るもの。 （31 件のルール）
+  </Card>
+  <Card title="Performance" icon="zap" href="/ja/rules/performance">
+    画像、レンダリングを妨げるアセット、インポート、ロードのウォーターフォール — ルートを遅くする要因。 （14
+    件のルール）
+  </Card>
+  <Card title="Correctness" icon="circle-check" href="/ja/rules/correctness">
+    Svelte 5 の runes とライフサイクルの誤用 — コンパイルは通るのに挙動が間違っているコード。 （14 件のルール）
+  </Card>
+  <Card title="Security" icon="shield" href="/ja/rules/security">
+    エスケープされない HTML、安全でない URL、サーバー上でリクエストをまたいで漏れる状態。 （5 件のルール）
+  </Card>
+  <Card title="Architecture" icon="layers" href="/ja/rules/architecture">
+    コンポーネントの大きさと props の数 — 1 つのコンポーネントが抱えすぎているサイン。 （2 件のルール）
+  </Card>
+</CardGroup>
+
+## SEO
+
+| ルール                                                                 | 重大度      | 概要                                                                                                               |
+| ---------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------ |
+| [`seo/canonical-url`](/ja/rules/seo/canonical-url)                     | 🟡 warning  | すべてのルートに &lt;link rel="canonical"&gt; タグが必要です。                                                     |
+| [`seo/charset`](/ja/rules/seo/charset)                                 | 🟡 warning  | ページは &lt;meta charset&gt; で文字エンコーディングを宣言すべきです。                                             |
+| [`seo/description-length`](/ja/rules/seo/description-length)           | 🔵 info     | meta description は 70〜160 文字であるべきです。                                                                   |
+| [`seo/description-presence`](/ja/rules/seo/description-presence)       | 🔴 critical | すべてのルートに &lt;meta name="description"&gt; が必要です。                                                      |
+| [`seo/duplicate-description`](/ja/rules/seo/duplicate-description)     | 🟡 warning  | 各ルートは一意の meta description を持つべきです。                                                                 |
+| [`seo/duplicate-title`](/ja/rules/seo/duplicate-title)                 | 🟡 warning  | 各ルートは一意の &lt;title&gt; を持つべきです。                                                                    |
+| [`seo/heading-level-skip`](/ja/rules/seo/heading-level-skip)           | 🔵 info     | 見出しレベルを飛ばすべきではありません。                                                                           |
+| [`seo/hreflang`](/ja/rules/seo/hreflang)                               | 🟡 warning  | hreflang の alternate は有効なコードを使い、x-default を宣言すべきです。                                           |
+| [`seo/html-lang`](/ja/rules/seo/html-lang)                             | 🟡 warning  | プロジェクトの app.html で &lt;html&gt; に lang 属性を設定すべきです。                                             |
+| [`seo/image-alt`](/ja/rules/seo/image-alt)                             | 🟡 warning  | すべての &lt;img&gt; に alt 属性を付けるべきです。                                                                 |
+| [`seo/indexability`](/ja/rules/seo/indexability)                       | 🔵 info     | ルートが誤って noindex になっていないか確認します。                                                                |
+| [`seo/json-ld`](/ja/rules/seo/json-ld)                                 | 🔵 info     | すべてのルートに JSON-LD 構造化データを含めるべきです。                                                            |
+| [`seo/json-ld-date-format`](/ja/rules/seo/json-ld-date-format)         | 🔵 info     | JSON-LD の日付プロパティは ISO-8601 であるべきです。                                                               |
+| [`seo/json-ld-deprecated-type`](/ja/rules/seo/json-ld-deprecated-type) | 🔵 info     | 一部のスキーマ型は Google のリッチリザルトを生成しなくなりました。                                                 |
+| [`seo/json-ld-placeholder`](/ja/rules/seo/json-ld-placeholder)         | 🔵 info     | JSON-LD に未置換のプレースホルダを残すべきではありません。                                                         |
+| [`seo/json-ld-relative-url`](/ja/rules/seo/json-ld-relative-url)       | 🟡 warning  | JSON-LD の URL は絶対 URL であるべきです。                                                                         |
+| [`seo/json-ld-required-props`](/ja/rules/seo/json-ld-required-props)   | 🟡 warning  | 既知の @type には、対応するリッチリザルトに必要なプロパティを含めるべきです。                                      |
+| [`seo/json-ld-validity`](/ja/rules/seo/json-ld-validity)               | 🟡 warning  | ページの JSON-LD は @context と @type を持つ有効な JSON であるべきです。                                           |
+| [`seo/og-description`](/ja/rules/seo/og-description)                   | 🟡 warning  | すべてのルートに og:description を含めるべきです。                                                                 |
+| [`seo/og-image`](/ja/rules/seo/og-image)                               | 🟡 warning  | すべてのルートに &lt;meta property="og:image"&gt; タグを含めるべきです。                                           |
+| [`seo/og-title`](/ja/rules/seo/og-title)                               | 🟡 warning  | すべてのルートに &lt;meta property="og:title"&gt; タグを含めるべきです。                                           |
+| [`seo/og-url`](/ja/rules/seo/og-url)                                   | 🔵 info     | すべてのルートは、正規アドレスを示す og:url を含めるべきです。                                                     |
+| [`seo/robots-txt`](/ja/rules/seo/robots-txt)                           | 🟡 warning  | プロジェクトは robots.txt ファイルを提供する必要があります。                                                       |
+| [`seo/single-h1`](/ja/rules/seo/single-h1)                             | 🟡 warning  | 各ページは &lt;h1&gt; をちょうど1つ持つべきです。                                                                  |
+| [`seo/sitemap-in-robots`](/ja/rules/seo/sitemap-in-robots)             | 🔵 info     | robots.txt はクローラーに sitemap を示すべきです。                                                                 |
+| [`seo/sitemap-xml`](/ja/rules/seo/sitemap-xml)                         | 🟡 warning  | プロジェクトは sitemap.xml ファイルを提供する必要があります。                                                      |
+| [`seo/ssr-disabled`](/ja/rules/seo/ssr-disabled)                       | 🟡 warning  | export const ssr = false にすると、JS を実行しないクローラーからコンテンツが見えなくなり、初回描画も遅くなります。 |
+| [`seo/title-length`](/ja/rules/seo/title-length)                       | 🔵 info     | ドキュメントのタイトルは 30〜60 文字であるべきです。                                                               |
+| [`seo/title-presence`](/ja/rules/seo/title-presence)                   | 🔴 critical | すべてのルートは空でない &lt;title&gt; を解決する必要があります。                                                  |
+| [`seo/twitter-card`](/ja/rules/seo/twitter-card)                       | 🔵 info     | X/Twitter でのシェアをリッチ表示にするため、twitter:card を宣言すべきです。                                        |
+| [`seo/viewport`](/ja/rules/seo/viewport)                               | 🟡 warning  | レスポンシブな viewport メタタグを宣言すべきです。                                                                 |
+
+## Performance
+
+| ルール                                                                                   | 重大度     | 概要                                                                                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`performance/font-preload-crossorigin`](/ja/rules/performance/font-preload-crossorigin) | 🟡 warning | crossorigin を指定しないと、preload したフォントは使われません。                                                                                  |
+| [`performance/heavy-import`](/ja/rules/performance/heavy-import)                         | 🔵 info    | サイズが大きく、ツリーシェイクもできないパッケージの import を避けます。                                                                          |
+| [`performance/image-dimensions`](/ja/rules/performance/image-dimensions)                 | 🟡 warning | すべての &lt;img&gt; に width と height 属性を明示すべきです。                                                                                    |
+| [`performance/image-loading-hint`](/ja/rules/performance/image-loading-hint)             | 🔵 info    | すべての &lt;img&gt; に loading 属性を明示すべきです。                                                                                            |
+| [`performance/lcp-image`](/ja/rules/performance/lcp-image)                               | 🟡 warning | LCP と推定される最初の画像は、遅延読み込みすべきではありません。                                                                                  |
+| [`performance/load-waterfall`](/ja/rules/performance/load-waterfall)                     | 🟡 warning | universal load 内で依存関係のある await が連なると、1ホップごとにブラウザからのネットワーク往復が発生します。                                     |
+| [`performance/minify-disabled`](/ja/rules/performance/minify-disabled)                   | 🟡 warning | vite.config に build.minify:false が残っていると、ミニファイされていない JS/CSS がそのまま本番に配信されます。                                    |
+| [`performance/namespace-import`](/ja/rules/performance/namespace-import)                 | 🔵 info    | ツリーシェイクのため、import \* as ではなく named import を使います。                                                                             |
+| [`performance/preconnect`](/ja/rules/performance/preconnect)                             | 🔵 info    | ページが利用するサードパーティオリジンに preconnect します。                                                                                      |
+| [`performance/preload-missing-as`](/ja/rules/performance/preload-missing-as)             | 🟡 warning | すべての &lt;link rel="preload"&gt; は as 属性を指定すべきです。                                                                                  |
+| [`performance/render-blocking-script`](/ja/rules/performance/render-blocking-script)     | 🟡 warning | head 内の &lt;script src&gt; は解析をブロックすべきではありません。                                                                               |
+| [`performance/responsive-image`](/ja/rules/performance/responsive-image)                 | 🔵 info    | 大きな画像は srcset を提供すべきです。                                                                                                            |
+| [`performance/sequential-awaits`](/ja/rules/performance/sequential-awaits)               | 🔵 info    | 互いの結果を使わない await の逐次実行は無駄です。同時に開始しましょう。                                                                           |
+| [`performance/state-raw`](/ja/rules/performance/state-raw)                               | 🔵 info    | 再代入しかしないオブジェクト・配列の $state には、一度も使わない深いリアクティビティのコストがかかり続けます。$state.raw ならプロキシを省けます。 |
+
+## Correctness
+
+| ルール                                                                                     | 重大度      | 概要                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------ | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`correctness/base-path-navigation`](/ja/rules/correctness/base-path-navigation)           | 🟡 warning  | ハードコードされたルート相対リンクは kit.paths.base ではなくドメインのルートを指すため、base path 配下ではアプリの外に出てしまい、本番環境で404になります。 |
+| [`correctness/checkable-bind-value`](/ja/rules/correctness/checkable-bind-value)           | 🟡 warning  | checkbox や radio に対する bind:value は DOM の value プロパティを束縛するため、チェックの切り替えを検知できず、束縛した値が更新されなくなります。          |
+| [`correctness/each-index-key`](/ja/rules/correctness/each-index-key)                       | 🟡 warning  | &#123;#each&#125; ブロックのキーに index を使うと、アイテムの同一性が位置ベースになります。キーなしと同じバグが、隠れた形で起こります。                     |
+| [`correctness/each-key`](/ja/rules/correctness/each-key)                                   | 🟡 warning  | 動的データの &#123;#each&#125; にはキーを付けるべきです。                                                                                                   |
+| [`correctness/effect-as-derived`](/ja/rules/correctness/effect-as-derived)                 | 🟡 warning  | 状態を代入するだけの $effect は $derived に置き換えるべきです。                                                                                             |
+| [`correctness/effect-as-onmount`](/ja/rules/correctness/effect-as-onmount)                 | 🟡 warning  | reactive 値を読まない $effect には onMount を使います。                                                                                                     |
+| [`correctness/instance-browser-global`](/ja/rules/correctness/instance-browser-global)     | 🟡 warning  | コンポーネントのインスタンススクリプトは SSR 時にサーバーで実行されます。トップレベルで window や document を参照すると、レンダリングがクラッシュします。   |
+| [`correctness/nonreactive-builtin-state`](/ja/rules/correctness/nonreactive-builtin-state) | 🟡 warning  | $state に入れた素の Map・Set・Date・URL・URLSearchParams はプロキシされないため、変更してもリアクティビティに検知されず、UI が更新されなくなります。        |
+| [`correctness/orphan-effect`](/ja/rules/correctness/orphan-effect)                         | 🔴 critical | コンポーネント初期化の外で作られた $effect はランタイムで effect_orphan エラーになります。                                                                  |
+| [`correctness/orphan-lifecycle`](/ja/rules/correctness/orphan-lifecycle)                   | 🔴 critical | onMount や getContext などをコンポーネント初期化の外で呼ぶと、ランタイムで lifecycle_outside_component エラーになります。                                   |
+| [`correctness/prop-mutation`](/ja/rules/correctness/prop-mutation)                         | 🟡 warning  | $bindable を宣言していない $props() の値を変異させてはいけません。                                                                                          |
+| [`correctness/server-browser-global`](/ja/rules/correctness/server-browser-global)         | 🔴 critical | モジュールスコープや load/handler で window、document、localStorage を参照すると、SSR が ReferenceError でクラッシュします。                                |
+| [`correctness/stale-prop-derivation`](/ja/rules/correctness/stale-prop-derivation)         | 🟡 warning  | $derived を使わずに prop から計算した値は一度しか評価されず、UI は気づかないうちに親の変更に追従しなくなります。                                            |
+| [`correctness/unmutated-state`](/ja/rules/correctness/unmutated-state)                     | 🔵 info     | 変更されない $state には const（または $state.raw）を使います。                                                                                             |
+
+## Security
+
+| ルール                                                                   | 重大度      | 概要                                                                                                                                                                      |
+| ------------------------------------------------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`security/handler-state-write`](/ja/rules/security/handler-state-write) | 🔴 critical | load 関数や action が import したモジュール状態に書き込んでいます。サーバー上では全リクエストで共有されます。                                                             |
+| [`security/javascript-url`](/ja/rules/security/javascript-url)           | 🟡 warning  | 属性に javascript: URL を使わないでください。                                                                                                                             |
+| [`security/raw-html`](/ja/rules/security/raw-html)                       | 🟡 warning  | 値をサニタイズしてください。&#123;@html&#125; はエスケープされない HTML を描画します。                                                                                    |
+| [`security/server-module-state`](/ja/rules/security/server-module-state) | 🟡 warning  | Kit の server ファイルのモジュールスコープ変数が関数内から再代入されています。全リクエストで共有されます。                                                                |
+| [`security/shared-state-import`](/ja/rules/security/shared-state-import) | 🟡 warning  | Kit の server/universal ファイルが、モジュールスコープ $state を持つ .svelte.ts モジュールを import しています。サーバープロセスでは1つのインスタンスを全員で共有します。 |
+
+## Architecture
+
+| ルール                                                                 | 重大度  | 概要                                                   |
+| ---------------------------------------------------------------------- | ------- | ------------------------------------------------------ |
+| [`architecture/component-size`](/ja/rules/architecture/component-size) | 🔵 info | 巨大なコンポーネントは分割すべきです。                 |
+| [`architecture/prop-count`](/ja/rules/architecture/prop-count)         | 🔵 info | 多くのプロップを受け取るコンポーネントは責務過多です。 |
+
+{/* rules-index:end */}

@@ -3,8 +3,11 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-export const START_MARKER = '<!-- rules-index:start -->';
-export const END_MARKER = '<!-- rules-index:end -->';
+// MDX (via @mdx-js/mdx, which Astro's MDX integration uses) does not support raw HTML
+// comments anywhere in a `.mdx` file — `<!-- ... -->` fails to compile with "Unexpected
+// character `!`". JS-style MDX comments are the documented replacement.
+export const START_MARKER = '{/* rules-index:start */}';
+export const END_MARKER = '{/* rules-index:end */}';
 
 export const LOCALES = ['en', 'ja'];
 

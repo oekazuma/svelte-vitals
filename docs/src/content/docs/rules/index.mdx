@@ -1,0 +1,121 @@
+---
+title: Rules
+description: Every check svelte-vitals runs, grouped by category.
+---
+
+Every rule svelte-vitals can report, grouped by category. Each rule links to a reference page describing what it checks, why it matters, and how to fix it.
+
+The severities below are the defaults — see [Configuration](/guides/configuration) to change a rule's severity or turn it off.
+
+{/* rules-index:start */}
+
+<CardGroup cols={2}>
+  <Card title="SEO" icon="search" href="/rules/seo">
+    Resolved &lt;head&gt; metadata, structured data, and crawlability — what search engines actually see. (31 rules)
+  </Card>
+  <Card title="Performance" icon="zap" href="/rules/performance">
+    Images, render-blocking assets, imports, and load waterfalls — what makes a route slow. (14 rules)
+  </Card>
+  <Card title="Correctness" icon="circle-check" href="/rules/correctness">
+    Svelte 5 runes and lifecycle misuse — code that compiles but behaves wrong. (14 rules)
+  </Card>
+  <Card title="Security" icon="shield" href="/rules/security">
+    Unescaped HTML, unsafe URLs, and server state that leaks across requests. (5 rules)
+  </Card>
+  <Card title="Architecture" icon="layers" href="/rules/architecture">
+    Component size and prop surface — signals that a component is doing too much. (2 rules)
+  </Card>
+</CardGroup>
+
+## SEO
+
+| Rule                                                                | Severity    | Summary                                                                                                  |
+| ------------------------------------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------- |
+| [`seo/canonical-url`](/rules/seo/canonical-url)                     | 🟡 warning  | Every route should include a &lt;link rel="canonical"&gt; tag.                                           |
+| [`seo/charset`](/rules/seo/charset)                                 | 🟡 warning  | The page should declare a character encoding with &lt;meta charset&gt;.                                  |
+| [`seo/description-length`](/rules/seo/description-length)           | 🔵 info     | The meta description should be 70–160 characters.                                                        |
+| [`seo/description-presence`](/rules/seo/description-presence)       | 🔴 critical | Every route should include a &lt;meta name="description"&gt;.                                            |
+| [`seo/duplicate-description`](/rules/seo/duplicate-description)     | 🟡 warning  | Each route should have a unique meta description.                                                        |
+| [`seo/duplicate-title`](/rules/seo/duplicate-title)                 | 🟡 warning  | Each route should have a unique &lt;title&gt;.                                                           |
+| [`seo/heading-level-skip`](/rules/seo/heading-level-skip)           | 🔵 info     | Heading levels should not be skipped.                                                                    |
+| [`seo/hreflang`](/rules/seo/hreflang)                               | 🟡 warning  | hreflang alternates should use valid codes and declare an x-default.                                     |
+| [`seo/html-lang`](/rules/seo/html-lang)                             | 🟡 warning  | Your project's app.html should set the lang attribute on &lt;html&gt;.                                   |
+| [`seo/image-alt`](/rules/seo/image-alt)                             | 🟡 warning  | Every &lt;img&gt; should have an alt attribute.                                                          |
+| [`seo/indexability`](/rules/seo/indexability)                       | 🔵 info     | A route should not be accidentally set to noindex.                                                       |
+| [`seo/json-ld`](/rules/seo/json-ld)                                 | 🔵 info     | Every route should include JSON-LD structured data.                                                      |
+| [`seo/json-ld-date-format`](/rules/seo/json-ld-date-format)         | 🔵 info     | Date properties in JSON-LD should be ISO-8601.                                                           |
+| [`seo/json-ld-deprecated-type`](/rules/seo/json-ld-deprecated-type) | 🔵 info     | Some schema types no longer produce Google rich results.                                                 |
+| [`seo/json-ld-placeholder`](/rules/seo/json-ld-placeholder)         | 🔵 info     | JSON-LD should not contain unreplaced placeholder text.                                                  |
+| [`seo/json-ld-relative-url`](/rules/seo/json-ld-relative-url)       | 🟡 warning  | URLs in JSON-LD should be absolute.                                                                      |
+| [`seo/json-ld-required-props`](/rules/seo/json-ld-required-props)   | 🟡 warning  | A recognized @type should include the properties its rich result requires.                               |
+| [`seo/json-ld-validity`](/rules/seo/json-ld-validity)               | 🟡 warning  | A page's JSON-LD must be valid JSON with @context and @type.                                             |
+| [`seo/og-description`](/rules/seo/og-description)                   | 🟡 warning  | Every route should include an og:description.                                                            |
+| [`seo/og-image`](/rules/seo/og-image)                               | 🟡 warning  | Every route should include a &lt;meta property="og:image"&gt; tag.                                       |
+| [`seo/og-title`](/rules/seo/og-title)                               | 🟡 warning  | Every route should include a &lt;meta property="og:title"&gt; tag.                                       |
+| [`seo/og-url`](/rules/seo/og-url)                                   | 🔵 info     | Every route should include an og:url with its canonical address.                                         |
+| [`seo/robots-txt`](/rules/seo/robots-txt)                           | 🟡 warning  | Your project should provide a robots.txt file.                                                           |
+| [`seo/single-h1`](/rules/seo/single-h1)                             | 🟡 warning  | Each page should have exactly one &lt;h1&gt;.                                                            |
+| [`seo/sitemap-in-robots`](/rules/seo/sitemap-in-robots)             | 🔵 info     | robots.txt should point crawlers at your sitemap.                                                        |
+| [`seo/sitemap-xml`](/rules/seo/sitemap-xml)                         | 🟡 warning  | Your project should provide a sitemap.xml file.                                                          |
+| [`seo/ssr-disabled`](/rules/seo/ssr-disabled)                       | 🟡 warning  | export const ssr = false makes a route's content invisible to non-JS crawlers and slower to first paint. |
+| [`seo/title-length`](/rules/seo/title-length)                       | 🔵 info     | The document title should be 30–60 characters.                                                           |
+| [`seo/title-presence`](/rules/seo/title-presence)                   | 🔴 critical | Every route should resolve a non-empty &lt;title&gt;.                                                    |
+| [`seo/twitter-card`](/rules/seo/twitter-card)                       | 🔵 info     | Pages should declare a twitter:card for rich sharing on X/Twitter.                                       |
+| [`seo/viewport`](/rules/seo/viewport)                               | 🟡 warning  | Pages should declare a responsive viewport meta tag.                                                     |
+
+## Performance
+
+| Rule                                                                                  | Severity   | Summary                                                                                                               |
+| ------------------------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------- |
+| [`performance/font-preload-crossorigin`](/rules/performance/font-preload-crossorigin) | 🟡 warning | A font preload must set crossorigin so the preloaded file is actually used.                                           |
+| [`performance/heavy-import`](/rules/performance/heavy-import)                         | 🔵 info    | Avoid importing large, non-tree-shakeable packages.                                                                   |
+| [`performance/image-dimensions`](/rules/performance/image-dimensions)                 | 🟡 warning | Every &lt;img&gt; should have explicit width and height attributes.                                                   |
+| [`performance/image-loading-hint`](/rules/performance/image-loading-hint)             | 🔵 info    | Every &lt;img&gt; should have an explicit loading attribute.                                                          |
+| [`performance/lcp-image`](/rules/performance/lcp-image)                               | 🟡 warning | The first (likely LCP) image should not be lazy-loaded.                                                               |
+| [`performance/load-waterfall`](/rules/performance/load-waterfall)                     | 🟡 warning | Dependent sequential awaits in a universal load cost a network round trip from the browser per hop.                   |
+| [`performance/minify-disabled`](/rules/performance/minify-disabled)                   | 🟡 warning | A build.minify:false left in vite.config ships unminified JS/CSS to production.                                       |
+| [`performance/namespace-import`](/rules/performance/namespace-import)                 | 🔵 info    | Prefer named imports over import \* as for tree-shaking.                                                              |
+| [`performance/preconnect`](/rules/performance/preconnect)                             | 🔵 info    | Preconnect to third-party origins used by the page.                                                                   |
+| [`performance/preload-missing-as`](/rules/performance/preload-missing-as)             | 🟡 warning | Every &lt;link rel="preload"&gt; should declare an as attribute.                                                      |
+| [`performance/render-blocking-script`](/rules/performance/render-blocking-script)     | 🟡 warning | A head &lt;script src&gt; should not block parsing.                                                                   |
+| [`performance/responsive-image`](/rules/performance/responsive-image)                 | 🔵 info    | Large images should provide a srcset.                                                                                 |
+| [`performance/sequential-awaits`](/rules/performance/sequential-awaits)               | 🔵 info    | Awaits that don't use each other's results still run one after another — start them together.                         |
+| [`performance/state-raw`](/rules/performance/state-raw)                               | 🔵 info    | Object/array $state that is only ever reassigned pays for deep reactivity it never uses — $state.raw skips the proxy. |
+
+## Correctness
+
+| Rule                                                                                    | Severity    | Summary                                                                                                                                                        |
+| --------------------------------------------------------------------------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`correctness/base-path-navigation`](/rules/correctness/base-path-navigation)           | 🟡 warning  | A hardcoded root-relative link resolves against the domain root, not kit.paths.base — under a base path it lands outside the app and 404s in production.       |
+| [`correctness/checkable-bind-value`](/rules/correctness/checkable-bind-value)           | 🟡 warning  | bind:value on a checkbox or radio input binds the DOM value property, which checkbox/radio interaction never changes — the bound state silently never updates. |
+| [`correctness/each-index-key`](/rules/correctness/each-index-key)                       | 🟡 warning  | Keying an &#123;#each&#125; block by its index gives items position-based identity — the same bug as no key, masked.                                           |
+| [`correctness/each-key`](/rules/correctness/each-key)                                   | 🟡 warning  | An &#123;#each&#125; block over dynamic data should have a key.                                                                                                |
+| [`correctness/effect-as-derived`](/rules/correctness/effect-as-derived)                 | 🟡 warning  | Use $derived instead of an $effect that only assigns state.                                                                                                    |
+| [`correctness/effect-as-onmount`](/rules/correctness/effect-as-onmount)                 | 🟡 warning  | Use onMount for an $effect that reads no reactive value.                                                                                                       |
+| [`correctness/instance-browser-global`](/rules/correctness/instance-browser-global)     | 🟡 warning  | A component's instance script runs on the server during SSR — window/document reads at its top level crash the render.                                         |
+| [`correctness/nonreactive-builtin-state`](/rules/correctness/nonreactive-builtin-state) | 🟡 warning  | A plain Map, Set, Date, URL, or URLSearchParams in $state is not proxied — its mutations are invisible to reactivity, and the UI silently stops updating.      |
+| [`correctness/orphan-effect`](/rules/correctness/orphan-effect)                         | 🔴 critical | An $effect created outside component initialisation throws effect_orphan at runtime.                                                                           |
+| [`correctness/orphan-lifecycle`](/rules/correctness/orphan-lifecycle)                   | 🔴 critical | onMount, getContext and friends called outside component initialisation throw lifecycle_outside_component at runtime.                                          |
+| [`correctness/prop-mutation`](/rules/correctness/prop-mutation)                         | 🟡 warning  | Don't mutate a prop from $props() unless it is declared $bindable.                                                                                             |
+| [`correctness/server-browser-global`](/rules/correctness/server-browser-global)         | 🔴 critical | window, document, localStorage accessed in module scope or a load/handler crash SSR with a ReferenceError.                                                     |
+| [`correctness/stale-prop-derivation`](/rules/correctness/stale-prop-derivation)         | 🟡 warning  | A value computed from a prop without $derived is evaluated once — the UI silently stops tracking the parent.                                                   |
+| [`correctness/unmutated-state`](/rules/correctness/unmutated-state)                     | 🔵 info     | Use const (or $state.raw) for a $state that is never mutated.                                                                                                  |
+
+## Security
+
+| Rule                                                                  | Severity    | Summary                                                                                                                       |
+| --------------------------------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| [`security/handler-state-write`](/rules/security/handler-state-write) | 🔴 critical | A load function or action writes to imported module state — shared across all requests on the server.                         |
+| [`security/javascript-url`](/rules/security/javascript-url)           | 🟡 warning  | Avoid javascript: URLs in attributes.                                                                                         |
+| [`security/raw-html`](/rules/security/raw-html)                       | 🟡 warning  | Sanitize the value — &#123;@html&#125; renders unescaped HTML.                                                                |
+| [`security/server-module-state`](/rules/security/server-module-state) | 🟡 warning  | A module-scope variable in a Kit server file is reassigned from a function — shared across all requests.                      |
+| [`security/shared-state-import`](/rules/security/shared-state-import) | 🟡 warning  | A Kit server/universal file imports a .svelte.ts module holding module-scope $state — one shared instance per server process. |
+
+## Architecture
+
+| Rule                                                                | Severity | Summary                                          |
+| ------------------------------------------------------------------- | -------- | ------------------------------------------------ |
+| [`architecture/component-size`](/rules/architecture/component-size) | 🔵 info  | Very large components should be split up.        |
+| [`architecture/prop-count`](/rules/architecture/prop-count)         | 🔵 info  | Components taking many props are doing too much. |
+
+{/* rules-index:end */}

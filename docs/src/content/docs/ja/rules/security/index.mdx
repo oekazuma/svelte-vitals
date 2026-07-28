@@ -1,0 +1,20 @@
+---
+title: Security ルール
+description: svelte-vitals が実行する Security ルールの一覧。
+---
+
+{/* rules-index:start */}
+
+エスケープされない HTML、安全でない URL、サーバー上でリクエストをまたいで漏れる状態。
+
+| ルール                                                                   | 重大度      | 概要                                                                                                                                                                      |
+| ------------------------------------------------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`security/handler-state-write`](/ja/rules/security/handler-state-write) | 🔴 critical | load 関数や action が import したモジュール状態に書き込んでいます。サーバー上では全リクエストで共有されます。                                                             |
+| [`security/javascript-url`](/ja/rules/security/javascript-url)           | 🟡 warning  | 属性に javascript: URL を使わないでください。                                                                                                                             |
+| [`security/raw-html`](/ja/rules/security/raw-html)                       | 🟡 warning  | 値をサニタイズしてください。&#123;@html&#125; はエスケープされない HTML を描画します。                                                                                    |
+| [`security/server-module-state`](/ja/rules/security/server-module-state) | 🟡 warning  | Kit の server ファイルのモジュールスコープ変数が関数内から再代入されています。全リクエストで共有されます。                                                                |
+| [`security/shared-state-import`](/ja/rules/security/shared-state-import) | 🟡 warning  | Kit の server/universal ファイルが、モジュールスコープ $state を持つ .svelte.ts モジュールを import しています。サーバープロセスでは1つのインスタンスを全員で共有します。 |
+
+{/* rules-index:end */}
+
+ルールの重大度を変更したり無効にする方法は [設定](/ja/guides/configuration) を参照してください。

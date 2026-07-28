@@ -1,0 +1,46 @@
+---
+title: SEO ルール
+description: svelte-vitals が実行する SEO ルールの一覧。
+---
+
+{/* rules-index:start */}
+
+解決後の &lt;head&gt; メタデータ、構造化データ、クロール可能性 — 検索エンジンが実際に見るもの。
+
+| ルール                                                                 | 重大度      | 概要                                                                                                               |
+| ---------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------ |
+| [`seo/canonical-url`](/ja/rules/seo/canonical-url)                     | 🟡 warning  | すべてのルートに &lt;link rel="canonical"&gt; タグが必要です。                                                     |
+| [`seo/charset`](/ja/rules/seo/charset)                                 | 🟡 warning  | ページは &lt;meta charset&gt; で文字エンコーディングを宣言すべきです。                                             |
+| [`seo/description-length`](/ja/rules/seo/description-length)           | 🔵 info     | meta description は 70〜160 文字であるべきです。                                                                   |
+| [`seo/description-presence`](/ja/rules/seo/description-presence)       | 🔴 critical | すべてのルートに &lt;meta name="description"&gt; が必要です。                                                      |
+| [`seo/duplicate-description`](/ja/rules/seo/duplicate-description)     | 🟡 warning  | 各ルートは一意の meta description を持つべきです。                                                                 |
+| [`seo/duplicate-title`](/ja/rules/seo/duplicate-title)                 | 🟡 warning  | 各ルートは一意の &lt;title&gt; を持つべきです。                                                                    |
+| [`seo/heading-level-skip`](/ja/rules/seo/heading-level-skip)           | 🔵 info     | 見出しレベルを飛ばすべきではありません。                                                                           |
+| [`seo/hreflang`](/ja/rules/seo/hreflang)                               | 🟡 warning  | hreflang の alternate は有効なコードを使い、x-default を宣言すべきです。                                           |
+| [`seo/html-lang`](/ja/rules/seo/html-lang)                             | 🟡 warning  | プロジェクトの app.html で &lt;html&gt; に lang 属性を設定すべきです。                                             |
+| [`seo/image-alt`](/ja/rules/seo/image-alt)                             | 🟡 warning  | すべての &lt;img&gt; に alt 属性を付けるべきです。                                                                 |
+| [`seo/indexability`](/ja/rules/seo/indexability)                       | 🔵 info     | ルートが誤って noindex になっていないか確認します。                                                                |
+| [`seo/json-ld`](/ja/rules/seo/json-ld)                                 | 🔵 info     | すべてのルートに JSON-LD 構造化データを含めるべきです。                                                            |
+| [`seo/json-ld-date-format`](/ja/rules/seo/json-ld-date-format)         | 🔵 info     | JSON-LD の日付プロパティは ISO-8601 であるべきです。                                                               |
+| [`seo/json-ld-deprecated-type`](/ja/rules/seo/json-ld-deprecated-type) | 🔵 info     | 一部のスキーマ型は Google のリッチリザルトを生成しなくなりました。                                                 |
+| [`seo/json-ld-placeholder`](/ja/rules/seo/json-ld-placeholder)         | 🔵 info     | JSON-LD に未置換のプレースホルダを残すべきではありません。                                                         |
+| [`seo/json-ld-relative-url`](/ja/rules/seo/json-ld-relative-url)       | 🟡 warning  | JSON-LD の URL は絶対 URL であるべきです。                                                                         |
+| [`seo/json-ld-required-props`](/ja/rules/seo/json-ld-required-props)   | 🟡 warning  | 既知の @type には、対応するリッチリザルトに必要なプロパティを含めるべきです。                                      |
+| [`seo/json-ld-validity`](/ja/rules/seo/json-ld-validity)               | 🟡 warning  | ページの JSON-LD は @context と @type を持つ有効な JSON であるべきです。                                           |
+| [`seo/og-description`](/ja/rules/seo/og-description)                   | 🟡 warning  | すべてのルートに og:description を含めるべきです。                                                                 |
+| [`seo/og-image`](/ja/rules/seo/og-image)                               | 🟡 warning  | すべてのルートに &lt;meta property="og:image"&gt; タグを含めるべきです。                                           |
+| [`seo/og-title`](/ja/rules/seo/og-title)                               | 🟡 warning  | すべてのルートに &lt;meta property="og:title"&gt; タグを含めるべきです。                                           |
+| [`seo/og-url`](/ja/rules/seo/og-url)                                   | 🔵 info     | すべてのルートは、正規アドレスを示す og:url を含めるべきです。                                                     |
+| [`seo/robots-txt`](/ja/rules/seo/robots-txt)                           | 🟡 warning  | プロジェクトは robots.txt ファイルを提供する必要があります。                                                       |
+| [`seo/single-h1`](/ja/rules/seo/single-h1)                             | 🟡 warning  | 各ページは &lt;h1&gt; をちょうど1つ持つべきです。                                                                  |
+| [`seo/sitemap-in-robots`](/ja/rules/seo/sitemap-in-robots)             | 🔵 info     | robots.txt はクローラーに sitemap を示すべきです。                                                                 |
+| [`seo/sitemap-xml`](/ja/rules/seo/sitemap-xml)                         | 🟡 warning  | プロジェクトは sitemap.xml ファイルを提供する必要があります。                                                      |
+| [`seo/ssr-disabled`](/ja/rules/seo/ssr-disabled)                       | 🟡 warning  | export const ssr = false にすると、JS を実行しないクローラーからコンテンツが見えなくなり、初回描画も遅くなります。 |
+| [`seo/title-length`](/ja/rules/seo/title-length)                       | 🔵 info     | ドキュメントのタイトルは 30〜60 文字であるべきです。                                                               |
+| [`seo/title-presence`](/ja/rules/seo/title-presence)                   | 🔴 critical | すべてのルートは空でない &lt;title&gt; を解決する必要があります。                                                  |
+| [`seo/twitter-card`](/ja/rules/seo/twitter-card)                       | 🔵 info     | X/Twitter でのシェアをリッチ表示にするため、twitter:card を宣言すべきです。                                        |
+| [`seo/viewport`](/ja/rules/seo/viewport)                               | 🟡 warning  | レスポンシブな viewport メタタグを宣言すべきです。                                                                 |
+
+{/* rules-index:end */}
+
+ルールの重大度を変更したり無効にする方法は [設定](/ja/guides/configuration) を参照してください。

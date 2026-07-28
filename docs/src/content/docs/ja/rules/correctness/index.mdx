@@ -1,0 +1,29 @@
+---
+title: Correctness ルール
+description: svelte-vitals が実行する Correctness ルールの一覧。
+---
+
+{/* rules-index:start */}
+
+Svelte 5 の runes とライフサイクルの誤用 — コンパイルは通るのに挙動が間違っているコード。
+
+| ルール                                                                                     | 重大度      | 概要                                                                                                                                                        |
+| ------------------------------------------------------------------------------------------ | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`correctness/base-path-navigation`](/ja/rules/correctness/base-path-navigation)           | 🟡 warning  | ハードコードされたルート相対リンクは kit.paths.base ではなくドメインのルートを指すため、base path 配下ではアプリの外に出てしまい、本番環境で404になります。 |
+| [`correctness/checkable-bind-value`](/ja/rules/correctness/checkable-bind-value)           | 🟡 warning  | checkbox や radio に対する bind:value は DOM の value プロパティを束縛するため、チェックの切り替えを検知できず、束縛した値が更新されなくなります。          |
+| [`correctness/each-index-key`](/ja/rules/correctness/each-index-key)                       | 🟡 warning  | &#123;#each&#125; ブロックのキーに index を使うと、アイテムの同一性が位置ベースになります。キーなしと同じバグが、隠れた形で起こります。                     |
+| [`correctness/each-key`](/ja/rules/correctness/each-key)                                   | 🟡 warning  | 動的データの &#123;#each&#125; にはキーを付けるべきです。                                                                                                   |
+| [`correctness/effect-as-derived`](/ja/rules/correctness/effect-as-derived)                 | 🟡 warning  | 状態を代入するだけの $effect は $derived に置き換えるべきです。                                                                                             |
+| [`correctness/effect-as-onmount`](/ja/rules/correctness/effect-as-onmount)                 | 🟡 warning  | reactive 値を読まない $effect には onMount を使います。                                                                                                     |
+| [`correctness/instance-browser-global`](/ja/rules/correctness/instance-browser-global)     | 🟡 warning  | コンポーネントのインスタンススクリプトは SSR 時にサーバーで実行されます。トップレベルで window や document を参照すると、レンダリングがクラッシュします。   |
+| [`correctness/nonreactive-builtin-state`](/ja/rules/correctness/nonreactive-builtin-state) | 🟡 warning  | $state に入れた素の Map・Set・Date・URL・URLSearchParams はプロキシされないため、変更してもリアクティビティに検知されず、UI が更新されなくなります。        |
+| [`correctness/orphan-effect`](/ja/rules/correctness/orphan-effect)                         | 🔴 critical | コンポーネント初期化の外で作られた $effect はランタイムで effect_orphan エラーになります。                                                                  |
+| [`correctness/orphan-lifecycle`](/ja/rules/correctness/orphan-lifecycle)                   | 🔴 critical | onMount や getContext などをコンポーネント初期化の外で呼ぶと、ランタイムで lifecycle_outside_component エラーになります。                                   |
+| [`correctness/prop-mutation`](/ja/rules/correctness/prop-mutation)                         | 🟡 warning  | $bindable を宣言していない $props() の値を変異させてはいけません。                                                                                          |
+| [`correctness/server-browser-global`](/ja/rules/correctness/server-browser-global)         | 🔴 critical | モジュールスコープや load/handler で window、document、localStorage を参照すると、SSR が ReferenceError でクラッシュします。                                |
+| [`correctness/stale-prop-derivation`](/ja/rules/correctness/stale-prop-derivation)         | 🟡 warning  | $derived を使わずに prop から計算した値は一度しか評価されず、UI は気づかないうちに親の変更に追従しなくなります。                                            |
+| [`correctness/unmutated-state`](/ja/rules/correctness/unmutated-state)                     | 🔵 info     | 変更されない $state には const（または $state.raw）を使います。                                                                                             |
+
+{/* rules-index:end */}
+
+ルールの重大度を変更したり無効にする方法は [設定](/ja/guides/configuration) を参照してください。
