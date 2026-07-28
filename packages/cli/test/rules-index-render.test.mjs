@@ -108,6 +108,10 @@ describe('normalizeBlock', () => {
   it('still sees a changed cell', () => {
     expect(normalizeBlock('| a | b |')).not.toBe(normalizeBlock('| a | c |'));
   });
+
+  it("ignores oxfmt's markdown escaping", () => {
+    expect(normalizeBlock('| a | import \\* as b |')).toBe(normalizeBlock('| a | import * as b |'));
+  });
 });
 
 describe('parseRuleIds', () => {

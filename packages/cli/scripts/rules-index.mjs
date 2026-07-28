@@ -181,8 +181,9 @@ export function extractBlock(fileText) {
 }
 
 /**
- * Comparable form of a block. oxfmt pads table cells and re-wraps prose at printWidth,
- * so committed text never matches generated text byte-for-byte — compare through this.
+ * Comparable form of a block. oxfmt pads table cells, re-wraps prose at printWidth, and
+ * backslash-escapes markdown-special characters (e.g. a bare `*` becomes `\*`) — so committed
+ * text never matches generated text byte-for-byte — compare through this.
  */
 export function normalizeBlock(block) {
   const prose = [];
@@ -200,7 +201,7 @@ export function normalizeBlock(block) {
       rows.push(`|${cells.join('|')}|`);
     } else prose.push(trimmed);
   }
-  return [prose.join(' ').replace(/\s+/g, ' '), ...rows].join('\n');
+  return [prose.join(' ').replace(/\s+/g, ' '), ...rows].join('\n').replace(/\\([^A-Za-z0-9])/g, '$1');
 }
 
 /** Rule ids linked from a block, in the order they appear. */
