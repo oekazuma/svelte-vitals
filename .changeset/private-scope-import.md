@@ -15,5 +15,9 @@ name can mean different things in different places: with `scopes: ['src/routes/*
 route's `components/` is private to that route while `src/lib/components` stays shared. When private
 directories nest, the innermost one wins.
 
-Imports through a custom `svelte.config.js` alias, and imports made from `.svelte.ts` / `+page.ts`
-modules, are not checked yet.
+Only imports written in a `.svelte` component are checked, and only when the specifier is `$lib/` or
+relative. An import resolved through a custom `svelte.config.js` alias, one written in a
+`.svelte.ts` / `.svelte.js` module or a Kit module (`+page.ts`, `+server.ts`, `hooks.*.ts`), and one
+naming a directory rather than a file are all unchecked for now. Each rule page lists the same set.
+Type-only imports **are** checked — the coupling they create survives into source even though the
+import is erased at build.

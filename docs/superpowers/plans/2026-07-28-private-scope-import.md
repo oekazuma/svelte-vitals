@@ -793,7 +793,6 @@ export default {
   }
 };
 ```
-````
 
 With that configuration:
 
@@ -812,14 +811,13 @@ Imports written through a custom alias configured in `svelte.config.js` are not 
 Only imports written in `.svelte` components are checked. Imports written in a `.svelte.ts` / `.svelte.js` module, or in a Kit module such as `+page.ts` or `+server.ts`, are not checked yet.
 
 Both are gaps being closed, not deliberate exemptions.
-
 ````
 
 - [ ] **Step 2: Write the ja rule page**
 
 Create `docs/src/content/docs/ja/rules/architecture/private-scope-import.md`:
 
-```markdown
+````markdown
 ---
 title: architecture/private-scope-import · プライベートスコープの import
 description: プライベートなディレクトリ内のユニットを、その外から import すべきではありません。
@@ -858,7 +856,7 @@ export default {
     }
   }
 };
-````
+```
 
 この設定では次のようになります。
 
@@ -877,7 +875,6 @@ glob では `*` がパスセグメント内、`**` がセグメントをまた�
 検査するのは `.svelte` コンポーネントに書かれた import だけです。`.svelte.ts` / `.svelte.js` モジュールや、`+page.ts` / `+server.ts` のような Kit モジュールに書かれた import は、まだ検査対象外です。
 
 どちらも意図的な除外ではなく、解消予定のギャップです。
-
 ````
 
 - [ ] **Step 3: Add the rule to both configuration guides**
@@ -887,7 +884,7 @@ In `docs/src/content/docs/guides/(setup)/configuration.mdx`, add a bullet to the
 ```markdown
 - [`architecture/private-scope-import`](/rules/architecture/private-scope-import) — a `scopes` list of
   globs naming private directories. The rule is inert until you set it.
-````
+```
 
 In `docs/src/content/docs/ja/guides/(setup)/configuration.mdx`, add the matching bullet to the same list:
 

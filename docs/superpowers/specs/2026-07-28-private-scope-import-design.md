@@ -98,18 +98,28 @@ parent" at every level rather than only the outermost one.
 
 ## Precision — what the rule stays silent about
 
-| Input                                                                    | Behaviour     | Why                                                                                                                                                                             |
-| ------------------------------------------------------------------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Bare packages, `$app/*`, any unknown alias                               | Silent        | Cannot be resolved to a repo-relative path                                                                                                                                      |
-| Custom `svelte.config.js` aliases (`$app-name/lib/…`)                    | Silent        | `resolveRepoLocalPath` handles `$lib/` and relative specifiers only — see Follow-ups                                                                                            |
-| A relative specifier whose `..` escapes the repo root                    | Silent        | Already `undefined` from the resolver                                                                                                                                           |
-| Imports written in a `.svelte.ts` / `.svelte.js` module                  | Silent        | Those files are collected as `ComponentFacts`, but `parseModuleFacts` populates only the orphan-effect family — `imports` / `importSpans` stay empty by design — see Follow-ups |
-| Imports written in a Kit module (`+page.ts`, `+server.ts`, `hooks.*.ts`) | Silent        | Outside the component glob entirely, and `KitModuleFacts` carries no general import list — see Follow-ups                                                                       |
-| `scopes` unset or empty                                                  | Silent        | L3 inertness                                                                                                                                                                    |
-| A component with no import resolving into a marked scope                 | Emits nothing | `applies` is false for that file                                                                                                                                                |
+| Input                                                                    | Behaviour | Why                                                                                                                                                                             |
+| ------------------------------------------------------------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bare packages, `$app/*`, any unknown alias                               | Silent    | Cannot be resolved to a repo-relative path                                                                                                                                      |
+| Custom `svelte.config.js` aliases (`$app-name/lib/…`)                    | Silent    | `resolveRepoLocalPath` handles `$lib/` and relative specifiers only — see Follow-ups                                                                                            |
+| A relative specifier whose `..` escapes the repo root                    | Silent    | Already `undefined` from the resolver                                                                                                                                           |
+| Imports written in a `.svelte.ts` / `.svelte.js` module                  | Silent    | Those files are collected as `ComponentFacts`, but `parseModuleFacts` populates only the orphan-effect family — `imports` / `importSpans` stay empty by design — see Follow-ups |
+| Imports written in a Kit module (`+page.ts`, `+server.ts`, `hooks.*.ts`) | Silent    | Outside the component glob entirely, and `KitModuleFacts` carries no general import list — see Follow-ups                                                                       |
 
-Every one of these is a false **negative**. None can produce a false positive, which is what the
-charter's precision gate requires.
+Every row above is a false **negative**: an import the rule would judge if it could see or resolve
+it. None can produce a false positive, which is what the charter's precision gate requires. Closing
+any of them is additive — see Follow-ups.
+
+Two more cases produce no output, and they are **not** false negatives. Both are the rule correctly
+declining to have an opinion, so they are listed apart to keep the claim above exact:
+
+| Input                                                    | Behaviour     | Why                                                                               |
+| -------------------------------------------------------- | ------------- | --------------------------------------------------------------------------------- |
+| `scopes` unset or empty                                  | Silent        | L3 inertness — no convention was declared, so there is nothing to check           |
+| A component with no import resolving into a marked scope | Emits nothing | The file carries no signal, so the rule neither penalizes nor seeds a pass for it |
+
+The second row is the hand-written equivalent of `componentRule`'s `applies` predicate; this rule
+has no `applies` field of its own, it simply skips a file in which no import resolved into a scope.
 
 ## Finding shape
 
