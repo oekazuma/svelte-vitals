@@ -102,6 +102,12 @@ appear, so they need no excluding.
 nothing about its children. That directory is `architecture/unit-entry-file`'s finding — reported once,
 rather than once per child.
 
+"Named after it" compares the directory name against the filename up to its **first** dot, which is
+what lets `Card/Card.svelte.ts` count. One consequence: a directory whose only such file is a test —
+`Card/Card.test.ts` — counts as a unit too, and its children are checked. The alternative, stripping a
+single extension, would reject a real entry-file shape, and a finding a reader can dismiss is the
+milder failure.
+
 The rule says "here, only these names". It cannot say "this name, only here": a `parts/` in the wrong
 place is invisible unless that place is itself declared.
 
