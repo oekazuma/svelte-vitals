@@ -271,39 +271,51 @@ pre-existing key. `computeScore` seeds every distinct `route` at 100 and average
 directory would add hundreds of 100s from a single `'src/routes/**'` declaration and dilute every real
 finding in the project. Emitting only violations keeps the score honest.
 
-### Declarations that check nothing
+### Declarations that do not check what they say
 
 One finding, carrying every such key, exactly as M1 does — and for the same reason: `findingKey` is
 `id::route::location`, and every project-scoped result here leaves both unset, so N separate findings
-would collide into one baseline entry.
+would collide into one baseline entry. That constraint is what forces the shapes below into one
+finding rather than a tidy finding per failure.
 
-Three failures land in it, and the message names which:
+| Failure                                    | Example                                               | Checks nothing?       |
+| ------------------------------------------ | ----------------------------------------------------- | --------------------- |
+| the glob matched no directory              | `'src/lib/feature/*'` — a typo for `features`         | yes                   |
+| every directory it matched is excluded     | `'**/tests/fixtures/*'` under `exclude: ['**/tests']` | yes                   |
+| every casing name in the value is unknown  | `'camelcase'`                                         | yes                   |
+| _some_ casing name in the value is unknown | `'camelCase\|kebabCase'`                              | no — the rest applies |
 
-| Failure                                  | Example                                               |
-| ---------------------------------------- | ----------------------------------------------------- |
-| the glob matched no directory            | `'src/lib/feature/*'` — a typo for `features`         |
-| every directory it matched is excluded   | `'**/tests/fixtures/*'` under `exclude: ['**/tests']` |
-| the casing name is not in the vocabulary | `'camelcase'`, `'kebabCase'`, `'CamelCase'`           |
+Each key is annotated with its own reason, and the lead-in claims only what is true of all four:
 
 ```
-These declarations check nothing: 'src/lib/feature/*' (matched no directory),
-'**/tests/fixtures/*' (matched only excluded directories),
-'src/lib/api/*' (unknown casing name 'camelcase').
+These declarations do not check what they say:
+  'src/lib/feature/*' — matched no directory
+  '**/tests/fixtures/*' — matched only excluded directories
+  'src/lib/api/*' — unknown casing name 'camelcase', so it checks nothing
+  'src/routes/**' — unknown casing name 'kebabCase'; the rest of the value still applies
 ```
 
-Distinguishing them matters because the remedies differ: the first is a typo in the glob, the second
-is a contradiction between two options, and the third is a typo in the value. A single undifferentiated
-"checks nothing" would leave the reader to work out which.
+The remedies differ, which is why the annotations exist: a typo in the glob, a contradiction between
+two options, a typo in the value that disables the declaration, and a typo in the value that silently
+narrows it. A single undifferentiated "checks nothing" would be wrong about the fourth row and would
+leave the reader to work out the other three.
 
-The third is worth explaining. `validateRuleOptions` checks only that a `string-map` value is a
+The last two are worth explaining. `validateRuleOptions` checks only that a `string-map` value is a
 non-empty string; it has no notion of a closed vocabulary, so a mistyped casing name would otherwise
-be accepted and then match nothing, leaving the declaration silently inert — the precise failure this
-family of findings exists to surface. Extending the option system with a value vocabulary was
-considered and rejected as a larger surface for the same outcome: a mistyped casing name _is_ a
-declaration that checks nothing, so it belongs in the finding that already says so.
+be accepted and then match nothing. Extending the option system with a value vocabulary was considered
+and rejected as a larger surface for the same outcome: a mistyped casing name is a declaration not
+doing what it says, so it belongs in the finding that already reports those.
 
-A key whose value names several casings is inert only if **every** name in it is unknown; one valid
-name makes the declaration operative, and the unknown ones are reported so the typo is still visible.
+The partial case is the more dangerous of the two and is why this finding is not restricted to inert
+keys. `'camelCase|kebabCase'` is operative — `camelCase` still governs — so the declaration keeps
+working and quietly enforces **less** than it was written to enforce. Nothing else in the run would
+ever mention it. An inert-only finding would report the fully mistyped value and stay silent on the
+partly mistyped one, which is the wrong way round: the silent narrowing is the harder failure to
+notice.
+
+**A key declared only inside an `overrides` entry is not checked here**, inheriting M1's documented
+limitation for the same reason — deciding whether it matched anything means intersecting that entry's
+scope with the directory set. The rule page says so, as M1's does.
 
 ### When a key counts as having done work
 
@@ -345,6 +357,25 @@ so the two never disagree about what counts as work.
 M1's `pascalCaseUnits` keeps its extra condition on top: there the casing gate _is_ the identification
 criterion, so a key matching only lowercase directories has identified nothing and stays inert.
 
+#### Telling "matched nothing" from "matched only excluded directories"
+
+Excluded directories are skipped before any key is tested against them, so the main pass cannot
+distinguish the first two failures — it never learns that the shadowed key would have matched. **The
+classification is a second pass**, and it runs only when there is something to classify:
+
+1. The main pass collects the paths it skipped as excluded. It tests no key against them.
+2. If — and only if — some key ended the run with no work recorded, those keys are tested against the
+   collected paths. A match means "matched only excluded directories"; no match means "matched no
+   directory".
+
+The hot path therefore still never tests a key against an excluded directory, and the second pass
+costs nothing in the normal case, because a correct configuration has no unrecorded keys and the pass
+does not run at all. When it does run it is a handful of keys against the excluded set, once.
+
+This is the piece the first draft of this section got wrong: it claimed the simplification _and_ the
+message resolution without saying where the second came from. They are compatible, but only because
+the classification is deferred rather than gathered inline.
+
 ### The trailing `/**` guard
 
 A key ending in `/**` means "everything under X" and must not also govern X. `routeGlobToRegExp`
@@ -372,7 +403,9 @@ about which one did any work.
 
 **The exclusion check moves ahead of matching**, which is both the fix from "When a key counts as
 having done work" and a simplification: an excluded directory is now skipped before any key is tested
-against it, instead of being matched, recorded, and then discarded.
+against it, instead of being matched, recorded, and then discarded. The one thing that ordering costs
+— the ability to say _which_ of the two silent failures a key hit — is bought back by the deferred
+second pass described there, not by matching eagerly.
 
 What remains a caller decision is the identification gate on top. M1 records a `pascalCaseUnits` match
 only when the directory's name is PascalCase, because there the casing gate is what identifies a unit
@@ -414,9 +447,16 @@ positives, not about overlap. Both rule pages record the pairing so the reader i
    failures with their distinct messages.
 2. **Bookkeeping tests on both sides of the line**, since this is where M1 has now been wrong twice in
    opposite directions. A key matching only skipped directories, and a key that matched but lost the
-   tie-break, must stay **out** of the inert finding; a key whose every match is excluded must land
-   **in** it. The same pair runs against `architecture/unit-entry-file`, whose `units` bookkeeping
-   changes with this work.
+   tie-break, must stay **out** of the finding; a key whose every match is excluded must land **in**
+   it. The same pair runs against `architecture/unit-entry-file`, whose `units` bookkeeping changes
+   with this work.
+
+   **Membership is not enough here — the message is asserted too.** A test that only checks whether a
+   key appears would pass with the second pass deleted, since a shadowed key is unrecorded either way
+   and would simply be mislabelled "matched no directory". So the two failures are asserted by their
+   annotations, in one run that contains both, and the partly-mistyped value is asserted to appear
+   **without** the "checks nothing" wording.
+
 3. **A documented-example test.** The configuration example in the rule page is run against a fixture
    tree and asserted to examine directories, to produce the expected findings, and to leave **no** key
    inert. M1's review established this: an example that is merely silent looks identical to an example
@@ -441,7 +481,7 @@ positives, not about overlap. Both rule pages record the pairing so the reader i
 - Registration in all four places, and the regenerated rule-index pages.
 - `docs/src/content/docs/rules/architecture/directory-naming.md` and its Japanese counterpart.
 - `configuration.mdx`, English and Japanese.
-- A changeset covering the new rule and the behaviour change to `unit-entry-file`.
+- A changeset covering the new rule and both behaviour changes to `unit-entry-file`.
 - The correction already applied to `2026-07-28-unit-entry-file-design.md`, whose inert-declaration
   section still described the per-key shape that implementation replaced.
 
