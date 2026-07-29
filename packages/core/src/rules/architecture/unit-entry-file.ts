@@ -66,7 +66,8 @@ export const architectureUnitEntryFile: Rule = {
     const fileSet = new Set(files);
 
     // One cache per run. `bareGuard` is true for `units` and `pascalCaseUnits` alike (see
-    // `matchKeys` in ./declarations.ts for why both need it, and why `exclude` must never set it).
+    // `createKeyCompiler` and `matchKeys` in ./declarations.ts for why both need it, and why
+    // `exclude` must never set it).
     const compile = createKeyCompiler();
 
     const out: Result[] = [];
@@ -159,12 +160,22 @@ export const architectureUnitEntryFile: Rule = {
 
       const at = reportAt(dir, files);
       if (at === undefined) continue; // unreachable: the directory came from a file's prefix
+      // `route` is the directory, `location` a file inside it — the two differ on purpose. A
+      // finding needs `location` to be a file git can list as changed, or `filterToChangedFiles`
+      // drops it from every `--diff` run, and git never lists a directory. But a directory with no
+      // direct child falls back to a file in its subtree (see `reportAt`), and a directory nested
+      // inside it can resolve to that very same file — one falling back to the subtree, the other
+      // taking it as a direct child. Keying `route` on that shared file would make `findingKey`
+      // (`id::route::location`, packages/cli/src/baseline.ts) identical for both, so baselining or
+      // suppressing either would silently take both. Keying `route` on the directory instead keeps
+      // every violation's identity distinct, and costs nothing else: no consumer here reads `route`
+      // as a file.
       out.push({
         id: 'architecture/unit-entry-file',
         category: 'architecture',
         severity: 'info',
         detection: { presence: 'none', value: 'absent' },
-        route: at,
+        route: dir,
         location: at,
         message: `${dir} declares a unit but has no ${expected}`,
         recommendation,

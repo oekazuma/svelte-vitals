@@ -226,4 +226,19 @@ describe('architecture/directory-naming — the casing vocabulary', () => {
     expect(project(rs)[0]!.message).toContain("unknown casing name 'kebabCase'");
     expect(project(rs)[0]!.message).not.toContain('checks nothing');
   });
+
+  it('reports a value naming no casing at all as checking nothing', async () => {
+    // '|' splits into two blank parts, so parseCasings finds neither a known nor an unknown name.
+    // Without a dedicated case this value is dropped from matching, never lands in usedKeys, and
+    // then fails the unclassified filter's own known.length > 0 guard too — silently checking
+    // nothing while never being reported for it.
+    const rs = await architectureDirectoryNaming.check(
+      ctx(['src/lib/api/hall/a.ts'], { directories: { 'src/lib/api/*': '|' } })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain("'src/lib/api/*'");
+    expect(project(rs)[0]!.message).toContain('checks nothing');
+    // Nothing is checked, so nothing is reported about a directory either.
+    expect(fails(rs)).toEqual([]);
+  });
 });

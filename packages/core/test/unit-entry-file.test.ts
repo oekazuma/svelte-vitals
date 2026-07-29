@@ -124,6 +124,26 @@ describe('architecture/unit-entry-file — pascalCaseUnits', () => {
   });
 });
 
+describe('architecture/unit-entry-file — identity', () => {
+  it('gives a nested violating directory its own identity', async () => {
+    // src/lib/Card has no direct child, so it falls back to the subtree for its location; its
+    // nested child src/lib/Card/Badge takes that very same file as its direct child. Both
+    // violations must stay distinguishable in `id::route::location`.
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/Card/Badge/x.ts'], { pascalCaseUnits: { 'src/lib/**': '.svelte' } })
+    );
+    expect(fails(rs)).toHaveLength(2);
+    // Both resolve to the same file, so `location` alone cannot tell them apart — and
+    // `id::route::location` is what a baseline entry is keyed on.
+    expect(fails(rs).map((r) => r.location)).toEqual(['src/lib/Card/Badge/x.ts', 'src/lib/Card/Badge/x.ts']);
+    expect(
+      fails(rs)
+        .map((r) => r.route)
+        .sort()
+    ).toEqual(['src/lib/Card', 'src/lib/Card/Badge']);
+  });
+});
+
 describe('architecture/unit-entry-file — units', () => {
   const FN = { units: { 'src/**/functions/*': '.ts' } };
 
@@ -157,9 +177,9 @@ describe('architecture/unit-entry-file — units', () => {
     expect(passes(rs)[0]!.route).toBe('src/lib/api/voice/fetchVoice/fetchVoice.ts');
   });
 
-  it('takes the longest matching key', async () => {
-    // Both keys match src/lib/x/stores/s. The longer one expects `.ts`, which exists; the
-    // shorter one would expect `.svelte.ts` and report a violation.
+  it('takes the key with more path segments', async () => {
+    // Both keys match src/lib/x/stores/s. The one with more segments expects `.ts`, which exists;
+    // the one with fewer would expect `.svelte.ts` and report a violation.
     const rs = await architectureUnitEntryFile.check(
       ctx(['src/lib/x/stores/s/s.ts'], {
         units: { 'src/**/stores/*': '.svelte.ts', 'src/lib/x/stores/*': '.ts' }
@@ -180,7 +200,7 @@ describe('architecture/unit-entry-file — units', () => {
   });
 
   it('does not call a key inert when it matched but lost the tie-break', async () => {
-    // 'src/**/stores/*' matches and loses to the longer key; it has still done work.
+    // 'src/**/stores/*' matches and loses to the key with more segments; it has still done work.
     const rs = await architectureUnitEntryFile.check(
       ctx(['src/lib/x/stores/s/s.ts'], {
         units: { 'src/**/stores/*': '.svelte.ts', 'src/lib/x/stores/*': '.ts' }

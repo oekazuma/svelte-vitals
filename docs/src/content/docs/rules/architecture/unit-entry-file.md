@@ -122,3 +122,7 @@ to remove had no findings anyway.
 When more than one declaration checks no directory, they are all reported together as a single
 finding rather than one each, so suppressing that finding suppresses the check for every inert
 declaration at once.
+
+A declared unit missing its entry file that is also named in the wrong casing draws a finding from
+`architecture/directory-naming` as well, when that rule is configured for the same location. Neither
+suppresses the other — they are different claims and both are true.

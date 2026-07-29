@@ -148,12 +148,21 @@ export const architectureDirectoryNaming: Rule = {
     const notes = new Map<string, string>();
     for (const key of globalKeys) {
       const { known, unknown } = casingsOf(globalMap[key] as string);
-      if (unknown.length === 0) continue;
+      // A value naming at least one known casing and nothing unrecognised is fully valid: skip it.
+      // Everything else gets a note, including a value like `'|'` or `'  '` that names NO casing at
+      // all — every `|`-separated part is blank once trimmed, so `parseCasings` returns both arrays
+      // empty. Left unhandled, that value would be silently dropped from `live` above (it names no
+      // known casing), never land in `usedKeys`, and then fail the `unclassified` filter's own
+      // `known.length > 0` guard below — checking nothing while never being reported for it, which
+      // is the one outcome this whole finding exists to rule out.
+      if (known.length > 0 && unknown.length === 0) continue;
       const names = unknown.map((u) => `'${u}'`).join(', ');
       notes.set(
         key,
         known.length === 0
-          ? `unknown casing name ${names}, so it checks nothing`
+          ? unknown.length === 0
+            ? 'the value names no casing at all, so it checks nothing'
+            : `unknown casing name ${names}, so it checks nothing`
           : `unknown casing name ${names}; the rest of the value still applies`
       );
     }
