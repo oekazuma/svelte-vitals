@@ -46,6 +46,17 @@ describe('parseCasings', () => {
     expect(parseCasings(' camelCase | PascalCase ')).toEqual({ known: ['camelCase', 'PascalCase'], unknown: [] });
     expect(parseCasings('camelCase||')).toEqual({ known: ['camelCase'], unknown: [] });
   });
+
+  it('treats a name inherited from Object.prototype as unknown, not as a casing', () => {
+    // A plain object literal answers to 'toString' and friends through its prototype, so a
+    // presence test would call these known and then crash on the missing `.test`.
+    expect(parseCasings('toString')).toEqual({ known: [], unknown: ['toString'] });
+    expect(parseCasings('constructor')).toEqual({ known: [], unknown: ['constructor'] });
+    expect(parseCasings('hasOwnProperty|camelCase')).toEqual({
+      known: ['camelCase'],
+      unknown: ['hasOwnProperty']
+    });
+  });
 });
 
 describe('decodeSegment', () => {
@@ -95,5 +106,11 @@ describe('satisfiesCasing', () => {
 
   it('rejects a name carrying a character none of the four admits', () => {
     expect(satisfiesCasing('foo.bar', ['camelCase', 'PascalCase', 'kebab-case', 'snake_case'])).toBe(false);
+  });
+
+  it('does not throw when asked about a casing name that is not one', () => {
+    // `satisfiesCasing` is reachable with any string a caller kept; it must answer, not crash.
+    expect(satisfiesCasing('hallList', ['toString'])).toBe(false);
+    expect(satisfiesCasing('hallList', ['valueOf', 'camelCase'])).toBe(true);
   });
 });

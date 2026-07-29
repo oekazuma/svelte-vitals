@@ -28,8 +28,12 @@ export function parseCasings(value: string): { known: string[]; unknown: string[
   for (const raw of value.split('|')) {
     const name = raw.trim();
     if (name.length === 0) continue;
-    // Presence test rather than `in`, so a name like 'toString' cannot be mistaken for a casing.
-    if (CASINGS[name] !== undefined) known.push(name);
+    // `Object.hasOwn`, not `in` and not a `!== undefined` presence test: both of those walk the
+    // prototype chain, so a value of 'toString' or 'constructor' would be taken for a known casing
+    // and then blow up in `satisfiesCasing`, where the looked-up member has no `.test`. The value
+    // parsed here comes from user configuration, where the whole point is that an unrecognised
+    // name is reported rather than fatal.
+    if (Object.hasOwn(CASINGS, name)) known.push(name);
     else unknown.push(name);
   }
   return { known, unknown };
@@ -76,5 +80,5 @@ export function decodeSegment(name: string): string | undefined {
  */
 export function satisfiesCasing(name: string, allowed: string[]): boolean {
   if (!/[a-zA-Z]/.test(name)) return true;
-  return allowed.some((c) => CASINGS[c]?.test(name) === true);
+  return allowed.some((c) => Object.hasOwn(CASINGS, c) && CASINGS[c]!.test(name));
 }
