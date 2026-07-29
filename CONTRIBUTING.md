@@ -22,6 +22,7 @@ pnpm typecheck      # tsc --noEmit
 pnpm lint           # oxlint + oxfmt --check
 pnpm format         # oxfmt --write
 pnpm check:publish  # publint + attw (--profile esm-only)
+pnpm bench          # manual timing benchmark, never run in CI
 ```
 
 ## Packages
