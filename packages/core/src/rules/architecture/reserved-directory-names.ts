@@ -7,8 +7,10 @@ import {
   baseName,
   childDirs,
   childFiles,
+  classifyUnusedKeys,
   createKeyCompiler,
   isExcluded,
+  keysMatchingAny,
   matchKeys,
   moreSpecificGlob,
   reportAt,
@@ -101,26 +103,55 @@ export const architectureReservedDirectoryNames: Rule = {
     };
 
     const out: Result[] = [];
+    const globalOptions = resolveRuleOptions(ID, OPTIONS, ctx.config);
+    const globalScopes = mapOption(globalOptions, 'scopes');
+    const globalUnits = mapOption(globalOptions, 'unitScopes');
+    const globalKeys = new Set([...Object.keys(globalScopes), ...Object.keys(globalUnits)]);
+    const usedKeys = new Set<string>();
+    // Collected so the deferred classification can tell an unmatched key from a shadowed one, and a
+    // `unitScopes` key that never met a unit from either. Neither list is consulted unless some key
+    // ends the run with no work recorded.
+    const excludedDirs: string[] = [];
+    const nonUnitDirs: string[] = [];
+    // A glob in both maps is a property of the options, not of the tree. Checked against the global
+    // resolution — which catches it even when no directory is examined — and against each
+    // per-directory resolution, which is where an `overrides` entry's contribution appears.
+    const collisions = new Set<string>();
+    const noteCollisions = (a: Record<string, string>, b: Record<string, string>) => {
+      for (const key of Object.keys(a)) if (Object.hasOwn(b, key)) collisions.add(key);
+    };
+    noteCollisions(globalScopes, globalUnits);
+
     for (const dir of [...dirs].sort()) {
       const o = resolveRuleOptions(ID, OPTIONS, ctx.config, { route: dir, file: dir }, compiledOverrides);
       const scopes = mapOption(o, 'scopes');
       const unitScopes = mapOption(o, 'unitScopes');
       if (Object.keys(scopes).length === 0 && Object.keys(unitScopes).length === 0) continue; // inert
+      noteCollisions(scopes, unitScopes);
 
       // Exclusion first: an excluded directory is one this rule is forbidden to look at.
       const excluded = compile(listOption(o, 'exclude'));
-      if (isExcluded(dir, ancestorDirs(dir), excluded)) continue;
+      if (isExcluded(dir, ancestorDirs(dir), excluded)) {
+        excludedDirs.push(dir);
+        continue;
+      }
 
       // A key naming nothing at all is dropped before matching, so a typo cannot win on specificity
       // and then apply an empty set — under which every child would be reported against a
       // requirement naming no name. `unitScopes` keys are eligible only where the directory is a
       // unit, which is that map's whole identification criterion.
       const liveScopes = Object.keys(scopes).filter((k) => namesOf(scopes[k] as string).length > 0);
-      const liveUnits = isUnitDir(dir, filesIn)
+      const isUnit = isUnitDir(dir, filesIn);
+      const liveUnits = isUnit
         ? Object.keys(unitScopes).filter((k) => namesOf(unitScopes[k] as string).length > 0)
         : [];
+      if (!isUnit) nonUnitDirs.push(dir);
       const byPosition = matchKeys(dir, compile(liveScopes, true));
       const byUnit = matchKeys(dir, compile(liveUnits, true));
+      // Recorded for every surviving match, whether or not the key won the comparison: in both
+      // cases the key identified the directory and a check ran.
+      for (const k of byPosition.matched) if (globalKeys.has(k)) usedKeys.add(k);
+      for (const k of byUnit.matched) if (globalKeys.has(k)) usedKeys.add(k);
 
       // Both kinds of key match the same directory — the parent whose children are governed — so
       // their specificity is comparable and it decides, rather than one kind outranking the other.
@@ -182,6 +213,67 @@ export const architectureReservedDirectoryNames: Rule = {
           }
         });
       }
+    }
+
+    // One finding carrying every declaration that is not checking what it says. `findingKey`
+    // (`id::route::location`, packages/cli/src/baseline.ts) leaves both fields unset for every
+    // project-scoped result, so N separate findings would collapse to one baseline entry and
+    // suppressing one would silently suppress the rest.
+    //
+    // The two options-derived reasons are decided FIRST. A key they name has no recorded work by
+    // construction — a colliding `unitScopes` entry never governs, and a key naming nothing is
+    // dropped before matching — so feeding either to the traversal classification would label a
+    // configuration contradiction "matched no directory".
+    const notes = new Map<string, string>();
+    for (const key of collisions) {
+      notes.set(key, 'declared in both scopes and unitScopes, so the unitScopes entry never applies');
+    }
+    for (const key of globalKeys) {
+      if (notes.has(key)) continue;
+      const value = globalScopes[key] ?? globalUnits[key];
+      if (value !== undefined && namesOf(value).length === 0) {
+        notes.set(key, 'names no directory name at all, so it checks nothing');
+      }
+    }
+
+    const unused = [...globalKeys].filter((k) => !notes.has(k) && !usedKeys.has(k));
+    // A `unitScopes`-only key is recorded solely by matching a unit, so one that matched a non-unit
+    // and nothing else identified nothing. That is the same distinction `pascalCaseUnits` draws in
+    // `architecture/unit-entry-file`, where the casing gate is the identification criterion; here
+    // the gate is the unit test. Decided before the excluded/unmatched split, so an exclusion is
+    // never blamed for a key the unit test disqualified.
+    // This ordering is also what keeps the excluded label honest, and is why no separate
+    // "matched something surviving" set is needed here. `usedKeys` is narrower than "matched a
+    // surviving directory" — a `unitScopes` key is never recorded at a non-unit — so feeding such a
+    // key straight to `classifyUnusedKeys` could blame an exclusion whose removal changes nothing.
+    // Claiming the non-unit reason first removes the key from that pass entirely.
+    const unitOnly = unused.filter((k) => Object.hasOwn(globalUnits, k) && !Object.hasOwn(globalScopes, k));
+    for (const key of keysMatchingAny(unitOnly, nonUnitDirs, compile)) {
+      notes.set(key, 'matched directories but never a unit, so it checks nothing');
+    }
+    for (const [key, reason] of classifyUnusedKeys(
+      unused.filter((k) => !notes.has(k)),
+      excludedDirs,
+      compile
+    )) {
+      notes.set(key, reason === 'only-excluded' ? 'matched only excluded directories' : 'matched no directory');
+    }
+
+    const reported = [...notes.keys()].sort();
+    if (reported.length > 0) {
+      const message =
+        reported.length === 1
+          ? `The declaration '${reported[0]}' does not check what it says: ${notes.get(reported[0] as string)}.`
+          : `These declarations do not check what they say: ${reported.map((k) => `'${k}' (${notes.get(k)})`).join(', ')}.`;
+      out.push({
+        id: ID,
+        category: 'architecture',
+        severity: 'info',
+        detection: { presence: 'none', value: 'absent' },
+        message,
+        recommendation: 'Correct the glob or the names, or remove the declaration.',
+        docsUrl
+      });
     }
     return out;
   }

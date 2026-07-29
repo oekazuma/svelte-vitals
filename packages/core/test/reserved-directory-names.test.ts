@@ -240,3 +240,139 @@ describe('architecture/reserved-directory-names — exclude', () => {
     expect(fails(rs)).toEqual([]);
   });
 });
+
+const project = (rs: Result[]) => rs.filter((r) => r.route === undefined && r.location === undefined);
+
+describe('architecture/reserved-directory-names — declarations that check nothing', () => {
+  it('reports a glob that matched no directory', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte'], { unitScopes: { 'src/**': 'parts', 'src/nowhere/*': 'parts' } })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain("'src/nowhere/*'");
+    expect(project(rs)[0]!.message).toContain('matched no directory');
+  });
+
+  it('reports a declaration whose every match is excluded', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/tests/Card/Card.svelte'], {
+        unitScopes: { 'src/**/tests/*': 'parts' },
+        exclude: ['**/tests']
+      })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain('matched only excluded directories');
+  });
+
+  it('reports a unitScopes key that matched directories but never a unit', async () => {
+    // 'src/lib/*' matches src/lib/grouping, which holds no same-named file and so is not a unit.
+    // The unit test IS this map's identification criterion, so the key identified nothing.
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/grouping/a.ts'], { unitScopes: { 'src/lib/*': 'parts' } })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain('matched no unit');
+  });
+
+  it('does not report a unitScopes key that governed a unit whose children all conform', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/Badge/Badge.svelte'], {
+        unitScopes: { 'src/**': 'parts' }
+      })
+    );
+    expect(project(rs)).toEqual([]);
+  });
+
+  it('does not report a key that matched but lost the specificity comparison', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/Badge/Badge.svelte'], {
+        unitScopes: { 'src/**': 'parts', 'src/lib/*': 'parts' }
+      })
+    );
+    // 'src/**' loses at src/lib/Card, but it identified that directory, so calling it a declaration
+    // that checks nothing would be a lie.
+    expect(project(rs)).toEqual([]);
+  });
+
+  it('reports a value that names nothing at all', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte'], { unitScopes: { 'src/**': '|' } })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain('names no directory name at all');
+  });
+
+  it('reports the same glob declared in both maps', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte'], { scopes: { 'src/lib/*': 'parts' }, unitScopes: { 'src/lib/*': 'parts' } })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain('declared in both');
+  });
+
+  it('reports the same glob when the collision is assembled across config layers', async () => {
+    // The likeliest way it arises: these options merge additively, so a base config and an
+    // overrides entry can produce the pair without either author seeing both halves. The check
+    // reads the per-directory resolution too, which is where an override's contribution appears.
+    const rs = await architectureReservedDirectoryNames.check({
+      sourceFiles: ['src/lib/Card/Card.svelte'],
+      heads: [],
+      project: defaultProject,
+      config: defineConfig({
+        rules: { 'architecture/reserved-directory-names': { options: { scopes: { 'src/lib/*': 'parts' } } } },
+        overrides: [
+          {
+            files: 'src/**',
+            rules: { 'architecture/reserved-directory-names': { options: { unitScopes: { 'src/lib/*': 'parts' } } } }
+          }
+        ]
+      })
+    });
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain('declared in both');
+  });
+
+  it('does not report a key declared only inside an overrides entry as inert', async () => {
+    // The inherited limitation: deciding whether an overrides-only key matched anything means
+    // intersecting that entry's scope with the directory set.
+    const rs = await architectureReservedDirectoryNames.check({
+      sourceFiles: ['src/lib/Card/Card.svelte'],
+      heads: [],
+      project: defaultProject,
+      config: defineConfig({
+        overrides: [
+          {
+            files: 'src/**',
+            rules: {
+              'architecture/reserved-directory-names': { options: { unitScopes: { 'src/nowhere/*': 'parts' } } }
+            }
+          }
+        ]
+      })
+    });
+    expect(project(rs)).toEqual([]);
+  });
+
+  it('says nothing about a declared name the tree never uses', async () => {
+    // The set says what may appear, not what must. A deliberately-held-open slot is a legitimate
+    // state, unlike the sibling rule's unknown casing name, which is a typo by definition because
+    // that vocabulary belongs to the rule rather than to the project.
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/Badge/Badge.svelte'], {
+        unitScopes: { 'src/**': 'parts|functions|stores|neverUsed' }
+      })
+    );
+    expect(rs).toEqual([]);
+  });
+
+  it('folds several into one finding, so suppressing it is one decision', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte'], {
+        unitScopes: { 'src/**': 'parts', 'src/nowhere/*': 'parts', 'src/elsewhere/*': 'parts' }
+      })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain("'src/elsewhere/*'");
+    expect(project(rs)[0]!.message).toContain("'src/nowhere/*'");
+  });
+});
