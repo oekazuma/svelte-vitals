@@ -86,6 +86,24 @@ describe('architecture/directory-naming — violations', () => {
     expect(fails(rs)[0]!.message).toContain('src/routes/hallList');
     expect(fails(rs).some((r) => r.message.startsWith('src/routes must'))).toBe(false);
   });
+
+  it('gives a nested violating directory its own identity', async () => {
+    const rs = await architectureDirectoryNaming.check(
+      ctx(['src/lib/Bad_Name/Also_Bad/a.ts'], { directories: { 'src/lib/**': 'camelCase' } })
+    );
+    expect(fails(rs)).toHaveLength(2);
+    // Both resolve to the same file, so `location` alone cannot tell them apart — and
+    // `id::route::location` is what a baseline entry is keyed on.
+    expect(fails(rs).map((r) => r.location)).toEqual([
+      'src/lib/Bad_Name/Also_Bad/a.ts',
+      'src/lib/Bad_Name/Also_Bad/a.ts'
+    ]);
+    expect(
+      fails(rs)
+        .map((r) => r.route)
+        .sort()
+    ).toEqual(['src/lib/Bad_Name', 'src/lib/Bad_Name/Also_Bad']);
+  });
 });
 
 describe('architecture/directory-naming — route syntax', () => {
@@ -151,8 +169,11 @@ describe('architecture/directory-naming — declarations that do not check what 
 
   it('keeps a key that matched but lost the tie-break out of the finding', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/fair/a.ts'], { directories: { 'src/**': 'camelCase', 'src/lib/*': 'camelCase' } })
+      ctx(['src/lib/fair/a.ts'], { directories: { 'src/lib/**': 'camelCase', 'src/lib/*': 'camelCase' } })
     );
+    // 'src/lib/**' never governs anything here: the bare-prefix guard keeps it off src/lib, and at
+    // src/lib/fair it loses to the single-star key on the `**` count. It still identified that
+    // directory, so calling it a declaration that checks nothing would be a lie.
     expect(project(rs)).toEqual([]);
   });
 
@@ -177,6 +198,10 @@ describe('architecture/directory-naming — the casing vocabulary', () => {
     // so 'src/**' governs src/lib/api/Hall and reports it.
     expect(fails(rs)).toHaveLength(1);
     expect(fails(rs)[0]!.message).toContain('src/lib/api/Hall');
+    // The message names the casing the governing declaration asked for. If the mistyped key were
+    // left in the running it would win on specificity and contribute an empty casing set, and the
+    // message would name no casing at all.
+    expect(fails(rs)[0]!.message).toContain('camelCase');
   });
 
   it('reports a wholly mistyped value as checking nothing', async () => {
@@ -186,6 +211,8 @@ describe('architecture/directory-naming — the casing vocabulary', () => {
     expect(project(rs)).toHaveLength(1);
     expect(project(rs)[0]!.message).toContain("unknown casing name 'camelcase'");
     expect(project(rs)[0]!.message).toContain('checks nothing');
+    // Nothing is checked, so nothing is reported about a directory either.
+    expect(fails(rs)).toEqual([]);
   });
 
   it('keeps a partly mistyped value operative and reports it without "checks nothing"', async () => {

@@ -95,9 +95,10 @@ export const architectureDirectoryNaming: Rule = {
       }
 
       // A key naming no known casing at all is dropped before matching, so it never governs a
-      // directory and never wins a tie-break. Left in, a typo would win on specificity, have no
-      // casing to apply, and take the whole subtree out of the check — a dead key silently
-      // cancelling a live one.
+      // directory and never wins a tie-break. Left in, a typo would win on specificity and then
+      // apply an empty casing set, which satisfies nothing — every lettered directory beneath it
+      // reported against a requirement naming no casing. Dropping it puts the subtree back under
+      // whichever valid declaration is next most specific, and the typo is reported separately.
       const live = Object.keys(declared).filter((k) => casingsOf(declared[k] as string).known.length > 0);
       const m = matchKeys(dir, compile(live, true));
       // Recorded for every surviving match, before the two skips below and whether or not the key
@@ -112,12 +113,21 @@ export const architectureDirectoryNaming: Rule = {
 
       const at = reportAt(dir, files);
       if (at === undefined) continue; // unreachable: the directory came from a file's prefix
+      // `route` is the directory, `location` a file inside it. The two differ on purpose. A finding
+      // must carry a `location` git will list as changed, or `filterToChangedFiles` drops it from
+      // every `--diff` run, and git never lists a directory. But `findingKey` (`id::route::location`,
+      // packages/cli/src/baseline.ts) would then be identical for a violating directory and a
+      // violating directory nested inside it whenever they resolve to the same file — the outer one
+      // falling back to the subtree, the inner one taking its direct child. Baselining either would
+      // silently baseline both. Keying `route` on the directory keeps them separable, and costs
+      // nothing else: no consumer reads `route` as a file — the console reporter groups by it, the
+      // agent reporter prefers `location ?? route`, and `computeScore` uses it only as a map key.
       out.push({
         id: 'architecture/directory-naming',
         category: 'architecture',
         severity: 'info',
         detection: { presence: 'none', value: 'absent' },
-        route: at,
+        route: dir,
         location: at,
         message: `${dir} must be ${allowed.join(' or ')}.`,
         recommendation,
