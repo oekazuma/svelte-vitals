@@ -38,6 +38,7 @@ import { checkoutBaseline, filterToNewFindings } from './baseline.js';
 import { loadSuppressions, writeSuppressions, applySuppressions, SUPPRESSIONS_FILE } from './suppressions.js';
 import { colorEnabled, paletteFor } from './color.js';
 import { startSpinner } from './spinner.js';
+import { routeMatcher } from './route-matcher.js';
 import { startMascotSpinner, mascotFitsWidth } from './mascot.js';
 import { playMascotGreeting, bubbleFitsWidth } from './speech-bubble.js';
 import { loadConfigFile } from './config-file.js';
@@ -123,21 +124,6 @@ export function spinnerEnabled(opts: {
     !isAutoDetectedAgent(opts.rawReporter, opts.env) &&
     colorEnabled({ reporter: opts.reporter, isTTY: opts.stderrIsTTY, env: opts.env, noColorFlag: opts.noColorFlag })
   );
-}
-
-export function routeMatcher(glob: string | undefined): (route: string) => boolean {
-  if (!glob) return () => true;
-  const body = glob
-    .replace(/[.+^${}()|[\]\\]/g, '\\$&')
-    .replace(/\*\*/g, ' ') // globstar placeholder
-    .replace(/\*/g, '[^/]*') // single-segment wildcard (placeholder untouched)
-    .replace(/\/ $/g, '(?:/.*)?') // trailing /** -> optional subtree
-    .replace(/^ \//g, '(?:.*/)?') // leading **/ -> optional prefix
-    .replace(/ \//g, '(?:.*/)?') // internal **/ -> optional prefix
-    .replace(/\/ /g, '(?:/.*)?') // internal /** -> optional subtree
-    .replace(/ /g, '.*'); // bare ** -> .*
-  const re = new RegExp(`^${body}$`);
-  return (route) => re.test(route.replace(/^\//, ''));
 }
 
 export interface AnalyzeOptions {
@@ -548,6 +534,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 }
 
 export { ProjectError } from './providers/source/project.js';
+export { routeMatcher } from './route-matcher.js';
 export type { ParseCache } from './providers/source/resolve.js';
 export { buildRulesConfig, findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
 export { loadConfigFile } from './config-file.js';
