@@ -553,9 +553,14 @@ describe('architecture/reserved-directory-names — precedence across the two ma
 
   it('lets a narrow unitScopes key beat a broad scopes key', async () => {
     // The reverse direction. Plain kind-precedence would satisfy the test above on its own, so this
-    // is what pins that specificity is what decides.
+    // is what pins that specificity is what decides: here `scopes` would report tests/ if it won.
+    //
+    // The broad key is `src/lib/**` rather than `src/**` on purpose. `src/**` would also govern
+    // `src/lib`, whose only child is `Card` — not a declared name — adding a violation that has
+    // nothing to do with the comparison under test. A trailing `/**` never governs its own bare
+    // prefix, so `src/lib/**` reaches `src/lib/Card` without reaching `src/lib`.
     const rs = await architectureReservedDirectoryNames.check(
-      ctx(TREE, { scopes: { 'src/**': 'parts' }, unitScopes: { 'src/lib/*': 'parts|tests' } })
+      ctx(TREE, { scopes: { 'src/lib/**': 'parts' }, unitScopes: { 'src/lib/*': 'parts|tests' } })
     );
     expect(rs).toEqual([]);
   });
