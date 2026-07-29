@@ -42,8 +42,10 @@ export interface CollectAllOptions {
  * and is per-run, not per-file.
  *
  * Kept as one function so `test/io-budget.test.ts` can hold the REAL pipeline to a
- * fixed I/O budget: a collector added here falls under that budget automatically,
- * with no test change. See docs/superpowers/specs/2026-07-29-io-budget-ci-design.md.
+ * fixed I/O budget: a collector added here falls under the read and glob budgets
+ * automatically. One exception — a collector skipped when `route` is set must also
+ * be added to the route-filtered test's expected list, which is why that test pins
+ * the skipped patterns. See docs/superpowers/specs/2026-07-29-io-budget-ci-design.md.
  */
 export async function collectAll(
   rt: Runtime,
