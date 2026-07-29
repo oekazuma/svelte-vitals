@@ -346,6 +346,19 @@ describe('architecture/reserved-directory-names — declarations that check noth
     expect(project(rs)[0]!.message).not.toContain('declared in both');
   });
 
+  it('reports the empty value, not the collision, when the unitScopes side names nothing', async () => {
+    // The mirror of the case above, and it needs its own test because the two halves are guarded
+    // separately. Here the scopes key governs alone, so it lands in `usedKeys` — which means reading
+    // only one side of the pair for the empty-value note would leave this key with no note at all,
+    // rather than merely the wrong one.
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte'], { scopes: { 'src/lib/*': 'parts' }, unitScopes: { 'src/lib/*': '|' } })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain('names no directory name at all');
+    expect(project(rs)[0]!.message).not.toContain('declared in both');
+  });
+
   it('does not claim the unitScopes entry never applies when it still governs outside the override', async () => {
     // The override is scoped to 'src/lib/Card/**' (narrow enough that it never also becomes the
     // resolved options for 'src/lib' itself), so the collision is detected only at 'src/lib/Card',

@@ -123,10 +123,13 @@ export const architectureReservedDirectoryNames: Rule = {
     const noteCollisions = (scopesMap: Record<string, string>, unitMap: Record<string, string>) => {
       for (const key of Object.keys(scopesMap)) {
         if (!Object.hasOwn(unitMap, key)) continue;
-        // A `scopes` value naming nothing is dropped before matching, so the `unitScopes` entry does
-        // govern and the claim below would be false. Skipping here also lets the empty-value reason
-        // report the real error, which it cannot do for a key that already carries a note.
+        // A value naming nothing is dropped before matching, so whichever side still names something
+        // governs alone and there is no contest to report — the claim below would be false. Both
+        // sides are checked, not just `scopes`: the two directions are the same failure wearing
+        // opposite labels. Skipping here also lets the empty-value reason report the real error,
+        // which it cannot do for a key that already carries a note.
         if (namesOf(scopesMap[key] as string).length === 0) continue;
+        if (namesOf(unitMap[key] as string).length === 0) continue;
         collisions.add(key);
       }
     };
@@ -244,8 +247,13 @@ export const architectureReservedDirectoryNames: Rule = {
     }
     for (const key of globalKeys) {
       if (notes.has(key)) continue;
-      const value = globalScopes[key] ?? globalUnits[key];
-      if (value !== undefined && namesOf(value).length === 0) {
+      // Both maps, not whichever holds the key first. A key present in both with one empty value is
+      // exactly the case the collision check declines, and reading only one side would leave it with
+      // no note at all: the other side is doing real work, so `usedKeys` absorbs the key and the
+      // unused classification below never sees it either.
+      const scopesEmpty = Object.hasOwn(globalScopes, key) && namesOf(globalScopes[key] as string).length === 0;
+      const unitsEmpty = Object.hasOwn(globalUnits, key) && namesOf(globalUnits[key] as string).length === 0;
+      if (scopesEmpty || unitsEmpty) {
         notes.set(key, 'names no directory name at all');
       }
     }

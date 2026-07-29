@@ -111,9 +111,9 @@ single extension, would reject a real entry-file shape, and a finding a reader c
 milder failure.
 
 The cut applies only to the filename, not the directory name — the directory's basename is compared
-whole. `src/lib/Card.v2/Card.v2.svelte` is accepted: the stem of `Card.v2.svelte` up to its first dot
-is `Card`, which does not equal the directory's own (uncut) name `Card.v2`, so this rule does not
-consider it a unit. `architecture/unit-entry-file`, configured with an explicit extension, asks a
+whole. So `src/lib/Card.v2/` is **not a unit here**, even though it holds `Card.v2.svelte`: the stem of
+that filename up to its first dot is `Card`, which does not equal the directory's own uncut name
+`Card.v2`. Its children go unchecked. `architecture/unit-entry-file`, configured with an explicit extension, asks a
 different question — whether `Card.v2` + `.svelte` exists — and answers yes for the same directory.
 Both answers are consistent with each rule's own definition.
 
