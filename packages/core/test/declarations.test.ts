@@ -94,3 +94,35 @@ describe('reportAt', () => {
     expect(reportAt('src/lib/Card', ['src/lib/CardList/a.ts'])).toBeUndefined();
   });
 });
+
+describe('matchKeys — specificity', () => {
+  const compile = createKeyCompiler();
+
+  it('prefers more path segments', () => {
+    const m = matchKeys('src/routes/api/x', compile(['src/routes/**', 'src/routes/api/*']));
+    expect(m.best).toBe('src/routes/api/*');
+  });
+
+  it('prefers a single star over a double star at the same depth', () => {
+    // The regression this metric exists for: 'src/lib/features/**' is the LONGER string,
+    // so raw length made the broader key win and the narrower declaration inert.
+    const m = matchKeys('src/lib/features/fair', compile(['src/lib/features/*', 'src/lib/features/**']));
+    expect(m.best).toBe('src/lib/features/*');
+  });
+
+  it('falls back to the longer key when depth and double stars tie', () => {
+    const m = matchKeys('src/lib/apiXY', compile(['src/lib/api*', 'src/lib/*']));
+    expect(m.best).toBe('src/lib/api*');
+  });
+
+  it('falls back to the lexicographically first key when everything else ties', () => {
+    const m = matchKeys('src/lib/ab', compile(['src/lib/b*', 'src/lib/a*']));
+    expect(m.best).toBe('src/lib/a*');
+  });
+
+  it('counts only whole double-star segments, not stars inside a segment name', () => {
+    // 'src/x**' is one segment containing two stars, not a '**' segment.
+    const m = matchKeys('src/xy/z', compile(['src/**', 'src/x**/z']));
+    expect(m.best).toBe('src/x**/z');
+  });
+});

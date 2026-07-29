@@ -35,6 +35,18 @@ export interface CompiledKey {
   key: string;
   re: RegExp;
   barePrefixRe?: RegExp;
+  /** Path segments in the key, wildcards included. More segments means more specific. */
+  segments: number;
+  /** How many of those segments are exactly `**`. Fewer means more specific. */
+  doubleStars: number;
+}
+
+/** Segment count and whole-`**`-segment count, computed once at compile time. */
+function keyShape(key: string): { segments: number; doubleStars: number } {
+  const parts = key.split('/');
+  let doubleStars = 0;
+  for (const p of parts) if (p === '**') doubleStars++;
+  return { segments: parts.length, doubleStars };
 }
 
 /**
@@ -51,6 +63,7 @@ export function createKeyCompiler(): (globs: string[], bareGuard?: boolean) => C
       entry = globs.map((key) => ({
         key,
         re: routeGlobToRegExp(key),
+        ...keyShape(key),
         ...(bareGuard && key.endsWith('/**') ? { barePrefixRe: routeGlobToRegExp(key.slice(0, -3)) } : {})
       }));
       cache.set(cacheKey, entry);
@@ -60,9 +73,9 @@ export function createKeyCompiler(): (globs: string[], bareGuard?: boolean) => C
 }
 
 /**
- * Every declaration key matching `dir`, and the one that governs it. The longest match wins as the
- * most specific declaration; among equal lengths the lexicographically first wins, because additive
- * merging across config layers makes key insertion order unintuitive.
+ * Every declaration key matching `dir`, and the one that governs it. The most specific declaration
+ * wins — see `moreSpecific` for the ordering — and among equal specificity the lexicographically
+ * first wins, because additive merging across config layers makes key insertion order unintuitive.
  *
  * `matched` carries ALL of them, not just the winner: a key that matched a directory but lost the
  * tie-break has still done work, and reporting it as a declaration that checks nothing would be a
@@ -86,14 +99,36 @@ export function createKeyCompiler(): (globs: string[], bareGuard?: boolean) => C
  */
 export function matchKeys(dir: string, compiled: CompiledKey[]): { matched: string[]; best?: string } {
   const matched: string[] = [];
-  let best: string | undefined;
-  for (const { key, re, barePrefixRe } of compiled) {
-    if (barePrefixRe?.test(dir)) continue;
-    if (!re.test(dir)) continue;
-    matched.push(key);
-    if (best === undefined || key.length > best.length || (key.length === best.length && key < best)) best = key;
+  let best: CompiledKey | undefined;
+  for (const entry of compiled) {
+    if (entry.barePrefixRe?.test(dir)) continue;
+    if (!entry.re.test(dir)) continue;
+    matched.push(entry.key);
+    if (best === undefined || moreSpecific(entry, best)) best = entry;
   }
-  return best === undefined ? { matched } : { matched, best };
+  return best === undefined ? { matched } : { matched, best: best.key };
+}
+
+/**
+ * Whether `a` is a more specific declaration than `b`.
+ *
+ * Depth first, because constraining depth is the strongest thing a key says; then whole `**`
+ * segments, fewer winning, because `**` is the loosest thing a key can contain; only then the
+ * string length and lexicographic order that used to decide this alone.
+ *
+ * Length alone is wrong and shipped wrong once: `src/lib/features/**` is one character LONGER than
+ * `src/lib/features/*`, so the broader key won and the narrower declaration silently did nothing.
+ *
+ * One consequence, deliberate: because rule 1 counts wildcard segments too, `src/*​/*​/*` outranks
+ * `src/routes/**` despite naming nothing literal. Constraining depth is a form of specificity, so
+ * this is defensible, but it is the reverse of the CSS-like intuition that more literal text means
+ * more specific. The rule pages say so.
+ */
+function moreSpecific(a: CompiledKey, b: CompiledKey): boolean {
+  if (a.segments !== b.segments) return a.segments > b.segments;
+  if (a.doubleStars !== b.doubleStars) return a.doubleStars < b.doubleStars;
+  if (a.key.length !== b.key.length) return a.key.length > b.key.length;
+  return a.key < b.key;
 }
 
 /**

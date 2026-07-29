@@ -331,3 +331,48 @@ describe('architecture/unit-entry-file — per-path options', () => {
     expect(applied.find((r) => r.detection.value === 'absent')?.severity).toBe('warning');
   });
 });
+
+describe('architecture/unit-entry-file — specificity', () => {
+  it("keeps the documented example's outcome under the segment-count metric", async () => {
+    // The rule page's own example. Every key here has the narrower glob as the longer string too,
+    // so the metric change must be a no-op for it — that is what makes the change safe to ship.
+    const EXAMPLE = {
+      units: {
+        'src/lib/api/**/*': '.ts',
+        'src/**/functions/*': '.ts',
+        'src/**/functions/*/*': '.ts',
+        'src/**/stores/*': '.svelte.ts'
+      }
+    };
+    // Every key must govern something here. With a fixture that exercises only some of them, the
+    // rule reports the rest as declarations that check nothing — a real finding that has nothing
+    // to do with the metric, and one `fails()` counts.
+    const rs = await architectureUnitEntryFile.check(
+      ctx(
+        [
+          'src/lib/functions/getFoo/getFoo.ts',
+          'src/lib/functions/getFoo/helper/helper.ts',
+          'src/lib/api/hall/fetchHall/fetchHall.ts',
+          'src/lib/stores/conditionSearch/conditionSearch.svelte.ts'
+        ],
+        EXAMPLE
+      )
+    );
+    // All four documented keys now govern a real unit, so nothing is inert and every unit conforms.
+    expect(fails(rs)).toHaveLength(0);
+    expect(passes(rs)).toHaveLength(4);
+  });
+
+  it('lets a single-star declaration narrow a double-star one at the same depth', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/widgets/Card/Card.svelte'], {
+        units: { 'src/lib/widgets/*': '.ts', 'src/lib/widgets/**': '.svelte' }
+      })
+    );
+    // Both keys are four segments; the single-star one has no `**` and now wins, so the unit is
+    // asked for Card.ts and reported. Under raw length 'src/lib/widgets/**' was the longer string,
+    // won, matched the .svelte that is there, and the narrower declaration did nothing at all.
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.message).toContain('src/lib/widgets/Card/Card.ts');
+  });
+});

@@ -74,7 +74,10 @@ camelCase directory may legitimately be a unit _or_ a grouping — only its posi
 — while a PascalCase unit nests to arbitrary depth, where no path glob can find it.
 
 A directory matched by `units` takes that declaration; `pascalCaseUnits` applies only to the rest. When
-several `units` globs match, the longest wins, and the alphabetically first among equal-length ties.
+several globs match one directory, the most specific wins: more path segments first, then fewer `**`
+segments, then the longer key, then the alphabetically first. Segment count includes wildcards, so a
+key made only of wildcards can outrank one naming a real directory if it is deeper — write the depth
+you mean.
 
 ### `exclude`
 
