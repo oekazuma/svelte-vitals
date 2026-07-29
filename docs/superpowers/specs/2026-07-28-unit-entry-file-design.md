@@ -29,7 +29,8 @@ Two further gaps follow from the same limitation, and are addressed here:
 
 - A glob that matches nothing silently checks nothing. Every convention costs one or more
   hand-written glob entries, and a tree that grows a level silently drops out of coverage with no
-  error. This rule reports a declaration that matched no directory (see "Finding shapes").
+  error. This rule reports a declaration that checks nothing — whether because it matched no directory
+  at all, or because `exclude` pruned every directory it did match (see "Finding shapes").
 - The identifier for a component unit is its **name's casing**, not its position, and units nest to
   arbitrary depth inside `parts/` and grouping directories. A path glob cannot express "any
   PascalCase directory" — `routeGlobToRegExp` treats everything but `*` and `**` as literal, so a
@@ -325,19 +326,26 @@ real finding in the project. Keyed on the entry file, a component unit's pass la
 path that is **already** a score key, so it adds nothing. A function or store unit's `.ts` entry does
 add one key; those are far fewer, and a malformed unit becoming its own scoring subject is defensible.
 
-### `route` means a different file in the two shapes
+### `route` means a different thing in the two shapes
 
-A violation keys on some file in the unit; a pass keys on the unit's entry file. **Both are real
-paths** — the violation's file comes from the inventory, and the pass's entry file exists by
-definition — and no consumer treats `route` as something to read: the console reporter groups and
-prints it, the agent reporter prefers `location ?? route`, and `computeScore` uses it only as a map
-key. Verified 2026-07-28.
+A pass keys `route` on the unit's entry file. A violation keys `route` on the **directory** and
+`location` on a file inside it. Both are real paths — the pass's entry file exists by definition, the
+violation's file comes from the inventory — and no consumer treats `route` as something to read: the
+console reporter groups and prints it, the agent reporter prefers `location ?? route`, and
+`computeScore` uses it only as a map key. Verified 2026-07-28, re-verified 2026-07-29.
 
-One consequence is worth recording. `findingKey` (`packages/cli/src/baseline.ts`) is
-`id::route::location`, so a violation's baseline identity depends on which file was chosen. **Adding a
-file that sorts earlier inside the directory changes the key, and the unchanged violation looks new.**
-The failure direction is safe — a stale violation resurfaces rather than slipping through — but it is
-a real fragility, shared with any rule whose location is derived rather than intrinsic.
+_Revised 2026-07-29._ The violation originally keyed **both** fields on the same file. `findingKey`
+(`packages/cli/src/baseline.ts`) is `id::route::location`, and a violating directory nested inside
+another violating one resolves to the same file — the outer via the subtree fallback, the inner via its
+direct child — so the two findings shared one identity and baselining either silently took both. That
+is the failure this rule family exists to prevent, so `route` moved to the directory, which separates
+them at no cost to any consumer.
+
+One fragility remains and is worth recording. `location` is still derived from which file sorts first
+inside the directory, so **adding a file that sorts earlier changes the key, and the unchanged
+violation looks new.** The failure direction is safe — a stale violation resurfaces rather than
+slipping through — but it is real, and shared with any rule whose location is derived rather than
+intrinsic.
 
 ### 3. Inert declaration — a key matched no directory
 
@@ -401,10 +409,16 @@ and moves both rules to the corrected ordering through their shared module.
 - The two `Fix` descriptions are selected by which declaration matched.
 - PascalCase boundaries: `PageHeader` checked; `searchForm`, `parts`, `[itemId=integer]` not.
 - Conforming → one pass, `route` = the entry file, no `location`.
-- Missing → one violation, `location` = the first file under the directory, no `line`.
+- Missing → one violation, `route` = the **directory**, `location` = a file inside it, no `line`. The
+  two differ so that a violating directory nested inside another violating one keeps its own
+  `findingKey` identity; both resolve to the same file, so `location` alone cannot separate them.
 - A directory holding only subdirectories still resolves to a file under it.
 - A case-mismatched entry file (`Card/card.svelte`) is a violation.
-- An inert declaration yields one project-scoped finding per key.
+- Inert declarations yield **one** project-scoped finding carrying every such key — no `route`, no
+  `location`, `presence: 'none'` — not one finding each. The message names why each key checks
+  nothing: `matched no directory`, or `matched only excluded directories`.
+- A declaration whose every match is pruned by `exclude` is inert, and is reported with that second
+  wording rather than counted as having done work.
 - A key declared only in an `overrides` entry yields no inertness finding (pins the limitation).
 - Every silent input: `sourceFiles` absent, both options empty, undeclared directories.
 - Per-path options through `overrides` reach the rule (the per-rule-options parity check).
