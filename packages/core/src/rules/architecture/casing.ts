@@ -3,9 +3,11 @@
  * `architecture/directory-naming` (design 2026-07-29).
  *
  * Each pattern tests the WHOLE name rather than its first character. That is what lets a project
- * distinguish `clear-cache` from `clearCache`; a first-character test — which is what
- * `architecture/unit-entry-file` uses for its own, different question — cannot. The two rules mean
- * different things by "PascalCase" on purpose, and each rule page says which.
+ * distinguish `clear-cache` from `clearCache`; a first-character test cannot. "PascalCase" means
+ * three different things across the Architecture rules, on purpose, and each rule page says which:
+ * a first-character test in `architecture/unit-entry-file`, this module's whole-string test, and
+ * `architecture/reserved-directory-names`'s own first-character test — which, unlike the first, is
+ * paired with requiring a same-named file before a directory counts as a unit.
  */
 import { splitNames } from './declarations.js';
 

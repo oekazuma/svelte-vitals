@@ -120,8 +120,15 @@ export const architectureReservedDirectoryNames: Rule = {
     // the resolved option keys and needs no intersection with the directory set, so it is reported
     // even when both halves arrive from an `overrides` entry — which is the likeliest way it happens.
     const collisions = new Set<string>();
-    const noteCollisions = (a: Record<string, string>, b: Record<string, string>) => {
-      for (const key of Object.keys(a)) if (Object.hasOwn(b, key)) collisions.add(key);
+    const noteCollisions = (scopesMap: Record<string, string>, unitMap: Record<string, string>) => {
+      for (const key of Object.keys(scopesMap)) {
+        if (!Object.hasOwn(unitMap, key)) continue;
+        // A `scopes` value naming nothing is dropped before matching, so the `unitScopes` entry does
+        // govern and the claim below would be false. Skipping here also lets the empty-value reason
+        // report the real error, which it cannot do for a key that already carries a note.
+        if (namesOf(scopesMap[key] as string).length === 0) continue;
+        collisions.add(key);
+      }
     };
     noteCollisions(globalScopes, globalUnits);
 
@@ -132,7 +139,11 @@ export const architectureReservedDirectoryNames: Rule = {
       if (Object.keys(scopes).length === 0 && Object.keys(unitScopes).length === 0) continue; // inert
       noteCollisions(scopes, unitScopes);
 
-      // Exclusion first: an excluded directory is one this rule is forbidden to look at.
+      // Exclusion first. On the violation path this is now belt-and-braces — the per-child check
+      // below consults this same resolved list against the child's ancestors, and the parent is
+      // always one of them. What it is load-bearing for is the bookkeeping: `excludedDirs` is filled
+      // only here, and no key may be recorded as work at a directory the rule was forbidden to look
+      // at. The sibling rule had to make that same correction in review.
       const excluded = compile(listOption(o, 'exclude'));
       if (isExcluded(dir, ancestorDirs(dir), excluded)) {
         excludedDirs.push(dir);
@@ -229,7 +240,7 @@ export const architectureReservedDirectoryNames: Rule = {
     // configuration contradiction "matched no directory".
     const notes = new Map<string, string>();
     for (const key of collisions) {
-      notes.set(key, 'declared in both scopes and unitScopes, so the unitScopes entry never applies');
+      notes.set(key, 'declared in both scopes and unitScopes, so the scopes entry wins wherever both apply');
     }
     for (const key of globalKeys) {
       if (notes.has(key)) continue;

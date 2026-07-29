@@ -76,8 +76,10 @@ narrow the other.
 
 Two **identical** globs are the only pair those steps cannot separate, and there `scopes` wins —
 because it applies to every directory its key matches, while `unitScopes` applies only to the ones
-that are units. Declaring the same glob in both maps is reported: the `unitScopes` entry can never
-apply, so it checks nothing.
+that are units. Declaring the same glob in both maps is reported: `scopes` wins wherever both are
+declared, so the `unitScopes` entry does nothing there. (It can still govern elsewhere — e.g. a
+`unitScopes` key declared globally and shadowed by a `scopes` key added only inside an `overrides`
+entry still governs outside that override's scope.)
 
 A **trailing** `/**` means "everything under this directory" and never governs the directory itself.
 
@@ -98,15 +100,22 @@ options: {
 Only directories under `src/` are considered. File names are not checked. Dot directories never
 appear, so they need no excluding.
 
-**A PascalCase directory that holds no file named after it is not a unit here**, and this rule says
-nothing about its children. That directory is `architecture/unit-entry-file`'s finding — reported once,
-rather than once per child.
+**A directory beginning A–Z that holds no file named after it is not a unit here**, and this rule
+says nothing about its children. That directory is `architecture/unit-entry-file`'s finding —
+reported once, rather than once per child.
 
 "Named after it" compares the directory name against the filename up to its **first** dot, which is
 what lets `Card/Card.svelte.ts` count. One consequence: a directory whose only such file is a test —
 `Card/Card.test.ts` — counts as a unit too, and its children are checked. The alternative, stripping a
 single extension, would reject a real entry-file shape, and a finding a reader can dismiss is the
 milder failure.
+
+The cut applies only to the filename, not the directory name — the directory's basename is compared
+whole. `src/lib/Card.v2/Card.v2.svelte` is accepted: the stem of `Card.v2.svelte` up to its first dot
+is `Card`, which does not equal the directory's own (uncut) name `Card.v2`, so this rule does not
+consider it a unit. `architecture/unit-entry-file`, configured with an explicit extension, asks a
+different question — whether `Card.v2` + `.svelte` exists — and answers yes for the same directory.
+Both answers are consistent with each rule's own definition.
 
 The rule says "here, only these names". It cannot say "this name, only here": a `parts/` in the wrong
 place is invisible unless that place is itself declared.
@@ -121,5 +130,7 @@ lists no name at all; the same glob is declared in both maps.
 
 Two things are never reported. A declaration written **only** inside an `overrides` entry is not
 checked for inertness, because whether it matched anything depends on which paths the override applies
-to. And a declared name that no directory currently uses is not reported — the set says what may
-appear, not what must.
+to — with one exception: the identical-glob collision check is not narrowed to globally declared keys,
+so a `scopes`/`unitScopes` collision assembled entirely from `overrides` entries is still reported. And
+a declared name that no directory currently uses is not reported — the set says what may appear, not
+what must.

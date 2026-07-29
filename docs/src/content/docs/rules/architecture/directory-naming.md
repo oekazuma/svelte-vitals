@@ -67,7 +67,10 @@ side.
 
 `architecture/unit-entry-file` uses a **looser** definition of PascalCase — it asks only whether the
 first character is A–Z, because it is asking whether a directory looks like a unit, not whether its
-name conforms. The two rules mean different things by the word on purpose.
+name conforms. `architecture/reserved-directory-names` uses that same first-character test for its
+own unit definition, but pairs it with requiring a same-named file, so a directory can pass one
+rule's PascalCase gate and fail another's. All three rules mean different things by the word on
+purpose.
 
 **One lowercase word satisfies `camelCase`, `kebab-case` and `snake_case` at once.** `dialog` matches
 all three, because there is nothing in the name to disagree with. This rule only fires on a name that

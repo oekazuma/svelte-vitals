@@ -1,12 +1,15 @@
 /**
  * Glob-declaration machinery shared by the Architecture rules that let a project declare a
- * convention over directory globs — `architecture/unit-entry-file` (design 2026-07-28) and
- * `architecture/directory-naming` (design 2026-07-29).
+ * convention over directory globs — `architecture/unit-entry-file` (design 2026-07-28),
+ * `architecture/directory-naming` and `architecture/reserved-directory-names` (both design
+ * 2026-07-29).
  *
  * Extracted rather than copied on purpose. The trailing-double-star guard below produced three
  * successive false positives in the first rule that needed it, and a second copy is how a fourth
- * one arrives. Everything here is about *which declaration governs a directory*; what a rule then
- * does with that directory stays in the rule.
+ * one arrives. This module holds what more than one directory-shaped rule needs to agree on: which
+ * declaration governs a directory, how a declaration's `|`-separated value is split, and how the
+ * directory set relates to the file inventory. What a rule then does with a directory it governs
+ * stays in the rule.
  */
 import { routeGlobToRegExp } from '../../config-apply.js';
 
@@ -106,7 +109,7 @@ function keyShape(key: string): { segments: number; doubleStars: number } {
  * directories, so the same glob list is compiled once per rule run. `bareGuard` is part of the
  * cache key, so the same globs compiled both ways do not collide.
  *
- * Both rules compile their `exclude` globs with `bareGuard` left at its default `false`, and must:
+ * All three rules compile their `exclude` globs with `bareGuard` left at its default `false`, and must:
  * a declaration key ending in a trailing double-star segment means "everything under X, not X
  * itself", which is exactly why that key needs its bare prefix guarded away — but an `exclude` glob
  * ending the same way means "this directory and everything below it", the opposite claim, so its
@@ -147,15 +150,18 @@ export function createKeyCompiler(): (globs: string[], bareGuard?: boolean) => C
  * because it is itself a glob when the key carries a wildcard before the trailing double-star
  * segment, and no literal directory string can ever equal a glob.
  *
- * One consumer needs this guard for two options at once, and the second is the harder case worth
- * recording here. `architecture/unit-entry-file` guards `pascalCaseUnits` for the same reason as
+ * Two consumers need this guard for two options at once, and each is worth recording here.
+ * `architecture/unit-entry-file` guards `pascalCaseUnits` for the same reason as
  * `units`: a key ending in a trailing double-star segment means "everything under X" there too, and
  * must not include X itself. That rule's own casing gate does not already handle this — a root
  * whose own basename happens to be PascalCase (`src/Components/**`) would otherwise pass the gate
  * and be demanded to contain `Components/Components.svelte` — so the guard cannot depend on a
- * container happening to be named in lowercase. `architecture/directory-naming`, this module's
- * other consumer, has only one glob-map option and no casing gate, so this particular case does not
- * arise for it — the guard itself still applies the same way to its `directories` keys. (One
+ * container happening to be named in lowercase. `architecture/reserved-directory-names` is the
+ * second: its `unitScopes` map is exactly as reliant on the guard as `units` is for the first rule,
+ * for the identical reason — a root that is itself a unit must not be asked to contain a
+ * same-named child of itself. `architecture/directory-naming`, this module's third consumer, has
+ * only one glob-map option and no casing gate, so this particular case does not arise for it — the
+ * guard itself still applies the same way to its `directories` keys. (One
  * consequence: a key of `src/**` followed by `/**` compiles a
  * `barePrefixRe` matching every directory the key itself matches, so that key is inert against
  * itself and reports as a declaration that checks nothing. That is the loud, correct failure mode
@@ -214,10 +220,12 @@ export function moreSpecificGlob(a: string, b: string): boolean {
  *
  * What this returns must become `location`, never `route`: `filterToChangedFiles` keeps only
  * locations git lists as changed, and git never lists a directory, so a finding whose `location` is
- * a directory disappears from every `--diff` run. `route` has no such constraint — both consumers of
+ * a directory disappears from every `--diff` run. `route` has no such constraint. Two consumers of
  * this module key `route` on the directory itself for a violation, precisely so a nested violation
  * keeps its own identity in `id::route::location` (`packages/cli/src/baseline.ts`) even when it
- * shares a `location` with an ancestor's violation; see each rule's own comment on its result for why.
+ * shares a `location` with an ancestor's violation; the third, `architecture/reserved-directory-names`,
+ * keys it on the offending **child** directory instead, since the parent it resolved options for is
+ * not itself the violation. See each rule's own comment on its result for why.
  *
  * A direct child is preferred so the finding sits next to the directory it is about, falling back to
  * the subtree for a directory holding only subdirectories. Both branches take the lexicographically

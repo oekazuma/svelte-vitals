@@ -1,5 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { architectureReservedDirectoryNames } from '../src/index.js';
+import { isUnitDir } from '../src/rules/architecture/reserved-directory-names.js';
+import { childFiles } from '../src/rules/architecture/declarations.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 
@@ -54,11 +56,14 @@ describe('the documented example', () => {
     expect(messages[0]).toContain('api, components, features, effect, db');
   });
 
-  it('never exercises the precedence comparison, which is why test 1 of the plan carries it', async () => {
-    // The `scopes` key names a directory that is not a unit, and no `scopes` key names a unit, so
-    // the two declarations never compete on this configuration.
-    const rs = await run(TREE, EXAMPLE);
-    expect(rs).toEqual([]);
+  it('never exercises the precedence comparison, so test 1 of the plan carries it', async () => {
+    // The two maps compete only where both match one directory, and a `unitScopes` key is eligible
+    // only at a unit. The example's single `scopes` key names `src/lib`, which holds no `lib.*` file
+    // and so is never a unit — asserted here rather than restated, since a future edit pointing that
+    // key at a unit would silently start exercising a path this file does not cover.
+    const units = TREE.map((f) => f.slice(0, f.lastIndexOf('/'))).filter((dir) => isUnitDir(dir, childFiles(TREE)));
+    expect(units).not.toContain('src/lib');
+    expect(units.length).toBeGreaterThan(0);
   });
 });
 

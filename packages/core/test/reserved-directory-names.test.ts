@@ -24,7 +24,7 @@ describe('isUnitDir', () => {
     expect(isUnitDir('src/lib/Card', filesIn(['src/lib/Card/Card.svelte.ts']))).toBe(true);
   });
 
-  it('is false for a PascalCase directory with no same-named file', () => {
+  it('is false for a capitalised directory with no same-named file', () => {
     expect(isUnitDir('src/lib/Icons', filesIn(['src/lib/Icons/Star.svelte']))).toBe(false);
   });
 
@@ -201,8 +201,9 @@ describe('architecture/reserved-directory-names — exclude', () => {
 
   it('prunes an excluded parent when the exclusion reaches the parent alone', async () => {
     // The override's scope matches the parent and not the child, so the child's own resolution
-    // carries no exclusion. Only the parent-level check can prune here — with a top-level glob the
-    // per-child check would cover for it, which is why that fixture cannot pin this.
+    // carries no exclusion. What this pins: an exclusion reaching only the parent still prunes its
+    // children — the per-child check below reads this same resolved list against the child's
+    // ancestors, and the parent is always one of them.
     const rs = await architectureReservedDirectoryNames.check({
       sourceFiles: ['src/lib/Card/Card.svelte', 'src/lib/Card/helpers/a.ts'],
       heads: [],
@@ -332,6 +333,45 @@ describe('architecture/reserved-directory-names — declarations that check noth
     });
     expect(project(rs)).toHaveLength(1);
     expect(project(rs)[0]!.message).toContain('declared in both');
+  });
+
+  it('reports the empty value, not the collision, when the scopes side names nothing', async () => {
+    // The scopes key is dropped before matching, so unitScopes really does govern. Claiming the
+    // collision here would be false, and would also hide the actual error.
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte'], { scopes: { 'src/lib/*': '|' }, unitScopes: { 'src/lib/*': 'parts' } })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain('names no directory name at all');
+    expect(project(rs)[0]!.message).not.toContain('declared in both');
+  });
+
+  it('does not claim the unitScopes entry never applies when it still governs outside the override', async () => {
+    // The override is scoped to 'src/lib/Card/**' (narrow enough that it never also becomes the
+    // resolved options for 'src/lib' itself), so the collision is detected only at 'src/lib/Card',
+    // where 'src/**' is declared in both maps. Outside the override entirely, no `scopes` entry
+    // competes, so the same `unitScopes` key still governs 'src/other/Widget' and produces a real
+    // violation — which the old, unqualified wording ("the unitScopes entry never applies") would
+    // have called impossible.
+    const rs = await architectureReservedDirectoryNames.check({
+      sourceFiles: ['src/lib/Card/Card.svelte', 'src/other/Widget/Widget.svelte', 'src/other/Widget/helpers/a.ts'],
+      heads: [],
+      project: defaultProject,
+      config: defineConfig({
+        rules: { 'architecture/reserved-directory-names': { options: { unitScopes: { 'src/**': 'parts' } } } },
+        overrides: [
+          {
+            files: 'src/lib/Card/**',
+            rules: { 'architecture/reserved-directory-names': { options: { scopes: { 'src/**': 'api' } } } }
+          }
+        ]
+      })
+    });
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.route).toBe('src/other/Widget/helpers');
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain('wins wherever both apply');
+    expect(project(rs)[0]!.message).not.toContain('never applies');
   });
 
   it('does not report a key declared only inside an overrides entry as inert', async () => {
