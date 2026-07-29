@@ -68,8 +68,8 @@ The gate's evidence column asks a proposal to prove **silence** where a verdict 
 rule whose scope is declared by globs, the opposite proof is needed too, because **zero findings reads
 identically as "the project complies" and "the declaration matched nothing."** Added 2026-07-28 after
 a rule's own documented example configuration was found, three times, to be checking far less than it
-appeared to — once nothing at all, once 109 of 166 eligible directories — with zero findings each
-time.
+appeared to — once nothing at all, once only a fraction of the eligible directories — with zero
+findings each time.
 
 So a glob-configured rule owes two more things before it ships:
 
@@ -254,18 +254,18 @@ the way the paragraph above first suggested: per-rule options did unblock L3, fo
 expressible as a flat list or map. Only M4 and part of M8 wait on the second iteration.
 
 M9 was added 2026-07-28 from field evidence rather than from reading the convention document, and its
-evidence is the strongest of the nine. A 330-file reorganisation to comply with a convention left, all
-found by human review and by nothing else:
+evidence is the strongest of the nine. A large reorganisation to comply with a convention left three
+kinds of dangling reference behind, all found by human review and by nothing else:
 
-| Failure                                                                         | Count |
-| ------------------------------------------------------------------------------- | ----: |
-| Style-guide links in `.svelte` comments pointing at a moved path (404)          |    26 |
-| A renamed unit's old name left in `Document.md`, comments, and `describe` names |     5 |
-| Sample-code relative imports in `Document.md` that do not resolve               |     1 |
+| Failure                                                                    |
+| -------------------------------------------------------------------------- |
+| Style-guide links in `.svelte` comments pointing at a moved path (404)     |
+| A renamed unit's old name left in Markdown, comments, and `describe` names |
+| Sample-code relative imports in Markdown that do not resolve               |
 
-None of the project's existing checks — the filename linter, `svelte-check`, the test runner, the
-formatter — can see a path that exists only inside a comment or a Markdown fence: there is no type and
-no module resolution to fail. Two comparisons found all 32:
+The first was by far the most common. None of the project's existing checks — a filename linter,
+`svelte-check`, the test runner, the formatter — can see a path that exists only inside a comment or a
+Markdown fence: there is no type and no module resolution to fail. Two comparisons found all of them:
 
 - a style-guide link's path versus the `dirname` of the file holding it;
 - every relative path reference in `.md` and `.svelte` resolved against the file inventory, with `.ts`
@@ -280,8 +280,8 @@ Where M1 closed "this file does not exist", M9 closes "this reference's target d
 
 **M10** was added the same day, from the same reorganisation. It is the mechanism a filename linter
 covers best, so it is listed for completeness of the inventory rather than as a gap svelte-vitals must
-close: 11 occurrences of `types/types.ts` and 2 of `types/index.ts` survived in the pre-convention
-tree, and the project's existing filename configuration already expresses exactly this. It is recorded
+close: occurrences of `types/types.ts` and `types/index.ts` survived in a pre-convention tree, and a
+filename linter's configuration already expresses exactly this. It is recorded
 because M1's validation surfaced it and no other row covers it — its claim is "this filename may not
 appear here", which is neither "a unit is missing its entry file" (M1) nor "a directory is named
 wrongly" (M2).

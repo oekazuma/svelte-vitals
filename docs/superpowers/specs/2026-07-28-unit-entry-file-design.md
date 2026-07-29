@@ -29,7 +29,8 @@ Two further gaps follow from the same limitation, and are addressed here:
 
 - A glob that matches nothing silently checks nothing. Every convention costs one or more
   hand-written glob entries, and a tree that grows a level silently drops out of coverage with no
-  error. This rule reports a declaration that matched no directory (see "Finding shapes").
+  error. This rule reports a declaration that checks nothing — whether because it matched no directory
+  at all, or because `exclude` pruned every directory it did match (see "Finding shapes").
 - The identifier for a component unit is its **name's casing**, not its position, and units nest to
   arbitrary depth inside `parts/` and grouping directories. A path glob cannot express "any
   PascalCase directory" — `routeGlobToRegExp` treats everything but `*` and `**` as literal, so a
@@ -129,11 +130,11 @@ iteration. Merge semantics are additive — per-key override for the maps, appen
 
 ### Why `exclude` exists
 
-`units` alone cannot express a project's real unit set. Measured against a production tree
-(2026-07-28): the two-level glob `src/lib/api/*/*` matched 37 unit directories and **missed two**,
-because that convention nests a helper unit one level deeper inside the unit that owns it. Widening
-to `src/lib/api/**/*` finds those two and then matches 76 directories, of which **37 are `tests/`** —
-producing 37 false positives, since `tests/tests.ts` is not supposed to exist.
+`units` alone cannot express a project's real unit set. Run against a real tree (2026-07-28): the
+two-level glob `src/lib/api/*/*` matched most unit directories but **missed the ones nested a level
+deeper**, because that convention puts a helper unit inside the unit that owns it. Widening to
+`src/lib/api/**/*` finds those — and also sweeps in every `tests/` directory in the same subtree,
+one false positive each, since `tests/tests.ts` is not supposed to exist.
 
 So a `units` glob must be able to say what it is _not_. `routeGlobToRegExp` treats everything but
 `*` and `**` as literal, so a negation inside the pattern is unavailable. Two alternatives were
@@ -161,11 +162,11 @@ holds units beneath it.** Reserved directory names split into two kinds, and onl
 | `parts`                      | **No**        | Its children **are** PascalCase units                 |
 | `functions`, `stores`        | **No**        | Its children are exactly what a `units` glob declares |
 
-Excluding a container is self-defeating, and measurably so. Against the same production tree
-(2026-07-28), an earlier draft of this spec's example added `**/parts`, `**/functions` and `**/stores`
-to `exclude`. It removed the 245 `tests/` directories as intended — and also **57 of the 166
-PascalCase units** (everything under a `parts/`) and **15 function and store units**, silencing the
-very declarations `units` had just made. Dropping those three entries removes the 245 with **zero**
+Excluding a container is self-defeating, and observably so. Against the same real tree (2026-07-28),
+an earlier draft of this spec's example added `**/parts`, `**/functions` and `**/stores` to `exclude`.
+It removed the `tests/` directories as intended — and also **a third of the PascalCase units**
+(everything under a `parts/`) plus every function and store unit, silencing the very declarations
+`units` had just made. Dropping those three entries removes the `tests/` directories with **zero**
 collateral. The list in the example above is the corrected one.
 
 A related trap has no `exclude` answer: if a broad `units` glob reaches a _container_ directory —
@@ -201,7 +202,7 @@ would add a fourth finding shape. Note the tie-break only changes anything when 
 **different** extensions — which is itself a configuration smell, and the rule page says so.
 
 `PascalCase` means **the basename's first character is `A`–`Z`**. That is the whole definition:
-`SeoContents` qualifies; `fairSearch`, `parts` and `[hallId=integer]` do not.
+`PageHeader` qualifies; `searchForm`, `parts` and `[itemId=integer]` do not.
 
 ## The fact
 
@@ -231,8 +232,8 @@ speculative.
 
 1. `sourceFiles` absent → no results.
 2. Derive the directory set: **every ancestor path prefix of every file**, not only the directories
-   that have a file as a direct child. `src/lib/api/hall/fetchHall/fetchHall.ts` contributes `src`,
-   `src/lib`, `src/lib/api`, `src/lib/api/hall` and `src/lib/api/hall/fetchHall` — so a directory
+   that have a file as a direct child. `src/lib/api/item/fetchItem/fetchItem.ts` contributes `src`,
+   `src/lib`, `src/lib/api`, `src/lib/api/item` and `src/lib/api/item/fetchItem` — so a directory
    holding nothing but subdirectories **is** in the set and **is** checked. Deriving instead from
    "parents of files" would leave structurally identical directories checked or unchecked depending
    on whether one of them happens to hold a shared file, which is a difference the convention does
@@ -251,7 +252,7 @@ speculative.
 | `sourceFiles` absent                               | No results                    | Dev live layer and `--route` mode, as with `components`      |
 | `units` and `pascalCaseUnits` both empty           | No results                    | L3 inertness                                                 |
 | A directory matched by neither declaration         | Skipped                       | Not declared                                                 |
-| A directory whose basename does not begin `A`–`Z`  | Skipped for `pascalCaseUnits` | `parts`, `fairSearch`, `[hallId=integer]`                    |
+| A directory whose basename does not begin `A`–`Z`  | Skipped for `pascalCaseUnits` | `parts`, `searchForm`, `[itemId=integer]`                    |
 | A directory or ancestor matching an `exclude` glob | Skipped, subtree included     | Declared never to be a unit                                  |
 | A directory with no file anywhere beneath it       | Not in the set at all         | Nothing contributes its prefix; git does not track it either |
 
@@ -325,25 +326,41 @@ real finding in the project. Keyed on the entry file, a component unit's pass la
 path that is **already** a score key, so it adds nothing. A function or store unit's `.ts` entry does
 add one key; those are far fewer, and a malformed unit becoming its own scoring subject is defensible.
 
-### `route` means a different file in the two shapes
+### `route` means a different thing in the two shapes
 
-A violation keys on some file in the unit; a pass keys on the unit's entry file. **Both are real
-paths** — the violation's file comes from the inventory, and the pass's entry file exists by
-definition — and no consumer treats `route` as something to read: the console reporter groups and
-prints it, the agent reporter prefers `location ?? route`, and `computeScore` uses it only as a map
-key. Verified 2026-07-28.
+A pass keys `route` on the unit's entry file. A violation keys `route` on the **directory** and
+`location` on a file inside it. Both are real paths — the pass's entry file exists by definition, the
+violation's file comes from the inventory — and no consumer treats `route` as something to read: the
+console reporter groups and prints it, the agent reporter prefers `location ?? route`, and
+`computeScore` uses it only as a map key. Verified 2026-07-28, re-verified 2026-07-29.
 
-One consequence is worth recording. `findingKey` (`packages/cli/src/baseline.ts`) is
-`id::route::location`, so a violation's baseline identity depends on which file was chosen. **Adding a
-file that sorts earlier inside the directory changes the key, and the unchanged violation looks new.**
-The failure direction is safe — a stale violation resurfaces rather than slipping through — but it is
-a real fragility, shared with any rule whose location is derived rather than intrinsic.
+_Revised 2026-07-29._ The violation originally keyed **both** fields on the same file. `findingKey`
+(`packages/cli/src/baseline.ts`) is `id::route::location`, and a violating directory nested inside
+another violating one resolves to the same file — the outer via the subtree fallback, the inner via its
+direct child — so the two findings shared one identity and baselining either silently took both. That
+is the failure this rule family exists to prevent, so `route` moved to the directory, which separates
+them at no cost to any consumer.
+
+One fragility remains and is worth recording. `location` is still derived from which file sorts first
+inside the directory, so **adding a file that sorts earlier changes the key, and the unchanged
+violation looks new.** The failure direction is safe — a stale violation resurfaces rather than
+slipping through — but it is real, and shared with any rule whose location is derived rather than
+intrinsic.
 
 ### 3. Inert declaration — a key matched no directory
 
-One finding per option key that matched no directory at all, as a **project-scoped** result: no
-`route`, no `location`, `presence: 'none'`. A declaration that checks nothing is a configuration
-problem, not a file's problem.
+**One finding carrying every** option key that matched no directory at all, as a **project-scoped**
+result: no `route`, no `location`, `presence: 'none'`. A declaration that checks nothing is a
+configuration problem, not a file's problem.
+
+_Corrected 2026-07-29._ This section originally specified one finding **per** key. Implementation
+found the collision that forbids it: `findingKey` (`packages/cli/src/baseline.ts`) is
+`id::route::location`, and every shape here leaves `route` and `location` unset, so N per-key findings
+collapse to one baseline entry — suppressing one inert key would silently suppress every later one.
+This rule is the first in the repository to emit more than one project-scoped result per run, so the
+collision had no precedent to warn about it. Folding them removes it without touching the shared
+baseline and suppression code, and makes suppression one decision rather than N. The shipped rule and
+its documentation have always matched the corrected text; only this paragraph was stale.
 
 This is the failure mode that motivated moving these checks here at all, so the rule reports it
 rather than leaving the user to wonder whether their globs took effect.
@@ -352,6 +369,15 @@ rather than leaving the user to wonder whether their globs took effect.
 (`config.rules['architecture/unit-entry-file'].options`) are checked for inertness. A key declared
 solely inside an `overrides` entry is not, because deciding whether it matched anything would mean
 intersecting each entry's scope with the directory set. Simplicity wins; the rule page says so.
+
+**Superseded 2026-07-29 —** a key whose every match is pruned by `exclude` is now reported as inert.
+As shipped, this rule recorded a key as having done work the moment it matched, before the `exclude`
+check, so `units: { '**/tests/fixtures/*': '.ts' }` alongside `exclude: ['**/tests']` left a
+declaration that evaluates nothing and says nothing. The code comment defending that ordering bundled
+the excluded case with the lost-the-tie-break case; the tie-break half is right and stands, the
+excluded half is not — an excluded directory is one the rule was forbidden to look at, not one it
+looked at and had nothing to say about. `2026-07-29-directory-naming-design.md` carries the reasoning
+and moves both rules to the corrected ordering through their shared module.
 
 ## Implementation scope
 
@@ -381,12 +407,18 @@ intersecting each entry's scope with the directory set. Simplicity wins; the rul
   prunes the whole subtree (a `tests/fixtures/` under an excluded `tests/` is exempt too).
 - `exclude` outranks both declarations, including a PascalCase directory under a matching root.
 - The two `Fix` descriptions are selected by which declaration matched.
-- PascalCase boundaries: `SeoContents` checked; `fairSearch`, `parts`, `[hallId=integer]` not.
+- PascalCase boundaries: `PageHeader` checked; `searchForm`, `parts`, `[itemId=integer]` not.
 - Conforming → one pass, `route` = the entry file, no `location`.
-- Missing → one violation, `location` = the first file under the directory, no `line`.
+- Missing → one violation, `route` = the **directory**, `location` = a file inside it, no `line`. The
+  two differ so that a violating directory nested inside another violating one keeps its own
+  `findingKey` identity; both resolve to the same file, so `location` alone cannot separate them.
 - A directory holding only subdirectories still resolves to a file under it.
 - A case-mismatched entry file (`Card/card.svelte`) is a violation.
-- An inert declaration yields one project-scoped finding per key.
+- Inert declarations yield **one** project-scoped finding carrying every such key — no `route`, no
+  `location`, `presence: 'none'` — not one finding each. The message names why each key checks
+  nothing: `matched no directory`, or `matched only excluded directories`.
+- A declaration whose every match is pruned by `exclude` is inert, and is reported with that second
+  wording rather than counted as having done work.
 - A key declared only in an `overrides` entry yields no inertness finding (pins the limitation).
 - Every silent input: `sourceFiles` absent, both options empty, undeclared directories.
 - Per-path options through `overrides` reach the rule (the per-rule-options parity check).
@@ -397,8 +429,8 @@ intersecting each entry's scope with the directory set. Simplicity wins; the rul
 
 Every error this spec's example configuration has contained was found by running it over a real
 project's tree, never by reading it: a `units` glob that missed nested units and swept in `tests/`; an
-`exclude` list that silenced 72 legitimate units; and a `**` in the wrong position that checked no
-function unit at all. None is visible from the prose.
+`exclude` list that silenced a large share of the legitimate units; and a `**` in the wrong position
+that checked no function unit at all. None is visible from the prose.
 
 So the plan carries a step for it, and the step has three checks — because the obvious one is not
 sufficient on its own:
@@ -409,7 +441,8 @@ sufficient on its own:
    that would have caught the `**/functions/**/*` mistake, where violations were 0 because no function
    unit was examined.
 3. **Compare the count against the tree's real unit count.** A count that is plausible but low is the
-   `exclude`-over-pruning failure — 109 of 166 PascalCase units, with no violations to show for it.
+   `exclude`-over-pruning failure — most of the PascalCase units examined, the rest silently pruned,
+   and no violations to show for it.
 
 A unit test proves the mechanism; only a real tree proves the example, and only the count proves the
 example is doing anything.
@@ -423,18 +456,19 @@ A real SvelteKit application is available in two states, which together cover bo
 | Convention-compliant | **Zero** findings, with an examined count matching the population  |
 | Pre-convention       | A **known non-zero** count of findings from the same configuration |
 
-Its population, measured 2026-07-28: 166 PascalCase units, 45 function units plus 8 nested helpers, 7
-store units, 37 api units plus 2 nested helpers. The examined count is what check 2 and check 3 above
-compare against.
+Its unit population is known for each of the four declared kinds — PascalCase component units,
+function units and their nested helpers, store units, and api units and their nested helpers. That
+population is what checks 2 and 3 above compare the examined count against; whoever runs the step
+counts it on the tree in front of them.
 
-On the pre-convention state, **five** PascalCase directories hold no same-named `.svelte`, and those
-are the findings this rule should produce.
+On the pre-convention state, a **small, known number** of PascalCase directories hold no same-named
+`.svelte`, and those are the findings this rule should produce.
 
-**Two other known defects in that state are _not_ this rule's** — 11 occurrences of `types/types.ts`
-and 2 of `types/index.ts`. Both are forbidden _filenames in a location_, a different claim: `types/` is
-not a unit under any declaration here (it sits in `exclude`), so no entry file is expected of it and
-none is missing. Expecting this rule to report them would send the validation step hunting a bug that
-is not there. They belong to a forbidden-filename mechanism, which M2 and M3 do not cover either — the
+**Other known defects in that state are _not_ this rule's** — occurrences of `types/types.ts` and
+`types/index.ts`. Both are forbidden _filenames in a location_, a different claim: `types/` is not a
+unit under any declaration here (it sits in `exclude`), so no entry file is expected of it and none is
+missing. Expecting this rule to report them would send the validation step hunting a bug that is not
+there. They belong to a forbidden-filename mechanism, which M2 and M3 do not cover either — the
 charter's inventory has no row for it yet.
 
 ## Documentation
@@ -452,7 +486,7 @@ entry is not checked for inertness.
 ## Out of scope
 
 - **"Every file in a unit directory must match its name."** This rule asks only whether the entry
-  file exists, so a shared `types.ts` beside `fetchHall.ts` is fine and needs no exclusion pattern.
+  file exists, so a shared `types.ts` beside `fetchItem.ts` is fine and needs no exclusion pattern.
   Restricting _what else_ may sit in a unit directory is a different claim and a different rule.
 - **The converse casing rule** — that a directory unable to hold a same-named entry must be camelCase
   — is the naming-convention mechanism (M2), not this one. This rule's `Fix` text points at it.

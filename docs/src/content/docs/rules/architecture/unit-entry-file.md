@@ -74,7 +74,10 @@ camelCase directory may legitimately be a unit _or_ a grouping — only its posi
 — while a PascalCase unit nests to arbitrary depth, where no path glob can find it.
 
 A directory matched by `units` takes that declaration; `pascalCaseUnits` applies only to the rest. When
-several `units` globs match, the longest wins, and the alphabetically first among equal-length ties.
+several globs match one directory, the most specific wins: more path segments first, then fewer `**`
+segments, then the longer key, then the alphabetically first. Segment count includes wildcards, so a
+key made only of wildcards can outrank one naming a real directory if it is deeper — write the depth
+you mean.
 
 ### `exclude`
 
@@ -106,11 +109,20 @@ cannot leave the rule silently checking nothing. "Checks no directory" is strict
 path": a `pascalCaseUnits` key that matched only lowercase directories has identified no unit, so it
 is reported too — that is what surfaces a key missing the trailing `/**` it was meant to have.
 
+A declaration whose every match is removed by `exclude` is reported the same way, and says so —
+`matched only excluded directories` rather than `matched no directory`. The two have different
+remedies: one is a typo in the glob, the other a contradiction between two options you can both see.
+
 Two things are deliberately left out. A declaration written **only** inside an `overrides` entry is
 not checked this way, because whether it matched anything depends on which paths the override
-applies to. And an `exclude` glob is never checked at all: an exclusion that matches nothing already
-fails loudly, since you get the findings you meant to exclude and notice them.
+applies to. And an `exclude` glob is never checked at all: an exclusion that matches nothing has no
+effect on the report. That does mean a mistyped `exclude` glob is silent when the subtree it meant
+to remove had no findings anyway.
 
 When more than one declaration checks no directory, they are all reported together as a single
 finding rather than one each, so suppressing that finding suppresses the check for every inert
 declaration at once.
+
+A declared unit missing its entry file that is also named in the wrong casing draws a finding from
+`architecture/directory-naming` as well, when that rule is configured for the same location. Neither
+suppresses the other — they are different claims and both are true.

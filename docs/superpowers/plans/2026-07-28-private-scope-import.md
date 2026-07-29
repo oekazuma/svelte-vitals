@@ -300,12 +300,12 @@ describe('architecture/private-scope-import', () => {
 
   it('scopes a route components/ directory to that route subtree', async () => {
     const inside = comp({
-      file: 'src/routes/search/hallList/+page.svelte',
+      file: 'src/routes/search/itemList/+page.svelte',
       importSpans: [{ source: './components/Search/Search.svelte', line: 4 }]
     });
     const outside = comp({
       file: 'src/routes/other/+page.svelte',
-      importSpans: [{ source: '../search/hallList/components/Search/Search.svelte', line: 4 }]
+      importSpans: [{ source: '../search/itemList/components/Search/Search.svelte', line: 4 }]
     });
     expect(fails(await architecturePrivateScopeImport.check(scoped([inside], SCOPES)))).toHaveLength(0);
     expect(fails(await architecturePrivateScopeImport.check(scoped([outside], SCOPES)))).toHaveLength(1);

@@ -60,7 +60,7 @@ describe('architecture/unit-entry-file — pascalCaseUnits', () => {
 
   it('skips a directory whose basename does not begin A-Z', async () => {
     const rs = await architectureUnitEntryFile.check(
-      ctx(['src/lib/fairSearch/x.svelte', 'src/routes/[hallId=integer]/+page.svelte'], PASCAL)
+      ctx(['src/lib/searchForm/x.svelte', 'src/routes/[itemId=integer]/+page.svelte'], PASCAL)
     );
     // No directory in this tiny tree is PascalCase, so no violation and no pass is reported, and
     // 'src/**' never identified a unit here — it is correctly reported inert, a real consequence
@@ -124,6 +124,26 @@ describe('architecture/unit-entry-file — pascalCaseUnits', () => {
   });
 });
 
+describe('architecture/unit-entry-file — identity', () => {
+  it('gives a nested violating directory its own identity', async () => {
+    // src/lib/Card has no direct child, so it falls back to the subtree for its location; its
+    // nested child src/lib/Card/Badge takes that very same file as its direct child. Both
+    // violations must stay distinguishable in `id::route::location`.
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/Card/Badge/x.ts'], { pascalCaseUnits: { 'src/lib/**': '.svelte' } })
+    );
+    expect(fails(rs)).toHaveLength(2);
+    // Both resolve to the same file, so `location` alone cannot tell them apart — and
+    // `id::route::location` is what a baseline entry is keyed on.
+    expect(fails(rs).map((r) => r.location)).toEqual(['src/lib/Card/Badge/x.ts', 'src/lib/Card/Badge/x.ts']);
+    expect(
+      fails(rs)
+        .map((r) => r.route)
+        .sort()
+    ).toEqual(['src/lib/Card', 'src/lib/Card/Badge']);
+  });
+});
+
 describe('architecture/unit-entry-file — units', () => {
   const FN = { units: { 'src/**/functions/*': '.ts' } };
 
@@ -157,9 +177,9 @@ describe('architecture/unit-entry-file — units', () => {
     expect(passes(rs)[0]!.route).toBe('src/lib/api/voice/fetchVoice/fetchVoice.ts');
   });
 
-  it('takes the longest matching key', async () => {
-    // Both keys match src/lib/x/stores/s. The longer one expects `.ts`, which exists; the
-    // shorter one would expect `.svelte.ts` and report a violation.
+  it('takes the key with more path segments', async () => {
+    // Both keys match src/lib/x/stores/s. The one with more segments expects `.ts`, which exists;
+    // the one with fewer would expect `.svelte.ts` and report a violation.
     const rs = await architectureUnitEntryFile.check(
       ctx(['src/lib/x/stores/s/s.ts'], {
         units: { 'src/**/stores/*': '.svelte.ts', 'src/lib/x/stores/*': '.ts' }
@@ -180,7 +200,7 @@ describe('architecture/unit-entry-file — units', () => {
   });
 
   it('does not call a key inert when it matched but lost the tie-break', async () => {
-    // 'src/**/stores/*' matches and loses to the longer key; it has still done work.
+    // 'src/**/stores/*' matches and loses to the key with more segments; it has still done work.
     const rs = await architectureUnitEntryFile.check(
       ctx(['src/lib/x/stores/s/s.ts'], {
         units: { 'src/**/stores/*': '.svelte.ts', 'src/lib/x/stores/*': '.ts' }
@@ -241,9 +261,18 @@ describe('architecture/unit-entry-file — exclude', () => {
 
   it('outranks both declarations', async () => {
     const rs = await architectureUnitEntryFile.check(
-      ctx(['src/lib/Card/Badge.svelte'], { ...PASCAL, units: { 'src/lib/*': '.svelte' }, exclude: ['src/lib/Card'] })
+      ctx(['src/lib/Card/Badge.svelte', 'src/lib/Widget/Widget.svelte'], {
+        ...PASCAL,
+        units: { 'src/lib/*': '.svelte' },
+        exclude: ['src/lib/Card']
+      })
     );
-    expect(rs).toEqual([]);
+    // Card/ holds Badge.svelte and no Card.svelte, so both declarations would report it — the
+    // exclusion is what stops them. Widget/ is there so both keys still govern something: without
+    // it they would be inert, and this test would be about inert declarations instead.
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs.filter((r) => r.route === undefined)).toEqual([]);
+    expect(passes(rs)).toHaveLength(1);
   });
 });
 
@@ -329,5 +358,104 @@ describe('architecture/unit-entry-file — per-path options', () => {
     expect(fails(rs)).toHaveLength(1);
     const applied = applyOverrides(rs, defineConfig(cfg));
     expect(applied.find((r) => r.detection.value === 'absent')?.severity).toBe('warning');
+  });
+});
+
+describe('architecture/unit-entry-file — specificity', () => {
+  it("keeps the documented example's outcome under the segment-count metric", async () => {
+    // The rule page's own example. Every key here has the narrower glob as the longer string too,
+    // so the metric change must be a no-op for it — that is what makes the change safe to ship.
+    const EXAMPLE = {
+      units: {
+        'src/lib/api/**/*': '.ts',
+        'src/**/functions/*': '.ts',
+        'src/**/functions/*/*': '.ts',
+        'src/**/stores/*': '.svelte.ts'
+      }
+    };
+    // Every key must govern something here. With a fixture that exercises only some of them, the
+    // rule reports the rest as declarations that check nothing — a real finding that has nothing
+    // to do with the metric, and one `fails()` counts.
+    const rs = await architectureUnitEntryFile.check(
+      ctx(
+        [
+          'src/lib/functions/getFoo/getFoo.ts',
+          'src/lib/functions/getFoo/helper/helper.ts',
+          'src/lib/api/item/fetchItem/fetchItem.ts',
+          'src/lib/stores/searchState/searchState.svelte.ts'
+        ],
+        EXAMPLE
+      )
+    );
+    // All four documented keys now govern a real unit, so nothing is inert and every unit conforms.
+    expect(fails(rs)).toHaveLength(0);
+    expect(passes(rs)).toHaveLength(4);
+  });
+
+  it('lets a single-star declaration narrow a double-star one at the same depth', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/widgets/Card/Card.svelte'], {
+        units: { 'src/lib/widgets/*': '.ts', 'src/lib/widgets/**': '.svelte' }
+      })
+    );
+    // Both keys are four segments; the single-star one has no `**` and now wins, so the unit is
+    // asked for Card.ts and reported. Under raw length 'src/lib/widgets/**' was the longer string,
+    // won, matched the .svelte that is there, and the narrower declaration did nothing at all.
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.message).toContain('src/lib/widgets/Card/Card.ts');
+  });
+});
+
+describe('architecture/unit-entry-file — declarations shadowed by exclude', () => {
+  it('reports a units key whose every match is excluded', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/tests/fixtures/getFoo/index.ts'], {
+        units: { 'src/**/tests/fixtures/*': '.ts' },
+        exclude: ['**/tests']
+      })
+    );
+    const project = rs.filter((r) => r.route === undefined);
+    expect(project).toHaveLength(1);
+    expect(project[0]!.message).toContain('src/**/tests/fixtures/*');
+    expect(project[0]!.message).toContain('matched only excluded directories');
+  });
+
+  it('distinguishes a shadowed declaration from one that matched nothing', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/tests/fixtures/getFoo/index.ts'], {
+        units: { 'src/**/tests/fixtures/*': '.ts', 'src/nowhere/*': '.ts' },
+        exclude: ['**/tests']
+      })
+    );
+    const message = rs.find((r) => r.route === undefined)!.message;
+    expect(message).toContain("'src/**/tests/fixtures/*' (matched only excluded directories)");
+    expect(message).toContain("'src/nowhere/*' (matched no directory)");
+  });
+
+  it('does not blame exclude for a key the casing gate disqualified', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/searchForm/a.ts', 'src/lib/tests/Card/Card.svelte'], {
+        pascalCaseUnits: { 'src/lib/*': '.svelte' },
+        exclude: ['**/tests']
+      })
+    );
+    // 'src/lib/*' matched src/lib/searchForm (surviving, but lowercase, so it identified nothing)
+    // and src/lib/tests (excluded). It is inert either way, but the exclusion is not the reason,
+    // and saying so would send the reader to remove an exclusion that changes nothing.
+    const inert = rs.filter((r) => r.route === undefined);
+    expect(inert).toHaveLength(1);
+    expect(inert[0]!.message).toContain('matched no directory');
+    expect(inert[0]!.message).not.toContain('excluded');
+  });
+
+  it('still counts a key that matched but lost the tie-break', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/functions/getFoo/getFoo.ts'], {
+        units: { 'src/**/functions/*': '.ts', 'src/**': '.ts' }
+      })
+    );
+    // 'src/**' loses to 'src/**/functions/*' on src/lib/functions/getFoo, but it governs
+    // src/lib and src/lib/functions, so it has done work either way and must not be reported.
+    expect(rs.filter((r) => r.route === undefined)).toEqual([]);
   });
 });

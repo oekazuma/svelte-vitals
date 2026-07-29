@@ -12,6 +12,7 @@ const configFileWarningsFixtureDir = join(here, 'fixtures', 'config-file-warning
 const minifyDisabledFixtureDir = join(here, 'fixtures', 'minify-disabled-project');
 const waterfallProjectFixtureDir = join(here, 'fixtures', 'waterfall-project');
 const unitEntryFixtureDir = join(here, 'fixtures', 'unit-entry-project');
+const directoryNamingFixtureDir = join(here, 'fixtures', 'directory-naming-project');
 
 describe('analyzeProject', () => {
   it('returns results, config, version and warnings for a SvelteKit project', async () => {
@@ -119,6 +120,16 @@ describe('analyzeProject config-file precedence (design doc 2026-07-05-config-fi
     expect(found).toHaveLength(1);
     expect(found[0]!.location).toBe('src/lib/Card/index.svelte');
     expect(found[0]!.message).toContain('src/lib/Card/Card.svelte');
+  });
+
+  it('runs architecture/directory-naming over the collected inventory', async () => {
+    const { results } = await analyzeProject({ cwd: directoryNamingFixtureDir });
+    const found = results.filter((r) => r.id === 'architecture/directory-naming');
+    expect(found).toHaveLength(1);
+    // `route` is the directory, `location` a file inside it (see the rule's comment on why the two differ).
+    expect(found[0]!.route).toBe('src/lib/Price_Table');
+    expect(found[0]!.location).toBe('src/lib/Price_Table/index.ts');
+    expect(found[0]!.message).toContain('camelCase');
   });
 
   it('leaves the inventory unbuilt for a --route run, so directory-shaped rules stay silent', async () => {

@@ -17,4 +17,5 @@ while a PascalCase unit nests to arbitrary depth, where no path glob reaches it.
 
 A filename-pattern check cannot express this: a file that does not exist has no path to validate. For
 the same reason, a declaration that matches no directory at all is reported, so a glob typo cannot
-leave the rule silently checking nothing.
+leave the rule silently checking nothing — and so is a declaration whose every match is removed by
+`exclude`, with the message saying which of the two it was.

@@ -1,7 +1,16 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
-import { compileOverrides, routeGlobToRegExp } from '../../config-apply.js';
+import { compileOverrides } from '../../config-apply.js';
 import { listOption, mapOption, resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
+import {
+  ancestorDirs,
+  baseName,
+  classifyUnusedKeys,
+  createKeyCompiler,
+  isExcluded,
+  matchKeys,
+  reportAt
+} from './declarations.js';
 
 const docsUrl = docsUrlFor('architecture/unit-entry-file');
 const recommendation =
@@ -15,78 +24,10 @@ const OPTIONS: RuleOptionsSpec = {
   exclude: { kind: 'string-list', default: [] }
 };
 
-/** Every ancestor directory of `file`, shallowest first (`a/b/c.ts` → ['a', 'a/b']). */
-function ancestorDirs(file: string): string[] {
-  const segments = file.split('/');
-  const out: string[] = [];
-  for (let i = 1; i < segments.length; i++) out.push(segments.slice(0, i).join('/'));
-  return out;
-}
-
-/** The basename of a directory path. */
-function baseName(dir: string): string {
-  const cut = dir.lastIndexOf('/');
-  return cut === -1 ? dir : dir.slice(cut + 1);
-}
-
 /** A PascalCase name is one whose first character is A-Z. That is the whole definition. */
 function isPascalCase(name: string): boolean {
   const c = name.charCodeAt(0);
   return c >= 65 && c <= 90;
-}
-
-// A compiled declaration key. `barePrefixRe` is set for a `units` or `pascalCaseUnits` key ending
-// in a trailing double-star segment (never for `exclude`) — see `matchKeys`. It is a compiled
-// RegExp, not the bare glob string: the prefix is itself a glob whenever the key carries a
-// wildcard before that trailing segment, so no real directory can ever equal it as a plain string,
-// and a string comparison against it never fires. Compiling the prefix lets it match a directory
-// the same way `re` matches the full key. (Written as `//` rather than `/**` because the glob
-// examples in `matchKeys`'s comment below contain the literal two-character sequence that would
-// otherwise close a block comment early.)
-interface CompiledKey {
-  key: string;
-  re: RegExp;
-  barePrefixRe?: RegExp;
-}
-
-// Every declaration key matching `dir`, and the one that governs it. The longest match wins
-// as the most specific declaration; among equal lengths the lexicographically first wins,
-// because additive merging across config layers makes key insertion order unintuitive.
-//
-// `matched` carries ALL of them, not just the winner: a key that matched a directory but lost
-// the tie-break has still done work, and reporting it as an inert declaration would be a lie.
-//
-// An entry whose `barePrefixRe` matches `dir` is skipped entirely, not merely denied the win: a
-// trailing `/**` compiles to `(/.*)?`, which also matches the bare prefix itself — `units: {
-// 'src/lib/functions/**': '.ts' }` would otherwise also call `src/lib/functions` a unit and
-// demand a nonsensical `functions/functions.ts`. The prefix is compiled rather than compared as a
-// string because it is itself a glob when the key carries one before the trailing double-star
-// segment — a key of `src/**` then `/functions/**`, and one of `src/*` then `/functions/**`, both
-// have a `barePrefixRe` of `src/**` then `/functions` (respectively `src/*` then `/functions`),
-// which no literal directory string can ever equal, so a `dir === barePrefix` comparison silently
-// never fires for either shape and the container leaks through uncaught. Compiling it closes that
-// gap: `src/**` then `/functions` matches `src/lib/functions` the same way `re` would. The same
-// guard applies to `pascalCaseUnits`: a key ending in `/**` means "everything under X" there too,
-// and must not include X itself. It would be tempting to think the casing gate at the call site
-// already handles this — X is a unit only if its own basename is PascalCase — but that only holds
-// when X's basename happens to be lowercase. `pascalCaseUnits: { 'src/Components/**': '.svelte' }`
-// names a root whose basename IS PascalCase, so without this guard the casing gate would pass
-// `src/Components` itself and demand a nonsensical `Components/Components.svelte` from what was
-// meant as a container, not a unit. A rule should not depend on the root happening to be named
-// lowercase, so both declarations get the guard. (One consequence: a key of `src/**` then `/**`
-// compiles a `barePrefixRe` matching every directory the key itself matches, so that key is inert
-// against itself and reports as a declaration that checks nothing. That is the loud, correct
-// failure mode for a nonsensical glob, not a crash.)
-function matchKeys(dir: string, compiled: CompiledKey[]): { matched: string[]; best?: string } {
-  const matched: string[] = [];
-  let best: string | undefined;
-  for (const { key, re, barePrefixRe } of compiled) {
-    if (barePrefixRe?.test(dir)) continue;
-    if (!re.test(dir)) continue;
-    matched.push(key);
-    if (best === undefined || key.length > best.length || (key.length === best.length && key < best)) best = key;
-  }
-  return best === undefined ? { matched } : { matched, best };
 }
 
 /**
@@ -124,28 +65,10 @@ export const architectureUnitEntryFile: Rule = {
     for (const f of files) for (const d of ancestorDirs(f)) dirs.add(d);
     const fileSet = new Set(files);
 
-    // Compiled patterns are memoised on the resolved declaration, since a project has a
-    // handful of distinct declarations and thousands of directories. `bareGuard` is true for
-    // `units` and `pascalCaseUnits` alike (see `matchKeys`'s doc comment for why both need it,
-    // and why `exclude` must never set it), and is part of the cache key so the same globs
-    // compiled both ways don't collide.
-    const cache = new Map<string, CompiledKey[]>();
-    const compile = (globs: string[], bareGuard = false): CompiledKey[] => {
-      const cacheKey = JSON.stringify([globs, bareGuard]);
-      let entry = cache.get(cacheKey);
-      if (entry === undefined) {
-        entry = globs.map((key) => ({
-          key,
-          re: routeGlobToRegExp(key),
-          // The prefix is compiled, not stored as a string: it is itself a glob whenever the key
-          // carries a wildcard before the trailing /**, and no literal directory can ever equal a
-          // glob (see matchKeys's doc comment).
-          ...(bareGuard && key.endsWith('/**') ? { barePrefixRe: routeGlobToRegExp(key.slice(0, -3)) } : {})
-        }));
-        cache.set(cacheKey, entry);
-      }
-      return entry;
-    };
+    // One cache per run. `bareGuard` is true for `units` and `pascalCaseUnits` alike (see
+    // `createKeyCompiler` and `matchKeys` in ./declarations.ts for why both need it, and why
+    // `exclude` must never set it).
+    const compile = createKeyCompiler();
 
     const out: Result[] = [];
     // Keys of the globally declared options that matched at least one directory.
@@ -155,6 +78,14 @@ export const architectureUnitEntryFile: Rule = {
       ...Object.keys(mapOption(globalOptions, 'pascalCaseUnits'))
     ]);
     const usedKeys = new Set<string>();
+    // Paths skipped as excluded, kept only so an unused key can be told apart from a shadowed one
+    // at the end of the run. Never consulted unless some key ends with no work recorded.
+    const excludedDirs: string[] = [];
+    // Keys that matched a directory `exclude` did not prune, whether or not they went on to do
+    // identifying work. Only used to keep the annotation honest below: `usedKeys` is narrower for
+    // `pascalCaseUnits`, where the casing gate is the identification criterion, so a key can be
+    // absent from `usedKeys` yet have matched real, surviving directories.
+    const matchedSurviving = new Set<string>();
 
     for (const dir of [...dirs].sort()) {
       const o = resolveRuleOptions(
@@ -168,35 +99,41 @@ export const architectureUnitEntryFile: Rule = {
       const pascalUnits = mapOption(o, 'pascalCaseUnits');
       if (Object.keys(units).length === 0 && Object.keys(pascalUnits).length === 0) continue; // inert
 
+      // `exclude` outranks both declarations and prunes the whole subtree: a directory is exempt
+      // when it or any ancestor matches. Tested BEFORE any key is matched against this directory.
+      // An excluded directory is one the rule is forbidden to look at, so a key whose every match
+      // lands here has evaluated nothing and must not be recorded as having done work — that is a
+      // declaration silently cancelled by an exclusion, which is precisely what the
+      // project-scoped finding below exists to surface.
+      const excluded = compile(listOption(o, 'exclude'));
+      const ancestors = ancestorDirs(dir);
+      if (isExcluded(dir, ancestors, excluded)) {
+        excludedDirs.push(dir);
+        continue;
+      }
+
       const byPath = matchKeys(dir, compile(Object.keys(units), true));
       const byCasing = matchKeys(dir, compile(Object.keys(pascalUnits), true));
 
-      // `units`: matched unconditionally, before `exclude` prunes the directory and before the
-      // casing gate below decides whether `pascalCaseUnits` gets to set `ext` here. A key that
-      // only ever matches an excluded directory, or only matches directories a `units` key
-      // already won for, has still done work: every key that matched has done work, whether or
-      // not it won the tie-break (same principle as the tie-break case just below), so
-      // bookkeeping it after either gate would falsely call it inert.
+      // `units`: recorded for every surviving match, before the casing gate below decides whether
+      // `pascalCaseUnits` gets to set `ext` here, and whether or not the key won the tie-break. A
+      // key that only ever matches directories a `units` key already won for has still identified
+      // them, so recording it after the tie-break would falsely call it inert.
       for (const k of byPath.matched) if (globalKeys.has(k)) usedKeys.add(k);
+      for (const k of byPath.matched) if (globalKeys.has(k)) matchedSurviving.add(k);
 
-      // `pascalCaseUnits` is different in kind, not degree: for `units`, the casing gate plays no
-      // role at all, so marking it unconditionally is correct. For `pascalCaseUnits`, the casing
-      // gate below IS the identification criterion — a directory is never a pascalCaseUnits unit
+      // `pascalCaseUnits` is different in kind, not degree: for `units` the casing gate plays no
+      // role at all, so recording every surviving match is correct. For `pascalCaseUnits` the
+      // casing gate IS the identification criterion — a directory is never a pascalCaseUnits unit
       // unless its basename is PascalCase — so a key that matched only non-PascalCase directories
-      // has identified nothing and done no work, regardless of `exclude`. A key like
-      // `'src/lib/components'` (missing the trailing `/**` a project meant to write) can match one
-      // real, lowercase directory; treating that match as "used" would hide exactly the typo the
-      // inert-declaration finding exists to surface.
+      // has identified nothing. A key like `'src/lib/components'` (missing the trailing `/**` a
+      // project meant to write) can match one real, lowercase directory; treating that as "used"
+      // would hide exactly the typo this finding exists to surface. `matchedSurviving` is recorded
+      // regardless of the gate, precisely so a key disqualified by it is never blamed on `exclude`.
+      for (const k of byCasing.matched) if (globalKeys.has(k)) matchedSurviving.add(k);
       if (isPascalCase(baseName(dir))) {
         for (const k of byCasing.matched) if (globalKeys.has(k)) usedKeys.add(k);
       }
-
-      // `exclude` outranks both declarations, and prunes the whole subtree: a directory is
-      // exempt when it or any ancestor matches. Hoisted out of the `.some()` below: it does not
-      // depend on which exclude glob is being tested, so re-deriving it once per glob was waste.
-      const excluded = compile(listOption(o, 'exclude'));
-      const ancestors = ancestorDirs(dir);
-      if (excluded.some(({ re }) => re.test(dir) || ancestors.some((a) => re.test(a)))) continue;
 
       // A `units` key wins over the casing convention purely by being tried first.
       let ext = byPath.best === undefined ? undefined : units[byPath.best];
@@ -221,25 +158,24 @@ export const architectureUnitEntryFile: Rule = {
         continue;
       }
 
-      // Prefer a direct child so the finding sits next to the directory it is about; fall
-      // back to the subtree for a directory holding only subdirectories.
-      //
-      // Sorted here rather than trusted from the input. `collectSourceFiles` does sort, and
-      // `RuleContext.sourceFiles` now says so, but which file a finding reports at would
-      // otherwise be decided by a glob's traversal order in whichever adapter built the list —
-      // and this is the field a baseline and `--diff` are keyed on, so an order change would
-      // silently move findings. Only reached on the violation path, so the cost is per finding,
-      // not per directory. Same reason `dirs` is sorted above.
-      const prefix = `${dir}/`;
-      const under = files.filter((f) => f.startsWith(prefix)).sort();
-      const at = under.find((f) => !f.slice(prefix.length).includes('/')) ?? under[0];
+      const at = reportAt(dir, files);
       if (at === undefined) continue; // unreachable: the directory came from a file's prefix
+      // `route` is the directory, `location` a file inside it — the two differ on purpose. A
+      // finding needs `location` to be a file git can list as changed, or `filterToChangedFiles`
+      // drops it from every `--diff` run, and git never lists a directory. But a directory with no
+      // direct child falls back to a file in its subtree (see `reportAt`), and a directory nested
+      // inside it can resolve to that very same file — one falling back to the subtree, the other
+      // taking it as a direct child. Keying `route` on that shared file would make `findingKey`
+      // (`id::route::location`, packages/cli/src/baseline.ts) identical for both, so baselining or
+      // suppressing either would silently take both. Keying `route` on the directory instead keeps
+      // every violation's identity distinct, and costs nothing else: no consumer here reads `route`
+      // as a file.
       out.push({
         id: 'architecture/unit-entry-file',
         category: 'architecture',
         severity: 'info',
         detection: { presence: 'none', value: 'absent' },
-        route: at,
+        route: dir,
         location: at,
         message: `${dir} declares a unit but has no ${expected}`,
         recommendation,
@@ -271,10 +207,17 @@ export const architectureUnitEntryFile: Rule = {
     // Sorted so the message is deterministic.
     const inertKeys = [...globalKeys].filter((key) => !usedKeys.has(key)).sort();
     if (inertKeys.length > 0) {
+      // Only a key that matched nothing surviving can be blamed on `exclude`: one that matched a
+      // real, non-excluded directory and was disqualified by the casing gate instead is inert for
+      // a reason `exclude` has nothing to do with, and removing the exclusion would not help it.
+      const shadowed = inertKeys.filter((k) => !matchedSurviving.has(k));
+      const reasons = classifyUnusedKeys(shadowed, excludedDirs, compile);
+      const why = (k: string) =>
+        reasons.get(k) === 'only-excluded' ? 'matched only excluded directories' : 'matched no directory';
       const message =
         inertKeys.length === 1
-          ? `The declaration '${inertKeys[0]}' matched no directory, so it checks nothing.`
-          : `These declarations matched no directory, so they check nothing: ${inertKeys.map((k) => `'${k}'`).join(', ')}.`;
+          ? `The declaration '${inertKeys[0]}' ${why(inertKeys[0] as string)}, so it checks nothing.`
+          : `These declarations check nothing: ${inertKeys.map((k) => `'${k}' (${why(k)})`).join(', ')}.`;
       out.push({
         id: 'architecture/unit-entry-file',
         category: 'architecture',
