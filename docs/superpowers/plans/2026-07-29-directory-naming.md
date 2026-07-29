@@ -60,7 +60,8 @@ specific to that rule, and the spec records that the two rules deliberately disa
 - Produces: `ancestorDirs(file: string): string[]`, `baseName(dir: string): string`,
   `interface CompiledKey { key: string; re: RegExp; barePrefixRe?: RegExp }`,
   `createKeyCompiler(): (globs: string[], bareGuard?: boolean) => CompiledKey[]`,
-  `matchKeys(dir: string, compiled: CompiledKey[]): { matched: string[]; best?: string }`.
+  `matchKeys(dir: string, compiled: CompiledKey[]): { matched: string[]; best?: string }`,
+  `reportAt(dir: string, files: string[]): string | undefined`.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -68,7 +69,13 @@ Create `packages/core/test/declarations.test.ts`:
 
 ```ts
 import { describe, it, expect } from 'vitest';
-import { ancestorDirs, baseName, createKeyCompiler, matchKeys } from '../src/rules/architecture/declarations.js';
+import {
+  ancestorDirs,
+  baseName,
+  createKeyCompiler,
+  matchKeys,
+  reportAt
+} from '../src/rules/architecture/declarations.js';
 
 describe('ancestorDirs', () => {
   it('lists every ancestor shallowest first, excluding the file itself', () => {
@@ -130,6 +137,31 @@ describe('matchKeys', () => {
   it('compiles the bare prefix as a glob, so a wildcard before the trailing stars still guards', () => {
     const m = matchKeys('src/anything/functions', compile(['src/*/functions/**'], true));
     expect(m.matched).toEqual([]);
+  });
+});
+
+describe('reportAt', () => {
+  it('prefers a direct child over a deeper file', () => {
+    expect(reportAt('src/lib/Card', ['src/lib/Card/aaa/deep.ts', 'src/lib/Card/zzz.ts'])).toBe('src/lib/Card/zzz.ts');
+  });
+
+  it('falls back to the subtree when there is no direct child', () => {
+    expect(reportAt('src/lib/Card', ['src/lib/Card/parts/Badge.ts'])).toBe('src/lib/Card/parts/Badge.ts');
+  });
+
+  it('picks the same file whatever order the inventory arrives in', () => {
+    // `location` is what a baseline and `--diff` are keyed on, so an adapter's traversal order
+    // must not decide it. Both branches take the lexicographically first candidate.
+    expect(reportAt('src/lib/Card', ['src/lib/Card/zzz.ts', 'src/lib/Card/bbb.ts'])).toBe('src/lib/Card/bbb.ts');
+    expect(reportAt('src/lib/Card', ['src/lib/Card/p/z.ts', 'src/lib/Card/p/a.ts'])).toBe('src/lib/Card/p/a.ts');
+  });
+
+  it('returns undefined when nothing lies beneath the directory', () => {
+    expect(reportAt('src/lib/Card', ['src/other/a.ts'])).toBeUndefined();
+  });
+
+  it('does not mistake a sibling with a shared name prefix for a child', () => {
+    expect(reportAt('src/lib/Card', ['src/lib/CardList/a.ts'])).toBeUndefined();
   });
 });
 ```
@@ -232,6 +264,25 @@ export function matchKeys(dir: string, compiled: CompiledKey[]): { matched: stri
   }
   return best === undefined ? { matched } : { matched, best };
 }
+
+/**
+ * The file a finding about `dir` should report at, or `undefined` when nothing lies beneath it.
+ *
+ * A finding is never keyed on the directory itself: `filterToChangedFiles` keeps only locations git
+ * lists as changed, and git never lists a directory, so a directory-keyed finding disappears from
+ * every `--diff` run.
+ *
+ * A direct child is preferred so the finding sits next to the directory it is about, falling back to
+ * the subtree for a directory holding only subdirectories. Both branches take the lexicographically
+ * first candidate: the caller's inventory is sorted today, but `location` is what a baseline entry
+ * and a `--diff` run are keyed on, so letting an adapter's traversal order decide it would move
+ * findings silently rather than fail.
+ */
+export function reportAt(dir: string, files: string[]): string | undefined {
+  const prefix = `${dir}/`;
+  const under = files.filter((f) => f.startsWith(prefix)).sort();
+  return under.find((f) => !f.slice(prefix.length).includes('/')) ?? under[0];
+}
 ```
 
 - [ ] **Step 4: Run the new test to verify it passes**
@@ -245,14 +296,25 @@ In `packages/core/src/rules/architecture/unit-entry-file.ts`:
 
 1. Delete the local `ancestorDirs`, `baseName`, the `CompiledKey` interface with its long comment,
    and `matchKeys` with its long comment. **Keep `isPascalCase`.**
-2. Replace the import block's `routeGlobToRegExp` usage. The file's imports become:
+
+   Also replace the inline location-selection block near the end of `check` — the one computing
+   `prefix`, `under` and `at` with its "Prefer a direct child" comment — with a `reportAt` call:
+
+```ts
+const at = reportAt(dir, files);
+if (at === undefined) continue; // unreachable: the directory came from a file's prefix
+```
+
+That block and the new rule need the identical three lines, and the `.sort()` in it is a fix that
+landed during review of the inventory work — kept in one place, it cannot be restored in one rule
+and lost in the other. 2. Replace the import block's `routeGlobToRegExp` usage. The file's imports become:
 
 ```ts
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { compileOverrides } from '../../config-apply.js';
 import { listOption, mapOption, resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
-import { ancestorDirs, baseName, createKeyCompiler, matchKeys } from './declarations.js';
+import { ancestorDirs, baseName, createKeyCompiler, matchKeys, reportAt } from './declarations.js';
 ```
 
 3. Replace the local `cache` + `compile` definitions inside `check` with:
@@ -1317,7 +1379,8 @@ import {
   classifyUnusedKeys,
   createKeyCompiler,
   isExcluded,
-  matchKeys
+  matchKeys,
+  reportAt
 } from './declarations.js';
 import { decodeSegment, parseCasings, satisfiesCasing } from './casing.js';
 
@@ -1418,12 +1481,7 @@ export const architectureDirectoryNaming: Rule = {
       const allowed = casingsOf(declared[m.best] as string).known;
       if (satisfiesCasing(decoded, allowed)) continue;
 
-      // Prefer a direct child so the finding sits next to the directory it is about; fall back to
-      // the subtree for a directory holding only subdirectories. Sorted rather than trusted from
-      // the input: `location` is what a baseline and `--diff` are keyed on.
-      const prefix = `${dir}/`;
-      const under = files.filter((f) => f.startsWith(prefix)).sort();
-      const at = under.find((f) => !f.slice(prefix.length).includes('/')) ?? under[0];
+      const at = reportAt(dir, files);
       if (at === undefined) continue; // unreachable: the directory came from a file's prefix
       out.push({
         id: 'architecture/directory-naming',
