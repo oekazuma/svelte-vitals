@@ -115,8 +115,9 @@ remedies: one is a typo in the glob, the other a contradiction between two optio
 
 Two things are deliberately left out. A declaration written **only** inside an `overrides` entry is
 not checked this way, because whether it matched anything depends on which paths the override
-applies to. And an `exclude` glob is never checked at all: an exclusion that matches nothing already
-fails loudly, since you get the findings you meant to exclude and notice them.
+applies to. And an `exclude` glob is never checked at all: an exclusion that matches nothing has no
+effect on the report. That does mean a mistyped `exclude` glob is silent when the subtree it meant
+to remove had no findings anyway.
 
 When more than one declaration checks no directory, they are all reported together as a single
 finding rather than one each, so suppressing that finding suppresses the check for every inert

@@ -33,15 +33,13 @@ const run = (sourceFiles: string[], options: Record<string, unknown>) =>
   } as RuleContext);
 
 describe('the documented directories example', () => {
-  it('is silent on a conforming tree', async () => {
+  it('is silent on a conforming tree — and silence is proof here, not absence of proof', async () => {
+    // For most rules a silent example proves nothing: globs that miss everything are silent too.
+    // This rule closes that gap itself — a declaration matching no directory is reported as
+    // checking nothing — so an example that produces no result at all has also demonstrated that
+    // every one of its keys governs something real. The deviation tests below supply the other
+    // half: that what it governs, it actually checks.
     expect(await run(TREE, EXAMPLE)).toEqual([]);
-  });
-
-  it('leaves no declaration reported — every key in it does work', async () => {
-    // Silence alone proves nothing: an example whose globs all miss is silent too. This is the
-    // assertion that tells a working example from a broken one.
-    const rs = await run(TREE, EXAMPLE);
-    expect(rs.filter((r) => r.location === undefined)).toEqual([]);
   });
 
   it('reports the deviations the convention forbids', async () => {
@@ -70,10 +68,15 @@ describe('the documented directories example', () => {
   });
 
   it('lets a function unit one level below an endpoint fall back to the broader declaration', async () => {
-    // 'src/routes/svelteApi/*' is one segment too shallow to reach fetchSetCookie/, so the
-    // camelCase|PascalCase declaration governs it — which is what the convention wants.
-    const rs = await run(TREE, EXAMPLE);
-    expect(rs.filter((r) => r.message.includes('fetchSetCookie'))).toEqual([]);
+    // 'src/routes/svelteApi/*' is one segment too shallow to reach a function unit, so the
+    // camelCase|PascalCase declaration governs it. A kebab-case name there proves which: it would
+    // satisfy the endpoint declaration, so it can only be reported if that declaration does not
+    // reach this depth.
+    const rs = await run([...TREE, 'src/routes/svelteApi/set-cookie/fetch-set-cookie/x.ts'], EXAMPLE);
+    const messages = rs.filter((r) => r.location !== undefined).map((r) => r.message);
+    expect(messages).toHaveLength(1);
+    expect(messages[0]).toContain('fetch-set-cookie');
+    expect(messages[0]).toContain('camelCase or PascalCase');
   });
 });
 

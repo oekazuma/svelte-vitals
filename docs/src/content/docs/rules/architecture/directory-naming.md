@@ -137,12 +137,12 @@ directory is still reported separately from its parent, and each can be suppress
 A declaration that is not checking what it says is reported, so a typo cannot leave the rule silently
 doing nothing. Four cases land in that finding, each named in the message:
 
-| The declaration                      | Reported as                                       |
-| ------------------------------------ | ------------------------------------------------- |
-| matched no directory                 | `matched no directory`                            |
-| had every match removed by `exclude` | `matched only excluded directories`               |
-| names no casing this rule knows      | `unknown casing name '…', so it checks nothing`   |
-| names some casing this rule knows    | `unknown casing name '…'; the rest still applies` |
+| The declaration                      | Reported as                                                    |
+| ------------------------------------ | -------------------------------------------------------------- |
+| matched no directory                 | `matched no directory`                                         |
+| had every match removed by `exclude` | `matched only excluded directories`                            |
+| names no casing this rule knows      | `unknown casing name '…', so it checks nothing`                |
+| names some casing this rule knows    | `unknown casing name '…'; the rest of the value still applies` |
 
 The last is the one worth watching for: the declaration keeps working under its valid names and
 quietly enforces less than you wrote.

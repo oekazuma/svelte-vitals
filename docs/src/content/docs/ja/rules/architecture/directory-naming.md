@@ -140,12 +140,12 @@ glob を狭めてください。除外は、その配下すべてをチェック
 黙って何もしない状態にはなりません。次の 4 つのケースがこの finding に該当し、それぞれメッセージに
 名前が出ます。
 
-| 宣言の状態                                  | 表示される内容                                    |
-| ------------------------------------------- | ------------------------------------------------- |
-| 1 つのディレクトリにもマッチしなかった      | `matched no directory`                            |
-| マッチはしたがすべて `exclude` で除外された | `matched only excluded directories`               |
-| このルールが知らない記法の名前を指定した    | `unknown casing name '…', so it checks nothing`   |
-| このルールが知っている記法も含んでいた      | `unknown casing name '…'; the rest still applies` |
+| 宣言の状態                                  | 表示される内容                                                 |
+| ------------------------------------------- | -------------------------------------------------------------- |
+| 1 つのディレクトリにもマッチしなかった      | `matched no directory`                                         |
+| マッチはしたがすべて `exclude` で除外された | `matched only excluded directories`                            |
+| このルールが知らない記法の名前を指定した    | `unknown casing name '…', so it checks nothing`                |
+| このルールが知っている記法も含んでいた      | `unknown casing name '…'; the rest of the value still applies` |
 
 注意すべきは最後のケースです。宣言は有効な名前の分だけ動き続けますが、書いたよりも弱いチェックに
 なっていることに気づきにくいからです。
