@@ -285,12 +285,14 @@ describe('architecture/reserved-directory-names — declarations that check noth
 
   it('does not report a key that matched but lost the specificity comparison', async () => {
     const rs = await architectureReservedDirectoryNames.check(
-      ctx(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/Badge/Badge.svelte'], {
-        unitScopes: { 'src/**': 'parts', 'src/lib/*': 'parts' }
-      })
+      ctx(['src/lib/Card/Card.svelte'], { unitScopes: { 'src/**': 'parts', 'src/lib/*': 'parts' } })
     );
-    // 'src/**' loses at src/lib/Card, but it identified that directory, so calling it a declaration
-    // that checks nothing would be a lie.
+    // 'src/**' loses to 'src/lib/*' at src/lib/Card, the only unit here, so it wins nowhere. It
+    // still identified that directory, so calling it a declaration that checks nothing would be a
+    // lie. Recording only the winner would leave it unused, and — because it also matches the
+    // surviving non-unit src/lib — it would be reported as having matched directories but never a
+    // unit. One file is what makes that outcome reachable; a second unit it could win at hides the
+    // whole distinction.
     expect(project(rs)).toEqual([]);
   });
 

@@ -116,6 +116,9 @@ export const architectureReservedDirectoryNames: Rule = {
     // A glob in both maps is a property of the options, not of the tree. Checked against the global
     // resolution — which catches it even when no directory is examined — and against each
     // per-directory resolution, which is where an `overrides` entry's contribution appears.
+    // Not restricted to `globalKeys`, unlike the inertness check below. A collision is a property of
+    // the resolved option keys and needs no intersection with the directory set, so it is reported
+    // even when both halves arrive from an `overrides` entry — which is the likeliest way it happens.
     const collisions = new Set<string>();
     const noteCollisions = (a: Record<string, string>, b: Record<string, string>) => {
       for (const key of Object.keys(a)) if (Object.hasOwn(b, key)) collisions.add(key);
