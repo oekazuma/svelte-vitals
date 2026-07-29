@@ -70,6 +70,13 @@ the unit's children.
 A value lists names joined by `|`, the same encoding `architecture/directory-naming` uses for its
 casing sets.
 
+**`exclude` is absent from the example below on purpose.** Measured against a real tree it changed
+nothing: the names a project would reach for `exclude` to silence here — `tests`, `styleGuide` — are in
+the vocabulary already, so they never fire. Putting a no-op in the example would teach a reader that
+`exclude` is routinely needed at these positions, which is false. The rule page shows it separately, on
+an example where it demonstrably removes a finding. Same decision, and the same reason, as
+`architecture/directory-naming`.
+
 ```js
 // svelte-vitals.config.js
 export default {
@@ -92,11 +99,16 @@ This is the distinction to get right before reading anything else.
 names of `src/lib`'s immediate subdirectories. Use it where a closed set sits at a position a glob can
 reach.
 
-**A `scopes` key is only writable where the children are _entirely_ drawn from the reserved names**,
-and that is a stronger condition than it sounds. A route directory holds its reserved names beside its
-route segments, and route segments are unbounded — one per page. Declaring a scope there would mean
-listing every segment in the tree, so the vocabulary is not closed at that position and no declaration
-belongs there. Writing one anyway reports every segment.
+**A `scopes` key is only writable where the children are _entirely_ drawn from the names declared at
+that position**, and that is a stronger condition than it sounds. Note that those names need not be the
+unit vocabulary, or overlap it at all — the example's `scopes` entry lists the top-level areas of
+`src/lib`, which have nothing to do with what a unit may contain. There is no single reserved table
+here; each declared position has its own closed set.
+
+The condition bites where a position mixes reserved names with open-ended ones. A route directory holds
+its reserved names beside its route segments, and route segments are unbounded — one per page.
+Declaring a scope there would mean listing every segment in the tree, so the vocabulary is not closed at
+that position and no declaration belongs there. Writing one anyway reports every segment.
 
 This is the same shape of trap `architecture/unit-entry-file` documents for a broad `units` glob
 reaching a container: the fix is to not declare the position, not to `exclude` your way out of the
@@ -118,8 +130,20 @@ their specificity is directly comparable, and the rule compares it rather than p
    a unit.
 2. Among the eligible, take the most specific by the shared four-step order — more path segments, then
    fewer `**` segments, then the longer key, then lexicographically first.
-3. If a key from each map ties on all four, **`scopes` wins**, because it names one position while a
-   `unitScopes` key sweeps every unit under a root.
+3. If a key from each map ties on all four, **`scopes` wins**.
+
+**Step 3 is reachable only when the two keys are byte-identical**, and that is worth stating because
+it is not obvious and it decides how the case must be tested. Step 4 compares the key strings
+lexicographically, so any two _different_ strings are separated there — including two of the same
+length, and two with the same segment count. Only `scopes: { 'src/lib/Card': … }` alongside
+`unitScopes: { 'src/lib/Card': … }` reaches step 3.
+
+That also fixes the reason for preferring `scopes`. It is **not** that a `scopes` key names one
+position while a `unitScopes` key sweeps a root — with identical keys, both name the same one position.
+The reason is that `scopes` applies to **every** directory its key matches, while `unitScopes` applies
+only to the ones that are units. Preferring `scopes` keeps a single glob's outcome uniform across its
+matches, instead of making it depend on whether each matched directory happens to hold a same-named
+file.
 
 Only the winner's name set applies. The alternative — applying every matching set — would mean a
 subdirectory has to satisfy the intersection, which no author writing two declarations intends.
@@ -141,6 +165,24 @@ unitScopes: { 'src/**': 'parts|functions|stores|types|tests|styleGuide' }
 but lost the comparison has still identified it, so it counts as work — as a tie-break loser does in
 `architecture/directory-naming`. A `unitScopes` key that matched a directory which is **not** a unit
 has identified nothing and does not count, which is the third-gate rule below.
+
+**The identical-key case leaves a contradiction that rule has to close.** If the same glob appears in
+both maps, the `unitScopes` entry loses at step 3 for every directory it could ever govern — it never
+applies, anywhere. Yet it did match eligible directories, so the tie-break-loser rule above would
+record it as work and it would go unreported: a declaration that does nothing, silently, which is the
+exact failure this rule family exists to surface.
+
+So a glob present in **both** maps is reported as a declaration that checks nothing, in the same folded
+finding as the other reasons, and detected from the options alone without waiting for a traversal.
+Writing the same glob twice is a configuration mistake with two plausible intents, and the message
+names both: keep the `unitScopes` entry and narrow or drop the `scopes` one, or keep `scopes` and drop
+the `unitScopes` entry.
+
+The general form of this — a key that matched directories but **won at none of them**, because a more
+specific key always beat it — is left unsolved on purpose. It is a real shape, but the identical-key
+case is the only one reachable without contrived globs, and detecting the general form would mean
+giving all three rules a second notion of "did work" (identified something, versus governed something)
+rather than only this one. Recorded under "Deliberately not solved".
 
 ### A unit, for this rule, is a PascalCase directory holding its own file
 
@@ -208,6 +250,7 @@ baseline entry.
 | every directory it matched is excluded                  | both              |
 | it matched directories, but **none of them was a unit** | `unitScopes` only |
 | the value lists no name at all (`'\|'`, whitespace)     | both              |
+| the same glob appears in the other map too              | `unitScopes` only |
 
 **The third is designed in rather than discovered.** For `unitScopes` the unit test _is_ the
 identification criterion, so a key matching only non-units has identified nothing and must stay inert
@@ -288,6 +331,12 @@ cascade the unit definition exists to prevent.
 
 - **A project that nests units directly inside units** should not declare `unitScopes`: the nested unit
   is a child not in the set, and would be reported. The rule page says so.
+- **A key that matched directories but won at none of them**, because a more specific key always beat
+  it, is not reported in general. The one case reachable without contrived globs — the same glob in both
+  maps — is reported, from the options directly. Detecting the general form would mean giving all three
+  directory rules a second notion of "did work" (identified something, versus governed something), and
+  applying that to one rule only would leave the family inconsistent about the thing it is most careful
+  about. Worth doing across all three, in its own change.
 - **File names.** Directory names only.
 - **Anything outside `src/`**, and **`--route` runs**, where no inventory is built and the rule is
   silent — including its project-scoped finding, since a single route says nothing about which
@@ -298,9 +347,20 @@ cascade the unit definition exists to prevent.
 1. **Precedence across the two maps**, since nothing else in the rule family compares specificity
    across option kinds. A narrow `scopes` key must beat a broad `unitScopes` key **and** a narrow
    `unitScopes` key must beat a broad `scopes` key — one direction alone is satisfied by plain
-   kind-precedence, so both are needed to pin that specificity is what decides. Then an exact tie on
-   all four steps, asserted to fall to `scopes`. Each is checked through its consequence: the two
-   declarations name **different** sets, so which one governed is visible in the message.
+   kind-precedence, so both are needed to pin that specificity is what decides. Each is checked through
+   its consequence: the two declarations name **different** sets, so which one governed is visible in
+   the message.
+
+   Then step 3, which needs care. **The tie fixture must use two byte-identical globs**, because
+   nothing else reaches step 3 — step 4 separates every pair of different strings. A fixture written as
+   "same length, so it ties" (`scopes: 'src/lib/*'` against `unitScopes: 'src/lib/X'`) resolves at step
+   4 instead, never executes the cross-map tie-break, and **still passes**: `*` sorts before `X`, so
+   `scopes` wins there for an unrelated reason. That is a test that survives the mechanism being
+   deleted, the failure this spec family has caught four times already.
+
+   With identical globs the `unitScopes` entry also becomes a reported declaration, so the same fixture
+   pins both halves of that decision.
+
 2. **Mechanism** — both traversals with their different key meanings; the unit test and its negative
    (PascalCase with a same-named `.ts`, with a same-named `.svelte.ts`, a same-named file one level
    **down** which must _not_ qualify, and **without** any
@@ -315,12 +375,15 @@ cascade the unit definition exists to prevent.
 5. **The cascade regression** — a PascalCase directory with no same-named file, holding several
    PascalCase children, produces **zero** findings from this rule. This is the design decision most
    likely to be lost to a simplifying edit.
-6. **A documented-example test** — the rule page's example is run against a fixture tree and asserted
-   to report nothing on a conforming tree, to report the deviations a non-conforming one contains, and
-   to leave no declaration reported. Plus a differential test for the `exclude` example, present and
-   absent, since an unmatched `exclude` glob is never reported and a no-op exclusion is otherwise
-   invisible.
-7. **Wiring** — the rule is reached from both the CLI and the vite plugin, following the end-to-end
+6. **A documented-example test** — the configuration example above is run against a fixture tree and
+   asserted to report nothing on a conforming tree, to report the deviations a non-conforming one
+   contains, and to leave no declaration reported. It cannot cover the precedence mechanism, which it
+   never exercises (see "Validation"), so test 1's fixture is the only thing pinning that.
+7. **A differential test for the rule page's separate `exclude` example**, asserted both ways — the
+   finding present with the exclusion removed, absent with it in place. This is separate from test 6
+   because an unmatched `exclude` glob is never reported, so a no-op exclusion inside an example is
+   invisible to an assertion about reported declarations.
+8. **Wiring** — the rule is reached from both the CLI and the vite plugin, following the end-to-end
    tests the inventory itself carries.
 
 ## Validation
@@ -341,6 +404,12 @@ nowhere** in it, so the simplification costs nothing in practice. And the covera
 "Deliberately not solved" is a measurement, not a prediction: the example governs component units'
 children and nothing else, which is what put the route-directory and camelCase-unit positions out of
 reach.
+
+**The precedence mechanism is never exercised by this example**, also measured: the `scopes` key names a
+directory that is not a unit, so its `unitScopes` counterpart is never eligible there, and no `scopes`
+key names a unit. Two declarations therefore never compete. That is a comfortable configuration to
+ship, and it is also why the documented-example test cannot stand in for test 1 — the fixture built
+there is the only thing that runs the comparison at all.
 
 ## Deliverables
 
