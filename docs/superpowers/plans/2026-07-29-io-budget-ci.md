@@ -47,11 +47,9 @@ Expected: PASS. If it does not pass, stop — the tree is not clean.
 Create `packages/cli/src/route-matcher.ts` with the function moved verbatim from `index.ts`:
 
 ```ts
-/**
- * Match a route path against a glob (`blog/*`, `**\/admin`, `static/**`). An
- * undefined glob matches everything. Lives in its own module so `collect-all.ts`
- * can use it without importing `index.ts` (which imports `collect-all.ts`).
- */
+// Match a route path against a glob (`blog/*`, `**/admin`, `static/**`). An
+// undefined glob matches everything. Lives in its own module so `collect-all.ts`
+// can use it without importing `index.ts` (which imports `collect-all.ts`).
 export function routeMatcher(glob: string | undefined): (route: string) => boolean {
   if (!glob) return () => true;
   const body = glob
@@ -68,7 +66,7 @@ export function routeMatcher(glob: string | undefined): (route: string) => boole
 }
 ```
 
-Note: the `**\/admin` in the doc comment above is escaped only to survive this markdown code fence — write it as `**/admin` in the actual file.
+Note: the comment above uses `//` lines rather than a `/** */` block on purpose. A glob containing `**/` inside a block comment would close it early at the `*/` and break the file. The same rule applies everywhere in this plan.
 
 - [ ] **Step 3: Remove the old copy from `index.ts` and re-export**
 
