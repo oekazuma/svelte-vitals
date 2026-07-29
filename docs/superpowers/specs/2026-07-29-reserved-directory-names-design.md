@@ -173,8 +173,23 @@ record it as work and it would go unreported: a declaration that does nothing, s
 exact failure this rule family exists to surface.
 
 So a glob present in **both** maps is reported as a declaration that checks nothing, in the same folded
-finding as the other reasons, and detected from the **globally resolved** options alone without waiting
-for a traversal.
+finding as the other reasons.
+
+**It is detected at two points, and neither needs new machinery.** The collision is a property of the
+option keys alone — `keys(scopes) ∩ keys(unitScopes)` — with no reference to the directory set. So it
+is checked once against the globally resolved options, which catches it even when no directory is ever
+examined, and again against each **per-directory** resolution, which is where an `overrides` entry's
+contribution appears: these rules already resolve options per directory against the target
+`{ route: dir, file: dir }`, so the merged maps are in hand at that point and the intersection costs a
+set comparison over a handful of keys. Collisions from both points are deduplicated into the one
+finding.
+
+The only collision this misses is one introduced by an `overrides` entry whose scope matches **no**
+directory in the tree — and such an entry contributes nothing to any verdict, so nothing is lost. An
+earlier draft of this spec deferred cross-layer detection entirely, on the grounds that it needed the
+same scope-intersection machinery as the inherited `overrides` inertness limitation below. That was
+wrong: inertness asks whether a glob matched a directory, which does need that intersection, while this
+asks only what the resolved keys are, which does not.
 
 The message names the operations that actually resolve it, which are not the obvious ones. To let the
 `unitScopes` entry govern, the `scopes` key must stop reaching that directory: **drop it, move it to
@@ -185,9 +200,14 @@ more specific still matches, and still wins at step 3. Otherwise, keep `scopes` 
 A third intent is worth naming because the design cannot serve it. An author might write the same glob
 in both maps to **partition** a position — one vocabulary for the children of units there, another for
 the children of everything else. Step 3 makes `scopes` win across all of the glob's matches, so the
-partition never takes effect and the pair is reported instead. A position holding both units and
-non-units tends to have an open-ended child set anyway, which is where `scopes` should not be declared
-at all; the remedy is to declare the two positions separately, or to merge the vocabularies.
+partition never takes effect and the pair is reported instead.
+
+**The remedy is to merge the two vocabularies into one.** Declaring the two positions separately is
+only available when they are distinguishable on the path, and if they were, the author would not have
+written one glob for both: a glob cannot test whether a directory is a unit, so a position genuinely
+holding units beside non-units cannot be split by any pair of globs. Merging always works. A position
+like that also tends to have an open-ended child set, which is where `scopes` should not be declared at
+all.
 
 The general form of this — a key that matched directories but **won at none of them**, because a more
 specific key always beat it — is left unsolved on purpose. It is a real shape, but the identical-key
@@ -279,15 +299,12 @@ limitation `architecture/unit-entry-file` documented and `architecture/directory
 forward, for the same reason: deciding whether it matched anything means intersecting that entry's scope
 with the directory set. The rule page says so, as both siblings' pages do.
 
-That limitation has sharper teeth here than in either sibling, because the identical-key check reads the
-globally resolved options. **A `scopes` key declared globally and a `unitScopes` key with the same glob
-arriving from an `overrides` entry collide in exactly the way described above — the `unitScopes` entry
-never governs anything — and nothing reports it.** Cross-layer is also the likeliest way the collision
-arises, for the reason `architecture/directory-naming` records about `exclude`: these options merge
-additively across config layers, so a shared base config and a project config can produce the pair
-without either author seeing both halves. Closing it needs the same scope-intersection machinery the
-inherited limitation is waiting on, so it waits with it — recorded under "Deliberately not solved"
-rather than left implied.
+The limitation is narrower than it may look, and the distinction matters because the two questions need
+different things. Inertness needs to know whether a glob matched a directory. The identical-glob
+collision does not, so it **is** detected across config layers, per the section above — which is the
+case worth having, since cross-layer is the likeliest way the collision arises: these options merge
+additively, so a shared base config and a project config can produce the pair without either author
+seeing both halves.
 
 **A declared name that no directory ever uses is _not_ reported**, and the asymmetry with
 `architecture/directory-naming` is deliberate. There, the value comes from a vocabulary the rule owns,
@@ -357,10 +374,6 @@ cascade the unit definition exists to prevent.
 
 - **A project that nests units directly inside units** should not declare `unitScopes`: the nested unit
   is a child not in the set, and would be reported. The rule page says so.
-- **An identical-glob collision that spans config layers.** The check reads the globally resolved
-  options, so a `scopes` key from the config file paired with a `unitScopes` key of the same glob from an
-  `overrides` entry goes unreported, even though the override entry never governs anything. It waits on
-  the same scope-intersection machinery as the inherited `overrides` inertness limitation.
 - **A key that matched directories but won at none of them**, because a more specific key always beat
   it, is not reported in general. The one case reachable without contrived globs — the same glob in both
   maps — is reported, from the options directly. Detecting the general form would mean giving all three
@@ -403,20 +416,28 @@ cascade the unit definition exists to prevent.
    containing more than one. The table's fifth reason — the same glob in both maps — is derived from the
    options rather than from the traversal, and test 1 pins it, since its fixture is the only one that
    constructs the collision.
-4. **A declared-but-unused name draws nothing** — a vocabulary listing a name the tree never uses
+4. **The two `overrides` behaviours, each pinned**, because this spec documents them as limits and the
+   family's discipline is that a documented limit gets a test.
+   - A key declared **only** inside an `overrides` entry draws no inertness finding, matching the test
+     `architecture/unit-entry-file` carries for the same limitation.
+   - An identical-glob collision assembled **across layers** — a `scopes` key in the config file and a
+     `unitScopes` key of the same glob in an `overrides` entry — **is** reported. That case belongs to
+     this rule's own options check rather than to the shared `classifyUnusedKeys`, so no sibling's test
+     covers it.
+5. **A declared-but-unused name draws nothing** — a vocabulary listing a name the tree never uses
    produces no finding of any kind, pinning the asymmetry with the sibling rule's unknown-casing case.
-5. **The cascade regression** — a PascalCase directory with no same-named file, holding several
+6. **The cascade regression** — a PascalCase directory with no same-named file, holding several
    PascalCase children, produces **zero** findings from this rule. This is the design decision most
    likely to be lost to a simplifying edit.
-6. **A documented-example test** — the configuration example above is run against a fixture tree and
+7. **A documented-example test** — the configuration example above is run against a fixture tree and
    asserted to report nothing on a conforming tree, to report the deviations a non-conforming one
    contains, and to leave no declaration reported. It cannot cover the precedence mechanism, which it
    never exercises (see "Validation"), so test 1's fixture is the only thing pinning that.
-7. **A differential test for the rule page's separate `exclude` example**, asserted both ways — the
+8. **A differential test for the rule page's separate `exclude` example**, asserted both ways — the
    finding present with the exclusion removed, absent with it in place. This is separate from test 6
    because an unmatched `exclude` glob is never reported, so a no-op exclusion inside an example is
    invisible to an assertion about reported declarations.
-8. **Wiring** — the rule is reached from both the CLI and the vite plugin, following the end-to-end
+9. **Wiring** — the rule is reached from both the CLI and the vite plugin, following the end-to-end
    tests the inventory itself carries.
 
 ## Validation
