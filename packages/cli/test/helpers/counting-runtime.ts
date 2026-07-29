@@ -1,6 +1,13 @@
 import type { Runtime } from '@svelte-vitals/core';
 
-/** Call counts keyed by path (readFile/exists) or by pattern (glob). */
+/**
+ * Call counts keyed by path (readFile/exists) or by pattern (glob).
+ *
+ * `exists` is captured for completeness but no io-budget invariant currently
+ * asserts on it — the design doc doesn't budget it either. That's a deliberate
+ * gap, not an oversight; add an invariant deliberately if that changes rather
+ * than assuming the omission was accidental.
+ */
 export interface RuntimeCounts {
   readFile: Map<string, number>;
   exists: Map<string, number>;

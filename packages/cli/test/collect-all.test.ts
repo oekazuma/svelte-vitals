@@ -8,7 +8,9 @@ const PROJECT = {
   'src/routes/+layout.svelte': `<script>let { children } = $props();</script>{@render children()}`,
   'src/routes/a/+page.svelte': `<svelte:head><title>A</title></svelte:head><h1>A</h1>`,
   'src/routes/b/+page.svelte': `<svelte:head><title>B</title></svelte:head><h1>B</h1>`,
-  'src/lib/Card.svelte': `<script>let { title = '' } = $props();</script><h3>{title}</h3>`
+  'src/lib/Card.svelte': `<script>let { title = '' } = $props();</script><h3>{title}</h3>`,
+  'src/hooks.server.ts': `export async function handle({ event, resolve }) {\n  return resolve(event);\n}\n`,
+  'src/routes/a/+page.server.ts': `export async function load() {\n  return {};\n}\n`
 };
 
 describe('collectAll', () => {
@@ -28,7 +30,9 @@ describe('collectAll', () => {
       'src/routes/a/+page.svelte',
       'src/routes/b/+page.svelte'
     ]);
-    expect(facts.kitModules).toEqual([]);
+    // Non-empty on purpose: an empty-fixture assertion here would pass identically
+    // if the collectKitModuleFacts call were deleted from collectAll outright.
+    expect(facts.kitModules.map((m) => m.file).sort()).toEqual(['src/hooks.server.ts', 'src/routes/a/+page.server.ts']);
   });
 
   it('filters route-scoped facts and skips component/kit-module scanning when route is set', async () => {

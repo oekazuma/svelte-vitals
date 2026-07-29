@@ -25,6 +25,11 @@ const MAX_READS_PER_FILE = 2;
  * A SvelteKit-shaped project as a path→source map: `routeCount` pages that all
  * inherit one root layout, which itself pulls in one shared $lib component. The
  * sharing is the point — it is what a broken parse cache would read repeatedly.
+ *
+ * Also includes one kit-module file of each shape `collectKitModuleFacts` looks
+ * for (a hooks file and a route `+page.server.ts`) so that collector's globs and
+ * reads fall under the budget too, instead of running unbudgeted against a
+ * fixture with nothing for it to find.
  */
 function project(routeCount: number): Record<string, string> {
   const files: Record<string, string> = {
@@ -32,7 +37,9 @@ function project(routeCount: number): Record<string, string> {
     'vite.config.ts': `export default { plugins: [] };\n`,
     'src/app.html': `<!doctype html><html lang="en"><body></body></html>\n`,
     'src/routes/+layout.svelte': `<script>\n  import Card from '$lib/Card.svelte';\n  let { children } = $props();\n</script>\n\n<Card title="shared" />\n{@render children()}\n`,
-    'src/lib/Card.svelte': `<script>\n  let { title = '' } = $props();\n</script>\n\n<svelte:head><meta name="description" content="shared" /></svelte:head>\n<h3>{title}</h3>\n`
+    'src/lib/Card.svelte': `<script>\n  let { title = '' } = $props();\n</script>\n\n<svelte:head><meta name="description" content="shared" /></svelte:head>\n<h3>{title}</h3>\n`,
+    'src/hooks.server.ts': `export async function handle({ event, resolve }) {\n  return resolve(event);\n}\n`,
+    'src/routes/p0/+page.server.ts': `export async function load() {\n  return {};\n}\n`
   };
   for (let i = 0; i < routeCount; i++) {
     files[`src/routes/p${i}/+page.svelte`] =
@@ -76,19 +83,36 @@ describe('I/O budget for the collection phase', () => {
     // primary parse-cache-breakage detector: per-file budgets alone stay green if
     // the cache dies but every file happens to stay under the cap.
     for (const shared of ['src/routes/+layout.svelte', 'src/lib/Card.svelte']) {
+      // Guard against a vacuous pass: Map#get returns undefined for a file that was
+      // never read at all, and undefined === undefined would satisfy the equality
+      // below just as well as a real match would.
+      expect(small.counts.readFile.get(shared)).toBeGreaterThan(0);
       expect([shared, large.counts.readFile.get(shared)]).toEqual([shared, small.counts.readFile.get(shared)]);
     }
   });
 
   it('scans no components or kit modules for a route-filtered run', async () => {
-    const { rt, counts } = createCountingRuntime(createMemoryRuntime(project(6)));
+    const full = createCountingRuntime(createMemoryRuntime(project(6)));
+    const filtered = createCountingRuntime(createMemoryRuntime(project(6)));
 
-    await collectAll(rt, '', defaultConfig, { route: 'p0' });
+    await collectAll(full.rt, '', defaultConfig);
+    await collectAll(filtered.rt, '', defaultConfig, { route: 'p0' });
 
-    // File-scoped facts are skipped when a single route was asked for; issuing
-    // their globs anyway would pay for a whole-project scan nobody reads.
-    const patterns = [...counts.glob.keys()];
-    expect(patterns).not.toContain('src/**/*.svelte{,.ts,.js}');
-    expect(patterns.filter((p) => p.includes('+{page,layout}') || p.includes('hooks.server'))).toEqual([]);
+    // Derived-set comparison rather than pinned string literals: this fails both if
+    // a pattern that should be skipped starts being issued anyway, and if a pattern
+    // gets reworded (the string literals below would then no longer match anything
+    // in `full`, so the two runs would look identical and this would go red rather
+    // than passing vacuously).
+    const skipped = [...full.counts.glob.keys()].filter((p) => !filtered.counts.glob.has(p));
+    // Component scanning plus every kit-module glob (page/layout, their .server
+    // variants, +server endpoints, and hooks.server) — the whole file-scoped-facts
+    // surface that a route-filtered run has no use for.
+    expect(skipped.sort()).toEqual([
+      'src/**/*.svelte{,.ts,.js}',
+      'src/hooks.server.{ts,js}',
+      'src/routes/**/+server.{ts,js}',
+      'src/routes/**/+{page,layout}.server.{ts,js}',
+      'src/routes/**/+{page,layout}.{ts,js}'
+    ]);
   });
 });
