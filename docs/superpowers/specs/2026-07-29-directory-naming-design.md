@@ -313,6 +313,28 @@ ever mention it. An inert-only finding would report the fully mistyped value and
 partly mistyped one, which is the wrong way round: the silent narrowing is the harder failure to
 notice.
 
+**A key naming no known casing at all is dropped before matching.** It never governs a directory and
+never wins a tie-break, so a broken declaration cannot shadow a working one:
+
+```js
+directories: {
+  'src/lib/api/*': 'camelcase', // dropped — no known casing name
+  'src/**': 'camelCase' // governs src/lib/api/hall instead
+}
+```
+
+Left in, the typo would win the tie-break on specificity (four segments against two), have no casing
+to apply, and take the whole subtree out of the check — a dead key silently cancelling a live one,
+which is the shape this design already ruled against for `exclude`. Both orderings report the typo, so
+the difference is only in what happens meanwhile; failing toward "some other declaration still checks
+this" is the one that keeps coverage. A key naming _some_ known casing is not dropped: it is operative
+under its valid names, and its unknown ones are reported alongside.
+
+This ordering also decides the annotation, and the vocabulary reason comes **first**. A dropped key has
+no recorded work by construction, so feeding it to the excluded-directory classification would label a
+value typo "matched no directory" or, worse, "matched only excluded directories". Only keys with at
+least one known casing reach that classification.
+
 **A key declared only inside an `overrides` entry is not checked here**, inheriting M1's documented
 limitation for the same reason — deciding whether it matched anything means intersecting that entry's
 scope with the directory set. The rule page says so, as M1's does.
@@ -434,8 +456,9 @@ positives, not about overlap. Both rule pages record the pairing so the reader i
 - **Different casings for static segments and route parameters in one subtree.** Decoding puts both
   under one declaration; a project needing them apart writes narrower globs.
 - **Anything outside `src/`.**
-- **`--route` runs**, where no inventory is built and the rule is silent — including its
-  inert-declaration finding, since a single route says nothing about which declarations did work.
+- **`--route` runs**, where no inventory is built and the rule is silent — including the
+  declarations-that-do-not-check finding, since a single route says nothing about which declarations
+  did work.
 
 ## Testing
 
@@ -443,33 +466,37 @@ positives, not about overlap. Both rule pages record the pairing so the reader i
    single-lowercase-word overlap, the letterless skip and the `2024archive` counter-case,
    route-syntax decoding including the skipped compound shapes, the four-step specificity order with a
    case that inverts under the old metric, the bare-prefix guard, `exclude` subtree pruning, the
-   `foo.bar` case that fires on none of the four named evidences, and all three inert-declaration
-   failures with their distinct messages.
-2. **Bookkeeping tests on both sides of the line**, since this is where M1 has now been wrong twice in
+   `foo.bar` case that fires on none of the four named evidences, and a glob that matches no directory
+   being reported as such.
+2. **Vocabulary tests**, covering both halves of the drop rule. A value naming no known casing is
+   dropped from matching — asserted through its consequence, that a broader valid declaration still
+   governs the directory the dropped key would have won on specificity — and is reported as checking
+   nothing. A value naming some known casing stays operative under those, and is reported **without**
+   the "checks nothing" wording.
+3. **Bookkeeping tests on both sides of the line**, since this is where M1 has now been wrong twice in
    opposite directions. A key matching only skipped directories, and a key that matched but lost the
    tie-break, must stay **out** of the finding; a key whose every match is excluded must land **in**
    it. The same pair runs against `architecture/unit-entry-file`, whose `units` bookkeeping changes
    with this work.
 
-   **Membership is not enough here — the message is asserted too.** A test that only checks whether a
-   key appears would pass with the second pass deleted, since a shadowed key is unrecorded either way
+   **Membership is not enough here — the annotation is asserted too.** A test that only checks whether
+   a key appears would pass with the second pass deleted, since a shadowed key is unrecorded either way
    and would simply be mislabelled "matched no directory". So the two failures are asserted by their
-   annotations, in one run that contains both, and the partly-mistyped value is asserted to appear
-   **without** the "checks nothing" wording.
+   annotations, in one run that contains both.
 
-3. **A documented-example test.** The configuration example in the rule page is run against a fixture
+4. **A documented-example test.** The configuration example in the rule page is run against a fixture
    tree and asserted to examine directories, to produce the expected findings, and to leave **no** key
-   inert. M1's review established this: an example that is merely silent looks identical to an example
-   that is wrong, and only a test that asserts what was checked can tell them apart.
-4. **A differential test for the `exclude` example**, which the test above structurally cannot cover:
+   reported. M1's review established this: an example that is merely silent looks identical to an
+   example that is wrong, and only a test that asserts what was checked can tell them apart.
+5. **A differential test for the `exclude` example**, which the test above structurally cannot cover:
    an unmatched `exclude` glob is never reported, so a no-op exclusion in an example is invisible to an
-   inertness assertion. The rule page's `exclude` example is therefore asserted **both ways** — the
-   finding present with the exclusion removed, absent with it in place. Review measurement, not
-   speculation, put this here: the `exclude` first written into this spec's example changed nothing on
-   a real tree, and nothing in the planned tests would have said so.
-5. **Regression** — M1's whole suite green across the shared-module extraction, plus a test pinning
+   assertion about reported declarations. The rule page's `exclude` example is therefore asserted
+   **both ways** — the finding present with the exclusion removed, absent with it in place. Review
+   measurement, not speculation, put this here: the `exclude` first written into this spec's example
+   changed nothing on a real tree, and nothing in the planned tests would have said so.
+6. **Regression** — M1's whole suite green across the shared-module extraction, plus a test pinning
    M1's documented example under the new specificity metric.
-6. **Wiring** — the rule reaches the `RuleContext` from both the CLI and the vite plugin, following
+7. **Wiring** — the rule reaches the `RuleContext` from both the CLI and the vite plugin, following
    the end-to-end tests added for the inventory itself.
 
 ## Deliverables
