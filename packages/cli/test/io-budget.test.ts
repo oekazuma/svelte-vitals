@@ -64,4 +64,31 @@ describe('I/O budget for the collection phase', () => {
     // Sanity: the run really did glob (an empty map would pass the check above).
     expect(counts.glob.size).toBeGreaterThan(0);
   });
+
+  it('does not read shared files more often as route count grows', async () => {
+    const small = createCountingRuntime(createMemoryRuntime(project(2)));
+    const large = createCountingRuntime(createMemoryRuntime(project(12)));
+
+    await collectAll(small.rt, '', defaultConfig);
+    await collectAll(large.rt, '', defaultConfig);
+
+    // 6x the routes must not mean more reads of the files they share. This is the
+    // primary parse-cache-breakage detector: per-file budgets alone stay green if
+    // the cache dies but every file happens to stay under the cap.
+    for (const shared of ['src/routes/+layout.svelte', 'src/lib/Card.svelte']) {
+      expect([shared, large.counts.readFile.get(shared)]).toEqual([shared, small.counts.readFile.get(shared)]);
+    }
+  });
+
+  it('scans no components or kit modules for a route-filtered run', async () => {
+    const { rt, counts } = createCountingRuntime(createMemoryRuntime(project(6)));
+
+    await collectAll(rt, '', defaultConfig, { route: 'p0' });
+
+    // File-scoped facts are skipped when a single route was asked for; issuing
+    // their globs anyway would pay for a whole-project scan nobody reads.
+    const patterns = [...counts.glob.keys()];
+    expect(patterns).not.toContain('src/**/*.svelte{,.ts,.js}');
+    expect(patterns.filter((p) => p.includes('+{page,layout}') || p.includes('hooks.server'))).toEqual([]);
+  });
 });
