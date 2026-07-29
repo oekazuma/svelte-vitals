@@ -53,10 +53,19 @@ different depths**, so a declaration must be able to narrow another one. And **o
 legitimately admits two casings** — a route's `components/` directory holds PascalCase units and
 camelCase groupings side by side — so a single case per glob cannot describe it.
 
-The same project's filename-linter configuration was examined for casing rules and has none: four of
-its six filename entries assert "the filename equals an ancestor directory's name", which is M1 seen
-from the file side, and the remaining one forbids specific filenames in a location, which is M10.
-This confirms the charter's split — **M2 governs directory names only.**
+The same project already lints directory casing, and what its configuration can and cannot say is the
+sharpest evidence for this rule.
+
+It carries **two** directory-casing entries — the features root and the API root, both camelCase —
+which are exactly two of the four declarations in the example below. So M2 is not filling a void; it
+is replacing a check that exists but is confined to a one-level glob, cannot decode route syntax, and
+cannot name two acceptable casings for one location. Those three limits are why the convention's route
+and `components/` rules are unlinted today, and each is a design decision below.
+
+Its **filename** entries are a different matter, and they confirm the charter's split. Five of the six
+assert "the filename equals an ancestor directory's name" — M1 seen from the file side — and the
+sixth forbids specific filenames in a location, which is M10. **No filename entry governs casing**, so
+**M2 governs directory names only.**
 
 ## Design
 
@@ -90,8 +99,7 @@ export default {
           'src/routes/svelteApi/*': 'kebab-case',
           'src/lib/features/*': 'camelCase',
           'src/lib/api/*': 'camelCase'
-        },
-        exclude: ['**/tests', '**/e2e']
+        }
       }
     }
   }
@@ -109,6 +117,11 @@ Four names, each a test of the whole string rather than of its first character:
 | `kebab-case` | `^[a-z0-9]+(-[a-z0-9]+)*$` |
 | `snake_case` | `^[a-z0-9]+(_[a-z0-9]+)*$` |
 
+`snake_case` is in the vocabulary for completeness rather than on evidence — nothing in the convention
+document declares it. It costs one regex, and leaving it out would not reduce what the rule detects:
+`fair_summary` is already reported under a `camelCase` declaration whether or not `snake_case` is
+nameable. What it buys is the ability of a project that _wants_ snake_case directories to say so.
+
 Testing the whole string is what makes the vocabulary useful: it is the difference between
 distinguishing `recommend-halls` from `recommendHalls` and merely observing that both start with a
 lowercase letter. A first-character test — which is what `architecture/unit-entry-file` uses
@@ -122,8 +135,21 @@ which is the stricter question. Both rule pages state their own definition rathe
 
 **A single lowercase word satisfies `camelCase`, `kebab-case` and `snake_case` at once.** `fair`
 matches all three. This is correct — there is nothing in the name to disagree with — and it is worth
-documenting, because it means M2 catches less than a reader might expect. It only ever fires on a name
-that contains the evidence of its own casing: a capital, a hyphen, an underscore.
+documenting, because it means M2 catches less than a reader might expect.
+
+**A name with no letter in it is skipped.** `2024`, `404` and `123` carry no casing at all, so no
+casing claim can be made about them — the same reason the compound route segments below are skipped.
+The regexes alone would not do this: `^[a-z][a-zA-Z0-9]*` requires a leading letter, so `2024` fails
+`camelCase` and `PascalCase` while passing `kebab-case` and `snake_case`, and a year-archive route
+under a `camelCase|PascalCase` declaration would be reported for a name the project cannot rename
+without changing its URL. That is the actionability gate failing, and it is the same objection the
+trailing-`/**` guard answers for `src/routes` itself.
+
+The line is drawn at **contains no ASCII letter**, not at "starts with a digit". `2024archive` does
+contain letters, is not camelCase by any reading, and can be renamed, so it is reported.
+
+Together these give the rule's reach: **it fires only on a name that contains a letter and carries the
+evidence of a casing it does not satisfy** — a capital, a hyphen, an underscore, or a leading digit.
 
 ### Route syntax is decoded, not flagged
 
@@ -169,6 +195,11 @@ Two declarations can match the same directory. The winner is decided by, in orde
 3. then **the longer key**;
 4. then **the lexicographically first** key.
 
+Rule 1 counts wildcard segments too, so `src/*/*/*` outranks `src/routes/**` despite naming nothing
+literal. Constraining depth is a form of specificity, so this is defensible, but it is the reverse of
+the CSS-like intuition that more literal text means more specific. No realistic key set exhibits it;
+the rule page gets a line so a reader who constructs one is not surprised.
+
 Rules 1 and 2 are new. `architecture/unit-entry-file` shipped with rules 3 and 4 alone, and raw
 string length inverts specificity whenever `*` and `**` sit at the same position: `src/lib/features/**`
 is one character longer than `src/lib/features/*`, so the **broader** key wins and the narrower
@@ -185,8 +216,23 @@ including M1's documented example, which is covered by a test.
 
 Identical in meaning to M1's: a directory matching an `exclude` glob, or having an ancestor that
 matches one, is removed along with everything beneath it. It outranks every `directories` declaration.
-`exclude` globs are never reported as unmatched, for the reason M1 gives — an exclusion that matches
-nothing already fails loudly, by leaving findings you meant to remove.
+
+**`exclude` is absent from the example above**, because on the tree this design was validated against
+it did nothing: removing it changed no finding. Two reasons overlapped — `tests` and `e2e` are
+themselves camelCase, so they never fire under the routes declaration, and the `lib` declarations are
+one level deep and never reach a `tests` directory. Documenting a no-op as if it were load-bearing
+teaches the reader that `exclude` is routinely needed here, which is false. The rule page shows
+`exclude` separately, on an example where it demonstrably removes a finding.
+
+That measurement also **narrows a claim M1 makes and this design inherited.** "An exclusion that
+matches nothing fails loudly, by leaving findings you meant to remove" holds only where the subtree
+would have produced findings. Where it would not — the case just measured — a mistyped `exclude` glob
+is completely silent, and no check here will say so.
+
+Reporting unmatched `exclude` globs is still the wrong fix, and the same measurement is why: an
+exclusion that removes nothing has no effect on the report, so a finding about it would be noise about
+nothing. The honest move is to state the limit rather than to widen the check, so both the spec and
+the rule page carry the qualified form, not the absolute one.
 
 ### Findings
 
@@ -237,6 +283,15 @@ declaration that checks nothing, so it belongs in the finding that already says 
 
 A key whose value names several casings is inert only if **every** name in it is unknown; one valid
 name makes the declaration operative, and the unknown ones are reported so the typo is still visible.
+
+**A key is recorded as having done work the moment it matches a directory** — before the skips (a
+compound route segment, a name with no letter) and before `exclude` prunes anything. This is the
+distinction M1 had to make twice, in opposite directions, and it turns on what the gate means. For M1's
+`pascalCaseUnits` the casing gate _is_ the identification criterion, so a key matching only lowercase
+directories has identified nothing and must stay inert. Here every gate is downstream of
+identification: the key named the directory, the rule looked at it, and found nothing it could say.
+That is a check that ran, not a declaration that checks nothing, and reporting it as inert would send
+the reader hunting for a typo that is not there.
 
 ### The trailing `/**` guard
 
@@ -294,16 +349,24 @@ positives, not about overlap. Both rule pages record the pairing so the reader i
 ## Testing
 
 1. **Mechanism tests** — each casing name against conforming and non-conforming inputs, the
-   single-lowercase-word overlap, route-syntax decoding including the skipped compound shapes, the
-   four-step specificity order with a case that inverts under the old metric, the bare-prefix guard,
-   `exclude` subtree pruning, and both inert-declaration failures.
+   single-lowercase-word overlap, the letterless skip and the `2024archive` counter-case,
+   route-syntax decoding including the skipped compound shapes, the four-step specificity order with a
+   case that inverts under the old metric, the bare-prefix guard, `exclude` subtree pruning, both
+   inert-declaration failures, and a key that matches only skipped directories staying **out** of the
+   inert finding.
 2. **A documented-example test.** The configuration example in the rule page is run against a fixture
    tree and asserted to examine directories, to produce the expected findings, and to leave **no** key
    inert. M1's review established this: an example that is merely silent looks identical to an example
    that is wrong, and only a test that asserts what was checked can tell them apart.
-3. **Regression** — M1's whole suite green across the shared-module extraction, plus a test pinning
+3. **A differential test for the `exclude` example**, which the test above structurally cannot cover:
+   an unmatched `exclude` glob is never reported, so a no-op exclusion in an example is invisible to an
+   inertness assertion. The rule page's `exclude` example is therefore asserted **both ways** — the
+   finding present with the exclusion removed, absent with it in place. Review measurement, not
+   speculation, put this here: the `exclude` first written into this spec's example changed nothing on
+   a real tree, and nothing in the planned tests would have said so.
+4. **Regression** — M1's whole suite green across the shared-module extraction, plus a test pinning
    M1's documented example under the new specificity metric.
-4. **Wiring** — the rule reaches the `RuleContext` from both the CLI and the vite plugin, following
+5. **Wiring** — the rule reaches the `RuleContext` from both the CLI and the vite plugin, following
    the end-to-end tests added for the inventory itself.
 
 ## Deliverables
@@ -315,3 +378,28 @@ positives, not about overlap. Both rule pages record the pairing so the reader i
 - `docs/src/content/docs/rules/architecture/directory-naming.md` and its Japanese counterpart.
 - `configuration.mdx`, English and Japanese.
 - A changeset covering the new rule and the behaviour change to `unit-entry-file`.
+- The correction already applied to `2026-07-28-unit-entry-file-design.md`, whose inert-declaration
+  section still described the per-key shape that implementation replaced.
+
+## Validation
+
+The example configuration was measured against the tree the convention document governs, in both
+directions, before this spec was approved.
+
+| Tree                                | Directories examined | Route segments skipped | Violations |
+| ----------------------------------- | -------------------: | ---------------------: | ---------: |
+| the convention-compliant branch     |                  157 |                      0 |      **0** |
+| the branch predating the convention |                  229 |                      — |      **1** |
+
+The single violation is `src/lib/features/FetchOnMount` under `'src/lib/features/*': 'camelCase'` — a
+real deviation that existed before the convention was applied. Zero findings on the compliant tree and
+a true positive on the non-compliant one is the pair that matters: either number alone is consistent
+with a rule that checks nothing.
+
+Decoding was exercised against the real route tree and every shape resolved as specified, with **no**
+segment falling through to the compound-segment skip. The only specificity contest the configuration
+actually produces — `src/routes/svelteApi/*` against `src/routes/**` — is settled by rule 1 alone.
+
+Two of this review's three corrections came from measurement rather than reading: the `exclude`
+example changed no finding, and the claim that the project had no directory-casing lint was false. The
+digit-only gap came from reading the spec's own stated principle against its regexes.

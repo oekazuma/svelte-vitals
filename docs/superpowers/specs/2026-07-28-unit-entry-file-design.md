@@ -341,9 +341,18 @@ a real fragility, shared with any rule whose location is derived rather than int
 
 ### 3. Inert declaration — a key matched no directory
 
-One finding per option key that matched no directory at all, as a **project-scoped** result: no
-`route`, no `location`, `presence: 'none'`. A declaration that checks nothing is a configuration
-problem, not a file's problem.
+**One finding carrying every** option key that matched no directory at all, as a **project-scoped**
+result: no `route`, no `location`, `presence: 'none'`. A declaration that checks nothing is a
+configuration problem, not a file's problem.
+
+_Corrected 2026-07-29._ This section originally specified one finding **per** key. Implementation
+found the collision that forbids it: `findingKey` (`packages/cli/src/baseline.ts`) is
+`id::route::location`, and every shape here leaves `route` and `location` unset, so N per-key findings
+collapse to one baseline entry — suppressing one inert key would silently suppress every later one.
+This rule is the first in the repository to emit more than one project-scoped result per run, so the
+collision had no precedent to warn about it. Folding them removes it without touching the shared
+baseline and suppression code, and makes suppression one decision rather than N. The shipped rule and
+its documentation have always matched the corrected text; only this paragraph was stale.
 
 This is the failure mode that motivated moving these checks here at all, so the rule reports it
 rather than leaving the user to wonder whether their globs took effect.
