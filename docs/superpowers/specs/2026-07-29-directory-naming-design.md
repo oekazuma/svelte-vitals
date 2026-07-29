@@ -53,19 +53,19 @@ different depths**, so a declaration must be able to narrow another one. And **o
 legitimately admits two casings** — a route's `components/` directory holds PascalCase units and
 camelCase groupings side by side — so a single case per glob cannot describe it.
 
-The same project already lints directory casing, and what its configuration can and cannot say is the
-sharpest evidence for this rule.
+Directory casing of this kind is **already lintable today**, and what such a check can and cannot say
+is the sharpest evidence for this rule.
 
-It carries **two** directory-casing entries — the features root and the API root, both camelCase —
-which are exactly two of the four declarations in the example below. So M2 is not filling a void; it
-is replacing a check that exists but is confined to a one-level glob, cannot decode route syntax, and
-cannot name two acceptable casings for one location. Those three limits are why the convention's route
-and `components/` rules are unlinted today, and each is a design decision below.
+The parts it covers well are the shallow ones: a glob naming a single level, mapped to one casing. So
+M2 is not filling a void — it is replacing a check that exists but is confined to a one-level glob,
+cannot decode route syntax, and cannot name two acceptable casings for one location. Those three
+limits are exactly why a convention's route and `components/` rules go unlinted, and each is a design
+decision below.
 
-Its **filename** entries are a different matter, and they confirm the charter's split. Five of the six
-assert "the filename equals an ancestor directory's name" — M1 seen from the file side — and the
-sixth forbids specific filenames in a location, which is M10. **No filename entry governs casing**, so
-**M2 governs directory names only.**
+Filename conventions are a different matter, and they confirm the charter's split. The ones a filename
+check expresses are "the filename equals an ancestor directory's name" — M1 seen from the file side —
+and "this filename may not appear here", which is M10. **Neither governs casing**, so **M2 governs
+directory names only.**
 
 ## Design
 
@@ -514,22 +514,21 @@ positives, not about overlap. Both rule pages record the pairing so the reader i
 
 ## Validation
 
-The example configuration was measured against the tree the convention document governs, in both
-directions, before this spec was approved.
+The example configuration was run against a real tree, **in both directions**, before this spec was
+approved: once on a branch already complying with the convention, and once on the branch predating it.
 
-| Tree                                | Directories examined | Route segments skipped | Violations |
-| ----------------------------------- | -------------------: | ---------------------: | ---------: |
-| the convention-compliant branch     |                  157 |                      0 |      **0** |
-| the branch predating the convention |                  229 |                      — |      **1** |
+- On the compliant tree it reported **nothing**, and left no declaration unused — every key in the
+  example governed real directories.
+- On the pre-convention tree it found a **real deviation**: a features-root directory in PascalCase
+  where the declaration asks for camelCase.
 
-The single violation is `src/lib/features/UserProfile` under `'src/lib/features/*': 'camelCase'` — a
-real deviation that existed before the convention was applied. Zero findings on the compliant tree and
-a true positive on the non-compliant one is the pair that matters: either number alone is consistent
-with a rule that checks nothing.
+Both directions are the point. Silence alone is consistent with a rule that checks nothing, and a
+finding alone is consistent with one that reports noise; only the pair distinguishes a working rule.
 
-Decoding was exercised against the real route tree and every shape resolved as specified, with **no**
-segment falling through to the compound-segment skip. The only specificity contest the configuration
-actually produces — `src/routes/internalApi/*` against `src/routes/**` — is settled by rule 1 alone.
+Decoding was exercised against that tree's real route directories and every shape resolved as
+specified, with **no** segment falling through to the compound-segment skip. The only specificity
+contest the configuration actually produces — `src/routes/internalApi/*` against `src/routes/**` — is
+settled by rule 1 alone.
 
 Two of this review's three corrections came from measurement rather than reading: the `exclude`
 example changed no finding, and the claim that the project had no directory-casing lint was false. The

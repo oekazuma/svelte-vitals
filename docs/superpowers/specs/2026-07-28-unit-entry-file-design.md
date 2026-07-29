@@ -129,11 +129,11 @@ iteration. Merge semantics are additive — per-key override for the maps, appen
 
 ### Why `exclude` exists
 
-`units` alone cannot express a project's real unit set. Measured against a production tree
-(2026-07-28): the two-level glob `src/lib/api/*/*` matched 37 unit directories and **missed two**,
-because that convention nests a helper unit one level deeper inside the unit that owns it. Widening
-to `src/lib/api/**/*` finds those two and then matches 76 directories, of which **37 are `tests/`** —
-producing 37 false positives, since `tests/tests.ts` is not supposed to exist.
+`units` alone cannot express a project's real unit set. Run against a real tree (2026-07-28): the
+two-level glob `src/lib/api/*/*` matched most unit directories but **missed the ones nested a level
+deeper**, because that convention puts a helper unit inside the unit that owns it. Widening to
+`src/lib/api/**/*` finds those — and also sweeps in every `tests/` directory in the same subtree,
+one false positive each, since `tests/tests.ts` is not supposed to exist.
 
 So a `units` glob must be able to say what it is _not_. `routeGlobToRegExp` treats everything but
 `*` and `**` as literal, so a negation inside the pattern is unavailable. Two alternatives were
@@ -161,11 +161,11 @@ holds units beneath it.** Reserved directory names split into two kinds, and onl
 | `parts`                      | **No**        | Its children **are** PascalCase units                 |
 | `functions`, `stores`        | **No**        | Its children are exactly what a `units` glob declares |
 
-Excluding a container is self-defeating, and measurably so. Against the same production tree
-(2026-07-28), an earlier draft of this spec's example added `**/parts`, `**/functions` and `**/stores`
-to `exclude`. It removed the 245 `tests/` directories as intended — and also **57 of the 166
-PascalCase units** (everything under a `parts/`) and **15 function and store units**, silencing the
-very declarations `units` had just made. Dropping those three entries removes the 245 with **zero**
+Excluding a container is self-defeating, and observably so. Against the same real tree (2026-07-28),
+an earlier draft of this spec's example added `**/parts`, `**/functions` and `**/stores` to `exclude`.
+It removed the `tests/` directories as intended — and also **a third of the PascalCase units**
+(everything under a `parts/`) plus every function and store unit, silencing the very declarations
+`units` had just made. Dropping those three entries removes the `tests/` directories with **zero**
 collateral. The list in the example above is the corrected one.
 
 A related trap has no `exclude` answer: if a broad `units` glob reaches a _container_ directory —
@@ -415,8 +415,8 @@ and moves both rules to the corrected ordering through their shared module.
 
 Every error this spec's example configuration has contained was found by running it over a real
 project's tree, never by reading it: a `units` glob that missed nested units and swept in `tests/`; an
-`exclude` list that silenced 72 legitimate units; and a `**` in the wrong position that checked no
-function unit at all. None is visible from the prose.
+`exclude` list that silenced a large share of the legitimate units; and a `**` in the wrong position
+that checked no function unit at all. None is visible from the prose.
 
 So the plan carries a step for it, and the step has three checks — because the obvious one is not
 sufficient on its own:
@@ -427,7 +427,8 @@ sufficient on its own:
    that would have caught the `**/functions/**/*` mistake, where violations were 0 because no function
    unit was examined.
 3. **Compare the count against the tree's real unit count.** A count that is plausible but low is the
-   `exclude`-over-pruning failure — 109 of 166 PascalCase units, with no violations to show for it.
+   `exclude`-over-pruning failure — most of the PascalCase units examined, the rest silently pruned,
+   and no violations to show for it.
 
 A unit test proves the mechanism; only a real tree proves the example, and only the count proves the
 example is doing anything.
@@ -441,18 +442,19 @@ A real SvelteKit application is available in two states, which together cover bo
 | Convention-compliant | **Zero** findings, with an examined count matching the population  |
 | Pre-convention       | A **known non-zero** count of findings from the same configuration |
 
-Its population, measured 2026-07-28: 166 PascalCase units, 45 function units plus 8 nested helpers, 7
-store units, 37 api units plus 2 nested helpers. The examined count is what check 2 and check 3 above
-compare against.
+Its unit population is known for each of the four declared kinds — PascalCase component units,
+function units and their nested helpers, store units, and api units and their nested helpers. That
+population is what checks 2 and 3 above compare the examined count against; whoever runs the step
+counts it on the tree in front of them.
 
-On the pre-convention state, **five** PascalCase directories hold no same-named `.svelte`, and those
-are the findings this rule should produce.
+On the pre-convention state, a **small, known number** of PascalCase directories hold no same-named
+`.svelte`, and those are the findings this rule should produce.
 
-**Two other known defects in that state are _not_ this rule's** — 11 occurrences of `types/types.ts`
-and 2 of `types/index.ts`. Both are forbidden _filenames in a location_, a different claim: `types/` is
-not a unit under any declaration here (it sits in `exclude`), so no entry file is expected of it and
-none is missing. Expecting this rule to report them would send the validation step hunting a bug that
-is not there. They belong to a forbidden-filename mechanism, which M2 and M3 do not cover either — the
+**Other known defects in that state are _not_ this rule's** — occurrences of `types/types.ts` and
+`types/index.ts`. Both are forbidden _filenames in a location_, a different claim: `types/` is not a
+unit under any declaration here (it sits in `exclude`), so no entry file is expected of it and none is
+missing. Expecting this rule to report them would send the validation step hunting a bug that is not
+there. They belong to a forbidden-filename mechanism, which M2 and M3 do not cover either — the
 charter's inventory has no row for it yet.
 
 ## Documentation
