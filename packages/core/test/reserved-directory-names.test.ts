@@ -1,0 +1,192 @@
+import { describe, it, expect } from 'vitest';
+import { architectureReservedDirectoryNames } from '../src/index.js';
+import { isUnitDir } from '../src/rules/architecture/reserved-directory-names.js';
+import { childFiles } from '../src/rules/architecture/declarations.js';
+import { defineConfig, defaultProject } from '../src/types.js';
+import type { RuleContext } from '../src/rule.js';
+import type { Result } from '../src/index.js';
+
+const fails = (rs: Result[]) => rs.filter((r) => r.location !== undefined);
+
+const ctx = (sourceFiles: string[], options?: Record<string, unknown>): RuleContext => ({
+  sourceFiles,
+  heads: [],
+  project: defaultProject,
+  config: defineConfig(options ? { rules: { 'architecture/reserved-directory-names': { options } } } : {})
+});
+
+describe('isUnitDir', () => {
+  const filesIn = (files: string[]) => childFiles(files);
+
+  it('is true for a PascalCase directory holding its same-named file, whatever the extension', () => {
+    expect(isUnitDir('src/lib/Card', filesIn(['src/lib/Card/Card.svelte']))).toBe(true);
+    expect(isUnitDir('src/lib/Card', filesIn(['src/lib/Card/Card.ts']))).toBe(true);
+    expect(isUnitDir('src/lib/Card', filesIn(['src/lib/Card/Card.svelte.ts']))).toBe(true);
+  });
+
+  it('is false for a PascalCase directory with no same-named file', () => {
+    expect(isUnitDir('src/lib/Icons', filesIn(['src/lib/Icons/Star.svelte']))).toBe(false);
+  });
+
+  it('is false when the same-named file is not an immediate child', () => {
+    // The file that gives a unit its identity sits beside its subdirectories, never inside one.
+    expect(isUnitDir('src/lib/Card', filesIn(['src/lib/Card/parts/Card.svelte']))).toBe(false);
+  });
+
+  it('is false for a directory whose name does not begin A-Z', () => {
+    expect(isUnitDir('src/lib/card', filesIn(['src/lib/card/card.ts']))).toBe(false);
+  });
+});
+
+describe('architecture/reserved-directory-names — inertness', () => {
+  it('emits nothing when nothing is declared', async () => {
+    expect(await architectureReservedDirectoryNames.check(ctx(['src/lib/Card/helpers/a.ts']))).toEqual([]);
+  });
+
+  it('emits nothing when sourceFiles is absent', async () => {
+    const c: RuleContext = {
+      heads: [],
+      project: defaultProject,
+      config: defineConfig({
+        rules: { 'architecture/reserved-directory-names': { options: { unitScopes: { 'src/**': 'parts' } } } }
+      })
+    };
+    expect(await architectureReservedDirectoryNames.check(c)).toEqual([]);
+  });
+});
+
+describe('architecture/reserved-directory-names — unitScopes', () => {
+  const UNITS = { unitScopes: { 'src/**': 'parts|tests' } };
+
+  it("reports a unit's child whose name is not declared", async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte', 'src/lib/Card/helpers/a.ts'], UNITS)
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.id).toBe('architecture/reserved-directory-names');
+    expect(fails(rs)[0]!.severity).toBe('info');
+    expect(fails(rs)[0]!.route).toBe('src/lib/Card/helpers');
+    expect(fails(rs)[0]!.location).toBe('src/lib/Card/helpers/a.ts');
+    expect(fails(rs)[0]!.message).toContain('src/lib/Card/helpers');
+    expect(fails(rs)[0]!.message).toContain('parts, tests');
+    expect(fails(rs)[0]!.fix?.description).toContain('Rename');
+  });
+
+  it('accepts a declared name and emits no pass result', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/Badge/Badge.svelte'], UNITS)
+    );
+    expect(rs).toEqual([]);
+  });
+
+  it('reports a PascalCase child too — the set is closed, not lowercase-only', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte', 'src/lib/Card/Badge/Badge.svelte'], UNITS)
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.route).toBe('src/lib/Card/Badge');
+  });
+
+  it('says nothing about a non-unit directory, so one naming mistake stays one finding', async () => {
+    // 'Icons' is PascalCase but has no Icons.* file, so it is not a unit here. Its PascalCase
+    // children must NOT each be measured against the vocabulary — that cascade is what the unit
+    // definition exists to prevent, and the sibling rule reports 'Icons' itself.
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Icons/Star/Star.svelte', 'src/lib/Icons/Moon/Moon.svelte'], UNITS)
+    );
+    expect(rs).toEqual([]);
+  });
+
+  it('gives each offending child its own identity', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte', 'src/lib/Card/one/a.ts', 'src/lib/Card/two/b.ts'], UNITS)
+    );
+    expect(
+      fails(rs)
+        .map((r) => r.route)
+        .sort()
+    ).toEqual(['src/lib/Card/one', 'src/lib/Card/two']);
+  });
+});
+
+describe('architecture/reserved-directory-names — scopes', () => {
+  it("reports a named parent's child whose name is not declared", async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/api/a.ts', 'src/lib/widgets/b.ts'], { scopes: { 'src/lib': 'api|db' } })
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.route).toBe('src/lib/widgets');
+  });
+
+  it('does not require the parent to be a unit', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/api/a.ts'], { scopes: { 'src/lib': 'api' } })
+    );
+    expect(rs).toEqual([]);
+  });
+});
+
+describe('architecture/reserved-directory-names — precedence across the two maps', () => {
+  // The two declarations name DIFFERENT sets, so which one governed is visible in the message.
+  const TREE = ['src/lib/Card/Card.svelte', 'src/lib/Card/tests/a.ts'];
+
+  it('lets a narrow scopes key beat a broad unitScopes key', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(TREE, { scopes: { 'src/lib/*': 'parts' }, unitScopes: { 'src/**': 'parts|tests' } })
+    );
+    // 'src/lib/*' has three segments to 'src/**''s two, so it governs — and it does not list
+    // 'tests', so tests/ is reported.
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.route).toBe('src/lib/Card/tests');
+    expect(fails(rs)[0]!.message).toContain('parts');
+    expect(fails(rs)[0]!.message).not.toContain('tests,');
+  });
+
+  it('lets a narrow unitScopes key beat a broad scopes key', async () => {
+    // The reverse direction. Plain kind-precedence would satisfy the test above on its own, so this
+    // is what pins that specificity is what decides: here `scopes` would report tests/ if it won.
+    //
+    // The broad key is `src/lib/**` rather than `src/**` on purpose. `src/**` would also govern
+    // `src/lib`, whose only child is `Card` — not a declared name — adding a violation that has
+    // nothing to do with the comparison under test. A trailing `/**` never governs its own bare
+    // prefix, so `src/lib/**` reaches `src/lib/Card` without reaching `src/lib`.
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(TREE, { scopes: { 'src/lib/**': 'parts' }, unitScopes: { 'src/lib/*': 'parts|tests' } })
+    );
+    expect(rs).toEqual([]);
+  });
+
+  it('falls to scopes when the two globs are identical', async () => {
+    // Byte-identical globs are the ONLY pair the four steps cannot separate — step 4 is
+    // lexicographic on the whole key. A fixture using two different globs of the same length
+    // resolves at step 4 instead and never reaches this decision.
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(TREE, { scopes: { 'src/lib/*': 'parts' }, unitScopes: { 'src/lib/*': 'parts|tests' } })
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.route).toBe('src/lib/Card/tests');
+  });
+});
+
+describe('architecture/reserved-directory-names — exclude', () => {
+  it('prunes an excluded parent, so its children are not checked', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte', 'src/lib/Card/helpers/a.ts'], {
+        unitScopes: { 'src/**': 'parts' },
+        exclude: ['src/lib/Card']
+      })
+    );
+    expect(fails(rs)).toEqual([]);
+  });
+
+  it('prunes an excluded child, leaving its siblings checked', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte', 'src/lib/Card/helpers/a.ts', 'src/lib/Card/misc/b.ts'], {
+        unitScopes: { 'src/**': 'parts' },
+        exclude: ['**/helpers']
+      })
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.route).toBe('src/lib/Card/misc');
+  });
+});

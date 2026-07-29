@@ -64,6 +64,7 @@ import { architecturePropCount } from './architecture/prop-count.js';
 import { architecturePrivateScopeImport } from './architecture/private-scope-import.js';
 import { architectureUnitEntryFile } from './architecture/unit-entry-file.js';
 import { architectureDirectoryNaming } from './architecture/directory-naming.js';
+import { architectureReservedDirectoryNames } from './architecture/reserved-directory-names.js';
 import { performanceHeavyImport } from './perf/heavy-import.js';
 import { performanceNamespaceImport } from './perf/namespace-import.js';
 import { performanceMinifyDisabled } from './perf/minify-disabled.js';
@@ -135,6 +136,7 @@ export const allRules: Rule[] = [
   architecturePrivateScopeImport,
   architectureUnitEntryFile,
   architectureDirectoryNaming,
+  architectureReservedDirectoryNames,
   performanceHeavyImport,
   performanceNamespaceImport,
   performanceMinifyDisabled,
@@ -207,6 +209,7 @@ export {
   architecturePrivateScopeImport,
   architectureUnitEntryFile,
   architectureDirectoryNaming,
+  architectureReservedDirectoryNames,
   performanceHeavyImport,
   performanceNamespaceImport,
   performanceMinifyDisabled,

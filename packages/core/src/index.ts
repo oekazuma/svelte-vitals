@@ -127,6 +127,7 @@ export {
   architecturePrivateScopeImport,
   architectureUnitEntryFile,
   architectureDirectoryNaming,
+  architectureReservedDirectoryNames,
   performanceHeavyImport,
   performanceNamespaceImport,
   performanceMinifyDisabled,
