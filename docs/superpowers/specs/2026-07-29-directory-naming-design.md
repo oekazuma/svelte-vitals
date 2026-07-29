@@ -149,7 +149,11 @@ The line is drawn at **contains no ASCII letter**, not at "starts with a digit".
 contain letters, is not camelCase by any reading, and can be renamed, so it is reported.
 
 Together these give the rule's reach: **it fires only on a name that contains a letter and carries the
-evidence of a casing it does not satisfy** — a capital, a hyphen, an underscore, or a leading digit.
+evidence of a casing it does not satisfy** — a capital, a hyphen, an underscore, a leading digit, or
+any character none of the four vocabularies admits at all. That last clause is not padding: `foo.bar`
+has no capital, hyphen, underscore or leading digit, yet fails all four regexes and is reported. That
+is the right outcome — the name is renameable and the finding is actionable — but the enumeration has
+to say so, or it reads as closed when it is not.
 
 ### Route syntax is decoded, not flagged
 
@@ -234,6 +238,12 @@ exclusion that removes nothing has no effect on the report, so a finding about i
 nothing. The honest move is to state the limit rather than to widen the check, so both the spec and
 the rule page carry the qualified form, not the absolute one.
 
+The **opposite** direction is not a limitation and is reported: an `exclude` glob that removes so much
+that a `directories` declaration never evaluates anything makes that declaration inert, and inert
+declarations are exactly what this rule reports. See "When a key counts as having done work". The
+asymmetry is deliberate — an exclusion doing nothing is harmless, an exclusion silently cancelling a
+declaration is not.
+
 ### Findings
 
 **A violation reports at a file inside the directory**, preferring a direct child and falling back to
@@ -267,14 +277,25 @@ One finding, carrying every such key, exactly as M1 does — and for the same re
 `id::route::location`, and every project-scoped result here leaves both unset, so N separate findings
 would collide into one baseline entry.
 
-Two failures land in it:
+Three failures land in it, and the message names which:
 
-| Failure                                  | Example                                       |
-| ---------------------------------------- | --------------------------------------------- |
-| the glob matched no directory            | `'src/lib/feature/*'` — a typo for `features` |
-| the casing name is not in the vocabulary | `'camelcase'`, `'kebabCase'`, `'CamelCase'`   |
+| Failure                                  | Example                                               |
+| ---------------------------------------- | ----------------------------------------------------- |
+| the glob matched no directory            | `'src/lib/feature/*'` — a typo for `features`         |
+| every directory it matched is excluded   | `'**/tests/fixtures/*'` under `exclude: ['**/tests']` |
+| the casing name is not in the vocabulary | `'camelcase'`, `'kebabCase'`, `'CamelCase'`           |
 
-The second is worth explaining. `validateRuleOptions` checks only that a `string-map` value is a
+```
+These declarations check nothing: 'src/lib/feature/*' (matched no directory),
+'**/tests/fixtures/*' (matched only excluded directories),
+'src/lib/api/*' (unknown casing name 'camelcase').
+```
+
+Distinguishing them matters because the remedies differ: the first is a typo in the glob, the second
+is a contradiction between two options, and the third is a typo in the value. A single undifferentiated
+"checks nothing" would leave the reader to work out which.
+
+The third is worth explaining. `validateRuleOptions` checks only that a `string-map` value is a
 non-empty string; it has no notion of a closed vocabulary, so a mistyped casing name would otherwise
 be accepted and then match nothing, leaving the declaration silently inert — the precise failure this
 family of findings exists to surface. Extending the option system with a value vocabulary was
@@ -284,14 +305,45 @@ declaration that checks nothing, so it belongs in the finding that already says 
 A key whose value names several casings is inert only if **every** name in it is unknown; one valid
 name makes the declaration operative, and the unknown ones are reported so the typo is still visible.
 
-**A key is recorded as having done work the moment it matches a directory** — before the skips (a
-compound route segment, a name with no letter) and before `exclude` prunes anything. This is the
-distinction M1 had to make twice, in opposite directions, and it turns on what the gate means. For M1's
-`pascalCaseUnits` the casing gate _is_ the identification criterion, so a key matching only lowercase
-directories has identified nothing and must stay inert. Here every gate is downstream of
-identification: the key named the directory, the rule looked at it, and found nothing it could say.
-That is a check that ran, not a declaration that checks nothing, and reporting it as inert would send
-the reader hunting for a typo that is not there.
+### When a key counts as having done work
+
+**A key is recorded on a match to a directory that survives `exclude`** — after exclusion, before
+every other gate.
+
+The two sides of that line are different in kind, and an earlier draft of this spec got it wrong by
+putting `exclude` on the same side as the skips.
+
+**The skips do not stop a key counting.** A compound route segment or a letterless name means the key
+named the directory, the rule looked at it, and there was nothing it could say honestly. A check ran.
+Reporting that as inert would send the reader hunting for a typo that is not there. The same holds for
+a key that lost the tie-break: another declaration governed the directory, but this one still
+identified it.
+
+**Exclusion does stop a key counting**, because an excluded directory is one the rule was _forbidden_
+to look at. A key whose every match is excluded never evaluates anything, ever:
+
+```js
+directories: { '**/tests/fixtures/*': 'camelCase' },
+exclude: ['**/tests'] // shadows the declaration above completely
+```
+
+That is a declaration that checks nothing in the most literal sense, and it is the failure this whole
+family of findings exists for. It is also the variant most likely to arise in practice, since an
+`exclude` entry added later — during a convention change — can shadow a declaration written months
+earlier, and `exclude` merges additively across config layers, so a shared base config can shadow a
+project-level declaration without either author seeing both.
+
+The objection that `exclude` is deliberate where a typo is not does not rescue the declaration:
+if both entries are deliberate, they contradict each other, and one of the two is wrong.
+
+**`architecture/unit-entry-file` has the same gap and is fixed with it.** Its bookkeeping runs before
+its `exclude` check, with a code comment that bundles the excluded case together with the
+lost-the-tie-break case as "has still done work". The tie-break half of that reasoning is right and
+survives; the excluded half does not. Both rules move to the ordering above through the shared module,
+so the two never disagree about what counts as work.
+
+M1's `pascalCaseUnits` keeps its extra condition on top: there the casing gate _is_ the identification
+criterion, so a key matching only lowercase directories has identified nothing and stays inert.
 
 ### The trailing `/**` guard
 
@@ -314,16 +366,22 @@ compiler with its bare-prefix guard, and the bookkeeping that records which keys
 the same.
 
 These move to a module shared by the architecture rules. The extraction is not optional bookkeeping —
-copying them is how the trailing-`/**` false positive gets rediscovered a fourth time, and the
-specificity fix above has to land in one place or the two rules disagree about which declaration wins.
+copying them is how the trailing-`/**` false positive gets rediscovered a fourth time, and both
+corrections above have to land in one place or the two rules disagree about which declaration wins and
+about which one did any work.
 
-The bookkeeping stays a caller decision. M1 records a `units` match unconditionally but records a
-`pascalCaseUnits` match only when the directory's name is PascalCase, because there the casing gate is
-the identification criterion. M2 records unconditionally. The shared function reports what matched;
-each rule decides what that means.
+**The exclusion check moves ahead of matching**, which is both the fix from "When a key counts as
+having done work" and a simplification: an excluded directory is now skipped before any key is tested
+against it, instead of being matched, recorded, and then discarded.
+
+What remains a caller decision is the identification gate on top. M1 records a `pascalCaseUnits` match
+only when the directory's name is PascalCase, because there the casing gate is what identifies a unit
+at all; M1's `units` and M2's `directories` record every surviving match. The shared function reports
+what matched and what survived exclusion; each rule decides what that means.
 
 Safety comes from M1's existing suite — thirty-odd tests including a regression for each of the three
-false positives — staying green across the move, plus new tests for the specificity metric.
+false positives — staying green across the move, plus new tests for the specificity metric and for
+both sides of the bookkeeping line.
 
 ## Interaction with `architecture/unit-entry-file`
 
@@ -351,29 +409,35 @@ positives, not about overlap. Both rule pages record the pairing so the reader i
 1. **Mechanism tests** — each casing name against conforming and non-conforming inputs, the
    single-lowercase-word overlap, the letterless skip and the `2024archive` counter-case,
    route-syntax decoding including the skipped compound shapes, the four-step specificity order with a
-   case that inverts under the old metric, the bare-prefix guard, `exclude` subtree pruning, both
-   inert-declaration failures, and a key that matches only skipped directories staying **out** of the
-   inert finding.
-2. **A documented-example test.** The configuration example in the rule page is run against a fixture
+   case that inverts under the old metric, the bare-prefix guard, `exclude` subtree pruning, the
+   `foo.bar` case that fires on none of the four named evidences, and all three inert-declaration
+   failures with their distinct messages.
+2. **Bookkeeping tests on both sides of the line**, since this is where M1 has now been wrong twice in
+   opposite directions. A key matching only skipped directories, and a key that matched but lost the
+   tie-break, must stay **out** of the inert finding; a key whose every match is excluded must land
+   **in** it. The same pair runs against `architecture/unit-entry-file`, whose `units` bookkeeping
+   changes with this work.
+3. **A documented-example test.** The configuration example in the rule page is run against a fixture
    tree and asserted to examine directories, to produce the expected findings, and to leave **no** key
    inert. M1's review established this: an example that is merely silent looks identical to an example
    that is wrong, and only a test that asserts what was checked can tell them apart.
-3. **A differential test for the `exclude` example**, which the test above structurally cannot cover:
+4. **A differential test for the `exclude` example**, which the test above structurally cannot cover:
    an unmatched `exclude` glob is never reported, so a no-op exclusion in an example is invisible to an
    inertness assertion. The rule page's `exclude` example is therefore asserted **both ways** — the
    finding present with the exclusion removed, absent with it in place. Review measurement, not
    speculation, put this here: the `exclude` first written into this spec's example changed nothing on
    a real tree, and nothing in the planned tests would have said so.
-4. **Regression** — M1's whole suite green across the shared-module extraction, plus a test pinning
+5. **Regression** — M1's whole suite green across the shared-module extraction, plus a test pinning
    M1's documented example under the new specificity metric.
-5. **Wiring** — the rule reaches the `RuleContext` from both the CLI and the vite plugin, following
+6. **Wiring** — the rule reaches the `RuleContext` from both the CLI and the vite plugin, following
    the end-to-end tests added for the inventory itself.
 
 ## Deliverables
 
 - `packages/core/src/rules/architecture/directory-naming.ts` and the shared declaration module.
-- The specificity fix applied to `architecture/unit-entry-file` via the shared module, with its rule
-  page updated.
+- Two behaviour changes to `architecture/unit-entry-file`, both via the shared module and both
+  reflected in its rule page: the specificity metric, and bookkeeping moving after `exclude` so a
+  fully shadowed declaration is reported as inert.
 - Registration in all four places, and the regenerated rule-index pages.
 - `docs/src/content/docs/rules/architecture/directory-naming.md` and its Japanese counterpart.
 - `configuration.mdx`, English and Japanese.

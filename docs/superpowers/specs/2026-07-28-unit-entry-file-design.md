@@ -362,6 +362,15 @@ rather than leaving the user to wonder whether their globs took effect.
 solely inside an `overrides` entry is not, because deciding whether it matched anything would mean
 intersecting each entry's scope with the directory set. Simplicity wins; the rule page says so.
 
+**Superseded 2026-07-29 —** a key whose every match is pruned by `exclude` is now reported as inert.
+As shipped, this rule recorded a key as having done work the moment it matched, before the `exclude`
+check, so `units: { '**/tests/fixtures/*': '.ts' }` alongside `exclude: ['**/tests']` left a
+declaration that evaluates nothing and says nothing. The code comment defending that ordering bundled
+the excluded case with the lost-the-tie-break case; the tie-break half is right and stands, the
+excluded half is not — an excluded directory is one the rule was forbidden to look at, not one it
+looked at and had nothing to say about. `2026-07-29-directory-naming-design.md` carries the reasoning
+and moves both rules to the corrected ordering through their shared module.
+
 ## Implementation scope
 
 1. **`packages/core/src/source-files.ts`** (new) — `collectSourceFiles(rt, cwd)`.
