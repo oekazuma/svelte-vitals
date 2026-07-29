@@ -116,8 +116,20 @@ describe('matchKeys — specificity', () => {
   });
 
   it('falls back to the lexicographically first key when everything else ties', () => {
-    const m = matchKeys('src/lib/ab', compile(['src/lib/b*', 'src/lib/a*']));
-    expect(m.best).toBe('src/lib/a*');
+    // Both keys match 'src/lib/ab': 'a*' by its prefix, '*b' by its suffix. Both are three
+    // segments, neither has a '**', and both are ten characters, so only the final comparison
+    // can decide it — and '*' sorts before 'a'. Asserting `matched` as well is what keeps this
+    // test honest: if a future change stops one of them matching, the tie disappears and the
+    // assertion below would start passing for the wrong reason.
+    const m = matchKeys('src/lib/ab', compile(['src/lib/a*', 'src/lib/*b']));
+    expect(m.matched.slice().sort()).toEqual(['src/lib/*b', 'src/lib/a*']);
+    expect(m.best).toBe('src/lib/*b');
+  });
+
+  it('picks the same winner whatever order the keys are supplied in', () => {
+    // The comparator is a strict total order, so the linear scan must converge on one winner
+    // regardless of input order. Same two tying keys, reversed.
+    expect(matchKeys('src/lib/ab', compile(['src/lib/*b', 'src/lib/a*'])).best).toBe('src/lib/*b');
   });
 
   it('counts only whole double-star segments, not stars inside a segment name', () => {
