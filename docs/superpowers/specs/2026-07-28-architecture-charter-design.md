@@ -62,6 +62,29 @@ fails one is rejected, or redesigned until it passes.
 | **Actionability**  | **The reported location must be the place to act.** A canonical `Fix` (description + snippet) is required when a canonical edit exists.                                                                                                                                                                                                                             | State the corrective direction; write the `Fix` text in the proposal when one applies.                                |
 | **Default stance** | Either it can be on by default, or it is inert until the convention is declared — and which one is explicit.                                                                                                                                                                                                                                                        | Declare which stance in §"Default stance and release contract".                                                       |
 
+### The precision gate has an inverse, and a configured rule must satisfy both
+
+The gate's evidence column asks a proposal to prove **silence** where a verdict is undecidable. For a
+rule whose scope is declared by globs, the opposite proof is needed too, because **zero findings reads
+identically as "the project complies" and "the declaration matched nothing."** Added 2026-07-28 after
+a rule's own documented example configuration was found, three times, to be checking far less than it
+appeared to — once nothing at all, once 109 of 166 eligible directories — with zero findings each
+time.
+
+So a glob-configured rule owes two more things before it ships:
+
+- **A count of what it examined**, checked against the tree's real population. Not the finding count —
+  that is the number the failure hides behind.
+- **A run against a tree that already complies** (expect zero findings) _and_ one against a tree that
+  does not (expect a known non-zero count). Either alone is satisfiable by a rule that does nothing.
+
+An inert-declaration finding — a key that matched **no** directory at all, as
+`architecture/unit-entry-file` reports — is the shipped half of this. It does not cover the more common
+shape, a declaration that matches some directories but far fewer than intended, which is why the count
+belongs in the pre-ship evidence rather than only in the rule. **Exposing per-rule examined counts in
+the CLI** (a `--stats`-style flag) would let a user keep checking this after ship rather than only the
+author before it; recorded in "Out of scope" as its own spec.
+
 Two notes on the actionability gate, which is the one that rejects most proposals.
 
 It does **not** require a `Fix` snippet. `architecture/component-size`'s remedy is "split this
@@ -213,20 +236,55 @@ naming for a production SvelteKit app) into the **general mechanisms** svelte-vi
 that document as the configuration, not as the rule — gives a different picture: most of it needs only
 the flat kinds already available.
 
-| Mechanism                                                                 | Conventions it expresses                                                        | Expressible today                           |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------- |
-| **M1** Unit directory ↔ same-named entry file                             | component units (`.svelte`), function units (`.ts`), store units (`.svelte.ts`) | **Yes** — `string-map` (glob → extension)   |
-| **M2** Directory-name casing per location                                 | PascalCase units vs camelCase grouping; route segments; endpoint segments       | **Yes** — `string-map` (glob → case)        |
-| **M3** Closed vocabulary of reserved directory names                      | "a use these names cannot express requires updating the table first"            | **Yes** — `string-list`                     |
-| **M4** Reserved name → the places it may appear                           | `parts/` only directly under a component unit, and so on                        | **No** — needs a structured list            |
-| **M5** A unit inside a private scope must not be imported from outside it | the promotion ladder: a second importer forces the unit up                      | **Yes** — `string-list`                     |
-| **M6** Nesting cap for component units                                    | flatten beyond N levels                                                         | **Yes** — `integer`                         |
-| **M7** Dynamic route segments must carry a matcher                        | `[id=integer]`, with exempt subtrees                                            | **Yes** — `string-list`                     |
-| **M8** Test placement and naming                                          | tests adjacent in `tests/`; `.test.svelte.ts` vs `.svelte.test.ts`              | **Partly** — placement yes, the taxonomy no |
+| Mechanism                                                                 | Conventions it expresses                                                        | Expressible today                                   |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------- |
+| **M1** Unit directory ↔ same-named entry file                             | component units (`.svelte`), function units (`.ts`), store units (`.svelte.ts`) | **Yes** — `string-map` (glob → extension)           |
+| **M2** Directory-name casing per location                                 | PascalCase units vs camelCase grouping; route segments; endpoint segments       | **Yes** — `string-map` (glob → case)                |
+| **M3** Closed vocabulary of reserved directory names                      | "a use these names cannot express requires updating the table first"            | **Yes** — `string-list`                             |
+| **M4** Reserved name → the places it may appear                           | `parts/` only directly under a component unit, and so on                        | **No** — needs a structured list                    |
+| **M5** A unit inside a private scope must not be imported from outside it | the promotion ladder: a second importer forces the unit up                      | **Yes** — `string-list`                             |
+| **M6** Nesting cap for component units                                    | flatten beyond N levels                                                         | **Yes** — `integer`                                 |
+| **M7** Dynamic route segments must carry a matcher                        | `[id=integer]`, with exempt subtrees                                            | **Yes** — `string-list`                             |
+| **M8** Test placement and naming                                          | tests adjacent in `tests/`; `.test.svelte.ts` vs `.svelte.test.ts`              | **Partly** — placement yes, the taxonomy no         |
+| **M9** A path written in prose must resolve                               | doc and style-guide links inside component comments; a renamed unit's old name  | **Yes** — `string-list` of link shapes              |
+| **M10** A filename forbidden in a location                                | `types/types.ts` and `types/index.ts`; a `.tests.ts` where `.test.ts` is meant  | **Yes** — `string-map` (location → forbidden shape) |
 
-Six of the eight need no new option kind. So the sequencing claim in `2026-07-26` was **not** wrong in
+Eight of the ten need no new option kind. So the sequencing claim in `2026-07-26` was **not** wrong in
 the way the paragraph above first suggested: per-rule options did unblock L3, for every convention
 expressible as a flat list or map. Only M4 and part of M8 wait on the second iteration.
+
+M9 was added 2026-07-28 from field evidence rather than from reading the convention document, and its
+evidence is the strongest of the nine. A 330-file reorganisation to comply with a convention left, all
+found by human review and by nothing else:
+
+| Failure                                                                         | Count |
+| ------------------------------------------------------------------------------- | ----: |
+| Style-guide links in `.svelte` comments pointing at a moved path (404)          |    26 |
+| A renamed unit's old name left in `Document.md`, comments, and `describe` names |     5 |
+| Sample-code relative imports in `Document.md` that do not resolve               |     1 |
+
+None of the project's existing checks — the filename linter, `svelte-check`, the test runner, the
+formatter — can see a path that exists only inside a comment or a Markdown fence: there is no type and
+no module resolution to fail. Two comparisons found all 32:
+
+- a style-guide link's path versus the `dirname` of the file holding it;
+- every relative path reference in `.md` and `.svelte` resolved against the file inventory, with `.ts`
+  / `.svelte.ts` extension completion.
+
+**It needs no new collector.** `sourceFiles` (the fact M1 introduces) already carries every path under
+`src/`, `.md` included. Only the shapes to treat as references — the link form, the import form — need
+declaring, which is what keeps it L3. Its hard part is the precision gate: never mistaking an
+arbitrary string for a path reference.
+
+Where M1 closed "this file does not exist", M9 closes "this reference's target does not exist".
+
+**M10** was added the same day, from the same reorganisation. It is the mechanism a filename linter
+covers best, so it is listed for completeness of the inventory rather than as a gap svelte-vitals must
+close: 11 occurrences of `types/types.ts` and 2 of `types/index.ts` survived in the pre-convention
+tree, and the project's existing filename configuration already expresses exactly this. It is recorded
+because M1's validation surfaced it and no other row covers it — its claim is "this filename may not
+appear here", which is neither "a unit is missing its entry file" (M1) nor "a directory is named
+wrongly" (M2).
 
 **M1, M2 and M3 share one prerequisite**: they must see files that are not Svelte components.
 Collection currently globs `src/**/*.svelte{,.ts,.js}` (`packages/core/src/component-collect.ts`), so a
@@ -250,16 +308,26 @@ from the existing `imports` plus `resolveRepoLocalPath`, M7 from route informati
 | 10  | Component filename convention                                         | L3    | **Blocked on a prerequisite**               | Constraint 2 — needs an enum option kind.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | 11  | `$effect` / `$state` counts per component                             | L0    | **Reject**                                  | No evidence that the count correlates with a problem, and no prior work to supply a reference point meeting L0's evidence standard.                                                                                                                                                                                                                                                                                                                                                                                                |
 
+| 12 | **M9** — a path written in prose must resolve | L3 | **Admit** | Added 2026-07-28 on field evidence: 26 style-guide links inside component comments went 404 after a convention-driven rename, invisible to every existing check and caught only by human review. Consumes the same file-inventory fact as M1/M2/M3. The link shapes must be declared, not guessed — that is the precision gate's whole weight here. |
+
 ## Sequencing
 
-1. **#8 / M5 — private-scope import (L3).** No new facts, no new option kinds. Gives Architecture its
-   first between-files axis, and encodes the principle the rest of the convention family follows from.
-2. **#1 — route-component import (L1).** Also needs nothing new; the default-on counterpart of #8.
-3. **#2 — import fan-out (L0).** Corpus measurement only; the fact already exists.
-4. **A file-inventory fact** → then **M1 / M2 / M3** together, which all depend on it.
-5. **#3 / #4** — each gated on one new fact (a parser depth walk; a packaged-project `Project` fact).
-6. **Rule options, second iteration** (enum + structured-list kinds) → then **M4** and the rest of M8,
-   plus candidates #9 and #10.
+1. **#8 / M5 — private-scope import (L3).** ✅ shipped 2026-07-28. No new facts, no new option kinds.
+   Gave Architecture its first between-files axis, and encodes the principle the rest of the convention
+   family follows from.
+2. **A file-inventory fact + M1** (`architecture/unit-entry-file`, its own spec) — the fact M1/M2/M3
+   all depend on, delivered with the first rule that uses it.
+3. **M2 / M3** on the same fact.
+4. **#1 — route-component import (L1).** Needs nothing new; the default-on counterpart of #8.
+5. **M9** — the highest-evidence mechanism, and the same fact again.
+6. **#2 — import fan-out (L0).** Corpus measurement only; the fact already exists.
+7. **#3 / #4** — each gated on one new fact (a parser depth walk; a packaged-project `Project` fact).
+8. **Rule options, second iteration** (enum + structured-list kinds) → then **M4** and the rest of M8,
+   plus verdict rows 9 and 10 (declared import boundaries, component filename convention). Note the
+   verdict table's row numbers and the mechanism labels are separate sequences — row 9 is not M9.
+
+M9 sits ahead of the L0 metric work despite arriving last, because its evidence is field-measured harm
+rather than a convention read off a document.
 
 Each step is its own spec and plan.
 
@@ -275,3 +343,7 @@ Each step is its own spec and plan.
   charter deliberately does not generalise itself into a project-wide instrument.
 - **Backfilling `Fix` on the `info` rules that lack one.** The corrected actionability gate does not
   require it, so this is an independent quality question.
+- **Per-rule examined counts in the CLI** (a `--stats`-style flag). The pre-ship evidence above puts the
+  count in the author's hands; this would put it in the user's, so a declaration that silently narrows
+  after a tree change is visible without re-deriving it by hand. Touches the CLI surface and the
+  reporters, so it is its own spec.

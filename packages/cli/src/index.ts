@@ -18,6 +18,7 @@ import {
   applyRuleSeverities,
   applyOverrides,
   collectKitModuleFacts,
+  collectSourceFiles,
   type Severity,
   type RuleSetting,
   type Result,
@@ -215,11 +216,16 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   // kitModules is skipped for the same reason.
   const components = opts.route ? [] : await collectComponentFacts(rt, cwd);
   const kitModules = opts.route ? [] : await collectKitModuleFacts(rt, cwd);
+  // Unlike its two neighbours above, the --route branch gets `undefined` here, not `[]`: an empty
+  // inventory would tell architecture/unit-entry-file that the declared unit directories truly do
+  // not exist, so it would report every declaration as inert, whereas `undefined` means the mode
+  // never collected the fact at all, and the rule stays silent instead of raising a false alarm.
+  const sourceFiles = opts.route ? undefined : await collectSourceFiles(rt, cwd);
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
   const results = applyOverrides(
     applyRuleSeverities(
-      await runRules(rules, { heads, images, headings, components, project, config, kitModules }),
+      await runRules(rules, { heads, images, headings, components, project, config, kitModules, sourceFiles }),
       config
     ),
     config
