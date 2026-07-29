@@ -139,12 +139,12 @@ test behaviour for no benefit to this goal.
 New file `packages/cli/test/io-budget.test.ts`, run by the existing `test` CI
 job. It uses the in-memory Runtime, so its contribution to CI time is negligible.
 
-| #   | Invariant                                                                                                        | Regression it catches                                                            |
-| --- | ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| 1   | Each file is read at most **twice**                                                                              | Parse-cache breakage, duplicate reads, a new rule or collector doing its own I/O |
-| 2   | Each glob pattern is issued **exactly once**                                                                     | Repeated directory traversal                                                     |
-| 3   | Reads of a shared layout / shared `$lib` component **do not vary with route count** (2-route vs 6-route fixture) | Parse-cache breakage — the primary case                                          |
-| 4   | With `route` set, component/kit-module globs are **not issued**                                                  | Loss of the single-route fast path                                               |
+| #   | Invariant                                                                                                         | Regression it catches                                                            |
+| --- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1   | Each file is read at most **twice**                                                                               | Parse-cache breakage, duplicate reads, a new rule or collector doing its own I/O |
+| 2   | Each glob pattern is issued **exactly once**                                                                      | Repeated directory traversal                                                     |
+| 3   | Reads of a shared layout / shared `$lib` component **do not vary with route count** (2-route vs 12-route fixture) | Parse-cache breakage — the primary case                                          |
+| 4   | With `route` set, component/kit-module globs are **not issued**                                                   | Loss of the single-route fast path                                               |
 
 The budget covers **`collectAll` only**. Validation reads in `analyzeProject`
 (`detectProject` and `checkVersionFloor` both read `package.json`) sit outside it
