@@ -25,6 +25,58 @@ export function baseName(dir: string): string {
 }
 
 /**
+ * Immediate subdirectories of every directory in `dirs`, keyed by parent, each list sorted.
+ *
+ * A caller that enumerates a parent's children exhaustively inherits two properties of the inventory
+ * these paths come from, and both matter: a directory holding no file at any depth never appears, and
+ * neither does a dot directory. See `collectSourceFiles`.
+ */
+export function childDirs(dirs: Iterable<string>): Map<string, string[]> {
+  const out = new Map<string, string[]>();
+  for (const dir of dirs) {
+    const cut = dir.lastIndexOf('/');
+    if (cut === -1) continue; // a top-level directory has no parent inside the inventory
+    const parent = dir.slice(0, cut);
+    let kids = out.get(parent);
+    if (kids === undefined) out.set(parent, (kids = []));
+    kids.push(dir);
+  }
+  for (const kids of out.values()) kids.sort();
+  return out;
+}
+
+/** Immediate file basenames of every directory holding at least one, keyed by directory, sorted. */
+export function childFiles(files: Iterable<string>): Map<string, string[]> {
+  const out = new Map<string, string[]>();
+  for (const file of files) {
+    const cut = file.lastIndexOf('/');
+    if (cut === -1) continue; // a file at the root sits in no directory
+    const dir = file.slice(0, cut);
+    let own = out.get(dir);
+    if (own === undefined) out.set(dir, (own = []));
+    own.push(file.slice(cut + 1));
+  }
+  for (const own of out.values()) own.sort();
+  return out;
+}
+
+/**
+ * The `|`-separated tokens of a declaration value, trimmed, with empty tokens dropped.
+ *
+ * Two rules encode a set inside one `string-map` value this way, and both need the same answer for
+ * `'a | b'`, `'a||b'` and `'|'` — the last of which names nothing and must be reported rather than
+ * silently governing.
+ */
+export function splitNames(value: string): string[] {
+  const out: string[] = [];
+  for (const raw of value.split('|')) {
+    const token = raw.trim();
+    if (token.length > 0) out.push(token);
+  }
+  return out;
+}
+
+/**
  * A compiled declaration key. `barePrefixRe` is set only when the caller asked for the guard and
  * the key ends in a trailing double-star segment — see `matchKeys`. It is a compiled RegExp, not
  * the bare glob string: the prefix is itself a glob whenever the key carries a wildcard before that
@@ -81,7 +133,7 @@ export function createKeyCompiler(): (globs: string[], bareGuard?: boolean) => C
 
 /**
  * Every declaration key matching `dir`, and the one that governs it. The most specific declaration
- * wins — see `moreSpecific` for the ordering — and among equal specificity the lexicographically
+ * wins — see `moreSpecificShaped` for the ordering — and among equal specificity the lexicographically
  * first wins, because additive merging across config layers makes key insertion order unintuitive.
  *
  * `matched` carries ALL of them, not just the winner: a key that matched a directory but lost the
@@ -116,31 +168,45 @@ export function matchKeys(dir: string, compiled: CompiledKey[]): { matched: stri
     if (entry.barePrefixRe?.test(dir)) continue;
     if (!entry.re.test(dir)) continue;
     matched.push(entry.key);
-    if (best === undefined || moreSpecific(entry, best)) best = entry;
+    if (best === undefined || moreSpecificShaped(entry, best)) best = entry;
   }
   return best === undefined ? { matched } : { matched, best: best.key };
+}
+
+/** The three fields the ordering reads, so a compiled key and a bare glob can share one comparator. */
+interface Shaped {
+  key: string;
+  segments: number;
+  doubleStars: number;
 }
 
 /**
  * Whether `a` is a more specific declaration than `b`.
  *
  * Depth first, because constraining depth is the strongest thing a key says; then whole `**`
- * segments, fewer winning, because `**` is the loosest thing a key can contain; only then the
- * string length and lexicographic order that used to decide this alone.
+ * segments, fewer winning, because `**` is the loosest thing a key can contain; only then the string
+ * length and lexicographic order that used to decide this alone.
  *
  * Length alone is wrong and shipped wrong once: `src/lib/features/**` is one character LONGER than
  * `src/lib/features/*`, so the broader key won and the narrower declaration silently did nothing.
  *
- * One consequence, deliberate: because rule 1 counts wildcard segments too, `src/*​/*​/*` outranks
- * `src/routes/**` despite naming nothing literal. Constraining depth is a form of specificity, so
- * this is defensible, but it is the reverse of the CSS-like intuition that more literal text means
- * more specific. The rule pages say so.
+ * Two consequences worth naming. Because step 1 counts wildcard segments too, `src/*​/*​/*` outranks
+ * `src/routes/**` despite naming nothing literal — constraining depth is a form of specificity, but
+ * it is the reverse of the CSS-like intuition that more literal text means more specific. And because
+ * the last step is lexicographic on the whole key, **two different globs are always separated**; only
+ * two identical globs leave this false in both directions, which is what lets a caller comparing keys
+ * from two different option maps detect that case and decide it itself.
  */
-function moreSpecific(a: CompiledKey, b: CompiledKey): boolean {
+function moreSpecificShaped(a: Shaped, b: Shaped): boolean {
   if (a.segments !== b.segments) return a.segments > b.segments;
   if (a.doubleStars !== b.doubleStars) return a.doubleStars < b.doubleStars;
   if (a.key.length !== b.key.length) return a.key.length > b.key.length;
   return a.key < b.key;
+}
+
+/** As `moreSpecificShaped`, for two globs that have not been compiled. */
+export function moreSpecificGlob(a: string, b: string): boolean {
+  return moreSpecificShaped({ key: a, ...keyShape(a) }, { key: b, ...keyShape(b) });
 }
 
 /**
@@ -174,6 +240,25 @@ export function isExcluded(dir: string, ancestors: string[], excluded: CompiledK
 export type UnusedReason = 'no-match' | 'only-excluded';
 
 /**
+ * Which of `keys` match at least one of `dirs`.
+ *
+ * The bare-prefix guard applies: without it a key of `src/lib/**` would "match" a `src/lib` in the
+ * list, which is the one directory that key is written to reach *under*.
+ */
+export function keysMatchingAny(
+  keys: string[],
+  dirs: readonly string[],
+  compile: (globs: string[], bareGuard?: boolean) => CompiledKey[]
+): Set<string> {
+  const hit = new Set<string>();
+  if (keys.length === 0 || dirs.length === 0) return hit;
+  for (const { key, re, barePrefixRe } of compile(keys, true)) {
+    if (dirs.some((d) => !barePrefixRe?.test(d) && re.test(d))) hit.add(key);
+  }
+  return hit;
+}
+
+/**
  * Why each key in `unused` did no work.
  *
  * This is a deliberately deferred second pass. The main pass skips an excluded directory before
@@ -182,9 +267,6 @@ export type UnusedReason = 'no-match' | 'only-excluded';
  * "matched only excluded directories". Classifying here restores the distinction without giving the
  * saving back: a correct configuration leaves `unused` empty, so this returns immediately and the
  * excluded paths are never tested at all.
- *
- * The bare-prefix guard applies here too. Without it a key of `src/lib/**` would "match" an excluded
- * `src/lib` and be labelled shadowed when it in fact matched nothing.
  */
 export function classifyUnusedKeys(
   unused: string[],
@@ -193,9 +275,7 @@ export function classifyUnusedKeys(
 ): Map<string, UnusedReason> {
   const out = new Map<string, UnusedReason>();
   if (unused.length === 0) return out;
-  for (const { key, re, barePrefixRe } of compile(unused, true)) {
-    const shadowed = excludedDirs.some((d) => !barePrefixRe?.test(d) && re.test(d));
-    out.set(key, shadowed ? 'only-excluded' : 'no-match');
-  }
+  const shadowed = keysMatchingAny(unused, excludedDirs, compile);
+  for (const key of unused) out.set(key, shadowed.has(key) ? 'only-excluded' : 'no-match');
   return out;
 }

@@ -2,11 +2,16 @@ import { describe, it, expect } from 'vitest';
 import {
   ancestorDirs,
   baseName,
+  childDirs,
+  childFiles,
   classifyUnusedKeys,
   createKeyCompiler,
   isExcluded,
+  keysMatchingAny,
   matchKeys,
-  reportAt
+  moreSpecificGlob,
+  reportAt,
+  splitNames
 } from '../src/rules/architecture/declarations.js';
 
 describe('ancestorDirs', () => {
@@ -178,5 +183,96 @@ describe('classifyUnusedKeys', () => {
     // Without the guard, 'src/lib/**' would "match" the excluded 'src/lib' and be mislabelled.
     const out = classifyUnusedKeys(['src/lib/**'], ['src/lib'], compile);
     expect(out.get('src/lib/**')).toBe('no-match');
+  });
+});
+
+describe('childDirs', () => {
+  it('maps each parent to its immediate subdirectories, sorted', () => {
+    const map = childDirs(['src', 'src/b', 'src/a', 'src/a/deep']);
+    expect(map.get('src')).toEqual(['src/a', 'src/b']);
+    expect(map.get('src/a')).toEqual(['src/a/deep']);
+  });
+
+  it('has no entry for a directory with no subdirectories', () => {
+    expect(childDirs(['src', 'src/a']).get('src/a')).toBeUndefined();
+  });
+
+  it('drops a top-level directory, which has no parent inside the inventory', () => {
+    expect(childDirs(['src']).size).toBe(0);
+  });
+});
+
+describe('childFiles', () => {
+  it('maps each directory to the basenames of its immediate files, sorted', () => {
+    const map = childFiles(['src/lib/b.ts', 'src/lib/a.ts', 'src/lib/deep/c.ts']);
+    expect(map.get('src/lib')).toEqual(['a.ts', 'b.ts']);
+    expect(map.get('src/lib/deep')).toEqual(['c.ts']);
+  });
+
+  it('does not attribute a nested file to an ancestor', () => {
+    expect(childFiles(['src/lib/deep/c.ts']).get('src/lib')).toBeUndefined();
+  });
+
+  it('ignores a file at the root, which has no directory', () => {
+    expect(childFiles(['a.ts']).size).toBe(0);
+  });
+});
+
+describe('splitNames', () => {
+  it('splits on the pipe and trims', () => {
+    expect(splitNames('parts|functions')).toEqual(['parts', 'functions']);
+    expect(splitNames(' parts | functions ')).toEqual(['parts', 'functions']);
+  });
+
+  it('drops empty tokens, so a value naming nothing yields nothing', () => {
+    expect(splitNames('parts||')).toEqual(['parts']);
+    expect(splitNames('|')).toEqual([]);
+    expect(splitNames('   ')).toEqual([]);
+  });
+});
+
+describe('moreSpecificGlob', () => {
+  it('prefers more path segments', () => {
+    expect(moreSpecificGlob('src/routes/api/*', 'src/routes/**')).toBe(true);
+    expect(moreSpecificGlob('src/routes/**', 'src/routes/api/*')).toBe(false);
+  });
+
+  it('prefers fewer double-star segments at equal depth', () => {
+    expect(moreSpecificGlob('src/lib/features/*', 'src/lib/features/**')).toBe(true);
+  });
+
+  it('prefers the longer key when depth and double stars tie', () => {
+    expect(moreSpecificGlob('src/lib/api*', 'src/lib/*')).toBe(true);
+  });
+
+  it('is false in both directions for two identical globs', () => {
+    // This is the property the rule's cross-map tie-break relies on: identical globs are the only
+    // pair the four steps cannot separate, so the caller decides.
+    expect(moreSpecificGlob('src/lib/Card', 'src/lib/Card')).toBe(false);
+  });
+
+  it('agrees with matchKeys on the same pair', () => {
+    const compile = createKeyCompiler();
+    const m = matchKeys('src/lib/features/fair', compile(['src/lib/features/*', 'src/lib/features/**']));
+    expect(m.best).toBe('src/lib/features/*');
+    expect(moreSpecificGlob('src/lib/features/*', 'src/lib/features/**')).toBe(true);
+  });
+});
+
+describe('keysMatchingAny', () => {
+  const compile = createKeyCompiler();
+
+  it('returns the keys that match at least one directory', () => {
+    const hit = keysMatchingAny(['src/lib/*', 'src/nowhere/*'], ['src/lib/a'], compile);
+    expect([...hit]).toEqual(['src/lib/*']);
+  });
+
+  it('applies the bare-prefix guard, so a trailing-star key is not matched by its own container', () => {
+    expect(keysMatchingAny(['src/lib/**'], ['src/lib'], compile).size).toBe(0);
+  });
+
+  it('returns nothing when there is nothing to test', () => {
+    expect(keysMatchingAny([], ['src/lib'], compile).size).toBe(0);
+    expect(keysMatchingAny(['src/lib/*'], [], compile).size).toBe(0);
   });
 });

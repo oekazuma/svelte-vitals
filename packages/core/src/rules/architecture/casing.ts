@@ -7,6 +7,8 @@
  * `architecture/unit-entry-file` uses for its own, different question — cannot. The two rules mean
  * different things by "PascalCase" on purpose, and each rule page says which.
  */
+import { splitNames } from './declarations.js';
+
 export const CASINGS: Record<string, RegExp> = {
   camelCase: /^[a-z][a-zA-Z0-9]*$/,
   PascalCase: /^[A-Z][a-zA-Z0-9]*$/,
@@ -25,14 +27,10 @@ export const CASINGS: Record<string, RegExp> = {
 export function parseCasings(value: string): { known: string[]; unknown: string[] } {
   const known: string[] = [];
   const unknown: string[] = [];
-  for (const raw of value.split('|')) {
-    const name = raw.trim();
-    if (name.length === 0) continue;
+  for (const name of splitNames(value)) {
     // `Object.hasOwn`, not `in` and not a `!== undefined` presence test: both of those walk the
     // prototype chain, so a value of 'toString' or 'constructor' would be taken for a known casing
-    // and then blow up in `satisfiesCasing`, where the looked-up member has no `.test`. The value
-    // parsed here comes from user configuration, where the whole point is that an unrecognised
-    // name is reported rather than fatal.
+    // and then blow up in `satisfiesCasing`, where the looked-up member has no `.test`.
     if (Object.hasOwn(CASINGS, name)) known.push(name);
     else unknown.push(name);
   }
