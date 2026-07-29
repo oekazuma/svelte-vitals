@@ -1,8 +1,5 @@
-// Throwaway benchmark fixture generator for Plan 037 (dev-server analysis isolation
-// spike, plans/037-design-spike-dev-server-analysis-isolation.md).
-// Not part of the shipped package — never imported from packages/vite/src. No tests:
-// this is a one-off measurement tool, disposable once the design doc is written
-// (see docs/superpowers/specs/2026-07-13-dev-server-analysis-isolation-design.md).
+// Fixture generator for the manual timing benchmark (`pnpm bench`, bench.mjs).
+// Not part of the shipped package — never imported from packages/vite/src.
 //
 // Generates a synthetic SvelteKit-like project with N pages grouped into sections of
 // GROUP_SIZE, each section with its own +layout.svelte, so the layout-chain walk

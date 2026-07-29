@@ -1,8 +1,16 @@
-// Throwaway benchmark for Plan 037 (dev-server analysis isolation spike,
-// plans/037-design-spike-dev-server-analysis-isolation.md).
-// Not part of the shipped package — do not import from packages/vite/src. No tests:
-// this is a one-off measurement tool whose results are transcribed into
-// docs/superpowers/specs/2026-07-13-dev-server-analysis-isolation-design.md.
+// Manual timing benchmark for the whole-project analysis path — the same
+// `analyzeProject()` call packages/vite/src/ui/analysis.ts's `runOnce` makes on
+// every dev-server save. Run it with `pnpm bench`.
+//
+// CI deliberately does NOT run this. Shared GitHub runners vary by 1.5-2x under
+// neighbour load, so absolute timings are not comparable across runs; the speed
+// regression gate CI *does* run is the deterministic I/O budget in
+// packages/cli/test/io-budget.test.ts. Reach for this benchmark for the two things
+// call counts cannot catch: a widened analysis (more AST walking for the same I/O)
+// and lost parallelism. See
+// docs/superpowers/specs/2026-07-29-io-budget-ci-design.md.
+//
+// Not part of the shipped package — do not import from packages/vite/src.
 //
 // Measures, for synthetic SvelteKit-like projects of increasing route count, how long
 // a single whole-project `analyzeProject()` call takes (the same call
