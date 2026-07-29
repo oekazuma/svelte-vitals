@@ -109,6 +109,10 @@ cannot leave the rule silently checking nothing. "Checks no directory" is strict
 path": a `pascalCaseUnits` key that matched only lowercase directories has identified no unit, so it
 is reported too — that is what surfaces a key missing the trailing `/**` it was meant to have.
 
+A declaration whose every match is removed by `exclude` is reported the same way, and says so —
+`matched only excluded directories` rather than `matched no directory`. The two have different
+remedies: one is a typo in the glob, the other a contradiction between two options you can both see.
+
 Two things are deliberately left out. A declaration written **only** inside an `overrides` entry is
 not checked this way, because whether it matched anything depends on which paths the override
 applies to. And an `exclude` glob is never checked at all: an exclusion that matches nothing already

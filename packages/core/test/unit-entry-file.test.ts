@@ -241,9 +241,18 @@ describe('architecture/unit-entry-file — exclude', () => {
 
   it('outranks both declarations', async () => {
     const rs = await architectureUnitEntryFile.check(
-      ctx(['src/lib/Card/Badge.svelte'], { ...PASCAL, units: { 'src/lib/*': '.svelte' }, exclude: ['src/lib/Card'] })
+      ctx(['src/lib/Card/Badge.svelte', 'src/lib/Widget/Widget.svelte'], {
+        ...PASCAL,
+        units: { 'src/lib/*': '.svelte' },
+        exclude: ['src/lib/Card']
+      })
     );
-    expect(rs).toEqual([]);
+    // Card/ holds Badge.svelte and no Card.svelte, so both declarations would report it — the
+    // exclusion is what stops them. Widget/ is there so both keys still govern something: without
+    // it they would be inert, and this test would be about inert declarations instead.
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs.filter((r) => r.route === undefined)).toEqual([]);
+    expect(passes(rs)).toHaveLength(1);
   });
 });
 
@@ -374,5 +383,59 @@ describe('architecture/unit-entry-file — specificity', () => {
     // won, matched the .svelte that is there, and the narrower declaration did nothing at all.
     expect(fails(rs)).toHaveLength(1);
     expect(fails(rs)[0]!.message).toContain('src/lib/widgets/Card/Card.ts');
+  });
+});
+
+describe('architecture/unit-entry-file — declarations shadowed by exclude', () => {
+  it('reports a units key whose every match is excluded', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/tests/fixtures/getFoo/index.ts'], {
+        units: { 'src/**/tests/fixtures/*': '.ts' },
+        exclude: ['**/tests']
+      })
+    );
+    const project = rs.filter((r) => r.route === undefined);
+    expect(project).toHaveLength(1);
+    expect(project[0]!.message).toContain('src/**/tests/fixtures/*');
+    expect(project[0]!.message).toContain('matched only excluded directories');
+  });
+
+  it('distinguishes a shadowed declaration from one that matched nothing', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/tests/fixtures/getFoo/index.ts'], {
+        units: { 'src/**/tests/fixtures/*': '.ts', 'src/nowhere/*': '.ts' },
+        exclude: ['**/tests']
+      })
+    );
+    const message = rs.find((r) => r.route === undefined)!.message;
+    expect(message).toContain("'src/**/tests/fixtures/*' (matched only excluded directories)");
+    expect(message).toContain("'src/nowhere/*' (matched no directory)");
+  });
+
+  it('does not blame exclude for a key the casing gate disqualified', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/fairSearch/a.ts', 'src/lib/tests/Card/Card.svelte'], {
+        pascalCaseUnits: { 'src/lib/*': '.svelte' },
+        exclude: ['**/tests']
+      })
+    );
+    // 'src/lib/*' matched src/lib/fairSearch (surviving, but lowercase, so it identified nothing)
+    // and src/lib/tests (excluded). It is inert either way, but the exclusion is not the reason,
+    // and saying so would send the reader to remove an exclusion that changes nothing.
+    const inert = rs.filter((r) => r.route === undefined);
+    expect(inert).toHaveLength(1);
+    expect(inert[0]!.message).toContain('matched no directory');
+    expect(inert[0]!.message).not.toContain('excluded');
+  });
+
+  it('still counts a key that matched but lost the tie-break', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/functions/getFoo/getFoo.ts'], {
+        units: { 'src/**/functions/*': '.ts', 'src/**': '.ts' }
+      })
+    );
+    // 'src/**' loses to 'src/**/functions/*' on src/lib/functions/getFoo, but it governs
+    // src/lib and src/lib/functions, so it has done work either way and must not be reported.
+    expect(rs.filter((r) => r.route === undefined)).toEqual([]);
   });
 });

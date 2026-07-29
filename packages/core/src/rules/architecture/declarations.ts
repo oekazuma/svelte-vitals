@@ -149,3 +149,38 @@ export function reportAt(dir: string, files: string[]): string | undefined {
   const under = files.filter((f) => f.startsWith(prefix)).sort();
   return under.find((f) => !f.slice(prefix.length).includes('/')) ?? under[0];
 }
+
+/** Whether `dir` or any of its `ancestors` matches an `exclude` glob — the subtree is pruned. */
+export function isExcluded(dir: string, ancestors: string[], excluded: CompiledKey[]): boolean {
+  return excluded.some(({ re }) => re.test(dir) || ancestors.some((a) => re.test(a)));
+}
+
+/** Why a declaration ended a run without checking anything. */
+export type UnusedReason = 'no-match' | 'only-excluded';
+
+/**
+ * Why each key in `unused` did no work.
+ *
+ * This is a deliberately deferred second pass. The main pass skips an excluded directory before
+ * testing any key against it — which is both the fix for shadowed declarations and a saving on the
+ * hot path — and that ordering is exactly what makes it unable to tell "matched nothing" from
+ * "matched only excluded directories". Classifying here restores the distinction without giving the
+ * saving back: a correct configuration leaves `unused` empty, so this returns immediately and the
+ * excluded paths are never tested at all.
+ *
+ * The bare-prefix guard applies here too. Without it a key of `src/lib/**` would "match" an excluded
+ * `src/lib` and be labelled shadowed when it in fact matched nothing.
+ */
+export function classifyUnusedKeys(
+  unused: string[],
+  excludedDirs: string[],
+  compile: (globs: string[], bareGuard?: boolean) => CompiledKey[]
+): Map<string, UnusedReason> {
+  const out = new Map<string, UnusedReason>();
+  if (unused.length === 0) return out;
+  for (const { key, re, barePrefixRe } of compile(unused, true)) {
+    const shadowed = excludedDirs.some((d) => !barePrefixRe?.test(d) && re.test(d));
+    out.set(key, shadowed ? 'only-excluded' : 'no-match');
+  }
+  return out;
+}

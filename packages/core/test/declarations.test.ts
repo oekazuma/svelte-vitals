@@ -2,7 +2,9 @@ import { describe, it, expect } from 'vitest';
 import {
   ancestorDirs,
   baseName,
+  classifyUnusedKeys,
   createKeyCompiler,
+  isExcluded,
   matchKeys,
   reportAt
 } from '../src/rules/architecture/declarations.js';
@@ -136,5 +138,45 @@ describe('matchKeys — specificity', () => {
     // 'src/x**' is one segment containing two stars, not a '**' segment.
     const m = matchKeys('src/xy/z', compile(['src/**', 'src/x**/z']));
     expect(m.best).toBe('src/x**/z');
+  });
+});
+
+describe('isExcluded', () => {
+  const compile = createKeyCompiler();
+
+  it('is true when the directory itself matches', () => {
+    expect(isExcluded('src/tests', ['src'], compile(['**/tests']))).toBe(true);
+  });
+
+  it('is true when an ancestor matches, so the whole subtree is pruned', () => {
+    expect(isExcluded('src/tests/deep', ['src', 'src/tests'], compile(['**/tests']))).toBe(true);
+  });
+
+  it('is false when nothing matches', () => {
+    expect(isExcluded('src/lib', ['src'], compile(['**/tests']))).toBe(false);
+  });
+});
+
+describe('classifyUnusedKeys', () => {
+  const compile = createKeyCompiler();
+
+  it('does nothing when there is nothing to classify', () => {
+    expect(classifyUnusedKeys([], ['src/tests'], compile)).toEqual(new Map());
+  });
+
+  it('reports a key that matches an excluded directory as shadowed', () => {
+    const out = classifyUnusedKeys(['src/**/tests/fixtures/*'], ['src/lib/tests/fixtures/a'], compile);
+    expect(out.get('src/**/tests/fixtures/*')).toBe('only-excluded');
+  });
+
+  it('reports a key that matches nothing at all as unmatched', () => {
+    const out = classifyUnusedKeys(['src/nowhere/*'], ['src/lib/tests/fixtures/a'], compile);
+    expect(out.get('src/nowhere/*')).toBe('no-match');
+  });
+
+  it('applies the bare-prefix guard, so a trailing-star key is not matched by its own container', () => {
+    // Without the guard, 'src/lib/**' would "match" the excluded 'src/lib' and be mislabelled.
+    const out = classifyUnusedKeys(['src/lib/**'], ['src/lib'], compile);
+    expect(out.get('src/lib/**')).toBe('no-match');
   });
 });
