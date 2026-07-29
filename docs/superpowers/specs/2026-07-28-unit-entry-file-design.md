@@ -201,7 +201,7 @@ would add a fourth finding shape. Note the tie-break only changes anything when 
 **different** extensions — which is itself a configuration smell, and the rule page says so.
 
 `PascalCase` means **the basename's first character is `A`–`Z`**. That is the whole definition:
-`SeoContents` qualifies; `fairSearch`, `parts` and `[hallId=integer]` do not.
+`PageHeader` qualifies; `searchForm`, `parts` and `[itemId=integer]` do not.
 
 ## The fact
 
@@ -231,8 +231,8 @@ speculative.
 
 1. `sourceFiles` absent → no results.
 2. Derive the directory set: **every ancestor path prefix of every file**, not only the directories
-   that have a file as a direct child. `src/lib/api/hall/fetchHall/fetchHall.ts` contributes `src`,
-   `src/lib`, `src/lib/api`, `src/lib/api/hall` and `src/lib/api/hall/fetchHall` — so a directory
+   that have a file as a direct child. `src/lib/api/item/fetchItem/fetchItem.ts` contributes `src`,
+   `src/lib`, `src/lib/api`, `src/lib/api/item` and `src/lib/api/item/fetchItem` — so a directory
    holding nothing but subdirectories **is** in the set and **is** checked. Deriving instead from
    "parents of files" would leave structurally identical directories checked or unchecked depending
    on whether one of them happens to hold a shared file, which is a difference the convention does
@@ -251,7 +251,7 @@ speculative.
 | `sourceFiles` absent                               | No results                    | Dev live layer and `--route` mode, as with `components`      |
 | `units` and `pascalCaseUnits` both empty           | No results                    | L3 inertness                                                 |
 | A directory matched by neither declaration         | Skipped                       | Not declared                                                 |
-| A directory whose basename does not begin `A`–`Z`  | Skipped for `pascalCaseUnits` | `parts`, `fairSearch`, `[hallId=integer]`                    |
+| A directory whose basename does not begin `A`–`Z`  | Skipped for `pascalCaseUnits` | `parts`, `searchForm`, `[itemId=integer]`                    |
 | A directory or ancestor matching an `exclude` glob | Skipped, subtree included     | Declared never to be a unit                                  |
 | A directory with no file anywhere beneath it       | Not in the set at all         | Nothing contributes its prefix; git does not track it either |
 
@@ -399,7 +399,7 @@ and moves both rules to the corrected ordering through their shared module.
   prunes the whole subtree (a `tests/fixtures/` under an excluded `tests/` is exempt too).
 - `exclude` outranks both declarations, including a PascalCase directory under a matching root.
 - The two `Fix` descriptions are selected by which declaration matched.
-- PascalCase boundaries: `SeoContents` checked; `fairSearch`, `parts`, `[hallId=integer]` not.
+- PascalCase boundaries: `PageHeader` checked; `searchForm`, `parts`, `[itemId=integer]` not.
 - Conforming → one pass, `route` = the entry file, no `location`.
 - Missing → one violation, `location` = the first file under the directory, no `line`.
 - A directory holding only subdirectories still resolves to a file under it.
@@ -470,7 +470,7 @@ entry is not checked for inertness.
 ## Out of scope
 
 - **"Every file in a unit directory must match its name."** This rule asks only whether the entry
-  file exists, so a shared `types.ts` beside `fetchHall.ts` is fine and needs no exclusion pattern.
+  file exists, so a shared `types.ts` beside `fetchItem.ts` is fine and needs no exclusion pattern.
   Restricting _what else_ may sit in a unit directory is a different claim and a different rule.
 - **The converse casing rule** — that a directory unable to hold a same-named entry must be camelCase
   — is the naming-convention mechanism (M2), not this one. This rule's `Fix` text points at it.

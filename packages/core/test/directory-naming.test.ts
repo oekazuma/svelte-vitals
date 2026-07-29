@@ -35,19 +35,19 @@ describe('architecture/directory-naming — violations', () => {
   const CAMEL = { directories: { 'src/lib/**': 'camelCase' } };
 
   it('reports a directory that does not match the declared casing', async () => {
-    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/Fair/a.ts'], CAMEL));
+    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/Dialog/a.ts'], CAMEL));
     expect(fails(rs)).toHaveLength(1);
     expect(fails(rs)[0]!.id).toBe('architecture/directory-naming');
     expect(fails(rs)[0]!.category).toBe('architecture');
     expect(fails(rs)[0]!.severity).toBe('info');
-    expect(fails(rs)[0]!.location).toBe('src/lib/Fair/a.ts');
-    expect(fails(rs)[0]!.message).toContain('src/lib/Fair');
+    expect(fails(rs)[0]!.location).toBe('src/lib/Dialog/a.ts');
+    expect(fails(rs)[0]!.message).toContain('src/lib/Dialog');
     expect(fails(rs)[0]!.message).toContain('camelCase');
     expect(fails(rs)[0]!.fix?.description).toContain('Rename');
   });
 
   it('emits no pass result for a conforming directory', async () => {
-    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/fair/a.ts'], CAMEL));
+    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/dialog/a.ts'], CAMEL));
     expect(rs).toEqual([]);
   });
 
@@ -60,19 +60,21 @@ describe('architecture/directory-naming — violations', () => {
 
   it('accepts either casing when the value names both', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/Card/a.ts', 'src/lib/fairSearch/b.ts'], { directories: { 'src/lib/**': 'camelCase|PascalCase' } })
+      ctx(['src/lib/Card/a.ts', 'src/lib/searchForm/b.ts'], { directories: { 'src/lib/**': 'camelCase|PascalCase' } })
     );
     expect(rs).toEqual([]);
   });
 
   it('prefers a direct child over a deeper file as the location', async () => {
-    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/Fair/aaa/deep.ts', 'src/lib/Fair/zzz.ts'], CAMEL));
-    expect(fails(rs)[0]!.location).toBe('src/lib/Fair/zzz.ts');
+    const rs = await architectureDirectoryNaming.check(
+      ctx(['src/lib/Dialog/aaa/deep.ts', 'src/lib/Dialog/zzz.ts'], CAMEL)
+    );
+    expect(fails(rs)[0]!.location).toBe('src/lib/Dialog/zzz.ts');
   });
 
   it('picks the same location whatever order sourceFiles arrives in', async () => {
-    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/Fair/zzz.ts', 'src/lib/Fair/bbb.ts'], CAMEL));
-    expect(fails(rs)[0]!.location).toBe('src/lib/Fair/bbb.ts');
+    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/Dialog/zzz.ts', 'src/lib/Dialog/bbb.ts'], CAMEL));
+    expect(fails(rs)[0]!.location).toBe('src/lib/Dialog/bbb.ts');
   });
 
   it('never checks the bare prefix of a trailing-double-star key', async () => {
@@ -80,10 +82,10 @@ describe('architecture/directory-naming — violations', () => {
     // Under PascalCase the container would be reported if the guard were missing, so the count
     // and the reported directory together prove the guard fired.
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/routes/hallList/+page.svelte'], { directories: { 'src/routes/**': 'PascalCase' } })
+      ctx(['src/routes/itemList/+page.svelte'], { directories: { 'src/routes/**': 'PascalCase' } })
     );
     expect(fails(rs)).toHaveLength(1);
-    expect(fails(rs)[0]!.message).toContain('src/routes/hallList');
+    expect(fails(rs)[0]!.message).toContain('src/routes/itemList');
     expect(fails(rs).some((r) => r.message.startsWith('src/routes must'))).toBe(false);
   });
 
@@ -110,9 +112,9 @@ describe('architecture/directory-naming — route syntax', () => {
   const CAMEL = { directories: { 'src/routes/**': 'camelCase' } };
 
   it('checks the identifier inside a parameter directory', async () => {
-    const ok = await architectureDirectoryNaming.check(ctx(['src/routes/[hallId=integer]/+page.svelte'], CAMEL));
+    const ok = await architectureDirectoryNaming.check(ctx(['src/routes/[itemId=integer]/+page.svelte'], CAMEL));
     expect(ok).toEqual([]);
-    const bad = await architectureDirectoryNaming.check(ctx(['src/routes/[Hall_Id]/+page.svelte'], CAMEL));
+    const bad = await architectureDirectoryNaming.check(ctx(['src/routes/[Item_Id]/+page.svelte'], CAMEL));
     expect(fails(bad)).toHaveLength(1);
   });
 
@@ -141,7 +143,7 @@ describe('architecture/directory-naming — exclude', () => {
 describe('architecture/directory-naming — declarations that do not check what they say', () => {
   it('reports a glob that matched no directory', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/fair/a.ts'], { directories: { 'src/lib/**': 'camelCase', 'src/nowhere/*': 'camelCase' } })
+      ctx(['src/lib/dialog/a.ts'], { directories: { 'src/lib/**': 'camelCase', 'src/nowhere/*': 'camelCase' } })
     );
     expect(project(rs)).toHaveLength(1);
     expect(project(rs)[0]!.message).toContain("'src/nowhere/*'");
@@ -150,7 +152,7 @@ describe('architecture/directory-naming — declarations that do not check what 
 
   it('reports a declaration whose every match is excluded', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/tests/fixtures/fair/a.ts'], {
+      ctx(['src/lib/tests/fixtures/dialog/a.ts'], {
         directories: { 'src/**/tests/fixtures/*': 'camelCase' },
         exclude: ['**/tests']
       })
@@ -169,17 +171,17 @@ describe('architecture/directory-naming — declarations that do not check what 
 
   it('keeps a key that matched but lost the tie-break out of the finding', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/fair/a.ts'], { directories: { 'src/lib/**': 'camelCase', 'src/lib/*': 'camelCase' } })
+      ctx(['src/lib/dialog/a.ts'], { directories: { 'src/lib/**': 'camelCase', 'src/lib/*': 'camelCase' } })
     );
     // 'src/lib/**' never governs anything here: the bare-prefix guard keeps it off src/lib, and at
-    // src/lib/fair it loses to the single-star key on the `**` count. It still identified that
+    // src/lib/dialog it loses to the single-star key on the `**` count. It still identified that
     // directory, so calling it a declaration that checks nothing would be a lie.
     expect(project(rs)).toEqual([]);
   });
 
   it('folds several into one finding, so suppressing it is one decision', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/fair/a.ts'], {
+      ctx(['src/lib/dialog/a.ts'], {
         directories: { 'src/lib/**': 'camelCase', 'src/nowhere/*': 'camelCase', 'src/elsewhere/*': 'camelCase' }
       })
     );
@@ -192,12 +194,12 @@ describe('architecture/directory-naming — declarations that do not check what 
 describe('architecture/directory-naming — the casing vocabulary', () => {
   it('drops a wholly mistyped value from matching, so a broader valid key still governs', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/api/Hall/a.ts'], { directories: { 'src/lib/api/*': 'camelcase', 'src/**': 'camelCase' } })
+      ctx(['src/lib/api/Item/a.ts'], { directories: { 'src/lib/api/*': 'camelcase', 'src/**': 'camelCase' } })
     );
     // 'src/lib/api/*' would win on specificity, but it names no known casing and is dropped,
-    // so 'src/**' governs src/lib/api/Hall and reports it.
+    // so 'src/**' governs src/lib/api/Item and reports it.
     expect(fails(rs)).toHaveLength(1);
-    expect(fails(rs)[0]!.message).toContain('src/lib/api/Hall');
+    expect(fails(rs)[0]!.message).toContain('src/lib/api/Item');
     // The message names the casing the governing declaration asked for. If the mistyped key were
     // left in the running it would win on specificity and contribute an empty casing set, and the
     // message would name no casing at all.
@@ -206,7 +208,7 @@ describe('architecture/directory-naming — the casing vocabulary', () => {
 
   it('reports a wholly mistyped value as checking nothing', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/api/hall/a.ts'], { directories: { 'src/lib/api/*': 'camelcase' } })
+      ctx(['src/lib/api/item/a.ts'], { directories: { 'src/lib/api/*': 'camelcase' } })
     );
     expect(project(rs)).toHaveLength(1);
     expect(project(rs)[0]!.message).toContain("unknown casing name 'camelcase'");
@@ -217,7 +219,7 @@ describe('architecture/directory-naming — the casing vocabulary', () => {
 
   it('keeps a partly mistyped value operative and reports it without "checks nothing"', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/Fair/a.ts'], { directories: { 'src/lib/**': 'camelCase|kebabCase' } })
+      ctx(['src/lib/Dialog/a.ts'], { directories: { 'src/lib/**': 'camelCase|kebabCase' } })
     );
     // camelCase still governs, so the violation is still reported...
     expect(fails(rs)).toHaveLength(1);
@@ -233,7 +235,7 @@ describe('architecture/directory-naming — the casing vocabulary', () => {
     // then fails the unclassified filter's own known.length > 0 guard too — silently checking
     // nothing while never being reported for it.
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/api/hall/a.ts'], { directories: { 'src/lib/api/*': '|' } })
+      ctx(['src/lib/api/item/a.ts'], { directories: { 'src/lib/api/*': '|' } })
     );
     expect(project(rs)).toHaveLength(1);
     expect(project(rs)[0]!.message).toContain("'src/lib/api/*'");

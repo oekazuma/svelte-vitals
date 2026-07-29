@@ -66,7 +66,7 @@ Worked through against a real convention document:
 | Directory                               | Matched by                 | Boundary                      | Effect                            |
 | --------------------------------------- | -------------------------- | ----------------------------- | --------------------------------- |
 | `Foo/parts`                             | `**/parts`                 | `Foo/`                        | importable only from under `Foo/` |
-| `src/routes/search/hallList/components` | `src/routes/**/components` | `src/routes/search/hallList/` | importable only from that route   |
+| `src/routes/search/itemList/components` | `src/routes/**/components` | `src/routes/search/itemList/` | importable only from that route   |
 | `src/lib/components`                    | neither                    | —                             | unconstrained, as intended        |
 
 ### Glob semantics

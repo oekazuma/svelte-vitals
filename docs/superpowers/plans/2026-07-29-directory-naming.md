@@ -381,7 +381,7 @@ describe('matchKeys — specificity', () => {
   it('prefers a single star over a double star at the same depth', () => {
     // The regression this metric exists for: 'src/lib/features/**' is the LONGER string,
     // so raw length made the broader key win and the narrower declaration inert.
-    const m = matchKeys('src/lib/features/fair', compile(['src/lib/features/*', 'src/lib/features/**']));
+    const m = matchKeys('src/lib/features/catalog', compile(['src/lib/features/*', 'src/lib/features/**']));
     expect(m.best).toBe('src/lib/features/*');
   });
 
@@ -939,21 +939,21 @@ describe('CASINGS', () => {
   });
 
   it('tests the whole string, not just the first character', () => {
-    expect(CASINGS['camelCase']!.test('recommendHalls')).toBe(true);
-    expect(CASINGS['camelCase']!.test('recommend-halls')).toBe(false);
-    expect(CASINGS['camelCase']!.test('fair_summary')).toBe(false);
-    expect(CASINGS['kebab-case']!.test('recommend-halls')).toBe(true);
-    expect(CASINGS['kebab-case']!.test('recommendHalls')).toBe(false);
-    expect(CASINGS['PascalCase']!.test('SeoContents')).toBe(true);
+    expect(CASINGS['camelCase']!.test('clearCache')).toBe(true);
+    expect(CASINGS['camelCase']!.test('clear-cache')).toBe(false);
+    expect(CASINGS['camelCase']!.test('price_table')).toBe(false);
+    expect(CASINGS['kebab-case']!.test('clear-cache')).toBe(true);
+    expect(CASINGS['kebab-case']!.test('clearCache')).toBe(false);
+    expect(CASINGS['PascalCase']!.test('PageHeader')).toBe(true);
     expect(CASINGS['PascalCase']!.test('SEOContents')).toBe(true);
-    expect(CASINGS['snake_case']!.test('fair_summary')).toBe(true);
+    expect(CASINGS['snake_case']!.test('price_table')).toBe(true);
   });
 
   it('lets one lowercase word satisfy three of the four at once', () => {
     for (const name of ['camelCase', 'kebab-case', 'snake_case']) {
-      expect(CASINGS[name]!.test('fair')).toBe(true);
+      expect(CASINGS[name]!.test('dialog')).toBe(true);
     }
-    expect(CASINGS['PascalCase']!.test('fair')).toBe(false);
+    expect(CASINGS['PascalCase']!.test('dialog')).toBe(false);
   });
 });
 
@@ -982,8 +982,8 @@ describe('parseCasings', () => {
 
 describe('decodeSegment', () => {
   it('unwraps every route-syntax shape SvelteKit gives a whole segment', () => {
-    expect(decodeSegment('[hallId]')).toBe('hallId');
-    expect(decodeSegment('[hallId=integer]')).toBe('hallId');
+    expect(decodeSegment('[itemId]')).toBe('itemId');
+    expect(decodeSegment('[itemId=integer]')).toBe('itemId');
     expect(decodeSegment('[...rest]')).toBe('rest');
     expect(decodeSegment('[[optional]]')).toBe('optional');
     expect(decodeSegment('[[lang=locale]]')).toBe('lang');
@@ -991,8 +991,8 @@ describe('decodeSegment', () => {
   });
 
   it('leaves a plain name alone', () => {
-    expect(decodeSegment('hallList')).toBe('hallList');
-    expect(decodeSegment('recommend-halls')).toBe('recommend-halls');
+    expect(decodeSegment('itemList')).toBe('itemList');
+    expect(decodeSegment('clear-cache')).toBe('clear-cache');
   });
 
   it('skips a compound segment, where no single identifier is named', () => {
@@ -1005,12 +1005,12 @@ describe('decodeSegment', () => {
 
 describe('satisfiesCasing', () => {
   it('accepts a name matching any one of the allowed casings', () => {
-    expect(satisfiesCasing('SeoContents', ['camelCase', 'PascalCase'])).toBe(true);
-    expect(satisfiesCasing('fairSearch', ['camelCase', 'PascalCase'])).toBe(true);
+    expect(satisfiesCasing('PageHeader', ['camelCase', 'PascalCase'])).toBe(true);
+    expect(satisfiesCasing('searchForm', ['camelCase', 'PascalCase'])).toBe(true);
   });
 
   it('rejects a name matching none of them', () => {
-    expect(satisfiesCasing('recommend-halls', ['camelCase', 'PascalCase'])).toBe(false);
+    expect(satisfiesCasing('clear-cache', ['camelCase', 'PascalCase'])).toBe(false);
   });
 
   it('accepts a name with no letter in it, whatever is allowed', () => {
@@ -1046,7 +1046,7 @@ Create `packages/core/src/rules/architecture/casing.ts`:
  * `architecture/directory-naming` (design 2026-07-29).
  *
  * Each pattern tests the WHOLE name rather than its first character. That is what lets a project
- * distinguish `recommend-halls` from `recommendHalls`; a first-character test — which is what
+ * distinguish `clear-cache` from `clearCache`; a first-character test — which is what
  * `architecture/unit-entry-file` uses for its own, different question — cannot. The two rules mean
  * different things by "PascalCase" on purpose, and each rule page says which.
  */
@@ -1082,7 +1082,7 @@ export function parseCasings(value: string): { known: string[]; unknown: string[
  * The identifier inside a SvelteKit route-syntax directory name, or `undefined` when the name does
  * not carry exactly one.
  *
- * Checking `[hallId=integer]` literally against a casing would make any declaration reaching into
+ * Checking `[itemId=integer]` literally against a casing would make any declaration reaching into
  * `src/routes/` unusable, so the name is decoded first. The doubled-bracket form has to be
  * recognised before the single-bracket one, or `[[optional]]` decodes to `[optional]` and is thrown
  * away by the final test.
@@ -1192,19 +1192,19 @@ describe('architecture/directory-naming — violations', () => {
   const CAMEL = { directories: { 'src/lib/**': 'camelCase' } };
 
   it('reports a directory that does not match the declared casing', async () => {
-    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/Fair/a.ts'], CAMEL));
+    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/Dialog/a.ts'], CAMEL));
     expect(fails(rs)).toHaveLength(1);
     expect(fails(rs)[0]!.id).toBe('architecture/directory-naming');
     expect(fails(rs)[0]!.category).toBe('architecture');
     expect(fails(rs)[0]!.severity).toBe('info');
-    expect(fails(rs)[0]!.location).toBe('src/lib/Fair/a.ts');
-    expect(fails(rs)[0]!.message).toContain('src/lib/Fair');
+    expect(fails(rs)[0]!.location).toBe('src/lib/Dialog/a.ts');
+    expect(fails(rs)[0]!.message).toContain('src/lib/Dialog');
     expect(fails(rs)[0]!.message).toContain('camelCase');
     expect(fails(rs)[0]!.fix?.description).toContain('Rename');
   });
 
   it('emits no pass result for a conforming directory', async () => {
-    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/fair/a.ts'], CAMEL));
+    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/dialog/a.ts'], CAMEL));
     expect(rs).toEqual([]);
   });
 
@@ -1217,19 +1217,21 @@ describe('architecture/directory-naming — violations', () => {
 
   it('accepts either casing when the value names both', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/Card/a.ts', 'src/lib/fairSearch/b.ts'], { directories: { 'src/lib/**': 'camelCase|PascalCase' } })
+      ctx(['src/lib/Card/a.ts', 'src/lib/searchForm/b.ts'], { directories: { 'src/lib/**': 'camelCase|PascalCase' } })
     );
     expect(rs).toEqual([]);
   });
 
   it('prefers a direct child over a deeper file as the location', async () => {
-    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/Fair/aaa/deep.ts', 'src/lib/Fair/zzz.ts'], CAMEL));
-    expect(fails(rs)[0]!.location).toBe('src/lib/Fair/zzz.ts');
+    const rs = await architectureDirectoryNaming.check(
+      ctx(['src/lib/Dialog/aaa/deep.ts', 'src/lib/Dialog/zzz.ts'], CAMEL)
+    );
+    expect(fails(rs)[0]!.location).toBe('src/lib/Dialog/zzz.ts');
   });
 
   it('picks the same location whatever order sourceFiles arrives in', async () => {
-    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/Fair/zzz.ts', 'src/lib/Fair/bbb.ts'], CAMEL));
-    expect(fails(rs)[0]!.location).toBe('src/lib/Fair/bbb.ts');
+    const rs = await architectureDirectoryNaming.check(ctx(['src/lib/Dialog/zzz.ts', 'src/lib/Dialog/bbb.ts'], CAMEL));
+    expect(fails(rs)[0]!.location).toBe('src/lib/Dialog/bbb.ts');
   });
 
   it('never checks the bare prefix of a trailing-double-star key', async () => {
@@ -1237,10 +1239,10 @@ describe('architecture/directory-naming — violations', () => {
     // Under PascalCase the container would be reported if the guard were missing, so the count
     // and the reported directory together prove the guard fired.
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/routes/hallList/+page.svelte'], { directories: { 'src/routes/**': 'PascalCase' } })
+      ctx(['src/routes/itemList/+page.svelte'], { directories: { 'src/routes/**': 'PascalCase' } })
     );
     expect(fails(rs)).toHaveLength(1);
-    expect(fails(rs)[0]!.message).toContain('src/routes/hallList');
+    expect(fails(rs)[0]!.message).toContain('src/routes/itemList');
     expect(fails(rs).some((r) => r.message.startsWith('src/routes must'))).toBe(false);
   });
 });
@@ -1249,9 +1251,9 @@ describe('architecture/directory-naming — route syntax', () => {
   const CAMEL = { directories: { 'src/routes/**': 'camelCase' } };
 
   it('checks the identifier inside a parameter directory', async () => {
-    const ok = await architectureDirectoryNaming.check(ctx(['src/routes/[hallId=integer]/+page.svelte'], CAMEL));
+    const ok = await architectureDirectoryNaming.check(ctx(['src/routes/[itemId=integer]/+page.svelte'], CAMEL));
     expect(ok).toEqual([]);
-    const bad = await architectureDirectoryNaming.check(ctx(['src/routes/[Hall_Id]/+page.svelte'], CAMEL));
+    const bad = await architectureDirectoryNaming.check(ctx(['src/routes/[Item_Id]/+page.svelte'], CAMEL));
     expect(fails(bad)).toHaveLength(1);
   });
 
@@ -1280,7 +1282,7 @@ describe('architecture/directory-naming — exclude', () => {
 describe('architecture/directory-naming — declarations that do not check what they say', () => {
   it('reports a glob that matched no directory', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/fair/a.ts'], { directories: { 'src/lib/**': 'camelCase', 'src/nowhere/*': 'camelCase' } })
+      ctx(['src/lib/dialog/a.ts'], { directories: { 'src/lib/**': 'camelCase', 'src/nowhere/*': 'camelCase' } })
     );
     expect(project(rs)).toHaveLength(1);
     expect(project(rs)[0]!.message).toContain("'src/nowhere/*'");
@@ -1289,7 +1291,7 @@ describe('architecture/directory-naming — declarations that do not check what 
 
   it('reports a declaration whose every match is excluded', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/tests/fixtures/fair/a.ts'], {
+      ctx(['src/lib/tests/fixtures/dialog/a.ts'], {
         directories: { 'src/**/tests/fixtures/*': 'camelCase' },
         exclude: ['**/tests']
       })
@@ -1308,14 +1310,14 @@ describe('architecture/directory-naming — declarations that do not check what 
 
   it('keeps a key that matched but lost the tie-break out of the finding', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/fair/a.ts'], { directories: { 'src/**': 'camelCase', 'src/lib/*': 'camelCase' } })
+      ctx(['src/lib/dialog/a.ts'], { directories: { 'src/**': 'camelCase', 'src/lib/*': 'camelCase' } })
     );
     expect(project(rs)).toEqual([]);
   });
 
   it('folds several into one finding, so suppressing it is one decision', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/fair/a.ts'], {
+      ctx(['src/lib/dialog/a.ts'], {
         directories: { 'src/lib/**': 'camelCase', 'src/nowhere/*': 'camelCase', 'src/elsewhere/*': 'camelCase' }
       })
     );
@@ -1328,17 +1330,17 @@ describe('architecture/directory-naming — declarations that do not check what 
 describe('architecture/directory-naming — the casing vocabulary', () => {
   it('drops a wholly mistyped value from matching, so a broader valid key still governs', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/api/Hall/a.ts'], { directories: { 'src/lib/api/*': 'camelcase', 'src/**': 'camelCase' } })
+      ctx(['src/lib/api/Item/a.ts'], { directories: { 'src/lib/api/*': 'camelcase', 'src/**': 'camelCase' } })
     );
     // 'src/lib/api/*' would win on specificity, but it names no known casing and is dropped,
-    // so 'src/**' governs src/lib/api/Hall and reports it.
+    // so 'src/**' governs src/lib/api/Item and reports it.
     expect(fails(rs)).toHaveLength(1);
-    expect(fails(rs)[0]!.message).toContain('src/lib/api/Hall');
+    expect(fails(rs)[0]!.message).toContain('src/lib/api/Item');
   });
 
   it('reports a wholly mistyped value as checking nothing', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/api/hall/a.ts'], { directories: { 'src/lib/api/*': 'camelcase' } })
+      ctx(['src/lib/api/item/a.ts'], { directories: { 'src/lib/api/*': 'camelcase' } })
     );
     expect(project(rs)).toHaveLength(1);
     expect(project(rs)[0]!.message).toContain("unknown casing name 'camelcase'");
@@ -1347,7 +1349,7 @@ describe('architecture/directory-naming — the casing vocabulary', () => {
 
   it('keeps a partly mistyped value operative and reports it without "checks nothing"', async () => {
     const rs = await architectureDirectoryNaming.check(
-      ctx(['src/lib/Fair/a.ts'], { directories: { 'src/lib/**': 'camelCase|kebabCase' } })
+      ctx(['src/lib/Dialog/a.ts'], { directories: { 'src/lib/**': 'camelCase|kebabCase' } })
     );
     // camelCase still governs, so the violation is still reported...
     expect(fails(rs)).toHaveLength(1);
@@ -1635,7 +1637,7 @@ import type { RuleContext } from '../src/rule.js';
 const EXAMPLE = {
   directories: {
     'src/routes/**': 'camelCase|PascalCase',
-    'src/routes/svelteApi/*': 'kebab-case',
+    'src/routes/internalApi/*': 'kebab-case',
     'src/lib/features/*': 'camelCase',
     'src/lib/api/*': 'camelCase'
   }
@@ -1644,12 +1646,12 @@ const EXAMPLE = {
 /** A tree shaped like the convention the example describes. */
 const TREE = [
   'src/routes/+page.svelte',
-  'src/routes/search/hallList/+page.svelte',
-  'src/routes/[hallId=integer]/components/SeoContents/SeoContents.svelte',
-  'src/routes/svelteApi/recommend-halls/+server.ts',
-  'src/routes/svelteApi/set-cookie/fetchSetCookie/fetchSetCookie.ts',
-  'src/lib/features/fair/index.ts',
-  'src/lib/api/searchHalls/index.ts'
+  'src/routes/search/itemList/+page.svelte',
+  'src/routes/[itemId=integer]/components/PageHeader/PageHeader.svelte',
+  'src/routes/internalApi/clear-cache/+server.ts',
+  'src/routes/internalApi/set-cookie/fetchSetCookie/fetchSetCookie.ts',
+  'src/lib/features/catalog/index.ts',
+  'src/lib/api/searchItems/index.ts'
 ];
 
 const run = (sourceFiles: string[], options: Record<string, unknown>) =>
@@ -1676,29 +1678,29 @@ describe('the documented directories example', () => {
     const rs = await run(
       [
         ...TREE,
-        'src/routes/svelteApi/setCookie/+server.ts', // endpoint segment must be kebab-case
-        'src/lib/features/FetchOnMount/index.ts' // feature root must be camelCase
+        'src/routes/internalApi/setCookie/+server.ts', // endpoint segment must be kebab-case
+        'src/lib/features/UserProfile/index.ts' // feature root must be camelCase
       ],
       EXAMPLE
     );
     const messages = rs.filter((r) => r.location !== undefined).map((r) => r.message);
     expect(messages).toHaveLength(2);
-    expect(messages.some((m) => m.includes('src/routes/svelteApi/setCookie') && m.includes('kebab-case'))).toBe(true);
-    expect(messages.some((m) => m.includes('src/lib/features/FetchOnMount') && m.includes('camelCase'))).toBe(true);
+    expect(messages.some((m) => m.includes('src/routes/internalApi/setCookie') && m.includes('kebab-case'))).toBe(true);
+    expect(messages.some((m) => m.includes('src/lib/features/UserProfile') && m.includes('camelCase'))).toBe(true);
   });
 
   it('narrows the routes declaration with the endpoint one rather than being overridden by it', async () => {
-    // 'src/routes/svelteApi/*' has four segments to 'src/routes/**''s three, so it wins. Proven by
+    // 'src/routes/internalApi/*' has four segments to 'src/routes/**''s three, so it wins. Proven by
     // a camelCase endpoint segment being reported: it satisfies the broader declaration, so it can
     // only fail if the narrower one is what governs it.
-    const rs = await run([...TREE, 'src/routes/svelteApi/setCookie/+server.ts'], EXAMPLE);
+    const rs = await run([...TREE, 'src/routes/internalApi/setCookie/+server.ts'], EXAMPLE);
     const messages = rs.filter((r) => r.location !== undefined).map((r) => r.message);
     expect(messages).toHaveLength(1);
-    expect(messages[0]).toContain('src/routes/svelteApi/setCookie must be kebab-case');
+    expect(messages[0]).toContain('src/routes/internalApi/setCookie must be kebab-case');
   });
 
   it('lets a function unit one level below an endpoint fall back to the broader declaration', async () => {
-    // 'src/routes/svelteApi/*' is one segment too shallow to reach fetchSetCookie/, so the
+    // 'src/routes/internalApi/*' is one segment too shallow to reach fetchSetCookie/, so the
     // camelCase|PascalCase declaration governs it — which is what the convention wants.
     const rs = await run(TREE, EXAMPLE);
     expect(rs.filter((r) => r.message.includes('fetchSetCookie'))).toEqual([]);
@@ -1746,7 +1748,7 @@ description: A directory should be named in the casing its location declares.
 ## What it checks
 
 Flags a directory whose name does not match the casing you have declared for its location —
-`FetchOnMount/` where the features root is camelCase, `setCookie/` where endpoint segments are
+`UserProfile/` where the features root is camelCase, `setCookie/` where endpoint segments are
 kebab-case.
 
 This rule is **off until you configure it**. It has no default idea of what your directory names
@@ -1778,7 +1780,7 @@ export default {
       options: {
         directories: {
           'src/routes/**': 'camelCase|PascalCase',
-          'src/routes/svelteApi/*': 'kebab-case',
+          'src/routes/internalApi/*': 'kebab-case',
           'src/lib/features/*': 'camelCase',
           'src/lib/api/*': 'camelCase'
         }
@@ -1792,12 +1794,12 @@ export default {
 
 Four are recognised, and each tests the **whole** name rather than its first character:
 
-| Name         | Accepts                    | Example           |
-| ------------ | -------------------------- | ----------------- |
-| `camelCase`  | `^[a-z][a-zA-Z0-9]*$`      | `hallList`        |
-| `PascalCase` | `^[A-Z][a-zA-Z0-9]*$`      | `SeoContents`     |
-| `kebab-case` | `^[a-z0-9]+(-[a-z0-9]+)*$` | `recommend-halls` |
-| `snake_case` | `^[a-z0-9]+(_[a-z0-9]+)*$` | `fair_summary`    |
+| Name         | Accepts                    | Example       |
+| ------------ | -------------------------- | ------------- |
+| `camelCase`  | `^[a-z][a-zA-Z0-9]*$`      | `itemList`    |
+| `PascalCase` | `^[A-Z][a-zA-Z0-9]*$`      | `PageHeader`  |
+| `kebab-case` | `^[a-z0-9]+(-[a-z0-9]+)*$` | `clear-cache` |
+| `snake_case` | `^[a-z0-9]+(_[a-z0-9]+)*$` | `price_table` |
 
 A value may name several, joined by `|`, for a location that legitimately holds more than one kind of
 directory — a route's `components/` holds PascalCase component units and camelCase groupings side by
@@ -1807,7 +1809,7 @@ side.
 first character is A–Z, because it is asking whether a directory looks like a unit, not whether its
 name conforms. The two rules mean different things by the word on purpose.
 
-**One lowercase word satisfies `camelCase`, `kebab-case` and `snake_case` at once.** `fair` matches
+**One lowercase word satisfies `camelCase`, `kebab-case` and `snake_case` at once.** `dialog` matches
 all three, because there is nothing in the name to disagree with. This rule only fires on a name that
 carries the evidence of a casing it fails: a capital, a hyphen, an underscore, a leading digit, or a
 character none of the four admits.
@@ -1822,8 +1824,8 @@ reaching into `src/routes/` is usable:
 
 | Directory          | Checked as |
 | ------------------ | ---------- |
-| `[hallId]`         | `hallId`   |
-| `[hallId=integer]` | `hallId`   |
+| `[itemId]`         | `itemId`   |
+| `[itemId=integer]` | `itemId`   |
 | `[...rest]`        | `rest`     |
 | `[[optional]]`     | `optional` |
 | `(app)`            | `app`      |
@@ -1838,7 +1840,7 @@ one subtree should declare the narrower static-segment globs instead.
 
 When several globs match one directory, the most specific wins: more path segments first, then fewer
 `**` segments, then the longer key, then the alphabetically first. That is what lets
-`'src/routes/svelteApi/*'` narrow `'src/routes/**'`.
+`'src/routes/internalApi/*'` narrow `'src/routes/**'`.
 
 Segment count includes wildcards, so a key made only of wildcards can outrank one naming a real
 directory if it is deeper. Write the depth you mean.
@@ -1983,7 +1985,7 @@ Add `architecture/directory-naming`, which checks that a directory is named in t
 location declares. Like the other Architecture convention rules it is off until configured: set
 `directories` to a map of directory glob to casing set (`camelCase`, `PascalCase`, `kebab-case`,
 `snake_case`, or several joined by `|`). SvelteKit route syntax is decoded before the check, so
-`[hallId=integer]` is judged as `hallId` and `(app)` as `app`.
+`[itemId=integer]` is judged as `itemId` and `(app)` as `app`.
 
 `architecture/unit-entry-file` gains two corrections from the machinery the two rules now share.
 Declaration keys are ordered by path depth rather than string length, so a `*` key can narrow a `**`
@@ -2069,11 +2071,11 @@ export default {
 <h1>Home</h1>
 ```
 
-`packages/cli/test/fixtures/directory-naming-project/src/lib/Fair_Summary/index.ts`:
+`packages/cli/test/fixtures/directory-naming-project/src/lib/Price_Table/index.ts`:
 
 ```ts
 // A directory the declaration requires to be camelCase.
-export const summary = 'fair';
+export const summary = 'dialog';
 ```
 
 - [ ] **Step 2: Write the failing CLI test**
@@ -2091,7 +2093,7 @@ it('runs architecture/directory-naming over the collected inventory', async () =
   const { results } = await analyzeProject({ cwd: directoryNamingFixtureDir });
   const found = results.filter((r) => r.id === 'architecture/directory-naming');
   expect(found).toHaveLength(1);
-  expect(found[0]!.location).toBe('src/lib/Fair_Summary/index.ts');
+  expect(found[0]!.location).toBe('src/lib/Price_Table/index.ts');
   expect(found[0]!.message).toContain('camelCase');
 });
 ```
@@ -2102,8 +2104,8 @@ In `packages/vite/test/analyze-source-files.test.ts`, inside the existing
 `describe('analyze wires sourceFiles into the rule context')`, add to `beforeAll`:
 
 ```ts
-await mkdir(join(cwd, 'src/lib/Fair_Summary'), { recursive: true });
-await writeFile(join(cwd, 'src/lib/Fair_Summary/index.ts'), 'export const summary = 1;');
+await mkdir(join(cwd, 'src/lib/Price_Table'), { recursive: true });
+await writeFile(join(cwd, 'src/lib/Price_Table/index.ts'), 'export const summary = 1;');
 ```
 
 and add the test:
@@ -2116,7 +2118,7 @@ it('runs the casing rule over the same inventory', async () => {
   });
   const found = r.results.filter((x) => x.id === 'architecture/directory-naming');
   expect(found).toHaveLength(1);
-  expect(found[0]!.location).toBe('src/lib/Fair_Summary/index.ts');
+  expect(found[0]!.location).toBe('src/lib/Price_Table/index.ts');
 });
 ```
 

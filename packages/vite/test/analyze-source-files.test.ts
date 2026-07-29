@@ -63,7 +63,7 @@ describe('analyze wires sourceFiles into the rule context', () => {
   });
 });
 
-// A separate temp project, not appended to the fixture above: `Fair_Summary` starts with an
+// A separate temp project, not appended to the fixture above: `Price_Table` starts with an
 // uppercase letter, which `architecture/unit-entry-file`'s `isPascalCase` gate treats as PascalCase
 // too, so adding it next to `Card` there would also trip that rule's own `pascalCaseUnits`
 // declaration and turn its single expected finding into two.
@@ -76,8 +76,8 @@ describe('analyze wires sourceFiles into the rule context for architecture/direc
     await mkdir(pages, { recursive: true });
     await writeFile(join(pages, 'index.html'), `<html lang="en"><head><title>Home</title></head><body></body></html>`);
     // A directory the casing declaration requires to be camelCase, but is not.
-    await mkdir(join(cwd, 'src/lib/Fair_Summary'), { recursive: true });
-    await writeFile(join(cwd, 'src/lib/Fair_Summary/index.ts'), 'export const summary = 1;');
+    await mkdir(join(cwd, 'src/lib/Price_Table'), { recursive: true });
+    await writeFile(join(cwd, 'src/lib/Price_Table/index.ts'), 'export const summary = 1;');
   });
   afterAll(async () => rm(cwd, { recursive: true, force: true }));
 
@@ -89,8 +89,8 @@ describe('analyze wires sourceFiles into the rule context for architecture/direc
     const found = r.results.filter((x) => x.id === 'architecture/directory-naming');
     expect(found).toHaveLength(1);
     // `route` is the directory, `location` a file inside it (see the rule's comment on why the two differ).
-    expect(found[0]!.route).toBe('src/lib/Fair_Summary');
-    expect(found[0]!.location).toBe('src/lib/Fair_Summary/index.ts');
+    expect(found[0]!.route).toBe('src/lib/Price_Table');
+    expect(found[0]!.location).toBe('src/lib/Price_Table/index.ts');
   });
 
   it('emits nothing from that rule when it is left unconfigured', async () => {

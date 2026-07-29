@@ -23,28 +23,28 @@ const EXAMPLE = {
 /** A compliant tree: one of every unit kind the example declares, all well-formed. */
 const COMPLIANT = [
   // component unit, with a nested part and the reserved folders around it
-  'src/lib/features/fair/FairSummary/FairSummary.svelte',
-  'src/lib/features/fair/FairSummary/types.ts',
-  'src/lib/features/fair/FairSummary/tests/FairSummary.test.ts',
-  'src/lib/features/fair/FairSummary/tests/Fixtures/dummy.ts',
-  'src/lib/features/fair/FairSummary/styleGuide/FairSummary.styleGuide.svelte',
-  'src/lib/features/fair/FairSummary/parts/FairBadge/FairBadge.svelte',
+  'src/lib/features/catalog/PriceTable/PriceTable.svelte',
+  'src/lib/features/catalog/PriceTable/types.ts',
+  'src/lib/features/catalog/PriceTable/tests/PriceTable.test.ts',
+  'src/lib/features/catalog/PriceTable/tests/Fixtures/dummy.ts',
+  'src/lib/features/catalog/PriceTable/styleGuide/PriceTable.styleGuide.svelte',
+  'src/lib/features/catalog/PriceTable/parts/PriceBadge/PriceBadge.svelte',
   // function unit and a helper nested inside it
-  'src/lib/features/fair/FairSummary/functions/formatDate/formatDate.ts',
-  'src/lib/features/fair/FairSummary/functions/formatDate/pad/pad.ts',
+  'src/lib/features/catalog/PriceTable/functions/formatDate/formatDate.ts',
+  'src/lib/features/catalog/PriceTable/functions/formatDate/pad/pad.ts',
   // store unit
-  'src/lib/features/fair/FairSummary/stores/createFair/createFair.svelte.ts',
+  'src/lib/features/catalog/PriceTable/stores/createItem/createItem.svelte.ts',
   // api: a domain holding a shared type, a fetch unit, and a helper nested in it
   'src/lib/api/voice/types.ts',
   'src/lib/api/voice/fetchVoice/fetchVoice.ts',
   'src/lib/api/voice/fetchVoice/toQuery/toQuery.ts',
   // a camelCase grouping, which is not a unit and must not be reported
-  'src/lib/features/fair/fairSearch/SearchBox/SearchBox.svelte',
+  'src/lib/features/catalog/searchForm/SearchBox/SearchBox.svelte',
   // a route tree, including a matcher segment and an e2e folder
-  'src/routes/search/hallList/+page.svelte',
-  'src/routes/search/hallList/components/Search/Search.svelte',
-  'src/routes/search/hallList/e2e/index.spec.ts',
-  'src/routes/[hallId=integer]/+page.svelte',
+  'src/routes/search/itemList/+page.svelte',
+  'src/routes/search/itemList/components/Search/Search.svelte',
+  'src/routes/search/itemList/e2e/index.spec.ts',
+  'src/routes/[itemId=integer]/+page.svelte',
   // a PascalCase route segment, excluded above rather than expected to hold FAQ/FAQ.svelte
   'src/routes/FAQ/+page.svelte'
 ];
@@ -77,15 +77,15 @@ describe('the documented example configuration', () => {
     const rs = await architectureUnitEntryFile.check(ctx(COMPLIANT));
     const examined = passes(rs).map((r) => r.route);
     // One assertion per declaration key, so a key that silently matches nothing fails here.
-    expect(examined).toContain('src/lib/features/fair/FairSummary/FairSummary.svelte'); // pascalCaseUnits
-    expect(examined).toContain('src/lib/features/fair/FairSummary/parts/FairBadge/FairBadge.svelte'); // nested PascalCase
-    expect(examined).toContain('src/lib/features/fair/FairSummary/functions/formatDate/formatDate.ts'); // functions/*
-    expect(examined).toContain('src/lib/features/fair/FairSummary/functions/formatDate/pad/pad.ts'); // functions/*/*
-    expect(examined).toContain('src/lib/features/fair/FairSummary/stores/createFair/createFair.svelte.ts'); // stores/*
+    expect(examined).toContain('src/lib/features/catalog/PriceTable/PriceTable.svelte'); // pascalCaseUnits
+    expect(examined).toContain('src/lib/features/catalog/PriceTable/parts/PriceBadge/PriceBadge.svelte'); // nested PascalCase
+    expect(examined).toContain('src/lib/features/catalog/PriceTable/functions/formatDate/formatDate.ts'); // functions/*
+    expect(examined).toContain('src/lib/features/catalog/PriceTable/functions/formatDate/pad/pad.ts'); // functions/*/*
+    expect(examined).toContain('src/lib/features/catalog/PriceTable/stores/createItem/createItem.svelte.ts'); // stores/*
     expect(examined).toContain('src/lib/api/voice/fetchVoice/fetchVoice.ts'); // api fetch unit
     expect(examined).toContain('src/lib/api/voice/fetchVoice/toQuery/toQuery.ts'); // api nested helper
-    expect(examined).toContain('src/routes/search/hallList/components/Search/Search.svelte'); // route component
-    expect(examined).toContain('src/lib/features/fair/fairSearch/SearchBox/SearchBox.svelte'); // unit inside a camelCase grouping
+    expect(examined).toContain('src/routes/search/itemList/components/Search/Search.svelte'); // route component
+    expect(examined).toContain('src/lib/features/catalog/searchForm/SearchBox/SearchBox.svelte'); // unit inside a camelCase grouping
   });
 
   it('check 3b: does not examine what the example must leave alone', async () => {
@@ -98,20 +98,20 @@ describe('the documented example configuration', () => {
     expect(touched).not.toContain('tests/');
     expect(touched).not.toContain('styleGuide/');
     expect(touched).not.toContain('e2e/');
-    expect(touched).not.toContain('fairSearch/fairSearch');
-    expect(touched).not.toContain('[hallId=integer]');
+    expect(touched).not.toContain('searchForm/searchForm');
+    expect(touched).not.toContain('[itemId=integer]');
   });
 
   it('reports on a non-compliant tree, so the checks above are not vacuous', async () => {
     const broken = [
       ...COMPLIANT,
-      'src/lib/features/fair/Orphan/Something.svelte', // PascalCase, no Orphan.svelte
-      'src/lib/features/fair/FairSummary/functions/getThing/other.ts' // declared unit, no getThing.ts
+      'src/lib/features/catalog/Orphan/Something.svelte', // PascalCase, no Orphan.svelte
+      'src/lib/features/catalog/PriceTable/functions/getThing/other.ts' // declared unit, no getThing.ts
     ];
     const rs = await architectureUnitEntryFile.check(ctx(broken));
     const messages = fails(rs).map((r) => r.message);
     expect(messages).toHaveLength(2);
-    expect(messages.some((m) => m.includes('src/lib/features/fair/Orphan/Orphan.svelte'))).toBe(true);
+    expect(messages.some((m) => m.includes('src/lib/features/catalog/Orphan/Orphan.svelte'))).toBe(true);
     expect(messages.some((m) => m.includes('getThing/getThing.ts'))).toBe(true);
   });
 

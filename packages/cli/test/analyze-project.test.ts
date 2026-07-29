@@ -127,8 +127,8 @@ describe('analyzeProject config-file precedence (design doc 2026-07-05-config-fi
     const found = results.filter((r) => r.id === 'architecture/directory-naming');
     expect(found).toHaveLength(1);
     // `route` is the directory, `location` a file inside it (see the rule's comment on why the two differ).
-    expect(found[0]!.route).toBe('src/lib/Fair_Summary');
-    expect(found[0]!.location).toBe('src/lib/Fair_Summary/index.ts');
+    expect(found[0]!.route).toBe('src/lib/Price_Table');
+    expect(found[0]!.location).toBe('src/lib/Price_Table/index.ts');
     expect(found[0]!.message).toContain('camelCase');
   });
 

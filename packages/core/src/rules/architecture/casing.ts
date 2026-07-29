@@ -3,7 +3,7 @@
  * `architecture/directory-naming` (design 2026-07-29).
  *
  * Each pattern tests the WHOLE name rather than its first character. That is what lets a project
- * distinguish `recommend-halls` from `recommendHalls`; a first-character test — which is what
+ * distinguish `clear-cache` from `clearCache`; a first-character test — which is what
  * `architecture/unit-entry-file` uses for its own, different question — cannot. The two rules mean
  * different things by "PascalCase" on purpose, and each rule page says which.
  */
@@ -43,7 +43,7 @@ export function parseCasings(value: string): { known: string[]; unknown: string[
  * The identifier inside a SvelteKit route-syntax directory name, or `undefined` when the name does
  * not carry exactly one.
  *
- * Checking `[hallId=integer]` literally against a casing would make any declaration reaching into
+ * Checking `[itemId=integer]` literally against a casing would make any declaration reaching into
  * `src/routes/` unusable, so the name is decoded first. The doubled-bracket form has to be
  * recognised before the single-bracket one, or `[[optional]]` decodes to `[optional]` and is thrown
  * away by the final test.

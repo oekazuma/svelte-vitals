@@ -8,7 +8,7 @@ description: ディレクトリは、その場所に宣言した記法で名付�
 ## チェック内容
 
 ディレクトリの名前が、その場所について宣言した記法と一致していない箇所を検出します。features の
-起点が camelCase なのに `FetchOnMount/` である、エンドポイントのセグメントが kebab-case なのに
+起点が camelCase なのに `UserProfile/` である、エンドポイントのセグメントが kebab-case なのに
 `setCookie/` である、といったケースです。
 
 このルールは**設定するまで無効**です。ディレクトリ名がどうあるべきかについて既定の考えを持ちません。
@@ -40,7 +40,7 @@ export default {
       options: {
         directories: {
           'src/routes/**': 'camelCase|PascalCase',
-          'src/routes/svelteApi/*': 'kebab-case',
+          'src/routes/internalApi/*': 'kebab-case',
           'src/lib/features/*': 'camelCase',
           'src/lib/api/*': 'camelCase'
         }
@@ -54,12 +54,12 @@ export default {
 
 認識される記法は 4 つで、いずれも先頭の 1 文字ではなく名前**全体**を判定します。
 
-| 名前         | 受け入れるパターン         | 例                |
-| ------------ | -------------------------- | ----------------- |
-| `camelCase`  | `^[a-z][a-zA-Z0-9]*$`      | `hallList`        |
-| `PascalCase` | `^[A-Z][a-zA-Z0-9]*$`      | `SeoContents`     |
-| `kebab-case` | `^[a-z0-9]+(-[a-z0-9]+)*$` | `recommend-halls` |
-| `snake_case` | `^[a-z0-9]+(_[a-z0-9]+)*$` | `fair_summary`    |
+| 名前         | 受け入れるパターン         | 例            |
+| ------------ | -------------------------- | ------------- |
+| `camelCase`  | `^[a-z][a-zA-Z0-9]*$`      | `itemList`    |
+| `PascalCase` | `^[A-Z][a-zA-Z0-9]*$`      | `PageHeader`  |
+| `kebab-case` | `^[a-z0-9]+(-[a-z0-9]+)*$` | `clear-cache` |
+| `snake_case` | `^[a-z0-9]+(_[a-z0-9]+)*$` | `price_table` |
 
 値は `|` で連結して複数の名前を指定できます。ある場所に複数種類のディレクトリが正当に混在する場合の
 ためです —— ルートの `components/` には PascalCase のコンポーネントユニットと camelCase のグルーピングが
@@ -70,7 +70,7 @@ A–Z かどうかしか見ません。それはディレクトリがユニッ�
 名前が記法に適合しているかを問うているのではないからです。2 つのルールは、意図的に同じ言葉で
 異なることを意味しています。
 
-**小文字だけの 1 語は `camelCase`、`kebab-case`、`snake_case` を同時に満たします。** `fair` はこの
+**小文字だけの 1 語は `camelCase`、`kebab-case`、`snake_case` を同時に満たします。** `dialog` はこの
 3 つすべてに一致します。名前の中に、それらと矛盾する要素が何もないからです。このルールが検出するのは、
 どこかの記法に反する証拠 —— 大文字、ハイフン、アンダースコア、先頭の数字、あるいは 4 つのどれにも
 当てはまらない文字 —— を持つ名前だけです。
@@ -85,8 +85,8 @@ A–Z かどうかしか見ません。それはディレクトリがユニッ�
 
 | ディレクトリ       | 判定対象   |
 | ------------------ | ---------- |
-| `[hallId]`         | `hallId`   |
-| `[hallId=integer]` | `hallId`   |
+| `[itemId]`         | `itemId`   |
+| `[itemId=integer]` | `itemId`   |
 | `[...rest]`        | `rest`     |
 | `[[optional]]`     | `optional` |
 | `(app)`            | `app`      |
@@ -101,7 +101,7 @@ A–Z かどうかしか見ません。それはディレクトリがユニッ�
 
 複数の glob が 1 つのディレクトリにマッチした場合は、より特異なものが優先されます。パスのセグメント数が
 多いほうが先、同数なら `**` セグメントが少ないほう、それも同じならキーが長いほう、最後に辞書順です。
-これによって `'src/routes/svelteApi/*'` が `'src/routes/**'` を狭めます。
+これによって `'src/routes/internalApi/*'` が `'src/routes/**'` を狭めます。
 
 セグメント数はワイルドカードも数えるため、実在のディレクトリ名を含むキーより、ワイルドカードだけで
 深いキーのほうが勝つことがあります。意図した深さを書いてください。

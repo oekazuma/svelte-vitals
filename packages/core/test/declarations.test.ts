@@ -108,7 +108,7 @@ describe('matchKeys — specificity', () => {
   it('prefers a single star over a double star at the same depth', () => {
     // The regression this metric exists for: 'src/lib/features/**' is the LONGER string,
     // so raw length made the broader key win and the narrower declaration inert.
-    const m = matchKeys('src/lib/features/fair', compile(['src/lib/features/*', 'src/lib/features/**']));
+    const m = matchKeys('src/lib/features/catalog', compile(['src/lib/features/*', 'src/lib/features/**']));
     expect(m.best).toBe('src/lib/features/*');
   });
 

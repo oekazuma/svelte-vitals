@@ -7,21 +7,21 @@ describe('CASINGS', () => {
   });
 
   it('tests the whole string, not just the first character', () => {
-    expect(CASINGS['camelCase']!.test('recommendHalls')).toBe(true);
-    expect(CASINGS['camelCase']!.test('recommend-halls')).toBe(false);
-    expect(CASINGS['camelCase']!.test('fair_summary')).toBe(false);
-    expect(CASINGS['kebab-case']!.test('recommend-halls')).toBe(true);
-    expect(CASINGS['kebab-case']!.test('recommendHalls')).toBe(false);
-    expect(CASINGS['PascalCase']!.test('SeoContents')).toBe(true);
+    expect(CASINGS['camelCase']!.test('clearCache')).toBe(true);
+    expect(CASINGS['camelCase']!.test('clear-cache')).toBe(false);
+    expect(CASINGS['camelCase']!.test('price_table')).toBe(false);
+    expect(CASINGS['kebab-case']!.test('clear-cache')).toBe(true);
+    expect(CASINGS['kebab-case']!.test('clearCache')).toBe(false);
+    expect(CASINGS['PascalCase']!.test('PageHeader')).toBe(true);
     expect(CASINGS['PascalCase']!.test('SEOContents')).toBe(true);
-    expect(CASINGS['snake_case']!.test('fair_summary')).toBe(true);
+    expect(CASINGS['snake_case']!.test('price_table')).toBe(true);
   });
 
   it('lets one lowercase word satisfy three of the four at once', () => {
     for (const name of ['camelCase', 'kebab-case', 'snake_case']) {
-      expect(CASINGS[name]!.test('fair')).toBe(true);
+      expect(CASINGS[name]!.test('dialog')).toBe(true);
     }
-    expect(CASINGS['PascalCase']!.test('fair')).toBe(false);
+    expect(CASINGS['PascalCase']!.test('dialog')).toBe(false);
   });
 });
 
@@ -61,8 +61,8 @@ describe('parseCasings', () => {
 
 describe('decodeSegment', () => {
   it('unwraps every route-syntax shape SvelteKit gives a whole segment', () => {
-    expect(decodeSegment('[hallId]')).toBe('hallId');
-    expect(decodeSegment('[hallId=integer]')).toBe('hallId');
+    expect(decodeSegment('[itemId]')).toBe('itemId');
+    expect(decodeSegment('[itemId=integer]')).toBe('itemId');
     expect(decodeSegment('[...rest]')).toBe('rest');
     expect(decodeSegment('[[optional]]')).toBe('optional');
     expect(decodeSegment('[[lang=locale]]')).toBe('lang');
@@ -70,8 +70,8 @@ describe('decodeSegment', () => {
   });
 
   it('leaves a plain name alone', () => {
-    expect(decodeSegment('hallList')).toBe('hallList');
-    expect(decodeSegment('recommend-halls')).toBe('recommend-halls');
+    expect(decodeSegment('itemList')).toBe('itemList');
+    expect(decodeSegment('clear-cache')).toBe('clear-cache');
   });
 
   it('skips a compound segment, where no single identifier is named', () => {
@@ -84,12 +84,12 @@ describe('decodeSegment', () => {
 
 describe('satisfiesCasing', () => {
   it('accepts a name matching any one of the allowed casings', () => {
-    expect(satisfiesCasing('SeoContents', ['camelCase', 'PascalCase'])).toBe(true);
-    expect(satisfiesCasing('fairSearch', ['camelCase', 'PascalCase'])).toBe(true);
+    expect(satisfiesCasing('PageHeader', ['camelCase', 'PascalCase'])).toBe(true);
+    expect(satisfiesCasing('searchForm', ['camelCase', 'PascalCase'])).toBe(true);
   });
 
   it('rejects a name matching none of them', () => {
-    expect(satisfiesCasing('recommend-halls', ['camelCase', 'PascalCase'])).toBe(false);
+    expect(satisfiesCasing('clear-cache', ['camelCase', 'PascalCase'])).toBe(false);
   });
 
   it('accepts a name with no letter in it, whatever is allowed', () => {
@@ -110,7 +110,7 @@ describe('satisfiesCasing', () => {
 
   it('does not throw when asked about a casing name that is not one', () => {
     // `satisfiesCasing` is reachable with any string a caller kept; it must answer, not crash.
-    expect(satisfiesCasing('hallList', ['toString'])).toBe(false);
-    expect(satisfiesCasing('hallList', ['valueOf', 'camelCase'])).toBe(true);
+    expect(satisfiesCasing('itemList', ['toString'])).toBe(false);
+    expect(satisfiesCasing('itemList', ['valueOf', 'camelCase'])).toBe(true);
   });
 });

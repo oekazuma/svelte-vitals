@@ -43,8 +43,8 @@ The convention document this design was validated against states, for a producti
 
 - A PascalCase directory is a component unit and must hold a same-named `.svelte` (M1's territory).
 - A directory that cannot hold a same-named file is camelCase.
-- Page route segments are camelCase (`hallList`, `agreementUse`).
-- Endpoint segments under the internal-API directory are kebab-case (`recommend-halls`,
+- Page route segments are camelCase (`itemList`, `termsOfUse`).
+- Endpoint segments under the internal-API directory are kebab-case (`clear-cache`,
   `set-cookie`), while function units below them are camelCase again (`set-cookie/fetchSetCookie/`).
 - Directories directly under the features and API roots are camelCase.
 
@@ -96,7 +96,7 @@ export default {
       options: {
         directories: {
           'src/routes/**': 'camelCase|PascalCase',
-          'src/routes/svelteApi/*': 'kebab-case',
+          'src/routes/internalApi/*': 'kebab-case',
           'src/lib/features/*': 'camelCase',
           'src/lib/api/*': 'camelCase'
         }
@@ -119,11 +119,11 @@ Four names, each a test of the whole string rather than of its first character:
 
 `snake_case` is in the vocabulary for completeness rather than on evidence — nothing in the convention
 document declares it. It costs one regex, and leaving it out would not reduce what the rule detects:
-`fair_summary` is already reported under a `camelCase` declaration whether or not `snake_case` is
+`price_table` is already reported under a `camelCase` declaration whether or not `snake_case` is
 nameable. What it buys is the ability of a project that _wants_ snake_case directories to say so.
 
 Testing the whole string is what makes the vocabulary useful: it is the difference between
-distinguishing `recommend-halls` from `recommendHalls` and merely observing that both start with a
+distinguishing `clear-cache` from `clearCache` and merely observing that both start with a
 lowercase letter. A first-character test — which is what `architecture/unit-entry-file` uses
 internally — cannot express the endpoint convention at all.
 
@@ -133,7 +133,7 @@ refusing to check a unit because its name has an underscore in it. M2 asks wheth
 which is the stricter question. Both rule pages state their own definition rather than referring to
 "PascalCase" as if it were one shared idea.
 
-**A single lowercase word satisfies `camelCase`, `kebab-case` and `snake_case` at once.** `fair`
+**A single lowercase word satisfies `camelCase`, `kebab-case` and `snake_case` at once.** `dialog`
 matches all three. This is correct — there is nothing in the name to disagree with — and it is worth
 documenting, because it means M2 catches less than a reader might expect.
 
@@ -163,8 +163,8 @@ test:
 
 | Directory          | Checked as |
 | ------------------ | ---------- |
-| `[hallId]`         | `hallId`   |
-| `[hallId=integer]` | `hallId`   |
+| `[itemId]`         | `itemId`   |
+| `[itemId=integer]` | `itemId`   |
 | `[...rest]`        | `rest`     |
 | `[[optional]]`     | `optional` |
 | `(app)`            | `app`      |
@@ -254,14 +254,14 @@ finding disappears from every `--diff` run.
 The message names the requirement and not the observed casing:
 
 ```text
-src/routes/svelteApi/setCookie must be kebab-case.
+src/routes/internalApi/setCookie must be kebab-case.
   fix: Rename the directory, or narrow the declaration that governs it.
 ```
 
 When the declaration allows several casings, the message lists them: `must be camelCase or
 PascalCase.`
 
-Naming the observed casing was considered and rejected: `fair` satisfies three of the four names at
+Naming the observed casing was considered and rejected: `dialog` satisfies three of the four names at
 once, so "this is kebab-case" is not a statement the rule can make truthfully for every input.
 
 **There are no pass results.** M1 emits one per conforming unit and can afford to, because it keys the
@@ -319,7 +319,7 @@ never wins a tie-break, so a broken declaration cannot shadow a working one:
 ```js
 directories: {
   'src/lib/api/*': 'camelcase', // dropped — no known casing name
-  'src/**': 'camelCase' // governs src/lib/api/hall instead
+  'src/**': 'camelCase' // governs src/lib/api/item instead
 }
 ```
 
@@ -440,8 +440,8 @@ both sides of the bookkeeping line.
 
 ## Interaction with `architecture/unit-entry-file`
 
-`src/lib/features/Fair/` under a camelCase declaration draws two findings: M1's "this PascalCase
-directory has no `Fair.svelte`" and M2's "this location requires camelCase". Neither suppresses the
+`src/lib/features/Dialog/` under a camelCase declaration draws two findings: M1's "this PascalCase
+directory has no `Dialog.svelte`" and M2's "this location requires camelCase". Neither suppresses the
 other. They are different claims and both are true, and the charter's precision gate is about false
 positives, not about overlap. Both rule pages record the pairing so the reader is not surprised by it.
 
@@ -522,14 +522,14 @@ directions, before this spec was approved.
 | the convention-compliant branch     |                  157 |                      0 |      **0** |
 | the branch predating the convention |                  229 |                      — |      **1** |
 
-The single violation is `src/lib/features/FetchOnMount` under `'src/lib/features/*': 'camelCase'` — a
+The single violation is `src/lib/features/UserProfile` under `'src/lib/features/*': 'camelCase'` — a
 real deviation that existed before the convention was applied. Zero findings on the compliant tree and
 a true positive on the non-compliant one is the pair that matters: either number alone is consistent
 with a rule that checks nothing.
 
 Decoding was exercised against the real route tree and every shape resolved as specified, with **no**
 segment falling through to the compound-segment skip. The only specificity contest the configuration
-actually produces — `src/routes/svelteApi/*` against `src/routes/**` — is settled by rule 1 alone.
+actually produces — `src/routes/internalApi/*` against `src/routes/**` — is settled by rule 1 alone.
 
 Two of this review's three corrections came from measurement rather than reading: the `exclude`
 example changed no finding, and the claim that the project had no directory-casing lint was false. The

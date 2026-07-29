@@ -60,7 +60,7 @@ describe('architecture/unit-entry-file — pascalCaseUnits', () => {
 
   it('skips a directory whose basename does not begin A-Z', async () => {
     const rs = await architectureUnitEntryFile.check(
-      ctx(['src/lib/fairSearch/x.svelte', 'src/routes/[hallId=integer]/+page.svelte'], PASCAL)
+      ctx(['src/lib/searchForm/x.svelte', 'src/routes/[itemId=integer]/+page.svelte'], PASCAL)
     );
     // No directory in this tiny tree is PascalCase, so no violation and no pass is reported, and
     // 'src/**' never identified a unit here — it is correctly reported inert, a real consequence
@@ -381,8 +381,8 @@ describe('architecture/unit-entry-file — specificity', () => {
         [
           'src/lib/functions/getFoo/getFoo.ts',
           'src/lib/functions/getFoo/helper/helper.ts',
-          'src/lib/api/hall/fetchHall/fetchHall.ts',
-          'src/lib/stores/conditionSearch/conditionSearch.svelte.ts'
+          'src/lib/api/item/fetchItem/fetchItem.ts',
+          'src/lib/stores/searchState/searchState.svelte.ts'
         ],
         EXAMPLE
       )
@@ -434,12 +434,12 @@ describe('architecture/unit-entry-file — declarations shadowed by exclude', ()
 
   it('does not blame exclude for a key the casing gate disqualified', async () => {
     const rs = await architectureUnitEntryFile.check(
-      ctx(['src/lib/fairSearch/a.ts', 'src/lib/tests/Card/Card.svelte'], {
+      ctx(['src/lib/searchForm/a.ts', 'src/lib/tests/Card/Card.svelte'], {
         pascalCaseUnits: { 'src/lib/*': '.svelte' },
         exclude: ['**/tests']
       })
     );
-    // 'src/lib/*' matched src/lib/fairSearch (surviving, but lowercase, so it identified nothing)
+    // 'src/lib/*' matched src/lib/searchForm (surviving, but lowercase, so it identified nothing)
     // and src/lib/tests (excluded). It is inert either way, but the exclusion is not the reason,
     // and saying so would send the reader to remove an exclusion that changes nothing.
     const inert = rs.filter((r) => r.route === undefined);

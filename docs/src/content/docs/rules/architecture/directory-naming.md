@@ -8,7 +8,7 @@ description: A directory should be named in the casing its location declares.
 ## What it checks
 
 Flags a directory whose name does not match the casing you have declared for its location —
-`FetchOnMount/` where the features root is camelCase, `setCookie/` where endpoint segments are
+`UserProfile/` where the features root is camelCase, `setCookie/` where endpoint segments are
 kebab-case.
 
 This rule is **off until you configure it**. It has no default idea of what your directory names
@@ -40,7 +40,7 @@ export default {
       options: {
         directories: {
           'src/routes/**': 'camelCase|PascalCase',
-          'src/routes/svelteApi/*': 'kebab-case',
+          'src/routes/internalApi/*': 'kebab-case',
           'src/lib/features/*': 'camelCase',
           'src/lib/api/*': 'camelCase'
         }
@@ -54,12 +54,12 @@ export default {
 
 Four are recognised, and each tests the **whole** name rather than its first character:
 
-| Name         | Accepts                    | Example           |
-| ------------ | -------------------------- | ----------------- |
-| `camelCase`  | `^[a-z][a-zA-Z0-9]*$`      | `hallList`        |
-| `PascalCase` | `^[A-Z][a-zA-Z0-9]*$`      | `SeoContents`     |
-| `kebab-case` | `^[a-z0-9]+(-[a-z0-9]+)*$` | `recommend-halls` |
-| `snake_case` | `^[a-z0-9]+(_[a-z0-9]+)*$` | `fair_summary`    |
+| Name         | Accepts                    | Example       |
+| ------------ | -------------------------- | ------------- |
+| `camelCase`  | `^[a-z][a-zA-Z0-9]*$`      | `itemList`    |
+| `PascalCase` | `^[A-Z][a-zA-Z0-9]*$`      | `PageHeader`  |
+| `kebab-case` | `^[a-z0-9]+(-[a-z0-9]+)*$` | `clear-cache` |
+| `snake_case` | `^[a-z0-9]+(_[a-z0-9]+)*$` | `price_table` |
 
 A value may name several, joined by `|`, for a location that legitimately holds more than one kind of
 directory — a route's `components/` holds PascalCase component units and camelCase groupings side by
@@ -69,7 +69,7 @@ side.
 first character is A–Z, because it is asking whether a directory looks like a unit, not whether its
 name conforms. The two rules mean different things by the word on purpose.
 
-**One lowercase word satisfies `camelCase`, `kebab-case` and `snake_case` at once.** `fair` matches
+**One lowercase word satisfies `camelCase`, `kebab-case` and `snake_case` at once.** `dialog` matches
 all three, because there is nothing in the name to disagree with. This rule only fires on a name that
 carries the evidence of a casing it fails: a capital, a hyphen, an underscore, a leading digit, or a
 character none of the four admits.
@@ -84,8 +84,8 @@ reaching into `src/routes/` is usable:
 
 | Directory          | Checked as |
 | ------------------ | ---------- |
-| `[hallId]`         | `hallId`   |
-| `[hallId=integer]` | `hallId`   |
+| `[itemId]`         | `itemId`   |
+| `[itemId=integer]` | `itemId`   |
 | `[...rest]`        | `rest`     |
 | `[[optional]]`     | `optional` |
 | `(app)`            | `app`      |
@@ -100,7 +100,7 @@ one subtree should declare the narrower static-segment globs instead.
 
 When several globs match one directory, the most specific wins: more path segments first, then fewer
 `**` segments, then the longer key, then the alphabetically first. That is what lets
-`'src/routes/svelteApi/*'` narrow `'src/routes/**'`.
+`'src/routes/internalApi/*'` narrow `'src/routes/**'`.
 
 Segment count includes wildcards, so a key made only of wildcards can outrank one naming a real
 directory if it is deeper. Write the depth you mean.
