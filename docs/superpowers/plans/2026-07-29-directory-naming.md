@@ -853,13 +853,13 @@ Expected: PASS, with **one known exception you must handle**. The single-key wor
 (`The declaration 'X' matched no directory, so it checks nothing.`), so single-key assertions still
 hold. The **multi-key** wording changes from
 
-```
+```text
 These declarations matched no directory, so they check nothing: 'X', 'Y'.
 ```
 
 to
 
-```
+```text
 These declarations check nothing: 'X' (matched no directory), 'Y' (matched no directory).
 ```
 

@@ -253,7 +253,7 @@ finding disappears from every `--diff` run.
 
 The message names the requirement and not the observed casing:
 
-```
+```text
 src/routes/svelteApi/setCookie must be kebab-case.
   fix: Rename the directory, or narrow the declaration that governs it.
 ```
@@ -287,7 +287,7 @@ finding rather than a tidy finding per failure.
 
 Each key is annotated with its own reason, and the lead-in claims only what is true of all four:
 
-```
+```text
 These declarations do not check what they say:
   'src/lib/feature/*' — matched no directory
   '**/tests/fixtures/*' — matched only excluded directories
