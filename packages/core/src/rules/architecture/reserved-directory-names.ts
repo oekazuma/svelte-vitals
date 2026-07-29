@@ -232,7 +232,7 @@ export const architectureReservedDirectoryNames: Rule = {
       if (notes.has(key)) continue;
       const value = globalScopes[key] ?? globalUnits[key];
       if (value !== undefined && namesOf(value).length === 0) {
-        notes.set(key, 'names no directory name at all, so it checks nothing');
+        notes.set(key, 'names no directory name at all');
       }
     }
 
@@ -249,7 +249,7 @@ export const architectureReservedDirectoryNames: Rule = {
     // Claiming the non-unit reason first removes the key from that pass entirely.
     const unitOnly = unused.filter((k) => Object.hasOwn(globalUnits, k) && !Object.hasOwn(globalScopes, k));
     for (const key of keysMatchingAny(unitOnly, nonUnitDirs, compile)) {
-      notes.set(key, 'matched directories but never a unit, so it checks nothing');
+      notes.set(key, 'matched directories but never a unit');
     }
     for (const [key, reason] of classifyUnusedKeys(
       unused.filter((k) => !notes.has(k)),

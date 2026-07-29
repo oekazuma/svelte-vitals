@@ -271,7 +271,7 @@ describe('architecture/reserved-directory-names — declarations that check noth
       ctx(['src/lib/grouping/a.ts'], { unitScopes: { 'src/lib/*': 'parts' } })
     );
     expect(project(rs)).toHaveLength(1);
-    expect(project(rs)[0]!.message).toContain('matched no unit');
+    expect(project(rs)[0]!.message).toContain('never a unit');
   });
 
   it('does not report a unitScopes key that governed a unit whose children all conform', async () => {
