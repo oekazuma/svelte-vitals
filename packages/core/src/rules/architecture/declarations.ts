@@ -60,7 +60,9 @@ export function createKeyCompiler(): (globs: string[], bareGuard?: boolean) => C
 }
 
 /**
- * Every declaration key matching `dir`, and the one that governs it.
+ * Every declaration key matching `dir`, and the one that governs it. The longest match wins as the
+ * most specific declaration; among equal lengths the lexicographically first wins, because additive
+ * merging across config layers makes key insertion order unintuitive.
  *
  * `matched` carries ALL of them, not just the winner: a key that matched a directory but lost the
  * tie-break has still done work, and reporting it as a declaration that checks nothing would be a
@@ -71,7 +73,16 @@ export function createKeyCompiler(): (globs: string[], bareGuard?: boolean) => C
  * `{ 'src/lib/functions/**': ... }` would otherwise also govern `src/lib/functions` — the container
  * the key was written to reach *under*. The prefix is compiled rather than compared as a string
  * because it is itself a glob when the key carries a wildcard before the trailing double-star
- * segment, and no literal directory string can ever equal a glob.
+ * segment, and no literal directory string can ever equal a glob. The same guard applies to
+ * `pascalCaseUnits`, not only `units`: a key ending in a trailing double-star segment means
+ * "everything under X" there too, and must not include X itself. The casing gate at the call site
+ * does not already handle this — a root whose own basename happens to be PascalCase
+ * (`src/Components/**`) would otherwise pass the gate and be demanded to contain
+ * `Components/Components.svelte` — so the guard must not depend on a container happening to be
+ * named in lowercase. (One consequence: a key of `src/**` followed by `/**` compiles a
+ * `barePrefixRe` matching every directory the key itself matches, so that key is inert against
+ * itself and reports as a declaration that checks nothing. That is the loud, correct failure mode
+ * for a nonsensical glob, not a crash.)
  */
 export function matchKeys(dir: string, compiled: CompiledKey[]): { matched: string[]; best?: string } {
   const matched: string[] = [];
