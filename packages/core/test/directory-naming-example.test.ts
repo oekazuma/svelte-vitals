@@ -1,0 +1,97 @@
+import { describe, it, expect } from 'vitest';
+import { architectureDirectoryNaming } from '../src/index.js';
+import { defineConfig, defaultProject } from '../src/types.js';
+import type { RuleContext } from '../src/rule.js';
+
+/** The `directories` example from docs/src/content/docs/rules/architecture/directory-naming.md. */
+const EXAMPLE = {
+  directories: {
+    'src/routes/**': 'camelCase|PascalCase',
+    'src/routes/svelteApi/*': 'kebab-case',
+    'src/lib/features/*': 'camelCase',
+    'src/lib/api/*': 'camelCase'
+  }
+};
+
+/** A tree shaped like the convention the example describes. */
+const TREE = [
+  'src/routes/+page.svelte',
+  'src/routes/search/hallList/+page.svelte',
+  'src/routes/[hallId=integer]/components/SeoContents/SeoContents.svelte',
+  'src/routes/svelteApi/recommend-halls/+server.ts',
+  'src/routes/svelteApi/set-cookie/fetchSetCookie/fetchSetCookie.ts',
+  'src/lib/features/fair/index.ts',
+  'src/lib/api/searchHalls/index.ts'
+];
+
+const run = (sourceFiles: string[], options: Record<string, unknown>) =>
+  architectureDirectoryNaming.check({
+    sourceFiles,
+    heads: [],
+    project: defaultProject,
+    config: defineConfig({ rules: { 'architecture/directory-naming': { options } } })
+  } as RuleContext);
+
+describe('the documented directories example', () => {
+  it('is silent on a conforming tree', async () => {
+    expect(await run(TREE, EXAMPLE)).toEqual([]);
+  });
+
+  it('leaves no declaration reported — every key in it does work', async () => {
+    // Silence alone proves nothing: an example whose globs all miss is silent too. This is the
+    // assertion that tells a working example from a broken one.
+    const rs = await run(TREE, EXAMPLE);
+    expect(rs.filter((r) => r.location === undefined)).toEqual([]);
+  });
+
+  it('reports the deviations the convention forbids', async () => {
+    const rs = await run(
+      [
+        ...TREE,
+        'src/routes/svelteApi/setCookie/+server.ts', // endpoint segment must be kebab-case
+        'src/lib/features/FetchOnMount/index.ts' // feature root must be camelCase
+      ],
+      EXAMPLE
+    );
+    const messages = rs.filter((r) => r.location !== undefined).map((r) => r.message);
+    expect(messages).toHaveLength(2);
+    expect(messages.some((m) => m.includes('src/routes/svelteApi/setCookie') && m.includes('kebab-case'))).toBe(true);
+    expect(messages.some((m) => m.includes('src/lib/features/FetchOnMount') && m.includes('camelCase'))).toBe(true);
+  });
+
+  it('narrows the routes declaration with the endpoint one rather than being overridden by it', async () => {
+    // 'src/routes/svelteApi/*' has four segments to 'src/routes/**''s three, so it wins. Proven by
+    // a camelCase endpoint segment being reported: it satisfies the broader declaration, so it can
+    // only fail if the narrower one is what governs it.
+    const rs = await run([...TREE, 'src/routes/svelteApi/setCookie/+server.ts'], EXAMPLE);
+    const messages = rs.filter((r) => r.location !== undefined).map((r) => r.message);
+    expect(messages).toHaveLength(1);
+    expect(messages[0]).toContain('src/routes/svelteApi/setCookie must be kebab-case');
+  });
+
+  it('lets a function unit one level below an endpoint fall back to the broader declaration', async () => {
+    // 'src/routes/svelteApi/*' is one segment too shallow to reach fetchSetCookie/, so the
+    // camelCase|PascalCase declaration governs it — which is what the convention wants.
+    const rs = await run(TREE, EXAMPLE);
+    expect(rs.filter((r) => r.message.includes('fetchSetCookie'))).toEqual([]);
+  });
+});
+
+describe('the documented exclude example', () => {
+  const GENERATED = ['src/lib/generated/api_client/index.ts'];
+
+  it('removes a finding that appears without it', async () => {
+    const without = await run([...TREE, ...GENERATED], {
+      directories: { ...EXAMPLE.directories, 'src/lib/**': 'camelCase' }
+    });
+    expect(without.filter((r) => r.location !== undefined)).toHaveLength(1);
+  });
+
+  it('is silent with the exclusion in place', async () => {
+    const withExclude = await run([...TREE, ...GENERATED], {
+      directories: { ...EXAMPLE.directories, 'src/lib/**': 'camelCase' },
+      exclude: ['src/lib/generated']
+    });
+    expect(withExclude.filter((r) => r.location !== undefined)).toEqual([]);
+  });
+});
