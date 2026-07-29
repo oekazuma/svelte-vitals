@@ -124,6 +124,16 @@ describe('architecture/reserved-directory-names — scopes', () => {
     );
     expect(rs).toEqual([]);
   });
+
+  it('drops a value that names nothing, so it cannot govern with an empty set', async () => {
+    // `validateRuleOptions` accepts any non-empty string, so this is reachable configuration. Left
+    // in the running, the key wins on specificity and then admits nothing, reporting every child
+    // against a requirement naming no name. Dropping it leaves the position ungoverned instead.
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/api/a.ts', 'src/lib/widgets/b.ts'], { scopes: { 'src/lib': '|' } })
+    );
+    expect(fails(rs)).toEqual([]);
+  });
 });
 
 describe('architecture/reserved-directory-names — precedence across the two maps', () => {
@@ -138,8 +148,7 @@ describe('architecture/reserved-directory-names — precedence across the two ma
     // 'tests', so tests/ is reported.
     expect(fails(rs)).toHaveLength(1);
     expect(fails(rs)[0]!.route).toBe('src/lib/Card/tests');
-    expect(fails(rs)[0]!.message).toContain('parts');
-    expect(fails(rs)[0]!.message).not.toContain('tests,');
+    expect(fails(rs)[0]!.message).toMatch(/declared here: parts\.$/);
   });
 
   it('lets a narrow unitScopes key beat a broad scopes key', async () => {
@@ -188,5 +197,46 @@ describe('architecture/reserved-directory-names — exclude', () => {
     );
     expect(fails(rs)).toHaveLength(1);
     expect(fails(rs)[0]!.route).toBe('src/lib/Card/misc');
+  });
+
+  it('prunes an excluded parent when the exclusion reaches the parent alone', async () => {
+    // The override's scope matches the parent and not the child, so the child's own resolution
+    // carries no exclusion. Only the parent-level check can prune here — with a top-level glob the
+    // per-child check would cover for it, which is why that fixture cannot pin this.
+    const rs = await architectureReservedDirectoryNames.check({
+      sourceFiles: ['src/lib/Card/Card.svelte', 'src/lib/Card/helpers/a.ts'],
+      heads: [],
+      project: defaultProject,
+      config: defineConfig({
+        rules: { 'architecture/reserved-directory-names': { options: { unitScopes: { 'src/**': 'parts' } } } },
+        overrides: [
+          {
+            files: 'src/lib/Card',
+            rules: { 'architecture/reserved-directory-names': { options: { exclude: ['src/lib/Card'] } } }
+          }
+        ]
+      })
+    });
+    expect(fails(rs)).toEqual([]);
+  });
+
+  it('prunes a child named by an exclusion that only the parent can see', async () => {
+    const rs = await architectureReservedDirectoryNames.check({
+      sourceFiles: ['src/lib/Card/Card.svelte', 'src/lib/Card/legacy/a.ts'],
+      heads: [],
+      project: defaultProject,
+      config: defineConfig({
+        rules: { 'architecture/reserved-directory-names': { options: { unitScopes: { 'src/**': 'parts' } } } },
+        overrides: [
+          {
+            files: 'src/lib/Card',
+            rules: {
+              'architecture/reserved-directory-names': { options: { exclude: ['src/lib/Card/legacy'] } }
+            }
+          }
+        ]
+      })
+    });
+    expect(fails(rs)).toEqual([]);
   });
 });

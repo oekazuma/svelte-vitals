@@ -144,6 +144,11 @@ export const architectureReservedDirectoryNames: Rule = {
       const allowed = new Set(governing);
       for (const child of kids.get(dir) ?? []) {
         if (allowed.has(baseName(child))) continue;
+        // Both the parent's resolved exclusions and the child's own. An `overrides` entry scoped to
+        // the parent can name a child, and the child's own resolution would not see that entry at
+        // all — its scope does not match the child's path. Checking only one list makes `exclude`
+        // mean "and everything beneath it" for the config file but not for an override.
+        if (isExcluded(child, ancestorDirs(child), excluded)) continue;
         // The child's own exclusion, resolved separately: an `overrides` entry can prune the child
         // specifically, and the parent's resolved list would not show it. Only reached for a
         // violation candidate, so the cost is per finding rather than per directory.
