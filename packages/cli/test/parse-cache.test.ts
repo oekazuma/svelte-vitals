@@ -1,22 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import type { Runtime } from '@svelte-vitals/core';
 import { collectRoutes } from '../src/providers/source/routes.js';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';
-
-/** Wraps a Runtime's readFile to count calls per path, proving the parse cache dedupes reads. */
-function withReadSpy(rt: Runtime): { rt: Runtime; counts: Map<string, number> } {
-  const counts = new Map<string, number>();
-  return {
-    rt: {
-      ...rt,
-      async readFile(path: string) {
-        counts.set(path, (counts.get(path) ?? 0) + 1);
-        return rt.readFile(path);
-      }
-    },
-    counts
-  };
-}
+import { createCountingRuntime } from './helpers/counting-runtime.js';
 
 describe('parse cache (per-run readFile dedup)', () => {
   it('reads a shared root layout and a shared $lib component exactly once across routes', async () => {
@@ -26,17 +11,17 @@ describe('parse cache (per-run readFile dedup)', () => {
       'src/routes/b/+page.svelte': `<h1>B</h1>`,
       'src/lib/Seo.svelte': `<svelte:head><title>{data.title}</title><meta name="description" content={data.desc} /></svelte:head>`
     });
-    const { rt, counts } = withReadSpy(base);
+    const { rt, counts } = createCountingRuntime(base);
 
     const { heads, images, headings } = await collectRoutes(rt, '');
 
     // Root layout and the shared component are each on both routes' chains, but
     // must be read+parsed exactly once for the whole run.
-    expect(counts.get('src/routes/+layout.svelte')).toBe(1);
-    expect(counts.get('src/lib/Seo.svelte')).toBe(1);
+    expect(counts.readFile.get('src/routes/+layout.svelte')).toBe(1);
+    expect(counts.readFile.get('src/lib/Seo.svelte')).toBe(1);
     // Each page is still read once (never merged across distinct route files).
-    expect(counts.get('src/routes/a/+page.svelte')).toBe(1);
-    expect(counts.get('src/routes/b/+page.svelte')).toBe(1);
+    expect(counts.readFile.get('src/routes/a/+page.svelte')).toBe(1);
+    expect(counts.readFile.get('src/routes/b/+page.svelte')).toBe(1);
 
     // Output is unaffected by caching: both routes see the composed title/description
     // (inherited from the layout's Seo usage) and the layout's <img>/page's <h1>.
