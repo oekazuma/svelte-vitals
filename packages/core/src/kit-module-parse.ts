@@ -529,8 +529,12 @@ export function resolveRepoLocalPath(
  * extensionless `…/x.svelte` specifier canonicalises to `….svelte.ts` (security/shared-state-import also
  * tries the `.js` sibling when matching).
  */
-export function resolveRunesModuleSpecifier(spec: string, importerFile: string): string | undefined {
-  const path = resolveRepoLocalPath(spec, importerFile);
+export function resolveRunesModuleSpecifier(
+  spec: string,
+  importerFile: string,
+  aliases?: readonly KitAlias[]
+): string | undefined {
+  const path = resolveRepoLocalPath(spec, importerFile, aliases);
   if (path === undefined) return undefined;
   if (/\.svelte\.(ts|js)$/.test(path)) return path;
   if (path.endsWith('.svelte')) return `${path}.ts`;
@@ -553,8 +557,8 @@ export function resolveRunesModuleSpecifier(spec: string, importerFile: string):
  * redis, @vercel/kv, …) are excluded: `.set()`/`.update()` on those is persistence,
  * not shared-module-state mutation.
  */
-function isLocalStateSpecifier(spec: string, importerFile: string): boolean {
-  const path = resolveRepoLocalPath(spec, importerFile);
+function isLocalStateSpecifier(spec: string, importerFile: string, aliases?: readonly KitAlias[]): boolean {
+  const path = resolveRepoLocalPath(spec, importerFile, aliases);
   if (path === undefined) return false;
   return path !== 'src/lib/server' && !path.startsWith('src/lib/server/');
 }
@@ -564,7 +568,11 @@ function isLocalStateSpecifier(spec: string, importerFile: string): boolean {
  * the shared wrap parser (`parseModuleProgram`), so reported lines subtract the
  * 1-line wrap prefix; suppressions are scanned on the unwrapped source.
  */
-export function parseKitModuleFacts(source: string, filename: string): Omit<KitModuleFacts, 'file' | 'kind'> {
+export function parseKitModuleFacts(
+  source: string,
+  filename: string,
+  aliases?: readonly KitAlias[]
+): Omit<KitModuleFacts, 'file' | 'kind'> {
   const suppressions = collectSuppressions(source);
   const { program, wrapped } = parseModuleProgram(source, filename);
   const moduleStateReassignments: KitModuleFacts['moduleStateReassignments'] = [];
@@ -600,7 +608,7 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
       importedSpecifiers.set(s.local.name, spec);
     }
     if (names.length === 0) continue;
-    const resolved = resolveRunesModuleSpecifier(spec, filename);
+    const resolved = resolveRunesModuleSpecifier(spec, filename, aliases);
     if (resolved) runesModuleImports.push({ source: spec, resolved, names, line: line(stmt.start) });
   }
 
@@ -698,7 +706,8 @@ export function parseKitModuleFacts(source: string, filename: string): Omit<KitM
       const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
       if (method === 'set' || method === 'update') {
         const r = importedRoot(n.callee.object);
-        if (r && isLocalStateSpecifier(importedSpecifiers.get(r)!, filename)) write = { name: r, via: 'set-call' };
+        if (r && isLocalStateSpecifier(importedSpecifiers.get(r)!, filename, aliases))
+          write = { name: r, via: 'set-call' };
       }
     } else if (
       n.type === 'AssignmentExpression' &&

@@ -464,3 +464,29 @@ describe('resolveRepoLocalPath — alias entries', () => {
     expect(resolve('drizzle-orm', [LIB, prefix('$a', 'src/a')])).toBeUndefined();
   });
 });
+
+describe('parseKitModuleFacts — alias-resolved specifiers', () => {
+  const src = `import { s } from '$a/store.svelte';\ns.set(1);\n`;
+  const aliases: KitAlias[] = [
+    { find: '$lib', replacement: 'src/lib', match: 'prefix' },
+    { find: '$a', replacement: 'src/a', match: 'prefix' }
+  ];
+
+  it('records no runes-module import for an unknown alias', () => {
+    expect(parseKitModuleFacts(src, 'src/routes/+page.server.ts').runesModuleImports).toEqual([]);
+  });
+
+  it('records the import once the alias list explains the specifier', () => {
+    expect(parseKitModuleFacts(src, 'src/routes/+page.server.ts', aliases).runesModuleImports).toEqual([
+      { source: '$a/store.svelte', resolved: 'src/a/store.svelte.ts', names: ['s'], line: 1 }
+    ]);
+  });
+
+  it('records the set-call write once the alias list explains the specifier', () => {
+    const wrapped = `import { s } from '$a/store.svelte';\nexport function load() {\n  s.set(1);\n}\n`;
+    expect(parseKitModuleFacts(wrapped, 'src/routes/+page.server.ts').importedStateWrites).toEqual([]);
+    expect(parseKitModuleFacts(wrapped, 'src/routes/+page.server.ts', aliases).importedStateWrites).toEqual([
+      { name: 's', line: 3, via: 'set-call' }
+    ]);
+  });
+});
