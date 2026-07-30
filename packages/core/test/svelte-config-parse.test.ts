@@ -2,7 +2,9 @@ import { describe, it, expect } from 'vitest';
 import {
   findKitPathsBaseInSvelteConfig,
   findKitPathsBaseInViteConfig,
-  resolveKitPathsBase
+  resolveKitPathsBase,
+  findKitAliasesInSvelteConfig,
+  resolveKitAliases
 } from '../src/svelte-config-parse.js';
 
 describe('findKitPathsBaseInSvelteConfig', () => {
@@ -156,5 +158,164 @@ describe('resolveKitPathsBase', () => {
 
   it('returns undefined when neither config exists', () => {
     expect(resolveKitPathsBase(undefined, undefined)).toBeUndefined();
+  });
+});
+
+describe('findKitAliasesInSvelteConfig', () => {
+  const raw = (body: string) => findKitAliasesInSvelteConfig(`export default { kit: ${body} };`);
+
+  it('reads alias entries in declaration order', () => {
+    expect(raw(`{ alias: { '$b': 'src/b', '$a': 'src/a' } }`).entries).toEqual([
+      { key: '$b', value: 'src/b' },
+      { key: '$a', value: 'src/a' }
+    ]);
+  });
+
+  it('records a non-literal value as null while its literal siblings keep theirs', () => {
+    const src = [
+      `import path from 'node:path';`,
+      `export default { kit: { alias: { '$a': path.resolve('x'), '$b': 'src/b' } } };`
+    ].join('\n');
+    expect(findKitAliasesInSvelteConfig(src).entries).toEqual([
+      { key: '$a', value: null },
+      { key: '$b', value: 'src/b' }
+    ]);
+  });
+
+  it('keeps a duplicate key at its first position with its last value', () => {
+    // Object.entries semantics: { a: 1, b: 2, a: 3 } yields a at index 0 with value 3.
+    expect(raw(`{ alias: { '$a': 'src/one', '$b': 'src/two', '$a': 'src/three' } }`).entries).toEqual([
+      { key: '$a', value: 'src/three' },
+      { key: '$b', value: 'src/two' }
+    ]);
+  });
+
+  it('discards every entry when a spread makes the key set unknowable', () => {
+    const src = [`const shared = {};`, `export default { kit: { alias: { ...shared, '$a': 'src/a' } } };`].join('\n');
+    expect(findKitAliasesInSvelteConfig(src).entries).toBeUndefined();
+  });
+
+  it('discards every entry when a key is computed', () => {
+    const src = [`const KEY = '$a';`, `export default { kit: { alias: { [KEY]: 'src/a' } } };`].join('\n');
+    expect(findKitAliasesInSvelteConfig(src).entries).toBeUndefined();
+  });
+
+  it('discards every entry when alias is not an object literal', () => {
+    expect(raw(`{ alias: makeAliases() }`).entries).toBeUndefined();
+  });
+
+  it('reports no alias property as no entries, not as unknowable', () => {
+    expect(raw(`{ paths: { base: '/x' } }`).entries).toEqual([]);
+  });
+
+  it('reads a literal kit.files.lib', () => {
+    expect(raw(`{ files: { lib: 'src/library' } }`).filesLib).toBe('src/library');
+  });
+
+  it('ignores a non-literal kit.files.lib', () => {
+    expect(raw(`{ files: { lib: someDir } }`).filesLib).toBeUndefined();
+  });
+
+  it('returns empty entries for an unparseable config', () => {
+    expect(findKitAliasesInSvelteConfig(`export default { kit: {`)).toEqual({ entries: [] });
+  });
+});
+
+describe('resolveKitAliases', () => {
+  const svelte = (body: string) => ({ source: `export default { kit: ${body} };` });
+  const list = (body: string) => resolveKitAliases(undefined, svelte(body));
+
+  it('puts $lib first, then the user entries in declaration order', () => {
+    expect(list(`{ alias: { '$b': 'src/b', '$a': 'src/a' } }`)).toEqual([
+      { find: '$lib', replacement: 'src/lib', match: 'prefix' },
+      { find: '$b', replacement: 'src/b', match: 'prefix' },
+      { find: '$a', replacement: 'src/a', match: 'prefix' }
+    ]);
+  });
+
+  it('lets kit.files.lib move $lib', () => {
+    expect(list(`{ files: { lib: 'src/library' } }`)![0]).toEqual({
+      find: '$lib',
+      replacement: 'src/library',
+      match: 'prefix'
+    });
+  });
+
+  it('keeps files.lib ahead of a user $lib entry, which is therefore dead', () => {
+    // Kit prepends its own $lib entry, and Vite takes the first match, so a user
+    // kit.alias.$lib never fires.
+    const l = list(`{ files: { lib: 'src/library' }, alias: { '$lib': 'src/mine' } }`)!;
+    expect(l[0]).toEqual({ find: '$lib', replacement: 'src/library', match: 'prefix' });
+    expect(l[1]).toEqual({ find: '$lib', replacement: 'src/mine', match: 'prefix' });
+  });
+
+  it('compiles a /* key to a contents entry with the star stripped from both sides', () => {
+    expect(list(`{ alias: { '$a/*': 'src/a/*' } }`)![1]).toEqual({
+      find: '$a',
+      replacement: 'src/a',
+      match: 'contents'
+    });
+  });
+
+  it('narrows a plain key to exact when its /* form is also declared', () => {
+    expect(list(`{ alias: { '$a': 'src/plain', '$a/*': 'src/star' } }`)!.slice(1)).toEqual([
+      { find: '$a', replacement: 'src/plain', match: 'exact' },
+      { find: '$a', replacement: 'src/star', match: 'contents' }
+    ]);
+  });
+
+  it('assigns exact from the declared key set even when the /* value is unreadable', () => {
+    const src = [
+      `import path from 'node:path';`,
+      `export default { kit: { alias: { '$a': 'src/plain', '$a/*': path.resolve('x') } } };`
+    ].join('\n');
+    expect(resolveKitAliases(undefined, { source: src })!.slice(1)).toEqual([
+      { find: '$a', replacement: 'src/plain', match: 'exact' },
+      { find: '$a', replacement: null, match: 'contents' }
+    ]);
+  });
+
+  it('normalises a trailing slash, a backslash path, and a trailing star', () => {
+    expect(list(`{ alias: { '$a': 'src/', '$b': 'src\\\\lib', '$c': 'src/c/*' } }`)!.slice(1)).toEqual([
+      { find: '$a', replacement: 'src', match: 'prefix' },
+      { find: '$b', replacement: 'src/lib', match: 'prefix' },
+      { find: '$c', replacement: 'src/c', match: 'prefix' }
+    ]);
+  });
+
+  it('normalises the $lib entry too, which Kit builds without posixify or resolve', () => {
+    expect(list(`{ files: { lib: 'src/library/' } }`)![0]!.replacement).toBe('src/library');
+  });
+
+  it('keeps only $lib when the alias key set is unknowable', () => {
+    const src = [`const shared = {};`, `export default { kit: { alias: { ...shared, '$a': 'src/a' } } };`].join('\n');
+    expect(resolveKitAliases(undefined, { source: src })).toEqual([
+      { find: '$lib', replacement: 'src/lib', match: 'prefix' }
+    ]);
+  });
+
+  it('is undefined when there is no svelte config at all', () => {
+    expect(resolveKitAliases(undefined, undefined)).toBeUndefined();
+  });
+
+  it('reads nothing when the Vite config carries a sveltekit() config, which makes svelte.config ignored', () => {
+    const vite = {
+      source: [
+        `import { sveltekit } from '@sveltejs/kit/vite';`,
+        `export default { plugins: [sveltekit({ alias: { '$a': 'src/a' } })] };`
+      ].join('\n')
+    };
+    expect(resolveKitAliases(vite, svelte(`{ alias: { '$a': 'src/a' } }`))).toBeUndefined();
+  });
+
+  it('still reads svelte.config when sveltekit() takes no argument', () => {
+    const vite = {
+      source: [`import { sveltekit } from '@sveltejs/kit/vite';`, `export default { plugins: [sveltekit()] };`].join(
+        '\n'
+      )
+    };
+    expect(resolveKitAliases(vite, svelte(`{ alias: { '$a': 'src/a' } }`))!.slice(1)).toEqual([
+      { find: '$a', replacement: 'src/a', match: 'prefix' }
+    ]);
   });
 });

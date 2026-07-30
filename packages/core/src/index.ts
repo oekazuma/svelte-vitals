@@ -42,9 +42,11 @@ export { findMinifyDisabled } from './vite-config-parse.js';
 export {
   findKitPathsBaseInSvelteConfig,
   findKitPathsBaseInViteConfig,
-  resolveKitPathsBase
+  resolveKitPathsBase,
+  findKitAliasesInSvelteConfig,
+  resolveKitAliases
 } from './svelte-config-parse.js';
-export type { ViteKitConfigResult } from './svelte-config-parse.js';
+export type { ViteKitConfigResult, RawKitAliases } from './svelte-config-parse.js';
 export {
   CHILD_NODE_KEYS,
   lineOf,
