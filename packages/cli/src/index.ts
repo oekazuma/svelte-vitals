@@ -17,8 +17,6 @@ import {
   selectRules,
   applyRuleSeverities,
   applyOverrides,
-  collectKitModuleFacts,
-  collectSourceFiles,
   type Severity,
   type RuleSetting,
   type Result,
@@ -26,10 +24,9 @@ import {
   type Category
 } from '@svelte-vitals/core';
 import { createNodeRuntime } from './runtime/node.js';
-import { collectRoutes } from './providers/source/routes.js';
 import type { ParseCache } from './providers/source/resolve.js';
-import { collectComponentFacts } from './providers/source/components.js';
-import { detectProject, ProjectError, collectProjectFacts, checkVersionFloor } from './providers/source/project.js';
+import { detectProject, ProjectError, checkVersionFloor } from './providers/source/project.js';
+import { collectAll } from './collect-all.js';
 import { discoverApps } from './discover-apps.js';
 import { readPackageVersion, readCoreVersion } from './version.js';
 import { resolveReporter, isAutoDetectedAgent, isAutoDetectedGithub, type ReporterName } from './reporter-resolve.js';
@@ -125,21 +122,6 @@ export function spinnerEnabled(opts: {
   );
 }
 
-export function routeMatcher(glob: string | undefined): (route: string) => boolean {
-  if (!glob) return () => true;
-  const body = glob
-    .replace(/[.+^${}()|[\]\\]/g, '\\$&')
-    .replace(/\*\*/g, ' ') // globstar placeholder
-    .replace(/\*/g, '[^/]*') // single-segment wildcard (placeholder untouched)
-    .replace(/\/ $/g, '(?:/.*)?') // trailing /** -> optional subtree
-    .replace(/^ \//g, '(?:.*/)?') // leading **/ -> optional prefix
-    .replace(/ \//g, '(?:.*/)?') // internal **/ -> optional prefix
-    .replace(/\/ /g, '(?:/.*)?') // internal /** -> optional subtree
-    .replace(/ /g, '.*'); // bare ** -> .*
-  const re = new RegExp(`^${body}$`);
-  return (route) => re.test(route.replace(/^\//, ''));
-}
-
 export interface AnalyzeOptions {
   cwd?: string;
   metaComponents?: string[];
@@ -205,22 +187,10 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   await detectProject(rt, cwd); // throws ProjectError if not a SvelteKit project
   const warnings = [...(loaded?.warnings ?? []), ...(await checkVersionFloor(rt, cwd))];
 
-  const matches = routeMatcher(opts.route);
-  const collected = await collectRoutes(rt, cwd, config, opts.parseCache);
-  const heads = collected.heads.filter((h) => matches(h.route));
-  const images = collected.images.filter((i) => matches(i.route));
-  const headings = collected.headings.filter((h) => matches(h.route));
-  const project = await collectProjectFacts(rt, cwd);
-  // Component (Correctness) facts are file-scoped with no route attribution yet, so a
-  // route-filtered run skips them rather than reporting unrelated components (#68 review);
-  // kitModules is skipped for the same reason.
-  const components = opts.route ? [] : await collectComponentFacts(rt, cwd);
-  const kitModules = opts.route ? [] : await collectKitModuleFacts(rt, cwd);
-  // Unlike its two neighbours above, the --route branch gets `undefined` here, not `[]`: an empty
-  // inventory would tell architecture/unit-entry-file that the declared unit directories truly do
-  // not exist, so it would report every declaration as inert, whereas `undefined` means the mode
-  // never collected the fact at all, and the rule stays silent instead of raising a false alarm.
-  const sourceFiles = opts.route ? undefined : await collectSourceFiles(rt, cwd);
+  const { heads, images, headings, project, components, kitModules, sourceFiles } = await collectAll(rt, cwd, config, {
+    route: opts.route,
+    parseCache: opts.parseCache
+  });
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
   const results = applyOverrides(
@@ -548,6 +518,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 }
 
 export { ProjectError } from './providers/source/project.js';
+export { routeMatcher } from './route-matcher.js';
 export type { ParseCache } from './providers/source/resolve.js';
 export { buildRulesConfig, findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
 export { loadConfigFile } from './config-file.js';
