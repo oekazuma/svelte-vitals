@@ -79,8 +79,14 @@ export function mapOption(options: RuleOptions, key: string): Record<string, str
  * owed; this one can only ever fail to save time.
  */
 export function isMentionedAnywhere(config: Config, ruleId: string): boolean {
-  if (config.rules[ruleId] !== undefined) return true;
-  return (config.overrides ?? []).some((entry) => entry.rules?.[ruleId] !== undefined);
+  // `Object.hasOwn`, not a `!== undefined` presence test: the latter walks the prototype chain, so a
+  // `ruleId` of `toString` or `constructor` would find an inherited member on these plain objects and
+  // report the rule as mentioned. Not reachable through a registered rule — every id contains a `/`,
+  // which no `Object.prototype` member does — but it is how this repository does presence checks on
+  // an open-ended record (`parseCasings` in rules/architecture/casing.ts, `perf/heavy-import`), and a
+  // helper taking an id as a parameter should not depend on every caller passing a literal.
+  if (Object.hasOwn(config.rules, ruleId)) return true;
+  return (config.overrides ?? []).some((entry) => entry.rules !== undefined && Object.hasOwn(entry.rules, ruleId));
 }
 
 /**

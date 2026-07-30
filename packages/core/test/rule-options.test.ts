@@ -366,6 +366,15 @@ describe('isMentionedAnywhere', () => {
     expect(isMentionedAnywhere(config, ID)).toBe(true);
   });
 
+  it('is false for a name inherited from Object.prototype, in either layer', () => {
+    // A presence test would find `Object.prototype.toString` on these plain objects and report the
+    // rule as mentioned. No registered rule id can reach this — every one contains a `/` — but the
+    // helper takes the id as a parameter, so it should not rely on every caller passing a literal.
+    expect(isMentionedAnywhere(defineConfig({}), 'toString')).toBe(false);
+    expect(isMentionedAnywhere(defineConfig({}), 'constructor')).toBe(false);
+    expect(isMentionedAnywhere(defineConfig({ overrides: [{ files: 'src/**', rules: {} }] }), 'toString')).toBe(false);
+  });
+
   it('is false when an overrides entry names only other rules', () => {
     expect(isMentionedAnywhere(defineConfig({ overrides: [{ files: 'src/**', rules: { seo: 'off' } }] }), ID)).toBe(
       false
