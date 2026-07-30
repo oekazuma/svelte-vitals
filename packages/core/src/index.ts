@@ -169,6 +169,7 @@ export {
 export type { CompiledOverride } from './config-apply.js';
 
 export {
+  isMentionedAnywhere,
   resolveRuleOptions,
   validateRuleOptions,
   validateRuleSetting,

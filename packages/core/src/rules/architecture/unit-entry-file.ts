@@ -1,7 +1,13 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { compileOverrides } from '../../config-apply.js';
-import { listOption, mapOption, resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
+import {
+  isMentionedAnywhere,
+  listOption,
+  mapOption,
+  resolveRuleOptions,
+  type RuleOptionsSpec
+} from '../../rule-options.js';
 import {
   ancestorDirs,
   baseName,
@@ -12,7 +18,8 @@ import {
   reportAt
 } from './declarations.js';
 
-const docsUrl = docsUrlFor('architecture/unit-entry-file');
+const ID = 'architecture/unit-entry-file';
+const docsUrl = docsUrlFor(ID);
 const recommendation =
   'Give every declared unit directory a file named after it, or stop declaring that directory a unit.';
 
@@ -40,7 +47,7 @@ function isPascalCase(name: string): boolean {
  * the directory, because `filterToChangedFiles` keeps only locations git lists as changed.
  */
 export const architectureUnitEntryFile: Rule = {
-  id: 'architecture/unit-entry-file',
+  id: ID,
   title: 'Unit entry file',
   category: 'architecture',
   severity: 'info',
@@ -55,6 +62,11 @@ export const architectureUnitEntryFile: Rule = {
   async check(ctx: RuleContext): Promise<Result[]> {
     const files = ctx.sourceFiles;
     if (files === undefined) return [];
+
+    // No config layer mentions this rule, so nothing below can find a declaration. Without this,
+    // an unconfigured project resolves options once per directory and throws every result away —
+    // and this rule is off by default, so that is the case for almost every project.
+    if (!isMentionedAnywhere(ctx.config, ID)) return [];
 
     // Hoisted: compiling every override's globs once, not once per directory.
     const compiledOverrides = compileOverrides(ctx.config);
@@ -72,7 +84,7 @@ export const architectureUnitEntryFile: Rule = {
 
     const out: Result[] = [];
     // Keys of the globally declared options that matched at least one directory.
-    const globalOptions = resolveRuleOptions('architecture/unit-entry-file', OPTIONS, ctx.config);
+    const globalOptions = resolveRuleOptions(ID, OPTIONS, ctx.config);
     const globalKeys = new Set([
       ...Object.keys(mapOption(globalOptions, 'units')),
       ...Object.keys(mapOption(globalOptions, 'pascalCaseUnits'))
@@ -88,13 +100,7 @@ export const architectureUnitEntryFile: Rule = {
     const matchedSurviving = new Set<string>();
 
     for (const dir of [...dirs].sort()) {
-      const o = resolveRuleOptions(
-        'architecture/unit-entry-file',
-        OPTIONS,
-        ctx.config,
-        { route: dir, file: dir },
-        compiledOverrides
-      );
+      const o = resolveRuleOptions(ID, OPTIONS, ctx.config, { route: dir, file: dir }, compiledOverrides);
       const units = mapOption(o, 'units');
       const pascalUnits = mapOption(o, 'pascalCaseUnits');
       if (Object.keys(units).length === 0 && Object.keys(pascalUnits).length === 0) continue; // inert
@@ -146,7 +152,7 @@ export const architectureUnitEntryFile: Rule = {
       const expected = `${dir}/${baseName(dir)}${ext}`;
       if (fileSet.has(expected)) {
         out.push({
-          id: 'architecture/unit-entry-file',
+          id: ID,
           category: 'architecture',
           severity: 'info',
           detection: { presence: 'own', value: 'static' },
@@ -171,7 +177,7 @@ export const architectureUnitEntryFile: Rule = {
       // every violation's identity distinct, and costs nothing else: no consumer here reads `route`
       // as a file.
       out.push({
-        id: 'architecture/unit-entry-file',
+        id: ID,
         category: 'architecture',
         severity: 'info',
         detection: { presence: 'none', value: 'absent' },
@@ -219,7 +225,7 @@ export const architectureUnitEntryFile: Rule = {
           ? `The declaration '${inertKeys[0]}' ${why(inertKeys[0] as string)}, so it checks nothing.`
           : `These declarations check nothing: ${inertKeys.map((k) => `'${k}' (${why(k)})`).join(', ')}.`;
       out.push({
-        id: 'architecture/unit-entry-file',
+        id: ID,
         category: 'architecture',
         severity: 'info',
         detection: { presence: 'none', value: 'absent' },

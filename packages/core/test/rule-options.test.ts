@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
+  isMentionedAnywhere,
   resolveRuleOptions,
   validateRuleOptions,
   validateRuleSetting,
@@ -338,5 +339,45 @@ describe('typed option accessors', () => {
     expect(listOption({ origins: 'a.com' }, 'origins')).toEqual([]);
     expect(mapOption({ packages: ['lodash'] }, 'packages')).toEqual({});
     expect(mapOption({ packages: null }, 'packages')).toEqual({});
+  });
+});
+
+describe('isMentionedAnywhere', () => {
+  const ID = 'architecture/unit-entry-file';
+
+  it('is false when no layer names the rule', () => {
+    expect(isMentionedAnywhere(defineConfig({}), ID)).toBe(false);
+    expect(isMentionedAnywhere(defineConfig({ rules: { 'seo/title-presence': 'off' } }), ID)).toBe(false);
+  });
+
+  it('is true for a `rules` entry, even a bare severity carrying no options', () => {
+    // Conservative on purpose: the caller then does its normal work and finds nothing declared. A
+    // version answering `false` here would make a rule skip work it owed, which is the one failure
+    // this helper must not have.
+    expect(isMentionedAnywhere(defineConfig({ rules: { [ID]: 'off' } }), ID)).toBe(true);
+  });
+
+  it('is true for a rule mentioned only inside an overrides entry', () => {
+    // The case that matters. These rules resolve options per directory, so a declaration can arrive
+    // from an override alone — an early return keyed on the global layer only would swallow it.
+    const config = defineConfig({
+      overrides: [{ files: 'src/**', rules: { [ID]: { options: { units: { 'src/*': '.ts' } } } } }]
+    });
+    expect(isMentionedAnywhere(config, ID)).toBe(true);
+  });
+
+  it('is false for a name inherited from Object.prototype, in either layer', () => {
+    // A presence test would find `Object.prototype.toString` on these plain objects and report the
+    // rule as mentioned. No registered rule id can reach this — every one contains a `/` — but the
+    // helper takes the id as a parameter, so it should not rely on every caller passing a literal.
+    expect(isMentionedAnywhere(defineConfig({}), 'toString')).toBe(false);
+    expect(isMentionedAnywhere(defineConfig({}), 'constructor')).toBe(false);
+    expect(isMentionedAnywhere(defineConfig({ overrides: [{ files: 'src/**', rules: {} }] }), 'toString')).toBe(false);
+  });
+
+  it('is false when an overrides entry names only other rules', () => {
+    expect(isMentionedAnywhere(defineConfig({ overrides: [{ files: 'src/**', rules: { seo: 'off' } }] }), ID)).toBe(
+      false
+    );
   });
 });

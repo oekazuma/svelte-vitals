@@ -1,7 +1,13 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { compileOverrides } from '../../config-apply.js';
-import { listOption, mapOption, resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
+import {
+  isMentionedAnywhere,
+  listOption,
+  mapOption,
+  resolveRuleOptions,
+  type RuleOptionsSpec
+} from '../../rule-options.js';
 import {
   ancestorDirs,
   baseName,
@@ -13,7 +19,8 @@ import {
 } from './declarations.js';
 import { decodeSegment, parseCasings, satisfiesCasing } from './casing.js';
 
-const docsUrl = docsUrlFor('architecture/directory-naming');
+const ID = 'architecture/directory-naming';
+const docsUrl = docsUrlFor(ID);
 const recommendation = 'Name each directory in the casing its location declares, or narrow the declaration.';
 
 // Inert by default: with nothing declared there is no convention to check, and svelte-vitals never
@@ -38,7 +45,7 @@ const OPTIONS: RuleOptionsSpec = {
  * hundreds of 100s from one `'src/routes/**'` declaration and dilute every real finding.
  */
 export const architectureDirectoryNaming: Rule = {
-  id: 'architecture/directory-naming',
+  id: ID,
   title: 'Directory naming',
   category: 'architecture',
   severity: 'info',
@@ -52,6 +59,11 @@ export const architectureDirectoryNaming: Rule = {
   async check(ctx: RuleContext): Promise<Result[]> {
     const files = ctx.sourceFiles;
     if (files === undefined) return [];
+
+    // No config layer mentions this rule, so nothing below can find a declaration. Without this,
+    // an unconfigured project resolves options once per directory and throws every result away —
+    // and this rule is off by default, so that is the case for almost every project.
+    if (!isMentionedAnywhere(ctx.config, ID)) return [];
 
     const compiledOverrides = compileOverrides(ctx.config);
     const dirs = new Set<string>();
@@ -67,7 +79,7 @@ export const architectureDirectoryNaming: Rule = {
     };
 
     const out: Result[] = [];
-    const globalOptions = resolveRuleOptions('architecture/directory-naming', OPTIONS, ctx.config);
+    const globalOptions = resolveRuleOptions(ID, OPTIONS, ctx.config);
     const globalMap = mapOption(globalOptions, 'directories');
     const globalKeys = new Set(Object.keys(globalMap));
     const usedKeys = new Set<string>();
@@ -76,13 +88,7 @@ export const architectureDirectoryNaming: Rule = {
     const excludedDirs: string[] = [];
 
     for (const dir of [...dirs].sort()) {
-      const o = resolveRuleOptions(
-        'architecture/directory-naming',
-        OPTIONS,
-        ctx.config,
-        { route: dir, file: dir },
-        compiledOverrides
-      );
+      const o = resolveRuleOptions(ID, OPTIONS, ctx.config, { route: dir, file: dir }, compiledOverrides);
       const declared = mapOption(o, 'directories');
       if (Object.keys(declared).length === 0) continue; // inert
 
@@ -123,7 +129,7 @@ export const architectureDirectoryNaming: Rule = {
       // nothing else: no consumer reads `route` as a file — the console reporter groups by it, the
       // agent reporter prefers `location ?? route`, and `computeScore` uses it only as a map key.
       out.push({
-        id: 'architecture/directory-naming',
+        id: ID,
         category: 'architecture',
         severity: 'info',
         detection: { presence: 'none', value: 'absent' },
@@ -181,7 +187,7 @@ export const architectureDirectoryNaming: Rule = {
           ? `The declaration '${reported[0]}' does not check what it says: ${notes.get(reported[0] as string)}.`
           : `These declarations do not check what they say: ${reported.map((k) => `'${k}' (${notes.get(k)})`).join(', ')}.`;
       out.push({
-        id: 'architecture/directory-naming',
+        id: ID,
         category: 'architecture',
         severity: 'info',
         detection: { presence: 'none', value: 'absent' },

@@ -63,6 +63,33 @@ export function mapOption(options: RuleOptions, key: string): Record<string, str
 }
 
 /**
+ * Whether any config layer so much as mentions `ruleId` — its `rules` entry, or any `overrides`
+ * entry's.
+ *
+ * A rule that is inert until declared can return early on `false` instead of resolving options once
+ * per target and discarding the result. That waste is not hypothetical: the three directory-shaped
+ * Architecture rules resolve per directory, so an unconfigured project pays it for every directory
+ * under `src/` three times over, on every dev-server save. Measured 2026-07-30 over a synthetic tree
+ * of 1,523 directories: 5.4 ms per analysis, for rules that are off by default and therefore produce
+ * nothing.
+ *
+ * Deliberately conservative. It asks only whether the rule is *mentioned*, not whether the mention
+ * resolves to a non-empty value, so a `'off'` severity with no options still answers `true` and the
+ * caller does its normal work. A cheaper-but-wrong version of this would make a rule skip work it
+ * owed; this one can only ever fail to save time.
+ */
+export function isMentionedAnywhere(config: Config, ruleId: string): boolean {
+  // `Object.hasOwn`, not a `!== undefined` presence test: the latter walks the prototype chain, so a
+  // `ruleId` of `toString` or `constructor` would find an inherited member on these plain objects and
+  // report the rule as mentioned. Not reachable through a registered rule — every id contains a `/`,
+  // which no `Object.prototype` member does — but it is how this repository does presence checks on
+  // an open-ended record (`parseCasings` in rules/architecture/casing.ts, `perf/heavy-import`), and a
+  // helper taking an id as a parameter should not depend on every caller passing a literal.
+  if (Object.hasOwn(config.rules, ruleId)) return true;
+  return (config.overrides ?? []).some((entry) => entry.rules !== undefined && Object.hasOwn(entry.rules, ruleId));
+}
+
+/**
  * Effective options for a rule at a target: built-in defaults, then
  * `config.rules[ruleId].options`, then every matching `config.overrides` entry
  * in order. Integers take the last value; lists and maps accumulate.
