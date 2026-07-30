@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { defaultConfig } from '@svelte-vitals/core';
 import { collectAll } from '../src/collect-all.js';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';
-import { createCountingRuntime } from './helpers/counting-runtime.js';
+import { createCountingRuntime, type RuntimeCounts } from './helpers/counting-runtime.js';
 
 /**
  * Reads per file allowed across one full collection phase. TWO is the measured
@@ -48,16 +48,26 @@ function project(routeCount: number): Record<string, string> {
   return files;
 }
 
+/**
+ * Files read more than the budget allows. Returned as `[path, count]` pairs rather
+ * than asserted per entry so a failure names every offender and by how much.
+ */
+function overReadBudget(counts: RuntimeCounts): [string, number][] {
+  return [...counts.readFile].filter(([, n]) => n > MAX_READS_PER_FILE);
+}
+
+/** Glob patterns issued more than once — each repeat is another full directory traversal. */
+function repeatedGlobs(counts: RuntimeCounts): [string, number][] {
+  return [...counts.glob].filter(([, n]) => n !== 1);
+}
+
 describe('I/O budget for the collection phase', () => {
   it(`reads no file more than ${MAX_READS_PER_FILE} times`, async () => {
     const { rt, counts } = createCountingRuntime(createMemoryRuntime(project(6)));
 
     await collectAll(rt, '', defaultConfig);
 
-    // Collect the offenders rather than asserting per entry, so a failure names
-    // every file that blew the budget and by how much.
-    const over = [...counts.readFile].filter(([, n]) => n > MAX_READS_PER_FILE);
-    expect(over).toEqual([]);
+    expect(overReadBudget(counts)).toEqual([]);
   });
 
   it('issues each glob pattern exactly once', async () => {
@@ -65,9 +75,7 @@ describe('I/O budget for the collection phase', () => {
 
     await collectAll(rt, '', defaultConfig);
 
-    // A second call for the same pattern is a second full directory traversal.
-    const repeated = [...counts.glob].filter(([, n]) => n !== 1);
-    expect(repeated).toEqual([]);
+    expect(repeatedGlobs(counts)).toEqual([]);
     // Sanity: the run really did glob (an empty map would pass the check above).
     expect(counts.glob.size).toBeGreaterThan(0);
   });
@@ -115,5 +123,13 @@ describe('I/O budget for the collection phase', () => {
       'src/routes/**/+{page,layout}.server.{ts,js}',
       'src/routes/**/+{page,layout}.{ts,js}'
     ]);
+
+    // The filtered run is held to the same count budgets as the unfiltered one. The
+    // set comparison above proves only WHICH patterns were issued, never how many
+    // times, and the two invariants that do count never exercise this path — so
+    // without these two lines a regression confined to the `--route` path (say a
+    // glob moved inside a per-route loop) would stay green in every check here.
+    expect(overReadBudget(filtered.counts)).toEqual([]);
+    expect(repeatedGlobs(filtered.counts)).toEqual([]);
   });
 });

@@ -33,6 +33,15 @@ describe('collectAll', () => {
     // Non-empty on purpose: an empty-fixture assertion here would pass identically
     // if the collectKitModuleFacts call were deleted from collectAll outright.
     expect(facts.kitModules.map((m) => m.file).sort()).toEqual(['src/hooks.server.ts', 'src/routes/a/+page.server.ts']);
+    expect(facts.sourceFiles).toEqual([
+      'src/app.html',
+      'src/hooks.server.ts',
+      'src/lib/Card.svelte',
+      'src/routes/+layout.svelte',
+      'src/routes/a/+page.server.ts',
+      'src/routes/a/+page.svelte',
+      'src/routes/b/+page.svelte'
+    ]);
   });
 
   it('filters route-scoped facts and skips component/kit-module scanning when route is set', async () => {
@@ -46,5 +55,11 @@ describe('collectAll', () => {
     // File-scoped facts have no route attribution, so a route-filtered run skips them.
     expect(facts.components).toEqual([]);
     expect(facts.kitModules).toEqual([]);
+    // `undefined`, NOT `[]` — the distinction is load-bearing. An empty inventory tells
+    // architecture/unit-entry-file that the declared unit directories really are absent,
+    // so it reports every declaration as inert; `undefined` means the fact was never
+    // collected and the rule stays silent. Pinned here as well as in
+    // analyze-project.test.ts so a break points at collectAll rather than at the CLI.
+    expect(facts.sourceFiles).toBeUndefined();
   });
 });
