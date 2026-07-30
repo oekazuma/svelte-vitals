@@ -65,6 +65,12 @@ A `scopes` key is only worth writing where the children are **entirely** drawn f
 list. A route directory holds its reserved names beside its route segments, and route segments are
 unbounded — one per page — so no declaration belongs there. Writing one anyway reports every segment.
 
+The same applies wherever a position mixes reserved names with names the project invents freely. A
+camelCase unit that keeps its own nested helpers beside a `tests/` is such a position: the helper names
+are as unbounded as route segments, so `scopes: { 'src/**/functions/*': 'tests' }` would report every
+one of them. Between the two, the vocabulary is enforceable under component units and at positions
+whose children really are a closed list — not everywhere a reserved name appears.
+
 The names in one declaration need not be the names in another. Each declared position has its own
 closed set; there is no single table.
 

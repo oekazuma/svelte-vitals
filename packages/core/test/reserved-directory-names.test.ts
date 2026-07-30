@@ -36,6 +36,19 @@ describe('isUnitDir', () => {
   it('is false for a directory whose name does not begin A-Z', () => {
     expect(isUnitDir('src/lib/card', filesIn(['src/lib/card/card.ts']))).toBe(false);
   });
+
+  it('is false for a dotted directory name, because only the filename is cut', () => {
+    // The stem is taken to the file's FIRST dot, which is what lets `Card.svelte.ts` qualify — but
+    // the directory's basename is compared whole, so `Card.v2.svelte` yields `Card`, which is not
+    // `Card.v2`. Both rule pages state this outcome and contrast it with the sibling rule, which
+    // builds the expected filename from the directory name plus a declared extension and therefore
+    // calls the same directory a satisfied unit. Cutting the directory name too would make it a unit
+    // here and leave only the documentation wrong.
+    expect(isUnitDir('src/lib/Card.v2', filesIn(['src/lib/Card.v2/Card.v2.svelte']))).toBe(false);
+    // And the converse: a dotted directory whose file matches it whole is still not a unit, since
+    // the file's stem stops at the first dot either way.
+    expect(isUnitDir('src/lib/Card.v2', filesIn(['src/lib/Card.v2/Card.svelte']))).toBe(false);
+  });
 });
 
 describe('architecture/reserved-directory-names — inertness', () => {
