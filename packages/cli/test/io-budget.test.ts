@@ -104,10 +104,11 @@ describe('I/O budget for the collection phase', () => {
     // in `full`, so the two runs would look identical and this would go red rather
     // than passing vacuously).
     const skipped = [...full.counts.glob.keys()].filter((p) => !filtered.counts.glob.has(p));
-    // Component scanning plus every kit-module glob (page/layout, their .server
-    // variants, +server endpoints, and hooks.server) — the whole file-scoped-facts
-    // surface that a route-filtered run has no use for.
+    // The source-file inventory, component scanning, and every kit-module glob
+    // (page/layout, their .server variants, +server endpoints, and hooks.server) —
+    // the whole file-scoped-facts surface that a route-filtered run has no use for.
     expect(skipped.sort()).toEqual([
+      'src/**/*',
       'src/**/*.svelte{,.ts,.js}',
       'src/hooks.server.{ts,js}',
       'src/routes/**/+server.{ts,js}',
