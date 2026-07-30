@@ -203,6 +203,26 @@ is not a reach gap — it is exactly the wrong-answer failure this spec exists t
 direction: `security/handler-state-write` is critical and default-on, so a project that only moved
 `files.lib` and changed nothing else would start failing CI on its existing, legitimate singletons.
 
+**An unreadable `kit.files.lib` cannot collapse into "unmoved" either — that is the same wrong-answer
+failure one level up.** `filesLibOf` returns three states, not two: absent (no `lib` property, or `files`
+doesn't resolve to an object literal) → `undefined`; a literal → the string; present but not statically a
+string (a computed expression) → `null`, the same "opaque, not dropped" treatment `kit.alias` values
+already get. `??` must not be allowed to fold that `null` into the `src/lib` default: a project whose
+`files.lib` is computed would then get `$lib/x` resolved to `src/lib/x` regardless of where the real
+directory is — a wrong answer, not a missing one, exactly the failure this spec exists to avoid.
+
+That opacity then has to reach `isLocalStateSpecifier`. `$lib/…` specifiers already resolve to `undefined`
+in that case (an opaque entry blocks resolution, same as any other), so those are already silent. What is
+genuinely undecided without a rule is a **relative** specifier: it resolves independently of the alias
+list, so it can still land on a path like `src/lib/server/db` even though the true lib root is unknown.
+The hard call: when the `$lib` entry is opaque, `isLocalStateSpecifier` returns `false` — not local
+state — **unconditionally**, for every specifier, rather than falling back to the `src/lib/server` default
+and reporting whatever doesn't match it. The asymmetry that decides this is the same one that opens this
+document: an unresolved specifier is conservative (every consumer already treats it as "stay silent"), but
+a *mis*resolved one points at a real file that is not the one imported, and `security/handler-state-write`
+is critical and default-on, so guessing at the lib root risks a false positive there. Staying silent costs
+only a missed finding — the accepted cost throughout this spec — so that is the side this fact chooses.
+
 ### The fact
 
 `Project` gains one field, the ordered list from above:
@@ -349,9 +369,14 @@ The parser reproduces that rather than emitting `a` twice.
 ## Testing
 
 1. **The parser** — a `kit.alias` object literal; a computed value yielding `replacement: null` while its
-   literal siblings keep theirs; `kit.files.lib`; a config with no `kit` key; an unparseable config; an
-   `alias` whose value is not an object. Plus the two structural invariants: **`$lib` is at index 0** of
-   every list the parser produces, and **source order is preserved** for the user entries (a fixture
+   literal siblings keep theirs; `kit.files.lib`; **a computed `kit.files.lib` compiling to an opaque
+   `$lib` entry (`replacement: null`) rather than the `src/lib` default**, and a `$lib/…` specifier under
+   that list resolving to `undefined`; **a relative specifier that would otherwise be exempt as local
+   `lib/server/` state instead staying unreported when the `$lib` entry is opaque** — the one path shape
+   where the "fall back to the default and report" failure and the fix actually diverge; a config with no
+   `kit` key; an unparseable config; an `alias` whose value is not an object. Plus the two structural
+   invariants: **`$lib` is at index 0** of every list the parser produces, and **source order is
+   preserved** for the user entries (a fixture
    declaring three aliases, asserted as a list, not as a set).
 2. **Value normalisation** — a trailing slash (`'src/'`); a backslash value (`'src\\lib'`); a trailing
    `/*`; and all three at once. Each asserted on the produced `replacement`, so a fixture cannot pass

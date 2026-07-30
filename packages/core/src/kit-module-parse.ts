@@ -493,10 +493,10 @@ function aliasMatches(entry: KitAlias, spec: string): boolean {
  * importing file's directory; bare packages and other aliases are skipped (they can't
  * be resolved to a project-local path at all). Also undefined when a relative
  * specifier's `..` segments escape the project root (see `normalizePosix`), or when a
- * matched alias's value is itself absolute (e.g. `/opt/shared/src`): an absolute target
- * is outside the analyzed project by definition, and without this check
- * `normalizePosix` would quietly drop the leading empty segment and hand back a
- * project-relative-LOOKING path that actually names a different file.
+ * matched alias's value is itself absolute (e.g. `/opt/shared/src`, or a posixified Windows
+ * drive-letter path like `C:/shared/src`): an absolute target is outside the analyzed project by
+ * definition, and without this check `normalizePosix` would quietly drop the leading empty
+ * segment and hand back a project-relative-LOOKING path that actually names a different file.
  *
  * Exported (module-internal to `@svelte-vitals/core`, not part of the package's public
  * barrel — nothing outside `packages/core` consumes it) because
@@ -528,7 +528,10 @@ export function resolveRepoLocalPath(
     // form is non-literal and already opaque) is outside the project by definition. Left
     // unchecked, `normalizePosix` drops the leading empty segment from `/opt/...` and
     // answers `opt/shared/src/...` — a project-relative path that names a different file.
-    if (entry.replacement.startsWith('/')) return undefined;
+    // A Windows drive-letter path (`C:/shared/src`, posixified from `C:\shared\src`) is the
+    // same failure in different clothing: it doesn't start with `/`, but it is just as absolute
+    // and just as outside the project.
+    if (entry.replacement.startsWith('/') || /^[A-Za-z]:\//.test(entry.replacement)) return undefined;
     path = entry.replacement + spec.slice(entry.find.length);
   }
   return normalizePosix(path);
@@ -559,14 +562,16 @@ export function resolveRunesModuleSpecifier(
 /**
  * The resolved `$lib` server directory: the `$lib` entry's `replacement` (any list the
  * collector produces has one, at index 0 — but this looks it up by `find` rather than by
- * position) with `/server` appended, or `src/lib/server` when there is no list, no `$lib`
- * entry, or (defensively — `replacement` is typed `string | null`) its replacement is not a
- * string. Follows `kit.files.lib` instead of assuming the directory never moves.
+ * position) with `/server` appended, or `src/lib/server` when there is no list or no `$lib`
+ * entry. Follows `kit.files.lib` instead of assuming the directory never moves. Undefined when
+ * the `$lib` entry is present but opaque (`replacement: null` — an unreadable `kit.files.lib`):
+ * the true lib root is unknown, so there is nothing to derive `/server` from, and the caller
+ * must stay silent rather than guess at `src/lib/server`.
  */
-function libServerRoot(aliases?: readonly KitAlias[]): string {
+function libServerRoot(aliases?: readonly KitAlias[]): string | undefined {
   const lib = aliases?.find((a) => a.find === '$lib');
-  const libRoot = typeof lib?.replacement === 'string' ? lib.replacement : 'src/lib';
-  return `${libRoot}/server`;
+  if (lib && lib.replacement === null) return undefined;
+  return `${lib?.replacement ?? 'src/lib'}/server`;
 }
 
 /**
@@ -584,12 +589,17 @@ function libServerRoot(aliases?: readonly KitAlias[]): string {
  * `normalizePosix`) — is conservatively NOT local state: we can't see that file, so
  * we don't flag writes to it. Installed packages (drizzle, redis, @vercel/kv, …) are
  * excluded: `.set()`/`.update()` on those is persistence, not shared-module-state
- * mutation.
+ * mutation. When the `$lib` entry is opaque (`libServerRoot` returns undefined — an unreadable
+ * `kit.files.lib`), the lib `server/` root is unknown, so no path can be confirmed either inside
+ * or outside it — this returns false unconditionally, because reporting on an unverifiable root
+ * risks a false positive in this default-on security rule, and staying silent only costs a
+ * missed finding.
  */
 function isLocalStateSpecifier(spec: string, importerFile: string, aliases?: readonly KitAlias[]): boolean {
+  const serverRoot = libServerRoot(aliases);
+  if (serverRoot === undefined) return false;
   const path = resolveRepoLocalPath(spec, importerFile, aliases);
   if (path === undefined) return false;
-  const serverRoot = libServerRoot(aliases);
   return path !== serverRoot && !path.startsWith(`${serverRoot}/`);
 }
 

@@ -4,8 +4,8 @@
 '@svelte-vitals/vite': patch
 ---
 
-Resolve import specifiers through the aliases a project declares in `svelte.config.js` (`kit.alias`, and
-`kit.files.lib` when `$lib` has been moved), in SvelteKit's own order and with its first-match-wins
+Resolve import specifiers through the aliases a project declares in `svelte.config.{js,ts}` (`kit.alias`,
+and `kit.files.lib` when `$lib` has been moved), in SvelteKit's own order and with its first-match-wins
 semantics.
 
 Projects that import through their own aliases will see findings that were previously invisible —

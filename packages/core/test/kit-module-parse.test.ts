@@ -231,6 +231,20 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
     ].join('\n');
     expect(parseKitModuleFacts(src, 'src/routes/+page.server.ts', aliases).importedStateWrites).toEqual([]);
   });
+  it('stays silent on a relative-path .set() outside src/lib/server when $lib is opaque', () => {
+    // An unreadable kit.files.lib compiles to an opaque $lib entry (replacement: null). A
+    // $lib/… specifier already resolves to undefined in that case (covered separately below), so
+    // it can't distinguish the fix from a no-op. This test picks a RELATIVE specifier that
+    // resolves OUTSIDE the default 'src/lib/server' — the one path shape where the two
+    // behaviours diverge: pre-fix, libServerRoot ignores the opaque entry and falls back to the
+    // 'src/lib' default, so this path (not under it) is (correctly, but for the wrong reason)
+    // NOT exempt and the write IS flagged (see the unaliased sibling test above). Post-fix, the
+    // true lib root is unknown, so isLocalStateSpecifier returns false unconditionally and the
+    // write is not reported at all — a missed finding, not a false positive.
+    const aliases: KitAlias[] = [{ find: '$lib', replacement: null, match: 'prefix' }];
+    const src = "import { user } from '../user-store.js';\nexport function load() {\n  user.set({});\n}";
+    expect(parseKitModuleFacts(src, 'src/routes/a/+page.server.ts', aliases).importedStateWrites).toEqual([]);
+  });
   it('treats a ..-escaping specifier conservatively (not local, not a runes module)', () => {
     const src = "import { store } from '../../../../src/lib/user.js';\nexport function load() {\n  store.set(1);\n}";
     expect(facts(src, 'src/routes/a/+page.server.ts').importedStateWrites).toEqual([]);
@@ -464,6 +478,13 @@ describe('resolveRepoLocalPath — alias entries', () => {
     expect(resolve('$shared/x', [LIB, prefix('$shared', '/opt/shared/src')])).toBeUndefined();
   });
 
+  it('returns undefined for a Windows drive-letter absolute alias value', () => {
+    // Values are posixified first, so a config's `'C:\\shared\\src'` becomes `C:/shared/src` —
+    // it doesn't start with `/`, so the plain absolute-path guard misses it and it would
+    // otherwise pass through as a bogus project-relative path.
+    expect(resolve('$shared/x', [LIB, prefix('$shared', 'C:/shared/src')])).toBeUndefined();
+  });
+
   it('resolves a nested specifier under a value that names a file, without special-casing it', () => {
     // Kit never branches on whether the value is a file, so neither does this: the nonsense
     // path simply matches no real file downstream.
@@ -477,6 +498,13 @@ describe('resolveRepoLocalPath — alias entries', () => {
   it('resolves a bare $lib under the default list', () => {
     // A deliberate widening: today this returns undefined. Kit's prefix mode resolves it.
     expect(resolveRepoLocalPath('$lib', IMPORTER)).toBe('src/lib');
+  });
+
+  it('resolves a $lib specifier to undefined when the $lib entry is opaque', () => {
+    // An unreadable kit.files.lib compiles to { find: '$lib', replacement: null, match: 'prefix' }.
+    // The opaque-entry-blocks behaviour already covers this generically; this pins it for $lib
+    // specifically, since $lib's own exemption logic (libServerRoot) depends on this staying true.
+    expect(resolve('$lib/x.svelte.ts', [prefix('$lib', null)])).toBeUndefined();
   });
 
   it('resolves a relative specifier whatever the list says', () => {

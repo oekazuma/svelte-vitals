@@ -48,8 +48,16 @@ export type RawKitAliases = {
    * with no `find` to record that with. The caller then discards every user entry.
    */
   entries?: { key: string; value: string | null }[];
-  /** `kit.files.lib`, when it is a string literal. */
-  filesLib?: string;
+  /**
+   * `kit.files.lib`, in three distinct states: **absent** (`undefined`) — there is no `lib`
+   * property, or `files` itself does not resolve to an object literal; a **literal** (the
+   * string) — `files.lib` is a string literal; **present but unreadable** (`null`) — the `lib`
+   * property exists but its value is not statically a string (e.g. a computed expression). The
+   * `null` state must not collapse into "absent": the caller cannot fall back to `src/lib`
+   * without risking a wrong answer, because the project may have moved `$lib` to something this
+   * parser simply couldn't read.
+   */
+  filesLib?: string | null;
 };
 
 /** A property's key when it is a plain (non-computed) string or identifier key. */
@@ -95,12 +103,17 @@ function aliasEntriesOf(kitConfig: ObjectExpression, bindings: Map<string, TsExp
   return out;
 }
 
-/** `kit.files.lib` when it is a string literal. */
-function filesLibOf(kitConfig: ObjectExpression, bindings: Map<string, TsExpression>): string | undefined {
+/**
+ * `kit.files.lib` in the three states documented on `RawKitAliases.filesLib`: `undefined` when
+ * there is no `lib` property to read (including when `files` itself doesn't resolve to an object
+ * literal), `null` when `lib` exists but is not statically a string, else the string.
+ */
+function filesLibOf(kitConfig: ObjectExpression, bindings: Map<string, TsExpression>): string | null | undefined {
   const files = propOf(kitConfig, 'files');
   const obj = files ? unwrapToObjectExpression(files.value as Expression, bindings) : undefined;
   const lib = obj ? propOf(obj, 'lib') : undefined;
-  return lib ? stringValueOf(lib) : undefined;
+  if (!lib) return undefined;
+  return stringValueOf(lib) ?? null;
 }
 
 /** `kit.alias` and `kit.files.lib` from a `svelte.config.{js,ts}` source. */
@@ -133,12 +146,14 @@ function normalizeAliasValue(value: string): string {
  * Compile raw config values into Kit's ordered entry list: `$lib` first (from `kit.files.lib`,
  * else `src/lib`), then the user's entries in declaration order. Modes come from the DECLARED
  * key set — `key + '/*'` present makes the plain key exact — never from the subset whose values
- * happened to be readable.
+ * happened to be readable. `raw.filesLib === null` (a `kit.files.lib` present but not statically a
+ * string) compiles to an opaque `$lib` entry, `replacement: null` — `??` would otherwise collapse
+ * that into the `src/lib` default, which is a wrong answer, not a missing one, for a project that
+ * moved `$lib` to something this parser couldn't read.
  */
 function compileKitAliases(raw: RawKitAliases): KitAlias[] {
-  const out: KitAlias[] = [
-    { find: '$lib', replacement: normalizeAliasValue(raw.filesLib ?? 'src/lib'), match: 'prefix' }
-  ];
+  const filesLib = raw.filesLib === null ? null : normalizeAliasValue(raw.filesLib ?? 'src/lib');
+  const out: KitAlias[] = [{ find: '$lib', replacement: filesLib, match: 'prefix' }];
   const entries = raw.entries ?? [];
   const declared = new Set(entries.map((e) => e.key));
   for (const { key, value } of entries) {

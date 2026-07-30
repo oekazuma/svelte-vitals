@@ -158,16 +158,23 @@ export default {
 ### インポートエイリアス
 
 インポートを追跡するルール（`architecture/private-scope-import`、`security/shared-state-import`、
-`security/handler-state-write`）は、プロジェクトが `svelte.config.js` で宣言しているエイリアス —
+`security/handler-state-write`）は、プロジェクトが `svelte.config.{js,ts}` で宣言しているエイリアス —
 `kit.alias`、および `$lib` を移動している場合は `kit.files.lib` — を通じて指定子を解決します。これらは
 静的に、SvelteKit がエイリアスを構築するのと同じ順序で読み取られ、ビルド時とまったく同じく最初にマッチ
 したエイリアスが使われます。
 
-解決されないケースは次の3つです:
+以下のケースは解決されません:
 
 - エイリアスの値が（`path.resolve(...)` やテンプレートリテラルなどで）計算される場合。プレーンな文字列
   ではないため、指定子は「見えないもの」として扱われ、何も報告されません。
-- `svelte.config.js` ではなく `vite.config.ts` の `sveltekit()` プラグインに SvelteKit のオプションを
+- エイリアスの値がリテラルの絶対パスである場合 — `/opt/shared/src` のような POSIX パスや、
+  `C:\shared\src` のような Windows のドライブレター付きパスなど。プロジェクトの外にあるファイルを指す
+  ため、対象として扱いません。
+- `kit.files.lib` 自体がプレーンな文字列ではなく計算される場合。この場合 `$lib` 自体が解決不能になるため、
+  上記のルールは `$lib/...` から始まる指定子に沈黙するだけでなく、
+  [`security/handler-state-write`](/ja/rules/security/handler-state-write) の lib `server/` 免除も、
+  ディレクトリの移動先を推測せず無効のままになります。
+- `svelte.config.{js,ts}` ではなく `vite.config.ts` の `sveltekit()` プラグインに SvelteKit のオプションを
   渡しているプロジェクトの場合。この場合も同様に何も報告されません。
 - `kit.alias` オブジェクトにスプレッド（`{ ...shared, '$a': 'src/a' }`）や計算されたキー
   （`{ [key]: 'src/a' }`）が含まれる場合。未知のキーはそれより後ろに宣言されたどのエントリでも上書き

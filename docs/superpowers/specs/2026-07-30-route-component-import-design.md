@@ -56,8 +56,14 @@ markup into a component under `$lib` and import that from both places.
 2. **Resolve the specifier to a repo-relative path.** `$lib/` and relative specifiers resolve; a bare
    package does not.
 3. **Require the resolved path to be a route entry**: under the routes directory, with a basename
-   matching `/^\+(page|layout)(@[^./]*)?\.svelte$/` or equal to `+error.svelte`. Seven names, the
-   `@` forms included, because a breakout entry is an entry.
+   matching `/^\+(page|layout)(@.*)?\.svelte$/` or equal to `+error.svelte`. Five shapes, the `@`
+   forms included, because a breakout entry is an entry. The `@` capture is `.*`, not
+   `[^./]*`: `analyze()` in `@sveltejs/kit/src/core/sync/create_manifest_data/index.js` strips
+   only the component extension before testing
+   `/^\+(?:(page(?:@(.*))?)|(layout(?:@(.*))?)|(error))$/`, so a layout/page name containing dots
+   is a real route entry — `+page@foo.bar.svelte` matches Kit's own regex and would wrongly miss
+   under `[^./]*`. (The narrower `[a-zA-Z0-9_-]*` form belongs to the non-component
+   `+page.server.js` family in the same file, not to `.svelte` components.)
 4. **Require the importer not to be exempt** — see below.
 
 Steps 2 and 3 are separate on purpose. A file named `+page.svelte` outside the routes directory is not
@@ -70,7 +76,7 @@ nothing; it reads `page.error` and `page.status` from `$app/state`. Imported els
 and still renders wrongly — it shows the state of a page that has no error.
 
 Both are the same failure at the level the rule states its claim: **a Kit entry is not a reusable
-unit, and importing one strips the context it was written for.** That framing covers all seven names
+unit, and importing one strips the context it was written for.** That framing covers all five shapes
 without special-casing.
 
 ### Exempt importers
@@ -174,8 +180,10 @@ resolves widens this rule with no change here.
 
 ## Testing
 
-1. **Mechanism** — all seven names; an `@` breakout form; a file of the same name outside the routes
-   directory drawing nothing; `$lib/` and relative specifiers both; a bare package ignored.
+1. **Mechanism** — all five shapes; an `@` breakout form; a dotted `@` suffix
+   (`+page@foo.bar.svelte`), which the narrower `[^./]*` form would wrongly reject; a file of the
+   same name outside the routes directory drawing nothing; `$lib/` and relative specifiers both; a
+   bare package ignored.
 2. **Exemptions** — each built-in pattern; a suffixed form (`Foo.error.test.svelte`) exempt under
    `**/*.test.svelte`; a pattern appended through the option; and an exempt importer receiving a
    **pass** rather than silence.

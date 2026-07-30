@@ -212,8 +212,16 @@ describe('findKitAliasesInSvelteConfig', () => {
     expect(raw(`{ files: { lib: 'src/library' } }`).filesLib).toBe('src/library');
   });
 
-  it('ignores a non-literal kit.files.lib', () => {
-    expect(raw(`{ files: { lib: someDir } }`).filesLib).toBeUndefined();
+  it('records a non-literal kit.files.lib as unreadable (null), not absent', () => {
+    // A present-but-unreadable files.lib must stay distinguishable from an absent one — see
+    // RawKitAliases.filesLib's three states. Collapsing this into undefined is exactly the bug:
+    // it lets compileKitAliases fall back to the 'src/lib' default for a project that moved
+    // $lib to something this parser simply couldn't read.
+    expect(raw(`{ files: { lib: someDir } }`).filesLib).toBeNull();
+  });
+
+  it('reports an absent kit.files.lib as undefined, distinct from an unreadable one', () => {
+    expect(raw(`{ paths: { base: '/x' } }`).filesLib).toBeUndefined();
   });
 
   it('returns empty entries for an unparseable config', () => {
@@ -285,6 +293,10 @@ describe('resolveKitAliases', () => {
 
   it('normalises the $lib entry too, which Kit builds without posixify or resolve', () => {
     expect(list(`{ files: { lib: 'src/library/' } }`)![0]!.replacement).toBe('src/library');
+  });
+
+  it('compiles a computed kit.files.lib to an opaque $lib entry rather than the src/lib default', () => {
+    expect(list(`{ files: { lib: someDir } }`)![0]).toEqual({ find: '$lib', replacement: null, match: 'prefix' });
   });
 
   it('keeps only $lib when the alias key set is unknowable', () => {
