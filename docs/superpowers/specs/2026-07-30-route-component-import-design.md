@@ -147,11 +147,16 @@ a repo that has standardised on its own alias, **this rule ships as a no-op** �
 though its precision is perfect. The charter recorded alias resolution as a light pre-1.0 constraint;
 that estimate does not survive the measurement.
 
-Two things follow. Alias resolution goes first, as its own spec, because it lifts the reach of
-`architecture/private-scope-import`, `security/shared-state-import` and `performance/heavy-import` at
-the same time. And its design has to consider that an alias value can point **outside** the app it is
-declared in — one of the measured configs aliases another app's `src` — which `resolveRepoLocalPath`
-currently rejects as escaping the root.
+Two things follow. Alias resolution goes first, as its own spec, because it lifts more than this rule:
+`architecture/private-scope-import` resolves specifiers at rule time, and the SSR shared-state family
+resolves them inside `parseKitModuleFacts`, so both gain reach from the same change.
+`performance/heavy-import` does **not** — an earlier draft of this paragraph said it did, which was
+wrong: that rule matches the raw specifier against a map of bare package names and never resolves a
+project-local path at all.
+
+And the alias design has to consider that an alias value can point **outside** the app it is declared
+in — one of the measured configs aliases a sibling app's `src` — which `resolveRepoLocalPath` currently
+rejects as escaping the project root.
 
 This spec depends on the **contract** `resolveRepoLocalPath` already offers — a specifier and an
 importing file in, a repo-relative path or `undefined` out — not on how it resolves. Widening what it
