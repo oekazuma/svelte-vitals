@@ -68,7 +68,7 @@ export async function analyze(
     ...extraProjectFacts
   };
   const components = await collectComponentFacts(cwd);
-  const kitModules = await collectKitModuleFacts(cwd);
+  const kitModules = await collectKitModuleFacts(cwd, project.kitAliases);
   const sourceFiles = await collectSourceFiles(cwd);
   const results = applyOverrides(
     applyRuleSeverities(

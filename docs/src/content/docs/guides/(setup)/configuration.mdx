@@ -188,6 +188,31 @@ section with its exact option names and defaults.
   (directory glob → allowed child names), `unitScopes` (root glob → the names a unit's children may
   take) and `exclude`. Off until one of the two is set.
 
+### Import aliases
+
+Rules that follow imports (`architecture/private-scope-import`, `security/shared-state-import`,
+`security/handler-state-write`) resolve specifiers through the aliases your project declares in
+`svelte.config.{js,ts}` — `kit.alias`, plus `kit.files.lib` when `$lib` has been moved. They are read
+statically, in the same order SvelteKit builds them, and the first matching alias wins, exactly as it
+does at build time.
+
+The following cases are not resolved:
+
+- an alias whose value is computed (`path.resolve(...)`, a template literal) rather than a plain string —
+  the specifier is treated as one we cannot see, so nothing is reported for it;
+- an alias whose value is a literal absolute path — a POSIX path like `/opt/shared/src`, or a Windows
+  drive-letter path like `C:\shared\src` — since that names a file outside the analyzed project;
+- a `kit.files.lib` that is itself computed rather than a plain string, which makes `$lib` unresolvable
+  too: every rule above falls silent on `$lib/...` specifiers, and
+  [`security/handler-state-write`](/rules/security/handler-state-write)'s lib `server/` exemption stays
+  off rather than guessing at where the directory now points;
+- a project that passes its SvelteKit options to the `sveltekit()` plugin in `vite.config.ts` instead of
+  `svelte.config.{js,ts}` — same result, nothing reported;
+- a `kit.alias` object containing a spread (`{ ...shared, '$a': 'src/a' }`) or a computed key
+  (`{ [key]: 'src/a' }`) — an unknown key could shadow any entry declared after it, so the _whole_ of
+  `kit.alias` is discarded rather than just that one entry. Every literal alias declared alongside it stops
+  resolving too (`$lib` is unaffected, since nothing can shadow the position it always occupies).
+
 ## Precedence
 
 For each field, the first of these that is set wins: **CLI flag > config file > built-in default**. This is per field, not all-or-nothing — a one-off `--fail-on info` does not discard the rest of your config file.

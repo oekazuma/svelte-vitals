@@ -104,7 +104,7 @@ export const architecturePrivateScopeImport: Rule = {
       let sawScopedImport = false;
       const violations: { line: number; message: string }[] = [];
       for (const { source, line } of spans) {
-        const target = resolveRepoLocalPath(source, c.file);
+        const target = resolveRepoLocalPath(source, c.file, ctx.project.kitAliases);
         if (target === undefined) continue; // bare package, unknown alias, or escapes the root
         const boundary = privateScopeOf(target, patterns);
         if (boundary === undefined) continue; // not in a private scope

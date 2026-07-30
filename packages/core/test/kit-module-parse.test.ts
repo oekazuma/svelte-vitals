@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { parseKitModuleFacts, resolveRunesModuleSpecifier } from '../src/kit-module-parse.js';
+import { parseKitModuleFacts, resolveRunesModuleSpecifier, resolveRepoLocalPath } from '../src/kit-module-parse.js';
+import type { KitAlias } from '../src/types.js';
 
 const facts = (src: string, file = 'src/routes/+page.server.ts') => parseKitModuleFacts(src, file);
 
@@ -214,6 +215,36 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
     ].join('\n');
     expect(facts(src).importedStateWrites).toEqual([]);
   });
+  it('follows a moved $lib when exempting the lib server directory (files.lib: "src/library")', () => {
+    // Reproduces the final-review false positive: a project that moves `kit.files.lib` still
+    // gets its `$lib/server/**` DB/KV singletons exempted, because the exemption is derived
+    // from the resolved `$lib` entry rather than a hard-coded `src/lib/server`. Before the
+    // fix, `$lib/server/db` resolves to `src/library/server/db`, which the literal
+    // `src/lib/server` check misses, and this write is (wrongly) recorded.
+    const aliases: KitAlias[] = [{ find: '$lib', replacement: 'src/library', match: 'prefix' }];
+    const src = [
+      "import { db } from '$lib/server/db';",
+      'export async function load() {',
+      '  db.set("k", 1);',
+      '  return {};',
+      '}'
+    ].join('\n');
+    expect(parseKitModuleFacts(src, 'src/routes/+page.server.ts', aliases).importedStateWrites).toEqual([]);
+  });
+  it('stays silent on a relative-path .set() outside src/lib/server when $lib is opaque', () => {
+    // An unreadable kit.files.lib compiles to an opaque $lib entry (replacement: null). A
+    // $lib/… specifier already resolves to undefined in that case (covered separately below), so
+    // it can't distinguish the fix from a no-op. This test picks a RELATIVE specifier that
+    // resolves OUTSIDE the default 'src/lib/server' — the one path shape where the two
+    // behaviours diverge: pre-fix, libServerRoot ignores the opaque entry and falls back to the
+    // 'src/lib' default, so this path (not under it) is (correctly, but for the wrong reason)
+    // NOT exempt and the write IS flagged (see the unaliased sibling test above). Post-fix, the
+    // true lib root is unknown, so isLocalStateSpecifier returns false unconditionally and the
+    // write is not reported at all — a missed finding, not a false positive.
+    const aliases: KitAlias[] = [{ find: '$lib', replacement: null, match: 'prefix' }];
+    const src = "import { user } from '../user-store.js';\nexport function load() {\n  user.set({});\n}";
+    expect(parseKitModuleFacts(src, 'src/routes/a/+page.server.ts', aliases).importedStateWrites).toEqual([]);
+  });
   it('treats a ..-escaping specifier conservatively (not local, not a runes module)', () => {
     const src = "import { store } from '../../../../src/lib/user.js';\nexport function load() {\n  store.set(1);\n}";
     expect(facts(src, 'src/routes/a/+page.server.ts').importedStateWrites).toEqual([]);
@@ -383,5 +414,130 @@ describe('parseKitModuleFacts — ssrDisabled (seo/ssr-disabled)', () => {
       facts("import { dev } from '$app/environment';\nexport const ssr = dev;", 'src/routes/+page.ts').ssrDisabled
     ).toBeUndefined();
     expect(facts('const ssr = false;', 'src/routes/+page.ts').ssrDisabled).toBeUndefined();
+  });
+});
+
+const prefix = (find: string, replacement: string | null): KitAlias => ({ find, replacement, match: 'prefix' });
+const contents = (find: string, replacement: string | null): KitAlias => ({ find, replacement, match: 'contents' });
+const exact = (find: string, replacement: string | null): KitAlias => ({ find, replacement, match: 'exact' });
+const LIB = prefix('$lib', 'src/lib');
+const IMPORTER = 'src/routes/a/+page.server.ts';
+const resolve = (spec: string, aliases?: KitAlias[]) => resolveRepoLocalPath(spec, IMPORTER, aliases);
+
+describe('resolveRepoLocalPath — alias entries', () => {
+  it('resolves a prefix entry for the bare key and for a nested specifier', () => {
+    const aliases = [LIB, prefix('$a', 'src/a')];
+    expect(resolve('$a', aliases)).toBe('src/a');
+    expect(resolve('$a/x/y.svelte.ts', aliases)).toBe('src/a/x/y.svelte.ts');
+  });
+
+  it('a contents entry matches a nested specifier but not the bare key', () => {
+    const aliases = [LIB, contents('$a', 'src/a')];
+    expect(resolve('$a/x', aliases)).toBe('src/a/x');
+    expect(resolve('$a', aliases)).toBeUndefined();
+  });
+
+  it('an exact entry matches the bare key but not a nested specifier', () => {
+    const aliases = [LIB, exact('$a', 'src/a')];
+    expect(resolve('$a', aliases)).toBe('src/a');
+    expect(resolve('$a/x', aliases)).toBeUndefined();
+  });
+
+  it('takes the FIRST matching entry, not the one with the longest key', () => {
+    // Kit pushes entries in declaration order and Vite's alias plugin uses entries.find(),
+    // so `$a` answers `$a/b/c` and the `$a/b` entry is unreachable. A longest-key rule would
+    // answer src/y/c — a different, possibly existing file.
+    const aliases = [LIB, prefix('$a', 'src/x'), prefix('$a/b', 'src/y')];
+    expect(resolve('$a/b/c', aliases)).toBe('src/x/b/c');
+  });
+
+  it('resolves the same pair differently when the declaration order is reversed', () => {
+    const aliases = [LIB, prefix('$a/b', 'src/y'), prefix('$a', 'src/x')];
+    expect(resolve('$a/b/c', aliases)).toBe('src/y/c');
+  });
+
+  it('an opaque entry blocks rather than falling through to a later entry', () => {
+    // undefined is also what today's code answers for this specifier, so this pins the
+    // "no worse than today" claim as well as the blocking behaviour.
+    const aliases = [LIB, prefix('$a', null), prefix('$a/b', 'src/y')];
+    expect(resolve('$a/b/c', aliases)).toBeUndefined();
+  });
+
+  it('does not match across a segment boundary', () => {
+    expect(resolve('$libFoo/x', [LIB])).toBeUndefined();
+  });
+
+  it('returns undefined when the target escapes the project root', () => {
+    expect(resolve('$out/x', [LIB, prefix('$out', '../sibling/src')])).toBeUndefined();
+  });
+
+  it('returns undefined for a literal absolute alias value, rather than a bogus project-relative path', () => {
+    // Unchecked, normalizePosix drops the leading empty segment of `/opt/shared/src/x` and
+    // answers `opt/shared/src/x` — a project-relative path that names a different, possibly
+    // existing file. An absolute target is outside the analyzed project by definition.
+    expect(resolve('$shared/x', [LIB, prefix('$shared', '/opt/shared/src')])).toBeUndefined();
+  });
+
+  it('returns undefined for a Windows drive-letter absolute alias value', () => {
+    // Values are posixified first, so a config's `'C:\\shared\\src'` becomes `C:/shared/src` —
+    // it doesn't start with `/`, so the plain absolute-path guard misses it and it would
+    // otherwise pass through as a bogus project-relative path.
+    expect(resolve('$shared/x', [LIB, prefix('$shared', 'C:/shared/src')])).toBeUndefined();
+  });
+
+  it('resolves a nested specifier under a value that names a file, without special-casing it', () => {
+    // Kit never branches on whether the value is a file, so neither does this: the nonsense
+    // path simply matches no real file downstream.
+    expect(resolve('$f/x', [LIB, prefix('$f', 'src/f.js')])).toBe('src/f.js/x');
+  });
+
+  it('defaults to $lib -> src/lib when no list is passed', () => {
+    expect(resolveRepoLocalPath('$lib/q.svelte.ts', IMPORTER)).toBe('src/lib/q.svelte.ts');
+  });
+
+  it('resolves a bare $lib under the default list', () => {
+    // A deliberate widening: today this returns undefined. Kit's prefix mode resolves it.
+    expect(resolveRepoLocalPath('$lib', IMPORTER)).toBe('src/lib');
+  });
+
+  it('resolves a $lib specifier to undefined when the $lib entry is opaque', () => {
+    // An unreadable kit.files.lib compiles to { find: '$lib', replacement: null, match: 'prefix' }.
+    // The opaque-entry-blocks behaviour already covers this generically; this pins it for $lib
+    // specifically, since $lib's own exemption logic (libServerRoot) depends on this staying true.
+    expect(resolve('$lib/x.svelte.ts', [prefix('$lib', null)])).toBeUndefined();
+  });
+
+  it('resolves a relative specifier whatever the list says', () => {
+    expect(resolve('../../lib/q.svelte.ts', [LIB, prefix('.', 'src/nonsense')])).toBe('src/lib/q.svelte.ts');
+  });
+
+  it('returns undefined for a bare package', () => {
+    expect(resolve('drizzle-orm', [LIB, prefix('$a', 'src/a')])).toBeUndefined();
+  });
+});
+
+describe('parseKitModuleFacts — alias-resolved specifiers', () => {
+  const src = `import { s } from '$a/store.svelte';\ns.set(1);\n`;
+  const aliases: KitAlias[] = [
+    { find: '$lib', replacement: 'src/lib', match: 'prefix' },
+    { find: '$a', replacement: 'src/a', match: 'prefix' }
+  ];
+
+  it('records no runes-module import for an unknown alias', () => {
+    expect(parseKitModuleFacts(src, 'src/routes/+page.server.ts').runesModuleImports).toEqual([]);
+  });
+
+  it('records the import once the alias list explains the specifier', () => {
+    expect(parseKitModuleFacts(src, 'src/routes/+page.server.ts', aliases).runesModuleImports).toEqual([
+      { source: '$a/store.svelte', resolved: 'src/a/store.svelte.ts', names: ['s'], line: 1 }
+    ]);
+  });
+
+  it('records the set-call write once the alias list explains the specifier', () => {
+    const wrapped = `import { s } from '$a/store.svelte';\nexport function load() {\n  s.set(1);\n}\n`;
+    expect(parseKitModuleFacts(wrapped, 'src/routes/+page.server.ts').importedStateWrites).toEqual([]);
+    expect(parseKitModuleFacts(wrapped, 'src/routes/+page.server.ts', aliases).importedStateWrites).toEqual([
+      { name: 's', line: 3, via: 'set-call' }
+    ]);
   });
 });

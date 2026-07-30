@@ -4,6 +4,7 @@ import {
   SVELTE_CONFIG_FILES,
   VITE_CONFIG_FILES,
   findMinifyDisabled,
+  resolveKitAliases,
   resolveKitPathsBase,
   type Project,
   type Detection,
@@ -184,22 +185,33 @@ async function readFirstConfig(
   return undefined;
 }
 
-async function detectKitPathsBase(rt: Runtime, cwd: string): Promise<Project['kitPathsBase']> {
+/**
+ * Both facts that come out of the Kit config, from ONE pair of reads. Split into two
+ * detectors, each reading the configs itself, this would double the collection phase's config
+ * reads and move `packages/cli/test/io-budget.test.ts`'s numbers — which is a design decision,
+ * not a number edit (AGENTS.md).
+ */
+async function detectKitConfigFacts(rt: Runtime, cwd: string): Promise<Pick<Project, 'kitPathsBase' | 'kitAliases'>> {
   const [viteConfig, svelteConfig] = await Promise.all([
     readFirstConfig(rt, cwd, VITE_CONFIG_FILES),
     readFirstConfig(rt, cwd, SVELTE_CONFIG_FILES)
   ]);
-  return resolveKitPathsBase(viteConfig, svelteConfig);
+  const kitPathsBase = resolveKitPathsBase(viteConfig, svelteConfig);
+  const kitAliases = resolveKitAliases(viteConfig, svelteConfig);
+  return {
+    ...(kitPathsBase ? { kitPathsBase } : {}),
+    ...(kitAliases ? { kitAliases } : {})
+  };
 }
 
 /** Precompute project-wide facts for project-scope rules (design §10, §11, §17). */
 export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Project> {
-  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled, kitPathsBase] = await Promise.all([
+  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled, kitConfig] = await Promise.all([
     existsAny(rt, cwd, ROBOTS_SOURCE_PATHS),
     existsAny(rt, cwd, SITEMAP_SOURCE_PATHS),
     detectAppHtmlLang(rt, cwd),
     detectViteMinifyDisabled(rt, cwd),
-    detectKitPathsBase(rt, cwd)
+    detectKitConfigFacts(rt, cwd)
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(rt, cwd);
   return {
@@ -208,6 +220,6 @@ export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Pro
     htmlLang,
     ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}),
     ...(viteMinifyDisabled ? { viteMinifyDisabled } : {}),
-    ...(kitPathsBase ? { kitPathsBase } : {})
+    ...kitConfig
   };
 }

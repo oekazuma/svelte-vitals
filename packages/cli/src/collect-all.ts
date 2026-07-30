@@ -63,7 +63,7 @@ export async function collectAll(
   // route-filtered run skips them rather than reporting unrelated components (#68 review);
   // kitModules is skipped for the same reason.
   const components = opts.route ? [] : await collectComponentFacts(rt, cwd);
-  const kitModules = opts.route ? [] : await collectKitModuleFacts(rt, cwd);
+  const kitModules = opts.route ? [] : await collectKitModuleFacts(rt, cwd, project.kitAliases);
   // Unlike its two neighbours above, the --route branch gets `undefined` here, not `[]`: an empty
   // inventory would tell architecture/unit-entry-file that the declared unit directories truly do
   // not exist, so it would report every declaration as inert, whereas `undefined` means the mode

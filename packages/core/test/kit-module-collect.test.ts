@@ -56,3 +56,18 @@ describe('collectKitModuleFacts', () => {
     expect(await collectKitModuleFacts(rt, '')).toEqual([emptyKitModuleFacts('src/routes/+page.server.ts', 'server')]);
   });
 });
+
+describe('collectKitModuleFacts — alias list', () => {
+  it('passes the alias list through to the parser', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+page.server.ts': `import { s } from '$a/store.svelte';\n`
+    });
+    const withList = await collectKitModuleFacts(rt, '', [
+      { find: '$lib', replacement: 'src/lib', match: 'prefix' },
+      { find: '$a', replacement: 'src/a', match: 'prefix' }
+    ]);
+    const without = await collectKitModuleFacts(rt, '');
+    expect(withList[0]!.runesModuleImports.map((i) => i.resolved)).toEqual(['src/a/store.svelte.ts']);
+    expect(without[0]!.runesModuleImports).toEqual([]);
+  });
+});
