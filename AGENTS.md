@@ -56,7 +56,7 @@ install`/`ci upgrade` bundle into scaffolded workflows.
   analysis speed is defended in CI — wall-clock timings are far too noisy on shared
   runners to gate on. Adding a collector or a glob means checking that test. Lowering a
   budget is welcome; raising one is a design decision needing a recorded reason, not a
-  number edit. The two regressions counts cannot catch — a widened analysis, and lost
+  number edit. The two regressions that counts cannot catch — a widened analysis, and lost
   parallelism — are measured manually with `pnpm bench` (never in CI).
 
 ## Design docs

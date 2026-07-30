@@ -86,6 +86,8 @@ export interface CollectedFacts {
   project: Project;
   components: ComponentFacts[];
   kitModules: KitModuleFacts[];
+  /** `undefined` (not `[]`) for a route-filtered run. */
+  sourceFiles: string[] | undefined;
 }
 
 export async function collectAll(
@@ -96,7 +98,7 @@ export async function collectAll(
 ): Promise<CollectedFacts>;
 ```
 
-This moves the four collector calls and the route filtering. `detectProject` and
+This moves every collector call and the route filtering. `detectProject` and
 `checkVersionFloor` stay in `analyzeProject`: they are validation with their own
 error semantics (`ProjectError` → exit 2), not collection.
 
@@ -105,8 +107,12 @@ error semantics (`ProjectError` → exit 2), not collection.
 imports `../src/providers/source/routes.js`. The public API is unchanged and
 `check:publish` is unaffected.
 
-The extraction is what lets the budget test call the **real** pipeline. A fifth
-collector added later falls under the budget automatically, with no test change.
+The extraction is what lets the budget test call the **real** pipeline: a collector
+added later falls under the read and glob budgets automatically. One exception —
+a collector that is skipped when `route` is set must also be added to invariant 4's
+expected list. That happened for real during this work: `main` gained
+`collectSourceFiles` while the branch was in review, and invariant 4 went red until
+its glob was admitted.
 
 ### 2. Counting Runtime helper
 
@@ -127,7 +133,7 @@ this helper, removing the duplication.
 
 All budget tests live in `packages/cli/test/`. `collectComponentFacts` and
 `collectKitModuleFacts` are core functions but are importable from the CLI
-package, and `collectAll` calls all four collectors, so one location covers
+package, and `collectAll` calls every collector, so one location covers
 everything. Core's own test helpers are left alone: `createMemoryRuntime` is
 duplicated across `packages/core/test/component-collect.test.ts` and
 `kit-module-collect.test.ts` with a different (pattern-hardcoded) glob
@@ -144,7 +150,7 @@ job. It uses the in-memory Runtime, so its contribution to CI time is negligible
 | 1   | Each file is read at most **twice**                                                                               | Parse-cache breakage, duplicate reads, a new rule or collector doing its own I/O |
 | 2   | Each glob pattern is issued **exactly once**                                                                      | Repeated directory traversal                                                     |
 | 3   | Reads of a shared layout / shared `$lib` component **do not vary with route count** (2-route vs 12-route fixture) | Parse-cache breakage — the primary case                                          |
-| 4   | With `route` set, component/kit-module globs are **not issued**                                                   | Loss of the single-route fast path                                               |
+| 4   | With `route` set, the file-scoped globs (component, kit-module, source-file inventory) are **not issued**         | Loss of the single-route fast path                                               |
 
 The budget covers **`collectAll` only**. Validation reads in `analyzeProject`
 (`detectProject` and `checkVersionFloor` both read `package.json`) sit outside it

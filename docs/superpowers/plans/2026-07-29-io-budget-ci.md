@@ -10,6 +10,13 @@
 
 **Spec:** `docs/superpowers/specs/2026-07-29-io-budget-ci-design.md`
 
+> **Executed 2026-07-29; superseded in one respect.** This file is the historical
+> plan, kept as written. While it was in review, `main` grew a fifth collector,
+> `collectSourceFiles`, so the shipped `collectAll` and the route-filtered invariant
+> cover a source-file inventory the code samples below do not mention. Read
+> `packages/cli/src/collect-all.ts` and `packages/cli/test/io-budget.test.ts` for the
+> current contract; the spec above reflects it too.
+
 ## Global Constraints
 
 - **Public API must not change.** `collect-all.ts` and `route-matcher.ts` are NOT re-exported from `packages/cli/src/index.ts` except for `routeMatcher`, which is already public and must stay exported from `index.ts`. Tests import internal modules by path, matching `packages/cli/test/parse-cache.test.ts`.
