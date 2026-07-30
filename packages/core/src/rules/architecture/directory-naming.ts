@@ -1,7 +1,13 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { compileOverrides } from '../../config-apply.js';
-import { listOption, mapOption, resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
+import {
+  isMentionedAnywhere,
+  listOption,
+  mapOption,
+  resolveRuleOptions,
+  type RuleOptionsSpec
+} from '../../rule-options.js';
 import {
   ancestorDirs,
   baseName,
@@ -52,6 +58,11 @@ export const architectureDirectoryNaming: Rule = {
   async check(ctx: RuleContext): Promise<Result[]> {
     const files = ctx.sourceFiles;
     if (files === undefined) return [];
+
+    // No config layer mentions this rule, so nothing below can find a declaration. Without this,
+    // an unconfigured project resolves options once per directory and throws every result away —
+    // and this rule is off by default, so that is the case for almost every project.
+    if (!isMentionedAnywhere(ctx.config, 'architecture/directory-naming')) return [];
 
     const compiledOverrides = compileOverrides(ctx.config);
     const dirs = new Set<string>();
