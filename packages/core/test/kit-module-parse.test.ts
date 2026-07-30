@@ -215,6 +215,22 @@ describe('parseKitModuleFacts — imported-state writes (security/handler-state-
     ].join('\n');
     expect(facts(src).importedStateWrites).toEqual([]);
   });
+  it('follows a moved $lib when exempting the lib server directory (files.lib: "src/library")', () => {
+    // Reproduces the final-review false positive: a project that moves `kit.files.lib` still
+    // gets its `$lib/server/**` DB/KV singletons exempted, because the exemption is derived
+    // from the resolved `$lib` entry rather than a hard-coded `src/lib/server`. Before the
+    // fix, `$lib/server/db` resolves to `src/library/server/db`, which the literal
+    // `src/lib/server` check misses, and this write is (wrongly) recorded.
+    const aliases: KitAlias[] = [{ find: '$lib', replacement: 'src/library', match: 'prefix' }];
+    const src = [
+      "import { db } from '$lib/server/db';",
+      'export async function load() {',
+      '  db.set("k", 1);',
+      '  return {};',
+      '}'
+    ].join('\n');
+    expect(parseKitModuleFacts(src, 'src/routes/+page.server.ts', aliases).importedStateWrites).toEqual([]);
+  });
   it('treats a ..-escaping specifier conservatively (not local, not a runes module)', () => {
     const src = "import { store } from '../../../../src/lib/user.js';\nexport function load() {\n  store.set(1);\n}";
     expect(facts(src, 'src/routes/a/+page.server.ts').importedStateWrites).toEqual([]);
@@ -439,6 +455,13 @@ describe('resolveRepoLocalPath — alias entries', () => {
 
   it('returns undefined when the target escapes the project root', () => {
     expect(resolve('$out/x', [LIB, prefix('$out', '../sibling/src')])).toBeUndefined();
+  });
+
+  it('returns undefined for a literal absolute alias value, rather than a bogus project-relative path', () => {
+    // Unchecked, normalizePosix drops the leading empty segment of `/opt/shared/src/x` and
+    // answers `opt/shared/src/x` — a project-relative path that names a different, possibly
+    // existing file. An absolute target is outside the analyzed project by definition.
+    expect(resolve('$shared/x', [LIB, prefix('$shared', '/opt/shared/src')])).toBeUndefined();
   });
 
   it('resolves a nested specifier under a value that names a file, without special-casing it', () => {

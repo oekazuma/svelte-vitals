@@ -194,6 +194,15 @@ exempts "the directory-entrypoint import itself … resolving to exactly `src/li
 found no bare alias import in the tree, so the widening is expected to change nothing in practice; it is
 taken because it is what the bundler does, not for its reach.
 
+That exemption itself has to move with `$lib`. `isLocalStateSpecifier` exempts writes into the lib
+`server/` directory (legitimate DB/KV singletons), and today that directory is `src/lib/server` written
+literally. Once `$lib` follows `kit.files.lib`, the literal is wrong for any project that moves it: the
+exemption must be derived from the same resolved `$lib` entry (its `replacement`, falling back to
+`src/lib` when there is no list or no `$lib` entry) rather than the hard-coded string. Getting this wrong
+is not a reach gap — it is exactly the wrong-answer failure this spec exists to avoid, and in the worst
+direction: `security/handler-state-write` is critical and default-on, so a project that only moved
+`files.lib` and changed nothing else would start failing CI on its existing, legitimate singletons.
+
 ### The fact
 
 `Project` gains one field, the ordered list from above:
@@ -320,10 +329,15 @@ The parser reproduces that rather than emitting `a` twice.
 
 ## Deliberately not solved
 
-- **An alias pointing outside the project root.** Its resolved path escapes, and `normalizePosix`
+- **An alias pointing outside the project root.** A `../`-relative target escapes and `normalizePosix`
   already returns `undefined` for that. The measured monorepo contains exactly this shape — one app
   aliases a sibling app's `src` — so it is a real case, not a hypothetical, and the honest answer is
-  that svelte-vitals analyses one project and cannot see the file.
+  that svelte-vitals analyses one project and cannot see the file. A **literal absolute** value (e.g.
+  `alias: { '$shared': '/opt/shared/src' }`) is a second way to point outside the project, and
+  `normalizePosix` does _not_ catch it on its own — it silently drops the leading empty segment, turning
+  `/opt/shared/src/x` into the project-relative-LOOKING `opt/shared/src/x` rather than failing. That is a
+  wrong answer, not a missing one, so the resolver checks for a leading `/` on the matched alias's
+  `replacement` explicitly and answers `undefined` there too, same as the relative form.
 - **Vite's `resolve.alias`**, and **`kit.alias` inside a `sveltekit()` plugin config** (see Scope). The
   second costs reach only: such a project keeps today's `$lib`-only resolution instead of a wrong one.
 - **`kit.files.routes`**, unchanged.

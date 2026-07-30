@@ -492,14 +492,22 @@ function aliasMatches(entry: KitAlias, spec: string): boolean {
  * specifiers resolve, defaulting to `$lib` → `src/lib`; `./`/`../` resolve against the
  * importing file's directory; bare packages and other aliases are skipped (they can't
  * be resolved to a project-local path at all). Also undefined when a relative
- * specifier's `..` segments escape the project root — see `normalizePosix`.
+ * specifier's `..` segments escape the project root (see `normalizePosix`), or when a
+ * matched alias's value is itself absolute (e.g. `/opt/shared/src`): an absolute target
+ * is outside the analyzed project by definition, and without this check
+ * `normalizePosix` would quietly drop the leading empty segment and hand back a
+ * project-relative-LOOKING path that actually names a different file.
  *
  * Exported (module-internal to `@svelte-vitals/core`, not part of the package's public
  * barrel — nothing outside `packages/core` consumes it) because
  * `architecture/private-scope-import` needs resolution that is not restricted to runes
- * modules, unlike `resolveRunesModuleSpecifier`. Keep every alias mapping inside this
- * one function: adding `svelte.config.js` alias support later must stay a single-site
- * change.
+ * modules, unlike `resolveRunesModuleSpecifier`. This is the single site for every
+ * kit-module and rule-time specifier resolution inside `packages/core` — but not the
+ * only specifier→path mapping in the repo: `resolveComponentPath`
+ * (`packages/cli/src/providers/source/resolve.ts`), which drives transitive `<head>`
+ * resolution, still hard-codes `$lib/` → `src/lib/` and does not consult `aliases` at
+ * all. That is a known, deliberate exception carried outside this package's boundary,
+ * not an oversight — extending alias resolution to it is separate work.
  */
 export function resolveRepoLocalPath(
   spec: string,
@@ -516,6 +524,11 @@ export function resolveRepoLocalPath(
     // but carries no readable value stops here rather than letting a later entry answer.
     const entry = aliases.find((a) => aliasMatches(a, spec));
     if (entry?.replacement == null) return undefined;
+    // An absolute replacement (a literal `/opt/shared/src`, not `path.resolve(...)` — that
+    // form is non-literal and already opaque) is outside the project by definition. Left
+    // unchecked, `normalizePosix` drops the leading empty segment from `/opt/...` and
+    // answers `opt/shared/src/...` — a project-relative path that names a different file.
+    if (entry.replacement.startsWith('/')) return undefined;
     path = entry.replacement + spec.slice(entry.find.length);
   }
   return normalizePosix(path);
@@ -523,8 +536,10 @@ export function resolveRepoLocalPath(
 
 /**
  * Resolve an import specifier to a repo-relative `.svelte.ts`/`.svelte.js` path, or
- * undefined when it cannot be a runes module: `$lib/` maps to `src/lib/`, `./`/`../`
- * resolve against the importing file's directory; bare packages, other aliases, and
+ * undefined when it cannot be a runes module: delegates to `resolveRepoLocalPath` with
+ * `aliases` (defaulting to `$lib` → `src/lib` when omitted), so a project's declared
+ * `kit.alias`/`kit.files.lib` resolve here exactly as they do at rule time; `./`/`../`
+ * resolve against the importing file's directory; bare packages, unmatched aliases, and
  * a relative specifier whose `..` segments escape the repo root are skipped. An
  * extensionless `…/x.svelte` specifier canonicalises to `….svelte.ts` (security/shared-state-import also
  * tries the `.js` sibling when matching).
@@ -542,25 +557,40 @@ export function resolveRunesModuleSpecifier(
 }
 
 /**
+ * The resolved `$lib` server directory: the `$lib` entry's `replacement` (any list the
+ * collector produces has one, at index 0 — but this looks it up by `find` rather than by
+ * position) with `/server` appended, or `src/lib/server` when there is no list, no `$lib`
+ * entry, or (defensively — `replacement` is typed `string | null`) its replacement is not a
+ * string. Follows `kit.files.lib` instead of assuming the directory never moves.
+ */
+function libServerRoot(aliases?: readonly KitAlias[]): string {
+  const lib = aliases?.find((a) => a.find === '$lib');
+  const libRoot = typeof lib?.replacement === 'string' ? lib.replacement : 'src/lib';
+  return `${libRoot}/server`;
+}
+
+/**
  * Whether an import specifier points at repo-local module state that would be
- * SHARED on the server: relative or `$lib/` — but not `src/lib/server` itself or
- * anything under `src/lib/server/**`, where legitimate singletons (DB connections,
- * KV/API clients) live. The check resolves the specifier to its repo-relative path
- * first, so a relative import that lands in `src/lib/server/**` is exempt exactly
- * like the `$lib/server/**` alias form, and the directory-entrypoint import itself
- * (`$lib/server`, or an equivalent `../../lib/server`, resolving to exactly
- * `src/lib/server` — importing the index file rather than a named submodule) is
- * exempt too. A specifier that resolves to undefined — a bare package, an alias
- * that can't map to a repo path, or a relative specifier whose `..` segments escape
- * the repo root (see `normalizePosix`) — is conservatively NOT local state: we
- * can't see that file, so we don't flag writes to it. Installed packages (drizzle,
- * redis, @vercel/kv, …) are excluded: `.set()`/`.update()` on those is persistence,
- * not shared-module-state mutation.
+ * SHARED on the server: relative or alias-resolved — but not the resolved `$lib`
+ * server directory itself (see `libServerRoot`, which follows `kit.files.lib`) or
+ * anything under it, where legitimate singletons (DB connections, KV/API clients)
+ * live. The check resolves the specifier to its repo-relative path first, so a
+ * relative import that lands in that directory is exempt exactly like the
+ * alias-resolved form, and the directory-entrypoint import itself (`$lib/server`, or
+ * an equivalent relative path, resolving to exactly that directory — importing the
+ * index file rather than a named submodule) is exempt too. A specifier that
+ * resolves to undefined — a bare package, an alias that can't map to a repo path, or
+ * a relative specifier whose `..` segments escape the repo root (see
+ * `normalizePosix`) — is conservatively NOT local state: we can't see that file, so
+ * we don't flag writes to it. Installed packages (drizzle, redis, @vercel/kv, …) are
+ * excluded: `.set()`/`.update()` on those is persistence, not shared-module-state
+ * mutation.
  */
 function isLocalStateSpecifier(spec: string, importerFile: string, aliases?: readonly KitAlias[]): boolean {
   const path = resolveRepoLocalPath(spec, importerFile, aliases);
   if (path === undefined) return false;
-  return path !== 'src/lib/server' && !path.startsWith('src/lib/server/');
+  const serverRoot = libServerRoot(aliases);
+  return path !== serverRoot && !path.startsWith(`${serverRoot}/`);
 }
 
 /**

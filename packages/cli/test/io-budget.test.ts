@@ -13,7 +13,7 @@ import { createCountingRuntime, type RuntimeCounts } from './helpers/counting-ru
  *     (parseComponentFacts) — different parsers, separate caches, and the
  *     component glob also matches route files.
  *   - the Vite config: `collectProjectFacts` reads it once via
- *     `detectViteMinifyDisabled` and once via `detectKitPathsBase`.
+ *     `detectViteMinifyDisabled` and once via `detectKitConfigFacts`.
  *
  * Lowering this number is welcome and should accompany any unification of those
  * read paths. RAISING it is a design decision that needs a recorded reason — not a

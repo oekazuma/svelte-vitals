@@ -196,12 +196,16 @@ Rules that follow imports (`architecture/private-scope-import`, `security/shared
 statically, in the same order SvelteKit builds them, and the first matching alias wins, exactly as it
 does at build time.
 
-Two cases are not resolved, and in both the specifier is treated as one we cannot see, so nothing is
-reported for it:
+Three cases are not resolved:
 
-- an alias whose value is computed (`path.resolve(...)`, a template literal) rather than a plain string;
+- an alias whose value is computed (`path.resolve(...)`, a template literal) rather than a plain string —
+  the specifier is treated as one we cannot see, so nothing is reported for it;
 - a project that passes its SvelteKit options to the `sveltekit()` plugin in `vite.config.ts` instead of
-  `svelte.config.js`.
+  `svelte.config.js` — same result, nothing reported;
+- a `kit.alias` object containing a spread (`{ ...shared, '$a': 'src/a' }`) or a computed key
+  (`{ [key]: 'src/a' }`) — an unknown key could shadow any entry declared after it, so the _whole_ of
+  `kit.alias` is discarded rather than just that one entry. Every literal alias declared alongside it stops
+  resolving too (`$lib` is unaffected, since nothing can shadow the position it always occupies).
 
 ## Precedence
 

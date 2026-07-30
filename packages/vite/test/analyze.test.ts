@@ -70,6 +70,56 @@ describe('analyze', () => {
   });
 });
 
+describe('analyze — kit alias wiring (project.kitAliases -> collectKitModuleFacts)', () => {
+  // Mirrors the CLI's kit-alias-e2e.test.ts: security/shared-state-import is inert for an
+  // alias-only import until analyze() actually threads project.kitAliases through to the
+  // kit-module collector, so a finding here is evidence the wiring at analyze.ts:71 runs,
+  // not just that the two functions type-check together.
+  async function makeAliasProject(aliasDeclared: boolean) {
+    const cwd = await mkdtemp(join(tmpdir(), 'sv-analyze-alias-'));
+    const pages = join(cwd, '.svelte-kit/output/prerendered/pages');
+    await mkdir(pages, { recursive: true });
+    await writeFile(
+      join(pages, 'index.html'),
+      `<html lang="en"><head><title>Home</title><meta name="description" content="d"/></head><body></body></html>`
+    );
+    await writeFile(
+      join(cwd, 'svelte.config.js'),
+      aliasDeclared ? `export default { kit: { alias: { '$data': 'src/data' } } };\n` : `export default { kit: {} };\n`
+    );
+    await mkdir(join(cwd, 'src/data'), { recursive: true });
+    await writeFile(join(cwd, 'src/data/cart.svelte.ts'), `export const items = $state([]);\n`);
+    await mkdir(join(cwd, 'src/routes'), { recursive: true });
+    await writeFile(
+      join(cwd, 'src/routes/+page.server.ts'),
+      `import { items } from '$data/cart.svelte';\nexport function load() {\n  return { count: items.length };\n}\n`
+    );
+    return { cwd, pages };
+  }
+
+  it('reports a shared-state import that arrives through a declared alias', async () => {
+    const { cwd, pages } = await makeAliasProject(true);
+    try {
+      const r = await analyze(pages, cwd, { report: false });
+      expect(
+        r.results.some((x) => x.id === 'security/shared-state-import' && x.location === 'src/routes/+page.server.ts')
+      ).toBe(true);
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
+
+  it('reports nothing for the same tree when the alias is not declared (negative control)', async () => {
+    const { cwd, pages } = await makeAliasProject(false);
+    try {
+      const r = await analyze(pages, cwd, { report: false });
+      expect(r.results.some((x) => x.id === 'security/shared-state-import')).toBe(false);
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
+});
+
 describe('analyze — svelte-vitals.config.*', () => {
   // Each test gets its own temp project (rather than sharing one cwd and rewriting the same
   // config file path across tests): Node's ESM loader caches a dynamic import() by URL, so
