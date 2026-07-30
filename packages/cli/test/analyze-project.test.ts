@@ -13,6 +13,7 @@ const minifyDisabledFixtureDir = join(here, 'fixtures', 'minify-disabled-project
 const waterfallProjectFixtureDir = join(here, 'fixtures', 'waterfall-project');
 const unitEntryFixtureDir = join(here, 'fixtures', 'unit-entry-project');
 const directoryNamingFixtureDir = join(here, 'fixtures', 'directory-naming-project');
+const reservedNamesFixtureDir = join(here, 'fixtures', 'reserved-names-project');
 
 describe('analyzeProject', () => {
   it('returns results, config, version and warnings for a SvelteKit project', async () => {
@@ -130,6 +131,14 @@ describe('analyzeProject config-file precedence (design doc 2026-07-05-config-fi
     expect(found[0]!.route).toBe('src/lib/Price_Table');
     expect(found[0]!.location).toBe('src/lib/Price_Table/index.ts');
     expect(found[0]!.message).toContain('camelCase');
+  });
+
+  it('runs architecture/reserved-directory-names over the collected inventory', async () => {
+    const { results } = await analyzeProject({ cwd: reservedNamesFixtureDir });
+    const found = results.filter((r) => r.id === 'architecture/reserved-directory-names');
+    expect(found).toHaveLength(1);
+    expect(found[0]!.route).toBe('src/lib/Card/helpers');
+    expect(found[0]!.location).toBe('src/lib/Card/helpers/format.ts');
   });
 
   it('leaves the inventory unbuilt for a --route run, so directory-shaped rules stay silent', async () => {

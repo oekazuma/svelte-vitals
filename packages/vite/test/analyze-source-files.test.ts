@@ -98,3 +98,36 @@ describe('analyze wires sourceFiles into the rule context for architecture/direc
     expect(r.results.filter((x) => x.id === 'architecture/directory-naming')).toEqual([]);
   });
 });
+
+// A third separate temp project: a directory name chosen for one rule can satisfy another rule's
+// gate and break its wiring test (as happened when a sibling rule's test was added to a shared
+// fixture), so this rule gets its own project rather than extending either describe above.
+describe('analyze wires sourceFiles into the reserved-names rule', () => {
+  let cwd: string;
+  let pages: string;
+  beforeAll(async () => {
+    cwd = await mkdtemp(join(tmpdir(), 'sv-reserved-names-'));
+    pages = join(cwd, '.svelte-kit/output/prerendered/pages');
+    await mkdir(pages, { recursive: true });
+    await writeFile(join(pages, 'index.html'), `<html lang="en"><head><title>Home</title></head><body></body></html>`);
+    await mkdir(join(cwd, 'src/lib/Card/helpers'), { recursive: true });
+    await writeFile(join(cwd, 'src/lib/Card/Card.svelte'), '<div>card</div>');
+    await writeFile(join(cwd, 'src/lib/Card/helpers/format.ts'), 'export const format = 1;');
+  });
+  afterAll(async () => rm(cwd, { recursive: true, force: true }));
+
+  it('reports the undeclared child directory', async () => {
+    const r = await analyze(pages, cwd, {
+      report: false,
+      rules: { 'architecture/reserved-directory-names': { options: { unitScopes: { 'src/**': 'parts|tests' } } } }
+    });
+    const found = r.results.filter((x) => x.id === 'architecture/reserved-directory-names');
+    expect(found).toHaveLength(1);
+    expect(found[0]!.route).toBe('src/lib/Card/helpers');
+  });
+
+  it('emits nothing from that rule when it is left unconfigured', async () => {
+    const r = await analyze(pages, cwd, { report: false });
+    expect(r.results.filter((x) => x.id === 'architecture/reserved-directory-names')).toEqual([]);
+  });
+});
