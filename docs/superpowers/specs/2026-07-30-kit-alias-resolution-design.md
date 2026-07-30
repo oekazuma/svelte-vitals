@@ -38,79 +38,147 @@ not made better or worse here.
 
 ## Design
 
-### `$lib` stops being a special case
+### The one governing principle: reproduce `get_config_aliases`
 
-Reading `kit.files.lib` is what makes the implementation simpler rather than larger, because `$lib`
-becomes an ordinary entry in the alias map instead of a branch of its own:
+Every rule in this section is a restatement of one decision, so it is worth stating alone:
+
+> **The resolver reproduces what the bundler does, mechanism included — not a cleaner scheme that
+> usually agrees with it.**
+
+The bundler's mechanism is short enough to hold in mind. `get_config_aliases`
+(`@sveltejs/kit/src/exports/vite/utils.js`) builds an **ordered array**, `$lib` **prepended** before any
+user entry:
+
+```js
+const alias = [
+  // For now, we handle `$lib` specially here rather than make it a default value for
+  // `config.kit.alias` since it has special meaning for packaging, etc.
+  { find: '$lib', replacement: config.files.lib }
+];
+for (let [key, value] of Object.entries(config.alias)) { …alias.push(…) }
+```
+
+and the resolver Vite runs over that array takes the **first** match, not the best one:
+
+```js
+const matchedEntry = entries.find((entry) => matches(entry.find, importee));
+```
+
+Two consequences fall straight out, and both were wrong in the first draft of this spec.
+
+**A user's `kit.alias.$lib` is dead.** Kit's `$lib` entry sits ahead of it, so `files.lib` always wins.
+The first draft merged with `{ $lib: filesLib, ...kitAlias }`, letting the user's value win — the exact
+opposite of the bundler.
+
+**Resolution is order-dependent, and reproducing that is the safe choice.** Given
+`{ '$a': 'src/x', '$a/b': 'src/y' }` in that order, `$a/b/c` matches `$a` first and resolves to
+`src/x/b/c`; the `$a/b` entry is unreachable. A "longest key wins" rule — which the first draft chose,
+for determinism — answers `src/y/c`: **a different, possibly existing file**, fed to default-on security
+rules. That is precisely the wrong-answer failure this spec sets out to avoid, and avoiding it costs
+nothing: the config parser walks an `ObjectExpression`, so source order is already in hand.
+
+The determinism the first draft wanted was never at risk. For a given config the answer is fixed; it is
+only _across_ differently-written configs that it varies, and that variation is the bundler's real
+behaviour. A checker that resolves an import differently from the bundler that will build it has no
+defence for the difference.
+
+### The shape that follows
+
+Because precedence is positional, the fact cannot be a `Record`: a record cannot express "`$lib` first,
+and its value wins" when the user also writes `$lib` — the spread would move it or overwrite it. It is an
+**ordered list**, and first-match-wins then needs no precedence rule at all, because a duplicate `$lib`
+entry is simply never reached.
 
 ```ts
-// The default map is what reproduces today's behaviour when no config declares anything.
+type KitAlias = {
+  find: string; // the key, any trailing `/*` removed
+  replacement: string; // the value, posixified, any trailing `/*` and `/` removed
+  match: 'prefix' | 'contents' | 'exact';
+};
+
+// The default list is what reproduces today's behaviour when no config was read.
 declare function resolveRepoLocalPath(
   spec: string,
   importerFile: string,
-  aliases?: Record<string, string> // default: { $lib: 'src/lib' }
+  aliases?: KitAlias[] // default: [{ find: '$lib', replacement: 'src/lib', match: 'prefix' }]
 ): string | undefined;
 ```
 
 1. A relative specifier resolves against the importing file's directory — unchanged.
-2. Otherwise, take the **longest** matching alias key `K` and replace that prefix with its value.
-3. No key matches → `undefined`, as today.
+2. Otherwise, take the **first** entry whose `match` test passes and replace `find` with `replacement`.
+3. No entry matches → `undefined`, as today.
 
-`kit.files.lib` **overrides** the default map's `$lib` value; `kit.alias` entries are **added** to it. The
-doc comment on `resolveRepoLocalPath` already demanded this shape — "keep every alias mapping inside
-this one function: adding `svelte.config.js` alias support later must stay a single-site change" — and
-folding `$lib` in is how that holds without adding a branch.
+The list is built once, at collection: `$lib` from `kit.files.lib` (or `src/lib`), then `kit.alias` in
+declaration order. The doc comment on `resolveRepoLocalPath` already demanded that shape — "keep every
+alias mapping inside this one function: adding `svelte.config.js` alias support later must stay a
+single-site change".
 
-The merge happens **once, at collection**, not inside the resolver:
-`kitAliases = { $lib: filesLib ?? 'src/lib', ...kitAlias }`. So the collected map, whenever it is
-present, always carries a `$lib` entry, and the resolver's default parameter covers only the case where
-no config was read at all. Spread order gives an explicit `kit.alias.$lib` the last word; that shape is
-strange but it is what Vite would do with it, and the resolver should not disagree with the bundler.
+### Three match modes, because Kit compiles three
 
-**Longest key wins, for determinism.** Vite matches aliases in declaration order; resolving by object
-key order would make the answer depend on how the config happens to be written. Longest-prefix is
-order-independent and matches how the rest of this codebase breaks specificity ties. Length is measured
-on the **raw key**, `/*` suffix included, which is what makes the pair below order-independent too.
+Kit does not treat every key as a directory prefix. It compiles three different entries, and the mode is
+decided by the key's shape and by what else the config declares:
 
-### Three key shapes, because Kit defines three
+| Kit's compiled entry                | mode       | Matches `x`? | Matches `x/y`? |
+| ----------------------------------- | ---------- | ------------ | -------------- |
+| `find: 'x'` (plain string)          | `prefix`   | yes          | yes            |
+| `find: /^x\/(.+)$/` — from `'x/*'`  | `contents` | **no**       | yes            |
+| `find: /^x$/` — `'x'` + `'x/*'` set | `exact`    | yes          | **no**         |
 
-`kit.alias` keys are not all directory prefixes. Kit's own documentation gives all three forms, and the
-third one is not a stylistic variant — it changes what matches:
+So the tests are: `prefix` → `spec === find || spec.startsWith(find + '/')`; `contents` →
+`spec.startsWith(find + '/')` only; `exact` → `spec === find` only.
 
-| Key     | Matches `x`? | Matches `x/y`? |
-| ------- | ------------ | -------------- |
-| `'x'`   | yes          | yes            |
-| `'x/*'` | **no**       | yes            |
+The third mode is the one a from-scratch design would miss. When a config declares **both** `'x'` and
+`'x/*'`, Kit narrows the `'x'` entry to an exact match, so the two entries partition the space instead of
+the first one swallowing everything. Reproducing the mode is what makes `x/y` reach the `'x/*'` entry
+even though `'x'` is declared first — under plain first-match-wins it never would.
 
-So the match test is: for a key without a trailing `/*`, `spec === K || spec.startsWith(K + '/')`; for a
-key `K + '/*'`, only `spec.startsWith(K + '/')`. A trailing `/*` on the **value** is stripped before
-substitution — `'x/*': 'src/x/*'` maps `x/y` to `src/x/y`, the same place `'x': 'src/x'` maps it.
-
-Kit's third documented form is a key whose value is a **file** (`'x': 'src/x.js'`). It needs no separate
-handling: the table's first row already describes it, and the nonsense case — `x/y` under a file alias,
-substituting to `src/x.js/y` — resolves to a path no file has, so every consumer stays silent for the
-same reason it stays silent on an unresolvable specifier.
-
-Because the raw key orders the candidates, a config declaring both `'x'` and `'x/*'` is deterministic
-without a tie-break rule: `x/y` takes `'x/*'` (the longer key), and bare `x` takes `'x'` (the only key
-that matches it).
-
-The non-`/*` test is a **segment-boundary** test rather than a string-prefix test: a key of `$lib` must
+The `prefix` test is a **segment-boundary** test rather than a string-prefix test: a `find` of `$lib` must
 not match `$libFoo`. The `+ '/'` is what enforces that, and it gets its own test because dropping it
-looks harmless.
+looks harmless. It is Vite's own `matches()`, verbatim.
+
+Kit's documentation also shows a key whose value is a **file** (`'x': 'src/x.js'`). That is not a fourth
+mode: Kit's compiler never branches on whether the value is a file, so it is a `prefix` entry like any
+other, and the nonsense case — `x/y` substituting to `src/x.js/y` — lands on a path no file has, so every
+consumer stays silent for the same reason it stays silent on an unresolvable specifier.
+
+### Normalising the value, which measurement showed is not optional
+
+Kit posixifies the value, strips a trailing `/*`, and then hands it to `path.resolve`, which quietly
+absorbs anything else irregular. This resolver works in project-relative strings and never calls
+`path.resolve`, so what `resolve` was absorbing has to be done explicitly:
+
+1. **posixify** — `value.replace(/\\/g, '/')`. A config written on Windows can hold `'src\\lib'`.
+2. **strip a trailing `/*`** — `'x/*': 'src/x/*'` must map `x/y` to `src/x/y`, exactly where
+   `'x': 'src/x'` maps it.
+3. **strip trailing slashes** — `value.replace(/\/+$/, '')`. A **trailing-slash value is common, not
+   exotic**: measurement found it on the most heavily used alias in the tree. Raw prefix substitution
+   would produce `src//lib/api/x`.
+
+Step 3 is belt-and-braces rather than the only defence — `normalizePosix` drops empty segments, so `//`
+already collapses. It is written down because that is a _latent_ dependency: the spec's correctness would
+otherwise rest on an unstated property of a helper three functions away, and a future edit to
+`normalizePosix` could break alias resolution with nothing pointing at the connection.
 
 One deliberate widening: today a bare `$lib` (no slash) returns `undefined` and only `$lib/…` resolves.
-Under the alias mechanism `$lib` alone resolves to `src/lib`. That is correct by Kit's semantics, and
-the existing reasoning in `isLocalStateSpecifier` already assumes bare-directory forms resolve — it
-exempts "the directory-entrypoint import itself … resolving to exactly `src/lib/server`".
+Under the alias mechanism `$lib` alone resolves to `src/lib`, which is what Kit's `prefix` mode does.
+The existing reasoning in `isLocalStateSpecifier` already assumes bare-directory forms resolve — it
+exempts "the directory-entrypoint import itself … resolving to exactly `src/lib/server`". Measurement
+found no bare alias import in the tree, so the widening is expected to change nothing in practice; it is
+taken because it is what the bundler does, not for its reach.
 
 ### The fact
 
-`Project` gains one field:
+`Project` gains one field, the ordered list from above:
 
 ```ts
-kitAliases?: Record<string, string>;
+kitAliases?: KitAlias[];
 ```
+
+Absent means "no config was read", and the resolver's default parameter covers it. A **collected list is
+never empty**: `$lib` is prepended before any user entry, so a config that was read and declared no
+aliases yields a one-entry list identical to the default. That invariant is why nothing downstream needs
+a "did we read a config" flag, and it is worth asserting in a test — an empty array reaching the resolver
+would silently disable `$lib` resolution, turning every rule in the table below into a no-op.
 
 No `file` alongside it, unlike `kitPathsBase`, which carries one because a finding points at the config
 line. Aliases are never reported; nothing needs their provenance.
@@ -184,29 +252,44 @@ specifiers using it stay exactly as unresolved as they are today.
 
 1. **The parser** — a `kit.alias` object literal; a computed value skipped while its literal siblings
    survive; `kit.files.lib`; a config with no `kit` key; an unparseable config; an `alias` whose value is
-   not an object.
-2. **The resolver** — longest key wins; an exact-key match; a key mapping to a **file** rather than a
-   directory; a `'x/*'` key matching `x/y` but **not** bare `x`, alongside a plain `'x'` key that matches
-   both; a trailing `/*` on the value stripped; the **segment boundary** (`$lib` must not match
-   `$libFoo`); a value escaping the project root giving `undefined`; the default `$lib` when no config
-   declares one; `files.lib` overriding `$lib`; an explicit `kit.alias.$lib` overriding `files.lib`; a
-   relative specifier unchanged.
-3. **Backwards compatibility** — with no alias config, the existing suites of
+   not an object. Plus the two structural invariants: **`$lib` is at index 0** of every list the parser
+   produces, and **source order is preserved** for the user entries (a fixture declaring three aliases,
+   asserted as a list, not as a set).
+2. **Value normalisation** — a trailing slash (`'src/'`); a backslash value (`'src\\lib'`); a trailing
+   `/*`; and all three at once. Each asserted on the produced `replacement`, so a fixture cannot pass
+   merely because `normalizePosix` cleaned up afterwards.
+3. **The resolver, mode by mode** — `prefix` matching both `x` and `x/y`; `contents` (from `'x/*'`)
+   matching `x/y` but **not** bare `x`; `exact` (from `'x'` when `'x/*'` also exists) matching `x` but
+   **not** `x/y`; a value that is a file; the **segment boundary** (`$lib` must not match `$libFoo`); a
+   value escaping the project root giving `undefined`; a relative specifier unchanged.
+4. **Bundler fidelity, as its own group.** These are the cases where an intuitive scheme and Kit disagree,
+   so each one fails under the first draft's design and is the reason the design changed:
+   - **First match, not best match** — `{ '$a': 'src/x', '$a/b': 'src/y' }` in that order resolves
+     `$a/b/c` to `src/x/b/c`. Under longest-key-wins it would be `src/y/c`.
+   - **Order matters** — the same two keys declared the other way round resolve `$a/b/c` to `src/y/c`.
+     The pair together is what pins order-dependence; either test alone is satisfiable by a fixed rule.
+   - **`kit.alias.$lib` is dead** — a config setting both `files.lib` and `alias.$lib` resolves `$lib/x`
+     under **`files.lib`**. This is the assertion the first draft would have failed.
+   - **A user alias shadowed by `$lib`** — `alias: { '$lib/server': 'src/other' }` never fires, because
+     Kit's `$lib` entry precedes it.
+5. **Backwards compatibility** — with no alias config, the existing suites of
    `architecture/private-scope-import`, `kit-module-parse`, and the two `security` SSR rules pass
-   **unedited**. That is the proof the default map reproduces today's behaviour exactly.
-4. **The I/O budget's numbers are unchanged.** CI-enforced, and the mechanical proof that collection
+   **unedited**. That is the proof the default list reproduces today's behaviour exactly.
+6. **The I/O budget's numbers are unchanged.** CI-enforced, and the mechanical proof that collection
    gained no reads.
-5. **End-to-end** — a fixture whose `svelte.config.js` declares an alias, where a shipped rule reports
+7. **End-to-end** — a fixture whose `svelte.config.js` declares an alias, where a shipped rule reports
    something it demonstrably did not report before. Without this the change has no evidence it did
-   anything; the first four tests would all pass over a resolver that silently never matched.
+   anything; every test above would pass over a resolver that silently never matched.
 
 ## Deliverables
 
 - `findKitAliasesInSvelteConfig` / `resolveKitAliases` in `packages/core/src/svelte-config-parse.ts`,
-  beside the existing `paths.base` parsing.
-- `Project.kitAliases` in `packages/core/src/types.ts`.
-- The third parameter on `resolveRepoLocalPath`, with `$lib` folded into the default map.
-- `collectKitModuleFacts` takes the alias map; the CLI's `collectAll` and the vite plugin's `analyze`
+  beside the existing `paths.base` parsing. `resolveKitAliases` owns the ordering invariant (`$lib`
+  first) and the value normalisation.
+- `KitAlias` and `Project.kitAliases` in `packages/core/src/types.ts`.
+- The third parameter on `resolveRepoLocalPath`, taking the ordered list, with `$lib` as its default
+  entry.
+- `collectKitModuleFacts` takes the alias list; the CLI's `collectAll` and the vite plugin's `analyze`
   pass `project.kitAliases`.
 - `architecture/private-scope-import` passes `ctx.project.kitAliases`.
 - A changeset stating that projects declaring `kit.alias` may see new findings from
