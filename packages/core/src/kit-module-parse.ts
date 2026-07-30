@@ -19,6 +19,7 @@ import { lineOf } from './svelte-ast.js';
 import { isRootRelativePath } from './base-path.js';
 import type { KitModuleFacts } from './kit-module.js';
 import type { BasePathLinkFact } from './component.js';
+import type { KitAlias } from './types.js';
 
 // Same pragmatic typing stance as component-parse.ts.
 /* oxlint-disable @typescript-eslint/no-explicit-any */
@@ -467,10 +468,28 @@ function normalizePosix(path: string): string | undefined {
 }
 
 /**
+ * What `resolveRepoLocalPath` assumes when no config was read: SvelteKit's own `$lib`, at the
+ * default `src/lib`. This single entry is the whole of this analyzer's pre-alias behaviour.
+ */
+const DEFAULT_KIT_ALIASES: readonly KitAlias[] = [{ find: '$lib', replacement: 'src/lib', match: 'prefix' }];
+
+/**
+ * Whether one compiled alias entry matches a specifier. The `prefix` arm is Vite's own
+ * `matches()` — `importee === pattern || importee.startsWith(pattern + '/')` — and the `+ '/'`
+ * is what keeps a `$lib` entry off `$libFoo`.
+ */
+function aliasMatches(entry: KitAlias, spec: string): boolean {
+  if (entry.match === 'exact') return spec === entry.find;
+  if (spec.startsWith(`${entry.find}/`)) return true;
+  return entry.match === 'prefix' && spec === entry.find;
+}
+
+/**
  * Resolve an import specifier to a path relative to the analyzed project's root (the
  * cwd svelte-vitals runs from — not necessarily a repo root; in a monorepo the project
  * may live at e.g. `apps/web/`) against the importing file, or undefined when it cannot
- * be a project-local module: `$lib/` maps to `src/lib/`, `./`/`../` resolve against the
+ * be a project-local module: the caller's `aliases` list decides which non-relative
+ * specifiers resolve, defaulting to `$lib` → `src/lib`; `./`/`../` resolve against the
  * importing file's directory; bare packages and other aliases are skipped (they can't
  * be resolved to a project-local path at all). Also undefined when a relative
  * specifier's `..` segments escape the project root — see `normalizePosix`.
@@ -482,13 +501,23 @@ function normalizePosix(path: string): string | undefined {
  * one function: adding `svelte.config.js` alias support later must stay a single-site
  * change.
  */
-export function resolveRepoLocalPath(spec: string, importerFile: string): string | undefined {
+export function resolveRepoLocalPath(
+  spec: string,
+  importerFile: string,
+  aliases: readonly KitAlias[] = DEFAULT_KIT_ALIASES
+): string | undefined {
   let path: string;
-  if (spec.startsWith('$lib/')) path = `src/lib/${spec.slice('$lib/'.length)}`;
-  else if (spec.startsWith('./') || spec.startsWith('../')) {
+  if (spec.startsWith('./') || spec.startsWith('../')) {
     const dir = importerFile.split('/').slice(0, -1).join('/');
     path = `${dir}/${spec}`;
-  } else return undefined;
+  } else {
+    // First match, not best match: `aliases` is ordered as Kit builds it and Vite's alias
+    // plugin resolves with entries.find(), so position is precedence. An entry that matches
+    // but carries no readable value stops here rather than letting a later entry answer.
+    const entry = aliases.find((a) => aliasMatches(a, spec));
+    if (entry?.replacement == null) return undefined;
+    path = entry.replacement + spec.slice(entry.find.length);
+  }
   return normalizePosix(path);
 }
 

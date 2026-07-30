@@ -7,6 +7,7 @@ export type {
   Value,
   Detection,
   Project,
+  KitAlias,
   Fix,
   Result,
   Scope,

@@ -20,6 +20,34 @@ export interface Detection {
   value: Value;
 }
 
+/**
+ * One compiled SvelteKit alias entry, in the order Kit builds them (`get_config_aliases` in
+ * `@sveltejs/kit/src/exports/vite/utils.js`): `$lib` first, then `kit.alias` in declaration
+ * order. Resolution takes the FIRST matching entry, exactly as Vite's alias plugin does, so
+ * **position is precedence** — the list is never sorted and a longer `find` never wins on
+ * length alone.
+ */
+export interface KitAlias {
+  /** The alias key, with any trailing `/*` removed. */
+  find: string;
+  /**
+   * The project-relative target: posixified, with any trailing `/*` and any trailing slashes
+   * removed. `null` when the config's value is not a string literal — such an entry still
+   * matches (holding its position and its mode) but resolves to undefined, so a specifier we
+   * cannot resolve stays unresolved instead of falling through to a later entry.
+   */
+  replacement: string | null;
+  /**
+   * How `find` matches a specifier, mirroring Kit's three compiled entry shapes:
+   * - `prefix` — `spec === find` or `spec.startsWith(find + '/')`; a plain key.
+   * - `contents` — `spec.startsWith(find + '/')` only; from a `key/*` key, which Kit
+   *   documents as matching "the contents of a directory, not the directory itself".
+   * - `exact` — `spec === find` only; a plain key whose `key/*` form is ALSO declared, which
+   *   is how Kit stops the plain key from swallowing the nested specifiers.
+   */
+  match: 'prefix' | 'contents' | 'exact';
+}
+
 /** Project-wide facts precomputed by the runtime layer for project-scope rules (design §10). */
 export interface Project {
   hasRobotsTxt: boolean;
@@ -44,6 +72,13 @@ export interface Project {
    * Absent means the app is served at the root — the rule stays silent.
    */
   kitPathsBase?: { value?: string; file: string };
+  /**
+   * The project's compiled SvelteKit alias entries, in Kit's own order (`$lib` first), read from
+   * `svelte.config.{js,ts}`. Absent means no config was read — resolution then falls back to
+   * `$lib` → `src/lib`, which is what this analyzer assumed unconditionally before. A collected
+   * list is never empty: `$lib` is always prepended.
+   */
+  kitAliases?: KitAlias[];
 }
 
 export const defaultProject: Project = {

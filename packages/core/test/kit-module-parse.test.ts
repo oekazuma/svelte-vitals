@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { parseKitModuleFacts, resolveRunesModuleSpecifier } from '../src/kit-module-parse.js';
+import { parseKitModuleFacts, resolveRunesModuleSpecifier, resolveRepoLocalPath } from '../src/kit-module-parse.js';
+import type { KitAlias } from '../src/types.js';
 
 const facts = (src: string, file = 'src/routes/+page.server.ts') => parseKitModuleFacts(src, file);
 
@@ -383,5 +384,83 @@ describe('parseKitModuleFacts — ssrDisabled (seo/ssr-disabled)', () => {
       facts("import { dev } from '$app/environment';\nexport const ssr = dev;", 'src/routes/+page.ts').ssrDisabled
     ).toBeUndefined();
     expect(facts('const ssr = false;', 'src/routes/+page.ts').ssrDisabled).toBeUndefined();
+  });
+});
+
+const prefix = (find: string, replacement: string | null): KitAlias => ({ find, replacement, match: 'prefix' });
+const contents = (find: string, replacement: string | null): KitAlias => ({ find, replacement, match: 'contents' });
+const exact = (find: string, replacement: string | null): KitAlias => ({ find, replacement, match: 'exact' });
+const LIB = prefix('$lib', 'src/lib');
+const IMPORTER = 'src/routes/a/+page.server.ts';
+const resolve = (spec: string, aliases?: KitAlias[]) => resolveRepoLocalPath(spec, IMPORTER, aliases);
+
+describe('resolveRepoLocalPath — alias entries', () => {
+  it('resolves a prefix entry for the bare key and for a nested specifier', () => {
+    const aliases = [LIB, prefix('$a', 'src/a')];
+    expect(resolve('$a', aliases)).toBe('src/a');
+    expect(resolve('$a/x/y.svelte.ts', aliases)).toBe('src/a/x/y.svelte.ts');
+  });
+
+  it('a contents entry matches a nested specifier but not the bare key', () => {
+    const aliases = [LIB, contents('$a', 'src/a')];
+    expect(resolve('$a/x', aliases)).toBe('src/a/x');
+    expect(resolve('$a', aliases)).toBeUndefined();
+  });
+
+  it('an exact entry matches the bare key but not a nested specifier', () => {
+    const aliases = [LIB, exact('$a', 'src/a')];
+    expect(resolve('$a', aliases)).toBe('src/a');
+    expect(resolve('$a/x', aliases)).toBeUndefined();
+  });
+
+  it('takes the FIRST matching entry, not the one with the longest key', () => {
+    // Kit pushes entries in declaration order and Vite's alias plugin uses entries.find(),
+    // so `$a` answers `$a/b/c` and the `$a/b` entry is unreachable. A longest-key rule would
+    // answer src/y/c — a different, possibly existing file.
+    const aliases = [LIB, prefix('$a', 'src/x'), prefix('$a/b', 'src/y')];
+    expect(resolve('$a/b/c', aliases)).toBe('src/x/b/c');
+  });
+
+  it('resolves the same pair differently when the declaration order is reversed', () => {
+    const aliases = [LIB, prefix('$a/b', 'src/y'), prefix('$a', 'src/x')];
+    expect(resolve('$a/b/c', aliases)).toBe('src/y/c');
+  });
+
+  it('an opaque entry blocks rather than falling through to a later entry', () => {
+    // undefined is also what today's code answers for this specifier, so this pins the
+    // "no worse than today" claim as well as the blocking behaviour.
+    const aliases = [LIB, prefix('$a', null), prefix('$a/b', 'src/y')];
+    expect(resolve('$a/b/c', aliases)).toBeUndefined();
+  });
+
+  it('does not match across a segment boundary', () => {
+    expect(resolve('$libFoo/x', [LIB])).toBeUndefined();
+  });
+
+  it('returns undefined when the target escapes the project root', () => {
+    expect(resolve('$out/x', [LIB, prefix('$out', '../sibling/src')])).toBeUndefined();
+  });
+
+  it('resolves a nested specifier under a value that names a file, without special-casing it', () => {
+    // Kit never branches on whether the value is a file, so neither does this: the nonsense
+    // path simply matches no real file downstream.
+    expect(resolve('$f/x', [LIB, prefix('$f', 'src/f.js')])).toBe('src/f.js/x');
+  });
+
+  it('defaults to $lib -> src/lib when no list is passed', () => {
+    expect(resolveRepoLocalPath('$lib/q.svelte.ts', IMPORTER)).toBe('src/lib/q.svelte.ts');
+  });
+
+  it('resolves a bare $lib under the default list', () => {
+    // A deliberate widening: today this returns undefined. Kit's prefix mode resolves it.
+    expect(resolveRepoLocalPath('$lib', IMPORTER)).toBe('src/lib');
+  });
+
+  it('resolves a relative specifier whatever the list says', () => {
+    expect(resolve('../../lib/q.svelte.ts', [LIB, prefix('.', 'src/nonsense')])).toBe('src/lib/q.svelte.ts');
+  });
+
+  it('returns undefined for a bare package', () => {
+    expect(resolve('drizzle-orm', [LIB, prefix('$a', 'src/a')])).toBeUndefined();
   });
 });
