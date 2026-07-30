@@ -63,3 +63,31 @@ describe('collectAll', () => {
     expect(facts.sourceFiles).toBeUndefined();
   });
 });
+
+describe('collectAll — kit aliases', () => {
+  const TREE = {
+    'src/app.html': `<!doctype html><html lang="en"><body></body></html>`,
+    'svelte.config.js': `export default { kit: { alias: { '$data': 'src/data' } } };`,
+    'src/routes/+page.svelte': `<h1>a</h1>`,
+    'src/routes/+page.server.ts': `import { s } from '$data/store.svelte';\nexport function load() {\n  return {};\n}\n`
+  };
+
+  it('collects the alias list and resolves a kit-module import through it', async () => {
+    const facts = await collectAll(createMemoryRuntime(TREE), '', defaultConfig);
+
+    expect(facts.project.kitAliases).toEqual([
+      { find: '$lib', replacement: 'src/lib', match: 'prefix' },
+      { find: '$data', replacement: 'src/data', match: 'prefix' }
+    ]);
+    // The point of collecting it: the kit-module collector must have USED the list.
+    expect(facts.kitModules[0]!.runesModuleImports.map((i) => i.resolved)).toEqual(['src/data/store.svelte.ts']);
+  });
+
+  it('leaves the fact absent when there is no svelte config', async () => {
+    const { 'svelte.config.js': _omitted, ...rest } = TREE;
+    const facts = await collectAll(createMemoryRuntime(rest), '', defaultConfig);
+
+    expect(facts.project.kitAliases).toBeUndefined();
+    expect(facts.kitModules[0]!.runesModuleImports).toEqual([]);
+  });
+});

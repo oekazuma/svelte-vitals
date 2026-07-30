@@ -5,6 +5,7 @@ import {
   SITEMAP_SOURCE_PATHS,
   SVELTE_CONFIG_FILES,
   VITE_CONFIG_FILES,
+  resolveKitAliases,
   resolveKitPathsBase,
   type Detection,
   type Project
@@ -59,11 +60,13 @@ export async function collectRenderedProject(cwd: string, htmlLang: Detection): 
   ]);
   const robotsReferencesSitemap = await robotsRefsSitemap(cwd);
   const kitPathsBase = resolveKitPathsBase(viteConfig, svelteConfig);
+  const kitAliases = resolveKitAliases(viteConfig, svelteConfig);
   return {
     hasRobotsTxt,
     hasSitemap,
     htmlLang,
     ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}),
-    ...(kitPathsBase ? { kitPathsBase } : {})
+    ...(kitPathsBase ? { kitPathsBase } : {}),
+    ...(kitAliases ? { kitAliases } : {})
   };
 }
