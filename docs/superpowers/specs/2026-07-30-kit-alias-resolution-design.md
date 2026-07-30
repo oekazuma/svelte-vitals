@@ -92,7 +92,7 @@ entry is simply never reached.
 ```ts
 type KitAlias = {
   find: string; // the key, any trailing `/*` removed
-  replacement: string; // the value, posixified, any trailing `/*` and `/` removed
+  replacement: string | null; // normalised value; null when the config's value is not a string literal
   match: 'prefix' | 'contents' | 'exact';
 };
 
@@ -105,7 +105,8 @@ declare function resolveRepoLocalPath(
 ```
 
 1. A relative specifier resolves against the importing file's directory — unchanged.
-2. Otherwise, take the **first** entry whose `match` test passes and replace `find` with `replacement`.
+2. Otherwise, take the **first** entry whose `match` test passes. `replacement === null` → `undefined`;
+   otherwise replace `find` with `replacement`.
 3. No entry matches → `undefined`, as today.
 
 The list is built once, at collection: `$lib` from `kit.files.lib` (or `src/lib`), then `kit.alias` in
@@ -113,10 +114,17 @@ declaration order. The doc comment on `resolveRepoLocalPath` already demanded th
 alias mapping inside this one function: adding `svelte.config.js` alias support later must stay a
 single-site change".
 
+An entry whose value the parser cannot read stays in the list as an **opaque** entry — `replacement:
+null` — rather than being omitted. Step 2 stops there and answers `undefined`. Why that matters is worked
+through in "the failure to design against" below; the short version is that omitting it would let a
+later entry answer in its place.
+
 ### Three match modes, because Kit compiles three
 
 Kit does not treat every key as a directory prefix. It compiles three different entries, and the mode is
-decided by the key's shape and by what else the config declares:
+decided by the key's shape and by what else the config **declares** — `key + '/*' in config.alias`, read
+off the raw config, before any value is looked at. Modes are therefore assigned from the declared key set
+and never from whatever subset of entries this parser managed to read a value for.
 
 | Kit's compiled entry                | mode       | Matches `x`? | Matches `x/y`? |
 | ----------------------------------- | ---------- | ------------ | -------------- |
@@ -143,9 +151,9 @@ consumer stays silent for the same reason it stays silent on an unresolvable spe
 
 ### Normalising the value, which measurement showed is not optional
 
-Kit posixifies the value, strips a trailing `/*`, and then hands it to `path.resolve`, which quietly
-absorbs anything else irregular. This resolver works in project-relative strings and never calls
-`path.resolve`, so what `resolve` was absorbing has to be done explicitly:
+For a `kit.alias` value, Kit posixifies it, strips a trailing `/*`, and then hands it to `path.resolve`,
+which quietly absorbs anything else irregular. This resolver works in project-relative strings and never
+calls `path.resolve`, so what `resolve` was absorbing has to be done explicitly:
 
 1. **posixify** — `value.replace(/\\/g, '/')`. A config written on Windows can hold `'src\\lib'`.
 2. **strip a trailing `/*`** — `'x/*': 'src/x/*'` must map `x/y` to `src/x/y`, exactly where
@@ -158,6 +166,14 @@ Step 3 is belt-and-braces rather than the only defence — `normalizePosix` drop
 already collapses. It is written down because that is a _latent_ dependency: the spec's correctness would
 otherwise rest on an unstated property of a helper three functions away, and a future edit to
 `normalizePosix` could break alias resolution with nothing pointing at the connection.
+
+**All three steps apply to the `$lib` entry too, and the reason above does not explain why.** Kit's `$lib`
+entry is `{ find: '$lib', replacement: config.files.lib }` — no `posixify`, no `path.resolve`, unlike
+every `kit.alias` value. So there is nothing `resolve` was absorbing for `$lib`, and an implementer
+reasoning backwards from step 1–3's justification would exclude it. Normalise it anyway: `kit.files.lib`
+is a user-written string with the same irregularities available to it (`'src/library/'` would otherwise
+substitute to `src/library//x`), and one normalisation applied uniformly is a smaller thing to keep
+correct than two paths that differ for a reason no downstream code can see.
 
 One deliberate widening: today a bare `$lib` (no slash) returns `undefined` and only `$lib/…` resolves.
 Under the alias mechanism `$lib` alone resolves to `src/lib`, which is what Kit's `prefix` mode does.
@@ -233,9 +249,25 @@ An unresolved specifier falls back to `undefined`, which every consumer already 
 it, stay silent" — conservative, and identical to today. A *mis*resolved specifier points at a real file
 that is not the imported one, and in a default-on security rule that is a false positive.
 
-So the parser is deliberately narrow: **only a string-literal alias value becomes an entry.** A computed
-value (`path.resolve(__dirname, 'src')`, a template literal, a spread) is dropped from the map, and
-specifiers using it stay exactly as unresolved as they are today.
+So the parser is deliberately narrow about **values**: only a string literal becomes a `replacement`. A
+computed value (`path.resolve(__dirname, 'src')`, a template literal, a spread) yields `null`.
+
+It is not narrow about **entries**, and the difference is the whole point. Kit imports the config at
+runtime, so a computed value is just a string there and every entry is live; this parser reads an AST and
+sees only literals. Dropping the entries it cannot read would make the two lists differ in **length**, and
+under first-match-wins a shorter list does not answer less — it answers **differently**:
+
+- **A later entry answers in a dropped entry's place.** With `{ '$a': path.resolve(…), '$a/b': 'src/y' }`,
+  Kit resolves `$a/b/c` under `$a`. Dropping `$a` lets `$a/b` take it: `src/y/c`, a different and possibly
+  existing file. Note what this breaks — it is not merely "less reach than Kit", it is **worse than
+  today**, where the specifier resolves to `undefined`.
+- **Modes shift.** Kit assigns `exact` to `'x'` because `'x/*'` is _declared_. With
+  `{ '$x': 'src/plain', '$x/*': path.resolve(…) }`, dropping the `'$x/*'` entry re-reads `'$x'` as
+  `prefix`, and `$x/y` resolves to `src/plain/y` where Kit answers `undefined`.
+
+Hence the opaque entry: it holds its position and its mode, and answers `undefined` when reached. "A
+specifier we cannot resolve stays unresolved" is then true as stated — which it is not if the entry is
+dropped.
 
 ## Deliberately not solved
 
@@ -245,19 +277,22 @@ specifiers using it stay exactly as unresolved as they are today.
   that svelte-vitals analyses one project and cannot see the file.
 - **Vite's `resolve.alias`** (see Scope).
 - **`kit.files.routes`**, unchanged.
-- **A computed alias value**, as above.
+- **A computed alias value** — recorded as an opaque entry, never resolved (see above). Evaluating the
+  config would resolve it, and is out of the question: `packages/core` performs no I/O and runs no user
+  code.
 - **An unreadable or unparseable `svelte.config`** — no aliases, today's behaviour.
 
 ## Testing
 
-1. **The parser** — a `kit.alias` object literal; a computed value skipped while its literal siblings
-   survive; `kit.files.lib`; a config with no `kit` key; an unparseable config; an `alias` whose value is
-   not an object. Plus the two structural invariants: **`$lib` is at index 0** of every list the parser
-   produces, and **source order is preserved** for the user entries (a fixture declaring three aliases,
-   asserted as a list, not as a set).
+1. **The parser** — a `kit.alias` object literal; a computed value yielding `replacement: null` while its
+   literal siblings keep theirs; `kit.files.lib`; a config with no `kit` key; an unparseable config; an
+   `alias` whose value is not an object. Plus the two structural invariants: **`$lib` is at index 0** of
+   every list the parser produces, and **source order is preserved** for the user entries (a fixture
+   declaring three aliases, asserted as a list, not as a set).
 2. **Value normalisation** — a trailing slash (`'src/'`); a backslash value (`'src\\lib'`); a trailing
    `/*`; and all three at once. Each asserted on the produced `replacement`, so a fixture cannot pass
-   merely because `normalizePosix` cleaned up afterwards.
+   merely because `normalizePosix` cleaned up afterwards. **And the same on a `kit.files.lib` value**,
+   since that is the entry whose normalisation the stated rationale does not cover.
 3. **The resolver, mode by mode** — `prefix` matching both `x` and `x/y`; `contents` (from `'x/*'`)
    matching `x/y` but **not** bare `x`; `exact` (from `'x'` when `'x/*'` also exists) matching `x` but
    **not** `x/y`; a value that is a file; the **segment boundary** (`$lib` must not match `$libFoo`); a
@@ -272,6 +307,14 @@ specifiers using it stay exactly as unresolved as they are today.
      under **`files.lib`**. This is the assertion the first draft would have failed.
    - **A user alias shadowed by `$lib`** — `alias: { '$lib/server': 'src/other' }` never fires, because
      Kit's `$lib` entry precedes it.
+   - **An opaque entry blocks rather than disappears** — `{ '$a': <computed>, '$a/b': 'src/y' }` resolves
+     `$a/b/c` to `undefined`, **not** to `src/y/c`. Dropping the entry is the failure this pins, and note
+     the expected value is the one today's code already gives, so the test also states the "no worse than
+     today" claim.
+   - **An opaque entry still fixes its neighbour's mode** — `{ '$x': 'src/plain', '$x/*': <computed> }`
+     resolves `$x/y` to `undefined`, because `'$x'` is `exact` on the strength of `'$x/*'` being declared.
+     Bare `$x` still resolves to `src/plain`, which is what separates "mode preserved" from "everything
+     went opaque".
 5. **Backwards compatibility** — with no alias config, the existing suites of
    `architecture/private-scope-import`, `kit-module-parse`, and the two `security` SSR rules pass
    **unedited**. That is the proof the default list reproduces today's behaviour exactly.
@@ -285,7 +328,8 @@ specifiers using it stay exactly as unresolved as they are today.
 
 - `findKitAliasesInSvelteConfig` / `resolveKitAliases` in `packages/core/src/svelte-config-parse.ts`,
   beside the existing `paths.base` parsing. `resolveKitAliases` owns the ordering invariant (`$lib`
-  first) and the value normalisation.
+  first), the mode assignment from the raw declared key set, and the value normalisation — applied to
+  every entry, `$lib` included.
 - `KitAlias` and `Project.kitAliases` in `packages/core/src/types.ts`.
 - The third parameter on `resolveRepoLocalPath`, taking the ordered list, with `$lib` as its default
   entry.
