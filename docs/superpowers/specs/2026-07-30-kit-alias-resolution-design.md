@@ -223,21 +223,32 @@ collector.)
 
 ### What the widened reach actually touches
 
-| Rule                                  | Path                      | Default            |
-| ------------------------------------- | ------------------------- | ------------------ |
-| `architecture/private-scope-import`   | resolves at rule time     | L3, opt-in         |
-| `security/handler-state-write`        | via `parseKitModuleFacts` | **on**             |
-| `security/shared-state-import`        | via `parseKitModuleFacts` | **on**             |
-| `architecture/route-component-import` | resolves at rule time     | on (not yet built) |
+| Rule                                  | Resolution site                                 | Default            |
+| ------------------------------------- | ----------------------------------------------- | ------------------ |
+| `architecture/private-scope-import`   | `resolveRepoLocalPath`, at rule time            | L3, opt-in         |
+| `security/handler-state-write`        | `isLocalStateSpecifier`, `set-call` shape only  | **on**             |
+| `security/shared-state-import`        | `resolveRunesModuleSpecifier`, **every import** | **on**             |
+| `architecture/route-component-import` | `resolveRepoLocalPath`, at rule time            | on (not yet built) |
 
 `performance/heavy-import` is **not** affected. It matches the raw specifier against a map of bare
 package names and never resolves a project-local path — a first draft of the dependent spec claimed
 otherwise, which was wrong.
 
-The two `security` rules are affected more narrowly than "they gain reach" suggests.
-`isLocalStateSpecifier` gates only the `.set()` / `.update()` shape (`via: 'set-call'`) of
-`importedStateWrites`; a plain assignment is recorded whether or not the specifier resolves. **So alias
-resolution changes the `set-call` path only.**
+The two `security` rules are affected to **very different** degrees, and an earlier draft of this section
+got the second one wrong by describing both through one function.
+
+- `security/handler-state-write` reads `importedStateWrites`, and `isLocalStateSpecifier` gates only the
+  `.set()` / `.update()` shape (`via: 'set-call'`); a plain assignment is recorded whether or not the
+  specifier resolves. Alias resolution widens that one shape.
+- `security/shared-state-import` reads `runesModuleImports`, and **every** entry in that fact passes
+  through `resolveRunesModuleSpecifier` → `resolveRepoLocalPath`. Its `applies` is
+  `runesModuleImports.length > 0`, so an alias-only project produces the fact empty and the rule is
+  inert — not narrowed, **off**. For this rule alias resolution is the whole gate.
+
+That asymmetry decides where the end-to-end test points: `security/shared-state-import` is the rule whose
+behaviour visibly changes, so it is the one worth driving a fixture through. Note also that its `bad`
+requires the resolved path to match an analyzed file carrying module state, which is exactly the
+coincidence a mis-resolution needs to become a false positive.
 
 Both are on by default, so an alias-using project can see new findings after this lands. They are
 findings the rules always owed and could not see, but the changeset has to say so plainly rather than
@@ -268,6 +279,32 @@ under first-match-wins a shorter list does not answer less — it answers **diff
 Hence the opaque entry: it holds its position and its mode, and answers `undefined` when reached. "A
 specifier we cannot resolve stays unresolved" is then true as stated — which it is not if the entry is
 dropped.
+
+### An unreadable _key_ is a different problem, and needs a blunter answer
+
+The opaque entry works because an unknown **value** still has a known `find`: the entry can be placed and
+tested, it just cannot answer. An unknown **key** has neither. Two config shapes produce one:
+
+```js
+alias: { ...shared, '$a': 'src/a' }   // a spread: unknown keys, at a known position
+alias: { [KEY]: 'src/a' }            // a computed key
+```
+
+An unknown key could match anything, so it could shadow any entry after it — and there is no `find` to
+record that with. Positional fidelity is unrecoverable here, so **the whole of `kit.alias` is treated as
+unknowable and the list is just `[$lib]`.**
+
+That is a real loss of reach, taken because the alternative is a wrong answer: keeping the literal
+siblings would let one of them answer a specifier that Kit hands to the spread's entry instead. `$lib`
+survives the blunt answer because it is at index 0 — nothing can shadow it, whatever the user declared.
+
+This mirrors `propOf`'s existing conservatism in `config-object.ts`, which drops a property match when a
+later spread could overwrite it: "the effective value is unknowable, so this conservatively returns
+undefined". Same reasoning, one level up — from a property's value to the object's key set.
+
+Duplicate literal keys need no such retreat, but they do need care, because `Object.entries` keeps the
+**first** position and the **last** value: `{ a: 1, b: 2, a: 3 }` yields `a` at index 0 with value `3`.
+The parser reproduces that rather than emitting `a` twice.
 
 ## Deliberately not solved
 
@@ -315,6 +352,13 @@ dropped.
      resolves `$x/y` to `undefined`, because `'$x'` is `exact` on the strength of `'$x/*'` being declared.
      Bare `$x` still resolves to `src/plain`, which is what separates "mode preserved" from "everything
      went opaque".
+   - **An unreadable key discards the whole of `kit.alias`** — a config with a spread, and one with a
+     computed key, both resolve a literal sibling's specifier to `undefined` while `$lib/x` still
+     resolves. The second half is what stops the retreat from being over-broad.
+   - **Duplicate literal keys take the first position and the last value** —
+     `{ '$a': 'src/one', '$b': 'src/two', '$a': 'src/three' }` resolves `$a/x` to `src/three/x`, and a
+     config adding `'$a/b': 'src/four'` after them still resolves `$a/b/c` under `$a` (position 0, not
+     position 2).
 5. **Backwards compatibility** — with no alias config, the existing suites of
    `architecture/private-scope-import`, `kit-module-parse`, and the two `security` SSR rules pass
    **unedited**. That is the proof the default list reproduces today's behaviour exactly.
