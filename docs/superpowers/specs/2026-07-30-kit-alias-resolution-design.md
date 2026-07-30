@@ -33,6 +33,18 @@ Not read: Vite's own `resolve.alias`, which is a second mechanism with two value
 an array of `{ find, replacement }`). `kit.alias` is the SvelteKit-idiomatic form, it is what generates
 the `tsconfig` paths, and it is what the measured repo uses. Left out until something asks for it.
 
+**But `svelte.config` is only in charge when the Vite config does not carry a Kit config.** Since Kit
+2.62, options passed to the `sveltekit()` plugin make `svelte.config` irrelevant — Kit says so out loud:
+"svelte.config.js is ignored when options are passed via your Vite config". `resolveKitPathsBase` already
+implements that precedence, and alias resolution has to respect it or it produces a **wrong answer** for
+such a project: aliases read from a file the bundler ignored. So when the Vite config carries a
+`sveltekit(<anything>)` argument, no aliases are read and the default list stands — which is exactly
+today's behaviour, so nothing regresses.
+
+Reading `kit.alias` **out of** that plugin config is a separate, larger job (it means generalising the
+plugin-config walk) and is deliberately not done here. The cost of skipping it is reach, not correctness:
+such a project keeps today's `$lib`-only resolution.
+
 Also still not read: `kit.files.routes`. That gap belongs to the rules that assume `src/routes`, and is
 not made better or worse here.
 
@@ -312,7 +324,8 @@ The parser reproduces that rather than emitting `a` twice.
   already returns `undefined` for that. The measured monorepo contains exactly this shape — one app
   aliases a sibling app's `src` — so it is a real case, not a hypothetical, and the honest answer is
   that svelte-vitals analyses one project and cannot see the file.
-- **Vite's `resolve.alias`** (see Scope).
+- **Vite's `resolve.alias`**, and **`kit.alias` inside a `sveltekit()` plugin config** (see Scope). The
+  second costs reach only: such a project keeps today's `$lib`-only resolution instead of a wrong one.
 - **`kit.files.routes`**, unchanged.
 - **A computed alias value** — recorded as an opaque entry, never resolved (see above). Evaluating the
   config would resolve it, and is out of the question: `packages/core` performs no I/O and runs no user
@@ -359,12 +372,15 @@ The parser reproduces that rather than emitting `a` twice.
      `{ '$a': 'src/one', '$b': 'src/two', '$a': 'src/three' }` resolves `$a/x` to `src/three/x`, and a
      config adding `'$a/b': 'src/four'` after them still resolves `$a/b/c` under `$a` (position 0, not
      position 2).
-5. **Backwards compatibility** — with no alias config, the existing suites of
+5. **Config precedence** — a project with a `sveltekit({ … })` Vite config **and** a `svelte.config`
+   declaring aliases resolves under the default list, not under those aliases. `sveltekit()` with no
+   argument leaves `svelte.config` in charge, so its aliases do apply.
+6. **Backwards compatibility** — with no alias config, the existing suites of
    `architecture/private-scope-import`, `kit-module-parse`, and the two `security` SSR rules pass
    **unedited**. That is the proof the default list reproduces today's behaviour exactly.
-6. **The I/O budget's numbers are unchanged.** CI-enforced, and the mechanical proof that collection
+7. **The I/O budget's numbers are unchanged.** CI-enforced, and the mechanical proof that collection
    gained no reads.
-7. **End-to-end** — a fixture whose `svelte.config.js` declares an alias, where a shipped rule reports
+8. **End-to-end** — a fixture whose `svelte.config.js` declares an alias, where a shipped rule reports
    something it demonstrably did not report before. Without this the change has no evidence it did
    anything; every test above would pass over a resolver that silently never matched.
 
