@@ -33,9 +33,9 @@ export interface ComponentRuleOptions {
   /** Agent-actionable remediation attached to the rule and each penalized finding. */
   fix?: Fix;
   /** Whether this component carries the signal at all (no signal → emit nothing for the file). */
-  applies: (c: ComponentFacts, o: RuleOptions) => boolean;
+  applies: (c: ComponentFacts, o: RuleOptions, ctx: RuleContext) => boolean;
   /** The offending occurrences in a component (empty → the file passes). */
-  bad: (c: ComponentFacts, o: RuleOptions) => ComponentIssue[];
+  bad: (c: ComponentFacts, o: RuleOptions, ctx: RuleContext) => ComponentIssue[];
 }
 
 /**
@@ -72,8 +72,8 @@ export function componentRule(opts: ComponentRuleOptions): Rule {
       for (const c of ctx.components ?? []) {
         const o = resolveRuleOptions(opts.id, opts.options, ctx.config, { route: c.file, file: c.file }, compiled);
         const recommendation = typeof opts.recommendation === 'function' ? opts.recommendation(o) : opts.recommendation;
-        if (!opts.applies(c, o)) continue; // no signal in this file → neither penalize nor seed
-        const bad = opts.bad(c, o).filter((b) => !(b.line > 0 && isSuppressed(c, opts.id, b.line)));
+        if (!opts.applies(c, o, ctx)) continue; // no signal in this file → neither penalize nor seed
+        const bad = opts.bad(c, o, ctx).filter((b) => !(b.line > 0 && isSuppressed(c, opts.id, b.line)));
         if (bad.length === 0) {
           out.push({
             id: opts.id,
