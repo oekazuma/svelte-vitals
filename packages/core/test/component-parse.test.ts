@@ -976,3 +976,34 @@ describe('constableStates — {@const} shadowing', () => {
     expect(constable(src)).toEqual([{ name: 'obj', line: 2 }]);
   });
 });
+
+describe('parseComponentFacts — type-only imports in importSpans', () => {
+  const spans = (src: string) => parseComponentFacts(src, 'src/routes/a/+page.svelte').importSpans;
+
+  it('marks a declaration-level type import', () => {
+    expect(spans(`<script lang="ts">import type P from './+page.svelte';</script>`)).toEqual([
+      { source: './+page.svelte', line: 1, type: true }
+    ]);
+  });
+
+  it('marks a declaration whose every specifier is inline-typed', () => {
+    expect(spans(`<script lang="ts">import { type A, type B } from './x.js';</script>`)).toEqual([
+      { source: './x.js', line: 1, type: true }
+    ]);
+  });
+
+  it('leaves a value import unmarked', () => {
+    expect(spans(`<script>import X from './X.svelte';</script>`)).toEqual([{ source: './X.svelte', line: 1 }]);
+  });
+
+  it('leaves a mixed value/type declaration unmarked', () => {
+    expect(spans(`<script lang="ts">import X, { type A } from './X.svelte';</script>`)).toEqual([
+      { source: './X.svelte', line: 1 }
+    ]);
+  });
+
+  it('leaves a side-effect import unmarked', () => {
+    // No specifiers at all is NOT a type import — the module is loaded for its side effects.
+    expect(spans(`<script>import './setup.js';</script>`)).toEqual([{ source: './setup.js', line: 1 }]);
+  });
+});

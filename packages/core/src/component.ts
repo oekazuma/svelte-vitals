@@ -108,8 +108,14 @@ export interface ComponentFacts {
   propCount: number;
   /** Module specifiers of every `import` in the instance + module scripts (performance/heavy-import). */
   imports: string[];
-  /** Module specifiers of every `import`, each with its source line (performance/heavy-import). */
-  importSpans: { source: string; line: number }[];
+  /**
+   * Module specifiers of every `import`, each with its source line (performance/heavy-import,
+   * architecture/route-component-import). `type` marks a declaration that contributes **no runtime
+   * value binding** — either `import type …`, or one whose every specifier is inline-typed
+   * (`import { type A } from …`). A specifier-less side-effect import is not marked: it still loads
+   * the module. Optional, so existing external constructors of `ComponentFacts` are unaffected.
+   */
+  importSpans: { source: string; line: number; type?: true }[];
   /** Value `import * as X from '<bare pkg>'` namespace imports (type-only excluded) — performance/namespace-import. */
   namespaceImports: { source: string; line: number }[];
   /** `$state` declarations never written or escaped anywhere in the component — candidates for const (correctness/unmutated-state). */
