@@ -13,6 +13,7 @@ svelte-vitals is a static code-health checker for SvelteKit — not a runtime We
 | Build          | `pnpm build`         | `pnpm -r build`                       |
 | Typecheck      | `pnpm typecheck`     | `pnpm -r typecheck`                   |
 | Test           | `pnpm test`          | `pnpm -r test` (vitest)               |
+| Floor smoke    | `pnpm smoke`         | built `dist` under a bare `node`      |
 | Lint           | `pnpm lint`          | `oxlint .` + `oxfmt --check .`        |
 | Format         | `pnpm format`        | `oxfmt --write .`                     |
 | Publish checks | `pnpm check:publish` | publint + attw (`--profile esm-only`) |
@@ -39,6 +40,16 @@ install`/`ci upgrade` bundle into scaffolded workflows.
 ## Hard rules
 
 - **Core purity**: `packages/core/src/index.ts` states verbatim: "runtime-agnostic core (design §8). No `node:` imports, no I/O, no runtime-specific globals." All I/O is injected through the `Runtime` interface (`packages/core/src/runtime.ts`). Never add a `node:` import or direct I/O call inside `packages/core`.
+- **Two Node floors, two jobs**: the published packages promise
+  `engines.node: >=22.13.0` (end users); the dev toolchain is pinned by
+  `devEngines.runtime` and is free to require more. CI keeps these apart —
+  `test` runs the vitest suite on the release lines the toolchain supports
+  (`22` / `24.16.0` / `26`), and `floor-smoke` runs the built `dist` under a bare
+  `node` on 22.13.0 (`scripts/floor-smoke.mjs`). So a dev dependency raising its
+  Node floor is not a problem: jsdom 30 requires `^22.22.2` and that is fine.
+  Never pin the `test` matrix back to 22.13.0, and never add a dev dependency to
+  the smoke — it must stay Node-builtins-only. Design doc:
+  `docs/superpowers/specs/2026-07-31-floor-smoke-design.md`.
 - **Dependencies via catalog**: root `package.json` devDependencies are all pinned as `catalog:`; actual versions live in `pnpm-workspace.yaml`. Add/bump shared devDependencies there, not as literal versions in a package's `package.json`.
 - **Changesets required**: any user-facing change needs `pnpm changeset`. Merging to `main` opens a release PR (Changesets bot). Internal-only / doc-only changes don't need one.
 - **en/ja docs stay in sync**: `docs/src/content/docs/` (English) and `docs/src/content/docs/ja/` (Japanese) are updated together by convention — don't ship an English-only doc change if the Japanese equivalent exists.
