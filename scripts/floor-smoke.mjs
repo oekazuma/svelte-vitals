@@ -13,7 +13,7 @@
 
 import { strict as assert } from 'node:assert';
 import { execFileSync } from 'node:child_process';
-import { cpSync, mkdtempSync } from 'node:fs';
+import { cpSync, existsSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -22,7 +22,16 @@ const cliBin = join(root, 'packages/cli/dist/bin.js');
 const fixtures = join(root, 'packages/cli/test/fixtures');
 const basicProject = join(fixtures, 'basic-project');
 
-/** Run the built CLI. Never throws: returns the exit code alongside the captured streams. */
+if (!existsSync(cliBin)) {
+  console.error('floor-smoke: packages/cli/dist/bin.js is missing — run `pnpm build` first.');
+  process.exit(1);
+}
+
+/**
+ * Run the built CLI. Never throws: returns the exit code alongside the captured streams.
+ * A signal kill (status === null) is surfaced as its own field rather than folded into
+ * `code`, so callers can't mistake it for a normal exit 1.
+ */
 function runCli(args, opts = {}) {
   try {
     const stdout = execFileSync(process.execPath, [cliBin, ...args], {
@@ -30,9 +39,14 @@ function runCli(args, opts = {}) {
       encoding: 'utf8',
       ...opts
     });
-    return { code: 0, stdout, stderr: '' };
+    return { code: 0, signal: null, stdout, stderr: '' };
   } catch (err) {
-    return { code: err.status ?? 1, stdout: String(err.stdout ?? ''), stderr: String(err.stderr ?? '') };
+    return {
+      code: err.status,
+      signal: err.signal ?? null,
+      stdout: String(err.stdout ?? ''),
+      stderr: String(err.stderr ?? '')
+    };
   }
 }
 
@@ -42,30 +56,40 @@ function check(name, fn) {
 }
 
 check('--version prints the CLI and core versions and exits 0', () => {
-  const { code, stdout } = runCli(['--version']);
-  assert.equal(code, 0);
-  assert.match(stdout.trim(), /^\d+\.\d+\.\d+ \(core \d+\.\d+\.\d+\)$/);
+  const { code, signal, stdout, stderr } = runCli(['--version']);
+  assert.equal(signal, null, `killed by signal ${signal}, not a normal exit (stderr: ${stderr})`);
+  assert.equal(code, 0, `expected exit 0, got ${code}: ${stderr}`);
+  assert.match(stdout.trim(), /^\d+\.\d+\.\d+(-[\w.]+)? \(core \d+\.\d+\.\d+(-[\w.]+)?\)$/);
 });
 
 check('a directory that is not a SvelteKit project exits 2', () => {
   const empty = mkdtempSync(join(tmpdir(), 'floor-smoke-empty-'));
-  const { code, stderr } = runCli([empty]);
-  assert.equal(code, 2);
-  assert.match(stderr, /No SvelteKit project found/);
+  try {
+    const { code, signal, stderr } = runCli([empty]);
+    assert.equal(signal, null, `killed by signal ${signal}, not a normal exit (stderr: ${stderr})`);
+    assert.equal(code, 2, `expected exit 2, got ${code}: ${stderr}`);
+    assert.match(stderr, /No SvelteKit project found/);
+  } finally {
+    rmSync(empty, { recursive: true, force: true });
+  }
 });
 
 check('analysing a real project emits a well-formed JSON report', () => {
-  const { code, stdout } = runCli([basicProject, '--reporter', 'json']);
+  const { code, signal, stdout, stderr } = runCli([basicProject, '--reporter', 'json']);
+  assert.equal(signal, null, `killed by signal ${signal}, not a normal exit (stderr: ${stderr})`);
   // 0 (clean) and 1 (a finding reached the fail threshold) are both contractual;
   // asserting the score would make this smoke a hostage of the rule set.
-  assert.ok(code === 0 || code === 1, `expected exit 0 or 1, got ${code}`);
+  assert.ok(code === 0 || code === 1, `expected exit 0 or 1, got ${code}: ${stderr}`);
   const report = JSON.parse(stdout);
   assert.equal(typeof report.version, 'string');
   assert.equal(typeof report.score, 'number');
   assert.ok(report.categories && typeof report.categories === 'object');
 });
 
-check('every published entry point imports under bare node', async () => {
+check('every published entry point except the mcp stdio server bin imports under bare node', async () => {
+  // @svelte-vitals/mcp's `bin` (svelte-vitals-mcp -> dist/bin.js) is a stdio
+  // server: invoking it would block waiting on stdin and hang the smoke. Its
+  // library entry point (dist/index.js, below) is covered instead.
   for (const entry of [
     'packages/core/dist/index.js',
     'packages/cli/dist/index.js',
@@ -93,19 +117,24 @@ check("a .ts config file matches this Node runtime's type-stripping support", ()
   // The CLI resolves the project before it loads the config, so the `.ts` config
   // needs to sit in something that looks like a SvelteKit app.
   const project = mkdtempSync(join(tmpdir(), 'floor-smoke-ts-'));
-  cpSync(basicProject, project, { recursive: true });
-  cpSync(join(fixtures, 'config-file-ts/svelte-vitals.config.ts'), join(project, 'svelte-vitals.config.ts'));
+  try {
+    cpSync(basicProject, project, { recursive: true });
+    cpSync(join(fixtures, 'config-file-ts/svelte-vitals.config.ts'), join(project, 'svelte-vitals.config.ts'));
 
-  const { code, stderr } = runCli([project, '--reporter', 'json']);
-  if (supportsUnflaggedTypeStripping()) {
-    assert.ok(code === 0 || code === 1, `expected the .ts config to load, got exit ${code}: ${stderr}`);
-  } else {
-    // The floor's contract: loadConfigFile turns Node's raw
-    // ERR_UNKNOWN_FILE_EXTENSION into an actionable message. vitest can never
-    // reach this branch — its module runner transforms in-process `import()`.
-    assert.equal(code, 2);
-    assert.match(stderr, /does not support TypeScript config files without a flag/);
-    assert.match(stderr, /22\.18\+/);
+    const { code, signal, stderr } = runCli([project, '--reporter', 'json']);
+    assert.equal(signal, null, `killed by signal ${signal}, not a normal exit (stderr: ${stderr})`);
+    if (supportsUnflaggedTypeStripping()) {
+      assert.ok(code === 0 || code === 1, `expected the .ts config to load, got exit ${code}: ${stderr}`);
+    } else {
+      // The floor's contract: loadConfigFile turns Node's raw
+      // ERR_UNKNOWN_FILE_EXTENSION into an actionable message. vitest can never
+      // reach this branch — its module runner transforms in-process `import()`.
+      assert.equal(code, 2, `expected exit 2, got ${code}: ${stderr}`);
+      assert.match(stderr, /does not support TypeScript config files without a flag/);
+      assert.match(stderr, /22\.18\+/);
+    }
+  } finally {
+    rmSync(project, { recursive: true, force: true });
   }
 });
 
@@ -120,7 +149,7 @@ for (const [name, fn] of checks) {
     console.log(`  ok   ${name}`);
   } catch (err) {
     failed++;
-    console.error(`  FAIL ${name}\n       ${err.message}`);
+    console.error(`  FAIL ${name}\n       ${err.stack ?? err.message}`);
   }
 }
 

@@ -156,3 +156,13 @@ the floor claim is what CI adds, not the script itself.
   floor claim. The smoke tests the artifact users actually get.
 - **The smoke can rot into a no-op** if it stops asserting exit codes or output.
   Mitigated by the deliberate-break step in Verification.
+- **The `test` matrix's bare `'22'` entry floats, and floating has a cost.** (a)
+  It is not reproducible: two runs of the same commit can resolve to different
+  22.x patch versions as new releases land, unlike the pinned `24.16.0` and
+  `floor-smoke`'s `22.13.0`. (b) With `engine-strict` off — an explicit non-goal
+  above — an unsatisfied dev-dependency `engines.node` on that floating line is
+  still silent, just far less likely to bite because `'22'` tracks the latest
+  patch instead of sitting still at 22.13.0. Both are accepted as the owned
+  tradeoff of floating rather than a defect: pinning `'22'` to a fixed patch
+  would recreate the exact staleness problem (a dev dependency quietly
+  outrunning a stale floor) that this design exists to fix.
