@@ -225,13 +225,52 @@ describe('computeScore — a displayed 100 means zero deduction', () => {
   });
 
   it('decides the cap on the raw value, not the floored one', () => {
-    // One critical on one of 200 keys: raw mean 99.925, so raw - 0 > 79 and the cap binds.
-    const withCritical: Result[] = spread(200, 0).map((r, i) =>
-      i === 0
-        ? { ...r, severity: 'critical' as const, detection: { presence: 'none' as const, value: 'absent' as const } }
-        : r
-    );
-    const r = computeScore(withCritical, CONFIG);
+    // 10 keys, sitePenalty 0. Keys 0-8: a critical + a warning on two distinct rule ids
+    // (deduction 15+5=20, route score 80). Key 9: a critical + a warning + an info on three
+    // distinct rule ids (deduction 15+5+1=21, route score 79). Distinct ids per key so the
+    // deductions sum instead of only the max of duplicates counting.
+    // Mean = (9*80 + 79)/10 = 79.9.
+    //   Deciding on the raw value: 79.9 > 79 -> cap binds -> rawScore 79, criticalCap 79.
+    //   Deciding on the floored value: floor(79.9) - 0 = 79 -> 79 > 79 is false -> no cap ->
+    //   rawScore would stay 79.9 and criticalCap null. Displayed `score` is 79 either way (floor(79.9)
+    //   is also 79), which is why this test must assert on rawScore/criticalCap, not on score.
+    const results: Result[] = Array.from({ length: 10 }, (_, i) => {
+      const route = `/k${i}`;
+      const findings: Result[] = [
+        {
+          id: 'seo/title-presence',
+          category: 'seo' as const,
+          severity: 'critical' as const,
+          detection: { presence: 'none' as const, value: 'absent' as const },
+          route,
+          message: 'm',
+          recommendation: 'r'
+        },
+        {
+          id: 'seo/description-presence',
+          category: 'seo' as const,
+          severity: 'warning' as const,
+          detection: { presence: 'none' as const, value: 'absent' as const },
+          route,
+          message: 'm',
+          recommendation: 'r'
+        }
+      ];
+      if (i === 9) {
+        findings.push({
+          id: 'seo/canonical-url',
+          category: 'seo' as const,
+          severity: 'info' as const,
+          detection: { presence: 'none' as const, value: 'absent' as const },
+          route,
+          message: 'm',
+          recommendation: 'r'
+        });
+      }
+      return findings;
+    }).flat();
+
+    const r = computeScore(results, CONFIG);
     expect(r.score).toBe(79);
     expect(r.rawScore).toBe(79);
     expect(r.scoreModel.criticalCap).toBe(79);
