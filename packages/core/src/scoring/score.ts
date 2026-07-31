@@ -125,7 +125,7 @@ export function computeHealth(results: Result[], config: Config): HealthResult {
       throw new RangeError(`invalid weight for '${cat}'; expected a finite number >= 0.`);
     }
     weights[cat] = w;
-    weighted += categories[cat]!.score * w;
+    weighted += categories[cat]!.rawScore * w;
     total += w;
   }
   // No present categories (e.g. no results) → perfect 100, consistent with computeScore's empty → 100.
@@ -135,6 +135,8 @@ export function computeHealth(results: Result[], config: Config): HealthResult {
   if (total === 0) {
     throw new RangeError('Health weights sum to 0; at least one present category must have a positive weight.');
   }
-  const health = Math.round(weighted / total);
+  // Floor ONCE, on the unrounded category scores. Averaging the displayed integers would compose two
+  // roundings and move Health by up to two points, breaking this change's own one-point bound.
+  const health = Math.floor(weighted / total);
   return { health, categories, weights };
 }
