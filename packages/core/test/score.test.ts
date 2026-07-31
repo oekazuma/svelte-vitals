@@ -1,3 +1,4 @@
+// Scores are floored, not rounded (2026-07-31): a displayed 100 means the deduction was exactly zero.
 import { describe, it, expect } from 'vitest';
 import { computeScore, defineConfig, scoresByCategory, type Result } from '../src/index.js';
 
@@ -37,7 +38,7 @@ describe('computeScore (§12 worked example)', () => {
       }
     ];
     const { score, scoreModel } = computeScore(results, defineConfig({}));
-    expect(scoreModel.routeAverage).toBe(95); // (100*4 + 74)/5 = 94.8 -> 95
+    expect(scoreModel.routeAverage).toBe(94); // (100*4 + 74)/5 = 94.8 -> floor 94
     expect(scoreModel.sitePenalty).toBe(5);
     expect(scoreModel.criticalCap).toBe(79);
     expect(score).toBe(79);
@@ -162,5 +163,77 @@ describe('scoresByCategory', () => {
     );
     expect(byCat.seo).toBeDefined();
     expect(byCat.performance).toBeUndefined();
+  });
+});
+
+const CONFIG = defineConfig({});
+
+/** `keys` route keys, the first `findings` of them carrying one `info` finding. */
+const spread = (keys: number, findings: number): Result[] =>
+  Array.from({ length: keys }, (_, i) => ({
+    id: 'seo/title-presence',
+    category: 'seo' as const,
+    severity: 'info' as const,
+    detection:
+      i < findings
+        ? { presence: 'none' as const, value: 'absent' as const }
+        : { presence: 'own' as const, value: 'static' as const },
+    route: `/k${i}`,
+    message: 'm',
+    recommendation: 'r'
+  }));
+
+describe('computeScore — a displayed 100 means zero deduction', () => {
+  it('shows 99, not 100, for a single info finding among many passes', () => {
+    // The reported bug: 276 findings over 585 keys rounded to a perfect 100.
+    expect(computeScore(spread(585, 276), CONFIG).score).toBe(99);
+    expect(computeScore(spread(585, 1), CONFIG).score).toBe(99);
+  });
+
+  it('shows 100 only when nothing was deducted', () => {
+    expect(computeScore(spread(585, 0), CONFIG).score).toBe(100);
+    expect(computeScore([], CONFIG).score).toBe(100);
+  });
+
+  it('floors a mean of exactly 99.5 down to 99', () => {
+    // 200 keys, 100 of them with one info → mean 99.5. `Math.round` gave 100.
+    expect(computeScore(spread(200, 100), CONFIG).score).toBe(99);
+  });
+
+  it('exposes the unrounded score alongside the floored one', () => {
+    const r = computeScore(spread(585, 276), CONFIG);
+    expect(r.score).toBe(99);
+    expect(r.rawScore).toBeCloseTo(99.528, 3);
+  });
+
+  it('floors routeAverage too, keeping score = routeAverage - sitePenalty when neither cap nor clamp binds', () => {
+    const results: Result[] = [
+      ...spread(200, 100),
+      {
+        id: 'seo/robots-txt',
+        category: 'seo',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        message: 'no robots.txt',
+        recommendation: 'r'
+      }
+    ];
+    const r = computeScore(results, CONFIG);
+    expect(r.scoreModel.routeAverage).toBe(99);
+    expect(r.scoreModel.sitePenalty).toBe(5);
+    expect(r.score).toBe(r.scoreModel.routeAverage - r.scoreModel.sitePenalty);
+  });
+
+  it('decides the cap on the raw value, not the floored one', () => {
+    // One critical on one of 200 keys: raw mean 99.925, so raw - 0 > 79 and the cap binds.
+    const withCritical: Result[] = spread(200, 0).map((r, i) =>
+      i === 0
+        ? { ...r, severity: 'critical' as const, detection: { presence: 'none' as const, value: 'absent' as const } }
+        : r
+    );
+    const r = computeScore(withCritical, CONFIG);
+    expect(r.score).toBe(79);
+    expect(r.rawScore).toBe(79);
+    expect(r.scoreModel.criticalCap).toBe(79);
   });
 });

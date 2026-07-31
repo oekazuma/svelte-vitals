@@ -13,7 +13,14 @@ export interface ScoreModel {
 }
 
 export interface ScoreResult {
+  /** The score as displayed: `Math.floor(rawScore)`, so 100 means the deduction was exactly zero. */
   score: number;
+  /**
+   * The same score before flooring, after `sitePenalty` and the cap, clamped to `[0, 100]`. Exposed so
+   * `computeHealth` can average unrounded values and floor once — averaging the displayed scores would
+   * compose two roundings and move Health by up to two points.
+   */
+  rawScore: number;
   scoreModel: ScoreModel;
 }
 
@@ -57,7 +64,8 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
   }
 
   const scores = [...routeScores.values()].map(clamp);
-  const routeAverage = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 100;
+  const rawRouteAverage = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 100;
+  const routeAverage = Math.floor(rawRouteAverage);
 
   // One deduction per project rule id: take the max deduction among duplicates.
   const projectRuleMax = new Map<string, number>();
@@ -71,15 +79,16 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
   let sitePenalty = 0;
   for (const deduction of projectRuleMax.values()) sitePenalty += deduction;
 
-  // The cap is only meaningful when it actually lowers the score; reporting it
-  // otherwise reads as "rounded down to 79" even when the score is already below.
+  // The cap is decided on the RAW value. Deciding it on the floored mean would let a capped category
+  // contribute nearly a point above the cap to Health — the displayed score cannot disagree either way,
+  // since that would need `rawRouteAverage - Math.floor(rawRouteAverage) > 1`.
   const applyCap = options.applyCriticalCap ?? true;
-  const uncapped = routeAverage - sitePenalty;
-  const capBinds = applyCap && anyCritical && uncapped > CRITICAL_CAP;
+  const rawUncapped = rawRouteAverage - sitePenalty;
+  const capBinds = applyCap && anyCritical && rawUncapped > CRITICAL_CAP;
   const criticalCap = capBinds ? CRITICAL_CAP : null;
-  const score = capBinds ? CRITICAL_CAP : uncapped;
+  const rawScore = clamp(capBinds ? CRITICAL_CAP : rawUncapped);
 
-  return { score: clamp(score), scoreModel: { routeAverage, sitePenalty, criticalCap } };
+  return { score: Math.floor(rawScore), rawScore, scoreModel: { routeAverage, sitePenalty, criticalCap } };
 }
 
 /** Compute an independent score per category present in `results` (issue #10). */
