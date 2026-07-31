@@ -75,7 +75,9 @@ describe('the documented example configuration', () => {
 
   it('check 3: examines every unit kind the example declares, not just some', async () => {
     const rs = await architectureUnitEntryFile.check(ctx(COMPLIANT));
-    const examined = passes(rs).map((r) => r.route);
+    // A pass no longer carries `route` (it would be a fresh score key no other rule produces);
+    // `location` is what identifies which entry file each pass examined.
+    const examined = passes(rs).map((r) => r.location);
     // One assertion per declaration key, so a key that silently matches nothing fails here.
     expect(examined).toContain('src/lib/features/catalog/PriceTable/PriceTable.svelte'); // pascalCaseUnits
     expect(examined).toContain('src/lib/features/catalog/PriceTable/parts/PriceBadge/PriceBadge.svelte'); // nested PascalCase
@@ -117,6 +119,9 @@ describe('the documented example configuration', () => {
 
   it('every declaration in the example matches something, so none is inert', async () => {
     const rs = await architectureUnitEntryFile.check(ctx(COMPLIANT));
-    expect(rs.filter((r) => r.route === undefined)).toEqual([]);
+    // A project-scoped inert finding carries neither `route` nor `location`; the compliant
+    // tree's passes now carry `location` alone, so `route === undefined` alone would wrongly
+    // catch them too.
+    expect(rs.filter((r) => r.route === undefined && r.location === undefined)).toEqual([]);
   });
 });

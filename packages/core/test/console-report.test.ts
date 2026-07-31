@@ -67,6 +67,38 @@ describe('formatConsoleReport', () => {
     expect(byRouteSection.indexOf('/z-bad')).toBeLessThan(byRouteSection.indexOf('/a-good'));
   });
 
+  it('floors the hidden tail average in "…and N more routes", so it cannot claim 100 over a penalized route', () => {
+    // 10 bad routes (critical → low score) fill the visible cap. Two better routes are hidden in
+    // the tail: one clean (100) and one with a single `info` finding (99). Their mean is 99.5 —
+    // Math.round would print "avg score 100" even though the tail still contains a penalized
+    // route; Math.floor must print 99.
+    const badRoutes: Result[] = Array.from({ length: 10 }, (_, i) => ({
+      id: 'seo/title-presence',
+      severity: 'critical' as const,
+      detection: { presence: 'none', value: 'absent' } as const,
+      route: `/bad${i}`,
+      message: 'Missing <title>'
+    }));
+    const penalizedGoodRoute: Result = {
+      id: 'seo/canonical-url',
+      severity: 'info',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/good-penalized',
+      message: 'Missing canonical URL'
+    };
+    const cleanGoodRoute: Result = {
+      id: 'seo/canonical-url',
+      severity: 'info',
+      detection: { presence: 'own', value: 'static' },
+      route: '/good-clean',
+      message: 'Has canonical URL'
+    };
+    const out = formatConsoleReport([...badRoutes, penalizedGoodRoute, cleanGoodRoute], config, { byRoute: true });
+    const byRouteSection = out.split('By route')[1]!;
+    expect(byRouteSection).toContain('avg score 99');
+    expect(byRouteSection).not.toContain('avg score 100');
+  });
+
   it('caps --by-route at 10 routes by default, with an "…and N more" trailer', () => {
     const manyRoutes: Result[] = Array.from({ length: 12 }, (_, i) => ({
       id: 'seo/canonical-url',
@@ -264,6 +296,23 @@ describe('formatConsoleReport', () => {
     ];
     const out = formatConsoleReport(passing, config, { verbose: true });
     expect(out).toContain('✓ seo/canonical-url  Has <title>');
+  });
+
+  it('names a route-less passed result by its location (e.g. architecture/unit-entry-file passes)', () => {
+    const passing: Result[] = [
+      {
+        id: 'architecture/unit-entry-file',
+        category: 'architecture',
+        severity: 'info',
+        detection: { presence: 'own', value: 'static' },
+        location: 'src/lib/api/api.ts',
+        message: 'Unit entry file'
+      }
+    ];
+    const out = formatConsoleReport(passing, config, { verbose: true });
+    // Without the fix every route-less pass renders an identical, path-less line — this
+    // pins that the entry file itself shows up, not just a bare count.
+    expect(out).toContain('✓ architecture/unit-entry-file  Unit entry file  src/lib/api/api.ts');
   });
 
   it('omits the "↯ = set dynamically" footnote in compact mode, since the ↯ marker itself only prints under verbose:true', () => {

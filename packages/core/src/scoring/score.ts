@@ -13,7 +13,14 @@ export interface ScoreModel {
 }
 
 export interface ScoreResult {
+  /** The score as displayed: `Math.floor(rawScore)`, so 100 means the deduction was exactly zero. */
   score: number;
+  /**
+   * The same score before flooring, after `sitePenalty` and the cap, clamped to `[0, 100]`. Exposed so
+   * `computeHealth` can average unrounded values and floor once — averaging the displayed scores would
+   * compose two roundings and move Health by up to two points.
+   */
+  rawScore: number;
   scoreModel: ScoreModel;
 }
 
@@ -57,7 +64,12 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
   }
 
   const scores = [...routeScores.values()].map(clamp);
-  const routeAverage = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 100;
+  const rawRouteAverage = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 100;
+  // No such treatment needed here (contrast computeHealth below, which works in deficit space and caps
+  // at 99 rather than trusting the arithmetic): every route score is an integer, so `sum / length` is a
+  // division of exact integers, and whenever the true quotient IS an integer it is exactly representable
+  // — this mean can never come out as 99.99999999999999.
+  const routeAverage = Math.floor(rawRouteAverage);
 
   // One deduction per project rule id: take the max deduction among duplicates.
   const projectRuleMax = new Map<string, number>();
@@ -71,15 +83,16 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
   let sitePenalty = 0;
   for (const deduction of projectRuleMax.values()) sitePenalty += deduction;
 
-  // The cap is only meaningful when it actually lowers the score; reporting it
-  // otherwise reads as "rounded down to 79" even when the score is already below.
+  // The cap is decided on the RAW value. Deciding it on the floored mean would let a capped category
+  // contribute nearly a point above the cap to Health — the displayed score cannot disagree either way,
+  // since that would need `rawRouteAverage - Math.floor(rawRouteAverage) > 1`.
   const applyCap = options.applyCriticalCap ?? true;
-  const uncapped = routeAverage - sitePenalty;
-  const capBinds = applyCap && anyCritical && uncapped > CRITICAL_CAP;
+  const rawUncapped = rawRouteAverage - sitePenalty;
+  const capBinds = applyCap && anyCritical && rawUncapped > CRITICAL_CAP;
   const criticalCap = capBinds ? CRITICAL_CAP : null;
-  const score = capBinds ? CRITICAL_CAP : uncapped;
+  const rawScore = clamp(capBinds ? CRITICAL_CAP : rawUncapped);
 
-  return { score: clamp(score), scoreModel: { routeAverage, sitePenalty, criticalCap } };
+  return { score: Math.floor(rawScore), rawScore, scoreModel: { routeAverage, sitePenalty, criticalCap } };
 }
 
 /** Compute an independent score per category present in `results` (issue #10). */
@@ -108,7 +121,7 @@ export interface HealthResult {
 export function computeHealth(results: Result[], config: Config): HealthResult {
   const categories = scoresByCategory(results, config);
   const weights: Partial<Record<Category, number>> = {};
-  let weighted = 0;
+  let weightedDeficit = 0;
   let total = 0;
   for (const cat of Object.keys(categories) as Category[]) {
     const w = config.weights?.[cat] ?? 1;
@@ -116,7 +129,7 @@ export function computeHealth(results: Result[], config: Config): HealthResult {
       throw new RangeError(`invalid weight for '${cat}'; expected a finite number >= 0.`);
     }
     weights[cat] = w;
-    weighted += categories[cat]!.score * w;
+    weightedDeficit += (100 - categories[cat]!.rawScore) * w;
     total += w;
   }
   // No present categories (e.g. no results) → perfect 100, consistent with computeScore's empty → 100.
@@ -126,6 +139,18 @@ export function computeHealth(results: Result[], config: Config): HealthResult {
   if (total === 0) {
     throw new RangeError('Health weights sum to 0; at least one present category must have a positive weight.');
   }
-  const health = Math.round(weighted / total);
+  // Average the DEFICIT (100 - rawScore), not the score, and floor by subtracting it from 100. This
+  // removes the epsilon guard an earlier version needed here: that guard assumed "the smallest real
+  // difference is 1/N" — true only for comparable weights. `config.weights` accepts any finite
+  // non-negative value, so a weight can be made arbitrarily small (e.g. 1e-12), making the true quotient
+  // arbitrarily close to — but strictly below — 100 while still failing any fixed epsilon. Deficit space
+  // sidesteps the problem instead of tuning around it: with no findings, every category's rawScore is
+  // exactly 100 (integer route scores average exactly, sitePenalty is 0), so every term is `0 * w === 0`
+  // and the sum is exactly 0 — no tolerance needed to recognize a clean project. `Math.min(99, …)` then
+  // makes "any finding means at most 99" structural rather than arithmetic: it catches a deficit so small
+  // that `100 - deficit` would round back to 100 in floating point, which is the exact case the epsilon
+  // used to paper over, now handled without one.
+  const averageDeficit = weightedDeficit / total;
+  const health = averageDeficit === 0 ? 100 : Math.min(99, Math.floor(100 - averageDeficit));
   return { health, categories, weights };
 }

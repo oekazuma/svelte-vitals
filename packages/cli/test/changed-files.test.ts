@@ -4,7 +4,13 @@ import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { filterToChangedFiles, getChangedFiles } from '../src/changed-files.js';
-import type { Result } from '@svelte-vitals/core';
+import {
+  architectureUnitEntryFile,
+  defaultProject,
+  defineConfig,
+  type Result,
+  type RuleContext
+} from '@svelte-vitals/core';
 
 const r = (over: Partial<Result>): Result => ({
   id: 'X',
@@ -33,6 +39,27 @@ describe('filterToChangedFiles', () => {
 
   it('returns nothing when no result is in the changed set', () => {
     expect(filterToChangedFiles(results, new Set(['src/other.svelte']))).toEqual([]);
+  });
+});
+
+describe('filterToChangedFiles + architecture/unit-entry-file — spec testing item 7', () => {
+  // The rule's pass carries `location` (its entry file) and no `route`, precisely so a
+  // `--diff` run can keep it for a changed entry file and drop it for an unchanged one.
+  it('keeps a conforming pass when its entry file changed, and drops it when it did not', async () => {
+    const ctx: RuleContext = {
+      sourceFiles: ['src/lib/api/api.ts', 'src/lib/db/db.ts'],
+      heads: [],
+      project: defaultProject,
+      config: defineConfig({
+        rules: { 'architecture/unit-entry-file': { options: { units: { 'src/lib/*': '.ts' } } } }
+      })
+    };
+    const rs = await architectureUnitEntryFile.check(ctx);
+    expect(rs).toHaveLength(2);
+
+    const changed = new Set(['src/lib/api/api.ts']); // only api.ts changed; db.ts did not
+    const kept = filterToChangedFiles(rs, changed);
+    expect(kept.map((r) => r.location)).toEqual(['src/lib/api/api.ts']);
   });
 });
 
