@@ -72,9 +72,11 @@ branch can be covered at all.
 Three jobs with three distinct claims:
 
 ```
-check                       build / typecheck / publint / attw          (dev Node)
-test (22, 24.16.0, 26)      pnpm -r test — vitest, jsdom, the lot       (dev Node line)
-floor-smoke (22.13.0)       built dist under bare `node`, no vitest     (end-user floor)
+check                       build / typecheck / publint / attw                    (dev Node)
+test (22, 24.16.0, 26)      pnpm -r test — vitest, jsdom, the lot — then           (dev Node line,
+                             scripts/floor-smoke.mjs on the matrix Node             modern-Node branch)
+floor-smoke (22.13.0)       built dist under bare `node`, no vitest                (end-user floor,
+                                                                                     old-Node branch)
 ```
 
 **`test` matrix becomes `['22', '24.16.0', '26']`.** Bare `'22'` resolves to the
@@ -136,8 +138,11 @@ the floor claim is what CI adds, not the script itself.
 - `scripts/floor-smoke.mjs` — new.
 - `package.json` — `smoke` script.
 - `packages/cli/test/config-file.test.ts` — the `.ts` child-process test loses its
-  reason to branch on the host Node once the floor assertion lives in the smoke; keep
-  it as the new-Node assertion and drop the dead branch.
+  reason to branch on the host Node once the floor assertion lives in the smoke;
+  deleted outright rather than kept as a new-Node-only assertion, since running
+  `scripts/floor-smoke.mjs` on every `test` matrix entry already covers the
+  modern-Node branch under a bare `node` — a check vitest's module runner could
+  never provide (see "What the floor job must not lose" above).
 - `AGENTS.md` — record the two floors and which job defends which, so the next dev
   dependency that crosses 22.13.0 does not restart this investigation.
 
@@ -145,6 +150,9 @@ the floor claim is what CI adds, not the script itself.
 
 - `node scripts/floor-smoke.mjs` passes locally.
 - CI: `floor-smoke` green on 22.13.0; `test` green on 22 / 24.16.0 / 26.
+- Every `test` matrix entry also runs `scripts/floor-smoke.mjs` directly (a bare
+  `node`, not through vitest), which is what asserts the modern-Node branch of
+  the `.ts`-config check now that `config-file.test.ts` no longer covers it.
 - Deliberately break it: temporarily point the smoke at a `.ts` config and confirm
   `floor-smoke` fails on 22.13.0 while `test` stays green — proving the job actually
   discriminates.
