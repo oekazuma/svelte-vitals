@@ -61,11 +61,6 @@ const TABLE_HEADER = {
   ja: ['ルール', '重大度', '概要']
 };
 
-const RULE_COUNT = {
-  en: (n) => `(${n} rule${n === 1 ? '' : 's'})`,
-  ja: (n) => `（${n} 件のルール）`
-};
-
 /** Content directory holding a locale's rule pages. */
 export function localeDir(docsRoot, locale) {
   return locale === 'en' ? join(docsRoot, 'rules') : join(docsRoot, locale, 'rules');
@@ -159,19 +154,12 @@ export function renderCategoryPage(locale, category, rules, summaries) {
   return [escapeMdx(categoryBlurb(locale, category)), '', renderTable(locale, inCategory, summaries)].join('\n');
 }
 
-/** Japanese does not put an ASCII space before a full-width `（` — only en gets a joining space. */
-function withRuleCount(locale, blurb, count) {
-  const suffix = RULE_COUNT[locale](count);
-  return locale === 'ja' ? `${blurb}${suffix}` : `${blurb} ${suffix}`;
-}
-
 export function renderRulesPage(locale, categories, rules, summaries) {
   const lines = ['<CardGroup cols={2}>'];
   for (const category of categories) {
-    const count = rules.filter((rule) => rule.category === category).length;
     lines.push(
       `  <Card title="${CATEGORY_LABEL[category]}" icon="${CATEGORY_ICON[category]}" href="${localeHref(locale, category)}">`,
-      `    ${withRuleCount(locale, escapeMdx(categoryBlurb(locale, category)), count)}`,
+      `    ${escapeMdx(categoryBlurb(locale, category))}`,
       '  </Card>'
     );
   }

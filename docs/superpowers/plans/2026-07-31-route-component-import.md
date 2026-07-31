@@ -573,7 +573,6 @@ export default {
   }
 };
 ```
-````
 
 ## Not reported
 
@@ -583,7 +582,6 @@ export default {
 - A type-only import (`import type P from './+page.svelte'`, or one whose every specifier is inline-typed)
   — it is erased at build, so nothing renders.
 - A project whose routes live somewhere other than `src/routes`.
-
 ````
 
 - [ ] **Step 3: Write the Japanese rule page**
@@ -598,7 +596,7 @@ rule ids in their original form.
 ```bash
 pnpm --filter svelte-vitals run gen:rules-index
 node_modules/.bin/oxfmt --write docs
-````
+```
 
 Never hand-edit the generated `index.mdx` files.
 

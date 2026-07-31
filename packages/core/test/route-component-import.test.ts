@@ -57,6 +57,37 @@ describe('architecture/route-component-import — the mechanism', () => {
     expect(fails(await run([{ source: '$r/a/+page.svelte', line: 2 }], IMPORTER, { project }))).toHaveLength(1);
   });
 
+  it('keys its memo on the aliases too, not just the ComponentFacts identity', async () => {
+    // Same ComponentFacts object reused across two separate check() calls (the harness's own
+    // per-file call pattern is applies-then-bad on one call; this is a caller doing something the
+    // harness never does — reusing facts across analyses — which the memo must still get right,
+    // since ComponentFacts identity alone is not a promise anything in this package makes).
+    const c = comp(IMPORTER, [{ source: '$r/a/+page.svelte', line: 2 }]);
+    const withAlias = {
+      ...defaultProject,
+      kitAliases: [
+        { find: '$lib', replacement: 'src/lib', match: 'prefix' as const },
+        { find: '$r', replacement: 'src/routes', match: 'prefix' as const }
+      ]
+    };
+    const withoutAlias = {
+      ...defaultProject,
+      kitAliases: [{ find: '$lib', replacement: 'src/lib', match: 'prefix' as const }]
+    };
+
+    const rs1 = await architectureRouteComponentImport.check(ctx([c], { project: withAlias }));
+    expect(fails(rs1)).toHaveLength(1);
+
+    // Same `c` object, different aliases: `$r` no longer resolves, so there should be no signal
+    // at all — a stale cache hit from the first call would wrongly still flag or pass this file.
+    const rs2 = await architectureRouteComponentImport.check(ctx([c], { project: withoutAlias }));
+    expect(rs2).toEqual([]);
+
+    // And the first project's cache entry must still be intact for a repeat call.
+    const rs3 = await architectureRouteComponentImport.check(ctx([c], { project: withAlias }));
+    expect(fails(rs3)).toHaveLength(1);
+  });
+
   it('skips an import that produces no runtime binding', async () => {
     expect(fails(await run([{ source: '../routes/a/+page.svelte', line: 1, type: true }]))).toEqual([]);
   });
