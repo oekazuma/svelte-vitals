@@ -60,8 +60,25 @@ integers that were themselves already rounded, so the two stages compose: with r
 naive two-stage floor gives `[99, 99, 99, 99, 97]` → mean 98.6 → **98**. A two-point move, from a change
 whose whole premise is that the difference is at most one.
 
-So `computeScore` exposes its unrounded route mean, and `computeHealth` averages those and floors **once**.
-The same case then yields mean 99.5 → **99**: one point, as intended.
+So `computeScore` exposes **its unrounded final category score** — not its unrounded route mean — and
+`computeHealth` averages those and floors **once**. The same case then yields mean 99.5 → **99**: one
+point, as intended.
+
+The distinction is not cosmetic. `health` today averages `score`, which is
+`clamp(capBinds ? CRITICAL_CAP : routeAverage - sitePenalty)`. Averaging the route mean instead would drop
+both `sitePenalty` and the cap out of Health: a project whose every route key is clean but which has
+site-wide findings would show route means of 100 and therefore **Health 100**, breaking this spec's own
+invariant, and a category capped at 79 by a `critical` would not move Health at all — which would quietly
+delete the safety net that the proportionality follow-up cites as evidence.
+
+Two consequences of exposing the raw _score_:
+
+- **The cap is decided on the raw value**, so `capBinds` is `anyCritical && rawRouteAverage - sitePenalty > CRITICAL_CAP`.
+  Deciding it on the rounded mean and then flooring would let the two disagree at the boundary (raw 89.4 −
+  10 = 79.4 binds; rounded 89 − 10 = 79 does not).
+- **`scoreModel.routeAverage` floors for display, and `score = routeAverage - sitePenalty` still holds**,
+  because `sitePenalty` is a sum of integer deductions and `floor(a - b) === floor(a) - b` for integer `b`.
+  The model stays an explanation of the score rather than a second, disagreeing arithmetic.
 
 This is the standard reason not to aggregate rounded intermediates, and it has a visible consequence worth
 stating: `health` is no longer re-derivable from the displayed category scores and may sit up to a point
@@ -186,8 +203,11 @@ Two follow-ups are recorded, neither in scope here:
    regression test for the reported bug and must fail before the change.
 2. **The boundary.** A mean of 99.5 floors to 99. Under the old code it rounded to 100, so this pins the
    direction of the change rather than merely its result.
-3. **`health` floors too.** Category scores that average to a fraction produce the floored Health, not the
-   rounded one — otherwise the invariant holds per category but breaks in the headline.
+3. **`health` floors too, and averages the score rather than the route mean.** Category scores that average
+   to a fraction produce the floored Health, not the rounded one. Two cases pin what it averages, and both
+   fail if Health is built from route means: a project whose route keys are all clean but which has a
+   site-wide finding must **not** show Health 100, and a category capped at 79 by a `critical` must pull
+   Health down.
 4. **Unchanged edges.** No results → 100. All passes → 100. A `critical` still caps at 79.
 5. **`unit-entry-file` emits nothing for a conforming unit**, for a `.svelte` entry and a `.ts` entry
    alike, while its violation cases stay byte-identical. The `.ts` case is the one that motivated the
