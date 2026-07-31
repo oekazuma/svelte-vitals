@@ -1,5 +1,8 @@
 ---
-'@svelte-vitals/core': patch
+'@svelte-vitals/core': minor
+'svelte-vitals': minor
+'@svelte-vitals/vite': minor
+'@svelte-vitals/mcp': minor
 ---
 
 Add `architecture/route-component-import`, which reports a component importing a SvelteKit route entry
