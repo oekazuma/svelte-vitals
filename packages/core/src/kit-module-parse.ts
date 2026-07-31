@@ -500,8 +500,9 @@ function aliasMatches(entry: KitAlias, spec: string): boolean {
  *
  * Exported (module-internal to `@svelte-vitals/core`, not part of the package's public
  * barrel — nothing outside `packages/core` consumes it) because
- * `architecture/private-scope-import` needs resolution that is not restricted to runes
- * modules, unlike `resolveRunesModuleSpecifier`. This is the single site for every
+ * `architecture/private-scope-import` and `architecture/route-component-import` both need
+ * resolution that is not restricted to runes modules, unlike `resolveRunesModuleSpecifier`.
+ * This is the single site for every
  * kit-module and rule-time specifier resolution inside `packages/core` — but not the
  * only specifier→path mapping in the repo: `resolveComponentPath`
  * (`packages/cli/src/providers/source/resolve.ts`), which drives transitive `<head>`

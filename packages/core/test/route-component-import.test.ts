@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { architectureRouteComponentImport } from '../src/rules/architecture/route-component-import.js';
+import { architectureRouteComponentImport } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
+import { parseComponentFacts } from '../src/component-parse.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
 import type { Result } from '../src/types.js';
@@ -63,6 +64,23 @@ describe('architecture/route-component-import — the mechanism', () => {
   it('emits nothing at all for a file importing no route entry', async () => {
     // Neither a penalty nor a seeded pass: no signal in the file.
     expect(await run([{ source: './Button.svelte', line: 1 }])).toEqual([]);
+  });
+
+  it('end-to-end: real source parsed through the component parser reports only the value import', async () => {
+    // Carries a route entry from real source text through parseComponentFacts into the rule,
+    // rather than hand-building importSpans with type: true — the seam this pins would go
+    // untested by every other test in this file, since reverting the parser's type flag
+    // (Task 1) fails only component-parse.test.ts, never these hand-built ones.
+    const src = [
+      '<script lang="ts">',
+      "import Layout from '../routes/a/+layout.svelte';",
+      "import type Page from '../routes/a/+page.svelte';",
+      '</script>'
+    ].join('\n');
+    const facts = parseComponentFacts(src, IMPORTER);
+    const rs = await architectureRouteComponentImport.check(ctx([{ file: IMPORTER, ...facts }]));
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.line).toBe(2);
   });
 });
 

@@ -187,11 +187,14 @@ section with its exact option names and defaults.
 - [`architecture/reserved-directory-names`](/rules/architecture/reserved-directory-names) — `scopes`
   (directory glob → allowed child names), `unitScopes` (root glob → the names a unit's children may
   take) and `exclude`. Off until one of the two is set.
+- [`architecture/route-component-import`](/rules/architecture/route-component-import) — an
+  `exemptImporters` glob list of satellite files (stories, tests, specs) allowed to import a route
+  entry by hand, added to the built-in list.
 
 ### Import aliases
 
-Rules that follow imports (`architecture/private-scope-import`, `security/shared-state-import`,
-`security/handler-state-write`) resolve specifiers through the aliases your project declares in
+Rules that follow imports (`architecture/private-scope-import`, `architecture/route-component-import`,
+`security/shared-state-import`, `security/handler-state-write`) resolve specifiers through the aliases your project declares in
 `svelte.config.{js,ts}` — `kit.alias`, plus `kit.files.lib` when `$lib` has been moved. They are read
 statically, in the same order SvelteKit builds them, and the first matching alias wins, exactly as it
 does at build time.

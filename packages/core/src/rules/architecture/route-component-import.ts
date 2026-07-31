@@ -48,6 +48,24 @@ function routeEntryImports(c: ComponentFacts, ctx: RuleContext): { line: number;
   return out;
 }
 
+/**
+ * Per-component memo of `routeEntryImports`, keyed on the `ComponentFacts` reference itself.
+ * Safe because `componentRule`'s harness (`packages/core/src/rules/component-rule.ts`) calls
+ * `applies` and then `bad` with the exact same `ComponentFacts` object for one component before
+ * moving to the next, so the two callbacks below always share one cache hit instead of each
+ * resolving every import specifier from scratch. A `WeakMap` lets facts from a finished analysis
+ * be collected rather than pinned for the process lifetime.
+ */
+const routeEntryImportsCache = new WeakMap<ComponentFacts, { line: number; target: string }[]>();
+
+function cachedRouteEntryImports(c: ComponentFacts, ctx: RuleContext): { line: number; target: string }[] {
+  const cached = routeEntryImportsCache.get(c);
+  if (cached !== undefined) return cached;
+  const result = routeEntryImports(c, ctx);
+  routeEntryImportsCache.set(c, result);
+  return result;
+}
+
 export const architectureRouteComponentImport = componentRule({
   id: ID,
   title: 'Route component import',
@@ -61,11 +79,11 @@ export const architectureRouteComponentImport = componentRule({
     'A route entry is written on the assumption that SvelteKit renders it: Kit hands a page its data and params, and an error page its page.error and page.status. Imported from somewhere else it receives none of that and renders against nothing, or against the importing page data standing in for its own.',
   // Signal present = this file imports a route entry, exempt or not. An exempt file therefore
   // reaches `bad` and earns a PASS, rather than being called signal-free.
-  applies: (c, o, ctx) => routeEntryImports(c, ctx).length > 0,
+  applies: (c, o, ctx) => cachedRouteEntryImports(c, ctx).length > 0,
   bad: (c, o, ctx) => {
     const exempt = listOption(o, 'exemptImporters').map(routeGlobToRegExp);
     if (exempt.some((re) => re.test(c.file))) return [];
-    return routeEntryImports(c, ctx).map(({ line, target }) => ({
+    return cachedRouteEntryImports(c, ctx).map(({ line, target }) => ({
       line,
       message: `${target} is a SvelteKit route entry — imported here it renders without the data Kit would give it`
     }));
