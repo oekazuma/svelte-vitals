@@ -1,5 +1,68 @@
 # @svelte-vitals/mcp
 
+## 0.17.0
+
+### Minor Changes
+
+- d12fd54: Add `architecture/directory-naming`, which checks that a directory is named in the casing its
+  location declares. Like the other Architecture convention rules it is off until configured: set
+  `directories` to a map of directory glob to casing set (`camelCase`, `PascalCase`, `kebab-case`,
+  `snake_case`, or several joined by `|`). SvelteKit route syntax is decoded before the check, so
+  `[itemId=integer]` is judged as `itemId` and `(app)` as `app`.
+- 2e60244: Add `architecture/reserved-directory-names`, which holds a directory's immediate subdirectories to a
+  closed set of names you declare for that position. Like the other Architecture convention rules it is
+  off until configured: `scopes` maps a directory glob to the names its children may take, and
+  `unitScopes` maps a root glob to the names a unit's children may take — a unit being a directory whose
+  name begins with a capital and which holds a file named after it.
+
+  Where `architecture/directory-naming` checks a directory's casing, this checks its name, so it reports
+  the correctly-cased `helpers/` that no casing declaration objects to.
+
+- 67f5035: Add `architecture/route-component-import`, which reports a component importing a SvelteKit route entry
+  (`+page.svelte`, `+layout.svelte`, `+error.svelte`, and their `@` breakout forms).
+
+  This is the first Architecture rule that is **on by default**, so a project that changes nothing may see
+  new findings at `info`. Kit renders a route entry with the data it supplies; imported elsewhere the
+  component renders without it. Stories, tests and specs are exempt by default, and `exemptImporters`
+  extends that list for a project whose satellite files are named another way.
+
+- 2ce2288: New rule `architecture/unit-entry-file`: a directory you have declared to be a unit must contain a
+  file named after it — `Card/` without `Card.svelte`, `getFoo/` without `getFoo.ts`. It is **inert
+  until configured**, so nothing changes for projects that do not set it.
+
+  Declare units by position with `units` (directory glob → the entry file's extension), by name with
+  `pascalCaseUnits` (root glob → extension, applying to every directory under it whose name begins with
+  an uppercase letter), and declare what is never a unit with `exclude`. Both identification styles
+  exist because a camelCase directory may be a unit or a grouping — only position tells them apart —
+  while a PascalCase unit nests to arbitrary depth, where no path glob reaches it.
+
+  A filename-pattern check cannot express this: a file that does not exist has no path to validate. For
+  the same reason, a declaration that matches no directory at all is reported, so a glob typo cannot
+  leave the rule silently checking nothing — and so is a declaration whose every match is removed by
+  `exclude`, with the message saying which of the two it was.
+
+### Patch Changes
+
+- 1a8d6ac: `performance/heavy-import` no longer reports a type-only import. The rule's claim is bundle weight, and
+  `import type { Moment } from 'moment'` — or a declaration whose every specifier is inline-typed — is
+  erased at build and adds nothing, so reporting it was a false positive.
+
+  Projects using type-only imports of a configured heavy package will see **fewer** findings, and a health
+  score that rises accordingly. No configuration change is needed.
+
+  `architecture/private-scope-import` deliberately keeps reporting type-only imports: that rule is about
+  coupling between parts of a tree, which a type import creates just the same.
+
+- Updated dependencies [d12fd54]
+- Updated dependencies [1a8d6ac]
+- Updated dependencies [19de7e0]
+- Updated dependencies [2e60244]
+- Updated dependencies [67f5035]
+- Updated dependencies [ca2388b]
+- Updated dependencies [2ce2288]
+  - @svelte-vitals/core@0.31.0
+  - svelte-vitals@0.35.0
+
 ## 0.16.0
 
 ### Minor Changes
