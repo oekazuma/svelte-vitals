@@ -22,12 +22,12 @@ nothing to do with that dependency.
 `jsdom@30` (PR #332) is the first dev dependency to cross the floor. Its only
 breaking change is the Node requirement:
 
-| Package | `engines.node` | On 22.13.0 |
-| --- | --- | --- |
-| Runtime deps of the published packages (tinyglobby, mri, smol-toml, node-html-parser, log-update, …) | `>=12` – `>=22` | fine |
-| vite 8 / oxlint / oxfmt | `^20.19.0 \|\| >=22.12.0` | fine by 0.01 |
-| vitest 4 | `^20.0.0 \|\| ^22.0.0 \|\| >=24.0.0` | fine |
-| **jsdom 30** | `^22.22.2 \|\| ^24.15.0 \|\| >=26.0.0` | **unsatisfied** |
+| Package                                                                                              | `engines.node`                         | On 22.13.0      |
+| ---------------------------------------------------------------------------------------------------- | -------------------------------------- | --------------- |
+| Runtime deps of the published packages (tinyglobby, mri, smol-toml, node-html-parser, log-update, …) | `>=12` – `>=22`                        | fine            |
+| vite 8 / oxlint / oxfmt                                                                              | `^20.19.0 \|\| >=22.12.0`              | fine by 0.01    |
+| vitest 4                                                                                             | `^20.0.0 \|\| ^22.0.0 \|\| >=24.0.0`   | fine            |
+| **jsdom 30**                                                                                         | `^22.22.2 \|\| ^24.15.0 \|\| >=26.0.0` | **unsatisfied** |
 
 CI is green only because pnpm's `engine-strict` is off by default (no `.npmrc` in
 this repo), so the mismatch is not even warned about — verified by grepping the
@@ -55,7 +55,7 @@ Two things are worth separating here:
 
 1. The existing child-process test asserts **Node's own** behaviour (a bare
    `import()` of a `.ts` file yields `ERR_UNKNOWN_FILE_EXTENSION` on old Node). It
-   passes on every matrix entry via the branch, so it never *asserts* which side it
+   passes on every matrix entry via the branch, so it never _asserts_ which side it
    is on.
 2. `loadConfigFile` catches that error and rethrows an actionable message
    ("upgrade Node to 22.18+, re-run with `--experimental-strip-types`, or rename the
@@ -79,7 +79,7 @@ floor-smoke (22.13.0)       built dist under bare `node`, no vitest     (end-use
 
 **`test` matrix becomes `['22', '24.16.0', '26']`.** Bare `'22'` resolves to the
 latest 22.x, which satisfies jsdom and everything else, so the 22 line keeps full
-unit-test coverage. The matrix now tracks *release lines* the dev toolchain
+unit-test coverage. The matrix now tracks _release lines_ the dev toolchain
 supports, not the published floor.
 
 **`floor-smoke` runs on 22.13.0** and asserts the end-user contract only, by

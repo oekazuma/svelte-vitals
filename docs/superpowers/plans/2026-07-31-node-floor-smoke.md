@@ -25,10 +25,12 @@
 ### Task 1: The smoke script and its CLI-contract checks
 
 **Files:**
+
 - Create: `scripts/floor-smoke.mjs`
 - Modify: `package.json` (root `scripts` block)
 
 **Interfaces:**
+
 - Consumes: the built `dist` of all four packages (`pnpm build` output) and `packages/cli/test/fixtures/basic-project`.
 - Produces: `node scripts/floor-smoke.mjs` — exits 0 when every check passes, 1 otherwise, printing one `ok`/`FAIL` line per check. Task 2 appends a check to the same `check(name, fn)` registry. Task 3 invokes it from CI.
 
@@ -201,9 +203,11 @@ git commit -m "ci: add a bare-node smoke of the built dist for the engines.node 
 ### Task 2: Assert the `.ts` config contract, which vitest cannot reach
 
 **Files:**
+
 - Modify: `scripts/floor-smoke.mjs`
 
 **Interfaces:**
+
 - Consumes: `check(name, fn)` and `runCli(args)` from Task 1; the fixture `packages/cli/test/fixtures/config-file-ts/svelte-vitals.config.ts`.
 - Produces: a fifth check. Task 4 deletes the vitest test this supersedes.
 
@@ -300,9 +304,11 @@ git commit -m "ci: assert the .ts config contract that vitest cannot reach"
 ### Task 3: Split the CI jobs
 
 **Files:**
+
 - Modify: `.github/workflows/ci.yml` (the `test` job's matrix comment and `node-version`; new `floor-smoke` job after `test`)
 
 **Interfaces:**
+
 - Consumes: `node scripts/floor-smoke.mjs` from Tasks 1–2; the existing `./.github/workflows/setup-node` composite action, whose `node-version` input rewrites `devEngines.runtime.version` so pnpm's managed runtime actually runs under that version.
 - Produces: a `floor-smoke` CI job, and a `test` matrix that no longer pins the published floor.
 
@@ -311,17 +317,17 @@ git commit -m "ci: assert the .ts config contract that vitest cannot reach"
 Replace the matrix block (currently `node-version: ['22.13.0', '24.16.0', '26']` with the comment above it) with:
 
 ```yaml
-      matrix:
-        # setup-node rewrites devEngines.runtime.version to this,
-        # so pnpm's managed runtime (onFail: download) actually runs scripts under it.
-        # These are the release lines the DEV toolchain supports — NOT the published
-        # engines.node floor, which the `floor-smoke` job defends on 22.13.0 instead.
-        # Pinning the floor here would hold every dev dependency to it: jsdom 30
-        # already requires ^22.22.2, and vite/oxlint sit 0.01 above 22.13.0.
-        # '22' is the latest 22.x (maintenance LTS until 2027-04);
-        # 24.16.0 is the current release used for development (devEngines);
-        # '26' is the latest of the Current line (active LTS from 2026-10) — early warning.
-        node-version: ['22', '24.16.0', '26']
+matrix:
+  # setup-node rewrites devEngines.runtime.version to this,
+  # so pnpm's managed runtime (onFail: download) actually runs scripts under it.
+  # These are the release lines the DEV toolchain supports — NOT the published
+  # engines.node floor, which the `floor-smoke` job defends on 22.13.0 instead.
+  # Pinning the floor here would hold every dev dependency to it: jsdom 30
+  # already requires ^22.22.2, and vite/oxlint sit 0.01 above 22.13.0.
+  # '22' is the latest 22.x (maintenance LTS until 2027-04);
+  # 24.16.0 is the current release used for development (devEngines);
+  # '26' is the latest of the Current line (active LTS from 2026-10) — early warning.
+  node-version: ['22', '24.16.0', '26']
 ```
 
 - [ ] **Step 2: Add the `floor-smoke` job**
@@ -329,34 +335,34 @@ Replace the matrix block (currently `node-version: ['22.13.0', '24.16.0', '26']`
 Insert between the `test` job and the `docs` job:
 
 ```yaml
-  floor-smoke:
-    needs: check
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-      # 22.13.0 is the published packages' engines.node floor. This is the only job
-      # pinned to it: it runs the built dist under a bare `node`, so no dev
-      # dependency (jsdom, vitest, ...) is held to the end-user's Node version.
-      - name: Setup Node.js and dependencies
-        uses: ./.github/workflows/setup-node
-        with:
-          node-version: '22.13.0'
-      - name: Restore package builds
-        id: dist-cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: packages/*/dist
-          key: dist-${{ hashFiles('packages/*/src/**', 'pnpm-lock.yaml', 'packages/*/tsup.config.ts') }}
-      # Fallback only: `needs: check` populates this exact cache key, so a miss means
-      # eviction. Building here would run tsup on the floor Node.
-      - name: Build packages
-        if: steps.dist-cache.outputs.cache-hit != 'true'
-        run: pnpm build
-      - name: Run the end-user floor smoke
-        run: node scripts/floor-smoke.mjs
+floor-smoke:
+  needs: check
+  runs-on: ubuntu-latest
+  timeout-minutes: 10
+  steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    # 22.13.0 is the published packages' engines.node floor. This is the only job
+    # pinned to it: it runs the built dist under a bare `node`, so no dev
+    # dependency (jsdom, vitest, ...) is held to the end-user's Node version.
+    - name: Setup Node.js and dependencies
+      uses: ./.github/workflows/setup-node
+      with:
+        node-version: '22.13.0'
+    - name: Restore package builds
+      id: dist-cache
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: packages/*/dist
+        key: dist-${{ hashFiles('packages/*/src/**', 'pnpm-lock.yaml', 'packages/*/tsup.config.ts') }}
+    # Fallback only: `needs: check` populates this exact cache key, so a miss means
+    # eviction. Building here would run tsup on the floor Node.
+    - name: Build packages
+      if: steps.dist-cache.outputs.cache-hit != 'true'
+      run: pnpm build
+    - name: Run the end-user floor smoke
+      run: node scripts/floor-smoke.mjs
 ```
 
 Note the last step calls `node` directly, not `pnpm smoke`: `actions/setup-node` puts 22.13.0 on `PATH`, and going through pnpm would route the script into pnpm's managed runtime instead.
@@ -382,10 +388,12 @@ git commit -m "ci: defend the engines.node floor with a smoke job, not the test 
 ### Task 4: Delete the superseded vitest test and record the two floors
 
 **Files:**
+
 - Modify: `packages/cli/test/config-file.test.ts` (delete the child-process `.ts` test, its helper, and the now-unused imports)
 - Modify: `AGENTS.md` (verify-commands table + a new subsection under "Hard rules")
 
 **Interfaces:**
+
 - Consumes: the check added in Task 2, which supersedes the deleted test.
 - Produces: nothing other tasks depend on. This is the last task.
 
@@ -403,6 +411,7 @@ Expected: the first prints only lines 1, 3, 21, 265, 279, 288 (all inside the te
 - [ ] **Step 2: Delete the test, the helper, and the unused imports**
 
 Delete these, and nothing else:
+
 1. Line 1 — `import { execFileSync } from 'node:child_process';`
 2. Line 3 — `import { pathToFileURL } from 'node:url';`
 3. The `nodeSupportsUnflaggedTypeStripping` function and its doc comment (the block starting `/**\n * Whether this Node runtime strips TypeScript types` through the closing `}`)
@@ -411,11 +420,11 @@ Delete these, and nothing else:
 In their place, leave a pointer as the last line inside the `describe` block:
 
 ```ts
-  // The `.ts`-config contract on old Node (22.13–22.17 needs
-  // --experimental-strip-types) is asserted in scripts/floor-smoke.mjs, under a
-  // bare `node`. It cannot live here: vitest's module runner transforms
-  // in-process dynamic `import()`, so a `.ts` config always loads inside vitest
-  // regardless of the host Node.
+// The `.ts`-config contract on old Node (22.13–22.17 needs
+// --experimental-strip-types) is asserted in scripts/floor-smoke.mjs, under a
+// bare `node`. It cannot live here: vitest's module runner transforms
+// in-process dynamic `import()`, so a `.ts` config always loads inside vitest
+// regardless of the host Node.
 ```
 
 - [ ] **Step 3: Run the CLI test suite**
@@ -431,7 +440,7 @@ Expected: all tests pass, with the `loadConfigFile` describe block one test ligh
 In the verify-commands table, add a row after `Test`:
 
 ```markdown
-| Floor smoke    | `pnpm smoke`         | built `dist` under a bare `node`      |
+| Floor smoke | `pnpm smoke` | built `dist` under a bare `node` |
 ```
 
 Then add this subsection to "Hard rules", after the "Core purity" bullet:
