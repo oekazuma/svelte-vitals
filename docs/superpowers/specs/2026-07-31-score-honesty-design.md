@@ -156,16 +156,29 @@ Note that the pass **is** visible today: the console reporter lists every passin
 `Passed (N)`. It is the JSON reporter that hides them, since `issues` is filtered to penalized results —
 which is why the field test, run through `--reporter json`, could not see it.
 
-**The fix is to emit the pass with no `route`.** `computeScore` seeds its denominator only from results
-that carry one (`results.filter((r) => r.route !== undefined)`), and the project-scoped branch only ever
-reads penalized results, so a route-less pass creates no score key and no penalty — while remaining a
-result, counted in `summary.passed` and listed by the console reporter. The denominator problem and the
-evidence it was carrying are separable, and separating them costs one field.
+**The fix is to emit the pass with no `route`, keeping `location`.** `computeScore` seeds its denominator
+only from results that carry a `route` (`results.filter((r) => r.route !== undefined)`), and the
+project-scoped branch only ever reads penalized results, so a route-less pass creates no score key and no
+penalty — while remaining a result, counted in `summary.passed` and listed by the console reporter. The
+denominator problem and the evidence it was carrying are separable, and separating them costs one field.
 
-The three directory rules stay inconsistent in what they emit on success, and that is now a recorded gap
-rather than a resolved one: `directory-naming` and `reserved-directory-names` are still unverifiable from
-their output alone. Making the whole family verifiable is a diagnosability question, listed below with the
-others.
+**Dropping `location` as well would be a mistake**, for two reasons that only appear downstream:
+
+- `findingKey` is `` `${id}::${route ?? ''}::${location ?? ''}` ``, so passes carrying neither would
+  collapse to a single key — `unit-entry-file::::` — no matter how many units were checked. Nothing
+  currently counts passes by key (`summarize` iterates results, so `summary.passed` would still be N), but
+  every key-based operation would treat a hundred checked units as one, and creating that hazard buys
+  nothing.
+- `filterToChangedFiles` keeps only results whose `location` git listed as changed
+  (`r.location !== undefined && changed.has(r.location)`), so a pass without one vanishes from every
+  `--diff` run. With the entry file as `location` it survives exactly when that file changed, which is the
+  behaviour to specify rather than a question to leave open.
+
+`location` plays no part in the denominator — only `route` does — so keeping it costs nothing and makes the
+console's `Passed (N)` list name the units that were checked, which is a stronger record than a count.
+
+The three directory rules stay inconsistent in what they emit on success, and that is a gap this spec
+records rather than closes — see the third follow-up below.
 
 ## What this does not fix, stated so it is not mistaken for fixed
 
@@ -191,10 +204,26 @@ Two follow-ups are recorded, neither in scope here:
   equivalent net. Review made the sharper point: after this change an `info`-dominated category on a
   large tree becomes a **one-bit signal**, fixed at 99 whether it carries one finding or five hundred.
   Trading "100 is a lie" for "99 says nothing" is the right trade only if the second half gets fixed.
-- **`routes[].categories[].score` in the JSON report.** The field reporter could not audit the
-  100-with-276-findings contradiction because per-route scores are aggregated before they are exposed,
-  and reached the wrong conclusion as a result. That is a diagnosability gap with a demonstrated cost,
-  but it is a reporting change rather than a scoring one.
+- **Per-rule counts in the JSON `summary`, e.g. `{ ruleId: { passed, findings } }`.** This change restores
+  the "did the rule run" evidence for the console reporter only: `issues` stays filtered to penalized
+  results, and `summary.passed` is an aggregate that cannot be attributed to a rule. So `--reporter json`
+  — the channel the field test used, and the channel CI uses — still cannot distinguish "every declaration
+  passed" from "no declaration matched". A per-rule count closes it by making `0` distinguishable from a
+  missing key. Of the three items here this is the cheapest and addresses a failure that is silent by
+  construction, so it should probably go first.
+- **`routes[].categories[].score` in the JSON report.** Per-route scores are aggregated before they are
+  exposed, so the 100-with-276-findings contradiction could not be checked from the output at all — the
+  field report could neither confirm nor reject its own hypothesis, which is why it arrived as a question.
+  A diagnosability gap with a demonstrated cost, but a reporting change rather than a scoring one. This
+  change adds a second instance of the same gap: `health` is now deliberately not re-derivable from the
+  displayed category scores.
+- **Making the whole directory-rule family verifiable from its output.**
+  `architecture/directory-naming` and `architecture/reserved-directory-names` emit nothing on success by
+  design, so zero findings from either is indistinguishable from a declaration that matched nothing —
+  the field test had to plant a deliberate violation in each to prove they ran. This spec fixes only
+  `unit-entry-file`, and only because its pass already existed. The sibling rules keep the ambiguity, and
+  it is the easiest item on this page to forget, because a rule that says nothing looks like a rule with
+  nothing to say.
 
 ## Testing
 
@@ -209,17 +238,22 @@ Two follow-ups are recorded, neither in scope here:
    site-wide finding must **not** show Health 100, and a category capped at 79 by a `critical` must pull
    Health down.
 4. **Unchanged edges.** No results → 100. All passes → 100. A `critical` still caps at 79.
-5. **`unit-entry-file` emits nothing for a conforming unit**, for a `.svelte` entry and a `.ts` entry
-   alike, while its violation cases stay byte-identical. The `.ts` case is the one that motivated the
-   change; the `.svelte` case proves the fix was not narrowed to the reported symptom.
+5. **`unit-entry-file` emits no score-key-creating result for a conforming unit**, for a `.svelte` entry
+   and a `.ts` entry alike, while its violation cases stay byte-identical. It still emits the pass — with
+   `location` and without `route` — so this asserts the absence of a `route`, not the absence of a result.
+   Asserting `results.length === 0` here would fail the intended implementation and is the shape an
+   earlier draft of this spec would have produced. The `.ts` case is the one that motivated the change;
+   the `.svelte` case proves the fix was not narrowed to the reported symptom.
 6. **`health` moves by at most one point, and that is a test, not a comment.** Raw category means of
    `[99.9, 99.9, 99.9, 99.9, 97.9]` must yield 99, not the 98 that averaging the floored category scores
    produces. Without this case the double-rounding regression is invisible, because every single-category
    fixture agrees under both schemes.
-7. **A route-less pass creates no score key.** `unit-entry-file` on a fully conforming tree leaves the
-   category score identical to a run where the rule is disabled, while `summary.passed` still counts the
-   units it checked. Both halves are the point: no denominator growth, evidence retained. Also confirm a
-   `--diff`-filtered run behaves sensibly for a result carrying neither route nor location.
+7. **A route-less pass creates no score key, and stays individually identifiable.** `unit-entry-file` on a
+   fully conforming tree leaves the category score identical to a run where the rule is disabled, while
+   `summary.passed` still counts the units it checked. Both halves are the point: no denominator growth,
+   evidence retained. Two further assertions pin the `location`: each pass carries the entry file, so N
+   conforming units yield N distinct `findingKey`s rather than one, and a `--diff` run keeps the pass for
+   a changed entry file and drops it for an unchanged one.
 8. **Existing score expectations are updated as part of this change.** Numbers pinned in existing tests
    shift by 0 or 1. This is the intended outcome and the one context in which editing an existing test
    expectation is correct — every such edit must be reviewed as a deliberate re-baselining, and any test
