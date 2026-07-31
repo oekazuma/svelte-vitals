@@ -26,7 +26,7 @@ For each active category (SEO, Performance), svelte-vitals computes an independe
 
 ### 2. Weighted Health
 
-Health averages the category scores using per-category weights. By default every present category has equal weight (`1`). With just SEO and Performance present, for example:
+Health averages the **unrounded** category scores using per-category weights. By default every present category has equal weight (`1`). With just SEO and Performance present, for example:
 
 ```text
 Health = (SEO_score × w_seo + Performance_score × w_perf) / (w_seo + w_perf)
@@ -42,7 +42,12 @@ svelte-vitals --weights seo=2
 
 **Only categories present in the results are included.** If, for example, nothing in your project matches any Performance rule, the Performance category produces no results and Health is based solely on the remaining categories.
 
-The result is rounded to the nearest integer.
+The result is **floored**, not rounded to nearest, so a displayed score of 100 means the deduction was
+exactly zero. A category or project with any finding at all — even a single `info` — scores at most 99.
+
+Health is floored **once**, from the unrounded category scores. It is therefore not always equal to the
+average of the category scores you see printed, and can sit up to a point above them: each printed category
+score is itself floored, and flooring twice would compound the loss.
 
 ## `--min-health` gate
 
