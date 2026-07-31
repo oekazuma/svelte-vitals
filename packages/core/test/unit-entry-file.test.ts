@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { architectureUnitEntryFile, applyOverrides } from '../src/index.js';
+import { architectureUnitEntryFile, applyOverrides, computeScore } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 import type { Result } from '../src/index.js';
@@ -48,14 +48,14 @@ describe('architecture/unit-entry-file — pascalCaseUnits', () => {
     expect(rs[0]!.fix?.snippet).toBeUndefined();
   });
 
-  it('passes a conforming unit, keyed on the entry file with no location', async () => {
+  it('passes a conforming unit, keyed on the entry file with no route', async () => {
     const rs = await architectureUnitEntryFile.check(
       ctx(['src/lib/Card/Card.svelte', 'src/lib/Card/Badge.svelte'], PASCAL)
     );
     expect(fails(rs)).toHaveLength(0);
     expect(passes(rs)).toHaveLength(1);
-    expect(passes(rs)[0]!.route).toBe('src/lib/Card/Card.svelte');
-    expect(passes(rs)[0]!.location).toBeUndefined();
+    expect(passes(rs)[0]!.route).toBeUndefined();
+    expect(passes(rs)[0]!.location).toBe('src/lib/Card/Card.svelte');
   });
 
   it('skips a directory whose basename does not begin A-Z', async () => {
@@ -174,7 +174,7 @@ describe('architecture/unit-entry-file — units', () => {
     // src/lib/api/voice must NOT be treated as a unit; only the fetch unit is, and it conforms.
     expect(fails(rs)).toHaveLength(0);
     expect(passes(rs)).toHaveLength(1);
-    expect(passes(rs)[0]!.route).toBe('src/lib/api/voice/fetchVoice/fetchVoice.ts');
+    expect(passes(rs)[0]!.location).toBe('src/lib/api/voice/fetchVoice/fetchVoice.ts');
   });
 
   it('takes the key with more path segments', async () => {
@@ -206,7 +206,9 @@ describe('architecture/unit-entry-file — units', () => {
         units: { 'src/**/stores/*': '.svelte.ts', 'src/lib/x/stores/*': '.ts' }
       })
     );
-    expect(rs.filter((r) => r.route === undefined)).toEqual([]);
+    // A project-scoped inert finding carries neither `route` nor `location`; a pass now carries
+    // `location` alone, so `route === undefined` by itself no longer isolates the inert case.
+    expect(rs.filter((r) => r.route === undefined && r.location === undefined)).toEqual([]);
   });
 
   it('prefers units over pascalCaseUnits for a directory matched by both', async () => {
@@ -225,7 +227,7 @@ describe('architecture/unit-entry-file — units', () => {
     );
     expect(fails(rs)).toHaveLength(0);
     expect(passes(rs)).toHaveLength(1);
-    expect(passes(rs)[0]!.route).toBe('src/lib/functions/getFoo/getFoo.ts');
+    expect(passes(rs)[0]!.location).toBe('src/lib/functions/getFoo/getFoo.ts');
   });
 
   it('does not treat the container as a unit when a trailing /** has a wildcard prefix', async () => {
@@ -271,7 +273,9 @@ describe('architecture/unit-entry-file — exclude', () => {
     // exclusion is what stops them. Widget/ is there so both keys still govern something: without
     // it they would be inert, and this test would be about inert declarations instead.
     expect(fails(rs)).toHaveLength(0);
-    expect(rs.filter((r) => r.route === undefined)).toEqual([]);
+    // A project-scoped inert finding carries neither `route` nor `location`; the Widget pass now
+    // carries `location` alone, so `route === undefined` by itself no longer isolates the inert case.
+    expect(rs.filter((r) => r.route === undefined && r.location === undefined)).toEqual([]);
     expect(passes(rs)).toHaveLength(1);
   });
 });
@@ -281,7 +285,9 @@ describe('architecture/unit-entry-file — inert declarations', () => {
     const rs = await architectureUnitEntryFile.check(
       ctx(['src/lib/Card/Card.svelte'], { ...PASCAL, units: { 'src/nowhere/*': '.ts' } })
     );
-    const inert = rs.filter((r) => r.route === undefined);
+    // A project-scoped inert finding carries neither `route` nor `location`; a pass now carries
+    // `location` alone, so `route === undefined` by itself no longer isolates the inert case.
+    const inert = rs.filter((r) => r.route === undefined && r.location === undefined);
     expect(inert).toHaveLength(1);
     expect(inert[0]!.location).toBeUndefined();
     expect(inert[0]!.message).toContain('src/nowhere/*');
@@ -291,7 +297,7 @@ describe('architecture/unit-entry-file — inert declarations', () => {
 
   it('does not report a key that matched at least one directory', async () => {
     const rs = await architectureUnitEntryFile.check(ctx(['src/lib/Card/Card.svelte'], PASCAL));
-    expect(rs.filter((r) => r.route === undefined)).toEqual([]);
+    expect(rs.filter((r) => r.route === undefined && r.location === undefined)).toEqual([]);
   });
 
   it('reports a pascalCaseUnits key that matched only non-PascalCase directories as inert', async () => {
@@ -309,7 +315,9 @@ describe('architecture/unit-entry-file — inert declarations', () => {
     const rs = await architectureUnitEntryFile.check(
       ctx(['src/lib/Card/Card.svelte'], { ...PASCAL, units: { 'src/nowhere/*': '.ts', 'src/elsewhere/*': '.ts' } })
     );
-    const inert = rs.filter((r) => r.route === undefined);
+    // A project-scoped inert finding carries neither `route` nor `location`; the Card pass now
+    // carries `location` alone, so `route === undefined` by itself no longer isolates the inert case.
+    const inert = rs.filter((r) => r.route === undefined && r.location === undefined);
     expect(inert).toHaveLength(1);
     expect(inert[0]!.message).toContain('src/elsewhere/*');
     expect(inert[0]!.message).toContain('src/nowhere/*');
@@ -456,6 +464,66 @@ describe('architecture/unit-entry-file — declarations shadowed by exclude', ()
     );
     // 'src/**' loses to 'src/**/functions/*' on src/lib/functions/getFoo, but it governs
     // src/lib and src/lib/functions, so it has done work either way and must not be reported.
-    expect(rs.filter((r) => r.route === undefined)).toEqual([]);
+    // A project-scoped inert finding carries neither `route` nor `location`; the pass this
+    // config produces now carries `location` alone, so `route === undefined` alone would
+    // wrongly catch it too.
+    expect(rs.filter((r) => r.route === undefined && r.location === undefined)).toEqual([]);
+  });
+});
+
+const CONFIG = defineConfig({});
+
+describe('architecture/unit-entry-file — a pass is evidence, not a score key', () => {
+  it('emits a pass with no route, so a conforming unit adds nothing to the denominator', async () => {
+    // A .ts unit entry is the case that exposed this: no other rule keys a plain .ts file, so the
+    // pass was inventing a fresh 100 for every conforming unit.
+    const rs = await architectureUnitEntryFile.check(ctx(['src/lib/api/api.ts'], { units: { 'src/lib/*': '.ts' } }));
+    expect(rs).toHaveLength(1);
+    expect(rs[0]!.detection).toEqual({ presence: 'own', value: 'static' });
+    expect(rs[0]!.route).toBeUndefined();
+    expect(rs[0]!.location).toBe('src/lib/api/api.ts');
+  });
+
+  it('does the same for a .svelte entry, so the fix is not narrowed to the reported symptom', async () => {
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/Card/Card.svelte'], { pascalCaseUnits: { 'src/lib/**': '.svelte' } })
+    );
+    expect(rs).toHaveLength(1);
+    expect(rs[0]!.route).toBeUndefined();
+    expect(rs[0]!.location).toBe('src/lib/Card/Card.svelte');
+  });
+
+  it('gives each conforming unit a distinct location, so their finding keys do not collapse', async () => {
+    // `findingKey` is `id::route::location`; with neither field, N units would share one key.
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/api/api.ts', 'src/lib/db/db.ts'], { units: { 'src/lib/*': '.ts' } })
+    );
+    expect(rs.map((r) => r.location).sort()).toEqual(['src/lib/api/api.ts', 'src/lib/db/db.ts']);
+  });
+
+  it('leaves a conforming tree scoring identically to a run with the rule disabled', () => {
+    const passes: Result[] = [
+      {
+        id: 'architecture/unit-entry-file',
+        category: 'architecture',
+        severity: 'info',
+        detection: { presence: 'own', value: 'static' },
+        location: 'src/lib/api/api.ts',
+        message: 'Unit entry file',
+        recommendation: 'r'
+      }
+    ];
+    const other = [
+      {
+        id: 'architecture/component-size',
+        category: 'architecture' as const,
+        severity: 'info' as const,
+        detection: { presence: 'none' as const, value: 'absent' as const },
+        route: 'src/lib/A.svelte',
+        message: 'm',
+        recommendation: 'r'
+      }
+    ];
+    expect(computeScore([...other, ...passes], CONFIG).score).toBe(computeScore(other, CONFIG).score);
   });
 });

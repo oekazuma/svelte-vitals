@@ -151,12 +151,16 @@ export const architectureUnitEntryFile: Rule = {
 
       const expected = `${dir}/${baseName(dir)}${ext}`;
       if (fileSet.has(expected)) {
+        // No `route`: `computeScore` seeds its denominator only from results that carry one, and a plain
+        // `.ts` entry is a key no other rule produces — so a pass here used to invent a fresh 100 per
+        // conforming unit and dilute every real finding. `location` stays, because it keeps each pass a
+        // distinct `findingKey` and keeps it visible to `--diff` filtering, and plays no part in scoring.
         out.push({
           id: ID,
           category: 'architecture',
           severity: 'info',
           detection: { presence: 'own', value: 'static' },
-          route: expected,
+          location: expected,
           message: 'Unit entry file',
           recommendation,
           docsUrl
