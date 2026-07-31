@@ -1248,11 +1248,27 @@ function countLines(source: string): number {
   return source.split('\n').length - (source.endsWith('\n') ? 1 : 0);
 }
 
-/** Module specifiers of every `import`, each with its source line (performance/heavy-import). */
-function collectImportSources(program: Node, source: string, acc: { source: string; line: number }[]): void {
+/** Whether an import declaration contributes no runtime value binding — see `ComponentFacts.importSpans`. */
+function isTypeOnlyImport(n: Node): boolean {
+  if (n.importKind === 'type') return true;
+  const specs = n.specifiers;
+  // A declaration with no specifiers is a side-effect import: the module is still loaded.
+  return Array.isArray(specs) && specs.length > 0 && specs.every((s: Node) => s?.importKind === 'type');
+}
+
+/** Module specifiers of every `import`, each with its source line (see `ComponentFacts.importSpans`). */
+function collectImportSources(
+  program: Node,
+  source: string,
+  acc: { source: string; line: number; type?: true }[]
+): void {
   walkEstree(program, (n) => {
     if (n.type === 'ImportDeclaration' && typeof n.source?.value === 'string') {
-      acc.push({ source: n.source.value, line: lineOf(source, n.start) });
+      acc.push({
+        source: n.source.value,
+        line: lineOf(source, n.start),
+        ...(isTypeOnlyImport(n) ? { type: true as const } : {})
+      });
     }
   });
 }
@@ -1968,7 +1984,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
 
   // Imports live in either the instance (<script>) or module (<script module>) program.
   const moduleProgram = ast.module?.content;
-  const importSpans: { source: string; line: number }[] = [];
+  const importSpans: { source: string; line: number; type?: true }[] = [];
   const namespaceImports: { source: string; line: number }[] = [];
   if (moduleProgram) {
     collectImportSources(moduleProgram, source, importSpans);

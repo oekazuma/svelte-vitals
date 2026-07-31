@@ -35,9 +35,9 @@ export function applyRuleSeverities(results: Result[], config: Config): Result[]
  *
  * Exported (module-internal to `@svelte-vitals/core`, not part of the package's public
  * barrel — nothing outside `packages/core` consumes it) so a rule that matches paths
- * against user globs (`architecture/private-scope-import`) compiles them with the same
- * semantics as `route`/`files` overrides, rather than a second implementation that
- * could drift.
+ * against user globs (`architecture/private-scope-import`, `architecture/route-component-import`)
+ * compiles them with the same semantics as `route`/`files` overrides, rather than a second
+ * implementation that could drift.
  */
 // '\u0000' below is a placeholder for '**' so the single-'*' pass can't see it;
 // it cannot occur in a route id or path, and split/join avoids a control-char regex.

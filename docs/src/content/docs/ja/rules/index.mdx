@@ -11,22 +11,20 @@ svelte-vitals が報告するルールをカテゴリ別にまとめました。
 
 <CardGroup cols={2}>
   <Card title="SEO" icon="search" href="/ja/rules/seo">
-    検索エンジンが実際に目にするもの。解決後の &lt;head&gt; メタデータ、構造化データ、クロールのしやすさを見ます。（31
-    件のルール）
+    検索エンジンが実際に目にするもの。解決後の &lt;head&gt; メタデータ、構造化データ、クロールのしやすさを見ます。
   </Card>
   <Card title="Performance" icon="zap" href="/ja/rules/performance">
-    ルートが遅くなる原因。画像、レンダリングを妨げるアセット、import、読み込みのウォーターフォールを見ます。（14
-    件のルール）
+    ルートが遅くなる原因。画像、レンダリングを妨げるアセット、import、読み込みのウォーターフォールを見ます。
   </Card>
   <Card title="Correctness" icon="circle-check" href="/ja/rules/correctness">
-    コンパイルは通るのに、思ったとおりに動かないコード。runes とライフサイクルの使い方を見ます。（14 件のルール）
+    コンパイルは通るのに、思ったとおりに動かないコード。runes とライフサイクルの使い方を見ます。
   </Card>
   <Card title="Security" icon="shield" href="/ja/rules/security">
-    エスケープされない HTML、安全でない URL、サーバーでリクエストをまたいで漏れる状態を見ます。（5 件のルール）
+    エスケープされない HTML、安全でない URL、サーバーでリクエストをまたいで漏れる状態を見ます。
   </Card>
   <Card title="Architecture" icon="layers" href="/ja/rules/architecture">
     コードの形と置き場所のサイン。コンポーネントの大きさ、props の数、そしてプロジェクトが宣言した import
-    の境界を見ます。（6 件のルール）
+    の境界を見ます。
   </Card>
 </CardGroup>
 
@@ -116,13 +114,14 @@ svelte-vitals が報告するルールをカテゴリ別にまとめました。
 
 ## Architecture
 
-| ルール                                                                                     | 重大度  | 概要                                                                               |
-| ------------------------------------------------------------------------------------------ | ------- | ---------------------------------------------------------------------------------- |
-| [`architecture/component-size`](/ja/rules/architecture/component-size)                     | 🔵 info | 大きくなりすぎたコンポーネントは分割しましょう。                                   |
-| [`architecture/directory-naming`](/ja/rules/architecture/directory-naming)                 | 🔵 info | ディレクトリは、その場所に宣言した記法で名付けるべきです。                         |
-| [`architecture/private-scope-import`](/ja/rules/architecture/private-scope-import)         | 🔵 info | プライベートなディレクトリ内のユニットを、その外から import すべきではありません。 |
-| [`architecture/prop-count`](/ja/rules/architecture/prop-count)                             | 🔵 info | props が多すぎるコンポーネントは、担っている責務も多すぎます。                     |
-| [`architecture/reserved-directory-names`](/ja/rules/architecture/reserved-directory-names) | 🔵 info | ディレクトリの直下に置ける名前は、その位置に宣言した名前だけにすべきです。         |
-| [`architecture/unit-entry-file`](/ja/rules/architecture/unit-entry-file)                   | 🔵 info | ユニットとして宣言したディレクトリには、同名のファイルを置くべきです。             |
+| ルール                                                                                     | 重大度  | 概要                                                                                                                   |
+| ------------------------------------------------------------------------------------------ | ------- | ---------------------------------------------------------------------------------------------------------------------- |
+| [`architecture/component-size`](/ja/rules/architecture/component-size)                     | 🔵 info | 大きくなりすぎたコンポーネントは分割しましょう。                                                                       |
+| [`architecture/directory-naming`](/ja/rules/architecture/directory-naming)                 | 🔵 info | ディレクトリは、その場所に宣言した記法で名付けるべきです。                                                             |
+| [`architecture/private-scope-import`](/ja/rules/architecture/private-scope-import)         | 🔵 info | プライベートなディレクトリ内のユニットを、その外から import すべきではありません。                                     |
+| [`architecture/prop-count`](/ja/rules/architecture/prop-count)                             | 🔵 info | props が多すぎるコンポーネントは、担っている責務も多すぎます。                                                         |
+| [`architecture/reserved-directory-names`](/ja/rules/architecture/reserved-directory-names) | 🔵 info | ディレクトリの直下に置ける名前は、その位置に宣言した名前だけにすべきです。                                             |
+| [`architecture/route-component-import`](/ja/rules/architecture/route-component-import)     | 🔵 info | SvelteKit のルートエントリはフレームワークが描画するものであり、他のコンポーネントから import するものではありません。 |
+| [`architecture/unit-entry-file`](/ja/rules/architecture/unit-entry-file)                   | 🔵 info | ユニットとして宣言したディレクトリには、同名のファイルを置くべきです。                                                 |
 
 {/* rules-index:end */}

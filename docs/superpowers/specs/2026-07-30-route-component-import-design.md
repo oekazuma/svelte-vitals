@@ -1,10 +1,12 @@
 # architecture/route-component-import — design
 
 **Date:** 2026-07-30
-**Status:** approved, **sequenced second**
+**Status:** approved; **unblocked 2026-07-31**
 **Charter row:** verdict #1 — importing a route component (L1)
-**Blocked on:** SvelteKit alias resolution, which measurement moved ahead of this rule. See
-"Why this waits" below.
+**Was blocked on:** SvelteKit alias resolution, which measurement moved ahead of this rule (see "Why
+this waits" below). That shipped in #330, so the reach this rule was measured to lack is now there:
+`resolveRepoLocalPath` resolves a project's declared aliases, and this rule depends only on its
+contract.
 
 ## The problem
 
@@ -172,6 +174,10 @@ resolves widens this rule with no change here.
 
 - **Dynamic `import()`.** Not an `ImportDeclaration`, so it is absent from `importSpans`. The same
   mistake, invisible.
+- **Imports from a `.svelte.ts` / `.svelte.js` runes module.** Such a module _is_ in the component fact
+  set, but `parseModuleFacts` leaves its `importSpans` empty (the same reason `loc` is 0 there), so a
+  route-entry import made from one is invisible. Narrower than the next item, and worth stating separately
+  because the file type is otherwise analyzed.
 - **Imports from plain `.ts` / `.js` files.** Not in the fact set at all. This is load-bearing rather
   than regrettable: it is why the exempt list can be three entries long instead of an open-ended guess
   at every project's test-file convention.
