@@ -131,6 +131,7 @@ export {
   architectureUnitEntryFile,
   architectureDirectoryNaming,
   architectureReservedDirectoryNames,
+  architectureRouteComponentImport,
   performanceHeavyImport,
   performanceNamespaceImport,
   performanceMinifyDisabled,
