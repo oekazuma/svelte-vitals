@@ -31,8 +31,13 @@ export const performanceHeavyImport = componentRule({
     const seen = new Set<string>();
     const out: { line: number; message: string }[] = [];
     const spans = c.importSpans ?? c.imports.map((source) => ({ source, line: 0 }));
-    for (const { source: src, line } of spans) {
-      if (!Object.hasOwn(packages, src) || seen.has(src)) continue;
+    for (const { source: src, line, type } of spans) {
+      // This rule's claim is bundle weight, so an import that contributes no runtime binding
+      // costs nothing and must not be reported. Note the fallback above carries no `type`
+      // information, so a caller passing only `imports` keeps the old over-reporting — there
+      // is nothing to judge from. `architecture/private-scope-import` deliberately does NOT
+      // skip these: its claim is coupling, which a type-only import creates just the same.
+      if (type || !Object.hasOwn(packages, src) || seen.has(src)) continue;
       seen.add(src);
       out.push({ line, message: `Heavy import "${src}" — ${packages[src]}` });
     }

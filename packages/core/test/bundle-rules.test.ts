@@ -9,7 +9,7 @@ const base = { heads: [], project: defaultProject, config };
 const fails = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 const ctx = (components: ComponentFacts[]): RuleContext => ({ components, ...base });
 const comp = (
-  importSpans: { source: string; line: number }[],
+  importSpans: ComponentFacts['importSpans'],
   suppressions: SuppressionDirective[] = []
 ): ComponentFacts => ({
   file: 'src/lib/C.svelte',
@@ -92,6 +92,31 @@ describe('performance/heavy-import heavy dependency import', () => {
   });
   it('emits nothing for a component with no imports', async () => {
     expect(await performanceHeavyImport.check(ctx([comp([])]))).toHaveLength(0);
+  });
+  // This rule's claim is bundle weight, and a type-only import contributes none: it is erased
+  // at build. Reporting it was a false positive in a default-on rule.
+  it('does not flag a type-only import of a heavy package', async () => {
+    const rs = await performanceHeavyImport.check(ctx([comp([{ source: 'moment', line: 1, type: true }])]));
+    expect(fails(rs)).toEqual([]);
+  });
+  it('still flags a value import alongside a type-only one, at its own line', async () => {
+    // Guards the obvious over-correction: skipping the type span must not skip the file.
+    const rs = await performanceHeavyImport.check(
+      ctx([
+        comp([
+          { source: 'moment', line: 1, type: true },
+          { source: 'lodash', line: 2 }
+        ])
+      ])
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.line).toBe(2);
+  });
+  it('still passes a file whose only imports are type-only, rather than falling silent', async () => {
+    // `applies` is deliberately unchanged: "we checked this file's imports and found no heavy
+    // ones" stays a true statement, and dropping the pass would move scores as a side effect.
+    const rs = await performanceHeavyImport.check(ctx([comp([{ source: 'moment', line: 1, type: true }])]));
+    expect(rs.filter((r) => r.detection.presence === 'own')).toHaveLength(1);
   });
   it('emits nothing when the component channel is unset (rendered mode)', async () => {
     expect(await performanceHeavyImport.check(base as RuleContext)).toHaveLength(0);
