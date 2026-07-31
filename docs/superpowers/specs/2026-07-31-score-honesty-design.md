@@ -74,11 +74,18 @@ delete the safety net that the proportionality follow-up cites as evidence.
 Two consequences of exposing the raw _score_:
 
 - **The cap is decided on the raw value**, so `capBinds` is `anyCritical && rawRouteAverage - sitePenalty > CRITICAL_CAP`.
-  Deciding it on the rounded mean and then flooring would let the two disagree at the boundary (raw 89.4 −
-  10 = 79.4 binds; rounded 89 − 10 = 79 does not).
-- **`scoreModel.routeAverage` floors for display, and `score = routeAverage - sitePenalty` still holds**,
-  because `sitePenalty` is a sum of integer deductions and `floor(a - b) === floor(a) - b` for integer `b`.
-  The model stays an explanation of the score rather than a second, disagreeing arithmetic.
+  What this protects is the value Health averages, not the displayed score — the displayed score cannot
+  disagree either way, since a disagreement would need `floor(raw) - p ≤ 78` while `raw - p > 79`, i.e.
+  `raw - floor(raw) > 1`. The raw score does disagree: with `rawRouteAverage = 98.99997` and
+  `sitePenalty = 19`, deciding on the raw value caps Health's input at **79**, while deciding on the
+  floored mean (98 − 19 = 79, not greater than 79) leaves it uncapped at **79.99997** — so a category held
+  at the cap would contribute nearly a point above it, and Health would floor one point high.
+- **`scoreModel.routeAverage` floors for display, and `score = routeAverage - sitePenalty` still holds
+  wherever neither the cap nor the clamp binds**, because `sitePenalty` is a sum of integer deductions and
+  `floor(a - b) === floor(a) - b` for integer `b`. The model stays an explanation of the score rather than
+  a second, disagreeing arithmetic. It is not an unconditional identity: when the cap binds `score` is 79
+  and `scoreModel.criticalCap` is what explains it, and the clamp can bind at the lower bound — so a test
+  asserting `score === routeAverage - sitePenalty` must exclude those cases rather than cover every run.
 
 This is the standard reason not to aggregate rounded intermediates, and it has a visible consequence worth
 stating: `health` is no longer re-derivable from the displayed category scores and may sit up to a point
@@ -116,8 +123,11 @@ consequences are worth naming there:
 - `--min-health 100` becomes a gate that fails on any finding at all. That is the honest reading of 100
   and is the intended behaviour, not a side effect.
 
-Unchanged: the empty case (`scores.length` zero → 100, matching `computeHealth`'s no-categories → 100)
-and the `CRITICAL_CAP` behaviour.
+Unchanged: the empty case (`scores.length` zero → 100, matching `computeHealth`'s no-categories → 100),
+and the `CRITICAL_CAP` **value and effect** — a capped category still displays 79. Its **decision input**
+does change, from the rounded mean to the raw one, for the reason given above. The distinction matters
+because an implementer reading only "a `critical` still caps at 79" in the testing section would satisfy it
+while leaving the decision on the rounded value, which is the case this spec is trying to exclude.
 
 ### 2. `architecture/unit-entry-file`'s pass stops creating a score key
 
@@ -195,7 +205,7 @@ that exposed it the denominator was 451 keys, of which 109 were the rule's own p
 changes what one finding is worth from 1/451 to 1/342 — 0.0022 to 0.0029 points. It is a correctness fix
 — the denominator should not contain keys invented by a single rule — not a dilution fix.
 
-Two follow-ups are recorded, neither in scope here:
+Four follow-ups are recorded, none in scope here:
 
 - **Proportionality — and this change raises its priority rather than lowering it.** Making a category
   score reflect _how many_ findings exist, not merely whether any do. The existing `CRITICAL_CAP` is
@@ -209,7 +219,7 @@ Two follow-ups are recorded, neither in scope here:
   results, and `summary.passed` is an aggregate that cannot be attributed to a rule. So `--reporter json`
   — the channel the field test used, and the channel CI uses — still cannot distinguish "every declaration
   passed" from "no declaration matched". A per-rule count closes it by making `0` distinguishable from a
-  missing key. Of the three items here this is the cheapest and addresses a failure that is silent by
+  missing key. Of the four items here this is the cheapest and addresses a failure that is silent by
   construction, so it should probably go first.
 - **`routes[].categories[].score` in the JSON report.** Per-route scores are aggregated before they are
   exposed, so the 100-with-276-findings contradiction could not be checked from the output at all — the
