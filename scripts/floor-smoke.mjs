@@ -13,13 +13,14 @@
 
 import { strict as assert } from 'node:assert';
 import { execFileSync } from 'node:child_process';
-import { mkdtempSync } from 'node:fs';
+import { cpSync, mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const root = join(import.meta.dirname, '..');
 const cliBin = join(root, 'packages/cli/dist/bin.js');
-const basicProject = join(root, 'packages/cli/test/fixtures/basic-project');
+const fixtures = join(root, 'packages/cli/test/fixtures');
+const basicProject = join(fixtures, 'basic-project');
 
 /** Run the built CLI. Never throws: returns the exit code alongside the captured streams. */
 function runCli(args, opts = {}) {
@@ -77,7 +78,40 @@ check('every published entry point imports under bare node', async () => {
   }
 });
 
-console.log(`floor-smoke: node ${process.versions.node}`);
+/**
+ * Whether this Node strips TypeScript types from `import()` without a flag:
+ * unflagged in 23.6.0, backported to 22.18.0. The floor (22.13.0) is inside the
+ * window that needs `--experimental-strip-types`, so this decides which side of
+ * the `.ts` config contract to assert.
+ */
+function supportsUnflaggedTypeStripping() {
+  const [major = 0, minor = 0] = process.versions.node.split('.').map(Number);
+  return (major === 22 && minor >= 18) || (major === 23 && minor >= 6) || major >= 24;
+}
+
+check("a .ts config file matches this Node runtime's type-stripping support", () => {
+  // The CLI resolves the project before it loads the config, so the `.ts` config
+  // needs to sit in something that looks like a SvelteKit app.
+  const project = mkdtempSync(join(tmpdir(), 'floor-smoke-ts-'));
+  cpSync(basicProject, project, { recursive: true });
+  cpSync(join(fixtures, 'config-file-ts/svelte-vitals.config.ts'), join(project, 'svelte-vitals.config.ts'));
+
+  const { code, stderr } = runCli([project, '--reporter', 'json']);
+  if (supportsUnflaggedTypeStripping()) {
+    assert.ok(code === 0 || code === 1, `expected the .ts config to load, got exit ${code}: ${stderr}`);
+  } else {
+    // The floor's contract: loadConfigFile turns Node's raw
+    // ERR_UNKNOWN_FILE_EXTENSION into an actionable message. vitest can never
+    // reach this branch — its module runner transforms in-process `import()`.
+    assert.equal(code, 2);
+    assert.match(stderr, /does not support TypeScript config files without a flag/);
+    assert.match(stderr, /22\.18\+/);
+  }
+});
+
+console.log(
+  `floor-smoke: node ${process.versions.node} (unflagged type stripping: ${supportsUnflaggedTypeStripping()})`
+);
 
 let failed = 0;
 for (const [name, fn] of checks) {
