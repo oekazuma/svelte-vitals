@@ -140,16 +140,42 @@ describe('computeHealth — one rounding, at the boundary', () => {
     expect(health).toBe(89); // floor((100 + 79) / 2)
   });
 
-  it('shows 100 only when every present category deducted nothing', () => {
+  it('shows 100 only when every positively weighted present category deducted nothing', () => {
     expect(computeHealth([...cat('seo', 10, 0), ...cat('security', 10, 0)], CONFIG).health).toBe(100);
     expect(computeHealth([], CONFIG).health).toBe(100);
+    // A zero-weight category is present (its rule ran) and can hold a penalized finding — here severe
+    // enough to cap its own score at 79 — without moving Health at all: the invariant is bounded to
+    // positively weighted categories, not merely present ones.
+    const penalizedSecurity: Result[] = cat('security', 10, 10).map((r, i) =>
+      i === 0 ? { ...r, severity: 'critical' as const } : r
+    );
+    const zeroWeighted = computeHealth(
+      [...cat('seo', 10, 0), ...penalizedSecurity],
+      defineConfig({ weights: { seo: 1, security: 0 } })
+    );
+    expect(zeroWeighted.categories.security!.score).toBe(79);
+    expect(zeroWeighted.health).toBe(100);
   });
 
-  it('shows 100 for a clean project under fractional weights, despite floating-point error in the mean', () => {
-    // weights [0.1, 1] over two clean (rawScore 100) categories: `weighted / total` is
-    // 110 / 1.1 === 99.99999999999999 in IEEE doubles, not exactly 100. A bare `Math.floor`
-    // would publish that as 99 for a project with zero findings — the epsilon guard in
-    // computeHealth exists precisely so this stays 100.
+  it('treats a weight small enough to underflow an epsilon as still not clean (regression)', () => {
+    // seo carries a single `info` finding on its only key, so its rawScore is exactly 99. Weighted at
+    // 1e-12 alongside a clean weight-1 category, the true quotient is 99.999999999999 — below 100, but
+    // only by ~1e-12. The old `Math.floor(weighted / total + 1e-9)` guard rounded that up to 100,
+    // silently letting a real finding hide behind a tiny weight and pass `--min-health 100`. Working in
+    // deficit space has no such blind spot: the deficit here is strictly positive (not the exact-zero
+    // case), so it is floored down, not tolerance-forgiven. Confirmed this fails (returns 100) against
+    // the `+ 1e-9` implementation before the fix.
+    const results = [...cat('seo', 1, 1), ...cat('performance', 10, 0)];
+    const { health } = computeHealth(results, defineConfig({ weights: { seo: 1e-12, performance: 1 } }));
+    expect(health).toBe(99);
+  });
+
+  it('shows 100 for a clean project under fractional weights, with no floating-point error to guard against', () => {
+    // weights [0.1, 1] over two clean (rawScore 100) categories. Averaging the SCORE, `weighted / total`
+    // is 110 / 1.1 === 99.99999999999999 in IEEE doubles — not exactly 100, which is why an earlier
+    // version needed an epsilon guard here. Averaging the DEFICIT instead has no such error to guard
+    // against: each term is `(100 - 100) * w === 0` exactly, for any weight, so the sum is exactly 0 and
+    // `averageDeficit === 0` takes the direct path to 100 rather than surviving a tolerance check.
     const results = [...cat('seo', 4, 0), ...cat('performance', 4, 0)];
     const { health } = computeHealth(results, defineConfig({ weights: { seo: 0.1, performance: 1 } }));
     expect(health).toBe(100);

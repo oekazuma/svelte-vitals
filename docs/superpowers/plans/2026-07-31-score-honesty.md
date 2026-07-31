@@ -23,6 +23,15 @@ through four review rounds and several obvious-looking simplifications are recor
 - **`health` averages the unrounded category score, never the route average and never the displayed
   score.** Averaging route averages drops `sitePenalty` and `CRITICAL_CAP` out of Health entirely;
   averaging displayed scores composes two roundings and moves Health by two points.
+
+  > **2026-07-31 follow-up:** the invariant above is bounded by positive effective weight, not mere
+  > presence — a category weighted `0` is present but excluded from the average, and can hold a
+  > `critical` finding without moving Health at all. See the paragraph following "A displayed 100 means
+  > the deduction was exactly zero" in
+  > `docs/superpowers/specs/2026-07-31-score-honesty-design.md`, and the
+  > "shows 100 only when every positively weighted present category deducted nothing" test in
+  > `packages/core/test/health.test.ts`.
+
 - **Every score moves down by 0 or 1 point.** That bound holds only because Health floors once. Any
   expectation that shifts by more than 1 is a bug in this change, not a test to update.
 - **`CRITICAL_CAP`'s value and effect are unchanged** — a capped category still displays 79 — but its

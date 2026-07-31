@@ -100,7 +100,11 @@ Flooring both establishes one invariant, which is the whole point of the change:
 `floor(mean) === 100` holds only when every key scores exactly 100, i.e. no penalized finding carries a
 route. `score` then equals `100 - sitePenalty`, so a displayed 100 also requires no site-wide finding.
 `health` floors the mean of the raw category values, so a displayed 100 requires every **present**
-category to be exactly 100.
+category **with a positive effective weight** to be exactly 100. A category weighted `0` is present — a
+rule ran and produced it — but it is excluded from the average entirely, so it can hold any finding, up to
+and including a `critical`, without moving Health at all. This is a second, independent bound on the same
+invariant, not a restatement of the "present" one below: that one narrows the invariant by which rules ran
+in the first place, this one narrows it further by which of the categories that ran are actually averaged.
 
 **"Present" is load-bearing, and the invariant is bounded by it.** `scoresByCategory` buckets only the
 categories that produced results, so a category no rule reported on is excluded from the mean rather than

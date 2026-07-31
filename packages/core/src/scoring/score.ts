@@ -65,9 +65,10 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
 
   const scores = [...routeScores.values()].map(clamp);
   const rawRouteAverage = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 100;
-  // No epsilon guard needed here (contrast computeHealth below): every route score is an integer,
-  // so `sum / length` is a division of exact integers, and whenever the true quotient IS an integer
-  // it is exactly representable — this mean can never come out as 99.99999999999999.
+  // No such treatment needed here (contrast computeHealth below, which works in deficit space and caps
+  // at 99 rather than trusting the arithmetic): every route score is an integer, so `sum / length` is a
+  // division of exact integers, and whenever the true quotient IS an integer it is exactly representable
+  // — this mean can never come out as 99.99999999999999.
   const routeAverage = Math.floor(rawRouteAverage);
 
   // One deduction per project rule id: take the max deduction among duplicates.
@@ -120,7 +121,7 @@ export interface HealthResult {
 export function computeHealth(results: Result[], config: Config): HealthResult {
   const categories = scoresByCategory(results, config);
   const weights: Partial<Record<Category, number>> = {};
-  let weighted = 0;
+  let weightedDeficit = 0;
   let total = 0;
   for (const cat of Object.keys(categories) as Category[]) {
     const w = config.weights?.[cat] ?? 1;
@@ -128,7 +129,7 @@ export function computeHealth(results: Result[], config: Config): HealthResult {
       throw new RangeError(`invalid weight for '${cat}'; expected a finite number >= 0.`);
     }
     weights[cat] = w;
-    weighted += categories[cat]!.rawScore * w;
+    weightedDeficit += (100 - categories[cat]!.rawScore) * w;
     total += w;
   }
   // No present categories (e.g. no results) → perfect 100, consistent with computeScore's empty → 100.
@@ -138,16 +139,18 @@ export function computeHealth(results: Result[], config: Config): HealthResult {
   if (total === 0) {
     throw new RangeError('Health weights sum to 0; at least one present category must have a positive weight.');
   }
-  // Floor ONCE, on the unrounded category scores. Averaging the displayed integers would compose two
-  // roundings and move Health by up to two points, breaking this change's own one-point bound.
-  //
-  // Unlike computeScore's routeAverage, this DOES need an epsilon guard: `weighted` and `total` are
-  // sums of `rawScore * w` and `w`, so with a non-dyadic weight (e.g. 0.1) the sums carry ~1e-14 of
-  // floating-point representation error even when the true quotient is exactly 100. `Math.round` used
-  // to absorb that error silently; `Math.floor` would instead publish 99.99999999999999 as 99 — a
-  // spotless project failing `--min-health 100`. The guard is safe by a wide margin: a real deduction
-  // is at least 1/N of a category for N score keys, so even a million keys give 1e-6, a thousand times
-  // this epsilon.
-  const health = Math.floor(weighted / total + 1e-9);
+  // Average the DEFICIT (100 - rawScore), not the score, and floor by subtracting it from 100. This
+  // removes the epsilon guard an earlier version needed here: that guard assumed "the smallest real
+  // difference is 1/N" — true only for comparable weights. `config.weights` accepts any finite
+  // non-negative value, so a weight can be made arbitrarily small (e.g. 1e-12), making the true quotient
+  // arbitrarily close to — but strictly below — 100 while still failing any fixed epsilon. Deficit space
+  // sidesteps the problem instead of tuning around it: with no findings, every category's rawScore is
+  // exactly 100 (integer route scores average exactly, sitePenalty is 0), so every term is `0 * w === 0`
+  // and the sum is exactly 0 — no tolerance needed to recognize a clean project. `Math.min(99, …)` then
+  // makes "any finding means at most 99" structural rather than arithmetic: it catches a deficit so small
+  // that `100 - deficit` would round back to 100 in floating point, which is the exact case the epsilon
+  // used to paper over, now handled without one.
+  const averageDeficit = weightedDeficit / total;
+  const health = averageDeficit === 0 ? 100 : Math.min(99, Math.floor(100 - averageDeficit));
   return { health, categories, weights };
 }
