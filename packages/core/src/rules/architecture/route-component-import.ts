@@ -91,7 +91,9 @@ export const architectureRouteComponentImport = componentRule({
     'A route entry is written on the assumption that SvelteKit renders it: Kit hands a page its data and params, and an error page its page.error and page.status. Imported from somewhere else it receives none of that and renders against nothing, or against the importing page data standing in for its own.',
   // Signal present = this file imports a route entry, exempt or not. An exempt file therefore
   // reaches `bad` and earns a PASS, rather than being called signal-free.
-  applies: (c, o, ctx) => cachedRouteEntryImports(c, ctx).length > 0,
+  // `_o`: this rule's option is read only in `bad`, but `ctx` is the third parameter, so the
+  // second cannot simply be omitted the way every other component rule omits what it does not use.
+  applies: (c, _o, ctx) => cachedRouteEntryImports(c, ctx).length > 0,
   bad: (c, o, ctx) => {
     const exempt = listOption(o, 'exemptImporters').map(routeGlobToRegExp);
     if (exempt.some((re) => re.test(c.file))) return [];
