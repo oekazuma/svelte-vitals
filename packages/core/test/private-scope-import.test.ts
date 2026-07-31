@@ -107,6 +107,20 @@ describe('architecture/private-scope-import', () => {
     expect(rs[0]!.fix?.snippet).toBeUndefined();
   });
 
+  // Deliberately the opposite of performance/heavy-import, which skips a type-only import
+  // because its claim is bundle weight. This rule's claim is coupling, and importing only a
+  // type couples just as tightly — rename or delete the unit and the importer still breaks.
+  // Pinned so the two rules cannot be "made consistent" without this failing.
+  it('flags a type-only import of a private unit, unlike the bundle-weight rules', async () => {
+    const c = comp({
+      file: 'src/lib/Other/Other.svelte',
+      importSpans: [{ source: '../Card/parts/Badge.svelte', line: 7, type: true }]
+    });
+    const rs = await architecturePrivateScopeImport.check(scoped([c], SCOPES));
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.line).toBe(7);
+  });
+
   it('passes an import of a parts/ unit from inside the owning unit', async () => {
     const c = comp({ file: 'src/lib/Card/Card.svelte', importSpans: [{ source: './parts/Badge.svelte', line: 2 }] });
     const rs = await architecturePrivateScopeImport.check(scoped([c], SCOPES));

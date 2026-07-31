@@ -103,6 +103,11 @@ export const architecturePrivateScopeImport: Rule = {
       const spans = c.importSpans ?? c.imports.map((source) => ({ source, line: 0 }));
       let sawScopedImport = false;
       const violations: { line: number; message: string }[] = [];
+      // `importSpans[].type` is deliberately NOT consulted here, unlike in
+      // `performance/heavy-import` and `architecture/route-component-import`. Those two ask what
+      // the import costs at runtime, and a type-only import costs nothing. This rule asks whether
+      // one part of the tree is coupled to another's private code, and importing only a type
+      // couples them just as tightly: rename or delete the unit and the importer still breaks.
       for (const { source, line } of spans) {
         const target = resolveRepoLocalPath(source, c.file, ctx.project.kitAliases);
         if (target === undefined) continue; // bare package, unknown alias, or escapes the root

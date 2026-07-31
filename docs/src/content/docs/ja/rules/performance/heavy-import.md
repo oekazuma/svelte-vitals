@@ -9,6 +9,8 @@ description: サイズが大きく、ツリーシェイクも効かないパッ�
 
 重くてツリーシェイクできないことで知られるパッケージ（現状は `lodash` と `moment`）からの `import` を検出します。完全一致で判定するため、`lodash/debounce` のようなサブパス import は対象外です。`src/**/*.svelte` のスクリプトを静的（CLI）解析します。
 
+**型のみの import は報告しません。** `import type { Moment } from 'moment'` や、すべての specifier が inline type の宣言はビルド時に消えるため、バンドルには何も加わりません。なお `architecture/private-scope-import` は型のみの import も報告し続けます。こちらはツリー内の結合を見るルールで、型だけの import でも結合は同じように生まれるためです。
+
 ## なぜ重要か
 
 サイズが大きく、ツリーシェイクもできないパッケージを import すると、一部しか使っていなくてもバンドルに丸ごと取り込まれ、ページ読み込みが遅くなります。
