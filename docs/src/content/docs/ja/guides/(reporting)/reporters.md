@@ -25,6 +25,55 @@ svelte-vitals --reporter console
 svelte-vitals --reporter json
 ```
 
+#### 構造
+
+```jsonc
+{
+  "version": "0.35.0", // このレポートを生成した svelte-vitals のバージョン
+  "score": 97, // 総合 Health スコア（0〜100、切り捨て。100 は減点ゼロを意味する）
+  "weights": { "seo": 1 }, // 実際に適用されたカテゴリ別の Health 重み
+  "categories": {
+    "seo": {
+      "score": 94,
+      "scoreModel": {
+        "routeAverage": 94, // ルートごとのスコアの平均（切り捨て）
+        "sitePenalty": 0, // サイト全体の検出（route を持たないもの）による減点
+        "criticalCap": null // critical によってスコアが抑えられた場合はその上限値、なければ null
+      }
+    }
+  },
+  "summary": { "critical": 0, "warning": 33, "info": 44, "passed": 610, "dynamic": 2 },
+  "routes": [
+    {
+      "route": "/about", // ルート ID。ファイル単位のルールではソースファイルのパス
+      "score": 95,
+      "issues": [
+        {
+          "id": "seo/single-h1", // ルール ID
+          "category": "seo",
+          "severity": "warning", // 設定した severity の上書きを反映した後の値
+          "title": "Two <h1> elements", // 人が読む検出内容
+          "detection": { "presence": "none", "value": "absent" },
+          "location": "src/routes/about/+page.svelte",
+          "line": 12,
+          "recommendation": "Keep exactly one <h1> per page.",
+          "docsUrl": "https://svelte-vitals.dev/rules/seo/single-h1",
+          "fix": { "description": "…", "snippet": "…", "lang": "svelte" }
+        }
+      ]
+    }
+  ],
+  "siteIssues": [] // route を持たない検出（robots.txt、sitemap.xml など）。issue の構造は同じ
+}
+```
+
+次の2つのフィールド名は、取り違えても**エラーにならず静かに空振りする**ため、特に注意してください。
+
+- ルールの識別子は **`id`** です（`rule` ではありません）
+- 検出内容のテキストは **`title`** です（`message` ではありません）
+
+`line`・`docsUrl`・`fix` はルールが提供した場合のみ、`location` はファイルに紐づく検出の場合のみ現れます。`issues` に並ぶのは**失敗した検出のみ**です。合格したチェックは `summary.passed` に数として計上されますが、一覧には出ません。失敗が1件も無いルートも `routes` には現れ、`issues` が空配列のまま自分のスコアを持ちます。
+
 ### `agent`
 
 AI コーディングエージェント向けに設計された Markdown 修正ドキュメントです。失敗した各検出結果には以下が含まれます：

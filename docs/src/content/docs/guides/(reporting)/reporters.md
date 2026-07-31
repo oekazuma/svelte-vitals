@@ -25,6 +25,55 @@ Machine-readable JSON output. Useful for scripts, dashboards, or feeding results
 svelte-vitals --reporter json
 ```
 
+#### Shape
+
+```jsonc
+{
+  "version": "0.35.0", // the svelte-vitals version that produced this report
+  "score": 97, // combined Health score, 0-100 (floored: 100 means zero deduction)
+  "weights": { "seo": 1 }, // per-category Health weights actually applied
+  "categories": {
+    "seo": {
+      "score": 94,
+      "scoreModel": {
+        "routeAverage": 94, // mean of the per-route scores, floored
+        "sitePenalty": 0, // deducted for site-wide findings (no route)
+        "criticalCap": null // the cap value when a critical finding lowered the score, else null
+      }
+    }
+  },
+  "summary": { "critical": 0, "warning": 33, "info": 44, "passed": 610, "dynamic": 2 },
+  "routes": [
+    {
+      "route": "/about", // a route id, or a source file path for file-scoped rules
+      "score": 95,
+      "issues": [
+        {
+          "id": "seo/single-h1", // the rule id
+          "category": "seo",
+          "severity": "warning", // after any severity override you configured
+          "title": "Two <h1> elements", // the human-readable finding
+          "detection": { "presence": "none", "value": "absent" },
+          "location": "src/routes/about/+page.svelte",
+          "line": 12,
+          "recommendation": "Keep exactly one <h1> per page.",
+          "docsUrl": "https://svelte-vitals.dev/rules/seo/single-h1",
+          "fix": { "description": "…", "snippet": "…", "lang": "svelte" }
+        }
+      ]
+    }
+  ],
+  "siteIssues": [] // findings with no route (robots.txt, sitemap.xml, …), same issue shape
+}
+```
+
+Two field names are worth pointing out, because guessing them wrongly fails silently:
+
+- the rule identifier is **`id`**, not `rule`;
+- the finding text is **`title`**, not `message`.
+
+`line`, `docsUrl` and `fix` are present only when the rule supplies them, and `location` only for a finding tied to a file. `issues` lists **failing** findings only — passing checks are counted in `summary.passed` but are not listed. A route with no failures still appears in `routes`, with an empty `issues` array and its own score.
+
 ### `agent`
 
 A Markdown remediation document designed for AI coding agents. Each failing finding includes:
