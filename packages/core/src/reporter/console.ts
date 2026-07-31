@@ -86,7 +86,9 @@ function byRouteTree(p: Palette, results: Result[], config: Config, verbose: boo
   }
   if (!verbose && scored.length > MAX_ROUTES_BY_ROUTE) {
     const remaining = scored.slice(MAX_ROUTES_BY_ROUTE);
-    const avgScore = Math.round(remaining.reduce((sum, r) => sum + r.score, 0) / remaining.length);
+    // Floor, not round, for the same reason as the rest of this branch: rounding this tail
+    // average can print a perfect 100 over a hidden tail that still contains a penalized route.
+    const avgScore = Math.floor(remaining.reduce((sum, r) => sum + r.score, 0) / remaining.length);
     lines.push(
       p.dim(
         `…and ${remaining.length} more route${remaining.length > 1 ? 's' : ''} (avg score ${avgScore}) — run with --verbose to see all`
@@ -166,8 +168,12 @@ export function formatConsoleReport(results: Result[], config: Config, options: 
     if (options.verbose) {
       for (const r of passed) {
         const marker = classify(r, config) === 'dynamic' ? p.cyan('  ↯ dynamic') : '';
-        const route = r.route ? `  ${r.route}` : '';
-        lines.push(`${p.green('✓')} ${r.id}  ${r.message}${marker}${route}`);
+        // `location` first: a route-less pass (e.g. architecture/unit-entry-file, which keeps
+        // only `location`) must still name the unit it checked, not render an identical,
+        // path-less line for every one of them.
+        const where = r.location ?? r.route;
+        const suffix = where ? `  ${where}` : '';
+        lines.push(`${p.green('✓')} ${r.id}  ${r.message}${marker}${suffix}`);
       }
     }
     lines.push('');

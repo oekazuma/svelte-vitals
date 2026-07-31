@@ -65,6 +65,9 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
 
   const scores = [...routeScores.values()].map(clamp);
   const rawRouteAverage = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 100;
+  // No epsilon guard needed here (contrast computeHealth below): every route score is an integer,
+  // so `sum / length` is a division of exact integers, and whenever the true quotient IS an integer
+  // it is exactly representable — this mean can never come out as 99.99999999999999.
   const routeAverage = Math.floor(rawRouteAverage);
 
   // One deduction per project rule id: take the max deduction among duplicates.
@@ -137,6 +140,14 @@ export function computeHealth(results: Result[], config: Config): HealthResult {
   }
   // Floor ONCE, on the unrounded category scores. Averaging the displayed integers would compose two
   // roundings and move Health by up to two points, breaking this change's own one-point bound.
-  const health = Math.floor(weighted / total);
+  //
+  // Unlike computeScore's routeAverage, this DOES need an epsilon guard: `weighted` and `total` are
+  // sums of `rawScore * w` and `w`, so with a non-dyadic weight (e.g. 0.1) the sums carry ~1e-14 of
+  // floating-point representation error even when the true quotient is exactly 100. `Math.round` used
+  // to absorb that error silently; `Math.floor` would instead publish 99.99999999999999 as 99 — a
+  // spotless project failing `--min-health 100`. The guard is safe by a wide margin: a real deduction
+  // is at least 1/N of a category for N score keys, so even a million keys give 1e-6, a thousand times
+  // this epsilon.
+  const health = Math.floor(weighted / total + 1e-9);
   return { health, categories, weights };
 }

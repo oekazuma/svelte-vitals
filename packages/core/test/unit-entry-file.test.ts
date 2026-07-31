@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { architectureUnitEntryFile, applyOverrides, computeScore } from '../src/index.js';
+import { architectureUnitEntryFile, applyOverrides, computeScore, summarize } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 import type { Result } from '../src/index.js';
@@ -499,6 +499,15 @@ describe('architecture/unit-entry-file — a pass is evidence, not a score key',
       ctx(['src/lib/api/api.ts', 'src/lib/db/db.ts'], { units: { 'src/lib/*': '.ts' } })
     );
     expect(rs.map((r) => r.location).sort()).toEqual(['src/lib/api/api.ts', 'src/lib/db/db.ts']);
+  });
+
+  it('still counts toward summary.passed for every unit checked, route-less or not', async () => {
+    // Spec testing item 7: the pass no longer seeds a score key, but it must still be visible
+    // to `summarize` as evidence the rule ran and checked N units.
+    const rs = await architectureUnitEntryFile.check(
+      ctx(['src/lib/api/api.ts', 'src/lib/db/db.ts'], { units: { 'src/lib/*': '.ts' } })
+    );
+    expect(summarize(rs, CONFIG).passed).toBe(2);
   });
 
   it('leaves a conforming tree scoring identically to a run with the rule disabled', () => {

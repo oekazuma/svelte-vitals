@@ -43,7 +43,9 @@ svelte-vitals --weights seo=2
 **Only categories present in the results are included.** If, for example, nothing in your project matches any Performance rule, the Performance category produces no results and Health is based solely on the remaining categories.
 
 The result is **floored**, not rounded to nearest, so a displayed score of 100 means the deduction was
-exactly zero. A category or project with any finding at all — even a single `info` — scores at most 99.
+exactly zero. A category or project with any finding at all — even a single `info` — scores at most 99,
+in any category you have not weighted `0`. A category weighted `0` is excluded from the Health average
+entirely, so it can carry findings — even a `critical` — without pulling Health below 100.
 
 Health is floored **once**, from the unrounded category scores. It is therefore not always equal to the
 average of the category scores you see printed, and can sit up to a point above them: each printed category
@@ -67,7 +69,7 @@ Both can be used together.
 ## Example output
 
 ```text
-Health: 85  (SEO: 90 · Performance: 75)
+Health: 82  (SEO: 90 · Performance: 75)
 ```
 
 When only SEO rules fire:

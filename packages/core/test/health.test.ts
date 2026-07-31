@@ -144,4 +144,14 @@ describe('computeHealth — one rounding, at the boundary', () => {
     expect(computeHealth([...cat('seo', 10, 0), ...cat('security', 10, 0)], CONFIG).health).toBe(100);
     expect(computeHealth([], CONFIG).health).toBe(100);
   });
+
+  it('shows 100 for a clean project under fractional weights, despite floating-point error in the mean', () => {
+    // weights [0.1, 1] over two clean (rawScore 100) categories: `weighted / total` is
+    // 110 / 1.1 === 99.99999999999999 in IEEE doubles, not exactly 100. A bare `Math.floor`
+    // would publish that as 99 for a project with zero findings — the epsilon guard in
+    // computeHealth exists precisely so this stays 100.
+    const results = [...cat('seo', 4, 0), ...cat('performance', 4, 0)];
+    const { health } = computeHealth(results, defineConfig({ weights: { seo: 0.1, performance: 1 } }));
+    expect(health).toBe(100);
+  });
 });
