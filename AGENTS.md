@@ -8,16 +8,17 @@ svelte-vitals is a static code-health checker for SvelteKit — not a runtime We
 
 ## Verify commands
 
-| Purpose        | Command              | Notes                                 |
-| -------------- | -------------------- | ------------------------------------- |
-| Build          | `pnpm build`         | `pnpm -r build`                       |
-| Typecheck      | `pnpm typecheck`     | `pnpm -r typecheck`                   |
-| Test           | `pnpm test`          | `pnpm -r test` (vitest)               |
-| Lint           | `pnpm lint`          | `oxlint .` + `oxfmt --check .`        |
-| Format         | `pnpm format`        | `oxfmt --write .`                     |
-| Publish checks | `pnpm check:publish` | publint + attw (`--profile esm-only`) |
+| Purpose        | Command              | Notes                                                                                                                                                                                                   |
+| -------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Build          | `pnpm build`         | `pnpm -r build`                                                                                                                                                                                         |
+| Typecheck      | `pnpm typecheck`     | `pnpm -r typecheck`                                                                                                                                                                                     |
+| Test           | `pnpm test`          | `pnpm -r test` (vitest)                                                                                                                                                                                 |
+| Floor smoke    | `pnpm smoke`         | needs `pnpm build` first — it runs the built `dist` under a bare `node`; locally that is the devEngines Node, not the floor, so the floor claim is what CI's `floor-smoke` job (pinned to 22.13.0) adds |
+| Lint           | `pnpm lint`          | `oxlint .` + `oxfmt --check .`                                                                                                                                                                          |
+| Format         | `pnpm format`        | `oxfmt --write .`                                                                                                                                                                                       |
+| Publish checks | `pnpm check:publish` | publint + attw (`--profile esm-only`)                                                                                                                                                                   |
 
-CI (`.github/workflows/ci.yml`) runs four jobs: `lint`, `check` (build + typecheck + check:publish), `test`, `docs`. Run the relevant verify commands yourself and confirm they pass **before** claiming a task is complete.
+CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typecheck + check:publish), `test`, `floor-smoke`, `docs`. Run the relevant verify commands yourself and confirm they pass **before** claiming a task is complete.
 
 ## Package map
 
@@ -39,6 +40,29 @@ install`/`ci upgrade` bundle into scaffolded workflows.
 ## Hard rules
 
 - **Core purity**: `packages/core/src/index.ts` states verbatim: "runtime-agnostic core (design §8). No `node:` imports, no I/O, no runtime-specific globals." All I/O is injected through the `Runtime` interface (`packages/core/src/runtime.ts`). Never add a `node:` import or direct I/O call inside `packages/core`.
+- **Two Node floors, both jobs run the smoke**: the published packages promise
+  `engines.node: >=22.13.0` (end users); the dev toolchain is pinned by
+  `devEngines.runtime` and is free to require more. CI keeps these apart —
+  `test` runs the vitest suite on the release lines the toolchain supports
+  (`22` / `24.16.0` / `26`), then runs the built `dist` under a bare `node` on
+  that same matrix Node (`scripts/floor-smoke.mjs`); `floor-smoke` runs that same
+  script the same way, but pinned to 22.13.0. Running it on both floors is
+  deliberate: its `.ts`-config check branches on the host Node's type-stripping
+  support, so `floor-smoke` on 22.13.0 takes the old-Node branch (asserting the
+  CLI's guided error), while every `test` matrix entry supports unflagged
+  type-stripping and takes the modern-Node branch (asserting the `.ts` config
+  loads). That modern-Node assertion used to live in
+  `packages/cli/test/config-file.test.ts`; it was deleted once the smoke on the
+  `test` matrix covered it, since vitest's module runner transforms in-process
+  `import()` and could never reach the raw-Node behaviour either branch depends
+  on. So a dev dependency raising its Node floor is not a problem _for
+  dependencies the smoke actually executes_: jsdom 30 requires `^22.22.2` and
+  that is fine because `floor-smoke` never loads jsdom. pnpm itself, and the
+  build toolchain (tsup et al.), are not exempt — `floor-smoke` still runs
+  `pnpm install`/`pnpm build` on 22.13.0, so those stay floor-bound. Never pin
+  the `test` matrix back to 22.13.0, and never add a dev dependency to the
+  smoke — it must stay Node-builtins-only. Design doc:
+  `docs/superpowers/specs/2026-07-31-floor-smoke-design.md`.
 - **Dependencies via catalog**: root `package.json` devDependencies are all pinned as `catalog:`; actual versions live in `pnpm-workspace.yaml`. Add/bump shared devDependencies there, not as literal versions in a package's `package.json`.
 - **Changesets required**: any user-facing change needs `pnpm changeset`. Merging to `main` opens a release PR (Changesets bot). Internal-only / doc-only changes don't need one.
 - **en/ja docs stay in sync**: `docs/src/content/docs/` (English) and `docs/src/content/docs/ja/` (Japanese) are updated together by convention — don't ship an English-only doc change if the Japanese equivalent exists.

@@ -61,11 +61,14 @@ jobs:
       matrix:
         # setup-node rewrites devEngines.runtime.version to this,
         # so pnpm's managed runtime (onFail: download) actually runs scripts under it.
-        # 22.13.0 is the declared engines.node floor (the minimum the pinned pnpm@11.9.0
-        # can run on; Node 22 is maintenance LTS until 2027-04);
+        # These are the release lines the DEV toolchain supports — NOT the published
+        # engines.node floor, which the `floor-smoke` job defends on 22.13.0 instead.
+        # Pinning the floor here would hold every dev dependency to it: jsdom 30
+        # already requires ^22.22.2, and vite/oxlint sit 0.01 above 22.13.0.
+        # '22' is the latest 22.x (maintenance LTS until 2027-04);
         # 24.16.0 is the current release used for development (devEngines);
         # '26' is the latest of the Current line (active LTS from 2026-10) — early warning.
-        node-version: ['22.13.0', '24.16.0', '26']
+        node-version: ['22', '24.16.0', '26']
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -85,6 +88,45 @@ jobs:
         run: pnpm build
       - name: Run tests
         run: pnpm test
+      # Every matrix entry supports unflagged type-stripping (>=22.18.0), so this
+      # is the only place that covers the `.ts` config contract's modern-Node
+      # branch (scripts/floor-smoke.mjs's fifth check); `floor-smoke` below pins
+      # to 22.13.0 and only ever takes the old-Node branch. Bare `node` is
+      # correct here — actions/setup-node puts the matrix version on PATH.
+      - name: Run the floor smoke on the matrix Node
+        run: node scripts/floor-smoke.mjs
+
+  floor-smoke:
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # 22.13.0 is the published packages' engines.node floor. This is the only job
+      # pinned to it: it runs the built dist under a bare `node`, so no dev
+      # dependency (jsdom, vitest, ...) is held to the end-user's Node version.
+      # pnpm itself is not exempt, though: the pinned pnpm@11.17.0 (root
+      # package.json) still runs `pnpm install`/`pnpm build` on this floor, so a
+      # future pnpm bump needs to stay runnable on 22.13.0 too.
+      - name: Setup Node.js and dependencies
+        uses: ./.github/workflows/setup-node
+        with:
+          node-version: '22.13.0'
+      - name: Restore package builds
+        id: dist-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: packages/*/dist
+          key: dist-${{ hashFiles('packages/*/src/**', 'pnpm-lock.yaml', 'packages/*/tsup.config.ts') }}
+      # Fallback only: `needs: check` populates this exact cache key, so a miss means
+      # eviction. Building here would run tsup on the floor Node.
+      - name: Build packages
+        if: steps.dist-cache.outputs.cache-hit != 'true'
+        run: pnpm build
+      - name: Run the end-user floor smoke
+        run: node scripts/floor-smoke.mjs
 
   docs:
     runs-on: ubuntu-latest
