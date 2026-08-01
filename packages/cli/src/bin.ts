@@ -7,12 +7,14 @@ import { resolveArgs } from './resolve-args.js';
 import { runInstallCli } from './install/cli.js';
 import { runCiCli } from './ci/cli.js';
 import { runExplainCli } from './explain.js';
+import { runDocsCli } from './docs/cli.js';
 
 const HELP = `svelte-vitals — a deterministic SvelteKit code-health scanner (SEO · performance · correctness · security · architecture)
 
 Usage:
   svelte-vitals [path] [options]
-  svelte-vitals explain <id>     Print a rule's rationale, fix, and configurable options
+  svelte-vitals docs list        List the bundled guides (docs show <name> prints one)
+  svelte-vitals explain --list   List every rule (explain <rule-id> explains one)
   svelte-vitals install          Set up the Vite integration, agent skills/rules, config file, or CI
   svelte-vitals ci install       Add a GitHub Actions PR gate (annotations + summary comment)
   svelte-vitals ci upgrade       Refresh the pinned @svelte-vitals/action in an existing workflow
@@ -48,7 +50,19 @@ Config file:
 Exit codes:
   0  no failing findings
   1  critical finding present (or --fail-on threshold reached)
-  2  execution error (not a SvelteKit project / internal error)`;
+  2  execution error (not a SvelteKit project / internal error)
+
+If you are an AI agent:
+  - \`svelte-vitals docs list\` then \`docs show <name>\` — the guides ship inside this CLI, so
+    they match this exact version and need no network. Read those before searching the web.
+  - \`--reporter agent\` gives every failing finding a location, a concrete fix and an acceptance
+    check; it is auto-selected when an agent environment is detected. \`--reporter json\` is the
+    structured form.
+  - \`--diff\` scopes the report to what you just changed; \`--staged\` is the pre-commit gate.
+  - \`svelte-vitals explain <rule-id>\` says why a rule exists and which options it takes, before
+    you decide to turn it off.
+  - Exit 2 is never a pass — it means the analysis did not run. Read stderr.
+  - This CLI never prompts when stdout is not a TTY; it exits 2 with the flag to pass instead.`;
 
 const VERSION = readPackageVersion();
 
@@ -61,9 +75,12 @@ async function selectApp(apps: string[]): Promise<string | null> {
   return p.isCancel(res) ? null : (res as string);
 }
 
-/** CLI entrypoint: dispatches `explain`/`install`/`ci` subcommands, otherwise parses argv, resolves it into `run()` options, executes the analysis, and exits with the resulting code. */
+/** CLI entrypoint: dispatches `docs`/`explain`/`install`/`ci` subcommands, otherwise parses argv, resolves it into `run()` options, executes the analysis, and exits with the resulting code. */
 async function main(): Promise<void> {
   const rawArgs = process.argv.slice(2);
+  if (rawArgs[0] === 'docs') {
+    process.exit(runDocsCli(rawArgs.slice(1)));
+  }
   if (rawArgs[0] === 'explain') {
     process.exit(runExplainCli(rawArgs.slice(1)));
   }
@@ -105,6 +122,9 @@ async function main(): Promise<void> {
     // it directly against the `@svelte-vitals/vite` dev overlay's "core vX.Y.Z" line —
     // the two packages are versioned independently and can drift (see docs).
     console.log(`${VERSION} (core ${readCoreVersion()})`);
+    // stdout stays exactly the version string so it can be parsed; the pointer goes to stderr.
+    // An agent that runs only `--version` and never `--help` still learns the guides exist.
+    console.error('svelte-vitals: run `svelte-vitals docs list` for the bundled guides.');
     process.exit(0);
   }
 

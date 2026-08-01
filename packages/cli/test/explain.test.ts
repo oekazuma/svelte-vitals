@@ -79,6 +79,36 @@ describe('svelte-vitals explain', () => {
     expect(info.options?.map((o) => o.name)).toEqual(['min', 'max']);
   });
 
+  describe('--list', () => {
+    it('lists every registered rule, grouped by category', async () => {
+      const { allRules, CATEGORIES } = await import('@svelte-vitals/core');
+      const { code, out } = explain(['--list']);
+      expect(code).toBe(0);
+      for (const rule of allRules) expect(out).toContain(rule.id);
+      for (const category of CATEGORIES) expect(out).toContain(`${category} (`);
+      expect(out).toContain(`${allRules.length} rules.`);
+    });
+
+    it('--list --json emits id/category/severity/title for every rule', async () => {
+      const { allRules } = await import('@svelte-vitals/core');
+      const { code, out } = explain(['--list', '--json']);
+      expect(code).toBe(0);
+      const parsed = JSON.parse(out) as { id: string; category: string; severity: string; title: string }[];
+      expect(parsed.map((r) => r.id)).toEqual(allRules.map((r) => r.id));
+      for (const r of parsed) {
+        expect(r.category.length).toBeGreaterThan(0);
+        expect(r.severity.length).toBeGreaterThan(0);
+        expect(r.title.length).toBeGreaterThan(0);
+      }
+    });
+
+    it('tells a reader with no id that --list exists, instead of only dumping ids', () => {
+      // Discovering `explain` by passing a wrong id and reading the error is an accident;
+      // the no-id path has to name the affordance.
+      expect(explain([]).err).toContain('--list');
+    });
+  });
+
   it('does not match a rule id with the wrong case (exact match only)', () => {
     const { code, err } = explain(['SEO/TITLE-PRESENCE']);
     expect(code).toBe(2);

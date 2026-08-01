@@ -26,6 +26,10 @@ CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typeche
 - `packages/cli` — the `svelte-vitals` CLI.
 - `packages/vite` — Vite/SvelteKit plugin + dev overlay; analyzes prerendered HTML during `vite build`.
 - `docs` — Astro Starlight docs site, English + Japanese (`docs/src/content/docs/` and `docs/src/content/docs/ja/`).
+- `packages/cli/docs` — the handful of topics `svelte-vitals docs show <name>` prints. Edit the
+  markdown, then `pnpm --filter svelte-vitals run gen:docs && pnpm format`; `packages/cli/test/docs-embed.test.mjs`
+  fails the build if the committed `src/docs/generated.ts` drifts. Keep them terse and terminal-first —
+  the site is the complete reference, this set is what a reader needs mid-run.
 
 The first-party GitHub Action is **not** part of this monorepo — it lives in its own repository,
 [oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action), depending on

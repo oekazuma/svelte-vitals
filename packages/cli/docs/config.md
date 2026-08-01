@@ -1,0 +1,108 @@
+---
+title: The config file
+description: Where svelte-vitals.config lives, every top-level option, how to disable or re-grade a rule, and how to scope rules to routes or files.
+---
+
+# The config file
+
+## Where it lives
+
+In the **analyzed directory only** — no upward search. First match wins:
+
+1. `svelte-vitals.config.mjs`
+2. `svelte-vitals.config.js`
+3. `svelte-vitals.config.ts`
+
+No file means built-in defaults. `svelte-vitals install --client config-file` scaffolds one with
+every option commented out.
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  treatDynamicAs: 'warn',
+  metaComponents: ['Seo'],
+  rules: { 'seo/json-ld': 'off' },
+  failOn: 'warning',
+  weights: { seo: 2 }
+};
+```
+
+A `.ts` config can `import { defineConfig } from 'svelte-vitals'` for type-checking, but that is
+a **runtime** import — it requires svelte-vitals to be a declared dependency, and Node 22.18+
+(or 23.6+) to load `.ts` at all. A plain `export default {}` in `.mjs` behaves identically and
+always works.
+
+## Options
+
+| Option           | Type                                                           | Default            |
+| ---------------- | -------------------------------------------------------------- | ------------------ |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                   | `'pass'`           |
+| `metaComponents` | `string[]`                                                     | `[]`               |
+| `rules`          | `Record<ruleId, 'off' \| Severity \| { severity?, options? }>` | `{}`               |
+| `failOn`         | `'critical' \| 'warning' \| 'info'`                            | `'critical'`       |
+| `weights`        | `Partial<Record<Category, number>>`                            | every category `1` |
+| `overrides`      | `RuleOverride[]`                                               | (none)             |
+
+`Severity` is `'critical' | 'warning' | 'info'`. `Category` is `'seo' | 'performance' |
+'correctness' | 'security' | 'architecture'`. A weight of `0` drops a category from the Health
+average; setting every category to `0` is an error (exit `2`).
+
+## Turning a rule off or down
+
+```js
+rules: {
+  'seo/json-ld': 'off',            // remove its findings entirely
+  'architecture/prop-count': 'info' // keep it, stop it failing the build
+}
+```
+
+Before disabling a rule, check whether it is really a **threshold disagreement** rather than a
+defect — many rules take options. `svelte-vitals explain <rule-id>` prints each option's name,
+default, bounds, and how a configured value merges with the built-in default (`integer`
+replaces it, `string-list` appends to it, `string-map` is spread over it).
+
+```js
+rules: {
+  'architecture/prop-count': { options: { max: 12 } }
+}
+```
+
+## Scoping to routes or files (`overrides`)
+
+`rules` applies everywhere; `overrides` applies only where it matches — typically routes that
+are deliberately not public.
+
+```js
+overrides: [
+  { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
+  { route: '/admin/**', rules: { 'seo/title-presence': 'info' } }
+];
+```
+
+Each entry needs `rules` (keys are rule ids **or** category names) plus at least one of:
+
+- **`route`** — glob(s) against the route id as reported (`/blog/[slug]`). SvelteKit `(group)`
+  segments are **not** in the route id, so use `files` to target a group.
+- **`files`** — glob(s) against the source path.
+
+Globs are deliberately small: `*` within a segment, `**` across segments, a trailing `/**` also
+matches the bare prefix. Everything else — including `(`, `)`, `[`, `]` — is literal. Later
+entries win.
+
+## Precedence
+
+Per field: **CLI flag > config file > built-in default**. One exception — `--rules`/`--ignore`
+replace the config file's `rules` wholesale for that run rather than merging.
+
+`overrides` has no CLI flag; route policy belongs in a committed file.
+
+## Validation
+
+An unknown rule id, an unknown category or negative weight, a malformed `overrides` entry, or an
+invalid rule setting is a **hard error (exit `2`)** — a typo must not silently un-gate CI. An
+unrecognized `treatDynamicAs`/`failOn` value or an unknown top-level key only warns.
+
+## Related
+
+- `svelte-vitals explain --list` — every rule id
+- `svelte-vitals docs show scoping` — accepting an existing backlog instead of disabling rules
