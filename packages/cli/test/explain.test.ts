@@ -1,24 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { runExplainCli, type ExplainIO } from '../src/explain.js';
-
-/** Collect what `explain` writes so the assertions can read stdout and stderr apart. */
-function capture(): ExplainIO & { out: string; err: string } {
-  const out: string[] = [];
-  const err: string[] = [];
-  return {
-    log: (line) => out.push(line),
-    errorLog: (line) => err.push(line),
-    get out() {
-      return out.join('\n');
-    },
-    get err() {
-      return err.join('\n');
-    }
-  };
-}
+import { runExplainCli } from '../src/explain.js';
+import { captureIO } from './helpers/capture-io.js';
 
 function explain(args: string[]): { code: number; out: string; err: string } {
-  const io = capture();
+  const io = captureIO();
   const code = runExplainCli(args, io);
   return { code, out: io.out, err: io.err };
 }
@@ -100,6 +85,15 @@ describe('svelte-vitals explain', () => {
         expect(r.severity.length).toBeGreaterThan(0);
         expect(r.title.length).toBeGreaterThan(0);
       }
+    });
+
+    it('refuses a rule id alongside --list rather than returning the whole list', () => {
+      // Returning 71 rules at exit 0 would read as "here is that rule" to a caller that then
+      // looks for `.rationale` — the same misreading `docs list <name>` is guarded against.
+      const { code, out, err } = explain(['--list', 'performance/heavy-import']);
+      expect(code).toBe(2);
+      expect(out).toBe('');
+      expect(err).toContain('takes no rule id');
     });
 
     it('tells a reader with no id that --list exists, instead of only dumping ids', () => {

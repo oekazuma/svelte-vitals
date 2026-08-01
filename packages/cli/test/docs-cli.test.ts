@@ -1,24 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { runDocsCli, type DocsIO } from '../src/docs/cli.js';
+import { runDocsCli } from '../src/docs/cli.js';
+import { captureIO } from './helpers/capture-io.js';
 import { EMBEDDED_DOCS } from '../src/docs/generated.js';
 
-function capture(): DocsIO & { out: string; err: string } {
-  const out: string[] = [];
-  const err: string[] = [];
-  return {
-    log: (line) => out.push(line),
-    errorLog: (line) => err.push(line),
-    get out() {
-      return out.join('\n');
-    },
-    get err() {
-      return err.join('\n');
-    }
-  };
-}
-
 function docs(args: string[]): { code: number; out: string; err: string } {
-  const io = capture();
+  const io = captureIO();
   const code = runDocsCli(args, io);
   return { code, out: io.out, err: io.err };
 }
@@ -88,11 +74,12 @@ describe('svelte-vitals docs show', () => {
 });
 
 describe('svelte-vitals docs — dispatch', () => {
-  it('a bare `docs` prints usage but exits 2, since nothing was read', () => {
-    const { code, out } = docs([]);
+  it('a bare `docs` prints usage on stderr and exits 2, keeping stdout empty', () => {
+    const { code, out, err } = docs([]);
     expect(code).toBe(2);
-    expect(out).toContain('svelte-vitals docs list');
-    expect(out).toContain('svelte-vitals docs show <name>');
+    expect(out).toBe('');
+    expect(err).toContain('svelte-vitals docs list');
+    expect(err).toContain('svelte-vitals docs show <name>');
   });
 
   it('--help exits 0', () => {
@@ -101,11 +88,18 @@ describe('svelte-vitals docs — dispatch', () => {
     expect(out).toContain('svelte-vitals docs');
   });
 
-  it('an unknown subcommand exits 2 and names the valid ones', () => {
-    const { code, err } = docs(['read', 'config']);
+  it('an unknown subcommand exits 2 and names the valid ones, without touching stdout', () => {
+    // Every exit-2 path keeps stdout empty; a caller piping it must not find prose there.
+    const { code, out, err } = docs(['read', 'config']);
     expect(code).toBe(2);
+    expect(out).toBe('');
     expect(err).toContain("unknown docs subcommand 'read'");
     expect(err).toContain('list|show');
+  });
+
+  it('tells the reader how to analyze a directory that shares the subcommand name', () => {
+    // `docs` beats a ./docs directory, which is a common enough layout to warrant the escape hatch.
+    expect(docs(['--help']).out).toContain('svelte-vitals ./docs');
   });
 
   it('says the topics ship with the CLI, which is the reason to prefer them over a web search', () => {

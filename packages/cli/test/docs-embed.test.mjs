@@ -5,18 +5,22 @@ import { EMBEDDED_DOCS } from '../src/docs/generated.js';
 
 const REGENERATE = 'run `pnpm --filter svelte-vitals run gen:docs && pnpm format`';
 
-describe('docs: the embedded topics are up to date', () => {
-  const topics = readTopics();
+// One read of packages/cli/docs/ for the whole file — parsing it per describe block was
+// re-reading every topic for no added coverage.
+const topics = readTopics();
 
+describe('docs: the embedded topics are up to date', () => {
   it('the committed module carries the same topics as packages/cli/docs/*.md', () => {
     // Compared by content, not by rendered text: oxfmt reformats the generated module after
     // the generator writes it, so a byte comparison would fail on formatting alone.
     expect(EMBEDDED_DOCS, REGENERATE).toEqual(topics);
   });
 
-  it('every topic has a non-empty description and body', () => {
+  it('every topic has a body', () => {
+    // Only the body is worth asserting here: `parseTopic` already throws on a blank or missing
+    // description, so a description assertion could never fail. A frontmatter-only file does
+    // reach this point with an empty body.
     for (const t of topics) {
-      expect(t.description.length, `${t.name} description`).toBeGreaterThan(0);
       expect(t.body.length, `${t.name} body`).toBeGreaterThan(0);
     }
   });
@@ -46,6 +50,14 @@ describe('docs: the frontmatter contract is enforced, not assumed', () => {
     expect(() => parseTopic('x.md', '---\ntitle: T\ndescription:\n---\n\nbody\n')).toThrow(/`description` is empty/);
   });
 
+  it('rejects a quoted value, which the sibling rules-index reader would have unquoted', () => {
+    // Keeping the quotes would ship them into `docs list`; the two scripts/ frontmatter
+    // readers must not disagree about what a value is.
+    expect(() => parseTopic('x.md', "---\ntitle: T\ndescription: 'D'\n---\n\nbody\n")).toThrow(
+      /`description` must not be quoted/
+    );
+  });
+
   it('rejects a missing key and a missing block', () => {
     expect(() => parseTopic('x.md', '---\ntitle: T\n---\n\nbody\n')).toThrow(/has no `description`/);
     expect(() => parseTopic('x.md', '# no frontmatter\n')).toThrow(/missing --- frontmatter block/);
@@ -53,7 +65,6 @@ describe('docs: the frontmatter contract is enforced, not assumed', () => {
 });
 
 describe('docs: the embedded topics do not rot', () => {
-  const topics = readTopics();
   const names = new Set(topics.map((t) => t.name));
   const ruleIds = new Set(allRules.map((r) => r.id));
 

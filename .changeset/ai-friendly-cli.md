@@ -7,8 +7,7 @@ everywhere an agent is likely to look. Nothing about analysis changes.
 
 ### `svelte-vitals docs list` / `docs show <name>`
 
-A curated set of guides — `output`, `config`, `scoping`, `ci`, `monorepo` — is bundled **inside
-the CLI**. `docs list` prints each with a one-line description, `docs show <name>` prints one, and
+A curated set of guides is bundled **inside the CLI**. `docs list` prints each with a one-line description, `docs show <name>` prints one, and
 `--json` gives the listing in machine-readable form.
 
 ```bash

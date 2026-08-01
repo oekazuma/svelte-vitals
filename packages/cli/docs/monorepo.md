@@ -18,7 +18,9 @@ detection.
 ## What happens without a path
 
 When no `path` is given and the current directory is not itself a SvelteKit app, svelte-vitals
-looks for nearby apps (a directory with `svelte.config.{js,ts}` and `src/routes`):
+looks for nearby apps — a directory with `src/routes` **and** either a
+`svelte.config.{js,ts}` or a `package.json` declaring `@sveltejs/kit` (current `sv create`
+output folds the SvelteKit config into `vite.config.ts` and emits no `svelte.config` file):
 
 | Found       | Interactive terminal                | Non-interactive (CI, agents, piped output)                 |
 | ----------- | ----------------------------------- | ---------------------------------------------------------- |

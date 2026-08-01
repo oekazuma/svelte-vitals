@@ -1,5 +1,6 @@
 import mri from 'mri';
 import { allRules, CATEGORIES, explainRule, type RuleOptionInfo } from '@svelte-vitals/core';
+import { consoleIO, type CliIO } from './cli-io.js';
 import { knownRuleIds } from './rules-config.js';
 
 const EXPLAIN_HELP = `svelte-vitals explain — print a rule's rationale, fix, and configurable options
@@ -14,17 +15,6 @@ Options:
   -h, --help    Show this help
 
 Rule ids are category/kebab-case and matched exactly, e.g. \`svelte-vitals explain seo/ssr-disabled\`.`;
-
-/** The output sink. Narrower than the install wizard's `InstallIO` — explain never touches the filesystem. */
-export interface ExplainIO {
-  log(line: string): void;
-  errorLog(line: string): void;
-}
-
-const realIO: ExplainIO = {
-  log: (line) => console.log(line),
-  errorLog: (line) => console.error(line)
-};
 
 /**
  * One line per configurable option, so a reader who takes a finding as a threshold
@@ -86,7 +76,7 @@ function renderRuleList(): string {
  * Run `svelte-vitals explain <rule-id>`. Returns the exit code: 0 on a hit, 2 for a
  * missing or unknown id (the CLI's "execution error" code — nothing was explained).
  */
-export function runExplainCli(args: string[], io: ExplainIO = realIO): number {
+export function runExplainCli(args: string[], io: CliIO = consoleIO): number {
   const argv = mri(args, { boolean: ['json', 'list', 'help'], alias: { h: 'help' } });
   if (argv.help) {
     io.log(EXPLAIN_HELP);
@@ -94,6 +84,12 @@ export function runExplainCli(args: string[], io: ExplainIO = realIO): number {
   }
 
   if (argv.list) {
+    if (argv._.length > 0) {
+      // `explain --list seo/title-presence` returning the whole list at exit 0 would read as
+      // "here is that rule" — the same misreading `docs list <name>` is guarded against.
+      io.errorLog('svelte-vitals: explain --list takes no rule id; drop --list to explain one.');
+      return 2;
+    }
     io.log(
       argv.json
         ? JSON.stringify(
@@ -115,7 +111,7 @@ export function runExplainCli(args: string[], io: ExplainIO = realIO): number {
     return 2;
   }
 
-  const info = explainRule(String(id));
+  const info = explainRule(id);
   if (!info) {
     io.errorLog(`svelte-vitals: unknown rule id '${id}'.`);
     io.errorLog(`svelte-vitals: known rule ids: ${knownRuleIds().join(', ')}.`);

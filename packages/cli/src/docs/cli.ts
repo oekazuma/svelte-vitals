@@ -1,4 +1,5 @@
 import mri from 'mri';
+import { consoleIO, type CliIO } from '../cli-io.js';
 import { EMBEDDED_DOCS } from './generated.js';
 
 const DOCS_HELP = `svelte-vitals docs — read the bundled guides without leaving the terminal
@@ -12,18 +13,15 @@ Options:
   -h, --help    Show this help
 
 The topics ship inside the CLI, so they always match the version you are running and need no
-network. The full docs site is at https://oekazuma.github.io/svelte-vitals.`;
+network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
 
-/** The output sink. Narrower than the install wizard's `InstallIO` — docs never touches the filesystem. */
-export interface DocsIO {
-  log(line: string): void;
-  errorLog(line: string): void;
+\`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called \`docs\`, write \`svelte-vitals ./docs\`.`;
+
+/** Every topic name, for the "here are the valid ones" half of an error. Mirrors `knownRuleIds()`. */
+function knownTopicNames(): string {
+  return EMBEDDED_DOCS.map((d) => d.name).join(', ');
 }
-
-const realIO: DocsIO = {
-  log: (line) => console.log(line),
-  errorLog: (line) => console.error(line)
-};
 
 /** `name — description`, column-aligned so a reader can scan the descriptions. */
 function renderList(): string {
@@ -38,29 +36,30 @@ function renderList(): string {
   ].join('\n');
 }
 
-function unknownTopic(name: string, io: DocsIO): number {
-  io.errorLog(`svelte-vitals: unknown docs topic '${name}'.`);
-  io.errorLog(`svelte-vitals: known topics: ${EMBEDDED_DOCS.map((d) => d.name).join(', ')}.`);
-  return 2;
-}
-
 /**
  * Run `svelte-vitals docs …`. Returns the exit code: 0 on a hit, 2 for a missing or unknown
- * subcommand/topic (the CLI's "execution error" code — nothing was printed).
+ * subcommand/topic.
+ *
+ * Every exit-2 path leaves stdout empty: exit 2 means the analysis did not happen, and a caller
+ * piping stdout (the reason `--json` exists) must not find prose there.
  */
-export function runDocsCli(args: string[], io: DocsIO = realIO): number {
+export function runDocsCli(args: string[], io: CliIO = consoleIO): number {
   const argv = mri(args, { boolean: ['json', 'help'], alias: { h: 'help' } });
-  const sub = argv._[0] === undefined ? undefined : String(argv._[0]);
+  const [sub, ...rest] = argv._;
 
-  if (argv.help || sub === undefined) {
-    // A bare `docs` is a reasonable thing to type when you don't know the subcommands yet, so
-    // treat it as a help request rather than an error — but still exit 2, since nothing was read.
+  if (argv.help) {
     io.log(DOCS_HELP);
-    return argv.help ? 0 : 2;
+    return 0;
+  }
+  if (sub === undefined) {
+    // A bare `docs` is a reasonable thing to type before you know the subcommands, so answer
+    // with the help — on stderr, because nothing was read and this is still an exit-2 path.
+    io.errorLog(DOCS_HELP);
+    return 2;
   }
 
   if (sub === 'list') {
-    if (argv._.length > 1) {
+    if (rest.length > 0) {
       // Silently dropping the extra would let `docs list config` read as "list, filtered to
       // config" and come back exit 0 with something else entirely.
       io.errorLog('svelte-vitals: docs list takes no arguments; use `docs show <name>` to read one.');
@@ -79,25 +78,28 @@ export function runDocsCli(args: string[], io: DocsIO = realIO): number {
   }
 
   if (sub === 'show') {
-    const name = argv._[1] === undefined ? undefined : String(argv._[1]);
-    if (name === undefined) {
-      io.errorLog('svelte-vitals: docs show needs a topic name, e.g. `svelte-vitals docs show config`.');
-      io.errorLog(`svelte-vitals: known topics: ${EMBEDDED_DOCS.map((d) => d.name).join(', ')}.`);
+    // One arity check for both shapes: `docs show` with nothing to read, and `docs show a b`,
+    // which printing only `a` at exit 0 would misrepresent as "here are both topics".
+    if (rest.length !== 1) {
+      io.errorLog(
+        rest.length === 0
+          ? 'svelte-vitals: docs show needs a topic name, e.g. `svelte-vitals docs show config`.'
+          : 'svelte-vitals: docs show takes one topic at a time.'
+      );
+      io.errorLog(`svelte-vitals: known topics: ${knownTopicNames()}.`);
       return 2;
     }
-    if (argv._.length > 2) {
-      // `docs show output config` printing only `output` at exit 0 would read as "here are
-      // both topics" to whatever asked for them.
-      io.errorLog('svelte-vitals: docs show takes one topic at a time.');
+    const doc = EMBEDDED_DOCS.find((d) => d.name === rest[0]);
+    if (!doc) {
+      io.errorLog(`svelte-vitals: unknown docs topic '${rest[0]}'.`);
+      io.errorLog(`svelte-vitals: known topics: ${knownTopicNames()}.`);
       return 2;
     }
-    const doc = EMBEDDED_DOCS.find((d) => d.name === name);
-    if (!doc) return unknownTopic(name, io);
     io.log(doc.body);
     return 0;
   }
 
   io.errorLog(`svelte-vitals: unknown docs subcommand '${sub}'; expected list|show.`);
-  io.log(DOCS_HELP);
+  io.errorLog(DOCS_HELP);
   return 2;
 }

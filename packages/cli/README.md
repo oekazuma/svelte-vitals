@@ -89,7 +89,7 @@ npx svelte-vitals@latest install
 Both read out of the CLI itself, so the answer always matches the installed version and needs no network — the thing an AI agent otherwise guesses at or fetches from a page describing a different release.
 
 ```bash
-npx svelte-vitals@latest docs list             # topics: output, config, scoping, ci, monorepo
+npx svelte-vitals@latest docs list             # every bundled topic, with a one-line description
 npx svelte-vitals@latest docs show scoping
 npx svelte-vitals@latest explain --list        # every rule, by category
 npx svelte-vitals@latest explain performance/heavy-import

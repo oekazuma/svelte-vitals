@@ -24,7 +24,7 @@ svelte-vitals explain <rule-id>
 
 明示的に `path` を渡した場合（またはアプリのディレクトリ自体で実行した場合）は常にそれが優先されます。svelte-vitals が指定されたターゲットを勝手に読み替えることはありません。
 
-`path` を渡さず、かつカレントディレクトリが SvelteKit アプリでない場合、svelte-vitals はすぐに失敗する代わりに、近くの SvelteKit アプリ（`svelte.config.{js,ts}` と `src/routes` を持つディレクトリ）を探します:
+`path` を渡さず、かつカレントディレクトリが SvelteKit アプリでない場合、svelte-vitals はすぐに失敗する代わりに、近くの SvelteKit アプリ（`src/routes` があり、かつ `svelte.config.{js,ts}` または `@sveltejs/kit` を宣言した `package.json` のどちらかを持つディレクトリ。現在の `sv create` は SvelteKit の設定を `vite.config.ts` に畳み込み、`svelte.config` ファイルを生成しないため）を探します:
 
 - **1 件だけ見つかった場合:** 自動的にそのアプリを解析します。stderr に通知が出ます（`detected SvelteKit app at apps/web; analyzing it.`）。
 - **複数見つかった場合（対話的な TTY）:** どれを解析するか単一選択のプロンプトが表示されます。キャンセルすると、何も解析せずに終了コード `0` で終了します。
@@ -278,7 +278,7 @@ svelte-vitals docs show <name>
 npx svelte-vitals docs show scoping
 ```
 
-トピックは `output`・`config`・`scoping`・`ci`・`monorepo` の5つで、ツールを実行しているときに必要になることをターミナル向けに凝縮したものです。完全なリファレンスは引き続きこのサイトで、同梱セットは意図的に小さく保っています。
+収録しているのは、ツールを実行しているときに必要になることをターミナル向けに凝縮した内容です。現在のトピックは、どこかに書き写した一覧ではなく `docs list` で確認してください。完全なリファレンスは引き続きこのサイトで、同梱セットは意図的に小さく保っています。
 
 これが最も効くのは AI エージェントです。そうでなければフラグを推測するか、別バージョンを説明しているかもしれないドキュメントページを取得することになります。`svelte-vitals --version` が stderr に `docs list` への案内を出しているのも同じ理由です。
 

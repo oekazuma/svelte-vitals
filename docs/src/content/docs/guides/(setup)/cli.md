@@ -26,7 +26,7 @@ Flags below can also be set once in a `svelte-vitals.config` file at the project
 
 Passing an explicit `path` (or running inside the app directory itself) always takes priority — svelte-vitals never second-guesses a target you named.
 
-When no `path` is given and the current directory isn't a SvelteKit app, svelte-vitals looks for SvelteKit apps nearby (directories with `svelte.config.{js,ts}` and `src/routes`) instead of failing immediately:
+When no `path` is given and the current directory isn't a SvelteKit app, svelte-vitals looks for SvelteKit apps nearby — a directory with `src/routes` and either a `svelte.config.{js,ts}` or a `package.json` declaring `@sveltejs/kit` (current `sv create` output folds the SvelteKit config into `vite.config.ts` and emits no `svelte.config` file) — instead of failing immediately:
 
 - **Exactly one app found:** it's analyzed automatically, with a notice on stderr (`detected SvelteKit app at apps/web; analyzing it.`).
 - **Multiple apps found, interactive terminal:** you get a single-select prompt to choose which one to analyze. Cancelling exits `0` without analyzing anything.
@@ -289,9 +289,9 @@ description (`--json` for the machine-readable form); `docs show <name>` prints 
 npx svelte-vitals docs show scoping
 ```
 
-The topics are `output`, `config`, `scoping`, `ci` and `monorepo` — the things you need while
-running the tool, condensed for a terminal. This site remains the complete reference; the bundled
-set is deliberately smaller.
+The set covers the things you need while running the tool, condensed for a terminal — run
+`docs list` for the current topics rather than trusting a list written down elsewhere. This site
+remains the complete reference; the bundled set is deliberately smaller.
 
 This matters most for AI agents, which otherwise guess at flags or fetch a docs page that may
 describe a different version. `svelte-vitals --version` prints a pointer to `docs list` on stderr

@@ -7,7 +7,6 @@ import { resolveArgs } from './resolve-args.js';
 import { runInstallCli } from './install/cli.js';
 import { runCiCli } from './ci/cli.js';
 import { runExplainCli } from './explain.js';
-import { runDocsCli } from './docs/cli.js';
 
 const HELP = `svelte-vitals — a deterministic SvelteKit code-health scanner (SEO · performance · correctness · security · architecture)
 
@@ -62,7 +61,9 @@ If you are an AI agent:
   - \`svelte-vitals explain <rule-id>\` says why a rule exists and which options it takes, before
     you decide to turn it off.
   - Exit 2 is never a pass — it means the analysis did not run. Read stderr.
-  - This CLI never prompts when stdout is not a TTY; it exits 2 with the flag to pass instead.`;
+  - Analysis never prompts when stdout is not a TTY: where it would have asked, it exits 2
+    naming the flag to pass. \`install\` is the exception — non-interactively it skips its
+    confirmation and writes, so pass \`--dry-run\` first if you need to see the plan.`;
 
 const VERSION = readPackageVersion();
 
@@ -79,6 +80,9 @@ async function selectApp(apps: string[]): Promise<string | null> {
 async function main(): Promise<void> {
   const rawArgs = process.argv.slice(2);
   if (rawArgs[0] === 'docs') {
+    // Loaded on demand: the bundled topics are ~20KB of string literals that the analysis path
+    // — the one the I/O budget test and `pnpm bench` defend — would otherwise parse every run.
+    const { runDocsCli } = await import('./docs/cli.js');
     process.exit(runDocsCli(rawArgs.slice(1)));
   }
   if (rawArgs[0] === 'explain') {
