@@ -33,6 +33,12 @@ describe('buildImproveSkillMarkdown', () => {
     expect(md).toContain('## Invocation variants');
   });
 
+  it('sends the agent to `svelte-vitals explain`, not to a tool that no longer exists', () => {
+    expect(md).toContain('npx svelte-vitals explain <rule-id>');
+    expect(md).not.toContain('explain_rule');
+    expect(md).not.toContain('MCP');
+  });
+
   it('does not contain unsubstituted placeholders', () => {
     expect(md).not.toContain('{{RULE_DIGEST}}');
     expect(md).not.toContain('{{VERSION}}');

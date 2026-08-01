@@ -80,7 +80,7 @@ Passed (3)
 
 ## 次のステップ
 
-- どのパッケージを使えばいいか迷ったら、CLI、Vite プラグイン、MCP サーバーを比較した [パッケージの選び方](/ja/guides/choosing-a-package) を参照してください。
+- どのパッケージを使えばいいか迷ったら、CLI、Vite プラグイン、GitHub Action、Agent Skills を比較した [パッケージの選び方](/ja/guides/choosing-a-package) を参照してください。
 - すべてのフラグについては [CLI リファレンス](/ja/guides/cli) を参照してください。
 - `vite build` と連携するには [プラグインモード](/ja/guides/plugin-mode) を使用してください。
-- AI エージェントが自動的に分析を実行できるようにするには [MCP](/ja/guides/mcp) を使用してください。`npx svelte-vitals@latest install` で Claude Code / Cursor / Codex に一発で組み込めます。
+- AI エージェントにルールを教え、自ら分析を実行させるには [Agent Skills](/ja/guides/agent-skills) を使用してください。`npx svelte-vitals@latest install` で Claude Code / Codex / Cursor 向けに一発で生成できます。

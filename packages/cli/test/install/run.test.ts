@@ -45,10 +45,16 @@ function fakeIO(
 
 const noPrompts: InstallPrompts = {
   selectClients: async () => null,
-  selectScope: async () => null,
   selectApp: async () => null,
   confirm: async () => true
 };
+
+/** The three paths the `claude-skill` target writes (Claude Code, Codex, Cursor). */
+const SKILL_PATHS = [
+  '/proj/.agents/skills/svelte-vitals/SKILL.md',
+  '/proj/.claude/skills/svelte-vitals/SKILL.md',
+  '/proj/.cursor/skills/svelte-vitals/SKILL.md'
+];
 
 describe('runInstall', () => {
   it('non-TTY without --client exits 2 with guidance', async () => {
@@ -56,47 +62,24 @@ describe('runInstall', () => {
     expect(await runInstall({}, io, noPrompts)).toBe(2);
     expect(err.join('\n')).toContain('--client');
   });
-  it('flag-only writes the selected client config', async () => {
-    const { io, writes } = fakeIO();
-    expect(await runInstall({ client: ['claude-code'], scope: 'project', yes: true }, io, noPrompts)).toBe(0);
-    expect(Object.keys(writes)).toEqual(['/proj/.mcp.json']);
-    expect(JSON.parse(writes['/proj/.mcp.json']!).mcpServers['svelte-vitals'].command).toBe('npx');
+  it('an unknown-only --client selection exits 2', async () => {
+    const { io, err } = fakeIO();
+    // resolveInstallArgs filters unknown ids before this point, but runInstall is also
+    // called directly (and the removed MCP client ids are exactly what an upgraded
+    // script still passes), so it has to refuse an empty effective selection itself.
+    expect(await runInstall({ client: ['claude-code' as never] }, io, noPrompts)).toBe(2);
+    expect(err.join('\n')).toContain('no valid targets selected');
   });
   it('dry-run writes nothing', async () => {
     const { io, writes, out } = fakeIO();
-    expect(await runInstall({ client: ['cursor'], scope: 'global', dryRun: true }, io, noPrompts)).toBe(0);
+    expect(await runInstall({ client: ['claude-skill'], dryRun: true }, io, noPrompts)).toBe(0);
     expect(writes).toEqual({});
     expect(out.join('\n')).toContain('Dry run');
-  });
-  it('codex ignores scope and uses the global config.toml', async () => {
-    const { io, writes } = fakeIO();
-    await runInstall({ client: ['codex'], yes: true }, io, noPrompts);
-    expect(Object.keys(writes)).toEqual(['/home/u/.codex/config.toml']);
-  });
-  it('an existing identical entry is skipped (no write)', async () => {
-    const first = fakeIO();
-    await runInstall({ client: ['claude-code'], scope: 'project', yes: true }, first.io, noPrompts);
-    const content = first.writes['/proj/.mcp.json']!;
-    const { io, writes, out } = fakeIO({ files: { '/proj/.mcp.json': content } });
-    await runInstall({ client: ['claude-code'], scope: 'project', yes: true }, io, noPrompts);
-    expect(writes).toEqual({});
-    expect(out.join('\n')).toContain('already configured');
-  });
-  it('force overwrites a differing entry', async () => {
-    const existing = JSON.stringify({ mcpServers: { 'svelte-vitals': { command: 'old', args: [] } } });
-    const { io, writes } = fakeIO({ files: { '/proj/.mcp.json': existing } });
-    await runInstall({ client: ['claude-code'], scope: 'project', yes: true, force: true }, io, noPrompts);
-    expect(JSON.parse(writes['/proj/.mcp.json']!).mcpServers['svelte-vitals'].command).toBe('npx');
-  });
-  it('a multi-client plan writes each config', async () => {
-    const { io, writes } = fakeIO();
-    await runInstall({ client: ['claude-code', 'cursor'], scope: 'project', yes: true }, io, noPrompts);
-    expect(Object.keys(writes).sort()).toEqual(['/proj/.cursor/mcp.json', '/proj/.mcp.json']);
   });
   it('TTY confirm=false writes nothing', async () => {
     const { io, writes } = fakeIO({ isTTY: true });
     const prompts: InstallPrompts = { ...noPrompts, confirm: async () => false };
-    expect(await runInstall({ client: ['claude-code'], scope: 'project' }, io, prompts)).toBe(0);
+    expect(await runInstall({ client: ['claude-skill'] }, io, prompts)).toBe(0);
     expect(writes).toEqual({});
   });
   it('TTY client-picker cancel exits 0 without writing', async () => {
@@ -105,35 +88,24 @@ describe('runInstall', () => {
     expect(await runInstall({}, io, prompts)).toBe(0);
     expect(writes).toEqual({});
   });
-  it('unparseable existing config exits 2 without writing', async () => {
-    const { io, writes, err } = fakeIO({ files: { '/proj/.mcp.json': '{not json' } });
-    expect(await runInstall({ client: ['claude-code'], scope: 'project', yes: true }, io, noPrompts)).toBe(2);
-    expect(writes).toEqual({});
-    expect(err.join('\n')).toContain('/proj/.mcp.json');
-  });
-  it('non-TTY without --scope defaults to project for multi-scope clients', async () => {
-    const { io, writes } = fakeIO();
-    await runInstall({ client: ['claude-code'], yes: true }, io, noPrompts);
-    expect(Object.keys(writes)).toEqual(['/proj/.mcp.json']);
-  });
   it('TTY detection tolerates a throwing readFile (e.g. EACCES) without crashing', async () => {
-    const { io, writes } = fakeIO({ isTTY: true, throwOnRead: '/proj/.cursor/mcp.json' });
+    const { io, writes } = fakeIO({ isTTY: true, throwOnRead: '/proj/.cursor/rules/svelte-vitals.mdc' });
     const prompts: InstallPrompts = {
       ...noPrompts,
-      selectClients: async () => ['claude-code'],
-      selectScope: async () => 'project',
+      selectClients: async () => ['claude-skill'],
       confirm: async () => true
     };
     expect(await runInstall({}, io, prompts)).toBe(0);
-    expect(writes['/proj/.mcp.json']).toBeDefined();
+    expect(Object.keys(writes).sort()).toEqual(SKILL_PATHS);
   });
   it('a per-file write failure names the failing path, keeps earlier writes, and does not abort the run', async () => {
-    const { io, writes, err } = fakeIO({ failWritePath: '/proj/.cursor/mcp.json' });
-    const code = await runInstall({ client: ['claude-code', 'cursor'], scope: 'project', yes: true }, io, noPrompts);
+    const { io, writes, err } = fakeIO({ failWritePath: SKILL_PATHS[1] });
+    const code = await runInstall({ client: ['claude-skill'], yes: true }, io, noPrompts);
     expect(code).toBe(2);
-    expect(writes['/proj/.mcp.json']).toBeDefined();
-    expect(writes['/proj/.cursor/mcp.json']).toBeUndefined();
-    expect(err.join('\n')).toContain('/proj/.cursor/mcp.json');
+    expect(writes[SKILL_PATHS[0]!]).toBeDefined();
+    expect(writes[SKILL_PATHS[1]!]).toBeUndefined();
+    expect(writes[SKILL_PATHS[2]!]).toBeDefined();
+    expect(err.join('\n')).toContain(SKILL_PATHS[1]!);
   });
 });
 
@@ -240,13 +212,13 @@ export default { plugins: [svelteVitals()] };
     expect(runCalls).toEqual([]);
   });
 
-  it('a plan can mix an MCP client and a Vite target in one run', async () => {
+  it('a plan can mix an agent skill and a Vite target in one run', async () => {
     const { io, writes } = fakeIO({
       files: { '/proj/vite.config.ts': `export default { plugins: [] };`, '/proj/package.json': '{}' },
       runCommand: () => 0
     });
-    await runInstall({ client: ['claude-code', 'vite-plugin'], scope: 'project', yes: true }, io, noPrompts);
-    expect(Object.keys(writes).sort()).toEqual(['/proj/.mcp.json', '/proj/vite.config.ts']);
+    await runInstall({ client: ['claude-skill', 'vite-plugin'], yes: true }, io, noPrompts);
+    expect(Object.keys(writes).sort()).toEqual([...SKILL_PATHS, '/proj/vite.config.ts']);
   });
 
   it('a failed package-manager install is reported but does not fail the run', async () => {
@@ -260,22 +232,18 @@ export default { plugins: [svelteVitals()] };
     expect(out.join('\n')).not.toContain('installed @svelte-vitals/vite@'); // no version log on a failed install
   });
 
-  it('a partial failure (an MCP client write fails) still runs the package-manager install for a Vite target that already succeeded', async () => {
+  it('a partial failure (a skill write fails) still runs the package-manager install for a Vite target that already succeeded', async () => {
     const runCalls: unknown[] = [];
     const { io, writes, err } = fakeIO({
       files: { '/proj/vite.config.ts': `export default { plugins: [] };`, '/proj/package.json': '{}' },
-      failWritePath: '/proj/.mcp.json',
+      failWritePath: SKILL_PATHS[0],
       runCommand: (...args) => (runCalls.push(args), 0)
     });
-    const code = await runInstall(
-      { client: ['claude-code', 'vite-plugin'], scope: 'project', yes: true },
-      io,
-      noPrompts
-    );
+    const code = await runInstall({ client: ['claude-skill', 'vite-plugin'], yes: true }, io, noPrompts);
     expect(code).toBe(2);
     expect(writes['/proj/vite.config.ts']).toContain('svelteVitals()');
     expect(runCalls.length).toBe(1);
-    expect(err.join('\n')).toContain('/proj/.mcp.json');
+    expect(err.join('\n')).toContain(SKILL_PATHS[0]!);
   });
 });
 
@@ -387,15 +355,10 @@ describe('runInstall — agent targets', () => {
     expect(out.join('\n')).toContain('Dry run');
   });
 
-  it('a plan can mix an MCP client and an agent target in one run', async () => {
+  it('a plan can mix two agent targets in one run', async () => {
     const { io, writes } = fakeIO();
-    await runInstall({ client: ['claude-code', 'claude-skill'], scope: 'project', yes: true }, io, noPrompts);
-    expect(Object.keys(writes).sort()).toEqual([
-      '/proj/.agents/skills/svelte-vitals/SKILL.md',
-      '/proj/.claude/skills/svelte-vitals/SKILL.md',
-      '/proj/.cursor/skills/svelte-vitals/SKILL.md',
-      '/proj/.mcp.json'
-    ]);
+    await runInstall({ client: ['claude-skill', 'cursor-rules'], yes: true }, io, noPrompts);
+    expect(Object.keys(writes).sort()).toEqual([...SKILL_PATHS, '/proj/.cursor/rules/svelte-vitals.mdc'].sort());
   });
 
   it('interactive picker options include all three agent targets', async () => {
@@ -468,10 +431,10 @@ describe('runInstall — config-file target', () => {
     expect(out.join('\n')).toContain('Dry run');
   });
 
-  it('a plan can mix an MCP client and the config-file target in one run', async () => {
+  it('a plan can mix an agent skill and the config-file target in one run', async () => {
     const { io, writes } = fakeIO();
-    await runInstall({ client: ['claude-code', 'config-file'], scope: 'project', yes: true }, io, noPrompts);
-    expect(Object.keys(writes).sort()).toEqual(['/proj/.mcp.json', '/proj/svelte-vitals.config.mjs']);
+    await runInstall({ client: ['claude-skill', 'config-file'], yes: true }, io, noPrompts);
+    expect(Object.keys(writes).sort()).toEqual([...SKILL_PATHS, '/proj/svelte-vitals.config.mjs']);
   });
 
   it('interactive picker options include the config-file target', async () => {
@@ -685,10 +648,10 @@ describe('runInstall — ci-workflow target', () => {
     expect(out.join('\n')).toContain('Dry run');
   });
 
-  it('a plan can mix an MCP client and the ci-workflow target in one run', async () => {
+  it('a plan can mix an agent skill and the ci-workflow target in one run', async () => {
     const { io, writes } = fakeIO();
-    await runInstall({ client: ['claude-code', 'ci-workflow'], scope: 'project', yes: true }, io, noPrompts);
-    expect(Object.keys(writes).sort()).toEqual(['/proj/.github/workflows/svelte-vitals.yml', '/proj/.mcp.json']);
+    await runInstall({ client: ['claude-skill', 'ci-workflow'], yes: true }, io, noPrompts);
+    expect(Object.keys(writes).sort()).toEqual([...SKILL_PATHS, '/proj/.github/workflows/svelte-vitals.yml']);
   });
 
   it('interactive picker options include the ci-workflow target, grouped under "CI (GitHub Actions)"', async () => {
@@ -730,7 +693,7 @@ describe('runInstall — ci-workflow target', () => {
 });
 
 describe('runInstall — grouped interactive picker', () => {
-  it('groups options by category: MCP server, Vite integration, Agent Skills & rules, CI, Config file', async () => {
+  it('groups options by category: Vite integration, Agent Skills & rules, CI, Config file', async () => {
     const { io } = fakeIO({ isTTY: true });
     let seenGroupNames: string[] = [];
     const prompts: InstallPrompts = {
@@ -741,27 +704,25 @@ describe('runInstall — grouped interactive picker', () => {
       }
     };
     await runInstall({}, io, prompts);
-    expect(seenGroupNames).toEqual([
-      'MCP server',
-      'Vite integration',
-      'Agent Skills & rules',
-      'CI (GitHub Actions)',
-      'Config file'
-    ]);
+    expect(seenGroupNames).toEqual(['Vite integration', 'Agent Skills & rules', 'CI (GitHub Actions)', 'Config file']);
   });
 
-  it('MCP server group contains exactly the three MCP client ids', async () => {
+  it('offers no MCP client group — the server was removed in favour of the CLI + skill', async () => {
     const { io } = fakeIO({ isTTY: true });
-    let mcpGroup: string[] = [];
+    let seenIds: string[] = [];
     const prompts: InstallPrompts = {
       ...noPrompts,
       selectClients: async (groups) => {
-        mcpGroup = (groups['MCP server'] ?? []).map((o) => o.id);
+        seenIds = Object.values(groups)
+          .flat()
+          .map((o) => o.id);
         return null;
       }
     };
     await runInstall({}, io, prompts);
-    expect(mcpGroup).toEqual(['claude-code', 'cursor', 'codex']);
+    expect(seenIds).not.toContain('claude-code');
+    expect(seenIds).not.toContain('cursor');
+    expect(seenIds).not.toContain('codex');
   });
 });
 
@@ -897,18 +858,14 @@ describe('runInstall — monorepo app resolution (vite/config targets)', () => {
     expect(writes['/proj/apps/mobile/svelte-vitals.config.mjs']).toBeDefined();
   });
 
-  it('root-scoped targets are unaffected: MCP config stays at cwd while the config file goes into the app', async () => {
+  it('root-scoped targets are unaffected: the skill stays at cwd while the config file goes into the app', async () => {
     const { io, writes } = fakeIO({
       files: { '/proj/apps/web/svelte.config.js': 'x' },
       discoverApps: async () => ['apps/web']
     });
-    const code = await runInstall(
-      { client: ['claude-code', 'config-file'], scope: 'project', yes: true },
-      io,
-      noPrompts
-    );
+    const code = await runInstall({ client: ['claude-skill', 'config-file'], yes: true }, io, noPrompts);
     expect(code).toBe(0);
-    expect(Object.keys(writes).sort()).toEqual(['/proj/.mcp.json', '/proj/apps/web/svelte-vitals.config.mjs']);
+    expect(Object.keys(writes).sort()).toEqual([...SKILL_PATHS, '/proj/apps/web/svelte-vitals.config.mjs']);
   });
 
   it('no apps found anywhere → previous behavior, writes at cwd', async () => {
@@ -926,11 +883,7 @@ describe('runInstall — monorepo app resolution (vite/config targets)', () => {
         return ['apps/web'];
       }
     });
-    await runInstall(
-      { client: ['claude-code', 'claude-skill', 'ci-workflow'], scope: 'project', yes: true },
-      io,
-      noPrompts
-    );
+    await runInstall({ client: ['claude-skill', 'ci-workflow'], yes: true }, io, noPrompts);
     expect(discoveryCalls).toBe(0);
   });
 
@@ -1041,18 +994,19 @@ describe('runInstall — --refresh', () => {
     expect(out.join('\n')).toContain('Dry run');
   });
 
-  it('leaves MCP client config files untouched', async () => {
+  it('leaves files it did not generate untouched', async () => {
     const { io, writes } = fakeIO({
       files: {
         '/proj/.claude/skills/svelte-vitals/SKILL.md': 'stale skill content',
         '/proj/.mcp.json': JSON.stringify({ mcpServers: { other: { command: 'x', args: [] } } }),
-        '/proj/.cursor/mcp.json': JSON.stringify({ mcpServers: { other: { command: 'y', args: [] } } })
+        '/proj/svelte-vitals.config.mjs': 'export default {};'
       }
     });
     const code = await runInstall({ refresh: true }, io, noPrompts);
     expect(code).toBe(0);
+    expect(writes['/proj/.claude/skills/svelte-vitals/SKILL.md']).toBeDefined();
     expect(writes['/proj/.mcp.json']).toBeUndefined();
-    expect(writes['/proj/.cursor/mcp.json']).toBeUndefined();
+    expect(writes['/proj/svelte-vitals.config.mjs']).toBeUndefined();
   });
 
   it('a per-file write failure is reported but does not abort refreshing the rest', async () => {

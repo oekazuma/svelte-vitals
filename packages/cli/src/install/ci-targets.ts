@@ -13,7 +13,7 @@ export interface CiTarget {
 // CI install target with metadata for the CLI wizard. Same underlying writer as the
 // standalone `svelte-vitals ci install` command (planWorkflowWrite/buildWorkflowYaml in
 // ../ci/workflow.js) — this just exposes it as one more selectable target so it can be
-// picked in the same pass as the MCP/Vite/agent targets, instead of a separate command.
+// picked in the same pass as the Vite/agent targets, instead of a separate command.
 export const CI_TARGETS: CiTarget[] = [
   {
     id: 'ci-workflow',

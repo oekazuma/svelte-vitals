@@ -25,7 +25,6 @@ CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typeche
 - `packages/core` — runtime-agnostic rule engine, scorer, and reporter (types + logic only).
 - `packages/cli` — the `svelte-vitals` CLI.
 - `packages/vite` — Vite/SvelteKit plugin + dev overlay; analyzes prerendered HTML during `vite build`.
-- `packages/mcp` — Model Context Protocol server exposing svelte-vitals to agent tool loops.
 - `docs` — Astro Starlight docs site, English + Japanese (`docs/src/content/docs/` and `docs/src/content/docs/ja/`).
 
 The first-party GitHub Action is **not** part of this monorepo — it lives in its own repository,
@@ -85,7 +84,7 @@ install`/`ci upgrade` bundle into scaffolded workflows.
 
 ## Design docs
 
-`docs/superpowers/specs/` holds design docs, `docs/superpowers/plans/` holds implementation plans, both accumulated with date-prefixed filenames. Before assuming a tradeoff is undecided or reintroducing something that was deliberately removed, check here first — e.g. the a11y category was designed (`2026-06-22-a11y-v0.5-design.md`) and later removed (`docs/superpowers/specs/2026-06-23-remove-a11y-design.md`, `docs/superpowers/plans/2026-06-23-remove-a11y.md`).
+`docs/superpowers/specs/` holds design docs, `docs/superpowers/plans/` holds implementation plans, both accumulated with date-prefixed filenames. Before assuming a tradeoff is undecided or reintroducing something that was deliberately removed, check here first — e.g. the a11y category was designed (`2026-06-22-a11y-v0.5-design.md`) and later removed (`docs/superpowers/specs/2026-06-23-remove-a11y-design.md`, `docs/superpowers/plans/2026-06-23-remove-a11y.md`), and the MCP server was designed (`2026-06-22-mcp-server-design.md`) and later removed in favour of CLI + Agent Skills (`docs/superpowers/specs/2026-08-01-remove-mcp-design.md`) — the agent story is deliberately "the skill knows the rules, the CLI runs them", so do not reintroduce an MCP surface without revisiting that doc.
 
 ## Exit codes
 

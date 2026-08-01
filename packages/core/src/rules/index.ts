@@ -221,7 +221,7 @@ export {
   performanceStateRaw
 };
 
-/** One configurable option of a rule, flattened for explain_rule's consumers. */
+/** One configurable option of a rule, flattened for `svelte-vitals explain`'s output. */
 export interface RuleOptionInfo {
   name: string;
   /** `integer` replaces the default; `string-list`/`string-map` are ADDED to it. */
@@ -257,7 +257,7 @@ function optionInfos(spec: RuleOptionsSpec): RuleOptionInfo[] {
   }));
 }
 
-/** Look up a rule's static metadata for the MCP explain_rule tool (issue #24). Rule ids are matched exactly (case-sensitive, e.g. "seo/ssr-disabled"). */
+/** Look up a rule's static metadata, as `svelte-vitals explain` renders it (issue #24). Rule ids are matched exactly (case-sensitive, e.g. "seo/ssr-disabled"). */
 export function explainRule(id: string): RuleInfo | undefined {
   const rule = allRules.find((r) => r.id === id);
   if (!rule) return undefined;

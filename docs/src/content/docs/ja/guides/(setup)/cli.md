@@ -9,11 +9,12 @@ sidebar:
 
 ```bash
 svelte-vitals [path] [options]
+svelte-vitals explain <rule-id>
 ```
 
-`path` は省略可能で、デフォルトはカレントディレクトリです。
+`path` は省略可能で、デフォルトはカレントディレクトリです。[`explain`](#explain) はプロジェクトを解析せず、ルール1件の根拠・修正方法・設定可能なオプションを表示します。
 
-> サブコマンドもあります。[`install`](/ja/guides/install) は MCP サーバー、[Agent Skills](/ja/guides/agent-skills)、Vite との連携を AI エージェントのクライアントにセットアップし、`ci install` は GitHub Actions の PR ゲートを生成します（詳しくは [CI 連携](/ja/guides/ci) を参照してください）。
+> サブコマンドもあります。[`install`](/ja/guides/install) は [Agent Skills](/ja/guides/agent-skills)、Vite との連携、設定ファイルをセットアップし、`ci install` は GitHub Actions の PR ゲートを生成します（詳しくは [CI 連携](/ja/guides/ci) を参照してください）。
 
 以下のフラグは、毎回の実行で指定する代わりに、プロジェクトルートの `svelte-vitals.config` ファイルにまとめて一度だけ設定することもできます。詳しくは [設定ファイル](/ja/guides/configuration) を参照してください。フラグは常に設定ファイルより優先されます。
 
@@ -159,7 +160,7 @@ svelte-vitals: 3 finding(s) suppressed by svelte-vitals-suppressions.json (1 sta
 
 **`--baseline <ref>` との違い:** `--baseline` は実行のたびに git の ref を再解析して「何が既存か」を導出します。コミットは不要ですが、常に 1 つの ref としか比較できません。抑制ファイルは、一度作って（あるいは意図したときにだけ更新して）コミットする永続的な記録で、どの ref 上にいても適用され続けます。
 
-> `--baseline` と同様、エントリは行番号なしで照合されます。受け入れ済みのルールの 2 件目の違反が同じファイルの下の方に追加されても「新規」としては表示されません。このファイルは v1 では CLI にのみ影響します。まだ `@svelte-vitals/vite`、`@svelte-vitals/mcp`、GitHub Action からは読み込まれません。
+> `--baseline` と同様、エントリは行番号なしで照合されます。受け入れ済みのルールの 2 件目の違反が同じファイルの下の方に追加されても「新規」としては表示されません。このファイルは v1 では CLI にのみ影響します。まだ `@svelte-vitals/vite` と GitHub Action からは読み込まれません。
 
 ### `--by-route`
 
@@ -261,6 +262,22 @@ svelte-vitals --meta-components "SeoHead,PageMeta"
 ### `-v, --version`
 
 CLI 自身のバージョンと、解決された `@svelte-vitals/core` のバージョンを表示して終了します（例：`0.20.0 (core 0.21.0)`）。`svelte-vitals` と `@svelte-vitals/vite` はそれぞれ独立してバージョン管理されており、異なる `@svelte-vitals/core` リリースに依存する状態になり得ます。CLI と[ライブダッシュボード](/ja/guides/dev-dashboard#バージョンのずれ)で検出結果が食い違う場合は、この `core` バージョンをダッシュボードのトップバーに表示される値と比較してください。
+
+## explain
+
+```bash
+svelte-vitals explain <rule-id> [--json]
+```
+
+解析を行わずに、ルール1件の静的なメタデータを表示します。タイトル、カテゴリ、デフォルトの重大度、根拠（rationale）、ドキュメントの URL、修正テンプレート、そしてオプションを持つルールであれば各オプションの名前・種類・デフォルト値・範囲に加えて、**設定した値が組み込みのデフォルトとどうマージされるか**まで出力します。最後の点は finding からは読み取れない情報です。`integer` のオプションはデフォルトを置き換え、`string-list` はデフォルトに追加され、`string-map` はデフォルトに上書き展開されるため、組み込みで既に存在するキーは重複ではなく値が上書きされます。
+
+```bash
+npx svelte-vitals explain performance/heavy-import
+```
+
+`--json` を付けると、同じ内容をテキストではなく JSON オブジェクトとして出力します。エージェントやスクリプトから構造的に読み取りたい場合に使います。
+
+未知のルール ID を渡すと、既知の ID をすべて列挙して終了コード `2` で終了するため、綴り違いをすぐ修正できます。ルール ID は完全一致・大文字小文字を区別して照合されます。
 
 ## 対応する Svelte/SvelteKit バージョン
 

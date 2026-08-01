@@ -15,7 +15,7 @@ npx svelte-vitals@latest ci install
 
 このコマンドは `.github/workflows/svelte-vitals.yml` を書き出します。コミットしてプルリクエストを開けば、実行される様子を確認できます。
 
-MCP サーバーや Vite との連携、Agent Skills と一緒にセットアップするなら、[`svelte-vitals install`](/ja/guides/install#--client-ids) でも `ci-workflow` をターゲットとして選べます。`ci install` を別途実行しなくても、同じワークフローファイルを同じ実行の中で書き出せます。`ci upgrade`（後述）にはウィザード側の対応はなく、引き続き単体のコマンドです。
+Vite との連携や Agent Skills と一緒にセットアップするなら、[`svelte-vitals install`](/ja/guides/install#--client-ids) でも `ci-workflow` をターゲットとして選べます。`ci install` を別途実行しなくても、同じワークフローファイルを同じ実行の中で書き出せます。`ci upgrade`（後述）にはウィザード側の対応はなく、引き続き単体のコマンドです。
 
 ```bash
 npx svelte-vitals@latest ci install --dry-run   # 書き込まずにプレビュー
@@ -89,7 +89,7 @@ npx svelte-vitals@latest ci install --force     # 既存のワークフローフ
 
 ## ルートやルールを除外する
 
-CI 導入時によくぶつかる壁があります。意図的に公開していないルート（認証必須のページや管理画面）が SEO ルールに大量に引っかかるのに、それを除外する Action の入力が見当たらない、というものです。除外の仕組みは、Action がすでに読み取っているファイル側にあります。そのため同じ設定が CLI、MCP サーバー、Vite プラグイン、この Action のすべてに同一に適用されます。意図に応じて選んでください：
+CI 導入時によくぶつかる壁があります。意図的に公開していないルート（認証必須のページや管理画面）が SEO ルールに大量に引っかかるのに、それを除外する Action の入力が見当たらない、というものです。除外の仕組みは、Action がすでに読み取っているファイル側にあります。そのため同じ設定が CLI、Vite プラグイン、この Action のすべてに同一に適用されます。意図に応じて選んでください：
 
 - **そのルールが一切不要なら**、[`svelte-vitals.config.*`](/ja/guides/configuration) でグローバルに無効化します：
 

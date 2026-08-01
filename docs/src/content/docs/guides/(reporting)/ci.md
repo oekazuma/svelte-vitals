@@ -18,7 +18,7 @@ npx svelte-vitals@latest ci install
 This writes `.github/workflows/svelte-vitals.yml`. Commit it and open a pull request to see it
 run.
 
-Setting this up alongside the MCP server, Vite integration, or Agent Skills? `ci-workflow` is also
+Setting this up alongside the Vite integration or Agent Skills? `ci-workflow` is also
 a selectable target in [`svelte-vitals install`](/guides/install#--client-ids) — pick
 it there to write the same workflow file in the same pass, instead of running this command
 separately. `ci upgrade` (below) has no wizard equivalent and stays a standalone command.
@@ -123,8 +123,8 @@ as the CLI, so it automatically picks up your committed
 
 A common wall when adopting in CI: routes that are intentionally not public (behind auth, admin
 areas) get flagged by SEO rules, and there's no action input to exclude them — because exclusions
-live in files the action already reads, so they apply identically to the CLI, the MCP server, the
-Vite plugin, and this action. Pick by intent:
+live in files the action already reads, so they apply identically to the CLI, the Vite plugin, and
+this action. Pick by intent:
 
 - **Never want a rule at all** — turn it off globally in
   [`svelte-vitals.config.*`](/guides/configuration):

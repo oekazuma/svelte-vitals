@@ -67,7 +67,7 @@ Use this whenever you are writing or reviewing SvelteKit route files (\`+page.sv
 
 1. After writing or editing code, run \`npx svelte-vitals . --diff --reporter agent\` and fix any findings it reports.
 2. Before committing, run \`npx svelte-vitals . --staged\` as a pre-commit gate.
-3. For a rule's full rationale and fix examples, use the \`explain_rule\` MCP tool (svelte-vitals MCP server) or open its docs link below.
+3. For a rule's full rationale, configurable options and fix examples, run \`npx svelte-vitals explain <rule-id>\` (add \`--json\` for a structured object) or open its docs link below.
 
 ## Rule digest
 

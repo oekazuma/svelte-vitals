@@ -14,8 +14,8 @@ import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-confi
 /**
  * Loads `svelte-vitals.config.{mjs,js,ts}` from the analyzed directory (design
  * doc: docs/superpowers/specs/2026-07-05-config-file-design.md). Wired into
- * `analyzeProject` (packages/cli/src/index.ts), so the CLI's `run()` and
- * @svelte-vitals/mcp's `analyze` tool both inherit it.
+ * `analyzeProject` (packages/cli/src/index.ts), so every caller of it inherits
+ * the config file.
  *
  * Candidate filenames, in priority order. Only `cwd` itself is searched (no
  * upward directory walk — see design doc §1). Exported so the install wizard's

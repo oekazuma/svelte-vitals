@@ -35,9 +35,9 @@ export interface Rule {
   severity: Severity;
   /** 'route' = evaluated per route, 'project' = site-wide (design §10, §12). */
   scope: Scope;
-  /** Why this rule matters — one or two sentences, surfaced by explain_rule (issue #24). */
+  /** Why this rule matters — one or two sentences, surfaced by `svelte-vitals explain` (issue #24). */
   rationale: string;
-  /** Canonical remediation template, shared by findings and explain_rule (issue #24). */
+  /** Canonical remediation template, shared by findings and `svelte-vitals explain` (issue #24). */
   fix?: Fix;
   /** Configurable options for this rule; absent means the rule takes none. */
   options?: RuleOptionsSpec;

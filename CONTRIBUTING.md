@@ -33,7 +33,6 @@ pnpm bench          # manual timing benchmark, never run in CI
 | [`svelte-vitals`](./packages/cli)        | CLI + static mode (`npx svelte-vitals@latest`)                              |
 | [`@svelte-vitals/core`](./packages/core) | Runtime-agnostic core: types, rule engine, scorer, reporters, full rule set |
 | [`@svelte-vitals/vite`](./packages/vite) | Plugin mode (build-time) + the live dev dashboard                           |
-| [`@svelte-vitals/mcp`](./packages/mcp)   | MCP server: run analysis inside an agent's tool loop                        |
 
 Each package also exposes its own `build`, `test`, and `typecheck` scripts, runnable via `pnpm --filter <package> <script>`.
 

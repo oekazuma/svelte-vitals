@@ -5,7 +5,7 @@ sidebar:
   order: 3
 ---
 
-Instead of repeating `--rules`, `--ignore`, `--fail-on`, and `--weights` on every invocation, put them in a `svelte-vitals.config` file at your project root. The CLI, the [MCP server](/guides/mcp), and the [Vite plugin](/guides/plugin-mode) all read it automatically (the MCP server inherits it because it calls the same `analyzeProject` function as the CLI; the Vite plugin reads it directly — see [Using the config file with the Vite plugin](#using-the-config-file-with-the-vite-plugin) below).
+Instead of repeating `--rules`, `--ignore`, `--fail-on`, and `--weights` on every invocation, put them in a `svelte-vitals.config` file at your project root. The CLI and the [Vite plugin](/guides/plugin-mode) both read it automatically (the Vite plugin reads it directly — see [Using the config file with the Vite plugin](#using-the-config-file-with-the-vite-plugin) below).
 
 Run `svelte-vitals install --client config-file` to scaffold one with every option below commented out.
 
@@ -222,7 +222,7 @@ For each field, the first of these that is set wins: **CLI flag > config file > 
 
 One exception: `rules` is replaced as a whole, not merged key-by-key. If you pass `--rules` or `--ignore` on the command line, the flag-built rule set replaces the config file's `rules` entirely for that run — it does not merge with it.
 
-`overrides` has no CLI flag — route policy belongs in a committed file. The config file is its only source for the CLI/MCP/action; the Vite plugin additionally accepts it as a plugin option (option > file, as usual).
+`overrides` has no CLI flag — route policy belongs in a committed file. The config file is its only source for the CLI and the action; the Vite plugin additionally accepts it as a plugin option (option > file, as usual).
 
 ## Validation
 
@@ -239,7 +239,7 @@ One exception: `rules` is replaced as a whole, not merged key-by-key. If you pas
 
 ## Using the config file with the Vite plugin
 
-`@svelte-vitals/vite` reads `svelte-vitals.config.*` the same way the CLI does — no extra wiring needed. Both the build-time gate (`vite build`) and the [live dashboard](/guides/dev-dashboard) (`vite dev`) resolve it from the project root (`cwd` passed to `svelteVitals({ ... })`, or the Vite config root when `cwd` is omitted), with the same per-field precedence as the CLI: **an explicit `svelteVitals({ ... })` option wins, otherwise the config file's value, otherwise the built-in default**. This includes `weights`, which now flows into the plugin's Health score exactly like it does for the CLI and MCP server.
+`@svelte-vitals/vite` reads `svelte-vitals.config.*` the same way the CLI does — no extra wiring needed. Both the build-time gate (`vite build`) and the [live dashboard](/guides/dev-dashboard) (`vite dev`) resolve it from the project root (`cwd` passed to `svelteVitals({ ... })`, or the Vite config root when `cwd` is omitted), with the same per-field precedence as the CLI: **an explicit `svelteVitals({ ... })` option wins, otherwise the config file's value, otherwise the built-in default**. This includes `weights`, which now flows into the plugin's Health score exactly like it does for the CLI.
 
 ```ts
 // vite.config.ts

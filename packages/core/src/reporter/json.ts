@@ -29,7 +29,7 @@ export interface JsonReport {
   siteIssues: JsonIssue[];
 }
 
-/** Build the structured JSON report object (design §7). Shared by the json reporter and the MCP `analyze` tool (issue #24). */
+/** Build the structured JSON report object (design §7). The shape the `json` reporter emits (issue #24). */
 export function buildJsonReport(results: Result[], config: Config, meta: { version: string }): JsonReport {
   const { health, categories: byCat, weights } = computeHealth(results, config);
   const summary = summarize(results, config);

@@ -78,10 +78,18 @@ Useful as a CI gate.
 
 ### `svelte-vitals install`
 
-An interactive wizard that wires up the [MCP server](https://www.npmjs.com/package/@svelte-vitals/mcp), the [Vite plugin](https://www.npmjs.com/package/@svelte-vitals/vite)'s live dashboard, Agent Skills (`/svelte-vitals`, `/improve-svelte`) for Claude Code, Cursor, and Codex, and a GitHub Actions CI workflow — grouped by category in the picker so it's clear what each target is for:
+An interactive wizard that wires up the [Vite plugin](https://www.npmjs.com/package/@svelte-vitals/vite)'s live dashboard, Agent Skills (`/svelte-vitals`, `/improve-svelte`) for Claude Code, Codex, and Cursor, a `svelte-vitals.config` file, and a GitHub Actions CI workflow — grouped by category in the picker so it's clear what each target is for:
 
 ```bash
 npx svelte-vitals@latest install
+```
+
+### `svelte-vitals explain <rule-id>`
+
+Prints one rule's rationale, docs link, fix template, and — for a configurable rule — every option's default, bounds, and how a configured value merges with the built-in default. `--json` emits the same data as an object. This is the per-rule detail an agent needs when it has to decide whether a finding is a defect or a threshold disagreement.
+
+```bash
+npx svelte-vitals@latest explain performance/heavy-import
 ```
 
 ### CI integration

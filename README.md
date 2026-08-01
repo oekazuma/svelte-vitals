@@ -37,12 +37,12 @@ Five categories — **SEO**, **Performance**, **Correctness**, **Security**, **A
 - **GitHub integration** — zero-config inline PR annotations, plus SARIF upload for persistent code-scanning alerts in the Security tab; `svelte-vitals ci install` scaffolds a full GitHub Actions workflow around `@svelte-vitals/action`, with a job summary and a sticky PR comment. → [Reporters](https://oekazuma.github.io/svelte-vitals/guides/reporters/), [CI integration](https://oekazuma.github.io/svelte-vitals/guides/ci/)
 - **Live dashboard** — a searchable, filterable dashboard at `/__svelte-vitals/` during `vite dev`, on by default: whole-project coverage from startup, refined to real rendered values as you browse, with a copy-to-clipboard AI-agent prompt on every finding. → [Live dashboard](https://oekazuma.github.io/svelte-vitals/guides/dev-dashboard/)
 - **Plugin mode** (`@svelte-vitals/vite`) — build-time analysis of the prerendered `<head>`; library-agnostic and exact. → [Plugin mode](https://oekazuma.github.io/svelte-vitals/guides/plugin-mode/)
-- **MCP server** (`@svelte-vitals/mcp`) — `analyze` and `explain_rule` tools for an agent's tool loop. → [MCP server](https://oekazuma.github.io/svelte-vitals/guides/mcp/)
+- **`svelte-vitals explain <rule-id>`** — one rule's rationale, fix, and configurable options (with `--json` for structured output), without analyzing a project. → [CLI reference](https://oekazuma.github.io/svelte-vitals/guides/cli/)
 - **Agent Skills** — `/svelte-vitals` and `/improve-svelte` slash-command skills for Claude Code, Cursor, and Codex: rule knowledge up front, plus a project-wide, evidence-ranked improvement roadmap. → [Agent Skills](https://oekazuma.github.io/svelte-vitals/guides/agent-skills/)
 
 ## Packages
 
-Three packages you'll use directly — CLI, Vite plugin, MCP server — all built on the shared `@svelte-vitals/core` rule engine. → [Choosing a package](https://oekazuma.github.io/svelte-vitals/guides/choosing-a-package/)
+Two packages you'll use directly — CLI and Vite plugin — both built on the shared `@svelte-vitals/core` rule engine. → [Choosing a package](https://oekazuma.github.io/svelte-vitals/guides/choosing-a-package/)
 
 ## Getting started
 
