@@ -1,24 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import { runExplainCli, type ExplainIO } from '../src/explain.js';
-
-/** Collect what `explain` writes so the assertions can read stdout and stderr apart. */
-function capture(): ExplainIO & { out: string; err: string } {
-  const out: string[] = [];
-  const err: string[] = [];
-  return {
-    log: (line) => out.push(line),
-    errorLog: (line) => err.push(line),
-    get out() {
-      return out.join('\n');
-    },
-    get err() {
-      return err.join('\n');
-    }
-  };
-}
+import { runExplainCli } from '../src/explain.js';
+import { captureIO } from './helpers/capture-io.js';
 
 function explain(args: string[]): { code: number; out: string; err: string } {
-  const io = capture();
+  const io = captureIO();
   const code = runExplainCli(args, io);
   return { code, out: io.out, err: io.err };
 }
@@ -77,6 +62,45 @@ describe('svelte-vitals explain', () => {
     expect(info.severity.length).toBeGreaterThan(0);
     expect(info.docsUrl).toBe('https://oekazuma.github.io/svelte-vitals/rules/seo/title-length');
     expect(info.options?.map((o) => o.name)).toEqual(['min', 'max']);
+  });
+
+  describe('--list', () => {
+    it('lists every registered rule, grouped by category', async () => {
+      const { allRules, CATEGORIES } = await import('@svelte-vitals/core');
+      const { code, out } = explain(['--list']);
+      expect(code).toBe(0);
+      for (const rule of allRules) expect(out).toContain(rule.id);
+      for (const category of CATEGORIES) expect(out).toContain(`${category} (`);
+      expect(out).toContain(`${allRules.length} rules.`);
+    });
+
+    it('--list --json emits id/category/severity/title for every rule', async () => {
+      const { allRules } = await import('@svelte-vitals/core');
+      const { code, out } = explain(['--list', '--json']);
+      expect(code).toBe(0);
+      const parsed = JSON.parse(out) as { id: string; category: string; severity: string; title: string }[];
+      expect(parsed.map((r) => r.id)).toEqual(allRules.map((r) => r.id));
+      for (const r of parsed) {
+        expect(r.category.length).toBeGreaterThan(0);
+        expect(r.severity.length).toBeGreaterThan(0);
+        expect(r.title.length).toBeGreaterThan(0);
+      }
+    });
+
+    it('refuses a rule id alongside --list rather than returning the whole list', () => {
+      // Returning 71 rules at exit 0 would read as "here is that rule" to a caller that then
+      // looks for `.rationale` — the same misreading `docs list <name>` is guarded against.
+      const { code, out, err } = explain(['--list', 'performance/heavy-import']);
+      expect(code).toBe(2);
+      expect(out).toBe('');
+      expect(err).toContain('takes no rule id');
+    });
+
+    it('tells a reader with no id that --list exists, instead of only dumping ids', () => {
+      // Discovering `explain` by passing a wrong id and reading the error is an accident;
+      // the no-id path has to name the affordance.
+      expect(explain([]).err).toContain('--list');
+    });
   });
 
   it('does not match a rule id with the wrong case (exact match only)', () => {

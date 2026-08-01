@@ -9,11 +9,14 @@ sidebar:
 
 ```bash
 svelte-vitals [path] [options]
+svelte-vitals docs list
+svelte-vitals docs show <name>
 svelte-vitals explain <rule-id>
 ```
 
-`path` is optional and defaults to the current directory. [`explain`](#explain) prints a single
-rule's rationale, fix, and configurable options instead of analyzing a project.
+`path` is optional and defaults to the current directory. [`docs`](#docs) prints the guides that
+ship inside the CLI, and [`explain`](#explain) prints a single rule's rationale, fix, and
+configurable options — neither analyzes a project.
 
 > There is also an [`install` subcommand](/guides/install) for setting up [Agent Skills](/guides/agent-skills), the Vite integration, and the config file, and a `ci install` subcommand that scaffolds a GitHub Actions PR gate — see [CI integration](/guides/ci).
 
@@ -23,7 +26,7 @@ Flags below can also be set once in a `svelte-vitals.config` file at the project
 
 Passing an explicit `path` (or running inside the app directory itself) always takes priority — svelte-vitals never second-guesses a target you named.
 
-When no `path` is given and the current directory isn't a SvelteKit app, svelte-vitals looks for SvelteKit apps nearby (directories with `svelte.config.{js,ts}` and `src/routes`) instead of failing immediately:
+When no `path` is given and the current directory isn't a SvelteKit app, svelte-vitals looks for SvelteKit apps nearby — a directory with `src/routes` and either a `svelte.config.{js,ts}` or a `package.json` declaring `@sveltejs/kit` (current `sv create` output folds the SvelteKit config into `vite.config.ts` and emits no `svelte.config` file) — instead of failing immediately:
 
 - **Exactly one app found:** it's analyzed automatically, with a notice on stderr (`detected SvelteKit app at apps/web; analyzing it.`).
 - **Multiple apps found, interactive terminal:** you get a single-select prompt to choose which one to analyze. Cancelling exits `0` without analyzing anything.
@@ -271,13 +274,42 @@ Print the help text and exit.
 
 Print the CLI's own version and the resolved `@svelte-vitals/core` version, e.g. `0.20.0 (core 0.21.0)`. `svelte-vitals` and `@svelte-vitals/vite` are versioned independently and can end up depending on different `@svelte-vitals/core` releases — compare this `core` version against the one shown in the [live dashboard](/guides/dev-dashboard#version-drift) topbar if the two surfaces ever disagree on findings.
 
+## `docs`
+
+```bash
+svelte-vitals docs list [--json]
+svelte-vitals docs show <name>
+```
+
+A curated set of guides is **bundled into the CLI itself**, so what you read always matches the
+version you are running and works with no network. `docs list` prints each topic with a one-line
+description (`--json` for the machine-readable form); `docs show <name>` prints one.
+
+```bash
+npx svelte-vitals docs show scoping
+```
+
+The set covers the things you need while running the tool, condensed for a terminal — run
+`docs list` for the current topics rather than trusting a list written down elsewhere. This site
+remains the complete reference; the bundled set is deliberately smaller.
+
+This matters most for AI agents, which otherwise guess at flags or fetch a docs page that may
+describe a different version. `svelte-vitals --version` prints a pointer to `docs list` on stderr
+for the same reason.
+
+An unknown topic exits `2` and lists the valid names.
+
 ## `explain`
 
 ```bash
+svelte-vitals explain --list [--json]
 svelte-vitals explain <rule-id> [--json]
 ```
 
-Print one rule's static metadata without analyzing anything: its title, category, default
+`--list` prints every rule grouped by category, with its default severity and title — the way to
+discover rule ids without triggering an error.
+
+Given an id, `explain` prints that rule's static metadata without analyzing anything: its title, category, default
 severity, rationale, docs URL, fix template, and — for a rule that takes options — every
 option's name, kind, default, bounds, and **how a configured value merges with the built-in
 default**. That last part is the piece you can't read off a finding: an `integer` option

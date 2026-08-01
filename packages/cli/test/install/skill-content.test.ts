@@ -31,6 +31,15 @@ describe('buildSkillMarkdown', () => {
     expect(ruleLines).toHaveLength(allRules.length);
   });
 
+  it('sends the agent to the bundled docs for anything outside the rule catalog', () => {
+    // The digest below covers rules; reporters, config, scoping, CI and monorepos are not in
+    // it, and an agent left to guess those is exactly what `docs list` exists to prevent.
+    // Both have to be complete invocations: an agent copies these verbatim, and a bare
+    // `docs show <name>` is not a runnable command.
+    expect(md).toContain('npx svelte-vitals docs list');
+    expect(md).toContain('npx svelte-vitals docs show <name>');
+  });
+
   it('sends the agent to `svelte-vitals explain`, not to a tool that no longer exists', () => {
     // The MCP server was removed in favour of CLI + skill; a skill that still told the
     // agent to call `explain_rule` would send it after a tool nothing provides.

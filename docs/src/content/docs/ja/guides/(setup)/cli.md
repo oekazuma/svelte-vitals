@@ -9,10 +9,12 @@ sidebar:
 
 ```bash
 svelte-vitals [path] [options]
+svelte-vitals docs list
+svelte-vitals docs show <name>
 svelte-vitals explain <rule-id>
 ```
 
-`path` は省略可能で、デフォルトはカレントディレクトリです。[`explain`](#explain) はプロジェクトを解析せず、ルール1件の根拠・修正方法・設定可能なオプションを表示します。
+`path` は省略可能で、デフォルトはカレントディレクトリです。[`docs`](#docs) は CLI に同梱されたガイドを、[`explain`](#explain) はルール1件の根拠・修正方法・設定可能なオプションを表示します。どちらもプロジェクトの解析は行いません。
 
 > サブコマンドもあります。[`install`](/ja/guides/install) は [Agent Skills](/ja/guides/agent-skills)、Vite との連携、設定ファイルをセットアップし、`ci install` は GitHub Actions の PR ゲートを生成します（詳しくは [CI 連携](/ja/guides/ci) を参照してください）。
 
@@ -22,7 +24,7 @@ svelte-vitals explain <rule-id>
 
 明示的に `path` を渡した場合（またはアプリのディレクトリ自体で実行した場合）は常にそれが優先されます。svelte-vitals が指定されたターゲットを勝手に読み替えることはありません。
 
-`path` を渡さず、かつカレントディレクトリが SvelteKit アプリでない場合、svelte-vitals はすぐに失敗する代わりに、近くの SvelteKit アプリ（`svelte.config.{js,ts}` と `src/routes` を持つディレクトリ）を探します:
+`path` を渡さず、かつカレントディレクトリが SvelteKit アプリでない場合、svelte-vitals はすぐに失敗する代わりに、近くの SvelteKit アプリ（`src/routes` があり、かつ `svelte.config.{js,ts}` または `@sveltejs/kit` を宣言した `package.json` のどちらかを持つディレクトリ。現在の `sv create` は SvelteKit の設定を `vite.config.ts` に畳み込み、`svelte.config` ファイルを生成しないため）を探します:
 
 - **1 件だけ見つかった場合:** 自動的にそのアプリを解析します。stderr に通知が出ます（`detected SvelteKit app at apps/web; analyzing it.`）。
 - **複数見つかった場合（対話的な TTY）:** どれを解析するか単一選択のプロンプトが表示されます。キャンセルすると、何も解析せずに終了コード `0` で終了します。
@@ -263,13 +265,35 @@ svelte-vitals --meta-components "SeoHead,PageMeta"
 
 CLI 自身のバージョンと、解決された `@svelte-vitals/core` のバージョンを表示して終了します（例：`0.20.0 (core 0.21.0)`）。`svelte-vitals` と `@svelte-vitals/vite` はそれぞれ独立してバージョン管理されており、異なる `@svelte-vitals/core` リリースに依存する状態になり得ます。CLI と[ライブダッシュボード](/ja/guides/dev-dashboard#バージョンのずれ)で検出結果が食い違う場合は、この `core` バージョンをダッシュボードのトップバーに表示される値と比較してください。
 
+## docs
+
+```bash
+svelte-vitals docs list [--json]
+svelte-vitals docs show <name>
+```
+
+厳選したガイドを **CLI 自体に同梱**しています。読む内容が実行中のバージョンと常に一致し、ネットワークも不要です。`docs list` は各トピックを1行の説明付きで一覧表示し（`--json` で機械可読形式）、`docs show <name>` が本文を表示します。
+
+```bash
+npx svelte-vitals docs show scoping
+```
+
+収録しているのは、ツールを実行しているときに必要になることをターミナル向けに凝縮した内容です。現在のトピックは、どこかに書き写した一覧ではなく `docs list` で確認してください。完全なリファレンスは引き続きこのサイトで、同梱セットは意図的に小さく保っています。
+
+これが最も効くのは AI エージェントです。そうでなければフラグを推測するか、別バージョンを説明しているかもしれないドキュメントページを取得することになります。`svelte-vitals --version` が stderr に `docs list` への案内を出しているのも同じ理由です。
+
+未知のトピックを渡すと、有効な名前を列挙して終了コード `2` で終了します。
+
 ## explain
 
 ```bash
+svelte-vitals explain --list [--json]
 svelte-vitals explain <rule-id> [--json]
 ```
 
-解析を行わずに、ルール1件の静的なメタデータを表示します。タイトル、カテゴリ、デフォルトの重大度、根拠（rationale）、ドキュメントの URL、修正テンプレート、そしてオプションを持つルールであれば各オプションの名前・種類・デフォルト値・範囲に加えて、**設定した値が組み込みのデフォルトとどうマージされるか**まで出力します。最後の点は finding からは読み取れない情報です。`integer` のオプションはデフォルトを置き換え、`string-list` はデフォルトに追加され、`string-map` はデフォルトに上書き展開されるため、組み込みで既に存在するキーは重複ではなく値が上書きされます。
+`--list` は全ルールをカテゴリごとにデフォルト重大度・タイトル付きで一覧表示します。エラーを発生させずにルール ID を知るための手段です。
+
+ID を渡すと、解析を行わずにそのルールの静的なメタデータを表示します。タイトル、カテゴリ、デフォルトの重大度、根拠（rationale）、ドキュメントの URL、修正テンプレート、そしてオプションを持つルールであれば各オプションの名前・種類・デフォルト値・範囲に加えて、**設定した値が組み込みのデフォルトとどうマージされるか**まで出力します。最後の点は finding からは読み取れない情報です。`integer` のオプションはデフォルトを置き換え、`string-list` はデフォルトに追加され、`string-map` はデフォルトに上書き展開されるため、組み込みで既に存在するキーは重複ではなく値が上書きされます。
 
 ```bash
 npx svelte-vitals explain performance/heavy-import

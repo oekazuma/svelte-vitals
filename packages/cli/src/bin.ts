@@ -12,7 +12,8 @@ const HELP = `svelte-vitals — a deterministic SvelteKit code-health scanner (S
 
 Usage:
   svelte-vitals [path] [options]
-  svelte-vitals explain <id>     Print a rule's rationale, fix, and configurable options
+  svelte-vitals docs list        List the bundled guides (docs show <name> prints one)
+  svelte-vitals explain --list   List every rule (explain <rule-id> explains one)
   svelte-vitals install          Set up the Vite integration, agent skills/rules, config file, or CI
   svelte-vitals ci install       Add a GitHub Actions PR gate (annotations + summary comment)
   svelte-vitals ci upgrade       Refresh the pinned @svelte-vitals/action in an existing workflow
@@ -48,7 +49,24 @@ Config file:
 Exit codes:
   0  no failing findings
   1  critical finding present (or --fail-on threshold reached)
-  2  execution error (not a SvelteKit project / internal error)`;
+  2  execution error (not a SvelteKit project / internal error)
+
+If you are an AI agent:
+  - \`svelte-vitals docs list\` then \`docs show <name>\` — the guides ship inside this CLI, so
+    they match this exact version and need no network. Read those before searching the web.
+  - \`--reporter agent\` gives every failing finding a location, a concrete fix and an acceptance
+    check; it is auto-selected when an agent environment is detected. \`--reporter json\` is the
+    structured form.
+  - \`--diff\` scopes the report to what you just changed; \`--staged\` is the pre-commit gate.
+  - \`svelte-vitals explain <rule-id>\` says why a rule exists and which options it takes, before
+    you decide to turn it off.
+  - Do NOT reach for \`--update-suppressions\` to make a run pass: it accepts every current
+    finding into a committed file and un-gates CI for all of them. Fix the findings, or scope
+    the run with \`--diff\`. Only a human should decide to accept a backlog.
+  - Exit 2 is never a pass — it means the analysis did not run. Read stderr.
+  - Analysis never prompts when stdout is not a TTY: where it would have asked, it exits 2
+    naming the flag to pass. \`install\` is the exception — non-interactively it skips its
+    confirmation and writes, so pass \`--dry-run\` first if you need to see the plan.`;
 
 const VERSION = readPackageVersion();
 
@@ -61,11 +79,24 @@ async function selectApp(apps: string[]): Promise<string | null> {
   return p.isCancel(res) ? null : (res as string);
 }
 
-/** CLI entrypoint: dispatches `explain`/`install`/`ci` subcommands, otherwise parses argv, resolves it into `run()` options, executes the analysis, and exits with the resulting code. */
+/** CLI entrypoint: dispatches `docs`/`explain`/`install`/`ci` subcommands, otherwise parses argv, resolves it into `run()` options, executes the analysis, and exits with the resulting code. */
 async function main(): Promise<void> {
   const rawArgs = process.argv.slice(2);
+  // `docs` and `explain` set `process.exitCode` and return rather than calling `process.exit`:
+  // writes to a pipe are asynchronous, and exiting can discard whatever has not drained. Both
+  // are pure-sync and hold no handles, so returning always terminates. (`install`/`ci` and the
+  // analysis path below still exit directly — they hold prompts and timers, where returning
+  // could hang instead; their large-output paths deserve the same treatment separately.)
+  if (rawArgs[0] === 'docs') {
+    // Loaded on demand: the bundled topics are ~20KB of string literals that the analysis path
+    // — the one the I/O budget test and `pnpm bench` defend — would otherwise parse every run.
+    const { runDocsCli } = await import('./docs/cli.js');
+    process.exitCode = runDocsCli(rawArgs.slice(1));
+    return;
+  }
   if (rawArgs[0] === 'explain') {
-    process.exit(runExplainCli(rawArgs.slice(1)));
+    process.exitCode = runExplainCli(rawArgs.slice(1));
+    return;
   }
   if (rawArgs[0] === 'install') {
     const code = await runInstallCli(rawArgs.slice(1));
@@ -98,14 +129,17 @@ async function main(): Promise<void> {
 
   if (argv.help) {
     console.log(HELP);
-    process.exit(0);
+    return;
   }
   if (argv.version) {
     // Printing the resolved core version alongside the CLI's own lets users compare
     // it directly against the `@svelte-vitals/vite` dev overlay's "core vX.Y.Z" line —
     // the two packages are versioned independently and can drift (see docs).
     console.log(`${VERSION} (core ${readCoreVersion()})`);
-    process.exit(0);
+    // stdout stays exactly the version string so it can be parsed; the pointer goes to stderr.
+    // An agent that runs only `--version` and never `--help` still learns the guides exist.
+    console.error('svelte-vitals: run `svelte-vitals docs list` for the bundled guides.');
+    return;
   }
 
   const { options, warnings, errors } = resolveArgs(argv);

@@ -1,28 +1,20 @@
 import mri from 'mri';
-import { explainRule, type RuleOptionInfo } from '@svelte-vitals/core';
+import { allRules, CATEGORIES, explainRule, type RuleOptionInfo } from '@svelte-vitals/core';
+import { consoleIO, type CliIO } from './cli-io.js';
 import { knownRuleIds } from './rules-config.js';
 
 const EXPLAIN_HELP = `svelte-vitals explain — print a rule's rationale, fix, and configurable options
 
 Usage:
-  svelte-vitals explain <rule-id>
+  svelte-vitals explain --list          List every rule id, grouped by category
+  svelte-vitals explain <rule-id>       Explain one rule
 
 Options:
-  --json        Print the rule metadata as JSON instead of text
+  --list        List every rule instead of explaining one
+  --json        Machine-readable output (works with --list and with a rule id)
   -h, --help    Show this help
 
 Rule ids are category/kebab-case and matched exactly, e.g. \`svelte-vitals explain seo/ssr-disabled\`.`;
-
-/** The output sink. Narrower than the install wizard's `InstallIO` — explain never touches the filesystem. */
-export interface ExplainIO {
-  log(line: string): void;
-  errorLog(line: string): void;
-}
-
-const realIO: ExplainIO = {
-  log: (line) => console.log(line),
-  errorLog: (line) => console.error(line)
-};
 
 /**
  * One line per configurable option, so a reader who takes a finding as a threshold
@@ -64,24 +56,62 @@ export function formatRuleExplanation(info: NonNullable<ReturnType<typeof explai
 }
 
 /**
+ * Every rule, grouped by category. This is the entry point into `explain`: without it the only
+ * way to learn a rule id was to pass a wrong one and read the error, which is an accident rather
+ * than an affordance.
+ */
+function renderRuleList(): string {
+  const sections = CATEGORIES.map((category) => {
+    const rules = allRules.filter((r) => r.category === category);
+    const width = Math.max(...rules.map((r) => r.id.length));
+    const lines = rules.map((r) => `  ${r.id.padEnd(width)}  ${r.severity.padEnd(8)} ${r.title}`);
+    return [`${category} (${rules.length})`, ...lines].join('\n');
+  });
+  return [...sections, '', `${allRules.length} rules. Explain one with \`svelte-vitals explain <rule-id>\`.`].join(
+    '\n\n'
+  );
+}
+
+/**
  * Run `svelte-vitals explain <rule-id>`. Returns the exit code: 0 on a hit, 2 for a
  * missing or unknown id (the CLI's "execution error" code — nothing was explained).
  */
-export function runExplainCli(args: string[], io: ExplainIO = realIO): number {
-  const argv = mri(args, { boolean: ['json', 'help'], alias: { h: 'help' } });
+export function runExplainCli(args: string[], io: CliIO = consoleIO): number {
+  const argv = mri(args, { boolean: ['json', 'list', 'help'], alias: { h: 'help' } });
   if (argv.help) {
     io.log(EXPLAIN_HELP);
     return 0;
   }
 
+  if (argv.list) {
+    if (argv._.length > 0) {
+      // `explain --list seo/title-presence` returning the whole list at exit 0 would read as
+      // "here is that rule" — the same misreading `docs list <name>` is guarded against.
+      io.errorLog('svelte-vitals: explain --list takes no rule id; drop --list to explain one.');
+      return 2;
+    }
+    io.log(
+      argv.json
+        ? JSON.stringify(
+            allRules.map((r) => ({ id: r.id, category: r.category, severity: r.severity, title: r.title })),
+            null,
+            2
+          )
+        : renderRuleList()
+    );
+    return 0;
+  }
+
   const id = argv._[0];
   if (id === undefined) {
-    io.errorLog('svelte-vitals: explain needs a rule id, e.g. `svelte-vitals explain seo/ssr-disabled`.');
+    io.errorLog(
+      'svelte-vitals: explain needs a rule id, e.g. `svelte-vitals explain seo/ssr-disabled`; `--list` shows them all.'
+    );
     io.errorLog(`svelte-vitals: known rule ids: ${knownRuleIds().join(', ')}.`);
     return 2;
   }
 
-  const info = explainRule(String(id));
+  const info = explainRule(id);
   if (!info) {
     io.errorLog(`svelte-vitals: unknown rule id '${id}'.`);
     io.errorLog(`svelte-vitals: known rule ids: ${knownRuleIds().join(', ')}.`);
