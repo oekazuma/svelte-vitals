@@ -22,7 +22,7 @@ pnpm typecheck      # tsc --noEmit
 pnpm lint           # oxlint + oxfmt --check
 pnpm format         # oxfmt --write
 pnpm check:publish  # publint + attw (--profile esm-only)
-pnpm smoke          # built dist under a bare node (engines.node floor contract)
+pnpm smoke          # built dist under a bare node (engines.node floor) — run pnpm build first
 pnpm bench          # manual timing benchmark, never run in CI
 ```
 

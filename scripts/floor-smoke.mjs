@@ -114,8 +114,10 @@ function supportsUnflaggedTypeStripping() {
 }
 
 check("a .ts config file matches this Node runtime's type-stripping support", () => {
-  // The CLI resolves the project before it loads the config, so the `.ts` config
-  // needs to sit in something that looks like a SvelteKit app.
+  // `loadConfigFile` runs before project detection, so on the floor Node the config
+  // throws whatever this directory holds. It has to look like a SvelteKit app for the
+  // other branch: there the config loads and execution continues into detection, which
+  // must succeed to reach a report.
   const project = mkdtempSync(join(tmpdir(), 'floor-smoke-ts-'));
   try {
     cpSync(basicProject, project, { recursive: true });

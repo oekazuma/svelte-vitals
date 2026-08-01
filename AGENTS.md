@@ -8,15 +8,15 @@ svelte-vitals is a static code-health checker for SvelteKit — not a runtime We
 
 ## Verify commands
 
-| Purpose        | Command              | Notes                                                                                                                                                                  |
-| -------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Build          | `pnpm build`         | `pnpm -r build`                                                                                                                                                        |
-| Typecheck      | `pnpm typecheck`     | `pnpm -r typecheck`                                                                                                                                                    |
-| Test           | `pnpm test`          | `pnpm -r test` (vitest)                                                                                                                                                |
-| Floor smoke    | `pnpm smoke`         | built `dist` under a bare `node`; locally this runs under the devEngines Node, not the floor — the floor claim is what CI's `floor-smoke` job (pinned to 22.13.0) adds |
-| Lint           | `pnpm lint`          | `oxlint .` + `oxfmt --check .`                                                                                                                                         |
-| Format         | `pnpm format`        | `oxfmt --write .`                                                                                                                                                      |
-| Publish checks | `pnpm check:publish` | publint + attw (`--profile esm-only`)                                                                                                                                  |
+| Purpose        | Command              | Notes                                                                                                                                                                                                   |
+| -------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Build          | `pnpm build`         | `pnpm -r build`                                                                                                                                                                                         |
+| Typecheck      | `pnpm typecheck`     | `pnpm -r typecheck`                                                                                                                                                                                     |
+| Test           | `pnpm test`          | `pnpm -r test` (vitest)                                                                                                                                                                                 |
+| Floor smoke    | `pnpm smoke`         | needs `pnpm build` first — it runs the built `dist` under a bare `node`; locally that is the devEngines Node, not the floor, so the floor claim is what CI's `floor-smoke` job (pinned to 22.13.0) adds |
+| Lint           | `pnpm lint`          | `oxlint .` + `oxfmt --check .`                                                                                                                                                                          |
+| Format         | `pnpm format`        | `oxfmt --write .`                                                                                                                                                                                       |
+| Publish checks | `pnpm check:publish` | publint + attw (`--profile esm-only`)                                                                                                                                                                   |
 
 CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typecheck + check:publish), `test`, `floor-smoke`, `docs`. Run the relevant verify commands yourself and confirm they pass **before** claiming a task is complete.
 
