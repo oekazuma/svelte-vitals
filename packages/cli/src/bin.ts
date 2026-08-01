@@ -82,14 +82,21 @@ async function selectApp(apps: string[]): Promise<string | null> {
 /** CLI entrypoint: dispatches `docs`/`explain`/`install`/`ci` subcommands, otherwise parses argv, resolves it into `run()` options, executes the analysis, and exits with the resulting code. */
 async function main(): Promise<void> {
   const rawArgs = process.argv.slice(2);
+  // `docs` and `explain` set `process.exitCode` and return rather than calling `process.exit`:
+  // writes to a pipe are asynchronous, and exiting can discard whatever has not drained. Both
+  // are pure-sync and hold no handles, so returning always terminates. (`install`/`ci` and the
+  // analysis path below still exit directly — they hold prompts and timers, where returning
+  // could hang instead; their large-output paths deserve the same treatment separately.)
   if (rawArgs[0] === 'docs') {
     // Loaded on demand: the bundled topics are ~20KB of string literals that the analysis path
     // — the one the I/O budget test and `pnpm bench` defend — would otherwise parse every run.
     const { runDocsCli } = await import('./docs/cli.js');
-    process.exit(runDocsCli(rawArgs.slice(1)));
+    process.exitCode = runDocsCli(rawArgs.slice(1));
+    return;
   }
   if (rawArgs[0] === 'explain') {
-    process.exit(runExplainCli(rawArgs.slice(1)));
+    process.exitCode = runExplainCli(rawArgs.slice(1));
+    return;
   }
   if (rawArgs[0] === 'install') {
     const code = await runInstallCli(rawArgs.slice(1));
@@ -122,7 +129,7 @@ async function main(): Promise<void> {
 
   if (argv.help) {
     console.log(HELP);
-    process.exit(0);
+    return;
   }
   if (argv.version) {
     // Printing the resolved core version alongside the CLI's own lets users compare
@@ -132,7 +139,7 @@ async function main(): Promise<void> {
     // stdout stays exactly the version string so it can be parsed; the pointer goes to stderr.
     // An agent that runs only `--version` and never `--help` still learns the guides exist.
     console.error('svelte-vitals: run `svelte-vitals docs list` for the bundled guides.');
-    process.exit(0);
+    return;
   }
 
   const { options, warnings, errors } = resolveArgs(argv);

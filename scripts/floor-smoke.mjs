@@ -86,6 +86,31 @@ check('analysing a real project emits a well-formed JSON report', () => {
   assert.ok(report.categories && typeof report.categories === 'object');
 });
 
+check('the read-only subcommands deliver complete JSON through a pipe', () => {
+  // execFileSync gives the child a pipe, not a TTY — the case where `process.exit` can drop
+  // undrained writes. Parsing the whole payload is what proves nothing was truncated.
+  for (const [args, check] of [
+    [['docs', 'list', '--json'], (v) => v.every((d) => d.name && d.description)],
+    [['explain', '--list', '--json'], (v) => v.every((r) => r.id && r.category)]
+  ]) {
+    const { code, signal, stdout, stderr } = runCli(args);
+    assert.equal(signal, null, `${args.join(' ')} killed by signal ${signal}`);
+    assert.equal(code, 0, `${args.join(' ')} exited ${code}: ${stderr}`);
+    const parsed = JSON.parse(stdout);
+    assert.ok(Array.isArray(parsed) && parsed.length > 0, `${args.join(' ')} returned no entries`);
+    assert.ok(check(parsed), `${args.join(' ')} returned an incomplete entry`);
+  }
+});
+
+check('a bad subcommand argument exits 2 with an empty stdout', () => {
+  // The exit-2 contract the docs subcommand promises, asserted on the real process rather
+  // than on the in-process handler.
+  const { code, stdout, stderr } = runCli(['docs', 'show', 'no-such-topic']);
+  assert.equal(code, 2, `expected exit 2, got ${code}`);
+  assert.equal(stdout, '', `expected empty stdout, got ${JSON.stringify(stdout.slice(0, 80))}`);
+  assert.match(stderr, /unknown docs topic/);
+});
+
 check('every published entry point imports under bare node', async () => {
   for (const entry of [
     'packages/core/dist/index.js',
