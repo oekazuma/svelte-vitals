@@ -25,7 +25,7 @@ export function viteTargetById(id: string): ViteTarget | undefined {
   return VITE_TARGETS.find((t) => t.id === id);
 }
 
-/** Whether an id is one of the Vite install targets (as opposed to an MCP client id). */
+/** Whether an id is one of the Vite install targets (as opposed to an agent/config/CI target id). */
 export function isViteTargetId(id: string): id is ViteTargetId {
   return VITE_TARGETS.some((t) => t.id === id);
 }

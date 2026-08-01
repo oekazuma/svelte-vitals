@@ -1,6 +1,4 @@
 import { join } from 'node:path';
-import { CLIENTS, clientById, MCP_ENTRY, type ClientId, type ClientWriter, type Scope } from './clients.js';
-import { mergeJson, mergeToml } from './merge.js';
 import { VITE_TARGETS, viteTargetById, isViteTargetId, type ViteTargetId } from './vite-targets.js';
 import {
   AGENT_TARGETS,
@@ -40,7 +38,7 @@ import { planWorkflowWrite, buildWorkflowYaml } from '../ci/workflow.js';
 import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
 import { discoverApps } from '../discover-apps.js';
 
-export type TargetId = ClientId | ViteTargetId | AgentTargetId | ConfigTargetId | CiTargetId;
+export type TargetId = ViteTargetId | AgentTargetId | ConfigTargetId | CiTargetId;
 
 export interface InstallIO {
   /** File contents, or undefined if the file does not exist. */
@@ -48,7 +46,6 @@ export interface InstallIO {
   /** Write the file, creating parent directories as needed. */
   writeFile(path: string, content: string): void;
   cwd: string;
-  home: string;
   isTTY: boolean;
   log(line: string): void;
   errorLog(line: string): void;
@@ -72,12 +69,10 @@ export interface InstallPrompts {
   /**
    * Returns chosen target ids, or null when cancelled. Options are pre-grouped by
    * category (group label → options) so the picker can render them as distinct
-   * sections (MCP server / Vite integration / Agent Skills & rules / CI / Config file)
-   * instead of one flat list.
+   * sections (Vite integration / Agent Skills & rules / CI / Config file) instead of
+   * one flat list.
    */
   selectClients(groups: Record<string, SelectableOption[]>, defaults: TargetId[]): Promise<TargetId[] | null>;
-  /** Returns chosen scope, or null when cancelled. */
-  selectScope(client: ClientWriter): Promise<Scope | null>;
   /** Monorepo: returns the chosen app directory (cwd-relative), or null when cancelled. */
   selectApp(apps: string[]): Promise<string | null>;
   confirm(planText: string): Promise<boolean>;
@@ -85,7 +80,6 @@ export interface InstallPrompts {
 
 export interface InstallFlags {
   client?: TargetId[];
-  scope?: Scope;
   yes?: boolean;
   dryRun?: boolean;
   force?: boolean;
@@ -99,7 +93,6 @@ export interface InstallFlags {
 interface PlanRow {
   id: TargetId;
   label: string;
-  scope?: Scope;
   path: string;
   status: WriteStatus;
   content?: string;
@@ -115,14 +108,6 @@ interface PlanRow {
  */
 function detectPackageManagerNear(io: InstallIO, appDir: string): ReturnType<typeof detectPackageManager> {
   return detectPackageManagerFromLockfile({ ...io, cwd: appDir }) ?? detectPackageManager(io);
-}
-
-function planForClient(client: ClientWriter, scope: Scope, io: InstallIO, force: boolean): PlanRow {
-  const path = client.resolvePath(scope, io.cwd, io.home);
-  const existing = io.readFile(path);
-  const merged =
-    client.format === 'toml' ? mergeToml(existing, MCP_ENTRY, force) : mergeJson(existing, MCP_ENTRY, force);
-  return { id: client.id, label: client.label, scope, path, status: merged.status, content: merged.content };
 }
 
 /** Read the first candidate path that exists; otherwise report the first candidate as the (nonexistent) path. */
@@ -243,7 +228,7 @@ function indent(text: string): string {
 }
 
 function rowLine(r: PlanRow): string {
-  const head = `  ${r.label}${r.scope ? ` (${r.scope})` : ''} → ${r.path}  [${r.status}]`;
+  const head = `  ${r.label} → ${r.path}  [${r.status}]`;
   return r.status === 'manual' && r.snippet ? `${head}\n${indent(r.snippet)}` : head;
 }
 
@@ -330,14 +315,23 @@ export async function runInstall(
         return false;
       }
     };
-    const detectedClients = CLIENTS.filter((c) =>
-      c.scopes.some((s) => configExists(c.resolvePath(s, io.cwd, io.home)))
-    ).map((c) => c.id);
     const viteConfigExists = ['vite.config.ts', 'vite.config.js', 'vite.config.mjs'].some((f) =>
       configExists(join(io.cwd, f))
     );
     const claudeSkillDetected = configExists(join(io.cwd, '.claude', 'settings.json'));
-    const cursorRulesDetected = configExists(join(io.cwd, '.cursor', 'mcp.json'));
+    // Same shape as claudeSkillDetected: "this project uses Cursor", from a file Cursor
+    // itself keeps — plus the rules file this target already wrote, so a re-run finds it
+    // ticked. `.cursor/mcp.json` stays a signal: it never meant svelte-vitals' own server
+    // entry, only that Cursor is in use here, and it still means exactly that. Each probe
+    // has to name a file, not a directory — readFile maps only ENOENT to undefined and
+    // rethrows EISDIR, so `.cursor/` itself would always read as absent.
+    const cursorRulesDetected = [
+      '.cursor/mcp.json',
+      '.cursor/environment.json',
+      '.cursorrules',
+      '.cursorignore',
+      agentTargetById('cursor-rules')!.relPaths[0]!
+    ].some((rel) => configExists(join(io.cwd, rel)));
     const detectedAgents: AgentTargetId[] = [
       ...(claudeSkillDetected ? (['claude-skill'] as const) : []),
       ...(cursorRulesDetected ? (['cursor-rules'] as const) : [])
@@ -347,17 +341,15 @@ export async function runInstall(
     // crash detection — same tolerance as every other detection probe above.
     const configFileDetected = findExistingConfigFile((p) => (configExists(p) ? '' : undefined), io.cwd) !== undefined;
     const detected: TargetId[] = [
-      ...detectedClients,
       ...(viteConfigExists ? VITE_TARGETS.map((t) => t.id) : []),
       ...detectedAgents,
       ...(ciWorkflowDetected ? CI_TARGETS.map((t) => t.id) : []),
       ...(configFileDetected ? CONFIG_TARGETS.map((t) => t.id) : [])
     ];
     // Grouped by category so the picker renders distinct sections instead of one flat
-    // list — flattening all four/five target types together made it hard to tell what
-    // an id was for (an MCP client vs. a Vite target vs. an agent skill vs. a one-off).
+    // list — flattening all four target types together made it hard to tell what an id
+    // was for (a Vite target vs. an agent skill vs. a one-off).
     const groups: Record<string, SelectableOption[]> = {
-      'MCP server': CLIENTS.map((c) => ({ id: c.id, label: c.label })),
       'Vite integration': VITE_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
       'Agent Skills & rules': AGENT_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
       'CI (GitHub Actions)': CI_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
@@ -371,32 +363,25 @@ export async function runInstall(
     ids = picked;
   } else {
     io.errorLog(
-      'svelte-vitals: no TTY; pass --client <claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow> to install non-interactively.'
+      'svelte-vitals: no TTY; pass --client <vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow> to install non-interactively.'
     );
     return 2;
   }
 
-  const clients = ids.map(clientById).filter((c): c is ClientWriter => c !== undefined);
   const viteIds = ids.filter(isViteTargetId);
   const agentIds = ids.filter(isAgentTargetId);
   const configIds = ids.filter(isConfigTargetId);
   const ciIds = ids.filter(isCiTargetId);
-  if (
-    clients.length === 0 &&
-    viteIds.length === 0 &&
-    agentIds.length === 0 &&
-    configIds.length === 0 &&
-    ciIds.length === 0
-  ) {
-    io.errorLog('svelte-vitals: no valid clients or targets selected.');
+  if (viteIds.length === 0 && agentIds.length === 0 && configIds.length === 0 && ciIds.length === 0) {
+    io.errorLog('svelte-vitals: no valid targets selected.');
     return 2;
   }
 
   // 2. Monorepo: resolve the app directory the app-scoped targets write into.
   // vite-plugin/vite-hooks/config-file must land in the SvelteKit app itself (that's
   // where vite.config/hooks.server live, and the config file is only loaded from the
-  // analyzed directory) — everything else (MCP project configs, skills, the CI
-  // workflow) belongs at the repo root and ignores this. Mirrors the analyzer's own
+  // analyzed directory) — everything else (skills, the CI workflow) belongs at the
+  // repo root and ignores this. Mirrors the analyzer's own
   // app picker (design doc 2026-07-08-monorepo-app-picker-design.md): cwd-is-an-app
   // short-circuits, a single detected app is used with a notice, several prompt on a
   // TTY, and non-interactive runs get told to pass --app.
@@ -459,36 +444,21 @@ export async function runInstall(
     }
   }
 
-  // 3. Resolve a scope per client and build the plan.
+  // 3. Build the plan.
+  //
+  // readFile maps only ENOENT to undefined and rethrows everything else (EACCES, EISDIR,
+  // …), which must become a friendly exit 2 rather than an unhandled rejection — hence
+  // the same try/catch on every target loop below.
   const rows: PlanRow[] = [];
-  for (const client of clients) {
-    let scope: Scope;
-    if (client.scopes.length === 1) {
-      scope = client.scopes[0]!;
-    } else if (flags.scope) {
-      scope = flags.scope;
-    } else if (io.isTTY) {
-      const picked = await prompts.selectScope(client);
-      if (picked === null) {
-        io.log('Cancelled.');
-        return 0;
-      }
-      scope = picked;
-    } else {
-      scope = 'project';
-    }
+  for (const viteId of viteIds) {
     try {
-      rows.push(planForClient(client, scope, io, flags.force ?? false));
+      rows.push(viteId === 'vite-plugin' ? planForVitePlugin(io, appDir) : planForViteHooks(io, appDir));
     } catch (err) {
-      const path = client.resolvePath(scope, io.cwd, io.home);
       io.errorLog(
-        `svelte-vitals: could not parse existing config at ${path}: ${err instanceof Error ? err.message : String(err)}`
+        `svelte-vitals: could not check existing Vite target ${viteId}: ${err instanceof Error ? err.message : String(err)}`
       );
       return 2;
     }
-  }
-  for (const viteId of viteIds) {
-    rows.push(viteId === 'vite-plugin' ? planForVitePlugin(io, appDir) : planForViteHooks(io, appDir));
   }
   for (const agentId of agentIds) {
     const target = agentTargetById(agentId)!;
@@ -501,9 +471,6 @@ export async function runInstall(
       return 2;
     }
   }
-  // Same try/catch as the client/agent loops above: readFile maps only ENOENT to
-  // undefined and rethrows everything else (EACCES, EISDIR, …), which must become a
-  // friendly exit 2 rather than an unhandled rejection.
   for (const configId of configIds) {
     const target = configTargetById(configId)!;
     try {
@@ -608,7 +575,7 @@ export async function runInstall(
   if (hadFailure) return 2;
 
   io.log('');
-  if (clients.length > 0) io.log('Restart your client to load the svelte-vitals MCP server.');
+  if (agentIds.length > 0) io.log('Restart your agent (or start a new session) to pick up the generated skill.');
   if (viteWasWritten) io.log('Restart `vite dev` (or your build) to pick up the change.');
   io.log('Done.');
   return 0;

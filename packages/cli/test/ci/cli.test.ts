@@ -23,7 +23,6 @@ function fakeIO(over: { files?: Record<string, string>; failWritePath?: string }
       writes[p] = c;
     },
     cwd: '/proj',
-    home: '/home/u',
     isTTY: false,
     log: (l) => out.push(l),
     errorLog: (l) => err.push(l)

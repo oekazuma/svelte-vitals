@@ -17,9 +17,9 @@ describe('vite targets', () => {
   it('viteTargetById returns undefined for an unknown id', () => {
     expect(viteTargetById('nope')).toBeUndefined();
   });
-  it('isViteTargetId is true for both Vite target ids and false for an MCP client id', () => {
+  it("isViteTargetId is true for both Vite target ids and false for another family's id", () => {
     expect(isViteTargetId('vite-plugin')).toBe(true);
     expect(isViteTargetId('vite-hooks')).toBe(true);
-    expect(isViteTargetId('claude-code')).toBe(false);
+    expect(isViteTargetId('claude-skill')).toBe(false);
   });
 });

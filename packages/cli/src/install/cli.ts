@@ -1,24 +1,22 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
-import { homedir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import mri from 'mri';
 import * as p from '@clack/prompts';
 import { runInstall, type InstallIO, type InstallPrompts } from './index.js';
 import { resolveInstallArgs } from './args.js';
 import { readPackageVersion } from '../version.js';
-import type { ClientWriter, Scope } from './clients.js';
 import type { SelectableOption, TargetId } from './index.js';
 
-const INSTALL_HELP = `svelte-vitals install — set up the svelte-vitals MCP server, Vite integration, agent skills/rules, and CI
+const INSTALL_HELP = `svelte-vitals install — set up the svelte-vitals Vite integration, agent skills/rules, config file, and CI
 
 Usage:
   svelte-vitals install [options]
 
 Options:
-  --client <ids>    Comma-separated: claude-code,cursor,codex,vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow
+  --client <ids>    Comma-separated: vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow
                     (skips the interactive picker; the picker groups these by category —
-                    MCP server, Vite integration, Agent Skills & rules, CI, Config file)
+                    Vite integration, Agent Skills & rules, CI, Config file)
                     vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-hooks
                     wires up the svelteVitalsHandle hook in src/hooks.server.{ts,js}, which improves the
                     live dashboard's per-route accuracy as you browse. --force does not apply
@@ -41,13 +39,12 @@ Options:
                     \`svelte-vitals ci install\` writes standalone — pick it here to set it up in
                     the same pass as everything else; supports --force to regenerate. \`svelte-vitals
                     ci upgrade\` remains the way to bump an existing workflow's pinned action version.
-  --scope <scope>   project | global (applies to all selected clients; codex is always global)
   --app <dir>       Monorepo: the SvelteKit app directory the vite-plugin/vite-hooks/config-file
                     targets write into (e.g. --app apps/web). Without it, when the current
                     directory isn't itself a SvelteKit app, one detected app is used
                     automatically (with a notice), several prompt a picker on a TTY, and
-                    non-interactive runs exit 2 asking for --app. All other targets (MCP
-                    configs, skills, ci-workflow) always write at the current directory —
+                    non-interactive runs exit 2 asking for --app. All other targets
+                    (skills, ci-workflow) always write at the current directory —
                     the repo root is their correct home.
   --yes, -y         Skip the confirmation prompt
   --dry-run         Print the planned changes and exit without writing
@@ -72,7 +69,6 @@ export function realIO(): InstallIO {
       writeFileSync(path, content);
     },
     cwd: process.cwd(),
-    home: homedir(),
     isTTY: Boolean(process.stdout.isTTY),
     nodeVersion: process.version,
     log: (line) => console.log(line),
@@ -113,14 +109,6 @@ function clackPrompts(): InstallPrompts {
       });
       return p.isCancel(res) ? null : (res as TargetId[]);
     },
-    selectScope: async (client: ClientWriter) => {
-      const res = await p.select({
-        message: `Scope for ${client.label}?`,
-        options: client.scopes.map((s) => ({ value: s, label: s })),
-        initialValue: client.scopes[0]
-      });
-      return p.isCancel(res) ? null : (res as Scope);
-    },
     selectApp: async (apps: string[]) => {
       const res = await p.select({
         message: 'Multiple SvelteKit apps found — which one should the Vite/config targets go into?',
@@ -140,6 +128,8 @@ function clackPrompts(): InstallPrompts {
 export async function runInstallCli(args: string[]): Promise<number> {
   const argv = mri(args, {
     boolean: ['yes', 'dry-run', 'force', 'refresh', 'help'],
+    // `scope` is still declared although the flag is gone: it keeps `--scope global` from
+    // parsing its value as a positional, so resolveInstallArgs can warn and carry on.
     string: ['client', 'scope', 'app'],
     alias: { y: 'yes', h: 'help' }
   });

@@ -9,11 +9,13 @@ sidebar:
 
 ```bash
 svelte-vitals [path] [options]
+svelte-vitals explain <rule-id>
 ```
 
-`path` is optional and defaults to the current directory.
+`path` is optional and defaults to the current directory. [`explain`](#explain) prints a single
+rule's rationale, fix, and configurable options instead of analyzing a project.
 
-> There is also an [`install` subcommand](/guides/install) for setting up the MCP server, [Agent Skills](/guides/agent-skills), and the Vite integration in your AI-agent clients, and a `ci install` subcommand that scaffolds a GitHub Actions PR gate — see [CI integration](/guides/ci).
+> There is also an [`install` subcommand](/guides/install) for setting up [Agent Skills](/guides/agent-skills), the Vite integration, and the config file, and a `ci install` subcommand that scaffolds a GitHub Actions PR gate — see [CI integration](/guides/ci).
 
 Flags below can also be set once in a `svelte-vitals.config` file at the project root instead of being repeated on every invocation — see [Config file](/guides/configuration). A flag always overrides the config file.
 
@@ -159,7 +161,7 @@ Use `--no-suppressions` to ignore the file for one run (e.g. to see the project'
 
 **Key difference from `--baseline <ref>`:** `--baseline` re-derives "what's pre-existing" by re-analyzing a git ref on every run — nothing to commit, but it only ever compares against one ref. The suppressions file is a committed, persistent record you build once (or update deliberately) and that keeps applying regardless of which ref you're on.
 
-> Entries match without a line number, same as `--baseline` — a second violation of an accepted rule lower in the same file won't surface as new. This file only affects the CLI in v1; it isn't yet read by `@svelte-vitals/vite`, `@svelte-vitals/mcp`, or the GitHub Action.
+> Entries match without a line number, same as `--baseline` — a second violation of an accepted rule lower in the same file won't surface as new. This file only affects the CLI in v1; it isn't yet read by `@svelte-vitals/vite` or the GitHub Action.
 
 ### `--by-route`
 
@@ -268,6 +270,29 @@ Print the help text and exit.
 ### `-v, --version`
 
 Print the CLI's own version and the resolved `@svelte-vitals/core` version, e.g. `0.20.0 (core 0.21.0)`. `svelte-vitals` and `@svelte-vitals/vite` are versioned independently and can end up depending on different `@svelte-vitals/core` releases — compare this `core` version against the one shown in the [live dashboard](/guides/dev-dashboard#version-drift) topbar if the two surfaces ever disagree on findings.
+
+## `explain`
+
+```bash
+svelte-vitals explain <rule-id> [--json]
+```
+
+Print one rule's static metadata without analyzing anything: its title, category, default
+severity, rationale, docs URL, fix template, and — for a rule that takes options — every
+option's name, kind, default, bounds, and **how a configured value merges with the built-in
+default**. That last part is the piece you can't read off a finding: an `integer` option
+replaces the default, a `string-list` is appended to it, and a `string-map` is spread over it,
+so a key that already exists built-in has its value overridden rather than duplicated.
+
+```bash
+npx svelte-vitals explain performance/heavy-import
+```
+
+`--json` prints the same information as a JSON object instead of text, for an agent or script
+that wants to read it structurally.
+
+An unknown rule id exits `2` and lists every known id, so a near-miss is easy to correct. Rule
+ids are matched exactly and are case-sensitive.
 
 ## Supported Svelte/SvelteKit versions
 

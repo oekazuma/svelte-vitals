@@ -2,7 +2,6 @@
 '@svelte-vitals/core': patch
 'svelte-vitals': patch
 '@svelte-vitals/vite': patch
-'@svelte-vitals/mcp': patch
 ---
 
 Scores are now floored rather than rounded to nearest, so a displayed 100 means the deduction was exactly

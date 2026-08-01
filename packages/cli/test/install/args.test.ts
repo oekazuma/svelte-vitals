@@ -6,40 +6,48 @@ const parse = (args: string[]) =>
   mri(args, { boolean: ['yes', 'dry-run', 'force', 'refresh'], string: ['client', 'scope'], alias: { y: 'yes' } });
 
 describe('resolveInstallArgs', () => {
-  it('parses clients and scope', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-code,cursor', '--scope', 'project']));
+  it('parses clients', () => {
+    const r = resolveInstallArgs(parse(['--client', 'claude-skill,vite-plugin']));
     expect(r.flags).toEqual({
-      client: ['claude-code', 'cursor'],
-      scope: 'project',
+      client: ['claude-skill', 'vite-plugin'],
       yes: false,
       dryRun: false,
       force: false
     });
   });
   it('warns and drops unknown client ids', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-code,bogus']));
-    expect(r.flags!.client).toEqual(['claude-code']);
+    const r = resolveInstallArgs(parse(['--client', 'claude-skill,bogus']));
+    expect(r.flags!.client).toEqual(['claude-skill']);
     expect(r.warnings.join('\n')).toContain('bogus');
   });
   it('de-duplicates repeated --client ids, preserving first-seen order', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-code,claude-code,cursor']));
-    expect(r.flags!.client).toEqual(['claude-code', 'cursor']);
+    const r = resolveInstallArgs(parse(['--client', 'claude-skill,claude-skill,vite-plugin']));
+    expect(r.flags!.client).toEqual(['claude-skill', 'vite-plugin']);
   });
   it('errors on an all-invalid --client (fatal)', () => {
     const r = resolveInstallArgs(parse(['--client', 'bogus']));
     expect(r.flags).toBeNull();
-    expect(r.errors.join('\n')).toContain('claude-code');
+    expect(r.errors.join('\n')).toContain('claude-skill');
   });
-  it('errors on an invalid scope (fatal)', () => {
-    const r = resolveInstallArgs(parse(['--scope', 'weird']));
+  it('drops the removed MCP client ids with a warning rather than accepting them', () => {
+    // They were valid ids until the MCP server was removed, so an old script still
+    // passes them; the run must be told, not silently install something else.
+    const r = resolveInstallArgs(parse(['--client', 'claude-code,cursor,codex']));
     expect(r.flags).toBeNull();
-    expect(r.errors.join('\n')).toContain('weird');
+    expect(r.warnings.join('\n')).toContain('claude-code');
+    expect(r.warnings.join('\n')).toContain('codex');
+  });
+  it('warns that --scope is obsolete instead of failing the run', () => {
+    const r = resolveInstallArgs(parse(['--client', 'claude-skill', '--scope', 'project']));
+    expect(r.errors).toEqual([]);
+    expect(r.flags).not.toHaveProperty('scope');
+    expect(r.warnings.join('\n')).toContain('--scope is no longer used');
   });
   it('maps -y, --dry-run, --force', () => {
     const r = resolveInstallArgs(parse(['-y', '--dry-run', '--force']));
     expect(r.flags).toMatchObject({ yes: true, dryRun: true, force: true });
   });
-  it('omits client/scope keys when not provided', () => {
+  it('omits the client key when not provided', () => {
     const r = resolveInstallArgs(parse([]));
     expect(r.flags).toEqual({ yes: false, dryRun: false, force: false });
   });
@@ -51,10 +59,10 @@ describe('resolveInstallArgs — Vite targets', () => {
     expect(r.errors).toEqual([]);
     expect(r.flags!.client).toEqual(['vite-plugin', 'vite-hooks']);
   });
-  it('mixes an MCP client id with a Vite target id', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-code,vite-plugin']));
+  it('mixes an agent target id with a Vite target id', () => {
+    const r = resolveInstallArgs(parse(['--client', 'claude-skill,vite-plugin']));
     expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['claude-code', 'vite-plugin']);
+    expect(r.flags!.client).toEqual(['claude-skill', 'vite-plugin']);
   });
   it('still rejects a genuinely unknown id', () => {
     const r = resolveInstallArgs(parse(['--client', 'not-a-real-target']));
@@ -68,10 +76,10 @@ describe('resolveInstallArgs — agent targets', () => {
     expect(r.errors).toEqual([]);
     expect(r.flags!.client).toEqual(['claude-skill', 'cursor-rules']);
   });
-  it('mixes an MCP client id with an agent target id', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-code,claude-skill']));
+  it('mixes the two skill target ids', () => {
+    const r = resolveInstallArgs(parse(['--client', 'claude-skill,claude-skill-improve']));
     expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['claude-code', 'claude-skill']);
+    expect(r.flags!.client).toEqual(['claude-skill', 'claude-skill-improve']);
   });
   it('accepts claude-skill-improve in --client', () => {
     const r = resolveInstallArgs(parse(['--client', 'claude-skill-improve']));
@@ -90,10 +98,10 @@ describe('resolveInstallArgs — config target', () => {
     expect(r.errors).toEqual([]);
     expect(r.flags!.client).toEqual(['config-file']);
   });
-  it('mixes an MCP client id with the config target id', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-code,config-file']));
+  it('mixes an agent target id with the config target id', () => {
+    const r = resolveInstallArgs(parse(['--client', 'claude-skill,config-file']));
     expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['claude-code', 'config-file']);
+    expect(r.flags!.client).toEqual(['claude-skill', 'config-file']);
   });
 });
 
@@ -103,10 +111,10 @@ describe('resolveInstallArgs — ci target', () => {
     expect(r.errors).toEqual([]);
     expect(r.flags!.client).toEqual(['ci-workflow']);
   });
-  it('mixes an MCP client id with the ci target id', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-code,ci-workflow']));
+  it('mixes an agent target id with the ci target id', () => {
+    const r = resolveInstallArgs(parse(['--client', 'claude-skill,ci-workflow']));
     expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['claude-code', 'ci-workflow']);
+    expect(r.flags!.client).toEqual(['claude-skill', 'ci-workflow']);
   });
 });
 
@@ -138,8 +146,8 @@ describe('resolveInstallArgs — --refresh', () => {
     expect(r.errors.join('\n')).toContain('--refresh');
     expect(r.errors.join('\n')).toContain('--client');
   });
-  it('warns (but does not error) when combined with --scope/--yes/--force', () => {
-    const r = resolveInstallArgs(parse(['--refresh', '--scope', 'project', '--yes', '--force']));
+  it('warns (but does not error) when combined with --yes/--force', () => {
+    const r = resolveInstallArgs(parse(['--refresh', '--yes', '--force']));
     expect(r.errors).toEqual([]);
     expect(r.flags).toMatchObject({ refresh: true });
     expect(r.warnings.join('\n')).toContain('--refresh');

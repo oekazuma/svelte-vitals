@@ -15,9 +15,6 @@ catalogs:
     '@clack/prompts':
       specifier: ^1.7.0
       version: 1.7.0
-    '@modelcontextprotocol/sdk':
-      specifier: ^1.30.0
-      version: 1.30.0
     '@sveltejs/kit':
       specifier: ^2.70.1
       version: 2.70.1
@@ -57,9 +54,6 @@ catalogs:
     publint:
       specifier: ^0.3.22
       version: 0.3.22
-    smol-toml:
-      specifier: ^1.7.1
-      version: 1.7.1
     svelte:
       specifier: ^5.56.8
       version: 5.56.8
@@ -78,9 +72,6 @@ catalogs:
     vitest:
       specifier: ^4.1.10
       version: 4.1.10
-    zod:
-      specifier: ^4.4.3
-      version: 4.4.3
 
 importers:
 
@@ -155,9 +146,6 @@ importers:
       mri:
         specifier: 'catalog:'
         version: 1.2.0
-      smol-toml:
-        specifier: 'catalog:'
-        version: 1.7.1
       svelte:
         specifier: 'catalog:'
         version: 5.56.8(@typescript-eslint/types@8.64.0)
@@ -181,25 +169,6 @@ importers:
       '@types/estree':
         specifier: 'catalog:'
         version: 1.0.9
-
-  packages/mcp:
-    dependencies:
-      '@modelcontextprotocol/sdk':
-        specifier: 'catalog:'
-        version: 1.30.0(supports-color@7.2.0)(zod@4.4.3)
-      '@svelte-vitals/core':
-        specifier: workspace:*
-        version: link:../core
-      svelte-vitals:
-        specifier: workspace:*
-        version: link:../cli
-      zod:
-        specifier: 'catalog:'
-        version: 4.4.3
-    devDependencies:
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.13.3
 
   packages/vite:
     dependencies:
@@ -1249,16 +1218,6 @@ packages:
 
   '@modelcontextprotocol/sdk@1.29.0':
     resolution: {integrity: sha512-zo37mZA9hJWpULgkRpowewez1y6ML5GsXJPY8FI0tBBCd77HEvza4jDqRKOXgHNn867PVGCyTdzqpz0izu5ZjQ==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@cfworker/json-schema': ^4.1.1
-      zod: ^3.25 || ^4.0
-    peerDependenciesMeta:
-      '@cfworker/json-schema':
-        optional: true
-
-  '@modelcontextprotocol/sdk@1.30.0':
-    resolution: {integrity: sha512-xKd8OIzlqNzcqcNumGAa6g+PW2kjD5vrpcKOnfldAUPP3j7lnqMPwlTXQm8gF+UwH72z0lqaRbjr9hqGz0eITA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@cfworker/json-schema': ^4.1.1
@@ -6892,28 +6851,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@modelcontextprotocol/sdk@1.30.0(supports-color@7.2.0)(zod@4.4.3)':
-    dependencies:
-      '@hono/node-server': 1.19.14(hono@4.12.26)
-      ajv: 8.20.0
-      ajv-formats: 3.0.1(ajv@8.20.0)
-      content-type: 1.0.5
-      cors: 2.8.6
-      cross-spawn: 7.0.6
-      eventsource: 3.0.7
-      eventsource-parser: 3.1.0
-      express: 5.2.1(supports-color@7.2.0)
-      express-rate-limit: 8.5.2(express@5.2.1(supports-color@7.2.0))
-      hono: 4.12.26
-      jose: 6.2.3
-      json-schema-typed: 8.0.2
-      pkce-challenge: 5.0.1
-      raw-body: 3.0.2
-      zod: 4.4.3
-      zod-to-json-schema: 3.25.2(zod@4.4.3)
-    transitivePeerDependencies:
-      - supports-color
-
   '@napi-rs/wasm-runtime@1.1.6(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.1)':
     dependencies:
       '@emnapi/core': 1.11.1
@@ -11688,10 +11625,6 @@ snapshots:
   zod-to-json-schema@3.25.2(zod@3.25.76):
     dependencies:
       zod: 3.25.76
-
-  zod-to-json-schema@3.25.2(zod@4.4.3):
-    dependencies:
-      zod: 4.4.3
 
   zod@3.25.76: {}
 

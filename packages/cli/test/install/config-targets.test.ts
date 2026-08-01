@@ -17,8 +17,8 @@ describe('config targets', () => {
   it('configTargetById returns undefined for an unknown id', () => {
     expect(configTargetById('nope')).toBeUndefined();
   });
-  it('isConfigTargetId is true for the config target id and false for an MCP client id', () => {
+  it("isConfigTargetId is true for the config target id and false for another family's id", () => {
     expect(isConfigTargetId('config-file')).toBe(true);
-    expect(isConfigTargetId('claude-code')).toBe(false);
+    expect(isConfigTargetId('ci-workflow')).toBe(false);
   });
 });

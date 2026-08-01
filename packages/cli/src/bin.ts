@@ -6,12 +6,14 @@ import { readPackageVersion, readCoreVersion } from './version.js';
 import { resolveArgs } from './resolve-args.js';
 import { runInstallCli } from './install/cli.js';
 import { runCiCli } from './ci/cli.js';
+import { runExplainCli } from './explain.js';
 
 const HELP = `svelte-vitals — a deterministic SvelteKit code-health scanner (SEO · performance · correctness · security · architecture)
 
 Usage:
   svelte-vitals [path] [options]
-  svelte-vitals install          Set up the MCP server, Vite integration, or agent skills/rules
+  svelte-vitals explain <id>     Print a rule's rationale, fix, and configurable options
+  svelte-vitals install          Set up the Vite integration, agent skills/rules, config file, or CI
   svelte-vitals ci install       Add a GitHub Actions PR gate (annotations + summary comment)
   svelte-vitals ci upgrade       Refresh the pinned @svelte-vitals/action in an existing workflow
 
@@ -59,9 +61,12 @@ async function selectApp(apps: string[]): Promise<string | null> {
   return p.isCancel(res) ? null : (res as string);
 }
 
-/** CLI entrypoint: dispatches `install`/`ci` subcommands, otherwise parses argv, resolves it into `run()` options, executes the analysis, and exits with the resulting code. */
+/** CLI entrypoint: dispatches `explain`/`install`/`ci` subcommands, otherwise parses argv, resolves it into `run()` options, executes the analysis, and exits with the resulting code. */
 async function main(): Promise<void> {
   const rawArgs = process.argv.slice(2);
+  if (rawArgs[0] === 'explain') {
+    process.exit(runExplainCli(rawArgs.slice(1)));
+  }
   if (rawArgs[0] === 'install') {
     const code = await runInstallCli(rawArgs.slice(1));
     process.exit(code);

@@ -142,7 +142,7 @@ export interface AnalyzeOptions {
    * the route/layout (head-resolution) parse path via `collectRoutes` —
    * `collectComponentFacts` (Correctness facts) is unaffected and still scans
    * every component on each call. Callers that don't need cross-call reuse
-   * (the CLI's `run()`, MCP, the Action — each analyzes once per process) can
+   * (the CLI's `run()`, the Action — each analyzes once per process) can
    * omit this; a fresh cache is created automatically.
    */
   parseCache?: ParseCache;
@@ -161,7 +161,7 @@ export interface AnalyzeResult {
  * Throws ProjectError when `cwd` is not a SvelteKit project. Also throws when a
  * `svelte-vitals.config.{mjs,js,ts}` file in `cwd` fails to load or fails
  * validation (unknown rule ids in `rules`, invalid `weights` entries) — see
- * `loadConfigFile`. Shared by the CLI's run() and by @svelte-vitals/mcp (issue #24).
+ * `loadConfigFile`. Shared by the CLI's run() and by embedding callers (issue #24).
  *
  * Config precedence is per field: an explicit option here wins, otherwise the
  * config file's value is used, otherwise the built-in default (design doc

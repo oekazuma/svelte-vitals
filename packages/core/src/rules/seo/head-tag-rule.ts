@@ -11,7 +11,7 @@ export interface HeadTagRuleOptions {
   /** Short human label, e.g. 'description'. */
   label: string;
   recommendation: string;
-  /** Why this rule matters — surfaced by explain_rule (issue #24). */
+  /** Why this rule matters — surfaced by `svelte-vitals explain` (issue #24). */
   rationale: string;
   /** Agent-actionable remediation attached to every finding (issue #18). */
   fix?: Fix;

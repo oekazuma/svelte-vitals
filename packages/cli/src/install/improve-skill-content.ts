@@ -64,9 +64,9 @@ Every svelte-vitals rule already carries a reviewer-written fix:
 \`recommendation\` (one line), and where applicable \`fix.description\` +
 \`fix.snippet\` (literal code to drop in). These are embedded verbatim in the
 rule catalog below — copy them into the plan's Target section, never
-approximate from memory. For the full rationale behind a rule, use the
-\`explain_rule\` MCP tool (if the svelte-vitals MCP server is configured) or
-open its docs link, also in the catalog below.
+approximate from memory. For the full rationale behind a rule, run
+\`npx svelte-vitals explain <rule-id>\` (it also names the rule's configurable
+options) or open its docs link, also in the catalog below.
 
 ## Workflow
 
@@ -88,8 +88,7 @@ Get the machine map before applying judgment:
   findings even appear (see Hard Rule 5).
 - **Stack**: SvelteKit version, static/prerendered vs. SSR vs. adapter-node,
   whether the Vite dev dashboard (\`@svelte-vitals/vite\`, \`ui: true\`) is
-  already wired up, whether an MCP client or the \`svelte-vitals\` skill is
-  already installed.
+  already wired up, whether the \`svelte-vitals\` skill is already installed.
 - **Verification commands**: read \`package.json\`'s \`scripts\` — do not assume
   a specific package manager; this project's build/typecheck/test/lint
   commands may differ from svelte-vitals' own repo.
@@ -315,7 +314,7 @@ adapted to this file — never approximated from memory.
 ## Tone
 
 State findings plainly with evidence, and cite the rule id so the reader can
-look it up in the catalog above or via \`explain_rule\`. A short list of
+look it up in the catalog above or via \`svelte-vitals explain\`. A short list of
 high-confidence, high-leverage plans beats a long padded one — "this route
 is already solid" is a valid audit result. Flag uncertainty honestly: when
 correctness can't be judged from static code alone (a race that depends on

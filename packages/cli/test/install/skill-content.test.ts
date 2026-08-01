@@ -31,6 +31,14 @@ describe('buildSkillMarkdown', () => {
     expect(ruleLines).toHaveLength(allRules.length);
   });
 
+  it('sends the agent to `svelte-vitals explain`, not to a tool that no longer exists', () => {
+    // The MCP server was removed in favour of CLI + skill; a skill that still told the
+    // agent to call `explain_rule` would send it after a tool nothing provides.
+    expect(md).toContain('npx svelte-vitals explain <rule-id>');
+    expect(md).not.toContain('explain_rule');
+    expect(md).not.toContain('MCP');
+  });
+
   it('includes a Fix note when the rule defines one', () => {
     const ruleWithFix = allRules.find((r) => r.fix?.description);
     expect(ruleWithFix).toBeDefined();

@@ -5,7 +5,7 @@ sidebar:
   order: 3
 ---
 
-`--rules`、`--ignore`、`--fail-on`、`--weights` を実行のたびに指定する代わりに、プロジェクトルートに `svelte-vitals.config` ファイルを置いて設定をまとめられます。CLI、[MCP サーバー](/ja/guides/mcp)、[Vite プラグイン](/ja/guides/plugin-mode) はいずれもこのファイルを自動的に読み込みます（MCP サーバーは CLI と同じ `analyzeProject` 関数を呼び出しているためこの機能をそのまま引き継ぎ、Vite プラグインは直接読み込みます。詳細は下記の [Vite プラグインで設定ファイルを再利用する](#vite-プラグインで設定ファイルを再利用する) を参照）。
+`--rules`、`--ignore`、`--fail-on`、`--weights` を実行のたびに指定する代わりに、プロジェクトルートに `svelte-vitals.config` ファイルを置いて設定をまとめられます。CLI と [Vite プラグイン](/ja/guides/plugin-mode) はいずれもこのファイルを自動的に読み込みます（Vite プラグインは直接読み込みます。詳細は下記の [Vite プラグインで設定ファイルを再利用する](#vite-プラグインで設定ファイルを再利用する) を参照）。
 
 `svelte-vitals install --client config-file` を実行すると、以下のオプションをすべてコメントアウトした状態の雛形を生成できます。
 
@@ -191,7 +191,7 @@ export default {
 
 一つ例外があります。`rules` はキー単位でマージされるのではなく、全体が丸ごと置き換わります。コマンドラインで `--rules` または `--ignore` を指定すると、その実行ではフラグから構築されたルールセットが設定ファイルの `rules` を丸ごと置き換えます（マージはしません）。
 
-`overrides` に対応する CLI フラグはありません。ルートのポリシーはコミットされるファイルに置くべきものだからです。CLI/MCP/Action にとっては設定ファイルが唯一のソースで、Vite プラグインだけは追加でプラグインオプションとしても受け取ります（いつも通り、オプション > ファイル）。
+`overrides` に対応する CLI フラグはありません。ルートのポリシーはコミットされるファイルに置くべきものだからです。CLI と Action にとっては設定ファイルが唯一のソースで、Vite プラグインだけは追加でプラグインオプションとしても受け取ります（いつも通り、オプション > ファイル）。
 
 ## バリデーション
 
@@ -208,7 +208,7 @@ export default {
 
 ## Vite プラグインで設定ファイルを再利用する
 
-`@svelte-vitals/vite` は CLI と同じ方法で `svelte-vitals.config.*` を読み込みます。追加の配線は不要です。ビルド時のゲート（`vite build`）と[ライブダッシュボード](/ja/guides/dev-dashboard)（`vite dev`）のどちらも、プロジェクトルート（`svelteVitals({ ... })` に渡す `cwd`、省略時は Vite の config root）からこのファイルを解決し、CLI と同じフィールド単位の優先順位を適用します: **`svelteVitals({ ... })` に明示的に渡したオプションが優先され、次に設定ファイルの値、最後に組み込みのデフォルトが使われます**。これには `weights` も含まれており、CLI や MCP サーバーと同様にプラグインの Health スコアに反映されるようになりました。
+`@svelte-vitals/vite` は CLI と同じ方法で `svelte-vitals.config.*` を読み込みます。追加の配線は不要です。ビルド時のゲート（`vite build`）と[ライブダッシュボード](/ja/guides/dev-dashboard)（`vite dev`）のどちらも、プロジェクトルート（`svelteVitals({ ... })` に渡す `cwd`、省略時は Vite の config root）からこのファイルを解決し、CLI と同じフィールド単位の優先順位を適用します: **`svelteVitals({ ... })` に明示的に渡したオプションが優先され、次に設定ファイルの値、最後に組み込みのデフォルトが使われます**。これには `weights` も含まれており、CLI と同様にプラグインの Health スコアに反映されるようになりました。
 
 ```ts
 // vite.config.ts

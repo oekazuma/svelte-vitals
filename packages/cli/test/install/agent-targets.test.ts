@@ -31,10 +31,10 @@ describe('agent targets', () => {
   it('agentTargetById returns undefined for an unknown id', () => {
     expect(agentTargetById('nope')).toBeUndefined();
   });
-  it('isAgentTargetId is true for all agent target ids and false for an MCP client id', () => {
+  it("isAgentTargetId is true for all agent target ids and false for another family's id", () => {
     expect(isAgentTargetId('claude-skill')).toBe(true);
     expect(isAgentTargetId('cursor-rules')).toBe(true);
     expect(isAgentTargetId('claude-skill-improve')).toBe(true);
-    expect(isAgentTargetId('claude-code')).toBe(false);
+    expect(isAgentTargetId('vite-plugin')).toBe(false);
   });
 });

@@ -80,7 +80,7 @@ These codes are stable and suitable for CI gates.
 
 ## Next steps
 
-- Not sure which package to reach for? See [Choosing a package](/guides/choosing-a-package) for a comparison of the CLI, the Vite plugin, and the MCP server.
+- Not sure which package to reach for? See [Choosing a package](/guides/choosing-a-package) for a comparison of the CLI, the Vite plugin, the GitHub Action, and Agent Skills.
 - See [CLI reference](/guides/cli) for all flags.
 - Use [Plugin mode](/guides/plugin-mode) to integrate with `vite build`.
-- Use [MCP](/guides/mcp) to let AI agents run the analysis automatically — `npx svelte-vitals@latest install` wires it into Claude Code / Cursor / Codex in one step.
+- Install [Agent Skills](/guides/agent-skills) to let AI agents apply the rules and run the analysis themselves — `npx svelte-vitals@latest install` writes them for Claude Code / Codex / Cursor in one step.

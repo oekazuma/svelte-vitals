@@ -86,16 +86,12 @@ check('analysing a real project emits a well-formed JSON report', () => {
   assert.ok(report.categories && typeof report.categories === 'object');
 });
 
-check('every published entry point except the mcp stdio server bin imports under bare node', async () => {
-  // @svelte-vitals/mcp's `bin` (svelte-vitals-mcp -> dist/bin.js) is a stdio
-  // server: invoking it would block waiting on stdin and hang the smoke. Its
-  // library entry point (dist/index.js, below) is covered instead.
+check('every published entry point imports under bare node', async () => {
   for (const entry of [
     'packages/core/dist/index.js',
     'packages/cli/dist/index.js',
     'packages/vite/dist/index.js',
-    'packages/vite/dist/hooks/index.js',
-    'packages/mcp/dist/index.js'
+    'packages/vite/dist/hooks/index.js'
   ]) {
     const mod = await import(join(root, entry));
     assert.ok(Object.keys(mod).length > 0, `${entry} exported nothing`);

@@ -17,8 +17,8 @@ export interface AgentTarget {
 }
 
 // Agent instruction-file install targets with metadata for the CLI wizard. Unlike the
-// MCP clients and Vite targets, these are wholly generated from core's rule metadata, so
-// --force is safe to apply (see index.ts).
+// Vite targets, these are wholly generated from core's rule metadata, so --force is safe
+// to apply (see index.ts).
 export const AGENT_TARGETS: AgentTarget[] = [
   {
     id: 'claude-skill',

@@ -1,5 +1,4 @@
 import type mri from 'mri';
-import { CLIENTS, type Scope } from './clients.js';
 import { VITE_TARGETS } from './vite-targets.js';
 import { AGENT_TARGETS } from './agent-targets.js';
 import { CONFIG_TARGETS } from './config-targets.js';
@@ -7,7 +6,6 @@ import { CI_TARGETS } from './ci-targets.js';
 import type { InstallFlags, TargetId } from './index.js';
 
 const VALID_TARGETS: readonly TargetId[] = [
-  ...CLIENTS.map((c) => c.id),
   ...VITE_TARGETS.map((t) => t.id),
   ...AGENT_TARGETS.map((t) => t.id),
   ...CONFIG_TARGETS.map((t) => t.id),
@@ -45,11 +43,12 @@ export function resolveInstallArgs(argv: mri.Argv): ResolvedInstallArgs {
     errors.push(`svelte-vitals: no valid --client values; expected ${EXPECTED_TARGETS}.`);
   }
 
-  let scope: Scope | undefined;
-  const rawScope = argv.scope;
-  if (typeof rawScope === 'string') {
-    if (rawScope === 'project' || rawScope === 'global') scope = rawScope;
-    else errors.push(`svelte-vitals: unknown --scope '${rawScope}'; expected project|global.`);
+  // --scope existed only to choose between a project and a global MCP client config.
+  // With the MCP targets gone every remaining target writes into the project, so the
+  // flag has nothing left to select — warn rather than fail, so an upgraded script
+  // still installs instead of exiting 2 on a flag that is merely obsolete.
+  if (argv.scope !== undefined) {
+    warnings.push('svelte-vitals: --scope is no longer used (all install targets are project-scoped). Ignoring.');
   }
 
   const app = typeof argv.app === 'string' && argv.app.trim() !== '' ? argv.app.trim() : undefined;
@@ -61,14 +60,13 @@ export function resolveInstallArgs(argv: mri.Argv): ResolvedInstallArgs {
 
   if (errors.length > 0) return { flags: null, warnings, errors };
 
-  if (refresh && (scope !== undefined || Boolean(argv.yes) || Boolean(argv.force) || app !== undefined)) {
-    warnings.push('svelte-vitals: --scope, --yes, --force, and --app are ignored with --refresh.');
+  if (refresh && (Boolean(argv.yes) || Boolean(argv.force) || app !== undefined)) {
+    warnings.push('svelte-vitals: --yes, --force, and --app are ignored with --refresh.');
   }
 
   return {
     flags: {
       ...(client.length > 0 ? { client } : {}),
-      ...(scope ? { scope } : {}),
       ...(app !== undefined && !refresh ? { app } : {}),
       yes: Boolean(argv.yes),
       dryRun: Boolean(argv['dry-run']),
