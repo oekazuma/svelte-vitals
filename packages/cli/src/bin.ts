@@ -60,6 +60,9 @@ If you are an AI agent:
   - \`--diff\` scopes the report to what you just changed; \`--staged\` is the pre-commit gate.
   - \`svelte-vitals explain <rule-id>\` says why a rule exists and which options it takes, before
     you decide to turn it off.
+  - Do NOT reach for \`--update-suppressions\` to make a run pass: it accepts every current
+    finding into a committed file and un-gates CI for all of them. Fix the findings, or scope
+    the run with \`--diff\`. Only a human should decide to accept a backlog.
   - Exit 2 is never a pass — it means the analysis did not run. Read stderr.
   - Analysis never prompts when stdout is not a TTY: where it would have asked, it exits 2
     naming the flag to pass. \`install\` is the exception — non-interactively it skips its

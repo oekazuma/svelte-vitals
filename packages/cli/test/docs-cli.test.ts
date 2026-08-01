@@ -73,6 +73,16 @@ describe('svelte-vitals docs show', () => {
   });
 });
 
+describe('discovery pointers reach an agent that never runs `docs`', () => {
+  it('the not-a-project error names the topic that explains app resolution', async () => {
+    // The first failure an agent hits in the wrong directory; pointing nowhere wastes the
+    // one moment it is definitely reading stderr.
+    const { detectProject } = await import('../src/providers/source/project.js');
+    const { createMemoryRuntime } = await import('./helpers/memory-runtime.js');
+    await expect(detectProject(createMemoryRuntime({}), '/proj')).rejects.toThrow(/docs show monorepo/);
+  });
+});
+
 describe('svelte-vitals docs — dispatch', () => {
   it('a bare `docs` prints usage on stderr and exits 2, keeping stdout empty', () => {
     const { code, out, err } = docs([]);

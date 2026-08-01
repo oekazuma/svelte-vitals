@@ -107,7 +107,8 @@ export async function detectProject(rt: Runtime, cwd: string): Promise<void> {
 
   throw new ProjectError(
     'No SvelteKit project found in the current directory. ' +
-      'Run this inside a SvelteKit app, or pass a path (e.g. npx svelte-vitals apps/web).'
+      'Run this inside a SvelteKit app, or pass a path (e.g. npx svelte-vitals apps/web). ' +
+      'See `svelte-vitals docs show monorepo` for how the app is resolved.'
   );
 }
 

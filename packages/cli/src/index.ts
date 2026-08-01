@@ -436,7 +436,8 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     } else {
       if (reporter === 'agent' && isAutoDetectedAgent(opts.reporter, env)) {
         errorLog(
-          'svelte-vitals: agent reporter auto-selected (AI-agent env detected); override with --reporter console|json.'
+          'svelte-vitals: agent reporter auto-selected (AI-agent env detected); override with --reporter console|json. ' +
+            'Run `svelte-vitals docs list` for the bundled guides.'
         );
       }
       if (reporter === 'github' && isAutoDetectedGithub(opts.reporter, env)) {
