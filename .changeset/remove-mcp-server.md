@@ -39,8 +39,10 @@ npx svelte-vitals explain performance/heavy-import
 | `install --client claude-code\|cursor\|codex` | `install --client claude-skill` — one skill file read by Claude Code, Codex and Cursor |
 
 `svelte-vitals install` no longer offers the MCP client targets, and `--scope` (which only ever chose
-between a project and a global client config) is gone with them. Passing either now prints a warning and
-carries on rather than failing, so an existing script still installs its other targets.
+between a project and a global client config) is gone with them. `--scope` is now only warned about and
+ignored. Each removed client id is warned about and skipped, so a `--client` list that also names a live
+target still installs that target — but a list of **only** removed ids leaves nothing to install and still
+exits `2`, so a script pinned to `--client claude-code,cursor,codex` needs updating to `claude-skill`.
 
 **Removing the leftover server entry is manual, by design:** `.mcp.json`, `.cursor/mcp.json` and
 `~/.codex/config.toml` are your files, shared with your other servers, so nothing rewrites them on your

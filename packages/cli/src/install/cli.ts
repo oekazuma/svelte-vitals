@@ -1,6 +1,5 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
-import { homedir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import mri from 'mri';
 import * as p from '@clack/prompts';
@@ -70,7 +69,6 @@ export function realIO(): InstallIO {
       writeFileSync(path, content);
     },
     cwd: process.cwd(),
-    home: homedir(),
     isTTY: Boolean(process.stdout.isTTY),
     nodeVersion: process.version,
     log: (line) => console.log(line),

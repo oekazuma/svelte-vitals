@@ -30,7 +30,6 @@ function fakeIO(
       writes[p] = c;
     },
     cwd: '/proj',
-    home: '/home/u',
     isTTY: over.isTTY ?? false,
     nodeVersion: over.nodeVersion ?? 'v22.13.0',
     log: (l) => out.push(l),
@@ -259,6 +258,37 @@ export default { plugins: [svelteVitals()] };
 });
 
 describe('runInstall — agent targets', () => {
+  /** Drive the interactive picker just far enough to read back its pre-selected defaults. */
+  async function pickerDefaults(files: Record<string, string>): Promise<string[]> {
+    const { io } = fakeIO({ isTTY: true, files });
+    let seenDefaults: string[] = [];
+    await runInstall({}, io, {
+      ...noPrompts,
+      selectClients: async (_groups, defaults) => {
+        seenDefaults = defaults;
+        return null;
+      }
+    });
+    return seenDefaults;
+  }
+
+  it('pre-selects cursor-rules from a file Cursor itself keeps, before anything is installed', async () => {
+    // The signal is "this project uses Cursor", the same shape as claude-skill's
+    // .claude/settings.json probe — not "svelte-vitals already wrote its rules file".
+    // A first-time Cursor user must still get the box ticked by default.
+    for (const signal of ['/proj/.cursor/mcp.json', '/proj/.cursor/environment.json', '/proj/.cursorrules']) {
+      expect(await pickerDefaults({ [signal]: 'x' })).toContain('cursor-rules');
+    }
+  });
+
+  it('pre-selects cursor-rules when its own rules file is already there', async () => {
+    expect(await pickerDefaults({ '/proj/.cursor/rules/svelte-vitals.mdc': 'x' })).toContain('cursor-rules');
+  });
+
+  it('does not pre-select cursor-rules in a project with no Cursor signal at all', async () => {
+    expect(await pickerDefaults({})).not.toContain('cursor-rules');
+  });
+
   it('claude-skill: not present → created, content has frontmatter and the version, identical across all three destinations', async () => {
     const { io, writes } = fakeIO();
     const code = await runInstall({ client: ['claude-skill'], yes: true }, io, noPrompts, '9.9.9');

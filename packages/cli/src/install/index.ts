@@ -46,7 +46,6 @@ export interface InstallIO {
   /** Write the file, creating parent directories as needed. */
   writeFile(path: string, content: string): void;
   cwd: string;
-  home: string;
   isTTY: boolean;
   log(line: string): void;
   errorLog(line: string): void;
@@ -320,11 +319,19 @@ export async function runInstall(
       configExists(join(io.cwd, f))
     );
     const claudeSkillDetected = configExists(join(io.cwd, '.claude', 'settings.json'));
-    // Previously probed .cursor/mcp.json, which stopped being a Cursor signal once the
-    // MCP targets were removed. Fall back to the rules file this target itself writes —
-    // like the CI and config-file probes below, "already installed" pre-checks the box.
-    // (readFile only maps ENOENT to undefined, so this has to be a file, not the directory.)
-    const cursorRulesDetected = configExists(join(io.cwd, agentTargetById('cursor-rules')!.relPaths[0]!));
+    // Same shape as claudeSkillDetected: "this project uses Cursor", from a file Cursor
+    // itself keeps — plus the rules file this target already wrote, so a re-run finds it
+    // ticked. `.cursor/mcp.json` stays a signal: it never meant svelte-vitals' own server
+    // entry, only that Cursor is in use here, and it still means exactly that. Each probe
+    // has to name a file, not a directory — readFile maps only ENOENT to undefined and
+    // rethrows EISDIR, so `.cursor/` itself would always read as absent.
+    const cursorRulesDetected = [
+      '.cursor/mcp.json',
+      '.cursor/environment.json',
+      '.cursorrules',
+      '.cursorignore',
+      agentTargetById('cursor-rules')!.relPaths[0]!
+    ].some((rel) => configExists(join(io.cwd, rel)));
     const detectedAgents: AgentTargetId[] = [
       ...(claudeSkillDetected ? (['claude-skill'] as const) : []),
       ...(cursorRulesDetected ? (['cursor-rules'] as const) : [])
