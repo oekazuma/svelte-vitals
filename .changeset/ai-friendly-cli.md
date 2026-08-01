@@ -28,8 +28,8 @@ affordance. `--list --json` gives `id`/`category`/`severity`/`title` per rule.
 
 ### Discovery pointers
 
-- `--version` now prints a one-line pointer to `docs list` **on stderr**. stdout is unchanged and
-  still just the version string, so anything parsing it keeps working.
+- `--version` now prints a one-line pointer to `docs list` **on stderr**. stdout is unchanged —
+  still exactly `<cli-version> (core <core-version>)` — so anything parsing it keeps working.
 - `--help` gains an "If you are an AI agent" section naming the bundled docs, `--reporter agent`
   and `--reporter json`, `--diff`/`--staged`, `explain`, and the fact that exit `2` is never a
   pass and that the CLI never prompts when stdout is not a TTY.

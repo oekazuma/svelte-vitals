@@ -12,6 +12,9 @@ export const DOCS_DIR = join(scriptsDir, '..', 'docs');
 /** The committed module the CLI imports. */
 export const GENERATED_PATH = join(scriptsDir, '..', 'src', 'docs', 'generated.ts');
 
+/** Every key a topic's frontmatter may carry, and must carry. */
+export const FRONTMATTER_KEYS = ['title', 'description'];
+
 /**
  * Split `---\ntitle: …\ndescription: …\n---` off the front of a topic file.
  *
@@ -24,15 +27,30 @@ export function parseTopic(fileName, raw) {
   const match = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/.exec(raw);
   if (!match) throw new Error(`${fileName}: missing --- frontmatter block`);
   const [, front, body] = match;
-  const read = (key) => {
-    const hit = new RegExp(`^${key}:\\s*(.+)$`, 'm').exec(front);
-    if (!hit) throw new Error(`${fileName}: frontmatter has no \`${key}\``);
-    return hit[1].trim();
-  };
+
+  // Parse the whole block rather than grepping for the two keys we want, so a typo'd or
+  // duplicated key fails the build instead of silently producing a topic with no description.
+  const seen = new Map();
+  for (const line of front.split(/\r?\n/)) {
+    if (line.trim() === '') continue;
+    const kv = /^([A-Za-z][\w-]*):\s*(.*)$/.exec(line);
+    if (!kv) throw new Error(`${fileName}: frontmatter line is not \`key: value\`: ${line}`);
+    const [, key, value] = kv;
+    if (!FRONTMATTER_KEYS.includes(key)) {
+      throw new Error(`${fileName}: unknown frontmatter key \`${key}\`; expected ${FRONTMATTER_KEYS.join(', ')}`);
+    }
+    if (seen.has(key)) throw new Error(`${fileName}: duplicate frontmatter key \`${key}\``);
+    if (value.trim() === '') throw new Error(`${fileName}: frontmatter \`${key}\` is empty`);
+    seen.set(key, value.trim());
+  }
+  for (const key of FRONTMATTER_KEYS) {
+    if (!seen.has(key)) throw new Error(`${fileName}: frontmatter has no \`${key}\``);
+  }
+
   return {
     name: fileName.replace(/\.md$/, ''),
-    title: read('title'),
-    description: read('description'),
+    title: seen.get('title'),
+    description: seen.get('description'),
     body: body.trim()
   };
 }

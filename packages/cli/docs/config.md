@@ -50,10 +50,12 @@ average; setting every category to `0` is an error (exit `2`).
 ## Turning a rule off or down
 
 ```js
-rules: {
-  'seo/json-ld': 'off',            // remove its findings entirely
-  'architecture/prop-count': 'info' // keep it, stop it failing the build
-}
+export default {
+  rules: {
+    'seo/json-ld': 'off', // remove its findings entirely
+    'architecture/prop-count': 'info' // keep it, stop it failing the build
+  }
+};
 ```
 
 Before disabling a rule, check whether it is really a **threshold disagreement** rather than a
@@ -62,9 +64,11 @@ default, bounds, and how a configured value merges with the built-in default (`i
 replaces it, `string-list` appends to it, `string-map` is spread over it).
 
 ```js
-rules: {
-  'architecture/prop-count': { options: { max: 12 } }
-}
+export default {
+  rules: {
+    'architecture/prop-count': { options: { max: 12 } }
+  }
+};
 ```
 
 ## Scoping to routes or files (`overrides`)
@@ -73,10 +77,12 @@ rules: {
 are deliberately not public.
 
 ```js
-overrides: [
-  { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
-  { route: '/admin/**', rules: { 'seo/title-presence': 'info' } }
-];
+export default {
+  overrides: [
+    { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
+    { route: '/admin/**', rules: { 'seo/title-presence': 'info' } }
+  ]
+};
 ```
 
 Each entry needs `rules` (keys are rule ids **or** category names) plus at least one of:

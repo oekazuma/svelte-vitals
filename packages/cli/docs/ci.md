@@ -40,12 +40,14 @@ the job); annotations and the summary still work.
 
 ## Without the Action
 
-Any CI can run the CLI directly. `GITHUB_ACTIONS=true` auto-selects the `github` reporter, so
-annotations come for free on GitHub:
+Any CI can run the CLI directly. On GitHub, `GITHUB_ACTIONS=true` auto-selects the `github`
+reporter, so annotations come for free — but a detected AI-agent environment outranks it, so a
+job driven by an agent gets `agent` instead. Pass `--reporter github` when you need the
+annotations regardless of who is running the job:
 
 ```bash
 pnpm build
-npx svelte-vitals@latest --fail-on warning
+npx svelte-vitals@latest --reporter github --fail-on warning
 ```
 
 For a PR gate that ignores a legacy backlog, pair the two scoping flags:

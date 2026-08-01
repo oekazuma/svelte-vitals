@@ -95,7 +95,7 @@ npx svelte-vitals@latest explain --list        # every rule, by category
 npx svelte-vitals@latest explain performance/heavy-import
 ```
 
-`explain <rule-id>` prints that rule's rationale, docs link, fix template, and — for a configurable rule — every option's default, bounds, and how a configured value merges with the built-in default: the detail needed to decide whether a finding is a defect or a threshold disagreement. Both commands take `--json`.
+`explain <rule-id>` prints that rule's rationale, docs link, fix template, and — for a configurable rule — every option's default, bounds, and how a configured value merges with the built-in default: the detail needed to decide whether a finding is a defect or a threshold disagreement. `docs list` and both forms of `explain` take `--json`; `docs show` prints the topic as Markdown.
 
 ### CI integration
 

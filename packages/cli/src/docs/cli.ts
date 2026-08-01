@@ -60,6 +60,12 @@ export function runDocsCli(args: string[], io: DocsIO = realIO): number {
   }
 
   if (sub === 'list') {
+    if (argv._.length > 1) {
+      // Silently dropping the extra would let `docs list config` read as "list, filtered to
+      // config" and come back exit 0 with something else entirely.
+      io.errorLog('svelte-vitals: docs list takes no arguments; use `docs show <name>` to read one.');
+      return 2;
+    }
     io.log(
       argv.json
         ? JSON.stringify(
@@ -77,6 +83,12 @@ export function runDocsCli(args: string[], io: DocsIO = realIO): number {
     if (name === undefined) {
       io.errorLog('svelte-vitals: docs show needs a topic name, e.g. `svelte-vitals docs show config`.');
       io.errorLog(`svelte-vitals: known topics: ${EMBEDDED_DOCS.map((d) => d.name).join(', ')}.`);
+      return 2;
+    }
+    if (argv._.length > 2) {
+      // `docs show output config` printing only `output` at exit 0 would read as "here are
+      // both topics" to whatever asked for them.
+      io.errorLog('svelte-vitals: docs show takes one topic at a time.');
       return 2;
     }
     const doc = EMBEDDED_DOCS.find((d) => d.name === name);

@@ -37,6 +37,13 @@ describe('svelte-vitals docs list', () => {
     expect(docs(['list']).out).toContain('svelte-vitals explain --list');
   });
 
+  it('refuses a stray argument rather than looking like a filtered listing', () => {
+    const { code, out, err } = docs(['list', 'config']);
+    expect(code).toBe(2);
+    expect(out).toBe('');
+    expect(err).toContain('takes no arguments');
+  });
+
   it('--json emits name/title/description per topic', () => {
     const { code, out } = docs(['list', '--json']);
     expect(code).toBe(0);
@@ -64,6 +71,13 @@ describe('svelte-vitals docs show', () => {
     expect(err).toContain("unknown docs topic 'nope'");
     expect(err).toContain('known topics:');
     expect(err).toContain('config');
+  });
+
+  it('refuses a second topic rather than silently printing only the first', () => {
+    const { code, out, err } = docs(['show', 'output', 'config']);
+    expect(code).toBe(2);
+    expect(out).toBe('');
+    expect(err).toContain('one topic at a time');
   });
 
   it('exits 2 when no topic name is given', () => {

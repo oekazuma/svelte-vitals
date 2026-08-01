@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { allRules } from '@svelte-vitals/core';
-import { readTopics } from '../scripts/docs-embed.mjs';
+import { parseTopic, readTopics } from '../scripts/docs-embed.mjs';
 import { EMBEDDED_DOCS } from '../src/docs/generated.js';
 
 const REGENERATE = 'run `pnpm --filter svelte-vitals run gen:docs && pnpm format`';
@@ -19,6 +19,36 @@ describe('docs: the embedded topics are up to date', () => {
       expect(t.description.length, `${t.name} description`).toBeGreaterThan(0);
       expect(t.body.length, `${t.name} body`).toBeGreaterThan(0);
     }
+  });
+});
+
+describe('docs: the frontmatter contract is enforced, not assumed', () => {
+  const valid = '---\ntitle: T\ndescription: D\n---\n\nbody\n';
+
+  it('accepts exactly title + description', () => {
+    expect(parseTopic('x.md', valid)).toEqual({ name: 'x', title: 'T', description: 'D', body: 'body' });
+  });
+
+  it('rejects an unknown key instead of dropping it', () => {
+    // A typo'd `descriptoin:` would otherwise produce a topic that `docs list` shows blank.
+    expect(() => parseTopic('x.md', '---\ntitle: T\ndescription: D\nsidebar: 3\n---\n\nbody\n')).toThrow(
+      /unknown frontmatter key `sidebar`/
+    );
+  });
+
+  it('rejects a duplicate key', () => {
+    expect(() => parseTopic('x.md', '---\ntitle: T\ntitle: U\ndescription: D\n---\n\nbody\n')).toThrow(
+      /duplicate frontmatter key `title`/
+    );
+  });
+
+  it('rejects an empty value', () => {
+    expect(() => parseTopic('x.md', '---\ntitle: T\ndescription:\n---\n\nbody\n')).toThrow(/`description` is empty/);
+  });
+
+  it('rejects a missing key and a missing block', () => {
+    expect(() => parseTopic('x.md', '---\ntitle: T\n---\n\nbody\n')).toThrow(/has no `description`/);
+    expect(() => parseTopic('x.md', '# no frontmatter\n')).toThrow(/missing --- frontmatter block/);
   });
 });
 
