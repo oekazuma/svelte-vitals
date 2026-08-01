@@ -31,7 +31,7 @@ The server exposed two tools, `analyze` and `explain_rule`, over ~255 lines of s
 
 Remove the package. Before removing it, move the one non-duplicated capability into the CLI:
 
-```
+```text
 svelte-vitals explain <rule-id> [--json]
 ```
 

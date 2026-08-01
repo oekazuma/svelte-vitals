@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-svelte-vitals ships as two npm packages — `svelte-vitals` (CLI) and `@svelte-vitals/vite` (plugin + live dashboard) — plus two surfaces you don't install from npm: **`@svelte-vitals/action`**, a first-party GitHub Action consumed straight from the repo, and **Agent Skills**, `SKILL.md` files the CLI generates into your project. They all share the same rule engine and scoring, but read different input and cover different ground. Most projects end up using more than one.
+svelte-vitals ships as npm packages — `svelte-vitals` (CLI) and `@svelte-vitals/vite` (plugin + live dashboard) — plus surfaces you don't install from npm: **`@svelte-vitals/action`**, a first-party GitHub Action consumed straight from the repo, and **Agent Skills**, `SKILL.md` files the CLI generates into your project. Everything that analyzes — the CLI, the Vite plugin, and the Action — shares the same rule engine and scoring, but reads different input and covers different ground (Agent Skills run no analysis of their own; they carry the rule knowledge and tell the agent when to run the scanner). Most projects end up using more than one.
 
 Each package is versioned independently and depends on `@svelte-vitals/core` (the shared rule engine) as its own semver range, so two packages installed at the "same time" can still resolve to different core versions — see [live dashboard: Version drift](/guides/dev-dashboard#version-drift) if the CLI and the Vite plugin ever disagree on findings for the same project.
 
@@ -18,7 +18,7 @@ Each package is versioned independently and depends on `@svelte-vitals/core` (th
 | Gate GitHub PRs with inline annotations, a job summary, and a sticky comment — no YAML   | **GitHub Action** — `npx svelte-vitals@latest ci install` |
 | Verify the exact HTML your prerendered pages will ship, whatever generated it            | **Vite plugin**, build mode                               |
 | See live findings while developing, whole project, from the moment `vite dev` starts     | **Vite plugin**, live dashboard                           |
-| Let an AI coding agent (Claude Code, Cursor, Codex) check its own changes                | **CLI** with `--reporter agent`                           |
+| Let an AI coding agent (Claude Code, Cursor, Codex) check its own changes                | **CLI** with `--diff --reporter agent`                    |
 | Teach your agent the rules up front, or get a project-wide improvement roadmap from it   | **Agent Skills** — `/svelte-vitals`, `/improve-svelte`    |
 
 ## Comparison
@@ -32,7 +32,7 @@ Each package is versioned independently and depends on `@svelte-vitals/core` (th
 | Needs a build  | No                                                                     | Yes                                                                    | No                                                                                           |
 | Typical home   | CI, pre-commit hooks, one-off audits, agent tool loops                 | Build pipeline gate                                                    | Local dev feedback (on by default)                                                           |
 
-Two surfaces are intentionally absent from this table: the **GitHub Action** runs the CLI's own engine in-process, so its coverage is the CLI column — what it adds is the PR experience (annotations, summary, sticky comment) rather than different analysis. **Agent Skills** run no analysis of their own at all — they give the agent the rule knowledge and tell it when to run the scanner.
+Some surfaces are intentionally absent from this table: the **GitHub Action** runs the CLI's own engine in-process, so its coverage is the CLI column — what it adds is the PR experience (annotations, summary, sticky comment) rather than different analysis. **Agent Skills** run no analysis of their own at all — they give the agent the rule knowledge and tell it when to run the scanner.
 
 ### Why build-mode coverage is close to the CLI's
 
@@ -58,12 +58,12 @@ The same package also serves a **live dashboard** at `/__svelte-vitals/` during 
 
 ### Agent Skills — rule knowledge for your agent, up front
 
-[Agent Skills](/guides/agent-skills) make an agent _know the rules before it writes code_. `svelte-vitals install` generates two portable `SKILL.md` files that work identically in Claude Code, Codex, and Cursor: **`/svelte-vitals`** embeds the full rule catalog plus a run-the-scanner-after-every-edit playbook, and **`/improve-svelte`** is a read-only audit that turns "review my app" into impact-ranked, self-contained implementation plans. They pair with the CLI rather than replacing it — knowledge up front, analysis on demand: the skill's own playbook tells the agent to run `npx svelte-vitals . --diff --reporter agent` after an edit, and `npx svelte-vitals explain <rule-id>` when it needs a rule's full rationale and options. See [Agent Skills](/guides/agent-skills).
+[Agent Skills](/guides/agent-skills) make an agent _know the rules before it writes code_. `svelte-vitals install` generates portable `SKILL.md` files that work identically in Claude Code, Codex, and Cursor: **`/svelte-vitals`** embeds the full rule catalog plus a run-the-scanner-after-every-edit playbook, and **`/improve-svelte`** is a read-only audit that turns "review my app" into impact-ranked, self-contained implementation plans. They pair with the CLI rather than replacing it — knowledge up front, analysis on demand: the skill's own playbook tells the agent to run `npx svelte-vitals . --diff --reporter agent` after an edit, and `npx svelte-vitals explain <rule-id>` when it needs a rule's full rationale and options. See [Agent Skills](/guides/agent-skills).
 
 ## Recommended setups
 
 - **Just starting out:** run `npx svelte-vitals@latest` locally, then add it to CI (`pnpm build && npx svelte-vitals@latest --fail-on critical`). This alone covers all categories and every route.
 - **Hosting on GitHub:** `npx svelte-vitals@latest ci install` instead of hand-writing that CI step — same engine, plus inline PR annotations and the sticky comment, scoped to each PR's own changes.
-- **Coding with an AI agent:** install the Agent Skills (`npx svelte-vitals@latest install`) — they give the agent the rules before it writes code and tell it to verify each edit with the CLI (`--diff --reporter agent`) afterwards.
+- **Coding with an AI agent:** install the Agent Skills (`npx svelte-vitals@latest install`) — they give the agent the rules before it writes code and tell it to verify each edit with the CLI (`--diff --reporter agent`) afterward.
 - **Polishing prerendered/marketing pages:** add the Vite plugin's build mode for an exact, build-time gate on shipped HTML — its live dashboard (on by default) gives you feedback while you write, no extra setup needed.
 - **All of the above together** is the common end state — they check different things at different times and don't conflict.

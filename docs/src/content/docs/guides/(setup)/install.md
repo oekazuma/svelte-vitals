@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-Interactively set up the svelte-vitals Vite integration, [Agent Skills](/guides/agent-skills) for **Claude Code**, **Codex** and **Cursor**, the [config file](/guides/configuration), and the [CI workflow](/guides/ci) — everything a project needs wired up, in one pass.
+Interactively set up the svelte-vitals Vite integration, [Agent Skills](/guides/agent-skills) for **Claude Code**, **Codex** and **Cursor**, the [config file](/guides/configuration), and the [CI workflow](/guides/ci) — everything a project needs, wired up in one pass.
 
 ```bash
 npx svelte-vitals@latest install
@@ -56,7 +56,7 @@ Overwrite an existing `svelte-vitals` entry. By default an entry that already ex
 
 ## `--refresh`
 
-Regenerate whichever `claude-skill`/`cursor-rules`/`claude-skill-improve` files are already present on disk, with the current rule set — a one-command way to pick up newly added rules or improved rationale text without remembering which agent targets you originally installed. It only regenerates files that already exist; it never creates one (refresh is not install). It ignores `--yes` and `--force` (with a warning) since they don't apply, and cannot be combined with `--client` (fatal). If no generated agent files are found, it prints guidance and exits `0`.
+Regenerate whichever `claude-skill`/`cursor-rules`/`claude-skill-improve` files are already present on disk, with the current rule set — a one-command way to pick up newly added rules or improved rationale text without remembering which agent targets you originally installed. It only regenerates files that already exist; it never creates one (refresh is not install). It ignores `--yes`, `--force`, and `--app` (with a warning) since they don't apply, and cannot be combined with `--client` (fatal). If no generated agent files are found, it prints guidance and exits `0`.
 
 ```bash
 # Non-interactive: write the agent skill and register the Vite plugin
