@@ -438,13 +438,21 @@ export async function runInstall(
   }
 
   // 3. Build the plan.
+  //
+  // readFile maps only ENOENT to undefined and rethrows everything else (EACCES, EISDIR,
+  // …), which must become a friendly exit 2 rather than an unhandled rejection — hence
+  // the same try/catch on every target loop below.
   const rows: PlanRow[] = [];
   for (const viteId of viteIds) {
-    rows.push(viteId === 'vite-plugin' ? planForVitePlugin(io, appDir) : planForViteHooks(io, appDir));
+    try {
+      rows.push(viteId === 'vite-plugin' ? planForVitePlugin(io, appDir) : planForViteHooks(io, appDir));
+    } catch (err) {
+      io.errorLog(
+        `svelte-vitals: could not check existing Vite target ${viteId}: ${err instanceof Error ? err.message : String(err)}`
+      );
+      return 2;
+    }
   }
-  // readFile maps only ENOENT to undefined and rethrows everything else (EACCES, EISDIR,
-  // …), which must become a friendly exit 2 rather than an unhandled rejection — same
-  // try/catch on every target loop below.
   for (const agentId of agentIds) {
     const target = agentTargetById(agentId)!;
     try {

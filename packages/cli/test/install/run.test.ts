@@ -212,6 +212,17 @@ export default { plugins: [svelteVitals()] };
     expect(runCalls).toEqual([]);
   });
 
+  it('a read failure (e.g. EACCES) while planning a Vite target is reported and exits 2', async () => {
+    // Every other target loop turns a non-ENOENT readFile throw into a friendly exit 2;
+    // the Vite loop used to let it reject out of runInstall as an unhandled rejection.
+    const { io, writes, err } = fakeIO({ throwOnRead: '/proj/vite.config.ts' });
+    const code = await runInstall({ client: ['vite-plugin'], yes: true }, io, noPrompts);
+    expect(code).toBe(2);
+    expect(writes).toEqual({});
+    expect(err.join('\n')).toContain('could not check existing Vite target vite-plugin');
+    expect(err.join('\n')).toContain('EACCES');
+  });
+
   it('a plan can mix an agent skill and a Vite target in one run', async () => {
     const { io, writes } = fakeIO({
       files: { '/proj/vite.config.ts': `export default { plugins: [] };`, '/proj/package.json': '{}' },
@@ -379,7 +390,7 @@ describe('runInstall — agent targets', () => {
     expect(seenOptions).toContain('claude-skill-improve');
   });
 
-  it('a read failure (e.g. EACCES) while planning an agent target is reported and exits 2, matching planForClient', async () => {
+  it('a read failure (e.g. EACCES) while planning an agent target is reported and exits 2', async () => {
     const { io, writes, err } = fakeIO({
       throwOnRead: '/proj/.agents/skills/svelte-vitals/SKILL.md'
     });
