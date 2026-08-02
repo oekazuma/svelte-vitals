@@ -7,7 +7,7 @@ description: ルート相対リンクをハードコードすると kit.paths.ba
 
 ## チェック内容
 
-対象になるのは `kit.paths.base` を設定しているプロジェクトだけです。その場合に、ハードコードされたルート相対リテラルで書かれたナビゲーションを3つの箇所で検出します:
+対象になるのは base path を設定しているプロジェクトだけです（Vite 設定の `sveltekit({ paths: { base } })`、または `svelte.config.*` の `kit.paths.base`。前者が優先されます）。その場合に、ハードコードされたルート相対リテラルで書かれたナビゲーションを3つの箇所で検出します:
 
 ```svelte
 <a href="/about">About</a>

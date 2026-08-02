@@ -7,7 +7,7 @@ description: 'A hardcoded root-relative link resolves against the domain root, n
 
 ## What it checks
 
-Only projects that configure `kit.paths.base` are checked. In those, the rule flags navigation written as a hardcoded root-relative literal on three surfaces:
+Only projects that configure a base path are checked — via `sveltekit({ paths: { base } })` in the Vite config, which takes precedence, or `kit.paths.base` in `svelte.config.*`. In those, the rule flags navigation written as a hardcoded root-relative literal on three surfaces:
 
 ```svelte
 <a href="/about">About</a>
