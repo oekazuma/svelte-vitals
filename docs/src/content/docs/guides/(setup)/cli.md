@@ -176,7 +176,9 @@ Show every finding uncapped and ungrouped, matching the console output from befo
 
 ### `--no-animation`
 
-Disable the Health-score reveal animation and the analysis-phase mascot. Both only ever play on an interactive terminal with color enabled (never in CI, a piped/redirected output, or an AI-agent shell); this flag is only needed to opt out of them specifically while still on a terminal that would otherwise show them. The mascot art additionally needs 20+ columns and is omitted below that width even without this flag — the score animation itself still plays on a narrower terminal, just without the mascot. Falls back to a plain spinner during analysis and a plain (mascot-free) score animation.
+Disable the Health-score reveal animation and the analysis-phase mascot, falling back to a plain spinner and a plain score reveal.
+
+Both only ever play on an interactive, color-capable terminal — never in CI, piped output, or an AI-agent shell — so this flag is only for opting out on a terminal that would otherwise show them. The mascot additionally needs 20+ columns and is dropped below that width regardless.
 
 ### `--rules <ids>`
 
@@ -309,12 +311,13 @@ svelte-vitals explain <rule-id> [--json]
 `--list` prints every rule grouped by category, with its default severity and title — the way to
 discover rule ids without triggering an error.
 
-Given an id, `explain` prints that rule's static metadata without analyzing anything: its title, category, default
-severity, rationale, docs URL, fix template, and — for a rule that takes options — every
-option's name, kind, default, bounds, and **how a configured value merges with the built-in
-default**. That last part is the piece you can't read off a finding: an `integer` option
-replaces the default, a `string-list` is appended to it, and a `string-map` is spread over it,
-so a key that already exists built-in has its value overridden rather than duplicated.
+Given an id, `explain` prints that rule's static metadata without analyzing anything: title,
+category, default severity, rationale, docs URL, fix template, and — for a configurable rule —
+each option's name, kind, default, bounds and **merge semantics**.
+
+That last part is the piece a finding can't tell you: `integer` replaces the default,
+`string-list` appends to it, `string-map` is spread over it, so a built-in key has its value
+overridden rather than duplicated.
 
 ```bash
 npx svelte-vitals explain performance/heavy-import

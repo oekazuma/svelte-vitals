@@ -25,7 +25,9 @@ All three files are byte-identical.
 
 ## `/improve-svelte`
 
-A read-only, project-wide audit skill. It turns "review my SvelteKit app" into an evidence-based, ranked plan: it scans the whole project, ranks findings by actual user/search-engine impact rather than raw rule severity (a missing canonical URL on the homepage outranks the same issue on a page nobody visits), and writes each selected finding into a self-contained implementation plan under `plans/` — precise enough for another agent (even a cheaper model) or a human to execute without re-deriving context.
+A read-only, project-wide audit skill that turns "review my SvelteKit app" into a ranked, evidence-based plan.
+
+It scans the whole project and ranks findings by real user/search-engine impact rather than raw severity — a missing canonical URL on the homepage outranks the same issue on a page nobody visits. Each selected finding becomes a self-contained plan under `plans/` — or `advisor-plans/` when `plans/` already exists for another purpose — precise enough for another agent or a human to execute without re-deriving context.
 
 Every fix recommendation comes from svelte-vitals's own rule catalog — the same one `/svelte-vitals` embeds — never invented on the spot, so it needs no network access. It never edits source itself, so it's safe to run any time. Where `/svelte-vitals` is the every-edit regression check, `/improve-svelte` is the periodic "give me a prioritized roadmap" pass — run it before a push, a refactor, or a focused SEO/performance effort.
 

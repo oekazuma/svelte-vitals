@@ -17,9 +17,13 @@ npx svelte-vitals@latest install
 
 設定するターゲットをカンマ区切りで指定します：`vite-plugin`、`vite-hooks`、`claude-skill`、`cursor-rules`、`claude-skill-improve`、`config-file`、`ci-workflow`。指定した場合は対話式の選択がスキップされます。
 
-`vite-plugin` は `@svelte-vitals/vite` のビルドモードのプラグインを `vite.config.{ts,js,mjs}` に登録します（ライブダッシュボードはデフォルトで有効です）。`vite-hooks` は `svelteVitalsHandle` フックを `src/hooks.server.{ts,js}` に組み込みます。このフックがあると、ページを閲覧するにつれてダッシュボードのルート別の精度が上がります。どちらも `magicast` によるコードモッドで、確実に認識できる形のファイルだけを変更します。認識できないファイルには手を付けず、手動で追加するためのスニペットを表示します。どちらかを書き込んだ時点で `@svelte-vitals/vite` が依存関係になければ、検出したパッケージマネージャーで自動インストールします。**`--force` はこの2つには適用されません**。フラグの有無にかかわらず、既存の登録は常にそのまま維持されます。
+`vite-plugin` はビルドモードのプラグインを `vite.config.{ts,js,mjs}` に登録します（ライブダッシュボードはデフォルトで有効）。`vite-hooks` は `svelteVitalsHandle` を `src/hooks.server.{ts,js}` に組み込み、閲覧に応じてダッシュボードのルート別精度を上げます。
 
-`claude-skill` は [`/svelte-vitals` Agent Skill](/ja/guides/agent-skills#svelte-vitals) を3つの慣例的な場所へ同時に書き出します：`.claude/skills/svelte-vitals/SKILL.md`（Claude Code）、`.agents/skills/svelte-vitals/SKILL.md`（Codex）、`.cursor/skills/svelte-vitals/SKILL.md`（Cursor）です。3つとも同じフロントマター形式の `SKILL.md` 規約を読むため、内容はバイト単位で同一です。`cursor-rules` は Cursor のプロジェクトルールファイルを `.cursor/rules/svelte-vitals.mdc` に書き出します。どちらもインストール時点のルールセット（各ルールの id、タイトル、severity、rationale をカテゴリごとにまとめたもの）から生成されます。Vite 向けの2ターゲットと異なりコードモッドではなく毎回全文を再生成するため、**`--force` はこの2つに適用され**、既存ファイルを最新の内容で上書きします。
+どちらも `magicast` によるコードモッドで、確実に認識できる形のファイルだけを変更します。認識できない場合は手を付けず、スニペットを表示します。書き込み時に `@svelte-vitals/vite` が依存関係になければ、検出したパッケージマネージャーで自動インストールします。**`--force` はこの2つには適用されず**、既存の登録は常にそのまま維持されます。
+
+`claude-skill` は [`/svelte-vitals` Agent Skill](/ja/guides/agent-skills#svelte-vitals) を `.claude/skills/`・`.agents/skills/`・`.cursor/skills/` へ同時に、バイト単位で同一の内容で書き出します（3つとも同じフロントマター形式の `SKILL.md` 規約を読むため）。`cursor-rules` は `.cursor/rules/svelte-vitals.mdc` を書き出します。
+
+どちらもインストール時点のルールセット（各ルールの id・タイトル・severity・rationale をカテゴリごとに）から生成されます。コードモッドではなく全文を再生成するため、**`--force` はこの2つに適用され**、既存ファイルを上書きします。
 
 `claude-skill-improve` は [`/improve-svelte` Agent Skill](/ja/guides/agent-skills#improve-svelte) を同じ3つの場所（`improve-svelte/` 以下の `.claude/skills/improve-svelte/SKILL.md`、`.agents/skills/improve-svelte/SKILL.md`、`.cursor/skills/improve-svelte/SKILL.md`）に書き出します。`claude-skill`／`cursor-rules` と同様に毎回全文を再生成するため、**`--force` が適用されます**。
 
@@ -56,7 +60,9 @@ npx svelte-vitals@latest install --client vite-plugin,config-file --app apps/web
 
 ## `--refresh`
 
-ディスク上に既に存在する `claude-skill`／`cursor-rules`／`claude-skill-improve` ファイルだけを、現行のルールセットで再生成します。ルールの追加や rationale の改善を、最初にどのエージェントターゲットをインストールしたか覚えていなくても1コマンドで反映できます。既に存在するファイルだけを再生成し、無いファイルは作りません（refresh はインストールではありません）。`--yes`、`--force`、`--app` は適用対象外のため無視されます（warning を1行出力）。`--client` との併用は致命的エラーになります。生成済みのエージェントファイルが1件も見つからない場合は案内を表示して終了コード `0` で終了します。
+ディスク上に既にある `claude-skill`／`cursor-rules`／`claude-skill-improve` ファイルだけを現行のルールセットで再生成します。どのターゲットをインストールしたか覚えていなくても、追加されたルールを1コマンドで反映できます。無いファイルを作ることはありません。
+
+`--yes`・`--force`・`--app` は warning を出して無視され、`--client` との併用は致命的エラーです。生成済みファイルが1件も無い場合は案内を表示して終了コード `0` で終了します。
 
 ```bash
 # 非対話：エージェントスキルの生成と Vite プラグインの登録

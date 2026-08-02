@@ -34,16 +34,15 @@ svelte-vitals version, re-run with `--force` to migrate to the current, shorter 
 
 ## Adopting on an existing project
 
-If the repo already has a backlog of findings, run `svelte-vitals --update-suppressions` locally
-first: it writes `svelte-vitals-suppressions.json`, accepting every current finding in one shot.
-Commit that file, then enable whatever gate you want (`--fail-on`, `--min-health`, a pre-commit
-hook, or this workflow) — from then on it only fails on findings introduced afterward, without
-having to fix the backlog up front. See [`--update-suppressions`](/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
-in the CLI reference for the full behavior. `@svelte-vitals/action` applies this file
-automatically too, whenever it's present in the repo — no extra input needed to enable it. Its own
-`diff`/`baseline` scoping below already limits _this_ workflow to a PR's own changes; the
-suppressions file additionally lets you turn on gating outside of PRs (e.g. `--fail-on` in a local
-pre-commit hook) without the same backlog problem.
+With an existing backlog, run `svelte-vitals --update-suppressions` locally first: it writes
+`svelte-vitals-suppressions.json` accepting every current finding. Commit it, then turn on any
+gate — only findings introduced afterward fail. See
+[`--update-suppressions`](/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
+for the full behaviour.
+
+`@svelte-vitals/action` applies the file automatically when present. This workflow is already
+scoped to a PR's own changes by `diff`/`baseline`; the suppressions file is what lets you gate
+**outside** PRs too, such as a local pre-commit hook.
 
 ## What the workflow does
 
@@ -222,13 +221,13 @@ works, but it throws away any customizations you've made to the workflow (extra 
 steps, etc).
 
 `svelte-vitals ci upgrade` is the surgical alternative: it rewrites **only** the action `uses:`
-line(s) in your existing workflow to the pin bundled with the CLI you're running — both the
-current `uses: oekazuma/svelte-vitals-action@<sha>` form and the pre-migration
-`uses: oekazuma/svelte-vitals/packages/action@<sha>` form (from a workflow generated before the
-action moved to its own repository) are recognized and migrated. Everything else in the file
-(other `uses:` pins like `actions/checkout`, your triggers, extra steps) is left untouched.
-`svelte-vitals-action` lives in its own repository with plain `vX.Y.Z` release tags, so Renovate
-also proposes these updates automatically, no extra Renovate configuration needed.
+line(s) to the pin bundled with the CLI you're running. Both the current
+`oekazuma/svelte-vitals-action@<sha>` form and the pre-migration
+`oekazuma/svelte-vitals/packages/action@<sha>` form are recognized and migrated. Everything else —
+other pins, triggers, extra steps — is untouched.
+
+The action repository publishes plain `vX.Y.Z` tags, so Renovate proposes these updates too, with
+no extra configuration.
 
 ```bash
 npx svelte-vitals@latest ci upgrade              # rewrite the pin in place
