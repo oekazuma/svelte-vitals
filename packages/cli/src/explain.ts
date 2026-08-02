@@ -55,11 +55,7 @@ export function formatRuleExplanation(info: NonNullable<ReturnType<typeof explai
   );
 }
 
-/**
- * Every rule, grouped by category. This is the entry point into `explain`: without it the only
- * way to learn a rule id was to pass a wrong one and read the error, which is an accident rather
- * than an affordance.
- */
+/** Every rule, grouped by category — the entry point into `explain`. */
 function renderRuleList(): string {
   const sections = CATEGORIES.map((category) => {
     const rules = allRules.filter((r) => r.category === category);
@@ -85,8 +81,7 @@ export function runExplainCli(args: string[], io: CliIO = consoleIO): number {
 
   if (argv.list) {
     if (argv._.length > 0) {
-      // `explain --list seo/title-presence` returning the whole list at exit 0 would read as
-      // "here is that rule" — the same misreading `docs list <name>` is guarded against.
+      // Returning the whole list would read as "here is that rule".
       io.errorLog('svelte-vitals: explain --list takes no rule id; drop --list to explain one.');
       return 2;
     }

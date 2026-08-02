@@ -19,11 +19,11 @@ describe('svelte-vitals docs list', () => {
     }
   });
 
-  it('points at explain for rule-level detail, so the two surfaces are discoverable from each other', () => {
+  it('points at `explain --list` for rule-level detail', () => {
     expect(docs(['list']).out).toContain('svelte-vitals explain --list');
   });
 
-  it('refuses a stray argument rather than looking like a filtered listing', () => {
+  it('refuses a stray argument', () => {
     const { code, out, err } = docs(['list', 'config']);
     expect(code).toBe(2);
     expect(out).toBe('');
@@ -59,7 +59,7 @@ describe('svelte-vitals docs show', () => {
     expect(err).toContain('config');
   });
 
-  it('refuses a second topic rather than silently printing only the first', () => {
+  it('refuses a second topic', () => {
     const { code, out, err } = docs(['show', 'output', 'config']);
     expect(code).toBe(2);
     expect(out).toBe('');
@@ -73,10 +73,8 @@ describe('svelte-vitals docs show', () => {
   });
 });
 
-describe('discovery pointers reach an agent that never runs `docs`', () => {
-  it('the not-a-project error names the topic that explains app resolution', async () => {
-    // The first failure an agent hits in the wrong directory; pointing nowhere wastes the
-    // one moment it is definitely reading stderr.
+describe('discovery pointers', () => {
+  it('the not-a-project error names the topic explaining app resolution', async () => {
     const { detectProject } = await import('../src/providers/source/project.js');
     const { createMemoryRuntime } = await import('./helpers/memory-runtime.js');
     await expect(detectProject(createMemoryRuntime({}), '/proj')).rejects.toThrow(/docs show monorepo/);
@@ -84,7 +82,7 @@ describe('discovery pointers reach an agent that never runs `docs`', () => {
 });
 
 describe('svelte-vitals docs — dispatch', () => {
-  it('a bare `docs` prints usage on stderr and exits 2, keeping stdout empty', () => {
+  it('a bare `docs` prints usage on stderr and exits 2', () => {
     const { code, out, err } = docs([]);
     expect(code).toBe(2);
     expect(out).toBe('');
@@ -98,8 +96,7 @@ describe('svelte-vitals docs — dispatch', () => {
     expect(out).toContain('svelte-vitals docs');
   });
 
-  it('an unknown subcommand exits 2 and names the valid ones, without touching stdout', () => {
-    // Every exit-2 path keeps stdout empty; a caller piping it must not find prose there.
+  it('an unknown subcommand exits 2 and names the valid ones', () => {
     const { code, out, err } = docs(['read', 'config']);
     expect(code).toBe(2);
     expect(out).toBe('');
@@ -107,12 +104,11 @@ describe('svelte-vitals docs — dispatch', () => {
     expect(err).toContain('list|show');
   });
 
-  it('tells the reader how to analyze a directory that shares the subcommand name', () => {
-    // `docs` beats a ./docs directory, which is a common enough layout to warrant the escape hatch.
+  it('documents the escape hatch for a ./docs directory', () => {
     expect(docs(['--help']).out).toContain('svelte-vitals ./docs');
   });
 
-  it('says the topics ship with the CLI, which is the reason to prefer them over a web search', () => {
+  it('says the topics match the running version', () => {
     expect(docs(['--help']).out).toContain('always match the version you are running');
   });
 });

@@ -5,8 +5,8 @@ description: Use --diff, --staged, --baseline and the suppressions file so only 
 
 # Scoping findings to a change
 
-Running svelte-vitals on an existing project usually surfaces a backlog nobody is about to fix.
-Do not disable rules to get a green run — scope the report instead.
+An existing project usually has a backlog nobody is about to fix. Scope the report rather than
+disabling rules.
 
 ## Scope by file
 
@@ -22,16 +22,15 @@ Both work when the project is not at the git repo root.
 
 ## Scope by finding (`--baseline <ref>`)
 
-`--baseline` reports only findings **not already present** at `ref`. It scopes by finding
-identity rather than by file, so a pre-existing problem in a file you touched does not fail the
-gate — only what your change actually introduced does. There is no default ref.
+Reports only findings **not already present** at `ref`. Scopes by finding identity rather than by
+file, so a pre-existing problem in a file you touched does not fail the gate. No default ref.
 
 ```bash
 svelte-vitals --diff origin/main --baseline origin/main --fail-on warning   # PR gate
 ```
 
-Internally it checks `ref` out into a temporary git worktree and subtracts those findings. If
-that fails (no git, bad ref), it warns and reports everything rather than failing the run.
+It checks `ref` out into a temporary worktree and subtracts those findings. On failure (no git,
+bad ref) it warns and reports everything rather than failing the run.
 
 ## Accept a backlog once (`svelte-vitals-suppressions.json`)
 
@@ -42,14 +41,12 @@ svelte-vitals --update-suppressions
 git add svelte-vitals-suppressions.json
 ```
 
-`--update-suppressions` analyzes the whole project (any `--diff`/`--staged`/`--baseline` scoping
-is ignored), writes every currently-penalized finding, prints a summary to stderr, and exits `0`
-without printing a report.
+This analyzes the whole project (`--diff`/`--staged`/`--baseline` are ignored), writes every
+penalized finding, and exits `0` without a report.
 
-Once the file exists it applies automatically on every run, after `--diff`/`--staged` and
-`--baseline`, and reports how many findings it removed. Fixing an accepted finding leaves a
-**stale** entry — that is reported on stderr as a reminder to re-run `--update-suppressions`,
-but never fails the run. `--no-suppressions` ignores the file for one run.
+The file then applies automatically on every run, after `--diff`/`--staged` and `--baseline`.
+Fixing an accepted finding leaves a **stale** entry, reported on stderr but never failing the run.
+`--no-suppressions` ignores the file for one run.
 
 A malformed suppressions file is a hard error (exit `2`), not a silent skip.
 
