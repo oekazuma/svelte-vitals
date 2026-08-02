@@ -25,6 +25,7 @@ const kit = (over: Partial<KitModuleFacts>): KitModuleFacts => ({
   moduleStateReassignments: [],
   importedStateWrites: [],
   importedStateWritesOutsideHandlers: [],
+  pendingServerStoreWrites: [],
   runesModuleImports: [],
   lifecycleCalls: [],
   browserGlobalRefs: [],

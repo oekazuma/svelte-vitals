@@ -15,6 +15,15 @@ export interface KitModuleFacts {
   importedStateWrites: { name: string; line: number; via: 'assignment' | 'set-call' }[];
   /** Writes to an imported binding outside handlers — top level or helper functions (security/shared-state-import's write flavour). */
   importedStateWritesOutsideHandlers: { name: string; line: number }[];
+  /**
+   * `.set()`/`.update()` in a handler on an import resolving under the `$lib` server root.
+   * The call shape alone cannot tell a persistence client (`db.set(…)`) from a hand-rolled
+   * in-memory store, so the decision needs the target module — which this pure parse cannot
+   * read. `collectKitModuleFacts` resolves each one and promotes the in-memory ones into
+   * `importedStateWrites`; a consumer that ignores this field sees the pre-arbitration
+   * behaviour, i.e. every one of these exempt.
+   */
+  pendingServerStoreWrites: { name: string; imported: string; resolved: string; line: number }[];
   /** Value imports whose specifier resolves to a repo-local `.svelte.ts`/`.svelte.js` runes module (security/shared-state-import). */
   runesModuleImports: { source: string; resolved: string; names: string[]; line: number }[];
   /** Svelte lifecycle/context calls that run outside component initialisation — top level, handler bodies, or the `init` hook (correctness/orphan-lifecycle). */
