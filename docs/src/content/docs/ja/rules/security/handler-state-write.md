@@ -15,9 +15,19 @@ universal な `+page.ts`/`+layout.ts` の load も対象です。SSR 時はサ�
 
 - 読み取り、その他のメソッド呼び出し（`logger.info(…)`）、ローカル変数への書き込み。
 - インストール済みパッケージからの import への `.set()`/`.update()`。
-- 解決先が `src/lib/server` になる import への `.set()`/`.update()`。ディレクトリエントリポイント（`import { db } from '$lib/server'`）と `src/lib/server/**` 配下のモジュールが該当します。Drizzle の `db.update(...).set(...)` のような DB/KV クライアント呼び出しは永続化であり、共有状態への書き込みではないためです。
+- 解決先が `src/lib/server` になる **永続化クライアント**への `.set()`/`.update()`。ディレクトリエントリポイント（`import { db } from '$lib/server'`）と `src/lib/server/**` 配下が該当します。Drizzle の `db.update(...).set(...)` のような呼び出しは永続化であり、共有状態への書き込みではないためです。
 
 `src/lib/server` の除外は解決後のパスに対して働くので、`$lib/server/` alias 経由でも相対パス（`../../lib/server/db`）経由でも同じように適用されます。`..` でプロジェクトルートの外へ抜ける specifier は、保守的にリポジトリ内の共有状態としては扱いません。
+
+ただし除外の条件はディレクトリだけではありません。svelte-vitals は対象モジュールを読み、export がインメモリコンテナで**ない**場合にのみ除外します。`new Map`/`Set`/`WeakMap`/`WeakSet`、あるいはオブジェクト・配列リテラルで初期化された export は自作ストア（リクエストごとに上書きされる単一の共有インスタンス）なので、`src/lib/server` 配下でも検出します。
+
+```ts
+// src/lib/server/store.ts
+export const db = new Map(); // handler から db.set(...) すると検出
+export const client = drizzle(url); // コンテナリテラルではないので除外
+```
+
+コンテナだと断定できないものはすべて除外のままなので、実クライアントのラッパーや re-export、読めないモジュールが誤検知になることはありません。読み込むのは handler が実際に書き込んでいるモジュールだけです。
 
 ## なぜ重要か
 

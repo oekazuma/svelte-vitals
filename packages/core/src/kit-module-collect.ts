@@ -1,4 +1,4 @@
-import { parseKitModuleFacts } from './kit-module-parse.js';
+import { parseInMemoryExports, parseKitModuleFacts } from './kit-module-parse.js';
 import type { KitModuleFacts } from './kit-module.js';
 import type { Runtime } from './runtime.js';
 import type { KitAlias } from './types.js';
@@ -11,6 +11,7 @@ export function emptyKitModuleFacts(file: string, kind: KitModuleFacts['kind']):
     moduleStateReassignments: [],
     importedStateWrites: [],
     importedStateWritesOutsideHandlers: [],
+    pendingServerStoreWrites: [],
     runesModuleImports: [],
     lifecycleCalls: [],
     browserGlobalRefs: [],
@@ -48,7 +49,7 @@ export async function collectKitModuleFacts(
   ];
   const lists = await Promise.all(patterns.map((p) => rt.glob(p, cwd)));
   const files = [...new Set(lists.flat())];
-  return Promise.all(
+  const facts = await Promise.all(
     files.sort().map(async (rel): Promise<KitModuleFacts> => {
       const kind = kindOf(rel);
       try {
@@ -59,4 +60,54 @@ export async function collectKitModuleFacts(
       }
     })
   );
+  return arbitrateServerStoreWrites(rt, cwd, facts);
+}
+
+/** Extensions and index forms a bare repo path may name, in resolution order. */
+const MODULE_CANDIDATES = ['.ts', '.js', '/index.ts', '/index.js'];
+
+/**
+ * Read the module a pending write targets and return the names it exports as an in-memory
+ * container. Returns an empty set when the file cannot be found or read: unresolvable means
+ * unarbitrated, which leaves the write exempt.
+ */
+async function inMemoryExportsOf(rt: Runtime, cwd: string, repoPath: string): Promise<ReadonlySet<string>> {
+  for (const suffix of MODULE_CANDIDATES) {
+    const rel = `${repoPath}${suffix}`;
+    try {
+      if (!(await rt.exists(rt.join(cwd, rel)))) continue;
+      return parseInMemoryExports(await rt.readFile(rt.join(cwd, rel)), rel);
+    } catch {
+      return new Set();
+    }
+  }
+  return new Set();
+}
+
+/**
+ * Decide the `.set()`/`.update()` calls the parse could not: a call on a binding exported from
+ * under the `$lib` server root is shared module state when that binding is an in-memory
+ * container, and persistence when it is anything else. Only the modules actually targeted are
+ * read, so a project whose handlers never write to `$lib/server` pays nothing.
+ */
+async function arbitrateServerStoreWrites(
+  rt: Runtime,
+  cwd: string,
+  facts: KitModuleFacts[]
+): Promise<KitModuleFacts[]> {
+  const targets = [...new Set(facts.flatMap((f) => f.pendingServerStoreWrites.map((w) => w.resolved)))];
+  if (targets.length === 0) return facts;
+  const byPath = new Map(
+    await Promise.all(targets.map(async (t) => [t, await inMemoryExportsOf(rt, cwd, t)] as const))
+  );
+  return facts.map((f) => {
+    const promoted = f.pendingServerStoreWrites
+      .filter((w) => byPath.get(w.resolved)?.has(w.imported))
+      .map((w) => ({ name: w.name, line: w.line, via: 'set-call' as const }));
+    if (promoted.length === 0) return f;
+    return {
+      ...f,
+      importedStateWrites: [...f.importedStateWrites, ...promoted].sort((a, b) => a.line - b.line)
+    };
+  });
 }

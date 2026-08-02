@@ -596,12 +596,56 @@ function libServerRoot(aliases?: readonly KitAlias[]): string | undefined {
  * risks a false positive in this default-on security rule, and staying silent only costs a
  * missed finding.
  */
+/** The resolved repo path when `spec` lands on, or under, the `$lib` server root; else undefined. */
+function serverRootRelativePath(spec: string, importerFile: string, aliases?: readonly KitAlias[]): string | undefined {
+  const serverRoot = libServerRoot(aliases);
+  if (serverRoot === undefined) return undefined;
+  const path = resolveRepoLocalPath(spec, importerFile, aliases);
+  if (path === undefined) return undefined;
+  return path === serverRoot || path.startsWith(`${serverRoot}/`) ? path : undefined;
+}
+
 function isLocalStateSpecifier(spec: string, importerFile: string, aliases?: readonly KitAlias[]): boolean {
   const serverRoot = libServerRoot(aliases);
   if (serverRoot === undefined) return false;
   const path = resolveRepoLocalPath(spec, importerFile, aliases);
   if (path === undefined) return false;
   return path !== serverRoot && !path.startsWith(`${serverRoot}/`);
+}
+
+/** Container constructors whose instances hold data in process memory. */
+const IN_MEMORY_CTORS = new Set(['Map', 'Set', 'WeakMap', 'WeakSet']);
+
+/** Whether an initializer positively identifies an in-memory container. */
+function isInMemoryInit(init: Node | undefined): boolean {
+  if (!init) return false;
+  if (init.type === 'ObjectExpression' || init.type === 'ArrayExpression') return true;
+  return init.type === 'NewExpression' && init.callee?.type === 'Identifier' && IN_MEMORY_CTORS.has(init.callee.name);
+}
+
+/**
+ * The exported bindings of a module that are initialized to an in-memory container — an object
+ * or array literal, or `new Map`/`Set`/`WeakMap`/`WeakSet`. Used to arbitrate a `.set()` call on
+ * an import from under the `$lib` server root, where the call shape alone cannot separate a
+ * hand-rolled store from a database client.
+ *
+ * Precision-first, matching the rest of this default-on security rule: only an initializer that
+ * positively names a container counts. Anything else — a call into an imported package, a
+ * re-export, an unreadable file — is left alone, so a wrapper this cannot see stays exempt
+ * rather than becoming a false positive.
+ */
+export function parseInMemoryExports(source: string, filename: string): ReadonlySet<string> {
+  const names = new Set<string>();
+  const { program } = parseModuleProgram(source, filename);
+  for (const stmt of program?.body ?? []) {
+    if (stmt?.type !== 'ExportNamedDeclaration' || !stmt.declaration) continue;
+    const decl = stmt.declaration;
+    if (decl.type !== 'VariableDeclaration') continue;
+    for (const d of decl.declarations ?? []) {
+      if (d?.id?.type === 'Identifier' && isInMemoryInit(d.init)) names.add(d.id.name);
+    }
+  }
+  return names;
 }
 
 /**
@@ -619,6 +663,7 @@ export function parseKitModuleFacts(
   const moduleStateReassignments: KitModuleFacts['moduleStateReassignments'] = [];
   const importedStateWrites: KitModuleFacts['importedStateWrites'] = [];
   const importedStateWritesOutsideHandlers: KitModuleFacts['importedStateWritesOutsideHandlers'] = [];
+  const pendingServerStoreWrites: KitModuleFacts['pendingServerStoreWrites'] = [];
   const runesModuleImports: KitModuleFacts['runesModuleImports'] = [];
   const lifecycleCalls: KitModuleFacts['lifecycleCalls'] = [];
   const browserGlobalRefs: KitModuleFacts['browserGlobalRefs'] = [];
@@ -627,6 +672,7 @@ export function parseKitModuleFacts(
       moduleStateReassignments,
       importedStateWrites,
       importedStateWritesOutsideHandlers,
+      pendingServerStoreWrites,
       runesModuleImports,
       lifecycleCalls,
       browserGlobalRefs,
@@ -639,6 +685,9 @@ export function parseKitModuleFacts(
   // Imported value bindings (type-only skipped): local name → raw specifier, plus
   // the subset whose specifier resolves to a repo-local runes module (security/shared-state-import).
   const importedSpecifiers = new Map<string, string>();
+  // local name -> exported name, so arbitration can look up the right export of the target
+  // module when the import is aliased (`import { db as store }`).
+  const importedNames = new Map<string, string>();
   for (const stmt of program.body ?? []) {
     if (stmt?.type !== 'ImportDeclaration' || stmt.importKind === 'type') continue;
     const spec = typeof stmt.source?.value === 'string' ? stmt.source.value : '';
@@ -647,6 +696,10 @@ export function parseKitModuleFacts(
       if (s?.importKind === 'type' || s?.local?.type !== 'Identifier') continue;
       names.push(s.local.name);
       importedSpecifiers.set(s.local.name, spec);
+      importedNames.set(
+        s.local.name,
+        s.type === 'ImportSpecifier' && s.imported?.type === 'Identifier' ? s.imported.name : s.local.name
+      );
     }
     if (names.length === 0) continue;
     const resolved = resolveRunesModuleSpecifier(spec, filename, aliases);
@@ -747,8 +800,23 @@ export function parseKitModuleFacts(
       const method = n.callee.property?.type === 'Identifier' ? n.callee.property.name : undefined;
       if (method === 'set' || method === 'update') {
         const r = importedRoot(n.callee.object);
-        if (r && isLocalStateSpecifier(importedSpecifiers.get(r)!, filename, aliases))
-          write = { name: r, via: 'set-call' };
+        const spec = r ? importedSpecifiers.get(r)! : undefined;
+        if (r && spec !== undefined) {
+          if (isLocalStateSpecifier(spec, filename, aliases)) write = { name: r, via: 'set-call' };
+          else {
+            // Under the `$lib` server root: the call shape cannot tell a persistence client from
+            // a hand-rolled store, so defer to the collector, which can read the target module.
+            const resolved = serverRootRelativePath(spec, filename, aliases);
+            if (resolved !== undefined && inHandler) {
+              pendingServerStoreWrites.push({
+                name: r,
+                imported: importedNames.get(r) ?? r,
+                resolved,
+                line: line(n.start)
+              });
+            }
+          }
+        }
       }
     } else if (
       n.type === 'AssignmentExpression' &&
@@ -810,6 +878,7 @@ export function parseKitModuleFacts(
     moduleStateReassignments: byLine(moduleStateReassignments),
     importedStateWrites: byLine(importedStateWrites),
     importedStateWritesOutsideHandlers: byLine(importedStateWritesOutsideHandlers),
+    pendingServerStoreWrites: byLine(pendingServerStoreWrites),
     runesModuleImports: byLine(runesModuleImports),
     lifecycleCalls: byLine(lifecycleCalls),
     browserGlobalRefs: byLine(browserGlobalRefs),

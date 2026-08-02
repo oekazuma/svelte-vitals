@@ -13,9 +13,19 @@ Not flagged:
 
 - Reads, other method calls (`logger.info(…)`), and writes to local variables.
 - `.set()`/`.update()` on imports from installed packages.
-- `.set()`/`.update()` on anything resolving to `src/lib/server` — the directory entrypoint (`import { db } from '$lib/server'`) and anything under `src/lib/server/**`, such as a database or KV client (Drizzle's `db.update(...).set(...)`). Those are persistence, not shared module state.
+- `.set()`/`.update()` on a **persistence client** resolving to `src/lib/server` — the directory entrypoint (`import { db } from '$lib/server'`) or anything under `src/lib/server/**`, such as Drizzle's `db.update(...).set(...)`. Those calls are persistence, not shared module state.
 
 The `src/lib/server` exemption applies to the **resolved** path, so it holds however the module is imported — via the `$lib/server/` alias or a relative path (`../../lib/server/db`). A specifier whose `..` segments escape the project root is conservatively never treated as repo-local state.
+
+The exemption is not the directory alone. svelte-vitals reads the target module and keeps the call exempt only when the export is _not_ an in-memory container. An export initialized to `new Map`/`Set`/`WeakMap`/`WeakSet`, or to an object or array literal, is a hand-rolled store — one shared instance overwritten per request — and is reported even under `src/lib/server`:
+
+```ts
+// src/lib/server/store.ts
+export const db = new Map(); // reported when a handler calls db.set(...)
+export const client = drizzle(url); // exempt — not a container literal
+```
+
+Anything the read cannot positively identify as a container stays exempt, so a wrapper around a real client, a re-export, or an unreadable module is never a false positive. Only the modules a handler actually writes to are read.
 
 ## Why it matters
 
