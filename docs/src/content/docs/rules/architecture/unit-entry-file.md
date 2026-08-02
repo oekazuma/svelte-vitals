@@ -35,11 +35,11 @@ grouping, or narrow the declaration that swept it in.
 | `pascalCaseUnits` | map of root glob → extension      | `{}`    |
 | `exclude`         | list of directory globs           | `[]`    |
 
-In `units` and `pascalCaseUnits` — the two map options — each value is the entry file's extension,
-written with its leading dot — `'.ts'`, not `'ts'`. Option validation accepts any non-empty string
-either way, so a missing dot fails silently: it would look for `getFoots` instead of `getFoo.ts` and
-never find it. `exclude` is a list, not a map, and its values are directory globs rather than
-extensions.
+In the two map options, `units` and `pascalCaseUnits`, each value is the entry file's extension
+**with its leading dot** — `'.ts'`, not `'ts'`. Validation accepts any non-empty string, so a missing
+dot fails silently: it looks for `getFoots` instead of `getFoo.ts` and never finds it.
+
+`exclude` is a list, not a map, and its values are directory globs rather than extensions.
 
 ```js
 // svelte-vitals.config.js
@@ -73,11 +73,16 @@ directory under a matching root whose name begins with an uppercase letter. Both
 camelCase directory may legitimately be a unit _or_ a grouping — only its position can tell them apart
 — while a PascalCase unit nests to arbitrary depth, where no path glob can find it.
 
-A directory matched by `units` takes that declaration; `pascalCaseUnits` applies only to the rest. When
-several globs match one directory, the most specific wins: more path segments first, then fewer `**`
-segments, then the longer key, then the alphabetically first. Segment count includes wildcards, so a
-key made only of wildcards can outrank one naming a real directory if it is deeper — write the depth
-you mean.
+A directory matched by `units` takes that declaration; `pascalCaseUnits` applies only to the rest.
+When several globs match one directory, the most specific wins, in this order:
+
+1. more path segments;
+2. fewer `**` segments;
+3. the longer key;
+4. the alphabetically first.
+
+Segment count includes wildcards, so a key made only of wildcards can outrank one naming a real
+directory if it is deeper — write the depth you mean.
 
 ### `exclude`
 
@@ -113,11 +118,13 @@ A declaration whose every match is removed by `exclude` is reported the same way
 `matched only excluded directories` rather than `matched no directory`. The two have different
 remedies: one is a typo in the glob, the other a contradiction between two options you can both see.
 
-Two things are deliberately left out. A declaration written **only** inside an `overrides` entry is
-not checked this way, because whether it matched anything depends on which paths the override
-applies to. And an `exclude` glob is never checked at all: an exclusion that matches nothing has no
-effect on the report. That does mean a mistyped `exclude` glob is silent when the subtree it meant
-to remove had no findings anyway.
+Two things are deliberately left out:
+
+- A declaration written **only** inside an `overrides` entry — whether it matched anything depends
+  on which paths the override applies to.
+- An `exclude` glob, which is never checked at all, since an exclusion matching nothing changes no
+  report. A mistyped `exclude` is therefore silent when the subtree it meant to remove had no
+  findings anyway.
 
 When more than one declaration checks no directory, they are all reported together as a single
 finding rather than one each, so suppressing that finding suppresses the check for every inert
