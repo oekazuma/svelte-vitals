@@ -7,7 +7,9 @@ description: 互いの結果を使わない await の逐次実行は無駄です
 
 ## チェック内容
 
-`load` 関数（universal / server の両方）内で、先行するどの await の結果も使っていない await を検出します。データフロー上の理由なくリクエストが直列化されている状態です。検出は `performance/load-waterfall` と同じ保守的な直線走査を使います（束縛と中間定数を通じた前方 taint 伝播、コールバック引数のシャドーイングを考慮、`await parent()` は対象外）。作成済みの Promise を await するだけの箇所（`await somePromise`）はリクエストを開始しないため、検出対象になりません。
+`load` 関数（universal / server の両方）内で、先行するどの await の結果も使っていない await を検出します。データフロー上の理由なくリクエストが直列化されている状態です。
+
+検出は `performance/load-waterfall` と同じ保守的な直線走査です（束縛と中間定数を通じた前方 taint 伝播、コールバック引数のシャドーイングを考慮、`await parent()` は対象外）。作成済みの Promise を await するだけの箇所（`await somePromise`）はリクエストを開始しないため対象外です。
 
 ## なぜ重要か
 
@@ -21,7 +23,9 @@ const [a, b] = await Promise.all([fetchA(), fetchB()]);
 
 ## 制限事項
 
-静的なデータフロー解析には副作用の順序が見えません。先行する await が後続リクエストの前提となるセットアップ（セッション、ロケール、キャッシュ準備など）を行っている場合、その逐次実行は意図的です。このルールが `info` で報告するのはそのためです。意図的な逐次実行は `// svelte-vitals-disable-next-line performance/sequential-awaits` で行単位に抑制するか、設定で severity を調整してください。
+静的なデータフロー解析には副作用の順序が見えません。先行する await が後続リクエストの前提となるセットアップ（セッション、ロケール、キャッシュ準備など）を行っている場合、その逐次実行は意図的です。このルールが `info` なのはそのためです。
+
+意図的な逐次実行は `// svelte-vitals-disable-next-line performance/sequential-awaits` で行単位に抑制するか、設定で severity を調整してください。
 
 ## 無効化
 

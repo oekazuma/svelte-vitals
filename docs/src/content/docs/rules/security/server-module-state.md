@@ -9,7 +9,12 @@ description: A module-scope variable in a Kit route or hooks file is reassigned 
 
 Flags reassignment (`=`, `+=`, `??=`, `++`, …) of a **module-scope `let`/`var`** from inside a function in a SvelteKit route or hooks file (`+page(.server).ts`, `+layout(.server).ts`, `+server.ts`, `hooks.server.ts`). Reassignment directly from a request handler gets a stronger message than one in a helper function.
 
-Not flagged: top-level initialisation, `const` bindings, and mutation-style caches (`const cache = new Map()` + `cache.set(…)`) — the latter is a deliberate memoisation pattern, though putting request-derived data in one carries the same risk. `src/lib/server/**` is not scanned (legitimate singletons live there). Assignments inside SvelteKit's `init` hook are also not flagged — it runs once at server startup.
+Not flagged:
+
+- Top-level initialisation and `const` bindings.
+- Mutation-style caches (`const cache = new Map()` + `cache.set(…)`), a deliberate memoisation pattern — though putting request-derived data in one carries the same risk.
+- Anything under `src/lib/server/**`, which is not scanned at all, since legitimate singletons live there.
+- Assignments inside SvelteKit's `init` hook, which runs once at server startup.
 
 ## Why it matters
 
