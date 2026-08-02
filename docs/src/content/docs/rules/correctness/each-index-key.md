@@ -11,11 +11,16 @@ Flags an `{#each}` block whose key is exactly its index binding, e.g. `{#each it
 
 Trivial stringifications of the index — `(String(i))`, `(Number(i))`, ``(`${i}`)``, `(i.toString())`, `(i + '')`, and TS-wrapped forms including `(i!)` — are flagged too: they are still position-based identity.
 
-Not flagged: composite keys that contain the index alongside item data (`(item.id + '-' + i)`, ``(`${item.id}-${i}`)``) — appending an index is sometimes a deliberate workaround for lists with duplicate items, where a bare item key would throw Svelte's duplicate-key error. Note the trade-off: such a key still changes when an item moves position, so moved items are destroyed and recreated instead of tracked — prefer a truly unique id when you can. Also not flagged: length-only placeholder lists — `{#each [...Array(n)] as _, i (i)}` and friends — have no item identity and are skipped entirely.
+Not flagged:
+
+- **Composite keys** carrying the index alongside item data (`(item.id + '-' + i)`, ``(`${item.id}-${i}`)``). Appending an index is sometimes a deliberate workaround for duplicate items, where a bare item key would throw Svelte's duplicate-key error. The trade-off: such a key still changes when an item moves, so moved items are destroyed and recreated rather than tracked — prefer a truly unique id where you can.
+- **Length-only placeholder lists** (`{#each [...Array(n)] as _, i (i)}` and friends), which have no item identity at all.
 
 ## Why it matters
 
-Svelte's own guidance is explicit: the key must uniquely identify the object — do not use the index as a key. An index key makes item identity follow list position, so when the list reorders or items are inserted or removed, element state (focus, input values, transitions) sticks to positions instead of items — exactly the failure mode of an unkeyed block. Worse, the visible key makes the block look safe, so the bug tends to surface in production instead of review.
+Svelte's guidance is explicit: the key must uniquely identify the object, so do not use the index.
+
+An index key makes identity follow list position, so on reorder, insert or remove, element state (focus, input values, transitions) sticks to positions instead of items — exactly the failure mode of an unkeyed block. Worse, the visible key makes the block look safe, so it tends to surface in production rather than review.
 
 ## How to fix
 

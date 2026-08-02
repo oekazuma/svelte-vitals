@@ -12,13 +12,17 @@ Flags `$effect` / `$effect.pre` calls that are guaranteed to run outside compone
 - A **top-level effect** in a `.svelte.ts` / `.svelte.js` runes module or in a `.svelte` `<script module>` block — it runs when the module is imported, outside any component's initialisation.
 - A **module-scope `new`** of a class declared in the same file whose constructor creates a bare `$effect` (one not wrapped in `$effect.root`) — the shared-state-manager pattern. The finding points at the `new` site.
 
-Not flagged: effects inside functions (including factory functions and IIFEs), effects inside an `$effect.root(...)` callback, classes that are only instantiated inside components, classes imported from another file, effects in class field initializers or static blocks, and effects in anonymous class expressions (`const Store = class { … }`). Detection never crosses a function boundary, so it has no false positives by construction — at the cost of missing cross-file and factory variants.
+Not flagged: effects inside functions (factory functions and IIFEs included), inside an `$effect.root(...)` callback, in class field initializers or static blocks, or in anonymous class expressions (`const Store = class { … }`); and classes only instantiated inside components, or imported from another file.
+
+Detection never crosses a function boundary, so it never mistakes a nested function for module evaluation — at the cost of missing cross-file and factory variants. It can still report a guarded effect whose guard is never true at runtime, since a guard cannot be evaluated statically.
 
 A conditionally-guarded effect — behind a top-level `if`, or behind a constructor-argument check (`constructor(persist) { if (persist) $effect(...) }`) — is still flagged even if the guard is never true at runtime, because the guard can't be evaluated statically. Use an inline suppression (`svelte-vitals-disable-next-line correctness/orphan-effect`) if the guard is intentional.
 
 ## Why it matters
 
-The Svelte compiler compiles all of these patterns without a warning; the failure is runtime-only. In development it can go unnoticed (the module may only be imported on certain routes), and in production it surfaces as a crash — typically a 500 on every page that imports the module. Reactive effects can only be created while a component is initialising, or inside an explicit `$effect.root` scope.
+The compiler accepts all of these without warning; the failure is runtime-only. In development it can go unnoticed, since the module may only be imported on certain routes; in production it is a crash — typically a 500 on every page that imports it.
+
+Reactive effects can only be created while a component is initialising, or inside an explicit `$effect.root` scope.
 
 ## How to fix
 

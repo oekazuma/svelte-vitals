@@ -13,7 +13,13 @@ Flags calls to Svelte's lifecycle and context functions (`onMount`, `onDestroy`,
 - in the **constructor of a class instantiated at module scope** (same file),
 - in a SvelteKit **`load` function, form action, endpoint or hooks handler, or the `init` hook, or at the top level of such a file** — the classic trap is `getContext` inside `load`.
 
-Not flagged: calls inside ordinary functions (a component may legally call them during its own initialisation), `createContext()` (module-scope creation is the official pattern of the new context API), non-context svelte exports (`mount`, `tick`, …), same-named functions imported from other modules, factory functions/IIFEs/cross-file classes, and `svelte/legacy`'s `createBubbler`. A function defined _inside_ a load/handler/`init` body is treated as running there too and inherits the flag — if you deliberately return such a closure for a component to call during its own initialisation, add an inline suppression (`svelte-vitals-disable-next-line correctness/orphan-lifecycle`).
+Not flagged:
+
+- Calls inside ordinary functions — a component may legally call them during its own initialisation.
+- `createContext()`: module-scope creation is the official pattern of the new context API.
+- Non-context svelte exports (`mount`, `tick`, …), same-named functions imported from other modules, factory functions/IIFEs/cross-file classes, and `svelte/legacy`'s `createBubbler`.
+
+A function defined _inside_ a load/handler/`init` body is treated as running there and inherits the flag. If you deliberately return such a closure for a component to call during its own initialisation, add `svelte-vitals-disable-next-line correctness/orphan-lifecycle`.
 
 ## Why it matters
 

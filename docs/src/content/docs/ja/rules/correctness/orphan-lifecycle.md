@@ -13,7 +13,13 @@ Svelte の lifecycle / context 関数（`onMount`、`onDestroy`、`beforeUpdate`
 - **モジュールスコープでインスタンス化されるクラスの constructor** 内（同一ファイル）
 - SvelteKit の **`load` 関数、form action、エンドポイント/フック handler、`init` フック内、またはそれらのファイルのトップレベル**（典型は `load` 内での `getContext`）
 
-検出対象外: 通常の関数内の呼び出し（コンポーネントが初期化中に呼べば合法）、`createContext()`（モジュールスコープでの作成が新 context API の公式パターン）、context を要求しない svelte export（`mount`、`tick` など）、他モジュールからの同名 import、ファクトリ関数/IIFE/クロスファイルクラス、`svelte/legacy` の `createBubbler`。load/handler/`init` の本体の**内側で定義された関数**も、そこで実行されるものとして扱い、同様に検出します。そのようなクロージャを意図的に返してコンポーネント側の初期化中に呼び出させる場合は、インラインで抑制してください（`svelte-vitals-disable-next-line correctness/orphan-lifecycle`）。
+検出対象外:
+
+- 通常の関数内の呼び出し（コンポーネントが初期化中に呼べば合法）。
+- `createContext()`。モジュールスコープでの作成が新 context API の公式パターンです。
+- context を要求しない svelte export（`mount`、`tick` など）、他モジュールからの同名 import、ファクトリ関数/IIFE/クロスファイルクラス、`svelte/legacy` の `createBubbler`。
+
+load/handler/`init` の本体の**内側で定義された関数**は、そこで実行されるものとして扱い検出します。意図的にそのクロージャを返してコンポーネント側の初期化中に呼ばせる場合は `svelte-vitals-disable-next-line correctness/orphan-lifecycle` で抑制してください。
 
 ## なぜ重要か
 
