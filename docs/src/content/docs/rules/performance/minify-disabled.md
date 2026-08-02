@@ -18,7 +18,7 @@ The CLI statically parses `vite.config.*` (the first file in Vite's own resoluti
 
 The Vite plugin instead reads the **resolved** config during `vite build`, so it also catches function-form and conditional configs — and never flags an override that doesn't apply to the actual build.
 
-Not flagged: `minify: 'esbuild' | 'terser' | true`, `minify` keys outside the `build` object, and projects without a Vite config.
+Not flagged: `minify: 'esbuild' | 'terser' | true`, and `minify` keys outside the `build` object. A project with no Vite config is not flagged **by the CLI**, which has nothing to parse; the plugin still judges the resolved value, including for an inline programmatic config.
 
 An object spread that could override `minify` after the literal (`{ minify: false, ...prod }`) makes the value unknowable to static reading, so the CLI skips the finding. The plugin channel still judges the resolved value.
 
