@@ -50,7 +50,7 @@ devで実際にルートを訪問すると、ダッシュボードはさらに�
 
 ### ビルド成果物を正確に検証する Vite プラグイン
 
-ビルドモードは `vite build` の実行中に**実際にプレレンダリングされた HTML** を解析して SEO/Performance を検証します。何が生成したかに関わらず、タグが出力 HTML になければ検出されます。加えて `.svelte` ソースも走査し、CLI と同じ Correctness・Security・Architecture と、コンポーネントスコープの Performance ルールを実行します。
+ビルドモードは `vite build` の実行中に**実際にプレレンダリングされた HTML** を解析して SEO/Performance を検証します。何が生成したかに関わらず、タグが出力 HTML になければ検出され、`failOn` の閾値に達した時点でビルドが失敗します。加えて `.svelte` ソースも走査し、CLI と同じ Correctness・Security・Architecture と、コンポーネントスコープの Performance ルールを実行します。
 
 トレードオフはルートの範囲です。HTML ベースの検証はプレレンダリングされたルートのみが対象で、コンポーネントスコープのルールはプロジェクト全体が対象です。詳細は [プラグインモード](/ja/guides/plugin-mode) を参照してください。
 

@@ -50,7 +50,7 @@ Visiting a route in dev additionally re-checks its **rendered HTML** (via `svelt
 
 ### Vite plugin — exact, build-time verification
 
-Build mode runs during `vite build` and parses the **actual prerendered HTML** for SEO/Performance: if the tag isn't in the shipped output it fails, whatever produced it. It also scans `.svelte` source for Correctness, Security, Architecture and the component-scoped Performance rules, as the CLI does.
+Build mode runs during `vite build` and parses the **actual prerendered HTML** for SEO/Performance: if the tag isn't in the shipped output it is reported, whatever produced it — and the build fails once a finding reaches the `failOn` threshold. It also scans `.svelte` source for Correctness, Security, Architecture and the component-scoped Performance rules, as the CLI does.
 
 The trade-off is route scope — only prerendered routes get the HTML check; component-scoped rules apply project-wide. See [Plugin mode](/guides/plugin-mode).
 
@@ -64,7 +64,7 @@ Runs the CLI's engine on every pull request and turns findings into GitHub-nativ
 
 ### Agent Skills — rule knowledge for your agent, up front
 
-[Agent Skills](/guides/agent-skills) make an agent _know the rules before it writes code_. `svelte-vitals install` generates portable `SKILL.md` files that work identically in Claude Code, Codex and Cursor: **`/svelte-vitals`** embeds the rule catalog plus a run-after-every-edit playbook, **`/improve-svelte`** turns "review my app" into impact-ranked implementation plans.
+[Agent Skills](/guides/agent-skills) make an agent _know the rules before it writes code_. `svelte-vitals install` generates portable `SKILL.md` files that work identically in Claude Code, Codex and Cursor: **`/svelte-vitals`** embeds the rule catalog plus a run-after-every-edit playbook, **`/improve-svelte`** is a read-only audit that turns "review my app" into impact-ranked implementation plans.
 
 They pair with the CLI rather than replace it — knowledge up front, analysis on demand. The playbook itself tells the agent to run `npx svelte-vitals . --diff --reporter agent` after an edit, and `npx svelte-vitals explain <rule-id>` for a rule's rationale and options.
 
