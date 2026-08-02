@@ -36,8 +36,9 @@ grouping, or narrow the declaration that swept it in.
 | `exclude`         | list of directory globs           | `[]`    |
 
 In the two map options, `units` and `pascalCaseUnits`, each value is the entry file's extension
-**with its leading dot** — `'.ts'`, not `'ts'`. Validation accepts any non-empty string, so a missing
-dot fails silently: it looks for `getFoots` instead of `getFoo.ts` and never finds it.
+**with its leading dot** — `'.ts'`, not `'ts'`. Validation accepts any non-empty string, so a missing dot
+passes config validation and then misfires: the rule looks for `getFoots` instead of `getFoo.ts`,
+never finds it, and reports a missing entry file for a directory that has one.
 
 `exclude` is a list, not a map, and its values are directory globs rather than extensions.
 

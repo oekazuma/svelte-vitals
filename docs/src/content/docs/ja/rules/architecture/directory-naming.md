@@ -65,7 +65,7 @@ export default {
 ためです —— ルートの `components/` には PascalCase のコンポーネントユニットと camelCase のグルーピングが
 並んで置かれます。
 
-3 つのルールは、意図的に「PascalCase」で異なることを意味しています。
+これらのルールは、意図的に「PascalCase」で異なることを意味しています。
 
 - **このルール** — 名前全体が記法に適合しているかを見ます。
 - **`architecture/unit-entry-file`** — 先頭 1 文字が A–Z かどうかだけを見ます。ディレクトリが

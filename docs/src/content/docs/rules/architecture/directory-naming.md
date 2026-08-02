@@ -65,7 +65,7 @@ A value may name several, joined by `|`, for a location that legitimately holds 
 directory — a route's `components/` holds PascalCase component units and camelCase groupings side by
 side.
 
-The three rules mean different things by "PascalCase", on purpose:
+These rules mean different things by "PascalCase", on purpose:
 
 - **This rule** checks that the whole name conforms.
 - **`architecture/unit-entry-file`** asks only whether the first character is A–Z — it is asking

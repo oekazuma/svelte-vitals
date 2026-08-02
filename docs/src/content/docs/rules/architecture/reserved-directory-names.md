@@ -136,7 +136,7 @@ doing nothing. Five cases land in that finding, each named in the message:
 - every directory it matched is excluded;
 - it matched directories but never a unit;
 - the value lists no name at all;
-- the same glob is declared in both maps.
+- the same glob is declared in both maps, with **both** values naming at least one directory. If either value names nothing it is dropped before matching, so the other governs alone and the empty-value reason reports instead.
 
 Two things are never reported:
 
