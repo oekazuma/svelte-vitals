@@ -63,8 +63,17 @@ export async function collectKitModuleFacts(
   return arbitrateServerStoreWrites(rt, cwd, facts);
 }
 
-/** Extensions and index forms a bare repo path may name, in resolution order. */
-const MODULE_CANDIDATES = ['.ts', '.js', '/index.ts', '/index.js'];
+/**
+ * The files a resolved specifier may name, in resolution order. An extensionless path takes an
+ * extension or an index file; a path that already ends in `.js` is checked as written and then
+ * remapped to `.ts`, which is how a NodeNext/ESM TypeScript project spells an import of its own
+ * `.ts` source (`from '$lib/server/store.js'` -> `src/lib/server/store.ts`).
+ */
+function moduleCandidates(repoPath: string): string[] {
+  if (repoPath.endsWith('.js')) return [repoPath, `${repoPath.slice(0, -3)}.ts`];
+  if (repoPath.endsWith('.ts')) return [repoPath];
+  return [`${repoPath}.ts`, `${repoPath}.js`, `${repoPath}/index.ts`, `${repoPath}/index.js`];
+}
 
 /**
  * Read the module a pending write targets and return the names it exports as an in-memory
@@ -72,8 +81,7 @@ const MODULE_CANDIDATES = ['.ts', '.js', '/index.ts', '/index.js'];
  * unarbitrated, which leaves the write exempt.
  */
 async function inMemoryExportsOf(rt: Runtime, cwd: string, repoPath: string): Promise<ReadonlySet<string>> {
-  for (const suffix of MODULE_CANDIDATES) {
-    const rel = `${repoPath}${suffix}`;
+  for (const rel of moduleCandidates(repoPath)) {
     try {
       if (!(await rt.exists(rt.join(cwd, rel)))) continue;
       return parseInMemoryExports(await rt.readFile(rt.join(cwd, rel)), rel);

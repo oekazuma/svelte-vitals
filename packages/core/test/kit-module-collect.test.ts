@@ -50,7 +50,7 @@ describe('collectKitModuleFacts — $lib/server store arbitration', () => {
     ).toEqual([{ name: 'db', line: 3, via: 'set-call' }]);
   });
 
-  it('leaves a persistence client exempt — the reason the exemption exists', async () => {
+  it('leaves an export that is not an in-memory container exempt', async () => {
     expect(
       await writes({
         'src/lib/server/store.ts': "import { drizzle } from 'drizzle-orm';\nexport const db = drizzle(url);",
@@ -76,6 +76,15 @@ describe('collectKitModuleFacts — $lib/server store arbitration', () => {
       await writes({
         'src/lib/server/store/index.ts': 'export const bag = {};',
         'src/routes/+page.server.ts': handler('$lib/server/store', "bag.set('u', 1)")
+      })
+    ).toHaveLength(1);
+  });
+
+  it('follows a NodeNext `.js` specifier to the `.ts` source', async () => {
+    expect(
+      await writes({
+        'src/lib/server/store.ts': 'export const db = new Map();',
+        'src/routes/+page.server.ts': handler('$lib/server/store.js', "db.set('u', 1)")
       })
     ).toHaveLength(1);
   });

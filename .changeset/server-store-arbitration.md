@@ -23,8 +23,8 @@ export async function load({ locals }) {
 svelte-vitals now reads the target module and keeps the call exempt only when the export is not an
 in-memory container. An export initialized to `new Map`/`Set`/`WeakMap`/`WeakSet`, or to an object
 or array literal, is reported; anything else — a client constructed from a package, a re-export, an
-unreadable module — stays exempt, so a wrapper this cannot see is silence rather than a false
-positive. Only the modules a handler actually writes to are read, so a project whose handlers never
+unreadable module — stays exempt. A wrapper the read cannot inspect therefore stays silent rather
+than becoming a false positive. Only the modules a handler actually writes to are read, so a project whose handlers never
 touch `$lib/server` does no extra I/O.
 
 Property writes (`store.user = …`) were already reported wherever they appear and are unchanged.
