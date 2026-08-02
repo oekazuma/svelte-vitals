@@ -17,26 +17,24 @@ set up in the same pass as everything else. Both support `--dry-run` and `--forc
 
 ## What the generated workflow does
 
-On every `pull_request` it checks out with `fetch-depth: 0` (so the base ref is resolvable), then
-calls `@svelte-vitals/action`, which runs the analysis **in-process** — no `npx`, no separate
-scan per output — scoped to the PR with `diff: origin/<base>` and `baseline: origin/<base>`. From
-that one analysis it produces:
+On every `pull_request` it checks out with `fetch-depth: 0`, then calls `@svelte-vitals/action`,
+which runs the analysis **in-process** scoped to the PR (`diff`/`baseline` at `origin/<base>`).
+From that one analysis it produces:
 
 - inline annotations on the diff,
 - a job summary,
 - a sticky PR comment (a hidden `<!-- svelte-vitals-report -->` marker updates the same comment
   instead of piling up new ones).
 
-It fails the job **after** the summary and comment are written, so a failing run still leaves the
-feedback behind.
+It fails the job **after** writing those, so a failing run still leaves the feedback behind.
 
-Action inputs: `path` (default `.`), `diff`, `baseline`, `github-token`. There is no `reporter`
-input — the fan-out is fixed. The action reads your committed `svelte-vitals.config.*` and
-`svelte-vitals-suppressions.json` like the CLI does, so rule policy stays in those files.
+Inputs: `path` (default `.`), `diff`, `baseline`, `github-token`. No `reporter` input — the
+fan-out is fixed. It reads your committed `svelte-vitals.config.*` and
+`svelte-vitals-suppressions.json`, so rule policy stays in those files.
 
-Required permissions: `contents: read` and `pull-requests: write`. On PRs from forks GitHub
-downgrades the token regardless, so the action detects that and skips the comment (never failing
-the job); annotations and the summary still work.
+Permissions: `contents: read`, `pull-requests: write`. On fork PRs GitHub downgrades the token
+regardless, so the action skips the comment (never failing the job); annotations and summary
+still work.
 
 ## Without the Action
 

@@ -9,12 +9,11 @@ description: Which reporter to use, how one is auto-selected, what goes to stdou
 
 `--reporter <fmt>`: `console` (default) · `json` · `agent` · `sarif` · `github` · `html` · `md`.
 
-- **`agent`** — a Markdown remediation document: every failing finding with its location, a
-  concrete fix (with a code snippet), and an acceptance check. This is the one to use when
-  something will act on the findings rather than read them.
-- **`json`** — the full structured report (per-route and site-wide scores, every finding with
-  `fix`, `recommendation` and `docsUrl`). Use it when you need to filter or count.
-- **`console`** — for a human at a terminal. Grouped and capped; add `--verbose` for everything.
+- **`agent`** — Markdown remediation: each failing finding with its location, a concrete fix
+  (with snippet), and an acceptance check. Use this when something will act on the findings.
+- **`json`** — the full structured report (scores per route and site-wide; every finding with
+  `fix`, `recommendation`, `docsUrl`). Use it to filter or count.
+- **`console`** — for a human. Grouped and capped; `--verbose` for everything.
 - **`md`** — a compact summary table for a PR comment or job summary (capped at 50 rows).
 - **`sarif`** — SARIF v2.1, for GitHub Code Scanning and other SAST tooling.
 - **`github`** — `::error` / `::warning` workflow annotations.
@@ -30,14 +29,12 @@ First match wins:
 4. `GITHUB_ACTIONS=true` → `github`
 5. otherwise → `console`
 
-So inside an agent harness you usually get `agent` without asking. When it is auto-selected
-rather than requested, a one-line hint goes to stderr explaining how to override.
+Inside an agent harness you get `agent` without asking; a one-line override hint goes to stderr.
 
 ## stdout vs stderr
 
-The report goes to **stdout**. Diagnostics — auto-selection hints, suppression counts,
-app-detection notices, warnings, errors — go to **stderr**. Piping stdout is safe; you will not
-get diagnostics mixed into the report.
+The report goes to **stdout**; every diagnostic — hints, suppression counts, app-detection
+notices, warnings, errors — to **stderr**. Piping stdout never mixes the two.
 
 `--reporter html` is the exception: it writes a file and prints the path to stderr, unless you
 pass `--out-file -`.
@@ -50,9 +47,8 @@ pass `--out-file -`.
 | `1`  | a critical finding is present, or `--fail-on` / `--min-health` was reached |
 | `2`  | execution error — not a SvelteKit project, bad flag, unreadable config     |
 
-`1` means "the code has problems". `2` means "the run did not happen" — never treat `2` as a
-clean result. `--fail-on <critical|warning|info>` lowers the bar for `1`; `--min-health <0-100>`
-adds a score gate.
+`2` is never a clean result — the run did not happen. `--fail-on <critical|warning|info>` lowers
+the bar for `1`; `--min-health <0-100>` adds a score gate.
 
 ## Related
 

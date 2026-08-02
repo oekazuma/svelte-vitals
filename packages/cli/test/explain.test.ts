@@ -22,8 +22,6 @@ describe('svelte-vitals explain', () => {
   });
 
   it("renders a configurable rule's options, defaults, bounds and merge semantics", () => {
-    // A reader who takes a finding as a threshold disagreement rather than a defect has
-    // to learn the knob's name from somewhere; `explain` is that somewhere.
     const { out } = explain(['seo/title-length']);
     expect(out).toContain("rules: { 'seo/title-length': { options: { … } } }");
     expect(out).toContain('min (integer, default 30, >= 0) — replaces the default');
@@ -37,10 +35,7 @@ describe('svelte-vitals explain', () => {
   });
 
   it('states that a map option overrides the value of a built-in key', () => {
-    // `{ ...defaults, ...configured }` — so `{ lodash: 'my advice' }` rewords the
-    // built-in advice for lodash rather than only extending the list. Saying "never
-    // replaces" here would be wrong, and a reader acting on it would conclude their
-    // reworded advice cannot take effect.
+    // `{ ...defaults, ...configured }`: "never replaces" would be wrong here, unlike string-list.
     const { out } = explain(['performance/heavy-import']);
     expect(out).toContain('packages (string-map, default {');
     expect(out).toContain('a new key is added, a built-in key has its value overridden');
@@ -87,18 +82,14 @@ describe('svelte-vitals explain', () => {
       }
     });
 
-    it('refuses a rule id alongside --list rather than returning the whole list', () => {
-      // Returning 71 rules at exit 0 would read as "here is that rule" to a caller that then
-      // looks for `.rationale` — the same misreading `docs list <name>` is guarded against.
+    it('refuses a rule id alongside --list', () => {
       const { code, out, err } = explain(['--list', 'performance/heavy-import']);
       expect(code).toBe(2);
       expect(out).toBe('');
       expect(err).toContain('takes no rule id');
     });
 
-    it('tells a reader with no id that --list exists, instead of only dumping ids', () => {
-      // Discovering `explain` by passing a wrong id and reading the error is an accident;
-      // the no-id path has to name the affordance.
+    it('names --list when no id is given', () => {
       expect(explain([]).err).toContain('--list');
     });
   });

@@ -11,9 +11,8 @@ description: How svelte-vitals picks which SvelteKit app to analyze, why it exit
 npx svelte-vitals@latest apps/web
 ```
 
-An explicit `path` — or running from inside the app directory — takes priority and skips
-detection entirely. In a script, a hook, or an agent's shell, prefer this over relying on
-detection.
+An explicit `path` — or running from inside the app directory — skips detection entirely. Prefer
+it in a script, a hook, or an agent's shell.
 
 ## What happens without a path
 
@@ -28,11 +27,8 @@ output folds the SvelteKit config into `vite.config.ts` and emits no `svelte.con
 | several     | single-select prompt                | **exit `2`** listing the apps, asking for an explicit path |
 | none        | exit `2`, "not a SvelteKit project" | same                                                       |
 
-**svelte-vitals never prompts when stdout is not a TTY.** A non-interactive run with several apps
-fails fast with the list rather than hanging or guessing — if you hit exit `2` here, re-run with
-the path it printed.
-
-Cancelling the interactive prompt exits `0` without analyzing anything.
+**svelte-vitals never prompts when stdout is not a TTY** — it fails fast with the list instead of
+hanging or guessing. Re-run with the path it printed. Cancelling the interactive prompt exits `0`.
 
 ## `install` in a monorepo
 

@@ -72,6 +72,11 @@ install`/`ci upgrade` bundle into scaffolded workflows.
 
 ## Conventions
 
+- **Comments and docs are for the next reader, not the reviewer.** A comment earns its place only
+  when it says something the code cannot: a constraint, a rejected alternative and why, a
+  non-local dependency. Why a change was made belongs in the commit message and the PR, which are
+  read once — not in a file read every time. Test names state the behaviour, not the reasoning.
+  Prefer one line over three; delete anything that restates the code beneath it.
 - **Conventional commits**, scoped by package, e.g.:
   - `fix(cli): make --diff/--staged work when the project is not at the git repo root`
   - `test(cli): pin behavior for malformed .svelte files in both passes`

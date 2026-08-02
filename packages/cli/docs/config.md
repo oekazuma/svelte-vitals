@@ -27,10 +27,9 @@ export default {
 };
 ```
 
-A `.ts` config can `import { defineConfig } from 'svelte-vitals'` for type-checking, but that is
-a **runtime** import — it requires svelte-vitals to be a declared dependency, and Node 22.18+
-(or 23.6+) to load `.ts` at all. A plain `export default {}` in `.mjs` behaves identically and
-always works.
+A `.ts` config can `import { defineConfig } from 'svelte-vitals'` for type-checking, but that is a
+**runtime** import: it needs svelte-vitals as a declared dependency and Node 22.18+ (or 23.6+).
+A plain `export default {}` in `.mjs` behaves identically and always works.
 
 ## Options
 
@@ -58,10 +57,9 @@ export default {
 };
 ```
 
-Before disabling a rule, check whether it is really a **threshold disagreement** rather than a
-defect — many rules take options. `svelte-vitals explain <rule-id>` prints each option's name,
-default, bounds, and how a configured value merges with the built-in default (`integer`
-replaces it, `string-list` appends to it, `string-map` is spread over it).
+Many rules take options, so check whether the finding is a **threshold disagreement** rather than
+a defect first. `svelte-vitals explain <rule-id>` prints each option's name, default, bounds, and
+merge semantics (`integer` replaces, `string-list` appends, `string-map` is spread over).
 
 ```js
 export default {
@@ -92,8 +90,7 @@ Each entry needs `rules` (keys are rule ids **or** category names) plus at least
 - **`files`** — glob(s) against the source path.
 
 Globs are deliberately small: `*` within a segment, `**` across segments, a trailing `/**` also
-matches the bare prefix. Everything else — including `(`, `)`, `[`, `]` — is literal. Later
-entries win.
+matches the bare prefix. Everything else — including `(`, `)`, `[`, `]` — is literal. Later entries win.
 
 ## Precedence
 
@@ -104,9 +101,9 @@ replace the config file's `rules` wholesale for that run rather than merging.
 
 ## Validation
 
-An unknown rule id, an unknown category or negative weight, a malformed `overrides` entry, or an
-invalid rule setting is a **hard error (exit `2`)** — a typo must not silently un-gate CI. An
-unrecognized `treatDynamicAs`/`failOn` value or an unknown top-level key only warns.
+An unknown rule id or category, a negative weight, a malformed `overrides` entry, or an invalid
+rule setting is a **hard error (exit `2`)** — a typo must not silently un-gate CI. An unrecognized
+`treatDynamicAs`/`failOn` value, or an unknown top-level key, only warns.
 
 ## Related
 
