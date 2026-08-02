@@ -21,11 +21,17 @@ Flags a top-level `$state` binding constructed from a plain built-in — `Map`, 
 {#each [...tags] as tag}<span>{tag}</span>{/each}
 ```
 
-Detection is deliberately conservative: only type-specific mutating operations count (`map.set`, `set.add`, `date.setHours`, `params.append`, `url.href = …`, `url.searchParams.set(…)`, …); read methods never do. A binding that is reassigned after mutation (`tags = new Set(tags)`) works correctly and is not flagged — but the bare self-assignment `tags = tags` is a no-op in Svelte 5 and does not exempt. Mutations at script top level run once before the first render and are not flagged either.
+Detection is deliberately conservative:
+
+- Only type-specific mutating operations count (`map.set`, `set.add`, `date.setHours`, `params.append`, `url.href = …`, `url.searchParams.set(…)`, …); read methods never do.
+- A binding reassigned after mutation (`tags = new Set(tags)`) works correctly and is exempt. The bare self-assignment `tags = tags` is a no-op in Svelte 5 and is not.
+- Mutations at script top level run once before the first render, so they are exempt too.
 
 ## Why it matters
 
-`$state`'s deep proxy covers plain objects and arrays only. A plain built-in instance keeps working as data — every `set`/`add`/`append` call succeeds — but reactivity never hears about it: effects don't rerun, deriveds don't recompute, and the template keeps showing the old contents. The component renders correctly once and silently stops updating in production, with no compiler or svelte-check warning. Svelte ships `svelte/reactivity` precisely for this.
+`$state`'s deep proxy covers plain objects and arrays only. A built-in instance keeps working as data — every `set`/`add`/`append` succeeds — but reactivity never hears about it: effects don't rerun, deriveds don't recompute, the template keeps the old contents.
+
+The component renders correctly once, then silently stops updating, with no compiler or svelte-check warning. Svelte ships `svelte/reactivity` precisely for this.
 
 ## How to fix
 
@@ -41,7 +47,11 @@ Detection is deliberately conservative: only type-specific mutating operations c
 
 ## Limitations
 
-Mutations that happen outside the component — an instance passed to a helper, store, or child that mutates it — are beyond static reach (the rule only counts mutations it can see, so escape-only usage is never flagged). A local class that shadows a built-in name (`class Map { … }`) would be misattributed; shadowing global built-in names is its own problem. Runes-module (`.svelte.ts`) and class-field `$state` are out of scope in this version.
+Out of reach or out of scope:
+
+- Mutations outside the component — an instance passed to a helper, store or child that mutates it. The rule counts only what it can see, so escape-only usage is never flagged.
+- A local class shadowing a built-in name (`class Map { … }`) would be misattributed; shadowing global built-ins is its own problem.
+- Runes-module (`.svelte.ts`) and class-field `$state`, in this version.
 
 ## Disabling
 

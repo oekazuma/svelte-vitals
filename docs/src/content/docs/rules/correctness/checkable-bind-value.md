@@ -15,11 +15,13 @@ Flags a native `<input type="checkbox">` or `<input type="radio">` element that 
 
 `bind:value` binds the DOM `value` property. A checkbox/radio's user interaction toggles _checkedness_, not `value` — so `subscribed` is frozen at its initial value and never updates when the user clicks the checkbox.
 
-Detection is template-only and static: the `type` attribute must be a literal `"checkbox"` or `"radio"` — a dynamic `type={expr}`, or a dynamic tag via `<svelte:element this="input" …>`, is out of static reach and is not flagged. A plain `value="…"` attribute (not the `bind:value` directive) is the correct pattern for `bind:group` and is never confused with the flagged case.
+Detection is template-only and static: the `type` attribute must be a literal `"checkbox"` or `"radio"`. A dynamic `type={expr}`, or a dynamic tag via `<svelte:element this="input" …>`, is out of static reach. A plain `value="…"` attribute — not the `bind:value` directive — is the correct pattern for `bind:group` and is never confused with the flagged case.
 
 ## Why it matters
 
-Svelte's own compiler accepts `bind:value` on a checkbox or radio input without any warning or error — verified directly against Svelte 5 (`svelte.compile()` reports zero warnings for this pattern). The component renders correctly once (the bound variable's initial value shows), and then silently stops updating the moment the user interacts with the input. Nothing surfaces the bug in development; it shows up as "the form doesn't save changes" in production.
+Svelte's compiler accepts this without warning or error — verified against Svelte 5, where `svelte.compile()` reports zero warnings for the pattern.
+
+The component renders correctly once, showing the bound variable's initial value, then silently stops updating the moment the user interacts with it. Nothing surfaces the bug in development; it shows up as "the form doesn't save changes" in production.
 
 ## How to fix
 

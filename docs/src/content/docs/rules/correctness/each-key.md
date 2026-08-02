@@ -15,7 +15,7 @@ Flags an `{#each}` block with no key. Checked by static (CLI) analysis of every 
 
 ## Why it matters
 
-Without a key, when the list reorders or items are inserted/removed, Svelte adds/removes nodes at the end and rewrites the data of the DOM nodes in between — so element state (focus, inputs, transitions) sticks to positions instead of items, and extra work is done. A key lets Svelte insert, move, and delete the right nodes instead.
+Without a key, a reorder or an insert/remove makes Svelte add or remove nodes at the end and rewrite the data of everything in between: element state (focus, inputs, transitions) sticks to positions instead of items, and extra work is done. A key lets Svelte insert, move and delete the right nodes instead.
 
 ## How to fix
 

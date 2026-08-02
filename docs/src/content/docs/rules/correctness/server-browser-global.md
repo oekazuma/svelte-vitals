@@ -12,7 +12,14 @@ Flags reads of browser-only globals (`window`, `document`, `localStorage`, `sess
 - **module scope** of a `.svelte.ts`/`.svelte.js` runes module or a `.svelte` `<script module>` block (crashes when the module is imported on the server), and
 - **SvelteKit route/hooks files** — top level, `load`/action/endpoint handler bodies, and the `init` hook (crashes at import or on every request).
 
-Not flagged: code guarded by `browser` from `$app/environment` (aliases included) or a `typeof window !== 'undefined'` check (early-return guards included); code inside `onMount`/`$effect`/ordinary functions (they don't run at module evaluation); a bare `typeof window` (never throws); names you imported or declared yourself (`const document = …`); closures nested inside handlers (typically client callbacks); and files that export `ssr = false` themselves.
+Not flagged:
+
+- Code guarded by `browser` from `$app/environment` (aliases included) or a `typeof window !== 'undefined'` check (early-return guards included).
+- Code inside `onMount`/`$effect`/ordinary functions — they don't run at module evaluation.
+- A bare `typeof window`, which never throws.
+- Names you imported or declared yourself (`const document = …`).
+- Closures nested inside handlers, typically client callbacks.
+- Files that export `ssr = false` themselves.
 
 ## Why it matters
 

@@ -20,7 +20,12 @@ Flags a top-level `const`/`let` whose initializer is computed from a `$props()` 
 <p class={color}>...</p>
 ```
 
-Detection is deliberately conservative — all of these must hold: the initializer references a prop in an eager position (references inside functions/arrow bodies/getters stay reactive and don't count), contains no function calls, `new`, or `await` (so `$state(initial)` capture, `$derived`, and service construction are structurally exempt), the binding is never reassigned or passed around, and it is actually rendered (bindings used only inside event handlers don't count).
+Detection is deliberately conservative — all of these must hold:
+
+- The initializer references a prop in an **eager position**; references inside functions, arrow bodies or getters stay reactive and don't count.
+- It contains no function call, `new`, or `await`, which structurally exempts `$state(initial)` capture, `$derived`, and service construction.
+- The binding is never reassigned or passed around.
+- It is actually rendered; bindings used only inside event handlers don't count.
 
 ## Why it matters
 
@@ -63,7 +68,9 @@ Prefixing the assignment with `$:` (a reactive statement) is the legacy-mode equ
 
 ## Limitations
 
-The call-free restriction means method derivations (`type.toUpperCase()`, `items.filter(...)`) are not detected in v1 — a deliberate precision-first trade-off; a future version may allow-list pure built-ins. The rule cannot know whether the parent ever changes the prop; even when it doesn't, `$derived` costs nothing and keeps the code correct under change. Note the interplay with `correctness/unmutated-state`: for never-written `$state` computed from a prop, the right fix is `$derived`, not `const`.
+The call-free restriction means method derivations (`type.toUpperCase()`, `items.filter(...)`) go undetected in v1 — a precision-first trade-off; a future version may allow-list pure built-ins.
+
+The rule cannot know whether the parent ever changes the prop, but `$derived` costs nothing even when it doesn't. Note the interplay with `correctness/unmutated-state`: for never-written `$state` computed from a prop, the fix is `$derived`, not `const`.
 
 ## Disabling
 

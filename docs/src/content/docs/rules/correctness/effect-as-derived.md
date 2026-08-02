@@ -42,10 +42,8 @@ the "mount signal" idiom used to avoid SSR/prerender ↔ hydration mismatches:
 </script>
 ```
 
-`$derived` is evaluated eagerly, including during hydration; `$effect` runs one
-tick after mount, which is the whole point here. Converting this specific shape
-to `$derived` is not a style preference — it reintroduces the bug the `$effect`
-was added to prevent. If your finding is this pattern, don't "fix" it; suppress
-it instead with a
-[`svelte-vitals-disable-next-line`](/guides/cli#suppressing-a-single-finding-inline)
-comment.
+`$derived` evaluates eagerly, including during hydration; `$effect` runs one tick after mount,
+which is the whole point here. Converting this shape to `$derived` reintroduces the bug the
+`$effect` was added to prevent — so suppress it with a
+[`svelte-vitals-disable-next-line`](/guides/cli#suppressing-a-single-finding-inline) comment
+rather than "fixing" it.
