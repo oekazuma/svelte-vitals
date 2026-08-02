@@ -19,7 +19,9 @@ svelte-vitals looks for one of these, in this order, **in the analyzed directory
 
 The first match wins. If none exist, svelte-vitals runs with its built-in defaults, same as before this feature existed.
 
-`install --client config-file` picks between `.ts` and `.mjs` for you: `.ts` (using `defineConfig` for real type-checking/autocomplete) when the current Node supports loading it natively, the project looks TypeScript-oriented (a `tsconfig.json` or a `vite.config.ts` at the project root), **and** `svelte-vitals` is a declared dependency (the `defineConfig` import resolves at load time, so an npx-only project must not get it) — the case a TypeScript SvelteKit project with svelte-vitals installed falls into. Otherwise it falls back to the safe `.mjs` default, which works on every Node version svelte-vitals supports with no flag and no dependency. Regenerating an existing file with `--force` always keeps that file's own extension rather than switching formats underneath you.
+`install --client config-file` picks `.ts` only when all three hold: the current Node loads it natively, the project looks TypeScript-oriented (`tsconfig.json` or `vite.config.ts` at the root), **and** `svelte-vitals` is a declared dependency — the `defineConfig` import resolves at load time, so an npx-only project must not get it.
+
+Otherwise it writes `.mjs`, which works on every supported Node with no flag and no dependency. `--force` keeps an existing file's extension rather than switching format underneath you.
 
 ## Example
 
@@ -62,9 +64,9 @@ The first match wins. If none exist, svelte-vitals runs with its built-in defaul
   </Tab>
 </Tabs>
 
-`defineConfig` is just a thin helper that merges your object over the built-in defaults — it exists for type-checking and editor autocomplete in a `.ts` file. A plain `export default {...}` object works exactly the same at runtime with or without it; in a `.mjs`/`.js` file there's no type-checking to gain either way, so a bare object (as the JavaScript tab shows) is just as good there — and, unlike the import, it works even when svelte-vitals is only ever run via `npx` and isn't in your `node_modules`.
+`defineConfig` is a thin helper that merges your object over the built-in defaults; it buys type-checking and autocomplete in a `.ts` file and nothing else. A bare `export default {...}` behaves identically at runtime — and, unlike the import, works when svelte-vitals is only ever run via `npx`.
 
-The `defineConfig` import in a `.ts` config is a **runtime** import — it resolves when svelte-vitals loads the file, not just at type-check time — so it requires `svelte-vitals` to be a declared dependency of your project. Import it from `svelte-vitals` — the package you actually installed. (It is re-exported from `@svelte-vitals/core` too, but that package is normally a transitive dependency, and a strict `node_modules` layout — pnpm's default — won't let your project resolve a transitive dependency directly.)
+That import is a **runtime** one — it resolves when svelte-vitals loads the file, so `svelte-vitals` must be a declared dependency. Import it from `svelte-vitals`, not `@svelte-vitals/core`: core is normally transitive, and a strict `node_modules` layout (pnpm's default) won't resolve it.
 
 ## Available options
 
@@ -157,13 +159,14 @@ scoped by `route` / `files` like any other override setting — but only on a **
 on a category key**: a category may carry a severity, but its options are meaningless without
 knowing which rule they belong to.
 
-How a value from multiple layers combines — built-in default, then `rules`, then each matching
-`overrides` entry in order — depends on the option itself: an **integer** option replaces, so the
-last one set wins. A **list** or **map** option instead **adds** to the built-in set rather than
-discarding it, so a project keeps benefiting from new built-in entries in later svelte-vitals
-releases instead of being frozen at the list as of the day it wrote its config. For a **map**,
-a key that already exists in the built-in set keeps that entry but takes your value — which is how
-you reword the built-in advice for one package instead of only adding new ones.
+Layers combine in order — built-in default, `rules`, then each matching `overrides` entry — and how
+they combine depends on the option kind:
+
+- **integer** — replaces; the last one set wins.
+- **list** / **map** — **adds** to the built-in set rather than discarding it, so later
+  svelte-vitals releases can still grow the defaults under you.
+- **map**, existing key — keeps the entry but takes your value, which is how you reword the
+  built-in advice for one package instead of only adding new ones.
 
 Only some rules take options — passing `options` to a rule that doesn't accept any is a fatal
 config error, same as an unknown option name or a value of the wrong type. The rules below do;
@@ -239,7 +242,7 @@ One exception: `rules` is replaced as a whole, not merged key-by-key. If you pas
 
 ## Using the config file with the Vite plugin
 
-`@svelte-vitals/vite` reads `svelte-vitals.config.*` the same way the CLI does — no extra wiring needed. Both the build-time gate (`vite build`) and the [live dashboard](/guides/dev-dashboard) (`vite dev`) resolve it from the project root (`cwd` passed to `svelteVitals({ ... })`, or the Vite config root when `cwd` is omitted), with the same per-field precedence as the CLI: **an explicit `svelteVitals({ ... })` option wins, otherwise the config file's value, otherwise the built-in default**. This includes `weights`, which now flows into the plugin's Health score exactly like it does for the CLI.
+`@svelte-vitals/vite` reads `svelte-vitals.config.*` the same way the CLI does, with no extra wiring. Both the build gate and the [live dashboard](/guides/dev-dashboard) resolve it from the project root (`cwd` passed to `svelteVitals({ ... })`, else the Vite config root), with the same per-field precedence: **plugin option > config file > built-in default**. `weights` included.
 
 ```ts
 // vite.config.ts

@@ -5,7 +5,9 @@ sidebar:
   order: 2
 ---
 
-svelte-vitals は `svelte-vitals`（CLI）と `@svelte-vitals/vite`（プラグイン + ライブダッシュボード）という npm パッケージで構成されています。これに加えて、npmからはインストールしないサーフェスがあります。リポジトリから直接参照して使うファーストパーティの GitHub Action **`@svelte-vitals/action`** と、CLIがプロジェクト内に生成する `SKILL.md` ファイルの **Agent Skills** です。解析を行うもの（CLI、Vite プラグイン、Action）はいずれも同じルールエンジンとスコアリングを共有していますが、読み取る対象とカバーする範囲が異なります（Agent Skills 自体は解析を行いません。ルールの知識を持ち、いつスキャナーを実行するかをエージェントに伝える役割です）。ほとんどのプロジェクトでは複数を組み合わせて使うことになります。
+npm パッケージは `svelte-vitals`（CLI）と `@svelte-vitals/vite`（プラグイン + ライブダッシュボード）の2つ。加えて、インストールしないサーフェスが2つあります。リポジトリから直接参照する GitHub Action **`@svelte-vitals/action`** と、CLI が生成する `SKILL.md` の **Agent Skills** です。
+
+CLI・プラグイン・Action は同じルールエンジンとスコアリングを共有し、読み取る対象だけが異なります。Agent Skills 自体は解析せず、ルールの知識を持っていつスキャナーを実行するかをエージェントに伝えます。ほとんどのプロジェクトは複数を併用します。
 
 各パッケージは独立してバージョン管理されており、共有ルールエンジンである `@svelte-vitals/core` にはそれぞれ自分の semver 範囲で依存しています。そのため「同時に」インストールした2つのパッケージが、実際には異なる core バージョンに解決されることがあります。CLI と Vite プラグインで検出結果が食い違う場合は[ライブダッシュボード § バージョンのずれ](/ja/guides/dev-dashboard#バージョンのずれ)を参照してください。
 
@@ -48,17 +50,23 @@ devで実際にルートを訪問すると、ダッシュボードはさらに�
 
 ### ビルド成果物を正確に検証する Vite プラグイン
 
-`@svelte-vitals/vite` のビルドモードは `vite build` の実行中に、**実際にプレレンダリングされたHTML**を解析してSEO/Performanceを検証します。そのため、ソーススキャナーが認識しないコンポーネントにごまかされることがありません。タグが出力HTMLに存在しなければ、それだけで検出されます。加えて `.svelte` ソースも直接走査し、CLIと同じ Correctness、Security、Architecture の各ルールと、コンポーネントスコープの Performance ルールも検証します。残るトレードオフはルートの範囲です。HTMLベースのSEO/Performance検証はプレレンダリングされたルートのみが対象です（コンポーネントスコープのルールはプロジェクト全体が対象）。詳細は [プラグインモード](/ja/guides/plugin-mode) を参照してください。
+ビルドモードは `vite build` の実行中に**実際にプレレンダリングされた HTML** を解析して SEO/Performance を検証します。何が生成したかに関わらず、タグが出力 HTML になければ検出されます。加えて `.svelte` ソースも走査し、CLI と同じ Correctness・Security・Architecture と、コンポーネントスコープの Performance ルールを実行します。
+
+トレードオフはルートの範囲です。HTML ベースの検証はプレレンダリングされたルートのみが対象で、コンポーネントスコープのルールはプロジェクト全体が対象です。詳細は [プラグインモード](/ja/guides/plugin-mode) を参照してください。
 
 同じパッケージは `vite dev` 中に `/__svelte-vitals/` で**ライブダッシュボード**もデフォルトで配信しています。ビルドは不要で、起動時からプロジェクト全体をカバーし、ページを閲覧するにつれて実際のレンダリング結果へと精緻化されます。これはゲートではなくフィードバックであり、ビルドやCIを失敗させることはありません。詳細は [ライブダッシュボード](/ja/guides/dev-dashboard) を参照してください。
 
 ### YAMLを書かずにPRをゲートする GitHub Action
 
-`@svelte-vitals/action` はプルリクエストごとにCLIと同じエンジンを実行し、検出結果をGitHubネイティブなフィードバック（変更行へのインラインアノテーション、ジョブサマリー、その場で更新される単一のスティッキーPRコメント）に変換します。npmからインストールするものではありません。`npx svelte-vitals@latest ci install`（または `svelte-vitals install` 内の `ci-workflow` ターゲット）が、コミットSHAでピン留めした呼び出しを含むワークフローを生成します。ピンは後から `svelte-vitals ci upgrade` で更新できます。生成されるワークフローは `--diff`/`--baseline` で検出結果をそのPR自身の変更分に絞るため、既存の問題が他の人のPRを失敗させることはありません。詳細は [CI 連携](/ja/guides/ci) を参照してください。
+プルリクエストごとに CLI と同じエンジンを実行し、検出結果を GitHub ネイティブなフィードバック（インラインアノテーション、ジョブサマリー、その場で更新されるスティッキー PR コメント）に変換します。
+
+`npx svelte-vitals@latest ci install`（または `svelte-vitals install` の `ci-workflow` ターゲット）が、SHA でピン留めした呼び出しを含むワークフローを生成します。ピンの更新は `svelte-vitals ci upgrade`。ワークフローは検出結果をその PR 自身の変更分に絞るため、既存の問題が他の人の PR を失敗させることはありません。詳細は [CI 連携](/ja/guides/ci) を参照してください。
 
 ### エージェントに前もってルールの知識を与える Agent Skills
 
-[Agent Skills](/ja/guides/agent-skills) は、エージェントが「コードを書く前からルールを知っている」状態を作るものです。`svelte-vitals install` は、Claude Code、Codex、Cursor で同じように動くポータブルな `SKILL.md` を生成します。**`/svelte-vitals`** はルールカタログ全体と「編集のたびにスキャナーを実行する」プレイブックを埋め込んだスキル、**`/improve-svelte`** は「アプリをレビューして」という依頼を影響度順の自己完結型実装プランに変える読み取り専用の監査スキルです。CLI を置き換えるのではなく補完します。知識は前もって、解析は必要なときに、という分担です。スキル自身のプレイブックが、編集後には `npx svelte-vitals . --diff --reporter agent` を、ルールの根拠やオプションを知りたいときは `npx svelte-vitals explain <rule-id>` を実行するようエージェントに指示します。詳細は [Agent Skills](/ja/guides/agent-skills) を参照してください。
+[Agent Skills](/ja/guides/agent-skills) は、エージェントが「コードを書く前からルールを知っている」状態を作ります。`svelte-vitals install` は Claude Code・Codex・Cursor で同じように動く `SKILL.md` を生成します。**`/svelte-vitals`** はルールカタログと「編集のたびに実行する」プレイブック、**`/improve-svelte`** は「アプリをレビューして」を影響度順の実装プランに変える読み取り専用の監査スキルです。
+
+CLI を置き換えるのではなく補完します。知識は前もって、解析は必要なときに。プレイブック自身が、編集後には `npx svelte-vitals . --diff --reporter agent` を、ルールの根拠やオプションには `npx svelte-vitals explain <rule-id>` を実行するよう指示します。
 
 ## おすすめの組み合わせ
 

@@ -26,7 +26,9 @@ npx svelte-vitals@latest ci install --force     # 既存のワークフローフ
 
 ## 既存プロジェクトへの導入
 
-リポジトリに既に検出結果の蓄積がある場合は、まずローカルで `svelte-vitals --update-suppressions` を実行してください。現在のすべての検出結果を受け入れる `svelte-vitals-suppressions.json` が一度で書き出されます。そのファイルをコミットしてから、好きなゲート（`--fail-on`、`--min-health`、pre-commit フック、あるいはこのワークフロー）を有効にすれば、以降はコミット後に導入された検出結果だけで失敗するようになり、蓄積分を事前に直す必要はありません。詳しくは CLI リファレンスの [`--update-suppressions`](/ja/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions) を参照してください。リポジトリにこのファイルがあれば `@svelte-vitals/action` も自動的に適用するため、有効化のための追加の入力は不要です。後述の `diff`/`baseline` によるスコープ絞り込みだけでも、この _ワークフロー_ は PR 自体の変更分に限定されます。抑制ファイルがあれば、それに加えて PR の外（たとえばローカルの pre-commit フックでの `--fail-on`）でも、同じ蓄積の問題に悩まされずにゲートを有効にできます。
+既に検出結果の蓄積がある場合は、まずローカルで `svelte-vitals --update-suppressions` を実行してください。現在のすべての検出結果を受け入れる `svelte-vitals-suppressions.json` が書き出されます。これをコミットしてから任意のゲートを有効にすれば、以降に導入された検出結果だけで失敗します。詳細は [`--update-suppressions`](/ja/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions) を参照してください。
+
+このファイルがあれば `@svelte-vitals/action` も自動で適用します。このワークフローは `diff`/`baseline` で既に PR 自身の変更分に絞られているため、抑制ファイルの効果は **PR の外**（ローカルの pre-commit フックなど）でもゲートできる点にあります。
 
 ## ワークフローの動作
 
@@ -163,7 +165,9 @@ Action を経由せず svelte-vitals を直接実行したい場合の `--diff` 
 
 `@svelte-vitals/action` はサプライチェーンの安全性のためにコミット SHA でピン留めされています。そのため、新しいリリースが出るたびにワークフロー内のピンは古くなります。ファイル全体を `ci install --force` で再生成することもできますが、それではワークフローに加えたカスタマイズ（追加のトリガーやステップなど）が失われてしまいます。
 
-`svelte-vitals ci upgrade` を使えば、必要な行だけをピンポイントで書き換えられます。現在の `uses: oekazuma/svelte-vitals-action@<sha>` 形式に加え、Action が独自リポジトリへ移行する前に生成された `uses: oekazuma/svelte-vitals/packages/action@<sha>` 形式(移行前)も認識して書き換え対象にします。それ以外の内容(`actions/checkout` など他の `uses:` ピン、独自のトリガー、追加ステップ)はそのまま残します。`svelte-vitals-action` は独自リポジトリで管理されており、リリースタグも素の `vX.Y.Z` 形式なので、Renovate も追加設定なしでこの更新を自動的に提案します。
+`svelte-vitals ci upgrade` は、Action の `uses:` 行**だけ**を、実行中の CLI に同梱されたピンへ書き換えます。現在の `oekazuma/svelte-vitals-action@<sha>` 形式に加え、移行前の `oekazuma/svelte-vitals/packages/action@<sha>` 形式も認識します。他の `uses:` ピン、トリガー、追加ステップはそのまま残ります。
+
+Action のリポジトリは素の `vX.Y.Z` タグを公開しているため、Renovate も追加設定なしでこの更新を提案します。
 
 ```bash
 npx svelte-vitals@latest ci upgrade              # その場でピンを書き換える

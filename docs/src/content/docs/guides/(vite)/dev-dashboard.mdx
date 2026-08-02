@@ -39,7 +39,9 @@ From the moment the dev server starts, the dashboard shows the **whole project**
 
 "Overview" lists every finding across the whole project — every route plus the project's site-wide checks — in one place, and the severity/category chips filter that list directly. Each finding shows which route it came from; clicking it jumps straight to that route's detail pane.
 
-The sidebar's search box filters routes by path or by a finding's rule id/title/location; the sort control reorders it (worst score first by default). Selecting a route (or "Overview") updates the detail pane and is reflected in the URL hash, so a reload or a shared link returns to the same view. The topbar shows an "Analyzing…" indicator while a whole-project re-analysis is running, plus a dark-mode toggle — the preference is remembered per browser and otherwise follows your OS setting.
+The sidebar search filters routes by path or by a finding's rule id, title or location; the sort control reorders it (worst score first by default). Selecting a route or "Overview" updates the detail pane and the URL hash, so a reload or shared link returns to the same view.
+
+The topbar shows an "Analyzing…" indicator during a whole-project re-analysis, plus a dark-mode toggle remembered per browser (otherwise following your OS).
 
 If the whole-project analysis fails (for example the dev server root is not a SvelteKit project), the failure is logged with `console.warn` and the dashboard falls back to live-only mode — showing just the routes you visit — without ever breaking the dev server.
 
@@ -57,7 +59,9 @@ export const handle = sequence(svelteVitalsHandle());
 
 If you already have other handles, place `svelteVitalsHandle()` alongside them inside `sequence`.
 
-`svelteVitalsHandle` uses SvelteKit's `transformPageChunk` to observe each request's fully-rendered `<head>`, fire-and-forget — it never modifies or delays the response, and swallows its own errors, so it can never break the dev server. Each visited route's rendered results replace the static ones for that route in the dashboard — a rendered page is closer to the truth, especially for dynamic values. Route headings carry a provenance badge: `measured` for routes whose findings come from a real rendered page, `static` for routes covered only by source analysis so far.
+`svelteVitalsHandle` observes each request's fully-rendered `<head>` via `transformPageChunk`, fire-and-forget: it never modifies or delays the response and swallows its own errors, so it cannot break the dev server.
+
+A visited route's rendered results replace its static ones — closer to the truth, especially for dynamic values. Route headings carry a provenance badge: `measured` from a real rendered page, `static` from source analysis only.
 
 The handle is a **no-op outside dev**: the `DEV` flag from `esm-env` resolves statically at build time, so the rule set is never built and the hook adds zero runtime cost in production.
 
@@ -124,6 +128,8 @@ export default {
 
 ## Version drift
 
-The dashboard topbar shows `v<@svelte-vitals/vite version>` and, next to it, `core v<@svelte-vitals/core version>`. That second number is the one that matters when comparing findings against the CLI: `svelte-vitals` (CLI) and `@svelte-vitals/vite` are versioned independently, both wrapping the shared `@svelte-vitals/core` rule engine — so it's possible for the two to resolve to _different_ core versions even when both packages themselves look up to date, and a rule added in a newer core release will only show up on whichever surface actually depends on it.
+The topbar shows the plugin version and, next to it, `core v<@svelte-vitals/core version>`. The second is the one that matters when comparing against the CLI: both packages are versioned independently around the shared core, so they can resolve to _different_ core versions while each looks up to date — and a rule added in a newer core only appears on the surface that depends on it.
 
-This is easy to hit without noticing through package-manager cooldown/pinning features — e.g. pnpm's [`minimumReleaseAge`](https://pnpm.io/settings#minimumreleaseage) can silently resolve a `pnpm dlx svelte-vitals@latest` run down to an older "mature" release (with an older core) than what `@svelte-vitals/vite` in your lockfile depends on. If the CLI and the dashboard disagree on findings for the same project, run `svelte-vitals --version` and compare its `(core X.Y.Z)` against the dashboard topbar's `core vX.Y.Z` — a mismatch there is the first thing to check before assuming a bug.
+Package-manager cooldown settings make this easy to hit unnoticed: pnpm's [`minimumReleaseAge`](https://pnpm.io/settings#minimumreleaseage) can resolve `pnpm dlx svelte-vitals@latest` down to an older "mature" release than your lockfile's plugin depends on.
+
+If the two disagree on findings, compare `svelte-vitals --version`'s `(core X.Y.Z)` against the topbar's `core vX.Y.Z` before assuming a bug.

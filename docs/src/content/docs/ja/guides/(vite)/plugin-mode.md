@@ -5,7 +5,9 @@ sidebar:
   order: 1
 ---
 
-`@svelte-vitals/vite` は Vite / SvelteKit プラグインで、`vite build` に便乗して**プリレンダリングされた HTML の `<head>`** を解析し、CLI と同じ SEO と Performance のルールを実行します。実際の HTML 出力を検査するので、使っているライブラリを問いません。ビルドモードではさらに、`src/` 配下のソース（コンポーネント、runes モジュール（`.svelte.ts`/`.svelte.js`）、SvelteKit のルート/フックファイル）を走査し、Correctness、Security、Architecture、およびコンポーネントスコープの Performance（バンドル）ルールも実行します。これらは CLI が実行するのと同じファイルスコープのルールで、デフォルトで有効です。検出結果が `failOn` の閾値に達するとビルドが失敗します。
+`@svelte-vitals/vite` は `vite build` に便乗して**プリレンダリングされた HTML の `<head>`** を解析し、CLI と同じ SEO と Performance のルールを実行します。実際の出力を検査するので、使っているライブラリを問いません。
+
+さらに `src/` 配下（コンポーネント、runes モジュール（`.svelte.ts`/`.svelte.js`）、ルート/フックファイル）を走査し、Correctness・Security・Architecture とコンポーネントスコープの Performance ルールも実行します。デフォルトで有効です。検出結果が `failOn` の閾値に達するとビルドが失敗します。
 
 > **ESM のみ**（Node 22.13+）。ES モジュールのみを提供します。`require()` は設計上サポートされていません。
 

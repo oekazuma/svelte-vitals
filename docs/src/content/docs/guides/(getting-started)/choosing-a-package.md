@@ -5,7 +5,9 @@ sidebar:
   order: 2
 ---
 
-svelte-vitals ships as npm packages — `svelte-vitals` (CLI) and `@svelte-vitals/vite` (plugin + live dashboard) — plus surfaces you don't install from npm: **`@svelte-vitals/action`**, a first-party GitHub Action consumed straight from the repo, and **Agent Skills**, `SKILL.md` files the CLI generates into your project. Everything that analyzes — the CLI, the Vite plugin, and the Action — shares the same rule engine and scoring, but reads different input and covers different ground (Agent Skills run no analysis of their own; they carry the rule knowledge and tell the agent when to run the scanner). Most projects end up using more than one.
+Two npm packages — `svelte-vitals` (CLI) and `@svelte-vitals/vite` (plugin + live dashboard) — plus two you don't install: **`@svelte-vitals/action`**, consumed straight from its repo, and **Agent Skills**, `SKILL.md` files the CLI generates into your project.
+
+The CLI, the plugin and the Action share one rule engine and scoring but read different input. Agent Skills analyze nothing themselves — they carry the rule knowledge and tell the agent when to run the scanner. Most projects use more than one.
 
 Each package is versioned independently and depends on `@svelte-vitals/core` (the shared rule engine) as its own semver range, so two packages installed at the "same time" can still resolve to different core versions — see [live dashboard: Version drift](/guides/dev-dashboard#version-drift) if the CLI and the Vite plugin ever disagree on findings for the same project.
 
@@ -38,7 +40,7 @@ Some surfaces are intentionally absent from this table: the **GitHub Action** ru
 
 Correctness, Security, and Architecture rules read component **source** — `$effect` bodies, `{@html}` calls, prop counts — which only exists before compilation. The CLI, the Vite plugin's **build mode**, and the live dashboard's whole-project static baseline all read this source directly, so all three cover the full rule set across every category.
 
-Once you actually visit a route in dev, the dashboard additionally re-checks that route's **rendered HTML** (via `svelteVitalsHandle`) for SEO/Performance — library-agnostic and exact for the pages it covers: whatever produced the `<head>`, if it's missing from the shipped HTML, it's seen. That per-route rendered re-check is the one thing the dashboard's static baseline alone doesn't give you. Build mode reads rendered HTML too (for the same exact-verification reason), _in addition to_ the source scan — it's the only build-time path that gets both.
+Visiting a route in dev additionally re-checks its **rendered HTML** (via `svelteVitalsHandle`) for SEO/Performance — the one thing the static baseline alone can't give you. Build mode reads rendered HTML too, _in addition to_ the source scan, making it the only build-time path with both.
 
 ## The packages
 
@@ -48,17 +50,23 @@ Once you actually visit a route in dev, the dashboard additionally re-checks tha
 
 ### Vite plugin — exact, build-time verification
 
-`@svelte-vitals/vite`'s build mode runs during `vite build` and parses the **actual prerendered HTML** for SEO/Performance, so it can't be fooled by a component the source scanner doesn't recognize — if the tag isn't in the shipped output, it fails. It also scans `.svelte` source directly for Correctness, Security, Architecture, and the component-scoped Performance rules, the same as the CLI. The remaining trade-off is route scope: only prerendered routes get the HTML-based SEO/Performance verification (component-scoped rules apply project-wide). See [Plugin mode](/guides/plugin-mode).
+Build mode runs during `vite build` and parses the **actual prerendered HTML** for SEO/Performance: if the tag isn't in the shipped output it fails, whatever produced it. It also scans `.svelte` source for Correctness, Security, Architecture and the component-scoped Performance rules, as the CLI does.
+
+The trade-off is route scope — only prerendered routes get the HTML check; component-scoped rules apply project-wide. See [Plugin mode](/guides/plugin-mode).
 
 The same package also serves a **live dashboard** at `/__svelte-vitals/` during `vite dev`, on by default, with zero build step — whole-project coverage from startup, refined to real rendered results as you browse. It's feedback, not a gate: nothing here fails a build or a CI run. See [Live dashboard](/guides/dev-dashboard).
 
 ### GitHub Action — PR gating with zero YAML
 
-`@svelte-vitals/action` runs the same engine as the CLI on every pull request and turns the findings into GitHub-native feedback: inline annotations on the changed lines, a job summary, and a single sticky PR comment that updates in place. You don't install it from npm — `npx svelte-vitals@latest ci install` (or the `ci-workflow` target inside `svelte-vitals install`) scaffolds a workflow that calls it pinned to a commit SHA, and `svelte-vitals ci upgrade` bumps that pin later. The generated workflow scopes findings to the PR's own changes via `--diff`/`--baseline`, so pre-existing issues don't fail other people's PRs. See [CI integration](/guides/ci).
+Runs the CLI's engine on every pull request and turns findings into GitHub-native feedback: inline annotations, a job summary, and one sticky PR comment that updates in place.
+
+`npx svelte-vitals@latest ci install` (or the `ci-workflow` install target) scaffolds a workflow calling it pinned to a SHA; `svelte-vitals ci upgrade` bumps that pin. The workflow scopes findings to the PR's own changes, so pre-existing issues don't fail other people's PRs. See [CI integration](/guides/ci).
 
 ### Agent Skills — rule knowledge for your agent, up front
 
-[Agent Skills](/guides/agent-skills) make an agent _know the rules before it writes code_. `svelte-vitals install` generates portable `SKILL.md` files that work identically in Claude Code, Codex, and Cursor: **`/svelte-vitals`** embeds the full rule catalog plus a run-the-scanner-after-every-edit playbook, and **`/improve-svelte`** is a read-only audit that turns "review my app" into impact-ranked, self-contained implementation plans. They pair with the CLI rather than replacing it — knowledge up front, analysis on demand: the skill's own playbook tells the agent to run `npx svelte-vitals . --diff --reporter agent` after an edit, and `npx svelte-vitals explain <rule-id>` when it needs a rule's full rationale and options. See [Agent Skills](/guides/agent-skills).
+[Agent Skills](/guides/agent-skills) make an agent _know the rules before it writes code_. `svelte-vitals install` generates portable `SKILL.md` files that work identically in Claude Code, Codex and Cursor: **`/svelte-vitals`** embeds the rule catalog plus a run-after-every-edit playbook, **`/improve-svelte`** turns "review my app" into impact-ranked implementation plans.
+
+They pair with the CLI rather than replace it — knowledge up front, analysis on demand. The playbook itself tells the agent to run `npx svelte-vitals . --diff --reporter agent` after an edit, and `npx svelte-vitals explain <rule-id>` for a rule's rationale and options.
 
 ## Recommended setups
 

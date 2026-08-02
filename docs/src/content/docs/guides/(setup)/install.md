@@ -17,9 +17,13 @@ With no flags it launches an interactive wizard: pick your targets, review the p
 
 Comma-separated targets to configure: `vite-plugin`, `vite-hooks`, `claude-skill`, `cursor-rules`, `claude-skill-improve`, `config-file`, `ci-workflow`. When given, the interactive picker is skipped.
 
-`vite-plugin` registers `@svelte-vitals/vite`'s build-mode plugin in `vite.config.{ts,js,mjs}` (its live dashboard is on by default); `vite-hooks` wires up the `svelteVitalsHandle` hook in `src/hooks.server.{ts,js}`, which improves the dashboard's per-route accuracy as you browse. Both use a `magicast` codemod that only touches a file whose shape it confidently recognizes — anything else is left alone and a snippet is printed instead. If either is written and `@svelte-vitals/vite` isn't already a dependency, it's installed automatically via the detected package manager. **`--force` does not apply to these two** — an existing registration is always left as-is regardless of the flag.
+`vite-plugin` registers the build-mode plugin in `vite.config.{ts,js,mjs}` (the live dashboard is on by default); `vite-hooks` wires `svelteVitalsHandle` into `src/hooks.server.{ts,js}`, improving the dashboard's per-route accuracy as you browse.
 
-`claude-skill` writes the [`/svelte-vitals` Agent Skill](/guides/agent-skills#svelte-vitals) to three conventional locations at once — `.claude/skills/svelte-vitals/SKILL.md` (Claude Code), `.agents/skills/svelte-vitals/SKILL.md` (Codex), and `.cursor/skills/svelte-vitals/SKILL.md` (Cursor) — with byte-identical content, since all three tools read the same frontmatter-driven `SKILL.md` convention; `cursor-rules` writes a Cursor project rules file to `.cursor/rules/svelte-vitals.mdc`. Both are generated at install time from the current rule set (every rule's id, title, severity, and rationale, grouped by category). Unlike the Vite targets, these files are fully regenerated rather than codemodded, so **`--force` does apply** and simply overwrites them with a fresh copy.
+Both use a `magicast` codemod that only touches a file whose shape it confidently recognizes — anything else is left alone and a snippet printed instead. Writing either installs `@svelte-vitals/vite` via the detected package manager if it isn't already a dependency. **`--force` does not apply to these two:** an existing registration is always left as-is.
+
+`claude-skill` writes the [`/svelte-vitals` Agent Skill](/guides/agent-skills#svelte-vitals) to `.claude/skills/`, `.agents/skills/` and `.cursor/skills/` at once, byte-identical — all three tools read the same frontmatter-driven `SKILL.md` convention. `cursor-rules` writes `.cursor/rules/svelte-vitals.mdc`.
+
+Both are generated at install time from the current rule set (id, title, severity and rationale per rule, grouped by category). Being regenerated rather than codemodded, **`--force` does apply** and overwrites them.
 
 `claude-skill-improve` writes the [`/improve-svelte` Agent Skill](/guides/agent-skills#improve-svelte) to the same three locations, under `improve-svelte/` (`.claude/skills/improve-svelte/SKILL.md`, `.agents/skills/improve-svelte/SKILL.md`, `.cursor/skills/improve-svelte/SKILL.md`). Like `claude-skill`/`cursor-rules`, it's fully regenerated, so **`--force` does apply**.
 
@@ -56,7 +60,9 @@ Overwrite an existing `svelte-vitals` entry. By default an entry that already ex
 
 ## `--refresh`
 
-Regenerate whichever `claude-skill`/`cursor-rules`/`claude-skill-improve` files are already present on disk, with the current rule set — a one-command way to pick up newly added rules or improved rationale text without remembering which agent targets you originally installed. It only regenerates files that already exist; it never creates one (refresh is not install). It ignores `--yes`, `--force`, and `--app` (with a warning) since they don't apply, and cannot be combined with `--client` (fatal). If no generated agent files are found, it prints guidance and exits `0`.
+Regenerates whichever `claude-skill`/`cursor-rules`/`claude-skill-improve` files are already on disk, with the current rule set — a way to pick up new rules without remembering which targets you installed. It never creates a file that isn't there.
+
+`--yes`, `--force` and `--app` are ignored with a warning; `--client` is a fatal combination. With no generated files present it prints guidance and exits `0`.
 
 ```bash
 # Non-interactive: write the agent skill and register the Vite plugin
