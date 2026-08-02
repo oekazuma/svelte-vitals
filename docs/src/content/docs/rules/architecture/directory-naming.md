@@ -65,12 +65,15 @@ A value may name several, joined by `|`, for a location that legitimately holds 
 directory — a route's `components/` holds PascalCase component units and camelCase groupings side by
 side.
 
-`architecture/unit-entry-file` uses a **looser** definition of PascalCase — it asks only whether the
-first character is A–Z, because it is asking whether a directory looks like a unit, not whether its
-name conforms. `architecture/reserved-directory-names` uses that same first-character test for its
-own unit definition, but pairs it with requiring a same-named file, so a directory can pass one
-rule's PascalCase gate and fail another's. All three rules mean different things by the word on
-purpose.
+These rules mean different things by "PascalCase", on purpose:
+
+- **This rule** checks that the whole name conforms.
+- **`architecture/unit-entry-file`** asks only whether the first character is A–Z — it is asking
+  whether a directory _looks like_ a unit, not whether its name conforms.
+- **`architecture/reserved-directory-names`** uses that same first-character test, but also requires
+  a same-named file.
+
+So a directory can pass one rule's PascalCase gate and fail another's.
 
 **One lowercase word satisfies `camelCase`, `kebab-case` and `snake_case` at once.** `dialog` matches
 all three, because there is nothing in the name to disagree with. This rule only fires on a name that
@@ -132,10 +135,12 @@ it: an exclusion takes everything below it out of the check as well.
 Only directories under `src/` are considered, so anything outside it is never checked and does not
 need excluding. File names are not checked at all.
 
-A violation's `route` is the directory it names, but its `location` — the field `--diff` filters
-on, because git can only tell a file was changed, never a directory — points at a file inside that
-directory instead. The two are kept apart on purpose: a directory nested inside another violating
-directory is still reported separately from its parent, and each can be suppressed on its own.
+A violation's `route` is the directory it names; its `location` points at a file inside that
+directory, because `--diff` filters on `location` and git can only tell a file changed, never a
+directory.
+
+The two are kept apart on purpose: a directory nested inside another violating directory is still
+reported separately, and each can be suppressed on its own.
 
 A declaration that is not checking what it says is reported, so a typo cannot leave the rule silently
 doing nothing. Four cases land in that finding, each named in the message:
@@ -153,11 +158,12 @@ quietly enforces less than you wrote.
 A declaration naming **no** known casing is dropped before matching, so it cannot shadow a broader
 valid declaration that would otherwise govern the same directory.
 
-Two things are deliberately never reported. A declaration written **only** inside an `overrides`
-entry is not checked this way, because whether it matched anything depends on which paths the
-override applies to. And an `exclude` glob that matches nothing is not reported: an exclusion that
-removes nothing has no effect on the report. That does mean a mistyped `exclude` glob is silent when
-the subtree it meant to remove had no findings anyway.
+Two things are deliberately never reported:
+
+- A declaration written **only** inside an `overrides` entry — whether it matched anything depends
+  on which paths the override applies to.
+- An `exclude` glob that matches nothing, since removing nothing changes no report. A mistyped
+  `exclude` is therefore silent when the subtree it meant to remove had no findings anyway.
 
 A mis-cased directory that is also a declared unit missing its entry file draws a finding from
 `architecture/unit-entry-file` as well. Neither suppresses the other — they are different claims and

@@ -130,13 +130,18 @@ place is invisible unless that place is itself declared.
 is a child not in the set, and would be reported.
 
 A declaration that is not checking what it says is reported, so a typo cannot leave the rule silently
-doing nothing. Five cases land in that finding, each named in the message: the glob matched no
-directory; every directory it matched is excluded; it matched directories but never a unit; the value
-lists no name at all; the same glob is declared in both maps.
+doing nothing. Five cases land in that finding, each named in the message:
 
-Two things are never reported. A declaration written **only** inside an `overrides` entry is not
-checked for inertness, because whether it matched anything depends on which paths the override applies
-to — with one exception: the identical-glob collision check is not narrowed to globally declared keys,
-so a `scopes`/`unitScopes` collision assembled entirely from `overrides` entries is still reported. And
-a declared name that no directory currently uses is not reported — the set says what may appear, not
-what must.
+- the glob matched no directory;
+- every directory it matched is excluded;
+- it matched directories but never a unit;
+- the value lists no name at all;
+- the same glob is declared in both maps, with **both** values naming at least one directory. If either value names nothing it is dropped before matching, so the other governs alone and the empty-value reason reports instead.
+
+Two things are never reported:
+
+- A declaration written **only** inside an `overrides` entry, since whether it matched anything
+  depends on which paths the override applies to. One exception: the identical-glob collision check
+  is not narrowed to globally declared keys, so a `scopes`/`unitScopes` collision assembled entirely
+  from `overrides` entries is still reported.
+- A declared name no directory currently uses — the set says what **may** appear, not what must.
