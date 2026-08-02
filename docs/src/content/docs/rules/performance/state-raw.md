@@ -19,11 +19,18 @@ Flags a top-level object- or array-literal `$state` binding that is reassigned a
 </script>
 ```
 
-Detection is deliberately conservative. A candidate survives only if nothing could depend on deep reactivity: no property/element writes, `delete`, or method calls; no escapes (call arguments, component props, `bind:`, `use:`/`transition:`/`animate:` directive expressions); no aliasing references (`const inner = obj.items`, a helper `return obj`, an inline handler storing it elsewhere); and no item-level edits inside `{#each}` blocks over it or a member path of it (e.g. `{#each obj.items as item}`) (`bind:value={item.text}`, `<Row {item} />` — an editable list must stay deeply reactive).
+Detection is deliberately conservative. A candidate survives only if nothing could depend on deep reactivity:
+
+- no property/element writes, `delete`, or method calls;
+- no escapes — call arguments, component props, `bind:`, `use:`/`transition:`/`animate:` directive expressions;
+- no aliasing references (`const inner = obj.items`, a helper `return obj`, an inline handler storing it elsewhere);
+- no item-level edits inside `{#each}` blocks over it or a member path of it (`{#each obj.items as item}` with `bind:value={item.text}` or `<Row {item} />`) — an editable list must stay deeply reactive.
 
 ## Why it matters
 
-`$state` objects and arrays are wrapped in deep proxies so property-level mutation can be tracked — and that machinery taxes every property access. A binding that is only ever reassigned (API responses are the canonical case) never uses it. Svelte's own guidance: use `$state.raw` for large objects that are only ever reassigned. Reassignment stays fully reactive under `$state.raw`; only property-level mutation needs the proxy.
+`$state` objects and arrays are wrapped in deep proxies so property-level mutation can be tracked, and that machinery taxes every property access. A binding that is only ever reassigned — API responses being the canonical case — never uses it.
+
+Svelte's own guidance is to use `$state.raw` for large objects that are only ever reassigned. Reassignment stays fully reactive there; only property-level mutation needs the proxy.
 
 ## How to fix
 
@@ -37,7 +44,9 @@ Keep the same initializer and reassignment code — nothing else changes.
 
 ## Limitations
 
-"Large" is not statically knowable, so a literal object/array initializer stands in for it — which also means the `let data = $state(null)`-then-assign idiom is not flagged (the initializer is not a container literal). Escape handling is conservative: any aliasing reference disqualifies, including a whole-binding `bind:`; deep aliases that never name the binding (`const x = someAlias.b`) are beyond static reach. Runes-module (`.svelte.ts`) and class-field `$state` are out of scope in this version.
+"Large" is not statically knowable, so a literal object/array initializer stands in for it. That also means the `let data = $state(null)`-then-assign idiom is not flagged, since the initializer is not a container literal.
+
+Escape handling is conservative: any aliasing reference disqualifies, a whole-binding `bind:` included; deep aliases that never name the binding (`const x = someAlias.b`) are beyond static reach. Runes-module (`.svelte.ts`) and class-field `$state` are out of scope in this version.
 
 ## Disabling
 

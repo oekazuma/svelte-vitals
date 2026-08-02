@@ -7,9 +7,20 @@ description: A build.minify:false left in vite.config ships unminified JS/CSS to
 
 ## What it checks
 
-Flags a Vite config whose production build disables minification with `build.minify: false`. The CLI statically parses `vite.config.*` (the first file in Vite's own resolution order) and detects the literal form — `export default { … }`, `defineConfig({ … })` (including a same-file identifier passed as its argument), a same-file alias export, or the CommonJS `module.exports = { … }` form — with `satisfies`/`as` unwrapped. The Vite plugin instead reads the **resolved** config during `vite build`, so it also catches function-form and conditional configs — and never flags an override that doesn't apply to the actual build.
+Flags a Vite config whose production build disables minification with `build.minify: false`.
 
-Not flagged: `minify: 'esbuild' | 'terser' | true`, `minify` keys outside the `build` object, and projects without a Vite config. An object spread that could override `minify` after the literal (e.g. `{ minify: false, ...prod }`) makes the CLI's static reading of the value unknowable, so it conservatively skips the finding — the plugin channel still judges the actual resolved value regardless.
+The CLI statically parses `vite.config.*` (the first file in Vite's own resolution order) and detects the literal form, with `satisfies`/`as` unwrapped:
+
+- `export default { … }`
+- `defineConfig({ … })`, including a same-file identifier passed as its argument
+- a same-file alias export
+- the CommonJS `module.exports = { … }` form
+
+The Vite plugin instead reads the **resolved** config during `vite build`, so it also catches function-form and conditional configs — and never flags an override that doesn't apply to the actual build.
+
+Not flagged: `minify: 'esbuild' | 'terser' | true`, `minify` keys outside the `build` object, and projects without a Vite config.
+
+An object spread that could override `minify` after the literal (`{ minify: false, ...prod }`) makes the value unknowable to static reading, so the CLI skips the finding. The plugin channel still judges the resolved value.
 
 ## Why it matters
 
@@ -34,7 +45,9 @@ Note the CLI's static pass deliberately skips this conditional form — only the
 
 ## Limitations
 
-The two channels differ in strength. The CLI flags only the literal `build.minify: false`; a dynamic expression that evaluates to `false` is invisible to it. The Vite plugin judges the resolved value, so its verdict is exact for the build it runs in; when the offending config is dynamic (or the override comes from another plugin), the finding carries no line number and its message says the value was resolved from the actual build, rather than pointing at a specific line. For an inline programmatic config (no config file at all), the finding carries no file either.
+The two channels differ in strength. The CLI flags only the literal `build.minify: false`; a dynamic expression evaluating to `false` is invisible to it.
+
+The Vite plugin judges the resolved value, so its verdict is exact for the build it runs in. When the offending config is dynamic, or the override comes from another plugin, the finding carries no line number and says the value came from the actual build. For an inline programmatic config, with no config file at all, it carries no file either.
 
 ## Disabling
 

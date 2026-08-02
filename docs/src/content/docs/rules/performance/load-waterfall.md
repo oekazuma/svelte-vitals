@@ -9,11 +9,19 @@ description: Dependent sequential awaits in a universal load cost a network roun
 
 Flags await chains in a **universal** load (`+page.ts` / `+layout.ts`) where a later await uses the result of an earlier one — directly, through destructured bindings, or through intermediate constants. Each dependent hop is a full network round trip from the browser on client-side navigation.
 
-The scan is deliberately conservative: it follows the load body's straight-line statements (including directly `try`-wrapped ones) and does not enter `if` branches, loops, or nested functions. `await parent()` is never flagged itself, but data derived from it counts as a dependency. Reading a response body (`await res.json()` and friends) is not counted as a hop — it costs no extra round trip — but data parsed from it still carries the dependency forward. Dependent chains in **server** loads are not flagged — they cannot be parallelized, and they already run server-side. Files that disable client-side rendering (`export const csr = false`) are exempt — without a client runtime the universal load only runs during SSR.
+The scan is deliberately conservative:
+
+- It follows the load body's straight-line statements (directly `try`-wrapped ones included) and does not enter `if` branches, loops, or nested functions.
+- `await parent()` is never flagged itself, but data derived from it counts as a dependency.
+- Reading a response body (`await res.json()` and friends) is not a hop — it costs no extra round trip — though data parsed from it still carries the dependency forward.
+- Dependent chains in **server** loads are exempt: they cannot be parallelized and already run server-side.
+- Files disabling client-side rendering (`export const csr = false`) are exempt — without a client runtime the universal load only runs during SSR.
 
 ## Why it matters
 
-SvelteKit's performance guidance names request waterfalls as a primary latency source. A universal load re-runs in the browser on client-side navigation, so a chain of N dependent requests costs N sequential round trips — on every visit. Moving the chain to a server load keeps the same logic but runs the hops server-to-server, collapsing the client cost to one round trip.
+SvelteKit's performance guidance names request waterfalls as a primary latency source. A universal load re-runs in the browser on client-side navigation, so a chain of N dependent requests costs N sequential round trips on every visit.
+
+Moving the chain to a server load keeps the logic but runs the hops server-to-server, collapsing the client cost to one round trip.
 
 ## How to fix
 
