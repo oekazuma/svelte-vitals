@@ -19,11 +19,18 @@ function baseOf(root: string): string {
  * Matched at a path-segment boundary (`${base}/`) — not bare `startsWith(root)` — so a root declared
  * without its trailing slash can't match past a partial segment (`.../ui` must not match `.../uiOther`),
  * and a `url` equal to `root` itself (with or without its own trailing slash) yields `''`, not undefined.
+ * The remainder is run through `baseOf` too, so a directory link written with its own trailing slash
+ * (the ordinary way to address one) is normalised the same way the root already is.
  */
 function remainderUnder(url: string, root: string): string | undefined {
   const base = baseOf(root);
   if (url === base) return '';
-  return url.startsWith(`${base}/`) ? url.slice(base.length + 1) : undefined;
+  return url.startsWith(`${base}/`) ? baseOf(url.slice(base.length + 1)) : undefined;
+}
+
+/** Whether `target` sits under `src/` — the only tree `sourceFiles` (a glob rooted at `src/`) can see. */
+function isUnderSrc(target: string): boolean {
+  return target === 'src' || target.startsWith('src/');
 }
 
 /** The declared root this URL sits under, longest first so a nested root cannot be shadowed. */
@@ -53,11 +60,19 @@ function references(links: { url: string; line: number }[], roots: string[]): { 
     if (match === undefined) continue;
     // Empty remainder = a link to the root itself, which exists by definition — not a claim to check.
     if (match.remainder === '') continue;
+    // Outside `src/`, the inventory has no opinion — "absent" would mean "unindexed", not "missing".
+    // Same gate as an unmatched URL, one level in: unclaimed, not reported.
+    if (!isUnderSrc(match.remainder)) continue;
     out.push({ line, target: match.remainder });
   }
   return out;
 }
 
+// `componentRule` sets `location` to the file holding the link (the only file this rule ever sees),
+// never the target that moved — unlike the sibling directory rules, there is no better file to point
+// at instead. So `filterToChangedFiles` drops this rule's headline case (a rename breaking a link
+// elsewhere) from every `--diff` run unless the referencing file happened to change too. Recorded in
+// the rule docs' "Limitations", not fixed here — no `location` choice closes it.
 export const architectureDocLinkTarget = componentRule({
   id: ID,
   title: 'Documentation link target',

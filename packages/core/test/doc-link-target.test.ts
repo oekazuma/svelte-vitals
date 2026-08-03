@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { architectureDocLinkTarget } from '../src/rules/architecture/doc-link-target.js';
+import { architectureDocLinkTarget } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -141,6 +141,37 @@ describe('architecture/doc-link-target', () => {
   it('leaves a mailto: link silent for the reason it already is — no declared root matches', async () => {
     const rs = await architectureDocLinkTarget.check(
       ctx([{ url: 'mailto:team@x.test', line: 1 }], ['src/lib/A/A.svelte'], [ROOT])
+    );
+    expect(rs).toEqual([]);
+  });
+
+  it('resolves a directory target written with a trailing slash', async () => {
+    const rs = await architectureDocLinkTarget.check(
+      ctx([{ url: `${ROOT}src/lib/Card/`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
+    );
+    expect(fails(rs)).toEqual([]);
+    expect(passes(rs)).toHaveLength(1);
+  });
+
+  it('resolves a trailing-slash directory target reached through a #fragment', async () => {
+    const rs = await architectureDocLinkTarget.check(
+      ctx([{ url: `${ROOT}src/lib/Card/#examples`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
+    );
+    expect(fails(rs)).toEqual([]);
+    expect(passes(rs)).toHaveLength(1);
+  });
+
+  it('leaves a remainder outside src/ silent, even when the file exists in the repository', async () => {
+    // `sourceFiles` only globs `src/**/*` — absence from it says nothing about a root-level file.
+    const rs = await architectureDocLinkTarget.check(
+      ctx(
+        [
+          { url: `${ROOT}CONTRIBUTING.md`, line: 1 },
+          { url: `${ROOT}static/logo.svg`, line: 2 }
+        ],
+        ['src/lib/A/A.svelte'],
+        [ROOT]
+      )
     );
     expect(rs).toEqual([]);
   });
