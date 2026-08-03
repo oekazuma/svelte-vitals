@@ -1,7 +1,7 @@
 ---
-'@svelte-vitals/core': patch
-'svelte-vitals': patch
-'@svelte-vitals/vite': patch
+'@svelte-vitals/core': minor
+'svelte-vitals': minor
+'@svelte-vitals/vite': minor
 ---
 
 `--reporter json` gains a top-level `rules` map of rule id to `{ findings, passed }`, listing every rule
