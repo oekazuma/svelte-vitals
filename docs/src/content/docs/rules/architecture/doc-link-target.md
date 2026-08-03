@@ -54,7 +54,18 @@ say) declares both.
 
 - A URL under no declared prefix — an external link, a documentation slug, a `mailto:`. The declaration is
   what makes something a reference; the shape of the target never is.
+- A remainder that doesn't start with `src/` — a `CONTRIBUTING.md` or `static/logo.svg` at the project root,
+  for instance. The file inventory only covers `src/`, so it has no opinion outside that tree, and reporting
+  "absent" there would mean "unindexed", not "missing".
 - A link outside a comment. Rendered markup is content.
 - A relative link, or a link in a `.md` file. This rule reads component comments only.
 - A trailing `// [label](url)` comment on a line of code. `//` counts as a comment opener only at the start
   of a line, which is what keeps the scan out of the `//` in `https://`.
+- A link inside a `/* … */` block comment or a `/** … */` JSDoc comment in a script. Only the markup form
+  (`<!-- … -->`) and a line-leading `//` are scanned.
+
+## Limitations
+
+Renaming the unit a link points at, in a file the link itself doesn't live in, is invisible to `--diff` /
+`--staged`: a finding's `location` is the file holding the link, and there is no better one to use — the
+target that moved is not the file that changed. A full run still reports it.
