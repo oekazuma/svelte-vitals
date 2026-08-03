@@ -15,6 +15,14 @@ neither a file nor a directory in `ctx.sourceFiles`.
 **Spec:** `docs/superpowers/specs/2026-08-03-doc-link-target-design.md` — read it before Task 1. It was
 field-checked against a real monorepo and several of its decisions look arbitrary until you have.
 
+> **Executed 2026-08-03; superseded in two respects.** This file is the historical plan, kept as written.
+> Review found `commentLinks` still optional, which let an unwired parse path pass 1163 tests while
+> emitting no findings; it shipped **required** on `ComponentFacts` instead, with `emptyComponentFacts`
+> covering it and no `?? []` fallback in the rule. And the three-step resolution below grew two steps in
+> response to measured false positives: a `#fragment`/`?query` is stripped before matching a root, and a
+> remainder outside `src/` is silent rather than reported. Read the design doc's Resolution section and
+> `packages/core/test/doc-link-target.test.ts` for the current contract.
+
 ## Global Constraints
 
 - **Directory matching is a precondition, not an enhancement.** `ctx.sourceFiles` lists **files**, so a
