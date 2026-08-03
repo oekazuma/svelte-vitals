@@ -96,6 +96,55 @@ describe('architecture/doc-link-target', () => {
     expect(await architectureDocLinkTarget.check(ctx([], ['src/lib/A/A.svelte'], [ROOT]))).toEqual([]);
   });
 
+  it('strips a #fragment before checking whether the target exists', async () => {
+    const rs = await architectureDocLinkTarget.check(
+      ctx([{ url: `${ROOT}src/lib/Card#examples`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
+    );
+    expect(fails(rs)).toEqual([]);
+    expect(passes(rs)).toHaveLength(1);
+  });
+
+  it('strips a ?query before checking whether the target exists', async () => {
+    const rs = await architectureDocLinkTarget.check(
+      ctx([{ url: `${ROOT}src/lib/Card?tab=usage`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
+    );
+    expect(fails(rs)).toEqual([]);
+    expect(passes(rs)).toHaveLength(1);
+  });
+
+  it('emits nothing for a URL that is exactly a declared root — the root exists by definition', async () => {
+    // The one measured URL that carries no path at all: not a "pass" (there is no reference to check),
+    // not a failure — no finding at all, same as an unmatched URL.
+    expect(
+      await architectureDocLinkTarget.check(ctx([{ url: ROOT, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT]))
+    ).toEqual([]);
+  });
+
+  it('resolves under a root declared without its trailing slash', async () => {
+    const noSlash = ROOT.slice(0, -1);
+    const rs = await architectureDocLinkTarget.check(
+      ctx([{ url: `${noSlash}/src/lib/Card`, line: 1 }], ['src/lib/Card/Card.svelte'], [noSlash])
+    );
+    expect(fails(rs)).toEqual([]);
+    expect(passes(rs)).toHaveLength(1);
+  });
+
+  it('does not match a root without its trailing slash across a path-segment boundary', async () => {
+    const noSlash = ROOT.slice(0, -1); // '…/pkg/ui'
+    // '…/pkg/uiOther' — a bare startsWith would wrongly treat this as inside noSlash.
+    const rs = await architectureDocLinkTarget.check(
+      ctx([{ url: `${noSlash}Other/src/lib/Card`, line: 1 }], ['src/lib/Card/Card.svelte'], [noSlash])
+    );
+    expect(rs).toEqual([]);
+  });
+
+  it('leaves a mailto: link silent for the reason it already is — no declared root matches', async () => {
+    const rs = await architectureDocLinkTarget.check(
+      ctx([{ url: 'mailto:team@x.test', line: 1 }], ['src/lib/A/A.svelte'], [ROOT])
+    );
+    expect(rs).toEqual([]);
+  });
+
   it('emits nothing when no file inventory was collected', async () => {
     // `sourceFiles` is optional and absent in rendered (plugin) mode. Without the guard every reference
     // would look broken there, because an empty inventory contains no target.

@@ -3,11 +3,37 @@ import { listOption } from '../../rule-options.js';
 
 const ID = 'architecture/doc-link-target';
 
-/** The declared prefix this URL sits under, longest first so a nested root cannot be shadowed. */
-function rootFor(url: string, roots: string[]): string | undefined {
-  let best: string | undefined;
+/** A `#fragment` or `?query` addresses a location within the target, not the target's own path. */
+function stripFragment(url: string): string {
+  const i = url.search(/[#?]/);
+  return i === -1 ? url : url.slice(0, i);
+}
+
+/** `root` without a trailing slash — the path boundary a match must respect regardless of how it was declared. */
+function baseOf(root: string): string {
+  return root.endsWith('/') ? root.slice(0, -1) : root;
+}
+
+/**
+ * The project-relative remainder of `url` under `root`, or undefined when `url` doesn't sit under it.
+ * Matched at a path-segment boundary (`${base}/`) — not bare `startsWith(root)` — so a root declared
+ * without its trailing slash can't match past a partial segment (`.../ui` must not match `.../uiOther`),
+ * and a `url` equal to `root` itself (with or without its own trailing slash) yields `''`, not undefined.
+ */
+function remainderUnder(url: string, root: string): string | undefined {
+  const base = baseOf(root);
+  if (url === base) return '';
+  return url.startsWith(`${base}/`) ? url.slice(base.length + 1) : undefined;
+}
+
+/** The declared root this URL sits under, longest first so a nested root cannot be shadowed. */
+function rootFor(url: string, roots: string[]): { base: string; remainder: string } | undefined {
+  let best: { base: string; remainder: string } | undefined;
   for (const r of roots) {
-    if (url.startsWith(r) && (best === undefined || r.length > best.length)) best = r;
+    const remainder = remainderUnder(url, r);
+    if (remainder === undefined) continue;
+    const base = baseOf(r);
+    if (best === undefined || base.length > best.base.length) best = { base, remainder };
   }
   return best;
 }
@@ -22,10 +48,12 @@ function targetExists(path: string, sourceFiles: readonly string[]): boolean {
 function references(links: { url: string; line: number }[], roots: string[]): { line: number; target: string }[] {
   const out: { line: number; target: string }[] = [];
   for (const { url, line } of links) {
-    const root = rootFor(url, roots);
+    const match = rootFor(stripFragment(url), roots);
     // No declared root — not claimed as a reference. This is the precision gate: shape never decides.
-    if (root === undefined) continue;
-    out.push({ line, target: url.slice(root.length) });
+    if (match === undefined) continue;
+    // Empty remainder = a link to the root itself, which exists by definition — not a claim to check.
+    if (match.remainder === '') continue;
+    out.push({ line, target: match.remainder });
   }
   return out;
 }
