@@ -85,7 +85,9 @@ other. The default is empty, which makes the rule inert until declared — L3, a
 `ComponentFacts` gains
 
 ```ts
-commentLinks?: { url: string; line: number }[];
+interface ComponentFacts {
+  commentLinks: { url: string; line: number }[];
+}
 ```
 
 populated during `parseComponentFacts` by a **line-oriented text scan**, matching
@@ -103,12 +105,27 @@ Two scope decisions measurement settled rather than left to judgement:
   comment. Scanning script comments too costs nothing and generates no false positives, because
   `[label](url)` appears **nowhere** outside a comment; it is insurance, not coverage of a measured case.
 
-No new I/O: the parser already holds the source.
+No new I/O: the parser already holds the source. The field is **required**, so `emptyComponentFacts` — the
+single source of truth for the empty-facts shape — carries it and TypeScript names every call site that
+still needs it. Optional would have made an unwired parse path emit no findings instead of failing to
+compile, which is precisely how the first implementation passed its whole suite with one of the two parse
+paths dead.
 
-**One implementation hazard, which following `collectSuppressions` avoids for free.** A scanner that treats
-`//` as "comment starts here" will fire inside `https://`. `collectSuppressions` does not scan for a comment
-opener — it matches a whole line against an anchored pattern — so a scan built the same way cannot make that
-mistake. Do not replace it with "split on `//` and read the rest".
+**Three implementation hazards, all of them state a text scan can get wrong.** The first is avoided for free
+by following `collectSuppressions`; the other two were found in review, each after the scan already looked
+right.
+
+- A scanner that treats `//` as "comment starts here" fires inside `https://`. `collectSuppressions` does not
+  scan for a comment opener — it matches a whole line against an anchored pattern — so a scan built the same
+  way cannot make that mistake. Do not replace it with "split on `//` and read the rest".
+- Neither comment form applies uniformly across a component. `<!--` inside a script string literal is not a
+  markup comment, and a line-leading `//` in markup or `<style>` is content, not a comment. So the scan
+  tracks which block it is in, and `wholeFileIsScript` covers the runes module, which has no `<script>` tag
+  because all of it is script.
+- Those blocks have to be recognised from the markup **outside** any comment. A `<script>` written inside a
+  comment gets no matching `</script>`, so treating it as a block opener leaves the block open for the rest
+  of the file and silently skips every comment after it — including the one the tag sits in. The line is
+  therefore split into comment text and surrounding markup before either is examined.
 
 ### Resolution
 

@@ -1038,6 +1038,18 @@ describe('parseComponentFacts — links inside comments', () => {
     expect(links(`<script>\n  const u = 'https://x.test/[a](b)';\n</script>`)).toEqual([]);
   });
 
+  it('ignores a trailing // comment on a line of code', () => {
+    // Documented as not reported: `//` opens a comment only at the start of a line, which is what keeps
+    // the scan off the `//` in a URL.
+    expect(links(`<script>\n  const x = 1; // see [guide](https://x.test/a/b)\n</script>`)).toEqual([]);
+  });
+
+  it('ignores a link inside a block or JSDoc comment', () => {
+    // Documented as not reported: only the markup form and a line-leading `//` are scanned.
+    expect(links(`<script>\n  /** see [guide](https://x.test/a/b) */\n</script>`)).toEqual([]);
+    expect(links(`<script>\n  /* see [guide](https://x.test/a/b) */\n</script>`)).toEqual([]);
+  });
+
   it('finds every link on one line', () => {
     expect(links(`<!-- [a](https://x.test/1) and [b](https://x.test/2) -->`)).toEqual([
       { url: 'https://x.test/1', line: 1 },
