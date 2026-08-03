@@ -55,7 +55,7 @@ rather than by guesswork.
 Measurement found the prefix to strip has two shapes, because a monorepo's workspace layout leaks into the
 published URL:
 
-```
+```text
 app        .../components/<ws>/src/lib/…            → strip ".../components/<ws>/"
 package    .../components/packages/<ws>/src/lib/…   → strip ".../components/packages/<ws>/"
 ```
@@ -114,11 +114,20 @@ mistake. Do not replace it with "split on `//` and read the rest".
 
 For each `commentLinks` entry, in order:
 
-1. Find the **longest** declared `urlRoots` entry the URL starts with. **No match → ignore the link
-   entirely.**
-2. Strip it. The remainder is a path relative to the analysed project root, the same base `sourceFiles`
-   uses.
-3. Report when that path names **neither an existing file nor an existing directory**.
+1. Strip a trailing `#fragment` or `?query` from the URL. Either addresses a location **within** the
+   target, not the target's own path, so leaving one in place would make an existing target look broken.
+2. Find the **longest** declared `urlRoots` entry the URL starts with, matched at a path-segment boundary
+   so a root declared without its own trailing slash cannot match past a partial segment (`.../ui` must not
+   match `.../uiOther`). **No match → ignore the link entirely.**
+3. Strip it. Both the declared root and the remainder are normalised free of trailing slashes first — a
+   directory link written the ordinary way (`.../Card/`) has to resolve too, doubled slash and all. What is
+   left is a path relative to the analysed project root, the same base `sourceFiles` uses.
+4. A remainder that doesn't start with `src/` is **silent**, the same gate as an unmatched URL one level
+   in: the inventory globs `src/**/*`, so absence from it means "unindexed", not "missing" — a root-level
+   `CONTRIBUTING.md` or a `static/` asset would otherwise be reported despite existing. The two remainders
+   that name no target at all — empty, or a bare `src`, both produced by a link to the declared root itself
+   — fail this same gate, so they too produce no finding.
+5. Report when the remainder names **neither an existing file nor an existing directory**.
 
 **Directory matching is not a courtesy — it is the only reason this rule works.** Measurement is
 unambiguous: **114 of 114 targets are directories**, every one a unit directory holding a same-named
