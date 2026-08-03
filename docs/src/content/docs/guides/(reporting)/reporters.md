@@ -43,6 +43,11 @@ svelte-vitals --reporter json
     }
   },
   "summary": { "critical": 0, "warning": 33, "info": 44, "passed": 610, "dynamic": 2 },
+  "rules": {
+    // Every rule that ran. An entry with `findings: 0` ran and reported nothing;
+    // a rule missing from this map was not selected (`--ignore`, `--rules`, `--category`, or `off`).
+    "architecture/unit-entry-file": { "findings": 0, "passed": 12 }
+  },
   "routes": [
     {
       "route": "/about", // a route id, or a source file path for file-scoped rules
@@ -73,6 +78,14 @@ Two field names are worth pointing out, because guessing them wrongly fails sile
 - the finding text is **`title`**, not `message`.
 
 `line`, `docsUrl` and `fix` are present only when the rule supplies them, and `location` only for a finding tied to a file. `issues` lists **failing** findings only — passing checks are counted in `summary.passed` but are not listed. A route with no failures still appears in `routes`, with an empty `issues` array and its own score.
+
+`rules` answers a question the rest of the report cannot: **whether a rule ran at all.** `issues` lists
+only failing findings, so a rule that found nothing leaves no trace there — and a rule you disabled leaves
+the same absence. Look it up in `rules` instead: present means it ran, missing means it was not selected.
+
+The counts describe the report, not the tree. Baseline, suppression and `--diff` filtering are applied
+before the report is built, so a rule whose findings were all suppressed shows `findings: 0` while
+remaining present.
 
 ### `agent`
 
