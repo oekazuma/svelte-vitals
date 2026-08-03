@@ -1316,6 +1316,45 @@ export function collectSuppressions(source: string): SuppressionDirective[] {
   return out;
 }
 
+const MD_LINK = /\[[^\]]*\]\(([^)\s]+)\)/g;
+
+/**
+ * Markdown links inside comments. A plain text scan, like `collectSuppressions` — a link in a comment is
+ * not an AST node. `//` counts as a comment opener only at the start of a line, which is what keeps the
+ * scan off the `//` in `https://`; a trailing `// [x](y)` is therefore missed, and measurement found no
+ * such link, so the cost is a case that does not occur rather than one this rule needs.
+ */
+export function collectCommentLinks(source: string): { url: string; line: number }[] {
+  const out: { url: string; line: number }[] = [];
+  let open = false; // inside a multi-line <!-- … -->
+  source.split('\n').forEach((line, i) => {
+    let text = '';
+    let rest = line;
+    while (rest.length > 0) {
+      if (open) {
+        const end = rest.indexOf('-->');
+        if (end === -1) {
+          text += rest;
+          break;
+        }
+        text += rest.slice(0, end);
+        open = false;
+        rest = rest.slice(end + 3);
+        continue;
+      }
+      const start = rest.indexOf('<!--');
+      if (start === -1) break;
+      open = true;
+      rest = rest.slice(start + 4);
+    }
+    if (text === '' && /^\s*\/\//.test(line)) text = line.replace(/^\s*\/\//, '');
+    for (const m of text.matchAll(MD_LINK)) {
+      if (m[1] !== undefined) out.push({ url: m[1], line: i + 1 });
+    }
+  });
+  return out;
+}
+
 /** Nodes whose bodies do NOT run when the surrounding code is evaluated: functions run when called; class member/constructor code runs on construction (correctness/orphan-effect). */
 const EVAL_SCOPE_BOUNDARIES = new Set([
   'FunctionDeclaration',
@@ -1946,6 +1985,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     checkableBindValues: [],
     basePathLinks,
     suppressions: collectSuppressions(source),
+    commentLinks: collectCommentLinks(source),
     orphanEffects,
     orphanLifecycleCalls,
     browserGlobalRefs,
@@ -2179,6 +2219,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     orphanLifecycleCalls,
     browserGlobalRefs,
     moduleStateDecls: [],
-    suppressions
+    suppressions,
+    commentLinks: collectCommentLinks(source)
   };
 }

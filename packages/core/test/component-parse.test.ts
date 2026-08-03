@@ -1007,3 +1007,45 @@ describe('parseComponentFacts — type-only imports in importSpans', () => {
     expect(spans(`<script>import './setup.js';</script>`)).toEqual([{ source: './setup.js', line: 1 }]);
   });
 });
+
+describe('parseComponentFacts — links inside comments', () => {
+  const links = (src: string) => parseComponentFacts(src, 'src/lib/A/A.svelte').commentLinks;
+
+  it('finds a link in a markup comment', () => {
+    expect(links(`<!-- see [guide](https://x.test/a/b) -->\n<p>hi</p>`)).toEqual([
+      { url: 'https://x.test/a/b', line: 1 }
+    ]);
+  });
+
+  it('finds a link in a markup comment spanning lines', () => {
+    const src = ['<!--', '  see [guide](https://x.test/a/b)', '-->'].join('\n');
+    expect(links(src)).toEqual([{ url: 'https://x.test/a/b', line: 2 }]);
+  });
+
+  it('finds a link in a script line comment', () => {
+    expect(links(`<script>\n  // see [guide](https://x.test/a/b)\n</script>`)).toEqual([
+      { url: 'https://x.test/a/b', line: 2 }
+    ]);
+  });
+
+  it('ignores a link in rendered markup', () => {
+    // Not a reference to a repository path — it is content.
+    expect(links(`<p>see [guide](https://x.test/a/b)</p>`)).toEqual([]);
+  });
+
+  it('is not fooled by the // inside a URL', () => {
+    // A scan that treated `//` as a comment opener would read the rest of this line as a comment.
+    expect(links(`<script>\n  const u = 'https://x.test/[a](b)';\n</script>`)).toEqual([]);
+  });
+
+  it('finds every link on one line', () => {
+    expect(links(`<!-- [a](https://x.test/1) and [b](https://x.test/2) -->`)).toEqual([
+      { url: 'https://x.test/1', line: 1 },
+      { url: 'https://x.test/2', line: 1 }
+    ]);
+  });
+
+  it('records nothing for a component with no comments', () => {
+    expect(links(`<p>hi</p>`)).toEqual([]);
+  });
+});
