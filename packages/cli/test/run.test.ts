@@ -128,6 +128,24 @@ describe('run() reporters and gating', () => {
     expect(json.rules['security/raw-html']).toEqual({ findings: 0, passed: 0 });
   });
 
+  it('omits a rule disabled via config `rules` from `json.rules`, unlike an `overrides`-disabled one', async () => {
+    const cap = capture();
+    await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      reporter: 'json',
+      env: CLEAN_ENV,
+      rules: { 'seo/description-presence': 'off' }
+    });
+    const json = JSON.parse(cap.out.join('\n'));
+    // Config-level 'off' goes through selectRules (packages/core/src/config-apply.ts), which
+    // drops the rule before it ever reaches runRules — this only holds if that filtering
+    // reaches ruleIds, not just `results`.
+    expect(Object.hasOwn(json.rules, 'seo/description-presence')).toBe(false);
+    expect(Object.hasOwn(json.rules, 'security/raw-html')).toBe(true);
+  });
+
   it('disabling a rule via rules:{id:off} removes its findings', async () => {
     const cap = capture();
     await run({

@@ -90,6 +90,17 @@ enough to state in the guide: presence proves selection, not that the rule found
 - **Other reporters.** The console already lists passes; this closes the JSON gap only.
 - **`routes[].categories[].score`**, the second recorded follow-up. Same diagnosability theme, independent
   decision.
+- **The HTML report and the dev dashboard.** `formatHtmlReport` (`packages/core/src/reporter/app-shell.ts`)
+  and the Vite plugin's `buildSnapshot` (`packages/vite/src/ui/snapshot.ts`) both embed a `JsonReport` built
+  on `buildJsonReport`'s three-argument form, so their `rules` map is seeded from results only — presence
+  there means "produced a result," not "was selected," the opposite of what this design documents for the
+  field of the same name. Left as-is rather than threaded: the dashboard's ran-rule list would have to come
+  from a fresh `selectRules` call in `plugin.ts`, cascading through `installUiMiddleware` and `buildSnapshot`
+  and into a dev-dashboard config whose live layer (`packages/vite/src/hooks/handle.ts`) already computes its
+  own `selectRules` independently, in a separate process — reconciling that is a bigger question than this
+  fix. Threading only the HTML report's easy case would leave the field still meaning two things across the
+  three payloads, just in a different proportion, so neither was done. Nothing renders `rules` in either
+  payload today; each call site carries a comment recording the gap.
 
 ## Testing
 
