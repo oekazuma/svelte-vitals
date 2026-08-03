@@ -313,6 +313,24 @@ describe('run() --category', () => {
     // 'run() performance rules' above); it must not survive a seo-only filter.
     expect(allIds).not.toContain('performance/image-dimensions');
   });
+
+  it('omits a rule from an excluded category from `rules`, even though selectRules would include it', async () => {
+    const cap = capture();
+    await run({
+      cwd: fixtureDir,
+      reporter: 'json',
+      log: cap.log,
+      errorLog: cap.errorLog,
+      categories: ['seo'],
+      env: CLEAN_ENV
+    });
+    const json = JSON.parse(cap.out.join('\n'));
+    // architecture/component-size is on by default and would be in selectRules's output, but
+    // --category narrows *after* selection (packages/cli/src/index.ts) -- this only holds if
+    // ruleIds is the post-narrowing `rules`, not the pre-narrowing `selected`.
+    expect(Object.hasOwn(json.rules, 'architecture/component-size')).toBe(false);
+    expect(Object.hasOwn(json.rules, 'seo/title-presence')).toBe(true);
+  });
 });
 
 describe('run() --score', () => {
