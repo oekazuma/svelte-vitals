@@ -33,6 +33,9 @@ export function buildSnapshot(
   meta: { version: string; coreVersion?: string }
 ): DashboardSnapshot {
   return {
+    // No rule-id list threaded through: `report.rules` is seeded from `store.snapshot()`
+    // alone here, so presence means "produced a result", not "was selected" — unlike the
+    // `json` reporter (design doc 2026-08-03-json-rule-evidence-design.md, Not in scope).
     report: sanitizeReport(buildJsonReport(store.snapshot(), config, meta)),
     badges: store.badges(),
     analyzing: store.isAnalyzing(),

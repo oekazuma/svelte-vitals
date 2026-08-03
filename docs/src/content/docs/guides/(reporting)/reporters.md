@@ -43,6 +43,13 @@ svelte-vitals --reporter json
     }
   },
   "summary": { "critical": 0, "warning": 33, "info": 44, "passed": 610, "dynamic": 2 },
+  "rules": {
+    // Every rule that ran. An entry with `findings: 0` ran and reported nothing;
+    // a rule missing from this map was disabled at the top level — `--ignore`, `--rules`,
+    // `--category`, or `rules: { id: 'off' }` in config. A rule disabled through an
+    // `overrides` entry instead still ran and still appears here (see below).
+    "architecture/unit-entry-file": { "findings": 0, "passed": 12 }
+  },
   "routes": [
     {
       "route": "/about", // a route id, or a source file path for file-scoped rules
@@ -73,6 +80,20 @@ Two field names are worth pointing out, because guessing them wrongly fails sile
 - the finding text is **`title`**, not `message`.
 
 `line`, `docsUrl` and `fix` are present only when the rule supplies them, and `location` only for a finding tied to a file. `issues` lists **failing** findings only — passing checks are counted in `summary.passed` but are not listed. A route with no failures still appears in `routes`, with an empty `issues` array and its own score.
+
+`rules` answers a question the rest of the report cannot: **whether a rule ran at all.** `issues` lists
+only failing findings, so a rule that found nothing leaves no trace there — and a rule disabled at the top
+level (`--ignore`, `--rules`, `--category`, or `rules: { id: 'off' }` in config) leaves the same absence.
+Look it up in `rules` instead: present means it ran, missing means it was excluded at the top level — with
+one exception, below.
+
+The counts describe the report, not the tree. Baseline, suppression and `--diff` filtering are applied
+before the report is built, so a rule whose findings were all suppressed shows `findings: 0` while remaining
+present. The same is true of a rule disabled through an `overrides` entry rather than at the top level:
+`overrides` drops its results (passing ones included) after the rule has already run, so it shows
+`{ "findings": 0, "passed": 0 }` — indistinguishable from a selected rule that simply found nothing.
+Presence in `rules` proves a rule wasn't excluded by `--ignore`, `--rules`, `--category`, or config's
+top-level `rules`; it does not prove `overrides` left anything for it to find.
 
 ### `agent`
 

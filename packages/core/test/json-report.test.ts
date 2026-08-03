@@ -83,3 +83,65 @@ describe('formatJsonReport', () => {
     expect(formatJsonReport(results, config, { version: '9.9.9' })).toBe(JSON.stringify(report, null, 2));
   });
 });
+
+describe('buildJsonReport — per-rule evidence', () => {
+  const passOnly: Result[] = [
+    {
+      id: 'architecture/unit-entry-file',
+      category: 'architecture',
+      severity: 'info',
+      detection: { presence: 'own', value: 'static' },
+      location: 'src/lib/Card/Card.svelte',
+      message: 'Unit entry file',
+      recommendation: 'r'
+    }
+  ];
+
+  it('lists a selected rule that produced nothing, which is the whole point', () => {
+    // Without this entry, "ran and found nothing" and "was never selected" look identical.
+    const report = buildJsonReport([], config, { version: 'x' }, ['architecture/directory-naming']);
+    expect(report.rules['architecture/directory-naming']).toEqual({ findings: 0, passed: 0 });
+  });
+
+  it('omits a rule that was not selected', () => {
+    const report = buildJsonReport(passOnly, config, { version: 'x' }, ['architecture/unit-entry-file']);
+    expect(Object.hasOwn(report.rules, 'architecture/directory-naming')).toBe(false);
+  });
+
+  it('counts a passing result that appears nowhere in issues', () => {
+    // `passed` is the field that cannot be derived: `issues` is filtered to penalized results.
+    const report = buildJsonReport(passOnly, config, { version: 'x' }, ['architecture/unit-entry-file']);
+    expect(report.rules['architecture/unit-entry-file']).toEqual({ findings: 0, passed: 1 });
+    expect(report.routes.flatMap((r) => r.issues)).toHaveLength(0);
+    expect(report.siteIssues).toHaveLength(0);
+  });
+
+  it('counts findings and passes separately for one rule', () => {
+    const mixed: Result[] = [
+      ...passOnly,
+      {
+        id: 'architecture/unit-entry-file',
+        category: 'architecture',
+        severity: 'info',
+        detection: { presence: 'none', value: 'absent' },
+        route: 'src/lib/Box',
+        location: 'src/lib/Box/index.ts',
+        message: 'missing entry file',
+        recommendation: 'r'
+      }
+    ];
+    const report = buildJsonReport(mixed, config, { version: 'x' }, ['architecture/unit-entry-file']);
+    expect(report.rules['architecture/unit-entry-file']).toEqual({ findings: 1, passed: 1 });
+  });
+
+  it('falls back to the rules that produced results when no list is given', () => {
+    // Back-compat: an external caller on the three-argument form sees today's information.
+    const report = buildJsonReport(passOnly, config, { version: 'x' });
+    expect(report.rules).toEqual({ 'architecture/unit-entry-file': { findings: 0, passed: 1 } });
+  });
+
+  it('reaches the same shape through formatJsonReport', () => {
+    const parsed = JSON.parse(formatJsonReport([], config, { version: 'x' }, ['seo/single-h1']));
+    expect(parsed.rules).toEqual({ 'seo/single-h1': { findings: 0, passed: 0 } });
+  });
+});

@@ -152,6 +152,8 @@ export interface AnalyzeResult {
   results: Result[];
   config: Config;
   version: string;
+  /** Ids of the rules that ran, after `--category` narrowing. The JSON report lists these so a rule that found nothing stays distinguishable from one that was never selected. */
+  ruleIds: string[];
   /** Non-fatal config-file issues (unknown top-level keys, invalid enum values). Empty when no config file or none found. */
   warnings: string[];
 }
@@ -200,7 +202,7 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     ),
     config
   );
-  return { results, config, version: readPackageVersion(), warnings };
+  return { results, config, version: readPackageVersion(), ruleIds: rules.map((r) => r.id), warnings };
 }
 
 export interface ApplyScopeOptions {
@@ -446,7 +448,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         );
       }
       if (reporter === 'json') {
-        log(formatJsonReport(results, config, { version }));
+        log(formatJsonReport(results, config, { version }, analysis.ruleIds));
       } else if (reporter === 'agent') {
         log(formatAgentReport(results, config));
       } else if (reporter === 'sarif') {

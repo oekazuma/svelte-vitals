@@ -118,6 +118,34 @@ describe('run() reporters and gating', () => {
     expect(code).toBe(1); // fixture has warnings (og:image, og:title, canonical missing)
   });
 
+  it('lists a default-on rule that found nothing for this fixture, distinguishing it from one never selected', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json', env: CLEAN_ENV });
+    const json = JSON.parse(cap.out.join('\n'));
+    // security/raw-html has nothing to flag anywhere in the fixture, so this only holds
+    // if analyzeProject's ran-rule ids reached formatJsonReport.
+    expect(Object.hasOwn(json.rules, 'security/raw-html')).toBe(true);
+    expect(json.rules['security/raw-html']).toEqual({ findings: 0, passed: 0 });
+  });
+
+  it('omits a rule disabled via config `rules` from `json.rules`, unlike an `overrides`-disabled one', async () => {
+    const cap = capture();
+    await run({
+      cwd: fixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      reporter: 'json',
+      env: CLEAN_ENV,
+      rules: { 'seo/description-presence': 'off' }
+    });
+    const json = JSON.parse(cap.out.join('\n'));
+    // Config-level 'off' goes through selectRules (packages/core/src/config-apply.ts), which
+    // drops the rule before it ever reaches runRules — this only holds if that filtering
+    // reaches ruleIds, not just `results`.
+    expect(Object.hasOwn(json.rules, 'seo/description-presence')).toBe(false);
+    expect(Object.hasOwn(json.rules, 'security/raw-html')).toBe(true);
+  });
+
   it('disabling a rule via rules:{id:off} removes its findings', async () => {
     const cap = capture();
     await run({
@@ -302,6 +330,24 @@ describe('run() --category', () => {
     // performance/image-dimensions (missing <img> dimensions) is present without a category filter (see
     // 'run() performance rules' above); it must not survive a seo-only filter.
     expect(allIds).not.toContain('performance/image-dimensions');
+  });
+
+  it('omits a rule from an excluded category from `rules`, even though selectRules would include it', async () => {
+    const cap = capture();
+    await run({
+      cwd: fixtureDir,
+      reporter: 'json',
+      log: cap.log,
+      errorLog: cap.errorLog,
+      categories: ['seo'],
+      env: CLEAN_ENV
+    });
+    const json = JSON.parse(cap.out.join('\n'));
+    // architecture/component-size is on by default and would be in selectRules's output, but
+    // --category narrows *after* selection (packages/cli/src/index.ts) -- this only holds if
+    // ruleIds is the post-narrowing `rules`, not the pre-narrowing `selected`.
+    expect(Object.hasOwn(json.rules, 'architecture/component-size')).toBe(false);
+    expect(Object.hasOwn(json.rules, 'seo/title-presence')).toBe(true);
   });
 });
 

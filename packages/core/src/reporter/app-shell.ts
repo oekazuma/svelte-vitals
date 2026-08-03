@@ -754,5 +754,8 @@ export function formatHtmlReport(
   config: Config,
   meta: { version: string; coreVersion?: string }
 ): string {
+  // No rule-id list threaded through: unlike the `json` reporter, `report.rules` here is
+  // seeded from `results` alone, so presence means "produced a result", not "was selected"
+  // (design doc 2026-08-03-json-rule-evidence-design.md, Not in scope).
   return buildHtmlDocument(buildJsonReport(results, config, meta), meta);
 }
