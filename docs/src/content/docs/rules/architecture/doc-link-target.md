@@ -59,8 +59,10 @@ say) declares both.
   "absent" there would mean "unindexed", not "missing".
 - A link outside a comment. Rendered markup is content.
 - A relative link, or a link in a `.md` file. This rule reads component comments only.
-- A trailing `// [label](url)` comment on a line of code. `//` counts as a comment opener only at the start
-  of a line, which is what keeps the scan out of the `//` in `https://`.
+- A `// [label](url)` unless it is the first thing on its line and that line sits inside a `<script>` block
+  (or the whole file is a `.svelte.ts`/`.svelte.js` runes module) — the same text in markup or a `<style>`
+  block is content, not a comment, and a `//` mid-line never opens one, which is what keeps the scan out of
+  the `//` in `https://`.
 - A link inside a `/* … */` block comment or a `/** … */` JSDoc comment in a script. Only the markup form
   (`<!-- … -->`) and a line-leading `//` are scanned.
 
