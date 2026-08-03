@@ -9,9 +9,9 @@ function stripFragment(url: string): string {
   return i === -1 ? url : url.slice(0, i);
 }
 
-/** `root` without a trailing slash — the path boundary a match must respect regardless of how it was declared. */
+/** `root` without trailing slashes — the path boundary a match must respect regardless of how it was written. */
 function baseOf(root: string): string {
-  return root.endsWith('/') ? root.slice(0, -1) : root;
+  return root.replace(/\/+$/, '');
 }
 
 /**
@@ -28,9 +28,13 @@ function remainderUnder(url: string, root: string): string | undefined {
   return url.startsWith(`${base}/`) ? baseOf(url.slice(base.length + 1)) : undefined;
 }
 
-/** Whether `target` sits under `src/` — the only tree `sourceFiles` (a glob rooted at `src/`) can see. */
+/**
+ * Whether `target` sits under `src/` — the only tree `sourceFiles` (a glob rooted at `src/`) can see.
+ * Also excludes the two remainders that name no target at all: `''` and a bare `src`, both produced by a
+ * link to the declared root itself.
+ */
 function isUnderSrc(target: string): boolean {
-  return target === 'src' || target.startsWith('src/');
+  return target.startsWith('src/');
 }
 
 /** The declared root this URL sits under, longest first so a nested root cannot be shadowed. */
@@ -58,8 +62,6 @@ function references(links: { url: string; line: number }[], roots: string[]): { 
     const match = rootFor(stripFragment(url), roots);
     // No declared root — not claimed as a reference. This is the precision gate: shape never decides.
     if (match === undefined) continue;
-    // Empty remainder = a link to the root itself, which exists by definition — not a claim to check.
-    if (match.remainder === '') continue;
     // Outside `src/`, the inventory has no opinion — "absent" would mean "unindexed", not "missing".
     // Same gate as an unmatched URL, one level in: unclaimed, not reported.
     if (!isUnderSrc(match.remainder)) continue;

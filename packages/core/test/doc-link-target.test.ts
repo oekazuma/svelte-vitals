@@ -56,12 +56,15 @@ describe('architecture/doc-link-target', () => {
 
   it('ignores a URL under no declared prefix', async () => {
     // An external host, a slug with no slash, and a URL with no path — all measured, none may report.
+    // The bare relative path is the one that stays project-shaped: treated as a reference it would
+    // resolve under `src/` and report, so it is what holds the no-declared-root guard.
     const rs = await architectureDocLinkTarget.check(
       ctx(
         [
           { url: 'https://other.test/a/b', line: 1 },
           { url: 'guide', line: 2 },
-          { url: 'https://x.test', line: 3 }
+          { url: 'https://x.test', line: 3 },
+          { url: 'src/lib/Gone', line: 4 }
         ],
         ['src/lib/A/A.svelte'],
         [ROOT]
@@ -71,8 +74,9 @@ describe('architecture/doc-link-target', () => {
   });
 
   it('takes the longest matching prefix, whatever order they are declared in', async () => {
-    // Under first-match-wins the short root strips less, leaving `pkg/ui/src/lib/Card` — which is not a
-    // project-relative path, so a real reference would be reported as broken.
+    // Under first-match-wins the short root strips less, leaving `pkg/ui/src/lib/Card` — outside `src/`,
+    // so the reference is silently dropped rather than resolved. Asserting only the absence of failures
+    // would pass either way; the pass result is what distinguishes resolved from unclaimed.
     const short = 'https://x.test/c/';
     const files = ['src/lib/Card/Card.svelte'];
     const link = [{ url: `${ROOT}src/lib/Card`, line: 1 }];
@@ -80,7 +84,9 @@ describe('architecture/doc-link-target', () => {
       [short, ROOT],
       [ROOT, short]
     ]) {
-      expect(fails(await architectureDocLinkTarget.check(ctx(link, files, roots))), roots.join()).toEqual([]);
+      const rs = await architectureDocLinkTarget.check(ctx(link, files, roots));
+      expect(fails(rs), roots.join()).toEqual([]);
+      expect(passes(rs), roots.join()).toHaveLength(1);
     }
   });
 
@@ -148,6 +154,14 @@ describe('architecture/doc-link-target', () => {
   it('resolves a directory target written with a trailing slash', async () => {
     const rs = await architectureDocLinkTarget.check(
       ctx([{ url: `${ROOT}src/lib/Card/`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
+    );
+    expect(fails(rs)).toEqual([]);
+    expect(passes(rs)).toHaveLength(1);
+  });
+
+  it('resolves a directory target written with a doubled trailing slash', async () => {
+    const rs = await architectureDocLinkTarget.check(
+      ctx([{ url: `${ROOT}src/lib/Card//`, line: 1 }], ['src/lib/Card/Card.svelte'], [ROOT])
     );
     expect(fails(rs)).toEqual([]);
     expect(passes(rs)).toHaveLength(1);
