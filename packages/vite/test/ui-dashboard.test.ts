@@ -9,6 +9,7 @@ const baseSnapshot: DashboardSnapshot = {
     weights: { seo: 1 },
     categories: { seo: { score: 80, scoreModel: 'weighted' as never } },
     summary: { critical: 0, warning: 0, info: 0, passed: 0, dynamic: 0 } as never,
+    rules: {},
     routes: [
       {
         route: '/a',

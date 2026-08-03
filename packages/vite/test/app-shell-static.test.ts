@@ -16,6 +16,7 @@ const report: JsonReport = {
   weights: { seo: 1 },
   categories: { seo: { score: 50, scoreModel: { routeAverage: 50, sitePenalty: 0, criticalCap: null } } },
   summary: { critical: 1, warning: 0, info: 0, passed: 0, dynamic: 0 } as never,
+  rules: {},
   routes: [
     {
       route: '/blog/hello',
