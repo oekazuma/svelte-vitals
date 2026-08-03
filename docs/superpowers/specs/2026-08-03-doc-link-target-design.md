@@ -1,7 +1,7 @@
 # architecture/doc-link-target — design
 
 **Date:** 2026-08-03
-**Status:** approved, pending a field check of this document
+**Status:** approved; field-checked 2026-08-03
 **Charter row:** verdict #12 — M9, "a path written in prose must resolve" (L3)
 
 ## The problem
@@ -20,9 +20,10 @@ premises did not survive.
 path mirrors the repository path** — 115 of them, all in `.svelte` comments. A rule resolving relative
 paths would have caught none of them.
 
-**`sourceFiles` suffices for that form and for no other.** The URL form sits 115/115 inside `src/`. Pure
-Markdown links sit **0/17** inside it — convention documents live at the repository root and under
-`.github/`, which the `src/**/*` inventory never sees.
+**`sourceFiles` suffices for that form and for no other.** The URL form sits 115/115 inside `src/`. The
+files carrying pure Markdown links sit **0 of 17 inside it** — convention documents live at the repository
+root and under `.github/`, which the `src/**/*` inventory never sees. (17 counts files; the 67 links below
+counts links.)
 
 **One of the charter's three failure categories is out of reach in principle.** "A renamed unit's old name
 left in `describe` names and comments" is an identifier, not a path reference. Nothing resolves it.
@@ -93,22 +94,56 @@ node, and the two Svelte comment forms (`<!-- … -->` in markup, `// …` in a 
 that point. Only the Markdown link form `[label](url)` is extracted, which is what measurement found; a
 bare URL in prose is not a reference to anything the rule can check.
 
+Two scope decisions measurement settled rather than left to judgement:
+
+- **Bare URLs are not references.** Comments carry 16 of them, and **none contains a repository path** —
+  they point at external services. Outside comments there are 545 more, which is the strongest argument for
+  looking only inside comments.
+- **The markup form is the only one in use** — 115 of 115 sit in `<!-- … -->`, with none in a script
+  comment. Scanning script comments too costs nothing and generates no false positives, because
+  `[label](url)` appears **nowhere** outside a comment; it is insurance, not coverage of a measured case.
+
 No new I/O: the parser already holds the source.
+
+**One implementation hazard, which following `collectSuppressions` avoids for free.** A scanner that treats
+`//` as "comment starts here" will fire inside `https://`. `collectSuppressions` does not scan for a comment
+opener — it matches a whole line against an anchored pattern — so a scan built the same way cannot make that
+mistake. Do not replace it with "split on `//` and read the rest".
 
 ### Resolution
 
 For each `commentLinks` entry, in order:
 
-1. Find the first declared `urlRoots` entry the URL starts with. **No match → ignore the link entirely.**
+1. Find the **longest** declared `urlRoots` entry the URL starts with. **No match → ignore the link
+   entirely.**
 2. Strip it. The remainder is a path relative to the analysed project root, the same base `sourceFiles`
    uses.
 3. Report when that path names **neither an existing file nor an existing directory**.
 
-Step 3 accepts both because measurement leaves it genuinely open. The observed targets end in a unit's
-name with no extension (`…/src/lib/components/Foo`), which under the measured convention is the unit's
-**directory**; the report also described them as resolving to files. `sourceFiles` is a file list, so a
-directory is "some entry starts with `<path>/`". Accepting either costs nothing and is correct under both
-readings — both mean the target exists.
+**Directory matching is not a courtesy — it is the only reason this rule works.** Measurement is
+unambiguous: **114 of 114 targets are directories**, every one a unit directory holding a same-named
+`.svelte`, and **not one resolves as a file**. (An earlier report described them as resolving to files;
+that was an artefact of an existence check trying extension candidates, and was corrected on review.)
+
+`sourceFiles` is a list of files, so **a directory never appears as an entry**. A resolver that checks only
+for a file therefore reports **every measured reference as broken** — all 114. The directory test is
+"some entry starts with `<path>/`", and it is a precondition, not an enhancement. An implementation that
+lands file matching first and directory matching later is not partially correct; it is entirely wrong on
+the only data we have.
+
+File matching is kept anyway, for the reference that points at a file rather than a unit. It is the case
+measurement did not find, not the case to build first.
+
+**Longest prefix wins, because entries can nest.** `string-list` appends, so a project may declare several
+roots, and one can be a prefix of another — `https://host/components/` beside
+`https://host/components/packages/ui/`. Under first-match-wins the answer would depend on declaration
+order: the shorter entry strips less, leaving `packages/ui/src/lib/A`, which is not a path relative to the
+analysed project. That produces a false positive when the remainder does not exist and, worse, a **silently
+missed broken reference** when it accidentally does.
+
+This is deliberately the opposite of `architecture/private-scope-import`'s alias resolution, which takes the
+**first** match. That rule reproduces a bundler's own behaviour and fidelity is the requirement; here there
+is no external authority to match — the list is ours, so the semantics can be the ones that cannot surprise.
 
 ### Precision: unmatched URLs are silent, and that is the whole gate
 
@@ -149,14 +184,22 @@ this rule's precision gate satisfiable at all, and why the URL form is the right
 2. **Both prefix shapes work from one declaration each** — one entry containing a type directory, one
    without. This is the measured asymmetry, and a test with only one shape would pass over a resolver that
    re-derived the prefix instead of using the declared string.
-3. **An existing target is silent, as a file and as a directory.** The directory case must assert against a
-   `sourceFiles` list containing only files under that directory, since that is how a directory appears.
+3. **An existing target is silent, as a directory and as a file — the directory case first.** All 114
+   measured targets are directories and none is a file, so the directory case is the one that decides
+   whether the rule works at all; assert it against a `sourceFiles` list containing only files _under_ that
+   directory, since that is how a directory appears. A suite that covers only the file case would pass over
+   a resolver that reports every real-world reference as broken.
 4. **An unmatched URL is silent** — an external host, a documentation slug with no slash, and a URL with no
    path. All three were measured; none may produce a finding.
 5. **A second `urlRoots` entry does not displace the first**, exercising `string-list` append semantics
    with two hosts resolving the same reference.
-6. **Both comment forms are scanned** — the markup `<!-- [label](url) -->` and a script `// [label](url)`.
-   Measurement found the markup form; the script form costs nothing and a scan written for one would
+6. **A nested entry does not shadow a longer one.** Declare `https://host/components/` and
+   `https://host/components/packages/ui/` together, in that order and reversed, and assert the same
+   resolution both ways. Order-dependence here fails silently when the shorter strip happens to leave an
+   existing path, so a test asserting only one order proves nothing.
+7. **Both comment forms are scanned** — the markup `<!-- [label](url) -->` and a script `// [label](url)`.
+   Measurement found only the markup form; the script form costs nothing and a scan written for one would
    silently miss the other.
-7. **A link outside a comment is not a reference.** A `[label](url)` in rendered markup is content, not a
-   reference to a repository path, and reporting it would be a false positive in the rule's own terms.
+8. **A link outside a comment is not a reference.** A `[label](url)` in rendered markup is content, not a
+   reference to a repository path. Measurement found none, so this pins a property the tree currently has
+   rather than fixing a live false positive.
