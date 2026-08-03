@@ -1048,4 +1048,13 @@ describe('parseComponentFacts — links inside comments', () => {
   it('records nothing for a component with no comments', () => {
     expect(links(`<p>hi</p>`)).toEqual([]);
   });
+
+  it('finds a link in a runes module (.svelte.ts) comment', () => {
+    // Exercises the parseModuleFacts wiring, not parseComponentFacts's .svelte path.
+    const facts = parseComponentFacts(
+      '// see [guide](https://x.test/a/b)\nlet c = $state(0);',
+      'src/lib/store.svelte.ts'
+    );
+    expect(facts.commentLinks).toEqual([{ url: 'https://x.test/a/b', line: 1 }]);
+  });
 });
