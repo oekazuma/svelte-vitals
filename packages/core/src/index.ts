@@ -152,7 +152,7 @@ export { formatConsoleReport } from './reporter/console.js';
 export { noColorPalette, scoreColor } from './reporter/palette.js';
 export type { Palette } from './reporter/palette.js';
 export { buildJsonReport, formatJsonReport } from './reporter/json.js';
-export type { JsonReport } from './reporter/json.js';
+export type { JsonReport, RuleEvidence } from './reporter/json.js';
 export { formatAgentReport } from './reporter/agent.js';
 export { formatSarifReport } from './reporter/sarif.js';
 export { formatGithubReport } from './reporter/github.js';

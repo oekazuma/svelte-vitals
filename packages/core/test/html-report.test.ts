@@ -15,6 +15,7 @@ const report: JsonReport = {
     performance: { score: 68, scoreModel: model() }
   },
   summary: { critical: 1, warning: 2, info: 1, passed: 37, dynamic: 3 },
+  rules: {},
   routes: [
     { route: '/', score: 100, issues: [] },
     {
