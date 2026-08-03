@@ -1332,8 +1332,9 @@ const STYLE_CLOSE = /<\/style\s*>/;
  * neither comment form applies uniformly inside them: `<!--`/`-->` are markup syntax, not script/style
  * syntax, so a `<!--` inside a script string literal (e.g. a URL comparison) must not open a markup
  * comment; and a line-leading `//` is only a comment in a script, never in markup or style, where it is
- * either content or a syntax error. `wholeFileIsScript` covers `.svelte.ts`/`.svelte.js` runes modules,
- * which have no `<script>` tag at all — the entire file is script.
+ * either content or a syntax error. The tags themselves are read from the markup *outside* any comment, so
+ * a commented-out block does not open one. `wholeFileIsScript` covers `.svelte.ts`/`.svelte.js` runes
+ * modules, which have no `<script>` tag at all — the entire file is script.
  */
 export function collectCommentLinks(
   source: string,
@@ -1341,28 +1342,17 @@ export function collectCommentLinks(
 ): { url: string; line: number }[] {
   const out: { url: string; line: number }[] = [];
   let htmlOpen = false; // inside a multi-line markup <!-- … -->
-  let block: 'script' | 'style' | undefined;
+  let block: 'script' | 'style' | undefined = wholeFileIsScript ? 'script' : undefined;
   source.split('\n').forEach((line, i) => {
-    let lineBlock: 'script' | 'style' | undefined;
-    if (wholeFileIsScript) {
-      lineBlock = 'script';
-    } else if (block !== undefined) {
-      lineBlock = block;
-      if ((block === 'script' && SCRIPT_CLOSE.test(line)) || (block === 'style' && STYLE_CLOSE.test(line))) {
-        block = undefined;
-      }
-    } else if (SCRIPT_OPEN.test(line)) {
-      lineBlock = 'script';
-      block = SCRIPT_CLOSE.test(line) ? undefined : 'script';
-    } else if (STYLE_OPEN.test(line)) {
-      lineBlock = 'style';
-      block = STYLE_CLOSE.test(line) ? undefined : 'style';
-    }
-
     let text = '';
-    if (lineBlock !== undefined) {
-      if (lineBlock === 'script' && /^\s*\/\//.test(line)) text = line.replace(/^\s*\/\//, '');
+    if (block !== undefined) {
+      if (block === 'script' && /^\s*\/\//.test(line)) text = line.replace(/^\s*\/\//, '');
+      if (!wholeFileIsScript && (block === 'script' ? SCRIPT_CLOSE : STYLE_CLOSE).test(line)) block = undefined;
     } else {
+      // The line is split into comment text and the markup around it before either is examined, so a
+      // `<script>` written inside a comment cannot open a block. Opening one there would leave it open
+      // for want of a matching `</script>`, silently skipping every comment in the rest of the file.
+      let plain = '';
       let rest = line;
       while (rest.length > 0) {
         if (htmlOpen) {
@@ -1377,10 +1367,16 @@ export function collectCommentLinks(
           continue;
         }
         const start = rest.indexOf('<!--');
-        if (start === -1) break;
+        if (start === -1) {
+          plain += rest;
+          break;
+        }
+        plain += rest.slice(0, start);
         htmlOpen = true;
         rest = rest.slice(start + 4);
       }
+      const opened = SCRIPT_OPEN.test(plain) ? 'script' : STYLE_OPEN.test(plain) ? 'style' : undefined;
+      if (opened !== undefined && !(opened === 'script' ? SCRIPT_CLOSE : STYLE_CLOSE).test(plain)) block = opened;
     }
     for (const m of text.matchAll(MD_LINK)) {
       if (m[1] !== undefined) out.push({ url: m[1], line: i + 1 });

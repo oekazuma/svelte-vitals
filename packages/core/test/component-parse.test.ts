@@ -1062,6 +1062,35 @@ describe('parseComponentFacts — links inside comments', () => {
     expect(links(src)).toEqual([]);
   });
 
+  it('does not open a script block from a commented-out <script> tag', () => {
+    // The tag never gets a matching `</script>`, so opening a block there would stay open and skip
+    // every comment in the rest of the file — the link on the tag's own line included.
+    const src = ['<!-- <script> [a](https://x.test/1) -->', '<!-- [b](https://x.test/2) -->', '<p>hi</p>'].join('\n');
+    expect(links(src)).toEqual([
+      { url: 'https://x.test/1', line: 1 },
+      { url: 'https://x.test/2', line: 2 }
+    ]);
+  });
+
+  it('does not open a style block from a commented-out <style> tag', () => {
+    const src = ['<!-- <style> [a](https://x.test/1) -->', '<!-- [b](https://x.test/2) -->'].join('\n');
+    expect(links(src)).toEqual([
+      { url: 'https://x.test/1', line: 1 },
+      { url: 'https://x.test/2', line: 2 }
+    ]);
+  });
+
+  it('still tracks a real script block opened on a line that also holds a comment', () => {
+    // The tag sits in the markup outside the comment, so it opens the block as usual.
+    const src = [
+      '<!-- [a](https://x.test/1) --><script>',
+      "  const s = '<!-- x';",
+      '</script>',
+      '<p>[b](https://x.test/2)</p>'
+    ].join('\n');
+    expect(links(src)).toEqual([{ url: 'https://x.test/1', line: 1 }]);
+  });
+
   it('finds a link in a runes module (.svelte.ts) comment', () => {
     // Exercises the parseModuleFacts wiring, not parseComponentFacts's .svelte path.
     const facts = parseComponentFacts(
