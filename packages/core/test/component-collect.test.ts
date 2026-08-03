@@ -51,7 +51,8 @@ describe('emptyComponentFacts', () => {
       browserGlobalRefs: [],
       checkableBindValues: [],
       moduleStateDecls: [],
-      suppressions: []
+      suppressions: [],
+      commentLinks: []
     });
   });
 });

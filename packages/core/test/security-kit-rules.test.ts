@@ -102,7 +102,8 @@ const stateModule = (file: string): ComponentFacts => ({
   orphanLifecycleCalls: [],
   browserGlobalRefs: [],
   moduleStateDecls: [{ name: 'user', line: 1 }],
-  suppressions: []
+  suppressions: [],
+  commentLinks: []
 });
 
 describe('security/shared-state-import shared runes-state import on the server', () => {

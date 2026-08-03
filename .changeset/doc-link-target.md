@@ -17,3 +17,6 @@ URL under no declared prefix is ignored, which is what keeps external links and 
 the results — as is a remainder that lands outside `src/` (a root-level `CONTRIBUTING.md`, a `static/`
 asset), since the file inventory has no opinion there. A directory link written with its ordinary trailing
 slash resolves the same as one without.
+
+`ComponentFacts` gains a required `commentLinks` array carrying these links; anyone constructing a
+`ComponentFacts` directly (custom tooling, tests) needs to supply it.

@@ -57,7 +57,8 @@ describe('collectComponentFacts: malformed .svelte files (component path)', () =
       orphanLifecycleCalls: [],
       browserGlobalRefs: [],
       moduleStateDecls: [],
-      suppressions: []
+      suppressions: [],
+      commentLinks: []
     });
 
     // The well-formed sibling file must still be parsed normally — one broken
@@ -124,7 +125,8 @@ describe('collectComponentFacts: malformed .svelte files (component path)', () =
       orphanLifecycleCalls: [],
       browserGlobalRefs: [],
       moduleStateDecls: [],
-      suppressions: []
+      suppressions: [],
+      commentLinks: []
     });
     expect(byFile.get(goodPath)!.loc).toBeGreaterThan(0);
   });

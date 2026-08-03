@@ -87,9 +87,9 @@ export const architectureDocLinkTarget = componentRule({
   rationale:
     'A documentation link written in a comment is invisible to type checking, module resolution and the test runner, so a convention-driven rename leaves it pointing at nothing and only human review notices.',
   applies: (c, o, ctx) =>
-    ctx.sourceFiles !== undefined && references(c.commentLinks ?? [], listOption(o, 'urlRoots')).length > 0,
+    ctx.sourceFiles !== undefined && references(c.commentLinks, listOption(o, 'urlRoots')).length > 0,
   bad: (c, o, ctx) =>
-    references(c.commentLinks ?? [], listOption(o, 'urlRoots'))
+    references(c.commentLinks, listOption(o, 'urlRoots'))
       .filter(({ target }) => !targetExists(target, ctx.sourceFiles ?? []))
       .map(({ line, target }) => ({ line, message: `${target} does not exist` }))
 });
