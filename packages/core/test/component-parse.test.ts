@@ -1049,6 +1049,19 @@ describe('parseComponentFacts — links inside comments', () => {
     expect(links(`<p>hi</p>`)).toEqual([]);
   });
 
+  it('does not leak comment state from a <!-- inside a script string literal', () => {
+    // Without script-block tracking, `open` stays true past `</script>` and the markup
+    // link below is misread as comment text.
+    const src = ['<script>', "  const s = '<!-- x';", '</script>', '<p>see [guide](https://x.test/a/b)</p>'].join('\n');
+    expect(links(src)).toEqual([]);
+  });
+
+  it('does not treat a markup line beginning with // as a comment', () => {
+    // `//` only opens a comment inside a <script> block; in markup it is content.
+    const src = ['<p>', '// see [guide](https://x.test/a/b)', '</p>'].join('\n');
+    expect(links(src)).toEqual([]);
+  });
+
   it('finds a link in a runes module (.svelte.ts) comment', () => {
     // Exercises the parseModuleFacts wiring, not parseComponentFacts's .svelte path.
     const facts = parseComponentFacts(
