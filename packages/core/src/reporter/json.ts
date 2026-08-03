@@ -19,7 +19,11 @@ function issueOf(result: Result) {
 
 type JsonIssue = ReturnType<typeof issueOf> & { severity: ReturnType<typeof effectiveSeverity> };
 
-/** Per-rule counts. A rule present with `findings: 0` ran and reported nothing; an absent rule was not selected. */
+/**
+ * Per-rule counts. A rule present with `findings: 0` ran and reported nothing, and an absent rule was not
+ * selected — but only when the caller supplied `ruleIds`. Without it the map is seeded from results alone,
+ * so absence means "produced nothing" rather than "not selected".
+ */
 export interface RuleEvidence {
   findings: number;
   passed: number;

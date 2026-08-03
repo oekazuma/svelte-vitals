@@ -34,6 +34,16 @@ still gets an entry:
 | key present, `findings: 0` | selected, ran, reported nothing                                        |
 | key absent                 | not selected — `--ignore`, `--rules`, `--category`, or `off` in config |
 
+**The table holds only for a caller that supplies the list.** Omitted, the map is seeded from results
+alone, so an absent key means "produced nothing" and proves nothing about selection. That is the
+compatibility fallback, and it is why `rules` means something narrower in the two payloads listed under
+"Not in scope" below.
+
+One path also escapes the second row: a rule turned off through an **`overrides` entry** stays present with
+`{ findings: 0, passed: 0 }`, because `selectRules` reads only the top-level `config.rules`. The same word
+at top level does remove it. Documented in the guide rather than changed — `overrides` narrows per path, so
+a rule off for one file and on for another did run.
+
 Presence is the answer; the counts are the detail.
 
 ### Shape

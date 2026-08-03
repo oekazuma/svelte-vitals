@@ -230,7 +230,9 @@ Expected: PASS, with the file's pre-existing cases unaffected — `rules` is add
 
 Delete the `for (const id of ruleIds ?? [])` line and re-run.
 Expected: the "lists a selected rule that produced nothing" and "reaches the same shape through
-formatJsonReport" tests FAIL. Restore, and confirm `git diff` on `json.ts` is empty.
+formatJsonReport" tests FAIL. Then restore the line and re-run to confirm they pass again — do **not**
+check for an empty `git diff`, since Task 1's own changes are still uncommitted at this point and will
+always show.
 
 - [ ] **Step 6: Typecheck, lint, commit**
 
