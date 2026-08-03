@@ -70,9 +70,10 @@ export async function analyze(
   const components = await collectComponentFacts(cwd);
   const kitModules = await collectKitModuleFacts(cwd, project.kitAliases);
   const sourceFiles = await collectSourceFiles(cwd);
+  const selected = selectRules(allRules, config);
   const results = applyOverrides(
     applyRuleSeverities(
-      await runRules(selectRules(allRules, config), {
+      await runRules(selected, {
         heads,
         headings,
         images,
@@ -97,7 +98,12 @@ export async function analyze(
     `Scanned ${components.length} component(s) under src/ for Correctness/Security/Architecture/Bundle findings.`;
   const consoleReport =
     formatConsoleReport(results, config, { mode: 'rendered / plugin' }) + '\n' + coverageNote + '\n';
-  const jsonReport = formatJsonReport(results, config, { version: readPackageVersion() });
+  const jsonReport = formatJsonReport(
+    results,
+    config,
+    { version: readPackageVersion() },
+    selected.map((r) => r.id)
+  );
 
   return {
     score,

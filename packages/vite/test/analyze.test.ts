@@ -42,6 +42,15 @@ describe('analyze', () => {
     expect(r.consoleReport).not.toContain('static mode');
   });
 
+  it('lists a selected rule in the json report even when it produced no results for this fixture', async () => {
+    const r = await analyze(pages, cwd, { report: false });
+    const parsed = JSON.parse(r.jsonReport);
+    // Nothing in this fixture triggers security/raw-html, so it has no entries in `results` —
+    // it appears in `rules` only because analyze passed the selected ids as the seed list.
+    expect(Object.hasOwn(parsed.rules, 'security/raw-html')).toBe(true);
+    expect(parsed.rules['security/raw-html']).toEqual({ findings: 0, passed: 0 });
+  });
+
   it('fails when findings meet failOn', async () => {
     const r = await analyze(pages, cwd, { report: false, failOn: 'critical' });
     expect(r.failed).toBe(true);

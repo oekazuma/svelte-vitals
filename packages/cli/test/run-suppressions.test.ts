@@ -174,6 +174,24 @@ describe('run() svelte-vitals-suppressions.json', () => {
     expect(cap.err.join('\n')).toContain(`svelte-vitals: invalid ${SUPPRESSIONS_FILE}`);
   });
 
+  it('a fully-suppressed rule still appears in the json report, with findings: 0', async () => {
+    const dir = makeProjectCopy();
+    // /img's only <img> is missing width/height -> the fixture's single performance/image-dimensions
+    // finding. Suppressing it should zero the count without dropping the rule from `rules` —
+    // that only holds if the ran-rule ids reach formatJsonReport ahead of suppression removing the result.
+    writeFileSync(
+      join(dir, SUPPRESSIONS_FILE),
+      JSON.stringify({
+        version: 1,
+        suppressions: [{ id: 'performance/image-dimensions', route: '/img', location: 'src/routes/img/+page.svelte' }]
+      })
+    );
+    const cap = capture();
+    await run({ cwd: dir, log: cap.log, errorLog: cap.errorLog, reporter: 'json', env: CLEAN_ENV });
+    const json = JSON.parse(cap.out.join('\n'));
+    expect(json.rules['performance/image-dimensions']).toEqual({ findings: 0, passed: 0 });
+  });
+
   it('applies after --diff: diff narrows first, suppressions removes what remains', async () => {
     const dir = makeProjectCopy();
     // The "none" route's file has several penalized findings (seo/title-presence, seo/canonical-url, ...);

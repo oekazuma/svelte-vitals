@@ -118,6 +118,16 @@ describe('run() reporters and gating', () => {
     expect(code).toBe(1); // fixture has warnings (og:image, og:title, canonical missing)
   });
 
+  it('lists a default-on rule that found nothing for this fixture, distinguishing it from one never selected', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json', env: CLEAN_ENV });
+    const json = JSON.parse(cap.out.join('\n'));
+    // security/raw-html has nothing to flag anywhere in the fixture, so this only holds
+    // if analyzeProject's ran-rule ids reached formatJsonReport.
+    expect(Object.hasOwn(json.rules, 'security/raw-html')).toBe(true);
+    expect(json.rules['security/raw-html']).toEqual({ findings: 0, passed: 0 });
+  });
+
   it('disabling a rule via rules:{id:off} removes its findings', async () => {
     const cap = capture();
     await run({
