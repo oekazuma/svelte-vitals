@@ -15,8 +15,10 @@ contribution.
 Note precisely what is and is not missing. Every issue already carries its `category`, so _identifying_ the
 routes with findings in a category is mechanical from the report as it stands. What is unrecoverable is
 **magnitude**: a route's deficit is `(100 × failedWeight) / inventoryWeight`, and the inventory denominators —
-110 for `seo::route`, 28 for `performance::route`, and so on — appear nowhere in the output. Two routes with
-one `warning` each can differ by 15 points and the report gives no way to see it.
+110 for `seo::route`, 28 for `performance::route`, 5 for `seo::component` — appear nowhere in the output. So two
+keys each carrying exactly one `warning` can be 95 points apart: against `seo::component`'s inventory of 5 that
+one warning scores the key **0**, and against `seo::route`'s 110 it scores **95**. Nothing in the report lets a
+reader see why.
 
 That is not hypothetical. The field report that started this whole line of work observed a category displaying
 100 while carrying 276 findings, and **could neither confirm nor reject its own hypothesis from the output**,
@@ -86,11 +88,24 @@ site-level signal; applying it per route would make one route's `critical` look 
 
 ## `routes[].score` is not guaranteed to be the mean of `routes[].categories`
 
-It usually is, which is exactly why the exception needs writing down. Measured with the field implemented, on
-the repo's own fixture: **21 of 22 routes have `floor(mean(categories)) === score`**, and 17 of the 22 carry
-only one category, where the two are equal by construction. One route disagrees.
+**Whether they agree depends on the shape of the project, and the two available measurements point opposite
+ways** — so neither can be presented as the typical case.
 
-That one route is enough, because the disagreement is not a rounding artefact:
+| corpus                                                 | keys                          | agreement                                              |
+| ------------------------------------------------------ | ----------------------------- | ------------------------------------------------------ |
+| the repo's fixtures                                    | 51 across nine projects       | 98% (50/51) — but 46 of the 51 carry a single category |
+| a 200-page project from the repo's own bench generator | 413, 400 of them two-category | **52% (213/413)**                                      |
+
+The rule behind both numbers: **a single-category key agrees by construction, and a multi-category key
+disagrees routinely and systematically.** Minimal fixtures are mostly single-category, which is a property of
+minimal fixtures; a real project's pages carry both `seo` and `performance` results, and then the
+multi-category case dominates. At the field project's scale the mean disagrees on most URL routes.
+
+The disagreement is not a rounding artefact. Every page key in the synthetic project reads `score: 92` against
+a mean of 86 — `{ seo: 97, performance: 75 }`, six points apart — because the union ratio weights by inventory
+while the mean weights the categories equally.
+
+The single measured instance, worked through:
 
 | value                    | denominator                           | result  |
 | ------------------------ | ------------------------------------- | ------- |
@@ -102,11 +117,13 @@ The mean of 95 and 100 is 97.5, not 96. `routes[].score` is one ratio against ev
 measured against; each category score is a ratio against that category's own inventory. Both are correct and
 they answer different questions.
 
-A first draft of this section stated the non-coincidence flatly and generalised it to "a mean of ratios with
-different denominators is not the ratio of the sums", which is not a theorem — equal ratios coincide for any
-denominators. The honest form is the one in this heading: not guaranteed, commonly true anyway, and the docs
-must say it that way too, because a user comparing their own report against a flat "it does not average" would
-find the report contradicting the documentation on most routes.
+Two drafts of this section were wrong in opposite directions. The first stated the non-coincidence flatly and
+generalised it to "a mean of ratios with different denominators is not the ratio of the sums", which is not a
+theorem — equal ratios coincide for any denominators. The second called it a rare exception, on the strength of
+a fixture corpus that turned out to be atypical. The honest form is the heading: **not guaranteed**, agreeing
+by construction in one shape and disagreeing systematically in the other. The docs must use that wording in
+both directions — a flat "it does not average" is contradicted by any single-category route, and a flat "it
+does" by any page carrying two categories.
 
 This is the third level of the scoring model where an aggregate is not guaranteed to be re-derivable from the
 parts below it — after `computeHealth` over category scores, and a category score over its key scores. Same
