@@ -9,8 +9,14 @@ now has to reconstruct a ratio per key rather than a subtraction."
 ## The problem
 
 The report says what each route scored and what each category scored. It does not say **what a route scored in
-a category**, so the one number a reader wants when a category looks wrong — which routes dragged it there —
-has to be guessed from the issue list.
+a category**, so the reader who wants to know why a category moved cannot get at the size of each route's
+contribution.
+
+Note precisely what is and is not missing. Every issue already carries its `category`, so _identifying_ the
+routes with findings in a category is mechanical from the report as it stands. What is unrecoverable is
+**magnitude**: a route's deficit is `(100 × failedWeight) / inventoryWeight`, and the inventory denominators —
+110 for `seo::route`, 28 for `performance::route`, and so on — appear nowhere in the output. Two routes with
+one `warning` each can differ by 15 points and the report gives no way to see it.
 
 That is not hypothetical. The field report that started this whole line of work observed a category displaying
 100 while carrying 276 findings, and **could neither confirm nor reject its own hypothesis from the output**,
@@ -42,15 +48,30 @@ Each entry in `routes[]` gains a `categories` map:
 ```
 
 `JsonReport['routes']` becomes
-`Array<{ route: string; score: number; categories: Record<string, number>; issues: JsonIssue[] }>`, filled by
-calling the already-exported `scoresByCategory` on that route's own results.
+`Array<{ route: string; score: number; categories: Record<string, number>; issues: JsonIssue[] }>`.
+
+**The wiring needs one change, and a first draft of this section got it wrong.** `scoresByCategory` is exported
+and buckets by category exactly as needed, but it takes no `ScoreOptions` and calls
+`computeScore(rs, config)` — so `applyCriticalCap` defaults to **true**. Used as exported it would contradict
+the cap decision below: measured, a route carrying one failing `seo` `critical` comes back as `seo: 79` with
+`scoreModel.criticalCap: 79`, where the same route's `routes[].score` is **86**.
+
+So `scoresByCategory` gains an optional third parameter, `options: ScoreOptions = {}`, forwarded to
+`computeScore`. Every existing caller — `computeHealth` among them — passes nothing and is unaffected, which
+matters because the predecessor spec requires a capped category to keep pulling Health down. The reporter
+passes `{ applyCriticalCap: false }`.
+
+The alternative, bucketing inside `buildJsonReport` and calling `computeScore` per bucket, was rejected: it
+would duplicate `scoresByCategory`'s `r.category ?? 'seo'` fallback in a second place, where the two could
+drift.
 
 Three decisions, each of which could reasonably have gone the other way:
 
 **Scores only, no `scoreModel`.** The top-level `categories` carries `{ score, scoreModel }`, and mirroring it
-here would be symmetric and useless: a route's results contain no project-scoped findings, so `sitePenalty` is
-always 0, and the critical cap is disabled on this path, so `criticalCap` is always null. `routeAverage` would
-restate `score`. Three fields that cannot vary are noise, not symmetry.
+here would add nothing: a route's results contain no project-scoped findings, so `sitePenalty` is structurally
+0, and `routeAverage` restates `score` because there is one key. `criticalCap` would be null too — but only
+because the cap is switched off above, which is a decision rather than a structural fact; the first draft of
+this paragraph asserted it as one and was wrong.
 
 **Only the categories that produced a result on that route.** A route with no `architecture` result must not
 appear with `architecture: 100`. That would claim a measurement that never happened — the same dishonesty
@@ -63,10 +84,13 @@ site-level signal; applying it per route would make one route's `critical` look 
 
 `routes[].score` itself does not change.
 
-## The relationship that will surprise a reader, stated so it is not discovered as a bug
+## `routes[].score` is not guaranteed to be the mean of `routes[].categories`
 
-**`routes[].score` is not the mean of `routes[].categories`.** Measured on one route carrying a failing `seo`
-`warning` beside a passing `performance` route rule:
+It usually is, which is exactly why the exception needs writing down. Measured with the field implemented, on
+the repo's own fixture: **21 of 22 routes have `floor(mean(categories)) === score`**, and 17 of the 22 carry
+only one category, where the two are equal by construction. One route disagrees.
+
+That one route is enough, because the disagreement is not a rounding artefact:
 
 | value                    | denominator                           | result  |
 | ------------------------ | ------------------------------------- | ------- |
@@ -74,27 +98,40 @@ site-level signal; applying it per route would make one route's `critical` look 
 | `categories.seo`         | 110                                   | **95**  |
 | `categories.performance` | 28                                    | **100** |
 
-The mean of 95 and 100 is 97.5, which is not 96. `routes[].score` is one ratio computed against everything the
-route was measured against; each category score is a ratio computed against that category's own inventory.
-Both are correct and they answer different questions.
+The mean of 95 and 100 is 97.5, not 96. `routes[].score` is one ratio against everything the route was
+measured against; each category score is a ratio against that category's own inventory. Both are correct and
+they answer different questions.
 
-This is the third place in the scoring model where an aggregate is not re-derivable from the parts below it —
-after `computeHealth` over category scores, and a category score over its key scores. The pattern is the same
-each time and has the same cause: flooring and division happen at each level, and a mean of ratios with
-different denominators is not the ratio of the sums. Recorded here rather than left for a reader to file.
+A first draft of this section stated the non-coincidence flatly and generalised it to "a mean of ratios with
+different denominators is not the ratio of the sums", which is not a theorem — equal ratios coincide for any
+denominators. The honest form is the one in this heading: not guaranteed, commonly true anyway, and the docs
+must say it that way too, because a user comparing their own report against a flat "it does not average" would
+find the report contradicting the documentation on most routes.
+
+This is the third level of the scoring model where an aggregate is not guaranteed to be re-derivable from the
+parts below it — after `computeHealth` over category scores, and a category score over its key scores. Same
+cause each time: division and flooring happen at each level.
 
 ## Cost
 
-About 45 bytes per route — measured against the repo's own fixture, 22 routes, roughly 1 KB on a 67,656-byte
-report. At the field project's 351 routes, roughly 16 KB.
+**61 bytes per route**, measured with the field implemented rather than estimated: the fixture's report goes
+from 67,656 to 69,003 bytes over 22 routes — 1,347 bytes. At the field project's 351 routes that is roughly
+21 KB. The first draft guessed 45 bytes and was 35% low across all three figures.
 
 That cost is only safe to take because `872cf859` fixed the truncation that discarded everything past the
 first 65,536 bytes of a piped report. Growing the report before that fix would have moved more of it past the
 cliff.
 
 `packages/core/src/reporter/app-shell.ts` spreads each route (`{ ...route, issues: … }`), so the field reaches
-the HTML report's embedded snapshot and the dev dashboard without further wiring. Nothing renders it yet; that
-is a separate decision about those surfaces, not a gap this design leaves.
+the HTML report's embedded snapshot and the dev dashboard without further wiring at runtime. Nothing renders
+it yet; that is a separate decision about those surfaces, not a gap this design leaves.
+
+**At compile time it is not free.** A required `categories` on `JsonReport['routes']` breaks eight literal
+route constructions that a text search for the type name cannot find — four in
+`packages/core/test/html-report.test.ts`, and four across `packages/vite/test/app-shell-static.test.ts` and
+`packages/vite/test/ui-dashboard.test.ts`. The CLI and the markdown reporter compile clean. So the
+implementation must `tsc --noEmit` **each package separately** after rebuilding core, which is how the
+equivalent break was found late on an earlier branch.
 
 ## Testing
 
@@ -105,13 +142,21 @@ is a separate decision about those surfaces, not a gap this design leaves.
    category in.
 3. **`routes[].score` is unchanged** by this addition, on a fixture where it and the category scores disagree.
    That disagreement is the point of the section above, so the test pins both numbers on the same input.
-4. **The critical cap is off per route.** A route carrying a `critical` scores what the ratio gives, not 79.
-5. **The field survives the HTML report's snapshot**, since `app-shell.ts` spreads the route object — one
+4. **The critical cap is off per route, asserted on `routes[].categories[cat]` specifically.** A route carrying
+   one failing `seo` `critical` must show `categories.seo` at the ratio's value — 86 on the current registry —
+   not 79. Asserting `routes[].score` instead would pass on a broken implementation, because that path is
+   already cap-free; this test only holds anything if it names the category map.
+5. **`scoresByCategory`'s existing callers are unchanged.** Called without options it must still cap, because
+   `computeHealth` depends on a capped category pulling Health down. Assert the capped value through
+   `scoresByCategory(rs, config)` and the uncapped one through
+   `scoresByCategory(rs, config, { applyCriticalCap: false })` on the same input.
+6. **The field survives the HTML report's snapshot**, since `app-shell.ts` spreads the route object — one
    assertion that the embedded snapshot carries `categories` for a route, so the spread is not silently
    replaced by an explicit field list later.
-6. **The documented shape matches.** `docs/src/content/docs/guides/(reporting)/reporters.md` and its Japanese
+7. **The documented shape matches.** `docs/src/content/docs/guides/(reporting)/reporters.md` and its Japanese
    counterpart show the `routes[]` shape; the sample must gain the field, and the prose must say what it means
-   and that it does not average to `score`.
+   and that it is **not guaranteed** to average to `score` — not that it does not, which the reader's own
+   report would contradict on most routes.
 
 ## Deliberately not solved
 
