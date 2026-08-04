@@ -98,6 +98,11 @@ cases where that does not hold, both of which would otherwise divide by zero or 
   or a set of results scored against a configuration that turned its rule `off`. It observes no pair, so it
   contributes nothing to `observedInventory`; the `max` keeps it from being divided by zero and from
   displaying 100 with a finding present, which would break the invariant this spec inherits.
+- An `overrides` entry raising a rule's severity for a glob. `selectRules` and `buildInventory` read only
+  top-level `config.rules`, so the denominator keeps the rule's base severity while the result carries the
+  raised one. Measured on the eight-`info` architecture pair: promoting one rule's result to `critical` this
+  way scores the key **0** (`failedWeight` 15 against an unmoved inventory of 8), where making the same
+  promotion at top level — which raises the inventory too, to 22 — scores **31.8**.
 
 The zero guard covers the remaining case: a key with no penalized results and no observed pair scores 100,
 matching today's seed.
