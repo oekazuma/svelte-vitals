@@ -118,7 +118,11 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
 }
 
 /** Compute an independent score per category present in `results` (issue #10). */
-export function scoresByCategory(results: Result[], config: Config): Partial<Record<Category, ScoreResult>> {
+export function scoresByCategory(
+  results: Result[],
+  config: Config,
+  options: ScoreOptions = {}
+): Partial<Record<Category, ScoreResult>> {
   const byCat = new Map<Category, Result[]>();
   for (const r of results) {
     const cat = r.category ?? 'seo';
@@ -127,7 +131,7 @@ export function scoresByCategory(results: Result[], config: Config): Partial<Rec
     bucket.push(r);
   }
   const out: Partial<Record<Category, ScoreResult>> = {};
-  for (const [cat, rs] of byCat) out[cat] = computeScore(rs, config);
+  for (const [cat, rs] of byCat) out[cat] = computeScore(rs, config, options);
   return out;
 }
 
