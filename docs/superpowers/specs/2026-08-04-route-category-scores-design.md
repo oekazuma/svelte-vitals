@@ -123,13 +123,27 @@ real and two of them are ordinary:
 1. **A sub-point gap collapses under flooring.** One `seo` `info` beside a clean `performance` gives
    `{ seo: 99, performance: 100 }`; the raw mean is 99.545 and the raw union 99.275, and both display **99**.
    That is the most common shape of a lightly-flawed page.
-2. **Equal observed inventories force agreement whatever the ratios.** For two categories this is a theorem:
-   mean and union coincide exactly when `(i₂ − i₁)(f₁i₂ − f₂i₁) = 0`, so either the inventories match or the
-   ratios do, and nothing else. Verified at `i₁ = i₂ = 28` with `f = 5` and `f = 10` — both display **73**.
-   Reachable by ordinary configuration, since turning rules off shrinks an inventory.
-3. **Sporadic exact coincidences exist under the pristine default registry.** An exhaustive integer search
-   found sixteen, two on realistic component-only keys: clean `performance` with `correctness` at 36/96 and
-   `security` at 25/35 gives a union and a mean that are bit-identical at 63.690476.
+2. **Equal observed inventories force agreement whatever the ratios**, for any number of categories — the
+   identity is `Σ(fⱼ/i)/k = (Σfⱼ)/(k·i)`. Verified at `k = 2`, `i = 28` each, `f = 5` and `f = 10` (both
+   display **73**) and at `k = 3`, `i = 30` each, `f = 3/12/24` (both exactly 56.666666666666664). For two
+   categories these are provably the **only** exceptions besides equal ratios: mean and union coincide exactly
+   when `(i₂ − i₁)(f₁i₂ − f₂i₁) = 0`. That proof is for `k = 2` only; exception 3 exhibits coincidences at
+   `k ≥ 3` that neither condition explains. Reachable by ordinary configuration, since turning rules off
+   shrinks an inventory.
+3. **Sporadic exact coincidences exist under the pristine default registry**, with neither equal ratios nor
+   equal inventories. One verified here end to end, on a component-only key carrying all five categories —
+   `seo` 5/5, `performance` 0/9, `correctness` 56/96, `security` 35/35, `architecture` 6/8 — where the union
+   and the mean are both a deficit of exactly 200/3 and agree as doubles, not merely after flooring.
+
+   No count is given. A reviewer's exhaustive search reported one, then corrected it on a second pass after
+   finding the first had silently skipped part of the space; the existence of such keys is what matters here,
+   and a number this design cannot reproduce is the kind of figure it has already got wrong twice.
+
+   Two cautions for anyone who recomputes: the coincidence depends on the **observed** inventory, not the
+   category's nominal one — a key observing `performance` at 37 (its route and component pairs together) can
+   coincide where the same failures at its component-only 9 give 56.43 against 63.69 — and "coincide" means
+   equal as exact rationals. As doubles the two can sit one ulp apart, 63.69047619047619 against
+   63.69047619047618, which is why the agreement metric throughout this section is the displayed value.
 
 So the user-facing wording stays **not guaranteed** in both directions, and the reason is now a rule rather
 than a frequency.
@@ -157,7 +171,7 @@ a fixture corpus that turned out to be atypical. The third keyed the rule to cat
 its own measurements, because a clean multi-category key agrees. The honest form is the heading: **not guaranteed**, agreeing
 by construction in one shape and disagreeing systematically in the other. The docs must use that wording in
 both directions — a flat "it does not average" is contradicted by any single-category route and by any clean
-one, and a flat "it does" by any page whose categories score differently.
+one, and a flat "it does" by any page whose categories score differently by more than flooring absorbs.
 
 This is the third level of the scoring model where an aggregate is not guaranteed to be re-derivable from the
 parts below it — after `computeHealth` over category scores, and a category score over its key scores. Same
