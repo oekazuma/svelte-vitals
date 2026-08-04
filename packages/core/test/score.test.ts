@@ -1,6 +1,7 @@
 // Scores are floored, not rounded (2026-07-31): a displayed 100 means the deduction was exactly zero.
 import { describe, it, expect } from 'vitest';
 import { computeScore, defineConfig, scoresByCategory, type Result } from '../src/index.js';
+import type { Rule } from '../src/rule.js';
 
 const pass = (id: string, route: string): Result => ({
   id,
@@ -274,5 +275,133 @@ describe('computeScore — a displayed 100 means zero deduction', () => {
     expect(r.score).toBe(79);
     expect(r.rawScore).toBe(79);
     expect(r.scoreModel.criticalCap).toBe(79);
+  });
+});
+
+const r = (id: string, category: Rule['category'], scope: Rule['scope'], severity: Rule['severity']) =>
+  ({ id, category, scope, severity, title: id, rationale: '', check: async () => [] }) as unknown as Rule;
+
+// Nine weight in one pair — the shape that makes the arithmetic below checkable by hand.
+const PERF = [
+  r('p/i1', 'performance', 'component', 'info'),
+  r('p/i2', 'performance', 'component', 'info'),
+  r('p/i3', 'performance', 'component', 'info'),
+  r('p/i4', 'performance', 'component', 'info'),
+  r('p/w1', 'performance', 'component', 'warning')
+];
+
+describe('computeScore — proportional model', () => {
+  const config = defineConfig({});
+
+  it('scores a key as the share of its pair that is intact', () => {
+    // failedWeight 5 of inventory 9 -> 100 - 500/9 = 44.44…, floored once at the category.
+    const results = [fail('p/w1', 'src/A.svelte', 'warning')];
+    const { score } = computeScore(results, config, { rules: PERF });
+    expect(score).toBe(44);
+  });
+
+  it('lets a key reach 0 when everything in its pair fails', () => {
+    const results = PERF.map((rule) => fail(rule.id, 'src/A.svelte', rule.severity as 'warning' | 'info'));
+    expect(computeScore(results, config, { rules: PERF, applyCriticalCap: false }).score).toBe(0);
+  });
+
+  it('distinguishes one affected key from many', () => {
+    // The reported symptom: under the old model both displayed 99.
+    const keys = Array.from({ length: 585 }, (_, i) => `src/${i}.svelte`);
+    const one = keys.map((k, i) => (i === 0 ? fail('p/i1', k, 'info') : pass('p/i1', k)));
+    const many = keys.map((k, i) => (i < 276 ? fail('p/i1', k, 'info') : pass('p/i1', k)));
+    const a = computeScore(one, config, { rules: PERF }).score;
+    const b = computeScore(many, config, { rules: PERF }).score;
+    expect(a).toBe(99);
+    expect(b).toBeLessThan(a);
+  });
+
+  it('sums the inventory over every pair observed on a key', () => {
+    // One seo route warning beside a passing performance route rule: 100 - 500/(5+5) = 50,
+    // where the seo pair alone would give 100 - 500/5 = 0.
+    const rules = [r('seo/x', 'seo', 'route', 'warning'), r('perf/y', 'performance', 'route', 'warning')];
+    const results = [fail('seo/x', '/a', 'warning'), pass('perf/y', '/a')];
+    expect(computeScore(results, defineConfig({}), { rules }).score).toBe(50);
+  });
+
+  it('keeps an integral score integral', () => {
+    // 100 - (100*88)/110 is exactly 20; 100 * (1 - 88/110) is 19.999999999999996.
+    const rules = [
+      r('s/c1', 'seo', 'route', 'critical'),
+      r('s/c2', 'seo', 'route', 'critical'),
+      ...Array.from({ length: 14 }, (_, i) => r(`s/w${i}`, 'seo', 'route', 'warning')),
+      ...Array.from({ length: 10 }, (_, i) => r(`s/i${i}`, 'seo', 'route', 'info'))
+    ];
+    // 2 criticals (30) + 11 warnings (55) + 3 infos (3) = 88, against an inventory of 110.
+    const results = [
+      fail('s/c1', '/a', 'critical'),
+      fail('s/c2', '/a', 'critical'),
+      ...Array.from({ length: 11 }, (_, i) => fail(`s/w${i}`, '/a', 'warning')),
+      ...Array.from({ length: 3 }, (_, i) => fail(`s/i${i}`, '/a', 'info'))
+    ];
+    expect(computeScore(results, defineConfig({}), { rules, applyCriticalCap: false }).score).toBe(20);
+  });
+
+  it('keeps an integral mean integral across keys', () => {
+    // Two keys, deficits 300/9 and 600/9, true mean exactly 50. A mean of key scores gives
+    // 49.99999999999999 and displays 49.
+    const results = [
+      fail('p/i1', 'src/A.svelte', 'info'),
+      fail('p/i2', 'src/A.svelte', 'info'),
+      fail('p/i3', 'src/A.svelte', 'info'),
+      fail('p/w1', 'src/B.svelte', 'warning'),
+      fail('p/i1', 'src/B.svelte', 'info')
+    ];
+    expect(computeScore(results, config, { rules: PERF }).score).toBe(50);
+  });
+
+  it('scores 0, not NaN, for a penalized result whose rule is not in the inventory', () => {
+    const results = [fail('ghost/rule', 'src/A.svelte', 'warning')];
+    const { score } = computeScore(results, config, { rules: PERF, applyCriticalCap: false });
+    expect(Number.isFinite(score)).toBe(true);
+    expect(score).toBe(0);
+  });
+
+  it('scores 100 for a key whose only results come from rules outside the inventory', () => {
+    const results = [pass('ghost/rule', 'src/A.svelte')];
+    expect(computeScore(results, config, { rules: PERF }).score).toBe(100);
+  });
+
+  it('narrowing the rule set to one category leaves that category unchanged', () => {
+    const mixed = [...PERF, r('seo/x', 'seo', 'route', 'warning')];
+    const results = [fail('p/w1', 'src/A.svelte', 'warning'), pass('p/i1', 'src/A.svelte')];
+    expect(computeScore(results, config, { rules: mixed }).score).toBe(
+      computeScore(results, config, { rules: PERF }).score
+    );
+  });
+
+  it('keeps a category with two scopes from merging them', () => {
+    // A component key must not be measured against route-scoped rules it can never trigger.
+    // Merged, the inventory would be 5 + 45 and the key would score 90 instead of 0.
+    const rules = [
+      r('p/comp', 'performance', 'component', 'warning'),
+      ...Array.from({ length: 9 }, (_, i) => r(`p/route${i}`, 'performance', 'route', 'warning'))
+    ];
+    const results = [fail('p/comp', 'src/A.svelte', 'warning')];
+    expect(computeScore(results, config, { rules, applyCriticalCap: false }).score).toBe(0);
+  });
+
+  it('scores 100 when nothing is penalized', () => {
+    const results = [pass('p/i1', 'src/A.svelte'), pass('p/w1', 'src/B.svelte')];
+    expect(computeScore(results, config, { rules: PERF }).score).toBe(100);
+  });
+
+  it('orders severities within one pair', () => {
+    const one = (id: string, sev: 'critical' | 'warning' | 'info') =>
+      computeScore([fail(id, 'src/A.svelte', sev)], config, {
+        rules: [
+          r('x/c', 'security', 'component', 'critical'),
+          r('x/w', 'security', 'component', 'warning'),
+          r('x/i', 'security', 'component', 'info')
+        ],
+        applyCriticalCap: false
+      }).score;
+    expect(one('x/c', 'critical')).toBeLessThan(one('x/w', 'warning'));
+    expect(one('x/w', 'warning')).toBeLessThan(one('x/i', 'info'));
   });
 });
