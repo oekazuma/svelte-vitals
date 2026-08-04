@@ -132,6 +132,7 @@ export {
   architectureDirectoryNaming,
   architectureReservedDirectoryNames,
   architectureRouteComponentImport,
+  architectureDocLinkTarget,
   performanceHeavyImport,
   performanceNamespaceImport,
   performanceMinifyDisabled,

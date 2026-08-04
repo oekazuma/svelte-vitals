@@ -43,6 +43,7 @@ const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   browserGlobalRefs: [],
   moduleStateDecls: [],
   suppressions: [],
+  commentLinks: [],
   ...over
 });
 

@@ -33,7 +33,8 @@ const comp = (
   orphanLifecycleCalls: [],
   browserGlobalRefs: [],
   moduleStateDecls: [],
-  suppressions
+  suppressions,
+  commentLinks: []
 });
 
 describe('performance/heavy-import heavy dependency import', () => {

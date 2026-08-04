@@ -1316,6 +1316,75 @@ export function collectSuppressions(source: string): SuppressionDirective[] {
   return out;
 }
 
+const MD_LINK = /\[[^\]]*\]\(([^)\s]+)\)/g;
+const SCRIPT_OPEN = /<script(?:\s[^>]*)?>/;
+const SCRIPT_CLOSE = /<\/script\s*>/;
+const STYLE_OPEN = /<style(?:\s[^>]*)?>/;
+const STYLE_CLOSE = /<\/style\s*>/;
+
+/**
+ * Markdown links inside comments. A plain text scan, like `collectSuppressions` — a link in a comment is
+ * not an AST node. `//` counts as a comment opener only at the start of a line, which is what keeps the
+ * scan off the `//` in `https://`; a trailing `// [x](y)` is therefore missed, and measurement found no
+ * such link, so the cost is a case that does not occur rather than one this rule needs.
+ *
+ * `<script>`/`<style>` blocks are tracked separately (open on the tag, close on the closing tag) because
+ * neither comment form applies uniformly inside them: `<!--`/`-->` are markup syntax, not script/style
+ * syntax, so a `<!--` inside a script string literal (e.g. a URL comparison) must not open a markup
+ * comment; and a line-leading `//` is only a comment in a script, never in markup or style, where it is
+ * either content or a syntax error. The tags themselves are read from the markup *outside* any comment, so
+ * a commented-out block does not open one. `wholeFileIsScript` covers `.svelte.ts`/`.svelte.js` runes
+ * modules, which have no `<script>` tag at all — the entire file is script.
+ */
+export function collectCommentLinks(
+  source: string,
+  { wholeFileIsScript = false }: { wholeFileIsScript?: boolean } = {}
+): { url: string; line: number }[] {
+  const out: { url: string; line: number }[] = [];
+  let htmlOpen = false; // inside a multi-line markup <!-- … -->
+  let block: 'script' | 'style' | undefined = wholeFileIsScript ? 'script' : undefined;
+  source.split('\n').forEach((line, i) => {
+    let text = '';
+    if (block !== undefined) {
+      if (block === 'script' && /^\s*\/\//.test(line)) text = line.replace(/^\s*\/\//, '');
+      if (!wholeFileIsScript && (block === 'script' ? SCRIPT_CLOSE : STYLE_CLOSE).test(line)) block = undefined;
+    } else {
+      // The line is split into comment text and the markup around it before either is examined, so a
+      // `<script>` written inside a comment cannot open a block. Opening one there would leave it open
+      // for want of a matching `</script>`, silently skipping every comment in the rest of the file.
+      let plain = '';
+      let rest = line;
+      while (rest.length > 0) {
+        if (htmlOpen) {
+          const end = rest.indexOf('-->');
+          if (end === -1) {
+            text += rest;
+            break;
+          }
+          text += rest.slice(0, end);
+          htmlOpen = false;
+          rest = rest.slice(end + 3);
+          continue;
+        }
+        const start = rest.indexOf('<!--');
+        if (start === -1) {
+          plain += rest;
+          break;
+        }
+        plain += rest.slice(0, start);
+        htmlOpen = true;
+        rest = rest.slice(start + 4);
+      }
+      const opened = SCRIPT_OPEN.test(plain) ? 'script' : STYLE_OPEN.test(plain) ? 'style' : undefined;
+      if (opened !== undefined && !(opened === 'script' ? SCRIPT_CLOSE : STYLE_CLOSE).test(plain)) block = opened;
+    }
+    for (const m of text.matchAll(MD_LINK)) {
+      if (m[1] !== undefined) out.push({ url: m[1], line: i + 1 });
+    }
+  });
+  return out;
+}
+
 /** Nodes whose bodies do NOT run when the surrounding code is evaluated: functions run when called; class member/constructor code runs on construction (correctness/orphan-effect). */
 const EVAL_SCOPE_BOUNDARIES = new Set([
   'FunctionDeclaration',
@@ -1946,6 +2015,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     checkableBindValues: [],
     basePathLinks,
     suppressions: collectSuppressions(source),
+    commentLinks: collectCommentLinks(source, { wholeFileIsScript: true }),
     orphanEffects,
     orphanLifecycleCalls,
     browserGlobalRefs,
@@ -2179,6 +2249,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     orphanLifecycleCalls,
     browserGlobalRefs,
     moduleStateDecls: [],
-    suppressions
+    suppressions,
+    commentLinks: collectCommentLinks(source)
   };
 }

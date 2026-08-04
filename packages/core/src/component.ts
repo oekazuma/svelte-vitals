@@ -154,4 +154,6 @@ export interface ComponentFacts {
   moduleStateDecls: { name: string; line: number }[];
   /** Inline `svelte-vitals-disable-next-line` directives found in this file's source — component-rule escape hatch (issue #92). Optional: absent is equivalent to no directives, so existing external constructors of `ComponentFacts` are unaffected. */
   suppressions?: SuppressionDirective[];
+  /** Markdown links `[label](url)` appearing inside a comment (architecture/doc-link-target). */
+  commentLinks: { url: string; line: number }[];
 }

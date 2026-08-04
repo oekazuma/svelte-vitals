@@ -31,7 +31,8 @@ export function emptyComponentFacts(file: string): ComponentFacts {
     orphanLifecycleCalls: [],
     browserGlobalRefs: [],
     moduleStateDecls: [],
-    suppressions: []
+    suppressions: [],
+    commentLinks: []
   };
 }
 

@@ -1007,3 +1007,108 @@ describe('parseComponentFacts — type-only imports in importSpans', () => {
     expect(spans(`<script>import './setup.js';</script>`)).toEqual([{ source: './setup.js', line: 1 }]);
   });
 });
+
+describe('parseComponentFacts — links inside comments', () => {
+  const links = (src: string) => parseComponentFacts(src, 'src/lib/A/A.svelte').commentLinks;
+
+  it('finds a link in a markup comment', () => {
+    expect(links(`<!-- see [guide](https://x.test/a/b) -->\n<p>hi</p>`)).toEqual([
+      { url: 'https://x.test/a/b', line: 1 }
+    ]);
+  });
+
+  it('finds a link in a markup comment spanning lines', () => {
+    const src = ['<!--', '  see [guide](https://x.test/a/b)', '-->'].join('\n');
+    expect(links(src)).toEqual([{ url: 'https://x.test/a/b', line: 2 }]);
+  });
+
+  it('finds a link in a script line comment', () => {
+    expect(links(`<script>\n  // see [guide](https://x.test/a/b)\n</script>`)).toEqual([
+      { url: 'https://x.test/a/b', line: 2 }
+    ]);
+  });
+
+  it('ignores a link in rendered markup', () => {
+    // Not a reference to a repository path — it is content.
+    expect(links(`<p>see [guide](https://x.test/a/b)</p>`)).toEqual([]);
+  });
+
+  it('is not fooled by the // inside a URL', () => {
+    // A scan that treated `//` as a comment opener would read the rest of this line as a comment.
+    expect(links(`<script>\n  const u = 'https://x.test/[a](b)';\n</script>`)).toEqual([]);
+  });
+
+  it('ignores a trailing // comment on a line of code', () => {
+    // Documented as not reported: `//` opens a comment only at the start of a line, which is what keeps
+    // the scan off the `//` in a URL.
+    expect(links(`<script>\n  const x = 1; // see [guide](https://x.test/a/b)\n</script>`)).toEqual([]);
+  });
+
+  it('ignores a link inside a block or JSDoc comment', () => {
+    // Documented as not reported: only the markup form and a line-leading `//` are scanned.
+    expect(links(`<script>\n  /** see [guide](https://x.test/a/b) */\n</script>`)).toEqual([]);
+    expect(links(`<script>\n  /* see [guide](https://x.test/a/b) */\n</script>`)).toEqual([]);
+  });
+
+  it('finds every link on one line', () => {
+    expect(links(`<!-- [a](https://x.test/1) and [b](https://x.test/2) -->`)).toEqual([
+      { url: 'https://x.test/1', line: 1 },
+      { url: 'https://x.test/2', line: 1 }
+    ]);
+  });
+
+  it('records nothing for a component with no comments', () => {
+    expect(links(`<p>hi</p>`)).toEqual([]);
+  });
+
+  it('does not leak comment state from a <!-- inside a script string literal', () => {
+    // Without script-block tracking, `open` stays true past `</script>` and the markup
+    // link below is misread as comment text.
+    const src = ['<script>', "  const s = '<!-- x';", '</script>', '<p>see [guide](https://x.test/a/b)</p>'].join('\n');
+    expect(links(src)).toEqual([]);
+  });
+
+  it('does not treat a markup line beginning with // as a comment', () => {
+    // `//` only opens a comment inside a <script> block; in markup it is content.
+    const src = ['<p>', '// see [guide](https://x.test/a/b)', '</p>'].join('\n');
+    expect(links(src)).toEqual([]);
+  });
+
+  it('does not open a script block from a commented-out <script> tag', () => {
+    // The tag never gets a matching `</script>`, so opening a block there would stay open and skip
+    // every comment in the rest of the file — the link on the tag's own line included.
+    const src = ['<!-- <script> [a](https://x.test/1) -->', '<!-- [b](https://x.test/2) -->', '<p>hi</p>'].join('\n');
+    expect(links(src)).toEqual([
+      { url: 'https://x.test/1', line: 1 },
+      { url: 'https://x.test/2', line: 2 }
+    ]);
+  });
+
+  it('does not open a style block from a commented-out <style> tag', () => {
+    const src = ['<!-- <style> [a](https://x.test/1) -->', '<!-- [b](https://x.test/2) -->'].join('\n');
+    expect(links(src)).toEqual([
+      { url: 'https://x.test/1', line: 1 },
+      { url: 'https://x.test/2', line: 2 }
+    ]);
+  });
+
+  it('still tracks a real script block opened on a line that also holds a comment', () => {
+    // The tag sits in the markup outside the comment, so it opens the block as usual.
+    const src = [
+      '<!-- [a](https://x.test/1) --><script>',
+      "  const s = '<!-- x';",
+      '</script>',
+      '<p>[b](https://x.test/2)</p>'
+    ].join('\n');
+    expect(links(src)).toEqual([{ url: 'https://x.test/1', line: 1 }]);
+  });
+
+  it('finds a link in a runes module (.svelte.ts) comment', () => {
+    // Exercises the parseModuleFacts wiring, not parseComponentFacts's .svelte path.
+    const facts = parseComponentFacts(
+      '// see [guide](https://x.test/a/b)\nlet c = $state(0);',
+      'src/lib/store.svelte.ts'
+    );
+    expect(facts.commentLinks).toEqual([{ url: 'https://x.test/a/b', line: 1 }]);
+  });
+});
