@@ -96,14 +96,47 @@ ways** — so neither can be presented as the typical case.
 | the repo's fixtures                                    | 51 across nine projects       | 98% (50/51) — but 46 of the 51 carry a single category |
 | a 200-page project from the repo's own bench generator | 413, 400 of them two-category | **52% (213/413)**                                      |
 
-The rule behind both numbers: **a single-category key agrees by construction, and a multi-category key
-disagrees routinely and systematically.** Minimal fixtures are mostly single-category, which is a property of
-minimal fixtures; a real project's pages carry both `seo` and `performance` results, and then the
-multi-category case dominates. At the field project's scale the mean disagrees on most URL routes.
+**The rule is about ratios, not category counts.** A key agrees exactly when **every category on it scores the
+same ratio**, because then the union of the parts and the mean of the parts are the same number. Two very
+different-looking keys are both that case:
 
-The disagreement is not a rounding artefact. Every page key in the synthetic project reads `score: 92` against
-a mean of 86 — `{ seo: 97, performance: 75 }`, six points apart — because the union ratio weights by inventory
-while the mean weights the categories equally.
+- a **single-category** key — the bucket _is_ the whole result set, so both numbers come from the identical
+  `computeScore` call. Exact and unbreakable: 59 of 59 single-category keys across both corpora agree, and no
+  counterexample is constructible.
+- a **clean multi-category** key — every ratio is zero, so `{ architecture: 100, performance: 100 }` agrees for
+  the same reason. **Clean keys are most keys on a healthy project.**
+
+That second case is what an earlier draft missed, and missing it made the rule contradict the table above it:
+200 of the synthetic corpus's 400 multi-category keys agree, all of them clean, while only 13 of its 213
+agreements are single-category. A rule keyed on category count predicts 3% agreement for a corpus measured at
+52%.
+
+Neither corpus predicts what a given project will show. Minimal fixtures are mostly single-category, which is a
+property of minimal fixtures; the synthetic generator's pages are uniformly flawed, which is not how a real
+project looks. With 276 findings across 585 keys, most of the field project's keys are clean — and clean keys
+agree.
+
+**When the ratios do differ the mean usually disagrees, systematically once the gap exceeds a point** — every
+dirty page in the synthetic corpus, six points apart. "Usually" is the right word, because three exceptions are
+real and two of them are ordinary:
+
+1. **A sub-point gap collapses under flooring.** One `seo` `info` beside a clean `performance` gives
+   `{ seo: 99, performance: 100 }`; the raw mean is 99.545 and the raw union 99.275, and both display **99**.
+   That is the most common shape of a lightly-flawed page.
+2. **Equal observed inventories force agreement whatever the ratios.** For two categories this is a theorem:
+   mean and union coincide exactly when `(i₂ − i₁)(f₁i₂ − f₂i₁) = 0`, so either the inventories match or the
+   ratios do, and nothing else. Verified at `i₁ = i₂ = 28` with `f = 5` and `f = 10` — both display **73**.
+   Reachable by ordinary configuration, since turning rules off shrinks an inventory.
+3. **Sporadic exact coincidences exist under the pristine default registry.** An exhaustive integer search
+   found sixteen, two on realistic component-only keys: clean `performance` with `correctness` at 36/96 and
+   `security` at 25/35 gives a union and a mean that are bit-identical at 63.690476.
+
+So the user-facing wording stays **not guaranteed** in both directions, and the reason is now a rule rather
+than a frequency.
+
+The disagreement, where it happens, is not a rounding artefact. Every dirty page key in the synthetic project
+reads `score: 92` against a floored mean of 86 — `{ seo: 97, performance: 75 }` — because the union ratio
+weights by inventory while the mean weights the categories equally.
 
 The single measured instance, worked through:
 
@@ -117,13 +150,14 @@ The mean of 95 and 100 is 97.5, not 96. `routes[].score` is one ratio against ev
 measured against; each category score is a ratio against that category's own inventory. Both are correct and
 they answer different questions.
 
-Two drafts of this section were wrong in opposite directions. The first stated the non-coincidence flatly and
-generalised it to "a mean of ratios with different denominators is not the ratio of the sums", which is not a
-theorem — equal ratios coincide for any denominators. The second called it a rare exception, on the strength of
-a fixture corpus that turned out to be atypical. The honest form is the heading: **not guaranteed**, agreeing
+Three drafts of this section were wrong in three different ways, recorded because the error moved each time.
+The first stated the non-coincidence flatly and generalised it to "a mean of ratios with different denominators
+is not the ratio of the sums", which is not a theorem. The second called it a rare exception, on the strength of
+a fixture corpus that turned out to be atypical. The third keyed the rule to category count, which contradicted
+its own measurements, because a clean multi-category key agrees. The honest form is the heading: **not guaranteed**, agreeing
 by construction in one shape and disagreeing systematically in the other. The docs must use that wording in
-both directions — a flat "it does not average" is contradicted by any single-category route, and a flat "it
-does" by any page carrying two categories.
+both directions — a flat "it does not average" is contradicted by any single-category route and by any clean
+one, and a flat "it does" by any page whose categories score differently.
 
 This is the third level of the scoring model where an aggregate is not guaranteed to be re-derivable from the
 parts below it — after `computeHealth` over category scores, and a category score over its key scores. Same
