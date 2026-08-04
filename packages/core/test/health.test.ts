@@ -93,27 +93,54 @@ const cat = (category: Category, keys: number, findings: number): Result[] =>
   }));
 
 describe('computeHealth — one rounding, at the boundary', () => {
-  /** `keys` keys in `category`, the first `findings` of them carrying one finding of `severity`. */
-  const at = (category: Category, keys: number, findings: number, severity: 'info' | 'warning'): Result[] =>
-    cat(category, keys, 0).map((r, i) =>
-      i < findings ? { ...r, severity, detection: { presence: 'none' as const, value: 'absent' as const } } : r
-    );
+  /**
+   * `keys` keys on a real registry rule id (not the ghost `${category}/x`), the first `findings`
+   * penalized at `severity`. Because the id has a real (category, scope) inventory, a failing key's
+   * deficit runs through the general `100 * failed / max(inventory, failed)` path instead of the
+   * zero-inventory edge case, where a ghost id always wipes a penalized key to a 100% deficit
+   * regardless of severity (see score.test.ts "scores 0, not NaN, for a penalized result whose rule is
+   * not in the inventory").
+   */
+  const realKeys = (
+    id: string,
+    category: Category,
+    keys: number,
+    findings: number,
+    severity: 'info' | 'warning' | 'critical'
+  ): Result[] =>
+    Array.from({ length: keys }, (_, i) => ({
+      id,
+      category,
+      severity,
+      detection:
+        i < findings
+          ? { presence: 'none' as const, value: 'absent' as const }
+          : { presence: 'own' as const, value: 'static' as const },
+      route: `${category}-k${i}`,
+      message: 'm',
+      recommendation: 'r'
+    }));
 
   it('floors the mean of the unrounded category scores, not of the displayed ones', () => {
-    // `${category}/x` is not a registered rule id, so it carries no inventory: a penalized key on
-    // it is measured against `max(0, failed)`, i.e. against its own failed weight — a 100% deficit
-    // regardless of severity (see score.test.ts "scores 0 ... for a rule not in the inventory").
-    // A category's raw score is therefore exactly 100 * clean-keys/total-keys. 1 of 1000 keys failing
-    // → 100*(999/1000) = 99.9; 21 of 1000 → 100*(979/1000) = 97.9.
-    // Raw category scores [99.9, 99.9, 99.9, 99.9, 97.9] → mean 99.5 → floor 99.
-    // Averaging the floored scores [99, 99, 99, 99, 97] first gives 98.6 → floor 98, which is what
+    // One info-severity (deduction 1) finding costs 100/I per failing key against a real inventory I.
+    // Choosing exactly F = I failing keys out of 1000 makes the category's total deficit exactly
+    // I * (100/I) = 100, so raw = 100 - 100/1000 = 99.9 — independent of which real (category, scope)
+    // inventory I is used:
+    //   seo::route (I=110): 110 of 1000 keys fail       -> 99.9
+    //   performance::route (I=28): 28 of 1000 keys fail -> 99.9
+    //   correctness::component (I=96): 96 of 1000 fail  -> 99.9
+    //   security::component (I=35): 35 of 1000 fail     -> 99.9
+    // architecture::component (I=8) uses 21*I = 168 failing keys instead: each costs 100*1/8 = 12.5,
+    // so 168 * 12.5 / 1000 = 2.1 deficit -> raw = 97.9.
+    // Raw category scores [99.9, 99.9, 99.9, 99.9, 97.9] -> mean 99.5 -> floor 99.
+    // Averaging the floored scores [99, 99, 99, 99, 97] first gives 98.6 -> floor 98, which is what
     // this test asserts against.
     const results = [
-      ...at('seo', 1000, 1, 'info'),
-      ...at('performance', 1000, 1, 'info'),
-      ...at('correctness', 1000, 1, 'info'),
-      ...at('security', 1000, 1, 'info'),
-      ...at('architecture', 1000, 21, 'warning')
+      ...realKeys('seo/title-presence', 'seo', 1000, 110, 'info'),
+      ...realKeys('performance/image-loading-hint', 'performance', 1000, 28, 'info'),
+      ...realKeys('correctness/unmutated-state', 'correctness', 1000, 96, 'info'),
+      ...realKeys('security/raw-html', 'security', 1000, 35, 'info'),
+      ...realKeys('architecture/component-size', 'architecture', 1000, 168, 'info')
     ];
     expect(computeHealth(results, CONFIG).health).toBe(99);
   });
@@ -150,15 +177,12 @@ describe('computeHealth — one rounding, at the boundary', () => {
     expect(computeHealth([], CONFIG).health).toBe(100);
     // A zero-weight category is present (its rule ran) and can hold a penalized finding — here severe
     // enough to cap its own score at 79 — without moving Health at all: the invariant is bounded to
-    // positively weighted categories, not merely present ones. One critical amid 199 clean keys pushes
-    // the raw score to 99.5 (100 - 100/200), and any critical present caps a raw score above 79 down
-    // to exactly 79 regardless of how small the underlying deficit is (same construction as "lets a
-    // capped category pull Health down" above).
-    const penalizedSecurity: Result[] = cat('security', 200, 0).map((r, i) =>
-      i === 0
-        ? { ...r, severity: 'critical' as const, detection: { presence: 'none' as const, value: 'absent' as const } }
-        : r
-    );
+    // positively weighted categories, not merely present ones. One critical (deduction 15) amid 199
+    // clean keys on the real `security/raw-html` id (security::component inventory 35) costs
+    // 100*15/35 = 42.857... against its one key, so raw = 100 - 42.857.../200 = 99.7857...; any
+    // critical present caps a raw score above 79 down to exactly 79 regardless of how small the
+    // underlying deficit is.
+    const penalizedSecurity: Result[] = realKeys('security/raw-html', 'security', 200, 1, 'critical');
     const zeroWeighted = computeHealth(
       [...cat('seo', 10, 0), ...penalizedSecurity],
       defineConfig({ weights: { seo: 1, security: 0 } })
