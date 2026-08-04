@@ -53,7 +53,7 @@ svelte-vitals --reporter json
   "routes": [
     {
       "route": "/about", // a route id, or a source file path for file-scoped rules
-      "score": 95,
+      "score": 95, // share of this route's rule inventory (by category/scope, weighted by severity) left intact
       "issues": [
         {
           "id": "seo/single-h1", // the rule id

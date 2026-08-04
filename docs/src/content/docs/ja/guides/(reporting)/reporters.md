@@ -53,7 +53,7 @@ svelte-vitals --reporter json
   "routes": [
     {
       "route": "/about", // ルート ID。ファイル単位のルールではソースファイルのパス
-      "score": 95,
+      "score": 95, // このルートが属するカテゴリ/スコープのルール一覧（重大度で重み付け）のうち、無傷で残った割合
       "issues": [
         {
           "id": "seo/single-h1", // ルール ID

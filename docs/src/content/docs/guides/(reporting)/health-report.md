@@ -15,12 +15,10 @@ Health is computed in two stages:
 
 For each active category (SEO, Performance), svelte-vitals computes an independent score:
 
-- Every route starts at **100**.
-- Each failing finding deducts points based on severity:
-  - `critical` → −15 per route
-  - `warning` → −5 per route
-  - `info` → −1 per route
-- Deductions are taken once per (route, rule) pair — duplicates take the maximum deduction, not a sum.
+- Each route scores the share of that category's checks it was measured against — weighted by severity —
+  that passed: no failures scores **100**, every applicable check failing scores **0**.
+- Severity sets the weight a failing check carries: `critical` weighs 15, `warning` weighs 5, `info` weighs 1.
+- A failing check counts once per (route, rule) pair — duplicates take the maximum severity, not a sum.
 - Route scores are averaged to produce the category's headline score.
 - If any critical finding is present, the headline score is capped at **79**.
 

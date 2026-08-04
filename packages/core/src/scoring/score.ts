@@ -1,8 +1,11 @@
-import type { Category, Config, Result, Severity } from '../types.js';
+import type { Category, Config, Result } from '../types.js';
+import type { Rule } from '../rule.js';
 import { isPenalized } from '../rule.js';
 import { effectiveSeverity } from '../summary.js';
+import { selectRules } from '../config-apply.js';
+import { allRules } from '../rules/index.js';
+import { buildInventory, ruleScopes, DEDUCTION, type PairKey } from './inventory.js';
 
-const DEDUCTION: Record<Severity, number> = { critical: 15, warning: 5, info: 1 };
 const CRITICAL_CAP = 79;
 
 export interface ScoreModel {
@@ -26,6 +29,8 @@ export interface ScoreResult {
 
 export interface ScoreOptions {
   applyCriticalCap?: boolean;
+  /** The rules that ran. Defaults to the selected registry; supplied by tests and custom rule sets. */
+  rules?: readonly Rule[];
 }
 
 function clamp(n: number): number {
@@ -37,38 +42,55 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
   const routeResults = results.filter((r) => r.route !== undefined);
   const projectResults = results.filter((r) => r.route === undefined);
 
-  // Seed every route at 100 so passing routes count toward the average.
-  const routeScores = new Map<string, number>();
-  for (const r of routeResults) if (!routeScores.has(r.route as string)) routeScores.set(r.route as string, 100);
+  // `selectRules` applied here, not just inside `buildInventory`, so `pairOf` and the inventory see
+  // the same filtered list — an injected rule that config turns `off` must vanish from both, not map
+  // to a pair in one and contribute nothing in the other.
+  const rules = selectRules([...(options.rules ?? allRules)], config);
+  const inventory = buildInventory(config, rules);
+  const pairOf = ruleScopes(rules);
 
   let anyCritical = false;
 
-  // One deduction per (route, rule id): take the max deduction among duplicates,
-  // then sum a route's per-rule deductions. Keyed by a nested map so route paths
-  // never need to be parsed back out of a composite string key.
-  const routeRuleMax = new Map<string, Map<string, number>>();
+  // Per key: the pairs it was measured against, and the weight that failed. One deduction per
+  // (key, rule id) — the max among duplicates — exactly as before; only the divisor is new.
+  const observed = new Map<string, Set<PairKey>>();
+  const ruleMax = new Map<string, Map<string, number>>();
   for (const r of routeResults) {
+    const key = r.route as string;
+    if (!observed.has(key)) observed.set(key, new Set());
+    const pair = pairOf.get(r.id);
+    if (pair !== undefined) observed.get(key)!.add(pair);
     if (!isPenalized(r.detection, config.treatDynamicAs)) continue;
     const sev = effectiveSeverity(r, config);
     if (sev === 'critical') anyCritical = true;
-    const route = r.route as string;
-    let perRule = routeRuleMax.get(route);
-    if (!perRule) routeRuleMax.set(route, (perRule = new Map()));
+    let perRule = ruleMax.get(key);
+    if (!perRule) ruleMax.set(key, (perRule = new Map()));
     const prev = perRule.get(r.id) ?? 0;
     if (DEDUCTION[sev] > prev) perRule.set(r.id, DEDUCTION[sev]);
   }
-  for (const [route, perRule] of routeRuleMax) {
-    let deduction = 0;
-    for (const d of perRule.values()) deduction += d;
-    routeScores.set(route, (routeScores.get(route) as number) - deduction);
+
+  // Deficit space, as `computeHealth` already works: a mean of key scores computes
+  // 49.99999999999999 for a true 50 on two keys of deficit 300/9 and 600/9.
+  let totalDeficit = 0;
+  for (const [key, pairs] of observed) {
+    let failed = 0;
+    for (const d of ruleMax.get(key)?.values() ?? []) failed += d;
+    let inventoryWeight = 0;
+    // `pairOf` and `inventory` are built from the same filtered `rules`, so every pair reachable
+    // through `pairOf` also has an inventory entry; the `?? 0` is a degrade-to-0-not-NaN fallback
+    // against a future divergence between the two, not a path this file's own inputs can reach.
+    for (const p of pairs) inventoryWeight += inventory.get(p) ?? 0;
+    // `max` keeps `failed` from exceeding its own denominator, so a penalized finding can never still
+    // score 100: the two ways that would happen are `treatDynamicAs: 'warn'` promoting a result's
+    // severity above its rule's, and a result whose rule is absent from the inventory.
+    inventoryWeight = Math.max(inventoryWeight, failed);
+    // `100 - (100 * f) / i`, never `100 * (1 - f / i)`: the latter gives 19.999999999999996 for
+    // f = 88, i = 110 and displays 19 for a true 20.
+    totalDeficit += inventoryWeight === 0 ? 0 : (100 * failed) / inventoryWeight;
   }
 
-  const scores = [...routeScores.values()].map(clamp);
-  const rawRouteAverage = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : 100;
-  // No such treatment needed here (contrast computeHealth below, which works in deficit space and caps
-  // at 99 rather than trusting the arithmetic): every route score is an integer, so `sum / length` is a
-  // division of exact integers, and whenever the true quotient IS an integer it is exactly representable
-  // — this mean can never come out as 99.99999999999999.
+  const keyCount = observed.size;
+  const rawRouteAverage = keyCount === 0 ? 100 : 100 - totalDeficit / keyCount;
   const routeAverage = Math.floor(rawRouteAverage);
 
   // One deduction per project rule id: take the max deduction among duplicates.
