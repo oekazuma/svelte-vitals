@@ -11,10 +11,11 @@ export function pairKey(category: Category, scope: Scope): PairKey {
   return `${category}::${scope}`;
 }
 
-/** A rule's severity as configured, matching how `selectRules` reads `config.rules`. */
-function severityOf(rule: Rule, config: Config): Severity {
+/** A rule's severity as configured, or undefined if the config turns it off. */
+function severityOf(rule: Rule, config: Config): Severity | undefined {
   const setting = settingSeverity(config.rules[rule.id]);
-  return setting !== undefined && setting !== 'off' ? setting : rule.severity;
+  if (setting === 'off') return undefined;
+  return setting ?? rule.severity;
 }
 
 /**
@@ -28,11 +29,13 @@ export function buildInventory(
 ): Map<PairKey, number> {
   const out = new Map<PairKey, number>();
   for (const rule of rules) {
-    // A rule list passed directly (as tests do) bypasses `selectRules`, so an 'off' setting
-    // must be re-checked here rather than trusted to have been filtered upstream.
-    if (settingSeverity(config.rules[rule.id]) === 'off') continue;
+    // An 'off' rule contributes nothing to the denominator it would otherwise be measured
+    // against — checked here rather than trusted to `selectRules`, since a rule list passed
+    // directly (as tests do) bypasses it.
+    const severity = severityOf(rule, config);
+    if (severity === undefined) continue;
     const key = pairKey(rule.category, rule.scope);
-    out.set(key, (out.get(key) ?? 0) + DEDUCTION[severityOf(rule, config)]);
+    out.set(key, (out.get(key) ?? 0) + DEDUCTION[severity]);
   }
   return out;
 }
