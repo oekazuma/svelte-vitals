@@ -337,7 +337,10 @@ describe('computeScore — proportional model', () => {
   });
 
   it('keeps an integral score integral', () => {
-    // 100 - (100*88)/110 is exactly 20; 100 * (1 - 88/110) is 19.999999999999996.
+    // NOT load-bearing on its own: f = 88, i = 110 also displays 20 under both wrong evaluation
+    // orders (100 * (1 - f/i) and 100 * (f/i)) — the deficit-space mean's subtraction happens to
+    // cancel their fp error at this particular anchor. Kept only as a worked example alongside the
+    // fixture below, which is the one that actually discriminates.
     const rules = [
       r('s/c1', 'seo', 'route', 'critical'),
       r('s/c2', 'seo', 'route', 'critical'),
@@ -352,6 +355,36 @@ describe('computeScore — proportional model', () => {
       ...Array.from({ length: 3 }, (_, i) => fail(`s/i${i}`, '/a', 'info'))
     ];
     expect(computeScore(results, defineConfig({}), { rules, applyCriticalCap: false }).score).toBe(20);
+  });
+
+  it('keeps an integral score integral — load-bearing: this anchor does discriminate', () => {
+    // f = 28, i = 50: 100 - (100*28)/50 is exactly 44; both 100 * (1 - 28/50) and 100 * (28/50)
+    // land on 43.99999999999999, displaying 43. Unlike the f=88/i=110 case above, this fixture
+    // fails under either wrong evaluation order — delete this one, not that one, if one has to go.
+    const rules = [
+      r('s/c1', 'seo', 'route', 'critical'),
+      ...Array.from({ length: 7 }, (_, i) => r(`s/w${i}`, 'seo', 'route', 'warning'))
+    ]; // inventory: 15 + 7*5 = 50
+    const results = [
+      fail('s/c1', '/a', 'critical'),
+      fail('s/w0', '/a', 'warning'),
+      fail('s/w1', '/a', 'warning'),
+      fail('s/w2', '/a', 'info'),
+      fail('s/w3', '/a', 'info'),
+      fail('s/w4', '/a', 'info')
+    ]; // failed: 15 + 5+5 + 1+1+1 = 28
+    expect(computeScore(results, defineConfig({}), { rules, applyCriticalCap: false }).score).toBe(44);
+  });
+
+  it('keeps a multi-key deficit-space mean integral — load-bearing against the same evaluation-order bug', () => {
+    // Two keys sharing an inventory of 11 (11 info rules), failing weight 2 and 9: true mean is
+    // exactly 50. Either wrong evaluation order lands the mean at 49.99999999999999, displaying 49.
+    const rules = Array.from({ length: 11 }, (_, i) => r(`p/i${i}`, 'performance', 'component', 'info'));
+    const results = [
+      ...Array.from({ length: 2 }, (_, i) => fail(`p/i${i}`, 'src/A.svelte', 'info')),
+      ...Array.from({ length: 9 }, (_, i) => fail(`p/i${i}`, 'src/B.svelte', 'info'))
+    ];
+    expect(computeScore(results, defineConfig({}), { rules }).score).toBe(50);
   });
 
   it('keeps an integral mean integral across keys', () => {
@@ -415,5 +448,32 @@ describe('computeScore — proportional model', () => {
       }).score;
     expect(one('x/c', 'critical')).toBeLessThan(one('x/w', 'warning'));
     expect(one('x/w', 'warning')).toBeLessThan(one('x/i', 'info'));
+  });
+});
+
+describe('computeScore — inventory wiring to config (no rules option, real registry)', () => {
+  it('a config severity override changes the default inventory, not just buildInventory in isolation', () => {
+    // architecture::component is 8 info rules (inventory 8) by default. Raising one rule's severity
+    // to 'warning' makes it 7 info + 1 warning = 12. Verified against the real registry: a key
+    // failing that one rule (now 'warning', deduction 5) scores 100 - 500/12 = 58.33, floored 58.
+    const config = defineConfig({ rules: { 'architecture/component-size': 'warning' } });
+    const results = [fail('architecture/component-size', 'src/A.svelte', 'warning')];
+    expect(computeScore(results, config).score).toBe(58);
+  });
+});
+
+describe('computeScore — the `?? 0` NaN guard', () => {
+  it('scores 0, not NaN, for a rule turned off in config but still carried in options.rules', () => {
+    // Reachable when a rule set is passed directly (bypassing selectRules, e.g. the `rules?:`
+    // escape hatch) while config still marks the rule off: `ruleScopes` maps its id to a pair, but
+    // `buildInventory` skips the rule, so that pair has no inventory entry at all and
+    // `inventory.get(p)` is `undefined`. `Math.max` does not rescue this — `Math.max(NaN, f)` is
+    // `NaN` — only the `?? 0` does.
+    const rule = r('a/off', 'architecture', 'component', 'warning');
+    const config = defineConfig({ rules: { 'a/off': 'off' } });
+    const results = [fail('a/off', 'src/A.svelte', 'warning')];
+    const { score } = computeScore(results, config, { rules: [rule] });
+    expect(Number.isFinite(score)).toBe(true);
+    expect(score).toBe(0);
   });
 });
