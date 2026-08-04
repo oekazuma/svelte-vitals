@@ -357,7 +357,7 @@ describe('computeScore — proportional model', () => {
     expect(computeScore(results, defineConfig({}), { rules, applyCriticalCap: false }).score).toBe(20);
   });
 
-  it('keeps an integral score integral — load-bearing: this anchor does discriminate', () => {
+  it('scores 44 for failedWeight 28 against inventory 50', () => {
     // f = 28, i = 50: 100 - (100*28)/50 is exactly 44; both 100 * (1 - 28/50) and 100 * (28/50)
     // land on 43.99999999999999, displaying 43. Unlike the f=88/i=110 case above, this fixture
     // fails under either wrong evaluation order — delete this one, not that one, if one has to go.
@@ -376,7 +376,7 @@ describe('computeScore — proportional model', () => {
     expect(computeScore(results, defineConfig({}), { rules, applyCriticalCap: false }).score).toBe(44);
   });
 
-  it('keeps a multi-key deficit-space mean integral — load-bearing against the same evaluation-order bug', () => {
+  it('scores 50 for a two-key mean of failed weight 2 and 9 against inventory 11', () => {
     // Two keys sharing an inventory of 11 (11 info rules), failing weight 2 and 9: true mean is
     // exactly 50. Either wrong evaluation order lands the mean at 49.99999999999999, displaying 49.
     const rules = Array.from({ length: 11 }, (_, i) => r(`p/i${i}`, 'performance', 'component', 'info'));
@@ -462,17 +462,30 @@ describe('computeScore — inventory wiring to config (no rules option, real reg
   });
 });
 
-describe('computeScore — the `?? 0` NaN guard', () => {
-  it('scores 0, not NaN, for a rule turned off in config but still carried in options.rules', () => {
-    // Reachable when a rule set is passed directly (bypassing selectRules, e.g. the `rules?:`
-    // escape hatch) while config still marks the rule off: `ruleScopes` maps its id to a pair, but
-    // `buildInventory` skips the rule, so that pair has no inventory entry at all and
-    // `inventory.get(p)` is `undefined`. `Math.max` does not rescue this — `Math.max(NaN, f)` is
-    // `NaN` — only the `?? 0` does.
+describe('computeScore — a disabled rule injected via options.rules', () => {
+  it('scores 0 and finite for a rule turned off in config but still carried in options.rules', () => {
+    // `computeScore` now runs `options.rules` through `selectRules` itself, so an `off` rule never
+    // reaches the inventory or `pairOf`: its penalized result observes no pair, `Math.max` floors the
+    // denominator to `failed`, and the key scores 0 rather than NaN or a false 100.
     const rule = r('a/off', 'architecture', 'component', 'warning');
     const config = defineConfig({ rules: { 'a/off': 'off' } });
     const results = [fail('a/off', 'src/A.svelte', 'warning')];
     const { score } = computeScore(results, config, { rules: [rule] });
+    expect(Number.isFinite(score)).toBe(true);
+    expect(score).toBe(0);
+  });
+
+  it('scores 0, not 80, when the off rule shares its pair with an enabled rule', () => {
+    // Before `options.rules` was filtered, `buildInventory` dropped the off rule internally but
+    // `ruleScopes` did not: charged against the enabled rule's own inventory of 5, the same failing
+    // off rule scored 80 here and 0 when injected alone in its pair — an inconsistency for identical
+    // input. Filtering both from the same list makes the off rule invisible to both, so this must
+    // match the isolated case.
+    const off = r('p/off', 'performance', 'component', 'info');
+    const enabled = r('p/warn', 'performance', 'component', 'warning');
+    const config = defineConfig({ rules: { 'p/off': 'off' } });
+    const results = [fail('p/off', 'src/A.svelte', 'info')];
+    const { score } = computeScore(results, config, { rules: [off, enabled], applyCriticalCap: false });
     expect(Number.isFinite(score)).toBe(true);
     expect(score).toBe(0);
   });

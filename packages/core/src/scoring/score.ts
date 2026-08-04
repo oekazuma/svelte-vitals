@@ -42,7 +42,10 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
   const routeResults = results.filter((r) => r.route !== undefined);
   const projectResults = results.filter((r) => r.route === undefined);
 
-  const rules = options.rules ?? selectRules(allRules, config);
+  // `selectRules` applied here, not just inside `buildInventory`, so `pairOf` and the inventory see
+  // the same filtered list — an injected rule that config turns `off` must vanish from both, not map
+  // to a pair in one and contribute nothing in the other.
+  const rules = selectRules([...(options.rules ?? allRules)], config);
   const inventory = buildInventory(config, rules);
   const pairOf = ruleScopes(rules);
 
@@ -73,6 +76,9 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
     let failed = 0;
     for (const d of ruleMax.get(key)?.values() ?? []) failed += d;
     let inventoryWeight = 0;
+    // `pairOf` and `inventory` are built from the same filtered `rules`, so every pair reachable
+    // through `pairOf` also has an inventory entry; the `?? 0` is a degrade-to-0-not-NaN fallback
+    // against a future divergence between the two, not a path this file's own inputs can reach.
     for (const p of pairs) inventoryWeight += inventory.get(p) ?? 0;
     // `max` keeps `failed` from exceeding its own denominator, so a penalized finding can never still
     // score 100: the two ways that would happen are `treatDynamicAs: 'warn'` promoting a result's
