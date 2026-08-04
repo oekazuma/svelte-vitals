@@ -11,7 +11,7 @@
 and stops mid-string. The report is 67,656 bytes. Measured on the repo's own
 `packages/cli/test/fixtures/basic-project`:
 
-```
+```console
 $ node dist/bin.js --reporter json | wc -c
    65536
 $ node dist/bin.js --reporter json | tail -c 40
@@ -21,7 +21,9 @@ src/routes/+layout.svelte",
 
 `bin.ts` writes the report through `console.log` and then calls `process.exit(code)`. A write to a pipe is
 not guaranteed to have drained when `process.exit` runs, so whatever is still buffered is discarded. This is
-silent: the exit code is still 1, so a consumer sees a successful run and a truncated payload.
+silent: the exit code is whatever the findings warranted — 1 here, per the CLI's contract of 0 for no
+failing findings, 1 for a critical or a threshold, 2 for an execution error — so nothing the process signals
+distinguishes a complete report from a truncated one.
 
 The file already knows. `bin.ts` line 85 onward:
 
@@ -129,7 +131,7 @@ So **add a sibling check that routes the report through a true pipe**, alongside
 mechanism, and which covers only `docs` and `explain`, the two paths that already return instead of exiting.
 
 **Three details decide whether that check holds anything.** An earlier draft of this section prescribed
-`execFileSync('sh', ['-c', `${cliCmd} --reporter json | cat`])` and each of the three defeats it:
+``execFileSync('sh', ['-c', `${cliCmd} --reporter json | cat`])`` and each of the three defeats it:
 
 - **It must capture and parse the payload.** `execFileSync` throws only on a nonzero exit, and a pipeline's
   status is the _last_ command's — `cat`'s. Measured: `sh -c 'exit 1 | cat'` and even

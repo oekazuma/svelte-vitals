@@ -244,6 +244,12 @@ Revert the `await new Promise(...)` line, rebuild, run `pnpm smoke`, and confirm
 Restore it, rebuild, confirm 8 of 8. Report both results. A fix whose removal leaves the smoke green is not
 the fix.
 
+> **Superseded (2026-08-04):** "confirm the two checks fail again" is one check too strong. The socketpair check
+> is deterministic, but the shell-pipe check is a race the writer usually — not always — wins, so an unlucky
+> revert could show only one failure and be misread as "the fix is not load-bearing". Read it the way the
+> design's Testing section reads the CI run: **any truncation confirms it, and an all-green revert is
+> inconclusive rather than exonerating.** In practice both checks failed on every revert run performed here.
+
 - [ ] **Step 6: Run the package suites and typecheck**
 
 ```bash
