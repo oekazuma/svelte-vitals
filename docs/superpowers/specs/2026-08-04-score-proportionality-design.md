@@ -227,7 +227,10 @@ standard.
 `computeScore` needs a rule inventory, which it has never had. It does not need a new argument.
 
 `ScoreOptions` gains `rules?: readonly Rule[]`, defaulting to `selectRules(allRules, config)` computed
-inside `computeScore`. Nothing under `packages/core/src/rules/` imports anything under
+inside `computeScore`. A supplied list is not taken as given either: `computeScore` runs it through
+`selectRules(config)` itself, so an injected rule that config turns `off` is dropped from the inventory and
+from `pairOf` alike, rather than reaching one but not the other. Nothing under `packages/core/src/rules/`
+imports anything under
 `packages/core/src/scoring/`, so the import direction is free — verified before choosing this shape. Every
 existing call site — three reporters in `core`, three in `cli`, one in `vite` — is untouched, and the
 optional parameter remains for tests and for scoring against a rule set that is not the registry. The Vite

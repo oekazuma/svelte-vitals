@@ -185,6 +185,11 @@ export function ruleScopes(rules: readonly Rule[]): Map<string, PairKey> {
 }
 ```
 
+> **Superseded (2026-08-04):** this `severityOf` restores an `off` rule's own severity, which contradicts the
+> "drops a rule turned off" test above (that test's inventory of 15 requires the `off` rule contribute
+> nothing, not its own 1). The shipped `severityOf` returns `undefined` for an `off` rule instead, and
+> `buildInventory` skips it — see `packages/core/src/scoring/inventory.ts` and its test.
+
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `../../node_modules/.bin/vitest run test/inventory.test.ts`

@@ -15,11 +15,11 @@ same score.
 A key now scores the share of what it was measured against that is intact, weighted by severity. Every
 category can reach 0, and the score moves with the number of findings.
 
-**Every score changes, most of them downward, and by more than a point.** `seo` and `correctness` stay
-within a point of their old values; `architecture`, `security` and `performance` move further, because their
-scales were the most compressed. A `--min-health` gate calibrated against the old numbers will start
-failing — recalibrate it against the new scale. `routes[].score` in the JSON report changes meaning the same
-way. Stored baselines are unaffected, since they key on findings rather than scores.
+**Any category carrying a finding changes, most of them downward and by more than a point; a clean 100 stays 100.** `seo` and `correctness` stay within a point of their old values; `architecture`, `security` and
+`performance` move further, because their scales were the most compressed. A `--min-health` gate calibrated
+against the old numbers will start failing — recalibrate it against the new scale. `routes[].score` in the
+JSON report changes meaning the same way. Stored baselines are unaffected, since they key on findings rather
+than scores.
 
 Unchanged: the site-wide penalty stays in absolute points, a `critical` still caps a category at 79, and a
 displayed 100 still means no finding among the checks that ran.
