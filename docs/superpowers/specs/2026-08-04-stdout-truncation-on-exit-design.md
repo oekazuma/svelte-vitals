@@ -59,9 +59,11 @@ CI is green because its channel is wide, not because its platform is synchronous
 
 **Two consequences, both of which the first draft got wrong.**
 
-- **A Linux user piping to `jq` is affected.** A real shell pipe has a 65,536-byte buffer on Linux and
-  asynchronous writes, so `svelte-vitals --reporter json | jq` truncates there for the same reason it does
-  here. This is not a macOS-only defect, and it lands on the platform every CI consumer runs on.
+- **A Linux user piping to `jq` should be affected too.** A real shell pipe has a 65,536-byte buffer on Linux
+  and asynchronous writes, so `svelte-vitals --reporter json | jq` is expected to truncate there for the same
+  reason it does here. Stated as an expectation rather than a fact because it is exactly what the CI run
+  mandated under Testing establishes — but if it holds, this is not a macOS-only defect, and it lands on the
+  platform every CI consumer runs on.
 - **The regression is CI-defensible after all.** Routing the CLI through a real pipe —
   `execFileSync('sh', ['-c', '… bin.js … --reporter json | cat'])` — exercises the 65,536-byte channel on
   Linux. Measured through `sh -c … | cat` on macOS: **65,536 bytes, truncated**, against 67,656 through the
@@ -149,7 +151,10 @@ const stdout = execFileSync(
   ['-c', '"$1" "$2" "$3" --reporter json | cat', 'sh', process.execPath, cliBin, basicProject],
   {
     encoding: 'utf8',
-    stdio: ['ignore', 'pipe', 'ignore']
+    // stderr inherited, not ignored: a clean `--reporter json` run writes nothing there (the spinner and
+    // mascot are console-reporter-and-TTY gated), so passing runs stay silent — and when the fixture is
+    // broken, the CLI's own reason beats `Unexpected end of JSON input` as the thing the smoke prints.
+    stdio: ['ignore', 'pipe', 'inherit']
   }
 );
 JSON.parse(stdout);
