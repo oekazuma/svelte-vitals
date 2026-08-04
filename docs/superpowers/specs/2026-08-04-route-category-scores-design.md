@@ -126,7 +126,7 @@ real and two of them are ordinary:
 2. **Equal observed inventories force agreement whatever the ratios**, for any number of categories — the
    identity is `Σ(fⱼ/i)/k = (Σfⱼ)/(k·i)`. Verified at `k = 2`, `i = 28` each, `f = 5` and `f = 10` (both
    display **73**) and at `k = 3`, `i = 30` each, `f = 3/12/24` (both exactly 56.666666666666664). For two
-   categories these are provably the **only** exceptions besides equal ratios: mean and union coincide exactly
+   categories these are provably the **only exact coincidences** besides equal ratios: mean and union coincide exactly
    when `(i₂ − i₁)(f₁i₂ − f₂i₁) = 0`. That proof is for `k = 2` only; exception 3 exhibits coincidences at
    `k ≥ 3` that neither condition explains. Reachable by ordinary configuration, since turning rules off
    shrinks an inventory.
