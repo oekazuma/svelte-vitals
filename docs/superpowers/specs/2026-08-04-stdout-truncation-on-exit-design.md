@@ -48,9 +48,14 @@ child a pipe:
 | `execFileSync(...)`     | `isSocket() → true` | AF_UNIX socketpair    |
 | `cmd \| cat` in a shell | `isFIFO() → true`   | pipe, 65,536 on Linux |
 
-Both verified by `fstatSync(1)` in a child. A socketpair's default buffer is roughly 64 KB on macOS and
-roughly 208 KB on Linux, so the 67,656-byte report fits on a Linux runner and is cut on a macOS laptop. That
-is the whole of it: CI is green because its channel is wide, not because its platform is synchronous.
+Both verified by `fstatSync(1)` in a child. A socketpair's effective capacity is **exactly 65,536 bytes** on
+macOS — measured by binary search, a child writing N bytes then exiting delivers all of N below that and
+exactly 65,536 above it — against a stock Linux `wmem_default` of 212,992. So the 67,656-byte report should
+fit on a Linux runner and is cut on a macOS laptop. The Linux figure is a kernel default this design cannot
+measure from here; the CI run mandated under Testing corroborates the mechanism directly rather than resting
+on it.
+
+CI is green because its channel is wide, not because its platform is synchronous.
 
 **Two consequences, both of which the first draft got wrong.**
 
@@ -119,27 +124,57 @@ report.
 
 So **add a sibling check that routes the report through a true pipe**, alongside the existing
 `the read-only subcommands deliver complete JSON through a pipe` — whose comment already names this exact
-mechanism, and which covers only `docs` and `explain`, the two paths that already return instead of exiting:
+mechanism, and which covers only `docs` and `explain`, the two paths that already return instead of exiting.
+
+**Three details decide whether that check holds anything.** An earlier draft of this section prescribed
+`execFileSync('sh', ['-c', `${cliCmd} --reporter json | cat`])` and each of the three defeats it:
+
+- **It must capture and parse the payload.** `execFileSync` throws only on a nonzero exit, and a pipeline's
+  status is the _last_ command's — `cat`'s. Measured: `sh -c 'exit 1 | cat'` and even
+  `sh -c 'no-such-cmd | cat'` both exit 0 and do not throw. A check that only runs the pipeline passes
+  against the unfixed CLI, against a truncated payload, and against a CLI that never launched.
+- **The path must not be interpolated into the shell string**, which word-splits on a checkout containing a
+  space. Use positional parameters.
+- **It must not assert the exit code.** The CLI's 0/1/2 contract cannot survive `| cat` — measured, the CLI
+  exits 1 while `sh` reports 0. `set -o pipefail` would need bash semantics from `/bin/sh`, which is `dash` on
+  `ubuntu-latest`. So this check owns **payload integrity only**; exit-code fidelity stays with the existing
+  socketpair check, which asserts it correctly today.
+
+The form that satisfies all three, verified here — 65,536 bytes and
+`Unterminated string in JSON at position 65488` without the fix, 67,656 and valid JSON with it:
 
 ```js
-execFileSync('sh', ['-c', `${cliCmd} --reporter json | cat`]);
+const stdout = execFileSync(
+  'sh',
+  ['-c', '"$1" "$2" "$3" --reporter json | cat', 'sh', process.execPath, cliBin, basicProject],
+  {
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'ignore']
+  }
+);
+JSON.parse(stdout);
 ```
 
 `sh` is the OS shell, not a dependency, so this respects the smoke's Node-builtins-only rule; every CI job
-runs `ubuntu-latest` and every developer machine here is POSIX. Measured on macOS: 65,536 bytes and a parse
-failure without the fix, 67,656 and valid JSON with it.
+runs `ubuntu-latest` and every developer machine here is POSIX.
 
 **The order of work matters, and the plan must follow it.** Add the pipe check _before_ the fix and push it,
-so CI runs it against the unfixed CLI. Two outcomes, both informative:
+so CI runs it against the unfixed CLI.
 
-- **CI fails** — the bug is confirmed on Linux, the check is proven to catch it, and the fix turns it green.
-  This is the expected outcome and the one that makes the regression permanently defensible.
-- **CI passes** — the Linux pipe does not truncate for a reason not yet identified, the check cannot defend
-  the regression there, and that measured fact gets recorded in this spec instead of the assumption it
-  replaced.
+**Read the result asymmetrically, because only one direction is deterministic.** Truncation is a race the
+writer usually wins: measured 12 of 12 truncations here, but the reviewer of this design saw 1 run in 15
+deliver the whole payload, because the reader can drain the FIFO during the writer's syscall. So:
 
-Either way the claim ends up backed by a CI run rather than by reasoning, which is what the first draft of
-this section skipped.
+- **Any truncation, on any run, confirms it.** One red is proof; the check is then permanently valuable
+  because the flush makes delivery deterministic — after the fix it cannot flake red.
+- **Green does not settle anything on its own.** The `test` job runs the smoke on three matrix entries and
+  `floor-smoke` runs it again, so a single push already yields four samples; treat "cannot defend the
+  regression on Linux" as established only after repeated all-green across pushes, and record the measured
+  fact here if that happens.
+
+The same CI run also corroborates the channel explanation directly: the socketpair check green beside the pipe
+check red, same runner, same unfixed binary, is channel-dependence demonstrated rather than inferred from a
+kernel default this design could not measure.
 
 **One thing to know rather than assert.** The check only means anything while the fixture's report exceeds
 65,536 bytes; it is 67,656 today, 3% above. A fixture that shrank below the buffer would make the check pass
