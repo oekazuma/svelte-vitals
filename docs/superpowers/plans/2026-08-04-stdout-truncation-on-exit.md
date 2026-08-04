@@ -123,6 +123,11 @@ cd packages/cli/test/fixtures/basic-project && node ../../../dist/bin.js --repor
 67,656 is the expected figure. A number at or below 65,536 means the fixture, not the check, needs attention —
 report it rather than adjusting the check.
 
+> **Superseded (2026-08-04):** that command cannot give the reading this step asks for. `wc -c` sits on the far
+> side of the very pipe under test, so against the unfixed CLI it reports 65,536 — the truncated length — not
+> 67,656. Redirect to a file and check its size instead. Task 2's Step 4 uses the same command correctly,
+> because there it runs after the fix.
+
 - [ ] **Step 4: Confirm nothing else regressed**
 
 ```bash

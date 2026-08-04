@@ -23,7 +23,7 @@ src/routes/+layout.svelte",
 not guaranteed to have drained when `process.exit` runs, so whatever is still buffered is discarded. This is
 silent: the exit code is still 1, so a consumer sees a successful run and a truncated payload.
 
-The file already knows. `bin.ts` line 84 onward:
+The file already knows. `bin.ts` line 85 onward:
 
 > `docs` and `explain` set `process.exitCode` and return rather than calling `process.exit`: writes to a pipe
 > are asynchronous, and exiting can discard whatever has not drained. … (`install`/`ci` and the analysis path
@@ -59,11 +59,11 @@ CI is green because its channel is wide, not because its platform is synchronous
 
 **Two consequences, both of which the first draft got wrong.**
 
-- **A Linux user piping to `jq` should be affected too.** A real shell pipe has a 65,536-byte buffer on Linux
-  and asynchronous writes, so `svelte-vitals --reporter json | jq` is expected to truncate there for the same
-  reason it does here. Stated as an expectation rather than a fact because it is exactly what the CI run
-  mandated under Testing establishes — but if it holds, this is not a macOS-only defect, and it lands on the
-  platform every CI consumer runs on.
+- **A Linux user piping to `jq` is affected too.** A real shell pipe has a 65,536-byte buffer on Linux and
+  asynchronous writes, so `svelte-vitals --reporter json | jq` truncates there for the same reason it does
+  here. Written as an expectation in the draft and **confirmed by the CI run this design mandated** — see
+  "The result" under Testing. This is not a macOS-only defect, and it lands on the platform every CI consumer
+  runs on.
 - **The regression is CI-defensible after all.** Routing the CLI through a real pipe —
   `execFileSync('sh', ['-c', '… bin.js … --reporter json | cat'])` — exercises the 65,536-byte channel on
   Linux. Measured through `sh -c … | cat` on macOS: **65,536 bytes, truncated**, against 67,656 through the
@@ -180,6 +180,20 @@ deliver the whole payload, because the reader can drain the FIFO during the writ
 The same CI run also corroborates the channel explanation directly: the socketpair check green beside the pipe
 check red, same runner, same unfixed binary, is channel-dependence demonstrated rather than inferred from a
 kernel default this design could not measure.
+
+### The result, recorded 2026-08-04
+
+**The experiment ran and Linux truncates.** PR #364 pushed the pipe check alone, against the unfixed CLI:
+`test (24.16.0)` and `floor-smoke` both failed at the smoke step on `ubuntu-latest` (the other two matrix
+entries were cancelled by fail-fast). The commit adding the fix turned all seven jobs green, including all
+four that run the smoke.
+
+So this is not a macOS-only defect: `svelte-vitals --reporter json | jq` was truncated on Linux too, and the
+check now defends the regression on the platform CI runs. Nothing about the asymmetric reading above needs to
+be exercised — one red settled it on the first push.
+
+The failing check was identified by inference rather than from the log text, which this environment cannot
+fetch: `main` had `floor-smoke` green, and the only code change on the pushed commit was the added check.
 
 **One thing to know rather than assert.** The check only means anything while the fixture's report exceeds
 65,536 bytes; it is 67,656 today, 3% above. A fixture that shrank below the buffer would make the check pass
