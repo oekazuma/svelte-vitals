@@ -1,5 +1,65 @@
 # @svelte-vitals/vite
 
+## 0.24.0
+
+### Minor Changes
+
+- 6174836: Add `architecture/doc-link-target`, which reports a documentation link inside a component comment whose
+  target no longer exists.
+
+  Such a link has nothing to resolve it — no type refers to it, no module imports it, no test renders it — so
+  a rename leaves it silently broken and only human review notices. A reorganisation that renames many units
+  can break every one of them at once.
+
+  **Off until configured.** Declare `urlRoots` with the URL prefixes that stand for your project's root; a
+  link under one of them has that prefix stripped and the remainder looked up among the files under `src/`. A
+  URL under no declared prefix is ignored, which is what keeps external links and documentation slugs out of
+  the results — as is a remainder that lands outside `src/` (a root-level `CONTRIBUTING.md`, a `static/`
+  asset), since the file inventory has no opinion there. A directory link written with its ordinary trailing
+  slash resolves the same as one without.
+
+  `ComponentFacts` gains a required `commentLinks` array carrying these links; anyone constructing a
+  `ComponentFacts` directly (custom tooling, tests) needs to supply it.
+
+- 3e3234b: `--reporter json` gains a top-level `rules` map of rule id to `{ findings, passed }`, listing every rule
+  that ran.
+
+  It answers a question the report could not: `issues` lists only failing findings, so a rule that found
+  nothing left no trace — indistinguishable from a rule that was never selected. A rule present in `rules`
+  ran; a rule missing from it was not selected. `passed` is also unavailable elsewhere, since `summary` is
+  project-wide.
+
+  The counts describe the report rather than the tree: baseline, suppression and `--diff` filtering are
+  applied first, so a rule whose findings were all suppressed shows `findings: 0` and stays present.
+
+- f9390f0: Category scores now reflect **how much** is wrong, not merely whether anything is.
+
+  A key — a route or a source file — used to start at 100 and lose a fixed number of points per failing rule.
+  That capped what a category could express: `architecture` is eight `info` rules, so no amount of bad code
+  moved it below 92, and three more scopes bottomed out above 90. It also erased magnitude, because one
+  finding moves a mean of N keys by `1/N`: on a large project, one finding and several hundred displayed the
+  same score.
+
+  A key now scores the share of what it was measured against that is intact, weighted by severity. Every
+  category can reach 0, and the score moves with the number of findings.
+
+  **Any category carrying a finding changes, most of them downward and by more than a point; a clean 100 stays 100.** `seo` and `correctness` stay within a point of their old values; `architecture`, `security` and
+  `performance` move further, because their scales were the most compressed. A `--min-health` gate calibrated
+  against the old numbers will start failing — recalibrate it against the new scale. `routes[].score` in the
+  JSON report changes meaning the same way. Stored baselines are unaffected, since they key on findings rather
+  than scores.
+
+  Unchanged: the site-wide penalty stays in absolute points, a `critical` still caps a category at 79, and a
+  displayed 100 still means no finding among the checks that ran.
+
+### Patch Changes
+
+- Updated dependencies [6174836]
+- Updated dependencies [3e3234b]
+- Updated dependencies [f9390f0]
+  - @svelte-vitals/core@0.33.0
+  - svelte-vitals@0.38.0
+
 ## 0.23.3
 
 ### Patch Changes
