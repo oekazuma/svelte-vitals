@@ -25,22 +25,30 @@ describe('computeScore (§12 worked example)', () => {
       pass('seo/title-presence', '/b'),
       pass('seo/title-presence', '/c'),
       pass('seo/title-presence', '/d'),
-      // route /blog: critical + 2 warnings + 1 info  => 100-15-5-5-1 = 74
+      // route /blog: critical(15) + warning(5) + warning(5) + info(1) = 26 failed, against the real
+      // seo::route registry inventory (110) -> key score 100 - 2600/110 = 76.36...
       fail('seo/description-presence', '/blog', 'critical'),
       fail('seo/canonical-url', '/blog', 'warning'),
       fail('seo/og-image', '/blog', 'warning'),
       fail('seo/json-ld', '/blog', 'info'),
-      // project rule: robots.txt missing (warning) => site penalty 5
+      // two distinct project rules, so sitePenalty below demonstrably sums (5 + 1) rather than
+      // echoing a single deduction — the one field the proportional rewrite left untouched.
       {
         id: 'seo/robots-txt',
         severity: 'warning',
         detection: { presence: 'none', value: 'absent' },
         message: 'no robots'
+      },
+      {
+        id: 'seo/sitemap-in-robots',
+        severity: 'info',
+        detection: { presence: 'none', value: 'absent' },
+        message: 'no sitemap link'
       }
     ];
     const { score, scoreModel } = computeScore(results, defineConfig({}));
-    expect(scoreModel.routeAverage).toBe(94); // (100*4 + 74)/5 = 94.8 -> floor 94
-    expect(scoreModel.sitePenalty).toBe(5);
+    expect(scoreModel.routeAverage).toBe(95); // (100*4 + 76.36..)/5 = 95.27 -> floor 95
+    expect(scoreModel.sitePenalty).toBe(6); // DEDUCTION.warning + DEDUCTION.info = 5 + 1
     expect(scoreModel.criticalCap).toBe(79);
     expect(score).toBe(79);
   });
@@ -52,7 +60,8 @@ describe('computeScore (§12 worked example)', () => {
   });
 
   it('reports criticalCap null when the cap does not actually lower the score', () => {
-    // /x: critical (15) + 5 warnings (25) => 100-40 = 60, already below the 79 cap.
+    // /x: critical(15) + 5 warnings(5 each) = 40 failed, against inventory 110 -> key score
+    // 100 - 4000/110 = 63.63, floored to 63 - well below the 79 cap.
     const results: Result[] = [
       fail('seo/description-presence', '/x', 'critical'),
       fail('seo/canonical-url', '/x', 'warning'),
@@ -62,7 +71,7 @@ describe('computeScore (§12 worked example)', () => {
       fail('seo/twitter-card', '/x', 'warning')
     ];
     const { score, scoreModel } = computeScore(results, defineConfig({}));
-    expect(score).toBe(60);
+    expect(score).toBe(63);
     expect(scoreModel.criticalCap).toBeNull();
   });
 
@@ -77,7 +86,8 @@ describe('computeScore (§12 worked example)', () => {
       }
     ];
     expect(computeScore(results, defineConfig({})).score).toBe(79); // capped (default)
-    expect(computeScore(results, defineConfig({}), { applyCriticalCap: false }).score).toBe(85); // uncapped: 100-15
+    // uncapped: failed 15 of inventory 110 -> 100 - 1500/110 = 86.36, floored 86
+    expect(computeScore(results, defineConfig({}), { applyCriticalCap: false }).score).toBe(86);
   });
 
   it('deducts once per (route, rule) even if a rule emits duplicate penalized results', () => {
@@ -97,8 +107,9 @@ describe('computeScore (§12 worked example)', () => {
         message: 'b'
       }
     ];
-    // one deduction per (route, rule), taking the max (critical = 15) -> 100-15 = 85, uncapped view
-    expect(computeScore(results, defineConfig({}), { applyCriticalCap: false }).score).toBe(85);
+    // one deduction per (route, rule), taking the max (critical = 15) -> failed 15 of inventory 110
+    // -> 100 - 1500/110 = 86.36, floored 86, uncapped view
+    expect(computeScore(results, defineConfig({}), { applyCriticalCap: false }).score).toBe(86);
   });
 
   it('deducts once per project rule even if duplicated', () => {
@@ -204,7 +215,8 @@ describe('computeScore — a displayed 100 means zero deduction', () => {
   it('exposes the unrounded score alongside the floored one', () => {
     const r = computeScore(spread(585, 276), CONFIG);
     expect(r.score).toBe(99);
-    expect(r.rawScore).toBeCloseTo(99.528, 3);
+    // 276 keys fail (id in the real seo::route inventory, 110): 100 - (276*100/110)/585 = 99.571095571...
+    expect(r.rawScore).toBeCloseTo(99.571, 3);
   });
 
   it('floors routeAverage too, keeping score = routeAverage - sitePenalty when neither cap nor clamp binds', () => {

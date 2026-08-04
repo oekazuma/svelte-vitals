@@ -100,15 +100,20 @@ describe('computeHealth — one rounding, at the boundary', () => {
     );
 
   it('floors the mean of the unrounded category scores, not of the displayed ones', () => {
-    // Raw category scores [99.9, 99.9, 99.9, 99.9, 97.9] → mean 99.5 → 99.
-    // Averaging the floored scores [99, 99, 99, 99, 97] gives 98.6 → 98: a two-point move, which is
-    // what this asserts against. 100 info findings over 1000 keys = 99.9; 420 warnings = 97.9.
+    // `${category}/x` is not a registered rule id, so it carries no inventory: a penalized key on
+    // it is measured against `max(0, failed)`, i.e. against its own failed weight — a 100% deficit
+    // regardless of severity (see score.test.ts "scores 0 ... for a rule not in the inventory").
+    // A category's raw score is therefore exactly 100 * clean-keys/total-keys. 1 of 1000 keys failing
+    // → 100*(999/1000) = 99.9; 21 of 1000 → 100*(979/1000) = 97.9.
+    // Raw category scores [99.9, 99.9, 99.9, 99.9, 97.9] → mean 99.5 → floor 99.
+    // Averaging the floored scores [99, 99, 99, 99, 97] first gives 98.6 → floor 98, which is what
+    // this test asserts against.
     const results = [
-      ...at('seo', 1000, 100, 'info'),
-      ...at('performance', 1000, 100, 'info'),
-      ...at('correctness', 1000, 100, 'info'),
-      ...at('security', 1000, 100, 'info'),
-      ...at('architecture', 1000, 420, 'warning')
+      ...at('seo', 1000, 1, 'info'),
+      ...at('performance', 1000, 1, 'info'),
+      ...at('correctness', 1000, 1, 'info'),
+      ...at('security', 1000, 1, 'info'),
+      ...at('architecture', 1000, 21, 'warning')
     ];
     expect(computeHealth(results, CONFIG).health).toBe(99);
   });
@@ -145,9 +150,14 @@ describe('computeHealth — one rounding, at the boundary', () => {
     expect(computeHealth([], CONFIG).health).toBe(100);
     // A zero-weight category is present (its rule ran) and can hold a penalized finding — here severe
     // enough to cap its own score at 79 — without moving Health at all: the invariant is bounded to
-    // positively weighted categories, not merely present ones.
-    const penalizedSecurity: Result[] = cat('security', 10, 10).map((r, i) =>
-      i === 0 ? { ...r, severity: 'critical' as const } : r
+    // positively weighted categories, not merely present ones. One critical amid 199 clean keys pushes
+    // the raw score to 99.5 (100 - 100/200), and any critical present caps a raw score above 79 down
+    // to exactly 79 regardless of how small the underlying deficit is (same construction as "lets a
+    // capped category pull Health down" above).
+    const penalizedSecurity: Result[] = cat('security', 200, 0).map((r, i) =>
+      i === 0
+        ? { ...r, severity: 'critical' as const, detection: { presence: 'none' as const, value: 'absent' as const } }
+        : r
     );
     const zeroWeighted = computeHealth(
       [...cat('seo', 10, 0), ...penalizedSecurity],
@@ -158,9 +168,11 @@ describe('computeHealth — one rounding, at the boundary', () => {
   });
 
   it('treats a weight small enough to underflow an epsilon as still not clean (regression)', () => {
-    // seo carries a single `info` finding on its only key, so its rawScore is exactly 99. Weighted at
-    // 1e-12 alongside a clean weight-1 category, the true quotient is 99.999999999999 — below 100, but
-    // only by ~1e-12. The old `Math.floor(weighted / total + 1e-9)` guard rounded that up to 100,
+    // seo carries a single `info` finding on its only key; `${category}/x` has no inventory (see the
+    // test above), so the key takes a full 100% deficit and seo's rawScore is 0, not merely reduced.
+    // Weighted at 1e-12 alongside a clean weight-1 category, the true quotient is 99.9999999999 — below
+    // 100, but only by ~1e-10 (the full 100-point deficit times the negligible weight share). The old
+    // `Math.floor(weighted / total + 1e-9)` guard rounded that up to 100,
     // silently letting a real finding hide behind a tiny weight and pass `--min-health 100`. Working in
     // deficit space has no such blind spot: the deficit here is strictly positive (not the exact-zero
     // case), so it is floored down, not tolerance-forgiven. Confirmed this fails (returns 100) against
