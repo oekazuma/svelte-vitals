@@ -1,6 +1,14 @@
 import { describe, it, expect } from 'vitest';
-import { buildHtmlDocument, formatHtmlReport, renderAppShell, escapeHtml, safeHref, scoreBand } from '../src/index.js';
-import type { AppSnapshot } from '../src/index.js';
+import {
+  buildHtmlDocument,
+  formatHtmlReport,
+  renderAppShell,
+  escapeHtml,
+  safeHref,
+  scoreBand,
+  defineConfig
+} from '../src/index.js';
+import type { AppSnapshot, Result } from '../src/index.js';
 import type { JsonReport } from '../src/reporter/json.js';
 import type { ScoreModel } from '../src/scoring/score.js';
 
@@ -17,10 +25,11 @@ const report: JsonReport = {
   summary: { critical: 1, warning: 2, info: 1, passed: 37, dynamic: 3 },
   rules: {},
   routes: [
-    { route: '/', score: 100, issues: [] },
+    { route: '/', score: 100, categories: {}, issues: [] },
     {
       route: '/products/[id]',
       score: 40,
+      categories: {},
       issues: [
         {
           id: 'seo/title-presence',
@@ -149,6 +158,23 @@ describe('formatHtmlReport', () => {
     expect(out).toContain('</html>');
     expect(extractEmbeddedSnapshot(out).live).toBe(false);
   });
+
+  it('carries per-route category scores into the embedded snapshot', () => {
+    // `sanitizeReport` spreads each route, so this passes today — it exists to fail if that spread is
+    // ever replaced by an explicit field list.
+    const results: Result[] = [
+      {
+        id: 'seo/canonical-url',
+        category: 'seo',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'x'
+      }
+    ];
+    const html = formatHtmlReport(results, defineConfig({}), { version: '0.0.0' });
+    expect(html).toContain('"categories":{"seo":95}');
+  });
 });
 
 describe('parity with the live dashboard shell', () => {
@@ -181,6 +207,7 @@ describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loo
         {
           route: '/x',
           score: 0,
+          categories: {},
           issues: [
             {
               id: 'seo/title-presence',
@@ -209,6 +236,7 @@ describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loo
         {
           route: '/a',
           score: 80,
+          categories: {},
           issues: [
             {
               id: 'seo/title-presence',

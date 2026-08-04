@@ -21,6 +21,7 @@ const report: JsonReport = {
     {
       route: '/blog/hello',
       score: 50,
+      categories: {},
       issues: [
         {
           id: 'seo/title-presence',
