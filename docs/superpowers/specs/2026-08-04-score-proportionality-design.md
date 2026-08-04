@@ -52,20 +52,55 @@ And severity must still order findings: within a category and scope, a `critical
 ### The model: a key scores the share of its scope that is intact
 
 ```
-keyScore = clamp(100 × (1 − failedWeight / inventoryWeight))
+keyScore = inventoryWeight === 0 ? 100 : clamp(100 − (100 × failedWeight) / inventoryWeight)
 ```
 
 - **`failedWeight`** — over the distinct rule ids that produced a penalized result on this key, the sum of
   `DEDUCTION[effective severity]`, taking the maximum among duplicates. This is today's numerator
   unchanged; only what it is divided by is new.
-- **`inventoryWeight`** — the sum of `DEDUCTION[severity]` over the selected rules in this category whose
-  scope is among the scopes observed on this key.
+- **`inventoryWeight`** — `max(observedInventory, failedWeight)`, where `observedInventory` is the sum of
+  `DEDUCTION[severity]` over the selected rules whose **(category, scope) pair** is among the pairs
+  observed on this key.
 
 Everything downstream is unchanged: key scores are averaged, `sitePenalty` is subtracted, the cap is
 applied, the result is floored.
 
-The reading is "of what this category checks at this scope, how much is intact" — the same shape as the
+The reading is "of what this key was measured against, how much is intact" — the same shape as the
 audit-weighted category score users already know from browser performance tooling.
+
+**Three details in that formula are load-bearing, and two of them are arithmetic.**
+
+**The pair, not the scope alone.** `computeScore` takes results, not a category: `scoresByCategory` buckets
+first and calls it per category, but three call sites pass a multi-category set — `routes[].score` in the
+JSON report, the console's "By route" tree, and the Vite plugin's overall score. Partitioning by scope alone
+leaves those undefined. Summing over observed `(category, scope)` pairs defines them and reduces to the
+single-category rule exactly when the input is single-category, so the two paths cannot disagree. A route
+carrying one failing `seo` `warning` alongside passing `performance` route rules scores `100 − 500/138 =
+96.38` against the union, where the `seo` bucket alone gives `95.45`; both are defined, and which applies
+depends only on what was handed in.
+
+**The evaluation order.** `100 × (1 − f / i)` loses a full displayed point on values that are exactly
+integral: with `f = 88, i = 110` it yields `19.999999999999996`, which floors to **19** for a true **20**
+(and `f = 99` gives `9.999999999999998` → **9** for **10**; both are reachable on one `seo` route). Written
+as `100 − (100 × f) / i`, `100 × f` and `i` are exact integers and an integer quotient of exact integers is
+exactly representable — the same argument `score.ts` already makes for the route mean, whose comment must be
+updated because this model breaks its stated premise that every key score is an integer.
+
+**`max(observedInventory, failedWeight)` and the zero guard.** Normally `observedInventory ≥ failedWeight`,
+since every failing rule sits in its own pair's inventory, and the `max` is inert. It is there for the two
+cases where that does not hold, both of which would otherwise divide by zero or produce `NaN` —
+`clamp(NaN)` is `NaN`, which would propagate into the category score, into Health, and out as
+`"score": null`:
+
+- `treatDynamicAs: 'warn'` promotes a **result's** severity without changing its rule's, so `failedWeight`
+  can exceed the inventory. The key scores 0, which is the honest reading.
+- A result whose rule id is absent from the inventory — reachable through the `rules?:` escape hatch below,
+  or a set of results scored against a configuration that turned its rule `off`. It observes no pair, so it
+  contributes nothing to `observedInventory`; the `max` keeps it from being divided by zero and from
+  displaying 100 with a finding present, which would break the invariant this spec inherits.
+
+The zero guard covers the remaining case: a key with no penalized results and no observed pair scores 100,
+matching today's seed.
 
 ### Why the denominator is the scope's inventory and not what applied
 
@@ -96,22 +131,26 @@ principle behind it.
 more than one scope. A component key measured against route-scoped rules it can never trigger keeps a
 guaranteed share of the denominator intact — the ceiling, reintroduced one level down.
 
-**Chosen: the inventory of the scopes observed on the key.** Partitioning by scope removes the objection to
-the whole-inventory form while keeping its stability. The denominator does not depend on which checks
-happened to have something to say about this particular file, so no key collapses to a denominator of one.
+**Chosen: the inventory of the `(category, scope)` pairs observed on the key.** Partitioning removes the
+objection to the whole-inventory form while keeping its stability. The denominator does not depend on which
+checks happened to have something to say about this particular file, so no key collapses to a denominator of
+one.
 
 ### The unevenness this accepts, stated rather than smoothed
 
 Because the denominator is the scope's rule count, a scope with few rules charges more per finding:
 
-| key                                 | inventory | one finding | today |
-| ----------------------------------- | --------- | ----------- | ----- |
-| seo / route (`critical`)            | 110       | 86          | 85    |
-| correctness / component (`warning`) | 96        | 95          | 95    |
-| security / component (`critical`)   | 35        | 57          | 85    |
-| performance / route (`warning`)     | 28        | 82          | 95    |
-| architecture / component (`info`)   | 8         | 88          | 99    |
-| performance / component (`warning`) | 9         | **44**      | 95    |
+Key scores are **not** rounded — they are averaged, and only the category score is floored. The column
+below is the exact key score, so a single-key category displays its floor:
+
+| key                                 | inventory | one finding | displays | today |
+| ----------------------------------- | --------- | ----------- | -------- | ----- |
+| seo / route (`critical`)            | 110       | 86.36       | 86       | 85    |
+| correctness / component (`warning`) | 96        | 94.79       | 94       | 95    |
+| security / component (`critical`)   | 35        | 57.14       | 57       | 85    |
+| performance / route (`warning`)     | 28        | 82.14       | 82       | 95    |
+| architecture / component (`info`)   | 8         | 87.5        | 87       | 99    |
+| performance / component (`warning`) | 9         | 44.44       | **44**   | 95    |
 
 A `performance` `warning` therefore costs more than a `security` `critical` (44 against 57). Both scopes hold
 five rules, but `security`'s carry four times the weight, so the same finding is a larger share of the
@@ -142,8 +181,26 @@ recorded here rather than discovered later.
 ### Everything else is unchanged
 
 `CRITICAL_CAP` at 79 with its decision on the raw value; `Math.floor` at both stages; `computeHealth`
-averaging unrounded category scores in deficit space; "present" categories only; the empty case scoring 100. The invariant survives by construction: `failedWeight` is zero exactly when no penalized finding
-carries the key, and only then does every key score 100.
+averaging unrounded category scores in deficit space; "present" categories only; the empty case scoring 100.
+
+The invariant survives by construction: `failedWeight` is zero exactly when no penalized finding carries the
+key, and only then does every key score 100 — the zero guard returns 100 precisely in the case where
+`failedWeight` must also be zero, and the `max` keeps a penalized result whose rule is unknown from reaching
+the guard.
+
+One premise in `score.ts` does **not** survive, and leaving it standing would reintroduce the bug the
+previous spec fixed. The comment at the route mean argues that no epsilon is needed there because "every
+route score is an integer, so `sum / length` is a division of exact integers, and whenever the true quotient
+IS an integer it is exactly representable". Key scores are no longer integers, so a mean whose true value is
+100 could compute below it and floor to 99 — a clean project displaying 99, which is the same class of lie
+as the 100 that started all of this, pointing the other way.
+
+**The route mean therefore moves into deficit space, exactly as `computeHealth` already does**, and for the
+identical reason: `rawRouteAverage = 100 − (Σ keyDeficit) / N`, where `keyDeficit` is
+`(100 × failedWeight) / inventoryWeight`. With no findings every term is exactly `0`, so the sum is exactly
+`0` and the mean is exactly `100` — no tolerance needed to recognise a clean project. The comment must be
+rewritten to state this reason rather than the one it states today; a false premise left in a comment about
+floating point is how those bugs survived review the first time.
 
 ### Wiring: no signature cascade
 
@@ -152,8 +209,9 @@ carries the key, and only then does every key score 100.
 `ScoreOptions` gains `rules?: readonly Rule[]`, defaulting to `selectRules(allRules, config)` computed
 inside `computeScore`. Nothing under `packages/core/src/rules/` imports anything under
 `packages/core/src/scoring/`, so the import direction is free — verified before choosing this shape. Every
-existing call site — three reporters in `core`, four in `cli`, one in `vite` — is untouched, and the
-optional parameter remains for tests and for scoring against a rule set that is not the registry.
+existing call site — three reporters in `core`, three in `cli`, one in `vite` — is untouched, and the
+optional parameter remains for tests and for scoring against a rule set that is not the registry. The Vite
+plugin already bundles `allRules` through `analyze.ts`, so nothing gains weight.
 
 This is deliberately unlike `2026-08-03-json-rule-evidence`, which threaded a rule-id list through
 `AnalyzeResult` because the CLI narrows rules by `--category` _after_ selection and the reporter needed the
@@ -161,21 +219,33 @@ narrowed set. Here the narrowed set would be wrong: `--category seo` must not sh
 or a filtered run would score differently from a full one on identical input. The inventory is a property of
 the configuration, not of the run.
 
-Two resolutions to state, because both can make `failedWeight` disagree with `inventoryWeight`:
+**Severity for the denominator** is `settingSeverity(config.rules[id]) ?? rule.severity` — the same
+top-level resolution `selectRules` uses. `overrides` narrows severity per glob and `selectRules` does not
+read it, so a rule disabled only inside an override stays in the inventory.
 
-- **Severity for the denominator** is `settingSeverity(config.rules[id]) ?? rule.severity` — the same
-  top-level resolution `selectRules` uses. `overrides` narrows severity per glob and `selectRules` does not
-  read it, so a rule disabled only inside an override stays in the inventory.
-- **`treatDynamicAs: 'warn'`** promotes a result's severity without changing its rule's, so `failedWeight`
-  can exceed `inventoryWeight`. The clamp absorbs it; the key scores 0, which is the honest reading.
+## What this buys, quantified
+
+The resolution improves by the ratio of the new per-key deficit to the old one, and no further. In
+`architecture`, one `info` used to cost a key 1 point and now costs 12.5, so at N keys it takes `⌈N/12.5⌉`
+findings to move the displayed score by one instead of `N`. At the field report's 585 keys that is 47
+findings rather than 586 — the reported case (276) now reads **94** against **99** for one finding, but
+**1 through 46 findings all still display 99.**
+
+That flat band is the honest limit of this change: it makes magnitude visible at the scale the complaint was
+filed at, and it does not make every increment visible. Stating the factor here is what keeps the same
+complaint from being re-filed at 20 findings as though nothing had been done.
 
 ## Migration
 
 Every score moves, most of them down, and by much more than the previous spec's one point. The changeset
-must say so plainly, along with the two consequences:
+must say so plainly, along with the three consequences:
 
 - a `--min-health` gate calibrated against today's numbers will start failing, and the fix is to
   recalibrate against the new scale, not to work around it;
+- **`routes[].score` in the JSON report changes meaning**, from "100 minus this route's deductions" to "the
+  share of everything measured on this route that is intact". It is a published field, documented in
+  `docs/src/content/docs/guides/(reporting)/reporters.md` (and its Japanese counterpart), whose description
+  of the field must be updated alongside;
 - a stored baseline is unaffected — baselines key on findings, not scores.
 
 ## Testing
@@ -190,18 +260,33 @@ must say so plainly, along with the two consequences:
 4. **The denominator is partitioned by scope.** A `performance` component key must not count
    `performance`'s route-scoped rules. Assert the exact score of a component key with one failing
    component-scoped rule; computed against the unpartitioned inventory it is measurably higher, so this
-   test is what holds the partition in place.
-5. **Severity still orders within a scope.** In one category and scope, a `critical` scores lower than a
+   test is what holds the partition in place. Take the expected value from the formula, not from this
+   document's tables — those are illustrative and go stale on the next rule added.
+5. **A multi-category key sums the observed pairs.** Score a single route carrying one failing `seo`
+   `warning` and a passing `performance` route rule, through `computeScore` directly rather than through
+   `scoresByCategory`. Against the `seo` bucket alone the answer is higher, so this is the test that holds
+   the pair definition — and it is the path `routes[].score`, the console route tree and the Vite plugin
+   take. Without it the multi-category call sites are unpinned.
+6. **Severity still orders within a scope.** In one category and scope, a `critical` scores lower than a
    `warning`, which scores lower than an `info`. Assert the ordering, not the absolute values, so rule
    additions do not churn the test.
-6. **The inventory follows configuration, not the tree.** Turning a rule `off` removes it from the
+7. **The inventory follows configuration, not the tree.** Turning a rule `off` removes it from the
    denominator, so the remaining findings cost more. This pins the inventory to `selectRules` rather than to
    which rules happened to produce results.
-7. **`--category` does not change any category's score.** Scoring the same results with the full rule set
-   and with a category-filtered one yields identical category scores. This is the test that fails if the
-   inventory is taken from the narrowed set.
-8. **Unchanged edges.** No results → 100. All passes → 100. A `critical` still caps a category at 79.
-   `sitePenalty` still subtracts absolute points — a site-wide `warning` in `seo` costs 5, not 31.
+8. **`--category` does not change the scored category's score.** Score one category's results with the full
+   rule set and with a rule set narrowed to that category; the category score must be identical. Compare
+   only that category — a narrowed rule set leaves the other categories with no inventory, which is the
+   unknown-rule path, not the invariance being asserted.
+9. **No input produces `NaN` or a 100 that hides a finding.** A penalized result whose rule is absent from
+   the injected inventory scores its key 0, not `NaN` and not 100. A key with no results and no inventory
+   scores 100. Assert `Number.isFinite` on the category score in both.
+10. **Integral scores survive the arithmetic, in both places it can go wrong.** A single key with
+    `failedWeight` 88 against inventory 110 displays **20** — written as `100 × (1 − f / i)` it yields
+    `19.999999999999996` and displays 19, so this holds the evaluation order. And a project of many keys
+    whose deficits are all zero displays exactly **100**, which holds the deficit-space mean: computed as a
+    mean of key scores it can land below 100 and floor to 99.
+11. **Unchanged edges.** No results → 100. All passes → 100. A `critical` still caps a category at 79.
+    `sitePenalty` still subtracts absolute points — a site-wide `warning` in `seo` costs 5, not 31.
 
 ## Deliberately not solved
 
