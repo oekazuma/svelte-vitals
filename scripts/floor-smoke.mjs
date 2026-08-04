@@ -102,6 +102,27 @@ check('the read-only subcommands deliver complete JSON through a pipe', () => {
   }
 });
 
+check('the analysis report survives a real shell pipe', () => {
+  // `runCli` and the sibling checks give the child a socketpair, whose buffer is wide enough on Linux to
+  // hide a truncation; `sh -c '… | cat'` gives it a 65,536-byte FIFO, which is what a user piping to `jq`
+  // gets. Positional parameters rather than interpolation, so a checkout path containing a space survives.
+  // Payload integrity only: a pipeline's exit status is `cat`'s, so the CLI's 0/1/2 contract is unassertable
+  // here and stays with the checks above.
+  const stdout = execFileSync(
+    'sh',
+    ['-c', '"$1" "$2" "$3" --reporter json | cat', 'sh', process.execPath, cliBin, basicProject],
+    {
+      encoding: 'utf8',
+      // stderr inherited, not ignored: a clean `--reporter json` run writes nothing there, and when the
+      // fixture is broken the CLI's own reason beats a JSON parse error as the thing the smoke prints.
+      stdio: ['ignore', 'pipe', 'inherit']
+    }
+  );
+  const report = JSON.parse(stdout);
+  assert.equal(typeof report.version, 'string');
+  assert.equal(typeof report.score, 'number');
+});
+
 check('a bad subcommand argument exits 2 with an empty stdout', () => {
   // The exit-2 contract the docs subcommand promises, asserted on the real process rather
   // than on the in-process handler.

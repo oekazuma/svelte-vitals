@@ -163,6 +163,11 @@ async function main(): Promise<void> {
     minHealth,
     selectApp
   });
+  // A write to a pipe is asynchronous, so `process.exit` can discard what has not drained — the report is
+  // the largest thing this CLI writes and the first pipe buffer is 65,536 bytes. The empty write's callback
+  // fires once the stream has flushed. `process.exit` rather than `process.exitCode` because this path can
+  // hold an interactive prompt, where returning could hang instead.
+  await new Promise((resolve) => process.stdout.write('', resolve));
   process.exit(code);
 }
 
