@@ -34,14 +34,33 @@ This is that separately. `--reporter json` is the largest thing the CLI writes, 
 agents use, and the release immediately before this one changed every score in it — so it is also the payload
 people are about to re-read.
 
-## Why CI never caught it
+## Why CI never caught it — and why it is not a macOS bug
 
-Node's `process.stdout` is synchronous for pipes on Linux and Windows, and **asynchronous for pipes on
-macOS**. Every CI job runs on Linux, where the write completes before `process.exit` can drop it. The bug is
-real on macOS and on any platform where the write does not complete synchronously.
+Node writes stdout asynchronously to pipes on **every** POSIX platform ("Pipes (and sockets): synchronous on
+Windows, asynchronous on POSIX"). So Linux is not exempt, and the first draft of this section — which claimed
+Linux was synchronous — had the documentation backwards.
 
-That has a consequence for this design: **the fix cannot be defended by CI.** It is stated here rather than
-papered over — see Testing.
+The difference is the **channel**, not the platform. `execFileSync`, which the smoke uses, does not give the
+child a pipe:
+
+| channel                 | child's fd 1        | buffer                |
+| ----------------------- | ------------------- | --------------------- |
+| `execFileSync(...)`     | `isSocket() → true` | AF_UNIX socketpair    |
+| `cmd \| cat` in a shell | `isFIFO() → true`   | pipe, 65,536 on Linux |
+
+Both verified by `fstatSync(1)` in a child. A socketpair's default buffer is roughly 64 KB on macOS and
+roughly 208 KB on Linux, so the 67,656-byte report fits on a Linux runner and is cut on a macOS laptop. That
+is the whole of it: CI is green because its channel is wide, not because its platform is synchronous.
+
+**Two consequences, both of which the first draft got wrong.**
+
+- **A Linux user piping to `jq` is affected.** A real shell pipe has a 65,536-byte buffer on Linux and
+  asynchronous writes, so `svelte-vitals --reporter json | jq` truncates there for the same reason it does
+  here. This is not a macOS-only defect, and it lands on the platform every CI consumer runs on.
+- **The regression is CI-defensible after all.** Routing the CLI through a real pipe —
+  `execFileSync('sh', ['-c', '… bin.js … --reporter json | cat'])` — exercises the 65,536-byte channel on
+  Linux. Measured through `sh -c … | cat` on macOS: **65,536 bytes, truncated**, against 67,656 through the
+  fix. The first draft asserted CI could not catch this and did not try.
 
 ## Design
 
@@ -73,7 +92,11 @@ replaces, and the interactive path cannot be exercised in an automated check. Th
 prompts and timers as the reason those paths exit directly; this design declines to bet against its own
 codebase's stated constraint for a uniformity gain.
 
-Flushing gets the same measured result and changes nothing about termination.
+Flushing gets the same measured result. It does change termination in one corner, which is worth stating in
+the section that rejects the alternative on termination grounds: piped to a reader that never reads
+(`| sleep 30`), the unpatched CLI exits immediately with a truncated payload while the patched one blocks
+until the reader reads or closes. That is what a well-behaved Unix writer does, and it is bounded by the
+reader's lifetime — unlike a held event loop, which is bounded by nothing.
 
 ### Scope
 
@@ -86,37 +109,56 @@ output is the same one-line change. Recorded, not done.
 
 ## Testing
 
-**The regression test already exists and already fails.** `scripts/floor-smoke.mjs` has
-`analysing a real project emits a well-formed JSON report`, which runs the built CLI through
-`execFileSync` — a pipe, not a TTY — and `JSON.parse`s the whole payload. On macOS today it fails with
-`SyntaxError: Unterminated string in JSON at position 65488`. The fix makes it pass. No new test is needed
-for the symptom, and writing one would duplicate a check whose sibling comment already names this exact
-mechanism:
+**One check exists and already fails locally; one must be added so CI can fail too.**
 
-> `execFileSync` gives the child a pipe, not a TTY — the case where `process.exit` can drop undrained writes.
-> Parsing the whole payload is what proves nothing was truncated.
+`scripts/floor-smoke.mjs` has `analysing a real project emits a well-formed JSON report`, which runs the
+built CLI through `execFileSync` and `JSON.parse`s the whole payload. On macOS today it fails with
+`SyntaxError: Unterminated string in JSON at position 65488`, and the fix makes it pass. That is a real
+regression test — but only on macOS, because its channel is a socketpair whose Linux buffer swallows the whole
+report.
 
-That sibling — `the read-only subcommands deliver complete JSON through a pipe` — covers `docs` and
-`explain`, the two paths that already return instead of exiting. The analysis path is the gap it was written
-beside.
+So **add a sibling check that routes the report through a true pipe**, alongside the existing
+`the read-only subcommands deliver complete JSON through a pipe` — whose comment already names this exact
+mechanism, and which covers only `docs` and `explain`, the two paths that already return instead of exiting:
 
-**What no test can do here.** On Linux the check passes with or without the fix, so CI cannot catch a
-regression. `pnpm smoke` on a macOS developer machine is the only gate, and `AGENTS.md` already positions the
-smoke as the thing run locally after a build. Two things follow, and both are deliberate:
+```js
+execFileSync('sh', ['-c', `${cliCmd} --reporter json | cat`]);
+```
 
-- the smoke assertion is kept as the regression test even though CI cannot fail on it, because the
-  alternative — a test that fabricates the async condition — would assert an implementation detail rather
-  than the behaviour;
-- the fixture must stay large enough to exceed a pipe buffer. It is 67,656 bytes today, 3% above 65,536.
-  A fixture that shrank below the buffer would make the check pass everywhere for the wrong reason. Worth
-  knowing, not worth pinning with an assertion on a byte count that would then need maintaining.
+`sh` is the OS shell, not a dependency, so this respects the smoke's Node-builtins-only rule; every CI job
+runs `ubuntu-latest` and every developer machine here is POSIX. Measured on macOS: 65,536 bytes and a parse
+failure without the fix, 67,656 and valid JSON with it.
+
+**The order of work matters, and the plan must follow it.** Add the pipe check _before_ the fix and push it,
+so CI runs it against the unfixed CLI. Two outcomes, both informative:
+
+- **CI fails** — the bug is confirmed on Linux, the check is proven to catch it, and the fix turns it green.
+  This is the expected outcome and the one that makes the regression permanently defensible.
+- **CI passes** — the Linux pipe does not truncate for a reason not yet identified, the check cannot defend
+  the regression there, and that measured fact gets recorded in this spec instead of the assumption it
+  replaced.
+
+Either way the claim ends up backed by a CI run rather than by reasoning, which is what the first draft of
+this section skipped.
+
+**One thing to know rather than assert.** The check only means anything while the fixture's report exceeds
+65,536 bytes; it is 67,656 today, 3% above. A fixture that shrank below the buffer would make the check pass
+everywhere for the wrong reason. Not worth pinning with a byte-count assertion that would then need
+maintaining, but worth knowing before anyone trims the fixture.
 
 ## Deliberately not solved
 
-- **`install` and `ci`.** See Scope.
-- **A general "flush before every exit" helper.** One call site does not justify an abstraction, and the
-  three other `process.exit` sites in `bin.ts` are argument-validation failures that write a single line to
-  stderr.
-- **The `pnpm smoke` / CI asymmetry.** That the smoke can fail locally and pass in CI is a property of the
-  platform difference, not of this change. Making CI run the smoke on macOS is a workflow decision with its
-  own cost, recorded here so the asymmetry is not mistaken for something this design introduced.
+- **`install` and `ci`.** See Scope. Measured output: at most 1,377 bytes for `install --dry-run` across every
+  client, 85 bytes for `ci` — two orders of magnitude under any buffer.
+- **A general "flush before every exit" helper.** One call site does not justify an abstraction. The other
+  `process.exit` sites in `bin.ts` are `install` (line 103), `ci` (107) and two argument-validation failures
+  (148, 156); the validation pair writes to stderr, and the first of them follows a loop that can emit several
+  lines — still far under a buffer, and stderr is unbuffered to a terminal anyway.
+- **`--out-file -` in its space-separated form.** Found while measuring this: `--reporter html --out-file -`
+  silently writes `svelte-vitals-report.html` into the cwd instead of stdout, because `mri` parses a lone `-`
+  as `""` and mangles the following arguments. `--out-file=-` works. Unrelated to the exit path — the flush
+  covers html-to-stdout correctly (81,333 bytes intact through a pipe) — so it needs its own issue rather
+  than a fix here.
+- **Whether the smoke should also run on macOS in CI.** If the new pipe check fails on Linux as expected, the
+  platform asymmetry stops mattering for this bug and a macOS runner buys little. Recorded so the asymmetry is
+  not mistaken for something this design introduced.
