@@ -139,11 +139,19 @@ real and two of them are ordinary:
    finding the first had silently skipped part of the space; the existence of such keys is what matters here,
    and a number this design cannot reproduce is the kind of figure it has already got wrong twice.
 
-   Two cautions for anyone who recomputes: the coincidence depends on the **observed** inventory, not the
-   category's nominal one — a key observing `performance` at 37 (its route and component pairs together) can
-   coincide where the same failures at its component-only 9 give 56.43 against 63.69 — and "coincide" means
-   equal as exact rationals. As doubles the two can sit one ulp apart, 63.69047619047619 against
-   63.69047619047618, which is why the agreement metric throughout this section is the displayed value.
+   Two cautions for anyone who recomputes.
+
+   **The inventory is the one observed on the key, never the category's nominal total.** `performance`'s
+   non-project rules sum to 37 — 28 route-scoped plus 9 component-scoped — and 37 is exactly the number a
+   reader gets by adding up the registry. It is also unreachable: a key is either a route id or a file path,
+   so a single key never observes both of a category's scopes, and `performance` contributes 28 or 9, never 37. Summing the registry produces a coincidence at 37 that looks like confirmation, while the reachable
+   component-only 9 gives 56.43 against 63.69 — no coincidence at all. That trap is why this caution exists,
+   and it is load-bearing for the implementation too: `computeScore` sums `inventory.get(p)` over the pairs
+   observed on the key.
+
+   **"Coincide" means equal as exact rationals.** As doubles the two values can sit one ulp apart —
+   63.69047619047619 against 63.69047619047618 — which is why the agreement metric throughout this section is
+   the displayed value rather than the raw one.
 
 So the user-facing wording stays **not guaranteed** in both directions, and the reason is now a rule rather
 than a frequency.
