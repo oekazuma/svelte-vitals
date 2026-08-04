@@ -102,7 +102,7 @@ cases where that does not hold, both of which would otherwise divide by zero or 
   top-level `config.rules`, so the denominator keeps the rule's base severity while the result carries the
   raised one. Measured on the eight-`info` architecture pair: promoting one rule's result to `critical` this
   way scores the key **0** (`failedWeight` 15 against an unmoved inventory of 8), where making the same
-  promotion at top level — which raises the inventory too, to 22 — scores **31.8**.
+  promotion at top level — which raises the inventory too, to 22 — displays **31** (raw 31.81…).
 
 The zero guard covers the remaining case: a key with no penalized results and no observed pair scores 100,
 matching today's seed.
