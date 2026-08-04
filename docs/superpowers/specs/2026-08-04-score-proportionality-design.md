@@ -188,19 +188,34 @@ key, and only then does every key score 100 — the zero guard returns 100 preci
 `failedWeight` must also be zero, and the `max` keeps a penalized result whose rule is unknown from reaching
 the guard.
 
-One premise in `score.ts` does **not** survive, and leaving it standing would reintroduce the bug the
-previous spec fixed. The comment at the route mean argues that no epsilon is needed there because "every
-route score is an integer, so `sum / length` is a division of exact integers, and whenever the true quotient
-IS an integer it is exactly representable". Key scores are no longer integers, so a mean whose true value is
-100 could compute below it and floor to 99 — a clean project displaying 99, which is the same class of lie
-as the 100 that started all of this, pointing the other way.
+One premise in `score.ts` does **not** survive. The comment at the route mean argues that no epsilon is
+needed there because "every route score is an integer, so `sum / length` is a division of exact integers,
+and whenever the true quotient IS an integer it is exactly representable". Key scores are no longer
+integers, and the conclusion the comment draws no longer follows from the reason it gives.
 
-**The route mean therefore moves into deficit space, exactly as `computeHealth` already does**, and for the
-identical reason: `rawRouteAverage = 100 − (Σ keyDeficit) / N`, where `keyDeficit` is
-`(100 × failedWeight) / inventoryWeight`. With no findings every term is exactly `0`, so the sum is exactly
-`0` and the mean is exactly `100` — no tolerance needed to recognise a clean project. The comment must be
-rewritten to state this reason rather than the one it states today; a false premise left in a comment about
-floating point is how those bugs survived review the first time.
+**The clean case is not what breaks.** A clean key scores exactly `100`, a sum of exact `100`s is exact for
+any key count this tool will ever see, and the quotient is exactly `100`. That guarantee survives the model
+change untouched, and a test asserting it would pass under any arithmetic — it pins nothing.
+
+**What breaks is an exactly-integral mean of unclean keys.** Two `performance` component keys against an
+inventory of 9, one failing three `info` rules and one failing a `warning` and an `info`, have a true
+category score of exactly **50**. Computed as a mean of key scores it comes out `49.99999999999999` and
+displays **49**.
+
+**So the route mean moves into deficit space**, as `computeHealth` already does:
+`rawRouteAverage = 100 − (Σ keyDeficit) / N`, where `keyDeficit` is `(100 × failedWeight) / inventoryWeight`.
+That fixture then displays 50. The comment must be rewritten to state this reason rather than the one it
+states today — a false premise left in a comment about floating point is how the previous spec's arithmetic
+bugs survived review the first time, and the first draft of this paragraph made exactly that mistake.
+
+**The residual, stated because the single-key case was not allowed to pass silently.** Deficit space narrows
+this class; it does not close it. Four `performance` component keys failing one `info`, one `warning`, all
+five rules, and three `info`s have a true mean of exactly 50 and display **49** in deficit space too. The
+accepted tolerance is therefore: exact for a clean project and exact for a single key, but a multi-key mean
+whose true value is an integer may display one point low. It is bounded at one point and it is the same
+tolerance `computeHealth` already carries — but this spec blocked the single-key instance of the identical
+error as "a full displayed point lost", so leaving the multi-key instance unnamed would be the double
+standard.
 
 ### Wiring: no signature cascade
 
@@ -226,10 +241,11 @@ read it, so a rule disabled only inside an override stays in the inventory.
 ## What this buys, quantified
 
 The resolution improves by the ratio of the new per-key deficit to the old one, and no further. In
-`architecture`, one `info` used to cost a key 1 point and now costs 12.5, so at N keys it takes `⌈N/12.5⌉`
-findings to move the displayed score by one instead of `N`. At the field report's 585 keys that is 47
-findings rather than 586 — the reported case (276) now reads **94** against **99** for one finding, but
-**1 through 46 findings all still display 99.**
+`architecture`, one `info` used to cost a key 1 point and now costs 12.5, so at N keys it takes
+`⌊N/12.5⌋ + 1` findings to move the displayed score by one instead of `N + 1`. The `+ 1` is not a rounding
+convenience: a mean deficit of exactly 1 still floors to 99, so at N = 500 forty findings display 99 and
+forty-one are needed. At the field report's 585 keys that is 47 findings rather than 586 — the reported case
+(276) now reads **94** against **99** for one finding, but **1 through 46 findings all still display 99.**
 
 That flat band is the honest limit of this change: it makes magnitude visible at the scale the complaint was
 filed at, and it does not make every increment visible. Stating the factor here is what keeps the same
@@ -282,9 +298,11 @@ must say so plainly, along with the three consequences:
    scores 100. Assert `Number.isFinite` on the category score in both.
 10. **Integral scores survive the arithmetic, in both places it can go wrong.** A single key with
     `failedWeight` 88 against inventory 110 displays **20** — written as `100 × (1 − f / i)` it yields
-    `19.999999999999996` and displays 19, so this holds the evaluation order. And a project of many keys
-    whose deficits are all zero displays exactly **100**, which holds the deficit-space mean: computed as a
-    mean of key scores it can land below 100 and floor to 99.
+    `19.999999999999996` and displays 19, so this holds the evaluation order. And two `performance`
+    component keys against an inventory of 9, failing `f = 3` and `f = 6`, display **50** — as a mean of key
+    scores that is `49.99999999999999` and displays 49, so this holds the deficit-space mean. Do **not**
+    assert that a clean project displays 100 as the test for the mean: it is exactly 100 under either
+    arithmetic, so it would pass on the implementation this test exists to reject.
 11. **Unchanged edges.** No results → 100. All passes → 100. A `critical` still caps a category at 79.
     `sitePenalty` still subtracts absolute points — a site-wide `warning` in `seo` costs 5, not 31.
 
