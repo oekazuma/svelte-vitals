@@ -74,9 +74,9 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
     for (const d of ruleMax.get(key)?.values() ?? []) failed += d;
     let inventoryWeight = 0;
     for (const p of pairs) inventoryWeight += inventory.get(p) ?? 0;
-    // `max` covers the two cases where a result outweighs its own inventory: `treatDynamicAs: 'warn'`
-    // promotes a result's severity without changing its rule's, and a rule absent from the inventory
-    // observes no pair. Both would otherwise divide by zero, and `clamp(NaN)` is `NaN`.
+    // `max` keeps `failed` from exceeding its own denominator, so a penalized finding can never still
+    // score 100: the two ways that would happen are `treatDynamicAs: 'warn'` promoting a result's
+    // severity above its rule's, and a result whose rule is absent from the inventory.
     inventoryWeight = Math.max(inventoryWeight, failed);
     // `100 - (100 * f) / i`, never `100 * (1 - f / i)`: the latter gives 19.999999999999996 for
     // f = 88, i = 110 and displays 19 for a true 20.
