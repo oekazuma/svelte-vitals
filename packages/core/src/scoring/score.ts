@@ -8,6 +8,13 @@ import { buildInventory, ruleScopes, DEDUCTION, type PairKey } from './inventory
 
 const CRITICAL_CAP = 79;
 
+/**
+ * A key is never scored against less than this much severity weight. Without it a pair holding one rule
+ * makes that rule's finding cost the whole key, and a finding's cost stops tracking its severity — an
+ * `info` in an eight-rule pair outweighed a `warning` in a twenty-six-rule one.
+ */
+export const INVENTORY_FLOOR = 25;
+
 export interface ScoreModel {
   routeAverage: number;
   sitePenalty: number;
@@ -82,8 +89,9 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
     for (const p of pairs) inventoryWeight += inventory.get(p) ?? 0;
     // `max` keeps `failed` from exceeding its own denominator, so a penalized finding can never still
     // score 100: the two ways that would happen are `treatDynamicAs: 'warn'` promoting a result's
-    // severity above its rule's, and a result whose rule is absent from the inventory.
-    inventoryWeight = Math.max(inventoryWeight, failed);
+    // severity above its rule's, and a result whose rule is absent from the inventory. The
+    // `INVENTORY_FLOOR` guard keeps a small pair from making one finding cost the whole key.
+    inventoryWeight = Math.max(inventoryWeight, failed, INVENTORY_FLOOR);
     // `100 - (100 * f) / i`, never `100 * (1 - f / i)`: the latter gives 19.999999999999996 for
     // f = 88, i = 110 and displays 19 for a true 20.
     totalDeficit += inventoryWeight === 0 ? 0 : (100 * failed) / inventoryWeight;

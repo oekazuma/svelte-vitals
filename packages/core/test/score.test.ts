@@ -2,6 +2,7 @@
 import { describe, it, expect } from 'vitest';
 import { computeScore, defineConfig, scoresByCategory, type Result } from '../src/index.js';
 import type { Rule } from '../src/rule.js';
+import { buildInventory } from '../src/scoring/inventory.js';
 
 const pass = (id: string, route: string): Result => ({
   id,
@@ -324,15 +325,17 @@ describe('computeScore — proportional model', () => {
   const config = defineConfig({});
 
   it('scores a key as the share of its pair that is intact', () => {
-    // failedWeight 5 of inventory 9 -> 100 - 500/9 = 44.44…, floored once at the category.
+    // failedWeight 5 of inventory 9, floored to 25 -> 100 - 500/25 = 80.
     const results = [fail('p/w1', 'src/A.svelte', 'warning')];
     const { score } = computeScore(results, config, { rules: PERF });
-    expect(score).toBe(44);
+    expect(score).toBe(80);
   });
 
-  it('lets a key reach 0 when everything in its pair fails', () => {
+  it('keeps a floored pair from reaching 0 when everything in it fails', () => {
+    // failedWeight 9 of inventory 9, floored to 25 -> 100 - 900/25 = 64: a fully failed small pair
+    // still costs less than the whole key.
     const results = PERF.map((rule) => fail(rule.id, 'src/A.svelte', rule.severity as 'warning' | 'info'));
-    expect(computeScore(results, config, { rules: PERF, applyCriticalCap: false }).score).toBe(0);
+    expect(computeScore(results, config, { rules: PERF, applyCriticalCap: false }).score).toBe(64);
   });
 
   it('distinguishes one affected key from many', () => {
@@ -347,11 +350,11 @@ describe('computeScore — proportional model', () => {
   });
 
   it('sums the inventory over every pair observed on a key', () => {
-    // One seo route warning beside a passing performance route rule: 100 - 500/(5+5) = 50,
-    // where the seo pair alone would give 100 - 500/5 = 0.
+    // One seo route warning beside a passing performance route rule: pair inventories 5+5=10,
+    // floored to 25 -> 100 - 500/25 = 80.
     const rules = [r('seo/x', 'seo', 'route', 'warning'), r('perf/y', 'performance', 'route', 'warning')];
     const results = [fail('seo/x', '/a', 'warning'), pass('perf/y', '/a')];
-    expect(computeScore(results, defineConfig({}), { rules }).score).toBe(50);
+    expect(computeScore(results, defineConfig({}), { rules }).score).toBe(80);
   });
 
   it('keeps an integral score integral', () => {
@@ -394,20 +397,19 @@ describe('computeScore — proportional model', () => {
     expect(computeScore(results, defineConfig({}), { rules, applyCriticalCap: false }).score).toBe(44);
   });
 
-  it('scores 50 for a two-key mean of failed weight 2 and 9 against inventory 11', () => {
-    // Two keys sharing an inventory of 11 (11 info rules), failing weight 2 and 9: true mean is
-    // exactly 50. Either wrong evaluation order lands the mean at 49.99999999999999, displaying 49.
+  it('scores 78 for a two-key mean of failed weight 2 and 9 against an inventory of 11 floored to 25', () => {
+    // Two keys sharing an inventory of 11 (11 info rules), floored to 25: failing weight 2 and 9
+    // score 100 - 200/25 = 92 and 100 - 900/25 = 64; true mean is exactly 78.
     const rules = Array.from({ length: 11 }, (_, i) => r(`p/i${i}`, 'performance', 'component', 'info'));
     const results = [
       ...Array.from({ length: 2 }, (_, i) => fail(`p/i${i}`, 'src/A.svelte', 'info')),
       ...Array.from({ length: 9 }, (_, i) => fail(`p/i${i}`, 'src/B.svelte', 'info'))
     ];
-    expect(computeScore(results, defineConfig({}), { rules }).score).toBe(50);
+    expect(computeScore(results, defineConfig({}), { rules }).score).toBe(78);
   });
 
   it('keeps an integral mean integral across keys', () => {
-    // Two keys, deficits 300/9 and 600/9, true mean exactly 50. A mean of key scores gives
-    // 49.99999999999999 and displays 49.
+    // Two keys, inventory 9 floored to 25: deficits 300/25 and 600/25, true mean exactly 82.
     const results = [
       fail('p/i1', 'src/A.svelte', 'info'),
       fail('p/i2', 'src/A.svelte', 'info'),
@@ -415,14 +417,15 @@ describe('computeScore — proportional model', () => {
       fail('p/w1', 'src/B.svelte', 'warning'),
       fail('p/i1', 'src/B.svelte', 'info')
     ];
-    expect(computeScore(results, config, { rules: PERF }).score).toBe(50);
+    expect(computeScore(results, config, { rules: PERF }).score).toBe(82);
   });
 
-  it('scores 0, not NaN, for a penalized result whose rule is not in the inventory', () => {
+  it('scores 80, not NaN, for a penalized result whose rule is not in the inventory', () => {
+    // No pair observed for `ghost/rule`, so the denominator floors straight to 25: 100 - 500/25.
     const results = [fail('ghost/rule', 'src/A.svelte', 'warning')];
     const { score } = computeScore(results, config, { rules: PERF, applyCriticalCap: false });
     expect(Number.isFinite(score)).toBe(true);
-    expect(score).toBe(0);
+    expect(score).toBe(80);
   });
 
   it('scores 100 for a key whose only results come from rules outside the inventory', () => {
@@ -440,13 +443,14 @@ describe('computeScore — proportional model', () => {
 
   it('keeps a category with two scopes from merging them', () => {
     // A component key must not be measured against route-scoped rules it can never trigger.
-    // Merged, the inventory would be 5 + 45 and the key would score 90 instead of 0.
+    // Its own pair (5) floors to 25 -> score 80. Merged, the inventory would be 5 + 45 = 50
+    // (above the floor) and the key would score 90 instead.
     const rules = [
       r('p/comp', 'performance', 'component', 'warning'),
       ...Array.from({ length: 9 }, (_, i) => r(`p/route${i}`, 'performance', 'route', 'warning'))
     ];
     const results = [fail('p/comp', 'src/A.svelte', 'warning')];
-    expect(computeScore(results, config, { rules, applyCriticalCap: false }).score).toBe(0);
+    expect(computeScore(results, config, { rules, applyCriticalCap: false }).score).toBe(80);
   });
 
   it('scores 100 when nothing is penalized', () => {
@@ -472,39 +476,97 @@ describe('computeScore — proportional model', () => {
 describe('computeScore — inventory wiring to config (no rules option, real registry)', () => {
   it('a config severity override changes the default inventory, not just buildInventory in isolation', () => {
     // architecture::component is 8 info rules (inventory 8) by default. Raising one rule's severity
-    // to 'warning' makes it 7 info + 1 warning = 12. Verified against the real registry: a key
-    // failing that one rule (now 'warning', deduction 5) scores 100 - 500/12 = 58.33, floored 58.
+    // to 'warning' makes it 7 info + 1 warning = 12, floored to 25. Verified against the real
+    // registry: a key failing that one rule (now 'warning', deduction 5) scores 100 - 500/25 = 80.
     const config = defineConfig({ rules: { 'architecture/component-size': 'warning' } });
     const results = [fail('architecture/component-size', 'src/A.svelte', 'warning')];
-    expect(computeScore(results, config).score).toBe(58);
+    expect(computeScore(results, config).score).toBe(80);
   });
 });
 
 describe('computeScore — a disabled rule injected via options.rules', () => {
-  it('scores 0 and finite for a rule turned off in config but still carried in options.rules', () => {
+  it('scores 80 and finite for a rule turned off in config but still carried in options.rules', () => {
     // `computeScore` now runs `options.rules` through `selectRules` itself, so an `off` rule never
-    // reaches the inventory or `pairOf`: its penalized result observes no pair, `Math.max` floors the
-    // denominator to `failed`, and the key scores 0 rather than NaN or a false 100.
+    // reaches the inventory or `pairOf`: its penalized result observes no pair, so the denominator
+    // floors to 25 (not `failed`), and the key scores 80 (100 - 500/25) rather than NaN or a false 100.
     const rule = r('a/off', 'architecture', 'component', 'warning');
     const config = defineConfig({ rules: { 'a/off': 'off' } });
     const results = [fail('a/off', 'src/A.svelte', 'warning')];
     const { score } = computeScore(results, config, { rules: [rule] });
     expect(Number.isFinite(score)).toBe(true);
-    expect(score).toBe(0);
+    expect(score).toBe(80);
   });
 
-  it('scores 0, not 80, when the off rule shares its pair with an enabled rule', () => {
+  it('scores 96, matching the isolated case, when the off rule shares its pair with an enabled rule', () => {
     // Before `options.rules` was filtered, `buildInventory` dropped the off rule internally but
     // `ruleScopes` did not: charged against the enabled rule's own inventory of 5, the same failing
     // off rule scored 80 here and 0 when injected alone in its pair — an inconsistency for identical
-    // input. Filtering both from the same list makes the off rule invisible to both, so this must
-    // match the isolated case.
+    // input. Filtering both from the same list makes the off rule invisible to both: no pair is
+    // observed either way, so the denominator floors to 25 and the info deduction (1) gives
+    // 100 - 100/25 = 96 in both the isolated and the shared-pair case.
     const off = r('p/off', 'performance', 'component', 'info');
     const enabled = r('p/warn', 'performance', 'component', 'warning');
     const config = defineConfig({ rules: { 'p/off': 'off' } });
     const results = [fail('p/off', 'src/A.svelte', 'info')];
     const { score } = computeScore(results, config, { rules: [off, enabled], applyCriticalCap: false });
     expect(Number.isFinite(score)).toBe(true);
-    expect(score).toBe(0);
+    expect(score).toBe(96);
+  });
+});
+
+describe('computeScore — inventory floor', () => {
+  const config = defineConfig({});
+
+  it('scores a one-rule pair at 80 for a single warning', () => {
+    // Inventory 5 floored to 25: 100 − 500/25.
+    const rules = [r('x/only', 'seo', 'component', 'warning')];
+    const results = [fail('x/only', 'src/A.svelte', 'warning')];
+    expect(computeScore(results, config, { rules, applyCriticalCap: false }).score).toBe(80);
+  });
+
+  it('scores an eight-info pair at 96 for a single info', () => {
+    // Inventory 8 floored to 25: 100 − 100/25.
+    const rules = Array.from({ length: 8 }, (_, i) => r(`a/${i}`, 'architecture', 'component', 'info'));
+    const results = [fail('a/0', 'src/A.svelte', 'info')];
+    expect(computeScore(results, config, { rules }).score).toBe(96);
+  });
+
+  it('leaves a pair above the floor unchanged', () => {
+    // Inventory 30 > 25, so one warning costs 500/30 and the key scores 83.
+    const rules = Array.from({ length: 6 }, (_, i) => r(`s/${i}`, 'seo', 'route', 'warning'));
+    const results = [fail('s/0', '/a', 'warning')];
+    expect(computeScore(results, config, { rules }).score).toBe(83);
+  });
+
+  it('still scores 100 when nothing is penalized', () => {
+    const rules = [r('x/only', 'seo', 'component', 'warning')];
+    expect(computeScore([pass('x/only', 'src/A.svelte')], config, { rules }).score).toBe(100);
+  });
+
+  it('still subtracts sitePenalty in absolute points', () => {
+    // A site-wide warning costs 5, not a share of anything — the floor must not reach it.
+    const rules = [r('p/site', 'seo', 'project', 'warning'), r('s/one', 'seo', 'route', 'warning')];
+    const results = [
+      {
+        id: 'p/site',
+        category: 'seo',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        message: 'x'
+      },
+      pass('s/one', '/a')
+    ] as Result[];
+    const sr = computeScore(results, config, { rules });
+    expect(sr.scoreModel.sitePenalty).toBe(5);
+    expect(sr.score).toBe(95);
+  });
+
+  it('orders info below warning in every registry pair', () => {
+    // Derived from the registry rather than written out, so a new rule cannot silently break the ordering.
+    const inv = buildInventory(config);
+    const cost = (weight: number, i: number) => (100 * weight) / Math.max(i, 25);
+    const worstInfo = Math.max(...[...inv.values()].map((i) => cost(1, i)));
+    const cheapestWarning = Math.min(...[...inv.values()].map((i) => cost(5, i)));
+    expect(worstInfo).toBeLessThanOrEqual(cheapestWarning);
   });
 });
