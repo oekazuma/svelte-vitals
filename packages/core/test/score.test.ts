@@ -421,15 +421,17 @@ describe('computeScore — proportional model', () => {
   });
 
   it('keeps an integral mean integral across keys', () => {
-    // Two keys, inventory 9 floored to 25: deficits 300/25 and 600/25, true mean exactly 82.
+    // Inventory 28 (28 info rules) is already ≥ 25, so this anchors the deficit-space mean and the
+    // evaluation order together, not the floor: two keys failing 10 and 18 of the infos (deficit
+    // 1000/28 and 1800/28) average in deficit space to exactly 50. Both a mean of key scores and the
+    // `100 * (1 - f/i)` evaluation order compute 49.99999999999999 for the same true 50 (verified
+    // against the formula, not the runner).
+    const rules = Array.from({ length: 28 }, (_, i) => r(`m/i${i}`, 'performance', 'component', 'info'));
     const results = [
-      fail('p/i1', 'src/A.svelte', 'info'),
-      fail('p/i2', 'src/A.svelte', 'info'),
-      fail('p/i3', 'src/A.svelte', 'info'),
-      fail('p/w1', 'src/B.svelte', 'warning'),
-      fail('p/i1', 'src/B.svelte', 'info')
+      ...Array.from({ length: 10 }, (_, i) => fail(`m/i${i}`, 'src/A.svelte', 'info')),
+      ...Array.from({ length: 18 }, (_, i) => fail(`m/i${i + 10}`, 'src/B.svelte', 'info'))
     ];
-    expect(computeScore(results, config, { rules: PERF }).score).toBe(82);
+    expect(computeScore(results, config, { rules }).score).toBe(50);
   });
 
   it('scores 80, not NaN, for a penalized result whose rule is not in the inventory', () => {

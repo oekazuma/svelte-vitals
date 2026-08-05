@@ -77,7 +77,7 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
   }
 
   // Deficit space, as `computeHealth` already works: a mean of key scores computes
-  // 49.99999999999999 for a true 50 on two keys of deficit 300/9 and 600/9.
+  // 49.99999999999999 for a true 50 on two keys of deficit 1000/28 and 1800/28.
   let totalDeficit = 0;
   for (const [key, pairs] of observed) {
     let failed = 0;
