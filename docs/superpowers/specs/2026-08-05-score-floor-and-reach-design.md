@@ -95,8 +95,11 @@ observation:
   duplicates taking the maximum. A key with eight `correctness/each-index-key` findings scores what a key with
   one scores. Stated in `2026-08-04-score-proportionality-design.md`; stated nowhere a user reads.
 - **The per-pair inventory is not derivable from the report.** A reader who wants to check `96 = 100 − 100/25`
-  cannot, because neither the inventory nor the floor appears anywhere. `scoreModel` gains
-  `inventoryWeight`, so the arithmetic is checkable.
+  cannot, because neither the inventory nor the floor appears anywhere. The report gains an `inventories` map
+  from `"<category>::<scope>"` to the floored weight, so the arithmetic is checkable. It goes there rather
+  than on `scoreModel` because a `ScoreModel` describes one `computeScore` call, and a category's call spans
+  many keys of possibly different pairs — there is no single weight to report, and reporting one key's would
+  explain nothing.
 
 The one-paragraph version, which goes in the reporters guide in both languages:
 
@@ -127,8 +130,9 @@ keeps the change from hiding anything: 41 of 351 was invisible before and is now
    key the category touched. A category with one finding and one with forty must differ here even when their
    scores do not — that is the whole point of the field, so assert both scores equal and both reaches
    different on one input.
-5. **`scoreModel.inventoryWeight` is the floored value**, so a reader recomputing `100 − 100·f/i` gets the
-   displayed score. Assert on a floored pair and an unfloored one.
+5. **`inventories` carries the floored weight of every pair**, so a reader recomputing `100 − 100·f/i` gets
+   the displayed score. Assert one floored pair and one unfloored one, and assert the recomputation against a
+   real `routes[].categories` value rather than against the map alone.
 6. **The invariant survives.** No penalized finding → 100. One `info` among many passes → never 100.
 7. **`sitePenalty` is untouched** — still absolute points, still subtracted after the mean.
 
