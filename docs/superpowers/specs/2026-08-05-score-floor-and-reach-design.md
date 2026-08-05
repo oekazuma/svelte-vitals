@@ -103,12 +103,14 @@ observation:
 
 The one-paragraph version, which goes in the reporters guide in both languages:
 
-> A category's score on a key is the share of that category's severity weight that survived. One `info` costs
-> a twenty-fifth of the weight at most, one `warning` five times that, one `critical` fifteen times — so a
-> more severe finding always costs more than a less severe one within a category, and a category that checks
-> very few things is scored against a floor rather than against those few. Repeated findings from the same
-> rule on the same key cost what one costs. Beside the score, `affectedKeys` says how much of the project the
-> category touched: the score is depth, that is reach.
+> A category's score on a key is the share of that category's severity weight that survived. Checks are
+> grouped by category and scope — the keys of `inventories`, like `seo::route` — and **within one group** a
+> `warning` costs five times an `info` and a `critical` fifteen times, so a more severe finding always costs
+> more. **Across groups it does not**: a group that checks very few things is scored against a floor of 25,
+> which makes each of its findings a larger share, so a `warning` in a small group can cost more than a
+> `critical` in a large one. Repeated findings from the same rule on the same key cost what one costs.
+> Beside the score, `affectedKeys` says how much of the project the category touched: the score is depth,
+> that is reach.
 
 ## What this costs
 
