@@ -14,6 +14,7 @@ const baseSnapshot: DashboardSnapshot = {
       {
         route: '/a',
         score: 80,
+        categories: {},
         issues: [
           {
             id: 'seo/title-presence',
@@ -65,6 +66,7 @@ describe('renderDashboardShell', () => {
           {
             route: '/a',
             score: 80,
+            categories: {},
             issues: [
               {
                 id: 'seo/title-presence',
@@ -111,6 +113,7 @@ describe('renderDashboardShell', () => {
           {
             route: '/a',
             score: 50,
+            categories: {},
             issues: [
               {
                 id: 'seo/title-presence',

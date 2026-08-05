@@ -178,6 +178,24 @@ describe('scoresByCategory', () => {
   });
 });
 
+describe('scoresByCategory — scoring options', () => {
+  const config = defineConfig({});
+  // One failing `seo` critical on one route: the ratio gives 100 − 1500/110 = 86.36, the cap gives 79.
+  const results = [fail('seo/title-presence', '/a', 'critical')];
+
+  it('caps a category at 79 when called without options', () => {
+    // computeHealth calls it this way and depends on a capped category pulling Health down.
+    expect(scoresByCategory(results, config).seo!.score).toBe(79);
+    expect(scoresByCategory(results, config).seo!.scoreModel.criticalCap).toBe(79);
+  });
+
+  it('leaves the category uncapped when the cap is switched off', () => {
+    const sr = scoresByCategory(results, config, { applyCriticalCap: false }).seo!;
+    expect(sr.score).toBe(86);
+    expect(sr.scoreModel.criticalCap).toBeNull();
+  });
+});
+
 const CONFIG = defineConfig({});
 
 /** `keys` route keys, the first `findings` of them carrying one `info` finding. */

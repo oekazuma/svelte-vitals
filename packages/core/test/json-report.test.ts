@@ -145,3 +145,93 @@ describe('buildJsonReport — per-rule evidence', () => {
     expect(parsed.rules).toEqual({ 'seo/single-h1': { findings: 0, passed: 0 } });
   });
 });
+
+describe('buildJsonReport — per-route category scores', () => {
+  const config = defineConfig({});
+  const meta = { version: '0.0.0' };
+
+  it('scores each category present on the route', () => {
+    // seo::route inventory 110, one warning failing -> 100 − 500/110 = 95.45 -> 95.
+    // performance::route inventory 28, nothing failing -> 100.
+    const results: Result[] = [
+      {
+        id: 'seo/canonical-url',
+        category: 'seo',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'x'
+      },
+      {
+        id: 'performance/preconnect',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'own', value: 'static' },
+        route: '/a',
+        message: 'ok'
+      }
+    ];
+    const report = buildJsonReport(results, config, meta);
+    expect(report.routes[0]!.categories).toEqual({ seo: 95, performance: 100 });
+  });
+
+  it('omits a category that produced no result on the route', () => {
+    const results: Result[] = [
+      {
+        id: 'seo/canonical-url',
+        category: 'seo',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'x'
+      }
+    ];
+    const report = buildJsonReport(results, config, meta);
+    expect(Object.keys(report.routes[0]!.categories)).toEqual(['seo']);
+    expect(report.routes[0]!.categories.architecture).toBeUndefined();
+  });
+
+  it('does not cap a category at 79 for a route carrying a critical', () => {
+    // The ratio gives 100 − 1500/110 = 86. Asserting routes[].score instead would pass on a
+    // capped implementation, because that path is already cap-free.
+    const results: Result[] = [
+      {
+        id: 'seo/title-presence',
+        category: 'seo',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'x'
+      }
+    ];
+    const report = buildJsonReport(results, config, meta);
+    expect(report.routes[0]!.categories.seo).toBe(86);
+  });
+
+  it('keeps routes[].score as the union ratio, which need not equal the category mean', () => {
+    // The union observes both pairs: inventory 138, failed 5 -> 100 − 500/138 = 96.
+    // The categories are 95 and 100, whose mean is 97.5. Both numbers are asserted on one input
+    // because their disagreement is the property the spec records.
+    const results: Result[] = [
+      {
+        id: 'seo/canonical-url',
+        category: 'seo',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'x'
+      },
+      {
+        id: 'performance/preconnect',
+        category: 'performance',
+        severity: 'warning',
+        detection: { presence: 'own', value: 'static' },
+        route: '/a',
+        message: 'ok'
+      }
+    ];
+    const report = buildJsonReport(results, config, meta);
+    expect(report.routes[0]!.score).toBe(96);
+    expect(report.routes[0]!.categories).toEqual({ seo: 95, performance: 100 });
+  });
+});

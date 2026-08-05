@@ -54,6 +54,7 @@ svelte-vitals --reporter json
     {
       "route": "/about", // a route id, or a source file path for file-scoped rules
       "score": 95, // share of this route's rule inventory (by category/scope, weighted by severity) left intact
+      "categories": { "seo": 94 }, // per category present on this route, scored against that category's own inventory
       "issues": [
         {
           "id": "seo/single-h1", // the rule id
@@ -80,6 +81,8 @@ Two field names are worth pointing out, because guessing them wrongly fails sile
 - the finding text is **`title`**, not `message`.
 
 `line`, `docsUrl` and `fix` are present only when the rule supplies them, and `location` only for a finding tied to a file. `issues` lists **failing** findings only — passing checks are counted in `summary.passed` but are not listed. A route with no failures still appears in `routes`, with an empty `issues` array and its own score.
+
+`categories` holds only the categories that produced a result on that route — an absent category means "not measured here," not "perfect here." Its values are **not guaranteed** to average to the route's own `score`, in either direction: `score` is one ratio over everything the route was measured against, while each category score uses that category's own inventory. They agree whenever every category on the route scores the same ratio (including every route with no findings) and can differ by several points otherwise.
 
 `rules` answers a question the rest of the report cannot: **whether a rule ran at all.** `issues` lists
 only failing findings, so a rule that found nothing leaves no trace there — and a rule disabled at the top

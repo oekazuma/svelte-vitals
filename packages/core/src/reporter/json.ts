@@ -1,5 +1,5 @@
 import type { Category, Config, Result } from '../types.js';
-import { computeScore, computeHealth, type ScoreModel } from '../scoring/score.js';
+import { computeScore, computeHealth, scoresByCategory, type ScoreModel } from '../scoring/score.js';
 import { summarize, effectiveSeverity, type Summary } from '../summary.js';
 import { isPenalized } from '../rule.js';
 
@@ -36,7 +36,7 @@ export interface JsonReport {
   categories: Record<string, { score: number; scoreModel: ScoreModel }>;
   summary: Summary;
   rules: Record<string, RuleEvidence>;
-  routes: Array<{ route: string; score: number; issues: JsonIssue[] }>;
+  routes: Array<{ route: string; score: number; categories: Record<string, number>; issues: JsonIssue[] }>;
   siteIssues: JsonIssue[];
 }
 
@@ -84,6 +84,11 @@ export function buildJsonReport(
     .map(({ route, results: rs }) => ({
       route,
       score: computeScore(rs, config, { applyCriticalCap: false }).score,
+      // Per category, scored against that category's own inventory, so this is not guaranteed to average to
+      // `score` — which is one ratio over the union of the pairs the route touched.
+      categories: Object.fromEntries(
+        Object.entries(scoresByCategory(rs, config, { applyCriticalCap: false })).map(([cat, sr]) => [cat, sr!.score])
+      ),
       issues: rs
         .filter((r) => isPenalized(r.detection, config.treatDynamicAs))
         .map((r) => ({ ...issueOf(r), severity: effectiveSeverity(r, config) }))
