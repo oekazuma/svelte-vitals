@@ -2,7 +2,7 @@
 import { describe, it, expect } from 'vitest';
 import { computeScore, defineConfig, scoresByCategory, type Result } from '../src/index.js';
 import type { Rule } from '../src/rule.js';
-import { buildInventory } from '../src/scoring/inventory.js';
+import { buildInventory, DEDUCTION } from '../src/scoring/inventory.js';
 
 const pass = (id: string, route: string): Result => ({
   id,
@@ -611,6 +611,38 @@ describe('computeScore — inventory floor', () => {
     // The worst (lowest-scoring) info finding anywhere in the registry must still score no worse
     // than the best (highest-scoring) warning finding anywhere in it.
     expect(Math.min(...infoScores)).toBeGreaterThanOrEqual(Math.max(...warnScores));
+  });
+
+  it('orders severities within a pair, but not across pairs', () => {
+    // Extends the previous test's construction to `critical` and to comparing across pairs, not
+    // only within one — pinning the actual guarantee (per pair) against the stronger one it is
+    // easy to misstate (per category).
+    const inv = buildInventory(config);
+    const scoreOf = (pair: string, weight: number, sev: 'critical' | 'warning' | 'info') => {
+      const [category, scope] = pair.split('::') as [Rule['category'], Rule['scope']];
+      const markerId = `${pair}/${sev}`;
+      const filler = Math.max(weight - DEDUCTION[sev], 0);
+      const rules = [
+        r(markerId, category, scope, sev),
+        ...Array.from({ length: filler }, (_, i) => r(`${pair}/f${i}`, category, scope, 'info'))
+      ];
+      return computeScore([fail(markerId, 'k', sev)], config, { rules, applyCriticalCap: false }).score;
+    };
+
+    const warningScores: number[] = [];
+    const criticalScores: number[] = [];
+    for (const [pair, weight] of inv) {
+      const info = scoreOf(pair, weight, 'info');
+      const warning = scoreOf(pair, weight, 'warning');
+      const critical = scoreOf(pair, weight, 'critical');
+      expect(info).toBeGreaterThan(warning);
+      expect(warning).toBeGreaterThan(critical);
+      warningScores.push(warning);
+      criticalScores.push(critical);
+    }
+    // A warning in the thinnest (floored) pair still scores lower — costs more — than a critical
+    // in the thickest one: the order above holds inside a pair, and is not guaranteed across pairs.
+    expect(Math.min(...warningScores)).toBeLessThan(Math.max(...criticalScores));
   });
 });
 
