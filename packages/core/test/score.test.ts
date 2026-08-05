@@ -350,11 +350,22 @@ describe('computeScore — proportional model', () => {
   });
 
   it('sums the inventory over every pair observed on a key', () => {
-    // One seo route warning beside a passing performance route rule: pair inventories 5+5=10,
-    // floored to 25 -> 100 - 500/25 = 80.
-    const rules = [r('seo/x', 'seo', 'route', 'warning'), r('perf/y', 'performance', 'route', 'warning')];
+    // Two 30-point pairs (each ≥ 25, so the floor is a no-op): a seo::route warning beside a
+    // passing performance::route rule sums to 60 -> 100 - 500/60 = 91, where the seo pair alone
+    // would give 100 - 500/30 = 83. A third, unreferenced architecture::route rule shares the same
+    // scope but a different category: it must not be pulled into the sum, so it also pins the
+    // pairing to (category, scope), not scope alone.
+    const seoRoute = [
+      r('seo/x', 'seo', 'route', 'warning'),
+      ...Array.from({ length: 25 }, (_, i) => r(`seo/fill${i}`, 'seo', 'route', 'info'))
+    ]; // 5 + 25 = 30
+    const perfRoute = [
+      r('perf/y', 'performance', 'route', 'warning'),
+      ...Array.from({ length: 25 }, (_, i) => r(`perf/fill${i}`, 'performance', 'route', 'info'))
+    ]; // 5 + 25 = 30
+    const rules = [...seoRoute, ...perfRoute, r('arch/unreferenced', 'architecture', 'route', 'warning')];
     const results = [fail('seo/x', '/a', 'warning'), pass('perf/y', '/a')];
-    expect(computeScore(results, defineConfig({}), { rules }).score).toBe(80);
+    expect(computeScore(results, defineConfig({}), { rules }).score).toBe(91);
   });
 
   it('keeps an integral score integral', () => {
@@ -397,15 +408,16 @@ describe('computeScore — proportional model', () => {
     expect(computeScore(results, defineConfig({}), { rules, applyCriticalCap: false }).score).toBe(44);
   });
 
-  it('scores 78 for a two-key mean of failed weight 2 and 9 against an inventory of 11 floored to 25', () => {
-    // Two keys sharing an inventory of 11 (11 info rules), floored to 25: failing weight 2 and 9
-    // score 100 - 200/25 = 92 and 100 - 900/25 = 64; true mean is exactly 78.
-    const rules = Array.from({ length: 11 }, (_, i) => r(`p/i${i}`, 'performance', 'component', 'info'));
+  it('scores 50 for a two-key mean of failed weight 10 and 20 against an inventory of 30', () => {
+    // Inventory 30 is already ≥ 25, so this anchors the deficit-space mean itself, not the floor:
+    // deficits 1000/30 and 2000/30 average in deficit space to exactly 50. A mean of key scores
+    // computes 49.99999999999999 for the same true 50 (verified against the formula, not the runner).
+    const rules = Array.from({ length: 30 }, (_, i) => r(`p/i${i}`, 'performance', 'component', 'info'));
     const results = [
-      ...Array.from({ length: 2 }, (_, i) => fail(`p/i${i}`, 'src/A.svelte', 'info')),
-      ...Array.from({ length: 9 }, (_, i) => fail(`p/i${i}`, 'src/B.svelte', 'info'))
+      ...Array.from({ length: 10 }, (_, i) => fail(`p/i${i}`, 'src/A.svelte', 'info')),
+      ...Array.from({ length: 20 }, (_, i) => fail(`p/i${i}`, 'src/B.svelte', 'info'))
     ];
-    expect(computeScore(results, defineConfig({}), { rules }).score).toBe(78);
+    expect(computeScore(results, defineConfig({}), { rules }).score).toBe(50);
   });
 
   it('keeps an integral mean integral across keys', () => {
@@ -562,11 +574,40 @@ describe('computeScore — inventory floor', () => {
   });
 
   it('orders info below warning in every registry pair', () => {
-    // Derived from the registry rather than written out, so a new rule cannot silently break the ordering.
+    // Derived from the registry rather than written out, so a new rule cannot silently break the
+    // ordering. Each pair's real weight is rebuilt as a same-weight synthetic rule set and scored
+    // through computeScore itself — reimplementing the cost formula here would only rubber-stamp
+    // the same bug it is meant to catch.
     const inv = buildInventory(config);
-    const cost = (weight: number, i: number) => (100 * weight) / Math.max(i, 25);
-    const worstInfo = Math.max(...[...inv.values()].map((i) => cost(1, i)));
-    const cheapestWarning = Math.min(...[...inv.values()].map((i) => cost(5, i)));
-    expect(worstInfo).toBeLessThanOrEqual(cheapestWarning);
+    const infoScores: number[] = [];
+    const warnScores: number[] = [];
+    for (const [pair, weight] of inv) {
+      const [category, scope] = pair.split('::') as [Rule['category'], Rule['scope']];
+
+      const infoId = `${pair}/i0`;
+      const infoRule = r(infoId, category, scope, 'info');
+      const infoRules = [
+        infoRule,
+        ...Array.from({ length: weight - 1 }, (_, i) => r(`${pair}/i${i + 1}`, category, scope, 'info'))
+      ];
+      infoScores.push(
+        computeScore([fail(infoId, 'k', 'info')], config, { rules: infoRules, applyCriticalCap: false }).score
+      );
+
+      // Every rule not designated the failing warning is an info filler, so the set still totals `weight`.
+      const warnId = `${pair}/w0`;
+      const warnRule = r(warnId, category, scope, 'warning');
+      const remainder = weight - 5;
+      const warnRules = [
+        warnRule,
+        ...Array.from({ length: remainder }, (_, i) => r(`${pair}/r${i}`, category, scope, 'info'))
+      ];
+      warnScores.push(
+        computeScore([fail(warnId, 'k', 'warning')], config, { rules: warnRules, applyCriticalCap: false }).score
+      );
+    }
+    // The worst (lowest-scoring) info finding anywhere in the registry must still score no worse
+    // than the best (highest-scoring) warning finding anywhere in it.
+    expect(Math.min(...infoScores)).toBeGreaterThanOrEqual(Math.max(...warnScores));
   });
 });
