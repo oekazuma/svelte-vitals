@@ -1,7 +1,12 @@
 # What a score means, and what it does not — design
 
 **Date:** 2026-08-05
-**Status:** draft — awaiting field review
+**Status:** withdrawn 2026-08-05 — superseded by `2026-08-05-score-floor-and-reach-design.md`.
+Field review rejected its central justification: it described the model as coverage while the denominator
+counts rules that evaluated nothing (6 of 8 in `architecture::component`, verified on the repo's own fixture).
+It also refused to floor the denominator on grounds that its own table undermined — the magnitude signal it
+protected expires once a pair reaches 14 rules, which the project is adding toward anyway. **The measurements
+below stand and are the input to the successor**; only the conclusion is withdrawn.
 **Origin:** a field measurement of the proportional score model on a real project (351 keys, 77 findings),
 reported 2026-08-05. It answered the question
 `2026-08-04-score-proportionality-design.md` left open under "severity recalibration".
