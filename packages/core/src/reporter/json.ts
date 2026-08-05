@@ -1,5 +1,6 @@
 import type { Category, Config, Result } from '../types.js';
-import { computeScore, computeHealth, scoresByCategory, type ScoreModel } from '../scoring/score.js';
+import { computeScore, computeHealth, scoresByCategory, INVENTORY_FLOOR, type ScoreModel } from '../scoring/score.js';
+import { buildInventory } from '../scoring/inventory.js';
 import { summarize, effectiveSeverity, type Summary } from '../summary.js';
 import { isPenalized } from '../rule.js';
 
@@ -38,6 +39,8 @@ export interface JsonReport {
   rules: Record<string, RuleEvidence>;
   routes: Array<{ route: string; score: number; categories: Record<string, number>; issues: JsonIssue[] }>;
   siteIssues: JsonIssue[];
+  /** Floored severity weight per `"<category>::<scope>"` pair — the divisor behind every key of that pair. */
+  inventories: Record<string, number>;
 }
 
 function ruleEvidence(
@@ -101,7 +104,11 @@ export function buildJsonReport(
     .filter((r) => r.route === undefined && isPenalized(r.detection, config.treatDynamicAs))
     .map((r) => ({ ...issueOf(r), severity: effectiveSeverity(r, config) }));
 
-  return { version: meta.version, score: health, weights, categories, summary, rules, routes, siteIssues };
+  const inventories = Object.fromEntries(
+    [...buildInventory(config)].map(([pair, weight]) => [pair, Math.max(weight, INVENTORY_FLOOR)])
+  );
+
+  return { version: meta.version, score: health, weights, categories, summary, rules, routes, siteIssues, inventories };
 }
 
 /** Render results as the documented JSON report string (design §7). */

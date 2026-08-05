@@ -39,7 +39,9 @@ svelte-vitals --reporter json
         "routeAverage": 94, // mean of the per-route scores, floored
         "sitePenalty": 0, // deducted for site-wide findings (no route)
         "criticalCap": null // the cap value when a critical finding lowered the score, else null
-      }
+      },
+      "keys": 42, // routes (or other scored units) this category measured
+      "affectedKeys": 6 // of those, how many carried at least one finding
     }
   },
   "summary": { "critical": 0, "warning": 33, "info": 44, "passed": 610, "dynamic": 2 },
@@ -71,9 +73,25 @@ svelte-vitals --reporter json
       ]
     }
   ],
-  "siteIssues": [] // findings with no route (robots.txt, sitemap.xml, …), same issue shape
+  "siteIssues": [], // findings with no route (robots.txt, sitemap.xml, …), same issue shape
+  "inventories": {
+    "seo::route": 110 // floored severity weight behind every "seo" key scored against "route"
+  }
 }
 ```
+
+A category's score on a key is the share of that category's severity weight that survived. One `info` costs
+a twenty-fifth of the weight at most, one `warning` five times that, one `critical` fifteen times — so a
+more severe finding always costs more than a less severe one within a category, and a category that checks
+very few things is scored against a floor rather than against those few. Repeated findings from the same
+rule on the same key cost what one costs. Beside the score, `affectedKeys` says how much of the project the
+category touched: the score is depth, that is reach.
+
+Two things follow that the paragraph above doesn't say directly:
+
+- per-key scores are comparable **within** a category; across categories the number says which category has
+  a larger share of _its own_ checks failing, not which problem is worse.
+- `inventories` gives the divisor behind every key of a pair, so any score can be recomputed by hand.
 
 Two field names are worth pointing out, because guessing them wrongly fails silently:
 

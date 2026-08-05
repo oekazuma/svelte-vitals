@@ -261,3 +261,38 @@ describe('buildJsonReport — category reach', () => {
     expect(report.categories.seo!.affectedKeys).toBe(1);
   });
 });
+
+describe('buildJsonReport — pair inventories', () => {
+  it('reports the floored weight of each pair', () => {
+    const results: Result[] = [
+      {
+        id: 'seo/canonical-url',
+        category: 'seo',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'x'
+      }
+    ];
+    const report = buildJsonReport(results, config, { version: '0.0.0' });
+    // seo::route holds 110 points and is above the floor; architecture::component holds 8 and is not.
+    expect(report.inventories['seo::route']).toBe(110);
+    expect(report.inventories['architecture::component']).toBe(25);
+  });
+
+  it('lets a reader recompute a route category score from the map', () => {
+    const results: Result[] = [
+      {
+        id: 'seo/canonical-url',
+        category: 'seo',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'x'
+      }
+    ];
+    const report = buildJsonReport(results, config, { version: '0.0.0' });
+    const i = report.inventories['seo::route']!;
+    expect(Math.floor(100 - (100 * 5) / i)).toBe(report.routes[0]!.categories.seo);
+  });
+});

@@ -24,6 +24,7 @@ const report: JsonReport = {
   },
   summary: { critical: 1, warning: 2, info: 1, passed: 37, dynamic: 3 },
   rules: {},
+  inventories: {},
   routes: [
     { route: '/', score: 100, categories: {}, issues: [] },
     {
