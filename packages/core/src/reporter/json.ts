@@ -84,8 +84,8 @@ export function buildJsonReport(
     .map(({ route, results: rs }) => ({
       route,
       score: computeScore(rs, config, { applyCriticalCap: false }).score,
-      // Per category, scored against that category's own inventory — so this does not average to `score`,
-      // which is one ratio over the union of the pairs the route touched.
+      // Per category, scored against that category's own inventory, so this is not guaranteed to average to
+      // `score` — which is one ratio over the union of the pairs the route touched.
       categories: Object.fromEntries(
         Object.entries(scoresByCategory(rs, config, { applyCriticalCap: false })).map(([cat, sr]) => [cat, sr!.score])
       ),
