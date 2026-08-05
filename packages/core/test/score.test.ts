@@ -613,3 +613,33 @@ describe('computeScore — inventory floor', () => {
     expect(Math.min(...infoScores)).toBeGreaterThanOrEqual(Math.max(...warnScores));
   });
 });
+
+describe('computeScore — reach', () => {
+  const config = defineConfig({});
+  const rules = Array.from({ length: 8 }, (_, i) => r(`a/${i}`, 'architecture', 'component', 'info'));
+
+  it('counts keys touched and keys penalized', () => {
+    const results = [fail('a/0', 'src/A.svelte', 'info'), pass('a/0', 'src/B.svelte'), pass('a/0', 'src/C.svelte')];
+    const sr = computeScore(results, config, { rules });
+    expect(sr.keys).toBe(3);
+    expect(sr.affectedKeys).toBe(1);
+  });
+
+  it('reports the same score and different reach for one finding and for many', () => {
+    // The reason reach exists: 41 affected keys of 351 (a real project's own numbers) dilute to
+    // the same floored score as a single affected key, and must still be distinguishable.
+    const keys = Array.from({ length: 351 }, (_, i) => `src/${i}.svelte`);
+    const one = keys.map((k, i) => (i === 0 ? fail('a/0', k, 'info') : pass('a/0', k)));
+    const many = keys.map((k, i) => (i < 41 ? fail('a/0', k, 'info') : pass('a/0', k)));
+    const a = computeScore(one, config, { rules });
+    const b = computeScore(many, config, { rules });
+    expect(a.score).toBe(b.score);
+    expect(a.affectedKeys).toBe(1);
+    expect(b.affectedKeys).toBe(41);
+  });
+
+  it('counts a key once however many rules penalize it', () => {
+    const results = [fail('a/0', 'src/A.svelte', 'info'), fail('a/1', 'src/A.svelte', 'info')];
+    expect(computeScore(results, config, { rules }).affectedKeys).toBe(1);
+  });
+});

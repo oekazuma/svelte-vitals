@@ -32,6 +32,10 @@ export interface ScoreResult {
    */
   rawScore: number;
   scoreModel: ScoreModel;
+  /** Keys this result set touched. */
+  keys: number;
+  /** Keys carrying at least one penalized finding. */
+  affectedKeys: number;
 }
 
 export interface ScoreOptions {
@@ -78,10 +82,12 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
 
   // Deficit space, as `computeHealth` already works: a mean of key scores computes
   // 49.99999999999999 for a true 50 on two keys of deficit 1000/28 and 1800/28.
+  let affectedKeys = 0;
   let totalDeficit = 0;
   for (const [key, pairs] of observed) {
     let failed = 0;
     for (const d of ruleMax.get(key)?.values() ?? []) failed += d;
+    if (failed > 0) affectedKeys += 1;
     let inventoryWeight = 0;
     // `pairOf` and `inventory` are built from the same filtered `rules`, so every pair reachable
     // through `pairOf` also has an inventory entry; the `?? 0` is a degrade-to-0-not-NaN fallback
@@ -122,7 +128,13 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
   const criticalCap = capBinds ? CRITICAL_CAP : null;
   const rawScore = clamp(capBinds ? CRITICAL_CAP : rawUncapped);
 
-  return { score: Math.floor(rawScore), rawScore, scoreModel: { routeAverage, sitePenalty, criticalCap } };
+  return {
+    score: Math.floor(rawScore),
+    rawScore,
+    scoreModel: { routeAverage, sitePenalty, criticalCap },
+    keys: keyCount,
+    affectedKeys
+  };
 }
 
 /** Compute an independent score per category present in `results` (issue #10). */

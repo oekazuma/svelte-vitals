@@ -19,8 +19,8 @@ const report: JsonReport = {
   score: 82,
   weights: { seo: 1, performance: 1 },
   categories: {
-    seo: { score: 91, scoreModel: model() },
-    performance: { score: 68, scoreModel: model() }
+    seo: { score: 91, scoreModel: model(), keys: 0, affectedKeys: 0 },
+    performance: { score: 68, scoreModel: model(), keys: 0, affectedKeys: 0 }
   },
   summary: { critical: 1, warning: 2, info: 1, passed: 37, dynamic: 3 },
   rules: {},
@@ -260,7 +260,7 @@ describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loo
   it('an attacker-controlled category key cannot appear as raw markup', () => {
     const evil: JsonReport = {
       ...report,
-      categories: { '<img src=x onerror=alert(1)>': { score: 50, scoreModel: model() } },
+      categories: { '<img src=x onerror=alert(1)>': { score: 50, scoreModel: model(), keys: 0, affectedKeys: 0 } },
       weights: {},
       routes: [],
       siteIssues: []

@@ -235,3 +235,29 @@ describe('buildJsonReport — per-route category scores', () => {
     expect(report.routes[0]!.categories).toEqual({ seo: 95, performance: 100 });
   });
 });
+
+describe('buildJsonReport — category reach', () => {
+  it('reports keys and affectedKeys per category', () => {
+    const results: Result[] = [
+      {
+        id: 'seo/canonical-url',
+        category: 'seo',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'x'
+      },
+      {
+        id: 'seo/canonical-url',
+        category: 'seo',
+        severity: 'warning',
+        detection: { presence: 'own', value: 'static' },
+        route: '/b',
+        message: 'ok'
+      }
+    ];
+    const report = buildJsonReport(results, config, { version: '0.0.0' });
+    expect(report.categories.seo!.keys).toBe(2);
+    expect(report.categories.seo!.affectedKeys).toBe(1);
+  });
+});

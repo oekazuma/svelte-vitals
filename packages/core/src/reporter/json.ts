@@ -33,7 +33,7 @@ export interface JsonReport {
   version: string;
   score: number; // combined Health score
   weights: Partial<Record<Category, number>>;
-  categories: Record<string, { score: number; scoreModel: ScoreModel }>;
+  categories: Record<string, { score: number; scoreModel: ScoreModel; keys: number; affectedKeys: number }>;
   summary: Summary;
   rules: Record<string, RuleEvidence>;
   routes: Array<{ route: string; score: number; categories: Record<string, number>; issues: JsonIssue[] }>;
@@ -69,7 +69,10 @@ export function buildJsonReport(
   const rules = ruleEvidence(results, config, ruleIds);
 
   const categories = Object.fromEntries(
-    Object.entries(byCat).map(([cat, sr]) => [cat, { score: sr.score, scoreModel: sr.scoreModel }])
+    Object.entries(byCat).map(([cat, sr]) => [
+      cat,
+      { score: sr.score, scoreModel: sr.scoreModel, keys: sr.keys, affectedKeys: sr.affectedKeys }
+    ])
   );
 
   const routeMap = new Map<string, { route: string; results: Result[] }>();
