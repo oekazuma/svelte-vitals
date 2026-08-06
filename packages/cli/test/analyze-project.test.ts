@@ -1,8 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import mri from 'mri';
 import { analyzeProject } from '../src/index.js';
 import { ProjectError } from '../src/providers/source/project.js';
+import { resolveArgs } from '../src/resolve-args.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const fixtureDir = join(here, 'fixtures', 'basic-project');
@@ -14,6 +16,7 @@ const waterfallProjectFixtureDir = join(here, 'fixtures', 'waterfall-project');
 const unitEntryFixtureDir = join(here, 'fixtures', 'unit-entry-project');
 const directoryNamingFixtureDir = join(here, 'fixtures', 'directory-naming-project');
 const reservedNamesFixtureDir = join(here, 'fixtures', 'reserved-names-project');
+const rulesFlagConfigFixtureDir = join(here, 'fixtures', 'rules-flag-config-project');
 
 describe('analyzeProject', () => {
   it('returns results, config, version and warnings for a SvelteKit project', async () => {
@@ -155,5 +158,82 @@ describe('analyzeProject config-file precedence (design doc 2026-07-05-config-fi
     expect(warnings.some((w) => w.includes("unknown config key 'someFutureOption'"))).toBe(true);
     // The invalid field is dropped, so it falls through to the default.
     expect(config.treatDynamicAs).toBe('pass');
+  });
+});
+
+// `rules-flag-config-project`'s config file declares options for two otherwise-inert/high-default
+// rules: `architecture/component-size` (max: 3, well under Big.svelte's line count but far below
+// the built-in default of 200) and `architecture/directory-naming` (declares `src/lib/**` must be
+// camelCase, which `Price_Table` violates; the rule is inert without a `directories` declaration
+// at all). These tests go through `resolveArgs` — the real --rules/--ignore parsing path, not just
+// `analyzeProject`'s composition — so they pin the actual CLI flag behavior (design:
+// rules-flag-clobbers-config-options), not just a hand-built options object.
+describe("--rules/--ignore compose with a config file's per-rule options (design: rules-flag-clobbers-config-options)", () => {
+  // `architecture/component-size` (a componentRule) seeds a PASS result for every applicable
+  // component in addition to a PENALIZED one for a violation, so a plain id filter can't tell
+  // "fired with the file's max: 3" from "fired with the built-in default of 200" — both leave
+  // component-size present in `results`, just with different `detection`. Only the penalized
+  // shape pins the option actually being honoured.
+  const penalizedComponentSize = (results: { id: string; detection: { presence: string; value: string } }[]) =>
+    results.filter((r) => r.id === 'architecture/component-size' && r.detection.presence === 'none');
+
+  /** Parse argv the same way bin.ts does, resolve it, and assert no fatal errors along the way. */
+  function optionsFor(...args: string[]) {
+    const argv = mri(args, { string: ['rules', 'ignore'] });
+    const { options, errors } = resolveArgs(argv);
+    expect(errors).toEqual([]);
+    return options!;
+  }
+
+  // Test 1 — the bug, directly: an --ignore naming an unrelated rule must not touch any other
+  // rule's config-file options.
+  it("--ignore of an unrelated rule keeps every other rule's options", async () => {
+    const options = optionsFor('--ignore', 'seo/title-presence');
+    const { results } = await analyzeProject({ ...options, cwd: rulesFlagConfigFixtureDir });
+    expect(penalizedComponentSize(results)).toHaveLength(1);
+    expect(results.filter((r) => r.id === 'architecture/directory-naming')).toHaveLength(1);
+  });
+
+  // Test 2 — --ignore still silences the rule it names, even though the file gives it options.
+  it('--ignore still silences the rule it names, even when the config file enables it with options', async () => {
+    const options = optionsFor('--ignore', 'architecture/directory-naming');
+    const { results } = await analyzeProject({ ...options, cwd: rulesFlagConfigFixtureDir });
+    expect(results.filter((r) => r.id === 'architecture/directory-naming')).toEqual([]);
+    // Silencing directory-naming must not disturb component-size's options.
+    expect(penalizedComponentSize(results)).toHaveLength(1);
+  });
+
+  // Test 3 — regression guard for the discarded mechanism (a plain `{ ...file.rules, ...opts.rules }`
+  // merge): --rules must still force-enable a rule the config file turns off, since --rules is a
+  // whole-field replacement of `rules`, not a merge. `config-file-project`'s file sets
+  // `'seo/title-presence': 'off'`; naming it in --rules must override that.
+  it('--rules still force-enables a rule that the config file sets to off', async () => {
+    const options = optionsFor('--rules', 'seo/title-presence');
+    const { results } = await analyzeProject({ ...options, cwd: configFileFixtureDir });
+    expect(results.some((r) => r.id === 'seo/title-presence')).toBe(true);
+  });
+
+  // Test 4 — --rules still disables every rule not named (assert on the id set, not a count).
+  it('--rules still disables every rule not named', async () => {
+    const options = optionsFor('--rules', 'architecture/component-size');
+    const { results } = await analyzeProject({ ...options, cwd: rulesFlagConfigFixtureDir });
+    expect(new Set(results.map((r) => r.id))).toEqual(new Set(['architecture/component-size']));
+  });
+
+  // Test 5 — both flags together: deny wins for the rule named by both. `directory-naming`'s own
+  // options are deliberately not asserted here — with --rules present, the flag-built map (not the
+  // file's `rules`) is the base layer, and per-rule options for an allow-listed-but-not-otherwise-
+  // configured rule are a separate, out-of-scope concern (see design doc note) — this test only
+  // needs to show which rule ids ran.
+  it('--rules A,B --ignore B leaves only A running (deny wins)', async () => {
+    const options = optionsFor(
+      '--rules',
+      'seo/title-presence,architecture/directory-naming',
+      '--ignore',
+      'architecture/directory-naming'
+    );
+    const { results } = await analyzeProject({ ...options, cwd: rulesFlagConfigFixtureDir });
+    expect(new Set(results.map((r) => r.id))).toEqual(new Set(['seo/title-presence']));
+    expect(results.some((r) => r.id === 'seo/title-presence' && r.detection.presence === 'none')).toBe(true);
   });
 });
