@@ -168,6 +168,13 @@ against a pure function instead.
    end-to-end guard and not only a unit test.
 3. **An option-configured rule fires under `--rules`** — the defect itself, end to end: a fixture declaring
    options that make a rule report, and `--rules <it>` producing the finding.
+   3a. **The self-diagnostic comes back with it.** The defect was **doubly silent**, which the field measurement
+   established and this design did not originally record: a discarded options map leaves no declaration, so the
+   aggregated "this declaration does not check what it says" finding disappears alongside the rule's own
+   findings. A dead glob and a complying tree therefore read identically — the exact failure the charter's
+   inverse-precision gate exists to prevent, and the reason this half of the defect is the one worth fixing
+   first. Pin it with a fixture whose declared glob matches nothing: under `--rules <that rule>` the
+   project-scoped diagnostic must appear.
 4. **`--rules` still disables everything unnamed**, asserted on the set of rule ids that produced results rather
    than a count.
 5. **`--ignore` still layers rather than replaces**, so the patch that shipped first is not undone. Assert an

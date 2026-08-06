@@ -351,6 +351,13 @@ git commit -m "feat(cli): compose a run's rules map in a pure function"
 - Modify: `packages/cli/src/rules-config.ts` (`buildRulesConfig`'s docstring only)
 - Modify: `packages/cli/test/resolve-args.test.ts`
 - Modify: `packages/cli/test/analyze-project.test.ts`
+- Create: `packages/cli/test/fixtures/dead-declaration-project/` — a copy of the shape of
+  `rules-flag-config-project` (read that fixture and mirror its `package.json` and `src/` layout), whose
+  `svelte-vitals.config.mjs` declares `'architecture/reserved-name-placement': { options: { placements: { e2e:
+'src/nowhere/**' } } }`. The glob matches no directory, so the rule emits its aggregated
+  project-scoped diagnostic — which the defect silences along with everything else. Add a header comment
+  saying that is what the fixture is for. Export a `deadDeclarationFixtureDir` constant beside the existing
+  `rulesFlagConfigFixtureDir` in `analyze-project.test.ts`.
 
 **Interfaces:**
 
@@ -374,6 +381,19 @@ it('wakes an L3 rule named by --rules using the config file declaration', async 
   const options = optionsFor('--rules', 'architecture/directory-naming');
   const { results } = await analyzeProject({ ...options, cwd: rulesFlagConfigFixtureDir });
   expect(results.filter((r) => r.id === 'architecture/directory-naming')).toHaveLength(1);
+});
+
+it('restores the self-diagnostic a discarded declaration silenced', async () => {
+  // The field's report: the defect was doubly silent. The rule reported nothing AND the
+  // aggregated "this declaration does not check what it says" finding disappeared with it,
+  // because a discarded options map leaves no declaration to diagnose. So a dead glob and a
+  // complying tree looked identical — the exact reading the charter's inverse-precision gate
+  // exists to prevent. Uses its own fixture, whose config declares a glob matching nothing.
+  const options = optionsFor('--rules', 'architecture/reserved-name-placement');
+  const { results } = await analyzeProject({ ...options, cwd: deadDeclarationFixtureDir });
+  const projectScoped = results.filter((r) => r.route === undefined && r.location === undefined);
+  expect(projectScoped).toHaveLength(1);
+  expect(projectScoped[0]?.message).toContain('matched no directory');
 });
 
 it('still narrows to the rules --rules names', async () => {
