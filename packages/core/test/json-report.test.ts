@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { buildJsonReport, formatJsonReport, computeHealth, defineConfig, type Result } from '../src/index.js';
+import { buildJsonReport, formatJsonReport, computeHealth, defineConfig, allRules, type Result } from '../src/index.js';
+import { DEDUCTION } from '../src/scoring/inventory.js';
 
 const config = defineConfig({});
 const results: Result[] = [
@@ -294,5 +295,37 @@ describe('buildJsonReport — pair inventories', () => {
     const report = buildJsonReport(results, config, { version: '0.0.0' });
     const i = report.inventories['seo::route']!;
     expect(Math.floor(100 - (100 * 5) / i)).toBe(report.routes[0]!.categories.seo);
+  });
+
+  it('recomputes every present category from `inventories`, including one that spans both scopes', () => {
+    // The recomputation above holds only because a route id and a source file path are different key
+    // spaces, so a category's results on one key always draw on a single scope — never asserted directly
+    // against the registry until now. Built from `allRules` itself (not a hard-coded id list): `performance`
+    // and `seo` each carry both a route-scoped and a component-scoped rule for real, so this is the case
+    // the precondition has to hold for, not a synthetic one.
+    const nonProjectRules = allRules.filter((r) => r.scope !== 'project');
+    const results: Result[] = nonProjectRules.map((r) => ({
+      id: r.id,
+      category: r.category,
+      severity: r.severity,
+      detection: { presence: 'none', value: 'absent' },
+      route: r.scope === 'route' ? '/route-key' : 'src/component-key.svelte',
+      message: 'x'
+    }));
+    const report = buildJsonReport(results, config, { version: '0.0.0' });
+
+    for (const route of report.routes) {
+      const scope = route.route === '/route-key' ? 'route' : 'component';
+      for (const [category, score] of Object.entries(route.categories)) {
+        const failed = nonProjectRules
+          .filter((r) => r.category === category && r.scope === scope)
+          .reduce((sum, r) => sum + DEDUCTION[r.severity], 0);
+        const inventory = report.inventories[`${category}::${scope}`]!;
+        expect(Math.floor(100 - (100 * failed) / inventory)).toBe(score);
+      }
+    }
+    // Confirm the case above is actually exercised, not vacuously true because no category spans both keys.
+    expect(report.routes.find((r) => r.route === '/route-key')!.categories).toHaveProperty('performance');
+    expect(report.routes.find((r) => r.route === 'src/component-key.svelte')!.categories).toHaveProperty('performance');
   });
 });
