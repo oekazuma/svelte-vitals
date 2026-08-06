@@ -249,7 +249,7 @@ the flat kinds already available.
 | **M9** A path written in prose must resolve                               | doc and style-guide links inside component comments; a renamed unit's old name  | **Yes** — `string-list` of link shapes               |
 | **M10** A filename forbidden in a location                                | `types/types.ts` and `types/index.ts`; a `.tests.ts` where `.test.ts` is meant  | **Yes** — `string-map` (location → forbidden shape)  |
 
-Eight of the ten need no new option kind. So the sequencing claim in `2026-07-26` was **not** wrong in
+Nine of the ten need no new option kind. So the sequencing claim in `2026-07-26` was **not** wrong in
 the way the paragraph above first suggested: per-rule options did unblock L3, for every convention
 expressible as a flat list or map. Only part of M8 waits on the second iteration.
 

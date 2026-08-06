@@ -367,7 +367,10 @@ cascade the unit definition exists to prevent.
   so `scopes` cannot be declared there either.
 
   So for a convention of this shape, **the closed vocabulary is enforceable only under PascalCase
-  component units.** That is a real limit on coverage, not a configuration mistake to work around, and
+  component units.** Measured 2026-08-06 in `2026-08-06-reserved-name-placement-design.md`: `isUnitDir`
+  recognises 170 of that tree's 299 units, and M4 closes the same gap for itself by taking a second
+  predicate — the letter test dropped — rather than by widening `isUnitDir`. The same split would close it
+  here. That is a real limit on coverage, not a configuration mistake to work around, and
   it is worth stating rather than leaving a reader to discover it by writing a declaration that reports
   every route segment. Closing it needs the ability to say "these names, plus anything" at a position —
   a per-scope escape the option kinds cannot express today, and a candidate for the second

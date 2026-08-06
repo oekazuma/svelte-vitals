@@ -83,13 +83,18 @@ The split is the letter test alone. It is deliberately **not** keyed on the entr
 `.svelte` and capitalisation coincide is a property of this project's convention, not something the rule
 should encode on one tree's evidence.
 
-**Which map a name goes in is a claim about the convention, not about the tool.** The measured table splits
-cleanly along one line: a name that holds _parts of a component_ (`parts`, `styleGuide`) is permitted under a
-component unit and reads as a violation elsewhere; a name that holds _code_ (`tests`, `functions`, `stores`,
-`types`) is permitted under a unit of either case, because the convention's own definition of a unit does not
-distinguish them. That is the rule a reader can hold, and it is why `functions` goes in the any-case map
-rather than relying on a glob to rescue it — the reviewer's point that a design cannot brand its own
-encoding a coincidence and ship it anyway.
+**Which map a name goes in is a claim about the convention, not about the tool.** The line is this: a name
+that holds _parts of a component_ (`parts`, `styleGuide`) is permitted under a component unit and reads as a
+violation elsewhere; a name that holds _code_ (`tests`, `functions`, `stores`, `types`) is permitted under a
+unit of either case, because the convention's own definition of a unit does not distinguish them. That is the
+rule a reader can hold, and it is why `functions` goes in the any-case map rather than relying on a glob to
+rescue it — a design cannot brand its own encoding a coincidence and ship it anyway.
+
+The measurement is **consistent with that line and does not determine it.** Only `tests` (109 lowercase
+parents) and `functions` (one) positively support the code half; `types` was never measured under a unit at
+all, and `stores`'s five unit instances have no recorded case. The unsupported halves all fall on the
+over-permission side, which is the direction this design has already accepted as a missed regression rather
+than a false positive.
 
 `tests` is therefore **in scope**, where the earlier draft had removed it, and all 250 instances pass.
 
