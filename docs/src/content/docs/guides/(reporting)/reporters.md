@@ -89,7 +89,15 @@ which makes each of its findings a larger share, so a `warning` in a small group
 the score, `affectedKeys` says how much of the project the category touched: the score is depth, that is
 reach.
 
-Two things follow that the paragraph above doesn't say directly:
+Four things follow that the paragraph above doesn't say directly:
+
+- **A floored group is clamped, not measured.** Five of the nine groups hold less than 25 points of checks,
+  so `inventories` reports 25 for all of them — a group with one rule and a group with eight look identical
+  there. The number is the divisor a score used, not a count of what ran; `rules` is where you see which
+  checks actually reported.
+- **`keys` counts per category, not per project.** A category's `keys` is the number of keys that category
+  touched, so the denominators differ between categories on one run — a project can show `seo` at 13 keys and
+  `architecture` at 334.
 
 - per-key scores are comparable **within** a category; across categories the number says which category has
   a larger share of _its own_ checks failing, not which problem is worse.

@@ -3,6 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { computeScore, defineConfig, scoresByCategory, type Result } from '../src/index.js';
 import type { Rule } from '../src/rule.js';
 import { buildInventory, DEDUCTION } from '../src/scoring/inventory.js';
+import { INVENTORY_FLOOR } from '../src/scoring/score.js';
 
 const pass = (id: string, route: string): Result => ({
   id,
@@ -646,6 +647,17 @@ describe('computeScore — inventory floor', () => {
     // A warning in the thinnest (floored) pair still scores lower — costs more — than a critical
     // in the thickest one: the order above holds inside a pair, and is not guaranteed across pairs.
     expect(Math.min(...warningScores)).toBeLessThan(Math.max(...criticalScores));
+  });
+
+  it('keeps a cheap info cheaper than the cheapest warning as the registry grows', () => {
+    // The floor orders info below warning only while the widest inventory stays under 5x it: an info
+    // in a floored pair costs 100/25 = 4, and a warning costs 500/i, which drops under 4 once i passes
+    // 125. The widest pair is `seo::route` at 110, so roughly three more warning rules there would
+    // re-invert the two — the margin the field measured as "one displayed point" seen from the side
+    // that actually moves. This fails when that happens instead of letting it happen quietly.
+    const inv = buildInventory(config);
+    const widest = Math.max(...inv.values());
+    expect(widest).toBeLessThan(5 * INVENTORY_FLOOR);
   });
 });
 
