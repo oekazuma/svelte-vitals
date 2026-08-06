@@ -52,6 +52,13 @@ export interface RunOptions {
   byRoute?: boolean;
   failOn?: Severity;
   rules?: Record<string, RuleSetting>;
+  /**
+   * Rule ids to silence on top of `rules`/the config file (--ignore). Unlike `rules`, this
+   * never replaces anything — it only ever adds `'off'` entries for the ids listed, so a
+   * rule not named here keeps whatever `rules`/the file said for it (design:
+   * rules-flag-clobbers-config-options).
+   */
+  ignoreRules?: string[];
   /** Per-category weights for the combined Health score (flag > config file > default 1 each). */
   weights?: Partial<Record<Category, number>>;
   /** Restrict analysis to rules in these categories (applied after rules/ignore selection). */
@@ -130,6 +137,13 @@ export interface AnalyzeOptions {
   route?: string;
   failOn?: Severity;
   rules?: Record<string, RuleSetting>;
+  /**
+   * Rule ids to silence on top of `rules`/the config file (--ignore). Unlike `rules`, this
+   * never replaces anything — it only ever adds `'off'` entries for the ids listed, so a
+   * rule not named here keeps whatever `rules`/the file said for it (design:
+   * rules-flag-clobbers-config-options).
+   */
+  ignoreRules?: string[];
   /** Per-category weights for the combined Health score (flag > config file > default 1 each). */
   weights?: Partial<Record<Category, number>>;
   /** Restrict analysis to rules in these categories (applied after rules/ignore selection). */
@@ -177,10 +191,18 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   const file = loaded?.config;
 
   const weights = opts.weights ?? file?.weights;
+  const rulesBase = opts.rules ?? file?.rules ?? {};
+  // --ignore names only the rules it silences, so it layers onto whatever `rulesBase` is rather
+  // than replacing it; --rules keeps whole-field replacement (design 2026-07-05 §3, decision 3).
+  // Applying it last also guarantees deny wins when --rules and --ignore overlap.
+  const resolvedRules =
+    opts.ignoreRules && opts.ignoreRules.length > 0
+      ? { ...rulesBase, ...Object.fromEntries(opts.ignoreRules.map((id) => [id, 'off' as const])) }
+      : rulesBase;
   const config = defineConfig({
     treatDynamicAs: opts.treatDynamicAs ?? file?.treatDynamicAs ?? 'pass',
     metaComponents: opts.metaComponents ?? file?.metaComponents ?? [],
-    rules: opts.rules ?? file?.rules ?? {},
+    rules: resolvedRules,
     failOn: opts.failOn ?? file?.failOn ?? 'critical',
     ...(weights !== undefined ? { weights } : {}),
     ...(file?.overrides !== undefined ? { overrides: file.overrides } : {})
@@ -332,6 +354,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       route: opts.route,
       failOn: opts.failOn,
       rules: opts.rules,
+      ignoreRules: opts.ignoreRules,
       weights: opts.weights,
       categories: opts.categories
     });
@@ -381,6 +404,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
           route: opts.route,
           failOn: opts.failOn,
           rules: opts.rules,
+          ignoreRules: opts.ignoreRules,
           weights: opts.weights,
           categories: opts.categories
         });
@@ -427,6 +451,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         route: opts.route,
         failOn: opts.failOn,
         rules: opts.rules,
+        ignoreRules: opts.ignoreRules,
         weights: opts.weights,
         categories: opts.categories
       }

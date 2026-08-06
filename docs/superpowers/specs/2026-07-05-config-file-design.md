@@ -172,6 +172,18 @@ rules" — regardless of what the file says; key-level merging would make the
 allow-list semantics of `--rules` (which works by generating `off` entries for
 everything unlisted) impossible to reason about.
 
+**Corrected 2026-08-06.** The paragraph above, and the "flag-built rules map
+replaces the file's `rules` entirely" sentence that opens this section, apply
+that reasoning to `--rules` and `--ignore` alike. It only holds for `--rules`:
+its allow-list semantics need whole-field replacement to mean what they say,
+regardless of the file. `--ignore` names only the rule(s) it silences and
+never claimed anything about the rest — replacing the whole field on its
+account was an implementation shortcut (both flags fed one `buildRulesConfig`
+call), not a semantic requirement, and it silently dropped every other rule's
+file-configured severity/options on any `--ignore` invocation
+(rules-flag-clobbers-config-options). `--ignore` now layers `off` entries onto
+whatever `rules` resolved to instead of replacing it.
+
 **Two implementation subtleties found in the spike:**
 
 - `resolve-args.ts` currently always sets

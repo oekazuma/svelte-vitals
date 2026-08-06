@@ -123,6 +123,29 @@ describe('resolveArgs', () => {
     expect(options?.rules).toBeUndefined();
   });
 
+  // --ignore populates its own ignoreRules option and must not touch rules at all — the two
+  // fields are independent so --ignore layers onto rules/the config file instead of replacing it
+  // (design: rules-flag-clobbers-config-options).
+  it('populates ignoreRules and leaves rules undefined for --ignore alone', () => {
+    const { options } = resolve('--ignore', 'seo/title-presence');
+    expect(options?.ignoreRules).toEqual(['seo/title-presence']);
+    expect(options?.rules).toBeUndefined();
+  });
+
+  it('leaves both rules and ignoreRules undefined when neither flag is passed', () => {
+    const { options } = resolve('--reporter', 'json');
+    expect(options?.rules).toBeUndefined();
+    expect(options?.ignoreRules).toBeUndefined();
+  });
+
+  it('populates rules and ignoreRules independently when both --rules and --ignore are passed', () => {
+    const { options } = resolve('--rules', 'seo/title-presence', '--ignore', 'seo/description-presence');
+    // buildRulesConfig(['seo/title-presence'], []) disables every rule not in the allow-list,
+    // so 'seo/description-presence' (not allowed) is 'off' in `rules` itself.
+    expect(options?.rules?.['seo/description-presence']).toBe('off');
+    expect(options?.ignoreRules).toEqual(['seo/description-presence']);
+  });
+
   it('parses --weights into a per-category map, normalizing case', () => {
     const { options, errors } = resolve('--weights', 'SEO=2,performance=1.5');
     expect(errors).toEqual([]);

@@ -94,8 +94,9 @@ matches the bare prefix. Everything else — including `(`, `)`, `[`, `]` — is
 
 ## Precedence
 
-Per field: **CLI flag > config file > built-in default**. One exception — `--rules`/`--ignore`
-replace the config file's `rules` wholesale for that run rather than merging.
+Per field: **CLI flag > config file > built-in default**. One exception — `--rules` replaces the
+config file's `rules` wholesale for that run rather than merging. `--ignore` doesn't: it only adds
+`off` entries for the rule ids it names, layered on top of whatever `rules` resolved to.
 
 `overrides` has no CLI flag; route policy belongs in a committed file.
 

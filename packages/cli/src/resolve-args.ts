@@ -226,12 +226,20 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
     errors.push('svelte-vitals: --update-suppressions and --no-suppressions cannot be used together.');
   }
 
-  // `buildRulesConfig` returns `{}` when neither --rules nor --ignore was passed;
-  // normalize that to `undefined` so it doesn't clobber a config file's `rules`
-  // (design doc §3, decision 3 — "not specified" must stay distinguishable from
-  // "specified as empty").
-  const rulesConfig = buildRulesConfig(allow, ignore);
+  // `rules` carries only --rules's allow-list complement — `ignore` is deliberately not
+  // passed to `buildRulesConfig` here. Folding it in would make a bare --ignore produce a
+  // non-empty `rules` map too, which `analyzeProject` would then use to replace a config
+  // file's whole `rules` field even though --ignore never said anything about the rules it
+  // didn't name (rules-flag-clobbers-config-options). --ignore's ids travel separately as
+  // `ignoreRules` below and are layered on top of `rules`/the file in index.ts instead.
+  //
+  // `buildRulesConfig` returns `{}` when --rules wasn't passed; normalize that to
+  // `undefined` so it doesn't clobber a config file's `rules` (design doc §3, decision 3 —
+  // "not specified" must stay distinguishable from "specified as empty").
+  const rulesConfig = buildRulesConfig(allow, []);
   const rules = Object.keys(rulesConfig).length > 0 ? rulesConfig : undefined;
+  // Same "not specified" vs "empty" distinction as `rules` above, for --ignore's own list.
+  const ignoreRules = ignore.length > 0 ? ignore : undefined;
 
   if (errors.length > 0) return { options: null, warnings, errors };
 
@@ -249,6 +257,7 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
       byRoute: Boolean(argv['by-route']),
       failOn,
       rules,
+      ...(ignoreRules !== undefined ? { ignoreRules } : {}),
       ...(weights !== undefined ? { weights } : {}),
       ...(categories !== undefined ? { categories } : {}),
       ...(score ? { score } : {}),
