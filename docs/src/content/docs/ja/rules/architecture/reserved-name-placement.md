@@ -42,7 +42,7 @@ export default {
   rules: {
     'architecture/reserved-name-placement': {
       options: {
-        // 名前が A–Z で始まるユニットの直下 —— `isUnitDir` そのまま
+        // 名前が A–Z で始まり同名の子ファイルを持つユニットの直下
         capitalisedUnitPlacements: { parts: 'src/**', styleGuide: 'src/**' },
         // 大文字小文字を問わないユニットの直下
         anyCaseUnitPlacements: {
@@ -70,8 +70,8 @@ export default {
 
 3 つとも予約名の**親**ディレクトリにマッチし、違いはそのディレクトリにさらに何を求めるかだけです ——
 `placements` はそれ以上何も求めず、`capitalisedUnitPlacements` はそれが名前 A–Z で始まり同名の子
-ファイルを持つユニットであることを求め(`architecture/reserved-directory-names` の `isUnitDir` を
-そのまま使用)、`anyCaseUnitPlacements` は文字の条件を除いた同じ判定を求めます。
+ファイルを持つユニットであることを求め(`architecture/reserved-directory-names` の `isUnitDir`)、
+`anyCaseUnitPlacements` は文字の条件を除いた同じ判定を求めます。
 
 ### 位置は 3 つのマップの和集合
 

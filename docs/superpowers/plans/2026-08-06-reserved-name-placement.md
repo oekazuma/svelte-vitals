@@ -627,7 +627,7 @@ Expected: PASS, **12** tests (7 from Task 2 plus 5 here).
 | `isUnitDir(parent, filesIn) &&` removed from the union                                  | item 1 (`src/lib/formatDate/parts` stops reporting) |
 | `isAnyCaseUnitDir` → `isUnitDir` in the third clause                                    | item 2                                              |
 | `matches(capUnits[name])` → `isUnitDir(parent, filesIn)` (predicate only, glob ignored) | item 6                                              |
-| the union `                                                                             |                                                     | `chain replaced by a first-match-wins`if/else` | item 3 |
+| the union's or-chain replaced by a first-match-wins `if/else`                           | item 3                                              |
 | both predicates replaced by a first-character test                                      | item 7                                              |
 
 - [ ] **Step 6: Commit**

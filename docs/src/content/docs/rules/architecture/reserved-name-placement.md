@@ -41,7 +41,7 @@ export default {
   rules: {
     'architecture/reserved-name-placement': {
       options: {
-        // directly under a unit whose name begins A–Z — `isUnitDir` unchanged
+        // directly under a unit whose name begins A–Z and holds a same-named child file
         capitalisedUnitPlacements: { parts: 'src/**', styleGuide: 'src/**' },
         // directly under a unit of either case
         anyCaseUnitPlacements: {
@@ -70,7 +70,7 @@ export default {
 All three match the reserved name's **parent** directory, and differ only in what else they require
 of it: `placements` requires nothing more, `capitalisedUnitPlacements` requires it to be a unit
 whose name begins A–Z and holds a same-named child file (`architecture/reserved-directory-names`'s
-`isUnitDir`, unchanged), `anyCaseUnitPlacements` requires the same without the letter test.
+`isUnitDir`), `anyCaseUnitPlacements` requires the same without the letter test.
 
 ### Positions union across the maps
 
