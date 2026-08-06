@@ -82,4 +82,13 @@ describe('resolveRuleSelection', () => {
     resolveRuleSelection({ fileRules, allowRules: [X] });
     expect(fileRules[X]).toBe('off');
   });
+
+  it('does not mutate the object-form entry it force-enables', () => {
+    const entry = { severity: 'off' as const, options: { max: 3 } };
+    const fileRules = { [X]: entry };
+    const out = resolveRuleSelection({ fileRules, allowRules: [X] });
+    expect(entry.severity).toBe('off');
+    expect(entry.options).toEqual({ max: 3 });
+    expect(out[X]).not.toBe(entry);
+  });
 });
