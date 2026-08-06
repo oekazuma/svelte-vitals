@@ -192,7 +192,7 @@ fix but not its scoping: **any empty value anywhere ungoverns that name everywhe
 
 **And the drop is reported, in the shape M3 reports it.** `reserved-directory-names` shipped the silent
 version and closed it in review; silence alone leaves a typo indistinguishable from a project that complies,
-which is what the charter's inverse-precision gate exists for. Two constraints come with the shape, both
+which is what the charter's inverse-precision gate exists for. Three constraints come with the shape, all
 load-bearing:
 
 - **One aggregated, project-scoped finding**, never one per key. `findingKey` is `id::route::location` and a
@@ -213,6 +213,14 @@ This is a different question from a declared name that never appears, which stay
 position is real and legitimately empty, here the position does not exist or holds nothing the predicate
 accepts.
 
+**Two boundaries on those diagnostics, both inherited rather than invented.** `UnusedReason` is already
+two-state — `'no-match'` and `'only-excluded'` — because "matched no directory" is a lie for an alternative
+whose every match sat under `exclude`; M4 keeps both states for the same reason, so its per-alternative
+classification is three-way with the unit tri-state. And **only globally resolved values are classified.** An
+alternative that exists solely inside an `overrides` layer is not diagnosed, matching M3: a layer that
+governs a subtree cannot be judged dead against the whole tree, and judging it against its own subtree is a
+second mechanism this rule does not need.
+
 The note wording is M3's adapted, not M3's copied: an empty value there names no _child directory name_,
 here it names no _position_.
 
@@ -230,8 +238,9 @@ separate mechanism.
 
 **The unit maps' globs therefore match the unit itself, as `unitScopes` does**, and not an ancestor it sits
 beneath. Those two readings diverge observably, so the compiler decides it — run against the family's key
-compiler with the bare guard (`createKeyCompiler(globs, true)` + `matchKeys`; `routeGlobToRegExp` alone has
-no guard and its raw regex for `src/lib/**` does match `src/lib`):
+compiler with the bare guard (`createKeyCompiler()` returns the memoising `compile`; `compile(globs, true)`
+then `matchKeys`. `routeGlobToRegExp` alone has no guard: its raw regex for `src/lib/**` does match
+`src/lib`, and the guard is `matchKeys`'s `barePrefixRe` skip):
 
 | glob         | `src/lib` | `src/lib/Card` | `src/lib/features/x/Card` |
 | ------------ | --------- | -------------- | ------------------------- |
@@ -325,10 +334,12 @@ counterpart — `packages/cli/test/docs-links.test.ts` fails without both — th
 13. **Nothing is reported when no map is declared**, on a tree that would otherwise produce findings — the L3
     guarantee, and the half a reader assumes rather than checks.
 14. **An `overrides` layer scopes the whole rule, including the empty-value drop.** Empty a governed name
-    inside an override and assert it is silent under that override's paths **and still reporting outside
-    them**, in one run. Nothing else here touches `overrides`, so an implementation that drops an emptied
-    name project-wide — or resolves options at the parent instead of the reserved-name directory — passes
-    every other item.
+    inside an override; assert it is silent under that override's paths **and still reporting outside them**,
+    in one run. Then the clause that makes this item catch what it claims to: **the override's glob must
+    match the reserved-name directory and not its parent** — `'src/**/parts'` does, an ordinary
+    `'src/lib/**'` does not. Without it the two resolution subjects agree on every assertion, and an
+    implementation resolving at the parent passes; every other item uses global config, where the subjects
+    are indistinguishable, so this is the only guard against that.
 15. **A bare prefix and a `/**` suffix differ as the family's compiler defines.** Assert `src/routes` against a
     `src/routes` parent and `src/routes/**` against the same one, so the choice is pinned rather than
     inherited silently.
