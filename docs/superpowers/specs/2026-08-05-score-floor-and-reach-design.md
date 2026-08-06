@@ -52,7 +52,7 @@ The existing `max(observedInventory, failedWeight)` stays; 25 joins it.
 The zero-point cases disappear with it: `seo::component`'s lone `warning` scored **0** and now scores **80**.
 
 **`warning` is not ordered below `critical`, and no floor achieves that.** A `warning` in a floored pair costs
-20; a `critical` in `seo::route` costs 13.64. Ordering those would need the floor at ~37, where eight of the
+20; a `critical` in `seo::route` costs 13.64. Ordering those would need the floor at ~37, where seven of the
 nine pairs sit on the floor and the model has become absolute deductions wearing a ratio's clothes. So it is
 left unordered, deliberately, because the case requires a thin pair carrying a `warning` beside a thick pair
 carrying a `critical` — and **no thin pair fired at all in the field**: `seo::component`,
@@ -81,7 +81,7 @@ tuned away; it is what a mean of mostly-clean keys says. Splitting the product's
 both legible: `41 of 351` distinguishes one finding from forty-one exactly, where the score cannot.
 
 It also removes the reason the withdrawn design refused to floor. That refusal was to protect the score's
-resolution — 29 affected keys per displayed point at inventory 8, 71 at 25. With reach reported, resolution
+resolution — 29 affected keys per displayed point at inventory 8, 88 at 25. With reach reported, resolution
 stops carrying the signal and the floor costs nothing that matters.
 
 ### 3. Say what the number means
@@ -114,9 +114,10 @@ The one-paragraph version, which goes in the reporters guide in both languages:
 
 ## What this costs
 
-**Scores rise.** On the field project `architecture` goes from 98 to **99**, and its worst keys from 87 to
-**96**. Every thin-pair key moves up. That is the trade for severity behaving, and the reach count is what
-keeps the change from hiding anything: 41 of 351 was invisible before and is now printed.
+**Scores rise.** On the field project `architecture` goes from 98 to **99**, and its worst keys — two failing
+rules against an inventory of 8 — from **75** to **92**. Every thin-pair key moves up. That is the trade for
+severity behaving, and the reach count is what keeps the change from hiding anything: 41 of 351 was invisible
+before and is now printed.
 
 **A `--min-health` gate calibrated on the current release will pass more easily.** Recalibrate.
 
