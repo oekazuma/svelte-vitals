@@ -142,6 +142,37 @@ before and is now printed.
 6. **The invariant survives.** No penalized finding → 100. One `info` among many passes → never 100.
 7. **`sitePenalty` is untouched** — still absolute points, still subtracted after the mean.
 
+## Measured in the field, 2026-08-06
+
+The floor shipped in 0.40.0 and was measured on the same project the design was built from. It did what it
+was for: `architecture` reads **99** with `affectedKeys 41/334`, its worst keys **96** and **92** where they
+were 87 and 75, an `info` costs **4 points** against a `seo` `warning`'s 5, and `inventories` reports
+`architecture::component = 25` so `100 − 100/25 = 96` checks out by hand. The reported inversion is gone.
+
+Three things the measurement found that this design did not say.
+
+**The margin is fifteen points of inventory, not a comfortable one.** `info` stays cheaper than `warning`
+only while the widest pair holds less than `5 × 25 = 125`. `seo::route` holds **110**, so roughly three more
+`warning` rules there re-invert the two. A test now fails when that margin closes
+(`keeps a cheap info cheaper than the cheapest warning as the registry grows`), so it cannot happen quietly —
+which is the only reason 25 stays.
+
+**Raising the floor to 37 is worse, not better**, which reverses this design's own framing of it as the
+"consistent" choice. It buys `warning < critical`, and that guarantee holds only while the widest pair is
+under `3 × 37 = 111`. At 110 today, **one `info` rule added to `seo::route` breaks it.** The general
+condition is `i_max < 3K`, so no fixed floor is stable against a growing registry; 25 is fragile in a
+direction that is fifteen points away, 37 in one that is one point away.
+
+**Five of the nine pairs are clamped, so the coverage reading applies to four.** A pair with one rule and a
+pair with eight both report 25, and `inventories` publishes the divisor a score used rather than a count of
+what ran. The guides now say this in both languages, because the same shape — a denominator that does not
+describe what was checked — is what produced the field report this whole line of work came from.
+
+Two limits confirmed and not addressed. The same severity still costs between 5 and 20 points depending on
+its pair, a 4.4× spread, down from about 22× before the floor. And a consumer that renders the score without
+`affectedKeys` loses the magnitude the score no longer carries — the HTML report and the dev dashboard
+receive the field and ignore it.
+
 ## Deliberately not solved
 
 - **`warning` below `critical` across categories.** See above: unreachable without collapsing the model, and
