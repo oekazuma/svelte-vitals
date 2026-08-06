@@ -146,9 +146,11 @@ Every measured **kind** of position is covered — with the one reservation reco
 `string-list` appears. The blocker refutation does not depend on that reservation: the worst case moves two
 names between two maps of the same option kind. **The charter is
 corrected on this branch** — both its mechanism row and its sequencing step, since correcting one and leaving
-the other makes the charter contradict itself. The two sibling designs that repeat "M4 waits on a
-structured-list option kind" (`2026-07-29-reserved-directory-names-design.md` and
-`2026-07-29-directory-naming-design.md`) gain a pointer to this one.
+the other makes the charter contradict itself. The three sibling designs that repeat "M4 waits on a
+structured-list option kind" (`2026-07-29-reserved-directory-names-design.md`,
+`2026-07-29-directory-naming-design.md` and `2026-07-28-unit-entry-file-design.md`) gain a pointer to this
+one. This paragraph said "two" and named the first two until 2026-08-06, which is how the third survived a
+whole-branch review; `grep -rn M4 docs/superpowers/` is the check.
 
 ## Design
 
@@ -249,9 +251,17 @@ then `matchKeys`. `routeGlobToRegExp` alone has no guard: its raw regex for `src
 
 So `parts: 'src/lib'` permits `parts/` only under a unit at exactly `src/lib` — which in the capitalised map
 is unreachable, since `lib` is lowercase — while `parts: 'src/lib/**'` permits it under any unit below
-`src/lib`. **A bare glob in a unit map is almost always a mistake**, and the tri-state note above is what
-catches it. Under the ancestor reading the `src/lib` column would read "match" throughout, which is why the
-direction is pinned by a test rather than left to a word.
+`src/lib`. **A bare glob in a unit map is almost always a mistake, and in the common case nothing reports
+it.** The tri-state note above catches only the sub-case where the reserved name sits _directly in_ the
+glob's own directory: the note is raised where a unit-map glob matched the reserved-name directory's parent
+and that parent was no unit, so `parts: 'src/lib'` against a `src/lib/Card/parts` — whose parent is
+`src/lib/Card` — matches nothing, raises nothing, and reports the `parts/` as misplaced with no diagnostic
+beside it. Widening the note to globs that matched nothing is refused: it would report a violation on the
+authority of a declaration the same run calls dead — the self-contradiction the reachability test exists to
+remove, and the reason a declaration saying where a name _may_ sit is not dead for going unused ("Reporting a
+declared name that never appears", below). The rule pages carry the actionable thing instead: write
+`src/lib/**`, not `src/lib`. Under the ancestor reading the `src/lib` column would read "match" throughout,
+which is why the direction is pinned by a test rather than left to a word.
 
 **No pass results.** `computeScore` seeds every distinct `route` at 100 and averages, and a directory has no
 pre-existing score key — so a pass per directory would add hundreds of 100s from one broad declaration and

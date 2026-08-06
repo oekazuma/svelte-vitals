@@ -57,7 +57,7 @@ adversarial review passes). Read it before Task 1 — every numbered Testing ite
 | `packages/core/src/rules/index.ts`                                            | **Modify.** Import, `allRules` entry, re-export.                                                                                                                     |
 | `packages/core/src/index.ts`                                                  | **Modify.** Duplicate re-export list (unchecked by TypeScript).                                                                                                      |
 | `docs/src/content/docs/rules/architecture/reserved-name-placement.md` + `ja/` | **Create.** Rule pages.                                                                                                                                              |
-| `.changeset/<name>.md`                                                        | **Create.** Minor bump for `@svelte-vitals/core` and `svelte-vitals`.                                                                                                |
+| `.changeset/<name>.md`                                                        | **Create.** Minor bump for `@svelte-vitals/core`, `svelte-vitals` and `@svelte-vitals/vite` — the rule runs in the plugin too.                                       |
 
 ---
 
@@ -932,33 +932,40 @@ After the loop, before `return out;`:
 const notes = new Map<string, string>(emptyNames);
 
 const unusedLabels = [...globalAlternatives.keys()].filter((k) => !usedAlternatives.has(k));
+const globOf = (key: string) => globalAlternatives.get(key)?.glob as string;
+
 // The unit reason is claimed first, so an exclusion is never blamed for an alternative the unit
 // test disqualified — the same ordering the sibling rule records.
 for (const map of ['capitalisedUnitPlacements', 'anyCaseUnitPlacements'] as const) {
   const inMap = unusedLabels.filter((k) => globalAlternatives.get(k)?.map === map);
-  const globs = inMap.map((k) => globalAlternatives.get(k)?.glob as string);
-  const hit = keysMatchingAny(globs, nonUnitParents[map], compile);
+  const hit = keysMatchingAny(inMap.map(globOf), nonUnitParents[map], compile);
   for (const k of inMap) {
-    if (hit.has(globalAlternatives.get(k)?.glob as string)) {
-      notes.set(k, 'matched directories but never a unit');
-    }
+    if (hit.has(globOf(k))) notes.set(k, 'matched directories but never a unit');
   }
 }
 
 const stillUnused = unusedLabels.filter((k) => !notes.has(k));
-const globByLabel = new Map(stillUnused.map((k) => [k, globalAlternatives.get(k)?.glob as string]));
-const reasons = classifyUnusedKeys([...new Set(globByLabel.values())], excludedDirs, compile);
+const globs = [...new Set(stillUnused.map(globOf))];
+const reasons = classifyUnusedKeys(globs, excludedDirs, compile);
+// Usage means "permitted a position", which a glob naming real directories the name never appeared
+// in never does — and a declaration saying where a name MAY sit is not dead for going unused, so
+// calling it unmatched would be a false claim.
+const reachable = keysMatchingAny(globs, allDirs, compile);
 for (const k of stillUnused) {
-  const reason = reasons.get(globByLabel.get(k) as string);
-  notes.set(k, reason === 'only-excluded' ? 'matched only excluded directories' : 'matched no directory');
+  const glob = globOf(k);
+  if (reasons.get(glob) === 'only-excluded') {
+    notes.set(k, 'matched only excluded directories');
+  } else if (!reachable.has(glob)) {
+    notes.set(k, 'matched no directory');
+  }
 }
 
 const reported = [...notes.keys()].sort();
 if (reported.length > 0) {
   const message =
     reported.length === 1
-      ? `The declaration ${reported[0]} does not check what it says: ${notes.get(reported[0] as string)}.`
-      : `These declarations do not check what they say: ${reported.map((k) => `${k} (${notes.get(k)})`).join(', ')}.`;
+      ? `The declaration '${reported[0]}' does not check what it says: ${notes.get(reported[0] as string)}.`
+      : `These declarations do not check what they say: ${reported.map((k) => `'${k}' (${notes.get(k)})`).join(', ')}.`;
   out.push({
     id: ID,
     category: 'architecture',
@@ -971,6 +978,13 @@ if (reported.length > 0) {
 }
 ```
 
+**The `reachable` guard is a correction.** This block first labelled every still-unused alternative
+`'matched no directory'`, which is a false claim about the alternative a correct project simply has not
+reached yet — `functions` under a route directory is a real, permitted, currently-empty position, and the
+design records it as undecidable. Only an alternative whose glob reaches no directory in the inventory at all
+can be called unmatched; one that reaches directories the name never appeared in is silent. Found and
+corrected while executing this task.
+
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
@@ -978,13 +992,14 @@ Expected: PASS, **19** tests (14 from Task 4 plus 5 here).
 
 - [ ] **Step 5: Verify each guard is load-bearing**
 
-| Break                                                                      | Test that must fail              |
-| -------------------------------------------------------------------------- | -------------------------------- |
-| push one `Result` per note instead of aggregating                          | item 9                           |
-| key `globalAlternatives` on `${map}.${name}` instead of including the glob | item 10                          |
-| the `nonUnitParents` pass removed                                          | item 11                          |
-| `excludedDirs.push(dir)` removed                                           | the excluded-classification test |
-| `emptyNames` never merged into `notes`                                     | item 8's reported half           |
+| Break                                                                      | Test that must fail                                                               |
+| -------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| push one `Result` per note instead of aggregating                          | item 9                                                                            |
+| key `globalAlternatives` on `${map}.${name}` instead of including the glob | item 10                                                                           |
+| the `nonUnitParents` pass removed                                          | item 11                                                                           |
+| `excludedDirs.push(dir)` removed                                           | the excluded-classification test                                                  |
+| `emptyNames` never merged into `notes`                                     | item 8's reported half                                                            |
+| the `reachable` guard removed                                              | the test that a glob reaching directories the name never appeared in stays silent |
 
 - [ ] **Step 6: Run the whole core suite and typecheck**
 
@@ -1039,7 +1054,8 @@ grep is the check.
 
 Create `docs/src/content/docs/rules/architecture/reserved-name-placement.md`, following
 `reserved-directory-names.md`'s structure (frontmatter `title`/`description`, then **Severity** line,
-`## What it checks`, `## Why it matters`, `## Configuration`, `## When to turn it off`). It must state:
+`## What it checks`, `## Why it matters`, `## How to fix`, `## Configuration`, `## Limitations` — the last is
+the heading this family uses, and no page in it has a "When to turn it off"). It must state:
 
 - the rule is **off until configured** — all three maps default to `{}`;
 - the three maps all match the reserved-name directory's **parent**, differing only in what else they
@@ -1066,8 +1082,9 @@ Expected: PASS. These two suites fail the build if the index is stale or either 
 
 - [ ] **Step 6: Add the changeset**
 
-Run `pnpm changeset` and select **minor** for both `@svelte-vitals/core` and `svelte-vitals` (a new rule is
-a feature). Summary, one line, naming no other tool:
+Run `pnpm changeset` and select **minor** for `@svelte-vitals/core`, `svelte-vitals` and
+`@svelte-vitals/vite` (a new rule is a feature, and it runs in the plugin as well as the CLI). Summary, one
+line, naming no other tool:
 
 ```
 Add architecture/reserved-name-placement: a reserved directory name may appear only in the places declared for it.

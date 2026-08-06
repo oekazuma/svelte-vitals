@@ -93,7 +93,8 @@ instead, turning a typo into false positives at every position the emptied entry
 under, not an ancestor it happens to sit beneath. `parts: 'src/lib'` therefore permits `parts/` only
 under a unit at exactly `src/lib` — unreachable in the capitalised map, since `lib` is lowercase —
 while `parts: 'src/lib/**'` permits it under any unit below `src/lib`. **A bare glob in a unit map
-is almost always a mistake**; write `src/lib/**`.
+is almost always a mistake, and usually nothing tells you so** — the `parts/` is simply reported as
+misplaced. Write `src/lib/**`, not `src/lib`.
 
 ### `exclude`
 
@@ -108,15 +109,17 @@ rules do, and on a `--route` run, where no inventory is built, it is silent.
 A declaration that is not checking what it says is reported, so a typo cannot leave the rule
 silently doing nothing. The finding names the reason:
 
-- the value lists no name at all, which ungoverns the name in every map;
+- the value **names no position at all**, which ungoverns the name in every map;
 - a glob matched only excluded directories;
 - a glob **matched no directory** — judged against the source inventory, not the filesystem. A glob
   pointing outside `src/`, or a typo like `src/route/**` where the tree has `src/routes`, reports
   "matched no directory" even when the directory in question exists, because the rule never sees
   anything outside `src/`;
 - a unit-map glob matched real directories, but none of them was a unit of the required case —
-  reported as "matched directories but never a unit". This is what catches the bare-glob mistake
-  above: it still matches directories, just never the unit itself.
+  reported as "matched directories but never a unit". This catches the bare-glob mistake above only
+  where the reserved name sits **directly in** the glob's own directory: `parts: 'src/lib'` says
+  nothing about a `src/lib/Card/parts`, because the directory it checks is that `parts/`'s parent —
+  `src/lib/Card` — which the glob never matched. Write `src/lib/**`, not `src/lib`.
 
 A declaration saying where a name **may** sit is not dead for going unused. A currently-empty but
 legitimate position — a declared alternative that no directory happens to use yet — is silent by
