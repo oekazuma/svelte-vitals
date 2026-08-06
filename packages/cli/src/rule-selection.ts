@@ -30,7 +30,7 @@ export interface RuleSelectionInput {
  * off**, so callers owe `findUnknownRuleIds` first; the CLI does this fatally in `resolve-args`.
  */
 export function resolveRuleSelection(input: RuleSelectionInput): Record<string, RuleSetting> {
-  const out: Record<string, RuleSetting> = { ...(input.rules ?? input.fileRules ?? {}) };
+  const out: Record<string, RuleSetting> = { ...(input.rules ?? input.fileRules) };
 
   const allow = input.allowRules ?? [];
   if (allow.length > 0) {
