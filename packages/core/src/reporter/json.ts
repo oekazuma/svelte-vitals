@@ -41,7 +41,8 @@ export interface JsonReport {
   siteIssues: JsonIssue[];
   /**
    * Floored severity weight per `"<category>::<scope>"` pair. Reproduces a `routes[].categories` entry
-   * (`100 - 100 * failed / inventories[pair]`), since a route's category score always draws on one pair.
+   * (`100 - 100 * failed / inventories[pair]`): a key is either a route id or a source file path, and
+   * those two key spaces never overlap, so a category's results on one key always draw on a single scope.
    * It does not reproduce `routes[].score`: a route spanning more than one pair sums their *raw* weights
    * and floors that sum once, so adding this map's already-floored entries and re-dividing can disagree.
    */

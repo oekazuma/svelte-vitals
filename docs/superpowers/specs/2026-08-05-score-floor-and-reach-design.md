@@ -99,7 +99,10 @@ observation:
   from `"<category>::<scope>"` to the floored weight, so the arithmetic is checkable. It goes there rather
   than on `scoreModel` because a `ScoreModel` describes one `computeScore` call, and a category's call spans
   many keys of possibly different pairs — there is no single weight to report, and reporting one key's would
-  explain nothing.
+  explain nothing. This recomputes `routes[].categories` exactly, because a key is either a route id or a
+  source file path — the two key spaces never overlap, so a category's results on one key always draw on a
+  single scope. It does not recompute a route's own `score`: a route spanning more than one pair sums their
+  raw weights and floors that sum once, while `inventories` publishes each pair already floored on its own.
 
 The one-paragraph version, which goes in the reporters guide in both languages:
 
