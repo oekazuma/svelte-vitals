@@ -205,8 +205,8 @@ describe("--rules/--ignore compose with a config file's per-rule options (design
   });
 
   // Test 3 — regression guard for the discarded mechanism (a plain `{ ...file.rules, ...opts.rules }`
-  // merge): --rules must still force-enable a rule the config file turns off, since --rules is a
-  // whole-field replacement of `rules`, not a merge. `config-file-project`'s file sets
+  // merge): --rules must still force-enable a rule the config file turns off, since `'off'` is
+  // selection and a selection flag overrides it. `config-file-project`'s file sets
   // `'seo/title-presence': 'off'`; naming it in --rules must override that.
   it('--rules still force-enables a rule that the config file sets to off', async () => {
     const options = optionsFor('--rules', 'seo/title-presence');
@@ -221,11 +221,9 @@ describe("--rules/--ignore compose with a config file's per-rule options (design
     expect(new Set(results.map((r) => r.id))).toEqual(new Set(['architecture/component-size']));
   });
 
-  // Test 5 — both flags together: deny wins for the rule named by both. `directory-naming`'s own
-  // options are deliberately not asserted here — with --rules present, the flag-built map (not the
-  // file's `rules`) is the base layer, and per-rule options for an allow-listed-but-not-otherwise-
-  // configured rule are a separate, out-of-scope concern (see design doc note) — this test only
-  // needs to show which rule ids ran.
+  // Test 5 — both flags together: deny wins for the rule named by both, so this test pins only the
+  // set of rule ids that ran. That a rule --rules names keeps its file-declared options is pinned
+  // by the tests below.
   it('--rules A,B --ignore B leaves only A running (deny wins)', async () => {
     const options = optionsFor(
       '--rules',

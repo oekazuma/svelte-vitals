@@ -14,6 +14,6 @@ rule — ignoring one unrelated rule was enough to reset every other rule's opti
 with `--ignore` could report clean indefinitely while the config file's intent was being ignored.
 
 `--ignore` now only ever adds `'off'` entries for the rule ids it names, layered on top of
-whatever the config file (or `--rules`) already resolved `rules` to. `--rules`'s own whole-field
-replacement is unchanged — it still means "enable only these rules" regardless of what the file
-says.
+whatever the config file (or `--rules`) already resolved `rules` to. `--rules` still means "run
+only these rules" and still overrides a config-file `'off'` for the ids it names, and it now
+inherits their severity and options instead of discarding them.

@@ -201,11 +201,13 @@ already did for the rules it leaves alone.
 
 **Two implementation subtleties found in the spike:**
 
-- `resolve-args.ts` currently always sets
-  `rules: buildRulesConfig(allow, ignore)`, which returns `{}` when no
-  flags are given. `{}` must be normalized to `undefined` (meaning "not
+- **Historical, 2026-08-06.** `resolve-args.ts` then always set
+  `rules: buildRulesConfig(allow, ignore)`, which returned `{}` when no
+  flags were given. `{}` had to be normalized to `undefined` (meaning "not
   specified") before merging, or an empty flag-side map would clobber the
-  file's rules. One-line change at the `rules:` line in `resolveArgs`.
+  file's rules. `resolveArgs` no longer calls `buildRulesConfig` and emits no
+  `rules` at all — it passes `--rules`/`--ignore` as the `allowRules`/
+  `ignoreRules` id lists, so there is no empty map to normalize.
 - A config file written with `defineConfig({...})` exports a **full** `Config`
   (defaults already filled in), so "field absent from the file" is not
   distinguishable from "field explicitly set to the default". With the
