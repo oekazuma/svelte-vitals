@@ -52,6 +52,11 @@ export interface RunOptions {
   reporter?: ReporterName;
   byRoute?: boolean;
   failOn?: Severity;
+  /**
+   * A complete replacement for the config file's `rules` map — what the Vite plugin and
+   * programmatic callers pass. Whole-field, per the per-field precedence every other config
+   * field follows.
+   */
   rules?: Record<string, RuleSetting>;
   /**
    * Rule ids to silence on top of `rules`/the config file (--ignore). Unlike `rules`, this
@@ -139,6 +144,11 @@ export interface AnalyzeOptions {
   /** Restrict analysis to routes whose path matches this glob (matched against the route path without leading slash). */
   route?: string;
   failOn?: Severity;
+  /**
+   * A complete replacement for the config file's `rules` map — what the Vite plugin and
+   * programmatic callers pass. Whole-field, per the per-field precedence every other config
+   * field follows.
+   */
   rules?: Record<string, RuleSetting>;
   /**
    * Rule ids to silence on top of `rules`/the config file (--ignore). Unlike `rules`, this
@@ -311,6 +321,25 @@ export async function applyScope(results: Result[], opts: ApplyScopeOptions): Pr
 }
 
 /**
+ * The analyze options every `analyzeProject` call in `run()` shares, including `applyScope`'s
+ * baseline re-analysis — an option reaching one of those paths and not another is silent: a
+ * baseline analyzed under different rules reports every pre-existing finding as new.
+ */
+function runAnalyzeOptions(opts: RunOptions): AnalyzeOptions {
+  return {
+    metaComponents: opts.metaComponents,
+    treatDynamicAs: opts.treatDynamicAs,
+    route: opts.route,
+    failOn: opts.failOn,
+    rules: opts.rules,
+    ignoreRules: opts.ignoreRules,
+    allowRules: opts.allowRules,
+    weights: opts.weights,
+    categories: opts.categories
+  };
+}
+
+/**
  * Run static-mode analysis once and return the process exit code (design §6):
  *   0 = no failing findings, 1 = critical finding present, 2 = execution error.
  */
@@ -349,18 +378,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 
   let analysis: AnalyzeResult;
   try {
-    analysis = await analyzeProject({
-      cwd,
-      metaComponents: opts.metaComponents,
-      treatDynamicAs: opts.treatDynamicAs,
-      route: opts.route,
-      failOn: opts.failOn,
-      rules: opts.rules,
-      ignoreRules: opts.ignoreRules,
-      allowRules: opts.allowRules,
-      weights: opts.weights,
-      categories: opts.categories
-    });
+    analysis = await analyzeProject({ ...runAnalyzeOptions(opts), cwd });
   } catch (err) {
     spinner.stop();
     if (err instanceof ProjectError) {
@@ -400,18 +418,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       }
       cwd = join(cwd, chosen);
       try {
-        analysis = await analyzeProject({
-          cwd,
-          metaComponents: opts.metaComponents,
-          treatDynamicAs: opts.treatDynamicAs,
-          route: opts.route,
-          failOn: opts.failOn,
-          rules: opts.rules,
-          ignoreRules: opts.ignoreRules,
-          allowRules: opts.allowRules,
-          weights: opts.weights,
-          categories: opts.categories
-        });
+        analysis = await analyzeProject({ ...runAnalyzeOptions(opts), cwd });
       } catch (err2) {
         if (err2 instanceof ProjectError) {
           errorLog(err2.message);
@@ -449,17 +456,8 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       baseline: opts.baseline,
       noSuppressions: opts.noSuppressions,
       errorLog,
-      analyzeOpts: {
-        metaComponents: opts.metaComponents,
-        treatDynamicAs: opts.treatDynamicAs,
-        route: opts.route,
-        failOn: opts.failOn,
-        rules: opts.rules,
-        ignoreRules: opts.ignoreRules,
-        allowRules: opts.allowRules,
-        weights: opts.weights,
-        categories: opts.categories
-      }
+      // No `cwd` — applyScope analyzes the baseline in its own checkout.
+      analyzeOpts: runAnalyzeOptions(opts)
     });
     const summary = summarize(results, config);
 
