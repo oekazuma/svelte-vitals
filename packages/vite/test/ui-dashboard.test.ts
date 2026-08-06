@@ -7,9 +7,10 @@ const baseSnapshot: DashboardSnapshot = {
     version: '1',
     score: 80,
     weights: { seo: 1 },
-    categories: { seo: { score: 80, scoreModel: 'weighted' as never } },
+    categories: { seo: { score: 80, scoreModel: 'weighted' as never, keys: 0, affectedKeys: 0 } },
     summary: { critical: 0, warning: 0, info: 0, passed: 0, dynamic: 0 } as never,
     rules: {},
+    inventories: {},
     routes: [
       {
         route: '/a',

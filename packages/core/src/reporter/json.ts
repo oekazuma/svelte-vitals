@@ -1,5 +1,6 @@
 import type { Category, Config, Result } from '../types.js';
-import { computeScore, computeHealth, scoresByCategory, type ScoreModel } from '../scoring/score.js';
+import { computeScore, computeHealth, scoresByCategory, INVENTORY_FLOOR, type ScoreModel } from '../scoring/score.js';
+import { buildInventory } from '../scoring/inventory.js';
 import { summarize, effectiveSeverity, type Summary } from '../summary.js';
 import { isPenalized } from '../rule.js';
 
@@ -33,11 +34,19 @@ export interface JsonReport {
   version: string;
   score: number; // combined Health score
   weights: Partial<Record<Category, number>>;
-  categories: Record<string, { score: number; scoreModel: ScoreModel }>;
+  categories: Record<string, { score: number; scoreModel: ScoreModel; keys: number; affectedKeys: number }>;
   summary: Summary;
   rules: Record<string, RuleEvidence>;
   routes: Array<{ route: string; score: number; categories: Record<string, number>; issues: JsonIssue[] }>;
   siteIssues: JsonIssue[];
+  /**
+   * Floored severity weight per `"<category>::<scope>"` pair. Reproduces a `routes[].categories` entry
+   * (`100 - 100 * failed / inventories[pair]`): a key is either a route id or a source file path, and
+   * those two key spaces never overlap, so a category's results on one key always draw on a single scope.
+   * It does not reproduce `routes[].score`: a route spanning more than one pair sums their *raw* weights
+   * and floors that sum once, so adding this map's already-floored entries and re-dividing can disagree.
+   */
+  inventories: Record<string, number>;
 }
 
 function ruleEvidence(
@@ -69,7 +78,10 @@ export function buildJsonReport(
   const rules = ruleEvidence(results, config, ruleIds);
 
   const categories = Object.fromEntries(
-    Object.entries(byCat).map(([cat, sr]) => [cat, { score: sr.score, scoreModel: sr.scoreModel }])
+    Object.entries(byCat).map(([cat, sr]) => [
+      cat,
+      { score: sr.score, scoreModel: sr.scoreModel, keys: sr.keys, affectedKeys: sr.affectedKeys }
+    ])
   );
 
   const routeMap = new Map<string, { route: string; results: Result[] }>();
@@ -98,7 +110,11 @@ export function buildJsonReport(
     .filter((r) => r.route === undefined && isPenalized(r.detection, config.treatDynamicAs))
     .map((r) => ({ ...issueOf(r), severity: effectiveSeverity(r, config) }));
 
-  return { version: meta.version, score: health, weights, categories, summary, rules, routes, siteIssues };
+  const inventories = Object.fromEntries(
+    [...buildInventory(config)].map(([pair, weight]) => [pair, Math.max(weight, INVENTORY_FLOOR)])
+  );
+
+  return { version: meta.version, score: health, weights, categories, summary, rules, routes, siteIssues, inventories };
 }
 
 /** Render results as the documented JSON report string (design §7). */

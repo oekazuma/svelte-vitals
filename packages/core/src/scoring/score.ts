@@ -8,6 +8,15 @@ import { buildInventory, ruleScopes, DEDUCTION, type PairKey } from './inventory
 
 const CRITICAL_CAP = 79;
 
+/**
+ * A key is never scored against less than this much severity weight. Without it a pair holding one rule
+ * makes that rule's finding cost the whole key, and a finding's cost stops tracking its severity — an
+ * `info` in an eight-rule pair outweighed a `warning` in a twenty-six-rule one. It also makes the
+ * denominator provably non-zero, which is why the division below needs no zero-guard of its own —
+ * a floor lowered below 1 would bring that guard back.
+ */
+export const INVENTORY_FLOOR = 25;
+
 export interface ScoreModel {
   routeAverage: number;
   sitePenalty: number;
@@ -25,6 +34,10 @@ export interface ScoreResult {
    */
   rawScore: number;
   scoreModel: ScoreModel;
+  /** Keys this result set touched. */
+  keys: number;
+  /** Keys carrying at least one penalized finding. */
+  affectedKeys: number;
 }
 
 export interface ScoreOptions {
@@ -70,11 +83,13 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
   }
 
   // Deficit space, as `computeHealth` already works: a mean of key scores computes
-  // 49.99999999999999 for a true 50 on two keys of deficit 300/9 and 600/9.
+  // 49.99999999999999 for a true 50 on two keys of deficit 1000/28 and 1800/28.
+  let affectedKeys = 0;
   let totalDeficit = 0;
   for (const [key, pairs] of observed) {
     let failed = 0;
     for (const d of ruleMax.get(key)?.values() ?? []) failed += d;
+    if (failed > 0) affectedKeys += 1;
     let inventoryWeight = 0;
     // `pairOf` and `inventory` are built from the same filtered `rules`, so every pair reachable
     // through `pairOf` also has an inventory entry; the `?? 0` is a degrade-to-0-not-NaN fallback
@@ -82,11 +97,12 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
     for (const p of pairs) inventoryWeight += inventory.get(p) ?? 0;
     // `max` keeps `failed` from exceeding its own denominator, so a penalized finding can never still
     // score 100: the two ways that would happen are `treatDynamicAs: 'warn'` promoting a result's
-    // severity above its rule's, and a result whose rule is absent from the inventory.
-    inventoryWeight = Math.max(inventoryWeight, failed);
+    // severity above its rule's, and a result whose rule is absent from the inventory. The
+    // `INVENTORY_FLOOR` guard keeps a small pair from making one finding cost the whole key.
+    inventoryWeight = Math.max(inventoryWeight, failed, INVENTORY_FLOOR);
     // `100 - (100 * f) / i`, never `100 * (1 - f / i)`: the latter gives 19.999999999999996 for
     // f = 88, i = 110 and displays 19 for a true 20.
-    totalDeficit += inventoryWeight === 0 ? 0 : (100 * failed) / inventoryWeight;
+    totalDeficit += (100 * failed) / inventoryWeight;
   }
 
   const keyCount = observed.size;
@@ -114,7 +130,13 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
   const criticalCap = capBinds ? CRITICAL_CAP : null;
   const rawScore = clamp(capBinds ? CRITICAL_CAP : rawUncapped);
 
-  return { score: Math.floor(rawScore), rawScore, scoreModel: { routeAverage, sitePenalty, criticalCap } };
+  return {
+    score: Math.floor(rawScore),
+    rawScore,
+    scoreModel: { routeAverage, sitePenalty, criticalCap },
+    keys: keyCount,
+    affectedKeys
+  };
 }
 
 /** Compute an independent score per category present in `results` (issue #10). */

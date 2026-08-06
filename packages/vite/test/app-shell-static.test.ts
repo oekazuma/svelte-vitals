@@ -14,9 +14,12 @@ const report: JsonReport = {
   version: '1',
   score: 50,
   weights: { seo: 1 },
-  categories: { seo: { score: 50, scoreModel: { routeAverage: 50, sitePenalty: 0, criticalCap: null } } },
+  categories: {
+    seo: { score: 50, scoreModel: { routeAverage: 50, sitePenalty: 0, criticalCap: null }, keys: 0, affectedKeys: 0 }
+  },
   summary: { critical: 1, warning: 0, info: 0, passed: 0, dynamic: 0 } as never,
   rules: {},
+  inventories: {},
   routes: [
     {
       route: '/blog/hello',

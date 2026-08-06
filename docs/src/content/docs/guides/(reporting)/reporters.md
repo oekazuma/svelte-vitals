@@ -39,7 +39,9 @@ svelte-vitals --reporter json
         "routeAverage": 94, // mean of the per-route scores, floored
         "sitePenalty": 0, // deducted for site-wide findings (no route)
         "criticalCap": null // the cap value when a critical finding lowered the score, else null
-      }
+      },
+      "keys": 42, // routes (or other scored units) this category measured
+      "affectedKeys": 6 // of those, how many carried at least one finding
     }
   },
   "summary": { "critical": 0, "warning": 33, "info": 44, "passed": 610, "dynamic": 2 },
@@ -71,9 +73,32 @@ svelte-vitals --reporter json
       ]
     }
   ],
-  "siteIssues": [] // findings with no route (robots.txt, sitemap.xml, …), same issue shape
+  "siteIssues": [], // findings with no route (robots.txt, sitemap.xml, …), same issue shape
+  "inventories": {
+    "seo::route": 110 // floored severity weight behind every "seo" key scored against "route"
+  }
 }
 ```
+
+A category's score on a key is the share of that category's severity weight that survived. Checks are
+grouped by category and scope — the keys of `inventories`, like `seo::route` — and **within one group** a
+`warning` costs five times an `info` and a `critical` fifteen times, so a more severe finding always costs
+more. **Across groups it does not**: a group that checks very few things is scored against a floor of 25,
+which makes each of its findings a larger share, so a `warning` in a small group can cost more than a
+`critical` in a large one. Repeated findings from the same rule on the same key cost what one costs. Beside
+the score, `affectedKeys` says how much of the project the category touched: the score is depth, that is
+reach.
+
+Two things follow that the paragraph above doesn't say directly:
+
+- per-key scores are comparable **within** a category; across categories the number says which category has
+  a larger share of _its own_ checks failing, not which problem is worse.
+- `inventories` gives the divisor behind every key of one pair, so a route's per-category score
+  (`routes[].categories`) recomputes by hand from it — this holds because a key is either a route id or a
+  source file path, and those two key spaces never overlap, so a category's results on one key always share
+  one scope. A route's own `score` does not recompute the same way, once the route spans more than one pair:
+  it sums the raw inventory of every pair touched and floors that sum once, while `inventories` publishes
+  each pair already floored on its own — the two can disagree.
 
 Two field names are worth pointing out, because guessing them wrongly fails silently:
 
