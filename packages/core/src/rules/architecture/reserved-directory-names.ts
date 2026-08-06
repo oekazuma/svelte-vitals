@@ -65,6 +65,20 @@ export function isUnitDir(dir: string, filesIn: Map<string, string[]>): boolean 
 }
 
 /**
+ * `isUnitDir` without the letter test: one of `dir`'s immediate children is a file whose stem equals
+ * the directory's name, whatever case the name begins with.
+ *
+ * The split is the letter test alone, and deliberately not the entry file's extension. That every
+ * capitalised unit holds a `.svelte` and every lowercase one a `.ts` is a property of a convention,
+ * not something a rule should encode.
+ */
+export function isAnyCaseUnitDir(dir: string, filesIn: Map<string, string[]>): boolean {
+  const name = baseName(dir);
+  const own = filesIn.get(dir);
+  return own !== undefined && own.some((f) => stem(f) === name);
+}
+
+/**
  * architecture/reserved-directory-names — a directory's immediate subdirectories may only take names
  * the project declared for that position (design 2026-07-29). L3: inert until a scope is declared.
  *
