@@ -305,4 +305,52 @@ describe('architecture/reserved-name-placement', () => {
     });
     expect(results).toEqual([]);
   });
+
+  // Only globally resolved alternatives are classified. `src/nowhere/**` reaches no directory, and
+  // would be reported as dead if the per-directory resolved maps fed the classification.
+  it('says nothing about a dead glob that arrives only through an overrides layer', async () => {
+    const results = await run(['src/lib/e2e/a.ts'], { placements: { e2e: 'src/lib' } }, {
+      overrides: [{ files: 'src/**', rules: { [ID]: { options: { placements: { stores: 'src/nowhere/**' } } } } }]
+    } as never);
+    expect(results).toEqual([]);
+  });
+
+  // An alternative is identified by its map too, so one glob copied into two maps is two
+  // declarations: `placements` permits this position, the capitalised-unit copy checks nothing.
+  it('classifies one glob declared in two maps as two alternatives', async () => {
+    const results = await run(['src/lib/orphan/parts/a.svelte'], {
+      placements: { parts: 'src/lib/**' },
+      capitalisedUnitPlacements: { parts: 'src/lib/**' }
+    });
+    expect(violations(results)).toEqual([]);
+    const notes = projectScoped(results);
+    expect(notes).toHaveLength(1);
+    expect(notes[0]?.message).toContain("'capitalisedUnitPlacements.parts → src/lib/**'");
+    expect(notes[0]?.message).toContain('matched directories but never a unit');
+    expect(notes[0]?.message).not.toContain("'placements"); // the placements copy did work
+  });
+
+  // Every glob that matched a permitted position has done work, not only the one that governs it.
+  // `src/*/*` also reaches the excluded src/legacy/e2e, so recording one match would leave the other
+  // looking untouched and blame the exclusion for it.
+  it('records work for every glob a position matched, not only the governing one', async () => {
+    const results = await run(['src/lib/orphan/e2e/a.ts', 'src/legacy/e2e/b.ts'], {
+      placements: { e2e: 'src/lib/**|src/*/*' },
+      exclude: ['src/legacy/**']
+    });
+    expect(results).toEqual([]);
+  });
+
+  // `exclude` resolves at the reserved-name directory, so an `overrides` layer supplies it like any
+  // other option. The override's glob names the reserved-name directory, not the parent.
+  it('honours an exclude that only an overrides layer supplies', async () => {
+    const files = ['src/lib/orphan/parts/a.svelte', 'src/routes/about/+page.svelte'];
+    const options = { placements: { parts: 'src/routes/**' } };
+    expect(violations(await run(files, options)).map((r) => r.route)).toEqual(['src/lib/orphan/parts']);
+
+    const excluded = await run(files, options, {
+      overrides: [{ files: 'src/**/parts', rules: { [ID]: { options: { exclude: ['src/lib/**'] } } } }]
+    } as never);
+    expect(excluded).toEqual([]);
+  });
 });
