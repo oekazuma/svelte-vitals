@@ -161,7 +161,7 @@ git commit -m "feat(core): add an any-case unit predicate beside isUnitDir"
 
 **Interfaces:**
 
-- Consumes: `ancestorDirs`, `baseName`, `childFiles`, `createKeyCompiler`, `isExcluded`, `matchKeys`,
+- Consumes: `ancestorDirs`, `baseName`, `createKeyCompiler`, `isExcluded`, `matchKeys`,
   `reportAt`, `splitNames` from `./declarations.js`; `compileOverrides` from `../../config-apply.js`;
   `isMentionedAnywhere`, `listOption`, `mapOption`, `resolveRuleOptions`, `type RuleOptionsSpec` from
   `../../rule-options.js`; `docsUrlFor`, `type Rule`, `type RuleContext` from `../../rule.js`;
@@ -228,9 +228,27 @@ describe('architecture/reserved-name-placement', () => {
     expect(withExclude).toEqual([]);
   });
 
-  // Testing item 13
-  it('reports nothing when no map is declared, on a tree that would otherwise produce findings', async () => {
+  // Testing item 13 — both silences, because they are two different code paths.
+  it('reports nothing when the rule is declared with no map, on a tree that would otherwise report', async () => {
     const results = await run(['src/lib/e2e/a.ts'], {});
+    expect(results).toEqual([]);
+  });
+
+  it('reports nothing when no config layer mentions the rule at all', async () => {
+    const config = {} as unknown as Config;
+    const results = await architectureReservedNamePlacement.check({
+      sourceFiles: ['src/lib/e2e/a.ts'],
+      config
+    } as unknown as RuleContext);
+    expect(results).toEqual([]);
+  });
+
+  it('reports nothing on a --route run, where no file inventory exists', async () => {
+    const config = { rules: { [ID]: { options: { placements: { e2e: 'src/routes/**' } } } } } as unknown as Config;
+    const results = await architectureReservedNamePlacement.check({
+      sourceFiles: undefined,
+      config
+    } as unknown as RuleContext);
     expect(results).toEqual([]);
   });
 
@@ -269,7 +287,6 @@ import {
 import {
   ancestorDirs,
   baseName,
-  childFiles,
   createKeyCompiler,
   isExcluded,
   matchKeys,
@@ -335,7 +352,6 @@ export const architectureReservedNamePlacement: Rule = {
     const compiledOverrides = compileOverrides(ctx.config);
     const dirs = new Set<string>();
     for (const f of files) for (const d of ancestorDirs(f)) dirs.add(d);
-    const filesIn = childFiles(files);
 
     const compile = createKeyCompiler();
     // Values are parsed once per distinct string, not once per directory.
@@ -393,8 +409,9 @@ export const architectureReservedNamePlacement: Rule = {
 };
 ```
 
-`filesIn` is unused in this task and consumed in Task 3 — leave the line in place; if lint objects, add the
-`filesIn` use in Task 3 within the same session rather than deleting it here.
+**Omit `childFiles` and `filesIn` entirely in this task** — nothing here reads them. Task 3 adds the import
+and the line together with the two unit predicates that need them. Shipping an unused binding to satisfy a
+later task is dead code, and a reviewer is right to reject it.
 
 - [ ] **Step 4: Run tests to verify they pass**
 
@@ -433,7 +450,9 @@ git commit -m "feat(core): add architecture/reserved-name-placement with parent-
 
 **Interfaces:**
 
-- Consumes: `isUnitDir`, `isAnyCaseUnitDir` from `./reserved-directory-names.js` (Task 1).
+- Consumes: `isUnitDir`, `isAnyCaseUnitDir` from `./reserved-directory-names.js` (Task 1); `childFiles` from
+  `./declarations.js`, added to the existing import in this task — Task 2 deliberately left it out because
+  nothing there read it.
 - Produces: nothing new externally; the rule now honours all three maps.
 
 This task delivers Testing items **1, 2, 3, 6, 7**.
@@ -530,10 +549,17 @@ everything).
 
 - [ ] **Step 3: Write the implementation**
 
-Add the import at the top of `reserved-name-placement.ts`:
+Add the predicate import at the top of `reserved-name-placement.ts`:
 
 ```ts
 import { isAnyCaseUnitDir, isUnitDir } from './reserved-directory-names.js';
+```
+
+Add `childFiles` to the existing `./declarations.js` import (alphabetically, after `baseName`), and add its
+one use immediately after the `dirs` loop that builds the directory set:
+
+```ts
+const filesIn = childFiles(files);
 ```
 
 Replace the body of the `for (const dir of [...dirs].sort())` loop, from the `const placements` line through
