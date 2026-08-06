@@ -79,4 +79,82 @@ describe('architecture/reserved-name-placement', () => {
     expect(suffixed).toHaveLength(1);
     expect(suffixed[0]?.route).toBe('src/routes/e2e');
   });
+
+  // A tree with one capitalised unit, one lowercase unit and one same-case non-unit of each kind.
+  const UNIT_TREE = [
+    'src/lib/Card/Card.svelte',
+    'src/lib/Card/parts/a.svelte',
+    'src/lib/Card/tests/a.ts',
+    'src/lib/formatDate/formatDate.ts',
+    'src/lib/formatDate/parts/b.svelte',
+    'src/lib/formatDate/tests/b.ts',
+    'src/lib/Icons/other.svelte',
+    'src/lib/Icons/parts/c.svelte',
+    'src/lib/helpers/format.ts',
+    'src/lib/helpers/tests/d.ts'
+  ];
+
+  // Testing item 1
+  it('reports a capitalised-unit-only name under a lowercase unit and is silent under a capitalised one', async () => {
+    const results = await run(UNIT_TREE, { capitalisedUnitPlacements: { parts: 'src/**' } });
+    expect(results.map((r) => r.route)).toEqual(['src/lib/Icons/parts', 'src/lib/formatDate/parts']);
+  });
+
+  // Testing item 2
+  it('is silent for an any-case name under both kinds of unit, in one run', async () => {
+    const results = await run(UNIT_TREE, { anyCaseUnitPlacements: { tests: 'src/**' } });
+    expect(results.map((r) => r.route)).toEqual(['src/lib/helpers/tests']);
+  });
+
+  // Testing item 7
+  it('requires the entry file in both predicates, not just the letter', async () => {
+    const cap = await run(UNIT_TREE, { capitalisedUnitPlacements: { parts: 'src/**' } });
+    expect(cap.map((r) => r.route)).toContain('src/lib/Icons/parts'); // Icons/ holds no Icons.*
+    const any = await run(UNIT_TREE, { anyCaseUnitPlacements: { tests: 'src/**' } });
+    expect(any.map((r) => r.route)).toContain('src/lib/helpers/tests'); // helpers/ holds no helpers.*
+  });
+
+  // Testing item 3
+  it('is silent in every declared position of a name declared in more than one map, in one run', async () => {
+    const results = await run(
+      [
+        'src/lib/Card/Card.svelte',
+        'src/lib/Card/functions/a.ts',
+        'src/lib/features/checkout/functions/b.ts',
+        'src/routes/about/functions/c.ts',
+        'src/lib/orphan/functions/d.ts'
+      ],
+      {
+        capitalisedUnitPlacements: { functions: 'src/**' },
+        placements: { functions: 'src/lib/features/*|src/routes/**' }
+      }
+    );
+    expect(results.map((r) => r.route)).toEqual(['src/lib/orphan/functions']);
+  });
+
+  // Testing item 6
+  it('honours each unit map glob, and matches it against the unit itself rather than an ancestor', async () => {
+    // Both halves of "the glob is honoured": a unit outside the glob reports, under both maps.
+    const outside = await run(
+      [
+        'src/lib/Card/Card.svelte',
+        'src/lib/Card/parts/a.svelte',
+        'src/app/Panel/Panel.svelte',
+        'src/app/Panel/parts/b.svelte',
+        'src/app/formatDate/formatDate.ts',
+        'src/app/formatDate/tests/c.ts'
+      ],
+      {
+        capitalisedUnitPlacements: { parts: 'src/lib/**' },
+        anyCaseUnitPlacements: { tests: 'src/lib/**' }
+      }
+    );
+    expect(outside.map((r) => r.route)).toEqual(['src/app/Panel/parts', 'src/app/formatDate/tests']);
+
+    // The match subject: a unit AT src/lib/Card is permitted by `src/lib/**` and reported by `src/lib`.
+    const tree = ['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.svelte'];
+    expect(await run(tree, { capitalisedUnitPlacements: { parts: 'src/lib/**' } })).toEqual([]);
+    const bare = await run(tree, { capitalisedUnitPlacements: { parts: 'src/lib' } });
+    expect(bare.map((r) => r.route)).toEqual(['src/lib/Card/parts']);
+  });
 });

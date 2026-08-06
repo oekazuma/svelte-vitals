@@ -11,16 +11,20 @@ import {
 import {
   ancestorDirs,
   baseName,
+  childFiles,
   createKeyCompiler,
   isExcluded,
   matchKeys,
   reportAt,
   splitNames
 } from './declarations.js';
+import { isAnyCaseUnitDir, isUnitDir } from './reserved-directory-names.js';
 
 const ID = 'architecture/reserved-name-placement';
 const docsUrl = docsUrlFor(ID);
 const recommendation = 'Move it to one of the places declared for this name, or declare this place for it.';
+const fixDescription =
+  'Move the directory to one of the places declared for its name, rename it, or declare this place for the name.';
 
 // Inert by default: which names a project reserves, and where each may sit, is its own decision.
 const OPTIONS: RuleOptionsSpec = {
@@ -61,8 +65,7 @@ export const architectureReservedNamePlacement: Rule = {
   rationale:
     'A name reserved for one kind of place stops carrying that meaning the moment it appears somewhere else: a reader who has met one exception has to open the directory to learn what it holds.',
   fix: {
-    description:
-      'Move the directory to one of the places declared for its name, rename it, or declare this place for the name.'
+    description: fixDescription
   },
   options: OPTIONS,
   async check(ctx: RuleContext): Promise<Result[]> {
@@ -76,6 +79,7 @@ export const architectureReservedNamePlacement: Rule = {
     const compiledOverrides = compileOverrides(ctx.config);
     const dirs = new Set<string>();
     for (const f of files) for (const d of ancestorDirs(f)) dirs.add(d);
+    const filesIn = childFiles(files);
 
     const compile = createKeyCompiler();
     // Values are parsed once per distinct string, not once per directory.
@@ -91,11 +95,21 @@ export const architectureReservedNamePlacement: Rule = {
     for (const dir of [...dirs].sort()) {
       const o = resolveRuleOptions(ID, OPTIONS, ctx.config, { route: dir, file: dir }, compiledOverrides);
       const placements = mapOption(o, 'placements');
-      if (Object.keys(placements).length === 0) continue; // inert
+      const capUnits = mapOption(o, 'capitalisedUnitPlacements');
+      const anyUnits = mapOption(o, 'anyCaseUnitPlacements');
+      if (
+        Object.keys(placements).length === 0 &&
+        Object.keys(capUnits).length === 0 &&
+        Object.keys(anyUnits).length === 0
+      ) {
+        continue; // inert
+      }
 
       const name = baseName(dir);
-      const value = placements[name];
-      if (value === undefined) continue; // a name nobody declared a place for has no place to violate
+      const inPlacements = Object.hasOwn(placements, name);
+      const inCapUnits = Object.hasOwn(capUnits, name);
+      const inAnyUnits = Object.hasOwn(anyUnits, name);
+      if (!inPlacements && !inCapUnits && !inAnyUnits) continue;
 
       const excluded = compile(listOption(o, 'exclude'));
       if (isExcluded(dir, ancestorDirs(dir), excluded)) continue;
@@ -103,7 +117,15 @@ export const architectureReservedNamePlacement: Rule = {
       const parent = parentOf(dir);
       if (parent === undefined) continue;
 
-      if (matchKeys(parent, compile(globsOf(value), true)).matched.length > 0) continue;
+      // The union: any one map permitting the position is enough. All three globs are matched against
+      // the same directory — this parent — and differ only in what else they require of it.
+      const matches = (value: string | undefined) =>
+        value !== undefined && matchKeys(parent, compile(globsOf(value), true)).matched.length > 0;
+      const permitted =
+        matches(placements[name]) ||
+        (isUnitDir(parent, filesIn) && matches(capUnits[name])) ||
+        (isAnyCaseUnitDir(parent, filesIn) && matches(anyUnits[name]));
+      if (permitted) continue;
 
       const at = reportAt(dir, files);
       if (at === undefined) continue; // unreachable: the directory came from a file's prefix
@@ -122,8 +144,7 @@ export const architectureReservedNamePlacement: Rule = {
         recommendation,
         docsUrl,
         fix: {
-          description:
-            'Move the directory to one of the places declared for its name, rename it, or declare this place for the name.'
+          description: fixDescription
         }
       });
     }
