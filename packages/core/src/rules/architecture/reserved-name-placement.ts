@@ -72,7 +72,7 @@ export const architectureReservedNamePlacement: Rule = {
   options: OPTIONS,
   async check(ctx: RuleContext): Promise<Result[]> {
     const files = ctx.sourceFiles;
-    if (files === undefined) return []; // --route runs build no inventory
+    if (files === undefined) return []; // a --route run builds no file inventory
 
     // No config layer mentions this rule, so nothing below can find a declaration. Without this, an
     // unconfigured project resolves options once per directory and throws every result away.
@@ -255,8 +255,8 @@ export const architectureReservedNamePlacement: Rule = {
     if (reported.length > 0) {
       const message =
         reported.length === 1
-          ? `The declaration ${reported[0]} does not check what it says: ${notes.get(reported[0] as string)}.`
-          : `These declarations do not check what they say: ${reported.map((k) => `${k} (${notes.get(k)})`).join(', ')}.`;
+          ? `The declaration '${reported[0]}' does not check what it says: ${notes.get(reported[0] as string)}.`
+          : `These declarations do not check what they say: ${reported.map((k) => `'${k}' (${notes.get(k)})`).join(', ')}.`;
       out.push({
         id: ID,
         category: 'architecture',
