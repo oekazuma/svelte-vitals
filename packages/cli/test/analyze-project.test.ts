@@ -17,6 +17,7 @@ const unitEntryFixtureDir = join(here, 'fixtures', 'unit-entry-project');
 const directoryNamingFixtureDir = join(here, 'fixtures', 'directory-naming-project');
 const reservedNamesFixtureDir = join(here, 'fixtures', 'reserved-names-project');
 const rulesFlagConfigFixtureDir = join(here, 'fixtures', 'rules-flag-config-project');
+const deadDeclarationFixtureDir = join(here, 'fixtures', 'dead-declaration-project');
 
 // `architecture/component-size` (a componentRule) seeds a PASS result for every applicable
 // component in addition to a PENALIZED one for a violation, so a plain id filter can't tell
@@ -235,6 +236,43 @@ describe("--rules/--ignore compose with a config file's per-rule options (design
     const { results } = await analyzeProject({ ...options, cwd: rulesFlagConfigFixtureDir });
     expect(new Set(results.map((r) => r.id))).toEqual(new Set(['seo/title-presence']));
     expect(results.some((r) => r.id === 'seo/title-presence' && r.detection.presence === 'none')).toBe(true);
+  });
+
+  it('runs a rule named by --rules with the options the config file declared', async () => {
+    const options = optionsFor('--rules', 'architecture/component-size');
+    const { results } = await analyzeProject({ ...options, cwd: rulesFlagConfigFixtureDir });
+    expect(penalizedComponentSize(results)).toHaveLength(1);
+  });
+
+  it('wakes an L3 rule named by --rules using the config file declaration', async () => {
+    const options = optionsFor('--rules', 'architecture/directory-naming');
+    const { results } = await analyzeProject({ ...options, cwd: rulesFlagConfigFixtureDir });
+    expect(results.filter((r) => r.id === 'architecture/directory-naming')).toHaveLength(1);
+  });
+
+  it('restores the self-diagnostic a discarded declaration silenced', async () => {
+    // The field's report: the defect was doubly silent. The rule reported nothing AND the
+    // aggregated "this declaration does not check what it says" finding disappeared with it,
+    // because a discarded options map leaves no declaration to diagnose. So a dead glob and a
+    // complying tree looked identical — the exact reading the charter's inverse-precision gate
+    // exists to prevent. Uses its own fixture, whose config declares a glob matching nothing.
+    const options = optionsFor('--rules', 'architecture/reserved-name-placement');
+    const { results } = await analyzeProject({ ...options, cwd: deadDeclarationFixtureDir });
+    const projectScoped = results.filter((r) => r.route === undefined && r.location === undefined);
+    expect(projectScoped).toHaveLength(1);
+    expect(projectScoped[0]?.message).toContain('matched no directory');
+  });
+
+  it('still narrows to the rules --rules names', async () => {
+    const options = optionsFor('--rules', 'architecture/component-size');
+    const { results } = await analyzeProject({ ...options, cwd: rulesFlagConfigFixtureDir });
+    expect([...new Set(results.map((r) => r.id))]).toEqual(['architecture/component-size']);
+  });
+
+  it('lets --ignore beat --rules when both name the same rule', async () => {
+    const options = optionsFor('--rules', 'architecture/component-size', '--ignore', 'architecture/component-size');
+    const { results } = await analyzeProject({ ...options, cwd: rulesFlagConfigFixtureDir });
+    expect(results.filter((r) => r.id === 'architecture/component-size')).toEqual([]);
   });
 });
 

@@ -32,6 +32,9 @@ export function ruleOptionsSpec(id: string): RuleOptionsSpec | undefined {
  * shape stays for direct callers of this function (e.g. an embedder building a `rules`
  * value from both an allow- and a deny-list on purpose, where whole-field replacement is
  * exactly what they want).
+ *
+ * No longer used by the CLI: `resolve-args` passes `--rules`/`--ignore` as id lists and
+ * `rule-selection.ts` composes the map. Kept because this is exported API.
  */
 export function buildRulesConfig(allow: string[], ignore: string[]): Record<string, RuleSetting> {
   const rules: Record<string, RuleSetting> = {};

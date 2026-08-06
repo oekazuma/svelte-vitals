@@ -1,7 +1,7 @@
 import type mri from 'mri';
 import type { Category } from '@svelte-vitals/core';
 import type { RunOptions } from './index.js';
-import { buildRulesConfig, findUnknownRuleIds, knownRuleIds } from './rules-config.js';
+import { findUnknownRuleIds, knownRuleIds } from './rules-config.js';
 import { isReporterName, type ReporterName } from './reporter-resolve.js';
 
 const CATEGORIES: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
@@ -226,19 +226,12 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
     errors.push('svelte-vitals: --update-suppressions and --no-suppressions cannot be used together.');
   }
 
-  // `rules` carries only --rules's allow-list complement — `ignore` is deliberately not
-  // passed to `buildRulesConfig` here. Folding it in would make a bare --ignore produce a
-  // non-empty `rules` map too, which `analyzeProject` would then use to replace a config
-  // file's whole `rules` field even though --ignore never said anything about the rules it
-  // didn't name (rules-flag-clobbers-config-options). --ignore's ids travel separately as
-  // `ignoreRules` below and are layered on top of `rules`/the file in index.ts instead.
-  //
-  // `buildRulesConfig` returns `{}` when --rules wasn't passed; normalize that to
-  // `undefined` so it doesn't clobber a config file's `rules` (design doc §3, decision 3 —
-  // "not specified" must stay distinguishable from "specified as empty").
-  const rulesConfig = buildRulesConfig(allow, []);
-  const rules = Object.keys(rulesConfig).length > 0 ? rulesConfig : undefined;
-  // Same "not specified" vs "empty" distinction as `rules` above, for --ignore's own list.
+  // Both flags are selection, and both travel as id lists: `--rules` names what runs and
+  // `--ignore` names what does not, and neither says anything about how the rules it leaves
+  // enabled are configured. Synthesizing a `rules` map here is what made selection depend on the
+  // absence of an entry, which a config file's own map could not survive (design 2026-08-06).
+  // Empty means "not specified" for both, kept distinguishable from "specified as empty".
+  const allowRules = allow.length > 0 ? allow : undefined;
   const ignoreRules = ignore.length > 0 ? ignore : undefined;
 
   if (errors.length > 0) return { options: null, warnings, errors };
@@ -256,7 +249,7 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
       outFile: typeof argv['out-file'] === 'string' ? argv['out-file'] : undefined,
       byRoute: Boolean(argv['by-route']),
       failOn,
-      rules,
+      ...(allowRules !== undefined ? { allowRules } : {}),
       ...(ignoreRules !== undefined ? { ignoreRules } : {}),
       ...(weights !== undefined ? { weights } : {}),
       ...(categories !== undefined ? { categories } : {}),
