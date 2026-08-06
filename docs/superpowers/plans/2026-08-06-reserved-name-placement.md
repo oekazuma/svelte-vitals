@@ -189,7 +189,7 @@ Create `packages/core/test/reserved-name-placement.test.ts`:
 ```ts
 import { describe, expect, it } from 'vitest';
 import { architectureReservedNamePlacement } from '../src/rules/architecture/reserved-name-placement.js';
-import type { Config } from '../src/config.js';
+import type { Config } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 
 const ID = 'architecture/reserved-name-placement';
@@ -242,7 +242,9 @@ describe('architecture/reserved-name-placement', () => {
   });
 
   it('reports nothing when no config layer mentions the rule at all', async () => {
-    const config = {} as unknown as Config;
+    // `rules` is required on Config and `defaultConfig` always supplies `{}` — an object without it is
+    // not a Config, and `isMentionedAnywhere` reads `config.rules` directly.
+    const config = { rules: {} } as unknown as Config;
     const results = await architectureReservedNamePlacement.check({
       sourceFiles: ['src/lib/e2e/a.ts'],
       config
@@ -429,15 +431,21 @@ Expected: PASS, 5 tests.
 
 One at a time, break the guard and confirm exactly the expected test fails, then restore:
 
-| Break                                                         | Test that must fail                                                                                                       |
-| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `if (value === undefined) continue;` → `if (false) continue;` | item 4                                                                                                                    |
-| `route: dir` → `route: parent`                                | item 5                                                                                                                    |
-| drop the `isExcluded` block                                   | item 12                                                                                                                   |
-| `isMentionedAnywhere` early return removed                    | item 13 (only if `rules` is absent — if it still passes, the fixture needs a config with no `rules` key; fix the fixture) |
-| `compile(globsOf(value), true)` → `compile(globsOf(value))`   | item 15                                                                                                                   |
+| Break                                                         | Test that must fail |
+| ------------------------------------------------------------- | ------------------- |
+| `if (value === undefined) continue;` → `if (false) continue;` | item 4              |
+| `route: dir` → `route: parent`                                | item 5              |
+| drop the `isExcluded` block                                   | item 12             |
+| `compile(globsOf(value), true)` → `compile(globsOf(value))`   | item 15             |
 
 If any break causes **no** failure, the test is vacuous. Fix the test before proceeding.
+
+**The `isMentionedAnywhere` early return is deliberately absent from that table.** Removing it fails nothing,
+and that is correct: with no config layer mentioning the rule, the maps resolve to `{}` and the inert check
+produces the same silence. It is a performance guard — it stops an unconfigured project resolving options once
+per directory and discarding every result — and no behavioural test can pin it. The sibling rule carries the
+same guard for the same reason. The two silence tests still earn their place: they pin that an unconfigured
+project reports nothing, which is the L3 guarantee a reader assumes rather than checks.
 
 - [ ] **Step 6: Commit**
 
