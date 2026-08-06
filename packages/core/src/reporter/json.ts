@@ -39,7 +39,12 @@ export interface JsonReport {
   rules: Record<string, RuleEvidence>;
   routes: Array<{ route: string; score: number; categories: Record<string, number>; issues: JsonIssue[] }>;
   siteIssues: JsonIssue[];
-  /** Floored severity weight per `"<category>::<scope>"` pair — the divisor behind every key of that pair. */
+  /**
+   * Floored severity weight per `"<category>::<scope>"` pair. Reproduces a `routes[].categories` entry
+   * (`100 - 100 * failed / inventories[pair]`), since a route's category score always draws on one pair.
+   * It does not reproduce `routes[].score`: a route spanning more than one pair sums their *raw* weights
+   * and floors that sum once, so adding this map's already-floored entries and re-dividing can disagree.
+   */
   inventories: Record<string, number>;
 }
 

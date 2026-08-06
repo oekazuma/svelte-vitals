@@ -19,4 +19,5 @@ will pass more easily; recalibrate it.**
 
 Because a score is a mean over every key, forty affected keys and one affected key can display alike. Each
 category in the JSON report now carries `keys` and `affectedKeys`, which distinguish them exactly, and
-an `inventories` map giving the divisor behind every key, so the arithmetic can be checked.
+an `inventories` map giving the divisor behind every key of a pair, so a route's per-category score can be
+checked by hand (a route's own `score`, which can span more than one pair, cannot).

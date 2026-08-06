@@ -93,7 +93,10 @@ Two things follow that the paragraph above doesn't say directly:
 
 - per-key scores are comparable **within** a category; across categories the number says which category has
   a larger share of _its own_ checks failing, not which problem is worse.
-- `inventories` gives the divisor behind every key of a pair, so any score can be recomputed by hand.
+- `inventories` gives the divisor behind every key of one pair, so a route's per-category score
+  (`routes[].categories`) recomputes by hand from it. A route's own `score` does not, once the route spans
+  more than one pair: it sums the raw inventory of every pair touched and floors that sum once, while
+  `inventories` publishes each pair already floored on its own — the two can disagree.
 
 Two field names are worth pointing out, because guessing them wrongly fails silently:
 
