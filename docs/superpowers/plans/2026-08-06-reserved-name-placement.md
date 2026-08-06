@@ -425,7 +425,7 @@ later task is dead code, and a reviewer is right to reject it.
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
-Expected: PASS, 5 tests.
+Expected: PASS, **7** tests — five items, but item 13 is three separate `it` blocks.
 
 - [ ] **Step 5: Verify each guard is load-bearing**
 
@@ -618,7 +618,7 @@ existing `'${name}'` phrasing already reads correctly for all three.
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
-Expected: PASS, 10 tests.
+Expected: PASS, **12** tests (7 from Task 2 plus 5 here).
 
 - [ ] **Step 5: Verify each guard is load-bearing**
 
@@ -727,7 +727,7 @@ if (
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
-Expected: PASS, 12 tests.
+Expected: PASS, **14** tests (12 from Task 3 plus 2 here).
 
 - [ ] **Step 5: Verify each guard is load-bearing**
 
@@ -966,7 +966,7 @@ if (reported.length > 0) {
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
-Expected: PASS, 17 tests.
+Expected: PASS, **19** tests (14 from Task 4 plus 5 here).
 
 - [ ] **Step 5: Verify each guard is load-bearing**
 
