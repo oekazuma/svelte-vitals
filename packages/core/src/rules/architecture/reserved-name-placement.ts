@@ -164,13 +164,16 @@ export const architectureReservedNamePlacement: Rule = {
       }
 
       const excluded = compile(listOption(o, 'exclude'));
+      const parent = parentOf(dir);
+      if (parent === undefined) continue; // a root-level directory has no parent to record
+
       if (isExcluded(dir, ancestorDirs(dir), excluded)) {
-        excludedDirs.push(dir);
+        // Every glob below is matched against the PARENT, never `dir` itself, so the pruned subject
+        // to record is the parent — and only when the parent is itself excluded, or a child excluded
+        // on its own would wrongly blame an exclusion the parent never had.
+        if (isExcluded(parent, ancestorDirs(parent), excluded)) excludedDirs.push(parent);
         continue;
       }
-
-      const parent = parentOf(dir);
-      if (parent === undefined) continue;
 
       // The union: any one map permitting the position is enough. All three globs are matched against
       // the same directory — this parent — and differ only in what else they require of it.
@@ -239,8 +242,7 @@ export const architectureReservedNamePlacement: Rule = {
     const reasons = classifyUnusedKeys(globs, excludedDirs, compile);
     // Usage means "permitted a position", which a glob naming real directories the name never appeared
     // in never does — and a declaration saying where a name MAY sit is not dead for going unused, so
-    // calling it unmatched would be a false claim. Deferred like the pass above: a correct
-    // configuration leaves `stillUnused` empty and neither runs.
+    // calling it unmatched would be a false claim.
     const reachable = keysMatchingAny(globs, allDirs, compile);
     for (const k of stillUnused) {
       const glob = globOf(k);

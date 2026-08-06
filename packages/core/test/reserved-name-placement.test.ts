@@ -262,6 +262,28 @@ describe('architecture/reserved-name-placement', () => {
     expect(notes[0]?.message).toContain('excluded');
   });
 
+  // The glob's only possible match is the reserved-name directory's parent, and that parent is what
+  // `exclude` prunes here — so this must be classified excluded, not silently dropped.
+  it('classifies an alternative as excluded when its glob names exactly the excluded parent', async () => {
+    const results = await run(['src/routes/e2e/a.ts'], {
+      placements: { e2e: 'src/routes' },
+      exclude: ['src/routes/**']
+    });
+    const notes = projectScoped(results);
+    expect(notes).toHaveLength(1);
+    expect(notes[0]?.message).toContain('excluded');
+  });
+
+  // The child was excluded on its own; the parent `src/routes` never was. Recording the parent
+  // unconditionally here would falsely blame an exclusion the parent never had.
+  it('says nothing when only the reserved-name directory itself, not its parent, is excluded', async () => {
+    const results = await run(['src/routes/e2e/a.ts'], {
+      placements: { e2e: 'src/routes' },
+      exclude: ['src/routes/e2e']
+    });
+    expect(results).toEqual([]);
+  });
+
   // The unit reason is claimed before the excluded/unmatched split, so an exclusion is never blamed
   // for an alternative the unit test disqualified. 'src/lib/*' met src/lib/features, which is no unit,
   // and also the excluded src/lib/parts — the later split would label it excluded and stop there.
