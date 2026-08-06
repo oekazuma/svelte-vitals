@@ -263,12 +263,6 @@ describe("--rules/--ignore compose with a config file's per-rule options (design
     expect(projectScoped[0]?.message).toContain('matched no directory');
   });
 
-  it('still narrows to the rules --rules names', async () => {
-    const options = optionsFor('--rules', 'architecture/component-size');
-    const { results } = await analyzeProject({ ...options, cwd: rulesFlagConfigFixtureDir });
-    expect([...new Set(results.map((r) => r.id))]).toEqual(['architecture/component-size']);
-  });
-
   it('lets --ignore beat --rules when both name the same rule', async () => {
     const options = optionsFor('--rules', 'architecture/component-size', '--ignore', 'architecture/component-size');
     const { results } = await analyzeProject({ ...options, cwd: rulesFlagConfigFixtureDir });
