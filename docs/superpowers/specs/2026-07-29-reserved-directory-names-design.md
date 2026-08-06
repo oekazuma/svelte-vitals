@@ -374,7 +374,7 @@ cascade the unit definition exists to prevent.
   it is worth stating rather than leaving a reader to discover it by writing a declaration that reports
   every route segment. Closing it needs the ability to say "these names, plus anything" at a position —
   a per-scope escape the option kinds cannot express today, and a candidate for the second
-  rule-options iteration alongside M4.
+  rule-options iteration. M4 was listed here too until 2026-08-06; it is not blocked, per the note above.
 
 - **A project that nests units directly inside units** should not declare `unitScopes`: the nested unit
   is a child not in the set, and would be reported. The rule page says so.

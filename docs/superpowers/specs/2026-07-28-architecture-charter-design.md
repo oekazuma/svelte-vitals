@@ -260,7 +260,10 @@ list — the day after this charter — and M4 is expressible as such maps —
 show it. The judgement was correct on the day it was made and was not revisited when the encoding appeared.
 
 M9 was added 2026-07-28 from field evidence rather than from reading the convention document, and its
-evidence is the strongest of the nine. A large reorganisation to comply with a convention left three
+evidence was the strongest of the mechanisms as they stood that day. (M4 later drew field evidence from
+the **same** reorganisation — see `2026-08-06-reserved-name-placement-design.md` — so the superlative is
+recorded as of 2026-07-28 rather than as a standing ranking.) A large reorganisation to comply with a
+convention left three
 kinds of dangling reference behind, all found by human review and by nothing else:
 
 | Failure                                                                    |
@@ -323,7 +326,8 @@ from the existing `imports` plus `resolveRepoLocalPath`, M7 from route informati
    family follows from.
 2. **A file-inventory fact + M1** (`architecture/unit-entry-file`, its own spec) — the fact M1/M2/M3
    all depend on, delivered with the first rule that uses it.
-3. **M2 / M3** on the same fact.
+3. **M2 / M3 / M4** on the same fact. M4 was listed under step 8 until 2026-08-06, on the belief that it
+   needed a structured-list kind; it does not, and it belongs beside M3 whose vocabulary it constrains.
 4. **#1 — route-component import (L1).** Needs nothing new; the default-on counterpart of #8.
 5. **M9** — the highest-evidence mechanism, and the same fact again.
 6. **#2 — import fan-out (L0).** Corpus measurement only; the fact already exists.

@@ -141,7 +141,10 @@ that exist, and the whole measured convention table was written out in them to c
 }
 ```
 
-Every measured position is covered and no kind beyond `string-map` and `string-list` appears. **The charter is
+Every measured **kind** of position is covered — with the one reservation recorded above, that `parts` and
+`styleGuide` sit in the capitalised map on an unconfirmed case split — and no kind beyond `string-map` and
+`string-list` appears. The blocker refutation does not depend on that reservation: the worst case moves two
+names between two maps of the same option kind. **The charter is
 corrected on this branch** — both its mechanism row and its sequencing step, since correcting one and leaving
 the other makes the charter contradict itself. The two sibling designs that repeat "M4 waits on a
 structured-list option kind" (`2026-07-29-reserved-directory-names-design.md` and
@@ -174,13 +177,17 @@ convenience: `functions` is permitted under a unit, under a concern directory **
 directory, and `stores` and `types` likewise span kinds, so a design where each name belongs to exactly one map
 cannot express any of the three. An earlier draft had them exclusive.
 
-**A value that splits to nothing declares nothing.** `placements: { e2e: '|' }` must leave `e2e` ungoverned
-rather than forbidding it everywhere, which is what "the parent satisfies none of its declared positions"
-would otherwise do to a typo. `reserved-directory-names` shipped this gap and closed it in review; mirroring
-that rule means mirroring the fix.
+**A value that splits to nothing declares nothing, and says so.** `placements: { e2e: '|' }` must leave `e2e`
+ungoverned rather than forbidding it everywhere, which is what "the parent satisfies none of its declared
+positions" would otherwise do to a typo. `reserved-directory-names` shipped this gap and closed it in review,
+and its fix is **two-sided**: the key stops matching _and_ the key is reported, carrying the note
+`names no directory name at all`. Mirroring that rule means mirroring both halves — silence alone would leave
+the typo indistinguishable from a project that complies, which is the failure the charter's inverse-precision
+gate exists for. Unlike a declared name that never appears, an empty value is decidable from the options
+alone, which is why this one is reported where that one is not.
 
 **A glob matches the parent directory, and a bare prefix matches itself.** `src/routes/**` matches
-`src/routes/about` and, on its own, not `src/routes` — which is why the measured encoding lists
+`src/routes/about` and, on its own, not `src/routes` — which is why the example encoding lists
 `src/routes|src/routes/**` for names permitted directly in the route root. The family's compiler already
 decides this; the rule takes its behaviour rather than a second one.
 
@@ -222,11 +229,20 @@ counterpart — `packages/cli/test/docs-links.test.ts` fails without both — th
    unit **outside** that root: both must report, and the `tests` case must use a lowercase unit. Without the
    second half, an implementation that honours the capitalised map's roots and treats the any-case map as
    "permitted under any unit anywhere" passes every other test here.
-7. **A value that splits to nothing governs nothing.** `placements: { e2e: '|' }` reports no `e2e/` anywhere.
-8. **`exclude` removes a subtree**, asserted on a tree where the same misplacement reports without it.
-9. **Nothing is reported when no map is declared**, on a tree that would otherwise produce findings — the L3
-   guarantee, and the half a reader assumes rather than checks.
-10. **A bare prefix and a `/**` suffix differ as the family's compiler defines.** Assert `src/routes` against a
+7. **Both unit predicates need the entry file, not just the letter.** Place a declared name directly under a
+   **same-case non-unit** directory — `parts/` under an `Icons/` holding no `Icons.svelte`, and `tests/` under
+   a `helpers/` holding no `helpers.ts` — and assert both report. Without this, an implementation that reduces
+   "capitalised unit" to "name begins A–Z" and "any-case unit" to "any directory" passes every other test
+   here, because items 1, 2 and 6 contrast case between two real units and never contrast unit against
+   non-unit. This is the distinction the family's cascade turns on.
+8. **A value that splits to nothing governs nothing and is reported.** `placements: { e2e: '|' }` reports no
+   `e2e/` anywhere **and** produces the key's own finding, as `reserved-directory-names` does. Asserting only
+   the silence passes on an implementation that drops the key without a word — the shape the sibling shipped
+   and had to fix.
+9. **`exclude` removes a subtree**, asserted on a tree where the same misplacement reports without it.
+10. **Nothing is reported when no map is declared**, on a tree that would otherwise produce findings — the L3
+    guarantee, and the half a reader assumes rather than checks.
+11. **A bare prefix and a `/**` suffix differ as the family's compiler defines.** Assert `src/routes` against a
     `src/routes` parent and `src/routes/**` against the same one, so the choice is pinned rather than
     inherited silently.
 
@@ -238,6 +254,10 @@ counterpart — `packages/cli/test/docs-links.test.ts` fails without both — th
   not false positives. The recorded asymmetry — no name is permitted under a concern directory but forbidden
   under a unit — covers over-permission at units and does **not** cover this; an earlier draft claimed the
   glob side over-permitting "costs nothing today", which is narrower than it sounded.
+- **The inventory both predicates depend on.** `isUnitDir` takes the directory's file list, so this rule
+  reads the same project inventory the sibling rules do: it sees nothing outside `src/`, and on a `--route`
+  run, where no inventory is built, it is silent. Both siblings record this; M4 inherits it unchanged and had
+  not said so.
 - **Seeding a declaration from the tree.** Both failure directions are measured above; a `--suggest` mode
   would produce a wrong table with an authoritative shape.
 - **Reporting a declared name that never appears.** M3 answers the sibling question with
