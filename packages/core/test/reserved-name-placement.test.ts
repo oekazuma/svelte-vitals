@@ -15,6 +15,11 @@ async function run(files: string[], options: Record<string, unknown>, extra: Par
   return await architectureReservedNamePlacement.check(ctx(files, options, extra));
 }
 
+type Results = Awaited<ReturnType<typeof run>>;
+/** The misplaced-directory findings. A run may also carry the project-scoped declaration note. */
+const violations = (results: Results) => results.filter((r) => r.route !== undefined);
+const projectScoped = (results: Results) => results.filter((r) => r.route === undefined && r.location === undefined);
+
 describe('architecture/reserved-name-placement', () => {
   // Testing item 4
   it('never reports a name that is in no map, on a run that is otherwise reporting', async () => {
@@ -26,7 +31,7 @@ describe('architecture/reserved-name-placement', () => {
 
   // Testing item 5
   it('reports a declared name in an undeclared position, with route on the directory and location on a file inside it', async () => {
-    const results = await run(['src/lib/e2e/a.ts'], { placements: { e2e: 'src/routes/**' } });
+    const results = violations(await run(['src/lib/e2e/a.ts'], { placements: { e2e: 'src/routes/**' } }));
     expect(results).toHaveLength(1);
     expect(results[0]?.route).toBe('src/lib/e2e');
     expect(results[0]?.location).toBe('src/lib/e2e/a.ts');
@@ -36,14 +41,15 @@ describe('architecture/reserved-name-placement', () => {
 
   // Testing item 12
   it('exclude removes a subtree that reports without it', async () => {
+    // This tree holds no src/routes either way, so both runs also carry the declaration note.
     const files = ['src/lib/legacy/e2e/a.ts'];
     const without = await run(files, { placements: { e2e: 'src/routes/**' } });
-    expect(without).toHaveLength(1);
+    expect(violations(without)).toHaveLength(1);
     const withExclude = await run(files, {
       placements: { e2e: 'src/routes/**' },
       exclude: ['src/lib/legacy/**']
     });
-    expect(withExclude).toEqual([]);
+    expect(violations(withExclude)).toEqual([]);
   });
 
   // Testing item 13 — both silences, because they are two different code paths.
@@ -158,7 +164,7 @@ describe('architecture/reserved-name-placement', () => {
     expect(bare.map((r) => r.route)).toEqual(['src/lib/Card/parts']);
   });
 
-  // Testing item 8 — the silence half. The reported half arrives in Task 5.
+  // Testing item 8 — the silence half.
   it('lets an empty value in one map ungovern the name in every map', async () => {
     const tree = [
       'src/lib/Card/Card.svelte',
@@ -177,7 +183,7 @@ describe('architecture/reserved-name-placement', () => {
       anyCaseUnitPlacements: { functions: 'src/**' },
       placements: { functions: '|' }
     });
-    expect(dropped.filter((r) => r.route !== undefined)).toEqual([]);
+    expect(violations(dropped)).toEqual([]);
 
     // Strengthens against a check that reads only `placements`' own emptiness and leaves the other
     // two maps to `matches()`: here the empty value sits in `anyCaseUnitPlacements` while
@@ -187,7 +193,7 @@ describe('architecture/reserved-name-placement', () => {
       placements: { functions: 'src/routes/**' },
       anyCaseUnitPlacements: { functions: '|' }
     });
-    expect(crossMap).toEqual([]);
+    expect(violations(crossMap)).toEqual([]);
   });
 
   // Testing item 14 — the override glob must match the reserved-name directory and NOT its parent,
@@ -201,6 +207,90 @@ describe('architecture/reserved-name-placement', () => {
       } as never
     );
     // 'src/**/parts' reaches src/lib/orphan/parts (silenced) and misses src/parts (still reporting).
-    expect(results.filter((r) => r.route !== undefined).map((r) => r.route)).toEqual(['src/parts']);
+    expect(violations(results).map((r) => r.route)).toEqual(['src/parts']);
+  });
+
+  // Testing item 8 — the reported half.
+  it('reports an emptied declaration rather than dropping it in silence', async () => {
+    const results = await run(['src/routes/about/e2e/a.ts'], { placements: { e2e: '|' } });
+    expect(violations(results)).toEqual([]);
+    expect(projectScoped(results)).toHaveLength(1);
+    expect(projectScoped(results)[0]?.message).toContain('e2e');
+  });
+
+  // Testing item 9
+  it('carries every bad declaration in one project-scoped finding, not one each', async () => {
+    const results = await run(['src/routes/about/e2e/a.ts'], {
+      placements: { e2e: '|', stores: '|', types: 'src/nowhere/**' }
+    });
+    const notes = projectScoped(results);
+    expect(notes).toHaveLength(1);
+    expect(notes[0]?.route).toBeUndefined();
+    expect(notes[0]?.location).toBeUndefined();
+    for (const name of ['e2e', 'stores', 'types']) expect(notes[0]?.message).toContain(name);
+  });
+
+  // Testing item 10
+  it('classifies a dead glob per alternative, not per name', async () => {
+    const results = await run(['src/routes/about/e2e/a.ts'], {
+      placements: { e2e: 'src/route/**|src/routes/**' }
+    });
+    expect(violations(results)).toEqual([]); // the good alternative works
+    const notes = projectScoped(results);
+    expect(notes).toHaveLength(1);
+    expect(notes[0]?.message).toContain('src/route/**');
+    expect(notes[0]?.message).not.toContain('src/routes/**');
+  });
+
+  // Testing item 11
+  it('reports a unit-map glob that matched directories but never a unit', async () => {
+    const results = await run(['src/lib/features/checkout/parts/a.svelte', 'src/lib/features/checkout/x.ts'], {
+      capitalisedUnitPlacements: { parts: 'src/lib/features/*' }
+    });
+    const notes = projectScoped(results);
+    expect(notes).toHaveLength(1);
+    expect(notes[0]?.message).toContain('never a unit');
+  });
+
+  it('classifies an alternative whose every match was excluded as excluded, not as unmatched', async () => {
+    const results = await run(['src/lib/legacy/Card/Card.svelte', 'src/lib/legacy/Card/parts/a.svelte'], {
+      capitalisedUnitPlacements: { parts: 'src/lib/legacy/**' },
+      exclude: ['src/lib/legacy/**']
+    });
+    const notes = projectScoped(results);
+    expect(notes).toHaveLength(1);
+    expect(notes[0]?.message).toContain('excluded');
+  });
+
+  // Every map is consulted at a position, not only up to the first that permits it. Here the two maps
+  // carry the same glob, so a short-circuiting union records work for `placements` alone and leaves the
+  // `capitalisedUnitPlacements` entry looking untouched — and its only other match is the excluded
+  // subtree, which is what turns that omission into a note claiming the entry only ever met excluded
+  // directories. It qualified src/lib/Card.
+  it('records work for every map at a position, not only the first one that permits it', async () => {
+    const results = await run(
+      [
+        'src/lib/Card/Card.svelte',
+        'src/lib/Card/parts/a.svelte',
+        'src/lib/legacy/Panel/Panel.svelte',
+        'src/lib/legacy/Panel/parts/b.svelte'
+      ],
+      {
+        placements: { parts: 'src/lib/**' },
+        capitalisedUnitPlacements: { parts: 'src/lib/**' },
+        exclude: ['src/lib/legacy/**']
+      }
+    );
+    expect(results).toEqual([]);
+  });
+
+  // A declaration a correct project simply has not used yet is not a dead one, and the glob it names
+  // does match directories — so neither reason the classification can give would be true.
+  it('says nothing about a declaration whose glob reaches directories the name never appeared in', async () => {
+    const results = await run(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.svelte'], {
+      capitalisedUnitPlacements: { parts: 'src/lib/**' },
+      placements: { stores: 'src/lib/**' }
+    });
+    expect(results).toEqual([]);
   });
 });

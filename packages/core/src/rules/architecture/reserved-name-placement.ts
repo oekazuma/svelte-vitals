@@ -12,8 +12,10 @@ import {
   ancestorDirs,
   baseName,
   childFiles,
+  classifyUnusedKeys,
   createKeyCompiler,
   isExcluded,
+  keysMatchingAny,
   matchKeys,
   reportAt,
   splitNames
@@ -92,7 +94,44 @@ export const architectureReservedNamePlacement: Rule = {
 
     const out: Result[] = [];
 
-    for (const dir of [...dirs].sort()) {
+    // An alternative is identified by the map it came from, the name, and the glob — the same glob
+    // under two names is two declarations, and under two maps two more, because the predicate that
+    // qualifies it differs. Counting per name instead would miss a typo among good alternatives:
+    // the permitted set shrinks while "some glob for this name matched" stays true.
+    type MapName = 'placements' | 'capitalisedUnitPlacements' | 'anyCaseUnitPlacements';
+    const label = (map: MapName, name: string, glob: string) => `${map}.${name} → ${glob}`;
+
+    const globalOptions = resolveRuleOptions(ID, OPTIONS, ctx.config);
+    const globalMaps: Record<MapName, Record<string, string>> = {
+      placements: mapOption(globalOptions, 'placements'),
+      capitalisedUnitPlacements: mapOption(globalOptions, 'capitalisedUnitPlacements'),
+      anyCaseUnitPlacements: mapOption(globalOptions, 'anyCaseUnitPlacements')
+    };
+    // Only globally resolved alternatives are classified: a value arriving solely from an `overrides`
+    // layer governs a subtree and cannot be judged dead against the whole tree.
+    const globalAlternatives = new Map<string, { map: MapName; glob: string }>();
+    const emptyNames = new Map<string, string>();
+    for (const map of Object.keys(globalMaps) as MapName[]) {
+      for (const [name, value] of Object.entries(globalMaps[map])) {
+        const globs = globsOf(value);
+        if (globs.length === 0) {
+          emptyNames.set(`${map}.${name}`, 'names no position at all');
+          continue;
+        }
+        for (const glob of globs) globalAlternatives.set(label(map, name, glob), { map, glob });
+      }
+    }
+
+    const usedAlternatives = new Set<string>();
+    const excludedDirs: string[] = [];
+    // Parents a unit-map alternative matched while the parent was not a unit of that map's kind.
+    const nonUnitParents: Record<'capitalisedUnitPlacements' | 'anyCaseUnitPlacements', string[]> = {
+      capitalisedUnitPlacements: [],
+      anyCaseUnitPlacements: []
+    };
+
+    const allDirs = [...dirs].sort();
+    for (const dir of allDirs) {
       const o = resolveRuleOptions(ID, OPTIONS, ctx.config, { route: dir, file: dir }, compiledOverrides);
       const placements = mapOption(o, 'placements');
       const capUnits = mapOption(o, 'capitalisedUnitPlacements');
@@ -125,20 +164,35 @@ export const architectureReservedNamePlacement: Rule = {
       }
 
       const excluded = compile(listOption(o, 'exclude'));
-      if (isExcluded(dir, ancestorDirs(dir), excluded)) continue;
+      if (isExcluded(dir, ancestorDirs(dir), excluded)) {
+        excludedDirs.push(dir);
+        continue;
+      }
 
       const parent = parentOf(dir);
       if (parent === undefined) continue;
 
       // The union: any one map permitting the position is enough. All three globs are matched against
       // the same directory — this parent — and differ only in what else they require of it.
-      const matches = (value: string | undefined) =>
-        value !== undefined && matchKeys(parent, compile(globsOf(value), true)).matched.length > 0;
-      const permitted =
-        matches(placements[name]) ||
-        (isUnitDir(parent, filesIn) && matches(capUnits[name])) ||
-        (isAnyCaseUnitDir(parent, filesIn) && matches(anyUnits[name]));
-      if (permitted) continue;
+      const record = (map: MapName, value: string | undefined, qualifies: boolean) => {
+        if (value === undefined) return false;
+        const { matched } = matchKeys(parent, compile(globsOf(value), true));
+        if (matched.length === 0) return false;
+        if (!qualifies) {
+          if (map !== 'placements') nonUnitParents[map].push(parent);
+          return false;
+        }
+        for (const glob of matched) usedAlternatives.add(label(map, name, glob));
+        return true;
+      };
+
+      // Every map is consulted, not short-circuited on the first that permits the position: an
+      // alternative left unread has still qualified this directory, and the classification below would
+      // go on to blame an exclusion elsewhere in its glob for the silence.
+      const byPlacement = record('placements', placements[name], true);
+      const byCapUnit = record('capitalisedUnitPlacements', capUnits[name], isUnitDir(parent, filesIn));
+      const byAnyUnit = record('anyCaseUnitPlacements', anyUnits[name], isAnyCaseUnitDir(parent, filesIn));
+      if (byPlacement || byCapUnit || byAnyUnit) continue;
 
       const at = reportAt(dir, files);
       if (at === undefined) continue; // unreachable: the directory came from a file's prefix
@@ -162,6 +216,61 @@ export const architectureReservedNamePlacement: Rule = {
       });
     }
 
+    // One finding carrying every declaration that is not checking what it says. `findingKey`
+    // (`id::route::location`, packages/cli/src/baseline.ts) leaves both fields unset for every
+    // project-scoped result, so N separate findings would collapse to one baseline entry and
+    // suppressing one would silently suppress the rest.
+    const notes = new Map<string, string>(emptyNames);
+    const unusedLabels = [...globalAlternatives.keys()].filter((k) => !usedAlternatives.has(k));
+    const globOf = (key: string) => globalAlternatives.get(key)?.glob as string;
+
+    // The unit reason is claimed first, so an exclusion is never blamed for an alternative the unit
+    // test disqualified — the same ordering the sibling rule records at length. A unit-map alternative
+    // is recorded as work only where the parent was a unit of that map's kind, so one that met only
+    // non-units identified nothing, and the excluded/unmatched split below would blame an exclusion
+    // whose removal changes nothing.
+    for (const map of ['capitalisedUnitPlacements', 'anyCaseUnitPlacements'] as const) {
+      const inMap = unusedLabels.filter((k) => globalAlternatives.get(k)?.map === map);
+      const hit = keysMatchingAny(inMap.map(globOf), nonUnitParents[map], compile);
+      for (const k of inMap) {
+        if (hit.has(globOf(k))) notes.set(k, 'matched directories but never a unit');
+      }
+    }
+
+    const stillUnused = unusedLabels.filter((k) => !notes.has(k));
+    const globs = [...new Set(stillUnused.map(globOf))];
+    const reasons = classifyUnusedKeys(globs, excludedDirs, compile);
+    // Reachability is what separates a dead glob from an unused one, and both passes are deferred:
+    // a correct configuration leaves `stillUnused` empty and neither runs. Usage here means "permitted
+    // a position", which a glob naming a real directory the name simply never appeared in never does —
+    // and a declaration saying where a name MAY sit is not dead for being unused, so reporting it would
+    // be noise carrying a false claim. Only a glob no directory answers to is reported unmatched.
+    const reachable = keysMatchingAny(globs, allDirs, compile);
+    for (const k of stillUnused) {
+      const glob = globOf(k);
+      if (reasons.get(glob) === 'only-excluded') {
+        notes.set(k, 'matched only excluded directories');
+      } else if (!reachable.has(glob)) {
+        notes.set(k, 'matched no directory');
+      }
+    }
+
+    const reported = [...notes.keys()].sort();
+    if (reported.length > 0) {
+      const message =
+        reported.length === 1
+          ? `The declaration ${reported[0]} does not check what it says: ${notes.get(reported[0] as string)}.`
+          : `These declarations do not check what they say: ${reported.map((k) => `${k} (${notes.get(k)})`).join(', ')}.`;
+      out.push({
+        id: ID,
+        category: 'architecture',
+        severity: 'info',
+        detection: { presence: 'none', value: 'absent' },
+        message,
+        recommendation: 'Correct the glob or the name, or remove the declaration.',
+        docsUrl
+      });
+    }
     return out;
   }
 };
