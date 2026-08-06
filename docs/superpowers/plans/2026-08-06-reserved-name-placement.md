@@ -665,6 +665,9 @@ it('lets an empty value in one map ungovern the name in every map', async () => 
   const tree = [
     'src/lib/Card/Card.svelte',
     'src/lib/Card/functions/a.ts',
+    // `checkout.ts` makes this a unit. Without it the directory is not a unit under either predicate, so
+    // `functions/` inside it reports too and the assertion below expects the wrong count.
+    'src/lib/features/checkout/checkout.ts',
     'src/lib/features/checkout/functions/b.ts',
     'src/lib/orphan/functions/c.ts'
   ];
@@ -731,11 +734,16 @@ Expected: PASS, **14** tests (12 from Task 3 plus 2 here).
 
 - [ ] **Step 5: Verify each guard is load-bearing**
 
-| Break                                                                                                   | Test that must fail |
-| ------------------------------------------------------------------------------------------------------- | ------------------- |
-| the empty-value block checks only `placements` **and** the `matches()` union is left to handle the rest | item 8              |
-| `resolveRuleOptions(..., { route: dir, file: dir }, ...)` → `{ route: parent, file: parent }`           | item 14             |
-| `compiledOverrides` argument dropped                                                                    | item 14             |
+| Break                                                                                                   | Test that must fail                                                                                                                                                                                                                                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| the empty-value block checks only `placements` **and** the `matches()` union is left to handle the rest | item 8 — **but only if the fixture puts the empty value in a map other than `placements`.** With the empty value in `placements`, a `placements`-only check still catches it and the row is vacuous. Assert the cross-map case: the name declared in `anyCaseUnitPlacements` and emptied in `placements`, and also the reverse. |
+| `resolveRuleOptions(..., { route: dir, file: dir }, ...)` → `{ route: parent, file: parent }`           | item 14                                                                                                                                                                                                                                                                                                                         |
+
+**`compiledOverrides` is deliberately absent from that table.** Dropping the argument fails nothing:
+`resolveRuleOptions` does `compiled ?? compileOverrides(config)`, so omitting it recomputes an identical
+value. Hoisting it is a performance decision, not a behavioural one, and no behavioural test can pin it —
+the same shape as the `isMentionedAnywhere` guard in Task 2. Both were wrongly listed as testable in earlier
+drafts of this plan; a guard that only avoids recomputation belongs in a note, never in a mutation table.
 
 - [ ] **Step 6: Commit**
 
