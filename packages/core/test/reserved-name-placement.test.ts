@@ -262,6 +262,18 @@ describe('architecture/reserved-name-placement', () => {
     expect(notes[0]?.message).toContain('excluded');
   });
 
+  // The unit reason is claimed before the excluded/unmatched split, so an exclusion is never blamed
+  // for an alternative the unit test disqualified. 'src/lib/*' met src/lib/features, which is no unit,
+  // and also the excluded src/lib/parts — the later split would label it excluded and stop there.
+  it('claims the unit reason for a glob that also matched an excluded directory', async () => {
+    const results = await run(['src/lib/features/parts/a.svelte', 'src/lib/parts/b.svelte'], {
+      capitalisedUnitPlacements: { parts: 'src/lib/*' },
+      exclude: ['src/lib/parts/**']
+    });
+    expect(projectScoped(results)).toHaveLength(1);
+    expect(projectScoped(results)[0]?.message).toContain('never a unit');
+  });
+
   // Every map is consulted at a position, not only up to the first that permits it. Here the two maps
   // carry the same glob, so a short-circuiting union records work for `placements` alone and leaves the
   // `capitalisedUnitPlacements` entry looking untouched — and its only other match is the excluded

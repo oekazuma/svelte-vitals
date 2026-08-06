@@ -225,10 +225,7 @@ export const architectureReservedNamePlacement: Rule = {
     const globOf = (key: string) => globalAlternatives.get(key)?.glob as string;
 
     // The unit reason is claimed first, so an exclusion is never blamed for an alternative the unit
-    // test disqualified — the same ordering the sibling rule records at length. A unit-map alternative
-    // is recorded as work only where the parent was a unit of that map's kind, so one that met only
-    // non-units identified nothing, and the excluded/unmatched split below would blame an exclusion
-    // whose removal changes nothing.
+    // test disqualified — the ordering `reserved-directory-names` records at length.
     for (const map of ['capitalisedUnitPlacements', 'anyCaseUnitPlacements'] as const) {
       const inMap = unusedLabels.filter((k) => globalAlternatives.get(k)?.map === map);
       const hit = keysMatchingAny(inMap.map(globOf), nonUnitParents[map], compile);
@@ -240,11 +237,10 @@ export const architectureReservedNamePlacement: Rule = {
     const stillUnused = unusedLabels.filter((k) => !notes.has(k));
     const globs = [...new Set(stillUnused.map(globOf))];
     const reasons = classifyUnusedKeys(globs, excludedDirs, compile);
-    // Reachability is what separates a dead glob from an unused one, and both passes are deferred:
-    // a correct configuration leaves `stillUnused` empty and neither runs. Usage here means "permitted
-    // a position", which a glob naming a real directory the name simply never appeared in never does —
-    // and a declaration saying where a name MAY sit is not dead for being unused, so reporting it would
-    // be noise carrying a false claim. Only a glob no directory answers to is reported unmatched.
+    // Usage means "permitted a position", which a glob naming real directories the name never appeared
+    // in never does — and a declaration saying where a name MAY sit is not dead for going unused, so
+    // calling it unmatched would be a false claim. Deferred like the pass above: a correct
+    // configuration leaves `stillUnused` empty and neither runs.
     const reachable = keysMatchingAny(globs, allDirs, compile);
     for (const k of stillUnused) {
       const glob = globOf(k);
