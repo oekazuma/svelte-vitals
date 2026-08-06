@@ -254,8 +254,8 @@ the way the paragraph above first suggested: per-rule options did unblock L3, fo
 expressible as a flat list or map. Only part of M8 waits on the second iteration.
 
 **Corrected 2026-08-06.** This table originally recorded M4 as needing a structured-list kind. It does not:
-`2026-07-29-reserved-directory-names-design.md`, written the day after this charter, established that a
-`string-map` value carries a `|`-separated list, and M4 is expressible as two such maps —
+`architecture/directory-naming`'s casing sets established that a `string-map` value carries a `|`-separated
+list — the day after this charter — and M4 is expressible as such maps —
 `2026-08-06-reserved-name-placement-design.md` writes a real project's whole convention table out in them to
 show it. The judgement was correct on the day it was made and was not revisited when the encoding appeared.
 
@@ -328,7 +328,7 @@ from the existing `imports` plus `resolveRepoLocalPath`, M7 from route informati
 5. **M9** — the highest-evidence mechanism, and the same fact again.
 6. **#2 — import fan-out (L0).** Corpus measurement only; the fact already exists.
 7. **#3 / #4** — each gated on one new fact (a parser depth walk; a packaged-project `Project` fact).
-8. **Rule options, second iteration** (enum + structured-list kinds) → then **M4** and the rest of M8,
+8. **Rule options, second iteration** (enum + structured-list kinds) → then the rest of M8,
    plus verdict rows 9 and 10 (declared import boundaries, component filename convention). Note the
    verdict table's row numbers and the mechanism labels are separate sequences — row 9 is not M9.
 

@@ -2,7 +2,8 @@
 
 **Date:** 2026-08-06
 **Status:** approved; field-measured 2026-08-06
-**Charter row:** verdict #4 — M4, "a reserved name may appear only in the places declared for it" (L3)
+**Charter mechanism:** M4 — "a reserved name may appear only in the places declared for it" (L3). The charter's
+verdict rows and its mechanism labels are separate sequences; M4 has a mechanism row and no verdict row.
 
 ## The problem
 
@@ -47,39 +48,54 @@ of this design had them exclusive.
 
 **The structural predicate cannot be approximated by a glob.** Units and concern directories both live under
 `src/lib/features/**`, so no glob separates them, and `parts`'s "directly under a unit, and nowhere else"
-needs a predicate the glob language does not have. There is one saving asymmetry, worth recording because it
-keeps the design small: **no name is permitted under a concern directory but forbidden under a unit.** So the
-glob side over-permitting costs nothing today, and only the three unit-only names (`parts`, `styleGuide`,
-`tests`) need the structural side to be exact.
+needs a predicate the glob language does not have.
 
-**The declaration cannot be derived from the distribution, in either direction.** This is the finding that
-most shapes the rule, and it refutes the obvious shortcut of seeding a project's declaration from what its
-tree already does:
+**And one predicate is not enough, which a second measurement settled.** `isUnitDir` — the family's existing
+definition, shared from `reserved-directory-names.ts` — requires the directory name to begin **A–Z** as well
+as holding a same-named child file. Measured against the same tree:
 
-- **A minority position can be correct.** `stores` appears twice under concern directories against five under
-  units; `types` appears exactly once. Both are positions the convention explicitly permits.
-- **A permitted position can have zero instances.** The convention allows `functions` directly under a route
-  directory, and there are none — the rule is "one function unit sits in the route directory, two or more move
-  into `{route}/functions/`", and no route has reached two yet.
+| units by the convention's definition | entry        | count | seen by `isUnitDir` |
+| ------------------------------------ | ------------ | ----- | ------------------- |
+| capitalised                          | `.svelte`    | 170   | yes                 |
+| lowercase                            | `.ts`        | 121   | **no**              |
+| lowercase                            | `.svelte.ts` | 8     | **no**              |
 
-So a declaration inferred from observation would report the minority positions as violations and forbid the
-empty-but-legal one. **M4 has to start from the declaration.** That is the strongest argument yet for the L3
-tier this rule sits in — inert until declared is not caution, it is the only correct behaviour when the tree
-cannot tell you the convention.
+**The tool recognises 170 of the convention's 299 units.** The correlation is exact — every capitalised unit
+holds a `.svelte`, every lowercase one holds a `.ts` or `.svelte.ts` — because the convention requires it, so
+`isUnitDir`'s letter test is in practice "component units only". That is a coherent definition and not a bug;
+it is a mismatch only when a rule uses the word _unit_ to mean what the convention means.
 
-**`tests` is out of scope, and this is why.** The convention places `tests/` **beside the file it tests**, not
-under a unit. All 250 instances happen to be under units because that is where the tested files are; the
-predicate is different. Declaring `tests` as unit-only would be **narrower than the convention** and would
-report a legitimate future placement — a `tests/` beside a `.ts` in a directory that is not a unit. A name
-whose position is "wherever its subject is" has no placement constraint to check, so seven of the eight names
-are in scope and `tests` is not.
+For M4 that mismatch is a **false positive**, which the precision gate does not allow:
+
+- `tests` is the most common reserved name at 250 instances, of which **109 sit under a lowercase unit**.
+  Declared as unit-only against `isUnitDir`, the rule reports all 109 — every one a placement the convention
+  permits. An earlier draft of this design excluded `tests` for a related but weaker reason and would have
+  shipped that exclusion without knowing the number.
+- `functions` has one lowercase-unit parent, and it happens not to report, because the same directory is also
+  matched by a declared glob and the union saves it. That escape is luck, not design.
+
+**So the rule takes two unit predicates, and declares which one each name wants:**
+
+- **capitalised unit** — `isUnitDir` unchanged: name begins A–Z, holds a same-named child. `parts` and
+  `styleGuide` are permitted here and nowhere else, and a `parts/` under a lowercase function unit is a real
+  violation the wider predicate would miss.
+- **any unit** — the same test without the letter requirement. `tests` wants this one, and with it all 250
+  instances pass.
+
+The split is the letter test alone. It is deliberately **not** keyed on the entry file's extension: that
+`.svelte` and capitalisation coincide is a property of this project's convention, not something the rule
+should encode on one tree's evidence.
+
+`tests` is therefore **in scope**, where the earlier draft had removed it. Its convention is "beside the file
+it tests", and "under a unit of either kind" is not that — but it is not narrower than it either on any
+placement the measurement found, and the 250 instances confirm it.
 
 ## The blocker does not exist
 
 The charter records M4 as needing a **structured-list option kind**, and sequenced it behind a second
-rule-options iteration. That judgement was written on 2026-07-28. The `reserved-directory-names` design
-landed on **2026-07-29** and established the convention that a `string-map` value carries a list, split on
-`|`:
+rule-options iteration. That judgement was written on 2026-07-28. On **2026-07-29** the directory-rule family
+landed the convention that a `string-map` value carries a list split on `|` — introduced by
+`architecture/directory-naming` for its casing sets and reused by `reserved-directory-names`:
 
 ```js
 scopes: { 'src/lib': 'api|components|features|effect|db' }
@@ -91,7 +107,14 @@ that exist, and the whole measured convention table was written out in them to c
 ```js
 'architecture/reserved-name-placement': {
   options: {
-    unitPlacements: { parts: 'src/**', styleGuide: 'src/**', functions: 'src/**', stores: 'src/**', types: 'src/**' },
+    // directly under a unit whose name begins A–Z — `isUnitDir` unchanged
+    capitalisedUnitPlacements: {
+      parts: 'src/**', styleGuide: 'src/**',
+      functions: 'src/**', stores: 'src/**', types: 'src/**'
+    },
+    // directly under a unit of either case
+    unitPlacements: { tests: 'src/**' },
+    // the parent directory itself, by glob
     placements: {
       functions: 'src/lib/features/*|src/lib/features/*/*|src/routes/**',
       stores: 'src/lib/features/*|src/lib/features/*/*',
@@ -104,60 +127,102 @@ that exist, and the whole measured convention table was written out in them to c
 }
 ```
 
-Every measured position is covered and no kind beyond `string-map` and `string-list` appears. **The charter's
-M4 row should be corrected rather than left to block a future reader**, and this design does that.
+Every measured position is covered and no kind beyond `string-map` and `string-list` appears. **The charter is
+corrected on this branch** — both its mechanism row and its sequencing step, since correcting one and leaving
+the other makes the charter contradict itself. The two sibling designs that repeat "M4 waits on a
+structured-list option kind" (`2026-07-29-reserved-directory-names-design.md` and
+`2026-07-29-directory-naming-design.md`) gain a pointer to this one.
 
 ## Design
 
-Three options, mirroring `architecture/reserved-directory-names` exactly — the same shapes, inverted.
+Four options. Three are `string-map`s from a reserved name to a `|`-separated list; the fourth mirrors M3's
+`exclude`.
 
-- **`placements`** — `string-map`, reserved name → `|`-separated globs matching the **parent directory** the
-  name may sit in.
-- **`unitPlacements`** — `string-map`, reserved name → `|`-separated **root** globs; the name may sit directly
-  under any unit beneath those roots. A unit is what M3 already calls one: a directory whose name begins A–Z
-  and one of whose immediate children is a file whose stem equals the directory's name.
-- **`exclude`** — `string-list` of directory globs the rule ignores entirely, as M3 has.
+- **`placements`** — name → globs matching the **parent directory** the name may sit in.
+- **`capitalisedUnitPlacements`** — name → **root** globs; the name may sit directly under any capitalised
+  unit beneath those roots. "Capitalised unit" is `isUnitDir` unchanged: a directory whose name begins A–Z and
+  one of whose immediate children is a file whose stem equals the directory's name.
+- **`unitPlacements`** — the same, without the letter requirement.
+- **`exclude`** — `string-list` of directory globs the rule ignores entirely.
 
-**A name's permitted positions are the union of its entries in both maps.** A name absent from both is not
-governed — the rule reports nothing about it, because a name nobody declared a place for has no place to
-violate.
+**A name's permitted positions are the union of its entries across all three maps.** A name absent from all
+three is not governed — a name nobody declared a place for has no place to violate. The union is not a
+convenience: `functions` is permitted under a capitalised unit, under a concern directory **and** under a route
+directory, and `stores` and `types` likewise span kinds, so a design where each name belongs to exactly one map
+cannot express any of the three. An earlier draft had them exclusive.
 
-The rule reports a directory whose name appears in either map and whose parent satisfies none of that name's
-declared positions.
+**A value that splits to nothing declares nothing.** `placements: { e2e: '|' }` must leave `e2e` ungoverned
+rather than forbidding it everywhere, which is what "the parent satisfies none of its declared positions"
+would otherwise do to a typo. `reserved-directory-names` shipped this gap and closed it in review; mirroring
+that rule means mirroring the fix.
 
-**Inert until declared.** Both maps default to `{}`, so an unconfigured project sees nothing — the same
-default the rest of the L3 family takes, and here the measurement above is the argument for it rather than
-convention.
+**A glob matches the parent directory, and a bare prefix matches itself.** `src/routes/**` matches
+`src/routes/about` and, on its own, not `src/routes` — which is why the measured encoding lists
+`src/routes|src/routes/**` for names permitted directly in the route root. The family's compiler already
+decides this; the rule takes its behaviour rather than a second one.
+
+**Inert until declared.** All three maps default to `{}`.
+
+## Identity and deliverables
+
+|                  |                                                                                                    |
+| ---------------- | -------------------------------------------------------------------------------------------------- |
+| id               | `architecture/reserved-name-placement`                                                             |
+| category / scope | `architecture` / `component` — it reports directories, and the family's rules are component-scoped |
+| severity         | `info`, matching every other Architecture rule                                                     |
+| default          | off in effect: all three maps default to `{}`                                                      |
+
+Registration touches **four** places (`AGENTS.md`): the import, the `allRules` array and the re-export block
+in `packages/core/src/rules/index.ts`, plus the duplicate re-export list in `packages/core/src/index.ts`,
+which TypeScript does not check. Rule docs go in `docs/src/content/docs/rules/architecture/` and its `ja/`
+counterpart — `packages/cli/test/docs-links.test.ts` fails without both — then
+`pnpm --filter svelte-vitals run gen:rules-index && pnpm format`, and a changeset.
 
 ## Testing
 
-1. **A name declared unit-only is reported under a non-unit parent, and silent under a unit.** This is
-   `parts`'s whole case and the one a glob cannot express; assert both halves on one tree so the structural
-   predicate is what decides.
-2. **A name declared in both maps is silent in either kind of position.** `functions` under a unit and
-   `functions` under a declared glob must both pass **in the same run**. A test asserting only one would pass
-   on an implementation that treats the maps as exclusive, which is the shape this design rejected.
-3. **A name in neither map is never reported**, however it is placed. The rule governs declared names only.
-4. **A declared name in an undeclared position is reported**, with the directory as the finding's location.
-5. **`exclude` removes a subtree from consideration**, asserted on a tree where the same misplacement is
-   reported without it and silent with it.
-6. **Nothing is reported when neither map is declared**, on a tree that would otherwise produce findings —
-   the L3 guarantee, and the half a reader is most likely to assume rather than check.
-7. **A unit is recognised the way M3 recognises one.** Assert against a directory whose same-named entry file
-   is `.svelte`, one whose entry is `.ts`, and one with no matching entry — the third is not a unit and a
-   unit-only name under it is a violation.
+1. **A name declared capitalised-unit-only is reported under a lowercase unit.** This is the 109-instance
+   case inverted, and the one the wider predicate would miss; assert it alongside the same name being silent
+   under a capitalised unit.
+2. **A name declared for any unit is silent under both kinds.** `tests` under `Card/` and under `formatDate/`
+   in one run. A test using only a capitalised parent passes on an implementation that ignores the split.
+3. **A name declared in more than one map is silent in every declared position, in one run.** `functions`
+   under a capitalised unit and under a declared glob. Asserting only one passes on an exclusive
+   implementation, which is the shape this design rejected.
+4. **A name in no map is never reported**, however it is placed.
+5. **A declared name in an undeclared position is reported.** The finding's `location` must be a **file** —
+   `filterToChangedFiles` keeps only results whose `location` git listed, so a directory there vanishes from
+   every `--diff` run. The directory belongs in `route`, as the sibling rules do it; assert the shape, not
+   just the count.
+6. **The root glob is honoured.** Declare `parts: 'src/lib/**'` and place a `parts/` under a capitalised unit
+   **outside** that root: it must report. Without this, an implementation that ignores the map's value and
+   permits the name under any unit anywhere passes every other test here.
+7. **A value that splits to nothing governs nothing.** `placements: { e2e: '|' }` reports no `e2e/` anywhere.
+8. **`exclude` removes a subtree**, asserted on a tree where the same misplacement reports without it.
+9. **Nothing is reported when no map is declared**, on a tree that would otherwise produce findings — the L3
+   guarantee, and the half a reader assumes rather than checks.
+10. **A bare prefix and a `/**` suffix differ as the family's compiler defines.** Assert `src/routes` against a
+    `src/routes` parent and `src/routes/**` against the same one, so the choice is pinned rather than
+    inherited silently.
 
 ## Deliberately not solved
 
-- **`tests`.** Its convention is positional relative to its subject, not to a unit. See above.
-- **Seeding a declaration from the tree.** The measurement shows both failure directions; a `--suggest` mode
+- **Over-permission at a reserved-name directory.** A glob cannot tell a concern directory from a
+  reserved-name directory at the same depth, so `src/lib/features/*/*` permits a `stores/` inside a
+  `functions/`, and `src/routes/**` permits a `functions/` inside an `e2e/`. These are missed regressions,
+  not false positives. The recorded asymmetry — no name is permitted under a concern directory but forbidden
+  under a unit — covers over-permission at units and does **not** cover this; an earlier draft claimed the
+  glob side over-permitting "costs nothing today", which is narrower than it sounded.
+- **Seeding a declaration from the tree.** Both failure directions are measured above; a `--suggest` mode
   would produce a wrong table with an authoritative shape.
-- **Names permitted under a concern directory but forbidden under a unit.** No such name exists in the
-  measured convention, so the glob side may over-permit relative to the structural side. If one ever appears,
-  the union semantics above are what would need revisiting, and this is the sentence that says so.
-- **Reporting a name that is declared but never appears.** M3 has the same question about unused keys and
-  answers it with `classifyUnusedKeys`; whether an unused `placements` key is a typo or a not-yet-used
-  position is undecidable here — `functions` under a route directory is a real, permitted, currently-empty
-  position.
+- **Reporting a declared name that never appears.** M3 answers the sibling question with
+  `classifyUnusedKeys`; here it is undecidable — `functions` under a route directory is a real, permitted,
+  currently-empty position.
+- **`tests` as its convention actually states it.** The convention is "beside the file it tests"; "under a
+  unit of either kind" matches every measured instance but is not the same predicate. A directory holding a
+  `.ts` and no same-named child is not a unit, and a `tests/` beside that file would report. None exists in
+  the measured tree.
+- **The `isUnitDir` mismatch in the sibling rules.** `reserved-directory-names` records that names under a
+  lowercase unit "are never checked" as a coverage limit. The same split would close it there. Out of scope
+  here, and now cross-referenced rather than left as two independent notes.
 - **The initial finding count.** Zero on the measured tree. The value is regression detection during the next
   reorganisation, not a backlog to clear.
