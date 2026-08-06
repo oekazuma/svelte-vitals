@@ -339,7 +339,8 @@ counterpart — `packages/cli/test/docs-links.test.ts` fails without both — th
     match the reserved-name directory and not its parent** — `'src/**/parts'` does, an ordinary
     `'src/lib/**'` does not. Without it the two resolution subjects agree on every assertion, and an
     implementation resolving at the parent passes; every other item uses global config, where the subjects
-    are indistinguishable, so this is the only guard against that.
+    are indistinguishable, so this is the only guard against that. `'src/**/parts'` reaches every `parts` at
+    depth ≥ 2, so the still-reporting half needs a site the glob misses — `src/parts` — or a narrower glob.
 15. **A bare prefix and a `/**` suffix differ as the family's compiler defines.** Assert `src/routes` against a
     `src/routes` parent and `src/routes/**` against the same one, so the choice is pinned rather than
     inherited silently.
