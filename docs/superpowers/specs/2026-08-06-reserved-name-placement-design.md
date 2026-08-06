@@ -107,7 +107,7 @@ encoding_, not the rule. Confirm before writing either name into a real config.
 
 ## The blocker does not exist
 
-The charter records M4 as needing a **structured-list option kind**, and sequenced it behind a second
+The charter recorded M4 as needing a **structured-list option kind**, and sequenced it behind a second
 rule-options iteration. That judgement was written on 2026-07-28. On **2026-07-29** the directory-rule family
 landed the convention that a `string-map` value carries a list split on `|` — introduced by
 `architecture/directory-naming` for its casing sets and reused by `reserved-directory-names`:
@@ -177,14 +177,49 @@ convenience: `functions` is permitted under a unit, under a concern directory **
 directory, and `stores` and `types` likewise span kinds, so a design where each name belongs to exactly one map
 cannot express any of the three. An earlier draft had them exclusive.
 
-**A value that splits to nothing declares nothing, and says so.** `placements: { e2e: '|' }` must leave `e2e`
-ungoverned rather than forbidding it everywhere, which is what "the parent satisfies none of its declared
-positions" would otherwise do to a typo. `reserved-directory-names` shipped this gap and closed it in review,
-and its fix is **two-sided**: the key stops matching _and_ the key is reported, carrying the note
-`names no directory name at all`. Mirroring that rule means mirroring both halves — silence alone would leave
-the typo indistinguishable from a project that complies, which is the failure the charter's inverse-precision
-gate exists for. Unlike a declared name that never appears, an empty value is decidable from the options
-alone, which is why this one is reported where that one is not.
+**An empty value ungoverns the whole name, across every map, and says so.** `placements: { e2e: '|' }` must
+leave `e2e` ungoverned rather than forbidding it everywhere, which is what "the parent satisfies none of its
+declared positions" would otherwise do to a typo.
+
+**The scope of that drop is the name, not the value, and the difference is not cosmetic.** M3's maps compete
+to _allow child names_, so dropping one empty value there leaves a position ungoverned — under-reporting, the
+safe direction. M4's maps **union to permit positions**, so dropping only the empty value would _shrink_ a
+governed name's permitted set: `anyCaseUnitPlacements: { functions: 'src/**' }` beside a typo'd
+`placements: { functions: '|' }` would report every `functions/` under a concern or route directory. Those are
+false positives, produced by a typo, in the direction the precision gate forbids — and the example encoding
+puts three names in two maps each, so the case is as reachable as the single-map one. The rule inherits M3's
+fix but not its scoping: **any empty value anywhere ungoverns that name everywhere.**
+
+**And the drop is reported, in the shape M3 reports it.** `reserved-directory-names` shipped the silent
+version and closed it in review; silence alone leaves a typo indistinguishable from a project that complies,
+which is what the charter's inverse-precision gate exists for. Two constraints come with the shape, both
+load-bearing:
+
+- **One aggregated, project-scoped finding**, never one per key. `findingKey` is `id::route::location` and a
+  project-scoped result leaves both unset, so N findings collapse to one baseline entry and suppressing one
+  silently suppresses the rest. M3 records this reasoning at the code; M4 has the same key space.
+- **It carries a glob that matched no directory too.** `placements: { e2e: 'src/route/**' }` reports every
+  `e2e/` in the tree with no diagnostic otherwise, and "this glob matched nothing" is decidable exactly as
+  M3's `classifyUnusedKeys` decides it. This is a different question from a declared name that never appears,
+  which stays unsolved below: there the position is real and legitimately empty, here the position does not
+  exist.
+
+The note wording is M3's adapted, not M3's copied: an empty value there names no _child directory name_,
+here it names no _position_.
+
+**A glob matches the parent directory, and a bare prefix matches itself.** `src/routes/**` matches
+`src/routes/about` and, on its own, not `src/routes` — which is why the example encoding lists
+`src/routes|src/routes/**` for names permitted directly in the route root. The family's compiler already
+decides this; the rule takes its behaviour rather than a second one.
+
+**A unit map's glob is matched against the unit directory itself**, as `unitScopes` does it — not against an
+ancestor the unit must sit beneath. So root `src/lib/**` covers a unit at `src/lib/features/x/Card` and, by
+the bare-prefix rule above, not one at `src/lib` itself. The two readings diverge observably, so the rule is
+stated rather than left to be inferred from the parent-glob paragraph, which is about a different match.
+
+**No pass results.** `computeScore` seeds every distinct `route` at 100 and averages, and a directory has no
+pre-existing score key — so a pass per directory would add hundreds of 100s from one broad declaration and
+dilute every real finding. M3 declines them for this reason; M4's subject is the same.
 
 **A glob matches the parent directory, and a bare prefix matches itself.** `src/routes/**` matches
 `src/routes/about` and, on its own, not `src/routes` — which is why the example encoding lists
@@ -228,21 +263,31 @@ counterpart — `packages/cli/test/docs-links.test.ts` fails without both — th
    `capitalisedUnitPlacements` and `tests: 'src/lib/**'` in `anyCaseUnitPlacements`, and place each under a
    unit **outside** that root: both must report, and the `tests` case must use a lowercase unit. Without the
    second half, an implementation that honours the capitalised map's roots and treats the any-case map as
-   "permitted under any unit anywhere" passes every other test here.
+   "permitted under any unit anywhere" passes every other test here. Assert the match target too: a unit at
+   `src/lib/Card` against root `src/lib` is permitted and against `src/lib/**` is not, which separates
+   "the glob matches the unit" from "the unit sits beneath the glob".
 7. **Both unit predicates need the entry file, not just the letter.** Place a declared name directly under a
    **same-case non-unit** directory — `parts/` under an `Icons/` holding no `Icons.svelte`, and `tests/` under
    a `helpers/` holding no `helpers.ts` — and assert both report. Without this, an implementation that reduces
    "capitalised unit" to "name begins A–Z" and "any-case unit" to "any directory" passes every other test
    here, because items 1, 2 and 6 contrast case between two real units and never contrast unit against
    non-unit. This is the distinction the family's cascade turns on.
-8. **A value that splits to nothing governs nothing and is reported.** `placements: { e2e: '|' }` reports no
-   `e2e/` anywhere **and** produces the key's own finding, as `reserved-directory-names` does. Asserting only
-   the silence passes on an implementation that drops the key without a word — the shape the sibling shipped
-   and had to fix.
-9. **`exclude` removes a subtree**, asserted on a tree where the same misplacement reports without it.
-10. **Nothing is reported when no map is declared**, on a tree that would otherwise produce findings — the L3
+8. **An empty value ungoverns the name in every map, and is reported.** Two halves, both required.
+   `placements: { e2e: '|' }` reports no `e2e/` anywhere **and** produces a finding — asserting only the
+   silence passes on an implementation that drops the key without a word, the shape M3 shipped and had to
+   fix. Then the case that distinguishes name-level from value-level dropping: `functions` declared in
+   `anyCaseUnitPlacements` **and** empty in `placements` must report no `functions/` anywhere, including
+   under a concern directory. A value-level implementation reports those and passes the `e2e` half.
+9. **Bad declarations produce one project-scoped finding, not one each.** Two empty values and a glob
+   matching no directory, in one run: assert a single result, with `route` and `location` unset. Per-key
+   findings pass every count-only assertion and collapse to one baseline entry, which is the bug this shape
+   avoids.
+10. **A glob that matches no directory is reported**, on a tree where the name it governs exists elsewhere —
+    the typo case, which is silent otherwise.
+11. **`exclude` removes a subtree**, asserted on a tree where the same misplacement reports without it.
+12. **Nothing is reported when no map is declared**, on a tree that would otherwise produce findings — the L3
     guarantee, and the half a reader assumes rather than checks.
-11. **A bare prefix and a `/**` suffix differ as the family's compiler defines.** Assert `src/routes` against a
+13. **A bare prefix and a `/**` suffix differ as the family's compiler defines.** Assert `src/routes` against a
     `src/routes` parent and `src/routes/**` against the same one, so the choice is pinned rather than
     inherited silently.
 
