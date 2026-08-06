@@ -77,6 +77,18 @@ describe('isAnyCaseUnitDir', () => {
     expect(isAnyCaseUnitDir('src/lib/empty', filesIn)).toBe(false);
     expect(isAnyCaseUnitDir('src/lib/unknown', filesIn)).toBe(false);
   });
+
+  it('is exactly the letter test composed with isAnyCaseUnitDir, for every fixture here', () => {
+    // Pins the relationship isUnitDir is implemented as, so a future edit to either function that
+    // breaks the composition fails here instead of drifting silently.
+    const startsWithAZ = (dir: string) => {
+      const first = dir.slice(dir.lastIndexOf('/') + 1).charCodeAt(0);
+      return first >= 65 && first <= 90;
+    };
+    for (const dir of [...filesIn.keys(), 'src/lib/unknown']) {
+      expect(isUnitDir(dir, filesIn)).toBe(startsWithAZ(dir) && isAnyCaseUnitDir(dir, filesIn));
+    }
+  });
 });
 
 describe('architecture/reserved-directory-names — inertness', () => {

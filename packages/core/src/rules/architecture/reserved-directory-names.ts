@@ -57,11 +57,8 @@ function stem(file: string): string {
  * milder than the one it introduces.
  */
 export function isUnitDir(dir: string, filesIn: Map<string, string[]>): boolean {
-  const name = baseName(dir);
-  const first = name.charCodeAt(0);
-  if (!(first >= 65 && first <= 90)) return false;
-  const own = filesIn.get(dir);
-  return own !== undefined && own.some((f) => stem(f) === name);
+  const first = baseName(dir).charCodeAt(0);
+  return first >= 65 && first <= 90 && isAnyCaseUnitDir(dir, filesIn);
 }
 
 /**
