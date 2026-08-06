@@ -11,7 +11,9 @@ const CRITICAL_CAP = 79;
 /**
  * A key is never scored against less than this much severity weight. Without it a pair holding one rule
  * makes that rule's finding cost the whole key, and a finding's cost stops tracking its severity — an
- * `info` in an eight-rule pair outweighed a `warning` in a twenty-six-rule one.
+ * `info` in an eight-rule pair outweighed a `warning` in a twenty-six-rule one. It also makes the
+ * denominator provably non-zero, which is why the division below needs no zero-guard of its own —
+ * a floor lowered below 1 would bring that guard back.
  */
 export const INVENTORY_FLOOR = 25;
 
@@ -100,7 +102,7 @@ export function computeScore(results: Result[], config: Config, options: ScoreOp
     inventoryWeight = Math.max(inventoryWeight, failed, INVENTORY_FLOOR);
     // `100 - (100 * f) / i`, never `100 * (1 - f / i)`: the latter gives 19.999999999999996 for
     // f = 88, i = 110 and displays 19 for a true 20.
-    totalDeficit += inventoryWeight === 0 ? 0 : (100 * failed) / inventoryWeight;
+    totalDeficit += (100 * failed) / inventoryWeight;
   }
 
   const keyCount = observed.size;
