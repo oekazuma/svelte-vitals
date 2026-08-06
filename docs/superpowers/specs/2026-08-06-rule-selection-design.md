@@ -1,7 +1,7 @@
 # Flags select, the config file configures — design
 
 **Date:** 2026-08-06
-**Status:** proposed
+**Status:** approved; reviewed 2026-08-06
 **Origin:** a field report on 0.41.0. Following an instruction sheet that used
 `--rules architecture/reserved-name-placement`, a real project got zero findings and no diagnostic from a rule
 whose options it had declared — and read that as "the tree complies". `--ignore`'s half of the same defect
@@ -56,12 +56,19 @@ at 2 findings before and 0 after, and was discarded.
 A flag says **which** rules run. The config file says **how** they run. `'off'` is the one setting that is purely
 selection, so it is the one a flag overrides; a severity or an options map is configuration and survives.
 
-Three properties, all of which must hold together — no two of them hold under either whole-field replacement or a
-plain merge:
+Three properties, which have to hold together:
 
 1. **`--rules X` runs only X.** The allow-list narrows the run.
 2. **`--rules X` force-enables X**, even where the config file sets it to `'off'`. Documented, and kept.
 3. **`--rules X` keeps X's severity and options** from the config file. This is what is missing today.
+
+**Each rejected scheme achieves exactly two of the three, and it is the same pair that fails both times.**
+Measured against the real engine: whole-field replacement (what ships today) holds 1 and 2 — a file `'off'`
+vanishes with the map, so X runs — and fails 3, with declared options falling back to built-ins. A plain
+key-level merge holds 1 and 3 — the options survive — and fails 2, because the file's `'off'` survives with them
+and X never runs. **Properties 2 and 3 cannot co-hold while selection is encoded as absence**, because the one
+slot has to say both "no entry, so enabled" and "an entry, so configured". That is the whole of the problem, and
+it is what separating the two meanings dissolves.
 
 ### Separate the two meanings of `rules`
 
@@ -104,24 +111,43 @@ inside `buildRulesConfig`'s single map and now lives in the ordering.
 
 ### The cases this pins, and why each is what it is
 
-| input                                                      | result                 | why                                                   |
-| ---------------------------------------------------------- | ---------------------- | ----------------------------------------------------- |
-| `--rules X`, file has no entry for X                       | X at built-in defaults | nothing to inherit                                    |
-| `--rules X`, file `X: 'warning'`                           | `'warning'` kept       | severity is configuration                             |
-| `--rules X`, file `X: 'off'`                               | entry dropped          | property 2                                            |
-| `--rules X`, file `X: { severity: 'off', options: {...} }` | `{ options: {...} }`   | property 2 must not cost property 3                   |
-| `--rules X`, file `X: { severity: 'off' }`                 | entry dropped          | an empty object setting says nothing; do not ship one |
-| `--rules X --ignore X`                                     | X off                  | deny wins, unchanged from today                       |
-| `--rules X`, file also configures Y                        | Y off                  | property 1                                            |
-| `allowRules: []` or absent                                 | no narrowing           | see below                                             |
+| input                                                      | result                                                  | why                                                   |
+| ---------------------------------------------------------- | ------------------------------------------------------- | ----------------------------------------------------- |
+| `--rules X`, file has no entry for X in `rules`            | no entry                                                | nothing in the global map to inherit — but see below  |
+| `--rules X`, file `X: 'warning'`                           | `'warning'` kept                                        | severity is configuration                             |
+| `--rules X`, file `X: 'off'`                               | entry dropped                                           | property 2                                            |
+| `--rules X`, file `X: { severity: 'off', options: {...} }` | `{ options: {...} }`                                    | property 2 must not cost property 3                   |
+| `--rules X`, file `X: { severity: 'off' }`                 | entry dropped                                           | an empty object setting says nothing; do not ship one |
+| `--rules X --ignore X`                                     | X off                                                   | deny wins, unchanged from today                       |
+| `--rules X`, file also configures Y                        | Y off                                                   | property 1                                            |
+| `allowRules: []` or absent, `ignoreRules: []` or absent    | no narrowing, no denial                                 | see below                                             |
+| `rules` **and** `allowRules` both set                      | `rules` replaces the base, then `allowRules` narrows it | no CLI path sets both, so only a test can pin it      |
 
-**`allowRules: []` means no narrowing, identical to absent.** The CLI already normalises an unpassed flag to
-`undefined` to keep "not specified" distinguishable from "specified as empty", and `[]` reaching the function
-from a programmatic caller must not disable the entire registry — the destructive reading of an empty list is
-never the one a caller intends. The same holds for `ignoreRules`.
+**`allowRules: []` means no narrowing, identical to absent**, and the same for `ignoreRules`. This matches
+`buildRulesConfig`'s existing `allow.length > 0` test and the CLI's normalisation of an unpassed flag to
+`undefined`, which keeps "not specified" distinguishable from "specified as empty". The choice is fail-loud: an
+empty list read as "allow nothing" would run zero rules at exit 0, which is the silent shape this design exists
+to remove, whereas reading it as "no narrowing" can only produce extra findings.
 
-**`rules` and `allowRules` together** are not produced by the CLI, but the function defines them: `rules`
-replaces the base, then `allowRules` narrows the result. No special case.
+**A rule id nobody recognises is where that reasoning stops.** `allowRules: ['typo']` narrows every registered
+rule to `'off'` and runs nothing, at exit 0. The CLI is protected — `resolve-args` rejects unknown ids fatally
+before options are built, and `buildRulesConfig`'s docstring carries exactly this warning — but a programmatic
+caller reaching `resolveRuleSelection` directly is not. **The obligation stays with the caller and the function
+documents it**: `resolveRuleSelection` takes ids as given, and its docstring must say that an unrecognised id in
+`allowRules` disables the registry, pointing at `findUnknownRuleIds` as the check callers owe. Validating inside
+the function would duplicate a check the CLI already performs on every run.
+
+**`rules` and `allowRules` together** are not produced by the CLI — `resolve-args` emits only `allowRules` — so
+nothing but a unit test can distinguish a correct implementation from one that reads `file.rules` as the base
+unconditionally and ignores `rules` whenever `allowRules` is present. That is the "works in one code path,
+silently not in another" shape this design is about, so it is a case-table row rather than a remark.
+
+**An `overrides` entry keeps working under `--rules`, which the row-1 wording must not deny.** Overrides
+participate during analysis as well as after it: `resolveRuleOptions` layers a matching `overrides[].rules[id].options`
+onto the global options, and `isMentionedAnywhere` wakes an L3 rule from an overrides mention alone. Since
+`analyzeProject` forwards `file.overrides` untouched, a project that declares its convention **only** in an
+overrides entry keeps that convention under `--rules X`. So row 1 is a statement about the global `rules` map,
+not about what the run sees.
 
 ### One structural change, for a reason this branch has evidence for
 
@@ -146,19 +172,29 @@ against a pure function instead.
    than a count.
 5. **`--ignore` still layers rather than replaces**, so the patch that shipped first is not undone. Assert an
    unrelated `--ignore` leaves another rule's options intact.
-6. **Deny beats allow** with both flags naming the same id.
+6. **Deny beats allow** with both flags naming the same id. This one also pins the **ordering**: apply
+   `ignoreRules` before the allow-list rewrite and the force-enable delete resurrects the ignored rule.
 7. **Every path that reaches `analyzeProject` forwards the new option.** The `--ignore` fix had four such paths;
    a path that drops one makes the fix work in one code path and silently not in another, which is this defect's
    own shape. Assert by enumerating the call sites, not by sampling.
+8. **`AnalyzeOptions.rules` still replaces the file's map whole.** That is the contract this design hands back to
+   `rules`, and it is the vite plugin's and every programmatic caller's meaning — but no test pins it, and an
+   implementation that quietly merged `opts.rules` over `file.rules` would satisfy every item above.
+   `analyze-project.test.ts` has exactly this pin for `weights`; `rules` needs the same one.
+9. **`rules` and `allowRules` together** behave as the table's last row says. The wrong implementation this
+   catches — base taken from `file.rules` whenever `allowRules` is set, ignoring `rules` — is reachable by no
+   flag combination, so nothing else in this list can distinguish it.
 
 ## What changes outside the code
 
 - `docs/src/content/docs/guides/(setup)/configuration.mdx` and its Japanese counterpart currently say `--rules`
   replaces the config file's `rules` entirely. That becomes: `--rules` selects which rules run and overrides a
   file `'off'`, while severities and options for the rules it names are inherited from the file.
-- `2026-07-05-config-file-design.md` §3 gains a correction note in the shape this repository uses (see
-  `2026-07-28-architecture-charter-design.md`'s "Corrected 2026-08-06."): its reasoning was sound under the
-  encoding it described, and the encoding is what this design replaces.
+- `2026-07-05-config-file-design.md` §3 already carries a "**Corrected 2026-08-06.**" note from the `--ignore`
+  half, which says the reasoning holds for `--rules` and not for `--ignore`. This design changes the `--rules`
+  half of that statement, so the new text must **extend that note rather than duplicate it**: the reasoning was
+  sound under the encoding it described — selection expressed as the absence of an entry — and it is the encoding
+  that changed. Do not leave two notes disagreeing about whether `--rules` still replaces.
 
 ## Release
 
@@ -176,6 +212,11 @@ and `@svelte-vitals/vite` are untouched.
   take `options.rules` as a whole-field replacement, and neither has an allow-list, so they agree under this
   design. They disagreed only under the discarded merge. Nothing to do; recorded so the next reader does not
   re-derive it.
+- **`--rules X` together with `--category <a category X is not in>` runs nothing, at exit 0.** `categories`
+  filters after selection, so a force-enabled X in an unlisted category yields no findings and no warning — the
+  same silent-selection shape as the field report that produced this design. Pre-existing and untouched here;
+  recorded so it is a known gap rather than a rediscovery. The same is true of an `allowRules` id that no
+  category in `--category` covers.
 - **Warning when a flag discards configuration.** Not needed once configuration is inherited rather than
   discarded. If a future flag has to discard, it should say so rather than exit 0 — the failure this design
   removes was silent, and that is what made it survive a release.
