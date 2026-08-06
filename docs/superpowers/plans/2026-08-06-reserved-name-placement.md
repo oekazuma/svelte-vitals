@@ -36,7 +36,14 @@ adversarial review passes). Read it before Task 1 — every numbered Testing ite
   messages, docs, or the PR body. PR bodies are written in English.
 - **No pass results.** `computeScore` seeds every distinct `route` at 100 and averages; a directory has no
   pre-existing score key, so passes would dilute every real finding.
-- **Verify commands:** `pnpm --filter @svelte-vitals/core test`, `pnpm typecheck`, `pnpm lint`, `pnpm format`.
+- **Verify commands — use these exact invocations.** A `pnpm --filter` run of the whole package suite times
+  out in this sandbox; run the single test file directly instead. From the repo root:
+  - one test file: `cd packages/core && ../../node_modules/.bin/vitest run test/<file>.test.ts`
+  - whole core suite (only where a task asks for it): same command without the file argument
+  - typecheck: `cd packages/core && ../../node_modules/.bin/tsc --noEmit -p tsconfig.json`
+  - lint: `./node_modules/.bin/oxlint packages/core/src packages/core/test`
+  - format check: `./node_modules/.bin/oxfmt --check packages/core`
+    Never run `pnpm install` — the workspace is already installed and a full install fails here.
 
 ---
 
@@ -110,7 +117,7 @@ at the top of that test file.
 
 - [ ] **Step 2: Run test to verify it fails**
 
-Run: `pnpm --filter @svelte-vitals/core test -- reserved-directory-names`
+Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-directory-names.test.ts`
 Expected: FAIL — `isAnyCaseUnitDir is not a function` (or a TypeScript import error).
 
 - [ ] **Step 3: Write minimal implementation**
@@ -135,7 +142,7 @@ export function isAnyCaseUnitDir(dir: string, filesIn: Map<string, string[]>): b
 
 - [ ] **Step 4: Run tests to verify they pass**
 
-Run: `pnpm --filter @svelte-vitals/core test -- reserved-directory-names`
+Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-directory-names.test.ts`
 Expected: PASS, including every pre-existing test in that file.
 
 - [ ] **Step 5: Verify the predicate is load-bearing**
@@ -266,7 +273,7 @@ describe('architecture/reserved-name-placement', () => {
 
 - [ ] **Step 2: Run tests to verify they fail**
 
-Run: `pnpm --filter @svelte-vitals/core test -- reserved-name-placement`
+Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
 Expected: FAIL — the module does not exist.
 
 - [ ] **Step 3: Write the implementation**
@@ -415,7 +422,7 @@ later task is dead code, and a reviewer is right to reject it.
 
 - [ ] **Step 4: Run tests to verify they pass**
 
-Run: `pnpm --filter @svelte-vitals/core test -- reserved-name-placement`
+Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
 Expected: PASS, 5 tests.
 
 - [ ] **Step 5: Verify each guard is load-bearing**
@@ -543,7 +550,7 @@ it('honours each unit map glob, and matches it against the unit itself rather th
 
 - [ ] **Step 2: Run tests to verify they fail**
 
-Run: `pnpm --filter @svelte-vitals/core test -- reserved-name-placement`
+Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
 Expected: FAIL — the unit maps are declared but never read, so every new test reports nothing (or reports
 everything).
 
@@ -602,7 +609,7 @@ existing `'${name}'` phrasing already reads correctly for all three.
 
 - [ ] **Step 4: Run tests to verify they pass**
 
-Run: `pnpm --filter @svelte-vitals/core test -- reserved-name-placement`
+Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
 Expected: PASS, 10 tests.
 
 - [ ] **Step 5: Verify each guard is load-bearing**
@@ -687,7 +694,7 @@ committed shape and use that verbatim. Do not invent a shape.
 
 - [ ] **Step 2: Run tests to verify they fail**
 
-Run: `pnpm --filter @svelte-vitals/core test -- reserved-name-placement`
+Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
 Expected: FAIL — an empty `placements` value currently makes `matches()` false, so the name reports.
 
 - [ ] **Step 3: Write the implementation**
@@ -711,7 +718,7 @@ if (
 
 - [ ] **Step 4: Run tests to verify they pass**
 
-Run: `pnpm --filter @svelte-vitals/core test -- reserved-name-placement`
+Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
 Expected: PASS, 12 tests.
 
 - [ ] **Step 5: Verify each guard is load-bearing**
@@ -822,7 +829,7 @@ it('classifies an alternative whose every match was excluded as excluded, not as
 
 - [ ] **Step 2: Run tests to verify they fail**
 
-Run: `pnpm --filter @svelte-vitals/core test -- reserved-name-placement`
+Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
 Expected: FAIL — no project-scoped finding is produced at all.
 
 - [ ] **Step 3: Write the implementation**
@@ -950,7 +957,7 @@ if (reported.length > 0) {
 
 - [ ] **Step 4: Run tests to verify they pass**
 
-Run: `pnpm --filter @svelte-vitals/core test -- reserved-name-placement`
+Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
 Expected: PASS, 17 tests.
 
 - [ ] **Step 5: Verify each guard is load-bearing**
@@ -965,7 +972,7 @@ Expected: PASS, 17 tests.
 
 - [ ] **Step 6: Run the whole core suite and typecheck**
 
-Run: `pnpm --filter @svelte-vitals/core test` then `pnpm typecheck`
+Run: `cd packages/core && ../../node_modules/.bin/vitest run` then `../../node_modules/.bin/tsc --noEmit -p tsconfig.json`
 Expected: both clean. If any pre-existing test broke, the change is wrong — this rule is new and inert.
 
 - [ ] **Step 7: Commit**
