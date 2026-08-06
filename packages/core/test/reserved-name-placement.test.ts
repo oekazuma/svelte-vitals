@@ -157,4 +157,50 @@ describe('architecture/reserved-name-placement', () => {
     const bare = await run(tree, { capitalisedUnitPlacements: { parts: 'src/lib' } });
     expect(bare.map((r) => r.route)).toEqual(['src/lib/Card/parts']);
   });
+
+  // Testing item 8 — the silence half. The reported half arrives in Task 5.
+  it('lets an empty value in one map ungovern the name in every map', async () => {
+    const tree = [
+      'src/lib/Card/Card.svelte',
+      'src/lib/Card/functions/a.ts',
+      'src/lib/features/checkout/checkout.ts',
+      'src/lib/features/checkout/functions/b.ts',
+      'src/lib/orphan/functions/c.ts'
+    ];
+    // Without the empty value, the orphan reports.
+    const governed = await run(tree, { anyCaseUnitPlacements: { functions: 'src/**' } });
+    expect(governed.map((r) => r.route)).toEqual(['src/lib/orphan/functions']);
+
+    // With it, `functions` is ungoverned everywhere — a value-level drop would report the two
+    // positions the emptied `placements` entry used to cover.
+    const dropped = await run(tree, {
+      anyCaseUnitPlacements: { functions: 'src/**' },
+      placements: { functions: '|' }
+    });
+    expect(dropped.filter((r) => r.route !== undefined)).toEqual([]);
+
+    // Strengthens against a check that reads only `placements`' own emptiness and leaves the other
+    // two maps to `matches()`: here the empty value sits in `anyCaseUnitPlacements` while
+    // `placements` carries an ordinary glob that does not reach this directory. A per-map check
+    // would report it as an ordinary placements violation instead of dropping it everywhere.
+    const crossMap = await run(['src/lib/orphan/functions/a.ts'], {
+      placements: { functions: 'src/routes/**' },
+      anyCaseUnitPlacements: { functions: '|' }
+    });
+    expect(crossMap).toEqual([]);
+  });
+
+  // Testing item 14 — the override glob must match the reserved-name directory and NOT its parent,
+  // or the two resolution subjects agree on every assertion and this proves nothing.
+  it('scopes the empty-value drop to the resolved option set an overrides layer produces', async () => {
+    const results = await run(
+      ['src/lib/orphan/parts/a.svelte', 'src/parts/b.svelte'],
+      { placements: { parts: 'src/lib/Card' } },
+      {
+        overrides: [{ files: 'src/**/parts', rules: { [ID]: { options: { placements: { parts: '|' } } } } }]
+      } as never
+    );
+    // 'src/**/parts' reaches src/lib/orphan/parts (silenced) and misses src/parts (still reporting).
+    expect(results.filter((r) => r.route !== undefined).map((r) => r.route)).toEqual(['src/parts']);
+  });
 });

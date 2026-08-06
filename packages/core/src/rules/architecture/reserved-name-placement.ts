@@ -111,6 +111,19 @@ export const architectureReservedNamePlacement: Rule = {
       const inAnyUnits = Object.hasOwn(anyUnits, name);
       if (!inPlacements && !inCapUnits && !inAnyUnits) continue;
 
+      // A value that splits to nothing ungoverns the NAME, in every map of this resolved option set.
+      // Dropping only the empty value would shrink the union and turn a typo into false positives at
+      // every position the emptied entry covered — the opposite direction from the sibling rule,
+      // whose maps compete rather than union.
+      const emptyValue = (present: boolean, value: string | undefined) => present && globsOf(value ?? '').length === 0;
+      if (
+        emptyValue(inPlacements, placements[name]) ||
+        emptyValue(inCapUnits, capUnits[name]) ||
+        emptyValue(inAnyUnits, anyUnits[name])
+      ) {
+        continue;
+      }
+
       const excluded = compile(listOption(o, 'exclude'));
       if (isExcluded(dir, ancestorDirs(dir), excluded)) continue;
 
