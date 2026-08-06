@@ -71,24 +71,34 @@ For M4 that mismatch is a **false positive**, which the precision gate does not 
   Declared as unit-only against `isUnitDir`, the rule reports all 109 — every one a placement the convention
   permits. An earlier draft of this design excluded `tests` for a related but weaker reason and would have
   shipped that exclusion without knowing the number.
-- `functions` has one lowercase-unit parent, and it happens not to report, because the same directory is also
-  matched by a declared glob and the union saves it. That escape is luck, not design.
+- `functions` has one lowercase-unit parent, and against `isUnitDir` alone it survives only because the same
+  directory is also matched by a declared glob.
 
 **So the rule takes two unit predicates, and declares which one each name wants:**
 
-- **capitalised unit** — `isUnitDir` unchanged: name begins A–Z, holds a same-named child. `parts` and
-  `styleGuide` are permitted here and nowhere else, and a `parts/` under a lowercase function unit is a real
-  violation the wider predicate would miss.
-- **any unit** — the same test without the letter requirement. `tests` wants this one, and with it all 250
-  instances pass.
+- **capitalised unit** — `isUnitDir` unchanged: name begins A–Z, holds a same-named child.
+- **any-case unit** — the same test without the letter requirement.
 
 The split is the letter test alone. It is deliberately **not** keyed on the entry file's extension: that
 `.svelte` and capitalisation coincide is a property of this project's convention, not something the rule
 should encode on one tree's evidence.
 
-`tests` is therefore **in scope**, where the earlier draft had removed it. Its convention is "beside the file
-it tests", and "under a unit of either kind" is not that — but it is not narrower than it either on any
-placement the measurement found, and the 250 instances confirm it.
+**Which map a name goes in is a claim about the convention, not about the tool.** The measured table splits
+cleanly along one line: a name that holds _parts of a component_ (`parts`, `styleGuide`) is permitted under a
+component unit and reads as a violation elsewhere; a name that holds _code_ (`tests`, `functions`, `stores`,
+`types`) is permitted under a unit of either case, because the convention's own definition of a unit does not
+distinguish them. That is the rule a reader can hold, and it is why `functions` goes in the any-case map
+rather than relying on a glob to rescue it — the reviewer's point that a design cannot brand its own
+encoding a coincidence and ship it anyway.
+
+`tests` is therefore **in scope**, where the earlier draft had removed it, and all 250 instances pass.
+
+**One thing the measurement did not break down, and the encoding below depends on it.** The 28 `parts` and
+109 `styleGuide` instances were counted as "directly under a unit" without recording the unit's case. If any
+of them sits under a lowercase unit, declaring the name capitalised-only repeats the 109-instance failure
+exactly. The safe direction is known and cheap — a name whose case split is unconfirmed goes in the any-case
+map, which cannot produce a false positive the capitalised map would not — so this blocks the _example
+encoding_, not the rule. Confirm before writing either name into a real config.
 
 ## The blocker does not exist
 
@@ -108,12 +118,11 @@ that exist, and the whole measured convention table was written out in them to c
 'architecture/reserved-name-placement': {
   options: {
     // directly under a unit whose name begins A–Z — `isUnitDir` unchanged
-    capitalisedUnitPlacements: {
-      parts: 'src/**', styleGuide: 'src/**',
-      functions: 'src/**', stores: 'src/**', types: 'src/**'
-    },
+    capitalisedUnitPlacements: { parts: 'src/**', styleGuide: 'src/**' },
     // directly under a unit of either case
-    unitPlacements: { tests: 'src/**' },
+    anyCaseUnitPlacements: {
+      tests: 'src/**', functions: 'src/**', stores: 'src/**', types: 'src/**'
+    },
     // the parent directory itself, by glob
     placements: {
       functions: 'src/lib/features/*|src/lib/features/*/*|src/routes/**',
@@ -142,12 +151,21 @@ Four options. Three are `string-map`s from a reserved name to a `|`-separated li
 - **`capitalisedUnitPlacements`** — name → **root** globs; the name may sit directly under any capitalised
   unit beneath those roots. "Capitalised unit" is `isUnitDir` unchanged: a directory whose name begins A–Z and
   one of whose immediate children is a file whose stem equals the directory's name.
-- **`unitPlacements`** — the same, without the letter requirement.
+- **`anyCaseUnitPlacements`** — the same, without the letter requirement.
 - **`exclude`** — `string-list` of directory globs the rule ignores entirely.
+
+**Neither unit option is named `unitPlacements`, deliberately.** In this family the bare word has meant
+`isUnitDir` since M3, whose option is `unitScopes` — so an unmarked `unitPlacements` would be read as the
+capitalised predicate by anyone translating from M3, and as the wider one by anyone reading M4 alone. That
+misreading fails **silently**: a name meant for `capitalisedUnitPlacements` and declared in the wider map
+stops reporting the violation it exists for, and a missed regression looks exactly like a clean run. Marking
+both names removes the default. It also refuses the bare word the same way the measurement did — `isUnitDir`
+sees 170 of the convention's 299 units, so "unit" unqualified is precisely the term that does not survive
+contact with this tree.
 
 **A name's permitted positions are the union of its entries across all three maps.** A name absent from all
 three is not governed — a name nobody declared a place for has no place to violate. The union is not a
-convenience: `functions` is permitted under a capitalised unit, under a concern directory **and** under a route
+convenience: `functions` is permitted under a unit, under a concern directory **and** under a route
 directory, and `stores` and `types` likewise span kinds, so a design where each name belongs to exactly one map
 cannot express any of the three. An earlier draft had them exclusive.
 
@@ -183,8 +201,9 @@ counterpart — `packages/cli/test/docs-links.test.ts` fails without both — th
 1. **A name declared capitalised-unit-only is reported under a lowercase unit.** This is the 109-instance
    case inverted, and the one the wider predicate would miss; assert it alongside the same name being silent
    under a capitalised unit.
-2. **A name declared for any unit is silent under both kinds.** `tests` under `Card/` and under `formatDate/`
-   in one run. A test using only a capitalised parent passes on an implementation that ignores the split.
+2. **A name declared for any-case units is silent under both kinds.** `tests` under `Card/` and under
+   `formatDate/` in one run. A test using only a capitalised parent passes on an implementation that ignores
+   the split.
 3. **A name declared in more than one map is silent in every declared position, in one run.** `functions`
    under a capitalised unit and under a declared glob. Asserting only one passes on an exclusive
    implementation, which is the shape this design rejected.
@@ -193,9 +212,11 @@ counterpart — `packages/cli/test/docs-links.test.ts` fails without both — th
    `filterToChangedFiles` keeps only results whose `location` git listed, so a directory there vanishes from
    every `--diff` run. The directory belongs in `route`, as the sibling rules do it; assert the shape, not
    just the count.
-6. **The root glob is honoured.** Declare `parts: 'src/lib/**'` and place a `parts/` under a capitalised unit
-   **outside** that root: it must report. Without this, an implementation that ignores the map's value and
-   permits the name under any unit anywhere passes every other test here.
+6. **The root glob is honoured in both unit maps.** Declare `parts: 'src/lib/**'` in
+   `capitalisedUnitPlacements` and `tests: 'src/lib/**'` in `anyCaseUnitPlacements`, and place each under a
+   unit **outside** that root: both must report, and the `tests` case must use a lowercase unit. Without the
+   second half, an implementation that honours the capitalised map's roots and treats the any-case map as
+   "permitted under any unit anywhere" passes every other test here.
 7. **A value that splits to nothing governs nothing.** `placements: { e2e: '|' }` reports no `e2e/` anywhere.
 8. **`exclude` removes a subtree**, asserted on a tree where the same misplacement reports without it.
 9. **Nothing is reported when no map is declared**, on a tree that would otherwise produce findings — the L3
@@ -218,9 +239,18 @@ counterpart — `packages/cli/test/docs-links.test.ts` fails without both — th
   `classifyUnusedKeys`; here it is undecidable — `functions` under a route directory is a real, permitted,
   currently-empty position.
 - **`tests` as its convention actually states it.** The convention is "beside the file it tests"; "under a
-  unit of either kind" matches every measured instance but is not the same predicate. A directory holding a
+  unit of either case" matches every measured instance but is not the same predicate. A directory holding a
   `.ts` and no same-named child is not a unit, and a `tests/` beside that file would report. None exists in
-  the measured tree.
+  the measured tree, and this design does not claim the convention makes one impossible.
+
+  The first draft excluded `tests` on this same argument, so the reversal needs its reason stated rather than
+  left as a change of mind. The two cases are not the same size: draft 1 was choosing between a predicate
+  that reports **109 existing placements** and no rule at all, while draft 2 chooses between a predicate that
+  reports **zero existing placements** and no rule at all. The precision gate is about false positives
+  shipped, and 109 against 0 is the whole distinction. The residual class stays open, with two escapes that
+  need no code — `exclude`, or simply not declaring `tests` — which is what makes it a recorded limit rather
+  than a blocker.
+
 - **The `isUnitDir` mismatch in the sibling rules.** `reserved-directory-names` records that names under a
   lowercase unit "are never checked" as a coverage limit. The same split would close it there. Out of scope
   here, and now cross-referenced rather than left as two independent notes.

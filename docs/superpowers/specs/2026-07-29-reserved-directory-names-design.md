@@ -357,7 +357,8 @@ cascade the unit definition exists to prevent.
 
 - **Where a reserved name may appear.** The rule says "here, only these names"; it cannot say "this
   name, only here". A `parts/` under a grouping is invisible unless that grouping's position is itself
-  declared. That is M4, which waits on a structured-list option kind.
+  declared. That is M4, designed in `2026-08-06-reserved-name-placement-design.md`. This note originally
+  recorded M4 as waiting on a structured-list option kind; it does not, and the charter is corrected too.
 - **Positions whose children are unbounded, which puts some reserved names out of reach entirely.**
   Measured against a real tree, the example above governs every PascalCase component unit's children —
   and nothing else. The reserved names that live under a **route directory**, and the ones under a

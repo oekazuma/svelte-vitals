@@ -236,18 +236,18 @@ naming for a production SvelteKit app) into the **general mechanisms** svelte-vi
 that document as the configuration, not as the rule — gives a different picture: most of it needs only
 the flat kinds already available.
 
-| Mechanism                                                                 | Conventions it expresses                                                        | Expressible today                                   |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------- |
-| **M1** Unit directory ↔ same-named entry file                             | component units (`.svelte`), function units (`.ts`), store units (`.svelte.ts`) | **Yes** — `string-map` (glob → extension)           |
-| **M2** Directory-name casing per location                                 | PascalCase units vs camelCase grouping; route segments; endpoint segments       | **Yes** — `string-map` (glob → case)                |
-| **M3** Closed vocabulary of reserved directory names                      | "a use these names cannot express requires updating the table first"            | **Yes** — `string-list`                             |
-| **M4** Reserved name → the places it may appear                           | `parts/` only directly under a component unit, and so on                        | **Yes** — two `string-map`s (corrected 2026-08-06)  |
-| **M5** A unit inside a private scope must not be imported from outside it | the promotion ladder: a second importer forces the unit up                      | **Yes** — `string-list`                             |
-| **M6** Nesting cap for component units                                    | flatten beyond N levels                                                         | **Yes** — `integer`                                 |
-| **M7** Dynamic route segments must carry a matcher                        | `[id=integer]`, with exempt subtrees                                            | **Yes** — `string-list`                             |
-| **M8** Test placement and naming                                          | tests adjacent in `tests/`; `.test.svelte.ts` vs `.svelte.test.ts`              | **Partly** — placement yes, the taxonomy no         |
-| **M9** A path written in prose must resolve                               | doc and style-guide links inside component comments; a renamed unit's old name  | **Yes** — `string-list` of link shapes              |
-| **M10** A filename forbidden in a location                                | `types/types.ts` and `types/index.ts`; a `.tests.ts` where `.test.ts` is meant  | **Yes** — `string-map` (location → forbidden shape) |
+| Mechanism                                                                 | Conventions it expresses                                                        | Expressible today                                    |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| **M1** Unit directory ↔ same-named entry file                             | component units (`.svelte`), function units (`.ts`), store units (`.svelte.ts`) | **Yes** — `string-map` (glob → extension)            |
+| **M2** Directory-name casing per location                                 | PascalCase units vs camelCase grouping; route segments; endpoint segments       | **Yes** — `string-map` (glob → case)                 |
+| **M3** Closed vocabulary of reserved directory names                      | "a use these names cannot express requires updating the table first"            | **Yes** — `string-list`                              |
+| **M4** Reserved name → the places it may appear                           | `parts/` only directly under a component unit, and so on                        | **Yes** — three `string-map`s (corrected 2026-08-06) |
+| **M5** A unit inside a private scope must not be imported from outside it | the promotion ladder: a second importer forces the unit up                      | **Yes** — `string-list`                              |
+| **M6** Nesting cap for component units                                    | flatten beyond N levels                                                         | **Yes** — `integer`                                  |
+| **M7** Dynamic route segments must carry a matcher                        | `[id=integer]`, with exempt subtrees                                            | **Yes** — `string-list`                              |
+| **M8** Test placement and naming                                          | tests adjacent in `tests/`; `.test.svelte.ts` vs `.svelte.test.ts`              | **Partly** — placement yes, the taxonomy no          |
+| **M9** A path written in prose must resolve                               | doc and style-guide links inside component comments; a renamed unit's old name  | **Yes** — `string-list` of link shapes               |
+| **M10** A filename forbidden in a location                                | `types/types.ts` and `types/index.ts`; a `.tests.ts` where `.test.ts` is meant  | **Yes** — `string-map` (location → forbidden shape)  |
 
 Eight of the ten need no new option kind. So the sequencing claim in `2026-07-26` was **not** wrong in
 the way the paragraph above first suggested: per-rule options did unblock L3, for every convention
