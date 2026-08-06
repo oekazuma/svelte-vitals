@@ -448,7 +448,8 @@ positives, not about overlap. Both rule pages record the pairing so the reader i
 ## Deliberately not solved
 
 - **Where a reserved name may appear** — `parts/` only directly under a component unit, and so on.
-  That is M4, which waits on a structured-list option kind.
+  That is M4, designed in `2026-08-06-reserved-name-placement-design.md`. This note originally recorded M4
+  as waiting on a structured-list option kind; it does not, and the charter is corrected too.
 - **A closed vocabulary of reserved directory names** — "these eight names, and updating the table
   before using a ninth". That is M3, the next rule.
 - **File names.** No casing convention in the evidence governs them; the filename conventions that do

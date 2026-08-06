@@ -236,25 +236,34 @@ naming for a production SvelteKit app) into the **general mechanisms** svelte-vi
 that document as the configuration, not as the rule — gives a different picture: most of it needs only
 the flat kinds already available.
 
-| Mechanism                                                                 | Conventions it expresses                                                        | Expressible today                                   |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------- |
-| **M1** Unit directory ↔ same-named entry file                             | component units (`.svelte`), function units (`.ts`), store units (`.svelte.ts`) | **Yes** — `string-map` (glob → extension)           |
-| **M2** Directory-name casing per location                                 | PascalCase units vs camelCase grouping; route segments; endpoint segments       | **Yes** — `string-map` (glob → case)                |
-| **M3** Closed vocabulary of reserved directory names                      | "a use these names cannot express requires updating the table first"            | **Yes** — `string-list`                             |
-| **M4** Reserved name → the places it may appear                           | `parts/` only directly under a component unit, and so on                        | **No** — needs a structured list                    |
-| **M5** A unit inside a private scope must not be imported from outside it | the promotion ladder: a second importer forces the unit up                      | **Yes** — `string-list`                             |
-| **M6** Nesting cap for component units                                    | flatten beyond N levels                                                         | **Yes** — `integer`                                 |
-| **M7** Dynamic route segments must carry a matcher                        | `[id=integer]`, with exempt subtrees                                            | **Yes** — `string-list`                             |
-| **M8** Test placement and naming                                          | tests adjacent in `tests/`; `.test.svelte.ts` vs `.svelte.test.ts`              | **Partly** — placement yes, the taxonomy no         |
-| **M9** A path written in prose must resolve                               | doc and style-guide links inside component comments; a renamed unit's old name  | **Yes** — `string-list` of link shapes              |
-| **M10** A filename forbidden in a location                                | `types/types.ts` and `types/index.ts`; a `.tests.ts` where `.test.ts` is meant  | **Yes** — `string-map` (location → forbidden shape) |
+| Mechanism                                                                 | Conventions it expresses                                                                          | Expressible today                                    |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| **M1** Unit directory ↔ same-named entry file                             | component units (`.svelte`), function units (`.ts`), store units (`.svelte.ts`)                   | **Yes** — `string-map` (glob → extension)            |
+| **M2** Directory-name casing per location                                 | PascalCase units vs camelCase grouping; route segments; endpoint segments                         | **Yes** — `string-map` (glob → case)                 |
+| **M3** Closed vocabulary of reserved directory names                      | only the reserved names in the table may be used; using another requires updating the table first | **Yes** — `string-list`                              |
+| **M4** Reserved name → the places it may appear                           | `parts/` only directly under a component unit, and so on                                          | **Yes** — three `string-map`s (corrected 2026-08-06) |
+| **M5** A unit inside a private scope must not be imported from outside it | the promotion ladder: a second importer forces the unit up                                        | **Yes** — `string-list`                              |
+| **M6** Nesting cap for component units                                    | flatten beyond N levels                                                                           | **Yes** — `integer`                                  |
+| **M7** Dynamic route segments must carry a matcher                        | `[id=integer]`, with exempt subtrees                                                              | **Yes** — `string-list`                              |
+| **M8** Test placement and naming                                          | tests adjacent in `tests/`; `.test.svelte.ts` vs `.svelte.test.ts`                                | **Partly** — placement yes, the taxonomy no          |
+| **M9** A path written in prose must resolve                               | doc and style-guide links inside component comments; a renamed unit's old name                    | **Yes** — `string-list` of link shapes               |
+| **M10** A filename forbidden in a location                                | `types/types.ts` and `types/index.ts`; a `.tests.ts` where `.test.ts` is meant                    | **Yes** — `string-map` (location → forbidden shape)  |
 
-Eight of the ten need no new option kind. So the sequencing claim in `2026-07-26` was **not** wrong in
+Nine of the ten need no new option kind. So the sequencing claim in `2026-07-26` was **not** wrong in
 the way the paragraph above first suggested: per-rule options did unblock L3, for every convention
-expressible as a flat list or map. Only M4 and part of M8 wait on the second iteration.
+expressible as a flat list or map. Only part of M8 waits on the second iteration.
+
+**Corrected 2026-08-06.** This table originally recorded M4 as needing a structured-list kind. It does not:
+`architecture/directory-naming`'s casing sets established that a `string-map` value carries a `|`-separated
+list — the day after this charter — and M4 is expressible as such maps —
+`2026-08-06-reserved-name-placement-design.md` writes a real project's whole convention table out in them to
+show it. The judgement was correct on the day it was made and was not revisited when the encoding appeared.
 
 M9 was added 2026-07-28 from field evidence rather than from reading the convention document, and its
-evidence is the strongest of the nine. A large reorganisation to comply with a convention left three
+evidence was the strongest of the mechanisms as they stood that day. (M4 later drew field evidence from
+the **same** reorganisation — see `2026-08-06-reserved-name-placement-design.md` — so the superlative is
+recorded as of 2026-07-28 rather than as a standing ranking.) A large reorganisation to comply with a
+convention left three
 kinds of dangling reference behind, all found by human review and by nothing else:
 
 | Failure                                                                    |
@@ -317,12 +326,13 @@ from the existing `imports` plus `resolveRepoLocalPath`, M7 from route informati
    family follows from.
 2. **A file-inventory fact + M1** (`architecture/unit-entry-file`, its own spec) — the fact M1/M2/M3
    all depend on, delivered with the first rule that uses it.
-3. **M2 / M3** on the same fact.
+3. **M2 / M3 / M4** on the same fact. M4 was listed under step 8 until 2026-08-06, on the belief that it
+   needed a structured-list kind; it does not, and it belongs beside M3 whose vocabulary it constrains.
 4. **#1 — route-component import (L1).** Needs nothing new; the default-on counterpart of #8.
 5. **M9** — the highest-evidence mechanism, and the same fact again.
 6. **#2 — import fan-out (L0).** Corpus measurement only; the fact already exists.
 7. **#3 / #4** — each gated on one new fact (a parser depth walk; a packaged-project `Project` fact).
-8. **Rule options, second iteration** (enum + structured-list kinds) → then **M4** and the rest of M8,
+8. **Rule options, second iteration** (enum + structured-list kinds) → then the rest of M8,
    plus verdict rows 9 and 10 (declared import boundaries, component filename convention). Note the
    verdict table's row numbers and the mechanism labels are separate sequences — row 9 is not M9.
 

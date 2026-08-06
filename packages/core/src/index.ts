@@ -131,6 +131,7 @@ export {
   architectureUnitEntryFile,
   architectureDirectoryNaming,
   architectureReservedDirectoryNames,
+  architectureReservedNamePlacement,
   architectureRouteComponentImport,
   architectureDocLinkTarget,
   performanceHeavyImport,

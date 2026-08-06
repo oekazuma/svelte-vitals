@@ -490,8 +490,9 @@ entry is not checked for inertness.
   Restricting _what else_ may sit in a unit directory is a different claim and a different rule.
 - **The converse casing rule** — that a directory unable to hold a same-named entry must be camelCase
   — is the naming-convention mechanism (M2), not this one. This rule's `Fix` text points at it.
-- **Reserved-directory vocabulary and permitted locations** (M3, M4). M4 still waits on the
-  structured-list option kind.
+- **Reserved-directory vocabulary and permitted locations** (M3, M4). M4 is designed in
+  `2026-08-06-reserved-name-placement-design.md`. This note originally recorded M4 as waiting on a
+  structured-list option kind; it does not, and the charter is corrected too.
 - **Export-name matching** (`getX.ts` must export `getX`). Needs a parser path for arbitrary `.ts`,
   which no collector provides today.
 - **Multiple acceptable extensions per declaration.** One extension per entry; a mixed `.ts`/`.js`

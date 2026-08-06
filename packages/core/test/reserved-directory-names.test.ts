@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { architectureReservedDirectoryNames } from '../src/index.js';
-import { isUnitDir } from '../src/rules/architecture/reserved-directory-names.js';
+import { isUnitDir, isAnyCaseUnitDir } from '../src/rules/architecture/reserved-directory-names.js';
 import { childFiles } from '../src/rules/architecture/declarations.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
@@ -48,6 +48,46 @@ describe('isUnitDir', () => {
     // And the converse: a dotted directory whose file matches it whole is still not a unit, since
     // the file's stem stops at the first dot either way.
     expect(isUnitDir('src/lib/Card.v2', filesIn(['src/lib/Card.v2/Card.svelte']))).toBe(false);
+  });
+});
+
+describe('isAnyCaseUnitDir', () => {
+  const filesIn = new Map<string, string[]>([
+    ['src/lib/Card', ['Card.svelte']],
+    ['src/lib/formatDate', ['formatDate.ts']],
+    ['src/lib/counter', ['counter.svelte.ts']],
+    ['src/lib/helpers', ['format.ts']],
+    ['src/lib/empty', []]
+  ]);
+
+  it('accepts a capitalised unit, exactly as isUnitDir does', () => {
+    expect(isAnyCaseUnitDir('src/lib/Card', filesIn)).toBe(true);
+    expect(isUnitDir('src/lib/Card', filesIn)).toBe(true);
+  });
+
+  it('accepts a lowercase unit that isUnitDir rejects', () => {
+    expect(isAnyCaseUnitDir('src/lib/formatDate', filesIn)).toBe(true);
+    expect(isUnitDir('src/lib/formatDate', filesIn)).toBe(false);
+    expect(isAnyCaseUnitDir('src/lib/counter', filesIn)).toBe(true);
+    expect(isUnitDir('src/lib/counter', filesIn)).toBe(false);
+  });
+
+  it('still requires the entry file, so the letter test is the only difference', () => {
+    expect(isAnyCaseUnitDir('src/lib/helpers', filesIn)).toBe(false);
+    expect(isAnyCaseUnitDir('src/lib/empty', filesIn)).toBe(false);
+    expect(isAnyCaseUnitDir('src/lib/unknown', filesIn)).toBe(false);
+  });
+
+  it('is exactly the letter test composed with isAnyCaseUnitDir, for every fixture here', () => {
+    // Pins the relationship isUnitDir is implemented as, so a future edit to either function that
+    // breaks the composition fails here instead of drifting silently.
+    const startsWithAZ = (dir: string) => {
+      const first = dir.slice(dir.lastIndexOf('/') + 1).charCodeAt(0);
+      return first >= 65 && first <= 90;
+    };
+    for (const dir of [...filesIn.keys(), 'src/lib/unknown']) {
+      expect(isUnitDir(dir, filesIn)).toBe(startsWithAZ(dir) && isAnyCaseUnitDir(dir, filesIn));
+    }
   });
 });
 

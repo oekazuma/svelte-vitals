@@ -489,16 +489,16 @@ describe('computeScore — proportional model', () => {
 
 describe('computeScore — inventory wiring to config (no rules option, real registry)', () => {
   it('a config severity override changes the default inventory, not just buildInventory in isolation', () => {
-    // architecture::component is 8 info rules (inventory 8) by default. Raising two of them to
-    // 'critical' makes it 6 info + 2 critical = 6 + 30 = 36, above the floor. Verified against the
+    // architecture::component is 9 info rules (inventory 9) by default. Raising two of them to
+    // 'critical' makes it 7 info + 2 critical = 7 + 30 = 37, above the floor. Verified against the
     // real registry: a key failing one of the raised rules (now 'critical', deduction 15) scores
-    // 100 - 1500/36 = 58.33, floored 58. A `computeScore` that ignored `config.rules` when building
-    // the inventory would see the unconfigured 8, floor it to 25, and score 100 - 1500/25 = 40 instead.
+    // 100 - 1500/37 = 59.46, floored 59. A `computeScore` that ignored `config.rules` when building
+    // the inventory would see the unconfigured 9, floor it to 25, and score 100 - 1500/25 = 40 instead.
     const config = defineConfig({
       rules: { 'architecture/component-size': 'critical', 'architecture/prop-count': 'critical' }
     });
     const results = [fail('architecture/component-size', 'src/A.svelte', 'critical')];
-    expect(computeScore(results, config).score).toBe(58);
+    expect(computeScore(results, config).score).toBe(59);
   });
 });
 
