@@ -4,15 +4,17 @@
 '@svelte-vitals/vite': minor
 ---
 
-A less severe finding now costs less than a more severe one, and the report says how much of a project each
-category touched.
+A less severe finding now costs less than a more severe one **within the same (category, scope) pair**, and
+the report says how much of a project each category touched.
 
-A key's category score is the share of that category's severity weight that survived, so a finding's cost
-depends on how much that category checks. Where a category checked very little, a single `info` could cost
-more than a `warning` elsewhere — measured on a real project, an `info` took 13 points off a key while a
-`warning` took 5 — and a category holding one rule scored a key **0** for one finding. A key is now never
-scored against less than 25 points of checks, which orders `info` below `warning` everywhere and turns that
-0 into 80.
+A key's category score is the share of that category's severity weight that survived, checks grouped by
+category and scope — the keys of the new `inventories` map, like `seo::route`. **Within one pair** a
+`warning` costs five times an `info` and a `critical` fifteen times, so a more severe finding always costs
+more, there. **Across pairs it does not**: a pair that checks very little is scored against a floor of 25, so
+a `warning` there can cost more than a `critical` in a large pair — a `warning` in a floored pair costs 20
+while a `critical` in `seo::route` costs 13.64. A key is now never scored against less than 25 points of
+checks: in a one-rule pair the three severities give **96** (`info`), **80** (`warning`) and **40**
+(`critical`), where a lone `warning` used to score **0**.
 
 Scores rise wherever a category checks few things. **A `--min-health` gate calibrated on the previous release
 will pass more easily; recalibrate it.**
