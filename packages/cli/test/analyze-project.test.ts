@@ -18,6 +18,14 @@ const directoryNamingFixtureDir = join(here, 'fixtures', 'directory-naming-proje
 const reservedNamesFixtureDir = join(here, 'fixtures', 'reserved-names-project');
 const rulesFlagConfigFixtureDir = join(here, 'fixtures', 'rules-flag-config-project');
 
+// `architecture/component-size` (a componentRule) seeds a PASS result for every applicable
+// component in addition to a PENALIZED one for a violation, so a plain id filter can't tell
+// "fired with the file's max: 3" from "fired with the built-in default of 200" — both leave
+// component-size present in `results`, just with different `detection`. Only the penalized
+// shape pins the option actually being honoured.
+const penalizedComponentSize = (results: { id: string; detection: { presence: string; value: string } }[]) =>
+  results.filter((r) => r.id === 'architecture/component-size' && r.detection.presence === 'none');
+
 describe('analyzeProject', () => {
   it('returns results, config, version and warnings for a SvelteKit project', async () => {
     const { results, config, version, warnings } = await analyzeProject({ cwd: fixtureDir });
@@ -169,14 +177,6 @@ describe('analyzeProject config-file precedence (design doc 2026-07-05-config-fi
 // `analyzeProject`'s composition — so they pin the actual CLI flag behavior (design:
 // rules-flag-clobbers-config-options), not just a hand-built options object.
 describe("--rules/--ignore compose with a config file's per-rule options (design: rules-flag-clobbers-config-options)", () => {
-  // `architecture/component-size` (a componentRule) seeds a PASS result for every applicable
-  // component in addition to a PENALIZED one for a violation, so a plain id filter can't tell
-  // "fired with the file's max: 3" from "fired with the built-in default of 200" — both leave
-  // component-size present in `results`, just with different `detection`. Only the penalized
-  // shape pins the option actually being honoured.
-  const penalizedComponentSize = (results: { id: string; detection: { presence: string; value: string } }[]) =>
-    results.filter((r) => r.id === 'architecture/component-size' && r.detection.presence === 'none');
-
   /** Parse argv the same way bin.ts does, resolve it, and assert no fatal errors along the way. */
   function optionsFor(...args: string[]) {
     const argv = mri(args, { string: ['rules', 'ignore'] });
@@ -235,5 +235,31 @@ describe("--rules/--ignore compose with a config file's per-rule options (design
     const { results } = await analyzeProject({ ...options, cwd: rulesFlagConfigFixtureDir });
     expect(new Set(results.map((r) => r.id))).toEqual(new Set(['seo/title-presence']));
     expect(results.some((r) => r.id === 'seo/title-presence' && r.detection.presence === 'none')).toBe(true);
+  });
+});
+
+describe('allowRules keeps the named rules configured', () => {
+  it('runs a named rule with the config file options it declared', async () => {
+    const { results } = await analyzeProject({
+      cwd: rulesFlagConfigFixtureDir,
+      allowRules: ['architecture/component-size']
+    });
+    expect(penalizedComponentSize(results)).toHaveLength(1);
+  });
+
+  it('narrows to the named rule only', async () => {
+    const { results } = await analyzeProject({
+      cwd: rulesFlagConfigFixtureDir,
+      allowRules: ['architecture/component-size']
+    });
+    expect([...new Set(results.map((r) => r.id))]).toEqual(['architecture/component-size']);
+  });
+
+  it('lets an explicit rules map still replace the file map as a whole', async () => {
+    const { config } = await analyzeProject({
+      cwd: rulesFlagConfigFixtureDir,
+      rules: { 'seo/title-presence': 'off' }
+    });
+    expect(config.rules).toEqual({ 'seo/title-presence': 'off' });
   });
 });

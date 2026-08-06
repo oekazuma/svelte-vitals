@@ -39,6 +39,7 @@ import { startMascotSpinner, mascotFitsWidth } from './mascot.js';
 import { playMascotGreeting, bubbleFitsWidth } from './speech-bubble.js';
 import { loadConfigFile } from './config-file.js';
 import { playScoreAnimation, scoreAnimationEnabled } from './pulse-animation.js';
+import { resolveRuleSelection } from './rule-selection.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -59,6 +60,8 @@ export interface RunOptions {
    * rules-flag-clobbers-config-options).
    */
   ignoreRules?: string[];
+  /** `--rules`: run only these rule ids. Selection; the config file still supplies their options. */
+  allowRules?: string[];
   /** Per-category weights for the combined Health score (flag > config file > default 1 each). */
   weights?: Partial<Record<Category, number>>;
   /** Restrict analysis to rules in these categories (applied after rules/ignore selection). */
@@ -144,6 +147,8 @@ export interface AnalyzeOptions {
    * rules-flag-clobbers-config-options).
    */
   ignoreRules?: string[];
+  /** `--rules`: run only these rule ids. Selection; the config file still supplies their options. */
+  allowRules?: string[];
   /** Per-category weights for the combined Health score (flag > config file > default 1 each). */
   weights?: Partial<Record<Category, number>>;
   /** Restrict analysis to rules in these categories (applied after rules/ignore selection). */
@@ -191,18 +196,15 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   const file = loaded?.config;
 
   const weights = opts.weights ?? file?.weights;
-  const rulesBase = opts.rules ?? file?.rules ?? {};
-  // --ignore names only the rules it silences, so it layers onto whatever `rulesBase` is rather
-  // than replacing it; --rules keeps whole-field replacement (design 2026-07-05 §3, decision 3).
-  // Applying it last also guarantees deny wins when --rules and --ignore overlap.
-  const resolvedRules =
-    opts.ignoreRules && opts.ignoreRules.length > 0
-      ? { ...rulesBase, ...Object.fromEntries(opts.ignoreRules.map((id) => [id, 'off' as const])) }
-      : rulesBase;
   const config = defineConfig({
     treatDynamicAs: opts.treatDynamicAs ?? file?.treatDynamicAs ?? 'pass',
     metaComponents: opts.metaComponents ?? file?.metaComponents ?? [],
-    rules: resolvedRules,
+    rules: resolveRuleSelection({
+      fileRules: file?.rules,
+      rules: opts.rules,
+      allowRules: opts.allowRules,
+      ignoreRules: opts.ignoreRules
+    }),
     failOn: opts.failOn ?? file?.failOn ?? 'critical',
     ...(weights !== undefined ? { weights } : {}),
     ...(file?.overrides !== undefined ? { overrides: file.overrides } : {})
@@ -355,6 +357,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       failOn: opts.failOn,
       rules: opts.rules,
       ignoreRules: opts.ignoreRules,
+      allowRules: opts.allowRules,
       weights: opts.weights,
       categories: opts.categories
     });
@@ -405,6 +408,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
           failOn: opts.failOn,
           rules: opts.rules,
           ignoreRules: opts.ignoreRules,
+          allowRules: opts.allowRules,
           weights: opts.weights,
           categories: opts.categories
         });
@@ -452,6 +456,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         failOn: opts.failOn,
         rules: opts.rules,
         ignoreRules: opts.ignoreRules,
+        allowRules: opts.allowRules,
         weights: opts.weights,
         categories: opts.categories
       }
