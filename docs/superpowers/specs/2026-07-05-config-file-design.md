@@ -184,6 +184,21 @@ file-configured severity/options on any `--ignore` invocation
 (rules-flag-clobbers-config-options). `--ignore` now layers `off` entries onto
 whatever `rules` resolved to instead of replacing it.
 
+That distinction held only as long as `--rules` used the same encoding:
+selection expressed as the _absence_ of a map entry, which a key-level merge
+cannot layer — an absent key and an explicit `'off'` become indistinguishable
+once merged, so the allow-list's synthesized `off` entries had to replace the
+field outright to mean what they said. `rules-flag-keeps-options` replaces
+that encoding: `resolveRuleSelection` takes the config file's `rules` map and
+an `allowRules` id list as separate inputs instead of folding both into one
+synthesized map, so a named rule's `'off'` can be rewritten away without
+erasing its severity or options, and an unnamed rule can be set to `'off'`
+without touching anyone else's entry. `--rules` still overrides selection — a
+config-file `'off'` for a rule it names, since disabling a rule is itself
+selection — but no longer needs to replace the whole field to do it, and now
+inherits every other setting a named rule declared, the same as `--ignore`
+already did for the rules it leaves alone.
+
 **Two implementation subtleties found in the spike:**
 
 - `resolve-args.ts` currently always sets
