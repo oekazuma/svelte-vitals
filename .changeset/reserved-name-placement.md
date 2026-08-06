@@ -1,6 +1,7 @@
 ---
 '@svelte-vitals/core': minor
 'svelte-vitals': minor
+'@svelte-vitals/vite': minor
 ---
 
 Add architecture/reserved-name-placement: a reserved directory name may appear only in the places declared for it.
