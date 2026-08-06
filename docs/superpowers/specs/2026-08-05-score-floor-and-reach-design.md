@@ -28,7 +28,7 @@ tried to settle the second without the first and had to refuse both.
 
 ### 1. Floor the denominator at 25
 
-```
+```text
 inventoryWeight = max(observedInventory, failedWeight, 25)
 ```
 
