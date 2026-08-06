@@ -65,6 +65,7 @@ import { architecturePrivateScopeImport } from './architecture/private-scope-imp
 import { architectureUnitEntryFile } from './architecture/unit-entry-file.js';
 import { architectureDirectoryNaming } from './architecture/directory-naming.js';
 import { architectureReservedDirectoryNames } from './architecture/reserved-directory-names.js';
+import { architectureReservedNamePlacement } from './architecture/reserved-name-placement.js';
 import { architectureRouteComponentImport } from './architecture/route-component-import.js';
 import { architectureDocLinkTarget } from './architecture/doc-link-target.js';
 import { performanceHeavyImport } from './perf/heavy-import.js';
@@ -139,6 +140,7 @@ export const allRules: Rule[] = [
   architectureUnitEntryFile,
   architectureDirectoryNaming,
   architectureReservedDirectoryNames,
+  architectureReservedNamePlacement,
   architectureRouteComponentImport,
   architectureDocLinkTarget,
   performanceHeavyImport,
@@ -214,6 +216,7 @@ export {
   architectureUnitEntryFile,
   architectureDirectoryNaming,
   architectureReservedDirectoryNames,
+  architectureReservedNamePlacement,
   architectureRouteComponentImport,
   architectureDocLinkTarget,
   performanceHeavyImport,
