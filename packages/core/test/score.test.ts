@@ -257,55 +257,30 @@ describe('computeScore — a displayed 100 means zero deduction', () => {
   });
 
   it('decides the cap on the raw value, not the floored one', () => {
-    // 10 keys, sitePenalty 0. Keys 0-8: a critical + a warning on two distinct rule ids
-    // (deduction 15+5=20, route score 80). Key 9: a critical + a warning + an info on three
-    // distinct rule ids (deduction 15+5+1=21, route score 79). Distinct ids per key so the
-    // deductions sum instead of only the max of duplicates counting.
-    // Mean = (9*80 + 79)/10 = 79.9.
-    //   Deciding on the raw value: 79.9 > 79 -> cap binds -> rawScore 79, criticalCap 79.
-    //   Deciding on the floored value: floor(79.9) - 0 = 79 -> 79 > 79 is false -> no cap ->
-    //   rawScore would stay 79.9 and criticalCap null. Displayed `score` is 79 either way (floor(79.9)
-    //   is also 79), which is why this test must assert on rawScore/criticalCap, not on score.
-    const results: Result[] = Array.from({ length: 10 }, (_, i) => {
-      const route = `/k${i}`;
-      const findings: Result[] = [
-        {
-          id: 'seo/title-presence',
-          category: 'seo' as const,
-          severity: 'critical' as const,
-          detection: { presence: 'none' as const, value: 'absent' as const },
-          route,
-          message: 'm',
-          recommendation: 'r'
-        },
-        {
-          id: 'seo/description-presence',
-          category: 'seo' as const,
-          severity: 'warning' as const,
-          detection: { presence: 'none' as const, value: 'absent' as const },
-          route,
-          message: 'm',
-          recommendation: 'r'
-        }
-      ];
-      if (i === 9) {
-        findings.push({
-          id: 'seo/canonical-url',
-          category: 'seo' as const,
-          severity: 'info' as const,
-          detection: { presence: 'none' as const, value: 'absent' as const },
-          route,
-          message: 'm',
-          recommendation: 'r'
-        });
-      }
-      return findings;
-    }).flat();
+    // One route, one pair (seo::route), inventory padded to exactly 200 with filler info rules
+    // that never appear in results — they exist only to size the denominator. A critical, five
+    // warnings and one info fail: failed = 15 + 5*5 + 1 = 41 of 200.
+    // Raw route average = 100 - 4100/200 = 79.5 (exact: 41/2 is a power-of-two fraction).
+    //   Deciding on the raw value: 79.5 > 79 -> cap binds -> rawScore 79, criticalCap 79.
+    //   Deciding on the floored value: floor(79.5) = 79 -> 79 > 79 is false -> no cap -> rawScore
+    //   would stay 79.5 and criticalCap null. Displayed `score` is 79 either way (floor(79.5) is
+    //   also 79), which is why this test must assert on rawScore/criticalCap, not on score.
+    const rules = [
+      r('s/c1', 'seo', 'route', 'critical'),
+      ...Array.from({ length: 5 }, (_, i) => r(`s/w${i}`, 'seo', 'route', 'warning')),
+      r('s/i0', 'seo', 'route', 'info'),
+      ...Array.from({ length: 159 }, (_, i) => r(`s/fill${i}`, 'seo', 'route', 'info'))
+    ]; // inventory: 15 + 5*5 + 1 + 159 = 200
+    const results: Result[] = [
+      fail('s/c1', '/a', 'critical'),
+      ...Array.from({ length: 5 }, (_, i) => fail(`s/w${i}`, '/a', 'warning')),
+      fail('s/i0', '/a', 'info')
+    ];
 
-    const r = computeScore(results, CONFIG);
-    expect(r.score).toBe(79);
-    expect(r.rawScore).toBe(79);
-    expect(r.scoreModel.criticalCap).toBe(79);
+    const result = computeScore(results, defineConfig({}), { rules });
+    expect(result.score).toBe(79);
+    expect(result.rawScore).toBe(79);
+    expect(result.scoreModel.criticalCap).toBe(79);
   });
 });
 
@@ -447,11 +422,35 @@ describe('computeScore — proportional model', () => {
     expect(computeScore(results, config, { rules: PERF }).score).toBe(100);
   });
 
+  it('lets failed weight outrun the floor when two ghost rules fail on the same key', () => {
+    // Two rule ids outside the inventory, both critical, on one key: failed = 15 + 15 = 30, above
+    // both the observed inventory (0, no pair) and the floor (25) — the case `max(inventoryWeight,
+    // failed, INVENTORY_FLOOR)` needs `failed` for, not just the floor. Diluted across 99 clean keys
+    // so the excess shows up in the mean instead of vanishing into the final clamp: with `failed` in
+    // the max, this key's deficit is 100, giving 100 - 100/100 = 99; dropping `failed` from the max
+    // would floor that key's denominator to 25 instead of 30, giving deficit 120 and 100 - 120/100 = 98.
+    const cleanKeys = Array.from({ length: 99 }, (_, i) => `src/${i}.svelte`);
+    const results: Result[] = [
+      fail('ghost/one', 'src/bad.svelte', 'critical'),
+      fail('ghost/two', 'src/bad.svelte', 'critical'),
+      ...cleanKeys.map((k) => pass('p/i1', k))
+    ];
+    expect(computeScore(results, config, { rules: PERF, applyCriticalCap: false }).score).toBe(99);
+  });
+
   it('narrowing the rule set to one category leaves that category unchanged', () => {
-    const mixed = [...PERF, r('seo/x', 'seo', 'route', 'warning')];
-    const results = [fail('p/w1', 'src/A.svelte', 'warning'), pass('p/i1', 'src/A.svelte')];
+    // PERF's own inventory (9) floors to 25 regardless of what else is in `rules`, so a mutant that
+    // pools every pair into one denominator would still pass here. Use a performance::component
+    // inventory of 30 instead — already above the floor, so pooling in an unrelated seo::route
+    // rule's weight (5) would move the score (83 -> 85) if pools were not partitioned by pair.
+    const perf30 = [
+      r('p/w1', 'performance', 'component', 'warning'),
+      ...Array.from({ length: 25 }, (_, i) => r(`p/fill${i}`, 'performance', 'component', 'info'))
+    ]; // 5 + 25 = 30
+    const mixed = [...perf30, r('seo/x', 'seo', 'route', 'warning')];
+    const results = [fail('p/w1', 'src/A.svelte', 'warning')];
     expect(computeScore(results, config, { rules: mixed }).score).toBe(
-      computeScore(results, config, { rules: PERF }).score
+      computeScore(results, config, { rules: perf30 }).score
     );
   });
 
@@ -489,12 +488,16 @@ describe('computeScore — proportional model', () => {
 
 describe('computeScore — inventory wiring to config (no rules option, real registry)', () => {
   it('a config severity override changes the default inventory, not just buildInventory in isolation', () => {
-    // architecture::component is 8 info rules (inventory 8) by default. Raising one rule's severity
-    // to 'warning' makes it 7 info + 1 warning = 12, floored to 25. Verified against the real
-    // registry: a key failing that one rule (now 'warning', deduction 5) scores 100 - 500/25 = 80.
-    const config = defineConfig({ rules: { 'architecture/component-size': 'warning' } });
-    const results = [fail('architecture/component-size', 'src/A.svelte', 'warning')];
-    expect(computeScore(results, config).score).toBe(80);
+    // architecture::component is 8 info rules (inventory 8) by default. Raising two of them to
+    // 'critical' makes it 6 info + 2 critical = 6 + 30 = 36, above the floor. Verified against the
+    // real registry: a key failing one of the raised rules (now 'critical', deduction 15) scores
+    // 100 - 1500/36 = 58.33, floored 58. A `computeScore` that ignored `config.rules` when building
+    // the inventory would see the unconfigured 8, floor it to 25, and score 100 - 1500/25 = 40 instead.
+    const config = defineConfig({
+      rules: { 'architecture/component-size': 'critical', 'architecture/prop-count': 'critical' }
+    });
+    const results = [fail('architecture/component-size', 'src/A.svelte', 'critical')];
+    expect(computeScore(results, config).score).toBe(58);
   });
 });
 
