@@ -241,7 +241,7 @@ the flat kinds already available.
 | **M1** Unit directory ↔ same-named entry file                             | component units (`.svelte`), function units (`.ts`), store units (`.svelte.ts`) | **Yes** — `string-map` (glob → extension)           |
 | **M2** Directory-name casing per location                                 | PascalCase units vs camelCase grouping; route segments; endpoint segments       | **Yes** — `string-map` (glob → case)                |
 | **M3** Closed vocabulary of reserved directory names                      | "a use these names cannot express requires updating the table first"            | **Yes** — `string-list`                             |
-| **M4** Reserved name → the places it may appear                           | `parts/` only directly under a component unit, and so on                        | **No** — needs a structured list                    |
+| **M4** Reserved name → the places it may appear                           | `parts/` only directly under a component unit, and so on                        | **Yes** — two `string-map`s (corrected 2026-08-06)  |
 | **M5** A unit inside a private scope must not be imported from outside it | the promotion ladder: a second importer forces the unit up                      | **Yes** — `string-list`                             |
 | **M6** Nesting cap for component units                                    | flatten beyond N levels                                                         | **Yes** — `integer`                                 |
 | **M7** Dynamic route segments must carry a matcher                        | `[id=integer]`, with exempt subtrees                                            | **Yes** — `string-list`                             |
@@ -251,7 +251,13 @@ the flat kinds already available.
 
 Eight of the ten need no new option kind. So the sequencing claim in `2026-07-26` was **not** wrong in
 the way the paragraph above first suggested: per-rule options did unblock L3, for every convention
-expressible as a flat list or map. Only M4 and part of M8 wait on the second iteration.
+expressible as a flat list or map. Only part of M8 waits on the second iteration.
+
+**Corrected 2026-08-06.** This table originally recorded M4 as needing a structured-list kind. It does not:
+`2026-07-29-reserved-directory-names-design.md`, written the day after this charter, established that a
+`string-map` value carries a `|`-separated list, and M4 is expressible as two such maps —
+`2026-08-06-reserved-name-placement-design.md` writes a real project's whole convention table out in them to
+show it. The judgement was correct on the day it was made and was not revisited when the encoding appeared.
 
 M9 was added 2026-07-28 from field evidence rather than from reading the convention document, and its
 evidence is the strongest of the nine. A large reorganisation to comply with a convention left three
