@@ -203,7 +203,7 @@ load-bearing:
   `classifyUnusedKeys` counts is a whole map key; M4's must be **one `|`-separated alternative**, because a
   typo among good alternatives — `'src/route/**|src/lib/features/*'` — shrinks the permitted set by exactly
   the same mechanism while "some glob in this name's union matched something" stays true. Per-name counting
-  would miss every multi-glob case, which is five of the seven names in the example encoding.
+  would miss every multi-glob case, which is five of the eight names in the example encoding.
 - **A unit-map glob that matched directories but never a unit is its own note**, as M3 tri-states its unit
   keys. `capitalisedUnitPlacements: { parts: 'src/lib/features/*' }` matches real directories that are
   concern directories, not units — the declaration is live and checks nothing, which is the failure the
@@ -221,29 +221,39 @@ here it names no _position_.
 `src/routes|src/routes/**` for names permitted directly in the route root. The family's compiler already
 decides this; the rule takes its behaviour rather than a second one.
 
-**A unit map's glob is matched against the unit directory itself**, as `unitScopes` does it, and not against
-an ancestor the unit sits beneath. The two readings diverge observably and the compiler decides it — verified
-by running `routeGlobToRegExp` with the bare guard, for a unit at `src/lib/Card`:
+**All three maps match the same directory — the reserved-name directory's parent — and differ only in what
+else they require of it.** A unit the name sits _directly under_ is that parent, so there is no second match
+subject anywhere in this rule: `placements` requires nothing more of the parent, `capitalisedUnitPlacements`
+requires `isUnitDir`, `anyCaseUnitPlacements` requires the same without the letter test. An earlier draft of
+this paragraph claimed the subject differed by map, which was wrong and made the unit maps look like a
+separate mechanism.
+
+**The unit maps' globs therefore match the unit itself, as `unitScopes` does**, and not an ancestor it sits
+beneath. Those two readings diverge observably, so the compiler decides it — run against the family's key
+compiler with the bare guard (`createKeyCompiler(globs, true)` + `matchKeys`; `routeGlobToRegExp` alone has
+no guard and its raw regex for `src/lib/**` does match `src/lib`):
 
 | glob         | `src/lib` | `src/lib/Card` | `src/lib/features/x/Card` |
 | ------------ | --------- | -------------- | ------------------------- |
 | `src/lib`    | match     | **no**         | no                        |
 | `src/lib/**` | **no**    | match          | match                     |
 
-So `parts: 'src/lib'` permits `parts/` under a unit **named** `src/lib` and nowhere else — almost never what
-a reader means — while `parts: 'src/lib/**'` permits it under any unit below `src/lib`. Under the ancestor
-reading both columns would be "match", which is why the distinction is pinned by a test rather than left to
-the word "root". These are the same two shapes the parent-glob paragraph describes; the only difference is
-what they are matched against.
+So `parts: 'src/lib'` permits `parts/` only under a unit at exactly `src/lib` — which in the capitalised map
+is unreachable, since `lib` is lowercase — while `parts: 'src/lib/**'` permits it under any unit below
+`src/lib`. **A bare glob in a unit map is almost always a mistake**, and the tri-state note above is what
+catches it. Under the ancestor reading the `src/lib` column would read "match" throughout, which is why the
+direction is pinned by a test rather than left to a word.
 
 **No pass results.** `computeScore` seeds every distinct `route` at 100 and averages, and a directory has no
 pre-existing score key — so a pass per directory would add hundreds of 100s from one broad declaration and
 dilute every real finding. M3 declines them for this reason; M4's subject is the same.
 
-**Options resolve per directory, and `overrides` layers apply as the family applies them.** The subject
-differs by map — `placements` matches the parent, the unit maps match the unit — so "any empty value
-ungoverns that name everywhere" is scoped to **one resolved option set**: a name emptied in an override is
-ungoverned under that override's paths, not project-wide.
+**Options resolve at the reserved-name directory, and `overrides` layers apply as the family applies them.**
+The subject of the finding, of `exclude`, and of option resolution is the same directory — the `parts/`
+itself, not the parent its globs are matched against. Resolving at the parent instead would let an override
+naming a directory govern findings reported outside it, and M3 already re-resolves `exclude` at the child for
+the same reason. So "any empty value ungoverns that name everywhere" is scoped to **one resolved option
+set**: a name emptied in an override is ungoverned under that override's paths and governed elsewhere.
 
 **Inert until declared.** All three maps default to `{}`.
 
@@ -273,7 +283,8 @@ counterpart — `packages/cli/test/docs-links.test.ts` fails without both — th
 3. **A name declared in more than one map is silent in every declared position, in one run.** `functions`
    under a capitalised unit and under a declared glob. Asserting only one passes on an exclusive
    implementation, which is the shape this design rejected.
-4. **A name in no map is never reported**, however it is placed.
+4. **A name in no map is never reported**, however it is placed — on a fixture where **another** name is
+   declared and reporting, so the run is not silent for the reason item 13 covers.
 5. **A declared name in an undeclared position is reported.** The finding's `location` must be a **file
    inside the offending directory** — M3's `reportAt` — because `filterToChangedFiles` keeps only results
    whose `location` git listed, so a directory there vanishes from every `--diff` run. The directory itself
@@ -305,7 +316,7 @@ counterpart — `packages/cli/test/docs-links.test.ts` fails without both — th
 10. **A dead glob is reported at the alternative, not the name.** Declare
     `placements: { e2e: 'src/route/**|src/routes/**' }` on a tree with a real `src/routes` and no
     `src/route`: the good alternative works and the dead one is still reported. A per-name implementation
-    passes a single-glob test and reports nothing here, which is the five-of-seven case in the example
+    passes a single-glob test and reports nothing here, which is the five-of-eight case in the example
     encoding.
 11. **A unit-map glob matching only non-units is reported.** `capitalisedUnitPlacements: { parts:
 'src/lib/features/*' }` where those directories are concern directories: the declaration is live,
@@ -313,7 +324,12 @@ counterpart — `packages/cli/test/docs-links.test.ts` fails without both — th
 12. **`exclude` removes a subtree**, asserted on a tree where the same misplacement reports without it.
 13. **Nothing is reported when no map is declared**, on a tree that would otherwise produce findings — the L3
     guarantee, and the half a reader assumes rather than checks.
-14. **A bare prefix and a `/**` suffix differ as the family's compiler defines.** Assert `src/routes` against a
+14. **An `overrides` layer scopes the whole rule, including the empty-value drop.** Empty a governed name
+    inside an override and assert it is silent under that override's paths **and still reporting outside
+    them**, in one run. Nothing else here touches `overrides`, so an implementation that drops an emptied
+    name project-wide — or resolves options at the parent instead of the reserved-name directory — passes
+    every other item.
+15. **A bare prefix and a `/**` suffix differ as the family's compiler defines.** Assert `src/routes` against a
     `src/routes` parent and `src/routes/**` against the same one, so the choice is pinned rather than
     inherited silently.
 
