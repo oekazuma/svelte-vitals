@@ -53,7 +53,7 @@ adversarial review passes). Read it before Task 1 — every numbered Testing ite
 | ----------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `packages/core/src/rules/architecture/reserved-directory-names.ts`            | **Modify.** Gains one exported predicate, `isAnyCaseUnitDir`, beside the existing `isUnitDir`. The unit definition lives here already and both rules must share one. |
 | `packages/core/src/rules/architecture/reserved-name-placement.ts`             | **Create.** The whole rule: options spec, traversal, findings, dead-declaration diagnostics.                                                                         |
-| `packages/core/test/reserved-name-placement.test.ts`                          | **Create.** The fifteen Testing items from the design.                                                                                                               |
+| `packages/core/test/reserved-name-placement.test.ts`                          | **Create.** The design's fifteen Testing items, plus the guards later tasks added — 26 tests as shipped.                                                             |
 | `packages/core/src/rules/index.ts`                                            | **Modify.** Import, `allRules` entry, re-export.                                                                                                                     |
 | `packages/core/src/index.ts`                                                  | **Modify.** Duplicate re-export list (unchecked by TypeScript).                                                                                                      |
 | `docs/src/content/docs/rules/architecture/reserved-name-placement.md` + `ja/` | **Create.** Rule pages.                                                                                                                                              |
@@ -988,7 +988,8 @@ corrected while executing this task.
 - [ ] **Step 4: Run tests to verify they pass**
 
 Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
-Expected: PASS, **19** tests (14 from Task 4 plus 5 here).
+Expected: PASS, **19** tests (14 from Task 4 plus 5 here). The shipped total is **26**: the fix rounds and the
+final review added one ordering guard and five more for behaviours the design mandates but nothing pinned.
 
 - [ ] **Step 5: Verify each guard is load-bearing**
 
