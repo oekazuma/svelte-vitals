@@ -414,7 +414,10 @@ The force-enable guard already exists in this file from the `--ignore` fix — t
 - [ ] **Step 2: Run the tests to verify they fail**
 
 Run: `cd packages/cli && ../../node_modules/.bin/vitest run test/analyze-project.test.ts`
-Expected: the first two FAIL with zero findings — that is the defect. The third and fourth pass already.
+Expected: **the first three FAIL** — the two option-configured runs with zero findings, and the
+self-diagnostic run with no project-scoped result at all. That third one is the doubly-silent half: the
+declaration is gone, so there is nothing left to diagnose. The narrowing and deny-beats-allow tests pass
+already. Check this prediction rather than assuming it, and say what you actually observed per test.
 
 - [ ] **Step 3: Emit id lists from `resolve-args`**
 
@@ -511,7 +514,7 @@ Expect a finding from `architecture/component-size` and no other rule id in the 
 - [ ] **Step 9: Commit**
 
 ```bash
-git add packages/cli/src/resolve-args.ts packages/cli/src/rules-config.ts packages/cli/test/resolve-args.test.ts packages/cli/test/analyze-project.test.ts
+git add packages/cli/src/resolve-args.ts packages/cli/src/rules-config.ts packages/cli/test/resolve-args.test.ts packages/cli/test/analyze-project.test.ts packages/cli/test/fixtures/dead-declaration-project
 git commit -m "fix(cli): keep a named rule's config-file options under --rules"
 ```
 
