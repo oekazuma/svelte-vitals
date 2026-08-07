@@ -167,6 +167,7 @@ describe('architecture/reserved-name-placement', () => {
     const bareNotes = projectScoped(bare);
     expect(bareNotes).toHaveLength(1);
     expect(bareNotes[0]?.message).toContain('reaches no unit');
+    expect(bareNotes[0]?.message).not.toContain('matched directories but never a unit');
   });
 
   // Testing item 8 — the silence half.
@@ -258,6 +259,7 @@ describe('architecture/reserved-name-placement', () => {
     const notes = projectScoped(results);
     expect(notes).toHaveLength(1);
     expect(notes[0]?.message).toContain('reaches no unit');
+    expect(notes[0]?.message).not.toContain('matched directories but never a unit');
   });
 
   it('classifies an alternative whose every match was excluded as excluded, not as unmatched', async () => {
@@ -421,6 +423,7 @@ describe('architecture/reserved-name-placement', () => {
     const notes = projectScoped(results);
     expect(notes).toHaveLength(1);
     expect(notes[0]?.message).toContain('reaches no unit');
+    expect(notes[0]?.message).not.toContain('matched directories but never a unit');
   });
 
   // `parts/` sits under `src/lib/other`, not a unit, so this is a genuine violation and the
@@ -442,6 +445,7 @@ describe('architecture/reserved-name-placement', () => {
     const capNotes = projectScoped(cap);
     expect(capNotes).toHaveLength(1);
     expect(capNotes[0]?.message).toContain('reaches no unit');
+    expect(capNotes[0]?.message).not.toContain('matched directories but never a unit');
     // The any-case half needs `parts/` somewhere that is NOT the lowercase unit: under it, `record()`
     // marks the alternative used and the classification never runs, which pins nothing.
     const any = await run(['src/lib/formatDate/formatDate.ts', 'src/lib/other/parts/a.svelte', 'src/lib/other/x.ts'], {
@@ -458,6 +462,7 @@ describe('architecture/reserved-name-placement', () => {
     const notes = projectScoped(results);
     expect(notes).toHaveLength(1);
     expect(notes[0]?.message).toContain('reaches no unit');
+    expect(notes[0]?.message).not.toContain('matched directories but never a unit');
   });
 
   it('reports a unit-map glob whose only unit of the kind is excluded', async () => {
@@ -471,6 +476,7 @@ describe('architecture/reserved-name-placement', () => {
     const notes = projectScoped(results);
     expect(notes).toHaveLength(1);
     expect(notes[0]?.message).toContain('reaches no unit');
+    expect(notes[0]?.message).not.toContain('matched directories but never a unit');
   });
 
   // The declared position is elsewhere (`src/other/**`), so this alternative is genuinely unused —
