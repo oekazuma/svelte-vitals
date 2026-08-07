@@ -1,5 +1,59 @@
 # svelte-vitals
 
+## 0.42.0
+
+### Minor Changes
+
+- 298849d: Fix `--rules` discarding a named rule's own severity and options from the config file. `--rules
+<id>` previously ran the named rules at built-in defaults, so an option-configured rule (an integer
+  `max`, a `packages`/`origins` list, a `directories` map, ...) could not be run alone — its
+  configured thresholds and globs were gone for the run. For a rule that is inert until its
+  convention is declared, this meant no convention at all: the rule reported nothing, at exit 0, with
+  no warning.
+
+  `--rules` now inherits that configuration while still narrowing the run to the rule ids it names,
+  and still overriding a config-file `'off'` for those ids — turning a rule off is itself selection,
+  so `--rules <that rule>` still force-enables it, only now under its declared severity and options
+  instead of the built-in ones.
+
+### Patch Changes
+
+- cb394ce: Fix `--ignore` silently discarding a config file's per-rule settings and options for every other
+  rule. `--ignore` was translated into a partial `rules` map containing nothing but `'off'` entries
+  for the ids it named, and that map replaced the config file's `rules` field outright instead of
+  layering on top of it — so `--ignore some/unrelated-rule-id` dropped severities and options (e.g.
+  a configured `max` or `directories`) declared for every rule not named, and those rules ran with
+  their built-in defaults instead.
+
+  The failure was silent: exit 0, no warning, and the flag didn't even have to name the affected
+  rule — ignoring one unrelated rule was enough to reset every other rule's options. A run narrowed
+  with `--ignore` could report clean indefinitely while the config file's intent was being ignored.
+
+  `--ignore` now only ever adds `'off'` entries for the rule ids it names, layered on top of
+  whatever the config file (or `--rules`) already resolved `rules` to. `--rules` still means "run
+  only these rules" and still overrides a config-file `'off'` for the ids it names, and it now
+  inherits their severity and options instead of discarding them.
+
+- 767525a: Fix `architecture/reserved-name-placement`'s dead-declaration diagnostic naming a correct
+  declaration while staying silent about a broken one. Its unit-map reason judged a declaration by
+  whether its glob had happened to govern a directory, not by whether the glob could reach one: a
+  convention permitting a position no directory occupies yet was reported as dead even though it was
+  correct, while a unit-map glob that could never match anything (a bare glob such as
+  `capitalisedUnitPlacements: { parts: 'src/lib' }`, matched against the unit itself rather than an
+  ancestor of it) reported nothing at all. The excluded-directory reason had the same defect for the
+  same reason: it fired on any declaration whose glob matched at least one excluded directory, even
+  one that also reached a live, correctly-placed unit.
+
+  All three reasons now ask what a declaration's glob can reach, against the same live-directory and
+  live-unit sets: `matched no directory`, `matched only excluded directories`, and the unit reason —
+  now `reaches no unit` — are unaffected when a glob's only matches are directories that don't yet
+  exist for that name, but fire when a glob structurally cannot reach a unit of the required case or
+  a directory `exclude` leaves live. The rule's findings do not change; only which declarations the
+  aggregated diagnostic names.
+
+- Updated dependencies [767525a]
+  - @svelte-vitals/core@0.36.1
+
 ## 0.41.0
 
 ### Minor Changes
