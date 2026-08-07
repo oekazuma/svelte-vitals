@@ -25,6 +25,12 @@ export interface RuleContext {
   sourceFiles?: string[];
   project: Project;
   config: Config;
+  /**
+   * Report per-declaration counts of places this rule examined. The engine supplies it and keys the
+   * result by rule id; a rule that does not call it gets no entry, which is distinct from an entry of
+   * zeros. Absent in contexts a caller builds directly.
+   */
+  recordExamined?: (counts: Record<string, number>) => void;
 }
 
 export interface Rule {

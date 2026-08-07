@@ -71,22 +71,17 @@ export async function analyze(
   const kitModules = await collectKitModuleFacts(cwd, project.kitAliases);
   const sourceFiles = await collectSourceFiles(cwd);
   const selected = selectRules(allRules, config);
-  const results = applyOverrides(
-    applyRuleSeverities(
-      await runRules(selected, {
-        heads,
-        headings,
-        images,
-        project,
-        components,
-        config,
-        kitModules,
-        sourceFiles
-      }),
-      config
-    ),
-    config
-  );
+  const { results: rawResults, examined } = await runRules(selected, {
+    heads,
+    headings,
+    images,
+    project,
+    components,
+    config,
+    kitModules,
+    sourceFiles
+  });
+  const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
 
   const { score } = computeScore(results, config);
   const summary = summarize(results, config);
@@ -102,7 +97,8 @@ export async function analyze(
     results,
     config,
     { version: readPackageVersion() },
-    selected.map((r) => r.id)
+    selected.map((r) => r.id),
+    examined
   );
 
   return {
