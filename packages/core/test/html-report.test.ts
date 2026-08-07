@@ -289,26 +289,3 @@ describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loo
     expect(safeHref('HTTPS://example.com')).toBe('HTTPS://example.com');
   });
 });
-
-describe('routeBadges (dev-dashboard provenance)', () => {
-  it('omitting opts produces byte-identical output to passing opts: {}', () => {
-    const withoutOpts = buildHtmlDocument(report, { version: '9.9.9' });
-    const withEmptyOpts = buildHtmlDocument(report, { version: '9.9.9' }, {});
-    expect(withEmptyOpts).toBe(withoutOpts);
-  });
-
-  it('carries known badges into the snapshot', () => {
-    const html = buildHtmlDocument(
-      report,
-      { version: '9.9.9' },
-      { routeBadges: { '/': 'measured', '/products/[id]': 'static' } }
-    );
-    expect(extractEmbeddedSnapshot(html).badges).toEqual({ '/': 'measured', '/products/[id]': 'static' });
-  });
-
-  it('drops an unknown badge value instead of embedding it', () => {
-    const html = buildHtmlDocument(report, { version: '9.9.9' }, { routeBadges: { '/': 'bogus' as never } });
-    expect(extractEmbeddedSnapshot(html).badges).toEqual({});
-    expect(html).not.toContain('bogus');
-  });
-});

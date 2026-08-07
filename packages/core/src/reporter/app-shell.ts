@@ -726,21 +726,12 @@ export function renderAppShell(snapshot: AppSnapshot): string {
 
 /**
  * Static (non-live) document over a prebuilt JsonReport — kept as the public name the
- * html reporter has always exported. `routeBadges` preserves the old opts shape.
+ * html reporter has always exported.
  */
-export function buildHtmlDocument(
-  report: JsonReport,
-  meta: { version: string; coreVersion?: string },
-  opts?: { routeBadges?: Record<string, RouteBadge> }
-): string {
-  // Clamp to the known badge set: this is a public API fed loosely-typed values, and an
-  // arbitrary string must not travel into the embedded snapshot as a "badge".
-  const badges = Object.fromEntries(
-    Object.entries(opts?.routeBadges ?? {}).filter(([, b]) => b === 'measured' || b === 'static')
-  ) as Record<string, RouteBadge>;
+export function buildHtmlDocument(report: JsonReport, meta: { version: string; coreVersion?: string }): string {
   return renderAppShell({
     report,
-    badges,
+    badges: {},
     analyzing: false,
     sequence: 0,
     live: false,

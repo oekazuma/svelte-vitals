@@ -121,7 +121,6 @@ const PLACEHOLDER_RES = [
   /yourcompany/i,
   /your name here/i
 ];
-export const PLACEHOLDERS = PLACEHOLDER_RES.map((r) => r.source);
 export function hasPlaceholder(s: string): boolean {
   return PLACEHOLDER_RES.some((re) => re.test(s));
 }
