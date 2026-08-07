@@ -1,12 +1,12 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { ViteDevServer } from 'vite';
-import { renderAppShell, type Config, type Result } from '@svelte-vitals/core';
+import { CATEGORIES, renderAppShell, type Config, type Result } from '@svelte-vitals/core';
 import type { FindingsStore } from './store.js';
 import { buildSnapshot } from './snapshot.js';
 import { isLoopbackHost, isLoopbackOrigin } from '../loopback.js';
 
 const SEVERITIES = new Set(['critical', 'warning', 'info']);
-const CATEGORIES = new Set(['seo', 'performance', 'correctness', 'security', 'architecture']);
+const CATEGORY_SET = new Set<string>(CATEGORIES);
 
 function isOptionalString(v: unknown): v is string | undefined {
   return v === undefined || typeof v === 'string';
@@ -34,7 +34,7 @@ function isResultLike(x: unknown): x is Result {
     d !== null &&
     typeof d.presence === 'string' &&
     typeof d.value === 'string' &&
-    (r.category === undefined || (typeof r.category === 'string' && CATEGORIES.has(r.category))) &&
+    (r.category === undefined || (typeof r.category === 'string' && CATEGORY_SET.has(r.category))) &&
     isOptionalString(r.location) &&
     isOptionalString(r.recommendation) &&
     isOptionalString(r.docsUrl) &&

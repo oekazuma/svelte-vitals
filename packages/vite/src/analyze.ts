@@ -10,6 +10,7 @@ import {
   formatConsoleReport,
   formatJsonReport,
   defineConfig,
+  type Config,
   type Result,
   type Summary,
   type Severity,
@@ -36,21 +37,17 @@ export interface AnalyzeResult {
 }
 
 /**
- * Collect prerendered heads + project facts + component facts, run the core pipeline, and
- * format reports. Reads `svelte-vitals.config.{mjs,js,ts}` from `cwd`, the same way the CLI's
- * `analyzeProject` does — per-field precedence: an explicit `options` value here wins,
- * otherwise the config file's value, otherwise the built-in default.
+ * Resolve the effective config the same way the CLI's `analyzeProject` does — per-field
+ * precedence: an explicit `options` value wins, otherwise `svelte-vitals.config.*` in
+ * `cwd`, otherwise the built-in default. Shared by build-mode `analyze()` and the dev
+ * dashboard (plugin.ts). `warnings` are the config file's non-fatal issues.
  */
-export async function analyze(
-  prerenderPagesDir: string,
+export async function resolveConfig(
   cwd: string,
-  options: SvelteVitalsOptions,
-  extraProjectFacts?: Partial<Project>
-): Promise<AnalyzeResult> {
+  options: SvelteVitalsOptions
+): Promise<{ config: Config; warnings: string[] }> {
   const loaded = await loadConfigFile(cwd);
   const fileConfig = loaded?.config;
-  const warnings = loaded?.warnings ?? [];
-
   const weights = options.weights ?? fileConfig?.weights;
   const overrides = options.overrides ?? fileConfig?.overrides;
   const config = defineConfig({
@@ -61,6 +58,20 @@ export async function analyze(
     ...(weights !== undefined ? { weights } : {}),
     ...(overrides !== undefined ? { overrides } : {})
   });
+  return { config, warnings: loaded?.warnings ?? [] };
+}
+
+/**
+ * Collect prerendered heads + project facts + component facts, run the core pipeline, and
+ * format reports. Config precedence: see `resolveConfig`.
+ */
+export async function analyze(
+  prerenderPagesDir: string,
+  cwd: string,
+  options: SvelteVitalsOptions,
+  extraProjectFacts?: Partial<Project>
+): Promise<AnalyzeResult> {
+  const { config, warnings } = await resolveConfig(cwd, options);
 
   const { heads, headings, images, htmlLang } = await collectRenderedHeads(prerenderPagesDir);
   const project = {

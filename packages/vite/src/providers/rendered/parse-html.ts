@@ -1,4 +1,4 @@
-import { parse, HTMLElement } from 'node-html-parser';
+import { parse } from 'node-html-parser';
 import type { HeadTag, ImageInfo, Value } from '@svelte-vitals/core';
 
 function attrValue(v: string | undefined): Value {
@@ -112,21 +112,13 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
       ? { presence: 'none' as const, value: 'absent' as const }
       : { presence: 'own' as const, value: attrValue(lang) };
 
-  // Page-body headings (seo/single-h1). Walk the parsed tree in document order so the
-  // levels match the static provider (which collects in AST order) — grouping by
-  // level would diverge for inputs like <h2>…<h1>. Scope to <body> so a stray
-  // heading in <head> is not counted (fallback to root for fragment HTML).
-  const headings: number[] = [];
-  const collectHeadings = (el: HTMLElement): void => {
-    for (const child of el.childNodes) {
-      if (child instanceof HTMLElement) {
-        const m = /^h([1-6])$/i.exec(child.rawTagName ?? '');
-        if (m) headings.push(Number(m[1]));
-        collectHeadings(child);
-      }
-    }
-  };
-  collectHeadings(root.querySelector('body') ?? root);
+  // Page-body headings (seo/single-h1), in document order so the levels match the
+  // static provider (which collects in AST order) — grouping by level would diverge
+  // for inputs like <h2>…<h1>. Scope to <body> so a stray heading in <head> is not
+  // counted (fallback to root for fragment HTML).
+  const headings = (root.querySelector('body') ?? root)
+    .querySelectorAll('h1,h2,h3,h4,h5,h6')
+    .map((el) => Number(el.rawTagName[1]));
 
   // Page <img> elements (performance/image-dimensions, performance/image-loading-hint, performance/lcp-image,
   // performance/responsive-image, seo/image-alt). Scope to <body> (like the

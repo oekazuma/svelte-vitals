@@ -11,10 +11,5 @@ export function isLoopbackOrigin(origin: string): boolean {
 
 /** Same loopback check as `isLoopbackOrigin`, but for a raw `Host` header (may carry a port). */
 export function isLoopbackHost(host: string | undefined): boolean {
-  if (host === undefined) return false;
-  try {
-    return isLoopbackOrigin(`http://${host}`);
-  } catch {
-    return false;
-  }
+  return host !== undefined && isLoopbackOrigin(`http://${host}`);
 }

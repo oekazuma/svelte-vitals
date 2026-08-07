@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { findingSignature } from '../src/hooks/format.js';
+import { findingSignature } from '../src/hooks/handle.js';
 import { defineConfig, type Result } from '@svelte-vitals/core';
 
 const config = defineConfig({});
