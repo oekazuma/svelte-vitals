@@ -12,7 +12,6 @@ import {
   ancestorDirs,
   baseName,
   childFiles,
-  classifyUnusedKeys,
   createKeyCompiler,
   isExcluded,
   keysMatchingAny,
@@ -123,12 +122,6 @@ export const architectureReservedNamePlacement: Rule = {
     }
 
     const usedAlternatives = new Set<string>();
-    const excludedDirs: string[] = [];
-    // Parents a unit-map alternative matched while the parent was not a unit of that map's kind.
-    const nonUnitParents: Record<'capitalisedUnitPlacements' | 'anyCaseUnitPlacements', string[]> = {
-      capitalisedUnitPlacements: [],
-      anyCaseUnitPlacements: []
-    };
 
     const allDirs = [...dirs].sort();
     for (const dir of allDirs) {
@@ -168,10 +161,6 @@ export const architectureReservedNamePlacement: Rule = {
       if (parent === undefined) continue; // a root-level directory has no parent to record
 
       if (isExcluded(dir, ancestorDirs(dir), excluded)) {
-        // Every glob below is matched against the PARENT, never `dir` itself, so the pruned subject
-        // to record is the parent — and only when the parent is itself excluded, or a child excluded
-        // on its own would wrongly blame an exclusion the parent never had.
-        if (isExcluded(parent, ancestorDirs(parent), excluded)) excludedDirs.push(parent);
         continue;
       }
 
@@ -181,10 +170,7 @@ export const architectureReservedNamePlacement: Rule = {
         if (value === undefined) return false;
         const { matched } = matchKeys(parent, compile(globsOf(value), true));
         if (matched.length === 0) return false;
-        if (!qualifies) {
-          if (map !== 'placements') nonUnitParents[map].push(parent);
-          return false;
-        }
+        if (!qualifies) return false;
         for (const glob of matched) usedAlternatives.add(label(map, name, glob));
         return true;
       };
@@ -227,29 +213,40 @@ export const architectureReservedNamePlacement: Rule = {
     const unusedLabels = [...globalAlternatives.keys()].filter((k) => !usedAlternatives.has(k));
     const globOf = (key: string) => globalAlternatives.get(key)?.glob as string;
 
-    // The unit reason is claimed first, so an exclusion is never blamed for an alternative the unit
-    // test disqualified — the ordering `reserved-directory-names` records at length.
-    for (const map of ['capitalisedUnitPlacements', 'anyCaseUnitPlacements'] as const) {
-      const inMap = unusedLabels.filter((k) => globalAlternatives.get(k)?.map === map);
-      const hit = keysMatchingAny(inMap.map(globOf), nonUnitParents[map], compile);
-      for (const k of inMap) {
-        if (hit.has(globOf(k))) notes.set(k, 'matched directories but never a unit');
-      }
-    }
-
     const stillUnused = unusedLabels.filter((k) => !notes.has(k));
-    const globs = [...new Set(stillUnused.map(globOf))];
-    const reasons = classifyUnusedKeys(globs, excludedDirs, compile);
-    // Usage means "permitted a position", which a glob naming real directories the name never appeared
-    // in never does — and a declaration saying where a name MAY sit is not dead for going unused, so
-    // calling it unmatched would be a false claim.
-    const reachable = keysMatchingAny(globs, allDirs, compile);
-    for (const k of stillUnused) {
-      const glob = globOf(k);
-      if (reasons.get(glob) === 'only-excluded') {
-        notes.set(k, 'matched only excluded directories');
-      } else if (!reachable.has(glob)) {
-        notes.set(k, 'matched no directory');
+    // Everything below is deferred behind this guard: a correct configuration leaves `stillUnused`
+    // empty, and then the tree is never walked for exclusions or unit-hood at all. That saving is
+    // why the reasons can afford to be whole-tree reach questions.
+    if (stillUnused.length > 0) {
+      // A declaration is judged by what its glob can reach, not by what it happened to govern — a
+      // declaration saying where a name MAY sit is not dead for going unused. `exclude` is taken from
+      // the global resolution only, matching the rule's decision to diagnose only globally resolved
+      // declarations.
+      const globalExcluded = compile(listOption(globalOptions, 'exclude'));
+      const liveDirs = allDirs.filter((d) => !isExcluded(d, ancestorDirs(d), globalExcluded));
+      // The live directories that are units of each kind — what a unit-map glob must reach to be
+      // doing anything, against the same pruned tree the other two reasons use.
+      const liveUnits: Record<'capitalisedUnitPlacements' | 'anyCaseUnitPlacements', string[]> = {
+        capitalisedUnitPlacements: liveDirs.filter((d) => isUnitDir(d, filesIn)),
+        anyCaseUnitPlacements: liveDirs.filter((d) => isAnyCaseUnitDir(d, filesIn))
+      };
+
+      const globs = [...new Set(stillUnused.map(globOf))];
+      const reachesAny = keysMatchingAny(globs, allDirs, compile);
+      const reachesLive = keysMatchingAny(globs, liveDirs, compile);
+      for (const k of stillUnused) {
+        const glob = globOf(k);
+        if (!reachesAny.has(glob)) notes.set(k, 'matched no directory');
+        else if (!reachesLive.has(glob)) notes.set(k, 'matched only excluded directories');
+      }
+
+      // Ordered after the two above because "the exclusion pruned everything" and "the path does not
+      // exist" are the more specific answers, and both are actionable on their own.
+      for (const map of ['capitalisedUnitPlacements', 'anyCaseUnitPlacements'] as const) {
+        const inMap = stillUnused.filter((k) => !notes.has(k) && globalAlternatives.get(k)?.map === map);
+        const inMapGlobs = [...new Set(inMap.map(globOf))];
+        const reachesUnit = keysMatchingAny(inMapGlobs, liveUnits[map], compile);
+        for (const k of inMap) if (!reachesUnit.has(globOf(k))) notes.set(k, 'reaches no unit');
       }
     }
 

@@ -161,7 +161,13 @@ describe('architecture/reserved-name-placement', () => {
     const tree = ['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.svelte'];
     expect(await run(tree, { capitalisedUnitPlacements: { parts: 'src/lib/**' } })).toEqual([]);
     const bare = await run(tree, { capitalisedUnitPlacements: { parts: 'src/lib' } });
-    expect(bare.map((r) => r.route)).toEqual(['src/lib/Card/parts']);
+    // `src/lib` matches only itself, never a unit, so it also earns the unit note: it cannot reach
+    // `src/lib/Card` any more than it can reach the misplaced `parts/` the violation is about.
+    expect(violations(bare).map((r) => r.route)).toEqual(['src/lib/Card/parts']);
+    const bareNotes = projectScoped(bare);
+    expect(bareNotes).toHaveLength(1);
+    expect(bareNotes[0]?.message).toContain('reaches no unit');
+    expect(bareNotes[0]?.message).not.toContain('matched directories but never a unit');
   });
 
   // Testing item 8 — the silence half.
@@ -240,16 +246,20 @@ describe('architecture/reserved-name-placement', () => {
     expect(notes).toHaveLength(1);
     expect(notes[0]?.message).toContain('src/route/**');
     expect(notes[0]?.message).not.toContain('src/routes/**');
+    // No `exclude` is declared at all, so a glob reaching nothing must say so — not be mislabelled
+    // as excluded, which would be true of nothing in this tree.
+    expect(notes[0]?.message).toContain('matched no directory');
   });
 
   // Testing item 11
-  it('reports a unit-map glob that matched directories but never a unit', async () => {
+  it('reports a unit-map glob whose reach holds no unit at all', async () => {
     const results = await run(['src/lib/features/checkout/parts/a.svelte', 'src/lib/features/checkout/x.ts'], {
       capitalisedUnitPlacements: { parts: 'src/lib/features/*' }
     });
     const notes = projectScoped(results);
     expect(notes).toHaveLength(1);
-    expect(notes[0]?.message).toContain('never a unit');
+    expect(notes[0]?.message).toContain('reaches no unit');
+    expect(notes[0]?.message).not.toContain('matched directories but never a unit');
   });
 
   it('classifies an alternative whose every match was excluded as excluded, not as unmatched', async () => {
@@ -274,8 +284,8 @@ describe('architecture/reserved-name-placement', () => {
     expect(notes[0]?.message).toContain('excluded');
   });
 
-  // The child was excluded on its own; the parent `src/routes` never was. Recording the parent
-  // unconditionally here would falsely blame an exclusion the parent never had.
+  // The child was excluded on its own; `src/routes` — the only directory the glob reaches — stays
+  // live, so neither reason is true of this declaration.
   it('says nothing when only the reserved-name directory itself, not its parent, is excluded', async () => {
     const results = await run(['src/routes/e2e/a.ts'], {
       placements: { e2e: 'src/routes' },
@@ -284,16 +294,17 @@ describe('architecture/reserved-name-placement', () => {
     expect(results).toEqual([]);
   });
 
-  // The unit reason is claimed before the excluded/unmatched split, so an exclusion is never blamed
-  // for an alternative the unit test disqualified. 'src/lib/*' met src/lib/features, which is no unit,
-  // and also the excluded src/lib/parts — the later split would label it excluded and stop there.
-  it('claims the unit reason for a glob that also matched an excluded directory', async () => {
-    const results = await run(['src/lib/features/parts/a.svelte', 'src/lib/parts/b.svelte'], {
-      capitalisedUnitPlacements: { parts: 'src/lib/*' },
-      exclude: ['src/lib/parts/**']
+  // The unit reason is claimed last: "the exclusion pruned everything" is the more specific answer
+  // when a glob reaches nothing live at all, and it must win over the unit note in that case.
+  it('prefers the excluded reason when a glob reaches nothing live', async () => {
+    const results = await run(['src/lib/legacy/parts/a.svelte', 'src/routes/+page.svelte'], {
+      capitalisedUnitPlacements: { parts: 'src/lib/legacy/*' },
+      exclude: ['src/lib/legacy/**']
     });
-    expect(projectScoped(results)).toHaveLength(1);
-    expect(projectScoped(results)[0]?.message).toContain('never a unit');
+    const notes = projectScoped(results);
+    expect(notes).toHaveLength(1);
+    expect(notes[0]?.message).toContain('matched only excluded directories');
+    expect(notes[0]?.message).not.toContain('reaches no unit');
   });
 
   // Every map is consulted at a position, not only up to the first that permits it. Here the two maps
@@ -348,7 +359,7 @@ describe('architecture/reserved-name-placement', () => {
     const notes = projectScoped(results);
     expect(notes).toHaveLength(1);
     expect(notes[0]?.message).toContain("'capitalisedUnitPlacements.parts → src/lib/**'");
-    expect(notes[0]?.message).toContain('matched directories but never a unit');
+    expect(notes[0]?.message).toContain('reaches no unit');
     expect(notes[0]?.message).not.toContain("'placements"); // the placements copy did work
   });
 
@@ -374,5 +385,108 @@ describe('architecture/reserved-name-placement', () => {
       overrides: [{ files: 'src/**/parts', rules: { [ID]: { options: { exclude: ['src/lib/**'] } } } }]
     } as never);
     expect(excluded).toEqual([]);
+  });
+
+  it('does not call a declaration excluded when its glob reaches a live directory', async () => {
+    const results = await run(['src/lib/Panel/Panel.svelte', 'src/lib/legacy/parts/b.svelte', 'src/lib/other/x.ts'], {
+      capitalisedUnitPlacements: { parts: 'src/lib/*' },
+      exclude: ['src/lib/legacy/**']
+    });
+    const notes = projectScoped(results);
+    for (const n of notes) expect(n.message).not.toContain('matched only excluded directories');
+  });
+
+  // The wildcard shape of the excluded reason: this glob finds its match by wildcard and every match
+  // is then pruned, where the fixture above names the excluded directory literally.
+  it('calls a placements declaration excluded when every directory its glob reaches is excluded', async () => {
+    const results = await run(['src/lib/legacy/e2e/a.ts', 'src/routes/+page.svelte'], {
+      placements: { e2e: 'src/lib/legacy/*' },
+      exclude: ['src/lib/legacy/**']
+    });
+    const notes = projectScoped(results);
+    expect(notes).toHaveLength(1);
+    expect(notes[0]?.message).toContain('matched only excluded directories');
+  });
+
+  it('says nothing about a unit-map glob that reaches a live unit the name has not used yet', async () => {
+    const results = await run(['src/lib/Card/Card.svelte', 'src/lib/db/types/t.ts'], {
+      anyCaseUnitPlacements: { types: 'src/**' },
+      placements: { types: 'src/lib/db' }
+    });
+    expect(projectScoped(results)).toEqual([]);
+  });
+
+  it('reports a unit-map glob that reaches no unit of its kind', async () => {
+    const results = await run(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.svelte'], {
+      capitalisedUnitPlacements: { parts: 'src/lib' }
+    });
+    const notes = projectScoped(results);
+    expect(notes).toHaveLength(1);
+    expect(notes[0]?.message).toContain('reaches no unit');
+    expect(notes[0]?.message).not.toContain('matched directories but never a unit');
+  });
+
+  // `parts/` sits under `src/lib/other`, not a unit, so this is a genuine violation and the
+  // alternative is genuinely unused — unlike a fixture where the name already sits under the one
+  // unit the glob reaches, which `record()` marks used before the classification ever runs. The
+  // corrected glob still reaches the live unit `src/lib/Card`, so the classification must stay silent.
+  it('says nothing once that glob is corrected to reach the unit', async () => {
+    const results = await run(['src/lib/Card/Card.svelte', 'src/lib/other/parts/a.svelte', 'src/lib/other/x.ts'], {
+      capitalisedUnitPlacements: { parts: 'src/lib/**' }
+    });
+    expect(violations(results)).toHaveLength(1);
+    expect(projectScoped(results)).toEqual([]);
+  });
+
+  it('does not let one unit map borrow the other kind of unit', async () => {
+    const cap = await run(['src/lib/formatDate/formatDate.ts', 'src/lib/formatDate/parts/a.svelte'], {
+      capitalisedUnitPlacements: { parts: 'src/**' }
+    });
+    const capNotes = projectScoped(cap);
+    expect(capNotes).toHaveLength(1);
+    expect(capNotes[0]?.message).toContain('reaches no unit');
+    expect(capNotes[0]?.message).not.toContain('matched directories but never a unit');
+    // The any-case half needs `parts/` somewhere that is NOT the lowercase unit: under it, `record()`
+    // marks the alternative used and the classification never runs, which pins nothing.
+    const any = await run(['src/lib/formatDate/formatDate.ts', 'src/lib/other/parts/a.svelte', 'src/lib/other/x.ts'], {
+      anyCaseUnitPlacements: { parts: 'src/**' }
+    });
+    expect(projectScoped(any)).toEqual([]);
+  });
+
+  it('honours the bare-prefix guard when looking for a unit', async () => {
+    // `src/lib/Card/**` does not reach `src/lib/Card` itself, which is the only capitalised unit here.
+    const results = await run(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.svelte'], {
+      capitalisedUnitPlacements: { parts: 'src/lib/Card/**' }
+    });
+    const notes = projectScoped(results);
+    expect(notes).toHaveLength(1);
+    expect(notes[0]?.message).toContain('reaches no unit');
+    expect(notes[0]?.message).not.toContain('matched directories but never a unit');
+  });
+
+  it('reports a unit-map glob whose only unit of the kind is excluded', async () => {
+    const results = await run(
+      ['src/lib/legacy/Card/Card.svelte', 'src/lib/utils/parts/a.svelte', 'src/lib/utils/x.ts'],
+      {
+        capitalisedUnitPlacements: { parts: 'src/lib/**' },
+        exclude: ['src/lib/legacy/**']
+      }
+    );
+    const notes = projectScoped(results);
+    expect(notes).toHaveLength(1);
+    expect(notes[0]?.message).toContain('reaches no unit');
+    expect(notes[0]?.message).not.toContain('matched directories but never a unit');
+  });
+
+  // The declared position is elsewhere (`src/other/**`), so this alternative is genuinely unused —
+  // and it reaches the live `src/other/thing`, so neither of the other two reasons claims it either.
+  // It is exactly the shape the unit pass would otherwise reach for, which is why `placements` must
+  // be excluded from that pass rather than merely never triggering it by chance.
+  it('never gives a placements declaration the unit note', async () => {
+    const results = await run(['src/lib/e2e/a.ts', 'src/other/thing/b.ts'], {
+      placements: { e2e: 'src/other/**' }
+    });
+    for (const n of projectScoped(results)) expect(n.message).not.toContain('reaches no unit');
   });
 });
