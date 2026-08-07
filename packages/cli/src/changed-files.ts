@@ -8,8 +8,9 @@ interface ChangedFilesOptions {
   base?: string;
 }
 
+/** `-z` is required: default `core.quotePath` octal-escapes non-ASCII paths, which would never match `Result.location`. */
 function git(args: string[], cwd: string): string[] {
-  return execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).split('\n');
+  return execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).split('\0');
 }
 
 /**
@@ -31,12 +32,15 @@ function git(args: string[], cwd: string): string[] {
 export function getChangedFiles(cwd: string, opts: ChangedFilesOptions): Set<string> | undefined {
   try {
     const files = opts.staged
-      ? git(['diff', '--name-only', '--relative', '--cached', '--diff-filter=d'], cwd)
+      ? git(['diff', '--name-only', '--relative', '--cached', '--diff-filter=d', '-z'], cwd)
       : [
-          ...git(['diff', '--name-only', '--relative', '--diff-filter=d', '--merge-base', opts.base ?? 'HEAD'], cwd),
-          ...git(['ls-files', '--others', '--exclude-standard'], cwd) // untracked / new files
+          ...git(
+            ['diff', '--name-only', '--relative', '--diff-filter=d', '--merge-base', opts.base ?? 'HEAD', '-z'],
+            cwd
+          ),
+          ...git(['ls-files', '--others', '--exclude-standard', '-z'], cwd) // untracked / new files
         ];
-    return new Set(files.map((s) => s.trim()).filter(Boolean));
+    return new Set(files.filter(Boolean));
   } catch {
     return undefined;
   }
