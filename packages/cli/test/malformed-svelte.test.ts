@@ -1,9 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import type { Runtime } from '@svelte-vitals/core';
+import { collectComponentFacts, type Runtime } from '@svelte-vitals/core';
 import { run } from '../src/index.js';
-import { collectComponentFacts } from '../src/providers/source/components.js';
 import { createNodeRuntime } from '../src/runtime/node.js';
 
 const here = dirname(fileURLToPath(import.meta.url));

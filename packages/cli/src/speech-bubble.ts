@@ -1,3 +1,4 @@
+import { setTimeout as sleep } from 'node:timers/promises';
 import { createLogUpdate } from 'log-update';
 import { renderMascotAnticipating, type MascotState } from './mascot.js';
 
@@ -69,10 +70,6 @@ export function pickMessage(pool: readonly string[], random: () => number = Math
 /** Composes a mascot pose with a speech bubble to its right — the shared shape both the startup greeting and the score-reveal reaction use. */
 export function renderMascotWithSpeech(mascotBlock: string, message: string): string {
   return withSpeechBubble(mascotBlock, renderSpeechBubble(message));
-}
-
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 const GREETING_HOLD_MS = 800;

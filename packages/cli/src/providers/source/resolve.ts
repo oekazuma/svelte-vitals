@@ -3,7 +3,7 @@ import type { ParsedFile, ParsedTag } from './parse.js';
 import { findAdapter } from './adapters/index.js';
 import { parseFile } from './parse.js';
 
-export interface ResolveResult {
+interface ResolveResult {
   tags: ParsedTag[];
   broad: boolean;
 }

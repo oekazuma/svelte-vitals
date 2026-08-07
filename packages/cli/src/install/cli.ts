@@ -1,10 +1,9 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { spawnSync } from 'node:child_process';
-import mri from 'mri';
 import * as p from '@clack/prompts';
 import { runInstall, type InstallIO, type InstallPrompts } from './index.js';
-import { resolveInstallArgs } from './args.js';
+import { parseInstallArgs, resolveInstallArgs } from './args.js';
 import { readPackageVersion } from '../version.js';
 import type { SelectableOption, TargetId } from './index.js';
 
@@ -93,6 +92,16 @@ export function realIO(): InstallIO {
   };
 }
 
+/** Single-select app picker via @clack/prompts — shared with bin.ts's monorepo analyzer picker. Returns null when cancelled. */
+export async function selectAppPrompt(apps: string[], message: string): Promise<string | null> {
+  const res = await p.select({
+    message,
+    options: apps.map((a) => ({ value: a, label: a })),
+    initialValue: apps[0]
+  });
+  return p.isCancel(res) ? null : (res as string);
+}
+
 function clackPrompts(): InstallPrompts {
   return {
     selectClients: async (groups: Record<string, SelectableOption[]>, defaults: TargetId[]) => {
@@ -109,14 +118,8 @@ function clackPrompts(): InstallPrompts {
       });
       return p.isCancel(res) ? null : (res as TargetId[]);
     },
-    selectApp: async (apps: string[]) => {
-      const res = await p.select({
-        message: 'Multiple SvelteKit apps found — which one should the Vite/config targets go into?',
-        options: apps.map((a) => ({ value: a, label: a })),
-        initialValue: apps[0]
-      });
-      return p.isCancel(res) ? null : (res as string);
-    },
+    selectApp: (apps: string[]) =>
+      selectAppPrompt(apps, 'Multiple SvelteKit apps found — which one should the Vite/config targets go into?'),
     confirm: async (planText: string) => {
       const res = await p.confirm({ message: `Apply this plan?\n${planText}` });
       return p.isCancel(res) ? false : Boolean(res);
@@ -126,13 +129,7 @@ function clackPrompts(): InstallPrompts {
 
 /** Parse install args, print diagnostics, and run the wizard. Returns the exit code. */
 export async function runInstallCli(args: string[]): Promise<number> {
-  const argv = mri(args, {
-    boolean: ['yes', 'dry-run', 'force', 'refresh', 'help'],
-    // `scope` is still declared although the flag is gone: it keeps `--scope global` from
-    // parsing its value as a positional, so resolveInstallArgs can warn and carry on.
-    string: ['client', 'scope', 'app'],
-    alias: { y: 'yes', h: 'help' }
-  });
+  const argv = parseInstallArgs(args);
   if (argv.help) {
     console.log(INSTALL_HELP);
     return 0;

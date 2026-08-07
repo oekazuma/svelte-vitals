@@ -1,6 +1,5 @@
 import type {
   Config,
-  HeadProvider,
   HeadTag,
   HeadingInfo,
   ImageInfo,
@@ -206,14 +205,3 @@ export async function collectRoutes(
     headings: facts.map((f) => f.headings)
   };
 }
-
-/**
- * SourceHeadProvider — static mode. Reads route files through the Runtime only
- * and builds the mode-independent ResolvedHead[] boundary (design §8).
- */
-export const sourceHeadProvider: HeadProvider = {
-  mode: 'static',
-  async collect(rt, cwd, config = defaultConfig) {
-    return (await collectRoutes(rt, cwd, config)).heads;
-  }
-};

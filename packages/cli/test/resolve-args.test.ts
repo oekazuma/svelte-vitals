@@ -1,27 +1,9 @@
 import { describe, it, expect } from 'vitest';
-import mri from 'mri';
-import { resolveArgs } from '../src/resolve-args.js';
+import { parseRunArgs, resolveArgs } from '../src/resolve-args.js';
 
 /** Parse CLI args the same way `main` does, then normalize them. */
 function resolve(...args: string[]) {
-  const argv = mri(args, {
-    alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'staged', 'score', 'verbose', 'update-suppressions'],
-    string: [
-      'meta-components',
-      'treat-dynamic-as',
-      'route',
-      'fail-on',
-      'reporter',
-      'rules',
-      'ignore',
-      'diff',
-      'baseline',
-      'weights',
-      'category'
-    ]
-  });
-  return resolveArgs(argv);
+  return resolveArgs(parseRunArgs(args));
 }
 
 describe('resolveArgs', () => {
@@ -90,6 +72,19 @@ describe('resolveArgs', () => {
     const { options, errors } = resolve('--baseline');
     expect(options).toBeNull();
     expect(errors.some((e) => e.includes('--baseline requires a git ref'))).toBe(true);
+  });
+
+  it('reports --baseline followed by a flag as a fatal error instead of consuming the flag as the ref', () => {
+    for (const args of [['--baseline', '--force'], ['--baseline', '--staged'], ['--baseline=--force']]) {
+      const { options, errors } = resolve(...args);
+      expect(options).toBeNull();
+      expect(errors.some((e) => e.includes('--baseline requires a git ref'))).toBe(true);
+    }
+  });
+
+  it('treats --staged=false as off, not on', () => {
+    expect(resolve('--staged=false').options?.staged).toBeUndefined();
+    expect(resolve('--staged=true').options?.staged).toBe(true);
   });
 
   it('maps --update-suppressions to options.updateSuppressions', () => {
@@ -251,9 +246,6 @@ describe('resolveArgs', () => {
   });
 
   it('threads --no-color into options.noColor', () => {
-    // Regression test: mri auto-negates `--no-color` into `{color: false}`, never a
-    // `'no-color'` key — a naive `argv['no-color']` read is always undefined, silently
-    // ignoring the flag no matter how it's passed.
     const { options } = resolve('--no-color');
     expect(options?.noColor).toBe(true);
   });

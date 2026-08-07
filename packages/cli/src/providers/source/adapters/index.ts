@@ -7,7 +7,7 @@ import { svelteSeoAdapter } from './svelte-seo.js';
 export type { Adapter, AdapterResult } from './types.js';
 
 /** Built-in known-package adapters (design §11 layer 2). */
-export const builtinAdapters: Adapter[] = [svelteMetaTagsAdapter, svelteMetaTagsJsonLdAdapter, svelteSeoAdapter];
+const builtinAdapters: Adapter[] = [svelteMetaTagsAdapter, svelteMetaTagsJsonLdAdapter, svelteSeoAdapter];
 
 export function findAdapter(info: ImportInfo): Adapter | undefined {
   return builtinAdapters.find((adapter) => adapter.match(info));

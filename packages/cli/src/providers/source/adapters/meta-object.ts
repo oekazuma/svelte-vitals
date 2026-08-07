@@ -16,7 +16,7 @@ export function exprValue(node: Expression | Pattern | null | undefined): Value 
   return 'dynamic';
 }
 
-export interface MetaObjectResult {
+interface MetaObjectResult {
   /** Tags derived from the inline object literal's keys. */
   tags: ParsedTag[];
   /**

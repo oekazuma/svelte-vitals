@@ -1,6 +1,7 @@
 import { join } from 'node:path';
+import { hasDep, readPkg } from '../pkg-json.js';
 
-export type PackageManager = 'pnpm' | 'yarn' | 'bun' | 'npm';
+type PackageManager = 'pnpm' | 'yarn' | 'bun' | 'npm';
 
 interface ReadCwd {
   cwd: string;
@@ -37,14 +38,10 @@ export function detectPackageManager(io: ReadCwd): PackageManager {
 
 /** Whether @svelte-vitals/vite is already a (dev)dependency in package.json. */
 export function hasVitePackage(io: ReadCwd): boolean {
-  const raw = io.readFile(join(io.cwd, 'package.json'));
-  if (raw === undefined) return false;
-  try {
-    const pkg = JSON.parse(raw) as { dependencies?: Record<string, string>; devDependencies?: Record<string, string> };
-    return Boolean(pkg.dependencies?.['@svelte-vitals/vite'] || pkg.devDependencies?.['@svelte-vitals/vite']);
-  } catch {
-    return false;
-  }
+  return hasDep(
+    readPkg((p) => io.readFile(p), io.cwd),
+    '@svelte-vitals/vite'
+  );
 }
 
 /** Build the install-as-devDependency command for a package manager. npm uses `install`, not `add`. */

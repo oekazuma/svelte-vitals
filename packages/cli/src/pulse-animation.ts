@@ -1,3 +1,4 @@
+import { setTimeout as sleep } from 'node:timers/promises';
 import { scoreColor, type Palette } from '@svelte-vitals/core';
 import { createLogUpdate } from 'log-update';
 import { colorEnabled } from './color.js';
@@ -33,15 +34,11 @@ const WAVE_FRAMES = [
 const WAVE_ORANGE_DIM = '\x1b[38;2;153;37;0m'; // ~60% of Svelte's brand orange (#ff3e00) — while the score is still counting up
 const WAVE_RESET = '\x1b[0m';
 
-function sleep(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 const REACTION_HOLD_MS = 500;
 const CONFETTI_FRAME_COUNT = 4;
 const CONFETTI_FRAME_DELAY_MS = 220;
 
-export interface ScoreAnimationOptions {
+interface ScoreAnimationOptions {
   score: number;
   palette: Palette;
   stream: NodeJS.WriteStream;

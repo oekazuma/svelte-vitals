@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import type { Config, Result } from '@svelte-vitals/core';
 import { isPenalized } from '@svelte-vitals/core';
 import { findingKey } from './baseline.js';
+import { isPlainObject } from './config-file.js';
 
 /**
  * Persistent adoption ramp (design doc 2026-07-13-suppressions-file-design.md):
@@ -16,11 +17,6 @@ export interface SuppressionEntry {
   id: string;
   route?: string;
   location?: string;
-}
-
-/** Whether `value` is a plain object (not null, not an array) — usable with property access. */
-function isPlainObject(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 /**

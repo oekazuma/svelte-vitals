@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import mri from 'mri';
 
 // Mock the git layer so the --diff scope below is testable without a real repo (mirrors
 // run-diff.test.ts). Only the test in the "examined counts" describe block below touches this.
@@ -13,7 +12,7 @@ vi.mock('../src/changed-files.js', async (orig) => {
 import { analyzeProject, applyScope } from '../src/index.js';
 import { getChangedFiles } from '../src/changed-files.js';
 import { ProjectError } from '../src/providers/source/project.js';
-import { resolveArgs } from '../src/resolve-args.js';
+import { parseRunArgs, resolveArgs } from '../src/resolve-args.js';
 
 const mockGetChangedFiles = vi.mocked(getChangedFiles);
 
@@ -192,8 +191,7 @@ describe('analyzeProject config-file precedence (design doc 2026-07-05-config-fi
 describe("--rules/--ignore compose with a config file's per-rule options (design: rules-flag-clobbers-config-options)", () => {
   /** Parse argv the same way bin.ts does, resolve it, and assert no fatal errors along the way. */
   function optionsFor(...args: string[]) {
-    const argv = mri(args, { string: ['rules', 'ignore'] });
-    const { options, errors } = resolveArgs(argv);
+    const { options, errors } = resolveArgs(parseRunArgs(args));
     expect(errors).toEqual([]);
     return options!;
   }

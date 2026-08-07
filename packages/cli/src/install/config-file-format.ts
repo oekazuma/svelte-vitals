@@ -1,5 +1,6 @@
 import { join } from 'node:path';
 import { CONFIG_FILENAMES } from '../config-file.js';
+import { hasDep, readPkg } from '../pkg-json.js';
 
 /**
  * Node versions from which native TypeScript type-stripping is unflagged — the same
@@ -31,14 +32,7 @@ export function findExistingConfigFile(
  * it would break every subsequent run with ERR_MODULE_NOT_FOUND.
  */
 export function hasSvelteVitalsDependency(readFile: (path: string) => string | undefined, cwd: string): boolean {
-  const raw = readFile(join(cwd, 'package.json'));
-  if (raw === undefined) return false;
-  try {
-    const pkg = JSON.parse(raw) as { dependencies?: Record<string, string>; devDependencies?: Record<string, string> };
-    return Boolean(pkg.dependencies?.['svelte-vitals'] ?? pkg.devDependencies?.['svelte-vitals']);
-  } catch {
-    return false;
-  }
+  return hasDep(readPkg(readFile, cwd), 'svelte-vitals');
 }
 
 /**
@@ -47,13 +41,7 @@ export function hasSvelteVitalsDependency(readFile: (path: string) => string | u
  * `loadConfigFile`'s import() parses a `.js` file per the package type.
  */
 export function isEsmProject(readFile: (path: string) => string | undefined, cwd: string): boolean {
-  const raw = readFile(join(cwd, 'package.json'));
-  if (raw === undefined) return false;
-  try {
-    return (JSON.parse(raw) as { type?: string }).type === 'module';
-  } catch {
-    return false;
-  }
+  return readPkg(readFile, cwd)?.type === 'module';
 }
 
 /**

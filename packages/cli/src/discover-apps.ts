@@ -2,6 +2,7 @@ import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { glob } from 'tinyglobby';
+import { hasDep, parsePkg } from './pkg-json.js';
 
 const GLOB_OPTS = {
   dot: false,
@@ -9,17 +10,10 @@ const GLOB_OPTS = {
   ignore: ['**/node_modules/**', '**/.svelte-kit/**', '**/build/**', '**/dist/**', '**/.git/**']
 };
 
-/** True if `pkgJsonPath` declares `@sveltejs/kit` as a dependency. */
+/** True if `pkgJsonPath` declares `@sveltejs/kit` as a dependency. Missing or malformed package.json — not a candidate. */
 async function hasKitDependency(pkgJsonPath: string): Promise<boolean> {
-  try {
-    const pkg = JSON.parse(await readFile(pkgJsonPath, 'utf8')) as {
-      dependencies?: Record<string, string>;
-      devDependencies?: Record<string, string>;
-    };
-    return Boolean(pkg.dependencies?.['@sveltejs/kit'] ?? pkg.devDependencies?.['@sveltejs/kit']);
-  } catch {
-    return false; // missing or malformed package.json — not a candidate.
-  }
+  const raw = await readFile(pkgJsonPath, 'utf8').catch(() => undefined);
+  return hasDep(parsePkg(raw), '@sveltejs/kit');
 }
 
 /**
