@@ -1,9 +1,6 @@
 import { buildJsonReport, safeHref, type AppSnapshot, type Config, type JsonReport } from '@svelte-vitals/core';
 import type { FindingsStore } from './store.js';
 
-/** The dashboard's payload — core's shared app-shell snapshot, always `live` here. */
-export type DashboardSnapshot = AppSnapshot;
-
 type Issue = JsonReport['routes'][number]['issues'][number];
 
 /**
@@ -31,7 +28,7 @@ export function buildSnapshot(
   store: FindingsStore,
   config: Config,
   meta: { version: string; coreVersion?: string }
-): DashboardSnapshot {
+): AppSnapshot {
   return {
     // No rule-id list threaded through: `report.rules` is seeded from `store.snapshot()`
     // alone here, so presence means "produced a result", not "was selected" — unlike the

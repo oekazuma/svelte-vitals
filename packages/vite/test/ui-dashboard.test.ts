@@ -1,8 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { renderAppShell as renderDashboardShell } from '@svelte-vitals/core';
-import type { DashboardSnapshot } from '../src/ui/snapshot.js';
+import { renderAppShell as renderDashboardShell, type AppSnapshot } from '@svelte-vitals/core';
 
-const baseSnapshot: DashboardSnapshot = {
+const baseSnapshot: AppSnapshot = {
   report: {
     version: '1',
     score: 80,
@@ -59,7 +58,7 @@ describe('renderDashboardShell', () => {
   });
 
   it('escapes </script> inside embedded finding data so it cannot break out of the tag', () => {
-    const snapshot: DashboardSnapshot = {
+    const snapshot: AppSnapshot = {
       ...baseSnapshot,
       report: {
         ...baseSnapshot.report,
@@ -106,7 +105,7 @@ describe('renderDashboardShell', () => {
     // unescaped backtick or quote inside a comment/string anywhere in it (e.g. in the
     // AI-prompt builder) silently breaks the whole script for the browser without
     // failing the TypeScript build, since the string's *contents* aren't type-checked.
-    const snapshot: DashboardSnapshot = {
+    const snapshot: AppSnapshot = {
       ...baseSnapshot,
       report: {
         ...baseSnapshot.report,

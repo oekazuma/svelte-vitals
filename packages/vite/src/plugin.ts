@@ -6,13 +6,12 @@ import type { Category, RuleOptions, RuleOverride, RuleSetting, Severity, TreatD
 import {
   CATEGORIES,
   defaultConfig,
-  defineConfig,
   resolveRuleOptions,
   shouldSkipRangeCheck,
   validateRuleSetting
 } from '@svelte-vitals/core';
-import { findUnknownRuleIds, knownRuleIds, loadConfigFile, ruleOptionsSpec } from 'svelte-vitals';
-import { analyze } from './analyze.js';
+import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from 'svelte-vitals';
+import { analyze, resolveConfig } from './analyze.js';
 import { resolveMinifyDisabled } from './minify-flag.js';
 import { installUiMiddleware } from './ui/middleware.js';
 import { createStore } from './ui/store.js';
@@ -239,23 +238,12 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       process.env.SVELTE_VITALS_UI = '1';
       const uiRoot = options.cwd ?? server.config.root;
 
-      // Same precedence as the CLI's analyzeProject / build-mode analyze(): an explicit
-      // plugin option wins, otherwise svelte-vitals.config.* in uiRoot, otherwise the
-      // built-in default. This `config` drives the dashboard's rendering/scoring
-      // (installUiMiddleware → buildSnapshot → buildJsonReport) — the whole-project
-      // `runner` below gets its config-file values independently, since it calls
-      // analyzeProject (which loads the config file itself).
-      const loaded = await loadConfigFile(uiRoot);
-      const fileConfig = loaded?.config;
-      for (const w of loaded?.warnings ?? []) console.warn(`svelte-vitals: ${w}`);
-      const weights = options.weights ?? fileConfig?.weights;
-      const config = defineConfig({
-        treatDynamicAs: options.treatDynamicAs ?? fileConfig?.treatDynamicAs ?? 'pass',
-        metaComponents: options.metaComponents ?? fileConfig?.metaComponents ?? [],
-        rules: options.rules ?? fileConfig?.rules ?? {},
-        failOn: options.failOn ?? fileConfig?.failOn ?? 'critical',
-        ...(weights !== undefined ? { weights } : {})
-      });
+      // This `config` drives the dashboard's rendering/scoring (installUiMiddleware →
+      // buildSnapshot → buildJsonReport) — the whole-project `runner` below gets its
+      // config-file values independently, since it calls analyzeProject (which loads
+      // the config file itself).
+      const { config, warnings } = await resolveConfig(uiRoot, options);
+      for (const w of warnings) console.warn(`svelte-vitals: ${w}`);
       const store = createStore();
 
       // Whole-project static analysis: one run at startup (never blocking dev-server

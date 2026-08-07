@@ -4,6 +4,8 @@ import {
   allRules,
   applyRuleSeverities,
   defineConfig,
+  effectiveSeverity,
+  isPenalized,
   runRules,
   selectRules,
   type Config,
@@ -12,12 +14,28 @@ import {
   type ResolvedHeadings,
   type ResolvedImages,
   type Result,
-  type Rule
+  type Rule,
+  type RuleSetting
 } from '@svelte-vitals/core';
 import { parseHtmlHead } from '../providers/rendered/parse-html.js';
 import { isLoopbackOrigin } from '../loopback.js';
-import { findingSignature } from './format.js';
-import type { SvelteVitalsHookOptions } from './options.js';
+
+/** Options for the dev-time SvelteKit handle. A focused subset of the plugin options. */
+export interface SvelteVitalsHookOptions {
+  /** Component names treated as meta sources (design §11 layer 4). Mirrors the plugin option. */
+  metaComponents?: string[];
+  /** Per-rule overrides keyed by rule id, e.g. `{ 'seo/json-ld': 'off' }`. Mirrors the plugin option. */
+  rules?: Record<string, RuleSetting>;
+}
+
+/** Stable signature of a route's penalized findings, so ingest is skipped when a repeat visit finds nothing new. */
+export function findingSignature(results: Result[], config: Config): string {
+  return results
+    .filter((r) => isPenalized(r.detection, config.treatDynamicAs))
+    .map((r) => `${r.id}:${effectiveSeverity(r, config)}:${r.detection.presence}:${r.detection.value}`)
+    .sort()
+    .join('|');
+}
 
 async function postIngest(origin: string, route: string, results: Result[]): Promise<void> {
   // `origin` comes from the request (Host header), so a spoofed Host must not
