@@ -139,8 +139,11 @@ top-level `rules`; it does not prove `overrides` left anything for it to find.
 `examined` is a separate top-level map — rule id, then declaration label, then a count of how many places
 that declaration judged, whether it permitted them or rejected them. It is not narrowed by `--diff`,
 `--baseline` or suppressions: those apply to `rules`, and `examined` describes the analysis rather than the
-report, which is why it sits beside `rules` instead of inside it. A rule that counts nothing has no entry,
-and the entries that do appear use the exact declaration label the rule's own diagnostic names —
+report, which is why it sits beside `rules` instead of inside it. There are three states: a rule that reports
+no counts has no entry; a rule that counts but whose configuration declares nothing has an empty entry —
+enabling `architecture/reserved-name-placement` in top-level `rules` without declaring a placement reaches
+exactly that; and a declaration that judged nothing is present with `0`. The entries that do appear use the
+exact declaration label the rule's own diagnostic names —
 `architecture/reserved-name-placement`'s aggregated finding and its `examined` entry share the string
 `capitalisedUnitPlacements.parts → src/**`, so the two can be read together. A non-zero count is what tells
 you the declaration was checked at all — the question a rule with no findings otherwise leaves open.

@@ -84,8 +84,11 @@ scopes behind sibling keys with nothing marking the difference — one field car
 shape that produced the two defects this session already fixed in `AnalyzeOptions.rules`. A top-level map makes
 the difference structural. `inventories` is already exactly this shape and lives there for the same reason.
 
-The key is the rule id, then the rule's own label. Absent for rules that count nothing, so no existing consumer
-breaks.
+The key is the rule id, then the rule's own label. There are three states, not two: a rule that reports no
+counts has no entry; a rule that counts but whose configuration declares nothing has an **empty** entry; a
+declaration that judged nothing has `0`. The middle state is reachable from configuration alone — a top-level
+`rules` entry setting this rule to `warn` mentions it without declaring a placement, so it runs and reports,
+with nothing to report about. The first state is why no existing consumer breaks.
 
 **The labels are the ones the diagnostic already uses.** `reserved-name-placement`'s aggregated finding names a
 bad declaration as `capitalisedUnitPlacements.parts → src/lib`; the count uses the identical string, verified
@@ -102,17 +105,25 @@ rejected.
 **Zero means the declaration judged nothing. It means nothing more than that**, and an earlier draft of this
 design claimed otherwise — that zero meant "live, reachable and currently unoccupied". Review falsified that by
 execution with two supported configurations in which zero appears while occupying directories exist. `check()`
-reaches its judging phase only past five early exits, and each is a separate reason a count can be zero:
+reaches its judging phase only past five early exits. **Four of them are separate reasons a count can be zero;
+the first cannot produce one at all**, and is listed anyway so a reader enumerating the exits still finds it:
 
 | the directory is skipped because                                                         | the count for the declaration |
 | ---------------------------------------------------------------------------------------- | ----------------------------- |
-| no map is declared at this directory (the rule is inert here)                            | not incremented               |
+| no map is declared at this directory (the rule is inert here)                            | no declaration exists to zero |
 | the directory's name is in no map                                                        | not incremented               |
 | **any** map's value for that name splits to nothing, which ungoverns the name everywhere | not incremented               |
 | the directory is at the root and has no parent                                           | not incremented               |
 | the directory is excluded                                                                | not incremented               |
 
-Two of those bite in practice, both produced by execution:
+**Why the first exit cannot produce a zero.** `string-map` options **accumulate** across `overrides` rather
+than replace, so once any global map entry exists the resolved maps are non-empty everywhere and the inert exit
+never fires — verified by execution: a global map plus an override supplying an empty
+`capitalisedUnitPlacements` still counts `1`. And with no global map entry there are no globally resolved
+declarations, so there are no keys for a zero to appear under. The exit is real and reachable; what it cannot
+do is leave a declaration sitting at zero.
+
+Two of the remaining four bite in practice, both produced by execution:
 
 - A global `placements: { parts: '|' }` ungoverns `parts` in **every** map, so a correct
   `capitalisedUnitPlacements.parts` reports `0` beside three real `parts/` directories. The aggregated
@@ -136,6 +147,15 @@ rule already decided that only globally resolved declarations are diagnosed; the
 exactly rather than inventing a second one.
 
 The consequence, recorded: judgments made under an override-only declaration are not counted anywhere.
+
+**Counted against the values resolved at each directory, not the global ones.** `string-map` options merge
+per key, so an `overrides` layer can _replace_ a global declaration's value for one subtree — a different case
+from minting a new declaration, and one an earlier implementation got wrong by keying the increment on the
+global values. It produced a report saying both that `capitalisedUnitPlacements.parts → src/nowhere/**` judged
+a directory and that it matched no directory, because the override's value did the judging while the
+diagnostic went on classifying the global declaration against the whole tree. A directory increments a label
+only when that label's glob is in the value resolved there **and** the label is globally resolved — the second
+condition is what keeps the scope above intact.
 
 **Empty-value declarations have no key.** Their diagnostic label is `map.name` with no `→ glob`, because there
 is no glob to name. They are named by the diagnostic and absent from `examined`, and both claims above — the
@@ -181,24 +201,34 @@ them need answering to close the gap that was measured. Recorded as deferred, no
    verbatim as a key in `examined`. The fixture must not use an empty value for the bad declaration — those
    carry no glob and therefore no key, so the test would be unimplementable as worded.
 5. **A rule that counts nothing has no entry**, and the report parses for a consumer that does not know the
-   field.
+   field. At the **report** boundary, not only the engine's: a report built with no counts must serialise to
+   exactly the keys it had before this field existed. The three states — no entry, an empty entry, an entry
+   holding `0` — must each be asserted on a built report, since the middle one is reachable from configuration
+   alone and an implementation dropping empty inner maps would fold it back into the first.
 6. **A run with no file inventory reports no counts at all** — not a map of zeros. `--route` runs pass
    `sourceFiles: undefined` and the dev-server hooks pass none, and the rule returns before its config guard in
    that case. An implementation that seeds the sink at the top of `check()` emits `0` for every declaration on a
    run that examined nothing, which is precisely the lie this feature exists to remove — **and every other test
    here passes on that implementation**, because none of them runs the rule without an inventory.
 7. **The two report-producing callers carry the counts**, asserted by enumerating the call sites rather than
-   sampling one. The dev-server hooks build no JSON report — they POST results to the overlay ingest — so
-   nothing to assert there; that caller is named in the spec as deliberately dropping the counts, not as
-   covered.
+   sampling one, and end to end: a run whose rule counted something must yield a report holding that count, so
+   that dropping the argument at either caller fails a test. The dev-server hooks build no JSON report — they
+   POST results to the overlay ingest — so nothing to assert there; that caller is named in the spec as
+   deliberately dropping the counts, not as covered.
 8. **An override-only declaration is not counted**, and a directory judged under one does not inflate a global
-   declaration's number. This is the scope decision above, and no other test touches `overrides`.
+   declaration's number. This is the scope decision above. Its neighbour needs its own test: an override that
+   **replaces** a global declaration's value must leave that global label at `0`, carrying its `matched no
+directory` diagnostic, so the count and the diagnostic never contradict each other about one label.
 9. **`--diff` does not narrow the count.** A run whose results are filtered to one finding still reports the
    full count. This is the decision most likely to be "simplified" later by someone who assumes the count should
    track the output.
 10. **An empty value zeroes the name's other declarations**, matching the enumerated exit above. This is one of
     the two zero-causes review produced by execution, and pinning it stops a later reader from "fixing" the
     count to ignore sibling maps.
+11. **A value that repeats a glob counts each directory once.** A label is a declaration; the value it was
+    parsed from is not deduped, so a count derived from the globs rather than the labels multiplies by however
+    many times the author wrote the same glob — silently, since the duplicate collapses into the declaration
+    set and reads as used.
 
 ## Release
 

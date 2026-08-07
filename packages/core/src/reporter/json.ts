@@ -49,8 +49,9 @@ export interface JsonReport {
   inventories: Record<string, number>;
   /**
    * Per-rule, per-declaration counts of places examined. Unlike `rules`, this describes the analysis
-   * rather than the report: `--diff`, `--baseline` and suppressions do not narrow it. A rule that
-   * counts nothing has no entry; a declaration that judged nothing has an entry of `0`.
+   * rather than the report: `--diff`, `--baseline` and suppressions do not narrow it. Three states: a
+   * rule that reports no counts has no entry; a rule that counts but whose configuration declares
+   * nothing has an empty entry; a declaration that judged nothing has an entry of `0`.
    */
   examined?: Record<string, Record<string, number>>;
 }

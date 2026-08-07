@@ -295,8 +295,8 @@ it('counts every directory a declaration judged, permitted or not', async () => 
 });
 
 it('reports zero for a live declaration nothing occupies, with no finding and no diagnostic', async () => {
-  const files = ['src/lib/Card/Card.svelte', 'src/lib/db/types/t.ts'];
-  const options = { anyCaseUnitPlacements: { types: 'src/**' }, placements: { types: 'src/lib/db' } };
+  const files = ['src/lib/Card/Card.svelte'];
+  const options = { anyCaseUnitPlacements: { types: 'src/**' } };
   const { examined, results } = await runWithCounts(files, options);
   expect(examined['anyCaseUnitPlacements.types → src/**']).toBe(0);
   expect(results).toEqual([]);
@@ -351,6 +351,13 @@ it('reports no counts at all on a run with no file inventory', async () => {
 
 Add a `runWithCounts(files, options, extra?)` helper beside the existing `run`, returning
 `{ results, examined }` where `examined` is `(await runRules([rule], ctx)).examined[ID] ?? {}`.
+
+**Corrected after execution: the second test's fixture asserted a number it could not produce.** As first
+written it also listed `src/lib/db/types/t.ts` with a `placements: { types: 'src/lib/db' }` entry, which puts a
+`types/` directory in the tree — that directory clears all five early exits, so the count is `1`, not `0`. A
+declaration that is judged and merely doesn't qualify is not the declaration nothing occupies. The fixture
+above is the corrected one: no directory named `types` exists, so the name never clears the name-in-no-map
+exit anywhere, and the glob still reaches a live unit so no diagnostic fires either.
 
 - [ ] **Step 2: Run them to verify they fail**
 
@@ -409,18 +416,31 @@ Expected: PASS, every test including the pre-existing ones.
 
 - [ ] **Step 6: Verify each guard is load-bearing**
 
-| Break                                                                                | Test that must fail                                                   |
-| ------------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
-| seed loop removed, so a judged-nothing declaration vanishes                          | "reports zero for a live declaration nothing occupies…"               |
-| the increment moved inside `record()`'s `qualifies` branch                           | "counts every directory a declaration judged, permitted or not"       |
-| `labelsByName` built from the per-directory resolved maps instead of the global ones | "does not count a declaration that exists only in an overrides layer" |
-| `recordExamined` called before the `sourceFiles === undefined` guard                 | "reports no counts at all on a run with no file inventory"            |
-| empty-value names added to `labelsByName`                                            | "gives an empty-value declaration no key"                             |
-| the increment moved above the empty-value early exit                                 | "zeroes a name whose sibling map carries an empty value"              |
+| Break                                                                                | Test that must fail                                                                    |
+| ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------- |
+| seed loop removed, so a judged-nothing declaration vanishes                          | "reports zero for a live declaration nothing occupies…"                                |
+| the increment moved inside `record()`'s `qualifies` branch                           | "counts every directory a declaration judged, permitted or not"                        |
+| `labelsByName` built from the per-directory resolved maps instead of the global ones | "does not count a declaration that exists only in an overrides layer"                  |
+| `recordExamined` called before the `sourceFiles === undefined` guard                 | "reports no counts at all on a run with no file inventory"                             |
+| empty-value names added to `labelsByName`                                            | "gives an empty global value no key even at a directory an overrides layer un-empties" |
+| the increment moved above the empty-value early exit                                 | "zeroes a name whose sibling map carries an empty value"                               |
 
 Every row must fail exactly the named test. **This rule has already shipped five tests that pinned nothing**,
 three of them because a fixture never reached the code under test — so if a break causes no failure, say which
 row and either strengthen the test or explain why no behavioural test can pin that guard.
+
+**Corrected after execution: row 5 named a test that survives the break.** "gives an empty-value declaration no
+key" passes with empty-value names planted in the index, because its fixture has no `e2e` directory at all —
+the bad entry is added and then never read, which is indistinguishable from never being added. The row now
+names the test written to close exactly that gap: an overrides layer gives one `e2e` directory a non-empty
+per-directory value, clearing the empty-value early exit while the global value stays empty, so the increment
+loop runs for that name and would read a planted entry if one existed.
+
+**Rows 3 and 5 name `labelsByName`, which the follow-up fix wave deleted.** The increment is now keyed on the
+values resolved at each directory and filtered through `globalAlternatives`, because keying it on the global
+values let an `overrides` layer that _replaces_ a value inflate the global declaration's count while the
+diagnostic still called that declaration dead. Read both rows as breaks against whatever index the increment
+reads.
 
 - [ ] **Step 7: Confirm `--diff` does not narrow the count**
 
