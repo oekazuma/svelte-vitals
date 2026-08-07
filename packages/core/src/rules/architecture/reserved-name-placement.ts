@@ -111,7 +111,9 @@ export const architectureReservedNamePlacement: Rule = {
     const globalAlternatives = new Map<string, { map: MapName; glob: string }>();
     const emptyNames = new Map<string, string>();
     // Keyed by name (not map): a directory judged against `parts` increments every glob-bearing
-    // alternative of that name in every map, since a shared name is what the five early exits key on.
+    // alternative of that name in every map. Only two of the five early exits — name-in-no-map and
+    // empty-value — key on the name itself; the other three (inert, root-level, excluded) key on the
+    // directory and gate every name equally, so keying this index by name is still exactly right.
     const labelsByName = new Map<string, string[]>();
     for (const map of Object.keys(globalMaps) as MapName[]) {
       for (const [name, value] of Object.entries(globalMaps[map])) {
