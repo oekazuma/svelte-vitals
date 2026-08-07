@@ -20,5 +20,4 @@ Show
 
 Type "npx svelte-vitals@latest"
 Enter
-Sleep 2s
-Sleep 2s
+Sleep 4s

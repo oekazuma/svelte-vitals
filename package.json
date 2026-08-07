@@ -11,9 +11,7 @@
     "bench": "pnpm --filter svelte-vitals... build && pnpm --filter @svelte-vitals/vite run bench",
     "lint": "oxlint . && oxfmt --check .",
     "format": "oxfmt --write .",
-    "check:publish": "pnpm run check:publint && pnpm run check:types",
-    "check:publint": "pnpm --filter @svelte-vitals/core --filter @svelte-vitals/vite --filter svelte-vitals exec publint",
-    "check:types": "pnpm --workspace-concurrency=1 --filter @svelte-vitals/core --filter @svelte-vitals/vite --filter svelte-vitals exec attw --pack . --profile esm-only",
+    "check:publish": "pnpm --filter @svelte-vitals/core --filter @svelte-vitals/vite --filter svelte-vitals exec publint && pnpm --workspace-concurrency=1 --filter @svelte-vitals/core --filter @svelte-vitals/vite --filter svelte-vitals exec attw --pack . --profile esm-only",
     "release": "changeset publish",
     "changeset": "changeset"
   },
@@ -23,7 +21,6 @@
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "publint": "catalog:",
-    "svelte": "catalog:",
     "tsup": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
