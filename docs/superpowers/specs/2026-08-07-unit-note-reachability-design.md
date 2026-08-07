@@ -1,7 +1,7 @@
 # The unit note asks about usage where it should ask about reach — design
 
 **Date:** 2026-08-07
-**Status:** proposed
+**Status:** approved; reviewed 2026-08-07
 **Origin:** a field measurement of `architecture/reserved-name-placement` on a real project, 2026-08-06. The
 rule reported a declaration as checking nothing when the project's convention document permits that position and
 it is simply not used yet.
@@ -52,7 +52,9 @@ for each unused alternative from a unit map:
   otherwise                                                                  → note
 ```
 
-Nothing else about the rule changes. `placements` has no unit requirement and is untouched.
+`placements` has no unit requirement and is untouched. Two things do go with the change: `nonUnitParents` and
+the push that fills it inside `record()` become dead and are deleted, and `classifyUnusedKeys` stops being this
+rule's classifier — see below.
 
 Verified against the real `isUnitDir`, `isAnyCaseUnitDir`, `childFiles`, `createKeyCompiler` and
 `keysMatchingAny`, on the two measured trees plus a control:
@@ -71,33 +73,66 @@ Both measured cases invert, and the control — the corrected glob a reader shou
 can reach: it names no unit of the kind the map requires. The exact wording is an implementation choice, but it
 must not say "matched" — that word is what makes the current message a usage claim.
 
-### Ordering against the excluded reason
+### The excluded reason has the same defect, inherited the same way
 
-The classification is a hierarchy, most specific first. The shipped order runs the unit reason **before** the
-excluded/unmatched split, and a test pins that. Under the new predicate the order must reverse:
+A first draft of this design proposed only reordering the two passes. Review found that the excluded reason is
+**also** usage-derived, and for the same structural reason.
+
+`classifyUnusedKeys` marks a key `only-excluded` when it matches **at least one** recorded excluded directory.
+In `reserved-directory-names` that is exactly right, because there a key that matches any live directory is
+recorded as used — so "unused and matches an excluded directory" really does mean the excluded ones were its
+only matches. **This rule does not have that property.** `usedAlternatives` is recorded only where an
+alternative _permitted a position_, so an alternative can reach live directories, be entirely correct, and
+still be unused.
+
+Executed: `capitalisedUnitPlacements: { parts: 'src/lib/*' }` on a tree with a live unit at `src/lib/Panel` and
+an excluded `src/lib/legacy/parts/`. The glob reaches a live capitalised unit — the declaration is correct and
+live — and the rule reports `matched only excluded directories`. Reordering alone does not fix it, because the
+label is wrong regardless of when it is claimed.
+
+`excludedDirs` is also incomplete: it holds only the parents of reserved-name directories the traversal
+actually visited and found excluded. So a glob whose only units are excluded, where none of those units happens
+to hold a declared name, is in `excludedDirs` nowhere — and under a whole-tree unit set it would go silent
+entirely, which is worse than today's wrong label.
+
+**So all three reasons become reach questions, against the same two sets.** Compute the live directories once —
+every directory the rule saw, minus the ones the globally resolved `exclude` prunes — and the live units of each
+kind from that:
 
 ```text
-matches no directory at all                              → matched no directory
-matches directories, all of them excluded                → matched only excluded directories
-matches live directories, none a unit of the kind        → the new unit note
-otherwise                                                → silent
+reaches no directory at all                          → matched no directory
+reaches directories, none of them live               → matched only excluded directories
+reaches live directories, none a live unit of the kind → the new unit note   (unit maps only)
+otherwise                                             → silent
 ```
 
-A glob whose every match was pruned should say so — "remove or narrow the exclusion" is the action — and only a
-glob with live reach should be judged on whether that reach includes a unit.
+This is one pass over the directory list with `isExcluded`, which the rule already imports; it replaces
+`classifyUnusedKeys` for this rule and removes both false-positive classes above. **Only the globally resolved
+`exclude` is used**, matching the rule's existing decision that only globally resolved declarations are
+diagnosed at all.
 
-**The unit set is built from the whole tree, not from the unexcluded part.** Being exact would mean resolving
-`exclude` for every directory rather than only for the reserved-name directories the traversal visits, which is
-a second traversal for a case the excluded reason already reports. The consequence: a glob reaching only
-excluded units is reported as `matched only excluded directories`, which is true and actionable, rather than as
-a unit-reach failure. Recorded as a deliberate simplification, not an oversight.
+### The ordering test does not pin the order, and finding out why matters more than the test
 
-**The existing ordering test must be rewritten, not deleted.** `claims the unit reason for a glob that also
-matched an excluded directory` was added specifically to pin the shipped order, and it is load-bearing — the
-previous branch verified it fails under inversion. Its fixture declares `capitalisedUnitPlacements: { parts:
-'src/lib/*' }` with `exclude: ['src/lib/parts/**']`, and under the new order it must assert the excluded reason
-instead. Deleting it would leave the new ordering unpinned, which is the failure mode this repository keeps
-finding.
+The spec's first draft claimed this test was load-bearing because the branch that added it verified it fails
+under inversion. **That verification was real and the claim is now false**, and the reason is worth recording.
+
+Executed: with the two passes genuinely swapped, all 28 tests pass. Then, restoring `excludedDirs.push(dir)` —
+the semantics in force when the test was written — **and** keeping the inversion, the test fails as originally
+observed.
+
+So a later fix on that same branch hollowed it out. `5c27abfb` changed `excludedDirs` to record the excluded
+**parent** rather than the reserved-name directory, which was correct and has its own test. Its fixture no
+longer reaches the excluded path at all: `exclude: ['src/lib/parts/**']` does not exclude `src/lib`, so nothing
+is pushed, and the test passes under either order. Nothing signalled this, because the test kept passing.
+
+**A test verified load-bearing stays load-bearing only against the code it was verified against.** That is the
+argument for re-running mutation checks after any change to shared bookkeeping, not just after changes to the
+code under test.
+
+The replacement fixture must actually populate `excludedDirs` — the excluded directory has to be the _parent_:
+`['src/lib/legacy/parts/a.svelte']` with `exclude: ['src/lib/legacy/**']`. Executed against the shipped rule,
+that fixture reports `matched only excluded directories` today, so it discriminates. Under this design it must
+keep reporting the excluded reason while a unit-reachable glob does not.
 
 ## What this does to the rule's documentation, which has now said three things
 
@@ -127,15 +162,27 @@ it. Both language pages change together.
 4. **The two maps do not borrow each other's units.** A glob reaching only a lowercase unit, declared in
    `capitalisedUnitPlacements`, must report; the same glob in `anyCaseUnitPlacements` must not. The predicate is
    per map and nothing else in the suite pins that.
-5. **The new ordering.** The rewritten fixture above: a glob whose matches are all excluded reports the excluded
-   reason, not the unit reason. Verify it fails if the order is put back.
-6. **`placements` is untouched.** A `placements` declaration reaching only non-units stays silent — it has no
+5. **The excluded reason, on a fixture that reaches it.** `['src/lib/legacy/parts/a.svelte']` with
+   `exclude: ['src/lib/legacy/**']` — the excluded directory is the _parent_, so `excludedDirs` is populated
+   and the excluded path is actually exercised. The old fixture could not do this and therefore pinned nothing.
+6. **A live-unit-reaching glob is not called excluded.** The false positive review found: a glob reaching a live
+   unit **and** an excluded directory must be silent. This fails today, and it is the case reordering alone
+   would not have fixed.
+7. **The unit set is the live one.** A glob whose only unit of the required kind is excluded, where that unit
+   holds no declared name, must report the unit note. Under a whole-tree unit set it goes silent instead — and
+   nothing else here distinguishes the two, so an implementation that skips the exclusion filter passes
+   everything above.
+8. **The bare-prefix guard holds inside the new predicate.** A glob `x/**` whose only unit of the kind is `x`
+   itself must still report: the guard means `x/**` does not reach `x`. Without this a compiler call missing
+   `bareGuard` is invisible.
+9. **`placements` is untouched.** A `placements` declaration reaching only non-units stays silent — it has no
    unit requirement, and a predicate applied to the wrong map would be invisible otherwise.
-7. **The aggregation still holds.** One project-scoped finding carrying every bad declaration, `route` and
-   `location` unset. Changing a reason must not change the shape.
+10. **The aggregation still holds.** One project-scoped finding carrying every bad declaration, `route` and
+    `location` unset. Changing a reason must not change the shape.
 
-Each of 1, 2 and 5 must be verified to fail before the change — 1 and 2 are the measured cases and 5 is the
-ordering reversal. A test that passes beforehand is not pinning this design.
+Items 1, 2, 6 and 7 must be verified to fail before the change — they are the four behaviours this design
+alters. Item 5 passes today and guards the excluded path against the rewrite. A test that passes beforehand and
+is not named here as a guard is not pinning anything.
 
 ## Release
 
@@ -151,7 +198,11 @@ that was being told to fix a correct declaration stops being told that, and one 
   which for a future-facing position is advice to delete a check they will want. Whether an opt-in "declared but
   unoccupied" report is worth having is a separate question, and the existing "declared name that never appears"
   entry already records the undecidable half of it.
-- **Excluded units.** Above: the unit set spans the whole tree, so a glob reaching only excluded units reports
-  the excluded reason.
+- **A glob scoped to a subtree whose units do not exist yet.** `capitalisedUnitPlacements: { parts:
+'src/lib/newarea/**' }`, with units elsewhere but none under `newarea`, is silent today and reports under this
+  design. Review found it and it is a real behaviour change, not covered by the bullet above. It is kept, for
+  consistency: `matched no directory` already reports a glob naming a directory that does not exist yet, and a
+  glob naming no unit yet is the same claim one level down. The message says what is missing rather than telling
+  the reader to delete the declaration, which is the part of the current wording that made case A harmful.
 - **`placements` globs that reach no plausible parent.** A `placements` glob matching real directories that
   could never hold the name is undiagnosable without knowing the convention, and the rule does not know it.
