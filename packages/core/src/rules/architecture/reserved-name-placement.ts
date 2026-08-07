@@ -235,12 +235,12 @@ export const architectureReservedNamePlacement: Rule = {
       else if (!reachesLive.has(glob)) notes.set(k, 'matched only excluded directories');
     }
 
-    // Last: a glob with live reach is judged on whether that reach includes a unit of the kind its map
-    // requires. Ordered after the two above because "the exclusion pruned everything" and "the path does
-    // not exist" are the more specific answers, and both are actionable on their own.
+    // Ordered after the two above because "the exclusion pruned everything" and "the path does not
+    // exist" are the more specific answers, and both are actionable on their own.
     for (const map of ['capitalisedUnitPlacements', 'anyCaseUnitPlacements'] as const) {
       const inMap = stillUnused.filter((k) => !notes.has(k) && globalAlternatives.get(k)?.map === map);
-      const reachesUnit = keysMatchingAny(inMap.map(globOf), liveUnits[map], compile);
+      const inMapGlobs = [...new Set(inMap.map(globOf))];
+      const reachesUnit = keysMatchingAny(inMapGlobs, liveUnits[map], compile);
       for (const k of inMap) if (!reachesUnit.has(globOf(k))) notes.set(k, 'reaches no unit');
     }
 

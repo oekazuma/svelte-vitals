@@ -164,7 +164,9 @@ describe('architecture/reserved-name-placement', () => {
     // `src/lib` matches only itself, never a unit, so it also earns the unit note: it cannot reach
     // `src/lib/Card` any more than it can reach the misplaced `parts/` the violation is about.
     expect(violations(bare).map((r) => r.route)).toEqual(['src/lib/Card/parts']);
-    expect(projectScoped(bare)[0]?.message).toContain('reaches no unit');
+    const bareNotes = projectScoped(bare);
+    expect(bareNotes).toHaveLength(1);
+    expect(bareNotes[0]?.message).toContain('reaches no unit');
   });
 
   // Testing item 8 — the silence half.
@@ -419,17 +421,24 @@ describe('architecture/reserved-name-placement', () => {
     expect(notes[0]?.message).toContain('reaches no unit');
   });
 
+  // `parts/` sits under `src/lib/other`, not a unit, so this is a genuine violation and the
+  // alternative is genuinely unused — unlike a fixture where the name already sits under the one
+  // unit the glob reaches, which `record()` marks used before the classification ever runs. The
+  // corrected glob still reaches the live unit `src/lib/Card`, so the classification must stay silent.
   it('says nothing once that glob is corrected to reach the unit', async () => {
-    const results = await run(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.svelte'], {
+    const results = await run(['src/lib/Card/Card.svelte', 'src/lib/other/parts/a.svelte', 'src/lib/other/x.ts'], {
       capitalisedUnitPlacements: { parts: 'src/lib/**' }
     });
+    expect(violations(results)).toHaveLength(1);
     expect(projectScoped(results)).toEqual([]);
   });
 
   it('does not let one unit map borrow the other kind of unit', async () => {
     const tree = ['src/lib/formatDate/formatDate.ts', 'src/lib/formatDate/parts/a.svelte'];
     const cap = await run(tree, { capitalisedUnitPlacements: { parts: 'src/**' } });
-    expect(projectScoped(cap)[0]?.message).toContain('reaches no unit');
+    const capNotes = projectScoped(cap);
+    expect(capNotes).toHaveLength(1);
+    expect(capNotes[0]?.message).toContain('reaches no unit');
     const any = await run(tree, { anyCaseUnitPlacements: { parts: 'src/**' } });
     expect(projectScoped(any)).toEqual([]);
   });
