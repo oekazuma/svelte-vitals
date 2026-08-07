@@ -234,8 +234,13 @@ directory` diagnostic, so the count and the diagnostic never contradict each oth
 
 `@svelte-vitals/core` **minor**, `svelte-vitals` and `@svelte-vitals/vite` **minor** as the packages that ship
 it. The changeset must name every changed exported type, not only the behaviour: `runRules`'s return shape,
-`RuleContext`'s new optional member, and `JsonReport`'s new top-level `examined` map. `RuleEvidence` is
-unchanged — the count deliberately does not go there.
+`RuleContext`'s new optional `recordExamined`, `JsonReport`'s new top-level `examined` map, and the CLI's
+`AnalyzeResult`, which gains a **required** `examined` member. `RuleEvidence` is unchanged — the count
+deliberately does not go there.
+
+An earlier draft of this list named three and missed `AnalyzeResult`, which is exported from `svelte-vitals`'s
+public entry; the changeset was corrected first and this list second, so for a while the two disagreed about
+the same fact. Naming the requirement is not the same as meeting it.
 
 ## What changes outside the code
 
