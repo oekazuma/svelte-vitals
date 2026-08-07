@@ -230,7 +230,8 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
   // `--ignore` names what does not, and neither says anything about how the rules it leaves
   // enabled are configured. Synthesizing a `rules` map here is what made selection depend on the
   // absence of an entry, which a config file's own map could not survive (design 2026-08-06).
-  // Empty means "not specified" for both, kept distinguishable from "specified as empty".
+  // Both an omitted flag and an empty list collapse to `undefined` here — fine, since
+  // `resolveRuleSelection` treats an empty list as no narrowing anyway.
   const allowRules = allow.length > 0 ? allow : undefined;
   const ignoreRules = ignore.length > 0 ? ignore : undefined;
 

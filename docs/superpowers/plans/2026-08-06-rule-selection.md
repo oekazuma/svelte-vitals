@@ -484,7 +484,7 @@ Use the file's existing `resolve(...)` helper rather than a new one, and keep th
 
 In `packages/cli/src/rules-config.ts`, add one line to `buildRulesConfig`'s docstring. Do not change its behaviour, its signature, or its tests, and do not remove the export — it is public API (`packages/cli/src/index.ts` re-exports it) and removing it is a separate decision.
 
-```
+```text
  * No longer used by the CLI: `resolve-args` passes `--rules`/`--ignore` as id lists and
  * `rule-selection.ts` composes the map. Kept because this is exported API.
 ```
