@@ -737,6 +737,32 @@ describe('parseComponentFacts — module-scope $state declarations (security/sha
   });
 });
 
+describe('parseComponentFacts — imports in runes modules (.svelte.ts/.svelte.js)', () => {
+  const facts = (src: string, file = 'src/lib/store.svelte.ts') => parseComponentFacts(src, file);
+
+  it('collects import specifiers with lines shifted back to the unwrapped source', () => {
+    const src = "import moment from 'moment';\nlet c = $state(0);";
+    const f = facts(src);
+    expect(f.importSpans).toEqual([{ source: 'moment', line: 1 }]);
+    expect(f.imports).toEqual(['moment']);
+    expect(f.loc).toBe(0);
+  });
+
+  it('collects namespace imports with shifted lines too', () => {
+    const src = "import * as _ from 'lodash';\nlet c = $state(0);";
+    expect(facts(src).namespaceImports).toEqual([{ source: 'lodash', line: 1 }]);
+  });
+
+  it('reports no imports for a module without any', () => {
+    expect(facts('let c = $state(0);').imports).toEqual([]);
+  });
+
+  it('keeps loc at 0 even for a large module file, so architecture/component-size stays quiet', () => {
+    const src = Array.from({ length: 300 }, (_, i) => `export const v${i} = ${i};`).join('\n');
+    expect(facts(src).loc).toBe(0);
+  });
+});
+
 describe('parseComponentFacts — orphan lifecycle calls (correctness/orphan-lifecycle)', () => {
   const calls = (src: string, file = 'src/lib/store.svelte.ts') => parseComponentFacts(src, file).orphanLifecycleCalls;
 
@@ -974,6 +1000,39 @@ describe('constableStates — {@const} shadowing', () => {
   it('does not attribute a reassignment of a {let} declaration tag to a same-named untouched $state', () => {
     const src = `<script>\nlet obj = $state({});\n</script>\n{#each list as g}{let obj = g.o}<button onclick={() => {\n  obj = g.p;\n}}>x</button>{/each}`;
     expect(constable(src)).toEqual([{ name: 'obj', line: 2 }]);
+  });
+});
+
+describe('parseComponentFacts — runes behind TS casts (as/satisfies/!)', () => {
+  it('recognizes $state behind an as-cast (constableStates)', () => {
+    const src = '<script lang="ts">let count = $state(0) as number;</script><p>{count}</p>';
+    expect(parseComponentFacts(src, 'C.svelte').constableStates).toEqual([{ name: 'count', line: 1 }]);
+  });
+
+  it('recognizes $derived behind a satisfies-cast as reactive (not mountOnly)', () => {
+    const src =
+      '<script lang="ts">let count = $state(0); let d = $derived(count * 2) satisfies number; $effect(() => { console.log(d); });</script>';
+    const facts = parseComponentFacts(src, 'C.svelte');
+    expect(facts.effects[0]!.mountOnly).toBe(false);
+  });
+
+  it('recognizes $props() behind an as-cast (propCount and prop names)', () => {
+    const src =
+      '<script lang="ts">let { a, b } = $props() as { a: string; b: string };</script>{a}{b}<button onclick={() => (a.x = 1)}>x</button>';
+    const facts = parseComponentFacts(src, 'C.svelte');
+    expect(facts.propCount).toBe(2);
+    expect(facts.mutatedProps.map((m) => m.name)).toEqual(['a']);
+  });
+
+  it('recognizes a plain-$state as-cast as a rawable candidate, same as the uncast form', () => {
+    const src =
+      '<script lang="ts">let big = $state({ x: 1 }) as Record<string, number>;\nfunction refresh(next: Record<string, number>) {\n  big = next;\n}</script>';
+    expect(parseComponentFacts(src, 'C.svelte').rawableStates).toEqual([{ name: 'big', line: 1 }]);
+  });
+
+  it('recognizes a non-null-asserted $state module declaration (moduleStateDecls)', () => {
+    const src = 'export const user = $state({ name: "" })!;';
+    expect(parseComponentFacts(src, 'src/lib/store.svelte.ts').moduleStateDecls).toEqual([{ name: 'user', line: 1 }]);
   });
 });
 

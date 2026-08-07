@@ -161,6 +161,13 @@ describe('correctness/unmutated-state unmutated $state', () => {
     const rs = await correctnessUnmutatedState.check(ctx([comp({ constableStates: [] })]));
     expect(rs).toHaveLength(0);
   });
+  it('end-to-end: a $state hidden behind a TS as-cast still fires (was a silent miss)', async () => {
+    const src = '<script lang="ts">let count = $state(0) as number;</script><p>{count}</p>';
+    const facts = parseComponentFacts(src, 'src/lib/C.svelte');
+    const rs = await correctnessUnmutatedState.check(ctx([{ file: 'src/lib/C.svelte', ...facts }]));
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.message).toContain('count');
+  });
 });
 
 describe('correctness/prop-mutation mutated non-bindable prop', () => {
