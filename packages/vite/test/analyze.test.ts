@@ -170,6 +170,37 @@ describe('analyze — svelte-vitals.config.*', () => {
     }
   });
 
+  // The build-mode analysis is the second of the two report-producing callers. `examined` is optional
+  // at every hop from `runRules` to `formatJsonReport`, so dropping the argument here would compile
+  // and leave every other assertion in this file green.
+  it('carries the examined counts into the JSON report it builds', async () => {
+    const { cwd, pages } = await makeProject(
+      `export default {
+        rules: {
+          'architecture/reserved-name-placement': {
+            options: { capitalisedUnitPlacements: { parts: 'src/**' } }
+          }
+        }
+      };\n`
+    );
+    try {
+      // Two `parts/` directories judged: one under a capitalised unit, one not.
+      await mkdir(join(cwd, 'src/lib/Card/parts'), { recursive: true });
+      await mkdir(join(cwd, 'src/lib/other/parts'), { recursive: true });
+      await writeFile(join(cwd, 'src/lib/Card/Card.svelte'), '<p>card</p>');
+      await writeFile(join(cwd, 'src/lib/Card/parts/a.svelte'), '<p>a</p>');
+      await writeFile(join(cwd, 'src/lib/other/parts/b.svelte'), '<p>b</p>');
+
+      const r = await analyze(pages, cwd, { report: false });
+      const json = JSON.parse(r.jsonReport);
+      expect(json.examined['architecture/reserved-name-placement']).toEqual({
+        'capitalisedUnitPlacements.parts → src/**': 2
+      });
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
+
   it('an explicit plugin option wins over the config file for the same field', async () => {
     const { cwd, pages } = await makeProject(`export default { failOn: 'info' };\n`);
     try {

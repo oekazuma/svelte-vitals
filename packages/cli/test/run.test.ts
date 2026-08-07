@@ -9,6 +9,7 @@ const fixtureDir = join(here, 'fixtures', 'basic-project');
 const configFileFixtureDir = join(here, 'fixtures', 'config-file-project');
 const configFileInvalidFixtureDir = join(here, 'fixtures', 'config-file-invalid-project');
 const rulesFlagConfigFixtureDir = join(here, 'fixtures', 'rules-flag-config-project');
+const reservedNamePlacementFixtureDir = join(here, 'fixtures', 'reserved-name-placement-project');
 // Isolate reporter auto-detection from the ambient test-runner environment
 // (e.g. CLAUDECODE is set when running inside Claude Code).
 const CLEAN_ENV: NodeJS.ProcessEnv = {};
@@ -105,6 +106,19 @@ describe('run() reporters and gating', () => {
     expect(siteIds).not.toContain('seo/robots-txt'); // robots.txt present
     expect(siteIds).not.toContain('seo/sitemap-xml'); // sitemap present
     expect(siteIds).not.toContain('seo/html-lang'); // html lang present
+  });
+
+  // The CLI is one of the two report-producing callers, and `examined` is optional every step of the
+  // way — `analyzeProject` could carry the counts and `run()` still drop them at the reporter call
+  // without a type error. This asserts the whole path, from the rule's sink to the emitted JSON.
+  it('carries the examined counts into the JSON it emits', async () => {
+    const cap = capture();
+    await run({ cwd: reservedNamePlacementFixtureDir, log: cap.log, errorLog: cap.errorLog, reporter: 'json' });
+    const json = JSON.parse(cap.out.join('\n'));
+    // The fixture declares `parts` under a capitalised unit and holds three `parts/` directories.
+    expect(json.examined['architecture/reserved-name-placement']).toEqual({
+      'capitalisedUnitPlacements.parts → src/**': 3
+    });
   });
 
   it('fails on warning when failOn=warning', async () => {
