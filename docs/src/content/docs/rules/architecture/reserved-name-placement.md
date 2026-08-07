@@ -110,20 +110,25 @@ A declaration that is not checking what it says is reported, so a typo cannot le
 silently doing nothing. The finding names the reason:
 
 - the value **names no position at all**, which ungoverns the name in every map;
-- a glob matched only excluded directories;
 - a glob **matched no directory** — judged against the source inventory, not the filesystem. A glob
   pointing outside `src/`, or a typo like `src/route/**` where the tree has `src/routes`, reports
   "matched no directory" even when the directory in question exists, because the rule never sees
   anything outside `src/`;
-- a unit-map glob matched real directories, but none of them was a unit of the required case —
-  reported as "matched directories but never a unit". This catches the bare-glob mistake above only
-  where the reserved name sits **directly in** the glob's own directory: `parts: 'src/lib'` says
-  nothing about a `src/lib/Card/parts`, because the directory it checks is that `parts/`'s parent —
-  `src/lib/Card` — which the glob never matched. Write `src/lib/**`, not `src/lib`.
+- a glob reaches no directory that `exclude` leaves live — reported as "matched only excluded
+  directories". A glob that also reaches a live directory is not reported here, even if some of its
+  matches are excluded;
+- a unit-map glob reaches no unit of the map's required case anywhere in the tree — reported as
+  "reaches no unit". This **does** catch the bare-glob mistake above: `parts: 'src/lib'` reaches no
+  capitalised unit at all (a unit at exactly `src/lib` is unreachable, since `lib` is lowercase), so
+  it is reported. Write `src/lib/**`, not `src/lib`.
 
 A declaration saying where a name **may** sit is not dead for going unused. A currently-empty but
 legitimate position — a declared alternative that no directory happens to use yet — is silent by
-design, and is not one of the cases above.
+design, and is not one of the cases above. The rule the reader can rely on: a declaration is judged
+by what its glob can **reach**, not by what it happened to exercise, so a correct declaration for a
+position nothing occupies yet stays silent, while a glob scoped to a subtree whose units do not
+exist yet is reported all the same, on the same footing as a glob naming a directory that does not
+exist yet.
 
 Two things this rule does not attempt: over-permission at a reserved-name directory (a glob cannot
 tell a concern directory from a reserved-name directory at the same depth), and seeding a
