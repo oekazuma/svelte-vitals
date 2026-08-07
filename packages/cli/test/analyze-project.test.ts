@@ -319,14 +319,13 @@ describe('examined counts survive --diff scoping (examined-counts design, "It is
     expect(violations).toHaveLength(2); // other/parts and legacy/parts
     expect(examined['architecture/reserved-name-placement']?.['capitalisedUnitPlacements.parts → src/**']).toBe(3);
 
+    // `applyScope`'s signature takes and returns only `Result[]` — it never sees `examined` at all,
+    // so the count asserted above is already the whole proof: it was read from `analyzeProject`'s
+    // return before this call and nothing here could have changed it. What this narrows is `results`.
     const scoped = await applyScope(results, { cwd: reservedNamePlacementFixtureDir, config, diffBase: 'HEAD' });
     const scopedViolations = scoped.filter(
       (r) => r.id === 'architecture/reserved-name-placement' && r.route !== undefined
     );
     expect(scopedViolations).toHaveLength(1); // only other/parts' file is "changed"
-
-    // `examined` was captured from `analyzeProject` above and never touched by `applyScope`, which
-    // only narrows `results` — the count stays the full 3 rather than following the 1 that survived.
-    expect(examined['architecture/reserved-name-placement']?.['capitalisedUnitPlacements.parts → src/**']).toBe(3);
   });
 });

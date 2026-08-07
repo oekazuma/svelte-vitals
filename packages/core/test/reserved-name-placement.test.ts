@@ -584,4 +584,48 @@ describe('architecture/reserved-name-placement', () => {
     } as unknown as RuleContext);
     expect(seen).toEqual([]);
   });
+
+  // Companion to the test above: that one exits on the `sourceFiles === undefined` guard. This one
+  // exits on the earlier `isMentionedAnywhere` guard instead — no config layer names this rule at
+  // all, even though a file inventory exists. Both must leave `recordExamined` uncalled, or an
+  // unconfigured project would gain an `"architecture/reserved-name-placement": {}` entry in every
+  // report, which is exactly the "absent for rules that count nothing" property the design relies on.
+  it('reports no counts at all when no config layer mentions the rule', async () => {
+    const config = { rules: {} } as unknown as Config;
+    const seen: Record<string, number>[] = [];
+    await architectureReservedNamePlacement.check({
+      sourceFiles: ['src/lib/e2e/a.ts'],
+      config,
+      recordExamined: (c: Record<string, number>) => void seen.push(c)
+    } as unknown as RuleContext);
+    expect(seen).toEqual([]);
+  });
+
+  // The excluded exit is the one the design's "Deliberately not solved" section singles out as
+  // carrying a `0` with no accompanying diagnostic when the exclusion comes from an overrides layer.
+  // This fixture uses a *global* exclude instead, isolating the guard itself: `parts/` sits under a
+  // real capitalised unit (so it would otherwise be permitted, not just judged), and excluding it
+  // must still leave the declaration's count at 0 rather than 1.
+  it('does not count a directory that a global exclude removes, even under a real unit', async () => {
+    // The exclude names the `parts/` directory itself, not the unit above it — `src/lib/Card` stays
+    // live and a unit, so the declaration would otherwise both be judged and permitted here.
+    const { examined, results } = await runWithCounts(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.svelte'], {
+      capitalisedUnitPlacements: { parts: 'src/**' },
+      exclude: ['src/lib/Card/parts']
+    });
+    expect(examined['capitalisedUnitPlacements.parts → src/**']).toBe(0);
+    expect(results).toEqual([]);
+  });
+
+  // The root-level exit: a `parts/` directory with no parent (nothing above it in the tree) has
+  // nowhere to record a finding against, so it must be skipped before the count increments — not
+  // after, which would give it a phantom `1` for a directory that was never actually judged against
+  // anything below it.
+  it('does not count a root-level directory, which has no parent to judge it against', async () => {
+    const { examined, results } = await runWithCounts(['parts/a.svelte', 'src/lib/Card/Card.svelte'], {
+      capitalisedUnitPlacements: { parts: 'src/**' }
+    });
+    expect(examined['capitalisedUnitPlacements.parts → src/**']).toBe(0);
+    expect(results).toEqual([]);
+  });
 });
