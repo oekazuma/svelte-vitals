@@ -69,7 +69,7 @@ export function unwrapToObjectExpression(
  * JavaScript's last-assignment-wins semantics, same rationale as `propOf`'s
  * last-wins). Undefined when neither form is present.
  */
-export function findExportedExpression(program: Program): Expression | undefined {
+function findExportedExpression(program: Program): Expression | undefined {
   let exported: Expression | undefined;
   for (const stmt of program.body) {
     if (stmt.type === 'ExportDefaultDeclaration') exported = stmt.declaration as Expression;

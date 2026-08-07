@@ -183,18 +183,12 @@ function collectEachBlocks(node: Node, source: string, acc: EachBlockFact[]): vo
 /** AST metadata keys every walker skips — never traversed as child nodes. Shared with the Kit-module parser (the security kit-module rules). */
 export const WALK_IGNORED_KEYS = new Set(['type', 'start', 'end', 'loc', 'range']);
 
+/** Boundary set for the walkers that enter every node (walkEstree, walkScoped). */
+const NO_BOUNDARIES: Set<string> = new Set();
+
 /** Generic ESTree walk over a `<script>` program: visit every node with a `.type`. */
 function walkEstree(node: Node, visit: (n: Node) => void): void {
-  if (Array.isArray(node)) {
-    for (const child of node) walkEstree(child, visit);
-    return;
-  }
-  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
-  visit(node);
-  for (const key of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key)) continue;
-    walkEstree(node[key], visit);
-  }
+  walkEvalScope(node, (n) => void visit(n), new Set(), NO_BOUNDARIES);
 }
 
 /**
@@ -377,19 +371,7 @@ function walkScoped(
   visit: (n: Node, shadowed: Set<string>) => void,
   shadowed: Set<string> = new Set()
 ): void {
-  if (Array.isArray(node)) {
-    for (const child of node) walkScoped(child, visit, shadowed);
-    return;
-  }
-  if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
-
-  const introduced = scopeIntroducedNames(node);
-  const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
-  visit(node, scope);
-  for (const key of Object.keys(node)) {
-    if (WALK_IGNORED_KEYS.has(key)) continue;
-    walkScoped(node[key], visit, scope);
-  }
+  walkEvalScope(node, (n, scope) => void visit(n, scope), shadowed, NO_BOUNDARIES);
 }
 
 /**
@@ -1336,7 +1318,7 @@ const STYLE_CLOSE = /<\/style\s*>/;
  * a commented-out block does not open one. `wholeFileIsScript` covers `.svelte.ts`/`.svelte.js` runes
  * modules, which have no `<script>` tag at all — the entire file is script.
  */
-export function collectCommentLinks(
+function collectCommentLinks(
   source: string,
   { wholeFileIsScript = false }: { wholeFileIsScript?: boolean } = {}
 ): { url: string; line: number }[] {
@@ -1402,24 +1384,27 @@ const EVAL_SCOPE_BOUNDARIES = new Set([
  * names" set down through scope-introducing constructs (`scopeIntroducedNames`) so
  * `visit` can check whether a candidate identifier is locally shadowed before
  * treating it as a match against an outer (e.g. imported) binding (correctness/orphan-lifecycle).
+ * Also the shared skeleton behind `walkEstree` and `walkScoped`, which pass an empty
+ * `boundaries` set to enter every node.
  */
 function walkEvalScope(
   node: Node,
   visit: (n: Node, shadowed: Set<string>) => boolean | undefined,
-  shadowed: Set<string> = new Set()
+  shadowed: Set<string> = new Set(),
+  boundaries: Set<string> = EVAL_SCOPE_BOUNDARIES
 ): void {
   if (Array.isArray(node)) {
-    for (const child of node) walkEvalScope(child, visit, shadowed);
+    for (const child of node) walkEvalScope(child, visit, shadowed, boundaries);
     return;
   }
   if (!node || typeof node !== 'object' || typeof node.type !== 'string') return;
   const introduced = scopeIntroducedNames(node);
   const scope = introduced.size > 0 ? new Set([...shadowed, ...introduced]) : shadowed;
   if (visit(node, scope)) return;
-  if (EVAL_SCOPE_BOUNDARIES.has(node.type)) return;
+  if (boundaries.has(node.type)) return;
   for (const key of Object.keys(node)) {
     if (WALK_IGNORED_KEYS.has(key)) continue;
-    walkEvalScope(node[key], visit, scope);
+    walkEvalScope(node[key], visit, scope, boundaries);
   }
 }
 
@@ -1557,7 +1542,7 @@ function collectOrphanEffects(program: Node, source: string): OrphanEffectFact[]
 }
 
 /** Svelte exports that throw `lifecycle_outside_component` when called without an active component context (correctness/orphan-lifecycle). */
-export const LIFECYCLE_NAMES = new Set([
+const LIFECYCLE_NAMES = new Set([
   'onMount',
   'onDestroy',
   'beforeUpdate',
@@ -1631,7 +1616,7 @@ function collectOrphanLifecycleCalls(program: Node, source: string): OrphanLifec
 }
 
 /** Browser-only globals worth flagging in server-executed code (correctness/server-browser-global, correctness/instance-browser-global) — curated high-signal names absent from Node; NOT the full `globals.browser` list, which would false-positive on generic identifiers without scope analysis. */
-export const BROWSER_GLOBALS = new Set([
+const BROWSER_GLOBALS = new Set([
   'window',
   'document',
   'localStorage',

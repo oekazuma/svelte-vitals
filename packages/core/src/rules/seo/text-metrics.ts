@@ -1,8 +1,7 @@
 // Pure text measurement for SEO length rules. No node:, no deps.
 
 // Reuse a single grapheme segmenter (constructing one per call is costly).
-const segmenter =
-  typeof Intl !== 'undefined' && typeof Intl.Segmenter === 'function' ? new Intl.Segmenter() : undefined;
+const segmenter = new Intl.Segmenter();
 
 /**
  * Trim and collapse internal whitespace runs to a single space — the canonical
@@ -16,11 +15,8 @@ export function collapseWhitespace(s: string): string {
 /**
  * Visible character count as a SERP would show it: trimmed, internal whitespace runs
  * collapsed, counted by grapheme cluster — so a ZWJ/flag/skin-tone emoji counts once,
- * matching what a user sees. Falls back to code-point counting where Intl.Segmenter is
- * unavailable (still collapses astral pairs into single code points).
+ * matching what a user sees.
  */
 export function visibleLength(s: string): number {
-  const collapsed = collapseWhitespace(s);
-  if (!segmenter) return [...collapsed].length;
-  return [...segmenter.segment(collapsed)].length;
+  return [...segmenter.segment(collapseWhitespace(s))].length;
 }
