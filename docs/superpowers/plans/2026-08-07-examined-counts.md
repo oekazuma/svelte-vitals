@@ -76,6 +76,12 @@ Design: `docs/superpowers/specs/2026-08-07-examined-counts-design.md` (approved 
   buildJsonReport(results, config, meta, ruleIds?, examined?): JsonReport;
   ```
 
+**A rule that reaches the end always calls the sink, even with an empty map.** So there are three states, not
+two: no entry at all means the rule does not count or returned before reaching the call; an entry of `{}` means
+it counts and this configuration declares nothing; an entry with a `0` means a declaration judged nothing.
+Collapsing the middle one into the first would lose the distinction between "not configured" and "does not
+count", which is the same distinction `ruleIds` exists to preserve for `rules`.
+
 **Why one call rather than an incrementing one.** The rule seeds every declaration at 0 and increments as it walks, so it already holds a complete map by the end. A single hand-off keeps the sink dumb and makes "seeded at 0 but never incremented" expressible, which is the whole point.
 
 - [ ] **Step 1: Write the failing engine tests**
@@ -196,7 +202,10 @@ In `packages/core/src/reporter/json.ts`, add to `JsonReport` after `inventories`
   examined?: Record<string, Record<string, number>>;
 ```
 
-Add a trailing optional `examined` parameter to `buildJsonReport` and include it in the returned object only when it has at least one key, so reports from callers that pass nothing are byte-identical to today's.
+Add a trailing optional `examined` parameter to `buildJsonReport` and include it in the returned object only
+when the argument is given and has at least one key, so reports from callers that pass nothing are
+byte-identical to today's. Note this is about the **outer** map: an inner `{}` — a counting rule with nothing
+declared — still produces `"examined": { "<rule id>": {} }`, which is a meaningful state.
 
 - [ ] **Step 7: Update the three callers**
 
@@ -206,7 +215,9 @@ Destructure it, carry `examined` into `analyzeProject`'s return object beside `r
 `AnalyzeResult` type, and pass it as the new last argument at the `formatJsonReport` call (~line 479).
 
 `packages/vite/src/analyze.ts` (~line 76) and `packages/vite/src/hooks/handle.ts` (~line 66): destructure
-`{ results }`. `handle.ts` builds no JSON report — it POSTs results to the overlay ingest — so it drops the
+`{ results }`. In `handle.ts` the call is nested inside `applyRuleSeverities(await runRules(...), config)`, so
+it becomes `applyRuleSeverities((await runRules(...)).results, config)` or a hoisted `const { results }` —
+whichever reads better there. `handle.ts` builds no JSON report — it POSTs results to the overlay ingest — so it drops the
 counts. Add a one-line comment there saying so, or the next reader will file it as an oversight.
 
 - [ ] **Step 8: Confirm no caller was missed**
