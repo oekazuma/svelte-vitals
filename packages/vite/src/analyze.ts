@@ -37,20 +37,15 @@ export interface AnalyzeResult {
 }
 
 /**
- * Resolve the effective config the same way the CLI's `analyzeProject` does — per-field
- * precedence: an explicit `options` value wins, otherwise `svelte-vitals.config.*` in
- * `cwd`, otherwise the built-in default. Shared by build-mode `analyze()` and the dev
- * dashboard (plugin.ts). `warnings` are the config file's non-fatal issues.
+ * Merge plugin options over an optional loaded config file, per-field precedence (an
+ * explicit `options` value wins, otherwise the file, otherwise the built-in default).
+ * Extracted so the dev-server fallback (plugin.ts) can build an options-only config
+ * without re-reading the config file.
  */
-export async function resolveConfig(
-  cwd: string,
-  options: SvelteVitalsOptions
-): Promise<{ config: Config; warnings: string[] }> {
-  const loaded = await loadConfigFile(cwd);
-  const fileConfig = loaded?.config;
+export function mergeConfig(options: SvelteVitalsOptions, fileConfig: Partial<Config> | undefined): Config {
   const weights = options.weights ?? fileConfig?.weights;
   const overrides = options.overrides ?? fileConfig?.overrides;
-  const config = defineConfig({
+  return defineConfig({
     treatDynamicAs: options.treatDynamicAs ?? fileConfig?.treatDynamicAs ?? 'pass',
     metaComponents: options.metaComponents ?? fileConfig?.metaComponents ?? [],
     rules: options.rules ?? fileConfig?.rules ?? {},
@@ -58,20 +53,39 @@ export async function resolveConfig(
     ...(weights !== undefined ? { weights } : {}),
     ...(overrides !== undefined ? { overrides } : {})
   });
+}
+
+/**
+ * Resolve the effective config the same way the CLI's `analyzeProject` does — per-field
+ * precedence: an explicit `options` value wins, otherwise `svelte-vitals.config.*` in
+ * `cwd`, otherwise the built-in default. Shared by build-mode `analyze()` and the dev
+ * dashboard (plugin.ts). `warnings` are the config file's non-fatal issues. Throws if
+ * the config file itself is invalid (unknown rule id, malformed `overrides`, …) —
+ * callers decide whether that's fatal (build) or a fall-back-to-defaults warning (dev).
+ */
+export async function resolveConfig(
+  cwd: string,
+  options: SvelteVitalsOptions
+): Promise<{ config: Config; warnings: string[] }> {
+  const loaded = await loadConfigFile(cwd);
+  const config = mergeConfig(options, loaded?.config);
   return { config, warnings: loaded?.warnings ?? [] };
 }
 
 /**
  * Collect prerendered heads + project facts + component facts, run the core pipeline, and
- * format reports. Config precedence: see `resolveConfig`.
+ * format reports. Config precedence: see `resolveConfig`. Pass `resolved` when the caller
+ * already resolved config itself (build mode resolves it outside `analyze`'s try/catch so a
+ * config-file validation error fails the build instead of being caught as an analysis error).
  */
 export async function analyze(
   prerenderPagesDir: string,
   cwd: string,
   options: SvelteVitalsOptions,
-  extraProjectFacts?: Partial<Project>
+  extraProjectFacts?: Partial<Project>,
+  resolved?: { config: Config; warnings: string[] }
 ): Promise<AnalyzeResult> {
-  const { config, warnings } = await resolveConfig(cwd, options);
+  const { config, warnings } = resolved ?? (await resolveConfig(cwd, options));
 
   const { heads, headings, images, htmlLang } = await collectRenderedHeads(prerenderPagesDir);
   const project = {

@@ -5,11 +5,18 @@ import { join } from 'node:path';
 import type { Plugin } from 'vite';
 
 // Force the analysis itself to fail; the plugin must NOT fail the build for it.
-vi.mock('../src/analyze.js', () => ({
-  analyze: vi.fn(async () => {
-    throw new Error('boom: unreadable output');
-  })
-}));
+// resolveConfig is kept real (via importOriginal) since closeBundle now calls it
+// outside this mocked analyze() — the temp dir here has no config file, so it
+// resolves cleanly and the failure under test stays isolated to analyze().
+vi.mock('../src/analyze.js', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../src/analyze.js')>();
+  return {
+    ...actual,
+    analyze: vi.fn(async () => {
+      throw new Error('boom: unreadable output');
+    })
+  };
+});
 
 import { svelteVitals } from '../src/index.js';
 
