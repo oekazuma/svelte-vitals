@@ -89,7 +89,11 @@ it('calls a declaration excluded when every directory its glob reaches is exclud
 - [ ] **Step 2: Run them to verify the first fails**
 
 Run: `cd packages/core && ../../node_modules/.bin/vitest run test/reserved-name-placement.test.ts`
-Expected: the first test FAILS — today the glob reaches a live unit and is still labelled excluded. The second passes already; it is the guard that the excluded reason still works after the change. Record both observations.
+Expected: **both FAIL**, for two different reasons. The first because the glob reaches a live unit and is
+still labelled excluded. The second because `excludedDirs` records the excluded _parent_, and a glob using a
+single `*` matches at the reserved-name directory's level rather than the parent's — so it is never shadowed
+and the excluded reason under-fires. Record what you actually observe for each; an earlier draft of this plan
+predicted the second would pass.
 
 - [ ] **Step 3: Build the live directory list**
 
