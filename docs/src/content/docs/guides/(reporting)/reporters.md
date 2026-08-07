@@ -76,6 +76,11 @@ svelte-vitals --reporter json
   "siteIssues": [], // findings with no route (robots.txt, sitemap.xml, …), same issue shape
   "inventories": {
     "seo::route": 110 // floored severity weight behind every "seo" key scored against "route"
+  },
+  "examined": {
+    "architecture/reserved-name-placement": {
+      "capitalisedUnitPlacements.parts → src/**": 28 // places this declaration judged, permitted or rejected
+    }
   }
 }
 ```
@@ -123,13 +128,22 @@ level (`--ignore`, `--rules`, `--category`, or `rules: { id: 'off' }` in config)
 Look it up in `rules` instead: present means it ran, missing means it was excluded at the top level — with
 one exception, below.
 
-The counts describe the report, not the tree. Baseline, suppression and `--diff` filtering are applied
-before the report is built, so a rule whose findings were all suppressed shows `findings: 0` while remaining
-present. The same is true of a rule disabled through an `overrides` entry rather than at the top level:
-`overrides` drops its results (passing ones included) after the rule has already run, so it shows
+The counts in `rules` describe the report, not the tree. Baseline, suppression and `--diff` filtering are
+applied before the report is built, so a rule whose findings were all suppressed shows `findings: 0` while
+remaining present. The same is true of a rule disabled through an `overrides` entry rather than at the top
+level: `overrides` drops its results (passing ones included) after the rule has already run, so it shows
 `{ "findings": 0, "passed": 0 }` — indistinguishable from a selected rule that simply found nothing.
 Presence in `rules` proves a rule wasn't excluded by `--ignore`, `--rules`, `--category`, or config's
 top-level `rules`; it does not prove `overrides` left anything for it to find.
+
+`examined` is a separate top-level map — rule id, then declaration label, then a count of how many places
+that declaration judged, whether it permitted them or rejected them. It is not narrowed by `--diff`,
+`--baseline` or suppressions: those apply to `rules`, and `examined` describes the analysis rather than the
+report, which is why it sits beside `rules` instead of inside it. A rule that counts nothing has no entry,
+and the entries that do appear use the exact declaration label the rule's own diagnostic names —
+`architecture/reserved-name-placement`'s aggregated finding and its `examined` entry share the string
+`capitalisedUnitPlacements.parts → src/**`, so the two can be read together. A non-zero count is what tells
+you the declaration was checked at all — the question a rule with no findings otherwise leaves open.
 
 ### `agent`
 
