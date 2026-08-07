@@ -122,11 +122,6 @@ export const architectureReservedNamePlacement: Rule = {
     }
 
     const usedAlternatives = new Set<string>();
-    // Parents a unit-map alternative matched while the parent was not a unit of that map's kind.
-    const nonUnitParents: Record<'capitalisedUnitPlacements' | 'anyCaseUnitPlacements', string[]> = {
-      capitalisedUnitPlacements: [],
-      anyCaseUnitPlacements: []
-    };
 
     const allDirs = [...dirs].sort();
     // The diagnostics below judge a declaration by what its glob can reach, not by what it happened to
@@ -135,6 +130,12 @@ export const architectureReservedNamePlacement: Rule = {
     // resolved declarations.
     const globalExcluded = compile(listOption(globalOptions, 'exclude'));
     const liveDirs = allDirs.filter((d) => !isExcluded(d, ancestorDirs(d), globalExcluded));
+    // The live directories that are units of each kind — what a unit-map glob must reach to be doing
+    // anything, against the same pruned tree the excluded/no-directory reasons already use.
+    const liveUnits: Record<'capitalisedUnitPlacements' | 'anyCaseUnitPlacements', string[]> = {
+      capitalisedUnitPlacements: liveDirs.filter((d) => isUnitDir(d, filesIn)),
+      anyCaseUnitPlacements: liveDirs.filter((d) => isAnyCaseUnitDir(d, filesIn))
+    };
     for (const dir of allDirs) {
       const o = resolveRuleOptions(ID, OPTIONS, ctx.config, { route: dir, file: dir }, compiledOverrides);
       const placements = mapOption(o, 'placements');
@@ -181,10 +182,7 @@ export const architectureReservedNamePlacement: Rule = {
         if (value === undefined) return false;
         const { matched } = matchKeys(parent, compile(globsOf(value), true));
         if (matched.length === 0) return false;
-        if (!qualifies) {
-          if (map !== 'placements') nonUnitParents[map].push(parent);
-          return false;
-        }
+        if (!qualifies) return false;
         for (const glob of matched) usedAlternatives.add(label(map, name, glob));
         return true;
       };
@@ -227,16 +225,6 @@ export const architectureReservedNamePlacement: Rule = {
     const unusedLabels = [...globalAlternatives.keys()].filter((k) => !usedAlternatives.has(k));
     const globOf = (key: string) => globalAlternatives.get(key)?.glob as string;
 
-    // The unit reason is claimed first, so an exclusion is never blamed for an alternative the unit
-    // test disqualified — the ordering `reserved-directory-names` records at length.
-    for (const map of ['capitalisedUnitPlacements', 'anyCaseUnitPlacements'] as const) {
-      const inMap = unusedLabels.filter((k) => globalAlternatives.get(k)?.map === map);
-      const hit = keysMatchingAny(inMap.map(globOf), nonUnitParents[map], compile);
-      for (const k of inMap) {
-        if (hit.has(globOf(k))) notes.set(k, 'matched directories but never a unit');
-      }
-    }
-
     const stillUnused = unusedLabels.filter((k) => !notes.has(k));
     const globs = [...new Set(stillUnused.map(globOf))];
     const reachesAny = keysMatchingAny(globs, allDirs, compile);
@@ -245,6 +233,15 @@ export const architectureReservedNamePlacement: Rule = {
       const glob = globOf(k);
       if (!reachesAny.has(glob)) notes.set(k, 'matched no directory');
       else if (!reachesLive.has(glob)) notes.set(k, 'matched only excluded directories');
+    }
+
+    // Last: a glob with live reach is judged on whether that reach includes a unit of the kind its map
+    // requires. Ordered after the two above because "the exclusion pruned everything" and "the path does
+    // not exist" are the more specific answers, and both are actionable on their own.
+    for (const map of ['capitalisedUnitPlacements', 'anyCaseUnitPlacements'] as const) {
+      const inMap = stillUnused.filter((k) => !notes.has(k) && globalAlternatives.get(k)?.map === map);
+      const reachesUnit = keysMatchingAny(inMap.map(globOf), liveUnits[map], compile);
+      for (const k of inMap) if (!reachesUnit.has(globOf(k))) notes.set(k, 'reaches no unit');
     }
 
     const reported = [...notes.keys()].sort();
