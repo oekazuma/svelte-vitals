@@ -264,4 +264,63 @@ describe('resolveArgs', () => {
     const { options } = resolve();
     expect(options?.noAnimation).toBeUndefined();
   });
+
+  // parseArgs (strict:false) lets a declared string flag consume a following flag token
+  // instead of erroring, so a misconfigured value silently becomes another flag's name.
+  const VALUE_FLAGS = [
+    'meta-components',
+    'treat-dynamic-as',
+    'route',
+    'fail-on',
+    'reporter',
+    'rules',
+    'ignore',
+    'min-health',
+    'out-file',
+    'weights',
+    'category'
+  ];
+
+  it.each(VALUE_FLAGS)('reports --%s followed by a flag as a fatal error instead of consuming it', (flag) => {
+    const { options, errors } = resolve(`--${flag}`, '--staged');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes(`--${flag} requires a value`))).toBe(true);
+  });
+
+  it.each(['min-health', 'reporter', 'meta-components'])('reports --%s= (empty value) as a fatal error', (flag) => {
+    const { options, errors } = resolve(`--${flag}=`);
+    expect(options).toBeNull();
+    expect(errors.length).toBeGreaterThan(0);
+  });
+
+  describe('--min-health', () => {
+    it('reports a non-numeric value as a fatal error', () => {
+      const { options, errors } = resolve('--min-health=abc');
+      expect(options).toBeNull();
+      expect(errors.some((e) => e.includes('invalid --min-health'))).toBe(true);
+    });
+
+    it('reports an out-of-range value (150) as a fatal error', () => {
+      const { options, errors } = resolve('--min-health=150');
+      expect(options).toBeNull();
+      expect(errors.length).toBeGreaterThan(0);
+    });
+
+    it('reports a negative value (-1) as a fatal error', () => {
+      const { options, errors } = resolve('--min-health=-1');
+      expect(options).toBeNull();
+      expect(errors.length).toBeGreaterThan(0);
+    });
+
+    it('accepts 0, 100, and a mid-range value', () => {
+      expect(resolve('--min-health=0').minHealth).toBe(0);
+      expect(resolve('--min-health=100').minHealth).toBe(100);
+      expect(resolve('--min-health=85').minHealth).toBe(85);
+    });
+  });
+
+  it('exempts --diff from the value guard: bare and flag-followed both default to HEAD', () => {
+    expect(resolve('--diff').options?.diffBase).toBe('HEAD');
+    expect(resolve('--diff', '--staged').options?.diffBase).toBe('HEAD');
+  });
 });
