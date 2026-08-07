@@ -110,6 +110,9 @@ export const architectureReservedNamePlacement: Rule = {
     // layer governs a subtree and cannot be judged dead against the whole tree.
     const globalAlternatives = new Map<string, { map: MapName; glob: string }>();
     const emptyNames = new Map<string, string>();
+    // Keyed by name (not map): a directory judged against `parts` increments every glob-bearing
+    // alternative of that name in every map, since a shared name is what the five early exits key on.
+    const labelsByName = new Map<string, string[]>();
     for (const map of Object.keys(globalMaps) as MapName[]) {
       for (const [name, value] of Object.entries(globalMaps[map])) {
         const globs = globsOf(value);
@@ -117,11 +120,19 @@ export const architectureReservedNamePlacement: Rule = {
           emptyNames.set(`${map}.${name}`, 'names no position at all');
           continue;
         }
-        for (const glob of globs) globalAlternatives.set(label(map, name, glob), { map, glob });
+        for (const glob of globs) {
+          const key = label(map, name, glob);
+          globalAlternatives.set(key, { map, glob });
+          labelsByName.set(name, [...(labelsByName.get(name) ?? []), key]);
+        }
       }
     }
 
     const usedAlternatives = new Set<string>();
+    // Seeded from every global alternative so a declaration that judges nothing reports `0` rather
+    // than vanishing from the map entirely.
+    const examinedCounts: Record<string, number> = {};
+    for (const key of globalAlternatives.keys()) examinedCounts[key] = 0;
 
     const allDirs = [...dirs].sort();
     for (const dir of allDirs) {
@@ -163,6 +174,10 @@ export const architectureReservedNamePlacement: Rule = {
       if (isExcluded(dir, ancestorDirs(dir), excluded)) {
         continue;
       }
+
+      // Past every early exit, so this directory is judged. Each globally resolved alternative of its
+      // name was consulted, whether or not its glob matched: that is what the count reports.
+      for (const key of labelsByName.get(name) ?? []) examinedCounts[key] = (examinedCounts[key] ?? 0) + 1;
 
       // The union: any one map permitting the position is enough. All three globs are matched against
       // the same directory — this parent — and differ only in what else they require of it.
@@ -266,6 +281,7 @@ export const architectureReservedNamePlacement: Rule = {
         docsUrl
       });
     }
+    ctx.recordExamined?.(examinedCounts);
     return out;
   }
 };

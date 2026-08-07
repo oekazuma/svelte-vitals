@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { architectureReservedNamePlacement } from '../src/rules/architecture/reserved-name-placement.js';
+import { runRules } from '../src/engine.js';
 import type { Config } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 
@@ -13,6 +14,12 @@ function ctx(files: string[], options: Record<string, unknown>, extra: Partial<C
 
 async function run(files: string[], options: Record<string, unknown>, extra: Partial<Config> = {}) {
   return await architectureReservedNamePlacement.check(ctx(files, options, extra));
+}
+
+/** Runs through the engine so `recordExamined` is wired up, returning the counts alongside the results. */
+async function runWithCounts(files: string[], options: Record<string, unknown>, extra: Partial<Config> = {}) {
+  const { results, examined } = await runRules([architectureReservedNamePlacement], ctx(files, options, extra));
+  return { results, examined: examined[ID] ?? {} };
 }
 
 type Results = Awaited<ReturnType<typeof run>>;
@@ -488,5 +495,93 @@ describe('architecture/reserved-name-placement', () => {
       placements: { e2e: 'src/other/**' }
     });
     for (const n of projectScoped(results)) expect(n.message).not.toContain('reaches no unit');
+  });
+
+  it('counts every directory a declaration judged, permitted or not', async () => {
+    const { examined } = await runWithCounts(
+      [
+        'src/lib/Card/Card.svelte',
+        'src/lib/Card/parts/a.svelte',
+        'src/lib/Panel/Panel.svelte',
+        'src/lib/Panel/parts/b.svelte',
+        'src/lib/other/parts/c.svelte',
+        'src/lib/other/x.ts'
+      ],
+      { capitalisedUnitPlacements: { parts: 'src/**' } }
+    );
+    // Three `parts/` judged: two permitted, one rejected. The rejected one counts too.
+    expect(examined['capitalisedUnitPlacements.parts → src/**']).toBe(3);
+  });
+
+  // Corrected from the brief's fixture (see task-2-report.md): that one put a `types/` directory
+  // in the tree, so it reached the judging phase and incremented this count to 1 — a declaration
+  // that is judged and merely doesn't qualify is not the same as one nothing occupies. This tree has
+  // no directory named `types` at all, so the name never clears early exit #2 ("the directory's
+  // name is in no map") anywhere, and the glob still reaches a live unit, so no diagnostic fires either.
+  it('reports zero for a live declaration nothing occupies, with no finding and no diagnostic', async () => {
+    const files = ['src/lib/Card/Card.svelte'];
+    const options = { anyCaseUnitPlacements: { types: 'src/**' } };
+    const { examined, results } = await runWithCounts(files, options);
+    expect(examined['anyCaseUnitPlacements.types → src/**']).toBe(0);
+    expect(results).toEqual([]);
+  });
+
+  it('names a declaration in examined with the same string the diagnostic uses', async () => {
+    const { examined, results } = await runWithCounts(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.svelte'], {
+      capitalisedUnitPlacements: { parts: 'src/**' },
+      placements: { stores: 'src/nowhere/**' }
+    });
+    const note = results.find((r) => r.route === undefined)?.message ?? '';
+    expect(note).toContain("'placements.stores → src/nowhere/**'");
+    expect(Object.hasOwn(examined, 'placements.stores → src/nowhere/**')).toBe(true);
+  });
+
+  it('gives an empty-value declaration no key', async () => {
+    const { examined } = await runWithCounts(['src/lib/Card/Card.svelte'], { placements: { e2e: '|' } });
+    expect(Object.keys(examined).filter((k) => k.startsWith('placements.e2e'))).toEqual([]);
+  });
+
+  // Strengthens the test above: that fixture has no directory named `e2e` at all, so it cannot tell
+  // "the bare label is never added" from "the bare label is added but nothing ever reads it" — a
+  // planted labelsByName entry for an empty global value would sit unread there too. This overrides
+  // layer gives one `e2e` directory a non-empty per-directory value, which clears the empty-value
+  // early exit while the name's GLOBAL value stays empty — so the increment loop runs for 'e2e' and
+  // would read a bad bare-label entry if one existed.
+  it('gives an empty global value no key even at a directory an overrides layer un-empties', async () => {
+    const { examined } = await runWithCounts(['src/lib/e2e/a.ts'], { placements: { e2e: '|' } }, {
+      overrides: [{ files: 'src/**/e2e', rules: { [ID]: { options: { placements: { e2e: 'src/lib/**' } } } } }]
+    } as never);
+    expect(Object.keys(examined).filter((k) => k.startsWith('placements.e2e'))).toEqual([]);
+  });
+
+  it('zeroes a name whose sibling map carries an empty value', async () => {
+    const { examined } = await runWithCounts(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.svelte'], {
+      capitalisedUnitPlacements: { parts: 'src/**' },
+      placements: { parts: '|' }
+    });
+    // The empty value ungoverns `parts` in every map, so the good declaration judges nothing.
+    expect(examined['capitalisedUnitPlacements.parts → src/**']).toBe(0);
+  });
+
+  it('does not count a declaration that exists only in an overrides layer', async () => {
+    const { examined } = await runWithCounts(
+      ['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.svelte'],
+      { capitalisedUnitPlacements: { parts: 'src/**' } },
+      {
+        overrides: [{ files: 'src/**/parts', rules: { [ID]: { options: { placements: { parts: 'src/lib/Card' } } } } }]
+      } as never
+    );
+    expect(Object.keys(examined).filter((k) => k.startsWith('placements.'))).toEqual([]);
+  });
+
+  it('reports no counts at all on a run with no file inventory', async () => {
+    const config = { rules: { [ID]: { options: { capitalisedUnitPlacements: { parts: 'src/**' } } } } };
+    const seen: Record<string, number>[] = [];
+    await architectureReservedNamePlacement.check({
+      sourceFiles: undefined,
+      config,
+      recordExamined: (c: Record<string, number>) => void seen.push(c)
+    } as unknown as RuleContext);
+    expect(seen).toEqual([]);
   });
 });
