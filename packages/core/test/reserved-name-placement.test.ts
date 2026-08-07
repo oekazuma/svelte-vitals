@@ -394,7 +394,8 @@ describe('architecture/reserved-name-placement', () => {
     for (const n of notes) expect(n.message).not.toContain('matched only excluded directories');
   });
 
-  // The excluded reason serves `placements` too, which no unit-map fixture can pin.
+  // The wildcard shape of the excluded reason: this glob finds its match by wildcard and every match
+  // is then pruned, where the fixture above names the excluded directory literally.
   it('calls a placements declaration excluded when every directory its glob reaches is excluded', async () => {
     const results = await run(['src/lib/legacy/e2e/a.ts', 'src/routes/+page.svelte'], {
       placements: { e2e: 'src/lib/legacy/*' },

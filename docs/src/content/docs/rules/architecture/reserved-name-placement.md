@@ -93,8 +93,9 @@ instead, turning a typo into false positives at every position the emptied entry
 under, not an ancestor it happens to sit beneath. `parts: 'src/lib'` therefore permits `parts/` only
 under a unit at exactly `src/lib` — unreachable in the capitalised map, since `lib` is lowercase —
 while `parts: 'src/lib/**'` permits it under any unit below `src/lib`. **A bare glob in a unit map
-is almost always a mistake, and is reported as "reaches no unit"** whenever the bare path is not
-itself a unit of the map's kind. Write `src/lib/**`, not `src/lib`.
+is almost always a mistake, and is always reported** — as "reaches no unit" when the bare path
+exists and simply is not a unit of the map's kind, and under an earlier reason when it matches no
+directory at all or only excluded ones. Write `src/lib/**`, not `src/lib`.
 
 ### `exclude`
 
