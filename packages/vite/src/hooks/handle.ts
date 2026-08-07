@@ -62,10 +62,10 @@ async function analyzeAndIngest(
     // robots/sitemap are not page-scoped, so mark them present to suppress seo/robots-txt, seo/sitemap-xml;
     // htmlLang comes from the rendered document so seo/html-lang is evaluated against reality.
     const project: Project = { hasRobotsTxt: true, hasSitemap: true, htmlLang };
-    const results = applyRuleSeverities(
-      await runRules(rules, { heads: [head], headings, images, project, config }),
-      config
-    );
+    // No JSON report is built here — results are POSTed to the overlay ingest — so the
+    // examined counts have nowhere to go and are dropped.
+    const { results: ruleResults } = await runRules(rules, { heads: [head], headings, images, project, config });
+    const results = applyRuleSeverities(ruleResults, config);
 
     // Skip a repeat POST (and the SSE churn it would cause) when a route re-renders
     // with the exact same findings — e.g. an unrelated HMR pass.

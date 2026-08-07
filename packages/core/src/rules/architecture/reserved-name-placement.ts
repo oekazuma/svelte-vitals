@@ -122,6 +122,10 @@ export const architectureReservedNamePlacement: Rule = {
     }
 
     const usedAlternatives = new Set<string>();
+    // Seeded from every global alternative so a declaration that judges nothing reports `0` rather
+    // than vanishing from the map entirely.
+    const examinedCounts: Record<string, number> = {};
+    for (const key of globalAlternatives.keys()) examinedCounts[key] = 0;
 
     const allDirs = [...dirs].sort();
     for (const dir of allDirs) {
@@ -163,6 +167,26 @@ export const architectureReservedNamePlacement: Rule = {
       if (isExcluded(dir, ancestorDirs(dir), excluded)) {
         continue;
       }
+
+      // Past every early exit, so this directory is judged — against the values RESOLVED here, which
+      // is the set the count must follow. An `overrides` layer that replaces a name's value leaves the
+      // global declaration judging nothing at this directory, while the diagnostic goes on classifying
+      // that global declaration against the whole tree; keying the increment on the global values would
+      // let one report say a declaration judged a place and matched no directory at once.
+      // `globalAlternatives` drops any label the override minted, keeping the count in the same scope
+      // the diagnostic uses, and the `Set` keeps a value that repeats a glob from counting one
+      // directory twice.
+      const judged = new Set<string>();
+      const resolvedValues: [MapName, string | undefined][] = [
+        ['placements', placements[name]],
+        ['capitalisedUnitPlacements', capUnits[name]],
+        ['anyCaseUnitPlacements', anyUnits[name]]
+      ];
+      for (const [map, value] of resolvedValues) {
+        if (value === undefined) continue;
+        for (const glob of globsOf(value)) judged.add(label(map, name, glob));
+      }
+      for (const key of judged) if (globalAlternatives.has(key)) examinedCounts[key] = (examinedCounts[key] ?? 0) + 1;
 
       // The union: any one map permitting the position is enough. All three globs are matched against
       // the same directory — this parent — and differ only in what else they require of it.
@@ -266,6 +290,7 @@ export const architectureReservedNamePlacement: Rule = {
         docsUrl
       });
     }
+    ctx.recordExamined?.(examinedCounts);
     return out;
   }
 };

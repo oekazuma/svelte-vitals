@@ -47,6 +47,13 @@ export interface JsonReport {
    * and floors that sum once, so adding this map's already-floored entries and re-dividing can disagree.
    */
   inventories: Record<string, number>;
+  /**
+   * Per-rule, per-declaration counts of places examined. Unlike `rules`, this describes the analysis
+   * rather than the report: `--diff`, `--baseline` and suppressions do not narrow it. Three states: a
+   * rule that reports no counts has no entry; a rule that counts but whose configuration declares
+   * nothing has an empty entry; a declaration that judged nothing has an entry of `0`.
+   */
+  examined?: Record<string, Record<string, number>>;
 }
 
 function ruleEvidence(
@@ -71,7 +78,8 @@ export function buildJsonReport(
   results: Result[],
   config: Config,
   meta: { version: string },
-  ruleIds?: readonly string[]
+  ruleIds?: readonly string[],
+  examined?: Record<string, Record<string, number>>
 ): JsonReport {
   const { health, categories: byCat, weights } = computeHealth(results, config);
   const summary = summarize(results, config);
@@ -114,7 +122,18 @@ export function buildJsonReport(
     [...buildInventory(config)].map(([pair, weight]) => [pair, Math.max(weight, INVENTORY_FLOOR)])
   );
 
-  return { version: meta.version, score: health, weights, categories, summary, rules, routes, siteIssues, inventories };
+  return {
+    version: meta.version,
+    score: health,
+    weights,
+    categories,
+    summary,
+    rules,
+    routes,
+    siteIssues,
+    inventories,
+    ...(examined && Object.keys(examined).length > 0 ? { examined } : {})
+  };
 }
 
 /** Render results as the documented JSON report string (design §7). */
@@ -122,7 +141,8 @@ export function formatJsonReport(
   results: Result[],
   config: Config,
   meta: { version: string },
-  ruleIds?: readonly string[]
+  ruleIds?: readonly string[],
+  examined?: Record<string, Record<string, number>>
 ): string {
-  return JSON.stringify(buildJsonReport(results, config, meta, ruleIds), null, 2);
+  return JSON.stringify(buildJsonReport(results, config, meta, ruleIds, examined), null, 2);
 }

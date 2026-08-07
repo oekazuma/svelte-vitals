@@ -1,10 +1,21 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import mri from 'mri';
-import { analyzeProject } from '../src/index.js';
+
+// Mock the git layer so the --diff scope below is testable without a real repo (mirrors
+// run-diff.test.ts). Only the test in the "examined counts" describe block below touches this.
+vi.mock('../src/changed-files.js', async (orig) => {
+  const actual = await orig<typeof import('../src/changed-files.js')>();
+  return { ...actual, getChangedFiles: vi.fn() };
+});
+
+import { analyzeProject, applyScope } from '../src/index.js';
+import { getChangedFiles } from '../src/changed-files.js';
 import { ProjectError } from '../src/providers/source/project.js';
 import { resolveArgs } from '../src/resolve-args.js';
+
+const mockGetChangedFiles = vi.mocked(getChangedFiles);
 
 const here = dirname(fileURLToPath(import.meta.url));
 const fixtureDir = join(here, 'fixtures', 'basic-project');
@@ -18,6 +29,7 @@ const directoryNamingFixtureDir = join(here, 'fixtures', 'directory-naming-proje
 const reservedNamesFixtureDir = join(here, 'fixtures', 'reserved-names-project');
 const rulesFlagConfigFixtureDir = join(here, 'fixtures', 'rules-flag-config-project');
 const deadDeclarationFixtureDir = join(here, 'fixtures', 'dead-declaration-project');
+const reservedNamePlacementFixtureDir = join(here, 'fixtures', 'reserved-name-placement-project');
 
 // `architecture/component-size` (a componentRule) seeds a PASS result for every applicable
 // component in addition to a PENALIZED one for a violation, so a plain id filter can't tell
@@ -291,5 +303,29 @@ describe('allowRules keeps the named rules configured', () => {
       rules: { 'seo/title-presence': 'off' }
     });
     expect(config.rules).toEqual({ 'seo/title-presence': 'off' });
+  });
+});
+
+describe('examined counts survive --diff scoping (examined-counts design, "It is not filtered")', () => {
+  // `analyzeProject` returns `examined` before any scope is applied — `--diff`/`--staged`/`--baseline`
+  // narrow `results` only, via the separate `applyScope` step. This pins that decoupling at the
+  // CLI level: three `parts/` directories are judged (one permitted, two violations), and scoping
+  // the results down to a single changed file must leave the count at the full 3, not fall to 1.
+  it('reports the full count while --diff narrows the results to one changed file', async () => {
+    mockGetChangedFiles.mockReturnValue(new Set(['src/lib/other/parts/b.svelte']));
+
+    const { results, examined, config } = await analyzeProject({ cwd: reservedNamePlacementFixtureDir });
+    const violations = results.filter((r) => r.id === 'architecture/reserved-name-placement' && r.route !== undefined);
+    expect(violations).toHaveLength(2); // other/parts and legacy/parts
+    expect(examined['architecture/reserved-name-placement']?.['capitalisedUnitPlacements.parts → src/**']).toBe(3);
+
+    // `applyScope`'s signature takes and returns only `Result[]` — it never sees `examined` at all,
+    // so the count asserted above is already the whole proof: it was read from `analyzeProject`'s
+    // return before this call and nothing here could have changed it. What this narrows is `results`.
+    const scoped = await applyScope(results, { cwd: reservedNamePlacementFixtureDir, config, diffBase: 'HEAD' });
+    const scopedViolations = scoped.filter(
+      (r) => r.id === 'architecture/reserved-name-placement' && r.route !== undefined
+    );
+    expect(scopedViolations).toHaveLength(1); // only other/parts' file is "changed"
   });
 });

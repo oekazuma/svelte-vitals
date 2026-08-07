@@ -63,7 +63,7 @@ describe('seo/title-presence title detection', () => {
 
 describe('summary + reporter', () => {
   it('summarizes a mixed project', async () => {
-    const results = await runRules([seoTitlePresence], {
+    const { results } = await runRules([seoTitlePresence], {
       heads: [staticHead, dynamicHead, noneHead],
       project: defaultProject,
       config
@@ -73,7 +73,7 @@ describe('summary + reporter', () => {
   });
 
   it('renders ✗ for missing and ↯ for dynamic', async () => {
-    const results = await runRules([seoTitlePresence], {
+    const { results } = await runRules([seoTitlePresence], {
       heads: [staticHead, dynamicHead, noneHead],
       project: defaultProject,
       config

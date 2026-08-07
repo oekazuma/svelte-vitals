@@ -183,6 +183,8 @@ export interface AnalyzeResult {
   version: string;
   /** Ids of the rules that ran, after `--category` narrowing. The JSON report lists these so a rule that found nothing stays distinguishable from one that was never selected. */
   ruleIds: string[];
+  /** Per-rule, per-declaration counts of places examined, unfiltered by `--diff`/`--baseline`/suppressions. */
+  examined: Record<string, Record<string, number>>;
   /** Non-fatal config-file issues (unknown top-level keys, invalid enum values). Empty when no config file or none found. */
   warnings: string[];
 }
@@ -229,14 +231,18 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   });
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
-  const results = applyOverrides(
-    applyRuleSeverities(
-      await runRules(rules, { heads, images, headings, components, project, config, kitModules, sourceFiles }),
-      config
-    ),
-    config
-  );
-  return { results, config, version: readPackageVersion(), ruleIds: rules.map((r) => r.id), warnings };
+  const { results: rawResults, examined } = await runRules(rules, {
+    heads,
+    images,
+    headings,
+    components,
+    project,
+    config,
+    kitModules,
+    sourceFiles
+  });
+  const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
+  return { results, config, version: readPackageVersion(), ruleIds: rules.map((r) => r.id), examined, warnings };
 }
 
 export interface ApplyScopeOptions {
@@ -476,7 +482,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         );
       }
       if (reporter === 'json') {
-        log(formatJsonReport(results, config, { version }, analysis.ruleIds));
+        log(formatJsonReport(results, config, { version }, analysis.ruleIds, analysis.examined));
       } else if (reporter === 'agent') {
         log(formatAgentReport(results, config));
       } else if (reporter === 'sarif') {

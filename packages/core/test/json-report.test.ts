@@ -147,6 +147,51 @@ describe('buildJsonReport — per-rule evidence', () => {
   });
 });
 
+describe('buildJsonReport — examined counts', () => {
+  const meta = { version: 'x' };
+  const ruleIds = ['architecture/reserved-name-placement'];
+
+  it('puts the counts in the report under `examined`, unchanged', () => {
+    const counts = {
+      'architecture/reserved-name-placement': {
+        'capitalisedUnitPlacements.parts → src/**': 28,
+        'anyCaseUnitPlacements.types → src/**': 0
+      }
+    };
+    const report = buildJsonReport([], config, meta, ruleIds, counts);
+    expect(report.examined).toEqual(counts);
+    expect(JSON.parse(formatJsonReport([], config, meta, ruleIds, counts)).examined).toEqual(counts);
+  });
+
+  // The keys a report had before `examined` existed, in order. A caller that passes no counts must
+  // still serialise to exactly that — the field is additive, and a consumer that does not know it
+  // must see no difference at all.
+  it('adds nothing to a report built without counts', () => {
+    const before = ['version', 'score', 'weights', 'categories', 'summary', 'rules', 'routes', 'siteIssues'];
+    const report = buildJsonReport(results, config, meta, ruleIds);
+    expect(Object.keys(report)).toEqual([...before, 'inventories']);
+    expect(formatJsonReport(results, config, meta, ruleIds)).not.toContain('"examined"');
+    // An empty outer map is the same case: the caller had nothing to report.
+    expect(formatJsonReport(results, config, meta, ruleIds, {})).toBe(formatJsonReport(results, config, meta, ruleIds));
+  });
+
+  // The three states the field can be in, all the way through serialisation. The middle one is
+  // reachable from config alone — `rules: { 'architecture/reserved-name-placement': 'warn' }` makes
+  // the rule count while declaring nothing — so an implementation that drops empty inner maps would
+  // turn "counts, nothing declared" back into "does not count".
+  it('carries all three states through to the serialised report', () => {
+    const json = JSON.parse(
+      formatJsonReport([], config, meta, ['a/counts', 'a/empty', 'a/zero'], {
+        'a/empty': {},
+        'a/zero': { 'placements.parts → src/**': 0 }
+      })
+    );
+    expect(Object.hasOwn(json.examined, 'a/counts')).toBe(false);
+    expect(json.examined['a/empty']).toEqual({});
+    expect(json.examined['a/zero']).toEqual({ 'placements.parts → src/**': 0 });
+  });
+});
+
 describe('buildJsonReport — per-route category scores', () => {
   const config = defineConfig({});
   const meta = { version: '0.0.0' };
