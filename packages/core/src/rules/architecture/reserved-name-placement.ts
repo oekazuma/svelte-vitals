@@ -12,7 +12,6 @@ import {
   ancestorDirs,
   baseName,
   childFiles,
-  classifyUnusedKeys,
   createKeyCompiler,
   isExcluded,
   keysMatchingAny,
@@ -123,7 +122,6 @@ export const architectureReservedNamePlacement: Rule = {
     }
 
     const usedAlternatives = new Set<string>();
-    const excludedDirs: string[] = [];
     // Parents a unit-map alternative matched while the parent was not a unit of that map's kind.
     const nonUnitParents: Record<'capitalisedUnitPlacements' | 'anyCaseUnitPlacements', string[]> = {
       capitalisedUnitPlacements: [],
@@ -131,6 +129,12 @@ export const architectureReservedNamePlacement: Rule = {
     };
 
     const allDirs = [...dirs].sort();
+    // The diagnostics below judge a declaration by what its glob can reach, not by what it happened to
+    // govern — a declaration saying where a name MAY sit is not dead for going unused. `exclude` is
+    // taken from the global resolution only, matching the rule's decision to diagnose only globally
+    // resolved declarations.
+    const globalExcluded = compile(listOption(globalOptions, 'exclude'));
+    const liveDirs = allDirs.filter((d) => !isExcluded(d, ancestorDirs(d), globalExcluded));
     for (const dir of allDirs) {
       const o = resolveRuleOptions(ID, OPTIONS, ctx.config, { route: dir, file: dir }, compiledOverrides);
       const placements = mapOption(o, 'placements');
@@ -168,10 +172,6 @@ export const architectureReservedNamePlacement: Rule = {
       if (parent === undefined) continue; // a root-level directory has no parent to record
 
       if (isExcluded(dir, ancestorDirs(dir), excluded)) {
-        // Every glob below is matched against the PARENT, never `dir` itself, so the pruned subject
-        // to record is the parent — and only when the parent is itself excluded, or a child excluded
-        // on its own would wrongly blame an exclusion the parent never had.
-        if (isExcluded(parent, ancestorDirs(parent), excluded)) excludedDirs.push(parent);
         continue;
       }
 
@@ -239,18 +239,12 @@ export const architectureReservedNamePlacement: Rule = {
 
     const stillUnused = unusedLabels.filter((k) => !notes.has(k));
     const globs = [...new Set(stillUnused.map(globOf))];
-    const reasons = classifyUnusedKeys(globs, excludedDirs, compile);
-    // Usage means "permitted a position", which a glob naming real directories the name never appeared
-    // in never does — and a declaration saying where a name MAY sit is not dead for going unused, so
-    // calling it unmatched would be a false claim.
-    const reachable = keysMatchingAny(globs, allDirs, compile);
+    const reachesAny = keysMatchingAny(globs, allDirs, compile);
+    const reachesLive = keysMatchingAny(globs, liveDirs, compile);
     for (const k of stillUnused) {
       const glob = globOf(k);
-      if (reasons.get(glob) === 'only-excluded') {
-        notes.set(k, 'matched only excluded directories');
-      } else if (!reachable.has(glob)) {
-        notes.set(k, 'matched no directory');
-      }
+      if (!reachesAny.has(glob)) notes.set(k, 'matched no directory');
+      else if (!reachesLive.has(glob)) notes.set(k, 'matched only excluded directories');
     }
 
     const reported = [...notes.keys()].sort();

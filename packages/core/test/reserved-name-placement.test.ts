@@ -240,6 +240,9 @@ describe('architecture/reserved-name-placement', () => {
     expect(notes).toHaveLength(1);
     expect(notes[0]?.message).toContain('src/route/**');
     expect(notes[0]?.message).not.toContain('src/routes/**');
+    // No `exclude` is declared at all, so a glob reaching nothing must say so — not be mislabelled
+    // as excluded, which would be true of nothing in this tree.
+    expect(notes[0]?.message).toContain('matched no directory');
   });
 
   // Testing item 11
@@ -374,5 +377,24 @@ describe('architecture/reserved-name-placement', () => {
       overrides: [{ files: 'src/**/parts', rules: { [ID]: { options: { exclude: ['src/lib/**'] } } } }]
     } as never);
     expect(excluded).toEqual([]);
+  });
+
+  it('does not call a declaration excluded when its glob reaches a live directory', async () => {
+    const results = await run(['src/lib/Panel/Panel.svelte', 'src/lib/legacy/parts/b.svelte', 'src/lib/other/x.ts'], {
+      capitalisedUnitPlacements: { parts: 'src/lib/*' },
+      exclude: ['src/lib/legacy/**']
+    });
+    const notes = projectScoped(results);
+    for (const n of notes) expect(n.message).not.toContain('matched only excluded directories');
+  });
+
+  it('calls a declaration excluded when every directory its glob reaches is excluded', async () => {
+    const results = await run(['src/lib/legacy/parts/a.svelte', 'src/routes/+page.svelte'], {
+      capitalisedUnitPlacements: { parts: 'src/lib/legacy/*' },
+      exclude: ['src/lib/legacy/**']
+    });
+    const notes = projectScoped(results);
+    expect(notes).toHaveLength(1);
+    expect(notes[0]?.message).toContain('matched only excluded directories');
   });
 });
