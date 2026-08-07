@@ -129,10 +129,17 @@ is pushed, and the test passes under either order. Nothing signalled this, becau
 argument for re-running mutation checks after any change to shared bookkeeping, not just after changes to the
 code under test.
 
-The replacement fixture must actually populate `excludedDirs` — the excluded directory has to be the _parent_:
-`['src/lib/legacy/parts/a.svelte']` with `exclude: ['src/lib/legacy/**']`. Executed against the shipped rule,
-that fixture reports `matched only excluded directories` today, so it discriminates. Under this design it must
-keep reporting the excluded reason while a unit-reachable glob does not.
+The replacement fixture is `['src/lib/legacy/parts/a.svelte']` with `exclude: ['src/lib/legacy/**']`, where the
+excluded directory is the reserved name's _parent_.
+
+**Corrected after execution.** This paragraph originally required that fixture to populate `excludedDirs` and
+claimed it "reports `matched only excluded directories` today, so it discriminates". Replayed against the
+shipped rule, it emits **no note at all**: a glob using a single `*` matches at the reserved-name directory's
+level rather than at the recorded excluded parent, so nothing is ever shadowed and the excluded reason
+under-fires. The `excludedDirs` requirement is also moot — that bookkeeping is what this design deletes, so
+there is nothing left for a fixture to populate. The fixture is still the right one, for the opposite reason to
+the one given: it fails beforehand rather than passing, and under this design it must report the excluded reason
+while a unit-reachable glob does not.
 
 ## What this does to the rule's documentation, which has now said three things
 
@@ -155,10 +162,14 @@ it. Both language pages change together.
    somewhere else that another map covers. This is the field's report, and it fails today.
 2. **Case B reports.** A bare glob in a unit map, with a real unit below it that the glob cannot reach. This
    also fails today — in the other direction, by reporting nothing.
-3. **The control stays silent.** The same tree as case B with the glob corrected to `src/lib/**`. This is what
-   separates reach from usage: in case B the name is not seen under any unit **and** the glob reaches none, so
-   an implementation that kept asking about usage would report both B and the control. Only the control tells
-   the two questions apart, and only it distinguishes the fix a reader is being pushed towards from the mistake.
+3. **The control stays silent.** The same tree as case B with the glob corrected to `src/lib/**`.
+   **Corrected after execution:** this item claimed that "an implementation that kept asking about usage would
+   report both B and the control". It would not, and the table two dozen lines above already says so — with
+   `parts/` sitting under the one unit the corrected glob reaches, the alternative is _used_, and a usage-based
+   implementation never classifies it at all. As written this fixture passes before and after and separates
+   nothing. The fixture that does tell reach from usage puts the reserved name somewhere that is not a unit, so
+   the alternative is genuinely unused while the corrected glob still reaches a real unit; that is the shape to
+   test, and it is what distinguishes the fix a reader is being pushed towards from the mistake.
 4. **The two maps do not borrow each other's units.** A glob reaching only a lowercase unit, declared in
    `capitalisedUnitPlacements`, must report; the same glob in `anyCaseUnitPlacements` must not. The predicate is
    per map and nothing else in the suite pins that.
@@ -180,9 +191,10 @@ it. Both language pages change together.
 10. **The aggregation still holds.** One project-scoped finding carrying every bad declaration, `route` and
     `location` unset. Changing a reason must not change the shape.
 
-Items 1, 2, 6 and 7 must be verified to fail before the change — they are the four behaviours this design
-alters. Item 5 passes today and guards the excluded path against the rewrite. A test that passes beforehand and
-is not named here as a guard is not pinning anything.
+Items 1, 2, 5, 6 and 7 must be verified to fail before the change — they are the behaviours this design alters.
+**Corrected after execution:** item 5 was listed here as passing today and guarding the excluded path against
+the rewrite. It fails today too, by the measurement recorded above — the shipped rule emits no note at all for
+its fixture. A test that passes beforehand and is not named here as a guard is not pinning anything.
 
 ## Release
 

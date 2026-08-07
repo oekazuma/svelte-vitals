@@ -93,13 +93,16 @@ instead, turning a typo into false positives at every position the emptied entry
 under, not an ancestor it happens to sit beneath. `parts: 'src/lib'` therefore permits `parts/` only
 under a unit at exactly `src/lib` — unreachable in the capitalised map, since `lib` is lowercase —
 while `parts: 'src/lib/**'` permits it under any unit below `src/lib`. **A bare glob in a unit map
-is almost always a mistake, and usually nothing tells you so** — the `parts/` is simply reported as
-misplaced. Write `src/lib/**`, not `src/lib`.
+is almost always a mistake, and is reported as "reaches no unit"** whenever the bare path is not
+itself a unit of the map's kind. Write `src/lib/**`, not `src/lib`.
 
 ### `exclude`
 
 `exclude` removes a directory and everything beneath it from consideration, the same as the sibling
-rule.
+rule. The declaration diagnostic below is judged against the `exclude` the config file itself
+declares, not one an `overrides` layer adds — the misplaced-directory findings honour either. Since
+an `overrides` layer can only add exclusions, this can only make that diagnostic quieter, never
+louder.
 
 ## Limitations
 
@@ -117,10 +120,10 @@ silently doing nothing. The finding names the reason:
 - a glob reaches no directory that `exclude` leaves live — reported as "matched only excluded
   directories". A glob that also reaches a live directory is not reported here, even if some of its
   matches are excluded;
-- a unit-map glob reaches no unit of the map's required case anywhere in the tree — reported as
-  "reaches no unit". This **does** catch the bare-glob mistake above: `parts: 'src/lib'` reaches no
-  capitalised unit at all (a unit at exactly `src/lib` is unreachable, since `lib` is lowercase), so
-  it is reported. Write `src/lib/**`, not `src/lib`.
+- a unit-map glob reaches no unit of the map's required case anywhere in the tree that `exclude`
+  leaves live — reported as "reaches no unit". This **does** catch the bare-glob mistake above:
+  `parts: 'src/lib'` reaches no capitalised unit at all (a unit at exactly `src/lib` is unreachable,
+  since `lib` is lowercase), so it is reported. Write `src/lib/**`, not `src/lib`.
 
 A declaration saying where a name **may** sit is not dead for going unused. A currently-empty but
 legitimate position — a declared alternative that no directory happens to use yet — is silent by
