@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { collectComponentFacts } from '../src/providers/source/components.js';
+import { collectComponentFacts } from '@svelte-vitals/core';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';
 
 describe('collectComponentFacts (memory runtime)', () => {

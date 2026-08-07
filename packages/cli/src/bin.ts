@@ -1,10 +1,8 @@
 #!/usr/bin/env node
-import mri from 'mri';
-import * as p from '@clack/prompts';
 import { run } from './index.js';
 import { readPackageVersion, readCoreVersion } from './version.js';
-import { resolveArgs } from './resolve-args.js';
-import { runInstallCli } from './install/cli.js';
+import { parseRunArgs, resolveArgs } from './resolve-args.js';
+import { runInstallCli, selectAppPrompt } from './install/cli.js';
 import { runCiCli } from './ci/cli.js';
 import { runExplainCli } from './explain.js';
 
@@ -71,12 +69,8 @@ If you are an AI agent:
 const VERSION = readPackageVersion();
 
 /** Monorepo app picker (design doc 2026-07-08-monorepo-app-picker-design.md): single-select via @clack/prompts, same style as the `install` wizard. */
-async function selectApp(apps: string[]): Promise<string | null> {
-  const res = await p.select({
-    message: 'Multiple SvelteKit apps found — which one should svelte-vitals analyze?',
-    options: apps.map((a) => ({ value: a, label: a }))
-  });
-  return p.isCancel(res) ? null : (res as string);
+function selectApp(apps: string[]): Promise<string | null> {
+  return selectAppPrompt(apps, 'Multiple SvelteKit apps found — which one should svelte-vitals analyze?');
 }
 
 /** CLI entrypoint: dispatches `docs`/`explain`/`install`/`ci` subcommands, otherwise parses argv, resolves it into `run()` options, executes the analysis, and exits with the resulting code. */
@@ -107,25 +101,7 @@ async function main(): Promise<void> {
     process.exit(code);
   }
 
-  const argv = mri(process.argv.slice(2), {
-    alias: { h: 'help', v: 'version' },
-    boolean: ['by-route', 'staged', 'score', 'verbose', 'update-suppressions'],
-    string: [
-      'meta-components',
-      'treat-dynamic-as',
-      'route',
-      'fail-on',
-      'reporter',
-      'rules',
-      'ignore',
-      'min-health',
-      'out-file',
-      'diff',
-      'baseline',
-      'weights',
-      'category'
-    ]
-  });
+  const argv = parseRunArgs(rawArgs);
 
   if (argv.help) {
     console.log(HELP);
@@ -150,7 +126,8 @@ async function main(): Promise<void> {
   const minHealthRaw = argv['min-health'];
   let minHealth: number | undefined;
   if (minHealthRaw !== undefined) {
-    const n = Number(minHealthRaw);
+    // A bare `--min-health` parses as `true` — NaN it so it errors instead of becoming 1.
+    const n = typeof minHealthRaw === 'string' ? Number(minHealthRaw) : NaN;
     if (!Number.isFinite(n) || n < 0 || n > 100) {
       console.error(`svelte-vitals: invalid --min-health '${minHealthRaw}'; expected a number 0-100.`);
       process.exit(2);

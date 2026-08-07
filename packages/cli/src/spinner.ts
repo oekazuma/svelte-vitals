@@ -1,6 +1,6 @@
 const FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
 
-export interface Spinner {
+interface Spinner {
   stop(): void;
 }
 

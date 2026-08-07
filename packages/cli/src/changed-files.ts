@@ -1,7 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import type { Result } from '@svelte-vitals/core';
 
-export interface ChangedFilesOptions {
+interface ChangedFilesOptions {
   /** Report only files staged for commit (`git diff --cached`). */
   staged?: boolean;
   /** Compare the working tree against the merge-base with this ref (default 'HEAD'). Ignored when `staged`. */

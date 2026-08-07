@@ -31,7 +31,7 @@ const FAIL_ON_VALUES = ['critical', 'warning', 'info'];
 const KNOWN_TOP_LEVEL_KEYS = new Set(['treatDynamicAs', 'metaComponents', 'rules', 'failOn', 'weights', 'overrides']);
 
 /** Whether `value` is a plain object (not null, not an array) — usable with Object.keys/entries. */
-function isPlainObject(value: unknown): value is Record<string, unknown> {
+export function isPlainObject(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 

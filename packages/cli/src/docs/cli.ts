@@ -1,4 +1,4 @@
-import mri from 'mri';
+import { parseCliArgs } from '../cli-args.js';
 import { consoleIO, type CliIO } from '../cli-io.js';
 import { EMBEDDED_DOCS } from './generated.js';
 
@@ -37,7 +37,7 @@ function renderList(): string {
 
 /** Returns 0 on a hit, 2 otherwise. Every exit-2 path leaves stdout empty, for callers piping it. */
 export function runDocsCli(args: string[], io: CliIO = consoleIO): number {
-  const argv = mri(args, { boolean: ['json', 'help'], alias: { h: 'help' } });
+  const argv = parseCliArgs(args, { boolean: ['json', 'help'], short: { h: 'help' } });
   const [sub, ...rest] = argv._;
 
   if (argv.help) {

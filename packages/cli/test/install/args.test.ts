@@ -1,9 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import mri from 'mri';
-import { resolveInstallArgs } from '../../src/install/args.js';
+import { parseInstallArgs, resolveInstallArgs } from '../../src/install/args.js';
 
-const parse = (args: string[]) =>
-  mri(args, { boolean: ['yes', 'dry-run', 'force', 'refresh'], string: ['client', 'scope'], alias: { y: 'yes' } });
+const parse = parseInstallArgs;
 
 describe('resolveInstallArgs', () => {
   it('parses clients', () => {

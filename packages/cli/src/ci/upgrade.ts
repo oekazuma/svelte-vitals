@@ -1,4 +1,4 @@
-export interface UpgradeOutcome {
+interface UpgradeOutcome {
   status: 'upgraded' | 'up-to-date' | 'no-reference';
   /** status='upgraded' only: the full file content with the pin(s) replaced. */
   content?: string;

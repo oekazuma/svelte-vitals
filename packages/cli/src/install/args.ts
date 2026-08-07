@@ -1,36 +1,33 @@
-import type mri from 'mri';
-import { VITE_TARGETS } from './vite-targets.js';
-import { AGENT_TARGETS } from './agent-targets.js';
-import { CONFIG_TARGETS } from './config-targets.js';
-import { CI_TARGETS } from './ci-targets.js';
-import type { InstallFlags, TargetId } from './index.js';
+import { parseCliArgs, toList, type CliArgv } from '../cli-args.js';
+import { INSTALL_TARGETS, type TargetId } from './targets.js';
+import type { InstallFlags } from './index.js';
 
-const VALID_TARGETS: readonly TargetId[] = [
-  ...VITE_TARGETS.map((t) => t.id),
-  ...AGENT_TARGETS.map((t) => t.id),
-  ...CONFIG_TARGETS.map((t) => t.id),
-  ...CI_TARGETS.map((t) => t.id)
-];
+const VALID_TARGETS: readonly TargetId[] = INSTALL_TARGETS.map((t) => t.id);
 const EXPECTED_TARGETS = VALID_TARGETS.join('|');
 
-export interface ResolvedInstallArgs {
+/** Parse `install`'s argv, exactly as `runInstallCli` does — exported so tests share the real flag table. */
+export function parseInstallArgs(args: string[]): CliArgv {
+  return parseCliArgs(args, {
+    boolean: ['yes', 'dry-run', 'force', 'refresh', 'help'],
+    // `scope` is still declared although the flag is gone: it keeps `--scope global` from
+    // parsing its value as a positional, so resolveInstallArgs can warn and carry on.
+    string: ['client', 'scope', 'app'],
+    short: { y: 'yes', h: 'help' }
+  });
+}
+
+interface ResolvedInstallArgs {
   /** Flags to pass to runInstall, or null when a fatal (exit-2) error was found. */
   flags: InstallFlags | null;
   warnings: string[];
   errors: string[];
 }
 
-export function resolveInstallArgs(argv: mri.Argv): ResolvedInstallArgs {
+export function resolveInstallArgs(argv: CliArgv): ResolvedInstallArgs {
   const warnings: string[] = [];
   const errors: string[] = [];
 
-  const rawClients =
-    typeof argv.client === 'string'
-      ? argv.client
-          .split(',')
-          .map((s) => s.trim())
-          .filter(Boolean)
-      : [];
+  const rawClients = toList(argv.client);
   const client: TargetId[] = [];
   for (const c of rawClients) {
     if ((VALID_TARGETS as readonly string[]).includes(c)) {

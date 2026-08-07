@@ -1,6 +1,6 @@
-import type mri from 'mri';
 import type { Category } from '@svelte-vitals/core';
 import type { RunOptions } from './index.js';
+import { parseCliArgs, toList, type CliArgv } from './cli-args.js';
 import { findUnknownRuleIds, knownRuleIds } from './rules-config.js';
 import { isReporterName, type ReporterName } from './reporter-resolve.js';
 
@@ -20,10 +20,7 @@ function parseWeights(raw: unknown, errors: string[]): Partial<Record<Category, 
   const unknownCategories: string[] = [];
   const invalidValues: string[] = [];
 
-  for (const pair of raw
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)) {
+  for (const pair of toList(raw)) {
     const eq = pair.indexOf('=');
     if (eq === -1) {
       invalidValues.push(pair);
@@ -86,10 +83,7 @@ function parseCategories(raw: unknown, errors: string[]): Category[] | undefined
   const categories: Category[] = [];
   const unknownCategories: string[] = [];
 
-  for (const entry of raw
-    .split(',')
-    .map((s) => s.trim().toLowerCase())
-    .filter(Boolean)) {
+  for (const entry of toList(raw).map((s) => s.toLowerCase())) {
     if (!CATEGORIES.includes(entry as Category)) {
       unknownCategories.push(entry);
       continue;
@@ -110,7 +104,7 @@ function parseCategories(raw: unknown, errors: string[]): Category[] | undefined
 }
 
 /** Result of normalizing parsed argv: the `run` options, plus any diagnostics to print. */
-export interface ResolvedArgs {
+interface ResolvedArgs {
   /** Options to pass to `run`, or `null` when a fatal (exit-2) error was found. */
   options: RunOptions | null;
   /** Non-fatal messages (printed to stderr; analysis still proceeds). */
@@ -119,32 +113,54 @@ export interface ResolvedArgs {
   errors: string[];
 }
 
-/** Splits a comma-separated string flag into trimmed, non-empty entries; non-string input (flag not passed) yields `[]`. */
-const toList = (v: unknown): string[] =>
-  typeof v === 'string'
-    ? v
-        .split(',')
-        .map((s) => s.trim())
-        .filter(Boolean)
-    : [];
+/** Parse the analysis command's argv, exactly as `main` (bin.ts) does — exported so tests share the real flag table. */
+export function parseRunArgs(args: string[]): CliArgv {
+  // --diff takes an optional value, which parseArgs cannot express: a bare --diff
+  // (next token is another flag, or nothing) gets its default ref inlined here.
+  const patched = args.map((a, i) => (a === '--diff' && (args[i + 1] ?? '--').startsWith('-') ? '--diff=HEAD' : a));
+  return parseCliArgs(patched, {
+    boolean: [
+      'by-route',
+      'staged',
+      'score',
+      'verbose',
+      'update-suppressions',
+      'no-suppressions',
+      'no-color',
+      'no-animation',
+      'help',
+      'version'
+    ],
+    string: [
+      'meta-components',
+      'treat-dynamic-as',
+      'route',
+      'fail-on',
+      'reporter',
+      'rules',
+      'ignore',
+      'min-health',
+      'out-file',
+      'diff',
+      'baseline',
+      'weights',
+      'category'
+    ],
+    short: { h: 'help', v: 'version' }
+  });
+}
 
 /**
  * Normalize parsed CLI argv into `run` options without any I/O or process exit,
  * so the validation/warning behavior is unit-testable. `main` (in bin.ts) is the
  * thin wrapper that prints the diagnostics and maps a fatal result to exit code 2.
  */
-export function resolveArgs(argv: mri.Argv): ResolvedArgs {
+export function resolveArgs(argv: CliArgv): ResolvedArgs {
   const warnings: string[] = [];
   const errors: string[] = [];
 
   const positional = argv._[0];
-  const metaComponents =
-    typeof argv['meta-components'] === 'string'
-      ? argv['meta-components']
-          .split(',')
-          .map((s) => s.trim())
-          .filter(Boolean)
-      : undefined;
+  const metaComponents = typeof argv['meta-components'] === 'string' ? toList(argv['meta-components']) : undefined;
 
   const treatRaw = argv['treat-dynamic-as'];
   const treatDynamicAs = treatRaw === 'warn' || treatRaw === 'fail' || treatRaw === 'pass' ? treatRaw : undefined;
@@ -156,16 +172,20 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
 
   const route = typeof argv.route === 'string' ? argv.route : undefined;
 
-  // --diff (string): `--diff` alone → '' ⇒ default base 'HEAD'; `--diff main` → 'main'.
+  // --diff: a bare flag was rewritten to '--diff=HEAD' by parseRunArgs; `|| 'HEAD'`
+  // still catches an explicit `--diff=`.
   const diffBase = typeof argv.diff === 'string' ? argv.diff || 'HEAD' : undefined;
   const staged = Boolean(argv.staged);
 
-  // --baseline (string): unlike --diff, no implicit default — a bare `--baseline`
-  // (mri yields '') is a fatal error rather than silently defaulting to HEAD, so a
+  // --baseline: unlike --diff, no implicit default — a bare `--baseline` (parseArgs
+  // yields `true`) is a fatal error rather than silently defaulting to HEAD, so a
   // missing ref in a CI config surfaces immediately instead of silently no-op'ing.
+  // Values starting with '-' are rejected too: git refnames cannot start with '-',
+  // and parseArgs would otherwise consume a following flag (`--baseline --force`)
+  // as the ref, turning a misconfigured CI gate into a silent pass.
   let baselineRef: string | undefined;
-  if (typeof argv.baseline === 'string') {
-    if (argv.baseline.trim() === '') {
+  if (argv.baseline !== undefined) {
+    if (typeof argv.baseline !== 'string' || argv.baseline.trim() === '' || argv.baseline.startsWith('-')) {
       errors.push('svelte-vitals: --baseline requires a git ref (e.g. --baseline origin/main).');
     } else {
       baselineRef = argv.baseline;
@@ -210,17 +230,9 @@ export function resolveArgs(argv: mri.Argv): ResolvedArgs {
 
   const verbose = Boolean(argv['verbose']);
 
-  // mri auto-negates `--no-X` into `{X: false}`, not `{'no-X': true}` — so `--no-color`/
-  // `--no-animation` surface as `argv.color === false` / `argv.animation === false`, never
-  // as an `argv['no-color']`/`argv['no-animation']` key (that key is never populated,
-  // regardless of whether either flag is passed). `undefined` (flag not passed) must stay
-  // `false` here, not just `!argv.color` — `!undefined` is `true`, which would invert the
-  // default.
-  const noColor = argv.color === false;
-  const noAnimation = argv.animation === false;
-  // Same mri auto-negation as --no-color/--no-animation above: `--no-suppressions`
-  // surfaces as `argv.suppressions === false`, never as an `argv['no-suppressions']` key.
-  const noSuppressions = argv.suppressions === false;
+  const noColor = Boolean(argv['no-color']);
+  const noAnimation = Boolean(argv['no-animation']);
+  const noSuppressions = Boolean(argv['no-suppressions']);
   const updateSuppressions = Boolean(argv['update-suppressions']);
   if (updateSuppressions && noSuppressions) {
     errors.push('svelte-vitals: --update-suppressions and --no-suppressions cannot be used together.');

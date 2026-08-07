@@ -497,8 +497,8 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         if (opts.outFile === '-') {
           log(html);
         } else {
-          // `||` (not `??`) so an empty --out-file (mri yields '' for a value-less
-          // flag) falls back to the default instead of writing to an empty path.
+          // `||` (not `??`) so an empty outFile from a programmatic caller falls back
+          // to the default instead of writing to an empty path.
           const path = opts.outFile || 'svelte-vitals-report.html';
           const write =
             opts.writeFile ??
@@ -557,7 +557,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 export { ProjectError } from './providers/source/project.js';
 export { routeMatcher } from './route-matcher.js';
 export type { ParseCache } from './providers/source/resolve.js';
-export { buildRulesConfig, findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
+export { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
 export { loadConfigFile } from './config-file.js';
 export type { LoadedConfigFile } from './config-file.js';
 // Re-exported so user config files can `import { defineConfig } from 'svelte-vitals'`

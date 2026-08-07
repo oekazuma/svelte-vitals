@@ -1,6 +1,6 @@
 import { allRules, type RuleSetting } from '@svelte-vitals/core';
 
-export interface RuleSelectionInput {
+interface RuleSelectionInput {
   /** The config file's `rules` map, when a config file was loaded. */
   fileRules?: Record<string, RuleSetting>;
   /**

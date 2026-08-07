@@ -5,7 +5,7 @@ export const WORKFLOW_PATH = '.github/workflows/svelte-vitals.yml';
 const CHECKOUT_SHA = '9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0';
 const CHECKOUT_VERSION = 'v7.0.0';
 
-export interface WorkflowPlan {
+interface WorkflowPlan {
   status: 'created' | 'exists' | 'updated';
   content?: string;
 }

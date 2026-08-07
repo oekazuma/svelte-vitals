@@ -3,19 +3,26 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import {
   seoTitlePresence,
+  type Config,
   type Detection,
   type HeadTag,
   type ImageInfo,
   type ResolvedHead,
+  type Runtime,
   defaultConfig,
   defaultProject,
   defineConfig
 } from '@svelte-vitals/core';
 import { createNodeRuntime } from '../src/runtime/node.js';
-import { collectRoutes, sourceHeadProvider } from '../src/providers/source/routes.js';
+import { collectRoutes } from '../src/providers/source/routes.js';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';
 
 const fixtureDir = join(dirname(fileURLToPath(import.meta.url)), 'fixtures', 'basic-project');
+
+/** The head half of static-mode collection — what the deleted sourceHeadProvider wrapped. */
+async function collectHeads(rt: Runtime, cwd: string, config?: Config): Promise<ResolvedHead[]> {
+  return (await collectRoutes(rt, cwd, config)).heads;
+}
 
 function titleDetection(head: ResolvedHead): Detection {
   const title = head.tags.find((t) => t.kind === 'title');
@@ -25,7 +32,7 @@ function titleDetection(head: ResolvedHead): Detection {
 describe('SourceHeadProvider (Node runtime, real fixture)', () => {
   it('resolves title detection per route across the layout chain', async () => {
     const rt = createNodeRuntime();
-    const heads = await sourceHeadProvider.collect(rt, fixtureDir);
+    const heads = await collectHeads(rt, fixtureDir);
     const byRoute = new Map(heads.map((h) => [h.route, h]));
 
     expect([...byRoute.keys()].sort()).toEqual([
@@ -49,7 +56,7 @@ describe('SourceHeadProvider (Node runtime, real fixture)', () => {
 
   it('feeds seo/title-presence to produce one critical failure (the missing title)', async () => {
     const rt = createNodeRuntime();
-    const heads = await sourceHeadProvider.collect(rt, fixtureDir);
+    const heads = await collectHeads(rt, fixtureDir);
     const results = await seoTitlePresence.check({ heads, project: defaultProject, config: defineConfig({}) });
     const failing = results.filter((r) => r.detection.presence === 'none');
     expect(failing).toHaveLength(2);
@@ -58,7 +65,7 @@ describe('SourceHeadProvider (Node runtime, real fixture)', () => {
 
   it('detects svelte-meta-tags openGraph/twitter/JsonLd tags on the /smt route (issue #91)', async () => {
     const rt = createNodeRuntime();
-    const heads = await sourceHeadProvider.collect(rt, fixtureDir);
+    const heads = await collectHeads(rt, fixtureDir);
     const smt = new Map(heads.map((h) => [h.route, h])).get('/smt')!;
     const has = (pred: (t: HeadTag) => boolean) => smt.tags.some(pred);
     expect(has((t) => t.kind === 'meta' && t.property === 'og:url')).toBe(true);
@@ -74,7 +81,7 @@ describe('SourceHeadProvider (in-memory runtime)', () => {
       'src/routes/static/+page.svelte': '<svelte:head><title>Hi</title></svelte:head>',
       'src/routes/dynamic/+page.svelte': '<svelte:head><title>{data.title}</title></svelte:head>'
     });
-    const heads = await sourceHeadProvider.collect(rt, '');
+    const heads = await collectHeads(rt, '');
     const byRoute = new Map(heads.map((h) => [h.route, h]));
     expect(titleDetection(byRoute.get('/static')!)).toEqual({ presence: 'own', value: 'static' });
     expect(titleDetection(byRoute.get('/dynamic')!)).toEqual({ presence: 'own', value: 'dynamic' });
@@ -86,7 +93,7 @@ describe('SourceHeadProvider component detection (layers 2-4)', () => {
     const rt = createMemoryRuntime({
       'src/routes/page/+page.svelte': `<script>import { MetaTags } from 'svelte-meta-tags';</script><MetaTags title={data.title} />`
     });
-    const [head] = await sourceHeadProvider.collect(rt, '', defaultConfig);
+    const [head] = await collectHeads(rt, '', defaultConfig);
     expect(titleDetection(head!)).toEqual({ presence: 'own', value: 'dynamic' });
   });
 
@@ -95,7 +102,7 @@ describe('SourceHeadProvider component detection (layers 2-4)', () => {
       'src/routes/page/+page.svelte': `<script>import Button from '$lib/Button.svelte';</script><Button />`,
       'src/lib/Button.svelte': `<button>x</button>`
     });
-    const [head] = await sourceHeadProvider.collect(rt, '', defaultConfig);
+    const [head] = await collectHeads(rt, '', defaultConfig);
     expect(titleDetection(head!)).toEqual({ presence: 'none', value: 'absent' });
   });
 
@@ -104,7 +111,7 @@ describe('SourceHeadProvider component detection (layers 2-4)', () => {
       'src/routes/page/+page.svelte': `<Widget />`
     });
     const config = defineConfig({ metaComponents: ['Widget'] });
-    const [head] = await sourceHeadProvider.collect(rt, '', config);
+    const [head] = await collectHeads(rt, '', config);
     expect(titleDetection(head!)).toEqual({ presence: 'own', value: 'dynamic' });
   });
 });
@@ -152,7 +159,7 @@ describe('collectRoutes (single-pass heads + images)', () => {
 describe('SourceHeadProvider real fixtures (component detection)', () => {
   it('resolves component-based titles across the project', async () => {
     const rt = createNodeRuntime();
-    const heads = await sourceHeadProvider.collect(rt, fixtureDir, defaultConfig);
+    const heads = await collectHeads(rt, fixtureDir, defaultConfig);
     const byRoute = new Map(heads.map((h) => [h.route, h]));
 
     expect(titleDetection(byRoute.get('/smt')!)).toEqual({ presence: 'own', value: 'dynamic' });

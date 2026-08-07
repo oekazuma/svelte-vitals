@@ -1,4 +1,5 @@
 import {
+  collectComponentFacts,
   collectKitModuleFacts,
   collectSourceFiles,
   type ComponentFacts,
@@ -10,14 +11,13 @@ import {
   type ResolvedImages,
   type Runtime
 } from '@svelte-vitals/core';
-import { collectComponentFacts } from './providers/source/components.js';
 import { collectProjectFacts } from './providers/source/project.js';
 import type { ParseCache } from './providers/source/resolve.js';
 import { collectRoutes } from './providers/source/routes.js';
 import { routeMatcher } from './route-matcher.js';
 
 /** Everything the rule engine needs about a project, gathered through the Runtime. */
-export interface CollectedFacts {
+interface CollectedFacts {
   heads: ResolvedHead[];
   images: ResolvedImages[];
   headings: ResolvedHeadings[];
@@ -28,7 +28,7 @@ export interface CollectedFacts {
   sourceFiles: string[] | undefined;
 }
 
-export interface CollectAllOptions {
+interface CollectAllOptions {
   /** Restrict route-scoped facts to routes matching this glob. */
   route?: string;
   /** Reuse a parse cache across calls (the vite dev dashboard passes a long-lived one). */

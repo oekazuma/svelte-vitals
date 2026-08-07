@@ -1,4 +1,4 @@
-import mri from 'mri';
+import { parseCliArgs } from './cli-args.js';
 import { allRules, CATEGORIES, explainRule, type RuleOptionInfo } from '@svelte-vitals/core';
 import { consoleIO, type CliIO } from './cli-io.js';
 import { knownRuleIds } from './rules-config.js';
@@ -46,7 +46,7 @@ function describeOptions(id: string, options: RuleOptionInfo[]): string {
 }
 
 /** Render a rule's static metadata as the text `svelte-vitals explain` prints. */
-export function formatRuleExplanation(info: NonNullable<ReturnType<typeof explainRule>>): string {
+function formatRuleExplanation(info: NonNullable<ReturnType<typeof explainRule>>): string {
   return (
     `${info.id} — ${info.title} (${info.severity}, ${info.category})\n\n` +
     `${info.rationale}\n\nDocs: ${info.docsUrl}` +
@@ -73,7 +73,7 @@ function renderRuleList(): string {
  * missing or unknown id (the CLI's "execution error" code — nothing was explained).
  */
 export function runExplainCli(args: string[], io: CliIO = consoleIO): number {
-  const argv = mri(args, { boolean: ['json', 'list', 'help'], alias: { h: 'help' } });
+  const argv = parseCliArgs(args, { boolean: ['json', 'list', 'help'], short: { h: 'help' } });
   if (argv.help) {
     io.log(EXPLAIN_HELP);
     return 0;

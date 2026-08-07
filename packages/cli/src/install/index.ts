@@ -1,20 +1,5 @@
 import { join } from 'node:path';
-import { VITE_TARGETS, viteTargetById, isViteTargetId, type ViteTargetId } from './vite-targets.js';
-import {
-  AGENT_TARGETS,
-  agentTargetById,
-  isAgentTargetId,
-  type AgentTarget,
-  type AgentTargetId
-} from './agent-targets.js';
-import {
-  CONFIG_TARGETS,
-  configTargetById,
-  isConfigTargetId,
-  type ConfigTarget,
-  type ConfigTargetId
-} from './config-targets.js';
-import { CI_TARGETS, ciTargetById, isCiTargetId, type CiTarget, type CiTargetId } from './ci-targets.js';
+import { isKind, targetById, targetsOfKind, type AgentTargetId, type InstallTarget, type TargetId } from './targets.js';
 import { buildSkillMarkdown, buildCursorRules } from './skill-content.js';
 import { buildImproveSkillMarkdown } from './improve-skill-content.js';
 import { buildConfigFileTemplate } from './config-content.js';
@@ -37,8 +22,9 @@ import type { WriteStatus } from './codemod-types.js';
 import { planWorkflowWrite, buildWorkflowYaml } from '../ci/workflow.js';
 import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
 import { discoverApps } from '../discover-apps.js';
+import { hasDep, readPkg } from '../pkg-json.js';
 
-export type TargetId = ViteTargetId | AgentTargetId | ConfigTargetId | CiTargetId;
+export type { TargetId } from './targets.js';
 
 export interface InstallIO {
   /** File contents, or undefined if the file does not exist. */
@@ -83,7 +69,7 @@ export interface InstallFlags {
   yes?: boolean;
   dryRun?: boolean;
   force?: boolean;
-  /** Regenerate only the agent target files (AGENT_TARGETS) that already exist on disk. */
+  /** Regenerate only the agent target files that already exist on disk. */
   refresh?: boolean;
   /** Monorepo: cwd-relative SvelteKit app directory the app-scoped targets (vite-plugin,
    * vite-hooks, config-file) should write into. Skips app auto-detection when given. */
@@ -127,13 +113,13 @@ function resolveCandidate(
 function planForVitePlugin(io: InstallIO, appDir: string): PlanRow {
   const { path, content } = resolveCandidate(io, appDir, ['vite.config.ts', 'vite.config.js', 'vite.config.mjs']);
   const result = codemodViteConfig(content);
-  return { id: 'vite-plugin', label: viteTargetById('vite-plugin')!.label, path, ...result };
+  return { id: 'vite-plugin', label: targetById('vite-plugin')!.label, path, ...result };
 }
 
 function planForViteHooks(io: InstallIO, appDir: string): PlanRow {
   const { path, content } = resolveCandidate(io, appDir, ['src/hooks.server.ts', 'src/hooks.server.js']);
   const result = codemodHooksServer(content);
-  return { id: 'vite-hooks', label: viteTargetById('vite-hooks')!.label, path, ...result };
+  return { id: 'vite-hooks', label: targetById('vite-hooks')!.label, path, ...result };
 }
 
 /**
@@ -159,8 +145,9 @@ function agentTargetContent(id: AgentTargetId, version: string): string {
   }
 }
 
-function planForAgentTarget(target: AgentTarget, io: InstallIO, force: boolean, version: string): PlanRow[] {
-  const content = agentTargetContent(target.id, version);
+function planForAgentTarget(id: AgentTargetId, io: InstallIO, force: boolean, version: string): PlanRow[] {
+  const target = targetById(id)!;
+  const content = agentTargetContent(id, version);
   return target.relPaths.map((relPath) => {
     const path = join(io.cwd, relPath);
     const existing = io.readFile(path);
@@ -183,7 +170,8 @@ function planForAgentTarget(target: AgentTarget, io: InstallIO, force: boolean, 
  * Only a fresh scaffold (nothing exists yet) auto-picks the best extension for this
  * environment (see detectBestConfigExtension in config-file-format.ts).
  */
-function planForConfigTarget(target: ConfigTarget, io: InstallIO, force: boolean, appDir: string): PlanRow {
+function planForConfigTarget(io: InstallIO, force: boolean, appDir: string): PlanRow {
+  const target = targetById('config-file')!;
   const existingRel = findExistingConfigFile(io.readFile, appDir);
   if (existingRel !== undefined) {
     const path = join(appDir, existingRel);
@@ -211,8 +199,9 @@ function planForConfigTarget(target: ConfigTarget, io: InstallIO, force: boolean
  * (planWorkflowWrite/buildWorkflowYaml), exposed as one more selectable target so it
  * doesn't require a separate command in the common case.
  */
-function planForCiTarget(target: CiTarget, io: InstallIO, force: boolean): PlanRow {
-  const path = join(io.cwd, target.relPath);
+function planForCiTarget(io: InstallIO, force: boolean): PlanRow {
+  const target = targetById('ci-workflow')!;
+  const path = join(io.cwd, target.relPaths[0]!);
   const existing = io.readFile(path);
   const plan = planWorkflowWrite(existing, force);
   const content =
@@ -233,15 +222,15 @@ function rowLine(r: PlanRow): string {
 }
 
 /**
- * Regenerate whichever AGENT_TARGETS files already exist on disk, with the current rule set.
+ * Regenerate whichever agent target files already exist on disk, with the current rule set.
  * Unlike a normal install, this never creates a file that isn't already there — it's a
  * maintenance command for keeping previously-generated agent files fresh, not an install path.
  */
 async function runRefresh(io: InstallIO, flags: InstallFlags, version: string): Promise<number> {
   let hadFailure = false;
   const rows: PlanRow[] = [];
-  for (const target of AGENT_TARGETS) {
-    const content = agentTargetContent(target.id, version);
+  for (const target of targetsOfKind('agent')) {
+    const content = agentTargetContent(target.id as AgentTargetId, version);
     for (const relPath of target.relPaths) {
       const path = join(io.cwd, relPath);
       // readFile maps only ENOENT to undefined and rethrows everything else (EACCES, EISDIR, …),
@@ -330,30 +319,31 @@ export async function runInstall(
       '.cursor/environment.json',
       '.cursorrules',
       '.cursorignore',
-      agentTargetById('cursor-rules')!.relPaths[0]!
+      targetById('cursor-rules')!.relPaths[0]!
     ].some((rel) => configExists(join(io.cwd, rel)));
     const detectedAgents: AgentTargetId[] = [
       ...(claudeSkillDetected ? (['claude-skill'] as const) : []),
       ...(cursorRulesDetected ? (['cursor-rules'] as const) : [])
     ];
-    const ciWorkflowDetected = configExists(join(io.cwd, CI_TARGETS[0]!.relPath));
+    const ciWorkflowDetected = configExists(join(io.cwd, targetById('ci-workflow')!.relPaths[0]!));
     // configExists (not findExistingConfigFile directly) so a throwing readFile can't
     // crash detection — same tolerance as every other detection probe above.
     const configFileDetected = findExistingConfigFile((p) => (configExists(p) ? '' : undefined), io.cwd) !== undefined;
     const detected: TargetId[] = [
-      ...(viteConfigExists ? VITE_TARGETS.map((t) => t.id) : []),
+      ...(viteConfigExists ? targetsOfKind('vite').map((t) => t.id) : []),
       ...detectedAgents,
-      ...(ciWorkflowDetected ? CI_TARGETS.map((t) => t.id) : []),
-      ...(configFileDetected ? CONFIG_TARGETS.map((t) => t.id) : [])
+      ...(ciWorkflowDetected ? (['ci-workflow'] as const) : []),
+      ...(configFileDetected ? (['config-file'] as const) : [])
     ];
     // Grouped by category so the picker renders distinct sections instead of one flat
     // list — flattening all four target types together made it hard to tell what an id
     // was for (a Vite target vs. an agent skill vs. a one-off).
+    const asOption = (t: InstallTarget): SelectableOption => ({ id: t.id, label: t.label, hint: t.hint });
     const groups: Record<string, SelectableOption[]> = {
-      'Vite integration': VITE_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
-      'Agent Skills & rules': AGENT_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
-      'CI (GitHub Actions)': CI_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint })),
-      'Config file': CONFIG_TARGETS.map((t) => ({ id: t.id, label: t.label, hint: t.hint }))
+      'Vite integration': targetsOfKind('vite').map(asOption),
+      'Agent Skills & rules': targetsOfKind('agent').map(asOption),
+      'CI (GitHub Actions)': targetsOfKind('ci').map(asOption),
+      'Config file': targetsOfKind('config').map(asOption)
     };
     const picked = await prompts.selectClients(groups, detected);
     if (picked === null) {
@@ -368,10 +358,10 @@ export async function runInstall(
     return 2;
   }
 
-  const viteIds = ids.filter(isViteTargetId);
-  const agentIds = ids.filter(isAgentTargetId);
-  const configIds = ids.filter(isConfigTargetId);
-  const ciIds = ids.filter(isCiTargetId);
+  const viteIds = ids.filter((id) => isKind(id, 'vite'));
+  const agentIds = ids.filter((id): id is AgentTargetId => isKind(id, 'agent'));
+  const configIds = ids.filter((id) => isKind(id, 'config'));
+  const ciIds = ids.filter((id) => isKind(id, 'ci'));
   if (viteIds.length === 0 && agentIds.length === 0 && configIds.length === 0 && ciIds.length === 0) {
     io.errorLog('svelte-vitals: no valid targets selected.');
     return 2;
@@ -397,13 +387,10 @@ export async function runInstall(
       ) {
         return true;
       }
-      const pkgRaw = io.readFile(join(dir, 'package.json'));
-      if (pkgRaw === undefined) return false;
-      const pkg = JSON.parse(pkgRaw) as {
-        dependencies?: Record<string, string>;
-        devDependencies?: Record<string, string>;
-      };
-      return Boolean(pkg.dependencies?.['@sveltejs/kit'] ?? pkg.devDependencies?.['@sveltejs/kit']);
+      return hasDep(
+        readPkg((p) => io.readFile(p), dir),
+        '@sveltejs/kit'
+      );
     } catch {
       return false;
     }
@@ -461,20 +448,18 @@ export async function runInstall(
     }
   }
   for (const agentId of agentIds) {
-    const target = agentTargetById(agentId)!;
     try {
-      rows.push(...planForAgentTarget(target, io, flags.force ?? false, version));
+      rows.push(...planForAgentTarget(agentId, io, flags.force ?? false, version));
     } catch (err) {
       io.errorLog(
-        `svelte-vitals: could not check existing agent target ${target.id}: ${err instanceof Error ? err.message : String(err)}`
+        `svelte-vitals: could not check existing agent target ${agentId}: ${err instanceof Error ? err.message : String(err)}`
       );
       return 2;
     }
   }
-  for (const configId of configIds) {
-    const target = configTargetById(configId)!;
+  if (configIds.length > 0) {
     try {
-      rows.push(planForConfigTarget(target, io, flags.force ?? false, appDir));
+      rows.push(planForConfigTarget(io, flags.force ?? false, appDir));
     } catch (err) {
       io.errorLog(
         `svelte-vitals: could not check existing config file: ${err instanceof Error ? err.message : String(err)}`
@@ -482,13 +467,12 @@ export async function runInstall(
       return 2;
     }
   }
-  for (const ciId of ciIds) {
-    const target = ciTargetById(ciId)!;
+  if (ciIds.length > 0) {
     try {
-      rows.push(planForCiTarget(target, io, flags.force ?? false));
+      rows.push(planForCiTarget(io, flags.force ?? false));
     } catch (err) {
       io.errorLog(
-        `svelte-vitals: could not check existing workflow at ${join(io.cwd, target.relPath)}: ${err instanceof Error ? err.message : String(err)}`
+        `svelte-vitals: could not check existing workflow at ${join(io.cwd, targetById('ci-workflow')!.relPaths[0]!)}: ${err instanceof Error ? err.message : String(err)}`
       );
       return 2;
     }
@@ -519,7 +503,7 @@ export async function runInstall(
     if (r.status === 'exists') {
       // --force never applies to the two Vite targets (see Global Constraints), so the
       // "use --force" hint would be misleading for them.
-      const hint = isViteTargetId(r.id) ? '' : ' — use --force to overwrite';
+      const hint = isKind(r.id, 'vite') ? '' : ' — use --force to overwrite';
       io.log(`= ${r.label}: already configured (${r.path})${hint}.`);
       continue;
     }
@@ -530,11 +514,11 @@ export async function runInstall(
     try {
       io.writeFile(r.path, r.content ?? '');
       io.log(`✓ ${r.label}: ${r.status} ${r.path}`);
-      if (isViteTargetId(r.id)) viteWasWritten = true;
+      if (isKind(r.id, 'vite')) viteWasWritten = true;
       // The .ts pick was validated against *this* machine's Node only — the committed
       // config also has to load wherever svelte-vitals runs next (CI, teammates), and
       // Node 22.13–22.17 can't load .ts without a flag.
-      if (isConfigTargetId(r.id) && r.path.endsWith('.ts')) {
+      if (isKind(r.id, 'config') && r.path.endsWith('.ts')) {
         io.log(
           'svelte-vitals: note — a .ts config needs Node 22.18+ (or 23.6+) everywhere svelte-vitals runs, CI included; rename to .mjs if that is not guaranteed.'
         );

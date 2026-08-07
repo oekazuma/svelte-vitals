@@ -1,5 +1,5 @@
 import { join } from 'node:path';
-import mri from 'mri';
+import { parseCliArgs } from '../cli-args.js';
 import type { InstallIO } from '../install/index.js';
 import { realIO } from '../install/cli.js';
 import { WORKFLOW_PATH, buildWorkflowYaml, planWorkflowWrite } from './workflow.js';
@@ -42,10 +42,7 @@ export async function runCiCli(args: string[], io: InstallIO = realIO()): Promis
     return 2;
   }
 
-  const argv = mri(args.slice(1), {
-    boolean: ['force', 'dry-run', 'help'],
-    alias: { h: 'help' }
-  });
+  const argv = parseCliArgs(args.slice(1), { boolean: ['force', 'dry-run', 'help'], short: { h: 'help' } });
   if (argv.help) {
     io.log(CI_HELP);
     return 0;
@@ -87,10 +84,7 @@ export async function runCiCli(args: string[], io: InstallIO = realIO()): Promis
  * `uses:` pins, custom triggers/steps a user added) — see upgrade.ts for the replacement logic.
  */
 async function runCiUpgrade(args: string[], io: InstallIO): Promise<number> {
-  const argv = mri(args, {
-    boolean: ['dry-run', 'help'],
-    alias: { h: 'help' }
-  });
+  const argv = parseCliArgs(args, { boolean: ['dry-run', 'help'], short: { h: 'help' } });
   if (argv.help) {
     io.log(CI_HELP);
     return 0;

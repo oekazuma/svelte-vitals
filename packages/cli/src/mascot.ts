@@ -155,7 +155,7 @@ export function renderConfettiFrame(offset: number, mascotBlock: string): string
   return [confettiRow(offset), mascotBlock, confettiRow(offset + 2)].join('\n');
 }
 
-export interface MascotSpinner {
+interface MascotSpinner {
   stop(): void;
 }
 
