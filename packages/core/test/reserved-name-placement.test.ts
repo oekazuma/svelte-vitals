@@ -282,8 +282,8 @@ describe('architecture/reserved-name-placement', () => {
     expect(notes[0]?.message).toContain('excluded');
   });
 
-  // The child was excluded on its own; the parent `src/routes` never was. Recording the parent
-  // unconditionally here would falsely blame an exclusion the parent never had.
+  // The child was excluded on its own; `src/routes` — the only directory the glob reaches — stays
+  // live, so neither reason is true of this declaration.
   it('says nothing when only the reserved-name directory itself, not its parent, is excluded', async () => {
     const results = await run(['src/routes/e2e/a.ts'], {
       placements: { e2e: 'src/routes' },
@@ -394,9 +394,10 @@ describe('architecture/reserved-name-placement', () => {
     for (const n of notes) expect(n.message).not.toContain('matched only excluded directories');
   });
 
-  it('calls a declaration excluded when every directory its glob reaches is excluded', async () => {
-    const results = await run(['src/lib/legacy/parts/a.svelte', 'src/routes/+page.svelte'], {
-      capitalisedUnitPlacements: { parts: 'src/lib/legacy/*' },
+  // The excluded reason serves `placements` too, which no unit-map fixture can pin.
+  it('calls a placements declaration excluded when every directory its glob reaches is excluded', async () => {
+    const results = await run(['src/lib/legacy/e2e/a.ts', 'src/routes/+page.svelte'], {
+      placements: { e2e: 'src/lib/legacy/*' },
       exclude: ['src/lib/legacy/**']
     });
     const notes = projectScoped(results);
@@ -434,12 +435,17 @@ describe('architecture/reserved-name-placement', () => {
   });
 
   it('does not let one unit map borrow the other kind of unit', async () => {
-    const tree = ['src/lib/formatDate/formatDate.ts', 'src/lib/formatDate/parts/a.svelte'];
-    const cap = await run(tree, { capitalisedUnitPlacements: { parts: 'src/**' } });
+    const cap = await run(['src/lib/formatDate/formatDate.ts', 'src/lib/formatDate/parts/a.svelte'], {
+      capitalisedUnitPlacements: { parts: 'src/**' }
+    });
     const capNotes = projectScoped(cap);
     expect(capNotes).toHaveLength(1);
     expect(capNotes[0]?.message).toContain('reaches no unit');
-    const any = await run(tree, { anyCaseUnitPlacements: { parts: 'src/**' } });
+    // The any-case half needs `parts/` somewhere that is NOT the lowercase unit: under it, `record()`
+    // marks the alternative used and the classification never runs, which pins nothing.
+    const any = await run(['src/lib/formatDate/formatDate.ts', 'src/lib/other/parts/a.svelte', 'src/lib/other/x.ts'], {
+      anyCaseUnitPlacements: { parts: 'src/**' }
+    });
     expect(projectScoped(any)).toEqual([]);
   });
 
