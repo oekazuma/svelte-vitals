@@ -27,6 +27,11 @@ Design: `docs/superpowers/specs/2026-08-07-examined-counts-design.md` (approved 
   - typecheck: `cd packages/<pkg> && ../../node_modules/.bin/tsc --noEmit -p tsconfig.json` for all three
   - lint: `./node_modules/.bin/oxlint .` — format: `./node_modules/.bin/oxfmt --write .` then `--check .`
   - Never run `pnpm install`. Never background a run.
+- **`packages/cli` and `packages/vite` resolve core through its built `dist/`, not its source.** A change in
+  `packages/core/src` is invisible to their suites until you rebuild:
+  `cd packages/core && ../../node_modules/.bin/tsup`, then the same in `packages/cli` if the CLI changed too.
+  `dist/` is gitignored, so this never appears in a diff — and a suite that looks green against a stale build
+  is exactly the kind of false assurance this feature exists to remove.
 
 ---
 
@@ -223,11 +228,13 @@ counts. Add a one-line comment there saying so, or the next reader will file it 
 - [ ] **Step 8: Confirm no caller was missed**
 
 ```bash
-grep -rn "runRules(" packages/*/src/
+grep -rn "runRules(" packages/*/src/ packages/*/test/
 ```
 
-Every hit outside `engine.ts` must destructure. A hit that still treats the return as an array is a type error,
-so this grep is a cross-check on the typechecker rather than the only guard.
+**Both trees, not just `src/`** — an earlier draft of this plan grepped only `src/` and missed
+`packages/core/test/seo001.test.ts`, which calls `runRules` directly. Every hit outside `engine.ts` must
+destructure. A hit that still treats the return as an array is a type error, so this grep is a cross-check on
+the typechecker rather than the only guard.
 
 - [ ] **Step 9: Run everything**
 
