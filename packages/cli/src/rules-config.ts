@@ -24,14 +24,14 @@ export function ruleOptionsSpec(id: string): RuleOptionsSpec | undefined {
  * Callers should reject unknown ids first (see findUnknownRuleIds) so a typo in
  * --rules can't silently disable every rule.
  *
- * The CLI itself only ever calls this with `ignore` empty (resolve-args.ts): the result
- * becomes `AnalyzeOptions.rules`, which replaces a config file's `rules` map as a whole
- * (design 2026-07-05-config-file-design.md §3) — correct for --rules's allow-list
- * semantics, but not for --ignore, which names only the rule(s) it silences and must
- * layer onto the file's map instead (see `ignoreRules` in index.ts). The two-parameter
- * shape stays for direct callers of this function (e.g. an embedder building a `rules`
- * value from both an allow- and a deny-list on purpose, where whole-field replacement is
- * exactly what they want).
+ * No longer used by the CLI: `resolve-args` passes `--rules`/`--ignore` as id lists and
+ * `rule-selection.ts` composes the map (design 2026-08-06-rule-selection-design.md). The CLI
+ * used to call this with `ignore` empty and hand the result to `AnalyzeOptions.rules`, which
+ * replaces a config file's `rules` map as a whole (design 2026-07-05-config-file-design.md §3)
+ * — correct for --rules's allow-list semantics under that encoding, but not for --ignore, which
+ * names only the rule(s) it silences and must layer onto the file's map instead. Kept as
+ * exported API: a direct caller building a `rules` value from both an allow- and a deny-list on
+ * purpose gets exactly that whole-field replacement.
  */
 export function buildRulesConfig(allow: string[], ignore: string[]): Record<string, RuleSetting> {
   const rules: Record<string, RuleSetting> = {};

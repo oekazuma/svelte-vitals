@@ -8,6 +8,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const fixtureDir = join(here, 'fixtures', 'basic-project');
 const configFileFixtureDir = join(here, 'fixtures', 'config-file-project');
 const configFileInvalidFixtureDir = join(here, 'fixtures', 'config-file-invalid-project');
+const rulesFlagConfigFixtureDir = join(here, 'fixtures', 'rules-flag-config-project');
 // Isolate reporter auto-detection from the ambient test-runner environment
 // (e.g. CLAUDECODE is set when running inside Claude Code).
 const CLEAN_ENV: NodeJS.ProcessEnv = {};
@@ -160,6 +161,25 @@ describe('run() reporters and gating', () => {
       r.issues.some((i) => i.id === 'seo/description-presence')
     );
     expect(anySEO002).toBe(false);
+  });
+});
+
+describe('run() rule selection', () => {
+  it('narrows the run to the rule allowRules named, using the options the config file declared', async () => {
+    const cap = capture();
+    await run({
+      cwd: rulesFlagConfigFixtureDir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      reporter: 'json',
+      env: CLEAN_ENV,
+      allowRules: ['architecture/component-size']
+    });
+    const json = JSON.parse(cap.out.join('\n'));
+    // `analyze-project.test.ts` covers the composition; this pins that run() forwards it at all.
+    expect(Object.keys(json.rules)).toEqual(['architecture/component-size']);
+    // A finding at all only if the file's `max: 3` arrived — the built-in default is far higher.
+    expect(json.rules['architecture/component-size'].findings).toBeGreaterThan(0);
   });
 });
 

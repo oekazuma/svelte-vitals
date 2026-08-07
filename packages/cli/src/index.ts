@@ -39,6 +39,7 @@ import { startMascotSpinner, mascotFitsWidth } from './mascot.js';
 import { playMascotGreeting, bubbleFitsWidth } from './speech-bubble.js';
 import { loadConfigFile } from './config-file.js';
 import { playScoreAnimation, scoreAnimationEnabled } from './pulse-animation.js';
+import { resolveRuleSelection } from './rule-selection.js';
 
 export interface RunOptions {
   cwd?: string;
@@ -51,6 +52,11 @@ export interface RunOptions {
   reporter?: ReporterName;
   byRoute?: boolean;
   failOn?: Severity;
+  /**
+   * A complete replacement for the config file's `rules` map — what the Vite plugin and
+   * programmatic callers pass. Whole-field, per the per-field precedence every other config
+   * field follows.
+   */
   rules?: Record<string, RuleSetting>;
   /**
    * Rule ids to silence on top of `rules`/the config file (--ignore). Unlike `rules`, this
@@ -59,6 +65,8 @@ export interface RunOptions {
    * rules-flag-clobbers-config-options).
    */
   ignoreRules?: string[];
+  /** `--rules`: run only these rule ids. Selection; the config file still supplies their options. */
+  allowRules?: string[];
   /** Per-category weights for the combined Health score (flag > config file > default 1 each). */
   weights?: Partial<Record<Category, number>>;
   /** Restrict analysis to rules in these categories (applied after rules/ignore selection). */
@@ -136,6 +144,11 @@ export interface AnalyzeOptions {
   /** Restrict analysis to routes whose path matches this glob (matched against the route path without leading slash). */
   route?: string;
   failOn?: Severity;
+  /**
+   * A complete replacement for the config file's `rules` map — what the Vite plugin and
+   * programmatic callers pass. Whole-field, per the per-field precedence every other config
+   * field follows.
+   */
   rules?: Record<string, RuleSetting>;
   /**
    * Rule ids to silence on top of `rules`/the config file (--ignore). Unlike `rules`, this
@@ -144,6 +157,8 @@ export interface AnalyzeOptions {
    * rules-flag-clobbers-config-options).
    */
   ignoreRules?: string[];
+  /** `--rules`: run only these rule ids. Selection; the config file still supplies their options. */
+  allowRules?: string[];
   /** Per-category weights for the combined Health score (flag > config file > default 1 each). */
   weights?: Partial<Record<Category, number>>;
   /** Restrict analysis to rules in these categories (applied after rules/ignore selection). */
@@ -191,18 +206,15 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   const file = loaded?.config;
 
   const weights = opts.weights ?? file?.weights;
-  const rulesBase = opts.rules ?? file?.rules ?? {};
-  // --ignore names only the rules it silences, so it layers onto whatever `rulesBase` is rather
-  // than replacing it; --rules keeps whole-field replacement (design 2026-07-05 §3, decision 3).
-  // Applying it last also guarantees deny wins when --rules and --ignore overlap.
-  const resolvedRules =
-    opts.ignoreRules && opts.ignoreRules.length > 0
-      ? { ...rulesBase, ...Object.fromEntries(opts.ignoreRules.map((id) => [id, 'off' as const])) }
-      : rulesBase;
   const config = defineConfig({
     treatDynamicAs: opts.treatDynamicAs ?? file?.treatDynamicAs ?? 'pass',
     metaComponents: opts.metaComponents ?? file?.metaComponents ?? [],
-    rules: resolvedRules,
+    rules: resolveRuleSelection({
+      fileRules: file?.rules,
+      rules: opts.rules,
+      allowRules: opts.allowRules,
+      ignoreRules: opts.ignoreRules
+    }),
     failOn: opts.failOn ?? file?.failOn ?? 'critical',
     ...(weights !== undefined ? { weights } : {}),
     ...(file?.overrides !== undefined ? { overrides: file.overrides } : {})
@@ -309,6 +321,25 @@ export async function applyScope(results: Result[], opts: ApplyScopeOptions): Pr
 }
 
 /**
+ * The analyze options every `analyzeProject` call in `run()` shares, including `applyScope`'s
+ * baseline re-analysis — an option reaching one of those paths and not another is silent: a
+ * baseline analyzed under different rules reports every pre-existing finding as new.
+ */
+function runAnalyzeOptions(opts: RunOptions): AnalyzeOptions {
+  return {
+    metaComponents: opts.metaComponents,
+    treatDynamicAs: opts.treatDynamicAs,
+    route: opts.route,
+    failOn: opts.failOn,
+    rules: opts.rules,
+    ignoreRules: opts.ignoreRules,
+    allowRules: opts.allowRules,
+    weights: opts.weights,
+    categories: opts.categories
+  };
+}
+
+/**
  * Run static-mode analysis once and return the process exit code (design §6):
  *   0 = no failing findings, 1 = critical finding present, 2 = execution error.
  */
@@ -347,17 +378,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 
   let analysis: AnalyzeResult;
   try {
-    analysis = await analyzeProject({
-      cwd,
-      metaComponents: opts.metaComponents,
-      treatDynamicAs: opts.treatDynamicAs,
-      route: opts.route,
-      failOn: opts.failOn,
-      rules: opts.rules,
-      ignoreRules: opts.ignoreRules,
-      weights: opts.weights,
-      categories: opts.categories
-    });
+    analysis = await analyzeProject({ ...runAnalyzeOptions(opts), cwd });
   } catch (err) {
     spinner.stop();
     if (err instanceof ProjectError) {
@@ -397,17 +418,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       }
       cwd = join(cwd, chosen);
       try {
-        analysis = await analyzeProject({
-          cwd,
-          metaComponents: opts.metaComponents,
-          treatDynamicAs: opts.treatDynamicAs,
-          route: opts.route,
-          failOn: opts.failOn,
-          rules: opts.rules,
-          ignoreRules: opts.ignoreRules,
-          weights: opts.weights,
-          categories: opts.categories
-        });
+        analysis = await analyzeProject({ ...runAnalyzeOptions(opts), cwd });
       } catch (err2) {
         if (err2 instanceof ProjectError) {
           errorLog(err2.message);
@@ -445,16 +456,8 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       baseline: opts.baseline,
       noSuppressions: opts.noSuppressions,
       errorLog,
-      analyzeOpts: {
-        metaComponents: opts.metaComponents,
-        treatDynamicAs: opts.treatDynamicAs,
-        route: opts.route,
-        failOn: opts.failOn,
-        rules: opts.rules,
-        ignoreRules: opts.ignoreRules,
-        weights: opts.weights,
-        categories: opts.categories
-      }
+      // No `cwd` — applyScope analyzes the baseline in its own checkout.
+      analyzeOpts: runAnalyzeOptions(opts)
     });
     const summary = summarize(results, config);
 

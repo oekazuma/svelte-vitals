@@ -184,13 +184,30 @@ file-configured severity/options on any `--ignore` invocation
 (rules-flag-clobbers-config-options). `--ignore` now layers `off` entries onto
 whatever `rules` resolved to instead of replacing it.
 
+That distinction held only as long as `--rules` used the same encoding:
+selection expressed as the _absence_ of a map entry, which a key-level merge
+cannot layer — an absent key and an explicit `'off'` become indistinguishable
+once merged, so the allow-list's synthesized `off` entries had to replace the
+field outright to mean what they said. `rules-flag-keeps-options` replaces
+that encoding: `resolveRuleSelection` takes the config file's `rules` map and
+an `allowRules` id list as separate inputs instead of folding both into one
+synthesized map, so a named rule's `'off'` can be rewritten away without
+erasing its severity or options, and an unnamed rule can be set to `'off'`
+without touching anyone else's entry. `--rules` still overrides selection — a
+config-file `'off'` for a rule it names, since disabling a rule is itself
+selection — but no longer needs to replace the whole field to do it, and now
+inherits every other setting a named rule declared, the same as `--ignore`
+already did for the rules it leaves alone.
+
 **Two implementation subtleties found in the spike:**
 
-- `resolve-args.ts` currently always sets
-  `rules: buildRulesConfig(allow, ignore)`, which returns `{}` when no
-  flags are given. `{}` must be normalized to `undefined` (meaning "not
+- **Historical, 2026-08-06.** `resolve-args.ts` then always set
+  `rules: buildRulesConfig(allow, ignore)`, which returned `{}` when no
+  flags were given. `{}` had to be normalized to `undefined` (meaning "not
   specified") before merging, or an empty flag-side map would clobber the
-  file's rules. One-line change at the `rules:` line in `resolveArgs`.
+  file's rules. `resolveArgs` no longer calls `buildRulesConfig` and emits no
+  `rules` at all — it passes `--rules`/`--ignore` as the `allowRules`/
+  `ignoreRules` id lists, so there is no empty map to normalize.
 - A config file written with `defineConfig({...})` exports a **full** `Config`
   (defaults already filled in), so "field absent from the file" is not
   distinguishable from "field explicitly set to the default". With the
