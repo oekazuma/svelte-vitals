@@ -563,6 +563,45 @@ describe('architecture/reserved-name-placement', () => {
     expect(examined['capitalisedUnitPlacements.parts → src/**']).toBe(0);
   });
 
+  // `splitNames` does not dedupe and one label is one declaration, so a value repeating a glob must
+  // still count each directory once. Two `parts/` directories and a value naming `src/**` twice: a
+  // count keyed on the value's globs rather than on the labels reads 4.
+  it('counts a directory once for a value that repeats a glob', async () => {
+    const { examined } = await runWithCounts(
+      [
+        'src/lib/Card/Card.svelte',
+        'src/lib/Card/parts/a.svelte',
+        'src/lib/Panel/Panel.svelte',
+        'src/lib/Panel/parts/b.svelte'
+      ],
+      { capitalisedUnitPlacements: { parts: 'src/** | src/**' } }
+    );
+    expect(examined['capitalisedUnitPlacements.parts → src/**']).toBe(2);
+  });
+
+  // The count and the diagnostic must agree about the same label. An overrides layer that REPLACES a
+  // name's value judges this directory under its own glob, so the global declaration judged nothing
+  // here — and the diagnostic, which classifies global declarations against the whole tree, says so.
+  // Counting the global label at a directory the override governs would have one report assert both.
+  it('does not count a global declaration whose value an overrides layer replaced', async () => {
+    const { examined, results } = await runWithCounts(
+      ['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.svelte'],
+      { capitalisedUnitPlacements: { parts: 'src/nowhere/**' } },
+      {
+        overrides: [
+          {
+            files: 'src/**/parts',
+            rules: { [ID]: { options: { capitalisedUnitPlacements: { parts: 'src/lib/**' } } } }
+          }
+        ]
+      } as never
+    );
+    expect(examined['capitalisedUnitPlacements.parts → src/nowhere/**']).toBe(0);
+    expect(projectScoped(results).map((r) => r.message)).toEqual([
+      "The declaration 'capitalisedUnitPlacements.parts → src/nowhere/**' does not check what it says: matched no directory."
+    ]);
+  });
+
   it('does not count a declaration that exists only in an overrides layer', async () => {
     const { examined } = await runWithCounts(
       ['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.svelte'],

@@ -110,11 +110,6 @@ export const architectureReservedNamePlacement: Rule = {
     // layer governs a subtree and cannot be judged dead against the whole tree.
     const globalAlternatives = new Map<string, { map: MapName; glob: string }>();
     const emptyNames = new Map<string, string>();
-    // Keyed by name (not map): a directory judged against `parts` increments every glob-bearing
-    // alternative of that name in every map. Only two of the five early exits — name-in-no-map and
-    // empty-value — key on the name itself; the other three (inert, root-level, excluded) key on the
-    // directory and gate every name equally, so keying this index by name is still exactly right.
-    const labelsByName = new Map<string, string[]>();
     for (const map of Object.keys(globalMaps) as MapName[]) {
       for (const [name, value] of Object.entries(globalMaps[map])) {
         const globs = globsOf(value);
@@ -122,11 +117,7 @@ export const architectureReservedNamePlacement: Rule = {
           emptyNames.set(`${map}.${name}`, 'names no position at all');
           continue;
         }
-        for (const glob of globs) {
-          const key = label(map, name, glob);
-          globalAlternatives.set(key, { map, glob });
-          labelsByName.set(name, [...(labelsByName.get(name) ?? []), key]);
-        }
+        for (const glob of globs) globalAlternatives.set(label(map, name, glob), { map, glob });
       }
     }
 
@@ -177,9 +168,25 @@ export const architectureReservedNamePlacement: Rule = {
         continue;
       }
 
-      // Past every early exit, so this directory is judged. Each globally resolved alternative of its
-      // name was consulted, whether or not its glob matched: that is what the count reports.
-      for (const key of labelsByName.get(name) ?? []) examinedCounts[key] = (examinedCounts[key] ?? 0) + 1;
+      // Past every early exit, so this directory is judged — against the values RESOLVED here, which
+      // is the set the count must follow. An `overrides` layer that replaces a name's value leaves the
+      // global declaration judging nothing at this directory, while the diagnostic goes on classifying
+      // that global declaration against the whole tree; keying the increment on the global values would
+      // let one report say a declaration judged a place and matched no directory at once.
+      // `globalAlternatives` drops any label the override minted, keeping the count in the same scope
+      // the diagnostic uses, and the `Set` keeps a value that repeats a glob from counting one
+      // directory twice.
+      const judged = new Set<string>();
+      const resolvedValues: [MapName, string | undefined][] = [
+        ['placements', placements[name]],
+        ['capitalisedUnitPlacements', capUnits[name]],
+        ['anyCaseUnitPlacements', anyUnits[name]]
+      ];
+      for (const [map, value] of resolvedValues) {
+        if (value === undefined) continue;
+        for (const glob of globsOf(value)) judged.add(label(map, name, glob));
+      }
+      for (const key of judged) if (globalAlternatives.has(key)) examinedCounts[key] = (examinedCounts[key] ?? 0) + 1;
 
       // The union: any one map permitting the position is enough. All three globs are matched against
       // the same directory — this parent — and differ only in what else they require of it.
