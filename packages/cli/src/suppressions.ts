@@ -120,14 +120,20 @@ export function writeSuppressions(cwd: string, results: Result[], config: Config
  * seeds are never removed even if their key happens to match. Reports how many
  * findings were suppressed and how many entries in `entries` matched nothing
  * (stale — most likely fixed since the file was last written).
+ *
+ * `allResults` (defaults to `results`) is used only for the staleness tally, not
+ * for filtering: a caller that narrows `results` to a subset of files/findings
+ * (`--diff`/`--staged`/`--baseline`) can still pass the pre-scope, project-wide
+ * result set here so an entry whose finding survives elsewhere in the project
+ * isn't misreported as stale just because this run's scope excluded it.
  */
 export function applySuppressions(
   results: Result[],
   entries: SuppressionEntry[],
-  config: Config
+  config: Config,
+  allResults?: Result[]
 ): { results: Result[]; suppressed: number; stale: number } {
   const keys = new Set(entries.map((e) => findingKey(e)));
-  const usedKeys = new Set<string>();
   const kept: Result[] = [];
   let suppressed = 0;
 
@@ -135,12 +141,17 @@ export function applySuppressions(
     const key = findingKey(r);
     if (keys.has(key) && isPenalized(r.detection, config.treatDynamicAs)) {
       suppressed++;
-      usedKeys.add(key);
       continue;
     }
     kept.push(r);
   }
 
+  const usedKeys = new Set<string>();
+  for (const r of allResults ?? results) {
+    const key = findingKey(r);
+    if (keys.has(key) && isPenalized(r.detection, config.treatDynamicAs)) usedKeys.add(key);
+  }
   const stale = [...keys].filter((k) => !usedKeys.has(k)).length;
+
   return { results: kept, suppressed, stale };
 }
