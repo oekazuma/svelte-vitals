@@ -1,5 +1,15 @@
 # @svelte-vitals/core
 
+## 0.38.0
+
+### Minor Changes
+
+- 003e56c: Remove the unused `routeBadges` option from `buildHtmlDocument`. The parameter had no callers; badges in the HTML report now always start empty and are populated by the embedded snapshot as before. Also drops an internal `Intl.Segmenter` availability fallback — every supported runtime (Node >= 22.13, all target browsers) ships full ICU.
+
+### Patch Changes
+
+- 1859d24: Recognize rune declarations behind TS casts (`as`, `satisfies`, `!`) — `let count = $state(0) as number` now feeds the same facts as the uncast form — and collect imports for `.svelte.ts`/`.svelte.js` runes modules, so import-based rules (`performance/heavy-import`, `performance/namespace-import`, `architecture/private-scope-import`, `architecture/route-component-import`) now see them. Both were silent false negatives: TypeScript-heavy components and runes modules could pass checks they should have failed. New findings may appear in TypeScript-heavy projects — they were previously missed, not newly introduced.
+
 ## 0.37.0
 
 ### Minor Changes

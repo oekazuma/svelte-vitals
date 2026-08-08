@@ -1,5 +1,22 @@
 # svelte-vitals
 
+## 0.44.0
+
+### Minor Changes
+
+- b80d133: Replace the `mri` argument parser with Node's built-in `util.parseArgs` and remove the unused `buildRulesConfig` export (superseded by the rule-selection resolver).
+
+  Flag names, aliases, boolean `--flag=false` handling, and unknown-flag passthrough are unchanged. Edge cases on malformed input differ slightly: a repeated string flag now takes the last value instead of being ignored, a string flag passed without a value now falls back to its default (or exits with a clear error for `--min-health`/`--baseline`) instead of being treated as an empty string, and a value following an unknown flag is now treated as a positional argument instead of being swallowed by that flag. `--baseline` additionally rejects values that start with `-`, so a following flag (e.g. `--baseline --force`) can never be silently consumed as the ref.
+
+### Patch Changes
+
+- 87d5d62: `--baseline` now analyzes the baseline ref under the current checkout's `svelte-vitals.config.*` instead of re-loading the config inside the temporary worktree. This fixes the gate reporting every finding as new when the config imports `svelte-vitals` (as the `install` wizard's `.ts` scaffold does) — the worktree has no `node_modules` in its ancestry, so the import used to throw and the baseline comparison silently degraded to "report everything". It also makes a config-only edit not count as an "introduced" finding, since both sides of the comparison now run under the same rules.
+- d07739c: Fix `--diff`/`--staged` silently dropping findings in files whose paths contain non-ASCII characters (e.g. Japanese route directories). Git's default `core.quotePath=true` octal-escapes such paths in `--name-only` output, which never matched the raw UTF-8 `Result.location`; changed-file detection now reads NUL-separated (`-z`) output instead.
+- ca4ff54: Reject flag-shaped and empty values on every CLI string flag (`--meta-components`, `--treat-dynamic-as`, `--route`, `--fail-on`, `--reporter`, `--rules`, `--ignore`, `--min-health`, `--out-file`, `--weights`, `--category`), matching the existing `--baseline` guard. Previously `--route --staged` silently consumed `--staged` as the route value (dropping it from the run), and `--min-health=` (e.g. from an unset CI environment variable) coerced to `0`, turning a health gate into one that could never fail. Both shapes now exit 2 with a clear error instead of silently proceeding. `--min-health` validation moved from `bin.ts` into `resolveArgs` alongside every other flag; `--diff` keeps its existing bare/empty-defaults-to-`HEAD` behavior.
+- Updated dependencies [003e56c]
+- Updated dependencies [1859d24]
+  - @svelte-vitals/core@0.38.0
+
 ## 0.43.0
 
 ### Minor Changes

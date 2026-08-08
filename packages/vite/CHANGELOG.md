@@ -1,5 +1,22 @@
 # @svelte-vitals/vite
 
+## 0.29.0
+
+### Minor Changes
+
+- ce5fdf7: An invalid `svelte-vitals.config.*` (unknown rule id, invalid `weights`, malformed `overrides[]`) now fails `vite build` instead of being caught and skipped with a `svelte-vitals: skipped — analysis failed` warning — matching the CLI's exit-2 stance on the same validation errors. In `vite dev`, the same invalid config no longer crashes the dev server at startup: the dashboard now warns and falls back to plugin options/defaults.
+
+### Patch Changes
+
+- Updated dependencies [87d5d62]
+- Updated dependencies [d07739c]
+- Updated dependencies [b80d133]
+- Updated dependencies [003e56c]
+- Updated dependencies [ca4ff54]
+- Updated dependencies [1859d24]
+  - svelte-vitals@0.44.0
+  - @svelte-vitals/core@0.38.0
+
 ## 0.28.0
 
 ### Minor Changes
