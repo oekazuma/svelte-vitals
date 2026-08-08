@@ -14,6 +14,8 @@ Flags an import in a SvelteKit route/hooks file whose specifier resolves to a re
 
 Direct imports only (`$lib/…` and relative specifiers); `import type` is excluded. Client-only usage of such modules — the idiomatic shared-store pattern — is fine and never flagged; only imports from server-executed files are.
 
+Not flagged: a universal `+page.ts`/`+layout.ts` file that itself exports `ssr = false`. SvelteKit's state-management docs: "If you're not using SSR, then there's no risk of accidentally exposing one user's data to another." That file's `load` never runs on the server, so there's no shared server instance to leak through — the exemption is same-file only, so a `+page.server.ts` (always server-executed, regardless of `ssr`) still gets flagged.
+
 An extensionless `….svelte` specifier canonicalises to `….svelte.ts` for resolution purposes, so importing the _component_ `X.svelte` while a `$state`-holding `X.svelte.ts` sibling exists can misattribute a finding to the component import — a rare naming coincidence.
 
 ## Why it matters
