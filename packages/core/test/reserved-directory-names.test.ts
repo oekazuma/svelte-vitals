@@ -484,3 +484,167 @@ describe('architecture/reserved-directory-names — declarations that check noth
     expect(project(rs)[0]!.message).toContain("'src/nowhere/*'");
   });
 });
+
+// Issue #386: isUnitDir's letter test recognises only capitalised units, so a lowercase unit's
+// children were never governed by any declaration here. anyCaseUnitScopes closes that gap with
+// isAnyCaseUnitDir — the same predicate without the letter test.
+describe('architecture/reserved-directory-names — anyCaseUnitScopes', () => {
+  const ANY_UNITS = { anyCaseUnitScopes: { 'src/**': 'parts|tests' } };
+
+  it("reports a lowercase .ts-entry unit's undeclared child — the issue #386 repro", async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/formatDate/formatDate.ts', 'src/lib/formatDate/helpers/a.ts'], ANY_UNITS)
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.route).toBe('src/lib/formatDate/helpers');
+    expect(fails(rs)[0]!.message).toContain('parts, tests');
+  });
+
+  it('reports no per-child finding under unitScopes alone — the gap issue #386 reports', async () => {
+    // unitScopes never finds a capitalised unit in this tree, so 'helpers/' goes unmeasured and
+    // silently unreported — the 43%-of-units gap the issue names. (The declaration also gets an
+    // honest 'never a unit' project-scoped note for finding no capitalised unit at all, which is a
+    // different, already-existing diagnostic — not the missing per-child finding pinned here.)
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/formatDate/formatDate.ts', 'src/lib/formatDate/helpers/a.ts'], {
+        unitScopes: { 'src/**': 'parts|tests' }
+      })
+    );
+    expect(fails(rs)).toEqual([]);
+  });
+
+  it("reports a lowercase .svelte.ts-entry unit's undeclared child", async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/useThing/useThing.svelte.ts', 'src/lib/useThing/helpers/a.ts'], ANY_UNITS)
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.route).toBe('src/lib/useThing/helpers');
+  });
+
+  it('reports no per-child finding under unitScopes alone for the .svelte.ts tree either', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/useThing/useThing.svelte.ts', 'src/lib/useThing/helpers/a.ts'], {
+        unitScopes: { 'src/**': 'parts|tests' }
+      })
+    );
+    expect(fails(rs)).toEqual([]);
+  });
+
+  it('still governs a capitalised unit, exactly as unitScopes does', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte', 'src/lib/Card/helpers/a.ts'], ANY_UNITS)
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.route).toBe('src/lib/Card/helpers');
+  });
+
+  it('does not measure a same-case non-unit directory against the vocabulary', async () => {
+    // 'helpers' holds no helpers.ts of its own, so it is not an any-case unit and its child 'deep' —
+    // named outside {parts, tests} — must go unmeasured. 'formatDate' is a real any-case unit sharing
+    // the same declared glob, so the key is legitimately used elsewhere and the run stays silent
+    // rather than reporting a false positive on 'deep' or a dead-declaration note on the key.
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/formatDate/formatDate.ts', 'src/lib/helpers/deep/a.ts'], ANY_UNITS)
+    );
+    expect(rs).toEqual([]);
+  });
+});
+
+describe('architecture/reserved-directory-names — the unit-map partition (design 2026-08-06)', () => {
+  // The same glob in both unit maps is not a collision: unitScopes's gate (isUnitDir) is a strict
+  // subset of anyCaseUnitScopes's (isAnyCaseUnitDir), so at a capitalised unit both are eligible and
+  // the more specific — unitScopes — governs, while anyCaseUnitScopes governs alone at a lowercase
+  // unit, where unitScopes is never eligible. This lets one glob express the convention design
+  // 2026-08-06 measured: capitalised units get a superset of names, lowercase units a subset.
+  const PARTITION = { unitScopes: { 'src/**': 'parts|tests' }, anyCaseUnitScopes: { 'src/**': 'tests' } };
+
+  it('lets unitScopes win the identical-glob tie at a capitalised unit', async () => {
+    // 'parts' is in unitScopes's list but not anyCaseUnitScopes's. If anyCaseUnitScopes won the tie
+    // instead, this would report a false positive on parts/.
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/Badge/Badge.svelte'], PARTITION)
+    );
+    expect(rs).toEqual([]);
+  });
+
+  it('governs a lowercase unit through anyCaseUnitScopes alone, with its own narrower list', async () => {
+    // formatDate/ is never eligible for unitScopes (isUnitDir requires A–Z), so anyCaseUnitScopes
+    // governs alone here — and its list is 'tests' only, so parts/ is reported.
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/formatDate/formatDate.ts', 'src/lib/formatDate/parts/a.ts'], PARTITION)
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.route).toBe('src/lib/formatDate/parts');
+    expect(fails(rs)[0]!.message).toMatch(/declared here: tests\.$/);
+  });
+
+  it('reports neither declaration as dead, since both do real work', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(
+        [
+          'src/lib/Card/Card.svelte',
+          'src/lib/Card/tests/a.ts',
+          'src/lib/formatDate/formatDate.ts',
+          'src/lib/formatDate/tests/a.ts'
+        ],
+        PARTITION
+      )
+    );
+    expect(project(rs)).toEqual([]);
+  });
+});
+
+describe('architecture/reserved-directory-names — anyCaseUnitScopes declarations that check nothing', () => {
+  it('reports an anyCaseUnitScopes key that matched no directory', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/formatDate/formatDate.ts'], {
+        anyCaseUnitScopes: { 'src/**': 'parts', 'src/nowhere/*': 'parts' }
+      })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain("'src/nowhere/*'");
+    expect(project(rs)[0]!.message).toContain('matched no directory');
+  });
+
+  it('reports an anyCaseUnitScopes key whose every match is excluded', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/tests/formatDate/formatDate.ts'], {
+        anyCaseUnitScopes: { 'src/**/tests/*': 'parts' },
+        exclude: ['**/tests']
+      })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain('matched only excluded directories');
+  });
+
+  it('reports an anyCaseUnitScopes key that matched directories but never a unit of either case', async () => {
+    // 'grouping' holds no same-stemmed file, so it is not a unit of any case — the key identified
+    // nothing, which is a stronger claim than unitScopes's 'never a unit' and gets its own wording.
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/grouping/a.ts'], { anyCaseUnitScopes: { 'src/lib/*': 'parts' } })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain('never a unit of either case');
+  });
+
+  it('reports a value that names nothing at all for anyCaseUnitScopes', async () => {
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/formatDate/formatDate.ts'], { anyCaseUnitScopes: { 'src/**': '|' } })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain('names no directory name at all');
+  });
+
+  it('reports the same glob declared in scopes and anyCaseUnitScopes', async () => {
+    // scopes has no eligibility gate, so it wins wherever this identical glob matches — the same
+    // shape as the scopes/unitScopes collision, extended to the new map.
+    const rs = await architectureReservedDirectoryNames.check(
+      ctx(['src/lib/formatDate/formatDate.ts'], {
+        scopes: { 'src/lib/*': 'parts' },
+        anyCaseUnitScopes: { 'src/lib/*': 'parts' }
+      })
+    );
+    expect(project(rs)).toHaveLength(1);
+    expect(project(rs)[0]!.message).toContain('declared in both scopes and anyCaseUnitScopes');
+  });
+});
