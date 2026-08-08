@@ -388,5 +388,10 @@ counterpart — `packages/cli/test/docs-links.test.ts` fails without both — th
 - **The `isUnitDir` mismatch in the sibling rules.** `reserved-directory-names` records that names under a
   lowercase unit "are never checked" as a coverage limit. The same split would close it there. Out of scope
   here, and now cross-referenced rather than left as two independent notes.
+
+  Closed 2026-08-08 by issue #386: `reserved-directory-names` gained `anyCaseUnitScopes`, an
+  `isAnyCaseUnitDir`-gated counterpart to `unitScopes`, following this design's naming rationale —
+  neither unit option there is named with the bare word "unit" either.
+
 - **The initial finding count.** Zero on the measured tree. The value is regression detection during the next
   reorganisation, not a backlog to clear.

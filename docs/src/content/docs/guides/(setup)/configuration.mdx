@@ -189,7 +189,8 @@ section with its exact option names and defaults.
   directory glob to casing set, and `exclude` globs. The rule is inert until you set `directories`.
 - [`architecture/reserved-directory-names`](/rules/architecture/reserved-directory-names) — `scopes`
   (directory glob → allowed child names), `unitScopes` (root glob → the names a unit's children may
-  take) and `exclude`. Off until one of the two is set.
+  take), `anyCaseUnitScopes` (the same, for units of either case) and `exclude`. Off until a scope map
+  is set.
 - [`architecture/route-component-import`](/rules/architecture/route-component-import) — an
   `exemptImporters` glob list of satellite files (stories, tests, specs) allowed to import a route
   entry by hand, added to the built-in list.

@@ -376,6 +376,10 @@ cascade the unit definition exists to prevent.
   a per-scope escape the option kinds cannot express today, and a candidate for the second
   rule-options iteration. M4 was listed here too until 2026-08-06; it is not blocked, per the note above.
 
+  Closed 2026-08-08 by issue #386: `anyCaseUnitScopes` takes the same split — `isAnyCaseUnitDir`,
+  the letter test dropped — as a second option map beside `unitScopes`, governing the 129 of 299
+  units (43%) the letter test alone left unchecked.
+
 - **A project that nests units directly inside units** should not declare `unitScopes`: the nested unit
   is a child not in the set, and would be reported. The rule page says so.
 - **A key that matched directories but won at none of them**, because a more specific key always beat
