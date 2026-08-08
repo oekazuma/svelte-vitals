@@ -1,6 +1,7 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import type { SuppressionDirective } from '../../component.js';
+import type { KitModuleFacts } from '../../kit-module.js';
 
 const PENALIZED = { presence: 'none', value: 'absent' } as const;
 const PASS = { presence: 'own', value: 'static' } as const;
@@ -13,6 +14,37 @@ const RECOMMENDATION =
 
 const topLevelMessage = (name: string) =>
   `${name}() runs at module evaluation, outside component initialisation — it throws lifecycle_outside_component at runtime`;
+
+/**
+ * Context functions throw `lifecycle_outside_component` in every environment (verified against
+ * svelte 5.56.8's `internal/{client,server}/context.js`). The other five — onMount, onDestroy,
+ * beforeUpdate, afterUpdate, createEventDispatcher — only throw on the client (`src/index-client.js`);
+ * on the server (`src/index-server.js`) onMount/beforeUpdate/afterUpdate/createEventDispatcher are
+ * aliased to a noop, and onDestroy has no component-context guard of its own so it throws a plain
+ * TypeError instead.
+ */
+const ALWAYS_THROWS = new Set(['getContext', 'setContext', 'hasContext', 'getAllContexts']);
+
+/**
+ * Kit-module message for one lifecycle/context call. `kind === 'server'` means the file only
+ * ever runs on the server (+*.server.ts, +server.ts, hooks.server.ts) — there the "throws
+ * lifecycle_outside_component" claim is false for everything but the context four. A
+ * `kind === 'universal'` file (+page.ts/+layout.ts) also runs in the browser, where all nine
+ * still throw, so its message is unchanged.
+ */
+function kitLifecycleMessage(name: string, kind: KitModuleFacts['kind'], inHandler: boolean): string {
+  if (kind === 'server' && !ALWAYS_THROWS.has(name)) {
+    const where = inHandler
+      ? `${name}() is called in a load/handler, outside component initialisation`
+      : `${name}() runs outside component initialisation (module evaluation or the init hook)`;
+    return name === 'onDestroy'
+      ? `${where} — on the server it still crashes, but with a plain TypeError, not lifecycle_outside_component (onDestroy has no component-context guard there)`
+      : `${where} — on the server this is a silent no-op (it throws lifecycle_outside_component only if this module also runs in the browser)`;
+  }
+  return inHandler
+    ? `${name}() is called in a load/handler — it runs on every request, outside component initialisation, and throws lifecycle_outside_component at runtime`
+    : `${name}() runs outside component initialisation (module evaluation or the init hook) — it throws lifecycle_outside_component at runtime`;
+}
 
 function isSuppressed(suppressions: SuppressionDirective[] | undefined, line: number): boolean {
   return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID)));
@@ -71,7 +103,7 @@ export const correctnessOrphanLifecycle: Rule = {
   severity: 'critical',
   scope: 'component',
   rationale:
-    'Svelte lifecycle and context functions require an active component context; called at module scope, in a shared-state class constructor, or in a load/handler they throw lifecycle_outside_component at runtime — the compiler does not catch it, and it surfaces as a production crash.',
+    'Svelte lifecycle and context functions require an active component context; called at module scope, in a shared-state class constructor, or in a load/handler they throw lifecycle_outside_component at runtime — the compiler does not catch it, and it surfaces as a production crash. Exception: in a Kit module that only ever runs on the server (+page.server.ts, +server.ts, hooks.server.ts), onMount/beforeUpdate/afterUpdate/createEventDispatcher are silent no-ops there instead, and onDestroy throws a plain TypeError rather than lifecycle_outside_component — only getContext/setContext/hasContext/getAllContexts still throw in that channel.',
   async check(ctx: RuleContext): Promise<Result[]> {
     const out: Result[] = [];
     for (const c of ctx.components ?? []) {
@@ -98,9 +130,7 @@ export const correctnessOrphanLifecycle: Rule = {
         m.file,
         calls.map((l) => ({
           line: l.line,
-          message: l.inHandler
-            ? `${l.name}() is called in a load/handler — it runs on every request, outside component initialisation, and throws lifecycle_outside_component at runtime`
-            : `${l.name}() runs outside component initialisation (module evaluation or the init hook) — it throws lifecycle_outside_component at runtime`
+          message: kitLifecycleMessage(l.name, m.kind, l.inHandler)
         })),
         m.suppressions
       );

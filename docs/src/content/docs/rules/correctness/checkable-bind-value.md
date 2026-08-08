@@ -21,7 +21,7 @@ Detection is template-only and static: the `type` attribute must be a literal `"
 
 Nothing is caught at compile time: `svelte.compile()` reports zero warnings for the pattern, verified against Svelte 5.
 
-At runtime the two inputs diverge. A **checkbox** throws `bind_invalid_checkbox_value` ("Using `bind:value` together with a checkbox input is not allowed. Use `bind:checked` instead"), so it fails loudly wherever it renders. A **radio** throws nothing: it renders correctly once, showing the bound variable's initial value, then silently stops updating the moment the user interacts with it — nothing surfaces it in development, and it shows up as "the form doesn't save changes" in production.
+At runtime the two inputs diverge. A **checkbox** throws `bind_invalid_checkbox_value` ("Using `bind:value` together with a checkbox input is not allowed. Use `bind:checked` instead") — but only in a development build. In production the check is skipped and the binding silently tracks the `value` attribute instead of checkedness, which behaves like the radio case below. A **radio** throws nothing in either build: it renders correctly once, showing the bound variable's initial value, then silently stops updating the moment the user interacts with it — nothing surfaces it in development, and it shows up as "the form doesn't save changes" in production.
 
 ## How to fix
 

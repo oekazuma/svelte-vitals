@@ -21,7 +21,7 @@ description: checkbox や radio の bind:value は DOM の value プロパティ
 
 コンパイル時には何も捕まりません。Svelte 5 で検証済みで、`svelte.compile()` はこのパターンに警告ゼロを報告します。
 
-実行時の挙動は2つの input で分かれます。**checkbox** は `bind_invalid_checkbox_value`（「checkbox に `bind:value` は使えません。`bind:checked` を使ってください」）を throw するため、描画された時点で明確に失敗します。**radio** は何も throw しません。最初の描画は正しく見えます（束縛した変数の初期値が表示される）が、ユーザーが操作した瞬間から静かに更新が止まります。開発中は何も教えてくれず、本番で「フォームの変更が保存されない」という形で表面化します。
+実行時の挙動は2つの input で分かれます。**checkbox** は `bind_invalid_checkbox_value`（「checkbox に `bind:value` は使えません。`bind:checked` を使ってください」）を throw しますが、これは開発ビルドに限られます。本番ビルドではこのチェックがスキップされ、束縛は checked 状態ではなく `value` 属性を静かに追跡するようになり、下記の radio と同じ挙動になります。**radio** はどちらのビルドでも何も throw しません。最初の描画は正しく見えます（束縛した変数の初期値が表示される）が、ユーザーが操作した瞬間から静かに更新が止まります。開発中は何も教えてくれず、本番で「フォームの変更が保存されない」という形で表面化します。
 
 ## 修正方法
 

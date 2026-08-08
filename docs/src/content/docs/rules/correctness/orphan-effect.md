@@ -20,7 +20,7 @@ A conditionally-guarded effect — behind a top-level `if`, or behind a construc
 
 ## Why it matters
 
-The compiler accepts all of these without warning; the failure is runtime-only. In development it can go unnoticed, since the module may only be imported on certain routes; in production it is a crash — typically a 500 on every page that imports it.
+The compiler accepts all of these without warning; the failure is runtime-only. The server compiler deletes `$effect`/`$effect.pre` calls entirely (they compile to nothing), so server-side rendering renders without error — this is not a server 500. The crash happens client-side, at the moment the module evaluates in the browser, typically during hydration: the page server-renders fine and then breaks the instant the client JS runs. In development it can go unnoticed, since the module may only be imported on certain routes.
 
 Reactive effects can only be created while a component is initialising, or inside an explicit `$effect.root` scope.
 

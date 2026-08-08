@@ -292,6 +292,42 @@ describe('correctness/orphan-lifecycle lifecycle call outside component initiali
     expect(fails(rs)[0]!.message).toContain('load/handler');
     expect(fails(rs)[1]!.message).toContain('module evaluation');
   });
+  it('splits the kit-module message by name for server-only files: context throws, the rest noop or TypeError', async () => {
+    const rs = await correctnessOrphanLifecycle.check({
+      ...ctx([]),
+      kitModules: [
+        kitFacts({
+          file: 'src/routes/+page.server.ts',
+          kind: 'server',
+          lifecycleCalls: [
+            { name: 'getContext', line: 2, inHandler: true },
+            { name: 'onMount', line: 3, inHandler: true },
+            { name: 'onDestroy', line: 4, inHandler: true }
+          ]
+        })
+      ]
+    });
+    const [contextMsg, onMountMsg, onDestroyMsg] = fails(rs).map((r) => r.message);
+    expect(contextMsg).toContain('lifecycle_outside_component');
+    expect(onMountMsg).toContain('silent no-op');
+    expect(onDestroyMsg).toContain('TypeError');
+  });
+  it('leaves the universal-kind kit-module message unchanged for the same names', async () => {
+    const rs = await correctnessOrphanLifecycle.check({
+      ...ctx([]),
+      kitModules: [
+        kitFacts({
+          lifecycleCalls: [
+            { name: 'onMount', line: 2, inHandler: false },
+            { name: 'onDestroy', line: 3, inHandler: false }
+          ]
+        })
+      ]
+    });
+    for (const msg of fails(rs).map((r) => r.message)) {
+      expect(msg).toContain('lifecycle_outside_component');
+    }
+  });
   it('reads both channels in one run and honours suppressions on each', async () => {
     const rs = await correctnessOrphanLifecycle.check({
       ...ctx([
