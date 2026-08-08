@@ -90,6 +90,11 @@ export const architectureUnitEntryFile: Rule = {
       ...Object.keys(mapOption(globalOptions, 'pascalCaseUnits'))
     ]);
     const usedKeys = new Set<string>();
+    // Declaration identity is the bare glob key, one shared namespace across both maps (matching
+    // `globalKeys` and the inert-declaration diagnostic below). Seeded so a declaration that judges no
+    // unit reports `0` rather than vanishing from the map entirely.
+    const examinedCounts: Record<string, number> = {};
+    for (const key of globalKeys) examinedCounts[key] = 0;
     // Paths skipped as excluded, kept only so an unused key can be told apart from a shadowed one
     // at the end of the run. Never consulted unless some key ends with no work recorded.
     const excludedDirs: string[] = [];
@@ -148,6 +153,14 @@ export const architectureUnitEntryFile: Rule = {
         ext = byCasing.best === undefined ? undefined : pascalUnits[byCasing.best];
       }
       if (ext === undefined) continue;
+
+      // Whichever key actually supplied `ext` is the one that judged this directory — the other
+      // map's key, if it also matched, did not, since `units` wins outright over `pascalCaseUnits`
+      // rather than the two competing on specificity.
+      const winningKey = viaUnits ? byPath.best : byCasing.best;
+      if (winningKey !== undefined && globalKeys.has(winningKey)) {
+        examinedCounts[winningKey] = (examinedCounts[winningKey] ?? 0) + 1;
+      }
 
       const expected = `${dir}/${baseName(dir)}${ext}`;
       if (fileSet.has(expected)) {
@@ -238,6 +251,7 @@ export const architectureUnitEntryFile: Rule = {
         docsUrl
       });
     }
+    ctx.recordExamined?.(examinedCounts);
     return out;
   }
 };

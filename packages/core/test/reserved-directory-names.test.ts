@@ -2,18 +2,31 @@ import { describe, it, expect } from 'vitest';
 import { architectureReservedDirectoryNames } from '../src/index.js';
 import { isUnitDir, isAnyCaseUnitDir } from '../src/rules/architecture/reserved-directory-names.js';
 import { childFiles } from '../src/rules/architecture/declarations.js';
-import { defineConfig, defaultProject } from '../src/types.js';
+import { runRules } from '../src/engine.js';
+import { defineConfig, defaultProject, type Config } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 import type { Result } from '../src/index.js';
 
-const fails = (rs: Result[]) => rs.filter((r) => r.location !== undefined);
+const ID = 'architecture/reserved-directory-names';
 
-const ctx = (sourceFiles: string[], options?: Record<string, unknown>): RuleContext => ({
+const fails = (rs: Result[]) => rs.filter((r) => r.location !== undefined);
+const project = (rs: Result[]) => rs.filter((r) => r.route === undefined && r.location === undefined);
+
+const ctx = (sourceFiles: string[], options?: Record<string, unknown>, extra: Partial<Config> = {}): RuleContext => ({
   sourceFiles,
   heads: [],
   project: defaultProject,
-  config: defineConfig(options ? { rules: { 'architecture/reserved-directory-names': { options } } } : {})
+  config: defineConfig({
+    ...(options ? { rules: { [ID]: { options } } } : {}),
+    ...extra
+  })
 });
+
+/** Runs through the engine so `recordExamined` is wired up, returning the counts alongside the results. */
+async function runWithCounts(sourceFiles: string[], options?: Record<string, unknown>, extra: Partial<Config> = {}) {
+  const { results, examined } = await runRules([architectureReservedDirectoryNames], ctx(sourceFiles, options, extra));
+  return { results, examined: examined[ID] ?? {} };
+}
 
 describe('isUnitDir', () => {
   const filesIn = (files: string[]) => childFiles(files);
@@ -294,8 +307,6 @@ describe('architecture/reserved-directory-names — exclude', () => {
     expect(fails(rs)).toEqual([]);
   });
 });
-
-const project = (rs: Result[]) => rs.filter((r) => r.route === undefined && r.location === undefined);
 
 describe('architecture/reserved-directory-names — declarations that check nothing', () => {
   it('reports a glob that matched no directory', async () => {
@@ -646,5 +657,124 @@ describe('architecture/reserved-directory-names — anyCaseUnitScopes declaratio
     );
     expect(project(rs)).toHaveLength(1);
     expect(project(rs)[0]!.message).toContain('declared in both scopes and anyCaseUnitScopes');
+  });
+});
+
+// Issue #387: the count answers "how many positions did this declaration govern", keyed on the same
+// bare glob the project-scoped notes above already name — not a map-qualified label, since `scopes`,
+// `unitScopes` and `anyCaseUnitScopes` can all carry the same key.
+describe('architecture/reserved-directory-names — examined counts', () => {
+  it('counts every position a declaration governed, whether its children conformed or not', async () => {
+    const { examined } = await runWithCounts(
+      ['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.ts', 'src/lib/Panel/Panel.svelte', 'src/lib/Panel/other/b.ts'],
+      { unitScopes: { 'src/**': 'parts' } }
+    );
+    // Two units governed by 'src/**': Card (its 'parts' child is declared) and Panel (its 'other'
+    // child is not, and is reported) — the count is places governed, not places clean.
+    expect(examined['src/**']).toBe(2);
+  });
+
+  it('reports a count even when every governed child conforms, with no finding at all', async () => {
+    const { examined, results } = await runWithCounts(['src/lib/Card/Card.svelte', 'src/lib/Card/parts/a.ts'], {
+      unitScopes: { 'src/**': 'parts' }
+    });
+    expect(examined['src/**']).toBe(1);
+    expect(results).toEqual([]);
+  });
+
+  // Unlike the fourth rule, "checked nothing" is not silent for this one: the same run already
+  // carries the 'matched no directory' project-scoped note. The count adds the missing number
+  // alongside it rather than replacing it.
+  it('reports zero for a declaration that matches no directory, alongside its existing diagnostic', async () => {
+    const { examined, results } = await runWithCounts(['src/lib/Card/Card.svelte'], {
+      unitScopes: { 'src/nowhere/**': 'parts' }
+    });
+    expect(examined['src/nowhere/**']).toBe(0);
+    expect(project(results)).toHaveLength(1);
+    expect(project(results)[0]!.message).toContain("'src/nowhere/**'");
+    expect(project(results)[0]!.message).toContain('matched no directory');
+  });
+
+  it('does not count a key that matched but lost the specificity tie-break', async () => {
+    const { examined } = await runWithCounts(['src/lib/Card/Card.svelte', 'src/lib/Card/tests/a.ts'], {
+      scopes: { 'src/lib/*': 'parts' },
+      unitScopes: { 'src/**': 'parts|tests' }
+    });
+    // 'src/lib/*' governs src/lib/Card (more segments), so 'src/**' matched there and lost. It
+    // governed nothing, so it must read 0 — a loser is not a place examined for this declaration.
+    expect(examined['src/lib/*']).toBe(1);
+    expect(examined['src/**']).toBe(0);
+  });
+
+  // The #386 partition: the same glob key sits in both unit maps, governing a capitalised unit
+  // through unitScopes and a lowercase unit through anyCaseUnitScopes. Bare-glob identity means both
+  // maps' work lands under the one label — summing here is coherent with the diagnostics above, which
+  // already report a collision or an unused key by that same bare string regardless of which map it
+  // came from.
+  it("sums both unit maps' work under one bare-glob label", async () => {
+    const { examined } = await runWithCounts(
+      [
+        'src/lib/Card/Card.svelte',
+        'src/lib/Card/tests/a.ts',
+        'src/lib/formatDate/formatDate.ts',
+        'src/lib/formatDate/parts/a.ts'
+      ],
+      { unitScopes: { 'src/**': 'parts|tests' }, anyCaseUnitScopes: { 'src/**': 'tests' } }
+    );
+    // Card wins through unitScopes (capitalised unit), formatDate through anyCaseUnitScopes
+    // (lowercase unit, ineligible for unitScopes) — one label, two governed positions.
+    expect(examined['src/**']).toBe(2);
+  });
+
+  it('does not count an excluded position', async () => {
+    // Mirrors the exclude fixture above ('prunes an excluded parent'): with Card excluded, 'src/**'
+    // matches only non-unit directories, so it also earns the pre-existing 'never a unit' note —
+    // that diagnostic is not this test's concern, only that the excluded position is not counted.
+    const { examined, results } = await runWithCounts(['src/lib/Card/Card.svelte'], {
+      unitScopes: { 'src/**': 'parts' },
+      exclude: ['src/lib/Card']
+    });
+    expect(examined['src/**']).toBe(0);
+    expect(fails(results)).toEqual([]);
+  });
+
+  it('does not count a declaration that exists only in an overrides layer', async () => {
+    // isMentionedAnywhere sees the rule through the overrides entry, so it runs and counts — but the
+    // global resolution declares nothing, so the entry must be EMPTY, not absent. `runWithCounts`'s
+    // `?? {}` fallback can't tell those apart, so this asserts against the raw `examined` map.
+    const { examined } = await runRules(
+      [architectureReservedDirectoryNames],
+      ctx(['src/lib/Card/Card.svelte'], undefined, {
+        overrides: [{ files: 'src/**', rules: { [ID]: { options: { unitScopes: { 'src/nowhere/*': 'parts' } } } } }]
+      } as never)
+    );
+    expect(Object.hasOwn(examined, ID)).toBe(true);
+    expect(examined[ID]).toEqual({});
+  });
+
+  it('reports no counts at all on a run with no file inventory', async () => {
+    const config = defineConfig({ rules: { [ID]: { options: { unitScopes: { 'src/**': 'parts' } } } } });
+    const seen: Record<string, number>[] = [];
+    await architectureReservedDirectoryNames.check({
+      sourceFiles: undefined,
+      heads: [],
+      project: defaultProject,
+      config,
+      recordExamined: (c: Record<string, number>) => void seen.push(c)
+    } as unknown as RuleContext);
+    expect(seen).toEqual([]);
+  });
+
+  it('reports no counts at all when no config layer mentions the rule', async () => {
+    const config = defineConfig({});
+    const seen: Record<string, number>[] = [];
+    await architectureReservedDirectoryNames.check({
+      sourceFiles: ['src/lib/Card/Card.svelte'],
+      heads: [],
+      project: defaultProject,
+      config,
+      recordExamined: (c: Record<string, number>) => void seen.push(c)
+    } as unknown as RuleContext);
+    expect(seen).toEqual([]);
   });
 });

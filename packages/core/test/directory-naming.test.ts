@@ -1,18 +1,30 @@
 import { describe, it, expect } from 'vitest';
 import { architectureDirectoryNaming } from '../src/index.js';
-import { defineConfig, defaultProject } from '../src/types.js';
+import { runRules } from '../src/engine.js';
+import { defineConfig, defaultProject, type Config } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 import type { Result } from '../src/index.js';
+
+const ID = 'architecture/directory-naming';
 
 const fails = (rs: Result[]) => rs.filter((r) => r.location !== undefined);
 const project = (rs: Result[]) => rs.filter((r) => r.route === undefined && r.location === undefined);
 
-const ctx = (sourceFiles: string[], options?: Record<string, unknown>): RuleContext => ({
+const ctx = (sourceFiles: string[], options?: Record<string, unknown>, extra: Partial<Config> = {}): RuleContext => ({
   sourceFiles,
   heads: [],
   project: defaultProject,
-  config: defineConfig(options ? { rules: { 'architecture/directory-naming': { options } } } : {})
+  config: defineConfig({
+    ...(options ? { rules: { [ID]: { options } } } : {}),
+    ...extra
+  })
 });
+
+/** Runs through the engine so `recordExamined` is wired up, returning the counts alongside the results. */
+async function runWithCounts(sourceFiles: string[], options?: Record<string, unknown>, extra: Partial<Config> = {}) {
+  const { results, examined } = await runRules([architectureDirectoryNaming], ctx(sourceFiles, options, extra));
+  return { results, examined: examined[ID] ?? {} };
+}
 
 describe('architecture/directory-naming — inertness', () => {
   it('emits nothing when no declaration is given', async () => {
@@ -242,5 +254,107 @@ describe('architecture/directory-naming — the casing vocabulary', () => {
     expect(project(rs)[0]!.message).toContain('checks nothing');
     // Nothing is checked, so nothing is reported about a directory either.
     expect(fails(rs)).toEqual([]);
+  });
+});
+
+// Issue #387: the count answers "how many directories did this declaration judge", keyed on the same
+// bare glob the project-scoped notes above already name.
+describe('architecture/directory-naming — examined counts', () => {
+  it('counts every directory a declaration judged, conforming or not', async () => {
+    const { examined } = await runWithCounts(['src/lib/dialog/a.ts', 'src/lib/Bad_Name/b.ts'], {
+      directories: { 'src/lib/*': 'camelCase' }
+    });
+    // 'dialog' conforms, 'Bad_Name' is reported — both were judged.
+    expect(examined['src/lib/*']).toBe(2);
+  });
+
+  it('reports a count even when every judged directory conforms, with no finding', async () => {
+    const { examined, results } = await runWithCounts(['src/lib/dialog/a.ts'], {
+      directories: { 'src/lib/*': 'camelCase' }
+    });
+    expect(examined['src/lib/*']).toBe(1);
+    expect(results).toEqual([]);
+  });
+
+  it('reports zero for a declaration that matches no directory, alongside its existing diagnostic', async () => {
+    const { examined, results } = await runWithCounts(['src/lib/dialog/a.ts'], {
+      directories: { 'src/lib/*': 'camelCase', 'src/nowhere/*': 'camelCase' }
+    });
+    expect(examined['src/nowhere/*']).toBe(0);
+    expect(project(results)).toHaveLength(1);
+    expect(project(results)[0]!.message).toContain("'src/nowhere/*'");
+    expect(project(results)[0]!.message).toContain('matched no directory');
+  });
+
+  it('does not count a key that matched but lost the tie-break', async () => {
+    const { examined } = await runWithCounts(['src/lib/dialog/a.ts'], {
+      directories: { 'src/lib/**': 'camelCase', 'src/lib/*': 'camelCase' }
+    });
+    // 'src/lib/**' never wins here (bare-prefix guard, then loses on ** count) but it matched.
+    expect(examined['src/lib/*']).toBe(1);
+    expect(examined['src/lib/**']).toBe(0);
+  });
+
+  // The rule's own decision, distinct from the tie-break above: a compound segment was matched and
+  // won the tie-break, but `decodeSegment` finds no single identifier in it, so no casing check ever
+  // ran there. "Matched but not judged" reads 0, the same as "never matched" — the design's vocabulary
+  // for "examined" is places judged, not places identified.
+  it('does not count a directory skipped for being a compound route segment', async () => {
+    const { examined, results } = await runWithCounts(['src/routes/[a]-[b]/+page.svelte'], {
+      directories: { 'src/routes/*': 'camelCase' }
+    });
+    expect(examined['src/routes/*']).toBe(0);
+    expect(project(results)).toEqual([]);
+  });
+
+  it('does not count an excluded directory', async () => {
+    const { examined, results } = await runWithCounts(['src/lib/tests/Bad_Name/a.ts'], {
+      directories: { 'src/lib/**': 'camelCase' },
+      exclude: ['**/tests']
+    });
+    expect(examined['src/lib/**']).toBe(0);
+    expect(fails(results)).toEqual([]);
+  });
+
+  it('does not count a declaration that exists only in an overrides layer', async () => {
+    // The entry must be EMPTY, not absent — the rule still runs and counts, it just has nothing
+    // globally resolved. `runWithCounts`'s `?? {}` fallback can't distinguish the two, so this
+    // asserts against the raw `examined` map instead.
+    const { examined } = await runRules(
+      [architectureDirectoryNaming],
+      ctx(['src/lib/dialog/a.ts'], undefined, {
+        overrides: [
+          { files: 'src/**', rules: { [ID]: { options: { directories: { 'src/nowhere/*': 'camelCase' } } } } }
+        ]
+      } as never)
+    );
+    expect(Object.hasOwn(examined, ID)).toBe(true);
+    expect(examined[ID]).toEqual({});
+  });
+
+  it('reports no counts at all on a run with no file inventory', async () => {
+    const config = defineConfig({ rules: { [ID]: { options: { directories: { 'src/lib/*': 'camelCase' } } } } });
+    const seen: Record<string, number>[] = [];
+    await architectureDirectoryNaming.check({
+      sourceFiles: undefined,
+      heads: [],
+      project: defaultProject,
+      config,
+      recordExamined: (c: Record<string, number>) => void seen.push(c)
+    } as unknown as RuleContext);
+    expect(seen).toEqual([]);
+  });
+
+  it('reports no counts at all when no config layer mentions the rule', async () => {
+    const config = defineConfig({});
+    const seen: Record<string, number>[] = [];
+    await architectureDirectoryNaming.check({
+      sourceFiles: ['src/lib/dialog/a.ts'],
+      heads: [],
+      project: defaultProject,
+      config,
+      recordExamined: (c: Record<string, number>) => void seen.push(c)
+    } as unknown as RuleContext);
+    expect(seen).toEqual([]);
   });
 });
