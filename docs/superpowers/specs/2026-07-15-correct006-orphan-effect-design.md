@@ -230,3 +230,12 @@ is included.
   (`<_script`) before wrapping, so a module source containing `"</script>"` as
   a string/comment is analysed normally — offsets and line numbers are
   preserved, and string contents don't affect fact extraction.
+
+**2026-08-09 correction:** the rationale's "production 500" framing (§5 above)
+was wrong — verified against svelte 5.56.8: the server compiler deletes
+`$effect`/`$effect.pre` entirely (`ExpressionStatement.js` and
+`CallExpression.js` under `compiler/phases/3-transform/server/visitors`), so
+SSR renders without error. `effect_orphan` (`internal/client/reactivity/effects.js`'s
+`validate_effect`) only exists in the client build; the crash happens
+client-side at module evaluation, breaking hydration rather than producing a
+server error. See `docs/superpowers/specs/2026-08-09-v1-rule-validity-review.md` #13.

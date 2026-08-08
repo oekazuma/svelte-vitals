@@ -23,7 +23,9 @@ A function defined _inside_ a load/handler/`init` body is treated as running the
 
 ## Why it matters
 
-These functions require an active component context. Called without one they throw Svelte's `lifecycle_outside_component` error at runtime — the compiler compiles all of these patterns without a warning, so the failure only surfaces when the code path runs, typically as a production crash (in a `load` function: a 500 on every visit to that route).
+These functions require an active component context. Called without one, `getContext`/`setContext`/`hasContext`/`getAllContexts` throw Svelte's `lifecycle_outside_component` error at runtime in every environment — the compiler compiles all of these patterns without a warning, so the failure only surfaces when the code path runs (in a `load` function: a 500 on every visit to that route).
+
+`onMount`/`beforeUpdate`/`afterUpdate`/`createEventDispatcher` throw the same error in the browser. But in a Kit module that only ever runs on the server (`+page.server.ts`, `+server.ts`, `hooks.server.ts`) they never reach the browser at all, so the call is a silent no-op instead — no crash, nothing happens. `onDestroy` is the odd one out even there: it has no component-context guard of its own, so calling it still crashes, just with a plain `TypeError` instead of `lifecycle_outside_component` (still a 500 on every request if it's in a `load`/handler). In a `+page.ts`/`+layout.ts` universal module or in component-scoped code, the same code also runs in the browser, where all nine throw `lifecycle_outside_component`.
 
 ## How to fix
 

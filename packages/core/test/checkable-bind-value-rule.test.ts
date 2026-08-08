@@ -26,7 +26,7 @@ describe('correctness/checkable-bind-value', () => {
     expect(penalized[0]!.line).toBe(4);
     expect(penalized[0]!.severity).toBe('warning');
     expect(penalized[0]!.message).toBe(
-      'bind:value on a checkbox does not track its checked state — the bound value silently never updates when the user toggles it. Use bind:checked (single checkbox) or bind:group (checkbox list) instead.'
+      'bind:value on a checkbox does not track its checked state — it throws bind_invalid_checkbox_value in development; in a production build it silently tracks the value attribute instead of checkedness. Use bind:checked (single checkbox) or bind:group (checkbox list) instead.'
     );
     expect(penalized[0]!.fix?.description).toContain('bind:checked');
   });
