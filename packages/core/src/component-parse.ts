@@ -1108,7 +1108,7 @@ function collectPropNames(program: Node, includeBindable: boolean): Set<string> 
   let seen = 0;
   let ambiguous = false;
   walkEstree(program, (n) => {
-    if (n.type !== 'VariableDeclarator' || !n.init || !isPropsCall(n.init)) return;
+    if (n.type !== 'VariableDeclarator' || !n.init || !isPropsCall(unwrapTs(n.init))) return;
     seen++;
     if (n.id?.type === 'Identifier') {
       names.add(n.id.name);
@@ -1212,7 +1212,7 @@ function countProps(program: Node): number {
   // call (a normal component has exactly one) — either way we can't trust a count.
   let uncountable = false;
   walkEstree(program, (n) => {
-    if (n.type !== 'VariableDeclarator' || !n.init || !isPropsCall(n.init)) return;
+    if (n.type !== 'VariableDeclarator' || !n.init || !isPropsCall(unwrapTs(n.init))) return;
     seen++;
     const props = n.id?.type === 'ObjectPattern' ? n.id.properties : undefined;
     if (!Array.isArray(props) || props.some((p: Node) => p?.type === 'RestElement')) {
@@ -1919,13 +1919,13 @@ function collectModuleStateDecls(program: Node, source: string): { name: string;
     const decl = unwrapExport(stmt);
     if (decl?.type === 'VariableDeclaration') {
       for (const d of decl.declarations ?? []) {
-        if (d?.id?.type === 'Identifier' && d.init && isStateDeclaration(d.init)) {
+        if (d?.id?.type === 'Identifier' && d.init && isStateDeclaration(unwrapTs(d.init))) {
           out.push({ name: d.id.name, line: lineOf(source, d.start) });
         }
       }
     } else if (decl?.type === 'ClassDeclaration' && decl.id?.type === 'Identifier') {
       const hasStateField = (decl.body?.body ?? []).some(
-        (m: Node) => m?.type === 'PropertyDefinition' && m.value && isStateDeclaration(m.value)
+        (m: Node) => m?.type === 'PropertyDefinition' && m.value && isStateDeclaration(unwrapTs(m.value))
       );
       if (hasStateField) statefulClasses.add(decl.id.name);
     }
@@ -1952,12 +1952,13 @@ function collectModuleStateDecls(program: Node, source: string): { name: string;
 }
 
 /**
- * Facts for a `.svelte.ts`/`.svelte.js` runes module (correctness/orphan-effect, correctness/orphan-lifecycle, correctness/server-browser-global). The whole file runs
- * at import time, so only `orphanEffects`, `orphanLifecycleCalls`, `browserGlobalRefs`,
- * `moduleStateDecls`, and `suppressions` are populated — component-only facts stay empty and
- * `loc` is 0 so architecture/component-size and performance/heavy-import don't fire on module files. Uses `parseModuleProgram` to get
- * the ESTree program from the wrapped source; the 1-line wrap prefix is subtracted from every
- * reported line.
+ * Facts for a `.svelte.ts`/`.svelte.js` runes module (correctness/orphan-effect, correctness/orphan-lifecycle, correctness/server-browser-global,
+ * performance/heavy-import, performance/namespace-import, architecture/private-scope-import, architecture/route-component-import).
+ * The whole file runs at import time, so only `orphanEffects`, `orphanLifecycleCalls`, `browserGlobalRefs`,
+ * `moduleStateDecls`, `imports`/`importSpans`/`namespaceImports`, and `suppressions` are populated —
+ * `loc` stays 0 so architecture/component-size skips module files (there is no component to size), and
+ * the rest of the component-only facts stay empty. Uses `parseModuleProgram` to get the ESTree program
+ * from the wrapped source; the 1-line wrap prefix is subtracted from every reported line.
  */
 function parseModuleFacts(source: string, filename: string): ParsedFacts {
   const { program, wrapped } = parseModuleProgram(source, filename);
@@ -1982,6 +1983,17 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     for (const l of raw) basePathLinks.push({ ...l, line: shift(l.line) });
     basePathLinks.sort((a, b) => a.line - b.line);
   }
+  const importSpans: { source: string; line: number; type?: true }[] = [];
+  const namespaceImports: { source: string; line: number }[] = [];
+  if (program) {
+    const rawImportSpans: { source: string; line: number; type?: true }[] = [];
+    collectImportSources(program, wrapped, rawImportSpans);
+    for (const s of rawImportSpans) importSpans.push({ ...s, line: shift(s.line) });
+    const rawNamespaceImports: { source: string; line: number }[] = [];
+    collectNamespaceImports(program, wrapped, rawNamespaceImports);
+    for (const n of rawNamespaceImports) namespaceImports.push({ ...n, line: shift(n.line) });
+  }
+  const imports = importSpans.map((s) => s.source);
   return {
     eachBlocks: [],
     effects: [],
@@ -1989,9 +2001,9 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
     javascriptUrls: [],
     loc: 0,
     propCount: 0,
-    imports: [],
-    importSpans: [],
-    namespaceImports: [],
+    imports,
+    importSpans,
+    namespaceImports,
     constableStates: [],
     mutatedProps: [],
     stalePropDerivations: [],
@@ -2105,11 +2117,12 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     const stateDecls: { name: string; line: number }[] = [];
     walkEstree(program, (n) => {
       if (n.type !== 'VariableDeclarator' || !n.init) return;
-      if (isStateDeclaration(n.init) && n.id?.type === 'Identifier') {
+      const init = unwrapTs(n.init);
+      if (isStateDeclaration(init) && n.id?.type === 'Identifier') {
         stateNames.add(n.id.name);
         stateDecls.push({ name: n.id.name, line: lineOf(source, n.start) });
       }
-      if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init))
+      if (isStateDeclaration(init) || isDerivedDeclaration(init) || isPropsCall(init))
         addBoundNames(n.id, reactiveNames);
     });
     walkEstree(program, (n) => {
@@ -2136,8 +2149,10 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     for (const stmt of program.body ?? []) {
       if (stmt?.type !== 'VariableDeclaration') continue;
       for (const d of stmt.declarations ?? []) {
-        if (d?.id?.type !== 'Identifier' || !d.init || !isPlainStateCall(d.init)) continue;
-        const arg = unwrapTs(d.init.arguments?.[0]);
+        if (d?.id?.type !== 'Identifier' || !d.init) continue;
+        const init: Node = unwrapTs(d.init);
+        if (!isPlainStateCall(init)) continue;
+        const arg = unwrapTs(init.arguments?.[0]);
         if (arg?.type === 'ObjectExpression' || arg?.type === 'ArrayExpression') {
           rawableCandidates.push({ name: d.id.name, line: lineOf(source, d.start) });
         }
@@ -2174,8 +2189,10 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     for (const stmt of program.body ?? []) {
       if (stmt?.type !== 'VariableDeclaration') continue;
       for (const d of stmt.declarations ?? []) {
-        if (d?.id?.type !== 'Identifier' || !d.init || !isPlainStateCall(d.init)) continue;
-        const arg = unwrapTs(d.init.arguments?.[0]);
+        if (d?.id?.type !== 'Identifier' || !d.init) continue;
+        const init: Node = unwrapTs(d.init);
+        if (!isPlainStateCall(init)) continue;
+        const arg = unwrapTs(init.arguments?.[0]);
         if (
           arg?.type === 'NewExpression' &&
           arg.callee?.type === 'Identifier' &&

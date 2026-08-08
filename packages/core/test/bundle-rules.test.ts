@@ -3,6 +3,7 @@ import { performanceHeavyImport, performanceNamespaceImport } from '../src/index
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts, SuppressionDirective } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
+import { parseComponentFacts } from '../src/component-parse.js';
 
 const config = defineConfig({});
 const base = { heads: [], project: defaultProject, config };
@@ -137,6 +138,12 @@ describe('performance/heavy-import heavy dependency import', () => {
       ctx([comp([{ source: 'lodash', line: 5 }], [{ line: 6, ruleIds: ['performance/heavy-import'] }])])
     );
     expect(fails(rs)).toHaveLength(1);
+  });
+  it('end-to-end: fires on a runes module importing a heavy package (was silently never checked)', async () => {
+    const facts = parseComponentFacts("import moment from 'moment';\nlet c = $state(0);", 'src/lib/state.svelte.ts');
+    const rs = await performanceHeavyImport.check(ctx([{ file: 'src/lib/state.svelte.ts', ...facts }]));
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.message).toContain('moment');
   });
 
   const cfgCtx = (components: ComponentFacts[], cfg: Parameters<typeof defineConfig>[0]): RuleContext => ({
