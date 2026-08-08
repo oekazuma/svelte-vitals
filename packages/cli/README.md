@@ -31,12 +31,9 @@ Health: 76/100
 SEO Score: 51/100   (route avg 61 · site −10)
 Architecture Score: 100/100   (route avg 100)
 
-Critical (2)
+Critical (1)
 ────────────────────────
 ✗ seo/title-presence  Missing <title>
-            /
-            src/routes/+page.svelte
-✗ seo/description-presence  Missing <meta name="description">
             /
             src/routes/+page.svelte
 

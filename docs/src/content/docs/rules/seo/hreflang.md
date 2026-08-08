@@ -1,6 +1,6 @@
 ---
 title: seo/hreflang · hreflang validity
-description: hreflang alternates should use valid codes and declare an x-default.
+description: hreflang alternates should use valid codes; x-default is recommended for selector/redirect pages.
 ---
 
 **Severity:** warning

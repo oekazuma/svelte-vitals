@@ -58,6 +58,11 @@ consistency questions and docs/message drift.
 - `seo/json-ld-validity` split-node acceptance, `json-ld-date-format` basic-format-offset rejection — vanishingly rare, deliberate scope.
 - Architecture L-tier severities verified against the charter (L3 = inert-until-declared at `info`; no `'off'` defaults exist).
 - The critical set after P2 #9 resolves: 3 crash/security rules + title-presence (+ description-presence pending the call).
+- (Correction 2026-08-09: the count above, and in row 9's finding text, is wrong — it's four
+  crash/security rules, not three: `correctness/orphan-effect`, `correctness/orphan-lifecycle`,
+  `correctness/server-browser-global`, `security/handler-state-write`.
+  `correctness/instance-browser-global` is `warning`, not `critical`, and is correctly excluded.
+  Enumerated from source at the P2 fix's PR head, not carried forward from this row.)
 
 ## Full verdict table
 
