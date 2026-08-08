@@ -34,5 +34,7 @@ This check recognizes a reactive read through a name it can trace back to a rune
 - A reactive value reached only through a plain function's return value (`const c = createCounter()`).
 - A local assigned `new …()` after its declaration instead of at it (`let m; m = new SvelteMap();`) — only the declarator-init form is recognized.
 
+Name matching is by identifier text, not lexical scope — the same granularity this rule has always used for rune names — so a callback-local binding that shadows an imported or `new`-declared name (e.g. a parameter reusing that name) is still treated as reactive. That can only suppress a finding, never wrongly flag one.
+
 If that's your case, suppress it with a
 [`svelte-vitals-disable-next-line`](/guides/cli#suppressing-a-single-finding-inline) comment rather than moving working code into `onMount`.

@@ -19,12 +19,16 @@ A browser global used only as a `$props()` destructuring default (`let { width =
 
 ## How to fix
 
+```svelte
+<script>
+  const width = window.innerWidth; // ❌ crashes SSR
+</script>
+```
+
 The preferred modern form for a `window` property is [`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window) (5.11.0+) — no guard needed, `undefined` on the server, reactive on the client:
 
 ```svelte
 <script>
-  const width = window.innerWidth; // ❌ crashes SSR
-
   import { innerWidth } from 'svelte/reactivity/window';
 </script>
 

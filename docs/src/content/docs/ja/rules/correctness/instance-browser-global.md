@@ -19,12 +19,16 @@ description: インスタンススクリプトは SSR 時にサーバーでも�
 
 ## 修正方法
 
+```svelte
+<script>
+  const width = window.innerWidth; // ❌ SSR がクラッシュ
+</script>
+```
+
 `window` のプロパティなら、[`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window)（5.11.0 以降）が現在推奨される形です — ガード不要で、サーバーでは `undefined`、クライアントではリアクティブになります:
 
 ```svelte
 <script>
-  const width = window.innerWidth; // ❌ SSR がクラッシュ
-
   import { innerWidth } from 'svelte/reactivity/window';
 </script>
 

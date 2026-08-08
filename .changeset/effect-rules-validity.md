@@ -13,7 +13,10 @@ Two `correctness/effect-*` rule content fixes from the v1.0 rule-validity review
   rule's message, recommendation, and docs now name `{@attach}` and event handlers alongside
   `onMount` instead of presenting `onMount` as the sole fix, and the docs admit the remaining blind
   spots (a reactive value reached only through a plain function's return value, or through a local
-  assigned `new …()` after its declaration instead of at it).
+  assigned `new …()` after its declaration instead of at it) plus a pre-existing shadowing
+  granularity note: matching is by identifier text, not lexical scope, so a callback-local binding
+  that shadows an imported or `new`-declared name is still treated as reactive — that can only
+  suppress a finding, never wrongly flag one.
 - The documented fix snippets for `correctness/server-browser-global` and
   `correctness/instance-browser-global` now use `onMount` (and, for the latter,
   `svelte/reactivity/window` as the preferred modern form) instead of an `$effect` that assigns a

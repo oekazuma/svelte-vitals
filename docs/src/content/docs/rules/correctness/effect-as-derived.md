@@ -42,9 +42,9 @@ the "mount signal" idiom used to avoid SSR/prerender ↔ hydration mismatches:
 </script>
 ```
 
-`$derived` recomputes on next read, including during hydration; `$effect` runs one tick after mount,
-which is the whole point here. Converting this shape to `$derived` reintroduces the bug the
-`$effect` was added to prevent — so suppress it with a
+`$derived` recomputes on next read, including during hydration; `$effect` runs only after the
+component has mounted to the DOM, which is the whole point here. Converting this shape to
+`$derived` reintroduces the bug the `$effect` was added to prevent — so suppress it with a
 [`svelte-vitals-disable-next-line`](/guides/cli#suppressing-a-single-finding-inline) comment
 rather than "fixing" it.
 
@@ -64,10 +64,12 @@ reads a browser-only global and assigns it to `$state`:
 </script>
 ```
 
-Converting this to `$derived(localStorage.getItem('filters'))` would evaluate the expression during
-SSR — reintroducing the exact `ReferenceError: localStorage is not defined` those two rules exist to
-prevent. `localStorage`/`window`/etc. are exactly the values `$derived` cannot safely read, since a
-derived expression can run during server-side rendering. Prefer `onMount`, or
-[`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window) for `window`
-properties — see those two rules' docs for the fix — and suppress this finding rather than switching to
-`$derived`.
+`$derived` only evaluates its expression when something reads the derived value — but a value like
+this exists to be read (typically from the template), and a template read happens during SSR too.
+Converting this to `$derived(localStorage.getItem('filters'))` would reintroduce the exact
+`ReferenceError: localStorage is not defined` those two rules exist to prevent, the moment
+something reads it during server-side rendering. `localStorage`/`window`/etc. are exactly the
+values `$derived` cannot safely read, because there is no read that is guaranteed client-only.
+Prefer `onMount`, or [`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window)
+for `window` properties — see those two rules' docs for the fix — and suppress this finding rather
+than switching to `$derived`.

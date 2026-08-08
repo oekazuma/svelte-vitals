@@ -40,7 +40,7 @@ description: 状態を代入するだけの $effect は $derived に置き換え
 </script>
 ```
 
-`$derived` は hydration 中も含めて次に読まれたタイミングで再計算されますが、`$effect` は mount の1ティック後に実行されます。それがこのパターンの狙いです。この形を `$derived` に置き換えるのは `$effect` が防いでいたバグの再発なので、「修正」せず [`svelte-vitals-disable-next-line`](/ja/guides/cli#特定の指摘だけをインラインで抑制する) コメントで抑制してください。
+`$derived` は hydration 中も含めて次に読まれたタイミングで再計算されますが、`$effect` はコンポーネントが DOM にマウントされた後にのみ実行されます。それがこのパターンの狙いです。この形を `$derived` に置き換えるのは `$effect` が防いでいたバグの再発なので、「修正」せず [`svelte-vitals-disable-next-line`](/ja/guides/cli#特定の指摘だけをインラインで抑制する) コメントで抑制してください。
 
 ## 既知の制限: browser global の捕捉
 
@@ -57,9 +57,11 @@ description: 状態を代入するだけの $effect は $derived に置き換え
 </script>
 ```
 
-これを `$derived(localStorage.getItem('filters'))` に置き換えると、その式は SSR 中にも評価されてしまい、
-この2つのルールが防ごうとしている `ReferenceError: localStorage is not defined` を再発させます。
-`localStorage`/`window` などは、まさに `$derived` が安全に読めない値です —— derived の式はサーバーサイド
-レンダリング中にも実行され得るからです。`onMount`、あるいは `window` のプロパティなら
+`$derived` は、その derived な値が何かに読まれた時点で初めて式を評価します —— ただ、この値は元々読まれる
+ため（典型的にはテンプレートから）に存在し、テンプレートからの読み取りは SSR 中にも起こります。これを
+`$derived(localStorage.getItem('filters'))` に置き換えると、サーバーサイドレンダリング中に誰かがそれを
+読んだ瞬間、この2つのルールが防ごうとしている `ReferenceError: localStorage is not defined` を再発させます。
+`localStorage`/`window` などは、まさに `$derived` が安全に読めない値です —— クライアント限定だと保証できる
+読み取りが存在しないからです。`onMount`、あるいは `window` のプロパティなら
 [`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window) を使ってください
 （修正方法はこの2つのルールのドキュメントを参照）。`$derived` に切り替えるのではなく、この指摘は抑制してください。

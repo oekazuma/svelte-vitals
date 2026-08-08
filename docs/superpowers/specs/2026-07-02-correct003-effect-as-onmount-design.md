@@ -29,7 +29,7 @@ assignsOnlyState: boolean }` (CORRECT002 uses `assignsOnlyState`).
 
 ## Design
 
-### 1. What counts as "reads a reactive value" (conservative — no false positives)
+### 1. What counts as "reads a reactive value" (conservative — no false positives) (refuted and revised — see the 2026-08-09 addendum below)
 
 An `$effect` body is treated as reading a reactive value (so it is **not**
 flagged) when it contains **any** of:
