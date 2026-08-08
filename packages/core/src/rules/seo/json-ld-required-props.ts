@@ -1,5 +1,5 @@
 import { jsonldRule } from './jsonld-engine.js';
-import { typeOf, hasNonEmpty, REQUIRED_PROPS } from './jsonld-engine.js';
+import { typeOf, missingRequiredProps, REQUIRED_PROPS } from './jsonld-engine.js';
 
 export const seoJsonLdRequiredProps = jsonldRule({
   id: 'seo/json-ld-required-props',
@@ -13,9 +13,9 @@ export const seoJsonLdRequiredProps = jsonldRule({
     for (const node of nodes) {
       for (const t of typeOf(node)) {
         const required = REQUIRED_PROPS[t];
-        if (!required) continue; // unknown/custom type → not flagged
+        if (!required) continue; // unknown/custom type, or a type Google requires nothing from → not flagged
         hasKnownType = true;
-        const missing = required.filter((p) => !hasNonEmpty(node, p));
+        const missing = missingRequiredProps(node, required);
         if (missing.length > 0) return `${t} JSON-LD is missing required ${missing.join(', ')}`;
       }
     }

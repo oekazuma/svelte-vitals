@@ -148,7 +148,7 @@ describe('seo/json-ld-deprecated-type-021', () => {
           ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Product","name":"x"}'))
         )
       )
-    ).toHaveLength(1); // missing offers
+    ).toHaveLength(1); // missing one of review/aggregateRating/offers
     expect(
       fails(
         await seoJsonLdRequiredProps.check(
@@ -166,10 +166,10 @@ describe('seo/json-ld-deprecated-type-021', () => {
     expect(
       fails(
         await seoJsonLdRequiredProps.check(
-          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Article","headline":""}'))
+          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Recipe","name":"x","image":""}'))
         )
       )
-    ).toHaveLength(1); // blank headline → still missing
+    ).toHaveLength(1); // blank image → still missing
     expect(
       fails(
         await seoJsonLdRequiredProps.check(
@@ -177,6 +177,91 @@ describe('seo/json-ld-deprecated-type-021', () => {
         )
       )
     ).toHaveLength(1); // empty array → still missing
+  });
+  it('seo/json-ld-required-props: Article/BlogPosting/NewsArticle/Organization have no required props (Google: none) — no finding at all, not even a pass', async () => {
+    expect(
+      await seoJsonLdRequiredProps.check(
+        ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Article","author":"x"}'))
+      )
+    ).toHaveLength(0); // no headline, and no signal either — the row was removed, not satisfied
+    expect(
+      await seoJsonLdRequiredProps.check(
+        ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Organization","logo":"https://e.com/l.png"}'))
+      )
+    ).toHaveLength(0); // no name/url, and no signal either
+  });
+  it('seo/json-ld-required-props: Product passes with name + any single one of review/aggregateRating/offers', async () => {
+    expect(
+      fails(
+        await seoJsonLdRequiredProps.check(
+          ctx(
+            headWithJsonLd(
+              '{"@context":"https://schema.org","@type":"Product","name":"x","aggregateRating":{"ratingValue":"4.5"}}'
+            )
+          )
+        )
+      )
+    ).toHaveLength(0); // aggregateRating alone satisfies the one-of group
+    expect(
+      fails(
+        await seoJsonLdRequiredProps.check(
+          ctx(
+            headWithJsonLd(
+              '{"@context":"https://schema.org","@type":"Product","name":"x","review":{"reviewBody":"great"}}'
+            )
+          )
+        )
+      )
+    ).toHaveLength(0); // review alone satisfies the one-of group
+  });
+  it('seo/json-ld-required-props: Product missing all of review/aggregateRating/offers names the group in the message', async () => {
+    const rs = fails(
+      await seoJsonLdRequiredProps.check(
+        ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Product","name":"x"}'))
+      )
+    );
+    expect(rs).toHaveLength(1);
+    expect(rs[0]?.message).toContain('one of review, aggregateRating or offers');
+  });
+  it('seo/json-ld-required-props: Recipe requires only name + image (not recipeIngredient/recipeInstructions)', async () => {
+    expect(
+      fails(
+        await seoJsonLdRequiredProps.check(
+          ctx(
+            headWithJsonLd(
+              '{"@context":"https://schema.org","@type":"Recipe","name":"x","image":"https://e.com/d.jpg"}'
+            )
+          )
+        )
+      )
+    ).toHaveLength(0);
+  });
+  it('seo/json-ld-required-props: VideoObject does not require description (Google: Recommended)', async () => {
+    expect(
+      fails(
+        await seoJsonLdRequiredProps.check(
+          ctx(
+            headWithJsonLd(
+              '{"@context":"https://schema.org","@type":"VideoObject","name":"x","thumbnailUrl":"https://e.com/t.jpg","uploadDate":"2026-01-01"}'
+            )
+          )
+        )
+      )
+    ).toHaveLength(0);
+  });
+  it('seo/json-ld-required-props: Person accepts alternateName in place of name (Google profile-page guidance)', async () => {
+    expect(
+      fails(
+        await seoJsonLdRequiredProps.check(
+          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Person","alternateName":"x"}'))
+        )
+      )
+    ).toHaveLength(0);
+    const rs = fails(
+      await seoJsonLdRequiredProps.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Person"}')))
+    );
+    expect(rs).toHaveLength(1);
+    expect(rs[0]?.message).toContain('one of name or alternateName');
   });
   it('seo/json-ld-deprecated-type-021 skip parseable JSON-LD that seo/json-ld-validity deems invalid (missing @context/@type)', async () => {
     // Relative URL present, but no @context → seo/json-ld-validity owns the finding; seo/json-ld-relative-url stays silent (no misleading pass).

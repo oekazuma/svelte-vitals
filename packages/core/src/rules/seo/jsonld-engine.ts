@@ -156,21 +156,43 @@ export function hasNonEmpty(node: JsonLdNode, key: string): boolean {
   return true;
 }
 
+/**
+ * A row is either a flat list of properties that must ALL be present, or an object pairing an
+ * `all` list (possibly empty) with a `oneOf` group where at least one member must be present.
+ * Article, BlogPosting, NewsArticle, and Organization have no row: Google's structured-data docs
+ * list no required properties for them, and this rule's message ("missing required X — ineligible
+ * for the rich result") only makes sense for a type that has one.
+ */
+export type RequiredPropsRow = string[] | { all: string[]; oneOf: string[] };
+
 /** Curated @type -> required properties for the rich result (Google structured-data docs). */
-export const REQUIRED_PROPS: Record<string, string[]> = {
-  Article: ['headline'],
-  BlogPosting: ['headline'],
-  NewsArticle: ['headline'],
-  Product: ['name', 'offers'],
+export const REQUIRED_PROPS: Record<string, RequiredPropsRow> = {
+  Product: { all: ['name'], oneOf: ['review', 'aggregateRating', 'offers'] },
   BreadcrumbList: ['itemListElement'],
-  Organization: ['name', 'url'],
   WebSite: ['name', 'url'],
   Event: ['name', 'startDate', 'location'],
-  Recipe: ['name', 'image', 'recipeIngredient', 'recipeInstructions'],
-  Person: ['name'],
-  VideoObject: ['name', 'description', 'thumbnailUrl', 'uploadDate'],
+  Recipe: ['name', 'image'],
+  // Google's Person guidance (profile-page doc — Person has no standalone rich-result page) allows
+  // `alternateName` to stand in when `name` isn't available, so require either.
+  Person: { all: [], oneOf: ['name', 'alternateName'] },
+  VideoObject: ['name', 'thumbnailUrl', 'uploadDate'],
   LocalBusiness: ['name', 'address']
 };
+
+/** `["a", "b", "c"]` -> `"one of a, b or c"`; a single-member group is just its own name. */
+function oneOfLabel(props: string[]): string {
+  const last = props.at(-1) ?? '';
+  return props.length <= 1 ? last : `one of ${props.slice(0, -1).join(', ')} or ${last}`;
+}
+
+/** Missing-property descriptors for a node against a `REQUIRED_PROPS` row (empty = satisfied). */
+export function missingRequiredProps(node: JsonLdNode, row: RequiredPropsRow): string[] {
+  const all = Array.isArray(row) ? row : row.all;
+  const missing = all.filter((p) => !hasNonEmpty(node, p));
+  const oneOf = Array.isArray(row) ? undefined : row.oneOf;
+  if (oneOf && !oneOf.some((p) => hasNonEmpty(node, p))) missing.push(oneOfLabel(oneOf));
+  return missing;
+}
 
 /** Static jsonld tags on a head (those with captured raw content). */
 export function jsonldTags(head: { tags: HeadTag[] }): HeadTag[] {

@@ -100,7 +100,14 @@ describe('hasNonEmpty', () => {
 
 describe('REQUIRED_PROPS', () => {
   it('covers the common types', () => {
-    expect(REQUIRED_PROPS['Product']).toContain('name');
+    expect(REQUIRED_PROPS['Product']).toEqual({ all: ['name'], oneOf: ['review', 'aggregateRating', 'offers'] });
+    expect(REQUIRED_PROPS['Person']).toEqual({ all: [], oneOf: ['name', 'alternateName'] });
     expect(REQUIRED_PROPS['BreadcrumbList']).toContain('itemListElement');
+  });
+  it('has no row for types Google requires nothing from (a rich result cannot be "ineligible" with zero required props)', () => {
+    expect(REQUIRED_PROPS['Article']).toBeUndefined();
+    expect(REQUIRED_PROPS['BlogPosting']).toBeUndefined();
+    expect(REQUIRED_PROPS['NewsArticle']).toBeUndefined();
+    expect(REQUIRED_PROPS['Organization']).toBeUndefined();
   });
 });
