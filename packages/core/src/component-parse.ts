@@ -940,9 +940,12 @@ function collectImportedLocalNames(program: Node, acc: Set<string>): void {
 }
 
 /**
- * Local names initialized with a `new …()` expression, anywhere in a program
- * (correctness/effect-as-onmount). A class instance is opaque the same way an import is — it may
- * carry `$state` fields — so it's folded into `reactiveNames` alongside imports.
+ * Local names declared with a `new …()` initializer (`const x = new Foo()`), anywhere in a
+ * program (correctness/effect-as-onmount). A class instance is opaque the same way an import is —
+ * it may carry `$state` fields — so it's folded into `reactiveNames` alongside imports.
+ * Declarator-init only: `let x; x = new Foo();` is not seen (`VariableDeclarator.init` is unset,
+ * and the later `AssignmentExpression` isn't a declarator at all) — a rarer style, left
+ * undetected rather than adding an assignment-tracking pass for it.
  */
 function collectNewExprLocalNames(program: Node, acc: Set<string>): void {
   walkEstree(program, (n) => {
@@ -953,13 +956,13 @@ function collectNewExprLocalNames(program: Node, acc: Set<string>): void {
 
 /**
  * Whether an $effect callback body reads a reactive value (correctness/effect-as-onmount, conservative):
- * a reactive name (rune declarator, imported binding, or `new`-ed local — see
- * `collectImportedLocalNames`/`collectNewExprLocalNames`), a `$`-prefixed store subscription, or
- * any bare-identifier call. Still blind to a reactive value reached only through a plain function
- * call's return value (`const c = createCounter()`) or a prop-drilled/destructured member of one
- * of the above — narrower than "any" reactive read, deliberately: those shapes have no
- * syntactic marker to key off, so treating them as reactive by default would give up detection
- * entirely rather than narrow it.
+ * a reactive name (rune declarator, imported binding, or a local declared with a `new …()`
+ * initializer — see `collectImportedLocalNames`/`collectNewExprLocalNames`), a `$`-prefixed
+ * store subscription, or any bare-identifier call. Still blind to a reactive value reached only
+ * through a plain function call's return value (`const c = createCounter()`) or a
+ * prop-drilled/destructured member of one of the above — narrower than "any" reactive read,
+ * deliberately: those shapes have no syntactic marker to key off, so treating them as reactive by
+ * default would give up detection entirely rather than narrow it.
  */
 function bodyReadsReactive(fn: Node, reactiveNames: Set<string>): boolean {
   let reads = false;

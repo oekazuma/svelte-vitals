@@ -168,9 +168,11 @@ a class instance (`new Counter()`, `$state` fields), a `SvelteMap`/`SvelteSet`, 
 runes-module state object, or `svelte/reactivity/window` was indistinguishable from the true
 positive — all four yielded `mountOnly: true`, and the rule's advice to switch to `onMount`
 would have frozen working reactive code. Fixed by narrowing detection: `bodyReadsReactive` now
-also treats a member read on any imported binding or any local initialized with `new …()` as
-reactive (`collectImportedLocalNames`/`collectNewExprLocalNames` in `component-parse.ts`),
-folded into the same `reactiveNames` set. This is strictly narrower — it only ever suppresses a
-finding, never adds one — and does not close the remaining gap: a reactive value reached only
-through a plain function's return value still has no traceable name and can still be flagged
-(documented as a known limitation in the rule's docs page instead of silently claimed away).
+also treats a member read on any imported binding or any local declared with a `new …()`
+initializer as reactive (`collectImportedLocalNames`/`collectNewExprLocalNames` in
+`component-parse.ts`), folded into the same `reactiveNames` set. This is strictly narrower — it
+only ever suppresses a finding, never adds one — and does not close the remaining gaps: a
+reactive value reached only through a plain function's return value still has no traceable name
+and can still be flagged, and neither does one assigned `new …()` after its declaration
+(`let m; m = new SvelteMap();` — declarator-init only, by design; see the rule's docs page for
+both, instead of silently claiming zero false positives away).

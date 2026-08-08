@@ -345,6 +345,12 @@ describe('parseComponentFacts — mount-only $effect (correctness/effect-as-onmo
   it('is still mountOnly for the true positive: a member call on a plain, non-reactive local', () => {
     expect(facts('let el; $effect(() => { el.focus(); });')[0]!.mountOnly).toBe(true);
   });
+  it('is not mountOnly for a member read on a binding imported in <script module> only', () => {
+    const src =
+      "<script module>import { counterState } from './state.svelte.js';</script>" +
+      '<script>$effect(() => { counterState.count; });</script>';
+    expect(parseComponentFacts(src, 'C.svelte').effects[0]!.mountOnly).toBe(false);
+  });
 });
 
 describe('parseComponentFacts — constable $state (correctness/unmutated-state)', () => {
