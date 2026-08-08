@@ -93,7 +93,7 @@ const PRIORITY: Record<MapKind, number> = { scopes: 0, unitScopes: 1, anyCaseUni
  * the project declared for that position (design 2026-07-29, extended 2026-08-08 for lowercase units —
  * issue #386).
  *
- * Three option maps, differing in what their key names. A `scopes` key names the parent directly. A
+ * The option maps differ in what their keys name. A `scopes` key names the parent directly. A
  * `unitScopes` key names a root, and the rule governs the children of whichever directories beneath
  * it are units whose name begins A–Z — the shape a glob cannot reach, because units nest to arbitrary
  * depth. An `anyCaseUnitScopes` key names a root the same way, but governs units of *either* case:
