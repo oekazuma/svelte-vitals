@@ -11,6 +11,7 @@ Flags writes to an **imported binding** from inside a server-executed handler �
 
 Not flagged:
 
+- A universal `+page.ts`/`+layout.ts` file that itself exports `ssr = false` — that load never runs on the server, so there is no shared-process instance to leak through. `+page.server.ts` still runs server-side regardless of `ssr`, so server-kind files are unaffected.
 - Reads, other method calls (`logger.info(…)`), and writes to local variables.
 - `.set()`/`.update()` on imports from installed packages.
 - `.set()`/`.update()` on a **persistence client** resolving to `src/lib/server` — the directory entrypoint (`import { db } from '$lib/server'`) or anything under `src/lib/server/**`, such as Drizzle's `db.update(...).set(...)`. Those calls are persistence, not shared module state.
@@ -29,7 +30,9 @@ Anything the read cannot positively identify as a container stays exempt, so a w
 
 ## Why it matters
 
-This is the pattern SvelteKit's state-management docs mark "NEVER DO THIS". The server is one long-lived process shared by every user: module state written during Alice's request is still there when Bob's request arrives — Bob can be served Alice's data. It works perfectly in single-user dev and corrupts silently in production.
+This is the pattern SvelteKit's state-management docs mark "NEVER DO THIS". The server is one long-lived process shared by every user, so module state written during one request is still there when the next request arrives. If that state holds per-request or per-user data, one user's data can leak to another — it works perfectly in single-user dev and corrupts silently in production.
+
+Not every promoted write is a leak, though. A rate limiter or memoization cache keyed by something non-personal (an IP, a URL, a cache key) is the benign shape: it shares data across users by design, and that's fine. The finding fires on the write regardless, because the same call shape produces both — verify which one a given write actually is.
 
 ## How to fix
 
@@ -47,4 +50,4 @@ export async function load({ fetch }) {
 }
 ```
 
-Per-user data belongs in cookies/`locals` plus a database; share loaded data with components via `page.data` or the context API.
+Per-user data belongs in cookies/`locals` plus a database; share loaded data with components via `page.data` or the context API. If the write is genuinely a rate limiter or memoization cache keyed by non-personal data, add `// svelte-vitals-disable-next-line security/handler-state-write` above it.

@@ -61,6 +61,44 @@ describe('security/handler-state-write handler writes imported state', () => {
     );
     expect(fails(rs)).toHaveLength(0);
   });
+  it('is silent on a universal file that opts out of SSR', async () => {
+    const rs = await securityHandlerStateWrite.check(
+      ctx([
+        kit({
+          file: 'src/routes/+page.ts',
+          kind: 'universal',
+          importedStateWrites: [{ name: 'user', line: 3, via: 'set-call' }],
+          ssrDisabled: { line: 1 }
+        })
+      ])
+    );
+    expect(rs).toHaveLength(0);
+  });
+  it('still fires on a universal file without the ssr=false opt-out', async () => {
+    const rs = await securityHandlerStateWrite.check(
+      ctx([
+        kit({
+          file: 'src/routes/+page.ts',
+          kind: 'universal',
+          importedStateWrites: [{ name: 'user', line: 3, via: 'set-call' }]
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(1);
+  });
+  it('still fires on a server-kind file even with ssr=false', async () => {
+    const rs = await securityHandlerStateWrite.check(
+      ctx([
+        kit({
+          file: 'src/routes/+page.server.ts',
+          kind: 'server',
+          importedStateWrites: [{ name: 'user', line: 3, via: 'set-call' }],
+          ssrDisabled: { line: 1 }
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(1);
+  });
 });
 
 describe('security/server-module-state server module-scope state', () => {
@@ -157,6 +195,46 @@ describe('security/shared-state-import shared runes-state import on the server',
       })
     );
     expect(fails(noState)).toHaveLength(0);
+  });
+  it('is silent on a universal file that opts out of SSR', async () => {
+    const rs = await securitySharedStateImport.check(
+      ctx(
+        [
+          kit({
+            file: 'src/routes/+page.ts',
+            kind: 'universal',
+            runesModuleImports: [imp],
+            ssrDisabled: { line: 1 }
+          })
+        ],
+        { components: [stateModule('src/lib/quiz.svelte.js')] }
+      )
+    );
+    expect(rs).toHaveLength(0);
+  });
+  it('still fires on a universal file without the ssr=false opt-out', async () => {
+    const rs = await securitySharedStateImport.check(
+      ctx([kit({ file: 'src/routes/+page.ts', kind: 'universal', runesModuleImports: [imp] })], {
+        components: [stateModule('src/lib/quiz.svelte.js')]
+      })
+    );
+    expect(fails(rs)).toHaveLength(1);
+  });
+  it('still fires on a server-kind file even with ssr=false', async () => {
+    const rs = await securitySharedStateImport.check(
+      ctx(
+        [
+          kit({
+            file: 'src/routes/+page.server.ts',
+            kind: 'server',
+            runesModuleImports: [imp],
+            ssrDisabled: { line: 1 }
+          })
+        ],
+        { components: [stateModule('src/lib/quiz.svelte.js')] }
+      )
+    );
+    expect(fails(rs)).toHaveLength(1);
   });
 });
 

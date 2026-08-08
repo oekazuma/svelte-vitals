@@ -5,7 +5,8 @@ export const securityRawHtml = componentRule({
   title: 'Raw HTML render',
   category: 'security',
   label: '{@html} usage',
-  recommendation: 'Sanitize the value before {@html} (e.g. DOMPurify), or render it as text/markup instead.',
+  recommendation:
+    'Sanitize the value before {@html} (e.g. DOMPurify), or render it as text/markup instead. A sanitizer keeps {@html} in the source, so the finding persists by design — once reviewed, suppress it with the inline directive.',
   rationale:
     '{@html} renders its value as unescaped HTML; if the value can contain user input and is not sanitized, it is a cross-site-scripting (XSS) vector.',
   applies: (c) => c.htmlTags.length > 0,
