@@ -41,6 +41,35 @@ function collectSvelteHeads(node: WalkNode | WalkNode[] | null | undefined, acc:
   }
 }
 
+// HTML spec: a <script> executes as a "classic script" only when its `type` is absent, empty,
+// or a JavaScript MIME type (mimesniff's JAVASCRIPT_MIME_TYPES). Anything else — module,
+// importmap, speculationrules, a third-party runtime like text/partytown, … — never runs as a
+// blocking classic script (performance/render-blocking-script).
+const JS_MIME_TYPES = new Set([
+  'application/ecmascript',
+  'application/javascript',
+  'application/x-ecmascript',
+  'application/x-javascript',
+  'text/ecmascript',
+  'text/javascript',
+  'text/javascript1.0',
+  'text/javascript1.1',
+  'text/javascript1.2',
+  'text/javascript1.3',
+  'text/javascript1.4',
+  'text/javascript1.5',
+  'text/jscript',
+  'text/livescript',
+  'text/x-ecmascript',
+  'text/x-javascript'
+]);
+
+function isClassicScriptType(type: string | undefined): boolean {
+  if (type === undefined) return true;
+  const normalized = type.trim().toLowerCase();
+  return normalized === '' || JS_MIME_TYPES.has(normalized);
+}
+
 function tagsFromHead(head: AST.SvelteHead): ParsedTag[] {
   const tags: ParsedTag[] = [];
   const children = head.fragment.nodes;
@@ -106,13 +135,13 @@ function tagsFromHead(head: AST.SvelteHead): ParsedTag[] {
         tags.push({ kind: 'jsonld', value: valueFromNodes(nodes), ...(raw !== undefined ? { jsonld: raw } : {}) });
       } else {
         // External <script src> in <svelte:head> (performance/render-blocking-script, performance/preconnect). Render-blocking
-        // unless defer/async/type=module; only literal src is modeled.
+        // only for a classic script (isClassicScriptType) without defer/async; only literal src is modeled.
         const src = attrText(attributes, 'src');
         if (src) {
           const blocking =
+            isClassicScriptType(type) &&
             findAttr(attributes, 'defer') === undefined &&
-            findAttr(attributes, 'async') === undefined &&
-            type !== 'module';
+            findAttr(attributes, 'async') === undefined;
           tags.push({ kind: 'script', value: 'static', href: src, ...(blocking ? { blocking: true } : {}) });
         }
       }

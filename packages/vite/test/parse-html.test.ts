@@ -201,6 +201,12 @@ describe('parse-html: script capture (performance/render-blocking-script, perfor
       expect(tags.find((t) => t.kind === 'script')!.blocking).toBeUndefined();
     }
   });
+  it('does not mark non-executing script types as blocking (they never run as a classic script)', () => {
+    for (const type of ['text/partytown', 'importmap', 'speculationrules']) {
+      const { tags } = parseHtmlHead(html(`<script src="/a.js" type="${type}"></script>`));
+      expect(tags.find((t) => t.kind === 'script')!.blocking).toBeUndefined();
+    }
+  });
   it('still captures JSON-LD scripts as kind jsonld (not script)', () => {
     const { tags } = parseHtmlHead(html('<script type="application/ld+json">{"@type":"Thing"}</script>'));
     expect(tags.some((t) => t.kind === 'jsonld')).toBe(true);

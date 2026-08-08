@@ -38,7 +38,8 @@ export const performancePreconnect: Rule = {
     'Connecting to a third-party origin (DNS + TCP + TLS) is costly; a preconnect/dns-prefetch hint starts it early so the resource arrives sooner.',
   fix: {
     description: 'Add a preconnect hint for the third-party origin.',
-    snippet: '<link rel="preconnect" href="https://fonts.googleapis.com" />',
+    snippet:
+      '<link rel="preconnect" href="https://fonts.googleapis.com" />\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />',
     lang: 'html'
   },
   options: OPTIONS,
