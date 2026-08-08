@@ -54,6 +54,73 @@ improve スキルによる監査(2026-07-05、commit `1f6f233` 時点)から生�
 
 (012/013 は欠番。副産物対応の advisor ブランチ名 `advisor/012-*`/`advisor/013-*` として消費済みのため、混同を避けて 014 から採番。014–018 は 2026-07-08 のギャップ分析(commit `d0c76c9` 時点)から生成。テーマは「CI 組み込み体験」と「エージェント統合の入口拡大」で、部品[reporter 群、`--diff`、`--fail-on`、MCP]は揃っているのに、ユーザーがワークフローや指示ファイルを手で組み立てる必要がある状態を解消する。)
 
+## 2026-08-08 deep 監査(commit `9e0cf9e`)
+
+/improve deep による全リポジトリ監査(9 カテゴリ、8 並列サブエージェント + 親による全件検証)。ユーザー非対話セッションのため、スキルの既定に従い leverage 上位 5 件を計画化した(残りの検証済み所見は下の「次回選定の候補」を参照)。旧監査(2026-07-05〜)と ID 体系が重複するため、本監査の所見 ID は「2608-」を頭に付けて区別する(例: 旧 TEST-02 = min-health 重複、新 2608-TEST-02 = フラグ値飲み込み)。
+
+| Plan | Title                                                                                              | Priority | Effort | Depends on   | Status |
+| ---- | -------------------------------------------------------------------------------------------------- | -------- | ------ | ------------ | ------ |
+| 043  | CLI の全文字列フラグで「フラグ形/空の値」を拒否する(--route --staged が silent no-op になる問題)     | P1       | S      | —            | DONE(2026-08-08 レビュー承認[Sonnet executor、逸脱なし。--min-health=-1 の二重エラーとテスト側フラグ一覧の重複は申告済みの軽微事項として容認]→ [PR #397](https://github.com/oekazuma/svelte-vitals/pull/397)。done criteria 全件をレビュー側で再実行し green) |
+| 044  | git の changed-files を `-z` で読む(非 ASCII パスの finding が --diff/--staged で silent drop)      | P1       | S      | —            | DONE(2026-08-08 レビュー承認[Sonnet executor、逸脱なし。JSDoc の置き場所は妥当な裁量]→ [PR #398](https://github.com/oekazuma/svelte-vitals/pull/398)。done criteria 全件をレビュー側で再実行し green) |
+| 045  | TS キャスト付き rune 宣言の認識 + runes モジュールの import 収集(計 ~12 ルールの false negative 解消) | P1       | M      | —            | DONE(2026-08-08 レビュー承認[Sonnet executor。逸脱2件とも妥当: unwrapTs 返り値の `Node` 型注釈(tsc が計画のスケッチの型穴を検出)/ component-size 非目標ピンをスコープ内ファイルで transitive に達成]→ [PR #399](https://github.com/oekazuma/svelte-vitals/pull/399)。8 サイト全 unwrap を diff で確認、done criteria 全件再実行 green) |
+| 046  | config ファイルを一度だけロードし --baseline 解析に引き渡す(scaffold 製 .ts config でゲート崩壊)     | P1       | M      | 043(直列順) | DONE(2026-08-08 レビュー承認[Sonnet executor。逸脱1件は計画より小さい配線(applyScope 無変更、analyzeOpts spread 経由)で妥当。fail-without-fix を新テスト両方で実証。**後続候補**: svelte-vitals-action は applyScope を直接バンドルするため、action 側が loadedConfig を渡すまで旧挙動のまま]→ [PR #400](https://github.com/oekazuma/svelte-vitals/pull/400)。done criteria 全件再実行 green) |
+| 047  | 不正 config ファイルで vite build を fail させる(dev server は warn + デフォルトで存続)              | P1       | S      | —            | DONE(2026-08-08 レビュー承認[Sonnet executor。逸脱2件とも妥当: plugin-error.test.ts の mock を importOriginal+spread 化(hoist の必然的帰結)/ 境界コメントを try 前と catch 内の両方に配置(計画側の文言不整合への正しい対処)]→ [PR #401](https://github.com/oekazuma/svelte-vitals/pull/401)。done criteria 全件再実行 green) |
+
+### 2026-08-08 の依存メモ
+
+- **043 → 046 は直列**: 両方 `packages/cli/src/index.ts` 周辺を触るため、コンフリクト回避で 043 を先に。044/045/047 は互いに独立で並行可。
+
+### 2026-08-08 監査で検出したが計画化しなかった主な所見(次回選定の候補、leverage 順)
+
+検証済み(親が引用元コードを実際に開いて確認済み)。次回はここから選定してよい:
+
+- **2608-CLI-07** `applySuppressions` の stale カウントが diff/baseline で絞った結果に対して計算され、CI レシピで毎回「247 stale entries — prune せよ」と誤案内する(S)。prune 実行は破壊的操作なので実害あり。
+- **2608-CORE-03** component/kit-module ルールの pass シードに `location` がなく、`overrides[].files` グロブが pass シードにマッチしない(severity override と option override で選択対象がずれる)(S)。
+- **2608-SEC-01** `release.yml`/`ci.yml` の lint/check/docs job の checkout に `persist-credentials: false` がない(test/floor-smoke には既にある — 慣習の取りこぼし)。release.yml は changesets の push 経路の検証が必要(S)。
+- **2608-PERF-03** `collect-all.ts` / `vite/analyze.ts` の 5 つの collector が直列 await(kitModules 以外は独立、`Promise.all` 化で S)。io-budget のカウントは不変。
+- **2608-STALE 一式** AGENTS.md/CONTRIBUTING.md の「Astro Starlight」(実際は Blume)、「dev overlay」呼称 5 箇所(正: live dashboard)、ci.yml の pnpm@11.17.0 コメント、`rule.ts` の Scope docコメントに 'component' 欠落、skill生成ヘッダーの `--force` 案内(正: `--refresh`)、cli の npm description が「SEO checker」のまま 5 カテゴリを反映していない(まとめて S)。AGENTS.md はエージェントが毎セッション読む契約なので費用対効果は高い。
+- **2608-CLI-08** `install` の対話プロンプトのゲートが stdout TTY のみ(stdin パイプ時にハング。analyzer 側は両方見る — 同じ轍を Plan 019 の CodeRabbit 指摘で一度踏んでいる)(S)。
+- **2608-CLI-10** suppressions ファイルの書き込みが非アトミック(途中クラッシュで以後全実行が exit 2)(S)。
+- **2608-TEST-07** `routeMatcher` が空白をグロブのプレースホルダーに使い、空白入りグロブが `.*` に化ける(再現済み、S)。
+- **2608-SEC-02** `gen-action-pin.mjs` が GitHub API 応答を無検証で TS ソースに埋め込む(SHA/semver の形状ガード + JSON.stringify で S)。
+- **2608-CORE-02** `config.overrides` がスコアの inventory(分母)に不可視(挙動と `config-apply.ts` の契約コメントが矛盾。分母を per-key にするか、コメントを直すかの設計判断が本体、M)。2608-CORE-05(JSON レポートの再現claim)はこれの従属。
+- **2608-TEST-05** kit alias(`$components` 等)が head タグの transitive 解決(`resolveComponentPath`)で無視され、SEO ルールが false positive を出す。設計書 2026-07-30 はこの経路を明示的にスコープ外にはしていない(characterization テスト先行で M)。
+- **2608-DEBT-01** `@svelte-vitals/vite` が `svelte-vitals`(CLI)に runtime 依存(@clack/prompts 等がプラグイン利用者に推移的インストールされる。19 行の rules-config.ts を core へ移すのが第一歩、M)。
+- **2608-PERF-01** dev dashboard の再解析で component/kit-module facts がキャッシュされない(`index.ts` の JSDoc が既知ギャップとして明記。M)。2608-PERF-02(exists メモ化)、2608-PERF-05(lineOf の行索引)も同系の S。
+- **2608-CLI-04/05** dev dashboard で config ファイル編集が反映されない(ESM キャッシュ)+ `SVELTE_VITALS_UI` の restart 競合(S–M)。
+- **2608-TEST-01/03** `bin.ts` に in-process テストの seam がない + ビルド済みバイナリで CI ゲートフラグ(--fail-on/--min-health)の exit code を検証する E2E がない(M)。
+- **2608-SEC-03/07** agent レポーターの Markdown エスケープ + コンソールへの制御文字除去(解析対象リポジトリ由来文字列のサニタイズ、S–M)。
+- **2608-CORE-06/07** `runRules` の rule 失敗隔離(`Promise.allSettled`)+ パース不能ファイルの観測可能なシグナル(S–M)。
+- **2608-CLI-09/11** `ci`/`install` の未ガード readFile が exit 1 に化ける + stderr の flush 漏れ(S)。
+- **2608-DEPS-01/02/03** action-pin の Renovate 自動化、devEngines Node ピンの棚卸し(初回コミットから不動)、`@types/node` が公開フロア(22)より 2 メジャー上(各 S)。
+- **2608-DEBT-03/04/13** Node Runtime アダプタ 3 重実装、vite の config 優先順位マージの cli との二重実装、vite の console 直叩き(各 S)。
+- **2608-DEBT-05/06/07** architecture 系 5 ルールのビルダー不在と rule→rule import、`component-parse.ts`(2240 行)の分割、app-shell 内 640 行のテンプレート文字列 JS/CSS が lint 不可視(M–L、characterization 先行)。
+- **2608-PERF-04** `parseComponentFacts` の ~18 回の AST 走査の統合(L、`pnpm bench` で実測してから。無条件 fragment walk 4 本の統合が第一候補)。
+- **2608-TEST-06** Windows CI 不在 + CLI の `/` 分割と `path.join` の混在(matrix 1 枠追加で「まず観測」の investigate、S)。
+- **2608-DX-04/05** watch ループの案内不在(`pnpm --filter <pkg> exec vitest` の一行を CONTRIBUTING に)、test matrix が check:publish 完了を待つ(要実測)(S)。
+
+### 2026-08-08 監査で棄却した所見(再監査防止)
+
+- **2608-DX-01(core 純粋性 lint が沈黙している可能性)**: 実証で棄却。oxlint の override レベル `plugins: ["import"]` は実際に機能し、`node:fs` と素の `path` の両形式を error で検出することをフィクスチャで確認した(2026-08-08)。残るのは「ガード自体の回帰テストがない」という弱い所見のみ(上の候補に含めず、次にlint設定を触るときのついで作業とする)。
+- **依存監査**: `pnpm audit --prod` の 31 件(high 14 含む)は全て `docs>blume>…` 経由で docs ツールチェーンに閉じる。公開 3 パッケージの runtime 依存への到達ゼロ。Renovate 対応圏内、対応不要。
+- **2608-PERF-09(floor-smoke が test matrix 3 枠で同一分岐)**: 各枠が「その Node で built dist が動く」という付随カバレッジを持つため considered-and-kept。
+- **2608-TEST-09(15 秒タイムアウトの実解析統合テスト)**: フレーク実績なし、CI 全体 ~3 分。not worth doing。
+- **2608-SEC-06(Renovate minor automerge が release トリガーの main に無人で届く)**: minimumReleaseAge 3 日 + allowBuilds 制限 + changeset なしでは publish されない、という多層防御の上でのメンテナー裁量トレードオフとして記録。変更は提案しない(review コストとの交換をメンテナーが選んでいる)。
+- **旧 TEST-02(--min-health 検証の重複)の再評価**: 前回「軽微」で棄却したが、今回 `--min-health=` が 0 に化ける実バグ(2608-CLI-06)と同根と判明したため、棄却を覆して Plan 043 に統合した。
+- **旧 DEBT-02(HeadTag 抽出の二重実装)**: PR #396 でテキスト上の重複は解消。残るのは「ポリシーの二重管理」で、既に 2 箇所ドリフト(`as=""` の扱い、name なし meta の扱い)。全面統合(L)は依然却下、「両パーサーに同一フィクスチャを食わせる conformance テスト + 2 divergence の整合」(S)が正しい形 — 次回候補。
+- **スコア意味論(25 点フロア、proportionality、examined counts)**: 2026-08-03〜07 の設計どおり。監査でも内部矛盾は 2608-CORE-02/05 以外に検出なし。
+
+### 2026-08-08 方向性所見(計画化せず記録)
+
+- **2608-DIR-01(i18n `lang: 'ja'`)**: スパイク(2026-07-13)は **Status: Proposed のまま未承認・未実装**(前回記録の「承認済み」は誤り — 設計書自身の Status 行が正)。しかも対象に書かれた packages/action と packages/mcp はもう存在しない。docs は 155 ページ完全バイリンガルなのに実行時出力は英語のみ、という投資と提供のギャップは最大級。「Rejected と明記して閉じる」か「今のパッケージ構成に rescope して段階 1(カタログ機構 + カバレッジテスト + パイロット 2-3 ルール)だけ切る」かの決断が本体。
+- **2608-DIR-02(examined counts の人間向け表示)**: #380 で入った examined counts は `--reporter json` にしか出ない。機能の存在理由(「検査したのか、グロブが空振りしたのか」)は console/agent でこそ効く。`--examined` フラグか `explain` への追記かの表面設計スパイク(S–M)。
+- **2608-DIR-03(ルール docs 146 ページの手書き)**: docs-site 設計書自身が「ルールが増えたら再訪」と書いた条件が成立(73 ルール × en/ja、週次で増加)。最安の一手はコード生成ではなく「`docs-links.test.ts` を拡張して各ページの Severity 行とルール実体の一致を検査」(~20 行)。
+- **2608-DIR-04(agent skill の世代ズレ警告)**: skill ファイルに埋めた生成時バージョンを誰も読み返さない。`ci upgrade` と vite の version-drift ヒントには同等機構が既にあり、skill だけが欠落(S)。
+- **2608-DIR-05(CI 向けフラグの config キー化)**: `minHealth` と `category` は per-project ポリシーの形をしており config ファイル向き。`reporter`/`out-file` は per-environment なので弱い。設計ノート 1 枚(S)。
+- **DIR-02(旧: `--fix` の方針)は CLOSED**: 決定は 2026-06-22 の MCP 設計書 #11 に記録済み(agent-delegated、by design)で、出荷済み skill 文面にも明記。残る問題は「削除された機能の設計書の中に決定が埋まっていて発見不能」という所在の問題のみ(旧 DOCS-03、上の 2608-STALE 一式に含めず docs 整理の際に `--fix` 決定の恒久的な置き場所を作ること)。
+- **DIR-04(vite ライブダッシュボード)は出荷済み、DIR-05(MCP 拡張)は MCP 削除により moot。**
+- **スコアのラチェット(baseline との score 差分ゲート)は not worth doing**: finding レベルの `--baseline` と絶対フロアの `--min-health` で両側から覆済み。スコア意味論を活発に再調整中(直近 2 週で 5 設計書)の指標をゲート化するのは悪手。
+
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) | REJECTED (with one-line rationale)
 
 ## Dependency notes
