@@ -3,7 +3,7 @@ title: seo/og-description · Open Graph description
 description: Every route should include an og:description.
 ---
 
-**Severity:** warning
+**Severity:** info
 
 ## What it checks
 
@@ -12,6 +12,8 @@ Every route must include a `<meta property="og:description">` tag (own or inheri
 ## Why it matters
 
 og:description is the summary shown under the title in social previews; without one, platforms guess or show nothing, lowering click-through.
+
+This rule was `warning` before the 2026-08-09 severity review. The [Open Graph protocol](https://ogp.me/) lists `og:description` under Optional Metadata, unlike `og:url` (Basic/required — see [`seo/og-url`](/rules/seo/og-url)), so its severity was lowered to match the spec's own required/optional split.
 
 ## How to fix
 

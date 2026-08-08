@@ -4,15 +4,19 @@ import { formatConsoleReport, defineConfig, type Result } from '../src/index.js'
 const config = defineConfig({});
 const results: Result[] = [
   {
+    // The critical carrier — title-presence, still really critical, now failing (was a
+    // passing example before the P2 severity-alignment change moved that role off of
+    // description-presence, which can no longer produce 'critical').
     id: 'seo/title-presence',
     severity: 'critical',
-    detection: { presence: 'own', value: 'static' },
+    detection: { presence: 'none', value: 'absent' },
     route: '/a',
-    message: '<title>'
+    location: 'src/routes/a/+page.svelte',
+    message: 'Missing <title>'
   },
   {
     id: 'seo/description-presence',
-    severity: 'critical',
+    severity: 'warning',
     detection: { presence: 'none', value: 'absent' },
     route: '/a',
     location: 'src/routes/a/+page.svelte',

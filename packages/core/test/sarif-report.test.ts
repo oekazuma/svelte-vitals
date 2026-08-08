@@ -21,10 +21,11 @@ const results: Result[] = [
     detection: { presence: 'none', value: 'absent' },
     message: 'Missing robots.txt'
   },
-  // passing finding → must be excluded
+  // passing finding → must be excluded (severity 'warning', matching the real rule
+  // post P2 severity-alignment — description-presence can no longer produce 'critical')
   {
     id: 'seo/description-presence',
-    severity: 'critical',
+    severity: 'warning',
     detection: { presence: 'own', value: 'static' },
     route: '/ok',
     location: 'src/routes/ok/+page.svelte',

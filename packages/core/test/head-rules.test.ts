@@ -21,7 +21,10 @@ describe('head-tag rules', () => {
   it('seo/description-presence flags a missing description', async () => {
     const [r] = await seoDescriptionPresence.check(ctx([]));
     expect(r!.detection).toEqual({ presence: 'none', value: 'absent' });
-    expect(r!.severity).toBe('critical');
+    // warning, not critical (2026-08-09 P2 severity-alignment review, #9): critical is now
+    // reserved for crash/security rules + title-presence; Google only "sometimes" uses the
+    // meta description, so a missing one no longer fails the default `--fail-on critical` gate.
+    expect(r!.severity).toBe('warning');
   });
   it('seo/description-presence passes a present description', async () => {
     const [r] = await seoDescriptionPresence.check(

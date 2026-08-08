@@ -371,7 +371,9 @@ describe('run() config file (design doc 2026-07-05-config-file-design.md)', () =
   it('reflects the config file in findings (seo/title-presence disabled by rules) and prints its warnings', async () => {
     const cap = capture();
     const code = await run({ cwd: configFileFixtureDir, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
-    // failOn: 'warning' (from the file) + a critical seo/description-presence finding present → exit 1.
+    // failOn: 'warning' (from the file) + a seo/description-presence finding (warning severity
+    // as of the P2 severity-alignment change — no longer critical, but still ≥ the file's
+    // failOn threshold) present → exit 1.
     expect(code).toBe(1);
     const report = cap.out.join('\n');
     expect(report).not.toContain('seo/title-presence');
