@@ -16,7 +16,7 @@ export function readPackageVersion(): string {
  * `svelte-vitals` CLI are versioned independently and can end up depending on
  * different core versions (e.g. a lockfile/registry cooldown resolving a CLI
  * `@latest` install down to an older release than what this plugin depends on);
- * surfacing this in the dev overlay lets users directly compare "rule engine
+ * surfacing this in the live dashboard lets users directly compare "rule engine
  * version" against the CLI's `--version` output instead of guessing from
  * unrelated outer package version numbers. `@svelte-vitals/core` stays an
  * external (unbundled) dependency in the tsup build, so this resolves against

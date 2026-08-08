@@ -108,8 +108,8 @@ jobs:
       # 22.13.0 is the published packages' engines.node floor. This is the only job
       # pinned to it: it runs the built dist under a bare `node`, so no dev
       # dependency (jsdom, vitest, ...) is held to the end-user's Node version.
-      # pnpm itself is not exempt, though: the pinned pnpm@11.17.0 (root
-      # package.json) still runs `pnpm install`/`pnpm build` on this floor, so a
+      # pnpm itself is not exempt, though: the pinned pnpm in the root
+      # `package.json` still runs `pnpm install`/`pnpm build` on this floor, so a
       # future pnpm bump needs to stay runnable on 22.13.0 too.
       - name: Setup Node.js and dependencies
         uses: ./.github/workflows/setup-node

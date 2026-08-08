@@ -41,7 +41,7 @@ export interface Rule {
   category: Category;
   /** Default severity (overridable by config in later slices). */
   severity: Severity;
-  /** 'route' = evaluated per route, 'project' = site-wide (design §10, §12). */
+  /** 'route' = evaluated per route, 'project' = site-wide, 'component' = evaluated per source file (design §10, §12). */
   scope: Scope;
   /** Why this rule matters — one or two sentences, surfaced by `svelte-vitals explain` (issue #24). */
   rationale: string;
