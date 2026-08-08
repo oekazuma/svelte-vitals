@@ -109,7 +109,7 @@ async function main(): Promise<void> {
   }
   if (argv.version) {
     // Printing the resolved core version alongside the CLI's own lets users compare
-    // it directly against the `@svelte-vitals/vite` dev overlay's "core vX.Y.Z" line —
+    // it directly against the `@svelte-vitals/vite` live dashboard's "core vX.Y.Z" line —
     // the two packages are versioned independently and can drift (see docs).
     console.log(`${VERSION} (core ${readCoreVersion()})`);
     // stdout stays exactly the version string so it can be parsed; the pointer goes to stderr.

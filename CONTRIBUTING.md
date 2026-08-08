@@ -40,11 +40,11 @@ The first-party GitHub Action lives in its own repository, [oekazuma/svelte-vita
 
 ## Documentation site
 
-The docs site lives in [`docs/`](./docs) (Astro + Starlight).
+The docs site lives in [`docs/`](./docs) (Blume).
 
 ```bash
 pnpm --filter docs dev     # local dev server
-pnpm --filter docs check   # astro check
+pnpm --filter docs check   # blume check
 pnpm --filter docs build   # production build
 ```
 

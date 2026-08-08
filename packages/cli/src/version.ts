@@ -20,7 +20,7 @@ export function readPackageVersion(): string {
  * are versioned independently and can end up depending on different core versions
  * (e.g. a lockfile/registry cooldown like pnpm's `minimumReleaseAge` resolving
  * `@latest` down to an older release); surfacing this lets users directly compare
- * "rule engine version" between the CLI and the Vite dev overlay instead of
+ * "rule engine version" between the CLI and the Vite live dashboard instead of
  * guessing from unrelated outer package version numbers. `@svelte-vitals/core`
  * stays an external (unbundled) dependency in the tsup build, so this resolves
  * against the real installed package at runtime, not whatever was bundled in.

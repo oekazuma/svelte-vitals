@@ -24,8 +24,8 @@ CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typeche
 
 - `packages/core` — runtime-agnostic rule engine, scorer, and reporter (types + logic only).
 - `packages/cli` — the `svelte-vitals` CLI.
-- `packages/vite` — Vite/SvelteKit plugin + dev overlay; analyzes prerendered HTML during `vite build`.
-- `docs` — Astro Starlight docs site, English + Japanese (`docs/src/content/docs/` and `docs/src/content/docs/ja/`).
+- `packages/vite` — Vite/SvelteKit plugin + live dashboard; analyzes prerendered HTML during `vite build`.
+- `docs` — Blume docs site (`docs/blume.config.ts`), English + Japanese (`docs/src/content/docs/` and `docs/src/content/docs/ja/`).
 - `packages/cli/docs` — the handful of topics `svelte-vitals docs show <name>` prints. Edit the
   markdown, then `pnpm --filter svelte-vitals run gen:docs && pnpm format`; `packages/cli/test/docs-embed.test.mjs`
   fails the build if the committed `src/docs/generated.ts` drifts. Keep them terse and terminal-first —
@@ -93,7 +93,7 @@ install`/`ci upgrade` bundle into scaffolded workflows.
 
 ## Design docs
 
-`docs/superpowers/specs/` holds design docs, `docs/superpowers/plans/` holds implementation plans, both accumulated with date-prefixed filenames. Before assuming a tradeoff is undecided or reintroducing something that was deliberately removed, check here first — e.g. the a11y category was designed (`2026-06-22-a11y-v0.5-design.md`) and later removed (`docs/superpowers/specs/2026-06-23-remove-a11y-design.md`, `docs/superpowers/plans/2026-06-23-remove-a11y.md`), and the MCP server was designed (`2026-06-22-mcp-server-design.md`) and later removed in favour of CLI + Agent Skills (`docs/superpowers/specs/2026-08-01-remove-mcp-design.md`) — the agent story is deliberately "the skill knows the rules, the CLI runs them", so do not reintroduce an MCP surface without revisiting that doc.
+`docs/superpowers/specs/` holds design docs, `docs/superpowers/plans/` holds implementation plans, both accumulated with date-prefixed filenames. Before assuming a tradeoff is undecided or reintroducing something that was deliberately removed, check here first — e.g. the a11y category was designed (`2026-06-22-a11y-v0.5-design.md`) and later removed (`docs/superpowers/specs/2026-06-23-remove-a11y-design.md`, `docs/superpowers/plans/2026-06-23-remove-a11y.md`), and the MCP server was designed (`2026-06-22-mcp-server-design.md`) and later removed in favour of CLI + Agent Skills (`docs/superpowers/specs/2026-08-01-remove-mcp-design.md`) — the agent story is deliberately "the skill knows the rules, the CLI runs them", so do not reintroduce an MCP surface without revisiting that doc. The `--fix` autofix idea (issue #11) was closed as agent-delegated — the only mechanically-safe fixes are trivial for an agent, and the valuable ones need page content the agent already has — recorded in `docs/superpowers/specs/2026-06-22-mcp-server-design.md` so it doesn't need re-litigating from scratch.
 
 ## Exit codes
 
