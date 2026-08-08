@@ -147,4 +147,52 @@ describe('getChangedFiles', () => {
     const changed = getChangedFiles(repo, { base: 'HEAD' });
     expect(changed).toEqual(new Set(['src/routes/+page.svelte']));
   });
+
+  // Regression: default core.quotePath octal-escapes non-ASCII paths in git output
+  // (e.g. `"src/routes/\343\203\226..."`), which never matches raw-UTF-8 Result.location.
+  // `-z` returns raw NUL-separated paths, sidestepping the quoting entirely.
+
+  it('reports the raw path for a non-ASCII tracked change', () => {
+    const repo = makeRepo();
+    mkdirSync(join(repo, 'src/routes/ブログ'), { recursive: true });
+    const pagePath = join(repo, 'src/routes/ブログ/+page.svelte');
+    writeFileSync(pagePath, '<h1>hello</h1>\n');
+    git(['add', '.'], repo);
+    git(['commit', '-m', 'init'], repo);
+
+    writeFileSync(pagePath, '<h1>changed</h1>\n');
+
+    const changed = getChangedFiles(repo, { base: 'HEAD' });
+    expect(changed).toEqual(new Set(['src/routes/ブログ/+page.svelte']));
+  });
+
+  it('reports the raw path for a non-ASCII staged change', () => {
+    const repo = makeRepo();
+    mkdirSync(join(repo, 'src/routes/ブログ'), { recursive: true });
+    const pagePath = join(repo, 'src/routes/ブログ/+page.svelte');
+    writeFileSync(pagePath, '<h1>hello</h1>\n');
+    git(['add', '.'], repo);
+    git(['commit', '-m', 'init'], repo);
+
+    writeFileSync(pagePath, '<h1>changed</h1>\n');
+    git(['add', '.'], repo);
+
+    const changed = getChangedFiles(repo, { staged: true });
+    expect(changed).toEqual(new Set(['src/routes/ブログ/+page.svelte']));
+  });
+
+  it('reports the raw path for a non-ASCII untracked file via the ls-files path', () => {
+    const repo = makeRepo();
+    mkdirSync(join(repo, 'src/routes'), { recursive: true });
+    // A committed file so HEAD exists for the merge-base diff.
+    writeFileSync(join(repo, 'src/routes/+layout.svelte'), '<slot />\n');
+    git(['add', '.'], repo);
+    git(['commit', '-m', 'init'], repo);
+
+    mkdirSync(join(repo, 'src/routes/café'), { recursive: true });
+    writeFileSync(join(repo, 'src/routes/café/+page.svelte'), '<h1>new</h1>\n');
+
+    const changed = getChangedFiles(repo, { base: 'HEAD' });
+    expect(changed).toEqual(new Set(['src/routes/café/+page.svelte']));
+  });
 });
