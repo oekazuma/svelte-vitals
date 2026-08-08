@@ -2,7 +2,15 @@ import { existsSync } from 'node:fs';
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join, isAbsolute, dirname, relative, basename, sep } from 'node:path';
 import type { Plugin, ViteDevServer } from 'vite';
-import type { Category, RuleOptions, RuleOverride, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
+import type {
+  Category,
+  Config,
+  RuleOptions,
+  RuleOverride,
+  RuleSetting,
+  Severity,
+  TreatDynamicAs
+} from '@svelte-vitals/core';
 import {
   CATEGORIES,
   defaultConfig,
@@ -11,7 +19,7 @@ import {
   validateRuleSetting
 } from '@svelte-vitals/core';
 import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from 'svelte-vitals';
-import { analyze, resolveConfig } from './analyze.js';
+import { analyze, mergeConfig, resolveConfig } from './analyze.js';
 import { resolveMinifyDisabled } from './minify-flag.js';
 import { installUiMiddleware } from './ui/middleware.js';
 import { createStore } from './ui/store.js';
@@ -195,16 +203,29 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       // don't emit a spurious "0 routes" report or gate on nothing.
       if (!existsSync(resolved)) return;
 
+      // Resolved OUTSIDE the try: a config-file validation error must fail the
+      // build (same stance as the CLI's exit 2) — the catch below is only for
+      // the analysis itself (unreadable output, glob errors), not for config errors.
+      const resolvedConfig = await resolveConfig(root, options);
+
       let result;
       try {
         const viteMinifyDisabled = minifyFlag
           ? await resolveMinifyDisabled(minifyFlag.minify, minifyFlag.configFile, root)
           : undefined;
-        result = await analyze(resolved, root, options, viteMinifyDisabled ? { viteMinifyDisabled } : undefined);
+        result = await analyze(
+          resolved,
+          root,
+          options,
+          viteMinifyDisabled ? { viteMinifyDisabled } : undefined,
+          resolvedConfig
+        );
       } catch (err) {
         // The analysis itself failed (unreadable/malformed output, glob error,
         // …). That's our problem, not a real SEO finding, so warn and skip the
         // gate instead of failing the whole build — distinct from `result.failed`.
+        // Config-file validation errors never reach here: resolved above, before
+        // the try, they propagate and fail the build instead.
         console.warn(`svelte-vitals: skipped — analysis failed: ${err instanceof Error ? err.message : String(err)}`);
         return;
       }
@@ -242,7 +263,20 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       // buildSnapshot → buildJsonReport) — the whole-project `runner` below gets its
       // config-file values independently, since it calls analyzeProject (which loads
       // the config file itself).
-      const { config, warnings } = await resolveConfig(uiRoot, options);
+      let config: Config;
+      let warnings: string[];
+      try {
+        ({ config, warnings } = await resolveConfig(uiRoot, options));
+      } catch (err) {
+        // Dev must not crash on a config typo; the dashboard runs on plugin
+        // options/defaults and says so. The build path (closeBundle) intentionally
+        // DOES fail — see the comment there.
+        console.warn(
+          `svelte-vitals: config file invalid — dashboard using plugin options/defaults: ${err instanceof Error ? err.message : String(err)}`
+        );
+        config = mergeConfig(options, undefined);
+        warnings = [];
+      }
       for (const w of warnings) console.warn(`svelte-vitals: ${w}`);
       const store = createStore();
 
