@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { architectureComponentSize, architecturePropCount } from '../src/index.js';
+import { architectureComponentSize, architecturePropCount, parseComponentFacts } from '../src/index.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -92,6 +92,18 @@ describe('architecture/prop-count prop count', () => {
   });
   it('emits nothing for a component with no countable props', async () => {
     expect(await architecturePropCount.check(ctx([comp({ propCount: 0 })]))).toHaveLength(0);
+  });
+  it('passes a real component with 6 named props beside a rest element', async () => {
+    const src = '<script>let { a, b, c, d, e, f, ...rest } = $props();</script>';
+    const facts = parseComponentFacts(src, 'C.svelte');
+    const rs = await architecturePropCount.check(ctx([comp({ propCount: facts.propCount })]));
+    expect(fails(rs)).toHaveLength(0);
+  });
+  it('flags a real component with 7 named props beside a rest element', async () => {
+    const src = '<script>let { a, b, c, d, e, f, g, ...rest } = $props();</script>';
+    const facts = parseComponentFacts(src, 'C.svelte');
+    const rs = await architecturePropCount.check(ctx([comp({ propCount: facts.propCount })]));
+    expect(fails(rs)).toHaveLength(1);
   });
 });
 
