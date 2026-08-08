@@ -5,8 +5,9 @@ const PENALIZED = { presence: 'none', value: 'absent' } as const;
 
 const MINIFY_DISABLED_FIX: Fix = {
   description:
-    'Remove the minify: false override from vite.config (Vite minifies with esbuild by default), or scope it to non-production builds.',
-  snippet: "export default defineConfig({\n  build: {\n    minify: 'esbuild'\n  }\n});",
+    'Remove the minify: false override from vite.config (Vite minifies by default), or scope it to non-production builds.',
+  snippet:
+    'export default defineConfig({\n  build: {\n    // minify: false — removed; Vite minifies production builds by default\n  }\n});',
   lang: 'ts'
 };
 

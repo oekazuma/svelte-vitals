@@ -18,13 +18,13 @@ The CLI statically parses `vite.config.*` (the first file in Vite's own resoluti
 
 The Vite plugin instead reads the **resolved** config during `vite build`, so it also catches function-form and conditional configs — and never flags an override that doesn't apply to the actual build.
 
-Not flagged: `minify: 'esbuild' | 'terser' | true`, and `minify` keys outside the `build` object. A project with no Vite config is not flagged **by the CLI**, which has nothing to parse; the plugin still judges the resolved value, including for an inline programmatic config.
+Not flagged: `minify: 'oxc' | 'esbuild' | 'terser' | true`, and `minify` keys outside the `build` object. A project with no Vite config is not flagged **by the CLI**, which has nothing to parse; the plugin still judges the resolved value, including for an inline programmatic config.
 
 An object spread that could override `minify` after the literal (`{ minify: false, ...prod }`) makes the value unknowable to static reading, so the CLI skips the finding. The plugin channel still judges the resolved value.
 
 ## Why it matters
 
-Vite minifies with esbuild by default; turning it off is almost always a leftover from debugging a production issue. Unminified bundles are several times larger, so every route pays for it in download and parse time — and nothing in the toolchain warns you: the build succeeds and dev behaves identically.
+Vite minifies by default (`oxc` since Vite 8); turning it off is almost always a leftover from debugging a production issue. Unminified bundles are several times larger, so every route pays for it in download and parse time — and nothing in the toolchain warns you: the build succeeds and dev behaves identically.
 
 ## How to fix
 
@@ -36,7 +36,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(({ mode }) => ({
   build: {
-    minify: mode === 'production' ? 'esbuild' : false
+    minify: mode === 'production'
   }
 }));
 ```

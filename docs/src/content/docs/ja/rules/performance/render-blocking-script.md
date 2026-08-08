@@ -7,7 +7,9 @@ description: head の <script src> で HTML の解析を止めないようにし
 
 ## チェック内容
 
-`<head>` 内の `<script src>` のうち、`defer`、`async`、`type="module"` のいずれも指定していないものを検出します。`src/app.html` に書かれたもの（レンダリング解析で検出）でも、`<svelte:head>` に書かれたもの（静的解析で検出）でも対象です。`<script>` がない head は検査しません。
+`<head>` 内の `<script src>` のうち、クラシックスクリプトとして実行され（`type` が未指定・空、または JavaScript の MIME タイプ）、かつ `defer`・`async` のいずれも指定していないものを検出します。`src/app.html` に書かれたもの（レンダリング解析で検出）でも、`<svelte:head>` に書かれたもの（静的解析で検出）でも対象です。`<script>` がない head は検査しません。
+
+検出しないもの: `type="module"`、および `type="importmap"`、`type="speculationrules"`、`type="text/partytown"` のようなサードパーティランタイムなど、クラシックスクリプトとして実行されない type。
 
 ## なぜ重要か
 

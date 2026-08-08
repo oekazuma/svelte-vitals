@@ -48,6 +48,14 @@ describe('parse: head script capture (performance/render-blocking-script, perfor
       expect(t.blocking).toBeUndefined();
     }
   });
+  it('does not mark non-executing script types as blocking (they never run as a classic script)', () => {
+    for (const type of ['text/partytown', 'importmap', 'speculationrules']) {
+      const t = parseHeadTags(head(`<script src="/a.js" type="${type}"></script>`), 'x.svelte').find(
+        (t) => t.kind === 'script'
+      )!;
+      expect(t.blocking).toBeUndefined();
+    }
+  });
   it('keeps JSON-LD as kind jsonld (not script)', () => {
     const tags = parseHeadTags(head('<script type="application/ld+json">{"@type":"Thing"}</script>'), 'x.svelte');
     expect(tags.some((t) => t.kind === 'jsonld')).toBe(true);
