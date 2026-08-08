@@ -28,7 +28,7 @@ path containing non-ASCII bytes (or quotes/backslashes) **octal-escaped and
 wrapped in double quotes**. Verified empirically at commit `9e0cf9e`: a change
 under `src/routes/ブログ/` comes back as
 
-```
+```text
 "src/routes/\343\203\226\343\203\255\343\202\260/+page.svelte"
 ```
 
