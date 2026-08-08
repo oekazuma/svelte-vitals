@@ -323,4 +323,36 @@ describe('resolveArgs', () => {
     expect(resolve('--diff').options?.diffBase).toBe('HEAD');
     expect(resolve('--diff', '--staged').options?.diffBase).toBe('HEAD');
   });
+
+  it('exempts --out-file "-" (space-separated) from the value guard: outFile is "-"', () => {
+    const { options, errors } = resolve('--out-file', '-');
+    expect(errors).toEqual([]);
+    expect(options?.outFile).toBe('-');
+  });
+
+  it('exempts --out-file=- from the value guard: outFile is "-"', () => {
+    const { options, errors } = resolve('--out-file=-');
+    expect(errors).toEqual([]);
+    expect(options?.outFile).toBe('-');
+  });
+
+  it('keeps a trailing positional after --out-file -', () => {
+    const { options, errors } = resolve('--out-file', '-', 'someproj');
+    expect(errors).toEqual([]);
+    expect(options?.outFile).toBe('-');
+    expect(options?.cwd).toBe('someproj');
+    expect(options?.explicitPath).toBe(true);
+  });
+
+  it('still reports --out-file followed by a flag as a fatal error (not weakened by the "-" exemption)', () => {
+    const { options, errors } = resolve('--out-file', '--staged');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('--out-file requires a value'))).toBe(true);
+  });
+
+  it('still reports a dash-prefixed --out-file value other than "-" as a fatal error', () => {
+    const { options, errors } = resolve('--out-file=-x');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('--out-file requires a value'))).toBe(true);
+  });
 });
