@@ -105,12 +105,12 @@ export async function analyze(
 `plugin.ts` — the unguarded dev path (~240-246):
 
 ```ts
-      // This `config` drives the dashboard's rendering/scoring (installUiMiddleware →
-      // buildSnapshot → buildJsonReport) — the whole-project `runner` below gets its
-      // config-file values independently, since it calls analyzeProject (which loads
-      // the config file itself).
-      const { config, warnings } = await resolveConfig(uiRoot, options);
-      for (const w of warnings) console.warn(`svelte-vitals: ${w}`);
+// This `config` drives the dashboard's rendering/scoring (installUiMiddleware →
+// buildSnapshot → buildJsonReport) — the whole-project `runner` below gets its
+// config-file values independently, since it calls analyzeProject (which loads
+// the config file itself).
+const { config, warnings } = await resolveConfig(uiRoot, options);
+for (const w of warnings) console.warn(`svelte-vitals: ${w}`);
 ```
 
 Note from that comment: the dev dashboard's whole-project **runner** calls the
@@ -125,13 +125,13 @@ Existing test files to model after: `packages/vite/test/analyze.test.ts`
 
 ## Commands you will need
 
-| Purpose | Command | Expected on success |
-|---|---|---|
-| Install | `pnpm install` | exit 0 |
-| Typecheck | `pnpm -r typecheck` | exit 0 |
-| Vite tests | `pnpm --filter @svelte-vitals/vite test` | all pass |
-| Full suite | `pnpm test` | all pass |
-| Lint | `pnpm lint` | exit 0 |
+| Purpose    | Command                                  | Expected on success |
+| ---------- | ---------------------------------------- | ------------------- |
+| Install    | `pnpm install`                           | exit 0              |
+| Typecheck  | `pnpm -r typecheck`                      | exit 0              |
+| Vite tests | `pnpm --filter @svelte-vitals/vite test` | all pass            |
+| Full suite | `pnpm test`                              | all pass            |
+| Lint       | `pnpm lint`                              | exit 0              |
 
 ## Scope
 
@@ -146,7 +146,7 @@ Existing test files to model after: `packages/vite/test/analyze.test.ts`
 
 - `packages/cli/src/config-file.ts` — its throw-on-invalid contract is correct
   and shared; no cross-package error marker classes (considered and rejected:
-  the hoist below classifies errors by *where* they occur, which is enough).
+  the hoist below classifies errors by _where_ they occur, which is enough).
 - The dev dashboard's whole-project runner / `analyzeProject` internals.
 - `packages/vite/src/plugin.ts`'s plugin-**option** validation (~96-110) —
   already correct.
@@ -215,18 +215,18 @@ helper `mergeConfig(options, fileConfig?)` in `analyze.ts` and use it for the
 fallback:
 
 ```ts
-      let config: Config;
-      let warnings: string[];
-      try {
-        ({ config, warnings } = await resolveConfig(uiRoot, options));
-      } catch (err) {
-        // Dev must not crash on a config typo; the dashboard runs on defaults
-        // and says so. The build path (closeBundle) intentionally DOES fail.
-        console.warn(
-          `svelte-vitals: config file invalid — dashboard using plugin options/defaults: ${err instanceof Error ? err.message : String(err)}`
-        );
-        ({ config, warnings } = { config: mergeConfig(options, undefined), warnings: [] });
-      }
+let config: Config;
+let warnings: string[];
+try {
+  ({ config, warnings } = await resolveConfig(uiRoot, options));
+} catch (err) {
+  // Dev must not crash on a config typo; the dashboard runs on defaults
+  // and says so. The build path (closeBundle) intentionally DOES fail.
+  console.warn(
+    `svelte-vitals: config file invalid — dashboard using plugin options/defaults: ${err instanceof Error ? err.message : String(err)}`
+  );
+  ({ config, warnings } = { config: mergeConfig(options, undefined), warnings: [] });
+}
 ```
 
 **Verify**: `pnpm --filter @svelte-vitals/vite test` → all pass.

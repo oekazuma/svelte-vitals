@@ -78,23 +78,23 @@ The declarator-init sites that read the wrapped init directly (line numbers at
 1. `~2106-2113` — the `stateNames`/`reactiveNames`/`stateDecls` walker:
 
 ```ts
-    walkEstree(program, (n) => {
-      if (n.type !== 'VariableDeclarator' || !n.init) return;
-      if (isStateDeclaration(n.init) && n.id?.type === 'Identifier') {
-        stateNames.add(n.id.name);
-        stateDecls.push({ name: n.id.name, line: lineOf(source, n.start) });
-      }
-      if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init))
-        addBoundNames(n.id, reactiveNames);
-    });
+walkEstree(program, (n) => {
+  if (n.type !== 'VariableDeclarator' || !n.init) return;
+  if (isStateDeclaration(n.init) && n.id?.type === 'Identifier') {
+    stateNames.add(n.id.name);
+    stateDecls.push({ name: n.id.name, line: lineOf(source, n.start) });
+  }
+  if (isStateDeclaration(n.init) || isDerivedDeclaration(n.init) || isPropsCall(n.init))
+    addBoundNames(n.id, reactiveNames);
+});
 ```
 
 2. `~2139` — rawable candidates (note the **argument** is already unwrapped,
    the init is not — this is the pattern to fix):
 
 ```ts
-        if (d?.id?.type !== 'Identifier' || !d.init || !isPlainStateCall(d.init)) continue;
-        const arg = unwrapTs(d.init.arguments?.[0]);
+if (d?.id?.type !== 'Identifier' || !d.init || !isPlainStateCall(d.init)) continue;
+const arg = unwrapTs(d.init.arguments?.[0]);
 ```
 
 3. `~2177` — a second `isPlainStateCall(d.init)` site (builtin-state
@@ -146,14 +146,14 @@ state the behavior.
 
 ## Commands you will need
 
-| Purpose | Command | Expected on success |
-|---|---|---|
-| Install | `pnpm install` | exit 0 |
-| Typecheck | `pnpm -r typecheck` | exit 0 |
-| Core tests | `pnpm --filter @svelte-vitals/core test` | all pass |
-| One test file | `pnpm --filter @svelte-vitals/core exec vitest run test/component-parse.test.ts` | all pass |
-| Full suite | `pnpm test` | all pass (cli/vite consume core facts — run everything) |
-| Lint | `pnpm lint` | exit 0 |
+| Purpose       | Command                                                                          | Expected on success                                     |
+| ------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| Install       | `pnpm install`                                                                   | exit 0                                                  |
+| Typecheck     | `pnpm -r typecheck`                                                              | exit 0                                                  |
+| Core tests    | `pnpm --filter @svelte-vitals/core test`                                         | all pass                                                |
+| One test file | `pnpm --filter @svelte-vitals/core exec vitest run test/component-parse.test.ts` | all pass                                                |
+| Full suite    | `pnpm test`                                                                      | all pass (cli/vite consume core facts — run everything) |
+| Lint          | `pnpm lint`                                                                      | exit 0                                                  |
 
 ## Scope
 

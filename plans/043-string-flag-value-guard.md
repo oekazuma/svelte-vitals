@@ -91,35 +91,35 @@ The one existing guard (`resolve-args.ts:180-193`) — reuse its shape and its
 reasoning comment style:
 
 ```ts
-  // --baseline: unlike --diff, no implicit default — a bare `--baseline` (parseArgs
-  // yields `true`) is a fatal error rather than silently defaulting to HEAD, ...
-  // Values starting with '-' are rejected too: git refnames cannot start with '-',
-  // and parseArgs would otherwise consume a following flag (`--baseline --force`)
-  // as the ref, turning a misconfigured CI gate into a silent pass.
-  let baselineRef: string | undefined;
-  if (argv.baseline !== undefined) {
-    if (typeof argv.baseline !== 'string' || argv.baseline.trim() === '' || argv.baseline.startsWith('-')) {
-      errors.push('svelte-vitals: --baseline requires a git ref (e.g. --baseline origin/main).');
-    } else {
-      baselineRef = argv.baseline;
-    }
+// --baseline: unlike --diff, no implicit default — a bare `--baseline` (parseArgs
+// yields `true`) is a fatal error rather than silently defaulting to HEAD, ...
+// Values starting with '-' are rejected too: git refnames cannot start with '-',
+// and parseArgs would otherwise consume a following flag (`--baseline --force`)
+// as the ref, turning a misconfigured CI gate into a silent pass.
+let baselineRef: string | undefined;
+if (argv.baseline !== undefined) {
+  if (typeof argv.baseline !== 'string' || argv.baseline.trim() === '' || argv.baseline.startsWith('-')) {
+    errors.push('svelte-vitals: --baseline requires a git ref (e.g. --baseline origin/main).');
+  } else {
+    baselineRef = argv.baseline;
   }
+}
 ```
 
 The ad-hoc `--min-health` parse in `bin.ts:126-135`:
 
 ```ts
-  const minHealthRaw = argv['min-health'];
-  let minHealth: number | undefined;
-  if (minHealthRaw !== undefined) {
-    // A bare `--min-health` parses as `true` — NaN it so it errors instead of becoming 1.
-    const n = typeof minHealthRaw === 'string' ? Number(minHealthRaw) : NaN;
-    if (!Number.isFinite(n) || n < 0 || n > 100) {
-      console.error(`svelte-vitals: invalid --min-health '${minHealthRaw}'; expected a number 0-100.`);
-      // (exits 2)
-    }
-    minHealth = n;
+const minHealthRaw = argv['min-health'];
+let minHealth: number | undefined;
+if (minHealthRaw !== undefined) {
+  // A bare `--min-health` parses as `true` — NaN it so it errors instead of becoming 1.
+  const n = typeof minHealthRaw === 'string' ? Number(minHealthRaw) : NaN;
+  if (!Number.isFinite(n) || n < 0 || n > 100) {
+    console.error(`svelte-vitals: invalid --min-health '${minHealthRaw}'; expected a number 0-100.`);
+    // (exits 2)
   }
+  minHealth = n;
+}
 ```
 
 Note `Number('') === 0` sails through this check — that is the bug.
@@ -134,16 +134,16 @@ user-facing change needs a changeset (`pnpm changeset`).
 
 ## Decision table (the contract this plan implements)
 
-| Input shape | Today | After this plan |
-|---|---|---|
-| `--route --staged` (value = next flag) | route = `"--staged"`, silent | exit 2, `--route requires a value.` |
-| `--reporter=` (empty) | empty string flows on | exit 2 |
-| bare `--rules` (parses as `true`) | non-string, flows on | exit 2 |
-| `--min-health=` | becomes `0` — gate never fails | exit 2 |
-| `--min-health` bare | NaN → error (bin.ts) | exit 2 (same outcome, now via resolveArgs) |
-| `--min-health=0` / `=100` | valid | valid (unchanged) |
-| `--baseline` (all bad shapes) | exit 2 (existing guard) | unchanged, **keep its existing message** |
-| `--diff` bare / `--diff=` | defaults to `HEAD` | **unchanged — exempt** (see below) |
+| Input shape                            | Today                          | After this plan                            |
+| -------------------------------------- | ------------------------------ | ------------------------------------------ |
+| `--route --staged` (value = next flag) | route = `"--staged"`, silent   | exit 2, `--route requires a value.`        |
+| `--reporter=` (empty)                  | empty string flows on          | exit 2                                     |
+| bare `--rules` (parses as `true`)      | non-string, flows on           | exit 2                                     |
+| `--min-health=`                        | becomes `0` — gate never fails | exit 2                                     |
+| `--min-health` bare                    | NaN → error (bin.ts)           | exit 2 (same outcome, now via resolveArgs) |
+| `--min-health=0` / `=100`              | valid                          | valid (unchanged)                          |
+| `--baseline` (all bad shapes)          | exit 2 (existing guard)        | unchanged, **keep its existing message**   |
+| `--diff` bare / `--diff=`              | defaults to `HEAD`             | **unchanged — exempt** (see below)         |
 
 **`--diff` is exempt by design**: the pre-pass at `resolve-args.ts:120` rewrites
 a bare `--diff` to `--diff=HEAD`, and `|| 'HEAD'` at line 177 catches an
@@ -156,15 +156,15 @@ allow-list that flag instead of weakening the guard.
 
 ## Commands you will need
 
-| Purpose | Command | Expected on success |
-|---|---|---|
-| Install | `pnpm install` | exit 0 |
-| Build | `pnpm build` | exit 0 |
-| Typecheck | `pnpm -r typecheck` | exit 0 |
-| CLI tests | `pnpm --filter svelte-vitals test` | all pass |
-| All tests | `pnpm test` | all pass |
-| Lint | `pnpm lint` | exit 0 |
-| Format | `pnpm format` | rewrites files (run before committing) |
+| Purpose   | Command                            | Expected on success                    |
+| --------- | ---------------------------------- | -------------------------------------- |
+| Install   | `pnpm install`                     | exit 0                                 |
+| Build     | `pnpm build`                       | exit 0                                 |
+| Typecheck | `pnpm -r typecheck`                | exit 0                                 |
+| CLI tests | `pnpm --filter svelte-vitals test` | all pass                               |
+| All tests | `pnpm test`                        | all pass                               |
+| Lint      | `pnpm lint`                        | exit 0                                 |
+| Format    | `pnpm format`                      | rewrites files (run before committing) |
 
 ## Scope
 
@@ -208,8 +208,17 @@ specific message and assignment logic — do not duplicate its error):
 // --baseline guard below, applied to every value-carrying flag. --diff is
 // exempt: bare/empty --diff deliberately defaults to HEAD (see parseRunArgs).
 const VALUE_FLAGS = [
-  'meta-components', 'treat-dynamic-as', 'route', 'fail-on', 'reporter',
-  'rules', 'ignore', 'min-health', 'out-file', 'weights', 'category'
+  'meta-components',
+  'treat-dynamic-as',
+  'route',
+  'fail-on',
+  'reporter',
+  'rules',
+  'ignore',
+  'min-health',
+  'out-file',
+  'weights',
+  'category'
 ] as const;
 for (const flag of VALUE_FLAGS) {
   const v = argv[flag];

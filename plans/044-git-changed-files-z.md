@@ -90,13 +90,13 @@ cases already in that file.
 
 ## Commands you will need
 
-| Purpose | Command | Expected on success |
-|---|---|---|
-| Install | `pnpm install` | exit 0 |
-| Typecheck | `pnpm -r typecheck` | exit 0 |
-| CLI tests | `pnpm --filter svelte-vitals test` | all pass |
-| This file's tests | `pnpm --filter svelte-vitals exec vitest run test/changed-files.test.ts` | all pass |
-| Lint | `pnpm lint` | exit 0 |
+| Purpose           | Command                                                                  | Expected on success |
+| ----------------- | ------------------------------------------------------------------------ | ------------------- |
+| Install           | `pnpm install`                                                           | exit 0              |
+| Typecheck         | `pnpm -r typecheck`                                                      | exit 0              |
+| CLI tests         | `pnpm --filter svelte-vitals test`                                       | all pass            |
+| This file's tests | `pnpm --filter svelte-vitals exec vitest run test/changed-files.test.ts` | all pass            |
+| Lint              | `pnpm lint`                                                              | exit 0              |
 
 ## Scope
 

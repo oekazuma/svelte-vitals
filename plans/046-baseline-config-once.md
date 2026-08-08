@@ -38,7 +38,7 @@ default, the baseline-side config load throws `ERR_MODULE_NOT_FOUND`, the
 gate exits 1 on unrelated changes. The tool's own scaffolder produces the
 config that disables the tool's own baseline gate.
 
-There is a second, quieter wrong: even when the worktree config *does* load, it
+There is a second, quieter wrong: even when the worktree config _does_ load, it
 is the **ref's** config, so the two sides of the comparison run under different
 rule sets whenever the config changed between ref and HEAD, producing findings
 "introduced" by a config edit rather than by code.
@@ -90,21 +90,21 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
 The baseline block in `applyScope` (`index.ts:291-307`):
 
 ```ts
-  if (opts.baseline !== undefined) {
-    const checkout = checkoutBaseline(opts.cwd, opts.baseline);
-    if (checkout === undefined) {
-      errorLog(`svelte-vitals: could not analyze baseline '${opts.baseline}' (...); reporting all findings.`);
-    } else {
-      try {
-        const base = await analyzeProject({ ...opts.analyzeOpts, cwd: checkout.analyzeCwd });
-        scoped = filterToNewFindings(scoped, base.results);
-      } catch {
-        errorLog(`svelte-vitals: baseline analysis of '${opts.baseline}' failed; reporting all findings.`);
-      } finally {
-        checkout.cleanup();
-      }
+if (opts.baseline !== undefined) {
+  const checkout = checkoutBaseline(opts.cwd, opts.baseline);
+  if (checkout === undefined) {
+    errorLog(`svelte-vitals: could not analyze baseline '${opts.baseline}' (...); reporting all findings.`);
+  } else {
+    try {
+      const base = await analyzeProject({ ...opts.analyzeOpts, cwd: checkout.analyzeCwd });
+      scoped = filterToNewFindings(scoped, base.results);
+    } catch {
+      errorLog(`svelte-vitals: baseline analysis of '${opts.baseline}' failed; reporting all findings.`);
+    } finally {
+      checkout.cleanup();
     }
   }
+}
 ```
 
 Key observation: the baseline call already reuses the **explicit** options
@@ -119,14 +119,14 @@ with explicit identity (`git -c user.name=... -c user.email=...` — see
 
 ## Commands you will need
 
-| Purpose | Command | Expected on success |
-|---|---|---|
-| Install | `pnpm install` | exit 0 |
-| Typecheck | `pnpm -r typecheck` | exit 0 |
-| CLI tests | `pnpm --filter svelte-vitals test` | all pass |
-| Baseline tests | `pnpm --filter svelte-vitals exec vitest run test/run-baseline.test.ts` | all pass |
-| Full suite | `pnpm test` | all pass |
-| Lint | `pnpm lint` | exit 0 |
+| Purpose        | Command                                                                 | Expected on success |
+| -------------- | ----------------------------------------------------------------------- | ------------------- |
+| Install        | `pnpm install`                                                          | exit 0              |
+| Typecheck      | `pnpm -r typecheck`                                                     | exit 0              |
+| CLI tests      | `pnpm --filter svelte-vitals test`                                      | all pass            |
+| Baseline tests | `pnpm --filter svelte-vitals exec vitest run test/run-baseline.test.ts` | all pass            |
+| Full suite     | `pnpm test`                                                             | all pass            |
+| Lint           | `pnpm lint`                                                             | exit 0              |
 
 ## Scope
 
@@ -176,7 +176,7 @@ this is public API):
 In the function body:
 
 ```ts
-  const loaded = opts.loadedConfig !== undefined ? (opts.loadedConfig ?? undefined) : await loadConfigFile(cwd);
+const loaded = opts.loadedConfig !== undefined ? (opts.loadedConfig ?? undefined) : await loadConfigFile(cwd);
 ```
 
 Everything downstream (`file`, warnings concatenation) is unchanged.
