@@ -192,8 +192,9 @@ raise Health. This is not specific to the three named rules — it is exactly th
 for any rule, which is why `headTagRule`/`title-presence`'s PASS results (which _already_ carry
 `location` today) already leak into `--diff` in a way the doc comment's stated intent
 ("the gate reports issues in the changed files") does not endorse. That is a **pre-existing,
-undetected instance of the same bug** for those ~10 rule ids (see Blast radius), not a new one
-option (a) introduces.
+undetected instance of the same bug** for those eleven rule ids (see Blast radius and the
+`findingKey` section below, which verifies the same live-today bug independently for
+`--baseline`), not a new one option (a) introduces.
 
 **Recommendation:** redefine `filterToChangedFiles` to explicitly drop every passing seed,
 regardless of `location`, and keep only penalized findings whose `location` is in the changed set:
@@ -208,7 +209,7 @@ export function filterToChangedFiles(results: Result[], changed: Set<string>, co
 
 This restores 79 for the reproduction (no category is ever promoted to "present" by a bare PASS),
 and additionally _fixes_ the latent leak for `headTagRule`/`title-presence` today — a behavior
-change for those ~10 rule ids under `--diff`/`--staged` specifically, which needs its own
+change for those eleven rule ids under `--diff`/`--staged` specifically, which needs its own
 characterization test (below) and a changeset callout, since it can move a reported `--diff`
 Health number downward for existing users relying on the current (arguably accidental) leak.
 
@@ -253,8 +254,35 @@ severity:
   as "not new" and never surface it. This direction is strictly worse than case 2: it is a false
   negative on the primary thing `--baseline` exists to catch.
 
-So `findingKey`/`filterToNewFindings` cannot stay as-is once option (a) ships — case 3 alone makes
-that non-optional, independent of the cosmetic question in case 2. The fix: filter both `results`
+**Case 3 is not hypothetical — it is live in the shipped CLI today, for every rule that already
+sets `location` unconditionally.** `headTagRule` (`packages/core/src/rules/seo/head-tag-rule.ts:53-66`)
+builds one result object shared by both the PASS and PENALIZED paths, and `location: head.file` is
+set on it unconditionally — the same is true of `seo/title-presence`
+(`packages/core/src/rules/seo/title-presence.ts:44-57`), built independently but with the identical
+shape (`location: head.file` outside any pass/fail branch). Grepping every `headTagRule(` call site
+gives the full list of rule ids sharing this factory: `seo/canonical-url`, `seo/og-image`,
+`seo/og-title`, `seo/charset`, `seo/og-description`, `seo/twitter-card`, `seo/viewport`,
+`seo/description-presence`, `seo/json-ld`, `seo/og-url` — ten rule ids, plus `seo/title-presence`,
+eleven total. For every one of these eleven rule ids, a route that passed at the baseline ref and
+now fails (e.g. a `<title>` deleted from a route that had one, a canonical URL removed) produces a
+baseline key `id::route::file` and a current key `id::route::file` — identical, because both
+branches of these rules always carry the same `location`. `filterToNewFindings` drops the current
+result as "already existed," and `--baseline` silently reports no regression. This is today's
+actual behavior, verified against the source above, not a projection of what option (a) would
+cause — option (a) would only extend the same live bug to the remaining rules that don't have it
+yet.
+
+**Sequencing.** Because this collision already exists for eleven rule ids independent of anything
+in this spike, the `filterToNewFindings`/`findingKey` redefinition below is not gated on the
+convention decision, on option (a) shipping, or on this document being accepted — it is a
+standalone bug fix the maintainer can take immediately, ahead of and separately from the rest of
+this spike. The rest of this document (the PASS-`location` convention, the `filterToChangedFiles`
+redefinition, the blast radius) still stands on its own as the follow-up that decides how PASS
+results are attributed everywhere else.
+
+`findingKey`/`filterToNewFindings` needs this fix regardless — live today for the eleven
+already-located rule ids, and case 3 alone would make it non-optional the moment option (a) extends
+`location` to the rest. The fix: filter both `results`
 and `baselineResults` to penalized-only _before_ building any key, mirroring the pattern
 `suppressions.ts` already uses (`applySuppressions`/`writeSuppressions` both gate on `isPenalized`
 before calling `findingKey`). A PASS result never becomes a key on either side, so it can never
@@ -294,7 +322,7 @@ string grep misses) across `packages/core/src/rules/`:
 
 | File                                   | Location in PASS today  | Rule id(s) it backs                                                                                                                                                                                                        |
 | -------------------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `seo/head-tag-rule.ts`                 | **yes** (unconditional) | `seo/canonical-url`, `og-title`, `og-image`, `charset`, `viewport`, `twitter-card`, `description-presence`, `og-description`, `json-ld`                                                                                    |
+| `seo/head-tag-rule.ts`                 | **yes** (unconditional) | `seo/canonical-url`, `og-title`, `og-image`, `charset`, `viewport`, `twitter-card`, `description-presence`, `og-description`, `json-ld`, `og-url`                                                                          |
 | `seo/title-presence.ts`                | **yes** (unconditional) | `seo/title-presence`                                                                                                                                                                                                       |
 | `seo/length-rule.ts`                   | no                      | `seo/title-length`, `seo/description-length`                                                                                                                                                                               |
 | `perf/preconnect.ts`                   | no                      | `performance/preconnect`                                                                                                                                                                                                   |
@@ -367,13 +395,20 @@ above are provably intentional, not accidental):
 4. `findingKey` today never collides a PASS with a PENALIZED result for the three unlocated rules
    (key is `id::route::` vs `id::route::file`) — pin this as the "before" state the fix must not
    regress into a new collision anywhere else.
-5. A regression against `--baseline` for one of the three rules (baseline PASS, current PENALIZED,
-   same route/file) surfaces correctly today via `filterToNewFindings` — pin this explicitly
-   **before** adding `location`, since option (a) alone (without redefining `findingKey`) would
-   make this collide and the regression would go unreported. This is the case-3 scenario in the
-   Consumer redefinitions section and is the single most important characterization test in this
-   plan: a regression to genuinely disappear from `--baseline` output would be silent and unsafe.
-6. `applySuppressions`/`writeSuppressions` already ignore PASS results regardless of `location` —
+5. A regression against `--baseline` for one of the **three unlocated** rules (baseline PASS,
+   current PENALIZED, same route/file) surfaces correctly today via `filterToNewFindings` — pin
+   this explicitly **before** adding `location`, since option (a) alone (without redefining
+   `findingKey`) would make this collide and the regression would go unreported. This is the
+   case-3 scenario in the Consumer redefinitions section.
+6. **The same case-3 scenario for a `headTagRule`-backed rule id (e.g. `seo/title-presence` or
+   `seo/canonical-url`) is expected to FAIL today.** Baseline: the route has a `<title>` (PASS,
+   `location` set). Current: the same route's `<title>` was deleted (PENALIZED, same `location`).
+   `filterToNewFindings(current, baseline)` should surface the regression but today drops it,
+   because both results key to `id::route::file` identically. Write this test to assert the
+   correct (post-fix) behavior and confirm it fails against the current `findingKey` — this is the
+   live bug the Sequencing note above describes, and unlike item 5 it needs no source change to
+   any rule to reproduce; it is already reachable through today's `headTagRule` output.
+7. `applySuppressions`/`writeSuppressions` already ignore PASS results regardless of `location` —
    pin this so the spike's claim that suppressions are unaffected is a checked fact, not an
    assertion.
 
