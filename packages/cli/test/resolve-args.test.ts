@@ -45,6 +45,53 @@ describe('resolveArgs', () => {
     expect(errors.some((e) => e.includes('unknown rule id(s)'))).toBe(true);
   });
 
+  // A --rules id that names a real rule but whose category isn't in --category was
+  // silently dropped by analyzeProject's post-selection category filter (issue #384) —
+  // exit 0, zero rules ran, nothing on stderr. This must be fatal like the unknown-id case.
+  it('reports a --rules id excluded by --category as a fatal error (no options)', () => {
+    const { options, errors } = resolve('--rules', 'seo/title-presence', '--category', 'performance');
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('seo/title-presence') && e.includes('performance'))).toBe(true);
+  });
+
+  it('allows a --rules id whose category is included in --category', () => {
+    const { options, errors } = resolve('--rules', 'seo/title-presence', '--category', 'seo,performance');
+    expect(errors).toEqual([]);
+    expect(options?.allowRules).toEqual(['seo/title-presence']);
+    expect(options?.categories).toEqual(['seo', 'performance']);
+  });
+
+  it('does not check --rules against --category when --category is absent', () => {
+    const { options, errors } = resolve('--rules', 'seo/title-presence');
+    expect(errors).toEqual([]);
+    expect(options?.allowRules).toEqual(['seo/title-presence']);
+  });
+
+  it('does not check --category against --rules when --rules is absent', () => {
+    const { options, errors } = resolve('--category', 'performance');
+    expect(errors).toEqual([]);
+    expect(options?.categories).toEqual(['performance']);
+  });
+
+  it('does not flag a --ignore id excluded by --category (ignoring an excluded rule is harmless)', () => {
+    const { options, errors } = resolve('--ignore', 'seo/title-presence', '--category', 'performance');
+    expect(errors).toEqual([]);
+    expect(options?.ignoreRules).toEqual(['seo/title-presence']);
+    expect(options?.categories).toEqual(['performance']);
+  });
+
+  it('reports only the --rules id(s) excluded by --category, not ones whose category is included', () => {
+    const { options, errors } = resolve(
+      '--rules',
+      'seo/title-presence,performance/heavy-import',
+      '--category',
+      'performance'
+    );
+    expect(options).toBeNull();
+    expect(errors.some((e) => e.includes('seo/title-presence'))).toBe(true);
+    expect(errors.some((e) => e.includes('performance/heavy-import'))).toBe(false);
+  });
+
   it('parses --meta-components into a trimmed, non-empty list', () => {
     const { options } = resolve('--meta-components', 'MetaTags, Seo ,');
     expect(options?.metaComponents).toEqual(['MetaTags', 'Seo']);
