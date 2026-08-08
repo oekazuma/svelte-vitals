@@ -1208,14 +1208,16 @@ function collectPropMutations(
 function countProps(program: Node): number {
   let count = 0;
   let seen = 0;
-  // Unknowable when: a non-destructured / `...rest` $props(), or more than one $props()
-  // call (a normal component has exactly one) — either way we can't trust a count.
+  // Unknowable when: a non-destructured $props(), or more than one $props() call (a normal
+  // component has exactly one) — either way we can't trust a count. A `...rest` element beside
+  // named props is fine: counting only the `Property` entries yields a lower bound, and the
+  // rule's predicate is `propCount > max`, so a lower bound can never produce a false positive.
   let uncountable = false;
   walkEstree(program, (n) => {
     if (n.type !== 'VariableDeclarator' || !n.init || !isPropsCall(unwrapTs(n.init))) return;
     seen++;
     const props = n.id?.type === 'ObjectPattern' ? n.id.properties : undefined;
-    if (!Array.isArray(props) || props.some((p: Node) => p?.type === 'RestElement')) {
+    if (!Array.isArray(props)) {
       uncountable = true;
       return;
     }

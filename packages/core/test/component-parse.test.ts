@@ -204,8 +204,13 @@ describe('parseComponentFacts — architecture (architecture/component-size/arch
   it('counts destructured props from $props()', () => {
     expect(parseComponentFacts('<script>let { a, b, c } = $props();</script>', 'C.svelte').propCount).toBe(3);
   });
-  it('reports 0 props for a rest element or non-destructured $props()', () => {
-    expect(parseComponentFacts('<script>let { a, ...rest } = $props();</script>', 'C.svelte').propCount).toBe(0);
+  it('counts named props beside a rest element as a lower bound', () => {
+    expect(parseComponentFacts('<script>let { a, b, c, ...rest } = $props();</script>', 'C.svelte').propCount).toBe(3);
+    const eightNamed = 'let { a, b, c, d, e, f, g, h, ...rest } = $props();';
+    expect(parseComponentFacts(`<script>${eightNamed}</script>`, 'C.svelte').propCount).toBe(8);
+  });
+  it('reports 0 props for a bare rest element or a non-destructured $props()', () => {
+    expect(parseComponentFacts('<script>let { ...rest } = $props();</script>', 'C.svelte').propCount).toBe(0);
     expect(parseComponentFacts('<script>let props = $props();</script>', 'C.svelte').propCount).toBe(0);
   });
   it('returns 0 when any $props() shape is uncountable (mixed patterns)', () => {
