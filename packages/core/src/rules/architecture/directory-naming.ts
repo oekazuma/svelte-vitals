@@ -82,6 +82,10 @@ export const architectureDirectoryNaming: Rule = {
     const globalOptions = resolveRuleOptions(ID, OPTIONS, ctx.config);
     const globalMap = mapOption(globalOptions, 'directories');
     const globalKeys = new Set(Object.keys(globalMap));
+    // The declaration identity is the bare glob key, matching the diagnostics below. Seeded so a
+    // declaration that governs no directory reports `0` rather than vanishing from the map entirely.
+    const examinedCounts: Record<string, number> = {};
+    for (const key of globalKeys) examinedCounts[key] = 0;
     const usedKeys = new Set<string>();
     // Collected only so an unmatched key can be told from a shadowed one at the end. Never
     // consulted unless some key finishes the run with no work recorded.
@@ -114,6 +118,11 @@ export const architectureDirectoryNaming: Rule = {
 
       const decoded = decodeSegment(baseName(dir));
       if (decoded === undefined) continue; // a compound route segment names no single identifier
+
+      // Judged only past the compound-segment skip above: a key that matched a directory whose name
+      // decodes to nothing was never checked against a casing, so it has not examined that directory.
+      if (globalKeys.has(m.best)) examinedCounts[m.best] = (examinedCounts[m.best] ?? 0) + 1;
+
       const allowed = casingsOf(declared[m.best] as string).known;
       if (satisfiesCasing(decoded, allowed)) continue;
 
@@ -196,6 +205,7 @@ export const architectureDirectoryNaming: Rule = {
         docsUrl
       });
     }
+    ctx.recordExamined?.(examinedCounts);
     return out;
   }
 };

@@ -176,6 +176,14 @@ export const architectureReservedDirectoryNames: Rule = {
       const list = maps.length === 2 ? `both ${maps[0]} and ${maps[1]}` : maps.join(', ');
       return `declared in ${list}, so the scopes entry wins wherever ${losers.length > 1 ? 'they' : 'both'} apply`;
     };
+    // The declaration identity here is the bare glob key itself — the same string the two
+    // project-scoped notes below name — not a map-qualified label, because `scopes`, `unitScopes` and
+    // `anyCaseUnitScopes` can all carry the same key (the #386 partition puts one glob in both unit
+    // maps), and only one of them ever governs a given directory. Seeded from `globalKeys` so a
+    // declaration that governs nothing reports `0` rather than vanishing from the map entirely.
+    const examinedCounts: Record<string, number> = {};
+    for (const key of globalKeys) examinedCounts[key] = 0;
+
     const noteCollisions = (
       scopesMap: Record<string, string>,
       unitMap: Record<string, string>,
@@ -277,6 +285,12 @@ export const architectureReservedDirectoryNames: Rule = {
         }
       }
       if (winner === undefined) continue;
+
+      // Only the winning key is judged here: a losing candidate matched this directory but governed
+      // nothing at it, and the count answers "how many places did this declaration govern" — an
+      // `overrides`-only winner is excluded, matching the diagnostics above, which classify only
+      // globally resolved declarations.
+      if (globalKeys.has(winner.best)) examinedCounts[winner.best] = (examinedCounts[winner.best] ?? 0) + 1;
 
       const allowed = new Set(winner.names);
       for (const child of kids.get(dir) ?? []) {
@@ -391,6 +405,7 @@ export const architectureReservedDirectoryNames: Rule = {
         docsUrl
       });
     }
+    ctx.recordExamined?.(examinedCounts);
     return out;
   }
 };

@@ -1,19 +1,31 @@
 import { describe, it, expect } from 'vitest';
 import { architectureUnitEntryFile, applyOverrides, computeScore, summarize } from '../src/index.js';
-import { defineConfig, defaultProject } from '../src/types.js';
+import { runRules } from '../src/engine.js';
+import { defineConfig, defaultProject, type Config } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 import type { Result } from '../src/index.js';
+
+const ID = 'architecture/unit-entry-file';
 
 const fails = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 const passes = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'own' && r.detection.value === 'static');
 
 /** A RuleContext carrying a source-file inventory and the rule's options. */
-const ctx = (sourceFiles: string[], options?: Record<string, unknown>): RuleContext => ({
+const ctx = (sourceFiles: string[], options?: Record<string, unknown>, extra: Partial<Config> = {}): RuleContext => ({
   sourceFiles,
   heads: [],
   project: defaultProject,
-  config: defineConfig(options ? { rules: { 'architecture/unit-entry-file': { options } } } : {})
+  config: defineConfig({
+    ...(options ? { rules: { [ID]: { options } } } : {}),
+    ...extra
+  })
 });
+
+/** Runs through the engine so `recordExamined` is wired up, returning the counts alongside the results. */
+async function runWithCounts(sourceFiles: string[], options?: Record<string, unknown>, extra: Partial<Config> = {}) {
+  const { results, examined } = await runRules([architectureUnitEntryFile], ctx(sourceFiles, options, extra));
+  return { results, examined: examined[ID] ?? {} };
+}
 
 const PASCAL = { pascalCaseUnits: { 'src/**': '.svelte' } };
 
@@ -534,5 +546,113 @@ describe('architecture/unit-entry-file — a pass is evidence, not a score key',
       }
     ];
     expect(computeScore([...other, ...passes], CONFIG).score).toBe(computeScore(other, CONFIG).score);
+  });
+});
+
+// Issue #387: the count answers "how many units did this declaration judge", keyed on the same bare
+// glob the inert-declaration note above already names — one namespace shared by both maps, since a
+// directory a `units` key wins is a directory `pascalCaseUnits` never judged, even if its own key
+// also matched there.
+describe('architecture/unit-entry-file — examined counts', () => {
+  it('counts every unit a declaration judged, conforming or not', async () => {
+    const { examined } = await runWithCounts(['src/lib/api/api.ts', 'src/lib/db/x.ts'], {
+      units: { 'src/lib/*': '.ts' }
+    });
+    // api/ has its entry file (pass), db/ does not (violation) — both were judged.
+    expect(examined['src/lib/*']).toBe(2);
+  });
+
+  it('reports a count even when every judged unit conforms, with only passes', async () => {
+    const { examined, results } = await runWithCounts(['src/lib/api/api.ts'], { units: { 'src/lib/*': '.ts' } });
+    expect(examined['src/lib/*']).toBe(1);
+    expect(fails(results)).toEqual([]);
+  });
+
+  it('reports zero for a declaration that matches no directory, alongside its existing diagnostic', async () => {
+    const { examined, results } = await runWithCounts(['src/lib/Card/Card.svelte'], {
+      ...PASCAL,
+      units: { 'src/nowhere/*': '.ts' }
+    });
+    expect(examined['src/nowhere/*']).toBe(0);
+    const inert = results.filter((r) => r.route === undefined && r.location === undefined);
+    expect(inert).toHaveLength(1);
+    expect(inert[0]!.message).toContain('src/nowhere/*');
+  });
+
+  it('does not count a key that matched but lost the tie-break', async () => {
+    const { examined } = await runWithCounts(['src/lib/x/stores/s/s.ts'], {
+      units: { 'src/**/stores/*': '.svelte.ts', 'src/lib/x/stores/*': '.ts' }
+    });
+    expect(examined['src/lib/x/stores/*']).toBe(1);
+    expect(examined['src/**/stores/*']).toBe(0);
+  });
+
+  // The rule's own precedence, not a specificity tie-break: `units` wins outright over
+  // `pascalCaseUnits` for any directory both match, so the casing key did not judge it — even though
+  // it matched (and would count as "used" for the inert-declaration note above).
+  it('does not count the pascalCaseUnits key at a directory units already won', async () => {
+    const { examined } = await runWithCounts(['src/lib/Thing/Thing.ts'], {
+      units: { 'src/lib/*': '.ts' },
+      ...PASCAL
+    });
+    expect(examined['src/lib/*']).toBe(1);
+    expect(examined['src/**']).toBe(0);
+  });
+
+  it('counts a pascalCaseUnits key when it alone governs', async () => {
+    const { examined } = await runWithCounts(['src/lib/Card/Badge.svelte'], PASCAL);
+    expect(examined['src/**']).toBe(1);
+  });
+
+  it('does not count an excluded unit', async () => {
+    // A second, non-excluded unit on the same declaration keeps the key from also going globally
+    // unused (which would add an unrelated 'matched no directory' note to the count under test).
+    const { examined, results } = await runWithCounts(['src/lib/Card/Badge.svelte', 'src/lib/Other/Other.svelte'], {
+      ...PASCAL,
+      exclude: ['src/lib/Card']
+    });
+    // Only Other/ is judged: Card/ is excluded before the check ever runs.
+    expect(examined['src/**']).toBe(1);
+    expect(fails(results)).toEqual([]);
+  });
+
+  it('does not count a declaration that exists only in an overrides layer', async () => {
+    // The entry must be EMPTY, not absent — the rule still runs and counts, it just has nothing
+    // globally resolved. `runWithCounts`'s `?? {}` fallback can't distinguish the two, so this
+    // asserts against the raw `examined` map instead.
+    const { examined } = await runRules(
+      [architectureUnitEntryFile],
+      ctx(['src/lib/Card/Card.svelte'], undefined, {
+        overrides: [{ files: 'src/lib/**', rules: { [ID]: { options: { units: { 'src/nowhere/*': '.ts' } } } } }]
+      } as never)
+    );
+    expect(Object.hasOwn(examined, ID)).toBe(true);
+    expect(examined[ID]).toEqual({});
+  });
+
+  it('reports no counts at all on a run with no file inventory', async () => {
+    const config = defineConfig({ rules: { [ID]: { options: PASCAL } } });
+    const seen: Record<string, number>[] = [];
+    await architectureUnitEntryFile.check({
+      sourceFiles: undefined,
+      heads: [],
+      project: defaultProject,
+      config,
+      recordExamined: (c: Record<string, number>) => void seen.push(c)
+    } as unknown as RuleContext);
+    expect(seen).toEqual([]);
+  });
+
+  it('reports no counts at all when no config layer mentions the rule', async () => {
+    const config = defineConfig({});
+    const seen: Record<string, number>[] = [];
+    await architectureUnitEntryFile.check({
+      sourceFiles: ['src/lib/Card/Card.svelte'],
+      heads: [],
+      project: defaultProject,
+      config,
+      recordExamined: (c: Record<string, number>) => void seen.push(c)
+    } as unknown as RuleContext);
+    expect(seen).toEqual([]);
   });
 });
