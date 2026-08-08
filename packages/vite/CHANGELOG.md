@@ -1,5 +1,25 @@
 # @svelte-vitals/vite
 
+## 0.29.1
+
+### Patch Changes
+
+- f0798b0: Update the registry-visible package descriptions and keywords, which still described svelte-vitals as an SEO-only checker. `svelte-vitals`'s description now matches its own `--help` text — a deterministic SvelteKit code-health scanner across SEO, performance, correctness, security, and architecture — and adds `performance`, `security`, `code-quality`, `static-analysis` keywords. `@svelte-vitals/vite`'s description now also mentions the live dev dashboard alongside the build-time prerendered-HTML analysis. No behavior change.
+- Updated dependencies [a9fba45]
+- Updated dependencies [ac41349]
+- Updated dependencies [a3dffb3]
+- Updated dependencies [8e8bd5c]
+- Updated dependencies [bd946e2]
+- Updated dependencies [ac41349]
+- Updated dependencies [65ce0c1]
+- Updated dependencies [acee3c6]
+- Updated dependencies [7c5a11b]
+- Updated dependencies [f0798b0]
+- Updated dependencies [ab41e48]
+- Updated dependencies [28d22ae]
+  - svelte-vitals@0.44.1
+  - @svelte-vitals/core@0.39.0
+
 ## 0.29.0
 
 ### Minor Changes
