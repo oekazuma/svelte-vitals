@@ -14,7 +14,7 @@ export const seoHtmlLang: Rule = {
   severity: 'warning',
   scope: 'project',
   rationale:
-    'The <html lang> attribute declares the page language for search engines, screen readers, and translation tools.',
+    'The <html lang> attribute tells screen readers how to pronounce the page, browsers whether to offer translation, and other assistive tools how to handle the content — Google has said it does not use lang for ranking.',
   fix: FIX,
   async check(ctx: RuleContext): Promise<Result[]> {
     const detection = ctx.project.htmlLang;

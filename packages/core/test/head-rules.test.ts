@@ -32,6 +32,13 @@ describe('head-tag rules', () => {
     // item 2) — headTagRule sets `location: head.file` unconditionally, on both branches.
     expect(r!.location).toBe('src/routes/x/+page.svelte');
   });
+  it('seo/description-presence flags an empty description', async () => {
+    const [r] = await seoDescriptionPresence.check(
+      ctx([{ kind: 'meta', name: 'description', presence: 'own', value: 'absent' }])
+    );
+    expect(r!.detection).toEqual({ presence: 'own', value: 'absent' });
+    expect(r!.message).toBe('Empty <meta name="description">');
+  });
   it('seo/canonical-url matches link rel=canonical', async () => {
     const [r] = await seoCanonicalUrl.check(
       ctx([{ kind: 'link', rel: 'canonical', presence: 'own', value: 'dynamic' }])

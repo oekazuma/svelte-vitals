@@ -7,7 +7,7 @@ description: Large images should provide a srcset.
 
 ## What it checks
 
-Flags an `<img>` without a `srcset` attribute. This rule runs in static (CLI) analysis only.
+Flags an `<img>` without a `srcset` attribute.
 
 ## Why it matters
 

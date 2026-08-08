@@ -17,7 +17,7 @@ export const seoImageAlt = imageRule({
     'An <img> with no alt attribute is invisible to image search and assistive technology; a descriptive alt is an image-SEO signal.',
   fix: {
     description: 'Add a descriptive alt attribute to the <img> (or alt="" if purely decorative).',
-    snippet: '<img src="/photo.jpg" width="800" height="600" alt="Description of the image" />',
+    snippet: '<img src="/photo.jpg" width="800" height="600" alt="Golden retriever catching a frisbee in a park" />',
     lang: 'svelte'
   },
   ok: (img) => img.hasAlt

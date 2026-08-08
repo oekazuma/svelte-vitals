@@ -39,7 +39,7 @@ description: $state に入れた素の Map・Set・Date・URL・URLSearchParams 
 <script>
   import { SvelteSet } from 'svelte/reactivity';
 
-  let tags = $state(new SvelteSet());
+  let tags = new SvelteSet();
 </script>
 ```
 

@@ -18,7 +18,7 @@ export const seoHeadingLevelSkip: Rule = {
   severity: 'info',
   scope: 'route',
   rationale:
-    'Skipping a heading level breaks the document outline that search engines and assistive tech rely on to understand page structure.',
+    'Skipping a heading level breaks the document outline that assistive tech relies on to navigate page structure, and that search engines use as a structural signal.',
   async check(ctx: RuleContext): Promise<Result[]> {
     const out: Result[] = [];
     for (const route of ctx.headings ?? []) {

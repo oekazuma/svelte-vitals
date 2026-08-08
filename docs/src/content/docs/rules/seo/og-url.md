@@ -7,7 +7,7 @@ description: Every route should include an og:url with its canonical address.
 
 ## What it checks
 
-Every route should include a `<meta property="og:url">` tag (own or inherited). A missing tag is flagged.
+Every route should include a `<meta property="og:url">` tag (own or inherited). A missing or empty tag is flagged.
 
 ## Why it matters
 

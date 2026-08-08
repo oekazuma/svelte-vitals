@@ -71,3 +71,6 @@ say) declares both.
 Renaming the unit a link points at, in a file the link itself doesn't live in, is invisible to `--diff` /
 `--staged`: a finding's `location` is the file holding the link, and there is no better one to use — the
 target that moved is not the file that changed. A full run still reports it.
+
+This rule reads the same `src/` file inventory the sibling directory rules do, and on a `--route` run,
+where no inventory is built, it is silent.

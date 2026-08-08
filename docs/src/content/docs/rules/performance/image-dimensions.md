@@ -11,7 +11,7 @@ Every `<img>` element must have explicit `width` and `height` attributes set. Im
 
 ## Why it matters
 
-An `<img>` without explicit width and height triggers layout shift (CLS) as it loads, hurting Core Web Vitals and visual stability.
+An `<img>` without explicit width and height can trigger layout shift (CLS) as it loads, hurting Core Web Vitals and visual stability — unless the box is reserved another way, e.g. CSS `aspect-ratio`.
 
 ## How to fix
 

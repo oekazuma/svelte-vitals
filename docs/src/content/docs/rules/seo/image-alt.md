@@ -7,7 +7,7 @@ description: Every <img> should have an alt attribute.
 
 ## What it checks
 
-Flags an `<img>` with no `alt` attribute. An explicit empty `alt=""` is a valid signal for purely decorative images and passes. A spread (`{...rest}`) may supply `alt`, so it is not flagged. This rule runs in static (CLI) analysis only — the same mode that collects `<img>` elements.
+Flags an `<img>` with no `alt` attribute. An explicit empty `alt=""` is a valid signal for purely decorative images and passes. A spread (`{...rest}`) may supply `alt`, so it is not flagged.
 
 ## Why it matters
 
@@ -16,7 +16,7 @@ An `<img>` with no `alt` attribute is invisible to image search and assistive te
 ## How to fix
 
 ```svelte
-<img src="/photo.jpg" width="800" height="600" alt="Description of the image" />
+<img src="/photo.jpg" width="800" height="600" alt="Golden retriever catching a frisbee in a park" />
 
 <!-- Purely decorative image: -->
 <img src="/divider.svg" alt="" />

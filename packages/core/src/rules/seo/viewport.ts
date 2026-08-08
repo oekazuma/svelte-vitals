@@ -12,7 +12,7 @@ export const seoViewport = headTagRule({
   appliesTo: (head) => head.source === 'rendered',
   recommendation: 'Add <meta name="viewport" content="width=device-width, initial-scale=1"> (usually in app.html).',
   rationale:
-    'Without a viewport meta tag the page is not mobile-responsive, which Google penalizes under mobile-first indexing.',
+    'Without a viewport meta tag mobile browsers render the page at a fixed ~980px layout viewport and scale it to fit, so text and controls end up too small to read or tap without pinch-zooming.',
   fix: {
     description: 'Add the viewport meta tag (typically in src/app.html <head>).',
     snippet: '<meta name="viewport" content="width=device-width, initial-scale=1" />',
