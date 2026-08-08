@@ -224,6 +224,8 @@ and `@svelte-vitals/vite` are untouched.
   same silent-selection shape as the field report that produced this design. Pre-existing and untouched here;
   recorded so it is a known gap rather than a rediscovery. The same is true of an `allowRules` id that no
   category in `--category` covers.
+  _(2026-08-08 addendum: closed by issue #384's fix — `resolveArgs` now rejects this combination fatally,
+  exit 2, instead of silently running nothing.)_
 - **Warning when a flag discards configuration.** Not needed once configuration is inherited rather than
   discarded. If a future flag has to discard, it should say so rather than exit 0 — the failure this design
   removes was silent, and that is what made it survive a release.

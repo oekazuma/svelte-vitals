@@ -268,6 +268,28 @@ export function resolveArgs(argv: CliArgv): ResolvedArgs {
   const weights = parseWeights(argv.weights, errors);
   const categories = parseCategories(argv.category, errors);
 
+  // A --rules id names a real, known rule but is silently dropped later if its category
+  // isn't in --category: analyzeProject's category filter (packages/cli/src/index.ts)
+  // runs after rule selection, so a force-enabled rule from an unlisted category yields
+  // no findings and no warning (issue #384). Catch it here instead, fatally, matching the
+  // unknown-rule-id shape above. Every rule id is 'category/slug', so its prefix is its
+  // category. --ignore is exempt: ignoring something --category already excludes is
+  // harmless, not a conflict. Only known ids are checked — an unknown id was already
+  // reported above and comparing its (meaningless) prefix here would just be noise.
+  // Skipped when --category resolved to no valid categories: that's already a fatal
+  // error on its own (unknown-category or empty-list, above).
+  if (categories !== undefined && categories.length > 0 && allow.length > 0) {
+    const excluded = allow
+      .filter((id) => !unknown.includes(id))
+      .filter((id) => !categories.includes(id.split('/')[0] as Category));
+    if (excluded.length > 0) {
+      errors.push(
+        `svelte-vitals: --rules id(s) excluded by --category ${categories.join(', ')}: ${excluded.join(', ')}`
+      );
+      errors.push("Add the rule's category to --category, or drop the rule from --rules.");
+    }
+  }
+
   const score = Boolean(argv.score);
   if (score && typeof argv.reporter === 'string') {
     warnings.push('svelte-vitals: --score overrides --reporter; reporter output suppressed.');
