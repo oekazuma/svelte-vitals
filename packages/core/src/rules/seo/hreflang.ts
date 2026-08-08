@@ -68,6 +68,9 @@ export const seoHreflang: Rule = {
               severity: 'warning',
               detection: PASS,
               route: head.route,
+              // Same `location` the penalized branch above uses (design
+              // 2026-08-08-pass-result-location-design.md).
+              location,
               message: 'hreflang',
               recommendation,
               docsUrl

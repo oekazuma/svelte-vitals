@@ -53,6 +53,10 @@ export const performanceRenderBlockingScript: Rule = {
           severity: 'warning',
           detection: { presence: 'own', value: 'static' },
           route: head.route,
+          // The route's own attributed file (design 2026-08-08-pass-result-location-design.md)
+          // — this uncaught inline PASS literal was missed by the design spike's grep and
+          // added to its blast-radius table afterward (maintainer ruling, same date).
+          location: head.file,
           message: 'No render-blocking scripts',
           recommendation,
           docsUrl

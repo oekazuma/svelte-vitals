@@ -24,7 +24,7 @@ describe('filterToChangedFiles', () => {
   const results: Result[] = [
     r({ id: 'A', location: 'src/lib/Changed.svelte' }),
     r({ id: 'B', location: 'src/lib/Untouched.svelte' }),
-    r({ id: 'C' }), // project-scoped / passing seed: no location
+    r({ id: 'C' }), // project-scoped: no location
     r({ id: 'D', location: 'src/routes/+page.svelte' })
   ];
 
@@ -45,6 +45,9 @@ describe('filterToChangedFiles', () => {
 describe('filterToChangedFiles + architecture/unit-entry-file — spec testing item 7', () => {
   // The rule's pass carries `location` (its entry file) and no `route`, precisely so a
   // `--diff` run can keep it for a changed entry file and drop it for an unchanged one.
+  // This is the unit-entry-file carve-out (design 2026-08-08-pass-result-location-design.md,
+  // maintainer ruling): a route-less PASS is kept regardless of `isPenalized`, preserving
+  // PR #337's shipped decision. This test's assertion is unchanged by that design.
   it('keeps a conforming pass when its entry file changed, and drops it when it did not', async () => {
     const ctx: RuleContext = {
       sourceFiles: ['src/lib/api/api.ts', 'src/lib/db/db.ts'],
@@ -60,6 +63,34 @@ describe('filterToChangedFiles + architecture/unit-entry-file — spec testing i
     const changed = new Set(['src/lib/api/api.ts']); // only api.ts changed; db.ts did not
     const kept = filterToChangedFiles(rs, changed);
     expect(kept.map((r) => r.location)).toEqual(['src/lib/api/api.ts']);
+  });
+});
+
+describe('filterToChangedFiles — PASS results (design 2026-08-08-pass-result-location-design.md)', () => {
+  // spec testing item 3, "after": every PASS result now carries `location` (option (a)), so a
+  // route-CARRYING pass (the common case — e.g. any headTagRule-backed rule, or seo/title-length)
+  // must be dropped even when located in the changed set, or a single incidental passing check
+  // on a changed file promotes its whole category from absent to a fabricated 100 in `--diff`'s
+  // score. Before this fix (when only headTagRule/title-presence carried `location` on PASS),
+  // this was a live, undetected leak for those eleven rule ids; this test pins the fixed behavior.
+  it('drops a route-carrying PASS in a changed file, even though its location matches', () => {
+    const pass = r({
+      id: 'seo/title-presence',
+      route: '/blog',
+      location: 'src/routes/blog/+page.svelte',
+      detection: { presence: 'own', value: 'static' }
+    });
+    expect(filterToChangedFiles([pass], new Set(['src/routes/blog/+page.svelte']))).toEqual([]);
+  });
+
+  it('keeps a penalized (route-carrying) finding in a changed file, unchanged from before', () => {
+    const failing = r({
+      id: 'seo/title-presence',
+      route: '/blog',
+      location: 'src/routes/blog/+page.svelte',
+      detection: { presence: 'none', value: 'absent' }
+    });
+    expect(filterToChangedFiles([failing], new Set(['src/routes/blog/+page.svelte']))).toEqual([failing]);
   });
 });
 

@@ -120,6 +120,9 @@ describe('seo/single-h1 heading hierarchy', () => {
     const rs = await seoSingleH1.check(headingsCtx([hs([1, 2, 2])]));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
+    // ResolvedHeadings has no route-level file (unlike ResolvedHead) — the passing route's
+    // own <h1> stands in as its attributed file (design 2026-08-08-pass-result-location-design.md).
+    expect(rs[0]!.location).toBe('x');
   });
   it('flags a page with no <h1>', async () => {
     const rs = await seoSingleH1.check(headingsCtx([hs([2, 3])]));

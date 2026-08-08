@@ -89,6 +89,10 @@ export const performancePreconnect: Rule = {
           severity: 'info',
           detection: { presence: 'own', value: 'static' },
           route: head.route,
+          // head.file — the same target used to resolve options above (design
+          // 2026-08-08-pass-result-location-design.md) — so a `files:`-scoped override can
+          // also match this passing seed via `severity: 'off'`.
+          location: head.file,
           message: 'Third-party origins are preconnected',
           recommendation,
           docsUrl

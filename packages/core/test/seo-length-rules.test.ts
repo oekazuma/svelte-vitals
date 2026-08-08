@@ -30,9 +30,9 @@ describe('seo/title-length title length', () => {
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
-  it('a passing result carries no location (reverted in e67ed9a — see design doc "Out of scope")', async () => {
+  it('a passing result carries the same location a penalized result on this route would (design 2026-08-08-pass-result-location-design.md)', async () => {
     const rs = await seoTitleLength.check(ctx(title('A perfectly reasonable page title here')));
-    expect(rs[0]!.location).toBeUndefined();
+    expect(rs[0]!.location).toBe('x'); // headWith()'s head.file, since the title tag carries no file of its own
   });
   it('emits nothing for a dynamic/absent title', async () => {
     expect(await seoTitleLength.check(ctx(title(undefined)))).toHaveLength(0);
@@ -53,9 +53,9 @@ describe('seo/description-length description length', () => {
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
-  it('a passing result carries no location (reverted in e67ed9a — see design doc "Out of scope")', async () => {
+  it('a passing result carries the same location a penalized result on this route would (design 2026-08-08-pass-result-location-design.md)', async () => {
     const rs = await seoDescriptionLength.check(ctx(desc('x'.repeat(100))));
-    expect(rs[0]!.location).toBeUndefined();
+    expect(rs[0]!.location).toBe('x'); // headWith()'s head.file, since the description tag carries no file of its own
   });
   it('emits nothing for a dynamic/absent description', async () => {
     expect(await seoDescriptionLength.check(ctx(desc(undefined)))).toHaveLength(0);
@@ -116,5 +116,35 @@ describe('seo length rule options', () => {
     // Severity resolved in the post-pass, matched by the same `files` glob on the same location.
     const out = applyOverrides(rs, defineConfig(cfg));
     expect(out.find((r) => r.detection.value === 'absent')?.severity).toBe('warning');
+  });
+
+  it("issue #382 regression: a files:-scoped 'off' on the PASSING route's file removes its pass seed, not just the failing route's finding", async () => {
+    const passHead: ResolvedHead = {
+      route: '/pass',
+      source: 'rendered',
+      file: 'src/routes/pass/+page.svelte',
+      tags: [{ kind: 'title', presence: 'own', value: 'static', text: 'A perfectly reasonable page title here' }]
+    };
+    const failHead: ResolvedHead = {
+      route: '/fail',
+      source: 'rendered',
+      file: 'src/routes/fail/+page.svelte',
+      tags: [{ kind: 'title', presence: 'own', value: 'static', text: 'Home' }] // too short
+    };
+    const rs = await seoTitleLength.check({
+      heads: [passHead, failHead],
+      project: defaultProject,
+      config: defineConfig({})
+    });
+    expect(rs).toHaveLength(2); // one pass seed, one failing finding, before any override
+
+    const cfg = {
+      overrides: [{ files: 'src/routes/pass/+page.svelte', rules: { 'seo/title-length': 'off' as const } }]
+    };
+    const out = applyOverrides(rs, defineConfig(cfg));
+    // Before this fix, the pass seed survived (no `location` for the matcher to key on) and
+    // `out` stayed length 2 — the bug the issue reported. Only the failing route remains.
+    expect(out).toHaveLength(1);
+    expect(out[0]!.route).toBe('/fail');
   });
 });

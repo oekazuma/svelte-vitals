@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import type { Result } from '@svelte-vitals/core';
+import { defaultConfig, isPenalized, type Config, type Result } from '@svelte-vitals/core';
 
 interface ChangedFilesOptions {
   /** Report only files staged for commit (`git diff --cached`). */
@@ -47,10 +47,39 @@ export function getChangedFiles(cwd: string, opts: ChangedFilesOptions): Set<str
 }
 
 /**
- * Keep only findings located in a changed file. Results without a `location`
- * (project-scoped findings, passing seeds) are dropped — the gate reports issues
- * *in* the changed files.
+ * Keep only findings located in a changed file, and (among those) only ones a `--diff`
+ * gate should count: a penalized finding, or a route-less PASS. Results without a
+ * `location` at all (project-scoped findings) are always dropped — the gate reports
+ * issues *in* the changed files.
+ *
+ * A route-CARRYING PASS is dropped even when located in the changed set (design
+ * 2026-08-08-pass-result-location-design.md): every PASS result now carries the same
+ * `location` its penalized counterpart would, so without this gate a single incidental
+ * passing check on a changed file would promote its whole category from *absent* to a
+ * fabricated 100 in the `--diff`-scoped score, inflating Health in a way the gate's
+ * "did this change introduce a problem" purpose forbids.
+ *
+ * A route-LESS PASS is the one exception, kept regardless of `isPenalized`: it is
+ * `architecture/unit-entry-file`'s per-declaration pass seed (PR #337), which deliberately
+ * carries `location` (the entry file) but no `route` specifically so a conforming unit's
+ * pass stays visible when its entry file changes under `--diff`. That seed is score-inert
+ * in both directions — `computeScore`'s per-category denominator is seeded from `route`,
+ * which this PASS never carries (PR #337's own fix for "a displayed score of 100 means
+ * zero findings") — so keeping it cannot reproduce the inflation above; dropping it would
+ * only silently reverse a shipped, intentional design.
+ *
+ * `config` defaults for callers with none in hand (`ApplyScopeOptions.config` is optional,
+ * mirroring `filterToNewFindings` in baseline.ts).
  */
-export function filterToChangedFiles(results: Result[], changed: Set<string>): Result[] {
-  return results.filter((r) => r.location !== undefined && changed.has(r.location));
+export function filterToChangedFiles(
+  results: Result[],
+  changed: Set<string>,
+  config: Config = defaultConfig
+): Result[] {
+  return results.filter(
+    (r) =>
+      r.location !== undefined &&
+      changed.has(r.location) &&
+      (isPenalized(r.detection, config.treatDynamicAs) || r.route === undefined)
+  );
 }

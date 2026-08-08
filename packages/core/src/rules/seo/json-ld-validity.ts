@@ -49,6 +49,9 @@ export const seoJsonLdValidity: Rule = {
                 severity: 'warning',
                 detection: PASS,
                 route: head.route,
+                // Same `location` the penalized branch above uses (design
+                // 2026-08-08-pass-result-location-design.md).
+                location: head.file,
                 message: 'JSON-LD validity',
                 recommendation: 'Make the JSON-LD valid JSON with both @context and @type.',
                 docsUrl

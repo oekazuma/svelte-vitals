@@ -53,6 +53,10 @@ export const seoSingleH1: Rule = {
               severity: 'warning',
               detection: PASS,
               route: route.route,
+              // No single route-level file exists here (unlike ResolvedHead.file) — the
+              // passing route's own <h1> stands in as its attributed file (design
+              // 2026-08-08-pass-result-location-design.md). Only reached when h1.length === 1.
+              location: h1[0]!.file,
               message: 'Heading hierarchy',
               recommendation,
               docsUrl

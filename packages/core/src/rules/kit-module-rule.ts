@@ -63,6 +63,9 @@ export function kitModuleRule(opts: KitModuleRuleOptions): Rule {
             severity,
             detection: PASS,
             route: m.file,
+            // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
+            // same location a penalized result for this file would carry.
+            location: m.file,
             message: opts.label,
             recommendation: opts.recommendation,
             docsUrl

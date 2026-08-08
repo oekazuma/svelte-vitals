@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { componentRule } from '../src/rules/component-rule.js';
+import { applyOverrides } from '../src/config-apply.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -70,5 +71,38 @@ describe('componentRule — inline suppression directives (issue #92)', () => {
   it('does not suppress when the directive is on a different line', async () => {
     const rs = await fakeRule.check(ctx([comp({ suppressions: [{ line: 6, ruleIds: ['FAKE001'] }] })]));
     expect(fails(rs)).toHaveLength(1);
+  });
+  it('a suppressed-to-PASS result carries the same location a penalized result on this file would', async () => {
+    const rs = await fakeRule.check(ctx([comp({ suppressions: [{ line: 5, ruleIds: ['FAKE001'] }] })]));
+    expect(rs[0]!.location).toBe('src/lib/C.svelte');
+  });
+});
+
+// A second fake rule that always passes, so a files:-scoped 'off' override has a pure PASS
+// seed to remove (the audit's 2608-CORE-03 shape, design 2026-08-08-pass-result-location-design.md).
+const cleanRule = componentRule({
+  id: 'CLEAN001',
+  title: 'Clean rule',
+  category: 'correctness',
+  label: 'Clean check',
+  recommendation: 'n/a',
+  rationale: 'n/a',
+  applies: () => true,
+  bad: () => []
+});
+
+describe("componentRule — a files:-scoped 'off' override also removes a PASS seed (2608-CORE-03)", () => {
+  it('removes the pass seed for the matched file, leaving other files alone', async () => {
+    const rs = await cleanRule.check(
+      ctx([comp({ file: 'src/lib/Clean.svelte' }), comp({ file: 'src/lib/Other.svelte' })])
+    );
+    expect(rs).toHaveLength(2); // both files pass, before any override
+
+    const cfg = { overrides: [{ files: 'src/lib/Clean.svelte', rules: { CLEAN001: 'off' as const } }] };
+    const out = applyOverrides(rs, defineConfig(cfg));
+    // Before this fix, componentRule's PASS branch carried no `location`, so `files:` could
+    // never match it and both results survived.
+    expect(out).toHaveLength(1);
+    expect(out[0]!.route).toBe('src/lib/Other.svelte');
   });
 });

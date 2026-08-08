@@ -60,6 +60,9 @@ export function uniquenessRule(opts: UniquenessRuleOptions): Rule {
               severity: 'warning',
               detection: PASS,
               route: e.route,
+              // Same `location` the penalized branch above uses (design
+              // 2026-08-08-pass-result-location-design.md).
+              location: e.file,
               message: opts.label,
               recommendation: opts.recommendation,
               docsUrl

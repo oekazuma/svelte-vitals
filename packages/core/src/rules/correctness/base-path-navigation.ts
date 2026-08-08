@@ -44,6 +44,9 @@ function emitFile(
       severity: 'warning',
       detection: PASS,
       route: file,
+      // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
+      // same location a penalized result for this file would carry.
+      location: file,
       message: LABEL,
       recommendation: RECOMMENDATION,
       docsUrl: DOCS_URL

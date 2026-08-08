@@ -83,6 +83,10 @@ describe('seo/heading-level-skip heading order', () => {
     const rs = await seoHeadingLevelSkip.check(headingsCtx([headings([1, 2, 3, 2])]));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
+    // ResolvedHeadings has no route-level file (unlike ResolvedHead) — the first heading's
+    // file stands in as the route's attributed file (design
+    // 2026-08-08-pass-result-location-design.md).
+    expect(rs[0]!.location).toBe('x');
   });
   it('flags a skipped level (h2 to h4)', async () => {
     const rs = await seoHeadingLevelSkip.check(headingsCtx([headings([1, 2, 4])]));

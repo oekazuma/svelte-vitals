@@ -53,6 +53,11 @@ export const seoHeadingLevelSkip: Rule = {
               severity: 'info',
               detection: PASS,
               route: route.route,
+              // No single route-level file exists here (unlike ResolvedHead.file) — the
+              // route's first heading stands in as its attributed file (design
+              // 2026-08-08-pass-result-location-design.md). `route.headings.length === 0`
+              // already continued above, so `[0]` is always defined here.
+              location: route.headings[0]!.file,
               message: 'Heading order',
               recommendation,
               docsUrl
