@@ -111,7 +111,28 @@ interface ResolvedArgs {
   warnings: string[];
   /** Fatal messages (printed to stderr; the CLI exits 2 without running). */
   errors: string[];
+  /** Parsed `--min-health` value, when present and valid. */
+  minHealth?: number;
 }
+
+// parseArgs (strict:false) lets a declared string flag consume a following
+// flag token (`--route --staged` → route '--staged') and lets `--flag=` pass
+// an empty string; either silently un-gates a CI run. Same stance as the
+// --baseline guard below, applied to every value-carrying flag. --diff is
+// exempt: bare/empty --diff deliberately defaults to HEAD (see parseRunArgs).
+const VALUE_FLAGS = [
+  'meta-components',
+  'treat-dynamic-as',
+  'route',
+  'fail-on',
+  'reporter',
+  'rules',
+  'ignore',
+  'min-health',
+  'out-file',
+  'weights',
+  'category'
+] as const;
 
 /** Parse the analysis command's argv, exactly as `main` (bin.ts) does — exported so tests share the real flag table. */
 export function parseRunArgs(args: string[]): CliArgv {
@@ -158,6 +179,27 @@ export function parseRunArgs(args: string[]): CliArgv {
 export function resolveArgs(argv: CliArgv): ResolvedArgs {
   const warnings: string[] = [];
   const errors: string[] = [];
+
+  for (const flag of VALUE_FLAGS) {
+    const v = argv[flag];
+    if (v !== undefined && (typeof v !== 'string' || v.trim() === '' || v.startsWith('-'))) {
+      errors.push(`svelte-vitals: --${flag} requires a value.`);
+    }
+  }
+
+  // --min-health lives here (not in bin.ts) so it shares the guard above. A bare/empty/
+  // flag-shaped value is already an error by this point; this only adds range/numeric
+  // validity on top, mirroring the other flags' own per-flag checks below.
+  let minHealth: number | undefined;
+  const minHealthRaw = argv['min-health'];
+  if (minHealthRaw !== undefined) {
+    const n = Number(minHealthRaw);
+    if (!Number.isFinite(n) || n < 0 || n > 100) {
+      errors.push(`svelte-vitals: invalid --min-health '${minHealthRaw}'; expected a number 0-100.`);
+    } else {
+      minHealth = n;
+    }
+  }
 
   const positional = argv._[0];
   const metaComponents = typeof argv['meta-components'] === 'string' ? toList(argv['meta-components']) : undefined;
@@ -277,6 +319,7 @@ export function resolveArgs(argv: CliArgv): ResolvedArgs {
       ...(updateSuppressions ? { updateSuppressions } : {})
     },
     warnings,
-    errors
+    errors,
+    minHealth
   };
 }

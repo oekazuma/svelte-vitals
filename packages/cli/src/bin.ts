@@ -118,22 +118,10 @@ async function main(): Promise<void> {
     return;
   }
 
-  const { options, warnings, errors } = resolveArgs(argv);
+  const { options, warnings, errors, minHealth } = resolveArgs(argv);
   for (const w of warnings) console.error(w);
   for (const e of errors) console.error(e);
   if (!options) process.exit(2);
-
-  const minHealthRaw = argv['min-health'];
-  let minHealth: number | undefined;
-  if (minHealthRaw !== undefined) {
-    // A bare `--min-health` parses as `true` — NaN it so it errors instead of becoming 1.
-    const n = typeof minHealthRaw === 'string' ? Number(minHealthRaw) : NaN;
-    if (!Number.isFinite(n) || n < 0 || n > 100) {
-      console.error(`svelte-vitals: invalid --min-health '${minHealthRaw}'; expected a number 0-100.`);
-      process.exit(2);
-    }
-    minHealth = n;
-  }
 
   const code = await run({
     ...options,
