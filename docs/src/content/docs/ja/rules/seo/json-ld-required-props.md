@@ -7,7 +7,7 @@ description: 認識できる @type には、リッチリザルトに必要なプ
 
 ## チェック内容
 
-既知の `@type`（Product、BreadcrumbList、WebSite、Event、Recipe、Person、VideoObject、LocalBusiness）について、Google が必須とするプロパティがそろっているかを確認します。未知の型やカスタム型は検出しません。Google の構造化データドキュメントが必須プロパティを一つも挙げていない型（Article、BlogPosting、NewsArticle、Organization）も同様に検出しません。
+既知の `@type`（Product、BreadcrumbList、WebSite、Event、Recipe、VideoObject、LocalBusiness）について、Google が必須とするプロパティがそろっているかを確認します。未知の型やカスタム型は検出しません。Google の構造化データドキュメントが必須プロパティを一つも挙げていない型（Article、BlogPosting、NewsArticle、Organization）も同様に検出しません。また Person も検出対象外です。Google が文書化している唯一の要件は `ProfilePage.mainEntity` に対するものであり、この関係性はノード単位のこのチェックでは追跡していません。
 
 ## なぜ重要か
 

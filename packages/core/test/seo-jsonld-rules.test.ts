@@ -249,19 +249,10 @@ describe('seo/json-ld-deprecated-type-021', () => {
       )
     ).toHaveLength(0);
   });
-  it('seo/json-ld-required-props: Person accepts alternateName in place of name (Google profile-page guidance)', async () => {
+  it('seo/json-ld-required-props: a generic Person node emits no required-props finding (no standalone Person rich result; the name/alternateName requirement is scoped to ProfilePage.mainEntity, which this per-node engine does not track)', async () => {
     expect(
-      fails(
-        await seoJsonLdRequiredProps.check(
-          ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Person","alternateName":"x"}'))
-        )
-      )
-    ).toHaveLength(0);
-    const rs = fails(
       await seoJsonLdRequiredProps.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Person"}')))
-    );
-    expect(rs).toHaveLength(1);
-    expect(rs[0]?.message).toContain('one of name or alternateName');
+    ).toHaveLength(0);
   });
   it('seo/json-ld-deprecated-type-021 skip parseable JSON-LD that seo/json-ld-validity deems invalid (missing @context/@type)', async () => {
     // Relative URL present, but no @context → seo/json-ld-validity owns the finding; seo/json-ld-relative-url stays silent (no misleading pass).

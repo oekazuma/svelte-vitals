@@ -161,7 +161,11 @@ export function hasNonEmpty(node: JsonLdNode, key: string): boolean {
  * `all` list (possibly empty) with a `oneOf` group where at least one member must be present.
  * Article, BlogPosting, NewsArticle, and Organization have no row: Google's structured-data docs
  * list no required properties for them, and this rule's message ("missing required X — ineligible
- * for the rich result") only makes sense for a type that has one.
+ * for the rich result") only makes sense for a type that has one. Person also has no row: Google
+ * has no standalone Person rich result — the `name`/`alternateName` requirement only applies to a
+ * Person filling `ProfilePage.mainEntity`, a relationship this per-@type, per-node engine doesn't
+ * track, so a global row would overclaim "ineligible" for every generic Person block (e.g. an
+ * Article's `author`).
  */
 export type RequiredPropsRow = string[] | { all: string[]; oneOf: string[] };
 
@@ -172,9 +176,6 @@ export const REQUIRED_PROPS: Record<string, RequiredPropsRow> = {
   WebSite: ['name', 'url'],
   Event: ['name', 'startDate', 'location'],
   Recipe: ['name', 'image'],
-  // Google's Person guidance (profile-page doc — Person has no standalone rich-result page) allows
-  // `alternateName` to stand in when `name` isn't available, so require either.
-  Person: { all: [], oneOf: ['name', 'alternateName'] },
   VideoObject: ['name', 'thumbnailUrl', 'uploadDate'],
   LocalBusiness: ['name', 'address']
 };

@@ -17,9 +17,11 @@ against developers.google.com:
   which Google does not require).
 - `VideoObject`: `description` dropped (Google: Recommended, not Required); still requires `name`,
   `thumbnailUrl`, `uploadDate`.
-- `Person`: now requires `name` **or** `alternateName` (was `name` unconditionally) — Google's
-  guidance allows `alternateName` to stand in when `name` isn't available. A `Person` node with only
-  `alternateName` no longer flags a missing `name`.
+- `Person`: row removed (was `name` required unconditionally). Google has no standalone Person rich
+  result — the only documented requirement (`name` or `alternateName`) applies to a Person filling
+  `ProfilePage.mainEntity`, a relationship this rule's per-`@type`, per-node model doesn't track, so
+  a global row overclaimed "ineligible for the rich result" for every generic Person block (e.g. an
+  Article's `author`). A generic `Person` node no longer produces a finding at all.
 - `Event`, `LocalBusiness`, `WebSite`, `BreadcrumbList` verified unchanged.
 
 No detection or message changes for any other JSON-LD rule.
