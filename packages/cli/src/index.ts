@@ -363,7 +363,7 @@ export async function applyScope(results: Result[], opts: ApplyScopeOptions): Pr
     } else {
       try {
         const base = await analyzeProject({ ...opts.analyzeOpts, cwd: checkout.analyzeCwd });
-        scoped = filterToNewFindings(scoped, base.results);
+        scoped = filterToNewFindings(scoped, base.results, opts.config);
       } catch {
         errorLog(`svelte-vitals: baseline analysis of '${opts.baseline}' failed; reporting all findings.`);
       } finally {
