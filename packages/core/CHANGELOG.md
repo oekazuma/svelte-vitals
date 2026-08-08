@@ -1,5 +1,43 @@
 # @svelte-vitals/core
 
+## 0.39.0
+
+### Minor Changes
+
+- a3dffb3: `architecture/prop-count` now counts named props destructured alongside a rest element (`let { a, b, ...rest } = $props()`) instead of treating the whole destructure as uncountable and staying silent. The named count is a lower bound on the true prop count, and the rule only flags a component whose named-prop count exceeds its `max` option (default 6), so this can only surface findings on previously invisible components — never a false positive. A bare rest element with no named props (`let { ...rest } = $props()`) and a non-destructured `$props()` are still not counted.
+
+  Re-measured the per-repo p90 median across the same 10-repo corpus from the 2026-07-25 threshold recalibration with the fix applied: 6.5 (was 6). `MAX_PROPS` stays 6.
+
+- 8e8bd5c: `architecture/reserved-directory-names`, `architecture/directory-naming` and `architecture/unit-entry-file`
+  now report `examined` counts in the JSON report, the same mechanism `architecture/reserved-name-placement`
+  already used: per declaration, how many places it judged, keyed by the same bare glob string its own
+  diagnostic names. A run configuring all four rules previously got one `examined` entry and silence for the
+  other three, even though all three already emit a project-scoped finding for a declaration that matched no
+  directory — the count fills in the missing number for a key that governed a hundred directories versus one.
+
+  No exported shape changes: `runRules`, `RuleContext.recordExamined` and `JsonReport.examined` already exist.
+  This is JSON-only, matching the existing feature — no CLI or console output changes.
+
+- ac41349: Every rule's PASS results now carry the same `location` a penalized result on the same route/file would — visible to library consumers reading `results` and in the `rules.*.passed` counts, not only the two rule ids (`seo/title-presence` and the `headTagRule`-backed family) that already did this. (The JSON report's `routes[].issues`/`siteIssues` arrays stay penalized-only, so this isn't visible there.) Fixes `files:`-scoped `severity: 'off'` overrides silently failing to remove a passing seed (issue #382): `overrideMatches` matches `files:` against a result's `location`, and a PASS with no `location` could never match, so `'off'` removed a rule's penalized findings but left its passing seed counted. `route:`-scoped overrides were unaffected.
+
+  `architecture/unit-entry-file`'s per-declaration pass (deliberately route-less since #337) is unchanged — it never had this bug (`location` without `route` was never reachable by a `route:` glob to begin with, and `files:` already matched it via `location`).
+
+  No rule's `id`, `severity`, or `detection` changes, and `score.ts` never reads `location` directly. Scores can still move in any mode through the fix itself: a `files:`-scoped `'off'` now removes the passing seeds it always claimed to (the issue's reproduction moves 98 → 96 once the seed is gone), where before it silently removed only the penalized findings. Benign display change: the console reporter's `--verbose` Passed listing prints `location ?? route`, so a rule newly carrying `location` on PASS now lists the file path there instead of the route id. See `docs/superpowers/specs/2026-08-08-pass-result-location-design.md` for the full design record and blast-radius enumeration.
+
+- 65ce0c1: The HTML report and the dev dashboard now show each category's reach ("N of M keys affected") beside its score. The score floor design (2026-08-05) moved magnitude out of the score and into `categories[cat].affectedKeys`/`keys`, so a reader could no longer tell one affected file from forty-one — both surfaces received the fields and rendered nothing. Per-route category rendering (`routes[].categories`) remains a deferred, separate question.
+- acee3c6: Add `anyCaseUnitScopes` to `architecture/reserved-directory-names`: a counterpart to `unitScopes` that
+  governs units whose name does not begin A–Z.
+
+  `unitScopes` identifies a unit with `isUnitDir`, which requires the directory name to begin A–Z as well
+  as holding a same-stemmed child file — so a lowercase, `.ts`- or `.svelte.ts`-entry unit's children (measured
+  at 129 of 299 units, 43%, on a real tree) were never governed by any declaration. `anyCaseUnitScopes` takes
+  the same option shape against `isAnyCaseUnitDir`, the same test without the letter requirement. Declaring
+  the identical glob in both maps is not a collision: `unitScopes` governs at capitalised units,
+  `anyCaseUnitScopes` governs alone at the lowercase ones `unitScopes` never reaches.
+
+  Default behavior is unchanged — `anyCaseUnitScopes` defaults to `{}`, so a project that does not declare it
+  sees no new findings.
+
 ## 0.38.0
 
 ### Minor Changes
