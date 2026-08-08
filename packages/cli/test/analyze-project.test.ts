@@ -1,6 +1,8 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { cpSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 
 // Mock the git layer so the --diff scope below is testable without a real repo (mirrors
 // run-diff.test.ts). Only the test in the "examined counts" describe block below touches this.
@@ -301,6 +303,79 @@ describe('allowRules keeps the named rules configured', () => {
       rules: { 'seo/title-presence': 'off' }
     });
     expect(config.rules).toEqual({ 'seo/title-presence': 'off' });
+  });
+});
+
+// A rule named in --rules that a config `overrides` entry scopes 'off' for some paths used to
+// report nothing there, silently (issue #385). Part 1 only breaks the silence with a warning —
+// the results themselves are unaffected (overrides still apply exactly as before the fix).
+describe('allowRules named a rule that overrides scopes off warns without changing results (issue #385)', () => {
+  const dirs: string[] = [];
+  afterEach(() => {
+    while (dirs.length > 0) {
+      const dir = dirs.pop();
+      if (dir) rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  /** A throwaway copy of basic-project with the given config file content written into it. */
+  function projectWithConfig(configSource: string): string {
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-overrides-warning-'));
+    dirs.push(dir);
+    cpSync(fixtureDir, dir, { recursive: true });
+    writeFileSync(join(dir, 'svelte-vitals.config.mjs'), configSource);
+    return dir;
+  }
+
+  it('warns when a rule-id key scopes the --rules-named rule off, and leaves results unaffected', async () => {
+    const dir = projectWithConfig(
+      "export default { overrides: [{ files: 'src/**', rules: { 'seo/title-presence': 'off' } }] };"
+    );
+    const { results, warnings } = await analyzeProject({ cwd: dir, allowRules: ['seo/title-presence'] });
+    expect(
+      warnings.some(
+        (w) =>
+          w.includes("--rules 'seo/title-presence' is scoped 'off' by overrides entry") && w.includes("files: 'src/**'")
+      )
+    ).toBe(true);
+    // Overrides still remove every seo/title-presence result under src/** (unchanged semantics).
+    expect(results.filter((r) => r.id === 'seo/title-presence')).toEqual([]);
+  });
+
+  it('warns when a category key scopes the --rules-named rule off (rule id beats category, but category still applies when the rule id key is absent)', async () => {
+    // overrides-project's config sets the `seo` category off under src/routes/(app)/**.
+    const { warnings } = await analyzeProject({
+      cwd: join(here, 'fixtures', 'overrides-project'),
+      allowRules: ['seo/title-presence']
+    });
+    expect(
+      warnings.some(
+        (w) =>
+          w.includes("--rules 'seo/title-presence' is scoped 'off' by overrides entry") &&
+          w.includes("files: 'src/routes/(app)/**'")
+      )
+    ).toBe(true);
+  });
+
+  it('does not warn when the overrides entry scopes off a different rule', async () => {
+    const dir = projectWithConfig(
+      "export default { overrides: [{ files: 'src/**', rules: { 'seo/description-presence': 'off' } }] };"
+    );
+    const { warnings } = await analyzeProject({ cwd: dir, allowRules: ['seo/title-presence'] });
+    expect(warnings).toEqual([]);
+  });
+
+  it('does not warn when the overrides entry sets a severity (not off) for the named rule', async () => {
+    const dir = projectWithConfig(
+      "export default { overrides: [{ files: 'src/**', rules: { 'seo/title-presence': 'warning' } }] };"
+    );
+    const { warnings } = await analyzeProject({ cwd: dir, allowRules: ['seo/title-presence'] });
+    expect(warnings).toEqual([]);
+  });
+
+  it('does not warn when no --rules is given at all, even with a matching overrides entry present', async () => {
+    const { warnings } = await analyzeProject({ cwd: join(here, 'fixtures', 'overrides-project') });
+    expect(warnings).toEqual([]);
   });
 });
 

@@ -1,6 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, afterEach } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { cpSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { run } from '../src/index.js';
 import { GREETING_MESSAGES } from '../src/speech-bubble.js';
 
@@ -194,6 +196,49 @@ describe('run() rule selection', () => {
     expect(Object.keys(json.rules)).toEqual(['architecture/component-size']);
     // A finding at all only if the file's `max: 3` arrived — the built-in default is far higher.
     expect(json.rules['architecture/component-size'].findings).toBeGreaterThan(0);
+  });
+});
+
+// Issue #385's exact reproduction: a config `overrides` entry scopes a --rules-named rule off,
+// so pre-fix the run silently looked like a compliant tree (findings 0, score 100, exit 0,
+// nothing on stderr). Part 1 only breaks the silence with a stderr warning — the semantics
+// (whether --rules should force-enable through a scoped 'off') are deliberately unchanged here.
+describe('run() --rules named rule scoped off by overrides (issue #385)', () => {
+  const dirs: string[] = [];
+  afterEach(() => {
+    while (dirs.length > 0) {
+      const dir = dirs.pop();
+      if (dir) rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('warns on stderr but leaves today’s silent-pass behavior (exit 0, score 100) unchanged', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-issue-385-run-'));
+    dirs.push(dir);
+    cpSync(fixtureDir, dir, { recursive: true });
+    writeFileSync(
+      join(dir, 'svelte-vitals.config.mjs'),
+      "export default { overrides: [{ files: 'src/**', rules: { 'seo/title-presence': 'off' } }] };"
+    );
+
+    const cap = capture();
+    const code = await run({
+      cwd: dir,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      reporter: 'json',
+      env: CLEAN_ENV,
+      allowRules: ['seo/title-presence']
+    });
+
+    const json = JSON.parse(cap.out.join('\n'));
+    expect(json.rules['seo/title-presence']).toEqual({ findings: 0, passed: 0 });
+    expect(json.score).toBe(100);
+    expect(code).toBe(0);
+
+    const errText = cap.err.join('\n');
+    expect(errText).toContain("--rules 'seo/title-presence' is scoped 'off' by overrides entry");
+    expect(errText).toContain("files: 'src/**'");
   });
 });
 
