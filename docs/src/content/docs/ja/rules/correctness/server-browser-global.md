@@ -36,14 +36,16 @@ export function load() {
 }
 ```
 
-ブラウザアクセスをクライアント側へ移します:
+ブラウザアクセスをクライアント側、`onMount` の中へ移します — `onMount` はサーバーでは実行されません:
 
 ```svelte
 <!-- +page.svelte -->
 <script>
+  import { onMount } from 'svelte';
+
   let stored = $state(null);
-  $effect(() => {
-    stored = localStorage.getItem('filters'); // ✅ effect はサーバーでは実行されない
+  onMount(() => {
+    stored = localStorage.getItem('filters'); // ✅ onMount はサーバーでは実行されない
   });
 </script>
 ```

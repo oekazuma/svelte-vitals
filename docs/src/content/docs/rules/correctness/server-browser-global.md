@@ -36,14 +36,16 @@ export function load() {
 }
 ```
 
-Move the browser access to the client side:
+Move the browser access to the client side, in `onMount` — it never runs on the server:
 
 ```svelte
 <!-- +page.svelte -->
 <script>
+  import { onMount } from 'svelte';
+
   let stored = $state(null);
-  $effect(() => {
-    stored = localStorage.getItem('filters'); // ✅ effects never run on the server
+  onMount(() => {
+    stored = localStorage.getItem('filters'); // ✅ onMount never runs on the server
   });
 </script>
 ```

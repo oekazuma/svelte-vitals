@@ -313,6 +313,44 @@ describe('parseComponentFacts — mount-only $effect (correctness/effect-as-onmo
   it('covers $effect.pre', () => {
     expect(facts('$effect.pre(() => { el.focus(); });')[0]!.mountOnly).toBe(true);
   });
+
+  // 2026-08-09 v1.0 rule-validity review, Priority 1 #1: these four idioms are all officially
+  // documented ways to hold reactive state, but `reactiveNames` (rune declarators only) couldn't
+  // see any of them, so all four used to yield `mountOnly: true` — the rule's "use onMount"
+  // advice would have frozen working reactive code. Confirmed pre-fix: every one of these
+  // failed (mountOnly: true) before `collectImportedLocalNames`/`collectNewExprLocalNames` were
+  // added and folded into `reactiveNames`.
+  it('is not mountOnly for a class-instance member read ($state fields via `new`)', () => {
+    expect(
+      facts('class Counter { n = $state(0); } const c = new Counter(); $effect(() => { c.n; });')[0]!.mountOnly
+    ).toBe(false);
+  });
+  it('is not mountOnly for a SvelteMap/SvelteSet member read', () => {
+    expect(
+      facts("import { SvelteMap } from 'svelte/reactivity'; const m = new SvelteMap(); $effect(() => { m.size; });")[0]!
+        .mountOnly
+    ).toBe(false);
+  });
+  it('is not mountOnly for an imported runes-module state object member read', () => {
+    expect(
+      facts("import { counterState } from './state.svelte.js'; $effect(() => { counterState.count; });")[0]!.mountOnly
+    ).toBe(false);
+  });
+  it('is not mountOnly for a svelte/reactivity/window live binding read', () => {
+    expect(
+      facts("import { innerWidth } from 'svelte/reactivity/window'; $effect(() => { innerWidth.current; });")[0]!
+        .mountOnly
+    ).toBe(false);
+  });
+  it('is still mountOnly for the true positive: a member call on a plain, non-reactive local', () => {
+    expect(facts('let el; $effect(() => { el.focus(); });')[0]!.mountOnly).toBe(true);
+  });
+  it('is not mountOnly for a member read on a binding imported in <script module> only', () => {
+    const src =
+      "<script module>import { counterState } from './state.svelte.js';</script>" +
+      '<script>$effect(() => { counterState.count; });</script>';
+    expect(parseComponentFacts(src, 'C.svelte').effects[0]!.mountOnly).toBe(false);
+  });
 });
 
 describe('parseComponentFacts — constable $state (correctness/unmutated-state)', () => {

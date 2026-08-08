@@ -922,8 +922,47 @@ function collectDirectiveEscapes(node: Node, names: Set<string>, acc: Set<string
 const RUNE_NAMES = new Set(['$state', '$derived', '$effect', '$props', '$bindable', '$inspect', '$host']);
 
 /**
+ * Local names bound by any non-type-only import specifier (default, named, or namespace),
+ * anywhere in a program (correctness/effect-as-onmount). An imported binding is opaque to this
+ * analysis — it may be a runes-module state object, a `svelte/reactivity`/`svelte/reactivity/window`
+ * constructor or live binding, or anything else carrying hidden reactivity — so member reads on
+ * it are folded into `reactiveNames` rather than risk telling someone to replace a live effect
+ * with `onMount`.
+ */
+function collectImportedLocalNames(program: Node, acc: Set<string>): void {
+  for (const stmt of program?.body ?? []) {
+    if (stmt?.type !== 'ImportDeclaration' || stmt.importKind === 'type') continue;
+    for (const s of stmt.specifiers ?? []) {
+      if (s?.importKind === 'type' || s?.local?.type !== 'Identifier') continue;
+      acc.add(s.local.name);
+    }
+  }
+}
+
+/**
+ * Local names declared with a `new …()` initializer (`const x = new Foo()`), anywhere in a
+ * program (correctness/effect-as-onmount). A class instance is opaque the same way an import is —
+ * it may carry `$state` fields — so it's folded into `reactiveNames` alongside imports.
+ * Declarator-init only: `let x; x = new Foo();` is not seen (`VariableDeclarator.init` is unset,
+ * and the later `AssignmentExpression` isn't a declarator at all) — a rarer style, left
+ * undetected rather than adding an assignment-tracking pass for it.
+ */
+function collectNewExprLocalNames(program: Node, acc: Set<string>): void {
+  walkEstree(program, (n) => {
+    if (n.type !== 'VariableDeclarator' || n.id?.type !== 'Identifier' || !n.init) return;
+    if (unwrapTs(n.init).type === 'NewExpression') acc.add(n.id.name);
+  });
+}
+
+/**
  * Whether an $effect callback body reads a reactive value (correctness/effect-as-onmount, conservative):
- * a reactive name, a `$`-prefixed store subscription, or any bare-identifier call.
+ * a reactive name (rune declarator, imported binding, or a local declared with a `new …()`
+ * initializer — see `collectImportedLocalNames`/`collectNewExprLocalNames`), a `$`-prefixed
+ * store subscription, or any bare-identifier call. Still blind to a reactive value reached only
+ * through a plain function call's return value (`const c = createCounter()`) or a
+ * prop-drilled/destructured member of one of the above — narrower than "any" reactive read,
+ * deliberately: those shapes have no syntactic marker to key off, so treating them as reactive by
+ * default would give up detection entirely rather than narrow it.
  */
 function bodyReadsReactive(fn: Node, reactiveNames: Set<string>): boolean {
   let reads = false;
@@ -2116,6 +2155,12 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     }
     const stateNames = new Set<string>();
     const reactiveNames = new Set<string>();
+    collectImportedLocalNames(program, reactiveNames);
+    collectNewExprLocalNames(program, reactiveNames);
+    if (moduleProgram) {
+      collectImportedLocalNames(moduleProgram, reactiveNames);
+      collectNewExprLocalNames(moduleProgram, reactiveNames);
+    }
     const stateDecls: { name: string; line: number }[] = [];
     walkEstree(program, (n) => {
       if (n.type !== 'VariableDeclarator' || !n.init) return;

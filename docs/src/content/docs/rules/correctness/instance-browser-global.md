@@ -22,10 +22,28 @@ A browser global used only as a `$props()` destructuring default (`let { width =
 ```svelte
 <script>
   const width = window.innerWidth; // ❌ crashes SSR
+</script>
+```
+
+The preferred modern form for a `window` property is [`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window) (5.11.0+) — no guard needed, `undefined` on the server, reactive on the client:
+
+```svelte
+<script>
+  import { innerWidth } from 'svelte/reactivity/window';
+</script>
+
+<p>{innerWidth.current}</p>
+```
+
+For anything `svelte/reactivity/window` doesn't cover, read the global in `onMount` — it never runs on the server:
+
+```svelte
+<script>
+  import { onMount } from 'svelte';
 
   let width2 = $state(0);
-  $effect(() => {
-    width2 = window.innerWidth; // ✅ client-only
+  onMount(() => {
+    width2 = window.innerWidth; // ✅ onMount never runs on the server
   });
 </script>
 ```

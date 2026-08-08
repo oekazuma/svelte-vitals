@@ -22,10 +22,28 @@ description: インスタンススクリプトは SSR 時にサーバーでも�
 ```svelte
 <script>
   const width = window.innerWidth; // ❌ SSR がクラッシュ
+</script>
+```
+
+`window` のプロパティなら、[`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window)（5.11.0 以降）が現在推奨される形です — ガード不要で、サーバーでは `undefined`、クライアントではリアクティブになります:
+
+```svelte
+<script>
+  import { innerWidth } from 'svelte/reactivity/window';
+</script>
+
+<p>{innerWidth.current}</p>
+```
+
+`svelte/reactivity/window` がカバーしない場合は、`onMount` の中で読んでください — `onMount` はサーバーでは実行されません:
+
+```svelte
+<script>
+  import { onMount } from 'svelte';
 
   let width2 = $state(0);
-  $effect(() => {
-    width2 = window.innerWidth; // ✅ クライアント専用
+  onMount(() => {
+    width2 = window.innerWidth; // ✅ onMount はサーバーでは実行されない
   });
 </script>
 ```

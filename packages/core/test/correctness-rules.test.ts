@@ -134,6 +134,16 @@ describe('correctness/effect-as-onmount effect used as onMount', () => {
     const rs = await correctnessEffectAsOnMount.check(ctx([comp({ effects: [] })]));
     expect(rs).toHaveLength(0);
   });
+  it('end-to-end: a SvelteMap-reading effect is not flagged (2026-08-09 review — was a false positive)', async () => {
+    const src = `<script>
+      import { SvelteMap } from 'svelte/reactivity';
+      const m = new SvelteMap();
+      $effect(() => { m.size; });
+    </script>`;
+    const facts = parseComponentFacts(src, 'src/lib/C.svelte');
+    const rs = await correctnessEffectAsOnMount.check(ctx([{ file: 'src/lib/C.svelte', ...facts }]));
+    expect(fails(rs)).toHaveLength(0);
+  });
 });
 
 describe('correctness/unmutated-state unmutated $state', () => {

@@ -29,7 +29,7 @@ assignsOnlyState: boolean }` (CORRECT002 uses `assignsOnlyState`).
 
 ## Design
 
-### 1. What counts as "reads a reactive value" (conservative — no false positives)
+### 1. What counts as "reads a reactive value" (conservative — no false positives) (refuted and revised — see the 2026-08-09 addendum below)
 
 An `$effect` body is treated as reading a reactive value (so it is **not**
 flagged) when it contains **any** of:
@@ -158,3 +158,21 @@ PERF010; the rule is CLI/static-only and no-ops in rendered mode, so not
   suppressed instead (conservative).
 - Reactive sources beyond `$state`/`$derived`/`$props`/stores.
 - Merging with CORRECT002's derive-smell detection (distinct signal).
+
+## 2026-08-09 addendum
+
+The "conservative — no false positives" claim in §1 was refuted by the 2026-08-09 v1.0
+rule-validity review (`docs/superpowers/specs/2026-08-09-v1-rule-validity-review.md`,
+Priority 1 #1): `reactiveNames` only ever held same-file rune declarators, so a member read on
+a class instance (`new Counter()`, `$state` fields), a `SvelteMap`/`SvelteSet`, an imported
+runes-module state object, or `svelte/reactivity/window` was indistinguishable from the true
+positive — all four yielded `mountOnly: true`, and the rule's advice to switch to `onMount`
+would have frozen working reactive code. Fixed by narrowing detection: `bodyReadsReactive` now
+also treats a member read on any imported binding or any local declared with a `new …()`
+initializer as reactive (`collectImportedLocalNames`/`collectNewExprLocalNames` in
+`component-parse.ts`), folded into the same `reactiveNames` set. This is strictly narrower — it
+only ever suppresses a finding, never adds one — and does not close the remaining gaps: a
+reactive value reached only through a plain function's return value still has no traceable name
+and can still be flagged, and neither does one assigned `new …()` after its declaration
+(`let m; m = new SvelteMap();` — declarator-init only, by design; see the rule's docs page for
+both, instead of silently claiming zero false positives away).
