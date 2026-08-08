@@ -97,9 +97,10 @@ const PRIORITY: Record<MapKind, number> = { scopes: 0, unitScopes: 1, anyCaseUni
  * `unitScopes` key names a root, and the rule governs the children of whichever directories beneath
  * it are units whose name begins A–Z — the shape a glob cannot reach, because units nest to arbitrary
  * depth. An `anyCaseUnitScopes` key names a root the same way, but governs units of *either* case:
- * `isUnitDir`'s letter test recognises only capitalised (`.svelte`-entry) units, so without this map a
- * `.ts`- or `.svelte.ts`-entry unit's children were never checked by any declaration here — measured
- * at 129 of 299 units (43%) on a real tree. Neither map is named with the bare word "unit": the
+ * `isUnitDir`'s letter test — A–Z plus a same-stemmed entry file, whatever its extension — excludes a
+ * lowercase unit, so without this map no generic unit-map declaration governed one's children (a
+ * `scopes` key naming the parent directly could still reach one) — measured at 129 of 299 units (43%)
+ * on a real tree. Neither map is named with the bare word "unit": the
  * sibling rule `architecture/reserved-name-placement` records why that word alone is ambiguous between
  * the two predicates once both exist.
  *

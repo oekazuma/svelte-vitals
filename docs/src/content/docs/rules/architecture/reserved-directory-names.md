@@ -52,7 +52,7 @@ export default {
 };
 ```
 
-### The three options differ in what their key names
+### The scope maps differ in what their keys name
 
 **A `scopes` key names the parent directly.** `'src/lib'` matches `src/lib`, and the names its
 immediate subdirectories may take are the ones you list.
