@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { checkoutBaseline, filterToNewFindings, findingKey } from '../src/baseline.js';
-import type { Result } from '@svelte-vitals/core';
+import { defaultConfig, type Result } from '@svelte-vitals/core';
 
 const r = (over: Partial<Result>): Result => ({
   id: 'X',
@@ -141,6 +141,22 @@ describe('filterToNewFindings — PASS/PENALIZED location collision', () => {
     ];
     const current: Result[] = [r({ id: 'seo/title-length', route: '/blog', detection: PASS_DETECTION })];
     expect(filterToNewFindings(current, baseline)).toEqual([]);
+  });
+
+  it("honors the passed-in config's treatDynamicAs instead of always using the default", () => {
+    // A dynamic-valued result is penalized under 'fail' but not under 'pass' (isPenalized,
+    // packages/core/src/rule.ts:73-78) — this only discriminates if filterToNewFindings actually
+    // uses the config argument rather than always falling back to defaultConfig internally.
+    const dynamic: Result[] = [
+      r({
+        id: 'seo/canonical-url',
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        detection: { presence: 'own', value: 'dynamic' }
+      })
+    ];
+    expect(filterToNewFindings(dynamic, [], { ...defaultConfig, treatDynamicAs: 'fail' })).toEqual(dynamic);
+    expect(filterToNewFindings(dynamic, [], defaultConfig)).toEqual([]);
   });
 });
 
