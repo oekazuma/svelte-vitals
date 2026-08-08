@@ -326,6 +326,12 @@ export interface ApplyScopeOptions {
   /** Disable applying svelte-vitals-suppressions.json for this run. */
   noSuppressions?: boolean;
   errorLog?: (line: string) => void;
+  /**
+   * Also doubles as this call's route-scoping signal: `analyzeOpts.route !== undefined`
+   * tells the suppressions block that `results` (this function's first argument) was
+   * itself collected route-scoped, not just project-wide-then-narrowed — see the comment
+   * at that check.
+   */
   analyzeOpts?: AnalyzeOptions;
 }
 
@@ -375,12 +381,24 @@ export async function applyScope(results: Result[], opts: ApplyScopeOptions): Pr
   if (!opts.noSuppressions && opts.config) {
     const entries = loadSuppressions(opts.cwd);
     if (entries !== undefined) {
-      const { results: afterSuppressions, suppressed, stale } = applySuppressions(scoped, entries, opts.config);
+      // `results` (this function's own pre-narrow argument, before the --diff/--staged/--baseline
+      // filtering above) is project-wide and is what staleness should be judged against — otherwise
+      // a scoped run would call every entry outside its scope "stale" and steer --update-suppressions
+      // toward pruning entries that are still needed project-wide. `--route`, however, narrows at
+      // collection time (collectAll), before `results` ever reaches this function, so `results` is
+      // itself only route-scoped; in that case staleness is unknowable and the clause is omitted
+      // below rather than reporting a misleading count.
+      const {
+        results: afterSuppressions,
+        suppressed,
+        stale
+      } = applySuppressions(scoped, entries, opts.config, results);
       scoped = afterSuppressions;
-      if (suppressed > 0 || stale > 0) {
+      const routeScoped = opts.analyzeOpts?.route !== undefined;
+      if (suppressed > 0 || (stale > 0 && !routeScoped)) {
         errorLog(
           `svelte-vitals: ${suppressed} finding(s) suppressed by ${SUPPRESSIONS_FILE}` +
-            (stale > 0
+            (stale > 0 && !routeScoped
               ? ` (${stale} stale entr${stale === 1 ? 'y' : 'ies'} — re-run --update-suppressions to prune)`
               : '') +
             '.'
@@ -512,6 +530,18 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     const { config, version } = analysis;
 
     if (opts.updateSuppressions) {
+      // Unlike --diff/--staged/--baseline (applied only inside applyScope, never touching
+      // analysis.results — deliberately ignored here, design doc
+      // 2026-07-13-suppressions-file-design.md decision 2), --route narrows analysis.results
+      // itself at collection time (collectAll). Writing from a route-narrowed result set would
+      // silently prune every suppression entry outside that route as if fixed — refuse loudly
+      // instead, matching this file's "a silently-ignored typo would un-gate CI" philosophy.
+      if (opts.route !== undefined) {
+        errorLog(
+          `svelte-vitals: --update-suppressions cannot be combined with --route ('${opts.route}') — it would prune every suppression entry outside that route from ${SUPPRESSIONS_FILE}. Re-run --update-suppressions without --route.`
+        );
+        return 2;
+      }
       // Scoping flags (--diff/--staged/--baseline) are deliberately ignored here —
       // the suppressions file is meant to record the whole project's current state,
       // not a diff (design doc 2026-07-13-suppressions-file-design.md, decision 2).
