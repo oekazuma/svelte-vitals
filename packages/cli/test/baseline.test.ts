@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { checkoutBaseline, filterToNewFindings, findingKey } from '../src/baseline.js';
-import type { Result } from '@svelte-vitals/core';
+import { defaultConfig, type Result } from '@svelte-vitals/core';
 
 const r = (over: Partial<Result>): Result => ({
   id: 'X',
@@ -57,6 +57,106 @@ describe('filterToNewFindings', () => {
     const current: Result[] = [r({ id: 'A', location: 'x.svelte', line: 99 })];
     const baseline: Result[] = [r({ id: 'A', location: 'x.svelte', line: 1 })];
     expect(filterToNewFindings(current, baseline)).toEqual([]);
+  });
+});
+
+// Characterization tests for docs/superpowers/specs/2026-08-08-pass-result-location-design.md's
+// "findingKey / filterToNewFindings" section (the Sequencing note's standalone fix). PASS_DETECTION
+// mirrors packages/core/src/rules/seo/detection.ts's PASS constant; MISSING_DETECTION mirrors a
+// headTagRule/lengthRule "not found" branch.
+const PASS_DETECTION = { presence: 'own', value: 'static' } as const;
+const MISSING_DETECTION = { presence: 'none', value: 'absent' } as const;
+
+describe('filterToNewFindings — PASS/PENALIZED location collision', () => {
+  it('item 4: unlocated-PASS rule shape (e.g. seo/title-length) — a regression still surfaces, before and after the fix', () => {
+    // Baseline PASS carries no location (key `id::route::`); current PENALIZED does
+    // (key `id::route::file`) — keys already differ today.
+    const baseline: Result[] = [r({ id: 'seo/title-length', route: '/blog', detection: PASS_DETECTION })];
+    const current: Result[] = [
+      r({
+        id: 'seo/title-length',
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        detection: MISSING_DETECTION
+      })
+    ];
+    expect(filterToNewFindings(current, baseline).map((x) => x.id)).toEqual(['seo/title-length']);
+  });
+
+  it('item 5/6 (THE bug): headTagRule-backed shape (e.g. seo/title-presence) — a regression at the same location must surface', () => {
+    // head-tag-rule.ts:53-66 sets `location` unconditionally on both the PASS and
+    // PENALIZED branches, so baseline PASS and current PENALIZED key identically
+    // (`id::route::file`) under today's unfiltered findingKey comparison.
+    const baseline: Result[] = [
+      r({
+        id: 'seo/title-presence',
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        detection: PASS_DETECTION
+      })
+    ];
+    const current: Result[] = [
+      r({
+        id: 'seo/title-presence',
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        detection: MISSING_DETECTION
+      })
+    ];
+    expect(filterToNewFindings(current, baseline).map((x) => x.id)).toEqual(['seo/title-presence']);
+  });
+
+  it('case 1: unchanged, still passing — not reported', () => {
+    const baseline: Result[] = [
+      r({
+        id: 'seo/title-presence',
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        detection: PASS_DETECTION
+      })
+    ];
+    const current: Result[] = [
+      r({
+        id: 'seo/title-presence',
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        detection: PASS_DETECTION
+      })
+    ];
+    expect(filterToNewFindings(current, baseline)).toEqual([]);
+  });
+
+  it('case 2: improved route (baseline PENALIZED, current PASS) — the PASS is dropped, not reported as new (deliberate: no PASS ever reaches the output)', () => {
+    // Unlocated-PASS shape: baseline PENALIZED key `id::route::file`, current PASS key
+    // `id::route::` — different keys, so before this fix the unfiltered comparison let the
+    // PASS through. After the fix, the current side's penalized-only pre-filter drops it
+    // regardless of key.
+    const baseline: Result[] = [
+      r({
+        id: 'seo/title-length',
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        detection: MISSING_DETECTION
+      })
+    ];
+    const current: Result[] = [r({ id: 'seo/title-length', route: '/blog', detection: PASS_DETECTION })];
+    expect(filterToNewFindings(current, baseline)).toEqual([]);
+  });
+
+  it("honors the passed-in config's treatDynamicAs instead of always using the default", () => {
+    // A dynamic-valued result is penalized under 'fail' but not under 'pass' (isPenalized,
+    // packages/core/src/rule.ts:73-78) — this only discriminates if filterToNewFindings actually
+    // uses the config argument rather than always falling back to defaultConfig internally.
+    const dynamic: Result[] = [
+      r({
+        id: 'seo/canonical-url',
+        route: '/blog',
+        location: 'src/routes/blog/+page.svelte',
+        detection: { presence: 'own', value: 'dynamic' }
+      })
+    ];
+    expect(filterToNewFindings(dynamic, [], { ...defaultConfig, treatDynamicAs: 'fail' })).toEqual(dynamic);
+    expect(filterToNewFindings(dynamic, [], defaultConfig)).toEqual([]);
   });
 });
 

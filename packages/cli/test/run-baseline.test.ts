@@ -153,6 +153,7 @@ describe('run() --baseline against a real git worktree (plan 046)', () => {
   const APP_HTML =
     '<!doctype html>\n<html lang="en">\n  <head>\n    %sveltekit.head%\n  </head>\n  <body>\n    %sveltekit.body%\n  </body>\n</html>\n';
   const NO_TITLE_PAGE = '<h1>No title here</h1>\n';
+  const TITLE_PAGE = '<svelte:head><title>Home</title></svelte:head>\n<h1>Home</h1>\n';
 
   // All issues across both `routes[].issues` and `siteIssues`, keyed by nothing in
   // particular — callers filter by `id`/`location` themselves.
@@ -251,5 +252,44 @@ describe('run() --baseline against a real git worktree (plan 046)', () => {
     expect(allIssues(json).some((i) => i.id === 'seo/title-presence')).toBe(false);
     expect(cap.err.join('\n')).not.toContain('baseline analysis');
     expect(code).toBe(0);
+  });
+
+  // Regression for docs/superpowers/specs/2026-08-08-pass-result-location-design.md's
+  // findingKey / filterToNewFindings fix: seo/title-presence's PASS and PENALIZED results both
+  // carry `location` (head-tag-rule.ts sets it unconditionally), so before the fix a baseline
+  // PASS and a current PENALIZED result for the same route/file keyed identically and the
+  // regression was silently dropped as "not new".
+  it('reports title-presence when a <title> present at the baseline ref is deleted in the working tree', async () => {
+    const repo = makeRepo();
+    const actual = await vi.importActual<typeof import('../src/baseline.js')>('../src/baseline.js');
+    mockCheckout.mockImplementation(actual.checkoutBaseline);
+
+    mkdirSync(join(repo, 'src/routes'), { recursive: true });
+    writeFileSync(join(repo, 'package.json'), PACKAGE_JSON);
+    writeFileSync(join(repo, 'src/app.html'), APP_HTML);
+    writeFileSync(join(repo, 'src/routes/+page.svelte'), TITLE_PAGE); // route '/' PASSES title-presence at commit A
+    git(['add', '.'], repo);
+    git(['commit', '-m', 'A'], repo);
+
+    // Uncommitted: the <title> is deleted -> route '/' now fails title-presence.
+    writeFileSync(join(repo, 'src/routes/+page.svelte'), NO_TITLE_PAGE);
+
+    const cap = capture();
+    const code = await run({
+      cwd: repo,
+      baseline: 'HEAD',
+      reporter: 'json',
+      log: cap.log,
+      errorLog: cap.errorLog,
+      env: CLEAN_ENV
+    });
+
+    const json = JSON.parse(cap.out.join('\n'));
+    expect(allIssues(json).some((i) => i.id === 'seo/title-presence' && i.location === 'src/routes/+page.svelte')).toBe(
+      true
+    );
+    expect(cap.err.join('\n')).not.toContain('baseline analysis');
+    expect(cap.err.join('\n')).not.toContain('failed');
+    expect(code).toBe(1);
   });
 });

@@ -2,7 +2,7 @@ import { execFileSync } from 'node:child_process';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import type { Result } from '@svelte-vitals/core';
+import { defaultConfig, isPenalized, type Config, type Result } from '@svelte-vitals/core';
 
 function git(args: string[], cwd: string): string {
   return execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
@@ -70,8 +70,18 @@ export function checkoutBaseline(cwd: string, ref: string): { analyzeCwd: string
   }
 }
 
-/** Removes findings from the current `results` that already existed in the baseline (same key). */
-export function filterToNewFindings(results: Result[], baselineResults: Result[]): Result[] {
-  const baselineKeys = new Set(baselineResults.map(findingKey));
-  return results.filter((r) => !baselineKeys.has(findingKey(r)));
+/**
+ * Removes findings from the current `results` that already existed in the baseline (same key).
+ * Both sides are filtered to penalized findings before keying, so a PASS result can never key-collide
+ * with a PENALIZED one (docs/superpowers/specs/2026-08-08-pass-result-location-design.md, "Sequencing").
+ * `config` defaults for callers with none in hand (`ApplyScopeOptions.config` is optional).
+ */
+export function filterToNewFindings(
+  results: Result[],
+  baselineResults: Result[],
+  config: Config = defaultConfig
+): Result[] {
+  const penalized = (rs: Result[]) => rs.filter((r) => isPenalized(r.detection, config.treatDynamicAs));
+  const baselineKeys = new Set(penalized(baselineResults).map(findingKey));
+  return penalized(results).filter((r) => !baselineKeys.has(findingKey(r)));
 }
