@@ -4,7 +4,7 @@ import { defineConfig, defaultProject } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 import type { Result } from '../src/index.js';
 
-/** The configuration documented on the rule page, verbatim. */
+/** The configuration documented on the rule page. */
 const EXAMPLE = {
   units: {
     'src/lib/api/**/*': '.ts',

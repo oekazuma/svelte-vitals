@@ -7,8 +7,8 @@ description: SvelteKit のルートエントリはフレームワークが描画
 
 ## チェック内容
 
-SvelteKit のルートエントリ —— `+page.svelte`、`+layout.svelte`、`+error.svelte`、およびそれらの `@`
-分岐形式 —— を、別のコンポーネントから import している箇所を検出します。
+SvelteKit のルートエントリ —— `+page.svelte`、`+layout.svelte`、`+error.svelte`、および `+page` / `+layout`
+の `@` 分岐形式 —— を、別のコンポーネントから import している箇所を検出します。
 
 ## なぜ重要か
 
@@ -56,8 +56,8 @@ export default {
 ## 報告されないもの
 
 - ルートエントリへの動的 `import()`。import 宣言ではないため、アナライザーは検出しません。
-- 素の `.ts` / `.js` ファイル、または `.svelte.ts` / `.svelte.js` モジュールからの import。import
-  に関する事実は `.svelte` コンポーネントファイルからのみ収集します。
+- 素の `.ts` / `.js` ファイルからの import。import に関する事実は `.svelte` コンポーネントファイルと
+  `.svelte.ts` / `.svelte.js` モジュールからのみ収集します。
 - 型のみの import（`import type P from './+page.svelte'`、またはすべての指定子がインラインで型
   指定されているもの）。ビルド時に消えるため、何も描画されません。
 - ルートが `src/routes` 以外の場所にあるプロジェクト。

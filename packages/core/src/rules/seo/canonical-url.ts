@@ -9,7 +9,7 @@ export const seoCanonicalUrl = headTagRule({
   label: '<link rel="canonical">',
   recommendation: 'Add <link rel="canonical"> in <svelte:head>, or set the canonical prop on your meta component.',
   rationale:
-    'A canonical URL tells search engines which URL is authoritative, preventing duplicate-content dilution across query strings and trailing-slash variants.',
+    'A canonical URL tells search engines which URL is authoritative, preventing duplicate-content dilution across query-string variants of the same page.',
   fix: {
     description: 'Add <link rel="canonical"> inside <svelte:head>, or set the canonical prop on your meta component.',
     snippet: '<svelte:head>\n  <link rel="canonical" href="https://example.com/this-page" />\n</svelte:head>',

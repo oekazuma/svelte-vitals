@@ -11,7 +11,7 @@ description: <img> には width と height を明示します。
 
 ## なぜ重要か
 
-width と height を明示していない `<img>` は、読み込み中にレイアウトシフト（CLS）を引き起こし、Core Web Vitals と表示の安定性を損ないます。
+width と height を明示していない `<img>` は、読み込み中にレイアウトシフト（CLS）を引き起こすことがあり、Core Web Vitals と表示の安定性を損ないます(CSS の `aspect-ratio` など、別の方法で領域を確保している場合を除く)。
 
 ## 修正方法
 

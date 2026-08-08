@@ -11,7 +11,7 @@ Flags an element attribute (`href` / `src` / `action` / `formaction`) whose lite
 
 ## Why it matters
 
-A `javascript:` URL executes arbitrary script on activation — an XSS / unsafe-navigation vector that also breaks under a strict Content-Security-Policy.
+A `javascript:` URL breaks under a strict Content-Security-Policy and turns what should be a real navigation into inline script execution on activation — use an event handler on a `<button>` instead. (The same shape is also a classic XSS vector, though detection here is literal-only, so every flagged URL is author-written, not injected.)
 
 ## How to fix
 

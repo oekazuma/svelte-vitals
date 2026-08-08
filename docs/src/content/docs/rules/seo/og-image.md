@@ -7,7 +7,7 @@ description: Every route should include a <meta property="og:image"> tag.
 
 ## What it checks
 
-Every route must include a `<meta property="og:image">` tag (own or inherited through the layout chain). A missing Open Graph image meta tag is flagged.
+Every route must include a `<meta property="og:image">` tag (own or inherited through the layout chain). A missing or empty Open Graph image meta tag is flagged.
 
 ## Why it matters
 

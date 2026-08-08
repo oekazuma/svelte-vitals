@@ -50,11 +50,9 @@ glob では `*` がパスセグメント内、`**` がセグメントをまた�
 
 ## 制限
 
-`svelte.config.js` で設定した独自エイリアス経由の import は、まだ検査していません（`$lib/` と相対指定子は検査します）。
+検査するのは `.svelte` コンポーネントと `.svelte.ts` / `.svelte.js` モジュールに書かれた import です。`+page.ts` / `+server.ts` のような Kit モジュールに書かれた import は、まだ検査対象外です。
 
-検査するのは `.svelte` コンポーネントに書かれた import だけです。`.svelte.ts` / `.svelte.js` モジュールや、`+page.ts` / `+server.ts` のような Kit モジュールに書かれた import は、まだ検査対象外です。
-
-どちらも意図的な除外ではなく、解消予定のギャップです。
+意図的な除外ではなく、解消予定のギャップです。
 
 型のみの import（`import type { X } from '../parts/types'`）も、値の import と同様に検出します。import 自体はビルド時に消えますが、プライベートなユニットの置き場所への構造的な結合はソースコード上に残るためです。
 

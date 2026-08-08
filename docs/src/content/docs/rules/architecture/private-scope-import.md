@@ -50,11 +50,9 @@ In globs, `*` matches within a path segment and `**` across segments. A `**` bet
 
 ## Limitations
 
-Imports written through a custom alias configured in `svelte.config.js` are not checked yet; `$lib/` and relative specifiers are.
+Imports written in `.svelte` components and `.svelte.ts` / `.svelte.js` modules are checked. Imports written in a Kit module such as `+page.ts` or `+server.ts` are not checked yet.
 
-Only imports written in `.svelte` components are checked. Imports written in a `.svelte.ts` / `.svelte.js` module, or in a Kit module such as `+page.ts` or `+server.ts`, are not checked yet.
-
-Both are gaps being closed, not deliberate exemptions.
+This is a gap being closed, not a deliberate exemption.
 
 A type-only import (`import type { X } from '../parts/types'`) is flagged the same as a value import: the structural coupling to the private unit's location survives into source even though the import itself is erased at build.
 

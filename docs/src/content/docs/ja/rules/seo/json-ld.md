@@ -7,7 +7,7 @@ description: どのルートにも JSON-LD 構造化データを入れましょ�
 
 ## チェック内容
 
-すべてのルートに `<script type="application/ld+json">` の JSON-LD ブロックが必要です（直接指定でも、レイアウトチェーン経由の継承でも構いません）。JSON-LD ブロックがないルートを検出します。
+すべてのルートに `<script type="application/ld+json">` の JSON-LD ブロックを含めるべきです（直接指定でも、レイアウトチェーン経由の継承でも構いません）。JSON-LD ブロックがないルートを検出します。
 
 ## なぜ重要か
 

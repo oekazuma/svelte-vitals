@@ -39,7 +39,7 @@ The component renders correctly once, then silently stops updating, with no comp
 <script>
   import { SvelteSet } from 'svelte/reactivity';
 
-  let tags = $state(new SvelteSet());
+  let tags = new SvelteSet();
 </script>
 ```
 

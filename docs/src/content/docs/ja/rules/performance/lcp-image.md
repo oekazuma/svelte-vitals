@@ -7,7 +7,7 @@ description: LCP になりそうな最初の画像は、遅延読み込みにし
 
 ## チェック内容
 
-ルートのマークアップで最初に現れる `<img>` に `loading="lazy"` が付いている場合に検出します。静的解析では、文書順で最初の画像を Largest Contentful Paint（LCP）画像とみなします。本ルールは静的（CLI）解析でのみ動作します。
+ルートのマークアップで最初に現れる `<img>` に `loading="lazy"` が付いている場合に検出します。静的解析では、文書順で最初の画像を Largest Contentful Paint（LCP）画像とみなします。
 
 ## なぜ重要か
 

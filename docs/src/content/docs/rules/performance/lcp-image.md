@@ -7,7 +7,7 @@ description: The first (likely LCP) image should not be lazy-loaded.
 
 ## What it checks
 
-Flags the first `<img>` in a route's markup when it has `loading="lazy"`. Static analysis approximates the Largest Contentful Paint image as the first image in document order. This rule runs in static (CLI) analysis only.
+Flags the first `<img>` in a route's markup when it has `loading="lazy"`. Static analysis approximates the Largest Contentful Paint image as the first image in document order.
 
 ## Why it matters
 

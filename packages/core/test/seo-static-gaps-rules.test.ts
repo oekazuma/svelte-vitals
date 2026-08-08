@@ -58,7 +58,7 @@ describe('seo/image-alt image alt', () => {
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.category).toBe('seo');
   });
-  it('emits nothing in rendered mode (no images collected)', async () => {
+  it('emits nothing when no images were collected', async () => {
     expect(await seoImageAlt.check({ heads: [], ...base })).toHaveLength(0);
   });
 });

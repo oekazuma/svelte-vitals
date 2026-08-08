@@ -7,7 +7,7 @@ description: Every route should include JSON-LD structured data.
 
 ## What it checks
 
-Every route must include a `<script type="application/ld+json">` JSON-LD block (own or inherited through the layout chain). A missing JSON-LD block is flagged.
+Every route should include a `<script type="application/ld+json">` JSON-LD block (own or inherited through the layout chain). A missing JSON-LD block is flagged.
 
 ## Why it matters
 

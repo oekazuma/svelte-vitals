@@ -7,11 +7,11 @@ description: Every route should include a <link rel="canonical"> tag.
 
 ## What it checks
 
-Every route must include a `<link rel="canonical">` tag (own or inherited through the layout chain). A missing canonical link is flagged.
+Every route should include a `<link rel="canonical">` tag (own or inherited through the layout chain). A missing or empty canonical link is flagged.
 
 ## Why it matters
 
-A canonical URL tells search engines which URL is authoritative, preventing duplicate-content dilution across query strings and trailing-slash variants.
+A canonical URL tells search engines which URL is authoritative, preventing duplicate-content dilution across query-string variants of the same page. (SvelteKit normalizes trailing slashes itself by default, so that particular variant isn't a concern here.)
 
 ## How to fix
 

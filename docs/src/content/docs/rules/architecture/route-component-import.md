@@ -7,8 +7,8 @@ description: A SvelteKit route entry is rendered by the framework, not imported 
 
 ## What it checks
 
-Flags an import of a SvelteKit route entry — `+page.svelte`, `+layout.svelte`, `+error.svelte`, and their
-`@` breakout forms — from another component.
+Flags an import of a SvelteKit route entry — `+page.svelte`, `+layout.svelte`, `+error.svelte`, and the
+`@` breakout forms of `+page`/`+layout` — from another component.
 
 ## Why it matters
 
@@ -54,8 +54,8 @@ export default {
 ## Not reported
 
 - A dynamic `import()` of a route entry — it is not an import declaration, so the analyzer does not see it.
-- An import made from a plain `.ts` or `.js` file, or from a `.svelte.ts` / `.svelte.js` module: import
-  facts are collected from `.svelte` component files only.
+- An import made from a plain `.ts` or `.js` file: import facts are collected from `.svelte` component
+  files and `.svelte.ts` / `.svelte.js` modules only.
 - A type-only import (`import type P from './+page.svelte'`, or one whose every specifier is inline-typed)
   — it is erased at build, so nothing renders.
 - A project whose routes live somewhere other than `src/routes`.

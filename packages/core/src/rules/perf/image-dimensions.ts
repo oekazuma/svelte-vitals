@@ -7,7 +7,7 @@ export const performanceImageDimensions = imageRule({
   label: '<img> width/height',
   recommendation: 'Set explicit width and height on <img> to reserve space and avoid layout shift (CLS).',
   rationale:
-    'An <img> without explicit width and height triggers layout shift (CLS) as it loads, hurting Core Web Vitals and visual stability.',
+    'An <img> without explicit width and height can trigger layout shift (CLS) as it loads, hurting Core Web Vitals and visual stability — unless the box is reserved another way, e.g. CSS aspect-ratio.',
   fix: {
     description: 'Add explicit width and height attributes to the <img>.',
     snippet: '<img src="/hero.jpg" width="1200" height="630" alt="…" />',

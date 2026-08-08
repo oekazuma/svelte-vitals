@@ -7,7 +7,7 @@ description: プロジェクトに robots.txt を用意しましょう。
 
 ## チェック内容
 
-プロジェクトには `robots.txt` が必要です。`static/robots.txt` として、または `src/routes/robots.txt/+server` エンドポイントを通じて提供します。
+プロジェクトには `robots.txt` を用意すべきです。`static/robots.txt` として、または `src/routes/robots.txt/+server` エンドポイントを通じて提供します。
 
 ## なぜ重要か
 

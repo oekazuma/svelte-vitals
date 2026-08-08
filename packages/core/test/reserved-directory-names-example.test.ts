@@ -8,7 +8,8 @@ import type { RuleContext } from '../src/rule.js';
 /** The example from docs/src/content/docs/rules/architecture/reserved-directory-names.md. */
 const EXAMPLE = {
   scopes: { 'src/lib': 'api|components|features|effect|db' },
-  unitScopes: { 'src/**': 'parts|functions|stores|types|tests|styleGuide' }
+  unitScopes: { 'src/**': 'parts|functions|stores|types|tests|styleGuide' },
+  anyCaseUnitScopes: { 'src/**': 'functions|stores|types|tests' }
 };
 
 /** A tree shaped like the convention the example describes. */
@@ -20,6 +21,8 @@ const TREE = [
   'src/lib/components/Card/tests/Card.test.ts',
   'src/lib/components/Card/styleGuide/Card.styleGuide.svelte',
   'src/lib/features/blog/index.ts',
+  'src/lib/features/formatDate/formatDate.ts',
+  'src/lib/features/formatDate/tests/formatDate.test.ts',
   'src/lib/effect/OnVisible/OnVisible.svelte',
   'src/lib/db/types/user.ts'
 ];
