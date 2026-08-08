@@ -17,8 +17,10 @@ import {
   selectRules,
   applyRuleSeverities,
   applyOverrides,
+  settingSeverity,
   type Severity,
   type RuleSetting,
+  type RuleOverride,
   type Result,
   type Config,
   type Category
@@ -203,6 +205,44 @@ export interface AnalyzeResult {
   loadedConfig?: LoadedConfigFile;
 }
 
+function formatGlob(glob: string | string[]): string {
+  return Array.isArray(glob) ? `[${glob.map((g) => `'${g}'`).join(', ')}]` : `'${glob}'`;
+}
+
+/**
+ * `--rules` force-enables a rule through the top-level `rules` map (design
+ * 2026-08-06-rule-selection-design.md), but `overrides` is a separate field applied to results
+ * after analysis and `--rules` has never reached into it — so a rule named in `--rules` that an
+ * overrides entry scopes `'off'` for some paths still reports nothing there, silently (issue
+ * #385). This only breaks the silence with a warning per (rule, entry) pair; the run proceeds
+ * unchanged and the semantics stay exactly as recorded in that design doc's "Deliberately not
+ * solved" section.
+ */
+function overridesOffWarnings(allowRules: string[] | undefined, overrides: RuleOverride[] | undefined): string[] {
+  if (!allowRules || allowRules.length === 0 || !overrides || overrides.length === 0) return [];
+  const warnings: string[] = [];
+  for (const ruleId of allowRules) {
+    const category = ruleId.split('/')[0] ?? ruleId;
+    for (const entry of overrides) {
+      // Same precedence as `applyOverrides`: a rule-id key beats a category key, but only when
+      // it carries a severity of its own (an options-only rule-id key falls through).
+      const severity = settingSeverity(entry.rules[ruleId]) ?? settingSeverity(entry.rules[category]);
+      if (severity !== 'off') continue;
+      const scope = [
+        entry.route !== undefined ? `route: ${formatGlob(entry.route)}` : undefined,
+        entry.files !== undefined ? `files: ${formatGlob(entry.files)}` : undefined
+      ]
+        .filter((s): s is string => s !== undefined)
+        .join(', ');
+      warnings.push(
+        `--rules '${ruleId}' is scoped 'off' by overrides entry { ${scope} } — findings there will not be reported. ` +
+          `--rules overrides a global 'off' but not a scoped one.`
+      );
+    }
+  }
+  return warnings;
+}
+
 /**
  * Run static-mode analysis and return the structured findings + resolved config.
  * Throws ProjectError when `cwd` is not a SvelteKit project. Also throws when a
@@ -237,7 +277,11 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   });
 
   await detectProject(rt, cwd); // throws ProjectError if not a SvelteKit project
-  const warnings = [...(loaded?.warnings ?? []), ...(await checkVersionFloor(rt, cwd))];
+  const warnings = [
+    ...(loaded?.warnings ?? []),
+    ...(await checkVersionFloor(rt, cwd)),
+    ...overridesOffWarnings(opts.allowRules, config.overrides)
+  ];
 
   const { heads, images, headings, project, components, kitModules, sourceFiles } = await collectAll(rt, cwd, config, {
     route: opts.route,

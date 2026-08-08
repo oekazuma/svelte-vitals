@@ -214,7 +214,8 @@ and `@svelte-vitals/vite` are untouched.
   are a separate field applied after analysis; `--rules` has never reached into them and does not start here.
   A user who scopes a rule off under `src/legacy/**` and then runs `--rules <that rule>` still gets nothing for
   those paths. Recorded rather than fixed: making a selection flag reach into path-scoped configuration is a
-  larger question than this defect.
+  larger question than this defect. **2026-08-08**: the silence (not the semantics above) is now fixed —
+  `analyzeProject` warns on stderr when a `--rules`-named rule is scoped `'off'` this way (issue #385).
 - **The two halves of the vite dev dashboard.** `plugin.ts`'s live per-route view and the dashboard's runner both
   take `options.rules` as a whole-field replacement, and neither has an allow-list, so they agree under this
   design. They disagreed only under the discarded merge. Nothing to do; recorded so the next reader does not
