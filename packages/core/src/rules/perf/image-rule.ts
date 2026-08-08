@@ -45,6 +45,13 @@ export function imageRule(opts: ImageRuleOptions): Rule {
             severity: opts.severity,
             detection: { presence: 'own', value: 'static' },
             route: route.route,
+            // No single route-level file exists here (unlike ResolvedHead.file) — the
+            // route's first image stands in as its attributed file (design
+            // 2026-08-08-pass-result-location-design.md; this uncaught inline PASS literal
+            // was missed by the design spike's grep and added to its blast-radius table
+            // afterward, maintainer ruling, same date). `route.images.length === 0` already
+            // continued above, so `[0]` is always defined here.
+            location: route.images[0]!.file,
             message: opts.label,
             recommendation: opts.recommendation,
             docsUrl

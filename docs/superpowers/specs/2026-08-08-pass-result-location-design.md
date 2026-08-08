@@ -1,7 +1,8 @@
 # PASS-result `location` convention — design spike
 
 Date: 2026-08-08
-Status: Proposed (design spike — awaiting maintainer review)
+Status: Accepted (2026-08-08, maintainer approval); amended 2026-08-08: blast-radius expanded
+to the full PASS-emitter set; unit-entry-file route-less-pass carve-out.
 
 ## Problem
 
@@ -196,22 +197,73 @@ undetected instance of the same bug** for those eleven rule ids (see Blast radiu
 `findingKey` section below, which verifies the same live-today bug independently for
 `--baseline`), not a new one option (a) introduces.
 
-**Recommendation:** redefine `filterToChangedFiles` to explicitly drop every passing seed,
-regardless of `location`, and keep only penalized findings whose `location` is in the changed set:
+**Recommendation:** redefine `filterToChangedFiles` to explicitly drop every ROUTE-CARRYING passing
+seed, regardless of `location`, and keep only penalized findings (or a route-less PASS — see the
+"unit-entry-file exception" below) whose `location` is in the changed set:
 
 ```ts
-export function filterToChangedFiles(results: Result[], changed: Set<string>, config: Config): Result[] {
+export function filterToChangedFiles(
+  results: Result[],
+  changed: Set<string>,
+  config: Config = defaultConfig
+): Result[] {
   return results.filter(
-    (r) => r.location !== undefined && changed.has(r.location) && isPenalized(r.detection, config.treatDynamicAs)
+    (r) =>
+      r.location !== undefined &&
+      changed.has(r.location) &&
+      (isPenalized(r.detection, config.treatDynamicAs) || r.route === undefined)
   );
 }
 ```
 
-This restores 79 for the reproduction (no category is ever promoted to "present" by a bare PASS),
-and additionally _fixes_ the latent leak for `headTagRule`/`title-presence` today — a behavior
-change for those eleven rule ids under `--diff`/`--staged` specifically, which needs its own
-characterization test (below) and a changeset callout, since it can move a reported `--diff`
-Health number downward for existing users relying on the current (arguably accidental) leak.
+This restores 79 for the reproduction (no category is ever promoted to "present" by a bare
+route-carrying PASS), and additionally _fixes_ the latent leak for `headTagRule`/`title-presence`
+today — a behavior change for those eleven rule ids under `--diff`/`--staged` specifically, which
+needs its own characterization test (below) and a changeset callout, since it can move a reported
+`--diff` Health number downward for existing users relying on the current (arguably accidental)
+leak. Measured on the minimal reproduction (one critical `correctness` finding plus one
+`headTagRule`-backed PASS, both in the changed set, `defaultConfig`): 89 → 79, confirming this
+spike's own earlier note that the minimal case floors to 89, not the original bug report's 90.
+
+**The `architecture/unit-entry-file` exception (maintainer ruling, 2026-08-08; corrected
+2026-08-09 after independent review).** This spike's initial blast-radius pass missed that
+`architecture/unit-entry-file.ts` already emits a route-less, location-carrying PASS per
+conforming unit (PR #337, "make a displayed score of 100 mean zero findings") — deliberately, so
+that pass stays visible under `--diff` when its entry file changes
+(`packages/cli/test/changed-files.test.ts`, "spec testing item 7"). A blanket `isPenalized`-only
+redefinition would silently reverse that shipped decision and fail the pinned test.
+
+An earlier version of this paragraph claimed the carve-out was score-inert in both directions.
+That is wrong, and was refuted by an independent review that measured it directly: keeping this
+PASS on a changed file moves `--diff` Health **79 → 89** — the _same_ absent→fabricated-100
+promotion this PR eliminates everywhere else. The mechanism: `scoresByCategory`
+(`packages/core/src/scoring/score.ts:141-157`) buckets every result by `category` regardless of
+`route`, so a lone route-less `architecture` PASS still makes `architecture` _present_ in
+`computeHealth`'s weighted average; `computeScore`'s `keyCount === 0` branch then floors that
+category's `rawRouteAverage` to 100, because `observed` (the per-`route` key map the denominator
+is built from) never sees a route-less result at all. Only the narrower claim — that this PASS
+never seeds a _per-route key's own deficit fraction_, since `computeScore` splits `routeResults`
+from `projectResults` by `route` presence — was true; that is not the same as being invisible to
+`computeHealth`.
+
+So the carve-out does not add new behavior here: `filterToChangedFiles` on `main` already kept this
+pass (identical 79→89 movement, unconditionally, since old-`main`'s filter had no `isPenalized`
+gate at all). The carve-out **preserves** PR #337's shipped tradeoff exactly as it always
+worked — a conforming unit's pass stays visible under `--diff` when its entry file changes, at the
+cost of promoting `architecture` to a fabricated 100 in that scoped Health number — rather than
+introducing or removing it. The redefinition above keeps a PASS unconditionally when
+`route === undefined`, and drops one unconditionally when `route` is present (the general case,
+including the three rules named in this spike, whose Health contribution under `--diff` is
+unaffected by this PR either way — see the `svelte-vitals` changeset).
+
+This carve-out is shape-keyed (`route === undefined`), not id-keyed to `unit-entry-file`
+specifically — `unit-entry-file` is the sole current PASS-emitting rule matching that shape, but
+any future rule that emits a route-less, located PASS inherits both halves of the tradeoff
+automatically: `--diff` visibility for that pass, and the same category-promotion cost. A rule
+author choosing that shape should weigh both, not just the visibility this exception was written
+to preserve. Whether to retire the tradeoff entirely (e.g. by giving `computeScore`'s denominator
+its own opt-out for route-less results, independent of `--diff` scoping) is an open maintainer
+question, out of scope for this spike.
 
 ### `findingKey` / `filterToNewFindings`
 
@@ -317,36 +369,65 @@ signature and format unchanged; only the two call sites change to filter first.
 
 ## Blast radius
 
-Grepping `detection: PASS` (plus `performance/preconnect`'s literal-object equivalent, which the
-string grep misses) across `packages/core/src/rules/`:
+**Amendment (2026-08-08, post-acceptance):** the table below originally came from grepping
+`detection: PASS` plus one named carve-out for `performance/preconnect`'s literal-object
+equivalent (`{ presence: 'own', value: 'static' }`), which the string grep misses because it
+doesn't import the named `PASS` constant. That carve-out was itself incomplete — `preconnect` is
+not the only rule using an uncaught inline literal instead of the shared constant. The executor
+implementing this spike found five more such files during characterization (`perf/lcp-image.ts`,
+`perf/render-blocking-script.ts`, `perf/link-rule.ts`, `perf/image-rule.ts`,
+`architecture/private-scope-import.ts`, backing 9 rule ids), verified each against live source,
+and the maintainer ruled they belong in the same convention — the table below is the corrected,
+complete enumeration. The construction method going forward: grep both `detection: PASS` **and**
+`presence: 'own', value: 'static'` (the two ways a PASS-shaped `Detection` literal appears) across
+`packages/core/src/rules/`.
 
-| File                                   | Location in PASS today  | Rule id(s) it backs                                                                                                                                                                                                        |
-| -------------------------------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `seo/head-tag-rule.ts`                 | **yes** (unconditional) | `seo/canonical-url`, `og-title`, `og-image`, `charset`, `viewport`, `twitter-card`, `description-presence`, `og-description`, `json-ld`, `og-url`                                                                          |
-| `seo/title-presence.ts`                | **yes** (unconditional) | `seo/title-presence`                                                                                                                                                                                                       |
-| `seo/length-rule.ts`                   | no                      | `seo/title-length`, `seo/description-length`                                                                                                                                                                               |
-| `perf/preconnect.ts`                   | no                      | `performance/preconnect`                                                                                                                                                                                                   |
-| `component-rule.ts`                    | no                      | 20 rule ids across `security`, `correctness`, `architecture`, `performance` (e.g. `correctness/each-key`, `architecture/prop-count`, `security/raw-html`, `perf/heavy-import` — every rule built via `componentRule(...)`) |
-| `kit-module-rule.ts`                   | no                      | `security/shared-state-import`, `security/server-module-state`, `security/handler-state-write`, `performance/load-waterfall`, `performance/sequential-awaits`, `seo/ssr-disabled`                                          |
-| `seo/jsonld-engine.ts`                 | no                      | `seo/json-ld-date-format`, `json-ld-placeholder`, `json-ld-deprecated-type`, `json-ld-relative-url`, `json-ld-required-props`                                                                                              |
-| `seo/json-ld-validity.ts`              | no                      | `seo/json-ld-validity`                                                                                                                                                                                                     |
-| `seo/heading-level-skip.ts`            | no                      | `seo/heading-level-skip`                                                                                                                                                                                                   |
-| `seo/hreflang.ts`                      | no                      | `seo/hreflang`                                                                                                                                                                                                             |
-| `seo/single-h1.ts`                     | no                      | `seo/single-h1`                                                                                                                                                                                                            |
-| `seo/uniqueness-rule.ts`               | no                      | `seo/duplicate-title`, `seo/duplicate-description`                                                                                                                                                                         |
-| `correctness/base-path-navigation.ts`  | no                      | `correctness/base-path-navigation`                                                                                                                                                                                         |
-| `correctness/orphan-lifecycle.ts`      | no                      | `correctness/orphan-lifecycle`                                                                                                                                                                                             |
-| `correctness/server-browser-global.ts` | no                      | `correctness/server-browser-global`                                                                                                                                                                                        |
+| File                                   | Location in PASS today                                                                 | Rule id(s) it backs                                                                                                                                                                                                        |
+| -------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `seo/head-tag-rule.ts`                 | **yes** (unconditional)                                                                | `seo/canonical-url`, `og-title`, `og-image`, `charset`, `viewport`, `twitter-card`, `description-presence`, `og-description`, `json-ld`, `og-url`                                                                          |
+| `seo/title-presence.ts`                | **yes** (unconditional)                                                                | `seo/title-presence`                                                                                                                                                                                                       |
+| `architecture/unit-entry-file.ts`      | **yes** (route-less; see the `filterToChangedFiles` "unit-entry-file exception" below) | `architecture/unit-entry-file`                                                                                                                                                                                             |
+| `seo/length-rule.ts`                   | no                                                                                     | `seo/title-length`, `seo/description-length`                                                                                                                                                                               |
+| `perf/preconnect.ts`                   | no                                                                                     | `performance/preconnect`                                                                                                                                                                                                   |
+| `component-rule.ts`                    | no                                                                                     | 20 rule ids across `security`, `correctness`, `architecture`, `performance` (e.g. `correctness/each-key`, `architecture/prop-count`, `security/raw-html`, `perf/heavy-import` — every rule built via `componentRule(...)`) |
+| `kit-module-rule.ts`                   | no                                                                                     | `security/shared-state-import`, `security/server-module-state`, `security/handler-state-write`, `performance/load-waterfall`, `performance/sequential-awaits`, `seo/ssr-disabled`                                          |
+| `seo/jsonld-engine.ts`                 | no                                                                                     | `seo/json-ld-date-format`, `json-ld-placeholder`, `json-ld-deprecated-type`, `json-ld-relative-url`, `json-ld-required-props`                                                                                              |
+| `seo/json-ld-validity.ts`              | no                                                                                     | `seo/json-ld-validity`                                                                                                                                                                                                     |
+| `seo/heading-level-skip.ts`            | no                                                                                     | `seo/heading-level-skip`                                                                                                                                                                                                   |
+| `seo/hreflang.ts`                      | no                                                                                     | `seo/hreflang`                                                                                                                                                                                                             |
+| `seo/single-h1.ts`                     | no                                                                                     | `seo/single-h1`                                                                                                                                                                                                            |
+| `seo/uniqueness-rule.ts`               | no                                                                                     | `seo/duplicate-title`, `seo/duplicate-description`                                                                                                                                                                         |
+| `correctness/base-path-navigation.ts`  | no                                                                                     | `correctness/base-path-navigation`                                                                                                                                                                                         |
+| `correctness/orphan-lifecycle.ts`      | no                                                                                     | `correctness/orphan-lifecycle`                                                                                                                                                                                             |
+| `correctness/server-browser-global.ts` | no                                                                                     | `correctness/server-browser-global`                                                                                                                                                                                        |
+| `perf/lcp-image.ts`                    | no (added below)                                                                       | `performance/lcp-image`                                                                                                                                                                                                    |
+| `perf/render-blocking-script.ts`       | no (added below)                                                                       | `performance/render-blocking-script`                                                                                                                                                                                       |
+| `perf/link-rule.ts`                    | no (added below)                                                                       | `performance/font-preload-crossorigin`, `performance/preload-missing-as`                                                                                                                                                   |
+| `perf/image-rule.ts`                   | no (added below)                                                                       | `performance/image-dimensions`, `performance/image-loading-hint`, `performance/responsive-image`, `seo/image-alt`                                                                                                          |
+| `architecture/private-scope-import.ts` | no (added below)                                                                       | `architecture/private-scope-import`                                                                                                                                                                                        |
 
 Project-scoped rules (`seo/robots-txt`, `sitemap-xml`, `html-lang`, etc.) are excluded: `route` is
 undefined for them, `overrides` never applies to them ("Findings that aren't attached to a route
 or file ... are never affected" — configuration guide), and `filterToChangedFiles`/`findingKey`
 already drop them via the same "no `location`" path this spike is replacing, correctly, by design.
 
-**Under option (a):** every row above except the first two gains a one-line `location:` addition
-to an existing object literal, each reusing a value already computed in the surrounding function
-(the same pattern the reverted `e67ed9a` used for the two rules it touched). No rule's `id`,
-`severity`, or `detection` changes — only which results become matchable by `files:`.
+**Under option (a):** every row above except the first three gains a one-line `location:` addition
+to an existing object literal. Where the surrounding function already computes the exact value the
+penalized branch uses (`length-rule`, `hreflang`, `uniqueness-rule`, `component-rule`,
+`kit-module-rule`, `jsonld-engine`, `json-ld-validity`, the three `emitFile`-shaped correctness
+rules, `lcp-image`, `private-scope-import`), the PASS branch reuses it — the same pattern the
+reverted `e67ed9a` used for the two rules it touched. Three rows have no such value to reuse,
+because their PASS branch covers many items at once with no single winning one (`preconnect`,
+`render-blocking-script`, `link-rule`) or their fact channel carries no route-level file at all
+unlike `ResolvedHead.file` (`heading-level-skip`, `single-h1`, `image-rule`, which read
+`ResolvedHeadings`/`ResolvedImages` instead of `ResolvedHead`); for those, the uniform attribution
+is the route's own representative file — `head.file` where a `ResolvedHead` is in scope
+(`preconnect`, `render-blocking-script`, `link-rule`), or the first item in the per-route array
+otherwise (`route.headings[0].file` for `heading-level-skip`, `h1[0].file` for `single-h1`,
+`route.images[0].file` for `image-rule`) — reasoning: a pass seed's `location` exists so a
+`files:` glob can target the ROUTE's pass; per-tag/per-item penalized locations remain per-tag/item
+regardless. No rule's `id`, `severity`, or `detection` changes — only which results become
+matchable by `files:`.
 
 **Score-visible effects:** none for CLI reports without `--diff`/`--staged`/`--baseline` — `score.ts`
 never reads `location`, confirmed by the revert commit's own audit note ("scoring/*.ts never reads
@@ -420,16 +501,18 @@ section.
 
 ## Out of scope / open questions
 
-- **Which PR actually implements this.** This document is the spike only; no source file changes.
-- **Whether `filterToChangedFiles`'s signature change (`+ config`) is acceptable.** It currently
-  takes no `Config`; threading one through touches its one call site
-  (`packages/cli/src/index.ts:309`) and every existing test. An alternative is a module-level
-  default (`treatDynamicAs: 'pass'`) if callers never have a `Config` in hand — needs the
-  maintainer's read on whether `--diff` should honor a project's `treatDynamicAs` setting or not.
+- **Which PR actually implements this.** Resolved: implemented in the same PR that fixed this
+  document's Status to Accepted (fix/382-pass-location-uniform).
+- **Whether `filterToChangedFiles`'s signature change (`+ config`) is acceptable.** Resolved:
+  threaded through as an optional parameter defaulting to `defaultConfig`, mirroring
+  `filterToNewFindings` in `baseline.ts` — consistent within the same module family. Its one call
+  site (`packages/cli/src/index.ts`, `applyScope`) has `opts.config` available and passes it.
 - **Whether the `--diff`/`--staged` Health drop for `headTagRule`-backed rules (item 3 above) needs
   its own changeset entry distinct from the `files:`-override fix**, since it's a behavior change
-  users could plausibly notice even though it's a bug fix, not a new limitation.
+  users could plausibly notice even though it's a bug fix, not a new limitation. Resolved: yes,
+  named explicitly in the `svelte-vitals` changeset (measured 89 → 79 on the reference shape).
 - **The Action repo's own release cadence** relative to this fix — not this repo's call to make.
+  Still open; flagged in the changeset body per the Blast radius section above.
 - **Whether `overrideMatches`/`applyOverrides` should eventually be taught to prefer `location` but
   fall back to treating `scope: 'component'` rules' `route` as a path** (a narrower, sound version
   of option (b)'s idea) as a _defense in depth_ alongside option (a) — deferred; option (a) alone

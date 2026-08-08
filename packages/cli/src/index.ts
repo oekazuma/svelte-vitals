@@ -356,7 +356,7 @@ export async function applyScope(results: Result[], opts: ApplyScopeOptions): Pr
         'svelte-vitals: could not determine changed files (not a git repo, git unavailable, or bad ref); analyzing all.'
       );
     } else {
-      scoped = filterToChangedFiles(scoped, changed);
+      scoped = filterToChangedFiles(scoped, changed, opts.config);
     }
   }
 

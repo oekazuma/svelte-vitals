@@ -81,6 +81,9 @@ export function componentRule(opts: ComponentRuleOptions): Rule {
             severity,
             detection: PASS,
             route: c.file,
+            // Uniform PASS-result attribution (design 2026-08-08-pass-result-location-design.md):
+            // same location a penalized result for this file would carry.
+            location: c.file,
             message: opts.label,
             recommendation,
             docsUrl

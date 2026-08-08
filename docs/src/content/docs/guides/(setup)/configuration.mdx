@@ -120,13 +120,6 @@ Semantics worth knowing:
 
 - `'off'` removes matching findings entirely — they don't fail the run and don't drag the
   score, as if the rule hadn't run there. A severity value re-classifies instead.
-- For a small number of rules — currently [`seo/title-length`](/rules/seo/title-length),
-  [`seo/description-length`](/rules/seo/description-length), and
-  [`performance/preconnect`](/rules/performance/preconnect) — a passing result carries no file
-  location, so a `files:`-scoped `'off'` removes their penalized findings but not their passing
-  seed, and the score can still move. `route:`-scoped `'off'` is unaffected. Prefer `route:` over
-  `files:` for these rules until the underlying inconsistency is fixed
-  ([#382](https://github.com/oekazuma/svelte-vitals/issues/382)).
 - Entries are evaluated in order and **later entries win**; within one entry, a rule-id key
   beats a category key **when it specifies a severity**. An options-only rule-id key (no
   `severity`) contributes its options but leaves the category key's severity in force — it

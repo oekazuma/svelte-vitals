@@ -39,6 +39,9 @@ describe('performance/lcp-image LCP image eager loading', () => {
     const rs = await performanceLcpImage.check(imagesCtx([{ route: '/a', images: [img({ lazy: false })] }]));
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
+    // Same file the penalized branch would use (design 2026-08-08-pass-result-location-design.md;
+    // this rule's inline PASS literal was missed by the design spike's grep, added afterward).
+    expect(rs[0]!.location).toBe('src/routes/+page.svelte');
   });
   it('only inspects the first image (a later lazy image is not flagged)', async () => {
     const rs = await performanceLcpImage.check(
@@ -87,6 +90,9 @@ describe('performance/render-blocking-script render-blocking script', () => {
     );
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
+    // The route's own attributed file (design 2026-08-08-pass-result-location-design.md;
+    // this rule's inline PASS literal was missed by the design spike's grep, added afterward).
+    expect(rs[0]!.location).toBe('x');
   });
   it('also flags a blocking script in static mode (svelte:head)', async () => {
     const rs = await performanceRenderBlockingScript.check(
@@ -123,7 +129,7 @@ describe('performance/preconnect preconnect third-party origin', () => {
     expect(fails(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1);
   });
-  it('a passing result carries no location (reverted in e67ed9a — see design doc "Out of scope")', async () => {
+  it('a passing result carries the same location a penalized result on this route would (design 2026-08-08-pass-result-location-design.md)', async () => {
     const rs = await performancePreconnect.check(
       headsCtx(
         head('rendered', [
@@ -132,7 +138,7 @@ describe('performance/preconnect preconnect third-party origin', () => {
         ])
       )
     );
-    expect(rs[0]!.location).toBeUndefined();
+    expect(rs[0]!.location).toBe('x'); // head('rendered', ...)'s head.file
   });
   it('emits nothing when no third-party origin is referenced', async () => {
     const rs = await performancePreconnect.check(
@@ -263,5 +269,33 @@ describe('performance/preconnect preconnect third-party origin', () => {
       headsCtx(head('rendered', [link('preconnect', 'https://other.example.com')]))
     );
     expect(rs).toHaveLength(0);
+  });
+
+  it("issue #382 regression: a files:-scoped 'off' on the PASSING route's file removes its pass seed, not just the failing route's finding", async () => {
+    const passHead = head('rendered', [
+      link('preconnect', 'https://fonts.googleapis.com'),
+      link('stylesheet', 'https://fonts.googleapis.com/css2?x')
+    ]);
+    passHead.route = '/pass';
+    passHead.file = 'src/routes/pass/+page.svelte';
+    const failHead = head('rendered', [link('stylesheet', 'https://fonts.googleapis.com/css2?x')]);
+    failHead.route = '/fail';
+    failHead.file = 'src/routes/fail/+page.svelte';
+
+    const rs = await performancePreconnect.check({
+      heads: [passHead, failHead],
+      project: defaultProject,
+      config: defineConfig({})
+    });
+    expect(rs).toHaveLength(2); // one pass seed, one failing finding, before any override
+
+    const cfg = {
+      overrides: [{ files: 'src/routes/pass/+page.svelte', rules: { 'performance/preconnect': 'off' as const } }]
+    };
+    const out = applyOverrides(rs, defineConfig(cfg));
+    // Before this fix, the pass seed survived (no `location` for the matcher to key on) and
+    // `out` stayed length 2 — the bug the issue reported. Only the failing route remains.
+    expect(out).toHaveLength(1);
+    expect(out[0]!.route).toBe('/fail');
   });
 });

@@ -28,6 +28,9 @@ describe('head-tag rules', () => {
       ctx([{ kind: 'meta', name: 'description', presence: 'own', value: 'static' }])
     );
     expect(r!.detection).toEqual({ presence: 'own', value: 'static' });
+    // Already true before design 2026-08-08-pass-result-location-design.md (spike test-plan
+    // item 2) — headTagRule sets `location: head.file` unconditionally, on both branches.
+    expect(r!.location).toBe('src/routes/x/+page.svelte');
   });
   it('seo/canonical-url matches link rel=canonical', async () => {
     const [r] = await seoCanonicalUrl.check(

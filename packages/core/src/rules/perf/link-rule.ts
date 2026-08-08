@@ -43,6 +43,13 @@ export function linkRule(opts: LinkRuleOptions): Rule {
             severity: opts.severity,
             detection: { presence: 'own', value: 'static' },
             route: head.route,
+            // The route's own attributed file (design 2026-08-08-pass-result-location-design.md)
+            // — this uncaught inline PASS literal was missed by the design spike's grep and
+            // added to its blast-radius table afterward (maintainer ruling, same date). No
+            // single per-tag location applies here (many links can back one pass), so the
+            // route's own head file is the uniform attribution; per-tag penalized locations
+            // above remain per-tag.
+            location: head.file,
             message: opts.label,
             recommendation: opts.recommendation,
             docsUrl

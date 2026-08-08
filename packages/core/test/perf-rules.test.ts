@@ -61,6 +61,10 @@ describe('performance/image-dimensions image dimensions', () => {
     expect(results[0]!.detection.presence).toBe('own');
     // A passing seed has nothing to remediate, so it carries no fix.
     expect('fix' in results[0]!).toBe(false);
+    // ResolvedImages has no route-level file (unlike ResolvedHead) — the route's first
+    // image stands in as its attributed file (design 2026-08-08-pass-result-location-design.md;
+    // imageRule's inline PASS literal was missed by the design spike's grep, added afterward).
+    expect(results[0]!.location).toBe('src/routes/+page.svelte');
   });
 
   it('emits one finding per offending image', async () => {

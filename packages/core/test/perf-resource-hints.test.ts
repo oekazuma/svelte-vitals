@@ -25,6 +25,10 @@ describe('performance/preload-missing-as preload missing as', () => {
     );
     expect(failing(rs)).toHaveLength(0);
     expect(rs).toHaveLength(1); // one passing result seeds the route
+    // The route's own attributed file — linkRule's shared PASS branch (design
+    // 2026-08-08-pass-result-location-design.md; missed by the design spike's grep, added
+    // afterward). No single per-tag location applies (many links can back one pass).
+    expect(rs[0]!.location).toBe('x');
   });
   it('does not fire on a dynamically-bound as (present)', async () => {
     const rs = await performancePreloadMissingAs.check(ctx(headWith([{ kind: 'link', rel: 'preload', hasAs: true }])));

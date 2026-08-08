@@ -129,6 +129,9 @@ describe('architecture/private-scope-import', () => {
     expect(rs).toHaveLength(1);
     // Pinned wording: a PASS must read as a pass, not echo the violation message.
     expect(rs[0]!.message).toBe('No private-scope imports');
+    // Same location the penalized branch uses (design 2026-08-08-pass-result-location-design.md;
+    // this rule's inline PASS literal was missed by the design spike's grep, added afterward).
+    expect(rs[0]!.location).toBe('src/lib/Card/Card.svelte');
   });
 
   it('passes a sibling import within the same parts/ directory', async () => {

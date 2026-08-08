@@ -39,6 +39,9 @@ describe('seo/title-presence title detection', () => {
     const [result] = await seoTitlePresence.check({ heads: [staticHead], project: defaultProject, config });
     expect(result!.detection).toEqual({ presence: 'own', value: 'static' });
     expect(classify(result!, config)).toBe('pass');
+    // Already true before design 2026-08-08-pass-result-location-design.md (spike test-plan
+    // item 2) — title-presence sets `location: head.file` unconditionally, on both branches.
+    expect(result!.location).toBe('src/routes/static/+page.svelte');
   });
 
   it('treats a dynamic title as present and never penalizes it', async () => {

@@ -133,6 +133,11 @@ export const architecturePrivateScopeImport: Rule = {
           severity: 'info',
           detection: { presence: 'own', value: 'static' },
           route: c.file,
+          // Same location the penalized branch below uses (design
+          // 2026-08-08-pass-result-location-design.md) — this uncaught inline PASS literal
+          // was missed by the design spike's grep and added to its blast-radius table
+          // afterward (maintainer ruling, same date).
+          location: c.file,
           message: 'No private-scope imports',
           recommendation,
           docsUrl

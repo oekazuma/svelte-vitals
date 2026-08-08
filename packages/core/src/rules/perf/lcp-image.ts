@@ -50,6 +50,11 @@ export const performanceLcpImage: Rule = {
               severity: 'warning',
               detection: { presence: 'own', value: 'static' },
               route: route.route,
+              // Same `location` the penalized branch above uses (design
+              // 2026-08-08-pass-result-location-design.md) — this uncaught inline PASS literal
+              // was missed by the design spike's grep and added to its blast-radius table
+              // afterward (maintainer ruling, same date).
+              location: first.file,
               message: 'LCP image eager loading',
               recommendation,
               docsUrl
