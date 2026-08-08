@@ -182,6 +182,9 @@ export function resolveArgs(argv: CliArgv): ResolvedArgs {
 
   for (const flag of VALUE_FLAGS) {
     const v = argv[flag];
+    // '-' is --out-file's documented stdout value (--help, reporters guide) — the only
+    // string flag with a legitimate dash value; anything else dash-shaped stays rejected.
+    if (flag === 'out-file' && v === '-') continue;
     if (v !== undefined && (typeof v !== 'string' || v.trim() === '' || v.startsWith('-'))) {
       errors.push(`svelte-vitals: --${flag} requires a value.`);
     }
