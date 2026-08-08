@@ -37,7 +37,7 @@ import { colorEnabled, paletteFor } from './color.js';
 import { startSpinner } from './spinner.js';
 import { startMascotSpinner, mascotFitsWidth } from './mascot.js';
 import { playMascotGreeting, bubbleFitsWidth } from './speech-bubble.js';
-import { loadConfigFile } from './config-file.js';
+import { loadConfigFile, type LoadedConfigFile } from './config-file.js';
 import { playScoreAnimation, scoreAnimationEnabled } from './pulse-animation.js';
 import { resolveRuleSelection } from './rule-selection.js';
 
@@ -175,6 +175,13 @@ export interface AnalyzeOptions {
    * omit this; a fresh cache is created automatically.
    */
   parseCache?: ParseCache;
+  /**
+   * Result of a `loadConfigFile()` call to reuse instead of loading from `cwd`.
+   * Pass the value loaded from the real project so a secondary analysis (the
+   * `--baseline` worktree) runs under the same config file; `null` means "the
+   * project has no config file — do not look for one".
+   */
+  loadedConfig?: LoadedConfigFile | null;
 }
 
 export interface AnalyzeResult {
@@ -187,6 +194,13 @@ export interface AnalyzeResult {
   examined: Record<string, Record<string, number>>;
   /** Non-fatal config-file issues (unknown top-level keys, invalid enum values). Empty when no config file or none found. */
   warnings: string[];
+  /**
+   * This analysis's config-file load result (`undefined` when no config file exists at its
+   * `cwd`). A caller running a second `analyzeProject` against a different cwd for the same
+   * logical project (e.g. `applyScope`'s `--baseline` worktree) should pass this back in via
+   * `AnalyzeOptions.loadedConfig` (`?? null`) so both sides run under the same config.
+   */
+  loadedConfig?: LoadedConfigFile;
 }
 
 /**
@@ -204,7 +218,7 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   const cwd = opts.cwd ?? process.cwd();
   const rt = createNodeRuntime();
 
-  const loaded = await loadConfigFile(cwd);
+  const loaded = opts.loadedConfig !== undefined ? (opts.loadedConfig ?? undefined) : await loadConfigFile(cwd);
   const file = loaded?.config;
 
   const weights = opts.weights ?? file?.weights;
@@ -242,7 +256,15 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     sourceFiles
   });
   const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
-  return { results, config, version: readPackageVersion(), ruleIds: rules.map((r) => r.id), examined, warnings };
+  return {
+    results,
+    config,
+    version: readPackageVersion(),
+    ruleIds: rules.map((r) => r.id),
+    examined,
+    warnings,
+    loadedConfig: loaded
+  };
 }
 
 export interface ApplyScopeOptions {
@@ -462,8 +484,10 @@ export async function run(opts: RunOptions = {}): Promise<number> {
       baseline: opts.baseline,
       noSuppressions: opts.noSuppressions,
       errorLog,
-      // No `cwd` — applyScope analyzes the baseline in its own checkout.
-      analyzeOpts: runAnalyzeOptions(opts)
+      // No `cwd` — applyScope analyzes the baseline in its own checkout. `loadedConfig` reuses
+      // this run's config-file load so the baseline side doesn't re-load svelte-vitals.config.*
+      // from inside the worktree, which has no node_modules in its ancestry.
+      analyzeOpts: { ...runAnalyzeOptions(opts), loadedConfig: analysis.loadedConfig ?? null }
     });
     const summary = summarize(results, config);
 
