@@ -225,20 +225,45 @@ leak. Measured on the minimal reproduction (one critical `correctness` finding p
 `headTagRule`-backed PASS, both in the changed set, `defaultConfig`): 89 → 79, confirming this
 spike's own earlier note that the minimal case floors to 89, not the original bug report's 90.
 
-**The `architecture/unit-entry-file` exception (maintainer ruling, 2026-08-08).** This spike's
-initial blast-radius pass missed that `architecture/unit-entry-file.ts` already emits a
-route-less, location-carrying PASS per conforming unit (PR #337, "make a displayed score of 100
-mean zero findings") — deliberately, so that pass stays visible under `--diff` when its entry file
-changes (`packages/cli/test/changed-files.test.ts`, "spec testing item 7"). A blanket
-`isPenalized`-only redefinition would silently reverse that shipped decision and fail the pinned
-test. This PASS is score-inert in **both** directions: `computeScore`'s per-category denominator
-is seeded from `route`, and this result never carries one (that omission is PR #337's own fix), so
-the "a bare PASS fabricates a 100 and inflates the category average" mechanism above cannot apply
-to it — there is no category to promote, in this direction or the reverse. The redefinition above
-therefore keeps a PASS unconditionally when `route === undefined`, and drops one unconditionally
-when `route` is present (the general case, including the three rules named in this spike). No
-other current PASS-emitting rule is route-less — `unit-entry-file` is the sole beneficiary of this
-clause today.
+**The `architecture/unit-entry-file` exception (maintainer ruling, 2026-08-08; corrected
+2026-08-09 after independent review).** This spike's initial blast-radius pass missed that
+`architecture/unit-entry-file.ts` already emits a route-less, location-carrying PASS per
+conforming unit (PR #337, "make a displayed score of 100 mean zero findings") — deliberately, so
+that pass stays visible under `--diff` when its entry file changes
+(`packages/cli/test/changed-files.test.ts`, "spec testing item 7"). A blanket `isPenalized`-only
+redefinition would silently reverse that shipped decision and fail the pinned test.
+
+An earlier version of this paragraph claimed the carve-out was score-inert in both directions.
+That is wrong, and was refuted by an independent review that measured it directly: keeping this
+PASS on a changed file moves `--diff` Health **79 → 89** — the _same_ absent→fabricated-100
+promotion this PR eliminates everywhere else. The mechanism: `scoresByCategory`
+(`packages/core/src/scoring/score.ts:141-157`) buckets every result by `category` regardless of
+`route`, so a lone route-less `architecture` PASS still makes `architecture` _present_ in
+`computeHealth`'s weighted average; `computeScore`'s `keyCount === 0` branch then floors that
+category's `rawRouteAverage` to 100, because `observed` (the per-`route` key map the denominator
+is built from) never sees a route-less result at all. Only the narrower claim — that this PASS
+never seeds a _per-route key's own deficit fraction_, since `computeScore` splits `routeResults`
+from `projectResults` by `route` presence — was true; that is not the same as being invisible to
+`computeHealth`.
+
+So the carve-out does not add new behavior here: `filterToChangedFiles` on `main` already kept this
+pass (identical 79→89 movement, unconditionally, since old-`main`'s filter had no `isPenalized`
+gate at all). The carve-out **preserves** PR #337's shipped tradeoff exactly as it always
+worked — a conforming unit's pass stays visible under `--diff` when its entry file changes, at the
+cost of promoting `architecture` to a fabricated 100 in that scoped Health number — rather than
+introducing or removing it. The redefinition above keeps a PASS unconditionally when
+`route === undefined`, and drops one unconditionally when `route` is present (the general case,
+including the three rules named in this spike, whose Health contribution under `--diff` is
+unaffected by this PR either way — see the `svelte-vitals` changeset).
+
+This carve-out is shape-keyed (`route === undefined`), not id-keyed to `unit-entry-file`
+specifically — `unit-entry-file` is the sole current PASS-emitting rule matching that shape, but
+any future rule that emits a route-less, located PASS inherits both halves of the tradeoff
+automatically: `--diff` visibility for that pass, and the same category-promotion cost. A rule
+author choosing that shape should weigh both, not just the visibility this exception was written
+to preserve. Whether to retire the tradeoff entirely (e.g. by giving `computeScore`'s denominator
+its own opt-out for route-less results, independent of `--diff` scoping) is an open maintainer
+question, out of scope for this spike.
 
 ### `findingKey` / `filterToNewFindings`
 
