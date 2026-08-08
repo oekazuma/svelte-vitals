@@ -114,6 +114,7 @@ body{background:var(--ground);color:var(--ink);font-family:var(--sans);line-heig
 .dv-cat-top{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
 .dv-bar{height:7px;border-radius:999px;background:var(--line);overflow:hidden}
 .dv-bar>i{display:block;height:100%;border-radius:999px}
+.dv-cat-reach{font-size:11.5px;color:var(--muted);margin-top:5px}
 .dv-filters{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
 .dv-chip{font:inherit;font-size:12.5px;font-weight:600;cursor:pointer;background:var(--panel);border:1px solid var(--line-strong);color:var(--muted);padding:5px 12px;border-radius:999px}
 .dv-chip[aria-pressed="true"]{background:var(--active-bg);border-color:var(--active-bg);color:var(--active-ink)}
@@ -596,12 +597,21 @@ export const APP_SCRIPT: string = `
       var band = scoreBand(c.score);
       var weight = s.report.weights[cat];
       var name = cat === 'seo' ? 'SEO' : cat.charAt(0).toUpperCase() + cat.slice(1);
+      // keys/affectedKeys are absent on hand-built snapshots (older fixtures, tests) —
+      // render nothing rather than "undefined of undefined". 0 affected of N keys is still
+      // rendered: on a real project that's the signal a thin score can't give, that the
+      // category is clean project-wide and not just on the one key it happened to look at
+      // (design: 2026-08-05-score-floor-and-reach-design.md).
+      var reach = typeof c.keys === 'number' && c.keys > 0
+        ? h('div', { class: 'dv-cat-reach', text: c.affectedKeys + ' of ' + c.keys + ' keys affected' }, [])
+        : null;
       return h('div', { class: 'dv-cat' }, [
         h('div', { class: 'dv-cat-top' }, [
           h('span', { text: name + (weight !== undefined ? ' (weight ' + weight + ')' : '') }, []),
           h('span', { style: 'color:' + BAND_COLOR[band], text: String(c.score) }, [])
         ]),
-        h('div', { class: 'dv-bar' }, [h('i', { style: 'width:' + c.score + '%;background:' + BAND_COLOR[band] }, [])])
+        h('div', { class: 'dv-bar' }, [h('i', { style: 'width:' + c.score + '%;background:' + BAND_COLOR[band] }, [])]),
+        reach
       ]);
     });
     var chips = renderFilterChips(s.report.categories);

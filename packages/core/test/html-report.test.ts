@@ -176,6 +176,33 @@ describe('formatHtmlReport', () => {
     const html = formatHtmlReport(results, defineConfig({}), { version: '0.0.0' });
     expect(html).toContain('"categories":{"seo":95}');
   });
+
+  it('carries category reach (keys/affectedKeys) into the embedded snapshot (issue #388)', () => {
+    // core has no jsdom dependency, so unlike packages/vite/test/dashboard-script-overview-reach.test.ts
+    // this only pins the data reaching the client, not the client's rendering of it.
+    const results: Result[] = [
+      {
+        id: 'seo/canonical-url',
+        category: 'seo',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        message: 'x'
+      },
+      {
+        id: 'seo/canonical-url',
+        category: 'seo',
+        severity: 'warning',
+        detection: { presence: 'own', value: 'static' },
+        route: '/b',
+        message: 'x'
+      }
+    ];
+    const html = formatHtmlReport(results, defineConfig({}), { version: '0.0.0' });
+    const snapshot = extractEmbeddedSnapshot(html);
+    expect(snapshot.report.categories.seo).toMatchObject({ keys: 2, affectedKeys: 1 });
+    expect(html).toContain('"keys":2,"affectedKeys":1');
+  });
 });
 
 describe('parity with the live dashboard shell', () => {
