@@ -6,4 +6,4 @@ Every rule's PASS results now carry the same `location` a penalized result on th
 
 `architecture/unit-entry-file`'s per-declaration pass (deliberately route-less since #337) is unchanged — it never had this bug (`location` without `route` was never reachable by a `route:` glob to begin with, and `files:` already matched it via `location`).
 
-No rule's `id`, `severity`, or `detection` changes, and `score.ts` never reads `location` — scoring is unaffected outside `--diff`/`--staged`/`--baseline`. See `docs/superpowers/specs/2026-08-08-pass-result-location-design.md` for the full design record and blast-radius enumeration.
+No rule's `id`, `severity`, or `detection` changes, and `score.ts` never reads `location` directly. Scores can still move in any mode through the fix itself: a `files:`-scoped `'off'` now removes the passing seeds it always claimed to (the issue's reproduction moves 98 → 96 once the seed is gone), where before it silently removed only the penalized findings. See `docs/superpowers/specs/2026-08-08-pass-result-location-design.md` for the full design record and blast-radius enumeration.
