@@ -15,6 +15,9 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
+      # persist-credentials stays default (true) here, unlike the other workflows' checkouts:
+      # changesets/action below pushes the Version Packages release branch using these
+      # persisted git credentials.
       - name: Checkout Repo
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Setup Node.js and dependencies
