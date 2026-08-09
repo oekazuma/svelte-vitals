@@ -54,20 +54,24 @@ export async function collectAll(
   opts: CollectAllOptions = {}
 ): Promise<CollectedFacts> {
   const matches = routeMatcher(opts.route);
-  const collected = await collectRoutes(rt, cwd, config, opts.parseCache);
+  // project is resolved first: collectKitModuleFacts needs project.kitAliases, so
+  // everything else that's independent of it runs alongside it in one Promise.all.
+  const project = await collectProjectFacts(rt, cwd);
+  const [collected, components, kitModules, sourceFiles] = await Promise.all([
+    collectRoutes(rt, cwd, config, opts.parseCache),
+    // Component (Correctness) facts are file-scoped with no route attribution yet, so a
+    // route-filtered run skips them rather than reporting unrelated components (#68 review);
+    // kitModules is skipped for the same reason.
+    opts.route ? [] : collectComponentFacts(rt, cwd),
+    opts.route ? [] : collectKitModuleFacts(rt, cwd, project.kitAliases),
+    // Unlike its two neighbours above, the --route branch gets `undefined` here, not `[]`: an empty
+    // inventory would tell architecture/unit-entry-file that the declared unit directories truly do
+    // not exist, so it would report every declaration as inert, whereas `undefined` means the mode
+    // never collected the fact at all, and the rule stays silent instead of raising a false alarm.
+    opts.route ? undefined : collectSourceFiles(rt, cwd)
+  ]);
   const heads = collected.heads.filter((h) => matches(h.route));
   const images = collected.images.filter((i) => matches(i.route));
   const headings = collected.headings.filter((h) => matches(h.route));
-  const project = await collectProjectFacts(rt, cwd);
-  // Component (Correctness) facts are file-scoped with no route attribution yet, so a
-  // route-filtered run skips them rather than reporting unrelated components (#68 review);
-  // kitModules is skipped for the same reason.
-  const components = opts.route ? [] : await collectComponentFacts(rt, cwd);
-  const kitModules = opts.route ? [] : await collectKitModuleFacts(rt, cwd, project.kitAliases);
-  // Unlike its two neighbours above, the --route branch gets `undefined` here, not `[]`: an empty
-  // inventory would tell architecture/unit-entry-file that the declared unit directories truly do
-  // not exist, so it would report every declaration as inert, whereas `undefined` means the mode
-  // never collected the fact at all, and the rule stays silent instead of raising a false alarm.
-  const sourceFiles = opts.route ? undefined : await collectSourceFiles(rt, cwd);
   return { heads, images, headings, project, components, kitModules, sourceFiles };
 }

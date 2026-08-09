@@ -87,14 +87,18 @@ export async function analyze(
 ): Promise<AnalyzeResult> {
   const { config, warnings } = resolved ?? (await resolveConfig(cwd, options));
 
-  const { heads, headings, images, htmlLang } = await collectRenderedHeads(prerenderPagesDir);
+  // collectRenderedProject needs htmlLang out of the rendered-head parse pass, so it can't
+  // join the Promise.all below; components/sourceFiles have no such dependency and do.
+  const [{ heads, headings, images, htmlLang }, components, sourceFiles] = await Promise.all([
+    collectRenderedHeads(prerenderPagesDir),
+    collectComponentFacts(cwd),
+    collectSourceFiles(cwd)
+  ]);
   const project = {
     ...(await collectRenderedProject(cwd, htmlLang)),
     ...extraProjectFacts
   };
-  const components = await collectComponentFacts(cwd);
   const kitModules = await collectKitModuleFacts(cwd, project.kitAliases);
-  const sourceFiles = await collectSourceFiles(cwd);
   const selected = selectRules(allRules, config);
   const { results: rawResults, examined } = await runRules(selected, {
     heads,
