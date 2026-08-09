@@ -113,4 +113,14 @@ describe('collectComponentFacts', () => {
     expect(facts).toHaveLength(1);
     expect(facts[0]!.orphanEffects).toEqual([{ line: 2, kind: 'top-level' }]);
   });
+
+  it('does not fall back to empty facts for a component with an argument-less $state() (issue #424)', async () => {
+    const rt = createMemoryRuntime({
+      'src/lib/Dialog.svelte': '<script>\n  let el = $state();\n</script>\n<dialog bind:this={el}></dialog>'
+    });
+    const facts = await collectComponentFacts(rt, '');
+    expect(facts).toHaveLength(1);
+    expect(facts[0]).not.toEqual(emptyComponentFacts('src/lib/Dialog.svelte'));
+    expect(facts[0]!.loc).toBe(4);
+  });
 });
