@@ -3,7 +3,6 @@ import { readPackageVersion, readCoreVersion } from './version.js';
 import { parseRunArgs, resolveArgs } from './resolve-args.js';
 import { runInstallCli, selectAppPrompt, realIO } from './install/cli.js';
 import { runCiCli } from './ci/cli.js';
-import { runExplainCli } from './explain.js';
 import { consoleIO, type CliIO } from './cli-io.js';
 
 const HELP = `svelte-vitals — a deterministic SvelteKit code-health scanner (SEO · performance · correctness · security · architecture)
@@ -77,9 +76,9 @@ export interface CliResult {
   code: number;
   /**
    * How `bin.ts`'s thin entry should terminate the process:
-   * - `'natural'` — set `process.exitCode` and return; the path is pure-sync and holds no
-   *   handles (`docs`/`explain`/`--help`/`--version`), so an explicit `process.exit` would
-   *   only risk truncating an unflushed pipe write for no benefit.
+   * - `'natural'` — set `process.exitCode` and return; the path is fully resolved and holds no
+   *   handles by the time it returns (`docs`/`explain`/`--help`/`--version`), so an explicit
+   *   `process.exit` would only risk truncating an unflushed pipe write for no benefit.
    * - `'immediate'` — call `process.exit(code)` right away. `install`/`ci` hold prompts/timers
    *   that could hang a natural exit; an argv-resolution error exits before any output large
    *   enough to need a flush; the analyzer path below has already awaited its own stdout flush
@@ -98,11 +97,12 @@ export async function runCli(argv: string[], io: CliIO = consoleIO): Promise<Cli
   if (argv[0] === 'docs') {
     // Loaded on demand: the bundled topics are ~20KB of string literals that the analysis path
     // — the one the I/O budget test and `pnpm bench` defend — would otherwise parse every run.
-    const { runDocsCli } = await import('./docs/cli.js');
-    return { code: runDocsCli(argv.slice(1), io), exit: 'natural' };
+    const { runDocsCliGunshi } = await import('./gunshi/docs.js');
+    return { code: await runDocsCliGunshi(argv.slice(1), io), exit: 'natural' };
   }
   if (argv[0] === 'explain') {
-    return { code: runExplainCli(argv.slice(1), io), exit: 'natural' };
+    const { runExplainCliGunshi } = await import('./gunshi/explain.js');
+    return { code: await runExplainCliGunshi(argv.slice(1), io), exit: 'natural' };
   }
   if (argv[0] === 'install') {
     return { code: await runInstallCli(argv.slice(1), io), exit: 'immediate' };
