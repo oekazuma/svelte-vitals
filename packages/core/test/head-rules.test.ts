@@ -62,4 +62,41 @@ describe('head-tag rules', () => {
     expect(r!.severity).toBe('info');
     expect(r!.detection.presence).toBe('own');
   });
+  it('seo/json-ld reports own when an own tag matches alongside an inherited one (issue #443)', async () => {
+    const [r] = await seoJsonLd.check(
+      ctx([
+        { kind: 'jsonld', presence: 'inherited', value: 'static' },
+        { kind: 'jsonld', presence: 'own', value: 'static' }
+      ])
+    );
+    expect(r!.detection.presence).toBe('own');
+  });
+  it('seo/json-ld reports inherited when only an inherited tag matches', async () => {
+    const [r] = await seoJsonLd.check(ctx([{ kind: 'jsonld', presence: 'inherited', value: 'static' }]));
+    expect(r!.detection.presence).toBe('inherited');
+  });
+  it('seo/json-ld reports the satisfying own tag regardless of order vs. an empty own tag', async () => {
+    const [empty, valid] = [
+      { kind: 'jsonld' as const, presence: 'own' as const, value: 'absent' as const },
+      { kind: 'jsonld' as const, presence: 'own' as const, value: 'static' as const }
+    ];
+    const [before] = await seoJsonLd.check(ctx([empty, valid]));
+    expect(before!.detection).toEqual({ presence: 'own', value: 'static' });
+    const [after] = await seoJsonLd.check(ctx([valid, empty]));
+    expect(after!.detection).toEqual({ presence: 'own', value: 'static' });
+  });
+  it('seo/json-ld reports a valid inherited document over an empty own script', async () => {
+    const [r] = await seoJsonLd.check(
+      ctx([
+        { kind: 'jsonld', presence: 'inherited', value: 'static' },
+        { kind: 'jsonld', presence: 'own', value: 'absent' }
+      ])
+    );
+    expect(r!.detection).toEqual({ presence: 'inherited', value: 'static' });
+  });
+  it('seo/json-ld still reports Empty when every matching tag is empty', async () => {
+    const [r] = await seoJsonLd.check(ctx([{ kind: 'jsonld', presence: 'own', value: 'absent' }]));
+    expect(r!.detection).toEqual({ presence: 'own', value: 'absent' });
+    expect(r!.message).toBe('Empty JSON-LD (<script type="application/ld+json">)');
+  });
 });

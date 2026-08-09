@@ -270,7 +270,7 @@ export function jsonldRule(opts: JsonLdRuleOptions): Rule {
                   severity: opts.severity,
                   detection: PENALIZED,
                   route: head.route,
-                  location: head.file,
+                  location: tag.file ?? head.file,
                   message: problem,
                   recommendation: opts.recommendation,
                   docsUrl,
@@ -284,7 +284,7 @@ export function jsonldRule(opts: JsonLdRuleOptions): Rule {
                   route: head.route,
                   // Same `location` the penalized branch above uses (design
                   // 2026-08-08-pass-result-location-design.md).
-                  location: head.file,
+                  location: tag.file ?? head.file,
                   message: opts.label,
                   recommendation: opts.recommendation,
                   docsUrl

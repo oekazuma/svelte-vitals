@@ -137,6 +137,10 @@ async function resolveRoute(
 ): Promise<RouteFacts> {
   const files = chainFiles(pageRel, layouts);
   const composed = new Map<string, HeadTag>();
+  // JSON-LD is additive, not a singleton (issue #443): every document survives, in
+  // chain order (root layout -> ... -> page) and source order within a file, unlike
+  // composed's override-by-kind semantics for title/meta/link.
+  const jsonldTags: HeadTag[] = [];
   let broadOwn = false;
   let broadInherited = false;
   const images: ImageInfo[] = [];
@@ -155,7 +159,9 @@ async function resolveRoute(
 
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache);
     for (const tag of resolved.tags) {
-      composed.set(tagKey(tag), { ...tag, presence: isPage ? 'own' : 'inherited', file: rel });
+      const stamped: HeadTag = { ...tag, presence: isPage ? 'own' : 'inherited', file: rel };
+      if (tag.kind === 'jsonld') jsonldTags.push(stamped);
+      else composed.set(tagKey(tag), stamped);
     }
     if (resolved.broad) {
       if (isPage) broadOwn = true;
@@ -175,7 +181,7 @@ async function resolveRoute(
 
   const route = deriveRoute(pageRel);
   return {
-    head: { route, source: 'static', tags: [...composed.values()], file: pageRel },
+    head: { route, source: 'static', tags: [...composed.values(), ...jsonldTags], file: pageRel },
     images: { route, images },
     headings: { route, headings, componentHeadings }
   };

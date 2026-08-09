@@ -25,7 +25,14 @@ export interface HeadTagRuleOptions {
 }
 
 function detect(head: ResolvedHead, match: (t: HeadTag) => boolean): Detection {
-  const tag = head.tags.find(match);
+  const matches = head.tags.filter(match);
+  // Additive kinds (jsonld) can match more than once. Report the strongest claim:
+  // a satisfying tag (value !== 'absent') beats an empty one, and an own tag beats
+  // an inherited one — so an empty script alongside a valid document never
+  // misreports the route, regardless of source order.
+  const rank = (t: HeadTag) => (t.value !== 'absent' ? 2 : 0) + (t.presence === 'own' ? 1 : 0);
+  let tag: HeadTag | undefined;
+  for (const m of matches) if (tag === undefined || rank(m) > rank(tag)) tag = m;
   return tag ? { presence: tag.presence, value: tag.value } : { presence: 'none', value: 'absent' };
 }
 
