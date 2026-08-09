@@ -1,4 +1,4 @@
-import type { Config, Runtime } from '@svelte-vitals/core';
+import type { Config, HeadingInfo, Runtime } from '@svelte-vitals/core';
 import type { ParsedFile, ParsedTag } from './parse.js';
 import { findAdapter } from './adapters/index.js';
 import { parseFile } from './parse.js';
@@ -6,6 +6,12 @@ import { parseFile } from './parse.js';
 interface ResolveResult {
   tags: ParsedTag[];
   broad: boolean;
+  /**
+   * Headings belonging to STRICT descendants reached via layer 3 — never `fileRel`'s
+   * own headings (routes.ts already collects those from the chain file directly;
+   * including them here too would double-count).
+   */
+  headings: HeadingInfo[];
 }
 
 /**
@@ -111,6 +117,7 @@ export async function resolveFileTags(
   cache: ParseCache = new Map()
 ): Promise<ResolveResult> {
   const tags: ParsedTag[] = [...parsed.headTags];
+  const headings: HeadingInfo[] = [];
   let broad = false;
 
   for (const use of parsed.components) {
@@ -141,10 +148,12 @@ export async function resolveFileTags(
         const child = await resolveFileTags(rt, cwd, childRel, childParsed, config, depth - 1, childVisited, cache);
         tags.push(...child.tags);
         broad = broad || child.broad;
+        for (const h of childParsed.headings) headings.push({ ...h, file: childRel });
+        headings.push(...child.headings);
       }
     }
     // Unresolved & undeclared components contribute nothing (strict).
   }
 
-  return { tags, broad };
+  return { tags, broad, headings };
 }

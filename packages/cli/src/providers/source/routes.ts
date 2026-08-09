@@ -141,6 +141,7 @@ async function resolveRoute(
   let broadInherited = false;
   const images: ImageInfo[] = [];
   const headings: HeadingInfo[] = [];
+  const componentHeadings: HeadingInfo[] = [];
 
   for (const { rel, isPage } of files) {
     const parsed = await readAndParse(rt, cwd, rel, cache);
@@ -160,6 +161,7 @@ async function resolveRoute(
       if (isPage) broadOwn = true;
       else broadInherited = true;
     }
+    componentHeadings.push(...resolved.headings);
   }
 
   // Broad (opaque) meta source: fill only kinds not already set specifically.
@@ -175,7 +177,7 @@ async function resolveRoute(
   return {
     head: { route, source: 'static', tags: [...composed.values()], file: pageRel },
     images: { route, images },
-    headings: { route, headings }
+    headings: { route, headings, componentHeadings }
   };
 }
 

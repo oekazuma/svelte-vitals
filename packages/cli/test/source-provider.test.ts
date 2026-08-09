@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import {
+  seoSingleH1,
   seoTitlePresence,
   type Config,
   type Detection,
@@ -153,6 +154,42 @@ describe('collectRoutes (single-pass heads + images)', () => {
     // Head composition is intact alongside image collection.
     const home = heads.find((h) => h.route === '/')!;
     expect(home.tags.some((t) => t.kind === 'title')).toBe(true);
+  });
+});
+
+describe('collectRoutes componentHeadings (issue #425)', () => {
+  it('lets seo/single-h1 see an <h1> rendered by an imported child component', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+page.svelte': `<script>import SiteHeader from '$lib/SiteHeader.svelte';</script><SiteHeader />`,
+      'src/lib/SiteHeader.svelte': `<h1>Welcome</h1>`
+    });
+    const { headings } = await collectRoutes(rt, '');
+    const route = headings.find((h) => h.route === '/')!;
+    // No <h1> in the chain files themselves — it lives only in the child component.
+    expect(route.headings).toEqual([]);
+    expect(route.componentHeadings).toEqual([
+      { level: 1, line: expect.any(Number), file: 'src/lib/SiteHeader.svelte' }
+    ]);
+
+    const results = await seoSingleH1.check({ heads: [], headings, project: defaultProject, config: defaultConfig });
+    expect(results.map((r) => r.message)).not.toContain('Missing <h1>');
+  });
+
+  it('keeps componentHeadings separate from the chain-file headings array (no double count)', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+layout.svelte': `<script>import Card from '$lib/Card.svelte';</script><h2>Layout</h2><Card /><slot />`,
+      'src/routes/+page.svelte': `<h3>Page</h3>`,
+      'src/lib/Card.svelte': `<h1>Card</h1>`
+    });
+    const { headings } = await collectRoutes(rt, '');
+    const route = headings.find((h) => h.route === '/')!;
+    // Chain-file `headings` must stay component-free — it is seo/heading-level-skip's
+    // document-order input.
+    expect(route.headings).toEqual([
+      { level: 2, line: expect.any(Number), file: 'src/routes/+layout.svelte' },
+      { level: 3, line: expect.any(Number), file: 'src/routes/+page.svelte' }
+    ]);
+    expect(route.componentHeadings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/lib/Card.svelte' }]);
   });
 });
 

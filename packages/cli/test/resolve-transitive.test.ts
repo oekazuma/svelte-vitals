@@ -77,3 +77,46 @@ describe('resolveFileTags transitive (layer 3)', () => {
     expect(r.tags).toContainEqual({ kind: 'title', text: 'deep', value: 'static' });
   });
 });
+
+describe('resolveFileTags transitive headings (layer 3, issue #425)', () => {
+  it('collects an <h1> rendered by a directly imported child component', async () => {
+    const r = await resolveWith(
+      {
+        'src/routes/+page.svelte': `<script>import SiteHeader from '$lib/SiteHeader.svelte';</script><SiteHeader />`,
+        'src/lib/SiteHeader.svelte': `<h1>Welcome</h1>`
+      },
+      'src/routes/+page.svelte'
+    );
+    expect(r.headings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/lib/SiteHeader.svelte' }]);
+  });
+
+  it('collects a heading at grandchild depth (page -> A -> B)', async () => {
+    const r = await resolveWith(
+      {
+        'src/routes/+page.svelte': `<script>import A from '$lib/A.svelte';</script><A />`,
+        'src/lib/A.svelte': `<script>import B from '$lib/B.svelte';</script><B />`,
+        'src/lib/B.svelte': `<h1>Deep</h1>`
+      },
+      'src/routes/+page.svelte'
+    );
+    expect(r.headings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/lib/B.svelte' }]);
+  });
+
+  it('stops on cycles without infinite recursion', async () => {
+    const r = await resolveWith(
+      {
+        'src/routes/+page.svelte': `<script>import A from '$lib/A.svelte';</script><A />`,
+        'src/lib/A.svelte': `<script>import B from '$lib/B.svelte';</script><B /><h2>A</h2>`,
+        'src/lib/B.svelte': `<script>import A from '$lib/A.svelte';</script><A /><h3>B</h3>`
+      },
+      'src/routes/+page.svelte'
+    );
+    // A and B are each reached once and contribute their own heading; the second A
+    // (reached via B -> A) is already visited and stops before re-entering, so no
+    // infinite recursion and no duplicate <h2>.
+    expect(r.headings).toEqual([
+      { level: 2, line: expect.any(Number), file: 'src/lib/A.svelte' },
+      { level: 3, line: expect.any(Number), file: 'src/lib/B.svelte' }
+    ]);
+  });
+});
