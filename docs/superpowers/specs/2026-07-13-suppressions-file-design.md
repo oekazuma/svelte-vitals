@@ -62,3 +62,15 @@ exit 0, `--no-suppressions` restores failure, `--update-suppressions` writes
 and exits 0, malformed file exits 2, ordering with `--diff`/`--baseline`.
 The full adoption-ramp sequence (update → all suppressed → new finding fails)
 is pinned end-to-end.
+
+## Key coarseness re-confirmed (2026-08-10)
+
+Re-confirmed during the #441 independent review (issue #444): decision 3's
+`id` + `route` + `location` key (no message, no line number) means an entry
+recorded for one finding also suppresses any _future, different_ finding the
+same rule reports at the same route + location — e.g. fixing the finding an
+entry was written for, then hitting a different arm of the same rule at that
+spot, still matches and is suppressed. This is intended, not a bug: the
+message stays out of the key deliberately, for stability across releases as
+rules gain arms. Disposition: document the semantics (suppressions guide,
+this doc, add-a-rule convention) rather than change the key format.
