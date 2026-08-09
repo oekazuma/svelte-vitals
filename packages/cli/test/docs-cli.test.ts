@@ -66,6 +66,22 @@ describe('svelte-vitals docs show', () => {
     expect(err).toContain('one topic at a time');
   });
 
+  it('redirects a rule id to `explain` instead of the generic unknown-topic error', () => {
+    const { code, out, err } = docs(['show', 'architecture/component-size']);
+    expect(code).toBe(2);
+    expect(out).toBe('');
+    expect(err).toContain("'architecture/component-size' is a rule, not a docs topic");
+    expect(err).toContain('explain architecture/component-size');
+  });
+
+  it('redirects a rule id given with the web docs `rules/` prefix', () => {
+    const { code, out, err } = docs(['show', 'rules/architecture/component-size']);
+    expect(code).toBe(2);
+    expect(out).toBe('');
+    expect(err).toContain("'architecture/component-size' is a rule, not a docs topic");
+    expect(err).toContain('explain architecture/component-size');
+  });
+
   it('exits 2 when no topic name is given', () => {
     const { code, err } = docs(['show']);
     expect(code).toBe(2);
