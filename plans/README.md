@@ -74,15 +74,15 @@ improve スキルによる監査(2026-07-05、commit `1f6f233` 時点)から生�
 
 検証済み(親が引用元コードを実際に開いて確認済み)。次回はここから選定してよい:
 
-- **2608-CLI-07** `applySuppressions` の stale カウントが diff/baseline で絞った結果に対して計算され、CI レシピで毎回「247 stale entries — prune せよ」と誤案内する(S)。prune 実行は破壊的操作なので実害あり。
-- **2608-CORE-03** component/kit-module ルールの pass シードに `location` がなく、`overrides[].files` グロブが pass シードにマッチしない(severity override と option override で選択対象がずれる)(S)。
-- **2608-SEC-01** `release.yml`/`ci.yml` の lint/check/docs job の checkout に `persist-credentials: false` がない(test/floor-smoke には既にある — 慣習の取りこぼし)。release.yml は changesets の push 経路の検証が必要(S)。
-- **2608-PERF-03** `collect-all.ts` / `vite/analyze.ts` の 5 つの collector が直列 await(kitModules 以外は独立、`Promise.all` 化で S)。io-budget のカウントは不変。
-- **2608-STALE 一式** AGENTS.md/CONTRIBUTING.md の「Astro Starlight」(実際は Blume)、「dev overlay」呼称 5 箇所(正: live dashboard)、ci.yml の pnpm@11.17.0 コメント、`rule.ts` の Scope docコメントに 'component' 欠落、skill生成ヘッダーの `--force` 案内(正: `--refresh`)、cli の npm description が「SEO checker」のまま 5 カテゴリを反映していない(まとめて S)。AGENTS.md はエージェントが毎セッション読む契約なので費用対効果は高い。
-- **2608-CLI-08** `install` の対話プロンプトのゲートが stdout TTY のみ(stdin パイプ時にハング。analyzer 側は両方見る — 同じ轍を Plan 019 の CodeRabbit 指摘で一度踏んでいる)(S)。
-- **2608-CLI-10** suppressions ファイルの書き込みが非アトミック(途中クラッシュで以後全実行が exit 2)(S)。
-- **2608-TEST-07** `routeMatcher` が空白をグロブのプレースホルダーに使い、空白入りグロブが `.*` に化ける(再現済み、S)。
-- **2608-SEC-02** `gen-action-pin.mjs` が GitHub API 応答を無検証で TS ソースに埋め込む(SHA/semver の形状ガード + JSON.stringify で S)。
+- **2608-CLI-07** `applySuppressions` の stale カウントが diff/baseline で絞った結果に対して計算され、CI レシピで毎回「247 stale entries — prune せよ」と誤案内する(S)。prune 実行は破壊的操作なので実害あり。 **済み (PR #415)**
+- **2608-CORE-03** component/kit-module ルールの pass シードに `location` がなく、`overrides[].files` グロブが pass シードにマッチしない(severity override と option override で選択対象がずれる)(S)。 **済み (PR #416)**
+- **2608-SEC-01** `release.yml`/`ci.yml` の lint/check/docs job の checkout に `persist-credentials: false` がない(test/floor-smoke には既にある — 慣習の取りこぼし)。release.yml は changesets の push 経路の検証が必要(S)。 **済み (PR #412)**
+- **2608-PERF-03** `collect-all.ts` / `vite/analyze.ts` の 5 つの collector が直列 await(kitModules 以外は独立、`Promise.all` 化で S)。io-budget のカウントは不変。 **済み (PR #438)**
+- **2608-STALE 一式** AGENTS.md/CONTRIBUTING.md の「Astro Starlight」(実際は Blume)、「dev overlay」呼称 5 箇所(正: live dashboard)、ci.yml の pnpm@11.17.0 コメント、`rule.ts` の Scope docコメントに 'component' 欠落、skill生成ヘッダーの `--force` 案内(正: `--refresh`)、cli の npm description が「SEO checker」のまま 5 カテゴリを反映していない(まとめて S)。AGENTS.md はエージェントが毎セッション読む契約なので費用対効果は高い。 **済み (PR #413)**
+- **2608-CLI-08** `install` の対話プロンプトのゲートが stdout TTY のみ(stdin パイプ時にハング。analyzer 側は両方見る — 同じ轍を Plan 019 の CodeRabbit 指摘で一度踏んでいる)(S)。 **済み (PR #435)**
+- **2608-CLI-10** suppressions ファイルの書き込みが非アトミック(途中クラッシュで以後全実行が exit 2)(S)。 **済み (PR #434)**
+- **2608-TEST-07** `routeMatcher` が空白をグロブのプレースホルダーに使い、空白入りグロブが `.*` に化ける(再現済み、S)。 **済み (PR #433)**
+- **2608-SEC-02** `gen-action-pin.mjs` が GitHub API 応答を無検証で TS ソースに埋め込む(SHA/semver の形状ガード + JSON.stringify で S)。 **済み (PR #436)**
 - **2608-CORE-02** `config.overrides` がスコアの inventory(分母)に不可視(挙動と `config-apply.ts` の契約コメントが矛盾。分母を per-key にするか、コメントを直すかの設計判断が本体、M)。2608-CORE-05(JSON レポートの再現claim)はこれの従属。
 - **2608-TEST-05** kit alias(`$components` 等)が head タグの transitive 解決(`resolveComponentPath`)で無視され、SEO ルールが false positive を出す。設計書 2026-07-30 はこの経路を明示的にスコープ外にはしていない(characterization テスト先行で M)。
 - **2608-DEBT-01** `@svelte-vitals/vite` が `svelte-vitals`(CLI)に runtime 依存(@clack/prompts 等がプラグイン利用者に推移的インストールされる。19 行の rules-config.ts を core へ移すのが第一歩、M)。
@@ -90,7 +90,7 @@ improve スキルによる監査(2026-07-05、commit `1f6f233` 時点)から生�
 - **2608-CLI-04/05** dev dashboard で config ファイル編集が反映されない(ESM キャッシュ)+ `SVELTE_VITALS_UI` の restart 競合(S–M)。
 - **2608-TEST-01/03** `bin.ts` に in-process テストの seam がない + ビルド済みバイナリで CI ゲートフラグ(--fail-on/--min-health)の exit code を検証する E2E がない(M)。
 - **2608-SEC-03/07** agent レポーターの Markdown エスケープ + コンソールへの制御文字除去(解析対象リポジトリ由来文字列のサニタイズ、S–M)。
-- **2608-CORE-06/07** `runRules` の rule 失敗隔離(`Promise.allSettled`)+ パース不能ファイルの観測可能なシグナル(S–M)。
+- **2608-CORE-06/07** `runRules` の rule 失敗隔離(`Promise.allSettled`)+ パース不能ファイルの観測可能なシグナル(S–M)。CORE-07(シグナル)は **済み (PR #437)**、CORE-06(rule 失敗隔離)が残。
 - **2608-CLI-09/11** `ci`/`install` の未ガード readFile が exit 1 に化ける + stderr の flush 漏れ(S)。
 - **2608-DEPS-01/02/03** action-pin の Renovate 自動化、devEngines Node ピンの棚卸し(初回コミットから不動)、`@types/node` が公開フロア(22)より 2 メジャー上(各 S)。
 - **2608-DEBT-03/04/13** Node Runtime アダプタ 3 重実装、vite の config 優先順位マージの cli との二重実装、vite の console 直叩き(各 S)。
