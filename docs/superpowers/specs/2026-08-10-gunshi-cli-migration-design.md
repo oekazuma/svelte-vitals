@@ -164,6 +164,17 @@ wording. `bone` (same `cliCore` dispatcher, empty plugin array — `subCommands`
 confirmed identical) avoids both classes structurally, at the cost of auto-usage text this
 migration replaces with hand-controlled text anyway.
 
+**LLM-assisted implementation (maintainer instruction, 2026-08-10): every phase that writes
+gunshi code MUST consult `@gunshi/docs`** — gunshi ships its guide and API reference as
+llms.txt-format markdown (`@gunshi/docs`, versioned in lockstep with gunshi, 0.37.1). Mechanism:
+add it to the workspace catalog as a devDependency at Phase 2 start (exact pin, bumped together
+with `gunshi` so the docs never describe a different version than the installed API), and every
+executor prompt for gunshi work points at `node_modules/@gunshi/docs/**.md` as the primary API
+reference — ahead of web fetches, which may describe a newer gunshi than the pinned one. (The
+package's `npx @gunshi/docs` auto-setup writes Claude Code skill files; the devDependency +
+explicit-pointer route is preferred here because executors run in disposable worktrees where a
+committed dependency is the only reliably present artifact.)
+
 Implementation facts Phase 2 must carry: `ctx.positionals` includes the matched sub-command's own
 path tokens (undocumented) — recover argv-after-subcommand with
 `ctx.positionals.slice(ctx.commandPath.length)`; boolean `--flag=false` is truthy to args-tokens
