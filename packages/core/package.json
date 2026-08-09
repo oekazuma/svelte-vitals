@@ -28,7 +28,8 @@
     "svelte": "catalog:"
   },
   "devDependencies": {
-    "@types/estree": "catalog:"
+    "@types/estree": "catalog:",
+    "schema-dts": "catalog:"
   },
   "exports": {
     ".": {
@@ -42,6 +43,7 @@
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "gen:schema-vocab": "node scripts/gen-schema-vocab.mjs"
   }
 }

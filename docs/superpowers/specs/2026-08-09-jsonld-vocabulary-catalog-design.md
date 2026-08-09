@@ -160,3 +160,25 @@ Follows the repo's committed-generated-file pattern (`packages/cli/src/docs/gene
   (extension properties are valid schema.org usage), plus the only expensive catalog. This is the
   standing rejection; revisit only with evidence that unknown-property typos materially hurt
   eligibility.
+
+## Corrections (2026-08-10, phase-1 implementation)
+
+- The "reuse the existing `@context` handling in `json-ld-validity`" claim in Q3 was wrong: no
+  schema.org `@context` matcher existed before phase 1 — the rule only checked `'@context' in n`.
+  Phase 1 added one. Its semantics: a document is validated only when every `@context` occurrence
+  anywhere in it (root, array members, `@graph` members, and nested entities) is schema.org — a
+  string matching `/^https?:\/\/schema\.org\/?$/` exactly (case-sensitive, no trailing-slash
+  ambiguity), or an array where every member matches that pattern. Any other shape — an object
+  context (term remapping), an array with a non-matching or non-string member, or a differently-cased
+  URL (`HTTPS://SCHEMA.ORG`) — exempts the whole document from the vocabulary arm.
+- The Q2 example `Unknown @type 'Artcle' … Did you mean 'Article'?` cannot fire under the
+  case-insensitive-exact-match mechanism the same section specifies: a dropped letter is not a case
+  difference, so `'Artcle'` gets no suggestion. The corrected example is a pure casing mismatch —
+  `'article'` → `Did you mean 'Article'?`. Distance-1 typo suggestions (which would make `'Artcle'`
+  work) are a possible phase-2 refinement, not implemented here.
+- The "Verified facts" claim that `*Base`/`*Leaf` names are interfaces, never type aliases, is false
+  for the Role family: schema-dts 2.0.0 exports `RoleLeaf`/`EmployeeRoleLeaf`/`LinkRoleLeaf`/
+  `OrganizationRoleLeaf`/`PerformanceRoleLeaf` as genuine type aliases (the generic-parameter
+  variants), so alias-vs-interface filtering alone does not produce a clean vocabulary. The
+  generator's explicit exclusion list carries them (plus `WithActionConstraints`), and the sanity
+  band still guards against wholesale shape changes.
