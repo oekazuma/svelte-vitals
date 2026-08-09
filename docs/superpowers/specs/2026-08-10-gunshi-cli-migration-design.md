@@ -131,3 +131,43 @@ help-format movement declared explicitly (maintainer call on patch vs minor at P
    signal, and the characterization suite plus phase gates carry the 0.x risk.
 3. **Phase 0 approved first**: the characterization suite lands before any gunshi code, so the
    migration diffs are judged against pinned behavior.
+
+## Phase 1 verdict (2026-08-10) — all three gates pass; proceed to Phase 2 on `gunshi/bone`
+
+Spike branch: `spike/gunshi-phase1` (commit 7d97b97b, not merged; full narrative in its
+`packages/cli/SPIKE-FINDINGS.md`, 36 probe tests). Gate outcomes:
+
+- **(a) contracts — pass-with-wrapper.** The `docs` port reproduces every design-doc cell
+  byte-for-byte except `--help` (exit 0 holds; text differs, which decision 1 already accepts).
+  Mechanisms that make it work: exit codes travel through a per-invocation closure (`cli()`
+  discards non-string runner returns); `usageSilent: true` is a documented seam that routes every
+  internal gunshi write through a no-op, proven global-write-free by spies on
+  `console.*`/`process.std*.write`; `fallbackToEntry: true` lets unmatched sub-command tokens
+  reach our own runner so current wording is reproducible verbatim.
+- **(b) parsing — pass-with-wrapper.** args-tokens diverges from the #397/#383 guard in one real
+  way: an empty value (`--reporter=` / `--reporter ''`) is silently dropped instead of rejected —
+  post-parse detection is impossible (the value never appears), so the proven ~15-line wrapper
+  pre-scans raw argv with the same flag list and the same `--out-file -` exemption.
+  Flag-like-value consumption (`--reporter --score`) is structurally safe in args-tokens (keys off
+  the leading dash), `--out-file -`/`=-` match exactly, unknown flags are silently ignored exactly
+  as today, and the 0–100 `--min-health` range check was always ours.
+- **(c) in-process testability — pass, clean.** Injected-IO capture works with zero global
+  patching, matching the Phase-0 harness pattern.
+
+**Phase 2 builds on `gunshi/bone`, not full `cli()`.** Decided on spike evidence: `cli()`'s
+`global()` plugin force-installs `-h`/`-v` on every command with no opt-out (`options.plugins` is
+additive), silently hijacking `docs list -v` into printing `"unknown"` on stdout with exit 0 —
+a stdout-purity and control-flow regression against a flag the CLI never defined; and its
+decorator throws on any validation error while discarding the rendered message, leaving only
+gunshi's English fallback text — directly hostile to reproducing this repo's exact stderr
+wording. `bone` (same `cliCore` dispatcher, empty plugin array — `subCommands`/`fallbackToEntry`
+confirmed identical) avoids both classes structurally, at the cost of auto-usage text this
+migration replaces with hand-controlled text anyway.
+
+Implementation facts Phase 2 must carry: `ctx.positionals` includes the matched sub-command's own
+path tokens (undocumented) — recover argv-after-subcommand with
+`ctx.positionals.slice(ctx.commandPath.length)`; boolean `--flag=false` is truthy to args-tokens
+(keep `parseCliArgs`'s literal-'false' coercion where needed); `--no-color`-style negation is a
+per-flag `negatable: true` schema opt-in, not automatic. Measurements: gunshi 0.37.1 is 304 K
+unpacked in the store / 53.8 kB packed, zero installed dependencies (args-tokens confirmed
+inlined), and its import costs ≈5 ms against the CLI's current ≈157 ms `--help` startup.
