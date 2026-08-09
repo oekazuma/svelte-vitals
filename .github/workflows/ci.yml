@@ -100,6 +100,10 @@ jobs:
       # correct here — actions/setup-node puts the matrix version on PATH.
       - name: Run the floor smoke on the matrix Node
         run: node scripts/floor-smoke.mjs
+      # dist is already built by this point (restored from cache or built above) — the
+      # gate-flag E2E (Phase 0 of the gunshi migration) runs the same built bin.js.
+      - name: Run the CLI gate-flag E2E
+        run: pnpm e2e
 
   floor-smoke:
     needs: check
