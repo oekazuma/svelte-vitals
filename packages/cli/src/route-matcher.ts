@@ -5,13 +5,13 @@ export function routeMatcher(glob: string | undefined): (route: string) => boole
   if (!glob) return () => true;
   const body = glob
     .replace(/[.+^${}()|[\]\\]/g, '\\$&')
-    .replace(/\*\*/g, ' ') // globstar placeholder
+    .replace(/\*\*/g, '\0') // globstar placeholder (not a literal space: a glob can contain one)
     .replace(/\*/g, '[^/]*') // single-segment wildcard (placeholder untouched)
-    .replace(/\/ $/g, '(?:/.*)?') // trailing /** -> optional subtree
-    .replace(/^ \//g, '(?:.*/)?') // leading **/ -> optional prefix
-    .replace(/ \//g, '(?:.*/)?') // internal **/ -> optional prefix
-    .replace(/\/ /g, '(?:/.*)?') // internal /** -> optional subtree
-    .replace(/ /g, '.*'); // bare ** -> .*
+    .replace(/\/\0$/g, '(?:/.*)?') // trailing /** -> optional subtree
+    .replace(/^\0\//g, '(?:.*/)?') // leading **/ -> optional prefix
+    .replace(/\0\//g, '(?:.*/)?') // internal **/ -> optional prefix
+    .replace(/\/\0/g, '(?:/.*)?') // internal /** -> optional subtree
+    .replace(/\0/g, '.*'); // bare ** -> .*
   const re = new RegExp(`^${body}$`);
   return (route) => re.test(route.replace(/^\//, ''));
 }

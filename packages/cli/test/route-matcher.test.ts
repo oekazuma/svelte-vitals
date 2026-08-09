@@ -34,4 +34,11 @@ describe('routeMatcher', () => {
     expect(m('/static')).toBe(true);
     expect(m('/static/a')).toBe(false);
   });
+
+  it('a literal space in the glob matches a literal space, not a wildcard', () => {
+    const m = routeMatcher('blog/my post');
+    expect(m('/blog/my post')).toBe(true);
+    expect(m('/blog/my-post')).toBe(false);
+    expect(m('/blog/myXpost')).toBe(false);
+  });
 });
