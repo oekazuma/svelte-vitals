@@ -14,6 +14,23 @@ describe('realIO().readFile', () => {
   });
 });
 
+describe('realIO().isTTY', () => {
+  it('is false when stdin is not a TTY even if stdout is (piped stdin would hang a prompt)', () => {
+    const stdin = Object.getOwnPropertyDescriptor(process.stdin, 'isTTY');
+    const stdout = Object.getOwnPropertyDescriptor(process.stdout, 'isTTY');
+    Object.defineProperty(process.stdin, 'isTTY', { value: false, configurable: true });
+    Object.defineProperty(process.stdout, 'isTTY', { value: true, configurable: true });
+    try {
+      expect(realIO().isTTY).toBe(false);
+    } finally {
+      if (stdin) Object.defineProperty(process.stdin, 'isTTY', stdin);
+      else delete (process.stdin as { isTTY?: boolean }).isTTY;
+      if (stdout) Object.defineProperty(process.stdout, 'isTTY', stdout);
+      else delete (process.stdout as { isTTY?: boolean }).isTTY;
+    }
+  });
+});
+
 describe('runInstallCli --help', () => {
   afterEach(() => {
     vi.restoreAllMocks();
