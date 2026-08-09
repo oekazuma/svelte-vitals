@@ -160,6 +160,8 @@ Fix an accepted finding and its entry becomes **stale** (matches nothing); svelt
 svelte-vitals: 3 finding(s) suppressed by svelte-vitals-suppressions.json (1 stale entry — re-run --update-suppressions to prune).
 ```
 
+**What a suppression covers:** an entry means _accept whatever this rule reports at this route and location_, not _accept this one message_. The key is `id` + `route` + `location` — deliberately no message — so fixing the finding an entry was recorded for and then triggering a different finding from the same rule at the same spot still matches the entry: the new finding is suppressed too, and the entry stays out of the stale count because it's still actively matching something. An entry only goes stale once nothing at all matches it. Prune deliberately with `--update-suppressions` rather than assuming a green run means that exact issue is gone.
+
 Use `--no-suppressions` to ignore the file for one run (e.g. to see the project's true current state). A malformed `svelte-vitals-suppressions.json` (not valid JSON, wrong `version`, or an entry missing `id`) is a hard error (exit `2`) rather than being silently ignored — a typo'd file must not silently un-gate CI.
 
 **Key difference from `--baseline <ref>`:** `--baseline` re-derives "what's pre-existing" by re-analyzing a git ref on every run — nothing to commit, but it only ever compares against one ref. The suppressions file is a committed, persistent record you build once (or update deliberately) and that keeps applying regardless of which ref you're on.

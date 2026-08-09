@@ -48,6 +48,10 @@ The file then applies automatically on every run, after `--diff`/`--staged` and 
 Fixing an accepted finding leaves a **stale** entry, reported on stderr but never failing the run.
 `--no-suppressions` ignores the file for one run.
 
+An entry covers whatever its rule reports at that route and location, not just the message
+recorded when written — a different finding from the same rule at the same spot still matches
+and stays suppressed (and not stale).
+
 A malformed suppressions file is a hard error (exit `2`), not a silent skip.
 
 ## Which one

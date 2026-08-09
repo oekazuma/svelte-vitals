@@ -158,6 +158,8 @@ svelte-vitals: 12 finding(s) suppressed by svelte-vitals-suppressions.json.
 svelte-vitals: 3 finding(s) suppressed by svelte-vitals-suppressions.json (1 stale entry — re-run --update-suppressions to prune).
 ```
 
+**抑制エントリが対象にする範囲:** エントリが意味するのは「この route と location でこのルールが報告するものは何でも受け入れる」であって、「この 1 件のメッセージだけを受け入れる」ではありません。キーは `id` + `route` + `location` で、メッセージは意図的に含まれません。そのため、エントリを記録した時点の検出結果を修正しても、同じルールが同じ場所で別の検出結果を報告すれば、そのエントリは引き続き一致し、新しい検出結果も抑制してしまいます。しかも何かに一致し続けている限り stale にはカウントされません。エントリが stale になるのは、何にも一致しなくなったときだけです。実行が成功したからといってその特定の問題が解消したとは限らないので、`--update-suppressions` で意図的にプルーニングしてください。
+
 `--no-suppressions` を使うと、その回の実行だけファイルを無視できます（例えばプロジェクトの本当の現状を確認したいとき）。壊れた `svelte-vitals-suppressions.json`（JSON として不正、`version` が一致しない、エントリに `id` がない、など）は黙って無視されるのではなく、致命的エラー（終了コード `2`）になります。タイプミスのあるファイルが CI のゲートを黙って無効化してしまうことを防ぐためです。
 
 **`--baseline <ref>` との違い:** `--baseline` は実行のたびに git の ref を再解析して「何が既存か」を導出します。コミットは不要ですが、常に 1 つの ref としか比較できません。抑制ファイルは、一度作って（あるいは意図したときにだけ更新して）コミットする永続的な記録で、どの ref 上にいても適用され続けます。
