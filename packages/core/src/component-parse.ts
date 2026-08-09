@@ -48,9 +48,14 @@ export interface TSNonNullExpression {
 export type TsExpression = Expression | TSSatisfiesExpression | TSAsExpression | TSNonNullExpression;
 
 /** Unwrap TS wrapper expressions (`x satisfies T`, `x as T`, `x!`) to the underlying expression. Shared with the Kit-module and Vite-config parsers. */
-export function unwrapTs(expr: TsExpression): Expression {
+export function unwrapTs(expr: TsExpression): Expression;
+export function unwrapTs(expr: TsExpression | undefined): Expression | undefined;
+export function unwrapTs(expr: TsExpression | undefined): Expression | undefined {
   let cur = expr;
-  while (cur.type === 'TSSatisfiesExpression' || cur.type === 'TSAsExpression' || cur.type === 'TSNonNullExpression')
+  while (
+    cur !== undefined &&
+    (cur.type === 'TSSatisfiesExpression' || cur.type === 'TSAsExpression' || cur.type === 'TSNonNullExpression')
+  )
     cur = cur.expression;
   return cur;
 }

@@ -1079,6 +1079,50 @@ describe('parseComponentFacts — runes behind TS casts (as/satisfies/!)', () =>
   });
 });
 
+describe('parseComponentFacts — argument-less $state() (issue #424)', () => {
+  it('parses a component with a bind:this-only $state() alongside other state, yielding normal facts', () => {
+    const src = [
+      '<script>',
+      '  let el = $state();',
+      '  let count = $state(0);',
+      '  let doubled = $state(0);',
+      '  $effect(() => {',
+      '    doubled = count * 2;',
+      '  });',
+      '</script>',
+      '',
+      '<div bind:this={el}>{doubled}</div>'
+    ].join('\n');
+    const facts = parseComponentFacts(src, 'C.svelte');
+    expect(facts.loc).toBe(10);
+    expect(facts.effects).toEqual([{ line: 5, assignsOnlyState: true, mountOnly: false }]);
+    // `count` is read-only (correctness/unmutated-state); `el`/`doubled` are excluded
+    // (bound via bind:this, written in the effect). rawableStates/nonreactiveBuiltinStates
+    // pin the two scans that read a $state() call's argument.
+    expect(facts.constableStates).toEqual([{ name: 'count', line: 3 }]);
+    expect(facts.rawableStates).toEqual([]);
+    expect(facts.nonreactiveBuiltinStates).toEqual([]);
+  });
+
+  it('parses a typed argument-less $state<T>() declaration, yielding normal facts', () => {
+    const src = [
+      '<script lang="ts">',
+      '  let el: HTMLDialogElement | undefined = $state<HTMLDialogElement>();',
+      '  let count = $state(0);',
+      '</script>',
+      '<dialog bind:this={el}>{count}</dialog>'
+    ].join('\n');
+    const facts = parseComponentFacts(src, 'C.svelte');
+    expect(facts.loc).toBe(5);
+    expect(facts.constableStates).toEqual([{ name: 'count', line: 3 }]);
+  });
+
+  it('parses a .svelte.ts runes module with an argument-less $state() (already worked before the fix)', () => {
+    const src = 'export const el = $state();';
+    expect(parseComponentFacts(src, 'src/lib/store.svelte.ts').moduleStateDecls).toEqual([{ name: 'el', line: 1 }]);
+  });
+});
+
 describe('parseComponentFacts — type-only imports in importSpans', () => {
   const spans = (src: string) => parseComponentFacts(src, 'src/routes/a/+page.svelte').importSpans;
 
