@@ -74,7 +74,21 @@ describe('collectComponentFacts', () => {
       new Set(['src/lib/Unreadable.svelte'])
     );
     const facts = await collectComponentFacts(rt, '');
-    expect(facts).toEqual([emptyComponentFacts('src/lib/Unreadable.svelte')]);
+    expect(facts).toEqual([{ ...emptyComponentFacts('src/lib/Unreadable.svelte'), parseFailed: true }]);
+  });
+
+  it('marks parseFailed on a failed file and leaves it unset on a healthy one', async () => {
+    const rt = createMemoryRuntime(
+      {
+        'src/lib/Unreadable.svelte': '<div></div>',
+        'src/routes/+page.svelte': '<p>ok</p>'
+      },
+      new Set(['src/lib/Unreadable.svelte'])
+    );
+    const facts = await collectComponentFacts(rt, '');
+    const byFile = new Map(facts.map((f) => [f.file, f]));
+    expect(byFile.get('src/lib/Unreadable.svelte')!.parseFailed).toBe(true);
+    expect(byFile.get('src/routes/+page.svelte')!.parseFailed).toBeUndefined();
   });
 
   it('sorts results by file path regardless of glob order', async () => {

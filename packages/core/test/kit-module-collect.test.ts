@@ -130,7 +130,23 @@ describe('collectKitModuleFacts', () => {
   });
   it('falls back to empty facts when a file fails to read', async () => {
     const rt = createMemoryRuntime({ 'src/routes/+page.server.ts': 'let x;' }, new Set(['src/routes/+page.server.ts']));
-    expect(await collectKitModuleFacts(rt, '')).toEqual([emptyKitModuleFacts('src/routes/+page.server.ts', 'server')]);
+    expect(await collectKitModuleFacts(rt, '')).toEqual([
+      { ...emptyKitModuleFacts('src/routes/+page.server.ts', 'server'), parseFailed: true }
+    ]);
+  });
+
+  it('marks parseFailed on a failed file and leaves it unset on a healthy one', async () => {
+    const rt = createMemoryRuntime(
+      {
+        'src/routes/+page.server.ts': 'let x;',
+        'src/routes/about/+page.ts': 'export const load = () => ({});'
+      },
+      new Set(['src/routes/+page.server.ts'])
+    );
+    const facts = await collectKitModuleFacts(rt, '');
+    const byFile = new Map(facts.map((f) => [f.file, f]));
+    expect(byFile.get('src/routes/+page.server.ts')!.parseFailed).toBe(true);
+    expect(byFile.get('src/routes/about/+page.ts')!.parseFailed).toBeUndefined();
   });
 });
 
