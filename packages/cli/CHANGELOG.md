@@ -1,5 +1,17 @@
 # svelte-vitals
 
+## 0.44.3
+
+### Patch Changes
+
+- 417e7af: `--update-suppressions` now writes the suppressions file atomically (temp file + rename), so an interrupted run can no longer leave a corrupt `svelte-vitals-suppressions.json` that fails every later run.
+- 49fbb19: `install` no longer hangs waiting for input when stdin is piped while stdout is a terminal — interactive prompts now require both stdin and stdout to be TTYs, matching the analyzer's existing gate.
+- 38ed0fb: The independent collection passes (routes, components, Kit modules, source files) now run concurrently instead of sequentially, shortening analysis wall time on larger projects. Same file reads, same results — only the awaiting overlaps.
+- 8c256e3: Files that fail to parse are no longer silently invisible: collectors mark them (`parseFailed` on the fact) and the CLI prints a stderr warning listing the skipped files. No finding, score, or exit-code movement — stderr diagnostics only; reporter stdout (json/sarif) is unchanged and still machine-parseable.
+- ecd3192: Route globs (`--route`, config `routes`) containing a literal space now match that space literally. Previously an internal placeholder collision silently turned each space into `.*`, over-matching (e.g. `blog/my post` matched `/blog/my-post`).
+- Updated dependencies [8c256e3]
+  - @svelte-vitals/core@0.40.1
+
 ## 0.44.2
 
 ### Patch Changes

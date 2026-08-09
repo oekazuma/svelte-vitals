@@ -1,5 +1,18 @@
 # @svelte-vitals/vite
 
+## 0.29.3
+
+### Patch Changes
+
+- 38ed0fb: The independent collection passes (routes, components, Kit modules, source files) now run concurrently instead of sequentially, shortening analysis wall time on larger projects. Same file reads, same results — only the awaiting overlaps.
+- Updated dependencies [417e7af]
+- Updated dependencies [49fbb19]
+- Updated dependencies [38ed0fb]
+- Updated dependencies [8c256e3]
+- Updated dependencies [ecd3192]
+  - svelte-vitals@0.44.3
+  - @svelte-vitals/core@0.40.1
+
 ## 0.29.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @svelte-vitals/core
 
+## 0.40.1
+
+### Patch Changes
+
+- 8c256e3: Files that fail to parse are no longer silently invisible: collectors mark them (`parseFailed` on the fact) and the CLI prints a stderr warning listing the skipped files. No finding, score, or exit-code movement — stderr diagnostics only; reporter stdout (json/sarif) is unchanged and still machine-parseable.
+
 ## 0.40.0
 
 ### Minor Changes
