@@ -5,6 +5,7 @@ import * as p from '@clack/prompts';
 import { runInstall, type InstallIO, type InstallPrompts } from './index.js';
 import { parseInstallArgs, resolveInstallArgs } from './args.js';
 import { readPackageVersion } from '../version.js';
+import { consoleIO, type CliIO } from '../cli-io.js';
 import type { SelectableOption, TargetId } from './index.js';
 
 const INSTALL_HELP = `svelte-vitals install — set up the svelte-vitals Vite integration, agent skills/rules, config file, and CI
@@ -130,15 +131,15 @@ function clackPrompts(): InstallPrompts {
 }
 
 /** Parse install args, print diagnostics, and run the wizard. Returns the exit code. */
-export async function runInstallCli(args: string[]): Promise<number> {
+export async function runInstallCli(args: string[], io: CliIO = consoleIO): Promise<number> {
   const argv = parseInstallArgs(args);
   if (argv.help) {
-    console.log(INSTALL_HELP);
+    io.log(INSTALL_HELP);
     return 0;
   }
   const { flags, warnings, errors } = resolveInstallArgs(argv);
-  for (const w of warnings) console.error(w);
-  for (const e of errors) console.error(e);
+  for (const w of warnings) io.errorLog(w);
+  for (const e of errors) io.errorLog(e);
   if (!flags) return 2;
   return runInstall(flags, realIO(), clackPrompts(), readPackageVersion());
 }

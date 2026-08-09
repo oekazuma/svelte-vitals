@@ -1,0 +1,188 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`help goldens > --version 1`] = `
+{
+  "err": "svelte-vitals: run \`svelte-vitals docs list\` for the bundled guides.",
+  "out": "X.Y.Z (core X.Y.Z)",
+}
+`;
+
+exports[`help goldens > ci --help 1`] = `
+{
+  "err": "",
+  "out": "svelte-vitals ci — scaffold CI integration
+
+Usage:
+  svelte-vitals ci install [options]
+  svelte-vitals ci upgrade [--dry-run]
+
+Adds a GitHub Actions workflow (.github/workflows/svelte-vitals.yml) that calls the \`@svelte-vitals/action\`
+GitHub Action on pull requests: inline annotations, a job summary, and a sticky PR
+comment with the findings.
+
+\`ci upgrade\` rewrites only the pinned \`@svelte-vitals/action\` reference in an existing
+workflow to the pin bundled with this CLI, leaving the rest of the file (and any other
+pins, like actions/checkout) untouched. To pick up the latest pin, run
+\`npx svelte-vitals@latest ci upgrade\`.
+
+Options:
+  --force       Overwrite an existing workflow file (install only)
+  --dry-run     Print the plan and exit without writing
+  -h, --help    Show this help",
+}
+`;
+
+exports[`help goldens > docs --help 1`] = `
+{
+  "err": "",
+  "out": "svelte-vitals docs — read the bundled guides without leaving the terminal
+
+Usage:
+  svelte-vitals docs list [--json]     List every topic with a one-line description
+  svelte-vitals docs show <name>       Print a topic
+
+Options:
+  --json        Machine-readable output (list only)
+  -h, --help    Show this help
+
+The topics ship inside the CLI, so they always match the version you are running and need no
+network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
+
+\`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called \`docs\`, write \`svelte-vitals ./docs\`.",
+}
+`;
+
+exports[`help goldens > explain --help 1`] = `
+{
+  "err": "",
+  "out": "svelte-vitals explain — print a rule's rationale, fix, and configurable options
+
+Usage:
+  svelte-vitals explain --list          List every rule id, grouped by category
+  svelte-vitals explain <rule-id>       Explain one rule
+
+Options:
+  --list        List every rule instead of explaining one
+  --json        Machine-readable output (works with --list and with a rule id)
+  -h, --help    Show this help
+
+Rule ids are category/kebab-case and matched exactly, e.g. \`svelte-vitals explain seo/ssr-disabled\`.",
+}
+`;
+
+exports[`help goldens > install --help 1`] = `
+{
+  "err": "",
+  "out": "svelte-vitals install — set up the svelte-vitals Vite integration, agent skills/rules, config file, and CI
+
+Usage:
+  svelte-vitals install [options]
+
+Options:
+  --client <ids>    Comma-separated: vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow
+                    (skips the interactive picker; the picker groups these by category —
+                    Vite integration, Agent Skills & rules, CI, Config file)
+                    vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-hooks
+                    wires up the svelteVitalsHandle hook in src/hooks.server.{ts,js}, which improves the
+                    live dashboard's per-route accuracy as you browse. --force does not apply
+                    to either of these two — an existing registration is always left as-is.
+                    claude-skill writes an agent skill (Claude Code, Codex, and Cursor —
+                    .claude/skills/, .agents/skills/, and .cursor/skills/ under svelte-vitals/);
+                    cursor-rules writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc).
+                    Both are generated from the current rule set and support --force to regenerate.
+                    claude-skill-improve writes a second, read-only agent skill (same three
+                    locations, under improve-svelte/) that audits the whole project and writes
+                    implementation plans instead of a run-after-every-edit playbook; also
+                    supports --force.
+                    config-file scaffolds svelte-vitals.config.{mjs,ts} with every option commented
+                    out, auto-picking .ts (with defineConfig) when the current Node supports it, the
+                    project looks TypeScript-oriented (tsconfig.json or vite.config.ts present), and
+                    svelte-vitals is a declared dependency (defineConfig's import resolves at load
+                    time); else the safe .mjs default. Supports --force to regenerate the file
+                    that's already there (its extension never changes on --force).
+                    ci-workflow scaffolds .github/workflows/svelte-vitals.yml, the same file
+                    \`svelte-vitals ci install\` writes standalone — pick it here to set it up in
+                    the same pass as everything else; supports --force to regenerate. \`svelte-vitals
+                    ci upgrade\` remains the way to bump an existing workflow's pinned action version.
+  --app <dir>       Monorepo: the SvelteKit app directory the vite-plugin/vite-hooks/config-file
+                    targets write into (e.g. --app apps/web). Without it, when the current
+                    directory isn't itself a SvelteKit app, one detected app is used
+                    automatically (with a notice), several prompt a picker on a TTY, and
+                    non-interactive runs exit 2 asking for --app. All other targets
+                    (skills, ci-workflow) always write at the current directory —
+                    the repo root is their correct home.
+  --yes, -y         Skip the confirmation prompt
+  --dry-run         Print the planned changes and exit without writing
+  --force           Overwrite an existing svelte-vitals entry
+  --refresh         Regenerate existing agent skill/rules files with the current rule set
+                    (claude-skill / cursor-rules / claude-skill-improve). Only regenerates files already
+                    present on disk — it never creates one. Cannot be combined with --client.
+  -h, --help        Show this help",
+}
+`;
+
+exports[`help goldens > root --help 1`] = `
+{
+  "err": "",
+  "out": "svelte-vitals — a deterministic SvelteKit code-health scanner (SEO · performance · correctness · security · architecture)
+
+Usage:
+  svelte-vitals [path] [options]
+  svelte-vitals docs list        List the bundled guides (docs show <name> prints one)
+  svelte-vitals explain --list   List every rule (explain <rule-id> explains one)
+  svelte-vitals install          Set up the Vite integration, agent skills/rules, config file, or CI
+  svelte-vitals ci install       Add a GitHub Actions PR gate (annotations + summary comment)
+  svelte-vitals ci upgrade       Refresh the pinned @svelte-vitals/action in an existing workflow
+
+Options:
+  --meta-components <names>   Comma-separated component names that emit head metadata
+  --treat-dynamic-as <mode>   pass | warn | fail (default: pass)
+  --route <glob>              Only analyze routes matching this glob
+  --diff [ref]                Report only findings in files changed vs ref (default HEAD; e.g. --diff main)
+  --staged                    Report only findings in files staged for commit (pre-commit gate)
+  --baseline <ref>            Report only findings not present at ref (compare against e.g. origin/main)
+  --update-suppressions       Write svelte-vitals-suppressions.json accepting all current findings (introduce gates on legacy projects)
+  --no-suppressions           Ignore svelte-vitals-suppressions.json for this run
+  --by-route                  Show per-route score breakdown in console output
+  --reporter <fmt>            console | json | agent | sarif | github | html | md (auto: agent under AI-agent envs, github under GitHub Actions)
+  --out-file <path>           Output path for --reporter html (default: svelte-vitals-report.html; '-' for stdout)
+  --fail-on <severity>        Fail (exit 1) when any finding reaches this severity: critical | warning | info
+  --min-health <0-100>        Fail (exit 1) when the combined Health score is below this value
+  --rules <ids>               Comma-separated rule ids to enable (all others disabled)
+  --ignore <ids>              Comma-separated rule ids to disable
+  --category <cats>           Comma-separated categories to analyze: seo | performance | correctness | security | architecture
+  --weights <pairs>           Per-category Health weight overrides, e.g. seo=2,performance=1 (unlisted categories default to 1)
+  --score                     Print only the combined Health score (works with --min-health for gating)
+  --no-color                  Disable ANSI color in console output
+  --no-animation               Disable the Health-score reveal animation and mascot on an interactive terminal
+  --verbose                    Show every finding uncapped and ungrouped (default: capped, grouped by rule)
+  -h, --help                  Show this help
+  -v, --version               Show version
+
+Config file:
+  svelte-vitals.config.{mjs,js,ts} in the analyzed directory; flags override it.
+
+Exit codes:
+  0  no failing findings
+  1  critical finding present (or --fail-on threshold reached)
+  2  execution error (not a SvelteKit project / internal error)
+
+If you are an AI agent:
+  - \`svelte-vitals docs list\` then \`docs show <name>\` — the guides ship inside this CLI, so
+    they match this exact version and need no network. Read those before searching the web.
+  - \`--reporter agent\` gives every failing finding a location, a concrete fix and an acceptance
+    check; it is auto-selected when an agent environment is detected. \`--reporter json\` is the
+    structured form.
+  - \`--diff\` scopes the report to what you just changed; \`--staged\` is the pre-commit gate.
+  - \`svelte-vitals explain <rule-id>\` says why a rule exists and which options it takes, before
+    you decide to turn it off.
+  - Do NOT reach for \`--update-suppressions\` to make a run pass: it accepts every current
+    finding into a committed file and un-gates CI for all of them. Fix the findings, or scope
+    the run with \`--diff\`. Only a human should decide to accept a backlog.
+  - Exit 2 is never a pass — it means the analysis did not run. Read stderr.
+  - Analysis never prompts when stdout is not a TTY: where it would have asked, it exits 2
+    naming the flag to pass. \`install\` is the exception — non-interactively it skips its
+    confirmation and writes, so pass \`--dry-run\` first if you need to see the plan.",
+}
+`;
