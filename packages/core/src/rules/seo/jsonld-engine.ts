@@ -139,6 +139,30 @@ export const DATE_KEYS: ReadonlySet<string> = new Set([
   'expires'
 ]);
 
+/**
+ * Deep-walk each node (nested objects + arrays) collecting the raw value of every `@context` key,
+ * whatever its type. Unlike `collectValues`, this doesn't filter to strings: a caller validating
+ * `@context` shape (string vs. array vs. object) needs to see a non-string value to reject it, not
+ * have it silently dropped.
+ */
+export function contextValues(nodes: JsonLdNode[]): unknown[] {
+  const out: unknown[] = [];
+  const walk = (v: unknown): void => {
+    if (Array.isArray(v)) {
+      v.forEach(walk);
+      return;
+    }
+    if (v && typeof v === 'object') {
+      for (const [k, val] of Object.entries(v as JsonLdNode)) {
+        if (k === '@context') out.push(val);
+        walk(val);
+      }
+    }
+  };
+  nodes.forEach(walk);
+  return out;
+}
+
 /** Types whose Google rich results were dropped/restricted (verify before relying on them). */
 export const DEPRECATED_TYPES: ReadonlySet<string> = new Set(['HowTo', 'FAQPage', 'ClaimReview']);
 

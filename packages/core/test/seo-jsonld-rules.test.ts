@@ -47,6 +47,135 @@ describe('seo/json-ld-validity validity', () => {
   });
 });
 
+describe('seo/json-ld-validity: unknown @type vocabulary', () => {
+  it('flags an unknown root type', async () => {
+    const rs = fails(
+      await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Zebra123"}')))
+    );
+    expect(rs).toHaveLength(1);
+    expect(rs[0]?.message).toBe("Unknown @type 'Zebra123' — not a schema.org type.");
+  });
+
+  it('suggests the canonical name for a case-only mismatch', async () => {
+    const rs = fails(
+      await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"article"}')))
+    );
+    expect(rs).toHaveLength(1);
+    expect(rs[0]?.message).toBe("Unknown @type 'article' — not a schema.org type. Did you mean 'Article'?");
+  });
+
+  it('gives no suggestion for a typo that is not a case-only mismatch', async () => {
+    const rs = fails(
+      await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Artcle"}')))
+    );
+    expect(rs).toHaveLength(1);
+    expect(rs[0]?.message).toBe("Unknown @type 'Artcle' — not a schema.org type.");
+  });
+
+  it('passes known types including a nested entity type, unchanged', async () => {
+    const rs = await seoJsonLdValidity.check(
+      ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Article","author":{"@type":"Person"}}'))
+    );
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs).toHaveLength(1);
+  });
+
+  it('flags an unknown nested type even when the root type is known', async () => {
+    const rs = fails(
+      await seoJsonLdValidity.check(
+        ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Article","author":{"@type":"Persn"}}'))
+      )
+    );
+    expect(rs).toHaveLength(1);
+    expect(rs[0]?.message).toContain("'Persn'");
+  });
+
+  it('flags only the unknown member of a multi-@type array', async () => {
+    const rs = fails(
+      await seoJsonLdValidity.check(
+        ctx(headWithJsonLd('{"@context":"https://schema.org","@type":["Product","Vehicl"]}'))
+      )
+    );
+    expect(rs).toHaveLength(1);
+    expect(rs[0]?.message).toContain("'Vehicl'");
+  });
+
+  it('does not flag an IRI-form @type', async () => {
+    const rs = await seoJsonLdValidity.check(
+      ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"https://schema.org/Article"}'))
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
+
+  it('does not flag a prefixed-form @type', async () => {
+    const rs = await seoJsonLdValidity.check(
+      ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"schema:Article"}'))
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
+
+  it('exempts a document whose @context is not schema.org (base validity result unaffected)', async () => {
+    const rs = await seoJsonLdValidity.check(
+      ctx(headWithJsonLd('{"@context":"https://example.com/vocab","@type":"Zebra123"}'))
+    );
+    expect(fails(rs)).toHaveLength(0); // no vocabulary finding — base checks still see @context+@type present
+    expect(rs).toHaveLength(1);
+    expect(rs[0]?.message).toBe('JSON-LD validity');
+  });
+
+  it('exempts an array @context that includes a non-schema.org member', async () => {
+    const rs = await seoJsonLdValidity.check(
+      ctx(headWithJsonLd('{"@context":["https://schema.org","https://example.com/vocab"],"@type":"Zebra123"}'))
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
+
+  it('exempts an object @context', async () => {
+    const rs = await seoJsonLdValidity.check(
+      ctx(headWithJsonLd('{"@context":{"schema":"https://schema.org/"},"@type":"Zebra123"}'))
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
+
+  it('validates http:// and trailing-slash schema.org context forms', async () => {
+    expect(
+      fails(await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"http://schema.org","@type":"Zebra123"}'))))
+    ).toHaveLength(1);
+    expect(
+      fails(await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org/","@type":"Zebra123"}'))))
+    ).toHaveLength(1);
+  });
+
+  it('exempts an uppercase schema.org context (case-sensitive match)', async () => {
+    const rs = await seoJsonLdValidity.check(
+      ctx(headWithJsonLd('{"@context":"HTTPS://SCHEMA.ORG","@type":"Zebra123"}'))
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
+
+  it('flags each unknown name in a multi-@type array as its own finding', async () => {
+    const rs = fails(
+      await seoJsonLdValidity.check(
+        ctx(headWithJsonLd('{"@context":"https://schema.org","@type":["Zebra123","Quokka456"]}'))
+      )
+    );
+    expect(rs).toHaveLength(2);
+    expect(rs.map((r) => r.message).sort()).toEqual([
+      "Unknown @type 'Quokka456' — not a schema.org type.",
+      "Unknown @type 'Zebra123' — not a schema.org type."
+    ]);
+  });
+
+  it('flags an unknown @graph member type exactly once, despite root+@graph flattening', async () => {
+    const rs = fails(
+      await seoJsonLdValidity.check(
+        ctx(headWithJsonLd('{"@context":"https://schema.org","@graph":[{"@type":"Zebra123","name":"x"}]}'))
+      )
+    );
+    expect(rs).toHaveLength(1);
+  });
+});
+
 describe('seo/json-ld-deprecated-type-021', () => {
   it('seo/json-ld-deprecated-type flags a deprecated type', async () => {
     expect(
