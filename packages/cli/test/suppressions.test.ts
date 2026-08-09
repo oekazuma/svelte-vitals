@@ -1,5 +1,5 @@
 import { describe, it, expect, afterEach } from 'vitest';
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { chmodSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import type { Config, Result } from '@svelte-vitals/core';
@@ -122,6 +122,36 @@ describe('writeSuppressions', () => {
     expect(count).toBe(0);
     const written = JSON.parse(readFileSync(join(dir, SUPPRESSIONS_FILE), 'utf8'));
     expect(written).toEqual({ version: 1, suppressions: [] });
+  });
+
+  it('writes byte-identical formatting: 2-space JSON plus a trailing newline', () => {
+    const dir = makeDir();
+    writeSuppressions(dir, [r({ id: 'seo/title-presence', route: '/a' })], config);
+    const raw = readFileSync(join(dir, SUPPRESSIONS_FILE), 'utf8');
+    expect(raw).toBe(
+      JSON.stringify({ version: 1, suppressions: [{ id: 'seo/title-presence', route: '/a' }] }, null, 2) + '\n'
+    );
+  });
+
+  it('leaves no .tmp file behind after a successful write', () => {
+    const dir = makeDir();
+    writeSuppressions(dir, [r({ id: 'seo/title-presence', route: '/a' })], config);
+    expect(existsSync(join(dir, `${SUPPRESSIONS_FILE}.tmp`))).toBe(false);
+  });
+
+  it('leaves the existing file untouched when the write fails', () => {
+    const dir = makeDir();
+    const path = join(dir, SUPPRESSIONS_FILE);
+    const before = JSON.stringify({ version: 1, suppressions: [{ id: 'OLD' }] }, null, 2) + '\n';
+    writeFileSync(path, before);
+    chmodSync(dir, 0o555); // read+execute only: writing the tmp file must fail with EACCES
+    try {
+      expect(() => writeSuppressions(dir, [r({ id: 'NEW', route: '/here' })], config)).toThrow();
+    } finally {
+      chmodSync(dir, 0o755);
+    }
+    expect(readFileSync(path, 'utf8')).toBe(before);
+    expect(existsSync(join(dir, `${SUPPRESSIONS_FILE}.tmp`))).toBe(false);
   });
 });
 

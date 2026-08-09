@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, renameSync, unlinkSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Config, Result } from '@svelte-vitals/core';
 import { isPenalized } from '@svelte-vitals/core';
@@ -111,7 +111,19 @@ export function writeSuppressions(cwd: string, results: Result[], config: Config
   entries.sort(compareEntries);
 
   const path = join(cwd, SUPPRESSIONS_FILE);
-  writeFileSync(path, JSON.stringify({ version: 1, suppressions: entries }, null, 2) + '\n');
+  // Same-directory tmp file: renameSync is only atomic within one filesystem.
+  const tmpPath = `${path}.tmp`;
+  try {
+    writeFileSync(tmpPath, JSON.stringify({ version: 1, suppressions: entries }, null, 2) + '\n');
+    renameSync(tmpPath, path);
+  } catch (err) {
+    try {
+      unlinkSync(tmpPath);
+    } catch {
+      // best-effort cleanup; original error takes precedence
+    }
+    throw err;
+  }
   return entries.length;
 }
 
