@@ -1,6 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, afterEach } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { cpSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { collectComponentFacts, type Runtime } from '@svelte-vitals/core';
 import { run } from '../src/index.js';
 import { createNodeRuntime } from '../src/runtime/node.js';
@@ -57,7 +59,8 @@ describe('collectComponentFacts: malformed .svelte files (component path)', () =
       browserGlobalRefs: [],
       moduleStateDecls: [],
       suppressions: [],
-      commentLinks: []
+      commentLinks: [],
+      parseFailed: true
     });
 
     // The well-formed sibling file must still be parsed normally — one broken
@@ -125,9 +128,61 @@ describe('collectComponentFacts: malformed .svelte files (component path)', () =
       browserGlobalRefs: [],
       moduleStateDecls: [],
       suppressions: [],
-      commentLinks: []
+      commentLinks: [],
+      parseFailed: true
     });
     expect(byFile.get(goodPath)!.loc).toBeGreaterThan(0);
+  });
+});
+
+describe('run(): stderr warning for skipped (unparsable) files (issue #424)', () => {
+  const dirs: string[] = [];
+  afterEach(() => {
+    while (dirs.length > 0) {
+      const dir = dirs.pop();
+      if (dir) rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('warns on stderr and leaves stdout valid JSON', async () => {
+    const cap = capture();
+    const code = await run({
+      cwd: malformedComponentProject,
+      log: cap.log,
+      errorLog: cap.errorLog,
+      reporter: 'json',
+      env: CLEAN_ENV
+    });
+
+    const errText = cap.err.join('\n');
+    expect(errText).toContain('svelte-vitals: skipped 1 file(s) that could not be parsed: src/lib/Broken.svelte');
+    expect(errText).toContain('svelte-vitals: findings for these files are unavailable until they parse.');
+    // stdout must stay machine-parseable — the warning goes to stderr only.
+    expect(() => JSON.parse(cap.out.join('\n'))).not.toThrow();
+    expect([0, 1]).toContain(code);
+  });
+
+  it('does not change the exit code versus the same project with no broken file', async () => {
+    const brokenCap = capture();
+    const brokenCode = await run({
+      cwd: malformedComponentProject,
+      log: brokenCap.log,
+      errorLog: brokenCap.errorLog,
+      env: CLEAN_ENV
+    });
+
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-424-run-'));
+    dirs.push(dir);
+    cpSync(malformedComponentProject, dir, { recursive: true });
+    // Replace the broken file with valid markup — same project, nothing left to skip.
+    writeFileSync(join(dir, 'src/lib/Broken.svelte'), '<p>fixed</p>');
+
+    const fixedCap = capture();
+    const fixedCode = await run({ cwd: dir, log: fixedCap.log, errorLog: fixedCap.errorLog, env: CLEAN_ENV });
+
+    expect(brokenCap.err.join('\n')).toContain('skipped 1 file(s)');
+    expect(fixedCap.err.join('\n')).not.toContain('skipped');
+    expect(fixedCode).toBe(brokenCode);
   });
 });
 

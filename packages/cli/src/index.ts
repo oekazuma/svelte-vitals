@@ -194,7 +194,7 @@ export interface AnalyzeResult {
   ruleIds: string[];
   /** Per-rule, per-declaration counts of places examined, unfiltered by `--diff`/`--baseline`/suppressions. */
   examined: Record<string, Record<string, number>>;
-  /** Non-fatal config-file issues (unknown top-level keys, invalid enum values). Empty when no config file or none found. */
+  /** Non-fatal issues surfaced during analysis: config-file problems (unknown top-level keys, invalid enum values), version-floor notices, `--rules`/overrides conflicts, and skipped-file notices. Empty when none apply. */
   warnings: string[];
   /**
    * This analysis's config-file load result (`undefined` when no config file exists at its
@@ -241,6 +241,24 @@ function overridesOffWarnings(allowRules: string[] | undefined, overrides: RuleO
     }
   }
   return warnings;
+}
+
+/**
+ * Warn about files a collector could not read or parse (`parseFailed`, set at the
+ * component/kit-module catch sites): the file contributes empty facts, so any findings
+ * it would have produced are simply missing rather than reported as fixed. Capped at 10
+ * inline paths so one badly-broken directory can't flood the terminal.
+ */
+function skippedFileWarnings(facts: { file: string; parseFailed?: true }[]): string[] {
+  const files = [...new Set(facts.filter((f) => f.parseFailed).map((f) => f.file))].sort();
+  if (files.length === 0) return [];
+  const shown = files.slice(0, 10);
+  const list =
+    files.length > shown.length ? `${shown.join(', ')}, … and ${files.length - shown.length} more` : shown.join(', ');
+  return [
+    `skipped ${files.length} file(s) that could not be parsed: ${list}`,
+    'findings for these files are unavailable until they parse.'
+  ];
 }
 
 /**
@@ -306,7 +324,7 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     version: readPackageVersion(),
     ruleIds: rules.map((r) => r.id),
     examined,
-    warnings,
+    warnings: [...warnings, ...skippedFileWarnings([...components, ...kitModules])],
     loadedConfig: loaded
   };
 }

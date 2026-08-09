@@ -156,4 +156,6 @@ export interface ComponentFacts {
   suppressions?: SuppressionDirective[];
   /** Markdown links `[label](url)` appearing inside a comment (architecture/doc-link-target). */
   commentLinks: { url: string; line: number }[];
+  /** Set when the file failed to read or parse and these facts are the empty fallback — the file was NOT analyzed. */
+  parseFailed?: true;
 }

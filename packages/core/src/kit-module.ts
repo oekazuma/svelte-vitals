@@ -48,4 +48,6 @@ export interface KitModuleFacts {
   loadWaterfalls?: { dependentLines: number[]; independentLines: number[] };
   /** Inline `svelte-vitals-disable-next-line` directives in this file. */
   suppressions: SuppressionDirective[];
+  /** Set when the file failed to read or parse and these facts are the empty fallback — the file was NOT analyzed. */
+  parseFailed?: true;
 }

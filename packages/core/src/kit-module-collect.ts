@@ -56,7 +56,7 @@ export async function collectKitModuleFacts(
         const source = await rt.readFile(rt.join(cwd, rel));
         return { file: rel, kind, ...parseKitModuleFacts(source, rel, aliases) };
       } catch {
-        return emptyKitModuleFacts(rel, kind);
+        return { ...emptyKitModuleFacts(rel, kind), parseFailed: true };
       }
     })
   );
