@@ -19,7 +19,8 @@ easier by adopting [gunshi](https://gunshi.dev/).
 - API surface relevant here: `define()` (declarative, typed args: `string`/`boolean`/`number`
   types, `short` aliases, descriptions), `cli(argv, command, { subCommands, fallbackToEntry })`,
   lazy-loadable sub-commands, auto-generated usage/help, pluggable renderers, a plugin system
-  with lifecycle hooks, built-in i18n, `choice`/`positional` combinators.
+  with lifecycle hooks, i18n via the separate optional `@gunshi/plugin-i18n` package (the
+  renderer/global plugins ship inside `cli()`; i18n does not), `choice`/`positional` combinators.
 
 ## What it buys this repo (mapped to today's code)
 
@@ -38,7 +39,8 @@ easier by adopting [gunshi](https://gunshi.dev/).
   40 lines over `util.parseArgs`, plus the coercion parts of `resolve-args.ts`). Domain
   validation (rules×category conflicts, `--min-health` range, git ref checks) stays ours,
   outside gunshi.
-- **Future option: bilingual help.** gunshi's built-in i18n could serve `ja` help text — a
+- **Future option: bilingual help.** gunshi's i18n plugin (`@gunshi/plugin-i18n`, a separate
+  optional package whose own dependency footprint must be evaluated then) could serve `ja` help text — a
   natural fit for a repo that already maintains en/ja docs in lockstep. Not part of this plan;
   recorded as a follow-on candidate.
 
@@ -64,7 +66,10 @@ easier by adopting [gunshi](https://gunshi.dev/).
 ## Contracts that must not move (the migration's invariants)
 
 - Exit codes: analyzer `0`/`1`/`2` per `bin.ts`'s documented contract; sub-commands `0`/`2`
-  with stdout left empty on every exit-2 path.
+  with stdout left empty on every exit-2 path — one known exception, recorded by Phase 0's
+  characterization rather than papered over: `ci <unknown-subcommand>` currently prints its help
+  to stdout before exiting 2. Phase 2 must either fix that path to stderr (a declared movement)
+  or accept the exception deliberately; the contract test pins today's behavior either way.
 - `svelte-vitals: …` stderr prefix and wording of error diagnostics (agents and CI scripts
   match on these).
 - Reporter stdout purity (`--reporter json`/`sarif` must remain machine-parseable; nothing new
