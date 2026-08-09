@@ -108,7 +108,10 @@ retain Phase 0's suite, record the outcome here as a dated addendum.
 
 ### Phase 2 — root analyzer + `explain`
 
-`define()` the analyzer's args; `cli()` with `subCommands` + `fallbackToEntry`;
+`define()` the analyzer's args; `cli()` with `subCommands` + `fallbackToEntry`
+(entry point superseded by the Phase 1 verdict below: `gunshi/bone` — the zero-plugin subpath
+export of the same pinned `gunshi` package, not a separate package; `subCommands`/`fallbackToEntry`
+come from the shared `cliCore` dispatcher and were verified identical under bone);
 `resolve-args.ts` keeps all domain validation. Full characterization suite must stay green
 except deliberately-updated help goldens. This phase changes user-visible surfaces, so it gets
 the independent fresh-context review treatment on top of the standard adversarial review.
@@ -134,8 +137,9 @@ help-format movement declared explicitly (maintainer call on patch vs minor at P
 
 ## Phase 1 verdict (2026-08-10) — all three gates pass; proceed to Phase 2 on `gunshi/bone`
 
-Spike branch: `spike/gunshi-phase1` (commit 7d97b97b, not merged; full narrative in its
-`packages/cli/SPIKE-FINDINGS.md`, 36 probe tests). Gate outcomes:
+Spike branch: `spike/gunshi-phase1` (commit 7d97b97b, pushed but never merged; read the full
+narrative with `git show spike/gunshi-phase1:packages/cli/SPIKE-FINDINGS.md` — the path does not
+exist on `main`; 36 probe tests). Gate outcomes:
 
 - **(a) contracts — pass-with-wrapper.** The `docs` port reproduces every design-doc cell
   byte-for-byte except `--help` (exit 0 holds; text differs, which decision 1 already accepts).
@@ -154,7 +158,8 @@ Spike branch: `spike/gunshi-phase1` (commit 7d97b97b, not merged; full narrative
 - **(c) in-process testability — pass, clean.** Injected-IO capture works with zero global
   patching, matching the Phase-0 harness pattern.
 
-**Phase 2 builds on `gunshi/bone`, not full `cli()`.** Decided on spike evidence: `cli()`'s
+**Phase 2 builds on `gunshi/bone` — the subpath export of the pinned `gunshi` package, not a
+separate npm package — instead of full `cli()`.** Decided on spike evidence: `cli()`'s
 `global()` plugin force-installs `-h`/`-v` on every command with no opt-out (`options.plugins` is
 additive), silently hijacking `docs list -v` into printing `"unknown"` on stdout with exit 0 —
 a stdout-purity and control-flow regression against a flag the CLI never defined; and its
@@ -177,8 +182,14 @@ committed dependency is the only reliably present artifact.)
 
 Implementation facts Phase 2 must carry: `ctx.positionals` includes the matched sub-command's own
 path tokens (undocumented) — recover argv-after-subcommand with
-`ctx.positionals.slice(ctx.commandPath.length)`; boolean `--flag=false` is truthy to args-tokens
-(keep `parseCliArgs`'s literal-'false' coercion where needed); `--no-color`-style negation is a
-per-flag `negatable: true` schema opt-in, not automatic. Measurements: gunshi 0.37.1 is 304 K
-unpacked in the store / 53.8 kB packed, zero installed dependencies (args-tokens confirmed
-inlined), and its import costs ≈5 ms against the CLI's current ≈157 ms `--help` startup.
+`ctx.positionals.slice(ctx.commandPath.length)`, and because that invariant is unsupported
+upstream, every ported command pins it with an explicit regression test so a gunshi bump that
+changes the shape fails as a named test, not a mystery; boolean `--flag=false` is truthy to
+args-tokens — `parseCliArgs`'s literal-'false' coercion moves into the same raw-argv pre-scan
+wrapper as the gate-(b) guard when `cli-args.ts` is deleted in Phase 3 (one shared normalization
+layer ahead of gunshi, never per-command re-implementations); `--no-color`-style negation is a
+per-flag `negatable: true` schema opt-in, not automatic. Measurements: gunshi 0.37.1 occupies 304 K on disk in the pnpm store (`du -sh`; the registry's
+`unpackedSize` metadata reports ~234 KB — filesystem block overhead accounts for the gap), packs
+to a 53.8 kB tarball, and installs zero dependencies (args-tokens confirmed inlined). Import cost
+≈5 ms — median of 10 runs of `node --input-type=module -e "import('gunshi')"` minus the bare
+`node -e 0` floor on the same machine — against the CLI's current ≈157 ms `--help` startup.
