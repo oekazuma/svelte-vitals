@@ -78,7 +78,7 @@ improve スキルによる監査(2026-07-05、commit `1f6f233` 時点)から生�
 - **2608-CORE-03** component/kit-module ルールの pass シードに `location` がなく、`overrides[].files` グロブが pass シードにマッチしない(severity override と option override で選択対象がずれる)(S)。 **済み (PR #416)**
 - **2608-SEC-01** `release.yml`/`ci.yml` の lint/check/docs job の checkout に `persist-credentials: false` がない(test/floor-smoke には既にある — 慣習の取りこぼし)。release.yml は changesets の push 経路の検証が必要(S)。 **済み (PR #412)**
 - **2608-PERF-03** `collect-all.ts` / `vite/analyze.ts` の 5 つの collector が直列 await(kitModules 以外は独立、`Promise.all` 化で S)。io-budget のカウントは不変。 **済み (PR #438)**
-- **2608-STALE 一式** AGENTS.md/CONTRIBUTING.md の「Astro Starlight」(実際は Blume)、「dev overlay」呼称 5 箇所(正: live dashboard)、ci.yml の pnpm@11.17.0 コメント、`rule.ts` の Scope docコメントに 'component' 欠落、skill生成ヘッダーの `--force` 案内(正: `--refresh`)、cli の npm description が「SEO checker」のまま 5 カテゴリを反映していない(まとめて S)。AGENTS.md はエージェントが毎セッション読む契約なので費用対効果は高い。 **済み (PR #413)**
+- **2608-STALE 一式** AGENTS.md/CONTRIBUTING.md の「Astro Starlight」(実際は Blume)、「dev overlay」呼称 5 箇所(正: live dashboard)、ci.yml の pnpm@11.17.0 コメント、`rule.ts` の Scope docコメントに 'component' 欠落、skill生成ヘッダーの `--force` 案内(正: `--refresh`)、cli の npm description が「SEO checker」のまま 5 カテゴリを反映していない(まとめて S)。AGENTS.md はエージェントが毎セッションで読む契約なので費用対効果は高い。 **済み (PR #413)**
 - **2608-CLI-08** `install` の対話プロンプトのゲートが stdout TTY のみ(stdin パイプ時にハング。analyzer 側は両方見る — 同じ轍を Plan 019 の CodeRabbit 指摘で一度踏んでいる)(S)。 **済み (PR #435)**
 - **2608-CLI-10** suppressions ファイルの書き込みが非アトミック(途中クラッシュで以後全実行が exit 2)(S)。 **済み (PR #434)**
 - **2608-TEST-07** `routeMatcher` が空白をグロブのプレースホルダーに使い、空白入りグロブが `.*` に化ける(再現済み、S)。 **済み (PR #433)**
