@@ -85,7 +85,7 @@ export const seoJsonLdValidity: Rule = {
                 severity: 'warning',
                 detection: PENALIZED,
                 route: head.route,
-                location: head.file,
+                location: tag.file ?? head.file,
                 message: unknownTypeMessage(name),
                 recommendation: "Use the exact schema.org type name (case-sensitive), e.g. 'Article', 'Product'.",
                 docsUrl
@@ -103,7 +103,7 @@ export const seoJsonLdValidity: Rule = {
                 severity: 'warning',
                 detection: PENALIZED,
                 route: head.route,
-                location: head.file,
+                location: tag.file ?? head.file,
                 message: problem,
                 recommendation: 'Make the JSON-LD valid JSON with both @context and @type.',
                 docsUrl,
@@ -117,7 +117,7 @@ export const seoJsonLdValidity: Rule = {
                 route: head.route,
                 // Same `location` the penalized branch above uses (design
                 // 2026-08-08-pass-result-location-design.md).
-                location: head.file,
+                location: tag.file ?? head.file,
                 message: 'JSON-LD validity',
                 recommendation: 'Make the JSON-LD valid JSON with both @context and @type.',
                 docsUrl

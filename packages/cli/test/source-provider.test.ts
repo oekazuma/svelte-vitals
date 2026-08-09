@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import {
+  seoJsonLdValidity,
   seoSingleH1,
   seoTitlePresence,
   type Config,
@@ -190,6 +191,67 @@ describe('collectRoutes componentHeadings (issue #425)', () => {
       { level: 3, line: expect.any(Number), file: 'src/routes/+page.svelte' }
     ]);
     expect(route.componentHeadings).toEqual([{ level: 1, line: expect.any(Number), file: 'src/lib/Card.svelte' }]);
+  });
+});
+
+describe('collectRoutes JSON-LD additivity (issue #443)', () => {
+  it('keeps both application/ld+json scripts in one <svelte:head>, each feeding seo/json-ld-validity separately', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+page.svelte': `<svelte:head>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Site","url":"https://example.com"}</script>
+  <script type="application/ld+json">{not valid json}</script>
+</svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    expect(head!.tags.filter((t) => t.kind === 'jsonld')).toHaveLength(2);
+
+    const results = await seoJsonLdValidity.check({ heads: [head!], project: defaultProject, config: defaultConfig });
+    expect(results).toHaveLength(2);
+    expect(results.filter((r) => r.detection.presence === 'own')).toHaveLength(1); // the valid WebSite document
+    const finding = results.find((r) => r.detection.presence === 'none');
+    expect(finding?.message).toBe('JSON-LD is not valid JSON');
+  });
+
+  it('keeps a layout jsonld tag (inherited) alongside a page jsonld tag (own)', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+layout.svelte': `<svelte:head><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Acme"}</script></svelte:head>`,
+      'src/routes/+page.svelte': `<svelte:head><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Hi"}</script></svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    const jsonldOnHead = head!.tags.filter((t) => t.kind === 'jsonld');
+    expect(jsonldOnHead).toHaveLength(2);
+    expect(jsonldOnHead.find((t) => t.file === 'src/routes/+layout.svelte')?.presence).toBe('inherited');
+    expect(jsonldOnHead.find((t) => t.file === 'src/routes/+page.svelte')?.presence).toBe('own');
+  });
+
+  it('keeps a $lib component jsonld tag alongside the page own jsonld tag', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+page.svelte': `<script>import Seo from '$lib/Seo.svelte';</script><Seo /><svelte:head><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Hi"}</script></svelte:head>`,
+      'src/lib/Seo.svelte': `<svelte:head><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Acme"}</script></svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    expect(head!.tags.filter((t) => t.kind === 'jsonld')).toHaveLength(2);
+  });
+
+  it('still overrides the layout <title> with the page <title> (composed-path regression pin)', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+layout.svelte': `<svelte:head><title>Layout title</title></svelte:head>`,
+      'src/routes/+page.svelte': `<svelte:head><title>Page title</title></svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    expect(titleDetection(head!)).toEqual({ presence: 'own', value: 'static' });
+    expect(head!.tags.filter((t) => t.kind === 'title')).toHaveLength(1);
+  });
+
+  it('attributes a broken layout jsonld finding to the layout file, not the page', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+layout.svelte': `<svelte:head><script type="application/ld+json">{not valid json}</script></svelte:head>`,
+      'src/routes/+page.svelte': `<svelte:head><script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Hi"}</script></svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    const results = await seoJsonLdValidity.check({ heads: [head!], project: defaultProject, config: defaultConfig });
+    const finding = results.find((r) => r.message === 'JSON-LD is not valid JSON');
+    expect(finding?.location).toBe('src/routes/+layout.svelte');
   });
 });
 
