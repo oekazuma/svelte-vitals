@@ -16,4 +16,11 @@ export interface HeadingInfo {
 export interface ResolvedHeadings {
   route: string;
   headings: HeadingInfo[];
+  /**
+   * Headings found in child components rendered (transitively) by this route's
+   * chain files — source mode only; absent in rendered mode. Kept separate from
+   * `headings` because their position in document order is unknown: safe for
+   * counting (seo/single-h1), unusable for outline order (seo/heading-level-skip).
+   */
+  componentHeadings?: HeadingInfo[];
 }

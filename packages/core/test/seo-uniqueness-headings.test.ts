@@ -97,4 +97,14 @@ describe('seo/heading-level-skip heading order', () => {
   it('emits nothing for a route with no headings', async () => {
     expect(await seoHeadingLevelSkip.check(headingsCtx([headings([])]))).toHaveLength(0);
   });
+  it('ignores componentHeadings (no reliable document-order position, issue #425)', async () => {
+    // Chain outline h1->h2->h3 is well-ordered; a componentHeadings h6 would create
+    // a skip (h3 -> h6) if it were appended to the walk, but it must not be.
+    const withComponent: ResolvedHeadings = {
+      ...headings([1, 2, 3]),
+      componentHeadings: [{ level: 6, line: 0, file: 'child.svelte' }]
+    };
+    const rs = await seoHeadingLevelSkip.check(headingsCtx([withComponent]));
+    expect(fails(rs)).toHaveLength(0);
+  });
 });

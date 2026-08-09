@@ -28,7 +28,7 @@ The `<h1>` names a page's main topic. Zero `<h1>` leaves the page without a prim
 
 Headings are collected in both modes, but from different sources, so results can differ:
 
-- **Static (CLI)** walks the route's `.svelte` templates, so it counts headings in branches that may not render (e.g. inside `{#if false}`) and cannot see headings rendered by imported child components.
-- **Rendered (vite)** reads the final HTML, so it sees component-rendered headings and only the branches that actually rendered.
+- **Static (CLI)** walks the route's `.svelte` templates, including headings rendered by imported local components (followed transitively, depth-limited, the same traversal used for head resolution) — so extracting a page's `<h1>` into a `$lib` component is credited. It still counts headings in branches that may not render (e.g. inside `{#if false}`), and it cannot see components from `node_modules`, dynamically chosen components, or which conditional branch actually renders — a heading inside an unresolvable component can still produce a false "Missing `<h1>`", and multiple conditionally-rendered headings can produce an `info`-level over-count.
+- **Rendered (vite)** reads the final HTML, so it sees every component-rendered heading and only the branches that actually rendered.
 
-When the two disagree, trust the rendered result — it reflects what ships to the browser.
+When the two disagree, trust the rendered result (`@svelte-vitals/vite`) — it reflects what ships to the browser.

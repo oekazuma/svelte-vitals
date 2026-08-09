@@ -114,6 +114,11 @@ const hs = (levels: number[]): ResolvedHeadings => ({
   route: '/a',
   headings: levels.map((level) => ({ level, line: 0, file: 'x' }))
 });
+const hsWithComponents = (levels: number[], componentLevels: number[]): ResolvedHeadings => ({
+  route: '/a',
+  headings: levels.map((level) => ({ level, line: 0, file: 'x' })),
+  componentHeadings: componentLevels.map((level) => ({ level, line: 0, file: 'child.svelte' }))
+});
 
 describe('seo/single-h1 heading hierarchy', () => {
   it('passes a page with exactly one <h1>', async () => {
@@ -145,5 +150,24 @@ describe('seo/single-h1 heading hierarchy', () => {
   });
   it('emits nothing when the headings channel is unset', async () => {
     expect(await seoSingleH1.check({ heads: [], ...base })).toHaveLength(0);
+  });
+  it('passes when the only <h1> is componentHeadings (issue #425)', async () => {
+    const rs = await seoSingleH1.check(headingsCtx([hsWithComponents([], [1])]));
+    expect(fails(rs)).toHaveLength(0);
+    expect(rs[0]!.message).not.toContain('Missing');
+  });
+  it('flags multiple <h1> when the chain and a child component each render one', async () => {
+    const rs = await seoSingleH1.check(headingsCtx([hsWithComponents([1], [1])]));
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.message).toContain('Multiple');
+    expect(rs[0]!.severity).toBe('info');
+  });
+  it('keeps the Missing arm locationless when only componentHeadings carry non-h1 headings', async () => {
+    // Attribution must stay chain-only: a component-file location would change the
+    // findingKey committed in suppressions files and surface the warning to --diff.
+    const rs = await seoSingleH1.check(headingsCtx([hsWithComponents([], [2])]));
+    expect(fails(rs)).toHaveLength(1);
+    expect(rs[0]!.message).toBe('Missing <h1>');
+    expect(rs[0]!.location).toBeUndefined();
   });
 });
