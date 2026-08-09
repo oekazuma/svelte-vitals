@@ -1,5 +1,143 @@
 # @svelte-vitals/core
 
+## 0.40.0
+
+### Minor Changes
+
+- 20d6f16: The CLI's default gate is `--fail-on critical`: a project failing only on a missing
+  `<meta name="description">` now exits `0` instead of `1` (a deliberate loosening). Three more gate
+  movements only surface under a non-default `--fail-on warning` (or an equivalent `--min-health`):
+  a project failing only on a missing `og:url` now exits **`1` instead of `0` — a tightening, and the
+  only one of the four that can turn a previously-green CI red on upgrade.** A project failing only
+  on a missing `og:description` now exits `0` instead of `1`. A project failing only on a
+  multi-`<h1>` page now also exits `0` instead of `1`. No other rule's severity changed, so no other
+  gate behavior changes. Realigned four SEO rule severities with their underlying evidence,
+  following the 2026-08-09 rule-validity review's Priority-2 findings.
+
+  Two of the four changes shrink the `seo::route` scoring pair's total weight from 110 to 100
+  (description-presence −10, og-url +4, og-description −4, net −10) — so a project's SEO/Health
+  score can shift by a point or two even with no finding changes at all, simply because the
+  denominator moved. `single-h1` and `hreflang` don't affect the pair's weight (see below).
+
+  - `seo/description-presence`: `critical` → `warning`. `critical` now uniformly means
+    deploy-blocking (the four crash/security rules — `correctness/orphan-effect`,
+    `correctness/orphan-lifecycle`, `correctness/server-browser-global`,
+    `security/handler-state-write` — plus `seo/title-presence`) — Google only "sometimes" uses the
+    provided meta description for the search snippet, generating one from page content the rest of
+    the time, so a missing one is real but non-blocking.
+  - `seo/og-url`: `info` → `warning`, and `seo/og-description`: `warning` → `info` — swapped to match
+    the [Open Graph protocol](https://ogp.me/)'s own required/optional split (`og:url` is Basic/required
+    metadata; `og:description` is Optional). The previous ordering's "og:url is covered by canonical"
+    rationale conflated two different jobs (canonical targets search engines, og:url targets social
+    platforms) and is now recorded as historical context in the `og:url` docs page.
+  - `seo/single-h1`: severity split — a page with zero `<h1>` stays `warning` (a real primary-heading
+    gap); two or more `<h1>` is demoted to `info` (a single `<h1>` is the conventional signal, but no
+    official source documents a ranking penalty for several, so it's a style nit, not a defect). The
+    rule's own registered severity (read by scoring's inventory and the rules index) stays `warning`
+    — only the per-finding severity is split, so the `seo::route` pair's total weight is unaffected.
+    A global `rules: { 'seo/single-h1': <severity> }` override flattens both arms back to one
+    severity, same as any other rule.
+  - `seo/hreflang`: wording only, severity unchanged (`warning`). The "2+ alternates without
+    x-default" message and recommendation no longer imply a defect — Google's guidance frames
+    `x-default` as something to "consider," specifically for language-selector or auto-redirecting
+    pages, not a requirement for every multilingual site. The malformed-hreflang-code arm is
+    unchanged.
+
+### Patch Changes
+
+- 578f4c8: Corrected the failure-mechanism claims in three correctness rules' messages, rationale, and docs (severities unchanged):
+
+  - `correctness/checkable-bind-value`: `bind:value` on a **checkbox** throws `bind_invalid_checkbox_value` only in a development build — the rule text claimed it silently "freezes," which is only true in production (where the binding falls back to tracking the `value` attribute). The radio message was already correct and is unchanged.
+  - `correctness/orphan-effect`: the rule claimed a `production 500`. The server compiler deletes `$effect`/`$effect.pre` calls entirely, so SSR renders without error — the `effect_orphan` crash actually happens client-side, at module evaluation, breaking hydration.
+  - `correctness/orphan-lifecycle`: `onMount`/`beforeUpdate`/`afterUpdate`/`createEventDispatcher` are silent no-ops on the server (and `onDestroy` throws a plain `TypeError`, not `lifecycle_outside_component`) — so "throws `lifecycle_outside_component`" was wrong for a Kit module that only ever runs on the server (`+page.server.ts`, `+server.ts`, `hooks.server.ts`). The context functions (`getContext`/`setContext`/`hasContext`/`getAllContexts`) do still throw there, and every name is unchanged for universal Kit modules (`+page.ts`/`+layout.ts`) and component-scoped code, since those also run in the browser.
+
+- 090f5d7: `docs show <rule-id>` now tells you the id is a rule and points at `svelte-vitals explain <rule-id>` (which already prints a rule's rationale, options, and docs URL offline) instead of only listing the workflow guide topics. The agent report's intro now mentions `explain` too, so agents can reach rule semantics without the network.
+- 72d908d: Two `correctness/effect-*` rule content fixes from the v1.0 rule-validity review:
+
+  - `correctness/effect-as-onmount` no longer flags an `$effect` that reads a reactive value through
+    a member expression on an imported binding or a local declared with a `new …()` initializer — a
+    class instance with `$state` fields, a `SvelteMap`/`SvelteSet`, an imported runes-module state
+    object, and `svelte/reactivity/window` were all indistinguishable from the true mount-only
+    positive, and the rule's "use `onMount` instead" advice would have converted a re-running effect
+    into run-once. The change is strictly narrowing (only removes findings, never adds one); the
+    rule's message, recommendation, and docs now name `{@attach}` and event handlers alongside
+    `onMount` instead of presenting `onMount` as the sole fix, and the docs admit the remaining blind
+    spots (a reactive value reached only through a plain function's return value, or through a local
+    assigned `new …()` after its declaration instead of at it) plus a pre-existing shadowing
+    granularity note: matching is by identifier text, not lexical scope, so a callback-local binding
+    that shadows an imported or `new`-declared name is still treated as reactive — that can only
+    suppress a finding, never wrongly flag one.
+  - The documented fix snippets for `correctness/server-browser-global` and
+    `correctness/instance-browser-global` now use `onMount` (and, for the latter,
+    `svelte/reactivity/window` as the preferred modern form) instead of an `$effect` that assigns a
+    browser global to `$state` — that snippet was itself flagged by `correctness/effect-as-derived`,
+    whose "use `$derived`" advice would reintroduce the SSR `ReferenceError` those two rules exist to
+    prevent. `correctness/effect-as-derived`'s docs gain this as a second known limitation, and drop
+    an inaccurate "$derived updates synchronously" claim in favor of describing its actual push-pull,
+    lazy-recompute behavior.
+
+- f09c015: `seo/json-ld-required-props`'s `REQUIRED_PROPS` table was stale against Google's current
+  structured-data requirements, producing warning-level false positives on valid markup. Re-verified
+  against developers.google.com:
+
+  - `Article`/`BlogPosting`/`NewsArticle`: row removed. Google lists no required properties for these
+    types (`headline` is Recommended) — valid markup without a `headline` is no longer flagged.
+  - `Organization`: row removed. Google lists no required properties.
+  - `Product`: now `name` plus **at least one of** `review`, `aggregateRating`, or `offers` (was
+    `name` + `offers` unconditionally). A `Product` with only `aggregateRating` or only `review` no
+    longer flags a missing `offers`; a `Product` missing all three now names the group in the message
+    ("missing … one of review, aggregateRating or offers").
+  - `Recipe`: now `name` + `image` only (was also requiring `recipeIngredient`/`recipeInstructions`,
+    which Google does not require).
+  - `VideoObject`: `description` dropped (Google: Recommended, not Required); still requires `name`,
+    `thumbnailUrl`, `uploadDate`.
+  - `Person`: row removed (was `name` required unconditionally). Google has no standalone Person rich
+    result — the only documented requirement (`name` or `alternateName`) applies to a Person filling
+    `ProfilePage.mainEntity`, a relationship this rule's per-`@type`, per-node model doesn't track, so
+    a global row overclaimed "ineligible for the rich result" for every generic Person block (e.g. an
+    Article's `author`). A generic `Person` node no longer produces a finding at all.
+  - `Event`, `LocalBusiness`, `WebSite`, `BreadcrumbList` verified unchanged.
+
+  No detection or message changes for any other JSON-LD rule.
+
+- 59869b4: `performance/minify-disabled`: the rule's rationale claimed "Vite minifies with esbuild by default" — false since Vite 8, which defaults to its own Oxc minifier and made `esbuild` an optional peer dependency. The machine `fix.snippet` wrote `minify: 'esbuild'`, which an agent applying it verbatim would ship as a build newly requiring an undeclared dependency. The description and snippet now describe removing/scoping the override without naming a minifier; docs (en/ja) drop the stale esbuild-default claim and add `'oxc'` to the not-flagged list.
+
+  `performance/preconnect`: the machine `fix.snippet` preconnected only `fonts.googleapis.com`. Google Fonts serves the actual font files from `fonts.gstatic.com` under anonymous CORS, so the canonical fix — already shown in the rule's own docs — is the two-link pair, the second carrying `crossorigin`. The snippet now matches the docs.
+
+  `performance/render-blocking-script`: both collectors (`svelte-vitals`'s static parse and `@svelte-vitals/vite`'s rendered-HTML parse) marked a `<script src>` render-blocking whenever it lacked `defer`/`async`/`type="module"`, which false-positived on non-executing script types — most notably `type="text/partytown"`, SvelteKit's own recommended way to offload third-party scripts off the main thread, plus `type="importmap"` and `type="speculationrules"`. None of these execute as a classic script, so none can block HTML parsing. Both collectors now flag only a script whose `type` is absent, empty, or a JavaScript MIME type (a classic script) and that lacks `defer`/`async` — a strict narrowing of detection, removing this false positive without adding any new one.
+
+- 369f0b1: Three `security/*` rule content fixes from the v1.0 rule-validity review:
+
+  - `security/handler-state-write` and `security/shared-state-import` no longer fire on a universal
+    `+page.ts`/`+layout.ts` file that itself exports `ssr = false` — that load never runs on the
+    server, so there's no shared-process instance to leak through, and SvelteKit's own docs bless
+    this configuration ("If you're not using SSR, then there's no risk of accidentally exposing one
+    user's data to another"). The exemption is same-file only: a `+page.server.ts` still runs
+    server-side regardless of `ssr` and keeps firing. A false positive removed on the one
+    configuration the framework docs call safe.
+  - `security/handler-state-write`'s message and recommendation now condition the cross-user-leak
+    claim instead of asserting it unconditionally — rate limiters and memoization caches keyed by
+    non-personal data are the common benign shape for this same call pattern, and the wording now
+    says so instead of implying every promoted write is a leak. Severity is unchanged (`critical`).
+  - `security/handler-state-write` and `security/raw-html` recommendations now mention the inline
+    suppression directive, matching their SSR sibling rules (`security/server-module-state`,
+    `security/shared-state-import`) which already had it. `raw-html`'s docs also spell out that a
+    sanitizer keeps `{@html}` in the source — the finding is expected to persist after sanitizing,
+    and suppression (not a further code change) is how a reviewed call clears it.
+
+- 5e89a45: seo/single-h1 in the CLI's static mode now counts headings rendered by imported local components (followed transitively through the same depth-limited traversal head resolution already uses — no additional file reads). Extracting a page's `<h1>` into a `$lib` component no longer produces a false "Missing <h1>" warning, aligning the CLI with the vite plugin's rendered-HTML result. Two finding movements: false "Missing <h1>" warnings on such routes disappear (Health can rise), and routes whose chain plus components render more than one `<h1>` may gain a new info-level multiple-h1 finding (fails only under `--fail-on info`). Headings inside node_modules or dynamically chosen components remain invisible to static mode; the vite plugin stays the authoritative check there. seo/heading-level-skip is unchanged — component headings have no reliable document-order position, so the outline walk deliberately ignores them.
+- fe4e575: Softened overstated or stale claims in several rules' rationale text (and one fix snippet), following the 2026-08-09 rule-validity review's Priority-3 findings. Wording only — no detection, severity, or message changes.
+
+  - `performance/image-dimensions`: "triggers CLS" → "can trigger … unless the box is reserved another way (e.g. CSS `aspect-ratio`)".
+  - `security/javascript-url`: leads with the CSP violation and unsafe navigation instead of XSS, demotes XSS to a parenthetical (detection is literal-only, so every flagged URL is author-written), and adds `formaction` to the attribute list already covered by detection.
+  - `seo/canonical-url`: drops the trailing-slash example — SvelteKit normalizes those by default.
+  - `seo/heading-level-skip`: assistive tech "relies on" the document outline; search engines now only "use it as a structural signal" rather than "rely on" it.
+  - `seo/html-lang`: drops the "for search engines" framing — Google has said it does not use `lang` for ranking — in favor of screen readers, translation, and other assistive handling.
+  - `seo/image-alt`: the fix snippet's placeholder alt text (`"Description of the image"`) tripped Svelte's own `a11y_img_redundant_alt` check; replaced with a concrete example.
+  - `seo/viewport`: drops the unsupported "Google penalizes" claim for the documented ~980px layout-viewport rendering behavior mobile browsers fall back to.
+
+- 2d0bae3: Fix a parse crash on argument-less `$state()` that made the whole component invisible to every rule. `let el = $state();` (the idiomatic `bind:this` declaration) threw inside fact extraction; the error was swallowed and the file silently contributed no findings at all. Such files are now analyzed normally. Note: projects using this pattern may see new findings on the next run — including critical ones (e.g. correctness/orphan-effect) in files that were previously skipped — so a previously green run can now fail the default `--fail-on critical` gate. That is the fix working, not a regression.
+
 ## 0.39.0
 
 ### Minor Changes
