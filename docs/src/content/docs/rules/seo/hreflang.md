@@ -9,7 +9,7 @@ description: hreflang alternates should use valid codes; x-default is recommende
 
 Validates `<link rel="alternate" hreflang="…">` alternates. The rule is opt-in: a page with no hreflang alternates is never flagged. When alternates exist it flags:
 
-- a malformed `hreflang` value (not `x-default` or a well-formed BCP-47 code such as `en`, `en-US`, `zh-Hant`, or `es-419`), and
+- a malformed `hreflang` value — not `x-default`, or a language(-script)(-region) code such as `en`, `en-US`, `zh-Hant`, or `es-419` — and
 - a set of two or more alternates with no `x-default` declared.
 
 ## Why it matters
@@ -27,3 +27,7 @@ A missing `x-default` is a different kind of finding. [Google's own guidance](ht
   <link rel="alternate" hreflang="x-default" href="https://example.com/" />
 </svelte:head>
 ```
+
+## Limitations
+
+Validation covers a pragmatic subset of BCP-47 — language, optional script, optional region — not the full grammar. BCP-47 variants and extensions (e.g. `de-DE-1996`, `en-US-u-hc-h12`) are valid hreflang values but are not recognized here and will be flagged as malformed.

@@ -7,7 +7,7 @@ description: Every route should include an og:description.
 
 ## What it checks
 
-Every route must include a `<meta property="og:description">` tag (own or inherited). A missing or empty tag is flagged.
+Every route should include a `<meta property="og:description">` tag (own or inherited). A missing or empty tag is reported as an informational finding.
 
 ## Why it matters
 

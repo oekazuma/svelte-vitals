@@ -12,8 +12,8 @@ describe('svelteVitals plugin', () => {
     const pages = join(cwd, '.svelte-kit/output/prerendered/pages');
     await mkdir(pages, { recursive: true });
     // No <title> — seo/title-presence is the critical finding this fixture exists to trigger.
-    // (seo/description-presence, also missing here, is only a warning as of the P2
-    // severity-alignment change, so it can no longer carry this test on its own.)
+    // The description IS present: seo/description-presence is only a warning as of the P2
+    // severity-alignment change, so it can no longer carry this test on its own.
     await writeFile(
       join(pages, 'index.html'),
       `<html lang="en"><head><meta name="description" content="Home page."></head><body></body></html>`

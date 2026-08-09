@@ -9,7 +9,7 @@ description: hreflang の alternate には有効なコードを使いましょ�
 
 `<link rel="alternate" hreflang="…">` の alternate を検証します。本ルールはオプトインで、hreflang alternate のないページは検出しません。alternate が存在する場合、次を検出します。
 
-- 不正な `hreflang` 値(`x-default` でも、`en`、`en-US`、`zh-Hant`、`es-419` のような整形式の BCP-47 コードでもないもの)
+- 不正な `hreflang` 値(`x-default` でも、`en`、`en-US`、`zh-Hant`、`es-419` のような言語(-スクリプト)(-地域)形式のコードでもないもの)
 - alternate が 2 つ以上あるのに `x-default` が宣言されていない場合
 
 ## なぜ重要か
@@ -27,3 +27,7 @@ hreflang コードが不正だと国際ターゲティングが機能せず、�
   <link rel="alternate" hreflang="x-default" href="https://example.com/" />
 </svelte:head>
 ```
+
+## 制限事項
+
+検証対象は BCP-47 の実用的なサブセット(言語・任意のスクリプト・任意の地域)のみで、文法全体はカバーしません。BCP-47 のバリアントや拡張(例: `de-DE-1996`、`en-US-u-hc-h12`)は有効な hreflang 値ですが、本ルールでは認識されず不正な値として検出されます。
