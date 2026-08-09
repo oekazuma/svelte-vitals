@@ -27,7 +27,7 @@ export function formatAgentReport(results: Result[], config: Config): string {
   }
 
   lines.push(
-    `${failing.length} issue(s) to fix, ordered most-severe first. Fix critical issues first; warning and info items improve SEO but do not fail the default build. Apply each fix below, then re-run \`svelte-vitals\` (or the build) to confirm each rule passes.`,
+    `${failing.length} issue(s) to fix, ordered most-severe first. Fix critical issues first; warning and info items improve SEO but do not fail the default build. Apply each fix below, then re-run \`svelte-vitals\` (or the build) to confirm each rule passes. Run \`svelte-vitals explain <rule-id>\` for any rule's rationale and options (works offline).`,
     ''
   );
 

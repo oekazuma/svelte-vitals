@@ -1,5 +1,7 @@
+import { docsUrlFor } from '@svelte-vitals/core';
 import { parseCliArgs } from '../cli-args.js';
 import { consoleIO, type CliIO } from '../cli-io.js';
+import { knownRuleIds } from '../rules-config.js';
 import { EMBEDDED_DOCS } from './generated.js';
 
 const DOCS_HELP = `svelte-vitals docs — read the bundled guides without leaving the terminal
@@ -78,9 +80,19 @@ export function runDocsCli(args: string[], io: CliIO = consoleIO): number {
       io.errorLog(`svelte-vitals: known topics: ${knownTopicNames()}.`);
       return 2;
     }
-    const doc = EMBEDDED_DOCS.find((d) => d.name === rest[0]);
+    const name = rest[0]!; // rest.length === 1, checked above
+    const doc = EMBEDDED_DOCS.find((d) => d.name === name);
     if (!doc) {
-      io.errorLog(`svelte-vitals: unknown docs topic '${rest[0]}'.`);
+      // The agent reporter and web docs print rule ids as `<category>/<slug>` (and the web
+      // path as `rules/<category>/<slug>`); redirect those to `explain` instead of the
+      // generic "unknown topic" list, which does not include rule ids at all.
+      const ruleId = name.startsWith('rules/') ? name.slice('rules/'.length) : name;
+      if (knownRuleIds().includes(ruleId)) {
+        io.errorLog(`svelte-vitals: '${ruleId}' is a rule, not a docs topic.`);
+        io.errorLog(`svelte-vitals: rule detail: \`svelte-vitals explain ${ruleId}\`; web: ${docsUrlFor(ruleId)}`);
+        return 2;
+      }
+      io.errorLog(`svelte-vitals: unknown docs topic '${name}'.`);
       io.errorLog(`svelte-vitals: known topics: ${knownTopicNames()}.`);
       return 2;
     }

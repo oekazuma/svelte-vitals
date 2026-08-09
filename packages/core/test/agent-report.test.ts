@@ -101,6 +101,11 @@ describe('formatAgentReport', () => {
     expect(md).toContain('Fix critical issues first');
   });
 
+  it("points at `explain` for a rule's rationale and options", () => {
+    const md = formatAgentReport(results, config);
+    expect(md).toContain('svelte-vitals explain <rule-id>');
+  });
+
   it('wraps tag-like tokens in inline code so renderers do not strip them', () => {
     const withTags: Result[] = [
       {
