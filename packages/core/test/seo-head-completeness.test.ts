@@ -43,13 +43,17 @@ describe('seo/twitter-card-014 head presence', () => {
     expect(fails(await seoTwitterCard.check(ctx(headWith([{ kind: 'meta', name: 'description' }]))))).toHaveLength(1);
     expect(fails(await seoTwitterCard.check(ctx(headWith([{ kind: 'meta', name: 'twitter:card' }]))))).toHaveLength(0);
   });
-  it('seo/og-description matches og:description (warning)', async () => {
-    expect(seoOgDescription.severity).toBe('warning');
+  it('seo/og-description matches og:description (info)', async () => {
+    // info, not warning (2026-08-09 P2 severity-alignment review, #10): OGP lists
+    // og:description as optional, so its severity is now below og:url's (required).
+    expect(seoOgDescription.severity).toBe('info');
     expect(
       fails(await seoOgDescription.check(ctx(headWith([{ kind: 'meta', property: 'og:description' }]))))
     ).toHaveLength(0);
   });
-  it('seo/og-url matches og:url', async () => {
+  it('seo/og-url matches og:url (warning)', async () => {
+    // warning, not info (same review, #10): OGP lists og:url as required.
+    expect(seoOgUrl.severity).toBe('warning');
     expect(fails(await seoOgUrl.check(ctx(headWith([{ kind: 'meta', property: 'og:url' }]))))).toHaveLength(0);
   });
   it('seo/viewport matches viewport (warning)', async () => {

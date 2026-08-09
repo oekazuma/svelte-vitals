@@ -12,8 +12,10 @@ const results: Result[] = [
     message: '<title>'
   },
   {
+    // warning, not critical — description-presence can no longer produce 'critical'
+    // after the P2 severity-alignment change (2026-08-09 review, #9).
     id: 'seo/description-presence',
-    severity: 'critical',
+    severity: 'warning',
     detection: { presence: 'none', value: 'absent' },
     route: '/a',
     location: 'src/routes/a/+page.svelte',
@@ -58,7 +60,7 @@ describe('formatAgentReport', () => {
   it('lists only failing findings, grouped, with fix snippet and acceptance', () => {
     const md = formatAgentReport(results, config);
     expect(md).toContain('## src/routes/a/+page.svelte');
-    expect(md).toContain('### seo/description-presence · Missing `<meta name="description">` (critical)');
+    expect(md).toContain('### seo/description-presence · Missing `<meta name="description">` (warning)');
     expect(md).toContain('Add a description meta.');
     expect(md).toContain('```svelte');
     expect(md).toContain('## (project)'); // seo/robots-txt has no route/location
@@ -75,7 +77,26 @@ describe('formatAgentReport', () => {
   it('orders groups most-severe-first, despite alphabetical file names', () => {
     // The critical lives in 'src/routes/a/...'; the warning is the '(project)' group,
     // which sorts first alphabetically. Severity ordering must surface the critical first.
-    const md = formatAgentReport(results, config);
+    // A local fixture, not the shared `results` above — description-presence (used there)
+    // can no longer produce 'critical', so this test supplies its own critical finding
+    // (title-presence, still failing-capable) instead.
+    const withCritical: Result[] = [
+      {
+        id: 'seo/title-presence',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        location: 'src/routes/a/+page.svelte',
+        message: 'Missing <title>'
+      },
+      {
+        id: 'seo/robots-txt',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        message: 'Missing robots.txt'
+      }
+    ];
+    const md = formatAgentReport(withCritical, config);
     expect(md.indexOf('## src/routes/a/+page.svelte')).toBeLessThan(md.indexOf('## (project)'));
     expect(md).toContain('Fix critical issues first');
   });

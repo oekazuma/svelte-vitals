@@ -11,7 +11,13 @@ describe('svelteVitals plugin', () => {
     cwd = await mkdtemp(join(tmpdir(), 'sv-int-'));
     const pages = join(cwd, '.svelte-kit/output/prerendered/pages');
     await mkdir(pages, { recursive: true });
-    await writeFile(join(pages, 'index.html'), `<html lang="en"><head><title>Home</title></head><body></body></html>`);
+    // No <title> — seo/title-presence is the critical finding this fixture exists to trigger.
+    // The description IS present: seo/description-presence is only a warning as of the P2
+    // severity-alignment change, so it can no longer carry this test on its own.
+    await writeFile(
+      join(pages, 'index.html'),
+      `<html lang="en"><head><meta name="description" content="Home page."></head><body></body></html>`
+    );
   });
   afterAll(async () => rm(cwd, { recursive: true, force: true }));
 
@@ -21,7 +27,7 @@ describe('svelteVitals plugin', () => {
     expect(p.apply).toBe('build');
   });
 
-  it('throws to fail the build when a critical finding exists (missing description on /)', async () => {
+  it('throws to fail the build when a critical finding exists (missing title on /)', async () => {
     const p = svelteVitals({ cwd, ui: false, report: false, failOn: 'critical' }) as Plugin;
     // closeBundle is a function on the plugin object
     const hook = typeof p.closeBundle === 'function' ? p.closeBundle : p.closeBundle?.handler;

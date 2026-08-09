@@ -5,15 +5,19 @@ import { DEDUCTION } from '../src/scoring/inventory.js';
 const config = defineConfig({});
 const results: Result[] = [
   {
+    // The critical carrier, on a separate route from description-presence below — title-presence
+    // is still really critical (P2 severity-alignment change moved that role off of
+    // description-presence, which can no longer produce 'critical').
     id: 'seo/title-presence',
     severity: 'critical',
-    detection: { presence: 'own', value: 'static' },
-    route: '/a',
-    message: '<title>'
+    detection: { presence: 'none', value: 'absent' },
+    route: '/b',
+    location: 'src/routes/b/+page.svelte',
+    message: 'Missing <title>'
   },
   {
     id: 'seo/description-presence',
-    severity: 'critical',
+    severity: 'warning',
     detection: { presence: 'none', value: 'absent' },
     route: '/a',
     location: 'src/routes/a/+page.svelte',
@@ -238,8 +242,9 @@ describe('buildJsonReport — per-route category scores', () => {
   });
 
   it('does not cap a category at 79 for a route carrying a critical', () => {
-    // The ratio gives 100 − 1500/110 = 86. Asserting routes[].score instead would pass on a
-    // capped implementation, because that path is already cap-free.
+    // The ratio gives 100 − 1500/100 = 85 (seo::route inventory is 100 as of the P2
+    // severity-alignment change — see the score.test.ts note). Asserting routes[].score
+    // instead would pass on a capped implementation, because that path is already cap-free.
     const results: Result[] = [
       {
         id: 'seo/title-presence',
@@ -251,7 +256,7 @@ describe('buildJsonReport — per-route category scores', () => {
       }
     ];
     const report = buildJsonReport(results, config, meta);
-    expect(report.routes[0]!.categories.seo).toBe(86);
+    expect(report.routes[0]!.categories.seo).toBe(85);
   });
 
   it('keeps routes[].score as the union ratio, which need not equal the category mean', () => {
@@ -321,8 +326,10 @@ describe('buildJsonReport — pair inventories', () => {
       }
     ];
     const report = buildJsonReport(results, config, { version: '0.0.0' });
-    // seo::route holds 110 points and is above the floor; architecture::component holds 8 and is not.
-    expect(report.inventories['seo::route']).toBe(110);
+    // seo::route holds 100 points (P2 severity-alignment change: description-presence
+    // critical→warning -10, og-url info→warning +4, og-description warning→info -4, net
+    // -10 from 110) and is above the floor; architecture::component holds 8 and is not.
+    expect(report.inventories['seo::route']).toBe(100);
     expect(report.inventories['architecture::component']).toBe(25);
   });
 

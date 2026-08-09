@@ -9,21 +9,21 @@ description: svelte-vitals の SEO ルール一覧。
 
 | ルール                                                                 | 重大度      | 概要                                                                                                               |
 | ---------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------ |
-| [`seo/description-presence`](/ja/rules/seo/description-presence)       | 🔴 critical | すべてのルートに &lt;meta name="description"&gt; が必要です。                                                      |
 | [`seo/title-presence`](/ja/rules/seo/title-presence)                   | 🔴 critical | どのルートでも &lt;title&gt; が空にならないようにしましょう。                                                      |
 | [`seo/canonical-url`](/ja/rules/seo/canonical-url)                     | 🟡 warning  | すべてのルートに &lt;link rel="canonical"&gt; タグを含めるべきです。                                               |
 | [`seo/charset`](/ja/rules/seo/charset)                                 | 🟡 warning  | 文字エンコーディングは &lt;meta charset&gt; で宣言します。                                                         |
+| [`seo/description-presence`](/ja/rules/seo/description-presence)       | 🟡 warning  | すべてのルートに &lt;meta name="description"&gt; が必要です。                                                      |
 | [`seo/duplicate-description`](/ja/rules/seo/duplicate-description)     | 🟡 warning  | meta description はルートごとに違う内容にしましょう。                                                              |
 | [`seo/duplicate-title`](/ja/rules/seo/duplicate-title)                 | 🟡 warning  | &lt;title&gt; はルートごとに違う内容にしましょう。                                                                 |
-| [`seo/hreflang`](/ja/rules/seo/hreflang)                               | 🟡 warning  | hreflang の alternate には有効なコードを使い、x-default も宣言しましょう。                                         |
+| [`seo/hreflang`](/ja/rules/seo/hreflang)                               | 🟡 warning  | hreflang の alternate には有効なコードを使いましょう。x-default はセレクター・リダイレクトページで推奨されます。   |
 | [`seo/html-lang`](/ja/rules/seo/html-lang)                             | 🟡 warning  | app.html の &lt;html&gt; に lang 属性を設定しましょう。                                                            |
 | [`seo/image-alt`](/ja/rules/seo/image-alt)                             | 🟡 warning  | &lt;img&gt; には alt 属性を付けます。                                                                              |
 | [`seo/json-ld-relative-url`](/ja/rules/seo/json-ld-relative-url)       | 🟡 warning  | JSON-LD の URL は絶対 URL で書きます。                                                                             |
 | [`seo/json-ld-required-props`](/ja/rules/seo/json-ld-required-props)   | 🟡 warning  | 認識できる @type には、リッチリザルトに必要なプロパティを揃えましょう。                                            |
 | [`seo/json-ld-validity`](/ja/rules/seo/json-ld-validity)               | 🟡 warning  | ページの JSON-LD は、@context と @type を備えた妥当な JSON である必要があります。                                  |
-| [`seo/og-description`](/ja/rules/seo/og-description)                   | 🟡 warning  | og:description はどのルートにも入れましょう。                                                                      |
 | [`seo/og-image`](/ja/rules/seo/og-image)                               | 🟡 warning  | &lt;meta property="og:image"&gt; タグはどのルートにも必要です。                                                    |
 | [`seo/og-title`](/ja/rules/seo/og-title)                               | 🟡 warning  | &lt;meta property="og:title"&gt; タグはどのルートにも必要です。                                                    |
+| [`seo/og-url`](/ja/rules/seo/og-url)                                   | 🟡 warning  | og:url には、そのページの正規アドレスを入れましょう。                                                              |
 | [`seo/robots-txt`](/ja/rules/seo/robots-txt)                           | 🟡 warning  | プロジェクトに robots.txt を用意しましょう。                                                                       |
 | [`seo/single-h1`](/ja/rules/seo/single-h1)                             | 🟡 warning  | &lt;h1&gt; は 1 ページにつき 1 つだけにしましょう。                                                                |
 | [`seo/sitemap-xml`](/ja/rules/seo/sitemap-xml)                         | 🟡 warning  | プロジェクトに sitemap.xml を用意しましょう。                                                                      |
@@ -36,7 +36,7 @@ description: svelte-vitals の SEO ルール一覧。
 | [`seo/json-ld-date-format`](/ja/rules/seo/json-ld-date-format)         | 🔵 info     | JSON-LD の日付プロパティは ISO-8601 形式で書きます。                                                               |
 | [`seo/json-ld-deprecated-type`](/ja/rules/seo/json-ld-deprecated-type) | 🔵 info     | 一部のスキーマ型は、Google のリッチリザルトが廃止または制限されました。                                            |
 | [`seo/json-ld-placeholder`](/ja/rules/seo/json-ld-placeholder)         | 🔵 info     | JSON-LD にプレースホルダのまま残っている値がないか確認します。                                                     |
-| [`seo/og-url`](/ja/rules/seo/og-url)                                   | 🔵 info     | og:url には、そのページの正規アドレスを入れましょう。                                                              |
+| [`seo/og-description`](/ja/rules/seo/og-description)                   | 🔵 info     | og:description はどのルートにも入れましょう。                                                                      |
 | [`seo/sitemap-in-robots`](/ja/rules/seo/sitemap-in-robots)             | 🔵 info     | robots.txt から sitemap の場所をクローラーに伝えましょう。                                                         |
 | [`seo/title-length`](/ja/rules/seo/title-length)                       | 🔵 info     | &lt;title&gt; は 30〜60 文字に収めましょう。                                                                       |
 | [`seo/twitter-card`](/ja/rules/seo/twitter-card)                       | 🔵 info     | X/Twitter で大きなカード表示にするため、twitter:card を宣言しましょう。                                            |

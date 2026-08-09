@@ -3,7 +3,7 @@ title: seo/description-presence · Description presence
 description: Every route should include a <meta name="description">.
 ---
 
-**Severity:** critical
+**Severity:** warning
 
 ## What it checks
 
@@ -12,6 +12,8 @@ Every route must include a `<meta name="description">` tag (own or inherited thr
 ## Why it matters
 
 A meta description is the snippet search engines show under your title; without one they invent one from page text, often poorly.
+
+This was `critical` before the 2026-08-09 severity review. `critical` is now reserved for rules where the finding is either deploy-blocking (a crash, a security leak) or, for SEO, the one signal search engines always need (`seo/title-presence`). A description is different: Google explicitly says it only "sometimes" uses the provided description for the search snippet, generating one from page content the rest of the time. That makes a missing description a real but non-blocking issue — `warning`, alongside `seo/og-image` and `seo/canonical-url`, not the deploy-blocking tier.
 
 ## How to fix
 

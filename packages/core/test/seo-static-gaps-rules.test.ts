@@ -124,15 +124,24 @@ describe('seo/single-h1 heading hierarchy', () => {
     // own <h1> stands in as its attributed file (design 2026-08-08-pass-result-location-design.md).
     expect(rs[0]!.location).toBe('x');
   });
-  it('flags a page with no <h1>', async () => {
+  it('flags a page with no <h1> at warning', async () => {
     const rs = await seoSingleH1.check(headingsCtx([hs([2, 3])]));
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toContain('Missing');
+    // Zero-h1 stays 'warning' — a page genuinely has no primary heading (2026-08-09
+    // P2 severity-alignment review, #11).
+    expect(rs[0]!.severity).toBe('warning');
   });
-  it('flags a page with multiple <h1>', async () => {
+  it('flags a page with multiple <h1> at info', async () => {
     const rs = await seoSingleH1.check(headingsCtx([hs([1, 1])]));
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.message).toContain('Multiple');
+    // Multi-h1 is demoted to 'info' — a single <h1> is the conventional signal, but no
+    // official source documents a ranking penalty for several (same review). The rule's own
+    // registered severity (`seoSingleH1.severity`, read by buildInventory/rules-index) stays
+    // 'warning' — only this per-result severity is split.
+    expect(rs[0]!.severity).toBe('info');
+    expect(seoSingleH1.severity).toBe('warning');
   });
   it('emits nothing when the headings channel is unset', async () => {
     expect(await seoSingleH1.check({ heads: [], ...base })).toHaveLength(0);

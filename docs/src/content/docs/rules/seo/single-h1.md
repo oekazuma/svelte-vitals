@@ -3,15 +3,17 @@ title: seo/single-h1 · Heading hierarchy
 description: Each page should have exactly one <h1>.
 ---
 
-**Severity:** warning
+**Severity:** warning (no `<h1>`) / info (multiple `<h1>`s)
 
 ## What it checks
 
-Flags a page with zero `<h1>` (no primary heading) or two or more `<h1>` (diluted topic). Exactly one `<h1>` passes. Headings from the page's layout chain count toward the route, so an `<h1>` in `+layout.svelte` is credited.
+Flags a page with zero `<h1>` (no primary heading, `warning`) or two or more `<h1>` (`info`). Exactly one `<h1>` passes. Headings from the page's layout chain count toward the route, so an `<h1>` in `+layout.svelte` is credited.
+
+A [global severity override](/guides/configuration) (`rules: { 'seo/single-h1': <severity> }`) applies to both arms — it flattens the split to a single severity for every finding this rule produces, since config keys on rule id, not on which arm fired.
 
 ## Why it matters
 
-The `<h1>` names a page's main topic — one of the strongest on-page structure signals. Missing it leaves the page without a primary heading; several compete and weaken the topic signal.
+The `<h1>` names a page's main topic. Zero `<h1>` leaves the page without a primary heading — a page genuinely missing this signal, hence `warning`. A single, clear `<h1>` is the conventional signal for a page's topic, but multiple `<h1>`s are tolerated by modern heading algorithms; no official source documents a ranking penalty for having several, so that arm is flagged as a style nit (`info`), not a defect.
 
 ## How to fix
 

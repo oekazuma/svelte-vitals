@@ -3,8 +3,10 @@ import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { PENALIZED, PASS } from './detection.js';
 
 const docsUrl = docsUrlFor('seo/hreflang');
-const recommendation =
-  'Use valid hreflang codes (e.g. "en", "en-US", "x-default") and include an x-default when you have multiple language alternates.';
+const malformedRecommendation = 'Use valid hreflang codes, e.g. "en", "en-US", or the literal "x-default".';
+const noDefaultRecommendation =
+  'x-default is a Google recommendation, not a requirement — most useful for a language-selector or auto-redirecting page. Add one if this page behaves that way; otherwise search engines fall back to matching the individual alternates.';
+const passRecommendation = 'Use valid hreflang codes (e.g. "en", "en-US", "x-default") for your language alternates.';
 
 // Pragmatic BCP-47 subset: language (2–3 alpha) + optional script (4 alpha) +
 // optional region (2 alpha or 3-digit UN M49, e.g. es-419), or the literal
@@ -29,7 +31,7 @@ export const seoHreflang: Rule = {
   severity: 'warning',
   scope: 'route',
   rationale:
-    'A malformed hreflang code or a missing x-default breaks international targeting, so search engines may serve the wrong language version.',
+    'A malformed hreflang code breaks international targeting outright. A missing x-default is a Google recommendation for language-selector or auto-redirecting pages, not a defect on every multilingual site.',
   async check(ctx: RuleContext): Promise<Result[]> {
     const out: Result[] = [];
     for (const head of ctx.heads) {
@@ -39,15 +41,18 @@ export const seoHreflang: Rule = {
       if (alternates.length === 0) continue; // no hreflang on this route → not applicable
       const values = alternates.map((t) => t.hreflang as string);
       const badTag = alternates.find((t) => !isValidHreflang(t.hreflang as string));
-      let problem: string | undefined;
+      let problem: { message: string; recommendation: string } | undefined;
       // Point the finding at the alternate's own source file (inherited from a layout),
       // falling back to the route head file, matching the seo/title-length, seo/description-length convention.
       let location = head.file;
       if (badTag) {
-        problem = `Invalid hreflang value "${badTag.hreflang}"`;
+        problem = { message: `Invalid hreflang value "${badTag.hreflang}"`, recommendation: malformedRecommendation };
         location = badTag.file ?? head.file;
       } else if (values.length >= 2 && !values.some((v) => v.toLowerCase() === 'x-default')) {
-        problem = 'Multiple hreflang alternates without an x-default';
+        problem = {
+          message: 'Multiple hreflang alternates with no x-default declared',
+          recommendation: noDefaultRecommendation
+        };
       }
       out.push(
         problem
@@ -58,8 +63,8 @@ export const seoHreflang: Rule = {
               detection: PENALIZED,
               route: head.route,
               location,
-              message: problem,
-              recommendation,
+              message: problem.message,
+              recommendation: problem.recommendation,
               docsUrl
             }
           : {
@@ -72,7 +77,7 @@ export const seoHreflang: Rule = {
               // 2026-08-08-pass-result-location-design.md).
               location,
               message: 'hreflang',
-              recommendation,
+              recommendation: passRecommendation,
               docsUrl
             }
       );
