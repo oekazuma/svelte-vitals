@@ -1,7 +1,6 @@
-export type ReporterName = 'console' | 'json' | 'agent' | 'sarif' | 'github' | 'html' | 'md';
+import { getAgentProfile } from 'gunshi/agent';
 
-/** Env vars set by AI-agent harnesses. Curated + extensible; SVELTE_VITALS_AGENT is the universal opt-in. */
-const AGENT_ENV_VARS = ['CLAUDECODE', 'SVELTE_VITALS_AGENT'];
+export type ReporterName = 'console' | 'json' | 'agent' | 'sarif' | 'github' | 'html' | 'md';
 
 export function isReporterName(value: string | undefined): value is ReporterName {
   return (
@@ -15,12 +14,22 @@ export function isReporterName(value: string | undefined): value is ReporterName
   );
 }
 
-/** True when run by a known AI-agent harness (design: curated allow-list, no TTY heuristic). */
+/**
+ * True when run by a known AI-agent harness (design: env-var-based, no TTY heuristic).
+ * `SVELTE_VITALS_AGENT` is the universal opt-in and is read from whichever `env` is
+ * passed in, so tests can inject it. Recognizing specific harnesses (Claude Code,
+ * Cursor, Codex, ...) is delegated to gunshi's agent profile (in turn std-env), which
+ * takes no arguments and always reads the real process.env — so that check only
+ * applies when `env` *is* process.env (the production default and every `run()` call
+ * that doesn't override it for a test). A test-injected env object exercises the
+ * opt-in only; the delegated detection is exercised end-to-end against the built CLI
+ * in scripts/cli-e2e.mjs, spawning fresh processes so gunshi/std-env's own env read
+ * sees exactly the env each check sets up.
+ */
 export function isAgentEnv(env: NodeJS.ProcessEnv = process.env): boolean {
-  return AGENT_ENV_VARS.some((key) => {
-    const v = env[key];
-    return v !== undefined && v !== '';
-  });
+  const optIn = env.SVELTE_VITALS_AGENT;
+  if (optIn !== undefined && optIn !== '') return true;
+  return env === process.env && getAgentProfile().isAgent;
 }
 
 /** True when running inside GitHub Actions, which always sets GITHUB_ACTIONS to exactly 'true'. */

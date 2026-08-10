@@ -9,7 +9,7 @@
 //   node scripts/cli-e2e.mjs   (needs `pnpm build` first)
 
 import { strict as assert } from 'node:assert';
-import { execFileSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -22,23 +22,48 @@ if (!existsSync(cliBin)) {
   process.exit(1);
 }
 
-/** Run the built CLI. Never throws: returns the exit code alongside the captured streams. */
+/**
+ * Run the built CLI. Never throws: returns the exit code alongside the captured streams —
+ * `execFileSync` only surfaces stdout on a zero exit (its return value) and both streams on a
+ * non-zero one (via the thrown error), so a check needing stderr content from a *successful*
+ * run (e.g. the auto-selected-reporter hint, which prints on exit 0) can't use it. `spawnSync`
+ * captures both streams uniformly regardless of exit code.
+ */
 function runCli(args, opts = {}) {
-  try {
-    const stdout = execFileSync(process.execPath, [cliBin, ...args], {
-      stdio: ['ignore', 'pipe', 'pipe'],
-      encoding: 'utf8',
-      ...opts
-    });
-    return { code: 0, signal: null, stdout, stderr: '' };
-  } catch (err) {
-    return {
-      code: err.status,
-      signal: err.signal ?? null,
-      stdout: String(err.stdout ?? ''),
-      stderr: String(err.stderr ?? '')
-    };
+  const result = spawnSync(process.execPath, [cliBin, ...args], {
+    stdio: ['ignore', 'pipe', 'pipe'],
+    encoding: 'utf8',
+    ...opts
+  });
+  return {
+    code: result.status,
+    signal: result.signal,
+    stdout: result.stdout ?? '',
+    stderr: result.stderr ?? ''
+  };
+}
+
+/**
+ * The env vars gunshi/agent's bundled std-env actually checks for AI-agent detection
+ * (read from node_modules/gunshi/lib/agent.js — gunshi has zero deps so std-env ships
+ * inlined), plus our own SVELTE_VITALS_AGENT/SVELTE_VITALS_REPORTER and GITHUB_ACTIONS.
+ * Stripped from the child's env before each reporter-auto-detection check below so the
+ * outer process — itself often an AI-agent harness — can't leak a false positive in.
+ */
+/**
+ * Child-process env built from an ALLOWLIST, not by scrubbing known agent signals: gunshi/std-env's
+ * detection list grows upstream, and a deny list would silently fall behind it — a newly recognized
+ * variable inherited from the parent env could flip the clean-env check. Only what Node needs to
+ * spawn survives, so any detection signal must come from an explicit per-check override.
+ */
+const CHILD_ENV_ALLOWLIST = ['PATH', 'HOME', 'TMPDIR', 'TEMP', 'TMP', 'SYSTEMROOT', 'NODE_OPTIONS'];
+
+function cleanEnv(overrides = {}) {
+  const env = {};
+  for (const key of CHILD_ENV_ALLOWLIST) {
+    if (process.env[key] !== undefined) env[key] = process.env[key];
   }
+  return { ...env, ...overrides };
 }
 
 const PACKAGE_JSON = JSON.stringify({
@@ -165,6 +190,54 @@ check('--reporter json stdout parses as JSON when findings exist', () => {
     assert.equal(typeof report.score, 'number');
     assert.ok(report.score < 100, `expected an imperfect score, got ${report.score}`);
     assert.ok(report.categories && typeof report.categories === 'object');
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+/**
+ * Real end-to-end coverage for the gunshi/agent → std-env delegation (reporter-resolve.ts's
+ * isAgentEnv): unlike a vitest unit test, gunshi is a real node_modules dependency whose agent
+ * profile is computed once when the module is first imported and cached from then on — vitest's
+ * module-registry reset doesn't bust that for externalized deps, so no in-process env stub can
+ * exercise it. A fresh child process has no such cache: each check below gets its own process,
+ * so std-env's own env read sees exactly the env set up for it.
+ */
+check('a clean env (no agent signal) falls back to console output, not the agent reporter', () => {
+  const dir = makeWarningOnlyProject();
+  try {
+    const { code, signal, stdout, stderr } = runCli([dir], { env: cleanEnv() });
+    assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+    assert.equal(code, 0, `expected exit 0, got ${code}: ${stderr}`);
+    assert.doesNotMatch(stderr, /agent reporter auto-selected/);
+    assert.doesNotMatch(stdout, /# svelte-vitals — fixes/); // agent reporter's Markdown header
+    assert.match(stdout, /Svelte Vitals {2}·/); // console reporter's own header
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+check('CLAUDECODE (gunshi/std-env-recognized) auto-selects the agent reporter', () => {
+  const dir = makeWarningOnlyProject();
+  try {
+    const { code, signal, stdout, stderr } = runCli([dir], { env: cleanEnv({ CLAUDECODE: '1' }) });
+    assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+    assert.equal(code, 0, `expected exit 0, got ${code}: ${stderr}`);
+    assert.match(stderr, /agent reporter auto-selected/);
+    assert.match(stdout, /# svelte-vitals — fixes/);
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+check('CURSOR_AGENT (a non-Claude gunshi/std-env-recognized var) auto-selects the agent reporter', () => {
+  const dir = makeWarningOnlyProject();
+  try {
+    const { code, signal, stdout, stderr } = runCli([dir], { env: cleanEnv({ CURSOR_AGENT: '1' }) });
+    assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+    assert.equal(code, 0, `expected exit 0, got ${code}: ${stderr}`);
+    assert.match(stderr, /agent reporter auto-selected/);
+    assert.match(stdout, /# svelte-vitals — fixes/);
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

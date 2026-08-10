@@ -55,7 +55,7 @@ npx svelte-vitals@latest apps/web     # 検出をスキップし、apps/web を�
 
 指定できる値：`console, json, agent, sarif, github, html, md` のいずれか
 
-**自動選択：** 既知の AI エージェント環境（例：Claude Code は `CLAUDECODE` を設定します）では `agent` レポーターを、GitHub Actions（`GITHUB_ACTIONS=true`）では `github` レポーターを自動的に選択します。`--reporter` を明示的に指定すれば、常に自動選択より優先されます。`SVELTE_VITALS_REPORTER` 環境変数でも上書きできます。
+**自動選択：** 既知の AI エージェントハーネス（Claude Code、Cursor、Codex など —— 認識対象は [gunshi](https://gunshi.dev) のエージェントプロファイルに委譲されており、gunshi の更新とともに拡張されます）で実行された場合、または `SVELTE_VITALS_AGENT=1` が設定されている場合は `agent` レポーターを、GitHub Actions（`GITHUB_ACTIONS=true`）では `github` レポーターを自動的に選択します。`--reporter` を明示的に指定すれば、常に自動選択より優先されます。`SVELTE_VITALS_REPORTER` 環境変数でも上書きできます。
 
 ### `--out-file <path>`
 
