@@ -3,7 +3,8 @@ import { allRules, CATEGORIES, explainRule, type RuleOptionInfo } from '@svelte-
 import { consoleIO, type CliIO } from './cli-io.js';
 import { knownRuleIds } from './rules-config.js';
 
-const EXPLAIN_HELP = `svelte-vitals explain — print a rule's rationale, fix, and configurable options
+/** Shared with the gunshi/bone port (src/gunshi/explain.ts) so the two dispatchers can't drift. */
+export const EXPLAIN_HELP = `svelte-vitals explain — print a rule's rationale, fix, and configurable options
 
 Usage:
   svelte-vitals explain --list          List every rule id, grouped by category
@@ -45,8 +46,8 @@ function describeOptions(id: string, options: RuleOptionInfo[]): string {
   );
 }
 
-/** Render a rule's static metadata as the text `svelte-vitals explain` prints. */
-function formatRuleExplanation(info: NonNullable<ReturnType<typeof explainRule>>): string {
+/** Render a rule's static metadata as the text `svelte-vitals explain` prints. Exported: shared with the gunshi/bone port. */
+export function formatRuleExplanation(info: NonNullable<ReturnType<typeof explainRule>>): string {
   return (
     `${info.id} — ${info.title} (${info.severity}, ${info.category})\n\n` +
     `${info.rationale}\n\nDocs: ${info.docsUrl}` +
@@ -55,8 +56,8 @@ function formatRuleExplanation(info: NonNullable<ReturnType<typeof explainRule>>
   );
 }
 
-/** Every rule, grouped by category — the entry point into `explain`. */
-function renderRuleList(): string {
+/** Every rule, grouped by category — the entry point into `explain`. Exported: shared with the gunshi/bone port. */
+export function renderRuleList(): string {
   const sections = CATEGORIES.map((category) => {
     const rules = allRules.filter((r) => r.category === category);
     const width = Math.max(...rules.map((r) => r.id.length));

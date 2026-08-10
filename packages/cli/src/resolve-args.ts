@@ -120,7 +120,9 @@ interface ResolvedArgs {
 // an empty string; either silently un-gates a CI run. Same stance as the
 // --baseline guard below, applied to every value-carrying flag. --diff is
 // exempt: bare/empty --diff deliberately defaults to HEAD (see parseRunArgs).
-const VALUE_FLAGS = [
+// Exported so gunshi/guard.ts's raw-argv pre-scan shares this exact list instead of
+// re-declaring it (gunshi's own parser can't reproduce the guard post-parse — see that file).
+export const VALUE_FLAGS = [
   'meta-components',
   'treat-dynamic-as',
   'route',

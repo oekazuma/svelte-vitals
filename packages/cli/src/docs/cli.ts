@@ -4,7 +4,8 @@ import { consoleIO, type CliIO } from '../cli-io.js';
 import { knownRuleIds } from '../rules-config.js';
 import { EMBEDDED_DOCS } from './generated.js';
 
-const DOCS_HELP = `svelte-vitals docs — read the bundled guides without leaving the terminal
+/** Shared with the gunshi/bone port (src/gunshi/docs.ts) so the two dispatchers can't drift. */
+export const DOCS_HELP = `svelte-vitals docs — read the bundled guides without leaving the terminal
 
 Usage:
   svelte-vitals docs list [--json]     List every topic with a one-line description
@@ -20,12 +21,13 @@ network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
 \`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
 called \`docs\`, write \`svelte-vitals ./docs\`.`;
 
-/** Mirrors `knownRuleIds()`. */
-function knownTopicNames(): string {
+/** Mirrors `knownRuleIds()`. Exported: shared with the gunshi/bone port. */
+export function knownTopicNames(): string {
   return EMBEDDED_DOCS.map((d) => d.name).join(', ');
 }
 
-function renderList(): string {
+/** Exported: shared with the gunshi/bone port. */
+export function renderList(): string {
   const width = Math.max(...EMBEDDED_DOCS.map((d) => d.name.length));
   const lines = EMBEDDED_DOCS.map((d) => `  ${d.name.padEnd(width)}  ${d.description}`);
   return [
