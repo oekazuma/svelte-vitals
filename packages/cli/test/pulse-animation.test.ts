@@ -31,7 +31,7 @@ describe('scoreAnimationEnabled', () => {
     expect(scoreAnimationEnabled({ ...base, noAnimationFlag: true })).toBe(false);
   });
   it('is off in a detected agent env, even when console is requested explicitly', () => {
-    expect(scoreAnimationEnabled({ ...base, env: { CLAUDECODE: '1' } })).toBe(false);
+    expect(scoreAnimationEnabled({ ...base, env: { SVELTE_VITALS_AGENT: '1' } })).toBe(false);
   });
   it('is off in CI, even on an allocated TTY', () => {
     expect(scoreAnimationEnabled({ ...base, env: { CI: 'true' } })).toBe(false);

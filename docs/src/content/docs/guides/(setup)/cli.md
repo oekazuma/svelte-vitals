@@ -57,7 +57,7 @@ Select the output format.
 
 Accepted values: `console, json, agent, sarif, github, html, or md`
 
-**Auto-selection:** when run inside a known AI-agent environment (e.g. Claude Code sets `CLAUDECODE`), the `agent` reporter is selected automatically. When run inside GitHub Actions (`GITHUB_ACTIONS=true`), the `github` reporter is selected automatically. An explicit `--reporter` flag always overrides auto-selection. You can also override via the `SVELTE_VITALS_REPORTER` environment variable.
+**Auto-selection:** when run inside a recognized AI-agent harness (Claude Code, Cursor, Codex, and others — the recognized list is delegated to [gunshi](https://gunshi.dev)'s agent profile and evolves with it) or with `SVELTE_VITALS_AGENT=1` set, the `agent` reporter is selected automatically. When run inside GitHub Actions (`GITHUB_ACTIONS=true`), the `github` reporter is selected automatically. An explicit `--reporter` flag always overrides auto-selection. You can also override via the `SVELTE_VITALS_REPORTER` environment variable.
 
 ### `--out-file <path>`
 

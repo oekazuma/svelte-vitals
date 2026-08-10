@@ -9,20 +9,22 @@ import {
 } from '../src/reporter-resolve.js';
 
 describe('isAgentEnv', () => {
-  it('is true when a known agent env var is set', () => {
-    expect(isAgentEnv({ CLAUDECODE: '1' })).toBe(true);
+  it('is true when the SVELTE_VITALS_AGENT opt-in is set', () => {
     expect(isAgentEnv({ SVELTE_VITALS_AGENT: '1' })).toBe(true);
   });
   it('is false for a plain/CI env', () => {
     expect(isAgentEnv({})).toBe(false);
     expect(isAgentEnv({ CI: 'true' })).toBe(false);
-    expect(isAgentEnv({ CLAUDECODE: '' })).toBe(false);
+    expect(isAgentEnv({ SVELTE_VITALS_AGENT: '' })).toBe(false);
+  });
+  it('does not recognize harness-specific vars (e.g. CLAUDECODE) in an injected env — that detection is delegated to gunshi/agent, which only reads the real process.env; see scripts/cli-e2e.mjs for the end-to-end coverage', () => {
+    expect(isAgentEnv({ CLAUDECODE: '1' })).toBe(false);
   });
 });
 
 describe('resolveReporter', () => {
   it('honors the explicit reporter first', () => {
-    expect(resolveReporter('json', { CLAUDECODE: '1' })).toBe('json');
+    expect(resolveReporter('json', { SVELTE_VITALS_AGENT: '1' })).toBe('json');
     expect(resolveReporter('console', { SVELTE_VITALS_REPORTER: 'agent' })).toBe('console');
   });
   it('uses SVELTE_VITALS_REPORTER when no explicit flag', () => {
@@ -30,7 +32,7 @@ describe('resolveReporter', () => {
     expect(resolveReporter(undefined, { SVELTE_VITALS_REPORTER: 'json' })).toBe('json');
   });
   it('auto-selects agent under a known agent env', () => {
-    expect(resolveReporter(undefined, { CLAUDECODE: '1' })).toBe('agent');
+    expect(resolveReporter(undefined, { SVELTE_VITALS_AGENT: '1' })).toBe('agent');
   });
   it('defaults to console otherwise', () => {
     expect(resolveReporter(undefined, {})).toBe('console');
@@ -47,14 +49,14 @@ describe('isReporterName', () => {
 
 describe('isAutoDetectedAgent', () => {
   it('is true only when agent is chosen purely by env auto-detection', () => {
-    expect(isAutoDetectedAgent(undefined, { CLAUDECODE: '1' })).toBe(true);
+    expect(isAutoDetectedAgent(undefined, { SVELTE_VITALS_AGENT: '1' })).toBe(true);
   });
   it('is false when an explicit flag is given', () => {
-    expect(isAutoDetectedAgent('agent', { CLAUDECODE: '1' })).toBe(false);
-    expect(isAutoDetectedAgent('console', { CLAUDECODE: '1' })).toBe(false);
+    expect(isAutoDetectedAgent('agent', { SVELTE_VITALS_AGENT: '1' })).toBe(false);
+    expect(isAutoDetectedAgent('console', { SVELTE_VITALS_AGENT: '1' })).toBe(false);
   });
   it('is false when SVELTE_VITALS_REPORTER opts in explicitly', () => {
-    expect(isAutoDetectedAgent(undefined, { CLAUDECODE: '1', SVELTE_VITALS_REPORTER: 'agent' })).toBe(false);
+    expect(isAutoDetectedAgent(undefined, { SVELTE_VITALS_AGENT: '1', SVELTE_VITALS_REPORTER: 'agent' })).toBe(false);
   });
   it('is false outside an agent env', () => {
     expect(isAutoDetectedAgent(undefined, {})).toBe(false);
@@ -78,7 +80,7 @@ describe('resolveReporter — github auto-detect', () => {
     expect(resolveReporter(undefined, { GITHUB_ACTIONS: 'true' })).toBe('github');
   });
   it('lets agent env outrank GitHub Actions', () => {
-    expect(resolveReporter(undefined, { GITHUB_ACTIONS: 'true', CLAUDECODE: '1' })).toBe('agent');
+    expect(resolveReporter(undefined, { GITHUB_ACTIONS: 'true', SVELTE_VITALS_AGENT: '1' })).toBe('agent');
   });
   it('lets an explicit flag and SVELTE_VITALS_REPORTER outrank GitHub Actions', () => {
     expect(resolveReporter('sarif', { GITHUB_ACTIONS: 'true' })).toBe('sarif');
@@ -92,7 +94,7 @@ describe('isAutoDetectedGithub', () => {
   });
   it('is false with an explicit flag, an agent env, or an explicit reporter env', () => {
     expect(isAutoDetectedGithub('github', { GITHUB_ACTIONS: 'true' })).toBe(false);
-    expect(isAutoDetectedGithub(undefined, { GITHUB_ACTIONS: 'true', CLAUDECODE: '1' })).toBe(false);
+    expect(isAutoDetectedGithub(undefined, { GITHUB_ACTIONS: 'true', SVELTE_VITALS_AGENT: '1' })).toBe(false);
     expect(isAutoDetectedGithub(undefined, { GITHUB_ACTIONS: 'true', SVELTE_VITALS_REPORTER: 'github' })).toBe(false);
   });
   it('is false outside GitHub Actions', () => {

@@ -302,7 +302,7 @@ describe('run() agent reporter', () => {
   it('warns on stderr only when the agent reporter is auto-detected from the env', async () => {
     // Auto-detected: no explicit reporter, agent env present → hint on stderr, Markdown on stdout.
     const auto = capture();
-    await run({ cwd: fixtureDir, log: auto.log, errorLog: auto.errorLog, env: { CLAUDECODE: '1' } });
+    await run({ cwd: fixtureDir, log: auto.log, errorLog: auto.errorLog, env: { SVELTE_VITALS_AGENT: '1' } });
     expect(auto.out.join('\n')).toContain('# svelte-vitals — fixes');
     expect(auto.err.join('\n')).toContain('agent reporter auto-selected');
 
@@ -344,7 +344,7 @@ describe('run() sarif & github reporters', () => {
       cwd: fixtureDir,
       log: cap.log,
       errorLog: cap.errorLog,
-      env: { GITHUB_ACTIONS: 'true', CLAUDECODE: '1' }
+      env: { GITHUB_ACTIONS: 'true', SVELTE_VITALS_AGENT: '1' }
     });
     expect(cap.out.join('\n')).toContain('# svelte-vitals — fixes'); // agent Markdown, not workflow commands
   });

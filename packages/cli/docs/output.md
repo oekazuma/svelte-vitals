@@ -25,7 +25,8 @@ First match wins:
 
 1. an explicit `--reporter <fmt>`
 2. `SVELTE_VITALS_REPORTER=<fmt>`
-3. a known AI-agent environment (e.g. `CLAUDECODE` is set) → `agent`
+3. a recognized AI-agent harness (Claude Code, Cursor, Codex, and others — detection is
+   delegated to gunshi's agent profile and evolves with it) or `SVELTE_VITALS_AGENT=1` set → `agent`
 4. `GITHUB_ACTIONS=true` → `github`
 5. otherwise → `console`
 

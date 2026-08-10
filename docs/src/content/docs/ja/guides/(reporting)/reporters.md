@@ -118,7 +118,7 @@ AI コーディングエージェント向けに設計された Markdown 修正�
 - スニペット付きの具体的なコード修正
 - 受け入れチェック
 
-`agent` レポーターは、既知の AI エージェント環境（例：Claude Code が `CLAUDECODE` を設定）が検出された場合に自動選択されます。明示的に指定せず自動選択された場合は、上書き方法を案内する 1 行のヒントが stderr に出力されます。
+`agent` レポーターは、既知の AI エージェントハーネス（Claude Code、Cursor、Codex など —— 認識対象は [gunshi](https://gunshi.dev) のエージェントプロファイルに委譲されており、ハードコードされた一覧ではなく gunshi の更新とともに拡張されます）が検出された場合、または `SVELTE_VITALS_AGENT=1`（gunshi がまだ認識しないハーネス向けの共通オプトイン）が設定されている場合に自動選択されます。明示的に指定せず自動選択された場合は、上書き方法を案内する 1 行のヒントが stderr に出力されます。
 
 ```bash
 svelte-vitals --reporter agent
@@ -174,7 +174,7 @@ svelte-vitals --reporter html --out-file -     # ファイルではなく標準�
 
 1. **明示的な `--reporter <fmt>`**：常に最優先。
 2. **`SVELTE_VITALS_REPORTER` 環境変数**：自動検出を上書き。
-3. **AI エージェント環境**（例：`CLAUDECODE` が設定されている）→ `agent`。
+3. **既知の AI エージェントハーネス**（Claude Code、Cursor、Codex など）または `SVELTE_VITALS_AGENT=1` → `agent`。
 4. **GitHub Actions**（`GITHUB_ACTIONS=true`）→ `github`。
 5. **デフォルト** → `console`。
 
