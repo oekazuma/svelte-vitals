@@ -331,6 +331,55 @@ that wants to read it structurally.
 An unknown rule id exits `2` and lists every known id, so a near-miss is easy to correct. Rule
 ids are matched exactly and are case-sensitive.
 
+## Shell completion
+
+```bash
+svelte-vitals complete <bash|zsh|fish|powershell>
+```
+
+Prints a completion script for the given shell: sub-command names (`docs`, `explain`, `install`,
+`ci install`/`ci upgrade`), every flag on each, and values for the enum-ish flags (`--reporter`,
+`--fail-on`, `--category`, `--treat-dynamic-as`). Generated from the same argument declarations
+that drive parsing and `--help`, so completions stay in sync with the CLI automatically.
+
+**Bash**
+
+```bash
+mkdir -p ~/.local/share/bash-completion/completions
+svelte-vitals complete bash > ~/.local/share/bash-completion/completions/svelte-vitals
+source ~/.bashrc
+```
+
+**Zsh**
+
+```bash
+mkdir -p ~/.zsh/completions
+echo 'fpath=(~/.zsh/completions $fpath)' >> ~/.zshrc
+echo 'autoload -U compinit && compinit' >> ~/.zshrc
+svelte-vitals complete zsh > ~/.zsh/completions/_svelte-vitals
+exec zsh
+```
+
+**Fish**
+
+```bash
+mkdir -p ~/.config/fish/completions
+svelte-vitals complete fish > ~/.config/fish/completions/svelte-vitals.fish
+```
+
+**PowerShell**
+
+```powershell
+svelte-vitals complete powershell >> $PROFILE
+. $PROFILE
+```
+
+Each script re-invokes `svelte-vitals` from the exact install location it was generated from —
+regenerate it after upgrading `svelte-vitals`, or after moving/reinstalling the package.
+
+`complete` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called `complete`, write `svelte-vitals ./complete`.
+
 ## Supported Svelte/SvelteKit versions
 
 Rules assume **Svelte 5+ (runes)** and **SvelteKit 2+**. If the analyzed project declares an

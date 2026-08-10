@@ -250,3 +250,79 @@ has non-fatal guard-firing shapes (a bare trailing `--client` parses to legacy's
 genuinely dangerous ones (`--client --force` legacy-consumes `--force` as a literal string) — so
 install's fallback re-runs the _entire_ legacy pipeline (parse → help check → resolve → dispatch)
 rather than assuming a guard hit is always exit 2.
+
+## Addendum (2026-08-11): shell completion via `@gunshi/plugin-completion`
+
+Added `svelte-vitals complete <bash|zsh|fish|powershell>` (`packages/cli/src/gunshi/complete.ts`),
+wired as a sixth reserved top-level token in `runCli` (cli.ts), dispatched unsliced (see the
+file's own doc comment for why) and loaded lazily, same as `docs`/`explain`/`install`/`ci`.
+
+**The plugin never touches the five real gunshi surfaces — a dedicated, completion-only command
+tree instead.** Proven necessary, not merely simpler: temporarily wiring `completion()` into
+`docs.ts`'s own `cli()` call left the full characterization suite green (help-golden,
+cli-contract, both parity suites — 72 tests), but `docs complete` silently changed behavior —
+`complete` is a plugin-added sub-command, added automatically wherever the plugin is installed,
+so it shadowed the existing "unknown docs subcommand" exit-2 path with the plugin's own directive
+line on stdout, exit 0. None of the characterization suite's existing cases exercise the literal
+token `complete`, so this collision is real but was invisible to the suite — recorded here so a
+future attempt to fold completion into an existing surface's `cli()` call re-derives the same
+finding instead of re-discovering it. The completion tree (`buildCompletionTree` in complete.ts)
+is therefore a second, parallel set of `define()` calls, built fresh per invocation (race-safety,
+matching every other surface's convention) with no-op `run`s — `@gunshi/plugin-completion` only
+ever reads `.args`/`.subCommands` off them via its `onExtension` hook; the command that actually
+executes for a `complete` invocation is the `complete` sub-command the plugin adds itself via
+`ctx.addCommand`. Every arg schema in that tree is imported from the real surface's own exported
+`*_ARGS` const (`ROOT_ARGS`, `DOCS_ROOT_ARGS`/`DOCS_LIST_ARGS`/`DOCS_SHOW_ARGS`, `EXPLAIN_ARGS`,
+`INSTALL_ARGS`, `CI_ARGS`/`CI_UPGRADE_ARGS`) — hoisted from inline literals to module-level
+exports where they weren't already (docs.ts, explain.ts), never re-declared, so a flag added to a
+real surface is visible to completion automatically.
+
+Three empirical gotchas, confirmed against 0.37.1, none documented in `@gunshi/docs` or the
+plugin's own README:
+
+- **The entry command's own args vanish from completion when `cli()`'s `subCommands` option is
+  empty AT CALL TIME.** `createInitialSubCommands` only splices a copy of the entry command into
+  the internal subCommands map (flagged `.entry: true`, later found via `.find(cmd => cmd.entry)`
+  in the plugin's `onExtension`) when `options.subCommands` is already non-empty _before_ any
+  plugin's `setup()` runs; with zero declared subCommands, the plugin's own `addCommand('complete',
+...)` is the only entry in that map by the time `onExtension` reads it, so root-level flags
+  silently disappear instead of erroring. Not a concern for this tree (it always declares
+  `docs`/`explain`/`install`/`ci`), but real enough that an isolated repro (a bone `cli()` call
+  with no `subCommands` at all, plus the completion plugin, querying `--` for entry-level flags)
+  is worth keeping in mind before ever adding a leaner completion entry later.
+- **The registration loop has no `toKebab`/`hidden` awareness.** It reads `Object.entries(args)`
+  and registers each flag under the literal object key, with no schema-driven kebab-casing and no
+  hidden check. `ROOT_ARGS`'s `noSuppressions`/`noColor`/`noAnimation` (declared camelCase +
+  `toKebab: true` specifically to dodge a _different_ renderer quirk — see analyze.ts's own doc
+  comment) would complete as `--noSuppressions` etc., which the real CLI does not parse; install's
+  `scope` (`hidden: true`, kept parseable only so an unrecognized flag doesn't swallow a following
+  positional) would still be offered. `forCompletion()` in complete.ts compensates: kebab-cases a
+  `toKebab` key via `kebabnize` (imported from `gunshi/utils`, not reimplemented) and drops
+  `hidden` entries before handing the args to `define()`.
+- **Cosmetic wart, accepted rather than worked around:** the plugin's own description-localization
+  strips a literal `no-` prefix from an arg key before looking up its schema (treating it as an
+  auto-generated negation, the same class of behavior analyze.ts's doc comment already describes
+  for gunshi's _renderer_) — since `forCompletion()`'s kebab-cased key IS `no-suppressions` (not a
+  negation of a `suppressions` flag that doesn't exist), the lookup misses and falls back to the
+  stripped key itself as the "description": `--no-suppressions` completes with the one-word
+  description `suppressions` instead of its real description. The completion _value_ is correct;
+  only the description text is degraded. Not pinned by a test — pinning today's wrong-but-harmless
+  string would fail a future gunshi bump that fixes it, for no benefit (nothing here reads or
+  depends on the description text).
+
+**Dependency footprint correction.** The "exactly one package" framing in this doc's Verified
+Facts section describes core gunshi adoption and remains true for that decision; it does not
+extend to this optional feature. `@gunshi/plugin-completion` itself depends on `@gunshi/plugin`
+and `@bomb.sh/tab` (both real, newly-installed packages), and declares a **non-optional**
+`peerDependency` on `@gunshi/plugin-i18n` — no `peerDependenciesMeta` marks it optional at the npm
+metadata level, even though the plugin's own runtime plugin-dependency graph treats i18n as
+optional (`dependencies: [{ id: 'g:i18n', optional: true }]`) and this integration never imports
+or configures it. Net effect: `pnpm install` here resolved `@gunshi/plugin-i18n` into the lockfile
+solely to satisfy that peer declaration (confirmed via the lockfile diff — it is not physically
+linked into `packages/cli/node_modules`, so it adds resolution weight but not an import-time
+cost), and an npm end-user installing the published `svelte-vitals` package will get it
+auto-installed for real, since npm auto-installs unmet non-optional peers by default. Four new
+packages total reach some form of "installed" for this feature
+(`@gunshi/plugin-completion`, `@gunshi/plugin`, `@bomb.sh/tab`, `@gunshi/plugin-i18n`), not zero
+and not one; import cost is unaffected on the analyzer hot path either way, since `complete.ts` is
+reached only via a dynamic `import()` behind the new `complete` token.

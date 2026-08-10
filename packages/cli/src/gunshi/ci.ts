@@ -38,12 +38,16 @@ Options:
 
 /** Shared by both `ci install` and `ci upgrade` — `ci upgrade` doesn't read `force` itself, but
  * this is also the generator source for the one combined `--help` text every entry point shares
- * (matching CI_HELP's own merged options list), so it declares the full family. */
-const CI_ARGS = {
+ * (matching CI_HELP's own merged options list), so it declares the full family. Exported for
+ * gunshi/complete.ts — the completion tree's ci args mirror these, never a second copy. */
+export const CI_ARGS = {
   force: { type: 'boolean', description: 'Overwrite an existing workflow file (install only)' },
   'dry-run': { type: 'boolean', description: 'Print the plan and exit without writing' },
   help: { type: 'boolean', short: 'h', description: 'Show this help' }
 } as const;
+/** `ci upgrade` only ever reads a subset of CI_ARGS (it has no `--force` to strip) — this is that
+ * subset's single source, shared by `runCiUpgrade`'s real dispatch and the completion tree. */
+export const CI_UPGRADE_ARGS = { 'dry-run': CI_ARGS['dry-run'], help: CI_ARGS.help } as const;
 const KNOWN_LONG_FLAGS = new Set(['force', 'dry-run', 'help']);
 const KNOWN_SHORT_FLAGS = new Set(['h']);
 
@@ -162,7 +166,7 @@ async function runCiUpgrade(
   let exitCode = 0;
   const upgradeCommand = define({
     name: 'upgrade',
-    args: { 'dry-run': CI_ARGS['dry-run'], help: CI_ARGS.help },
+    args: CI_UPGRADE_ARGS,
     run: async (ctx) => {
       if (ctx.values.help) {
         io.log(await buildCiHelpText(helpSource));

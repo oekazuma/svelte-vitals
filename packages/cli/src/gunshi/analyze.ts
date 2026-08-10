@@ -47,7 +47,8 @@ const BOOLEAN_FLAGS = [
  * under their camelCase key, remapped back to the kebab name `resolveArgs` expects in `toCliArgv`
  * below.
  */
-const ROOT_ARGS = {
+/** Exported for gunshi/complete.ts — the completion tree's root args mirror this, never a second copy. */
+export const ROOT_ARGS = {
   'meta-components': { type: 'string', description: 'Comma-separated component names that emit head metadata' },
   'treat-dynamic-as': { type: 'string', description: 'pass | warn | fail (default: pass)' },
   route: { type: 'string', description: 'Only analyze routes matching this glob' },
@@ -158,6 +159,7 @@ Usage:
   svelte-vitals install          Set up the Vite integration, agent skills/rules, config file, or CI
   svelte-vitals ci install       Add a GitHub Actions PR gate (annotations + summary comment)
   svelte-vitals ci upgrade       Refresh the pinned @svelte-vitals/action in an existing workflow
+  svelte-vitals complete <shell> Print a shell completion script (bash, zsh, fish, powershell)
 
 ${optionsSection}
 
