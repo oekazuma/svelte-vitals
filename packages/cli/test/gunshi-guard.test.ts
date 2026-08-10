@@ -3,7 +3,7 @@
 // gate-(b) cells (spike-gunshi-parsing.test.ts) against the guard as actually shipped — driven by
 // the real `VALUE_FLAGS` import from resolve-args.ts, not a second hardcoded flag list.
 import { describe, it, expect } from 'vitest';
-import { guardArgs } from '../src/gunshi/guard.js';
+import { guardArgs, splitAtTerminator, stripUnknownFlags } from '../src/gunshi/guard.js';
 import { VALUE_FLAGS } from '../src/resolve-args.js';
 
 describe('guardArgs: value-carrying flags (using the real analyzer VALUE_FLAGS list)', () => {
@@ -71,5 +71,55 @@ describe('guardArgs: boolean --flag=false normalization', () => {
   it('duplicate tokens are last-wins: a trailing bare flag stays on', () => {
     const { argv } = guardArgs(['--json=false', '--json'], [], ['json']);
     expect(argv).toEqual(['--json']);
+  });
+});
+
+describe('splitAtTerminator', () => {
+  it('splits at the first -- , excluding it from both halves', () => {
+    expect(splitAtTerminator(['a', '--', 'b', 'c'])).toEqual({ head: ['a'], tail: ['b', 'c'] });
+  });
+
+  it('no -- present: everything is head, tail is empty', () => {
+    expect(splitAtTerminator(['a', 'b'])).toEqual({ head: ['a', 'b'], tail: [] });
+  });
+
+  it('only the FIRST -- terminates; a second one is a literal tail token', () => {
+    expect(splitAtTerminator(['a', '--', 'b', '--', 'c'])).toEqual({ head: ['a'], tail: ['b', '--', 'c'] });
+  });
+
+  it('-- as the very first token: empty head, everything else is tail', () => {
+    expect(splitAtTerminator(['--', 'a', 'b'])).toEqual({ head: [], tail: ['a', 'b'] });
+  });
+});
+
+describe('stripUnknownFlags', () => {
+  const long = new Set(['json', 'help']);
+  const short = new Set(['h']);
+
+  it('drops an unrecognized long flag, keeping its follower untouched', () => {
+    expect(stripUnknownFlags(['--typo', 'config'], long, short)).toEqual(['config']);
+  });
+
+  it('keeps a known long flag and a plain value unchanged', () => {
+    expect(stripUnknownFlags(['--json', 'config'], long, short)).toEqual(['--json', 'config']);
+  });
+
+  it('drops an unrecognized short flag entirely', () => {
+    expect(stripUnknownFlags(['-x', 'config'], long, short)).toEqual(['config']);
+  });
+
+  it('a grouped short keeps known members, drops unknown ones', () => {
+    expect(stripUnknownFlags(['-hx'], long, short)).toEqual(['-h']);
+  });
+
+  it('a digit-shaped short gets no exemption — dropped like any other unknown short', () => {
+    expect(stripUnknownFlags(['-5', 'config'], long, short)).toEqual(['config']);
+  });
+
+  it('the bare -- token itself is left alone here (splitAtTerminator must run first, not this)', () => {
+    // stripUnknownFlags has no `--` awareness — `--` matches `token.startsWith('--')` with an
+    // empty flag name, which is never in `knownLong`, so it drops without splitAtTerminator's
+    // protection. Pinned so a future edit can't quietly "fix" this function instead.
+    expect(stripUnknownFlags(['a', '--', 'b'], long, short)).toEqual(['a', 'b']);
   });
 });

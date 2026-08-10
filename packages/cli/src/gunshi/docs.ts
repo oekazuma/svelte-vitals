@@ -5,11 +5,17 @@ import { consoleIO, type CliIO } from '../cli-io.js';
 import { knownRuleIds } from '../rules-config.js';
 import { EMBEDDED_DOCS } from '../docs/generated.js';
 import { DOCS_HELP, knownTopicNames, renderList } from '../docs/cli.js';
-import { guardArgs } from './guard.js';
+import { guardArgs, splitAtTerminator, stripUnknownFlags } from './guard.js';
 
 /** docs declares no value-carrying flags today — see guard.ts's own doc comment for why the list is still passed explicitly. */
 const BOOLEAN_FLAGS = ['json', 'help'] as const;
 const HELP_ARG = { help: { type: 'boolean', short: 'h' } } as const;
+/** Family-wide, not per-subcommand — see guard.ts's `stripUnknownFlags` doc comment: the legacy
+ * runner parses `--json`/`-h`/`--help` in one flat pass, so `show` (which never reads `--json`
+ * itself) still needs it declared below to keep gunshi's own per-command resolution from
+ * mistaking it for an unknown flag and swallowing the positional after it. */
+const KNOWN_LONG_FLAGS = new Set(BOOLEAN_FLAGS);
+const KNOWN_SHORT_FLAGS = new Set(['h']);
 
 /**
  * gunshi/bone port of `docs/cli.ts`'s dispatch (design doc: Phase 2a). `docs` is passed as its
@@ -26,9 +32,28 @@ const HELP_ARG = { help: { type: 'boolean', short: 'h' } } as const;
  * `cli()`'s internal `await`s and clobber each other's closure.
  */
 export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): Promise<number> {
-  const guard = guardArgs(args, [], BOOLEAN_FLAGS);
+  // `--` must be split off before guard/strip run — see guard.ts's `splitAtTerminator` doc
+  // comment. `tail` is appended verbatim to every positional read below.
+  const { head, tail } = splitAtTerminator(args);
+  const guard = guardArgs(head, [], BOOLEAN_FLAGS);
   for (const e of guard.errors) io.errorLog(e);
   if (guard.errors.length > 0) return 2;
+  const argvForGunshi = stripUnknownFlags(guard.argv, KNOWN_LONG_FLAGS, KNOWN_SHORT_FLAGS);
+
+  // Legacy's `[sub, ...rest] = argv._` picks the sub-command from ONE merged positional list, in
+  // argv order regardless of `--` — so `docs -- list` still sees `sub === 'list'`. gunshi can't:
+  // only `head` ever reaches its own sub-command matching (`tail` never goes through `cli()` at
+  // all), so when head has no positional of its own, gunshi immediately falls back to root's
+  // `run()` — which can only report "unknown subcommand", never actually dispatch to `list`/
+  // `show`'s own logic. Promoting the one matching token out of `tail` into the head argv lets
+  // gunshi's real matching route to it. Gated on head having NO positional at all (not merely a
+  // non-matching one): if head already attempted a positional, THAT is what `argv._[0]` would
+  // have been under the legacy parser, and tail is left alone — root's fallback below already
+  // merges it in for that "unknown subcommand" wording.
+  const headHasPositional = argvForGunshi.some((t) => !t.startsWith('-'));
+  const promoted = !headHasPositional && (tail[0] === 'list' || tail[0] === 'show');
+  const finalArgv = promoted ? [...argvForGunshi, tail[0]!] : argvForGunshi;
+  const tailRest = promoted ? tail.slice(1) : tail;
 
   let exitCode = 0;
 
@@ -44,8 +69,9 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
       // ctx.positionals is NOT "args after `list`" — for a matched sub-command it's the raw
       // top-level positional array with the command-path token(s) spliced in at the front
       // (undocumented; see the regression test pinning this). Slicing off commandPath.length
-      // recovers "args after the sub-command name".
-      const extra = ctx.positionals.slice(ctx.commandPath.length);
+      // recovers "args after the sub-command name"; `tail` (post-`--`) never went through gunshi
+      // at all, so it's appended here rather than being part of that slice.
+      const extra = [...ctx.positionals.slice(ctx.commandPath.length), ...tailRest];
       if (extra.length > 0) {
         // Accepting it would read as "list, filtered to config".
         io.errorLog('svelte-vitals: docs list takes no arguments; use `docs show <name>` to read one.');
@@ -73,6 +99,11 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
       // "docs show needs a topic name, e.g. ...". Counting positionals ourselves reproduces
       // the exact current wording instead.
       name: { type: 'positional', required: false },
+      // Declared but unused here — see the family-wide KNOWN_LONG_FLAGS comment above. The legacy
+      // runner accepts `--json` on `show` too (a harmless no-op boolean); without this, gunshi's
+      // per-command resolution would treat `--json` as undeclared for `show` specifically and
+      // swallow the following positional (`docs show --json config` would lose `config`).
+      json: { type: 'boolean' },
       ...HELP_ARG
     },
     run: (ctx) => {
@@ -82,7 +113,7 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
         return;
       }
       // `docs show a b` printing only `a` would misrepresent itself as "here are both".
-      const rest = ctx.positionals.slice(ctx.commandPath.length);
+      const rest = [...ctx.positionals.slice(ctx.commandPath.length), ...tailRest];
       if (rest.length !== 1) {
         io.errorLog(
           rest.length === 0
@@ -118,7 +149,9 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
 
   const rootCommand = define({
     name: 'docs',
-    args: HELP_ARG,
+    // `json` declared but unused here too, for the same family-wide reason as `showCommand` — a
+    // bare `docs --json <sub>` reaches this command's own resolution via `fallbackToEntry`.
+    args: { json: { type: 'boolean' }, ...HELP_ARG },
     subCommands: { list: listCommand, show: showCommand },
     run: (ctx) => {
       if (ctx.values.help) {
@@ -129,7 +162,7 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
       // fallbackToEntry (below) routes here both for a bare `docs` (ctx.omitted) and for an
       // unrecognized first positional. ctx.commandPath is [] at the entry level, so no slicing
       // is needed here (unlike list/show above, which are matched sub-commands).
-      const [sub] = ctx.positionals;
+      const [sub] = [...ctx.positionals, ...tailRest];
       if (sub === undefined) {
         io.errorLog(DOCS_HELP);
         exitCode = 2;
@@ -141,7 +174,7 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
     }
   });
 
-  await cli(guard.argv, rootCommand, {
+  await cli(finalArgv, rootCommand, {
     name: 'svelte-vitals docs',
     subCommands: { list: listCommand, show: showCommand },
     fallbackToEntry: true,

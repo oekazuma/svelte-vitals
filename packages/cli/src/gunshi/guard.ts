@@ -61,3 +61,75 @@ export function guardArgs(argv: string[], valueFlags: readonly string[], boolean
 
   return { errors, argv: argvNormalized };
 }
+
+/**
+ * Splits argv at the first literal `--` token — the shell's own "stop parsing flags" convention,
+ * honored natively by `node:util`'s `parseArgs` (what every legacy runner in this CLI is built
+ * on). `head` is everything before it, still subject to every pre-parse layer (guard, strip,
+ * gunshi itself). `tail` is everything after it (the `--` itself dropped) and must never be
+ * treated as a flag again by anything — the caller appends it verbatim to whatever positional
+ * channel it tracks. Absent, `head` is the whole argv and `tail` is empty.
+ *
+ * Every gunshi-dispatched command splits BEFORE calling `guardArgs`/`stripUnknownFlags`: neither
+ * of those understands `--`, so left unsplit they mistake a post-`--` token that merely looks like
+ * a flag (`<path> -- --score`) for a real one — `stripUnknownFlags` even drops the bare `--` token
+ * itself (an unknown "long flag" named `''`), which is what let gunshi's own parser see the
+ * unescaped tokens afterward and reinterpret them.
+ */
+export function splitAtTerminator(argv: string[]): { head: string[]; tail: string[] } {
+  const i = argv.indexOf('--');
+  return i === -1 ? { head: argv, tail: [] } : { head: argv.slice(0, i), tail: argv.slice(i + 1) };
+}
+
+/**
+ * gunshi's parser (args-tokens) treats any UNDECLARED long/short option as string-like: a
+ * positional immediately following it gets consumed as that option's own value instead of
+ * staying a positional (confirmed empirically — `node:util`'s `parseArgs(strict:false)`, which
+ * every legacy runner in this CLI uses, treats the same shape as boolean and leaves the
+ * positional alone). Left unhandled, a typo'd flag right before a declared positional (an
+ * analyzed path, `docs show <name>`, `explain <rule-id>`) would silently swallow it instead of
+ * just being ignored — breaking the "unknown flags are silently ignored" contract for that one
+ * argv shape. Stripped here, before gunshi ever parses: the token is dropped, its follower is
+ * never touched, so the follower surfaces as a positional exactly as the legacy parser would
+ * leave it.
+ *
+ * A grouped short like `-hx` mixes a known flag with an unknown one — node's parseArgs
+ * (strict:false) expands the group and keeps the known members, dropping only the unrecognized
+ * ones; reproduced here by filtering characters instead of testing the whole token. A single
+ * unknown short (`-x`) is the same case with zero survivors. `-5`/`-digit` gets no special
+ * exemption: node never treats it as a positional-preserving case either (an undeclared short is
+ * an undeclared short), so it drops like any other unknown short.
+ *
+ * `knownLong`/`knownShort` are the flag names this specific command recognizes ACROSS ITS WHOLE
+ * FAMILY (every sub-command's own flags, for a command with sub-commands) — not just the ones the
+ * particular sub-command handling a given invocation happens to read. The legacy runners parse
+ * every command's args in one flat `parseCliArgs` call, so e.g. `docs show --json config` sees
+ * `--json` as a harmless known boolean and keeps `config` as the positional even though `show`
+ * itself never reads `--json`; each gunshi sub-command must declare every family-wide flag in its
+ * own `args` too (even unused) so gunshi's own per-command resolution doesn't re-trigger the same
+ * swallow bug this function exists to prevent.
+ */
+export function stripUnknownFlags(
+  argv: string[],
+  knownLong: ReadonlySet<string>,
+  knownShort: ReadonlySet<string>
+): string[] {
+  const out: string[] = [];
+  for (const token of argv) {
+    if (token.startsWith('--')) {
+      const name = token.slice(2).split('=')[0]!;
+      if (knownLong.has(name)) out.push(token);
+      continue;
+    }
+    if (token.startsWith('-') && token !== '-') {
+      const survivors = token
+        .slice(1)
+        .split('')
+        .filter((c) => knownShort.has(c));
+      if (survivors.length > 0) out.push(`-${survivors.join('')}`);
+      continue;
+    }
+    out.push(token);
+  }
+  return out;
+}

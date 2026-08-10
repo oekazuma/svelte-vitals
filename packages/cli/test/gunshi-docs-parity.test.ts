@@ -49,6 +49,33 @@ describe('gunshi/bone docs reproduces the legacy docs CLI, byte for byte', () =>
     {
       name: 'list --json=false --json (duplicate booleans are last-wins: on)',
       args: ['list', '--json=false', '--json']
+    },
+    // Phase 2b (docs/superpowers/specs/2026-08-10-gunshi-cli-migration-design.md): an unknown
+    // flag directly before a declared positional wasn't covered above — none of the existing
+    // cells put one there. args-tokens treats an undeclared option as string-like and would
+    // otherwise consume `config`/`--typo` as that option's own value.
+    { name: 'show --typo config (unknown long flag before the positional)', args: ['show', '--typo', 'config'] },
+    {
+      name: 'show --json config (a family-known, show-unused flag stays harmless)',
+      args: ['show', '--json', 'config']
+    },
+    { name: 'show -x config (unknown short flag before the positional)', args: ['show', '-x', 'config'] },
+    { name: 'show -- --typo (terminator: a literal, unknown topic name)', args: ['show', '--', '--typo'] },
+    { name: '-- --typo (terminator on bare docs, --typo becomes the sub)', args: ['--', '--typo'] },
+    { name: '--json bogus (family-known flag unused by the root fallback)', args: ['--json', 'bogus'] },
+    // Tail-promotion: legacy's `argv._[0]` picks the sub-command from ONE merged positional list
+    // regardless of `--`, so a sub-command name after the terminator still dispatches for real —
+    // not the generic "unknown docs subcommand" a bare fallback would print.
+    { name: '-- list (sub-command name promoted out of the tail)', args: ['--', 'list'] },
+    { name: '-- show config (promoted sub-command, topic stays in the tail)', args: ['--', 'show', 'config'] },
+    { name: '-- show (promoted sub-command, no topic left in the tail)', args: ['--', 'show'] },
+    {
+      name: '--json -- list (head flag parses normally, tail sub-command still promotes)',
+      args: ['--json', '--', 'list']
+    },
+    {
+      name: 'bogus -- list (head already has a positional — not promoted, "bogus" is still sub)',
+      args: ['bogus', '--', 'list']
     }
   ];
 

@@ -4,10 +4,12 @@ import { explainRule, allRules } from '@svelte-vitals/core';
 import { consoleIO, type CliIO } from '../cli-io.js';
 import { knownRuleIds } from '../rules-config.js';
 import { EXPLAIN_HELP, renderRuleList, formatRuleExplanation } from '../explain.js';
-import { guardArgs } from './guard.js';
+import { guardArgs, splitAtTerminator, stripUnknownFlags } from './guard.js';
 
 /** explain declares no value-carrying flags today — see guard.ts's own doc comment for why the list is still passed explicitly. */
 const BOOLEAN_FLAGS = ['json', 'list', 'help'] as const;
+const KNOWN_LONG_FLAGS = new Set(BOOLEAN_FLAGS);
+const KNOWN_SHORT_FLAGS = new Set(['h']);
 
 /**
  * gunshi/bone port of `explain.ts`'s dispatch (design doc: Phase 2a). Unlike `docs`, this is a
@@ -17,9 +19,13 @@ const BOOLEAN_FLAGS = ['json', 'list', 'help'] as const;
  * real slice case). See docs.ts for the exit-code closure pattern this mirrors.
  */
 export async function runExplainCliGunshi(args: string[], io: CliIO = consoleIO): Promise<number> {
-  const guard = guardArgs(args, [], BOOLEAN_FLAGS);
+  // `--` must be split off before guard/strip run — see guard.ts's `splitAtTerminator` doc
+  // comment. `tail` is appended verbatim to the positional read below.
+  const { head, tail } = splitAtTerminator(args);
+  const guard = guardArgs(head, [], BOOLEAN_FLAGS);
   for (const e of guard.errors) io.errorLog(e);
   if (guard.errors.length > 0) return 2;
+  const argvForGunshi = stripUnknownFlags(guard.argv, KNOWN_LONG_FLAGS, KNOWN_SHORT_FLAGS);
 
   let exitCode = 0;
 
@@ -28,12 +34,16 @@ export async function runExplainCliGunshi(args: string[], io: CliIO = consoleIO)
     args: {
       list: { type: 'boolean' },
       json: { type: 'boolean' },
-      help: { type: 'boolean', short: 'h' },
-      // Left un-required, same reasoning as docs show's `name` (gunshi/docs.ts): a missing rule
-      // id is reported with this command's own wording, not gunshi's required-positional error.
-      id: { type: 'positional', required: false }
+      help: { type: 'boolean', short: 'h' }
+      // No declared `id` positional: `ctx.positionals` is populated regardless of whether any arg
+      // declares `type: 'positional'` (docs.ts's own root command relies on the same fact), and a
+      // declared one wouldn't see `tail` (post-`--`) anyway — the rule id is read from the merged
+      // `positionals` below instead.
     },
     run: (ctx) => {
+      // `tail` (post-`--`) never went through gunshi at all, so it's appended here rather than
+      // being part of `ctx.positionals`.
+      const positionals = [...ctx.positionals, ...tail];
       if (ctx.values.help) {
         io.log(EXPLAIN_HELP);
         exitCode = 0;
@@ -42,7 +52,7 @@ export async function runExplainCliGunshi(args: string[], io: CliIO = consoleIO)
 
       if (ctx.values.list) {
         // Extra positionals reaching here would misrepresent themselves as "explaining that id".
-        if (ctx.positionals.slice(ctx.commandPath.length).length > 0) {
+        if (positionals.length > 0) {
           io.errorLog('svelte-vitals: explain --list takes no rule id; drop --list to explain one.');
           exitCode = 2;
           return;
@@ -60,7 +70,7 @@ export async function runExplainCliGunshi(args: string[], io: CliIO = consoleIO)
         return;
       }
 
-      const id = ctx.values.id;
+      const id = positionals[0];
       if (id === undefined) {
         io.errorLog(
           'svelte-vitals: explain needs a rule id, e.g. `svelte-vitals explain seo/ssr-disabled`; `--list` shows them all.'
@@ -83,7 +93,7 @@ export async function runExplainCliGunshi(args: string[], io: CliIO = consoleIO)
     }
   });
 
-  await cli(guard.argv, explainCommand, {
+  await cli(argvForGunshi, explainCommand, {
     name: 'svelte-vitals explain',
     // No writes this command can trigger currently rely on this (see docs.ts's identical note),
     // kept for the same forward-compat reason.

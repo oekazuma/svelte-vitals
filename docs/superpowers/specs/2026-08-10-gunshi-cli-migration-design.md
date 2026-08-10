@@ -193,3 +193,28 @@ per-flag `negatable: true` schema opt-in, not automatic. Measurements: gunshi 0.
 to a 53.8 kB tarball, and installs zero dependencies (args-tokens confirmed inlined). Import cost
 ≈5 ms — median of 10 runs of `node --input-type=module -e "import('gunshi')"` minus the bare
 `node -e 0` floor on the same machine — against the CLI's current ≈157 ms `--help` startup.
+
+## Correction (2026-08-10, phase-2b): unknown-flag passthrough was only partially verified
+
+Phase 1 gate (b)'s cell "unknown flags are silently ignored exactly as today" is falsified for
+one argv shape the spike never exercised: args-tokens treats any UNDECLARED option as
+string-like, so a positional immediately following it is consumed as that option's value —
+`node:util`'s `parseArgs(strict:false)` treats the same shape as boolean and leaves the
+positional alone. The spike exercised no unknown-flag-before-positional shapes on any surface —
+not "docs/explain have none to lose": `docs show <name>` and `explain <rule-id>` each have a
+declared positional too, and both were equally vulnerable (`docs show --typo config` regressed to
+"needs a topic name" instead of printing the topic, same class as the analyzer's
+`svelte-vitals --typo ./apps/web` silently analyzing the wrong directory). `stripUnknownFlags` is
+therefore shared (`guard.ts`) and applied to all three surfaces, parameterized per command by its
+family-wide known-flag set — every sub-command of a family must declare every family flag even if
+unused, since gunshi resolves each sub-command's args independently (`docs show` never reads
+`--json`, but must still declare it so gunshi doesn't treat it as unknown and swallow the topic
+name after it). A second, analyzer-only layer, `neutralizeBareDiffAndBaseline` (rewrites a bare
+`--diff`/`--baseline`, judged on original-argv adjacency, into a self-contained `=value` token so
+a stripped token can never expose a following positional to them), and a third, shared layer,
+`splitAtTerminator` (splits argv at the first literal `--` before guard/strip run at all, since
+neither understands the terminator and would otherwise reinterpret a post-`--` token that merely
+looks like a flag), round out the compensation. `--diff`/`--baseline` values themselves come from a
+shadow parse of the untouched original argv through the legacy `parseCliArgs` — the one remaining
+use of that parser on the migrated path, which Phase 3's deletion pass must absorb (inline the
+value-shape logic) before removing `cli-args.ts`.
