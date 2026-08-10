@@ -1,0 +1,749 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > -- --typo (terminator: a literal, unknown rule id) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: unknown rule id '--typo'.
+svelte-vitals: known rule ids: architecture/component-size, architecture/directory-naming, architecture/doc-link-target, architecture/private-scope-import, architecture/prop-count, architecture/reserved-directory-names, architecture/reserved-name-placement, architecture/route-component-import, architecture/unit-entry-file, correctness/base-path-navigation, correctness/checkable-bind-value, correctness/each-index-key, correctness/each-key, correctness/effect-as-derived, correctness/effect-as-onmount, correctness/instance-browser-global, correctness/nonreactive-builtin-state, correctness/orphan-effect, correctness/orphan-lifecycle, correctness/prop-mutation, correctness/server-browser-global, correctness/stale-prop-derivation, correctness/unmutated-state, performance/font-preload-crossorigin, performance/heavy-import, performance/image-dimensions, performance/image-loading-hint, performance/lcp-image, performance/load-waterfall, performance/minify-disabled, performance/namespace-import, performance/preconnect, performance/preload-missing-as, performance/render-blocking-script, performance/responsive-image, performance/sequential-awaits, performance/state-raw, security/handler-state-write, security/javascript-url, security/raw-html, security/server-module-state, security/shared-state-import, seo/canonical-url, seo/charset, seo/description-length, seo/description-presence, seo/duplicate-description, seo/duplicate-title, seo/heading-level-skip, seo/hreflang, seo/html-lang, seo/image-alt, seo/indexability, seo/json-ld, seo/json-ld-date-format, seo/json-ld-deprecated-type, seo/json-ld-placeholder, seo/json-ld-relative-url, seo/json-ld-required-props, seo/json-ld-validity, seo/og-description, seo/og-image, seo/og-title, seo/og-url, seo/robots-txt, seo/single-h1, seo/sitemap-in-robots, seo/sitemap-xml, seo/ssr-disabled, seo/title-length, seo/title-presence, seo/twitter-card, seo/viewport.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > --help 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "svelte-vitals explain — print a rule's rationale, fix, and configurable options
+
+Usage:
+  svelte-vitals explain --list          List every rule id, grouped by category
+  svelte-vitals explain <rule-id>       Explain one rule
+
+OPTIONS:
+  -h, --help             Show this help
+  --list                 List every rule instead of explaining one
+  --json                 Machine-readable output (works with --list and with a rule id)
+
+Rule ids are category/kebab-case and matched exactly, e.g. \`svelte-vitals explain seo/ssr-disabled\`.",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > --json <id> 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "{
+  "id": "seo/title-length",
+  "title": "Title length",
+  "category": "seo",
+  "severity": "info",
+  "rationale": "A title that is too short wastes the strongest on-page signal; one that is too long is truncated in the SERP.",
+  "docsUrl": "https://oekazuma.github.io/svelte-vitals/rules/seo/title-length",
+  "options": [
+    {
+      "name": "min",
+      "kind": "integer",
+      "default": 30,
+      "min": 0
+    },
+    {
+      "name": "max",
+      "kind": "integer",
+      "default": 60,
+      "min": 1
+    }
+  ]
+}",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > --json=false (literal-false coercion) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "seo/title-length — Title length (info, seo)
+
+A title that is too short wastes the strongest on-page signal; one that is too long is truncated in the SERP.
+
+Docs: https://oekazuma.github.io/svelte-vitals/rules/seo/title-length
+
+Configurable: set in svelte-vitals.config.* as \`rules: { 'seo/title-length': { options: { … } } }\`, or per path in \`overrides\`:
+- min (integer, default 30, >= 0) — replaces the default
+- max (integer, default 60, >= 1) — replaces the default",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > --list 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "seo (31)
+  seo/title-presence           critical Title presence
+  seo/description-presence     warning  Description presence
+  seo/canonical-url            warning  Canonical URL
+  seo/og-image                 warning  Open Graph image
+  seo/og-title                 warning  Open Graph title
+  seo/robots-txt               warning  robots.txt
+  seo/sitemap-xml              warning  sitemap.xml
+  seo/json-ld                  info     JSON-LD structured data
+  seo/html-lang                warning  <html lang>
+  seo/indexability             info     Indexability
+  seo/twitter-card             info     Twitter Card
+  seo/og-description           info     Open Graph description
+  seo/og-url                   warning  Open Graph URL
+  seo/viewport                 warning  Viewport
+  seo/sitemap-in-robots        info     Sitemap referenced in robots.txt
+  seo/json-ld-validity         warning  JSON-LD validity
+  seo/json-ld-deprecated-type  info     Deprecated structured-data type
+  seo/json-ld-relative-url     warning  JSON-LD relative URL
+  seo/json-ld-date-format      info     JSON-LD date format
+  seo/json-ld-placeholder      info     JSON-LD placeholder text
+  seo/json-ld-required-props   warning  JSON-LD required properties
+  seo/title-length             info     Title length
+  seo/description-length       info     Description length
+  seo/charset                  warning  Character encoding
+  seo/image-alt                warning  Image alt text
+  seo/hreflang                 warning  hreflang validity
+  seo/single-h1                warning  Heading hierarchy
+  seo/duplicate-title          warning  Duplicate title
+  seo/duplicate-description    warning  Duplicate description
+  seo/heading-level-skip       info     Heading order
+  seo/ssr-disabled             warning  SSR disabled
+
+performance (14)
+  performance/image-dimensions          warning  Image dimensions
+  performance/image-loading-hint        info     Image loading hint
+  performance/preload-missing-as        warning  Preload missing as
+  performance/font-preload-crossorigin  warning  Font preload missing crossorigin
+  performance/lcp-image                 warning  LCP image eager loading
+  performance/responsive-image          info     Responsive image
+  performance/render-blocking-script    warning  Render-blocking script
+  performance/preconnect                info     Preconnect third-party origin
+  performance/heavy-import              info     Heavy dependency import
+  performance/namespace-import          info     Namespace import
+  performance/minify-disabled           warning  Minification disabled
+  performance/load-waterfall            warning  Load waterfall
+  performance/sequential-awaits         info     Sequential independent awaits
+  performance/state-raw                 info     Raw state opportunity
+
+correctness (14)
+  correctness/each-key                   warning  Keyed each block
+  correctness/each-index-key             warning  Index used as each key
+  correctness/effect-as-derived          warning  Effect used to derive state
+  correctness/effect-as-onmount          warning  Effect used as onMount
+  correctness/unmutated-state            info     Unmutated $state
+  correctness/prop-mutation              warning  Mutated non-bindable prop
+  correctness/stale-prop-derivation      warning  Stale prop derivation
+  correctness/nonreactive-builtin-state  warning  Non-reactive built-in in $state
+  correctness/checkable-bind-value       warning  bind:value on a checkable input
+  correctness/orphan-effect              critical Orphan $effect
+  correctness/orphan-lifecycle           critical Lifecycle call outside component initialisation
+  correctness/base-path-navigation       warning  Root-relative navigation under a base path
+  correctness/server-browser-global      critical Browser global in server module code
+  correctness/instance-browser-global    warning  Browser global during component initialisation
+
+security (5)
+  security/raw-html             warning  Raw HTML render
+  security/javascript-url       warning  javascript: URL
+  security/handler-state-write  critical Handler writes imported state
+  security/server-module-state  warning  Server module-scope state
+  security/shared-state-import  warning  Shared runes-state import on the server
+
+architecture (9)
+  architecture/component-size            info     Component size
+  architecture/prop-count                info     Prop count
+  architecture/private-scope-import      info     Private-scope import
+  architecture/unit-entry-file           info     Unit entry file
+  architecture/directory-naming          info     Directory naming
+  architecture/reserved-directory-names  info     Reserved directory names
+  architecture/reserved-name-placement   info     Reserved name placement
+  architecture/route-component-import    info     Route component import
+  architecture/doc-link-target           info     Documentation link target
+
+
+
+73 rules. Explain one with \`svelte-vitals explain <rule-id>\`.",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > --list extra-arg (rejected) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: explain --list takes no rule id; drop --list to explain one.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > --list=false (literal-false coercion, falls through to no-id) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: explain needs a rule id, e.g. \`svelte-vitals explain seo/ssr-disabled\`; \`--list\` shows them all.
+svelte-vitals: known rule ids: architecture/component-size, architecture/directory-naming, architecture/doc-link-target, architecture/private-scope-import, architecture/prop-count, architecture/reserved-directory-names, architecture/reserved-name-placement, architecture/route-component-import, architecture/unit-entry-file, correctness/base-path-navigation, correctness/checkable-bind-value, correctness/each-index-key, correctness/each-key, correctness/effect-as-derived, correctness/effect-as-onmount, correctness/instance-browser-global, correctness/nonreactive-builtin-state, correctness/orphan-effect, correctness/orphan-lifecycle, correctness/prop-mutation, correctness/server-browser-global, correctness/stale-prop-derivation, correctness/unmutated-state, performance/font-preload-crossorigin, performance/heavy-import, performance/image-dimensions, performance/image-loading-hint, performance/lcp-image, performance/load-waterfall, performance/minify-disabled, performance/namespace-import, performance/preconnect, performance/preload-missing-as, performance/render-blocking-script, performance/responsive-image, performance/sequential-awaits, performance/state-raw, security/handler-state-write, security/javascript-url, security/raw-html, security/server-module-state, security/shared-state-import, seo/canonical-url, seo/charset, seo/description-length, seo/description-presence, seo/duplicate-description, seo/duplicate-title, seo/heading-level-skip, seo/hreflang, seo/html-lang, seo/image-alt, seo/indexability, seo/json-ld, seo/json-ld-date-format, seo/json-ld-deprecated-type, seo/json-ld-placeholder, seo/json-ld-relative-url, seo/json-ld-required-props, seo/json-ld-validity, seo/og-description, seo/og-image, seo/og-title, seo/og-url, seo/robots-txt, seo/single-h1, seo/sitemap-in-robots, seo/sitemap-xml, seo/ssr-disabled, seo/title-length, seo/title-presence, seo/twitter-card, seo/viewport.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > --typo <id> (unknown long flag before the positional) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "seo/title-presence — Title presence (critical, seo)
+
+A unique, non-empty <title> is the single strongest on-page SEO signal and the text shown in search results and browser tabs.
+
+Docs: https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence
+
+Fix: Add a <title> inside <svelte:head> (a dynamic title is fine).",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > -h 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "svelte-vitals explain — print a rule's rationale, fix, and configurable options
+
+Usage:
+  svelte-vitals explain --list          List every rule id, grouped by category
+  svelte-vitals explain <rule-id>       Explain one rule
+
+OPTIONS:
+  -h, --help             Show this help
+  --list                 List every rule instead of explaining one
+  --json                 Machine-readable output (works with --list and with a rule id)
+
+Rule ids are category/kebab-case and matched exactly, e.g. \`svelte-vitals explain seo/ssr-disabled\`.",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > -x <id> (unknown short flag before the positional) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "seo/title-presence — Title presence (critical, seo)
+
+A unique, non-empty <title> is the single strongest on-page SEO signal and the text shown in search results and browser tabs.
+
+Docs: https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence
+
+Fix: Add a <title> inside <svelte:head> (a dynamic title is fine).",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > configurable rule id 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "seo/title-length — Title length (info, seo)
+
+A title that is too short wastes the strongest on-page signal; one that is too long is truncated in the SERP.
+
+Docs: https://oekazuma.github.io/svelte-vitals/rules/seo/title-length
+
+Configurable: set in svelte-vitals.config.* as \`rules: { 'seo/title-length': { options: { … } } }\`, or per path in \`overrides\`:
+- min (integer, default 30, >= 0) — replaces the default
+- max (integer, default 60, >= 1) — replaces the default",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > id plus extra positionals (legacy ignores them) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "seo/title-presence — Title presence (critical, seo)
+
+A unique, non-empty <title> is the single strongest on-page SEO signal and the text shown in search results and browser tabs.
+
+Docs: https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence
+
+Fix: Add a <title> inside <svelte:head> (a dynamic title is fine).",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > json --list 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "[
+  {
+    "id": "seo/title-presence",
+    "category": "seo",
+    "severity": "critical",
+    "title": "Title presence"
+  },
+  {
+    "id": "seo/description-presence",
+    "category": "seo",
+    "severity": "warning",
+    "title": "Description presence"
+  },
+  {
+    "id": "seo/canonical-url",
+    "category": "seo",
+    "severity": "warning",
+    "title": "Canonical URL"
+  },
+  {
+    "id": "seo/og-image",
+    "category": "seo",
+    "severity": "warning",
+    "title": "Open Graph image"
+  },
+  {
+    "id": "seo/og-title",
+    "category": "seo",
+    "severity": "warning",
+    "title": "Open Graph title"
+  },
+  {
+    "id": "seo/robots-txt",
+    "category": "seo",
+    "severity": "warning",
+    "title": "robots.txt"
+  },
+  {
+    "id": "seo/sitemap-xml",
+    "category": "seo",
+    "severity": "warning",
+    "title": "sitemap.xml"
+  },
+  {
+    "id": "seo/json-ld",
+    "category": "seo",
+    "severity": "info",
+    "title": "JSON-LD structured data"
+  },
+  {
+    "id": "seo/html-lang",
+    "category": "seo",
+    "severity": "warning",
+    "title": "<html lang>"
+  },
+  {
+    "id": "performance/image-dimensions",
+    "category": "performance",
+    "severity": "warning",
+    "title": "Image dimensions"
+  },
+  {
+    "id": "performance/image-loading-hint",
+    "category": "performance",
+    "severity": "info",
+    "title": "Image loading hint"
+  },
+  {
+    "id": "performance/preload-missing-as",
+    "category": "performance",
+    "severity": "warning",
+    "title": "Preload missing as"
+  },
+  {
+    "id": "performance/font-preload-crossorigin",
+    "category": "performance",
+    "severity": "warning",
+    "title": "Font preload missing crossorigin"
+  },
+  {
+    "id": "seo/indexability",
+    "category": "seo",
+    "severity": "info",
+    "title": "Indexability"
+  },
+  {
+    "id": "seo/twitter-card",
+    "category": "seo",
+    "severity": "info",
+    "title": "Twitter Card"
+  },
+  {
+    "id": "seo/og-description",
+    "category": "seo",
+    "severity": "info",
+    "title": "Open Graph description"
+  },
+  {
+    "id": "seo/og-url",
+    "category": "seo",
+    "severity": "warning",
+    "title": "Open Graph URL"
+  },
+  {
+    "id": "seo/viewport",
+    "category": "seo",
+    "severity": "warning",
+    "title": "Viewport"
+  },
+  {
+    "id": "seo/sitemap-in-robots",
+    "category": "seo",
+    "severity": "info",
+    "title": "Sitemap referenced in robots.txt"
+  },
+  {
+    "id": "seo/json-ld-validity",
+    "category": "seo",
+    "severity": "warning",
+    "title": "JSON-LD validity"
+  },
+  {
+    "id": "seo/json-ld-deprecated-type",
+    "category": "seo",
+    "severity": "info",
+    "title": "Deprecated structured-data type"
+  },
+  {
+    "id": "seo/json-ld-relative-url",
+    "category": "seo",
+    "severity": "warning",
+    "title": "JSON-LD relative URL"
+  },
+  {
+    "id": "seo/json-ld-date-format",
+    "category": "seo",
+    "severity": "info",
+    "title": "JSON-LD date format"
+  },
+  {
+    "id": "seo/json-ld-placeholder",
+    "category": "seo",
+    "severity": "info",
+    "title": "JSON-LD placeholder text"
+  },
+  {
+    "id": "seo/json-ld-required-props",
+    "category": "seo",
+    "severity": "warning",
+    "title": "JSON-LD required properties"
+  },
+  {
+    "id": "seo/title-length",
+    "category": "seo",
+    "severity": "info",
+    "title": "Title length"
+  },
+  {
+    "id": "seo/description-length",
+    "category": "seo",
+    "severity": "info",
+    "title": "Description length"
+  },
+  {
+    "id": "seo/charset",
+    "category": "seo",
+    "severity": "warning",
+    "title": "Character encoding"
+  },
+  {
+    "id": "seo/image-alt",
+    "category": "seo",
+    "severity": "warning",
+    "title": "Image alt text"
+  },
+  {
+    "id": "seo/hreflang",
+    "category": "seo",
+    "severity": "warning",
+    "title": "hreflang validity"
+  },
+  {
+    "id": "seo/single-h1",
+    "category": "seo",
+    "severity": "warning",
+    "title": "Heading hierarchy"
+  },
+  {
+    "id": "performance/lcp-image",
+    "category": "performance",
+    "severity": "warning",
+    "title": "LCP image eager loading"
+  },
+  {
+    "id": "performance/responsive-image",
+    "category": "performance",
+    "severity": "info",
+    "title": "Responsive image"
+  },
+  {
+    "id": "performance/render-blocking-script",
+    "category": "performance",
+    "severity": "warning",
+    "title": "Render-blocking script"
+  },
+  {
+    "id": "performance/preconnect",
+    "category": "performance",
+    "severity": "info",
+    "title": "Preconnect third-party origin"
+  },
+  {
+    "id": "seo/duplicate-title",
+    "category": "seo",
+    "severity": "warning",
+    "title": "Duplicate title"
+  },
+  {
+    "id": "seo/duplicate-description",
+    "category": "seo",
+    "severity": "warning",
+    "title": "Duplicate description"
+  },
+  {
+    "id": "seo/heading-level-skip",
+    "category": "seo",
+    "severity": "info",
+    "title": "Heading order"
+  },
+  {
+    "id": "seo/ssr-disabled",
+    "category": "seo",
+    "severity": "warning",
+    "title": "SSR disabled"
+  },
+  {
+    "id": "correctness/each-key",
+    "category": "correctness",
+    "severity": "warning",
+    "title": "Keyed each block"
+  },
+  {
+    "id": "correctness/each-index-key",
+    "category": "correctness",
+    "severity": "warning",
+    "title": "Index used as each key"
+  },
+  {
+    "id": "correctness/effect-as-derived",
+    "category": "correctness",
+    "severity": "warning",
+    "title": "Effect used to derive state"
+  },
+  {
+    "id": "correctness/effect-as-onmount",
+    "category": "correctness",
+    "severity": "warning",
+    "title": "Effect used as onMount"
+  },
+  {
+    "id": "correctness/unmutated-state",
+    "category": "correctness",
+    "severity": "info",
+    "title": "Unmutated $state"
+  },
+  {
+    "id": "correctness/prop-mutation",
+    "category": "correctness",
+    "severity": "warning",
+    "title": "Mutated non-bindable prop"
+  },
+  {
+    "id": "correctness/stale-prop-derivation",
+    "category": "correctness",
+    "severity": "warning",
+    "title": "Stale prop derivation"
+  },
+  {
+    "id": "correctness/nonreactive-builtin-state",
+    "category": "correctness",
+    "severity": "warning",
+    "title": "Non-reactive built-in in $state"
+  },
+  {
+    "id": "correctness/checkable-bind-value",
+    "category": "correctness",
+    "severity": "warning",
+    "title": "bind:value on a checkable input"
+  },
+  {
+    "id": "correctness/orphan-effect",
+    "category": "correctness",
+    "severity": "critical",
+    "title": "Orphan $effect"
+  },
+  {
+    "id": "correctness/orphan-lifecycle",
+    "category": "correctness",
+    "severity": "critical",
+    "title": "Lifecycle call outside component initialisation"
+  },
+  {
+    "id": "correctness/base-path-navigation",
+    "category": "correctness",
+    "severity": "warning",
+    "title": "Root-relative navigation under a base path"
+  },
+  {
+    "id": "correctness/server-browser-global",
+    "category": "correctness",
+    "severity": "critical",
+    "title": "Browser global in server module code"
+  },
+  {
+    "id": "correctness/instance-browser-global",
+    "category": "correctness",
+    "severity": "warning",
+    "title": "Browser global during component initialisation"
+  },
+  {
+    "id": "security/raw-html",
+    "category": "security",
+    "severity": "warning",
+    "title": "Raw HTML render"
+  },
+  {
+    "id": "security/javascript-url",
+    "category": "security",
+    "severity": "warning",
+    "title": "javascript: URL"
+  },
+  {
+    "id": "security/handler-state-write",
+    "category": "security",
+    "severity": "critical",
+    "title": "Handler writes imported state"
+  },
+  {
+    "id": "security/server-module-state",
+    "category": "security",
+    "severity": "warning",
+    "title": "Server module-scope state"
+  },
+  {
+    "id": "security/shared-state-import",
+    "category": "security",
+    "severity": "warning",
+    "title": "Shared runes-state import on the server"
+  },
+  {
+    "id": "architecture/component-size",
+    "category": "architecture",
+    "severity": "info",
+    "title": "Component size"
+  },
+  {
+    "id": "architecture/prop-count",
+    "category": "architecture",
+    "severity": "info",
+    "title": "Prop count"
+  },
+  {
+    "id": "architecture/private-scope-import",
+    "category": "architecture",
+    "severity": "info",
+    "title": "Private-scope import"
+  },
+  {
+    "id": "architecture/unit-entry-file",
+    "category": "architecture",
+    "severity": "info",
+    "title": "Unit entry file"
+  },
+  {
+    "id": "architecture/directory-naming",
+    "category": "architecture",
+    "severity": "info",
+    "title": "Directory naming"
+  },
+  {
+    "id": "architecture/reserved-directory-names",
+    "category": "architecture",
+    "severity": "info",
+    "title": "Reserved directory names"
+  },
+  {
+    "id": "architecture/reserved-name-placement",
+    "category": "architecture",
+    "severity": "info",
+    "title": "Reserved name placement"
+  },
+  {
+    "id": "architecture/route-component-import",
+    "category": "architecture",
+    "severity": "info",
+    "title": "Route component import"
+  },
+  {
+    "id": "architecture/doc-link-target",
+    "category": "architecture",
+    "severity": "info",
+    "title": "Documentation link target"
+  },
+  {
+    "id": "performance/heavy-import",
+    "category": "performance",
+    "severity": "info",
+    "title": "Heavy dependency import"
+  },
+  {
+    "id": "performance/namespace-import",
+    "category": "performance",
+    "severity": "info",
+    "title": "Namespace import"
+  },
+  {
+    "id": "performance/minify-disabled",
+    "category": "performance",
+    "severity": "warning",
+    "title": "Minification disabled"
+  },
+  {
+    "id": "performance/load-waterfall",
+    "category": "performance",
+    "severity": "warning",
+    "title": "Load waterfall"
+  },
+  {
+    "id": "performance/sequential-awaits",
+    "category": "performance",
+    "severity": "info",
+    "title": "Sequential independent awaits"
+  },
+  {
+    "id": "performance/state-raw",
+    "category": "performance",
+    "severity": "info",
+    "title": "Raw state opportunity"
+  }
+]",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > known rule id 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "seo/title-presence — Title presence (critical, seo)
+
+A unique, non-empty <title> is the single strongest on-page SEO signal and the text shown in search results and browser tabs.
+
+Docs: https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence
+
+Fix: Add a <title> inside <svelte:head> (a dynamic title is fine).",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > no id 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: explain needs a rule id, e.g. \`svelte-vitals explain seo/ssr-disabled\`; \`--list\` shows them all.
+svelte-vitals: known rule ids: architecture/component-size, architecture/directory-naming, architecture/doc-link-target, architecture/private-scope-import, architecture/prop-count, architecture/reserved-directory-names, architecture/reserved-name-placement, architecture/route-component-import, architecture/unit-entry-file, correctness/base-path-navigation, correctness/checkable-bind-value, correctness/each-index-key, correctness/each-key, correctness/effect-as-derived, correctness/effect-as-onmount, correctness/instance-browser-global, correctness/nonreactive-builtin-state, correctness/orphan-effect, correctness/orphan-lifecycle, correctness/prop-mutation, correctness/server-browser-global, correctness/stale-prop-derivation, correctness/unmutated-state, performance/font-preload-crossorigin, performance/heavy-import, performance/image-dimensions, performance/image-loading-hint, performance/lcp-image, performance/load-waterfall, performance/minify-disabled, performance/namespace-import, performance/preconnect, performance/preload-missing-as, performance/render-blocking-script, performance/responsive-image, performance/sequential-awaits, performance/state-raw, security/handler-state-write, security/javascript-url, security/raw-html, security/server-module-state, security/shared-state-import, seo/canonical-url, seo/charset, seo/description-length, seo/description-presence, seo/duplicate-description, seo/duplicate-title, seo/heading-level-skip, seo/hreflang, seo/html-lang, seo/image-alt, seo/indexability, seo/json-ld, seo/json-ld-date-format, seo/json-ld-deprecated-type, seo/json-ld-placeholder, seo/json-ld-relative-url, seo/json-ld-required-props, seo/json-ld-validity, seo/og-description, seo/og-image, seo/og-title, seo/og-url, seo/robots-txt, seo/single-h1, seo/sitemap-in-robots, seo/sitemap-xml, seo/ssr-disabled, seo/title-length, seo/title-presence, seo/twitter-card, seo/viewport.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > unknown id 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: unknown rule id 'NOPE999'.
+svelte-vitals: known rule ids: architecture/component-size, architecture/directory-naming, architecture/doc-link-target, architecture/private-scope-import, architecture/prop-count, architecture/reserved-directory-names, architecture/reserved-name-placement, architecture/route-component-import, architecture/unit-entry-file, correctness/base-path-navigation, correctness/checkable-bind-value, correctness/each-index-key, correctness/each-key, correctness/effect-as-derived, correctness/effect-as-onmount, correctness/instance-browser-global, correctness/nonreactive-builtin-state, correctness/orphan-effect, correctness/orphan-lifecycle, correctness/prop-mutation, correctness/server-browser-global, correctness/stale-prop-derivation, correctness/unmutated-state, performance/font-preload-crossorigin, performance/heavy-import, performance/image-dimensions, performance/image-loading-hint, performance/lcp-image, performance/load-waterfall, performance/minify-disabled, performance/namespace-import, performance/preconnect, performance/preload-missing-as, performance/render-blocking-script, performance/responsive-image, performance/sequential-awaits, performance/state-raw, security/handler-state-write, security/javascript-url, security/raw-html, security/server-module-state, security/shared-state-import, seo/canonical-url, seo/charset, seo/description-length, seo/description-presence, seo/duplicate-description, seo/duplicate-title, seo/heading-level-skip, seo/hreflang, seo/html-lang, seo/image-alt, seo/indexability, seo/json-ld, seo/json-ld-date-format, seo/json-ld-deprecated-type, seo/json-ld-placeholder, seo/json-ld-relative-url, seo/json-ld-required-props, seo/json-ld-validity, seo/og-description, seo/og-image, seo/og-title, seo/og-url, seo/robots-txt, seo/single-h1, seo/sitemap-in-robots, seo/sitemap-xml, seo/ssr-disabled, seo/title-length, seo/title-presence, seo/twitter-card, seo/viewport.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone explain — pinned behavior across the argv-shape matrix > wrong-case id (exact match only) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: unknown rule id 'SEO/TITLE-PRESENCE'.
+svelte-vitals: known rule ids: architecture/component-size, architecture/directory-naming, architecture/doc-link-target, architecture/private-scope-import, architecture/prop-count, architecture/reserved-directory-names, architecture/reserved-name-placement, architecture/route-component-import, architecture/unit-entry-file, correctness/base-path-navigation, correctness/checkable-bind-value, correctness/each-index-key, correctness/each-key, correctness/effect-as-derived, correctness/effect-as-onmount, correctness/instance-browser-global, correctness/nonreactive-builtin-state, correctness/orphan-effect, correctness/orphan-lifecycle, correctness/prop-mutation, correctness/server-browser-global, correctness/stale-prop-derivation, correctness/unmutated-state, performance/font-preload-crossorigin, performance/heavy-import, performance/image-dimensions, performance/image-loading-hint, performance/lcp-image, performance/load-waterfall, performance/minify-disabled, performance/namespace-import, performance/preconnect, performance/preload-missing-as, performance/render-blocking-script, performance/responsive-image, performance/sequential-awaits, performance/state-raw, security/handler-state-write, security/javascript-url, security/raw-html, security/server-module-state, security/shared-state-import, seo/canonical-url, seo/charset, seo/description-length, seo/description-presence, seo/duplicate-description, seo/duplicate-title, seo/heading-level-skip, seo/hreflang, seo/html-lang, seo/image-alt, seo/indexability, seo/json-ld, seo/json-ld-date-format, seo/json-ld-deprecated-type, seo/json-ld-placeholder, seo/json-ld-relative-url, seo/json-ld-required-props, seo/json-ld-validity, seo/og-description, seo/og-image, seo/og-title, seo/og-url, seo/robots-txt, seo/single-h1, seo/sitemap-in-robots, seo/sitemap-xml, seo/ssr-disabled, seo/title-length, seo/title-presence, seo/twitter-card, seo/viewport.",
+  "out": "",
+}
+`;

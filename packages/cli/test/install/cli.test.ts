@@ -1,7 +1,8 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
-import { realIO, runInstallCli } from '../../src/install/cli.js';
+import { realIO } from '../../src/install/cli.js';
+import { runInstallCliGunshi } from '../../src/gunshi/install.js';
 
 describe('realIO().readFile', () => {
   it('returns undefined for a nonexistent path (ENOENT)', () => {
@@ -41,7 +42,7 @@ describe('runInstallCli --help', () => {
     vi.spyOn(console, 'log').mockImplementation((line: string) => {
       lines.push(line);
     });
-    const code = await runInstallCli(['--help']);
+    const code = await runInstallCliGunshi(['--help']);
     expect(code).toBe(0);
     const help = lines.join('\n');
     expect(help).toContain('claude-skill');
@@ -54,9 +55,11 @@ describe('runInstallCli --help', () => {
     vi.spyOn(console, 'log').mockImplementation((line: string) => {
       lines.push(line);
     });
-    const code = await runInstallCli(['--help']);
+    const code = await runInstallCliGunshi(['--help']);
     expect(code).toBe(0);
-    expect(lines.join('\n')).toContain('--app <dir>');
+    // Placeholder is the generated format's own convention (the arg's key name, `<app>`) — the
+    // hand-written `<dir>` hint went away with the static help text it lived in.
+    expect(lines.join('\n')).toContain('--app <app>');
   });
 
   it('lists the ci-workflow target id', async () => {
@@ -64,7 +67,7 @@ describe('runInstallCli --help', () => {
     vi.spyOn(console, 'log').mockImplementation((line: string) => {
       lines.push(line);
     });
-    const code = await runInstallCli(['--help']);
+    const code = await runInstallCliGunshi(['--help']);
     expect(code).toBe(0);
     expect(lines.join('\n')).toContain('ci-workflow');
   });
@@ -74,7 +77,7 @@ describe('runInstallCli --help', () => {
     vi.spyOn(console, 'log').mockImplementation((line: string) => {
       lines.push(line);
     });
-    const code = await runInstallCli(['--help']);
+    const code = await runInstallCliGunshi(['--help']);
     expect(code).toBe(0);
     expect(lines.join('\n')).toContain('--refresh');
   });

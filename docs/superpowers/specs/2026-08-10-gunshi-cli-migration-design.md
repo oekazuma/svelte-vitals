@@ -218,3 +218,35 @@ looks like a flag), round out the compensation. `--diff`/`--baseline` values the
 shadow parse of the untouched original argv through the legacy `parseCliArgs` — the one remaining
 use of that parser on the migrated path, which Phase 3's deletion pass must absorb (inline the
 value-shape logic) before removing `cli-args.ts`.
+
+## Phase 3 verdict (2026-08-10): `install`/`ci` ported, `cli-args.ts` deleted, two scope calls
+
+`install` (`gunshi/install.ts`) and `ci` (`gunshi/ci.ts`) are ported; `docs/cli.ts`'s and
+`explain.ts`'s dispatch functions, `parseRunArgs`'s dependency on `cli-args.ts`, and
+`install/args.ts`'s dependency on it are gone; the file itself is deleted. Two calls diverged from
+a literal reading of this doc's Phase 3 description, both forced by "never at the cost of a
+byte-level behavior change":
+
+- **`parseRunArgs` (now in `resolve-args.ts`) and `parseInstallArgs` (`install/args.ts`) survive**,
+  each with its own inlined `node:util.parseArgs` call, instead of disappearing along with
+  `cli-args.ts`. Both remain structurally necessary: a guard hit on a value-carrying flag can't be
+  turned into a synthesized error message, because the flag's _actual_ consumed value (e.g. the
+  literal string `'--json'` when `--reporter --json` lets `--reporter` swallow the next flag) only
+  exists after a full legacy-shaped re-parse — `resolveArgs`/`resolveInstallArgs` need that value to
+  produce their real, existing error wording. `cli-args.ts`'s own generic `parseCliArgs` wrapper is
+  what's gone; each surviving parser is now a small private function scoped to its one caller.
+- **`ci`'s outer dispatch (`ci`/`ci install`/`ci upgrade`) is a literal `args[0]` string compare,
+  never routed through `guardArgs`/`stripUnknownFlags`/tail-promotion.** Unlike `docs`, `ci` has no
+  positional argument to protect from being swallowed, and the promotion trick docs.ts needs to
+  reach `list`/`show` through `fallbackToEntry` would here dispatch shapes the legacy runner never
+  did: `ci -- install` would actually run install (legacy: help + exit 2); `ci --bogus install`
+  would drop `--bogus` and run install, writing a file legacy never touched. gunshi only takes over
+  _inside_ the matched `install`/`upgrade` arms.
+
+`install`'s guard-error fallback also differs in kind from the root analyzer's: every analyzer
+guard hit is fatal in `resolveArgs`, so the fallback there just re-derives the error text. Install
+has non-fatal guard-firing shapes (a bare trailing `--client` parses to legacy's `true`, which
+`resolveInstallArgs` treats as "not passed") that are indistinguishable, pre-parse, from the
+genuinely dangerous ones (`--client --force` legacy-consumes `--force` as a literal string) — so
+install's fallback re-runs the _entire_ legacy pipeline (parse → help check → resolve → dispatch)
+rather than assuming a guard hit is always exit 2.

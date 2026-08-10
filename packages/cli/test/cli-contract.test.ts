@@ -160,13 +160,14 @@ describe('subcommand-vs-path dispatch', () => {
 });
 
 describe('ci/install exit-2 surfaces', () => {
-  it('ci with an unknown sub-subcommand prints CI_HELP to stdout and exits 2 (not the docs/explain empty-stdout contract)', async () => {
+  it('ci with an unknown sub-subcommand prints CI_HELP to stderr and exits 2, stdout empty (declared movement, Phase 3)', async () => {
     const { code, out, err } = await cli(['ci', 'bogus']);
     expect(code).toBe(2);
-    // Unlike docs/explain, ci's non-help error path writes its help text via `io.log` (stdout),
-    // not `io.errorLog` — a real quirk this suite pins as-is rather than smoothing over.
-    expect(out).toContain('svelte-vitals ci — scaffold CI integration');
-    expect(err).toBe('');
+    // Was a stdout-on-exit-2 exception to the empty-stdout contract every other exit-2 path
+    // honors; Phase 3 of the gunshi migration fixed it, so this is now the same shape as
+    // docs/explain's own exit-2 surfaces.
+    expect(out).toBe('');
+    expect(err).toContain('svelte-vitals ci — scaffold CI integration');
   });
 
   it('install with an unknown --client value warns per-value then fails fatally, exit 2', async () => {

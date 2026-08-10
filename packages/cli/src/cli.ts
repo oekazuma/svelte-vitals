@@ -1,5 +1,4 @@
-import { runInstallCli, realIO } from './install/cli.js';
-import { runCiCli } from './ci/cli.js';
+import { realIO } from './install/cli.js';
 import { consoleIO, type CliIO } from './cli-io.js';
 import { runAnalyzeCliGunshi } from './gunshi/analyze.js';
 
@@ -36,14 +35,16 @@ export async function runCli(argv: string[], io: CliIO = consoleIO): Promise<Cli
     return { code: await runExplainCliGunshi(argv.slice(1), io), exit: 'natural' };
   }
   if (argv[0] === 'install') {
-    return { code: await runInstallCli(argv.slice(1), io), exit: 'immediate' };
+    const { runInstallCliGunshi } = await import('./gunshi/install.js');
+    return { code: await runInstallCliGunshi(argv.slice(1), io), exit: 'immediate' };
   }
   if (argv[0] === 'ci') {
     // ci's own IO is disk-backed (realIO()) for reading/writing the workflow file; only the
     // log/errorLog sinks are swapped for the caller's, so a test-injected `io` still observes
     // everything ci prints without having to fake the filesystem for paths that never touch it
     // (--help, the error surfaces below).
-    const code = await runCiCli(argv.slice(1), { ...realIO(), log: io.log, errorLog: io.errorLog });
+    const { runCiCliGunshi } = await import('./gunshi/ci.js');
+    const code = await runCiCliGunshi(argv.slice(1), { ...realIO(), log: io.log, errorLog: io.errorLog });
     return { code, exit: 'immediate' };
   }
 

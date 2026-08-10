@@ -1,20 +1,16 @@
-// Phase 2a of the gunshi migration (docs/superpowers/specs/2026-08-10-gunshi-cli-migration-design.md):
-// the legacy `runDocsCli` (docs/cli.ts) stays in place and exported through Phase 3, so this file
-// runs the same argv through it and through the gunshi/bone port (gunshi/docs.ts, now what
-// `runCli(['docs', ...])` actually dispatches to) and asserts byte-for-byte equality — the same
-// comparison technique the Phase 1 spike used (spike-gunshi-docs.test.ts), extended with the
-// cells that only exist once help/`=false` are handled per-command instead of by a competing
-// renderer.
+// Phase 2a of the gunshi migration (docs/superpowers/specs/2026-08-10-gunshi-cli-migration-design.md)
+// grew this file to compare the gunshi/bone port (gunshi/docs.ts) against the legacy `runDocsCli`
+// (docs/cli.ts) byte for byte across a wide argv-shape matrix. Phase 3 deleted `runDocsCli` (nothing
+// routed through it once `runCli` dispatched to the gunshi port) and hybridized `docs --help`'s
+// output, so the legacy runner is no longer available as a live oracle for this file's own cells.
+// Converted to direct snapshot pins instead: every cell here pinned the SAME bytes the legacy
+// comparison already proved equal (guard/strip/dispatch logic is unchanged) except the four
+// `--help`-reaching cells, which now pin the new hybrid text — the one declared movement in this
+// PR's changeset. Coverage of the argv-shape matrix (unknown-flag-before-positional, `--`
+// terminator, tail-promotion, literal-`=false` coercion, …) survives unchanged.
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { runDocsCli } from '../src/docs/cli.js';
 import { runDocsCliGunshi } from '../src/gunshi/docs.js';
 import { captureIO } from './helpers/capture-io.js';
-
-function legacy(args: string[]) {
-  const io = captureIO();
-  const code = runDocsCli(args, io);
-  return { code, out: io.out, err: io.err };
-}
 
 async function gunshi(args: string[]) {
   const io = captureIO();
@@ -22,7 +18,7 @@ async function gunshi(args: string[]) {
   return { code, out: io.out, err: io.err };
 }
 
-describe('gunshi/bone docs reproduces the legacy docs CLI, byte for byte', () => {
+describe('gunshi/bone docs — pinned behavior across the argv-shape matrix', () => {
   const cells: { name: string; args: string[] }[] = [
     { name: 'list', args: ['list'] },
     { name: 'list --json', args: ['list', '--json'] },
@@ -80,8 +76,8 @@ describe('gunshi/bone docs reproduces the legacy docs CLI, byte for byte', () =>
   ];
 
   for (const { name, args } of cells) {
-    it(`${name}: identical to the legacy CLI`, async () => {
-      expect(await gunshi(args)).toEqual(legacy(args));
+    it(`${name}`, async () => {
+      expect(await gunshi(args)).toMatchSnapshot();
     });
   }
 });
