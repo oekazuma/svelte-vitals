@@ -32,7 +32,13 @@ describe('gunshi/bone explain reproduces the legacy explain CLI, byte for byte',
     { name: '--help', args: ['--help'] },
     { name: '-h', args: ['-h'] },
     { name: '--json=false (literal-false coercion)', args: ['--json=false', 'seo/title-length'] },
-    { name: '--list=false (literal-false coercion, falls through to no-id)', args: ['--list=false'] }
+    { name: '--list=false (literal-false coercion, falls through to no-id)', args: ['--list=false'] },
+    // Phase 2b (docs/superpowers/specs/2026-08-10-gunshi-cli-migration-design.md): an unknown
+    // flag directly before the rule-id positional — args-tokens would otherwise consume the id as
+    // that undeclared flag's own value.
+    { name: '--typo <id> (unknown long flag before the positional)', args: ['--typo', 'seo/title-presence'] },
+    { name: '-x <id> (unknown short flag before the positional)', args: ['-x', 'seo/title-presence'] },
+    { name: '-- --typo (terminator: a literal, unknown rule id)', args: ['--', '--typo'] }
   ];
 
   for (const { name, args } of cells) {
