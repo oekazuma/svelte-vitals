@@ -21,7 +21,8 @@ const BOOLEAN_FLAGS = ['yes', 'dry-run', 'force', 'refresh', 'help'] as const;
 const KNOWN_LONG_FLAGS = new Set<string>([...VALUE_FLAGS, ...BOOLEAN_FLAGS]);
 const KNOWN_SHORT_FLAGS = new Set(['y', 'h']);
 
-const INSTALL_ARGS = {
+/** Exported for gunshi/complete.ts — the completion tree's install args mirror this, never a second copy. */
+export const INSTALL_ARGS = {
   client: {
     type: 'string',
     description:

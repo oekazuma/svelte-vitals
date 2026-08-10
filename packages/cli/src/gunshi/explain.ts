@@ -12,6 +12,13 @@ const BOOLEAN_FLAGS = ['json', 'list', 'help'] as const;
 const KNOWN_LONG_FLAGS = new Set(BOOLEAN_FLAGS);
 const KNOWN_SHORT_FLAGS = new Set(['h']);
 
+/** Exported for gunshi/complete.ts — the completion tree's `explain` args mirror this, never a second copy. */
+export const EXPLAIN_ARGS = {
+  list: { type: 'boolean', description: 'List every rule instead of explaining one' },
+  json: { type: 'boolean', description: 'Machine-readable output (works with --list and with a rule id)' },
+  help: { type: 'boolean', short: 'h', description: 'Show this help' }
+} as const;
+
 /**
  * Hybrid `explain --help` text — same technique as `gunshi/docs.ts`'s `buildDocsHelpText`: hand-
  * written header/usage/footer, OPTIONS generated from this command's own `args`, the auto-injected
@@ -56,15 +63,11 @@ export async function runExplainCliGunshi(args: string[], io: CliIO = consoleIO)
 
   const explainCommand = define({
     name: 'explain',
-    args: {
-      list: { type: 'boolean', description: 'List every rule instead of explaining one' },
-      json: { type: 'boolean', description: 'Machine-readable output (works with --list and with a rule id)' },
-      help: { type: 'boolean', short: 'h', description: 'Show this help' }
-      // No declared `id` positional: `ctx.positionals` is populated regardless of whether any arg
-      // declares `type: 'positional'` (docs.ts's own root command relies on the same fact), and a
-      // declared one wouldn't see `tail` (post-`--`) anyway — the rule id is read from the merged
-      // `positionals` below instead.
-    },
+    // No declared `id` positional: `ctx.positionals` is populated regardless of whether any arg
+    // declares `type: 'positional'` (docs.ts's own root command relies on the same fact), and a
+    // declared one wouldn't see `tail` (post-`--`) anyway — the rule id is read from the merged
+    // `positionals` below instead.
+    args: EXPLAIN_ARGS,
     run: async (ctx) => {
       // `tail` (post-`--`) never went through gunshi at all, so it's appended here rather than
       // being part of `ctx.positionals`.

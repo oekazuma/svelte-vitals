@@ -18,6 +18,9 @@ catalogs:
     '@gunshi/docs':
       specifier: 0.37.1
       version: 0.37.1
+    '@gunshi/plugin-completion':
+      specifier: 0.37.1
+      version: 0.37.1
     '@sveltejs/kit':
       specifier: ^2.70.2
       version: 2.70.2
@@ -137,6 +140,9 @@ importers:
       '@clack/prompts':
         specifier: 'catalog:'
         version: 1.7.0
+      '@gunshi/plugin-completion':
+        specifier: 'catalog:'
+        version: 0.37.1(@gunshi/plugin-i18n@0.37.1)(cac@6.7.14)(citty@0.1.6)
       '@svelte-vitals/core':
         specifier: workspace:*
         version: link:../core
@@ -478,6 +484,21 @@ packages:
   '@babel/types@7.29.7':
     resolution: {integrity: sha512-4zBIxpPzowiZpusoFkyGVwakdRJUyuH5PxQ/PrqghfdFWWasvnCdPfQXHrenDai+gyLARulZjZowCOj6fjT4pA==}
     engines: {node: '>=6.9.0'}
+
+  '@bomb.sh/tab@0.0.19':
+    resolution: {integrity: sha512-dTRfo9Q9B+lbLG3JCu8a/AGQSfD2XXcFcnakQzVjSOX+VvR/s9zpsH8TlqV3iHqazniRn1Ypwd1hcRlXcu/4BA==}
+    hasBin: true
+    peerDependencies:
+      cac: ^6.7.14
+      citty: ^0.1.6 || ^0.2.0
+      commander: ^13.1.0 || ^14.0.0 || ^15.0.0
+    peerDependenciesMeta:
+      cac:
+        optional: true
+      citty:
+        optional: true
+      commander:
+        optional: true
 
   '@braidai/lang@1.1.2':
     resolution: {integrity: sha512-qBcknbBufNHlui137Hft8xauQMTZDKdophmLFv05r2eNmdIv/MlPuP4TdUknHG68UdWLgVZwgxVe735HzJNIwA==}
@@ -1011,6 +1032,25 @@ packages:
   '@gunshi/docs@0.37.1':
     resolution: {integrity: sha512-LcLL1ekr8T9177bnEuz7n3f6qeEsupfyVBGSyznQIEKvEFhLleRQeKmA0J/f7EZnMw0aPpafB+Ji5BmDaJ6roQ==}
     hasBin: true
+
+  '@gunshi/plugin-completion@0.37.1':
+    resolution: {integrity: sha512-6FHJiLvFYB1/bOr8waRIpwvyzdL/51vrGJL0klAFOk5CbfWogsOrv3kR+wX9WTgJHYVZJeMafg7tsZCHftZm2w==}
+    engines: {node: '>= 22'}
+    peerDependencies:
+      '@gunshi/plugin-i18n': 0.37.1
+
+  '@gunshi/plugin-i18n@0.37.1':
+    resolution: {integrity: sha512-K5L5IDeaD5JIGEPn4Wcl0cXyPggmmtj4sSQwCsqzAYc30VfJu+BQscoEt7wIoJ3UR6gnjY7BJh5dxGcmBcUvaA==}
+    engines: {node: '>= 22'}
+    peerDependencies:
+      '@gunshi/plugin-global': 0.37.1
+    peerDependenciesMeta:
+      '@gunshi/plugin-global':
+        optional: true
+
+  '@gunshi/plugin@0.37.1':
+    resolution: {integrity: sha512-ljjBaL15jCwX6tEtWRdmAQ/y/svGcMZa5mVhMPgXFeQFQ++srK/x5dx8uchQFrE2MTqaFhMMjNK9AQowCyRv9A==}
+    engines: {node: '>= 22'}
 
   '@hono/node-server@1.19.14':
     resolution: {integrity: sha512-GwtvgtXxnWsucXvbQXkRgqksiH2Qed37H9xHZocE5sA3N8O8O8/8FA3uclQXxXVzc9XBZuEOMK7+r02FmSpHtw==}
@@ -6364,6 +6404,11 @@ snapshots:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
 
+  '@bomb.sh/tab@0.0.19(cac@6.7.14)(citty@0.1.6)':
+    optionalDependencies:
+      cac: 6.7.14
+      citty: 0.1.6
+
   '@braidai/lang@1.1.2': {}
 
   '@braintree/sanitize-url@7.1.2': {}
@@ -6808,6 +6853,22 @@ snapshots:
     dependencies:
       '@antfu/install-pkg': 1.1.0
       tinyexec: 1.2.4
+
+  '@gunshi/plugin-completion@0.37.1(@gunshi/plugin-i18n@0.37.1)(cac@6.7.14)(citty@0.1.6)':
+    dependencies:
+      '@bomb.sh/tab': 0.0.19(cac@6.7.14)(citty@0.1.6)
+      '@gunshi/plugin': 0.37.1
+      '@gunshi/plugin-i18n': 0.37.1
+    transitivePeerDependencies:
+      - cac
+      - citty
+      - commander
+
+  '@gunshi/plugin-i18n@0.37.1':
+    dependencies:
+      '@gunshi/plugin': 0.37.1
+
+  '@gunshi/plugin@0.37.1': {}
 
   '@hono/node-server@1.19.14(hono@4.12.26)':
     dependencies:

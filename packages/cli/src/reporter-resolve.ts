@@ -2,16 +2,11 @@ import { getAgentProfile } from 'gunshi/agent';
 
 export type ReporterName = 'console' | 'json' | 'agent' | 'sarif' | 'github' | 'html' | 'md';
 
+/** Single source of truth for the `--reporter` value set — shared with completion's value handler (gunshi/complete.ts). */
+export const REPORTER_NAMES: readonly ReporterName[] = ['console', 'json', 'agent', 'sarif', 'github', 'html', 'md'];
+
 export function isReporterName(value: string | undefined): value is ReporterName {
-  return (
-    value === 'console' ||
-    value === 'json' ||
-    value === 'agent' ||
-    value === 'sarif' ||
-    value === 'github' ||
-    value === 'html' ||
-    value === 'md'
-  );
+  return REPORTER_NAMES.includes(value as ReporterName);
 }
 
 /**

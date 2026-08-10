@@ -1,0 +1,192 @@
+// Shell completion (docs/superpowers/specs/2026-08-10-gunshi-cli-migration-design.md addendum):
+// `@gunshi/plugin-completion` wired as a dedicated `complete` entry (src/gunshi/complete.ts),
+// dispatched by `runCli` (cli.ts) before the analyzer fallback, mirroring `docs`/`explain`/
+// `install`/`ci`. Unlike those four, `@bomb.sh/tab` (the plugin's completion engine) writes
+// candidates/scripts via raw `console.log`, bypassing the injected `CliIO` entirely — confirmed
+// empirically, so success paths here spy on `console.log` rather than `captureIO()`; only this
+// file's own pre-`cli()` shell-name guard (the failure paths) goes through `io.errorLog`.
+import { existsSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { join } from 'node:path';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { runCli } from '../src/cli.js';
+import { runCompleteCliGunshi } from '../src/gunshi/complete.js';
+import { captureIO } from './helpers/capture-io.js';
+
+const SHELLS = ['bash', 'zsh', 'fish', 'powershell'] as const;
+
+/**
+ * Joins every `console.log` call's first argument — bombshell logs one line (or one full script)
+ * per call. `vi.spyOn` returns the SAME mock on repeat calls within a test (the property is
+ * already replaced), so this clears prior calls first — otherwise a second `spyLog()`/`candidates()`
+ * in the same `it` would see earlier queries' output too.
+ */
+function spyLog(): { calls: () => string; restore: () => void } {
+  const spy = vi.spyOn(console, 'log').mockImplementation(() => {});
+  spy.mockClear();
+  return {
+    calls: () => spy.mock.calls.map((c) => String(c[0])).join('\n'),
+    restore: () => spy.mockRestore()
+  };
+}
+
+afterEach(() => {
+  vi.restoreAllMocks();
+});
+
+describe('complete: missing/unknown shell is a fatal error, not silent', () => {
+  it('bare `complete` (no shell, no --) exits 2 with a naming error, stdout untouched', async () => {
+    const log = spyLog();
+    const io = captureIO();
+    const code = await runCompleteCliGunshi(['complete'], io);
+    expect(code).toBe(2);
+    expect(io.out).toBe('');
+    expect(io.err).toContain('complete needs a shell name');
+    expect(log.calls()).toBe('');
+  });
+
+  it('an unsupported shell name exits 2 naming the ones that ARE supported', async () => {
+    const io = captureIO();
+    const code = await runCompleteCliGunshi(['complete', 'tcsh'], io);
+    expect(code).toBe(2);
+    expect(io.out).toBe('');
+    expect(io.err).toContain("unknown shell 'tcsh'");
+    expect(io.err).toContain('bash, zsh, fish, powershell');
+  });
+});
+
+describe('complete <shell>: prints a non-empty setup script for every supported shell', () => {
+  for (const shell of SHELLS) {
+    it(shell, async () => {
+      const log = spyLog();
+      const io = captureIO();
+      const code = await runCompleteCliGunshi(['complete', shell], io);
+      expect(code).toBe(0);
+      expect(io.out).toBe('');
+      expect(io.err).toBe('');
+      expect(log.calls().length).toBeGreaterThan(100);
+      expect(log.calls()).toContain('svelte-vitals');
+    });
+  }
+});
+
+describe('complete -- <words>: candidate protocol the generated scripts call back with', () => {
+  /** Runs the candidate query and returns just the candidate values (drops descriptions and the trailing `:<directive>` line). */
+  async function candidates(words: string[]): Promise<string[]> {
+    const log = spyLog();
+    const code = await runCompleteCliGunshi(['complete', '--', ...words], captureIO());
+    expect(code).toBe(0);
+    return log
+      .calls()
+      .split('\n')
+      .filter((l) => l.includes('\t'))
+      .map((l) => l.split('\t')[0]!);
+  }
+
+  it('top-level: every sub-command family is offered', async () => {
+    expect(await candidates([''])).toEqual(['docs', 'explain', 'install', 'ci']);
+  });
+
+  it('root flags: a sample of real flags, kebab-cased even for toKebab camelCase keys', async () => {
+    const list = await candidates(['--']);
+    expect(list).toEqual(expect.arrayContaining(['--route', '--reporter', '--score', '--help']));
+    // Pins the toKebab fix (gunshi/complete.ts's `forCompletion`): the plugin registers flags off
+    // the raw object key with no `toKebab` awareness — ROOT_ARGS declares these three under
+    // camelCase keys precisely so gunshi's OWN renderer doesn't mis-render `--no-*` (analyze.ts's
+    // own doc comment); left unmirrored, completion would offer `--noSuppressions` etc. instead.
+    expect(list).toEqual(expect.arrayContaining(['--no-suppressions', '--no-color', '--no-animation']));
+  });
+
+  it('root flags: value completion for the enum-ish flags matches their real accepted values', async () => {
+    expect(await candidates(['--reporter', ''])).toEqual(['console', 'json', 'agent', 'sarif', 'github', 'html', 'md']);
+    expect(await candidates(['--fail-on', ''])).toEqual(['critical', 'warning', 'info']);
+    expect(await candidates(['--category', ''])).toEqual([
+      'seo',
+      'performance',
+      'correctness',
+      'security',
+      'architecture'
+    ]);
+    expect(await candidates(['--treat-dynamic-as', ''])).toEqual(['pass', 'warn', 'fail']);
+  });
+
+  it('docs: list/show sub-commands', async () => {
+    expect(await candidates(['docs', ''])).toEqual(['list', 'show']);
+  });
+
+  it('explain: --list/--json/--help', async () => {
+    expect(await candidates(['explain', '--'])).toEqual(['--list', '--json', '--help']);
+  });
+
+  it("install: every real flag, but never the hidden obsolete '--scope'", async () => {
+    const list = await candidates(['install', '--']);
+    expect(list).toEqual(['--client', '--app', '--yes', '--dry-run', '--force', '--refresh', '--help']);
+    expect(list).not.toContain('--scope');
+  });
+
+  it('ci install: force/dry-run/help', async () => {
+    expect(await candidates(['ci', 'install', '--'])).toEqual(['--force', '--dry-run', '--help']);
+  });
+
+  it("ci upgrade: only its real subset (no --force — it doesn't strip one, matches gunshi/ci.ts's CI_UPGRADE_ARGS)", async () => {
+    expect(await candidates(['ci', 'upgrade', '--'])).toEqual(['--dry-run', '--help']);
+  });
+});
+
+describe('runCli dispatch: `complete` is a new reserved top-level token, wired unsliced', () => {
+  it('routes through runCli with the full argv (complete included), exiting naturally', async () => {
+    const log = spyLog();
+    const io = captureIO();
+    const result = await runCli(['complete', 'zsh'], io);
+    expect(result).toEqual({ code: 0, exit: 'natural' });
+    expect(log.calls().length).toBeGreaterThan(100);
+  });
+
+  it('a directory literally named `complete` is shadowed, same as docs/explain/install/ci (declared, not a regression)', async () => {
+    const io = captureIO();
+    const result = await runCli(['complete', 'nonexistent-shell-name'], io);
+    expect(result.code).toBe(2);
+    expect(io.err).toContain("unknown shell 'nonexistent-shell-name'");
+  });
+});
+
+describe('spawn the built dist (skipped if `pnpm build` has not run)', () => {
+  const cliBin = join(import.meta.dirname, '..', 'dist', 'bin.js');
+  const has = existsSync(cliBin);
+
+  function run(args: string[]): { code: number; stdout: string; stderr: string } {
+    try {
+      const stdout = execFileSync(process.execPath, [cliBin, ...args], {
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'pipe']
+      });
+      return { code: 0, stdout, stderr: '' };
+    } catch (err) {
+      const e = err as { status: number; stdout?: string; stderr?: string };
+      return { code: e.status, stdout: String(e.stdout ?? ''), stderr: String(e.stderr ?? '') };
+    }
+  }
+
+  it.skipIf(!has)('complete zsh exits 0 with a non-empty script through the packaged binary', () => {
+    const { code, stdout } = run(['complete', 'zsh']);
+    expect(code).toBe(0);
+    expect(stdout.length).toBeGreaterThan(100);
+    expect(stdout).toContain('svelte-vitals');
+  });
+
+  it.skipIf(!has)('complete -- resolves sub-command names through the packaged binary', () => {
+    const { code, stdout } = run(['complete', '--', '']);
+    expect(code).toBe(0);
+    expect(stdout).toContain('docs\t');
+    expect(stdout).toContain('explain\t');
+    expect(stdout).toContain('install\t');
+    expect(stdout).toContain('ci\t');
+  });
+
+  it.skipIf(!has)('an unsupported shell exits 2 with stdout empty through the packaged binary', () => {
+    const { code, stdout, stderr } = run(['complete', 'tcsh']);
+    expect(code).toBe(2);
+    expect(stdout).toBe('');
+    expect(stderr).toContain("unknown shell 'tcsh'");
+  });
+});

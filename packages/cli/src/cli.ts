@@ -24,6 +24,12 @@ export interface CliResult {
  * for why the caller still needs to pick between `process.exit` and `process.exitCode` per path.
  */
 export async function runCli(argv: string[], io: CliIO = consoleIO): Promise<CliResult> {
+  if (argv[0] === 'complete') {
+    // Loaded on demand, same reasoning as `docs`/`explain` below. Passed the FULL argv, not
+    // `argv.slice(1)` — see gunshi/complete.ts's own doc comment for why this one branch differs.
+    const { runCompleteCliGunshi } = await import('./gunshi/complete.js');
+    return { code: await runCompleteCliGunshi(argv, io), exit: 'natural' };
+  }
   if (argv[0] === 'docs') {
     // Loaded on demand: the bundled topics are ~20KB of string literals that the analysis path
     // — the one the I/O budget test and `pnpm bench` defend — would otherwise parse every run.

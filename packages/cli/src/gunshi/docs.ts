@@ -11,12 +11,22 @@ import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine }
 /** docs declares no value-carrying flags today — see guard.ts's own doc comment for why the list is still passed explicitly. */
 const BOOLEAN_FLAGS = ['json', 'help'] as const;
 const HELP_ARG = { help: { type: 'boolean', short: 'h', description: 'Show this help' } } as const;
+const JSON_ARG = { json: { type: 'boolean', description: 'Machine-readable output (list only)' } } as const;
 /** Family-wide, not per-subcommand — see guard.ts's `stripUnknownFlags` doc comment: the legacy
  * runner parses `--json`/`-h`/`--help` in one flat pass, so `show` (which never reads `--json`
  * itself) still needs it declared below to keep gunshi's own per-command resolution from
  * mistaking it for an unknown flag and swallowing the positional after it. */
 const KNOWN_LONG_FLAGS = new Set(BOOLEAN_FLAGS);
 const KNOWN_SHORT_FLAGS = new Set(['h']);
+
+/** Exported for gunshi/complete.ts — the completion tree's docs args mirror these, never a second copy. */
+export const DOCS_ROOT_ARGS = { ...JSON_ARG, ...HELP_ARG } as const;
+export const DOCS_LIST_ARGS = { ...JSON_ARG, ...HELP_ARG } as const;
+export const DOCS_SHOW_ARGS = {
+  name: { type: 'positional', required: false },
+  ...JSON_ARG,
+  ...HELP_ARG
+} as const;
 
 /**
  * Hybrid `docs --help` text: hand-written header/usage/footer preserved verbatim from `DOCS_HELP`
@@ -89,7 +99,7 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
 
   const listCommand = define({
     name: 'list',
-    args: { json: { type: 'boolean', description: 'Machine-readable output (list only)' }, ...HELP_ARG },
+    args: DOCS_LIST_ARGS,
     run: async (ctx) => {
       if (ctx.values.help) {
         io.log(await buildDocsHelpText(rootCommand));
@@ -123,19 +133,15 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
 
   const showCommand = define({
     name: 'show',
-    args: {
-      // Left un-required on purpose: gunshi's own "required positional missing" validation
-      // error preempts this command's `run` entirely and can't be made to say
-      // "docs show needs a topic name, e.g. ...". Counting positionals ourselves reproduces
-      // the exact current wording instead.
-      name: { type: 'positional', required: false },
-      // Declared but unused here — see the family-wide KNOWN_LONG_FLAGS comment above. The legacy
-      // runner accepts `--json` on `show` too (a harmless no-op boolean); without this, gunshi's
-      // per-command resolution would treat `--json` as undeclared for `show` specifically and
-      // swallow the following positional (`docs show --json config` would lose `config`).
-      json: { type: 'boolean', description: 'Machine-readable output (list only)' },
-      ...HELP_ARG
-    },
+    // Left un-required on purpose: gunshi's own "required positional missing" validation error
+    // preempts this command's `run` entirely and can't be made to say "docs show needs a topic
+    // name, e.g. ...". Counting positionals ourselves reproduces the exact current wording
+    // instead. `json` is declared but unused here too — see the family-wide KNOWN_LONG_FLAGS
+    // comment above: the legacy runner accepts `--json` on `show` too (a harmless no-op
+    // boolean); without this, gunshi's per-command resolution would treat `--json` as undeclared
+    // for `show` specifically and swallow the following positional (`docs show --json config`
+    // would lose `config`).
+    args: DOCS_SHOW_ARGS,
     run: async (ctx) => {
       if (ctx.values.help) {
         io.log(await buildDocsHelpText(rootCommand));
@@ -181,7 +187,7 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
     name: 'docs',
     // `json` declared but unused here too, for the same family-wide reason as `showCommand` — a
     // bare `docs --json <sub>` reaches this command's own resolution via `fallbackToEntry`.
-    args: { json: { type: 'boolean', description: 'Machine-readable output (list only)' }, ...HELP_ARG },
+    args: DOCS_ROOT_ARGS,
     subCommands: { list: listCommand, show: showCommand },
     run: async (ctx) => {
       if (ctx.values.help) {

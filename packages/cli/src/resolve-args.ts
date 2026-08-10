@@ -1,10 +1,24 @@
 import { parseArgs } from 'node:util';
-import type { Category } from '@svelte-vitals/core';
+import type { Category, Severity } from '@svelte-vitals/core';
 import type { RunOptions } from './index.js';
 import { findUnknownRuleIds, knownRuleIds } from './rules-config.js';
 import { isReporterName, type ReporterName } from './reporter-resolve.js';
 
-const CATEGORIES: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
+/** Single source of truth for the `--category` value set — shared with completion's value handler (gunshi/complete.ts). */
+export const CATEGORIES: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
+
+/** Single source of truth for `--fail-on` — shared with completion's value handler (gunshi/complete.ts). */
+export const FAIL_ON_VALUES: readonly Severity[] = ['critical', 'warning', 'info'];
+function isFailOnValue(value: unknown): value is Severity {
+  return typeof value === 'string' && (FAIL_ON_VALUES as readonly string[]).includes(value);
+}
+
+type TreatDynamicAs = 'pass' | 'warn' | 'fail';
+/** Single source of truth for `--treat-dynamic-as` — shared with completion's value handler (gunshi/complete.ts). */
+export const TREAT_DYNAMIC_AS_VALUES: readonly TreatDynamicAs[] = ['pass', 'warn', 'fail'];
+function isTreatDynamicAs(value: unknown): value is TreatDynamicAs {
+  return typeof value === 'string' && (TREAT_DYNAMIC_AS_VALUES as readonly string[]).includes(value);
+}
 
 /** Parsed argv: positionals under `_`, flag values as flat keys. */
 export interface CliArgv {
@@ -245,7 +259,8 @@ export function resolveArgs(argv: CliArgv): ResolvedArgs {
   const metaComponents = typeof argv['meta-components'] === 'string' ? toList(argv['meta-components']) : undefined;
 
   const treatRaw = argv['treat-dynamic-as'];
-  const treatDynamicAs = treatRaw === 'warn' || treatRaw === 'fail' || treatRaw === 'pass' ? treatRaw : undefined;
+  const treatDynamicAsValid = isTreatDynamicAs(treatRaw);
+  const treatDynamicAs = treatDynamicAsValid ? treatRaw : undefined;
   if (typeof treatRaw === 'string' && treatDynamicAs === undefined) {
     warnings.push(
       `svelte-vitals: unknown --treat-dynamic-as '${treatRaw}'; expected pass|warn|fail. Defaulting to 'pass'.`
@@ -294,7 +309,7 @@ export function resolveArgs(argv: CliArgv): ResolvedArgs {
   }
 
   const failOnRaw = argv['fail-on'];
-  const failOnValid = failOnRaw === 'warning' || failOnRaw === 'info' || failOnRaw === 'critical';
+  const failOnValid = isFailOnValue(failOnRaw);
   if (typeof failOnRaw === 'string' && !failOnValid) {
     warnings.push(
       `svelte-vitals: unknown --fail-on '${failOnRaw}'; expected critical|warning|info. No threshold applied.`

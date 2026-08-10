@@ -305,6 +305,56 @@ npx svelte-vitals explain performance/heavy-import
 
 未知のルール ID を渡すと、既知の ID をすべて列挙して終了コード `2` で終了するため、綴り違いをすぐ修正できます。ルール ID は完全一致・大文字小文字を区別して照合されます。
 
+## シェル補完
+
+```bash
+svelte-vitals complete <bash|zsh|fish|powershell>
+```
+
+指定したシェル向けの補完スクリプトを出力します。サブコマンド名（`docs`、`explain`、`install`、
+`ci install`/`ci upgrade`）、それぞれのフラグ、そして列挙型のフラグ（`--reporter`、`--fail-on`、
+`--category`、`--treat-dynamic-as`）の値まで補完します。パースと `--help` を駆動しているのと同じ
+引数定義から生成されるため、補完は常に CLI と一致します。
+
+**Bash**
+
+```bash
+mkdir -p ~/.local/share/bash-completion/completions
+svelte-vitals complete bash > ~/.local/share/bash-completion/completions/svelte-vitals
+source ~/.bashrc
+```
+
+**Zsh**
+
+```bash
+mkdir -p ~/.zsh/completions
+echo 'fpath=(~/.zsh/completions $fpath)' >> ~/.zshrc
+echo 'autoload -U compinit && compinit' >> ~/.zshrc
+svelte-vitals complete zsh > ~/.zsh/completions/_svelte-vitals
+exec zsh
+```
+
+**Fish**
+
+```bash
+mkdir -p ~/.config/fish/completions
+svelte-vitals complete fish > ~/.config/fish/completions/svelte-vitals.fish
+```
+
+**PowerShell**
+
+```powershell
+svelte-vitals complete powershell >> $PROFILE
+. $PROFILE
+```
+
+各スクリプトは、生成された時点のインストール場所から `svelte-vitals` を再実行します。
+`svelte-vitals` をアップグレードしたとき、あるいはパッケージを移動・再インストールしたときは、
+スクリプトを再生成してください。
+
+`complete` はサブコマンドなので、同名のディレクトリより優先されます。`complete` という名前の
+ディレクトリを解析したい場合は `svelte-vitals ./complete` と書いてください。
+
 ## 対応する Svelte/SvelteKit バージョン
 
 ルールは **Svelte 5+（runes）** と **SvelteKit 2+** を前提としています。解析対象プロジェクトの
