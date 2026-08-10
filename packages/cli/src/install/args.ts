@@ -1,19 +1,38 @@
-import { parseCliArgs, toList, type CliArgv } from '../cli-args.js';
+import { parseArgs } from 'node:util';
+import { toList, type CliArgv } from '../resolve-args.js';
 import { INSTALL_TARGETS, type TargetId } from './targets.js';
 import type { InstallFlags } from './index.js';
 
 const VALID_TARGETS: readonly TargetId[] = INSTALL_TARGETS.map((t) => t.id);
 const EXPECTED_TARGETS = VALID_TARGETS.join('|');
 
-/** Parse `install`'s argv, exactly as `runInstallCli` does — exported so tests share the real flag table. */
+const INSTALL_BOOLEAN_FLAGS = ['yes', 'dry-run', 'force', 'refresh', 'help'] as const;
+
+/**
+ * Parse `install`'s argv with `node:util`'s `parseArgs`, exactly as the pre-gunshi dispatcher did
+ * — exported so tests share the real flag table, and reused by `gunshi/install.ts` as the fallback
+ * engine for any argv shape its own raw-argv guard flags (see that file's own doc comment for why
+ * a full re-parse, not just a synthesized error, is what install's fallback needs).
+ */
 export function parseInstallArgs(args: string[]): CliArgv {
-  return parseCliArgs(args, {
-    boolean: ['yes', 'dry-run', 'force', 'refresh', 'help'],
+  const options: Record<string, { type: 'boolean' | 'string'; short?: string }> = {
     // `scope` is still declared although the flag is gone: it keeps `--scope global` from
     // parsing its value as a positional, so resolveInstallArgs can warn and carry on.
-    string: ['client', 'scope', 'app'],
-    short: { y: 'yes', h: 'help' }
-  });
+    client: { type: 'string' },
+    scope: { type: 'string' },
+    app: { type: 'string' },
+    yes: { type: 'boolean', short: 'y' },
+    'dry-run': { type: 'boolean' },
+    force: { type: 'boolean' },
+    refresh: { type: 'boolean' },
+    help: { type: 'boolean', short: 'h' }
+  };
+  const { values, positionals } = parseArgs({ args, options, strict: false, allowPositionals: true });
+  for (const name of INSTALL_BOOLEAN_FLAGS) {
+    const v = values[name];
+    if (typeof v === 'string') values[name] = v !== 'false';
+  }
+  return { _: positionals, ...values };
 }
 
 interface ResolvedInstallArgs {

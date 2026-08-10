@@ -2,13 +2,15 @@
 // analyzer-specific regressions the shared cli-contract.test.ts/help-golden.test.ts suites don't
 // already pin — see gunshi/analyze.ts's own doc comments for why each of these exists.
 import { describe, it, expect, afterEach } from 'vitest';
-import { mkdtempSync, rmSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { cli } from 'gunshi/bone';
 import { define } from 'gunshi/definition';
 import { runCli } from '../src/cli.js';
+import { shadowParseDiffAndBaseline } from '../src/gunshi/analyze.js';
 import { captureIO } from './helpers/capture-io.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -173,5 +175,124 @@ describe('--help wins over a guard-detected error (help is checked before the gu
     expect(code).toBe(0);
     expect(out).toContain('svelte-vitals — a deterministic SvelteKit code-health scanner');
     expect(err).toBe('');
+  });
+});
+
+// Unit pins for shadowParseDiffAndBaseline's value shapes (measured, not assumed — the `--diff
+// --typo main` cell in particular does NOT consume `--typo` the way `--baseline --typo main`
+// does: the bare-`--diff` rewrite fires first because `--typo` looks like a flag, so `--diff`
+// never reaches the raw parse as a bare trailing token). Each cell is one assertion so a broken
+// shape fails on its own cell, not a shared multi-assertion block. The bare-`--diff` cell is the
+// one the `--diff=HEAD` rewrite exists for: drop that rewrite and this cell alone catches it
+// (`values.diff` becomes the boolean `true`, not the string `'HEAD'`) — the git-fixture test below
+// pins what that divergence does to a real run instead of just the parsed value.
+describe('shadowParseDiffAndBaseline: pinned value shapes', () => {
+  it('neither flag passed: both undefined', () => {
+    expect(shadowParseDiffAndBaseline([])).toEqual({ diff: undefined, baseline: undefined });
+  });
+
+  it('bare --diff: defaults to HEAD', () => {
+    expect(shadowParseDiffAndBaseline(['--diff']).diff).toBe('HEAD');
+  });
+
+  it('--diff main: the ref, not the default', () => {
+    expect(shadowParseDiffAndBaseline(['--diff', 'main']).diff).toBe('main');
+  });
+
+  it('--diff=: empty string, not the default (a distinct, explicit shape)', () => {
+    expect(shadowParseDiffAndBaseline(['--diff=']).diff).toBe('');
+  });
+
+  it('--diff --typo main: the bare-rewrite fires on the dash-leading follower, so diff is HEAD (not a consumed --typo)', () => {
+    expect(shadowParseDiffAndBaseline(['--diff', '--typo', 'main']).diff).toBe('HEAD');
+  });
+
+  it('bare --baseline: the boolean marker true, not a string (resolveArgs treats this as fatal)', () => {
+    expect(shadowParseDiffAndBaseline(['--baseline']).baseline).toBe(true);
+  });
+
+  it('--baseline main: the ref', () => {
+    expect(shadowParseDiffAndBaseline(['--baseline', 'main']).baseline).toBe('main');
+  });
+
+  it('--baseline --typo main: --baseline has no bare-rewrite, so it consumes the dash-leading follower literally', () => {
+    expect(shadowParseDiffAndBaseline(['--baseline', '--typo', 'main']).baseline).toBe('--typo');
+  });
+
+  it('--baseline=: empty string', () => {
+    expect(shadowParseDiffAndBaseline(['--baseline=']).baseline).toBe('');
+  });
+});
+
+// Observable-level integration test (not just the parsed value): proves --diff's scoping actually
+// changes which findings are reported, end to end, through a real git repo. Discriminates the
+// exact mutation the unit pins above catch structurally: if the `--diff=HEAD` rewrite is dropped,
+// `resolveArgs` sees a non-string `diff` and drops scoping entirely — the run silently falls back
+// to analyzing every route instead of erroring, so a naive "--diff ran and produced output"
+// assertion can't see the bug (the pre-existing gunshi-guard/cli-contract cells for bare --diff
+// only ever ran against a non-project tmpdir, whose "No SvelteKit project found" exit-2 doesn't
+// depend on the diff value at all).
+describe('--diff actually scopes findings, not just parses (git fixture)', () => {
+  const dirs: string[] = [];
+  afterEach(() => {
+    while (dirs.length > 0) {
+      const dir = dirs.pop();
+      if (dir) rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  function git(args: string[], cwd: string): void {
+    execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+  }
+
+  /**
+   * A committed baseline with ONE pre-existing seo/title-presence finding (home, untouched by the
+   * diff) and one clean route (other), then an UNCOMMITTED edit that removes other's title too —
+   * a second, real finding that only a --diff run scoped to the actual change should report.
+   * A run that silently fell back to analyzing everything would report both.
+   */
+  function makeFixtureRepo(): string {
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-diff-scope-'));
+    dirs.push(dir);
+    git(['init'], dir);
+    git(['config', 'user.email', 'test@example.com'], dir);
+    git(['config', 'user.name', 'Test'], dir);
+    writeFileSync(
+      join(dir, 'package.json'),
+      JSON.stringify({ name: 'diff-scope-fixture', private: true, devDependencies: { '@sveltejs/kit': '^2.0.0' } })
+    );
+    mkdirSync(join(dir, 'src/routes/other'), { recursive: true });
+    writeFileSync(join(dir, 'src/routes/+page.svelte'), '<h1>Home</h1>\n'); // pre-existing defect, never touched
+    writeFileSync(
+      join(dir, 'src/routes/other/+page.svelte'),
+      '<svelte:head><title>Other</title></svelte:head>\n<h1>Other</h1>\n'
+    );
+    git(['add', '.'], dir);
+    git(['commit', '-m', 'init'], dir);
+
+    // Uncommitted change: drop other's title, introducing the ONE finding a --diff run must catch.
+    writeFileSync(join(dir, 'src/routes/other/+page.svelte'), '<h1>Other</h1>\n');
+    return dir;
+  }
+
+  it('reports only the changed route’s new finding, not the untouched route’s pre-existing one', async () => {
+    const dir = makeFixtureRepo();
+    const { code, out, err } = await run([dir, '--diff', '--reporter', 'json']);
+    expect(code).toBe(1); // a critical finding (seo/title-presence) is present
+    expect(err).toBe('');
+    const report = JSON.parse(out) as { rules: Record<string, { findings: number }> };
+    // Exactly the changed route's finding — the untouched home route's pre-existing one must not
+    // leak in. If diff-scoping silently fell back to a full scan (the mutation this test exists
+    // to catch), this would be 2.
+    expect(report.rules['seo/title-presence']?.findings).toBe(1);
+  });
+
+  it('the same fixture without --diff reports both findings (the scoped run above really did narrow it)', async () => {
+    const dir = makeFixtureRepo();
+    const { code, out, err } = await run([dir, '--reporter', 'json']);
+    expect(code).toBe(1);
+    expect(err).toBe('');
+    const report = JSON.parse(out) as { rules: Record<string, { findings: number }> };
+    expect(report.rules['seo/title-presence']?.findings).toBe(2);
   });
 });

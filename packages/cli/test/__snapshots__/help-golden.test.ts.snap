@@ -25,10 +25,10 @@ workflow to the pin bundled with this CLI, leaving the rest of the file (and any
 pins, like actions/checkout) untouched. To pick up the latest pin, run
 \`npx svelte-vitals@latest ci upgrade\`.
 
-Options:
-  --force       Overwrite an existing workflow file (install only)
-  --dry-run     Print the plan and exit without writing
-  -h, --help    Show this help",
+OPTIONS:
+  -h, --help             Show this help
+  --force                Overwrite an existing workflow file (install only)
+  --dry-run              Print the plan and exit without writing",
 }
 `;
 
@@ -41,9 +41,9 @@ Usage:
   svelte-vitals docs list [--json]     List every topic with a one-line description
   svelte-vitals docs show <name>       Print a topic
 
-Options:
-  --json        Machine-readable output (list only)
-  -h, --help    Show this help
+OPTIONS:
+  -h, --help             Show this help
+  --json                 Machine-readable output (list only)
 
 The topics ship inside the CLI, so they always match the version you are running and need no
 network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
@@ -62,10 +62,10 @@ Usage:
   svelte-vitals explain --list          List every rule id, grouped by category
   svelte-vitals explain <rule-id>       Explain one rule
 
-Options:
-  --list        List every rule instead of explaining one
-  --json        Machine-readable output (works with --list and with a rule id)
-  -h, --help    Show this help
+OPTIONS:
+  -h, --help             Show this help
+  --list                 List every rule instead of explaining one
+  --json                 Machine-readable output (works with --list and with a rule id)
 
 Rule ids are category/kebab-case and matched exactly, e.g. \`svelte-vitals explain seo/ssr-disabled\`.",
 }
@@ -79,46 +79,46 @@ exports[`help goldens > install --help 1`] = `
 Usage:
   svelte-vitals install [options]
 
-Options:
-  --client <ids>    Comma-separated: vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow
-                    (skips the interactive picker; the picker groups these by category —
-                    Vite integration, Agent Skills & rules, CI, Config file)
-                    vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-hooks
-                    wires up the svelteVitalsHandle hook in src/hooks.server.{ts,js}, which improves the
-                    live dashboard's per-route accuracy as you browse. --force does not apply
-                    to either of these two — an existing registration is always left as-is.
-                    claude-skill writes an agent skill (Claude Code, Codex, and Cursor —
-                    .claude/skills/, .agents/skills/, and .cursor/skills/ under svelte-vitals/);
-                    cursor-rules writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc).
-                    Both are generated from the current rule set and support --force to regenerate.
-                    claude-skill-improve writes a second, read-only agent skill (same three
-                    locations, under improve-svelte/) that audits the whole project and writes
-                    implementation plans instead of a run-after-every-edit playbook; also
-                    supports --force.
-                    config-file scaffolds svelte-vitals.config.{mjs,ts} with every option commented
-                    out, auto-picking .ts (with defineConfig) when the current Node supports it, the
-                    project looks TypeScript-oriented (tsconfig.json or vite.config.ts present), and
-                    svelte-vitals is a declared dependency (defineConfig's import resolves at load
-                    time); else the safe .mjs default. Supports --force to regenerate the file
-                    that's already there (its extension never changes on --force).
-                    ci-workflow scaffolds .github/workflows/svelte-vitals.yml, the same file
-                    \`svelte-vitals ci install\` writes standalone — pick it here to set it up in
-                    the same pass as everything else; supports --force to regenerate. \`svelte-vitals
-                    ci upgrade\` remains the way to bump an existing workflow's pinned action version.
-  --app <dir>       Monorepo: the SvelteKit app directory the vite-plugin/vite-hooks/config-file
-                    targets write into (e.g. --app apps/web). Without it, when the current
-                    directory isn't itself a SvelteKit app, one detected app is used
-                    automatically (with a notice), several prompt a picker on a TTY, and
-                    non-interactive runs exit 2 asking for --app. All other targets
-                    (skills, ci-workflow) always write at the current directory —
-                    the repo root is their correct home.
-  --yes, -y         Skip the confirmation prompt
-  --dry-run         Print the planned changes and exit without writing
-  --force           Overwrite an existing svelte-vitals entry
-  --refresh         Regenerate existing agent skill/rules files with the current rule set
-                    (claude-skill / cursor-rules / claude-skill-improve). Only regenerates files already
-                    present on disk — it never creates one. Cannot be combined with --client.
-  -h, --help        Show this help",
+OPTIONS:
+  -h, --help                 Show this help
+  --client <client>          Comma-separated: vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow
+(skips the interactive picker; the picker groups these by category —
+Vite integration, Agent Skills & rules, CI, Config file)
+vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-hooks
+wires up the svelteVitalsHandle hook in src/hooks.server.{ts,js}, which improves the
+live dashboard's per-route accuracy as you browse. --force does not apply
+to either of these two — an existing registration is always left as-is.
+claude-skill writes an agent skill (Claude Code, Codex, and Cursor —
+.claude/skills/, .agents/skills/, and .cursor/skills/ under svelte-vitals/);
+cursor-rules writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc).
+Both are generated from the current rule set and support --force to regenerate.
+claude-skill-improve writes a second, read-only agent skill (same three
+locations, under improve-svelte/) that audits the whole project and writes
+implementation plans instead of a run-after-every-edit playbook; also
+supports --force.
+config-file scaffolds svelte-vitals.config.{mjs,ts} with every option commented
+out, auto-picking .ts (with defineConfig) when the current Node supports it, the
+project looks TypeScript-oriented (tsconfig.json or vite.config.ts present), and
+svelte-vitals is a declared dependency (defineConfig's import resolves at load
+time); else the safe .mjs default. Supports --force to regenerate the file
+that's already there (its extension never changes on --force).
+ci-workflow scaffolds .github/workflows/svelte-vitals.yml, the same file
+\`svelte-vitals ci install\` writes standalone — pick it here to set it up in
+the same pass as everything else; supports --force to regenerate. \`svelte-vitals
+ci upgrade\` remains the way to bump an existing workflow's pinned action version.
+  --app <app>                Monorepo: the SvelteKit app directory the vite-plugin/vite-hooks/config-file
+targets write into (e.g. --app apps/web). Without it, when the current
+directory isn't itself a SvelteKit app, one detected app is used
+automatically (with a notice), several prompt a picker on a TTY, and
+non-interactive runs exit 2 asking for --app. All other targets
+(skills, ci-workflow) always write at the current directory —
+the repo root is their correct home.
+  -y, --yes                  Skip the confirmation prompt
+  --dry-run                  Print the planned changes and exit without writing
+  --force                    Overwrite an existing svelte-vitals entry
+  --refresh                  Regenerate existing agent skill/rules files with the current rule set
+(claude-skill / cursor-rules / claude-skill-improve). Only regenerates files already
+present on disk — it never creates one. Cannot be combined with --client.",
 }
 `;
 

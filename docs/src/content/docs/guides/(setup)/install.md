@@ -31,7 +31,7 @@ Both are generated at install time from the current rule set (id, title, severit
 
 `ci-workflow` scaffolds `.github/workflows/svelte-vitals.yml`, the same file the standalone [`svelte-vitals ci install`](/guides/ci) command writes — pick it here to set up CI in the same pass as everything else, instead of a separate command. It's fully regenerated, so **`--force` does apply**; `svelte-vitals ci upgrade` (not part of this wizard) remains the way to bump an existing workflow's pinned action version without touching anything else in the file.
 
-## `--app <dir>` — monorepos
+## `--app <app>` — monorepos
 
 The `vite-plugin`, `vite-hooks`, and `config-file` targets must land in the SvelteKit **app** directory — that's where `vite.config.*` and `src/hooks.server.*` live, and a `svelte-vitals.config.*` is only [loaded from the analyzed directory](/guides/configuration#where-it-lives). When you run `install` from a monorepo root, these targets resolve their app the same way [the analyzer does](/guides/cli#monorepos):
 

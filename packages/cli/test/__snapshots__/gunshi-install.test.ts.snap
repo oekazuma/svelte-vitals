@@ -1,0 +1,256 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > -- --refresh (terminator: a literal, not the flag) 1`] = `
+{
+  "code": 2,
+  "err": "",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > --app (bare trailing, non-fatal) 1`] = `
+{
+  "code": 2,
+  "err": "",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > --client (bare trailing) 1`] = `
+{
+  "code": 2,
+  "err": "",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > --client --force (swallowed as client’s literal value) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: unknown --client '--force'; expected vite-plugin|vite-hooks|claude-skill|cursor-rules|claude-skill-improve|config-file|ci-workflow. Skipping.
+svelte-vitals: no valid --client values; expected vite-plugin|vite-hooks|claude-skill|cursor-rules|claude-skill-improve|config-file|ci-workflow.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > --client bogus (unknown target, fatal) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: unknown --client 'bogus'; expected vite-plugin|vite-hooks|claude-skill|cursor-rules|claude-skill-improve|config-file|ci-workflow. Skipping.
+svelte-vitals: no valid --client values; expected vite-plugin|vite-hooks|claude-skill|cursor-rules|claude-skill-improve|config-file|ci-workflow.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > --client= (empty value) 1`] = `
+{
+  "code": 2,
+  "err": "",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > --help --client (help wins, client never resolved) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "svelte-vitals install — set up the svelte-vitals Vite integration, agent skills/rules, config file, and CI
+
+Usage:
+  svelte-vitals install [options]
+
+OPTIONS:
+  -h, --help                 Show this help
+  --client <client>          Comma-separated: vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow
+(skips the interactive picker; the picker groups these by category —
+Vite integration, Agent Skills & rules, CI, Config file)
+vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-hooks
+wires up the svelteVitalsHandle hook in src/hooks.server.{ts,js}, which improves the
+live dashboard's per-route accuracy as you browse. --force does not apply
+to either of these two — an existing registration is always left as-is.
+claude-skill writes an agent skill (Claude Code, Codex, and Cursor —
+.claude/skills/, .agents/skills/, and .cursor/skills/ under svelte-vitals/);
+cursor-rules writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc).
+Both are generated from the current rule set and support --force to regenerate.
+claude-skill-improve writes a second, read-only agent skill (same three
+locations, under improve-svelte/) that audits the whole project and writes
+implementation plans instead of a run-after-every-edit playbook; also
+supports --force.
+config-file scaffolds svelte-vitals.config.{mjs,ts} with every option commented
+out, auto-picking .ts (with defineConfig) when the current Node supports it, the
+project looks TypeScript-oriented (tsconfig.json or vite.config.ts present), and
+svelte-vitals is a declared dependency (defineConfig's import resolves at load
+time); else the safe .mjs default. Supports --force to regenerate the file
+that's already there (its extension never changes on --force).
+ci-workflow scaffolds .github/workflows/svelte-vitals.yml, the same file
+\`svelte-vitals ci install\` writes standalone — pick it here to set it up in
+the same pass as everything else; supports --force to regenerate. \`svelte-vitals
+ci upgrade\` remains the way to bump an existing workflow's pinned action version.
+  --app <app>                Monorepo: the SvelteKit app directory the vite-plugin/vite-hooks/config-file
+targets write into (e.g. --app apps/web). Without it, when the current
+directory isn't itself a SvelteKit app, one detected app is used
+automatically (with a notice), several prompt a picker on a TTY, and
+non-interactive runs exit 2 asking for --app. All other targets
+(skills, ci-workflow) always write at the current directory —
+the repo root is their correct home.
+  -y, --yes                  Skip the confirmation prompt
+  --dry-run                  Print the planned changes and exit without writing
+  --force                    Overwrite an existing svelte-vitals entry
+  --refresh                  Regenerate existing agent skill/rules files with the current rule set
+(claude-skill / cursor-rules / claude-skill-improve). Only regenerates files already
+present on disk — it never creates one. Cannot be combined with --client.",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > --help 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "svelte-vitals install — set up the svelte-vitals Vite integration, agent skills/rules, config file, and CI
+
+Usage:
+  svelte-vitals install [options]
+
+OPTIONS:
+  -h, --help                 Show this help
+  --client <client>          Comma-separated: vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow
+(skips the interactive picker; the picker groups these by category —
+Vite integration, Agent Skills & rules, CI, Config file)
+vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-hooks
+wires up the svelteVitalsHandle hook in src/hooks.server.{ts,js}, which improves the
+live dashboard's per-route accuracy as you browse. --force does not apply
+to either of these two — an existing registration is always left as-is.
+claude-skill writes an agent skill (Claude Code, Codex, and Cursor —
+.claude/skills/, .agents/skills/, and .cursor/skills/ under svelte-vitals/);
+cursor-rules writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc).
+Both are generated from the current rule set and support --force to regenerate.
+claude-skill-improve writes a second, read-only agent skill (same three
+locations, under improve-svelte/) that audits the whole project and writes
+implementation plans instead of a run-after-every-edit playbook; also
+supports --force.
+config-file scaffolds svelte-vitals.config.{mjs,ts} with every option commented
+out, auto-picking .ts (with defineConfig) when the current Node supports it, the
+project looks TypeScript-oriented (tsconfig.json or vite.config.ts present), and
+svelte-vitals is a declared dependency (defineConfig's import resolves at load
+time); else the safe .mjs default. Supports --force to regenerate the file
+that's already there (its extension never changes on --force).
+ci-workflow scaffolds .github/workflows/svelte-vitals.yml, the same file
+\`svelte-vitals ci install\` writes standalone — pick it here to set it up in
+the same pass as everything else; supports --force to regenerate. \`svelte-vitals
+ci upgrade\` remains the way to bump an existing workflow's pinned action version.
+  --app <app>                Monorepo: the SvelteKit app directory the vite-plugin/vite-hooks/config-file
+targets write into (e.g. --app apps/web). Without it, when the current
+directory isn't itself a SvelteKit app, one detected app is used
+automatically (with a notice), several prompt a picker on a TTY, and
+non-interactive runs exit 2 asking for --app. All other targets
+(skills, ci-workflow) always write at the current directory —
+the repo root is their correct home.
+  -y, --yes                  Skip the confirmation prompt
+  --dry-run                  Print the planned changes and exit without writing
+  --force                    Overwrite an existing svelte-vitals entry
+  --refresh                  Regenerate existing agent skill/rules files with the current rule set
+(claude-skill / cursor-rules / claude-skill-improve). Only regenerates files already
+present on disk — it never creates one. Cannot be combined with --client.",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > --refresh --client claude-skill (conflict, fatal) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: --refresh regenerates existing files and cannot be combined with --client.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > --scope (bare trailing, non-fatal, obsolete-flag warning) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: --scope is no longer used (all install targets are project-scoped). Ignoring.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > --scope project (normal-path scope, non-fatal, obsolete-flag warning) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: --scope is no longer used (all install targets are project-scoped). Ignoring.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > --scope= (empty value, non-fatal, obsolete-flag warning) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: --scope is no longer used (all install targets are project-scoped). Ignoring.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > --typo --client bogus (unknown flag before a known value flag) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: unknown --client 'bogus'; expected vite-plugin|vite-hooks|claude-skill|cursor-rules|claude-skill-improve|config-file|ci-workflow. Skipping.
+svelte-vitals: no valid --client values; expected vite-plugin|vite-hooks|claude-skill|cursor-rules|claude-skill-improve|config-file|ci-workflow.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > -h 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "svelte-vitals install — set up the svelte-vitals Vite integration, agent skills/rules, config file, and CI
+
+Usage:
+  svelte-vitals install [options]
+
+OPTIONS:
+  -h, --help                 Show this help
+  --client <client>          Comma-separated: vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow
+(skips the interactive picker; the picker groups these by category —
+Vite integration, Agent Skills & rules, CI, Config file)
+vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-hooks
+wires up the svelteVitalsHandle hook in src/hooks.server.{ts,js}, which improves the
+live dashboard's per-route accuracy as you browse. --force does not apply
+to either of these two — an existing registration is always left as-is.
+claude-skill writes an agent skill (Claude Code, Codex, and Cursor —
+.claude/skills/, .agents/skills/, and .cursor/skills/ under svelte-vitals/);
+cursor-rules writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc).
+Both are generated from the current rule set and support --force to regenerate.
+claude-skill-improve writes a second, read-only agent skill (same three
+locations, under improve-svelte/) that audits the whole project and writes
+implementation plans instead of a run-after-every-edit playbook; also
+supports --force.
+config-file scaffolds svelte-vitals.config.{mjs,ts} with every option commented
+out, auto-picking .ts (with defineConfig) when the current Node supports it, the
+project looks TypeScript-oriented (tsconfig.json or vite.config.ts present), and
+svelte-vitals is a declared dependency (defineConfig's import resolves at load
+time); else the safe .mjs default. Supports --force to regenerate the file
+that's already there (its extension never changes on --force).
+ci-workflow scaffolds .github/workflows/svelte-vitals.yml, the same file
+\`svelte-vitals ci install\` writes standalone — pick it here to set it up in
+the same pass as everything else; supports --force to regenerate. \`svelte-vitals
+ci upgrade\` remains the way to bump an existing workflow's pinned action version.
+  --app <app>                Monorepo: the SvelteKit app directory the vite-plugin/vite-hooks/config-file
+targets write into (e.g. --app apps/web). Without it, when the current
+directory isn't itself a SvelteKit app, one detected app is used
+automatically (with a notice), several prompt a picker on a TTY, and
+non-interactive runs exit 2 asking for --app. All other targets
+(skills, ci-workflow) always write at the current directory —
+the repo root is their correct home.
+  -y, --yes                  Skip the confirmation prompt
+  --dry-run                  Print the planned changes and exit without writing
+  --force                    Overwrite an existing svelte-vitals entry
+  --refresh                  Regenerate existing agent skill/rules files with the current rule set
+(claude-skill / cursor-rules / claude-skill-improve). Only regenerates files already
+present on disk — it never creates one. Cannot be combined with --client.",
+}
+`;
+
+exports[`gunshi/bone install — pinned behavior across the argv-shape matrix > no args (non-TTY, no client) 1`] = `
+{
+  "code": 2,
+  "err": "",
+  "out": "",
+}
+`;

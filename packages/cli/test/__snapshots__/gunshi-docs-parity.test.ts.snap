@@ -1,0 +1,1058 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > -- --typo (terminator on bare docs, --typo becomes the sub) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: unknown docs subcommand '--typo'; expected list|show.
+svelte-vitals docs — read the bundled guides without leaving the terminal
+
+Usage:
+  svelte-vitals docs list [--json]     List every topic with a one-line description
+  svelte-vitals docs show <name>       Print a topic
+
+Options:
+  --json        Machine-readable output (list only)
+  -h, --help    Show this help
+
+The topics ship inside the CLI, so they always match the version you are running and need no
+network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
+
+\`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called \`docs\`, write \`svelte-vitals ./docs\`.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > -- list (sub-command name promoted out of the tail) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "Topics (read one with \`svelte-vitals docs show <name>\`):
+
+  ci        Scaffold a GitHub Actions PR gate with \`ci install\`, what the generated workflow does, and how to gate a pipeline without the Action.
+  config    Where svelte-vitals.config lives, every top-level option, how to disable or re-grade a rule, and how to scope rules to routes or files.
+  monorepo  How svelte-vitals picks which SvelteKit app to analyze, why it exits 2 instead of prompting in a non-interactive shell, and how to name the app explicitly.
+  output    Which reporter to use, how one is auto-selected, what goes to stdout vs stderr, and what each exit code means.
+  scoping   Use --diff, --staged, --baseline and the suppressions file so only what a change introduced is reported, instead of a legacy backlog.
+
+Rule-level detail is a separate command: \`svelte-vitals explain --list\`.",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > -- show (promoted sub-command, no topic left in the tail) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: docs show needs a topic name, e.g. \`svelte-vitals docs show config\`.
+svelte-vitals: known topics: ci, config, monorepo, output, scoping.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > -- show config (promoted sub-command, topic stays in the tail) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "# The config file
+
+## Where it lives
+
+In the **analyzed directory only** — no upward search. First match wins:
+
+1. \`svelte-vitals.config.mjs\`
+2. \`svelte-vitals.config.js\`
+3. \`svelte-vitals.config.ts\`
+
+No file means built-in defaults. \`svelte-vitals install --client config-file\` scaffolds one with
+every option commented out.
+
+\`\`\`js
+// svelte-vitals.config.mjs
+export default {
+  treatDynamicAs: 'warn',
+  metaComponents: ['Seo'],
+  rules: { 'seo/json-ld': 'off' },
+  failOn: 'warning',
+  weights: { seo: 2 }
+};
+\`\`\`
+
+A \`.ts\` config can \`import { defineConfig } from 'svelte-vitals'\` for type-checking, but that is a
+**runtime** import: it needs svelte-vitals as a declared dependency and Node 22.18+ (or 23.6+).
+A plain \`export default {}\` in \`.mjs\` behaves identically and always works.
+
+## Options
+
+| Option           | Type                                                           | Default            |
+| ---------------- | -------------------------------------------------------------- | ------------------ |
+| \`treatDynamicAs\` | \`'pass' \\| 'warn' \\| 'fail'\`                                   | \`'pass'\`           |
+| \`metaComponents\` | \`string[]\`                                                     | \`[]\`               |
+| \`rules\`          | \`Record<ruleId, 'off' \\| Severity \\| { severity?, options? }>\` | \`{}\`               |
+| \`failOn\`         | \`'critical' \\| 'warning' \\| 'info'\`                            | \`'critical'\`       |
+| \`weights\`        | \`Partial<Record<Category, number>>\`                            | every category \`1\` |
+| \`overrides\`      | \`RuleOverride[]\`                                               | (none)             |
+
+\`Severity\` is \`'critical' | 'warning' | 'info'\`. \`Category\` is \`'seo' | 'performance' |
+'correctness' | 'security' | 'architecture'\`. A weight of \`0\` drops a category from the Health
+average; setting every category to \`0\` is an error (exit \`2\`).
+
+## Turning a rule off or down
+
+\`\`\`js
+export default {
+  rules: {
+    'seo/json-ld': 'off', // remove its findings entirely
+    'architecture/prop-count': 'info' // keep it, stop it failing the build
+  }
+};
+\`\`\`
+
+Many rules take options, so check whether the finding is a **threshold disagreement** rather than
+a defect first. \`svelte-vitals explain <rule-id>\` prints each option's name, default, bounds, and
+merge semantics (\`integer\` replaces, \`string-list\` appends, \`string-map\` is spread over).
+
+\`\`\`js
+export default {
+  rules: {
+    'architecture/prop-count': { options: { max: 12 } }
+  }
+};
+\`\`\`
+
+## Scoping to routes or files (\`overrides\`)
+
+\`rules\` applies everywhere; \`overrides\` applies only where it matches — typically routes that
+are deliberately not public.
+
+\`\`\`js
+export default {
+  overrides: [
+    { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
+    { route: '/admin/**', rules: { 'seo/title-presence': 'info' } }
+  ]
+};
+\`\`\`
+
+Each entry needs \`rules\` (keys are rule ids **or** category names) plus at least one of:
+
+- **\`route\`** — glob(s) against the route id as reported (\`/blog/[slug]\`). SvelteKit \`(group)\`
+  segments are **not** in the route id, so use \`files\` to target a group.
+- **\`files\`** — glob(s) against the source path.
+
+Globs are deliberately small: \`*\` within a segment, \`**\` across segments, a trailing \`/**\` also
+matches the bare prefix. Everything else — including \`(\`, \`)\`, \`[\`, \`]\` — is literal. Later entries win.
+
+## Precedence
+
+Per field: **CLI flag > config file > built-in default**. One exception — \`--rules\` and \`--ignore\`
+are selection, not configuration: \`--rules\` narrows the run to the ids it names and overrides a
+config-file \`off\` for them, but keeps their declared severity and options; \`--ignore\` adds \`off\`
+entries for the ids it names, layered on top of whatever \`rules\` resolved to, and beats \`--rules\`
+when both name the same rule.
+
+\`overrides\` has no CLI flag; route policy belongs in a committed file.
+
+## Validation
+
+An unknown rule id or category, a negative weight, a malformed \`overrides\` entry, or an invalid
+rule setting is a **hard error (exit \`2\`)** — a typo must not silently un-gate CI. An unrecognized
+\`treatDynamicAs\`/\`failOn\` value, or an unknown top-level key, only warns.
+
+## Related
+
+- \`svelte-vitals explain --list\` — every rule id
+- \`svelte-vitals docs show scoping\` — accepting an existing backlog instead of disabling rules",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > --help 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "svelte-vitals docs — read the bundled guides without leaving the terminal
+
+Usage:
+  svelte-vitals docs list [--json]     List every topic with a one-line description
+  svelte-vitals docs show <name>       Print a topic
+
+OPTIONS:
+  -h, --help             Show this help
+  --json                 Machine-readable output (list only)
+
+The topics ship inside the CLI, so they always match the version you are running and need no
+network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
+
+\`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called \`docs\`, write \`svelte-vitals ./docs\`.",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > --json -- list (head flag parses normally, tail sub-command still promotes) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "[
+  {
+    "name": "ci",
+    "title": "Running in CI",
+    "description": "Scaffold a GitHub Actions PR gate with \`ci install\`, what the generated workflow does, and how to gate a pipeline without the Action."
+  },
+  {
+    "name": "config",
+    "title": "The config file",
+    "description": "Where svelte-vitals.config lives, every top-level option, how to disable or re-grade a rule, and how to scope rules to routes or files."
+  },
+  {
+    "name": "monorepo",
+    "title": "Monorepos",
+    "description": "How svelte-vitals picks which SvelteKit app to analyze, why it exits 2 instead of prompting in a non-interactive shell, and how to name the app explicitly."
+  },
+  {
+    "name": "output",
+    "title": "Reading the output",
+    "description": "Which reporter to use, how one is auto-selected, what goes to stdout vs stderr, and what each exit code means."
+  },
+  {
+    "name": "scoping",
+    "title": "Scoping findings to a change",
+    "description": "Use --diff, --staged, --baseline and the suppressions file so only what a change introduced is reported, instead of a legacy backlog."
+  }
+]",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > --json bogus (family-known flag unused by the root fallback) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: unknown docs subcommand 'bogus'; expected list|show.
+svelte-vitals docs — read the bundled guides without leaving the terminal
+
+Usage:
+  svelte-vitals docs list [--json]     List every topic with a one-line description
+  svelte-vitals docs show <name>       Print a topic
+
+Options:
+  --json        Machine-readable output (list only)
+  -h, --help    Show this help
+
+The topics ship inside the CLI, so they always match the version you are running and need no
+network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
+
+\`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called \`docs\`, write \`svelte-vitals ./docs\`.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > -h 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "svelte-vitals docs — read the bundled guides without leaving the terminal
+
+Usage:
+  svelte-vitals docs list [--json]     List every topic with a one-line description
+  svelte-vitals docs show <name>       Print a topic
+
+OPTIONS:
+  -h, --help             Show this help
+  --json                 Machine-readable output (list only)
+
+The topics ship inside the CLI, so they always match the version you are running and need no
+network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
+
+\`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called \`docs\`, write \`svelte-vitals ./docs\`.",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > -v (unrecognized, falls through to no-sub) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals docs — read the bundled guides without leaving the terminal
+
+Usage:
+  svelte-vitals docs list [--json]     List every topic with a one-line description
+  svelte-vitals docs show <name>       Print a topic
+
+Options:
+  --json        Machine-readable output (list only)
+  -h, --help    Show this help
+
+The topics ship inside the CLI, so they always match the version you are running and need no
+network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
+
+\`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called \`docs\`, write \`svelte-vitals ./docs\`.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > bogus -- list (head already has a positional — not promoted, "bogus" is still sub) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: unknown docs subcommand 'bogus'; expected list|show.
+svelte-vitals docs — read the bundled guides without leaving the terminal
+
+Usage:
+  svelte-vitals docs list [--json]     List every topic with a one-line description
+  svelte-vitals docs show <name>       Print a topic
+
+Options:
+  --json        Machine-readable output (list only)
+  -h, --help    Show this help
+
+The topics ship inside the CLI, so they always match the version you are running and need no
+network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
+
+\`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called \`docs\`, write \`svelte-vitals ./docs\`.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > bogus sub 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: unknown docs subcommand 'bogus'; expected list|show.
+svelte-vitals docs — read the bundled guides without leaving the terminal
+
+Usage:
+  svelte-vitals docs list [--json]     List every topic with a one-line description
+  svelte-vitals docs show <name>       Print a topic
+
+Options:
+  --json        Machine-readable output (list only)
+  -h, --help    Show this help
+
+The topics ship inside the CLI, so they always match the version you are running and need no
+network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
+
+\`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called \`docs\`, write \`svelte-vitals ./docs\`.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > list --help (help wins over list logic, same as today) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "svelte-vitals docs — read the bundled guides without leaving the terminal
+
+Usage:
+  svelte-vitals docs list [--json]     List every topic with a one-line description
+  svelte-vitals docs show <name>       Print a topic
+
+OPTIONS:
+  -h, --help             Show this help
+  --json                 Machine-readable output (list only)
+
+The topics ship inside the CLI, so they always match the version you are running and need no
+network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
+
+\`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called \`docs\`, write \`svelte-vitals ./docs\`.",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > list --json --json=false (duplicate booleans are last-wins: off) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "Topics (read one with \`svelte-vitals docs show <name>\`):
+
+  ci        Scaffold a GitHub Actions PR gate with \`ci install\`, what the generated workflow does, and how to gate a pipeline without the Action.
+  config    Where svelte-vitals.config lives, every top-level option, how to disable or re-grade a rule, and how to scope rules to routes or files.
+  monorepo  How svelte-vitals picks which SvelteKit app to analyze, why it exits 2 instead of prompting in a non-interactive shell, and how to name the app explicitly.
+  output    Which reporter to use, how one is auto-selected, what goes to stdout vs stderr, and what each exit code means.
+  scoping   Use --diff, --staged, --baseline and the suppressions file so only what a change introduced is reported, instead of a legacy backlog.
+
+Rule-level detail is a separate command: \`svelte-vitals explain --list\`.",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > list --json 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "[
+  {
+    "name": "ci",
+    "title": "Running in CI",
+    "description": "Scaffold a GitHub Actions PR gate with \`ci install\`, what the generated workflow does, and how to gate a pipeline without the Action."
+  },
+  {
+    "name": "config",
+    "title": "The config file",
+    "description": "Where svelte-vitals.config lives, every top-level option, how to disable or re-grade a rule, and how to scope rules to routes or files."
+  },
+  {
+    "name": "monorepo",
+    "title": "Monorepos",
+    "description": "How svelte-vitals picks which SvelteKit app to analyze, why it exits 2 instead of prompting in a non-interactive shell, and how to name the app explicitly."
+  },
+  {
+    "name": "output",
+    "title": "Reading the output",
+    "description": "Which reporter to use, how one is auto-selected, what goes to stdout vs stderr, and what each exit code means."
+  },
+  {
+    "name": "scoping",
+    "title": "Scoping findings to a change",
+    "description": "Use --diff, --staged, --baseline and the suppressions file so only what a change introduced is reported, instead of a legacy backlog."
+  }
+]",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > list --json=false (literal-false coercion) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "Topics (read one with \`svelte-vitals docs show <name>\`):
+
+  ci        Scaffold a GitHub Actions PR gate with \`ci install\`, what the generated workflow does, and how to gate a pipeline without the Action.
+  config    Where svelte-vitals.config lives, every top-level option, how to disable or re-grade a rule, and how to scope rules to routes or files.
+  monorepo  How svelte-vitals picks which SvelteKit app to analyze, why it exits 2 instead of prompting in a non-interactive shell, and how to name the app explicitly.
+  output    Which reporter to use, how one is auto-selected, what goes to stdout vs stderr, and what each exit code means.
+  scoping   Use --diff, --staged, --baseline and the suppressions file so only what a change introduced is reported, instead of a legacy backlog.
+
+Rule-level detail is a separate command: \`svelte-vitals explain --list\`.",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > list --json=false --json (duplicate booleans are last-wins: on) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "[
+  {
+    "name": "ci",
+    "title": "Running in CI",
+    "description": "Scaffold a GitHub Actions PR gate with \`ci install\`, what the generated workflow does, and how to gate a pipeline without the Action."
+  },
+  {
+    "name": "config",
+    "title": "The config file",
+    "description": "Where svelte-vitals.config lives, every top-level option, how to disable or re-grade a rule, and how to scope rules to routes or files."
+  },
+  {
+    "name": "monorepo",
+    "title": "Monorepos",
+    "description": "How svelte-vitals picks which SvelteKit app to analyze, why it exits 2 instead of prompting in a non-interactive shell, and how to name the app explicitly."
+  },
+  {
+    "name": "output",
+    "title": "Reading the output",
+    "description": "Which reporter to use, how one is auto-selected, what goes to stdout vs stderr, and what each exit code means."
+  },
+  {
+    "name": "scoping",
+    "title": "Scoping findings to a change",
+    "description": "Use --diff, --staged, --baseline and the suppressions file so only what a change introduced is reported, instead of a legacy backlog."
+  }
+]",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > list -v (unrecognized flag ignored, list still runs) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "Topics (read one with \`svelte-vitals docs show <name>\`):
+
+  ci        Scaffold a GitHub Actions PR gate with \`ci install\`, what the generated workflow does, and how to gate a pipeline without the Action.
+  config    Where svelte-vitals.config lives, every top-level option, how to disable or re-grade a rule, and how to scope rules to routes or files.
+  monorepo  How svelte-vitals picks which SvelteKit app to analyze, why it exits 2 instead of prompting in a non-interactive shell, and how to name the app explicitly.
+  output    Which reporter to use, how one is auto-selected, what goes to stdout vs stderr, and what each exit code means.
+  scoping   Use --diff, --staged, --baseline and the suppressions file so only what a change introduced is reported, instead of a legacy backlog.
+
+Rule-level detail is a separate command: \`svelte-vitals explain --list\`.",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > list 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "Topics (read one with \`svelte-vitals docs show <name>\`):
+
+  ci        Scaffold a GitHub Actions PR gate with \`ci install\`, what the generated workflow does, and how to gate a pipeline without the Action.
+  config    Where svelte-vitals.config lives, every top-level option, how to disable or re-grade a rule, and how to scope rules to routes or files.
+  monorepo  How svelte-vitals picks which SvelteKit app to analyze, why it exits 2 instead of prompting in a non-interactive shell, and how to name the app explicitly.
+  output    Which reporter to use, how one is auto-selected, what goes to stdout vs stderr, and what each exit code means.
+  scoping   Use --diff, --staged, --baseline and the suppressions file so only what a change introduced is reported, instead of a legacy backlog.
+
+Rule-level detail is a separate command: \`svelte-vitals explain --list\`.",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > list extra-arg 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: docs list takes no arguments; use \`docs show <name>\` to read one.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > no sub 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals docs — read the bundled guides without leaving the terminal
+
+Usage:
+  svelte-vitals docs list [--json]     List every topic with a one-line description
+  svelte-vitals docs show <name>       Print a topic
+
+Options:
+  --json        Machine-readable output (list only)
+  -h, --help    Show this help
+
+The topics ship inside the CLI, so they always match the version you are running and need no
+network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
+
+\`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called \`docs\`, write \`svelte-vitals ./docs\`.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > show (no name) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: docs show needs a topic name, e.g. \`svelte-vitals docs show config\`.
+svelte-vitals: known topics: ci, config, monorepo, output, scoping.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > show -- --typo (terminator: a literal, unknown topic name) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: unknown docs topic '--typo'.
+svelte-vitals: known topics: ci, config, monorepo, output, scoping.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > show --help (help wins over show logic, same as today) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "svelte-vitals docs — read the bundled guides without leaving the terminal
+
+Usage:
+  svelte-vitals docs list [--json]     List every topic with a one-line description
+  svelte-vitals docs show <name>       Print a topic
+
+OPTIONS:
+  -h, --help             Show this help
+  --json                 Machine-readable output (list only)
+
+The topics ship inside the CLI, so they always match the version you are running and need no
+network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
+
+\`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called \`docs\`, write \`svelte-vitals ./docs\`.",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > show --json config (a family-known, show-unused flag stays harmless) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "# The config file
+
+## Where it lives
+
+In the **analyzed directory only** — no upward search. First match wins:
+
+1. \`svelte-vitals.config.mjs\`
+2. \`svelte-vitals.config.js\`
+3. \`svelte-vitals.config.ts\`
+
+No file means built-in defaults. \`svelte-vitals install --client config-file\` scaffolds one with
+every option commented out.
+
+\`\`\`js
+// svelte-vitals.config.mjs
+export default {
+  treatDynamicAs: 'warn',
+  metaComponents: ['Seo'],
+  rules: { 'seo/json-ld': 'off' },
+  failOn: 'warning',
+  weights: { seo: 2 }
+};
+\`\`\`
+
+A \`.ts\` config can \`import { defineConfig } from 'svelte-vitals'\` for type-checking, but that is a
+**runtime** import: it needs svelte-vitals as a declared dependency and Node 22.18+ (or 23.6+).
+A plain \`export default {}\` in \`.mjs\` behaves identically and always works.
+
+## Options
+
+| Option           | Type                                                           | Default            |
+| ---------------- | -------------------------------------------------------------- | ------------------ |
+| \`treatDynamicAs\` | \`'pass' \\| 'warn' \\| 'fail'\`                                   | \`'pass'\`           |
+| \`metaComponents\` | \`string[]\`                                                     | \`[]\`               |
+| \`rules\`          | \`Record<ruleId, 'off' \\| Severity \\| { severity?, options? }>\` | \`{}\`               |
+| \`failOn\`         | \`'critical' \\| 'warning' \\| 'info'\`                            | \`'critical'\`       |
+| \`weights\`        | \`Partial<Record<Category, number>>\`                            | every category \`1\` |
+| \`overrides\`      | \`RuleOverride[]\`                                               | (none)             |
+
+\`Severity\` is \`'critical' | 'warning' | 'info'\`. \`Category\` is \`'seo' | 'performance' |
+'correctness' | 'security' | 'architecture'\`. A weight of \`0\` drops a category from the Health
+average; setting every category to \`0\` is an error (exit \`2\`).
+
+## Turning a rule off or down
+
+\`\`\`js
+export default {
+  rules: {
+    'seo/json-ld': 'off', // remove its findings entirely
+    'architecture/prop-count': 'info' // keep it, stop it failing the build
+  }
+};
+\`\`\`
+
+Many rules take options, so check whether the finding is a **threshold disagreement** rather than
+a defect first. \`svelte-vitals explain <rule-id>\` prints each option's name, default, bounds, and
+merge semantics (\`integer\` replaces, \`string-list\` appends, \`string-map\` is spread over).
+
+\`\`\`js
+export default {
+  rules: {
+    'architecture/prop-count': { options: { max: 12 } }
+  }
+};
+\`\`\`
+
+## Scoping to routes or files (\`overrides\`)
+
+\`rules\` applies everywhere; \`overrides\` applies only where it matches — typically routes that
+are deliberately not public.
+
+\`\`\`js
+export default {
+  overrides: [
+    { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
+    { route: '/admin/**', rules: { 'seo/title-presence': 'info' } }
+  ]
+};
+\`\`\`
+
+Each entry needs \`rules\` (keys are rule ids **or** category names) plus at least one of:
+
+- **\`route\`** — glob(s) against the route id as reported (\`/blog/[slug]\`). SvelteKit \`(group)\`
+  segments are **not** in the route id, so use \`files\` to target a group.
+- **\`files\`** — glob(s) against the source path.
+
+Globs are deliberately small: \`*\` within a segment, \`**\` across segments, a trailing \`/**\` also
+matches the bare prefix. Everything else — including \`(\`, \`)\`, \`[\`, \`]\` — is literal. Later entries win.
+
+## Precedence
+
+Per field: **CLI flag > config file > built-in default**. One exception — \`--rules\` and \`--ignore\`
+are selection, not configuration: \`--rules\` narrows the run to the ids it names and overrides a
+config-file \`off\` for them, but keeps their declared severity and options; \`--ignore\` adds \`off\`
+entries for the ids it names, layered on top of whatever \`rules\` resolved to, and beats \`--rules\`
+when both name the same rule.
+
+\`overrides\` has no CLI flag; route policy belongs in a committed file.
+
+## Validation
+
+An unknown rule id or category, a negative weight, a malformed \`overrides\` entry, or an invalid
+rule setting is a **hard error (exit \`2\`)** — a typo must not silently un-gate CI. An unrecognized
+\`treatDynamicAs\`/\`failOn\` value, or an unknown top-level key, only warns.
+
+## Related
+
+- \`svelte-vitals explain --list\` — every rule id
+- \`svelte-vitals docs show scoping\` — accepting an existing backlog instead of disabling rules",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > show --typo config (unknown long flag before the positional) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "# The config file
+
+## Where it lives
+
+In the **analyzed directory only** — no upward search. First match wins:
+
+1. \`svelte-vitals.config.mjs\`
+2. \`svelte-vitals.config.js\`
+3. \`svelte-vitals.config.ts\`
+
+No file means built-in defaults. \`svelte-vitals install --client config-file\` scaffolds one with
+every option commented out.
+
+\`\`\`js
+// svelte-vitals.config.mjs
+export default {
+  treatDynamicAs: 'warn',
+  metaComponents: ['Seo'],
+  rules: { 'seo/json-ld': 'off' },
+  failOn: 'warning',
+  weights: { seo: 2 }
+};
+\`\`\`
+
+A \`.ts\` config can \`import { defineConfig } from 'svelte-vitals'\` for type-checking, but that is a
+**runtime** import: it needs svelte-vitals as a declared dependency and Node 22.18+ (or 23.6+).
+A plain \`export default {}\` in \`.mjs\` behaves identically and always works.
+
+## Options
+
+| Option           | Type                                                           | Default            |
+| ---------------- | -------------------------------------------------------------- | ------------------ |
+| \`treatDynamicAs\` | \`'pass' \\| 'warn' \\| 'fail'\`                                   | \`'pass'\`           |
+| \`metaComponents\` | \`string[]\`                                                     | \`[]\`               |
+| \`rules\`          | \`Record<ruleId, 'off' \\| Severity \\| { severity?, options? }>\` | \`{}\`               |
+| \`failOn\`         | \`'critical' \\| 'warning' \\| 'info'\`                            | \`'critical'\`       |
+| \`weights\`        | \`Partial<Record<Category, number>>\`                            | every category \`1\` |
+| \`overrides\`      | \`RuleOverride[]\`                                               | (none)             |
+
+\`Severity\` is \`'critical' | 'warning' | 'info'\`. \`Category\` is \`'seo' | 'performance' |
+'correctness' | 'security' | 'architecture'\`. A weight of \`0\` drops a category from the Health
+average; setting every category to \`0\` is an error (exit \`2\`).
+
+## Turning a rule off or down
+
+\`\`\`js
+export default {
+  rules: {
+    'seo/json-ld': 'off', // remove its findings entirely
+    'architecture/prop-count': 'info' // keep it, stop it failing the build
+  }
+};
+\`\`\`
+
+Many rules take options, so check whether the finding is a **threshold disagreement** rather than
+a defect first. \`svelte-vitals explain <rule-id>\` prints each option's name, default, bounds, and
+merge semantics (\`integer\` replaces, \`string-list\` appends, \`string-map\` is spread over).
+
+\`\`\`js
+export default {
+  rules: {
+    'architecture/prop-count': { options: { max: 12 } }
+  }
+};
+\`\`\`
+
+## Scoping to routes or files (\`overrides\`)
+
+\`rules\` applies everywhere; \`overrides\` applies only where it matches — typically routes that
+are deliberately not public.
+
+\`\`\`js
+export default {
+  overrides: [
+    { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
+    { route: '/admin/**', rules: { 'seo/title-presence': 'info' } }
+  ]
+};
+\`\`\`
+
+Each entry needs \`rules\` (keys are rule ids **or** category names) plus at least one of:
+
+- **\`route\`** — glob(s) against the route id as reported (\`/blog/[slug]\`). SvelteKit \`(group)\`
+  segments are **not** in the route id, so use \`files\` to target a group.
+- **\`files\`** — glob(s) against the source path.
+
+Globs are deliberately small: \`*\` within a segment, \`**\` across segments, a trailing \`/**\` also
+matches the bare prefix. Everything else — including \`(\`, \`)\`, \`[\`, \`]\` — is literal. Later entries win.
+
+## Precedence
+
+Per field: **CLI flag > config file > built-in default**. One exception — \`--rules\` and \`--ignore\`
+are selection, not configuration: \`--rules\` narrows the run to the ids it names and overrides a
+config-file \`off\` for them, but keeps their declared severity and options; \`--ignore\` adds \`off\`
+entries for the ids it names, layered on top of whatever \`rules\` resolved to, and beats \`--rules\`
+when both name the same rule.
+
+\`overrides\` has no CLI flag; route policy belongs in a committed file.
+
+## Validation
+
+An unknown rule id or category, a negative weight, a malformed \`overrides\` entry, or an invalid
+rule setting is a **hard error (exit \`2\`)** — a typo must not silently un-gate CI. An unrecognized
+\`treatDynamicAs\`/\`failOn\` value, or an unknown top-level key, only warns.
+
+## Related
+
+- \`svelte-vitals explain --list\` — every rule id
+- \`svelte-vitals docs show scoping\` — accepting an existing backlog instead of disabling rules",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > show -x config (unknown short flag before the positional) 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "# The config file
+
+## Where it lives
+
+In the **analyzed directory only** — no upward search. First match wins:
+
+1. \`svelte-vitals.config.mjs\`
+2. \`svelte-vitals.config.js\`
+3. \`svelte-vitals.config.ts\`
+
+No file means built-in defaults. \`svelte-vitals install --client config-file\` scaffolds one with
+every option commented out.
+
+\`\`\`js
+// svelte-vitals.config.mjs
+export default {
+  treatDynamicAs: 'warn',
+  metaComponents: ['Seo'],
+  rules: { 'seo/json-ld': 'off' },
+  failOn: 'warning',
+  weights: { seo: 2 }
+};
+\`\`\`
+
+A \`.ts\` config can \`import { defineConfig } from 'svelte-vitals'\` for type-checking, but that is a
+**runtime** import: it needs svelte-vitals as a declared dependency and Node 22.18+ (or 23.6+).
+A plain \`export default {}\` in \`.mjs\` behaves identically and always works.
+
+## Options
+
+| Option           | Type                                                           | Default            |
+| ---------------- | -------------------------------------------------------------- | ------------------ |
+| \`treatDynamicAs\` | \`'pass' \\| 'warn' \\| 'fail'\`                                   | \`'pass'\`           |
+| \`metaComponents\` | \`string[]\`                                                     | \`[]\`               |
+| \`rules\`          | \`Record<ruleId, 'off' \\| Severity \\| { severity?, options? }>\` | \`{}\`               |
+| \`failOn\`         | \`'critical' \\| 'warning' \\| 'info'\`                            | \`'critical'\`       |
+| \`weights\`        | \`Partial<Record<Category, number>>\`                            | every category \`1\` |
+| \`overrides\`      | \`RuleOverride[]\`                                               | (none)             |
+
+\`Severity\` is \`'critical' | 'warning' | 'info'\`. \`Category\` is \`'seo' | 'performance' |
+'correctness' | 'security' | 'architecture'\`. A weight of \`0\` drops a category from the Health
+average; setting every category to \`0\` is an error (exit \`2\`).
+
+## Turning a rule off or down
+
+\`\`\`js
+export default {
+  rules: {
+    'seo/json-ld': 'off', // remove its findings entirely
+    'architecture/prop-count': 'info' // keep it, stop it failing the build
+  }
+};
+\`\`\`
+
+Many rules take options, so check whether the finding is a **threshold disagreement** rather than
+a defect first. \`svelte-vitals explain <rule-id>\` prints each option's name, default, bounds, and
+merge semantics (\`integer\` replaces, \`string-list\` appends, \`string-map\` is spread over).
+
+\`\`\`js
+export default {
+  rules: {
+    'architecture/prop-count': { options: { max: 12 } }
+  }
+};
+\`\`\`
+
+## Scoping to routes or files (\`overrides\`)
+
+\`rules\` applies everywhere; \`overrides\` applies only where it matches — typically routes that
+are deliberately not public.
+
+\`\`\`js
+export default {
+  overrides: [
+    { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
+    { route: '/admin/**', rules: { 'seo/title-presence': 'info' } }
+  ]
+};
+\`\`\`
+
+Each entry needs \`rules\` (keys are rule ids **or** category names) plus at least one of:
+
+- **\`route\`** — glob(s) against the route id as reported (\`/blog/[slug]\`). SvelteKit \`(group)\`
+  segments are **not** in the route id, so use \`files\` to target a group.
+- **\`files\`** — glob(s) against the source path.
+
+Globs are deliberately small: \`*\` within a segment, \`**\` across segments, a trailing \`/**\` also
+matches the bare prefix. Everything else — including \`(\`, \`)\`, \`[\`, \`]\` — is literal. Later entries win.
+
+## Precedence
+
+Per field: **CLI flag > config file > built-in default**. One exception — \`--rules\` and \`--ignore\`
+are selection, not configuration: \`--rules\` narrows the run to the ids it names and overrides a
+config-file \`off\` for them, but keeps their declared severity and options; \`--ignore\` adds \`off\`
+entries for the ids it names, layered on top of whatever \`rules\` resolved to, and beats \`--rules\`
+when both name the same rule.
+
+\`overrides\` has no CLI flag; route policy belongs in a committed file.
+
+## Validation
+
+An unknown rule id or category, a negative weight, a malformed \`overrides\` entry, or an invalid
+rule setting is a **hard error (exit \`2\`)** — a typo must not silently un-gate CI. An unrecognized
+\`treatDynamicAs\`/\`failOn\` value, or an unknown top-level key, only warns.
+
+## Related
+
+- \`svelte-vitals explain --list\` — every rule id
+- \`svelte-vitals docs show scoping\` — accepting an existing backlog instead of disabling rules",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > show a b 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: docs show takes one topic at a time.
+svelte-vitals: known topics: ci, config, monorepo, output, scoping.",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > show config 1`] = `
+{
+  "code": 0,
+  "err": "",
+  "out": "# The config file
+
+## Where it lives
+
+In the **analyzed directory only** — no upward search. First match wins:
+
+1. \`svelte-vitals.config.mjs\`
+2. \`svelte-vitals.config.js\`
+3. \`svelte-vitals.config.ts\`
+
+No file means built-in defaults. \`svelte-vitals install --client config-file\` scaffolds one with
+every option commented out.
+
+\`\`\`js
+// svelte-vitals.config.mjs
+export default {
+  treatDynamicAs: 'warn',
+  metaComponents: ['Seo'],
+  rules: { 'seo/json-ld': 'off' },
+  failOn: 'warning',
+  weights: { seo: 2 }
+};
+\`\`\`
+
+A \`.ts\` config can \`import { defineConfig } from 'svelte-vitals'\` for type-checking, but that is a
+**runtime** import: it needs svelte-vitals as a declared dependency and Node 22.18+ (or 23.6+).
+A plain \`export default {}\` in \`.mjs\` behaves identically and always works.
+
+## Options
+
+| Option           | Type                                                           | Default            |
+| ---------------- | -------------------------------------------------------------- | ------------------ |
+| \`treatDynamicAs\` | \`'pass' \\| 'warn' \\| 'fail'\`                                   | \`'pass'\`           |
+| \`metaComponents\` | \`string[]\`                                                     | \`[]\`               |
+| \`rules\`          | \`Record<ruleId, 'off' \\| Severity \\| { severity?, options? }>\` | \`{}\`               |
+| \`failOn\`         | \`'critical' \\| 'warning' \\| 'info'\`                            | \`'critical'\`       |
+| \`weights\`        | \`Partial<Record<Category, number>>\`                            | every category \`1\` |
+| \`overrides\`      | \`RuleOverride[]\`                                               | (none)             |
+
+\`Severity\` is \`'critical' | 'warning' | 'info'\`. \`Category\` is \`'seo' | 'performance' |
+'correctness' | 'security' | 'architecture'\`. A weight of \`0\` drops a category from the Health
+average; setting every category to \`0\` is an error (exit \`2\`).
+
+## Turning a rule off or down
+
+\`\`\`js
+export default {
+  rules: {
+    'seo/json-ld': 'off', // remove its findings entirely
+    'architecture/prop-count': 'info' // keep it, stop it failing the build
+  }
+};
+\`\`\`
+
+Many rules take options, so check whether the finding is a **threshold disagreement** rather than
+a defect first. \`svelte-vitals explain <rule-id>\` prints each option's name, default, bounds, and
+merge semantics (\`integer\` replaces, \`string-list\` appends, \`string-map\` is spread over).
+
+\`\`\`js
+export default {
+  rules: {
+    'architecture/prop-count': { options: { max: 12 } }
+  }
+};
+\`\`\`
+
+## Scoping to routes or files (\`overrides\`)
+
+\`rules\` applies everywhere; \`overrides\` applies only where it matches — typically routes that
+are deliberately not public.
+
+\`\`\`js
+export default {
+  overrides: [
+    { files: 'src/routes/(app)/**', rules: { seo: 'off' } },
+    { route: '/admin/**', rules: { 'seo/title-presence': 'info' } }
+  ]
+};
+\`\`\`
+
+Each entry needs \`rules\` (keys are rule ids **or** category names) plus at least one of:
+
+- **\`route\`** — glob(s) against the route id as reported (\`/blog/[slug]\`). SvelteKit \`(group)\`
+  segments are **not** in the route id, so use \`files\` to target a group.
+- **\`files\`** — glob(s) against the source path.
+
+Globs are deliberately small: \`*\` within a segment, \`**\` across segments, a trailing \`/**\` also
+matches the bare prefix. Everything else — including \`(\`, \`)\`, \`[\`, \`]\` — is literal. Later entries win.
+
+## Precedence
+
+Per field: **CLI flag > config file > built-in default**. One exception — \`--rules\` and \`--ignore\`
+are selection, not configuration: \`--rules\` narrows the run to the ids it names and overrides a
+config-file \`off\` for them, but keeps their declared severity and options; \`--ignore\` adds \`off\`
+entries for the ids it names, layered on top of whatever \`rules\` resolved to, and beats \`--rules\`
+when both name the same rule.
+
+\`overrides\` has no CLI flag; route policy belongs in a committed file.
+
+## Validation
+
+An unknown rule id or category, a negative weight, a malformed \`overrides\` entry, or an invalid
+rule setting is a **hard error (exit \`2\`)** — a typo must not silently un-gate CI. An unrecognized
+\`treatDynamicAs\`/\`failOn\` value, or an unknown top-level key, only warns.
+
+## Related
+
+- \`svelte-vitals explain --list\` — every rule id
+- \`svelte-vitals docs show scoping\` — accepting an existing backlog instead of disabling rules",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > show rule-id redirect 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: 'seo/title-presence' is a rule, not a docs topic.
+svelte-vitals: rule detail: \`svelte-vitals explain seo/title-presence\`; web: https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > show rule-id redirect, rules/ prefix 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: 'seo/title-presence' is a rule, not a docs topic.
+svelte-vitals: rule detail: \`svelte-vitals explain seo/title-presence\`; web: https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence",
+  "out": "",
+}
+`;
+
+exports[`gunshi/bone docs — pinned behavior across the argv-shape matrix > show unknown 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: unknown docs topic 'no-such-topic'.
+svelte-vitals: known topics: ci, config, monorepo, output, scoping.",
+  "out": "",
+}
+`;

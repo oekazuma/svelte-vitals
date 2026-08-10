@@ -1,10 +1,25 @@
+import { parseArgs } from 'node:util';
 import type { Category } from '@svelte-vitals/core';
 import type { RunOptions } from './index.js';
-import { parseCliArgs, toList, type CliArgv } from './cli-args.js';
 import { findUnknownRuleIds, knownRuleIds } from './rules-config.js';
 import { isReporterName, type ReporterName } from './reporter-resolve.js';
 
 const CATEGORIES: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
+
+/** Parsed argv: positionals under `_`, flag values as flat keys. */
+export interface CliArgv {
+  _: string[];
+  [flag: string]: unknown;
+}
+
+/** Splits a comma-separated string flag into trimmed, non-empty entries; non-string input (flag not passed) yields `[]`. */
+export const toList = (v: unknown): string[] =>
+  typeof v === 'string'
+    ? v
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
+    : [];
 
 /**
  * Parse `--weights seo=2,performance=1` into a per-category weight map
@@ -136,41 +151,61 @@ export const VALUE_FLAGS = [
   'category'
 ] as const;
 
-/** Parse the analysis command's argv, exactly as `main` (bin.ts) does — exported so tests share the real flag table. */
+const RUN_BOOLEAN_FLAGS = [
+  'by-route',
+  'staged',
+  'score',
+  'verbose',
+  'update-suppressions',
+  'no-suppressions',
+  'no-color',
+  'no-animation',
+  'help',
+  'version'
+] as const;
+const RUN_STRING_FLAGS = [
+  'meta-components',
+  'treat-dynamic-as',
+  'route',
+  'fail-on',
+  'reporter',
+  'rules',
+  'ignore',
+  'min-health',
+  'out-file',
+  'diff',
+  'baseline',
+  'weights',
+  'category'
+] as const;
+
+/**
+ * Parse the analysis command's argv with `node:util`'s `parseArgs`, exactly as `main` (bin.ts)
+ * did before the gunshi migration — exported so tests share the real flag table. This is now the
+ * fallback engine for `gunshi/analyze.ts`'s guard-error branch: gunshi's own parser can't reject
+ * a consumed flag-like value post-parse (guard.ts's own doc comment), so that branch re-derives
+ * `resolveArgs`' full diagnostics (including domain-specific wording like `unknown reporter
+ * '--json'`) by redoing this exact parse on the untouched original argv.
+ */
 export function parseRunArgs(args: string[]): CliArgv {
   // --diff takes an optional value, which parseArgs cannot express: a bare --diff
   // (next token is another flag, or nothing) gets its default ref inlined here.
   const patched = args.map((a, i) => (a === '--diff' && (args[i + 1] ?? '--').startsWith('-') ? '--diff=HEAD' : a));
-  return parseCliArgs(patched, {
-    boolean: [
-      'by-route',
-      'staged',
-      'score',
-      'verbose',
-      'update-suppressions',
-      'no-suppressions',
-      'no-color',
-      'no-animation',
-      'help',
-      'version'
-    ],
-    string: [
-      'meta-components',
-      'treat-dynamic-as',
-      'route',
-      'fail-on',
-      'reporter',
-      'rules',
-      'ignore',
-      'min-health',
-      'out-file',
-      'diff',
-      'baseline',
-      'weights',
-      'category'
-    ],
-    short: { h: 'help', v: 'version' }
-  });
+
+  const options: Record<string, { type: 'boolean' | 'string'; short?: string }> = {};
+  for (const name of RUN_BOOLEAN_FLAGS) options[name] = { type: 'boolean' };
+  for (const name of RUN_STRING_FLAGS) options[name] = { type: 'string' };
+  options.help!.short = 'h';
+  options.version!.short = 'v';
+  const { values, positionals } = parseArgs({ args: patched, options, strict: false, allowPositionals: true });
+  // Under strict: false a declared boolean given `--flag=x` parses as the string 'x'; mri
+  // treated `--flag=false` as off, so keep that meaning instead of letting Boolean('false')
+  // silently invert it.
+  for (const name of RUN_BOOLEAN_FLAGS) {
+    const v = values[name];
+    if (typeof v === 'string') values[name] = v !== 'false';
+  }
+  return { _: positionals, ...values };
 }
 
 /**

@@ -1,21 +1,52 @@
 import { cli } from 'gunshi/bone';
 import { define } from 'gunshi/definition';
+import { generate } from 'gunshi/generator';
 import { docsUrlFor } from '@svelte-vitals/core';
 import { consoleIO, type CliIO } from '../cli-io.js';
 import { knownRuleIds } from '../rules-config.js';
 import { EMBEDDED_DOCS } from '../docs/generated.js';
 import { DOCS_HELP, knownTopicNames, renderList } from '../docs/cli.js';
-import { guardArgs, splitAtTerminator, stripUnknownFlags } from './guard.js';
+import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine } from './guard.js';
 
 /** docs declares no value-carrying flags today — see guard.ts's own doc comment for why the list is still passed explicitly. */
 const BOOLEAN_FLAGS = ['json', 'help'] as const;
-const HELP_ARG = { help: { type: 'boolean', short: 'h' } } as const;
+const HELP_ARG = { help: { type: 'boolean', short: 'h', description: 'Show this help' } } as const;
 /** Family-wide, not per-subcommand — see guard.ts's `stripUnknownFlags` doc comment: the legacy
  * runner parses `--json`/`-h`/`--help` in one flat pass, so `show` (which never reads `--json`
  * itself) still needs it declared below to keep gunshi's own per-command resolution from
  * mistaking it for an unknown flag and swallowing the positional after it. */
 const KNOWN_LONG_FLAGS = new Set(BOOLEAN_FLAGS);
 const KNOWN_SHORT_FLAGS = new Set(['h']);
+
+/**
+ * Hybrid `docs --help` text: hand-written header/usage/footer preserved verbatim from `DOCS_HELP`
+ * (the frozen text `gunshi/docs.ts`'s error paths still print as-is), OPTIONS generated from this
+ * command's own `args` — same technique as `gunshi/analyze.ts`'s `buildHelpText`. `generate()`
+ * always injects a `-v, --version` line (gunshi's hardcoded internal `global()` plugin — confirmed
+ * empirically, undocumented) even though `docs` has no working `--version`; `stripAutoVersionLine`
+ * drops it so help never advertises a flag that doesn't exist.
+ */
+async function buildDocsHelpText(rootCommand: Parameters<typeof generate>[1]): Promise<string> {
+  const generated = await generate(null, rootCommand, { name: 'svelte-vitals docs', renderHeader: null });
+  const optionsIndex = generated.indexOf('OPTIONS:');
+  const optionsSection = stripAutoVersionLine(
+    optionsIndex === -1 ? generated.trimEnd() : generated.slice(optionsIndex).trimEnd()
+  );
+
+  return `svelte-vitals docs — read the bundled guides without leaving the terminal
+
+Usage:
+  svelte-vitals docs list [--json]     List every topic with a one-line description
+  svelte-vitals docs show <name>       Print a topic
+
+${optionsSection}
+
+The topics ship inside the CLI, so they always match the version you are running and need no
+network. The full docs site is at https://oekazuma.github.io/svelte-vitals.
+
+\`docs\` is a subcommand, so it wins over a directory of the same name: to analyze a directory
+called \`docs\`, write \`svelte-vitals ./docs\`.`;
+}
 
 /**
  * gunshi/bone port of `docs/cli.ts`'s dispatch (design doc: Phase 2a). `docs` is passed as its
@@ -35,10 +66,9 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
   // `--` must be split off before guard/strip run — see guard.ts's `splitAtTerminator` doc
   // comment. `tail` is appended verbatim to every positional read below.
   const { head, tail } = splitAtTerminator(args);
-  const guard = guardArgs(head, [], BOOLEAN_FLAGS);
-  for (const e of guard.errors) io.errorLog(e);
-  if (guard.errors.length > 0) return 2;
-  const argvForGunshi = stripUnknownFlags(guard.argv, KNOWN_LONG_FLAGS, KNOWN_SHORT_FLAGS);
+  // `errors` is only ever populated by a value-carrying flag (guard.ts's own doc comment) —
+  // `docs` declares none, so only `.argv` (the `--flag=false` normalization) is used here.
+  const argvForGunshi = stripUnknownFlags(guardArgs(head, [], BOOLEAN_FLAGS).argv, KNOWN_LONG_FLAGS, KNOWN_SHORT_FLAGS);
 
   // Legacy's `[sub, ...rest] = argv._` picks the sub-command from ONE merged positional list, in
   // argv order regardless of `--` — so `docs -- list` still sees `sub === 'list'`. gunshi can't:
@@ -59,10 +89,10 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
 
   const listCommand = define({
     name: 'list',
-    args: { json: { type: 'boolean' }, ...HELP_ARG },
-    run: (ctx) => {
+    args: { json: { type: 'boolean', description: 'Machine-readable output (list only)' }, ...HELP_ARG },
+    run: async (ctx) => {
       if (ctx.values.help) {
-        io.log(DOCS_HELP);
+        io.log(await buildDocsHelpText(rootCommand));
         exitCode = 0;
         return;
       }
@@ -103,12 +133,12 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
       // runner accepts `--json` on `show` too (a harmless no-op boolean); without this, gunshi's
       // per-command resolution would treat `--json` as undeclared for `show` specifically and
       // swallow the following positional (`docs show --json config` would lose `config`).
-      json: { type: 'boolean' },
+      json: { type: 'boolean', description: 'Machine-readable output (list only)' },
       ...HELP_ARG
     },
-    run: (ctx) => {
+    run: async (ctx) => {
       if (ctx.values.help) {
-        io.log(DOCS_HELP);
+        io.log(await buildDocsHelpText(rootCommand));
         exitCode = 0;
         return;
       }
@@ -151,11 +181,11 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
     name: 'docs',
     // `json` declared but unused here too, for the same family-wide reason as `showCommand` — a
     // bare `docs --json <sub>` reaches this command's own resolution via `fallbackToEntry`.
-    args: { json: { type: 'boolean' }, ...HELP_ARG },
+    args: { json: { type: 'boolean', description: 'Machine-readable output (list only)' }, ...HELP_ARG },
     subCommands: { list: listCommand, show: showCommand },
-    run: (ctx) => {
+    run: async (ctx) => {
       if (ctx.values.help) {
-        io.log(DOCS_HELP);
+        io.log(await buildDocsHelpText(rootCommand));
         exitCode = 0;
         return;
       }

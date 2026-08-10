@@ -1,15 +1,8 @@
-// Phase 2a of the gunshi migration (docs/superpowers/specs/2026-08-10-gunshi-cli-migration-design.md):
-// same technique as gunshi-docs-parity.test.ts, for `explain` (explain.ts / gunshi/explain.ts).
+// See gunshi-docs-parity.test.ts's own header for why this is a snapshot-pin suite, not a live
+// comparison against the legacy `runExplainCli` (deleted in Phase 3, explain.ts's own dispatcher).
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import { runExplainCli } from '../src/explain.js';
 import { runExplainCliGunshi } from '../src/gunshi/explain.js';
 import { captureIO } from './helpers/capture-io.js';
-
-function legacy(args: string[]) {
-  const io = captureIO();
-  const code = runExplainCli(args, io);
-  return { code, out: io.out, err: io.err };
-}
 
 async function gunshi(args: string[]) {
   const io = captureIO();
@@ -17,7 +10,7 @@ async function gunshi(args: string[]) {
   return { code, out: io.out, err: io.err };
 }
 
-describe('gunshi/bone explain reproduces the legacy explain CLI, byte for byte', () => {
+describe('gunshi/bone explain — pinned behavior across the argv-shape matrix', () => {
   const cells: { name: string; args: string[] }[] = [
     { name: 'known rule id', args: ['seo/title-presence'] },
     { name: 'configurable rule id', args: ['seo/title-length'] },
@@ -42,8 +35,8 @@ describe('gunshi/bone explain reproduces the legacy explain CLI, byte for byte',
   ];
 
   for (const { name, args } of cells) {
-    it(`${name}: identical to the legacy CLI`, async () => {
-      expect(await gunshi(args)).toEqual(legacy(args));
+    it(`${name}`, async () => {
+      expect(await gunshi(args)).toMatchSnapshot();
     });
   }
 });

@@ -1,10 +1,10 @@
+import { parseArgs } from 'node:util';
 import { cli } from 'gunshi/bone';
 import { define } from 'gunshi/definition';
 import { generate } from 'gunshi/generator';
 import { run } from '../index.js';
 import { readPackageVersion, readCoreVersion } from '../version.js';
-import { parseRunArgs, resolveArgs, VALUE_FLAGS } from '../resolve-args.js';
-import { parseCliArgs, type CliArgv } from '../cli-args.js';
+import { parseRunArgs, resolveArgs, VALUE_FLAGS, type CliArgv } from '../resolve-args.js';
 import { selectAppPrompt } from '../install/cli.js';
 import { consoleIO, type CliIO } from '../cli-io.js';
 import type { CliResult } from '../cli.js';
@@ -197,14 +197,23 @@ If you are an AI agent:
  * bare trailing flag, `''` for `--flag=`, a consumed flag-like token for `--flag --other`)
  * without touching `resolve-args.ts` at all. Takes the ORIGINAL argv, not the
  * `stripUnknownFlags`-adjusted copy fed to gunshi: `--baseline --typo main` needs `--typo` still
- * present so `parseCliArgs` consumes it (dash-prefixed) as baseline's value and `resolveArgs`
+ * present so this parse consumes it (dash-prefixed) as baseline's value and `resolveArgs`
  * rejects it, exactly as `parseRunArgs` does today — dropping `--typo` first would let `main`
  * become baseline's value instead, turning today's fatal error into a silent pass.
+ *
+ * Inlined rather than routed through `parseRunArgs` (Phase 3 deletion pass, design doc addendum):
+ * only `diff`/`baseline` are needed here, so the two-flag `node:util.parseArgs` call is
+ * self-contained instead of pulling in the analyzer's whole flag table.
  */
-function shadowParseDiffAndBaseline(argv: string[]): { diff: unknown; baseline: unknown } {
+export function shadowParseDiffAndBaseline(argv: string[]): { diff: unknown; baseline: unknown } {
   const patched = argv.map((a, i) => (a === '--diff' && (argv[i + 1] ?? '--').startsWith('-') ? '--diff=HEAD' : a));
-  const legacy = parseCliArgs(patched, { string: ['diff', 'baseline'] });
-  return { diff: legacy.diff, baseline: legacy.baseline };
+  const { values } = parseArgs({
+    args: patched,
+    options: { diff: { type: 'string' }, baseline: { type: 'string' } },
+    strict: false,
+    allowPositionals: true
+  });
+  return { diff: values.diff, baseline: values.baseline };
 }
 
 /** Adapts gunshi's parsed result into the `CliArgv` shape `resolveArgs` consumes, unchanged. */

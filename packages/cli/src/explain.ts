@@ -1,21 +1,4 @@
-import { parseCliArgs } from './cli-args.js';
 import { allRules, CATEGORIES, explainRule, type RuleOptionInfo } from '@svelte-vitals/core';
-import { consoleIO, type CliIO } from './cli-io.js';
-import { knownRuleIds } from './rules-config.js';
-
-/** Shared with the gunshi/bone port (src/gunshi/explain.ts) so the two dispatchers can't drift. */
-export const EXPLAIN_HELP = `svelte-vitals explain — print a rule's rationale, fix, and configurable options
-
-Usage:
-  svelte-vitals explain --list          List every rule id, grouped by category
-  svelte-vitals explain <rule-id>       Explain one rule
-
-Options:
-  --list        List every rule instead of explaining one
-  --json        Machine-readable output (works with --list and with a rule id)
-  -h, --help    Show this help
-
-Rule ids are category/kebab-case and matched exactly, e.g. \`svelte-vitals explain seo/ssr-disabled\`.`;
 
 /**
  * One line per configurable option, so a reader who takes a finding as a threshold
@@ -67,53 +50,4 @@ export function renderRuleList(): string {
   return [...sections, '', `${allRules.length} rules. Explain one with \`svelte-vitals explain <rule-id>\`.`].join(
     '\n\n'
   );
-}
-
-/**
- * Run `svelte-vitals explain <rule-id>`. Returns the exit code: 0 on a hit, 2 for a
- * missing or unknown id (the CLI's "execution error" code — nothing was explained).
- */
-export function runExplainCli(args: string[], io: CliIO = consoleIO): number {
-  const argv = parseCliArgs(args, { boolean: ['json', 'list', 'help'], short: { h: 'help' } });
-  if (argv.help) {
-    io.log(EXPLAIN_HELP);
-    return 0;
-  }
-
-  if (argv.list) {
-    if (argv._.length > 0) {
-      // Returning the whole list would read as "here is that rule".
-      io.errorLog('svelte-vitals: explain --list takes no rule id; drop --list to explain one.');
-      return 2;
-    }
-    io.log(
-      argv.json
-        ? JSON.stringify(
-            allRules.map((r) => ({ id: r.id, category: r.category, severity: r.severity, title: r.title })),
-            null,
-            2
-          )
-        : renderRuleList()
-    );
-    return 0;
-  }
-
-  const id = argv._[0];
-  if (id === undefined) {
-    io.errorLog(
-      'svelte-vitals: explain needs a rule id, e.g. `svelte-vitals explain seo/ssr-disabled`; `--list` shows them all.'
-    );
-    io.errorLog(`svelte-vitals: known rule ids: ${knownRuleIds().join(', ')}.`);
-    return 2;
-  }
-
-  const info = explainRule(id);
-  if (!info) {
-    io.errorLog(`svelte-vitals: unknown rule id '${id}'.`);
-    io.errorLog(`svelte-vitals: known rule ids: ${knownRuleIds().join(', ')}.`);
-    return 2;
-  }
-
-  io.log(argv.json ? JSON.stringify(info, null, 2) : formatRuleExplanation(info));
-  return 0;
 }

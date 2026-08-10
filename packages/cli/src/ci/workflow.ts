@@ -14,7 +14,7 @@ interface WorkflowPlan {
  * Decide what to do with the generated workflow file, mirroring the `install` wizard's
  * WriteStatus convention: no existing file → 'created'; an existing file with no
  * --force → 'exists' (left untouched, idempotent re-runs); --force → 'updated'.
- * Content generation is the caller's job (`ci/cli.ts`) — this function only decides.
+ * Content generation is the caller's job (`gunshi/ci.ts`) — this function only decides.
  */
 export function planWorkflowWrite(existing: string | undefined, force: boolean): WorkflowPlan {
   if (existing === undefined) return { status: 'created' };

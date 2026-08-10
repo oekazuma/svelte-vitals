@@ -7,8 +7,8 @@
  *   `values` rather than surfaced as an error — there is no value left to inspect once gunshi has
  *   parsed, so the check has to run on the raw tokens first.
  * - Any explicit value on a declared boolean — including the literal string `'false'` — resolves
- *   to `true`. `parseCliArgs` (cli-args.ts) special-cases `--flag=false` to mean off; reproducing
- *   that means rewriting the token away before gunshi ever sees it.
+ *   to `true`. `--flag=false` is meant to turn a boolean off (the pre-gunshi parsing convention);
+ *   reproducing that means rewriting the token away before gunshi ever sees it.
  *
  * One function, parameterized by the flag lists the caller declares (never a second hardcoded
  * copy of a flag list that already exists elsewhere — `valueFlags` for the root analyzer is
@@ -42,9 +42,9 @@ export function guardArgs(argv: string[], valueFlags: readonly string[], boolean
     }
   }
 
-  // Duplicate boolean tokens are last-wins under the legacy parser (`util.parseArgs` overwrites
-  // on repetition, then cli-args.ts coerces a final literal 'false' to off) — so when a flag's
-  // LAST occurrence is `=false`, every token of that flag must go, not just the `=false` ones.
+  // Duplicate boolean tokens are last-wins under `node:util`'s parseArgs (overwrites on
+  // repetition, then a final literal 'false' coerces to off) — so when a flag's LAST occurrence
+  // is `=false`, every token of that flag must go, not just the `=false` ones.
   const offFlags = new Set(
     booleanFlags.filter((flag) => {
       let lastToken: string | undefined;
@@ -102,13 +102,30 @@ export function splitAtTerminator(argv: string[]): { head: string[]; tail: strin
  *
  * `knownLong`/`knownShort` are the flag names this specific command recognizes ACROSS ITS WHOLE
  * FAMILY (every sub-command's own flags, for a command with sub-commands) — not just the ones the
- * particular sub-command handling a given invocation happens to read. The legacy runners parse
- * every command's args in one flat `parseCliArgs` call, so e.g. `docs show --json config` sees
- * `--json` as a harmless known boolean and keeps `config` as the positional even though `show`
- * itself never reads `--json`; each gunshi sub-command must declare every family-wide flag in its
- * own `args` too (even unused) so gunshi's own per-command resolution doesn't re-trigger the same
- * swallow bug this function exists to prevent.
+ * particular sub-command handling a given invocation happens to read. Pre-gunshi, every command's
+ * args were parsed in one flat pass, so e.g. `docs show --json config` saw `--json` as a harmless
+ * known boolean and kept `config` as the positional even though `show` itself never reads `--json`;
+ * each gunshi sub-command must declare every family-wide flag in its own `args` too (even unused)
+ * so gunshi's own per-command resolution doesn't re-trigger the same swallow bug this function
+ * exists to prevent.
  */
+/**
+ * `gunshi/generator`'s `generate()` always renders a `-v, --version` line — it internally runs the
+ * target command through gunshi's full `cli()`, whose hardcoded `global()` plugin force-adds
+ * `-h`/`-v` to every command regardless of whether the command declares `version` itself (confirmed
+ * empirically; undocumented in `@gunshi/docs`). Every hybrid-help surface except the root analyzer
+ * lacks a working `--version` flag, so leaving that line in would advertise one — the exact
+ * help-drift defect class this migration exists to kill. Strips exactly that one line from an
+ * already-generated OPTIONS block; not used by the root analyzer, which has a real `--version`
+ * flag and wants the generated line (matched to it by declaring `version` with the same wording).
+ */
+export function stripAutoVersionLine(generated: string): string {
+  return generated
+    .split('\n')
+    .filter((line) => !/^\s*-v, --version\b/.test(line))
+    .join('\n');
+}
+
 export function stripUnknownFlags(
   argv: string[],
   knownLong: ReadonlySet<string>,
