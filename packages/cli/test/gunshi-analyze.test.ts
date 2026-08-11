@@ -51,6 +51,41 @@ describe('root analyzer: single bone entry, no subCommands map', () => {
   });
 });
 
+// did-you-mean addendum (design doc): a mistyped sub-command name falls through to the root
+// analyzer as a path (cli.ts's dispatch is exact-match only) — gunshi/analyze.ts appends one hint
+// line to the existing not-a-project message when, and only when, the token resolves to nothing on
+// disk AND is within the shared matcher's default distance of a real sub-command name.
+describe('did-you-mean: a mistyped sub-command falling through to the analyzer path', () => {
+  const prevCwd = process.cwd();
+  afterEach(() => process.chdir(prevCwd));
+
+  it("svelte-vitals isntall: appends the hint after the existing 'No SvelteKit project found' message", async () => {
+    process.chdir(tmpProjectDir());
+    const { code, err } = await run(['isntall']);
+    expect(code).toBe(2);
+    expect(err).toContain('No SvelteKit project found');
+    expect(err).toContain('svelte-vitals: did you mean `svelte-vitals install`?');
+  });
+
+  it('svelte-vitals xyzzyplugh: garbage input past the default distance threshold gets no hint', async () => {
+    process.chdir(tmpProjectDir());
+    const { code, err } = await run(['xyzzyplugh']);
+    expect(code).toBe(2);
+    expect(err).toContain('No SvelteKit project found');
+    expect(err).not.toContain('did you mean');
+  });
+
+  it('an existing directory with a close name is analyzed as-is, never redirected to the hint', async () => {
+    const cwd = tmpProjectDir();
+    mkdirSync(join(cwd, 'isntall'));
+    process.chdir(cwd);
+    const { code, err } = await run(['isntall']);
+    expect(code).toBe(2);
+    expect(err).toContain('No SvelteKit project found');
+    expect(err).not.toContain('did you mean');
+  });
+});
+
 describe('unknown flags never swallow the analyzed path', () => {
   // args-tokens treats an UNDECLARED long/short option as string-like, consuming a following
   // positional as its own value — unlike node:util's parseArgs(strict:false), which treats the

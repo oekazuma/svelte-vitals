@@ -1,3 +1,5 @@
+import { defineSuggestNames, levenshtein } from '@gunshi/plugin-suggestion';
+
 /**
  * Raw-argv pre-scan that every gunshi-dispatched command runs before handing argv to gunshi's
  * own parser (Phase 1 spike gate (b), `docs/superpowers/specs/2026-08-10-gunshi-cli-migration-design.md`).
@@ -124,6 +126,36 @@ export function stripAutoVersionLine(generated: string): string {
     .split('\n')
     .filter((line) => !/^\s*-v, --version\b/.test(line))
     .join('\n');
+}
+
+/**
+ * `Did you mean …?` closest-match lookup for a mistyped sub-command or rule id, reusing
+ * `@gunshi/plugin-suggestion`'s own matcher (`defineSuggestNames`/`levenshtein`) instead of a
+ * hand-rolled edit-distance function — the plugin's own default threshold (distance <= 2, one
+ * suggestion), pinned here since `resolveSuggestionOptions` itself isn't exported.
+ *
+ * The plugin's OWN error-hooking (decorating gunshi's `CommandNotFoundError`/`ArgsValidationError`
+ * rendering) never fires on any surface in this CLI: `fallbackToEntry: true` resolves an unmatched
+ * sub-command straight to the entry command with no `CommandNotFoundError` ever constructed
+ * (confirmed against gunshi 0.37.1's `resolveCommandTree` — the `additionalValidationErrors.push`
+ * call is unreachable when `resolveAsEntry()` already returned a command), and `stripUnknownFlags`
+ * above removes any undeclared flag before gunshi's own parser sees it, so `ArgsValidationError`'s
+ * `unknownOption` case is equally unreachable. Every ported surface therefore calls this function
+ * directly from its own error path instead of wiring the plugin into `cli()`.
+ */
+const suggestNames = defineSuggestNames({
+  maxDistance: 2,
+  maxSuggestions: 1,
+  distance: levenshtein,
+  normalize: (v) => v,
+  // Unused by `defineSuggestNames` itself (only its own `suggestion()` plugin reads these, to
+  // decide which of gunshi's two error kinds to look at) — required by `ResolvedSuggestionOptions`
+  // regardless, so set to the plugin's own defaults.
+  includeOptions: true,
+  includeCommands: true
+});
+export function suggestClosest(typed: string, candidates: readonly string[]): string | undefined {
+  return suggestNames(typed, candidates)[0];
 }
 
 export function stripUnknownFlags(

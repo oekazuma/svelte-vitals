@@ -212,6 +212,34 @@ Done. Commit the workflow file and open a PR to see it in action.",
 }
 `;
 
+exports[`gunshi/bone ci — pinned behavior across the argv-shape matrix > isntall (typo of install, close enough for a did-you-mean hint) 1`] = `
+{
+  "code": 2,
+  "err": "svelte-vitals: did you mean \`svelte-vitals ci install\`?
+svelte-vitals ci — scaffold CI integration
+
+Usage:
+  svelte-vitals ci install [options]
+  svelte-vitals ci upgrade [--dry-run]
+
+Adds a GitHub Actions workflow (.github/workflows/svelte-vitals.yml) that calls the \`@svelte-vitals/action\`
+GitHub Action on pull requests: inline annotations, a job summary, and a sticky PR
+comment with the findings.
+
+\`ci upgrade\` rewrites only the pinned \`@svelte-vitals/action\` reference in an existing
+workflow to the pin bundled with this CLI, leaving the rest of the file (and any other
+pins, like actions/checkout) untouched. To pick up the latest pin, run
+\`npx svelte-vitals@latest ci upgrade\`.
+
+Options:
+  --force       Overwrite an existing workflow file (install only)
+  --dry-run     Print the plan and exit without writing
+  -h, --help    Show this help",
+  "out": "",
+  "wrote": false,
+}
+`;
+
 exports[`gunshi/bone ci — pinned behavior across the argv-shape matrix > no sub (bare ci) 1`] = `
 {
   "code": 2,

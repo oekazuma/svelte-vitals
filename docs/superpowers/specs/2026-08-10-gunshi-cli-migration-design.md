@@ -400,3 +400,67 @@ pins en/ja byte-identity so a future edit can't translate one side without the o
 No changeset: doc-site content plus an internal generator/test/build-entry, zero change to any
 published package's runtime behavior or public export surface (`gunshi-registry` is a build
 artifact, not an `exports` entry).
+
+## Addendum (2026-08-11): `did you mean …?` suggestions via `@gunshi/plugin-suggestion`'s matcher, not its plugin
+
+Probed `@gunshi/plugin-suggestion@0.37.1` (added to the catalog, exact pin, alongside the other
+`gunshi`-family packages) to determine whether it could fire on any of this CLI's five real
+surfaces. It cannot, confirmed two ways — reading the pinned `gunshi` 0.37.1 source
+(`cliCore`/`resolveCommandTree` in `node_modules/gunshi/lib/core-*.js`) and a live probe reproducing
+this repo's exact bone wiring:
+
+- The plugin decorates gunshi's own `CommandNotFoundError`/`ArgsValidationError` rendering — it
+  detects nothing itself (its own README says so). Both error kinds are structurally unreachable
+  here: `fallbackToEntry: true` (every sub-commanded surface, i.e. `docs`) resolves an unmatched
+  first-level token straight to the entry command inside `resolveCommandTree` — `targetCommand` is
+  already truthy by the time `cliCore` checks whether to construct a `CommandNotFoundError`, so it
+  never is, at any `strict` setting. `stripUnknownFlags` (guard.ts) removes any undeclared flag
+  before gunshi's own parser ever sees the token, so `ArgsValidationError`'s `unknownOption` case
+  (which only fires when `cliOptions.strict` is true AND the parser actually saw the flag) is
+  equally unreachable — and no surface here sets `strict: true` regardless. A probe script wiring
+  `suggestion()` into a `docs`-shaped bone `cli()` call (subCommands + `fallbackToEntry: true`,
+  both `strict` settings) confirmed this empirically: the entry `run()` always received the
+  mismatched token as an ordinary positional, `ctx.validationError` always `undefined`. Flipping
+  `fallbackToEntry: false` (not this CLI's shape, tested only to see what the plugin _would_ have
+  produced) reproduces the OTHER already-recorded Phase-2 finding instead: `bone`'s decorator throws
+  a raw `Error` on any validation error, discarding the rendered/decorated message — so the plugin's
+  hint text is unreachable there too, for the same class of reason full `cli()` was rejected for in
+  Phase 2. `ci` doesn't run its sub-subcommand split through gunshi at all (a literal `args[0]`
+  compare, by design — see Phase 3 verdict above), so it was never a candidate either.
+- The package DOES export a reusable, non-hand-rolled matcher, unrelated to its plugin/error-hooking
+  half: `import { levenshtein, defineSuggestNames } from '@gunshi/plugin-suggestion'`.
+  `levenshtein(a, b): number` is a plain edit-distance function; `defineSuggestNames(options)`
+  is the plugin's own candidate-ranking factory (filter by `maxDistance`, sort by distance then
+  input order, cap at `maxSuggestions`) — the same one its `suggestion()` plugin builds internally.
+  `resolveSuggestionOptions` (translates partial user options to defaults: `maxDistance: 2`,
+  `maxSuggestions: 1`) is NOT exported, so the default threshold is reproduced by hand at the one
+  call site (`gunshi/guard.ts`'s `suggestClosest`) instead of imported — values only, not logic.
+
+Shape chosen: `suggestClosest(typed, candidates)` in `gunshi/guard.ts`, built once from
+`defineSuggestNames`, called directly from each surface's own existing error path — never wiring
+`suggestion()` into any `cli()` call, since (per above) it would be dead weight. Four surfaces:
+root `runAnalyzeCliGunshi` (a `did you mean` line appended after the `No SvelteKit project found`
+message, gated on the explicit path not existing on disk at all — an existing directory of that name
+is always analyzed, never redirected), `docs`'s and `ci`'s unknown-subcommand paths, and `explain`'s
+unknown-rule-id path (scanning 70+ ids per call is well under a millisecond — `defineSuggestNames`
+is a single filter+sort over the candidate list, no measurable cost). Every insertion is additive:
+the existing error line(s) print unchanged, in the same order, with the hint as one new line: right
+after the specific "unknown …" complaint (docs/explain), right before the unchanged `CI_HELP` block
+(`ci`, which has no per-token complaint line to append after), or as the sole new line (root, which
+had only the one message).
+
+Dependency footprint: `@gunshi/plugin-suggestion` depends on `@gunshi/plugin` and peer-depends on
+`@gunshi/plugin-i18n` (same non-optional-peer shape as `@gunshi/plugin-completion`, this doc's prior
+addendum) — both were already resolved into the lockfile by `@gunshi/plugin-completion`, so adding
+this package resolved **zero new packages** (confirmed via lockfile diff: only
+`@gunshi/plugin-suggestion` itself gained entries).
+
+Unlike `@gunshi/plugin-completion` (reached only via the dynamic `import()` behind `complete`),
+`suggestClosest` lives in `gunshi/guard.ts`, which `gunshi/analyze.ts` — the root analyzer,
+statically imported by `cli.ts` and therefore on every invocation's hot path, not behind a dynamic
+import — already imports. So this DOES add to the hot path, unlike the completion feature; measured
+rather than assumed: median of 10 runs of `node --input-type=module -e "import('@gunshi/plugin-
+suggestion')"` minus the bare `node -e "import('node:path')"` floor on the same machine is ~1 ms
+(the package is a single small file depending only on the already-resolved `@gunshi/plugin`), and
+`svelte-vitals --help` end to end still runs ~130 ms, in line with this doc's own pre-existing
+gunshi-adoption baseline (~157 ms) rather than measurably above it.

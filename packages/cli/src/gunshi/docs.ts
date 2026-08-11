@@ -6,7 +6,7 @@ import { consoleIO, type CliIO } from '../cli-io.js';
 import { knownRuleIds } from '../rules-config.js';
 import { EMBEDDED_DOCS } from '../docs/generated.js';
 import { DOCS_HELP, knownTopicNames, renderList } from '../docs/cli.js';
-import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine } from './guard.js';
+import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine, suggestClosest } from './guard.js';
 
 /** docs declares no value-carrying flags today — see guard.ts's own doc comment for why the list is still passed explicitly. */
 const BOOLEAN_FLAGS = ['json', 'help'] as const;
@@ -205,6 +205,8 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
         return;
       }
       io.errorLog(`svelte-vitals: unknown docs subcommand '${sub}'; expected list|show.`);
+      const hint = suggestClosest(sub, ['list', 'show']);
+      if (hint) io.errorLog(`svelte-vitals: did you mean \`svelte-vitals docs ${hint}\`?`);
       io.errorLog(DOCS_HELP);
       exitCode = 2;
     }

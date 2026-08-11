@@ -21,6 +21,9 @@ catalogs:
     '@gunshi/plugin-completion':
       specifier: 0.37.1
       version: 0.37.1
+    '@gunshi/plugin-suggestion':
+      specifier: 0.37.1
+      version: 0.37.1
     '@sveltejs/kit':
       specifier: ^2.70.2
       version: 2.70.2
@@ -143,6 +146,9 @@ importers:
       '@gunshi/plugin-completion':
         specifier: 'catalog:'
         version: 0.37.1(@gunshi/plugin-i18n@0.37.1)(cac@6.7.14)(citty@0.1.6)
+      '@gunshi/plugin-suggestion':
+        specifier: 'catalog:'
+        version: 0.37.1(@gunshi/plugin-i18n@0.37.1)
       '@svelte-vitals/core':
         specifier: workspace:*
         version: link:../core
@@ -1047,6 +1053,12 @@ packages:
     peerDependenciesMeta:
       '@gunshi/plugin-global':
         optional: true
+
+  '@gunshi/plugin-suggestion@0.37.1':
+    resolution: {integrity: sha512-za2LC8af64c4ruGmC+1f2gA1sDpcxt8gKzbxnlOIp0mInCaRvRMlLP4KyHm2NB3LkB98VOVwUSZ6G/lujWv2NA==}
+    engines: {node: '>= 22'}
+    peerDependencies:
+      '@gunshi/plugin-i18n': 0.37.1
 
   '@gunshi/plugin@0.37.1':
     resolution: {integrity: sha512-ljjBaL15jCwX6tEtWRdmAQ/y/svGcMZa5mVhMPgXFeQFQ++srK/x5dx8uchQFrE2MTqaFhMMjNK9AQowCyRv9A==}
@@ -6867,6 +6879,11 @@ snapshots:
   '@gunshi/plugin-i18n@0.37.1':
     dependencies:
       '@gunshi/plugin': 0.37.1
+
+  '@gunshi/plugin-suggestion@0.37.1(@gunshi/plugin-i18n@0.37.1)':
+    dependencies:
+      '@gunshi/plugin': 0.37.1
+      '@gunshi/plugin-i18n': 0.37.1
 
   '@gunshi/plugin@0.37.1': {}
 

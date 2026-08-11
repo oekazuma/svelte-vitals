@@ -5,7 +5,7 @@ import { explainRule, allRules } from '@svelte-vitals/core';
 import { consoleIO, type CliIO } from '../cli-io.js';
 import { knownRuleIds } from '../rules-config.js';
 import { renderRuleList, formatRuleExplanation } from '../explain.js';
-import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine } from './guard.js';
+import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine, suggestClosest } from './guard.js';
 
 /** explain declares no value-carrying flags today — see guard.ts's own doc comment for why the list is still passed explicitly. */
 const BOOLEAN_FLAGS = ['json', 'list', 'help'] as const;
@@ -111,6 +111,8 @@ export async function runExplainCliGunshi(args: string[], io: CliIO = consoleIO)
       const info = explainRule(id);
       if (!info) {
         io.errorLog(`svelte-vitals: unknown rule id '${id}'.`);
+        const hint = suggestClosest(id, knownRuleIds());
+        if (hint) io.errorLog(`svelte-vitals: did you mean \`svelte-vitals explain ${hint}\`?`);
         io.errorLog(`svelte-vitals: known rule ids: ${knownRuleIds().join(', ')}.`);
         exitCode = 2;
         return;
