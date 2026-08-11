@@ -498,17 +498,13 @@ function aliasMatches(entry: KitAlias, spec: string): boolean {
  * definition, and without this check `normalizePosix` would quietly drop the leading empty
  * segment and hand back a project-relative-LOOKING path that actually names a different file.
  *
- * Exported (module-internal to `@svelte-vitals/core`, not part of the package's public
- * barrel — nothing outside `packages/core` consumes it) because
- * `architecture/private-scope-import` and `architecture/route-component-import` both need
- * resolution that is not restricted to runes modules, unlike `resolveRunesModuleSpecifier`.
- * This is the single site for every
- * kit-module and rule-time specifier resolution inside `packages/core` — but not the
- * only specifier→path mapping in the repo: `resolveComponentPath`
- * (`packages/cli/src/providers/source/resolve.ts`), which drives transitive `<head>`
- * resolution, still hard-codes `$lib/` → `src/lib/` and does not consult `aliases` at
- * all. That is a known, deliberate exception carried outside this package's boundary,
- * not an oversight — extending alias resolution to it is separate work.
+ * Exported from the package's public barrel because `architecture/private-scope-import`
+ * and `architecture/route-component-import` (inside `packages/core`) both need resolution
+ * that is not restricted to runes modules, unlike `resolveRunesModuleSpecifier` — and
+ * because `resolveComponentPath` (`packages/cli/src/providers/source/resolve.ts`), which
+ * drives transitive `<head>`/heading resolution, delegates its alias/`$lib`/relative
+ * mapping here too, rather than duplicating it. This is the single site for every
+ * repo-local specifier resolution in the repo.
  */
 export function resolveRepoLocalPath(
   spec: string,
