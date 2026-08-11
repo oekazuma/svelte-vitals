@@ -25,17 +25,26 @@ function flagCell(key, schema) {
  * `--help`) — collapsed to single spaces here; word content still matches `--help` exactly,
  * which is what "byte-for-byte" is checked against (word-for-word, not raw bytes: an unavoidable
  * table-cell constraint, not a paraphrase). `|` is escaped so an enum-style description like
- * "console | json | agent" doesn't get read as extra table columns. */
-function descriptionCell(schema) {
-  return (schema.description ?? '').replace(/\s+/g, ' ').trim().replaceAll('|', '\\|');
+ * "console | json | agent" doesn't get read as extra table columns.
+ *
+ * `jaText`, when given, replaces `schema.description` outright — a key missing from the ja map
+ * (`undefined`) falls through to the English description, the same en-fallback `--help` itself
+ * applies (`locale.ts`'s `localizedOptionsSection`). This function never talks to
+ * `@gunshi/plugin-i18n` at all (it is a hand-rolled Markdown renderer, not `generate()`), so the
+ * plugin's own `help`/`version` quirk (`locale.ts`'s doc comment) does not apply here — every key
+ * a caller passes lands as typed. */
+function descriptionCell(schema, jaText) {
+  return (jaText ?? schema.description ?? '').replace(/\s+/g, ' ').trim().replaceAll('|', '\\|');
 }
 
 /** One flag-reference table for a command surface's args. Skips `hidden` entries — same as
- * `--help`'s own OPTIONS section and gunshi/complete.ts's `forCompletion`. */
-export function renderTable(args) {
+ * `--help`'s own OPTIONS section and gunshi/complete.ts's `forCompletion`. `jaDescriptions`
+ * (optional, keyed the same way `locales/ja.ts`'s per-surface maps are — the raw ArgSchema object
+ * key) renders a ja table instead of the English one; omitted entirely for the English tables. */
+export function renderTable(args, jaDescriptions) {
   const rows = Object.entries(args)
     .filter(([, schema]) => !schema.hidden)
-    .map(([key, schema]) => `| ${flagCell(key, schema)} | ${descriptionCell(schema)} |`);
+    .map(([key, schema]) => `| ${flagCell(key, schema)} | ${descriptionCell(schema, jaDescriptions?.[key])} |`);
   return ['| Flag | Description |', '| --- | --- |', ...rows].join('\n');
 }
 

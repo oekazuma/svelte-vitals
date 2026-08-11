@@ -6,6 +6,7 @@ import { consoleIO, type CliIO } from '../cli-io.js';
 import { knownRuleIds } from '../rules-config.js';
 import { renderRuleList, formatRuleExplanation } from '../explain.js';
 import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine, suggestClosest } from './guard.js';
+import { localizedOptionsSection, type Locale } from './locale.js';
 
 /** explain declares no value-carrying flags today — see guard.ts's own doc comment for why the list is still passed explicitly. */
 const BOOLEAN_FLAGS = ['json', 'list', 'help'] as const;
@@ -24,14 +25,23 @@ export const EXPLAIN_ARGS = {
  * written header/usage/footer, OPTIONS generated from this command's own `args`, the auto-injected
  * `-v, --version` line stripped (see `stripAutoVersionLine`). `explain` has no error-path use of
  * its own help text (unlike `docs`/`ci`), so there is no separate frozen constant to keep in sync —
- * this is the sole source of `explain --help`'s output.
+ * this is the sole source of `explain --help`'s output. ja-localized when `locale` is 'ja'
+ * (`docs/superpowers/specs/2026-08-11-cli-ja-help-design.md`).
  */
-async function buildExplainHelpText(explainCommand: Parameters<typeof generate>[1]): Promise<string> {
-  const generated = await generate(null, explainCommand, { name: 'svelte-vitals explain', renderHeader: null });
-  const optionsIndex = generated.indexOf('OPTIONS:');
+async function buildExplainHelpText(explainCommand: Parameters<typeof generate>[1], locale: Locale): Promise<string> {
+  // `./locales/ja.js` is imported dynamically, only on the `ja` branch — an English
+  // invocation of this (already lazily-dispatched) surface never parses the ja strings.
+  const ja = locale === 'ja' ? await import('./locales/ja.js') : undefined;
   const optionsSection = stripAutoVersionLine(
-    optionsIndex === -1 ? generated.trimEnd() : generated.slice(optionsIndex).trimEnd()
+    await localizedOptionsSection(
+      explainCommand,
+      'svelte-vitals explain',
+      locale,
+      ja?.JA_ARG_DESCRIPTIONS.explain ?? {}
+    )
   );
+
+  if (locale === 'ja') return ja!.explainHelpJa(optionsSection);
 
   return `svelte-vitals explain — print a rule's rationale, fix, and configurable options
 
@@ -51,7 +61,11 @@ Rule ids are category/kebab-case and matched exactly, e.g. \`svelte-vitals expla
  * no path-token splicing to slice off (see the regression test pinning this alongside docs's
  * real slice case). See docs.ts for the exit-code closure pattern this mirrors.
  */
-export async function runExplainCliGunshi(args: string[], io: CliIO = consoleIO): Promise<number> {
+export async function runExplainCliGunshi(
+  args: string[],
+  io: CliIO = consoleIO,
+  locale: Locale = 'en'
+): Promise<number> {
   // `--` must be split off before guard/strip run — see guard.ts's `splitAtTerminator` doc
   // comment. `tail` is appended verbatim to the positional read below.
   const { head, tail } = splitAtTerminator(args);
@@ -73,7 +87,7 @@ export async function runExplainCliGunshi(args: string[], io: CliIO = consoleIO)
       // being part of `ctx.positionals`.
       const positionals = [...ctx.positionals, ...tail];
       if (ctx.values.help) {
-        io.log(await buildExplainHelpText(explainCommand));
+        io.log(await buildExplainHelpText(explainCommand, locale));
         exitCode = 0;
         return;
       }

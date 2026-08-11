@@ -10,6 +10,7 @@ import { selectAppPrompt } from '../install/cli.js';
 import { consoleIO, type CliIO } from '../cli-io.js';
 import type { CliResult } from '../cli.js';
 import { guardArgs, splitAtTerminator, stripUnknownFlags, suggestClosest } from './guard.js';
+import { localizedOptionsSection, type Locale } from './locale.js';
 
 /**
  * `runCli` (cli.ts)'s reserved first-token dispatch names, hand-kept in sync (five short, stable
@@ -153,11 +154,28 @@ function neutralizeBareDiffAndBaseline(argv: string[]): string[] {
   });
 }
 
-/** Builds the hybrid `--help` text: hand-written header/usage + sub-commands stay prose (gunshi has no subCommands map here to generate them from); the options list is generated from `ROOT_ARGS`. */
-async function buildHelpText(rootCommand: Parameters<typeof generate>[1]): Promise<string> {
-  const generated = await generate(null, rootCommand, { name: 'svelte-vitals', renderHeader: null });
-  const optionsIndex = generated.indexOf('OPTIONS:');
-  const optionsSection = optionsIndex === -1 ? generated.trimEnd() : generated.slice(optionsIndex).trimEnd();
+/**
+ * Builds the hybrid `--help` text: hand-written header/usage + sub-commands stay prose (gunshi has
+ * no subCommands map here to generate them from); the options list is generated from `ROOT_ARGS`,
+ * ja-localized when `locale` is 'ja' (`docs/superpowers/specs/2026-08-11-cli-ja-help-design.md`).
+ * `./locales/ja.js` (several KB of Japanese strings) is imported dynamically, only on the `ja`
+ * branch — this function, and therefore that import, only ever runs for an actual `--help`
+ * invocation, but `analyze.ts` itself is on the analyzer's hot path (statically imported by
+ * `cli.ts` for every invocation), so a static import here would cost every plain analyze run too.
+ */
+async function buildHelpText(rootCommand: Parameters<typeof generate>[1], locale: Locale): Promise<string> {
+  if (locale === 'ja') {
+    const { JA_ARG_DESCRIPTIONS, rootHelpJa } = await import('./locales/ja.js');
+    const optionsSection = await localizedOptionsSection(
+      rootCommand,
+      'svelte-vitals',
+      locale,
+      JA_ARG_DESCRIPTIONS.root
+    );
+    return rootHelpJa(optionsSection);
+  }
+
+  const optionsSection = await localizedOptionsSection(rootCommand, 'svelte-vitals', locale, {});
 
   return `svelte-vitals — a deterministic SvelteKit code-health scanner (SEO · performance · correctness · security · architecture)
 
@@ -248,7 +266,11 @@ function toCliArgv(values: Record<string, unknown>, positionals: string[], rawAr
  * directly. See docs.ts/explain.ts for the exit-code closure and injected-`CliIO` pattern this
  * mirrors.
  */
-export async function runAnalyzeCliGunshi(args: string[], io: CliIO = consoleIO): Promise<CliResult> {
+export async function runAnalyzeCliGunshi(
+  args: string[],
+  io: CliIO = consoleIO,
+  locale: Locale = 'en'
+): Promise<CliResult> {
   // `--` must be split off before any of guard/neutralize/strip run: none of them understands the
   // terminator, so a post-`--` token that merely looks like a flag (`<path> -- --score`) would
   // otherwise get reinterpreted as a real one — `tail` is appended verbatim to the positional
@@ -268,7 +290,7 @@ export async function runAnalyzeCliGunshi(args: string[], io: CliIO = consoleIO)
     args: ROOT_ARGS,
     run: async (ctx) => {
       if (ctx.values.help) {
-        io.log(await buildHelpText(rootCommand));
+        io.log(await buildHelpText(rootCommand, locale));
         result = { code: 0, exit: 'natural' };
         return;
       }

@@ -305,7 +305,21 @@ How to handle routes where a metadata value is set dynamically.
 
 ### `-h, --help`
 
-Print the help text and exit.
+Print the help text and exit. Renders in Japanese when the resolved locale is `ja` — see
+[Help language](#help-language) below. Every other output (errors, warnings, reporters) stays
+English regardless of locale.
+
+#### Help language
+
+`--help` picks English or Japanese from the environment — POSIX-style, first non-empty value wins:
+`SVELTE_VITALS_LANG` > `LC_ALL` > `LC_MESSAGES` > `LANG`. A value of `ja`, `ja-JP`, or `ja_JP.UTF-8`
+selects Japanese; anything else (including unset) selects English. There is no `--lang` flag — the
+environment already expresses this on every terminal.
+
+```bash
+SVELTE_VITALS_LANG=ja svelte-vitals --help
+LANG=ja_JP.UTF-8 svelte-vitals docs --help
+```
 
 ### `-v, --version`
 

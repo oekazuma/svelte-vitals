@@ -8,6 +8,7 @@ import { readPackageVersion } from '../version.js';
 import { consoleIO, type CliIO } from '../cli-io.js';
 import type { CliArgv } from '../resolve-args.js';
 import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine } from './guard.js';
+import { localizedOptionsSection, type Locale } from './locale.js';
 
 /**
  * `--client`/`--app`/`--scope` are install's value-carrying flags — `scope` is gone as a real
@@ -84,13 +85,22 @@ export const INSTALL_ARGS = {
  * Hybrid `install --help` text — same technique as `gunshi/docs.ts`'s `buildDocsHelpText`. Unlike
  * docs/explain/ci, `install` never prints its help text on an error path (the legacy dispatcher
  * only ever showed it for `--help`/`-h`), so there is no separate frozen constant to keep in sync.
+ * ja-localized when `locale` is 'ja' (`docs/superpowers/specs/2026-08-11-cli-ja-help-design.md`).
  */
-async function buildInstallHelpText(installCommand: Parameters<typeof generate>[1]): Promise<string> {
-  const generated = await generate(null, installCommand, { name: 'svelte-vitals install', renderHeader: null });
-  const optionsIndex = generated.indexOf('OPTIONS:');
+async function buildInstallHelpText(installCommand: Parameters<typeof generate>[1], locale: Locale): Promise<string> {
+  // `./locales/ja.js` is imported dynamically, only on the `ja` branch — an English
+  // invocation of this (already lazily-dispatched) surface never parses the ja strings.
+  const ja = locale === 'ja' ? await import('./locales/ja.js') : undefined;
   const optionsSection = stripAutoVersionLine(
-    optionsIndex === -1 ? generated.trimEnd() : generated.slice(optionsIndex).trimEnd()
+    await localizedOptionsSection(
+      installCommand,
+      'svelte-vitals install',
+      locale,
+      ja?.JA_ARG_DESCRIPTIONS.install ?? {}
+    )
   );
+
+  if (locale === 'ja') return ja!.installHelpJa(optionsSection);
 
   return `svelte-vitals install — set up the svelte-vitals Vite integration, agent skills/rules, config file, and CI
 
@@ -108,10 +118,11 @@ ${optionsSection}`;
 async function dispatchInstall(
   argv: CliArgv,
   installCommand: Parameters<typeof generate>[1],
-  io: CliIO
+  io: CliIO,
+  locale: Locale
 ): Promise<number> {
   if (argv.help) {
-    io.log(await buildInstallHelpText(installCommand));
+    io.log(await buildInstallHelpText(installCommand, locale));
     return 0;
   }
   const { flags, warnings, errors } = resolveInstallArgs(argv);
@@ -136,7 +147,11 @@ async function dispatchInstall(
  * and exiting 2 unconditionally — that reproduces both the fatal and the non-fatal shapes exactly,
  * at the cost of being coarser than the root analyzer's fallback.
  */
-export async function runInstallCliGunshi(args: string[], io: CliIO = consoleIO): Promise<number> {
+export async function runInstallCliGunshi(
+  args: string[],
+  io: CliIO = consoleIO,
+  locale: Locale = 'en'
+): Promise<number> {
   // `--` must be split off before guard/strip run — see guard.ts's `splitAtTerminator` doc
   // comment. `install` reads no positionals at all (legacy silently ignores stray ones), so `tail`
   // is never re-attached anywhere below — splitting still matters so a post-`--` token that merely
@@ -150,13 +165,13 @@ export async function runInstallCliGunshi(args: string[], io: CliIO = consoleIO)
     name: 'install',
     args: INSTALL_ARGS,
     run: async (ctx) => {
-      exitCode = await dispatchInstall({ _: [], ...ctx.values }, installCommand, io);
+      exitCode = await dispatchInstall({ _: [], ...ctx.values }, installCommand, io, locale);
     }
   });
 
   // See the doc comment above for why this is a full pipeline replay, not a synthesized error.
   if (guard.errors.length > 0) {
-    return dispatchInstall(parseInstallArgs(args), installCommand, io);
+    return dispatchInstall(parseInstallArgs(args), installCommand, io, locale);
   }
 
   const argvForGunshi = stripUnknownFlags(guard.argv, KNOWN_LONG_FLAGS, KNOWN_SHORT_FLAGS);

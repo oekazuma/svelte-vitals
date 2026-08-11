@@ -8,6 +8,7 @@ import { WORKFLOW_PATH, buildWorkflowYaml, planWorkflowWrite } from '../ci/workf
 import { upgradeActionPin } from '../ci/upgrade.js';
 import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
 import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine, suggestClosest } from './guard.js';
+import { localizedOptionsSection, type Locale } from './locale.js';
 
 /**
  * Frozen error-path text: printed verbatim on `ci`'s non-help exit-2 paths (bare `ci`, an unknown
@@ -54,14 +55,18 @@ const KNOWN_SHORT_FLAGS = new Set(['h']);
 /**
  * Hybrid `--help` text shared by `ci --help`, `ci install --help`, and `ci upgrade --help` (the
  * legacy dispatcher printed the identical `CI_HELP` for all three) — same technique as
- * `gunshi/docs.ts`'s `buildDocsHelpText`.
+ * `gunshi/docs.ts`'s `buildDocsHelpText`. ja-localized when `locale` is 'ja'
+ * (`docs/superpowers/specs/2026-08-11-cli-ja-help-design.md`).
  */
-async function buildCiHelpText(ciArgsCommand: Parameters<typeof generate>[1]): Promise<string> {
-  const generated = await generate(null, ciArgsCommand, { name: 'svelte-vitals ci', renderHeader: null });
-  const optionsIndex = generated.indexOf('OPTIONS:');
+async function buildCiHelpText(ciArgsCommand: Parameters<typeof generate>[1], locale: Locale): Promise<string> {
+  // `./locales/ja.js` is imported dynamically, only on the `ja` branch — an English
+  // invocation of this (already lazily-dispatched) surface never parses the ja strings.
+  const ja = locale === 'ja' ? await import('./locales/ja.js') : undefined;
   const optionsSection = stripAutoVersionLine(
-    optionsIndex === -1 ? generated.trimEnd() : generated.slice(optionsIndex).trimEnd()
+    await localizedOptionsSection(ciArgsCommand, 'svelte-vitals ci', locale, ja?.JA_ARG_DESCRIPTIONS.ci ?? {})
   );
+
+  if (locale === 'ja') return ja!.ciHelpJa(optionsSection, WORKFLOW_PATH);
 
   return `svelte-vitals ci — scaffold CI integration
 
@@ -85,7 +90,8 @@ ${optionsSection}`;
 async function runCiInstall(
   args: string[],
   io: InstallIO,
-  helpSource: Parameters<typeof generate>[1]
+  helpSource: Parameters<typeof generate>[1],
+  locale: Locale
 ): Promise<number> {
   const { head } = splitAtTerminator(args);
   // `errors` is only ever populated by a value-carrying flag (guard.ts's own doc comment) — `ci
@@ -102,7 +108,7 @@ async function runCiInstall(
     args: CI_ARGS,
     run: async (ctx) => {
       if (ctx.values.help) {
-        io.log(await buildCiHelpText(helpSource));
+        io.log(await buildCiHelpText(helpSource, locale));
         exitCode = 0;
         return;
       }
@@ -152,7 +158,8 @@ async function runCiInstall(
 async function runCiUpgrade(
   args: string[],
   io: InstallIO,
-  helpSource: Parameters<typeof generate>[1]
+  helpSource: Parameters<typeof generate>[1],
+  locale: Locale
 ): Promise<number> {
   const { head } = splitAtTerminator(args);
   // `errors` is only ever populated by a value-carrying flag (guard.ts's own doc comment) — `ci
@@ -169,7 +176,7 @@ async function runCiUpgrade(
     args: CI_UPGRADE_ARGS,
     run: async (ctx) => {
       if (ctx.values.help) {
-        io.log(await buildCiHelpText(helpSource));
+        io.log(await buildCiHelpText(helpSource, locale));
         exitCode = 0;
         return;
       }
@@ -240,7 +247,7 @@ async function runCiUpgrade(
  * `consoleIO`) because `ci install`/`ci upgrade` need disk access for the workflow file — matching
  * `runCiCli`'s own historical default.
  */
-export async function runCiCliGunshi(args: string[], io: InstallIO = realIO()): Promise<number> {
+export async function runCiCliGunshi(args: string[], io: InstallIO = realIO(), locale: Locale = 'en'): Promise<number> {
   const sub = args[0];
 
   // Any command with `force`/`dry-run`/`help` declared works as the generator source for the one
@@ -249,11 +256,11 @@ export async function runCiCliGunshi(args: string[], io: InstallIO = realIO()): 
   const helpSource = define({ name: 'ci', args: CI_ARGS, run: () => {} });
 
   if (sub === '--help' || sub === '-h') {
-    io.log(await buildCiHelpText(helpSource));
+    io.log(await buildCiHelpText(helpSource, locale));
     return 0;
   }
   if (sub === 'upgrade') {
-    return runCiUpgrade(args.slice(1), io, helpSource);
+    return runCiUpgrade(args.slice(1), io, helpSource, locale);
   }
   if (sub !== 'install') {
     // A bare `ci` (sub undefined) has no typed token to match against — only a wrong sub-subcommand
@@ -268,5 +275,5 @@ export async function runCiCliGunshi(args: string[], io: InstallIO = realIO()): 
     return 2;
   }
 
-  return runCiInstall(args.slice(1), io, helpSource);
+  return runCiInstall(args.slice(1), io, helpSource, locale);
 }
