@@ -22,18 +22,32 @@ the scope doesn't creep review by review.
   plugin (the bone decision stands). Two resource kinds:
   1. **Arg descriptions**: a ja resource module per surface mapping arg keys to ja descriptions.
      The en text stays in `args[].description` (single source for en, as today); ja lives in
-     `src/gunshi/locales/ja.ts` keyed by surface + arg key. `generate()` is fed the locale's
-     descriptions when rendering the OPTIONS block.
+     `src/gunshi/locales/ja.ts` keyed by surface + arg key. Concrete runtime path (— `generate()`
+     itself has no locale parameter): each help builder passes `i18n({ locale })` through
+     `generate()`'s `CliOptions.plugins` and attaches the ja resource to the command via the
+     plugin's `defineI18n`/`withI18nResource` API, which maps `arg:<key>` resource keys onto the
+     declarations; a key the resource lacks renders the en `description` (the plugin's own
+     fallback, verified at implementation time). Curated prose does not go through the plugin —
+     the builders select the prose block by the same resolved locale directly.
+     **Locale selection is isolated to the help builders**: the completion command tree
+     (`gunshi/complete.ts`) is always built from the raw en declarations — `@gunshi/plugin-completion`
+     emits whatever descriptions the tree carries, and completion scripts are machine-consumed, so
+     a ja env must not change them (asserted per supported shell under `SVELTE_VITALS_LANG=ja`).
   2. **Curated prose**: the hand-written blocks (root header/usage, agent notes, exit codes,
      each sub-command's prose) get ja counterparts in the same locale module, selected by the
      same switch.
-- **Locale selection**: `SVELTE_VITALS_LANG=ja` (explicit, documented) or auto-detect from the
-  standard env chain (`LC_ALL`/`LC_MESSAGES`/`LANG` matching `ja*`) — explicit beats auto; any
-  other value or absence means English. No new flag (help about `--help` flags is a snake eating
-  its tail; env-based selection matches how terminals actually localize). Detection is a pure
-  function over an injected env — fully testable, no std-env involvement.
+- **Locale selection**: POSIX first-non-empty-wins precedence — the first non-empty value among
+  `SVELTE_VITALS_LANG` > `LC_ALL` > `LC_MESSAGES` > `LANG` DECIDES, even when it is non-Japanese
+  (`LC_ALL=en_US` with `LANG=ja_JP` is English; `SVELTE_VITALS_LANG=en` under a ja terminal is
+  English). The deciding value is canonicalized before lookup (`ja_JP.UTF-8` / `ja-JP` / `ja` →
+  the one canonical `ja`); anything else maps to English. No new flag (help about `--help` flags
+  is a snake eating its tail; env-based selection matches how terminals actually localize).
+  Detection is a pure function over an injected env — fully testable, no std-env involvement.
 - **Fallback**: a missing ja key falls back to the en text at render time (never a blank), and a
-  **completeness drift test** fails CI when any declared arg or prose block lacks a ja entry —
+  **completeness drift test** fails CI when any declared arg or prose block lacks a ja entry.
+  The test enumerates its expected keys from the LIVE declarations (`ROOT_ARGS` and every
+  surface's exported args, plus the prose registry) — never from a second hand-maintained
+  inventory, which could go stale in lockstep with the resource and false-pass —
   the same pattern that keeps en/ja docs in sync, extended to help resources. Adding a flag
   without its ja line is a red build, not a silent English leak.
 
@@ -41,14 +55,19 @@ the scope doesn't creep review by review.
 
 - The docs site's generated flag tables (`gen:cli-reference`, adoption item 4) gain a ja variant
   sourced from the same ja resource module — the ja guide pages then carry ja descriptions
-  instead of embedded English tables, closing the note recorded in item 4's addendum.
+  instead of embedded English tables, closing the note recorded in item 4's addendum. The
+  cli-reference drift test grows ja cells: ja descriptions render in the ja tables, and an
+  arg whose ja key is missing renders the en fallback (both pinned).
 - Shell completion descriptions (item 1) remain English — completion scripts are
   machine-consumed and the plugin's own description plumbing is the cosmetic wart already
   documented; not in scope.
 
-## Declared movements (changeset: `svelte-vitals` minor)
+## Deferred implementation release note
 
-1. New behavior: `--help` renders in Japanese under `SVELTE_VITALS_LANG=ja` or a `ja*` locale env.
+This design PR carries no changeset (doc-only). The IMPLEMENTATION PR's changeset
+(`svelte-vitals` minor) will declare:
+
+1. New behavior: `--help` renders in Japanese when the locale resolution above selects ja.
 2. English output byte-identical to today when no ja locale applies — pinned by the existing help
    goldens running under the characterization suite's clean env (which carries no locale vars).
    New goldens pin the ja renders per surface.
@@ -59,7 +78,12 @@ the scope doesn't creep review by review.
 - Locale-selection unit cells (explicit wins, `ja_JP.UTF-8` matches, `en_US` doesn't, absence
   doesn't, garbage doesn't).
 - Completeness drift test (every arg key + prose block has a ja entry).
-- Contract suite untouched — errors are out of scope by design, so nothing there may change.
+- **Runtime-language boundary regression cells**: `@gunshi/plugin-i18n` CAN localize built-in
+  validation errors when fed `builtinResources` — this design deliberately never passes them, and
+  the boundary is pinned by re-running representative error/warning/reporter cells (invalid
+  option value, guard rejection, agent/github reporter outputs) under `SVELTE_VITALS_LANG=ja`
+  and asserting byte-equality with the English baseline. "Errors stay English" is a tested
+  invariant, not a promise.
 
 ## Rejected alternatives
 
