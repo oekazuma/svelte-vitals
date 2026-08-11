@@ -30,6 +30,10 @@ CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typeche
   markdown, then `pnpm --filter svelte-vitals run gen:docs && pnpm format`; `packages/cli/test/docs-embed.test.mjs`
   fails the build if the committed `src/docs/generated.ts` drifts. Keep them terse and terminal-first —
   the site is the complete reference, this set is what a reader needs mid-run.
+- The docs site's CLI flag-reference tables (`guides/(setup)/cli.md` and `install.md`, en+ja, between
+  `<!-- cli-reference:start/end -->` markers) are generated from the gunshi arg declarations: after
+  changing any flag or its description, run `pnpm --filter svelte-vitals run gen:cli-reference && pnpm format`;
+  `packages/cli/test/cli-reference.test.mjs` fails the build on drift. Never edit inside the markers by hand.
 
 The first-party GitHub Action is **not** part of this monorepo — it lives in its own repository,
 [oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action), depending on
