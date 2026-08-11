@@ -11,7 +11,7 @@ For each static `<script type="application/ld+json">`, the content must parse as
 
 ## Unknown type
 
-When a document's `@context` is schema.org, every bare `@type` name in it — at the root, in nested entities (`author`, `publisher`, `offers`, …), and in `@graph` members — is checked against the schema.org vocabulary. A name that isn't an exact, case-sensitive schema.org type produces a finding: `Unknown @type 'article' — not a schema.org type. Did you mean 'Article'?` The suggestion only appears when a case-insensitive match exists in the vocabulary — a dropped or extra letter (`Artcle`) gets no suggestion, since that's not a case difference.
+When a document's `@context` is schema.org, every bare `@type` name in it — at the root, in nested entities (`author`, `publisher`, `offers`, …), and in `@graph` members — is checked against the schema.org vocabulary. A name that isn't an exact, case-sensitive schema.org type produces a finding: `Unknown @type 'article' — not a schema.org type. Did you mean 'Article'?` The suggestion covers casing mismatches (`article`) and small typos — up to 2 dropped, added, or substituted characters (`Artcle`) — against the closest schema.org name; when nothing in the vocabulary is that close, the finding has no suggestion.
 
 IRI (`https://schema.org/Article`) and prefixed (`schema:Article`) `@type` forms are valid JSON-LD and are never flagged — only bare names are checked.
 

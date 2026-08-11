@@ -182,3 +182,13 @@ Follows the repo's committed-generated-file pattern (`packages/cli/src/docs/gene
   variants), so alias-vs-interface filtering alone does not produce a clean vocabulary. The
   generator's explicit exclusion list carries them (plus `WithActionConstraints`), and the sanity
   band still guards against wholesale shape changes.
+
+## Phase-2 note (2026-08-11): distance-1 suggestions shipped
+
+The Corrections section's deferred refinement — edit-distance typo suggestions, the one that makes
+`'Artcle'` → `'Article'` actually fire — is implemented: a bounded in-core Levenshtein (distance
+<= 2, single deterministic suggestion, constants matched to the CLI's did-you-mean UX) runs as a
+fallthrough after the case-insensitive map. Hand-rolled inside core deliberately: the CLI's
+matcher comes from `@gunshi/plugin-suggestion`, and core's zero-dep runtime-agnostic contract
+outranks the CLI-scoped reuse-gunshi preference. Supersession warnings remain the only open
+phase-2 candidate.
