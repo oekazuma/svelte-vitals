@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 // against a stale/unbuilt dist, which a dist-based read could not.
 import { ROOT_ARGS } from '../src/gunshi/analyze.js';
 import { INSTALL_ARGS } from '../src/gunshi/install.js';
+import { JA_ARG_DESCRIPTIONS } from '../src/gunshi/locales/ja.js';
 import { extractBlock, normalizeBlock, renderTable } from '../scripts/cli-reference.mjs';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
@@ -16,9 +17,15 @@ const REGENERATE = 'run `pnpm --filter svelte-vitals run gen:cli-reference && pn
 
 const TARGETS = [
   { file: join(docsRoot, 'guides', '(setup)', 'cli.md'), block: renderTable(ROOT_ARGS) },
-  { file: join(docsRoot, 'ja', 'guides', '(setup)', 'cli.md'), block: renderTable(ROOT_ARGS) },
+  {
+    file: join(docsRoot, 'ja', 'guides', '(setup)', 'cli.md'),
+    block: renderTable(ROOT_ARGS, JA_ARG_DESCRIPTIONS.root)
+  },
   { file: join(docsRoot, 'guides', '(setup)', 'install.md'), block: renderTable(INSTALL_ARGS) },
-  { file: join(docsRoot, 'ja', 'guides', '(setup)', 'install.md'), block: renderTable(INSTALL_ARGS) }
+  {
+    file: join(docsRoot, 'ja', 'guides', '(setup)', 'install.md'),
+    block: renderTable(INSTALL_ARGS, JA_ARG_DESCRIPTIONS.install)
+  }
 ];
 
 describe('docs: the CLI flag reference tables are up to date', () => {
@@ -29,13 +36,25 @@ describe('docs: the CLI flag reference tables are up to date', () => {
     });
   }
 
-  // The en and ja tables are the SAME English-generated block by design (design doc addendum:
-  // flag names/descriptions stay English until i18n adoption lands) — pinning this catches a
-  // future edit that accidentally translates one side without the other.
-  it('the ja tables are byte-identical to their en counterparts', () => {
-    const [enCli, jaCli, enInstall, jaInstall] = TARGETS.map(({ file }) => extractBlock(readFileSync(file, 'utf8')));
-    expect(jaCli).toBe(enCli);
-    expect(jaInstall).toBe(enInstall);
+  // ja `--help` design (docs/superpowers/specs/2026-08-11-cli-ja-help-design.md, item 9): the ja
+  // tables now render from JA_ARG_DESCRIPTIONS, not the English source — pins that a translated
+  // cell really differs from its en counterpart, catching an edit that silently reverts one side
+  // to English (the drift this file's main test cannot catch: a table that matches the generator
+  // because BOTH sides regenerated identically would still pass it).
+  it('a translated cell differs from the English table', () => {
+    const enCli = extractBlock(readFileSync(TARGETS[0].file, 'utf8'));
+    const jaCli = extractBlock(readFileSync(TARGETS[1].file, 'utf8'));
+    expect(jaCli).not.toBe(enCli);
+    expect(jaCli).toContain(JA_ARG_DESCRIPTIONS.root.route);
+    expect(enCli).not.toContain(JA_ARG_DESCRIPTIONS.root.route);
+  });
+
+  // A ja key absent from the resource falls back to the English description, never a blank cell
+  // (same contract `--help` itself has via `localizedOptionsSection`) — exercised directly against
+  // `renderTable` since every key ROOT_ARGS declares does have a ja counterpart today.
+  it('a flag with no ja key falls back to its English description', () => {
+    const table = renderTable({ route: ROOT_ARGS.route }, {});
+    expect(table).toContain(ROOT_ARGS.route.description);
   });
 });
 

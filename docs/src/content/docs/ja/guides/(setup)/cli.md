@@ -39,35 +39,35 @@ npx svelte-vitals@latest apps/web     # 検出をスキップし、apps/web を�
 
 ## フラグ
 
-`svelte-vitals --help` が表示するすべてのフラグです。CLI 自身の引数宣言から生成されており、各行の詳しい使い方・デフォルト値・実行例は以下の各セクションを参照してください（フラグ名と説明は英語のままです — 日本語化は i18n 対応後に予定しています）。
+`svelte-vitals --help` が表示するすべてのフラグです。CLI 自身の引数宣言と ja リソースから生成されており、各行の詳しい使い方・デフォルト値・実行例は以下の各セクションを参照してください（フラグ名自体は CLI の実際の綴りのまま、英語です）。
 
 <!-- cli-reference:start -->
 
-| Flag                                    | Description                                                                                                              |
-| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `--meta-components <meta-components>`   | Comma-separated component names that emit head metadata                                                                  |
-| `--treat-dynamic-as <treat-dynamic-as>` | pass \| warn \| fail (default: pass)                                                                                     |
-| `--route <route>`                       | Only analyze routes matching this glob                                                                                   |
-| `--diff <diff>`                         | Report only findings in files changed vs ref (default HEAD; e.g. --diff main)                                            |
-| `--staged`                              | Report only findings in files staged for commit (pre-commit gate)                                                        |
-| `--baseline <baseline>`                 | Report only findings not present at ref (compare against e.g. origin/main)                                               |
-| `--update-suppressions`                 | Write svelte-vitals-suppressions.json accepting all current findings (introduce gates on legacy projects)                |
-| `--no-suppressions`                     | Ignore svelte-vitals-suppressions.json for this run                                                                      |
-| `--by-route`                            | Show per-route score breakdown in console output                                                                         |
-| `--reporter <reporter>`                 | console \| json \| agent \| sarif \| github \| html \| md (auto: agent under AI-agent envs, github under GitHub Actions) |
-| `--out-file <out-file>`                 | Output path for --reporter html (default: svelte-vitals-report.html; '-' for stdout)                                     |
-| `--fail-on <fail-on>`                   | Fail (exit 1) when any finding reaches this severity: critical \| warning \| info                                        |
-| `--min-health <min-health>`             | Fail (exit 1) when the combined Health score is below this value (0-100)                                                 |
-| `--rules <rules>`                       | Comma-separated rule ids to enable (all others disabled)                                                                 |
-| `--ignore <ignore>`                     | Comma-separated rule ids to disable                                                                                      |
-| `--category <category>`                 | Comma-separated categories to analyze: seo \| performance \| correctness \| security \| architecture                     |
-| `--weights <weights>`                   | Per-category Health weight overrides, e.g. seo=2,performance=1 (unlisted categories default to 1)                        |
-| `--score`                               | Print only the combined Health score (works with --min-health for gating)                                                |
-| `--no-color`                            | Disable ANSI color in console output                                                                                     |
-| `--no-animation`                        | Disable the Health-score reveal animation and mascot on an interactive terminal                                          |
-| `--verbose`                             | Show every finding uncapped and ungrouped (default: capped, grouped by rule)                                             |
-| `-h, --help`                            | Show this help                                                                                                           |
-| `-v, --version`                         | Show version                                                                                                             |
+| Flag                                    | Description                                                                                                                      |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `--meta-components <meta-components>`   | head メタデータを出力するコンポーネント名（カンマ区切り）                                                                        |
+| `--treat-dynamic-as <treat-dynamic-as>` | pass \| warn \| fail（デフォルト: pass）                                                                                         |
+| `--route <route>`                       | 指定した glob に一致するルートのみ解析                                                                                           |
+| `--diff <diff>`                         | ref と比較して変更されたファイルの検出結果のみ報告（デフォルト HEAD。例: --diff main）                                           |
+| `--staged`                              | コミット用にステージされたファイルの検出結果のみ報告（pre-commit ゲート）                                                        |
+| `--baseline <baseline>`                 | ref の時点では存在しなかった検出結果のみ報告（例: origin/main と比較）                                                           |
+| `--update-suppressions`                 | 現在のすべての検出結果を受け入れる svelte-vitals-suppressions.json を書き出す（既存プロジェクトへのゲート導入）                  |
+| `--no-suppressions`                     | この実行に限り svelte-vitals-suppressions.json を無視                                                                            |
+| `--by-route`                            | コンソール出力にルートごとのスコア内訳を表示                                                                                     |
+| `--reporter <reporter>`                 | console \| json \| agent \| sarif \| github \| html \| md（自動選択: AI エージェント環境では agent、GitHub Actions では github） |
+| `--out-file <out-file>`                 | --reporter html の出力先パス（デフォルト: svelte-vitals-report.html。'-' で標準出力）                                            |
+| `--fail-on <fail-on>`                   | 指定した重大度以上の検出結果があれば失敗（終了コード 1）: critical \| warning \| info                                            |
+| `--min-health <min-health>`             | 組み合わせた Health スコアがこの値を下回れば失敗（終了コード 1、0〜100）                                                         |
+| `--rules <rules>`                       | 有効にするルール ID（カンマ区切り、他はすべて無効）                                                                              |
+| `--ignore <ignore>`                     | 無効にするルール ID（カンマ区切り）                                                                                              |
+| `--category <category>`                 | 解析対象カテゴリ（カンマ区切り）: seo \| performance \| correctness \| security \| architecture                                  |
+| `--weights <weights>`                   | カテゴリごとの Health 重み上書き。例: seo=2,performance=1（指定のないカテゴリはデフォルト値 1）                                  |
+| `--score`                               | 組み合わせた Health スコアのみを出力（--min-health と併用してゲートに利用可能）                                                  |
+| `--no-color`                            | コンソール出力の ANSI カラーを無効化                                                                                             |
+| `--no-animation`                        | インタラクティブ端末での Health スコア発表アニメーションとマスコットを無効化                                                     |
+| `--verbose`                             | すべての検出結果を上限・グループ化なしで表示（デフォルトはルールごとにグループ化して上限あり）                                   |
+| `-h, --help`                            | このヘルプを表示                                                                                                                 |
+| `-v, --version`                         | バージョンを表示                                                                                                                 |
 
 <!-- cli-reference:end -->
 
@@ -293,7 +293,21 @@ svelte-vitals --meta-components "SeoHead,PageMeta"
 
 ### `-h, --help`
 
-ヘルプテキストを表示して終了します。
+ヘルプテキストを表示して終了します。解決されたロケールが `ja` のときは日本語で表示されます —
+詳しくは下の[ヘルプの言語](#ヘルプの言語)を参照してください。`--help` 以外の出力（エラー・警告・
+各種レポーター）はロケールに関わらず常に英語のままです。
+
+#### ヘルプの言語
+
+`--help` の言語は環境変数から決まります（POSIX 方式で、最初に空でない値が採用されます）：
+`SVELTE_VITALS_LANG` > `LC_ALL` > `LC_MESSAGES` > `LANG`。値が `ja`・`ja-JP`・`ja_JP.UTF-8` のいず
+れかであれば日本語、それ以外（未設定を含む）は英語になります。`--lang` のようなフラグはありません
+— 端末の環境変数がすでにこれを表しているためです。
+
+```bash
+SVELTE_VITALS_LANG=ja svelte-vitals --help
+LANG=ja_JP.UTF-8 svelte-vitals docs --help
+```
 
 ### `-v, --version`
 

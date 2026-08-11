@@ -94,3 +94,16 @@ This design PR carries no changeset (doc-only). The IMPLEMENTATION PR's changese
   error contract.
 - **A `--lang` flag**: adds a flag to every surface for something the environment already
   expresses; env-only keeps argv byte-compatible.
+
+## Implementation addendum (2026-08-11): the plugin's `help`/`version` common-arg override
+
+Found during implementation: `@gunshi/plugin-i18n` treats any arg literally named `help`/`version`
+as its own "common arg" and self-registers English builtin text for them BEFORE any command's own
+resource is consulted — `arg:help`/`arg:version` in a `withI18nResource` resource are ignored, and
+the only supported override is `i18n({ builtinResources })`, which this design forbids passing
+(it would localize error messages too). Both plugin orders and a companion-plugin
+`registerGlobalOptionResources` call were probed empirically; the plugin guards them into no-ops.
+Workaround, same shape as the sibling `stripAutoVersionLine` quirk: `localizedOptionsSection`
+substitutes the two literal English strings in `generate()`'s output after the fact, pinned by a
+regression test (`gunshi-i18n-common-args.test.ts`) so a gunshi bump that changes those literals
+fails as a named test.

@@ -7,6 +7,7 @@ import { knownRuleIds } from '../rules-config.js';
 import { EMBEDDED_DOCS } from '../docs/generated.js';
 import { DOCS_HELP, knownTopicNames, renderList } from '../docs/cli.js';
 import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine, suggestClosest } from './guard.js';
+import { localizedOptionsSection, type Locale } from './locale.js';
 
 /** docs declares no value-carrying flags today — see guard.ts's own doc comment for why the list is still passed explicitly. */
 const BOOLEAN_FLAGS = ['json', 'help'] as const;
@@ -34,14 +35,18 @@ export const DOCS_SHOW_ARGS = {
  * command's own `args` — same technique as `gunshi/analyze.ts`'s `buildHelpText`. `generate()`
  * always injects a `-v, --version` line (gunshi's hardcoded internal `global()` plugin — confirmed
  * empirically, undocumented) even though `docs` has no working `--version`; `stripAutoVersionLine`
- * drops it so help never advertises a flag that doesn't exist.
+ * drops it so help never advertises a flag that doesn't exist. ja-localized when `locale` is 'ja'
+ * (`docs/superpowers/specs/2026-08-11-cli-ja-help-design.md`).
  */
-async function buildDocsHelpText(rootCommand: Parameters<typeof generate>[1]): Promise<string> {
-  const generated = await generate(null, rootCommand, { name: 'svelte-vitals docs', renderHeader: null });
-  const optionsIndex = generated.indexOf('OPTIONS:');
+async function buildDocsHelpText(rootCommand: Parameters<typeof generate>[1], locale: Locale): Promise<string> {
+  // `./locales/ja.js` is imported dynamically, only on the `ja` branch — an English
+  // invocation of this (already lazily-dispatched) surface never parses the ja strings.
+  const ja = locale === 'ja' ? await import('./locales/ja.js') : undefined;
   const optionsSection = stripAutoVersionLine(
-    optionsIndex === -1 ? generated.trimEnd() : generated.slice(optionsIndex).trimEnd()
+    await localizedOptionsSection(rootCommand, 'svelte-vitals docs', locale, ja?.JA_ARG_DESCRIPTIONS.docs ?? {})
   );
+
+  if (locale === 'ja') return ja!.docsHelpJa(optionsSection);
 
   return `svelte-vitals docs — read the bundled guides without leaving the terminal
 
@@ -72,7 +77,7 @@ called \`docs\`, write \`svelte-vitals ./docs\`.`;
  * fresh on every call (not module-level singletons) so concurrent invocations can't race across
  * `cli()`'s internal `await`s and clobber each other's closure.
  */
-export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): Promise<number> {
+export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO, locale: Locale = 'en'): Promise<number> {
   // `--` must be split off before guard/strip run — see guard.ts's `splitAtTerminator` doc
   // comment. `tail` is appended verbatim to every positional read below.
   const { head, tail } = splitAtTerminator(args);
@@ -102,7 +107,7 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
     args: DOCS_LIST_ARGS,
     run: async (ctx) => {
       if (ctx.values.help) {
-        io.log(await buildDocsHelpText(rootCommand));
+        io.log(await buildDocsHelpText(rootCommand, locale));
         exitCode = 0;
         return;
       }
@@ -144,7 +149,7 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
     args: DOCS_SHOW_ARGS,
     run: async (ctx) => {
       if (ctx.values.help) {
-        io.log(await buildDocsHelpText(rootCommand));
+        io.log(await buildDocsHelpText(rootCommand, locale));
         exitCode = 0;
         return;
       }
@@ -191,7 +196,7 @@ export async function runDocsCliGunshi(args: string[], io: CliIO = consoleIO): P
     subCommands: { list: listCommand, show: showCommand },
     run: async (ctx) => {
       if (ctx.values.help) {
-        io.log(await buildDocsHelpText(rootCommand));
+        io.log(await buildDocsHelpText(rootCommand, locale));
         exitCode = 0;
         return;
       }

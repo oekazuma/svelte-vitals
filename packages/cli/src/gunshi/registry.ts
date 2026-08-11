@@ -10,3 +10,4 @@
  */
 export { ROOT_ARGS } from './analyze.js';
 export { INSTALL_ARGS } from './install.js';
+export { JA_ARG_DESCRIPTIONS } from './locales/ja.js';

@@ -18,7 +18,9 @@ const unitEntryFixtureDir = join(here, 'fixtures', 'unit-entry-project');
 
 async function run(args: string[]) {
   const io = captureIO();
-  const result = await runCli(args, io);
+  // Locale-free env, same reason as help-golden.test.ts: cells asserting en help output
+  // must not inherit the runner's shell locale.
+  const result = await runCli(args, io, {});
   return { ...result, out: io.out, err: io.err };
 }
 

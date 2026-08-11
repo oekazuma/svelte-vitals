@@ -150,6 +150,53 @@ describe('runCli dispatch: `complete` is a new reserved top-level token, wired u
   });
 });
 
+describe('ja `--help` design: SVELTE_VITALS_LANG=ja never reaches the completion tree', () => {
+  /** Mutates real `process.env` (not `runCli`'s injected env param, which `complete` never even
+   * receives — see `cli.ts`'s own doc comment): the completion tree is built from the raw en
+   * declarations regardless, and this proves that holds even against genuine ambient env, not
+   * merely against an unrelated parameter no code path reads. */
+  async function underJaEnv<T>(fn: () => Promise<T>): Promise<T> {
+    const prior = process.env.SVELTE_VITALS_LANG;
+    process.env.SVELTE_VITALS_LANG = 'ja';
+    try {
+      return await fn();
+    } finally {
+      if (prior === undefined) delete process.env.SVELTE_VITALS_LANG;
+      else process.env.SVELTE_VITALS_LANG = prior;
+    }
+  }
+
+  for (const shell of SHELLS) {
+    it(`${shell}: emitted script is byte-identical under a real ja env`, async () => {
+      const baseline = spyLog();
+      await runCompleteCliGunshi(['complete', shell], captureIO());
+      const en = baseline.calls();
+      baseline.restore();
+
+      const under = spyLog();
+      await underJaEnv(() => runCompleteCliGunshi(['complete', shell], captureIO()));
+      const ja = under.calls();
+      under.restore();
+
+      expect(ja).toBe(en);
+    });
+  }
+
+  it('flag/value candidate descriptions are unchanged under a real ja env', async () => {
+    async function candidateLines(words: string[]): Promise<string> {
+      const log = spyLog();
+      await runCompleteCliGunshi(['complete', '--', ...words], captureIO());
+      const out = log.calls();
+      log.restore();
+      return out;
+    }
+
+    const en = await candidateLines(['--']);
+    const ja = await underJaEnv(() => candidateLines(['--']));
+    expect(ja).toBe(en);
+  });
+});
+
 describe('spawn the built dist (skipped if `pnpm build` has not run)', () => {
   const cliBin = join(import.meta.dirname, '..', 'dist', 'bin.js');
   const has = existsSync(cliBin);
@@ -188,5 +235,33 @@ describe('spawn the built dist (skipped if `pnpm build` has not run)', () => {
     expect(code).toBe(2);
     expect(stdout).toBe('');
     expect(stderr).toContain("unknown shell 'tcsh'");
+  });
+});
+
+describe('locale isolation through the real runCli dispatch (explicit env, no process.env mutation)', () => {
+  // Complements the ambient-env cells above: these go through `runCli` itself with injected
+  // envs, so a future `runCli` change that threads locale into the completion path fails here
+  // even if the ambient mechanism stays inert.
+  async function viaRunCli(args: string[], env: NodeJS.ProcessEnv): Promise<string> {
+    const { runCli } = await import('../src/cli.js');
+    const log = spyLog();
+    await runCli(args, captureIO(), env);
+    const out = log.calls();
+    log.restore();
+    return out;
+  }
+
+  for (const shell of SHELLS) {
+    it(`${shell}: script byte-identical between explicit clean and ja envs`, async () => {
+      const en = await viaRunCli(['complete', shell], {});
+      const ja = await viaRunCli(['complete', shell], { SVELTE_VITALS_LANG: 'ja' });
+      expect(ja).toBe(en);
+    });
+  }
+
+  it('candidate descriptions byte-identical between explicit clean and ja envs', async () => {
+    const en = await viaRunCli(['complete', '--', '--'], {});
+    const ja = await viaRunCli(['complete', '--', '--'], { SVELTE_VITALS_LANG: 'ja' });
+    expect(ja).toBe(en);
   });
 });

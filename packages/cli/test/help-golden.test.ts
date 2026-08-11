@@ -8,7 +8,9 @@ import { captureIO } from './helpers/capture-io.js';
 
 async function cli(args: string[]): Promise<{ code: number; out: string; err: string }> {
   const io = captureIO();
-  const { code } = await runCli(args, io);
+  // Explicit locale-free env: the en goldens must pin en output regardless of the runner's
+  // shell locale (a ja-locale maintainer machine must not fail `pnpm test`).
+  const { code } = await runCli(args, io, {});
   return { code, out: io.out, err: io.err };
 }
 
