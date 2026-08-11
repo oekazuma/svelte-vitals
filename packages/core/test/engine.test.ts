@@ -150,8 +150,6 @@ describe('runRules examined counts — the four architecture directory rules tog
   });
 });
 
-// Audit 2608-CORE-06: one rule throwing must not take the whole analysis down (dev tooling must
-// never throw). CORE-07's sibling fix did the same for an unparsable file (`parseFailed`).
 describe('runRules — a throwing rule is isolated', () => {
   it('does not throw itself, and leaves the healthy rules’ results intact', async () => {
     const { results, failedRules } = await runRules(
