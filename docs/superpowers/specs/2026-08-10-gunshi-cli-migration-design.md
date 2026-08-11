@@ -326,3 +326,77 @@ packages total reach some form of "installed" for this feature
 (`@gunshi/plugin-completion`, `@gunshi/plugin`, `@bomb.sh/tab`, `@gunshi/plugin-i18n`), not zero
 and not one; import cost is unaffected on the analyzer hot path either way, since `complete.ts` is
 reached only via a dynamic `import()` behind the new `complete` token.
+
+## Addendum (2026-08-11): docs-site CLI flag reference generated from the arg declarations
+
+Adoption item 4. The docs site hand-documented flags in prose (`docs/src/content/docs/guides/
+(setup)/cli.md`'s `## Flags` section, one `### --flag` per entry; `install.md`'s `## --flag`
+sections) — the last remaining home of the help-drift class this migration otherwise already
+killed for `--help` itself. `docs`/`explain`/`ci`'s sections in `cli.md` only ever mention their
+flags inline (`docs list [--json]`, prose examples), never as an enumerated per-flag reference, so
+they were left hand-written rather than generated — nothing there to keep in sync mechanically,
+and generating one would be a page nobody asked for.
+
+**Mechanism: a new tsup entry, not a TypeScript-source import.** Plain `node` (the generator runs
+outside vitest) strips a single file's types but does not resolve the `.js`-specifier-pointing-at-
+a-sibling-`.ts`-file convention every `gunshi/*.ts` module uses internally (confirmed empirically —
+`node b.ts` importing `./a.js` when only `a.ts` exists throws `ERR_MODULE_NOT_FOUND`, with or
+without `--experimental-strip-types`). `ROOT_ARGS`/`INSTALL_ARGS` were already hoisted to
+module-level exports for `gunshi/complete.ts`'s benefit; `packages/cli/src/gunshi/registry.ts` is a
+one-more-hop barrel re-exporting just those two (not all five — `docs`/`explain`/`ci` have no
+generated table to feed), built as its own `tsup.config.ts` entry (`gunshi-registry`, object-form
+so the output name is pinned to `dist/gunshi-registry.js` rather than left to esbuild's outbase
+inference) and deliberately **not** added to `package.json`'s `exports` map — generator-only
+plumbing, not a documented library surface. `sideEffects: false` lets esbuild tree-shake the rest
+of `analyze.ts`/`install.ts` (clack prompts, `readPackageVersion()`, etc.) out of that entry;
+verified empirically at 385 bytes built. `scripts/gen-cli-reference.mjs` imports from that dist
+file (`pnpm --filter svelte-vitals... build` runs first, matching `gen:rules-index`'s own
+build-then-import precedent); the committed-vs-generated **test**
+(`packages/cli/test/cli-reference.test.mjs`) instead imports `ROOT_ARGS`/`INSTALL_ARGS` straight
+from `../src/gunshi/{analyze,install}.js` — vitest's transform resolves those specifiers, so the
+test catches drift even against a stale or unbuilt dist, which reading through dist could not.
+
+**Shape: a Markdown table rendered directly from the `ArgSchema` objects, not `generate()`'s
+terminal-formatted text.** `generate()` (from `gunshi/generator`) — the same function
+`analyze.ts`/`docs.ts`/`explain.ts`/`install.ts`/`ci.ts` already call to build their hybrid
+`--help` text — renders an `OPTIONS:`-headed, fixed-width-aligned block meant for a terminal;
+pasted into a Markdown page it would need a `text` code fence, losing table semantics, links, and
+scanability. `@gunshi/docs`'s own "Generating Unix Man Pages" guide
+(`node_modules/@gunshi/docs/src/guide/advanced/docs-gen.md`) demonstrates exactly the alternative
+used here: iterate `Object.entries(args)` and render a custom Markdown structure from `type`,
+`short`, and `description` directly — the guide's own "Leveraging Custom Renderers" / "Enhancing
+Generated Content" sections recommend this for non-terminal targets. The table's **Flag** column
+mirrors what `--help` actually renders (verified against the built CLI): the value placeholder is
+the arg's own kebab-cased key, e.g. `--out-file <out-file>`, never an invented metavar (no current
+arg sets `ArgSchema.metavar`) — this is why the placeholder never drifts, it has no independent
+source. `toKebab` args (`--no-suppressions` etc.) are kebab-cased via `gunshi/utils`'s `kebabnize`
+(imported, matching `complete.ts`'s own `forCompletion` — never reimplemented), and `hidden`
+entries (install's obsolete `scope`) are dropped, matching both `--help` and the completion tree.
+
+**"Byte-for-byte" means the words, not the raw bytes.** A table cell cannot hold a literal newline;
+`INSTALL_ARGS.client`/`app`/`refresh` wrap across several lines for terminal `--help`. The
+generator collapses internal whitespace to single spaces and escapes `|` (several descriptions are
+enum-style, e.g. `--reporter`'s "console | json | agent | ...") — every word `--help` prints
+survives, only the terminal-oriented line-wrapping doesn't. The drift test compares through
+`normalizeBlock` (imported from `rules-index.mjs` — oxfmt's own table repadding and prose
+rewrapping already required exactly this comparison-not-string-equality strategy there, reused
+as-is rather than reimplemented).
+
+**Insertion: HTML comment markers (`<!-- cli-reference:start/end -->`) in plain `.md` files**, not
+`rules-index.mjs`'s `{/* ... */}` JS-comment markers — that style exists solely because MDX
+(`@mdx-js/mdx`) rejects raw HTML comments, and `cli.md`/`install.md` are plain Markdown, where
+standard HTML comments are simpler and need no MDX workaround. The table sits right after each
+page's `## Flags`/`## --client <ids>` intro, above the pre-existing hand-written per-flag prose
+sections (which stay exactly as authored — usage examples, cross-links, edge-case notes the
+one-line `--help` descriptions never carried, and this generator does not touch).
+
+**ja pages embed the same English-generated block** (`gen-cli-reference.mjs` writes one rendered
+table into all four files: `cli.md`/`install.md` × en/ja) — flag names and descriptions are English
+in the `ArgSchema` declarations today, so translating them per-locale would itself be a duplicated,
+driftable copy. Each ja page carries one hand-written sentence outside the markers noting the block
+regenerates from ja resources once i18n adoption (item 2, `@gunshi/plugin-i18n`) lands; the test
+pins en/ja byte-identity so a future edit can't translate one side without the other unnoticed.
+
+No changeset: doc-site content plus an internal generator/test/build-entry, zero change to any
+published package's runtime behavior or public export surface (`gunshi-registry` is a build
+artifact, not an `exports` entry).

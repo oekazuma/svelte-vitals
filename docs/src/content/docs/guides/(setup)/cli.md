@@ -41,6 +41,39 @@ npx svelte-vitals@latest apps/web     # skips detection entirely — analyzes ap
 
 ## Flags
 
+Every flag `svelte-vitals --help` prints, generated from the CLI's own argument declarations —
+see below each row for usage notes, defaults, and examples.
+
+<!-- cli-reference:start -->
+
+| Flag                                    | Description                                                                                                              |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `--meta-components <meta-components>`   | Comma-separated component names that emit head metadata                                                                  |
+| `--treat-dynamic-as <treat-dynamic-as>` | pass \| warn \| fail (default: pass)                                                                                     |
+| `--route <route>`                       | Only analyze routes matching this glob                                                                                   |
+| `--diff <diff>`                         | Report only findings in files changed vs ref (default HEAD; e.g. --diff main)                                            |
+| `--staged`                              | Report only findings in files staged for commit (pre-commit gate)                                                        |
+| `--baseline <baseline>`                 | Report only findings not present at ref (compare against e.g. origin/main)                                               |
+| `--update-suppressions`                 | Write svelte-vitals-suppressions.json accepting all current findings (introduce gates on legacy projects)                |
+| `--no-suppressions`                     | Ignore svelte-vitals-suppressions.json for this run                                                                      |
+| `--by-route`                            | Show per-route score breakdown in console output                                                                         |
+| `--reporter <reporter>`                 | console \| json \| agent \| sarif \| github \| html \| md (auto: agent under AI-agent envs, github under GitHub Actions) |
+| `--out-file <out-file>`                 | Output path for --reporter html (default: svelte-vitals-report.html; '-' for stdout)                                     |
+| `--fail-on <fail-on>`                   | Fail (exit 1) when any finding reaches this severity: critical \| warning \| info                                        |
+| `--min-health <min-health>`             | Fail (exit 1) when the combined Health score is below this value (0-100)                                                 |
+| `--rules <rules>`                       | Comma-separated rule ids to enable (all others disabled)                                                                 |
+| `--ignore <ignore>`                     | Comma-separated rule ids to disable                                                                                      |
+| `--category <category>`                 | Comma-separated categories to analyze: seo \| performance \| correctness \| security \| architecture                     |
+| `--weights <weights>`                   | Per-category Health weight overrides, e.g. seo=2,performance=1 (unlisted categories default to 1)                        |
+| `--score`                               | Print only the combined Health score (works with --min-health for gating)                                                |
+| `--no-color`                            | Disable ANSI color in console output                                                                                     |
+| `--no-animation`                        | Disable the Health-score reveal animation and mascot on an interactive terminal                                          |
+| `--verbose`                             | Show every finding uncapped and ungrouped (default: capped, grouped by rule)                                             |
+| `-h, --help`                            | Show this help                                                                                                           |
+| `-v, --version`                         | Show version                                                                                                             |
+
+<!-- cli-reference:end -->
+
 ### `--reporter <fmt>`
 
 Select the output format.
