@@ -1,19 +1,10 @@
 import type { Config, Result, Severity } from '../types.js';
 import { classify, effectiveSeverity } from '../summary.js';
 import { computeHealth } from '../scoring/score.js';
+import { mdEscape } from './sanitize.js';
 
 /** Sort order so the most severe findings (and the groups holding them) surface first. */
 const SEVERITY_RANK: Record<Severity, number> = { critical: 0, warning: 1, info: 2 };
-
-/**
- * Wrap bare tag-like tokens (`<title>`, `<meta …>`, `<svelte:head>`) in inline
- * code. Markdown renderers (GitHub etc.) treat raw `<…>` as HTML and strip it,
- * which would drop the most important context from the report; inline code
- * survives both rendering and raw agent consumption.
- */
-function mdTags(text: string): string {
-  return text.replace(/<[^>]+>/g, (tag) => `\`${tag}\``);
-}
 
 /** Render failing findings as an agent-actionable Markdown remediation document (issue #18). */
 export function formatAgentReport(results: Result[], config: Config): string {
@@ -51,17 +42,20 @@ export function formatAgentReport(results: Result[], config: Config): string {
         SEVERITY_RANK[effectiveSeverity(x, config)] - SEVERITY_RANK[effectiveSeverity(y, config)] ||
         x.id.localeCompare(y.id)
     );
-    lines.push(`## ${loc}`, '');
+    // Escaped here at the push site, not on the Map key above — grouping/sorting must
+    // stay keyed by the raw location, or two distinct locations that only differ in
+    // what mdEscape neutralizes (e.g. embedded newlines) would merge into one group.
+    lines.push(`## ${mdEscape(loc)}`, '');
     for (const r of rs) {
-      lines.push(`### ${r.id} · ${mdTags(r.message)} (${effectiveSeverity(r, config)})`);
+      lines.push(`### ${r.id} · ${mdEscape(r.message)} (${effectiveSeverity(r, config)})`);
       if (r.fix) {
-        lines.push(`- Fix: ${mdTags(r.fix.description)}`);
+        lines.push(`- Fix: ${mdEscape(r.fix.description)}`);
         if (r.fix.snippet) lines.push('', '```' + (r.fix.lang ?? 'svelte'), r.fix.snippet, '```');
       } else if (r.recommendation) {
-        lines.push(`- Fix: ${mdTags(r.recommendation)}`);
+        lines.push(`- Fix: ${mdEscape(r.recommendation)}`);
       }
       if (r.docsUrl) lines.push(`- Docs: ${r.docsUrl}`);
-      lines.push(`- Accept: re-run svelte-vitals; ${r.id} passes${r.route ? ` for ${r.route}` : ''}.`, '');
+      lines.push(`- Accept: re-run svelte-vitals; ${r.id} passes${r.route ? ` for ${mdEscape(r.route)}` : ''}.`, '');
     }
   }
 
