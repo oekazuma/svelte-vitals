@@ -24,6 +24,10 @@ describe('terminalSafe', () => {
     expect(terminalSafe('line one\n\tline two')).toBe('line one\n\tline two');
   });
 
+  it('strips a bare carriage return (line-overwrite spoofing)', () => {
+    expect(terminalSafe('looks fine\roverwritten')).toBe('looks fineoverwritten');
+  });
+
   it('leaves clean text untouched', () => {
     expect(terminalSafe('src/routes/blog/+page.svelte')).toBe('src/routes/blog/+page.svelte');
   });

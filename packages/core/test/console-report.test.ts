@@ -353,12 +353,12 @@ describe('formatConsoleReport', () => {
         detection: { presence: 'none', value: 'absent' },
         route: '/evil\x1b]0;pwned\x07\x1b[2J',
         location: 'src/routes/evil\x07/+page.svelte',
-        message: 'Missing title\x1b[31m fake red\x1b[0m'
+        message: 'Missing title\x1b[31m fake red\x1b[0m\roverwrite'
       }
     ];
     const out = formatConsoleReport(hostile, config, { verbose: true });
     // eslint-disable-next-line no-control-regex -- asserting these bytes are gone
-    expect(out).not.toMatch(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/);
+    expect(out).not.toMatch(/[\x00-\x08\x0b-\x1f\x7f]/);
     expect(out).not.toContain('\x1b');
     // The OSC title-bar payload ("pwned") is part of the stripped escape sequence, not
     // surviving text — only the legitimate route/message text around it remains.

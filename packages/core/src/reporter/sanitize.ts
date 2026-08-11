@@ -56,6 +56,6 @@ export function terminalSafe(text: string): string {
   return text
     .replace(/\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)?/g, '') // OSC ... (BEL | ST)
     .replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, '') // CSI ... final byte
-    .replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '');
+    .replace(/[\x00-\x08\x0b-\x1f\x7f]/g, '');
 }
 /* oxlint-enable no-control-regex */
