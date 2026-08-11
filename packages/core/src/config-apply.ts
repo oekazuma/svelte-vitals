@@ -18,6 +18,24 @@ export function selectRules(rules: Rule[], config: Config): Rule[] {
   return rules.filter((rule) => settingSeverity(config.rules[rule.id]) !== 'off');
 }
 
+/**
+ * `config` with `failedRuleIds` (from `runRules`' `failedRules`) forced `'off'`: a rule that threw
+ * examined nothing, so leaving it in the inventory would score it as if it had run clean, silently
+ * inflating Health. Reuses the exact mechanism a `rules: { id: 'off' }` config entry already gets —
+ * `selectRules`/`buildInventory` both drop an `'off'` id from the denominator — rather than adding a
+ * second, parallel notion of "not counted" for callers to keep in sync.
+ */
+export function withFailedRulesOff(config: Config, failedRuleIds: readonly string[]): Config {
+  if (failedRuleIds.length === 0) return config;
+  return {
+    ...config,
+    rules: {
+      ...config.rules,
+      ...Object.fromEntries(failedRuleIds.map((id): [string, RuleSetting] => [id, 'off']))
+    }
+  };
+}
+
 /** Apply per-rule severity overrides to results (design §6). */
 export function applyRuleSeverities(results: Result[], config: Config): Result[] {
   return results.map((result) => {

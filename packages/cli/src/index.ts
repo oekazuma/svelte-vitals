@@ -18,6 +18,7 @@ import {
   applyRuleSeverities,
   applyOverrides,
   settingSeverity,
+  withFailedRulesOff,
   type Severity,
   type RuleSetting,
   type RuleOverride,
@@ -262,6 +263,15 @@ function skippedFileWarnings(facts: { file: string; parseFailed?: true }[]): str
 }
 
 /**
+ * Warn about rules `runRules` caught throwing (dev tooling must never throw): the run completes
+ * without them, so any findings they would have produced are simply missing rather than reported
+ * as clean. Message capped to its first line so a multi-line stack trace can't flood the terminal.
+ */
+function failedRuleWarnings(failedRules: { id: string; message: string }[]): string[] {
+  return failedRules.map((f) => `rule ${f.id} failed and was skipped: ${f.message.split('\n')[0]}`);
+}
+
+/**
  * Run static-mode analysis and return the structured findings + resolved config.
  * Throws ProjectError when `cwd` is not a SvelteKit project. Also throws when a
  * `svelte-vitals.config.{mjs,js,ts}` file in `cwd` fails to load or fails
@@ -307,7 +317,11 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   });
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
-  const { results: rawResults, examined } = await runRules(rules, {
+  const {
+    results: rawResults,
+    examined,
+    failedRules
+  } = await runRules(rules, {
     heads,
     images,
     headings,
@@ -318,13 +332,21 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     sourceFiles
   });
   const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
+  // A failed rule examined nothing, so its weight must not stay in the Health denominator — else it
+  // would score as if it had run clean. Returned as the config this function hands back (not just a
+  // local copy) so every downstream consumer — CLI health/exit-code checks and the reporters, which
+  // each recompute Health from `config` — agrees on the same score.
+  const scoringConfig = withFailedRulesOff(
+    config,
+    failedRules.map((f) => f.id)
+  );
   return {
     results,
-    config,
+    config: scoringConfig,
     version: readPackageVersion(),
     ruleIds: rules.map((r) => r.id),
     examined,
-    warnings: [...warnings, ...skippedFileWarnings([...components, ...kitModules])],
+    warnings: [...warnings, ...skippedFileWarnings([...components, ...kitModules]), ...failedRuleWarnings(failedRules)],
     loadedConfig: loaded
   };
 }

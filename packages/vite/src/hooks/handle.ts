@@ -82,8 +82,20 @@ async function analyzeAndIngest(
     const project: Project = { hasRobotsTxt: true, hasSitemap: true, htmlLang };
     // No JSON report is built here — results are POSTed to the dashboard ingest — so the
     // examined counts have nowhere to go and are dropped.
-    const { results: ruleResults } = await runRules(rules, { heads: [head], headings, images, project, config });
+    const { results: ruleResults, failedRules } = await runRules(rules, {
+      heads: [head],
+      headings,
+      images,
+      project,
+      config
+    });
     const results = applyRuleSeverities(ruleResults, config);
+
+    // Same debug-only channel as this function's own catch below — a failed rule is dropped
+    // silently otherwise, since this hot per-request path has no other diagnostics surface.
+    if (failedRules.length > 0 && globalThis.process?.env?.SVELTE_VITALS_DEBUG) {
+      for (const f of failedRules) console.warn(`[svelte-vitals] rule ${f.id} failed and was skipped: ${f.message}`);
+    }
 
     // Skip a repeat POST (and the SSE churn it would cause) when a route re-renders
     // with the exact same findings — e.g. an unrelated HMR pass.

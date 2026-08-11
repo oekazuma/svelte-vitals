@@ -64,6 +64,7 @@ export type { Rule, RuleContext } from './rule.js';
 export { isPenalized, docsUrlFor } from './rule.js';
 
 export { runRules } from './engine.js';
+export type { FailedRule } from './engine.js';
 export {
   allRules,
   explainRule,
@@ -170,7 +171,8 @@ export {
   compileOverrides,
   overrideMatches,
   settingSeverity,
-  settingOptions
+  settingOptions,
+  withFailedRulesOff
 } from './config-apply.js';
 export type { CompiledOverride } from './config-apply.js';
 

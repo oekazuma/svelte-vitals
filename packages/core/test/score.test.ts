@@ -1,6 +1,6 @@
 // Scores are floored, not rounded (2026-07-31): a displayed 100 means the deduction was exactly zero.
 import { describe, it, expect } from 'vitest';
-import { computeScore, defineConfig, scoresByCategory, type Result } from '../src/index.js';
+import { computeScore, defineConfig, scoresByCategory, withFailedRulesOff, type Result } from '../src/index.js';
 import type { Rule } from '../src/rule.js';
 import { buildInventory, DEDUCTION } from '../src/scoring/inventory.js';
 import { INVENTORY_FLOOR } from '../src/scoring/score.js';
@@ -540,6 +540,26 @@ describe('computeScore — a disabled rule injected via options.rules', () => {
     const { score } = computeScore(results, config, { rules: [off, enabled], applyCriticalCap: false });
     expect(Number.isFinite(score)).toBe(true);
     expect(score).toBe(96);
+  });
+});
+
+describe('computeScore — a rule that threw at runtime (withFailedRulesOff)', () => {
+  // Six warning rules share a pair (inventory 30, above the floor). Rule a/5 "crashed" — it
+  // produced no results, exactly like one that ran clean, so its own absence from `results`
+  // can't distinguish the two cases; only the config it's scored under can.
+  const rules = Array.from({ length: 6 }, (_, i) => r(`a/${i}`, 'architecture', 'component', 'warning'));
+  const results = [fail('a/0', 'src/A.svelte', 'warning')];
+
+  it('WITH the crashed rule still counted in the inventory (pre-fix), it scores as if a/5 passed', () => {
+    const config = defineConfig({});
+    const { score } = computeScore(results, config, { rules, applyCriticalCap: false });
+    expect(score).toBe(83); // 100 - 500/30
+  });
+
+  it('WITHOUT it — withFailedRulesOff drops its weight — the same failure scores lower, not inflated', () => {
+    const config = withFailedRulesOff(defineConfig({}), ['a/5']);
+    const { score } = computeScore(results, config, { rules, applyCriticalCap: false });
+    expect(score).toBe(80); // 100 - 500/25 (inventory 25, floor)
   });
 });
 

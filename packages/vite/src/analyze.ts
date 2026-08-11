@@ -100,7 +100,11 @@ export async function analyze(
   };
   const kitModules = await collectKitModuleFacts(cwd, project.kitAliases);
   const selected = selectRules(allRules, config);
-  const { results: rawResults, examined } = await runRules(selected, {
+  const {
+    results: rawResults,
+    examined,
+    failedRules
+  } = await runRules(selected, {
     heads,
     headings,
     images,
@@ -111,6 +115,11 @@ export async function analyze(
     sourceFiles
   });
   const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
+  // Surfaced through the same `warnings` channel as config-file issues (plugin.ts logs each with
+  // `console.warn`). A crashed rule's weight stays in `score`'s inventory below (scored as if it
+  // ran clean) — apply `withFailedRulesOff(config, failedRules.map((f) => f.id))` here too if
+  // build-mode Health needs the same correction the CLI's `analyzeProject` applies.
+  for (const f of failedRules) warnings.push(`rule ${f.id} failed and was skipped: ${f.message.split('\n')[0]}`);
 
   const { score } = computeScore(results, config);
   const summary = summarize(results, config);

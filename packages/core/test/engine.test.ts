@@ -41,6 +41,48 @@ function ruleThatDoesNot(id: string): Rule {
   } as unknown as Rule;
 }
 
+function ruleThatFindsOne(id: string): Rule {
+  return {
+    id,
+    title: id,
+    category: 'architecture',
+    severity: 'info',
+    scope: 'component',
+    rationale: '',
+    async check() {
+      return [
+        {
+          id,
+          category: 'architecture',
+          severity: 'info',
+          message: 'x',
+          detection: { presence: 'none', value: 'absent' }
+        }
+      ];
+    }
+  } as unknown as Rule;
+}
+
+/** `sync` throws before ever returning a promise; the default (async) rejects the promise `check` returns. */
+function ruleThatThrows(id: string, message: string, mode: 'sync' | 'async' = 'async'): Rule {
+  return {
+    id,
+    title: id,
+    category: 'architecture',
+    severity: 'info',
+    scope: 'component',
+    rationale: '',
+    check:
+      mode === 'sync'
+        ? () => {
+            throw new Error(message);
+          }
+        : async () => {
+            throw new Error(message);
+          }
+  } as unknown as Rule;
+}
+
 describe('runRules examined counts', () => {
   it('keys a rule’s counts by its id', async () => {
     const { examined } = await runRules([ruleThatCounts('a/one', { 'x → y': 3 })], ctx);
@@ -105,5 +147,48 @@ describe('runRules examined counts — the four architecture directory rules tog
     expect(examined['architecture/reserved-directory-names']?.['src/**']).toBe(1);
     expect(examined['architecture/directory-naming']?.['src/routes/*']).toBe(1);
     expect(examined['architecture/unit-entry-file']?.['src/lib/svc/*']).toBe(1);
+  });
+});
+
+// Audit 2608-CORE-06: one rule throwing must not take the whole analysis down (dev tooling must
+// never throw). CORE-07's sibling fix did the same for an unparsable file (`parseFailed`).
+describe('runRules — a throwing rule is isolated', () => {
+  it('does not throw itself, and leaves the healthy rules’ results intact', async () => {
+    const { results, failedRules } = await runRules(
+      [ruleThatFindsOne('a/before'), ruleThatThrows('a/boom', 'kaboom'), ruleThatFindsOne('a/after')],
+      ctx
+    );
+    expect(results.map((r) => r.id)).toEqual(['a/before', 'a/after']);
+    expect(failedRules).toEqual([{ id: 'a/boom', message: 'kaboom' }]);
+  });
+
+  it('reports the failed rule’s id and message in failedRules', async () => {
+    const { failedRules } = await runRules([ruleThatThrows('a/boom', 'kaboom')], ctx);
+    expect(failedRules).toEqual([{ id: 'a/boom', message: 'kaboom' }]);
+  });
+
+  it('keeps a healthy rule’s examined counts when a sibling throws', async () => {
+    const { examined, failedRules } = await runRules(
+      [ruleThatCounts('a/fine', { g: 1 }), ruleThatThrows('a/boom', 'kaboom')],
+      ctx
+    );
+    expect(examined).toEqual({ 'a/fine': { g: 1 } });
+    expect(failedRules.map((f) => f.id)).toEqual(['a/boom']);
+  });
+
+  it('isolates a rule that throws synchronously, not just one that rejects its promise', async () => {
+    const { results, failedRules } = await runRules([ruleThatThrows('a/sync-boom', 'sync kaboom', 'sync')], ctx);
+    expect(results).toEqual([]);
+    expect(failedRules).toEqual([{ id: 'a/sync-boom', message: 'sync kaboom' }]);
+  });
+
+  it('isolates a rule that rejects its promise (the default async throw)', async () => {
+    const { failedRules } = await runRules([ruleThatThrows('a/async-boom', 'async kaboom', 'async')], ctx);
+    expect(failedRules).toEqual([{ id: 'a/async-boom', message: 'async kaboom' }]);
+  });
+
+  it('gives failedRules an empty array when nothing failed', async () => {
+    const { failedRules } = await runRules([ruleThatDoesNot('a/fine')], ctx);
+    expect(failedRules).toEqual([]);
   });
 });
