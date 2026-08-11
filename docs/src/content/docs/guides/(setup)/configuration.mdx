@@ -205,6 +205,11 @@ Rules that follow imports (`architecture/private-scope-import`, `architecture/ro
 statically, in the same order SvelteKit builds them, and the first matching alias wins, exactly as it
 does at build time.
 
+The CLI's static mode also follows these aliases when it walks component imports to resolve a route's
+`<head>` and headings (a `<title>`/meta/JSON-LD/`<h1>` set by a component imported through `$components`
+or another custom alias, not just `$lib` or a relative import) — so every SEO rule reading that channel
+sees content the same way regardless of which alias reached it.
+
 The following cases are not resolved:
 
 - an alias whose value is computed (`path.resolve(...)`, a template literal) rather than a plain string —

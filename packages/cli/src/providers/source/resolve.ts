@@ -1,4 +1,5 @@
-import type { Config, HeadingInfo, Runtime } from '@svelte-vitals/core';
+import type { Config, HeadingInfo, KitAlias, Runtime } from '@svelte-vitals/core';
+import { resolveRepoLocalPath } from '@svelte-vitals/core';
 import type { ParsedFile, ParsedTag } from './parse.js';
 import { findAdapter } from './adapters/index.js';
 import { parseFile } from './parse.js';
@@ -72,24 +73,23 @@ export function tagKey(tag: ParsedTag): string {
   }
 }
 
-/** Map a local component import to a project-root-relative .svelte path, or undefined. */
-export function resolveComponentPath(source: string, fromFileRel: string): string | undefined {
-  let path: string;
-  if (source.startsWith('$lib/')) {
-    path = `src/lib/${source.slice('$lib/'.length)}`;
-  } else if (source === '$lib') {
-    return undefined;
-  } else if (source.startsWith('./') || source.startsWith('../')) {
-    const dir = fromFileRel.split('/').slice(0, -1);
-    for (const seg of source.split('/')) {
-      if (seg === '.' || seg === '') continue;
-      if (seg === '..') dir.pop();
-      else dir.push(seg);
-    }
-    path = dir.join('/');
-  } else {
-    return undefined; // bare specifier (node_modules) — not transitively parsed (§11 boundary)
-  }
+/**
+ * Map a local component import to a project-root-relative .svelte path, or undefined.
+ * `aliases` (the project's compiled `Project.kitAliases`, omitted for the `$lib`-only
+ * default) is forwarded to core's `resolveRepoLocalPath`, the single site for repo-local
+ * specifier resolution — this function only adds the `.svelte`-extension guessing/guarding
+ * on top, so a custom `svelte.config` alias (`$components`, `$ui`, …) resolves here exactly
+ * as it does for the kit-module and rule-time resolution sites.
+ */
+export function resolveComponentPath(
+  source: string,
+  fromFileRel: string,
+  aliases?: readonly KitAlias[]
+): string | undefined {
+  // Bare `$lib` (no slash) names the lib directory itself, never a component.
+  if (source === '$lib') return undefined;
+  const path = resolveRepoLocalPath(source, fromFileRel, aliases);
+  if (path === undefined) return undefined; // bare specifier, unmatched alias, or an escaping relative path
   if (path.endsWith('.svelte')) return path;
   // A non-.svelte extension (.ts/.js/...) is not a component file we parse.
   if (/\.[^/]+$/.test(path)) return undefined;
@@ -114,7 +114,10 @@ export async function resolveFileTags(
   // Defaults to a fresh, single-call cache so existing direct callers (e.g. unit
   // tests exercising this function in isolation) don't need to pass one; real
   // callers (routes.ts) always pass the shared per-run cache explicitly.
-  cache: ParseCache = new Map()
+  cache: ParseCache = new Map(),
+  // The project's compiled `kitAliases` (undefined -> resolveComponentPath's $lib-only
+  // default), forwarded to every layer-3 component resolution, including recursive calls.
+  aliases?: readonly KitAlias[]
 ): Promise<ResolveResult> {
   const tags: ParsedTag[] = [...parsed.headTags];
   const headings: HeadingInfo[] = [];
@@ -139,13 +142,23 @@ export async function resolveFileTags(
     }
 
     // Layer 3: transitively resolve a user component in src/.
-    const childRel = info ? resolveComponentPath(info.source, fileRel) : undefined;
+    const childRel = info ? resolveComponentPath(info.source, fileRel, aliases) : undefined;
     if (childRel && depth > 0 && !visited.has(childRel)) {
       const abs = rt.join(cwd, childRel);
       if (await rt.exists(abs)) {
         const childParsed = await readAndParse(rt, cwd, childRel, cache);
         const childVisited = new Set(visited).add(childRel);
-        const child = await resolveFileTags(rt, cwd, childRel, childParsed, config, depth - 1, childVisited, cache);
+        const child = await resolveFileTags(
+          rt,
+          cwd,
+          childRel,
+          childParsed,
+          config,
+          depth - 1,
+          childVisited,
+          cache,
+          aliases
+        );
         tags.push(...child.tags);
         broad = broad || child.broad;
         for (const h of childParsed.headings) headings.push({ ...h, file: childRel });

@@ -36,7 +36,7 @@ export { parseComponentFacts } from './component-parse.js';
 export { collectComponentFacts, emptyComponentFacts } from './component-collect.js';
 export { collectSourceFiles } from './source-files.js';
 export type { KitModuleFacts } from './kit-module.js';
-export { parseKitModuleFacts, resolveRunesModuleSpecifier } from './kit-module-parse.js';
+export { parseKitModuleFacts, resolveRunesModuleSpecifier, resolveRepoLocalPath } from './kit-module-parse.js';
 export { collectKitModuleFacts, emptyKitModuleFacts } from './kit-module-collect.js';
 export { findMinifyDisabled } from './vite-config-parse.js';
 export {

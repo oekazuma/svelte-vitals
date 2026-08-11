@@ -3,6 +3,7 @@ import type {
   HeadTag,
   HeadingInfo,
   ImageInfo,
+  KitAlias,
   ResolvedHead,
   ResolvedHeadings,
   ResolvedImages,
@@ -133,7 +134,8 @@ async function resolveRoute(
   pageRel: string,
   config: Config,
   layouts: Map<string, string>,
-  cache: ParseCache
+  cache: ParseCache,
+  aliases: readonly KitAlias[] | undefined
 ): Promise<RouteFacts> {
   const files = chainFiles(pageRel, layouts);
   const composed = new Map<string, HeadTag>();
@@ -157,7 +159,7 @@ async function resolveRoute(
       headings.push({ ...heading, file: rel });
     }
 
-    const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache);
+    const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, aliases);
     for (const tag of resolved.tags) {
       const stamped: HeadTag = { ...tag, presence: isPage ? 'own' : 'inherited', file: rel };
       if (tag.kind === 'jsonld') jsonldTags.push(stamped);
@@ -203,10 +205,13 @@ export async function collectRoutes(
   rt: Runtime,
   cwd: string,
   config: Config = defaultConfig,
-  cache: ParseCache = new Map()
+  cache: ParseCache = new Map(),
+  // The project's compiled `Project.kitAliases` (undefined -> resolveComponentPath's
+  // $lib-only default), forwarded to transitive <head>/heading resolution.
+  aliases?: readonly KitAlias[]
 ): Promise<{ heads: ResolvedHead[]; images: ResolvedImages[]; headings: ResolvedHeadings[] }> {
   const [pages, layouts] = await Promise.all([enumerateRoutePages(rt, cwd), collectLayouts(rt, cwd)]);
-  const facts = await Promise.all(pages.map((page) => resolveRoute(rt, cwd, page, config, layouts, cache)));
+  const facts = await Promise.all(pages.map((page) => resolveRoute(rt, cwd, page, config, layouts, cache, aliases)));
   return {
     heads: facts.map((f) => f.head),
     images: facts.map((f) => f.images),
