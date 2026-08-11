@@ -175,7 +175,7 @@ function collectComponents(node: WalkNode | WalkNode[] | null | undefined, acc: 
   }
 }
 
-export interface ParsedImage {
+interface ParsedImage {
   hasWidth: boolean;
   hasHeight: boolean;
   hasLoading: boolean;
@@ -187,7 +187,7 @@ export interface ParsedImage {
 }
 
 /** A page-body heading (<h1>–<h6>) parsed from one file (seo/single-h1). */
-export interface ParsedHeading {
+interface ParsedHeading {
   /** Heading level 1–6. */
   level: number;
   /** 1-based source line, or 0 if unknown. */
