@@ -3,7 +3,7 @@
 // gate-(b) cells (spike-gunshi-parsing.test.ts) against the guard as actually shipped — driven by
 // the real `VALUE_FLAGS` import from resolve-args.ts, not a second hardcoded flag list.
 import { describe, it, expect } from 'vitest';
-import { guardArgs, splitAtTerminator, stripUnknownFlags } from '../src/gunshi/guard.js';
+import { guardArgs, splitAtTerminator, stripUnknownFlags, suggestClosest } from '../src/gunshi/guard.js';
 import { VALUE_FLAGS } from '../src/resolve-args.js';
 
 describe('guardArgs: value-carrying flags (using the real analyzer VALUE_FLAGS list)', () => {
@@ -121,5 +121,31 @@ describe('stripUnknownFlags', () => {
     // empty flag name, which is never in `knownLong`, so it drops without splitAtTerminator's
     // protection. Pinned so a future edit can't quietly "fix" this function instead.
     expect(stripUnknownFlags(['a', '--', 'b'], long, short)).toEqual(['a', 'b']);
+  });
+});
+
+// did-you-mean addendum (design doc): reuses @gunshi/plugin-suggestion's own exported matcher
+// (defineSuggestNames/levenshtein) at its own default threshold (distance <= 2, one suggestion) —
+// pinned directly here since none of the plugin's own error-hooking machinery ever runs in this
+// CLI (fallbackToEntry:true never constructs a CommandNotFoundError; unknown flags are stripped
+// before gunshi's parser ever sees them, so ArgsValidationError's unknownOption case is equally
+// unreachable) — see suggestClosest's own doc comment in guard.ts.
+describe('suggestClosest', () => {
+  const subcommands = ['docs', 'explain', 'install', 'ci', 'complete'];
+
+  it('a one-edit typo of a known name is suggested', () => {
+    expect(suggestClosest('isntall', subcommands)).toBe('install');
+  });
+
+  it('an exact match "suggests" itself (distance 0, still <= the threshold)', () => {
+    expect(suggestClosest('docs', subcommands)).toBe('docs');
+  });
+
+  it('unrelated input beyond the default distance threshold gets no suggestion', () => {
+    expect(suggestClosest('xyzzyplugh', subcommands)).toBeUndefined();
+  });
+
+  it('an empty candidate list never suggests', () => {
+    expect(suggestClosest('isntall', [])).toBeUndefined();
   });
 });

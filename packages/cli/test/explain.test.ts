@@ -107,6 +107,20 @@ describe('svelte-vitals explain', () => {
     expect(err).toContain("unknown rule id 'NOPE999'");
     expect(err).toContain('known rule ids:');
     expect(err).toContain('seo/title-presence');
+    // NOPE999 is nowhere near any real rule id — no did-you-mean hint (design doc addendum).
+    expect(err).not.toContain('did you mean');
+  });
+
+  it('a one-edit typo of a real rule id gets a did-you-mean hint (design doc addendum)', async () => {
+    const { code, err } = await explain(['seo/ssr-disable']);
+    expect(code).toBe(2);
+    expect(err).toContain("unknown rule id 'seo/ssr-disable'");
+    expect(err).toContain('svelte-vitals: did you mean `svelte-vitals explain seo/ssr-disabled`?');
+  });
+
+  it('the wrong-case rule id above is far enough (case-sensitive match) that it gets no hint either', async () => {
+    const { err } = await explain(['SEO/TITLE-PRESENCE']);
+    expect(err).not.toContain('did you mean');
   });
 
   it('exits 2 when no rule id is given', async () => {

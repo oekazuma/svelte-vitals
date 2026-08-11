@@ -1,3 +1,4 @@
+import { existsSync } from 'node:fs';
 import { parseArgs } from 'node:util';
 import { cli } from 'gunshi/bone';
 import { define } from 'gunshi/definition';
@@ -8,7 +9,15 @@ import { parseRunArgs, resolveArgs, VALUE_FLAGS, type CliArgv } from '../resolve
 import { selectAppPrompt } from '../install/cli.js';
 import { consoleIO, type CliIO } from '../cli-io.js';
 import type { CliResult } from '../cli.js';
-import { guardArgs, splitAtTerminator, stripUnknownFlags } from './guard.js';
+import { guardArgs, splitAtTerminator, stripUnknownFlags, suggestClosest } from './guard.js';
+
+/**
+ * `runCli` (cli.ts)'s reserved first-token dispatch names, hand-kept in sync (five short, stable
+ * tokens) — used only for the `did-you-mean` hint below on an explicit path that resolves to
+ * nothing on disk, e.g. `svelte-vitals isntall`; an existing directory of the same name is always
+ * analyzed as-is, never redirected (see the `existsSync` check at its one call site).
+ */
+const KNOWN_TOP_LEVEL_SUBCOMMANDS = ['docs', 'explain', 'install', 'ci', 'complete'];
 
 const VERSION = readPackageVersion();
 
@@ -298,6 +307,18 @@ export async function runAnalyzeCliGunshi(args: string[], io: CliIO = consoleIO)
         return;
       }
 
+      // Computed before the run — never after — so a coincidental match against something the
+      // analysis itself printed (a finding, a rule id) can't masquerade as a subcommand typo.
+      // Gated on the path not existing at all: an explicit path that IS a real directory is
+      // analyzed as the user asked, even if its name happens to resemble a subcommand.
+      // `options.cwd` is optional only in `RunOptions`'s general shape (embedding callers may omit
+      // it); `resolveArgs` itself always fills it in (`positional ?? process.cwd()`).
+      const explicitCwd = options.cwd ?? process.cwd();
+      const suggestedSubcommand =
+        options.explicitPath && !existsSync(explicitCwd)
+          ? suggestClosest(explicitCwd, KNOWN_TOP_LEVEL_SUBCOMMANDS)
+          : undefined;
+
       const code = await run({
         ...options,
         minHealth,
@@ -305,6 +326,12 @@ export async function runAnalyzeCliGunshi(args: string[], io: CliIO = consoleIO)
         log: io.log,
         errorLog: io.errorLog
       });
+      // `options.cwd` not existing on disk forces `detectProject` to throw `ProjectError` (every
+      // check it runs needs a file under that path), so this is the one message `run()` could have
+      // just printed — appended, never replacing it (design doc invariants).
+      if (suggestedSubcommand !== undefined && code === 2) {
+        io.errorLog(`svelte-vitals: did you mean \`svelte-vitals ${suggestedSubcommand}\`?`);
+      }
       // A write to a pipe is asynchronous, so `process.exit` can discard what has not drained — the report is
       // the largest thing this CLI writes and the first pipe buffer is 65,536 bytes. The empty write's callback
       // fires once the stream has flushed, so it's safe for the thin entry to call `process.exit` as soon as

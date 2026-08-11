@@ -7,7 +7,7 @@ import { realIO } from '../install/cli.js';
 import { WORKFLOW_PATH, buildWorkflowYaml, planWorkflowWrite } from '../ci/workflow.js';
 import { upgradeActionPin } from '../ci/upgrade.js';
 import { ACTION_SHA, ACTION_VERSION } from '../ci/action-pin.generated.js';
-import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine } from './guard.js';
+import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine, suggestClosest } from './guard.js';
 
 /**
  * Frozen error-path text: printed verbatim on `ci`'s non-help exit-2 paths (bare `ci`, an unknown
@@ -256,6 +256,12 @@ export async function runCiCliGunshi(args: string[], io: InstallIO = realIO()): 
     return runCiUpgrade(args.slice(1), io, helpSource);
   }
   if (sub !== 'install') {
+    // A bare `ci` (sub undefined) has no typed token to match against — only a wrong sub-subcommand
+    // name gets a suggestion.
+    if (sub !== undefined) {
+      const hint = suggestClosest(sub, ['install', 'upgrade']);
+      if (hint) io.errorLog(`svelte-vitals: did you mean \`svelte-vitals ci ${hint}\`?`);
+    }
     // Declared movement (design doc invariants / this PR's changeset): stderr, not stdout — the
     // one exit-2 path that used to leave stdout non-empty for callers piping it.
     io.errorLog(CI_HELP);

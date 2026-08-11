@@ -39,6 +39,8 @@ describe('gunshi/bone ci — pinned behavior across the argv-shape matrix', () =
     { name: '--help', args: ['--help'] },
     { name: '-h', args: ['-h'] },
     { name: 'bogus sub', args: ['bogus'] },
+    // did-you-mean addendum (design doc): a close typo of a real sub-subcommand name.
+    { name: 'isntall (typo of install, close enough for a did-you-mean hint)', args: ['isntall'] },
     { name: 'install', args: ['install'] },
     { name: 'install --dry-run', args: ['install', '--dry-run'] },
     { name: 'install --help', args: ['install', '--help'] },
@@ -76,5 +78,26 @@ describe('the declared movement: ci stdout→stderr on exit-2 paths', () => {
     expect(code).toBe(2);
     expect(out).toBe('');
     expect(err).toContain('Usage:');
+  });
+});
+
+// did-you-mean addendum (design doc): appended ahead of the existing CI_HELP dump, never replacing
+// it — CI_HELP has no per-token "unknown sub-subcommand 'x'" line of its own to append after.
+describe('did-you-mean: ci <bogus sub-subcommand>', () => {
+  it('a close typo of install gets a hint', async () => {
+    const { code, err } = await ci(['isntall']);
+    expect(code).toBe(2);
+    expect(err).toContain('svelte-vitals: did you mean `svelte-vitals ci install`?');
+    expect(err).toContain('Usage:'); // CI_HELP still prints in full — additive, not a replacement.
+  });
+
+  it('"bogus" is far enough from install/upgrade that no hint is added', async () => {
+    const { err } = await ci(['bogus']);
+    expect(err).not.toContain('did you mean');
+  });
+
+  it('a bare `ci` has no typed token to suggest against — no hint', async () => {
+    const { err } = await ci([]);
+    expect(err).not.toContain('did you mean');
   });
 });
