@@ -15,7 +15,10 @@ const SEVERITY_RANK: Record<Severity, number> = { critical: 0, warning: 1, info:
  * break table columns specifically.
  */
 function escapeCell(s: string): string {
-  return mdEscape(s).replace(/\|/g, '\\|');
+  // Double any backslash run preceding a pipe before escaping the pipe itself —
+  // otherwise input `\|` becomes `\\|`, where the first backslash escapes the
+  // second and the pipe goes back to being a live table delimiter.
+  return mdEscape(s).replace(/(\\*)\|/g, (_, bs: string) => bs + bs + '\\|');
 }
 
 interface FlatFinding {

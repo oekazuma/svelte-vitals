@@ -175,4 +175,21 @@ describe('formatMarkdownReport', () => {
     expect(out).toContain('Missing robots.txt \\| needed second line');
     expect(out).not.toContain('needed\nsecond line');
   });
+
+  it('keeps a pipe escaped when the input already precedes it with backslashes', () => {
+    const results: Result[] = [
+      {
+        id: 'seo/robots-txt',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        location: 'src/routes/a/+page.svelte',
+        message: 'value \\| split attempt'
+      }
+    ];
+    const out = formatMarkdownReport(results, config, { version: '1.0.0' });
+    // Input `\|` → doubled backslash run + escaped pipe: renders as `\|`, stays one cell.
+    expect(out).toContain('value \\\\\\| split attempt');
+    expect(out).not.toContain('value \\\\| split');
+  });
 });
