@@ -62,6 +62,9 @@ describe('formatGithubReport', () => {
     expect(out).toContain('title=seo/title-presence%3A Title presence');
     // message data: newline → %0A; colon and comma stay literal
     expect(out).toContain('::Missing title: needed Add <title>, set it.%0ASecond line');
+    // The embedded newline can't split this into two workflow-command lines (which would
+    // let a hostile message forge its own `::` annotation) — it stays one `::` command.
+    expect(out.split('\n')).toHaveLength(1);
   });
 
   it('uses result.line in the annotation when present', () => {

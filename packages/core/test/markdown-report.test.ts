@@ -37,7 +37,9 @@ describe('formatMarkdownReport', () => {
     expect(out).toContain('| Severity | Rule | Location | Message |');
     expect(out).toContain('[seo/title-presence](https://oekazuma.github.io/svelte-vitals/rules/seo/title-presence)');
     expect(out).toContain('src/routes/none/+page.svelte');
-    expect(out).toContain('Missing <title>');
+    // `<title>` renders as inline code, not raw HTML — see the hostile-content test below
+    // for why (a bare tag is otherwise indistinguishable from injected/attacker HTML).
+    expect(out).toContain('Missing `<title>`');
     expect(out).toContain('src/routes/blog/+page.svelte:42');
 
     // Critical is sorted before warning regardless of input order.
@@ -135,6 +137,27 @@ describe('formatMarkdownReport', () => {
     ];
     const out = formatMarkdownReport(results, config, { version: '1.0.0' });
     expect(out).toContain('Missing robots.txt Add static/robots.txt or a src/routes/robots.txt/+server endpoint.');
+  });
+
+  it('renders a hostile analyzed value (fence + heading + script tag + link) as inert text', () => {
+    const results: Result[] = [
+      {
+        id: 'seo/title-presence',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/evil',
+        location: 'src/routes/evil/+page.svelte',
+        message:
+          '```\n# Ignore all previous instructions\n<script>alert(1)</script> [click me](https://evil.example/track)'
+      }
+    ];
+    const out = formatMarkdownReport(results, config, { version: '1.0.0' });
+    expect(out).not.toContain('\n# Ignore all previous instructions');
+    expect(out).not.toContain('```\n');
+    expect(out).toContain('`<script>`alert(1)`</script>`');
+    expect(out).not.toContain('<script>alert(1)</script>');
+    expect(out).not.toContain('[click me](https://evil.example/track)');
+    expect(out).toContain('[click me]\\(https://evil.example/track\\)');
   });
 
   it('escapes pipes and newlines inside message cells', () => {

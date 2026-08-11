@@ -1,6 +1,7 @@
 import type { Category, Config, Result, Severity } from '../types.js';
 import { docsUrlFor } from '../rule.js';
 import { buildJsonReport, type JsonReport } from './json.js';
+import { mdEscape } from './sanitize.js';
 
 /** Cap on rendered finding rows — keeps PR comments/job summaries within GitHub's size limits. */
 const MAX_FINDINGS = 50;
@@ -8,9 +9,13 @@ const MAX_FINDINGS = 50;
 const SEVERITY_EMOJI: Record<Severity, string> = { critical: '🔴', warning: '🟡', info: '🔵' };
 const SEVERITY_RANK: Record<Severity, number> = { critical: 0, warning: 1, info: 2 };
 
-/** Escape a value for use inside a Markdown table cell: pipes break columns, newlines break rows. */
+/**
+ * Escape a value for use inside a Markdown table cell: `mdEscape` handles the general
+ * Markdown-position risks (newlines, links, bare HTML tags), and pipes additionally
+ * break table columns specifically.
+ */
 function escapeCell(s: string): string {
-  return s.replace(/\|/g, '\\|').replace(/\r\n|\r|\n/g, ' ');
+  return mdEscape(s).replace(/\|/g, '\\|');
 }
 
 interface FlatFinding {

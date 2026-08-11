@@ -345,6 +345,29 @@ describe('formatConsoleReport', () => {
     expect(out).toContain('Critical (1)'); // body content still present
   });
 
+  it('strips ANSI escapes and C0 control characters from analyzed-derived route/message text', () => {
+    const hostile: Result[] = [
+      {
+        id: 'seo/title-presence',
+        severity: 'critical',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/evil\x1b]0;pwned\x07\x1b[2J',
+        location: 'src/routes/evil\x07/+page.svelte',
+        message: 'Missing title\x1b[31m fake red\x1b[0m'
+      }
+    ];
+    const out = formatConsoleReport(hostile, config, { verbose: true });
+    // eslint-disable-next-line no-control-regex -- asserting these bytes are gone
+    expect(out).not.toMatch(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/);
+    expect(out).not.toContain('\x1b');
+    // The OSC title-bar payload ("pwned") is part of the stripped escape sequence, not
+    // surviving text — only the legitimate route/message text around it remains.
+    expect(out).not.toContain('pwned');
+    expect(out).toContain('/evil');
+    expect(out).toContain('Missing title');
+    expect(out).toContain('fake red');
+  });
+
   it('omitHeader is false by default — header still prints', () => {
     const out = formatConsoleReport(results, config);
     expect(out).toContain('Svelte Vitals');

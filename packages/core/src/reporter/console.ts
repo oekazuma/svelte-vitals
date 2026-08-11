@@ -2,6 +2,7 @@ import type { Category, Config, Result, Severity } from '../types.js';
 import { classify, summarize, effectiveSeverity } from '../summary.js';
 import { computeScore, computeHealth, type ScoreResult } from '../scoring/score.js';
 import { noColorPalette, scoreColor, type Palette } from './palette.js';
+import { terminalSafe } from './sanitize.js';
 
 const RULE = '────────────────────────';
 const SEVERITY_TITLE: Record<Severity, string> = {
@@ -79,9 +80,9 @@ function byRouteTree(p: Palette, results: Result[], config: Config, verbose: boo
   const shown = verbose ? scored : scored.slice(0, MAX_ROUTES_BY_ROUTE);
   const lines: string[] = [p.bold('By route'), p.dim(RULE)];
   for (const { route, rs, score } of shown) {
-    lines.push(`${route.padEnd(28)} ${scoreColor(p, score)(`${score}`)}`);
+    lines.push(`${terminalSafe(route).padEnd(28)} ${scoreColor(p, score)(`${score}`)}`);
     for (const r of rs.filter((x) => classify(x, config) === 'fail')) {
-      lines.push(`    ${p.red('✗')} ${r.id}  ${r.message}`);
+      lines.push(`    ${p.red('✗')} ${r.id}  ${terminalSafe(r.message)}`);
     }
   }
   if (!verbose && scored.length > MAX_ROUTES_BY_ROUTE) {
@@ -136,18 +137,18 @@ export function formatConsoleReport(results: Result[], config: Config, options: 
 
     if (options.verbose) {
       for (const r of bucket) {
-        lines.push(`${p.red('✗')} ${r.id}  ${r.message}`);
-        if (r.route) lines.push(p.dim(`            ${r.route}`));
-        if (r.location) lines.push(p.dim(`            ${r.location}${r.line ? `:${r.line}` : ''}`));
+        lines.push(`${p.red('✗')} ${r.id}  ${terminalSafe(r.message)}`);
+        if (r.route) lines.push(p.dim(`            ${terminalSafe(r.route)}`));
+        if (r.location) lines.push(p.dim(`            ${terminalSafe(r.location)}${r.line ? `:${r.line}` : ''}`));
       }
     } else {
       const groups = groupByRule(bucket);
       const shownGroups = groups.slice(0, MAX_RULE_GROUPS_PER_BUCKET);
       for (const group of shownGroups) {
         const r = group.results[0]!;
-        lines.push(`${p.red('✗')} ${r.id}  ${r.message}`);
-        if (r.route) lines.push(p.dim(`            ${r.route}`));
-        if (r.location) lines.push(p.dim(`            ${r.location}${r.line ? `:${r.line}` : ''}`));
+        lines.push(`${p.red('✗')} ${r.id}  ${terminalSafe(r.message)}`);
+        if (r.route) lines.push(p.dim(`            ${terminalSafe(r.route)}`));
+        if (r.location) lines.push(p.dim(`            ${terminalSafe(r.location)}${r.line ? `:${r.line}` : ''}`));
         if (group.results.length > 1) {
           lines.push(p.dim(`            …and ${group.results.length - 1} more`));
         }
@@ -172,8 +173,8 @@ export function formatConsoleReport(results: Result[], config: Config, options: 
         // only `location`) must still name the unit it checked, not render an identical,
         // path-less line for every one of them.
         const where = r.location ?? r.route;
-        const suffix = where ? `  ${where}` : '';
-        lines.push(`${p.green('✓')} ${r.id}  ${r.message}${marker}${suffix}`);
+        const suffix = where ? `  ${terminalSafe(where)}` : '';
+        lines.push(`${p.green('✓')} ${r.id}  ${terminalSafe(r.message)}${marker}${suffix}`);
       }
     }
     lines.push('');
