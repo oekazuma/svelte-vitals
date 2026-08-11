@@ -1,6 +1,6 @@
 import { WORKFLOW_PATH } from '../ci/workflow.js';
 
-export type ViteTargetId = 'vite-plugin' | 'vite-hooks';
+type ViteTargetId = 'vite-plugin' | 'vite-hooks';
 export type AgentTargetId = 'claude-skill' | 'cursor-rules' | 'claude-skill-improve';
 export type TargetId = ViteTargetId | AgentTargetId | 'config-file' | 'ci-workflow';
 export type TargetKind = 'vite' | 'agent' | 'config' | 'ci';
