@@ -11,7 +11,7 @@ description: ページの JSON-LD は、@context と @type を備えた妥当な
 
 ## 未知の型
 
-ドキュメントの `@context` が schema.org を指している場合、そのドキュメント内のすべての裸の `@type` 名 — ルートだけでなく、ネストしたエンティティ(`author`、`publisher`、`offers` など)や `@graph` メンバー内のものも含む — が schema.org の語彙と照合されます。完全一致・大文字小文字を区別した schema.org の型名でない場合、次のような検出結果になります: `Unknown @type 'article' — not a schema.org type. Did you mean 'Article'?`。この「Did you mean」の提案は、語彙内に大文字小文字違いの一致がある場合にのみ表示されます — 文字の欠落や余分な文字(`Artcle`)は大文字小文字の違いではないため、提案は表示されません。
+ドキュメントの `@context` が schema.org を指している場合、そのドキュメント内のすべての裸の `@type` 名 — ルートだけでなく、ネストしたエンティティ(`author`、`publisher`、`offers` など)や `@graph` メンバー内のものも含む — が schema.org の語彙と照合されます。完全一致・大文字小文字を区別した schema.org の型名でない場合、次のような検出結果になります: `Unknown @type 'article' — not a schema.org type. Did you mean 'Article'?`。この「Did you mean」の提案は、大文字小文字違い(`article`)だけでなく、最大 2 文字の欠落・追加・置換までの軽微なタイプミス(`Artcle`)にも、語彙内で最も近い schema.org の型名として表示されます — 語彙内にそれほど近い型名がない場合、提案なしの検出結果になります。
 
 IRI 形式(`https://schema.org/Article`)やプレフィックス形式(`schema:Article`)の `@type` は妥当な JSON-LD であり、このチェックの対象外です — 裸の名前のみが検査されます。
 

@@ -64,12 +64,55 @@ describe('seo/json-ld-validity: unknown @type vocabulary', () => {
     expect(rs[0]?.message).toBe("Unknown @type 'article' — not a schema.org type. Did you mean 'Article'?");
   });
 
-  it('gives no suggestion for a typo that is not a case-only mismatch', async () => {
+  it('suggests the closest name for a distance-1 typo (dropped letter)', async () => {
     const rs = fails(
       await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Artcle"}')))
     );
     expect(rs).toHaveLength(1);
-    expect(rs[0]?.message).toBe("Unknown @type 'Artcle' — not a schema.org type.");
+    expect(rs[0]?.message).toBe("Unknown @type 'Artcle' — not a schema.org type. Did you mean 'Article'?");
+  });
+
+  it('suggests the closest name for a distance-2 typo (transposition)', async () => {
+    // measured: levenshtein('artilce', 'article') === 2
+    const rs = fails(
+      await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Artilce"}')))
+    );
+    expect(rs).toHaveLength(1);
+    expect(rs[0]?.message).toBe("Unknown @type 'Artilce' — not a schema.org type. Did you mean 'Article'?");
+  });
+
+  it('suggests the closest name for a distance-2 typo (dropped letters)', async () => {
+    // measured: levenshtein('artcl', 'article') === 2
+    const rs = fails(
+      await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Artcl"}')))
+    );
+    expect(rs).toHaveLength(1);
+    expect(rs[0]?.message).toBe("Unknown @type 'Artcl' — not a schema.org type. Did you mean 'Article'?");
+  });
+
+  it('gives no suggestion when nothing in the catalog is within distance 2', async () => {
+    // measured: closest catalog name to 'zebra999' is 'Library' at distance 5; to 'xyzzy' is 'City' at distance 4
+    const rs1 = fails(
+      await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"Zebra999"}')))
+    );
+    expect(rs1[0]?.message).toBe("Unknown @type 'Zebra999' — not a schema.org type.");
+
+    const rs2 = fails(
+      await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"xyzzy"}')))
+    );
+    expect(rs2[0]?.message).toBe("Unknown @type 'xyzzy' — not a schema.org type.");
+  });
+
+  it('breaks a distance tie by sorted catalog order', async () => {
+    // measured: 'bMRadioChannel' is distance 1 from both 'AMRadioChannel' and 'FMRadioChannel';
+    // 'AMRadioChannel' sorts first.
+    const rs = fails(
+      await seoJsonLdValidity.check(ctx(headWithJsonLd('{"@context":"https://schema.org","@type":"bMRadioChannel"}')))
+    );
+    expect(rs).toHaveLength(1);
+    expect(rs[0]?.message).toBe(
+      "Unknown @type 'bMRadioChannel' — not a schema.org type. Did you mean 'AMRadioChannel'?"
+    );
   });
 
   it('passes known types including a nested entity type, unchanged', async () => {
