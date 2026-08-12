@@ -76,18 +76,33 @@ describe('buildSnapshot', () => {
     expect(withFailure.report.score).toBe(expected.score);
   });
 
-  it('scores a static-layer failed rule as not-run when staticConfig is passed', () => {
+  it('scores a static-layer failed rule as not-run when staticFailedRuleIds is passed', () => {
     const store = createStore();
     store.setStatic([r('seo/canonical-url', '/a', { severity: 'warning' })]);
     const config = defineConfig({});
 
     const control = buildSnapshot(store, config, { version: '9.9.9' });
-
-    const staticConfig = withFailedRulesOff(config, ['seo/title-presence']);
-    const withFailure = buildSnapshot(store, config, { version: '9.9.9' }, staticConfig);
+    const withFailure = buildSnapshot(store, config, { version: '9.9.9' }, ['seo/title-presence']);
 
     expect(withFailure.report.score).not.toBe(control.report.score);
-    const expected = buildJsonReport(store.snapshot(), staticConfig, { version: '9.9.9' });
+    const expected = buildJsonReport(store.snapshot(), withFailedRulesOff(config, ['seo/title-presence']), {
+      version: '9.9.9'
+    });
     expect(withFailure.report.score).toBe(expected.score);
+  });
+
+  it('preserves plugin-option weights once the static layer reports a failed rule (regression: config must never swap)', () => {
+    const store = createStore();
+    store.setStatic([r('seo/canonical-url', '/a', { severity: 'warning' })]);
+    // A non-default seo weight, as a plugin-option config would carry — analyzeProject
+    // (and any mocked equivalent) never sees this value, so the fix must thread it through
+    // untouched rather than falling back to analyzeProject's own unweighted config.
+    const weightedConfig = defineConfig({ weights: { seo: 5 } });
+
+    const before = buildSnapshot(store, weightedConfig, { version: '9.9.9' });
+    const after = buildSnapshot(store, weightedConfig, { version: '9.9.9' }, ['seo/title-presence']);
+
+    expect(after.report.weights).toEqual(before.report.weights);
+    expect(after.report.weights.seo).toBe(5);
   });
 });

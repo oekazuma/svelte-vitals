@@ -53,19 +53,16 @@ describe('createAnalysisRunner', () => {
     });
   });
 
-  it('passes the failure-adjusted config through to onResults as a 2nd arg when analyze returns one', async () => {
-    const adjustedConfig = {
-      rules: { 'seo/title-presence': 'off' }
-    } as unknown as import('@svelte-vitals/core').Config;
-    const analyze = vi.fn<AnalyzeFn>(async () => ({ results: [], config: adjustedConfig }));
+  it('passes failedRuleIds through to onResults as a 2nd arg when analyze returns them', async () => {
+    const analyze = vi.fn<AnalyzeFn>(async () => ({ results: [], failedRuleIds: ['seo/title-presence'] }));
     const onResults = vi.fn();
     const runner = createAnalysisRunner({ root: '/proj', analyze, onResults, onError: vi.fn() });
     runner.start();
     await vi.waitFor(() => expect(onResults).toHaveBeenCalledTimes(1));
-    expect(onResults).toHaveBeenCalledWith([], adjustedConfig);
+    expect(onResults).toHaveBeenCalledWith([], ['seo/title-presence']);
   });
 
-  it('calls onResults with a single arg when analyze omits config (existing callers unaffected)', async () => {
+  it('calls onResults with a single arg when analyze omits failedRuleIds (existing callers unaffected)', async () => {
     const analyze = vi.fn<AnalyzeFn>(async () => ({ results: [] }));
     const onResults = vi.fn();
     const runner = createAnalysisRunner({ root: '/proj', analyze, onResults, onError: vi.fn() });

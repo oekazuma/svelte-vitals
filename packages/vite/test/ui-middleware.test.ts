@@ -4,19 +4,23 @@ import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { ViteDevServer } from 'vite';
 import { installUiMiddleware } from '../src/ui/middleware.js';
 import { createStore, type FindingsStore } from '../src/ui/store.js';
-import { defineConfig, type Config } from '@svelte-vitals/core';
+import { defineConfig } from '@svelte-vitals/core';
 
 type MiddlewareHandler = (req: IncomingMessage, res: ServerResponse, next: () => void) => void;
 
 // Capture the handler that installUiMiddleware registers on server.middlewares.use(path, fn).
-function setup(coreVersion?: string, getStaticConfig?: () => Config | undefined, store: FindingsStore = createStore()) {
+function setup(
+  coreVersion?: string,
+  getStaticFailedRuleIds?: () => string[] | undefined,
+  store: FindingsStore = createStore()
+) {
   let handler: MiddlewareHandler = () => {};
   const httpServer = new EventEmitter();
   const server = {
     httpServer,
     middlewares: { use: (_path: string, fn: MiddlewareHandler) => (handler = fn) }
   } as unknown as ViteDevServer;
-  installUiMiddleware(server, defineConfig({}), '9.9.9', store, coreVersion, getStaticConfig);
+  installUiMiddleware(server, defineConfig({}), '9.9.9', store, coreVersion, getStaticFailedRuleIds);
   return {
     store,
     call: (req: IncomingMessage, res: ServerResponse) => handler(req, res, () => {}),
@@ -428,10 +432,10 @@ describe('installUiMiddleware', () => {
     expect(gr.statusCode).not.toBe(500);
   });
 
-  it('reads getStaticConfig per request so a later re-analysis is reflected without re-mounting', () => {
+  it('reads getStaticFailedRuleIds per request so a later re-analysis is reflected without re-mounting', () => {
     // A mutable holder (not a reassigned `let`) so the getter reads whatever's current at
     // request time — the object reference passed to setup() never changes, only its field.
-    const configHolder: { current?: Config } = {};
+    const idsHolder: { current?: string[] } = {};
     const store = createStore();
     store.setStatic([
       {
@@ -443,15 +447,15 @@ describe('installUiMiddleware', () => {
         severity: 'warning'
       }
     ]);
-    const { call } = setup(undefined, () => configHolder.current, store);
+    const { call } = setup(undefined, () => idsHolder.current, store);
 
     const before = res();
     call(getReq('/data.json'), before);
     const beforeScore = JSON.parse(before.chunks.join('')).report.score;
 
-    // A later whole-project run turns the rule off — the getter reads the CURRENT value at
-    // request time, not a snapshot taken when installUiMiddleware was called.
-    configHolder.current = defineConfig({ rules: { 'seo/canonical-url': 'off' } });
+    // A later whole-project run reports seo/canonical-url as failed — the getter reads the
+    // CURRENT value at request time, not a snapshot taken when installUiMiddleware was called.
+    idsHolder.current = ['seo/canonical-url'];
     const after = res();
     call(getReq('/data.json'), after);
     const afterScore = JSON.parse(after.chunks.join('')).report.score;

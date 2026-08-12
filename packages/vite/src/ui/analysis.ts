@@ -1,5 +1,5 @@
 import { relative, sep } from 'node:path';
-import type { Config, Result, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
+import type { Result, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
 import { analyzeProject, type ParseCache } from 'svelte-vitals';
 
 /** The subset of `analyzeProject` (from `svelte-vitals`) the runner needs. Injectable for tests. */
@@ -10,7 +10,7 @@ export type AnalyzeFn = (opts: {
   rules?: Record<string, RuleSetting>;
   failOn?: Severity;
   parseCache?: ParseCache;
-}) => Promise<{ results: Result[]; config?: Config }>;
+}) => Promise<{ results: Result[]; failedRuleIds?: string[] }>;
 
 export interface AnalysisRunnerOptions {
   /** Project root to analyze (passed as `cwd` to `analyzeProject`). */
@@ -21,8 +21,8 @@ export interface AnalysisRunnerOptions {
   failOn?: Severity;
   /** `analyzeProject`-compatible function, injectable for tests. Defaults to `analyzeProject`. */
   analyze?: AnalyzeFn;
-  /** `config` is `analyzeProject`'s failure-adjusted config (crashed rules forced `'off'`) — omitted when the injected `analyze` doesn't return one. */
-  onResults(results: Result[], config?: Config): void;
+  /** `failedRuleIds` is `analyzeProject`'s crashed-rule ids — omitted when the injected `analyze` doesn't return them. Ids only, not a config: the base config (plugin-option weights/overrides included) must stay the caller's, never swapped for `analyzeProject`'s own. */
+  onResults(results: Result[], failedRuleIds?: string[]): void;
   onError(err: unknown): void;
   /** Called `true` right before a run starts its `analyze()` call and `false` once that run settles — including right before a coalesced follow-up starts again, so a rapid burst of changes may emit false-then-true between runs rather than staying true throughout. */
   onStatusChange?(analyzing: boolean): void;
@@ -58,7 +58,7 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunne
     running = true;
     opts.onStatusChange?.(true);
     try {
-      const { results, config } = await analyze({
+      const { results, failedRuleIds } = await analyze({
         cwd: opts.root,
         treatDynamicAs: opts.treatDynamicAs,
         metaComponents: opts.metaComponents,
@@ -69,7 +69,7 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunne
       // Passing a 2nd arg only when defined keeps callers that ignore it (and tests
       // asserting exact call args) unaffected by this addition.
       if (!stopped) {
-        if (config !== undefined) opts.onResults(results, config);
+        if (failedRuleIds !== undefined) opts.onResults(results, failedRuleIds);
         else opts.onResults(results);
       }
     } catch (err) {

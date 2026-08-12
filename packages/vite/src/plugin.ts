@@ -284,10 +284,11 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
       for (const w of warnings) warn(`svelte-vitals: ${w}`);
       const store = createStore();
 
-      // The whole-project runner's failure-adjusted config (crashed rules forced 'off'),
-      // read by installUiMiddleware on every request via the getter below — a plain
-      // variable would only ever see the value at configureServer time, not later re-runs.
-      let staticConfig: Config | undefined;
+      // The whole-project runner's crashed-rule ids, read by installUiMiddleware on every
+      // request via the getter below — a plain variable would only ever see the value at
+      // configureServer time, not later re-runs. Ids only, not a config: `config` above
+      // (carrying plugin-option weights/overrides) must stay the scoring base always.
+      let staticFailedRuleIds: string[] = [];
 
       // Whole-project static analysis: one run at startup (never blocking dev-server
       // start) plus a debounced re-run on relevant source changes (design doc
@@ -299,9 +300,9 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         metaComponents: options.metaComponents,
         rules: options.rules,
         failOn: options.failOn,
-        onResults: (results, cfg) => {
+        onResults: (results, failedRuleIds) => {
           store.setStatic(results);
-          if (cfg) staticConfig = cfg;
+          staticFailedRuleIds = failedRuleIds ?? [];
         },
         onError: (err) => console.warn('[svelte-vitals] dev analysis failed:', err),
         onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
@@ -319,7 +320,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         runner.stop();
       });
 
-      installUiMiddleware(server, config, readPackageVersion(), store, readCoreVersion(), () => staticConfig);
+      installUiMiddleware(server, config, readPackageVersion(), store, readCoreVersion(), () => staticFailedRuleIds);
 
       // The dashboard has no separate CLI entry point (unlike `vitest --ui`) to signal
       // it exists, so announce it the same way Vite announces its own dev server: as an

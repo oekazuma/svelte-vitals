@@ -60,8 +60,8 @@ export function installUiMiddleware(
   version: string,
   store: FindingsStore,
   coreVersion?: string,
-  /** Reads the whole-project runner's current failure-adjusted config; called per request so a later re-analysis is reflected without re-mounting the middleware. Undefined until the first run completes. */
-  getStaticConfig?: () => Config | undefined
+  /** Reads the whole-project runner's current crashed-rule ids; called per request so a later re-analysis is reflected without re-mounting the middleware. Empty/undefined until the first run completes or when nothing has failed. */
+  getStaticFailedRuleIds?: () => string[] | undefined
 ): void {
   const clients = new Set<ServerResponse>();
 
@@ -142,7 +142,7 @@ export function installUiMiddleware(
 
     if (url.startsWith('/data.json')) {
       try {
-        const snapshot = buildSnapshot(store, config, { version, coreVersion }, getStaticConfig?.());
+        const snapshot = buildSnapshot(store, config, { version, coreVersion }, getStaticFailedRuleIds?.());
         res.setHeader('Content-Type', 'application/json');
         res.end(JSON.stringify(snapshot));
       } catch {
@@ -155,7 +155,7 @@ export function installUiMiddleware(
     // Last line of defense that validated data should never reach: if the renderer
     // throws anyway, return a plain-text 500 and never take down the dev server.
     try {
-      const html = renderAppShell(buildSnapshot(store, config, { version, coreVersion }, getStaticConfig?.()));
+      const html = renderAppShell(buildSnapshot(store, config, { version, coreVersion }, getStaticFailedRuleIds?.()));
       res.setHeader('Content-Type', 'text/html');
       res.end(html);
     } catch {

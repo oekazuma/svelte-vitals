@@ -32,19 +32,20 @@ function sanitizeReport(report: JsonReport): JsonReport {
 
 /**
  * Build the payload shared by the dashboard shell's embedded JSON and the /data.json endpoint.
- * `staticConfig` is the whole-project runner's failure-adjusted config (crashed static rules
- * already forced `'off'`) — falls back to `config` before the first run completes. Live-layer
- * crashed rules (`store.failedRuleIds()`) are layered on top the same way the CLI and build mode
- * apply `withFailedRulesOff`, so a rule that crashed on either layer scores as not-run instead of
- * inflating Health.
+ * `config` is never swapped for another config — plugin-option `weights`/`overrides` must
+ * survive every request. `staticFailedRuleIds` (the whole-project runner's crashed-rule ids)
+ * and the store's live-layer union (`store.failedRuleIds()`) are both layered onto `config` via
+ * `withFailedRulesOff`, the same correction the CLI and build mode apply, so a rule that crashed
+ * on either layer scores as not-run instead of inflating Health.
  */
 export function buildSnapshot(
   store: FindingsStore,
   config: Config,
   meta: { version: string; coreVersion?: string },
-  staticConfig?: Config
+  staticFailedRuleIds?: string[]
 ): AppSnapshot {
-  const scoringConfig = withFailedRulesOff(staticConfig ?? config, store.failedRuleIds());
+  const failedRuleIds = [...new Set([...(staticFailedRuleIds ?? []), ...store.failedRuleIds()])];
+  const scoringConfig = withFailedRulesOff(config, failedRuleIds);
   return {
     // No rule-id list threaded through: `report.rules` is seeded from `store.snapshot()`
     // alone here, so presence means "produced a result", not "was selected" — unlike the
