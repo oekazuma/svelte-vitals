@@ -2,7 +2,7 @@ import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import type { SuppressionDirective } from '../../component.js';
 import { isSuppressed } from '../component-rule.js';
-import { PENALIZED, PASS } from '../seo/detection.js';
+import { PENALIZED, PASS } from '../detection.js';
 
 const ID = 'correctness/server-browser-global';
 const DOCS_URL = docsUrlFor(ID);

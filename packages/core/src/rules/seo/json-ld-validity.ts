@@ -1,7 +1,7 @@
 import type { Fix, Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { collectValues, contextValues, jsonldTags, parseJsonLd, typeOf, type JsonLdNode } from './jsonld-engine.js';
-import { PENALIZED, PASS } from './detection.js';
+import { PENALIZED, PASS } from '../detection.js';
 import { SCHEMA_ORG_TYPES } from './schema-vocabulary.generated.js';
 
 const SCHEMA_ORG_CONTEXT_RE = /^https?:\/\/schema\.org\/?$/;

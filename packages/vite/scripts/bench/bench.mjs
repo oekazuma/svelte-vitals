@@ -34,12 +34,16 @@ function parseBenchArgs(argv) {
     args: argv,
     options: { sizes: { type: 'string' }, runs: { type: 'string' } }
   });
+  const runs = values.runs === undefined ? 3 : Number(values.runs);
+  if (!Number.isInteger(runs) || runs < 1) {
+    throw new Error(`--runs must be a positive integer, got '${values.runs}'`);
+  }
   return {
     sizes: values.sizes
       ?.split(',')
       .map((s) => Number(s.trim()))
       .filter((n) => Number.isFinite(n) && n > 0) ?? [50, 200, 500],
-    runs: values.runs !== undefined ? Number(values.runs) : 3
+    runs
   };
 }
 

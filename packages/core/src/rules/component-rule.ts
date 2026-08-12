@@ -3,7 +3,7 @@ import { docsUrlFor, type Rule, type RuleContext } from '../rule.js';
 import type { ComponentFacts, SuppressionDirective } from '../component.js';
 import { compileOverrides } from '../config-apply.js';
 import { resolveRuleOptions, type RuleOptionsSpec } from '../rule-options.js';
-import { PENALIZED, PASS } from './seo/detection.js';
+import { PENALIZED, PASS } from './detection.js';
 
 /** An offending occurrence in a source file (line + human message). */
 export interface ComponentIssue {
@@ -83,8 +83,8 @@ export function fileRule<F extends { file: string; suppressions?: SuppressionDir
       const compiled = compileOverrides(ctx.config);
       for (const f of spec.facts(ctx) ?? []) {
         const o = resolveRuleOptions(spec.id, spec.options, ctx.config, { route: f.file, file: f.file }, compiled);
-        const recommendation = typeof spec.recommendation === 'function' ? spec.recommendation(o) : spec.recommendation;
         if (!spec.applies(f, o, ctx)) continue; // no signal in this file → neither penalize nor seed
+        const recommendation = typeof spec.recommendation === 'function' ? spec.recommendation(o) : spec.recommendation;
         const bad = spec.bad(f, o, ctx).filter((b) => !(b.line > 0 && isSuppressed(f.suppressions, spec.id, b.line)));
         if (bad.length === 0) {
           out.push({

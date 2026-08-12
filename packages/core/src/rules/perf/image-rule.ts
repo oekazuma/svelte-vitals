@@ -1,7 +1,7 @@
 import type { Category, Fix, Result, Severity } from '../../types.js';
 import type { ImageInfo } from '../../images.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
-import { PENALIZED, PASS } from '../seo/detection.js';
+import { PENALIZED, PASS } from '../detection.js';
 
 export interface ImageRuleOptions {
   id: string;

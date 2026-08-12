@@ -3,7 +3,7 @@ import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import type { SuppressionDirective } from '../../component.js';
 import type { KitModuleFacts } from '../../kit-module.js';
 import { isSuppressed } from '../component-rule.js';
-import { PENALIZED, PASS } from '../seo/detection.js';
+import { PENALIZED, PASS } from '../detection.js';
 
 const ID = 'correctness/orphan-lifecycle';
 const DOCS_URL = docsUrlFor(ID);
