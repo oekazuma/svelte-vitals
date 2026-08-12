@@ -30,6 +30,10 @@ describe('buildWorkflowYaml', () => {
     expect(yaml).toContain('fetch-depth: 0');
   });
 
+  it('does not persist the job token in the checked-out git config', () => {
+    expect(yaml).toContain('persist-credentials: false');
+  });
+
   it('calls the action pinned to a commit SHA with a same-line version comment', () => {
     expect(yaml).toContain(`uses: oekazuma/svelte-vitals-action@${sha} # v1.2.3`);
   });
