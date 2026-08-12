@@ -1,5 +1,20 @@
 # @svelte-vitals/core
 
+## 0.41.1
+
+### Patch Changes
+
+- 5c7dc63: Reporter output now neutralizes structural Markdown and terminal escape sequences in strings quoted from the analyzed project (file paths, route ids, and rule messages that embed page content such as `<title>` text or JSON-LD values). The agent and Markdown reporters render an embedded newline, code fence, heading, `[text](url)` link, or bare `<tag>` as inert quoted text instead of live structure — so an analyzed repo can no longer forge report sections or smuggle instruction-looking text into an AI agent's context. The console reporter strips C0 control characters and ANSI/OSC escape sequences from the same analyzed-derived strings, so a hostile route or file name can no longer rewrite the terminal title bar or move the cursor. The GitHub Actions reporter already escaped embedded newlines in workflow-command data; that's unchanged, just verified.
+
+  Reports over well-behaved projects are unchanged except for one visible class: a rule message or location containing a literal `<tag>` (e.g. `Missing <title>`) now renders as inline code (`` `<title>` ``) in the Markdown reporter, matching what the agent reporter already did — this also fixes Markdown table cells silently dropping such tags as unrecognized HTML.
+
+- 6cfef97: seo/json-ld-validity's unknown-`@type` hint now also catches small typos, not just casing: a bare `@type` within edit distance 2 of a real schema.org type gets a `Did you mean 'X'?` suggestion (e.g. `Unknown @type 'Artcle'` now suggests `'Article'`). The free case-insensitive exact match still runs first; the typo scan only runs when that misses. Message-text-only change — finding keys, severities, and gates are untouched.
+- 27e3b71: The CLI's transitive `<head>`/heading resolution (the layer-3 walk that follows a component import to find the `<title>`/meta/JSON-LD/`<h1>` it contributes) now honours a project's `kit.alias`/`kit.files.lib` declared in `svelte.config`, matching the resolution already used by `architecture/private-scope-import`, `architecture/route-component-import`, `security/handler-state-write`, and `security/shared-state-import`. Previously only `$lib/…` (hard-coded to `src/lib/…`) and relative imports were followed; a component imported through a custom alias (`$components`, `$ui`, …) was invisible to this walk.
+
+  Gate movement, both directions: a route whose `<title>`/meta/JSON-LD/`<h1>` lives in an alias-imported component no longer reports a false "Missing" finding, so Health can rise on projects using a custom alias. Conversely, content in those components — including defects (an empty `<title>`, multiple `<h1>`s, invalid JSON-LD) — is now analyzed by every consumer of the head/headings channels, so new findings can appear and a `--fail-on warning` run that was green can turn red on upgrade. Aliases are resolved with the same first-match, segment-boundary semantics the bundler uses (see the kit-alias-resolution design doc); an alias whose target file doesn't exist is skipped silently, same as an unresolvable `$lib` guess today. A bare custom-alias specifier (`import X from '$comp'`) now also gets the walk's existing `.svelte` extension guess (following `src/compdir.svelte` when it exists), matching Vite's `resolve.extensions` behaviour — bare `$lib` alone stays unfollowed as before. The vite plugin's rendered-HTML mode is unaffected — it already sees every component's contribution in the built output, which is what this change aligns the CLI's static mode with (same precedent as issue #425/#443).
+
+- ddcf62d: A rule that throws no longer kills the analysis: the run completes without it, its id and error surface as a warning, and its weight is removed from that run's Health denominator so the score is not silently inflated — in both the CLI and the vite plugin's build mode. Previously the CLI died with exit 2 and the vite plugin skipped the entire analysis (and its build gate) with a single "analysis failed" warning; both now finish with real results for every other rule.
+
 ## 0.41.0
 
 ### Minor Changes

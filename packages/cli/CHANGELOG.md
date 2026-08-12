@@ -1,5 +1,20 @@
 # svelte-vitals
 
+## 0.45.1
+
+### Patch Changes
+
+- 27e3b71: The CLI's transitive `<head>`/heading resolution (the layer-3 walk that follows a component import to find the `<title>`/meta/JSON-LD/`<h1>` it contributes) now honours a project's `kit.alias`/`kit.files.lib` declared in `svelte.config`, matching the resolution already used by `architecture/private-scope-import`, `architecture/route-component-import`, `security/handler-state-write`, and `security/shared-state-import`. Previously only `$lib/…` (hard-coded to `src/lib/…`) and relative imports were followed; a component imported through a custom alias (`$components`, `$ui`, …) was invisible to this walk.
+
+  Gate movement, both directions: a route whose `<title>`/meta/JSON-LD/`<h1>` lives in an alias-imported component no longer reports a false "Missing" finding, so Health can rise on projects using a custom alias. Conversely, content in those components — including defects (an empty `<title>`, multiple `<h1>`s, invalid JSON-LD) — is now analyzed by every consumer of the head/headings channels, so new findings can appear and a `--fail-on warning` run that was green can turn red on upgrade. Aliases are resolved with the same first-match, segment-boundary semantics the bundler uses (see the kit-alias-resolution design doc); an alias whose target file doesn't exist is skipped silently, same as an unresolvable `$lib` guess today. A bare custom-alias specifier (`import X from '$comp'`) now also gets the walk's existing `.svelte` extension guess (following `src/compdir.svelte` when it exists), matching Vite's `resolve.extensions` behaviour — bare `$lib` alone stays unfollowed as before. The vite plugin's rendered-HTML mode is unaffected — it already sees every component's contribution in the built output, which is what this change aligns the CLI's static mode with (same precedent as issue #425/#443).
+
+- ddcf62d: A rule that throws no longer kills the analysis: the run completes without it, its id and error surface as a warning, and its weight is removed from that run's Health denominator so the score is not silently inflated — in both the CLI and the vite plugin's build mode. Previously the CLI died with exit 2 and the vite plugin skipped the entire analysis (and its build gate) with a single "analysis failed" warning; both now finish with real results for every other rule.
+- Updated dependencies [5c7dc63]
+- Updated dependencies [6cfef97]
+- Updated dependencies [27e3b71]
+- Updated dependencies [ddcf62d]
+  - @svelte-vitals/core@0.41.1
+
 ## 0.45.0
 
 ### Minor Changes
