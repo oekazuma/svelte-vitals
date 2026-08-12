@@ -11,6 +11,8 @@ import { join } from 'node:path';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { runCli } from '../src/cli.js';
 import { runCompleteCliGunshi } from '../src/gunshi/complete.js';
+import { ROOT_ARGS } from '../src/gunshi/analyze.js';
+import { INSTALL_ARGS } from '../src/gunshi/install.js';
 import { captureIO } from './helpers/capture-io.js';
 
 const SHELLS = ['bash', 'zsh', 'fish', 'powershell'] as const;
@@ -130,6 +132,32 @@ describe('complete -- <words>: candidate protocol the generated scripts call bac
 
   it("ci upgrade: only its real subset (no --force — it doesn't strip one, matches gunshi/ci.ts's CI_UPGRADE_ARGS)", async () => {
     expect(await candidates(['ci', 'upgrade', '--'])).toEqual(['--dry-run', '--help']);
+  });
+
+  /** Like `candidates()` but keeps the full `value\tdescription` line — needed to inspect description text and to catch a multi-line description's continuation lines leaking in as their own bogus, tab-less "candidates". */
+  async function candidateLines(words: string[]): Promise<string[]> {
+    const log = spyLog();
+    const code = await runCompleteCliGunshi(['complete', '--', ...words], captureIO());
+    expect(code).toBe(0);
+    return log.calls().split('\n');
+  }
+
+  it('install: every line is a real candidate or the trailing directive — a multi-line description (e.g. --client) never leaks its continuation lines as their own candidates', async () => {
+    const lines = await candidateLines(['install', '--']);
+    const directive = lines.at(-1)!;
+    expect(directive).toMatch(/^:\d+$/);
+    const body = lines.slice(0, -1).filter((l) => l.length > 0);
+    for (const line of body) expect(line).toContain('\t');
+    const nonHiddenFlags = Object.values(INSTALL_ARGS).filter((schema) => !('hidden' in schema && schema.hidden));
+    expect(body).toHaveLength(nonHiddenFlags.length);
+  });
+
+  it('root flags: --no-* candidates carry their real description, not the bare stripped key ("color"/"animation"/"suppressions")', async () => {
+    const lines = await candidateLines(['--']);
+    const descriptionOf = (flag: string) => lines.find((l) => l.startsWith(`${flag}\t`))?.slice(flag.length + 1);
+    expect(descriptionOf('--no-color')).toBe(ROOT_ARGS.noColor.description);
+    expect(descriptionOf('--no-animation')).toBe(ROOT_ARGS.noAnimation.description);
+    expect(descriptionOf('--no-suppressions')).toBe(ROOT_ARGS.noSuppressions.description);
   });
 });
 
