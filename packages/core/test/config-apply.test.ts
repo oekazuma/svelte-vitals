@@ -6,6 +6,7 @@ import {
   compileOverrides,
   overrideMatches,
   defineConfig,
+  withFailedRulesOff,
   type Rule,
   type Result
 } from '../src/index.js';
@@ -164,6 +165,24 @@ describe('config application', () => {
     const out = applyOverrides(results, config);
     expect(out).toHaveLength(1);
     expect(out[0]!.severity).toBe('critical');
+  });
+});
+
+describe('withFailedRulesOff', () => {
+  it('returns the same config reference when nothing failed', () => {
+    const config = defineConfig({ rules: { 'seo/json-ld': 'critical' } });
+    expect(withFailedRulesOff(config, [])).toBe(config);
+  });
+  it('forces the given ids off without touching other rules’ settings', () => {
+    const config = defineConfig({ rules: { 'seo/json-ld': 'critical' } });
+    const out = withFailedRulesOff(config, ['seo/title-presence']);
+    expect(out.rules['seo/json-ld']).toBe('critical');
+    expect(out.rules['seo/title-presence']).toBe('off');
+  });
+  it('drops a failed rule from selectRules, same as an explicit off setting', () => {
+    const config = withFailedRulesOff(defineConfig({}), ['seo/json-ld']);
+    const kept = selectRules([ruleA, ruleB], config);
+    expect(kept.map((r) => r.id)).toEqual(['seo/title-presence']);
   });
 });
 

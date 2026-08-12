@@ -4,6 +4,7 @@ import {
   applyRuleSeverities,
   applyOverrides,
   runRules,
+  withFailedRulesOff,
   computeScore,
   summarize,
   hasFailureAtOrAbove,
@@ -32,7 +33,7 @@ export interface AnalyzeResult {
   routeCount: number;
   failed: boolean;
   failOn: Severity;
-  /** Non-fatal config-file issues (unknown top-level keys, invalid enum values). Empty when no config file exists. */
+  /** Non-fatal issues: config-file problems (unknown top-level keys, invalid enum values) and rules that crashed and were skipped. */
   warnings: string[];
 }
 
@@ -100,7 +101,11 @@ export async function analyze(
   };
   const kitModules = await collectKitModuleFacts(cwd, project.kitAliases);
   const selected = selectRules(allRules, config);
-  const { results: rawResults, examined } = await runRules(selected, {
+  const {
+    results: rawResults,
+    examined,
+    failedRules
+  } = await runRules(selected, {
     heads,
     headings,
     images,
@@ -111,20 +116,30 @@ export async function analyze(
     sourceFiles
   });
   const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
+  // Surfaced through the same `warnings` channel as config-file issues (plugin.ts logs each with
+  // `console.warn`).
+  for (const f of failedRules) warnings.push(`rule ${f.id} failed and was skipped: ${f.message.split('\n')[0]}`);
+  // A failed rule examined nothing, so its weight must not stay in the Health denominator — same
+  // correction the CLI's `analyzeProject` applies, used by every downstream consumer here so the
+  // score, reports, and fail decision agree.
+  const scoringConfig = withFailedRulesOff(
+    config,
+    failedRules.map((f) => f.id)
+  );
 
-  const { score } = computeScore(results, config);
-  const summary = summarize(results, config);
-  const failed = hasFailureAtOrAbove(summary, config.failOn);
+  const { score } = computeScore(results, scoringConfig);
+  const summary = summarize(results, scoringConfig);
+  const failed = hasFailureAtOrAbove(summary, scoringConfig.failOn);
 
   const coverageNote =
     `Analyzed ${heads.length} prerendered route(s). ` +
     'SSR/dynamic routes are not covered — run `npx svelte-vitals` for those.\n' +
     `Scanned ${components.length} component(s) under src/ for Correctness/Security/Architecture/Bundle findings.`;
   const consoleReport =
-    formatConsoleReport(results, config, { mode: 'rendered / plugin' }) + '\n' + coverageNote + '\n';
+    formatConsoleReport(results, scoringConfig, { mode: 'rendered / plugin' }) + '\n' + coverageNote + '\n';
   const jsonReport = formatJsonReport(
     results,
-    config,
+    scoringConfig,
     { version: readPackageVersion() },
     selected.map((r) => r.id),
     examined
@@ -138,7 +153,7 @@ export async function analyze(
     jsonReport,
     routeCount: heads.length,
     failed,
-    failOn: config.failOn,
+    failOn: scoringConfig.failOn,
     warnings
   };
 }

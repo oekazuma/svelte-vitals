@@ -12,7 +12,8 @@ export const correctnessOrphanEffect = componentRule({
     'An $effect created outside component initialisation throws effect_orphan at runtime. The compiler does not catch it — the server compiler deletes $effect calls entirely, so SSR renders without error — and the crash happens client-side, when the module evaluates in the browser, breaking hydration rather than producing a server error.',
   // `orphanEffects` is typed required, but a facts object built by an older/external
   // constructor may omit it — default to empty rather than let `applies` throw and
-  // take the whole `runRules` Promise.all down with it.
+  // surface this rule as failed (the engine isolates a throwing rule, but this one
+  // can just work instead of getting flagged).
   applies: (c) => (c.orphanEffects ?? []).length > 0,
   bad: (c) =>
     (c.orphanEffects ?? []).map((o) => ({
