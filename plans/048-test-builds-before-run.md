@@ -72,22 +72,24 @@ plans in this directory.
 
 ## Commands you will need
 
-| Purpose   | Command          | Expected on success |
-|-----------|------------------|---------------------|
-| Install   | `pnpm install`   | exit 0              |
-| Build     | `pnpm build`     | exit 0              |
-| Test      | `pnpm test`      | exit 0, all pass    |
-| Lint      | `pnpm lint`      | exit 0              |
+| Purpose | Command        | Expected on success |
+| ------- | -------------- | ------------------- |
+| Install | `pnpm install` | exit 0              |
+| Build   | `pnpm build`   | exit 0              |
+| Test    | `pnpm test`    | exit 0, all pass    |
+| Lint    | `pnpm lint`    | exit 0              |
 
 ## Scope
 
 **In scope** (the only files you should modify):
+
 - `package.json` (repo root) — the `test` script line only
 - `AGENTS.md` — the one Notes cell for the Test row
 - `CONTRIBUTING.md` — only if it states that `pnpm test` needs a prior build
   (it currently does not; check before editing)
 
 **Out of scope** (do NOT touch, even though they look related):
+
 - `packages/core/package.json` `exports` — adding a `development` condition
   so vitest binds to `src/` is a real alternative, but it changes how every
   test in the repo resolves core and is a maintainer design decision. Do not
@@ -101,8 +103,8 @@ plans in this directory.
 - Branch: `advisor/048-test-builds-before-run`
 - Conventional commits, scoped by package; this is a root-level change, use
   the `chore:` prefix (matching e.g. `chore(cli): stop exporting four
-  internal-only types` from `git log`): `chore: build before the recursive
-  test run so a stale dist can't fail or fake the suite`
+internal-only types` from `git log`): `chore: build before the recursive
+test run so a stale dist can't fail or fake the suite`
 - Do NOT push or open a PR unless the operator instructed it.
 
 ## Steps

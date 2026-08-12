@@ -36,17 +36,18 @@
 
 ## Commands you will need
 
-| Purpose | Command | Expected |
-|---|---|---|
-| Install | `pnpm install` | exit 0 |
-| Build | `pnpm build` | exit 0 |
-| Typecheck | `pnpm typecheck` | exit 0 |
-| Tests | `pnpm test` | all pass |
-| Lint | `pnpm lint` | exit 0 |
+| Purpose   | Command          | Expected |
+| --------- | ---------------- | -------- |
+| Install   | `pnpm install`   | exit 0   |
+| Build     | `pnpm build`     | exit 0   |
+| Typecheck | `pnpm typecheck` | exit 0   |
+| Tests     | `pnpm test`      | all pass |
+| Lint      | `pnpm lint`      | exit 0   |
 
 ## Scope
 
 **In scope**:
+
 - `packages/cli/src/ci/workflow.ts`
 - the CLI test(s) asserting the generated YAML (found via the grep above)
 - one NEW test file or test case asserting pin lockstep (see Step 3)

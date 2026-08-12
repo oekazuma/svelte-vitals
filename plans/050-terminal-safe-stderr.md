@@ -64,10 +64,8 @@ passes (security and correctness) converged on this finding.
 - The raw interpolation sites that all route through those two bindings
   (do NOT wrap each individually — wrap the binding):
   - `packages/cli/src/index.ts:567` — `for (const w of analysis.warnings)
-    errorLog(\`svelte-vitals: ${w}\`)`; `analysis.warnings` includes
-    `skippedFileWarnings` (raw analyzed-repo file paths, built at
-    `index.ts:253-262`) and `failedRuleWarnings` (raw exception first
-    lines, `index.ts:270-271`).
+errorLog(\`svelte-vitals: ${w}\`)`; `analysis.warnings`includes`skippedFileWarnings`(raw analyzed-repo file paths, built at`index.ts:253-262`) and `failedRuleWarnings`(raw exception first
+lines,`index.ts:270-271`).
   - `index.ts:529` / `:545-546` — detected/multiple SvelteKit app directory
     names.
   - `index.ts:557,561,690` — `err.message` interpolations
@@ -78,18 +76,19 @@ passes (security and correctness) converged on this finding.
 
 ## Commands you will need
 
-| Purpose    | Command                                                   | Expected on success |
-|------------|-----------------------------------------------------------|---------------------|
-| Install    | `pnpm install`                                            | exit 0              |
-| Build      | `pnpm build`                                              | exit 0              |
-| Typecheck  | `pnpm typecheck`                                          | exit 0              |
-| Tests      | `pnpm test`                                               | all pass            |
-| Lint       | `pnpm lint`                                               | exit 0              |
-| Publish    | `pnpm check:publish`                                      | exit 0              |
+| Purpose   | Command              | Expected on success |
+| --------- | -------------------- | ------------------- |
+| Install   | `pnpm install`       | exit 0              |
+| Build     | `pnpm build`         | exit 0              |
+| Typecheck | `pnpm typecheck`     | exit 0              |
+| Tests     | `pnpm test`          | all pass            |
+| Lint      | `pnpm lint`          | exit 0              |
+| Publish   | `pnpm check:publish` | exit 0              |
 
 ## Scope
 
 **In scope** (the only files you should modify):
+
 - `packages/core/src/index.ts` — add the `terminalSafe` re-export
 - `packages/cli/src/index.ts` — wrap the two errorLog bindings
 - `packages/cli/test/` — one new test (or extend an existing run() test
@@ -97,6 +96,7 @@ passes (security and correctness) converged on this finding.
 - `.changeset/<new>.md` (create)
 
 **Out of scope** (do NOT touch, even though they look related):
+
 - `packages/vite/src/**` — the plugin's `console.warn` sites get the same
   treatment in **Plan 052**, which rewrites those lines anyway. Touching
   them here creates a merge conflict between independent executors.
@@ -164,6 +164,7 @@ tests `run()`'s warning output — search for a test asserting
 ### Step 4: Changeset
 
 Run `pnpm changeset`:
+
 - `@svelte-vitals/core` **minor** — new public export `terminalSafe`.
 - `svelte-vitals` **patch** — "stderr diagnostics (skipped files, failed
   rules, app detection, errors) now strip terminal escape sequences from
@@ -182,7 +183,7 @@ types.
   your wrap altered clean strings — that's a bug in the wrap, not a
   snapshot to refresh).
 - Verification: `pnpm build && pnpm typecheck && pnpm test && pnpm lint &&
-  pnpm check:publish` all green.
+pnpm check:publish` all green.
 
 ## Done criteria
 

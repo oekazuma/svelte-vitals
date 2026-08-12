@@ -47,10 +47,10 @@ Later rules win in Renovate's packageRules precedence (last-match wins per optio
 
 ## Commands you will need
 
-| Purpose | Command | Expected |
-|---|---|---|
-| JSON validity | `node -e "JSON.parse(require('fs').readFileSync('renovate.json','utf8')); console.log('ok')"` | `ok` |
-| Lint | `pnpm lint` | exit 0 |
+| Purpose       | Command                                                                                       | Expected |
+| ------------- | --------------------------------------------------------------------------------------------- | -------- |
+| JSON validity | `node -e "JSON.parse(require('fs').readFileSync('renovate.json','utf8')); console.log('ok')"` | `ok`     |
+| Lint          | `pnpm lint`                                                                                   | exit 0   |
 
 (No install/build needed — this plan touches one JSON file. `pnpm lint` runs oxfmt over JSON; run `pnpm format` if it complains. If `pnpm lint` cannot run because dependencies are not installed, `pnpm install` first.)
 

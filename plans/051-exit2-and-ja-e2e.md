@@ -89,18 +89,19 @@ Two independent audit passes found the same pair of process-boundary gaps:
 
 ## Commands you will need
 
-| Purpose    | Command          | Expected on success |
-|------------|------------------|---------------------|
-| Install    | `pnpm install`   | exit 0              |
-| Build      | `pnpm build`     | exit 0              |
-| Typecheck  | `pnpm typecheck` | exit 0              |
-| Tests      | `pnpm test`      | all pass            |
-| E2E        | `pnpm e2e`       | all checks ok, exit 0 (needs `pnpm build` first) |
-| Lint       | `pnpm lint`      | exit 0              |
+| Purpose   | Command          | Expected on success                              |
+| --------- | ---------------- | ------------------------------------------------ |
+| Install   | `pnpm install`   | exit 0                                           |
+| Build     | `pnpm build`     | exit 0                                           |
+| Typecheck | `pnpm typecheck` | exit 0                                           |
+| Tests     | `pnpm test`      | all pass                                         |
+| E2E       | `pnpm e2e`       | all checks ok, exit 0 (needs `pnpm build` first) |
+| Lint      | `pnpm lint`      | exit 0                                           |
 
 ## Scope
 
 **In scope** (the only files you should modify):
+
 - `packages/cli/src/cli.ts` — outer try/catch in `runCli`
 - `packages/cli/src/bin.ts` — last-resort `.catch`
 - `scripts/cli-e2e.mjs` — new checks
@@ -109,6 +110,7 @@ Two independent audit passes found the same pair of process-boundary gaps:
 - `.changeset/<new>.md` (create)
 
 **Out of scope** (do NOT touch, even though they look related):
+
 - `scripts/floor-smoke.mjs` — deliberately Node-builtins-only and
   floor-scoped; the e2e is the right home (see the header of
   `cli-e2e.mjs:5-7`).
@@ -120,8 +122,8 @@ Two independent audit passes found the same pair of process-boundary gaps:
 
 - Branch: `advisor/051-exit2-and-ja-e2e`
 - Conventional commits, e.g. `fix(cli): map internal dispatch crashes to
-  exit 2 instead of an unhandled rejection` and `test(cli): pin the ja
-  --help path through the built binary`
+exit 2 instead of an unhandled rejection` and `test(cli): pin the ja
+--help path through the built binary`
 - Do NOT push or open a PR unless the operator instructed it.
 
 ## Steps

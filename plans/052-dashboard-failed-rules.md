@@ -88,6 +88,7 @@ multi-line stack trace can flood the terminal).
 
     The POST happens at `handle.ts:106`:
     `if (globalThis.process?.env?.SVELTE_VITALS_UI) void postIngest(origin, route, results);`
+
   - `packages/vite/src/ui/analysis.ts` — the whole-project runner. Since
     the upstream dedup refactor (PR #469) it imports `analyzeProject`
     **statically** and binds it as the default:
@@ -112,10 +113,11 @@ multi-line stack trace can flood the terminal).
     `withFailedRulesOff` call and the returned `config`) — the runner just
     drops it. There is no `getAnalyze()` helper any more; do not reintroduce
     one.
+
   - `packages/vite/src/ui/middleware.ts:104-116` (ingest: validates with
     `isResultLike`, calls `store.set(route, results.filter(isResultLike))`)
     and `:138`/`:151` — `buildSnapshot(store, config, { version,
-    coreVersion })` with the **unadjusted** plugin config;
+coreVersion })` with the **unadjusted** plugin config;
     `packages/vite/src/ui/snapshot.ts:36` feeds it straight into
     `buildJsonReport`.
   - `packages/vite/src/ui/store.ts` — `FindingsStore` interface (`set`,
@@ -128,18 +130,19 @@ multi-line stack trace can flood the terminal).
 
 ## Commands you will need
 
-| Purpose    | Command                                             | Expected on success |
-|------------|-----------------------------------------------------|---------------------|
-| Install    | `pnpm install`                                      | exit 0              |
-| Build      | `pnpm build`                                        | exit 0              |
-| Typecheck  | `pnpm typecheck`                                    | exit 0              |
-| Tests      | `pnpm test`                                         | all pass            |
-| Vite only  | `pnpm --filter @svelte-vitals/vite test`            | all pass            |
-| Lint       | `pnpm lint`                                         | exit 0              |
+| Purpose   | Command                                  | Expected on success |
+| --------- | ---------------------------------------- | ------------------- |
+| Install   | `pnpm install`                           | exit 0              |
+| Build     | `pnpm build`                             | exit 0              |
+| Typecheck | `pnpm typecheck`                         | exit 0              |
+| Tests     | `pnpm test`                              | all pass            |
+| Vite only | `pnpm --filter @svelte-vitals/vite test` | all pass            |
+| Lint      | `pnpm lint`                              | exit 0              |
 
 ## Scope
 
 **In scope** (the only files you should modify):
+
 - `packages/core/src/config-apply.ts` (or a sibling core module) — add
   `formatFailedRuleWarning`
 - `packages/core/src/index.ts` — export it
@@ -154,6 +157,7 @@ multi-line stack trace can flood the terminal).
 - `.changeset/<new>.md` (create)
 
 **Out of scope** (do NOT touch, even though they look related):
+
 - Rendering failed-rule ids in the dashboard UI
   (`packages/core/src/reporter/app-shell.ts`) — deferred follow-up; this
   plan fixes the **score**, not the display.
@@ -166,7 +170,7 @@ multi-line stack trace can flood the terminal).
 
 - Branch: `advisor/052-dashboard-failed-rules`
 - Conventional commits, e.g. `fix(vite): score crashed rules as not-run on
-  the dev dashboard, matching CLI and build mode`
+the dev dashboard, matching CLI and build mode`
 - Do NOT push or open a PR unless the operator instructed it.
 
 ## Steps
@@ -185,6 +189,7 @@ export function formatFailedRuleWarning(f: { id: string; message: string }): str
 
 Export it from `packages/core/src/index.ts` beside `withFailedRulesOff`.
 Then replace the three copies:
+
 - `packages/cli/src/index.ts:270-271` — `failedRuleWarnings` maps over the
   shared formatter.
 - `packages/vite/src/analyze.ts:121` — the inline loop uses it.
@@ -197,6 +202,7 @@ Then replace the three copies:
 ### Step 2: Thread static-layer failed rules through the runner
 
 In `packages/vite/src/ui/analysis.ts`:
+
 - Widen `AnalyzeFn`'s return type to
   `Promise<{ results: Result[]; config?: Config }>` where `config` is the
   failure-adjusted config. (`analyzeProject` already returns `config` with
@@ -206,7 +212,7 @@ In `packages/vite/src/ui/analysis.ts`:
   and change `opts.onResults(results)` to
   `opts.onResults(results, config)` (second param optional).
 - In the plugin's runner wiring (find the `createAnalysisRunner({ ...,
-  onResults })` call site in `packages/vite/src/plugin.ts` around line
+onResults })` call site in `packages/vite/src/plugin.ts` around line
   ~263-290), store the received adjusted config in a closure variable the
   middleware can read (see Step 4).
 
@@ -217,7 +223,7 @@ optional param means most should compile unchanged).
 ### Step 3: Thread live-layer failed rules through ingest
 
 - `packages/vite/src/hooks/handle.ts`: change `postIngest(origin, route,
-  results)` to also send `failedRuleIds: failedRules.map((f) => f.id)` in
+results)` to also send `failedRuleIds: failedRules.map((f) => f.id)` in
   the POST body (adjust `postIngest`'s signature in the same file).
 - `packages/vite/src/ui/middleware.ts:104-116`: read the optional
   `failedRuleIds` field; validate it is an array of strings (filter
@@ -261,6 +267,7 @@ no-failure path: STOP).
 
 Wrap the plugin's terminal sinks with `terminalSafe` (imported from
 `@svelte-vitals/core`), at the boundary, not per interpolation:
+
 - `packages/vite/src/plugin.ts` — the `console.warn(`svelte-vitals: ${w}`)`
   loops (~line 232 build path, ~line 280 dev path) and the
   `skipped — analysis failed: ${err…}` warn (~line 229).
@@ -296,6 +303,7 @@ one that drives the middleware with a mock server):
 ### Step 7: Changeset
 
 Run `pnpm changeset`:
+
 - `@svelte-vitals/core` **minor** — new export `formatFailedRuleWarning`.
 - `@svelte-vitals/vite` **patch** — "the dev dashboard now scores a crashed
   rule as not-run (matching the CLI and build mode) instead of silently

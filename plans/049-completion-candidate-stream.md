@@ -99,24 +99,26 @@ sync". The fix site is one function.
 
 ## Commands you will need
 
-| Purpose    | Command                                                       | Expected on success |
-|------------|---------------------------------------------------------------|---------------------|
-| Install    | `pnpm install`                                                | exit 0              |
-| Build      | `pnpm build`                                                  | exit 0              |
-| Typecheck  | `pnpm typecheck`                                              | exit 0              |
-| Tests      | `pnpm test` (root; builds first if Plan 048 landed)           | all pass            |
-| One file   | `pnpm --filter svelte-vitals exec vitest run test/gunshi-complete.test.ts` | all pass |
-| Lint       | `pnpm lint`                                                   | exit 0              |
-| Repro      | `node packages/cli/dist/bin.js complete -- install --`        | see Done criteria   |
+| Purpose   | Command                                                                    | Expected on success |
+| --------- | -------------------------------------------------------------------------- | ------------------- |
+| Install   | `pnpm install`                                                             | exit 0              |
+| Build     | `pnpm build`                                                               | exit 0              |
+| Typecheck | `pnpm typecheck`                                                           | exit 0              |
+| Tests     | `pnpm test` (root; builds first if Plan 048 landed)                        | all pass            |
+| One file  | `pnpm --filter svelte-vitals exec vitest run test/gunshi-complete.test.ts` | all pass            |
+| Lint      | `pnpm lint`                                                                | exit 0              |
+| Repro     | `node packages/cli/dist/bin.js complete -- install --`                     | see Done criteria   |
 
 ## Scope
 
 **In scope** (the only files you should modify):
+
 - `packages/cli/src/gunshi/complete.ts`
 - `packages/cli/test/gunshi-complete.test.ts`
 - `.changeset/<new>.md` (create)
 
 **Out of scope** (do NOT touch, even though they look related):
+
 - `packages/cli/src/gunshi/install.ts` — the multi-line descriptions are
   correct for `--help`; do not flatten them at the source.
 - `packages/cli/src/gunshi/analyze.ts` — the camelCase+`toKebab` workaround
@@ -130,7 +132,7 @@ sync". The fix site is one function.
 
 - Branch: `advisor/049-completion-candidate-stream`
 - Conventional commits, e.g. `fix(cli): emit one completion candidate per
-  flag — collapse multi-line descriptions and restore --no-* text`
+flag — collapse multi-line descriptions and restore --no-* text`
 - Do NOT push or open a PR unless the operator instructed it.
 
 ## Steps
