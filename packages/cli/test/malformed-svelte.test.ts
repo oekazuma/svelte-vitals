@@ -1,7 +1,7 @@
 import { describe, it, expect, afterEach } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { cpSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdtempSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { collectComponentFacts, type Runtime } from '@svelte-vitals/core';
 import { run } from '../src/index.js';
@@ -183,6 +183,28 @@ describe('run(): stderr warning for skipped (unparsable) files (issue #424)', ()
     expect(brokenCap.err.join('\n')).toContain('skipped 1 file(s)');
     expect(fixedCap.err.join('\n')).not.toContain('skipped');
     expect(fixedCode).toBe(brokenCode);
+  });
+
+  it('strips terminal escape sequences from a skipped-file path before it reaches errorLog (plan 050)', async () => {
+    // Analyzed-repo file names are attacker-controlled bytes, not just Latin text: a
+    // hostile repo can name a file to smuggle an OSC terminal-title rewrite into what
+    // looks like a plain "skipped ... file(s)" warning. run()'s errorLog binding must
+    // strip that before it reaches a real terminal (packages/core/src/reporter/sanitize.ts).
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-050-terminal-safe-'));
+    dirs.push(dir);
+    cpSync(malformedComponentProject, dir, { recursive: true });
+
+    const poisonedName = '\x1b]0;pwned\x07Broken.svelte';
+    renameSync(join(dir, 'src/lib/Broken.svelte'), join(dir, 'src/lib', poisonedName));
+
+    const cap = capture();
+    const code = await run({ cwd: dir, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
+    expect([0, 1]).toContain(code);
+
+    const errText = cap.err.join('\n');
+    // oxlint-disable-next-line no-control-regex -- deliberately matching C0/DEL/ESC control bytes to assert their absence
+    expect(errText).not.toMatch(/[\x00-\x08\x0b-\x1f\x7f]/);
+    expect(errText).toContain('Broken.svelte');
   });
 });
 

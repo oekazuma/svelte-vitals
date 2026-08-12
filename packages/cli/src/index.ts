@@ -19,6 +19,7 @@ import {
   applyOverrides,
   settingSeverity,
   withFailedRulesOff,
+  terminalSafe,
   type Severity,
   type RuleSetting,
   type RuleOverride,
@@ -383,7 +384,8 @@ export interface ApplyScopeOptions {
  * lives in exactly one place.
  */
 export async function applyScope(results: Result[], opts: ApplyScopeOptions): Promise<Result[]> {
-  const errorLog = opts.errorLog ?? ((line: string) => console.error(line));
+  const rawErrorLog = opts.errorLog ?? ((line: string) => console.error(line));
+  const errorLog = (line: string) => rawErrorLog(terminalSafe(line));
   let scoped = results;
 
   if (opts.staged || opts.diffBase !== undefined) {
@@ -474,7 +476,10 @@ function runAnalyzeOptions(opts: RunOptions): AnalyzeOptions {
  */
 export async function run(opts: RunOptions = {}): Promise<number> {
   const log = opts.log ?? ((line: string) => console.log(line));
-  const errorLog = opts.errorLog ?? ((line: string) => console.error(line));
+  // Analyzed-repo strings (paths, rule exception text) reach stderr through here —
+  // same threat model as reporter/sanitize.ts.
+  const rawErrorLog = opts.errorLog ?? ((line: string) => console.error(line));
+  const errorLog = (line: string) => rawErrorLog(terminalSafe(line));
 
   if (opts.minHealth != null && (!Number.isFinite(opts.minHealth) || opts.minHealth < 0 || opts.minHealth > 100)) {
     errorLog(`svelte-vitals: invalid minHealth '${opts.minHealth}'; expected a number 0-100.`);
