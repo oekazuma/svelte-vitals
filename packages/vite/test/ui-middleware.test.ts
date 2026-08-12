@@ -3,21 +3,26 @@ import { EventEmitter } from 'node:events';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { ViteDevServer } from 'vite';
 import { installUiMiddleware } from '../src/ui/middleware.js';
-import { createStore } from '../src/ui/store.js';
+import { createStore, type FindingsStore } from '../src/ui/store.js';
 import { defineConfig } from '@svelte-vitals/core';
 
 type MiddlewareHandler = (req: IncomingMessage, res: ServerResponse, next: () => void) => void;
 
 // Capture the handler that installUiMiddleware registers on server.middlewares.use(path, fn).
-function setup(coreVersion?: string) {
+function setup(
+  coreVersion?: string,
+  getStaticFailedRuleIds?: () => string[] | undefined,
+  store: FindingsStore = createStore()
+) {
   let handler: MiddlewareHandler = () => {};
   const httpServer = new EventEmitter();
   const server = {
     httpServer,
     middlewares: { use: (_path: string, fn: MiddlewareHandler) => (handler = fn) }
   } as unknown as ViteDevServer;
-  installUiMiddleware(server, defineConfig({}), '9.9.9', createStore(), coreVersion);
+  installUiMiddleware(server, defineConfig({}), '9.9.9', store, coreVersion, getStaticFailedRuleIds);
   return {
+    store,
     call: (req: IncomingMessage, res: ServerResponse) => handler(req, res, () => {}),
     closeServer: () => httpServer.emit('close')
   };
@@ -333,5 +338,128 @@ describe('installUiMiddleware', () => {
     const jr = res();
     call(getReq('/data.json', { host: 'evil.example' }), jr);
     expect(jr.statusCode).toBe(403);
+  });
+
+  it('an ingested failedRuleIds list lowers the score vs. the same payload without it', async () => {
+    // 'warning', not 'critical' — so the critical-cap doesn't mask the denominator shift.
+    const body = (failedRuleIds?: string[]) =>
+      JSON.stringify({
+        route: '/a',
+        results: [
+          {
+            id: 'seo/canonical-url',
+            message: 'm',
+            category: 'seo',
+            detection: { presence: 'none', value: 'absent' },
+            route: '/a',
+            severity: 'warning'
+          }
+        ],
+        ...(failedRuleIds ? { failedRuleIds } : {})
+      });
+
+    const control = setup();
+    const cr = postReq('/ingest');
+    control.call(cr, res());
+    cr.emit('data', Buffer.from(body()));
+    cr.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    const controlData = JSON.parse(
+      (() => {
+        const jr = res();
+        control.call(getReq('/data.json'), jr);
+        return jr.chunks.join('');
+      })()
+    );
+
+    const failing = setup();
+    const fr = postReq('/ingest');
+    failing.call(fr, res());
+    fr.emit('data', Buffer.from(body(['seo/title-presence'])));
+    fr.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    const failingData = JSON.parse(
+      (() => {
+        const jr = res();
+        failing.call(getReq('/data.json'), jr);
+        return jr.chunks.join('');
+      })()
+    );
+
+    expect(failingData.report.score).not.toBe(controlData.report.score);
+  });
+
+  it('tolerates a non-array failedRuleIds field (treated as no failures)', async () => {
+    const { call } = setup();
+    const ireq = postReq('/ingest');
+    call(ireq, res());
+    ireq.emit(
+      'data',
+      Buffer.from(
+        JSON.stringify({
+          route: '/a',
+          results: [
+            {
+              id: 'seo/title-presence',
+              message: 'm',
+              category: 'seo',
+              detection: { presence: 'none', value: 'absent' },
+              route: '/a',
+              severity: 'critical'
+            }
+          ],
+          failedRuleIds: 'nonsense'
+        })
+      )
+    );
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    const gr = res();
+    call(getReq('/'), gr);
+    expect(gr.statusCode).not.toBe(500); // did not crash on the malformed field
+    expect(gr.chunks.join('')).toContain('seo/title-presence'); // finding still stored
+  });
+
+  it('tolerates an absent failedRuleIds field (treated as no failures)', async () => {
+    const { call } = setup();
+    const ireq = postReq('/ingest');
+    call(ireq, res());
+    ireq.emit('data', Buffer.from(ingestBody)); // no failedRuleIds key at all
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    const gr = res();
+    call(getReq('/'), gr);
+    expect(gr.statusCode).not.toBe(500);
+  });
+
+  it('reads getStaticFailedRuleIds per request so a later re-analysis is reflected without re-mounting', () => {
+    // A mutable holder (not a reassigned `let`) so the getter reads whatever's current at
+    // request time — the object reference passed to setup() never changes, only its field.
+    const idsHolder: { current?: string[] } = {};
+    const store = createStore();
+    store.setStatic([
+      {
+        id: 'seo/canonical-url',
+        message: 'm',
+        category: 'seo',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/a',
+        severity: 'warning'
+      }
+    ]);
+    const { call } = setup(undefined, () => idsHolder.current, store);
+
+    const before = res();
+    call(getReq('/data.json'), before);
+    const beforeScore = JSON.parse(before.chunks.join('')).report.score;
+
+    // A later whole-project run reports seo/canonical-url as failed — the getter reads the
+    // CURRENT value at request time, not a snapshot taken when installUiMiddleware was called.
+    idsHolder.current = ['seo/canonical-url'];
+    const after = res();
+    call(getReq('/data.json'), after);
+    const afterScore = JSON.parse(after.chunks.join('')).report.score;
+
+    expect(afterScore).not.toBe(beforeScore);
   });
 });

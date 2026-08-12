@@ -10,7 +10,7 @@ export type AnalyzeFn = (opts: {
   rules?: Record<string, RuleSetting>;
   failOn?: Severity;
   parseCache?: ParseCache;
-}) => Promise<{ results: Result[] }>;
+}) => Promise<{ results: Result[]; failedRuleIds?: string[] }>;
 
 export interface AnalysisRunnerOptions {
   /** Project root to analyze (passed as `cwd` to `analyzeProject`). */
@@ -21,7 +21,8 @@ export interface AnalysisRunnerOptions {
   failOn?: Severity;
   /** `analyzeProject`-compatible function, injectable for tests. Defaults to `analyzeProject`. */
   analyze?: AnalyzeFn;
-  onResults(results: Result[]): void;
+  /** `failedRuleIds` is `analyzeProject`'s crashed-rule ids — omitted when the injected `analyze` doesn't return them. Ids only, not a config: the base config (plugin-option weights/overrides included) must stay the caller's, never swapped for `analyzeProject`'s own. */
+  onResults(results: Result[], failedRuleIds?: string[]): void;
   onError(err: unknown): void;
   /** Called `true` right before a run starts its `analyze()` call and `false` once that run settles — including right before a coalesced follow-up starts again, so a rapid burst of changes may emit false-then-true between runs rather than staying true throughout. */
   onStatusChange?(analyzing: boolean): void;
@@ -57,7 +58,7 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunne
     running = true;
     opts.onStatusChange?.(true);
     try {
-      const { results } = await analyze({
+      const { results, failedRuleIds } = await analyze({
         cwd: opts.root,
         treatDynamicAs: opts.treatDynamicAs,
         metaComponents: opts.metaComponents,
@@ -65,7 +66,12 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunne
         failOn: opts.failOn,
         parseCache
       });
-      if (!stopped) opts.onResults(results);
+      // Passing a 2nd arg only when defined keeps callers that ignore it (and tests
+      // asserting exact call args) unaffected by this addition.
+      if (!stopped) {
+        if (failedRuleIds !== undefined) opts.onResults(results, failedRuleIds);
+        else opts.onResults(results);
+      }
     } catch (err) {
       if (!stopped) opts.onError(err);
     } finally {

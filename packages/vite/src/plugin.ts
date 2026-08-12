@@ -16,6 +16,7 @@ import {
   defaultConfig,
   resolveRuleOptions,
   shouldSkipRangeCheck,
+  terminalSafe,
   validateRuleSetting
 } from '@svelte-vitals/core';
 import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from 'svelte-vitals';
@@ -41,6 +42,9 @@ const CONFIG_BASENAMES = new Set([
 ]);
 
 const IGNORED_SEGMENTS = new Set(['node_modules', '.svelte-kit', 'build', 'dist']);
+
+/** Analyzed-repo-derived strings (rule messages, config warnings) can carry raw terminal escapes — sanitize at this sink boundary, not per interpolation. */
+const warn = (line: string): void => console.warn(terminalSafe(line));
 
 /**
  * Whether a `server.watcher` event on `file` should trigger a dev-dashboard re-analysis:
@@ -226,10 +230,10 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         // gate instead of failing the whole build — distinct from `result.failed`.
         // Config-file validation errors never reach here: resolved above, before
         // the try, they propagate and fail the build instead.
-        console.warn(`svelte-vitals: skipped — analysis failed: ${err instanceof Error ? err.message : String(err)}`);
+        warn(`svelte-vitals: skipped — analysis failed: ${err instanceof Error ? err.message : String(err)}`);
         return;
       }
-      for (const w of result.warnings) console.warn(`svelte-vitals: ${w}`);
+      for (const w of result.warnings) warn(`svelte-vitals: ${w}`);
       if (result.routeCount === 0) return;
 
       if (options.report !== false) {
@@ -277,8 +281,14 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         config = mergeConfig(options, undefined);
         warnings = [];
       }
-      for (const w of warnings) console.warn(`svelte-vitals: ${w}`);
+      for (const w of warnings) warn(`svelte-vitals: ${w}`);
       const store = createStore();
+
+      // The whole-project runner's crashed-rule ids, read by installUiMiddleware on every
+      // request via the getter below — a plain variable would only ever see the value at
+      // configureServer time, not later re-runs. Ids only, not a config: `config` above
+      // (carrying plugin-option weights/overrides) must stay the scoring base always.
+      let staticFailedRuleIds: string[] = [];
 
       // Whole-project static analysis: one run at startup (never blocking dev-server
       // start) plus a debounced re-run on relevant source changes (design doc
@@ -290,7 +300,10 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         metaComponents: options.metaComponents,
         rules: options.rules,
         failOn: options.failOn,
-        onResults: (results) => store.setStatic(results),
+        onResults: (results, failedRuleIds) => {
+          store.setStatic(results);
+          staticFailedRuleIds = failedRuleIds ?? [];
+        },
         onError: (err) => console.warn('[svelte-vitals] dev analysis failed:', err),
         onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
       });
@@ -307,7 +320,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         runner.stop();
       });
 
-      installUiMiddleware(server, config, readPackageVersion(), store, readCoreVersion());
+      installUiMiddleware(server, config, readPackageVersion(), store, readCoreVersion(), () => staticFailedRuleIds);
 
       // The dashboard has no separate CLI entry point (unlike `vitest --ui`) to signal
       // it exists, so announce it the same way Vite announces its own dev server: as an
