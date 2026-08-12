@@ -11,4 +11,7 @@ async function main(): Promise<void> {
   }
 }
 
-void main();
+main().catch((err: unknown) => {
+  console.error(`svelte-vitals: ${err instanceof Error ? err.message : String(err)}`);
+  process.exit(2);
+});
