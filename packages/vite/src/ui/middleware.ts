@@ -3,7 +3,7 @@ import type { ViteDevServer } from 'vite';
 import { CATEGORIES, renderAppShell, type Config, type Result } from '@svelte-vitals/core';
 import type { FindingsStore } from './store.js';
 import { buildSnapshot } from './snapshot.js';
-import { isLoopbackHost, isLoopbackOrigin } from '../loopback.js';
+import { isLoopbackOrigin } from '../loopback.js';
 
 const SEVERITIES = new Set(['critical', 'warning', 'info']);
 const CATEGORY_SET = new Set<string>(CATEGORIES);
@@ -93,7 +93,11 @@ export function installUiMiddleware(
     // --host is already blocked on the sending side too).
     const origin = req.headers.origin;
     const host = req.headers.host;
-    if ((typeof origin === 'string' && !isLoopbackOrigin(origin)) || !isLoopbackHost(host)) {
+    if (
+      (typeof origin === 'string' && !isLoopbackOrigin(origin)) ||
+      host === undefined ||
+      !isLoopbackOrigin(`http://${host}`)
+    ) {
       // drain any unread body so the client reliably receives the 403 (unread data kills the socket)
       req.resume();
       res.statusCode = 403;

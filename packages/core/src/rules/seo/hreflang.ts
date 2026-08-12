@@ -1,6 +1,6 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
-import { PENALIZED, PASS } from './detection.js';
+import { PENALIZED, PASS } from '../detection.js';
 
 const docsUrl = docsUrlFor('seo/hreflang');
 const malformedRecommendation = 'Use valid hreflang codes, e.g. "en", "en-US", or the literal "x-default".';

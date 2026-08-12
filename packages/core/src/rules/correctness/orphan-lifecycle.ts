@@ -2,9 +2,8 @@ import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import type { SuppressionDirective } from '../../component.js';
 import type { KitModuleFacts } from '../../kit-module.js';
-
-const PENALIZED = { presence: 'none', value: 'absent' } as const;
-const PASS = { presence: 'own', value: 'static' } as const;
+import { isSuppressed } from '../component-rule.js';
+import { PENALIZED, PASS } from '../detection.js';
 
 const ID = 'correctness/orphan-lifecycle';
 const DOCS_URL = docsUrlFor(ID);
@@ -46,10 +45,6 @@ function kitLifecycleMessage(name: string, kind: KitModuleFacts['kind'], inHandl
     : `${name}() runs outside component initialisation (module evaluation or the init hook) — it throws lifecycle_outside_component at runtime`;
 }
 
-function isSuppressed(suppressions: SuppressionDirective[] | undefined, line: number): boolean {
-  return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID)));
-}
-
 /** Emit one file's PASS/PENALIZED results — same shapes as componentRule/kitModuleRule. */
 function emitFile(
   out: Result[],
@@ -57,7 +52,7 @@ function emitFile(
   issues: { line: number; message: string }[],
   suppressions: SuppressionDirective[] | undefined
 ): void {
-  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed(suppressions, b.line)));
+  const bad = issues.filter((b) => !(b.line > 0 && isSuppressed(suppressions, ID, b.line)));
   if (bad.length === 0) {
     out.push({
       id: ID,

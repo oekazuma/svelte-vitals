@@ -1,6 +1,7 @@
-import type { Fix, Result, Severity } from '../../types.js';
+import type { Fix, Severity } from '../../types.js';
 import type { HeadTag } from '../../head.js';
-import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
+import type { Rule } from '../../rule.js';
+import { routeItemRule } from './image-rule.js';
 
 export interface LinkRuleOptions {
   id: string;
@@ -19,62 +20,18 @@ export interface LinkRuleOptions {
 
 /** Build a route-scoped Performance rule that checks each relevant <link> in the effective head. */
 export function linkRule(opts: LinkRuleOptions): Rule {
-  const docsUrl = docsUrlFor(opts.id);
-  return {
-    id: opts.id,
-    title: opts.title,
+  return routeItemRule<HeadTag>({
+    ...opts,
     category: 'performance',
-    severity: opts.severity,
-    scope: 'route',
-    rationale: opts.rationale,
-    ...(opts.fix ? { fix: opts.fix } : {}),
-    async check(ctx: RuleContext): Promise<Result[]> {
-      const out: Result[] = [];
-      for (const head of ctx.heads) {
-        const links = head.tags.filter((t) => t.kind === 'link' && opts.relevant(t));
-        // No relevant link on this route → no Performance signal (mirrors imageRule).
-        if (links.length === 0) continue;
-        const bad = links.filter((t) => !opts.ok(t));
-        if (bad.length === 0) {
-          // One passing result seeds the route at 100 for the per-category score.
-          out.push({
-            id: opts.id,
-            category: 'performance',
-            severity: opts.severity,
-            detection: { presence: 'own', value: 'static' },
-            route: head.route,
-            // The route's own attributed file (design 2026-08-08-pass-result-location-design.md)
-            // — this uncaught inline PASS literal was missed by the design spike's grep and
-            // added to its blast-radius table afterward (maintainer ruling, same date). No
-            // single per-tag location applies here (many links can back one pass), so the
-            // route's own head file is the uniform attribution; per-tag penalized locations
-            // above remain per-tag.
-            location: head.file,
-            message: opts.label,
-            recommendation: opts.recommendation,
-            docsUrl
-          });
-          continue;
-        }
-        for (const tag of bad) {
-          out.push({
-            id: opts.id,
-            category: 'performance',
-            severity: opts.severity,
-            detection: { presence: 'none', value: 'absent' },
-            route: head.route,
-            // Point at the file the link actually came from (a layout in static
-            // mode); fall back to the route's representative file when the tag
-            // carries no file (rendered mode).
-            location: tag.file ?? head.file,
-            message: `Missing ${opts.label}`,
-            recommendation: opts.recommendation,
-            docsUrl,
-            ...(opts.fix ? { fix: { ...opts.fix } } : {})
-          });
-        }
-      }
-      return out;
-    }
-  };
+    // The route's own head file is the PASS attribution (many links can back one pass).
+    groups: (ctx) =>
+      ctx.heads.map((head) => ({
+        route: head.route,
+        items: head.tags.filter((t) => t.kind === 'link' && opts.relevant(t)),
+        passLocation: head.file
+      })),
+    // Point at the file the link actually came from (a layout in static mode); fall back
+    // to the route's representative file when the tag carries no file (rendered mode).
+    location: (tag, passLocation) => tag.file ?? passLocation
+  });
 }

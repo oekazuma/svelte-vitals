@@ -1,6 +1,6 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
-import { PENALIZED, PASS } from './detection.js';
+import { PENALIZED, PASS } from '../detection.js';
 
 const docsUrl = docsUrlFor('seo/single-h1');
 const passRecommendation =

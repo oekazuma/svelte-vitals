@@ -2,7 +2,7 @@ import type { Result, RuleOptions } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import type { HeadTag } from '../../head.js';
 import { visibleLength } from './text-metrics.js';
-import { PENALIZED, PASS } from './detection.js';
+import { PENALIZED, PASS } from '../detection.js';
 import { compileOverrides } from '../../config-apply.js';
 import { intOption, resolveRuleOptions, type RuleOptionsSpec } from '../../rule-options.js';
 

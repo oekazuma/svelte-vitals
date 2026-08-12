@@ -37,7 +37,6 @@ import { getChangedFiles, filterToChangedFiles } from './changed-files.js';
 import { checkoutBaseline, filterToNewFindings } from './baseline.js';
 import { loadSuppressions, writeSuppressions, applySuppressions, SUPPRESSIONS_FILE } from './suppressions.js';
 import { colorEnabled, paletteFor } from './color.js';
-import { startSpinner } from './spinner.js';
 import { startMascotSpinner, mascotFitsWidth } from './mascot.js';
 import { playMascotGreeting, bubbleFitsWidth } from './speech-bubble.js';
 import { loadConfigFile, type LoadedConfigFile } from './config-file.js';
@@ -500,9 +499,11 @@ export async function run(opts: RunOptions = {}): Promise<number> {
     // only plays when there's room for the speech bubble too — not just the fox alone.
     await playMascotGreeting({ enabled: true, stream: stderrStream, holdMs: opts.animationFrameDelayMs });
   }
-  const spinner = useMascotSpinner
-    ? startMascotSpinner('Analyzing…', { enabled: true, stream: stderrStream })
-    : startSpinner('Analyzing…', { enabled: spinnerBaseEnabled, stream: stderrStream });
+  const spinner = startMascotSpinner('Analyzing…', {
+    enabled: spinnerBaseEnabled,
+    stream: stderrStream,
+    mascot: useMascotSpinner
+  });
 
   let cwd = opts.cwd ?? process.cwd();
 

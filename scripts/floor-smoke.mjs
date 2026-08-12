@@ -8,14 +8,17 @@
 //
 //   node scripts/floor-smoke.mjs
 //
-// Assertions are hand-rolled against `node:assert`: pulling in a test runner
-// would put the dev toolchain back on the floor, which is the whole point.
+// The runner is `node:test` — built into the floor Node, so no dev dependency
+// is put back on the floor. Executing this file directly runs the tests and
+// exits non-zero on failure, so the `node scripts/floor-smoke.mjs` contract
+// (CI and `pnpm smoke`) is unchanged.
 
 import { strict as assert } from 'node:assert';
 import { execFileSync } from 'node:child_process';
 import { cpSync, existsSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { test } from 'node:test';
 
 const root = join(import.meta.dirname, '..');
 const cliBin = join(root, 'packages/cli/dist/bin.js');
@@ -50,19 +53,18 @@ function runCli(args, opts = {}) {
   }
 }
 
-const checks = [];
-function check(name, fn) {
-  checks.push([name, fn]);
-}
+console.log(
+  `floor-smoke: node ${process.versions.node} (unflagged type stripping: ${supportsUnflaggedTypeStripping()})`
+);
 
-check('--version prints the CLI and core versions and exits 0', () => {
+test('--version prints the CLI and core versions and exits 0', () => {
   const { code, signal, stdout, stderr } = runCli(['--version']);
   assert.equal(signal, null, `killed by signal ${signal}, not a normal exit (stderr: ${stderr})`);
   assert.equal(code, 0, `expected exit 0, got ${code}: ${stderr}`);
   assert.match(stdout.trim(), /^\d+\.\d+\.\d+(-[\w.]+)? \(core \d+\.\d+\.\d+(-[\w.]+)?\)$/);
 });
 
-check('a directory that is not a SvelteKit project exits 2', () => {
+test('a directory that is not a SvelteKit project exits 2', () => {
   const empty = mkdtempSync(join(tmpdir(), 'floor-smoke-empty-'));
   try {
     const { code, signal, stderr } = runCli([empty]);
@@ -74,7 +76,7 @@ check('a directory that is not a SvelteKit project exits 2', () => {
   }
 });
 
-check('analysing a real project emits a well-formed JSON report', () => {
+test('analysing a real project emits a well-formed JSON report', () => {
   const { code, signal, stdout, stderr } = runCli([basicProject, '--reporter', 'json']);
   assert.equal(signal, null, `killed by signal ${signal}, not a normal exit (stderr: ${stderr})`);
   // 0 (clean) and 1 (a finding reached the fail threshold) are both contractual;
@@ -86,7 +88,7 @@ check('analysing a real project emits a well-formed JSON report', () => {
   assert.ok(report.categories && typeof report.categories === 'object');
 });
 
-check('the read-only subcommands deliver complete JSON through a pipe', () => {
+test('the read-only subcommands deliver complete JSON through a pipe', () => {
   // execFileSync gives the child a pipe, not a TTY — the case where `process.exit` can drop
   // undrained writes. Parsing the whole payload is what proves nothing was truncated.
   for (const [args, check] of [
@@ -102,7 +104,7 @@ check('the read-only subcommands deliver complete JSON through a pipe', () => {
   }
 });
 
-check('the analysis report survives a real shell pipe', () => {
+test('the analysis report survives a real shell pipe', () => {
   // `runCli` and the sibling checks give the child a socketpair, whose buffer is wide enough on Linux to
   // hide a truncation; `sh -c '… | cat'` gives it a 65,536-byte FIFO, which is what a user piping to `jq`
   // gets. Positional parameters rather than interpolation, so a checkout path containing a space survives.
@@ -123,7 +125,7 @@ check('the analysis report survives a real shell pipe', () => {
   assert.equal(typeof report.score, 'number');
 });
 
-check('a bad subcommand argument exits 2 with an empty stdout', () => {
+test('a bad subcommand argument exits 2 with an empty stdout', () => {
   // The exit-2 contract the docs subcommand promises, asserted on the real process rather
   // than on the in-process handler.
   const { code, stdout, stderr } = runCli(['docs', 'show', 'no-such-topic']);
@@ -132,7 +134,7 @@ check('a bad subcommand argument exits 2 with an empty stdout', () => {
   assert.match(stderr, /unknown docs topic/);
 });
 
-check('every published entry point imports under bare node', async () => {
+test('every published entry point imports under bare node', async () => {
   for (const entry of [
     'packages/core/dist/index.js',
     'packages/cli/dist/index.js',
@@ -155,7 +157,7 @@ function supportsUnflaggedTypeStripping() {
   return (major === 22 && minor >= 18) || (major === 23 && minor >= 6) || major >= 24;
 }
 
-check("a .ts config file matches this Node runtime's type-stripping support", () => {
+test("a .ts config file matches this Node runtime's type-stripping support", () => {
   // `loadConfigFile` runs before project detection, so on the floor Node the config
   // throws whatever this directory holds. It has to look like a SvelteKit app for the
   // other branch: there the config loads and execution continues into detection, which
@@ -181,24 +183,3 @@ check("a .ts config file matches this Node runtime's type-stripping support", ()
     rmSync(project, { recursive: true, force: true });
   }
 });
-
-console.log(
-  `floor-smoke: node ${process.versions.node} (unflagged type stripping: ${supportsUnflaggedTypeStripping()})`
-);
-
-let failed = 0;
-for (const [name, fn] of checks) {
-  try {
-    await fn();
-    console.log(`  ok   ${name}`);
-  } catch (err) {
-    failed++;
-    console.error(`  FAIL ${name}\n       ${err.stack ?? err.message}`);
-  }
-}
-
-if (failed > 0) {
-  console.error(`floor-smoke: ${failed} of ${checks.length} checks failed`);
-  process.exit(1);
-}
-console.log(`floor-smoke: ${checks.length} checks passed`);

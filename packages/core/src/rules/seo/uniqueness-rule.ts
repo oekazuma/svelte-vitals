@@ -1,7 +1,7 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import type { HeadTag } from '../../head.js';
-import { PENALIZED, PASS } from './detection.js';
+import { PENALIZED, PASS } from '../detection.js';
 import { collapseWhitespace } from './text-metrics.js';
 
 export interface UniquenessRuleOptions {

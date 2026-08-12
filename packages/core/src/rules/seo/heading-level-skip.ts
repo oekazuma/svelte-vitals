@@ -1,6 +1,6 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
-import { PENALIZED, PASS } from './detection.js';
+import { PENALIZED, PASS } from '../detection.js';
 
 const docsUrl = docsUrlFor('seo/heading-level-skip');
 const recommendation = 'Increase heading levels one step at a time (do not jump, e.g. from <h2> straight to <h4>).';
