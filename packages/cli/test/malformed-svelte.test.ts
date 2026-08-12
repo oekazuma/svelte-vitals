@@ -204,6 +204,7 @@ describe('run(): stderr warning for skipped (unparsable) files (issue #424)', ()
     const errText = cap.err.join('\n');
     // oxlint-disable-next-line no-control-regex -- deliberately matching C0/DEL/ESC control bytes to assert their absence
     expect(errText).not.toMatch(/[\x00-\x08\x0b-\x1f\x7f]/);
+    expect(errText).not.toContain('pwned');
     expect(errText).toContain('Broken.svelte');
   });
 });
