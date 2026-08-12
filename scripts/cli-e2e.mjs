@@ -191,3 +191,26 @@ test('CURSOR_AGENT (a non-Claude gunshi/std-env-recognized var) auto-selects the
   assert.match(stderr, /agent reporter auto-selected/);
   assert.match(stdout, /# svelte-vitals — fixes/);
 });
+
+/**
+ * Real end-to-end coverage for the ja `--help` path (docs/superpowers/specs/
+ * 2026-08-11-cli-ja-help-design.md): it crosses a dynamic `import('@gunshi/plugin-i18n')` and a
+ * bundler-produced locale chunk that no in-process vitest run exercises. `LANG` isn't in
+ * `CHILD_ENV_ALLOWLIST` (it would leak the host locale into every other check), so it's passed
+ * as an explicit per-check override, same as `CLAUDECODE`/`CURSOR_AGENT` above.
+ */
+test('--help under LANG=ja_JP.UTF-8 renders the Japanese help text', () => {
+  const { code, signal, stdout, stderr } = runCli(['--help'], { env: cleanEnv({ LANG: 'ja_JP.UTF-8' }) });
+  assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+  assert.equal(code, 0, `expected exit 0, got ${code}: ${stderr}`);
+  assert.match(stdout, /決定論的な SvelteKit/);
+  assert.match(stdout, /使用方法:/);
+});
+
+test('--help under a clean env stays English (no ja plumbing leak)', () => {
+  const { code, signal, stdout, stderr } = runCli(['--help'], { env: cleanEnv() });
+  assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+  assert.equal(code, 0, `expected exit 0, got ${code}: ${stderr}`);
+  assert.match(stdout, /a deterministic SvelteKit code-health scanner/);
+  assert.doesNotMatch(stdout, /使用方法:/);
+});
