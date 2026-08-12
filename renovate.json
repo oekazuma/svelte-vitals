@@ -21,12 +21,8 @@
       "enabled": false
     },
     {
-      "groupName": "dependencies",
-      "matchDepTypes": ["dependencies"]
-    },
-    {
-      "groupName": "devDependencies",
-      "matchDepTypes": ["devDependencies"]
+      "groupName": "catalog",
+      "matchFileNames": ["pnpm-workspace.yaml"]
     },
     {
       "groupName": "linters",
@@ -43,6 +39,16 @@
     {
       "groupName": "build-tools",
       "matchPackageNames": ["tsup{/,}**", "vite{/,}**", "vitest{/,}**"]
+    },
+    {
+      "groupName": "gunshi",
+      "matchPackageNames": ["gunshi", "@gunshi/**"]
+    },
+    {
+      "groupName": "gunshi",
+      "matchPackageNames": ["gunshi", "@gunshi/**"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": false
     }
   ]
 }
