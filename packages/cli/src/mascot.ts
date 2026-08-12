@@ -190,6 +190,9 @@ export function startMascotSpinner(
     stop() {
       clearInterval(timer);
       render.clear();
+      // clear() erases but leaves the cursor hidden (only done() re-shows it) —
+      // without this, a --no-animation run keeps the cursor invisible until exit.
+      render.done();
     }
   };
 }
