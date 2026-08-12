@@ -211,9 +211,14 @@ describe('svelteVitalsHandle', () => {
       return {
         ...actual,
         runRules: async (rules: unknown, ctx: Parameters<typeof actual.runRules>[1]) => {
-          if (shouldFail)
-            return { results: [], examined: {}, failedRules: [{ id: 'seo/title-presence', message: 'boom' }] };
-          return actual.runRules(rules as never, ctx);
+          // Real results on both runs — only `failedRules` differs while `shouldFail` is
+          // true — so the second POST below can only be explained by the failed-id
+          // dedup suffix changing, not by `findingSignature`'s `results` shifting too.
+          const result = await actual.runRules(rules as never, ctx);
+          if (shouldFail) {
+            return { ...result, failedRules: [{ id: 'seo/title-presence', message: 'boom' }] };
+          }
+          return result;
         }
       };
     });
@@ -224,9 +229,9 @@ describe('svelteVitalsHandle', () => {
       await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
       await flush();
       shouldFail = false;
-      // Re-render the same page: `findingSignature` alone would be unchanged (results now
-      // real instead of empty, but the crash's presence is what must invalidate the skip),
-      // so this POST must still fire.
+      // Re-render the same page: `results` are identical on both runs, so `findingSignature`
+      // alone can't explain a second POST — only the failed-id dedup suffix clearing can.
+      // This POST must still fire.
       await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
       await flush();
       expect(fetchMock).toHaveBeenCalledTimes(2);

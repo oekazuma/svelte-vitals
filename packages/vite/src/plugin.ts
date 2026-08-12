@@ -275,7 +275,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
         // Dev must not crash on a config typo; the dashboard runs on plugin
         // options/defaults and says so. The build path (closeBundle) intentionally
         // DOES fail — see the comment there.
-        console.warn(
+        warn(
           `svelte-vitals: config file invalid — dashboard using plugin options/defaults: ${err instanceof Error ? err.message : String(err)}`
         );
         config = mergeConfig(options, undefined);
@@ -304,7 +304,8 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
           store.setStatic(results);
           staticFailedRuleIds = failedRuleIds ?? [];
         },
-        onError: (err) => console.warn('[svelte-vitals] dev analysis failed:', err),
+        onError: (err) =>
+          warn(`[svelte-vitals] dev analysis failed: ${err instanceof Error ? err.message : String(err)}`),
         onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
       });
       runner.start();
