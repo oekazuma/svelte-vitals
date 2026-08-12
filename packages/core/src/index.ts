@@ -182,7 +182,8 @@ export {
   overrideMatches,
   settingSeverity,
   settingOptions,
-  withFailedRulesOff
+  withFailedRulesOff,
+  formatFailedRuleWarning
 } from './config-apply.js';
 export type { CompiledOverride } from './config-apply.js';
 

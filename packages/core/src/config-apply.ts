@@ -36,6 +36,11 @@ export function withFailedRulesOff(config: Config, failedRuleIds: readonly strin
   };
 }
 
+/** One-line "rule failed and was skipped" warning; capped to the message's first line so a stack trace can't flood a terminal. */
+export function formatFailedRuleWarning(f: { id: string; message: string }): string {
+  return `rule ${f.id} failed and was skipped: ${f.message.split('\n')[0]}`;
+}
+
 /** Apply per-rule severity overrides to results (design §6). */
 export function applyRuleSeverities(results: Result[], config: Config): Result[] {
   return results.map((result) => {

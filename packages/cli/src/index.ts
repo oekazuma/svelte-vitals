@@ -19,6 +19,7 @@ import {
   applyOverrides,
   settingSeverity,
   withFailedRulesOff,
+  formatFailedRuleWarning,
   terminalSafe,
   type Severity,
   type RuleSetting,
@@ -268,7 +269,7 @@ function skippedFileWarnings(facts: { file: string; parseFailed?: true }[]): str
  * as clean. Message capped to its first line so a multi-line stack trace can't flood the terminal.
  */
 function failedRuleWarnings(failedRules: { id: string; message: string }[]): string[] {
-  return failedRules.map((f) => `rule ${f.id} failed and was skipped: ${f.message.split('\n')[0]}`);
+  return failedRules.map(formatFailedRuleWarning);
 }
 
 /**

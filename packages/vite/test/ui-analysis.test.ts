@@ -53,6 +53,27 @@ describe('createAnalysisRunner', () => {
     });
   });
 
+  it('passes the failure-adjusted config through to onResults as a 2nd arg when analyze returns one', async () => {
+    const adjustedConfig = {
+      rules: { 'seo/title-presence': 'off' }
+    } as unknown as import('@svelte-vitals/core').Config;
+    const analyze = vi.fn<AnalyzeFn>(async () => ({ results: [], config: adjustedConfig }));
+    const onResults = vi.fn();
+    const runner = createAnalysisRunner({ root: '/proj', analyze, onResults, onError: vi.fn() });
+    runner.start();
+    await vi.waitFor(() => expect(onResults).toHaveBeenCalledTimes(1));
+    expect(onResults).toHaveBeenCalledWith([], adjustedConfig);
+  });
+
+  it('calls onResults with a single arg when analyze omits config (existing callers unaffected)', async () => {
+    const analyze = vi.fn<AnalyzeFn>(async () => ({ results: [] }));
+    const onResults = vi.fn();
+    const runner = createAnalysisRunner({ root: '/proj', analyze, onResults, onError: vi.fn() });
+    runner.start();
+    await vi.waitFor(() => expect(onResults).toHaveBeenCalledTimes(1));
+    expect(onResults).toHaveBeenCalledWith([]);
+  });
+
   it('coalesces N rapid notifyChange calls into a single debounced run', async () => {
     const analyze = vi.fn<AnalyzeFn>(async () => ({ results: [] }));
     const runner = createAnalysisRunner({

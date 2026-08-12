@@ -7,6 +7,7 @@ import {
   overrideMatches,
   defineConfig,
   withFailedRulesOff,
+  formatFailedRuleWarning,
   type Rule,
   type Result
 } from '../src/index.js';
@@ -183,6 +184,12 @@ describe('withFailedRulesOff', () => {
     const config = withFailedRulesOff(defineConfig({}), ['seo/json-ld']);
     const kept = selectRules([ruleA, ruleB], config);
     expect(kept.map((r) => r.id)).toEqual(['seo/title-presence']);
+  });
+});
+
+describe('formatFailedRuleWarning', () => {
+  it('caps the message to its first line', () => {
+    expect(formatFailedRuleWarning({ id: 'x', message: 'boom\nstack' })).toBe('rule x failed and was skipped: boom');
   });
 });
 
