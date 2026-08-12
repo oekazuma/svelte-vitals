@@ -158,6 +158,12 @@ describe('complete -- <words>: candidate protocol the generated scripts call bac
     expect(descriptionOf('--no-color')).toBe(ROOT_ARGS.noColor.description);
     expect(descriptionOf('--no-animation')).toBe(ROOT_ARGS.noAnimation.description);
     expect(descriptionOf('--no-suppressions')).toBe(ROOT_ARGS.noSuppressions.description);
+    // Pins that the phantom base-key entries forCompletion adds to satisfy the plugin's
+    // description lookup (see complete.ts's own doc comment) never surface as their own,
+    // nonexistent candidates — the real CLI has no --color/--animation/--suppressions flags.
+    for (const phantom of ['--color', '--animation', '--suppressions']) {
+      expect(lines.some((l) => l.startsWith(`${phantom}\t`))).toBe(false);
+    }
   });
 });
 
