@@ -160,28 +160,31 @@ interface MascotSpinner {
 }
 
 const IDLE_TICK_MS = 160;
+const PLAIN_FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+const PLAIN_TICK_MS = 80;
 
 /**
  * The analysis-phase progress indicator: a small idle-blink loop rendered via
- * `log-update` (chosen over spinner.ts's hand-rolled `\x1b[nA` redraw specifically
+ * `log-update` (chosen over a hand-rolled `\r`/`\x1b[nA` redraw specifically
  * because it correctly tracks wrapped/actual line count — see the design spec's
- * "Library decision"). Mirrors `startSpinner`'s `{enabled, stream}` contract and
- * no-op-when-disabled behavior exactly, so callers can use either interchangeably.
+ * "Library decision"). No-op when `enabled` is false. `mascot: false` renders a
+ * plain one-line braille spinner instead (`--no-animation`, narrow terminals).
  */
 export function startMascotSpinner(
   text: string,
-  opts: { enabled: boolean; stream?: NodeJS.WriteStream }
+  opts: { enabled: boolean; stream?: NodeJS.WriteStream; mascot?: boolean }
 ): MascotSpinner {
   if (!opts.enabled) return { stop() {} };
   const stream = opts.stream ?? process.stderr;
+  const mascot = opts.mascot ?? true;
   const render = createLogUpdate(stream);
   let i = 0;
   const tick = (): void => {
-    render(`${renderMascotIdleFrame(i)}\n${text}`);
+    render(mascot ? `${renderMascotIdleFrame(i)}\n${text}` : `${PLAIN_FRAMES[i % PLAIN_FRAMES.length]} ${text}`);
     i++;
   };
   tick();
-  const timer = setInterval(tick, IDLE_TICK_MS);
+  const timer = setInterval(tick, mascot ? IDLE_TICK_MS : PLAIN_TICK_MS);
   if (typeof timer.unref === 'function') timer.unref();
   return {
     stop() {

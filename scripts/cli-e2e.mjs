@@ -2,9 +2,9 @@
 // docs/superpowers/specs/2026-08-10-gunshi-cli-migration-design.md). Pins the exit codes the
 // --fail-on/--min-health gates promise, against tiny fixture projects this script generates
 // itself — never the shared packages/cli/test/fixtures, whose findings can drift as rules
-// change. Follows scripts/floor-smoke.mjs's conventions (same runner, same hand-rolled
-// node:assert style) but is wired into the `test` job (pnpm e2e, after floor-smoke), not
-// `floor-smoke` — see AGENTS.md's floor-smoke section for why that job stays untouched.
+// change. Follows scripts/floor-smoke.mjs's conventions (same `node:test` runner) but is
+// wired into the `test` job (pnpm e2e, after floor-smoke), not `floor-smoke` — see AGENTS.md's
+// floor-smoke section for why that job stays untouched.
 //
 //   node scripts/cli-e2e.mjs   (needs `pnpm build` first)
 
@@ -13,6 +13,7 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { after, test } from 'node:test';
 
 const root = join(import.meta.dirname, '..');
 const cliBin = join(root, 'packages/cli/dist/bin.js');
@@ -43,13 +44,6 @@ function runCli(args, opts = {}) {
   };
 }
 
-/**
- * The env vars gunshi/agent's bundled std-env actually checks for AI-agent detection
- * (read from node_modules/gunshi/lib/agent.js — gunshi has zero deps so std-env ships
- * inlined), plus our own SVELTE_VITALS_AGENT/SVELTE_VITALS_REPORTER and GITHUB_ACTIONS.
- * Stripped from the child's env before each reporter-auto-detection check below so the
- * outer process — itself often an AI-agent harness — can't leak a false positive in.
- */
 /**
  * Child-process env built from an ALLOWLIST, not by scrubbing known agent signals: gunshi/std-env's
  * detection list grows upstream, and a deny list would silently fall behind it — a newly recognized
@@ -106,93 +100,63 @@ function makeWarningOnlyProject() {
   return dir;
 }
 
-const checks = [];
-function check(name, fn) {
-  checks.push([name, fn]);
-}
-
-check('a clean project (no routes) exits 0 under the default gate', () => {
-  const dir = makeCleanProject();
-  try {
-    const args = [dir];
-    const { code, signal, stderr } = runCli(args);
-    assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
-    assert.equal(code, 0, `\`svelte-vitals ${args.join(' ')}\` expected exit 0, got ${code}: ${stderr}`);
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
+// The CLI is a read-only scanner, so one fixture of each kind serves every check.
+const cleanDir = makeCleanProject();
+const warningDir = makeWarningOnlyProject();
+const nonProjectDir = mkdtempSync(join(tmpdir(), 'cli-e2e-nonproject-'));
+after(() => {
+  for (const dir of [cleanDir, warningDir, nonProjectDir]) rmSync(dir, { recursive: true, force: true });
 });
 
-check('a warning-only project exits 0 under the default gate (fail-on critical)', () => {
-  const dir = makeWarningOnlyProject();
-  try {
-    const args = [dir];
-    const { code, signal, stderr } = runCli(args);
-    assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
-    assert.equal(code, 0, `\`svelte-vitals ${args.join(' ')}\` expected exit 0, got ${code}: ${stderr}`);
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
+test('a clean project (no routes) exits 0 under the default gate', () => {
+  const { code, signal, stderr } = runCli([cleanDir]);
+  assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+  assert.equal(code, 0, `\`svelte-vitals ${cleanDir}\` expected exit 0, got ${code}: ${stderr}`);
 });
 
-check('the same project exits 1 under --fail-on warning', () => {
-  const dir = makeWarningOnlyProject();
-  try {
-    const args = [dir, '--fail-on', 'warning'];
-    const { code, signal, stderr } = runCli(args);
-    assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
-    assert.equal(code, 1, `\`svelte-vitals ${args.join(' ')}\` expected exit 1, got ${code}: ${stderr}`);
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
+test('a warning-only project exits 0 under the default gate (fail-on critical)', () => {
+  const { code, signal, stderr } = runCli([warningDir]);
+  assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+  assert.equal(code, 0, `\`svelte-vitals ${warningDir}\` expected exit 0, got ${code}: ${stderr}`);
 });
 
-check('--min-health 100 fails on an imperfect project', () => {
-  const dir = makeWarningOnlyProject();
-  try {
-    const args = [dir, '--min-health', '100'];
-    const { code, signal, stderr } = runCli(args);
-    assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
-    assert.equal(code, 1, `\`svelte-vitals ${args.join(' ')}\` expected exit 1, got ${code}: ${stderr}`);
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
+test('the same project exits 1 under --fail-on warning', () => {
+  const args = [warningDir, '--fail-on', 'warning'];
+  const { code, signal, stderr } = runCli(args);
+  assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+  assert.equal(code, 1, `\`svelte-vitals ${args.join(' ')}\` expected exit 1, got ${code}: ${stderr}`);
 });
 
-check('a non-project directory exits 2', () => {
-  const dir = mkdtempSync(join(tmpdir(), 'cli-e2e-nonproject-'));
-  try {
-    const args = [dir];
-    const { code, signal, stderr } = runCli(args);
-    assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
-    assert.equal(code, 2, `\`svelte-vitals ${args.join(' ')}\` expected exit 2, got ${code}: ${stderr}`);
-    assert.match(stderr, /No SvelteKit project found/);
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
+test('--min-health 100 fails on an imperfect project', () => {
+  const args = [warningDir, '--min-health', '100'];
+  const { code, signal, stderr } = runCli(args);
+  assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+  assert.equal(code, 1, `\`svelte-vitals ${args.join(' ')}\` expected exit 1, got ${code}: ${stderr}`);
 });
 
-check('--help exits 0', () => {
+test('a non-project directory exits 2', () => {
+  const { code, signal, stderr } = runCli([nonProjectDir]);
+  assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+  assert.equal(code, 2, `\`svelte-vitals ${nonProjectDir}\` expected exit 2, got ${code}: ${stderr}`);
+  assert.match(stderr, /No SvelteKit project found/);
+});
+
+test('--help exits 0', () => {
   const { code, signal, stdout, stderr } = runCli(['--help']);
   assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
   assert.equal(code, 0, `\`svelte-vitals --help\` expected exit 0, got ${code}: ${stderr}`);
   assert.match(stdout, /svelte-vitals — a deterministic SvelteKit code-health scanner/);
 });
 
-check('--reporter json stdout parses as JSON when findings exist', () => {
-  const dir = makeWarningOnlyProject();
-  try {
-    const args = [dir, '--reporter', 'json'];
-    const { code, signal, stdout, stderr } = runCli(args);
-    assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
-    assert.equal(code, 0, `\`svelte-vitals ${args.join(' ')}\` expected exit 0, got ${code}: ${stderr}`);
-    const report = JSON.parse(stdout);
-    assert.equal(typeof report.score, 'number');
-    assert.ok(report.score < 100, `expected an imperfect score, got ${report.score}`);
-    assert.ok(report.categories && typeof report.categories === 'object');
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
+test('--reporter json stdout parses as JSON when findings exist', () => {
+  const args = [warningDir, '--reporter', 'json'];
+  const { code, signal, stdout, stderr } = runCli(args);
+  assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+  assert.equal(code, 0, `\`svelte-vitals ${args.join(' ')}\` expected exit 0, got ${code}: ${stderr}`);
+  const report = JSON.parse(stdout);
+  assert.equal(typeof report.score, 'number');
+  assert.ok(report.score < 100, `expected an imperfect score, got ${report.score}`);
+  assert.ok(report.categories && typeof report.categories === 'object');
 });
 
 /**
@@ -203,59 +167,27 @@ check('--reporter json stdout parses as JSON when findings exist', () => {
  * exercise it. A fresh child process has no such cache: each check below gets its own process,
  * so std-env's own env read sees exactly the env set up for it.
  */
-check('a clean env (no agent signal) falls back to console output, not the agent reporter', () => {
-  const dir = makeWarningOnlyProject();
-  try {
-    const { code, signal, stdout, stderr } = runCli([dir], { env: cleanEnv() });
-    assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
-    assert.equal(code, 0, `expected exit 0, got ${code}: ${stderr}`);
-    assert.doesNotMatch(stderr, /agent reporter auto-selected/);
-    assert.doesNotMatch(stdout, /# svelte-vitals — fixes/); // agent reporter's Markdown header
-    assert.match(stdout, /Svelte Vitals {2}·/); // console reporter's own header
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
+test('a clean env (no agent signal) falls back to console output, not the agent reporter', () => {
+  const { code, signal, stdout, stderr } = runCli([warningDir], { env: cleanEnv() });
+  assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+  assert.equal(code, 0, `expected exit 0, got ${code}: ${stderr}`);
+  assert.doesNotMatch(stderr, /agent reporter auto-selected/);
+  assert.doesNotMatch(stdout, /# svelte-vitals — fixes/); // agent reporter's Markdown header
+  assert.match(stdout, /Svelte Vitals {2}·/); // console reporter's own header
 });
 
-check('CLAUDECODE (gunshi/std-env-recognized) auto-selects the agent reporter', () => {
-  const dir = makeWarningOnlyProject();
-  try {
-    const { code, signal, stdout, stderr } = runCli([dir], { env: cleanEnv({ CLAUDECODE: '1' }) });
-    assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
-    assert.equal(code, 0, `expected exit 0, got ${code}: ${stderr}`);
-    assert.match(stderr, /agent reporter auto-selected/);
-    assert.match(stdout, /# svelte-vitals — fixes/);
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
+test('CLAUDECODE (gunshi/std-env-recognized) auto-selects the agent reporter', () => {
+  const { code, signal, stdout, stderr } = runCli([warningDir], { env: cleanEnv({ CLAUDECODE: '1' }) });
+  assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+  assert.equal(code, 0, `expected exit 0, got ${code}: ${stderr}`);
+  assert.match(stderr, /agent reporter auto-selected/);
+  assert.match(stdout, /# svelte-vitals — fixes/);
 });
 
-check('CURSOR_AGENT (a non-Claude gunshi/std-env-recognized var) auto-selects the agent reporter', () => {
-  const dir = makeWarningOnlyProject();
-  try {
-    const { code, signal, stdout, stderr } = runCli([dir], { env: cleanEnv({ CURSOR_AGENT: '1' }) });
-    assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
-    assert.equal(code, 0, `expected exit 0, got ${code}: ${stderr}`);
-    assert.match(stderr, /agent reporter auto-selected/);
-    assert.match(stdout, /# svelte-vitals — fixes/);
-  } finally {
-    rmSync(dir, { recursive: true, force: true });
-  }
+test('CURSOR_AGENT (a non-Claude gunshi/std-env-recognized var) auto-selects the agent reporter', () => {
+  const { code, signal, stdout, stderr } = runCli([warningDir], { env: cleanEnv({ CURSOR_AGENT: '1' }) });
+  assert.equal(signal, null, `killed by signal ${signal} (stderr: ${stderr})`);
+  assert.equal(code, 0, `expected exit 0, got ${code}: ${stderr}`);
+  assert.match(stderr, /agent reporter auto-selected/);
+  assert.match(stdout, /# svelte-vitals — fixes/);
 });
-
-let failed = 0;
-for (const [name, fn] of checks) {
-  try {
-    fn();
-    console.log(`  ok   ${name}`);
-  } catch (err) {
-    failed++;
-    console.error(`  FAIL ${name}\n       ${err.stack ?? err.message}`);
-  }
-}
-
-if (failed > 0) {
-  console.error(`cli-e2e: ${failed} of ${checks.length} checks failed`);
-  process.exit(1);
-}
-console.log(`cli-e2e: ${checks.length} checks passed`);

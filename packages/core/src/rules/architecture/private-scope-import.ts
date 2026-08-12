@@ -124,7 +124,7 @@ export const architecturePrivateScopeImport: Rule = {
       // suppressed must emit the passing result below, not nothing (componentRule's
       // isSuppressed reused rather than a second copy of the matching logic).
       const visible = violations.filter(
-        (v) => !(v.line > 0 && isSuppressed(c, 'architecture/private-scope-import', v.line))
+        (v) => !(v.line > 0 && isSuppressed(c.suppressions, 'architecture/private-scope-import', v.line))
       );
       if (visible.length === 0) {
         out.push({

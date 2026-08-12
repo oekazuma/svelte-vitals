@@ -1,10 +1,8 @@
-import type { Config, Result, Severity } from '../types.js';
+import type { Config, Result } from '../types.js';
 import { classify, effectiveSeverity } from '../summary.js';
 import { computeHealth } from '../scoring/score.js';
 import { mdEscape } from './sanitize.js';
-
-/** Sort order so the most severe findings (and the groups holding them) surface first. */
-const SEVERITY_RANK: Record<Severity, number> = { critical: 0, warning: 1, info: 2 };
+import { SEVERITY_RANK } from './shared.js';
 
 /** Render failing findings as an agent-actionable Markdown remediation document (issue #18). */
 export function formatAgentReport(results: Result[], config: Config): string {

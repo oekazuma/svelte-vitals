@@ -85,6 +85,6 @@ export function renderSchemaVocabModule(names, { generatorCommand, schemaDtsVers
 // Regenerate after bumping schema-dts; test/schema-vocabulary.test.mjs fails the build on drift.
 
 /** Every schema.org type name schema-dts exports, for validating JSON-LD \`@type\` values. */
-export const SCHEMA_ORG_TYPES: ReadonlySet<string> = new Set(${JSON.stringify(sorted, null, 2)});
+export const SCHEMA_ORG_TYPES: ReadonlySet<string> = new Set('${sorted.join(' ')}'.split(' '));
 `;
 }

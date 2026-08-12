@@ -15,18 +15,9 @@
 // Measures, for synthetic SvelteKit-like projects of increasing route count, how long
 // a single whole-project `analyzeProject()` call takes (the same call
 // packages/vite/src/ui/analysis.ts's `runOnce` makes on every dev-server save) and how
-// much it blocks the Node event loop while it runs, using two independent methods:
-//
-//   1. perf_hooks.monitorEventLoopDelay — a fresh Histogram per run, enabled right
-//      before the analyze() call and disabled right after, read in ms.
-//   2. The classic tick-drift method: a setInterval firing every TICK_MS, recording
-//      the actual gap between ticks. A busy/blocked event loop shows up as gaps much
-//      larger than TICK_MS. For every gap exceeding BLOCK_THRESHOLD_MS (the plan's
-//      suggested "distinctly blocked" cutoff), we count it as a blocked tick and sum
-//      (gap - TICK_MS) into a cumulative "excess" figure — the total time spent
-//      waiting beyond what a healthy TICK_MS-spaced tick would take. Reported
-//      alongside the max gap, this double-checks the perf_hooks numbers without
-//      relying solely on one API.
+// much it blocks the Node event loop while it runs, via perf_hooks.monitorEventLoopDelay —
+// a fresh Histogram per run, enabled right before the analyze() call and disabled right
+// after, read in ms.
 //
 // Usage: node packages/vite/scripts/bench/bench.mjs [--sizes=50,200,500] [--runs=3]
 
@@ -34,56 +25,22 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { monitorEventLoopDelay, performance } from 'node:perf_hooks';
+import { parseArgs } from 'node:util';
 import { analyzeProject } from 'svelte-vitals';
 import { generateProject } from './gen-project.mjs';
 
-const TICK_MS = 10;
-const BLOCK_THRESHOLD_MS = 100;
-
-function parseArgs(argv) {
-  const opts = { sizes: [50, 200, 500], runs: 3 };
-  for (const arg of argv) {
-    if (arg.startsWith('--sizes=')) {
-      opts.sizes = arg
-        .slice('--sizes='.length)
-        .split(',')
-        .map((s) => Number(s.trim()))
-        .filter((n) => Number.isFinite(n) && n > 0);
-    } else if (arg.startsWith('--runs=')) {
-      opts.runs = Number(arg.slice('--runs='.length));
-    }
-  }
-  return opts;
-}
-
-function startTickMonitor(intervalMs) {
-  const gaps = [];
-  let last = performance.now();
-  const timer = setInterval(() => {
-    const now = performance.now();
-    gaps.push(now - last);
-    last = now;
-  }, intervalMs);
+function parseBenchArgs(argv) {
+  const { values } = parseArgs({
+    args: argv,
+    options: { sizes: { type: 'string' }, runs: { type: 'string' } }
+  });
   return {
-    stop() {
-      clearInterval(timer);
-      return gaps;
-    }
+    sizes: values.sizes
+      ?.split(',')
+      .map((s) => Number(s.trim()))
+      .filter((n) => Number.isFinite(n) && n > 0) ?? [50, 200, 500],
+    runs: values.runs !== undefined ? Number(values.runs) : 3
   };
-}
-
-function summarizeTicks(gaps, intervalMs, thresholdMs) {
-  let maxGapMs = 0;
-  let excessMs = 0;
-  let blockedTicks = 0;
-  for (const gap of gaps) {
-    if (gap > maxGapMs) maxGapMs = gap;
-    if (gap > thresholdMs) {
-      excessMs += gap - intervalMs;
-      blockedTicks++;
-    }
-  }
-  return { maxGapMs, excessMs, blockedTicks, totalTicks: gaps.length };
 }
 
 function nsToMs(ns) {
@@ -93,14 +50,12 @@ function nsToMs(ns) {
 async function measureOnce(cwd) {
   const histogram = monitorEventLoopDelay({ resolution: 5 });
   histogram.enable();
-  const ticks = startTickMonitor(TICK_MS);
 
   const t0 = performance.now();
   const { results } = await analyzeProject({ cwd });
   const t1 = performance.now();
 
   histogram.disable();
-  const gaps = ticks.stop();
 
   const eld = {
     minMs: nsToMs(histogram.min),
@@ -109,15 +64,14 @@ async function measureOnce(cwd) {
     p50Ms: nsToMs(histogram.percentile(50)),
     p99Ms: nsToMs(histogram.percentile(99))
   };
-  const tick = summarizeTicks(gaps, TICK_MS, BLOCK_THRESHOLD_MS);
 
-  return { totalMs: t1 - t0, resultCount: results.length, eld, tick };
+  return { totalMs: t1 - t0, resultCount: results.length, eld };
 }
 
 async function main() {
-  const { sizes, runs } = parseArgs(process.argv.slice(2));
+  const { sizes, runs } = parseBenchArgs(process.argv.slice(2));
   console.log(
-    `svelte-vitals dev-dashboard analysis benchmark — node ${process.version}, ${runs} timed run(s) per size (+1 discarded warmup), tick interval ${TICK_MS}ms, block threshold ${BLOCK_THRESHOLD_MS}ms\n`
+    `svelte-vitals dev-dashboard analysis benchmark — node ${process.version}, ${runs} timed run(s) per size (+1 discarded warmup)\n`
   );
 
   const allResults = [];
@@ -138,7 +92,6 @@ async function main() {
         console.log(
           `routes=${routeCount} run=${i + 1}/${runs} total=${m.totalMs.toFixed(1)}ms ` +
             `eld(max=${m.eld.maxMs.toFixed(1)}ms p99=${m.eld.p99Ms.toFixed(1)}ms mean=${m.eld.meanMs.toFixed(2)}ms) ` +
-            `tick(maxGap=${m.tick.maxGapMs.toFixed(1)}ms blockedTicks=${m.tick.blockedTicks}/${m.tick.totalTicks} excess=${m.tick.excessMs.toFixed(1)}ms) ` +
             `results=${m.resultCount}`
         );
       }

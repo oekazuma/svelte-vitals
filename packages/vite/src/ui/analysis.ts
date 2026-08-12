@@ -1,6 +1,6 @@
 import { relative, sep } from 'node:path';
 import type { Result, RuleSetting, Severity, TreatDynamicAs } from '@svelte-vitals/core';
-import type { ParseCache } from 'svelte-vitals';
+import { analyzeProject, type ParseCache } from 'svelte-vitals';
 
 /** The subset of `analyzeProject` (from `svelte-vitals`) the runner needs. Injectable for tests. */
 export type AnalyzeFn = (opts: {
@@ -19,12 +19,7 @@ export interface AnalysisRunnerOptions {
   metaComponents?: string[];
   rules?: Record<string, RuleSetting>;
   failOn?: Severity;
-  /**
-   * `analyzeProject`-compatible function, injectable for tests. When omitted, the runner
-   * lazily dynamic-imports `svelte-vitals` on the first run and caches it — never a
-   * top-level import, so build-mode usage of `@svelte-vitals/vite` never loads the CLI
-   * package (design doc 2026-07-08-dev-dashboard-whole-project-design.md, decision 4).
-   */
+  /** `analyzeProject`-compatible function, injectable for tests. Defaults to `analyzeProject`. */
   analyze?: AnalyzeFn;
   onResults(results: Result[]): void;
   onError(err: unknown): void;
@@ -50,27 +45,18 @@ export interface AnalysisRunner {
  */
 export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunner {
   const debounceMs = opts.debounceMs ?? 500;
-  let cachedAnalyze: AnalyzeFn | undefined = opts.analyze;
+  const analyze = opts.analyze ?? analyzeProject;
   const parseCache: ParseCache = new Map();
   let stopped = false;
   let running = false;
   let pending = false;
   let timer: ReturnType<typeof setTimeout> | undefined;
 
-  async function getAnalyze(): Promise<AnalyzeFn> {
-    if (cachedAnalyze) return cachedAnalyze;
-    const mod = await import('svelte-vitals');
-    const fn: AnalyzeFn = (o) => mod.analyzeProject(o);
-    cachedAnalyze = fn;
-    return fn;
-  }
-
   async function runOnce(): Promise<void> {
     if (stopped) return;
     running = true;
     opts.onStatusChange?.(true);
     try {
-      const analyze = await getAnalyze();
       const { results } = await analyze({
         cwd: opts.root,
         treatDynamicAs: opts.treatDynamicAs,

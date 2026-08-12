@@ -137,4 +137,12 @@ describe('startMascotSpinner', () => {
     const last = writes[writes.length - 1]!;
     expect(last).not.toContain('Analyzing…');
   });
+  it('mascot: false renders a plain one-line spinner with the status text', () => {
+    const { writes, stream } = fakeStream();
+    const spin = startMascotSpinner('Analyzing…', { enabled: true, stream, mascot: false });
+    expect(writes.length).toBeGreaterThan(0);
+    expect(writes[0]).toContain('Analyzing…');
+    expect(writes[0]).not.toContain('\n\n'); // no mascot block, single line
+    spin.stop();
+  });
 });

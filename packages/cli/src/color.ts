@@ -1,20 +1,22 @@
+import { styleText } from 'node:util';
 import { noColorPalette, type Palette } from '@svelte-vitals/core';
 
 export { noColorPalette };
 
+// validateStream: false so colorEnabled() below stays the sole gate (styleText
+// would otherwise consult the stream and NO_COLOR/FORCE_COLOR itself).
 const wrap =
-  (open: number, close = 0) =>
+  (format: Parameters<typeof styleText>[0]) =>
   (s: string): string =>
-    `\x1b[${open}m${s}\x1b[${close}m`;
+    styleText(format, s, { validateStream: false });
 
-/** Hand-rolled ANSI palette (no dependency). */
 export const ansiPalette: Palette = {
-  bold: wrap(1, 22),
-  dim: wrap(2, 22),
-  red: wrap(31, 39),
-  yellow: wrap(33, 39),
-  green: wrap(32, 39),
-  cyan: wrap(36, 39)
+  bold: wrap('bold'),
+  dim: wrap('dim'),
+  red: wrap('red'),
+  yellow: wrap('yellow'),
+  green: wrap('green'),
+  cyan: wrap('cyan')
 };
 
 /** Whether ANSI color is enabled, following the de-facto env conventions. */

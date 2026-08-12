@@ -2,12 +2,12 @@ import type { Category, Config, Result, Severity } from '../types.js';
 import { docsUrlFor } from '../rule.js';
 import { buildJsonReport, type JsonReport } from './json.js';
 import { mdEscape } from './sanitize.js';
+import { SEVERITY_RANK } from './shared.js';
 
 /** Cap on rendered finding rows — keeps PR comments/job summaries within GitHub's size limits. */
 const MAX_FINDINGS = 50;
 
 const SEVERITY_EMOJI: Record<Severity, string> = { critical: '🔴', warning: '🟡', info: '🔵' };
-const SEVERITY_RANK: Record<Severity, number> = { critical: 0, warning: 1, info: 2 };
 
 /**
  * Escape a value for use inside a Markdown table cell: `mdEscape` handles the general

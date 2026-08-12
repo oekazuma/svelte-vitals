@@ -8,8 +8,3 @@ export function isLoopbackOrigin(origin: string): boolean {
     return false;
   }
 }
-
-/** Same loopback check as `isLoopbackOrigin`, but for a raw `Host` header (may carry a port). */
-export function isLoopbackHost(host: string | undefined): boolean {
-  return host !== undefined && isLoopbackOrigin(`http://${host}`);
-}

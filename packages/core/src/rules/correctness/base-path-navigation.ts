@@ -1,9 +1,8 @@
 import type { Result } from '../../types.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import type { BasePathLinkFact, SuppressionDirective } from '../../component.js';
-
-const PENALIZED = { presence: 'none', value: 'absent' } as const;
-const PASS = { presence: 'own', value: 'static' } as const;
+import { isSuppressed } from '../component-rule.js';
+import { PENALIZED, PASS } from '../seo/detection.js';
 
 const ID = 'correctness/base-path-navigation';
 const DOCS_URL = docsUrlFor(ID);
@@ -25,10 +24,6 @@ function messageFor(link: BasePathLinkFact): string {
   return `redirect(…, '${link.path}') is root-relative — the Location header points outside this project's kit.paths.base and 404s in production. Use resolve('${link.path}') from '$app/paths'.`;
 }
 
-function isSuppressed(suppressions: SuppressionDirective[] | undefined, line: number): boolean {
-  return (suppressions ?? []).some((s) => s.line === line && (!s.ruleIds || s.ruleIds.includes(ID)));
-}
-
 /** Emit one file's PASS/PENALIZED results — same shapes as componentRule/kitModuleRule. */
 function emitFile(
   out: Result[],
@@ -36,7 +31,7 @@ function emitFile(
   links: BasePathLinkFact[],
   suppressions: SuppressionDirective[] | undefined
 ): void {
-  const bad = links.filter((l) => !(l.line > 0 && isSuppressed(suppressions, l.line)));
+  const bad = links.filter((l) => !(l.line > 0 && isSuppressed(suppressions, ID, l.line)));
   if (bad.length === 0) {
     out.push({
       id: ID,
