@@ -2,8 +2,9 @@ export const WORKFLOW_PATH = '.github/workflows/svelte-vitals.yml';
 
 // Kept in lockstep with the pin this repo's own workflows use (.github/workflows/ci.yml,
 // release.yml, deploy-docs.yml) — bump both together when actions/checkout cuts a new release.
-const CHECKOUT_SHA = '9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0';
-const CHECKOUT_VERSION = 'v7.0.0';
+// test/ci/lockstep.test.ts asserts this against .github/workflows/ci.yml directly.
+export const CHECKOUT_SHA = '3d3c42e5aac5ba805825da76410c181273ba90b1';
+export const CHECKOUT_VERSION = 'v7.0.1';
 
 interface WorkflowPlan {
   status: 'created' | 'exists' | 'updated';
@@ -55,6 +56,7 @@ export function buildWorkflowYaml(opts: { actionSha: string; actionVersion: stri
     `      - uses: actions/checkout@${CHECKOUT_SHA} # ${CHECKOUT_VERSION}`,
     '        with:',
     '          fetch-depth: 0',
+    '          persist-credentials: false',
     `      - uses: oekazuma/svelte-vitals-action@${actionSha} # v${actionVersion}`,
     '        with:',
     '          diff: origin/${{ github.base_ref }}',

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { runCiCliGunshi } from '../../src/gunshi/ci.js';
-import { WORKFLOW_PATH, buildWorkflowYaml } from '../../src/ci/workflow.js';
+import { WORKFLOW_PATH, buildWorkflowYaml, CHECKOUT_SHA, CHECKOUT_VERSION } from '../../src/ci/workflow.js';
 import { ACTION_SHA, ACTION_VERSION } from '../../src/ci/action-pin.generated.js';
 import type { InstallIO } from '../../src/install/index.js';
 
@@ -125,7 +125,7 @@ describe('runCiCliGunshi upgrade', () => {
     expect(await runCiCliGunshi(['upgrade'], io)).toBe(0);
     expect(writes[PATH]).toContain(`uses: oekazuma/svelte-vitals-action@${ACTION_SHA} # v${ACTION_VERSION}`);
     // The other pinned action (actions/checkout) is untouched.
-    expect(writes[PATH]).toContain('uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0');
+    expect(writes[PATH]).toContain(`uses: actions/checkout@${CHECKOUT_SHA} # ${CHECKOUT_VERSION}`);
     expect(out.join('\n')).toContain('upgraded @svelte-vitals/action');
   });
 
