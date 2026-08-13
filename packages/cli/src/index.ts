@@ -19,6 +19,8 @@ import {
   applyOverrides,
   settingSeverity,
   withFailedRulesOff,
+  formatFailedRuleWarning,
+  terminalSafe,
   type Severity,
   type RuleSetting,
   type RuleOverride,
@@ -194,6 +196,8 @@ export interface AnalyzeResult {
   ruleIds: string[];
   /** Per-rule, per-declaration counts of places examined, unfiltered by `--diff`/`--baseline`/suppressions. */
   examined: Record<string, Record<string, number>>;
+  /** Ids of rules `runRules` caught throwing — already folded into `config` via `withFailedRulesOff`; exposed separately so a caller with its own base config (the vite dev dashboard) can apply the same correction without adopting this call's `config`. */
+  failedRuleIds: string[];
   /** Non-fatal issues surfaced during analysis: config-file problems (unknown top-level keys, invalid enum values), version-floor notices, `--rules`/overrides conflicts, and skipped-file notices. Empty when none apply. */
   warnings: string[];
   /**
@@ -267,7 +271,7 @@ function skippedFileWarnings(facts: { file: string; parseFailed?: true }[]): str
  * as clean. Message capped to its first line so a multi-line stack trace can't flood the terminal.
  */
 function failedRuleWarnings(failedRules: { id: string; message: string }[]): string[] {
-  return failedRules.map((f) => `rule ${f.id} failed and was skipped: ${f.message.split('\n')[0]}`);
+  return failedRules.map(formatFailedRuleWarning);
 }
 
 /**
@@ -335,16 +339,15 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   // would score as if it had run clean. Returned as the config this function hands back (not just a
   // local copy) so every downstream consumer — CLI health/exit-code checks and the reporters, which
   // each recompute Health from `config` — agrees on the same score.
-  const scoringConfig = withFailedRulesOff(
-    config,
-    failedRules.map((f) => f.id)
-  );
+  const failedRuleIds = failedRules.map((f) => f.id);
+  const scoringConfig = withFailedRulesOff(config, failedRuleIds);
   return {
     results,
     config: scoringConfig,
     version: readPackageVersion(),
     ruleIds: rules.map((r) => r.id),
     examined,
+    failedRuleIds,
     warnings: [...warnings, ...skippedFileWarnings([...components, ...kitModules]), ...failedRuleWarnings(failedRules)],
     loadedConfig: loaded
   };
@@ -383,7 +386,8 @@ export interface ApplyScopeOptions {
  * lives in exactly one place.
  */
 export async function applyScope(results: Result[], opts: ApplyScopeOptions): Promise<Result[]> {
-  const errorLog = opts.errorLog ?? ((line: string) => console.error(line));
+  const rawErrorLog = opts.errorLog ?? ((line: string) => console.error(line));
+  const errorLog = (line: string) => rawErrorLog(terminalSafe(line));
   let scoped = results;
 
   if (opts.staged || opts.diffBase !== undefined) {
@@ -474,7 +478,10 @@ function runAnalyzeOptions(opts: RunOptions): AnalyzeOptions {
  */
 export async function run(opts: RunOptions = {}): Promise<number> {
   const log = opts.log ?? ((line: string) => console.log(line));
-  const errorLog = opts.errorLog ?? ((line: string) => console.error(line));
+  // Analyzed-repo strings (paths, rule exception text) reach stderr through here —
+  // same threat model as reporter/sanitize.ts.
+  const rawErrorLog = opts.errorLog ?? ((line: string) => console.error(line));
+  const errorLog = (line: string) => rawErrorLog(terminalSafe(line));
 
   if (opts.minHealth != null && (!Number.isFinite(opts.minHealth) || opts.minHealth < 0 || opts.minHealth > 100)) {
     errorLog(`svelte-vitals: invalid minHealth '${opts.minHealth}'; expected a number 0-100.`);

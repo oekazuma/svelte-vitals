@@ -142,6 +142,41 @@ describe('createStore', () => {
     expect(fn).toHaveBeenCalledTimes(2);
   });
 
+  it('failedRuleIds() is empty when nothing has failed', () => {
+    const s = createStore();
+    s.set('/a', [r('seo/title-presence', '/a')]);
+    expect(s.failedRuleIds()).toEqual([]);
+  });
+
+  it('failedRuleIds() unions failed ids across routes, sorted', () => {
+    const s = createStore();
+    s.set('/a', [r('seo/title-presence', '/a')], ['seo/json-ld']);
+    s.set('/b', [r('seo/description-presence', '/b')], ['seo/canonical-url']);
+    expect(s.failedRuleIds()).toEqual(['seo/canonical-url', 'seo/json-ld']);
+  });
+
+  it('re-set on a route replaces its failed-rule ids, not appends', () => {
+    const s = createStore();
+    s.set('/a', [r('seo/title-presence', '/a')], ['seo/json-ld']);
+    s.set('/a', [r('seo/title-presence', '/a')], ['seo/canonical-url']);
+    expect(s.failedRuleIds()).toEqual(['seo/canonical-url']);
+  });
+
+  it('re-set with no failedRuleIds clears a route that previously failed (recovery)', () => {
+    const s = createStore();
+    s.set('/a', [r('seo/title-presence', '/a')], ['seo/json-ld']);
+    expect(s.failedRuleIds()).toEqual(['seo/json-ld']);
+    s.set('/a', [r('seo/title-presence', '/a')]);
+    expect(s.failedRuleIds()).toEqual([]);
+  });
+
+  it('re-set with an empty failedRuleIds array clears a route that previously failed', () => {
+    const s = createStore();
+    s.set('/a', [r('seo/title-presence', '/a')], ['seo/json-ld']);
+    s.set('/a', [r('seo/title-presence', '/a')], []);
+    expect(s.failedRuleIds()).toEqual([]);
+  });
+
   it('sequence() strictly increases across set/setStatic/setAnalyzing', () => {
     const s = createStore();
     const seq0 = s.sequence();

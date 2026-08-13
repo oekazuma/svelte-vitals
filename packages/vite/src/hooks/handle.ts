@@ -5,9 +5,11 @@ import {
   applyRuleSeverities,
   defineConfig,
   effectiveSeverity,
+  formatFailedRuleWarning,
   isPenalized,
   runRules,
   selectRules,
+  terminalSafe,
   type Config,
   type Project,
   type ResolvedHead,
@@ -37,14 +39,16 @@ export function findingSignature(results: Result[], config: Config): string {
     .join('|');
 }
 
-async function postIngest(origin: string, route: string, results: Result[]): Promise<void> {
+const warn = (line: string): void => console.warn(terminalSafe(line));
+
+async function postIngest(origin: string, route: string, results: Result[], failedRuleIds: string[]): Promise<void> {
   // `origin` comes from the request (Host header), so a spoofed Host must not
   // redirect this server-side POST to an arbitrary external host.
   if (!isLoopbackOrigin(origin)) {
     // Accessing the app over LAN/--host yields a non-loopback origin, so the live
     // UI silently stops updating — surface why when debugging is enabled.
     if (globalThis.process?.env?.SVELTE_VITALS_DEBUG) {
-      console.warn(
+      warn(
         `[svelte-vitals] live UI ingest skipped for non-loopback origin ${origin} — open the dashboard via localhost`
       );
     }
@@ -54,7 +58,9 @@ async function postIngest(origin: string, route: string, results: Result[]): Pro
     await fetch(`${origin}/__svelte-vitals/ingest`, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ route, results })
+      // failedRuleIds is always sent, empty array included, so a route that recovers from
+      // a previously-crashing rule clears its stale entry on the receiving store.
+      body: JSON.stringify({ route, results, failedRuleIds })
     });
   } catch {
     // dev tooling must never break a request — swallow ingest failures
@@ -90,25 +96,28 @@ async function analyzeAndIngest(
       config
     });
     const results = applyRuleSeverities(ruleResults, config);
+    const failedRuleIds = failedRules.map((f) => f.id);
 
     // Same debug-only channel as this function's own catch below — a failed rule is dropped
     // silently otherwise, since this hot per-request path has no other diagnostics surface.
     if (failedRules.length > 0 && globalThis.process?.env?.SVELTE_VITALS_DEBUG) {
-      for (const f of failedRules) console.warn(`[svelte-vitals] rule ${f.id} failed and was skipped: ${f.message}`);
+      for (const f of failedRules) warn(formatFailedRuleWarning(f));
     }
 
     // Skip a repeat POST (and the SSE churn it would cause) when a route re-renders
-    // with the exact same findings — e.g. an unrelated HMR pass.
-    const signature = findingSignature(results, config);
+    // with the exact same findings — e.g. an unrelated HMR pass. The failed-ids suffix
+    // means a route that stops crashing (same findings, no more failures) still counts
+    // as a change, so its recovery reaches the store instead of being signature-skipped.
+    const signature = `${findingSignature(results, config)}|failed:${[...failedRuleIds].sort().join(',')}`;
     if (lastSignature.get(route) === signature) return;
     lastSignature.set(route, signature);
 
-    if (globalThis.process?.env?.SVELTE_VITALS_UI) void postIngest(origin, route, results);
+    if (globalThis.process?.env?.SVELTE_VITALS_UI) void postIngest(origin, route, results, failedRuleIds);
   } catch (err) {
     // Dev tooling must never break the request: swallow any parse/rule error.
     // Set SVELTE_VITALS_DEBUG to surface tool-internal errors while debugging.
     if (globalThis.process?.env?.SVELTE_VITALS_DEBUG) {
-      console.warn('[svelte-vitals] dev analysis failed:', err);
+      warn(`[svelte-vitals] dev analysis failed: ${err instanceof Error ? err.message : String(err)}`);
     }
   }
 }
