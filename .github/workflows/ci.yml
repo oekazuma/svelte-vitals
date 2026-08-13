@@ -148,5 +148,10 @@ jobs:
         uses: ./.github/workflows/setup-node
       - name: Check docs
         run: pnpm --filter docs check
+      # Fails when an English page changed without its Japanese counterpart's
+      # ledger stamp (AGENTS.md "en/ja docs stay in sync"). After updating both
+      # languages by hand, run `pnpm --filter docs run translate:stamp <en-file>`.
+      - name: Check en/ja translation drift
+        run: pnpm --filter docs run translate:check
       - name: Build docs
         run: pnpm --filter docs build

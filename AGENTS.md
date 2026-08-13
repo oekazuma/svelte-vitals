@@ -72,7 +72,7 @@ install`/`ci upgrade` bundle into scaffolded workflows.
   `docs/superpowers/specs/2026-07-31-floor-smoke-design.md`.
 - **Dependencies via catalog**: root `package.json` devDependencies are all pinned as `catalog:`; actual versions live in `pnpm-workspace.yaml`. Add/bump shared devDependencies there, not as literal versions in a package's `package.json`.
 - **Changesets required**: any user-facing change needs `pnpm changeset`. Merging to `main` opens a release PR (Changesets bot). Internal-only / doc-only changes don't need one.
-- **en/ja docs stay in sync**: `docs/src/content/docs/` (English) and `docs/src/content/docs/ja/` (Japanese) are updated together by convention — don't ship an English-only doc change if the Japanese equivalent exists.
+- **en/ja docs stay in sync**: `docs/src/content/docs/` (English) and `docs/src/content/docs/ja/` (Japanese) are updated together, and CI enforces it — the `docs` job runs `blume translate --check` against the committed `docs/blume.translations.json` ledger and fails when an English page changed without its stamp. After editing an English page, update the Japanese page too, then run `pnpm --filter docs run translate:stamp <en-file...>` to record that the pair matches. Never re-stamp a page whose Japanese half you did not actually update, and never regenerate the whole ledger to silence the gate — a stamp is an assertion, not a formality. (A brand-new page pair starts untracked, which the gate ignores; stamp it so future drift is caught.)
 
 ## Conventions
 
