@@ -8,7 +8,7 @@
 // Paths may be absolute or relative to the repo root or docs/.
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
-import { isAbsolute, relative, resolve } from 'node:path';
+import { isAbsolute, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 // Must mirror blume's hashSource and ledger serialization exactly, or the
@@ -29,12 +29,13 @@ if (args.length === 0) {
 const ledger = JSON.parse(readFileSync(ledgerPath, 'utf-8'));
 for (const arg of args) {
   const abs = isAbsolute(arg) ? arg : resolve(process.cwd(), arg);
-  const sourceRel = relative(docsRoot, abs);
-  if (sourceRel.startsWith('..')) {
-    console.error(`Not inside docs/: ${arg}`);
+  // Ledger keys are slash-separated; relative() emits backslashes on Windows.
+  const sourceRel = relative(docsRoot, abs).split(sep).join('/');
+  if (sourceRel.startsWith('..') || !sourceRel.startsWith('src/content/docs/')) {
+    console.error(`Not a docs content source: ${arg}`);
     process.exit(1);
   }
-  if (sourceRel.includes('/ja/')) {
+  if (sourceRel.startsWith('src/content/docs/ja/')) {
     console.error(`Pass the English source, not the translation: ${arg}`);
     process.exit(1);
   }
