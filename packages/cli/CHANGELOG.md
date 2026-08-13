@@ -1,5 +1,29 @@
 # svelte-vitals
 
+## 0.46.0
+
+### Minor Changes
+
+- ae80f05: `@svelte-vitals/core` now exports `formatFailedRuleWarning`, the "rule … failed and was skipped" message formatter shared by the CLI, build mode, and (now) the dev dashboard.
+
+  `svelte-vitals`'s `analyzeProject` now also returns `failedRuleIds`, the ids of rules that crashed during the run (already folded into its returned `config` via `withFailedRulesOff`, exposed separately so a caller with its own base config can apply the same correction without adopting `analyzeProject`'s config).
+
+  The dev dashboard now scores a crashed rule as not-run (matching the CLI and build mode) instead of silently inflating Health, without disturbing plugin-option `weights`/`overrides`; plugin warnings strip terminal escape sequences.
+
+### Patch Changes
+
+- 329de70: fix: shell completion now emits exactly one candidate per flag. Multi-line flag descriptions (e.g. `install --client`) no longer leak their continuation lines as bogus candidates, and `--no-color`/`--no-animation`/`--no-suppressions` now show their real descriptions instead of the bare stripped key.
+- 7ca8bd2: fix: restore the terminal cursor when the analysis spinner stops. `--no-animation` runs (and error paths that lead into interactive prompts) previously left the cursor hidden until the process exited.
+- 29f78c7: `ci install`'s scaffolded workflow now sets `persist-credentials: false` on checkout and uses the same `actions/checkout` release this repo pins (v7.0.1). Existing workflows: re-run `svelte-vitals ci install --force` to regenerate.
+- 471d465: fix: an internal crash in the CLI's dispatch layer now exits 2 with a one-line `svelte-vitals:` diagnostic instead of exit 1 with a raw stack trace — exit 1 keeps meaning "a finding failed the gate".
+- 3edb4ff: `@svelte-vitals/core` now exports `terminalSafe`, the ANSI/OSC/C0 escape stripper already used by the console reporter, for sinks outside the reporters.
+
+  `svelte-vitals`'s stderr diagnostics (skipped files, failed rules, app detection, and other errors) now strip terminal escape sequences from analyzed-repo-derived strings before printing, matching the console reporter's existing protection.
+
+- Updated dependencies [ae80f05]
+- Updated dependencies [3edb4ff]
+  - @svelte-vitals/core@0.42.0
+
 ## 0.45.1
 
 ### Patch Changes
