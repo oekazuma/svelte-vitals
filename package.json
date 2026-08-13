@@ -6,7 +6,7 @@
   "scripts": {
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
-    "test": "pnpm -r test",
+    "test": "pnpm build && pnpm -r test",
     "smoke": "node scripts/floor-smoke.mjs",
     "e2e": "node scripts/cli-e2e.mjs",
     "bench": "pnpm --filter svelte-vitals... build && pnpm --filter @svelte-vitals/vite run bench",
@@ -27,7 +27,7 @@
     "vite": "catalog:",
     "vitest": "catalog:"
   },
-  "packageManager": "pnpm@11.20.0",
+  "packageManager": "pnpm@11.21.0",
   "devEngines": {
     "runtime": {
       "name": "node",

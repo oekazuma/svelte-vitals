@@ -9,8 +9,12 @@ export type RouteBadge = 'measured' | 'static';
  * the merged view per the design doc (2026-07-08-dev-dashboard-whole-project-design.md §2).
  */
 export interface FindingsStore {
-  /** Replace a route's live findings (route stamped onto results missing one) and notify subscribers. */
-  set(route: string, results: Result[]): void;
+  /**
+   * Replace a route's live findings (route stamped onto results missing one) and notify
+   * subscribers. `failedRuleIds` replaces that route's live-layer failed-rule set — an
+   * omitted or empty array clears it, so a route re-analyzed with no failures recovers.
+   */
+  set(route: string, results: Result[], failedRuleIds?: string[]): void;
   /** Replace the whole static (whole-project) layer and notify subscribers. */
   setStatic(results: Result[]): void;
   /** Mark whether a whole-project analysis run is currently in flight; participates in subscribe/notify like a findings change. */
@@ -20,6 +24,8 @@ export interface FindingsStore {
   snapshot(): Result[];
   /** Per-route provenance for the dashboard's badges: 'measured' (live) or 'static'. */
   badges(): Record<string, RouteBadge>;
+  /** Union of failed rule ids across every live (ingested) route, for `withFailedRulesOff`. */
+  failedRuleIds(): string[];
   /** Monotonically increasing counter, bumped once per notify() — lets consumers discard stale fetches. */
   sequence(): number;
   /** Subscribe to change notifications; returns an unsubscribe function. */
@@ -72,6 +78,7 @@ export function composeBadges(staticResults: Result[], liveByRoute: Map<string, 
 export function createStore(): FindingsStore {
   let staticResults: Result[] = [];
   const liveByRoute = new Map<string, Result[]>();
+  const liveFailedByRoute = new Map<string, string[]>();
   const subs = new Set<() => void>();
   let analyzing = false;
   let seq = 0;
@@ -82,11 +89,13 @@ export function createStore(): FindingsStore {
   }
 
   return {
-    set(route, results) {
+    set(route, results, failedRuleIds) {
       liveByRoute.set(
         route,
         results.map((r) => (r.route ? r : { ...r, route }))
       );
+      if (failedRuleIds && failedRuleIds.length > 0) liveFailedByRoute.set(route, failedRuleIds);
+      else liveFailedByRoute.delete(route);
       notify();
     },
     setStatic(results) {
@@ -105,6 +114,9 @@ export function createStore(): FindingsStore {
     },
     badges() {
       return composeBadges(staticResults, liveByRoute);
+    },
+    failedRuleIds() {
+      return [...new Set([...liveFailedByRoute.values()].flat())].sort();
     },
     sequence() {
       return seq;

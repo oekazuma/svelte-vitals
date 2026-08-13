@@ -175,6 +175,75 @@ describe('svelteVitalsHandle', () => {
     expect(penalizedIds(sentResults(fetchMock))).not.toContain('seo/title-presence');
   });
 
+  it("forwards a crashed rule's id as failedRuleIds on the ingest POST", async () => {
+    vi.resetModules();
+    vi.doMock('@svelte-vitals/core', async (importOriginal) => {
+      const actual = await importOriginal<typeof import('@svelte-vitals/core')>();
+      return {
+        ...actual,
+        runRules: async () => ({
+          results: [],
+          examined: {},
+          failedRules: [{ id: 'seo/title-presence', message: 'boom' }]
+        })
+      };
+    });
+    const fetchMock = setup();
+    try {
+      const { svelteVitalsHandle: mockedHandle } = await import('../src/hooks/index.js');
+      const handle = mockedHandle();
+      await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+      await flush();
+      const [, init] = fetchMock.mock.calls[0]!;
+      const sent = JSON.parse((init as RequestInit).body as string);
+      expect(sent.failedRuleIds).toEqual(['seo/title-presence']);
+    } finally {
+      vi.doUnmock('@svelte-vitals/core');
+      vi.resetModules();
+    }
+  });
+
+  it('sends an empty failedRuleIds array once a previously-crashing rule recovers', async () => {
+    vi.resetModules();
+    let shouldFail = true;
+    vi.doMock('@svelte-vitals/core', async (importOriginal) => {
+      const actual = await importOriginal<typeof import('@svelte-vitals/core')>();
+      return {
+        ...actual,
+        runRules: async (rules: unknown, ctx: Parameters<typeof actual.runRules>[1]) => {
+          // Real results on both runs — only `failedRules` differs while `shouldFail` is
+          // true — so the second POST below can only be explained by the failed-id
+          // dedup suffix changing, not by `findingSignature`'s `results` shifting too.
+          const result = await actual.runRules(rules as never, ctx);
+          if (shouldFail) {
+            return { ...result, failedRules: [{ id: 'seo/title-presence', message: 'boom' }] };
+          }
+          return result;
+        }
+      };
+    });
+    const fetchMock = setup();
+    try {
+      const { svelteVitalsHandle: mockedHandle } = await import('../src/hooks/index.js');
+      const handle = mockedHandle();
+      await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+      await flush();
+      shouldFail = false;
+      // Re-render the same page: `results` are identical on both runs, so `findingSignature`
+      // alone can't explain a second POST — only the failed-id dedup suffix clearing can.
+      // This POST must still fire.
+      await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
+      await flush();
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+      const [, init] = fetchMock.mock.calls[1]!;
+      const sent = JSON.parse((init as RequestInit).body as string);
+      expect(sent.failedRuleIds).toEqual([]);
+    } finally {
+      vi.doUnmock('@svelte-vitals/core');
+      vi.resetModules();
+    }
+  });
+
   it('surfaces swallowed analysis errors when SVELTE_VITALS_DEBUG is set', async () => {
     vi.resetModules();
     vi.doMock('../src/providers/rendered/parse-html.js', () => ({

@@ -25,7 +25,7 @@ vi.mock('@svelte-vitals/core', async (importOriginal) => {
   return { ...actual, allRules };
 });
 
-const { run } = await import('../src/index.js');
+const { run, analyzeProject } = await import('../src/index.js');
 
 function capture() {
   const out: string[] = [];
@@ -55,5 +55,10 @@ describe('rule-failure isolation (audit 2608-CORE-06)', () => {
       'svelte-vitals: rule seo/title-presence failed and was skipped: synthetic rule failure (test)'
     );
     expect(cap.err.some((l) => l.includes('with a second line'))).toBe(false);
+  });
+
+  it('analyzeProject returns the crashed rule id in failedRuleIds', async () => {
+    const result = await analyzeProject({ cwd: fixtureDir, allowRules: ['seo/title-presence'] });
+    expect(result.failedRuleIds).toEqual(['seo/title-presence']);
   });
 });

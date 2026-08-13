@@ -5,6 +5,7 @@ import {
   applyOverrides,
   runRules,
   withFailedRulesOff,
+  formatFailedRuleWarning,
   computeScore,
   summarize,
   hasFailureAtOrAbove,
@@ -118,7 +119,7 @@ export async function analyze(
   const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
   // Surfaced through the same `warnings` channel as config-file issues (plugin.ts logs each with
   // `console.warn`).
-  for (const f of failedRules) warnings.push(`rule ${f.id} failed and was skipped: ${f.message.split('\n')[0]}`);
+  for (const f of failedRules) warnings.push(formatFailedRuleWarning(f));
   // A failed rule examined nothing, so its weight must not stay in the Health denominator — same
   // correction the CLI's `analyzeProject` applies, used by every downstream consumer here so the
   // score, reports, and fail decision agree.
