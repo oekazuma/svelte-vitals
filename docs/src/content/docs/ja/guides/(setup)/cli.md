@@ -168,7 +168,7 @@ svelte-vitals --diff origin/main --baseline origin/main --fail-on warning   # �
 
 ### `svelte-vitals-suppressions.json` / `--update-suppressions` / `--no-suppressions`
 
-既存プロジェクトに svelte-vitals を導入する場合、たいてい修正しきれない検出結果の蓄積があり、ゲートを有効にする前にすべて直すことはできません。`--baseline <ref>` は **一時的な**ケース（PR とそのベースの比較）をカバーしますが、それとは別に **恒久的な**導入経路もあります。今日の検出結果を一度だけ記録して受け入れ、以降は新規のものだけをゲート対象にする、というものです。
+既存プロジェクトに svelte-vitals を導入する場合、たいてい検出結果が直しきれないほど蓄積しており、ゲートを有効にする前にすべては直せません。`--baseline <ref>` は **一時的な**ケース（PR とそのベースの比較）をカバーしますが、それとは別に **恒久的な**導入経路もあります。今日の検出結果を一度だけ記録して受け入れ、以降は新規のものだけをゲート対象にする、というものです。
 
 ```bash
 svelte-vitals --update-suppressions   # svelte-vitals-suppressions.json を書き出し、現在のすべての検出結果を受け入れる
