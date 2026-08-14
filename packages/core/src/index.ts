@@ -150,7 +150,8 @@ export {
   a11yLabelHasControl,
   a11yUseList,
   a11yPlaceholderLabelOption,
-  a11yRequireDatetime
+  a11yRequireDatetime,
+  a11yDoctype
 } from './rules/index.js';
 export type { RuleInfo, RuleOptionInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

@@ -84,6 +84,7 @@ import { a11yLabelHasControl } from './a11y/label-has-control.js';
 import { a11yUseList } from './a11y/use-list.js';
 import { a11yPlaceholderLabelOption } from './a11y/placeholder-label-option.js';
 import { a11yRequireDatetime } from './a11y/require-datetime.js';
+import { a11yDoctype } from './a11y/doctype.js';
 
 export const allRules: Rule[] = [
   seoTitlePresence,
@@ -168,7 +169,8 @@ export const allRules: Rule[] = [
   a11yLabelHasControl,
   a11yUseList,
   a11yPlaceholderLabelOption,
-  a11yRequireDatetime
+  a11yRequireDatetime,
+  a11yDoctype
 ];
 
 export {
@@ -254,7 +256,8 @@ export {
   a11yLabelHasControl,
   a11yUseList,
   a11yPlaceholderLabelOption,
-  a11yRequireDatetime
+  a11yRequireDatetime,
+  a11yDoctype
 };
 
 /** One configurable option of a rule, flattened for `svelte-vitals explain`'s output. */

@@ -79,6 +79,12 @@ export interface Project {
    * list is never empty: `$lib` is always prepended.
    */
   kitAliases?: KitAlias[];
+  /**
+   * Whether `src/app.html` opens with `<!doctype html>` (a11y/doctype). Set from the same read
+   * as `htmlLang`; absent when the file wasn't read (missing or unreadable) — the rule stays
+   * silent then, like `viteMinifyDisabled`'s absent convention.
+   */
+  appHtmlDoctype?: boolean;
 }
 
 export const defaultProject: Project = {

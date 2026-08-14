@@ -5,9 +5,10 @@ import {
   a11yLabelHasControl,
   a11yUseList,
   a11yPlaceholderLabelOption,
-  a11yRequireDatetime
+  a11yRequireDatetime,
+  a11yDoctype
 } from '../src/index.js';
-import { defineConfig, defaultProject, type Result } from '../src/types.js';
+import { defineConfig, defaultProject, type Project, type Result } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
 
@@ -15,6 +16,7 @@ const config = defineConfig({});
 const base = { heads: [], project: defaultProject, config };
 const fails = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 const ctx = (components: ComponentFacts[]): RuleContext => ({ components, ...base });
+const projCtx = (p: Partial<Project>): RuleContext => ({ heads: [], config, project: { ...defaultProject, ...p } });
 const comp = (over: Partial<ComponentFacts>): ComponentFacts => ({
   file: 'src/lib/C.svelte',
   eachBlocks: [],
@@ -122,5 +124,13 @@ describe('a11y/require-datetime', () => {
   it('passes a component with no recorded times missing datetime', async () => {
     const rs = await a11yRequireDatetime.check(ctx([comp({ timesMissingDatetime: [] })]));
     expect(fails(rs)).toHaveLength(0);
+  });
+});
+
+describe('a11y/doctype', () => {
+  it('flags a missing doctype, passes a present one, silent when unknown', async () => {
+    expect(fails(await a11yDoctype.check(projCtx({ appHtmlDoctype: false })))).toHaveLength(1);
+    expect(fails(await a11yDoctype.check(projCtx({ appHtmlDoctype: true })))).toHaveLength(0);
+    expect(await a11yDoctype.check(projCtx({}))).toHaveLength(0);
   });
 });
