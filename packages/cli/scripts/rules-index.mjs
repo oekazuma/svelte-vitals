@@ -46,7 +46,7 @@ const CATEGORY_BLURB = {
     security: 'Unescaped HTML, unsafe URLs, and server state that leaks across requests.',
     architecture:
       'Component size, prop surface, and the import boundaries a project declares — signals that code is placed or shaped wrong.',
-    a11y: 'Keyboard interaction, color contrast, semantic markup, and ARIA patterns — what makes a site usable for everyone.'
+    a11y: 'ARIA validity, landmark structure, accessible names, and semantic markup — what makes a site usable for everyone.'
   },
   ja: {
     seo: '検索エンジンが実際に目にするもの。解決後の <head> メタデータ、構造化データ、クロールのしやすさを見ます。',
@@ -56,7 +56,7 @@ const CATEGORY_BLURB = {
     security: 'エスケープされない HTML、安全でない URL、サーバーでリクエストをまたいで漏れる状態を見ます。',
     architecture:
       'コードの形と置き場所のサイン。コンポーネントの大きさ、props の数、そしてプロジェクトが宣言した import の境界を見ます。',
-    a11y: 'すべての人にとって使いやすいサイト。キーボードインタラクション、色のコントラスト、セマンティック HTML、ARIA パターンを見ます。'
+    a11y: 'すべての人にとって使いやすいサイト。ARIA の妥当性、ランドマーク構造、アクセシブルネーム、セマンティック HTML を見ます。'
   }
 };
 

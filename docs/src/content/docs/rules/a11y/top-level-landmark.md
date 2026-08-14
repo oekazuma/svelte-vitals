@@ -9,7 +9,7 @@ description: A banner, main, complementary, or contentinfo landmark should not b
 
 Flags a `banner`, `main`, `complementary`, or `contentinfo` landmark that ends up nested inside another landmark once a route's composed layout chain (every `+layout.svelte` up to the route's `+page.svelte`) and its resolved local components are put together.
 
-The flagship case is a layout that renders its children inside `<main>` while the page (or a component it uses) contributes another landmark, e.g. an `<aside>` with `role="complementary"`:
+The flagship case is a layout that renders its children inside `<main>` while the page contributes another landmark, e.g. an `<aside>` with `role="complementary"`:
 
 ```svelte
 <!-- +layout.svelte --><header>Site navigation</header><main><slot /></main>

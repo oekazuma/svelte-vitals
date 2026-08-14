@@ -9,7 +9,7 @@ description: banner・main・complementary・contentinfo ランドマークは�
 
 ルートを構成するレイアウトチェーン（`+layout.svelte` から `+page.svelte` まで）と、そこから解決したローカルコンポーネントを合わせたときに、`banner`・`main`・`complementary`・`contentinfo` のいずれかのランドマークが、別のランドマークの内側にネストしてしまっているケースを検出します。
 
-代表的なケースは、レイアウトが子要素を `<main>` の中に描画し、ページ（またはページが使うコンポーネント）が別のランドマーク、例えば `role="complementary"` の `<aside>` を描画する場合です。
+代表的なケースは、レイアウトが子要素を `<main>` の中に描画し、ページが別のランドマーク、例えば `role="complementary"` の `<aside>` を描画する場合です。
 
 ```svelte
 <!-- +layout.svelte --><header>サイトナビゲーション</header><main><slot /></main>
