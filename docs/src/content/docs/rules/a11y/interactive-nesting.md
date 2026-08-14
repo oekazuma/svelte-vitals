@@ -1,0 +1,58 @@
+---
+title: a11y/interactive-nesting · Interactive element nested in an interactive element
+description: An interactive element should not sit inside another interactive element.
+---
+
+**Severity:** warning · **Category:** a11y
+
+## What it checks
+
+Flags an interactive element (`<button>`, `<input>`, a literal interactive `role`, …) found nested inside another interactive container. Checked by static (CLI) analysis of every `.svelte` component under `src/`.
+
+Only three kinds of element open a container that this rule watches for a nested descendant:
+
+- `<a href="…">` — an href-less `<a>` is not a container.
+- `<button>`.
+- An element with a literal interactive `role` (e.g. `role="button"`).
+
+Any interactive element entering while one of those containers is open is flagged, for example:
+
+```svelte
+<a href="/x">
+  <button>Go</button>
+</a>
+```
+
+Not flagged:
+
+- A descendant with `tabindex="-1"` — it is removed from the tab order, so it does not compete for keyboard focus.
+- A descendant of an href-less `<a>`, since a plain `<a>` with no `href` is not itself interactive.
+- Interactive elements nested across components (e.g. a `<button>` inside a child component rendered inside an `<a href>`) — this rule only sees a single component's own template, so that variant is a known non-goal.
+
+## Why it matters
+
+Keyboard and assistive-technology users navigate by control, not by DOM position. A control nested inside another control is unreachable by keyboard (the outer element consumes the click/`Enter` before the inner one ever gets a turn) or misannounced by screen readers, and browsers themselves disagree on which one wins. It also violates the HTML content model — interactive content categories are not allowed to contain other interactive content.
+
+## How to fix
+
+Restructure the markup so each interactive control is a sibling, not a descendant, of another:
+
+```svelte
+<div>
+  <a href="/x">Go to x</a>
+  <button>Extra action</button>
+</div>
+```
+
+## Disabling
+
+If the nesting is intentional and handled some other way (e.g. `pointer-events` and a synthetic focus trap), silence a single element with `<!-- svelte-vitals-disable-next-line a11y/interactive-nesting -->`, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'a11y/interactive-nesting': 'off'
+  }
+};
+```

@@ -92,6 +92,15 @@ export interface BasePathLinkFact {
   line: number;
 }
 
+/** An interactive element (e.g. `<button>`) found nested inside another interactive
+ *  container (e.g. `<a href>`) (a11y/interactive-nesting). */
+export interface InteractiveNestingFact {
+  containerTag: string;
+  descendantTag: string;
+  /** 1-based source line of the descendant, or 0 if unknown. */
+  line: number;
+}
+
 /** An element carrying a `role` and/or `aria-*` attribute(s) (a11y ARIA rules). */
 export interface AriaElementFact {
   tag: string;
@@ -171,6 +180,8 @@ export interface ComponentFacts {
   commentLinks: { url: string; line: number }[];
   /** Elements carrying a role or any aria-* attribute (a11y ARIA rules). */
   ariaElements?: AriaElementFact[];
+  /** Interactive elements nested inside another interactive container (a11y/interactive-nesting). */
+  interactiveNestings?: InteractiveNestingFact[];
   /** Set when the file failed to read or parse and these facts are the empty fallback — the file was NOT analyzed. */
   parseFailed?: true;
 }

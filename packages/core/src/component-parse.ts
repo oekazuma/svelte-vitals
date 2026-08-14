@@ -9,6 +9,7 @@ import type {
   ComponentFacts,
   EachBlockFact,
   EffectFact,
+  InteractiveNestingFact,
   OrphanEffectFact,
   OrphanLifecycleCallFact,
   SourceSpan,
@@ -16,6 +17,7 @@ import type {
 } from './component.js';
 import { isRootRelativePath } from './base-path.js';
 import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf, attrText } from './svelte-ast.js';
+import { isInteractiveElement, isInteractiveContainer, type ElementAttr } from './rules/a11y/interactive.js';
 
 // The Svelte AST is structurally complex and only partially typed for our needs,
 // so traversal uses `any`. The node-type strings below are verified against
@@ -1126,6 +1128,48 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
   }
 }
 
+/** This element's `Attribute` nodes (directives/spreads excluded) as `isInteractiveElement`'s
+ *  input shape. */
+function elementAttrs(attributes: Node[]): ElementAttr[] {
+  return attributes
+    .filter((a: Node) => a?.type === 'Attribute' && typeof a.name === 'string')
+    .map((a: Node) => ({ name: a.name, ...classifyAttrValue(a.value) }));
+}
+
+/**
+ * Interactive elements nested inside another interactive container (a11y/interactive-nesting).
+ * Only `RegularElement` is checked, so `<svelte:element this="button">` is out of static reach
+ * — same convention as `collectAriaElements`. `stack` tracks the tags of enclosing containers
+ * (`isInteractiveContainer`); any interactive element entering while it is non-empty records
+ * one fact at the descendant's line, keyed to the nearest enclosing container.
+ */
+function collectInteractiveNestings(node: Node, source: string, acc: InteractiveNestingFact[], stack: string[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectInteractiveNestings(child, source, acc, stack);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  let opened = false;
+  if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
+    const attrs = elementAttrs(node.attributes);
+    if (stack.length > 0 && isInteractiveElement(node.name, attrs)) {
+      acc.push({
+        containerTag: stack[stack.length - 1]!,
+        descendantTag: node.name,
+        line: lineOf(source, node.start)
+      });
+    }
+    if (isInteractiveContainer(node.name, attrs)) {
+      stack.push(node.name);
+      opened = true;
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectInteractiveNestings(node[key], source, acc, stack);
+  }
+  if (opened) stack.pop();
+}
+
 /**
  * Root-relative `<a href="/…">` literals (correctness/base-path-navigation). Only
  * `RegularElement` anchors with a fully static href are considered, which is what makes the
@@ -2131,6 +2175,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectCheckableBindValues(ast.fragment ?? ast, source, checkableBindValues);
   const ariaElements: AriaElementFact[] = [];
   collectAriaElements(ast.fragment ?? ast, source, ariaElements);
+  const interactiveNestings: InteractiveNestingFact[] = [];
+  collectInteractiveNestings(ast.fragment ?? ast, source, interactiveNestings, []);
   const basePathLinks: BasePathLinkFact[] = [];
   collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
   const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
@@ -2354,6 +2400,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     moduleStateDecls: [],
     suppressions,
     commentLinks: collectCommentLinks(source),
-    ariaElements
+    ariaElements,
+    interactiveNestings
   };
 }

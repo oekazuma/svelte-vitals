@@ -78,6 +78,7 @@ import { a11yInvalidRole } from './a11y/invalid-role.js';
 import { a11yUnknownAriaAttribute } from './a11y/unknown-aria-attribute.js';
 import { a11yRequiredAriaProps } from './a11y/required-aria-props.js';
 import { a11yInvalidAriaValue } from './a11y/invalid-aria-value.js';
+import { a11yInteractiveNesting } from './a11y/interactive-nesting.js';
 
 export const allRules: Rule[] = [
   seoTitlePresence,
@@ -156,7 +157,8 @@ export const allRules: Rule[] = [
   a11yInvalidRole,
   a11yUnknownAriaAttribute,
   a11yRequiredAriaProps,
-  a11yInvalidAriaValue
+  a11yInvalidAriaValue,
+  a11yInteractiveNesting
 ];
 
 export {
@@ -236,7 +238,8 @@ export {
   a11yInvalidRole,
   a11yUnknownAriaAttribute,
   a11yRequiredAriaProps,
-  a11yInvalidAriaValue
+  a11yInvalidAriaValue,
+  a11yInteractiveNesting
 };
 
 /** One configurable option of a rule, flattened for `svelte-vitals explain`'s output. */

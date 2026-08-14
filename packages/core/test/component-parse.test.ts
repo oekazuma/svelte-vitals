@@ -1285,3 +1285,18 @@ describe('parseComponentFacts — ariaElements (a11y ARIA rules)', () => {
     expect(c.ariaElements![0]!.inputType).toBe('checkbox');
   });
 });
+
+describe('parseComponentFacts — interactiveNestings (a11y/interactive-nesting)', () => {
+  it('flags a button inside a link, at the descendant line', () => {
+    const c = parseComponentFacts('<a href="/x">\n  <button>Go</button>\n</a>', 'C.svelte');
+    expect(c.interactiveNestings).toEqual([{ containerTag: 'a', descendantTag: 'button', line: 2 }]);
+  });
+  it('ignores tabindex="-1" descendants and href-less <a>', () => {
+    const c = parseComponentFacts('<a href="/x"><span tabindex="-1">x</span></a><a><button>y</button></a>', 'C.svelte');
+    expect(c.interactiveNestings ?? []).toEqual([]);
+  });
+  it('ignores an expression-valued href — unknowable whether the anchor renders with one', () => {
+    const c = parseComponentFacts('<a href={disabled ? undefined : url}><button>Go</button></a>', 'C.svelte');
+    expect(c.interactiveNestings ?? []).toEqual([]);
+  });
+});
