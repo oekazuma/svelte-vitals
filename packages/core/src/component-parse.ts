@@ -1152,6 +1152,14 @@ function collectInteractiveNestings(node: Node, source: string, acc: Interactive
     return;
   }
   if (!node || typeof node !== 'object') return;
+  // A snippet's body renders at its {@render} site, not here — walk it with a fresh stack so
+  // a snippet declared inside a <button>/<a> is not reported as nested at the declaration.
+  if (node.type === 'SnippetBlock') {
+    for (const key of CHILD_NODE_KEYS) {
+      if (key in node) collectInteractiveNestings(node[key], source, acc, []);
+    }
+    return;
+  }
   let opened = false;
   if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
     const attrs = elementAttrs(node.attributes);
@@ -1201,6 +1209,8 @@ function scanAccessibleNameSubtree(node: Node): { named: boolean; unknowable: bo
     return acc;
   }
   if (!node || typeof node !== 'object') return { named: false, unknowable: false };
+  // A snippet's body renders at its {@render} site — its text cannot name this element.
+  if (node.type === 'SnippetBlock') return { named: false, unknowable: false };
   if (node.type === 'Text') return { named: String(node.data ?? '').trim().length > 0, unknowable: false };
   if (
     node.type === 'ExpressionTag' ||
@@ -1297,6 +1307,8 @@ function scanLabelSubtree(node: Node): { hasControl: boolean; unknowable: boolea
     return acc;
   }
   if (!node || typeof node !== 'object') return { hasControl: false, unknowable: false };
+  // A snippet's body renders at its {@render} site — a control declared in it is not wrapped.
+  if (node.type === 'SnippetBlock') return { hasControl: false, unknowable: false };
   if (
     node.type === 'ExpressionTag' ||
     node.type === 'RenderTag' ||

@@ -1316,6 +1316,23 @@ describe('parseComponentFacts — interactiveNestings (a11y/interactive-nesting)
   });
 });
 
+describe('parseComponentFacts — {#snippet} bodies render at their {@render} site, not the declaration', () => {
+  it('does not report a snippet declared inside an interactive container as nested', () => {
+    const c = parseComponentFacts('<a href="/x">Go{#snippet icon()}<button>i</button>{/snippet}</a>', 'C.svelte');
+    expect(c.interactiveNestings ?? []).toEqual([]);
+  });
+  it('does not let snippet text name the declaring button (the render site names its own host)', () => {
+    const c = parseComponentFacts('<button>{#snippet label()}Save{/snippet}</button>', 'C.svelte');
+    // The snippet's "Save" is not this button's content; with only the (unknowable-free)
+    // snippet inside, the button is genuinely unnamed.
+    expect(c.unnamedInteractive).toEqual([{ tag: 'button', line: 1 }]);
+  });
+  it('does not let a control declared in a snippet satisfy the wrapping label', () => {
+    const c = parseComponentFacts('<label>Name{#snippet f()}<input />{/snippet}</label>', 'C.svelte');
+    expect(c.unassociatedLabels).toEqual([{ line: 1 }]);
+  });
+});
+
 describe('parseComponentFacts — unnamedInteractive (a11y/accessible-name)', () => {
   it('flags an empty button and an icon-only link without alt', () => {
     const c = parseComponentFacts('<button></button>\n<a href="/x"><img src="i.png" /></a>', 'C.svelte');
