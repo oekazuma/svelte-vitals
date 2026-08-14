@@ -31,10 +31,6 @@ const INTERACTIVE_ROLES = new Set([
   'gridcell'
 ]);
 
-function hasAttr(attrs: ElementAttr[], name: string): boolean {
-  return attrs.some((a) => a.name === name);
-}
-
 function literalOf(attrs: ElementAttr[], name: string): string | undefined {
   return attrs.find((a) => a.name === name)?.literal;
 }
@@ -64,7 +60,7 @@ export function isInteractiveElement(tag: string, attrs: ElementAttr[]): boolean
     if (typeAttr.literal !== undefined) return typeAttr.literal.toLowerCase() !== 'hidden';
     return false;
   }
-  if ((tag === 'audio' || tag === 'video') && hasAttr(attrs, 'controls')) return true;
+  if ((tag === 'audio' || tag === 'video') && attrs.some((a) => a.name === 'controls')) return true;
   const tabindex = literalOf(attrs, 'tabindex');
   if (tabindex !== undefined) {
     const n = Number(tabindex);

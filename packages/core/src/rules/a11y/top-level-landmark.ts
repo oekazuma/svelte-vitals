@@ -1,10 +1,11 @@
 import type { Result } from '../../types.js';
-import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
+import type { Rule, RuleContext } from '../../rule.js';
 import { PENALIZED, PASS } from '../detection.js';
+import { resultFactory } from './route-rule.js';
 
-const docsUrl = docsUrlFor('a11y/top-level-landmark');
 const recommendation =
   'A banner, main, complementary, or contentinfo landmark should not be nested inside another landmark.';
+const result = resultFactory('a11y/top-level-landmark', recommendation);
 
 const KINDS = ['main', 'banner', 'complementary', 'contentinfo'] as const;
 
@@ -25,34 +26,11 @@ export const a11yTopLevelLandmark: Rule = {
     const out: Result[] = [];
     for (const route of ctx.a11y ?? []) {
       for (const nested of route.nestedLandmarks) {
-        out.push({
-          id: 'a11y/top-level-landmark',
-          category: 'a11y',
-          severity: 'warning',
-          detection: PENALIZED,
-          route: route.route,
-          location: nested.file,
-          ...(nested.line > 0 ? { line: nested.line } : {}),
-          message: `${nested.kind} landmark is nested inside ${nested.within}`,
-          recommendation,
-          docsUrl
-        });
+        out.push(result(route.route, PENALIZED, nested, `${nested.kind} landmark is nested inside ${nested.within}`));
       }
       if (route.nestedLandmarks.length === 0) {
         const first = KINDS.map((kind) => route.landmarks[kind]?.[0]).find((rep) => rep !== undefined);
-        if (first) {
-          out.push({
-            id: 'a11y/top-level-landmark',
-            category: 'a11y',
-            severity: 'warning',
-            detection: PASS,
-            route: route.route,
-            location: first.file,
-            message: 'No nested landmarks',
-            recommendation,
-            docsUrl
-          });
-        }
+        if (first) out.push(result(route.route, PASS, { file: first.file, line: 0 }, 'No nested landmarks'));
       }
     }
     return out;
