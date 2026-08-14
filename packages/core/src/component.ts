@@ -195,6 +195,9 @@ export interface ComponentFacts {
   unassociatedLabels?: { line: number }[];
   /** Text nodes whose trimmed content opens with a bullet character followed by whitespace, outside any `li` (a11y/use-list). */
   bulletTexts?: { line: number; char: string }[];
+  /** `<select required>` (no `multiple`, display size absent or ≤ 1) whose first `option` element
+   *  child is not a placeholder label option (a11y/placeholder-label-option). */
+  selectsMissingPlaceholder?: { line: number }[];
   /** Set when the file failed to read or parse and these facts are the empty fallback — the file was NOT analyzed. */
   parseFailed?: true;
 }

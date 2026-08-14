@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { a11yInteractiveNesting, a11yAccessibleName, a11yLabelHasControl, a11yUseList } from '../src/index.js';
+import {
+  a11yInteractiveNesting,
+  a11yAccessibleName,
+  a11yLabelHasControl,
+  a11yUseList,
+  a11yPlaceholderLabelOption
+} from '../src/index.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -84,6 +90,19 @@ describe('a11y/use-list', () => {
   });
   it('passes a component with no recorded bullet texts', async () => {
     const rs = await a11yUseList.check(ctx([comp({ bulletTexts: [] })]));
+    expect(fails(rs)).toHaveLength(0);
+  });
+});
+
+describe('a11y/placeholder-label-option', () => {
+  it('flags a recorded select missing a placeholder', async () => {
+    const rs = await a11yPlaceholderLabelOption.check(ctx([comp({ selectsMissingPlaceholder: [{ line: 5 }] })]));
+    const failing = fails(rs);
+    expect(failing.map((r) => r.line)).toEqual([5]);
+    expect(failing[0]?.message).toBe('<select required> is missing a placeholder label option');
+  });
+  it('passes a component with no recorded selects missing a placeholder', async () => {
+    const rs = await a11yPlaceholderLabelOption.check(ctx([comp({ selectsMissingPlaceholder: [] })]));
     expect(fails(rs)).toHaveLength(0);
   });
 });

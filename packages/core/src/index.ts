@@ -148,7 +148,8 @@ export {
   a11yInteractiveNesting,
   a11yAccessibleName,
   a11yLabelHasControl,
-  a11yUseList
+  a11yUseList,
+  a11yPlaceholderLabelOption
 } from './rules/index.js';
 export type { RuleInfo, RuleOptionInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

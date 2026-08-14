@@ -82,6 +82,7 @@ import { a11yInteractiveNesting } from './a11y/interactive-nesting.js';
 import { a11yAccessibleName } from './a11y/accessible-name.js';
 import { a11yLabelHasControl } from './a11y/label-has-control.js';
 import { a11yUseList } from './a11y/use-list.js';
+import { a11yPlaceholderLabelOption } from './a11y/placeholder-label-option.js';
 
 export const allRules: Rule[] = [
   seoTitlePresence,
@@ -164,7 +165,8 @@ export const allRules: Rule[] = [
   a11yInteractiveNesting,
   a11yAccessibleName,
   a11yLabelHasControl,
-  a11yUseList
+  a11yUseList,
+  a11yPlaceholderLabelOption
 ];
 
 export {
@@ -248,7 +250,8 @@ export {
   a11yInteractiveNesting,
   a11yAccessibleName,
   a11yLabelHasControl,
-  a11yUseList
+  a11yUseList,
+  a11yPlaceholderLabelOption
 };
 
 /** One configurable option of a rule, flattened for `svelte-vitals explain`'s output. */

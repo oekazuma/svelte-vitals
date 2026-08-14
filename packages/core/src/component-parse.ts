@@ -17,7 +17,7 @@ import type {
   UnnamedInteractiveFact
 } from './component.js';
 import { isRootRelativePath } from './base-path.js';
-import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf, attrText } from './svelte-ast.js';
+import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf, attrText, attrValueOf, textFromNodes } from './svelte-ast.js';
 import { isInteractiveElement, isInteractiveContainer, type ElementAttr } from './rules/a11y/interactive.js';
 
 // The Svelte AST is structurally complex and only partially typed for our needs,
@@ -1372,6 +1372,74 @@ function collectBulletTexts(
   }
 }
 
+/** Whether `<select attrs>` is subject to the placeholder-label-option requirement: `required`
+ *  present (literal — a dynamic `required` makes presence unknowable), no `multiple` (literal
+ *  or dynamic — either way this select is out of scope), and `size` absent or a literal ≤ 1
+ *  (a dynamic `size` is unknowable, so treated the same as out of scope). */
+function selectNeedsPlaceholder(attributes: Node[]): boolean {
+  const requiredAttr = findAttr(attributes, 'required');
+  if (!requiredAttr || attrValueOf(requiredAttr) === 'dynamic') return false;
+  if (findAttr(attributes, 'multiple')) return false;
+  const sizeAttr = findAttr(attributes, 'size');
+  if (sizeAttr) {
+    if (attrValueOf(sizeAttr) === 'dynamic') return false;
+    const size = Number(attrText(attributes, 'size'));
+    if (!(Number.isFinite(size) && size <= 1)) return false;
+  }
+  return true;
+}
+
+/** First child of a `<select>`'s fragment that isn't purely a whitespace `Text` node or a
+ *  `Comment` — what the browser treats as the element's first real content. */
+function firstSignificantChild(nodes: Node[] | undefined): Node | undefined {
+  for (const child of nodes ?? []) {
+    if (!child) continue;
+    if (child.type === 'Comment') continue;
+    if (child.type === 'Text' && !String(child.data ?? '').trim()) continue;
+    return child;
+  }
+  return undefined;
+}
+
+/** Whether an `<option>` is a valid placeholder label option per the HTML spec: an empty
+ *  `value` attribute, or no `value` attribute and no text content. A dynamic `value` or a
+ *  dynamic text child makes the option's effective value unknowable, so it is treated the
+ *  same as a valid placeholder — proving a violation is what this rule requires, not guessing one. */
+function isPlaceholderOption(option: Node): boolean {
+  const attributes = option.attributes ?? [];
+  if (findAttr(attributes, 'value')) {
+    const literal = attrText(attributes, 'value');
+    return literal === undefined || literal === '';
+  }
+  return textFromNodes(option.fragment?.nodes ?? []) === undefined;
+}
+
+/**
+ * `<select required>` (no `multiple`, display size absent or ≤ 1) whose first `option` element
+ * child is not a placeholder label option (a11y/placeholder-label-option). The first significant
+ * child not being a literal `option` — an `{#each}` block, a Component, an `{#if}`, etc. — makes
+ * the select's first option unknowable, so it is skipped rather than risk a false positive; a
+ * `<select>` with no content at all has no placeholder to find, so it is flagged.
+ */
+function collectSelectsMissingPlaceholder(node: Node, source: string, acc: { line: number }[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectSelectsMissingPlaceholder(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && node.name === 'select' && selectNeedsPlaceholder(node.attributes ?? [])) {
+    const first = firstSignificantChild(node.fragment?.nodes);
+    if (!first) {
+      acc.push({ line: lineOf(source, node.start) });
+    } else if (first.type === 'RegularElement' && first.name === 'option') {
+      if (!isPlaceholderOption(first)) acc.push({ line: lineOf(source, node.start) });
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectSelectsMissingPlaceholder(node[key], source, acc);
+  }
+}
+
 /**
  * Root-relative `<a href="/…">` literals (correctness/base-path-navigation). Only
  * `RegularElement` anchors with a fully static href are considered, which is what makes the
@@ -2385,6 +2453,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectUnassociatedLabels(ast.fragment ?? ast, source, unassociatedLabels);
   const bulletTexts: { line: number; char: string }[] = [];
   collectBulletTexts(ast.fragment ?? ast, source, bulletTexts, false);
+  const selectsMissingPlaceholder: { line: number }[] = [];
+  collectSelectsMissingPlaceholder(ast.fragment ?? ast, source, selectsMissingPlaceholder);
   const basePathLinks: BasePathLinkFact[] = [];
   collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
   const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
@@ -2612,6 +2682,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     interactiveNestings,
     unnamedInteractive,
     unassociatedLabels,
-    bulletTexts
+    bulletTexts,
+    selectsMissingPlaceholder
   };
 }

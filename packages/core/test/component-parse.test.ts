@@ -1343,3 +1343,19 @@ describe('parseComponentFacts — bulletTexts (a11y/use-list)', () => {
     expect(c.bulletTexts ?? []).toEqual([]);
   });
 });
+
+describe('parseComponentFacts — selectsMissingPlaceholder (a11y/placeholder-label-option)', () => {
+  it('flags <select required> whose first option is not a placeholder', () => {
+    const c = parseComponentFacts('<select required><option value="a">A</option></select>', 'C.svelte');
+    expect(c.selectsMissingPlaceholder).toEqual([{ line: 1 }]);
+  });
+  it('accepts a placeholder first option, and ignores multiple/size>1/non-required selects', () => {
+    const src = [
+      '<select required><option value="">Choose…</option><option value="a">A</option></select>',
+      '<select required multiple><option value="a">A</option></select>',
+      '<select required size="3"><option value="a">A</option></select>',
+      '<select><option value="a">A</option></select>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').selectsMissingPlaceholder ?? []).toEqual([]);
+  });
+});
