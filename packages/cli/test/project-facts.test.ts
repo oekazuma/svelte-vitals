@@ -51,6 +51,18 @@ describe('collectProjectFacts', () => {
     expect((await collectProjectFacts(createMemoryRuntime({}), '')).appHtmlIds).toBeUndefined();
   });
 
+  it('reads shell ids case-insensitively and ignores comments and script/style bodies', async () => {
+    const rt = createMemoryRuntime({
+      'src/app.html': [
+        `<body><div ID="app"></div>`,
+        `<!-- <div id="ghost"></div> -->`,
+        `<script>el.id = 'scripted'; frame.setAttribute('id', "js")</script>`,
+        `<style>#styled { color: red } [id="attr"] { }</style></body>`
+      ].join('\n')
+    });
+    expect((await collectProjectFacts(rt, '')).appHtmlIds).toEqual(['app']);
+  });
+
   it('detects build.minify: false in the Vite config', async () => {
     const rt = createMemoryRuntime({
       'vite.config.ts': `export default {\n  build: {\n    minify: false\n  }\n};\n`

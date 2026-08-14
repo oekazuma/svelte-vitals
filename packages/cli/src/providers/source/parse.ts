@@ -9,7 +9,8 @@ import {
   textFromNodes,
   attrText,
   attrTextOf,
-  attrValue
+  attrValue,
+  decodeFragmentId
 } from '@svelte-vitals/core';
 import { collectImports, type ImportMap } from './imports.js';
 
@@ -403,7 +404,8 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
       } else if (attr.name === 'href') {
         const href = attrTextOf(attr);
         if (href?.startsWith('#') && href.length > 1) {
-          emit(ctx, { kind: 'idref', key: href.slice(1), line, attr: 'href' });
+          // Navigation percent-decodes the fragment before matching an id (#caf%C3%A9 → café).
+          emit(ctx, { kind: 'idref', key: decodeFragmentId(href.slice(1)), line, attr: 'href' });
         }
       } else if (IDREF_ATTRS.has(attr.name)) {
         for (const token of tokens(attrTextOf(attr))) {
@@ -411,6 +413,9 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
         }
       }
     }
+    // <template> contents are inert (not in the rendered document until instantiated), so ids
+    // and landmarks inside never resolve or duplicate. The element's OWN attributes are live.
+    if (node.name === 'template') return;
     walk(node.fragment, {
       ...ctx,
       elementDepth: ctx.elementDepth + 1,

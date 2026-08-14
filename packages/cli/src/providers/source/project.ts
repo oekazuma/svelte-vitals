@@ -134,9 +134,18 @@ function detectHtmlLang(html: string): Detection {
   return { presence: 'own', value: value.trim().length > 0 ? 'static' : 'absent' };
 }
 
-/** Literal ids in the shell. `data-id="…"` and the like are excluded by the lookbehind. */
+/**
+ * Literal ids in the shell. `data-id="…"` and the like are excluded by the lookbehind.
+ * Comments and script/style bodies are stripped first — an `id="…"` in them is not an
+ * element id, and counting one would silently satisfy a genuinely dangling reference.
+ * Attribute names are ASCII case-insensitive (`ID="app"` is valid HTML).
+ */
 function detectAppHtmlIds(html: string): string[] {
-  const found = html.matchAll(/(?<![\w-])id\s*=\s*(?:"([^"]*)"|'([^']*)')/g);
+  const markup = html
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
+    .replace(/<style[\s\S]*?<\/style\s*>/gi, '');
+  const found = markup.matchAll(/(?<![\w-])id\s*=\s*(?:"([^"]*)"|'([^']*)')/gi);
   return [...new Set([...found].map((m) => m[1] ?? m[2] ?? '').filter(Boolean))];
 }
 

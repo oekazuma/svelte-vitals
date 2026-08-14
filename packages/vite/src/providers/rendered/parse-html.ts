@@ -1,5 +1,6 @@
 import { parse, type HTMLElement } from 'node-html-parser';
 import type { HeadTag, ImageInfo, Value } from '@svelte-vitals/core';
+import { decodeFragmentId } from '@svelte-vitals/core';
 
 function attrValue(v: string | undefined): Value {
   return v !== undefined && v.trim().length > 0 ? 'static' : 'absent';
@@ -110,12 +111,16 @@ function collectA11y(root: HTMLElement): CollectedA11y {
     // href="#top" scrolls to the document top with no element of that id (HTML's "top of the
     // document" fragment), so it is never a missing reference; bare "#" is likewise not an id ref.
     if (href && href.startsWith('#') && href.length > 1 && href.toLowerCase() !== '#top') {
-      idRefs.push({ id: href.slice(1), attr: 'href' });
+      // Navigation percent-decodes the fragment before matching an id (#caf%C3%A9 → café).
+      idRefs.push({ id: decodeFragmentId(href.slice(1)), attr: 'href' });
     }
     for (const attr of IDREF_ATTRS) {
       for (const token of tokens(el.getAttribute(attr))) idRefs.push({ id: token, attr });
     }
 
+    // <template> contents are inert (not part of the live document), so ids and landmarks
+    // inside never resolve or duplicate. The element's OWN attributes above are live.
+    if (tag === 'template') return;
     const nextCtx: A11yWalkCtx = {
       sectioning: ctx.sectioning + (SECTIONING_TAGS.has(tag) ? 1 : 0),
       landmarks: landmark ? [...ctx.landmarks, landmark] : ctx.landmarks

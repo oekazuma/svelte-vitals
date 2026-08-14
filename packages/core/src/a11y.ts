@@ -87,3 +87,16 @@ function foldAt<T extends Foldable>(nodes: T[], depth: number): T[] {
   }
   return representatives;
 }
+
+/**
+ * Decode a fragment identifier the way navigation does before matching an element id
+ * (`href="#caf%C3%A9"` targets `id="café"`). Malformed escapes are kept verbatim —
+ * the browser would also fail to decode them, so the raw text is the comparable form.
+ */
+export function decodeFragmentId(fragment: string): string {
+  try {
+    return decodeURIComponent(fragment);
+  } catch {
+    return fragment;
+  }
+}

@@ -133,6 +133,19 @@ describe('parseFile — a11y occurrences', () => {
     expect(parsed.a11y.slotInLandmark).toBeUndefined();
     expect(parseIt('<main>{@render children()}</main>').a11y.slotInLandmark).toBe('main');
   });
+
+  it('percent-decodes fragment hrefs the way navigation does', () => {
+    const parsed = parseIt('<a href="#caf%C3%A9">menu</a><a href="#50%off">malformed-escape-kept</a>');
+    expect(parsed.a11y.nodes.filter((n) => n.kind === 'idref').map((n) => n.key)).toEqual(['café', '50%off']);
+  });
+
+  it('skips inert <template> contents but keeps the element’s own id', () => {
+    const parsed = parseIt('<template id="tpl"><div id="x" /><main /></template><div id="x" />');
+    expect(parsed.a11y.nodes.map((n) => ({ kind: n.kind, key: n.key }))).toEqual([
+      { kind: 'id', key: 'tpl' },
+      { kind: 'id', key: 'x' }
+    ]);
+  });
 });
 
 describe('parseFile images', () => {

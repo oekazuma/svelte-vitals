@@ -214,6 +214,22 @@ describe('parse-html: a11y capture (rendered landmark/id parity)', () => {
     expect(landmarks).toContain('banner');
   });
 
+  it('percent-decodes fragment hrefs the way navigation does', () => {
+    const { idRefs } = parseHtmlHead(doc('<a href="#caf%C3%A9">menu</a><a href="#50%off">malformed-escape-kept</a>'));
+    expect(idRefs).toEqual([
+      { id: 'café', attr: 'href' },
+      { id: '50%off', attr: 'href' }
+    ]);
+  });
+
+  it('skips inert <template> contents but keeps the element’s own id', () => {
+    const { ids, landmarks } = parseHtmlHead(
+      doc('<template id="tpl"><div id="x"></div><main></main></template><div id="x"></div>')
+    );
+    expect(ids).toEqual(['tpl', 'x']);
+    expect(landmarks).not.toContain('main');
+  });
+
   it('counts every repeated id verbatim (the divergence direction from source-mode folding)', () => {
     // In source, an {#each}-rendered id is repeatable and drops out of the fold; in rendered
     // HTML there is no branch/each context left, so each literal occurrence is a real duplicate.
