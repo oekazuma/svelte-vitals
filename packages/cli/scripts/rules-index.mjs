@@ -23,7 +23,8 @@ const CATEGORY_LABEL = {
   performance: 'Performance',
   correctness: 'Correctness',
   security: 'Security',
-  architecture: 'Architecture'
+  architecture: 'Architecture',
+  a11y: 'Accessibility'
 };
 
 const CATEGORY_ICON = {
@@ -31,7 +32,8 @@ const CATEGORY_ICON = {
   performance: 'zap',
   correctness: 'circle-check',
   security: 'shield',
-  architecture: 'layers'
+  architecture: 'layers',
+  a11y: 'universal-access'
 };
 
 // The one place these blurbs live: core has no localized prose, and duplicating them
@@ -43,7 +45,8 @@ const CATEGORY_BLURB = {
     correctness: 'Svelte 5 runes and lifecycle misuse — code that compiles but behaves wrong.',
     security: 'Unescaped HTML, unsafe URLs, and server state that leaks across requests.',
     architecture:
-      'Component size, prop surface, and the import boundaries a project declares — signals that code is placed or shaped wrong.'
+      'Component size, prop surface, and the import boundaries a project declares — signals that code is placed or shaped wrong.',
+    a11y: 'Keyboard interaction, color contrast, semantic markup, and ARIA patterns — what makes a site usable for everyone.'
   },
   ja: {
     seo: '検索エンジンが実際に目にするもの。解決後の <head> メタデータ、構造化データ、クロールのしやすさを見ます。',
@@ -52,7 +55,8 @@ const CATEGORY_BLURB = {
     correctness: 'コンパイルは通るのに、思ったとおりに動かないコード。runes とライフサイクルの使い方を見ます。',
     security: 'エスケープされない HTML、安全でない URL、サーバーでリクエストをまたいで漏れる状態を見ます。',
     architecture:
-      'コードの形と置き場所のサイン。コンポーネントの大きさ、props の数、そしてプロジェクトが宣言した import の境界を見ます。'
+      'コードの形と置き場所のサイン。コンポーネントの大きさ、props の数、そしてプロジェクトが宣言した import の境界を見ます。',
+    a11y: 'すべての人にとって使いやすいサイト。キーボードインタラクション、色のコントラスト、セマンティック HTML、ARIA パターンを見ます。'
   }
 };
 

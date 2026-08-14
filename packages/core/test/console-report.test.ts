@@ -191,6 +191,22 @@ describe('formatConsoleReport', () => {
     expect(out).toContain('correctness/each-key');
   });
 
+  it('renders an Accessibility section for a11y findings', () => {
+    const withA11y: Result[] = [
+      ...results,
+      {
+        id: 'a11y/duplicate-landmark',
+        category: 'a11y',
+        severity: 'warning',
+        detection: { presence: 'none', value: 'absent' },
+        route: '/',
+        message: 'Duplicate <main> landmark'
+      }
+    ];
+    const out = formatConsoleReport(withA11y, config);
+    expect(out).toContain('Accessibility');
+  });
+
   it('collapses a rule that fires on multiple routes into one group with an "…and N more" line', () => {
     const multi: Result[] = [
       {

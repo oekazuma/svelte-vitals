@@ -1,15 +1,16 @@
 import { allRules, docsUrlFor, type Category, type RuleOptionSpec } from '@svelte-vitals/core';
 
 // Category order + labels for the generated rule digest. Kept in the same order the
-// project's docs use elsewhere (SEO, Performance, Correctness, Security, Architecture).
-const CATEGORY_ORDER: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
+// project's docs use elsewhere (SEO, Performance, Correctness, Security, Architecture, Accessibility).
+const CATEGORY_ORDER: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture', 'a11y'];
 
 const CATEGORY_LABELS: Record<Category, string> = {
   seo: 'SEO',
   performance: 'Performance',
   correctness: 'Correctness',
   security: 'Security',
-  architecture: 'Architecture'
+  architecture: 'Architecture',
+  a11y: 'Accessibility'
 };
 
 /** Collapse embedded newlines so a rule stays on a single Markdown list line. */

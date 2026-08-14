@@ -5,7 +5,7 @@ import { findUnknownRuleIds, knownRuleIds } from './rules-config.js';
 import { isReporterName, type ReporterName } from './reporter-resolve.js';
 
 /** Single source of truth for the `--category` value set — shared with completion's value handler (gunshi/complete.ts). */
-export const CATEGORIES: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
+export const CATEGORIES: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture', 'a11y'];
 
 /** Single source of truth for `--fail-on` — shared with completion's value handler (gunshi/complete.ts). */
 export const FAIL_ON_VALUES: readonly Severity[] = ['critical', 'warning', 'info'];
