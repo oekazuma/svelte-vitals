@@ -136,7 +136,7 @@ export async function analyze(
   const coverageNote =
     `Analyzed ${heads.length} prerendered route(s). ` +
     'SSR/dynamic routes are not covered — run `npx svelte-vitals` for those.\n' +
-    `Scanned ${components.length} component(s) under src/ for Correctness/Security/Architecture/Bundle findings.`;
+    `Scanned ${components.length} component(s) under src/ for Correctness/Security/Architecture/Accessibility/Bundle findings.`;
   const consoleReport =
     formatConsoleReport(results, scoringConfig, { mode: 'rendered / plugin' }) + '\n' + coverageNote + '\n';
   const jsonReport = formatJsonReport(

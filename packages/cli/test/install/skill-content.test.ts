@@ -2,7 +2,14 @@ import { describe, it, expect } from 'vitest';
 import { allRules } from '@svelte-vitals/core';
 import { buildSkillMarkdown, buildCursorRules, oneLine } from '../../src/install/skill-content.js';
 
-const CATEGORY_HEADINGS = ['### SEO', '### Performance', '### Correctness', '### Security', '### Architecture'];
+const CATEGORY_HEADINGS = [
+  '### SEO',
+  '### Performance',
+  '### Correctness',
+  '### Security',
+  '### Architecture',
+  '### Accessibility'
+];
 
 describe('buildSkillMarkdown', () => {
   const md = buildSkillMarkdown('1.2.3');
@@ -15,7 +22,7 @@ describe('buildSkillMarkdown', () => {
     expect(md).toContain('svelte-vitals 1.2.3');
   });
 
-  it('has all 5 category headings', () => {
+  it('has all 6 category headings', () => {
     for (const heading of CATEGORY_HEADINGS) {
       expect(md).toContain(heading);
     }
@@ -84,7 +91,7 @@ describe('buildCursorRules', () => {
     expect(mdc).toContain('svelte-vitals 1.2.3');
   });
 
-  it('has all 5 category headings', () => {
+  it('has all 6 category headings', () => {
     for (const heading of CATEGORY_HEADINGS) {
       expect(mdc).toContain(heading);
     }

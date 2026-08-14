@@ -62,7 +62,7 @@ function sharedBody(version: string): string {
 
 ## When to use
 
-Use this whenever you are writing or reviewing SvelteKit route files (\`+page.svelte\`, \`+layout.svelte\`) or components in this project — svelte-vitals statically checks SEO, performance, correctness, security, and architecture patterns.
+Use this whenever you are writing or reviewing SvelteKit route files (\`+page.svelte\`, \`+layout.svelte\`) or components in this project — svelte-vitals statically checks SEO, performance, correctness, security, architecture, and accessibility patterns.
 
 ## Playbook
 
@@ -81,7 +81,7 @@ ${ruleDigest()}
 export function buildSkillMarkdown(version: string): string {
   const frontmatter = `---
 name: svelte-vitals
-description: Use when writing or reviewing SvelteKit routes/components — svelte-vitals rule knowledge (SEO, performance, correctness, security, architecture) and how to run the scanner.
+description: Use when writing or reviewing SvelteKit routes/components — svelte-vitals rule knowledge (SEO, performance, correctness, security, architecture, accessibility) and how to run the scanner.
 ---`;
   return `${frontmatter}\n\n${sharedBody(version)}`;
 }
@@ -89,7 +89,7 @@ description: Use when writing or reviewing SvelteKit routes/components — svelt
 /** Generate the Cursor project rules file content (.mdc). */
 export function buildCursorRules(version: string): string {
   const frontmatter = `---
-description: svelte-vitals code-health rules for SvelteKit (SEO, performance, correctness, security, architecture)
+description: svelte-vitals code-health rules for SvelteKit (SEO, performance, correctness, security, architecture, accessibility)
 globs: ["**/*.svelte", "src/routes/**"]
 alwaysApply: false
 ---`;

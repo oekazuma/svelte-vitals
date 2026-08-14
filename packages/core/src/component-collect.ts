@@ -38,10 +38,10 @@ export function emptyComponentFacts(file: string): ComponentFacts {
 
 /**
  * Scan every `.svelte` component and `.svelte.ts`/`.svelte.js` runes module under `src/`
- * for Correctness/Security/Architecture/Bundle-Performance facts. Independent of route
- * resolution — covers `$lib` and non-route components too. A file that fails to read or
- * parse contributes empty facts instead of aborting the whole scan (dev tooling must
- * never throw).
+ * for Correctness/Security/Architecture/Bundle-Performance/Accessibility facts. Independent
+ * of route resolution — covers `$lib` and non-route components too. A file that fails to
+ * read or parse contributes empty facts instead of aborting the whole scan (dev tooling
+ * must never throw).
  */
 export async function collectComponentFacts(rt: Runtime, cwd: string): Promise<ComponentFacts[]> {
   // One brace pattern = one directory traversal (Runtime.glob implementations use

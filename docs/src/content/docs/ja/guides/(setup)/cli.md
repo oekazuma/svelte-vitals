@@ -249,7 +249,7 @@ svelte-vitals --weights seo=2,performance=1
 
 ### 特定の指摘だけをインラインで抑制する
 
-`--ignore` はプロジェクト全体でルールを無効にしますが、意図的な1箇所だけを黙らせたい場合は、対象行の直前に `svelte-vitals-disable-next-line` コメントを書きます。ソースファイル単位で報告されるすべてのルール（Correctness、Security、Architecture の各ルールと、コンポーネントスコープの Performance ルール）に対応します。（ルートレベルの SEO ルールは複数ファイルを横断して解決されるため、この方法では抑制できません。）
+`--ignore` はプロジェクト全体でルールを無効にしますが、意図的な1箇所だけを黙らせたい場合は、対象行の直前に `svelte-vitals-disable-next-line` コメントを書きます。ソースファイル単位で報告されるすべてのルール（Correctness、Security、Architecture の各ルール、コンポーネントスコープの Performance ルール、そしてコンポーネントスコープの Accessibility ルール（ARIA の妥当性、インタラクティブ要素の入れ子、アクセシブルネーム、ラベル））に対応します。（ルートレベルの SEO ルール、およびコンポーネントをまたぐ Accessibility ルール — ランドマーク、id参照、doctype チェック — は複数ファイルを横断して解決されるため、この方法では抑制できません。）
 
 ```svelte
 <script>

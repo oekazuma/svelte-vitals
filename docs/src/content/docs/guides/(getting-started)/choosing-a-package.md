@@ -25,20 +25,20 @@ Each package is versioned independently and depends on `@svelte-vitals/core` (th
 
 ## Comparison
 
-|                | CLI (`svelte-vitals`)                                                  | Vite plugin — build mode                                               | Vite plugin — live dashboard                                                                 |
-| -------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| Reads          | Source (`.svelte` files, layout chain)                                 | Prerendered HTML output + `.svelte` source (component rules)           | Source at startup; rendered HTML for routes you've visited                                   |
-| Categories     | All categories — SEO, Performance, Correctness, Security, Architecture | All categories — SEO, Performance, Correctness, Security, Architecture | All categories (static baseline); visited routes refine to rendered SEO/Performance accuracy |
-| Routes covered | Every route — SSR, dynamic, prerendered                                | Prerendered routes only                                                | Every route from startup — visited routes upgrade to `measured`                              |
-| Runs           | On demand — terminal, CI, pre-commit, an agent's shell                 | Every `vite build`                                                     | Live, while `vite dev` runs                                                                  |
-| Needs a build  | No                                                                     | Yes                                                                    | No                                                                                           |
-| Typical home   | CI, pre-commit hooks, one-off audits, agent tool loops                 | Build pipeline gate                                                    | Local dev feedback (on by default)                                                           |
+|                | CLI (`svelte-vitals`)                                                                 | Vite plugin — build mode                                                              | Vite plugin — live dashboard                                                                 |
+| -------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| Reads          | Source (`.svelte` files, layout chain)                                                | Prerendered HTML output + `.svelte` source (component rules)                          | Source at startup; rendered HTML for routes you've visited                                   |
+| Categories     | All categories — SEO, Performance, Correctness, Security, Architecture, Accessibility | All categories — SEO, Performance, Correctness, Security, Architecture, Accessibility | All categories (static baseline); visited routes refine to rendered SEO/Performance accuracy |
+| Routes covered | Every route — SSR, dynamic, prerendered                                               | Prerendered routes only                                                               | Every route from startup — visited routes upgrade to `measured`                              |
+| Runs           | On demand — terminal, CI, pre-commit, an agent's shell                                | Every `vite build`                                                                    | Live, while `vite dev` runs                                                                  |
+| Needs a build  | No                                                                                    | Yes                                                                                   | No                                                                                           |
+| Typical home   | CI, pre-commit hooks, one-off audits, agent tool loops                                | Build pipeline gate                                                                   | Local dev feedback (on by default)                                                           |
 
 Some surfaces are intentionally absent from this table: the **GitHub Action** runs the CLI's own engine in-process, so its coverage is the CLI column — what it adds is the PR experience (annotations, summary, sticky comment) rather than different analysis. **Agent Skills** run no analysis of their own at all — they give the agent the rule knowledge and tell it when to run the scanner.
 
 ### Why build-mode coverage is close to the CLI's
 
-Correctness, Security, and Architecture rules read component **source** — `$effect` bodies, `{@html}` calls, prop counts — which only exists before compilation. The CLI, the Vite plugin's **build mode**, and the live dashboard's whole-project static baseline all read this source directly, so all three cover the full rule set across every category.
+Correctness, Security, Architecture, and Accessibility rules read component **source** — `$effect` bodies, `{@html}` calls, prop counts, ARIA attributes — which only exists before compilation. The CLI, the Vite plugin's **build mode**, and the live dashboard's whole-project static baseline all read this source directly, so all three cover the full rule set across every category.
 
 Visiting a route in dev additionally re-checks its **rendered HTML** (via `svelteVitalsHandle`) for SEO/Performance — the one thing the static baseline alone can't give you. Build mode reads rendered HTML too, _in addition to_ the source scan, making it the only build-time path with both.
 
@@ -50,7 +50,7 @@ Visiting a route in dev additionally re-checks its **rendered HTML** (via `svelt
 
 ### Vite plugin — exact, build-time verification
 
-Build mode runs during `vite build` and parses the **actual prerendered HTML** for SEO/Performance: if the tag isn't in the shipped output it is reported, whatever produced it — and the build fails once a finding reaches the `failOn` threshold. It also scans `.svelte` source for Correctness, Security, Architecture and the component-scoped Performance rules, as the CLI does.
+Build mode runs during `vite build` and parses the **actual prerendered HTML** for SEO/Performance/Accessibility: if the tag isn't in the shipped output it is reported, whatever produced it — and the build fails once a finding reaches the `failOn` threshold. It also scans `.svelte` source for Correctness, Security, Architecture and the component-scoped Performance rules, as the CLI does.
 
 The trade-off is route scope — only prerendered routes get the HTML check; component-scoped rules apply project-wide. See [Plugin mode](/guides/plugin-mode).
 

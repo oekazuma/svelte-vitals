@@ -12,7 +12,7 @@
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/npm/l/svelte-vitals" alt="MIT"></a>
 </p>
 
-<p align="center">A static code-health checker for SvelteKit — SEO, Performance, Correctness, Security, and Architecture, from source. No browser or headless Chrome required. (Not a runtime Web Vitals reporter, despite the name.)</p>
+<p align="center">A static code-health checker for SvelteKit — SEO, Performance, Correctness, Security, Architecture, and Accessibility, from source. No browser or headless Chrome required. (Not a runtime Web Vitals reporter, despite the name.)</p>
 
 ```bash
 npx svelte-vitals@latest
@@ -29,7 +29,7 @@ npx svelte-vitals@latest
 
 ## Categories
 
-Five categories — **SEO**, **Performance**, **Correctness**, **Security**, **Architecture** — each scored independently and rolled into a single weighted **Health** score. → [Health score](https://oekazuma.github.io/svelte-vitals/guides/health-report/)
+Six categories — **SEO**, **Performance**, **Correctness**, **Security**, **Architecture**, **Accessibility** — each scored independently and rolled into a single weighted **Health** score. → [Health score](https://oekazuma.github.io/svelte-vitals/guides/health-report/)
 
 ## Features
 

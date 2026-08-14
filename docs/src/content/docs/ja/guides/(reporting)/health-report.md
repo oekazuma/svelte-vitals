@@ -33,7 +33,7 @@ Health は、カテゴリごとの重みを使って**丸める前の**カテゴ
 Health = (SEO_score × w_seo + Performance_score × w_perf) / (w_seo + w_perf)
 ```
 
-この式は簡潔にするため2カテゴリで示していますが、実際には結果に存在する**すべて**のカテゴリ（最大5つ：SEO、Performance、Correctness、Security、Architecture）で同じ加重平均を取ります。
+この式は簡潔にするため2カテゴリで示していますが、実際には結果に存在する**すべて**のカテゴリ（最大6つ：SEO、Performance、Correctness、Security、Architecture、Accessibility）で同じ加重平均を取ります。
 
 重みは `--weights` フラグまたは設定ファイルの `weights` フィールドで指定します。両方の詳細は [設定ファイル](/ja/guides/configuration) を参照してください。例えば SEO の重みを2倍にするには：
 

@@ -108,7 +108,7 @@ export const JA_ARG_DESCRIPTIONS = {
 } as const satisfies Record<string, Record<string, string>>;
 
 export function rootHelpJa(optionsSection: string): string {
-  return `svelte-vitals — 決定論的な SvelteKit コードヘルスチェッカー（SEO・パフォーマンス・正確性・セキュリティ・アーキテクチャ）
+  return `svelte-vitals — 決定論的な SvelteKit コードヘルスチェッカー（SEO・パフォーマンス・正確性・セキュリティ・アーキテクチャ・アクセシビリティ）
 
 使用方法:
   svelte-vitals [path] [options]

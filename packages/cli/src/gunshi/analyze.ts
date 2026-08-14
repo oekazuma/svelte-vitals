@@ -177,7 +177,7 @@ async function buildHelpText(rootCommand: Parameters<typeof generate>[1], locale
 
   const optionsSection = await localizedOptionsSection(rootCommand, 'svelte-vitals', locale, {});
 
-  return `svelte-vitals — a deterministic SvelteKit code-health scanner (SEO · performance · correctness · security · architecture)
+  return `svelte-vitals — a deterministic SvelteKit code-health scanner (SEO · performance · correctness · security · architecture · accessibility)
 
 Usage:
   svelte-vitals [path] [options]

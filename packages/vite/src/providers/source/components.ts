@@ -32,7 +32,7 @@ const nodeRuntime: Runtime = {
 
 /**
  * Scan every `.svelte` component under `src/` for Correctness/Security/Architecture/
- * Bundle-Performance facts (build mode only). Implementation lives in
+ * Bundle-Performance/Accessibility facts (build mode only). Implementation lives in
  * `@svelte-vitals/core` (plans/003) and is shared with the CLI package.
  */
 export function collectComponentFacts(root: string): Promise<ComponentFacts[]> {

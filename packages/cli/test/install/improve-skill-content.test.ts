@@ -1,7 +1,14 @@
 import { describe, it, expect } from 'vitest';
 import { buildImproveSkillMarkdown } from '../../src/install/improve-skill-content.js';
 
-const CATEGORY_HEADINGS = ['### SEO', '### Performance', '### Correctness', '### Security', '### Architecture'];
+const CATEGORY_HEADINGS = [
+  '### SEO',
+  '### Performance',
+  '### Correctness',
+  '### Security',
+  '### Architecture',
+  '### Accessibility'
+];
 
 describe('buildImproveSkillMarkdown', () => {
   const md = buildImproveSkillMarkdown('1.2.3');
@@ -14,7 +21,7 @@ describe('buildImproveSkillMarkdown', () => {
     expect(md).toContain('svelte-vitals 1.2.3');
   });
 
-  it('contains the Rule catalog heading and all 5 category headings', () => {
+  it('contains the Rule catalog heading and all 6 category headings', () => {
     expect(md).toContain('## Rule catalog');
     for (const heading of CATEGORY_HEADINGS) {
       expect(md).toContain(heading);
