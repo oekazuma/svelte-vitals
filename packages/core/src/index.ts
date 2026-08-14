@@ -153,7 +153,8 @@ export {
   a11yUseList,
   a11yPlaceholderLabelOption,
   a11yRequireDatetime,
-  a11yDoctype
+  a11yDoctype,
+  a11yDuplicateLandmark
 } from './rules/index.js';
 export type { RuleInfo, RuleOptionInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

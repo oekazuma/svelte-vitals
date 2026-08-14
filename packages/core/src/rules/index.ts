@@ -85,6 +85,7 @@ import { a11yUseList } from './a11y/use-list.js';
 import { a11yPlaceholderLabelOption } from './a11y/placeholder-label-option.js';
 import { a11yRequireDatetime } from './a11y/require-datetime.js';
 import { a11yDoctype } from './a11y/doctype.js';
+import { a11yDuplicateLandmark } from './a11y/duplicate-landmark.js';
 
 export const allRules: Rule[] = [
   seoTitlePresence,
@@ -170,7 +171,8 @@ export const allRules: Rule[] = [
   a11yUseList,
   a11yPlaceholderLabelOption,
   a11yRequireDatetime,
-  a11yDoctype
+  a11yDoctype,
+  a11yDuplicateLandmark
 ];
 
 export {
@@ -257,7 +259,8 @@ export {
   a11yUseList,
   a11yPlaceholderLabelOption,
   a11yRequireDatetime,
-  a11yDoctype
+  a11yDoctype,
+  a11yDuplicateLandmark
 };
 
 /** One configurable option of a rule, flattened for `svelte-vitals explain`'s output. */
