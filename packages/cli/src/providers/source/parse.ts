@@ -1,6 +1,6 @@
 import { parse } from 'svelte/compiler';
 import type { AST } from 'svelte/compiler';
-import type { HeadTag } from '@svelte-vitals/core';
+import type { BranchStep, HeadTag } from '@svelte-vitals/core';
 import {
   CHILD_NODE_KEYS,
   lineOf,
@@ -239,12 +239,7 @@ function collectHeadings(node: WalkNode | WalkNode[] | null | undefined, source:
   }
 }
 
-export interface BranchStep {
-  /** index of the {#if}/{#await} block among this file's blocks (document order) */
-  group: number;
-  /** branch index within the group (if: 0..n consequent→else; await: 0=pending,1=then,2=catch) */
-  branch: number;
-}
+export type { BranchStep };
 
 export interface A11yNode {
   kind: 'landmark' | 'id' | 'idref' | 'component';

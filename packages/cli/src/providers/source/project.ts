@@ -134,8 +134,17 @@ function detectHtmlLang(html: string): Detection {
   return { presence: 'own', value: value.trim().length > 0 ? 'static' : 'absent' };
 }
 
-/** app.html-derived facts sharing one read (io-budget): <html lang> and the leading doctype. */
-async function detectAppHtmlFacts(rt: Runtime, cwd: string): Promise<Pick<Project, 'htmlLang' | 'appHtmlDoctype'>> {
+/** Literal ids in the shell. `data-id="…"` and the like are excluded by the lookbehind. */
+function detectAppHtmlIds(html: string): string[] {
+  const found = html.matchAll(/(?<![\w-])id\s*=\s*(?:"([^"]*)"|'([^']*)')/g);
+  return [...new Set([...found].map((m) => m[1] ?? m[2] ?? '').filter(Boolean))];
+}
+
+/** app.html-derived facts sharing one read (io-budget): <html lang>, the leading doctype, and shell ids. */
+async function detectAppHtmlFacts(
+  rt: Runtime,
+  cwd: string
+): Promise<Pick<Project, 'htmlLang' | 'appHtmlDoctype' | 'appHtmlIds'>> {
   const appHtmlPath = rt.join(cwd, 'src/app.html');
   if (!(await rt.exists(appHtmlPath))) return { htmlLang: { presence: 'none', value: 'absent' } };
   let content: string;
@@ -146,7 +155,8 @@ async function detectAppHtmlFacts(rt: Runtime, cwd: string): Promise<Pick<Projec
   }
   return {
     htmlLang: detectHtmlLang(content),
-    appHtmlDoctype: /^\s*(<!--[\s\S]*?-->\s*)*<!doctype\s+html/i.test(content)
+    appHtmlDoctype: /^\s*(<!--[\s\S]*?-->\s*)*<!doctype\s+html/i.test(content),
+    appHtmlIds: detectAppHtmlIds(content)
   };
 }
 

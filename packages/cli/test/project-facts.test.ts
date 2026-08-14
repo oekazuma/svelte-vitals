@@ -43,6 +43,14 @@ describe('collectProjectFacts', () => {
     expect(noAppHtml.appHtmlDoctype).toBeUndefined();
   });
 
+  it('collects literal shell ids from app.html', async () => {
+    const rt = createMemoryRuntime({
+      'src/app.html': `<body><div id="app" data-id="not-an-id"></div><span id='side'></span><i id={x}></i></body>`
+    });
+    expect((await collectProjectFacts(rt, '')).appHtmlIds).toEqual(['app', 'side']);
+    expect((await collectProjectFacts(createMemoryRuntime({}), '')).appHtmlIds).toBeUndefined();
+  });
+
   it('detects build.minify: false in the Vite config', async () => {
     const rt = createMemoryRuntime({
       'vite.config.ts': `export default {\n  build: {\n    minify: false\n  }\n};\n`

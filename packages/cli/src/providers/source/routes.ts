@@ -1,17 +1,28 @@
 import type {
+  A11yOccurrenceInfo,
+  BranchStep,
   Config,
   HeadTag,
   HeadingInfo,
   ImageInfo,
   KitAlias,
+  ResolvedA11y,
   ResolvedHead,
   ResolvedHeadings,
   ResolvedImages,
   Runtime
 } from '@svelte-vitals/core';
-import { defaultConfig } from '@svelte-vitals/core';
+import { defaultConfig, foldOccurrences } from '@svelte-vitals/core';
+import type { A11yNode, ParsedFile } from './parse.js';
 import { enumerateRoutePages } from './project.js';
-import { resolveFileTags, readAndParse, BROAD_KINDS, tagKey, type ParseCache } from './resolve.js';
+import {
+  resolveComponentPath,
+  resolveFileTags,
+  readAndParse,
+  BROAD_KINDS,
+  tagKey,
+  type ParseCache
+} from './resolve.js';
 
 const ROUTES_DIR = 'src/routes';
 const MAX_DEPTH = 5;
@@ -121,6 +132,118 @@ interface RouteFacts {
   head: ResolvedHead;
   images: ResolvedImages;
   headings: ResolvedHeadings;
+  a11y: ResolvedA11y;
+}
+
+/** A file's a11y occurrence, re-addressed into the composed route's branch space. */
+type ComposedNode = A11yNode & { file: string; chain: boolean };
+
+interface ComposeState {
+  /**
+   * Next free branch-group id. Every file instance gets its own range, so two component
+   * instantiations' `{#if}` blocks are never folded as arms of one exclusive block.
+   */
+  nextGroup: number;
+  fullyResolved: boolean;
+}
+
+interface ComposeCtx {
+  rt: Runtime;
+  cwd: string;
+  config: Config;
+  cache: ParseCache;
+  aliases: readonly KitAlias[] | undefined;
+  state: ComposeState;
+}
+
+/** Group ids a file occupies, so the next file instance can start above them. */
+function groupSpan(nodes: A11yNode[]): number {
+  let max = -1;
+  for (const node of nodes) {
+    for (const step of node.path) if (step.group > max) max = step.group;
+  }
+  return max + 1;
+}
+
+/** Paths are shared across every route that uses a parsed file — re-address by copying. */
+function offsetPath(path: BranchStep[], base: number): BranchStep[] {
+  return base === 0 ? path : path.map((step) => ({ group: step.group + base, branch: step.branch }));
+}
+
+/**
+ * One file's contribution to the route: its own occurrences plus, inline at each component
+ * usage, that component's contribution carrying the usage's branch address and repeatability.
+ * Anything that cannot be followed (package/adapter/meta component, `<svelte:component>`,
+ * a cycle, MAX_DEPTH) contributes nothing and opens the world — existential rules stay sound,
+ * `no-missing-id-ref` skips the route.
+ */
+async function composeA11y(
+  ctx: ComposeCtx,
+  fileRel: string,
+  parsed: ParsedFile,
+  depth: number,
+  visited: Set<string>,
+  chain: boolean
+): Promise<ComposedNode[]> {
+  const { rt, cwd, state } = ctx;
+  if (parsed.a11y.unknowableContent) state.fullyResolved = false;
+  const base = state.nextGroup;
+  state.nextGroup += groupSpan(parsed.a11y.nodes);
+
+  const composed: ComposedNode[] = [];
+  for (const node of parsed.a11y.nodes) {
+    const path = offsetPath(node.path, base);
+    if (node.kind !== 'component') {
+      composed.push({ ...node, path, file: fileRel, chain });
+      continue;
+    }
+    const info = ctx.config.metaComponents.includes(node.key) ? undefined : parsed.imports.get(node.key);
+    // Package (incl. adapter) imports and the dynamic `<svelte:component>`/`<svelte:self>` names
+    // resolve to no repo-local path, so they fall into the unresolved branch below.
+    const childRel = info ? resolveComponentPath(info.source, fileRel, ctx.aliases) : undefined;
+    if (!childRel || depth <= 0 || visited.has(childRel) || !(await rt.exists(rt.join(cwd, childRel)))) {
+      state.fullyResolved = false;
+      continue;
+    }
+    const childParsed = await readAndParse(rt, cwd, childRel, ctx.cache);
+    const child = await composeA11y(ctx, childRel, childParsed, depth - 1, new Set(visited).add(childRel), false);
+    for (const inner of child) {
+      composed.push({ ...inner, path: [...path, ...inner.path], repeatable: node.repeatable || inner.repeatable });
+    }
+  }
+  return composed;
+}
+
+/**
+ * `<header>`/`<footer>` are banner/contentinfo only at a chain file's template top level: a
+ * component's may sit inside sectioning content in its parent, and below the top level they
+ * may be scoped by article/aside/main/nav/section, which strips the landmark mapping
+ * (HTML-AAM). `<main>` and literal landmark roles count everywhere.
+ */
+function countsAsLandmark(node: ComposedNode): boolean {
+  return node.topLevel === undefined || (node.chain && node.topLevel === true);
+}
+
+/**
+ * The order the findings spec pins for representatives, because it decides which one is the
+ * unpenalized first: chain files in chain order by line, then component files by path and line.
+ */
+function representativeOrder(chainOrder: Map<string, number>) {
+  return (a: ComposedNode, b: ComposedNode): number => {
+    const rankA = a.chain ? (chainOrder.get(a.file) ?? 0) : chainOrder.size;
+    const rankB = b.chain ? (chainOrder.get(b.file) ?? 0) : chainOrder.size;
+    if (rankA !== rankB) return rankA - rankB;
+    if (a.file !== b.file) return a.file < b.file ? -1 : 1;
+    return a.line - b.line;
+  };
+}
+
+function representatives(nodes: ComposedNode[], chainOrder: Map<string, number>): Record<string, A11yOccurrenceInfo[]> {
+  const folded = foldOccurrences(nodes);
+  const order = representativeOrder(chainOrder);
+  return Object.fromEntries(
+    [...folded].map(([key, list]) => [key, list.sort(order).map(({ file, line }) => ({ file, line }))])
+  );
 }
 
 /**
@@ -135,9 +258,11 @@ async function resolveRoute(
   config: Config,
   layouts: Map<string, string>,
   cache: ParseCache,
-  aliases: readonly KitAlias[] | undefined
+  aliases: readonly KitAlias[] | undefined,
+  appHtmlIds: readonly string[] | undefined
 ): Promise<RouteFacts> {
   const files = chainFiles(pageRel, layouts);
+  const chainOrder = new Map(files.map((f, i) => [f.rel, i]));
   const composed = new Map<string, HeadTag>();
   // JSON-LD is additive, not a singleton (issue #443): every document survives, in
   // chain order (root layout -> ... -> page) and source order within a file, unlike
@@ -148,9 +273,23 @@ async function resolveRoute(
   const images: ImageInfo[] = [];
   const headings: HeadingInfo[] = [];
   const componentHeadings: HeadingInfo[] = [];
+  const a11yCtx: ComposeCtx = { rt, cwd, config, cache, aliases, state: { nextGroup: 0, fullyResolved: true } };
+  const a11yNodes: ComposedNode[] = [];
+  const nestedLandmarks: ResolvedA11y['nestedLandmarks'] = [];
+  /** Landmark the layouts above the current chain file render their children inside. */
+  let slotLandmark: string | undefined;
 
   for (const { rel, isPage } of files) {
     const parsed = await readAndParse(rt, cwd, rel, cache);
+
+    const contributed = await composeA11y(a11yCtx, rel, parsed, MAX_DEPTH, new Set([rel]), true);
+    for (const node of contributed) {
+      if (!node.chain || node.kind !== 'landmark' || !countsAsLandmark(node)) continue;
+      const within = node.inLandmark ?? slotLandmark;
+      if (within) nestedLandmarks.push({ kind: node.key, within, file: node.file, line: node.line });
+    }
+    slotLandmark = parsed.a11y.slotInLandmark ?? slotLandmark;
+    a11yNodes.push(...contributed);
 
     for (const img of parsed.images) {
       images.push({ ...img, file: rel });
@@ -181,11 +320,32 @@ async function resolveRoute(
     }
   }
 
+  const idNodes = a11yNodes.filter((n) => n.kind === 'id');
+  // An expression-valued id (key '') is unknowable: it closes no world and is no candidate.
+  if (idNodes.some((n) => n.key === '')) a11yCtx.state.fullyResolved = false;
+  const literalIds = idNodes.filter((n) => n.key !== '');
+
   const route = deriveRoute(pageRel);
   return {
     head: { route, source: 'static', tags: [...composed.values(), ...jsonldTags], file: pageRel },
     images: { route, images },
-    headings: { route, headings, componentHeadings }
+    headings: { route, headings, componentHeadings },
+    a11y: {
+      route,
+      landmarks: representatives(
+        a11yNodes.filter((n) => n.kind === 'landmark' && countsAsLandmark(n)),
+        chainOrder
+      ),
+      nestedLandmarks,
+      ids: representatives(literalIds, chainOrder),
+      // `href="#top"` scrolls to the document top with no element of that id, so it is
+      // never a missing reference (HTML's "top of the document" fragment).
+      idRefs: a11yNodes
+        .filter((n) => n.kind === 'idref' && !(n.attr === 'href' && n.key.toLowerCase() === 'top'))
+        .map((n) => ({ id: n.key, attr: n.attr ?? '', file: n.file, line: n.line })),
+      idCandidates: [...new Set([...literalIds.map((n) => n.key), ...(appHtmlIds ?? [])])],
+      fullyResolved: a11yCtx.state.fullyResolved
+    }
   };
 }
 
@@ -208,13 +368,24 @@ export async function collectRoutes(
   cache: ParseCache = new Map(),
   // The project's compiled `Project.kitAliases` (undefined -> resolveComponentPath's
   // $lib-only default), forwarded to transitive <head>/heading resolution.
-  aliases?: readonly KitAlias[]
-): Promise<{ heads: ResolvedHead[]; images: ResolvedImages[]; headings: ResolvedHeadings[] }> {
+  aliases?: readonly KitAlias[],
+  // The shell's literal ids (`Project.appHtmlIds`): part of every rendered document, so they
+  // satisfy a route's id references.
+  appHtmlIds?: readonly string[]
+): Promise<{
+  heads: ResolvedHead[];
+  images: ResolvedImages[];
+  headings: ResolvedHeadings[];
+  a11y: ResolvedA11y[];
+}> {
   const [pages, layouts] = await Promise.all([enumerateRoutePages(rt, cwd), collectLayouts(rt, cwd)]);
-  const facts = await Promise.all(pages.map((page) => resolveRoute(rt, cwd, page, config, layouts, cache, aliases)));
+  const facts = await Promise.all(
+    pages.map((page) => resolveRoute(rt, cwd, page, config, layouts, cache, aliases, appHtmlIds))
+  );
   return {
     heads: facts.map((f) => f.head),
     images: facts.map((f) => f.images),
-    headings: facts.map((f) => f.headings)
+    headings: facts.map((f) => f.headings),
+    a11y: facts.map((f) => f.a11y)
   };
 }
