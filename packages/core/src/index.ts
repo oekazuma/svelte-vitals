@@ -149,7 +149,8 @@ export {
   a11yAccessibleName,
   a11yLabelHasControl,
   a11yUseList,
-  a11yPlaceholderLabelOption
+  a11yPlaceholderLabelOption,
+  a11yRequireDatetime
 } from './rules/index.js';
 export type { RuleInfo, RuleOptionInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

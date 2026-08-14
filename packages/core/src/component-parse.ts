@@ -1440,6 +1440,48 @@ function collectSelectsMissingPlaceholder(node: Node, source: string, acc: { lin
   }
 }
 
+/** Machine-readable literal formats a `<time>` may use without a `datetime` attribute — a
+ *  permissive subset of the HTML spec's valid time-string grammar (year/month/date, time,
+ *  date-time, yearless date, duration). Anything else needs an explicit `datetime`. */
+const MACHINE_READABLE_TIME = [
+  /^\d{4}(-\d{2}){0,2}$/,
+  /^\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/,
+  /^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}/,
+  /^\d{2}-\d{2}$/,
+  /^P/i
+];
+
+/**
+ * `<time>` elements with no `datetime` attribute whose content is plain literal text that isn't
+ * itself machine-readable (a11y/require-datetime). Any non-`Text` child — an `ExpressionTag`, a
+ * Component, a block — makes the rendered text unknowable, so the element is skipped rather than
+ * risk a false positive.
+ */
+function collectTimesMissingDatetime(node: Node, source: string, acc: { line: number; text: string }[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectTimesMissingDatetime(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (
+    node.type === 'RegularElement' &&
+    node.name === 'time' &&
+    findAttr(node.attributes ?? [], 'datetime') === undefined
+  ) {
+    const nodes: Node[] = node.fragment?.nodes ?? [];
+    if (nodes.length > 0 && nodes.every((n) => n?.type === 'Text')) {
+      const text = nodes.map((n) => String(n.data ?? '')).join('');
+      const trimmed = text.trim();
+      if (trimmed.length > 0 && !MACHINE_READABLE_TIME.some((re) => re.test(trimmed))) {
+        acc.push({ line: lineOf(source, node.start), text: trimmed });
+      }
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectTimesMissingDatetime(node[key], source, acc);
+  }
+}
+
 /**
  * Root-relative `<a href="/…">` literals (correctness/base-path-navigation). Only
  * `RegularElement` anchors with a fully static href are considered, which is what makes the
@@ -2455,6 +2497,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectBulletTexts(ast.fragment ?? ast, source, bulletTexts, false);
   const selectsMissingPlaceholder: { line: number }[] = [];
   collectSelectsMissingPlaceholder(ast.fragment ?? ast, source, selectsMissingPlaceholder);
+  const timesMissingDatetime: { line: number; text: string }[] = [];
+  collectTimesMissingDatetime(ast.fragment ?? ast, source, timesMissingDatetime);
   const basePathLinks: BasePathLinkFact[] = [];
   collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
   const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
@@ -2683,6 +2727,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     unnamedInteractive,
     unassociatedLabels,
     bulletTexts,
-    selectsMissingPlaceholder
+    selectsMissingPlaceholder,
+    timesMissingDatetime
   };
 }

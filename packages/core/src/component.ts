@@ -198,6 +198,8 @@ export interface ComponentFacts {
   /** `<select required>` (no `multiple`, display size absent or ≤ 1) whose first `option` element
    *  child is not a placeholder label option (a11y/placeholder-label-option). */
   selectsMissingPlaceholder?: { line: number }[];
+  /** `<time>` with no `datetime` attribute whose literal text content is not machine-readable (a11y/require-datetime). */
+  timesMissingDatetime?: { line: number; text: string }[];
   /** Set when the file failed to read or parse and these facts are the empty fallback — the file was NOT analyzed. */
   parseFailed?: true;
 }

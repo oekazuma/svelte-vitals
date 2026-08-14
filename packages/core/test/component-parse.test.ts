@@ -1359,3 +1359,16 @@ describe('parseComponentFacts — selectsMissingPlaceholder (a11y/placeholder-la
     expect(parseComponentFacts(src, 'C.svelte').selectsMissingPlaceholder ?? []).toEqual([]);
   });
 });
+
+describe('parseComponentFacts — timesMissingDatetime (a11y/require-datetime)', () => {
+  it('flags <time> whose literal text is not machine-readable and lacks datetime', () => {
+    const c = parseComponentFacts('<time>last Tuesday</time>', 'C.svelte');
+    expect(c.timesMissingDatetime).toEqual([{ line: 1, text: 'last Tuesday' }]);
+  });
+  it('accepts a datetime attr, machine-readable text, or dynamic content', () => {
+    const src = ['<time datetime="2026-08-14">last Tuesday</time>', '<time>2026-08-14</time>', '<time>{d}</time>'].join(
+      '\n'
+    );
+    expect(parseComponentFacts(src, 'C.svelte').timesMissingDatetime ?? []).toEqual([]);
+  });
+});

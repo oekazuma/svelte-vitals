@@ -4,7 +4,8 @@ import {
   a11yAccessibleName,
   a11yLabelHasControl,
   a11yUseList,
-  a11yPlaceholderLabelOption
+  a11yPlaceholderLabelOption,
+  a11yRequireDatetime
 } from '../src/index.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
@@ -103,6 +104,23 @@ describe('a11y/placeholder-label-option', () => {
   });
   it('passes a component with no recorded selects missing a placeholder', async () => {
     const rs = await a11yPlaceholderLabelOption.check(ctx([comp({ selectsMissingPlaceholder: [] })]));
+    expect(fails(rs)).toHaveLength(0);
+  });
+});
+
+describe('a11y/require-datetime', () => {
+  it('flags a recorded time missing a datetime attribute', async () => {
+    const rs = await a11yRequireDatetime.check(
+      ctx([comp({ timesMissingDatetime: [{ line: 6, text: 'last Tuesday' }] })])
+    );
+    const failing = fails(rs);
+    expect(failing.map((r) => r.line)).toEqual([6]);
+    expect(failing[0]?.message).toBe(
+      '<time> content "last Tuesday" is not machine-readable and has no datetime attribute'
+    );
+  });
+  it('passes a component with no recorded times missing datetime', async () => {
+    const rs = await a11yRequireDatetime.check(ctx([comp({ timesMissingDatetime: [] })]));
     expect(fails(rs)).toHaveLength(0);
   });
 });
