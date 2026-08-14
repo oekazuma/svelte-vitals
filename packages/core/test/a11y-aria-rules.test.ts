@@ -1,5 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { a11yInvalidRole, a11yUnknownAriaAttribute, a11yRequiredAriaProps } from '../src/index.js';
+import {
+  a11yInvalidRole,
+  a11yUnknownAriaAttribute,
+  a11yRequiredAriaProps,
+  a11yInvalidAriaValue
+} from '../src/index.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -111,5 +116,39 @@ describe('a11y/required-aria-props', () => {
       ctx([comp({ ariaElements: [el({ tag: 'input', inputType: 'checkbox', role: { literal: 'switch' } })] })])
     );
     expect(fails(rs)).toHaveLength(0);
+  });
+});
+
+describe('a11y/invalid-aria-value', () => {
+  it('flags a boolean aria attribute with a non-boolean literal', async () => {
+    const rs = await a11yInvalidAriaValue.check(
+      ctx([comp({ ariaElements: [el({ aria: [{ name: 'aria-hidden', literal: 'yes', line: 7 }] })] })])
+    );
+    expect(fails(rs).map((r) => r.line)).toEqual([7]);
+  });
+  it('passes valid literals, expressions, and unknown attributes (owned by unknown-aria-attribute)', async () => {
+    const rs = await a11yInvalidAriaValue.check(
+      ctx([
+        comp({
+          ariaElements: [
+            el({
+              aria: [
+                { name: 'aria-hidden', literal: 'true', line: 3 },
+                { name: 'aria-live', literal: 'polite', line: 4 },
+                { name: 'aria-hidden', expression: true, line: 5 },
+                { name: 'aria-bogus', literal: 'zzz', line: 6 }
+              ]
+            })
+          ]
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
+  it('flags an integer type with a non-integer literal', async () => {
+    const rs = await a11yInvalidAriaValue.check(
+      ctx([comp({ ariaElements: [el({ aria: [{ name: 'aria-colcount', literal: 'many', line: 2 }] })] })])
+    );
+    expect(fails(rs)).toHaveLength(1);
   });
 });
