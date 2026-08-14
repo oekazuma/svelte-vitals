@@ -156,7 +156,8 @@ export {
   a11yDoctype,
   a11yDuplicateLandmark,
   a11yTopLevelLandmark,
-  a11yIdDuplication
+  a11yIdDuplication,
+  a11yNoMissingIdRef
 } from './rules/index.js';
 export type { RuleInfo, RuleOptionInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { a11yDuplicateLandmark, a11yTopLevelLandmark, a11yIdDuplication } from '../src/index.js';
+import { a11yDuplicateLandmark, a11yTopLevelLandmark, a11yIdDuplication, a11yNoMissingIdRef } from '../src/index.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ResolvedA11y } from '../src/a11y.js';
 import type { RuleContext } from '../src/rule.js';
@@ -95,5 +95,34 @@ describe('a11y/id-duplication', () => {
     expect(one).toHaveLength(1);
     expect(fails(one)).toHaveLength(0);
     expect(await a11yIdDuplication.check(ctxA11y([ra({})]))).toHaveLength(0);
+  });
+});
+
+describe('a11y/no-missing-id-ref', () => {
+  it('one finding per dangling ref, located at it', async () => {
+    const rs = await a11yNoMissingIdRef.check(
+      ctxA11y([ra({ idRefs: [{ id: 'ghost', attr: 'for', file: 'f', line: 3 }], idCandidates: [] })])
+    );
+    const f = fails(rs);
+    expect(f).toHaveLength(1);
+    expect(f[0]).toMatchObject({ location: 'f', line: 3, message: 'for="ghost" references a missing id' });
+  });
+  it('PASS when the referenced id is a candidate', async () => {
+    const rs = await a11yNoMissingIdRef.check(
+      ctxA11y([ra({ idRefs: [{ id: 'ghost', attr: 'for', file: 'f', line: 3 }], idCandidates: ['ghost'] })])
+    );
+    expect(rs).toHaveLength(1);
+    expect(fails(rs)).toHaveLength(0);
+  });
+  it('emits nothing on a not-fully-resolved route, even with a dangling ref', async () => {
+    const rs = await a11yNoMissingIdRef.check(
+      ctxA11y([
+        ra({ idRefs: [{ id: 'ghost', attr: 'for', file: 'f', line: 3 }], idCandidates: [], fullyResolved: false })
+      ])
+    );
+    expect(rs).toHaveLength(0);
+  });
+  it('emits nothing on a fully resolved route with zero refs', async () => {
+    expect(await a11yNoMissingIdRef.check(ctxA11y([ra({})]))).toHaveLength(0);
   });
 });
