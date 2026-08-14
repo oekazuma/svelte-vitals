@@ -333,6 +333,14 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y.nestedLandmarks).toEqual([]);
   });
 
+  it('does not report a landmark inside {#each} as nested — it may render zero times', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+layout.svelte': `<main><slot /></main>`,
+      'src/routes/+page.svelte': `{#each items as item}<header>{item}</header>{/each}`
+    });
+    expect(a11y.nestedLandmarks).toEqual([]);
+  });
+
   it('orders representatives chain-first, not fold-first', async () => {
     const a11y = await a11yOf({
       'src/routes/+layout.svelte': `{#if x}<main>layout</main>{/if}<slot />`,

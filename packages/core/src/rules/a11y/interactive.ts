@@ -49,13 +49,21 @@ function hasInteractiveRole(attrs: ElementAttr[]): boolean {
 /**
  * Whether `tag` (with these attributes) is an interactive element per the shared a11y
  * element-set spec: `a` with `href`, `button`/`select`/`textarea`/`summary`/`embed`/`iframe`,
- * `input` unless its literal `type` is `hidden`, `audio`/`video` with `controls`, a literal
- * `tabindex` >= 0, or a literal interactive WAI-ARIA role.
+ * `input` with no `type` attribute or a literal `type` other than `hidden` (an expression
+ * `type` is unknowable — could resolve to `hidden` — so it does not count), `audio`/`video`
+ * with `controls`, a literal `tabindex` >= 0, or a literal interactive WAI-ARIA role.
  */
 export function isInteractiveElement(tag: string, attrs: ElementAttr[]): boolean {
   if (ALWAYS_INTERACTIVE_TAGS.has(tag)) return true;
   if (tag === 'a' && literalOf(attrs, 'href') !== undefined) return true;
-  if (tag === 'input' && literalOf(attrs, 'type')?.toLowerCase() !== 'hidden') return true;
+  if (tag === 'input') {
+    const typeAttr = attrs.find((a) => a.name === 'type');
+    // No type => the default type is 'text' => interactive. An expression type's rendered
+    // value is unknowable (could be 'hidden'), so it is skipped rather than risk a false positive.
+    if (!typeAttr) return true;
+    if (typeAttr.literal !== undefined) return typeAttr.literal.toLowerCase() !== 'hidden';
+    return false;
+  }
   if ((tag === 'audio' || tag === 'video') && hasAttr(attrs, 'controls')) return true;
   const tabindex = literalOf(attrs, 'tabindex');
   if (tabindex !== undefined) {

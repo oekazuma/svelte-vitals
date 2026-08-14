@@ -117,6 +117,12 @@ describe('a11y/required-aria-props', () => {
     );
     expect(fails(rs)).toHaveLength(0);
   });
+  it('satisfied by a spread attribute — its full attribute set is unknowable', async () => {
+    const rs = await a11yRequiredAriaProps.check(
+      ctx([comp({ ariaElements: [el({ role: { literal: 'checkbox' }, hasSpread: true })] })])
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
 });
 
 describe('a11y/invalid-aria-value', () => {

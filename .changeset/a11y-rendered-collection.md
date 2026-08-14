@@ -2,4 +2,4 @@
 '@svelte-vitals/vite': minor
 ---
 
-Build mode now collects landmarks, ids, and id references from the actual **prerendered HTML** for the cross-component Accessibility rules, mirroring how it already re-verifies SEO/Performance against the shipped output rather than trusting source.
+Build mode and the dev dashboard now collect landmarks, ids, and id references from the actual **rendered HTML** for the cross-component Accessibility rules, mirroring how they already re-verify SEO/Performance against the shipped output rather than trusting source.

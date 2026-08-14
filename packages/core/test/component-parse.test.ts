@@ -1284,6 +1284,10 @@ describe('parseComponentFacts — ariaElements (a11y ARIA rules)', () => {
     const c = parseComponentFacts('<input type="CHECKBOX" role="switch" />', 'C.svelte');
     expect(c.ariaElements![0]!.inputType).toBe('checkbox');
   });
+  it('marks hasSpread when the element carries a spread attribute, but still collects it', () => {
+    const c = parseComponentFacts('<div role="checkbox" {...attrs}></div>', 'C.svelte');
+    expect(c.ariaElements).toEqual([{ tag: 'div', line: 1, role: { literal: 'checkbox' }, hasSpread: true, aria: [] }]);
+  });
 });
 
 describe('parseComponentFacts — interactiveNestings (a11y/interactive-nesting)', () => {
@@ -1298,6 +1302,17 @@ describe('parseComponentFacts — interactiveNestings (a11y/interactive-nesting)
   it('ignores an expression-valued href — unknowable whether the anchor renders with one', () => {
     const c = parseComponentFacts('<a href={disabled ? undefined : url}><button>Go</button></a>', 'C.svelte');
     expect(c.interactiveNestings ?? []).toEqual([]);
+  });
+  it('ignores an expression-valued input type — unknowable whether it renders as hidden', () => {
+    const c = parseComponentFacts('<button><input type={t} /></button>', 'C.svelte');
+    expect(c.interactiveNestings ?? []).toEqual([]);
+  });
+  it('still flags an input with no type or a literal non-hidden type', () => {
+    const c = parseComponentFacts('<button><input /></button>\n<button><input type="text" /></button>', 'C.svelte');
+    expect(c.interactiveNestings).toEqual([
+      { containerTag: 'button', descendantTag: 'input', line: 1 },
+      { containerTag: 'button', descendantTag: 'input', line: 2 }
+    ]);
   });
 });
 
@@ -1331,6 +1346,10 @@ describe('parseComponentFacts — unassociatedLabels (a11y/label-has-control)', 
     const src = ['<label for="n">Name</label>', '<label>Name <input /></label>', '<label><Field /></label>'].join('\n');
     expect(parseComponentFacts(src, 'C.svelte').unassociatedLabels ?? []).toEqual([]);
   });
+  it('skips a label with a spread attribute — it may supply for', () => {
+    const c = parseComponentFacts('<label {...rest}>Email</label>', 'C.svelte');
+    expect(c.unassociatedLabels ?? []).toEqual([]);
+  });
 });
 
 describe('parseComponentFacts — bulletTexts (a11y/use-list)', () => {
@@ -1358,6 +1377,14 @@ describe('parseComponentFacts — selectsMissingPlaceholder (a11y/placeholder-la
     ].join('\n');
     expect(parseComponentFacts(src, 'C.svelte').selectsMissingPlaceholder ?? []).toEqual([]);
   });
+  it('skips a select with a spread attribute — it may supply multiple/size', () => {
+    const c = parseComponentFacts('<select required {...attrs}><option value="a">A</option></select>', 'C.svelte');
+    expect(c.selectsMissingPlaceholder ?? []).toEqual([]);
+  });
+  it('skips a select whose first option carries a spread attribute — it may supply value', () => {
+    const c = parseComponentFacts('<select required><option {...optAttrs}>A</option></select>', 'C.svelte');
+    expect(c.selectsMissingPlaceholder ?? []).toEqual([]);
+  });
 });
 
 describe('parseComponentFacts — timesMissingDatetime (a11y/require-datetime)', () => {
@@ -1370,5 +1397,9 @@ describe('parseComponentFacts — timesMissingDatetime (a11y/require-datetime)',
       '\n'
     );
     expect(parseComponentFacts(src, 'C.svelte').timesMissingDatetime ?? []).toEqual([]);
+  });
+  it('skips a <time> with a spread attribute — it may supply datetime', () => {
+    const c = parseComponentFacts('<time {...attrs}>March 3</time>', 'C.svelte');
+    expect(c.timesMissingDatetime ?? []).toEqual([]);
   });
 });

@@ -1111,11 +1111,13 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
     );
     if (roleAttr || ariaAttrs.length > 0) {
       const inputType = node.name === 'input' ? attrText(node.attributes, 'type') : undefined;
+      const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
       acc.push({
         tag: node.name,
         line: lineOf(source, node.start),
         ...(roleAttr ? { role: classifyAttrValue(roleAttr.value) } : {}),
         ...(inputType !== undefined ? { inputType: inputType.toLowerCase() } : {}),
+        ...(hasSpread ? { hasSpread: true as const } : {}),
         aria: ariaAttrs.map((a: Node) => ({
           name: a.name,
           line: lineOf(source, a.start ?? node.start),
@@ -1317,7 +1319,8 @@ function scanLabelSubtree(node: Node): { hasControl: boolean; unknowable: boolea
 
 /**
  * `<label>` elements with neither a `for` attribute (literal or expression — its presence is
- * enough) nor a wrapped labelable descendant (a11y/label-has-control).
+ * enough) nor a wrapped labelable descendant (a11y/label-has-control). A spread attribute may
+ * supply `for`, so it is treated the same as an explicit one.
  */
 function collectUnassociatedLabels(node: Node, source: string, acc: { line: number }[]): void {
   if (Array.isArray(node)) {
@@ -1327,7 +1330,8 @@ function collectUnassociatedLabels(node: Node, source: string, acc: { line: numb
   if (!node || typeof node !== 'object') return;
   if (node.type === 'RegularElement' && node.name === 'label' && Array.isArray(node.attributes)) {
     const hasFor = findAttr(node.attributes, 'for') !== undefined;
-    if (!hasFor) {
+    const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
+    if (!hasFor && !hasSpread) {
       const scan = scanLabelSubtree(node);
       if (!scan.hasControl && !scan.unknowable) {
         acc.push({ line: lineOf(source, node.start) });
@@ -1419,7 +1423,9 @@ function isPlaceholderOption(option: Node): boolean {
  * child is not a placeholder label option (a11y/placeholder-label-option). The first significant
  * child not being a literal `option` — an `{#each}` block, a Component, an `{#if}`, etc. — makes
  * the select's first option unknowable, so it is skipped rather than risk a false positive; a
- * `<select>` with no content at all has no placeholder to find, so it is flagged.
+ * `<select>` with no content at all has no placeholder to find, so it is flagged. A spread
+ * attribute on the `<select>` itself (may supply `multiple`/`size`) or on the first `option`
+ * (may supply `value`) makes the relevant check unknowable, so it is skipped too.
  */
 function collectSelectsMissingPlaceholder(node: Node, source: string, acc: { line: number }[]): void {
   if (Array.isArray(node)) {
@@ -1427,12 +1433,16 @@ function collectSelectsMissingPlaceholder(node: Node, source: string, acc: { lin
     return;
   }
   if (!node || typeof node !== 'object') return;
-  if (node.type === 'RegularElement' && node.name === 'select' && selectNeedsPlaceholder(node.attributes ?? [])) {
-    const first = firstSignificantChild(node.fragment?.nodes);
-    if (!first) {
-      acc.push({ line: lineOf(source, node.start) });
-    } else if (first.type === 'RegularElement' && first.name === 'option') {
-      if (!isPlaceholderOption(first)) acc.push({ line: lineOf(source, node.start) });
+  if (node.type === 'RegularElement' && node.name === 'select' && Array.isArray(node.attributes)) {
+    const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
+    if (!hasSpread && selectNeedsPlaceholder(node.attributes)) {
+      const first = firstSignificantChild(node.fragment?.nodes);
+      if (!first) {
+        acc.push({ line: lineOf(source, node.start) });
+      } else if (first.type === 'RegularElement' && first.name === 'option') {
+        const firstHasSpread = (first.attributes ?? []).some((a: Node) => a?.type === 'SpreadAttribute');
+        if (!firstHasSpread && !isPlaceholderOption(first)) acc.push({ line: lineOf(source, node.start) });
+      }
     }
   }
   for (const key of CHILD_NODE_KEYS) {
@@ -1455,7 +1465,7 @@ const MACHINE_READABLE_TIME = [
  * `<time>` elements with no `datetime` attribute whose content is plain literal text that isn't
  * itself machine-readable (a11y/require-datetime). Any non-`Text` child — an `ExpressionTag`, a
  * Component, a block — makes the rendered text unknowable, so the element is skipped rather than
- * risk a false positive.
+ * risk a false positive. A spread attribute may itself supply `datetime`, so it is skipped too.
  */
 function collectTimesMissingDatetime(node: Node, source: string, acc: { line: number; text: string }[]): void {
   if (Array.isArray(node)) {
@@ -1466,7 +1476,8 @@ function collectTimesMissingDatetime(node: Node, source: string, acc: { line: nu
   if (
     node.type === 'RegularElement' &&
     node.name === 'time' &&
-    findAttr(node.attributes ?? [], 'datetime') === undefined
+    findAttr(node.attributes ?? [], 'datetime') === undefined &&
+    !(node.attributes ?? []).some((a: Node) => a?.type === 'SpreadAttribute')
   ) {
     const nodes: Node[] = node.fragment?.nodes ?? [];
     if (nodes.length > 0 && nodes.every((n) => n?.type === 'Text')) {

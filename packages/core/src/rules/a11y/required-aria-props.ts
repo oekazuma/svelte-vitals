@@ -23,6 +23,8 @@ export const a11yRequiredAriaProps = componentRule({
   applies: (c) => (c.ariaElements ?? []).some((e) => e.role?.literal !== undefined && !e.role.literal.includes(' ')),
   bad: (c) =>
     (c.ariaElements ?? []).flatMap((e) => {
+      // A spread may supply the required prop; its full attribute set is unknowable, so treat it as satisfied.
+      if (e.hasSpread) return [];
       const literal = e.role?.literal;
       if (literal === undefined || literal.includes(' ')) return [];
       const required = requiredAriaProps(literal);
