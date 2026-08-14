@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { fileURLToPath } from 'node:url';
-import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 
@@ -61,6 +61,34 @@ describe('run() svelte-vitals-suppressions.json', () => {
     await run({ cwd: dir, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
     expect(cap.out.join('\n')).not.toContain('seo/title-presence');
     expect(cap.err.join('\n')).toContain(`2 finding(s) suppressed by ${SUPPRESSIONS_FILE}`);
+  });
+
+  it('suppresses a route-scoped a11y finding by its id::route::location key', async () => {
+    const dir = makeProjectCopy();
+    mkdirSync(join(dir, 'src', 'routes', 'a11ydup'), { recursive: true });
+    writeFileSync(
+      join(dir, 'src', 'routes', 'a11ydup', '+page.svelte'),
+      '<svelte:head><title>dup</title><meta name="description" content="d" /></svelte:head>\n<h1>t</h1>\n<div id="dup-x"></div>\n<div id="dup-x"></div>\n'
+    );
+    const findingCount = (out: string[]): number => {
+      const report = JSON.parse(out.join('\n')) as { rules: Record<string, { findings: number }> };
+      return report.rules['a11y/id-duplication']?.findings ?? 0;
+    };
+    const before = capture();
+    await run({ cwd: dir, reporter: 'json', log: before.log, errorLog: before.errorLog, env: CLEAN_ENV });
+    expect(findingCount(before.out)).toBe(1);
+
+    writeFileSync(
+      join(dir, SUPPRESSIONS_FILE),
+      JSON.stringify({
+        version: 1,
+        suppressions: [{ id: 'a11y/id-duplication', route: '/a11ydup', location: 'src/routes/a11ydup/+page.svelte' }]
+      })
+    );
+    const cap = capture();
+    await run({ cwd: dir, reporter: 'json', log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
+    expect(findingCount(cap.out)).toBe(0);
+    expect(cap.err.join('\n')).toContain(`1 finding(s) suppressed by ${SUPPRESSIONS_FILE}`);
   });
 
   it('--no-suppressions ignores the file for the run', async () => {
