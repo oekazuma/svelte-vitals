@@ -8,6 +8,7 @@ import {
   valueFromNodes,
   textFromNodes,
   attrText,
+  attrTextOf,
   attrValue
 } from '@svelte-vitals/core';
 import { collectImports, type ImportMap } from './imports.js';
@@ -238,12 +239,211 @@ function collectHeadings(node: WalkNode | WalkNode[] | null | undefined, source:
   }
 }
 
+export interface BranchStep {
+  /** index of the {#if}/{#await} block among this file's blocks (document order) */
+  group: number;
+  /** branch index within the group (if: 0..n consequent→else; await: 0=pending,1=then,2=catch) */
+  branch: number;
+}
+
+export interface A11yNode {
+  kind: 'landmark' | 'id' | 'idref' | 'component';
+  /** landmark → 'main'|'banner'|'contentinfo'|'complementary'; id/idref → the literal id; component → component name */
+  key: string;
+  line: number;
+  /** inside {#each} body or {#snippet} definition at any depth (excluded from duplication counting) */
+  repeatable: boolean;
+  /** branch address from template root (empty = unconditional) */
+  path: BranchStep[];
+  /** for kind 'idref': the referencing attribute ('for', 'aria-labelledby', …, 'href') */
+  attr?: string;
+  /** the landmark ancestor element within this file, if any */
+  inLandmark?: string;
+  /** for kind 'landmark' from <header>/<footer>: nested inside sectioning content (article/aside/nav/section) in this file */
+  inSectioning?: boolean;
+  /** for kind 'landmark' from <header>/<footer>: at template top level in this file */
+  topLevel?: boolean;
+}
+
+export interface ParsedA11y {
+  nodes: A11yNode[];
+  /** landmark ancestor of this file's <slot>/{@render children()} position, if any */
+  slotInLandmark?: string;
+  /** file contains {@html} or a spread attribute — poisons the closed world for no-missing-id-ref */
+  unknowableContent: boolean;
+}
+
+const LANDMARK_ROLES = new Set(['main', 'banner', 'contentinfo', 'complementary']);
+const LANDMARK_TAGS: Record<string, string | undefined> = { main: 'main', header: 'banner', footer: 'contentinfo' };
+const SECTIONING_TAGS = new Set(['article', 'aside', 'nav', 'section']);
+const IDREF_ATTRS = new Set(['for', 'aria-labelledby', 'aria-describedby', 'aria-controls', 'aria-activedescendant']);
+
+/** Context threaded down the a11y walk: where in the template a node sits. */
+interface A11yCtx {
+  path: BranchStep[];
+  repeatable: boolean;
+  /** landmark ancestors, outermost first */
+  landmarks: string[];
+  sectioning: number;
+  elementDepth: number;
+}
+
+/**
+ * Collect a11y occurrences with the branch/repeat context the route-scoped fold needs.
+ * Separate from the flat CHILD_NODE_KEYS walks above because those cannot distinguish
+ * `{#if}` branches (which are exclusive, so counting must max) from siblings (which sum).
+ */
+function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
+  const nodes: A11yNode[] = [];
+  let groups = 0;
+  let slotInLandmark: string | undefined;
+  let unknowableContent = false;
+
+  const emit = (ctx: A11yCtx, node: Omit<A11yNode, 'repeatable' | 'path' | 'inLandmark'>): void => {
+    const inLandmark = ctx.landmarks.at(-1);
+    nodes.push({ ...node, repeatable: ctx.repeatable, path: ctx.path, ...(inLandmark ? { inLandmark } : {}) });
+  };
+
+  const noteSpread = (node: WalkNode): void => {
+    const attributes = (node as { attributes?: unknown }).attributes;
+    if (Array.isArray(attributes) && attributes.some((a) => (a as { type?: string }).type === 'SpreadAttribute')) {
+      unknowableContent = true;
+    }
+  };
+
+  const walk = (node: WalkNode | WalkNode[] | null | undefined, ctx: A11yCtx): void => {
+    if (Array.isArray(node)) {
+      for (const child of node) walk(child, ctx);
+      return;
+    }
+    if (!node || typeof node !== 'object') return;
+
+    switch (node.type) {
+      case 'SvelteHead':
+        return; // head content never renders into the body
+      case 'HtmlTag':
+        unknowableContent = true;
+        return;
+      case 'IfBlock':
+        walkIfChain(node, ctx, groups++, 0);
+        return;
+      case 'AwaitBlock': {
+        const group = groups++;
+        walk(node.pending, { ...ctx, path: [...ctx.path, { group, branch: 0 }] });
+        walk(node.then, { ...ctx, path: [...ctx.path, { group, branch: 1 }] });
+        walk(node.catch, { ...ctx, path: [...ctx.path, { group, branch: 2 }] });
+        return;
+      }
+      case 'EachBlock':
+        walk(node.body, { ...ctx, repeatable: true });
+        walk(node.fallback, ctx);
+        return;
+      case 'SnippetBlock':
+        walk(node.body, { ...ctx, repeatable: true });
+        return;
+      // <svelte:element> has a dynamic tag (so no tag-derived landmark) but its literal id/idref
+      // attributes are real — dropping them would make no-missing-id-ref report phantom misses.
+      case 'RegularElement':
+      case 'SvelteElement':
+        walkElement(node, ctx);
+        return;
+      case 'Component':
+      case 'SvelteComponent':
+      case 'SvelteSelf':
+        noteSpread(node);
+        emit(ctx, { kind: 'component', key: node.name, line: lineOf(source, node.start) });
+        walk(node.fragment, { ...ctx, elementDepth: ctx.elementDepth + 1 });
+        return;
+      case 'SlotElement':
+        noteSpread(node);
+        slotInLandmark ??= ctx.landmarks.at(-1);
+        walk(node.fragment, ctx);
+        return;
+      case 'RenderTag':
+        if (isChildrenRender(node)) slotInLandmark ??= ctx.landmarks.at(-1);
+        return;
+      default:
+        noteSpread(node);
+        for (const key of CHILD_NODE_KEYS) {
+          if (key in node) walk(childOf(node, key), ctx);
+        }
+    }
+  };
+
+  /** `{:else if}` nests as an IfBlock in `alternate`; flatten the chain into branches of one group. */
+  const walkIfChain = (node: AST.IfBlock, ctx: A11yCtx, group: number, branch: number): void => {
+    walk(node.consequent, { ...ctx, path: [...ctx.path, { group, branch }] });
+    if (!node.alternate) return;
+    const rest = node.alternate.nodes.filter((n) => n.type !== 'Text' || n.data.trim() !== '');
+    const chained = rest.length === 1 && rest[0]!.type === 'IfBlock' && rest[0]!.elseif ? rest[0] : undefined;
+    if (chained) walkIfChain(chained, ctx, group, branch + 1);
+    else walk(node.alternate, { ...ctx, path: [...ctx.path, { group, branch: branch + 1 }] });
+  };
+
+  const walkElement = (node: AST.RegularElement | AST.SvelteElement, ctx: A11yCtx): void => {
+    noteSpread(node);
+    const line = lineOf(source, node.start);
+    // The core attr helpers only ever match `Attribute`-typed entries; SpreadAttribute/Directive/AttachTag
+    // are filtered out internally, so this widening cast is safe.
+    const attrs = node.attributes as AST.Attribute[];
+    const roleAttr = findAttr(attrs, 'role');
+    // ARIA fallback role lists (role="switch checkbox") resolve to the first supported token; a
+    // non-literal or non-landmark role suppresses the tag mapping rather than falling through to it.
+    const role = roleAttr ? tokens(attrTextOf(roleAttr))[0] : undefined;
+    const landmark = roleAttr ? (role && LANDMARK_ROLES.has(role) ? role : undefined) : LANDMARK_TAGS[node.name];
+    if (landmark) {
+      const headerFooter = !roleAttr && node.name !== 'main';
+      emit(ctx, {
+        kind: 'landmark',
+        key: landmark,
+        line,
+        ...(headerFooter ? { topLevel: ctx.elementDepth === 0, inSectioning: ctx.sectioning > 0 } : {})
+      });
+    }
+    for (const attr of node.attributes) {
+      if (attr.type !== 'Attribute') continue;
+      if (attr.name === 'id') {
+        // Expression id → key '' (the dynamic-id marker the route fold treats as unknowable).
+        emit(ctx, { kind: 'id', key: attrTextOf(attr) ?? '', line });
+      } else if (attr.name === 'href') {
+        const href = attrTextOf(attr);
+        if (href?.startsWith('#') && href.length > 1) {
+          emit(ctx, { kind: 'idref', key: href.slice(1), line, attr: 'href' });
+        }
+      } else if (IDREF_ATTRS.has(attr.name)) {
+        for (const token of tokens(attrTextOf(attr))) {
+          emit(ctx, { kind: 'idref', key: token, line, attr: attr.name });
+        }
+      }
+    }
+    walk(node.fragment, {
+      ...ctx,
+      elementDepth: ctx.elementDepth + 1,
+      sectioning: ctx.sectioning + (SECTIONING_TAGS.has(node.name) ? 1 : 0),
+      landmarks: landmark ? [...ctx.landmarks, landmark] : ctx.landmarks
+    });
+  };
+
+  walk(fragment, { path: [], repeatable: false, landmarks: [], sectioning: 0, elementDepth: 0 });
+  return { nodes, ...(slotInLandmark ? { slotInLandmark } : {}), unknowableContent };
+}
+
+function tokens(value: string | undefined): string[] {
+  return value ? value.trim().split(/\s+/).filter(Boolean) : [];
+}
+
+function isChildrenRender(node: AST.RenderTag): boolean {
+  const call = node.expression.type === 'ChainExpression' ? node.expression.expression : node.expression;
+  return call.callee.type === 'Identifier' && call.callee.name === 'children';
+}
+
 export interface ParsedFile {
   headTags: ParsedTag[];
   components: ComponentUse[];
   imports: ImportMap;
   images: ParsedImage[];
   headings: ParsedHeading[];
+  a11y: ParsedA11y;
 }
 
 /** Parse a .svelte source into its layer-1 head tags, component usages, and imports. */
@@ -262,7 +462,8 @@ export function parseFile(source: string, filename: string): ParsedFile {
     components,
     imports: collectImports(ast),
     images,
-    headings
+    headings,
+    a11y: collectA11y(ast.fragment, source)
   };
 }
 
