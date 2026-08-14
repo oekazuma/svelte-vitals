@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { a11yDuplicateLandmark, a11yTopLevelLandmark } from '../src/index.js';
+import { a11yDuplicateLandmark, a11yTopLevelLandmark, a11yIdDuplication } from '../src/index.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ResolvedA11y } from '../src/a11y.js';
 import type { RuleContext } from '../src/rule.js';
@@ -67,5 +67,33 @@ describe('a11y/top-level-landmark', () => {
     expect(one).toHaveLength(1);
     expect(fails(one)).toHaveLength(0);
     expect(await a11yTopLevelLandmark.check(ctxA11y([ra({})]))).toHaveLength(0);
+  });
+});
+
+describe('a11y/id-duplication', () => {
+  it('one finding per surplus representative, located at it', async () => {
+    const rs = await a11yIdDuplication.check(
+      ctxA11y([
+        ra({
+          ids: {
+            x: [
+              { file: 'a', line: 1 },
+              { file: 'b', line: 2 }
+            ]
+          }
+        })
+      ])
+    );
+    const f = fails(rs);
+    expect(f).toHaveLength(1);
+    expect(f[0]).toMatchObject({ location: 'b', line: 2, message: 'Duplicate id "x"' });
+  });
+  it('PASS with only single-occurrence ids, nothing with zero ids', async () => {
+    const one = await a11yIdDuplication.check(
+      ctxA11y([ra({ ids: { x: [{ file: 'a', line: 1 }], y: [{ file: 'b', line: 3 }] } })])
+    );
+    expect(one).toHaveLength(1);
+    expect(fails(one)).toHaveLength(0);
+    expect(await a11yIdDuplication.check(ctxA11y([ra({})]))).toHaveLength(0);
   });
 });
