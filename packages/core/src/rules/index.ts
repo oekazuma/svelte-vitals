@@ -76,6 +76,7 @@ import { performanceSequentialAwaits } from './perf/sequential-awaits.js';
 import { performanceStateRaw } from './perf/state-raw.js';
 import { a11yInvalidRole } from './a11y/invalid-role.js';
 import { a11yUnknownAriaAttribute } from './a11y/unknown-aria-attribute.js';
+import { a11yRequiredAriaProps } from './a11y/required-aria-props.js';
 
 export const allRules: Rule[] = [
   seoTitlePresence,
@@ -152,7 +153,8 @@ export const allRules: Rule[] = [
   performanceSequentialAwaits,
   performanceStateRaw,
   a11yInvalidRole,
-  a11yUnknownAriaAttribute
+  a11yUnknownAriaAttribute,
+  a11yRequiredAriaProps
 ];
 
 export {
@@ -230,7 +232,8 @@ export {
   performanceSequentialAwaits,
   performanceStateRaw,
   a11yInvalidRole,
-  a11yUnknownAriaAttribute
+  a11yUnknownAriaAttribute,
+  a11yRequiredAriaProps
 };
 
 /** One configurable option of a rule, flattened for `svelte-vitals explain`'s output. */

@@ -1280,4 +1280,8 @@ describe('parseComponentFacts — ariaElements (a11y ARIA rules)', () => {
     const c = parseComponentFacts('<div class="x"></div>', 'C.svelte');
     expect(c.ariaElements ?? []).toEqual([]);
   });
+  it('captures a lowercased input type on <input>', () => {
+    const c = parseComponentFacts('<input type="CHECKBOX" role="switch" />', 'C.svelte');
+    expect(c.ariaElements![0]!.inputType).toBe('checkbox');
+  });
 });

@@ -101,6 +101,8 @@ export interface AriaElementFact {
   role?: { literal?: string; expression?: boolean };
   /** every aria-* attribute on the element */
   aria: { name: string; literal?: string; expression?: boolean; line: number }[];
+  /** literal `type` of an `<input>`, lowercased; undefined for non-inputs or a dynamic type */
+  inputType?: string;
 }
 
 /** Reactivity/correctness + security + architecture facts parsed from one `.svelte` component. */

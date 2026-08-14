@@ -142,7 +142,8 @@ export {
   performanceSequentialAwaits,
   performanceStateRaw,
   a11yInvalidRole,
-  a11yUnknownAriaAttribute
+  a11yUnknownAriaAttribute,
+  a11yRequiredAriaProps
 } from './rules/index.js';
 export type { RuleInfo, RuleOptionInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

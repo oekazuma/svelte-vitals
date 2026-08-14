@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { a11yInvalidRole, a11yUnknownAriaAttribute } from '../src/index.js';
+import { a11yInvalidRole, a11yUnknownAriaAttribute, a11yRequiredAriaProps } from '../src/index.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -82,6 +82,33 @@ describe('a11y/unknown-aria-attribute', () => {
           ]
         })
       ])
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
+});
+
+describe('a11y/required-aria-props', () => {
+  it('flags a role missing its required props', async () => {
+    const rs = await a11yRequiredAriaProps.check(
+      ctx([comp({ ariaElements: [el({ role: { literal: 'checkbox' } })] })])
+    );
+    expect(fails(rs)).toHaveLength(1);
+  });
+  it('satisfied by a literal or expression attribute', async () => {
+    const rs = await a11yRequiredAriaProps.check(
+      ctx([
+        comp({
+          ariaElements: [
+            el({ role: { literal: 'checkbox' }, aria: [{ name: 'aria-checked', expression: true, line: 3 }] })
+          ]
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
+  it('satisfied by host-element native semantics', async () => {
+    const rs = await a11yRequiredAriaProps.check(
+      ctx([comp({ ariaElements: [el({ tag: 'input', inputType: 'checkbox', role: { literal: 'switch' } })] })])
     );
     expect(fails(rs)).toHaveLength(0);
   });

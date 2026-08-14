@@ -15,7 +15,7 @@ import type {
   SuppressionDirective
 } from './component.js';
 import { isRootRelativePath } from './base-path.js';
-import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf } from './svelte-ast.js';
+import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf, attrText } from './svelte-ast.js';
 
 // The Svelte AST is structurally complex and only partially typed for our needs,
 // so traversal uses `any`. The node-type strings below are verified against
@@ -1107,10 +1107,12 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
       (a: Node) => a?.type === 'Attribute' && typeof a.name === 'string' && a.name.startsWith('aria-')
     );
     if (roleAttr || ariaAttrs.length > 0) {
+      const inputType = node.name === 'input' ? attrText(node.attributes, 'type') : undefined;
       acc.push({
         tag: node.name,
         line: lineOf(source, node.start),
         ...(roleAttr ? { role: classifyAttrValue(roleAttr.value) } : {}),
+        ...(inputType !== undefined ? { inputType: inputType.toLowerCase() } : {}),
         aria: ariaAttrs.map((a: Node) => ({
           name: a.name,
           line: lineOf(source, a.start ?? node.start),
