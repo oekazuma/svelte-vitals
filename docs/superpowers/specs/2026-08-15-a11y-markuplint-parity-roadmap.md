@@ -6,6 +6,47 @@ better version (better usually meaning: resolved cross-component analysis, scori
 zero per-project parser config). This document records the bar and the queued increments toward
 it, extending `2026-08-14-a11y-category-design.md` (Phase 1, shipped).
 
+## markuplint v5 delta (audited against v5.0.0-rc.4)
+
+v5 splits the v4 `wai-aria` umbrella into granular rules and adds new ones. Mapping against
+what Phase 1 already ships:
+
+**Covered** — `wai-aria-non-existent-role` + `wai-aria-abstract-role` (→ `a11y/invalid-role`),
+`wai-aria-required-props` (→ `a11y/required-aria-props`), `wai-aria-value`
+(→ `a11y/invalid-aria-value`), unknown `aria-*` names (→ `a11y/unknown-aria-attribute`),
+`no-duplicate-visible-main` (→ `a11y/duplicate-landmark`, strictly stronger: composed route,
+plus banner/contentinfo).
+
+**Implementable with the already-shipped `aria-query` data — front of the Phase 2 queue:**
+
+- `wai-aria-disallowed-props` — an `aria-*` prop the element's role does not support
+  (`roles.get(role).props` is already in the dependency).
+- `wai-aria-implicit-role` — redundant explicit role matching the host's implicit role
+  (`elementRoles` map). The Svelte compiler warns on a subset; scored parity per the bar.
+- `wai-aria-deprecated-props` / `wai-aria-deprecated-role` — check aria-query's deprecation
+  coverage first; fall back to a hand table if absent.
+
+**Queued behind element-level spec data (Phase 2 proper):** `wai-aria-permitted-roles`
+(already queued as permitted-role), `wai-aria-implicit-props`, `wai-aria-default-value`,
+`wai-aria-no-global-prop`, `wai-aria-interaction-in-hidden`,
+`wai-aria-presentational-children`, `wai-aria-required-owned-elements`,
+`wai-aria-required-parent-role`, `redundant-accessible-name`, `no-duplicate-autofocus`,
+`require-dialog-autofocus`.
+
+**Adjacent categories, not a11y:** `correct-aspect-ratio` and `srcset-sizes-constraint`
+(Performance image family), `link-types` and `head-element-order` (SEO head family),
+`attr-order` (formatter territory — the existing not-adopted posture),
+`no-unsupported-features` (baseline/browser-support data — its own design if ever).
+
+## Svelte syntax coverage note
+
+Both `{@const x = y}` (legacy) and the Svelte 5.56+ declaration tags `{const x = $derived(y)}`
+/ `{let x = $state(y)}` parse and traverse correctly through every collector (single
+`ConstTag`/`DeclarationTag` handling site in `component-parse.ts`; the template walks are
+type-agnostic), pinned by a `parse-file` test. Known false-negative: runes declared in
+template declaration tags are invisible to the script-scope correctness facts
+(`constableStates` etc.) — revisit if template-declared state becomes idiomatic.
+
 ## Queued increments
 
 1. **Pretender-style component mapping** — a config surface declaring what an unresolvable

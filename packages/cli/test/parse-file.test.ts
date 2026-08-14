@@ -144,6 +144,16 @@ describe('parseFile — a11y occurrences', () => {
     ]);
   });
 
+  it('walks through legacy {@const} and Svelte 5.56+ {const}/{let} declaration tags alike', () => {
+    const src =
+      '{#if a}{@const area = w * h}{const label = $derived(area)}{let n = $state(0)}<main id="m">{label}</main>{:else}<main id="m2" />{/if}';
+    const parsed = parseFile(src, 'src/routes/+page.svelte');
+    const mains = parsed.a11y.nodes.filter((n) => n.kind === 'landmark' && n.key === 'main');
+    expect(mains.map((n) => n.path)).toEqual([[{ group: 0, branch: 0 }], [{ group: 0, branch: 1 }]]);
+    expect(parsed.a11y.nodes.filter((n) => n.kind === 'id').map((n) => n.key)).toEqual(['m', 'm2']);
+    expect(parsed.a11y.unknowableContent).toBe(false);
+  });
+
   it('percent-decodes fragment hrefs the way navigation does', () => {
     const parsed = parseIt('<a href="#caf%C3%A9">menu</a><a href="#50%off">malformed-escape-kept</a>');
     expect(parsed.a11y.nodes.filter((n) => n.kind === 'idref').map((n) => n.key)).toEqual(['café', '50%off']);
