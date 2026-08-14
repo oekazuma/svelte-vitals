@@ -101,6 +101,13 @@ export interface InteractiveNestingFact {
   line: number;
 }
 
+/** A `button`/`a href`/`input type="image"` with no computable accessible name (a11y/accessible-name). */
+export interface UnnamedInteractiveFact {
+  tag: string;
+  /** 1-based source line, or 0 if unknown. */
+  line: number;
+}
+
 /** An element carrying a `role` and/or `aria-*` attribute(s) (a11y ARIA rules). */
 export interface AriaElementFact {
   tag: string;
@@ -182,6 +189,8 @@ export interface ComponentFacts {
   ariaElements?: AriaElementFact[];
   /** Interactive elements nested inside another interactive container (a11y/interactive-nesting). */
   interactiveNestings?: InteractiveNestingFact[];
+  /** `button`/`a href`/`input type="image"` elements with no computable accessible name (a11y/accessible-name). */
+  unnamedInteractive?: UnnamedInteractiveFact[];
   /** Set when the file failed to read or parse and these facts are the empty fallback — the file was NOT analyzed. */
   parseFailed?: true;
 }

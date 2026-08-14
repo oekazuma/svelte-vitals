@@ -13,7 +13,8 @@ import type {
   OrphanEffectFact,
   OrphanLifecycleCallFact,
   SourceSpan,
-  SuppressionDirective
+  SuppressionDirective,
+  UnnamedInteractiveFact
 } from './component.js';
 import { isRootRelativePath } from './base-path.js';
 import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf, attrText } from './svelte-ast.js';
@@ -1170,6 +1171,105 @@ function collectInteractiveNestings(node: Node, source: string, acc: Interactive
   if (opened) stack.pop();
 }
 
+/** `aria-label`/`aria-labelledby`/`title` present on this element: a literal non-empty value,
+ *  or any expression (its rendered value is unknowable, but its *presence* is enough to name
+ *  the element — a11y/accessible-name treats an expression name source as present). */
+function hasNamingAttr(attributes: Node[]): boolean {
+  return ['aria-label', 'aria-labelledby', 'title'].some((name) => {
+    const attr = findAttr(attributes, name);
+    if (!attr) return false;
+    const v = classifyAttrValue(attr.value);
+    return 'expression' in v || (v.literal !== undefined && v.literal.trim().length > 0);
+  });
+}
+
+/** Named/unknowable verdict for a candidate interactive element's descendant subtree
+ *  (a11y/accessible-name). `named`: a non-whitespace text descendant, or a descendant `img`
+ *  with a non-empty literal `alt`. `unknowable`: an expression-tag, `Component`, `{@render}`,
+ *  or `{@html}` anywhere below — content the rule cannot statically resolve, so the element is
+ *  skipped rather than risk a false positive. */
+function scanAccessibleNameSubtree(node: Node): { named: boolean; unknowable: boolean } {
+  if (Array.isArray(node)) {
+    const acc = { named: false, unknowable: false };
+    for (const child of node) {
+      const r = scanAccessibleNameSubtree(child);
+      acc.named ||= r.named;
+      acc.unknowable ||= r.unknowable;
+    }
+    return acc;
+  }
+  if (!node || typeof node !== 'object') return { named: false, unknowable: false };
+  if (node.type === 'Text') return { named: String(node.data ?? '').trim().length > 0, unknowable: false };
+  if (
+    node.type === 'ExpressionTag' ||
+    node.type === 'RenderTag' ||
+    node.type === 'HtmlTag' ||
+    COMPONENT_LIKE_TYPES.has(node.type)
+  ) {
+    return { named: false, unknowable: true };
+  }
+  if (node.type === 'RegularElement' && node.name === 'img' && Array.isArray(node.attributes)) {
+    const alt = attrText(node.attributes, 'alt');
+    if (alt !== undefined && alt.trim().length > 0) return { named: true, unknowable: false };
+  }
+  const acc = { named: false, unknowable: false };
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) {
+      const r = scanAccessibleNameSubtree(node[key]);
+      acc.named ||= r.named;
+      acc.unknowable ||= r.unknowable;
+    }
+  }
+  return acc;
+}
+
+/** Which accessible-name target `node` is, or undefined if it isn't one (a11y/accessible-name).
+ *  `a` needs a literal `href` (an expression href is unknowable whether the anchor even renders
+ *  as a link, matching the `isInteractiveContainer` convention above); `input` needs a literal
+ *  `type="image"`. */
+function accessibleNameTarget(node: Node): 'button' | 'a' | 'input' | undefined {
+  if (node.name === 'button') return 'button';
+  if (node.name === 'a') return attrText(node.attributes, 'href') !== undefined ? 'a' : undefined;
+  if (node.name === 'input') {
+    const type = attrText(node.attributes, 'type');
+    return type?.toLowerCase() === 'image' ? 'input' : undefined;
+  }
+  return undefined;
+}
+
+/**
+ * `button`/`a href`/`input type="image"` elements with no computable accessible name
+ * (a11y/accessible-name). A spread attribute on the element itself makes its rendered
+ * attributes unknowable, so the element is skipped entirely rather than risk a false positive.
+ */
+function collectUnnamedInteractive(node: Node, source: string, acc: UnnamedInteractiveFact[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectUnnamedInteractive(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
+    const target = accessibleNameTarget(node);
+    const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
+    if (target && !hasSpread) {
+      if (target === 'input') {
+        const alt = attrText(node.attributes, 'alt');
+        if (!hasNamingAttr(node.attributes) && !(alt !== undefined && alt.trim().length > 0)) {
+          acc.push({ tag: node.name, line: lineOf(source, node.start) });
+        }
+      } else {
+        const scan = scanAccessibleNameSubtree(node);
+        if (!hasNamingAttr(node.attributes) && !scan.named && !scan.unknowable) {
+          acc.push({ tag: node.name, line: lineOf(source, node.start) });
+        }
+      }
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectUnnamedInteractive(node[key], source, acc);
+  }
+}
+
 /**
  * Root-relative `<a href="/…">` literals (correctness/base-path-navigation). Only
  * `RegularElement` anchors with a fully static href are considered, which is what makes the
@@ -2177,6 +2277,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectAriaElements(ast.fragment ?? ast, source, ariaElements);
   const interactiveNestings: InteractiveNestingFact[] = [];
   collectInteractiveNestings(ast.fragment ?? ast, source, interactiveNestings, []);
+  const unnamedInteractive: UnnamedInteractiveFact[] = [];
+  collectUnnamedInteractive(ast.fragment ?? ast, source, unnamedInteractive);
   const basePathLinks: BasePathLinkFact[] = [];
   collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
   const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
@@ -2401,6 +2503,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     suppressions,
     commentLinks: collectCommentLinks(source),
     ariaElements,
-    interactiveNestings
+    interactiveNestings,
+    unnamedInteractive
   };
 }

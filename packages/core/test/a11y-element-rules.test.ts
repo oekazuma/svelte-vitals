@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { a11yInteractiveNesting } from '../src/index.js';
+import { a11yInteractiveNesting, a11yAccessibleName } from '../src/index.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -44,6 +44,19 @@ describe('a11y/interactive-nesting', () => {
   });
   it('passes a component with no recorded nesting', async () => {
     const rs = await a11yInteractiveNesting.check(ctx([comp({ interactiveNestings: [] })]));
+    expect(fails(rs)).toHaveLength(0);
+  });
+});
+
+describe('a11y/accessible-name', () => {
+  it('flags a recorded unnamed interactive element', async () => {
+    const rs = await a11yAccessibleName.check(ctx([comp({ unnamedInteractive: [{ tag: 'button', line: 3 }] })]));
+    const failing = fails(rs);
+    expect(failing.map((r) => r.line)).toEqual([3]);
+    expect(failing[0]?.message).toBe('<button> has no accessible name');
+  });
+  it('passes a component with no recorded unnamed interactive elements', async () => {
+    const rs = await a11yAccessibleName.check(ctx([comp({ unnamedInteractive: [] })]));
     expect(fails(rs)).toHaveLength(0);
   });
 });

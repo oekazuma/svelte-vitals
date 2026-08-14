@@ -145,7 +145,8 @@ export {
   a11yUnknownAriaAttribute,
   a11yRequiredAriaProps,
   a11yInvalidAriaValue,
-  a11yInteractiveNesting
+  a11yInteractiveNesting,
+  a11yAccessibleName
 } from './rules/index.js';
 export type { RuleInfo, RuleOptionInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

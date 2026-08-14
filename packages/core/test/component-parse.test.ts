@@ -1300,3 +1300,25 @@ describe('parseComponentFacts — interactiveNestings (a11y/interactive-nesting)
     expect(c.interactiveNestings ?? []).toEqual([]);
   });
 });
+
+describe('parseComponentFacts — unnamedInteractive (a11y/accessible-name)', () => {
+  it('flags an empty button and an icon-only link without alt', () => {
+    const c = parseComponentFacts('<button></button>\n<a href="/x"><img src="i.png" /></a>', 'C.svelte');
+    expect(c.unnamedInteractive).toEqual([
+      { tag: 'button', line: 1 },
+      { tag: 'a', line: 2 }
+    ]);
+  });
+  it('accepts text, aria-label (any form), title, img alt, input[type=image] alt, and skips unknowable content', () => {
+    const src = [
+      '<button>Save</button>',
+      '<button aria-label={l}></button>',
+      '<button title="t"></button>',
+      '<a href="/x"><img src="i.png" alt="Home" /></a>',
+      '<input type="image" alt="Search" />',
+      '<button>{icon}</button>',
+      '<button><Icon /></button>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').unnamedInteractive ?? []).toEqual([]);
+  });
+});
