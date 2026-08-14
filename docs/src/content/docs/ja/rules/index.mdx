@@ -26,6 +26,10 @@ svelte-vitals が報告するルールをカテゴリ別にまとめました。
     コードの形と置き場所のサイン。コンポーネントの大きさ、props の数、そしてプロジェクトが宣言した import
     の境界を見ます。
   </Card>
+  <Card title="Accessibility" icon="universal-access" href="/ja/rules/a11y">
+    すべての人にとって使いやすいサイト。キーボードインタラクション、色のコントラスト、セマンティック HTML、ARIA
+    パターンを見ます。
+  </Card>
 </CardGroup>
 
 ## SEO
@@ -125,5 +129,11 @@ svelte-vitals が報告するルールをカテゴリ別にまとめました。
 | [`architecture/reserved-name-placement`](/ja/rules/architecture/reserved-name-placement)   | 🔵 info | 予約ディレクトリ名は、その名前について宣言した場所にしか現れてはいけません。                                           |
 | [`architecture/route-component-import`](/ja/rules/architecture/route-component-import)     | 🔵 info | SvelteKit のルートエントリはフレームワークが描画するものであり、他のコンポーネントから import するものではありません。 |
 | [`architecture/unit-entry-file`](/ja/rules/architecture/unit-entry-file)                   | 🔵 info | ユニットとして宣言したディレクトリには、同名のファイルを置くべきです。                                                 |
+
+## Accessibility
+
+| ルール                                             | 重大度     | 概要                                                                                |
+| -------------------------------------------------- | ---------- | ----------------------------------------------------------------------------------- |
+| [`a11y/invalid-role`](/ja/rules/a11y/invalid-role) | 🟡 warning | role 属性には、タイポでも抽象ロールでもない、具体的な WAI-ARIA ロールを指定します。 |
 
 {/* rules-index:end */}

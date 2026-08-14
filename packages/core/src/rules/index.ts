@@ -74,6 +74,7 @@ import { performanceMinifyDisabled } from './perf/minify-disabled.js';
 import { performanceLoadWaterfall } from './perf/load-waterfall.js';
 import { performanceSequentialAwaits } from './perf/sequential-awaits.js';
 import { performanceStateRaw } from './perf/state-raw.js';
+import { a11yInvalidRole } from './a11y/invalid-role.js';
 
 export const allRules: Rule[] = [
   seoTitlePresence,
@@ -148,7 +149,8 @@ export const allRules: Rule[] = [
   performanceMinifyDisabled,
   performanceLoadWaterfall,
   performanceSequentialAwaits,
-  performanceStateRaw
+  performanceStateRaw,
+  a11yInvalidRole
 ];
 
 export {
@@ -224,7 +226,8 @@ export {
   performanceMinifyDisabled,
   performanceLoadWaterfall,
   performanceSequentialAwaits,
-  performanceStateRaw
+  performanceStateRaw,
+  a11yInvalidRole
 };
 
 /** One configurable option of a rule, flattened for `svelte-vitals explain`'s output. */

@@ -9,7 +9,7 @@ const enRules = join(repoRoot, 'docs', 'src', 'content', 'docs', 'rules');
 const jaRules = join(repoRoot, 'docs', 'src', 'content', 'docs', 'ja', 'rules');
 
 // Every rule links its findings to our own docs, so every category has reference pages.
-const DOCUMENTED_CATEGORIES = new Set(['seo', 'performance', 'correctness', 'security', 'architecture']);
+const DOCUMENTED_CATEGORIES = new Set(['seo', 'performance', 'correctness', 'security', 'architecture', 'a11y']);
 const documented = allRules.filter((r) => DOCUMENTED_CATEGORIES.has(r.category));
 
 /** Recursively list every file under `dir`, as paths relative to `dir` (POSIX-style, e.g. "seo/ssr-disabled.md"). */

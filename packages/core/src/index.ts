@@ -140,7 +140,8 @@ export {
   performanceMinifyDisabled,
   performanceLoadWaterfall,
   performanceSequentialAwaits,
-  performanceStateRaw
+  performanceStateRaw,
+  a11yInvalidRole
 } from './rules/index.js';
 export type { RuleInfo, RuleOptionInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';
