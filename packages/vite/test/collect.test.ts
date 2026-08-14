@@ -33,3 +33,33 @@ describe('collectRenderedHeads', () => {
     expect(htmlLang).toEqual({ presence: 'own', value: 'static' });
   });
 });
+
+describe('collectRenderedHeads — a11y', () => {
+  let dir: string;
+  beforeAll(async () => {
+    dir = await mkdtemp(join(tmpdir(), 'sv-collect-a11y-'));
+    await writeFile(
+      join(dir, 'index.html'),
+      '<html lang="en"><head><title>t</title></head><body>' +
+        '<main></main><main></main><p id="dup"></p><span id="dup"></span>' +
+        '<label for="ghost">Name</label>' +
+        '</body></html>'
+    );
+  });
+  afterAll(async () => rm(dir, { recursive: true, force: true }));
+
+  it('builds one ResolvedA11y per route, fully resolved, with the prerendered path as file', async () => {
+    const { a11y } = await collectRenderedHeads(dir);
+    expect(a11y).toHaveLength(1);
+    const route = a11y[0]!;
+    expect(route.route).toBe('/');
+    expect(route.fullyResolved).toBe(true);
+    expect(route.landmarks.main).toHaveLength(2);
+    expect(route.landmarks.main![0]).toEqual({ file: 'index.html', line: 0 });
+    expect(route.ids.dup).toHaveLength(2);
+    expect(route.idRefs).toContainEqual({ id: 'ghost', attr: 'for', file: 'index.html', line: 0 });
+    // "ghost" has no id="ghost" anywhere, so it must not be a candidate.
+    expect(route.idCandidates).not.toContain('ghost');
+    expect(route.idCandidates).toEqual(expect.arrayContaining(['dup']));
+  });
+});

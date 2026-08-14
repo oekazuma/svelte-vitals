@@ -91,7 +91,7 @@ export async function analyze(
 
   // collectRenderedProject needs htmlLang out of the rendered-head parse pass, so it can't
   // join the Promise.all below; components/sourceFiles have no such dependency and do.
-  const [{ heads, headings, images, htmlLang }, components, sourceFiles] = await Promise.all([
+  const [{ heads, headings, images, a11y, htmlLang }, components, sourceFiles] = await Promise.all([
     collectRenderedHeads(prerenderPagesDir),
     collectComponentFacts(cwd),
     collectSourceFiles(cwd)
@@ -110,6 +110,7 @@ export async function analyze(
     heads,
     headings,
     images,
+    a11y,
     project,
     components,
     config,

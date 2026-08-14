@@ -79,6 +79,30 @@ describe('analyze', () => {
   });
 });
 
+describe('analyze — a11y (rendered-mode collection wired into ctx.a11y)', () => {
+  let cwd: string;
+  let pages: string;
+  beforeAll(async () => {
+    cwd = await mkdtemp(join(tmpdir(), 'sv-analyze-a11y-'));
+    pages = join(cwd, '.svelte-kit/output/prerendered/pages');
+    await mkdir(pages, { recursive: true });
+    await writeFile(
+      join(pages, 'index.html'),
+      '<html lang="en"><head><title>Home</title><meta name="description" content="d"/></head><body>' +
+        '<label for="ghost">Name</label>' +
+        '</body></html>'
+    );
+  });
+  afterAll(async () => rm(cwd, { recursive: true, force: true }));
+
+  it('reports a11y/no-missing-id-ref for a <label for> with no matching id anywhere', async () => {
+    const r = await analyze(pages, cwd, { report: false });
+    expect(
+      r.results.some((x) => x.id === 'a11y/no-missing-id-ref' && x.route === '/' && x.detection.presence === 'none')
+    ).toBe(true);
+  });
+});
+
 describe('analyze — kit alias wiring (project.kitAliases -> collectKitModuleFacts)', () => {
   // Mirrors the CLI's kit-alias-e2e.test.ts: security/shared-state-import is inert for an
   // alias-only import until analyze() actually threads project.kitAliases through to the

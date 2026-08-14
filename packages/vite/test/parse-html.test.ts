@@ -188,6 +188,85 @@ describe('parse-html: image capture (rendered image-rule parity)', () => {
   });
 });
 
+describe('parse-html: a11y capture (rendered landmark/id parity)', () => {
+  const doc = (body: string) =>
+    `<!doctype html><html lang="en"><head><title>t</title></head><body>${body}</body></html>`;
+
+  it('counts two <main> elements and a duplicated id as two occurrences each', () => {
+    const { landmarks, ids } = parseHtmlHead(doc('<main></main><main></main><p id="dup"></p><span id="dup"></span>'));
+    expect(landmarks.filter((k) => k === 'main')).toHaveLength(2);
+    expect(ids.filter((id) => id === 'dup')).toHaveLength(2);
+  });
+
+  it('carries a <label for="x"> id ref even when no id="x" exists anywhere', () => {
+    const { idRefs, ids } = parseHtmlHead(doc('<label for="x">Name</label><input />'));
+    expect(idRefs).toContainEqual({ id: 'x', attr: 'for' });
+    expect(ids).not.toContain('x');
+  });
+
+  it('does not count a <header> nested inside <article> as a banner landmark', () => {
+    const { landmarks } = parseHtmlHead(doc('<article><header>Post title</header></article>'));
+    expect(landmarks).not.toContain('banner');
+  });
+
+  it('counts a <header> at the top level of <body> as a banner landmark', () => {
+    const { landmarks } = parseHtmlHead(doc('<header>Site header</header>'));
+    expect(landmarks).toContain('banner');
+  });
+
+  it('counts every repeated id verbatim (the divergence direction from source-mode folding)', () => {
+    // In source, an {#each}-rendered id is repeatable and drops out of the fold; in rendered
+    // HTML there is no branch/each context left, so each literal occurrence is a real duplicate.
+    const { ids } = parseHtmlHead(doc('<li id="item"></li><li id="item"></li><li id="item"></li>'));
+    expect(ids.filter((id) => id === 'item')).toHaveLength(3);
+  });
+
+  it('does not produce an id ref for href="#top" (any case) or a bare "#"', () => {
+    const { idRefs } = parseHtmlHead(doc('<a href="#top">Top</a><a href="#TOP">Top</a><a href="#">Bare</a>'));
+    expect(idRefs).toEqual([]);
+  });
+
+  it('produces an id ref for a same-page href="#section"', () => {
+    const { idRefs } = parseHtmlHead(doc('<a href="#section">Jump</a>'));
+    expect(idRefs).toContainEqual({ id: 'section', attr: 'href' });
+  });
+
+  it('tokenizes whitespace-separated aria-labelledby/aria-describedby/aria-controls/aria-activedescendant', () => {
+    const { idRefs } = parseHtmlHead(
+      doc('<div aria-labelledby="a b" aria-describedby="c" aria-controls="d" aria-activedescendant="e"></div>')
+    );
+    expect(idRefs).toEqual(
+      expect.arrayContaining([
+        { id: 'a', attr: 'aria-labelledby' },
+        { id: 'b', attr: 'aria-labelledby' },
+        { id: 'c', attr: 'aria-describedby' },
+        { id: 'd', attr: 'aria-controls' },
+        { id: 'e', attr: 'aria-activedescendant' }
+      ])
+    );
+  });
+
+  it('records role="…" landmarks everywhere, including inside sectioning content', () => {
+    const { landmarks } = parseHtmlHead(doc('<article><div role="complementary"></div></article>'));
+    expect(landmarks).toContain('complementary');
+  });
+
+  it('reports nesting when a landmark sits inside another landmark', () => {
+    const { nestedLandmarks } = parseHtmlHead(doc('<main><div role="complementary"></div></main>'));
+    expect(nestedLandmarks).toContainEqual({ kind: 'complementary', within: 'main' });
+  });
+
+  it('reports no nesting for two sibling landmarks', () => {
+    const { nestedLandmarks } = parseHtmlHead(doc('<main></main><footer>f</footer>'));
+    expect(nestedLandmarks).toEqual([]);
+  });
+
+  it('finds ids anywhere in the document, including outside <body> (the app.html shell)', () => {
+    const html = '<!doctype html><html lang="en"><head><title id="head-id">t</title></head><body></body></html>';
+    expect(parseHtmlHead(html).ids).toContain('head-id');
+  });
+});
+
 describe('parse-html: script capture (performance/render-blocking-script, performance/preconnect)', () => {
   it('marks a sync <script src> in head as blocking', () => {
     const { tags } = parseHtmlHead(html('<script src="/a.js"></script>'));

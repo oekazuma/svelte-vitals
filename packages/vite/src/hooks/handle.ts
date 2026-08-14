@@ -12,6 +12,7 @@ import {
   terminalSafe,
   type Config,
   type Project,
+  type ResolvedA11y,
   type ResolvedHead,
   type ResolvedHeadings,
   type ResolvedImages,
@@ -20,6 +21,7 @@ import {
   type RuleSetting
 } from '@svelte-vitals/core';
 import { parseHtmlHead } from '../providers/rendered/parse-html.js';
+import { toOccurrenceMap } from '../providers/rendered/collect.js';
 import { isLoopbackOrigin } from '../loopback.js';
 
 /** Options for the dev-time SvelteKit handle. A focused subset of the plugin options. */
@@ -76,13 +78,33 @@ async function analyzeAndIngest(
   lastSignature: Map<string, string>
 ): Promise<void> {
   try {
-    const { tags, htmlLang, headings: levels, images: imgs } = parseHtmlHead(html);
+    const {
+      tags,
+      htmlLang,
+      headings: levels,
+      images: imgs,
+      landmarks,
+      nestedLandmarks,
+      ids,
+      idRefs
+    } = parseHtmlHead(html);
     const head: ResolvedHead = { route, source: 'rendered', tags, file: route };
     // Rendered mode does not track source lines (line 0 = unknown); file is the route.
     const headings: ResolvedHeadings[] = [
       { route, headings: levels.map((level) => ({ level, line: 0, file: route })) }
     ];
     const images: ResolvedImages[] = [{ route, images: imgs.map((img) => ({ ...img, file: route })) }];
+    const a11y: ResolvedA11y[] = [
+      {
+        route,
+        landmarks: toOccurrenceMap(landmarks, route),
+        nestedLandmarks: nestedLandmarks.map((n) => ({ ...n, file: route, line: 0 })),
+        ids: toOccurrenceMap(ids, route),
+        idRefs: idRefs.map((r) => ({ ...r, file: route, line: 0 })),
+        idCandidates: [...new Set(ids)],
+        fullyResolved: true
+      }
+    ];
     // robots/sitemap are not page-scoped, so mark them present to suppress seo/robots-txt, seo/sitemap-xml;
     // htmlLang comes from the rendered document so seo/html-lang is evaluated against reality.
     const project: Project = { hasRobotsTxt: true, hasSitemap: true, htmlLang };
@@ -92,6 +114,7 @@ async function analyzeAndIngest(
       heads: [head],
       headings,
       images,
+      a11y,
       project,
       config
     });
