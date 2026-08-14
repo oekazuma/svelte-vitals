@@ -34,6 +34,26 @@ describe('collectRenderedHeads', () => {
   });
 });
 
+describe('collectRenderedHeads — a11y prototype-key ids', () => {
+  let dir: string;
+  beforeAll(async () => {
+    dir = await mkdtemp(join(tmpdir(), 'sv-collect-proto-'));
+    await writeFile(
+      join(dir, 'index.html'),
+      '<html lang="en"><head><title>t</title></head><body>' +
+        '<div id="__proto__"></div><div id="__proto__"></div><span id="constructor"></span>' +
+        '</body></html>'
+    );
+  });
+  afterAll(async () => rm(dir, { recursive: true, force: true }));
+
+  it('survives ids named after Object.prototype members and counts them like any other', async () => {
+    const { a11y } = await collectRenderedHeads(dir);
+    expect(a11y[0]!.ids['__proto__']).toHaveLength(2);
+    expect(a11y[0]!.ids['constructor']).toHaveLength(1);
+  });
+});
+
 describe('collectRenderedHeads — a11y', () => {
   let dir: string;
   beforeAll(async () => {

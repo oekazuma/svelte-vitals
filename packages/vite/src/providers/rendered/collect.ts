@@ -13,7 +13,9 @@ import { parseHtmlHead } from './parse-html.js';
 
 /** Group raw occurrence keys (one entry per hit, in document order) by key, `file` attached, `line: 0` (rendered mode does not track source lines). */
 export function toOccurrenceMap(keys: string[], file: string): Record<string, A11yOccurrenceInfo[]> {
-  const out: Record<string, A11yOccurrenceInfo[]> = {};
+  // Null prototype: keys are author-controlled (`id="__proto__"` is legal page content) and a
+  // plain {} would resolve such keys on Object.prototype, crashing the `??=`/push below.
+  const out: Record<string, A11yOccurrenceInfo[]> = Object.create(null);
   for (const key of keys) (out[key] ??= []).push({ file, line: 0 });
   return out;
 }
