@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { a11yInteractiveNesting, a11yAccessibleName, a11yLabelHasControl } from '../src/index.js';
+import { a11yInteractiveNesting, a11yAccessibleName, a11yLabelHasControl, a11yUseList } from '../src/index.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -70,6 +70,20 @@ describe('a11y/label-has-control', () => {
   });
   it('passes a component with no recorded unassociated labels', async () => {
     const rs = await a11yLabelHasControl.check(ctx([comp({ unassociatedLabels: [] })]));
+    expect(fails(rs)).toHaveLength(0);
+  });
+});
+
+describe('a11y/use-list', () => {
+  it('flags a recorded bullet text as info severity', async () => {
+    const rs = await a11yUseList.check(ctx([comp({ bulletTexts: [{ line: 2, char: '•' }] })]));
+    const failing = fails(rs);
+    expect(failing.map((r) => r.line)).toEqual([2]);
+    expect(failing[0]?.message).toBe("Text starts with a bullet character ('•') — use a list element");
+    expect(failing[0]?.severity).toBe('info');
+  });
+  it('passes a component with no recorded bullet texts', async () => {
+    const rs = await a11yUseList.check(ctx([comp({ bulletTexts: [] })]));
     expect(fails(rs)).toHaveLength(0);
   });
 });

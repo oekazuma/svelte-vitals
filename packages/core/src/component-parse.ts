@@ -1339,6 +1339,39 @@ function collectUnassociatedLabels(node: Node, source: string, acc: { line: numb
   }
 }
 
+/** Requires trailing whitespace after the bullet char to avoid flagging `-webkit` prose or a
+ *  signed number like `-1` (a11y/use-list). */
+const BULLET_TEXT_RE = /^[•・·\-*]\s/;
+
+/**
+ * Text nodes whose trimmed content opens with a bullet character followed by whitespace,
+ * outside any `li` ancestor — a plain-text bullet where a `<ul>`/`<ol>` would give assistive
+ * technology a real list structure (a11y/use-list).
+ */
+function collectBulletTexts(
+  node: Node,
+  source: string,
+  acc: { line: number; char: string }[],
+  insideLi: boolean
+): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectBulletTexts(child, source, acc, insideLi);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'Text') {
+    const trimmed = String(node.data ?? '').trim();
+    if (!insideLi && BULLET_TEXT_RE.test(trimmed)) {
+      acc.push({ line: lineOf(source, node.start), char: trimmed[0]! });
+    }
+    return;
+  }
+  const nowInsideLi = insideLi || (node.type === 'RegularElement' && node.name === 'li');
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectBulletTexts(node[key], source, acc, nowInsideLi);
+  }
+}
+
 /**
  * Root-relative `<a href="/…">` literals (correctness/base-path-navigation). Only
  * `RegularElement` anchors with a fully static href are considered, which is what makes the
@@ -2350,6 +2383,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectUnnamedInteractive(ast.fragment ?? ast, source, unnamedInteractive);
   const unassociatedLabels: { line: number }[] = [];
   collectUnassociatedLabels(ast.fragment ?? ast, source, unassociatedLabels);
+  const bulletTexts: { line: number; char: string }[] = [];
+  collectBulletTexts(ast.fragment ?? ast, source, bulletTexts, false);
   const basePathLinks: BasePathLinkFact[] = [];
   collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
   const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
@@ -2576,6 +2611,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     ariaElements,
     interactiveNestings,
     unnamedInteractive,
-    unassociatedLabels
+    unassociatedLabels,
+    bulletTexts
   };
 }

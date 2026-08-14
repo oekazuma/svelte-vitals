@@ -193,6 +193,8 @@ export interface ComponentFacts {
   unnamedInteractive?: UnnamedInteractiveFact[];
   /** `<label>` elements with neither a `for` attribute nor a wrapped labelable descendant (a11y/label-has-control). */
   unassociatedLabels?: { line: number }[];
+  /** Text nodes whose trimmed content opens with a bullet character followed by whitespace, outside any `li` (a11y/use-list). */
+  bulletTexts?: { line: number; char: string }[];
   /** Set when the file failed to read or parse and these facts are the empty fallback — the file was NOT analyzed. */
   parseFailed?: true;
 }

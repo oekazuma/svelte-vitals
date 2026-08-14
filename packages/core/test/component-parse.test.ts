@@ -1332,3 +1332,14 @@ describe('parseComponentFacts — unassociatedLabels (a11y/label-has-control)', 
     expect(parseComponentFacts(src, 'C.svelte').unassociatedLabels ?? []).toEqual([]);
   });
 });
+
+describe('parseComponentFacts — bulletTexts (a11y/use-list)', () => {
+  it('flags text nodes starting with a bullet character', () => {
+    const c = parseComponentFacts('<p>• one</p>\n<p>・ two</p>\n<p>- three</p>\n<p>* four</p>', 'C.svelte');
+    expect(c.bulletTexts!.map((b) => b.char)).toEqual(['•', '・', '-', '*']);
+  });
+  it('ignores text inside li and bullet chars mid-text', () => {
+    const c = parseComponentFacts('<ul><li>• fine</li></ul>\n<p>a - b</p>', 'C.svelte');
+    expect(c.bulletTexts ?? []).toEqual([]);
+  });
+});
