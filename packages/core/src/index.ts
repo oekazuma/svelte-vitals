@@ -24,6 +24,8 @@ export { defaultConfig, defineConfig, defaultProject, CATEGORIES } from './types
 export type { HeadTag, ResolvedHead, HeadProvider } from './head.js';
 export type { ImageInfo, ResolvedImages } from './images.js';
 export type { HeadingInfo, ResolvedHeadings } from './headings.js';
+export type { BranchStep, A11yOccurrenceInfo, ResolvedA11y } from './a11y.js';
+export { foldOccurrences } from './a11y.js';
 export type {
   EachBlockFact,
   EffectFact,

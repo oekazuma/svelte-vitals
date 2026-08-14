@@ -85,6 +85,12 @@ export interface Project {
    * silent then, like `viteMinifyDisabled`'s absent convention.
    */
   appHtmlDoctype?: boolean;
+  /**
+   * Literal `id` attributes in `src/app.html`, from the same read as `htmlLang`. The shell is part
+   * of every rendered document, so its ids satisfy a route's id references (a11y/no-missing-id-ref);
+   * absent when the file wasn't read.
+   */
+  appHtmlIds?: string[];
 }
 
 export const defaultProject: Project = {
