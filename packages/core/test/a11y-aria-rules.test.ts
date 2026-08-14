@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { a11yInvalidRole } from '../src/index.js';
+import { a11yInvalidRole, a11yUnknownAriaAttribute } from '../src/index.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -56,6 +56,32 @@ describe('a11y/invalid-role', () => {
   it('passes known roles and skips expressions', async () => {
     const rs = await a11yInvalidRole.check(
       ctx([comp({ ariaElements: [el({ role: { literal: 'button' } }), el({ role: { expression: true } })] })])
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
+});
+
+describe('a11y/unknown-aria-attribute', () => {
+  it('flags aria-* names not in the spec', async () => {
+    const rs = await a11yUnknownAriaAttribute.check(
+      ctx([comp({ ariaElements: [el({ aria: [{ name: 'aria-lable', literal: 'x', line: 4 }] })] })])
+    );
+    expect(fails(rs).map((r) => r.line)).toEqual([4]);
+  });
+  it('passes known names regardless of value form', async () => {
+    const rs = await a11yUnknownAriaAttribute.check(
+      ctx([
+        comp({
+          ariaElements: [
+            el({
+              aria: [
+                { name: 'aria-label', literal: 'x', line: 4 },
+                { name: 'aria-hidden', expression: true, line: 5 }
+              ]
+            })
+          ]
+        })
+      ])
     );
     expect(fails(rs)).toHaveLength(0);
   });

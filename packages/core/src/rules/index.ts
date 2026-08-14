@@ -75,6 +75,7 @@ import { performanceLoadWaterfall } from './perf/load-waterfall.js';
 import { performanceSequentialAwaits } from './perf/sequential-awaits.js';
 import { performanceStateRaw } from './perf/state-raw.js';
 import { a11yInvalidRole } from './a11y/invalid-role.js';
+import { a11yUnknownAriaAttribute } from './a11y/unknown-aria-attribute.js';
 
 export const allRules: Rule[] = [
   seoTitlePresence,
@@ -150,7 +151,8 @@ export const allRules: Rule[] = [
   performanceLoadWaterfall,
   performanceSequentialAwaits,
   performanceStateRaw,
-  a11yInvalidRole
+  a11yInvalidRole,
+  a11yUnknownAriaAttribute
 ];
 
 export {
@@ -227,7 +229,8 @@ export {
   performanceLoadWaterfall,
   performanceSequentialAwaits,
   performanceStateRaw,
-  a11yInvalidRole
+  a11yInvalidRole,
+  a11yUnknownAriaAttribute
 };
 
 /** One configurable option of a rule, flattened for `svelte-vitals explain`'s output. */
