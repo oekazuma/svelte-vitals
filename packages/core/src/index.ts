@@ -154,7 +154,8 @@ export {
   a11yPlaceholderLabelOption,
   a11yRequireDatetime,
   a11yDoctype,
-  a11yDuplicateLandmark
+  a11yDuplicateLandmark,
+  a11yTopLevelLandmark
 } from './rules/index.js';
 export type { RuleInfo, RuleOptionInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';
