@@ -176,15 +176,10 @@ export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handl
         // Observe-only: return the chunk unchanged and never block the response on
         // analysis. We fire-and-forget on the final chunk; analyzeAndIngest swallows
         // its own errors, so the floating promise can never reject.
-        if (done)
-          void analyzeAndIngest(
-            buffer,
-            event.route.id ?? event.url.pathname,
-            event.url.origin,
-            rules,
-            config,
-            lastSignature
-          );
+        // Matched routes only: an unmatched request (404/error page) is not a route the
+        // dashboard tracks, and raw pathnames would grow `lastSignature` without bound.
+        if (done && event.route.id != null)
+          void analyzeAndIngest(buffer, event.route.id, event.url.origin, rules, config, lastSignature);
         return html;
       }
     });
