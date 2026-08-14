@@ -134,10 +134,20 @@ function detectHtmlLang(html: string): Detection {
   return { presence: 'own', value: value.trim().length > 0 ? 'static' : 'absent' };
 }
 
-async function detectAppHtmlLang(rt: Runtime, cwd: string): Promise<Detection> {
+/** app.html-derived facts sharing one read (io-budget): <html lang> and the leading doctype. */
+async function detectAppHtmlFacts(rt: Runtime, cwd: string): Promise<Pick<Project, 'htmlLang' | 'appHtmlDoctype'>> {
   const appHtmlPath = rt.join(cwd, 'src/app.html');
-  if (!(await rt.exists(appHtmlPath))) return { presence: 'none', value: 'absent' };
-  return detectHtmlLang(await rt.readFile(appHtmlPath));
+  if (!(await rt.exists(appHtmlPath))) return { htmlLang: { presence: 'none', value: 'absent' } };
+  let content: string;
+  try {
+    content = await rt.readFile(appHtmlPath);
+  } catch {
+    return { htmlLang: { presence: 'none', value: 'absent' } }; // unreadable — don't guess
+  }
+  return {
+    htmlLang: detectHtmlLang(content),
+    appHtmlDoctype: /^\s*(<!--[\s\S]*?-->\s*)*<!doctype\s+html/i.test(content)
+  };
 }
 
 async function robotsRefsSitemap(rt: Runtime, cwd: string): Promise<boolean | undefined> {
@@ -207,10 +217,10 @@ async function detectKitConfigFacts(rt: Runtime, cwd: string): Promise<Pick<Proj
 
 /** Precompute project-wide facts for project-scope rules (design §10, §11, §17). */
 export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Project> {
-  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled, kitConfig] = await Promise.all([
+  const [hasRobotsTxt, hasSitemap, appHtmlFacts, viteMinifyDisabled, kitConfig] = await Promise.all([
     existsAny(rt, cwd, ROBOTS_SOURCE_PATHS),
     existsAny(rt, cwd, SITEMAP_SOURCE_PATHS),
-    detectAppHtmlLang(rt, cwd),
+    detectAppHtmlFacts(rt, cwd),
     detectViteMinifyDisabled(rt, cwd),
     detectKitConfigFacts(rt, cwd)
   ]);
@@ -218,7 +228,7 @@ export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Pro
   return {
     hasRobotsTxt,
     hasSitemap,
-    htmlLang,
+    ...appHtmlFacts,
     ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}),
     ...(viteMinifyDisabled ? { viteMinifyDisabled } : {}),
     ...kitConfig

@@ -31,6 +31,18 @@ describe('collectProjectFacts', () => {
     expect(single.htmlLang).toEqual({ presence: 'own', value: 'static' });
   });
 
+  it('detects the leading doctype in app.html', async () => {
+    const present = await collectProjectFacts(
+      createMemoryRuntime({ 'src/app.html': '<!doctype html>\n<html lang="en">' }),
+      ''
+    );
+    expect(present.appHtmlDoctype).toBe(true);
+    const missing = await collectProjectFacts(createMemoryRuntime({ 'src/app.html': '<html lang="en">' }), '');
+    expect(missing.appHtmlDoctype).toBe(false);
+    const noAppHtml = await collectProjectFacts(createMemoryRuntime({}), '');
+    expect(noAppHtml.appHtmlDoctype).toBeUndefined();
+  });
+
   it('detects build.minify: false in the Vite config', async () => {
     const rt = createMemoryRuntime({
       'vite.config.ts': `export default {\n  build: {\n    minify: false\n  }\n};\n`
