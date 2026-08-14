@@ -24,9 +24,10 @@ export const a11yNoMissingIdRef: Rule = {
     const out: Result[] = [];
     for (const route of ctx.a11y ?? []) {
       if (!route.fullyResolved || route.idRefs.length === 0) continue;
+      const candidates = new Set(route.idCandidates);
       let hasMissing = false;
       for (const ref of route.idRefs) {
-        if (route.idCandidates.includes(ref.id)) continue;
+        if (candidates.has(ref.id)) continue;
         hasMissing = true;
         out.push(
           result(

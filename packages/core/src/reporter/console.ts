@@ -11,7 +11,19 @@ const SEVERITY_TITLE: Record<Severity, string> = {
   info: 'Info'
 };
 
-const CATEGORY_ORDER: readonly Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture', 'a11y'];
+// Record<Category, number> keeps this exhaustive by type: a new category fails compilation
+// here instead of silently vanishing from the console report.
+const CATEGORY_RANK: Record<Category, number> = {
+  seo: 0,
+  performance: 1,
+  correctness: 2,
+  security: 3,
+  architecture: 4,
+  a11y: 5
+};
+const CATEGORY_ORDER: readonly Category[] = (Object.keys(CATEGORY_RANK) as Category[]).sort(
+  (a, b) => CATEGORY_RANK[a] - CATEGORY_RANK[b]
+);
 const CATEGORY_LABEL: Record<Category, string> = {
   seo: 'SEO',
   performance: 'Performance',
