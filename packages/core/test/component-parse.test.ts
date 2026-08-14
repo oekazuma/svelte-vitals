@@ -1322,3 +1322,13 @@ describe('parseComponentFacts — unnamedInteractive (a11y/accessible-name)', ()
     expect(parseComponentFacts(src, 'C.svelte').unnamedInteractive ?? []).toEqual([]);
   });
 });
+
+describe('parseComponentFacts — unassociatedLabels (a11y/label-has-control)', () => {
+  it('flags a label with neither for nor a labelable descendant', () => {
+    expect(parseComponentFacts('<label>Name</label>', 'C.svelte').unassociatedLabels).toEqual([{ line: 1 }]);
+  });
+  it('accepts for=, a wrapped control, and skips unknowable children', () => {
+    const src = ['<label for="n">Name</label>', '<label>Name <input /></label>', '<label><Field /></label>'].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').unassociatedLabels ?? []).toEqual([]);
+  });
+});

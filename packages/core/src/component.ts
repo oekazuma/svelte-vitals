@@ -191,6 +191,8 @@ export interface ComponentFacts {
   interactiveNestings?: InteractiveNestingFact[];
   /** `button`/`a href`/`input type="image"` elements with no computable accessible name (a11y/accessible-name). */
   unnamedInteractive?: UnnamedInteractiveFact[];
+  /** `<label>` elements with neither a `for` attribute nor a wrapped labelable descendant (a11y/label-has-control). */
+  unassociatedLabels?: { line: number }[];
   /** Set when the file failed to read or parse and these facts are the empty fallback — the file was NOT analyzed. */
   parseFailed?: true;
 }

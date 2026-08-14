@@ -80,6 +80,7 @@ import { a11yRequiredAriaProps } from './a11y/required-aria-props.js';
 import { a11yInvalidAriaValue } from './a11y/invalid-aria-value.js';
 import { a11yInteractiveNesting } from './a11y/interactive-nesting.js';
 import { a11yAccessibleName } from './a11y/accessible-name.js';
+import { a11yLabelHasControl } from './a11y/label-has-control.js';
 
 export const allRules: Rule[] = [
   seoTitlePresence,
@@ -160,7 +161,8 @@ export const allRules: Rule[] = [
   a11yRequiredAriaProps,
   a11yInvalidAriaValue,
   a11yInteractiveNesting,
-  a11yAccessibleName
+  a11yAccessibleName,
+  a11yLabelHasControl
 ];
 
 export {
@@ -242,7 +244,8 @@ export {
   a11yRequiredAriaProps,
   a11yInvalidAriaValue,
   a11yInteractiveNesting,
-  a11yAccessibleName
+  a11yAccessibleName,
+  a11yLabelHasControl
 };
 
 /** One configurable option of a rule, flattened for `svelte-vitals explain`'s output. */

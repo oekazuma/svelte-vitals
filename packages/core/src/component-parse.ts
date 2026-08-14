@@ -1270,6 +1270,75 @@ function collectUnnamedInteractive(node: Node, source: string, acc: UnnamedInter
   }
 }
 
+/** Whether `node` is a labelable element that associates a `<label>` by wrapping it
+ *  (a11y/label-has-control): `input` (unless its literal `type` is `hidden`), `select`,
+ *  `textarea`, `button`, `meter`, `output`, `progress`. */
+const LABELABLE_TAGS = new Set(['input', 'select', 'textarea', 'button', 'meter', 'output', 'progress']);
+function isLabelableDescendant(node: Node): boolean {
+  if (node.type !== 'RegularElement' || !LABELABLE_TAGS.has(node.name)) return false;
+  if (node.name !== 'input') return true;
+  return attrText(node.attributes ?? [], 'type')?.toLowerCase() !== 'hidden';
+}
+
+/** Wrapped-control/unknowable verdict for a `<label>`'s subtree (a11y/label-has-control).
+ *  `hasControl`: a descendant labelable element. `unknowable`: an expression-tag, `Component`,
+ *  `{@render}`, or `{@html}` anywhere below — content the rule cannot statically resolve, so
+ *  the label is skipped rather than risk a false positive. */
+function scanLabelSubtree(node: Node): { hasControl: boolean; unknowable: boolean } {
+  if (Array.isArray(node)) {
+    const acc = { hasControl: false, unknowable: false };
+    for (const child of node) {
+      const r = scanLabelSubtree(child);
+      acc.hasControl ||= r.hasControl;
+      acc.unknowable ||= r.unknowable;
+    }
+    return acc;
+  }
+  if (!node || typeof node !== 'object') return { hasControl: false, unknowable: false };
+  if (
+    node.type === 'ExpressionTag' ||
+    node.type === 'RenderTag' ||
+    node.type === 'HtmlTag' ||
+    COMPONENT_LIKE_TYPES.has(node.type)
+  ) {
+    return { hasControl: false, unknowable: true };
+  }
+  if (isLabelableDescendant(node)) return { hasControl: true, unknowable: false };
+  const acc = { hasControl: false, unknowable: false };
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) {
+      const r = scanLabelSubtree(node[key]);
+      acc.hasControl ||= r.hasControl;
+      acc.unknowable ||= r.unknowable;
+    }
+  }
+  return acc;
+}
+
+/**
+ * `<label>` elements with neither a `for` attribute (literal or expression — its presence is
+ * enough) nor a wrapped labelable descendant (a11y/label-has-control).
+ */
+function collectUnassociatedLabels(node: Node, source: string, acc: { line: number }[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectUnassociatedLabels(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && node.name === 'label' && Array.isArray(node.attributes)) {
+    const hasFor = findAttr(node.attributes, 'for') !== undefined;
+    if (!hasFor) {
+      const scan = scanLabelSubtree(node);
+      if (!scan.hasControl && !scan.unknowable) {
+        acc.push({ line: lineOf(source, node.start) });
+      }
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectUnassociatedLabels(node[key], source, acc);
+  }
+}
+
 /**
  * Root-relative `<a href="/…">` literals (correctness/base-path-navigation). Only
  * `RegularElement` anchors with a fully static href are considered, which is what makes the
@@ -2279,6 +2348,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectInteractiveNestings(ast.fragment ?? ast, source, interactiveNestings, []);
   const unnamedInteractive: UnnamedInteractiveFact[] = [];
   collectUnnamedInteractive(ast.fragment ?? ast, source, unnamedInteractive);
+  const unassociatedLabels: { line: number }[] = [];
+  collectUnassociatedLabels(ast.fragment ?? ast, source, unassociatedLabels);
   const basePathLinks: BasePathLinkFact[] = [];
   collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
   const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
@@ -2504,6 +2575,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     commentLinks: collectCommentLinks(source),
     ariaElements,
     interactiveNestings,
-    unnamedInteractive
+    unnamedInteractive,
+    unassociatedLabels
   };
 }
