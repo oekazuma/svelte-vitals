@@ -43,6 +43,20 @@ describe('collectProjectFacts', () => {
     expect(noAppHtml.appHtmlDoctype).toBeUndefined();
   });
 
+  it('detects a doctype behind leading comments in linear time', async () => {
+    const withComments = '<!-- a -->\n<!-- b -->\n<!doctype html><html></html>';
+    expect((await collectProjectFacts(createMemoryRuntime({ 'src/app.html': withComments }), '')).appHtmlDoctype).toBe(
+      true
+    );
+    // Regression guard for catastrophic backtracking: a long run of comments with no doctype
+    // must resolve immediately (the old starred-group regex was exponential here).
+    const hostile = `${'<!-- c -->'.repeat(60)}<html></html>`;
+    const start = Date.now();
+    const facts = await collectProjectFacts(createMemoryRuntime({ 'src/app.html': hostile }), '');
+    expect(facts.appHtmlDoctype).toBe(false);
+    expect(Date.now() - start).toBeLessThan(1000);
+  });
+
   it('collects literal shell ids from app.html', async () => {
     const rt = createMemoryRuntime({
       'src/app.html': `<body><div id="app" data-id="not-an-id"></div><span id='side'></span><i id={x}></i></body>`

@@ -164,7 +164,10 @@ async function detectAppHtmlFacts(
   }
   return {
     htmlLang: detectHtmlLang(content),
-    appHtmlDoctype: /^\s*(<!--[\s\S]*?-->\s*)*<!doctype\s+html/i.test(content),
+    // Comments are stripped first, then a simple anchored match — a starred group over a lazy
+    // [\s\S]*? is ambiguous across iterations and backtracks exponentially on a comment run
+    // with no doctype (measured: ~45 leading comments hang the process).
+    appHtmlDoctype: /^\s*<!doctype\s+html/i.test(content.replace(/<!--[\s\S]*?-->/g, '')),
     appHtmlIds: detectAppHtmlIds(content)
   };
 }
