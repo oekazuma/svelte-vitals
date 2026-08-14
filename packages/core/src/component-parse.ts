@@ -2,6 +2,7 @@ import { parse } from 'svelte/compiler';
 import type { Expression } from 'estree';
 import type { AST } from 'svelte/compiler';
 import type {
+  AriaElementFact,
   BasePathLinkFact,
   BrowserGlobalRefFact,
   CheckableBindValueFact,
@@ -1079,6 +1080,50 @@ function collectCheckableBindValues(node: Node, source: string, acc: CheckableBi
   }
 }
 
+/** Classify a single Attribute's raw `value`: bare (`true`) is a literal `''`, a single Text
+ *  node is its literal text, anything else (an ExpressionTag or a multi-part template) is dynamic. */
+function classifyAttrValue(value: unknown): { literal?: string } | { expression: true } {
+  if (value === true) return { literal: '' };
+  if (Array.isArray(value) && value.length === 1 && value[0]?.type === 'Text') {
+    return { literal: String(value[0].data ?? '') };
+  }
+  return { expression: true };
+}
+
+/**
+ * Elements carrying a `role` and/or `aria-*` attribute(s) (a11y ARIA rules). Only
+ * `RegularElement` is checked, so `<svelte:element this="div" role="…">` is out of static reach —
+ * same convention as `collectCheckableBindValues`/`collectHrefLinks`.
+ */
+function collectAriaElements(node: Node, source: string, acc: AriaElementFact[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAriaElements(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
+    const roleAttr = findAttr(node.attributes, 'role');
+    const ariaAttrs = node.attributes.filter(
+      (a: Node) => a?.type === 'Attribute' && typeof a.name === 'string' && a.name.startsWith('aria-')
+    );
+    if (roleAttr || ariaAttrs.length > 0) {
+      acc.push({
+        tag: node.name,
+        line: lineOf(source, node.start),
+        ...(roleAttr ? { role: classifyAttrValue(roleAttr.value) } : {}),
+        aria: ariaAttrs.map((a: Node) => ({
+          name: a.name,
+          line: lineOf(source, a.start ?? node.start),
+          ...classifyAttrValue(a.value)
+        }))
+      });
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectAriaElements(node[key], source, acc);
+  }
+}
+
 /**
  * Root-relative `<a href="/…">` literals (correctness/base-path-navigation). Only
  * `RegularElement` anchors with a fully static href are considered, which is what makes the
@@ -2082,6 +2127,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
   const checkableBindValues: CheckableBindValueFact[] = [];
   collectCheckableBindValues(ast.fragment ?? ast, source, checkableBindValues);
+  const ariaElements: AriaElementFact[] = [];
+  collectAriaElements(ast.fragment ?? ast, source, ariaElements);
   const basePathLinks: BasePathLinkFact[] = [];
   collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
   const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
@@ -2304,6 +2351,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     browserGlobalRefs,
     moduleStateDecls: [],
     suppressions,
-    commentLinks: collectCommentLinks(source)
+    commentLinks: collectCommentLinks(source),
+    ariaElements
   };
 }

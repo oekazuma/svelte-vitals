@@ -92,6 +92,17 @@ export interface BasePathLinkFact {
   line: number;
 }
 
+/** An element carrying a `role` and/or `aria-*` attribute(s) (a11y ARIA rules). */
+export interface AriaElementFact {
+  tag: string;
+  /** 1-based source line, or 0 if unknown. */
+  line: number;
+  /** literal role value; undefined = no role attr; { expression: true } = dynamic */
+  role?: { literal?: string; expression?: boolean };
+  /** every aria-* attribute on the element */
+  aria: { name: string; literal?: string; expression?: boolean; line: number }[];
+}
+
 /** Reactivity/correctness + security + architecture facts parsed from one `.svelte` component. */
 export interface ComponentFacts {
   /** Source file the component came from. */
@@ -156,6 +167,8 @@ export interface ComponentFacts {
   suppressions?: SuppressionDirective[];
   /** Markdown links `[label](url)` appearing inside a comment (architecture/doc-link-target). */
   commentLinks: { url: string; line: number }[];
+  /** Elements carrying a role or any aria-* attribute (a11y ARIA rules). */
+  ariaElements?: AriaElementFact[];
   /** Set when the file failed to read or parse and these facts are the empty fallback — the file was NOT analyzed. */
   parseFailed?: true;
 }

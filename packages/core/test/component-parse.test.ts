@@ -1258,3 +1258,26 @@ describe('parseComponentFacts — links inside comments', () => {
     expect(facts.commentLinks).toEqual([{ url: 'https://x.test/a/b', line: 1 }]);
   });
 });
+
+describe('parseComponentFacts — ariaElements (a11y ARIA rules)', () => {
+  it('collects literal role and aria attributes with lines', () => {
+    const c = parseComponentFacts('<div role="button" aria-label="Close"></div>', 'C.svelte');
+    expect(c.ariaElements).toEqual([
+      {
+        tag: 'div',
+        line: 1,
+        role: { literal: 'button' },
+        aria: [{ name: 'aria-label', literal: 'Close', line: 1 }]
+      }
+    ]);
+  });
+  it('marks expression values as expression, not literal', () => {
+    const c = parseComponentFacts('<div role={r} aria-hidden={h}></div>', 'C.svelte');
+    expect(c.ariaElements![0]!.role).toEqual({ expression: true });
+    expect(c.ariaElements![0]!.aria[0]).toMatchObject({ name: 'aria-hidden', expression: true });
+  });
+  it('skips elements with neither role nor aria-*', () => {
+    const c = parseComponentFacts('<div class="x"></div>', 'C.svelte');
+    expect(c.ariaElements ?? []).toEqual([]);
+  });
+});
