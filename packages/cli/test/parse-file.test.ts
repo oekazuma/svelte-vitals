@@ -94,8 +94,8 @@ describe('parseFile — a11y occurrences', () => {
       '<header /><section><footer /></section><div role="complementary" /><div role={r} /><main role="presentation" />'
     );
     expect(parsed.a11y.nodes).toEqual([
-      expect.objectContaining({ kind: 'landmark', key: 'banner', topLevel: true, inSectioning: false }),
-      expect.objectContaining({ kind: 'landmark', key: 'contentinfo', topLevel: false, inSectioning: true }),
+      expect.objectContaining({ kind: 'landmark', key: 'banner', topLevel: true }),
+      expect.objectContaining({ kind: 'landmark', key: 'contentinfo', topLevel: false }),
       expect.objectContaining({ kind: 'landmark', key: 'complementary' })
     ]);
   });
@@ -132,6 +132,16 @@ describe('parseFile — a11y occurrences', () => {
     expect(parsed.a11y.nodes.filter((n) => n.kind === 'idref')).toHaveLength(0);
     expect(parsed.a11y.slotInLandmark).toBeUndefined();
     expect(parseIt('<main>{@render children()}</main>').a11y.slotInLandmark).toBe('main');
+  });
+
+  it('distinguishes an empty literal id from a dynamic id: only the latter is unknowable', () => {
+    // id=""/bare id reference nothing and must NOT poison the closed world the way id={x} does.
+    const empty = parseIt('<div id="" /><span id /><i id="  " />');
+    expect(empty.a11y.nodes.filter((n) => n.kind === 'id')).toEqual([]);
+    const dynamic = parseIt('<div id={x} />');
+    expect(dynamic.a11y.nodes.filter((n) => n.kind === 'id')).toEqual([
+      expect.objectContaining({ kind: 'id', key: '' })
+    ]);
   });
 
   it('percent-decodes fragment hrefs the way navigation does', () => {

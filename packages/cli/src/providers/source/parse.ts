@@ -10,6 +10,7 @@ import {
   attrText,
   attrTextOf,
   attrValue,
+  attrValueOf,
   decodeFragmentId
 } from '@svelte-vitals/core';
 import { collectImports, type ImportMap } from './imports.js';
@@ -255,9 +256,7 @@ export interface A11yNode {
   attr?: string;
   /** the landmark ancestor element within this file, if any */
   inLandmark?: string;
-  /** for kind 'landmark' from <header>/<footer>: nested inside sectioning content (article/aside/nav/section) in this file */
-  inSectioning?: boolean;
-  /** for kind 'landmark' from <header>/<footer>: at template top level in this file */
+  /** for kind 'landmark' from <header>/<footer>: at template top level in this file (which also implies "not inside sectioning content" — depth 0 has no ancestors at all) */
   topLevel?: boolean;
 }
 
@@ -271,7 +270,6 @@ export interface ParsedA11y {
 
 const LANDMARK_ROLES = new Set(['main', 'banner', 'contentinfo', 'complementary']);
 const LANDMARK_TAGS: Record<string, string | undefined> = { main: 'main', header: 'banner', footer: 'contentinfo' };
-const SECTIONING_TAGS = new Set(['article', 'aside', 'nav', 'section']);
 const IDREF_ATTRS = new Set(['for', 'aria-labelledby', 'aria-describedby', 'aria-controls', 'aria-activedescendant']);
 
 /** Context threaded down the a11y walk: where in the template a node sits. */
@@ -280,7 +278,6 @@ interface A11yCtx {
   repeatable: boolean;
   /** landmark ancestors, outermost first */
   landmarks: string[];
-  sectioning: number;
   elementDepth: number;
 }
 
@@ -393,14 +390,18 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
         kind: 'landmark',
         key: landmark,
         line,
-        ...(headerFooter ? { topLevel: ctx.elementDepth === 0, inSectioning: ctx.sectioning > 0 } : {})
+        ...(headerFooter ? { topLevel: ctx.elementDepth === 0 } : {})
       });
     }
     for (const attr of node.attributes) {
       if (attr.type !== 'Attribute') continue;
       if (attr.name === 'id') {
-        // Expression id → key '' (the dynamic-id marker the route fold treats as unknowable).
-        emit(ctx, { kind: 'id', key: attrTextOf(attr) ?? '', line });
+        // Expression id → key '' (the dynamic-id marker that poisons the closed world). An
+        // empty/whitespace literal id is fully known but references nothing — emit no node,
+        // so one `id=""` in a layout cannot silently disable a11y/no-missing-id-ref.
+        const v = attrValueOf(attr);
+        if (v === 'dynamic') emit(ctx, { kind: 'id', key: '', line });
+        else if (v === 'static') emit(ctx, { kind: 'id', key: attrTextOf(attr)!, line });
       } else if (attr.name === 'href') {
         const href = attrTextOf(attr);
         if (href?.startsWith('#') && href.length > 1) {
@@ -419,12 +420,11 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
     walk(node.fragment, {
       ...ctx,
       elementDepth: ctx.elementDepth + 1,
-      sectioning: ctx.sectioning + (SECTIONING_TAGS.has(node.name) ? 1 : 0),
       landmarks: landmark ? [...ctx.landmarks, landmark] : ctx.landmarks
     });
   };
 
-  walk(fragment, { path: [], repeatable: false, landmarks: [], sectioning: 0, elementDepth: 0 });
+  walk(fragment, { path: [], repeatable: false, landmarks: [], elementDepth: 0 });
   return { nodes, ...(slotInLandmark ? { slotInLandmark } : {}), unknowableContent };
 }
 
