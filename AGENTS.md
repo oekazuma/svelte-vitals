@@ -26,6 +26,10 @@ CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typeche
 - `packages/cli` — the `svelte-vitals` CLI.
 - `packages/vite` — Vite/SvelteKit plugin + live dashboard; analyzes prerendered HTML during `vite build`.
 - `docs` — Blume docs site (`docs/blume.config.ts`), English + Japanese (`docs/src/content/docs/` and `docs/src/content/docs/ja/`).
+- `examples/kitchen-sink` — real SvelteKit app used as an e2e defect gallery, false-positive
+  canary, and live-dashboard dogfood; every new rule needs a planted sample here — the meta-test
+  in `examples/kitchen-sink/test/e2e-static.test.ts` enforces coverage against `allRules`. See
+  `examples/kitchen-sink/README.md`.
 - `packages/cli/docs` — the handful of topics `svelte-vitals docs show <name>` prints. Edit the
   markdown, then `pnpm --filter svelte-vitals run gen:docs && pnpm format`; `packages/cli/test/docs-embed.test.mjs`
   fails the build if the committed `src/docs/generated.ts` drifts. Keep them terse and terminal-first —
