@@ -53,11 +53,11 @@ export default {
 
 ## Scope
 
-Only **prerendered** routes are analyzed. For SSR or dynamic routes, use the `svelte-vitals` CLI instead.
+The **HTML** check covers **prerendered** routes only — SSR and dynamic routes have no build output to read, so use the `svelte-vitals` CLI for those. The source scan applies project-wide regardless of how a route renders.
 
 ## How it works
 
-During `vite build`, after SvelteKit prerenders your pages, `@svelte-vitals/vite` locates the output HTML files, parses each page's `<head>`, and runs the full rule set. If any finding meets the `failOn` threshold, the build process exits with a non-zero code.
+During `vite build`, after SvelteKit prerenders your pages, `@svelte-vitals/vite` locates the output HTML files and parses each page's `<head>` and body; alongside that it scans `src/` for the source-level rules. Because the HTML is the real shipped output, dynamic values are already resolved — a `<title>` the CLI can only mark `↯ dynamic` is checked here for what it actually says. If any finding meets the `failOn` threshold, the build process exits with a non-zero code.
 
 ## Live dashboard
 

@@ -1,13 +1,15 @@
 ---
 title: はじめに
-description: svelte-vitals をインストールして、数秒で最初の SEO 監査を実行しましょう。
+description: svelte-vitals をインストールして、数秒で最初のヘルスチェックを実行しましょう。
 sidebar:
   order: 1
 ---
 
 ## svelte-vitals とは？
 
-svelte-vitals は、SvelteKit 向けの SEO とパフォーマンスのチェッカーです。ソースコードだけで完結し、実行中のサイトもブラウザもビルドサーバーも必要ありません。レイアウトチェーンをたどりながら `<svelte:head>` ブロックを解析して各ルートの実効 `<head>` を解決し、ルートごとおよびサイト全体でスコアを算出します。
+svelte-vitals は、SvelteKit 向けの静的コードヘルスチェッカーです。デプロイする前に、SEO、Performance、Correctness、Security、Architecture、Accessibility の6カテゴリを、ルートごとおよびサイト全体でスコアリングします。
+
+CLI はソースコードだけで完結します。レイアウトチェーンをたどりながら `<svelte:head>` ブロックを解析して各ルートの実効 `<head>` を解決し、コンポーネント本体を読むルールもそのまま実行します。実行中のサイトもブラウザも必要ありません。プリレンダリングされたページについては、[Vite プラグイン](/ja/guides/plugin-mode)が同じルールを「実際にビルドされた HTML」に対して実行します。動的な値が残らないぶん、こちらのほうが正確です。
 
 ## 前提条件
 

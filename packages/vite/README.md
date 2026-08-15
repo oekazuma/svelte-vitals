@@ -34,7 +34,7 @@ export default {
 - `cwd` — project root (defaults to the Vite config root).
 - `ui` — serve the live dev dashboard (default `true`); pass `false` to keep only the build-time gate.
 
-Only **prerendered** routes are analyzed at build time; for SSR/dynamic routes use the `svelte-vitals` CLI, or browse them in the live dashboard during `vite dev`.
+At build time the **HTML** check covers prerendered routes only; the source scan applies project-wide. For the HTML of SSR/dynamic routes, use the `svelte-vitals` CLI, or browse them in the live dashboard during `vite dev`.
 
 See [Live dashboard](https://oekazuma.github.io/svelte-vitals/guides/dev-dashboard/) and [Plugin mode](https://oekazuma.github.io/svelte-vitals/guides/plugin-mode/) for the full picture.
 

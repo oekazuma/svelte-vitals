@@ -3,7 +3,7 @@ title: svelte-vitals
 description: A static code-health checker for SvelteKit — SEO, Performance, Correctness, Security, Architecture, and Accessibility, from source.
 ---
 
-No build, no browser — just read the source to see your SvelteKit app's health.
+Your SvelteKit app's health — SEO, Performance, Correctness, Security, Architecture, and Accessibility — checked before you deploy.
 
 <Card title="Get started" href="/guides/getting-started" icon="rocket">
   Install and run svelte-vitals against your SvelteKit project in a minute.
@@ -86,4 +86,4 @@ No build, no browser — just read the source to see your SvelteKit app's health
   `}
 </style>
 
-svelte-vitals statically resolves each route's effective `<head>` and `<img>` usage from source, then scores your app across six categories — SEO, Performance, Correctness, Security, Architecture, and Accessibility — per route and site-wide. Fall below a threshold and it gates CI. All of it, before you ever deploy.
+svelte-vitals reads your source: it walks the layout chain to resolve each route's effective `<head>`, and parses component bodies for runes, `{@html}`, images and ARIA. It scores your app across six categories — SEO, Performance, Correctness, Security, Architecture, and Accessibility — per route and site-wide, and gates CI when a score falls below your threshold. Add the [Vite plugin](/guides/plugin-mode) and the same rules run against the real HTML your build ships, where every dynamic value is already resolved.

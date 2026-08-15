@@ -97,4 +97,4 @@ npx svelte-vitals@latest install --client claude-skill,ci-workflow --yes
 
 If a target file can't be read, the command reports the path and exits `2` rather than writing over something it could not inspect.
 
-> **Removed in favour of the CLI:** the `claude-code`, `cursor` and `codex` target ids configured the `@svelte-vitals/mcp` server, which no longer exists. Passing them now warns and skips. Use `claude-skill` instead — one skill file that Claude Code, Codex and Cursor all read — and see [`svelte-vitals explain`](/guides/cli#explain) for the per-rule detail the `explain_rule` tool used to return.
+An unrecognized `--client` id warns and is skipped; the remaining valid targets still install. If none of the ids are valid, the command fails instead of installing nothing silently.

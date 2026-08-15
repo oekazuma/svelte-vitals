@@ -70,7 +70,7 @@ They pair with the CLI rather than replace it — knowledge up front, analysis o
 
 ## Recommended setups
 
-- **Just starting out:** run `npx svelte-vitals@latest` locally, then add it to CI (`pnpm build && npx svelte-vitals@latest --fail-on critical`). This alone covers all categories and every route.
+- **Just starting out:** run `npx svelte-vitals@latest` locally, then add it to CI (`npx svelte-vitals@latest --fail-on critical`). This alone covers all categories and every route.
 - **Hosting on GitHub:** `npx svelte-vitals@latest ci install` instead of hand-writing that CI step — same engine, plus inline PR annotations and the sticky comment, scoped to each PR's own changes.
 - **Coding with an AI agent:** install the Agent Skills (`npx svelte-vitals@latest install`) — they give the agent the rules before it writes code and tell it to verify each edit with the CLI (`--diff --reporter agent`) afterward.
 - **Polishing prerendered/marketing pages:** add the Vite plugin's build mode for an exact, build-time gate on shipped HTML — its live dashboard (on by default) gives you feedback while you write, no extra setup needed.

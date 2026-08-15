@@ -70,7 +70,7 @@ CLI を置き換えるのではなく補完します。知識は前もって、�
 
 ## おすすめの組み合わせ
 
-- **まず始めるなら:** ローカルで `npx svelte-vitals@latest` を実行し、CIにも追加します（`pnpm build && npx svelte-vitals@latest --fail-on critical`）。これだけで全カテゴリ、全ルートをカバーできます。
+- **まず始めるなら:** ローカルで `npx svelte-vitals@latest` を実行し、CIにも追加します（`npx svelte-vitals@latest --fail-on critical`）。これだけで全カテゴリ、全ルートをカバーできます。
 - **GitHubでホスティングしているなら:** そのCIステップを手書きする代わりに `npx svelte-vitals@latest ci install` を使います。エンジンは同じまま、インラインPRアノテーションとスティッキーコメントが加わり、対象は各PR自身の変更分に絞られます。
 - **AI エージェントと一緒にコーディングするなら:** Agent Skills をセットアップします（`npx svelte-vitals@latest install`）。スキルはコードを書く前のエージェントにルールを与え、書いた後は CLI（`--diff --reporter agent`）で検証させます。
 - **プレレンダリング/マーケティングページを磨き込むなら:** Vite プラグインのビルドモードで、配信HTMLをビルド時に正確にゲートします。ライブダッシュボードはデフォルトで有効なので、執筆中のライブフィードバックも追加のセットアップなしで得られます。
