@@ -16,7 +16,13 @@ A real SvelteKit app used four ways:
 
 ## Running it
 
+The example consumes `svelte-vitals`, `@svelte-vitals/core`, and `@svelte-vitals/vite` through
+their built `dist` (workspace links), and the static e2e spawns `packages/cli/dist/bin.js` —
+so build the workspace first on a fresh checkout (`pnpm build` at the repo root; root
+`pnpm test` does this for you).
+
 ```sh
+pnpm build                        # once, at the repo root
 pnpm --filter kitchen-sink dev    # dashboard at /__svelte-vitals/
 pnpm --filter kitchen-sink test   # static (CLI) + build (vite plugin) e2e
 pnpm bench --target examples/kitchen-sink

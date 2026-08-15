@@ -23,8 +23,11 @@ because it must consume published packages (`2026-07-22-action-dist-post-merge-o
   `@sveltejs/kit`, `vite`, and `@sveltejs/adapter-static` (full prerender, so build-mode
   analysis has real output to read). The `seo/ssr-disabled` gallery route sets
   `ssr = false` **and** `prerender = false` with the adapter's `fallback` page configured —
-  it is therefore excluded from rendered-mode analysis, and the rendered expectations map
-  must not count it (the static-mode map still does; the rule reads the source declaration). `@sveltejs/adapter-static` enters the workspace
+  so it produces no prerendered HTML and its route-scoped rendered findings are absent. The
+  `seo/ssr-disabled` finding itself is **still counted in the rendered expectations**: build
+  mode scans the project's Kit modules from source alongside the rendered HTML, and the rule
+  reads the `+page.ts` declaration, not the output. Only the route's HTML-derived findings
+  disappear. `@sveltejs/adapter-static` enters the workspace
   catalog (AGENTS.md convention — no literal versions in a package.json); everything else is
   already cataloged. All dependencies must respect the Node 22.13.0 floor: the `floor-smoke`
   CI job runs `pnpm install --frozen-lockfile` over the whole workspace on that Node.
