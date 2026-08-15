@@ -85,9 +85,16 @@ because it must consume published packages (`2026-07-22-action-dist-post-merge-o
   `static/robots.txt` and a sitemap both exist but robots carries no `Sitemap:` line — so
   `seo/sitemap-in-robots` fails (its only observable state), while `seo/robots-txt` and
   `seo/sitemap-xml` (which always emit pass results) are the `passOnly` entries.
+- Two further entry variants cover rules that inherently cannot report a static-mode finding
+  (not the exclusive-pair case above). `{ "renderedOnly": "<reason>" }` marks `seo/charset` and
+  `seo/viewport`, whose target lives in `src/app.html` and is only evaluated by rendered
+  analysis; the static test asserts `findings === 0`, and the rendered-mode (build) e2e report
+  is where they're exercised. `{ "inert": "<reason>" }` marks `correctness/base-path-navigation`,
+  whose gate never opens without `kit.paths.base`; the static test asserts both
+  `findings === 0` and `passed === 0`.
 - A **meta-test** asserts the expectations file covers exactly `allRules` — a new rule fails
-  CI until it gets a gallery sample (or a reasoned `passOnly` entry), the same forcing
-  function docs-links applies to rule docs.
+  CI until it gets a gallery sample (or a reasoned `passOnly`/`renderedOnly`/`inert` entry), the
+  same forcing function docs-links applies to rule docs.
 
 ## E2E tests: `examples/kitchen-sink/test/`
 
