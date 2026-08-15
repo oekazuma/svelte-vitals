@@ -19,7 +19,7 @@ let report: JsonReport;
 beforeAll(() => {
   rmSync(reportPath, { force: true });
   try {
-    execFileSync('node', [join(appDir, 'node_modules', 'vite', 'bin', 'vite.js'), 'build'], {
+    execFileSync(process.execPath, [join(appDir, 'node_modules', 'vite', 'bin', 'vite.js'), 'build'], {
       cwd: appDir,
       encoding: 'utf8',
       stdio: 'pipe'
@@ -47,6 +47,18 @@ describe('kitchen-sink e2e (build mode)', () => {
     for (const [id, count] of Object.entries(expected)) {
       expect(report.rules[id]?.findings ?? 0, id).toBe(count);
     }
+  });
+
+  it('pins the rendered expectations to the same rule-id set as the static expectations', () => {
+    const rendered = JSON.parse(readFileSync(join(appDir, 'expected-findings.rendered.json'), 'utf8')) as Record<
+      string,
+      number
+    >;
+    const staticExpected = JSON.parse(readFileSync(join(appDir, 'expected-findings.json'), 'utf8')) as Record<
+      string,
+      unknown
+    >;
+    expect(Object.keys(rendered).sort()).toEqual(Object.keys(staticExpected).sort());
   });
 
   // seo/charset and seo/viewport are `renderedOnly` in expected-findings.json (static analysis
