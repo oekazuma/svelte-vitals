@@ -169,9 +169,11 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
   }
 
   for (const link of head.querySelectorAll('link')) {
-    const rel = link.getAttribute('rel');
+    // rel/as keywords are ASCII case-insensitive per the HTML spec; the rules compare
+    // them literally, so normalize here (mirrors the source parser in packages/cli).
+    const rel = link.getAttribute('rel')?.toLowerCase();
     if (!rel) continue;
-    const asAttr = link.getAttribute('as'); // rendered HTML: literal string or undefined
+    const asAttr = link.getAttribute('as')?.toLowerCase(); // rendered HTML: literal string or undefined
     const hasCrossorigin = link.hasAttribute('crossorigin');
     const hreflang = link.getAttribute('hreflang');
     const href = link.getAttribute('href');
