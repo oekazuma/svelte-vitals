@@ -245,6 +245,18 @@ describe('collectRoutes JSON-LD additivity (issue #443)', () => {
     expect(head!.tags.filter((t) => t.kind === 'title')).toHaveLength(1);
   });
 
+  it('overrides a layout rel="canonical" with a page rel="Canonical" (rel is case-insensitive)', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+layout.svelte': `<svelte:head><link rel="canonical" href="https://example.com/layout" /></svelte:head>`,
+      'src/routes/+page.svelte': `<svelte:head><link rel="Canonical" href="https://example.com/page" /></svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    const canonicals = head!.tags.filter((t) => t.kind === 'link' && t.rel === 'canonical');
+    expect(canonicals).toHaveLength(1);
+    expect(canonicals[0]!.presence).toBe('own');
+    expect(canonicals[0]!.href).toBe('https://example.com/page');
+  });
+
   it('attributes a broken layout jsonld finding to the layout file, not the page', async () => {
     const rt = createMemoryRuntime({
       'src/routes/+layout.svelte': `<svelte:head><script type="application/ld+json">{not valid json}</script></svelte:head>`,

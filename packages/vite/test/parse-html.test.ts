@@ -62,6 +62,14 @@ describe('parse-html: link as/crossorigin', () => {
     expect(link.hasAs).toBe(true);
     expect(link.hasCrossorigin).toBe(true);
   });
+  it('lowercases mixed-case rel/as keywords', () => {
+    const { tags } = parseHtmlHead(
+      '<html><head><link rel="Preload" href="/i.woff2" as="Font"></head><body></body></html>'
+    );
+    const link = tags.find((t) => t.kind === 'link')!;
+    expect(link.rel).toBe('preload');
+    expect(link.as).toBe('font');
+  });
   it('leaves as/crossorigin unset when absent', () => {
     const { tags } = parseHtmlHead('<html><head><link rel="preload" href="/a.js"></head><body></body></html>');
     const link = tags.find((t) => t.kind === 'link' && t.rel === 'preload')!;
