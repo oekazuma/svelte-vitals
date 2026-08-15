@@ -18,3 +18,16 @@ Schema.org date properties expect ISO-8601; other formats may be ignored or misp
 ```json
 "datePublished": "2026-06-26"
 ```
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/json-ld-date-format': 'off'
+  }
+};
+```

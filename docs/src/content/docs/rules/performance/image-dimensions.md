@@ -20,3 +20,16 @@ Add explicit `width` and `height` attributes to the `<img>`:
 ```svelte
 <img src="/hero.jpg" width="1200" height="630" alt="…" />
 ```
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'performance/image-dimensions': 'off'
+  }
+};
+```

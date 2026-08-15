@@ -20,3 +20,16 @@ width と height を明示していない `<img>` は、読み込み中にレイ
 ```svelte
 <img src="/hero.jpg" width="1200" height="630" alt="…" />
 ```
+
+## 無効化
+
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'performance/image-dimensions': 'off'
+  }
+};
+```

@@ -65,3 +65,16 @@ description: 状態を代入するだけの $effect は $derived に置き換え
 読み取りが存在しないからです。`onMount`、あるいは `window` のプロパティなら
 [`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window) を使ってください
 （修正方法はこの2つのルールのドキュメントを参照）。`$derived` に切り替えるのではなく、この指摘は抑制してください。
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/effect-as-derived -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/effect-as-derived': 'off'
+  }
+};
+```

@@ -139,3 +139,16 @@ exist yet.
 Two things this rule does not attempt: over-permission at a reserved-name directory (a glob cannot
 tell a concern directory from a reserved-name directory at the same depth), and seeding a
 declaration from the tree.
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/reserved-name-placement -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/reserved-name-placement': 'off'
+  }
+};
+```

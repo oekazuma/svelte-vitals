@@ -37,3 +37,16 @@ export const actions = {
 ```
 
 cookies/`locals` で認証し、ユーザー別データはデータベースへ永続化します。意図的なプロセス全体キャッシュには `const` コンテナを使うか、代入行の直前に `// svelte-vitals-disable-next-line security/server-module-state` を書いてください。
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line security/server-module-state -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'security/server-module-state': 'off'
+  }
+};
+```

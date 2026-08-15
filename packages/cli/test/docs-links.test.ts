@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { readdirSync, existsSync, statSync } from 'node:fs';
+import { readdirSync, existsSync, readFileSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { allRules, CATEGORIES } from '@svelte-vitals/core';
@@ -35,6 +35,13 @@ describe('docs: every documented rule has a reference page (en + ja)', () => {
       expect(existsSync(join(jaRules, `${r.id}.md`)), `${r.id} ja page`).toBe(true);
     }
   });
+  it('ends every rule page with a Disabling section (en + ja)', () => {
+    for (const r of documented) {
+      expect(readFileSync(join(enRules, `${r.id}.md`), 'utf8'), `${r.id} en Disabling`).toContain('## Disabling');
+      expect(readFileSync(join(jaRules, `${r.id}.md`), 'utf8'), `${r.id} ja 無効化`).toContain('## 無効化');
+    }
+  });
+
   it('has no stray rule pages without a matching rule', () => {
     const ids = new Set(documented.map((r) => `${r.id}.md`));
     // Generated index pages and sidebar metadata live alongside the rule pages, at exactly

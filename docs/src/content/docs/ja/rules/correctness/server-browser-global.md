@@ -57,3 +57,16 @@ import { browser } from '$app/environment';
 
 const stored = browser ? localStorage.getItem('filters') : null; // ✅
 ```
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/server-browser-global -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/server-browser-global': 'off'
+  }
+};
+```

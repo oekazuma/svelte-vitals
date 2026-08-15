@@ -136,3 +136,16 @@ finding として報告されます。そのため、この finding を抑制す
 エントリファイルを欠いた宣言済みユニットが、同時に記法を誤ったディレクトリでもある場合、
 `architecture/directory-naming` がその場所についても設定されていれば、そちらからも finding が
 出ます。どちらもいずれかを抑制するわけではありません。それぞれ別の主張であり、両方とも真だからです。
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/unit-entry-file -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/unit-entry-file': 'off'
+  }
+};
+```

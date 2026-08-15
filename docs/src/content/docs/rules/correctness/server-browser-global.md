@@ -57,3 +57,16 @@ import { browser } from '$app/environment';
 
 const stored = browser ? localStorage.getItem('filters') : null; // ✅
 ```
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line correctness/server-browser-global -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/server-browser-global': 'off'
+  }
+};
+```

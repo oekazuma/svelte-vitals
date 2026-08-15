@@ -22,3 +22,16 @@ This rule was `warning` before the 2026-08-09 severity review. The [Open Graph p
   <meta property="og:description" content="A concise page summary." />
 </svelte:head>
 ```
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/og-description': 'off'
+  }
+};
+```

@@ -20,3 +20,16 @@ Add `crossorigin` to the font preload:
 ```html
 <link rel="preload" href="/inter.woff2" as="font" type="font/woff2" crossorigin />
 ```
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'performance/font-preload-crossorigin': 'off'
+  }
+};
+```

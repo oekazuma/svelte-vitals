@@ -20,3 +20,16 @@ Add the viewport meta tag, typically in `src/app.html`:
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 ```
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/viewport': 'off'
+  }
+};
+```

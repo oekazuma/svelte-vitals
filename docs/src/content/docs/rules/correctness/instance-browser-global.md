@@ -47,3 +47,16 @@ For anything `svelte/reactivity/window` doesn't cover, read the global in `onMou
   });
 </script>
 ```
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line correctness/instance-browser-global -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/instance-browser-global': 'off'
+  }
+};
+```

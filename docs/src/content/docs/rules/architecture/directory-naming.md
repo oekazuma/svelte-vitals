@@ -169,3 +169,16 @@ Two things are deliberately never reported:
 A mis-cased directory that is also a declared unit missing its entry file draws a finding from
 `architecture/unit-entry-file` as well. Neither suppresses the other — they are different claims and
 both are true.
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/directory-naming -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/directory-naming': 'off'
+  }
+};
+```

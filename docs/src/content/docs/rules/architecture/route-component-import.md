@@ -59,3 +59,16 @@ export default {
 - A type-only import (`import type P from './+page.svelte'`, or one whose every specifier is inline-typed)
   — it is erased at build, so nothing renders.
 - A project whose routes live somewhere other than `src/routes`.
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/route-component-import -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/route-component-import': 'off'
+  }
+};
+```

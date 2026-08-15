@@ -24,3 +24,16 @@ Without a key, a reorder or an insert/remove makes Svelte add or remove nodes at
   <li>{item.name}</li>
 {/each}
 ```
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line correctness/each-key -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/each-key': 'off'
+  }
+};
+```

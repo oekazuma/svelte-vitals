@@ -73,3 +73,16 @@ values `$derived` cannot safely read, because there is no read that is guarantee
 Prefer `onMount`, or [`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window)
 for `window` properties — see those two rules' docs for the fix — and suppress this finding rather
 than switching to `$derived`.
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line correctness/effect-as-derived -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/effect-as-derived': 'off'
+  }
+};
+```

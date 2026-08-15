@@ -22,3 +22,16 @@ Add `<meta property="og:image">`, or set `openGraph.images` on your meta compone
   <meta property="og:image" content="https://example.com/og.png" />
 </svelte:head>
 ```
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/og-image': 'off'
+  }
+};
+```

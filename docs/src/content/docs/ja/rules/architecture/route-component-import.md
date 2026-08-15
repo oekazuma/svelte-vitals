@@ -61,3 +61,16 @@ export default {
 - 型のみの import（`import type P from './+page.svelte'`、またはすべての指定子がインラインで型
   指定されているもの）。ビルド時に消えるため、何も描画されません。
 - ルートが `src/routes` 以外の場所にあるプロジェクト。
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/route-component-import -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/route-component-import': 'off'
+  }
+};
+```

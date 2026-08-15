@@ -36,3 +36,16 @@ export default {
   rules: { 'architecture/prop-count': { options: { max: 10 } } }
 };
 ```
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/prop-count -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/prop-count': 'off'
+  }
+};
+```

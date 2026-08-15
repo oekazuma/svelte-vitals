@@ -23,3 +23,16 @@ description: プロジェクトに sitemap.xml を用意しましょう。
   <url><loc>https://example.com/</loc></url>
 </urlset>
 ```
+
+## 無効化
+
+意図したとおりであれば、ルールを無効化してください:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/sitemap-xml': 'off'
+  }
+};
+```

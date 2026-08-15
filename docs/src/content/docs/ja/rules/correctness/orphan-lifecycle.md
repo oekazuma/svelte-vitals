@@ -53,3 +53,16 @@ export async function load({ fetch }) {
 ```
 
 共有モジュールでは、モジュールスコープで lifecycle を呼ぶ代わりに、コンポーネントが初期化時に呼ぶ setup 関数として公開してください。
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/orphan-lifecycle -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/orphan-lifecycle': 'off'
+  }
+};
+```

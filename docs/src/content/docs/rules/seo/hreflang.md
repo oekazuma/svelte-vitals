@@ -31,3 +31,16 @@ A missing `x-default` is a different kind of finding. [Google's own guidance](ht
 ## Limitations
 
 Validation covers a pragmatic subset of BCP-47 — language, optional script, optional region — not the full grammar. BCP-47 variants and extensions (e.g. `de-DE-1996`, `en-US-u-hc-h12`) are valid hreflang values but are not recognized here and will be flagged as malformed.
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/hreflang': 'off'
+  }
+};
+```

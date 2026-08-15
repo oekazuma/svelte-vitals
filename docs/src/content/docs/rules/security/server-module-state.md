@@ -37,3 +37,16 @@ export const actions = {
 ```
 
 Authenticate with cookies/`locals` and persist per-user data to a database. For a deliberate process-wide cache, prefer a `const` container or add `// svelte-vitals-disable-next-line security/server-module-state` above the assignment.
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/server-module-state -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'security/server-module-state': 'off'
+  }
+};
+```

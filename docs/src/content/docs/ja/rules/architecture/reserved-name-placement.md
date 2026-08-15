@@ -142,3 +142,16 @@ export default {
 このルールが意図的に扱わないものが 2 つあります。予約名ディレクトリでの過剰許可(同じ深さにある
 グルーピングディレクトリと予約名ディレクトリを glob で区別できないため)と、ツリーから宣言を
 生成することです。
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/reserved-name-placement -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/reserved-name-placement': 'off'
+  }
+};
+```

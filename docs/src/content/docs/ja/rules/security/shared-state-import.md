@@ -36,3 +36,16 @@ export async function load({ locals }) {
 ```
 
 モジュールが本当にクライアント専用なら、server ファイルから import しない構造に変えます。import が意図的で安全なら、その直前に `// svelte-vitals-disable-next-line security/shared-state-import` を書いてください。
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line security/shared-state-import -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'security/shared-state-import': 'off'
+  }
+};
+```

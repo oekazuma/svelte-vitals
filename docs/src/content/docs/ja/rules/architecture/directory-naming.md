@@ -170,3 +170,16 @@ glob を狭めてください。除外は、その配下すべてをチェック
 記法を誤っているディレクトリが、同時にエントリファイルを欠いた宣言済みユニットでもある場合、
 `architecture/unit-entry-file` からも finding が出ます。どちらもいずれかを抑制するわけではありません。
 それぞれ別の主張であり、両方とも真だからです。
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/directory-naming -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/directory-naming': 'off'
+  }
+};
+```

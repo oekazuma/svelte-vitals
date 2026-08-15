@@ -23,3 +23,16 @@ Add `static/sitemap.xml` or a `src/routes/sitemap.xml/+server` endpoint:
   <url><loc>https://example.com/</loc></url>
 </urlset>
 ```
+
+## Disabling
+
+If this is intentional, turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/sitemap-xml': 'off'
+  }
+};
+```

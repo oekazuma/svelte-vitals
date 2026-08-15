@@ -24,3 +24,16 @@ Add a `<meta name="description">` in `<svelte:head>`, or set the description on 
   <meta name="description" content="A concise page summary." />
 </svelte:head>
 ```
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/description-presence': 'off'
+  }
+};
+```

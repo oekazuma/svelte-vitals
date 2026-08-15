@@ -31,3 +31,16 @@ hreflang コードが不正だと国際ターゲティングが機能せず、�
 ## 制限事項
 
 検証対象は BCP-47 の実用的なサブセット(言語・任意のスクリプト・任意の地域)のみで、文法全体はカバーしません。BCP-47 のバリアントや拡張(例: `de-DE-1996`、`en-US-u-hc-h12`)は有効な hreflang 値ですが、本ルールでは認識されず不正な値として検出されます。
+
+## 無効化
+
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/hreflang': 'off'
+  }
+};
+```

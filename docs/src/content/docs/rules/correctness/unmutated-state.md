@@ -27,3 +27,16 @@ A `$state` that is never mutated pays for reactivity — deep proxying and depen
   data = nextValue;
 </script>
 ```
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line correctness/unmutated-state -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/unmutated-state': 'off'
+  }
+};
+```

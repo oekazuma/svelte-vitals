@@ -73,3 +73,16 @@ export const quizState = new QuizStateManager();
   quizState.startPersisting();
 </script>
 ```
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/orphan-effect -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/orphan-effect': 'off'
+  }
+};
+```

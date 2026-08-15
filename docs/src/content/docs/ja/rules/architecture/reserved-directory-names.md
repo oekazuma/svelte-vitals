@@ -183,3 +183,16 @@ options: {
   `overrides` だけから組み上がった `scopes` とユニットマップの衝突は報告されます。
 - 現在どのディレクトリも使っていない宣言済みの名前。この集合が表すのは現れて**よい**ものであって、
   現れなければならないものではないからです。
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/reserved-directory-names -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/reserved-directory-names': 'off'
+  }
+};
+```
