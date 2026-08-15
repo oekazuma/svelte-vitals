@@ -264,10 +264,13 @@ async function resolveRoute(
   const files = chainFiles(pageRel, layouts);
   const chainOrder = new Map(files.map((f, i) => [f.rel, i]));
   const composed = new Map<string, HeadTag>();
-  // JSON-LD is additive, not a singleton (issue #443): every document survives, in
-  // chain order (root layout -> ... -> page) and source order within a file, unlike
-  // composed's override-by-kind semantics for title/meta/link.
-  const jsonldTags: HeadTag[] = [];
+  // Additive kinds survive in chain order (root layout -> ... -> page) and source order
+  // within a file, unlike composed's override-by-kind semantics for title/meta: JSON-LD
+  // (issue #443) and every <link> except canonical — preload/preconnect/alternate/icon/…
+  // legitimately repeat with the same rel. Canonical stays in `composed` because the
+  // broad-source fill below keys on `link:canonical`; if it were additive, a static
+  // canonical would sit next to a synthetic dynamic one and detection would degrade.
+  const additiveTags: HeadTag[] = [];
   let broadOwn = false;
   let broadInherited = false;
   const images: ImageInfo[] = [];
@@ -301,7 +304,7 @@ async function resolveRoute(
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, aliases);
     for (const tag of resolved.tags) {
       const stamped: HeadTag = { ...tag, presence: isPage ? 'own' : 'inherited', file: rel };
-      if (tag.kind === 'jsonld') jsonldTags.push(stamped);
+      if (tag.kind === 'jsonld' || (tag.kind === 'link' && tag.rel !== 'canonical')) additiveTags.push(stamped);
       else composed.set(tagKey(tag), stamped);
     }
     if (resolved.broad) {
@@ -327,7 +330,7 @@ async function resolveRoute(
 
   const route = deriveRoute(pageRel);
   return {
-    head: { route, source: 'static', tags: [...composed.values(), ...jsonldTags], file: pageRel },
+    head: { route, source: 'static', tags: [...composed.values(), ...additiveTags], file: pageRel },
     images: { route, images },
     headings: { route, headings, componentHeadings },
     a11y: {

@@ -57,7 +57,7 @@ export const BROAD_KINDS: ParsedTag[] = [
   // meta-tag family a broad meta source implies (JsonLd has its own adapter).
 ];
 
-/** Stable identity for a tag (matches routes.ts keyOf). */
+/** Override key for singular tags in routes.ts's composed head (additive kinds never reach it). */
 export function tagKey(tag: ParsedTag): string {
   switch (tag.kind) {
     case 'title':
