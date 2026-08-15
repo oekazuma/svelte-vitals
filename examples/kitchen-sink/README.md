@@ -28,7 +28,7 @@ pnpm --filter kitchen-sink test   # static (CLI) + build (vite plugin) e2e
 pnpm bench --target examples/kitchen-sink
 ```
 
-`pnpm --filter kitchen-sink test` runs two suites:
+`pnpm --filter kitchen-sink test` runs three suites:
 
 - `test/e2e-static.test.ts` — runs the built CLI (`svelte-vitals`) against the source tree and
   checks the JSON report against `expected-findings.json`.
@@ -36,6 +36,11 @@ pnpm bench --target examples/kitchen-sink
   against `expected-findings.rendered.json`. **This build is expected to fail**: the gallery
   contains a critical finding, and the plugin's `closeBundle` gate fails the build on critical
   findings by design. The test asserts on the failure and its stderr, not on a successful build.
+- `test/e2e-suppression.test.ts` — exercises every disable/suppress surface (`--ignore`, `--rules`,
+  `--category`, `--fail-on`/`--min-health`, config `rules: 'off'`, severity overrides, route
+  `overrides`, the inline `svelte-vitals-disable-next-line` directive, and the suppressions file)
+  against the gallery on scratch copies, so a surface that silently stops working fails here rather
+  than in a user's CI. The gallery files themselves are never edited.
 
 This package has no `build` script — nothing here should ever produce `examples/kitchen-sink/build/`
 as a side effect of `pnpm -r build`. If it appears after a full build, that's a bug.
