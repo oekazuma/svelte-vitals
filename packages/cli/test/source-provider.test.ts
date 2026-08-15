@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import {
+  performancePreconnect,
+  seoHreflang,
   seoJsonLdValidity,
   seoSingleH1,
   seoTitlePresence,
@@ -252,6 +254,76 @@ describe('collectRoutes JSON-LD additivity (issue #443)', () => {
     const results = await seoJsonLdValidity.check({ heads: [head!], project: defaultProject, config: defaultConfig });
     const finding = results.find((r) => r.message === 'JSON-LD is not valid JSON');
     expect(finding?.location).toBe('src/routes/+layout.svelte');
+  });
+});
+
+describe('collectRoutes <link> additivity', () => {
+  const links = (head: ResolvedHead, rel: string) => head.tags.filter((t) => t.kind === 'link' && t.rel === rel);
+
+  it('keeps two <link rel="preload"> with different `as` in one <svelte:head>', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+page.svelte': `<svelte:head>
+  <link rel="preload" href="/font.woff2" as="font" crossorigin />
+  <link rel="preload" href="/app.css" as="style" />
+</svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    expect(links(head!, 'preload').map((t) => t.as)).toEqual(['font', 'style']);
+  });
+
+  it('keeps both Google Fonts preconnects so performance/preconnect reports no missing origin', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+page.svelte': `<svelte:head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter" />
+  <link rel="preload" href="https://fonts.gstatic.com/s/inter.woff2" as="font" crossorigin />
+</svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    expect(links(head!, 'preconnect')).toHaveLength(2);
+    const results = await performancePreconnect.check({
+      heads: [head!],
+      project: defaultProject,
+      config: defaultConfig
+    });
+    expect(results.map((r) => r.message)).toEqual(['Third-party origins are preconnected']);
+  });
+
+  it('keeps every hreflang alternate so seo/hreflang sees the full set', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+page.svelte': `<svelte:head>
+  <link rel="alternate" hreflang="en" href="https://example.com/en" />
+  <link rel="alternate" hreflang="ja" href="https://example.com/ja" />
+</svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    expect(links(head!, 'alternate').map((t) => t.hreflang)).toEqual(['en', 'ja']);
+    const results = await seoHreflang.check({ heads: [head!], project: defaultProject, config: defaultConfig });
+    expect(results.map((r) => r.message)).toEqual(['Multiple hreflang alternates with no x-default declared']);
+  });
+
+  it('keeps a layout preload (inherited) alongside a page preload (own)', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+layout.svelte': `<svelte:head><link rel="preload" href="/font.woff2" as="font" crossorigin /></svelte:head>`,
+      'src/routes/+page.svelte': `<svelte:head><link rel="preload" href="/hero.jpg" as="image" /></svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    const preloads = links(head!, 'preload');
+    expect(preloads).toHaveLength(2);
+    expect(preloads.find((t) => t.file === 'src/routes/+layout.svelte')?.presence).toBe('inherited');
+    expect(preloads.find((t) => t.file === 'src/routes/+page.svelte')?.presence).toBe('own');
+  });
+
+  it('still overrides the layout canonical with the page canonical (singular rel regression pin)', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+layout.svelte': `<svelte:head><link rel="canonical" href="https://example.com/" /></svelte:head>`,
+      'src/routes/+page.svelte': `<svelte:head><link rel="canonical" href="https://example.com/page" /></svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    const canonicals = links(head!, 'canonical');
+    expect(canonicals).toHaveLength(1);
+    expect(canonicals[0]?.presence).toBe('own');
   });
 });
 
