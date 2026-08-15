@@ -20,19 +20,31 @@
 // after, read in ms.
 //
 // Usage: node packages/vite/scripts/bench/bench.mjs [--sizes=50,200,500] [--runs=3]
+//        node packages/vite/scripts/bench/bench.mjs --target examples/kitchen-sink [--runs=3]
+//
+// --target points the same timed analysis at a real project instead of a generated
+// one (path resolved relative to the repo root, regardless of cwd) — skips generation
+// and the --sizes loop entirely; it is for timing one real app, not the scaling curve.
 
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { monitorEventLoopDelay, performance } from 'node:perf_hooks';
 import { parseArgs } from 'node:util';
+import { fileURLToPath } from 'node:url';
 import { analyzeProject } from 'svelte-vitals';
 import { generateProject } from './gen-project.mjs';
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../../..');
 
 function parseBenchArgs(argv) {
   const { values } = parseArgs({
     args: argv,
-    options: { sizes: { type: 'string' }, runs: { type: 'string' } }
+    options: {
+      sizes: { type: 'string' },
+      runs: { type: 'string' },
+      target: { type: 'string' }
+    }
   });
   const runs = values.runs === undefined ? 3 : Number(values.runs);
   if (!Number.isInteger(runs) || runs < 1) {
@@ -43,7 +55,8 @@ function parseBenchArgs(argv) {
       ?.split(',')
       .map((s) => Number(s.trim()))
       .filter((n) => Number.isFinite(n) && n > 0) ?? [50, 200, 500],
-    runs
+    runs,
+    target: values.target === undefined ? undefined : resolve(repoRoot, values.target)
   };
 }
 
@@ -73,35 +86,53 @@ async function measureOnce(cwd) {
 }
 
 async function main() {
-  const { sizes, runs } = parseBenchArgs(process.argv.slice(2));
+  const { sizes, runs, target } = parseBenchArgs(process.argv.slice(2));
   console.log(
     `svelte-vitals dev-dashboard analysis benchmark — node ${process.version}, ${runs} timed run(s) per size (+1 discarded warmup)\n`
   );
 
   const allResults = [];
 
-  for (const routeCount of sizes) {
-    const dir = mkdtempSync(join(tmpdir(), `svelte-vitals-bench-${routeCount}-`));
-    try {
-      generateProject(dir, routeCount);
+  if (target) {
+    // Discarded warmup run: primes the OS file cache and any V8 JIT warmup so the
+    // timed runs reflect steady-state cost, not first-touch disk I/O.
+    await measureOnce(target);
 
-      // Discarded warmup run: primes the OS file cache and any V8 JIT warmup so the
-      // timed runs reflect steady-state cost, not first-touch disk I/O.
-      await measureOnce(dir);
+    const runsData = [];
+    for (let i = 0; i < runs; i++) {
+      const m = await measureOnce(target);
+      runsData.push(m);
+      console.log(
+        `target=${target} run=${i + 1}/${runs} total=${m.totalMs.toFixed(1)}ms ` +
+          `eld(max=${m.eld.maxMs.toFixed(1)}ms p99=${m.eld.p99Ms.toFixed(1)}ms mean=${m.eld.meanMs.toFixed(2)}ms) ` +
+          `results=${m.resultCount}`
+      );
+    }
+    allResults.push({ target, runs: runsData });
+  } else {
+    for (const routeCount of sizes) {
+      const dir = mkdtempSync(join(tmpdir(), `svelte-vitals-bench-${routeCount}-`));
+      try {
+        generateProject(dir, routeCount);
 
-      const runsData = [];
-      for (let i = 0; i < runs; i++) {
-        const m = await measureOnce(dir);
-        runsData.push(m);
-        console.log(
-          `routes=${routeCount} run=${i + 1}/${runs} total=${m.totalMs.toFixed(1)}ms ` +
-            `eld(max=${m.eld.maxMs.toFixed(1)}ms p99=${m.eld.p99Ms.toFixed(1)}ms mean=${m.eld.meanMs.toFixed(2)}ms) ` +
-            `results=${m.resultCount}`
-        );
+        // Discarded warmup run: primes the OS file cache and any V8 JIT warmup so the
+        // timed runs reflect steady-state cost, not first-touch disk I/O.
+        await measureOnce(dir);
+
+        const runsData = [];
+        for (let i = 0; i < runs; i++) {
+          const m = await measureOnce(dir);
+          runsData.push(m);
+          console.log(
+            `routes=${routeCount} run=${i + 1}/${runs} total=${m.totalMs.toFixed(1)}ms ` +
+              `eld(max=${m.eld.maxMs.toFixed(1)}ms p99=${m.eld.p99Ms.toFixed(1)}ms mean=${m.eld.meanMs.toFixed(2)}ms) ` +
+              `results=${m.resultCount}`
+          );
+        }
+        allResults.push({ routeCount, runs: runsData });
+      } finally {
+        rmSync(dir, { recursive: true, force: true });
       }
-      allResults.push({ routeCount, runs: runsData });
-    } finally {
-      rmSync(dir, { recursive: true, force: true });
     }
   }
 
