@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { formatGithubReport, defineConfig, type Result } from '../src/index.js';
+import { defineConfig, type Result } from '../src/index.js';
+import { formatGithubReport } from '../src/internal.js';
 
 const config = defineConfig({});
 

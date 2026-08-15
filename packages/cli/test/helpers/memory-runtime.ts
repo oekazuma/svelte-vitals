@@ -1,5 +1,5 @@
 import { posix } from 'node:path';
-import type { Runtime } from '@svelte-vitals/core';
+import type { Runtime } from '@svelte-vitals/core/internal';
 
 /**
  * In-memory Runtime for tests (design §8): lets the provider run with no real

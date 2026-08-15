@@ -1,5 +1,5 @@
 import { styleText } from 'node:util';
-import { noColorPalette, type Palette } from '@svelte-vitals/core';
+import { noColorPalette, type Palette } from '@svelte-vitals/core/internal';
 
 export { noColorPalette };
 

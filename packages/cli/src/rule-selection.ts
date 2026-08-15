@@ -1,4 +1,5 @@
-import { allRules, type RuleSetting } from '@svelte-vitals/core';
+import { type RuleSetting } from '@svelte-vitals/core';
+import { allRules } from '@svelte-vitals/core/internal';
 
 interface RuleSelectionInput {
   /** The config file's `rules` map, when a config file was loaded. */

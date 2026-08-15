@@ -1,5 +1,6 @@
 import { access, readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import { type Detection } from '@svelte-vitals/core';
 import {
   ROBOTS_SOURCE_PATHS,
   SITEMAP_SOURCE_PATHS,
@@ -7,9 +8,8 @@ import {
   VITE_CONFIG_FILES,
   resolveKitAliases,
   resolveKitPathsBase,
-  type Detection,
   type Project
-} from '@svelte-vitals/core';
+} from '@svelte-vitals/core/internal';
 
 async function exists(path: string): Promise<boolean> {
   try {

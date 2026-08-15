@@ -9,7 +9,7 @@ import {
   correctnessOrphanLifecycle,
   correctnessServerBrowserGlobal,
   correctnessInstanceBrowserGlobal
-} from '../src/index.js';
+} from '../src/internal.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { KitModuleFacts } from '../src/kit-module.js';

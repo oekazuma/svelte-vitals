@@ -2,13 +2,13 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import type { Category, Config, RuleOptions, RuleOverride } from '@svelte-vitals/core';
+import { CATEGORIES } from '@svelte-vitals/core';
 import {
-  CATEGORIES,
   defaultConfig,
   resolveRuleOptions,
   shouldSkipRangeCheck,
   validateRuleSetting
-} from '@svelte-vitals/core';
+} from '@svelte-vitals/core/internal';
 import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
 
 /**

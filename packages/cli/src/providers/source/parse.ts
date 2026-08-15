@@ -1,6 +1,6 @@
 import { parse } from 'svelte/compiler';
 import type { AST } from 'svelte/compiler';
-import type { BranchStep, HeadTag } from '@svelte-vitals/core';
+import type { BranchStep, HeadTag } from '@svelte-vitals/core/internal';
 import {
   CHILD_NODE_KEYS,
   lineOf,
@@ -15,7 +15,7 @@ import {
   splitTokens,
   LANDMARK_ROLES,
   IDREF_ATTRS
-} from '@svelte-vitals/core';
+} from '@svelte-vitals/core/internal';
 import { collectImports, type ImportMap } from './imports.js';
 
 /** A head tag parsed from one file, before layout-chain presence is assigned. */

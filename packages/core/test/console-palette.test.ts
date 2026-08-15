@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatConsoleReport, scoreColor, type Palette } from '../src/index.js';
+import { formatConsoleReport, scoreColor, type Palette } from '../src/internal.js';
 import { defineConfig } from '../src/types.js';
 import type { Result } from '../src/types.js';
 

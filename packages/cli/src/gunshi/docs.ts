@@ -1,7 +1,7 @@
 import { cli } from 'gunshi/bone';
 import { define } from 'gunshi/definition';
 import { generate } from 'gunshi/generator';
-import { docsUrlFor } from '@svelte-vitals/core';
+import { docsUrlFor } from '@svelte-vitals/core/internal';
 import { consoleIO, type CliIO } from '../cli-io.js';
 import { knownRuleIds } from '../rules-config.js';
 import { EMBEDDED_DOCS } from '../docs/generated.js';

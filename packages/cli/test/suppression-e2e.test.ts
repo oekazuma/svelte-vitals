@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest';
+import { defineConfig } from '@svelte-vitals/core';
 import {
   parseComponentFacts,
   correctnessEffectAsDerived,
   securityRawHtml,
-  defineConfig,
   defaultProject
-} from '@svelte-vitals/core';
-import type { RuleContext, ComponentFacts } from '@svelte-vitals/core';
+} from '@svelte-vitals/core/internal';
+import type { RuleContext, ComponentFacts } from '@svelte-vitals/core/internal';
 
 const config = defineConfig({});
 const base = { heads: [], project: defaultProject, config };

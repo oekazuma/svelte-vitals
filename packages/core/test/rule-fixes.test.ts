@@ -12,7 +12,7 @@ import {
   defaultProject,
   defaultConfig,
   type ResolvedHead
-} from '../src/index.js';
+} from '../src/internal.js';
 
 const config = defaultConfig;
 const emptyHead: ResolvedHead = { route: '/x', source: 'static', file: 'src/routes/x/+page.svelte', tags: [] };

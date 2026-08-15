@@ -1,11 +1,5 @@
-import {
-  buildJsonReport,
-  safeHref,
-  withFailedRulesOff,
-  type AppSnapshot,
-  type Config,
-  type JsonReport
-} from '@svelte-vitals/core';
+import { type Config, type JsonReport } from '@svelte-vitals/core';
+import { buildJsonReport, safeHref, withFailedRulesOff, type AppSnapshot } from '@svelte-vitals/core/internal';
 import type { FindingsStore } from './store.js';
 
 type Issue = JsonReport['routes'][number]['issues'][number];

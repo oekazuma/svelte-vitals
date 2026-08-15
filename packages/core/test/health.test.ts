@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { computeHealth, defineConfig, type Category, type Result } from '../src/index.js';
+import { defineConfig, type Category, type Result } from '../src/index.js';
+import { computeHealth } from '../src/internal.js';
 
 const CONFIG = defineConfig({});
 

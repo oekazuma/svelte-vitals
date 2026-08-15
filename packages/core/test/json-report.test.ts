@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { buildJsonReport, formatJsonReport, computeHealth, defineConfig, allRules, type Result } from '../src/index.js';
+import { defineConfig, type Result } from '../src/index.js';
+import { buildJsonReport, formatJsonReport, computeHealth, allRules } from '../src/internal.js';
 import { DEDUCTION } from '../src/scoring/inventory.js';
 
 const config = defineConfig({});

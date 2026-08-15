@@ -61,7 +61,8 @@ describe('svelte-vitals explain', () => {
 
   describe('--list', () => {
     it('lists every registered rule, grouped by category', async () => {
-      const { allRules, CATEGORIES } = await import('@svelte-vitals/core');
+      const { CATEGORIES } = await import('@svelte-vitals/core');
+      const { allRules } = await import('@svelte-vitals/core/internal');
       const { code, out } = await explain(['--list']);
       expect(code).toBe(0);
       for (const rule of allRules) expect(out).toContain(rule.id);
@@ -70,7 +71,7 @@ describe('svelte-vitals explain', () => {
     });
 
     it('--list --json emits id/category/severity/title for every rule', async () => {
-      const { allRules } = await import('@svelte-vitals/core');
+      const { allRules } = await import('@svelte-vitals/core/internal');
       const { code, out } = await explain(['--list', '--json']);
       expect(code).toBe(0);
       const parsed = JSON.parse(out) as { id: string; category: string; severity: string; title: string }[];

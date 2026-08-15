@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import type { Handle } from '@sveltejs/kit';
-import { isPenalized, defineConfig, type Result } from '@svelte-vitals/core';
+import { defineConfig, type Result } from '@svelte-vitals/core';
+import { isPenalized } from '@svelte-vitals/core/internal';
 import { svelteVitalsHandle } from '../src/hooks/index.js';
 
 // A minimal fake RequestEvent carrying only what the handle reads.
@@ -177,8 +178,8 @@ describe('svelteVitalsHandle', () => {
 
   it("forwards a crashed rule's id as failedRuleIds on the ingest POST", async () => {
     vi.resetModules();
-    vi.doMock('@svelte-vitals/core', async (importOriginal) => {
-      const actual = await importOriginal<typeof import('@svelte-vitals/core')>();
+    vi.doMock('@svelte-vitals/core/internal', async (importOriginal) => {
+      const actual = await importOriginal<typeof import('@svelte-vitals/core/internal')>();
       return {
         ...actual,
         runRules: async () => ({
@@ -198,7 +199,7 @@ describe('svelteVitalsHandle', () => {
       const sent = JSON.parse((init as RequestInit).body as string);
       expect(sent.failedRuleIds).toEqual(['seo/title-presence']);
     } finally {
-      vi.doUnmock('@svelte-vitals/core');
+      vi.doUnmock('@svelte-vitals/core/internal');
       vi.resetModules();
     }
   });
@@ -206,8 +207,8 @@ describe('svelteVitalsHandle', () => {
   it('sends an empty failedRuleIds array once a previously-crashing rule recovers', async () => {
     vi.resetModules();
     let shouldFail = true;
-    vi.doMock('@svelte-vitals/core', async (importOriginal) => {
-      const actual = await importOriginal<typeof import('@svelte-vitals/core')>();
+    vi.doMock('@svelte-vitals/core/internal', async (importOriginal) => {
+      const actual = await importOriginal<typeof import('@svelte-vitals/core/internal')>();
       return {
         ...actual,
         runRules: async (rules: unknown, ctx: Parameters<typeof actual.runRules>[1]) => {
@@ -239,7 +240,7 @@ describe('svelteVitalsHandle', () => {
       const sent = JSON.parse((init as RequestInit).body as string);
       expect(sent.failedRuleIds).toEqual([]);
     } finally {
-      vi.doUnmock('@svelte-vitals/core');
+      vi.doUnmock('@svelte-vitals/core/internal');
       vi.resetModules();
     }
   });

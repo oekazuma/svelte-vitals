@@ -1,7 +1,8 @@
 import { cli } from 'gunshi/bone';
 import { define } from 'gunshi/definition';
 import { generate } from 'gunshi/generator';
-import { explainRule, allRules, CATEGORIES, type RuleOptionInfo } from '@svelte-vitals/core';
+import { CATEGORIES } from '@svelte-vitals/core';
+import { explainRule, allRules, type RuleOptionInfo } from '@svelte-vitals/core/internal';
 import { consoleIO, type CliIO } from '../cli-io.js';
 import { knownRuleIds } from '../rules-config.js';
 import { guardArgs, splitAtTerminator, stripUnknownFlags, stripAutoVersionLine, suggestClosest } from './guard.js';

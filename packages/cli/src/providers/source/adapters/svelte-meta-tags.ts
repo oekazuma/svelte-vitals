@@ -1,7 +1,7 @@
 import type { AST } from 'svelte/compiler';
 import type { ImportInfo } from '../imports.js';
 import type { ComponentUse, ParsedTag } from '../parse.js';
-import { attrValueOf, attrTextOf } from '@svelte-vitals/core';
+import { attrValueOf, attrTextOf } from '@svelte-vitals/core/internal';
 import { resolveMetaObject, OPEN_GRAPH_KEYS, TWITTER_KEYS } from './meta-object.js';
 import type { Adapter, AdapterResult } from './types.js';
 

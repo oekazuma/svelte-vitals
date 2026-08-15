@@ -4,7 +4,7 @@ import {
   performanceImageLoadingHint,
   defaultProject,
   defaultConfig
-} from '../src/index.js';
+} from '../src/internal.js';
 import type { ResolvedImages } from '../src/images.js';
 
 const config = defaultConfig;

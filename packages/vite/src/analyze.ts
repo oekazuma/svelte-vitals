@@ -1,3 +1,4 @@
+import { defineConfig, type Config, type Result, type Summary, type Severity } from '@svelte-vitals/core';
 import {
   allRules,
   selectRules,
@@ -11,13 +12,8 @@ import {
   hasFailureAtOrAbove,
   formatConsoleReport,
   formatJsonReport,
-  defineConfig,
-  type Config,
-  type Result,
-  type Summary,
-  type Severity,
   type Project
-} from '@svelte-vitals/core';
+} from '@svelte-vitals/core/internal';
 import { loadConfigFile } from 'svelte-vitals';
 import type { SvelteVitalsOptions } from './plugin.js';
 import { collectRenderedHeads } from './providers/rendered/collect.js';

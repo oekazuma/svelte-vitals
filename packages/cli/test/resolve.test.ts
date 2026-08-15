@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { defaultConfig, defineConfig } from '@svelte-vitals/core';
+import { defineConfig } from '@svelte-vitals/core';
+import { defaultConfig } from '@svelte-vitals/core/internal';
 import { parseFile } from '../src/providers/source/parse.js';
 import { resolveFileTags, BROAD_KINDS, tagKey } from '../src/providers/source/resolve.js';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';

@@ -2,7 +2,8 @@ import { execFileSync } from 'node:child_process';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { defaultConfig, isPenalized, type Config, type Result } from '@svelte-vitals/core';
+import { type Config, type Result } from '@svelte-vitals/core';
+import { defaultConfig, isPenalized } from '@svelte-vitals/core/internal';
 
 function git(args: string[], cwd: string): string {
   return execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });

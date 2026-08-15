@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { relative } from 'node:path';
-import { findMinifyDisabled, type Project } from '@svelte-vitals/core';
+import { findMinifyDisabled, type Project } from '@svelte-vitals/core/internal';
 
 /**
  * performance/minify-disabled fact from the evaluated Vite user config (the value the plugin's

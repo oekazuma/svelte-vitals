@@ -1,4 +1,5 @@
-import { allRules, docsUrlFor, type Category, type RuleOptionSpec } from '@svelte-vitals/core';
+import { type Category } from '@svelte-vitals/core';
+import { allRules, docsUrlFor, type RuleOptionSpec } from '@svelte-vitals/core/internal';
 
 // Category order + labels for the generated rule digest. Kept in the same order the
 // project's docs use elsewhere (SEO, Performance, Correctness, Security, Architecture, Accessibility).

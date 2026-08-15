@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { architectureUnitEntryFile } from '../src/index.js';
+import { architectureUnitEntryFile } from '../src/internal.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 import type { Result } from '../src/index.js';

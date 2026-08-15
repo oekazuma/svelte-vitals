@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import { describe, it, expect } from 'vitest';
-import { buildHtmlDocument, type JsonReport } from '@svelte-vitals/core';
+import { type JsonReport } from '@svelte-vitals/core';
+import { buildHtmlDocument } from '@svelte-vitals/core/internal';
 
 /**
  * Boots the shared app shell (see app-shell-static.test.ts for why this lives in

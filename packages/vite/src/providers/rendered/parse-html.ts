@@ -1,6 +1,13 @@
 import { parse, type HTMLElement } from 'node-html-parser';
-import type { HeadTag, ImageInfo, Value } from '@svelte-vitals/core';
-import { decodeFragmentId, splitTokens, isTopFragment, LANDMARK_ROLES, IDREF_ATTRS } from '@svelte-vitals/core';
+import type { Value } from '@svelte-vitals/core';
+import type { HeadTag, ImageInfo } from '@svelte-vitals/core/internal';
+import {
+  decodeFragmentId,
+  splitTokens,
+  isTopFragment,
+  LANDMARK_ROLES,
+  IDREF_ATTRS
+} from '@svelte-vitals/core/internal';
 
 function attrValue(v: string | undefined): Value {
   return v !== undefined && v.trim().length > 0 ? 'static' : 'absent';

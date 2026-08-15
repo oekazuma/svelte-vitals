@@ -1,16 +1,15 @@
 import { describe, it, expect } from 'vitest';
+import { defineConfig, type Result } from '../src/index.js';
 import {
   selectRules,
   applyRuleSeverities,
   applyOverrides,
   compileOverrides,
   overrideMatches,
-  defineConfig,
   withFailedRulesOff,
   formatFailedRuleWarning,
-  type Rule,
-  type Result
-} from '../src/index.js';
+  type Rule
+} from '../src/internal.js';
 
 const ruleA = {
   id: 'seo/title-presence',

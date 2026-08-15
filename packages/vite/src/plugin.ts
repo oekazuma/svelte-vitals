@@ -11,14 +11,14 @@ import type {
   Severity,
   TreatDynamicAs
 } from '@svelte-vitals/core';
+import { CATEGORIES } from '@svelte-vitals/core';
 import {
-  CATEGORIES,
   defaultConfig,
   resolveRuleOptions,
   shouldSkipRangeCheck,
   terminalSafe,
   validateRuleSetting
-} from '@svelte-vitals/core';
+} from '@svelte-vitals/core/internal';
 import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from 'svelte-vitals';
 import { analyze, mergeConfig, resolveConfig } from './analyze.js';
 import { resolveMinifyDisabled } from './minify-flag.js';

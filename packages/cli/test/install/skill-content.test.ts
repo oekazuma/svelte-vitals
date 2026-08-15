@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { allRules } from '@svelte-vitals/core';
+import { allRules } from '@svelte-vitals/core/internal';
 import { buildSkillMarkdown, buildCursorRules, oneLine } from '../../src/install/skill-content.js';
 
 const CATEGORY_HEADINGS = [

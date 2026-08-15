@@ -10,8 +10,8 @@ const THROWN_MESSAGE = 'synthetic rule failure (test)\nwith a second line a warn
 // Replaces one real rule's `check` with a throwing stub, keeping the rest of the registry (and
 // every other export) untouched — the smallest way to prove `run()` survives a crashed rule
 // end-to-end without hand-rolling a fake analysis pipeline.
-vi.mock('@svelte-vitals/core', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@svelte-vitals/core')>();
+vi.mock('@svelte-vitals/core/internal', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@svelte-vitals/core/internal')>();
   const allRules = actual.allRules.map((rule) =>
     rule.id === 'seo/title-presence'
       ? {

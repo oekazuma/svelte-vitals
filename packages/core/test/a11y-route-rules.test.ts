@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { a11yDuplicateLandmark, a11yTopLevelLandmark, a11yIdDuplication, a11yNoMissingIdRef } from '../src/index.js';
+import { a11yDuplicateLandmark, a11yTopLevelLandmark, a11yIdDuplication, a11yNoMissingIdRef } from '../src/internal.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ResolvedA11y } from '../src/a11y.js';
 import type { RuleContext } from '../src/rule.js';

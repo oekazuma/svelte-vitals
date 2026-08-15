@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { type Config } from '../src/index.js';
 import {
   seoTitlePresence,
   runRules,
@@ -7,9 +8,8 @@ import {
   formatConsoleReport,
   defaultConfig,
   defaultProject,
-  type ResolvedHead,
-  type Config
-} from '../src/index.js';
+  type ResolvedHead
+} from '../src/internal.js';
 
 const config: Config = defaultConfig;
 

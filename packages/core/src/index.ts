@@ -1,220 +1,28 @@
 // @svelte-vitals/core — runtime-agnostic core (design §8).
 // No `node:` imports, no I/O, no runtime-specific globals.
+//
+// This entry is the semver-stable surface, scoped to the two jobs an outside caller has:
+// authoring a config, and reading a JSON report. Everything the CLI and the Vite plugin share
+// lives in `./internal`. Keep this entry **type-closed** — a name exported here may not reference
+// a type that is only internal, or a patch-legal change to that type would break the contract.
 
 export type {
-  Severity,
-  Presence,
-  Value,
-  Detection,
-  Project,
-  KitAlias,
-  Fix,
-  Result,
-  Scope,
-  Category,
-  TreatDynamicAs,
+  Config,
   RuleSetting,
   RuleSettingObject,
   RuleOptions,
   RuleOverride,
-  Config
+  Severity,
+  Category,
+  TreatDynamicAs,
+  Result,
+  Detection,
+  Presence,
+  Value,
+  Fix
 } from './types.js';
-export { defaultConfig, defineConfig, defaultProject, CATEGORIES } from './types.js';
+export { defineConfig, CATEGORIES } from './types.js';
 
-export type { HeadTag, ResolvedHead, HeadProvider } from './head.js';
-export type { ImageInfo, ResolvedImages } from './images.js';
-export type { HeadingInfo, ResolvedHeadings } from './headings.js';
-export type { BranchStep, A11yOccurrenceInfo, ResolvedA11y } from './a11y.js';
-export { foldOccurrences, decodeFragmentId, splitTokens, isTopFragment, LANDMARK_ROLES, IDREF_ATTRS } from './a11y.js';
-export type {
-  EachBlockFact,
-  EffectFact,
-  OrphanEffectFact,
-  SourceSpan,
-  ComponentFacts,
-  SuppressionDirective
-} from './component.js';
-export { parseComponentFacts } from './component-parse.js';
-export { collectComponentFacts, emptyComponentFacts } from './component-collect.js';
-export { collectSourceFiles } from './source-files.js';
-export type { KitModuleFacts } from './kit-module.js';
-export { parseKitModuleFacts, resolveRunesModuleSpecifier, resolveRepoLocalPath } from './kit-module-parse.js';
-export { collectKitModuleFacts, emptyKitModuleFacts } from './kit-module-collect.js';
-export { findMinifyDisabled } from './vite-config-parse.js';
-export {
-  findKitPathsBaseInSvelteConfig,
-  findKitPathsBaseInViteConfig,
-  resolveKitPathsBase,
-  findKitAliasesInSvelteConfig,
-  resolveKitAliases
-} from './svelte-config-parse.js';
-export type { ViteKitConfigResult, RawKitAliases } from './svelte-config-parse.js';
-export {
-  CHILD_NODE_KEYS,
-  lineOf,
-  findAttr,
-  valueFromNodes,
-  textFromNodes,
-  attrText,
-  attrValue,
-  attrValueOf,
-  attrTextOf
-} from './svelte-ast.js';
-export { ROBOTS_SOURCE_PATHS, SITEMAP_SOURCE_PATHS, VITE_CONFIG_FILES, SVELTE_CONFIG_FILES } from './project-paths.js';
-export type { Runtime } from './runtime.js';
-export type { Rule, RuleContext } from './rule.js';
-export { isPenalized, docsUrlFor } from './rule.js';
-
-export { runRules } from './engine.js';
-export type { FailedRule } from './engine.js';
-export {
-  allRules,
-  explainRule,
-  seoTitlePresence,
-  seoDescriptionPresence,
-  seoCanonicalUrl,
-  seoOgImage,
-  seoOgTitle,
-  seoRobotsTxt,
-  seoSitemapXml,
-  seoJsonLd,
-  seoHtmlLang,
-  performanceImageDimensions,
-  performanceImageLoadingHint,
-  performancePreloadMissingAs,
-  performanceFontPreloadCrossorigin,
-  seoIndexability,
-  seoTwitterCard,
-  seoOgDescription,
-  seoOgUrl,
-  seoViewport,
-  seoSitemapInRobots,
-  seoJsonLdValidity,
-  seoJsonLdDeprecatedType,
-  seoJsonLdRelativeUrl,
-  seoJsonLdDateFormat,
-  seoJsonLdPlaceholder,
-  seoJsonLdRequiredProps,
-  seoTitleLength,
-  seoDescriptionLength,
-  seoCharset,
-  seoImageAlt,
-  seoHreflang,
-  seoSingleH1,
-  performanceLcpImage,
-  performanceResponsiveImage,
-  performanceRenderBlockingScript,
-  performancePreconnect,
-  seoDuplicateTitle,
-  seoDuplicateDescription,
-  seoHeadingLevelSkip,
-  seoSsrDisabled,
-  correctnessEachKey,
-  correctnessEachIndexKey,
-  correctnessEffectAsDerived,
-  correctnessEffectAsOnMount,
-  correctnessUnmutatedState,
-  correctnessPropMutation,
-  correctnessStalePropDerivation,
-  correctnessNonreactiveBuiltinState,
-  correctnessCheckableBindValue,
-  correctnessOrphanEffect,
-  correctnessOrphanLifecycle,
-  correctnessBasePathNavigation,
-  correctnessServerBrowserGlobal,
-  correctnessInstanceBrowserGlobal,
-  securityRawHtml,
-  securityJavascriptUrl,
-  securityHandlerStateWrite,
-  securityServerModuleState,
-  securitySharedStateImport,
-  architectureComponentSize,
-  architecturePropCount,
-  architecturePrivateScopeImport,
-  architectureUnitEntryFile,
-  architectureDirectoryNaming,
-  architectureReservedDirectoryNames,
-  architectureReservedNamePlacement,
-  architectureRouteComponentImport,
-  architectureDocLinkTarget,
-  performanceHeavyImport,
-  performanceNamespaceImport,
-  performanceMinifyDisabled,
-  performanceLoadWaterfall,
-  performanceSequentialAwaits,
-  performanceStateRaw,
-  a11yInvalidRole,
-  a11yUnknownAriaAttribute,
-  a11yRequiredAriaProps,
-  a11yInvalidAriaValue,
-  a11yInteractiveNesting,
-  a11yAccessibleName,
-  a11yLabelHasControl,
-  a11yUseList,
-  a11yPlaceholderLabelOption,
-  a11yRequireDatetime,
-  a11yDoctype,
-  a11yDuplicateLandmark,
-  a11yTopLevelLandmark,
-  a11yIdDuplication,
-  a11yNoMissingIdRef
-} from './rules/index.js';
-export type { RuleInfo, RuleOptionInfo } from './rules/index.js';
-export { headTagRule } from './rules/seo/head-tag-rule.js';
-export { imageRule } from './rules/perf/image-rule.js';
-export { linkRule } from './rules/perf/link-rule.js';
-
-export type { Summary, Classification } from './summary.js';
-export { summarize, classify, hasFailureAtOrAbove, effectiveSeverity } from './summary.js';
-
-export type { ConsoleReportOptions } from './reporter/console.js';
-export { formatConsoleReport } from './reporter/console.js';
-export { terminalSafe } from './reporter/sanitize.js';
-export { noColorPalette, scoreColor } from './reporter/palette.js';
-export type { Palette } from './reporter/palette.js';
-export { buildJsonReport, formatJsonReport } from './reporter/json.js';
+export type { Summary } from './summary.js';
 export type { JsonReport, RuleEvidence } from './reporter/json.js';
-export { formatAgentReport } from './reporter/agent.js';
-export { formatSarifReport } from './reporter/sarif.js';
-export { formatGithubReport } from './reporter/github.js';
-export { formatMarkdownReport } from './reporter/markdown.js';
-export {
-  buildHtmlDocument,
-  formatHtmlReport,
-  escapeHtml,
-  safeHref,
-  scoreBand,
-  BAND_COLOR,
-  renderAppShell,
-  APP_SCRIPT,
-  APP_STYLE
-} from './reporter/app-shell.js';
-export type { AppSnapshot, RouteBadge } from './reporter/app-shell.js';
-
-export {
-  selectRules,
-  applyRuleSeverities,
-  applyOverrides,
-  compileOverrides,
-  overrideMatches,
-  settingSeverity,
-  settingOptions,
-  withFailedRulesOff,
-  formatFailedRuleWarning
-} from './config-apply.js';
-export type { CompiledOverride } from './config-apply.js';
-
-export {
-  isMentionedAnywhere,
-  resolveRuleOptions,
-  validateRuleOptions,
-  validateRuleSetting,
-  shouldSkipRangeCheck,
-  intOption,
-  listOption,
-  mapOption
-} from './rule-options.js';
-export type { RuleOptionSpec, RuleOptionsSpec } from './rule-options.js';
-
-export type { ScoreModel, ScoreResult, ScoreOptions, HealthResult } from './scoring/score.js';
-export { computeScore, scoresByCategory, computeHealth } from './scoring/score.js';
+export type { ScoreModel } from './scoring/score.js';

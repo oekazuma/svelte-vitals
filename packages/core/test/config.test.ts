@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { defaultConfig, defineConfig } from '../src/index.js';
+import { defineConfig } from '../src/index.js';
+import { defaultConfig } from '../src/internal.js';
 
 describe('Config.metaComponents', () => {
   it('defaults to an empty array', () => {

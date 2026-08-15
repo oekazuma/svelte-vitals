@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import { type Config, type Detection, defineConfig } from '@svelte-vitals/core';
 import {
   performancePreconnect,
   performanceRenderBlockingScript,
@@ -8,16 +9,13 @@ import {
   seoJsonLdValidity,
   seoSingleH1,
   seoTitlePresence,
-  type Config,
-  type Detection,
   type HeadTag,
   type ImageInfo,
   type ResolvedHead,
   type Runtime,
   defaultConfig,
-  defaultProject,
-  defineConfig
-} from '@svelte-vitals/core';
+  defaultProject
+} from '@svelte-vitals/core/internal';
 import { createNodeRuntime } from '../src/runtime/node.js';
 import { collectRoutes } from '../src/providers/source/routes.js';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';

@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { seoRobotsTxt, seoSitemapXml, seoHtmlLang, defaultProject, defineConfig, type Project } from '../src/index.js';
+import { defineConfig } from '../src/index.js';
+import { seoRobotsTxt, seoSitemapXml, seoHtmlLang, defaultProject, type Project } from '../src/internal.js';
 
 const config = defineConfig({});
 const ctx = (project: Project) => ({ heads: [], project, config });
