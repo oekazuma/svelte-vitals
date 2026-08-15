@@ -20,3 +20,16 @@ description: app.html の <html> に lang 属性を設定しましょう。
 ```text
 <html lang="en">
 ```
+
+## 無効化
+
+意図したとおりであれば、ルールを無効化してください:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/html-lang': 'off'
+  }
+};
+```

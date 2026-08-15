@@ -134,3 +134,16 @@ declaration at once.
 A declared unit missing its entry file that is also named in the wrong casing draws a finding from
 `architecture/directory-naming` as well, when that rule is configured for the same location. Neither
 suppresses the other — they are different claims and both are true.
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/unit-entry-file -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/unit-entry-file': 'off'
+  }
+};
+```

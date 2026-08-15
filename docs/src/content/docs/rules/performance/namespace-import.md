@@ -26,3 +26,16 @@ Named imports are reliably shakeable and make the dependency surface explicit. W
   import { Scene, WebGLRenderer } from 'three';
 </script>
 ```
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line performance/namespace-import -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'performance/namespace-import': 'off'
+  }
+};
+```

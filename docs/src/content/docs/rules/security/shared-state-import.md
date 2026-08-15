@@ -36,3 +36,16 @@ export async function load({ locals }) {
 ```
 
 If the module is genuinely client-only, restructure so server files don't import it — or, if the import is deliberate and safe, add `// svelte-vitals-disable-next-line security/shared-state-import` above it.
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/shared-state-import -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'security/shared-state-import': 'off'
+  }
+};
+```

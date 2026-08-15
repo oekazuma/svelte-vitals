@@ -38,3 +38,16 @@ description: reactive 値を読まない $effect は、イベントハンドラ�
 
 該当する場合は、動作しているコードを `onMount` に移すのではなく、
 [`svelte-vitals-disable-next-line`](/ja/guides/cli#特定の指摘だけをインラインで抑制する) コメントで抑制してください。
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/effect-as-onmount -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/effect-as-onmount': 'off'
+  }
+};
+```

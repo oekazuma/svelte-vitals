@@ -74,3 +74,16 @@ target that moved is not the file that changed. A full run still reports it.
 
 This rule reads the same `src/` file inventory the sibling directory rules do, and on a `--route` run,
 where no inventory is built, it is silent.
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/doc-link-target -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/doc-link-target': 'off'
+  }
+};
+```

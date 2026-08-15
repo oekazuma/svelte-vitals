@@ -20,3 +20,16 @@ meta description が重複していると、ページごとの要約を検索エ
   <meta name="description" content="このルート固有の説明文。" />
 </svelte:head>
 ```
+
+## 無効化
+
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/duplicate-description': 'off'
+  }
+};
+```

@@ -77,3 +77,16 @@ export default {
 
 このルールは姉妹の directory 系ルールと同じ `src/` ソースの棚卸し結果を読んでおり、`--route` 実行では
 棚卸しが作られないため何も報告しません。
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/doc-link-target -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/doc-link-target': 'off'
+  }
+};
+```

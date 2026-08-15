@@ -176,3 +176,16 @@ Two things are never reported:
   is not narrowed to globally declared keys, so a collision between `scopes` and a unit map assembled
   entirely from `overrides` entries is still reported.
 - A declared name no directory currently uses — the set says what **may** appear, not what must.
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/reserved-directory-names -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/reserved-directory-names': 'off'
+  }
+};
+```

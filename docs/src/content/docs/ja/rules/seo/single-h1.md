@@ -32,3 +32,16 @@ description: <h1> は 1 ページにつき 1 つだけにしましょう。
 - **レンダリング（vite）** は最終的な HTML を読みます。そのため、コンポーネントが描画したすべての見出しを認識し、実際にレンダリングされた分岐だけを数えます。
 
 両者が食い違う場合は、レンダリング結果（`@svelte-vitals/vite`）を信頼してください。ブラウザに配信される内容を反映しているのはそちらです。
+
+## 無効化
+
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/single-h1': 'off'
+  }
+};
+```

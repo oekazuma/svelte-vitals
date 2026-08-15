@@ -57,3 +57,16 @@ glob では `*` がパスセグメント内、`**` がセグメントをまた�
 型のみの import（`import type { X } from '../parts/types'`）も、値の import と同様に検出します。import 自体はビルド時に消えますが、プライベートなユニットの置き場所への構造的な結合はソースコード上に残るためです。
 
 プライベートなディレクトリ自体を名指しする import（ファイルを指定せず、例えば `import { Badge } from '../Card/parts'` のような書き方）は検査していません。これは解消予定のギャップではなく、意図的な制限です。ディレクトリの中身に対して解決しようとすると、この見逃しを別の誤検知に置き換えてしまうためです。
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/private-scope-import -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/private-scope-import': 'off'
+  }
+};
+```

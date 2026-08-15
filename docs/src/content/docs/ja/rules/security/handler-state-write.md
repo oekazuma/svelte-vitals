@@ -53,3 +53,16 @@ export async function load({ fetch }) {
 ```
 
 ユーザー別のデータは cookies/`locals` とデータベースに置き、load したデータは `page.data` か context API でコンポーネントに渡します。書き込みが本当に、個人に紐づかないデータをキーにしたレートリミッターやメモ化キャッシュなら、その直前に `// svelte-vitals-disable-next-line security/handler-state-write` を書いてください。
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line security/handler-state-write -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'security/handler-state-write': 'off'
+  }
+};
+```

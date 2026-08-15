@@ -32,3 +32,16 @@ Headings are collected in both modes, but from different sources, so results can
 - **Rendered (vite)** reads the final HTML, so it sees every component-rendered heading and only the branches that actually rendered.
 
 When the two disagree, trust the rendered result (`@svelte-vitals/vite`) — it reflects what ships to the browser.
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/single-h1': 'off'
+  }
+};
+```

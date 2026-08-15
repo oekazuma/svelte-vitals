@@ -36,3 +36,16 @@ export default {
   rules: { 'architecture/prop-count': { options: { max: 10 } } }
 };
 ```
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/prop-count -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/prop-count': 'off'
+  }
+};
+```

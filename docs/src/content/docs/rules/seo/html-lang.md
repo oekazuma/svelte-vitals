@@ -20,3 +20,16 @@ Set `<html lang="...">` in `src/app.html`:
 ```text
 <html lang="en">
 ```
+
+## Disabling
+
+If this is intentional, turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/html-lang': 'off'
+  }
+};
+```

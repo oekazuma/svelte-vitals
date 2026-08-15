@@ -23,3 +23,16 @@ Allow: /
 
 Sitemap: https://example.com/sitemap.xml
 ```
+
+## Disabling
+
+If this is intentional, turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/sitemap-in-robots': 'off'
+  }
+};
+```

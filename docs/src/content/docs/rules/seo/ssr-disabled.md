@@ -38,3 +38,16 @@ export default {
 ```
 
 or add `// svelte-vitals-disable-next-line seo/ssr-disabled` above the declaration.
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line seo/ssr-disabled -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/ssr-disabled': 'off'
+  }
+};
+```

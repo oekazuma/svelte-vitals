@@ -24,3 +24,16 @@ description: 動的なデータを回す {#each} にはキーを付けましょ�
   <li>{item.name}</li>
 {/each}
 ```
+
+## 無効化
+
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/each-key -->` を置きます。ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/each-key': 'off'
+  }
+};
+```

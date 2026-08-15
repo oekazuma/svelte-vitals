@@ -22,3 +22,16 @@ noindex はページを検索結果から除外します。公開ルートに誤
   <meta name="robots" content="index, follow" />
 </svelte:head>
 ```
+
+## 無効化
+
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/indexability': 'off'
+  }
+};
+```

@@ -22,3 +22,16 @@ Add `<link rel="canonical">` in `<svelte:head>`, or set the canonical prop on yo
   <link rel="canonical" href="https://example.com/this-page" />
 </svelte:head>
 ```
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/canonical-url': 'off'
+  }
+};
+```

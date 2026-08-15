@@ -20,3 +20,16 @@ Remove `loading="lazy"` from the first/LCP image and consider `fetchpriority="hi
 ```svelte
 <img src="/hero.jpg" width="1200" height="630" fetchpriority="high" alt="…" />
 ```
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'performance/lcp-image': 'off'
+  }
+};
+```

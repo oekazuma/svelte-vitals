@@ -43,3 +43,16 @@ Ids are collected in both modes, but from different sources, so results can diff
 - **Rendered (vite)** reads the final prerendered HTML, so it sees only the ids that actually rendered, including every id an `{#each}` loop produced — a real duplicate from a loop only surfaces here. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line — the persisted finding key differs from the static-mode key for the same defect.
 
 When the two disagree, trust the rendered result — it reflects what ships to the browser.
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'a11y/id-duplication': 'off'
+  }
+};
+```

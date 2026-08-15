@@ -38,3 +38,16 @@ Name matching is by identifier text, not lexical scope — the same granularity 
 
 If that's your case, suppress it with a
 [`svelte-vitals-disable-next-line`](/guides/cli#suppressing-a-single-finding-inline) comment rather than moving working code into `onMount`.
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line correctness/effect-as-onmount -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/effect-as-onmount': 'off'
+  }
+};
+```

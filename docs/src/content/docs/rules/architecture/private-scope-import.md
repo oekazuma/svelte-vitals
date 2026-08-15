@@ -57,3 +57,16 @@ This is a gap being closed, not a deliberate exemption.
 A type-only import (`import type { X } from '../parts/types'`) is flagged the same as a value import: the structural coupling to the private unit's location survives into source even though the import itself is erased at build.
 
 An import that names a private directory itself, rather than a file inside it (for example `import { Badge } from '../Card/parts'`), is not checked. This is a deliberate limitation, not a gap: resolving it to the directory's own contents would trade this false negative for a false positive elsewhere.
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/private-scope-import -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/private-scope-import': 'off'
+  }
+};
+```

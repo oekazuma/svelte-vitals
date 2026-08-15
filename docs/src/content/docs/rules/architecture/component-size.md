@@ -31,3 +31,16 @@ export default {
   rules: { 'architecture/component-size': { options: { max: 300 } } }
 };
 ```
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/component-size -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'architecture/component-size': 'off'
+  }
+};
+```

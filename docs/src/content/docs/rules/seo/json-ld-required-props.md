@@ -25,3 +25,16 @@ Add the missing properties. For example, a `Product` needs `name`, plus at least
   "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.5", "reviewCount": "89" }
 }
 ```
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'seo/json-ld-required-props': 'off'
+  }
+};
+```

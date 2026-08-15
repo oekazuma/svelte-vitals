@@ -21,3 +21,16 @@ Use an event handler or a real URL:
 <!-- Instead of <a href="javascript:doThing()"> -->
 <button type="button" onclick={doThing}>Do thing</button>
 ```
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/javascript-url -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'security/javascript-url': 'off'
+  }
+};
+```

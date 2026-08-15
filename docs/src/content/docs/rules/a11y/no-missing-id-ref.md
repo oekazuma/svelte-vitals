@@ -36,3 +36,16 @@ Reference checking runs in both modes, but from different sources, so results ca
 - **Rendered (vite)** reads the final prerendered HTML, which already is a closed world by construction — every id and reference that ships to the browser is visible, so this mode has no equivalent skip condition and can check routes static mode cannot. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line — the persisted finding key differs from the static-mode key for the same defect.
 
 When the two disagree, trust the rendered result — it reflects what ships to the browser.
+
+## Disabling
+
+Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'a11y/no-missing-id-ref': 'off'
+  }
+};
+```

@@ -53,3 +53,16 @@ Move the call into component initialisation:
 ```
 
 For shared modules, expose a setup function that components call during init instead of running lifecycle calls at module scope.
+
+## Disabling
+
+Silence a single occurrence with `<!-- svelte-vitals-disable-next-line correctness/orphan-lifecycle -->` on the line above it, or turn the rule off:
+
+```js
+// svelte-vitals.config.mjs
+export default {
+  rules: {
+    'correctness/orphan-lifecycle': 'off'
+  }
+};
+```
