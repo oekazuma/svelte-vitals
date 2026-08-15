@@ -1,5 +1,18 @@
 # @svelte-vitals/vite
 
+## 0.30.1
+
+### Patch Changes
+
+- 2a2cf37: Treat `<link>` `rel` and `as` keywords as case-insensitive, as the HTML spec does. `<link rel="Canonical">` is now recognised by seo/canonical-url (and overrides a layout canonical instead of being added alongside it), and `rel="Preload"` is now seen by the preload rules, in both source and rendered-HTML analysis.
+- 048478f: Fix `performance/minify-disabled` never reporting during a real SvelteKit `vite build`. The plugin captured `build.minify` only from the client build's resolved config, but SvelteKit runs the client build as a separate `vite.build()` with a fresh plugin instance, so the instance that analyzes the prerendered output never saw it. The plugin now reads the user's `build.minify` in its `config` hook — the same value SvelteKit forwards to the client build — so a `minify: false` in `vite.config.*` is reported (and gated) in build mode again, including projects whose routes are all `csr: false`.
+- Updated dependencies [4cdce87]
+- Updated dependencies [2a2cf37]
+- Updated dependencies [9ba4223]
+- Updated dependencies [172377f]
+  - @svelte-vitals/core@0.43.1
+  - svelte-vitals@0.47.1
+
 ## 0.30.0
 
 ### Minor Changes

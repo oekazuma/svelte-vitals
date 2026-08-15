@@ -1,5 +1,15 @@
 # svelte-vitals
 
+## 0.47.1
+
+### Patch Changes
+
+- 2a2cf37: Treat `<link>` `rel` and `as` keywords as case-insensitive, as the HTML spec does. `<link rel="Canonical">` is now recognised by seo/canonical-url (and overrides a layout canonical instead of being added alongside it), and `rel="Preload"` is now seen by the preload rules, in both source and rendered-HTML analysis.
+- 9ba4223: Source mode no longer collapses `<link>` tags that share a `rel`. The composed `<svelte:head>` used to keep only the last `<link>` per `rel` across the layout chain, so a page with two `rel="preload"` (font + stylesheet), both Google Fonts `rel="preconnect"` origins, or several `rel="alternate" hreflang` entries was analyzed with only one of them — a false "un-preconnected origin" finding for a correctly configured site, and skipped preload/hreflang checks. Every `<link>` except `rel="canonical"` (still page-overrides-layout) is now kept, like JSON-LD. Projects with baselines or recorded suppressions may see new Performance/SEO findings on links that were previously invisible.
+- 172377f: Source mode no longer collapses `<script src>` tags that share a `src`. The composed `<svelte:head>` used to keep only the last `<script>` per `src` across the layout chain, so a page's `defer` copy of a script the layout loads synchronously masked the layout's render-blocking one, and `performance/render-blocking-script` reported nothing. Every head `<script src>` is now kept in chain order, like JSON-LD, and each blocking occurrence is reported at its own file. Projects with baselines or recorded suppressions may see new `performance/render-blocking-script` findings on layout scripts that were previously invisible.
+- Updated dependencies [4cdce87]
+  - @svelte-vitals/core@0.43.1
+
 ## 0.47.0
 
 ### Minor Changes

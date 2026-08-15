@@ -1,5 +1,11 @@
 # @svelte-vitals/core
 
+## 0.43.1
+
+### Patch Changes
+
+- 4cdce87: Fix the inline `svelte-vitals-disable-next-line` directive silently ignoring `a11y/*` rule ids. The directive's rule-id pattern only allowed letters in the category segment, so `<!-- svelte-vitals-disable-next-line a11y/invalid-role -->` was not recognised at all and the finding stayed. Category segments may now contain digits.
+
 ## 0.43.0
 
 ### Minor Changes
