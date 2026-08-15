@@ -139,8 +139,11 @@ about detection coverage, not CLI surface.
   (unused state, `javascript:` URLs, suspicious globals are the point), so
   `examples/kitchen-sink/src/routes/gallery/` and the never-imported crash samples enter
   oxlint's ignore list. `src/lib/clean/jsonld/**` is ignored too: oxlint parses JSON-LD
-  `<script>` bodies as JS, and those fixtures carry no logic to lint. oxfmt still formats
-  everything; the clean routes stay fully linted. The docs site does not consume the example.
+  `<script>` bodies as JS, and those fixtures carry no logic to lint. The example's `typecheck`
+  is `svelte-check` (templates included, unlike `tsc`) with the same gallery + crash-sample
+  directories excluded — planted defects are compiler/type defects too. oxfmt still formats
+  everything; the clean routes stay fully linted and type-checked. The docs site does not
+  consume the example.
 - en/ja translation machinery is untouched — the example's README is English-only, per the
   repo's convention for engineering-facing files.
 

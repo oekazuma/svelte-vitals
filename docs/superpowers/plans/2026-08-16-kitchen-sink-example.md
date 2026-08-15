@@ -11,12 +11,12 @@
 ## Global Constraints
 
 - The example has **NO `build` script** in its package.json — root `pnpm build`/`pnpm test` and floor-smoke's `pnpm -r build` fallback must not build it; its `vite build` runs only inside the e2e test.
-- Coverage invariant: **every rule id in `allRules` appears in `expected-findings.json`**, with `findings ≥ 1` by default; `passOnly` entries need a reason string AND `findings + passed ≥ 1` in the report. Silent-pass rules (return `[]` when clean, e.g. `seo/sitemap-in-robots`, `performance/minify-disabled`) must be arranged to FAIL — they can never satisfy an exercised-check.
+- Coverage invariant: **every rule id in `allRules` appears in `expected-findings.json`**, with `findings ≥ 1` by default; `passOnly` entries need a reason string AND `findings + passed ≥ 1` in the report. Silent-pass rules (return `[]` when clean, e.g. `seo/sitemap-in-robots`, `performance/minify-disabled`) must be arranged to FAIL — they can never satisfy an exercised-check. Two further reasoned variants (spec, Coverage invariant): `renderedOnly` for rules that emit nothing in static mode (`seo/charset`, `seo/viewport` — static asserts `findings === 0`, the build e2e exercises them) and `inert` for gates that never open in this project (`correctness/base-path-navigation` — static asserts `findings === 0` and `passed === 0`).
 - Clean canaries: no route-scoped finding may carry a `/clean/…` route; no component-scoped finding may name a `src/routes/clean/` or `src/lib/clean/` file.
 - Prerender-crashing samples (`correctness/server-browser-global`, `correctness/instance-browser-global`) live in glob-collected but never-imported files.
 - The `seo/ssr-disabled` gallery route sets `ssr = false` AND `prerender = false`; adapter-static gets a `fallback` page; the rendered expectations must not count that route.
 - Dependencies through the workspace catalog (add `@sveltejs/adapter-static` to the catalog); all deps must install on Node 22.13.0 (floor-smoke job).
-- oxlint ignores `examples/kitchen-sink/src/routes/gallery/` and the crash-sample dir; oxfmt formats everything.
+- oxlint ignores `examples/kitchen-sink/src/routes/gallery/` and the crash-sample dir; svelte-check (the example's `typecheck`) excludes the same two dirs via `tsconfig.json`'s `exclude` — planted defects are also type/compiler defects; clean routes and tests stay fully checked. oxfmt formats everything.
 - No rule counts in prose (README maps routes → rule ids; the JSON file is the machine truth).
 - Verify commands per task: `pnpm build`, `pnpm typecheck`, `pnpm test`, `pnpm lint`. Changesets: none (private example + test-only changes; the bench flag in Task 8 is a dev-script change, also changeset-free).
 - Conventional commits, `chore(examples):` / `test(examples):` / `chore(bench):` scopes, each ending with:

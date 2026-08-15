@@ -88,7 +88,7 @@ async function measureOnce(cwd) {
 async function main() {
   const { sizes, runs, target } = parseBenchArgs(process.argv.slice(2));
   console.log(
-    `svelte-vitals dev-dashboard analysis benchmark — node ${process.version}, ${runs} timed run(s) per size (+1 discarded warmup)\n`
+    `svelte-vitals dev-dashboard analysis benchmark — node ${process.version}, ${runs} timed run(s) per benchmark (+1 discarded warmup)\n`
   );
 
   const allResults = [];

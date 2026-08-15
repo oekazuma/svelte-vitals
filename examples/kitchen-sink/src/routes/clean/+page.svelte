@@ -44,6 +44,6 @@
 
 <button type="button" onclick={checkStatus}>Check status</button>
 
-<div id="clean-details" tabindex="-1">
+<div id="clean-details" tabindex="-1" bind:this={detailsEl}>
   <p>Status detail focuses here when "Check status" is activated.</p>
 </div>

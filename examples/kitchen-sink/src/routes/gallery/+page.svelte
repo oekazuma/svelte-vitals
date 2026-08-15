@@ -18,14 +18,16 @@
   </script>
 </svelte:head>
 
-<h1>Gallery</h1>
-<nav aria-label="Rule categories">
-  <ul>
-    <li><a href="/gallery/a11y">Accessibility</a></li>
-    <li><a href="/gallery/architecture">Architecture</a></li>
-    <li><a href="/gallery/correctness">Correctness</a></li>
-    <li><a href="/gallery/perf">Performance</a></li>
-    <li><a href="/gallery/security">Security</a></li>
-    <li><a href="/gallery/seo">SEO</a></li>
-  </ul>
-</nav>
+<main>
+  <h1>Gallery</h1>
+  <nav aria-label="Rule categories">
+    <ul>
+      <li><a href="/gallery/a11y">Accessibility</a></li>
+      <li><a href="/gallery/architecture">Architecture</a></li>
+      <li><a href="/gallery/correctness">Correctness</a></li>
+      <li><a href="/gallery/perf">Performance</a></li>
+      <li><a href="/gallery/security">Security</a></li>
+      <li><a href="/gallery/seo">SEO</a></li>
+    </ul>
+  </nav>
+</main>
