@@ -252,6 +252,7 @@ describe('collectRoutes JSON-LD additivity (issue #443)', () => {
     const canonicals = head!.tags.filter((t) => t.kind === 'link' && t.rel === 'canonical');
     expect(canonicals).toHaveLength(1);
     expect(canonicals[0]!.presence).toBe('own');
+    expect(canonicals[0]!.href).toBe('https://example.com/page');
   });
 
   it('attributes a broken layout jsonld finding to the layout file, not the page', async () => {
