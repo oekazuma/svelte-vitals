@@ -38,8 +38,7 @@ description: ディレクトリの直下に置ける名前は、その位置に�
 | `anyCaseUnitScopes` | 起点 glob → 直下に置ける名前 のマップ（大文字小文字を問わないユニット用） | `{}`       |
 | `exclude`           | ディレクトリ glob のリスト                                                | `[]`       |
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/reserved-directory-names': {
@@ -188,8 +187,7 @@ options: {
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/reserved-directory-names -->` を置きます。ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'architecture/reserved-directory-names': 'off'

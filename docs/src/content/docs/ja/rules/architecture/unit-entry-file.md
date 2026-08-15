@@ -42,8 +42,7 @@ description: ユニットとして宣言したディレクトリには、同名�
 
 `exclude` はマップではなくリストで、その値は拡張子ではなくディレクトリの glob です。
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/unit-entry-file': {
@@ -141,8 +140,7 @@ finding として報告されます。そのため、この finding を抑制す
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/unit-entry-file -->` を置きます。ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'architecture/unit-entry-file': 'off'

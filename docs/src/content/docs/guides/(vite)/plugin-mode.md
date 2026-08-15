@@ -23,8 +23,7 @@ pnpm add -D @svelte-vitals/vite
 
 Add `svelteVitals` to your `vite.config.ts`:
 
-```ts
-// vite.config.ts
+```ts vite.config.ts
 import { sveltekit } from '@sveltejs/kit/vite';
 import { svelteVitals } from '@svelte-vitals/vite';
 

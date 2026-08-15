@@ -30,8 +30,7 @@ Vite minifies by default (`oxc` since Vite 8); turning it off is almost always a
 
 Remove the override (the default already minifies), or scope it so production keeps minification:
 
-```ts
-// vite.config.ts
+```ts vite.config.ts
 import { defineConfig } from 'vite';
 
 export default defineConfig(({ mode }) => ({
@@ -53,8 +52,7 @@ The Vite plugin judges the resolved value, so its verdict is exact for the build
 
 If unminified production output is intentional, turn the rule off in your config:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'performance/minify-disabled': 'off'

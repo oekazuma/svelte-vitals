@@ -89,8 +89,7 @@ A weight of `0` is valid — it excludes that category from the Health average e
 case being routes that are intentionally not public (behind auth) and shouldn't be held to SEO
 metadata rules:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   overrides: [
     // Everything in the (app) route group: no SEO checks at all.
@@ -138,8 +137,7 @@ Semantics worth knowing:
 
 Beyond the bare severity string, a rule setting can be an object, `{ severity?, options? }`:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'architecture/prop-count': { options: { max: 10 } },
@@ -252,8 +250,7 @@ One exception: `--rules` and `--ignore` are selection, not configuration — eac
 
 `@svelte-vitals/vite` reads `svelte-vitals.config.*` the same way the CLI does, with no extra wiring. Both the build gate and the [live dashboard](/guides/dev-dashboard) resolve it from the project root (`cwd` passed to `svelteVitals({ ... })`, else the Vite config root), with the same per-field precedence: **plugin option > config file > built-in default**. `weights` included.
 
-```ts
-// vite.config.ts
+```ts vite.config.ts
 import { sveltekit } from '@sveltejs/kit/vite';
 import { svelteVitals } from '@svelte-vitals/vite';
 

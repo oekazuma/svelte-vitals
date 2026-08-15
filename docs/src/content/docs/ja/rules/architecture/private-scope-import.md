@@ -27,8 +27,7 @@ description: プライベートなディレクトリ内のユニットを、そ�
 
 各 glob は**プライベートなディレクトリ**にマッチし、その**親**が境界になります。親の内側にあるファイルはそこから import できますが、外側のファイルはできません。
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/private-scope-import': {
@@ -62,8 +61,7 @@ glob では `*` がパスセグメント内、`**` がセグメントをまた�
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/private-scope-import -->` を置きます。ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'architecture/private-scope-import': 'off'

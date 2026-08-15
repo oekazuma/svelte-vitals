@@ -44,8 +44,7 @@ Only the literal dependent-chain shape is detected; chains hidden behind branche
 
 ## Disabling
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'performance/load-waterfall': 'off'

@@ -29,8 +29,7 @@ load/handler/`init` の本体の**内側で定義された関数**は、そこ�
 
 ## 修正方法
 
-```ts
-// +page.ts
+```ts +page.ts
 import { getContext } from 'svelte';
 
 export async function load({ fetch }) {
@@ -58,8 +57,7 @@ export async function load({ fetch }) {
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/orphan-lifecycle -->` を置きます。ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'correctness/orphan-lifecycle': 'off'

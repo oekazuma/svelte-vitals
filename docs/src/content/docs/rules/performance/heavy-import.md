@@ -42,8 +42,7 @@ cover in a later release.
 Reusing a built-in key keeps the package on the list but replaces its advice, so
 `{ lodash: 'use our own helpers' }` rewords the finding rather than adding a second entry.
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: {
     'performance/heavy-import': { options: { packages: { 'chart.js': 'import chart.js/auto' } } }
@@ -55,8 +54,7 @@ export default {
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line performance/heavy-import -->` on the line above it, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'performance/heavy-import': 'off'

@@ -48,8 +48,7 @@ Or use the native element that already supplies the state:
 
 If a required prop is intentionally omitted, silence a single element with `<!-- svelte-vitals-disable-next-line a11y/required-aria-props -->`, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'a11y/required-aria-props': 'off'

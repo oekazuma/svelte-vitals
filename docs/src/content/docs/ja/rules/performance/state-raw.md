@@ -50,8 +50,7 @@ Svelte 公式も、再代入しかしない大きなオブジェクトには `$s
 
 ## 無効化
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'performance/state-raw': 'off'

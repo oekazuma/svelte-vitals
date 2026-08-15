@@ -52,8 +52,7 @@ description: インスタンススクリプトは SSR 時にサーバーでも�
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/instance-browser-global -->` を置きます。ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'correctness/instance-browser-global': 'off'

@@ -25,8 +25,7 @@ Duplicate titles across pages make them compete in search results and weaken eac
 
 Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'seo/duplicate-title': 'off'

@@ -22,8 +22,7 @@ universal な `+page.ts`/`+layout.ts` の load も対象です。SSR 時はサ�
 
 ただし除外の条件はディレクトリだけではありません。svelte-vitals は対象モジュールを読み、export がインメモリコンテナで**ない**場合にのみ除外します。`new Map`/`Set`/`WeakMap`/`WeakSet`、あるいはオブジェクト・配列リテラルで初期化された export は自作ストア（リクエストごとに上書きされる単一の共有インスタンス）なので、`src/lib/server` 配下でも検出します。
 
-```ts
-// src/lib/server/store.ts
+```ts src/lib/server/store.ts
 export const db = new Map(); // handler から db.set(...) すると検出
 export const client = drizzle(url); // コンテナリテラルではないので除外
 ```
@@ -40,8 +39,7 @@ SvelteKit の状態管理ドキュメントが「NEVER DO THIS」と明記する
 
 保存せず、データを返します。
 
-```ts
-// +page.ts
+```ts +page.ts
 import { user } from '$lib/user';
 
 export async function load({ fetch }) {
@@ -58,8 +56,7 @@ export async function load({ fetch }) {
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line security/handler-state-write -->` を置きます。ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'security/handler-state-write': 'off'

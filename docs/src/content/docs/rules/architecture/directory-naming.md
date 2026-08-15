@@ -32,8 +32,7 @@ Rename the directory, or narrow the declaration that swept it in.
 | `directories` | map of directory glob → casing set | `{}`    |
 | `exclude`     | list of directory globs            | `[]`    |
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/directory-naming': {
@@ -174,8 +173,7 @@ both are true.
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/directory-naming -->` on the line above it, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'architecture/directory-naming': 'off'

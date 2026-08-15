@@ -30,8 +30,7 @@ Vite はデフォルトでミニファイを行います（Vite 8 以降は oxc�
 
 オーバーライドを削除する（デフォルトでミニファイされます）か、本番ではミニファイが維持されるようにスコープを限定します:
 
-```ts
-// vite.config.ts
+```ts vite.config.ts
 import { defineConfig } from 'vite';
 
 export default defineConfig(({ mode }) => ({
@@ -53,8 +52,7 @@ Vite プラグインは解決済みの値で判定するため、実行された
 
 意図してミニファイせずに本番へ出している場合は、設定でルールを無効化してください:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'performance/minify-disabled': 'off'

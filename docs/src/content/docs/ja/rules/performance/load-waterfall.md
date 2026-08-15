@@ -42,8 +42,7 @@ export async function load({ fetch }) {
 
 ## 無効化
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'performance/load-waterfall': 'off'

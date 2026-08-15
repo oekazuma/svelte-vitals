@@ -22,8 +22,7 @@ SvelteKit's docs: "Avoid shared state on the server." A module variable on the s
 
 ## How to fix
 
-```ts
-// +page.server.ts
+```ts +page.server.ts
 let user; // ❌ one variable for every user of this server
 
 export const actions = {
@@ -42,8 +41,7 @@ Authenticate with cookies/`locals` and persist per-user data to a database. For 
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/server-module-state -->` on the line above it, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'security/server-module-state': 'off'

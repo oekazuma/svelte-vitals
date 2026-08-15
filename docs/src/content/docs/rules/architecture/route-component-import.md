@@ -40,8 +40,7 @@ one.** A `string-list` option adds to its default and never replaces it, so you 
 not shrink it — which is why it ships covering only the conventions that are common across the ecosystem.
 If your project marks satellite files another way, add your pattern:
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/route-component-import': {
@@ -64,8 +63,7 @@ export default {
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/route-component-import -->` on the line above it, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'architecture/route-component-import': 'off'

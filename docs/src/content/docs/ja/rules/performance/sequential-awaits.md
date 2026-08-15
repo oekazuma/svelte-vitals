@@ -29,8 +29,7 @@ const [a, b] = await Promise.all([fetchA(), fetchB()]);
 
 ## 無効化
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'performance/sequential-awaits': 'off'

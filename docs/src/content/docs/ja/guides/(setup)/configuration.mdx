@@ -87,8 +87,7 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
 
 `rules` は全体に適用されます。`overrides` はマッチした箇所にだけルール設定を適用します。典型的なのは、意図的に非公開のルート（認証必須のページ）を SEO メタデータルールの対象外にしたいケースです：
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   overrides: [
     // (app) ルートグループ配下：SEO チェックを一切行わない。
@@ -118,8 +117,7 @@ glob の構文はあえて最小限に絞ってあります：`*` はパスセ�
 
 単なる重大度の文字列に加えて、ルール設定にはオブジェクト形式 `{ severity?, options? }` も指定できます：
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'architecture/prop-count': { options: { max: 10 } },
@@ -225,8 +223,7 @@ CLI の静的モードは、ルートの `<head>` と見出しを解決するた
 
 `@svelte-vitals/vite` は CLI と同じ方法で `svelte-vitals.config.*` を読み込みます。追加の配線は不要です。ビルドゲートと[ライブダッシュボード](/ja/guides/dev-dashboard)のどちらも、プロジェクトルート（`svelteVitals({ ... })` に渡す `cwd`、省略時は Vite の config root）から解決し、CLI と同じフィールド単位の優先順位を適用します: **プラグインオプション > 設定ファイル > 組み込みのデフォルト**。`weights` も含みます。
 
-```ts
-// vite.config.ts
+```ts vite.config.ts
 import { sveltekit } from '@sveltejs/kit/vite';
 import { svelteVitals } from '@svelte-vitals/vite';
 

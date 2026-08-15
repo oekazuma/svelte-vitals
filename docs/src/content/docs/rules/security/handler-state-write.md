@@ -20,8 +20,7 @@ The `src/lib/server` exemption applies to the **resolved** path, so it holds how
 
 The exemption is not the directory alone. svelte-vitals reads the target module and keeps the call exempt only when the export is _not_ an in-memory container. An export initialized to `new Map`/`Set`/`WeakMap`/`WeakSet`, or to an object or array literal, is a hand-rolled store — one shared instance overwritten per request — and is reported even under `src/lib/server`:
 
-```ts
-// src/lib/server/store.ts
+```ts src/lib/server/store.ts
 export const db = new Map(); // reported when a handler calls db.set(...)
 export const client = drizzle(url); // exempt — not a container literal
 ```
@@ -38,8 +37,7 @@ Not every promoted write is a leak, though. A rate limiter or memoization cache 
 
 Return the data instead of storing it:
 
-```ts
-// +page.ts
+```ts +page.ts
 import { user } from '$lib/user';
 
 export async function load({ fetch }) {
@@ -56,8 +54,7 @@ Per-user data belongs in cookies/`locals` plus a database; share loaded data wit
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/handler-state-write -->` on the line above it, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'security/handler-state-write': 'off'

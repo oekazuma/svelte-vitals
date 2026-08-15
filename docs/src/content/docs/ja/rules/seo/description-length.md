@@ -33,8 +33,7 @@ description: meta description は 70〜160 文字に収めましょう。
 | `min`      | integer |         70 |
 | `max`      | integer |        160 |
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: { 'seo/description-length': { options: { min: 50, max: 155 } } }
 };
@@ -44,8 +43,7 @@ export default {
 
 既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'seo/description-length': 'off'

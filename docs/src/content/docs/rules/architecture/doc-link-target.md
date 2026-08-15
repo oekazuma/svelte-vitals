@@ -32,8 +32,7 @@ Point the link at the unit that exists now, or remove it.
 Each entry is a **URL prefix that stands for this project's root**. A link whose URL starts with one has
 that prefix stripped, and the remainder is looked up among the files under `src/`.
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/doc-link-target': {
@@ -79,8 +78,7 @@ where no inventory is built, it is silent.
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/doc-link-target -->` on the line above it, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'architecture/doc-link-target': 'off'

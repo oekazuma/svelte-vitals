@@ -36,8 +36,7 @@ Use a concrete WAI-ARIA role, or drop the attribute if the element's native sema
 
 If a role is intentionally non-standard, silence a single element with `<!-- svelte-vitals-disable-next-line a11y/invalid-role -->`, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'a11y/invalid-role': 'off'

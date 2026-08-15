@@ -23,8 +23,7 @@ pnpm add -D @svelte-vitals/vite
 
 `vite.config.ts` に `svelteVitals` を追加します：
 
-```ts
-// vite.config.ts
+```ts vite.config.ts
 import { sveltekit } from '@sveltejs/kit/vite';
 import { svelteVitals } from '@svelte-vitals/vite';
 

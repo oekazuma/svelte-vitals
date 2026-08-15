@@ -22,8 +22,7 @@ SvelteKit のドキュメントは「サーバーでの共有状態を避けよ�
 
 ## 修正方法
 
-```ts
-// +page.server.ts
+```ts +page.server.ts
 let user; // ❌ このサーバーの全ユーザーで1つの変数
 
 export const actions = {
@@ -42,8 +41,7 @@ cookies/`locals` で認証し、ユーザー別データはデータベースへ
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line security/server-module-state -->` を置きます。ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'security/server-module-state': 'off'
