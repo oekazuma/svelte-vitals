@@ -11,20 +11,10 @@ const SEVERITY_TITLE: Record<Severity, string> = {
   info: 'Info'
 };
 
-// Record<Category, number> keeps this exhaustive by type: a new category fails compilation
-// here instead of silently vanishing from the console report.
-const CATEGORY_RANK: Record<Category, number> = {
-  seo: 0,
-  performance: 1,
-  correctness: 2,
-  security: 3,
-  architecture: 4,
-  a11y: 5
-};
-const CATEGORY_ORDER: readonly Category[] = (Object.keys(CATEGORY_RANK) as Category[]).sort(
-  (a, b) => CATEGORY_RANK[a] - CATEGORY_RANK[b]
-);
-const CATEGORY_LABEL: Record<Category, string> = {
+// Record<Category, string> keeps this exhaustive by type: a new category fails compilation
+// here instead of silently vanishing from the console report. Declaration order is the
+// display order.
+export const CATEGORY_LABEL: Record<Category, string> = {
   seo: 'SEO',
   performance: 'Performance',
   correctness: 'Correctness',
@@ -32,6 +22,7 @@ const CATEGORY_LABEL: Record<Category, string> = {
   architecture: 'Architecture',
   a11y: 'Accessibility'
 };
+const CATEGORY_ORDER = Object.keys(CATEGORY_LABEL) as readonly Category[];
 
 const categoryLabel = (c: Category) => CATEGORY_LABEL[c];
 

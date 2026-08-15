@@ -48,8 +48,8 @@ describe('collectProjectFacts', () => {
     expect((await collectProjectFacts(createMemoryRuntime({ 'src/app.html': withComments }), '')).appHtmlDoctype).toBe(
       true
     );
-    // Regression guard for catastrophic backtracking: a long run of comments with no doctype
-    // must resolve immediately (the old starred-group regex was exponential here).
+    // A long run of comments with no doctype must resolve immediately — an ambiguous
+    // quantifier over the comment group would be exponential here.
     const hostile = `${'<!-- c -->'.repeat(60)}<html></html>`;
     const start = Date.now();
     const facts = await collectProjectFacts(createMemoryRuntime({ 'src/app.html': hostile }), '');
@@ -74,6 +74,11 @@ describe('collectProjectFacts', () => {
         `<style>#styled { color: red } [id="attr"] { }</style></body>`
       ].join('\n')
     });
+    expect((await collectProjectFacts(rt, '')).appHtmlIds).toEqual(['app']);
+  });
+
+  it('collects unquoted shell ids and still skips templating placeholders', async () => {
+    const rt = createMemoryRuntime({ 'src/app.html': `<body><div id=app></div><i id={x}></i></body>` });
     expect((await collectProjectFacts(rt, '')).appHtmlIds).toEqual(['app']);
   });
 

@@ -1,3 +1,5 @@
+import { splitTokens } from '../../a11y.js';
+
 /** One element attribute as seen by the a11y element-set checks below — the same
  *  literal/expression classification `component-parse.ts` uses elsewhere. */
 export interface ElementAttr {
@@ -38,7 +40,7 @@ function literalOf(attrs: ElementAttr[], name: string): string | undefined {
 /** Whether a literal `role` attribute's first fallback token is one of `INTERACTIVE_ROLES` —
  *  the first token is the one a browser/AT actually applies when the rest are unsupported. */
 function hasInteractiveRole(attrs: ElementAttr[]): boolean {
-  const role = literalOf(attrs, 'role')?.trim().split(/\s+/)[0];
+  const role = splitTokens(literalOf(attrs, 'role'))[0];
   return role !== undefined && INTERACTIVE_ROLES.has(role);
 }
 
@@ -61,8 +63,9 @@ export function isInteractiveElement(tag: string, attrs: ElementAttr[]): boolean
     return false;
   }
   if ((tag === 'audio' || tag === 'video') && attrs.some((a) => a.name === 'controls')) return true;
-  const tabindex = literalOf(attrs, 'tabindex');
-  if (tabindex !== undefined) {
+  const tabindex = literalOf(attrs, 'tabindex')?.trim();
+  // A blank tabindex is invalid HTML and ignored by browsers (Number('') would coerce to 0).
+  if (tabindex) {
     const n = Number(tabindex);
     if (Number.isFinite(n) && n >= 0) return true;
   }

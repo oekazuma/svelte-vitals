@@ -138,15 +138,16 @@ function detectHtmlLang(html: string): Detection {
  * Literal ids in the shell. `data-id="…"` and the like are excluded by the lookbehind.
  * Comments and script/style bodies are stripped first — an `id="…"` in them is not an
  * element id, and counting one would silently satisfy a genuinely dangling reference.
- * Attribute names are ASCII case-insensitive (`ID="app"` is valid HTML).
+ * Attribute names are ASCII case-insensitive (`ID="app"`) and values may be unquoted (`id=app`) — both are valid HTML.
  */
 function detectAppHtmlIds(html: string): string[] {
   const markup = html
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
     .replace(/<style[\s\S]*?<\/style\s*>/gi, '');
-  const found = markup.matchAll(/(?<![\w-])id\s*=\s*(?:"([^"]*)"|'([^']*)')/gi);
-  return [...new Set([...found].map((m) => m[1] ?? m[2] ?? '').filter(Boolean))];
+  // The unquoted alternative rejects a leading '{' so templating placeholders (id={x}) stay out.
+  const found = markup.matchAll(/(?<![\w-])id\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>{][^\s"'>]*))/gi);
+  return [...new Set([...found].map((m) => m[1] ?? m[2] ?? m[3] ?? '').filter(Boolean))];
 }
 
 /** app.html-derived facts sharing one read (io-budget): <html lang>, the leading doctype, and shell ids. */

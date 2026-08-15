@@ -16,12 +16,10 @@ export const a11yDuplicateLandmark = surplusRule({
     'Assistive tech users jump between landmarks to skip repeated content; more than one main, banner, or contentinfo per page leaves them guessing which one is the real one.',
   recommendation: 'A route should have at most one main, banner, and contentinfo landmark.',
   map: (route) =>
-    Object.fromEntries(
-      KINDS.flatMap((kind) => {
-        const reps = route.landmarks[kind];
-        return reps?.length ? [[kind, reps] as [string, A11yOccurrenceInfo[]]] : [];
-      })
-    ),
+    KINDS.flatMap((kind) => {
+      const reps = route.landmarks[kind];
+      return reps?.length ? [[kind, reps] as [string, A11yOccurrenceInfo[]]] : [];
+    }),
   message: (kind, i, n) => `Duplicate ${kind} landmark (${i + 1} of ${n})`,
   passMessage: 'No duplicate landmarks'
 });

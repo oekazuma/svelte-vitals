@@ -12,7 +12,7 @@ import type {
   ResolvedImages,
   Runtime
 } from '@svelte-vitals/core';
-import { defaultConfig, foldOccurrences } from '@svelte-vitals/core';
+import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/core';
 import type { A11yNode, ParsedFile } from './parse.js';
 import { enumerateRoutePages } from './project.js';
 import {
@@ -341,7 +341,7 @@ async function resolveRoute(
       // `href="#top"` scrolls to the document top with no element of that id, so it is
       // never a missing reference (HTML's "top of the document" fragment).
       idRefs: a11yNodes
-        .filter((n) => n.kind === 'idref' && !(n.attr === 'href' && n.key.toLowerCase() === 'top'))
+        .filter((n) => n.kind === 'idref' && !(n.attr === 'href' && isTopFragment(n.key)))
         .map((n) => ({ id: n.key, attr: n.attr ?? '', file: n.file, line: n.line })),
       idCandidates: [...new Set([...literalIds.map((n) => n.key), ...(appHtmlIds ?? [])])],
       fullyResolved: a11yCtx.state.fullyResolved

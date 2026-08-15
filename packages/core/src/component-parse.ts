@@ -1382,6 +1382,9 @@ function collectBulletTexts(
     }
     return;
   }
+  // A snippet's body renders at its {@render} site, so its list context is unknowable here —
+  // skip it rather than judge bullet text against the declaration site's ancestors.
+  if (node.type === 'SnippetBlock') return;
   const nowInsideLi = insideLi || (node.type === 'RegularElement' && node.name === 'li');
   for (const key of CHILD_NODE_KEYS) {
     if (key in node) collectBulletTexts(node[key], source, acc, nowInsideLi);
@@ -1470,7 +1473,7 @@ const MACHINE_READABLE_TIME = [
   /^\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/,
   /^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}/,
   /^\d{2}-\d{2}$/,
-  /^P/i
+  /^P(?=\d|T)/i
 ];
 
 /**

@@ -1,5 +1,6 @@
 import { componentRule } from '../component-rule.js';
 import { isKnownRole, isAbstractRole } from './aria-data.js';
+import { splitTokens } from '../../a11y.js';
 
 export const a11yInvalidRole = componentRule({
   id: 'a11y/invalid-role',
@@ -14,7 +15,7 @@ export const a11yInvalidRole = componentRule({
     (c.ariaElements ?? []).flatMap((e) => {
       const literal = e.role?.literal;
       if (literal === undefined) return [];
-      const tokens = literal.split(/\s+/).filter(Boolean);
+      const tokens = splitTokens(literal);
       const badTokens = tokens.filter((t) => !isKnownRole(t) || isAbstractRole(t));
       if (badTokens.length === 0) return [];
       return [

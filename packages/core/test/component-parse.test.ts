@@ -1333,6 +1333,21 @@ describe('parseComponentFacts — {#snippet} bodies render at their {@render} si
   });
 });
 
+describe('parseComponentFacts — a11y literal edge cases', () => {
+  it('does not treat a blank tabindex as interactive', () => {
+    const c = parseComponentFacts('<a href="/x"><div tabindex="">x</div></a>', 'C.svelte');
+    expect(c.interactiveNestings ?? []).toEqual([]);
+  });
+  it("does not judge snippet bullet text against the declaration site's list context", () => {
+    const c = parseComponentFacts('{#snippet s()}<p>- x</p>{/snippet}', 'C.svelte');
+    expect(c.bulletTexts ?? []).toEqual([]);
+  });
+  it('flags a <time> whose text merely starts with P', () => {
+    const c = parseComponentFacts('<time>Posted yesterday</time><time>P3D</time><time>PT5M</time>', 'C.svelte');
+    expect(c.timesMissingDatetime).toEqual([{ line: 1, text: 'Posted yesterday' }]);
+  });
+});
+
 describe('parseComponentFacts — unnamedInteractive (a11y/accessible-name)', () => {
   it('flags an empty button and an icon-only link without alt', () => {
     const c = parseComponentFacts('<button></button>\n<a href="/x"><img src="i.png" /></a>', 'C.svelte');

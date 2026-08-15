@@ -126,6 +126,13 @@ describe('a11y/required-aria-props', () => {
 });
 
 describe('a11y/invalid-aria-value', () => {
+  it('flags a blank literal for a number-typed attribute', async () => {
+    const rs = await a11yInvalidAriaValue.check(
+      ctx([comp({ ariaElements: [el({ aria: [{ name: 'aria-valuenow', literal: '', line: 2 }] })] })])
+    );
+    expect(fails(rs)).toHaveLength(1);
+  });
+
   it('flags a boolean aria attribute with a non-boolean literal', async () => {
     const rs = await a11yInvalidAriaValue.check(
       ctx([comp({ ariaElements: [el({ aria: [{ name: 'aria-hidden', literal: 'yes', line: 7 }] })] })])

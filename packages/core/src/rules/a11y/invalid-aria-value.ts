@@ -1,5 +1,6 @@
 import { componentRule } from '../component-rule.js';
 import { ariaValueKind } from './aria-data.js';
+import { splitTokens } from '../../a11y.js';
 
 function isValid(type: string, values: string[] | undefined, literal: string): boolean {
   switch (type) {
@@ -10,14 +11,12 @@ function isValid(type: string, values: string[] | undefined, literal: string): b
     case 'token':
       return (values ?? []).includes(literal);
     case 'tokenlist':
-      return literal
-        .split(/\s+/)
-        .filter(Boolean)
-        .every((t) => (values ?? []).includes(t));
+      return splitTokens(literal).every((t) => (values ?? []).includes(t));
     case 'integer':
       return /^-?\d+$/.test(literal);
     case 'number':
-      return Number.isFinite(Number(literal));
+      // A blank literal is not a number (Number('') would coerce to 0).
+      return literal.trim() !== '' && Number.isFinite(Number(literal));
     default:
       // 'string' / 'id' / 'idlist', and any future aria-query type: no static check possible.
       return true;

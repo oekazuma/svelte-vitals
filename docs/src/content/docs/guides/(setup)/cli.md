@@ -63,7 +63,7 @@ see below each row for usage notes, defaults, and examples.
 | `--min-health <min-health>`             | Fail (exit 1) when the combined Health score is below this value (0-100)                                                 |
 | `--rules <rules>`                       | Comma-separated rule ids to enable (all others disabled)                                                                 |
 | `--ignore <ignore>`                     | Comma-separated rule ids to disable                                                                                      |
-| `--category <category>`                 | Comma-separated categories to analyze: seo \| performance \| correctness \| security \| architecture                     |
+| `--category <category>`                 | Comma-separated categories to analyze: seo \| performance \| correctness \| security \| architecture \| a11y             |
 | `--weights <weights>`                   | Per-category Health weight overrides, e.g. seo=2,performance=1 (unlisted categories default to 1)                        |
 | `--score`                               | Print only the combined Health score (works with --min-health for gating)                                                |
 | `--no-color`                            | Disable ANSI color in console output                                                                                     |
@@ -233,7 +233,7 @@ svelte-vitals --ignore performance/image-dimensions
 
 ### `--category <cats>`
 
-Restrict analysis to rules in the given categories. Accepts a comma-separated list, matched case-insensitively: `seo`, `performance`, `correctness`, `security`, `architecture`.
+Restrict analysis to rules in the given categories. Accepts a comma-separated list, matched case-insensitively: `seo`, `performance`, `correctness`, `security`, `architecture`, `a11y`.
 
 ```bash
 svelte-vitals --category seo

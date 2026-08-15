@@ -60,7 +60,7 @@ npx svelte-vitals@latest apps/web     # 検出をスキップし、apps/web を�
 | `--min-health <min-health>`             | 組み合わせた Health スコアがこの値を下回れば失敗（終了コード 1、0〜100）                                                         |
 | `--rules <rules>`                       | 有効にするルール ID（カンマ区切り、他はすべて無効）                                                                              |
 | `--ignore <ignore>`                     | 無効にするルール ID（カンマ区切り）                                                                                              |
-| `--category <category>`                 | 解析対象カテゴリ（カンマ区切り）: seo \| performance \| correctness \| security \| architecture                                  |
+| `--category <category>`                 | 解析対象カテゴリ（カンマ区切り）: seo \| performance \| correctness \| security \| architecture \| a11y                          |
 | `--weights <weights>`                   | カテゴリごとの Health 重み上書き。例: seo=2,performance=1（指定のないカテゴリはデフォルト値 1）                                  |
 | `--score`                               | 組み合わせた Health スコアのみを出力（--min-health と併用してゲートに利用可能）                                                  |
 | `--no-color`                            | コンソール出力の ANSI カラーを無効化                                                                                             |
@@ -228,7 +228,7 @@ svelte-vitals --ignore performance/image-dimensions
 
 ### `--category <cats>`
 
-指定したカテゴリのルールのみに解析を限定します。カンマ区切りのリストを受け付け、大文字小文字は区別しません: `seo`、`performance`、`correctness`、`security`、`architecture`。
+指定したカテゴリのルールのみに解析を限定します。カンマ区切りのリストを受け付け、大文字小文字は区別しません: `seo`、`performance`、`correctness`、`security`、`architecture`、`a11y`。
 
 ```bash
 svelte-vitals --category seo

@@ -316,3 +316,10 @@ describe('safety hardening (buildHtmlDocument is a public API; JsonReport is loo
     expect(safeHref('HTTPS://example.com')).toBe('HTTPS://example.com');
   });
 });
+
+describe('app shell category labels', () => {
+  it('embeds the shared category-label map so every category renders its display name', async () => {
+    const { APP_SCRIPT } = await import('../src/reporter/app-shell.js');
+    expect(APP_SCRIPT).toContain('"a11y":"Accessibility"');
+  });
+});

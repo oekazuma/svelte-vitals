@@ -25,18 +25,19 @@ export function resultFactory(id: string, recommendation: string) {
 }
 
 /**
- * Shared engine behind `a11y/duplicate-landmark` and `a11y/id-duplication`: for each key of
+ * Shared engine behind `a11y/duplicate-landmark` and `a11y/id-duplication`: for each entry of
  * `map(route)` (already branch-aware-folded, deterministically ordered representatives),
- * every representative beyond the first is one PENALIZED finding; a route with keys but no
- * surplus emits one PASS at the first key's first representative; no keys emits nothing.
- * Entry order of `map`'s record is emission order and picks the PASS anchor.
+ * every representative beyond the first is one PENALIZED finding; a route with entries but no
+ * surplus emits one PASS at the first entry's first representative; no entries emits nothing.
+ * `map` returns ORDERED entries (a Record's own-key enumeration reorders integer-like keys,
+ * so it cannot carry the order): their order is emission order and picks the PASS anchor.
  */
 export function surplusRule(spec: {
   id: string;
   title: string;
   rationale: string;
   recommendation: string;
-  map: (route: ResolvedA11y) => Record<string, A11yOccurrenceInfo[]>;
+  map: (route: ResolvedA11y) => [string, A11yOccurrenceInfo[]][];
   message: (key: string, i: number, n: number) => string;
   passMessage: string;
 }): Rule {
@@ -53,7 +54,7 @@ export function surplusRule(spec: {
       for (const route of ctx.a11y ?? []) {
         let first: A11yOccurrenceInfo | undefined;
         let surplus = false;
-        for (const [key, reps] of Object.entries(spec.map(route))) {
+        for (const [key, reps] of spec.map(route)) {
           first ??= reps[0];
           for (let i = 1; i < reps.length; i++) {
             surplus = true;

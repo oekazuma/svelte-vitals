@@ -154,6 +154,14 @@ describe('parseFile — a11y occurrences', () => {
     expect(parsed.a11y.unknowableContent).toBe(false);
   });
 
+  it('skips inert contents of <svelte:element this="template"> like a literal <template>', () => {
+    const parsed = parseIt('<svelte:element this="template" id="tpl"><div id="x" /></svelte:element><div id="x" />');
+    expect(parsed.a11y.nodes.map((n) => ({ kind: n.kind, key: n.key }))).toEqual([
+      { kind: 'id', key: 'tpl' },
+      { kind: 'id', key: 'x' }
+    ]);
+  });
+
   it('percent-decodes fragment hrefs the way navigation does', () => {
     const parsed = parseIt('<a href="#caf%C3%A9">menu</a><a href="#50%off">malformed-escape-kept</a>');
     expect(parsed.a11y.nodes.filter((n) => n.kind === 'idref').map((n) => n.key)).toEqual(['café', '50%off']);

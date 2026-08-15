@@ -11,7 +11,10 @@ import {
   attrTextOf,
   attrValue,
   attrValueOf,
-  decodeFragmentId
+  decodeFragmentId,
+  splitTokens,
+  LANDMARK_ROLES,
+  IDREF_ATTRS
 } from '@svelte-vitals/core';
 import { collectImports, type ImportMap } from './imports.js';
 
@@ -268,9 +271,8 @@ export interface ParsedA11y {
   unknowableContent: boolean;
 }
 
-const LANDMARK_ROLES = new Set(['main', 'banner', 'contentinfo', 'complementary']);
 const LANDMARK_TAGS: Record<string, string | undefined> = { main: 'main', header: 'banner', footer: 'contentinfo' };
-const IDREF_ATTRS = new Set(['for', 'aria-labelledby', 'aria-describedby', 'aria-controls', 'aria-activedescendant']);
+const IDREF_ATTR_SET = new Set(IDREF_ATTRS);
 
 /** Context threaded down the a11y walk: where in the template a node sits. */
 interface A11yCtx {
@@ -382,7 +384,7 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
     const roleAttr = findAttr(attrs, 'role');
     // ARIA fallback role lists (role="switch checkbox") resolve to the first supported token; a
     // non-literal or non-landmark role suppresses the tag mapping rather than falling through to it.
-    const role = roleAttr ? tokens(attrTextOf(roleAttr))[0] : undefined;
+    const role = roleAttr ? splitTokens(attrTextOf(roleAttr))[0] : undefined;
     const landmark = roleAttr ? (role && LANDMARK_ROLES.has(role) ? role : undefined) : LANDMARK_TAGS[node.name];
     if (landmark) {
       const headerFooter = !roleAttr && node.name !== 'main';
@@ -408,15 +410,22 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
           // Navigation percent-decodes the fragment before matching an id (#caf%C3%A9 → café).
           emit(ctx, { kind: 'idref', key: decodeFragmentId(href.slice(1)), line, attr: 'href' });
         }
-      } else if (IDREF_ATTRS.has(attr.name)) {
-        for (const token of tokens(attrTextOf(attr))) {
+      } else if (IDREF_ATTR_SET.has(attr.name)) {
+        for (const token of splitTokens(attrTextOf(attr))) {
           emit(ctx, { kind: 'idref', key: token, line, attr: attr.name });
         }
       }
     }
     // <template> contents are inert (not in the rendered document until instantiated), so ids
     // and landmarks inside never resolve or duplicate. The element's OWN attributes are live.
-    if (node.name === 'template') return;
+    // A <svelte:element this="template"> with a literal tag resolves to the same element.
+    const literalTag =
+      node.type === 'SvelteElement'
+        ? node.tag.type === 'Literal' && typeof node.tag.value === 'string'
+          ? node.tag.value
+          : undefined
+        : node.name;
+    if (literalTag === 'template') return;
     walk(node.fragment, {
       ...ctx,
       elementDepth: ctx.elementDepth + 1,
@@ -426,10 +435,6 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
 
   walk(fragment, { path: [], repeatable: false, landmarks: [], elementDepth: 0 });
   return { nodes, ...(slotInLandmark ? { slotInLandmark } : {}), unknowableContent };
-}
-
-function tokens(value: string | undefined): string[] {
-  return value ? value.trim().split(/\s+/).filter(Boolean) : [];
 }
 
 function isChildrenRender(node: AST.RenderTag): boolean {

@@ -1,6 +1,6 @@
 import { parse, type HTMLElement } from 'node-html-parser';
 import type { HeadTag, ImageInfo, Value } from '@svelte-vitals/core';
-import { decodeFragmentId } from '@svelte-vitals/core';
+import { decodeFragmentId, splitTokens, isTopFragment, LANDMARK_ROLES, IDREF_ATTRS } from '@svelte-vitals/core';
 
 function attrValue(v: string | undefined): Value {
   return v !== undefined && v.trim().length > 0 ? 'static' : 'absent';
@@ -52,16 +52,10 @@ export interface ParsedHtmlHead {
   idRefs: { id: string; attr: string }[];
 }
 
-const LANDMARK_ROLES = new Set(['main', 'banner', 'contentinfo', 'complementary']);
 // HTML-AAM: <header>/<footer> map to banner/contentinfo unless a descendant of sectioning
 // content (article/aside/main/nav/section) — the rendered DOM's real nesting decides this
 // directly, unlike source mode's per-file topLevel approximation (routes.ts countsAsLandmark).
 const SECTIONING_TAGS = new Set(['article', 'aside', 'main', 'nav', 'section']);
-const IDREF_ATTRS = ['for', 'aria-labelledby', 'aria-describedby', 'aria-controls', 'aria-activedescendant'];
-
-function tokens(value: string | undefined): string[] {
-  return value ? value.trim().split(/\s+/).filter(Boolean) : [];
-}
 
 interface A11yWalkCtx {
   sectioning: number;
@@ -90,7 +84,7 @@ function collectA11y(root: HTMLElement): CollectedA11y {
     // mapping rather than falling through to it (mirrors the source provider's parse.ts).
     let landmark: string | undefined;
     if (roleAttr !== undefined) {
-      const role = tokens(roleAttr)[0];
+      const role = splitTokens(roleAttr)[0];
       landmark = role && LANDMARK_ROLES.has(role) ? role : undefined;
     } else if (tag === 'main') {
       landmark = 'main';
@@ -105,17 +99,18 @@ function collectA11y(root: HTMLElement): CollectedA11y {
     }
 
     const id = el.getAttribute('id');
-    if (id) ids.push(id);
+    // A whitespace-only id is invalid HTML and unmatchable — same skip as source mode.
+    if (id && id.trim()) ids.push(id);
 
     const href = el.getAttribute('href');
-    // href="#top" scrolls to the document top with no element of that id (HTML's "top of the
-    // document" fragment), so it is never a missing reference; bare "#" is likewise not an id ref.
-    if (href && href.startsWith('#') && href.length > 1 && href.toLowerCase() !== '#top') {
-      // Navigation percent-decodes the fragment before matching an id (#caf%C3%A9 → café).
-      idRefs.push({ id: decodeFragmentId(href.slice(1)), attr: 'href' });
+    if (href && href.startsWith('#') && href.length > 1) {
+      // Navigation percent-decodes the fragment before matching an id (#caf%C3%A9 → café), and
+      // the "top of the document" check compares the decoded form too (#%74op === #top).
+      const fragment = decodeFragmentId(href.slice(1));
+      if (!isTopFragment(fragment)) idRefs.push({ id: fragment, attr: 'href' });
     }
     for (const attr of IDREF_ATTRS) {
-      for (const token of tokens(el.getAttribute(attr))) idRefs.push({ id: token, attr });
+      for (const token of splitTokens(el.getAttribute(attr) ?? undefined)) idRefs.push({ id: token, attr });
     }
 
     // <template> contents are inert (not part of the live document), so ids and landmarks

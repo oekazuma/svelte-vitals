@@ -103,7 +103,8 @@ export const ROOT_ARGS = {
   ignore: { type: 'string', description: 'Comma-separated rule ids to disable' },
   category: {
     type: 'string',
-    description: 'Comma-separated categories to analyze: seo | performance | correctness | security | architecture'
+    description:
+      'Comma-separated categories to analyze: seo | performance | correctness | security | architecture | a11y'
   },
   weights: {
     type: 'string',

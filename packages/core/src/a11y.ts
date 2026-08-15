@@ -100,3 +100,29 @@ export function decodeFragmentId(fragment: string): string {
     return fragment;
   }
 }
+
+/** Whitespace-split tokens of a (possibly undefined) literal attribute value. */
+export function splitTokens(value: string | undefined): string[] {
+  return value ? value.trim().split(/\s+/).filter(Boolean) : [];
+}
+
+/** Explicit `role` values that map to the landmark kinds the route rules inspect. */
+export const LANDMARK_ROLES: ReadonlySet<string> = new Set(['main', 'banner', 'contentinfo', 'complementary']);
+
+/** Attributes whose (whitespace-tokenized) values reference element ids. */
+export const IDREF_ATTRS: readonly string[] = [
+  'for',
+  'aria-labelledby',
+  'aria-describedby',
+  'aria-controls',
+  'aria-activedescendant'
+];
+
+/**
+ * Whether a decoded URL fragment is HTML's "top of the document" indicator: `#top` (ASCII
+ * case-insensitive) scrolls to the top when no element has that id, so it is never a missing
+ * reference. Compare AFTER percent-decoding — `#%74op` navigates identically to `#top`.
+ */
+export function isTopFragment(id: string): boolean {
+  return id.toLowerCase() === 'top';
+}

@@ -98,6 +98,23 @@ describe('a11y/id-duplication', () => {
   });
 });
 
+describe('a11y/id-duplication — entry ordering', () => {
+  it('anchors PASS at the (file, line)-first id even when integer-like ids exist', async () => {
+    const rs = await a11yIdDuplication.check(
+      ctxA11y([
+        ra({
+          ids: {
+            '9': [{ file: 'src/routes/b.svelte', line: 1 }],
+            hero: [{ file: 'src/routes/a.svelte', line: 2 }]
+          }
+        })
+      ])
+    );
+    expect(rs).toHaveLength(1);
+    expect(rs[0]).toMatchObject({ detection: { presence: 'own' }, location: 'src/routes/a.svelte' });
+  });
+});
+
 describe('a11y/no-missing-id-ref', () => {
   it('one finding per dangling ref, located at it', async () => {
     const rs = await a11yNoMissingIdRef.check(

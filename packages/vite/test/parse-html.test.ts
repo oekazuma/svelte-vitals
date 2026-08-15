@@ -214,6 +214,12 @@ describe('parse-html: a11y capture (rendered landmark/id parity)', () => {
     expect(landmarks).toContain('banner');
   });
 
+  it('excludes #top by its decoded form and skips whitespace-only ids', () => {
+    const { idRefs, ids } = parseHtmlHead(doc('<a href="#%74op">up</a><a href="#TOP">up</a><p id="   ">x</p>'));
+    expect(idRefs).toEqual([]);
+    expect(ids).toEqual([]);
+  });
+
   it('percent-decodes fragment hrefs the way navigation does', () => {
     const { idRefs } = parseHtmlHead(doc('<a href="#caf%C3%A9">menu</a><a href="#50%off">malformed-escape-kept</a>'));
     expect(idRefs).toEqual([

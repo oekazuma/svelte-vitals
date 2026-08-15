@@ -42,7 +42,7 @@ export const JA_ARG_DESCRIPTIONS = {
     'min-health': '組み合わせた Health スコアがこの値を下回れば失敗（終了コード 1、0〜100）',
     rules: '有効にするルール ID（カンマ区切り、他はすべて無効）',
     ignore: '無効にするルール ID（カンマ区切り）',
-    category: '解析対象カテゴリ（カンマ区切り）: seo | performance | correctness | security | architecture',
+    category: '解析対象カテゴリ（カンマ区切り）: seo | performance | correctness | security | architecture | a11y',
     weights: 'カテゴリごとの Health 重み上書き。例: seo=2,performance=1（指定のないカテゴリはデフォルト値 1）',
     score: '組み合わせた Health スコアのみを出力（--min-health と併用してゲートに利用可能）',
     noColor: 'コンソール出力の ANSI カラーを無効化',
