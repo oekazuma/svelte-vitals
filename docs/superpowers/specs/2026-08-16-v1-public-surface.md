@@ -127,6 +127,9 @@ is exactly this case.
   `version, score, weights, categories, summary, rules{findings,passed}, routes[], siteIssues[],
 inventories, examined?`, closed over exactly `Summary`, `RuleEvidence`, `JsonIssue`, `Result`,
   `Detection`, `Presence`, `Value`, `Fix`, `Category`, `Severity`, `Config`, and `ScoreModel`.
+  Every field listed above, and its meaning, is frozen; new fields may be added in a minor **only
+  as optional**, and consumers must ignore fields they do not know — a parser that rejects unknown
+  keys is relying on something 1.0 does not promise.
   `ScoreModel` is named rather than "the scoring types": the neighbouring `ScoreOptions` carries
   `rules?: Rule[]`, so freezing that group would drag `Rule` → `RuleContext` → `ResolvedA11y` back
   into the promise. Additive fields stay minor; removing or retyping one is 2.0.
@@ -200,12 +203,19 @@ nothing: an internal export carries no promise.
 
 ## Implementation notes for the split
 
-Mechanical, but three call sites need care:
+**Retarget per symbol, not per file.** `./internal` does not re-export `.`'s names, so a file that
+uses both keeps two import statements — and that is the desired end state: production code
+consuming `Config`, `defineConfig`, or `JsonReport` should keep importing them from the root, where
+it demonstrates the frozen surface. cli's `config-file.ts`, `suppressions.ts`, and vite's
+`ui/middleware.ts` import a mix today (`Config` alongside `isPenalized` / `renderAppShell`); each
+such line splits rather than moves wholesale.
 
-1. **Core's own tests** import from `../src/index.js` in ~50 files. Retarget to `../src/internal.js`
-   (or the owning module) — do not widen `.` to keep a test import compiling.
-2. **cli and vite tests** import from `@svelte-vitals/core` root. Retarget to
-   `@svelte-vitals/core/internal`. Same rule: a test import is never a reason to freeze a symbol.
+Three call sites need care:
+
+1. **Core's own tests** import from `../src/index.js` in ~50 files. Retarget the internal names to
+   `../src/internal.js` (or the owning module) — do not widen `.` to keep a test import compiling.
+2. **cli and vite tests** import from `@svelte-vitals/core` root. Same per-symbol split. A test
+   import is never a reason to freeze a symbol.
 3. **`index.ts` must not import from `internal.ts`, and vice versa.** Both re-export from the same
    underlying modules; neither re-exports the other, so there is no cycle and no risk of `.`
    accidentally re-exporting internal symbols through a barrel.
@@ -214,22 +224,28 @@ Mechanical, but three call sites need care:
 
 ## Enforcement
 
-A test in `packages/core/test/` reads `src/index.ts`'s export list and compares it to a committed
-`public-surface.json`. A new name in `.` fails the build with "add it to the frozen surface or
-export it from ./internal instead". Same forcing function as the docs-links and kitchen-sink
-meta-tests.
+`public-surface.json` holds **two** sets, because exports and declarations are not the same
+question:
 
-The type-closure property gets its own check, and it must be phrased against what the bundler
-actually emits. `rollup-plugin-dts` **inlines** every reachable in-package declaration into
-`dist/index.d.ts`, so "references only what it declares" is self-satisfying by construction — an
-accidental drag-in of an internal type would inline silently and pass. The implementable form:
+- `exports` — the names `.` re-exports, split `values` / `types`. This is the promise.
+- `closure` — every identifier allowed to be **declared** in `dist/index.d.ts`. A superset of
+  `exports`: `JsonIssue` is a non-exported type alias in `reporter/json.ts` that the bundler
+  inlines, so it is legal in the closure and must never become an export.
 
-1. `dist/index.d.ts` contains **zero** `import` statements (today's `import { AST } from 'svelte/compiler'` must not survive into `.`), and
-2. the set of identifiers it **declares** is a subset of `public-surface.json`.
+A test in `packages/core/test/` asserts three things:
 
-Check 2 is what catches a drag-in: pulling in `RuleContext` inlines `ResolvedA11y` et al. as new
-declarations, and the subset assertion fails. Closure is the invariant that makes the frozen list
-meaningful, and it is not preserved by review alone.
+1. `src/index.ts`'s export list equals `exports` (and the built `dist/index.js`'s runtime exports
+   equal `exports.values`, so a build that drops or adds a name fails too). A new name fails with
+   "add it to the frozen surface or export it from ./internal instead".
+2. `dist/index.d.ts` contains **zero** `import` statements — today's
+   `import { AST } from 'svelte/compiler'` must not survive into `.`.
+3. Every identifier `dist/index.d.ts` declares is in `closure`.
+
+Assertion 3 is what catches a type drag-in, and it needs the separate set to work: `rollup-plugin-dts`
+**inlines** every reachable in-package declaration, so "references only what it declares" is
+self-satisfying by construction — pulling in `RuleContext` would inline `ResolvedA11y` et al. as new
+declarations, which `closure` rejects while `exports` alone would not have noticed. Closure is the
+invariant that makes the frozen list meaningful, and it is not preserved by review alone.
 
 ## Corrections this audit surfaced (fix before the freeze)
 
