@@ -19,7 +19,7 @@ description: banner・main・complementary・contentinfo ランドマークは�
 <!-- +page.svelte --><h1>ページの本文</h1><aside role="complementary">関連リンク</aside>
 ```
 
-どちらのファイル単体を見ても問題はありません。markuplint のような単一ファイル向けの lint ではこれを検出できません。このネストは、レイアウトの `<main>` とページの `complementary` をファイルをまたいで合成して初めて存在するものだからです。
+どちらのファイル単体を見ても問題はありません。ファイル単位のマークアップ linter ではこれを検出できません。このネストは、レイアウトの `<main>` とページの `complementary` をファイルをまたいで合成して初めて存在するものだからです。
 
 検出しないもの:
 

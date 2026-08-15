@@ -1,15 +1,15 @@
-# A11y roadmap: markuplint parity or better
+# A11y roadmap: parity or better with standalone markup linters
 
-Product bar, set by the maintainer: the a11y category must not be a degraded markuplint — for
-every markuplint capability worth having in a SvelteKit checker, svelte-vitals ships an equal or
-better version (better usually meaning: resolved cross-component analysis, scoring/gating, and
+Product bar, set by the maintainer: the a11y category must not be a degraded copy of the
+standalone markup linters — for every file-scoped-linter capability worth having in a SvelteKit
+checker, svelte-vitals ships an equal or better version (better usually meaning: resolved cross-component analysis, scoring/gating, and
 zero per-project parser config). This document records the bar and the queued increments toward
 it, extending `2026-08-14-a11y-category-design.md` (Phase 1, shipped).
 
-## markuplint v5 delta (audited against v5.0.0-rc.4)
+## Current-generation linter delta (audited against the latest pre-release check catalog)
 
-v5 splits the v4 `wai-aria` umbrella into granular rules and adds new ones. Mapping against
-what Phase 1 already ships:
+The current generation splits its ARIA umbrella check into granular rules and adds new ones.
+Mapping against what Phase 1 already ships:
 
 **Covered** — `wai-aria-non-existent-role` + `wai-aria-abstract-role` (→ `a11y/invalid-role`),
 `wai-aria-required-props` (→ `a11y/required-aria-props`), `wai-aria-value`
@@ -50,17 +50,17 @@ template declaration tags are invisible to the script-scope correctness facts
 ## Queued increments
 
 1. **Pretender-style component mapping** — a config surface declaring what an unresolvable
-   (node_modules) component renders as (`{ "Link": "a" }`, markuplint's `pretenders` is prior
-   art). This is the single highest-leverage unlock: it widens `no-missing-id-ref`'s closed
+   (node_modules) component renders as (`{ "Link": "a" }`; the component-to-element mapping file-scoped
+   linters rely on is prior art). This is the single highest-leverage unlock: it widens `no-missing-id-ref`'s closed
    world (today it skips any route whose composition touches a library component) and enriches
-   landmark composition. Where markuplint _requires_ pretenders for all cross-file knowledge,
+   landmark composition. Where a file-scoped linter _requires_ that mapping for all cross-file knowledge,
    svelte-vitals needs them only at the package boundary — that asymmetry is the "better".
 2. **Phase 2 element-level spec data** (`2026-08-14` design, Phase 2 section): full
    `permitted-contents`, `invalid-attr`, generic `required-attr`, `deprecated-element`/`-attr`,
-   `ineffective-attr`. Data source (own dataset vs `@markuplint/html-spec`) is that design's
+   `ineffective-attr`. Data source (own dataset vs a published data-only spec dataset) is that design's
    central question.
 3. **Phase 3 config-driven rules** (`required-element`, `disallowed-element`) and the
-   selector-scoped configuration question (markuplint `nodeRules` vs svelte-vitals file-glob
+   selector-scoped configuration question (CSS-selector overrides vs svelte-vitals file-glob
    overrides), plus the small-rule pool (`no-consecutive-br`, `no-empty-palpable-content`,
    `table-row-column-alignment`, `no-ambiguous-navigable-target-names`, `neighbor-popovers`).
 4. **Inline suppression directives for route-scoped findings** — parity with component rules;

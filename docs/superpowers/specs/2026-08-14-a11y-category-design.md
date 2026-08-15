@@ -11,18 +11,18 @@ no per-file tool can perform — rather than re-surfacing compiler output. The r
 ## Goal
 
 Add an **Accessibility** category (`a11y`) of native, statically-checked markup rules, modeled
-on markuplint's rule set but Svelte-aware. The product goal is deliberate: svelte-vitals is an
-all-in-one quality gate for SvelteKit apps, so overlap with markuplint (and with the Svelte
+on the check catalog established by file-scoped markup linters, but Svelte-aware. The product goal is deliberate: svelte-vitals is an
+all-in-one quality gate for SvelteKit apps, so overlap with standalone markup linters (and with the Svelte
 compiler's warnings) is accepted where the rule earns its place in a scored, CI-gated report.
 
-Differentiation over markuplint (`@markuplint/svelte-parser` exists; markuplint lints `.svelte`
-files per file):
+Differentiation over standalone markup linters (which process `.svelte` files one file at a
+time, via parser plugins):
 
 1. **Resolved cross-component analysis** — svelte-vitals composes the route (layout chain +
    page + transitively rendered components) the way it already does for `<head>` and headings,
    so it can catch duplicated `<main>` landmarks, duplicate `id`s, and dangling
-   `for`/`aria-labelledby` references that only exist _after_ composition. markuplint
-   compensates for this blindness with hand-written `pretenders` config; svelte-vitals resolves
+   `for`/`aria-labelledby` references that only exist _after_ composition. File-scoped linters
+   compensate for this blindness with a hand-written component-to-element mapping in config; svelte-vitals resolves
    project components automatically.
 2. **Scored and gated** — findings feed the per-route category score, suppressions file,
    `--min-health`, and every reporter, instead of a separate lint log.
@@ -34,19 +34,19 @@ Svelte compiler warnings (`a11y_unknown_role`, `a11y_unknown_aria_attribute`,
 `a11y_role_has_required_aria_props`). They are still implemented natively because the compiler
 only streams warnings into the build log — it does not score, gate, suppress per-line with the
 project's suppressions machinery, or appear in the health report. This is a product decision,
-not an oversight; it is the same "all-in-one gate" reasoning that admits markuplint overlap.
+not an oversight; it is the same "all-in-one gate" reasoning that admits markup-linter overlap.
 Aggregating the compiler warnings themselves (the removed v0.5 approach) stays out of scope; if
 ever wanted, it is an additive "one more source" increment that this design does not depend on.
 
-## The markuplint rule matrix
+## The candidate check matrix
 
-Every markuplint built-in rule (v4.x, from markuplint.dev/docs/rules), classified. Validated
-against a real-world markuplint config for a production SvelteKit app — its enabled/disabled
-choices match this classification.
+Every check in the surveyed file-scoped linter catalog, classified. Validated against a
+real-world lint config for a production SvelteKit app — its enabled/disabled choices match
+this classification.
 
 ### Not adopted — Svelte/toolchain already guarantees it, or out of scope
 
-| markuplint rule                                                                                                                            | reason                                                         |
+| surveyed check                                                                                                                             | reason                                                         |
 | ------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
 | `attr-duplication`                                                                                                                         | Svelte compiler errors on duplicate attributes                 |
 | `end-tag`, `no-orphaned-end-tag`                                                                                                           | Svelte parser errors on malformed markup                       |
@@ -70,12 +70,12 @@ See _Phase 1 rules_ below.
 
 `permitted-contents` (full content models), `invalid-attr`, `required-attr` (generic),
 `deprecated-element`, `deprecated-attr`, `ineffective-attr`. The data source (own dataset vs a
-data-only dependency such as `@markuplint/html-spec`) is that design's central question.
+published data-only spec dataset) is that design's central question.
 
 ### Phase 3 (separate design) — config-driven rules and the selector problem
 
 `required-element`, `disallowed-element` (project-specific declarations), plus a decision on
-selector-scoped configuration: markuplint's `nodeRules` targets CSS selectors, while
+selector-scoped configuration: file-scoped linters target CSS selectors for per-element overrides, while
 svelte-vitals `overrides` target file globs. Also the Phase 3 pool above.
 
 ## Category infrastructure
@@ -181,7 +181,7 @@ defined above, not the existing flat walks (see _Control-flow semantics_).
 | `a11y/duplicate-landmark` | composed route yields more than one `main` / `banner` / `contentinfo` landmark, branch-aware (see _Control-flow semantics_). `<main>` and explicit `role` literals count everywhere; `<header>`/`<footer>` count **only in chain files at template top level** — transitive components contribute `<main>` and explicit `role` literals only, since a component's `<header>`/`<footer>` may sit inside sectioning content in its parent and cross-file context can only create false duplicates. |
 | `a11y/top-level-landmark` | `banner` / `main` / `complementary` / `contentinfo` nested inside another landmark after composition — including the chain case where a layout renders its children inside `<main>` and the page contributes another landmark. Slot nesting context per chain file is statically tracked; transitive components are counting-only, so nesting across an intermediate component is out of scope (false-negative by design).                                                                       |
 | `a11y/id-duplication`     | the same literal `id` appears more than once: within one file (branch-aware), or across the composed route's resolved files. The cross-file arm is existential and open-world-sound (see above); occurrences inside `{#each}`/`{#snippet}` are excluded, and a route with a dynamic `id` skips nothing — dynamic ids simply aren't candidates.                                                                                                                                                   |
-| `a11y/no-missing-id-ref`  | literal `for`, `aria-labelledby`, `aria-describedby`, `aria-controls`, `aria-activedescendant`, or same-page `href="#…"` referencing an `id` absent from the composed route. Runs only on **fully resolved** routes (see _Open world vs closed world_ — the exhaustive condition list lives there); narrow applicability is accepted and documented. markuplint cannot do this across files at all.                                                                                              |
+| `a11y/no-missing-id-ref`  | literal `for`, `aria-labelledby`, `aria-describedby`, `aria-controls`, `aria-activedescendant`, or same-page `href="#…"` referencing an `id` absent from the composed route. Runs only on **fully resolved** routes (see _Open world vs closed world_ — the exhaustive condition list lives there); narrow applicability is accepted and documented. A file-scoped linter cannot do this across files at all.                                                                                    |
 
 ### Standalone element rules — component-scoped (per file, CLI static)
 
@@ -317,8 +317,8 @@ Vitest per package, fixtures under `test/fixtures/`:
 - Cross-component `interactive-nesting` (component root element interactive inside interactive
   parent).
 - A pretender-style mapping for **node_modules components** (unresolvable by source analysis —
-  e.g. a library `<Link>` rendering `<a>`); markuplint's `pretenders` config is prior art.
+  e.g. a library `<Link>` rendering `<a>`); the component-to-element mapping file-scoped linters use is prior art.
 - Rendered-mode execution of the component-scoped a11y rules.
 - Inline suppression directives for route-scoped findings (suppressions file covers them).
-- Svelte compiler warning aggregation; markuplint as an engine dependency.
+- Svelte compiler warning aggregation; a third-party lint engine as a dependency.
 - WCAG checks needing runtime computation (contrast, focus order).

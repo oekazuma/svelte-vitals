@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Add the sixth Vitals category `a11y` with 15 native, markuplint-modeled rules per `docs/superpowers/specs/2026-08-14-a11y-category-design.md`.
+**Goal:** Add the sixth Vitals category `a11y` with 15 native accessibility rules per `docs/superpowers/specs/2026-08-14-a11y-category-design.md`.
 
 **Architecture:** Component-scoped rules (ARIA validity + standalone element rules) ride the existing `componentRule`/`ComponentFacts` machinery with new per-rule fact fields extracted in `component-parse.ts`. Route-scoped rules (landmarks/ids) consume a new mode-independent boundary `ResolvedA11y`, built in source mode by a **branch-aware fold** over elements and component usages (new occurrence extraction inside the CLI's `parseFile`, no second parse, no new file reads) and in rendered mode from prerendered HTML. `a11y/doctype` reads the `app.html` content `collectProjectFacts` already loads.
 

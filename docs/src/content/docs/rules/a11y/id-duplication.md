@@ -9,7 +9,7 @@ description: Every id in a route should be unique.
 
 Flags a literal `id` value that occurs more than once across a route's composed layout chain (every `+layout.svelte` up to the route's `+page.svelte`) and its resolved local components. Detection is branch-aware: within an `{#if}`/`{#await}` block only the arm with the most occurrences counts (ties break to the first arm in document order), so mutually exclusive branches never fire a false duplicate.
 
-Ids are detected cross-file — an `id="search"` in `+layout.svelte` plus another `id="search"` in `+page.svelte` (or in an imported `$lib` component) is one duplicate, even though neither file alone looks wrong. Single-file linters like markuplint cannot see this, since the duplication only exists once the layout and the page are composed.
+Ids are detected cross-file — an `id="search"` in `+layout.svelte` plus another `id="search"` in `+page.svelte` (or in an imported `$lib` component) is one duplicate, even though neither file alone looks wrong. A file-scoped markup linter cannot see this, since the duplication only exists once the layout and the page are composed.
 
 Not flagged:
 

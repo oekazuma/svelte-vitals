@@ -19,7 +19,7 @@ The flagship case is a layout that renders its children inside `<main>` while th
 <!-- +page.svelte --><h1>Page content</h1><aside role="complementary">Related links</aside>
 ```
 
-Nothing in either file alone is wrong — markuplint and other single-file linters cannot see this, since the nesting only exists once the layout's `<main>` and the page's `complementary` are composed across files.
+Nothing in either file alone is wrong — a file-scoped markup linter cannot see this, since the nesting only exists once the layout's `<main>` and the page's `complementary` are composed across files.
 
 Not flagged:
 
