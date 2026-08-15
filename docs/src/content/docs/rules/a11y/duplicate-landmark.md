@@ -21,15 +21,13 @@ Assistive technology users jump between landmarks (main, banner, contentinfo) wi
 
 Keep one `<main>`, one `<header>`/`role="banner"`, and one `<footer>`/`role="contentinfo"` per route. A layout that already renders one of these should not have the page (or an imported component) render another:
 
-```svelte
-<!-- +layout.svelte -->
+```svelte +layout.svelte
 <header>Site navigation, shown on every route</header>
 <main><slot /></main>
 <footer>Site footer, shown on every route</footer>
 ```
 
-```svelte
-<!-- +page.svelte -->
+```svelte +page.svelte
 <h1>Page content</h1>
 <!-- no second <main> here -->
 ```

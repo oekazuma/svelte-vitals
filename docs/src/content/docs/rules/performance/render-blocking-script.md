@@ -19,8 +19,7 @@ A synchronous `<script src>` in `<head>` blocks HTML parsing until it downloads 
 
 Add `defer` (or `type="module"`) / `async`:
 
-```html
-<!-- src/app.html -->
+```html src/app.html
 <script src="/analytics.js" defer></script>
 ```
 

@@ -27,8 +27,7 @@ Moving the chain to a server load keeps the logic but runs the hops server-to-se
 
 Move the dependent chain into a server load:
 
-```ts
-// +page.server.ts — same chain, server-side hops
+```ts +page.server.ts
 export async function load({ fetch }) {
   const user = await fetch(`/api/user`).then((r) => r.json());
   const posts = await fetch(`/api/posts/${user.id}`).then((r) => r.json());

@@ -15,8 +15,7 @@ description: 文字エンコーディングは <meta charset> で宣言します
 
 ## 修正方法
 
-```html
-<!-- src/app.html -->
+```html src/app.html
 <head>
   <meta charset="utf-8" />
   %sveltekit.head%

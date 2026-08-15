@@ -37,8 +37,7 @@ export function load() {
 
 ブラウザアクセスをクライアント側、`onMount` の中へ移します — `onMount` はサーバーでは実行されません:
 
-```svelte
-<!-- +page.svelte -->
+```svelte +page.svelte
 <script>
   import { onMount } from 'svelte';
 

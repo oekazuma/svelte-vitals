@@ -17,9 +17,9 @@ The `<h1>` names a page's main topic. Zero `<h1>` leaves the page without a prim
 
 ## How to fix
 
-```svelte
-<!-- +page.svelte -->
+```svelte +page.svelte
 <h1>The page's single, descriptive main heading</h1>
+
 <h2>A subsection</h2>
 <h2>Another subsection</h2>
 ```

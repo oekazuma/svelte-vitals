@@ -95,8 +95,7 @@ CI 導入時によくぶつかる壁があります。意図的に公開して�
 
 - **そのルールが一切不要なら**、[`svelte-vitals.config.*`](/ja/guides/configuration) でグローバルに無効化します：
 
-  ```js
-  // svelte-vitals.config.mjs
+  ```js svelte-vitals.config.mjs
   export default {
     rules: { 'seo/json-ld': 'off' }
   };
@@ -104,8 +103,7 @@ CI 導入時によくぶつかる壁があります。意図的に公開して�
 
 - **アプリの一部にだけルールやカテゴリが当てはまらないなら**（認証必須ルートのケース）、[`overrides`](/ja/guides/configuration#ルールをルートやファイルにスコープする-overrides) でスコープします。これは恒久的なポリシーで、あとから glob 配下に追加したルートも除外されます。
 
-  ```js
-  // svelte-vitals.config.mjs
+  ```js svelte-vitals.config.mjs
   export default {
     // (app) ルートグループ配下では SEO チェックを行わない。
     overrides: [{ files: 'src/routes/(app)/**', rules: { seo: 'off' } }]

@@ -223,8 +223,7 @@ By default it writes `svelte-vitals-report.html` in the current directory and pr
 
 ## Example: CI pipeline
 
-```yaml
-# .github/workflows/seo.yml
+```yaml .github/workflows/seo.yml
 - name: Check SEO
   run: npx svelte-vitals@latest --fail-on warning
   # GITHUB_ACTIONS is already set; github reporter is auto-selected

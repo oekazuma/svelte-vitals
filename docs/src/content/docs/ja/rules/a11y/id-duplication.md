@@ -25,12 +25,11 @@ id が重複すると、id の存在意義そのものが壊れます。`<label 
 
 重複している id のどちらか一方を、ルート内で一意になるように名前を変えます:
 
-```svelte
-<!-- +layout.svelte --><nav id="site-search">...</nav>
+```svelte +layout.svelte
+<nav id="site-search">...</nav>
 ```
 
-```svelte
-<!-- +page.svelte -->
+```svelte +page.svelte
 <section id="page-search">...</section>
 <!-- id="site-search" だったものをレイアウトとの重複を避けて変更 -->
 ```

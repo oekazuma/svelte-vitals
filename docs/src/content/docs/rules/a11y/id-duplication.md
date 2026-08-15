@@ -25,12 +25,11 @@ A duplicate id breaks the two things ids exist for: `<label for>`/`aria-labelled
 
 Rename one of the colliding ids so it's unique within the route:
 
-```svelte
-<!-- +layout.svelte --><nav id="site-search">...</nav>
+```svelte +layout.svelte
+<nav id="site-search">...</nav>
 ```
 
-```svelte
-<!-- +page.svelte -->
+```svelte +page.svelte
 <section id="page-search">...</section>
 <!-- was id="site-search", collided with the layout -->
 ```

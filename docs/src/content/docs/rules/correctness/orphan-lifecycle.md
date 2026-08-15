@@ -41,8 +41,7 @@ export async function load({ fetch }) {
 
 Move the call into component initialisation:
 
-```svelte
-<!-- +page.svelte -->
+```svelte +page.svelte
 <script>
   import { setContext } from 'svelte';
 
