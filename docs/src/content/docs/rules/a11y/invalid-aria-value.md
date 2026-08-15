@@ -42,8 +42,7 @@ Use a value matching the attribute's WAI-ARIA type — `aria-hidden="true"` for 
 
 If a value is intentionally non-standard, silence a single element with `<!-- svelte-vitals-disable-next-line a11y/invalid-aria-value -->`, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'a11y/invalid-aria-value': 'off'

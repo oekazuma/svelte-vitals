@@ -39,8 +39,7 @@ Point `for` at the control's `id`, or wrap the control inside the `<label>`:
 
 If the association is made some other way this rule can't see (e.g. `aria-labelledby` on the control), silence a single element with `<!-- svelte-vitals-disable-next-line a11y/label-has-control -->`, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'a11y/label-has-control': 'off'

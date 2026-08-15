@@ -50,8 +50,7 @@ Escape handling is conservative: any aliasing reference disqualifies, a whole-bi
 
 ## Disabling
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'performance/state-raw': 'off'

@@ -32,8 +32,7 @@ Configured origins are **added to** the built-in list, not a replacement for it 
 checking the Google Fonts origins even after adding its own, and picks up any origin the built-in
 list grows to cover in a later svelte-vitals release.
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: {
     'performance/preconnect': { options: { origins: ['cdn.example.com'] } }
@@ -45,8 +44,7 @@ export default {
 
 Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'performance/preconnect': 'off'

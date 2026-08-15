@@ -26,8 +26,7 @@ Reactive effects can only be created while a component is initialising, or insid
 
 ## How to fix
 
-```ts
-// store.svelte.ts
+```ts store.svelte.ts
 class QuizStateManager {
   bookmarks = $state<string[]>([]);
   constructor() {
@@ -78,8 +77,7 @@ export const quizState = new QuizStateManager();
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line correctness/orphan-effect -->` on the line above it, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'correctness/orphan-effect': 'off'

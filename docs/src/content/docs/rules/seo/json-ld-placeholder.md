@@ -21,8 +21,7 @@ Replace the placeholder with the real value for the page.
 
 Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'seo/json-ld-placeholder': 'off'

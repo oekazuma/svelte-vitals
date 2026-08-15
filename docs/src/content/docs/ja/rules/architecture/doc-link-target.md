@@ -33,8 +33,7 @@ description: コメントに書かれたドキュメントリンクは、実在�
 各エントリは、**このプロジェクトのルートを表す URL プレフィックス**です。URL がいずれかで始まるリンクは、
 そのプレフィックスを取り除かれ、残りの部分が `src/` 配下のファイルの中から探されます。
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/doc-link-target': {
@@ -82,8 +81,7 @@ export default {
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/doc-link-target -->` を置きます。ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'architecture/doc-link-target': 'off'

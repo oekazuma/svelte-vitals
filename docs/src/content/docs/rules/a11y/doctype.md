@@ -25,8 +25,7 @@ Add `<!doctype html>` as the first line of `src/app.html`:
 
 If this is intentional, turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'a11y/doctype': 'off'

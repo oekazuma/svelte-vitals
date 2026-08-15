@@ -28,8 +28,7 @@ export const ssr = false; // これが意図的なら suppression するかル�
 
 意図して完全な SPA にしている場合は、config でルールを無効化します：
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'seo/ssr-disabled': 'off'
@@ -43,8 +42,7 @@ export default {
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line seo/ssr-disabled -->` を置きます。ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'seo/ssr-disabled': 'off'

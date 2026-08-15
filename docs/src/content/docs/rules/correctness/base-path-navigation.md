@@ -65,8 +65,7 @@ Not covered:
 
 ## Disabling
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'correctness/base-path-navigation': 'off'

@@ -41,8 +41,7 @@ Give the element visible text, a labelling attribute, or an `alt` on its icon im
 
 If the name is supplied some other way this rule can't see (e.g. a wrapping label element), silence a single element with `<!-- svelte-vitals-disable-next-line a11y/accessible-name -->`, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'a11y/accessible-name': 'off'

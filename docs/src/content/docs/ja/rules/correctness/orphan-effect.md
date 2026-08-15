@@ -26,8 +26,7 @@ description: コンポーネント初期化の外で作られた $effect はラ�
 
 ## 修正方法
 
-```ts
-// store.svelte.ts
+```ts store.svelte.ts
 class QuizStateManager {
   bookmarks = $state<string[]>([]);
   constructor() {
@@ -78,8 +77,7 @@ export const quizState = new QuizStateManager();
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/orphan-effect -->` を置きます。ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'correctness/orphan-effect': 'off'

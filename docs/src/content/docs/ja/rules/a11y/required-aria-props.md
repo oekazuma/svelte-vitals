@@ -48,8 +48,7 @@ description: state や property 属性を要求するロールには、ネイテ
 
 必須プロパティを意図的に省略する場合は、`<!-- svelte-vitals-disable-next-line a11y/required-aria-props -->` で個別の要素を抑制するか、ルールを無効化してください:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'a11y/required-aria-props': 'off'

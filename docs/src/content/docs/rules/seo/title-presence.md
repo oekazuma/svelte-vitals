@@ -27,8 +27,7 @@ Add a `<title>` inside `<svelte:head>` (a dynamic title is fine), or set it via 
 
 Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'seo/title-presence': 'off'

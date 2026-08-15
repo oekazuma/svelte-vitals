@@ -26,8 +26,7 @@ On the browser each user gets their own module instance; on the server there is 
 
 Don't reach for shared module state in server-executed code — return data from `load` and pass it via `page.data` or the context API:
 
-```ts
-// +page.server.ts
+```ts +page.server.ts
 import { quizState } from '$lib/quiz.svelte.js'; // ❌ one instance for all users on the server
 
 export async function load({ locals }) {
@@ -41,8 +40,7 @@ If the module is genuinely client-only, restructure so server files don't import
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/shared-state-import -->` on the line above it, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'security/shared-state-import': 'off'

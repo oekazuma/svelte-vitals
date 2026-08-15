@@ -7,8 +7,7 @@ sidebar:
 
 `@svelte-vitals/vite`'s `svelteVitals()` plugin serves a live dashboard at `/__svelte-vitals/` during `vite dev` — a searchable, sortable route list with a detail pane for the selected route, or an "Overview" that aggregates every finding across the whole project. It updates in place as you work, and it's **on by default**; see [Disabling it](#disabling-it) to opt out.
 
-```js
-// vite.config.{js,ts}
+```js vite.config.{js,ts}
 import { svelteVitals } from '@svelte-vitals/vite';
 
 export default {
@@ -49,8 +48,7 @@ If the whole-project analysis fails (for example the dev server root is not a Sv
 
 On top of that static baseline, browsing your app refines the picture. Add the `svelteVitalsHandle` hook to `src/hooks.server.ts`:
 
-```ts
-// src/hooks.server.ts
+```ts src/hooks.server.ts
 import { svelteVitalsHandle } from '@svelte-vitals/vite/hooks';
 import { sequence } from '@sveltejs/kit/hooks';
 

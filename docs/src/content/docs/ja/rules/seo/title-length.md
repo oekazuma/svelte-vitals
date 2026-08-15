@@ -30,8 +30,7 @@ description: <title> は 30〜60 文字に収めましょう。
 | `min`      | integer |         30 |
 | `max`      | integer |         60 |
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: { 'seo/title-length': { options: { min: 20, max: 40 } } }
 };
@@ -41,8 +40,7 @@ export default {
 
 既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'seo/title-length': 'off'

@@ -79,8 +79,7 @@ Reassign the prop after mutating it to re-trigger reactivity — this is Svelte'
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line correctness/prop-mutation -->` on the line above it, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'correctness/prop-mutation': 'off'

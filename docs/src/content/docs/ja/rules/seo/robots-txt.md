@@ -28,8 +28,7 @@ Sitemap: https://example.com/sitemap.xml
 
 意図したとおりであれば、ルールを無効化してください:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'seo/robots-txt': 'off'

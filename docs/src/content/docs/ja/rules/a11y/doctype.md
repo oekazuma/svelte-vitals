@@ -25,8 +25,7 @@ doctype がないとブラウザは互換モード（quirks mode）でレンダ�
 
 意図的な場合はルールを無効化してください:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'a11y/doctype': 'off'

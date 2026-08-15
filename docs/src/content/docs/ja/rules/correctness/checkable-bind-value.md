@@ -44,8 +44,7 @@ description: checkbox や radio の bind:value は DOM の value プロパティ
 
 ## 無効化
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'correctness/checkable-bind-value': 'off'

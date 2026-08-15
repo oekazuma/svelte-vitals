@@ -35,8 +35,7 @@ Use the correctly spelled, spec-defined attribute:
 
 If an attribute is intentionally non-standard, silence a single element with `<!-- svelte-vitals-disable-next-line a11y/unknown-aria-attribute -->`, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'a11y/unknown-aria-attribute': 'off'

@@ -74,8 +74,7 @@ Svelte のガイダンスは、props を変わるものとして扱うよう求�
 
 ## 無効化
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'correctness/stale-prop-derivation': 'off'

@@ -48,8 +48,7 @@ required な `<select>` は、最初の option を初期状態の選択値とし
 
 最初の option が意図的にプレースホルダーではなく実際の値である場合は、`<!-- svelte-vitals-disable-next-line a11y/placeholder-label-option -->` で個別の要素を抑制するか、ルールを無効化してください:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'a11y/placeholder-label-option': 'off'

@@ -26,8 +26,7 @@ SvelteKit のルート/フックファイルの import のうち、解決先が�
 
 サーバーで実行されるコードでは共有モジュール状態に頼らず、`load` からデータを返して `page.data` か context API で渡します。
 
-```ts
-// +page.server.ts
+```ts +page.server.ts
 import { quizState } from '$lib/quiz.svelte.js'; // ❌ サーバー上では全ユーザーで1インスタンス
 
 export async function load({ locals }) {
@@ -41,8 +40,7 @@ export async function load({ locals }) {
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line security/shared-state-import -->` を置きます。ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'security/shared-state-import': 'off'

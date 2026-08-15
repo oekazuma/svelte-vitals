@@ -27,8 +27,7 @@ None of these globals exist in Node. A module-scope `window` read crashes the se
 
 ## How to fix
 
-```ts
-// +page.ts
+```ts +page.ts
 export function load() {
   const stored = localStorage.getItem('filters'); // ❌ ReferenceError on the server
 
@@ -62,8 +61,7 @@ const stored = browser ? localStorage.getItem('filters') : null; // ✅
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line correctness/server-browser-global -->` on the line above it, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'correctness/server-browser-global': 'off'

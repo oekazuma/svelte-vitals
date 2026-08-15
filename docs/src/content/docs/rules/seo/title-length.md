@@ -30,8 +30,7 @@ A title that is too short wastes the strongest on-page SEO signal; one that is t
 | `min`  | integer |      30 |
 | `max`  | integer |      60 |
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: { 'seo/title-length': { options: { min: 20, max: 40 } } }
 };
@@ -41,8 +40,7 @@ export default {
 
 Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'seo/title-length': 'off'

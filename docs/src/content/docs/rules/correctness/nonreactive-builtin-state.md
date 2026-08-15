@@ -55,8 +55,7 @@ Out of reach or out of scope:
 
 ## Disabling
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'correctness/nonreactive-builtin-state': 'off'

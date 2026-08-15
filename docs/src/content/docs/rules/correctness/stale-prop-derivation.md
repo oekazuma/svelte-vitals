@@ -74,8 +74,7 @@ The rule cannot know whether the parent ever changes the prop, but `$derived` co
 
 ## Disabling
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'correctness/stale-prop-derivation': 'off'

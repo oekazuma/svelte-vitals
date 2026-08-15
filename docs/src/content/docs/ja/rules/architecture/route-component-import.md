@@ -42,8 +42,7 @@ SvelteKit のルートエントリ —— `+page.svelte`、`+layout.svelte`、`+
 だけをデフォルトとして持たせています。プロジェクトが別の方法でサテライトファイルを示している
 場合は、自分のパターンを追加してください。
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/route-component-import': {
@@ -66,8 +65,7 @@ export default {
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/route-component-import -->` を置きます。ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'architecture/route-component-import': 'off'

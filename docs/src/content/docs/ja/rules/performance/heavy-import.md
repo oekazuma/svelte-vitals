@@ -39,8 +39,7 @@ description: サイズが大きく、ツリーシェイクも効かないパッ�
 組み込みと同じキーを指定した場合は、パッケージはリストに残ったまま対処方法だけが置き換わります。
 `{ lodash: '社内ヘルパーを使う' }` はエントリを増やすのではなく、検出結果の文面を差し替えます。
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: {
     'performance/heavy-import': { options: { packages: { 'chart.js': 'import chart.js/auto' } } }
@@ -52,8 +51,7 @@ export default {
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line performance/heavy-import -->` を置きます。ルールごと無効化するには:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'performance/heavy-import': 'off'

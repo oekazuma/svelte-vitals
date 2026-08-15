@@ -28,8 +28,7 @@ export const ssr = false; // fine — suppress or turn the rule off if this is d
 
 For a deliberate full SPA, disable the rule in your config:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'seo/ssr-disabled': 'off'
@@ -43,8 +42,7 @@ or add `// svelte-vitals-disable-next-line seo/ssr-disabled` above the declarati
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line seo/ssr-disabled -->` on the line above it, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'seo/ssr-disabled': 'off'

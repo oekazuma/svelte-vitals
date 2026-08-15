@@ -27,8 +27,7 @@ Move the unit out of its private directory, up to the directory shared by all of
 
 Each glob matches a **private directory**, and its **parent** becomes the boundary: files inside the parent may import from it, files outside may not.
 
-```js
-// svelte-vitals.config.js
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/private-scope-import': {
@@ -62,8 +61,7 @@ An import that names a private directory itself, rather than a file inside it (f
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/private-scope-import -->` on the line above it, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'architecture/private-scope-import': 'off'

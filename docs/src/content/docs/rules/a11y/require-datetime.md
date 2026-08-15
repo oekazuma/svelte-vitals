@@ -37,8 +37,7 @@ Add a `datetime` attribute with a machine-readable value:
 
 If the text is intentionally not machine-readable, silence a single element with `<!-- svelte-vitals-disable-next-line a11y/require-datetime -->`, or turn the rule off:
 
-```js
-// svelte-vitals.config.mjs
+```js svelte-vitals.config.mjs
 export default {
   rules: {
     'a11y/require-datetime': 'off'
