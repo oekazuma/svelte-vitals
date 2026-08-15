@@ -186,16 +186,23 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
   validateRulesOption(options.rules);
   validateOverridesOption(options.overrides, options.rules);
   let root = options.cwd ?? process.cwd();
-  let minifyFlag: { minify: unknown; configFile: string | undefined } | undefined;
+  let minify: unknown;
+  let configFile: string | undefined;
   const buildPlugin: Plugin = {
     name: 'svelte-vitals',
     apply: 'build',
     enforce: 'post',
+    config(userConfig) {
+      // Read the user's value here, not the resolved one: SvelteKit runs `vite build` as an
+      // SSR build whose resolved `build.minify` is forced to false, and its client build is a
+      // separate `vite.build({ configFile })` with a fresh plugin instance — so the instance
+      // whose closeBundle sees the prerendered dir never gets a client `configResolved`.
+      // This is the same source SvelteKit itself forwards to the client build.
+      minify = userConfig.build?.minify;
+    },
     configResolved(config) {
       if (!options.cwd) root = config.root;
-      // Vite <=7 resolves top-level build.minify to false whenever build.ssr is set —
-      // judge only the client build, which reflects user intent on every Vite version.
-      if (!config.build.ssr) minifyFlag = { minify: config.build.minify, configFile: config.configFile };
+      configFile = config.configFile;
     },
     async closeBundle() {
       const pagesDir = options.prerenderDir ? options.prerenderDir : join(root, DEFAULT_PRERENDER_DIR);
@@ -214,9 +221,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
 
       let result;
       try {
-        const viteMinifyDisabled = minifyFlag
-          ? await resolveMinifyDisabled(minifyFlag.minify, minifyFlag.configFile, root)
-          : undefined;
+        const viteMinifyDisabled = await resolveMinifyDisabled(minify, configFile, root);
         result = await analyze(
           resolved,
           root,
