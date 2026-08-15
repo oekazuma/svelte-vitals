@@ -24,6 +24,12 @@ describe('parse: link as/crossorigin (static)', () => {
     expect(link.as).toBeUndefined();
     expect(link.hasCrossorigin).toBeUndefined();
   });
+  it('lowercases mixed-case rel/as keywords (HTML treats them case-insensitively)', () => {
+    const tags = parseHeadTags(head('<link rel="Preload" href="/i.woff2" as="Font" crossorigin />'), 'x.svelte');
+    const link = tags.find((t) => t.kind === 'link')!;
+    expect(link.rel).toBe('preload');
+    expect(link.as).toBe('font');
+  });
   it('treats a mixed static/dynamic href="/base/{slug}" as non-literal, not a truncated prefix', () => {
     const tags = parseHeadTags(head('<link rel="preload" href="/base/{slug}" as="font" />'), 'x.svelte');
     const link = tags.find((t) => t.kind === 'link' && t.rel === 'preload')!;

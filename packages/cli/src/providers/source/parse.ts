@@ -115,9 +115,11 @@ function tagsFromHead(head: AST.SvelteHead): ParsedTag[] {
         ...(descText !== undefined ? { text: descText } : {})
       });
     } else if (node.name === 'link') {
-      const rel = attrText(attributes, 'rel');
+      // rel/as keywords are ASCII case-insensitive per the HTML spec; rules and the head
+      // composition compare them literally, so normalize once here.
+      const rel = attrText(attributes, 'rel')?.toLowerCase();
       const hasAs = findAttr(attributes, 'as') !== undefined;
-      const asLiteral = attrText(attributes, 'as'); // literal keyword, or undefined for dynamic/absent
+      const asLiteral = attrText(attributes, 'as')?.toLowerCase(); // literal keyword, or undefined for dynamic/absent
       const hasCrossorigin = findAttr(attributes, 'crossorigin') !== undefined;
       const hreflang = attrText(attributes, 'hreflang'); // literal (incl. '') or undefined for dynamic/absent
       const href = attrText(attributes, 'href'); // literal URL (for performance/preconnect origin analysis), or undefined
