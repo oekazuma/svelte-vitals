@@ -92,6 +92,38 @@ export interface BasePathLinkFact {
   line: number;
 }
 
+/** An interactive element (e.g. `<button>`) found nested inside another interactive
+ *  container (e.g. `<a href>`) (a11y/interactive-nesting). */
+export interface InteractiveNestingFact {
+  containerTag: string;
+  descendantTag: string;
+  /** 1-based source line of the descendant, or 0 if unknown. */
+  line: number;
+}
+
+/** A `button`/`a href`/`input type="image"` with no computable accessible name (a11y/accessible-name). */
+export interface UnnamedInteractiveFact {
+  tag: string;
+  /** 1-based source line, or 0 if unknown. */
+  line: number;
+}
+
+/** An element carrying a `role` and/or `aria-*` attribute(s) (a11y ARIA rules). */
+export interface AriaElementFact {
+  tag: string;
+  /** 1-based source line, or 0 if unknown. */
+  line: number;
+  /** literal role value; undefined = no role attr; { expression: true } = dynamic */
+  role?: { literal?: string; expression?: boolean };
+  /** every aria-* attribute on the element */
+  aria: { name: string; literal?: string; expression?: boolean; line: number }[];
+  /** literal `type` of an `<input>`, lowercased; undefined for non-inputs or a dynamic type */
+  inputType?: string;
+  /** Set when the element also carries a spread attribute — its full attribute set is
+   *  unknowable, so required-prop presence checks must treat it as satisfied (a11y/required-aria-props). */
+  hasSpread?: true;
+}
+
 /** Reactivity/correctness + security + architecture facts parsed from one `.svelte` component. */
 export interface ComponentFacts {
   /** Source file the component came from. */
@@ -156,6 +188,21 @@ export interface ComponentFacts {
   suppressions?: SuppressionDirective[];
   /** Markdown links `[label](url)` appearing inside a comment (architecture/doc-link-target). */
   commentLinks: { url: string; line: number }[];
+  /** Elements carrying a role or any aria-* attribute (a11y ARIA rules). */
+  ariaElements?: AriaElementFact[];
+  /** Interactive elements nested inside another interactive container (a11y/interactive-nesting). */
+  interactiveNestings?: InteractiveNestingFact[];
+  /** `button`/`a href`/`input type="image"` elements with no computable accessible name (a11y/accessible-name). */
+  unnamedInteractive?: UnnamedInteractiveFact[];
+  /** `<label>` elements with neither a `for` attribute nor a wrapped labelable descendant (a11y/label-has-control). */
+  unassociatedLabels?: { line: number }[];
+  /** Text nodes whose trimmed content opens with a bullet character followed by whitespace, outside any `li` (a11y/use-list). */
+  bulletTexts?: { line: number; char: string }[];
+  /** `<select required>` (no `multiple`, display size absent or ≤ 1) whose first `option` element
+   *  child is not a placeholder label option (a11y/placeholder-label-option). */
+  selectsMissingPlaceholder?: { line: number }[];
+  /** `<time>` with no `datetime` attribute whose literal text content is not machine-readable (a11y/require-datetime). */
+  timesMissingDatetime?: { line: number; text: string }[];
   /** Set when the file failed to read or parse and these facts are the empty fallback — the file was NOT analyzed. */
   parseFailed?: true;
 }

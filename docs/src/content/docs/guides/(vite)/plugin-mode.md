@@ -5,9 +5,9 @@ sidebar:
   order: 1
 ---
 
-`@svelte-vitals/vite` piggybacks on `vite build`, parses the **prerendered HTML's `<head>`**, and runs the same SEO and Performance rules as the CLI. Inspecting the real output makes it library-agnostic.
+`@svelte-vitals/vite` piggybacks on `vite build`, parses the **prerendered HTML**, and runs the same SEO, Performance, and (landmark/id) Accessibility rules as the CLI. Inspecting the real output makes it library-agnostic.
 
-It also scans `src/` — components, runes modules (`.svelte.ts`/`.svelte.js`), route and hooks files — for Correctness, Security, Architecture and the component-scoped Performance rules, enabled by default. The build fails when findings reach the `failOn` threshold.
+It also scans `src/` — components, runes modules (`.svelte.ts`/`.svelte.js`), route and hooks files — for Correctness, Security, Architecture, the rest of Accessibility, and the component-scoped Performance rules, enabled by default. The build fails when findings reach the `failOn` threshold.
 
 > **ESM-only** (Node 22.13+). Ships ES modules only; `require()` is unsupported by design.
 

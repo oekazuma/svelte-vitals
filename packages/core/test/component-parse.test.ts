@@ -1258,3 +1258,180 @@ describe('parseComponentFacts — links inside comments', () => {
     expect(facts.commentLinks).toEqual([{ url: 'https://x.test/a/b', line: 1 }]);
   });
 });
+
+describe('parseComponentFacts — ariaElements (a11y ARIA rules)', () => {
+  it('collects literal role and aria attributes with lines', () => {
+    const c = parseComponentFacts('<div role="button" aria-label="Close"></div>', 'C.svelte');
+    expect(c.ariaElements).toEqual([
+      {
+        tag: 'div',
+        line: 1,
+        role: { literal: 'button' },
+        aria: [{ name: 'aria-label', literal: 'Close', line: 1 }]
+      }
+    ]);
+  });
+  it('marks expression values as expression, not literal', () => {
+    const c = parseComponentFacts('<div role={r} aria-hidden={h}></div>', 'C.svelte');
+    expect(c.ariaElements![0]!.role).toEqual({ expression: true });
+    expect(c.ariaElements![0]!.aria[0]).toMatchObject({ name: 'aria-hidden', expression: true });
+  });
+  it('skips elements with neither role nor aria-*', () => {
+    const c = parseComponentFacts('<div class="x"></div>', 'C.svelte');
+    expect(c.ariaElements ?? []).toEqual([]);
+  });
+  it('captures a lowercased input type on <input>', () => {
+    const c = parseComponentFacts('<input type="CHECKBOX" role="switch" />', 'C.svelte');
+    expect(c.ariaElements![0]!.inputType).toBe('checkbox');
+  });
+  it('marks hasSpread when the element carries a spread attribute, but still collects it', () => {
+    const c = parseComponentFacts('<div role="checkbox" {...attrs}></div>', 'C.svelte');
+    expect(c.ariaElements).toEqual([{ tag: 'div', line: 1, role: { literal: 'checkbox' }, hasSpread: true, aria: [] }]);
+  });
+});
+
+describe('parseComponentFacts — interactiveNestings (a11y/interactive-nesting)', () => {
+  it('flags a button inside a link, at the descendant line', () => {
+    const c = parseComponentFacts('<a href="/x">\n  <button>Go</button>\n</a>', 'C.svelte');
+    expect(c.interactiveNestings).toEqual([{ containerTag: 'a', descendantTag: 'button', line: 2 }]);
+  });
+  it('ignores tabindex="-1" descendants and href-less <a>', () => {
+    const c = parseComponentFacts('<a href="/x"><span tabindex="-1">x</span></a><a><button>y</button></a>', 'C.svelte');
+    expect(c.interactiveNestings ?? []).toEqual([]);
+  });
+  it('ignores an expression-valued href — unknowable whether the anchor renders with one', () => {
+    const c = parseComponentFacts('<a href={disabled ? undefined : url}><button>Go</button></a>', 'C.svelte');
+    expect(c.interactiveNestings ?? []).toEqual([]);
+  });
+  it('ignores an expression-valued input type — unknowable whether it renders as hidden', () => {
+    const c = parseComponentFacts('<button><input type={t} /></button>', 'C.svelte');
+    expect(c.interactiveNestings ?? []).toEqual([]);
+  });
+  it('still flags an input with no type or a literal non-hidden type', () => {
+    const c = parseComponentFacts('<button><input /></button>\n<button><input type="text" /></button>', 'C.svelte');
+    expect(c.interactiveNestings).toEqual([
+      { containerTag: 'button', descendantTag: 'input', line: 1 },
+      { containerTag: 'button', descendantTag: 'input', line: 2 }
+    ]);
+  });
+});
+
+describe('parseComponentFacts — {#snippet} bodies render at their {@render} site, not the declaration', () => {
+  it('does not report a snippet declared inside an interactive container as nested', () => {
+    const c = parseComponentFacts('<a href="/x">Go{#snippet icon()}<button>i</button>{/snippet}</a>', 'C.svelte');
+    expect(c.interactiveNestings ?? []).toEqual([]);
+  });
+  it('does not let snippet text name the declaring button (the render site names its own host)', () => {
+    const c = parseComponentFacts('<button>{#snippet label()}Save{/snippet}</button>', 'C.svelte');
+    // The snippet's "Save" is not this button's content; with only the (unknowable-free)
+    // snippet inside, the button is genuinely unnamed.
+    expect(c.unnamedInteractive).toEqual([{ tag: 'button', line: 1 }]);
+  });
+  it('does not let a control declared in a snippet satisfy the wrapping label', () => {
+    const c = parseComponentFacts('<label>Name{#snippet f()}<input />{/snippet}</label>', 'C.svelte');
+    expect(c.unassociatedLabels).toEqual([{ line: 1 }]);
+  });
+});
+
+describe('parseComponentFacts — a11y literal edge cases', () => {
+  it('does not treat a blank tabindex as interactive', () => {
+    const c = parseComponentFacts('<a href="/x"><div tabindex="">x</div></a>', 'C.svelte');
+    expect(c.interactiveNestings ?? []).toEqual([]);
+  });
+  it("does not judge snippet bullet text against the declaration site's list context", () => {
+    const c = parseComponentFacts('{#snippet s()}<p>- x</p>{/snippet}', 'C.svelte');
+    expect(c.bulletTexts ?? []).toEqual([]);
+  });
+  it('flags a <time> whose text merely starts with P', () => {
+    const c = parseComponentFacts('<time>Posted yesterday</time><time>P3D</time><time>PT5M</time>', 'C.svelte');
+    expect(c.timesMissingDatetime).toEqual([{ line: 1, text: 'Posted yesterday' }]);
+  });
+});
+
+describe('parseComponentFacts — unnamedInteractive (a11y/accessible-name)', () => {
+  it('flags an empty button and an icon-only link without alt', () => {
+    const c = parseComponentFacts('<button></button>\n<a href="/x"><img src="i.png" /></a>', 'C.svelte');
+    expect(c.unnamedInteractive).toEqual([
+      { tag: 'button', line: 1 },
+      { tag: 'a', line: 2 }
+    ]);
+  });
+  it('accepts text, aria-label (any form), title, img alt, input[type=image] alt, and skips unknowable content', () => {
+    const src = [
+      '<button>Save</button>',
+      '<button aria-label={l}></button>',
+      '<button title="t"></button>',
+      '<a href="/x"><img src="i.png" alt="Home" /></a>',
+      '<input type="image" alt="Search" />',
+      '<button>{icon}</button>',
+      '<button><Icon /></button>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').unnamedInteractive ?? []).toEqual([]);
+  });
+});
+
+describe('parseComponentFacts — unassociatedLabels (a11y/label-has-control)', () => {
+  it('flags a label with neither for nor a labelable descendant', () => {
+    expect(parseComponentFacts('<label>Name</label>', 'C.svelte').unassociatedLabels).toEqual([{ line: 1 }]);
+  });
+  it('accepts for=, a wrapped control, and skips unknowable children', () => {
+    const src = ['<label for="n">Name</label>', '<label>Name <input /></label>', '<label><Field /></label>'].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').unassociatedLabels ?? []).toEqual([]);
+  });
+  it('skips a label with a spread attribute — it may supply for', () => {
+    const c = parseComponentFacts('<label {...rest}>Email</label>', 'C.svelte');
+    expect(c.unassociatedLabels ?? []).toEqual([]);
+  });
+});
+
+describe('parseComponentFacts — bulletTexts (a11y/use-list)', () => {
+  it('flags text nodes starting with a bullet character', () => {
+    const c = parseComponentFacts('<p>• one</p>\n<p>・ two</p>\n<p>- three</p>\n<p>* four</p>', 'C.svelte');
+    expect(c.bulletTexts!.map((b) => b.char)).toEqual(['•', '・', '-', '*']);
+  });
+  it('ignores text inside li and bullet chars mid-text', () => {
+    const c = parseComponentFacts('<ul><li>• fine</li></ul>\n<p>a - b</p>', 'C.svelte');
+    expect(c.bulletTexts ?? []).toEqual([]);
+  });
+});
+
+describe('parseComponentFacts — selectsMissingPlaceholder (a11y/placeholder-label-option)', () => {
+  it('flags <select required> whose first option is not a placeholder', () => {
+    const c = parseComponentFacts('<select required><option value="a">A</option></select>', 'C.svelte');
+    expect(c.selectsMissingPlaceholder).toEqual([{ line: 1 }]);
+  });
+  it('accepts a placeholder first option, and ignores multiple/size>1/non-required selects', () => {
+    const src = [
+      '<select required><option value="">Choose…</option><option value="a">A</option></select>',
+      '<select required multiple><option value="a">A</option></select>',
+      '<select required size="3"><option value="a">A</option></select>',
+      '<select><option value="a">A</option></select>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').selectsMissingPlaceholder ?? []).toEqual([]);
+  });
+  it('skips a select with a spread attribute — it may supply multiple/size', () => {
+    const c = parseComponentFacts('<select required {...attrs}><option value="a">A</option></select>', 'C.svelte');
+    expect(c.selectsMissingPlaceholder ?? []).toEqual([]);
+  });
+  it('skips a select whose first option carries a spread attribute — it may supply value', () => {
+    const c = parseComponentFacts('<select required><option {...optAttrs}>A</option></select>', 'C.svelte');
+    expect(c.selectsMissingPlaceholder ?? []).toEqual([]);
+  });
+});
+
+describe('parseComponentFacts — timesMissingDatetime (a11y/require-datetime)', () => {
+  it('flags <time> whose literal text is not machine-readable and lacks datetime', () => {
+    const c = parseComponentFacts('<time>last Tuesday</time>', 'C.svelte');
+    expect(c.timesMissingDatetime).toEqual([{ line: 1, text: 'last Tuesday' }]);
+  });
+  it('accepts a datetime attr, machine-readable text, or dynamic content', () => {
+    const src = ['<time datetime="2026-08-14">last Tuesday</time>', '<time>2026-08-14</time>', '<time>{d}</time>'].join(
+      '\n'
+    );
+    expect(parseComponentFacts(src, 'C.svelte').timesMissingDatetime ?? []).toEqual([]);
+  });
+  it('skips a <time> with a spread attribute — it may supply datetime', () => {
+    const c = parseComponentFacts('<time {...attrs}>March 3</time>', 'C.svelte');
+    expect(c.timesMissingDatetime ?? []).toEqual([]);
+  });
+});

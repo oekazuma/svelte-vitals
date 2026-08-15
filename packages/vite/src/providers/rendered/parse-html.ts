@@ -1,5 +1,6 @@
-import { parse } from 'node-html-parser';
+import { parse, type HTMLElement } from 'node-html-parser';
 import type { HeadTag, ImageInfo, Value } from '@svelte-vitals/core';
+import { decodeFragmentId, splitTokens, isTopFragment, LANDMARK_ROLES, IDREF_ATTRS } from '@svelte-vitals/core';
 
 function attrValue(v: string | undefined): Value {
   return v !== undefined && v.trim().length > 0 ? 'static' : 'absent';
@@ -41,6 +42,89 @@ export interface ParsedHtmlHead {
   headings: number[];
   /** Page <img> elements (the caller fills `file`); enables the image rules in rendered mode. */
   images: Omit<ImageInfo, 'file'>[];
+  /** One entry per landmark occurrence in document order ('main'|'banner'|'contentinfo'|'complementary'); enables a11y/duplicate-landmark, a11y/top-level-landmark. */
+  landmarks: string[];
+  /** A landmark nested inside another landmark, with the ancestor's kind; enables a11y/top-level-landmark. */
+  nestedLandmarks: { kind: string; within: string }[];
+  /** One entry per literal id="…" occurrence anywhere in the document, in document order; enables a11y/id-duplication and, deduplicated, a11y/no-missing-id-ref's candidate set. */
+  ids: string[];
+  /** One entry per for/aria-…/href="#…" id reference; enables a11y/no-missing-id-ref. */
+  idRefs: { id: string; attr: string }[];
+}
+
+// HTML-AAM: <header>/<footer> map to banner/contentinfo unless a descendant of sectioning
+// content (article/aside/main/nav/section) — the rendered DOM's real nesting decides this
+// directly, unlike source mode's per-file topLevel approximation (routes.ts countsAsLandmark).
+const SECTIONING_TAGS = new Set(['article', 'aside', 'main', 'nav', 'section']);
+
+interface A11yWalkCtx {
+  sectioning: number;
+  /** ancestor landmark kinds seen so far, outermost first */
+  landmarks: string[];
+}
+
+interface CollectedA11y {
+  landmarks: string[];
+  nestedLandmarks: { kind: string; within: string }[];
+  ids: string[];
+  idRefs: { id: string; attr: string }[];
+}
+
+/** Whole-document scan (not body-scoped: app.html shell ids/refs are real occurrences too). */
+function collectA11y(root: HTMLElement): CollectedA11y {
+  const landmarks: string[] = [];
+  const nestedLandmarks: { kind: string; within: string }[] = [];
+  const ids: string[] = [];
+  const idRefs: { id: string; attr: string }[] = [];
+
+  const walk = (el: HTMLElement, ctx: A11yWalkCtx): void => {
+    const tag = el.rawTagName?.toLowerCase();
+    const roleAttr = el.getAttribute('role');
+    // A literal role, present or not, decides landmark-ness outright — it suppresses the tag
+    // mapping rather than falling through to it (mirrors the source provider's parse.ts).
+    let landmark: string | undefined;
+    if (roleAttr !== undefined) {
+      const role = splitTokens(roleAttr)[0];
+      landmark = role && LANDMARK_ROLES.has(role) ? role : undefined;
+    } else if (tag === 'main') {
+      landmark = 'main';
+    } else if ((tag === 'header' || tag === 'footer') && ctx.sectioning === 0) {
+      landmark = tag === 'header' ? 'banner' : 'contentinfo';
+    }
+
+    if (landmark) {
+      landmarks.push(landmark);
+      const within = ctx.landmarks.at(-1);
+      if (within) nestedLandmarks.push({ kind: landmark, within });
+    }
+
+    const id = el.getAttribute('id');
+    // A whitespace-only id is invalid HTML and unmatchable — same skip as source mode.
+    if (id && id.trim()) ids.push(id);
+
+    const href = el.getAttribute('href');
+    if (href && href.startsWith('#') && href.length > 1) {
+      // Navigation percent-decodes the fragment before matching an id (#caf%C3%A9 → café), and
+      // the "top of the document" check compares the decoded form too (#%74op === #top).
+      const fragment = decodeFragmentId(href.slice(1));
+      if (!isTopFragment(fragment)) idRefs.push({ id: fragment, attr: 'href' });
+    }
+    for (const attr of IDREF_ATTRS) {
+      for (const token of splitTokens(el.getAttribute(attr) ?? undefined)) idRefs.push({ id: token, attr });
+    }
+
+    // <template> contents are inert (not part of the live document), so ids and landmarks
+    // inside never resolve or duplicate. The element's OWN attributes above are live.
+    if (tag === 'template') return;
+    const nextCtx: A11yWalkCtx = {
+      sectioning: ctx.sectioning + (SECTIONING_TAGS.has(tag) ? 1 : 0),
+      landmarks: landmark ? [...ctx.landmarks, landmark] : ctx.landmarks
+    };
+    for (const child of el.children) walk(child, nextCtx);
+  };
+
+  for (const child of root.children) walk(child, { sectioning: 0, landmarks: [] });
+  return { landmarks, nestedLandmarks, ids, idRefs };
 }
 
 /** Parse a fully-rendered HTML document's <head> into normalized head tags. */
@@ -163,5 +247,7 @@ export function parseHtmlHead(html: string): ParsedHtmlHead {
     line: 0
   }));
 
-  return { tags, htmlLang, headings, images };
+  const a11y = collectA11y(root);
+
+  return { tags, htmlLang, headings, images, ...a11y };
 }

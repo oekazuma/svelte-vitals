@@ -24,6 +24,8 @@ export { defaultConfig, defineConfig, defaultProject, CATEGORIES } from './types
 export type { HeadTag, ResolvedHead, HeadProvider } from './head.js';
 export type { ImageInfo, ResolvedImages } from './images.js';
 export type { HeadingInfo, ResolvedHeadings } from './headings.js';
+export type { BranchStep, A11yOccurrenceInfo, ResolvedA11y } from './a11y.js';
+export { foldOccurrences, decodeFragmentId, splitTokens, isTopFragment, LANDMARK_ROLES, IDREF_ATTRS } from './a11y.js';
 export type {
   EachBlockFact,
   EffectFact,
@@ -140,7 +142,22 @@ export {
   performanceMinifyDisabled,
   performanceLoadWaterfall,
   performanceSequentialAwaits,
-  performanceStateRaw
+  performanceStateRaw,
+  a11yInvalidRole,
+  a11yUnknownAriaAttribute,
+  a11yRequiredAriaProps,
+  a11yInvalidAriaValue,
+  a11yInteractiveNesting,
+  a11yAccessibleName,
+  a11yLabelHasControl,
+  a11yUseList,
+  a11yPlaceholderLabelOption,
+  a11yRequireDatetime,
+  a11yDoctype,
+  a11yDuplicateLandmark,
+  a11yTopLevelLandmark,
+  a11yIdDuplication,
+  a11yNoMissingIdRef
 } from './rules/index.js';
 export type { RuleInfo, RuleOptionInfo } from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';

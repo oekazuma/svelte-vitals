@@ -96,7 +96,8 @@ Get the machine map before applying judgment:
   \`<title>\`/meta (SEO), image-heavy routes (Performance), forms and
   \`{@html}\` usage (Security), large or unkeyed list-rendering routes
   (Correctness), route/component files that have grown large or deeply
-  nested (Architecture).
+  nested (Architecture), interactive controls and forms with unclear
+  labeling or ARIA usage (Accessibility).
 - **Leverage map** (the judgment the scan lacks): which routes are
   high-traffic/public/indexed (a marketing page, a product listing) versus
   low-traffic or gated (an internal admin tool, a rarely visited settings
@@ -105,10 +106,10 @@ Get the machine map before applying judgment:
 
 ### Phase 2 — Audit (parallel)
 
-Audit against svelte-vitals' five categories: SEO, Performance, Correctness,
-Security, Architecture (see the rule catalog below for the full "hunt for"
-list per category, generated from svelte-vitals' own rule metadata — always
-in sync, never invented).
+Audit against svelte-vitals' six categories: SEO, Performance, Correctness,
+Security, Architecture, Accessibility (see the rule catalog below for the
+full "hunt for" list per category, generated from svelte-vitals' own rule
+metadata — always in sync, never invented).
 
 For anything beyond a small project, fan out read-only subagents — one per
 category. Each subagent prompt must include: the recon facts (stack,
@@ -126,8 +127,8 @@ Depth follows effort level (default \`standard\`):
 | Effort     | Coverage                              | Subagents | Findings                     |
 | ---------- | -------------------------------------- | --------- | ----------------------------- |
 | \`quick\`    | Highest-traffic/public routes only     | 0–1       | ~5, HIGH severity only        |
-| \`standard\` | All routes and components              | ≤5        | Full table                    |
-| \`deep\`     | Whole project incl. rarely-hit routes  | 5         | Full table + LOW polish items |
+| \`standard\` | All routes and components              | ≤6        | Full table                    |
+| \`deep\`     | Whole project incl. rarely-hit routes  | 6         | Full table + LOW polish items |
 
 ### Phase 3 — Vet, prioritize, confirm
 
@@ -223,6 +224,11 @@ category the rule catalog above can't cover:
   complex, well-organized page (leave it — don't split just to satisfy a
   metric). Look for duplicated \`<svelte:head>\` boilerplate that a shared
   layout or meta component would remove.
+- **Accessibility** — svelte-vitals checks static markup (ARIA validity,
+  landmarks, ids, labels); it can't drive a keyboard or screen reader. Hunt
+  for illogical tab order, missing visible focus styles, color contrast
+  below WCAG thresholds, and modal/menu components that don't trap or
+  restore focus — all invisible to a static scan.
 
 ## Plan template
 
@@ -236,7 +242,7 @@ target state.
 - **Status**: TODO
 - **Commit**: <output of \`git rev-parse --short HEAD\` when written>
 - **Severity**: HIGH | MEDIUM | LOW
-- **Category**: SEO | Performance | Correctness | Security | Architecture
+- **Category**: SEO | Performance | Correctness | Security | Architecture | Accessibility
 - **Rule**: <RULEID> | Beyond the scan
 - **Estimated scope**: <n files, rough size>
 
@@ -306,7 +312,7 @@ adapted to this file — never approximated from memory.
 | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | bare                                                                                  | Full workflow: recon → audit all categories → vet → confirm → plans                                                                        |
 | \`quick\` / \`deep\`                                                                      | Adjust audit effort (see table); composes with a category focus                                                                             |
-| a category focus (\`seo\`, \`performance\`, \`correctness\`, \`security\`, \`architecture\`)    | Recon + audit that category only                                                                                                             |
+| a category focus (\`seo\`, \`performance\`, \`correctness\`, \`security\`, \`architecture\`, \`accessibility\`) | Recon + audit that category only                                                                                                             |
 | \`plan <description>\`                                                                  | Skip the audit; recon just enough to specify, then write a single plan for the described improvement                                        |
 | \`execute <plan>\`                                                                      | Dispatch an executor subagent to implement the plan in an isolated worktree, then review its diff against svelte-vitals (\`--diff --reporter agent\`) and render a verdict |
 | \`reconcile\`                                                                           | Re-check \`plans/\` against the current code: mark done plans DONE, refresh stale \`file:line\`/route references, retire fixed findings          |

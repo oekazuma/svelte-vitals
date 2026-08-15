@@ -74,6 +74,21 @@ import { performanceMinifyDisabled } from './perf/minify-disabled.js';
 import { performanceLoadWaterfall } from './perf/load-waterfall.js';
 import { performanceSequentialAwaits } from './perf/sequential-awaits.js';
 import { performanceStateRaw } from './perf/state-raw.js';
+import { a11yInvalidRole } from './a11y/invalid-role.js';
+import { a11yUnknownAriaAttribute } from './a11y/unknown-aria-attribute.js';
+import { a11yRequiredAriaProps } from './a11y/required-aria-props.js';
+import { a11yInvalidAriaValue } from './a11y/invalid-aria-value.js';
+import { a11yInteractiveNesting } from './a11y/interactive-nesting.js';
+import { a11yAccessibleName } from './a11y/accessible-name.js';
+import { a11yLabelHasControl } from './a11y/label-has-control.js';
+import { a11yUseList } from './a11y/use-list.js';
+import { a11yPlaceholderLabelOption } from './a11y/placeholder-label-option.js';
+import { a11yRequireDatetime } from './a11y/require-datetime.js';
+import { a11yDoctype } from './a11y/doctype.js';
+import { a11yDuplicateLandmark } from './a11y/duplicate-landmark.js';
+import { a11yTopLevelLandmark } from './a11y/top-level-landmark.js';
+import { a11yIdDuplication } from './a11y/id-duplication.js';
+import { a11yNoMissingIdRef } from './a11y/no-missing-id-ref.js';
 
 export const allRules: Rule[] = [
   seoTitlePresence,
@@ -148,7 +163,22 @@ export const allRules: Rule[] = [
   performanceMinifyDisabled,
   performanceLoadWaterfall,
   performanceSequentialAwaits,
-  performanceStateRaw
+  performanceStateRaw,
+  a11yInvalidRole,
+  a11yUnknownAriaAttribute,
+  a11yRequiredAriaProps,
+  a11yInvalidAriaValue,
+  a11yInteractiveNesting,
+  a11yAccessibleName,
+  a11yLabelHasControl,
+  a11yUseList,
+  a11yPlaceholderLabelOption,
+  a11yRequireDatetime,
+  a11yDoctype,
+  a11yDuplicateLandmark,
+  a11yTopLevelLandmark,
+  a11yIdDuplication,
+  a11yNoMissingIdRef
 ];
 
 export {
@@ -224,7 +254,22 @@ export {
   performanceMinifyDisabled,
   performanceLoadWaterfall,
   performanceSequentialAwaits,
-  performanceStateRaw
+  performanceStateRaw,
+  a11yInvalidRole,
+  a11yUnknownAriaAttribute,
+  a11yRequiredAriaProps,
+  a11yInvalidAriaValue,
+  a11yInteractiveNesting,
+  a11yAccessibleName,
+  a11yLabelHasControl,
+  a11yUseList,
+  a11yPlaceholderLabelOption,
+  a11yRequireDatetime,
+  a11yDoctype,
+  a11yDuplicateLandmark,
+  a11yTopLevelLandmark,
+  a11yIdDuplication,
+  a11yNoMissingIdRef
 };
 
 /** One configurable option of a rule, flattened for `svelte-vitals explain`'s output. */

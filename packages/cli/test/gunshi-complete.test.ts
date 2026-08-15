@@ -107,7 +107,8 @@ describe('complete -- <words>: candidate protocol the generated scripts call bac
       'performance',
       'correctness',
       'security',
-      'architecture'
+      'architecture',
+      'a11y'
     ]);
     expect(await candidates(['--treat-dynamic-as', ''])).toEqual(['pass', 'warn', 'fail']);
   });

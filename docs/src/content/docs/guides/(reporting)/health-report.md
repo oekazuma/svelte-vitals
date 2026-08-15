@@ -34,7 +34,7 @@ Health averages the **unrounded** category scores using per-category weights. By
 Health = (SEO_score × w_seo + Performance_score × w_perf) / (w_seo + w_perf)
 ```
 
-The formula shows two categories for brevity — the same weighted average runs over **all** categories present in the results, up to five (SEO, Performance, Correctness, Security, Architecture).
+The formula shows two categories for brevity — the same weighted average runs over **all** categories present in the results, up to six (SEO, Performance, Correctness, Security, Architecture, Accessibility).
 
 Set weights with the `--weights` flag or the config file's `weights` field — see [Config file](/guides/configuration) for both. For example, to make SEO count double:
 

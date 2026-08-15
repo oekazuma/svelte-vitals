@@ -30,12 +30,18 @@ catalogs:
     '@sveltejs/kit':
       specifier: ^2.70.2
       version: 2.70.2
+    '@types/aria-query':
+      specifier: ^5.0.4
+      version: 5.0.4
     '@types/estree':
       specifier: ^1.0.9
       version: 1.0.9
     '@types/node':
       specifier: ^24.13.3
       version: 24.13.3
+    aria-query:
+      specifier: 5.3.2
+      version: 5.3.2
     blume:
       specifier: ^1.4.3
       version: 1.4.3
@@ -186,10 +192,16 @@ importers:
 
   packages/core:
     dependencies:
+      aria-query:
+        specifier: 'catalog:'
+        version: 5.3.2
       svelte:
         specifier: 'catalog:'
         version: 5.56.8(@typescript-eslint/types@8.64.0)
     devDependencies:
+      '@types/aria-query':
+        specifier: 'catalog:'
+        version: 5.0.4
       '@types/estree':
         specifier: 'catalog:'
         version: 1.0.9
@@ -2218,6 +2230,9 @@ packages:
 
   '@tybys/wasm-util@0.10.3':
     resolution: {integrity: sha512-F3fo1MYrRJYL3zER0OUOmkutjr1Vp23m7OsSgp7nq4SP6OqX6C/56XFIPAl5bt3zaBRjmW7SGz3u/6LwFpYcOg==}
+
+  '@types/aria-query@5.0.4':
+    resolution: {integrity: sha512-rfT93uj5s0PRL7EzccGMs3brplhcrghnDoV26NqKhCAS1hVo+WdNsPvE/yb6ilfr5hi2MEk6d5EWJTKdxg8jVw==}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -7807,6 +7822,8 @@ snapshots:
     dependencies:
       tslib: 2.8.1
     optional: true
+
+  '@types/aria-query@5.0.4': {}
 
   '@types/babel__core@7.20.5':
     dependencies:

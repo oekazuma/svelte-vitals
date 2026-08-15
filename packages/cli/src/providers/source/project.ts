@@ -134,10 +134,43 @@ function detectHtmlLang(html: string): Detection {
   return { presence: 'own', value: value.trim().length > 0 ? 'static' : 'absent' };
 }
 
-async function detectAppHtmlLang(rt: Runtime, cwd: string): Promise<Detection> {
+/**
+ * Literal ids in the shell. `data-id="…"` and the like are excluded by the lookbehind.
+ * Comments and script/style bodies are stripped first — an `id="…"` in them is not an
+ * element id, and counting one would silently satisfy a genuinely dangling reference.
+ * Attribute names are ASCII case-insensitive (`ID="app"`) and values may be unquoted (`id=app`) — both are valid HTML.
+ */
+function detectAppHtmlIds(html: string): string[] {
+  const markup = html
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
+    .replace(/<style[\s\S]*?<\/style\s*>/gi, '');
+  // The unquoted alternative rejects a leading '{' so templating placeholders (id={x}) stay out.
+  const found = markup.matchAll(/(?<![\w-])id\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>{][^\s"'>]*))/gi);
+  return [...new Set([...found].map((m) => m[1] ?? m[2] ?? m[3] ?? '').filter(Boolean))];
+}
+
+/** app.html-derived facts sharing one read (io-budget): <html lang>, the leading doctype, and shell ids. */
+async function detectAppHtmlFacts(
+  rt: Runtime,
+  cwd: string
+): Promise<Pick<Project, 'htmlLang' | 'appHtmlDoctype' | 'appHtmlIds'>> {
   const appHtmlPath = rt.join(cwd, 'src/app.html');
-  if (!(await rt.exists(appHtmlPath))) return { presence: 'none', value: 'absent' };
-  return detectHtmlLang(await rt.readFile(appHtmlPath));
+  if (!(await rt.exists(appHtmlPath))) return { htmlLang: { presence: 'none', value: 'absent' } };
+  let content: string;
+  try {
+    content = await rt.readFile(appHtmlPath);
+  } catch {
+    return { htmlLang: { presence: 'none', value: 'absent' } }; // unreadable — don't guess
+  }
+  return {
+    htmlLang: detectHtmlLang(content),
+    // Comments are stripped first, then a simple anchored match — a starred group over a lazy
+    // [\s\S]*? is ambiguous across iterations and backtracks exponentially on a comment run
+    // with no doctype (measured: ~45 leading comments hang the process).
+    appHtmlDoctype: /^\s*<!doctype\s+html/i.test(content.replace(/<!--[\s\S]*?-->/g, '')),
+    appHtmlIds: detectAppHtmlIds(content)
+  };
 }
 
 async function robotsRefsSitemap(rt: Runtime, cwd: string): Promise<boolean | undefined> {
@@ -207,10 +240,10 @@ async function detectKitConfigFacts(rt: Runtime, cwd: string): Promise<Pick<Proj
 
 /** Precompute project-wide facts for project-scope rules (design §10, §11, §17). */
 export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Project> {
-  const [hasRobotsTxt, hasSitemap, htmlLang, viteMinifyDisabled, kitConfig] = await Promise.all([
+  const [hasRobotsTxt, hasSitemap, appHtmlFacts, viteMinifyDisabled, kitConfig] = await Promise.all([
     existsAny(rt, cwd, ROBOTS_SOURCE_PATHS),
     existsAny(rt, cwd, SITEMAP_SOURCE_PATHS),
-    detectAppHtmlLang(rt, cwd),
+    detectAppHtmlFacts(rt, cwd),
     detectViteMinifyDisabled(rt, cwd),
     detectKitConfigFacts(rt, cwd)
   ]);
@@ -218,7 +251,7 @@ export async function collectProjectFacts(rt: Runtime, cwd: string): Promise<Pro
   return {
     hasRobotsTxt,
     hasSitemap,
-    htmlLang,
+    ...appHtmlFacts,
     ...(robotsReferencesSitemap !== undefined ? { robotsReferencesSitemap } : {}),
     ...(viteMinifyDisabled ? { viteMinifyDisabled } : {}),
     ...kitConfig

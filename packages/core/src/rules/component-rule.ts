@@ -12,7 +12,7 @@ export interface ComponentIssue {
 }
 
 /** Categories that component-scoped rules report under (CLI/static source analysis). */
-export type ComponentCategory = Extract<Category, 'correctness' | 'security' | 'architecture' | 'performance'>;
+export type ComponentCategory = Extract<Category, 'correctness' | 'security' | 'architecture' | 'performance' | 'a11y'>;
 
 export interface ComponentRuleOptions {
   id: string;

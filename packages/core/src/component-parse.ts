@@ -2,19 +2,23 @@ import { parse } from 'svelte/compiler';
 import type { Expression } from 'estree';
 import type { AST } from 'svelte/compiler';
 import type {
+  AriaElementFact,
   BasePathLinkFact,
   BrowserGlobalRefFact,
   CheckableBindValueFact,
   ComponentFacts,
   EachBlockFact,
   EffectFact,
+  InteractiveNestingFact,
   OrphanEffectFact,
   OrphanLifecycleCallFact,
   SourceSpan,
-  SuppressionDirective
+  SuppressionDirective,
+  UnnamedInteractiveFact
 } from './component.js';
 import { isRootRelativePath } from './base-path.js';
-import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf } from './svelte-ast.js';
+import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf, attrText, attrValueOf, textFromNodes } from './svelte-ast.js';
+import { isInteractiveElement, isInteractiveContainer, type ElementAttr } from './rules/a11y/interactive.js';
 
 // The Svelte AST is structurally complex and only partially typed for our needs,
 // so traversal uses `any`. The node-type strings below are verified against
@@ -1079,6 +1083,431 @@ function collectCheckableBindValues(node: Node, source: string, acc: CheckableBi
   }
 }
 
+/** Classify a single Attribute's raw `value`: bare (`true`) is a literal `''`, a single Text
+ *  node is its literal text, anything else (an ExpressionTag or a multi-part template) is dynamic. */
+function classifyAttrValue(value: unknown): { literal?: string } | { expression: true } {
+  if (value === true) return { literal: '' };
+  if (Array.isArray(value) && value.length === 1 && value[0]?.type === 'Text') {
+    return { literal: String(value[0].data ?? '') };
+  }
+  return { expression: true };
+}
+
+/**
+ * Elements carrying a `role` and/or `aria-*` attribute(s) (a11y ARIA rules). Only
+ * `RegularElement` is checked, so `<svelte:element this="div" role="…">` is out of static reach —
+ * same convention as `collectCheckableBindValues`/`collectHrefLinks`.
+ */
+function collectAriaElements(node: Node, source: string, acc: AriaElementFact[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAriaElements(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
+    const roleAttr = findAttr(node.attributes, 'role');
+    const ariaAttrs = node.attributes.filter(
+      (a: Node) => a?.type === 'Attribute' && typeof a.name === 'string' && a.name.startsWith('aria-')
+    );
+    if (roleAttr || ariaAttrs.length > 0) {
+      const inputType = node.name === 'input' ? attrText(node.attributes, 'type') : undefined;
+      const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
+      acc.push({
+        tag: node.name,
+        line: lineOf(source, node.start),
+        ...(roleAttr ? { role: classifyAttrValue(roleAttr.value) } : {}),
+        ...(inputType !== undefined ? { inputType: inputType.toLowerCase() } : {}),
+        ...(hasSpread ? { hasSpread: true as const } : {}),
+        aria: ariaAttrs.map((a: Node) => ({
+          name: a.name,
+          line: lineOf(source, a.start ?? node.start),
+          ...classifyAttrValue(a.value)
+        }))
+      });
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectAriaElements(node[key], source, acc);
+  }
+}
+
+/** This element's `Attribute` nodes (directives/spreads excluded) as `isInteractiveElement`'s
+ *  input shape. */
+function elementAttrs(attributes: Node[]): ElementAttr[] {
+  return attributes
+    .filter((a: Node) => a?.type === 'Attribute' && typeof a.name === 'string')
+    .map((a: Node) => ({ name: a.name, ...classifyAttrValue(a.value) }));
+}
+
+/**
+ * Interactive elements nested inside another interactive container (a11y/interactive-nesting).
+ * Only `RegularElement` is checked, so `<svelte:element this="button">` is out of static reach
+ * — same convention as `collectAriaElements`. `stack` tracks the tags of enclosing containers
+ * (`isInteractiveContainer`); any interactive element entering while it is non-empty records
+ * one fact at the descendant's line, keyed to the nearest enclosing container.
+ */
+function collectInteractiveNestings(node: Node, source: string, acc: InteractiveNestingFact[], stack: string[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectInteractiveNestings(child, source, acc, stack);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  // A snippet's body renders at its {@render} site, not here — walk it with a fresh stack so
+  // a snippet declared inside a <button>/<a> is not reported as nested at the declaration.
+  if (node.type === 'SnippetBlock') {
+    for (const key of CHILD_NODE_KEYS) {
+      if (key in node) collectInteractiveNestings(node[key], source, acc, []);
+    }
+    return;
+  }
+  let opened = false;
+  if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
+    const attrs = elementAttrs(node.attributes);
+    if (stack.length > 0 && isInteractiveElement(node.name, attrs)) {
+      acc.push({
+        containerTag: stack[stack.length - 1]!,
+        descendantTag: node.name,
+        line: lineOf(source, node.start)
+      });
+    }
+    if (isInteractiveContainer(node.name, attrs)) {
+      stack.push(node.name);
+      opened = true;
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectInteractiveNestings(node[key], source, acc, stack);
+  }
+  if (opened) stack.pop();
+}
+
+/** `aria-label`/`aria-labelledby`/`title` present on this element: a literal non-empty value,
+ *  or any expression (its rendered value is unknowable, but its *presence* is enough to name
+ *  the element — a11y/accessible-name treats an expression name source as present). */
+function hasNamingAttr(attributes: Node[]): boolean {
+  return ['aria-label', 'aria-labelledby', 'title'].some((name) => {
+    const attr = findAttr(attributes, name);
+    if (!attr) return false;
+    const v = classifyAttrValue(attr.value);
+    return 'expression' in v || (v.literal !== undefined && v.literal.trim().length > 0);
+  });
+}
+
+/** Named/unknowable verdict for a candidate interactive element's descendant subtree
+ *  (a11y/accessible-name). `named`: a non-whitespace text descendant, or a descendant `img`
+ *  with a non-empty literal `alt`. `unknowable`: an expression-tag, `Component`, `{@render}`,
+ *  or `{@html}` anywhere below — content the rule cannot statically resolve, so the element is
+ *  skipped rather than risk a false positive. */
+function scanAccessibleNameSubtree(node: Node): { named: boolean; unknowable: boolean } {
+  if (Array.isArray(node)) {
+    const acc = { named: false, unknowable: false };
+    for (const child of node) {
+      const r = scanAccessibleNameSubtree(child);
+      acc.named ||= r.named;
+      acc.unknowable ||= r.unknowable;
+    }
+    return acc;
+  }
+  if (!node || typeof node !== 'object') return { named: false, unknowable: false };
+  // A snippet's body renders at its {@render} site — its text cannot name this element.
+  if (node.type === 'SnippetBlock') return { named: false, unknowable: false };
+  if (node.type === 'Text') return { named: String(node.data ?? '').trim().length > 0, unknowable: false };
+  if (
+    node.type === 'ExpressionTag' ||
+    node.type === 'RenderTag' ||
+    node.type === 'HtmlTag' ||
+    COMPONENT_LIKE_TYPES.has(node.type)
+  ) {
+    return { named: false, unknowable: true };
+  }
+  if (node.type === 'RegularElement' && node.name === 'img' && Array.isArray(node.attributes)) {
+    const alt = attrText(node.attributes, 'alt');
+    if (alt !== undefined && alt.trim().length > 0) return { named: true, unknowable: false };
+  }
+  const acc = { named: false, unknowable: false };
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) {
+      const r = scanAccessibleNameSubtree(node[key]);
+      acc.named ||= r.named;
+      acc.unknowable ||= r.unknowable;
+    }
+  }
+  return acc;
+}
+
+/** Which accessible-name target `node` is, or undefined if it isn't one (a11y/accessible-name).
+ *  `a` needs a literal `href` (an expression href is unknowable whether the anchor even renders
+ *  as a link, matching the `isInteractiveContainer` convention above); `input` needs a literal
+ *  `type="image"`. */
+function accessibleNameTarget(node: Node): 'button' | 'a' | 'input' | undefined {
+  if (node.name === 'button') return 'button';
+  if (node.name === 'a') return attrText(node.attributes, 'href') !== undefined ? 'a' : undefined;
+  if (node.name === 'input') {
+    const type = attrText(node.attributes, 'type');
+    return type?.toLowerCase() === 'image' ? 'input' : undefined;
+  }
+  return undefined;
+}
+
+/**
+ * `button`/`a href`/`input type="image"` elements with no computable accessible name
+ * (a11y/accessible-name). A spread attribute on the element itself makes its rendered
+ * attributes unknowable, so the element is skipped entirely rather than risk a false positive.
+ */
+function collectUnnamedInteractive(node: Node, source: string, acc: UnnamedInteractiveFact[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectUnnamedInteractive(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
+    const target = accessibleNameTarget(node);
+    const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
+    if (target && !hasSpread) {
+      if (target === 'input') {
+        const alt = attrText(node.attributes, 'alt');
+        if (!hasNamingAttr(node.attributes) && !(alt !== undefined && alt.trim().length > 0)) {
+          acc.push({ tag: node.name, line: lineOf(source, node.start) });
+        }
+      } else {
+        const scan = scanAccessibleNameSubtree(node);
+        if (!hasNamingAttr(node.attributes) && !scan.named && !scan.unknowable) {
+          acc.push({ tag: node.name, line: lineOf(source, node.start) });
+        }
+      }
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectUnnamedInteractive(node[key], source, acc);
+  }
+}
+
+/** Whether `node` is a labelable element that associates a `<label>` by wrapping it
+ *  (a11y/label-has-control): `input` (unless its literal `type` is `hidden`), `select`,
+ *  `textarea`, `button`, `meter`, `output`, `progress`. */
+const LABELABLE_TAGS = new Set(['input', 'select', 'textarea', 'button', 'meter', 'output', 'progress']);
+function isLabelableDescendant(node: Node): boolean {
+  if (node.type !== 'RegularElement' || !LABELABLE_TAGS.has(node.name)) return false;
+  if (node.name !== 'input') return true;
+  return attrText(node.attributes ?? [], 'type')?.toLowerCase() !== 'hidden';
+}
+
+/** Wrapped-control/unknowable verdict for a `<label>`'s subtree (a11y/label-has-control).
+ *  `hasControl`: a descendant labelable element. `unknowable`: an expression-tag, `Component`,
+ *  `{@render}`, or `{@html}` anywhere below — content the rule cannot statically resolve, so
+ *  the label is skipped rather than risk a false positive. */
+function scanLabelSubtree(node: Node): { hasControl: boolean; unknowable: boolean } {
+  if (Array.isArray(node)) {
+    const acc = { hasControl: false, unknowable: false };
+    for (const child of node) {
+      const r = scanLabelSubtree(child);
+      acc.hasControl ||= r.hasControl;
+      acc.unknowable ||= r.unknowable;
+    }
+    return acc;
+  }
+  if (!node || typeof node !== 'object') return { hasControl: false, unknowable: false };
+  // A snippet's body renders at its {@render} site — a control declared in it is not wrapped.
+  if (node.type === 'SnippetBlock') return { hasControl: false, unknowable: false };
+  if (
+    node.type === 'ExpressionTag' ||
+    node.type === 'RenderTag' ||
+    node.type === 'HtmlTag' ||
+    COMPONENT_LIKE_TYPES.has(node.type)
+  ) {
+    return { hasControl: false, unknowable: true };
+  }
+  if (isLabelableDescendant(node)) return { hasControl: true, unknowable: false };
+  const acc = { hasControl: false, unknowable: false };
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) {
+      const r = scanLabelSubtree(node[key]);
+      acc.hasControl ||= r.hasControl;
+      acc.unknowable ||= r.unknowable;
+    }
+  }
+  return acc;
+}
+
+/**
+ * `<label>` elements with neither a `for` attribute (literal or expression — its presence is
+ * enough) nor a wrapped labelable descendant (a11y/label-has-control). A spread attribute may
+ * supply `for`, so it is treated the same as an explicit one.
+ */
+function collectUnassociatedLabels(node: Node, source: string, acc: { line: number }[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectUnassociatedLabels(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && node.name === 'label' && Array.isArray(node.attributes)) {
+    const hasFor = findAttr(node.attributes, 'for') !== undefined;
+    const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
+    if (!hasFor && !hasSpread) {
+      const scan = scanLabelSubtree(node);
+      if (!scan.hasControl && !scan.unknowable) {
+        acc.push({ line: lineOf(source, node.start) });
+      }
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectUnassociatedLabels(node[key], source, acc);
+  }
+}
+
+/** Requires trailing whitespace after the bullet char to avoid flagging `-webkit` prose or a
+ *  signed number like `-1` (a11y/use-list). */
+const BULLET_TEXT_RE = /^[•・·\-*]\s/;
+
+/**
+ * Text nodes whose trimmed content opens with a bullet character followed by whitespace,
+ * outside any `li` ancestor — a plain-text bullet where a `<ul>`/`<ol>` would give assistive
+ * technology a real list structure (a11y/use-list).
+ */
+function collectBulletTexts(
+  node: Node,
+  source: string,
+  acc: { line: number; char: string }[],
+  insideLi: boolean
+): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectBulletTexts(child, source, acc, insideLi);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'Text') {
+    const trimmed = String(node.data ?? '').trim();
+    if (!insideLi && BULLET_TEXT_RE.test(trimmed)) {
+      acc.push({ line: lineOf(source, node.start), char: trimmed[0]! });
+    }
+    return;
+  }
+  // A snippet's body renders at its {@render} site, so its list context is unknowable here —
+  // skip it rather than judge bullet text against the declaration site's ancestors.
+  if (node.type === 'SnippetBlock') return;
+  const nowInsideLi = insideLi || (node.type === 'RegularElement' && node.name === 'li');
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectBulletTexts(node[key], source, acc, nowInsideLi);
+  }
+}
+
+/** Whether `<select attrs>` is subject to the placeholder-label-option requirement: `required`
+ *  present (literal — a dynamic `required` makes presence unknowable), no `multiple` (literal
+ *  or dynamic — either way this select is out of scope), and `size` absent or a literal ≤ 1
+ *  (a dynamic `size` is unknowable, so treated the same as out of scope). */
+function selectNeedsPlaceholder(attributes: Node[]): boolean {
+  const requiredAttr = findAttr(attributes, 'required');
+  if (!requiredAttr || attrValueOf(requiredAttr) === 'dynamic') return false;
+  if (findAttr(attributes, 'multiple')) return false;
+  const sizeAttr = findAttr(attributes, 'size');
+  if (sizeAttr) {
+    if (attrValueOf(sizeAttr) === 'dynamic') return false;
+    const size = Number(attrText(attributes, 'size'));
+    if (!(Number.isFinite(size) && size <= 1)) return false;
+  }
+  return true;
+}
+
+/** First child of a `<select>`'s fragment that isn't purely a whitespace `Text` node or a
+ *  `Comment` — what the browser treats as the element's first real content. */
+function firstSignificantChild(nodes: Node[] | undefined): Node | undefined {
+  for (const child of nodes ?? []) {
+    if (!child) continue;
+    if (child.type === 'Comment') continue;
+    if (child.type === 'Text' && !String(child.data ?? '').trim()) continue;
+    return child;
+  }
+  return undefined;
+}
+
+/** Whether an `<option>` is a valid placeholder label option per the HTML spec: an empty
+ *  `value` attribute, or no `value` attribute and no text content. A dynamic `value` or a
+ *  dynamic text child makes the option's effective value unknowable, so it is treated the
+ *  same as a valid placeholder — proving a violation is what this rule requires, not guessing one. */
+function isPlaceholderOption(option: Node): boolean {
+  const attributes = option.attributes ?? [];
+  if (findAttr(attributes, 'value')) {
+    const literal = attrText(attributes, 'value');
+    return literal === undefined || literal === '';
+  }
+  return textFromNodes(option.fragment?.nodes ?? []) === undefined;
+}
+
+/**
+ * `<select required>` (no `multiple`, display size absent or ≤ 1) whose first `option` element
+ * child is not a placeholder label option (a11y/placeholder-label-option). The first significant
+ * child not being a literal `option` — an `{#each}` block, a Component, an `{#if}`, etc. — makes
+ * the select's first option unknowable, so it is skipped rather than risk a false positive; a
+ * `<select>` with no content at all has no placeholder to find, so it is flagged. A spread
+ * attribute on the `<select>` itself (may supply `multiple`/`size`) or on the first `option`
+ * (may supply `value`) makes the relevant check unknowable, so it is skipped too.
+ */
+function collectSelectsMissingPlaceholder(node: Node, source: string, acc: { line: number }[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectSelectsMissingPlaceholder(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && node.name === 'select' && Array.isArray(node.attributes)) {
+    const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
+    if (!hasSpread && selectNeedsPlaceholder(node.attributes)) {
+      const first = firstSignificantChild(node.fragment?.nodes);
+      if (!first) {
+        acc.push({ line: lineOf(source, node.start) });
+      } else if (first.type === 'RegularElement' && first.name === 'option') {
+        const firstHasSpread = (first.attributes ?? []).some((a: Node) => a?.type === 'SpreadAttribute');
+        if (!firstHasSpread && !isPlaceholderOption(first)) acc.push({ line: lineOf(source, node.start) });
+      }
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectSelectsMissingPlaceholder(node[key], source, acc);
+  }
+}
+
+/** Machine-readable literal formats a `<time>` may use without a `datetime` attribute — a
+ *  permissive subset of the HTML spec's valid time-string grammar (year/month/date, time,
+ *  date-time, yearless date, duration). Anything else needs an explicit `datetime`. */
+const MACHINE_READABLE_TIME = [
+  /^\d{4}(-\d{2}){0,2}$/,
+  /^\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/,
+  /^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}/,
+  /^\d{2}-\d{2}$/,
+  /^P(?=\d|T)/i
+];
+
+/**
+ * `<time>` elements with no `datetime` attribute whose content is plain literal text that isn't
+ * itself machine-readable (a11y/require-datetime). Any non-`Text` child — an `ExpressionTag`, a
+ * Component, a block — makes the rendered text unknowable, so the element is skipped rather than
+ * risk a false positive. A spread attribute may itself supply `datetime`, so it is skipped too.
+ */
+function collectTimesMissingDatetime(node: Node, source: string, acc: { line: number; text: string }[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectTimesMissingDatetime(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (
+    node.type === 'RegularElement' &&
+    node.name === 'time' &&
+    findAttr(node.attributes ?? [], 'datetime') === undefined &&
+    !(node.attributes ?? []).some((a: Node) => a?.type === 'SpreadAttribute')
+  ) {
+    const nodes: Node[] = node.fragment?.nodes ?? [];
+    if (nodes.length > 0 && nodes.every((n) => n?.type === 'Text')) {
+      const text = nodes.map((n) => String(n.data ?? '')).join('');
+      const trimmed = text.trim();
+      if (trimmed.length > 0 && !MACHINE_READABLE_TIME.some((re) => re.test(trimmed))) {
+        acc.push({ line: lineOf(source, node.start), text: trimmed });
+      }
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectTimesMissingDatetime(node[key], source, acc);
+  }
+}
+
 /**
  * Root-relative `<a href="/…">` literals (correctness/base-path-navigation). Only
  * `RegularElement` anchors with a fully static href are considered, which is what makes the
@@ -2082,6 +2511,20 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectSecurityFacts(ast.fragment ?? ast, source, htmlTags, javascriptUrls);
   const checkableBindValues: CheckableBindValueFact[] = [];
   collectCheckableBindValues(ast.fragment ?? ast, source, checkableBindValues);
+  const ariaElements: AriaElementFact[] = [];
+  collectAriaElements(ast.fragment ?? ast, source, ariaElements);
+  const interactiveNestings: InteractiveNestingFact[] = [];
+  collectInteractiveNestings(ast.fragment ?? ast, source, interactiveNestings, []);
+  const unnamedInteractive: UnnamedInteractiveFact[] = [];
+  collectUnnamedInteractive(ast.fragment ?? ast, source, unnamedInteractive);
+  const unassociatedLabels: { line: number }[] = [];
+  collectUnassociatedLabels(ast.fragment ?? ast, source, unassociatedLabels);
+  const bulletTexts: { line: number; char: string }[] = [];
+  collectBulletTexts(ast.fragment ?? ast, source, bulletTexts, false);
+  const selectsMissingPlaceholder: { line: number }[] = [];
+  collectSelectsMissingPlaceholder(ast.fragment ?? ast, source, selectsMissingPlaceholder);
+  const timesMissingDatetime: { line: number; text: string }[] = [];
+  collectTimesMissingDatetime(ast.fragment ?? ast, source, timesMissingDatetime);
   const basePathLinks: BasePathLinkFact[] = [];
   collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
   const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
@@ -2304,6 +2747,13 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     browserGlobalRefs,
     moduleStateDecls: [],
     suppressions,
-    commentLinks: collectCommentLinks(source)
+    commentLinks: collectCommentLinks(source),
+    ariaElements,
+    interactiveNestings,
+    unnamedInteractive,
+    unassociatedLabels,
+    bulletTexts,
+    selectsMissingPlaceholder,
+    timesMissingDatetime
   };
 }

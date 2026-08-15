@@ -1,4 +1,4 @@
-import { CATEGORIES, type Category, type Config, type Result, type Severity } from '../types.js';
+import { type Category, type Config, type Result, type Severity } from '../types.js';
 import { classify, summarize, effectiveSeverity } from '../summary.js';
 import { computeScore, computeHealth, type ScoreResult } from '../scoring/score.js';
 import { noColorPalette, scoreColor, type Palette } from './palette.js';
@@ -11,7 +11,20 @@ const SEVERITY_TITLE: Record<Severity, string> = {
   info: 'Info'
 };
 
-const categoryLabel = (c: Category) => (c === 'seo' ? 'SEO' : c.charAt(0).toUpperCase() + c.slice(1));
+// Record<Category, string> keeps this exhaustive by type: a new category fails compilation
+// here instead of silently vanishing from the console report. Declaration order is the
+// display order.
+export const CATEGORY_LABEL: Record<Category, string> = {
+  seo: 'SEO',
+  performance: 'Performance',
+  correctness: 'Correctness',
+  security: 'Security',
+  architecture: 'Architecture',
+  a11y: 'Accessibility'
+};
+const CATEGORY_ORDER = Object.keys(CATEGORY_LABEL) as readonly Category[];
+
+const categoryLabel = (c: Category) => CATEGORY_LABEL[c];
 
 const MAX_RULE_GROUPS_PER_BUCKET = 5;
 
@@ -102,7 +115,7 @@ export function formatConsoleReport(results: Result[], config: Config, options: 
   const p = options.palette ?? noColorPalette;
   const summary = summarize(results, config);
   const { health, categories: byCat } = computeHealth(results, config);
-  const present = CATEGORIES.filter((c) => byCat[c] !== undefined);
+  const present = CATEGORY_ORDER.filter((c) => byCat[c] !== undefined);
   const lines: string[] = [];
   if (!options.omitHeader) {
     lines.push(

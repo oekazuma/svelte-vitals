@@ -2,6 +2,7 @@ import type { Category, Config, Detection, Fix, Project, Result, Scope, Severity
 import type { ResolvedHead } from './head.js';
 import type { ResolvedImages } from './images.js';
 import type { ResolvedHeadings } from './headings.js';
+import type { ResolvedA11y } from './a11y.js';
 import type { ComponentFacts } from './component.js';
 import type { KitModuleFacts } from './kit-module.js';
 import type { RuleOptionsSpec } from './rule-options.js';
@@ -13,6 +14,8 @@ export interface RuleContext {
   images?: ResolvedImages[];
   /** Per-route page-body headings for seo/single-h1 (absent in modes that don't collect them). */
   headings?: ResolvedHeadings[];
+  /** Per-route composed landmark/id occurrences for the route-scoped a11y rules (absent in modes that don't collect them). */
+  a11y?: ResolvedA11y[];
   /** Per-file component-body facts for Correctness rules (static/CLI mode only). */
   components?: ComponentFacts[];
   /** Per-file SvelteKit route/hooks facts for the SSR shared-state rules (static/CLI + vite build mode only). */

@@ -314,10 +314,15 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     ...overridesOffWarnings(opts.allowRules, config.overrides)
   ];
 
-  const { heads, images, headings, project, components, kitModules, sourceFiles } = await collectAll(rt, cwd, config, {
-    route: opts.route,
-    parseCache: opts.parseCache
-  });
+  const { heads, images, headings, a11y, project, components, kitModules, sourceFiles } = await collectAll(
+    rt,
+    cwd,
+    config,
+    {
+      route: opts.route,
+      parseCache: opts.parseCache
+    }
+  );
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
   const {
@@ -328,6 +333,7 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     heads,
     images,
     headings,
+    a11y,
     components,
     project,
     config,

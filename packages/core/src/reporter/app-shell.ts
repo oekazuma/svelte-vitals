@@ -7,6 +7,7 @@
 // external resources.
 import type { Config, Result } from '../types.js';
 import { buildJsonReport, type JsonReport } from './json.js';
+import { CATEGORY_LABEL } from './console.js';
 
 type Band = 'good' | 'warn' | 'poor';
 
@@ -209,6 +210,7 @@ body{background:var(--ground);color:var(--ink);font-family:var(--sans);line-heig
 export const APP_SCRIPT: string = `
 (function(){
   var BAND_COLOR = { good: '#2fa968', warn: '#e8a317', poor: '#e5484d' };
+  var CATEGORY_NAMES = ${JSON.stringify(CATEGORY_LABEL)};
   function scoreBand(score) { return score >= 90 ? 'good' : score >= 50 ? 'warn' : 'poor'; }
 
   // Same mark as the docs site's hero wordmark (docs/public/wordmark.svg) — an inline
@@ -555,7 +557,7 @@ export const APP_SCRIPT: string = `
       }, []);
     };
     var catChips = Object.keys(categories).map(function (cat) {
-      var name = cat === 'seo' ? 'SEO' : cat.charAt(0).toUpperCase() + cat.slice(1);
+      var name = CATEGORY_NAMES[cat] || cat;
       return chip(cat, name);
     });
     return h('div', { class: 'dv-filters', role: 'group', 'aria-label': 'Filter findings' },
@@ -627,7 +629,7 @@ export const APP_SCRIPT: string = `
       var c = s.report.categories[cat];
       var band = scoreBand(c.score);
       var weight = s.report.weights[cat];
-      var name = cat === 'seo' ? 'SEO' : cat.charAt(0).toUpperCase() + cat.slice(1);
+      var name = CATEGORY_NAMES[cat] || cat;
       // keys/affectedKeys are absent on hand-built snapshots (older fixtures, tests) —
       // render nothing rather than "undefined of undefined". 0 affected of N keys is still
       // rendered: on a real project that's the signal a thin score can't give, that the

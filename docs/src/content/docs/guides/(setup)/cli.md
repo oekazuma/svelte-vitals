@@ -63,7 +63,7 @@ see below each row for usage notes, defaults, and examples.
 | `--min-health <min-health>`             | Fail (exit 1) when the combined Health score is below this value (0-100)                                                 |
 | `--rules <rules>`                       | Comma-separated rule ids to enable (all others disabled)                                                                 |
 | `--ignore <ignore>`                     | Comma-separated rule ids to disable                                                                                      |
-| `--category <category>`                 | Comma-separated categories to analyze: seo \| performance \| correctness \| security \| architecture                     |
+| `--category <category>`                 | Comma-separated categories to analyze: seo \| performance \| correctness \| security \| architecture \| a11y             |
 | `--weights <weights>`                   | Per-category Health weight overrides, e.g. seo=2,performance=1 (unlisted categories default to 1)                        |
 | `--score`                               | Print only the combined Health score (works with --min-health for gating)                                                |
 | `--no-color`                            | Disable ANSI color in console output                                                                                     |
@@ -233,7 +233,7 @@ svelte-vitals --ignore performance/image-dimensions
 
 ### `--category <cats>`
 
-Restrict analysis to rules in the given categories. Accepts a comma-separated list, matched case-insensitively: `seo`, `performance`, `correctness`, `security`, `architecture`.
+Restrict analysis to rules in the given categories. Accepts a comma-separated list, matched case-insensitively: `seo`, `performance`, `correctness`, `security`, `architecture`, `a11y`.
 
 ```bash
 svelte-vitals --category seo
@@ -257,8 +257,11 @@ An unknown category or a negative/non-numeric value is an error (exit `2`).
 For one intentional occurrence that `--ignore` would silence project-wide, add a
 `svelte-vitals-disable-next-line` comment on the line directly above it. Works for
 every rule that reports against a source file — the Correctness, Security, and
-Architecture rules, and the component-scoped Performance rules. (Route-level SEO
-rules resolve across files, so they can't be silenced this way.)
+Architecture rules, the component-scoped Performance rules, and the component-scoped
+Accessibility rules (ARIA validity, interactive nesting, accessible names, labels).
+(Route-level SEO rules, and the cross-component Accessibility rules — landmarks, id
+references, the doctype check — resolve across files, so they can't be silenced this
+way.)
 
 ```svelte
 <script>

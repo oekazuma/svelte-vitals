@@ -6,6 +6,7 @@ import {
   type Config,
   type KitModuleFacts,
   type Project,
+  type ResolvedA11y,
   type ResolvedHead,
   type ResolvedHeadings,
   type ResolvedImages,
@@ -21,6 +22,7 @@ interface CollectedFacts {
   heads: ResolvedHead[];
   images: ResolvedImages[];
   headings: ResolvedHeadings[];
+  a11y: ResolvedA11y[];
   project: Project;
   components: ComponentFacts[];
   kitModules: KitModuleFacts[];
@@ -58,7 +60,7 @@ export async function collectAll(
   // everything else that's independent of it runs alongside it in one Promise.all.
   const project = await collectProjectFacts(rt, cwd);
   const [collected, components, kitModules, sourceFiles] = await Promise.all([
-    collectRoutes(rt, cwd, config, opts.parseCache, project.kitAliases),
+    collectRoutes(rt, cwd, config, opts.parseCache, project.kitAliases, project.appHtmlIds),
     // Component (Correctness) facts are file-scoped with no route attribution yet, so a
     // route-filtered run skips them rather than reporting unrelated components (#68 review);
     // kitModules is skipped for the same reason.
@@ -73,5 +75,6 @@ export async function collectAll(
   const heads = collected.heads.filter((h) => matches(h.route));
   const images = collected.images.filter((i) => matches(i.route));
   const headings = collected.headings.filter((h) => matches(h.route));
-  return { heads, images, headings, project, components, kitModules, sourceFiles };
+  const a11y = collected.a11y.filter((a) => matches(a.route));
+  return { heads, images, headings, a11y, project, components, kitModules, sourceFiles };
 }

@@ -268,3 +268,129 @@ describe('SourceHeadProvider real fixtures (component detection)', () => {
     expect(titleDetection(byRoute.get('/none')!)).toEqual({ presence: 'none', value: 'absent' });
   });
 });
+
+describe('collectRoutes a11y composition', () => {
+  const a11yOf = async (files: Record<string, string>, appHtmlIds?: string[]) =>
+    (await collectRoutes(createMemoryRuntime(files), '', undefined, undefined, undefined, appHtmlIds)).a11y.find(
+      (a) => a.route === '/'
+    )!;
+
+  it('counts a layout <main> and a page <main> as two representatives', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+layout.svelte': `<main><slot /></main>`,
+      'src/routes/+page.svelte': `<main>page</main>`
+    });
+    expect(a11y.landmarks.main).toEqual([
+      { file: 'src/routes/+layout.svelte', line: 1 },
+      { file: 'src/routes/+page.svelte', line: 1 }
+    ]);
+    expect(a11y.fullyResolved).toBe(true);
+  });
+
+  it('takes the max across exclusive branches, including across components', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+page.svelte': `<script>import A from '$lib/A.svelte';import B from '$lib/B.svelte';</script>{#if x}<A />{:else}<B />{/if}`,
+      'src/lib/A.svelte': `<main>a</main>`,
+      'src/lib/B.svelte': `<main>b</main>`
+    });
+    expect(a11y.landmarks.main).toEqual([{ file: 'src/lib/A.svelte', line: 1 }]);
+  });
+
+  it('keeps the conditionals of two components apart instead of folding them as one block', async () => {
+    // Both <main>s render together; they are exclusive only if the two files' block
+    // numbering is allowed to collide (A's branch 0 vs B's branch 1 of "group 0").
+    const a11y = await a11yOf({
+      'src/routes/+page.svelte': `<script>import A from '$lib/A.svelte';import B from '$lib/B.svelte';</script><A /><B />`,
+      'src/lib/A.svelte': `{#if x}<main>a</main>{/if}`,
+      'src/lib/B.svelte': `{#if x}<span>b</span>{:else}<main>b</main>{/if}`
+    });
+    expect(a11y.landmarks.main).toHaveLength(2);
+  });
+
+  it('counts <header> only from a chain file at top level', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+layout.svelte': `<script>import Bar from '$lib/Bar.svelte';</script><header>site</header><Bar /><slot />`,
+      'src/routes/+page.svelte': `<section><header>card</header></section>`,
+      'src/lib/Bar.svelte': `<header>bar</header>`
+    });
+    expect(a11y.landmarks.banner).toEqual([{ file: 'src/routes/+layout.svelte', line: 1 }]);
+  });
+
+  it('reports a page landmark nested in the layout slot landmark', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+layout.svelte': `<main><slot /></main>`,
+      'src/routes/+page.svelte': `<header>page</header>`
+    });
+    expect(a11y.nestedLandmarks).toEqual([
+      { kind: 'banner', within: 'main', file: 'src/routes/+page.svelte', line: 1 }
+    ]);
+  });
+
+  it('does not report a <header> scoped by its <main> ancestor as a nested landmark', async () => {
+    // Below the top level a <header> may be scoped by main/article/…, which strips the banner
+    // mapping — the same reason it is not counted in `landmarks`.
+    const a11y = await a11yOf({ 'src/routes/+page.svelte': `<main><header>h</header></main>` });
+    expect(a11y.nestedLandmarks).toEqual([]);
+  });
+
+  it('does not report a landmark inside {#each} as nested — it may render zero times', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+layout.svelte': `<main><slot /></main>`,
+      'src/routes/+page.svelte': `{#each items as item}<header>{item}</header>{/each}`
+    });
+    expect(a11y.nestedLandmarks).toEqual([]);
+  });
+
+  it('orders representatives chain-first, not fold-first', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+layout.svelte': `{#if x}<main>layout</main>{/if}<slot />`,
+      'src/routes/+page.svelte': `<p>page</p>\n<main>page</main>`
+    });
+    expect(a11y.landmarks.main).toEqual([
+      { file: 'src/routes/+layout.svelte', line: 1 },
+      { file: 'src/routes/+page.svelte', line: 2 }
+    ]);
+  });
+
+  it('satisfies a layout id reference with a page id, and with an app.html id', async () => {
+    const a11y = await a11yOf(
+      {
+        'src/routes/+layout.svelte': `<label for="x">Name</label><a href="#top">up</a><slot />`,
+        'src/routes/+page.svelte': `<div id="x"></div>`
+      },
+      ['app']
+    );
+    expect(a11y.idCandidates).toEqual(['x', 'app']);
+    // `href="#top"` needs no element of that id.
+    expect(a11y.idRefs).toEqual([{ id: 'x', attr: 'for', file: 'src/routes/+layout.svelte', line: 1 }]);
+    expect(a11y.ids.x).toHaveLength(1);
+    expect(a11y.fullyResolved).toBe(true);
+  });
+
+  it('collects every literal id as a candidate but counts only unconditional ones', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+page.svelte': `{#each items as item}<li id="row"></li>{/each}<p id="row"></p>`
+    });
+    expect(a11y.idCandidates).toEqual(['row']);
+    expect(a11y.ids.row).toEqual([{ file: 'src/routes/+page.svelte', line: 1 }]);
+  });
+
+  it('opens the world for an unresolvable component', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+page.svelte': `<script>import Fancy from 'fancy-ui';</script><Fancy />`
+    });
+    expect(a11y.fullyResolved).toBe(false);
+  });
+
+  it('opens the world for a dynamic id, which is no candidate', async () => {
+    const a11y = await a11yOf({ 'src/routes/+page.svelte': `<div id={x}></div>` });
+    expect(a11y.fullyResolved).toBe(false);
+    expect(a11y.idCandidates).toEqual([]);
+    expect(a11y.ids).toEqual({});
+  });
+
+  it('opens the world for {@html} content', async () => {
+    const a11y = await a11yOf({ 'src/routes/+page.svelte': `<div>{@html body}</div>` });
+    expect(a11y.fullyResolved).toBe(false);
+  });
+});

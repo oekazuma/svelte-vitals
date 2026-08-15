@@ -79,6 +79,18 @@ export interface Project {
    * list is never empty: `$lib` is always prepended.
    */
   kitAliases?: KitAlias[];
+  /**
+   * Whether `src/app.html` opens with `<!doctype html>` (a11y/doctype). Set from the same read
+   * as `htmlLang`; absent when the file wasn't read (missing or unreadable) — the rule stays
+   * silent then, like `viteMinifyDisabled`'s absent convention.
+   */
+  appHtmlDoctype?: boolean;
+  /**
+   * Literal `id` attributes in `src/app.html`, from the same read as `htmlLang`. The shell is part
+   * of every rendered document, so its ids satisfy a route's id references (a11y/no-missing-id-ref);
+   * absent when the file wasn't read.
+   */
+  appHtmlIds?: string[];
 }
 
 export const defaultProject: Project = {
@@ -120,7 +132,7 @@ export interface Result {
 
 export type Scope = 'route' | 'project' | 'component';
 
-export type Category = 'seo' | 'performance' | 'correctness' | 'security' | 'architecture';
+export type Category = 'seo' | 'performance' | 'correctness' | 'security' | 'architecture' | 'a11y';
 
 /**
  * Every category, as a runtime list — for validating a user-supplied category
@@ -128,7 +140,14 @@ export type Category = 'seo' | 'performance' | 'correctness' | 'security' | 'arc
  * added to `Category` can't be accepted by one validator and rejected by
  * another. Not an ordering: reporters keep their own display order.
  */
-export const CATEGORIES: readonly Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture'];
+export const CATEGORIES: readonly Category[] = [
+  'seo',
+  'performance',
+  'correctness',
+  'security',
+  'architecture',
+  'a11y'
+];
 
 /** How dynamic (`{data.title}`) values are treated by scoring (design §4, §12). */
 export type TreatDynamicAs = 'pass' | 'warn' | 'fail';

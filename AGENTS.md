@@ -4,7 +4,7 @@ Repository conventions for AI agent sessions. Read this before exploring the cod
 
 ## What this is
 
-svelte-vitals is a static code-health checker for SvelteKit — not a runtime Web Vitals reporter. It statically analyzes source code (resolved `<head>` metadata and component bodies) across five categories: SEO, Performance, Correctness, Security, Architecture. The project is pre-1.0 (all packages are on `0.x` versions).
+svelte-vitals is a static code-health checker for SvelteKit — not a runtime Web Vitals reporter. It statically analyzes source code (resolved `<head>` metadata and component bodies) across six categories: SEO, Performance, Correctness, Security, Architecture, Accessibility. The project is pre-1.0 (all packages are on `0.x` versions).
 
 ## Verify commands
 
@@ -97,7 +97,7 @@ install`/`ci upgrade` bundle into scaffolded workflows.
 
 ## Design docs
 
-`docs/superpowers/specs/` holds design docs, `docs/superpowers/plans/` holds implementation plans, both accumulated with date-prefixed filenames. Before assuming a tradeoff is undecided or reintroducing something that was deliberately removed, check here first — e.g. the a11y category was designed (`2026-06-22-a11y-v0.5-design.md`) and later removed (`docs/superpowers/specs/2026-06-23-remove-a11y-design.md`, `docs/superpowers/plans/2026-06-23-remove-a11y.md`), and the MCP server was designed (`2026-06-22-mcp-server-design.md`) and later removed in favour of CLI + Agent Skills (`docs/superpowers/specs/2026-08-01-remove-mcp-design.md`) — the agent story is deliberately "the skill knows the rules, the CLI runs them", so do not reintroduce an MCP surface without revisiting that doc. The `--fix` autofix idea (issue #11) was closed as agent-delegated — the only mechanically-safe fixes are trivial for an agent, and the valuable ones need page content the agent already has — recorded in `docs/superpowers/specs/2026-06-22-mcp-server-design.md` so it doesn't need re-litigating from scratch.
+`docs/superpowers/specs/` holds design docs, `docs/superpowers/plans/` holds implementation plans, both accumulated with date-prefixed filenames. Before assuming a tradeoff is undecided or reintroducing something that was deliberately removed, check here first — e.g. the a11y category went through an initial design (`2026-06-22-a11y-v0.5-design.md`), a removal (`docs/superpowers/specs/2026-06-23-remove-a11y-design.md`, `docs/superpowers/plans/2026-06-23-remove-a11y.md`), and a later redesign that shipped it (`docs/superpowers/specs/2026-08-14-a11y-category-design.md`, `docs/superpowers/plans/2026-08-14-a11y-category-phase1.md`) — read the redesign doc for why the second attempt succeeded where the first was pulled. The MCP server was designed (`2026-06-22-mcp-server-design.md`) and later removed in favour of CLI + Agent Skills (`docs/superpowers/specs/2026-08-01-remove-mcp-design.md`) — the agent story is deliberately "the skill knows the rules, the CLI runs them", so do not reintroduce an MCP surface without revisiting that doc. The `--fix` autofix idea (issue #11) was closed as agent-delegated — the only mechanically-safe fixes are trivial for an agent, and the valuable ones need page content the agent already has — recorded in `docs/superpowers/specs/2026-06-22-mcp-server-design.md` so it doesn't need re-litigating from scratch.
 
 ## Exit codes
 

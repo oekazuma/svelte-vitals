@@ -253,6 +253,28 @@ describe('run() performance rules', () => {
   });
 });
 
+describe('run() a11y rules', () => {
+  it('reports an a11y finding for an invalid ARIA role, leaving other categories’ counts unchanged', async () => {
+    const cap = capture();
+    await run({ cwd: fixtureDir, reporter: 'json', log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
+    const json = JSON.parse(cap.out.join('\n'));
+    expect(json.categories.a11y).toBeDefined();
+    // Component-level rules attach to the component's own file, not the page route that renders it.
+    const imgComponent = json.routes.find((r: { route: string }) => r.route === 'src/routes/img/+page.svelte');
+    expect(imgComponent.issues.some((i: { id: string }) => i.id === 'a11y/invalid-role')).toBe(true);
+
+    // The other categories' counts are untouched by the a11y/invalid-role finding above.
+    expect(json.categories.seo.keys).toBe(9);
+    expect(json.categories.seo.affectedKeys).toBe(9);
+    expect(json.categories.performance.keys).toBe(5);
+    expect(json.categories.performance.affectedKeys).toBe(1);
+    expect(json.categories.architecture.keys).toBe(13);
+    expect(json.categories.architecture.affectedKeys).toBe(0);
+    expect(json.rules['performance/image-dimensions']).toEqual({ findings: 1, passed: 0 });
+    expect(json.rules['seo/title-presence']).toEqual({ findings: 2, passed: 7 });
+  });
+});
+
 describe('run() --min-health validation', () => {
   it('returns exit 2 for an out-of-range minHealth (150)', async () => {
     const cap = capture();

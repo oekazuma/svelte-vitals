@@ -1,0 +1,30 @@
+---
+title: Accessibility
+description: svelte-vitals の Accessibility ルール一覧。
+---
+
+{/* rules-index:start */}
+
+すべての人にとって使いやすいサイト。ARIA の妥当性、ランドマーク構造、アクセシブルネーム、セマンティック HTML を見ます。
+
+| ルール                                                                     | 重大度     | 概要                                                                                                                           |
+| -------------------------------------------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| [`a11y/accessible-name`](/ja/rules/a11y/accessible-name)                   | 🟡 warning | ボタン・リンク・画像ボタンには、アクセシブルネームを算出できる手がかりが必要です。                                             |
+| [`a11y/doctype`](/ja/rules/a11y/doctype)                                   | 🟡 warning | src/app.html の先頭は &lt;!doctype html&gt; で始めましょう。                                                                   |
+| [`a11y/duplicate-landmark`](/ja/rules/a11y/duplicate-landmark)             | 🟡 warning | 1つのルートに main・banner・contentinfo ランドマークはそれぞれ1つまでにしましょう。                                            |
+| [`a11y/id-duplication`](/ja/rules/a11y/id-duplication)                     | 🟡 warning | ルート内の id はすべて一意にしましょう。                                                                                       |
+| [`a11y/interactive-nesting`](/ja/rules/a11y/interactive-nesting)           | 🟡 warning | インタラクティブな要素を、別のインタラクティブな要素の内側に置いてはいけません。                                               |
+| [`a11y/invalid-aria-value`](/ja/rules/a11y/invalid-aria-value)             | 🟡 warning | aria-\* 属性の値は、その属性に WAI-ARIA 仕様が定める型と一致させます。                                                         |
+| [`a11y/invalid-role`](/ja/rules/a11y/invalid-role)                         | 🟡 warning | role 属性には、タイポでも抽象ロールでもない、具体的な WAI-ARIA ロールを指定します。                                            |
+| [`a11y/label-has-control`](/ja/rules/a11y/label-has-control)               | 🟡 warning | label をフィールドと関連付けるには for 属性かラップされたコントロールが必要です。                                              |
+| [`a11y/no-missing-id-ref`](/ja/rules/a11y/no-missing-id-ref)               | 🟡 warning | id参照は、合成後のルートのどこかに存在する id を指している必要があります。                                                     |
+| [`a11y/placeholder-label-option`](/ja/rules/a11y/placeholder-label-option) | 🟡 warning | required かつ単一選択の select には、値を選ばせずに送信できてしまわないよう空の先頭 option が必要です。                        |
+| [`a11y/require-datetime`](/ja/rules/a11y/require-datetime)                 | 🟡 warning | time 要素のテキストは機械可読であるか、datetime 属性で機械可読な値を補う必要があります。                                       |
+| [`a11y/required-aria-props`](/ja/rules/a11y/required-aria-props)           | 🟡 warning | state や property 属性を要求するロールには、ネイティブなホスト要素のセマンティクスで代替されない限り、それらの属性が必要です。 |
+| [`a11y/top-level-landmark`](/ja/rules/a11y/top-level-landmark)             | 🟡 warning | banner・main・complementary・contentinfo ランドマークは、他のランドマークの内側に置いてはいけません。                          |
+| [`a11y/unknown-aria-attribute`](/ja/rules/a11y/unknown-aria-attribute)     | 🟡 warning | aria-\* 属性には、タイポではない実在の WAI-ARIA 属性名を指定します。                                                           |
+| [`a11y/use-list`](/ja/rules/a11y/use-list)                                 | 🔵 info    | プレーンテキストに入力された行頭記号は、本物のリスト要素に置き換えるべきです。                                                 |
+
+{/* rules-index:end */}
+
+ルールの重大度を変えたり、無効にしたりする方法は [設定](/ja/guides/configuration) を参照してください。

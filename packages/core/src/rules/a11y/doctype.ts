@@ -1,0 +1,38 @@
+import type { Detection, Fix, Result } from '../../types.js';
+import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
+
+const present: Detection = { presence: 'own', value: 'static' };
+const absent: Detection = { presence: 'none', value: 'absent' };
+
+const FIX: Fix = {
+  description: 'Add <!doctype html> as the first line of src/app.html.',
+  snippet: '<!doctype html>',
+  lang: 'html'
+};
+
+export const a11yDoctype: Rule = {
+  id: 'a11y/doctype',
+  title: 'Doctype',
+  category: 'a11y',
+  severity: 'warning',
+  scope: 'project',
+  rationale: 'Without a doctype browsers render in quirks mode, breaking CSS and accessibility tree behavior.',
+  fix: FIX,
+  async check(ctx: RuleContext): Promise<Result[]> {
+    const { appHtmlDoctype } = ctx.project;
+    if (appHtmlDoctype === undefined) return [];
+    return [
+      {
+        id: 'a11y/doctype',
+        category: 'a11y',
+        severity: 'warning',
+        detection: appHtmlDoctype ? present : absent,
+        location: 'src/app.html',
+        message: appHtmlDoctype ? '<!doctype html>' : 'src/app.html is missing <!doctype html>',
+        recommendation: 'Add <!doctype html> as the first line of src/app.html.',
+        docsUrl: docsUrlFor('a11y/doctype'),
+        fix: { ...FIX }
+      }
+    ];
+  }
+};
