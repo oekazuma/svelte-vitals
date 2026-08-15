@@ -59,10 +59,9 @@ export function resolveInstallArgs(argv: CliArgv): ResolvedInstallArgs {
     errors.push(`svelte-vitals: no valid --client values; expected ${EXPECTED_TARGETS}.`);
   }
 
-  // --scope existed only to choose between a project and a global MCP client config.
-  // With the MCP targets gone every remaining target writes into the project, so the
-  // flag has nothing left to select — warn rather than fail, so an upgraded script
-  // still installs instead of exiting 2 on a flag that is merely obsolete.
+  // Every install target writes into the project, so `--scope` has nothing left to
+  // select — warn rather than fail, so an older script still installs instead of
+  // exiting 2 on a flag that is merely obsolete.
   if (argv.scope !== undefined) {
     warnings.push('svelte-vitals: --scope is no longer used (all install targets are project-scoped). Ignoring.');
   }

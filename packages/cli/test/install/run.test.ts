@@ -64,9 +64,8 @@ describe('runInstall', () => {
   it('an unknown-only --client selection exits 2', async () => {
     const { io, err } = fakeIO();
     // resolveInstallArgs filters unknown ids before this point, but runInstall is also
-    // called directly (and the removed MCP client ids are exactly what an upgraded
-    // script still passes), so it has to refuse an empty effective selection itself.
-    expect(await runInstall({ client: ['claude-code' as never] }, io, noPrompts)).toBe(2);
+    // called directly, so it has to refuse an empty effective selection itself.
+    expect(await runInstall({ client: ['bogus' as never] }, io, noPrompts)).toBe(2);
     expect(err.join('\n')).toContain('no valid targets selected');
   });
   it('dry-run writes nothing', async () => {
@@ -746,24 +745,6 @@ describe('runInstall — grouped interactive picker', () => {
     };
     await runInstall({}, io, prompts);
     expect(seenGroupNames).toEqual(['Vite integration', 'Agent Skills & rules', 'CI (GitHub Actions)', 'Config file']);
-  });
-
-  it('offers no MCP client group — the server was removed in favour of the CLI + skill', async () => {
-    const { io } = fakeIO({ isTTY: true });
-    let seenIds: string[] = [];
-    const prompts: InstallPrompts = {
-      ...noPrompts,
-      selectClients: async (groups) => {
-        seenIds = Object.values(groups)
-          .flat()
-          .map((o) => o.id);
-        return null;
-      }
-    };
-    await runInstall({}, io, prompts);
-    expect(seenIds).not.toContain('claude-code');
-    expect(seenIds).not.toContain('cursor');
-    expect(seenIds).not.toContain('codex');
   });
 });
 
