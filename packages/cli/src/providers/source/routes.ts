@@ -266,10 +266,12 @@ async function resolveRoute(
   const composed = new Map<string, HeadTag>();
   // Additive kinds survive in chain order (root layout -> ... -> page) and source order
   // within a file, unlike composed's override-by-kind semantics for title/meta: JSON-LD
-  // (issue #443) and every <link> except canonical — preload/preconnect/alternate/icon/…
-  // legitimately repeat with the same rel. Canonical stays in `composed` because the
-  // broad-source fill below keys on `link:canonical`; if it were additive, a static
-  // canonical would sit next to a synthetic dynamic one and detection would degrade.
+  // (issue #443), every <link> except canonical (preload/preconnect/alternate/icon/…
+  // legitimately repeat with the same rel), and <script src> (a layout's script and a page's
+  // same-src script both render, so a page-level `defer` copy must not mask the layout's
+  // blocking one). Canonical stays in `composed` because the broad-source fill below keys on
+  // `link:canonical`; if it were additive, a static canonical would sit next to a synthetic
+  // dynamic one and detection would degrade.
   const additiveTags: HeadTag[] = [];
   let broadOwn = false;
   let broadInherited = false;
@@ -304,7 +306,8 @@ async function resolveRoute(
     const resolved = await resolveFileTags(rt, cwd, rel, parsed, config, MAX_DEPTH, new Set([rel]), cache, aliases);
     for (const tag of resolved.tags) {
       const stamped: HeadTag = { ...tag, presence: isPage ? 'own' : 'inherited', file: rel };
-      if (tag.kind === 'jsonld' || (tag.kind === 'link' && tag.rel !== 'canonical')) additiveTags.push(stamped);
+      if (tag.kind === 'jsonld' || tag.kind === 'script' || (tag.kind === 'link' && tag.rel !== 'canonical'))
+        additiveTags.push(stamped);
       else composed.set(tagKey(tag), stamped);
     }
     if (resolved.broad) {
