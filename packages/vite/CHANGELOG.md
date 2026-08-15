@@ -1,5 +1,18 @@
 # @svelte-vitals/vite
 
+## 0.30.0
+
+### Minor Changes
+
+- fd997bd: Build mode and the dev dashboard now collect landmarks, ids, and id references from the actual **rendered HTML** for the cross-component Accessibility rules, mirroring how they already re-verify SEO/Performance against the shipped output rather than trusting source.
+
+### Patch Changes
+
+- Updated dependencies [fd997bd]
+- Updated dependencies [fd997bd]
+  - @svelte-vitals/core@0.43.0
+  - svelte-vitals@0.47.0
+
 ## 0.29.7
 
 ### Patch Changes
