@@ -1,6 +1,6 @@
 # kitchen-sink
 
-A real SvelteKit app used three ways:
+A real SvelteKit app used four ways:
 
 - **Defect gallery** — `/gallery/**` plants one (or a few) findings per rule, so every rule in
   `@svelte-vitals/core`'s `allRules` has a concrete, reviewable specimen instead of a synthetic
