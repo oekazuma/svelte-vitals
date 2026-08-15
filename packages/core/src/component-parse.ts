@@ -1747,7 +1747,8 @@ function collectNamespaceImports(program: Node, source: string, acc: { source: s
   });
 }
 
-const RULE_ID_RE = '[a-z]+\\/[a-z][a-z0-9-]*';
+// Category segment allows digits: `a11y/*` ids exist alongside all-letter categories.
+const RULE_ID_RE = '[a-z][a-z0-9]*\\/[a-z][a-z0-9-]*';
 const JS_DIRECTIVE = new RegExp(
   `^\\s*//\\s*svelte-vitals-disable-next-line(?:\\s+(${RULE_ID_RE}(?:\\s*,\\s*${RULE_ID_RE})*))?\\s*$`
 );

@@ -503,6 +503,15 @@ describe('parseComponentFacts — mutated non-bindable props (correctness/prop-m
 });
 
 describe('parseComponentFacts — suppression directives (issue #92)', () => {
+  it('accepts rule ids whose category contains digits (a11y/*)', () => {
+    const src = '<!-- svelte-vitals-disable-next-line a11y/invalid-role -->\n<div role="bogus">x</div>';
+    expect(parseComponentFacts(src, 'C.svelte').suppressions).toEqual([{ line: 2, ruleIds: ['a11y/invalid-role'] }]);
+    const two = '<!-- svelte-vitals-disable-next-line a11y/invalid-role, seo/image-alt -->\n<img />';
+    expect(parseComponentFacts(two, 'C.svelte').suppressions).toEqual([
+      { line: 2, ruleIds: ['a11y/invalid-role', 'seo/image-alt'] }
+    ]);
+  });
+
   it('captures a script-side disable-next-line with a rule id', () => {
     const src =
       '<script>\n// svelte-vitals-disable-next-line correctness/effect-as-derived\n$effect(() => { x = 1; });\n</script>';
