@@ -49,6 +49,9 @@ template declaration tags are invisible to the script-scope correctness facts
 
 ## Queued increments
 
+All of these are pre-1.0 work — see `2026-08-16-v1-roadmap.md` for the ordering and the
+reason (schema/findingKey/directive changes must precede the 1.0 freeze).
+
 1. **Pretender-style component mapping** — a config surface declaring what an unresolvable
    (node_modules) component renders as (`{ "Link": "a" }`; the component-to-element mapping file-scoped
    linters rely on is prior art). This is the single highest-leverage unlock: it widens `no-missing-id-ref`'s closed
