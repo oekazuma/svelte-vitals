@@ -44,10 +44,8 @@ describe('buildSkillMarkdown', () => {
     expect(md).toContain('npx svelte-vitals docs show <name>');
   });
 
-  it('sends the agent to `svelte-vitals explain`, not to the removed MCP tool', () => {
+  it('sends the agent to `svelte-vitals explain` for a rule’s detail', () => {
     expect(md).toContain('npx svelte-vitals explain <rule-id>');
-    expect(md).not.toContain('explain_rule');
-    expect(md).not.toContain('MCP');
   });
 
   it('includes a Fix note when the rule defines one', () => {

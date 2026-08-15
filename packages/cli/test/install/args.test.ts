@@ -22,18 +22,12 @@ describe('resolveInstallArgs', () => {
     const r = resolveInstallArgs(parse(['--client', 'claude-skill,claude-skill,vite-plugin']));
     expect(r.flags!.client).toEqual(['claude-skill', 'vite-plugin']);
   });
-  it('errors on an all-invalid --client (fatal)', () => {
-    const r = resolveInstallArgs(parse(['--client', 'bogus']));
+  it('errors on an all-invalid --client (fatal), naming each unknown id', () => {
+    const r = resolveInstallArgs(parse(['--client', 'bogus,nonsense']));
     expect(r.flags).toBeNull();
     expect(r.errors.join('\n')).toContain('claude-skill');
-  });
-  it('drops the removed MCP client ids with a warning rather than accepting them', () => {
-    // They were valid ids until the MCP server was removed, so an old script still
-    // passes them; the run must be told, not silently install something else.
-    const r = resolveInstallArgs(parse(['--client', 'claude-code,cursor,codex']));
-    expect(r.flags).toBeNull();
-    expect(r.warnings.join('\n')).toContain('claude-code');
-    expect(r.warnings.join('\n')).toContain('codex');
+    expect(r.warnings.join('\n')).toContain('bogus');
+    expect(r.warnings.join('\n')).toContain('nonsense');
   });
   it('warns that --scope is obsolete instead of failing the run', () => {
     const r = resolveInstallArgs(parse(['--client', 'claude-skill', '--scope', 'project']));

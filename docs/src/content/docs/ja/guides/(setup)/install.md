@@ -96,4 +96,4 @@ npx svelte-vitals@latest install --client claude-skill,ci-workflow --yes
 
 対象ファイルを読み取れない場合は、そのパスを報告して終了コード `2` で失敗します。中身を確認できないファイルを上書きすることはありません。
 
-> **CLI に一本化したため削除:** `claude-code`、`cursor`、`codex` の3つのターゲット ID は `@svelte-vitals/mcp` サーバーを設定するためのものでしたが、このパッケージは廃止されました。現在これらを渡すと warning を出してスキップします。代わりに `claude-skill` を使ってください（Claude Code・Codex・Cursor がいずれも読み取る単一のスキルファイルを生成します）。`explain_rule` ツールが返していたルール単位の詳細は [`svelte-vitals explain`](/ja/guides/cli#explain) が置き換えます。
+認識できない `--client` の ID は warning を出してスキップされ、残りの有効なターゲットはそのままインストールされます。有効な ID が1つもない場合は、何もインストールせずに黙って終わるのではなく、コマンド自体が失敗します。

@@ -1,13 +1,15 @@
 ---
 title: Getting started
-description: Install svelte-vitals and run your first SEO audit in seconds.
+description: Install svelte-vitals and run your first health check in seconds.
 sidebar:
   order: 1
 ---
 
 ## What is svelte-vitals?
 
-svelte-vitals is a SvelteKit SEO and Performance checker that works entirely from source code — no running site, no browser, no build server required. It resolves every route's effective `<head>` by walking the layout chain and parsing `<svelte:head>` blocks, then scores each route and the site as a whole.
+svelte-vitals is a static code-health checker for SvelteKit. It scores your app across six categories — SEO, Performance, Correctness, Security, Architecture, and Accessibility — per route and site-wide, before you deploy.
+
+The CLI works entirely from source: it resolves every route's effective `<head>` by walking the layout chain and parsing `<svelte:head>` blocks, and reads component bodies for the rules that live there. No running site and no browser are involved. For prerendered pages, the [Vite plugin](/guides/plugin-mode) runs the same rules against the HTML your build actually ships — the most accurate check of the two, since nothing is left dynamic.
 
 ## Prerequisites
 

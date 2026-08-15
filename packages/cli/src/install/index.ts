@@ -310,10 +310,8 @@ export async function runInstall(
     const claudeSkillDetected = configExists(join(io.cwd, '.claude', 'settings.json'));
     // Same shape as claudeSkillDetected: "this project uses Cursor", from a file Cursor
     // itself keeps — plus the rules file this target already wrote, so a re-run finds it
-    // ticked. `.cursor/mcp.json` stays a signal: it never meant svelte-vitals' own server
-    // entry, only that Cursor is in use here, and it still means exactly that. Each probe
-    // has to name a file, not a directory — readFile maps only ENOENT to undefined and
-    // rethrows EISDIR, so `.cursor/` itself would always read as absent.
+    // ticked. Each probe has to name a file, not a directory — readFile maps only ENOENT
+    // to undefined and rethrows EISDIR, so `.cursor/` itself would always read as absent.
     const cursorRulesDetected = [
       '.cursor/mcp.json',
       '.cursor/environment.json',

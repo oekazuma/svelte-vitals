@@ -1,7 +1,7 @@
 import { defineConfig } from 'blume';
 
 const description =
-  'A deterministic SvelteKit code-health scanner — SEO, performance, correctness, security, architecture.';
+  'A deterministic SvelteKit code-health scanner — SEO, performance, correctness, security, architecture, accessibility.';
 
 export default defineConfig({
   title: 'svelte-vitals',
@@ -46,15 +46,6 @@ export default defineConfig({
       { code: 'ja', label: '日本語' }
     ]
   },
-  // The MCP server guide was deleted when `@svelte-vitals/mcp` was removed
-  // (docs/superpowers/specs/2026-08-01-remove-mcp-design.md). Its URL is still in
-  // search results and in the READMEs of already-published npm versions, so send
-  // those readers to the install guide, which carries the migration note, rather
-  // than to a 404.
-  redirects: [
-    { from: '/guides/mcp', to: '/guides/install' },
-    { from: '/ja/guides/mcp', to: '/ja/guides/install' }
-  ],
   deployment: {
     site: 'https://oekazuma.github.io',
     base: '/svelte-vitals'

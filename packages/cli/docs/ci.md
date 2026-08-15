@@ -44,7 +44,6 @@ job driven by an agent gets `agent` instead. Pass `--reporter github` when you n
 annotations regardless of who is running the job:
 
 ```bash
-pnpm build
 npx svelte-vitals@latest --reporter github --fail-on warning
 ```
 
