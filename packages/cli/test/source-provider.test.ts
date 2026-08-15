@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import {
   performancePreconnect,
+  performanceRenderBlockingScript,
   seoHreflang,
   seoJsonLdValidity,
   seoSingleH1,
@@ -336,6 +337,50 @@ describe('collectRoutes <link> additivity', () => {
     const canonicals = links(head!, 'canonical');
     expect(canonicals).toHaveLength(1);
     expect(canonicals[0]?.presence).toBe('own');
+  });
+});
+
+describe('collectRoutes <script src> additivity', () => {
+  const scripts = (head: ResolvedHead) => head.tags.filter((t) => t.kind === 'script');
+
+  it('keeps a layout blocking script alongside the page copy of the same src with defer', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+layout.svelte': `<svelte:head><script src="https://cdn.example/x.js"></script></svelte:head>`,
+      'src/routes/+page.svelte': `<svelte:head><script src="https://cdn.example/x.js" defer></script></svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    expect(scripts(head!).map((t) => [t.file, t.presence, t.blocking ?? false])).toEqual([
+      ['src/routes/+layout.svelte', 'inherited', true],
+      ['src/routes/+page.svelte', 'own', false]
+    ]);
+    const results = await performanceRenderBlockingScript.check({
+      heads: [head!],
+      project: defaultProject,
+      config: defaultConfig
+    });
+    expect(results.map((r) => [r.message, r.location])).toEqual([
+      ['Render-blocking <script> (https://cdn.example/x.js) in <head>', 'src/routes/+layout.svelte']
+    ]);
+  });
+
+  it('keeps two same-src scripts in one <svelte:head>', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+page.svelte': `<svelte:head>
+  <script src="/a.js"></script>
+  <script src="/a.js" async></script>
+</svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    expect(scripts(head!).map((t) => t.blocking ?? false)).toEqual([true, false]);
+  });
+
+  it('models only literal src: dynamic src={expr} scripts produce no script tag', async () => {
+    const rt = createMemoryRuntime({
+      'src/routes/+page.svelte': `<script>let a = '/a.js'; let b = '/b.js';</script>
+<svelte:head><script src={a}></script><script src={b}></script></svelte:head>`
+    });
+    const [head] = await collectHeads(rt, '');
+    expect(scripts(head!)).toEqual([]);
   });
 });
 
