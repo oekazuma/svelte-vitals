@@ -66,4 +66,20 @@ describe('svelteVitals options', () => {
     await closeBundleOf(p)().catch(() => {});
     await expect(access(abs)).resolves.toBeUndefined();
   });
+
+  it('reports performance/minify-disabled from the plugin instance that only ever saw the SSR build', async () => {
+    // SvelteKit's client build is a separate `vite.build({ configFile })` with a fresh plugin
+    // instance; the instance whose closeBundle sees the prerendered dir is the outer SSR one,
+    // and its resolved SSR config carries no usable minify value.
+    const configFile = join(cwd, 'vite.config.ts');
+    await writeFile(configFile, `export default {\n  build: { minify: false }\n};\n`);
+    const p = svelteVitals({ cwd, ui: false, report: false, outFile: 'report.json' }) as Plugin;
+    const config = typeof p.config === 'function' ? p.config : p.config?.handler;
+    (config as (c: unknown, env: unknown) => void).call({}, { build: { minify: false, ssr: true } }, {});
+    const configResolved = typeof p.configResolved === 'function' ? p.configResolved : p.configResolved?.handler;
+    (configResolved as (c: unknown) => void).call({}, { root: cwd, configFile, build: { ssr: true, minify: false } });
+    await closeBundleOf(p)().catch(() => {});
+    const report = JSON.parse(await readFile(join(cwd, 'report.json'), 'utf8'));
+    expect(report.rules['performance/minify-disabled']).toEqual({ findings: 1, passed: 0 });
+  });
 });
