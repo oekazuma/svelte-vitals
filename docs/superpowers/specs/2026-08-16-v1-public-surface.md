@@ -125,9 +125,11 @@ is exactly this case.
 
 - **JSON reporter** (`JsonReport`): frozen field-for-field as documented in the reporters guide —
   `version, score, weights, categories, summary, rules{findings,passed}, routes[], siteIssues[],
-inventories, examined?`, closed over `Summary`, `Result`, `Detection`, `Presence`, `Value`,
-  `Scope`, `Fix`, `RuleEvidence`, `Category`, `Severity`, and the score result types. Additive
-  fields stay minor; removing or retyping one is 2.0.
+inventories, examined?`, closed over exactly `Summary`, `RuleEvidence`, `JsonIssue`, `Result`,
+  `Detection`, `Presence`, `Value`, `Fix`, `Category`, `Severity`, `Config`, and `ScoreModel`.
+  `ScoreModel` is named rather than "the scoring types": the neighbouring `ScoreOptions` carries
+  `rules?: Rule[]`, so freezing that group would drag `Rule` → `RuleContext` → `ResolvedA11y` back
+  into the promise. Additive fields stay minor; removing or retyping one is 2.0.
 - **SARIF** stays valid SARIF 2.1.0; **GitHub** stays valid workflow commands. Both are frozen by
   reference to their external specs, not to our own layout.
 - **agent / markdown / html** reporters are **human/agent-readable output, not schemas**: their
@@ -137,12 +139,11 @@ inventories, examined?`, closed over `Summary`, `Result`, `Detection`, `Presence
 
 - `defineConfig` and the config types it closes over: `Config`, `RuleSetting`, `RuleSettingObject`,
   `RuleOverride`, `RuleOptions`, `Severity`, `Category`, `CATEGORIES`, `TreatDynamicAs`.
-- `JsonReport` and the types it closes over (listed above), plus `Project` and `KitAlias`, which
-  `Result` reaches.
+- `JsonReport` and the types it closes over (listed above).
 
-Nothing else. The split's implementation must verify closure mechanically rather than by reading:
-`internal.ts` must not be reachable from `index.ts`, and the `.d.ts` for `index` must reference no
-symbol declared outside it.
+Nothing else — and specifically **not** `Project`, `KitAlias`, or `Scope`: no frozen type reaches
+them, `Project` grows a field per project-scoped rule, and `Scope` belongs to `Rule`. They are
+internal.
 
 ## Internal (moves to `./internal`, no promise)
 
@@ -186,7 +187,7 @@ free internal change later.
 
 One thing, and it is not a symbol:
 
-- **The hand-maintained rule re-export list in `index.ts`** (lines ~100-162). `internal.ts` uses
+- **The hand-maintained rule re-export list in `index.ts`** (`index.ts` lines ~71-162). `internal.ts` uses
   `export * from './rules/index.js'` instead. **This retires one of the four registration places
   AGENTS.md mandates** — the one its own "TypeScript won't catch a missed spot" warning is about —
   while every rule function stays importable, so no test changes meaning.
@@ -218,9 +219,17 @@ A test in `packages/core/test/` reads `src/index.ts`'s export list and compares 
 export it from ./internal instead". Same forcing function as the docs-links and kitchen-sink
 meta-tests.
 
-The type-closure property gets its own check: assert that `dist/index.d.ts` references no symbol
-it does not itself declare or import from within `.`. Closure is the invariant that makes the
-frozen list meaningful, and it is not preserved by review alone.
+The type-closure property gets its own check, and it must be phrased against what the bundler
+actually emits. `rollup-plugin-dts` **inlines** every reachable in-package declaration into
+`dist/index.d.ts`, so "references only what it declares" is self-satisfying by construction — an
+accidental drag-in of an internal type would inline silently and pass. The implementable form:
+
+1. `dist/index.d.ts` contains **zero** `import` statements (today's `import { AST } from 'svelte/compiler'` must not survive into `.`), and
+2. the set of identifiers it **declares** is a subset of `public-surface.json`.
+
+Check 2 is what catches a drag-in: pulling in `RuleContext` inlines `ResolvedA11y` et al. as new
+declarations, and the subset assertion fails. Closure is the invariant that makes the frozen list
+meaningful, and it is not preserved by review alone.
 
 ## Corrections this audit surfaced (fix before the freeze)
 
