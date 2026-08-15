@@ -21,15 +21,13 @@ description: 1つのルートに main・banner・contentinfo ランドマーク�
 
 1つのルートにつき `<main>`、`<header>`/`role="banner"`、`<footer>`/`role="contentinfo"` をそれぞれ1つに保ちます。レイアウトが既にこれらのどれかを描画しているなら、ページ側（やインポートしたコンポーネント）で重ねて描画しないようにします。
 
-```svelte
-<!-- +layout.svelte -->
+```svelte +layout.svelte
 <header>すべてのルートに表示するナビゲーション</header>
 <main><slot /></main>
 <footer>すべてのルートに表示するフッター</footer>
 ```
 
-```svelte
-<!-- +page.svelte -->
+```svelte +page.svelte
 <h1>ページの本文</h1>
 <!-- ここに2つ目の <main> を置かない -->
 ```

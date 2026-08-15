@@ -25,8 +25,7 @@ SvelteKit のパフォーマンスガイドは、リクエストウォーター�
 
 依存チェーンを server load に移動します:
 
-```ts
-// +page.server.ts — same chain, server-side hops
+```ts +page.server.ts
 export async function load({ fetch }) {
   const user = await fetch(`/api/user`).then((r) => r.json());
   const posts = await fetch(`/api/posts/${user.id}`).then((r) => r.json());

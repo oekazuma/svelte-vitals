@@ -41,8 +41,7 @@ export async function load({ fetch }) {
 
 呼び出しをコンポーネント初期化へ移します:
 
-```svelte
-<!-- +page.svelte -->
+```svelte +page.svelte
 <script>
   import { setContext } from 'svelte';
 

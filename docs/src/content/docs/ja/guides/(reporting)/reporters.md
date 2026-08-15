@@ -180,8 +180,7 @@ svelte-vitals --reporter html --out-file -     # ファイルではなく標準�
 
 ## 例：CI パイプライン
 
-```yaml
-# .github/workflows/seo.yml
+```yaml .github/workflows/seo.yml
 - name: Check SEO
   run: npx svelte-vitals@latest --fail-on warning
   # GITHUB_ACTIONS はすでに設定済み；github レポーターが自動選択される

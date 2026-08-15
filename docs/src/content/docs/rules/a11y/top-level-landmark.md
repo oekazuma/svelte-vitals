@@ -11,12 +11,12 @@ Flags a `banner`, `main`, `complementary`, or `contentinfo` landmark that ends u
 
 The flagship case is a layout that renders its children inside `<main>` while the page contributes another landmark, e.g. an `<aside>` with `role="complementary"`:
 
-```svelte
-<!-- +layout.svelte --><header>Site navigation</header><main><slot /></main>
+```svelte +layout.svelte
+<header>Site navigation</header><main><slot /></main>
 ```
 
-```svelte
-<!-- +page.svelte --><h1>Page content</h1><aside role="complementary">Related links</aside>
+```svelte +page.svelte
+<h1>Page content</h1><aside role="complementary">Related links</aside>
 ```
 
 Nothing in either file alone is wrong — a file-scoped markup linter cannot see this, since the nesting only exists once the layout's `<main>` and the page's `complementary` are composed across files.
@@ -34,12 +34,11 @@ Assistive technology exposes `banner`, `main`, `complementary`, and `contentinfo
 
 Move the nested landmark out so every landmark composes at the top level of the route:
 
-```svelte
-<!-- +layout.svelte --><header>Site navigation</header><main><slot /></main>
+```svelte +layout.svelte
+<header>Site navigation</header><main><slot /></main>
 ```
 
-```svelte
-<!-- +page.svelte -->
+```svelte +page.svelte
 <h1>Page content</h1>
 <aside role="complementary">Related links</aside>
 <!-- moved out from under +layout.svelte's <main> -->

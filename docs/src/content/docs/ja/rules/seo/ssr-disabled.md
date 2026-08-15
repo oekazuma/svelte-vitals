@@ -21,8 +21,7 @@ SvelteKit 公式の SEO ガイダンスによれば、サーバーレンダリ�
 
 `ssr = false` は、SEO が本当に不要なルートに限定します：
 
-```ts
-// src/routes/(app)/dashboard/+page.ts — 認証必須、インデックス不要
+```ts src/routes/(app)/dashboard/+page.ts
 export const ssr = false; // これが意図的なら suppression するかルールを off に
 ```
 

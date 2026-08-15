@@ -19,8 +19,7 @@ description: head の <script src> で HTML の解析を止めないようにし
 
 `defer`（または `type="module"`）か `async` を付けます。
 
-```html
-<!-- src/app.html -->
+```html src/app.html
 <script src="/analytics.js" defer></script>
 ```
 

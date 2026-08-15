@@ -11,12 +11,12 @@ description: banner・main・complementary・contentinfo ランドマークは�
 
 代表的なケースは、レイアウトが子要素を `<main>` の中に描画し、ページが別のランドマーク、例えば `role="complementary"` の `<aside>` を描画する場合です。
 
-```svelte
-<!-- +layout.svelte --><header>サイトナビゲーション</header><main><slot /></main>
+```svelte +layout.svelte
+<header>サイトナビゲーション</header><main><slot /></main>
 ```
 
-```svelte
-<!-- +page.svelte --><h1>ページの本文</h1><aside role="complementary">関連リンク</aside>
+```svelte +page.svelte
+<h1>ページの本文</h1><aside role="complementary">関連リンク</aside>
 ```
 
 どちらのファイル単体を見ても問題はありません。ファイル単位のマークアップ linter ではこれを検出できません。このネストは、レイアウトの `<main>` とページの `complementary` をファイルをまたいで合成して初めて存在するものだからです。
@@ -34,12 +34,11 @@ description: banner・main・complementary・contentinfo ランドマークは�
 
 すべてのランドマークがルートの最上位で合成されるよう、ネストしたランドマークを外に出します。
 
-```svelte
-<!-- +layout.svelte --><header>サイトナビゲーション</header><main><slot /></main>
+```svelte +layout.svelte
+<header>サイトナビゲーション</header><main><slot /></main>
 ```
 
-```svelte
-<!-- +page.svelte -->
+```svelte +page.svelte
 <h1>ページの本文</h1>
 <aside role="complementary">関連リンク</aside>
 <!-- +layout.svelte の <main> の下から外に出した -->

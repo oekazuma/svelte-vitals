@@ -21,8 +21,7 @@ Note that `prerender = true` does not neutralise this: with `ssr = false` the pr
 
 Scope `ssr = false` to routes that genuinely don't need SEO:
 
-```ts
-// src/routes/(app)/dashboard/+page.ts — authenticated, not indexable
+```ts src/routes/(app)/dashboard/+page.ts
 export const ssr = false; // fine — suppress or turn the rule off if this is deliberate
 ```
 

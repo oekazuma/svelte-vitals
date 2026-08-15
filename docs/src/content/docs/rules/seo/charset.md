@@ -15,8 +15,7 @@ Without a declared character encoding the browser must guess, which can render t
 
 ## How to fix
 
-```html
-<!-- src/app.html -->
+```html src/app.html
 <head>
   <meta charset="utf-8" />
   %sveltekit.head%

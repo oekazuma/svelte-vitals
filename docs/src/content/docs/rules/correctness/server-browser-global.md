@@ -37,8 +37,7 @@ export function load() {
 
 Move the browser access to the client side, in `onMount` — it never runs on the server:
 
-```svelte
-<!-- +page.svelte -->
+```svelte +page.svelte
 <script>
   import { onMount } from 'svelte';
 

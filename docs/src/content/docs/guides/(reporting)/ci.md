@@ -128,8 +128,7 @@ this action. Pick by intent:
 - **Never want a rule at all** — turn it off globally in
   [`svelte-vitals.config.*`](/guides/configuration):
 
-  ```js
-  // svelte-vitals.config.mjs
+  ```js svelte-vitals.config.mjs
   export default {
     rules: { 'seo/json-ld': 'off' }
   };
@@ -139,8 +138,7 @@ this action. Pick by intent:
   [`overrides`](/guides/configuration#scoping-rules-to-routes-or-files-overrides).
   This is durable policy: routes added under the glob later are excluded too.
 
-  ```js
-  // svelte-vitals.config.mjs
+  ```js svelte-vitals.config.mjs
   export default {
     // No SEO checks for anything in the (app) route group.
     overrides: [{ files: 'src/routes/(app)/**', rules: { seo: 'off' } }]

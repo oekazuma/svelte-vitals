@@ -65,8 +65,7 @@ class QuizStateManager {
 export const quizState = new QuizStateManager();
 ```
 
-```svelte
-<!-- +layout.svelte -->
+```svelte +layout.svelte
 <script>
   import { quizState } from '$lib/store.svelte.js';
   quizState.startPersisting();
