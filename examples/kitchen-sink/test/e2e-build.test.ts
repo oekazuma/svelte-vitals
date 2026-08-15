@@ -35,11 +35,6 @@ describe('kitchen-sink e2e (build mode)', () => {
   it('the gate fails the build on critical findings, after writing the report', () => {
     expect(buildFailed).toBe(true);
     expect(buildStderr).toContain('svelte-vitals: build failed');
-    // performance/minify-disabled pins 0, not 1: the plugin's minifyFlag closure is lost
-    // by the time the real closeBundle fires (SvelteKit's prerender pass re-instantiates
-    // the plugin), so the rule never opens its gate in a real `vite build` today, despite
-    // vite.config.ts's `minify: false`. Known plugin bug — this expectation flips to 1
-    // once packages/vite/src/plugin.ts's minifyFlag capture survives the prerender pass.
     const expected = JSON.parse(readFileSync(join(appDir, 'expected-findings.rendered.json'), 'utf8')) as Record<
       string,
       number

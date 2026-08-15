@@ -103,10 +103,8 @@ import graph — that's what keeps them safe to plant.
 per-rule counts, but from the vite plugin's rendered-HTML pass instead of the CLI's static pass.
 The two are **not** expected to match exactly: rendered analysis sees resolved, composed HTML
 (catching things static per-file analysis can't, e.g. some `performance/image-*` and
-`seo/heading-level-skip` counts are higher there), while `performance/minify-disabled` is pinned
-to `0` in rendered mode despite `vite.config.ts` setting `minify: false` — a known plugin
-limitation (see the comment in `test/e2e-build.test.ts`), not a spec to "fix" here. When you add a
-rule, add its count to both files; the divergences are known and by design, not silent drift.
+`seo/heading-level-skip` counts are higher there). When you add a rule, add its count to both
+files; the divergences are known and by design, not silent drift.
 
 ## Intentionally-defective surfaces — do not "fix" these
 
