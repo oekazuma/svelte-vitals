@@ -267,8 +267,10 @@ dependency justified.
   `a11y/doctype` captures the doctype from that **existing read** — zero new I/O, no io-budget
   change.
 
-Component-scoped a11y rules run in CLI static mode only (`ctx.components` is unset in rendered
-mode — same as correctness/security). Route-scoped landmark/id rules run in both modes.
+~~Component-scoped a11y rules run in CLI static mode only (`ctx.components` is unset in rendered
+mode — same as correctness/security).~~ **Corrected 2026-08-16** (`2026-08-16-a11y-rule-validity-review.md`):
+the Vite plugin collects the same component facts from source, so these rules run in both modes
+with identical results. Route-scoped landmark/id rules run in both modes.
 `a11y/doctype` is CLI-only in Phase 1.
 
 ## Registration & docs obligations (per AGENTS.md)
@@ -318,7 +320,7 @@ Vitest per package, fixtures under `test/fixtures/`:
   parent).
 - A pretender-style mapping for **node_modules components** (unresolvable by source analysis —
   e.g. a library `<Link>` rendering `<a>`); the component-to-element mapping file-scoped linters use is prior art.
-- Rendered-mode execution of the component-scoped a11y rules.
+- ~~Rendered-mode execution of the component-scoped a11y rules.~~ **Superseded 2026-08-16** — see the correction above and `2026-08-16-a11y-rule-validity-review.md`: the plugin collects the same component facts from source, so these rules do run in rendered mode.
 - Inline suppression directives for route-scoped findings (suppressions file covers them).
 - Svelte compiler warning aggregation; a third-party lint engine as a dependency.
 - WCAG checks needing runtime computation (contrast, focus order).

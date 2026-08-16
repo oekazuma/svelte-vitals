@@ -7,7 +7,7 @@ description: A role that requires state or property attributes needs them presen
 
 ## What it checks
 
-Flags a literal `role` attribute naming a role that requires one or more `aria-*` attributes, when none of those attributes are present on the element. Checked by static (CLI) analysis of every `.svelte` component under `src/`.
+Flags a literal `role` attribute naming a role that requires one or more `aria-*` attributes, when none of those attributes are present on the element. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 An attribute counts as present whether its value is a literal or a dynamic expression — only the attribute's presence matters here, not its value (a bad value is `a11y/invalid-aria-value`'s concern).
 

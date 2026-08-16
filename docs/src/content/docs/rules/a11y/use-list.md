@@ -7,7 +7,7 @@ description: A bullet character typed into plain text should be a real list elem
 
 ## What it checks
 
-Flags a text node whose trimmed content opens with a bullet character (`•`, `・`, `·`, `-`, or `*`) followed by whitespace. Checked by static (CLI) analysis of every `.svelte` component under `src/`.
+Flags a text node whose trimmed content opens with a bullet character (`•`, `・`, `·`, `-`, or `*`) followed by whitespace. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 Not flagged:
 
