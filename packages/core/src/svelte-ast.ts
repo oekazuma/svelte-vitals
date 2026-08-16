@@ -2,22 +2,35 @@ import { parse, type AST } from 'svelte/compiler';
 import type { Value } from './types.js';
 
 /**
- * `<style lang="scss">` and friends, with their bodies blanked to spaces of the same length.
- * Svelte parses a `<style>` body as CSS whatever its `lang` says, so a preprocessor dialect makes
- * the whole file unparseable — and one unparseable route file fails the entire run. Nothing here
- * reads CSS, and blanking preserves every byte offset, so the substitution is invisible to callers.
+ * `<style lang="scss">` and friends. The leading `\s` before `lang` is what keeps `data-lang` out.
+ * This is a text scan, not a parse, so it can also match style-like text inside a script string or
+ * an attribute — which is why it only ever runs on a source Svelte has already refused.
  */
-const PREPROCESSED_STYLE_RE = /(<style\b[^>]*\blang\s*=\s*['"]?[^'"\s>]+['"]?[^>]*>)([\s\S]*?)(<\/style>)/gi;
+const PREPROCESSED_STYLE_RE = /(<style\b[^>]*\slang\s*=\s*['"]?[^'"\s>]+['"]?[^>]*>)([\s\S]*?)(<\/style>)/gi;
 
-/** Parse a `.svelte` source, tolerating style blocks written in a CSS dialect we never read. */
+/**
+ * Parse a `.svelte` source, tolerating style blocks written in a CSS dialect.
+ *
+ * Svelte parses a `<style>` body as CSS whatever its `lang` says, so one `<style lang="scss">`
+ * makes a component unparseable — and one unparseable route file fails the entire run. On failure
+ * the dialect bodies are blanked to spaces of the same length (nothing here reads CSS, and equal
+ * length keeps every byte offset, so reported lines are unchanged) and the parse is retried.
+ *
+ * The retry, not the substitution, is the design: a file that parses today is never rewritten, so
+ * the text scan's imprecision cannot reach it. A file that does not parse is already a hard failure,
+ * which the retry can only improve on.
+ */
 export function parseSvelte(source: string, filename: string): AST.Root {
-  return parse(
-    source.replace(
+  try {
+    return parse(source, { modern: true, filename });
+  } catch (err) {
+    const blanked = source.replace(
       PREPROCESSED_STYLE_RE,
       (_m, open: string, body: string, close: string) => open + body.replace(/[^\n]/g, ' ') + close
-    ),
-    { modern: true, filename }
-  );
+    );
+    if (blanked === source) throw err;
+    return parse(blanked, { modern: true, filename });
+  }
 }
 
 /** A template fragment's child node relevant to value classification: literal text or a `{expr}`. */

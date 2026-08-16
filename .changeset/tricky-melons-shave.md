@@ -11,3 +11,6 @@ fails the whole run with exit 2. Projects using SCSS, Less, or Stylus could not 
 at all. Style bodies with a `lang` attribute are now blanked before parsing, preserving every
 byte offset so reported lines are unchanged; nothing in the analysis reads CSS. Genuinely
 malformed components still fail as before.
+
+The rewrite is a retry, not a preprocessing step: a component that parses is never touched, so
+only sources that are already a hard failure can reach it.
