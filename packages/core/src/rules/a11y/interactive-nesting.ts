@@ -12,6 +12,6 @@ export const a11yInteractiveNesting = componentRule({
   bad: (c) =>
     (c.interactiveNestings ?? []).map((f) => ({
       line: f.line,
-      message: `<${f.descendantTag}> is nested inside interactive <${f.containerTag}>`
+      message: `<${f.descendantTag}> is nested inside interactive <${f.containerTag}${f.containerRole ? ` role="${f.containerRole}"` : ''}>`
     }))
 });

@@ -242,6 +242,11 @@ describe('parse-html: a11y capture (rendered landmark/id parity)', () => {
     );
   });
 
+  it('does not read a text-fragment directive as an id reference', () => {
+    const { idRefs } = parseHtmlHead(doc('<a href="#:~:text=hello%20world">jump</a><a href="#real">x</a>'));
+    expect(idRefs.map((r) => r.id)).toEqual(['real']);
+  });
+
   it('excludes #top by its decoded form and skips whitespace-only ids', () => {
     const { idRefs, ids } = parseHtmlHead(doc('<a href="#%74op">up</a><a href="#TOP">up</a><p id="   ">x</p>'));
     expect(idRefs).toEqual([]);

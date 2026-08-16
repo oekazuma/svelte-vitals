@@ -5,6 +5,7 @@ import {
   decodeFragmentId,
   splitTokens,
   isTopFragment,
+  isTextFragment,
   LANDMARK_ROLES,
   IDREF_ATTRS
 } from '@svelte-vitals/core/internal';
@@ -119,7 +120,7 @@ function collectA11y(root: HTMLElement): CollectedA11y {
     if (id && id.trim()) ids.push(id);
 
     const href = el.getAttribute('href');
-    if (href && href.startsWith('#') && href.length > 1) {
+    if (href && href.startsWith('#') && href.length > 1 && !isTextFragment(href.slice(1))) {
       // Navigation percent-decodes the fragment before matching an id (#caf%C3%A9 → café), and
       // the "top of the document" check compares the decoded form too (#%74op === #top).
       const fragment = decodeFragmentId(href.slice(1));

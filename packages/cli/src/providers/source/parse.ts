@@ -1,6 +1,7 @@
 import type { AST } from 'svelte/compiler';
 import type { BranchStep, HeadTag } from '@svelte-vitals/core/internal';
 import {
+  isTextFragment,
   parseSvelte,
   CHILD_NODE_KEYS,
   lineOf,
@@ -435,7 +436,7 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
         else if (v === 'static') emit(ctx, { kind: 'id', key: attrTextOf(attr)!, line });
       } else if (attr.name === 'href') {
         const href = attrTextOf(attr);
-        if (href?.startsWith('#') && href.length > 1) {
+        if (href?.startsWith('#') && href.length > 1 && !isTextFragment(href.slice(1))) {
           // Navigation percent-decodes the fragment before matching an id (#caf%C3%A9 → café).
           emit(ctx, { kind: 'idref', key: decodeFragmentId(href.slice(1)), line, attr: 'href' });
         }

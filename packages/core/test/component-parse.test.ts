@@ -1306,6 +1306,16 @@ describe('parseComponentFacts — interactiveNestings (a11y/interactive-nesting)
     const src = ['<div role="gridcell"><button>Edit</button></div>', '<div role="combobox"><input /></div>'].join('\n');
     expect(parseComponentFacts(src, 'C.svelte').interactiveNestings ?? []).toEqual([]);
   });
+  it('carries the role that made an element a container', () => {
+    const c = parseComponentFacts('<div role="checkbox switch"><a href="/y">z</a></div>', 'C.svelte');
+    expect(c.interactiveNestings).toEqual([
+      { containerTag: 'div', containerRole: 'checkbox', descendantTag: 'a', line: 1 }
+    ]);
+    // A tag that is a container on its own carries no role — the message would read oddly.
+    expect(parseComponentFacts('<a href="/x"><button>y</button></a>', 'C.svelte').interactiveNestings).toEqual([
+      { containerTag: 'a', descendantTag: 'button', line: 1 }
+    ]);
+  });
   it('resolves a fallback list to its first concrete role', () => {
     // `future-role button` is a button: the unknown token is skipped, not applied.
     const c = parseComponentFacts('<div role="future-role button"><button>x</button></div>', 'C.svelte');

@@ -126,3 +126,11 @@ export const IDREF_ATTRS: readonly string[] = [
 export function isTopFragment(id: string): boolean {
   return id.toLowerCase() === 'top';
 }
+
+/**
+ * A text-fragment directive (`#:~:text=…`) is user-agent instructions, not an id — the part after
+ * `:~:` never names an element, so a link carrying one references nothing to look for.
+ */
+export function isTextFragment(fragment: string): boolean {
+  return fragment.startsWith(':~:');
+}
