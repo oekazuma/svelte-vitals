@@ -17,7 +17,6 @@ Not flagged:
 - Literal text that is already machine-readable: `<time>2026-08-14</time>`.
 - Any content that isn't plain text — an `{expression}`, a component, or a block — since the rendered text can't be resolved statically: `<time>{d}</time>`.
 - A spread attribute on the `<time>` — it may itself supply `datetime`, so the element is skipped: `<time {...props}>last Tuesday</time>`.
-- A spread attribute on the `<time>` — it may itself supply `datetime`, so the element is skipped: `<time {...props}>last Tuesday</time>`.
 
 ```svelte
 <time>last Tuesday</time>
