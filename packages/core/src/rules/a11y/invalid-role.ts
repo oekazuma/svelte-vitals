@@ -1,5 +1,5 @@
 import { componentRule } from '../component-rule.js';
-import { isKnownRole, isAbstractRole } from './aria-data.js';
+import { isAbstractRole, resolveRole } from './aria-data.js';
 import { splitTokens } from '../../a11y.js';
 
 export const a11yInvalidRole = componentRule({
@@ -16,13 +16,15 @@ export const a11yInvalidRole = componentRule({
       const literal = e.role?.literal;
       if (literal === undefined) return [];
       const tokens = splitTokens(literal);
-      const badTokens = tokens.filter((t) => !isKnownRole(t) || isAbstractRole(t));
-      if (badTokens.length === 0) return [];
-      return [
-        {
-          line: e.line,
-          message: `role="${literal}" on <${e.tag}> is ${isAbstractRole(badTokens[0]!) ? 'an abstract role' : 'not a WAI-ARIA role'}`
-        }
-      ];
+      // A user agent resolves the role attribute to the first token naming a concrete role, so a
+      // list whose later tokens are unknown is the spec's own progressive-enhancement form, not a
+      // defect. Only a list that resolves to nothing leaves the element without the semantics its
+      // author asked for.
+      if (tokens.length === 0 || resolveRole(tokens) !== undefined) return [];
+      const message =
+        tokens.length === 1
+          ? `role="${literal}" on <${e.tag}> is ${isAbstractRole(tokens[0]!) ? 'an abstract role' : 'not a WAI-ARIA role'}`
+          : `no token in role="${literal}" on <${e.tag}> names a concrete WAI-ARIA role`;
+      return [{ line: e.line, message }];
     })
 });
