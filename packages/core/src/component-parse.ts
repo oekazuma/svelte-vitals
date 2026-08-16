@@ -1572,11 +1572,14 @@ function collectSelectsMissingPlaceholder(node: Node, source: string, acc: { lin
 const MACHINE_READABLE_TIME = [
   /^\d{4,}(-\d{2}){0,2}$/, // year, yearless month, date
   /^\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/, // time
-  /^\d{4,}-\d{2}-\d{2}[T ]\d{2}:\d{2}/, // local and global date-time
+  /^\d{4,}-\d{2}-\d{2}[T ]\d{2}:\d{2}(:\d{2}(\.\d+)?)?(Z|[+-]\d{2}:?\d{2})?$/, // local and global date-time
   /^\d{2}-\d{2}$/, // yearless date
   /^\d{4,}-W\d{2}$/, // week
   /^(Z|[+-]\d{2}:?\d{2})$/, // time-zone offset
-  /^P(?=\d|T)/i, // duration, PnYnMnD form
+  // Duration, `PnDTnHnMnS` form. Anchored to the character set a duration uses rather than to the
+  // exact component order: rejecting trailing prose matters, over-narrowing the order would turn a
+  // false negative into the false positive this rule is being repaired for.
+  /^P(?=\d|T)[\d.,TYWDHMS]*$/i,
   /^\d+(\.\d+)?\s*[wdhms](\s+\d+(\.\d+)?\s*[wdhms])*$/i // duration, alternative form
 ];
 

@@ -1,4 +1,5 @@
 import { splitTokens } from '../../a11y.js';
+import { resolveRole } from './aria-data.js';
 
 /** One element attribute as seen by the a11y element-set checks below — the same
  *  literal/expression classification `component-parse.ts` uses elsewhere. */
@@ -60,10 +61,10 @@ function literalOf(attrs: ElementAttr[], name: string): string | undefined {
   return attrs.find((a) => a.name === name)?.literal;
 }
 
-/** Whether a literal `role` attribute's first fallback token is in `set` — the first token is the
- *  one a browser/AT actually applies when the rest are unsupported. */
+/** Whether the role a user agent applies — the first token naming a concrete role, not merely the
+ *  first token — is in `set`. `role="future-role button"` is a button. */
 function hasRoleIn(attrs: ElementAttr[], set: ReadonlySet<string>): boolean {
-  const role = splitTokens(literalOf(attrs, 'role'))[0];
+  const role = resolveRole(splitTokens(literalOf(attrs, 'role')));
   return role !== undefined && set.has(role);
 }
 

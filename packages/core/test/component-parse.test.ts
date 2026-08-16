@@ -1306,6 +1306,11 @@ describe('parseComponentFacts — interactiveNestings (a11y/interactive-nesting)
     const src = ['<div role="gridcell"><button>Edit</button></div>', '<div role="combobox"><input /></div>'].join('\n');
     expect(parseComponentFacts(src, 'C.svelte').interactiveNestings ?? []).toEqual([]);
   });
+  it('resolves a fallback list to its first concrete role', () => {
+    // `future-role button` is a button: the unknown token is skipped, not applied.
+    const c = parseComponentFacts('<div role="future-role button"><button>x</button></div>', 'C.svelte');
+    expect(c.interactiveNestings).toHaveLength(1);
+  });
   it('flags a button inside a link, at the descendant line', () => {
     const c = parseComponentFacts('<a href="/x">\n  <button>Go</button>\n</a>', 'C.svelte');
     expect(c.interactiveNestings).toEqual([{ containerTag: 'a', descendantTag: 'button', line: 2 }]);
@@ -1490,6 +1495,19 @@ describe('parseComponentFacts — selectsMissingPlaceholder (a11y/placeholder-la
 });
 
 describe('parseComponentFacts — timesMissingDatetime (a11y/require-datetime)', () => {
+  it('rejects a machine-readable prefix followed by prose', () => {
+    // The patterns are anchored: a value is machine-readable in full, or not at all.
+    const src = ['<time>2026-08-14T14:30 invalid</time>', '<time>P3D invalid</time>'].join('\n');
+    expect((parseComponentFacts(src, 'C.svelte').timesMissingDatetime ?? []).map((t) => t.line)).toEqual([1, 2]);
+  });
+  it('accepts a date-time with seconds and a time-zone offset', () => {
+    const src = [
+      '<time>2026-08-14T14:30:05.5</time>',
+      '<time>2026-08-14T14:30Z</time>',
+      '<time>2026-08-14T14:30+09:00</time>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').timesMissingDatetime ?? []).toEqual([]);
+  });
   it('accepts the week, time-zone offset, alternative duration and 4+ digit year syntaxes', () => {
     const src = [
       '<time>2026-W33</time>',

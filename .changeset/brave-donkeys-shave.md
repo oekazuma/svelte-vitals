@@ -17,4 +17,13 @@ Correct three a11y rules' element and grammar tables.
   `<code>`, `<kbd>`, `<samp>` and `<textarea>`, where it is content. The `<br>`-separated bullets
   WCAG H48 names are unchanged.
 
-All three narrow detection, so recorded suppressions keep matching.
+Two narrower corrections ride along, both **widening** detection:
+
+- The `<time>` patterns are now anchored, so `<time>2026-08-14T14:30 invalid</time>` and
+  `<time>P3D invalid</time>` no longer pass on a machine-readable prefix.
+- `a11y/interactive-nesting` resolved a `role` fallback list by its **first token** rather than the
+  first token naming a concrete role, so `role="future-role button"` was not recognised as a
+  button. It now uses the same resolution the role rules do.
+
+Everything else here narrows detection, and recorded suppressions keep matching in either
+direction.
