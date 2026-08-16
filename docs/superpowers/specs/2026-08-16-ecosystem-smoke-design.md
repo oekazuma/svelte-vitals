@@ -97,6 +97,11 @@ always passes an explicit path, so deleting in the target directory is sufficien
 the monorepo subpath targets. It is the only project file the tool executes: `svelte.config.js` and
 `vite.config.ts` are parsed, never run.
 
+**The resolved target must be inside the resolved clone.** The corpus picks the subpath, but
+upstream picks what lives at it, and a repo may commit a symlink there. Without the check, deleting
+config files would unlink through it and the analysis would run somewhere else entirely. Both paths
+go through `realpathSync` and the target is rejected unless it is the clone root or beneath it.
+
 **Suppressions are switched off with `--no-suppressions`.** A separate concern from the config file
 and not a security one — `svelte-vitals-suppressions.json` is read with `JSON.parse`, never
 imported. But it is read from the analyzed directory unconditionally, so a target that adopts the

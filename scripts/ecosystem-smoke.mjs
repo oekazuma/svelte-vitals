@@ -9,9 +9,9 @@
 // Node builtins plus `git`, like floor-smoke.mjs: no dev dependency may leak in here.
 
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdtempSync, rmSync, readdirSync, unlinkSync } from 'node:fs';
+import { existsSync, mkdtempSync, realpathSync, rmSync, readdirSync, unlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
+import { join, sep } from 'node:path';
 
 /**
  * The corpus tracks each repo's default branch on purpose: the value is that upstream keeps
@@ -99,9 +99,16 @@ function check({ repo, path }, workdir) {
   const target = path === '.' ? dir : join(dir, path);
   if (!existsSync(target))
     return { sha, error: `${path} does not exist in the clone — has the repo been restructured?` };
-  dropConfigFiles(target);
+  // The corpus picks the path, but upstream picks what lives there: a repo is free to commit a
+  // symlink, and `dropConfigFiles` would then unlink through it, outside the clone entirely.
+  const root = realpathSync(dir);
+  const real = realpathSync(target);
+  if (real !== root && !real.startsWith(root + sep)) {
+    return { sha, error: `${path} resolves outside the clone (${real}) — refusing to touch it` };
+  }
+  dropConfigFiles(real);
 
-  const { code, stdout, stderr, signal } = analyze(target);
+  const { code, stdout, stderr, signal } = analyze(real);
   // A signal is a timeout, a maxBuffer overrun, or the kernel killing it — all failures, but the
   // cause is not knowable from here, so do not name one.
   if (signal !== null) {
