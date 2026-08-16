@@ -1,7 +1,7 @@
 import { defineConfig } from 'blume';
 
 const description =
-  'A deterministic SvelteKit code-health scanner — SEO, performance, correctness, security, architecture, accessibility.';
+  "Your SvelteKit app's code health, checked before it ships. Statically, no browser — SEO, performance, correctness, security, architecture, accessibility.";
 
 export default defineConfig({
   title: 'svelte-vitals',

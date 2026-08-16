@@ -12,7 +12,8 @@
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/npm/l/svelte-vitals" alt="MIT"></a>
 </p>
 
-<p align="center">A static code-health checker for SvelteKit — SEO, Performance, Correctness, Security, Architecture, and Accessibility, checked before you deploy. No browser or headless Chrome required. (Not a runtime Web Vitals reporter, despite the name.)</p>
+<p align="center">Your SvelteKit app's code health, checked before it ships. Statically, no browser.</p>
+<p align="center"><sub>SEO · Performance · Correctness · Security · Architecture · Accessibility</sub></p>
 
 ```bash
 npx svelte-vitals@latest
