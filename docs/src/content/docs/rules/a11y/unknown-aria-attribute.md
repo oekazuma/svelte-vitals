@@ -16,6 +16,8 @@ Only the attribute _name_ is checked, not its value — a bad value on a real at
 
 Not flagged:
 
+The attribute vocabulary comes from a pinned copy of the ARIA data, extended by hand with the attributes ARIA 1.3 added after that copy. An attribute newer than both is reported as unknown until the data is updated.
+
 - Any spec-defined attribute, e.g. `aria-label="x"`.
 - A spec-defined attribute with a dynamic value, e.g. `aria-hidden={isHidden}`.
 

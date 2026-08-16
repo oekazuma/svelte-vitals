@@ -54,9 +54,39 @@ describe('a11y/invalid-role', () => {
     );
     expect(fails(rs).map((r) => r.line)).toEqual([3, 5]);
   });
-  it('validates every token of a fallback list', async () => {
-    const rs = await a11yInvalidRole.check(ctx([comp({ ariaElements: [el({ role: { literal: 'switch bogus' } })] })]));
+  it('accepts a fallback list once a token names a concrete role', async () => {
+    // A user agent resolves to the first concrete token, so the later ones are the spec's own
+    // progressive-enhancement form — flagging them warned on correct markup.
+    const rs = await a11yInvalidRole.check(
+      ctx([
+        comp({
+          ariaElements: [
+            el({ role: { literal: 'switch bogus' } }),
+            el({ role: { literal: 'widget checkbox' }, line: 5 })
+          ]
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
+  it('flags a fallback list in which no token resolves', async () => {
+    const rs = await a11yInvalidRole.check(
+      ctx([comp({ ariaElements: [el({ role: { literal: 'bogus alsobogus' } })] })])
+    );
     expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.message).toContain('no token in role="bogus alsobogus"');
+  });
+  it('accepts roles ARIA 1.3 added after the pinned aria-query snapshot', async () => {
+    const rs = await a11yInvalidRole.check(
+      ctx([
+        comp({
+          ariaElements: ['comment', 'image', 'sectionheader', 'sectionfooter', 'suggestion'].map((r, i) =>
+            el({ role: { literal: r }, line: i + 1 })
+          )
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(0);
   });
   it('passes known roles and skips expressions', async () => {
     const rs = await a11yInvalidRole.check(
@@ -67,6 +97,19 @@ describe('a11y/invalid-role', () => {
 });
 
 describe('a11y/unknown-aria-attribute', () => {
+  it('accepts attributes ARIA 1.3 added after the pinned aria-query snapshot', async () => {
+    const rs = await a11yUnknownAriaAttribute.check(
+      ctx([
+        comp({
+          ariaElements: [
+            el({ aria: [{ name: 'aria-colindextext', literal: 'Q1', line: 1 }] }),
+            el({ aria: [{ name: 'aria-rowindextext', literal: 'B', line: 2 }] })
+          ]
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
   it('flags aria-* names not in the spec', async () => {
     const rs = await a11yUnknownAriaAttribute.check(
       ctx([comp({ ariaElements: [el({ aria: [{ name: 'aria-lable', literal: 'x', line: 4 }] })] })])
@@ -93,6 +136,21 @@ describe('a11y/unknown-aria-attribute', () => {
 });
 
 describe('a11y/required-aria-props', () => {
+  it('requires nothing of option and treeitem', async () => {
+    // aria-query carries an ARIA 1.1 `aria-selected` requirement for both; neither 1.2 nor the 1.3
+    // draft lists any, so idiomatic listbox and tree markup was being flagged.
+    const rs = await a11yRequiredAriaProps.check(
+      ctx([
+        comp({
+          ariaElements: [
+            el({ tag: 'li', role: { literal: 'option' } }),
+            el({ tag: 'li', role: { literal: 'treeitem' }, line: 5 })
+          ]
+        })
+      ])
+    );
+    expect(fails(rs)).toHaveLength(0);
+  });
   it('flags a role missing its required props', async () => {
     const rs = await a11yRequiredAriaProps.check(
       ctx([comp({ ariaElements: [el({ role: { literal: 'checkbox' } })] })])

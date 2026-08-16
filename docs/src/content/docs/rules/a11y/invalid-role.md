@@ -9,16 +9,18 @@ description: A role attribute should name a concrete WAI-ARIA role, not a typo o
 
 Flags a literal `role` attribute whose value is not a valid, concrete WAI-ARIA role. Checked by static (CLI) analysis of every `.svelte` component under `src/`.
 
-A `role` may list a fallback list of space-separated tokens (`role="switch checkbox"`); every token is checked individually. Two things get flagged:
+A `role` may hold a space-separated fallback list (`role="switch checkbox"`). A user agent resolves it to the **first token naming a concrete role**, so the rule reports only a value that resolves to nothing at all. Two things get flagged:
 
-- **Unknown tokens** — typos or made-up role names, e.g. `role="botton"`.
+- **Unknown roles** — typos or made-up names, e.g. `role="botton"`.
 - **Abstract roles** — roles that exist only to organize the WAI-ARIA taxonomy and are never meant to be used directly, e.g. `role="widget"` or `role="input"`.
 
 Not flagged:
 
 - A concrete role: `role="button"`.
-- A fallback list where every token is concrete: `role="switch checkbox"`.
+- Any fallback list in which some token is concrete: `role="switch checkbox"`, and equally `role="widget checkbox"` or `role="checkbox some-future-role"` — the list form exists so a value can name a role older user agents do not know.
 - An expression-valued role, since its runtime value is unknown statically: `role={dynamicRole}`.
+
+The role vocabulary comes from a pinned copy of the ARIA data, extended by hand with the roles ARIA 1.3 added after that copy. A role newer than both is reported as unknown until the data is updated.
 
 ## Why it matters
 
