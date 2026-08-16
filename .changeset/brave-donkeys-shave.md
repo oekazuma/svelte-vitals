@@ -7,7 +7,8 @@ Correct three a11y rules' element and grammar tables.
 - **`a11y/interactive-nesting`** reused the whole interactive-role set for its container check, so
   `role="gridcell"` holding a button — the documented grid pattern — and the ARIA 1.1
   `role="combobox"` wrapping its own `<input>` were both reported as nesting defects. Containers
-  are now the roles whose descendants a user agent does not expose at all, plus `link`.
+  are now the interactive members of ARIA's children-presentational set — whose descendants user
+  agents should not expose through the accessibility API — plus `link`.
 - **`a11y/require-datetime`** implemented five of the ten `<time>` content syntaxes the HTML spec
   permits, so a week (`2026-W33`), a time-zone offset (`+09:00`, `Z`), the alternative duration
   spelling (`4h 18m 3s` — how recipes and media lengths are written), and years of four **or more**
