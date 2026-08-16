@@ -13,7 +13,7 @@ description: インタラクティブな要素を、別のインタラクティ�
 
 - `<a href="…">` — `href` のない `<a>` はコンテナとみなしません。
 - `<button>`。
-- ARIA が children-presentational と定めるリテラルなロールを持つ要素（ユーザーエージェントは子孫をアクセシビリティ API に公開すべきでない、とされています） — `button`、`link`、`checkbox`、`radio`、`switch`、`tab`、`menuitemcheckbox`、`menuitemradio`、`option`、`slider`、`scrollbar`。自前のコントロールを含むのが正しいロールはコンテナ**ではありません**: `role="gridcell"` がボタンを含むのは grid パターンの標準形ですし、ARIA 1.1 の `role="combobox"` は自身の `<input>` を囲む形です。
+- ARIA が children-presentational と定めるリテラルなロールを持つ要素（ユーザーエージェントは子孫をアクセシビリティ API に公開すべきでない、とされています） — `button`、`checkbox`、`radio`、`switch`、`tab`、`menuitemcheckbox`、`menuitemradio`、`option`、`slider`、`scrollbar`。`link` もコンテナとして扱いますが、これは ARIA が children-presentational と定めているからではなく（定めていません）、`<a href>` が HTML のコンテンツモデルで負っているのと同じネスト制限を、このルールが `link` にも適用しているからです。自前のコントロールを含むのが正しいロールはコンテナ**ではありません**: `role="gridcell"` がボタンを含むのは grid パターンの標準形ですし、ARIA 1.1 の `role="combobox"` は自身の `<input>` を囲む形です。
 
 これらのコンテナが開いている間にインタラクティブな要素が現れると検出されます。例:
 
