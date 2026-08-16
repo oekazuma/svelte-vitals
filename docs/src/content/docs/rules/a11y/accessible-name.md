@@ -13,10 +13,14 @@ Any of the following, if present, is a name source — the element is not flagge
 
 - A non-whitespace text descendant, e.g. `<button>Save</button>`.
 - An `aria-label`, `aria-labelledby`, or `title` attribute — a literal non-empty value, or any expression (its rendered value is unknowable, but the attribute's presence is enough).
-- A descendant `<img>` with a non-empty literal `alt`.
-- For `<input type="image">`, its own non-empty literal `alt`.
+- A descendant `<img>` with an `alt` — a non-empty literal, or any expression, on the same footing as `aria-label` above.
+- For `<input type="image">`, its own `alt`, under the same rule.
+- A `<label>` that names it: one wrapping it, or one pointing `for` at its `id`. This step comes ahead of the element's own subtree in the name computation, and applies to `<button>` and `<input type="image">` only — `<a>` has no such step. It counts only when the label itself contributes something: a label that is provably empty leaves the control unnamed and still reported, and a wrapping label reaches only the **first** labelable element inside it, so a second control in the same label is judged on its own. The `for` route is same-file only; a label in another component is a known limitation.
 
-Not flagged, even with no name source found: an element whose content is unknowable — any `{expression}` child, a component child, `{@render …}`, `{@html …}`, or a spread attribute on the element itself. The rule only flags what it can prove is unnamed; it never guesses at dynamic content.
+Not flagged, even with no name source found:
+
+- An element whose content is unknowable — any `{expression}` child, a component child, `{@render …}`, `{@html …}`, a `<slot>` or `<svelte:fragment>` (its content comes from the parent), a hyphenated custom element (its shadow root may supply content), or a spread attribute on the element itself.
+  The rule only flags what it can prove is unnamed; it never guesses at dynamic content.
 
 ```svelte
 <button></button>

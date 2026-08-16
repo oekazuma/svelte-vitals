@@ -1377,6 +1377,35 @@ describe('parseComponentFacts — unnamedInteractive (a11y/accessible-name)', ()
     ].join('\n');
     expect(parseComponentFacts(src, 'C.svelte').unnamedInteractive ?? []).toEqual([]);
   });
+  it('accepts an expression alt, the two label routes, slots and custom elements', () => {
+    const src = [
+      '<a href="/about"><img src="/l.png" alt={siteName} /></a>',
+      '<input type="image" src="/s.png" alt={t} />',
+      '<label>Delete <button></button></label>',
+      '<label for="b">Save</label><button id="b"></button>',
+      '<button><slot /></button>',
+      '<a href="/x"><svelte:fragment /></a>',
+      '<button><my-icon></my-icon></button>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').unnamedInteractive ?? []).toEqual([]);
+  });
+  it('still flags a target that no label points at', () => {
+    const c = parseComponentFacts('<label for="z">Z</label>\n<button id="b"></button>', 'C.svelte');
+    expect(c.unnamedInteractive).toEqual([{ tag: 'button', line: 2 }]);
+  });
+  it('needs the label to contribute a name, and reaches only its first control', () => {
+    // An empty label leaves the control unnamed, and an implicit association reaches one element.
+    const src = [
+      '<label for="b"></label><button id="b"></button>',
+      '<label><button></button></label>',
+      '<label>x<button></button><button></button></label>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').unnamedInteractive).toEqual([
+      { tag: 'button', line: 1 },
+      { tag: 'button', line: 2 },
+      { tag: 'button', line: 3 }
+    ]);
+  });
 });
 
 describe('parseComponentFacts — unassociatedLabels (a11y/label-has-control)', () => {
@@ -1390,6 +1419,16 @@ describe('parseComponentFacts — unassociatedLabels (a11y/label-has-control)', 
   it('skips a label with a spread attribute — it may supply for', () => {
     const c = parseComponentFacts('<label {...rest}>Email</label>', 'C.svelte');
     expect(c.unassociatedLabels ?? []).toEqual([]);
+  });
+  it('skips a label whose content is a slot or a custom element', () => {
+    // A slot's content comes from the parent, and a hyphenated tag may be a form-associated
+    // custom element — both are unknowable, not empty.
+    const src = [
+      '<label>Name<slot name="control" /></label>',
+      '<label>Name<svelte:fragment /></label>',
+      '<label>Name <my-input></my-input></label>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').unassociatedLabels ?? []).toEqual([]);
   });
 });
 

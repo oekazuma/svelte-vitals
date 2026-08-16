@@ -14,7 +14,7 @@ Either of the following, if present, associates the label — it is not flagged:
 - A `for` attribute — a literal or an expression (its value is unknowable, but the attribute's presence is enough).
 - A wrapped labelable descendant: `input` (unless its literal `type` is `hidden`), `select`, `textarea`, `button`, `meter`, `output`, or `progress`.
 
-Not flagged, even with no association found: a label whose content is unknowable — any `{expression}` child, a component child, `{@render …}`, or `{@html …}`. The rule only flags what it can prove is unassociated; it never guesses at dynamic content.
+Not flagged, even with no association found: a label whose content is unknowable — any `{expression}` child, a component child, `{@render …}`, `{@html …}`, a `<slot>` or `<svelte:fragment>` (its content comes from the parent), or a hyphenated custom element (which may be form-associated, and so labelable). The rule only flags what it can prove is unassociated; it never guesses at dynamic content.
 
 ```svelte
 <label>Name</label>
