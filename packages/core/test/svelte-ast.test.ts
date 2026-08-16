@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import type { AST } from 'svelte/compiler';
 import {
+  parseSvelte,
   valueFromNodes,
   textFromNodes,
   attrText,
@@ -126,5 +127,38 @@ describe('lineOf', () => {
   it('returns 0 for an unknown/invalid offset', () => {
     expect(lineOf('abc', undefined)).toBe(0);
     expect(lineOf('abc', -1)).toBe(0);
+  });
+});
+
+describe('parseSvelte', () => {
+  // Svelte parses a <style> body as CSS whatever its `lang` says, so a preprocessor dialect made the
+  // whole file unparseable — and one unparseable route file fails the entire run.
+  const scss = `<h1 id="t">Hi</h1>\n<style lang="scss">\n  .a { color: red; // note\n    .b { color: blue; }\n  }\n</style>`;
+
+  it('parses a component whose style block is in a CSS dialect', () => {
+    const ast = parseSvelte(scss, 'src/routes/+page.svelte');
+    expect(ast.fragment.nodes.some((n) => n.type === 'RegularElement' && n.name === 'h1')).toBe(true);
+  });
+
+  it('leaves every offset where it was, so reported lines stay correct', () => {
+    const trailing = `${scss}\n<p>after</p>`;
+    const ast = parseSvelte(trailing, 'src/routes/+page.svelte');
+    const p = ast.fragment.nodes.find((n) => n.type === 'RegularElement' && n.name === 'p');
+    expect(lineOf(trailing, p!.start)).toBe(7);
+  });
+
+  it('still throws on a genuinely malformed component', () => {
+    expect(() => parseSvelte('<div>{#if x}</div>', 'src/routes/+page.svelte')).toThrow();
+  });
+
+  it('leaves a source that already parses untouched, style-like text and all', () => {
+    // The blanking scan is text, not parse, so it could match inside a string or an attribute.
+    // It never runs on these: they parse on the first attempt.
+    const embedded = `<script>const s = '<style lang="scss">.a { color: red; }</style>';</script><p>x</p>`;
+    expect(() => parseSvelte(embedded, 'src/routes/+page.svelte')).not.toThrow();
+
+    const dataLang = `<p>x</p><style data-lang="scss">.a { color: red; }</style>`;
+    const ast = parseSvelte(dataLang, 'src/routes/+page.svelte');
+    expect(ast.css?.children.length).toBe(1);
   });
 });

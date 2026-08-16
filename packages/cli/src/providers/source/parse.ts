@@ -1,7 +1,7 @@
-import { parse } from 'svelte/compiler';
 import type { AST } from 'svelte/compiler';
 import type { BranchStep, HeadTag } from '@svelte-vitals/core/internal';
 import {
+  parseSvelte,
   CHILD_NODE_KEYS,
   lineOf,
   findAttr,
@@ -455,7 +455,7 @@ export interface ParsedFile {
 
 /** Parse a .svelte source into its layer-1 head tags, component usages, and imports. */
 export function parseFile(source: string, filename: string): ParsedFile {
-  const ast = parse(source, { modern: true, filename });
+  const ast = parseSvelte(source, filename);
   const heads: AST.SvelteHead[] = [];
   collectSvelteHeads(ast.fragment, heads);
   const components: ComponentUse[] = [];
@@ -479,7 +479,7 @@ export function parseFile(source: string, filename: string): ParsedFile {
  * <svelte:head> blocks (detection layer 1 — literal svelte:head, design §11).
  */
 export function parseHeadTags(source: string, filename: string): ParsedTag[] {
-  const ast = parse(source, { modern: true, filename });
+  const ast = parseSvelte(source, filename);
   const heads: AST.SvelteHead[] = [];
   collectSvelteHeads(ast.fragment, heads);
   return heads.flatMap(tagsFromHead);

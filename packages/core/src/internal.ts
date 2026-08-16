@@ -47,7 +47,8 @@ export {
   attrText,
   attrValue,
   attrValueOf,
-  attrTextOf
+  attrTextOf,
+  parseSvelte
 } from './svelte-ast.js';
 export { ROBOTS_SOURCE_PATHS, SITEMAP_SOURCE_PATHS, VITE_CONFIG_FILES, SVELTE_CONFIG_FILES } from './project-paths.js';
 export type { Runtime } from './runtime.js';
