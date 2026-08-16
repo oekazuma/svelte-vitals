@@ -1,5 +1,5 @@
 import { setTimeout as sleep } from 'node:timers/promises';
-import { scoreColor, type Palette } from '@svelte-vitals/core';
+import { scoreColor, type Palette } from '@svelte-vitals/core/internal';
 import { createLogUpdate } from 'log-update';
 import { colorEnabled } from './color.js';
 import { isAgentEnv, isCiEnv, type ReporterName } from './reporter-resolve.js';

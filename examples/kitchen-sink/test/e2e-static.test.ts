@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { allRules } from '@svelte-vitals/core';
+import { allRules } from '@svelte-vitals/core/internal';
 
 const appDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 const bin = join(appDir, '..', '..', 'packages', 'cli', 'dist', 'bin.js');

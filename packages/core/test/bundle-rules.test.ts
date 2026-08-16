@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { performanceHeavyImport, performanceNamespaceImport } from '../src/index.js';
+import { performanceHeavyImport, performanceNamespaceImport } from '../src/internal.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ComponentFacts, SuppressionDirective } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';

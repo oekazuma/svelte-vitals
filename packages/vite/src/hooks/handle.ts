@@ -1,25 +1,22 @@
 import { DEV } from 'esm-env';
 import type { Handle } from '@sveltejs/kit';
+import { defineConfig, type Config, type Result, type RuleSetting } from '@svelte-vitals/core';
 import {
   allRules,
   applyRuleSeverities,
-  defineConfig,
   effectiveSeverity,
   formatFailedRuleWarning,
   isPenalized,
   runRules,
   selectRules,
   terminalSafe,
-  type Config,
   type Project,
   type ResolvedA11y,
   type ResolvedHead,
   type ResolvedHeadings,
   type ResolvedImages,
-  type Result,
-  type Rule,
-  type RuleSetting
-} from '@svelte-vitals/core';
+  type Rule
+} from '@svelte-vitals/core/internal';
 import { parseHtmlHead } from '../providers/rendered/parse-html.js';
 import { toOccurrenceMap } from '../providers/rendered/collect.js';
 import { isLoopbackOrigin } from '../loopback.js';

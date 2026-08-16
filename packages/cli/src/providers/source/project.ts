@@ -1,3 +1,4 @@
+import { type Detection } from '@svelte-vitals/core';
 import {
   ROBOTS_SOURCE_PATHS,
   SITEMAP_SOURCE_PATHS,
@@ -7,9 +8,8 @@ import {
   resolveKitAliases,
   resolveKitPathsBase,
   type Project,
-  type Detection,
   type Runtime
-} from '@svelte-vitals/core';
+} from '@svelte-vitals/core/internal';
 
 /** Thrown when the target directory is not a SvelteKit project (CLI maps to exit 2). */
 export class ProjectError extends Error {

@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { cpSync, mkdtempSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { collectComponentFacts, type Runtime } from '@svelte-vitals/core';
+import { collectComponentFacts, type Runtime } from '@svelte-vitals/core/internal';
 import { run } from '../src/index.js';
 import { createNodeRuntime } from '../src/runtime/node.js';
 

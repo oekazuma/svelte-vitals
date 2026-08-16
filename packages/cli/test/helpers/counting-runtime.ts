@@ -1,4 +1,4 @@
-import type { Runtime } from '@svelte-vitals/core';
+import type { Runtime } from '@svelte-vitals/core/internal';
 
 /**
  * Call counts keyed by path (readFile/exists) or by pattern (glob).

@@ -1,4 +1,4 @@
-import { allRules, type RuleOptionsSpec } from '@svelte-vitals/core';
+import { allRules, type RuleOptionsSpec } from '@svelte-vitals/core/internal';
 
 const KNOWN_IDS = new Set(allRules.map((r) => r.id));
 const RULE_BY_ID = new Map(allRules.map((r) => [r.id, r]));

@@ -1,5 +1,6 @@
 import { execFileSync } from 'node:child_process';
-import { defaultConfig, isPenalized, type Config, type Result } from '@svelte-vitals/core';
+import { type Config, type Result } from '@svelte-vitals/core';
+import { defaultConfig, isPenalized } from '@svelte-vitals/core/internal';
 
 interface ChangedFilesOptions {
   /** Report only files staged for commit (`git diff --cached`). */

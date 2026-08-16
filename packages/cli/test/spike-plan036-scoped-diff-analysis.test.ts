@@ -12,11 +12,11 @@
  * findings, unless a follow-up implementation plan decides to build on it.
  */
 import { describe, it, expect } from 'vitest';
-import { defaultConfig, defaultProject, type RuleContext } from '@svelte-vitals/core';
+import { defaultConfig, defaultProject, type RuleContext } from '@svelte-vitals/core/internal';
 import { collectLayouts, collectRoutes, chainFiles } from '../src/providers/source/routes.js';
 import { enumerateRoutePages } from '../src/providers/source/project.js';
-import { seoTitlePresence } from '@svelte-vitals/core';
-import { seoDuplicateTitle } from '@svelte-vitals/core';
+import { seoTitlePresence } from '@svelte-vitals/core/internal';
+import { seoDuplicateTitle } from '@svelte-vitals/core/internal';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';
 
 /**

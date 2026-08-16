@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { APP_SCRIPT as DASHBOARD_SCRIPT } from '@svelte-vitals/core';
+import { APP_SCRIPT as DASHBOARD_SCRIPT } from '@svelte-vitals/core/internal';
 
 /**
  * These tests execute the hand-authored `DASHBOARD_SCRIPT` client script (no bundler, no

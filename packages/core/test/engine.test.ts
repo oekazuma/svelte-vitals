@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { runRules } from '../src/engine.js';
+import { defineConfig } from '../src/index.js';
 import {
   architectureDirectoryNaming,
   architectureReservedDirectoryNames,
   architectureReservedNamePlacement,
   architectureUnitEntryFile,
-  defaultProject,
-  defineConfig
-} from '../src/index.js';
+  defaultProject
+} from '../src/internal.js';
 import type { Rule, RuleContext } from '../src/rule.js';
 
 const ctx = { heads: [], project: {}, config: { rules: {} } } as unknown as RuleContext;

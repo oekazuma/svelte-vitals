@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { explainRule, allRules } from '../src/index.js';
+import { explainRule, allRules } from '../src/internal.js';
 
 describe('explainRule', () => {
   it('returns info for a known rule id', () => {

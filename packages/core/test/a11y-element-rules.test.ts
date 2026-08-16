@@ -7,7 +7,7 @@ import {
   a11yPlaceholderLabelOption,
   a11yRequireDatetime,
   a11yDoctype
-} from '../src/index.js';
+} from '../src/internal.js';
 import { defineConfig, defaultProject, type Project, type Result } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';

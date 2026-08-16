@@ -1,9 +1,9 @@
+import { type Config } from '@svelte-vitals/core';
 import {
   collectComponentFacts,
   collectKitModuleFacts,
   collectSourceFiles,
   type ComponentFacts,
-  type Config,
   type KitModuleFacts,
   type Project,
   type ResolvedA11y,
@@ -11,7 +11,7 @@ import {
   type ResolvedHeadings,
   type ResolvedImages,
   type Runtime
-} from '@svelte-vitals/core';
+} from '@svelte-vitals/core/internal';
 import { collectProjectFacts } from './providers/source/project.js';
 import type { ParseCache } from './providers/source/resolve.js';
 import { collectRoutes } from './providers/source/routes.js';

@@ -228,24 +228,30 @@ Three call sites need care:
 question:
 
 - `exports` — the names `.` re-exports, split `values` / `types`. This is the promise.
-- `closure` — every identifier allowed to be **declared** in `dist/index.d.ts`. A superset of
-  `exports`: `JsonIssue` is a non-exported type alias in `reporter/json.ts` that the bundler
-  inlines, so it is legal in the closure and must never become an export.
+- `closure` — every identifier allowed to be **declared** in the public d.ts. A superset of
+  `exports`: as built, it adds exactly `JsonIssue`, `issueOf`, and `effectiveSeverity` — the
+  non-exported alias in `reporter/json.ts` and the two functions its `ReturnType<>` reaches. They
+  are legal as declarations and must never become exports.
 
-A test in `packages/core/test/` asserts three things:
+A test in `packages/core/test/` asserts:
 
-1. `src/index.ts`'s export list equals `exports` (and the built `dist/index.js`'s runtime exports
-   equal `exports.values`, so a build that drops or adds a name fails too). A new name fails with
+1. `src/index.ts`'s export list equals `exports`, and the built `dist/index.js`'s runtime exports
+   equal `exports.values`, so a build that drops or adds a name fails too. A new name fails with
    "add it to the frozen surface or export it from ./internal instead".
-2. `dist/index.d.ts` contains **zero** `import` statements — today's
-   `import { AST } from 'svelte/compiler'` must not survive into `.`.
-3. Every identifier `dist/index.d.ts` declares is in `closure`.
+2. The closure check below.
 
-Assertion 3 is what catches a type drag-in, and it needs the separate set to work: `rollup-plugin-dts`
-**inlines** every reachable in-package declaration, so "references only what it declares" is
-self-satisfying by construction — pulling in `RuleContext` would inline `ResolvedA11y` et al. as new
-declarations, which `closure` rejects while `exports` alone would not have noticed. Closure is the
-invariant that makes the frozen list meaningful, and it is not preserved by review alone.
+**The closure check cannot read `dist/index.d.ts` directly.** With two entries, tsup emits a shared
+`dist/index-<hash>.d.ts` holding both entries' declarations, and `dist/index.d.ts` is one line that
+re-exports 19 aliased names from it. So both "zero import statements" and "declares only what is in
+`closure`" are unimplementable against the shipped output — the declarations are not in that file.
+(This replaces an earlier formulation of the check, written before the split was built.)
+
+The implementable form runs `tsup src/index.ts --dts-only` into a scratch directory: **one** entry
+produces no shared chunk, so the emitted d.ts is self-contained. Against that file, assert zero
+`import` statements and that every declared identifier is in `closure`. Pulling `RuleContext` into
+`.` would inline `ResolvedA11y` et al. as new declarations, which `closure` rejects while `exports`
+alone would not have noticed. Closure is the invariant that makes the frozen list meaningful, and
+it is not preserved by review alone.
 
 ## Corrections this audit surfaced (fix before the freeze)
 

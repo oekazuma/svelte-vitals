@@ -1,14 +1,14 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { glob } from 'tinyglobby';
+import type { Value } from '@svelte-vitals/core';
 import type {
   A11yOccurrenceInfo,
   ResolvedA11y,
   ResolvedHead,
   ResolvedHeadings,
-  ResolvedImages,
-  Value
-} from '@svelte-vitals/core';
+  ResolvedImages
+} from '@svelte-vitals/core/internal';
 import { parseHtmlHead } from './parse-html.js';
 
 /** Group raw occurrence keys (one entry per hit, in document order) by key, `file` attached, `line: 0` (rendered mode does not track source lines). */

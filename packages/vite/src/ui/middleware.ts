@@ -1,6 +1,7 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { ViteDevServer } from 'vite';
-import { CATEGORIES, renderAppShell, type Config, type Result } from '@svelte-vitals/core';
+import { CATEGORIES, type Config, type Result } from '@svelte-vitals/core';
+import { renderAppShell } from '@svelte-vitals/core/internal';
 import type { FindingsStore } from './store.js';
 import { buildSnapshot } from './snapshot.js';
 import { isLoopbackOrigin } from '../loopback.js';

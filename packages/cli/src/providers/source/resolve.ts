@@ -1,5 +1,6 @@
-import type { Config, HeadingInfo, KitAlias, Runtime } from '@svelte-vitals/core';
-import { resolveRepoLocalPath } from '@svelte-vitals/core';
+import type { Config } from '@svelte-vitals/core';
+import type { HeadingInfo, KitAlias, Runtime } from '@svelte-vitals/core/internal';
+import { resolveRepoLocalPath } from '@svelte-vitals/core/internal';
 import type { ParsedFile, ParsedTag } from './parse.js';
 import { findAdapter } from './adapters/index.js';
 import { parseFile } from './parse.js';

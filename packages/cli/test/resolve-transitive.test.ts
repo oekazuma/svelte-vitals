@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { defaultConfig, type KitAlias } from '@svelte-vitals/core';
+import { defaultConfig, type KitAlias } from '@svelte-vitals/core/internal';
 import { parseFile } from '../src/providers/source/parse.js';
 import { resolveFileTags, resolveComponentPath } from '../src/providers/source/resolve.js';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';

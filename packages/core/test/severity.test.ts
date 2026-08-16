@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { isPenalized, effectiveSeverity, summarize, defineConfig, type Result } from '../src/index.js';
+import { defineConfig, type Result } from '../src/index.js';
+import { isPenalized, effectiveSeverity, summarize } from '../src/internal.js';
 
 const dynResult: Result = {
   id: 'seo/title-presence',

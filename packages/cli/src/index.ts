@@ -1,6 +1,15 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import {
+  defineConfig,
+  type Severity,
+  type RuleSetting,
+  type RuleOverride,
+  type Result,
+  type Config,
+  type Category
+} from '@svelte-vitals/core';
+import {
   allRules,
   runRules,
   formatConsoleReport,
@@ -13,21 +22,14 @@ import {
   summarize,
   hasFailureAtOrAbove,
   computeHealth,
-  defineConfig,
   selectRules,
   applyRuleSeverities,
   applyOverrides,
   settingSeverity,
   withFailedRulesOff,
   formatFailedRuleWarning,
-  terminalSafe,
-  type Severity,
-  type RuleSetting,
-  type RuleOverride,
-  type Result,
-  type Config,
-  type Category
-} from '@svelte-vitals/core';
+  terminalSafe
+} from '@svelte-vitals/core/internal';
 import { createNodeRuntime } from './runtime/node.js';
 import type { ParseCache } from './providers/source/resolve.js';
 import { detectProject, ProjectError, checkVersionFloor } from './providers/source/project.js';

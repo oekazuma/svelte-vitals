@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { defineConfig } from '../src/index.js';
 import {
   isMentionedAnywhere,
   resolveRuleOptions,
@@ -8,10 +9,9 @@ import {
   intOption,
   listOption,
   mapOption,
-  compileOverrides,
-  defineConfig
-} from '../src/index.js';
-import type { RuleOptionsSpec } from '../src/index.js';
+  compileOverrides
+} from '../src/internal.js';
+import type { RuleOptionsSpec } from '../src/internal.js';
 
 const spec: RuleOptionsSpec = {
   max: { kind: 'integer', default: 6, min: 1 },

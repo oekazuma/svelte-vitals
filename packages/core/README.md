@@ -11,6 +11,17 @@ This package is **mode-independent** and contains no I/O — it operates on a no
 
 > **ESM-only** (Node 22.13+). Ships ES modules only; `require()` is unsupported by design.
 
+## Entry points
+
+| Entry                          | Contents                                                                                            | Stability                                                                     |
+| ------------------------------ | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `@svelte-vitals/core`          | `defineConfig` and the config types; the `JsonReport` types for reading a report                    | Follows semver.                                                               |
+| `@svelte-vitals/core/internal` | The engine, rules, fact collection, reporters, and scoring — what the CLI and the Vite plugin share | **No guarantee. Anything here may change in any release, including a patch.** |
+
+Reach for `/internal` only if you accept pinning an exact version. If something there is what you
+actually need, open an issue — the point of the split is that promoting a name into the stable
+entry is an additive change.
+
 ## License
 
 [MIT](https://github.com/oekazuma/svelte-vitals/blob/main/LICENSE.md) © [Kazuma Oe](https://github.com/oekazuma)

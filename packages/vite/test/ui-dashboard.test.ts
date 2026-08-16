@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { renderAppShell as renderDashboardShell, type AppSnapshot } from '@svelte-vitals/core';
+import { renderAppShell as renderDashboardShell, type AppSnapshot } from '@svelte-vitals/core/internal';
 
 const baseSnapshot: AppSnapshot = {
   report: {

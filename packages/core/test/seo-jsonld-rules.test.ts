@@ -6,7 +6,7 @@ import {
   seoJsonLdDateFormat,
   seoJsonLdPlaceholder,
   seoJsonLdRequiredProps
-} from '../src/index.js';
+} from '../src/internal.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
 import type { RuleContext } from '../src/rule.js';

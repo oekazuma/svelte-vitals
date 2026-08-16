@@ -1,7 +1,7 @@
+import type { Config } from '@svelte-vitals/core';
 import type {
   A11yOccurrenceInfo,
   BranchStep,
-  Config,
   HeadTag,
   HeadingInfo,
   ImageInfo,
@@ -11,8 +11,8 @@ import type {
   ResolvedHeadings,
   ResolvedImages,
   Runtime
-} from '@svelte-vitals/core';
-import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/core';
+} from '@svelte-vitals/core/internal';
+import { defaultConfig, foldOccurrences, isTopFragment } from '@svelte-vitals/core/internal';
 import type { A11yNode, ParsedFile } from './parse.js';
 import { enumerateRoutePages } from './project.js';
 import {

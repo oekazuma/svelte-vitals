@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { formatConsoleReport, defineConfig, type Result } from '../src/index.js';
+import { defineConfig, type Result } from '../src/index.js';
+import { formatConsoleReport } from '../src/internal.js';
 
 const config = defineConfig({});
 const results: Result[] = [

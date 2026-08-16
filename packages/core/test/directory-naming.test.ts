@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { architectureDirectoryNaming } from '../src/index.js';
+import { architectureDirectoryNaming } from '../src/internal.js';
 import { runRules } from '../src/engine.js';
 import { defineConfig, defaultProject, type Config } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';

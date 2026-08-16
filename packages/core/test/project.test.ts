@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { defaultProject } from '../src/index.js';
+import { defaultProject } from '../src/internal.js';
 
 describe('defaultProject', () => {
   it('is empty/none by default', () => {

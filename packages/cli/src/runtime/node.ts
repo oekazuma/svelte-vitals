@@ -1,7 +1,7 @@
 import { readFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
 import { glob as tinyglob } from 'tinyglobby';
-import type { Runtime } from '@svelte-vitals/core';
+import type { Runtime } from '@svelte-vitals/core/internal';
 
 /**
  * Node implementation of the core Runtime abstraction (design §8). This is the

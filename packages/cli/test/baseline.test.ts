@@ -4,7 +4,8 @@ import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { checkoutBaseline, filterToNewFindings, findingKey } from '../src/baseline.js';
-import { defaultConfig, type Result } from '@svelte-vitals/core';
+import { type Result } from '@svelte-vitals/core';
+import { defaultConfig } from '@svelte-vitals/core/internal';
 
 const r = (over: Partial<Result>): Result => ({
   id: 'X',

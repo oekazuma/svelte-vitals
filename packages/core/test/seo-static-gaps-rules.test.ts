@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { seoCharset, seoImageAlt, seoHreflang, seoSingleH1 } from '../src/index.js';
+import { seoCharset, seoImageAlt, seoHreflang, seoSingleH1 } from '../src/internal.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
 import type { ImageInfo, ResolvedImages } from '../src/images.js';

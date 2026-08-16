@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { securityRawHtml, securityJavascriptUrl } from '../src/index.js';
+import { securityRawHtml, securityJavascriptUrl } from '../src/internal.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';

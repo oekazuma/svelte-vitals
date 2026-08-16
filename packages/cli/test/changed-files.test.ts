@@ -4,13 +4,8 @@ import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { filterToChangedFiles, getChangedFiles } from '../src/changed-files.js';
-import {
-  architectureUnitEntryFile,
-  defaultProject,
-  defineConfig,
-  type Result,
-  type RuleContext
-} from '@svelte-vitals/core';
+import { defineConfig, type Result } from '@svelte-vitals/core';
+import { architectureUnitEntryFile, defaultProject, type RuleContext } from '@svelte-vitals/core/internal';
 
 const r = (over: Partial<Result>): Result => ({
   id: 'X',

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { defaultConfig, securitySharedStateImport } from '@svelte-vitals/core';
+import { defaultConfig, securitySharedStateImport } from '@svelte-vitals/core/internal';
 import { collectAll } from '../src/collect-all.js';
 import { createMemoryRuntime } from './helpers/memory-runtime.js';
 

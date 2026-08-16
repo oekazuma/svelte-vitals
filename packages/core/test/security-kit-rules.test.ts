@@ -4,7 +4,7 @@ import {
   securityServerModuleState,
   securitySharedStateImport,
   seoSsrDisabled
-} from '../src/index.js';
+} from '../src/internal.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { KitModuleFacts } from '../src/kit-module.js';

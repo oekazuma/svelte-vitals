@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { performancePreloadMissingAs, performanceFontPreloadCrossorigin } from '../src/index.js';
+import { performancePreloadMissingAs, performanceFontPreloadCrossorigin } from '../src/internal.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
 import type { RuleContext } from '../src/rule.js';

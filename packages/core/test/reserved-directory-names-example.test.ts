@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { architectureReservedDirectoryNames } from '../src/index.js';
+import { architectureReservedDirectoryNames } from '../src/internal.js';
 import { isUnitDir } from '../src/rules/architecture/reserved-directory-names.js';
 import { childFiles } from '../src/rules/architecture/declarations.js';
 import { defineConfig, defaultProject } from '../src/types.js';

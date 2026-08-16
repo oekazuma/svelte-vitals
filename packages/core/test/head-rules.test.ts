@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { defineConfig } from '../src/index.js';
 import {
   seoDescriptionPresence,
   seoCanonicalUrl,
@@ -6,9 +7,8 @@ import {
   seoOgTitle,
   seoJsonLd,
   defaultProject,
-  defineConfig,
   type ResolvedHead
-} from '../src/index.js';
+} from '../src/internal.js';
 
 const config = defineConfig({});
 const ctx = (tags: ResolvedHead['tags']) => ({

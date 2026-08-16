@@ -2,7 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { readdirSync, existsSync, readFileSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { allRules, CATEGORIES } from '@svelte-vitals/core';
+import { CATEGORIES } from '@svelte-vitals/core';
+import { allRules } from '@svelte-vitals/core/internal';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const enRules = join(repoRoot, 'docs', 'src', 'content', 'docs', 'rules');

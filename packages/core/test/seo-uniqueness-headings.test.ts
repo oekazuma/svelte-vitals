@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { seoDuplicateTitle, seoDuplicateDescription, seoHeadingLevelSkip } from '../src/index.js';
+import { seoDuplicateTitle, seoDuplicateDescription, seoHeadingLevelSkip } from '../src/internal.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { HeadTag, ResolvedHead } from '../src/head.js';
 import type { ResolvedHeadings } from '../src/headings.js';

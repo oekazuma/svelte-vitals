@@ -9,7 +9,7 @@ import {
   type KitAlias,
   type KitModuleFacts,
   type Runtime
-} from '@svelte-vitals/core';
+} from '@svelte-vitals/core/internal';
 
 /**
  * Node-backed Runtime adapter (design §8). vite always runs in Node, so no

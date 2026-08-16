@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { buildSnapshot } from '../src/ui/snapshot.js';
 import { createStore } from '../src/ui/store.js';
-import { defineConfig, withFailedRulesOff, buildJsonReport, type Result } from '@svelte-vitals/core';
+import { defineConfig, type Result } from '@svelte-vitals/core';
+import { withFailedRulesOff, buildJsonReport } from '@svelte-vitals/core/internal';
 
 const r = (id: string, route: string, extra: Partial<Result> = {}): Result =>
   ({

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { allRules } from '@svelte-vitals/core';
+import { allRules } from '@svelte-vitals/core/internal';
 import { parseTopic, readTopics } from '../scripts/docs-embed.mjs';
 import { EMBEDDED_DOCS } from '../src/docs/generated.js';
 
