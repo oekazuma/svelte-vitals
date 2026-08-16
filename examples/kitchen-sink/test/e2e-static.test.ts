@@ -83,9 +83,13 @@ describe('kitchen-sink e2e (static mode)', () => {
 
   it('exits 1 on the gallery (critical present) and 0 on clean routes', () => {
     expect(exitCode).toBe(1);
-    const clean = execFileSync(process.execPath, [bin, appDir, '--route', '/clean', '--reporter', 'json'], {
+    const clean = execFileSync(process.execPath, [bin, appDir, '--route', '/clean/**', '--reporter', 'json'], {
       encoding: 'utf8'
     });
-    expect(JSON.parse(clean).rules).toBeDefined();
+    // Assert the scope selected something before asserting it is clean: a glob that matches no
+    // route also produces zero findings, which is how a broken `--route` passes for a canary.
+    const report = JSON.parse(clean) as { routes: { route: string; issues: unknown[] }[] };
+    expect(report.routes.length).toBeGreaterThan(1);
+    expect(report.routes.flatMap((r) => r.issues)).toEqual([]);
   });
 });

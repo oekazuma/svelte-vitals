@@ -41,4 +41,13 @@ describe('routeMatcher', () => {
     expect(m('/blog/my-post')).toBe(false);
     expect(m('/blog/myXpost')).toBe(false);
   });
+
+  it('accepts a glob written with a leading slash, as every printed route is', () => {
+    // The documented example was `--route "/blog/**"`, which matched nothing and exited 0 —
+    // a scoped CI run that checked no route at all.
+    expect(routeMatcher('/blog/**')('/blog/hello')).toBe(true);
+    expect(routeMatcher('/blog/**')('/about')).toBe(false);
+    expect(routeMatcher('/')('/')).toBe(true);
+    expect(routeMatcher('/**')('/anything/deep')).toBe(true);
+  });
 });
