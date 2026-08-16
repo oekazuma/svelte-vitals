@@ -100,6 +100,9 @@ Four things follow that the paragraph above doesn't say directly:
   of them — all report 25 in `inventories`, so a group with one rule and a group with eight look identical
   there. The number is the divisor a score used, not a count of what ran; `rules` is where you see which
   checks actually reported.
+- **A `::project` group's number divides nothing.** Findings with no route — robots.txt, sitemap.xml and
+  their kind — are absolute deductions: a `warning` there costs its category a flat 5 points whatever the
+  project's size. Those entries appear in `inventories` for uniformity only.
 - **`keys` counts per category, not per project.** A category's `keys` is the number of keys that category
   touched, so the denominators differ between categories on one run — a project can show `seo` at 13 keys and
   `architecture` at 334.
