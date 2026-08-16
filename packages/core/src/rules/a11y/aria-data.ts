@@ -3,9 +3,10 @@ import { roles, aria } from 'aria-query';
 /**
  * ARIA names `aria-query@5.3.2` does not carry. It is not the clean ARIA 1.2 snapshot it looks
  * like — it holds 1.2's 48 attributes plus three 1.3 additions — so the gap is patched by name
- * rather than by version. Every entry here is defined in the ARIA 1.3 editor's draft and
- * implemented in shipping browsers, which is what makes rejecting them a false positive.
- * Re-check this list whenever the aria-query dependency moves.
+ * rather than by version. Every entry here is defined in the ARIA 1.3 editor's draft, which is
+ * what makes reporting it as an unknown name wrong — how far implementations have got is a
+ * separate question this rule does not ask. Re-check this list whenever the aria-query dependency
+ * moves.
  */
 const ARIA_1_3_ROLES = new Set(['comment', 'image', 'sectionheader', 'sectionfooter', 'suggestion']);
 const ARIA_1_3_ATTRIBUTES = new Set(['aria-colindextext', 'aria-rowindextext']);

@@ -35,9 +35,10 @@ const INTERACTIVE_ROLES = new Set([
 ]);
 
 /**
- * Roles that genuinely break when another actionable element sits inside them: ARIA's
- * children-presentational set (a user agent does not expose their descendants at all), plus
- * `link`, which carries the same content-model restriction as `<a href>`.
+ * Roles that genuinely break when another actionable element sits inside them: the interactive
+ * members of ARIA's children-presentational set — user agents SHOULD NOT expose their descendants
+ * through the accessibility API — plus `link`, which carries the same content-model restriction as
+ * `<a href>`.
  *
  * Deliberately NOT every interactive role. `gridcell` containing a button or a link is the
  * documented grid pattern, and the ARIA 1.1 combobox is a wrapper around its own input — both

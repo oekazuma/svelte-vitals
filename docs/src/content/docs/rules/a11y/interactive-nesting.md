@@ -13,7 +13,7 @@ Only three kinds of element open a container that this rule watches for a nested
 
 - `<a href="…">` — an href-less `<a>` is not a container.
 - `<button>`.
-- An element with a literal role whose descendants a user agent does not expose at all — `button`, `link`, `checkbox`, `radio`, `switch`, `tab`, `menuitemcheckbox`, `menuitemradio`, `option`, `slider`, `scrollbar`. Roles that legitimately contain their own controls are **not** containers: `role="gridcell"` holding a button is the documented grid pattern, and an ARIA 1.1 `role="combobox"` wraps its own `<input>`.
+- An element with a literal role ARIA marks children-presentational, meaning user agents should not expose its descendants through the accessibility API — `button`, `link`, `checkbox`, `radio`, `switch`, `tab`, `menuitemcheckbox`, `menuitemradio`, `option`, `slider`, `scrollbar`. Roles that legitimately contain their own controls are **not** containers: `role="gridcell"` holding a button is the documented grid pattern, and an ARIA 1.1 `role="combobox"` wraps its own `<input>`.
 
 Any interactive element entering while one of those containers is open is flagged, for example:
 
