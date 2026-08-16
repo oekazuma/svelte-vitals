@@ -22,8 +22,9 @@ data table, or correcting prose.
 ## The pattern worth naming
 
 The category's own design principle is **"false negatives are acceptable, false positives are
-not"** (`2026-08-14-a11y-category-design.md`). Ten of the fourteen Priority 1 rows are false
-positives, and they cluster in three mechanisms:
+not"** (`2026-08-14-a11y-category-design.md`). **Twelve of the fourteen Priority 1 rows are false
+positives** — every row but 2 (a false negative) and 14 (a docs defect) — and they cluster in three
+mechanisms:
 
 1. **A pinned data source that has drifted from the spec.** `aria-query@5.3.2` is not the clean
    ARIA 1.2 snapshot it was taken for — it is a mixed one (1.2's 48 attributes plus three 1.3
@@ -72,7 +73,7 @@ positives, and they cluster in three mechanisms:
 | 22  | `no-missing-id-ref`   | `IDREF_ATTRS` covers 5 of ~12 id-reference attributes; `aria-owns`, `aria-details`, `aria-errormessage`, `aria-flowto`, `headers`, `list`, `form`, `popovertarget` are all silent. False negatives only, and the design names the five deliberately — so this is a scope call. If the five stay, say so in the docs' attribute list.                                                                                                                                                                                                                                                                                                                |
 | 23  | `required-aria-props` | `HOST_SUPPLIED` has no `aria-expanded`/`aria-controls` rows, so `<input list>` and `<select>` with an explicit `role="combobox"` fire. Rare (the role is redundant there), hence P2. Separately, aria-query's `combobox`/`scrollbar` rows are correct against 1.2 but become wrong at 1.3 — the rows to watch when the data source is revisited.                                                                                                                                                                                                                                                                                                    |
 | 24  | `use-list`            | A **single** `- x` line is not a list, yet one occurrence fires. WCAG H48 is the citation the docs lack. Consider requiring ≥2 bullet text nodes under one parent. `info` is right either way.                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| 25  | severity, all fifteen | Verdict: **13 of 15 `warning`s are right, and `use-list`'s `info` is right.** Zero `critical` is coherent with the post-#428 definition (deploy-blocking only). The open calls are rows 15 and 16. One asymmetry worth recording rather than changing: a layout `<main>` plus a page `<main>` trips **both** `duplicate-landmark` and `top-level-landmark` for one authoring mistake — 40 points off that route key.                                                                                                                                                                                                                                |
+| 25  | severity, all fifteen | Verdict: **13 of the 14 `warning`s are right, and `use-list`'s `info` — the fifteenth rule — is right.** Zero `critical` is coherent with the post-#428 definition (deploy-blocking only). The open calls are rows 15 and 16. One asymmetry worth recording rather than changing: a layout `<main>` plus a page `<main>` trips **both** `duplicate-landmark` and `top-level-landmark` for one authoring mistake — 40 points off that route key.                                                                                                                                                                                                     |
 
 ## Priority 3 — docs/message/test corrections (mechanical, no behaviour change)
 
@@ -89,7 +90,7 @@ positives, and they cluster in three mechanisms:
 - **Uppercase ARIA attribute names are invisible to the collector** (`ARIA-LABEL`, `ROLE`) — HTML lowercases them, and Svelte's own compiler catches the same typo. Lowercase before the prefix test, or record it as a known limitation.
 - **Spread-skip undocumented on three pages** (`label-has-control`, `placeholder-label-option`, `require-datetime`); only `accessible-name` mentions it, and a kitchen-sink clean canary depends on the behaviour.
 - **`no-missing-id-ref` docs' closed-world list omits the `$lib` barrel import**, a common in-repo pattern that opens the world with no `node_modules` involved. **`id-duplication` docs omit the `app.html` shell divergence** — source mode is silent where rendered mode fires (the roadmap's queued shell-id item; until it lands it belongs in Mode-differences).
-- **Nine ja page titles are still in English** while five are translated; one translated pair diverges in framing (en "Top-level landmark" vs ja「ランドマークのネスト」).
+- **Ten of the fifteen ja page titles are still in English** — `Doctype` arguably being a proper noun — while five are translated; and one translated pair diverges in framing (en "Top-level landmark" vs ja「ランドマークのネスト」, opposite readings of the same rule).
 - **`plugin-mode.md` (en+ja) undersells a11y coverage** and contradicts `choosing-a-package.md` in the same breath.
 - **Route/project rule titles read as labels, not defects** (`Doctype`, `Id duplication`, `No missing id ref` — that last names the passing state), unlike the component rules' descriptive titles. This is the headline `svelte-vitals explain` prints.
 - **`no-missing-id-ref` docs hard-code their sibling list**, the rot AGENTS.md's convention targets.
@@ -106,8 +107,8 @@ positives, and they cluster in three mechanisms:
 - **`<svelte:element this={…}>` is invisible to every a11y rule** — a documented convention shared with three non-a11y collectors, not an a11y defect.
 - **All fifteen kitchen-sink samples exercise the intended arm**, not a degenerate one, including a genuinely cross-file id duplication and a fully-resolved route for the closed-world condition. Static and rendered expectations agree on every count.
 - **`explain` is correct for all fifteen.** Observation, not a defect: it never prints a rule's `recommendation`, so row 19's `title` advice reaches users through findings and the JSON report but not through `explain`.
-- **`translate:check` is honest** (117 up to date) and the ja text is a faithful translation in all fifteen — including, faithfully, the row 1 overclaim.
+- **`translate:check` is honest** (117 up to date) and the ja **body text** is a faithful translation in all fifteen — including, faithfully, the row 1 overclaim. Titles are the exception, and are a Priority 3 row.
 - **Every "How to fix" snippet in the category passes `svelte-autofixer`** except the four deprecated-`<slot>` ones in Priority 3.
 - **Interactive-set and `INTERACTIVE_ROLES` deltas against the spec are false negatives only** (`details`, `label`, `img[usemap]`, `treeitem` absent; `summary` added). Recorded so the set is not re-derived without cause.
-- **Found outside this review's scope and already fixed**: `--route` with a leading-slash glob matched zero routes and exited 0, and the kitchen-sink clean canary could not have caught it (`#510`).
+- **Found outside this review's scope and already fixed**: `--route` with a leading-slash glob matched zero routes and exited 0, and the kitchen-sink clean canary could not have caught it (`#510`). It surfaced here because the route-scoped reviewer used `--route` to isolate its fixtures.
 - **Category gap for the roadmap, not this review**: nothing checks a control with no label at all, nor `iframe` without `title`. `no-missing-id-ref` catches a dangling `for=`, not a missing one.
