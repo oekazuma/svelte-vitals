@@ -23,7 +23,7 @@ Keep one `<main>`, one `<header>`/`role="banner"`, and one `<footer>`/`role="con
 
 ```svelte +layout.svelte
 <header>Site navigation, shown on every route</header>
-<main><slot /></main>
+<main>{@render children()}</main>
 <footer>Site footer, shown on every route</footer>
 ```
 

@@ -9,15 +9,17 @@ description: banner・main・complementary・contentinfo ランドマークは�
 
 ルートを構成するレイアウトチェーン（`+layout.svelte` から `+page.svelte` まで）と、そこから解決したローカルコンポーネントを合わせたときに、`banner`・`main`・`complementary`・`contentinfo` のいずれかのランドマークが、別のランドマークの内側にネストしてしまっているケースを検出します。
 
-代表的なケースは、レイアウトが子要素を `<main>` の中に描画し、ページが別のランドマーク、例えば `role="complementary"` の `<aside>` を描画する場合です。
+代表的なケースは、レイアウトが子要素を `<main>` の中に描画し、ページが別のランドマーク、例えば `<aside>` を描画する場合です。
 
 ```svelte +layout.svelte
-<header>サイトナビゲーション</header><main><slot /></main>
+<header>サイトナビゲーション</header><main>{@render children()}</main>
 ```
 
 ```svelte +page.svelte
-<h1>ページの本文</h1><aside role="complementary">関連リンク</aside>
+<h1>ページの本文</h1><aside>関連リンク</aside>
 ```
+
+`role` は不要です。`<body>` または `<main>` の直下にある裸の `<aside>` は `complementary` ランドマークになります。`<article>`・`<aside>`・`<nav>`・`<section>` といったセクショニングコンテンツの中では、`aria-label` か `aria-labelledby` を持つ場合にのみランドマークになります — これが HTML のアクセシビリティマッピングの規定です。
 
 どちらのファイル単体を見ても問題はありません。ファイル単位のマークアップ linter ではこれを検出できません。このネストは、レイアウトの `<main>` とページの `complementary` をファイルをまたいで合成して初めて存在するものだからです。
 
@@ -35,7 +37,7 @@ description: banner・main・complementary・contentinfo ランドマークは�
 すべてのランドマークがルートの最上位で合成されるよう、ネストしたランドマークを外に出します。
 
 ```svelte +layout.svelte
-<header>サイトナビゲーション</header><main><slot /></main>
+<header>サイトナビゲーション</header><main>{@render children()}</main>
 ```
 
 ```svelte +page.svelte

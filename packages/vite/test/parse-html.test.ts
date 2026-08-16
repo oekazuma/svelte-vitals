@@ -222,6 +222,20 @@ describe('parse-html: a11y capture (rendered landmark/id parity)', () => {
     expect(landmarks).toContain('banner');
   });
 
+  it('maps a bare <aside> scoped to body or main to complementary', () => {
+    expect(parseHtmlHead(doc('<aside>Related</aside>')).landmarks).toContain('complementary');
+    const inMain = parseHtmlHead(doc('<main><aside>Related</aside></main>'));
+    expect(inMain.landmarks).toContain('complementary');
+    expect(inMain.nestedLandmarks).toContainEqual({ kind: 'complementary', within: 'main' });
+  });
+
+  it('demotes an <aside> inside sectioning content unless it is named', () => {
+    expect(parseHtmlHead(doc('<article><aside>u</aside></article>')).landmarks).not.toContain('complementary');
+    expect(parseHtmlHead(doc('<article><aside aria-label="Notes">n</aside></article>')).landmarks).toContain(
+      'complementary'
+    );
+  });
+
   it('excludes #top by its decoded form and skips whitespace-only ids', () => {
     const { idRefs, ids } = parseHtmlHead(doc('<a href="#%74op">up</a><a href="#TOP">up</a><p id="   ">x</p>'));
     expect(idRefs).toEqual([]);

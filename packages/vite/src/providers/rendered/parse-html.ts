@@ -64,8 +64,14 @@ export interface ParsedHtmlHead {
 // directly, unlike source mode's per-file topLevel approximation (routes.ts countsAsLandmark).
 const SECTIONING_TAGS = new Set(['article', 'aside', 'main', 'nav', 'section']);
 
+// HTML-AAM: an <aside> scoped to body or main is a complementary landmark; scoped to sectioning
+// content it is one only when it has an accessible name. `main` is absent on purpose — for an
+// <aside> it is a scope that keeps the landmark, unlike the set above.
+const ASIDE_DEMOTING_TAGS = new Set(['article', 'aside', 'nav', 'section']);
+
 interface A11yWalkCtx {
   sectioning: number;
+  asideDemoting: number;
   /** ancestor landmark kinds seen so far, outermost first */
   landmarks: string[];
 }
@@ -97,6 +103,9 @@ function collectA11y(root: HTMLElement): CollectedA11y {
       landmark = 'main';
     } else if ((tag === 'header' || tag === 'footer') && ctx.sectioning === 0) {
       landmark = tag === 'header' ? 'banner' : 'contentinfo';
+    } else if (tag === 'aside') {
+      const named = el.getAttribute('aria-label') !== undefined || el.getAttribute('aria-labelledby') !== undefined;
+      landmark = ctx.asideDemoting === 0 || named ? 'complementary' : undefined;
     }
 
     if (landmark) {
@@ -125,12 +134,13 @@ function collectA11y(root: HTMLElement): CollectedA11y {
     if (tag === 'template') return;
     const nextCtx: A11yWalkCtx = {
       sectioning: ctx.sectioning + (SECTIONING_TAGS.has(tag) ? 1 : 0),
+      asideDemoting: ctx.asideDemoting + (ASIDE_DEMOTING_TAGS.has(tag) ? 1 : 0),
       landmarks: landmark ? [...ctx.landmarks, landmark] : ctx.landmarks
     };
     for (const child of el.children) walk(child, nextCtx);
   };
 
-  for (const child of root.children) walk(child, { sectioning: 0, landmarks: [] });
+  for (const child of root.children) walk(child, { sectioning: 0, asideDemoting: 0, landmarks: [] });
   return { landmarks, nestedLandmarks, ids, idRefs };
 }
 
