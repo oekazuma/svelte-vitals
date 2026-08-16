@@ -42,7 +42,7 @@ Move the nested landmark out so every landmark composes at the top level of the 
 
 ```svelte +page.svelte
 <h1>Page content</h1>
-<aside role="complementary">Related links</aside>
+<aside>Related links</aside>
 <!-- moved out from under +layout.svelte's <main> -->
 ```
 

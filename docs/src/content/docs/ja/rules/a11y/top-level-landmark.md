@@ -42,7 +42,7 @@ description: banner・main・complementary・contentinfo ランドマークは�
 
 ```svelte +page.svelte
 <h1>ページの本文</h1>
-<aside role="complementary">関連リンク</aside>
+<aside>関連リンク</aside>
 <!-- +layout.svelte の <main> の下から外に出した -->
 ```
 

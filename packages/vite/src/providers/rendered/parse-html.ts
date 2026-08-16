@@ -104,7 +104,7 @@ function collectA11y(root: HTMLElement): CollectedA11y {
     } else if ((tag === 'header' || tag === 'footer') && ctx.sectioning === 0) {
       landmark = tag === 'header' ? 'banner' : 'contentinfo';
     } else if (tag === 'aside') {
-      const named = el.getAttribute('aria-label') !== undefined || el.getAttribute('aria-labelledby') !== undefined;
+      const named = ['aria-label', 'aria-labelledby'].some((a) => (el.getAttribute(a) ?? '').trim().length > 0);
       landmark = ctx.asideDemoting === 0 || named ? 'complementary' : undefined;
     }
 

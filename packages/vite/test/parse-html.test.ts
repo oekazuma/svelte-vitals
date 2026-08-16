@@ -234,6 +234,12 @@ describe('parse-html: a11y capture (rendered landmark/id parity)', () => {
     expect(parseHtmlHead(doc('<article><aside aria-label="Notes">n</aside></article>')).landmarks).toContain(
       'complementary'
     );
+    expect(parseHtmlHead(doc('<article><aside aria-label="">e</aside></article>')).landmarks).not.toContain(
+      'complementary'
+    );
+    expect(parseHtmlHead(doc('<article><aside aria-labelledby="  ">w</aside></article>')).landmarks).not.toContain(
+      'complementary'
+    );
   });
 
   it('excludes #top by its decoded form and skips whitespace-only ids', () => {

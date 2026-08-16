@@ -425,6 +425,10 @@ describe('collectRoutes a11y composition', () => {
     expect(await nested('<div><aside>Related</aside></div>')).toEqual(['complementary']);
     expect(await nested('<article><aside>unnamed</aside></article>')).toEqual([]);
     expect(await nested('<article><aside aria-label="Notes">n</aside></article>')).toEqual(['complementary']);
+    // An empty or whitespace-only label names nothing; an expression's value is unknowable.
+    expect(await nested('<article><aside aria-label="">e</aside></article>')).toEqual([]);
+    expect(await nested('<article><aside aria-labelledby="   ">w</aside></article>')).toEqual([]);
+    expect(await nested('<article><aside aria-label={n}>d</aside></article>')).toEqual(['complementary']);
   });
 
   it('takes the max across exclusive branches, including across components', async () => {

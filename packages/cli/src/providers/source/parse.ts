@@ -283,10 +283,15 @@ const LANDMARK_TAGS: Record<string, string | undefined> = { main: 'main', header
  */
 const ASIDE_DEMOTING_TAGS = new Set(['article', 'aside', 'nav', 'section']);
 
-/** An `aria-label`/`aria-labelledby` with any value — a literal or an expression, whose rendered
- *  value is unknowable but whose presence is the author saying the element is named. */
+/** An `aria-label`/`aria-labelledby` carrying a name: a non-blank literal, or an expression whose
+ *  rendered value is unknowable. An empty or whitespace-only literal names nothing. */
 function hasAccessibleName(attrs: AST.Attribute[]): boolean {
-  return ['aria-label', 'aria-labelledby'].some((name) => findAttr(attrs, name) !== undefined);
+  return ['aria-label', 'aria-labelledby'].some((name) => {
+    const attr = findAttr(attrs, name);
+    if (!attr) return false;
+    if (attrValueOf(attr) === 'dynamic') return true;
+    return (attrTextOf(attr) ?? '').trim().length > 0;
+  });
 }
 const IDREF_ATTR_SET = new Set(IDREF_ATTRS);
 
