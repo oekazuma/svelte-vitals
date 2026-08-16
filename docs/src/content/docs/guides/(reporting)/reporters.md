@@ -89,15 +89,15 @@ A category's score on a key is the share of that category's severity weight that
 grouped by category and scope — the keys of `inventories`, like `seo::route` — and **within one group** a
 `warning` costs five times an `info` and a `critical` fifteen times, so a more severe finding always costs
 more. **Across groups it does not**: a group that checks very few things is scored against a floor —
-25 today, and always the value `inventories` reports for it — which makes each of its findings a larger share, so a `warning` in a small group can cost more than a
+whatever `inventories` reports for it — which makes each of its findings a larger share, so a `warning` in a small group can cost more than a
 `critical` in a large one. Repeated findings from the same rule on the same key cost what one costs. Beside
 the score, `affectedKeys` says how much of the project the category touched: the score is depth, that is
 reach.
 
 Some things follow that the paragraph above doesn't say directly:
 
-- **A floored group is clamped, not measured.** Groups holding less than 25 points of checks — over half
-  of them — all report 25 in `inventories`, so a group with one rule and a group with eight look identical
+- **A floored group is clamped, not measured.** A group holding fewer points of checks than the floor
+  reports the floor in `inventories`, so a group with one rule and a group with eight can look identical
   there. The number is the divisor a score used, not a count of what ran; `rules` is where you see which
   checks actually reported.
 - **A `::project` group's number divides nothing.** Findings with no route — robots.txt, sitemap.xml and

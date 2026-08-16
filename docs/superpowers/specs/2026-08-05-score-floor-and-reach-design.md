@@ -5,7 +5,8 @@
 **Supersedes:** `2026-08-05-score-semantics-design.md`, withdrawn after field review.
 **Amended by:** `2026-08-16-score-semantics-freeze.md` — the 1.0 freeze. It re-measures the pair table
 (`seo::route` is 100, not 110; seven of twelve pairs are clamped, not five of nine) and makes the floor's
-ordering guard prescriptive. Everything below stands.
+ordering guard prescriptive. The reasoning below stands; **every figure in it is of its own date**, and the
+freeze is the current contract wherever the two disagree.
 **Origin:** a field measurement on a real project (351 keys, 77 findings) and the review of the withdrawn
 design, both 2026-08-05.
 

@@ -125,7 +125,7 @@ the guide already scopes it ("within one group"). A category key touches exactly
 
 ```text
 worst info = 100 / K        cheapest warning = 500 / i_max
-ordering holds  ⟺  5·K > i_max        (i_max = the widest single pair)
+ordering holds  ⟺  5·K > i_max        (i_max = the widest single pair that divides)
 ```
 
 Today `5 × 25 = 125 > 100`. **Phase C spends this.** `a11y::component` holds 46; the Phase 2
@@ -145,6 +145,9 @@ Two scoping notes the guarantee needs, both of which make it narrower than it fi
   key. Cross-severity ordering does not hold against a sum and no floor can make it: the sum grows
   with the registry in every category at once. `routes[].score` is a per-route roll-up, and severity
   comparisons belong to the category scores beside it.
+- **It covers pairs that divide.** `*::project` pairs deduct absolute points and never appear in a
+  denominator, so they are excluded from `i_max` — otherwise a future project-scope rule could demand
+  a floor rise, moving every clamped score, for an ordering it does not take part in.
 - **It covers default severities.** `buildInventory` reads the configured severity, so a project that
   promotes many rules can widen its own `i_max` past `5·K` and re-invert the two for itself. That is
   a consequence of letting configuration change severities and is not guarded.

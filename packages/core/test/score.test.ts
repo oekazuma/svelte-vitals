@@ -686,8 +686,11 @@ describe('computeScore — inventory floor', () => {
     // floor exists for holds only while 5*K > i_max, and the registry grows toward that line — so the
     // remedy is in the failure message: the PR that crosses it raises the floor in the same change,
     // and the score movement lands with the rules that caused it.
+    // `::project` pairs are excluded: project findings deduct absolute points through `sitePenalty`
+    // and never divide by an inventory, so a wide project pair would demand a floor rise that moves
+    // every clamped score for an ordering it does not participate in.
     const inv = buildInventory(config);
-    const widest = Math.max(...inv.values());
+    const widest = Math.max(...[...inv].filter(([pair]) => !pair.endsWith('::project')).map(([, w]) => w));
     expect(
       widest,
       `the widest inventory (${widest}) has reached 5x INVENTORY_FLOOR (${INVENTORY_FLOOR}), so an info in a floored pair now costs at least as much as a warning in the widest one. Raise INVENTORY_FLOOR to ${Math.floor(widest / 5) + 1} in this PR.`
