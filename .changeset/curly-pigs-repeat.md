@@ -17,4 +17,9 @@ Stop three a11y ARIA rules reporting valid markup.
   an ARIA 1.1 requirement neither 1.2 nor the 1.3 draft carries, so idiomatic listbox and tree
   markup was flagged.
 
-All three changes narrow detection, so recorded suppressions keep matching.
+`a11y/required-aria-props` also now checks the role a fallback list **resolves to**, instead of
+skipping every list. It shares one resolution with `a11y/invalid-role`, so the two rules cannot read
+one value differently — but this **widens** detection: `role="bogus checkbox"` with no
+`aria-checked` was silent and now reports, naming the resolved role in the message. Everything else
+here narrows detection, and recorded suppressions keep matching in either direction (the
+`id::route::location` key is unchanged).

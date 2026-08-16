@@ -17,7 +17,7 @@ description: role 属性には、タイポでも抽象ロールでもない、�
 検出しないもの:
 
 - 具体的なロール: `role="button"`。
-- いずれかのトークンが具体的なフォールバックリスト: `role="switch checkbox"` はもちろん、`role="widget checkbox"` や `role="checkbox some-future-role"` も対象外です。リスト形式は、古いユーザーエージェントが知らないロール名を書けるようにするために存在します。
+- 具体的なロールを 1 つでも含むフォールバックリスト: `role="switch checkbox"` はもちろん、`role="widget checkbox"` や `role="checkbox some-future-role"` も対象外です。リスト形式は、古いユーザーエージェントが知らないロール名を書けるようにするために存在します。
 - 式で値が決まるロール（静的には値がわからないため）: `role={dynamicRole}`。
 
 ロールの語彙は固定した ARIA データのコピーに由来し、そのコピー以降に ARIA 1.3 が追加したロールを手作業で補っています。どちらにも無い新しいロールは、データを更新するまで未知として報告されます。

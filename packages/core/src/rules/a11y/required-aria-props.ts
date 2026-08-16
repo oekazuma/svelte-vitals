@@ -1,6 +1,7 @@
 import { componentRule } from '../component-rule.js';
-import { requiredAriaProps } from './aria-data.js';
+import { requiredAriaProps, resolveRole } from './aria-data.js';
 import type { AriaElementFact } from '../../component.js';
+import { splitTokens } from '../../a11y.js';
 
 /** ARIA-in-HTML host elements that supply a required prop's semantics natively, so the
  *  explicit `aria-*` attribute is redundant. Spec-fixed, not derived from aria-query. */
@@ -20,18 +21,26 @@ export const a11yRequiredAriaProps = componentRule({
     'Some WAI-ARIA roles are unusable to assistive technology without their required state/property attributes — a role="checkbox" with no way to know checked/unchecked announces a control with no discoverable state.',
   recommendation:
     'Add the role’s required `aria-*` attribute(s), or rely on native host semantics that already supply them.',
-  applies: (c) => (c.ariaElements ?? []).some((e) => e.role?.literal !== undefined && !e.role.literal.includes(' ')),
+  applies: (c) =>
+    (c.ariaElements ?? []).some(
+      (e) => e.role?.literal !== undefined && resolveRole(splitTokens(e.role.literal)) !== undefined
+    ),
   bad: (c) =>
     (c.ariaElements ?? []).flatMap((e) => {
       // A spread may supply the required prop; its full attribute set is unknowable, so treat it as satisfied.
       if (e.hasSpread) return [];
       const literal = e.role?.literal;
-      if (literal === undefined || literal.includes(' ')) return [];
-      const required = requiredAriaProps(literal);
+      if (literal === undefined) return [];
+      // The role a user agent applies, which for a fallback list is the first concrete token — the
+      // same resolution `a11y/invalid-role` uses, so the two rules cannot read one value differently.
+      const role = resolveRole(splitTokens(literal));
+      if (role === undefined) return [];
+      const required = requiredAriaProps(role);
       if (required.length === 0) return [];
       const present = new Set(e.aria.map((a) => a.name));
       const missing = required.filter((p) => !present.has(p) && !HOST_SUPPLIED[p]?.(e));
       if (missing.length === 0) return [];
-      return [{ line: e.line, message: `role="${literal}" on <${e.tag}> is missing required ${missing.join(', ')}` }];
+      const named = role === literal ? `role="${literal}"` : `role="${literal}" (resolves to ${role})`;
+      return [{ line: e.line, message: `${named} on <${e.tag}> is missing required ${missing.join(', ')}` }];
     })
 });

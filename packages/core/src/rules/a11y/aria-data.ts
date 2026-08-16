@@ -32,6 +32,14 @@ export function isConcreteRole(role: string): boolean {
   return isKnownRole(role) && !isAbstractRole(role);
 }
 
+/**
+ * The role a user agent applies: the first token naming a concrete role, or undefined when none
+ * does. Shared so the role rules cannot disagree about what a fallback list means.
+ */
+export function resolveRole(tokens: readonly string[]): string | undefined {
+  return tokens.find(isConcreteRole);
+}
+
 export function isKnownAriaAttribute(name: string): boolean {
   return ARIA_1_3_ATTRIBUTES.has(name) || aria.has(name as Parameters<typeof aria.has>[0]);
 }

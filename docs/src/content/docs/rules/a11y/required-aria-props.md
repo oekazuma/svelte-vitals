@@ -23,7 +23,7 @@ Not flagged:
 - `<div role="checkbox" aria-checked="true">` — required prop present as a literal.
 - `<div role="checkbox" aria-checked={checked}>` — required prop present as an expression.
 - `<input type="checkbox" role="switch">` — `aria-checked` (required by `switch`) is supplied by the input's native checkbox semantics.
-- A fallback list of roles (`role="switch checkbox"`) — a user agent applies the first token naming a concrete role, and reading the list either way risks a false positive; the rule skips fallback lists entirely.
+- A fallback list naming no concrete role at all (`role="bogus alsobogus"`) — there is no role to require anything of. A list that does resolve is checked against the role it resolves to: `role="bogus checkbox"` is checked as `checkbox`.
 - An expression-valued role, since its runtime value is unknown statically: `role={dynamicRole}`.
 
 ## Why it matters

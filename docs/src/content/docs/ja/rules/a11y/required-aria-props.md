@@ -23,7 +23,7 @@ description: state や property 属性を要求するロールには、ネイテ
 - `<div role="checkbox" aria-checked="true">` — 必須プロパティがリテラルとして存在する。
 - `<div role="checkbox" aria-checked={checked}>` — 必須プロパティが式として存在する。
 - `<input type="checkbox" role="switch">` — `switch` が要求する `aria-checked` は、input のネイティブなチェックボックスのセマンティクスで供給される。
-- ロールのフォールバックリスト（`role="switch checkbox"`） — ユーザーエージェントが適用するのは具体的なロールを指す最初のトークンであり、どちらの解釈でチェックしても誤検出のおそれがある。このルールはフォールバックリストを一律スキップする。
+- どの具体的なロールも指さないフォールバックリスト（`role="bogus alsobogus"`） — 要求すべきロールが存在しないため。解決するリストは、解決先のロールに対してチェックされる（`role="bogus checkbox"` は `checkbox` としてチェックされる）。
 - 式で値が決まるロール（静的には値がわからないため）: `role={dynamicRole}`。
 
 ## なぜ重要か

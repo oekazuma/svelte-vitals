@@ -1,5 +1,5 @@
 import { componentRule } from '../component-rule.js';
-import { isAbstractRole, isConcreteRole } from './aria-data.js';
+import { isAbstractRole, resolveRole } from './aria-data.js';
 import { splitTokens } from '../../a11y.js';
 
 export const a11yInvalidRole = componentRule({
@@ -20,7 +20,7 @@ export const a11yInvalidRole = componentRule({
       // list whose later tokens are unknown is the spec's own progressive-enhancement form, not a
       // defect. Only a list that resolves to nothing leaves the element without the semantics its
       // author asked for.
-      if (tokens.length === 0 || tokens.some(isConcreteRole)) return [];
+      if (tokens.length === 0 || resolveRole(tokens) !== undefined) return [];
       const message =
         tokens.length === 1
           ? `role="${literal}" on <${e.tag}> is ${isAbstractRole(tokens[0]!) ? 'an abstract role' : 'not a WAI-ARIA role'}`

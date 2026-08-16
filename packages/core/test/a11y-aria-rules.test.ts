@@ -151,6 +151,13 @@ describe('a11y/required-aria-props', () => {
     );
     expect(fails(rs)).toHaveLength(0);
   });
+  it('checks the role a fallback list resolves to', async () => {
+    const rs = await a11yRequiredAriaProps.check(
+      ctx([comp({ ariaElements: [el({ role: { literal: 'bogus checkbox' } })] })])
+    );
+    expect(fails(rs)).toHaveLength(1);
+    expect(fails(rs)[0]!.message).toContain('(resolves to checkbox)');
+  });
   it('flags a role missing its required props', async () => {
     const rs = await a11yRequiredAriaProps.check(
       ctx([comp({ ariaElements: [el({ role: { literal: 'checkbox' } })] })])
