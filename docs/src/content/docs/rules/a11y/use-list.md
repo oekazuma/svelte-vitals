@@ -14,6 +14,8 @@ Not flagged:
 - The bullet character elsewhere in the text, e.g. `a - b` or `-webkit-...` — only the start of the trimmed text counts.
 - A bullet character with no following whitespace, e.g. a signed number like `-1`.
 - Text already inside an `<li>`.
+- Text that follows an `{expression}` among its siblings — `<p>{count} - results found</p>` trims to `- results found`, which is a sentence tail, not a bullet.
+- Text inside `<pre>`, `<code>`, `<kbd>`, `<samp>` or `<textarea>`, where a leading dash is content.
 
 This is a heuristic, not a structural check — it can't tell a genuine bullet from an author's stylistic dash, so it's scored as `info` rather than `warning`.
 

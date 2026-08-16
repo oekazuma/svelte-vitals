@@ -1300,6 +1300,17 @@ describe('parseComponentFacts — ariaElements (a11y ARIA rules)', () => {
 });
 
 describe('parseComponentFacts — interactiveNestings (a11y/interactive-nesting)', () => {
+  it('does not treat a gridcell or an ARIA 1.1 combobox as a container', () => {
+    // A gridcell holding a button is the documented grid pattern, and the 1.1 combobox wraps its
+    // own input — neither suppresses its descendants, which is what a nesting container means.
+    const src = ['<div role="gridcell"><button>Edit</button></div>', '<div role="combobox"><input /></div>'].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').interactiveNestings ?? []).toEqual([]);
+  });
+  it('resolves a fallback list to its first concrete role', () => {
+    // `future-role button` is a button: the unknown token is skipped, not applied.
+    const c = parseComponentFacts('<div role="future-role button"><button>x</button></div>', 'C.svelte');
+    expect(c.interactiveNestings).toHaveLength(1);
+  });
   it('flags a button inside a link, at the descendant line', () => {
     const c = parseComponentFacts('<a href="/x">\n  <button>Go</button>\n</a>', 'C.svelte');
     expect(c.interactiveNestings).toEqual([{ containerTag: 'a', descendantTag: 'button', line: 2 }]);
@@ -1433,6 +1444,22 @@ describe('parseComponentFacts — unassociatedLabels (a11y/label-has-control)', 
 });
 
 describe('parseComponentFacts — bulletTexts (a11y/use-list)', () => {
+  it('skips text after an interpolation and text in verbatim elements', () => {
+    // `{count} - results found` trims to `- results found`: a sentence tail, not a bullet.
+    const src = [
+      '<p>{count} - results found</p>',
+      '<pre>- removed</pre>',
+      '<code>* required</code>',
+      '<kbd>- a</kbd>',
+      '<samp>- b</samp>',
+      '<textarea>- c</textarea>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').bulletTexts ?? []).toEqual([]);
+  });
+  it('keeps the br-separated bullets WCAG H48 names', () => {
+    const c = parseComponentFacts('<p>Intro:<br />- one<br />- two</p>', 'C.svelte');
+    expect(c.bulletTexts).toHaveLength(2);
+  });
   it('flags text nodes starting with a bullet character', () => {
     const c = parseComponentFacts('<p>• one</p>\n<p>・ two</p>\n<p>- three</p>\n<p>* four</p>', 'C.svelte');
     expect(c.bulletTexts!.map((b) => b.char)).toEqual(['•', '・', '-', '*']);
@@ -1468,6 +1495,30 @@ describe('parseComponentFacts — selectsMissingPlaceholder (a11y/placeholder-la
 });
 
 describe('parseComponentFacts — timesMissingDatetime (a11y/require-datetime)', () => {
+  it('rejects a machine-readable prefix followed by prose', () => {
+    // The patterns are anchored: a value is machine-readable in full, or not at all.
+    const src = ['<time>2026-08-14T14:30 invalid</time>', '<time>P3D invalid</time>'].join('\n');
+    expect((parseComponentFacts(src, 'C.svelte').timesMissingDatetime ?? []).map((t) => t.line)).toEqual([1, 2]);
+  });
+  it('accepts a date-time with seconds and a time-zone offset', () => {
+    const src = [
+      '<time>2026-08-14T14:30:05.5</time>',
+      '<time>2026-08-14T14:30Z</time>',
+      '<time>2026-08-14T14:30+09:00</time>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').timesMissingDatetime ?? []).toEqual([]);
+  });
+  it('accepts the week, time-zone offset, alternative duration and 4+ digit year syntaxes', () => {
+    const src = [
+      '<time>2026-W33</time>',
+      '<time>+09:00</time>',
+      '<time>Z</time>',
+      '<time>4h 18m 3s</time>',
+      '<time>2w</time>',
+      '<time>12026</time>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').timesMissingDatetime ?? []).toEqual([]);
+  });
   it('flags <time> whose literal text is not machine-readable and lacks datetime', () => {
     const c = parseComponentFacts('<time>last Tuesday</time>', 'C.svelte');
     expect(c.timesMissingDatetime).toEqual([{ line: 1, text: 'last Tuesday' }]);
