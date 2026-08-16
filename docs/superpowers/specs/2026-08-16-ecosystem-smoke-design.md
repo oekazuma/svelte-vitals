@@ -5,16 +5,37 @@ third-party SvelteKit apps and asserts only that it did not fall over. The roadm
 assertions ("no crash, exit ∈ {0,1}, report parses — never counts"); this records the decisions it
 left open.
 
-## Why, and what it is not
+## Why, and — precisely — what it does not cover
 
-Every engine bug found in the last month came from pointing the tool at code nobody wrote for it:
-the `<link>` and `<script src>` collapse bugs, the minify-flag closure, the a11y inline directive,
-and — while assembling this very corpus — a `<style lang="scss">` block aborting a whole run
-(`#508`). Those were lucky finds. This turns the luck into a standing net.
+The recent run of engine bugs all came from pointing the tool at code nobody wrote for it. This job
+turns one class of that luck into a standing net, and it is worth being exact about which class,
+because the ratio is not flattering:
 
-It is **not** a correctness suite. It never asserts a score, a finding count, or a rule id: those
-move with every release by design (`2026-08-16-score-semantics-freeze.md`), and asserting them would
-make the job a maintenance tax that gets muted. The kitchen-sink e2e is where behaviour is pinned.
+| bug                                         | class          | caught here?   |
+| ------------------------------------------- | -------------- | -------------- |
+| `#508` `<style lang="scss">` aborts the run | crash / exit 2 | **yes**        |
+| `#495` `<link>` same-rel collapse           | wrong findings | no             |
+| `#496` `<script src>` same-src collapse     | wrong findings | no             |
+| `#499` a11y inline directive not matched    | wrong findings | no             |
+| minify-flag closure loss                    | vite plugin    | no — see below |
+
+So: **one of five.** A wrong-findings bug exits 0 or 1 with a report that parses, and sails through
+green. This job catches the class that stops a project being analyzable at all — which is the class
+that makes the tool useless to a whole population of users silently, and the class no fixture can
+anticipate, because a fixture is written by us.
+
+Two limits that follow, stated so nobody mistakes a green run for more than it is:
+
+- **False positives are invisible.** A rule firing wrongly on real code is a finding, and this job
+  never reads findings. The kitchen-sink `/clean/*` canaries are where that is defended.
+- **The Vite plugin is entirely out of scope.** The job runs `packages/cli/dist/bin.js` only.
+  Covering the plugin would mean installing each target's dependencies and running `vite build` —
+  minutes per repo and a new failure surface owned by upstream's lockfile. If plugin-mode crashes
+  become a pattern, that is a separate design, not a corpus row.
+
+It is also **not** a correctness suite. It never asserts a score, a finding count, or a rule id:
+those move with every release by design (`2026-08-16-score-semantics-freeze.md`), and asserting them
+would make the job a maintenance tax that gets muted.
 
 ## Measured before committing to the corpus
 
@@ -68,12 +89,20 @@ did not anticipate. The reproducibility cost is paid by printing `repo @ <sha>` 
 a failure names the exact tree.
 
 **Third-party config files are deleted after clone.** The CLI dynamically imports
-`svelte-vitals.config.{js,mjs,ts,…}` from the target directory — that is how config loading works,
-and the kitchen-sink suppression test depends on it. Cloning arbitrary repos and running the CLI in
-them is therefore arbitrary code execution in CI the moment any of them adopts the tool. Deleting
-the file after clone removes the vector, and it is what the job wants anyway: every target measured
-under default config, with no project's own suppressions or `off` settings in the way. No CLI flag
-is added for this — that would be new frozen surface for an internal need.
+`svelte-vitals.config.{mjs,js,ts}` from the target directory — that is how config loading works, and
+the kitchen-sink suppression test depends on it. Cloning arbitrary repos and running the CLI in them
+is therefore arbitrary code execution in CI the moment any of them adopts the tool. Deleting the
+file after clone removes the vector. Discovery is `cwd`-only with no upward walk, and the script
+always passes an explicit path, so deleting in the target directory is sufficient — including for
+the monorepo subpath targets. It is the only project file the tool executes: `svelte.config.js` and
+`vite.config.ts` are parsed, never run.
+
+**Suppressions are switched off with `--no-suppressions`.** A separate concern from the config file
+and not a security one — `svelte-vitals-suppressions.json` is read with `JSON.parse`, never
+imported. But it is read from the analyzed directory unconditionally, so a target that adopts the
+tool would silently hide findings from this job, and a file written against a future format version
+is a **hard exit 2** — the code this job reads as an engine crash. Using the flag rather than
+deleting the file keeps the intent in the command line, where a reader of the CI log sees it.
 
 **Scheduled and manual, never PR-blocking.** Weekly plus `workflow_dispatch`. Upstream is free to
 break the job through no fault of ours (a repo moves, a clone 404s), and that must never be able to

@@ -29,8 +29,12 @@ const CORPUS = [
   { repo: 'scosman/CMSaasStarter', path: '.' }
 ];
 
-const ANALYZE_TIMEOUT_MS = 120_000;
-const CLONE_TIMEOUT_MS = 300_000;
+// Kept small enough that eight targets at their worst still land inside the workflow's own
+// timeout, so a bad week produces this script's per-target report rather than GitHub's mid-run kill.
+const ANALYZE_TIMEOUT_MS = 60_000;
+const CLONE_TIMEOUT_MS = 120_000;
+
+const STDOUT_CAP_MB = 64;
 
 const root = join(import.meta.dirname, '..');
 const cliBin = join(root, 'packages/cli/dist/bin.js');
@@ -47,17 +51,20 @@ if (!existsSync(cliBin)) {
  */
 function dropConfigFiles(dir) {
   for (const name of readdirSync(dir)) {
-    if (/^svelte-vitals\.config\./.test(name)) unlinkSync(join(dir, name));
+    if (name.startsWith('svelte-vitals.config.')) unlinkSync(join(dir, name));
   }
 }
 
 /** Never throws: returns the exit code alongside the captured streams. */
 function analyze(dir) {
   try {
-    const stdout = execFileSync(process.execPath, [cliBin, dir, '--reporter', 'json'], {
+    // `--no-suppressions` because a target's own recorded suppressions would silently hide
+    // findings, and a suppressions file from a future format version is a hard exit 2 — which is
+    // the code this job reads as an engine crash.
+    const stdout = execFileSync(process.execPath, [cliBin, dir, '--reporter', 'json', '--no-suppressions'], {
       encoding: 'utf8',
       timeout: ANALYZE_TIMEOUT_MS,
-      maxBuffer: 64 * 1024 * 1024,
+      maxBuffer: STDOUT_CAP_MB * 1024 * 1024,
       stdio: ['ignore', 'pipe', 'pipe']
     });
     return { code: 0, stdout, stderr: '', signal: null };
@@ -66,12 +73,27 @@ function analyze(dir) {
   }
 }
 
+/** Clone, or return git's own first line of stderr — "Command failed: git clone" explains nothing. */
+function clone(repo, dir) {
+  try {
+    execFileSync('git', ['clone', '--depth', '1', `https://github.com/${repo}.git`, dir], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'ignore', 'pipe'],
+      timeout: CLONE_TIMEOUT_MS
+    });
+    return undefined;
+  } catch (e) {
+    const reason = String(e.stderr ?? '')
+      .split('\n')
+      .find((l) => l.trim().length > 0);
+    return `clone failed: ${reason ?? e.message.split('\n')[0]}`;
+  }
+}
+
 function check({ repo, path }, workdir) {
   const dir = join(workdir, repo.replace('/', '__'));
-  execFileSync('git', ['clone', '--depth', '1', `https://github.com/${repo}.git`, dir], {
-    stdio: ['ignore', 'ignore', 'pipe'],
-    timeout: CLONE_TIMEOUT_MS
-  });
+  const cloneError = clone(repo, dir);
+  if (cloneError) return { sha: 'unknown', error: cloneError };
   const sha = execFileSync('git', ['-C', dir, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 
   const target = path === '.' ? dir : join(dir, path);
@@ -80,7 +102,11 @@ function check({ repo, path }, workdir) {
   dropConfigFiles(target);
 
   const { code, stdout, stderr, signal } = analyze(target);
-  if (signal !== null) return { sha, error: `killed by signal ${signal} (timeout is ${ANALYZE_TIMEOUT_MS}ms)` };
+  // A signal is a timeout, a maxBuffer overrun, or the kernel killing it — all failures, but the
+  // cause is not knowable from here, so do not name one.
+  if (signal !== null) {
+    return { sha, error: `killed by ${signal} (timeout ${ANALYZE_TIMEOUT_MS}ms, stdout cap ${STDOUT_CAP_MB}MB)` };
+  }
   // 2 is the CLI's "not a SvelteKit project / internal error" — every target is known to be one,
   // so 2 is exactly the failure this job exists to catch.
   if (code !== 0 && code !== 1)
@@ -92,7 +118,12 @@ function check({ repo, path }, workdir) {
   } catch {
     return { sha, error: `exit ${code} but stdout is not JSON: ${stdout.slice(0, 200)}` };
   }
-  if (typeof report.score !== 'number' || !Array.isArray(report.routes) || typeof report.rules !== 'object') {
+  if (
+    typeof report.score !== 'number' ||
+    !Array.isArray(report.routes) ||
+    report.rules === null ||
+    typeof report.rules !== 'object'
+  ) {
     return { sha, error: 'JSON parsed but is not a report (missing score/routes/rules)' };
   }
   return { sha, code, routes: report.routes.length, rules: Object.keys(report.rules).length };
@@ -107,7 +138,7 @@ try {
     try {
       result = check(target, workdir);
     } catch (e) {
-      result = { sha: 'unknown', error: `clone failed: ${String(e.message).split('\n')[0]}` };
+      result = { sha: 'unknown', error: String(e.message).split('\n')[0] };
     }
     if (result.error) {
       console.error(`FAIL  ${label} @ ${result.sha}\n      ${result.error}`);
