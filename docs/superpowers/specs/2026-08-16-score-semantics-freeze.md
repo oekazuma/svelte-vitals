@@ -61,10 +61,10 @@ which, because two of them are already described wrongly in this project's own d
   costs its category a flat 5 points on a project of any size. The `*::project` entries in
   `inventories` are inert — they are published for uniformity and no score ever divides by them.
 - **A `critical` caps the category score at 79**, and caps nothing else.
-- **A category score of 100 means zero penalized findings in that category**, where "penalized"
-  is `isPenalized` under the project's `treatDynamicAs`: `'ignore'` (the default) does not penalize
-  a dynamic value, `'warn'` does. That setting therefore changes what a 100 asserts, which is the
-  point of having it.
+- **A category score of 100 means zero penalized findings in that category**, where "penalized" is
+  `isPenalized` under the project's `treatDynamicAs`: `'pass'` (the default) does not penalize a
+  dynamically-computed value, while `'warn'` and `'fail'` do, at their respective severities. That
+  setting therefore changes what a 100 asserts, which is the point of having it.
 
 ### Health
 
@@ -76,8 +76,10 @@ which, because two of them are already described wrongly in this project's own d
   by default — not the number. A cap on a mean would also make Health disagree with the categories
   it averages. `--min-health` is a floor on overall quality; `--fail-on` is the severity gate. Users
   who want "no critical, ever" already have the default.
-- **100 means every present category scored 100.** The structural `min(99, …)` makes this exact
-  rather than a rounding accident: any deficit at all, however small, displays at most 99.
+- **100 means every present category _with a positive weight_ scored 100.** A category at weight 0
+  contributes nothing to the average, so it can read 50 while Health reads 100 — that is what asking
+  for weight 0 means. The structural `min(99, …)` makes the rest exact rather than a rounding
+  accident: any deficit at all, however small, displays at most 99.
 - **`affectedKeys` / `keys` carry magnitude; the score carries depth.** The score is a mean over
   every key, so reach is not recoverable from it. A consumer rendering the score without reach shows
   half the measurement.

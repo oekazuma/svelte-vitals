@@ -94,7 +94,7 @@ more. **Across groups it does not**: a group that checks very few things is scor
 the score, `affectedKeys` says how much of the project the category touched: the score is depth, that is
 reach.
 
-Four things follow that the paragraph above doesn't say directly:
+Some things follow that the paragraph above doesn't say directly:
 
 - **A floored group is clamped, not measured.** Groups holding less than 25 points of checks — over half
   of them — all report 25 in `inventories`, so a group with one rule and a group with eight look identical
