@@ -1443,6 +1443,10 @@ function collectUnassociatedLabels(node: Node, source: string, acc: { line: numb
  *  signed number like `-1` (a11y/use-list). */
 const BULLET_TEXT_RE = /^[•・·\-*]\s/;
 
+/** Ancestries whose text is code, keystrokes or user input rather than prose, so a leading dash
+ *  is a character in the content and not a bullet (a11y/use-list). */
+const VERBATIM_TEXT_TAGS = new Set(['pre', 'code', 'kbd', 'samp', 'textarea']);
+
 /**
  * Text nodes whose trimmed content opens with a bullet character followed by whitespace,
  * outside any `li` ancestor — a plain-text bullet where a `<ul>`/`<ol>` would give assistive
@@ -1452,16 +1456,25 @@ function collectBulletTexts(
   node: Node,
   source: string,
   acc: { line: number; char: string }[],
-  insideLi: boolean
+  inert: boolean,
+  afterExpression = false
 ): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectBulletTexts(child, source, acc, insideLi);
+    let prevWasExpression = afterExpression;
+    for (const child of node) {
+      collectBulletTexts(child, source, acc, inert, prevWasExpression);
+      if (child && typeof child === 'object' && child.type !== 'Comment') {
+        prevWasExpression = child.type === 'ExpressionTag';
+      }
+    }
     return;
   }
   if (!node || typeof node !== 'object') return;
   if (node.type === 'Text') {
     const trimmed = String(node.data ?? '').trim();
-    if (!insideLi && BULLET_TEXT_RE.test(trimmed)) {
+    // Text after an interpolation is the tail of a sentence, not the head of a bullet:
+    // `<p>{count} - results found</p>` trims to `- results found`.
+    if (!inert && !afterExpression && BULLET_TEXT_RE.test(trimmed)) {
       acc.push({ line: lineOf(source, node.start), char: trimmed[0]! });
     }
     return;
@@ -1469,9 +1482,10 @@ function collectBulletTexts(
   // A snippet's body renders at its {@render} site, so its list context is unknowable here —
   // skip it rather than judge bullet text against the declaration site's ancestors.
   if (node.type === 'SnippetBlock') return;
-  const nowInsideLi = insideLi || (node.type === 'RegularElement' && node.name === 'li');
+  const nowInert =
+    inert || (node.type === 'RegularElement' && (node.name === 'li' || VERBATIM_TEXT_TAGS.has(node.name)));
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectBulletTexts(node[key], source, acc, nowInsideLi);
+    if (key in node) collectBulletTexts(node[key], source, acc, nowInert);
   }
 }
 
@@ -1552,12 +1566,18 @@ function collectSelectsMissingPlaceholder(node: Node, source: string, acc: { lin
 /** Machine-readable literal formats a `<time>` may use without a `datetime` attribute — a
  *  permissive subset of the HTML spec's valid time-string grammar (year/month/date, time,
  *  date-time, yearless date, duration). Anything else needs an explicit `datetime`. */
+/** The `<time>` content syntaxes the HTML spec permits without a `datetime` attribute. A year is
+ *  four **or more** digits, and a duration has two spellings: the `PnYnMnD` form and the
+ *  alternative `4h 18m 3s` form, which is what recipes and media lengths are written in. */
 const MACHINE_READABLE_TIME = [
-  /^\d{4}(-\d{2}){0,2}$/,
-  /^\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/,
-  /^\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}/,
-  /^\d{2}-\d{2}$/,
-  /^P(?=\d|T)/i
+  /^\d{4,}(-\d{2}){0,2}$/, // year, yearless month, date
+  /^\d{2}:\d{2}(:\d{2}(\.\d+)?)?$/, // time
+  /^\d{4,}-\d{2}-\d{2}[T ]\d{2}:\d{2}/, // local and global date-time
+  /^\d{2}-\d{2}$/, // yearless date
+  /^\d{4,}-W\d{2}$/, // week
+  /^(Z|[+-]\d{2}:?\d{2})$/, // time-zone offset
+  /^P(?=\d|T)/i, // duration, PnYnMnD form
+  /^\d+(\.\d+)?\s*[wdhms](\s+\d+(\.\d+)?\s*[wdhms])*$/i // duration, alternative form
 ];
 
 /**

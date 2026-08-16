@@ -33,15 +33,38 @@ const INTERACTIVE_ROLES = new Set([
   'gridcell'
 ]);
 
+/**
+ * Roles that genuinely break when another actionable element sits inside them: ARIA's
+ * children-presentational set (a user agent does not expose their descendants at all), plus
+ * `link`, which carries the same content-model restriction as `<a href>`.
+ *
+ * Deliberately NOT every interactive role. `gridcell` containing a button or a link is the
+ * documented grid pattern, and the ARIA 1.1 combobox is a wrapper around its own input — both
+ * were reported as nesting defects while being the recommended markup.
+ */
+const CONTAINER_ROLES = new Set([
+  'button',
+  'link',
+  'checkbox',
+  'radio',
+  'switch',
+  'tab',
+  'menuitemcheckbox',
+  'menuitemradio',
+  'option',
+  'slider',
+  'scrollbar'
+]);
+
 function literalOf(attrs: ElementAttr[], name: string): string | undefined {
   return attrs.find((a) => a.name === name)?.literal;
 }
 
-/** Whether a literal `role` attribute's first fallback token is one of `INTERACTIVE_ROLES` —
- *  the first token is the one a browser/AT actually applies when the rest are unsupported. */
-function hasInteractiveRole(attrs: ElementAttr[]): boolean {
+/** Whether a literal `role` attribute's first fallback token is in `set` — the first token is the
+ *  one a browser/AT actually applies when the rest are unsupported. */
+function hasRoleIn(attrs: ElementAttr[], set: ReadonlySet<string>): boolean {
   const role = splitTokens(literalOf(attrs, 'role'))[0];
-  return role !== undefined && INTERACTIVE_ROLES.has(role);
+  return role !== undefined && set.has(role);
 }
 
 /**
@@ -69,18 +92,17 @@ export function isInteractiveElement(tag: string, attrs: ElementAttr[]): boolean
     const n = Number(tabindex);
     if (Number.isFinite(n) && n >= 0) return true;
   }
-  return hasInteractiveRole(attrs);
+  return hasRoleIn(attrs, INTERACTIVE_ROLES);
 }
 
 /**
  * Whether `tag` opens a new "interactive container" for a11y/interactive-nesting's nesting
  * stack — a narrower set than `isInteractiveElement`: only `a`-with-`href`, `button`, and a
- * literal interactive role are containers whose interaction model genuinely breaks when
- * another actionable element sits inside them (an `<input>` or `tabindex` div is itself a
- * valid nesting target, but not a container).
+ * literal `CONTAINER_ROLES` role (an `<input>` or `tabindex` div is itself a valid nesting
+ * target, but not a container).
  */
 export function isInteractiveContainer(tag: string, attrs: ElementAttr[]): boolean {
   if (tag === 'button') return true;
   if (tag === 'a') return literalOf(attrs, 'href') !== undefined;
-  return hasInteractiveRole(attrs);
+  return hasRoleIn(attrs, CONTAINER_ROLES);
 }

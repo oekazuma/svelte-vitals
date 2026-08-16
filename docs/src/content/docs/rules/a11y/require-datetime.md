@@ -9,7 +9,7 @@ description: A time element's text should be machine-readable, or a datetime att
 
 Flags a `<time>` element with no `datetime` attribute whose literal text content is not itself machine-readable. Checked by static (CLI) analysis of every `.svelte` component under `src/`.
 
-Text counts as machine-readable when it matches one of the HTML time-string formats: a year/month/date (`2026-08-14`), a time (`14:30`), a date-time (`2026-08-14T14:30`), a yearless date (`08-14`), or a duration (`P3D`).
+Text counts as machine-readable when it matches one of the HTML time-string formats: a year/month/date (`2026-08-14`), a time (`14:30`), a date-time (`2026-08-14T14:30`), a yearless date (`08-14`), a week (`2026-W33`), a time-zone offset (`+09:00`, `Z`), or a duration in either spelling — `P3D` and `4h 18m 3s`. A year may be four **or more** digits.
 
 Not flagged:
 

@@ -13,7 +13,7 @@ description: インタラクティブな要素を、別のインタラクティ�
 
 - `<a href="…">` — `href` のない `<a>` はコンテナとみなしません。
 - `<button>`。
-- リテラルなインタラクティブ `role` を持つ要素（例: `role="button"`）。
+- 子孫をユーザーエージェントが一切公開しないリテラルなロールを持つ要素 — `button`、`link`、`checkbox`、`radio`、`switch`、`tab`、`menuitemcheckbox`、`menuitemradio`、`option`、`slider`、`scrollbar`。自前のコントロールを含むのが正しいロールはコンテナ**ではありません**: `role="gridcell"` がボタンを含むのは grid パターンの標準形ですし、ARIA 1.1 の `role="combobox"` は自身の `<input>` を囲む形です。
 
 これらのコンテナが開いている間にインタラクティブな要素が現れると検出されます。例:
 
