@@ -14,11 +14,12 @@ svelte-vitals is a static code-health checker for SvelteKit — not a runtime We
 | Typecheck      | `pnpm typecheck`     | `pnpm -r typecheck`                                                                                                                                                                                     |
 | Test           | `pnpm test`          | `pnpm build && pnpm -r test` (vitest) — builds first because packages/cli's tests import @svelte-vitals/core from its built dist                                                                        |
 | Floor smoke    | `pnpm smoke`         | needs `pnpm build` first — it runs the built `dist` under a bare `node`; locally that is the devEngines Node, not the floor, so the floor claim is what CI's `floor-smoke` job (pinned to 22.13.0) adds |
+| Ecosystem      | `pnpm ecosystem`     | needs `pnpm build` first — clones eight real third-party SvelteKit apps and asserts only "no crash, exit ∈ {0,1}, report parses"; scheduled weekly, never PR-blocking                                   |
 | Lint           | `pnpm lint`          | `oxlint .` + `oxfmt --check .`                                                                                                                                                                          |
 | Format         | `pnpm format`        | `oxfmt --write .`                                                                                                                                                                                       |
 | Publish checks | `pnpm check:publish` | publint + attw (`--profile esm-only`)                                                                                                                                                                   |
 
-CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typecheck + check:publish), `test`, `floor-smoke`, `docs`. Run the relevant verify commands yourself and confirm they pass **before** claiming a task is complete.
+CI (`.github/workflows/ci.yml`) runs five jobs: `lint`, `check` (build + typecheck + check:publish), `test`, `floor-smoke`, `docs`. A separate `.github/workflows/ecosystem.yml` runs the ecosystem smoke weekly. Run the relevant verify commands yourself and confirm they pass **before** claiming a task is complete.
 
 ## Package map
 
