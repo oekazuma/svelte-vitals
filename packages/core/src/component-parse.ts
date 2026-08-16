@@ -1193,13 +1193,23 @@ function collectInteractiveNestings(node: Node, source: string, acc: Interactive
 /** `aria-label`/`aria-labelledby`/`title` present on this element: a literal non-empty value,
  *  or any expression (its rendered value is unknowable, but its *presence* is enough to name
  *  the element — a11y/accessible-name treats an expression name source as present). */
+/** An attribute present with a non-blank literal, or with an expression whose value is unknowable
+ *  and so must be assumed to carry one. */
+function hasNamingValue(attributes: Node[], name: string): boolean {
+  const attr = findAttr(attributes, name);
+  if (!attr) return false;
+  const v = classifyAttrValue(attr.value);
+  return 'expression' in v || (v.literal !== undefined && v.literal.trim().length > 0);
+}
+
 function hasNamingAttr(attributes: Node[]): boolean {
-  return ['aria-label', 'aria-labelledby', 'title'].some((name) => {
-    const attr = findAttr(attributes, name);
-    if (!attr) return false;
-    const v = classifyAttrValue(attr.value);
-    return 'expression' in v || (v.literal !== undefined && v.literal.trim().length > 0);
-  });
+  return ['aria-label', 'aria-labelledby', 'title'].some((name) => hasNamingValue(attributes, name));
+}
+
+/** A tag name with a hyphen is a custom element: it may be form-associated, and its shadow root may
+ *  supply content, neither of which is visible here. Treated as unknowable by both a11y scanners. */
+function isCustomElement(node: Node): boolean {
+  return node.type === 'RegularElement' && typeof node.name === 'string' && node.name.includes('-');
 }
 
 /** Named/unknowable verdict for a candidate interactive element's descendant subtree
@@ -1225,13 +1235,15 @@ function scanAccessibleNameSubtree(node: Node): { named: boolean; unknowable: bo
     node.type === 'ExpressionTag' ||
     node.type === 'RenderTag' ||
     node.type === 'HtmlTag' ||
-    COMPONENT_LIKE_TYPES.has(node.type)
+    node.type === 'SlotElement' ||
+    node.type === 'SvelteFragment' ||
+    COMPONENT_LIKE_TYPES.has(node.type) ||
+    isCustomElement(node)
   ) {
     return { named: false, unknowable: true };
   }
   if (node.type === 'RegularElement' && node.name === 'img' && Array.isArray(node.attributes)) {
-    const alt = attrText(node.attributes, 'alt');
-    if (alt !== undefined && alt.trim().length > 0) return { named: true, unknowable: false };
+    if (hasNamingValue(node.attributes, 'alt')) return { named: true, unknowable: false };
   }
   const acc = { named: false, unknowable: false };
   for (const key of CHILD_NODE_KEYS) {
@@ -1258,24 +1270,53 @@ function accessibleNameTarget(node: Node): 'button' | 'a' | 'input' | undefined 
   return undefined;
 }
 
+/** Literal `for` values of every `<label>` in the file — a `<label for>` names the control it
+ *  points at, which for `button` and `input type="image"` is a name route the subtree scan cannot
+ *  see. Same-file only; a label in another component stays a known limitation. */
+function collectLabelForIds(node: Node, acc: Set<string>): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectLabelForIds(child, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && node.name === 'label' && Array.isArray(node.attributes)) {
+    const target = attrText(node.attributes, 'for');
+    if (target !== undefined && target.trim().length > 0) acc.add(target.trim());
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectLabelForIds(node[key], acc);
+  }
+}
+
 /**
  * `button`/`a href`/`input type="image"` elements with no computable accessible name
  * (a11y/accessible-name). A spread attribute on the element itself makes its rendered
  * attributes unknowable, so the element is skipped entirely rather than risk a false positive.
+ *
+ * `ctx.inLabel` and `ctx.labelledIds` carry the two `<label>` routes: HTML-AAM gives `button` and
+ * `input type="image"` a label step ahead of their own subtree, which `<a>` does not have.
  */
-function collectUnnamedInteractive(node: Node, source: string, acc: UnnamedInteractiveFact[]): void {
+function collectUnnamedInteractive(
+  node: Node,
+  source: string,
+  acc: UnnamedInteractiveFact[],
+  ctx: { labelledIds: Set<string>; inLabel: boolean }
+): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectUnnamedInteractive(child, source, acc);
+    for (const child of node) collectUnnamedInteractive(child, source, acc, ctx);
     return;
   }
   if (!node || typeof node !== 'object') return;
   if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
     const target = accessibleNameTarget(node);
     const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
-    if (target && !hasSpread) {
+    const id = attrText(node.attributes, 'id');
+    // A wrapping label is not required to hold text for the skip: reading its subtree here would
+    // duplicate the accname computation for a case that is rare and always errs toward silence.
+    const labelNames = target !== 'a' && (ctx.inLabel || (id !== undefined && ctx.labelledIds.has(id.trim())));
+    if (target && !hasSpread && !labelNames) {
       if (target === 'input') {
-        const alt = attrText(node.attributes, 'alt');
-        if (!hasNamingAttr(node.attributes) && !(alt !== undefined && alt.trim().length > 0)) {
+        if (!hasNamingAttr(node.attributes) && !hasNamingValue(node.attributes, 'alt')) {
           acc.push({ tag: node.name, line: lineOf(source, node.start) });
         }
       } else {
@@ -1286,8 +1327,10 @@ function collectUnnamedInteractive(node: Node, source: string, acc: UnnamedInter
       }
     }
   }
+  const inner =
+    node.type === 'RegularElement' && node.name === 'label' && !ctx.inLabel ? { ...ctx, inLabel: true } : ctx;
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectUnnamedInteractive(node[key], source, acc);
+    if (key in node) collectUnnamedInteractive(node[key], source, acc, inner);
   }
 }
 
@@ -1322,7 +1365,10 @@ function scanLabelSubtree(node: Node): { hasControl: boolean; unknowable: boolea
     node.type === 'ExpressionTag' ||
     node.type === 'RenderTag' ||
     node.type === 'HtmlTag' ||
-    COMPONENT_LIKE_TYPES.has(node.type)
+    node.type === 'SlotElement' ||
+    node.type === 'SvelteFragment' ||
+    COMPONENT_LIKE_TYPES.has(node.type) ||
+    isCustomElement(node)
   ) {
     return { hasControl: false, unknowable: true };
   }
@@ -2526,7 +2572,9 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   const interactiveNestings: InteractiveNestingFact[] = [];
   collectInteractiveNestings(ast.fragment ?? ast, source, interactiveNestings, []);
   const unnamedInteractive: UnnamedInteractiveFact[] = [];
-  collectUnnamedInteractive(ast.fragment ?? ast, source, unnamedInteractive);
+  const labelledIds = new Set<string>();
+  collectLabelForIds(ast.fragment ?? ast, labelledIds);
+  collectUnnamedInteractive(ast.fragment ?? ast, source, unnamedInteractive, { labelledIds, inLabel: false });
   const unassociatedLabels: { line: number }[] = [];
   collectUnassociatedLabels(ast.fragment ?? ast, source, unassociatedLabels);
   const bulletTexts: { line: number; char: string }[] = [];

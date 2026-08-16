@@ -16,7 +16,12 @@ Any of the following, if present, is a name source — the element is not flagge
 - A descendant `<img>` with a non-empty literal `alt`.
 - For `<input type="image">`, its own non-empty literal `alt`.
 
-Not flagged, even with no name source found: an element whose content is unknowable — any `{expression}` child, a component child, `{@render …}`, `{@html …}`, or a spread attribute on the element itself. The rule only flags what it can prove is unnamed; it never guesses at dynamic content.
+Not flagged, even with no name source found:
+
+- An element whose content is unknowable — any `{expression}` child, a component child, `{@render …}`, `{@html …}`, a `<slot>` or `<svelte:fragment>` (its content comes from the parent), a hyphenated custom element (its shadow root may supply content), or a spread attribute on the element itself.
+- A `<button>` or `<input type="image">` a `<label>` names — either by wrapping it, or by pointing at its `id` with `for`. That label step comes ahead of the element's own subtree in the name computation. `<a>` has no such step, so links are checked on their content alone. The `for` route is same-file only: a label in another component is a known limitation.
+
+The rule only flags what it can prove is unnamed; it never guesses at dynamic content.
 
 ```svelte
 <button></button>
