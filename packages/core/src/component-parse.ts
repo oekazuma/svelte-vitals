@@ -1217,17 +1217,20 @@ function isCustomElement(node: Node): boolean {
  *  with a non-empty literal `alt`. `unknowable`: an expression-tag, `Component`, `{@render}`,
  *  or `{@html}` anywhere below — content the rule cannot statically resolve, so the element is
  *  skipped rather than risk a false positive. */
-function scanAccessibleNameSubtree(node: Node): { named: boolean; unknowable: boolean } {
+function scanAccessibleNameSubtree(node: Node, skip?: Node): { named: boolean; unknowable: boolean } {
   if (Array.isArray(node)) {
     const acc = { named: false, unknowable: false };
     for (const child of node) {
-      const r = scanAccessibleNameSubtree(child);
+      const r = scanAccessibleNameSubtree(child, skip);
       acc.named ||= r.named;
       acc.unknowable ||= r.unknowable;
     }
     return acc;
   }
   if (!node || typeof node !== 'object') return { named: false, unknowable: false };
+  // HTML-AAM: when a label encapsulates its control, the control's own subtree is not part of the
+  // label's text.
+  if (skip !== undefined && node === skip) return { named: false, unknowable: false };
   // A snippet's body renders at its {@render} site — its text cannot name this element.
   if (node.type === 'SnippetBlock') return { named: false, unknowable: false };
   if (node.type === 'Text') return { named: String(node.data ?? '').trim().length > 0, unknowable: false };
@@ -1248,7 +1251,7 @@ function scanAccessibleNameSubtree(node: Node): { named: boolean; unknowable: bo
   const acc = { named: false, unknowable: false };
   for (const key of CHILD_NODE_KEYS) {
     if (key in node) {
-      const r = scanAccessibleNameSubtree(node[key]);
+      const r = scanAccessibleNameSubtree(node[key], skip);
       acc.named ||= r.named;
       acc.unknowable ||= r.unknowable;
     }
@@ -1270,21 +1273,52 @@ function accessibleNameTarget(node: Node): 'button' | 'a' | 'input' | undefined 
   return undefined;
 }
 
-/** Literal `for` values of every `<label>` in the file — a `<label for>` names the control it
- *  points at, which for `button` and `input type="image"` is a name route the subtree scan cannot
- *  see. Same-file only; a label in another component stays a known limitation. */
-function collectLabelForIds(node: Node, acc: Set<string>): void {
+/** The first labelable descendant of a `<label>` — the only control an implicit association
+ *  reaches, so a second control inside the same label is not named by it. */
+function firstLabelableDescendant(node: Node): Node | undefined {
   if (Array.isArray(node)) {
-    for (const child of node) collectLabelForIds(child, acc);
+    for (const child of node) {
+      const hit = firstLabelableDescendant(child);
+      if (hit) return hit;
+    }
+    return undefined;
+  }
+  if (!node || typeof node !== 'object') return undefined;
+  if (node.type === 'SnippetBlock') return undefined;
+  if (node.type === 'RegularElement' && isLabelableDescendant(node)) return node;
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) {
+      const hit = firstLabelableDescendant(node[key]);
+      if (hit) return hit;
+    }
+  }
+  return undefined;
+}
+
+/**
+ * What each `<label>` in the file names: the literal `for` it points at, and the one control it
+ * encapsulates. HTML-AAM gives `button` and `input type="image"` this step ahead of their own
+ * subtree, so a label that contributes a name — or content this analysis cannot read — takes the
+ * element out of `a11y/accessible-name`'s reach. A label that is itself provably empty does not:
+ * the control stays unnamed and is still reported.
+ */
+function collectLabelTargets(node: Node, acc: { ids: Set<string>; nodes: Set<Node> }): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectLabelTargets(child, acc);
     return;
   }
   if (!node || typeof node !== 'object') return;
   if (node.type === 'RegularElement' && node.name === 'label' && Array.isArray(node.attributes)) {
-    const target = attrText(node.attributes, 'for');
-    if (target !== undefined && target.trim().length > 0) acc.add(target.trim());
+    const wrapped = firstLabelableDescendant(node);
+    const scan = scanAccessibleNameSubtree(node, wrapped);
+    if (scan.named || scan.unknowable) {
+      const forId = attrText(node.attributes, 'for');
+      if (forId !== undefined && forId.trim().length > 0) acc.ids.add(forId.trim());
+      if (wrapped) acc.nodes.add(wrapped);
+    }
   }
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectLabelForIds(node[key], acc);
+    if (key in node) collectLabelTargets(node[key], acc);
   }
 }
 
@@ -1293,17 +1327,16 @@ function collectLabelForIds(node: Node, acc: Set<string>): void {
  * (a11y/accessible-name). A spread attribute on the element itself makes its rendered
  * attributes unknowable, so the element is skipped entirely rather than risk a false positive.
  *
- * `ctx.inLabel` and `ctx.labelledIds` carry the two `<label>` routes: HTML-AAM gives `button` and
- * `input type="image"` a label step ahead of their own subtree, which `<a>` does not have.
+ * `labels` carries the two `<label>` name routes, which `<a>` does not have.
  */
 function collectUnnamedInteractive(
   node: Node,
   source: string,
   acc: UnnamedInteractiveFact[],
-  ctx: { labelledIds: Set<string>; inLabel: boolean }
+  labels: { ids: Set<string>; nodes: Set<Node> }
 ): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectUnnamedInteractive(child, source, acc, ctx);
+    for (const child of node) collectUnnamedInteractive(child, source, acc, labels);
     return;
   }
   if (!node || typeof node !== 'object') return;
@@ -1311,10 +1344,8 @@ function collectUnnamedInteractive(
     const target = accessibleNameTarget(node);
     const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
     const id = attrText(node.attributes, 'id');
-    // A wrapping label is not required to hold text for the skip: reading its subtree here would
-    // duplicate the accname computation for a case that is rare and always errs toward silence.
-    const labelNames = target !== 'a' && (ctx.inLabel || (id !== undefined && ctx.labelledIds.has(id.trim())));
-    if (target && !hasSpread && !labelNames) {
+    const namedByLabel = target !== 'a' && (labels.nodes.has(node) || (id !== undefined && labels.ids.has(id.trim())));
+    if (target && !hasSpread && !namedByLabel) {
       if (target === 'input') {
         if (!hasNamingAttr(node.attributes) && !hasNamingValue(node.attributes, 'alt')) {
           acc.push({ tag: node.name, line: lineOf(source, node.start) });
@@ -1327,10 +1358,8 @@ function collectUnnamedInteractive(
       }
     }
   }
-  const inner =
-    node.type === 'RegularElement' && node.name === 'label' && !ctx.inLabel ? { ...ctx, inLabel: true } : ctx;
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectUnnamedInteractive(node[key], source, acc, inner);
+    if (key in node) collectUnnamedInteractive(node[key], source, acc, labels);
   }
 }
 
@@ -2572,9 +2601,9 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   const interactiveNestings: InteractiveNestingFact[] = [];
   collectInteractiveNestings(ast.fragment ?? ast, source, interactiveNestings, []);
   const unnamedInteractive: UnnamedInteractiveFact[] = [];
-  const labelledIds = new Set<string>();
-  collectLabelForIds(ast.fragment ?? ast, labelledIds);
-  collectUnnamedInteractive(ast.fragment ?? ast, source, unnamedInteractive, { labelledIds, inLabel: false });
+  const labelTargets = { ids: new Set<string>(), nodes: new Set<Node>() };
+  collectLabelTargets(ast.fragment ?? ast, labelTargets);
+  collectUnnamedInteractive(ast.fragment ?? ast, source, unnamedInteractive, labelTargets);
   const unassociatedLabels: { line: number }[] = [];
   collectUnassociatedLabels(ast.fragment ?? ast, source, unassociatedLabels);
   const bulletTexts: { line: number; char: string }[] = [];

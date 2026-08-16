@@ -1393,6 +1393,19 @@ describe('parseComponentFacts — unnamedInteractive (a11y/accessible-name)', ()
     const c = parseComponentFacts('<label for="z">Z</label>\n<button id="b"></button>', 'C.svelte');
     expect(c.unnamedInteractive).toEqual([{ tag: 'button', line: 2 }]);
   });
+  it('needs the label to contribute a name, and reaches only its first control', () => {
+    // An empty label leaves the control unnamed, and an implicit association reaches one element.
+    const src = [
+      '<label for="b"></label><button id="b"></button>',
+      '<label><button></button></label>',
+      '<label>x<button></button><button></button></label>'
+    ].join('\n');
+    expect(parseComponentFacts(src, 'C.svelte').unnamedInteractive).toEqual([
+      { tag: 'button', line: 1 },
+      { tag: 'button', line: 2 },
+      { tag: 'button', line: 3 }
+    ]);
+  });
 });
 
 describe('parseComponentFacts — unassociatedLabels (a11y/label-has-control)', () => {

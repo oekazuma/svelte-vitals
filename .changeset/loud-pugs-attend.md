@@ -16,6 +16,8 @@ Both rules already skip content they cannot resolve — an expression, a compone
   the idiomatic `<a href="/about"><img src="/logo.png" alt={siteName} /></a>` was "unnamed".
 - **A `<label>` naming a `button` or `input type="image"`**, by wrapping it or by pointing `for` at
   its `id`, is a step in the name computation ahead of the element's own subtree. `<a>` has no such
-  step, so links are unchanged. The `for` route is same-file only.
+  step, so links are unchanged. It counts only when the label itself contributes something — a
+  provably empty label leaves the control unnamed and still reported — and a wrapping label reaches
+  only the first labelable element inside it. The `for` route is same-file only.
 
 All four narrow detection, so recorded suppressions keep matching.
