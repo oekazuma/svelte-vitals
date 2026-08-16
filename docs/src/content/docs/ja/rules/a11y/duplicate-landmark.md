@@ -23,7 +23,7 @@ description: 1つのルートに main・banner・contentinfo ランドマーク�
 
 ```svelte +layout.svelte
 <header>すべてのルートに表示するナビゲーション</header>
-<main><slot /></main>
+<main>{@render children()}</main>
 <footer>すべてのルートに表示するフッター</footer>
 ```
 

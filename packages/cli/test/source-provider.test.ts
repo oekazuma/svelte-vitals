@@ -414,6 +414,23 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y.fullyResolved).toBe(true);
   });
 
+  it('maps <aside> per HTML-AAM: complementary in body/main, demoted unnamed in sectioning content', async () => {
+    const nested = async (page: string) =>
+      (
+        await a11yOf({ 'src/routes/+layout.svelte': `<main><slot /></main>`, 'src/routes/+page.svelte': page })
+      ).nestedLandmarks.map((n) => n.kind);
+    // Depth inside the page does not matter: an <aside> is a landmark wherever it sits, unlike
+    // <header>/<footer>, whose landmark-ness depends on sectioning ancestry.
+    expect(await nested('<aside>Related</aside>')).toEqual(['complementary']);
+    expect(await nested('<div><aside>Related</aside></div>')).toEqual(['complementary']);
+    expect(await nested('<article><aside>unnamed</aside></article>')).toEqual([]);
+    expect(await nested('<article><aside aria-label="Notes">n</aside></article>')).toEqual(['complementary']);
+    // An empty or whitespace-only label names nothing; an expression's value is unknowable.
+    expect(await nested('<article><aside aria-label="">e</aside></article>')).toEqual([]);
+    expect(await nested('<article><aside aria-labelledby="   ">w</aside></article>')).toEqual([]);
+    expect(await nested('<article><aside aria-label={n}>d</aside></article>')).toEqual(['complementary']);
+  });
+
   it('takes the max across exclusive branches, including across components', async () => {
     const a11y = await a11yOf({
       'src/routes/+page.svelte': `<script>import A from '$lib/A.svelte';import B from '$lib/B.svelte';</script>{#if x}<A />{:else}<B />{/if}`,

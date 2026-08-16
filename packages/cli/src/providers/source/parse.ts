@@ -274,6 +274,25 @@ export interface ParsedA11y {
 }
 
 const LANDMARK_TAGS: Record<string, string | undefined> = { main: 'main', header: 'banner', footer: 'contentinfo' };
+
+/**
+ * HTML-AAM: an `<aside>` scoped to `body` or `main` is a `complementary` landmark; scoped to
+ * sectioning content it is one only when it has an accessible name. `main` is deliberately absent
+ * — it is a scope in which an `aside` *is* a landmark, unlike the sectioning set that decides
+ * `<header>`/`<footer>`.
+ */
+const ASIDE_DEMOTING_TAGS = new Set(['article', 'aside', 'nav', 'section']);
+
+/** An `aria-label`/`aria-labelledby` carrying a name: a non-blank literal, or an expression whose
+ *  rendered value is unknowable. An empty or whitespace-only literal names nothing. */
+function hasAccessibleName(attrs: AST.Attribute[]): boolean {
+  return ['aria-label', 'aria-labelledby'].some((name) => {
+    const attr = findAttr(attrs, name);
+    if (!attr) return false;
+    if (attrValueOf(attr) === 'dynamic') return true;
+    return (attrTextOf(attr) ?? '').trim().length > 0;
+  });
+}
 const IDREF_ATTR_SET = new Set(IDREF_ATTRS);
 
 /** Context threaded down the a11y walk: where in the template a node sits. */
@@ -283,6 +302,8 @@ interface A11yCtx {
   /** landmark ancestors, outermost first */
   landmarks: string[];
   elementDepth: number;
+  /** open `ASIDE_DEMOTING_TAGS` ancestors — an `<aside>` below one needs a name to be a landmark */
+  asideDemoting: number;
 }
 
 /**
@@ -387,9 +408,15 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
     // ARIA fallback role lists (role="switch checkbox") resolve to the first supported token; a
     // non-literal or non-landmark role suppresses the tag mapping rather than falling through to it.
     const role = roleAttr ? splitTokens(attrTextOf(roleAttr))[0] : undefined;
-    const landmark = roleAttr ? (role && LANDMARK_ROLES.has(role) ? role : undefined) : LANDMARK_TAGS[node.name];
+    let landmark = roleAttr ? (role && LANDMARK_ROLES.has(role) ? role : undefined) : LANDMARK_TAGS[node.name];
+    if (!roleAttr && node.name === 'aside') {
+      landmark = ctx.asideDemoting === 0 || hasAccessibleName(attrs) ? 'complementary' : undefined;
+    }
     if (landmark) {
-      const headerFooter = !roleAttr && node.name !== 'main';
+      // Only `<header>`/`<footer>` carry the per-file top-level approximation: their landmark-ness
+      // depends on sectioning ancestry the composition cannot see. `<main>` and `<aside>` are
+      // landmarks wherever they sit, so tagging them would drop every nested one.
+      const headerFooter = !roleAttr && (node.name === 'header' || node.name === 'footer');
       emit(ctx, {
         kind: 'landmark',
         key: landmark,
@@ -431,11 +458,12 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
     walk(node.fragment, {
       ...ctx,
       elementDepth: ctx.elementDepth + 1,
+      asideDemoting: ctx.asideDemoting + (literalTag && ASIDE_DEMOTING_TAGS.has(literalTag) ? 1 : 0),
       landmarks: landmark ? [...ctx.landmarks, landmark] : ctx.landmarks
     });
   };
 
-  walk(fragment, { path: [], repeatable: false, landmarks: [], elementDepth: 0 });
+  walk(fragment, { path: [], repeatable: false, landmarks: [], elementDepth: 0, asideDemoting: 0 });
   return { nodes, ...(slotInLandmark ? { slotInLandmark } : {}), unknowableContent };
 }
 

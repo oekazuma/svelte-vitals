@@ -9,15 +9,17 @@ description: A banner, main, complementary, or contentinfo landmark should not b
 
 Flags a `banner`, `main`, `complementary`, or `contentinfo` landmark that ends up nested inside another landmark once a route's composed layout chain (every `+layout.svelte` up to the route's `+page.svelte`) and its resolved local components are put together.
 
-The flagship case is a layout that renders its children inside `<main>` while the page contributes another landmark, e.g. an `<aside>` with `role="complementary"`:
+The flagship case is a layout that renders its children inside `<main>` while the page contributes another landmark, e.g. an `<aside>`:
 
 ```svelte +layout.svelte
-<header>Site navigation</header><main><slot /></main>
+<header>Site navigation</header><main>{@render children()}</main>
 ```
 
 ```svelte +page.svelte
-<h1>Page content</h1><aside role="complementary">Related links</aside>
+<h1>Page content</h1><aside>Related links</aside>
 ```
+
+No `role` is needed: a bare `<aside>` scoped to `<body>` or `<main>` is a `complementary` landmark. Inside sectioning content — `<article>`, `<aside>`, `<nav>`, `<section>` — it is one only when it has an `aria-label` or `aria-labelledby`, which is what the HTML accessibility mapping specifies.
 
 Nothing in either file alone is wrong — a file-scoped markup linter cannot see this, since the nesting only exists once the layout's `<main>` and the page's `complementary` are composed across files.
 
@@ -35,12 +37,12 @@ Assistive technology exposes `banner`, `main`, `complementary`, and `contentinfo
 Move the nested landmark out so every landmark composes at the top level of the route:
 
 ```svelte +layout.svelte
-<header>Site navigation</header><main><slot /></main>
+<header>Site navigation</header><main>{@render children()}</main>
 ```
 
 ```svelte +page.svelte
 <h1>Page content</h1>
-<aside role="complementary">Related links</aside>
+<aside>Related links</aside>
 <!-- moved out from under +layout.svelte's <main> -->
 ```
 
