@@ -4,6 +4,7 @@ import { dirname, join } from 'node:path';
 import { cpSync, mkdtempSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { collectComponentFacts, type Runtime } from '@svelte-vitals/core/internal';
+import { parseFile } from '../src/providers/source/parse.js';
 import { run } from '../src/index.js';
 import { createNodeRuntime } from '../src/runtime/node.js';
 
@@ -226,5 +227,16 @@ describe('run(): malformed .svelte files (route path)', () => {
     const code = await run({ cwd: malformedRouteProject, log: cap.log, errorLog: cap.errorLog, env: CLEAN_ENV });
     expect(code).toBe(2);
     expect(cap.err.join('\n')).toMatch(/^svelte-vitals:/);
+  });
+});
+
+describe('style blocks in a CSS dialect', () => {
+  it('parses the head of a component whose <style> is SCSS', () => {
+    const pf = parseFile(
+      `<svelte:head><title>About</title></svelte:head>` +
+        `<style lang="scss">\n  .a { color: red; // note\n    .b { color: blue; }\n  }\n</style>`,
+      'src/routes/+page.svelte'
+    );
+    expect(pf.headTags).toEqual([{ kind: 'title', text: 'About', value: 'static' }]);
   });
 });

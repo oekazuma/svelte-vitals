@@ -17,7 +17,16 @@ import type {
   UnnamedInteractiveFact
 } from './component.js';
 import { isRootRelativePath } from './base-path.js';
-import { CHILD_NODE_KEYS, lineOf, findAttr, attrTextOf, attrText, attrValueOf, textFromNodes } from './svelte-ast.js';
+import {
+  CHILD_NODE_KEYS,
+  lineOf,
+  findAttr,
+  attrTextOf,
+  attrText,
+  attrValueOf,
+  textFromNodes,
+  parseSvelte
+} from './svelte-ast.js';
 import { isInteractiveElement, isInteractiveContainer, type ElementAttr } from './rules/a11y/interactive.js';
 
 // The Svelte AST is structurally complex and only partially typed for our needs,
@@ -2504,7 +2513,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
 export function parseComponentFacts(source: string, filename: string): ParsedFacts {
   if (MODULE_FILE_RE.test(filename)) return parseModuleFacts(source, filename);
 
-  const ast = parse(source, { modern: true, filename }) as Node;
+  const ast = parseSvelte(source, filename) as unknown as Node;
   const eachBlocks: EachBlockFact[] = [];
   collectEachBlocks(ast.fragment ?? ast, source, eachBlocks);
   const htmlTags: SourceSpan[] = [];

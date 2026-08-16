@@ -1,5 +1,24 @@
-import type { AST } from 'svelte/compiler';
+import { parse, type AST } from 'svelte/compiler';
 import type { Value } from './types.js';
+
+/**
+ * `<style lang="scss">` and friends, with their bodies blanked to spaces of the same length.
+ * Svelte parses a `<style>` body as CSS whatever its `lang` says, so a preprocessor dialect makes
+ * the whole file unparseable — and one unparseable route file fails the entire run. Nothing here
+ * reads CSS, and blanking preserves every byte offset, so the substitution is invisible to callers.
+ */
+const PREPROCESSED_STYLE_RE = /(<style\b[^>]*\blang\s*=\s*['"]?[^'"\s>]+['"]?[^>]*>)([\s\S]*?)(<\/style>)/gi;
+
+/** Parse a `.svelte` source, tolerating style blocks written in a CSS dialect we never read. */
+export function parseSvelte(source: string, filename: string): AST.Root {
+  return parse(
+    source.replace(
+      PREPROCESSED_STYLE_RE,
+      (_m, open: string, body: string, close: string) => open + body.replace(/[^\n]/g, ' ') + close
+    ),
+    { modern: true, filename }
+  );
+}
 
 /** A template fragment's child node relevant to value classification: literal text or a `{expr}`. */
 type TextOrExpr = AST.Text | AST.ExpressionTag;
