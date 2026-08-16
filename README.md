@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">Your SvelteKit app's code health, checked before it ships. Statically, no browser.</p>
-<p align="center"><sub>SEO · Performance · Correctness · Security · Architecture · Accessibility — all read from your source code.</sub></p>
+<p align="center"><sub>SEO · Performance · Correctness · Security · Architecture · Accessibility</sub></p>
 
 ```bash
 npx svelte-vitals@latest
