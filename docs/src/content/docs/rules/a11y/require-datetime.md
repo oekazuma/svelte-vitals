@@ -16,6 +16,8 @@ Not flagged:
 - A `datetime` attribute in any form, literal or expression: `<time datetime="2026-08-14">Aug 14</time>`.
 - Literal text that is already machine-readable: `<time>2026-08-14</time>`.
 - Any content that isn't plain text — an `{expression}`, a component, or a block — since the rendered text can't be resolved statically: `<time>{d}</time>`.
+- A spread attribute on the `<time>` — it may itself supply `datetime`, so the element is skipped: `<time {...props}>last Tuesday</time>`.
+- A spread attribute on the `<time>` — it may itself supply `datetime`, so the element is skipped: `<time {...props}>last Tuesday</time>`.
 
 ```svelte
 <time>last Tuesday</time>
@@ -23,7 +25,7 @@ Not flagged:
 
 ## Why it matters
 
-A `<time>` with no `datetime` attribute exposes its text content as the only machine-readable value, and the HTML spec requires that text to be a valid date/time string. Text like "last Tuesday" reads fine to everyone — a screen reader announces it exactly as a sighted reader sees it — but it parses as nothing, so calendars, search engines, and any other machine consumer get no date at all. The loss is to machines, not to readers, which is why this rule is about the element's semantics rather than about what a screen reader says.
+A `<time>` with no `datetime` attribute exposes its text content as the only machine-readable value, and the HTML spec requires that text to be a valid date/time string. Text like "last Tuesday" reads fine to everyone — a screen reader announces it exactly as a sighted reader sees it — but it is not a valid date/time string, so the element exposes no standardized date. A consumer that wants one is left guessing at the prose. The loss is to machines, not to readers, which is why this rule is about the element's semantics rather than about what a screen reader says.
 
 ## How to fix
 

@@ -6,7 +6,7 @@ export const a11yRequireDatetime = componentRule({
   category: 'a11y',
   label: 'Time elements',
   rationale:
-    'A `<time>` element with no `datetime` attribute exposes its text content as the machine-readable value, and the HTML spec requires that text to be a valid date/time. Text like "last Tuesday" reads fine but parses as nothing, so calendars, search engines and any other machine consumer get no date at all.',
+    'A `<time>` element with no `datetime` attribute exposes its text content as the machine-readable value, and the HTML spec requires that text to be a valid date/time string. Text like "last Tuesday" reads fine but is not one, so the element exposes no standardized date — a consumer that wants it is left guessing at prose instead of reading a value.',
   recommendation:
     'Add a `datetime` attribute with a machine-readable value, e.g. `<time datetime="2026-08-14">Aug 14</time>`.',
   applies: (c) => (c.timesMissingDatetime ?? []).length > 0,

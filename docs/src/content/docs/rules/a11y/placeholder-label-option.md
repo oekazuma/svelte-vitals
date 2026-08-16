@@ -21,6 +21,7 @@ Not flagged:
 - An expression-valued `required`, `multiple`, or `size` — its runtime value is unknown statically.
 - An expression-valued `value` on the first option, or text content containing an `{expression}` — its effective value is unknowable statically.
 - The select's first child being an `{#each}` block or a component — what it renders as the first option can't be resolved statically.
+- A spread attribute on the `<select>` (it may supply `multiple` or `size`) or on its first `<option>` (it may supply `value`) — either makes the check's inputs unknowable, so the element is skipped.
 
 ```svelte
 <select required>

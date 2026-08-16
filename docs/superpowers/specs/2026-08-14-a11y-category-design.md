@@ -267,8 +267,10 @@ dependency justified.
   `a11y/doctype` captures the doctype from that **existing read** — zero new I/O, no io-budget
   change.
 
-~~Component-scoped a11y rules run in CLI static mode only~~ — **corrected 2026-08-16** (`2026-08-16-a11y-rule-validity-review.md`): the Vite plugin collects the same component facts from source, so these rules run in both modes with identical results. The original text follows. (`ctx.components` is unset in rendered
-mode — same as correctness/security). Route-scoped landmark/id rules run in both modes.
+~~Component-scoped a11y rules run in CLI static mode only (`ctx.components` is unset in rendered
+mode — same as correctness/security).~~ **Corrected 2026-08-16** (`2026-08-16-a11y-rule-validity-review.md`):
+the Vite plugin collects the same component facts from source, so these rules run in both modes
+with identical results. Route-scoped landmark/id rules run in both modes.
 `a11y/doctype` is CLI-only in Phase 1.
 
 ## Registration & docs obligations (per AGENTS.md)
