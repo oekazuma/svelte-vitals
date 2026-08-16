@@ -1,0 +1,42 @@
+name: Ecosystem
+
+# Runs the built CLI against real third-party SvelteKit apps and asserts only that it did not fall
+# over — never a score or a count. Design: docs/superpowers/specs/2026-08-16-ecosystem-smoke-design.md
+#
+# Never PR-blocking: the corpus tracks upstream default branches, so a repo moving or a clone
+# failing is not a reason to hold a merge. The pull_request trigger is scoped to this job's own
+# files so a corpus edit is validated by the thing it edits.
+on:
+  schedule:
+    - cron: '17 4 * * 1'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/ecosystem-smoke.mjs'
+      - '.github/workflows/ecosystem.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# The job clones untrusted third-party code. Nothing it can reach is worth anything.
+permissions:
+  contents: read
+
+jobs:
+  ecosystem:
+    runs-on: ubuntu-latest
+    # A real run is under two minutes. This is a backstop sized above the script's own worst
+    # case — eight targets each hitting both per-target limits — so a bad week still ends with the
+    # script's per-target report rather than a mid-run kill.
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Setup Node.js and dependencies
+        uses: ./.github/workflows/setup-node
+      - name: Build packages
+        run: pnpm build
+      - name: Run the ecosystem smoke
+        run: node scripts/ecosystem-smoke.mjs
