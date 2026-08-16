@@ -16,7 +16,8 @@ export const a11yDoctype: Rule = {
   category: 'a11y',
   severity: 'warning',
   scope: 'project',
-  rationale: 'Without a doctype browsers render in quirks mode, breaking CSS and accessibility tree behavior.',
+  rationale:
+    'Without a doctype browsers render in quirks mode, which changes layout and box-model behaviour from what every modern stylesheet is written against.',
   fix: FIX,
   async check(ctx: RuleContext): Promise<Result[]> {
     const { appHtmlDoctype } = ctx.project;

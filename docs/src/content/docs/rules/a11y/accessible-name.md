@@ -7,12 +7,12 @@ description: A button, link, or image button needs a way to compute its accessib
 
 ## What it checks
 
-Flags a `<button>`, `<a href="…">`, or `<input type="image">` with no computable accessible name. Checked by static (CLI) analysis of every `.svelte` component under `src/`.
+Flags a `<button>`, `<a href="…">`, or `<input type="image">` with no computable accessible name. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 Any of the following, if present, is a name source — the element is not flagged:
 
 - A non-whitespace text descendant, e.g. `<button>Save</button>`.
-- An `aria-label`, `aria-labelledby`, or `title` attribute — a literal non-empty value, or any expression (its rendered value is unknowable, but the attribute's presence is enough).
+- An `aria-label`, `aria-labelledby`, or `title` attribute — a literal non-empty value, or any expression (its rendered value is unknowable, but the attribute's presence is enough). `title` counts because the name computation uses it as a last resort, but it is a poor way to name a control: it is unavailable to touch users, keyboard users, and many screen-reader and magnifier users. Prefer visible text or `aria-label`.
 - A descendant `<img>` with an `alt` — a non-empty literal, or any expression, on the same footing as `aria-label` above.
 - For `<input type="image">`, its own `alt`, under the same rule.
 - A `<label>` that names it: one wrapping it, or one pointing `for` at its `id`. This step comes ahead of the element's own subtree in the name computation, and applies to `<button>` and `<input type="image">` only — `<a>` has no such step. It counts only when the label itself contributes something: a label that is provably empty leaves the control unnamed and still reported, and a wrapping label reaches only the **first** labelable element inside it, so a second control in the same label is judged on its own. The `for` route is same-file only; a label in another component is a known limitation.

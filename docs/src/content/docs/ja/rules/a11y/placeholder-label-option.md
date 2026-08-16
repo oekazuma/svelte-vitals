@@ -1,5 +1,5 @@
 ---
-title: a11y/placeholder-label-option · Missing placeholder label option
+title: a11y/placeholder-label-option · プレースホルダーの option がない
 description: required かつ単一選択の select には、値を選ばせずに送信できてしまわないよう空の先頭 option が必要です。
 ---
 
@@ -7,7 +7,7 @@ description: required かつ単一選択の select には、値を選ばせず�
 
 ## チェック内容
 
-`multiple` 属性を持たず、表示サイズが未指定または `1` の `<select required>` について、その最初の `option` 要素の子がプレースホルダーラベルオプションになっていない場合を検出します。`src/` 配下のすべての `.svelte` コンポーネントを静的（CLI）解析します。
+`multiple` 属性を持たず、表示サイズが未指定または `1` の `<select required>` について、その最初の `option` 要素の子がプレースホルダーラベルオプションになっていない場合を検出します。コンポーネントのソースを解析します。CLI と Vite プラグインの両方が対象で、プラグインも同じ `.svelte` ファイルを読むため、どちらのモードでも結果は同一です。 `--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
 
 HTML 仕様上、プレースホルダーラベルオプションとは最初の `option` であり、次のいずれかを満たす必要があります。
 
@@ -39,10 +39,12 @@ required な `<select>` は、最初の option を初期状態の選択値とし
 
 ```svelte
 <select required>
-  <option value="" disabled>Choose…</option>
+  <option value="">Choose…</option>
   <option value="a">A</option>
 </select>
 ```
+
+`disabled` だけを付けてはいけません。`select` のリセットアルゴリズムは disabled **でない**最初の option を選ぶため、placeholder を disabled にすると `A` が選ばれた状態になり、`required` は満たされ、ユーザーは自分で選んでいない値を送信することになります — このルールが報告している害そのものです。選択不可にしたい場合は `disabled selected` と書き、placeholder が初期選択のままになるようにしてください。
 
 ## 無効化
 

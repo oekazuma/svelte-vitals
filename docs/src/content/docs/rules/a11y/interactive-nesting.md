@@ -7,7 +7,7 @@ description: An interactive element should not sit inside another interactive el
 
 ## What it checks
 
-Flags an interactive element (`<button>`, `<input>`, a literal interactive `role`, …) found nested inside another interactive container. Checked by static (CLI) analysis of every `.svelte` component under `src/`.
+Flags an interactive element (`<button>`, `<input>`, a literal interactive `role`, …) found nested inside another interactive container. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 Only three kinds of element open a container that this rule watches for a nested descendant:
 
@@ -31,7 +31,7 @@ Not flagged:
 
 ## Why it matters
 
-Keyboard and assistive-technology users navigate by control, not by DOM position. A control nested inside another control is unreachable by keyboard (the outer element consumes the click/`Enter` before the inner one ever gets a turn) or misannounced by screen readers, and browsers themselves disagree on which one wins. It also violates the HTML content model — interactive content categories are not allowed to contain other interactive content.
+Keyboard and assistive-technology users navigate by control, not by DOM position. A control nested inside another control is announced and operated inconsistently: browsers disagree on which element a click or `Enter` activates, and screen readers differ on how the pair is presented. When the outer element is an `<a href>` or a `<button>`, it is also invalid HTML — their content models forbid interactive descendants outright. A role-based container such as `role="button"` on a `<div>` is not covered by that content-model rule, but its interaction model breaks the same way.
 
 ## How to fix
 

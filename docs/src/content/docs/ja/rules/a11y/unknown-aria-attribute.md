@@ -1,5 +1,5 @@
 ---
-title: a11y/unknown-aria-attribute · Unknown ARIA attribute
+title: a11y/unknown-aria-attribute · 未知の ARIA 属性
 description: aria-* 属性には、タイポではない実在の WAI-ARIA 属性名を指定します。
 ---
 
@@ -7,7 +7,7 @@ description: aria-* 属性には、タイポではない実在の WAI-ARIA 属�
 
 ## チェック内容
 
-`aria-*` 属性の名前が WAI-ARIA 仕様で定義されていない場合を検出します。`src/` 配下のすべての `.svelte` コンポーネントを静的（CLI）解析します。
+`aria-*` 属性の名前が WAI-ARIA 仕様で定義されていない場合を検出します。コンポーネントのソースを解析します。CLI と Vite プラグインの両方が対象で、プラグインも同じ `.svelte` ファイルを読むため、どちらのモードでも結果は同一です。 `--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
 
 チェックするのは属性の _名前_ のみで、値は対象外です（実在する属性の不正な値は `a11y/invalid-aria-value` が扱います）。そのため、名前が未知であればリテラル値でも動的な式でも同じように検出されます。
 

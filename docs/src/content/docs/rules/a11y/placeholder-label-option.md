@@ -7,7 +7,7 @@ description: A required, single-selection select needs an empty first option so 
 
 ## What it checks
 
-Flags a `<select required>` — with no `multiple` attribute and a display size absent or `1` — whose first `option` element child is not a placeholder label option. Checked by static (CLI) analysis of every `.svelte` component under `src/`.
+Flags a `<select required>` — with no `multiple` attribute and a display size absent or `1` — whose first `option` element child is not a placeholder label option. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 Per the HTML spec, a placeholder label option is the first `option` and must have either:
 
@@ -39,10 +39,12 @@ Make the first `option` an empty placeholder:
 
 ```svelte
 <select required>
-  <option value="" disabled>Choose…</option>
+  <option value="">Choose…</option>
   <option value="a">A</option>
 </select>
 ```
+
+Do not mark it `disabled` on its own. The select's reset algorithm selects the first option that is **not** disabled, so a disabled placeholder leaves `A` selected, `required` satisfied, and the user submitting a value they never chose — the exact harm this rule reports. Write `disabled selected` if you want it unselectable, so the placeholder is still what the field starts on.
 
 ## Disabling
 
