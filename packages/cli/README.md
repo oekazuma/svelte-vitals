@@ -4,7 +4,7 @@
 [![MIT](https://img.shields.io/npm/l/svelte-vitals)](https://opensource.org/licenses/MIT)
 
 > **Your SvelteKit app's code health, checked before it ships. Statically, no browser.**
-> Scores SEO, Performance, Correctness, Security, Architecture, and Accessibility by reading your source code — not a runtime Web Vitals reporter, despite the name.
+> Scores SEO, Performance, Correctness, Security, Architecture, and Accessibility by reading your source code.
 >
 > **ESM-only** (Node 22.13+). Ships ES modules only; `require()` is unsupported by design.
 
