@@ -40,7 +40,7 @@ Ids are collected in both modes, but from different sources, so results can diff
 
 - **Static (CLI)** composes the route's layout chain with its resolved local components, using the branch-aware fold: within an `{#if}`/`{#await}` block only the arm with the most occurrences is credited, so it can pick a branch that would not actually render. It cannot see ids contributed by an unresolvable component (`node_modules`, a dynamically chosen component), and `{#each}` bodies are excluded since their id count is not knowable statically.
 - **Static (CLI)** also does not report a page id that collides with one in `src/app.html`: shell ids are read as candidates a reference may point at, not as occurrences to count.
-- **Rendered (vite)** reads the final prerendered HTML, so it sees only the ids that actually rendered — including one that collides with the shell — including every id an `{#each}` loop produced — a real duplicate from a loop only surfaces here. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line — the persisted finding key differs from the static-mode key for the same defect.
+- **Rendered (vite)** reads the final prerendered HTML, so it sees only the ids that actually rendered, including a collision with a shell id and every id an `{#each}` loop produced — a real duplicate from a loop only surfaces here. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line — the persisted finding key differs from the static-mode key for the same defect.
 
 When the two disagree, trust the rendered result — it reflects what ships to the browser.
 

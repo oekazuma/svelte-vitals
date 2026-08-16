@@ -318,7 +318,7 @@ Vitest per package, fixtures under `test/fixtures/`:
   parent).
 - A pretender-style mapping for **node_modules components** (unresolvable by source analysis —
   e.g. a library `<Link>` rendering `<a>`); the component-to-element mapping file-scoped linters use is prior art.
-- Rendered-mode execution of the component-scoped a11y rules.
+- ~~Rendered-mode execution of the component-scoped a11y rules.~~ **Superseded 2026-08-16** — see the correction above and `2026-08-16-a11y-rule-validity-review.md`: the plugin collects the same component facts from source, so these rules do run in rendered mode.
 - Inline suppression directives for route-scoped findings (suppressions file covers them).
 - Svelte compiler warning aggregation; a third-party lint engine as a dependency.
 - WCAG checks needing runtime computation (contrast, focus order).
