@@ -1,5 +1,5 @@
 ---
-title: a11y/doctype · Doctype
+title: a11y/doctype · doctype がない
 description: src/app.html の先頭は <!doctype html> で始めましょう。
 ---
 
@@ -11,7 +11,11 @@ description: src/app.html の先頭は <!doctype html> で始めましょう。
 
 ## なぜ重要か
 
-doctype がないとブラウザは互換モード（quirks mode）でレンダリングし、CSS とアクセシビリティツリーの挙動が崩れます。
+doctype がないとブラウザは互換モード（quirks mode）でレンダリングし、標準モードとは異なるレイアウト規則・ボックスモデル規則が適用されます。そのため、スタイルシートが想定していた見た目とは違うレイアウトになることがあります。
+
+## モードによる違い
+
+CLI のみです。Vite プラグインはプリレンダリングされた HTML を解析し `src/app.html` を読まないため、プラグインモードでは何も報告しません — プラグインが見ている出力にも doctype の欠落は現れているにもかかわらず、です。
 
 ## 修正方法
 
@@ -23,7 +27,7 @@ doctype がないとブラウザは互換モード（quirks mode）でレンダ�
 
 ## 無効化
 
-意図的な場合はルールを無効化してください:
+既存の検出を suppressions ファイルに記録する（`npx svelte-vitals --update-suppressions`）か、ルールを無効化してください:
 
 ```js svelte-vitals.config.mjs
 export default {

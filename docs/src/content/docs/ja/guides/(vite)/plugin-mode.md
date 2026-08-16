@@ -5,7 +5,7 @@ sidebar:
   order: 1
 ---
 
-`@svelte-vitals/vite` は `vite build` に便乗して**プリレンダリングされた HTML** を解析し、CLI と同じ SEO・Performance・（ランドマークと id の）Accessibility のルールを実行します。実際の出力を検査するので、使っているライブラリを問いません。
+`@svelte-vitals/vite` は `vite build` に便乗して**プリレンダリングされた HTML** を解析し、CLI と同じ SEO・Performance・Accessibility のルールを実行します（`src/app.html` を読む `a11y/doctype` だけは CLI 専用です）。実際の出力を検査するので、使っているライブラリを問いません。
 
 さらに `src/` 配下（コンポーネント、runes モジュール（`.svelte.ts`/`.svelte.js`）、ルート/フックファイル）を走査し、Correctness・Security・Architecture・残りの Accessibility とコンポーネントスコープの Performance ルールも実行します。デフォルトで有効です。検出結果が `failOn` の閾値に達するとビルドが失敗します。
 

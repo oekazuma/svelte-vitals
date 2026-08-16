@@ -7,14 +7,14 @@ description: A label needs a for attribute or a wrapped control to be associated
 
 ## What it checks
 
-Flags a `<label>` with no associated control. Checked by static (CLI) analysis of every `.svelte` component under `src/`.
+Flags a `<label>` with no associated control. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 Either of the following, if present, associates the label — it is not flagged:
 
 - A `for` attribute — a literal or an expression (its value is unknowable, but the attribute's presence is enough).
 - A wrapped labelable descendant: `input` (unless its literal `type` is `hidden`), `select`, `textarea`, `button`, `meter`, `output`, or `progress`.
 
-Not flagged, even with no association found: a label whose content is unknowable — any `{expression}` child, a component child, `{@render …}`, `{@html …}`, a `<slot>` or `<svelte:fragment>` (its content comes from the parent), or a hyphenated custom element (which may be form-associated, and so labelable). The rule only flags what it can prove is unassociated; it never guesses at dynamic content.
+Not flagged, even with no association found: a label whose content is unknowable — any `{expression}` child, a component child, `{@render …}`, `{@html …}`, a `<slot>` or `<svelte:fragment>` (its content comes from the parent), or a hyphenated custom element (which may be form-associated, and so labelable). A spread attribute on the `<label>` is skipped for the same reason — it may itself supply `for`. The rule only flags what it can prove is unassociated; it never guesses at dynamic content.
 
 ```svelte
 <label>Name</label>

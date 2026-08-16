@@ -1,5 +1,5 @@
 ---
-title: a11y/invalid-aria-value · Invalid ARIA attribute value
+title: a11y/invalid-aria-value · 不正な ARIA 属性値
 description: aria-* 属性の値は、その属性に WAI-ARIA 仕様が定める型と一致させます。
 ---
 
@@ -7,7 +7,7 @@ description: aria-* 属性の値は、その属性に WAI-ARIA 仕様が定め�
 
 ## チェック内容
 
-リテラルな `aria-*` 属性の値が、その属性に WAI-ARIA 仕様が定める型と一致しない場合を検出します。`src/` 配下のすべての `.svelte` コンポーネントを静的（CLI）解析します。
+リテラルな `aria-*` 属性の値が、その属性に WAI-ARIA 仕様が定める型と一致しない場合を検出します。コンポーネントのソースを解析します。CLI と Vite プラグインの両方が対象で、プラグインも同じ `.svelte` ファイルを読むため、どちらのモードでも結果は同一です。 `--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
 
 チェック対象は仕様で定義済みの属性のみです（未知の属性名は `a11y/unknown-aria-attribute` が扱い、本ルールの対象外です）。仕様上の型ごとに検証方法が異なります。
 

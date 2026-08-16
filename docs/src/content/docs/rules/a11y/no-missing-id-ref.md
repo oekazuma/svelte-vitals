@@ -11,7 +11,7 @@ Flags a literal `for`, `aria-labelledby`, `aria-describedby`, `aria-controls`, o
 
 `href="#top"` is exempt — the browser scrolls to the document top for that fragment even when no element has `id="top"`, so it is never a missing reference.
 
-**This rule runs on far fewer routes than the other route-scoped a11y rules.** `duplicate-landmark`, `top-level-landmark`, and `id-duplication` each claim "two of these exist", which stays true no matter what an unresolved component might also contribute — they run on every route, an unresolved component only costs a false negative. This rule claims the opposite — "no element anywhere defines this id" — and an unresolved component could be exactly where that id lives, so it needs a closed world: it runs only on a route whose entire composition is verified fully resolved — every component in the transitive closure actually resolved (no `node_modules`/library import, no dynamically chosen component, no depth truncation), no `{@html}`, no spread attribute, and no dynamic `id` anywhere in any composed file. A route that fails any of these conditions is **skipped entirely** — the rule emits nothing for it, not a false "pass".
+**This rule runs on far fewer routes than the other route-scoped a11y rules.** The other route-scoped a11y rules each claim "two of these exist", which stays true no matter what an unresolved component might also contribute — they run on every route, an unresolved component only costs a false negative. This rule claims the opposite — "no element anywhere defines this id" — and an unresolved component could be exactly where that id lives, so it needs a closed world: it runs only on a route whose entire composition is verified fully resolved — every component in the transitive closure actually resolved (no `node_modules`/library import, no barrel import that resolves to an `index.ts` rather than a `.svelte` file, no dynamically chosen component, no depth truncation), no `{@html}`, no spread attribute, and no dynamic `id` anywhere in any composed file. A route that fails any of these conditions is **skipped entirely** — the rule emits nothing for it, not a false "pass".
 
 In practice, a single library component anywhere in a route's composition — a UI kit's `<Button>`, a `<Link>` from a routing helper, anything under `node_modules` — closes the world nowhere, so the rule never runs on that route. A typical app with such a component in its root layout gets this rule on none of its routes. That is accepted, not a bug: a false positive here would send someone hunting for an id that in fact exists inside a component the analysis couldn't see, so skipping the whole route beats guessing.
 
@@ -39,7 +39,7 @@ When the two disagree, trust the rendered result — it reflects what ships to t
 
 ## Disabling
 
-Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+Route-scoped findings cannot be silenced with an inline `svelte-vitals-disable-next-line` comment — the finding belongs to a composed route, not to one line. Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
 
 ```js svelte-vitals.config.mjs
 export default {

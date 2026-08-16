@@ -7,7 +7,7 @@ description: A time element's text should be machine-readable, or a datetime att
 
 ## What it checks
 
-Flags a `<time>` element with no `datetime` attribute whose literal text content is not itself machine-readable. Checked by static (CLI) analysis of every `.svelte` component under `src/`.
+Flags a `<time>` element with no `datetime` attribute whose literal text content is not itself machine-readable. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 Text counts as machine-readable when it matches one of the HTML time-string formats: a year/month/date (`2026-08-14`), a time (`14:30`), a date-time (`2026-08-14T14:30`), a yearless date (`08-14`), a week (`2026-W33`), a time-zone offset (`+09:00`, `Z`), or a duration in either spelling — `P3D` and `4h 18m 3s`. A year may be four **or more** digits.
 
@@ -16,6 +16,7 @@ Not flagged:
 - A `datetime` attribute in any form, literal or expression: `<time datetime="2026-08-14">Aug 14</time>`.
 - Literal text that is already machine-readable: `<time>2026-08-14</time>`.
 - Any content that isn't plain text — an `{expression}`, a component, or a block — since the rendered text can't be resolved statically: `<time>{d}</time>`.
+- A spread attribute on the `<time>` — it may itself supply `datetime`, so the element is skipped: `<time {...props}>last Tuesday</time>`.
 
 ```svelte
 <time>last Tuesday</time>
@@ -23,7 +24,7 @@ Not flagged:
 
 ## Why it matters
 
-A `<time>` with no `datetime` attribute exposes its text content as the only machine-readable value. Text like "last Tuesday" cannot be parsed by assistive technology, browsers, or search engines into an actual date — the meaning that's obvious to a sighted reader is lost to anything else.
+A `<time>` with no `datetime` attribute exposes its text content as the only machine-readable value, and the HTML spec requires that text to be a valid date/time string. Text like "last Tuesday" reads fine to everyone — a screen reader announces it exactly as a sighted reader sees it — but it is not a valid date/time string, so the element exposes no standardized date. A consumer that wants one is left guessing at the prose. The loss is to machines, not to readers, which is why this rule is about the element's semantics rather than about what a screen reader says.
 
 ## How to fix
 

@@ -7,7 +7,7 @@ description: A route should have at most one main, banner, and contentinfo landm
 
 ## What it checks
 
-Flags a route whose composed layout chain (every `+layout.svelte` up to the route's `+page.svelte`) plus resolved local components yields more than one `main`, `banner`, or `contentinfo` landmark. Detection is branch-aware: within an `{#if}`/`{#await}` block only the arm with the most occurrences counts (ties break to the first arm in document order), so mutually exclusive branches never fire a false duplicate, and `{#each}`/`{#snippet}` bodies are excluded since they render 0..N times.
+Flags a route whose composed layout chain (every `+layout.svelte` up to the route's `+page.svelte`) plus resolved local components yields more than one `main`, `banner`, or `contentinfo` landmark. Detection is branch-aware: within an `{#if}`/`{#await}` block only the arm with the most occurrences counts (ties break to the first arm in document order), so the arms of one `{#if}` are not summed — two _separate_ `{#if}` blocks are independent, though, since nothing here evaluates their conditions — and `{#each}`/`{#snippet}` bodies are excluded since they render 0..N times.
 
 Landmarks are detected cross-file — a `<main>` in `+layout.svelte` plus another `<main>` in `+page.svelte` is one route with two `main` landmarks, and so is a layout's `<main>` plus a `<main>` rendered by an imported `$lib` component. `<main>` and an explicit `role="banner"`/`role="contentinfo"` count everywhere a route composes them. `<header>`/`<footer>` (the implicit `banner`/`contentinfo` landmarks) count only at a chain file's template top level — inside a nested component they may sit inside sectioning content in whatever parent uses that component, so counting them there could manufacture a duplicate that doesn't exist.
 
@@ -43,7 +43,7 @@ When the two disagree, trust the rendered result — it reflects what ships to t
 
 ## Disabling
 
-Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+Route-scoped findings cannot be silenced with an inline `svelte-vitals-disable-next-line` comment — the finding belongs to a composed route, not to one line. Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
 
 ```js svelte-vitals.config.mjs
 export default {
