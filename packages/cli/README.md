@@ -3,8 +3,8 @@
 [![npm](https://img.shields.io/npm/v/svelte-vitals)](https://www.npmjs.com/package/svelte-vitals)
 [![MIT](https://img.shields.io/npm/l/svelte-vitals)](https://opensource.org/licenses/MIT)
 
-> **A static SvelteKit code-health scanner — not a runtime Web Vitals reporter.**
-> Diagnose your project's SEO, Performance, Correctness, Security, Architecture, and Accessibility health by statically analyzing your source code, before it ships. No browser, no headless Chrome.
+> **Your SvelteKit app's code health, checked before it ships. Statically, no browser.**
+> Scores SEO, Performance, Correctness, Security, Architecture, and Accessibility by reading your source code — not a runtime Web Vitals reporter, despite the name.
 >
 > **ESM-only** (Node 22.13+). Ships ES modules only; `require()` is unsupported by design.
 
