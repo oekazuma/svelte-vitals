@@ -96,6 +96,9 @@ describe('formatGithubReport', () => {
         message: '<title>'
       }
     ];
+    // Frozen with the signature, not merely current behaviour: a caller may guard on the result's
+    // truthiness to decide whether to emit anything (the GitHub Action does).
     expect(formatGithubReport(passing, config)).toBe('');
+    expect(formatGithubReport([], config)).toBe('');
   });
 });

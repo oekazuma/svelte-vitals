@@ -50,6 +50,11 @@ the non-JSON `format*Report` functions, scoring functions) is **internal**. None
 any doc, and each can be promoted into `.` in a 1.x minor once a real consumer asks — promotion is
 additive, so nothing is lost by starting closed.
 
+> **Partly superseded 2026-08-17.** That mechanism was exercised: `formatGithubReport`,
+> `formatMarkdownReport`, `summarize` and `hasFailureAtOrAbove` are now in `.` — see the dated entry
+> under the `.` entry list below for who asked and what exactly the promotion freezes. The sentence
+> above stands for everything else it names.
+
 ## Frozen at 1.0
 
 ### `svelte-vitals` (CLI)
@@ -143,6 +148,24 @@ inventories, examined?`, closed over exactly `Summary`, `RuleEvidence`, `JsonIss
 - `defineConfig` and the config types it closes over: `Config`, `RuleSetting`, `RuleSettingObject`,
   `RuleOverride`, `RuleOptions`, `Severity`, `Category`, `CATEGORIES`, `TreatDynamicAs`.
 - `JsonReport` and the types it closes over (listed above).
+- **Added 2026-08-17**, by the promotion path this document describes rather than as a correction:
+  `summarize`, `hasFailureAtOrAbove`, `formatGithubReport`, `formatMarkdownReport`. The first-party
+  GitHub Action renders the analysis onto three GitHub surfaces and gates its step on the result —
+  so `analyzeProject` was stable while rendering and gating were not, and the Action's build
+  depended on `./internal`, which promises nothing across a patch. The promotion is a pure
+  re-export: every type these four reference (`Result`, `Config`, `Summary`, `Severity`) was
+  already exported here, so the type closure is unchanged — verified by the single-entry d.ts,
+  which still contains zero import statements.
+
+  **What is frozen is each function's existence and signature, not its output.** Markdown and
+  workflow-command text stay human/agent-readable per Report shapes above; a consumer calls these
+  to render and must not parse what comes back.
+
+  One structural property is frozen with the signature: **`formatGithubReport` returns the empty
+  string when nothing is penalized.** "Is there anything to show?" is a question a caller asks
+  without parsing — the Action guards its `core.info` on exactly that — so it is a contract rather
+  than an accident. It already holds and is pinned by a test; stating it costs nothing and removes
+  a place where a caller would otherwise be relying on undefined behaviour.
 
 Nothing else — and specifically **not** `Project`, `KitAlias`, or `Scope`: no frozen type reaches
 them, `Project` grows a field per project-scoped rule, and `Scope` belongs to `Rule`. They are
