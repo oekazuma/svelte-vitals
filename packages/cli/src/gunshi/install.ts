@@ -98,7 +98,7 @@ async function buildInstallHelpText(installCommand: Parameters<typeof generate>[
 
   if (locale === 'ja') return ja!.installHelpJa(optionsSection);
 
-  return `svelte-vitals install — set up the svelte-vitals Vite integration, agent skills/rules, config file, and CI
+  return `svelte-vitals install — set up the svelte-vitals Vite integration, Cursor rules, config file, and CI
 
 Usage:
   svelte-vitals install [options]

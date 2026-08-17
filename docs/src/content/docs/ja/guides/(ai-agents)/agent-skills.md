@@ -39,4 +39,4 @@ npx skills update
 
 ## Agent Skills と Cursor rules の違い
 
-`cursor-rules`（`.cursor/rules/svelte-vitals.mdc`）は Cursor 専用の別の仕組みです。常時適用されるプロジェクトルールファイルであり、スラッシュコマンドのスキルではありません。`skills add` ではなく [`svelte-vitals install`](/ja/guides/install#--client-ids) が生成します。
+`cursor-rules`（`.cursor/rules/svelte-vitals.mdc`）は Cursor 専用の別の仕組みです。対象 glob（Svelte コンポーネントとルート）に一致するファイルへ Cursor が自動で適用するプロジェクトルールファイルであり、スラッシュコマンドのスキルではありません。`skills add` ではなく [`svelte-vitals install`](/ja/guides/install#--client-ids) が生成します。

@@ -110,7 +110,7 @@ export function rootHelpJa(optionsSection: string): string {
   svelte-vitals [path] [options]
   svelte-vitals docs list        同梱ガイドを一覧表示（docs show <name> で1件表示）
   svelte-vitals explain --list   全ルールを一覧表示（explain <rule-id> で1件説明）
-  svelte-vitals install          Vite 連携・エージェントスキル/ルール・設定ファイル・CI をセットアップ
+  svelte-vitals install          Vite 連携・Cursor rules・設定ファイル・CI をセットアップ
   svelte-vitals ci install       GitHub Actions の PR ゲートを追加（アノテーション + サマリーコメント）
   svelte-vitals ci upgrade       既存ワークフローのピン留めされた @svelte-vitals/action を更新
   svelte-vitals complete <shell> シェル補完スクリプトを出力（bash, zsh, fish, powershell）
@@ -172,7 +172,7 @@ ${optionsSection}
 }
 
 export function installHelpJa(optionsSection: string): string {
-  return `svelte-vitals install — svelte-vitals の Vite 連携・エージェントスキル/ルール・設定ファイル・CI をセットアップする
+  return `svelte-vitals install — svelte-vitals の Vite 連携・Cursor rules・設定ファイル・CI をセットアップする
 
 使用方法:
   svelte-vitals install [options]
