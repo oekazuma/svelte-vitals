@@ -60,6 +60,7 @@ export {
 } from './svelte-ast.js';
 export { ROBOTS_SOURCE_PATHS, SITEMAP_SOURCE_PATHS, VITE_CONFIG_FILES, SVELTE_CONFIG_FILES } from './project-paths.js';
 export type { Runtime } from './runtime.js';
+export { withReadLimit, READ_CONCURRENCY } from './runtime.js';
 export type { Rule, RuleContext } from './rule.js';
 export { isPenalized, docsUrlFor } from './rule.js';
 

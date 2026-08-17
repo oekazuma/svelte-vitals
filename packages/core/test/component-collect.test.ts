@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import type { Runtime } from '../src/runtime.js';
 import { collectComponentFacts, emptyComponentFacts } from '../src/component-collect.js';
+import { withReadLimit } from '../src/runtime.js';
 
 /** Minimal in-memory Runtime for tests (design §8) — no real filesystem needed. */
 function createMemoryRuntime(files: Record<string, string>, unreadable: Set<string> = new Set()): Runtime {
@@ -68,13 +69,17 @@ describe('collectComponentFacts', () => {
     expect(facts[0]!.eachBlocks).toEqual([{ hasKey: false, line: 1 }]);
   });
 
-  it('falls back to emptyComponentFacts when readFile rejects', async () => {
+  it('marks a file it could not read as readFailed, not merely parseFailed', async () => {
+    // An unreadable file is an environment problem; reporting it as a parse failure is how a
+    // descriptor limit once read as hundreds of broken components.
     const rt = createMemoryRuntime(
       { 'src/lib/Unreadable.svelte': '<div></div>' },
       new Set(['src/lib/Unreadable.svelte'])
     );
     const facts = await collectComponentFacts(rt, '');
-    expect(facts).toEqual([{ ...emptyComponentFacts('src/lib/Unreadable.svelte'), parseFailed: true }]);
+    expect(facts).toEqual([
+      { ...emptyComponentFacts('src/lib/Unreadable.svelte'), parseFailed: true, readFailed: true }
+    ]);
   });
 
   it('marks parseFailed on a failed file and leaves it unset on a healthy one', async () => {
@@ -136,5 +141,31 @@ describe('collectComponentFacts', () => {
     expect(facts).toHaveLength(1);
     expect(facts[0]).not.toEqual(emptyComponentFacts('src/lib/Dialog.svelte'));
     expect(facts[0]!.loc).toBe(4);
+  });
+});
+
+describe('withReadLimit', () => {
+  it('never lets more than the limit run at once, and still resolves every read', async () => {
+    let active = 0;
+    let peak = 0;
+    const read = withReadLimit(async (path: string) => {
+      active++;
+      peak = Math.max(peak, active);
+      await new Promise((r) => setTimeout(r, 1));
+      active--;
+      return path;
+    }, 4);
+    const paths = Array.from({ length: 40 }, (_, i) => `f${i}`);
+    expect(await Promise.all(paths.map(read))).toEqual(paths);
+    expect(peak).toBe(4);
+  });
+
+  it('releases its slot when a read rejects, so the queue cannot deadlock', async () => {
+    const read = withReadLimit(async (path: string) => {
+      if (path === 'bad') throw new Error('EACCES');
+      return path;
+    }, 1);
+    await expect(read('bad')).rejects.toThrow('EACCES');
+    await expect(read('good')).resolves.toBe('good');
   });
 });

@@ -8,6 +8,7 @@ import {
   type ComponentFacts,
   type KitAlias,
   type KitModuleFacts,
+  withReadLimit,
   type Runtime
 } from '@svelte-vitals/core/internal';
 
@@ -16,8 +17,10 @@ import {
  * swappable runtime is needed here — this just satisfies the interface the
  * shared core implementation expects.
  */
+const boundedRead = withReadLimit((path: string) => readFile(path, 'utf8'));
+
 const nodeRuntime: Runtime = {
-  readFile: (path) => readFile(path, 'utf8'),
+  readFile: (path) => boundedRead(path),
   async exists(path) {
     try {
       await access(path);

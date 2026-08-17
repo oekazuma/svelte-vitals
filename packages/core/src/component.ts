@@ -207,4 +207,7 @@ export interface ComponentFacts {
   timesMissingDatetime?: { line: number; text: string }[];
   /** Set when the file failed to read or parse and these facts are the empty fallback — the file was NOT analyzed. */
   parseFailed?: true;
+  /** Set when the file could not be READ — an environment problem (permissions, a descriptor
+   *  limit), not a malformed component. Reported separately so one does not masquerade as the other. */
+  readFailed?: true;
 }

@@ -1,7 +1,7 @@
 import { readFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
 import { glob as tinyglob } from 'tinyglobby';
-import type { Runtime } from '@svelte-vitals/core/internal';
+import { withReadLimit, type Runtime } from '@svelte-vitals/core/internal';
 
 /**
  * Node implementation of the core Runtime abstraction (design §8). This is the
@@ -9,9 +9,10 @@ import type { Runtime } from '@svelte-vitals/core/internal';
  * provider and rules stay runtime-agnostic by going through this interface.
  */
 export function createNodeRuntime(): Runtime {
+  const boundedRead = withReadLimit((path) => readFile(path, 'utf8'));
   return {
     readFile(path) {
-      return readFile(path, 'utf8');
+      return boundedRead(path);
     },
     async exists(path) {
       try {
