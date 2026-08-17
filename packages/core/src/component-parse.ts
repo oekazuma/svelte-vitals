@@ -29,6 +29,7 @@ import {
 } from './svelte-ast.js';
 import { isInteractiveElement, isInteractiveContainer, type ElementAttr } from './rules/a11y/interactive.js';
 import { splitTokens } from './a11y.js';
+import { resolveRole } from './rules/a11y/aria-data.js';
 
 // The Svelte AST is structurally complex and only partially typed for our needs,
 // so traversal uses `any`. The node-type strings below are verified against
@@ -1159,7 +1160,7 @@ function elementAttrs(attributes: Node[]): ElementAttr[] {
 /** The literal role that made an element a container, for the finding's message. */
 function containerRoleOf(attrs: ElementAttr[]): string | undefined {
   const role = attrs.find((a) => a.name === 'role')?.literal;
-  return role ? splitTokens(role)[0] : undefined;
+  return role ? resolveRole(splitTokens(role)) : undefined;
 }
 
 function collectInteractiveNestings(

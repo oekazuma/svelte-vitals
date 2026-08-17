@@ -1307,6 +1307,10 @@ describe('parseComponentFacts — interactiveNestings (a11y/interactive-nesting)
     expect(parseComponentFacts(src, 'C.svelte').interactiveNestings ?? []).toEqual([]);
   });
   it('carries the role that made an element a container', () => {
+    // The role reported is the one a user agent resolves to, not the first token.
+    expect(
+      parseComponentFacts('<div role="future-role button"><button>x</button></div>', 'C.svelte').interactiveNestings
+    ).toEqual([{ containerTag: 'div', containerRole: 'button', descendantTag: 'button', line: 1 }]);
     const c = parseComponentFacts('<div role="checkbox switch"><a href="/y">z</a></div>', 'C.svelte');
     expect(c.interactiveNestings).toEqual([
       { containerTag: 'div', containerRole: 'checkbox', descendantTag: 'a', line: 1 }

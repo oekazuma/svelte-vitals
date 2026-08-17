@@ -242,9 +242,12 @@ describe('parse-html: a11y capture (rendered landmark/id parity)', () => {
     );
   });
 
-  it('does not read a text-fragment directive as an id reference', () => {
-    const { idRefs } = parseHtmlHead(doc('<a href="#:~:text=hello%20world">jump</a><a href="#real">x</a>'));
-    expect(idRefs.map((r) => r.id)).toEqual(['real']);
+  it('strips a text-fragment directive and keeps any element fragment before it', () => {
+    // `:~:` onward is user-agent instructions; `#section:~:text=…` still targets id="section".
+    const { idRefs } = parseHtmlHead(
+      doc('<a href="#:~:text=hello%20world">a</a><a href="#section:~:text=hi">b</a><a href="#real">c</a>')
+    );
+    expect(idRefs.map((r) => r.id)).toEqual(['section', 'real']);
   });
 
   it('excludes #top by its decoded form and skips whitespace-only ids', () => {

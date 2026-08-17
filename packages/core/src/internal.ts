@@ -19,7 +19,7 @@ export {
   decodeFragmentId,
   splitTokens,
   isTopFragment,
-  isTextFragment,
+  stripTextDirective,
   LANDMARK_ROLES,
   IDREF_ATTRS
 } from './a11y.js';

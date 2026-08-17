@@ -128,9 +128,12 @@ export function isTopFragment(id: string): boolean {
 }
 
 /**
- * A text-fragment directive (`#:~:text=…`) is user-agent instructions, not an id — the part after
- * `:~:` never names an element, so a link carrying one references nothing to look for.
+ * A fragment with its text directive removed. Everything from the first `:~:` on is user-agent
+ * instructions for finding text and names no element, while anything before it is still an
+ * ordinary element fragment — `#section:~:text=hi` targets `id="section"`, `#:~:text=hi` targets
+ * nothing. Returns an empty string when the fragment is a directive and nothing else.
  */
-export function isTextFragment(fragment: string): boolean {
-  return fragment.startsWith(':~:');
+export function stripTextDirective(fragment: string): string {
+  const i = fragment.indexOf(':~:');
+  return i === -1 ? fragment : fragment.slice(0, i);
 }
