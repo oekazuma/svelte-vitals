@@ -225,6 +225,15 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     expect(recorded.suppressions.some((s) => s.id === 'a11y/id-duplication')).toBe(false);
   });
 
+  it('turns a recorded entry stale once the same finding is suppressed inline', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    execFileSync(process.execPath, [bin, dir, '--update-suppressions'], { encoding: 'utf8', stdio: 'pipe' });
+    expect(run(dir).stderr).not.toContain('stale');
+    disableAbove(join(dir, 'src', 'lib', 'a11y', 'DupId.svelte'), '<p id="dup-x">', 'a11y/id-duplication');
+    expect(run(dir).stderr).toContain('stale entry — re-run --update-suppressions to prune');
+  });
+
   it('the suppressions file records every finding and silences the next run', () => {
     const dir = scratchCopy();
     scratch.push(dir);
