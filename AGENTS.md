@@ -97,6 +97,14 @@ install`/`ci upgrade` bundle into scaffolded workflows.
   - Other prefixes in use: `feat(vite):`, `docs:`, `chore:`.
 - **Adding a rule**: create `packages/core/src/rules/<dir>/<slug>.ts` (the Performance directory is `perf/`, not `performance/`), then register it in **three** places, all in `packages/core/src/rules/index.ts`: the import, the `allRules` array, and the re-export block. (`packages/core/src/internal.ts` picks the rule up through `export * from './rules/index.js'` — there is no hand-maintained duplicate of this list any more.) Add rule docs under `docs/src/content/docs/rules/<id>.md` (en) and `docs/src/content/docs/ja/rules/<id>.md` (ja) — `packages/cli/test/docs-links.test.ts` fails the build if either is missing. (`<id>` already includes the category, e.g. `docs/src/content/docs/rules/performance/heavy-import.md` — note the docs tree uses `performance/` here, not the source tree's `perf/`.) Then regenerate the index pages with `pnpm --filter svelte-vitals run gen:rules-index && pnpm format` and commit them; `packages/cli/test/rules-index.test.mjs` fails the build if they are stale. **Never hard-code rule counts or ID ranges in READMEs/guides** (e.g. "CORRECT001–009" or "the two Performance rules") — such text rots on every new rule; refer to rule _categories_ instead. Rule IDs in guides are fine only as examples or sample output. Adding a new arm to an existing rule (rather than a new rule) inherits that rule's committed suppressions — the `id::route::location` key doesn't change, so existing entries keep matching the new arm's findings too — so the arm's changeset must call out that its findings can already be pre-suppressed in projects with recorded entries for that rule.
 - **Tests**: vitest, per-package `test/` directories; fixtures live under `test/fixtures/`.
+- **User-facing levers ship with two guards.** A lever is anything a user sets to change what the
+  run does — a CLI flag, a config key, an inline directive, a suppressions entry, an override. Each
+  needs (1) a case in `examples/kitchen-sink/test/e2e-suppression.test.ts` asserting an **observable
+  effect** on the real gallery, so it fails if the lever becomes a no-op, and (2) a runtime warning
+  when the lever selects nothing on a full run. The class this prevents is a lever that silently
+  does nothing while the run reports success — `--route "/blog/**"` matching zero routes and exiting
+  0 was exactly this, and it passed a canary that asserted only that a report came back. Design
+  record: `docs/superpowers/specs/2026-08-17-route-inline-suppression.md`.
 - **I/O budget**: `packages/cli/test/io-budget.test.ts` holds the collection phase
   (`packages/cli/src/collect-all.ts`) to a fixed number of `Runtime` calls. This is how
   analysis speed is defended in CI — wall-clock timings are far too noisy on shared
