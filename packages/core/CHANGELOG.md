@@ -1,5 +1,245 @@
 # @svelte-vitals/core
 
+## 0.44.0
+
+### Minor Changes
+
+- b778267: Raise the minimum supported Node.js to 24.16.0 (`engines.node: >=24.16.0`) and require ESM config files. Breaking:
+
+  - Node 22/23 are no longer supported. Every supported Node loads `svelte-vitals.config.ts` natively, so the CLI's "this Node cannot load a .ts config" guidance error is gone.
+  - The config loader now searches `svelte-vitals.config.{js,ts}` only — a `svelte-vitals.config.mjs` is **no longer loaded**; rename it to `.js` (or `.ts`). A leftover `.mjs` fails the run loudly with a rename hint (exit 2) rather than silently analyzing with defaults. `.js` configs are parsed as ESM, so the project must be `"type": "module"` (SvelteKit's default); CommonJS projects are not supported — a `.js` config that parses as CJS now fails with a guided "config files are ESM" error, and `install --force` no longer regenerates a `.js` config as `module.exports`.
+  - `svelte-vitals install --client config-file` scaffolds `.ts` or `.js` (never `.mjs`), no longer consulting the running Node version.
+
+- e7eec47: Demote `a11y/require-datetime` and `a11y/doctype` to `info`, so each rule's weight matches the
+  evidence behind it.
+
+  **Exit-code consequences, measured per rule on an isolated fixture.** Both movements loosen a gate;
+  nothing tightens.
+
+  | rule                    | `--fail-on critical` (default) | `--fail-on warning` | `--fail-on info` |
+  | ----------------------- | ------------------------------ | ------------------- | ---------------- |
+  | `a11y/require-datetime` | 0 → 0                          | **1 → 0**           | 1 → 1            |
+  | `a11y/doctype`          | 0 → 0                          | **1 → 0**           | 1 → 1            |
+
+  A project running the default gate is unaffected. A project running `--fail-on warning` whose only
+  finding is one of these two goes from red to green.
+
+  **Scores move too.** `a11y::component` drops from 46 to 42 points of severity weight, so every a11y
+  component key is scored against a smaller denominator: measured on the repository's own example
+  app, the a11y category reads **83 → 87** with no change in findings. `a11y::project` drops from 5 to
+  1, which the floor of 25 absorbs — but a project-scope finding is an absolute deduction, so a
+  missing doctype now costs its category 1 point rather than 5. The widest pair is unchanged at 100,
+  so the floor's ordering invariant is untouched.
+
+  **Why.** Severity tracks the strength of the evidence, the standard set when the SEO severities were
+  aligned:
+
+  - `a11y/require-datetime`'s requirement is HTML conformance, not an accessibility criterion. A
+    screen reader reads "last Tuesday" exactly as a sighted reader does; what the element loses is its
+    machine-readable value.
+  - `a11y/doctype`'s accessibility premise has no source at all — quirks mode is documented as a
+    layout difference, and the WCAG criterion that used to justify markup-validity checks is obsolete
+    and removed. The layout claim stands, so the rule stands, at the weight that claim supports.
+
+- 202fda8: Split `@svelte-vitals/core` into two entry points.
+
+  `@svelte-vitals/core` now exports only what an outside caller needs: `defineConfig` with the
+  config types, and the `JsonReport` types for reading a report. Everything else — the engine,
+  the rule set, fact collection, reporters, scoring — moved to `@svelte-vitals/core/internal`,
+  which carries **no semver guarantee and may change in any release, including a patch**.
+
+  The stable entry is deliberately type-closed: no export there may reference a type that only
+  `/internal` exports, so internal reshaping can never break the promised surface. Nothing was
+  deleted, and `svelte-vitals` / `@svelte-vitals/vite` behaviour is unchanged. Code importing
+  engine internals from the package root should move those imports to `/internal`; if something
+  there is what you actually need long-term, open an issue — promoting a name into the stable
+  entry is an additive change.
+
+- 2bd7d37: Recognise `<aside>` as a `complementary` landmark, in both analysis modes.
+
+  Only `main`, `header` and `footer` mapped to landmarks, so the scenario `a11y/top-level-landmark`
+  exists for — a layout rendering its children inside `<main>` while the page contributes a
+  complementary region — was undetectable in the markup people write. The docs even taught
+  `<aside role="complementary">`, which Svelte's own compiler flags as a redundant role.
+
+  Following the HTML accessibility mapping: an `<aside>` scoped to `<body>` or `<main>` is a
+  `complementary` landmark; inside sectioning content (`<article>`, `<aside>`, `<nav>`, `<section>`)
+  it is one only when it carries an `aria-label` or `aria-labelledby`.
+
+  **This widens detection** — a route with a layout `<main>` and a page `<aside>` newly reports
+  `a11y/top-level-landmark`. Projects with recorded suppressions for that rule may need a new entry;
+  `--update-suppressions` records it.
+
+  Also fixed while here: the per-file top-level approximation that decides whether a `<header>` or
+  `<footer>` is a landmark was being applied to every non-`main` tag, so a landmark nested below the
+  top level of its own file was dropped. It now applies to `<header>` and `<footer>` only, which is
+  what it was always meant to mean.
+
+### Patch Changes
+
+- 51c25c6: Correct three a11y rules' element and grammar tables.
+
+  - **`a11y/interactive-nesting`** reused the whole interactive-role set for its container check, so
+    `role="gridcell"` holding a button — the documented grid pattern — and the ARIA 1.1
+    `role="combobox"` wrapping its own `<input>` were both reported as nesting defects. Containers
+    are now the interactive members of ARIA's children-presentational set — whose descendants user
+    agents should not expose through the accessibility API — plus `link`.
+  - **`a11y/require-datetime`** implemented five of the ten `<time>` content syntaxes the HTML spec
+    permits, so a week (`2026-W33`), a time-zone offset (`+09:00`, `Z`), the alternative duration
+    spelling (`4h 18m 3s` — how recipes and media lengths are written), and years of four **or more**
+    digits were reported as "not machine-readable".
+  - **`a11y/use-list`** flagged text that merely follows an interpolation, so
+    `<p>{count} - results found</p>` read as a bullet, and flagged a leading dash inside `<pre>`,
+    `<code>`, `<kbd>`, `<samp>` and `<textarea>`, where it is content. The `<br>`-separated bullets
+    WCAG H48 names are unchanged.
+
+  Two narrower corrections ride along, both **widening** detection:
+
+  - The `<time>` patterns are now anchored, so `<time>2026-08-14T14:30 invalid</time>` and
+    `<time>P3D invalid</time>` no longer pass on a machine-readable prefix.
+  - `a11y/interactive-nesting` resolved a `role` fallback list by its **first token** rather than the
+    first token naming a concrete role, so `role="future-role button"` was not recognised as a
+    button. It now uses the same resolution the role rules do.
+
+  Everything else here narrows detection, and recorded suppressions keep matching in either
+  direction.
+
+- 57c0376: Stop three a11y ARIA rules reporting valid markup.
+
+  - `a11y/invalid-role` treated a fallback list as invalid when any token was unknown. A user agent
+    resolves the attribute to the first token naming a concrete role, so `role="button bogus"` and
+    `role="widget checkbox"` are correct markup — the list form exists precisely so a value can name
+    a role older user agents do not know. Only a value that resolves to nothing is reported now, and
+    its message names that rather than echoing one token's verdict onto the whole literal.
+  - `a11y/invalid-role` and `a11y/unknown-aria-attribute` rejected names ARIA 1.3 defines but that
+    the pinned ARIA data snapshot predates: the roles `comment`, `image`,
+    `sectionheader`, `sectionfooter`, `suggestion`, and the attributes `aria-colindextext`,
+    `aria-rowindextext`. `image` is the sharpest — it is now the spec's preferred synonym for `img`.
+  - `a11y/required-aria-props` demanded `aria-selected` on `role="option"` and `role="treeitem"`,
+    an ARIA 1.1 requirement neither 1.2 nor the 1.3 draft carries, so idiomatic listbox and tree
+    markup was flagged.
+
+  `a11y/required-aria-props` also now checks the role a fallback list **resolves to**, instead of
+  skipping every list. It shares one resolution with `a11y/invalid-role`, so the two rules cannot read
+  one value differently — but this **widens** detection: `role="bogus checkbox"` with no
+  `aria-checked` was silent and now reports, naming the resolved role in the message. Everything else
+  here narrows detection, and recorded suppressions keep matching in either direction (the
+  `id::route::location` key is unchanged).
+
+- adf3283: Two more corrections from the a11y rule-validity review.
+
+  - **`a11y/no-missing-id-ref` read a text fragment as an id reference.** `href="#:~:text=hello%20world"`
+    is a shipped web-platform feature — everything from `:~:` on instructs the user agent to find
+    text, and names no element — so the rule reported a missing id, printing the percent-decoded form
+    and sending the reader to look for a string that is not in their source. The directive is now
+    stripped in both modes, and any element fragment before it is still checked: `#section:~:text=hi`
+    resolves against `id="section"` exactly as `#section` would.
+  - **`a11y/interactive-nesting` did not say which element it meant.** A finding read
+    `<button> is nested inside interactive <div>`, which is unactionable on a page with many divs.
+    When the container is a container because of its `role`, the message now names it:
+    `<button> is nested inside interactive <div role="button">`.
+
+- 9747d6e: Stop `a11y/accessible-name` and `a11y/label-has-control` reporting content they cannot see.
+
+  Both rules already skip content they cannot resolve — an expression, a component, `{@render}`,
+  `{@html}` — but four routes were read as _absent_ rather than _unknowable_:
+
+  - **A `<slot>` or `<svelte:fragment>`** supplies content from the parent, so `<button><slot /></button>`
+    and `<label>Name<slot name="control" /></label>` were flagged despite being named and associated
+    by whoever renders them.
+  - **A hyphenated custom element** may be form-associated (and so labelable) and may name its host
+    from a shadow root, so `<label>Name <my-input></my-input></label>` was flagged.
+  - **An expression-valued `alt`** was invisible while an expression `aria-label` was accepted, so
+    the idiomatic `<a href="/about"><img src="/logo.png" alt={siteName} /></a>` was "unnamed".
+  - **A `<label>` naming a `button` or `input type="image"`**, by wrapping it or by pointing `for` at
+    its `id`, is a step in the name computation ahead of the element's own subtree. `<a>` has no such
+    step, so links are unchanged. It counts only when the label itself contributes something — a
+    provably empty label leaves the control unnamed and still reported — and a wrapping label reaches
+    only the first labelable element inside it. The `for` route is same-file only.
+
+  All four narrow detection, so recorded suppressions keep matching.
+
+- 0aa48a4: Stop a low open-file limit from silently shrinking the analysis.
+
+  Every `.svelte` file in a project was read in parallel with no bound, so on a large project the
+  process ran out of descriptors. `EMFILE` was raised on `open`, but each read sits inside the
+  per-file `try`/`catch` that exists for malformed components — so the file was recorded as a parse
+  failure, dropped, and the run carried on. Measured on a real 1 681-route project:
+
+  | `ulimit -n` | routes analysed | findings | files skipped | reported health |
+  | ----------- | --------------- | -------- | ------------- | --------------- |
+  | 256         | 232             | 93       | 1 450         | 94              |
+  | 1 024       | 1 000           | 150      | 682           | 94              |
+  | 4 096       | 1 681           | 191      | 0             | 94              |
+
+  At 1 024 — a common container default — 40% of the project went unexamined, 41 findings vanished,
+  and **the score did not move**. Nothing in the report said how much had been skipped.
+
+  Reads are now capped at 64 in flight, in both the CLI and the Vite plugin. The same project at
+  `ulimit -n 256` now analyses all 1 681 routes and reports all 191 findings, and the cap costs
+  nothing measurable (1 000 routes: 406ms capped vs 403ms unbounded) because reads are ~3% of the
+  work.
+
+  A file that could not be **read** is also now distinguished from one that could not be **parsed**,
+  for components and SvelteKit modules alike. The two shared a message, which is how a descriptor
+  limit read as hundreds of broken components; an unreadable file now says so and points at
+  permissions and `ulimit -n`.
+
+  The Vite plugin reports skipped files too. It previously warned about config problems and crashed
+  rules but never about files a collector dropped, so an `EACCES` during `vite build` was scored as
+  empty facts in silence. Both packages now format the warning with one shared function.
+
+- c14ae17: Match the Svelte compiler on ARIA attribute casing.
+
+  HTML attribute names are case-insensitive: `ARIA-LABEL` and `ROLE` become `aria-label` and `role`
+  during HTML parsing, and Svelte's own compiler judges them lowercased. The **Svelte AST keeps the
+  source spelling**, though, and the attribute lookup matched it exactly — so an attribute written in
+  capitals was read as a different attribute from the one it becomes in the browser. Lookups are now
+  case-insensitive, and ARIA names are reported lowercased, as the compiler reports them.
+
+  This corrects findings in both directions. A capitalised typo (`ARIA-LABLE`, `ROLE="bogus"`) was
+  invisible while the compiler warned about it, so a project may see new findings — the same ones
+  `svelte-check` already reports. A **valid** capitalised attribute was equally invisible, which
+  produced false findings: `<button ARIA-LABEL="Save">` was reported as having no accessible name,
+  and `<time DATETIME="…">` as missing its `datetime`. Those go away.
+
+  Recorded while here, with no behaviour change: this rule set deliberately follows the compiler over
+  the letter of the ARIA spec where the two disagree. The spec lists `undefined` as a value for
+  several boolean attributes and says a zero-length string should be treated as absent; the compiler
+  rejects both, and so do we. A rule that disagreed with the build you run would be noise rather than
+  a second opinion. The `a11y/invalid-aria-value` page now says so in both languages.
+
+- 48e3144: Fix analysis aborting on any project that writes its component styles in a CSS dialect.
+
+  Svelte parses a `<style>` body as CSS whatever its `lang` attribute says, so a single
+  `<style lang="scss">` block made a component unparseable — and one unparseable route file
+  fails the whole run with exit 2. Projects using SCSS, Less, or Stylus could not be analyzed
+  at all. Style bodies with a `lang` attribute are now blanked before parsing, preserving every
+  byte offset so reported lines are unchanged; nothing in the analysis reads CSS. Genuinely
+  malformed components still fail as before.
+
+  The rewrite is a retry, not a preprocessing step: a component that parses is never touched, so
+  only sources that are already a hard failure can reach it.
+
+- 14d271b: Correct four a11y rule texts that claimed more than their sources support.
+
+  - `a11y/doctype` said quirks mode breaks "accessibility tree behavior". The sourceable claim is
+    that quirks mode applies different layout and box-model rules than standards mode; no primary
+    source ties it to the accessibility tree, and the WCAG criterion that used to justify
+    markup-validity rules is obsolete and removed.
+  - `a11y/require-datetime` said "last Tuesday" cannot be parsed by assistive technology "so its
+    meaning is lost to anything that isn't a sighted reader". A screen reader reads it exactly as a
+    sighted reader does. What the element loses is its _standardized_ value: the text is not a valid
+    date/time string, so `<time>` exposes no date and a consumer that wants one is left guessing at
+    the prose.
+  - `a11y/interactive-nesting` said a nested control is "unreachable by keyboard" (no source found,
+    and a nested `<button>` is Tab-focusable) and that the nesting "violates the HTML content model",
+    which is false for its own role-based container arm, since a `<div>` may contain interactive
+    descendants. The claim is now scoped to `<a href>` and `<button>`.
+  - `a11y/accessible-name` recommended `title` as a way to name a control. It stays a _detected_
+    name source, because the name computation uses it — but it fails touch users, keyboard users,
+    and many screen-reader and magnifier users, so it is no longer advice.
+
 ## 0.43.1
 
 ### Patch Changes
