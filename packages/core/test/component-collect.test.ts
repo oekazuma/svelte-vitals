@@ -151,7 +151,9 @@ describe('withReadLimit', () => {
     const read = withReadLimit(async (path: string) => {
       active++;
       peak = Math.max(peak, active);
-      await new Promise((r) => setTimeout(r, 1));
+      // A few microtask turns — core's tsconfig has no timers, and the semaphore only needs
+      // the read to actually suspend for the overlap to be observable.
+      for (let i = 0; i < 3; i++) await Promise.resolve();
       active--;
       return path;
     }, 4);
