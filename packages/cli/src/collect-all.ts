@@ -31,6 +31,8 @@ interface CollectedFacts {
   /** `undefined` (not `[]`) for a route-filtered run — see the comment at the call site. */
   sourceFiles: string[] | undefined;
   directives: DirectiveIndex;
+  /** Selections this run made that matched nothing, where matching nothing is never legitimate. */
+  emptySelections: string[];
 }
 
 interface CollectAllOptions {
@@ -76,6 +78,23 @@ export async function collectAll(
     // never collected the fact at all, and the rule stays silent instead of raising a false alarm.
     opts.route ? undefined : collectSourceFiles(rt, cwd)
   ]);
+  const routes = collected.heads.map((h) => h.route);
+  const emptySelections: string[] = [];
+  // Exiting 0 on a glob that selected no route reads as "clean", which is how #510 stayed hidden.
+  // Gated on the project having routes at all, so an empty project is not reported as a bad glob.
+  if (opts.route !== undefined && routes.length > 0 && !routes.some(matches))
+    emptySelections.push(`--route '${opts.route}' matched none of the ${routes.length} route(s) found.`);
+  // Full runs only: under --route most overrides legitimately fall outside the selection.
+  if (opts.route === undefined && routes.length > 0) {
+    for (const entry of config.overrides ?? []) {
+      if (entry.route === undefined) continue;
+      for (const glob of Array.isArray(entry.route) ? entry.route : [entry.route]) {
+        const overrideMatches = routeMatcher(glob);
+        if (!routes.some(overrideMatches))
+          emptySelections.push(`overrides entry for route '${glob}' matched no route.`);
+      }
+    }
+  }
   const heads = collected.heads.filter((h) => matches(h.route));
   const images = collected.images.filter((i) => matches(i.route));
   const headings = collected.headings.filter((h) => matches(h.route));
@@ -98,5 +117,5 @@ export async function collectAll(
   for (const m of kitModules) directives.set(m.file, m.suppressions ?? []);
   const viteConfig = project.viteMinifyDisabled;
   if (viteConfig?.file) directives.set(viteConfig.file, viteConfig.suppressions ?? []);
-  return { heads, images, headings, a11y, project, components, kitModules, sourceFiles, directives };
+  return { heads, images, headings, a11y, project, components, kitModules, sourceFiles, directives, emptySelections };
 }

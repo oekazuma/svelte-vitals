@@ -1,8 +1,10 @@
 import { describe, it, expect } from 'vitest';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { allRules, defaultConfig, isPenalized, runRules, selectRules } from '@svelte-vitals/core/internal';
+import { defineConfig } from '@svelte-vitals/core';
+import { allRules, isPenalized, runRules, selectRules } from '@svelte-vitals/core/internal';
 import { collectAll } from '../src/collect-all.js';
+import { loadConfigFile } from '../src/config-file.js';
 import { createNodeRuntime } from '../src/runtime/node.js';
 
 // The inline directive's whole claim is that it covers every line-anchored finding *by
@@ -16,10 +18,13 @@ const appDir = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..', '
 describe('inline directive coverage', () => {
   it('scans every file a line-anchored finding points at', { timeout: 60_000 }, async () => {
     const rt = createNodeRuntime();
-    const facts = await collectAll(rt, appDir, defaultConfig);
-    const { results } = await runRules(selectRules(allRules, defaultConfig), { ...facts, config: defaultConfig });
+    // The app's own config, not the default: it turns on option-gated rules a default run never
+    // reaches, and those are exactly the rules whose anchoring nothing else would check.
+    const config = defineConfig((await loadConfigFile(appDir))?.config ?? {});
+    const facts = await collectAll(rt, appDir, config);
+    const { results } = await runRules(selectRules(allRules, config), { ...facts, config });
     const anchored = results.filter(
-      (r) => r.location !== undefined && (r.line ?? 0) > 0 && isPenalized(r.detection, defaultConfig.treatDynamicAs)
+      (r) => r.location !== undefined && (r.line ?? 0) > 0 && isPenalized(r.detection, config.treatDynamicAs)
     );
     expect(anchored.length).toBeGreaterThan(20);
     const unreachable = [

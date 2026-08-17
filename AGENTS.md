@@ -104,7 +104,7 @@ install`/`ci upgrade` bundle into scaffolded workflows.
   gallery, so it fails if the lever becomes a no-op, and (2) a runtime warning when the lever
   selects nothing on a full run **and selecting nothing is never a legitimate state**. Where it can
   be legitimate — an inline directive left behind after the code was fixed is the worked example —
-  the warning is opt-in instead, and the design records why. Guard (1) has no exception. The class
+  the warning is deferred to an opt-in follow-up, and the design records why. Guard (1) has no exception. The class
   this prevents is a lever that silently does nothing while the run reports success — `--route
 "/blog/**"` matching zero routes and exiting 0 was exactly this, and it passed a canary that
   asserted only that a report came back. For CLI flags, guard (1) is enforced by

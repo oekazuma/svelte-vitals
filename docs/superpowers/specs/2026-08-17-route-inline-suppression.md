@@ -87,7 +87,7 @@ tracking which files each route's recursive resolution touched. That plumbing bu
 directive can only silence a result whose `location` is its file, and a filtered-out route produces
 no results, so the extra entries are unreachable rather than permissive. The concern the scope was
 for is real, though, and is met directly — the unknown-id warning is gated to full runs, the same
-gate the table below already gives `overrides` matching nothing, so a scoped run never reports on a
+gate the table below specifies for `overrides` matching nothing, so a scoped run never reports on a
 file it did not analyse.
 
 **The composition does not collect directives today** — `parseFile` never calls
@@ -184,8 +184,8 @@ by a test here rather than inherited by accident.
 13. **Ordering against config**: a finding that an `overrides` entry re-severities is still
     suppressed by a directive, and a rule an override turned off produces nothing for a directive to
     act on — the stage runs on the output of `applyOverrides(applyRuleSeverities(...))`.
-14. **Index scope**: a `--route` run does not read directives, or report unknown directive ids, from
-    a file no selected route composes.
+14. **Index scope**: a `--route` run reads directives from every file the composition parsed, but
+    never reports unknown directive ids from a file no selected route composes.
 15. `examined` counts are unchanged by suppression — the rule did examine what it examined.
 
 ## Recurrence prevention
@@ -219,15 +219,15 @@ on no channel at all. The fix is that the Vite-config parse now carries its own 
 **A runtime warning when an input selects nothing**, for the cases where selecting nothing is never
 legitimate:
 
-| input                                                               | warn?                   | condition                                                                                                        |
-| ------------------------------------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `--route` matches no route                                          | **yes**                 | only when the unfiltered route set is non-empty                                                                  |
-| a directive names an unknown rule id                                | **yes, full runs only** | decision 5, gated as the row below is — the composition parses files `--route` never analyses                    |
-| a `--rules`-selected rule whose fact source the run's scope skipped | **yes**                 | e.g. a component-scoped rule under `--route`, silent today                                                       |
-| `--rules`/`--ignore` unknown id                                     | already fatal           | no change                                                                                                        |
-| stale suppressions entry                                            | already ships           | no change                                                                                                        |
-| `overrides` glob matches nothing                                    | **yes, full runs only** | gated like stale-suppression reporting, since under `--route`/`--diff` most overrides legitimately match nothing |
-| a directive matches no finding                                      | **no**                  | decision 6 — opt-in reporting is a follow-up, and is not in this change                                          |
+| input                                                               | warn?                   | condition                                                                                                    |
+| ------------------------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `--route` matches no route                                          | **yes**                 | shipped — only when the unfiltered route set is non-empty, so an empty project is not blamed on the glob     |
+| a directive names an unknown rule id                                | **yes, full runs only** | shipped — decision 5, gated as the `overrides` row is: the composition parses files `--route` never analyses |
+| a `--rules`-selected rule whose fact source the run's scope skipped | **yes**                 | shipped — a rule named by id whose scope is not `route`, under `--route`                                     |
+| `--rules`/`--ignore` unknown id                                     | already fatal           | no change                                                                                                    |
+| stale suppressions entry                                            | already ships           | no change                                                                                                    |
+| `overrides` glob matches nothing                                    | **yes, full runs only** | shipped — gated because under `--route` most overrides legitimately match nothing                            |
+| a directive matches no finding                                      | **no**                  | decision 6 — opt-in reporting is a follow-up, and is not in this change                                      |
 
 **And the rule that outlives this document**, recorded in AGENTS.md so it is read every session: a
 user-facing lever ships with (1) a kitchen-sink e2e case asserting an observable effect and (2) a

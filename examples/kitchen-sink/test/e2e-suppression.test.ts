@@ -207,6 +207,26 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     expect(findings(run(dir).report, 'a11y/id-duplication')).toBe(findings(baseline, 'a11y/id-duplication'));
   });
 
+  it('says so when a selection matches nothing, and stays quiet on a clean run', () => {
+    expect(run(appDir, '--route', 'no-such-route/**').stderr).toContain('matched none of the');
+    expect(run(appDir, '--rules', 'correctness/effect-as-derived', '--route', 'gallery/a11y/**').stderr).toContain(
+      'examined nothing: --route collects route facts only'
+    );
+    const dir = scratchCopy();
+    scratch.push(dir);
+    const cfgPath = join(dir, 'svelte-vitals.config.ts');
+    writeFileSync(
+      cfgPath,
+      readFileSync(cfgPath, 'utf8').replace(
+        'export default {',
+        "export default {\n  overrides: [{ route: '/no-such-route/**', rules: { seo: 'off' } }],"
+      )
+    );
+    expect(run(dir).stderr).toContain("overrides entry for route '/no-such-route/**' matched no route");
+    // A run that selects normally must stay silent, or the warnings get tuned out.
+    expect(run(appDir, '--route', 'gallery/a11y/**').stderr).toBe('');
+  });
+
   it('reaches a finding anchored outside src/, in the Vite config', () => {
     const dir = scratchCopy();
     scratch.push(dir);
