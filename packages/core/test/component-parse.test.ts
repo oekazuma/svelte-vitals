@@ -1457,6 +1457,34 @@ describe('parseComponentFacts — unassociatedLabels (a11y/label-has-control)', 
   });
 });
 
+describe('parseComponentFacts — ariaElements attribute casing', () => {
+  it('applies the same normalisation to every collector that reads an element attribute', () => {
+    // The fix is in the shared `findAttr`/`elementAttrs`, not in one collector: an uppercase
+    // `ARIA-LABEL` used to produce a false `a11y/accessible-name` finding, and an uppercase `ROLE`
+    // used to hide a nesting defect.
+    expect(parseComponentFacts('<button ARIA-LABEL="Save"></button>', 'C.svelte').unnamedInteractive ?? []).toEqual([]);
+    expect(parseComponentFacts('<div ROLE="button"><button>x</button></div>', 'C.svelte').interactiveNestings).toEqual([
+      { containerTag: 'div', containerRole: 'button', descendantTag: 'button', line: 1 }
+    ]);
+    expect(
+      parseComponentFacts('<time DATETIME="2026-08-14">last Tuesday</time>', 'C.svelte').timesMissingDatetime ?? []
+    ).toEqual([]);
+  });
+  it('reads ARIA and ROLE case-insensitively and reports the lowercased name', () => {
+    // HTML lowercases attribute names, and Svelte's compiler judges them lowercased — matching the
+    // source casing let `ARIA-LABLE` past both this rule and the reader's eye.
+    const c = parseComponentFacts('<div ARIA-LABLE="x" ROLE="bogus">y</div>', 'C.svelte');
+    expect(c.ariaElements).toEqual([
+      {
+        tag: 'div',
+        line: 1,
+        role: { literal: 'bogus' },
+        aria: [{ name: 'aria-lable', line: 1, literal: 'x' }]
+      }
+    ]);
+  });
+});
+
 describe('parseComponentFacts — bulletTexts (a11y/use-list)', () => {
   it('skips text after an interpolation and text in verbatim elements', () => {
     // `{count} - results found` trims to `- results found`: a sentence tail, not a bullet.

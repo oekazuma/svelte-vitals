@@ -19,6 +19,10 @@ Only attributes the spec defines are checked here — an unrecognized name is `a
 - **number** (e.g. `aria-valuenow`) — must be a finite number.
 - **string** / **id** / **idlist** (e.g. `aria-label`, `aria-activedescendant`) — any literal is accepted; these can't be checked statically.
 
+Two deliberate divergences from the letter of the ARIA spec, both to match the Svelte compiler you build with. The spec lists `undefined` as a value for several boolean attributes, and says a zero-length string should be treated as an absent attribute; the compiler rejects both (`a11y_incorrect_aria_attribute_type_boolean`), and so does this rule. A rule that disagreed with your own build would be noise, not a second opinion.
+
+Attribute and `role` names are matched **case-insensitively**, since HTML lowercases them: `ARIA-LABLE` is reported as `aria-lable`, exactly as the compiler reports it.
+
 Not flagged:
 
 - `aria-hidden="true"` — a valid boolean.

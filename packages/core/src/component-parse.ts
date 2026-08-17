@@ -1116,9 +1116,15 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
   }
   if (!node || typeof node !== 'object') return;
   if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
+    // HTML attribute names are case-insensitive, so `ARIA-LABEL` and `ROLE` become `aria-label` and
+    // `role` during HTML parsing — but the **Svelte AST keeps the source spelling**, which is why
+    // the normalisation has to happen here rather than being inherited. Svelte's own compiler
+    // judges them lowercased, so matching the source casing would let a typo like `ARIA-LABLE` slip
+    // past this rule while the build warned about it. The name is reported lowercased, as the
+    // compiler reports it.
     const roleAttr = findAttr(node.attributes, 'role');
     const ariaAttrs = node.attributes.filter(
-      (a: Node) => a?.type === 'Attribute' && typeof a.name === 'string' && a.name.startsWith('aria-')
+      (a: Node) => a?.type === 'Attribute' && typeof a.name === 'string' && a.name.toLowerCase().startsWith('aria-')
     );
     if (roleAttr || ariaAttrs.length > 0) {
       const inputType = node.name === 'input' ? attrText(node.attributes, 'type') : undefined;
@@ -1130,7 +1136,7 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
         ...(inputType !== undefined ? { inputType: inputType.toLowerCase() } : {}),
         ...(hasSpread ? { hasSpread: true as const } : {}),
         aria: ariaAttrs.map((a: Node) => ({
-          name: a.name,
+          name: String(a.name).toLowerCase(),
           line: lineOf(source, a.start ?? node.start),
           ...classifyAttrValue(a.value)
         }))
@@ -1145,9 +1151,13 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
 /** This element's `Attribute` nodes (directives/spreads excluded) as `isInteractiveElement`'s
  *  input shape. */
 function elementAttrs(attributes: Node[]): ElementAttr[] {
-  return attributes
-    .filter((a: Node) => a?.type === 'Attribute' && typeof a.name === 'string')
-    .map((a: Node) => ({ name: a.name, ...classifyAttrValue(a.value) }));
+  return (
+    attributes
+      .filter((a: Node) => a?.type === 'Attribute' && typeof a.name === 'string')
+      // Lowercased for the same reason `findAttr` matches case-insensitively: `ROLE` and `TABINDEX`
+      // are the same attributes as `role` and `tabindex` once the document is parsed.
+      .map((a: Node) => ({ name: String(a.name).toLowerCase(), ...classifyAttrValue(a.value) }))
+  );
 }
 
 /**
