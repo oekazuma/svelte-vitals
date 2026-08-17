@@ -101,7 +101,10 @@ install`/`ci upgrade` bundle into scaffolded workflows.
   run does — a CLI flag, a config key, an inline directive, a suppressions entry, an override. Each
   needs (1) a case in `examples/kitchen-sink/test/e2e-suppression.test.ts` asserting an **observable
   effect** on the real gallery, so it fails if the lever becomes a no-op, and (2) a runtime warning
-  when the lever selects nothing on a full run. The class this prevents is a lever that silently
+  when the lever selects nothing on a full run **and selecting nothing is never a legitimate
+  state**. Where it can be legitimate — an inline directive left behind after the code was fixed is
+  the worked example — the warning is opt-in instead, and the design records why. Guard (1) has no
+  exception. The class this prevents is a lever that silently
   does nothing while the run reports success — `--route "/blog/**"` matching zero routes and exiting
   0 was exactly this, and it passed a canary that asserted only that a report came back. Design
   record: `docs/superpowers/specs/2026-08-17-route-inline-suppression.md`.

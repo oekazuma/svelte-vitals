@@ -32,6 +32,21 @@ That makes the criterion and the implementation the same sentence, which is the 
 **any rule that emits a line-anchored finding is covered by construction.** No per-rule list, no
 wiring step a new rule family can forget.
 
+**The stage is `applyOverrides(applyRuleSeverities(rawResults, config), config)`'s output**, in
+`analyzeProject` and in the plugin's `analyze`. Not "after `runRules`", which is ambiguous — three
+transforms sit between. Running last means a directive silences whatever survived config, and the
+one result set that scoring, `--fail-on`, the suppressions file, `--update-suppressions`, `--verbose`
+and every reporter consume is the suppressed one. Nothing upstream moves: `examined` still counts
+what the rule examined (it did examine), `failedRules` is untouched, and a rule an override already
+turned off never produces a result for a directive to act on.
+
+**PASS identity is one result per `(rule id, route)`, located at the first suppressed finding** in
+the order the results already arrive — which is the rule's own deterministic emission order, the
+same order `route-rule.ts` uses to pick its PASS anchor today (`first.file`, `line: 0`). A
+route-scoped rule can have findings in several files; the PASS carries one file because a PASS
+always has, and picking the first keeps it identical to the PASS the rule would have emitted had the
+markup been clean. `line` is 0, as every PASS's is.
+
 **The emitted PASS is built, not converted.** Flipping a finding's `detection` in place would leave
 its defect `message`, its `line`, and any `fix` attached to a passing result — and `--verbose`
 prints a passed result's message, so a green ✓ would read "Multiple `<h1>` (2)". The PASS is
@@ -59,6 +74,12 @@ A design for removing silent no-ops must not ship one.
 
 The union of every file this run parsed and collected directives from: component facts when they
 were collected, and the route composition's chain files and resolved local components always.
+
+**The index is scoped to what the run selected.** `collectAll` gathers every route and filters
+afterwards, so an index built before that filter would let a `--route` run read directives — and
+report unknown ids — from files no selected route composes. The index is built from the selected
+compositions and the components actually collected, so its contents and its warnings cover exactly
+what the run looked at.
 
 **The composition does not collect directives today** — `parseFile` never calls
 `collectSuppressions`; only the component and Kit-module fact collectors do. Collecting them during
@@ -146,6 +167,14 @@ by a test here rather than inherited by accident.
    for it is reported stale.
 10. Rendered mode is unchanged.
 11. Component-scoped behaviour is untouched.
+12. **Multi-file PASS identity**: a route whose rule has findings in two different files, both
+    suppressed, emits exactly one PASS, located at the first in emission order.
+13. **Ordering against config**: a finding that an `overrides` entry re-severities is still
+    suppressed by a directive, and a rule an override turned off produces nothing for a directive to
+    act on — the stage runs on the output of `applyOverrides(applyRuleSeverities(...))`.
+14. **Index scope**: a `--route` run does not read directives, or report unknown directive ids, from
+    a file no selected route composes.
+15. `examined` counts are unchanged by suppression — the rule did examine what it examined.
 
 ## Recurrence prevention
 
@@ -154,11 +183,22 @@ stops working.
 
 **A meta-test that no lever ships untested.** `examples/kitchen-sink/test/e2e-suppression.test.ts`
 already pins nine disable surfaces against the real gallery, each asserting an observable effect.
-Route-scoped directives join it. To make "every lever has a case" enforceable rather than
-aspirational, a meta-test enumerates the CLI flags from the gunshi arg declarations — already
-machine-readable, since they generate the docs tables — and fails when a flag appears in no e2e test
-and in no exemption list with a recorded reason. This is the same forcing function as the `allRules`
-kitchen-sink coverage meta-test.
+Route-scoped directives join it.
+
+To make "every lever has a case" enforceable rather than aspirational, a meta-test enumerates the
+two lever families that **can** be enumerated and fails when a member appears in no e2e test and in
+no exemption list with a recorded reason:
+
+- **CLI flags**, from the gunshi arg declarations — already machine-readable, since they generate
+  the docs tables.
+- **Top-level config keys**, from `Object.keys(defaultConfig)` — `treatDynamicAs`, `metaComponents`,
+  `rules`, `failOn` today.
+
+The remaining lever kinds are not enumerable, because each is a single surface rather than a family:
+the inline directive, the suppressions file, and `overrides`. The meta-test therefore carries them
+as a hard-coded list of three required cases — a list that only grows when someone invents a new
+kind of lever, which is rare enough to catch in review, and which the AGENTS.md rule covers in
+prose. Claiming the enumeration covers them all would be its own silent gap.
 
 **A runtime warning when an input selects nothing**, for the cases where selecting nothing is never
 legitimate:
