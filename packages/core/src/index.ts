@@ -35,6 +35,10 @@ export { summarize, hasFailureAtOrAbove } from './summary.js';
  * markdown and workflow-command output stay human/agent-readable, and their prose, ordering and
  * caps may change in any release (`2026-08-16-v1-public-surface.md`). A consumer calls these to
  * render; it must not parse what comes back — `JsonReport` is the shape for that.
+ *
+ * One structural property is frozen alongside the signature, because "is there anything to show?"
+ * is a question a caller legitimately asks without parsing: **`formatGithubReport` returns the
+ * empty string when nothing is penalized.** Emitting its result unconditionally is therefore safe.
  */
 export { formatGithubReport } from './reporter/github.js';
 export { formatMarkdownReport } from './reporter/markdown.js';

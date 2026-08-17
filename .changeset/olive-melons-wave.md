@@ -18,3 +18,10 @@ The promotion is a pure re-export. Every type these four reference — `Result`,
 **What this freezes is each function's existence and signature, not the text it returns.** Markdown
 and workflow-command output stay human- and agent-readable: their prose, ordering and caps may
 change in any release. Call them to render; read `JsonReport` if you need to parse.
+
+One structural property is frozen alongside the signature, because asking "is there anything to
+show?" does not require parsing: **`formatGithubReport` returns the empty string when nothing is
+penalized**, so emitting its result unconditionally is safe.
+
+Both entries continue to export all four. Nothing is removed from `@svelte-vitals/core/internal`,
+so there is no migration deadline — moving an import is a free choice, not a deprecation.

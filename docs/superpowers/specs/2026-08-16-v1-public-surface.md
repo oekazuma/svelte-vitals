@@ -156,6 +156,12 @@ inventories, examined?`, closed over exactly `Summary`, `RuleEvidence`, `JsonIss
   workflow-command text stay human/agent-readable per Report shapes above; a consumer calls these
   to render and must not parse what comes back.
 
+  One structural property is frozen with the signature: **`formatGithubReport` returns the empty
+  string when nothing is penalized.** "Is there anything to show?" is a question a caller asks
+  without parsing — the Action guards its `core.info` on exactly that — so it is a contract rather
+  than an accident. It already holds and is pinned by a test; stating it costs nothing and removes
+  a place where a caller would otherwise be relying on undefined behaviour.
+
 Nothing else — and specifically **not** `Project`, `KitAlias`, or `Scope`: no frozen type reaches
 them, `Project` grows a field per project-scoped rule, and `Scope` belongs to `Rule`. They are
 internal.
