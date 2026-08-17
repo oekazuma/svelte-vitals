@@ -255,13 +255,12 @@ An unknown category or a negative/non-numeric value is an error (exit `2`).
 ### Suppressing a single finding inline
 
 For one intentional occurrence that `--ignore` would silence project-wide, add a
-`svelte-vitals-disable-next-line` comment on the line directly above it. Works for
-every rule that reports against a source file — the Correctness, Security, and
-Architecture rules, the component-scoped Performance rules, and the component-scoped
-Accessibility rules (ARIA validity, interactive nesting, accessible names, labels).
-(Route-level SEO rules, and the cross-component Accessibility rules — landmarks, id
-references, the doctype check — resolve across files, so they can't be silenced this
-way.)
+`svelte-vitals-disable-next-line` comment on the line directly above it. It works for
+every finding the report anchors to a file **and a line**, route-level ones included —
+a duplicate landmark, a second `<h1>`, an image missing dimensions are all silenced
+this way. What it cannot reach is a finding with no line to sit above: the `<head>`
+metadata rules, which report what a route never set, and the checks about a file's
+name or place in the tree.
 
 ```svelte
 <script>
@@ -283,6 +282,17 @@ In markup, use an HTML comment instead:
 
 Omit the rule id to suppress every rule on the next line, or list several
 comma-separated (`correctness/effect-as-derived, security/raw-html`).
+
+A directive in a component silences that finding on **every route that composes it** —
+you are annotating one piece of markup, not one route. Per-route suppression is what
+`svelte-vitals-suppressions.json` and `overrides` are for.
+
+A directive naming a rule id that no rule declares is reported as a warning; it would
+otherwise suppress nothing, silently.
+
+Build mode (`@svelte-vitals/vite`) analyzes prerendered HTML, which has no source
+lines, so route-level findings there cannot be suppressed inline — component-scoped
+findings still can.
 
 Two constraints: the comment must be the only thing on its line (a trailing
 same-line comment is not recognized), and it must be the line **immediately**

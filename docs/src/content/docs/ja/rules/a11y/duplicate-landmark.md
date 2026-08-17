@@ -43,7 +43,7 @@ description: 1つのルートに main・banner・contentinfo ランドマーク�
 
 ## 無効化
 
-ルートスコープの検出は、インラインの `svelte-vitals-disable-next-line` コメントでは抑制できません — この検出は 1 行ではなく合成されたルートに属するためです。既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+検出が指す行の直上にインラインの `svelte-vitals-disable-next-line` コメントを置けば抑制できます。その行が合成されたコンポーネント内にある場合、1 つのディレクティブがそれを合成するすべてのルートで効きます — ルート単位で抑制したい場合は suppressions ファイル（`npx svelte-vitals --update-suppressions`）を使ってください。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
 
 ```js svelte-vitals.config.js
 export default {

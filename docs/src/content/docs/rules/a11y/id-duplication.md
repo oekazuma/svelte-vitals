@@ -46,7 +46,7 @@ When the two disagree, trust the rendered result — it reflects what ships to t
 
 ## Disabling
 
-Route-scoped findings cannot be silenced with an inline `svelte-vitals-disable-next-line` comment — the finding belongs to a composed route, not to one line. Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
+An inline `svelte-vitals-disable-next-line` comment above the line the finding names silences it. That line often sits in a composed component, and one directive there silences the finding on every route composing it — the suppressions file (`npx svelte-vitals --update-suppressions`) is the per-route mechanism. You can also scope the rule per route or path with `overrides`, or turn it off:
 
 ```js svelte-vitals.config.js
 export default {
