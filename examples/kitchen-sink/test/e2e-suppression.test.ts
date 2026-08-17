@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { execFileSync } from 'node:child_process';
-import { cpSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
+import { execFileSync, spawnSync } from 'node:child_process';
+import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -18,20 +18,23 @@ interface JsonReport {
   siteIssues: Array<{ id: string; severity: string }>;
 }
 
-function run(dir: string, ...args: string[]): { code: number; report: JsonReport } {
-  try {
-    const out = execFileSync(process.execPath, [bin, dir, ...args, '--reporter', 'json'], {
-      encoding: 'utf8',
-      maxBuffer: 16 * 1024 * 1024
-    });
-    return { code: 0, report: JSON.parse(out) };
-  } catch (e) {
-    const err = e as { status: number; stdout: string };
-    return { code: err.status, report: JSON.parse(err.stdout) };
-  }
+function run(dir: string, ...args: string[]): { code: number; stderr: string; report: JsonReport } {
+  const res = spawnSync(process.execPath, [bin, dir, ...args, '--reporter', 'json'], {
+    encoding: 'utf8',
+    maxBuffer: 16 * 1024 * 1024
+  });
+  return { code: res.status ?? 1, stderr: res.stderr, report: JSON.parse(res.stdout) };
 }
 
 const findings = (r: JsonReport, id: string) => r.rules[id]?.findings ?? 0;
+const passed = (r: JsonReport, id: string) => r.rules[id]?.passed ?? 0;
+
+/** Write `src` with a directive inserted above `anchor`'s first occurrence. */
+function disableAbove(file: string, anchor: string, ids = ''): void {
+  const src = readFileSync(file, 'utf8');
+  if (!src.includes(anchor)) throw new Error(`anchor gone from ${file}: ${anchor}`);
+  writeFileSync(file, src.replace(anchor, `<!-- svelte-vitals-disable-next-line ${ids} -->\n${anchor}`));
+}
 const totalFindings = (r: JsonReport) => Object.values(r.rules).reduce((n, v) => n + v.findings, 0);
 const issuesOn = (r: JsonReport, routePrefix: string, idPrefix: string) =>
   r.routes
@@ -127,6 +130,90 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     const { report } = run(dir);
     // The bogus role is silenced; the abstract-role arm on the following element still fires.
     expect(findings(report, 'a11y/invalid-role')).toBe(findings(baseline, 'a11y/invalid-role') - 1);
+  });
+
+  it('silences a route-scoped finding in a composed component and turns it into a PASS', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    const scoped = ['--route', 'gallery/a11y/**'];
+    const before = [run(dir).report, run(dir, ...scoped).report];
+    disableAbove(join(dir, 'src', 'lib', 'a11y', 'DupId.svelte'), '<p id="dup-x">', 'a11y/id-duplication');
+    // The scoped run is the case per-family wiring would have broken: it skips component-fact
+    // collection, so the directive has to reach the pass through the route composition.
+    for (const [i, args] of [[], scoped].entries()) {
+      expect(findings(before[i]!, 'a11y/id-duplication')).toBe(1);
+      const { report } = run(dir, ...args);
+      // A suppressed finding is checked-and-clean, so the route stays in the average as a PASS
+      // rather than dropping out of it the way a skipped route does.
+      expect(findings(report, 'a11y/id-duplication')).toBe(0);
+      expect(passed(report, 'a11y/id-duplication')).toBe(passed(before[i]!, 'a11y/id-duplication') + 1);
+    }
+  });
+
+  it('silences a route-scoped finding outside a11y, which is what makes the rule general', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    disableAbove(
+      join(dir, 'src', 'routes', 'gallery', 'seo', '+page.svelte'),
+      '<h1>Gallery — SEO defects</h1>',
+      'seo/single-h1'
+    );
+    const { report } = run(dir);
+    expect(findings(report, 'seo/single-h1')).toBe(findings(baseline, 'seo/single-h1') - 1);
+    expect(passed(report, 'seo/single-h1')).toBe(passed(baseline, 'seo/single-h1') + 1);
+  });
+
+  it('honours a bare directive, and emits no PASS while a sibling finding survives', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    disableAbove(
+      join(dir, 'src', 'routes', 'gallery', 'a11y', 'landmarks', '+page.svelte'),
+      '<aside role="complementary">'
+    );
+    const { report } = run(dir);
+    expect(findings(report, 'a11y/top-level-landmark')).toBe(findings(baseline, 'a11y/top-level-landmark') - 1);
+    expect(passed(report, 'a11y/top-level-landmark')).toBe(passed(baseline, 'a11y/top-level-landmark'));
+  });
+
+  it('ignores a directive naming another rule, and warns when it names no rule at all', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    disableAbove(join(dir, 'src', 'lib', 'a11y', 'DupId.svelte'), '<p id="dup-x">', 'a11y/id-duplicaton');
+    const { report, stderr } = run(dir);
+    expect(findings(report, 'a11y/id-duplication')).toBe(findings(baseline, 'a11y/id-duplication'));
+    expect(stderr).toContain('src/lib/a11y/DupId.svelte:3 disables unknown rule "a11y/id-duplicaton"');
+  });
+
+  it('silences a shared component on every route that composed it', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    const comp = join(dir, 'src', 'lib', 'Shared.svelte');
+    writeFileSync(comp, '<p id="shared">a</p>\n<p id="shared">b</p>\n');
+    for (const route of ['shared-a', 'shared-b']) {
+      mkdirSync(join(dir, 'src', 'routes', route), { recursive: true });
+      writeFileSync(
+        join(dir, 'src', 'routes', route, '+page.svelte'),
+        "<script>\n  import Shared from '$lib/Shared.svelte';\n</script>\n\n<Shared />\n"
+      );
+    }
+    const before = run(dir).report;
+    expect(findings(before, 'a11y/id-duplication')).toBe(findings(baseline, 'a11y/id-duplication') + 2);
+    // One directive, two routes — the documented difference from the suppressions file, whose
+    // key is per route.
+    disableAbove(comp, '<p id="shared">b</p>');
+    expect(findings(run(dir).report, 'a11y/id-duplication')).toBe(findings(baseline, 'a11y/id-duplication'));
+  });
+
+  it('does not record an inline-suppressed finding in the suppressions file', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    disableAbove(join(dir, 'src', 'lib', 'a11y', 'DupId.svelte'), '<p id="dup-x">', 'a11y/id-duplication');
+    execFileSync(process.execPath, [bin, dir, '--update-suppressions'], { encoding: 'utf8', stdio: 'pipe' });
+    const recorded = JSON.parse(readFileSync(join(dir, 'svelte-vitals-suppressions.json'), 'utf8')) as {
+      suppressions: Array<{ id: string }>;
+    };
+    expect(recorded.suppressions.length).toBeGreaterThan(0);
+    expect(recorded.suppressions.some((s) => s.id === 'a11y/id-duplication')).toBe(false);
   });
 
   it('the suppressions file records every finding and silences the next run', () => {
