@@ -37,7 +37,7 @@ describe('runInstallCli --help', () => {
     vi.restoreAllMocks();
   });
 
-  it('lists the agent skill/rules target ids', async () => {
+  it('lists the agent rules target id and points Agent Skills at `npx skills add`', async () => {
     const lines: string[] = [];
     vi.spyOn(console, 'log').mockImplementation((line: string) => {
       lines.push(line);
@@ -45,9 +45,9 @@ describe('runInstallCli --help', () => {
     const code = await runInstallCliGunshi(['--help']);
     expect(code).toBe(0);
     const help = lines.join('\n');
-    expect(help).toContain('claude-skill');
     expect(help).toContain('cursor-rules');
-    expect(help).toContain('claude-skill-improve');
+    expect(help).toContain('npx skills add oekazuma/svelte-vitals');
+    expect(help).not.toContain('claude-skill');
   });
 
   it('documents --app for monorepos', async () => {

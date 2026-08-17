@@ -5,32 +5,32 @@ const parse = parseInstallArgs;
 
 describe('resolveInstallArgs', () => {
   it('parses clients', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-skill,vite-plugin']));
+    const r = resolveInstallArgs(parse(['--client', 'cursor-rules,vite-plugin']));
     expect(r.flags).toEqual({
-      client: ['claude-skill', 'vite-plugin'],
+      client: ['cursor-rules', 'vite-plugin'],
       yes: false,
       dryRun: false,
       force: false
     });
   });
   it('warns and drops unknown client ids', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-skill,bogus']));
-    expect(r.flags!.client).toEqual(['claude-skill']);
+    const r = resolveInstallArgs(parse(['--client', 'cursor-rules,bogus']));
+    expect(r.flags!.client).toEqual(['cursor-rules']);
     expect(r.warnings.join('\n')).toContain('bogus');
   });
   it('de-duplicates repeated --client ids, preserving first-seen order', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-skill,claude-skill,vite-plugin']));
-    expect(r.flags!.client).toEqual(['claude-skill', 'vite-plugin']);
+    const r = resolveInstallArgs(parse(['--client', 'cursor-rules,cursor-rules,vite-plugin']));
+    expect(r.flags!.client).toEqual(['cursor-rules', 'vite-plugin']);
   });
   it('errors on an all-invalid --client (fatal), naming each unknown id', () => {
     const r = resolveInstallArgs(parse(['--client', 'bogus,nonsense']));
     expect(r.flags).toBeNull();
-    expect(r.errors.join('\n')).toContain('claude-skill');
+    expect(r.errors.join('\n')).toContain('cursor-rules');
     expect(r.warnings.join('\n')).toContain('bogus');
     expect(r.warnings.join('\n')).toContain('nonsense');
   });
   it('warns that --scope is obsolete instead of failing the run', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-skill', '--scope', 'project']));
+    const r = resolveInstallArgs(parse(['--client', 'cursor-rules', '--scope', 'project']));
     expect(r.errors).toEqual([]);
     expect(r.flags).not.toHaveProperty('scope');
     expect(r.warnings.join('\n')).toContain('--scope is no longer used');
@@ -52,9 +52,9 @@ describe('resolveInstallArgs — Vite targets', () => {
     expect(r.flags!.client).toEqual(['vite-plugin', 'vite-hooks']);
   });
   it('mixes an agent target id with a Vite target id', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-skill,vite-plugin']));
+    const r = resolveInstallArgs(parse(['--client', 'cursor-rules,vite-plugin']));
     expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['claude-skill', 'vite-plugin']);
+    expect(r.flags!.client).toEqual(['cursor-rules', 'vite-plugin']);
   });
   it('still rejects a genuinely unknown id', () => {
     const r = resolveInstallArgs(parse(['--client', 'not-a-real-target']));
@@ -63,20 +63,15 @@ describe('resolveInstallArgs — Vite targets', () => {
 });
 
 describe('resolveInstallArgs — agent targets', () => {
-  it('accepts claude-skill and cursor-rules in --client', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-skill,cursor-rules']));
+  it('accepts cursor-rules in --client', () => {
+    const r = resolveInstallArgs(parse(['--client', 'cursor-rules']));
     expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['claude-skill', 'cursor-rules']);
+    expect(r.flags!.client).toEqual(['cursor-rules']);
   });
-  it('mixes the two skill target ids', () => {
+  it('rejects the retired SKILL.md target ids like any unknown id', () => {
     const r = resolveInstallArgs(parse(['--client', 'claude-skill,claude-skill-improve']));
-    expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['claude-skill', 'claude-skill-improve']);
-  });
-  it('accepts claude-skill-improve in --client', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-skill-improve']));
-    expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['claude-skill-improve']);
+    expect(r.flags).toBeNull();
+    expect(r.warnings.join('\n')).toContain('claude-skill');
   });
   it('still rejects a genuinely unknown id', () => {
     const r = resolveInstallArgs(parse(['--client', 'not-an-agent-target']));
@@ -91,9 +86,9 @@ describe('resolveInstallArgs — config target', () => {
     expect(r.flags!.client).toEqual(['config-file']);
   });
   it('mixes an agent target id with the config target id', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-skill,config-file']));
+    const r = resolveInstallArgs(parse(['--client', 'cursor-rules,config-file']));
     expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['claude-skill', 'config-file']);
+    expect(r.flags!.client).toEqual(['cursor-rules', 'config-file']);
   });
 });
 
@@ -104,9 +99,9 @@ describe('resolveInstallArgs — ci target', () => {
     expect(r.flags!.client).toEqual(['ci-workflow']);
   });
   it('mixes an agent target id with the ci target id', () => {
-    const r = resolveInstallArgs(parse(['--client', 'claude-skill,ci-workflow']));
+    const r = resolveInstallArgs(parse(['--client', 'cursor-rules,ci-workflow']));
     expect(r.errors).toEqual([]);
-    expect(r.flags!.client).toEqual(['claude-skill', 'ci-workflow']);
+    expect(r.flags!.client).toEqual(['cursor-rules', 'ci-workflow']);
   });
 });
 
@@ -133,7 +128,7 @@ describe('resolveInstallArgs — --refresh', () => {
     expect(r.flags).toEqual({ yes: false, dryRun: false, force: false, refresh: true });
   });
   it('errors when combined with --client (fatal)', () => {
-    const r = resolveInstallArgs(parse(['--refresh', '--client', 'claude-skill']));
+    const r = resolveInstallArgs(parse(['--refresh', '--client', 'cursor-rules']));
     expect(r.flags).toBeNull();
     expect(r.errors.join('\n')).toContain('--refresh');
     expect(r.errors.join('\n')).toContain('--client');

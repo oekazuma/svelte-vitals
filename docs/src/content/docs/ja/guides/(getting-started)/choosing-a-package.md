@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-npm パッケージは `svelte-vitals`（CLI）と `@svelte-vitals/vite`（プラグイン + ライブダッシュボード）の2つ。加えて、インストールしないサーフェスが2つあります。リポジトリから直接参照する GitHub Action **`@svelte-vitals/action`** と、CLI が生成する `SKILL.md` の **Agent Skills** です。
+npm パッケージは `svelte-vitals`（CLI）と `@svelte-vitals/vite`（プラグイン + ライブダッシュボード）の2つ。加えて、npm からはインストールしないサーフェスがあります。リポジトリから直接参照する GitHub Action **`@svelte-vitals/action`** と、[skills.sh](https://www.skills.sh/) から `npx skills add` でインストールする `SKILL.md` の **Agent Skills** です。
 
 CLI・プラグイン・Action は同じルールエンジンとスコアリングを共有し、読み取る対象だけが異なります。Agent Skills 自体は解析せず、ルールの知識を持っていつスキャナーを実行するかをエージェントに伝えます。ほとんどのプロジェクトは複数を併用します。
 
@@ -64,7 +64,7 @@ devで実際にルートを訪問すると、ダッシュボードはさらに�
 
 ### エージェントに前もってルールの知識を与える Agent Skills
 
-[Agent Skills](/ja/guides/agent-skills) は、エージェントが「コードを書く前からルールを知っている」状態を作ります。`svelte-vitals install` は Claude Code・Codex・Cursor で同じように動く `SKILL.md` を生成します。**`/svelte-vitals`** はルールカタログと「編集のたびに実行する」プレイブック、**`/improve-svelte`** は「アプリをレビューして」を影響度順の実装プランに変える読み取り専用の監査スキルです。
+[Agent Skills](/ja/guides/agent-skills) は、エージェントが「コードを書く前からルールを知っている」状態を作ります。`npx skills add oekazuma/svelte-vitals` は Claude Code・Codex・Cursor で同じように動く `SKILL.md` をインストールします。**`/svelte-vitals`** はルールカタログと「編集のたびに実行する」プレイブック、**`/improve-svelte`** は「アプリをレビューして」を影響度順の実装プランに変える読み取り専用の監査スキルです。
 
 CLI を置き換えるのではなく補完します。知識は前もって、解析は必要なときに。プレイブック自身が、編集後には `npx svelte-vitals . --diff --reporter agent` を、ルールの根拠やオプションには `npx svelte-vitals explain <rule-id>` を実行するよう指示します。
 
@@ -72,6 +72,6 @@ CLI を置き換えるのではなく補完します。知識は前もって、�
 
 - **まず始めるなら:** ローカルで `npx svelte-vitals@latest` を実行し、CIにも追加します（`npx svelte-vitals@latest --fail-on critical`）。これだけで全カテゴリ、全ルートをカバーできます。
 - **GitHubでホスティングしているなら:** そのCIステップを手書きする代わりに `npx svelte-vitals@latest ci install` を使います。エンジンは同じまま、インラインPRアノテーションとスティッキーコメントが加わり、対象は各PR自身の変更分に絞られます。
-- **AI エージェントと一緒にコーディングするなら:** Agent Skills をセットアップします（`npx svelte-vitals@latest install`）。スキルはコードを書く前のエージェントにルールを与え、書いた後は CLI（`--diff --reporter agent`）で検証させます。
+- **AI エージェントと一緒にコーディングするなら:** Agent Skills をセットアップします（`npx skills add oekazuma/svelte-vitals`）。スキルはコードを書く前のエージェントにルールを与え、書いた後は CLI（`--diff --reporter agent`）で検証させます。
 - **プレレンダリング/マーケティングページを磨き込むなら:** Vite プラグインのビルドモードで、配信HTMLをビルド時に正確にゲートします。ライブダッシュボードはデフォルトで有効なので、執筆中のライブフィードバックも追加のセットアップなしで得られます。
 - **これらすべてを組み合わせる**のが一般的な最終形です。それぞれ異なるタイミングで異なる対象をチェックするため、競合しません。

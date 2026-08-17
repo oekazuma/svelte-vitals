@@ -15,7 +15,7 @@ npx svelte-vitals@latest ci install
 
 このコマンドは `.github/workflows/svelte-vitals.yml` を書き出します。コミットしてプルリクエストを開けば、実行される様子を確認できます。
 
-Vite との連携や Agent Skills と一緒にセットアップするなら、[`svelte-vitals install`](/ja/guides/install#--client-ids) でも `ci-workflow` をターゲットとして選べます。`ci install` を別途実行しなくても、同じワークフローファイルを同じ実行の中で書き出せます。`ci upgrade`（後述）にはウィザード側の対応はなく、引き続き単体のコマンドです。
+Vite との連携や Cursor rules と一緒にセットアップするなら、[`svelte-vitals install`](/ja/guides/install#--client-ids) でも `ci-workflow` をターゲットとして選べます。`ci install` を別途実行しなくても、同じワークフローファイルを同じ実行の中で書き出せます。`ci upgrade`（後述）にはウィザード側の対応はなく、引き続き単体のコマンドです。
 
 ```bash
 npx svelte-vitals@latest ci install --dry-run   # 書き込まずにプレビュー

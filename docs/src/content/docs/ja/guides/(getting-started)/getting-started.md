@@ -85,4 +85,4 @@ Passed (3)
 - どのパッケージを使えばいいか迷ったら、CLI、Vite プラグイン、GitHub Action、Agent Skills を比較した [パッケージの選び方](/ja/guides/choosing-a-package) を参照してください。
 - すべてのフラグについては [CLI リファレンス](/ja/guides/cli) を参照してください。
 - `vite build` と連携するには [プラグインモード](/ja/guides/plugin-mode) を使用してください。
-- AI エージェントにルールを教え、自ら分析を実行させるには [Agent Skills](/ja/guides/agent-skills) を使用してください。`npx svelte-vitals@latest install` で Claude Code / Codex / Cursor 向けに一発で生成できます。
+- AI エージェントにルールを教え、自ら分析を実行させるには [Agent Skills](/ja/guides/agent-skills) を使用してください。`npx skills add oekazuma/svelte-vitals` で Claude Code / Codex / Cursor 向けに一発でインストールできます。

@@ -18,7 +18,7 @@ npx svelte-vitals@latest ci install
 This writes `.github/workflows/svelte-vitals.yml`. Commit it and open a pull request to see it
 run.
 
-Setting this up alongside the Vite integration or Agent Skills? `ci-workflow` is also
+Setting this up alongside the Vite integration or Cursor rules? `ci-workflow` is also
 a selectable target in [`svelte-vitals install`](/guides/install#--client-ids) — pick
 it there to write the same workflow file in the same pass, instead of running this command
 separately. `ci upgrade` (below) has no wizard equivalent and stays a standalone command.

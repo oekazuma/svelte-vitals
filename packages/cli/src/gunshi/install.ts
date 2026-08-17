@@ -27,21 +27,17 @@ export const INSTALL_ARGS = {
   client: {
     type: 'string',
     description:
-      'Comma-separated: vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow\n' +
+      'Comma-separated: vite-plugin,vite-hooks,cursor-rules,config-file,ci-workflow\n' +
       '(skips the interactive picker; the picker groups these by category —\n' +
-      'Vite integration, Agent Skills & rules, CI, Config file)\n' +
+      'Vite integration, Agent rules, CI, Config file)\n' +
       'vite-plugin registers the build-mode plugin in vite.config.{ts,js,mjs}; vite-hooks\n' +
       'wires up the svelteVitalsHandle hook in src/hooks.server.{ts,js}, which improves the\n' +
       "live dashboard's per-route accuracy as you browse. --force does not apply\n" +
       'to either of these two — an existing registration is always left as-is.\n' +
-      'claude-skill writes an agent skill (Claude Code, Codex, and Cursor —\n' +
-      '.claude/skills/, .agents/skills/, and .cursor/skills/ under svelte-vitals/);\n' +
-      'cursor-rules writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc).\n' +
-      'Both are generated from the current rule set and support --force to regenerate.\n' +
-      'claude-skill-improve writes a second, read-only agent skill (same three\n' +
-      'locations, under improve-svelte/) that audits the whole project and writes\n' +
-      'implementation plans instead of a run-after-every-edit playbook; also\n' +
-      'supports --force.\n' +
+      'cursor-rules writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc),\n' +
+      'generated from the current rule set; supports --force to regenerate.\n' +
+      'The svelte-vitals and improve-svelte Agent Skills are not installed here —\n' +
+      'install them with `npx skills add oekazuma/svelte-vitals`.\n' +
       'config-file scaffolds svelte-vitals.config.{mjs,ts} with every option commented\n' +
       'out, auto-picking .ts (with defineConfig) when the current Node supports it, the\n' +
       'project looks TypeScript-oriented (tsconfig.json or vite.config.ts present), and\n' +
@@ -61,7 +57,7 @@ export const INSTALL_ARGS = {
       "directory isn't itself a SvelteKit app, one detected app is used\n" +
       'automatically (with a notice), several prompt a picker on a TTY, and\n' +
       'non-interactive runs exit 2 asking for --app. All other targets\n' +
-      '(skills, ci-workflow) always write at the current directory —\n' +
+      '(cursor-rules, ci-workflow) always write at the current directory —\n' +
       'the repo root is their correct home.'
   },
   // Hidden: the flag is obsolete (see resolveInstallArgs), kept parseable only so it doesn't
@@ -74,9 +70,9 @@ export const INSTALL_ARGS = {
   refresh: {
     type: 'boolean',
     description:
-      'Regenerate existing agent skill/rules files with the current rule set\n' +
-      '(claude-skill / cursor-rules / claude-skill-improve). Only regenerates files already\n' +
-      'present on disk — it never creates one. Cannot be combined with --client.'
+      'Regenerate an existing Cursor rules file (cursor-rules) with the current\n' +
+      'rule set. Only regenerates a file already present on disk — it never creates\n' +
+      'one. Cannot be combined with --client.'
   },
   help: { type: 'boolean', short: 'h', description: 'Show this help' }
 } as const;
@@ -102,7 +98,7 @@ async function buildInstallHelpText(installCommand: Parameters<typeof generate>[
 
   if (locale === 'ja') return ja!.installHelpJa(optionsSection);
 
-  return `svelte-vitals install — set up the svelte-vitals Vite integration, agent skills/rules, config file, and CI
+  return `svelte-vitals install — set up the svelte-vitals Vite integration, Cursor rules, config file, and CI
 
 Usage:
   svelte-vitals install [options]

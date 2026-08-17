@@ -16,7 +16,7 @@ svelte-vitals explain <rule-id>
 
 `path` は省略可能で、デフォルトはカレントディレクトリです。[`docs`](#docs) は CLI に同梱されたガイドを、[`explain`](#explain) はルール1件の根拠・修正方法・設定可能なオプションを表示します。どちらもプロジェクトの解析は行いません。
 
-> サブコマンドもあります。[`install`](/ja/guides/install) は [Agent Skills](/ja/guides/agent-skills)、Vite との連携、設定ファイルをセットアップし、`ci install` は GitHub Actions の PR ゲートを生成します（詳しくは [CI 連携](/ja/guides/ci) を参照してください）。
+> サブコマンドもあります。[`install`](/ja/guides/install) は Vite との連携、Cursor rules、設定ファイルをセットアップし（[Agent Skills](/ja/guides/agent-skills) は別途 `npx skills add` でインストールします）、`ci install` は GitHub Actions の PR ゲートを生成します（詳しくは [CI 連携](/ja/guides/ci) を参照してください）。
 
 以下のフラグは、毎回の実行で指定する代わりに、プロジェクトルートの `svelte-vitals.config` ファイルにまとめて一度だけ設定することもできます。詳しくは [設定ファイル](/ja/guides/configuration) を参照してください。フラグは常に設定ファイルより優先されます。
 

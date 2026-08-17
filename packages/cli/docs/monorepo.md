@@ -36,7 +36,7 @@ hanging or guessing. Re-run with the path it printed. Cancelling the interactive
 
 - `vite-plugin`, `vite-hooks`, `config-file` write into the **app** directory — they resolve it
   the same way the analyzer does, and `--app <app>` names it explicitly.
-- the agent skills and `ci-workflow` always write at the **current** directory, because the repo
+- `cursor-rules` and `ci-workflow` always write at the **current** directory, because the repo
   root is their correct home.
 
 ```bash
