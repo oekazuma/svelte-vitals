@@ -3,7 +3,9 @@ title: a11y/require-datetime · Missing datetime attribute
 description: A time element's text should be machine-readable, or a datetime attribute should supply the machine-readable value.
 ---
 
-**Severity:** warning · **Category:** a11y
+**Severity:** info · **Category:** a11y
+
+Scored `info` rather than `warning`: the requirement is HTML conformance, not an accessibility criterion. A screen reader reads "last Tuesday" exactly as a sighted reader does — what the element loses is its machine-readable value.
 
 ## What it checks
 

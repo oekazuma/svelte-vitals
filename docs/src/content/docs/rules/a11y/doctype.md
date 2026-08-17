@@ -3,7 +3,9 @@ title: a11y/doctype · Doctype
 description: src/app.html should open with <!doctype html>.
 ---
 
-**Severity:** warning · **Category:** a11y
+**Severity:** info · **Category:** a11y
+
+Scored `info` rather than `warning`: the accessibility half of this rule's premise has no source. Quirks mode is documented as a layout difference, and the WCAG criterion that used to justify markup-validity checks is obsolete and removed. The layout claim stands, so the rule stands — at the weight its remaining evidence supports.
 
 ## What it checks
 
