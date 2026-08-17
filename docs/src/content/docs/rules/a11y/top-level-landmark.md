@@ -59,7 +59,7 @@ When the two disagree, trust the rendered result — it reflects what ships to t
 
 Route-scoped findings cannot be silenced with an inline `svelte-vitals-disable-next-line` comment — the finding belongs to a composed route, not to one line. Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'a11y/top-level-landmark': 'off'

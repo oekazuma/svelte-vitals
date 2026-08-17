@@ -35,7 +35,7 @@ A general-purpose HTML sanitizer is also the wrong tool for a non-HTML payload. 
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/raw-html -->` on the line above it, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'security/raw-html': 'off'

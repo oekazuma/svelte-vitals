@@ -19,8 +19,8 @@
 // a fresh Histogram per run, enabled right before the analyze() call and disabled right
 // after, read in ms.
 //
-// Usage: node packages/vite/scripts/bench/bench.mjs [--sizes=50,200,500] [--runs=3]
-//        node packages/vite/scripts/bench/bench.mjs --target examples/kitchen-sink [--runs=3]
+// Usage: node packages/vite/scripts/bench/bench.js [--sizes=50,200,500] [--runs=3]
+//        node packages/vite/scripts/bench/bench.js --target examples/kitchen-sink [--runs=3]
 //
 // --target points the same timed analysis at a real project instead of a generated
 // one (path resolved relative to the repo root, regardless of cwd) — skips generation
@@ -33,7 +33,7 @@ import { monitorEventLoopDelay, performance } from 'node:perf_hooks';
 import { parseArgs } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { analyzeProject } from 'svelte-vitals';
-import { generateProject } from './gen-project.mjs';
+import { generateProject } from './gen-project.js';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../../..');
 

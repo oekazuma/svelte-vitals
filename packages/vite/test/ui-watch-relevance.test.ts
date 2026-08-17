@@ -18,8 +18,7 @@ describe('isRelevant (dev-dashboard watcher filter)', () => {
     expect(isRelevant(join(root, 'svelte.config.ts'), root)).toBe(true);
   });
 
-  it('is relevant for svelte-vitals.config.{mjs,js,ts} at the project root', () => {
-    expect(isRelevant(join(root, 'svelte-vitals.config.mjs'), root)).toBe(true);
+  it('is relevant for svelte-vitals.config.{js,ts} at the project root', () => {
     expect(isRelevant(join(root, 'svelte-vitals.config.js'), root)).toBe(true);
     expect(isRelevant(join(root, 'svelte-vitals.config.ts'), root)).toBe(true);
   });

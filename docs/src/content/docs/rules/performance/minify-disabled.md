@@ -52,7 +52,7 @@ The Vite plugin judges the resolved value, so its verdict is exact for the build
 
 If unminified production output is intentional, turn the rule off in your config:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'performance/minify-disabled': 'off'

@@ -14,8 +14,8 @@ describe('loadConfigFile', () => {
     await expect(loadConfigFile(fixture('config-file-none'))).resolves.toBeUndefined();
   });
 
-  it('loads a plain-object .mjs config file', async () => {
-    const loaded = await loadConfigFile(fixture('config-file-mjs'));
+  it('loads a plain-object .js config file', async () => {
+    const loaded = await loadConfigFile(fixture('config-file-js'));
     expect(loaded?.warnings).toEqual([]);
     expect(loaded?.config).toEqual({
       treatDynamicAs: 'warn',
@@ -24,7 +24,7 @@ describe('loadConfigFile', () => {
     });
   });
 
-  it('loads a .mjs config file that uses defineConfig (dogfooding)', async () => {
+  it('loads a .js config file that uses defineConfig (dogfooding)', async () => {
     const loaded = await loadConfigFile(fixture('config-file-defineconfig'));
     // defineConfig() merges over defaultConfig, so the loaded value is a full Config.
     expect(loaded?.warnings).toEqual([]);
@@ -34,6 +34,12 @@ describe('loadConfigFile', () => {
       treatDynamicAs: 'pass',
       rules: {}
     });
+  });
+
+  it('fails loudly on a retired svelte-vitals.config.mjs instead of silently using defaults', async () => {
+    await expect(loadConfigFile(fixture('config-file-retired-mjs'))).rejects.toThrow(
+      /no longer read.*svelte-vitals\.config\.\{js,ts\}/s
+    );
   });
 
   it('rejects a config file with no default export', async () => {
@@ -242,9 +248,8 @@ describe('loadConfigFile', () => {
     expect(loaded?.config.overrides![0]!.rules['architecture/prop-count']).toEqual({ options: { max: 4 } });
   });
 
-  // The `.ts`-config contract on old Node (22.13–22.17 needs
-  // --experimental-strip-types) is asserted in scripts/floor-smoke.mjs, under a
-  // bare `node`. It cannot live here: vitest's module runner transforms
-  // in-process dynamic `import()`, so a `.ts` config always loads inside vitest
-  // regardless of the host Node.
+  // The `.ts`-config contract under a bare `node` is asserted in
+  // scripts/floor-smoke.js. It cannot live here: vitest's module runner
+  // transforms in-process dynamic `import()`, so a `.ts` config always loads
+  // inside vitest regardless of the host Node.
 });

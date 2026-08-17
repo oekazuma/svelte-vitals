@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/oekazuma/svelte-vitals#readme",
   "engines": {
-    "node": ">=22.13.0"
+    "node": ">=24.16.0"
   },
   "sideEffects": false,
   "dependencies": {
@@ -31,6 +31,7 @@
   "devDependencies": {
     "@types/aria-query": "catalog:",
     "@types/estree": "catalog:",
+    "@types/node": "catalog:",
     "schema-dts": "catalog:"
   },
   "exports": {
@@ -48,8 +49,8 @@
   ],
   "scripts": {
     "build": "tsup",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.test.json --noEmit",
     "test": "vitest run",
-    "gen:schema-vocab": "node scripts/gen-schema-vocab.mjs"
+    "gen:schema-vocab": "node scripts/gen-schema-vocab.js"
   }
 }

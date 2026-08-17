@@ -40,7 +40,7 @@ description: time 要素のテキストは機械可読であるか、datetime �
 
 テキストが意図的に機械可読でない場合は、`<!-- svelte-vitals-disable-next-line a11y/require-datetime -->` で個別の要素を抑制するか、ルールを無効化してください:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'a11y/require-datetime': 'off'

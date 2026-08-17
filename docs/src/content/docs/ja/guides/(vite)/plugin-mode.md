@@ -9,7 +9,7 @@ sidebar:
 
 さらに `src/` 配下（コンポーネント、runes モジュール（`.svelte.ts`/`.svelte.js`）、ルート/フックファイル）を走査し、Correctness・Security・Architecture・残りの Accessibility とコンポーネントスコープの Performance ルールも実行します。デフォルトで有効です。検出結果が `failOn` の閾値に達するとビルドが失敗します。
 
-> **ESM のみ**（Node 22.13+）。ES モジュールのみを提供します。`require()` は設計上サポートされていません。
+> **ESM のみ**（Node 24.16+）。ES モジュールのみを提供します。`require()` は設計上サポートされていません。
 
 ## インストール
 

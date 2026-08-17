@@ -46,7 +46,7 @@ ARIA 仕様の字面からは意図的に 2 点ずらしています。いずれ
 
 意図的に非標準な値を使う場合は、`<!-- svelte-vitals-disable-next-line a11y/invalid-aria-value -->` で個別の要素を抑制するか、ルールを無効化してください:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'a11y/invalid-aria-value': 'off'

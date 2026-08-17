@@ -13,15 +13,14 @@ sidebar:
 
 svelte-vitals は次のファイルを、この優先順で**分析対象ディレクトリのみ**から探します（親ディレクトリへの上方探索は行いません。分析対象ディレクトリは SvelteKit プロジェクトのルートであり、`vite.config.*` が置かれている場所と同じです）：
 
-1. `svelte-vitals.config.mjs`
-2. `svelte-vitals.config.js`
-3. `svelte-vitals.config.ts`
+1. `svelte-vitals.config.js`
+2. `svelte-vitals.config.ts`
 
 最初に見つかったファイルを使います。どれも存在しなければ、この機能がなかった頃と同じく、svelte-vitals は組み込みのデフォルト設定で動きます。
 
-`install --client config-file` が `.ts` を選ぶのは次の3条件がそろったときだけです。現在の Node が `.ts` をネイティブに読み込めること、プロジェクトが TypeScript 志向であること（ルートに `tsconfig.json` または `vite.config.ts`）、**かつ** `svelte-vitals` が依存関係として宣言されていること — `defineConfig` の import は読み込み時に解決されるため、npx だけで使うプロジェクトには適用できません。
+`install --client config-file` が `.ts` を選ぶのは次の2条件がそろったときです。プロジェクトが TypeScript 志向であること（ルートに `tsconfig.json` または `vite.config.ts`）、**かつ** `svelte-vitals` が依存関係として宣言されていること — `defineConfig` の import は読み込み時に解決されるため、npx だけで使うプロジェクトには適用できません。
 
-それ以外は `.mjs` を書き出します。サポート対象のどの Node でも、フラグも依存関係もなしに動きます。`--force` は既存ファイルの拡張子を維持し、形式を勝手に切り替えません。
+それ以外は `.js` を書き出します。どちらのファイルも ESM です — プロジェクトは `"type": "module"`（SvelteKit のデフォルト）である必要があり、CommonJS プロジェクトはサポートされません。`--force` は既存ファイルの拡張子を維持し、形式を勝手に切り替えません。
 
 ## 例
 
@@ -47,7 +46,7 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
   </Tab>
   <Tab title="JavaScript">
     ```js
-    // svelte-vitals.config.mjs
+    // svelte-vitals.config.js
     export default {
       treatDynamicAs: 'warn',
       metaComponents: ['Seo'],
@@ -64,7 +63,7 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
   </Tab>
 </Tabs>
 
-`defineConfig` は、渡したオブジェクトを組み込みのデフォルトにマージするだけの薄いヘルパーで、`.ts` ファイルでの型チェックとエディタの補完のために存在します。プレーンな `export default {...}` オブジェクトでも実行時の挙動はまったく同じです。`.mjs`/`.js` ファイルではどちらにしても型チェックの恩恵はないので、（JavaScript タブが示すように）プレーンなオブジェクトのままで構いません。しかも import と違い、svelte-vitals を `npx` 経由でしか実行せず `node_modules` に存在しない場合でも動作します。
+`defineConfig` は、渡したオブジェクトを組み込みのデフォルトにマージするだけの薄いヘルパーで、`.ts` ファイルでの型チェックとエディタの補完のために存在します。プレーンな `export default {...}` オブジェクトでも実行時の挙動はまったく同じです。`.js` ファイルではどちらにしても型チェックの恩恵はないので、（JavaScript タブが示すように）プレーンなオブジェクトのままで構いません。しかも import と違い、svelte-vitals を `npx` 経由でしか実行せず `node_modules` に存在しない場合でも動作します。
 
 `.ts` 設定内の `defineConfig` の import は**ランタイム**の import であり、型チェック時だけでなく、svelte-vitals がファイルを読み込む時に解決されます。そのため、プロジェクトの依存関係として `svelte-vitals` が宣言されている必要があります。import 元は、実際にインストールしているパッケージである `svelte-vitals` にしてください。（`@svelte-vitals/core` からも re-export されていますが、このパッケージは通常は推移的な依存関係であり、pnpm のデフォルトである厳格な `node_modules` の構成では、プロジェクトから推移的な依存関係を直接解決できません。）
 
@@ -87,7 +86,7 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
 
 `rules` は全体に適用されます。`overrides` はマッチした箇所にだけルール設定を適用します。典型的なのは、意図的に非公開のルート（認証必須のページ）を SEO メタデータルールの対象外にしたいケースです：
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   overrides: [
     // (app) ルートグループ配下：SEO チェックを一切行わない。
@@ -117,7 +116,7 @@ glob の構文はあえて最小限に絞ってあります：`*` はパスセ�
 
 単なる重大度の文字列に加えて、ルール設定にはオブジェクト形式 `{ severity?, options? }` も指定できます：
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/prop-count': { options: { max: 10 } },
@@ -208,16 +207,12 @@ CLI の静的モードは、ルートの `<head>` と見出しを解決するた
 
 ## バリデーション
 
-- **無効で svelte-vitals が停止する（終了コード `2`）**:ファイルを読み込めない（構文エラー、default export がない、または後述する Node のバージョンで `.ts` ファイルを読み込めない場合）、`rules` 内に未知のルール ID がある、`weights` 内に未知のカテゴリまたは負の値や数値でない値がある場合、`overrides` のエントリが不正な場合（`{ route/files, rules }` の形でない、スコープが文字列でも空でない文字列配列でもない、`rules` 内のキーが既知のルール ID でもカテゴリ名でもない）、`rules` または `overrides` エントリの `rules` 内のルール設定が不正な場合（`off`/`critical`/`warning`/`info` 以外の文字列、未知のキーを含むオブジェクト形式、オブジェクト内の不正な `severity`、オプションを受け付けないルールへの `options`、未知のオプション名、型が誤っているか範囲外のオプション値、カテゴリのキーへの `options`、または `min` と `max` の両方を持つルールで `min` が `max` を超える範囲になっている場合のいずれか）。
+- **無効で svelte-vitals が停止する（終了コード `2`）**:ファイルを読み込めない（構文エラー、または default export がない場合）、`rules` 内に未知のルール ID がある、`weights` 内に未知のカテゴリまたは負の値や数値でない値がある場合、`overrides` のエントリが不正な場合（`{ route/files, rules }` の形でない、スコープが文字列でも空でない文字列配列でもない、`rules` 内のキーが既知のルール ID でもカテゴリ名でもない）、`rules` または `overrides` エントリの `rules` 内のルール設定が不正な場合（`off`/`critical`/`warning`/`info` 以外の文字列、未知のキーを含むオブジェクト形式、オブジェクト内の不正な `severity`、オプションを受け付けないルールへの `options`、未知のオプション名、型が誤っているか範囲外のオプション値、カテゴリのキーへの `options`、または `min` と `max` の両方を持つルールで `min` が `max` を超える範囲になっている場合のいずれか）。
 - **無効だが無視され、警告が出る（分析は続行される）**:認識できない `treatDynamicAs` または `failOn` の値（フラグ／デフォルトにフォールバック）、認識できないトップレベルキー（将来の設定フィールドとの前方互換性のため）。
 
 ## TypeScript の設定ファイル
 
-`svelte-vitals.config.ts` は **Node 22.18 以降または 23.6 以降**であれば無フラグでそのまま動作します（このバージョンで Node のネイティブな TypeScript 型ストリッピングがフラグなしで使えるようになりました）。svelte-vitals の最低要件は Node 22.13 なので、**22.13〜22.17** では `.ts` 設定ファイルの読み込みが分かりやすいエラーで失敗します。次のいずれかを選んでください:
-
-- Node 22.18 以降にアップグレードする（同じ 22 系の LTS のままで済みます）。
-- `node --experimental-strip-types` を付けて再実行する。
-- ファイルを `.mjs` または `.js` にリネームする（プレーンな JavaScript はサポートされているすべての Node バージョンでフラグなしに動作します）。
+`svelte-vitals.config.ts` はサポート対象のすべての Node でそのまま動作します（最低要件の 24.16 以降は TypeScript の型をフラグなしでネイティブに除去します）。
 
 ## Vite プラグインで設定ファイルを再利用する
 

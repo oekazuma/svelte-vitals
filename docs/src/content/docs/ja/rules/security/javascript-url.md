@@ -26,7 +26,7 @@ description: '属性に javascript: URL を使わないでください。'
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line security/javascript-url -->` を置きます。ルールごと無効化するには:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'security/javascript-url': 'off'

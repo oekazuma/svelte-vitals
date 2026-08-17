@@ -2,7 +2,7 @@
 import { writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { extractSchemaOrgTypes, renderSchemaVocabModule, resolveSchemaDts } from './schema-vocab.mjs';
+import { extractSchemaOrgTypes, renderSchemaVocabModule, resolveSchemaDts } from './schema-vocab.js';
 
 const scriptsDir = dirname(fileURLToPath(import.meta.url));
 const coreDir = join(scriptsDir, '..');

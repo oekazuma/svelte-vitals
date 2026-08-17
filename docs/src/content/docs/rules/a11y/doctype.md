@@ -31,7 +31,7 @@ Add `<!doctype html>` as the first line of `src/app.html`:
 
 Record the existing finding in the suppressions file (`npx svelte-vitals --update-suppressions`), or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'a11y/doctype': 'off'

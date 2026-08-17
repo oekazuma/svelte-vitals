@@ -55,7 +55,7 @@ without a judgment call of its own.
    flag it as a finding and move on.
 5. **Don't re-litigate settled decisions.** A finding recorded in
    \`svelte-vitals-suppressions.json\`, a rule disabled via \`rules\` in
-   \`svelte-vitals.config.{mjs,js,ts}\`, or a documented tradeoff is a signal
+   \`svelte-vitals.config.{js,ts}\`, or a documented tradeoff is a signal
    the team chose this on purpose — respect it, note it, don't report it as
    new.
 
@@ -86,7 +86,7 @@ Get the machine map before applying judgment:
 
   Write it outside \`plans/\`; delete it when done. This is your ground truth
   for what's technically wrong — you do not re-derive it by eye. If the
-  project has a \`svelte-vitals.config.{mjs,js,ts}\` or
+  project has a \`svelte-vitals.config.{js,ts}\` or
   \`svelte-vitals-suppressions.json\`, read them too — they change which
   findings even appear (see Hard Rule 5).
 - **Stack**: SvelteKit version, static/prerendered vs. SSR vs. adapter-node,

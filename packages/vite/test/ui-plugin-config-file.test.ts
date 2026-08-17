@@ -91,7 +91,7 @@ describe('svelteVitals dev dashboard — svelte-vitals.config.* wiring', () => {
   it("the dashboard's /data.json reflects the config file's weights", async () => {
     const cwd = await mkdtemp(join(tmpdir(), 'sv-ui-config-'));
     try {
-      await writeFile(join(cwd, 'svelte-vitals.config.mjs'), 'export default { weights: { seo: 5 } };\n');
+      await writeFile(join(cwd, 'svelte-vitals.config.js'), 'export default { weights: { seo: 5 } };\n');
       const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
       try {
         const { call } = await startUiServer(cwd);
@@ -110,7 +110,7 @@ describe('svelteVitals dev dashboard — svelte-vitals.config.* wiring', () => {
   it('an explicit ui plugin option wins over the config file for the same field', async () => {
     const cwd = await mkdtemp(join(tmpdir(), 'sv-ui-config-'));
     try {
-      await writeFile(join(cwd, 'svelte-vitals.config.mjs'), 'export default { weights: { seo: 5 } };\n');
+      await writeFile(join(cwd, 'svelte-vitals.config.js'), 'export default { weights: { seo: 5 } };\n');
       const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
       try {
         const { call } = await startUiServer(cwd, { weights: { seo: 1 } });
@@ -129,7 +129,7 @@ describe('svelteVitals dev dashboard — svelte-vitals.config.* wiring', () => {
   it('logs a non-fatal config-file warning (e.g. an unrecognized failOn value) to the console', async () => {
     const cwd = await mkdtemp(join(tmpdir(), 'sv-ui-config-'));
     try {
-      await writeFile(join(cwd, 'svelte-vitals.config.mjs'), `export default { failOn: 'nope' };\n`);
+      await writeFile(join(cwd, 'svelte-vitals.config.js'), `export default { failOn: 'nope' };\n`);
       const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
       try {
         await startUiServer(cwd);

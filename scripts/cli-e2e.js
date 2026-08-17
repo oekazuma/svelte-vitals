@@ -2,11 +2,11 @@
 // docs/superpowers/specs/2026-08-10-gunshi-cli-migration-design.md). Pins the exit codes the
 // --fail-on/--min-health gates promise, against tiny fixture projects this script generates
 // itself — never the shared packages/cli/test/fixtures, whose findings can drift as rules
-// change. Follows scripts/floor-smoke.mjs's conventions (same `node:test` runner) but is
+// change. Follows scripts/floor-smoke.js's conventions (same `node:test` runner) but is
 // wired into the `test` job (pnpm e2e, after floor-smoke), not `floor-smoke` — see AGENTS.md's
 // floor-smoke section for why that job stays untouched.
 //
-//   node scripts/cli-e2e.mjs   (needs `pnpm build` first)
+//   node scripts/cli-e2e.js   (needs `pnpm build` first)
 
 import { strict as assert } from 'node:assert';
 import { spawnSync } from 'node:child_process';

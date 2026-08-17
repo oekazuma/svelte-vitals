@@ -41,7 +41,7 @@ Authenticate with cookies/`locals` and persist per-user data to a database. For 
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/server-module-state -->` on the line above it, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'security/server-module-state': 'off'

@@ -18,7 +18,7 @@ export function isReporterName(value: string | undefined): value is ReporterName
  * applies when `env` *is* process.env (the production default and every `run()` call
  * that doesn't override it for a test). A test-injected env object exercises the
  * opt-in only; the delegated detection is exercised end-to-end against the built CLI
- * in scripts/cli-e2e.mjs, spawning fresh processes so gunshi/std-env's own env read
+ * in scripts/cli-e2e.js, spawning fresh processes so gunshi/std-env's own env read
  * sees exactly the env each check sets up.
  */
 export function isAgentEnv(env: NodeJS.ProcessEnv = process.env): boolean {

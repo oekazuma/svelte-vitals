@@ -38,7 +38,7 @@ description: role 属性には、タイポでも抽象ロールでもない、�
 
 意図的に非標準なロールを使う場合は、`<!-- svelte-vitals-disable-next-line a11y/invalid-role -->` で個別の要素を抑制するか、ルールを無効化してください:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'a11y/invalid-role': 'off'

@@ -192,7 +192,7 @@ Usage:
 ${optionsSection}
 
 Config file:
-  svelte-vitals.config.{mjs,js,ts} in the analyzed directory; flags override it.
+  svelte-vitals.config.{js,ts} in the analyzed directory; flags override it.
 
 Exit codes:
   0  no failing findings

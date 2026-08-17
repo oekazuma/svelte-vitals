@@ -28,7 +28,7 @@ Sitemap: https://example.com/sitemap.xml
 
 If this is intentional, turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'seo/robots-txt': 'off'

@@ -3,13 +3,13 @@ import { readFileSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 // Straight from TypeScript source, not dist: vitest's transform resolves the `.js`→`.ts`
-// specifiers these files use internally, which plain `node` (scripts/gen-cli-reference.mjs) can't
+// specifiers these files use internally, which plain `node` (scripts/gen-cli-reference.js) can't
 // — see gunshi/registry.ts's doc comment. Reading source here means this test catches drift even
 // against a stale/unbuilt dist, which a dist-based read could not.
 import { ROOT_ARGS } from '../src/gunshi/analyze.js';
 import { INSTALL_ARGS } from '../src/gunshi/install.js';
 import { JA_ARG_DESCRIPTIONS } from '../src/gunshi/locales/ja.js';
-import { extractBlock, normalizeBlock, renderTable } from '../scripts/cli-reference.mjs';
+import { extractBlock, normalizeBlock, renderTable } from '../scripts/cli-reference.js';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const docsRoot = join(repoRoot, 'docs', 'src', 'content', 'docs');
@@ -42,8 +42,8 @@ describe('docs: the CLI flag reference tables are up to date', () => {
   // to English (the drift this file's main test cannot catch: a table that matches the generator
   // because BOTH sides regenerated identically would still pass it).
   it('a translated cell differs from the English table', () => {
-    const enCli = extractBlock(readFileSync(TARGETS[0].file, 'utf8'));
-    const jaCli = extractBlock(readFileSync(TARGETS[1].file, 'utf8'));
+    const enCli = extractBlock(readFileSync(TARGETS[0]!.file, 'utf8'));
+    const jaCli = extractBlock(readFileSync(TARGETS[1]!.file, 'utf8'));
     expect(jaCli).not.toBe(enCli);
     expect(jaCli).toContain(JA_ARG_DESCRIPTIONS.root.route);
     expect(enCli).not.toContain(JA_ARG_DESCRIPTIONS.root.route);

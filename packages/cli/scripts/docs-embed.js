@@ -1,4 +1,4 @@
-// Generator + staleness pair for packages/cli/docs/, mirroring scripts/rules-index.mjs.
+// Generator + staleness pair for packages/cli/docs/, mirroring scripts/rules-index.js.
 import { readdirSync, readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -28,7 +28,7 @@ export function parseTopic(fileName, raw) {
     }
     if (seen.has(key)) throw new Error(`${fileName}: duplicate frontmatter key \`${key}\``);
     if (value.trim() === '') throw new Error(`${fileName}: frontmatter \`${key}\` is empty`);
-    // rules-index.mjs unquotes; this keeps values verbatim, so quotes would reach `docs list`.
+    // rules-index.js unquotes; this keeps values verbatim, so quotes would reach `docs list`.
     if (/^['"].*['"]$/.test(value.trim())) {
       throw new Error(`${fileName}: frontmatter \`${key}\` must not be quoted`);
     }
@@ -57,7 +57,7 @@ export function readTopics(dir = DOCS_DIR) {
 /** Render the committed TypeScript module. */
 export function renderModule(topics) {
   return `// Generated from packages/cli/docs/*.md by \`pnpm --filter svelte-vitals run gen:docs\`.
-// Edit the markdown, not this file — test/docs-embed.test.mjs fails on drift.
+// Edit the markdown, not this file — test/docs-embed.test.ts fails on drift.
 
 /** One \`svelte-vitals docs show <name>\` topic. */
 export interface EmbeddedDoc {

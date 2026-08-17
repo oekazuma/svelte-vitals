@@ -45,7 +45,7 @@ description: プレーンテキストに入力された行頭記号は、本物�
 
 その行頭記号がリストの代わりではなく意図的な地の文である場合は、`<!-- svelte-vitals-disable-next-line a11y/use-list -->` で個別の箇所を抑制するか、ルールを無効化してください:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'a11y/use-list': 'off'

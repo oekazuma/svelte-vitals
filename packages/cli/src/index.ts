@@ -262,7 +262,7 @@ function failedRuleWarnings(failedRules: { id: string; message: string }[]): str
 /**
  * Run static-mode analysis and return the structured findings + resolved config.
  * Throws ProjectError when `cwd` is not a SvelteKit project. Also throws when a
- * `svelte-vitals.config.{mjs,js,ts}` file in `cwd` fails to load or fails
+ * `svelte-vitals.config.{js,ts}` file in `cwd` fails to load or fails
  * validation (unknown rule ids in `rules`, invalid `weights` entries) — see
  * `loadConfigFile`. Shared by the CLI's run() and by embedding callers (issue #24).
  *
@@ -695,7 +695,7 @@ export { ProjectError } from './providers/source/project.js';
 export { routeMatcher } from './route-matcher.js';
 export type { ParseCache } from './providers/source/resolve.js';
 export { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
-export { loadConfigFile } from './config-file.js';
+export { loadConfigFile, CONFIG_FILENAMES } from './config-file.js';
 export type { LoadedConfigFile } from './config-file.js';
 // Re-exported so user config files can `import { defineConfig } from 'svelte-vitals'`
 // (the package they actually installed) instead of the transitive `@svelte-vitals/core`

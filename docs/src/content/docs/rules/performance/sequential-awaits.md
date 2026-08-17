@@ -27,7 +27,7 @@ Static data flow cannot see side-effect ordering. If an earlier await performs s
 
 ## Disabling
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'performance/sequential-awaits': 'off'

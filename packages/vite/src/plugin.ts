@@ -19,7 +19,7 @@ import {
   terminalSafe,
   validateRuleSetting
 } from '@svelte-vitals/core/internal';
-import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from 'svelte-vitals';
+import { CONFIG_FILENAMES, findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from 'svelte-vitals';
 import { analyze, mergeConfig, resolveConfig } from './analyze.js';
 import { resolveMinifyDisabled } from './minify-flag.js';
 import { installUiMiddleware } from './ui/middleware.js';
@@ -30,9 +30,9 @@ import { readPackageVersion, readCoreVersion } from './version.js';
 const CONFIG_BASENAMES = new Set([
   'svelte.config.js',
   'svelte.config.ts',
-  'svelte-vitals.config.mjs',
-  'svelte-vitals.config.js',
-  'svelte-vitals.config.ts',
+  // The svelte-vitals config names come from the CLI's own loader list, so the watcher
+  // can never drift from what analyze() actually loads.
+  ...CONFIG_FILENAMES,
   'vite.config.js',
   'vite.config.mjs',
   'vite.config.ts',

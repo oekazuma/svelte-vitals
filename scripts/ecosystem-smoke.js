@@ -4,9 +4,9 @@
 // fall over: exit 0 or 1, and a JSON report that parses. Never a score, never a count — those move
 // with every release by design, and asserting them would turn this into a job people mute.
 //
-//   node scripts/ecosystem-smoke.mjs [--keep]
+//   node scripts/ecosystem-smoke.js [--keep]
 //
-// Node builtins plus `git`, like floor-smoke.mjs: no dev dependency may leak in here.
+// Node builtins plus `git`, like floor-smoke.js: no dev dependency may leak in here.
 
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdtempSync, realpathSync, rmSync, readdirSync, unlinkSync } from 'node:fs';

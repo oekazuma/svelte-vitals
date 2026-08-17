@@ -13,7 +13,7 @@ The CLI works entirely from source: it resolves every route's effective `<head>`
 
 ## Prerequisites
 
-Node.js 22.13 or later is required.
+Node.js 24.16 or later is required.
 
 ## Installation
 

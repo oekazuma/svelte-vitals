@@ -12,7 +12,7 @@ import {
 import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
 
 /**
- * Loads `svelte-vitals.config.{mjs,js,ts}` from the analyzed directory (design
+ * Loads `svelte-vitals.config.{js,ts}` from the analyzed directory (design
  * doc: docs/superpowers/specs/2026-07-05-config-file-design.md). Wired into
  * `analyzeProject` (packages/cli/src/index.ts), so every caller of it inherits
  * the config file.
@@ -24,7 +24,7 @@ import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-confi
  * drift and make the scaffolder create a duplicate config the loader then
  * shadows or ignores.
  */
-export const CONFIG_FILENAMES = ['svelte-vitals.config.mjs', 'svelte-vitals.config.js', 'svelte-vitals.config.ts'];
+export const CONFIG_FILENAMES = ['svelte-vitals.config.js', 'svelte-vitals.config.ts'];
 
 const TREAT_DYNAMIC_AS_VALUES = ['pass', 'warn', 'fail'];
 const FAIL_ON_VALUES = ['critical', 'warning', 'info'];
@@ -33,14 +33,6 @@ const KNOWN_TOP_LEVEL_KEYS = new Set(['treatDynamicAs', 'metaComponents', 'rules
 /** Whether `value` is a plain object (not null, not an array) — usable with Object.keys/entries. */
 export function isPlainObject(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
-}
-
-function isMissingExtensionLoaderError(err: unknown): boolean {
-  return (
-    err instanceof Error &&
-    (('code' in err && (err as NodeJS.ErrnoException).code === 'ERR_UNKNOWN_FILE_EXTENSION') ||
-      /Unknown file extension/.test(err.message))
-  );
 }
 
 /** Result of loading and validating a config file. */
@@ -239,34 +231,48 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
 }
 
 /**
- * Find and load `svelte-vitals.config.{mjs,js,ts}` from `cwd` (only `cwd`, no
+ * Find and load `svelte-vitals.config.{js,ts}` from `cwd` (only `cwd`, no
  * upward search). Returns `undefined` when no candidate file exists.
  *
- * Loader mechanism (design doc §2): plain native `import()`. `.mjs`/`.js` always
- * work (zero dependencies, no Node-version dependency). `.ts` depends on the host
- * Node's TypeScript type-stripping support: unflagged in Node 23.6.0, backported
- * to 22.18.0; on 22.13–22.17 (this repo's floor is >=22.13.0) it requires
- * `--experimental-strip-types` and otherwise fails with
- * `ERR_UNKNOWN_FILE_EXTENSION` — this is caught here and rethrown as a
- * descriptive, actionable error instead of surfacing Node's raw error.
+ * Loader mechanism (design doc §2): plain native `import()`. `.js` is parsed as
+ * ESM (the project must be `"type": "module"` — SvelteKit's default); `.ts`
+ * loads via native type-stripping, unflagged on every supported Node
+ * (engines.node >=24.16.0).
  *
- * Throws when: the file exists but has no usable default export; (`.ts` only)
- * the host Node can't load TypeScript without a flag; or the loaded config
- * fails validation (unknown rule ids in `rules`, invalid `weights` entries).
+ * Throws when: the file exists but has no usable default export, or the loaded
+ * config fails validation (unknown rule ids in `rules`, invalid `weights`
+ * entries).
  */
 export async function loadConfigFile(cwd: string): Promise<LoadedConfigFile | undefined> {
   const found = CONFIG_FILENAMES.map((name) => join(cwd, name)).find((path) => existsSync(path));
-  if (!found) return undefined;
+  if (!found) {
+    // Migration tripwire: `.mjs` was the default scaffold extension before the loader
+    // narrowed to {js,ts} — running with silent defaults would un-gate CI without a trace,
+    // so a leftover .mjs fails loudly instead.
+    const retired = join(cwd, 'svelte-vitals.config.mjs');
+    if (existsSync(retired)) {
+      throw new Error(
+        `${retired} is no longer read — svelte-vitals loads svelte-vitals.config.{js,ts} only. ` +
+          'Rename the file to .js (the project must be "type": "module") or .ts.'
+      );
+    }
+    return undefined;
+  }
 
   let mod: { default?: unknown };
   try {
     mod = (await import(pathToFileURL(found).href)) as { default?: unknown };
   } catch (err) {
-    if (found.endsWith('.ts') && isMissingExtensionLoaderError(err)) {
+    // A .js config in a CommonJS project is parsed as CJS, so its `export default` is a
+    // SyntaxError that names neither the file nor the fix — rethrow with both. A typo in an
+    // ESM config lands here too, and bin.ts prints only `message`, so Node's own text has to
+    // stay in front of the hint or the typo becomes undiagnosable. Only a bare `node` can
+    // reach this (vitest's module runner transforms in-process `import()`), so the assertion
+    // lives in scripts/floor-smoke.js.
+    if (found.endsWith('.js') && err instanceof SyntaxError) {
       throw new Error(
-        `could not load ${found} — this Node runtime does not support TypeScript config ` +
-          'files without a flag. Native type-stripping is unflagged from Node 22.18 / 23.6+: upgrade Node ' +
-          'to 22.18+, re-run with --experimental-strip-types, or rename the file to .mjs/.js.',
+        `could not load ${found}: ${err.message} — config files are ESM, so a CommonJS project ` +
+          'needs "type": "module" in package.json (SvelteKit\'s default) or a .ts config.',
         { cause: err }
       );
     }

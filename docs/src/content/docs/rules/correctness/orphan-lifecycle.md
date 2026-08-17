@@ -56,7 +56,7 @@ For shared modules, expose a setup function that components call during init ins
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line correctness/orphan-lifecycle -->` on the line above it, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'correctness/orphan-lifecycle': 'off'

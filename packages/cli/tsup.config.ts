@@ -4,8 +4,8 @@ import { defineConfig } from 'tsup';
 export default defineConfig({
   // Object form pins `gunshi-registry`'s output filename (dist/gunshi-registry.js) — array-form
   // entries leave that to esbuild's outbase inference. No `dts` entry for it: it's read at
-  // generator-build time by a plain .mjs script, never imported by a TypeScript consumer.
-  // The two install/ entries exist for the same reason as gunshi-registry: scripts/gen-skills.mjs
+  // generator-build time by a plain .js script, never imported by a TypeScript consumer.
+  // The two install/ entries exist for the same reason as gunshi-registry: scripts/gen-skills.js
   // imports them at generator time to write the repo-root skills/ copies.
   entry: {
     index: 'src/index.ts',

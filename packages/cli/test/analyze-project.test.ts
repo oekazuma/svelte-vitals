@@ -323,7 +323,7 @@ describe('allowRules named a rule that overrides scopes off warns without changi
     const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-overrides-warning-'));
     dirs.push(dir);
     cpSync(fixtureDir, dir, { recursive: true });
-    writeFileSync(join(dir, 'svelte-vitals.config.mjs'), configSource);
+    writeFileSync(join(dir, 'svelte-vitals.config.js'), configSource);
     return dir;
   }
 

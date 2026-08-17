@@ -217,7 +217,7 @@ describe('run() --rules named rule scoped off by overrides (issue #385)', () => 
     dirs.push(dir);
     cpSync(fixtureDir, dir, { recursive: true });
     writeFileSync(
-      join(dir, 'svelte-vitals.config.mjs'),
+      join(dir, 'svelte-vitals.config.js'),
       "export default { overrides: [{ files: 'src/**', rules: { 'seo/title-presence': 'off' } }] };"
     );
 

@@ -21,7 +21,7 @@ JSON-LD の値に残っている明らかなプレースホルダや定型文（
 
 既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'seo/json-ld-placeholder': 'off'

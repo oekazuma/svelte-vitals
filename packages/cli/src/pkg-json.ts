@@ -1,8 +1,7 @@
 import { join } from 'node:path';
 
-/** The package.json fields the dependency/module-type probes care about. */
+/** The package.json fields the dependency probes care about. */
 export interface PkgJson {
-  type?: string;
   dependencies?: Record<string, string>;
   devDependencies?: Record<string, string>;
 }

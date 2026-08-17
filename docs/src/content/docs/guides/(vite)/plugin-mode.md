@@ -9,7 +9,7 @@ sidebar:
 
 It also scans `src/` — components, runes modules (`.svelte.ts`/`.svelte.js`), route and hooks files — for Correctness, Security, Architecture, the rest of Accessibility, and the component-scoped Performance rules, enabled by default. The build fails when findings reach the `failOn` threshold.
 
-> **ESM-only** (Node 22.13+). Ships ES modules only; `require()` is unsupported by design.
+> **ESM-only** (Node 24.16+). Ships ES modules only; `require()` is unsupported by design.
 
 ## Installation
 

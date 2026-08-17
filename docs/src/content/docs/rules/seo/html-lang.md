@@ -25,7 +25,7 @@ Set `<html lang="...">` in `src/app.html`:
 
 If this is intentional, turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'seo/html-lang': 'off'

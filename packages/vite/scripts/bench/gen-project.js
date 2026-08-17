@@ -1,4 +1,4 @@
-// Fixture generator for the manual timing benchmark (`pnpm bench`, bench.mjs).
+// Fixture generator for the manual timing benchmark (`pnpm bench`, bench.js).
 // Not part of the shipped package — never imported from packages/vite/src.
 //
 // Generates a synthetic SvelteKit-like project with N pages grouped into sections of

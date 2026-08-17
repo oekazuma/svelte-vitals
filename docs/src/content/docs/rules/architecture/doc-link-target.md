@@ -78,7 +78,7 @@ where no inventory is built, it is silent.
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/doc-link-target -->` on the line above it, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/doc-link-target': 'off'

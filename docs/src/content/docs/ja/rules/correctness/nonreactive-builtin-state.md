@@ -55,7 +55,7 @@ description: $state に入れた素の Map・Set・Date・URL・URLSearchParams 
 
 ## 無効化
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'correctness/nonreactive-builtin-state': 'off'

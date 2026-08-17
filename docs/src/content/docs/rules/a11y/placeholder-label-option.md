@@ -51,7 +51,7 @@ Do not mark it `disabled` on its own. The select's reset algorithm selects the f
 
 If the first option is intentionally a real, non-placeholder value, silence a single element with `<!-- svelte-vitals-disable-next-line a11y/placeholder-label-option -->`, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'a11y/placeholder-label-option': 'off'

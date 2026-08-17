@@ -2,7 +2,7 @@
 import { writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { renderActionPin, resolveActionPin } from './resolve-action-pin.mjs';
+import { renderActionPin, resolveActionPin } from './resolve-action-pin.js';
 
 const scriptsDir = dirname(fileURLToPath(import.meta.url));
 const cliDir = join(scriptsDir, '..');

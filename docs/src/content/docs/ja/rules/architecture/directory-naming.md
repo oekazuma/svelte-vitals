@@ -174,7 +174,7 @@ glob を狭めてください。除外は、その配下すべてをチェック
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/directory-naming -->` を置きます。ルールごと無効化するには:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/directory-naming': 'off'

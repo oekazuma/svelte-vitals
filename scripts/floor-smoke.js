@@ -2,20 +2,20 @@
 // docs/superpowers/specs/2026-07-31-floor-smoke-design.md).
 //
 // Runs the BUILT `dist` of the published packages under a bare `node` — never
-// through vitest. CI pins this to the `engines.node` floor (22.13.0), which is
+// through vitest. CI pins this to the `engines.node` floor (24.16.0), which is
 // the version no dev dependency is held to any more; `pnpm test` covers the
 // release lines the dev toolchain supports instead.
 //
-//   node scripts/floor-smoke.mjs
+//   node scripts/floor-smoke.js
 //
 // The runner is `node:test` — built into the floor Node, so no dev dependency
 // is put back on the floor. Executing this file directly runs the tests and
-// exits non-zero on failure, so the `node scripts/floor-smoke.mjs` contract
+// exits non-zero on failure, so the `node scripts/floor-smoke.js` contract
 // (CI and `pnpm smoke`) is unchanged.
 
 import { strict as assert } from 'node:assert';
 import { execFileSync } from 'node:child_process';
-import { cpSync, existsSync, mkdtempSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
@@ -53,9 +53,7 @@ function runCli(args, opts = {}) {
   }
 }
 
-console.log(
-  `floor-smoke: node ${process.versions.node} (unflagged type stripping: ${supportsUnflaggedTypeStripping()})`
-);
+console.log(`floor-smoke: node ${process.versions.node}`);
 
 test('--version prints the CLI and core versions and exits 0', () => {
   const { code, signal, stdout, stderr } = runCli(['--version']);
@@ -137,6 +135,7 @@ test('a bad subcommand argument exits 2 with an empty stdout', () => {
 test('every published entry point imports under bare node', async () => {
   for (const entry of [
     'packages/core/dist/index.js',
+    'packages/core/dist/internal.js',
     'packages/cli/dist/index.js',
     'packages/vite/dist/index.js',
     'packages/vite/dist/hooks/index.js'
@@ -146,22 +145,51 @@ test('every published entry point imports under bare node', async () => {
   }
 });
 
-/**
- * Whether this Node strips TypeScript types from `import()` without a flag:
- * unflagged in 23.6.0, backported to 22.18.0. The floor (22.13.0) is inside the
- * window that needs `--experimental-strip-types`, so this decides which side of
- * the `.ts` config contract to assert.
- */
-function supportsUnflaggedTypeStripping() {
-  const [major = 0, minor = 0] = process.versions.node.split('.').map(Number);
-  return (major === 22 && minor >= 18) || (major === 23 && minor >= 6) || major >= 24;
-}
+test('a .js config in an explicit-CommonJS project fails with the guided ESM error', () => {
+  // Only a bare `node` can pin this: vitest's module runner transforms in-process
+  // `import()`, so the raw CJS SyntaxError never surfaces there.
+  const project = mkdtempSync(join(tmpdir(), 'floor-smoke-cjs-'));
+  try {
+    cpSync(basicProject, project, { recursive: true });
+    writeFileSync(
+      join(project, 'package.json'),
+      JSON.stringify({ name: 'cjs-fixture', private: true, type: 'commonjs' })
+    );
+    writeFileSync(join(project, 'svelte-vitals.config.js'), 'export default {};\n');
 
-test("a .ts config file matches this Node runtime's type-stripping support", () => {
-  // `loadConfigFile` runs before project detection, so on the floor Node the config
-  // throws whatever this directory holds. It has to look like a SvelteKit app for the
-  // other branch: there the config loads and execution continues into detection, which
-  // must succeed to reach a report.
+    const { code, signal, stderr } = runCli([project, '--reporter', 'json']);
+    assert.equal(signal, null, `killed by signal ${signal}, not a normal exit (stderr: ${stderr})`);
+    assert.equal(code, 2, `expected exit 2, got ${code}: ${stderr}`);
+    assert.match(stderr, /config files are ESM/);
+    assert.match(stderr, /svelte-vitals\.config\.js/);
+    // Node's own SyntaxError text has to survive: the same branch catches a typo in a valid
+    // ESM config, which is undiagnosable without it.
+    assert.match(stderr, /Unexpected token/);
+  } finally {
+    rmSync(project, { recursive: true, force: true });
+  }
+});
+
+test('a leftover svelte-vitals.config.mjs fails loudly instead of silently using defaults', () => {
+  const project = mkdtempSync(join(tmpdir(), 'floor-smoke-mjs-'));
+  try {
+    cpSync(basicProject, project, { recursive: true });
+    writeFileSync(join(project, 'svelte-vitals.config.mjs'), 'export default {};\n');
+
+    const { code, signal, stderr } = runCli([project, '--reporter', 'json']);
+    assert.equal(signal, null, `killed by signal ${signal}, not a normal exit (stderr: ${stderr})`);
+    assert.equal(code, 2, `expected exit 2, got ${code}: ${stderr}`);
+    assert.match(stderr, /no longer read/);
+  } finally {
+    rmSync(project, { recursive: true, force: true });
+  }
+});
+
+test('a .ts config file loads under bare node (native type stripping)', () => {
+  // vitest can never pin this — its module runner transforms in-process `import()` —
+  // so the raw-Node behaviour lives here. The directory has to look like a SvelteKit
+  // app: the config loads first, then execution continues into detection, which must
+  // succeed to reach a report.
   const project = mkdtempSync(join(tmpdir(), 'floor-smoke-ts-'));
   try {
     cpSync(basicProject, project, { recursive: true });
@@ -169,16 +197,7 @@ test("a .ts config file matches this Node runtime's type-stripping support", () 
 
     const { code, signal, stderr } = runCli([project, '--reporter', 'json']);
     assert.equal(signal, null, `killed by signal ${signal}, not a normal exit (stderr: ${stderr})`);
-    if (supportsUnflaggedTypeStripping()) {
-      assert.ok(code === 0 || code === 1, `expected the .ts config to load, got exit ${code}: ${stderr}`);
-    } else {
-      // The floor's contract: loadConfigFile turns Node's raw
-      // ERR_UNKNOWN_FILE_EXTENSION into an actionable message. vitest can never
-      // reach this branch — its module runner transforms in-process `import()`.
-      assert.equal(code, 2, `expected exit 2, got ${code}: ${stderr}`);
-      assert.match(stderr, /does not support TypeScript config files without a flag/);
-      assert.match(stderr, /22\.18\+/);
-    }
+    assert.ok(code === 0 || code === 1, `expected the .ts config to load, got exit ${code}: ${stderr}`);
   } finally {
     rmSync(project, { recursive: true, force: true });
   }

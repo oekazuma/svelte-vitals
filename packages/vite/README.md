@@ -7,7 +7,7 @@ Vite/SvelteKit plugin for [svelte-vitals](https://github.com/oekazuma/svelte-vit
 - **Build-time gate** — piggybacks on `vite build`, parses the **prerendered HTML** (head metadata, images, headings, landmarks and ids), and runs the same rule engine as the CLI (SEO, Performance, Correctness, Security, Architecture, Accessibility) — library-agnostic, because it inspects the real output. Fails the build when findings reach `failOn`.
 - **Live dev dashboard** — on by default during `vite dev`: a searchable, filterable code-health dashboard at `/__svelte-vitals/`, covering the whole project from startup via static analysis, refined to real rendered values as you browse.
 
-> **ESM-only** (Node 22.13+). Ships ES modules only; `require()` is unsupported by design.
+> **ESM-only** (Node 24.16+). Ships ES modules only; `require()` is unsupported by design.
 
 ## Usage
 

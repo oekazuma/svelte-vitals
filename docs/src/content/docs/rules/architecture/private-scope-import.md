@@ -61,7 +61,7 @@ An import that names a private directory itself, rather than a file inside it (f
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/private-scope-import -->` on the line above it, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/private-scope-import': 'off'

@@ -4,6 +4,14 @@
 **Status:** Designed
 **Packages:** none (CI + a root script). No published-package code changes, so no changeset.
 
+> **Amendment (2026-08-17):** the floor moved from 22.13.0 to 24.16.0
+> (`engines.node: >=24.16.0`, test matrix `24`/`26`, `floor-smoke` pinned to
+> 24.16.0). The two-floor architecture below is unchanged, but every supported
+> Node now strips TypeScript types natively, so the smoke's `.ts`-config check
+> lost its old-Node branch and the CLI's guided `.ts`-config error was deleted
+> with it. The script is now `scripts/floor-smoke.js` (the repo dropped `.mjs`
+> extensions — every package is `"type": "module"`).
+
 ## Goal
 
 Stop the development toolchain from dictating what Node version the published
