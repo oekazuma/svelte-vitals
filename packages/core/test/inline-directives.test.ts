@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { applyInlineDirectives, type DirectiveIndex } from '../src/inline-directives.js';
-import type { Result } from '../src/types.js';
+import { applyInlineDirectives, unknownDirectiveIds, type DirectiveIndex } from '../src/inline-directives.js';
+import type { Rule } from '../src/rule.js';
+import { defaultConfig, type Result } from '../src/types.js';
 
 const PENALIZED = { presence: 'none', value: 'absent' } as const;
 const PASSING = { presence: 'own', value: 'static' } as const;
@@ -18,9 +19,11 @@ const bad = (over: Partial<Result>): Result => ({
 
 const index = (m: Record<string, { line: number; ruleIds?: string[] }[]>): DirectiveIndex => new Map(Object.entries(m));
 
-const penalized = (r: Result) => r.detection.presence === 'none' || r.detection.value === 'absent';
-const label = (id: string) => `label for ${id}`;
-const run = (results: Result[], idx: DirectiveIndex) => applyInlineDirectives(results, idx, label, penalized);
+const rules = [
+  { id: 'a11y/id-duplication', title: 'Duplicate ids', passLabel: 'label for a11y/id-duplication' },
+  { id: 'seo/single-h1', title: 'Single h1' }
+] as unknown as Rule[];
+const run = (results: Result[], idx: DirectiveIndex) => applyInlineDirectives(results, idx, rules, defaultConfig);
 
 describe('applyInlineDirectives', () => {
   it('silences a matching finding and turns the rule+route into a PASS', () => {
@@ -88,10 +91,27 @@ describe('applyInlineDirectives', () => {
     expect(run([pass], index({ 'src/lib/Card.svelte': [{ line: 3 }] }))).toEqual([pass]);
   });
 
+  it('falls back to the rule title when the rule declares no pass label', () => {
+    const out = run([bad({ id: 'seo/single-h1' })], index({ 'src/lib/Card.svelte': [{ line: 3 }] }));
+    expect(out[0]!.message).toBe('Single h1');
+  });
+
   it('drops the defect message, line and fix from the PASS it builds', () => {
     const out = run([bad({ fix: { description: 'do the thing' } })], index({ 'src/lib/Card.svelte': [{ line: 3 }] }));
     expect(out[0]!.message).toBe('label for a11y/id-duplication');
     expect(out[0]!.line).toBeUndefined();
     expect(out[0]!.fix).toBeUndefined();
+  });
+});
+
+describe('unknownDirectiveIds', () => {
+  it('reports a misspelled id at the directive line, and stays quiet for a known one', () => {
+    const idx = index({
+      'src/lib/Card.svelte': [{ line: 4, ruleIds: ['a11y/id-duplicaton', 'seo/single-h1'] }],
+      'src/lib/B.svelte': [{ line: 2 }]
+    });
+    expect(unknownDirectiveIds(idx, rules)).toEqual([
+      'src/lib/Card.svelte:3 disables unknown rule "a11y/id-duplicaton"'
+    ]);
   });
 });

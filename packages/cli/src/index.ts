@@ -26,6 +26,8 @@ import {
   selectRules,
   applyRuleSeverities,
   applyOverrides,
+  applyInlineDirectives,
+  unknownDirectiveIds,
   settingSeverity,
   withFailedRulesOff,
   formatFailedRuleWarning,
@@ -299,7 +301,7 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     ...overridesOffWarnings(opts.allowRules, config.overrides)
   ];
 
-  const { heads, images, headings, a11y, project, components, kitModules, sourceFiles } = await collectAll(
+  const { heads, images, headings, a11y, project, components, kitModules, sourceFiles, directives } = await collectAll(
     rt,
     cwd,
     config,
@@ -308,6 +310,7 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
       parseCache: opts.parseCache
     }
   );
+  warnings.push(...unknownDirectiveIds(directives, allRules));
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
   const {
@@ -325,7 +328,12 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     kitModules,
     sourceFiles
   });
-  const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
+  const results = applyInlineDirectives(
+    applyOverrides(applyRuleSeverities(rawResults, config), config),
+    directives,
+    rules,
+    config
+  );
   // A failed rule examined nothing, so its weight must not stay in the Health denominator — else it
   // would score as if it had run clean. Returned as the config this function hands back (not just a
   // local copy) so every downstream consumer — CLI health/exit-code checks and the reporters, which

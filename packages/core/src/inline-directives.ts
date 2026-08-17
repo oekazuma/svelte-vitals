@@ -1,4 +1,5 @@
-import type { Result } from './types.js';
+import { isPenalized, type Rule } from './rule.js';
+import type { Config, Result } from './types.js';
 import type { SuppressionDirective } from './component.js';
 
 /** File-relative-path → the inline directives collected from that file. */
@@ -15,21 +16,23 @@ export type DirectiveIndex = ReadonlyMap<string, readonly SuppressionDirective[]
  * is unaffected: a result it already suppressed never arrives here, and its PASS is not penalized.
  *
  * A rule+route whose every penalized result was suppressed gains one PASS, located at the first
- * suppressed result in emission order — the anchor the rules themselves use.
+ * suppressed result in emission order — the anchor the rules themselves use. Its message is the
+ * rule's `passLabel` when it declares one, else its `title`.
  */
 export function applyInlineDirectives(
   results: readonly Result[],
   index: DirectiveIndex,
-  passLabelOf: (ruleId: string) => string,
-  penalized: (r: Result) => boolean
+  rules: readonly Rule[],
+  config: Config
 ): Result[] {
+  const labels = new Map(rules.map((r) => [r.id, r.passLabel ?? r.title]));
   const kept: Result[] = [];
   /** rule+route → the first suppressed result, for the PASS this pair may need. */
   const silenced = new Map<string, Result>();
   const survived = new Set<string>();
 
   for (const r of results) {
-    if (!penalized(r)) {
+    if (!isPenalized(r.detection, config.treatDynamicAs)) {
       kept.push(r);
       continue;
     }
@@ -57,8 +60,29 @@ export function applyInlineDirectives(
       detection: { presence: 'own', value: 'static' },
       ...(r.route !== undefined ? { route: r.route } : {}),
       ...(r.location !== undefined ? { location: r.location } : {}),
-      message: passLabelOf(r.id)
+      message: labels.get(r.id) ?? r.id
     });
   }
   return kept;
+}
+
+/**
+ * Directives naming a rule id that no rule declares. Unlike a directive that matches no finding —
+ * legitimate whenever the code was fixed, the rule turned off, or the run scoped — a misspelled id
+ * can never be right, so it is reported rather than silently suppressing nothing.
+ *
+ * Compared against every registered rule, not the selected ones: disabling a rule in config must
+ * not turn its directives into errors.
+ */
+export function unknownDirectiveIds(index: DirectiveIndex, rules: readonly Rule[]): string[] {
+  const known = new Set(rules.map((r) => r.id));
+  const seen = new Set<string>();
+  for (const [file, directives] of index) {
+    for (const d of directives) {
+      for (const id of d.ruleIds ?? []) {
+        if (!known.has(id)) seen.add(`${file}:${d.line - 1} disables unknown rule "${id}"`);
+      }
+    }
+  }
+  return [...seen].sort();
 }
