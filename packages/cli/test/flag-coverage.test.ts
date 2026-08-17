@@ -27,7 +27,9 @@ function allTestSources() {
 describe('analyzer flag coverage', () => {
   it('names every flag in at least one test', () => {
     const sources = allTestSources();
-    const flags = Object.entries(ROOT_ARGS).map(([key, schema]) => (schema.toKebab ? kebabnize(key) : key));
+    const flags = Object.entries(ROOT_ARGS).map(([key, schema]) =>
+      'toKebab' in schema && schema.toKebab ? kebabnize(key) : key
+    );
     const uncovered = flags.filter((f) => !new RegExp(`--${f}(?![a-z-])`).test(sources));
     expect(uncovered).toEqual([]);
   });

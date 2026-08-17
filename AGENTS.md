@@ -98,6 +98,46 @@ install`/`ci upgrade` bundle into scaffolded workflows.
   budget is welcome; raising one is a design decision needing a recorded reason, not a
   number edit. The two regressions that counts cannot catch — a widened analysis, and lost
   parallelism — are measured manually with `pnpm bench` (never in CI).
+- **User-facing levers ship with two guards.** A lever is anything a user sets to change what the
+  run does — a CLI flag, a config key, an inline directive, a suppressions entry, an override. Each
+  needs (1) a case in the kitchen-sink e2e suite asserting an **observable
+  effect** on the real gallery, so it fails if the lever becomes a no-op, and (2) a runtime warning
+  when the lever selects nothing on a full run **and selecting nothing is never a legitimate
+  state**. Where it can be legitimate — an inline directive left behind after the code was fixed is
+  the worked example — the warning is opt-in instead, and the design records why. Guard (1) has no
+  exception. The class this prevents is a lever that silently
+  does nothing while the run reports success — `--route "/blog/**"` matching zero routes and exiting
+  0 was exactly this, and it passed a canary that asserted only that a report came back. For CLI flags, guard (1) is
+  enforced by `packages/cli/test/flag-coverage.test.ts`. Design record:
+  `docs/superpowers/specs/2026-08-17-route-inline-suppression.md`.
+- **I/O budget**: `packages/cli/test/io-budget.test.ts` holds the collection phase
+  (`packages/cli/src/collect-all.ts`) to a fixed number of `Runtime` calls. This is how
+  analysis speed is defended in CI — wall-clock timings are far too noisy on shared
+  runners to gate on. Adding a collector or a glob means checking that test. Lowering a
+  budget is welcome; raising one is a design decision needing a recorded reason, not a
+  number edit. The two regressions that counts cannot catch — a widened analysis, and lost
+  parallelism — are measured manually with `pnpm bench` (never in CI).
+
+## Design docs
+
+`docs/superpowers/specs/` holds design docs, `docs/superpowers/plans/` holds implementation plans, both accumulated with date-prefixed filenames. Before assuming a tradeoff is undecided or reintroducing something that was deliberately removed, check here first — e.g. the a11y category went through an initial design (`2026-06-22-a11y-v0.5-design.md`), a removal (`docs/superpowers/specs/2026-06-23-remove-a11y-design.md`, `docs/superpowers/plans/2026-06-23-remove-a11y.md`), and a later redesign that shipped it (`docs/superpowers/specs/2026-08-14-a11y-category-design.md`, `docs/superpowers/plans/2026-08-14-a11y-category-phase1.md`) — read the redesign doc for why the second attempt succeeded where the first was pulled. The MCP server was designed (`2026-06-22-mcp-server-design.md`) and later removed in favour of CLI + Agent Skills (`docs/superpowers/specs/2026-08-01-remove-mcp-design.md`) — the agent story is deliberately "the skill knows the rules, the CLI runs them", so do not reintroduce an MCP surface without revisiting that doc. The `--fix` autofix idea (issue #11) was closed as agent-delegated — the only mechanically-safe fixes are trivial for an agent, and the valuable ones need page content the agent already has — recorded in `docs/superpowers/specs/2026-06-22-mcp-server-design.md` so it doesn't need re-litigating from scratch.
+
+## Exit codes
+
+The CLI's contract (`packages/cli/src/bin.ts`):
+
+- `0` — no failing findings
+- `1` — critical finding present (or `--fail-on`/`--min-health` threshold reached)
+- `2` — execution error (not a SvelteKit project / internal error)
+
+## Svelte MCP server
+
+The Svelte MCP server (configured in `.mcp.json`) provides Svelte 5 / SvelteKit documentation and code validation. Use it whenever the task involves Svelte/SvelteKit topics or writing `.svelte` code:
+
+- `list-sections` — call this first to discover the available documentation sections (returns titles, `use_cases`, and paths).
+- `get-documentation` — after `list-sections`, fetch every section relevant to the task (accepts single or multiple sections; judge relevance by the `use_cases` field).
+- `svelte-autofixer` — run on any Svelte code before presenting it; keep re-running until it returns no issues or suggestions.
+- `playground-link` — generates a Svelte Playground link. Only after the user confirms they want one, and never for code already written to files in the project.
 
 ## Design docs
 

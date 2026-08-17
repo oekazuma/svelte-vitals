@@ -315,7 +315,9 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
       parseCache: opts.parseCache
     }
   );
-  warnings.push(...unknownDirectiveIds(directives, allRules));
+  // Full runs only, like the stale-suppression report: `collectAll` parses every route before
+  // `--route` filters, so a scoped run would otherwise warn about files it never analysed.
+  if (opts.route === undefined) warnings.push(...unknownDirectiveIds(directives, allRules));
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
   const {
