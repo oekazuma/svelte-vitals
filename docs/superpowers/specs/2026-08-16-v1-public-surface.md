@@ -50,6 +50,11 @@ the non-JSON `format*Report` functions, scoring functions) is **internal**. None
 any doc, and each can be promoted into `.` in a 1.x minor once a real consumer asks — promotion is
 additive, so nothing is lost by starting closed.
 
+> **Partly superseded 2026-08-17.** That mechanism was exercised: `formatGithubReport`,
+> `formatMarkdownReport`, `summarize` and `hasFailureAtOrAbove` are now in `.` — see the dated entry
+> under the `.` entry list below for who asked and what exactly the promotion freezes. The sentence
+> above stands for everything else it names.
+
 ## Frozen at 1.0
 
 ### `svelte-vitals` (CLI)
