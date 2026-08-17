@@ -1,7 +1,9 @@
 import { WORKFLOW_PATH } from '../ci/workflow.js';
 
 type ViteTargetId = 'vite-plugin' | 'vite-hooks';
-export type AgentTargetId = 'claude-skill' | 'cursor-rules' | 'claude-skill-improve';
+// The SKILL.md targets (claude-skill / claude-skill-improve) moved out of the installer:
+// the same files are distributed from the repo-root skills/ via `npx skills add`.
+export type AgentTargetId = 'cursor-rules';
 export type TargetId = ViteTargetId | AgentTargetId | 'config-file' | 'ci-workflow';
 export type TargetKind = 'vite' | 'agent' | 'config' | 'ci';
 
@@ -14,11 +16,7 @@ export interface InstallTarget {
    * cwd-relative destination paths; empty when the destination is resolved at plan
    * time instead (the Vite targets codemod whichever vite.config/hooks.server file
    * exists; the config target picks its filename per environment — see
-   * planForConfigTarget). The agent targets list several paths because the same
-   * generated content is written to every one — Claude Code, Codex, and Cursor all
-   * read the same SKILL.md convention (frontmatter name/description, directory name
-   * decides the invocable command), just from different directories, so one skill
-   * install target can serve all three without a second content format.
+   * planForConfigTarget).
    */
   relPaths: string[];
 }
@@ -42,33 +40,11 @@ export const INSTALL_TARGETS: InstallTarget[] = [
     relPaths: []
   },
   {
-    id: 'claude-skill',
-    kind: 'agent',
-    label: 'Agent skill: svelte-vitals',
-    hint: 'Teaches the agent svelte-vitals rules + when to run the scanner (Claude Code, Codex, Cursor)',
-    relPaths: [
-      '.claude/skills/svelte-vitals/SKILL.md',
-      '.agents/skills/svelte-vitals/SKILL.md',
-      '.cursor/skills/svelte-vitals/SKILL.md'
-    ]
-  },
-  {
     id: 'cursor-rules',
     kind: 'agent',
     label: 'Cursor rules',
     hint: 'Project rules file so Cursor avoids flagged patterns up front',
     relPaths: ['.cursor/rules/svelte-vitals.mdc']
-  },
-  {
-    id: 'claude-skill-improve',
-    kind: 'agent',
-    label: 'Agent skill: improve-svelte',
-    hint: 'Senior-advisor audit → implementation plans (read-only), for a project-wide improvement roadmap (Claude Code, Codex, Cursor)',
-    relPaths: [
-      '.claude/skills/improve-svelte/SKILL.md',
-      '.agents/skills/improve-svelte/SKILL.md',
-      '.cursor/skills/improve-svelte/SKILL.md'
-    ]
   },
   {
     id: 'config-file',

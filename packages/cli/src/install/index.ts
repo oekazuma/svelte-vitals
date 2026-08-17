@@ -1,7 +1,6 @@
 import { join } from 'node:path';
 import { isKind, targetById, targetsOfKind, type AgentTargetId, type InstallTarget, type TargetId } from './targets.js';
-import { buildSkillMarkdown, buildCursorRules } from './skill-content.js';
-import { buildImproveSkillMarkdown } from './improve-skill-content.js';
+import { buildCursorRules, installHeader } from './skill-content.js';
 import { buildConfigFileTemplate } from './config-content.js';
 import {
   findExistingConfigFile,
@@ -55,7 +54,7 @@ export interface InstallPrompts {
   /**
    * Returns chosen target ids, or null when cancelled. Options are pre-grouped by
    * category (group label → options) so the picker can render them as distinct
-   * sections (Vite integration / Agent Skills & rules / CI / Config file) instead of
+   * sections (Vite integration / Agent rules / CI / Config file) instead of
    * one flat list.
    */
   selectClients(groups: Record<string, SelectableOption[]>, defaults: TargetId[]): Promise<TargetId[] | null>;
@@ -129,12 +128,8 @@ function planForViteHooks(io: InstallIO, appDir: string): PlanRow {
  */
 function agentTargetContent(id: AgentTargetId, version: string): string {
   switch (id) {
-    case 'claude-skill':
-      return buildSkillMarkdown(version);
     case 'cursor-rules':
-      return buildCursorRules(version);
-    case 'claude-skill-improve':
-      return buildImproveSkillMarkdown(version);
+      return buildCursorRules(installHeader(version));
     default: {
       // Exhaustiveness check: if AgentTargetId ever gains a new member without a
       // case here, this assignment fails to compile instead of silently falling
@@ -252,7 +247,7 @@ async function runRefresh(io: InstallIO, flags: InstallFlags, version: string): 
     // the actionable message.
     if (hadFailure) return 2;
     io.errorLog(
-      'svelte-vitals: no generated agent files found — run `svelte-vitals install --client claude-skill,cursor-rules` first.'
+      'svelte-vitals: no generated agent files found — run `svelte-vitals install --client cursor-rules` first.'
     );
     return 0;
   }
@@ -307,11 +302,10 @@ export async function runInstall(
     const viteConfigExists = ['vite.config.ts', 'vite.config.js', 'vite.config.mjs'].some((f) =>
       configExists(join(io.cwd, f))
     );
-    const claudeSkillDetected = configExists(join(io.cwd, '.claude', 'settings.json'));
-    // Same shape as claudeSkillDetected: "this project uses Cursor", from a file Cursor
-    // itself keeps — plus the rules file this target already wrote, so a re-run finds it
-    // ticked. Each probe has to name a file, not a directory — readFile maps only ENOENT
-    // to undefined and rethrows EISDIR, so `.cursor/` itself would always read as absent.
+    // "This project uses Cursor", from a file Cursor itself keeps — plus the rules file
+    // this target already wrote, so a re-run finds it ticked. Each probe has to name a
+    // file, not a directory — readFile maps only ENOENT to undefined and rethrows EISDIR,
+    // so `.cursor/` itself would always read as absent.
     const cursorRulesDetected = [
       '.cursor/mcp.json',
       '.cursor/environment.json',
@@ -319,10 +313,7 @@ export async function runInstall(
       '.cursorignore',
       targetById('cursor-rules')!.relPaths[0]!
     ].some((rel) => configExists(join(io.cwd, rel)));
-    const detectedAgents: AgentTargetId[] = [
-      ...(claudeSkillDetected ? (['claude-skill'] as const) : []),
-      ...(cursorRulesDetected ? (['cursor-rules'] as const) : [])
-    ];
+    const detectedAgents: AgentTargetId[] = cursorRulesDetected ? ['cursor-rules'] : [];
     const ciWorkflowDetected = configExists(join(io.cwd, targetById('ci-workflow')!.relPaths[0]!));
     // configExists (not findExistingConfigFile directly) so a throwing readFile can't
     // crash detection — same tolerance as every other detection probe above.
@@ -339,7 +330,7 @@ export async function runInstall(
     const asOption = (t: InstallTarget): SelectableOption => ({ id: t.id, label: t.label, hint: t.hint });
     const groups: Record<string, SelectableOption[]> = {
       'Vite integration': targetsOfKind('vite').map(asOption),
-      'Agent Skills & rules': targetsOfKind('agent').map(asOption),
+      'Agent rules': targetsOfKind('agent').map(asOption),
       'CI (GitHub Actions)': targetsOfKind('ci').map(asOption),
       'Config file': targetsOfKind('config').map(asOption)
     };
@@ -351,7 +342,7 @@ export async function runInstall(
     ids = picked;
   } else {
     io.errorLog(
-      'svelte-vitals: no TTY; pass --client <vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow> to install non-interactively.'
+      'svelte-vitals: no TTY; pass --client <vite-plugin,vite-hooks,cursor-rules,config-file,ci-workflow> to install non-interactively.'
     );
     return 2;
   }

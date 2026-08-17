@@ -18,7 +18,7 @@ svelte-vitals explain <rule-id>
 ship inside the CLI, and [`explain`](#explain) prints a single rule's rationale, fix, and
 configurable options — neither analyzes a project.
 
-> There is also an [`install` subcommand](/guides/install) for setting up [Agent Skills](/guides/agent-skills), the Vite integration, and the config file, and a `ci install` subcommand that scaffolds a GitHub Actions PR gate — see [CI integration](/guides/ci).
+> There is also an [`install` subcommand](/guides/install) for setting up the Vite integration, Cursor rules, and the config file ([Agent Skills](/guides/agent-skills) are installed separately with `npx skills add`), and a `ci install` subcommand that scaffolds a GitHub Actions PR gate — see [CI integration](/guides/ci).
 
 Flags below can also be set once in a `svelte-vitals.config` file at the project root instead of being repeated on every invocation — see [Config file](/guides/configuration). A flag always overrides the config file.
 

@@ -73,19 +73,16 @@ exports[`help goldens (ja) > install --help 1`] = `
 
 OPTIONS:
   -h, --help                 このヘルプを表示
-  --client <client>          カンマ区切り: vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow
+  --client <client>          カンマ区切り: vite-plugin,vite-hooks,cursor-rules,config-file,ci-workflow
 （対話式ピッカーをスキップする。ピッカーはこれらをカテゴリごとにグループ化する —
-Vite integration、Agent Skills & rules、CI、Config file）
+Vite integration、Agent rules、CI、Config file）
 vite-plugin はビルドモードのプラグインを vite.config.{ts,js,mjs} に登録する。vite-hooks は
 svelteVitalsHandle フックを src/hooks.server.{ts,js} に組み込み、閲覧に応じてライブダッシュボード
 のルート別精度を上げる。--force はこの2つには適用されない — 既存の登録は常にそのまま残る。
-claude-skill はエージェントスキルを書き出す（Claude Code、Codex、Cursor 向けに —
-.claude/skills/、.agents/skills/、.cursor/skills/ 配下の svelte-vitals/ に）。
 cursor-rules は Cursor rules ファイル（.cursor/rules/svelte-vitals.mdc）を書き出す。
-どちらも現在のルールセットから生成され、--force で再生成できる。
-claude-skill-improve は、毎回実行するプレイブックの代わりにプロジェクト全体を監査して
-実装計画を書き出す、読み取り専用の2つ目のエージェントスキルを書き出す（同じ3か所の
-improve-svelte/ 以下）。こちらも --force に対応する。
+現在のルールセットから生成され、--force で再生成できる。
+svelte-vitals と improve-svelte の Agent Skills はここではインストールしない —
+\`npx skills add oekazuma/svelte-vitals\` でインストールする。
 config-file は、すべてのオプションをコメントアウトした svelte-vitals.config.{mjs,ts} の雛形を
 生成する。現在の Node が対応していて、プロジェクトが TypeScript 志向に見え（tsconfig.json か
 vite.config.ts が存在する）、かつ svelte-vitals が依存関係として宣言されていれば（defineConfig の
@@ -99,14 +96,13 @@ ci-workflow は .github/workflows/svelte-vitals.yml を生成する。これは 
   --app <app>                モノレポ: vite-plugin/vite-hooks/config-file の書き込み先となる SvelteKit アプリのディレクトリ
 （例: --app apps/web）。省略した場合、カレントディレクトリ自体が SvelteKit アプリでなければ、
 検出したアプリが1件ならそれを自動的に使用し（通知あり）、複数件なら TTY では選択プロンプトを、
-非対話実行では終了コード 2 で --app を求める。他のターゲット（スキル、ci-workflow）は常に
+非対話実行では終了コード 2 で --app を求める。他のターゲット（cursor-rules、ci-workflow）は常に
 カレントディレクトリに書き込む — モノレポではリポジトリルートがそれらの正しい置き場所のため。
   -y, --yes                  確認プロンプトをスキップ
   --dry-run                  変更計画を表示し、何も書き込まずに終了
   --force                    既存の svelte-vitals エントリを上書き
-  --refresh                  ディスク上に既にあるエージェントスキル/ルールファイル（claude-skill / cursor-rules /
-claude-skill-improve）を現在のルールセットで再生成する。ディスク上に既にあるファイルだけを
-再生成し、新規に作成することはない。--client とは併用できない。",
+  --refresh                  ディスク上に既にある Cursor rules ファイル（cursor-rules）を現在のルールセットで再生成する。
+ディスク上に既にあるファイルだけを再生成し、新規に作成することはない。--client とは併用できない。",
 }
 `;
 

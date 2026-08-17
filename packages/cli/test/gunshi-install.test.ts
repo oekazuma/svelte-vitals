@@ -29,7 +29,7 @@ describe('gunshi/bone install — pinned behavior across the argv-shape matrix',
     { name: '-h', args: ['-h'] },
     { name: 'no args (non-TTY, no client)', args: [] },
     { name: '--client bogus (unknown target, fatal)', args: ['--client', 'bogus'] },
-    { name: '--refresh --client claude-skill (conflict, fatal)', args: ['--refresh', '--client', 'claude-skill'] },
+    { name: '--refresh --client cursor-rules (conflict, fatal)', args: ['--refresh', '--client', 'cursor-rules'] },
     // `--client` bare trailing: legacy parses it to boolean `true` (a declared string flag given
     // no value), resolveInstallArgs treats that identically to "not passed" (toList only accepts
     // a string) — non-fatal, falls through to the non-TTY "no client" guidance.

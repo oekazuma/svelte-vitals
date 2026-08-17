@@ -62,19 +62,16 @@ export const JA_ARG_DESCRIPTIONS = {
   },
   install: {
     client:
-      'カンマ区切り: vite-plugin,vite-hooks,claude-skill,cursor-rules,claude-skill-improve,config-file,ci-workflow\n' +
+      'カンマ区切り: vite-plugin,vite-hooks,cursor-rules,config-file,ci-workflow\n' +
       '（対話式ピッカーをスキップする。ピッカーはこれらをカテゴリごとにグループ化する —\n' +
-      'Vite integration、Agent Skills & rules、CI、Config file）\n' +
+      'Vite integration、Agent rules、CI、Config file）\n' +
       'vite-plugin はビルドモードのプラグインを vite.config.{ts,js,mjs} に登録する。vite-hooks は\n' +
       'svelteVitalsHandle フックを src/hooks.server.{ts,js} に組み込み、閲覧に応じてライブダッシュボード\n' +
       'のルート別精度を上げる。--force はこの2つには適用されない — 既存の登録は常にそのまま残る。\n' +
-      'claude-skill はエージェントスキルを書き出す（Claude Code、Codex、Cursor 向けに —\n' +
-      '.claude/skills/、.agents/skills/、.cursor/skills/ 配下の svelte-vitals/ に）。\n' +
       'cursor-rules は Cursor rules ファイル（.cursor/rules/svelte-vitals.mdc）を書き出す。\n' +
-      'どちらも現在のルールセットから生成され、--force で再生成できる。\n' +
-      'claude-skill-improve は、毎回実行するプレイブックの代わりにプロジェクト全体を監査して\n' +
-      '実装計画を書き出す、読み取り専用の2つ目のエージェントスキルを書き出す（同じ3か所の\n' +
-      'improve-svelte/ 以下）。こちらも --force に対応する。\n' +
+      '現在のルールセットから生成され、--force で再生成できる。\n' +
+      'svelte-vitals と improve-svelte の Agent Skills はここではインストールしない —\n' +
+      '`npx skills add oekazuma/svelte-vitals` でインストールする。\n' +
       'config-file は、すべてのオプションをコメントアウトした svelte-vitals.config.{mjs,ts} の雛形を\n' +
       '生成する。現在の Node が対応していて、プロジェクトが TypeScript 志向に見え（tsconfig.json か\n' +
       'vite.config.ts が存在する）、かつ svelte-vitals が依存関係として宣言されていれば（defineConfig の\n' +
@@ -89,15 +86,14 @@ export const JA_ARG_DESCRIPTIONS = {
       'モノレポ: vite-plugin/vite-hooks/config-file の書き込み先となる SvelteKit アプリのディレクトリ\n' +
       '（例: --app apps/web）。省略した場合、カレントディレクトリ自体が SvelteKit アプリでなければ、\n' +
       '検出したアプリが1件ならそれを自動的に使用し（通知あり）、複数件なら TTY では選択プロンプトを、\n' +
-      '非対話実行では終了コード 2 で --app を求める。他のターゲット（スキル、ci-workflow）は常に\n' +
+      '非対話実行では終了コード 2 で --app を求める。他のターゲット（cursor-rules、ci-workflow）は常に\n' +
       'カレントディレクトリに書き込む — モノレポではリポジトリルートがそれらの正しい置き場所のため。',
     yes: '確認プロンプトをスキップ',
     'dry-run': '変更計画を表示し、何も書き込まずに終了',
     force: '既存の svelte-vitals エントリを上書き',
     refresh:
-      'ディスク上に既にあるエージェントスキル/ルールファイル（claude-skill / cursor-rules /\n' +
-      'claude-skill-improve）を現在のルールセットで再生成する。ディスク上に既にあるファイルだけを\n' +
-      '再生成し、新規に作成することはない。--client とは併用できない。',
+      'ディスク上に既にある Cursor rules ファイル（cursor-rules）を現在のルールセットで再生成する。\n' +
+      'ディスク上に既にあるファイルだけを再生成し、新規に作成することはない。--client とは併用できない。',
     help: 'このヘルプを表示'
   },
   ci: {

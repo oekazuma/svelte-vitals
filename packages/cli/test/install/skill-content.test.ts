@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { allRules } from '@svelte-vitals/core/internal';
-import { buildSkillMarkdown, buildCursorRules, oneLine } from '../../src/install/skill-content.js';
+import { buildSkillMarkdown, buildCursorRules, installHeader, oneLine } from '../../src/install/skill-content.js';
 
 const CATEGORY_HEADINGS = [
   '### SEO',
@@ -12,13 +12,13 @@ const CATEGORY_HEADINGS = [
 ];
 
 describe('buildSkillMarkdown', () => {
-  const md = buildSkillMarkdown('1.2.3');
+  const md = buildSkillMarkdown(installHeader('1.2.3'));
 
   it('has Claude Code skill frontmatter (name/description)', () => {
     expect(md).toMatch(/^---\nname: svelte-vitals\ndescription: .+\n---\n/);
   });
 
-  it('embeds the given version in the generated-by header', () => {
+  it('embeds the given header', () => {
     expect(md).toContain('svelte-vitals 1.2.3');
   });
 
@@ -79,13 +79,13 @@ describe('buildSkillMarkdown', () => {
 });
 
 describe('buildCursorRules', () => {
-  const mdc = buildCursorRules('1.2.3');
+  const mdc = buildCursorRules(installHeader('1.2.3'));
 
   it('has Cursor rules frontmatter (description/globs/alwaysApply)', () => {
     expect(mdc).toMatch(/^---\ndescription: .+\nglobs: \[.+\]\nalwaysApply: false\n---\n/);
   });
 
-  it('embeds the given version in the generated-by header', () => {
+  it('embeds the given header', () => {
     expect(mdc).toContain('svelte-vitals 1.2.3');
   });
 

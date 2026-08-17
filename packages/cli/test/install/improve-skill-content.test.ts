@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { buildImproveSkillMarkdown } from '../../src/install/improve-skill-content.js';
+import { installHeader } from '../../src/install/skill-content.js';
 
 const CATEGORY_HEADINGS = [
   '### SEO',
@@ -11,13 +12,13 @@ const CATEGORY_HEADINGS = [
 ];
 
 describe('buildImproveSkillMarkdown', () => {
-  const md = buildImproveSkillMarkdown('1.2.3');
+  const md = buildImproveSkillMarkdown(installHeader('1.2.3'));
 
   it('has Claude Code skill frontmatter (name/description)', () => {
     expect(md).toMatch(/^---\nname: improve-svelte\ndescription: .+\n---\n/);
   });
 
-  it('embeds the given version in the generated-by header', () => {
+  it('embeds the given header', () => {
     expect(md).toContain('svelte-vitals 1.2.3');
   });
 
