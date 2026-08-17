@@ -9,15 +9,14 @@ description: Where svelte-vitals.config lives, every top-level option, how to di
 
 In the **analyzed directory only** — no upward search. First match wins:
 
-1. `svelte-vitals.config.mjs`
-2. `svelte-vitals.config.js`
-3. `svelte-vitals.config.ts`
+1. `svelte-vitals.config.js`
+2. `svelte-vitals.config.ts`
 
 No file means built-in defaults. `svelte-vitals install --client config-file` scaffolds one with
 every option commented out.
 
 ```js
-// svelte-vitals.config.mjs
+// svelte-vitals.config.js
 export default {
   treatDynamicAs: 'warn',
   metaComponents: ['Seo'],
@@ -28,8 +27,9 @@ export default {
 ```
 
 A `.ts` config can `import { defineConfig } from 'svelte-vitals'` for type-checking, but that is a
-**runtime** import: it needs svelte-vitals as a declared dependency and Node 22.18+ (or 23.6+).
-A plain `export default {}` in `.mjs` behaves identically and always works.
+**runtime** import: it needs svelte-vitals as a declared dependency. A plain `export default {}`
+in `.js` behaves identically and needs no dependency. Both are ESM — the project must be
+`"type": "module"` (SvelteKit's default).
 
 ## Options
 

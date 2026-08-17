@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, it, expect } from 'vitest';
-import { renderActionPin } from '../scripts/resolve-action-pin.mjs';
+import { renderActionPin } from '../scripts/resolve-action-pin.js';
 import { ACTION_SHA, ACTION_VERSION } from '../src/ci/action-pin.generated.js';
 
 const testDir = dirname(fileURLToPath(import.meta.url));

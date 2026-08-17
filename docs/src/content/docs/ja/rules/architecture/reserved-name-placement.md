@@ -146,7 +146,7 @@ export default {
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/reserved-name-placement -->` を置きます。ルールごと無効化するには:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/reserved-name-placement': 'off'

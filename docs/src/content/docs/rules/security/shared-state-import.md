@@ -40,7 +40,7 @@ If the module is genuinely client-only, restructure so server files don't import
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/shared-state-import -->` on the line above it, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'security/shared-state-import': 'off'

@@ -93,7 +93,7 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
   it("config rules: 'off', a severity override, and a route-scoped override all apply", () => {
     const dir = scratchCopy();
     scratch.push(dir);
-    const cfgPath = join(dir, 'svelte-vitals.config.mjs');
+    const cfgPath = join(dir, 'svelte-vitals.config.ts');
     let cfg = readFileSync(cfgPath, 'utf8');
     cfg = cfg.replace('rules: {', "rules: {\n    'a11y/invalid-role': 'off',\n    'seo/title-presence': 'warning',");
     cfg = cfg.replace(

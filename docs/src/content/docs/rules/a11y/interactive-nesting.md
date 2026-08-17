@@ -48,7 +48,7 @@ Restructure the markup so each interactive control is a sibling, not a descendan
 
 If the nesting is intentional and handled some other way (e.g. `pointer-events` and a synthetic focus trap), silence a single element with `<!-- svelte-vitals-disable-next-line a11y/interactive-nesting -->`, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'a11y/interactive-nesting': 'off'

@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
-      - 'scripts/ecosystem-smoke.mjs'
+      - 'scripts/ecosystem-smoke.js'
       - '.github/workflows/ecosystem.yml'
 
 concurrency:
@@ -39,4 +39,4 @@ jobs:
       - name: Build packages
         run: pnpm build
       - name: Run the ecosystem smoke
-        run: node scripts/ecosystem-smoke.mjs
+        run: node scripts/ecosystem-smoke.js

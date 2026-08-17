@@ -167,11 +167,11 @@ describe('analyze — svelte-vitals.config.*', () => {
       join(pages, 'index.html'),
       `<html lang="en"><head><meta name="description" content="d"/></head><body></body></html>`
     );
-    await writeFile(join(cwd, 'svelte-vitals.config.mjs'), configContent);
+    await writeFile(join(cwd, 'svelte-vitals.config.js'), configContent);
     return { cwd, pages };
   }
 
-  it('honors rules/weights/failOn from svelte-vitals.config.mjs when no plugin option overrides them', async () => {
+  it('honors rules/weights/failOn from svelte-vitals.config.js when no plugin option overrides them', async () => {
     const { cwd, pages } = await makeProject(
       `export default {
         rules: { 'seo/title-presence': 'off' },

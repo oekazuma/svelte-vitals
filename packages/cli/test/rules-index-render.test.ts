@@ -12,7 +12,7 @@ import {
   renderCategoryPage,
   renderTable,
   replaceBlock
-} from '../scripts/rules-index.mjs';
+} from '../scripts/rules-index.js';
 
 const RULES = [
   { id: 'seo/title-presence', category: 'seo', severity: 'critical' },
@@ -35,7 +35,9 @@ describe('parseFrontmatter', () => {
 
   it('unwraps a single-quoted description and unescapes doubled quotes', () => {
     const text = "---\ntitle: T\ndescription: 'Sanitize it — {@html} renders unescaped HTML. It''s unsafe.'\n---\n";
-    expect(parseFrontmatter(text).description).toBe("Sanitize it — {@html} renders unescaped HTML. It's unsafe.");
+    expect((parseFrontmatter(text) as { description: string }).description).toBe(
+      "Sanitize it — {@html} renders unescaped HTML. It's unsafe."
+    );
   });
 
   it('throws when the file has no frontmatter', () => {

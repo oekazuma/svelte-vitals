@@ -6,7 +6,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ROOT_ARGS, INSTALL_ARGS, JA_ARG_DESCRIPTIONS } from '../dist/gunshi-registry.js';
-import { renderTable, replaceBlock } from './cli-reference.mjs';
+import { renderTable, replaceBlock } from './cli-reference.js';
 
 const scriptsDir = dirname(fileURLToPath(import.meta.url));
 const repoRoot = join(scriptsDir, '..', '..', '..');

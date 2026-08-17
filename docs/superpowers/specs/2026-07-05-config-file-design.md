@@ -1,5 +1,14 @@
 # Config-file support: `svelte-vitals.config.{ts,js,mjs}` (roadmap item C)
 
+> **Amendment (2026-08-17):** the loader now searches `svelte-vitals.config.{js,ts}`
+> only — `.mjs` was retired together with the Node floor bump to 24.16.0 (see the
+> amendment in `2026-07-31-floor-smoke-design.md`). A leftover `.mjs` fails loudly
+> with a rename hint instead of being silently ignored, and the guided `.ts`-on-old-Node
+> error below no longer exists (every supported Node strips types natively); in its
+> place, a `.js` config in a CommonJS project gets a guided "config files are ESM"
+> error. The `.mjs`-first search order and the "floor is final — engines >=22.13.0"
+> constraint recorded below are superseded.
+
 **Date:** 2026-07-05
 **Status:** Shipped (plan A — CLI/MCP) (2026-07-07) — loader hardened, wired into `analyzeProject` (CLI `run()` + MCP `analyze` tool), `--weights` CLI flag and MCP `weights` argument added. vite wiring + docs-site updates remain (plan B).
 **Packages:** `svelte-vitals` (loader + CLI wiring), `@svelte-vitals/mcp` (inherits via `analyzeProject`), `@svelte-vitals/vite` (wiring approach is an open question, see below), `@svelte-vitals/core` (no code change; `defineConfig` re-export only)

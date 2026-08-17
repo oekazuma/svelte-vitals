@@ -36,7 +36,7 @@ Validation covers a pragmatic subset of BCP-47 — language, optional script, op
 
 Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'seo/hreflang': 'off'

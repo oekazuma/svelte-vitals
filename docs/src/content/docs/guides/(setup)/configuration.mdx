@@ -13,15 +13,14 @@ Run `svelte-vitals install --client config-file` to scaffold one with every opti
 
 svelte-vitals looks for one of these, in this order, **in the analyzed directory only** (no upward search into parent directories — the analyzed directory is the SvelteKit project root, the same place `vite.config.*` lives):
 
-1. `svelte-vitals.config.mjs`
-2. `svelte-vitals.config.js`
-3. `svelte-vitals.config.ts`
+1. `svelte-vitals.config.js`
+2. `svelte-vitals.config.ts`
 
 The first match wins. If none exist, svelte-vitals runs with its built-in defaults, same as before this feature existed.
 
-`install --client config-file` picks `.ts` only when all three hold: the current Node loads it natively, the project looks TypeScript-oriented (`tsconfig.json` or `vite.config.ts` at the root), **and** `svelte-vitals` is a declared dependency — the `defineConfig` import resolves at load time, so an npx-only project must not get it.
+`install --client config-file` picks `.ts` when both hold: the project looks TypeScript-oriented (`tsconfig.json` or `vite.config.ts` at the root) **and** `svelte-vitals` is a declared dependency — the `defineConfig` import resolves at load time, so an npx-only project must not get it.
 
-Otherwise it writes `.mjs`, which works on every supported Node with no flag and no dependency. `--force` keeps an existing file's extension rather than switching format underneath you.
+Otherwise it writes `.js`. Both files are ESM — the project must be `"type": "module"`, which is SvelteKit's default; CommonJS projects are not supported. `--force` keeps an existing file's extension rather than switching format underneath you.
 
 ## Example
 
@@ -47,7 +46,7 @@ Otherwise it writes `.mjs`, which works on every supported Node with no flag and
   </Tab>
   <Tab title="JavaScript">
     ```js
-    // svelte-vitals.config.mjs
+    // svelte-vitals.config.js
     export default {
       treatDynamicAs: 'warn',
       metaComponents: ['Seo'],
@@ -89,7 +88,7 @@ A weight of `0` is valid — it excludes that category from the Health average e
 case being routes that are intentionally not public (behind auth) and shouldn't be held to SEO
 metadata rules:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   overrides: [
     // Everything in the (app) route group: no SEO checks at all.
@@ -137,7 +136,7 @@ Semantics worth knowing:
 
 Beyond the bare severity string, a rule setting can be an object, `{ severity?, options? }`:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/prop-count': { options: { max: 10 } },
@@ -235,16 +234,12 @@ One exception: `--rules` and `--ignore` are selection, not configuration — eac
 
 ## Validation
 
-- **Invalid and svelte-vitals stops (exit `2`)**: the file can't be loaded (syntax error, no default export, or a `.ts` file on a Node version that can't load it — see below); an unknown rule id inside `rules`; an unknown category or a negative/non-numeric value inside `weights`; a malformed `overrides` entry (not `{ route/files, rules }`-shaped, a scope that isn't a string / non-empty string array, or a key in its `rules` that is neither a known rule id nor a category); an invalid rule setting, in either `rules` or an `overrides` entry's `rules` — a bare string other than `off`/`critical`/`warning`/`info`, an object form with an unrecognized key or an invalid `severity`, options on a rule that takes none, an unknown option name, an option value of the wrong type or out of range, options on a category key, or (for a rule with both a `min` and a `max` option) a configured range where `min` would exceed `max`.
+- **Invalid and svelte-vitals stops (exit `2`)**: the file can't be loaded (syntax error or no default export); an unknown rule id inside `rules`; an unknown category or a negative/non-numeric value inside `weights`; a malformed `overrides` entry (not `{ route/files, rules }`-shaped, a scope that isn't a string / non-empty string array, or a key in its `rules` that is neither a known rule id nor a category); an invalid rule setting, in either `rules` or an `overrides` entry's `rules` — a bare string other than `off`/`critical`/`warning`/`info`, an object form with an unrecognized key or an invalid `severity`, options on a rule that takes none, an unknown option name, an option value of the wrong type or out of range, options on a category key, or (for a rule with both a `min` and a `max` option) a configured range where `min` would exceed `max`.
 - **Invalid but ignored, with a warning (analysis still runs)**: an unrecognized `treatDynamicAs` or `failOn` value (falls back to flag/default); an unrecognized top-level key (forward-compatible with future config fields).
 
 ## TypeScript configs
 
-`svelte-vitals.config.ts` works out of the box on **Node 22.18+ or 23.6+** (that's when Node's native TypeScript type-stripping became unflagged). svelte-vitals' floor is Node 22.13, so on **22.13–22.17** loading a `.ts` config fails with a descriptive error; pick one of:
-
-- Upgrade to Node 22.18+ (still the same 22 LTS line).
-- Re-run with `node --experimental-strip-types`.
-- Rename the file to `.mjs` or `.js` — plain JavaScript works on every supported Node version, with no flag.
+`svelte-vitals.config.ts` works out of the box on every supported Node (the floor, 24.16+, strips TypeScript types natively with no flag).
 
 ## Using the config file with the Vite plugin
 

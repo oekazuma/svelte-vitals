@@ -143,7 +143,7 @@ declaration from the tree.
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/reserved-name-placement -->` on the line above it, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/reserved-name-placement': 'off'

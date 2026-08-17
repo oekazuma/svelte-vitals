@@ -32,7 +32,7 @@ A `$state` that is never mutated pays for reactivity — deep proxying and depen
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line correctness/unmutated-state -->` on the line above it, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'correctness/unmutated-state': 'off'

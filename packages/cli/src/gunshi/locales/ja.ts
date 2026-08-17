@@ -72,11 +72,11 @@ export const JA_ARG_DESCRIPTIONS = {
       '現在のルールセットから生成され、--force で再生成できる。\n' +
       'svelte-vitals と improve-svelte の Agent Skills はここではインストールしない —\n' +
       '`npx skills add oekazuma/svelte-vitals` でインストールする。\n' +
-      'config-file は、すべてのオプションをコメントアウトした svelte-vitals.config.{mjs,ts} の雛形を\n' +
-      '生成する。現在の Node が対応していて、プロジェクトが TypeScript 志向に見え（tsconfig.json か\n' +
-      'vite.config.ts が存在する）、かつ svelte-vitals が依存関係として宣言されていれば（defineConfig の\n' +
-      'import が読み込み時に解決できるか）自動的に .ts（defineConfig 付き）を選び、それ以外は安全な\n' +
-      '.mjs をデフォルトにする。既に存在するファイルを --force で再生成できる（拡張子は --force でも\n' +
+      'config-file は、すべてのオプションをコメントアウトした svelte-vitals.config.{js,ts} の雛形を\n' +
+      '生成する。プロジェクトが TypeScript 志向に見え（tsconfig.json か vite.config.ts が存在する）、\n' +
+      'かつ svelte-vitals が依存関係として宣言されていれば（defineConfig の import が読み込み時に\n' +
+      '解決できるか）自動的に .ts（defineConfig 付き）を選び、それ以外は .js（ESM）をデフォルトにする。\n' +
+      '既に存在するファイルを --force で再生成できる（拡張子は --force でも\n' +
       '変わらない）。\n' +
       'ci-workflow は .github/workflows/svelte-vitals.yml を生成する。これは `svelte-vitals ci install`\n' +
       'が単体で書き出すのと同じファイルで、他のすべてと同じ実行でセットアップしたい場合に選ぶ。\n' +
@@ -118,7 +118,7 @@ export function rootHelpJa(optionsSection: string): string {
 ${optionsSection}
 
 設定ファイル:
-  解析対象ディレクトリの svelte-vitals.config.{mjs,js,ts}。フラグは常に設定ファイルより優先されます。
+  解析対象ディレクトリの svelte-vitals.config.{js,ts}。フラグは常に設定ファイルより優先されます。
 
 終了コード:
   0  失敗する検出結果なし

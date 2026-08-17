@@ -38,11 +38,11 @@ export const INSTALL_ARGS = {
       'generated from the current rule set; supports --force to regenerate.\n' +
       'The svelte-vitals and improve-svelte Agent Skills are not installed here —\n' +
       'install them with `npx skills add oekazuma/svelte-vitals`.\n' +
-      'config-file scaffolds svelte-vitals.config.{mjs,ts} with every option commented\n' +
-      'out, auto-picking .ts (with defineConfig) when the current Node supports it, the\n' +
-      'project looks TypeScript-oriented (tsconfig.json or vite.config.ts present), and\n' +
+      'config-file scaffolds svelte-vitals.config.{js,ts} with every option commented\n' +
+      'out, auto-picking .ts (with defineConfig) when the project looks\n' +
+      'TypeScript-oriented (tsconfig.json or vite.config.ts present) and\n' +
       "svelte-vitals is a declared dependency (defineConfig's import resolves at load\n" +
-      'time); else the safe .mjs default. Supports --force to regenerate the file\n' +
+      'time); else the .js (ESM) default. Supports --force to regenerate the file\n' +
       "that's already there (its extension never changes on --force).\n" +
       'ci-workflow scaffolds .github/workflows/svelte-vitals.yml, the same file\n' +
       '`svelte-vitals ci install` writes standalone — pick it here to set it up in\n' +

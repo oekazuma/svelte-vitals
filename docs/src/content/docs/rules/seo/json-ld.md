@@ -33,7 +33,7 @@ Add a JSON-LD `<script>` inside `<svelte:head>` with literal JSON (Svelte emits 
 
 Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'seo/json-ld': 'off'

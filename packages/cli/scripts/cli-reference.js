@@ -1,7 +1,7 @@
 // Renders the generated "Flag reference" tables embedded in the docs site's CLI guides.
-// Pure: no fs, no dist import — gen-cli-reference.mjs supplies the arg schemas and does the I/O.
+// Pure: no fs, no dist import — gen-cli-reference.js supplies the arg schemas and does the I/O.
 import { kebabnize } from 'gunshi/utils';
-import { normalizeBlock } from './rules-index.mjs';
+import { normalizeBlock } from './rules-index.js';
 
 export { normalizeBlock };
 

@@ -41,7 +41,7 @@ id とその参照先は別々のファイルにあることが珍しくあり�
 
 ルートスコープの検出は、インラインの `svelte-vitals-disable-next-line` コメントでは抑制できません — この検出は 1 行ではなく合成されたルートに属するためです。既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'a11y/no-missing-id-ref': 'off'

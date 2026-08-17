@@ -28,7 +28,7 @@ description: プロジェクトに sitemap.xml を用意しましょう。
 
 意図したとおりであれば、ルールを無効化してください:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'seo/sitemap-xml': 'off'

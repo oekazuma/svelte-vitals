@@ -9,7 +9,7 @@ This package is **mode-independent** and contains no I/O — it operates on a no
 
 > Most users don't depend on this directly — install [`svelte-vitals`](https://www.npmjs.com/package/svelte-vitals) instead. This package is for building tools on top of the shared engine.
 
-> **ESM-only** (Node 22.13+). Ships ES modules only; `require()` is unsupported by design.
+> **ESM-only** (Node 24.16+). Ships ES modules only; `require()` is unsupported by design.
 
 ## Entry points
 

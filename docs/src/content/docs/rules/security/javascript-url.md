@@ -26,7 +26,7 @@ Use an event handler or a real URL:
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/javascript-url -->` on the line above it, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'security/javascript-url': 'off'

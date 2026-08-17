@@ -22,7 +22,6 @@ export function realIO(): InstallIO {
     // clack reads from stdin and renders to stdout, so both must be interactive —
     // a piped/redirected stdin would leave the prompt hanging for input that never comes.
     isTTY: Boolean(process.stdin.isTTY) && Boolean(process.stdout.isTTY),
-    nodeVersion: process.version,
     log: (line) => console.log(line),
     errorLog: (line) => console.error(line),
     runCommand: (command, args, cwd) => {

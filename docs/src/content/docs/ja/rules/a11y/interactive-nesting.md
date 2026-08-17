@@ -48,7 +48,7 @@ description: インタラクティブな要素を、別のインタラクティ�
 
 ネストが意図的で、別の方法（`pointer-events` と合成フォーカストラップなど）で対処済みの場合は、`<!-- svelte-vitals-disable-next-line a11y/interactive-nesting -->` で個別の要素を抑制するか、ルールを無効化してください:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'a11y/interactive-nesting': 'off'

@@ -176,7 +176,7 @@ describe('run() --baseline against a real git worktree (plan 046)', () => {
     writeFileSync(join(repo, 'src/routes/+page.svelte'), NO_TITLE_PAGE); // finding F, route '/'
     // Committed config imports a runtime dependency, the way the install wizard's
     // .ts scaffold's `import { defineConfig } from 'svelte-vitals'` does.
-    writeFileSync(join(repo, 'svelte-vitals.config.mjs'), "import 'fake-pkg';\nexport default {};\n");
+    writeFileSync(join(repo, 'svelte-vitals.config.js'), "import 'fake-pkg';\nexport default {};\n");
     git(['add', '.'], repo);
     git(['commit', '-m', 'A'], repo);
 
@@ -227,14 +227,14 @@ describe('run() --baseline against a real git worktree (plan 046)', () => {
     // At the baseline ref, the rule is off — no finding, from either side, if the ref's
     // config were consulted for its own analysis.
     writeFileSync(
-      join(repo, 'svelte-vitals.config.mjs'),
+      join(repo, 'svelte-vitals.config.js'),
       "export default { rules: { 'seo/title-presence': 'off' } };\n"
     );
     git(['add', '.'], repo);
     git(['commit', '-m', 'A'], repo);
 
     // Uncommitted: the rule is re-enabled, no code change to the route itself.
-    writeFileSync(join(repo, 'svelte-vitals.config.mjs'), 'export default {};\n');
+    writeFileSync(join(repo, 'svelte-vitals.config.js'), 'export default {};\n');
 
     const cap = capture();
     const code = await run({

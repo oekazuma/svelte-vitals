@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { allRules } from '@svelte-vitals/core/internal';
-import { parseTopic, readTopics } from '../scripts/docs-embed.mjs';
+import { parseTopic, readTopics } from '../scripts/docs-embed.js';
 import { EMBEDDED_DOCS } from '../src/docs/generated.js';
 
 const REGENERATE = 'run `pnpm --filter svelte-vitals run gen:docs && pnpm format`';

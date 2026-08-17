@@ -2,12 +2,7 @@ import { join } from 'node:path';
 import { isKind, targetById, targetsOfKind, type AgentTargetId, type InstallTarget, type TargetId } from './targets.js';
 import { buildCursorRules, installHeader } from './skill-content.js';
 import { buildConfigFileTemplate } from './config-content.js';
-import {
-  findExistingConfigFile,
-  detectBestConfigExtension,
-  hasSvelteVitalsDependency,
-  isEsmProject
-} from './config-file-format.js';
+import { findExistingConfigFile, detectBestConfigExtension, hasSvelteVitalsDependency } from './config-file-format.js';
 import { codemodViteConfig } from './codemod-vite-config.js';
 import { codemodHooksServer } from './codemod-hooks.js';
 import {
@@ -36,9 +31,6 @@ export interface InstallIO {
   errorLog(line: string): void;
   /** Run a command (used only to auto-install @svelte-vitals/vite). Returns the exit code. */
   runCommand?(command: string, args: string[], cwd: string): number;
-  /** `process.version` — used only to decide whether a fresh config-file scaffold can pick
-   * `.ts` (native TypeScript stripping support). Falls back to `process.version` if omitted. */
-  nodeVersion?: string;
   /** Monorepo SvelteKit-app discovery (the analyzer's own `discoverApps`). Injectable for
    * tests, which use a virtual filesystem the real (fs-backed) implementation can't see. */
   discoverApps?(cwd: string): Promise<string[]>;
@@ -152,14 +144,13 @@ function planForAgentTarget(id: AgentTargetId, io: InstallIO, force: boolean, ve
 }
 
 /**
- * Plan the config-file scaffolder (`svelte-vitals.config.{mjs,js,ts}`). Like the agent
+ * Plan the config-file scaffolder (`svelte-vitals.config.{js,ts}`). Like the agent
  * targets, content here is a fixed, fully-regenerated template rather than codemodded, so
  * --force is allowed to overwrite an existing file.
  *
  * Extension handling: if a config file already exists (any of the candidates in
  * `loadConfigFile`'s search order), --force regenerates *that* file, preserving its
- * existing extension/format rather than switching it underneath the user — including
- * module syntax: a `.js` in a CommonJS project gets `module.exports`, and the
+ * existing extension rather than switching it underneath the user — the
  * `defineConfig` variant is only emitted when svelte-vitals is actually a declared
  * dependency (its import must resolve at load time — npx-only projects would break).
  * Only a fresh scaffold (nothing exists yet) auto-picks the best extension for this
@@ -168,22 +159,30 @@ function planForAgentTarget(id: AgentTargetId, io: InstallIO, force: boolean, ve
 function planForConfigTarget(io: InstallIO, force: boolean, appDir: string): PlanRow {
   const target = targetById('config-file')!;
   const existingRel = findExistingConfigFile(io.readFile, appDir);
+  // A leftover svelte-vitals.config.mjs is no longer loaded; scaffolding a fresh .js
+  // beside it would bury the user's real settings under a blank template. Point at the
+  // rename instead of writing anything.
+  if (existingRel === undefined && io.readFile(join(appDir, 'svelte-vitals.config.mjs')) !== undefined) {
+    return {
+      id: target.id,
+      label: target.label,
+      path: join(appDir, 'svelte-vitals.config.mjs'),
+      status: 'manual',
+      snippet:
+        'svelte-vitals.config.mjs is no longer read — rename it to svelte-vitals.config.js (the project must be "type": "module") or .ts, then re-run.'
+    };
+  }
   if (existingRel !== undefined) {
     const path = join(appDir, existingRel);
     const status: WriteStatus = force ? 'updated' : 'exists';
     const content = force
       ? buildConfigFileTemplate({
-          useDefineConfig: existingRel.endsWith('.ts') && hasSvelteVitalsDependency(io.readFile, appDir),
-          useCommonJs: existingRel.endsWith('.js') && !isEsmProject(io.readFile, appDir)
+          useDefineConfig: existingRel.endsWith('.ts') && hasSvelteVitalsDependency(io.readFile, appDir)
         })
       : undefined;
     return { id: target.id, label: target.label, path, status, content };
   }
-  const ext = detectBestConfigExtension({
-    readFile: io.readFile,
-    cwd: appDir,
-    nodeVersion: io.nodeVersion ?? process.version
-  });
+  const ext = detectBestConfigExtension({ readFile: io.readFile, cwd: appDir });
   const path = join(appDir, `svelte-vitals.config.${ext}`);
   const content = buildConfigFileTemplate({ useDefineConfig: ext === 'ts' });
   return { id: target.id, label: target.label, path, status: 'created', content };
@@ -504,14 +503,6 @@ export async function runInstall(
       io.writeFile(r.path, r.content ?? '');
       io.log(`✓ ${r.label}: ${r.status} ${r.path}`);
       if (isKind(r.id, 'vite')) viteWasWritten = true;
-      // The .ts pick was validated against *this* machine's Node only — the committed
-      // config also has to load wherever svelte-vitals runs next (CI, teammates), and
-      // Node 22.13–22.17 can't load .ts without a flag.
-      if (isKind(r.id, 'config') && r.path.endsWith('.ts')) {
-        io.log(
-          'svelte-vitals: note — a .ts config needs Node 22.18+ (or 23.6+) everywhere svelte-vitals runs, CI included; rename to .mjs if that is not guaranteed.'
-        );
-      }
     } catch (err) {
       hadFailure = true;
       io.errorLog(`svelte-vitals: failed to write ${r.path}: ${err instanceof Error ? err.message : String(err)}`);

@@ -17,7 +17,7 @@ describe('isAgentEnv', () => {
     expect(isAgentEnv({ CI: 'true' })).toBe(false);
     expect(isAgentEnv({ SVELTE_VITALS_AGENT: '' })).toBe(false);
   });
-  it('does not recognize harness-specific vars (e.g. CLAUDECODE) in an injected env — that detection is delegated to gunshi/agent, which only reads the real process.env; see scripts/cli-e2e.mjs for the end-to-end coverage', () => {
+  it('does not recognize harness-specific vars (e.g. CLAUDECODE) in an injected env — that detection is delegated to gunshi/agent, which only reads the real process.env; see scripts/cli-e2e.js for the end-to-end coverage', () => {
     expect(isAgentEnv({ CLAUDECODE: '1' })).toBe(false);
   });
 });

@@ -26,7 +26,7 @@ Without a declared character encoding the browser must guess, which can render t
 
 Record existing findings in the suppressions file (`npx svelte-vitals --update-suppressions`), scope the rule per route or path with `overrides`, or turn it off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'seo/charset': 'off'

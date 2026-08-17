@@ -65,7 +65,7 @@ redirect(303, resolve('/login')); // load 関数や form action で
 
 ## 無効化
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'correctness/base-path-navigation': 'off'

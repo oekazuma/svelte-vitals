@@ -1,8 +1,12 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "noEmit": true,
-    "types": ["node"]
+    "types": ["node"],
+    // allowJs lets the drift tests import ../scripts/*.js with inferred types.
+    "allowJs": true
   },
-  "include": ["src", "test"]
+  "include": ["src", "test"],
+  // Fixtures are runtime-loaded data for the tests, not code to compile — without this,
+  // allowJs would sweep every fixture .js into the program.
+  "exclude": ["test/fixtures"]
 }

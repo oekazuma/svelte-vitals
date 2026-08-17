@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { extractSchemaOrgTypes, resolveSchemaDts } from '../scripts/schema-vocab.mjs';
+import { extractSchemaOrgTypes, resolveSchemaDts } from '../scripts/schema-vocab.js';
 import { SCHEMA_ORG_TYPES } from '../src/rules/seo/schema-vocabulary.generated.js';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';

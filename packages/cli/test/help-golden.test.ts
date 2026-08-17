@@ -63,5 +63,5 @@ describe('help goldens', () => {
 // and its behavior forks on `process.stdin/stdout.isTTY`, neither of which this seam lets a caller
 // override. That branch is TTY-dependent, not CLI-dependent, so it isn't a fair characterization
 // target. The same "not a SvelteKit project" surface is pinned deterministically by
-// cli-contract.test.ts's `./docs`-style-path and by scripts/cli-e2e.mjs's non-project-dir check,
+// cli-contract.test.ts's `./docs`-style-path and by scripts/cli-e2e.js's non-project-dir check,
 // both of which control cwd explicitly instead of relying on discovery.

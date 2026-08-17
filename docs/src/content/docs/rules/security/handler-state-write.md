@@ -54,7 +54,7 @@ Per-user data belongs in cookies/`locals` plus a database; share loaded data wit
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/handler-state-write -->` on the line above it, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'security/handler-state-write': 'off'

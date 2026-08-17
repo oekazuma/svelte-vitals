@@ -25,7 +25,7 @@ description: app.html の <html> に lang 属性を設定しましょう。
 
 意図したとおりであれば、ルールを無効化してください:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'seo/html-lang': 'off'

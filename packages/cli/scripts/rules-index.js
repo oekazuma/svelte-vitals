@@ -1,5 +1,5 @@
 // Renders the generated blocks of the docs site's rule index pages.
-// Pure: no core import, no writes — `gen-rules-index.mjs` injects the rules and does the I/O.
+// Pure: no core import, no writes — `gen-rules-index.js` injects the rules and does the I/O.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 

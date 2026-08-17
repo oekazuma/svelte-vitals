@@ -63,7 +63,7 @@ export default {
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/route-component-import -->` on the line above it, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'architecture/route-component-import': 'off'

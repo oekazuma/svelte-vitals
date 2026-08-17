@@ -31,7 +31,7 @@ CLI のみです。Vite プラグインはプリレンダリングされた HTML
 
 既存の検出を suppressions ファイルに記録する（`npx svelte-vitals --update-suppressions`）か、ルールを無効化してください:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'a11y/doctype': 'off'

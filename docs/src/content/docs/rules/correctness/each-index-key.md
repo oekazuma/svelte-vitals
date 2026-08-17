@@ -36,7 +36,7 @@ Key by a value that uniquely identifies the item:
 
 If a list provably never reorders and never has mid-list insertions or removals, you can silence a single block with `<!-- svelte-vitals-disable-next-line correctness/each-index-key -->`, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'correctness/each-index-key': 'off'

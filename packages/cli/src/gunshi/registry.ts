@@ -1,5 +1,5 @@
 /**
- * Barrel so `scripts/gen-cli-reference.mjs` can import real arg schemas instead of re-declaring
+ * Barrel so `scripts/gen-cli-reference.js` can import real arg schemas instead of re-declaring
  * them. Built as its own tsup entry (see tsup.config.ts) rather than imported as TypeScript
  * source: the generator runs under plain `node`, which strips types for a single file but does
  * not resolve the `.js`-specifier-pointing-at-a-sibling-`.ts`-file convention every gunshi/*.ts

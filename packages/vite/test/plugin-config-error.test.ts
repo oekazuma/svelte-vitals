@@ -16,7 +16,7 @@ async function makeInvalidConfigProject() {
   const pages = join(cwd, '.svelte-kit/output/prerendered/pages');
   await mkdir(pages, { recursive: true });
   await writeFile(join(pages, 'index.html'), `<html lang="en"><head><title>Home</title></head><body></body></html>`);
-  await writeFile(join(cwd, 'svelte-vitals.config.mjs'), `export default { rules: { 'nope/nope': 'off' } };\n`);
+  await writeFile(join(cwd, 'svelte-vitals.config.js'), `export default { rules: { 'nope/nope': 'off' } };\n`);
   return cwd;
 }
 
@@ -39,7 +39,7 @@ describe('svelteVitals build — invalid config file', () => {
 
   it('rejects closeBundle instead of skipping the gate with a warning', async () => {
     const p = svelteVitals({ cwd, ui: false }) as Plugin;
-    await expect(closeBundleOf(p)()).rejects.toThrow(/svelte-vitals\.config\.mjs.*unknown rule id/);
+    await expect(closeBundleOf(p)()).rejects.toThrow(/svelte-vitals\.config\.js.*unknown rule id/);
     // Distinct from the "analysis failed" warn-and-skip path (plugin-error.test.ts) —
     // a config error must propagate, not be swallowed as a tool-side analysis failure.
     expect(warnSpy.mock.calls.some((args: unknown[]) => String(args[0]).includes('skipped — analysis failed'))).toBe(

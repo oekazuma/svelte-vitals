@@ -44,7 +44,7 @@ Only native `<input>` elements with a statically-literal `type` are covered. A d
 
 ## Disabling
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'correctness/checkable-bind-value': 'off'

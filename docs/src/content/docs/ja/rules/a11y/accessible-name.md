@@ -46,7 +46,7 @@ description: ボタン・リンク・画像ボタンには、アクセシブル�
 
 このルールからは見えない別の方法（ラップしている label 要素など）で名前を与えている場合は、`<!-- svelte-vitals-disable-next-line a11y/accessible-name -->` で個別の要素を抑制するか、ルールを無効化してください:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'a11y/accessible-name': 'off'

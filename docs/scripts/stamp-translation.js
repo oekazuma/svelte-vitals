@@ -4,7 +4,7 @@
 // stale entry with an agent instead; this records "the committed ja matches
 // the current en" without touching the pages.
 //
-// Usage: node scripts/stamp-translation.mjs <en-source-path...>
+// Usage: node scripts/stamp-translation.js <en-source-path...>
 // Paths may be absolute or relative to the repo root or docs/.
 import { createHash } from 'node:crypto';
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -22,7 +22,7 @@ const locales = ['ja'];
 
 const args = process.argv.slice(2);
 if (args.length === 0) {
-  console.error('Usage: node scripts/stamp-translation.mjs <en-source-path...>');
+  console.error('Usage: node scripts/stamp-translation.js <en-source-path...>');
   process.exit(1);
 }
 

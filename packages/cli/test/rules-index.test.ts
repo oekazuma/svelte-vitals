@@ -4,7 +4,7 @@ import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CATEGORIES } from '@svelte-vitals/core';
 import { allRules } from '@svelte-vitals/core/internal';
-import { LOCALES, extractBlock, localeDir, normalizeBlock, parseRuleIds, renderAll } from '../scripts/rules-index.mjs';
+import { LOCALES, extractBlock, localeDir, normalizeBlock, parseRuleIds, renderAll } from '../scripts/rules-index.js';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const docsRoot = join(repoRoot, 'docs', 'src', 'content', 'docs');

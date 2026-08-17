@@ -54,7 +54,7 @@ export default {
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line performance/heavy-import -->` on the line above it, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'performance/heavy-import': 'off'

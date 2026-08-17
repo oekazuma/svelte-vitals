@@ -50,7 +50,7 @@ export const INSTALL_TARGETS: InstallTarget[] = [
     id: 'config-file',
     kind: 'config',
     label: 'Config file',
-    hint: 'Scaffolds svelte-vitals.config.{mjs,ts} (auto-picks the best one) with every option commented out',
+    hint: 'Scaffolds svelte-vitals.config.{js,ts} (auto-picks the best one) with every option commented out',
     relPaths: []
   },
   {

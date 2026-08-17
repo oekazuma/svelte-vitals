@@ -1,12 +1,12 @@
 <!--
   See [Legacy widget](https://example.com/kitchen-sink/src/lib/architecture/Widget/Legacy.svelte)
-  for the previous implementation. architecture/doc-link-target: svelte-vitals.config.mjs
+  for the previous implementation. architecture/doc-link-target: svelte-vitals.config.ts
   declares https://example.com/kitchen-sink/ as a urlRoot, and no such file exists under src/.
 -->
 <script lang="ts">
   import Card from '$lib/architecture/Card/Card.svelte';
   // architecture/private-scope-import: Card/private is declared private to Card/ in
-  // svelte-vitals.config.mjs — this route sits outside that scope.
+  // svelte-vitals.config.ts — this route sits outside that scope.
   import Secret from '$lib/architecture/Card/private/Secret.svelte';
   import OversizedPanel from '$lib/architecture/OversizedPanel.svelte';
   import WidePropsCard from '$lib/architecture/WidePropsCard.svelte';

@@ -45,7 +45,7 @@ Use a list element instead:
 
 If the bullet character is intentional prose, not a stand-in for a list, silence a single occurrence with `<!-- svelte-vitals-disable-next-line a11y/use-list -->`, or turn the rule off:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'a11y/use-list': 'off'

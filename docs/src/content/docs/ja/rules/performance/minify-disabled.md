@@ -52,7 +52,7 @@ Vite プラグインは解決済みの値で判定するため、実行された
 
 意図してミニファイせずに本番へ出している場合は、設定でルールを無効化してください:
 
-```js svelte-vitals.config.mjs
+```js svelte-vitals.config.js
 export default {
   rules: {
     'performance/minify-disabled': 'off'
