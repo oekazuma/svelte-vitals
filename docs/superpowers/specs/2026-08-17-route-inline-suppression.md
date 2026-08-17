@@ -23,17 +23,25 @@ class. See "Why not per-family wiring".
 ### 1. Suppression is central, over `Result`s, keyed by `(location, line)`
 
 After `runRules`, every penalized result carrying a source `location` and a `line ≥ 1` is checked
-against a directive index and flipped to PASS if a directive on that file and line names its rule
-(or names nothing).
+against a directive index. A result whose file and line carry a directive naming its rule — or
+naming nothing — is **removed**, and a PASS for that rule and route is emitted **only when no
+penalized result for that pair survives**. Suppressing one of two surplus representatives leaves the
+other firing and no PASS, exactly as `fileRule` behaves for a partially-suppressed file.
 
 That makes the criterion and the implementation the same sentence, which is the whole point:
 **any rule that emits a line-anchored finding is covered by construction.** No per-rule list, no
 wiring step a new rule family can forget.
 
+**The emitted PASS is built, not converted.** Flipping a finding's `detection` in place would leave
+its defect `message`, its `line`, and any `fix` attached to a passing result — and `--verbose`
+prints a passed result's message, so a green ✓ would read "Multiple `<h1>` (2)". The PASS is
+constructed with the rule's pass label, the route, the file, and nothing else. That label is
+`fileRule`'s `spec.label` today and is not on the `Rule` interface, so `Rule` gains it (internal
+surface, no semver cost) and both paths emit identical PASS text rather than two dialects.
+
 `fileRule` keeps its own early filter — it must, because it decides PASS versus finding before
-emitting, and a file whose only finding is suppressed has to report a pass rather than nothing. The
-central pass is idempotent with respect to it: a result `fileRule` already suppressed never reaches
-it.
+emitting. The central pass is idempotent with respect to it: a result `fileRule` already suppressed
+never reaches it, and a `fileRule` PASS is not penalized so the central pass ignores it.
 
 ### Why not per-family wiring
 
@@ -52,6 +60,10 @@ A design for removing silent no-ops must not ship one.
 The union of every file this run parsed and collected directives from: component facts when they
 were collected, and the route composition's chain files and resolved local components always.
 
+**The composition does not collect directives today** — `parseFile` never calls
+`collectSuppressions`; only the component and Kit-module fact collectors do. Collecting them during
+composition and plumbing them to the central pass is new work, and this design's largest piece.
+
 The union matters because the two sources are not the same set under every invocation. `--route`
 skips component-fact collection while route-scoped rules still run — measured, all four a11y route
 rules fire under `--route "gallery/a11y/**"` — so an index built only from component facts would
@@ -65,9 +77,9 @@ the same bucket as one the rule skipped, and the category average deliberately e
 routes so an unchecked route cannot report a false 100.
 
 **This diverges from the suppressions file, and the divergence is now on the record.** An inline
-suppression keeps the key in the score as a PASS; the suppressions file drops the result after
-scoring, so a route whose only result it was leaves the average entirely. Two mechanisms, two score
-effects, for the identical finding. The inline behaviour is the defensible one and `fileRule` has
+suppression keeps the key in the score as a PASS; the suppressions file drops the result in
+`applyScope`, **before** scoring, so a route whose only result it was leaves the average entirely.
+Two mechanisms, two score effects, for the identical finding. The inline behaviour is the defensible one and `fileRule` has
 worked this way since it shipped, so the file-based mechanism is what would have to move — that is
 a separate decision, recorded here rather than silently inherited.
 
@@ -95,9 +107,11 @@ directive that matches no finding often is.
 The author fixed the code and left the comment; a rule is turned off in config; a `--route` run
 does not reach that file. All legitimate. Reporting them by default is how a warning gets muted.
 
-Unused-directive reporting is therefore opt-in — `--report-unused-directives`, following eslint's
-precedent — and for a line-anchored directive "used" is aggregated across every route before it is
-judged, since one directive can serve many routes.
+Unused-directive reporting is a **follow-up, not part of this design**. It would be opt-in when it
+lands (eslint's `--report-unused-directives` is the precedent), and "used" would have to be
+aggregated across every route before judging, since one directive can serve many routes. It is left
+out here deliberately: adding a flag is adding a lever, and a lever ships with the two guards this
+document's own Recurrence prevention section requires — which is scope this change does not need.
 
 ### 7. `--update-suppressions` interaction, pinned
 
