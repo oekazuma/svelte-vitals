@@ -4,14 +4,17 @@
 
 Match the Svelte compiler on ARIA attribute casing.
 
-HTML attribute names are case-insensitive — the parser lowercases them, so `ARIA-LABEL` and `ROLE`
-reach the DOM as `aria-label` and `role`, and Svelte's own compiler judges them lowercased. The
-collector matched the source casing instead, so a typo written in capitals (`ARIA-LABLE`, `ROLE="bogus"`)
-was invisible to every ARIA rule while the compiler warned about it. Names are now matched
-case-insensitively and reported lowercased, as the compiler reports them.
+HTML attribute names are case-insensitive: `ARIA-LABEL` and `ROLE` become `aria-label` and `role`
+during HTML parsing, and Svelte's own compiler judges them lowercased. The **Svelte AST keeps the
+source spelling**, though, and the attribute lookup matched it exactly — so an attribute written in
+capitals was read as a different attribute from the one it becomes in the browser. Lookups are now
+case-insensitive, and ARIA names are reported lowercased, as the compiler reports them.
 
-This widens detection: a project with an uppercase ARIA attribute or role that was silently
-unchecked may see new findings — the same ones `svelte-check` already reports.
+This corrects findings in both directions. A capitalised typo (`ARIA-LABLE`, `ROLE="bogus"`) was
+invisible while the compiler warned about it, so a project may see new findings — the same ones
+`svelte-check` already reports. A **valid** capitalised attribute was equally invisible, which
+produced false findings: `<button ARIA-LABEL="Save">` was reported as having no accessible name,
+and `<time DATETIME="…">` as missing its `datetime`. Those go away.
 
 Recorded while here, with no behaviour change: this rule set deliberately follows the compiler over
 the letter of the ARIA spec where the two disagree. The spec lists `undefined` as a value for

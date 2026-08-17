@@ -105,9 +105,21 @@ export function lineOf(source: string, offset: unknown): number {
   return line;
 }
 
+/**
+ * An element's attribute by name, matched **case-insensitively**: HTML attribute names are, so
+ * `ARIA-LABEL` and `Type` are the same attributes as `aria-label` and `type` once the document is
+ * parsed. The Svelte AST keeps the source spelling, so the normalisation has to happen here.
+ *
+ * Only ever called with an HTML element's attributes. A component's props are case-**sensitive**
+ * (`<Foo titleTemplate>` is not `<Foo titletemplate>`) and are read through the adapters' own
+ * lookup, which must stay exact.
+ */
 export function findAttr(attributes: AST.Attribute[], name: string): AST.Attribute | undefined {
   if (!Array.isArray(attributes)) return undefined;
-  return attributes.find((a) => a?.type === 'Attribute' && a.name === name);
+  const wanted = name.toLowerCase();
+  return attributes.find(
+    (a) => a?.type === 'Attribute' && typeof a.name === 'string' && a.name.toLowerCase() === wanted
+  );
 }
 
 /** Value kind of a single attribute (e.g. a component prop). */
