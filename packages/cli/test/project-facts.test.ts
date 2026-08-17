@@ -87,7 +87,7 @@ describe('collectProjectFacts', () => {
       'vite.config.ts': `export default {\n  build: {\n    minify: false\n  }\n};\n`
     });
     const p = await collectProjectFacts(rt, '');
-    expect(p.viteMinifyDisabled).toEqual({ file: 'vite.config.ts', line: 3 });
+    expect(p.viteMinifyDisabled).toEqual({ file: 'vite.config.ts', line: 3, suppressions: [] });
   });
 
   it('leaves the fact unset for a clean or absent Vite config', async () => {

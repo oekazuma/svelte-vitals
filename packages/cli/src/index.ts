@@ -28,7 +28,6 @@ import {
   applyOverrides,
   applyInlineDirectives,
   unknownDirectiveIds,
-  unusedDirectives,
   settingSeverity,
   withFailedRulesOff,
   formatFailedRuleWarning,
@@ -99,8 +98,6 @@ export interface RunOptions {
   baseline?: string;
   /** Disable applying svelte-vitals-suppressions.json for this run. */
   noSuppressions?: boolean;
-  /** Warn about `svelte-vitals-disable-next-line` comments that silenced nothing (off by default: a directive left behind after a fix is legitimate). */
-  reportUnusedDirectives?: boolean;
   /** Analyze, then (re)write svelte-vitals-suppressions.json with all currently penalized findings and exit 0. */
   updateSuppressions?: boolean;
   /** Disable ANSI color in console output. */
@@ -175,8 +172,6 @@ export interface AnalyzeOptions {
   weights?: Partial<Record<Category, number>>;
   /** Restrict analysis to rules in these categories (applied after rules/ignore selection). */
   categories?: Category[];
-  /** Warn about `svelte-vitals-disable-next-line` comments that silenced nothing. */
-  reportUnusedDirectives?: boolean;
   /**
    * Reuse this parse cache across multiple `analyzeProject` calls instead of
    * starting fresh each time — the vite dev dashboard passes a long-lived cache
@@ -335,11 +330,12 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     kitModules,
     sourceFiles
   });
-  const configured = applyOverrides(applyRuleSeverities(rawResults, config), config);
-  const results = applyInlineDirectives(configured, directives, rules, config);
-  // Judged before suppression and across every route at once — one directive in a shared
-  // component serves all of them.
-  if (opts.reportUnusedDirectives) warnings.push(...unusedDirectives(configured, directives, config));
+  const results = applyInlineDirectives(
+    applyOverrides(applyRuleSeverities(rawResults, config), config),
+    directives,
+    rules,
+    config
+  );
   // A failed rule examined nothing, so its weight must not stay in the Health denominator — else it
   // would score as if it had run clean. Returned as the config this function hands back (not just a
   // local copy) so every downstream consumer — CLI health/exit-code checks and the reporters, which
@@ -473,8 +469,7 @@ function runAnalyzeOptions(opts: RunOptions): AnalyzeOptions {
     ignoreRules: opts.ignoreRules,
     allowRules: opts.allowRules,
     weights: opts.weights,
-    categories: opts.categories,
-    reportUnusedDirectives: opts.reportUnusedDirectives
+    categories: opts.categories
   };
 }
 

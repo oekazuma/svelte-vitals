@@ -121,8 +121,10 @@ export async function analyze(
   // reach only the component and Kit-module findings here — the pass runs all the same, so a rule
   // gaining a line-anchored finding is covered in both pipelines without a second wiring step.
   const directives = new Map<string, readonly SuppressionDirective[]>();
-  for (const c of components) if (c.suppressions?.length) directives.set(c.file, c.suppressions);
-  for (const m of kitModules) if (m.suppressions?.length) directives.set(m.file, m.suppressions);
+  for (const c of components) directives.set(c.file, c.suppressions ?? []);
+  for (const m of kitModules) directives.set(m.file, m.suppressions ?? []);
+  if (project.viteMinifyDisabled?.file)
+    directives.set(project.viteMinifyDisabled.file, project.viteMinifyDisabled.suppressions ?? []);
   const results = applyInlineDirectives(
     applyOverrides(applyRuleSeverities(rawResults, config), config),
     directives,

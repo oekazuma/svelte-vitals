@@ -68,30 +68,6 @@ export function applyInlineDirectives(
 }
 
 /**
- * Directives that silenced nothing, for `--report-unused-directives`. Off by default: the author
- * fixed the code and left the comment, the rule is off in config, the run was scoped — all
- * legitimate, and reporting them by default is how a warning gets muted.
- *
- * Takes the results as they stood **before** suppression, and judges a directive across every
- * route at once, since one directive in a shared component serves all of them.
- */
-export function unusedDirectives(penalizedResults: readonly Result[], index: DirectiveIndex, config: Config): string[] {
-  const used = new Set<SuppressionDirective>();
-  for (const r of penalizedResults) {
-    if (!isPenalized(r.detection, config.treatDynamicAs)) continue;
-    const d = directiveFor(index, r);
-    if (d) used.add(d);
-  }
-  const out: string[] = [];
-  for (const [file, directives] of index) {
-    for (const d of directives) {
-      if (!used.has(d)) out.push(`${file}:${d.line - 1} suppresses nothing`);
-    }
-  }
-  return out.sort();
-}
-
-/**
  * Directives naming a rule id that no rule declares. Unlike a directive that matches no finding —
  * legitimate whenever the code was fixed, the rule turned off, or the run scoped — a misspelled id
  * can never be right, so it is reported rather than silently suppressing nothing.

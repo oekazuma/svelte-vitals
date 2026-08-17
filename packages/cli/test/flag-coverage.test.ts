@@ -6,9 +6,10 @@ import { kebabnize } from 'gunshi/utils';
 import { ROOT_ARGS } from '../dist/gunshi-registry.js';
 
 // A user-facing lever that silently does nothing while the run reports success is this
-// project's recurring defect class (design: 2026-08-17-inline-suppression-line-anchored).
+// project's recurring defect class (design:
+// docs/superpowers/specs/2026-08-17-route-inline-suppression.md).
 // This holds the line at the cheapest enforceable point: no analyzer flag ships without a
-// test naming it. It proves a flag is exercised, NOT that the test asserts the right effect —
+// test naming it. It proves a flag is NAMED by a test, not that the test asserts the right effect —
 // that judgement stays with review. There is deliberately no exemption list: every flag is
 // covered today, and the first entry would be the crack the class comes back through.
 const testDirs = [

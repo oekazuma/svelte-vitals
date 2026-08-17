@@ -59,7 +59,7 @@ export async function collectAll(
   opts: CollectAllOptions = {}
 ): Promise<CollectedFacts> {
   const matches = routeMatcher(opts.route);
-  const parseCache = opts.parseCache ?? new Map();
+  const parseCache: ParseCache = opts.parseCache ?? new Map();
   // project is resolved first: collectKitModuleFacts needs project.kitAliases, so
   // everything else that's independent of it runs alongside it in one Promise.all.
   const project = await collectProjectFacts(rt, cwd);
@@ -80,13 +80,23 @@ export async function collectAll(
   const images = collected.images.filter((i) => matches(i.route));
   const headings = collected.headings.filter((h) => matches(h.route));
   const a11y = collected.a11y.filter((a) => matches(a.route));
+  // Every file the run read is entered, directives or not, so `has(file)` answers "was this file
+  // scanned" — the invariant `test/directive-coverage.test.ts` checks against the real gallery.
   const directives = new Map<string, readonly SuppressionDirective[]>();
-  // Every promise in the cache has already settled — `collectRoutes` awaited them all, and a read
-  // failure rejects out of it rather than being swallowed, so awaiting again cannot throw here.
-  for (const [file, parsed] of parseCache) directives.set(file, (await parsed).suppressions);
+  // A cache entry can be rejected — the dev dashboard keeps its cache across analyses and evicts
+  // only the file the watcher named, so a stale rejection outlives the edit that fixed it.
+  for (const [file, parsed] of parseCache) {
+    const suppressions = await parsed.then(
+      (parsedFile) => parsedFile.suppressions,
+      () => undefined
+    );
+    if (suppressions) directives.set(file, suppressions);
+  }
   // The union is what makes `--route` behave like a full run: the two branches above leave these
   // empty, and a component the composition never reached is only in this half.
-  for (const c of components) if (c.suppressions?.length) directives.set(c.file, c.suppressions);
-  for (const m of kitModules) if (m.suppressions?.length) directives.set(m.file, m.suppressions);
+  for (const c of components) directives.set(c.file, c.suppressions ?? []);
+  for (const m of kitModules) directives.set(m.file, m.suppressions ?? []);
+  const viteConfig = project.viteMinifyDisabled;
+  if (viteConfig?.file) directives.set(viteConfig.file, viteConfig.suppressions ?? []);
   return { heads, images, headings, a11y, project, components, kitModules, sourceFiles, directives };
 }

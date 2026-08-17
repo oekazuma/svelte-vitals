@@ -20,13 +20,20 @@ describe('resolveMinifyDisabled', () => {
   it('locates the line by re-parsing a literal config', async () => {
     const file = join(root, 'vite.config.ts');
     await writeFile(file, `export default {\n  build: {\n    minify: false\n  }\n};\n`);
-    expect(await resolveMinifyDisabled(false, file, root)).toEqual({ file: 'vite.config.ts', line: 3 });
+    expect(await resolveMinifyDisabled(false, file, root)).toEqual({
+      file: 'vite.config.ts',
+      line: 3,
+      suppressions: []
+    });
   });
 
   it('omits the line for a dynamic config that still resolves to false', async () => {
     const file = join(root, 'vite.config.dynamic.ts');
     await writeFile(file, `export default () => ({ build: { minify: false } });\n`);
-    expect(await resolveMinifyDisabled(false, file, root)).toEqual({ file: 'vite.config.dynamic.ts' });
+    expect(await resolveMinifyDisabled(false, file, root)).toEqual({
+      file: 'vite.config.dynamic.ts',
+      suppressions: []
+    });
   });
 
   it('returns an empty fact (no file, no line) for an inline programmatic config', async () => {

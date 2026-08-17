@@ -1,6 +1,11 @@
 import { readFile } from 'node:fs/promises';
 import { relative } from 'node:path';
-import { findMinifyDisabled, type Project } from '@svelte-vitals/core/internal';
+import {
+  collectSuppressions,
+  findMinifyDisabled,
+  type Project,
+  type SuppressionDirective
+} from '@svelte-vitals/core/internal';
 
 /**
  * performance/minify-disabled fact from the evaluated Vite user config (the value the plugin's
@@ -24,10 +29,17 @@ export async function resolveMinifyDisabled(
   const rel = relative(root, configFile).split('\\').join('/');
   const file = rel === '' ? configFile.split('\\').join('/') : rel;
   let line: number | undefined;
+  let suppressions: SuppressionDirective[] | undefined;
   try {
-    line = findMinifyDisabled(await readFile(configFile, 'utf8'))?.line;
+    const source = await readFile(configFile, 'utf8');
+    line = findMinifyDisabled(source)?.line;
+    suppressions = collectSuppressions(source);
   } catch {
     // unreadable config source — the resolved value already proved the finding
   }
-  return { file, ...(line !== undefined ? { line } : {}) };
+  return {
+    file,
+    ...(line !== undefined ? { line } : {}),
+    ...(suppressions !== undefined ? { suppressions } : {})
+  };
 }

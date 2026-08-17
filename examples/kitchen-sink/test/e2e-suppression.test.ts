@@ -207,13 +207,20 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     expect(findings(run(dir).report, 'a11y/id-duplication')).toBe(findings(baseline, 'a11y/id-duplication'));
   });
 
-  it('reports a directive that suppressed nothing only under --report-unused-directives', () => {
+  it('reaches a finding anchored outside src/, in the Vite config', () => {
     const dir = scratchCopy();
     scratch.push(dir);
-    // Real rule id, wrong finding: the directive is well-formed and still silences nothing.
-    disableAbove(join(dir, 'src', 'lib', 'a11y', 'DupId.svelte'), '<p id="dup-x">', 'seo/single-h1');
-    expect(run(dir).stderr).not.toContain('suppresses nothing');
-    expect(run(dir, '--report-unused-directives').stderr).toContain('src/lib/a11y/DupId.svelte:3 suppresses nothing');
+    const cfg = join(dir, 'vite.config.ts');
+    writeFileSync(
+      cfg,
+      readFileSync(cfg, 'utf8').replace(
+        'minify: false',
+        '// svelte-vitals-disable-next-line performance/minify-disabled\n    minify: false'
+      )
+    );
+    const { report } = run(dir);
+    expect(findings(report, 'performance/minify-disabled')).toBe(0);
+    expect(passed(report, 'performance/minify-disabled')).toBe(1);
   });
 
   it('does not record an inline-suppressed finding in the suppressions file', () => {

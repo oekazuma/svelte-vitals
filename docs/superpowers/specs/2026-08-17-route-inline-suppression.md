@@ -44,8 +44,8 @@ turned off never produces a result for a directive to act on.
 the order the results already arrive — which is the rule's own deterministic emission order, the
 same order `route-rule.ts` uses to pick its PASS anchor today (`first.file`, `line: 0`). A
 route-scoped rule can have findings in several files; the PASS carries one file because a PASS
-always has, and picking the first keeps it where the rule would have put it. `line` is 0, as every
-PASS's is.
+always has, and picking the first keeps it where the rule would have put it. It carries no `line`,
+matching what the route factory emits once its `line: 0` is dropped from the report.
 
 **Its text is the rule's `passLabel` when declared, else the rule's `title`** (shipped). "Identical
 to the PASS the rule itself emits" was not reachable: most of the rules that emit PASSes build the
@@ -127,7 +127,10 @@ it is a real difference and goes in the docs rather than being discovered.
 `collectSuppressions` accepts any token matching the rule-id shape, and `isSuppressed` compares by
 string, so `a11y/id-duplicaton` suppresses nothing and says nothing. That is an instance of the
 class this design is about, inside the mechanism it is extending, so it is fixed here: an id that
-matches no registered rule is reported the way an unknown `--rules` id already is.
+matches no registered rule is reported. As a stderr warning, not fatally — an unknown `--rules` id
+aborts the run because the run would otherwise analyse the wrong thing, whereas a typo'd directive
+leaves the analysis correct and only the suppression missing. Full runs only, for the reason in the
+index-scope amendment above.
 
 Note the asymmetry with the next item: an unknown id is **never** a legitimate state, while a
 directive that matches no finding often is.
@@ -190,29 +193,28 @@ by a test here rather than inherited by accident.
 Two guards, because the class has two failure modes: a lever that never worked, and a lever that
 stops working.
 
-**A meta-test that no lever ships untested.** (Shipped as
-`packages/cli/test/flag-coverage.test.ts`, with its reach stated rather than assumed: it fails when
-an analyzer flag is named by no test in `packages/cli/test` or the kitchen-sink e2e suite. It proves
-a flag is exercised, not that the case asserts the right effect — that judgement stays with review.
-It carries no exemption list, because every flag is covered today and the first entry would be the
-crack. It found one gap on its first run: `--by-route` had no case at all.) `examples/kitchen-sink/test/e2e-suppression.test.ts`
-already pins nine disable surfaces against the real gallery, each asserting an observable effect.
-Route-scoped directives join it.
+**A meta-test that no lever ships untested.** `examples/kitchen-sink/test/e2e-suppression.test.ts`
+already pins the disable surfaces against the real gallery, each asserting an observable effect;
+route-scoped directives join it. To make "every lever has a case" enforceable rather than
+aspirational, `packages/cli/test/flag-coverage.test.ts` fails when an analyzer flag — from the
+gunshi arg declarations, already machine-readable since they generate the docs tables — is named by
+no test in `packages/cli/test` or the kitchen-sink e2e suite.
 
-To make "every lever has a case" enforceable rather than aspirational, a meta-test enumerates the
-two lever families that **can** be enumerated and fails when a member appears in no e2e test and in
-no exemption list with a recorded reason:
+**Shipped narrower than designed, and the gap is stated rather than papered over.** The design
+called for enumerating a second family, the top-level config keys from `Object.keys(defaultConfig)`,
+plus a hard-coded list for the three lever kinds that are single surfaces rather than families (the
+inline directive, the suppressions file, `overrides`). Only the flag half shipped. What did ship
+carries no exemption list — every flag is covered today, and the first entry would be the crack the
+class comes back through — and it proves a flag is **named** by a test, not that the test asserts
+the right effect; that judgement stays with review. It earned its place on its first run by finding
+that `--by-route` had no case at all.
 
-- **CLI flags**, from the gunshi arg declarations — already machine-readable, since they generate
-  the docs tables.
-- **Top-level config keys**, from `Object.keys(defaultConfig)` — `treatDynamicAs`, `metaComponents`,
-  `rules`, `failOn` today.
-
-The remaining lever kinds are not enumerable, because each is a single surface rather than a family:
-the inline directive, the suppressions file, and `overrides`. The meta-test therefore carries them
-as a hard-coded list of three required cases — a list that only grows when someone invents a new
-kind of lever, which is rare enough to catch in review, and which the AGENTS.md rule covers in
-prose. Claiming the enumeration covers them all would be its own silent gap.
+**A second invariant, for the half a name check cannot reach.** `packages/cli/test/directive-coverage.test.ts`
+asserts against the real gallery that every line-anchored penalized finding names a file the run
+scanned for directives. Decision 1's "covered by construction" is otherwise a claim about code that
+nothing checks: it found `performance/minify-disabled`, whose finding anchors into `vite.config.ts`,
+a file no collector read directives from — line-anchored, documented as suppressable, and reachable
+on no channel at all. The fix is that the Vite-config parse now carries its own directives.
 
 **A runtime warning when an input selects nothing**, for the cases where selecting nothing is never
 legitimate:
@@ -220,12 +222,12 @@ legitimate:
 | input                                                               | warn?                   | condition                                                                                                        |
 | ------------------------------------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `--route` matches no route                                          | **yes**                 | only when the unfiltered route set is non-empty                                                                  |
-| a directive names an unknown rule id                                | **yes**                 | always — decision 5                                                                                              |
+| a directive names an unknown rule id                                | **yes, full runs only** | decision 5, gated as the row below is — the composition parses files `--route` never analyses                    |
 | a `--rules`-selected rule whose fact source the run's scope skipped | **yes**                 | e.g. a component-scoped rule under `--route`, silent today                                                       |
 | `--rules`/`--ignore` unknown id                                     | already fatal           | no change                                                                                                        |
 | stale suppressions entry                                            | already ships           | no change                                                                                                        |
 | `overrides` glob matches nothing                                    | **yes, full runs only** | gated like stale-suppression reporting, since under `--route`/`--diff` most overrides legitimately match nothing |
-| a directive matches no finding                                      | **opt-in only**         | decision 6                                                                                                       |
+| a directive matches no finding                                      | **no**                  | decision 6 — opt-in reporting is a follow-up, and is not in this change                                          |
 
 **And the rule that outlives this document**, recorded in AGENTS.md so it is read every session: a
 user-facing lever ships with (1) a kitchen-sink e2e case asserting an observable effect and (2) a

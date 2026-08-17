@@ -172,7 +172,6 @@ const RUN_BOOLEAN_FLAGS = [
   'verbose',
   'update-suppressions',
   'no-suppressions',
-  'report-unused-directives',
   'no-color',
   'no-animation',
   'help',
@@ -353,7 +352,6 @@ export function resolveArgs(argv: CliArgv): ResolvedArgs {
   const noColor = Boolean(argv['no-color']);
   const noAnimation = Boolean(argv['no-animation']);
   const noSuppressions = Boolean(argv['no-suppressions']);
-  const reportUnusedDirectives = Boolean(argv['report-unused-directives']);
   const updateSuppressions = Boolean(argv['update-suppressions']);
   if (updateSuppressions && noSuppressions) {
     errors.push('svelte-vitals: --update-suppressions and --no-suppressions cannot be used together.');
@@ -395,7 +393,6 @@ export function resolveArgs(argv: CliArgv): ResolvedArgs {
       ...(staged ? { staged } : {}),
       ...(baselineRef !== undefined ? { baseline: baselineRef } : {}),
       ...(noSuppressions ? { noSuppressions } : {}),
-      ...(reportUnusedDirectives ? { reportUnusedDirectives } : {}),
       ...(updateSuppressions ? { updateSuppressions } : {})
     },
     warnings,

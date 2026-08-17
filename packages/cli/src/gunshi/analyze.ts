@@ -39,7 +39,6 @@ const BOOLEAN_FLAGS = [
   'verbose',
   'update-suppressions',
   'no-suppressions',
-  'report-unused-directives',
   'no-color',
   'no-animation',
   'help',
@@ -81,10 +80,6 @@ export const ROOT_ARGS = {
     type: 'boolean',
     toKebab: true,
     description: 'Ignore svelte-vitals-suppressions.json for this run'
-  },
-  'report-unused-directives': {
-    type: 'boolean',
-    description: 'Warn about svelte-vitals-disable-next-line comments that silenced nothing'
   },
   'by-route': { type: 'boolean', description: 'Show per-route score breakdown in console output' },
   reporter: {

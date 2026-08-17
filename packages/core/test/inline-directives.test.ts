@@ -1,10 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import {
-  applyInlineDirectives,
-  unknownDirectiveIds,
-  unusedDirectives,
-  type DirectiveIndex
-} from '../src/inline-directives.js';
+import { applyInlineDirectives, unknownDirectiveIds, type DirectiveIndex } from '../src/inline-directives.js';
 import type { Rule } from '../src/rule.js';
 import { defaultConfig, type Result } from '../src/types.js';
 
@@ -106,24 +101,6 @@ describe('applyInlineDirectives', () => {
     expect(out[0]!.message).toBe('label for a11y/id-duplication');
     expect(out[0]!.line).toBeUndefined();
     expect(out[0]!.fix).toBeUndefined();
-  });
-});
-
-describe('unusedDirectives', () => {
-  it('reports only the directive that silenced nothing', () => {
-    const idx = index({
-      'src/lib/Card.svelte': [{ line: 3 }, { line: 9 }],
-      'src/lib/B.svelte': [{ line: 2, ruleIds: ['seo/single-h1'] }]
-    });
-    expect(unusedDirectives([bad({})], idx, defaultConfig)).toEqual([
-      'src/lib/B.svelte:1 suppresses nothing',
-      'src/lib/Card.svelte:8 suppresses nothing'
-    ]);
-  });
-
-  it('counts one directive as used once it served any route', () => {
-    const idx = index({ 'src/lib/Card.svelte': [{ line: 3 }] });
-    expect(unusedDirectives([bad({ route: '/a' }), bad({ route: '/b' })], idx, defaultConfig)).toEqual([]);
   });
 });
 
