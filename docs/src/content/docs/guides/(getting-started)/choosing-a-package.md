@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-Two npm packages — `svelte-vitals` (CLI) and `@svelte-vitals/vite` (plugin + live dashboard) — plus two more surfaces: **`@svelte-vitals/action`**, consumed straight from its repo, and **Agent Skills**, `SKILL.md` files installed from [skills.sh](https://www.skills.sh/) with `npx skills add`.
+Two npm packages — `svelte-vitals` (CLI) and `@svelte-vitals/vite` (plugin + live dashboard) — plus surfaces you don't install from npm: **`@svelte-vitals/action`**, consumed straight from its repo, and **Agent Skills**, `SKILL.md` files installed from [skills.sh](https://www.skills.sh/) with `npx skills add`.
 
 The CLI, the plugin and the Action share one rule engine and scoring but read different input. Agent Skills analyze nothing themselves — they carry the rule knowledge and tell the agent when to run the scanner. Most projects use more than one.
 

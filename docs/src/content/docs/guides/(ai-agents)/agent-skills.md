@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-svelte-vitals ships two Agent Skills — portable `SKILL.md` files that work identically in **Claude Code**, **Cursor**, and **Codex**, since all three tools read the same frontmatter-driven convention. They are listed on [skills.sh](https://www.skills.sh/) and installed with the `skills` CLI:
+svelte-vitals ships its Agent Skills as portable `SKILL.md` files that work identically in **Claude Code**, **Cursor**, and **Codex**, since all three tools read the same frontmatter-driven convention. They are listed on [skills.sh](https://www.skills.sh/) and installed with the `skills` CLI:
 
 ```bash
 npx skills add oekazuma/svelte-vitals
@@ -17,7 +17,7 @@ The CLI asks which agents to install for and writes each skill to that tool's co
 npx skills add oekazuma/svelte-vitals -a claude-code -a cursor -a codex -y
 ```
 
-Both skills are generated from the repository's rule registry, so what you install always matches the latest rule set on `main`.
+The skills are generated from the repository's rule registry, so what you install always matches the latest rule set on `main`.
 
 ## `/svelte-vitals`
 

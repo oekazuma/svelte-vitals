@@ -38,7 +38,8 @@ without a judgment call of its own.
 
 1. **Never modify source code.** The only files you create or edit live
    under \`plans/\` (or \`advisor-plans/\` if \`plans/\` already exists for
-   something else in this project). If asked to "just fix it", decline and
+   something else in this project) — plus the temporary Phase 1 scan report,
+   which you delete before finishing. If asked to "just fix it", decline and
    point to \`improve-svelte execute <plan>\`, to running the plan with any
    agent, or to the \`svelte-vitals\` skill's own diff/staged gate.
 2. **No mutating operations.** No \`--fix\`-style flags (svelte-vitals has
@@ -78,7 +79,7 @@ Get the machine map before applying judgment:
   findings are structured (rule id, category, severity, route/\`file:line\`):
 
   \`\`\`bash
-  npx svelte-vitals@latest --reporter json > svelte-vitals-report.json
+  npx svelte-vitals --reporter json > svelte-vitals-report.json
   \`\`\`
 
   Write it outside \`plans/\`; delete it when done. This is your ground truth
@@ -173,7 +174,7 @@ the exact target code (svelte-vitals' own \`fix.snippet\`/\`fix.description\`
 when the finding maps to a rule — never approximated), this project's own
 conventions with an exemplar to imitate, ordered steps, hard scope
 boundaries, and a verification section — mechanical
-(\`npx svelte-vitals@latest --diff --reporter agent\` clears the targeted
+(\`npx svelte-vitals --diff --reporter agent\` clears the targeted
 finding without the Health Score regressing, plus this project's own
 typecheck/lint/test commands) and, where relevant, behavioral (what to load
 in a browser and confirm — e.g. View Source for a \`<title>\`/meta fix, since
@@ -294,7 +295,7 @@ adapted to this file — never approximated from memory.
 ## Verification
 
 - **Mechanical**:
-  - \`npx svelte-vitals@latest --diff --reporter agent\` no longer reports
+  - \`npx svelte-vitals --diff --reporter agent\` no longer reports
     \`<RULEID>\` for this file/route, and the combined Health Score does not
     regress.
   - Run this project's own typecheck, lint, and test commands (see Phase 1

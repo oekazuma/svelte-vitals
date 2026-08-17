@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-npm パッケージは `svelte-vitals`（CLI）と `@svelte-vitals/vite`（プラグイン + ライブダッシュボード）の2つ。加えて、サーフェスが2つあります。リポジトリから直接参照する GitHub Action **`@svelte-vitals/action`** と、[skills.sh](https://www.skills.sh/) から `npx skills add` でインストールする `SKILL.md` の **Agent Skills** です。
+npm パッケージは `svelte-vitals`（CLI）と `@svelte-vitals/vite`（プラグイン + ライブダッシュボード）の2つ。加えて、npm からはインストールしないサーフェスがあります。リポジトリから直接参照する GitHub Action **`@svelte-vitals/action`** と、[skills.sh](https://www.skills.sh/) から `npx skills add` でインストールする `SKILL.md` の **Agent Skills** です。
 
 CLI・プラグイン・Action は同じルールエンジンとスコアリングを共有し、読み取る対象だけが異なります。Agent Skills 自体は解析せず、ルールの知識を持っていつスキャナーを実行するかをエージェントに伝えます。ほとんどのプロジェクトは複数を併用します。
 
