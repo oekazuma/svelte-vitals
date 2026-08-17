@@ -4,7 +4,7 @@
 'svelte-vitals': patch
 ---
 
-Split `@svelte-vitals/core` into two entry points ahead of 1.0.
+Split `@svelte-vitals/core` into two entry points.
 
 `@svelte-vitals/core` now exports only what an outside caller needs: `defineConfig` with the
 config types, and the `JsonReport` types for reading a report. Everything else — the engine,
