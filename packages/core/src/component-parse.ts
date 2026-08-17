@@ -1116,9 +1116,15 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
   }
   if (!node || typeof node !== 'object') return;
   if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
-    const roleAttr = findAttr(node.attributes, 'role');
+    // HTML attribute names are case-insensitive — the parser lowercases them, so `ARIA-LABEL` and
+    // `ROLE` reach the DOM as `aria-label` and `role`. Svelte's own compiler judges them lowercased
+    // too; matching the source casing would let a typo like `ARIA-LABLE` slip past both this rule
+    // and the reader's eye. The name is reported lowercased, as the compiler reports it.
+    const roleAttr = node.attributes.find(
+      (a: Node) => a?.type === 'Attribute' && typeof a.name === 'string' && a.name.toLowerCase() === 'role'
+    );
     const ariaAttrs = node.attributes.filter(
-      (a: Node) => a?.type === 'Attribute' && typeof a.name === 'string' && a.name.startsWith('aria-')
+      (a: Node) => a?.type === 'Attribute' && typeof a.name === 'string' && a.name.toLowerCase().startsWith('aria-')
     );
     if (roleAttr || ariaAttrs.length > 0) {
       const inputType = node.name === 'input' ? attrText(node.attributes, 'type') : undefined;
@@ -1130,7 +1136,7 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
         ...(inputType !== undefined ? { inputType: inputType.toLowerCase() } : {}),
         ...(hasSpread ? { hasSpread: true as const } : {}),
         aria: ariaAttrs.map((a: Node) => ({
-          name: a.name,
+          name: String(a.name).toLowerCase(),
           line: lineOf(source, a.start ?? node.start),
           ...classifyAttrValue(a.value)
         }))

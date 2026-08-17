@@ -19,6 +19,10 @@ description: aria-* 属性の値は、その属性に WAI-ARIA 仕様が定め�
 - **number**(例: `aria-valuenow`) — 有限の数値であること。
 - **string** / **id** / **idlist**(例: `aria-label`、`aria-activedescendant`) — どんなリテラルでも許可(静的にはチェックできない)。
 
+ARIA 仕様の字面からは意図的に 2 点ずらしています。いずれも、実際にビルドに使う Svelte コンパイラに合わせるためです。仕様はいくつかの boolean 属性に `undefined` を値として挙げ、長さ 0 の文字列は属性が無いものとして扱うべきだとしていますが、コンパイラはどちらも拒否し（`a11y_incorrect_aria_attribute_type_boolean`）、このルールも拒否します。自分のビルドと食い違うルールは、第二の意見ではなくただのノイズだからです。
+
+属性名と `role` 名は **大文字小文字を区別せず**に照合します（HTML が小文字化するため）。`ARIA-LABLE` はコンパイラと同じく `aria-lable` として報告されます。
+
 検出しないもの:
 
 - `aria-hidden="true"` — 有効な boolean。
