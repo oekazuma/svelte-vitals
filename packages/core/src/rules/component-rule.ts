@@ -73,6 +73,7 @@ export function fileRule<F extends { file: string; suppressions?: SuppressionDir
     title: spec.title,
     category: spec.category,
     severity: spec.severity,
+    passLabel: spec.label,
     scope: 'component',
     rationale: spec.rationale,
     ...(spec.fix ? { fix: spec.fix } : {}),

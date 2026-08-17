@@ -45,6 +45,7 @@ export function surplusRule(spec: {
   return {
     id: spec.id,
     title: spec.title,
+    passLabel: spec.passMessage,
     category: 'a11y',
     severity: 'warning',
     scope: 'route',
