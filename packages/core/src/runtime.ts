@@ -29,3 +29,40 @@ export interface Runtime {
   /** Join path segments without depending on `node:path`. */
   join(...parts: string[]): string;
 }
+
+/**
+ * How many file reads may be in flight at once. Analysis reads every `.svelte` file in a project
+ * in parallel, which on a large project opens more descriptors than the process is allowed: at
+ * `ulimit -n 1024` — a common container default — a 1 681-route project raised `EMFILE`, and
+ * because a failed read lands in the same `catch` as a malformed component, 682 files were dropped
+ * and the run still reported a normal score. The cap is what keeps the analysis whole.
+ *
+ * 64 is chosen to sit well under the stock 256 on macOS while leaving descriptors for everything
+ * else the process holds open. It is not a throughput knob: reads are a few percent of the work.
+ */
+export const READ_CONCURRENCY = 64;
+
+/**
+ * `readFile` with at most `limit` reads in flight. A plain counter plus a queue of waiters —
+ * deliberately not a dependency, and pure enough to live in core.
+ */
+export function withReadLimit(
+  readFile: (path: string) => Promise<string>,
+  limit: number = READ_CONCURRENCY
+): (path: string) => Promise<string> {
+  let active = 0;
+  const waiting: (() => void)[] = [];
+  const release = (): void => {
+    active--;
+    waiting.shift()?.();
+  };
+  return async (path) => {
+    if (active >= limit) await new Promise<void>((resolve) => waiting.push(resolve));
+    active++;
+    try {
+      return await readFile(path);
+    } finally {
+      release();
+    }
+  };
+}

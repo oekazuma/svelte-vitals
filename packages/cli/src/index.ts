@@ -10,6 +10,7 @@ import {
   type Category
 } from '@svelte-vitals/core';
 import {
+  skippedFileWarnings,
   allRules,
   runRules,
   formatConsoleReport,
@@ -247,24 +248,6 @@ function overridesOffWarnings(allowRules: string[] | undefined, overrides: RuleO
     }
   }
   return warnings;
-}
-
-/**
- * Warn about files a collector could not read or parse (`parseFailed`, set at the
- * component/kit-module catch sites): the file contributes empty facts, so any findings
- * it would have produced are simply missing rather than reported as fixed. Capped at 10
- * inline paths so one badly-broken directory can't flood the terminal.
- */
-function skippedFileWarnings(facts: { file: string; parseFailed?: true }[]): string[] {
-  const files = [...new Set(facts.filter((f) => f.parseFailed).map((f) => f.file))].sort();
-  if (files.length === 0) return [];
-  const shown = files.slice(0, 10);
-  const list =
-    files.length > shown.length ? `${shown.join(', ')}, … and ${files.length - shown.length} more` : shown.join(', ');
-  return [
-    `skipped ${files.length} file(s) that could not be parsed: ${list}`,
-    'findings for these files are unavailable until they parse.'
-  ];
 }
 
 /**

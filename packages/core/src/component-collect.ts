@@ -49,8 +49,16 @@ export async function collectComponentFacts(rt: Runtime, cwd: string): Promise<C
   const files = await rt.glob('src/**/*.svelte{,.ts,.js}', cwd);
   return Promise.all(
     files.sort().map(async (rel): Promise<ComponentFacts> => {
+      // Read and parse are caught separately: an unreadable file is an environment problem and a
+      // malformed one is the author's, and reporting them together is how a descriptor limit once
+      // read as 682 broken components.
+      let source: string;
       try {
-        const source = await rt.readFile(rt.join(cwd, rel));
+        source = await rt.readFile(rt.join(cwd, rel));
+      } catch {
+        return { ...emptyComponentFacts(rel), parseFailed: true, readFailed: true };
+      }
+      try {
         return { file: rel, ...parseComponentFacts(source, rel) };
       } catch {
         return { ...emptyComponentFacts(rel), parseFailed: true };

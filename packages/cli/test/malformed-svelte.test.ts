@@ -130,7 +130,8 @@ describe('collectComponentFacts: malformed .svelte files (component path)', () =
       moduleStateDecls: [],
       suppressions: [],
       commentLinks: [],
-      parseFailed: true
+      parseFailed: true,
+      readFailed: true
     });
     expect(byFile.get(goodPath)!.loc).toBeGreaterThan(0);
   });
