@@ -8,4 +8,4 @@ Apply `svelte-vitals-disable-next-line` to every finding the report anchors to a
 
 A suppressed finding becomes a pass for that rule and route rather than disappearing, so the route stays in the category average. A directive inside a component silences the finding on every route composing that component; per-route suppression remains the suppressions file's job.
 
-A directive naming a rule id that no rule declares is now reported as a warning instead of silently suppressing nothing.
+A directive naming a rule id that no rule declares is now reported as a warning instead of silently suppressing nothing. A directive that suppressed nothing stays silent by default — it is legitimate after a fix, under `--route`, or with the rule off — and the new `--report-unused-directives` flag opts into reporting those, judged across every route at once.

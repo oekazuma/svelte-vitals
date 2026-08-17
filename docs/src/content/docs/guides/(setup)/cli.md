@@ -56,6 +56,7 @@ see below each row for usage notes, defaults, and examples.
 | `--baseline <baseline>`                 | Report only findings not present at ref (compare against e.g. origin/main)                                               |
 | `--update-suppressions`                 | Write svelte-vitals-suppressions.json accepting all current findings (introduce gates on legacy projects)                |
 | `--no-suppressions`                     | Ignore svelte-vitals-suppressions.json for this run                                                                      |
+| `--report-unused-directives`            | Warn about svelte-vitals-disable-next-line comments that silenced nothing                                                |
 | `--by-route`                            | Show per-route score breakdown in console output                                                                         |
 | `--reporter <reporter>`                 | console \| json \| agent \| sarif \| github \| html \| md (auto: agent under AI-agent envs, github under GitHub Actions) |
 | `--out-file <out-file>`                 | Output path for --reporter html (default: svelte-vitals-report.html; '-' for stdout)                                     |
@@ -288,7 +289,10 @@ you are annotating one piece of markup, not one route. Per-route suppression is 
 `svelte-vitals-suppressions.json` and `overrides` are for.
 
 A directive naming a rule id that no rule declares is reported as a warning; it would
-otherwise suppress nothing, silently.
+otherwise suppress nothing, silently. A directive that suppresses nothing is **not** reported by
+default — the author fixed the code and left the comment, the rule is off in config,
+the run was scoped, all legitimate. Pass `--report-unused-directives` to hear about
+them; a directive is judged across every route at once.
 
 Build mode (`@svelte-vitals/vite`) analyzes prerendered HTML, which has no source
 lines, so route-level findings there cannot be suppressed inline — component-scoped

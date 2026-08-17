@@ -5,6 +5,13 @@ import type { SuppressionDirective } from './component.js';
 /** File-relative-path → the inline directives collected from that file. */
 export type DirectiveIndex = ReadonlyMap<string, readonly SuppressionDirective[]>;
 
+/** The directive silencing `r`, if one sits on its line and names its rule (or names nothing). */
+function directiveFor(index: DirectiveIndex, r: Result): SuppressionDirective | undefined {
+  const line = r.line;
+  if (r.location === undefined || line === undefined || line <= 0) return undefined;
+  return (index.get(r.location) ?? []).find((d) => d.line === line && (!d.ruleIds || d.ruleIds.includes(r.id)));
+}
+
 /**
  * Apply inline `svelte-vitals-disable-next-line` directives to a finished result set — one
  * mechanism, over `Result`s, so any rule that emits a line-anchored finding is covered by
@@ -37,13 +44,7 @@ export function applyInlineDirectives(
       continue;
     }
     const key = `${r.id} ${r.route ?? ''}`;
-    const line = r.line;
-    const hit =
-      r.location !== undefined &&
-      line !== undefined &&
-      line > 0 &&
-      (index.get(r.location) ?? []).some((d) => d.line === line && (!d.ruleIds || d.ruleIds.includes(r.id)));
-    if (hit) {
+    if (directiveFor(index, r) !== undefined) {
       if (!silenced.has(key)) silenced.set(key, r);
       continue;
     }
@@ -64,6 +65,30 @@ export function applyInlineDirectives(
     });
   }
   return kept;
+}
+
+/**
+ * Directives that silenced nothing, for `--report-unused-directives`. Off by default: the author
+ * fixed the code and left the comment, the rule is off in config, the run was scoped — all
+ * legitimate, and reporting them by default is how a warning gets muted.
+ *
+ * Takes the results as they stood **before** suppression, and judges a directive across every
+ * route at once, since one directive in a shared component serves all of them.
+ */
+export function unusedDirectives(penalizedResults: readonly Result[], index: DirectiveIndex, config: Config): string[] {
+  const used = new Set<SuppressionDirective>();
+  for (const r of penalizedResults) {
+    if (!isPenalized(r.detection, config.treatDynamicAs)) continue;
+    const d = directiveFor(index, r);
+    if (d) used.add(d);
+  }
+  const out: string[] = [];
+  for (const [file, directives] of index) {
+    for (const d of directives) {
+      if (!used.has(d)) out.push(`${file}:${d.line - 1} suppresses nothing`);
+    }
+  }
+  return out.sort();
 }
 
 /**

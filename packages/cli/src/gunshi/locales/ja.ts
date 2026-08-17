@@ -34,6 +34,7 @@ export const JA_ARG_DESCRIPTIONS = {
     'update-suppressions':
       '現在のすべての検出結果を受け入れる svelte-vitals-suppressions.json を書き出す（既存プロジェクトへのゲート導入）',
     noSuppressions: 'この実行に限り svelte-vitals-suppressions.json を無視',
+    'report-unused-directives': '何も抑制しなかった svelte-vitals-disable-next-line コメントを警告する',
     'by-route': 'コンソール出力にルートごとのスコア内訳を表示',
     reporter:
       'console | json | agent | sarif | github | html | md（自動選択: AI エージェント環境では agent、GitHub Actions では github）',

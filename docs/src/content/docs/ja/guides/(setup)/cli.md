@@ -53,6 +53,7 @@ npx svelte-vitals@latest apps/web     # 検出をスキップし、apps/web を�
 | `--baseline <baseline>`                 | ref の時点では存在しなかった検出結果のみ報告（例: origin/main と比較）                                                           |
 | `--update-suppressions`                 | 現在のすべての検出結果を受け入れる svelte-vitals-suppressions.json を書き出す（既存プロジェクトへのゲート導入）                  |
 | `--no-suppressions`                     | この実行に限り svelte-vitals-suppressions.json を無視                                                                            |
+| `--report-unused-directives`            | 何も抑制しなかった svelte-vitals-disable-next-line コメントを警告する                                                            |
 | `--by-route`                            | コンソール出力にルートごとのスコア内訳を表示                                                                                     |
 | `--reporter <reporter>`                 | console \| json \| agent \| sarif \| github \| html \| md（自動選択: AI エージェント環境では agent、GitHub Actions では github） |
 | `--out-file <out-file>`                 | --reporter html の出力先パス（デフォルト: svelte-vitals-report.html。'-' で標準出力）                                            |
@@ -273,7 +274,7 @@ svelte-vitals --weights seo=2,performance=1
 
 コンポーネント内のディレクティブは、**それを合成するすべてのルート**でその検出を抑制します — 1 つのルートではなく 1 箇所のマークアップに注釈を付けているためです。ルート単位の抑制は `svelte-vitals-suppressions.json` と `overrides` の役割です。
 
-どのルールも宣言していないルール ID を指定したディレクティブは警告として報告されます。そのままでは何も抑制せずに黙って無視されてしまうためです。
+どのルールも宣言していないルール ID を指定したディレクティブは警告として報告されます。そのままでは何も抑制せずに黙って無視されてしまうためです。一方、何も抑制しなかったディレクティブはデフォルトでは報告**されません** — コードを直してコメントだけ残った、ルールが config で無効になっている、実行がスコープされている、いずれも正当だからです。報告させたい場合は `--report-unused-directives` を渡してください。判定はすべてのルートをまとめて行われます。
 
 ビルドモード（`@svelte-vitals/vite`）はプリレンダリングされた HTML を解析し、そこにはソース行がないため、ルートレベルの検出をインラインで抑制することはできません。コンポーネントスコープの検出は引き続き抑制できます。
 

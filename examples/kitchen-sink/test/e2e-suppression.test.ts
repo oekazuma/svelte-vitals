@@ -204,6 +204,15 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     expect(findings(run(dir).report, 'a11y/id-duplication')).toBe(findings(baseline, 'a11y/id-duplication'));
   });
 
+  it('reports a directive that suppressed nothing only under --report-unused-directives', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    // Real rule id, wrong finding: the directive is well-formed and still silences nothing.
+    disableAbove(join(dir, 'src', 'lib', 'a11y', 'DupId.svelte'), '<p id="dup-x">', 'seo/single-h1');
+    expect(run(dir).stderr).not.toContain('suppresses nothing');
+    expect(run(dir, '--report-unused-directives').stderr).toContain('src/lib/a11y/DupId.svelte:3 suppresses nothing');
+  });
+
   it('does not record an inline-suppressed finding in the suppressions file', () => {
     const dir = scratchCopy();
     scratch.push(dir);

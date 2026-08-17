@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll } from 'vitest';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -79,6 +79,18 @@ describe('kitchen-sink e2e (static mode)', () => {
     const cleanRoutes = report.routes.filter((r) => r.route.startsWith('/clean') && r.issues.length > 0);
     expect(offenders).toEqual([]);
     expect(cleanRoutes).toEqual([]);
+  });
+
+  it('--by-route adds the per-route breakdown to console output', () => {
+    // The gallery exits 1, so read stdout off spawnSync rather than letting execFileSync throw.
+    const console_ = (...args: string[]) =>
+      spawnSync(process.execPath, [bin, appDir, '--reporter', 'console', '--no-color', ...args], {
+        encoding: 'utf8',
+        maxBuffer: 16 * 1024 * 1024,
+        env: { ...process.env, CI: '1', CLAUDECODE: '', CLAUDE_CODE: '' }
+      }).stdout;
+    expect(console_()).not.toContain('By route');
+    expect(console_('--by-route')).toContain('By route');
   });
 
   it('exits 1 on the gallery (critical present) and 0 on clean routes', () => {
