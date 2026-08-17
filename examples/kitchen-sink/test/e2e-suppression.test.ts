@@ -182,6 +182,9 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     const { report, stderr } = run(dir);
     expect(findings(report, 'a11y/id-duplication')).toBe(findings(baseline, 'a11y/id-duplication'));
     expect(stderr).toContain('src/lib/a11y/DupId.svelte:3 disables unknown rule "a11y/id-duplicaton"');
+    // Scoped runs stay quiet: the composition parses every route before --route filters, so the
+    // warning would otherwise name files the run never analysed.
+    expect(run(dir, '--route', 'gallery/a11y/**').stderr).not.toContain('unknown rule');
   });
 
   it('silences a shared component on every route that composed it', () => {

@@ -288,8 +288,10 @@ A directive in a component silences that finding on **every route that composes 
 you are annotating one piece of markup, not one route. Per-route suppression is what
 `svelte-vitals-suppressions.json` and `overrides` are for.
 
-A directive naming a rule id that no rule declares is reported as a warning; it would
-otherwise suppress nothing, silently. A directive that suppresses nothing is **not** reported by
+A directive naming a rule id that no rule declares is reported as a warning on a full
+run; it would otherwise suppress nothing, silently. (A `--route` run stays quiet about
+it — it parses files outside the selection and should not report on them, the same gate
+the stale-suppressions notice uses.) A directive that suppresses nothing is **not** reported by
 default — the author fixed the code and left the comment, the rule is off in config,
 the run was scoped, all legitimate. Pass `--report-unused-directives` to hear about
 them; a directive is judged across every route at once.
