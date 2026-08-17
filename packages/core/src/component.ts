@@ -211,3 +211,41 @@ export interface ComponentFacts {
    *  limit), not a malformed component. Reported separately so one does not masquerade as the other. */
   readFailed?: true;
 }
+
+/**
+ * Warnings for files a collector could not read or parse: the file contributes empty facts, so any
+ * findings it would have produced are simply missing rather than reported as fixed. The two causes
+ * are reported separately — an unreadable file is an environment problem (permissions, a descriptor
+ * limit) and a malformed one is the author's, and sharing a message is how a descriptor limit once
+ * read as hundreds of broken components. Capped at 10 inline paths so one badly-broken directory
+ * cannot flood the terminal.
+ */
+export function skippedFileWarnings(
+  facts: readonly { file: string; parseFailed?: true; readFailed?: true }[]
+): string[] {
+  const list = (files: string[]): string => {
+    const shown = files.slice(0, 10);
+    return files.length > shown.length
+      ? `${shown.join(', ')}, … and ${files.length - shown.length} more`
+      : shown.join(', ');
+  };
+  const names = (pick: (f: { parseFailed?: true; readFailed?: true }) => boolean): string[] =>
+    [...new Set(facts.filter(pick).map((f) => f.file))].sort();
+
+  const unread = names((f) => f.readFailed === true);
+  const unparsed = names((f) => f.parseFailed === true && f.readFailed !== true);
+  const out: string[] = [];
+  if (unread.length > 0) {
+    out.push(
+      `skipped ${unread.length} file(s) that could not be read: ${list(unread)}`,
+      'this is an environment problem, not a code one — check file permissions and the open-file limit (`ulimit -n`).'
+    );
+  }
+  if (unparsed.length > 0) {
+    out.push(
+      `skipped ${unparsed.length} file(s) that could not be parsed: ${list(unparsed)}`,
+      'findings for these files are unavailable until they parse.'
+    );
+  }
+  return out;
+}

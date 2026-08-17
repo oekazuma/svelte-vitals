@@ -32,6 +32,7 @@ export type {
   SuppressionDirective
 } from './component.js';
 export { parseComponentFacts } from './component-parse.js';
+export { skippedFileWarnings } from './component.js';
 export { collectComponentFacts, emptyComponentFacts } from './component-collect.js';
 export { collectSourceFiles } from './source-files.js';
 export type { KitModuleFacts } from './kit-module.js';

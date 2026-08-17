@@ -7,6 +7,7 @@ import {
   runRules,
   withFailedRulesOff,
   formatFailedRuleWarning,
+  skippedFileWarnings,
   computeScore,
   summarize,
   hasFailureAtOrAbove,
@@ -115,7 +116,10 @@ export async function analyze(
   });
   const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
   // Surfaced through the same `warnings` channel as config-file issues (plugin.ts logs each with
-  // `console.warn`).
+  // `console.warn`). A file the collectors could not read or parse contributes empty facts, so its
+  // findings go missing rather than showing as fixed — the build has to say so, exactly as the CLI
+  // does, and through the same formatter so the two never drift apart.
+  warnings.push(...skippedFileWarnings([...components, ...kitModules]));
   for (const f of failedRules) warnings.push(formatFailedRuleWarning(f));
   // A failed rule examined nothing, so its weight must not stay in the Health denominator — same
   // correction the CLI's `analyzeProject` applies, used by every downstream consumer here so the

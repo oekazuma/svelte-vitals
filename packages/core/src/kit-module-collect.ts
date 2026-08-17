@@ -52,8 +52,15 @@ export async function collectKitModuleFacts(
   const facts = await Promise.all(
     files.sort().map(async (rel): Promise<KitModuleFacts> => {
       const kind = kindOf(rel);
+      // Read and parse caught separately, as in `collectComponentFacts`: an unreadable file is an
+      // environment problem and a malformed one is the author's.
+      let source: string;
       try {
-        const source = await rt.readFile(rt.join(cwd, rel));
+        source = await rt.readFile(rt.join(cwd, rel));
+      } catch {
+        return { ...emptyKitModuleFacts(rel, kind), parseFailed: true, readFailed: true };
+      }
+      try {
         return { file: rel, kind, ...parseKitModuleFacts(source, rel, aliases) };
       } catch {
         return { ...emptyKitModuleFacts(rel, kind), parseFailed: true };

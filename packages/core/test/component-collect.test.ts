@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import type { Runtime } from '../src/runtime.js';
 import { collectComponentFacts, emptyComponentFacts } from '../src/component-collect.js';
 import { withReadLimit } from '../src/runtime.js';
+import { skippedFileWarnings } from '../src/component.js';
 
 /** Minimal in-memory Runtime for tests (design §8) — no real filesystem needed. */
 function createMemoryRuntime(files: Record<string, string>, unreadable: Set<string> = new Set()): Runtime {
@@ -169,5 +170,23 @@ describe('withReadLimit', () => {
     }, 1);
     await expect(read('bad')).rejects.toThrow('EACCES');
     await expect(read('good')).resolves.toBe('good');
+  });
+});
+
+describe('skippedFileWarnings', () => {
+  it('separates unreadable files from unparseable ones', () => {
+    const out = skippedFileWarnings([
+      { file: 'a.svelte', parseFailed: true, readFailed: true },
+      { file: 'b.svelte', parseFailed: true },
+      { file: 'c.svelte' }
+    ]);
+    expect(out[0]).toContain('1 file(s) that could not be read: a.svelte');
+    expect(out[1]).toContain('ulimit -n');
+    expect(out[2]).toContain('1 file(s) that could not be parsed: b.svelte');
+    expect(out.join(' ')).not.toContain('c.svelte');
+  });
+
+  it('says nothing when every file was read and parsed', () => {
+    expect(skippedFileWarnings([{ file: 'a.svelte' }])).toEqual([]);
   });
 });
