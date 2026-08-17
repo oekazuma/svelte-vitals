@@ -28,6 +28,8 @@ import {
   parseSvelte
 } from './svelte-ast.js';
 import { isInteractiveElement, isInteractiveContainer, type ElementAttr } from './rules/a11y/interactive.js';
+import { splitTokens } from './a11y.js';
+import { resolveRole } from './rules/a11y/aria-data.js';
 
 // The Svelte AST is structurally complex and only partially typed for our needs,
 // so traversal uses `any`. The node-type strings below are verified against
@@ -1151,11 +1153,22 @@ function elementAttrs(attributes: Node[]): ElementAttr[] {
 /**
  * Interactive elements nested inside another interactive container (a11y/interactive-nesting).
  * Only `RegularElement` is checked, so `<svelte:element this="button">` is out of static reach
- * — same convention as `collectAriaElements`. `stack` tracks the tags of enclosing containers
+ * — same convention as `collectAriaElements`. `stack` tracks the enclosing containers
  * (`isInteractiveContainer`); any interactive element entering while it is non-empty records
  * one fact at the descendant's line, keyed to the nearest enclosing container.
  */
-function collectInteractiveNestings(node: Node, source: string, acc: InteractiveNestingFact[], stack: string[]): void {
+/** The literal role that made an element a container, for the finding's message. */
+function containerRoleOf(attrs: ElementAttr[]): string | undefined {
+  const role = attrs.find((a) => a.name === 'role')?.literal;
+  return role ? resolveRole(splitTokens(role)) : undefined;
+}
+
+function collectInteractiveNestings(
+  node: Node,
+  source: string,
+  acc: InteractiveNestingFact[],
+  stack: { tag: string; role?: string }[]
+): void {
   if (Array.isArray(node)) {
     for (const child of node) collectInteractiveNestings(child, source, acc, stack);
     return;
@@ -1173,14 +1186,18 @@ function collectInteractiveNestings(node: Node, source: string, acc: Interactive
   if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
     const attrs = elementAttrs(node.attributes);
     if (stack.length > 0 && isInteractiveElement(node.name, attrs)) {
+      const container = stack[stack.length - 1]!;
       acc.push({
-        containerTag: stack[stack.length - 1]!,
+        containerTag: container.tag,
+        ...(container.role ? { containerRole: container.role } : {}),
         descendantTag: node.name,
         line: lineOf(source, node.start)
       });
     }
     if (isInteractiveContainer(node.name, attrs)) {
-      stack.push(node.name);
+      // A `<div role="button">` reads as an anonymous div in a finding unless the role is carried.
+      const role = node.name === 'button' || node.name === 'a' ? undefined : containerRoleOf(attrs);
+      stack.push({ tag: node.name, ...(role ? { role } : {}) });
       opened = true;
     }
   }

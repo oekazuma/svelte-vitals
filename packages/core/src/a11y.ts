@@ -126,3 +126,14 @@ export const IDREF_ATTRS: readonly string[] = [
 export function isTopFragment(id: string): boolean {
   return id.toLowerCase() === 'top';
 }
+
+/**
+ * A fragment with its text directive removed. Everything from the first `:~:` on is user-agent
+ * instructions for finding text and names no element, while anything before it is still an
+ * ordinary element fragment — `#section:~:text=hi` targets `id="section"`, `#:~:text=hi` targets
+ * nothing. Returns an empty string when the fragment is a directive and nothing else.
+ */
+export function stripTextDirective(fragment: string): string {
+  const i = fragment.indexOf(':~:');
+  return i === -1 ? fragment : fragment.slice(0, i);
+}

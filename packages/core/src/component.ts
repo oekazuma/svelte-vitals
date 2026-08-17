@@ -96,6 +96,8 @@ export interface BasePathLinkFact {
  *  container (e.g. `<a href>`) (a11y/interactive-nesting). */
 export interface InteractiveNestingFact {
   containerTag: string;
+  /** The container's literal `role`, when that is what made it a container rather than its tag. */
+  containerRole?: string;
   descendantTag: string;
   /** 1-based source line of the descendant, or 0 if unknown. */
   line: number;
