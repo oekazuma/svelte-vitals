@@ -14,7 +14,10 @@ export const a11yDoctype: Rule = {
   id: 'a11y/doctype',
   title: 'Doctype',
   category: 'a11y',
-  severity: 'warning',
+  // `info`, not `warning`: the accessibility half of this rule's premise has no source — MDN's
+  // quirks-mode guide is about layout, and WCAG 4.1.1 Parsing is obsolete and removed. The layout
+  // claim stands, so the rule stays; its weight follows the evidence that remains.
+  severity: 'info',
   scope: 'project',
   rationale:
     'Without a doctype browsers render in quirks mode, which applies different layout and box-model rules than the standards mode a page is otherwise laid out under.',
@@ -26,7 +29,7 @@ export const a11yDoctype: Rule = {
       {
         id: 'a11y/doctype',
         category: 'a11y',
-        severity: 'warning',
+        severity: 'info',
         detection: appHtmlDoctype ? present : absent,
         location: 'src/app.html',
         message: appHtmlDoctype ? '<!doctype html>' : 'src/app.html is missing <!doctype html>',
