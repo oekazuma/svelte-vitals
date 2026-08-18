@@ -51,14 +51,22 @@ The repo already has the right shape for this and it is not `gen-action-pin`: it
 `packages/core/scripts/gen-schema-vocab.js` + `test/schema-vocabulary.test.ts`. `schema-dts` is a
 **catalog devDependency**; the generator reads it out of `node_modules` via `require.resolve`; the
 test re-extracts from the same installed package and compares with the committed module — no network,
-so it runs in CI and in `floor-smoke`; a Renovate bump changes the installed data, the test fails, and
-the regeneration PR shows the data diff. That is what "pinned" means here: the catalog version.
+so it runs in the `test` job; a Renovate bump changes the installed data, the test fails, and the
+regeneration PR shows the data diff. `floor-smoke` never runs vitest; its contribution is importing
+the generated module under bare Node 24.16.0. "Pinned" means an **exact** catalog entry
+(`aria-query: 5.3.2` style, not `^`), so the version in the notice and the version installed cannot
+drift apart.
 
 So: `@markuplint/html-spec` joins `pnpm-workspace.yaml`'s catalog as a devDependency of
-`@svelte-vitals/core`. `packages/core/scripts/gen-html-spec.js` projects `index.json` down to the
-columns in the table and writes `packages/core/src/html-spec/generated.ts` as one `JSON.parse('…')`
-string (a 190 KB object literal is something oxfmt would reflow; `schema-vocabulary.generated.ts`
-survives for the same reason). `test/html-spec.test.ts` re-projects and compares.
+`@svelte-vitals/core`. `packages/core/scripts/gen-html-spec.js` resolves the package through its
+`./json` export (its `exports` map has no `./package.json`, so `require.resolve('@markuplint/html-spec/json')`
+then `../package.json` for the version), projects `index.json` down to the columns in the table, and
+writes `packages/core/src/html-spec/generated.ts` as one `JSON.parse(<string>)` call — a 190 KB
+object literal is something oxfmt would reflow, and the string is emitted as
+`JSON.stringify(JSON.stringify(data))` because the projection contains ~550 `'` characters and
+`renderSchemaVocabModule` throws on those. The module's type is hand-written: importing `MLMLSpec`
+from `@markuplint/ml-spec` would leak a devDependency into `dist/*.d.ts` and fail `check:publish`.
+`test/html-spec.test.ts` re-projects and compares.
 
 Three measured reasons this beats a runtime dependency:
 
@@ -77,8 +85,9 @@ Three measured reasons this beats a runtime dependency:
 comments are absent from the built chunk — so a notice in an ordinary comment vanishes from the
 published copy, which is the copy the "all copies or substantial portions" clause is about. The
 generated module opens with a `/*! … */` legal comment carrying the upstream copyright line and the
-full permission text, and the test asserts the copyright line is present **in `dist`**, not in
-source. Projection does not lift the obligation.
+full permission text, and a test asserts the copyright line is present **in `dist`**, not in source.
+That test lives in `packages/cli/test`, which already imports core from its built `dist` — core's own
+vitest stays build-independent. Projection does not lift the obligation.
 
 ## ARIA: vocabulary stays on `aria-query`; deprecation comes from markuplint
 
@@ -87,17 +96,31 @@ markuplint's `#aria` omits DPUB-ARIA — 41 `doc-*` roles `aria-query` carries a
 swapping the vocabulary would make `invalid-role` flag valid publishing markup. (Its three
 `graphics-*` roles sit in a separate `graphicsRoles` array and are present.)
 
-But `aria-query@5.3.2` carries **no deprecation data at all** — no field on any role or property —
-and the roadmap names `deprecated-props`/`deprecated-role`. markuplint's `#aria.1.3` has all three
-forms: deprecated roles (`directory`), deprecated properties (`aria-dropeffect`, `aria-grabbed`), and
-per-role deprecated `ownedProperties` on 92 roles (`aria-haspopup` on `checkbox`, and so on). Those
-rows are projected into the generated module; nothing else from `#aria` is. Two sources, disjoint
-facts, no overlap to disagree on.
+But two roadmap rules need what `aria-query` does not have. `deprecated-props`/`deprecated-role`
+need deprecation, and `aria-query@5.3.2` carries **none** — no field on any role or property.
+`disallowed-props` needs a per-role property table, and `aria-query`'s `roles.get(r).props` is stale
+where it matters: it lacks the three ARIA 1.3 globals (`aria-description`, `aria-braillelabel`,
+`aria-brailleroledescription`) on every role, so a rule built on it flags `aria-description`
+everywhere, and it differs from markuplint's 1.3 `ownedProperties` on 83 of 100 roles.
+
+So the **per-role property tables come from markuplint**: `#aria.1.3` `roles[].ownedProperties`
+(with each row's `deprecated` flag) and `prohibitedProperties`, plus the deprecated roles
+(`directory`) and deprecated properties (`aria-dropeffect`, `aria-grabbed`) — ~45 KB. That is what
+`disallowed-props`, `deprecated-props` and `deprecated-role` read. It is also why the two sources
+cannot answer the same question differently: the projection **drops the `required` field** from
+those rows, so the vendored data cannot say what a role requires — `required-aria-props` keeps
+`aria-query` plus `NO_REQUIRED_PROPS`, for the reason below — and `aria-query` is never asked which
+properties a role owns. Each fact has exactly one place to come from, enforced by what the generator
+writes rather than by discipline.
 
 Because both sources now feed the same rules, a test asserts that every role in markuplint's 1.3
-`roles` ∪ `graphicsRoles`, every property in its `props`, and every role name in the retained
-`specs[].aria` is one `aria-data.ts` recognizes — the test reads `#aria` from the installed package,
-so it needs no vendored copy of the table. Today it holds, and holds because of exactly the patches
+`roles` ∪ `graphicsRoles`, every property in its `props` and in every role's `ownedProperties`/
+`prohibitedProperties`, and every role name in the retained `specs[].aria.implicitRole`/
+`permittedRoles` is one `aria-data.ts` recognizes — read from the installed package. The generator
+normalizes `permittedRoles`' mixed shape (`array | boolean | {name, deprecated}`) to names, and
+`specs[].aria.properties` (per-element property conditions) is **not** projected: it is not needed
+by any listed rule and it carries at least one typo (`aria-hecked` on `input[type=checkbox]`) that a
+name guard would otherwise have to know about. Today it holds, and holds because of exactly the patches
 `aria-data.ts` already carries: markuplint's 1.3 table lists the five roles (`comment`, `image`,
 `sectionheader`, `sectionfooter`, `suggestion`) and two attributes (`aria-colindextext`,
 `aria-rowindextext`) that `ARIA_1_3_ROLES`/`ARIA_1_3_ATTRIBUTES` add on top of `aria-query`, and its
@@ -132,9 +155,16 @@ settled ("follow the compiler").
 `a11y/deprecated-element` and `a11y/deprecated-attr` are pure lookups. Their scope, stated because
 the flags in the data are not one thing:
 
-- Elements: no element carries `deprecated`; 29 carry `obsolete`. The rule fires on **`obsolete`**,
-  minus `marquee`/`blink` (compiler), and **only for the HTML namespace** — the 64 `svg:*` elements
-  are out of scope for both rules in this increment.
+- Elements: no element carries `deprecated`; 29 carry `obsolete` (WHATWG §16.2 exactly). The rule
+  fires on **`obsolete`**, minus `marquee`/`blink` (compiler), and **only for the HTML namespace** —
+  the 64 `svg:*` elements are out of scope for both rules in this increment. That scope is not free:
+  `component-parse.ts` records `tag: node.name` with no ancestor namespace, and the names that
+  collide — `a`, `script`, `style`, `title` — are exactly where a name-only lookup goes wrong.
+  `<svg><style type="text/css">` is the Illustrator-export idiom pasted into components, and HTML
+  `style[type]` is `deprecated` while `svg:style` has no such row. So the element occurrence gains an
+  `inSvg` flag (an `<svg>` ancestor, reset by `<foreignObject>`), and both rules skip flagged
+  occurrences. Test 5 carries that snippet, because "an `svg:*` element does not fire" tests nothing
+  — none of the 29 obsolete names is an SVG name.
 - Attributes: 169 `deprecated`, 2 `obsolete`, and separately 23 `nonStandard` and 16 `experimental`.
   The rule fires on **`deprecated ∪ obsolete`** from the element's own `attributes` table only —
   not on `nonStandard`/`experimental`, and not on the `#globalAttrs` groups. The global groups are
@@ -142,8 +172,15 @@ the flags in the data are not one thing:
   icon sprite is `<use xlink:href="#…">`; consulting them would fire on the most common SVG idiom in
   the corpus.
 - The `deprecated` flag follows the dataset's own status, which tracks MDN rather than WHATWG's
-  obsolete-features list — `a[attributionsrc]` is `deprecated: true` in the data. The finding says
-  "deprecated", not "non-conforming", so the message claims exactly what the data does.
+  obsolete-features list — and that cuts both ways. Over: `a[attributionsrc]` is `deprecated: true`.
+  Under: WHATWG-obsolete attributes MDN never documented are absent, so the rule is silent on
+  `p[align]`, `td[nowrap]`, `html[manifest]`, `input[align]`, `body[marginheight]` and the rest of
+  that list — and `<p align="center">` is the most common legacy attribute in the wild. The finding
+  says "deprecated", and the rule doc says coverage is "attributes the dataset marks deprecated",
+  not "obsolete attributes". An attribute flagged both `deprecated` and `nonStandard`
+  (`hr[size]`, `canvas[moz-opaque]`) fires — it is in the union.
+- One finding per element: `deprecated-attr` skips attributes on an element `deprecated-element` (or
+  the compiler) already reports, so `<font color>` and `<marquee behavior>` each surface once.
 
 Measured on five real apps: `<strike>` ×2 and `iframe[frameborder]` ×11 across two of them. Both
 rules fire on real code without being noisy. Each gets docs (en/ja), a kitchen-sink sample, and the
@@ -165,12 +202,16 @@ meta-test coverage every rule has; the remaining rules follow one at a time unde
 ## Testing
 
 1. Drift: `test/html-spec.test.ts` re-projects `index.json` from the installed package and equals the
-   committed generated module — offline, catalog version is the pin.
-2. ARIA guard: markuplint 1.3 `roles` ∪ `graphicsRoles` ∪ `props` ∪ retained `specs[].aria` role
-   names ⊆ what `aria-data.ts` recognizes, read from the installed package.
-3. Notice: the built `dist` contains the upstream copyright line.
+   committed generated module — offline, exact catalog version is the pin.
+2. ARIA guard: markuplint 1.3 `roles` ∪ `graphicsRoles`, `props`, every `ownedProperties`/
+   `prohibitedProperties` name, and the retained `specs[].aria` role names ⊆ what `aria-data.ts`
+   recognizes, read from the installed package. The generated module contains no `required` field.
+3. Notice: the built core `dist` contains the upstream copyright line (asserted from
+   `packages/cli/test`).
 4. Core purity: `packages/core/src` still has no `node:` import; the generator lives under `scripts/`.
 5. `deprecated-element` / `deprecated-attr`: kitchen-sink samples with expected counts; `<s>` (the
    conforming replacement for `<strike>`) does not fire; `td[width]` fires while `img[width]` does not
-   (deprecated on one element, current on the other); `<marquee>` does not fire; an `svg:*` element
-   does not fire.
+   (deprecated on one element, current on the other); `<marquee>` does not fire;
+   `<svg><style type="text/css">` does not fire while `<style type="text/css">` outside SVG does;
+   `<font color>` yields one finding, not two. The ja rule doc notes that `<rb>`/`<rtc>` are obsolete
+   in WHATWG but were kept by W3C HTML 5.x and appear in Japanese ruby markup.
