@@ -61,9 +61,9 @@ So: `@markuplint/html-spec` joins `pnpm-workspace.yaml`'s catalog as a devDepend
 `@svelte-vitals/core`. `packages/core/scripts/gen-html-spec.js` resolves the package through its
 `./json` export (its `exports` map has no `./package.json`, so `require.resolve('@markuplint/html-spec/json')`
 then `../package.json` for the version), projects `index.json` down to the columns in the table, and
-writes `packages/core/src/html-spec/generated.ts` as one `JSON.parse(<string>)` call — a 190 KB
+writes `packages/core/src/html-spec/generated.ts` as one `JSON.parse(<string>)` call — a 250 KB
 object literal is something oxfmt would reflow, and the string is emitted as
-`JSON.stringify(JSON.stringify(data))` because the projection contains ~550 `'` characters and
+`JSON.stringify(JSON.stringify(data))` because the projection contains hundreds of `'` characters and
 `renderSchemaVocabModule` throws on those. The module's type is hand-written: importing `MLMLSpec`
 from `@markuplint/ml-spec` would leak a devDependency into `dist/*.d.ts` and fail `check:publish`.
 `test/html-spec.test.ts` re-projects and compares.
@@ -75,9 +75,9 @@ Three measured reasons this beats a runtime dependency:
   `dom-accessibility-api`, `is-plain-object` and `type-fest` into every user's install for a file that
   only ever loads JSON. As a devDependency it is installed here and nowhere else.
 - **Roughly 80% of the JSON is not what the rules read** — 1.18 MB minified down to about 0.25 MB
-  once every column in the table plus the ARIA rows below is kept (0.19 MB without the ARIA rows).
-  Half of what goes is prose (`description`, `cite`, `defaultValue`, `animatable`), the other half is
-  the rest of the `#aria` table. Core purity is trivial: the data is a TS
+  once every column in the table plus the ARIA rows below is kept (about 0.17 MB without the ARIA
+  rows). Of what goes, roughly a third is prose (`description`, `cite`, `defaultValue`, `animatable`)
+  and two thirds is the rest of the `#aria` table. Core purity is trivial: the data is a TS
   module.
 - **The dataset 1.0 ships is the one 1.0 was tested against.** A semver range on a runtime data
   package lets a user's `pnpm update` change what a rule reports; a committed projection cannot.
@@ -143,8 +143,9 @@ rule reads them and the data carries at least one typo there (`aria-hecked`, und
 `input.aria["1.1"].conditions[…].properties`) that a name guard would otherwise have to know about.
 `permittedRoles` has four shapes — an array of names, an array mixing names and `{name, deprecated}`
 objects, a boolean, and `{"core-aam": true, "graphics-aam": true}` on the `svg:*` entries — and the
-generator normalizes all four to a name list (the AAM-object form to "any", which never reaches a
-rule while `svg:*` is out of scope). Today it holds, and holds because of exactly the patches
+generator normalizes all four to a name list: `true` (72 HTML elements — `abbr`, `b`, `blockquote`,
+`code`, …) to the sentinel `"any"`, `false` (81 entries) to `[]`, the AAM-object form (16 entries,
+all `svg:*`) also to `"any"`. A `permittedRoles` consumer must handle `"any"`; the guard skips it. Today it holds, and holds because of exactly the patches
 `aria-data.ts` already carries: markuplint's 1.3 table lists the five roles (`comment`, `image`,
 `sectionheader`, `sectionfooter`, `suggestion`) and two attributes (`aria-colindextext`,
 `aria-rowindextext`) that `ARIA_1_3_ROLES`/`ARIA_1_3_ATTRIBUTES` add on top of `aria-query`, and its
@@ -238,7 +239,7 @@ meta-test coverage every rule has; the remaining rules follow one at a time unde
   `required-attr` and `ineffective-attr` therefore need a third selector surface, distinct from both
   the content-model DSL and the ARIA conditions, and their designs decide how much of it to evaluate
   against a template with holes in it.
-- **The attribute type interpreter.** 228 distinct type expressions; `Boolean`, `URL`, `<number>`,
+- **The attribute type interpreter.** 227 distinct type expressions; `Boolean`, `URL`, `<number>`,
   `Enum`, `DOMID` cover the common ones, `FunctionBody` (event handlers, 112) is the largest single
   bucket. `invalid-attr`'s design decides the subset it validates and states what it leaves.
 
