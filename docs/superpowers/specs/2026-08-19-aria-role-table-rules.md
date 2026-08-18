@@ -93,9 +93,9 @@ record the limitation rather than the rule pretending otherwise.
 **`a11y/disallowed-aria-props`** (warning). Two arms, with different messages because they are
 different facts:
 
-- _Prohibited_: `aria-label` / `aria-labelledby` / `aria-braillelabel` on an element whose
+- _Prohibited_, in two forms. **(a)** `aria-label` / `aria-labelledby` / `aria-braillelabel` on an element whose
   `namingProhibited` holds under every candidate (message: "prohibited on `<div>` — its role does not
-  take a name"); and, on a role — explicit, or implicit and holding under every candidate — any
+  take a name"); and **(b)**, on a role — explicit, or implicit and holding under every candidate — any
   attribute its row lists in `prohibitedProperties`, with a message that names the attribute and the
   role. The second form is what catches `aria-roledescription` on `generic` (ARIA 1.2 prohibits it;
   the compiler is silent) without calling it a naming attribute — and it is why the braille
@@ -123,7 +123,9 @@ with a test that pins each entry:
   `menuitemcheckbox` and `menuitemradio` × `aria-readonly`/`aria-required`, and `aria-expanded` on
   the three `graphics-*` roles — counting the not-owned arm only; aria-query also lists the naming
   attributes as supported on 15 of the 17 prohibiting roles (`none` lists none, so the compiler
-  warns there — same direction, no breach — and `suggestion` is absent from aria-query), and the
+  warns there — same direction, no breach — and `suggestion` is absent from aria-query;
+  `aria-braillelabel` it lists only on `mark`, so elsewhere the compiler says _unsupported_ where the
+  rule says _prohibited_, again the same direction), and the
   compiler never reads
   `prohibitedProps`, so the prohibited arm is compiler-silent on explicit roles too, by design not
   by exemption. Only the first and third of the ten are supported in ARIA 1.2 itself; the rest are
@@ -136,9 +138,14 @@ with a test that pins each entry:
   version drift. `<address>` is exempted from form (a) — its dataset role is already `group`, whose
   row prohibits nothing. `<hgroup>` needs more: the dataset also gives it `implicitRole: "generic"`,
   the same misreading, and `generic`'s row would fire form (b), the not-owned arm, and
-  `deprecated-aria` (`aria-disabled`) on it regardless of form (a). So the `<hgroup>` entry overrides
-  its **implicit role** to `group`, which closes all four in one move; `<hgroup aria-label>` and
-  `<hgroup aria-disabled>` are pinned silent. (`<html>` is also flagged
+  `deprecated-aria` (`aria-disabled`) on it regardless of form (a). So the `<hgroup>` entry
+  **replaces its element-level ARIA facts** — implicit role `group`, no `namingProhibited` — which
+  closes all four in one move; `<hgroup aria-label>` and `<hgroup aria-disabled>` are pinned silent.
+  Form (a) stays keyed on the **element's** flag, not the resolved role's: `<label>`, `<legend>` and
+  `<figcaption>` are `implicitRole: false` with `namingProhibited: true`, so keying (a) on the role
+  would silently drop the `<label aria-label>` case decided above — `<label for=… aria-label>` firing
+  is pinned for exactly that reason. (Under the override `<hgroup aria-haspopup>` still fires
+  `deprecated-aria` and `<hgroup aria-level>` still fires not-owned; both are correct for `group`.) (`<html>` is also flagged
   in the dataset; html-aria permits no `aria-*` on it at all, so the outcome is right and only the
   message would mislead — the arm's message names the element, not a role, for it.)
 
@@ -147,7 +154,8 @@ attribute deprecated globally (`aria-dropeffect`, `aria-grabbed`); an attribute 
 resolved role under every candidate (330 rows in the table — the common real hit is `aria-disabled`
 or `aria-haspopup` on `generic`: `aria-haspopup` is deprecated on 88 of the 103 roles,
 `aria-disabled` on 66). On explicit roles (295 of the 310
-explicit-role pairs; the 15 exceptions are `menuitemcheckbox`/`menuitemradio` × `aria-errormessage`/
+explicit-role pairs on the 98 roles aria-query shares — the other 20 sit on the five roles it lacks,
+where the compiler's overlap is `a11y_unknown_role` instead; the 15 exceptions are `menuitemcheckbox`/`menuitemradio` × `aria-errormessage`/
 `aria-invalid`, the three `graphics-*` roles × `aria-errormessage`/`aria-haspopup`/`aria-invalid`,
 and `graphics-document`/`graphics-symbol` × `aria-disabled`, where it is silent), and on the
 implicit elements the compiler maps, it reports the role-deprecated arm as _unsupported_ at warning,
@@ -178,7 +186,8 @@ per-condition overrides are not; its own increment. `implicit-props`, `required-
 1. Projection: `namingProhibited` and `conditions` land as specified; the drift test covers them; the
    ARIA guard extends to condition outcomes; a role row still has no `required`.
 2. `disallowed-aria-props`, through `parseComponentFacts`: `<div aria-label>` and `<span
-aria-level>` fire with the two different messages; `<div aria-roledescription>` fires with the
+aria-level>` fire with the two different messages; `<label for="x" aria-label="close">` fires (form
+   (a) is element-keyed); `<div aria-roledescription>` fires with the
    property-named message and `<p aria-brailleroledescription>` does not; `<canvas aria-label>`, `<a
 aria-label>`, `<img
 aria-label>`, `<input aria-checked>`, `<address aria-label>`, `<hgroup aria-label>` do not; `<li aria-level>` does not
