@@ -100,8 +100,7 @@ different facts:
   role. The second form is what catches `aria-roledescription` on `generic` (ARIA 1.2 prohibits it;
   the compiler is silent) without calling it a naming attribute — and it is why the braille
   role-description form is **not** in the first list: `paragraph`, `code`, `strong` and the other text
-  roles own `aria-brailleroledescription`, so `<p aria-brailleroledescription>` must stay silent. Message: "`aria-label` is
-  prohibited on `<div>` — its role does not take a name".
+  roles own `aria-brailleroledescription`, so `<p aria-brailleroledescription>` must stay silent.
 - _Not owned by the role_: an attribute absent from an **explicit** role's `ownedProperties`, or from
   the implicit role's when that role holds under every candidate. Message: "`aria-level` is not
   supported by role `generic`". This is the arm that overlaps `a11y_role_supports_aria_props(_implicit)`.
@@ -123,7 +122,9 @@ with a test that pins each entry:
   pairs: `listitem`/`aria-level`, `tablist`/`aria-level`, `listbox`/`aria-expanded`,
   `menuitemcheckbox` and `menuitemradio` × `aria-readonly`/`aria-required`, and `aria-expanded` on
   the three `graphics-*` roles — counting the not-owned arm only; aria-query also lists the naming
-  attributes as supported on all 17 prohibiting roles, and the compiler never reads
+  attributes as supported on 15 of the 17 prohibiting roles (`none` lists none, so the compiler
+  warns there — same direction, no breach — and `suggestion` is absent from aria-query), and the
+  compiler never reads
   `prohibitedProps`, so the prohibited arm is compiler-silent on explicit roles too, by design not
   by exemption. Only the first and third of the ten are supported in ARIA 1.2 itself; the rest are
   1.1 leftovers or superclass artefacts aria-query still lists. The dataset is the more current
@@ -132,7 +133,12 @@ with a test that pins each entry:
 - _The spec wins over the dataset._ `<address>` and `<hgroup>` are `namingProhibited` in the dataset,
   but html-aria (TR and editor's draft) gives both `role=group` with no naming prohibition and axe's
   element table agrees; upstream markuplint `main` still carries the flag, so this is a data bug, not
-  version drift. Both are exempted from the naming arm with that reason. (`<html>` is also flagged
+  version drift. `<address>` is exempted from form (a) — its dataset role is already `group`, whose
+  row prohibits nothing. `<hgroup>` needs more: the dataset also gives it `implicitRole: "generic"`,
+  the same misreading, and `generic`'s row would fire form (b), the not-owned arm, and
+  `deprecated-aria` (`aria-disabled`) on it regardless of form (a). So the `<hgroup>` entry overrides
+  its **implicit role** to `group`, which closes all four in one move; `<hgroup aria-label>` and
+  `<hgroup aria-disabled>` are pinned silent. (`<html>` is also flagged
   in the dataset; html-aria permits no `aria-*` on it at all, so the outcome is right and only the
   message would mislead — the arm's message names the element, not a role, for it.)
 
@@ -142,7 +148,8 @@ resolved role under every candidate (330 rows in the table — the common real h
 or `aria-haspopup` on `generic`: `aria-haspopup` is deprecated on 88 of the 103 roles,
 `aria-disabled` on 66). On explicit roles (295 of the 310
 explicit-role pairs; the 15 exceptions are `menuitemcheckbox`/`menuitemradio` × `aria-errormessage`/
-`aria-invalid` and the three `graphics-*` roles × four properties, where it is silent), and on the
+`aria-invalid`, the three `graphics-*` roles × `aria-errormessage`/`aria-haspopup`/`aria-invalid`,
+and `graphics-document`/`graphics-symbol` × `aria-disabled`, where it is silent), and on the
 implicit elements the compiler maps, it reports the role-deprecated arm as _unsupported_ at warning,
 because aria-query dropped those properties from its role tables rather than flagging them; the
 verdict class is the same ("do not write this here"), the label and severity differ, and the docs say
@@ -174,12 +181,13 @@ per-condition overrides are not; its own increment. `implicit-props`, `required-
 aria-level>` fire with the two different messages; `<div aria-roledescription>` fires with the
    property-named message and `<p aria-brailleroledescription>` does not; `<canvas aria-label>`, `<a
 aria-label>`, `<img
-aria-label>`, `<input aria-checked>`, `<address aria-label>` do not; `<li aria-level>` does not
+aria-label>`, `<input aria-checked>`, `<address aria-label>`, `<hgroup aria-label>` do not; `<li aria-level>` does not
    (exemption, all ten pairs pinned); a DPUB role,
    an expression role, and a spread with no literal role → nothing; a spread with a literal role →
    still judged; fallback tokens resolve; an unknown attribute is skipped.
 3. `deprecated-aria`: each arm; `aria-haspopup` on `<div role="checkbox">` fires, on `<div
-role="menuitem">` does not; `<div aria-disabled>` fires via `generic`.
+role="menuitem">` does not; `<div aria-disabled>` fires via `generic`; `<hgroup aria-disabled>` does
+   not (its implicit role is overridden to `group`).
 4. `deprecated-element` reports `<marquee>`; kitchen-sink and the html-spec spec updated.
 5. Kitchen-sink samples for both rules with counts in both expectation files; docs en/ja stating the
    compiler overlap, the axe grading difference, and the `<input>` limitation; changeset naming the
