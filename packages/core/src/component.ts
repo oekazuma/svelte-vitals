@@ -135,7 +135,12 @@ export interface ElementFact {
   tag: string;
   /** 1-based source line, or 0 if unknown. */
   line: number;
-  /** literal attribute names on the element (directives, spreads and expression-only names excluded) */
+  /**
+   * Literal attribute names on the element (directives, spreads and expression-only names excluded).
+   * The per-attribute line is not what the deprecation rules anchor to — they anchor at the start
+   * tag so a `disable-next-line` directive can reach a multi-line element — but a value-level rule
+   * (`invalid-attr`) may want it for its message.
+   */
   attrs: { name: string; line: number }[];
   /**
    * Inside an `<svg>` subtree, or in a component declaring `<svelte:options namespace="svg" />`.

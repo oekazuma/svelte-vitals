@@ -18,8 +18,8 @@ export function htmlElement(tag: string): HtmlElementSpec | undefined {
 
 /**
  * Whether the element is in WHATWG's obsolete-features list — the dataset's `obsolete` flag, which
- * matches that section exactly (29 elements). No element carries the MDN-tracking `deprecated`
- * flag, so that column is not consulted here.
+ * matches that section exactly. No element carries the MDN-tracking `deprecated` flag, so that
+ * column is not consulted here.
  */
 export function isObsoleteElement(tag: string): boolean {
   const el = htmlElement(tag);

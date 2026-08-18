@@ -1109,8 +1109,9 @@ function classifyAttrValue(value: unknown): { literal?: string } | { expression:
  * Every element, namespace-tracked: `inSvg` is set on `<svg>` and everything under it, and cleared
  * again under `<foreignObject>`; a component declaring `<svelte:options namespace="svg" />` starts
  * inside SVG, since a `<g>`-root partial has no `<svg>` of its own. `<svelte:element this="…">` is
- * skipped and its subtree treated as HTML — the tag is dynamic, so neither its name nor its namespace
- * is known. Compared lowercased throughout — the AST keeps source spelling, HTML does not.
+ * skipped — the tag is dynamic, so neither its name nor its namespace is known — and its subtree
+ * keeps the surrounding namespace. Compared lowercased throughout — the AST keeps source spelling,
+ * HTML does not.
  */
 function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: boolean): void {
   if (Array.isArray(node)) {

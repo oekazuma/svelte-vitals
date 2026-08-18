@@ -4,8 +4,8 @@
  * into `dist/*.d.ts` and fail `check:publish`.
  */
 
-/** Attribute value type as the dataset writes it: a keyword (`Boolean`, `URL`), an enum, or a list. */
-export type HtmlAttrType = string | string[] | { enum: string[]; [k: string]: unknown } | Record<string, unknown>;
+/** Attribute value type as the dataset writes it: a keyword (`Boolean`, `URL`), a list, or an object (`{ enum, … }`). */
+export type HtmlAttrType = string | string[] | Record<string, unknown>;
 
 export interface HtmlAttrSpec {
   type?: HtmlAttrType;
