@@ -8,16 +8,16 @@ pipeline so it does not ship without a consumer.
 
 ## What the rules need
 
-| rule                                  | data                                                                    |
-| ------------------------------------- | ----------------------------------------------------------------------- |
-| `deprecated-element`                  | per-element obsolete flag                                               |
-| `deprecated-attr`                     | per-attribute deprecated/obsolete flag, per element                     |
-| `required-attr` (generic)             | per-attribute `required` / `requiredEither`, per element                |
-| `ineffective-attr`                    | per-attribute `ineffective` / `condition`, per element                  |
-| `invalid-attr`                        | per-attribute value type, per element and global                        |
-| `permitted-contents` (full)           | per-element content model, plus the content categories                  |
-| `implicit-role`, `disallowed-props`   | per-element implicit role and permitted roles; per-role property tables |
-| `deprecated-props`, `deprecated-role` | per-role and per-property deprecation                                   |
+| rule                                  | data                                                                                      |
+| ------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `deprecated-element`                  | per-element obsolete flag                                                                 |
+| `deprecated-attr`                     | per-attribute deprecated/obsolete flag, per element                                       |
+| `required-attr` (generic)             | per-attribute `required` / `requiredEither`, per element — mostly selectors, not booleans |
+| `ineffective-attr`                    | per-attribute `ineffective` / `condition`, per element — selectors                        |
+| `invalid-attr`                        | per-attribute value type, per element and global                                          |
+| `permitted-contents` (full)           | per-element content model, plus the content categories                                    |
+| `implicit-role`, `disallowed-props`   | per-element implicit role and permitted roles; per-role property tables                   |
+| `deprecated-props`, `deprecated-role` | per-role and per-property deprecation                                                     |
 
 ## The source: `@markuplint/html-spec`
 
@@ -101,26 +101,45 @@ need deprecation, and `aria-query@5.3.2` carries **none** — no field on any ro
 `disallowed-props` needs a per-role property table, and `aria-query`'s `roles.get(r).props` is stale
 where it matters: it lacks the three ARIA 1.3 globals (`aria-description`, `aria-braillelabel`,
 `aria-brailleroledescription`) on every role, so a rule built on it flags `aria-description`
-everywhere, and it differs from markuplint's 1.3 `ownedProperties` on 83 of 100 roles.
+everywhere, and even after setting those aside it differs from markuplint's 1.3 `ownedProperties` on
+87 of 100 roles.
 
 So the **per-role property tables come from markuplint**: `#aria.1.3` `roles[].ownedProperties`
 (with each row's `deprecated` flag) and `prohibitedProperties`, plus the deprecated roles
-(`directory`) and deprecated properties (`aria-dropeffect`, `aria-grabbed`) — ~45 KB. That is what
+(`directory`) and deprecated properties (`aria-dropeffect`, `aria-grabbed`) — roughly 50–80 KB
+depending on whether rows are kept as objects or flattened to name lists. That is what
 `disallowed-props`, `deprecated-props` and `deprecated-role` read. It is also why the two sources
-cannot answer the same question differently: the projection **drops the `required` field** from
-those rows, so the vendored data cannot say what a role requires — `required-aria-props` keeps
-`aria-query` plus `NO_REQUIRED_PROPS`, for the reason below — and `aria-query` is never asked which
-properties a role owns. Each fact has exactly one place to come from, enforced by what the generator
-writes rather than by discipline.
+cannot answer the same question differently, and the projection is what enforces it:
+
+- `ownedProperties`/`prohibitedProperties` rows keep **name and `deprecated` only** — `required` is
+  dropped, so the vendored data cannot say what a role requires; `required-aria-props` keeps
+  `aria-query` plus `NO_REQUIRED_PROPS`, for the reason below.
+- `#aria.1.3.props` is projected to **its deprecated names only** — `type`, `value`, `enum`,
+  `isGlobal`, `conditionalValue` are dropped, so value typing has one source, `aria-query`.
+- `graphicsRoles` is projected the same way as `roles`. Nothing else from `#aria` — not
+  `requiredOwnedElements`, `requiredContextRole`, `generalization`, or the abstract flag.
+- `aria-query` is never asked which properties a role owns.
+
+Each fact has exactly one place to come from, enforced by what the generator writes rather than by
+discipline. **A role with no row** — the 41 DPUB-ARIA roles `aria-query` knows and this table does not
+— gets no judgment from `disallowed-props`, `deprecated-props` or `deprecated-role`; that is a known
+limitation those three rules' docs state, and it is why a naive `table[role] ?? []` is wrong: it would
+flag every `aria-*` on valid publishing markup.
 
 Because both sources now feed the same rules, a test asserts that every role in markuplint's 1.3
 `roles` ∪ `graphicsRoles`, every property in its `props` and in every role's `ownedProperties`/
 `prohibitedProperties`, and every role name in the retained `specs[].aria.implicitRole`/
-`permittedRoles` is one `aria-data.ts` recognizes — read from the installed package. The generator
-normalizes `permittedRoles`' mixed shape (`array | boolean | {name, deprecated}`) to names, and
-`specs[].aria.properties` (per-element property conditions) is **not** projected: it is not needed
-by any listed rule and it carries at least one typo (`aria-hecked` on `input[type=checkbox]`) that a
-name guard would otherwise have to know about. Today it holds, and holds because of exactly the patches
+`permittedRoles` is one `aria-data.ts` recognizes — read from the installed package. Of `specs[].aria`'s keys —
+`implicitRole`, `permittedRoles`, `conditions`, `properties`, `implicitProperties`,
+`namingProhibited`, `1.1` — only **`implicitRole` and `permittedRoles`** are retained. `conditions`,
+`properties` and the `1.1` variant are dropped wholesale: `1.1` because the role table is pinned to
+1.3 and it is the only per-version key that exists at element level, the other two because no listed
+rule reads them and the data carries at least one typo there (`aria-hecked`, under
+`input.aria["1.1"].conditions[…].properties`) that a name guard would otherwise have to know about.
+`permittedRoles` has four shapes — an array of names, an array mixing names and `{name, deprecated}`
+objects, a boolean, and `{"core-aam": true, "graphics-aam": true}` on the `svg:*` entries — and the
+generator normalizes all four to a name list (the AAM-object form to "any", which never reaches a
+rule while `svg:*` is out of scope). Today it holds, and holds because of exactly the patches
 `aria-data.ts` already carries: markuplint's 1.3 table lists the five roles (`comment`, `image`,
 `sectionheader`, `sectionfooter`, `suggestion`) and two attributes (`aria-colindextext`,
 `aria-rowindextext`) that `ARIA_1_3_ROLES`/`ARIA_1_3_ATTRIBUTES` add on top of `aria-query`, and its
@@ -161,10 +180,18 @@ the flags in the data are not one thing:
   `component-parse.ts` records `tag: node.name` with no ancestor namespace, and the names that
   collide — `a`, `script`, `style`, `title` — are exactly where a name-only lookup goes wrong.
   `<svg><style type="text/css">` is the Illustrator-export idiom pasted into components, and HTML
-  `style[type]` is `deprecated` while `svg:style` has no such row. So the element occurrence gains an
-  `inSvg` flag (an `<svg>` ancestor, reset by `<foreignObject>`), and both rules skip flagged
-  occurrences. Test 5 carries that snippet, because "an `svg:*` element does not fire" tests nothing
-  — none of the 29 obsolete names is an SVG name.
+  `style[type]` is `deprecated` while `svg:style` has no such row. No element-occurrence fact exists
+  today, so this introduces one: a new `ComponentFacts` entry (`elements?: {tag, line, attrs, inSvg?}[]`,
+  every element, lowercased tag and attribute names as `elementAttrs` already does) with `inSvg`
+  set under an `<svg>` ancestor, reset by `<foreignObject>`, and **seeded from
+  `<svelte:options namespace="svg" />`** — an SVG-partial component with a `<g>` root has no `<svg>`
+  ancestor of its own and is exactly the case the flag exists for. Both rules skip flagged
+  occurrences. Test 5 carries the `<svg><style type="text/css">` snippet, because "an `svg:*` element
+  does not fire" tests nothing — none of the 29 obsolete names is an SVG name — and its control is a
+  `<style type="text/css">` **inside `<svelte:head>`**: a top-level `<style>` in a component is the
+  component's stylesheet, parsed into `ast.css` and never an element, so it is out of reach by
+  construction. Other collectors (`accessible-name`, `interactive-nesting` on `<svg><a>`) may adopt
+  the flag later; that is not this change.
 - Attributes: 169 `deprecated`, 2 `obsolete`, and separately 23 `nonStandard` and 16 `experimental`.
   The rule fires on **`deprecated ∪ obsolete`** from the element's own `attributes` table only —
   not on `nonStandard`/`experimental`, and not on the `#globalAttrs` groups. The global groups are
@@ -179,8 +206,12 @@ the flags in the data are not one thing:
   says "deprecated", and the rule doc says coverage is "attributes the dataset marks deprecated",
   not "obsolete attributes". An attribute flagged both `deprecated` and `nonStandard`
   (`hr[size]`, `canvas[moz-opaque]`) fires — it is in the union.
-- One finding per element: `deprecated-attr` skips attributes on an element `deprecated-element` (or
-  the compiler) already reports, so `<font color>` and `<marquee behavior>` each surface once.
+- One finding per element: `deprecated-attr` skips every attribute on an element whose tag is in the
+  obsolete set (`marquee`/`blink` included, so the compiler's two fall out of the same check), so
+  `<font color>` and `<marquee behavior>` each surface once. This is a data-level skip, not a view of
+  the other rule's result — separate `componentRule` specs have none — so turning
+  `a11y/deprecated-element` off, or suppressing it inline, does not resurface the attribute finding.
+  Stated in both rule docs.
 
 Measured on five real apps: `<strike>` ×2 and `iframe[frameborder]` ×11 across two of them. Both
 rules fire on real code without being noisy. Each gets docs (en/ja), a kitchen-sink sample, and the
@@ -195,6 +226,13 @@ meta-test coverage every rule has; the remaining rules follow one at a time unde
   unjudgeable is `permitted-contents`' own design; the open-world reasoning `no-missing-id-ref` had to
   face (#533) applies to it. Element `aria.conditions` use a different selector surface again
   (`:aria(has no name)`, `[alt=""]`).
+- **The attribute-condition selectors.** `required`, `ineffective` and `condition` are not
+  booleans on most rows: 7 of the 11 `required` rows are selectors (`":is(video, audio) > source"`,
+  `"[itemprop]"`), `ineffective` rows like `script[defer]` are lists (`["[type='module' i]",
+":not([src])", "[async]"]`), and `condition` (51 rows) uses ancestor combinators (`a[href] img`).
+  `required-attr` and `ineffective-attr` therefore need a third selector surface, distinct from both
+  the content-model DSL and the ARIA conditions, and their designs decide how much of it to evaluate
+  against a template with holes in it.
 - **The attribute type interpreter.** 228 distinct type expressions; `Boolean`, `URL`, `<number>`,
   `Enum`, `DOMID` cover the common ones, `FunctionBody` (event handlers, 112) is the largest single
   bucket. `invalid-attr`'s design decides the subset it validates and states what it leaves.
@@ -212,6 +250,7 @@ meta-test coverage every rule has; the remaining rules follow one at a time unde
 5. `deprecated-element` / `deprecated-attr`: kitchen-sink samples with expected counts; `<s>` (the
    conforming replacement for `<strike>`) does not fire; `td[width]` fires while `img[width]` does not
    (deprecated on one element, current on the other); `<marquee>` does not fire;
-   `<svg><style type="text/css">` does not fire while `<style type="text/css">` outside SVG does;
+   `<svg><style type="text/css">` and a `<g>`-root component with `<svelte:options namespace="svg" />`
+   do not fire while `<svelte:head><style type="text/css">` does;
    `<font color>` yields one finding, not two. The ja rule doc notes that `<rb>`/`<rtc>` are obsolete
    in WHATWG but were kept by W3C HTML 5.x and appear in Japanese ruby markup.
