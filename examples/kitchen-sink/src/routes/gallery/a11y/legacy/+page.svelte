@@ -13,6 +13,13 @@
   <meta property="og:image" content="https://example.com/og.png" />
   <meta property="og:url" content="https://example.com/gallery/a11y/legacy" />
   <meta name="twitter:card" content="summary_large_image" />
+  <!-- a11y/deprecated-attr: <style type> here is an element (a component's own <style> block is the
+       stylesheet, not an element, and is out of reach). -->
+  <style type="text/css">
+    .legacy {
+      color: inherit;
+    }
+  </style>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",

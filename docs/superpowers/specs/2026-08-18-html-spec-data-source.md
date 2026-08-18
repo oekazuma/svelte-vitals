@@ -219,8 +219,16 @@ the flags in the data are not one thing:
   `a11y/deprecated-element` off, or suppressing it inline, does not resurface the attribute finding.
   Stated in both rule docs.
 
-Measured on five real apps: `<strike>` ×2 and `iframe[frameborder]` ×11 across two of them. Both
-rules fire on real code without being noisy. Each gets docs (en/ja), a kitchen-sink sample, and the
+Measured with the shipped rules on five real apps: `deprecated-element` 2 (`<strike>`, both in
+svelte-commerce), `deprecated-attr` 7 (`iframe[frameborder]`, kener 3 and svelte-commerce 4), 0 in
+the other three. The design-phase grep had said 11 for `frameborder`; four of those sat inside JS
+template strings that build embed snippets, which are text, not markup — the rule is right and the
+grep was not. Both rules fire on real code without being noisy.
+
+Both rules treat every HTML element (for `deprecated-attr`, every attributed one) as judged, so a
+component with none obsolete or deprecated reports a pass rather than going unrecorded — the
+`invalid-aria-value` convention, not the `require-datetime` one, so a clean file stays in the
+category's evidence. Each gets docs (en/ja), a kitchen-sink sample, and the
 meta-test coverage every rule has; the remaining rules follow one at a time under the same bar.
 
 ## What this decision does not settle
@@ -259,6 +267,6 @@ meta-test coverage every rule has; the remaining rules follow one at a time unde
    conforming replacement for `<strike>`) does not fire; `td[width]` fires while `img[width]` does not
    (deprecated on one element, current on the other); `<marquee>` does not fire;
    `<svg><style type="text/css">` and a `<g>`-root component with `<svelte:options namespace="svg" />`
-   do not fire while `<svelte:head><style type="text/css">` does;
+   (`src/lib/a11y/SvgPartial.svelte`) do not fire while `<svelte:head><style type="text/css">` does;
    `<font color>` yields one finding, not two. The ja rule doc notes that `<rb>`/`<rtc>` are obsolete
    in WHATWG but were kept by W3C HTML 5.x and appear in Japanese ruby markup.
