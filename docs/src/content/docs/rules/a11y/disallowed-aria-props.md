@@ -12,7 +12,7 @@ Flags an `aria-*` attribute that the element's role either **prohibits** or **do
 Which role is judged:
 
 - An explicit `role` — its first concrete token, as a browser resolves `role="switch checkbox"`. A role ARIA does not define is `a11y/invalid-role`'s finding, not this one; a DPUB-ARIA role (`doc-toc`, …) gets no judgment, since the role tables this rule reads do not cover DPUB.
-- Otherwise the element's implicit role — and, for the sixteen elements whose implicit role depends on context (`<a>` is `link` only with `href`, `<img alt="">` is `presentation`, `<input>` is whatever its `type` says), **every role the element could have**. A judgment is made only when it holds under all of them. So `<div aria-label>` fires (a `<div>` is `generic` everywhere, and `generic` does not take a name), while `<a aria-label>`, `<img aria-label>` and `<input aria-checked>` do not. `<input>` is effectively unjudgeable for any non-global attribute here; the Svelte compiler's `a11y_role_supports_aria_props_implicit` covers `<input type="text" aria-checked>`.
+- Otherwise the element's implicit role — and, for the elements whose implicit role depends on context (`<a>` is `link` only with `href`, `<img alt="">` is `presentation`, `<input>` is whatever its `type` says), **every role the element could have**. A judgment is made only when it holds under all of them. So `<div aria-label>` fires (a `<div>` is `generic` everywhere, and `generic` does not take a name), while `<a aria-label>`, `<img aria-label>` and `<input aria-checked>` do not. `<input>` is effectively unjudgeable for any non-global attribute here; the Svelte compiler's `a11y_role_supports_aria_props_implicit` covers `<input type="text" aria-checked>`.
 - An expression role, or a spread with no literal role, leaves the role unknowable: no finding.
 
 Two kinds of finding, with different messages:
@@ -21,7 +21,9 @@ Two kinds of finding, with different messages:
 - **Not supported** — an attribute absent from the role's table: `aria-checked` on `role="button"`, `aria-level` on a `<span>`. Message: "`aria-level` is not supported by role `generic`".
 
 ```svelte
-<div aria-label="Breadcrumb">Home / Gallery</div><div role="button" tabindex="0" aria-checked="true">Toggle</div>
+<div aria-label="Breadcrumb">Home / Gallery</div>
+
+<div role="button" tabindex="0" aria-checked="true">Toggle</div>
 ```
 
 Not flagged:
@@ -44,7 +46,9 @@ An unsupported `aria-*` attribute is dropped by assistive technology, so the sta
 Give the element a role that supports the attribute, or move the attribute to the element that owns the semantics:
 
 ```svelte
-<nav aria-label="Breadcrumb">Home / Gallery</nav><div role="switch" tabindex="0" aria-checked="true">Toggle</div>
+<nav aria-label="Breadcrumb">Home / Gallery</nav>
+
+<div role="switch" tabindex="0" aria-checked="true">Toggle</div>
 ```
 
 ## Disabling

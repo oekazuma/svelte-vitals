@@ -132,14 +132,21 @@ flag every `aria-*` on valid publishing markup.
 Because both sources now feed the same rules, a test asserts that every role in markuplint's 1.3
 `roles` ∪ `graphicsRoles`, every property in its `props` and in every role's `ownedProperties`/
 `prohibitedProperties`, and every role name in the retained `specs[].aria.implicitRole`/
-`permittedRoles` is one `aria-data.ts` recognizes — read from the installed package. Of `specs[].aria`'s keys —
-`implicitRole`, `permittedRoles`, `conditions`, `properties`, `implicitProperties`,
-`namingProhibited`, `1.1` — only **`implicitRole` and `permittedRoles`** are retained.
-`implicitRole` is `string | false` (`false` on 120 of 206 entries); the hand-written type says so and
-the guard skips the boolean, as it skips the `"any"` sentinel below. `conditions`,
-`properties` and the `1.1` variant are dropped wholesale: `1.1` because the role table is pinned to
-1.3 and it is the only per-version key that exists at element level, the other two because no listed
-rule reads them and the data carries at least one typo there (`aria-hecked`, under
+`permittedRoles` and in every retained condition outcome is one `aria-data.ts` recognizes — read
+from the installed package. Of `specs[].aria`'s keys — `implicitRole`, `permittedRoles`,
+`conditions`, `properties`, `implicitProperties`, `namingProhibited`, `1.1` — four are retained:
+**`implicitRole`, `permittedRoles`, `namingProhibited`**, and **`conditions` reduced to outcomes** —
+per selector key, only the `implicitRole` and `namingProhibited` a condition carries, and only for
+conditions carrying one of them (a `permittedRoles`-only override like `dl > div` inherits the
+default and is not an outcome; the selector strings are keys, never evaluated). That last part was
+"dropped wholesale" in the first version of this document and was amended by
+`2026-08-19-aria-role-table-rules.md`, whose rules need the outcomes to judge an implicit role only
+where it holds under every candidate. `implicitRole` is `string | false` (`false`, "no
+corresponding role", on 120 of 206 entries — not `generic`); the hand-written type says so and the
+guard skips the boolean, as it skips the `"any"` sentinel below. `properties`, per-condition
+`permittedRoles`/`properties`, and the `1.1` variant are dropped: `1.1` because the role table is
+pinned to 1.3 and it is the only per-version key that exists at element level, the others because no
+listed rule reads them and the data carries at least one typo there (`aria-hecked`, under
 `input.aria["1.1"].conditions[…].properties`) that a name guard would otherwise have to know about.
 `permittedRoles` has four shapes — an array of names, an array mixing names and `{name, deprecated}`
 objects, a boolean, and `{"core-aam": true, "graphics-aam": true}` on the `svg:*` entries — and the

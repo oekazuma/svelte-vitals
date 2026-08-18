@@ -56,9 +56,10 @@ the same version, so this is a correction, not a change of contract.
 
 Explicit first: a literal `role` resolves to its first concrete token (`resolveRole`); a role with no
 row in the table (DPUB-ARIA) yields no judgment; an expression role means the explicit path is
-unknowable. A spread on the element does not stop the explicit path — a spread cannot remove a literal
-attribute the author wrote — but with no literal role, a spread means the role itself is unknowable
-and no implicit judgment is made.
+unknowable. A spread on the element does not stop the explicit path — a later spread can in fact override an
+earlier literal `role`, but the compiler's own `role-supports-aria-props` judges the static token
+regardless of spread, and matching that keeps the verdicts aligned — while with no literal role, a
+spread means the role itself is unknowable and no implicit judgment is made.
 
 The dataset's element-level ARIA has three states that an earlier draft of this document collapsed
 into two, and got wrong: `implicitRole: "x"` is a role, `implicitRole: false` is _no corresponding

@@ -44,10 +44,11 @@ export function roleCandidates(e: AriaElementFact): RoleCandidates | undefined {
   if (e.hasSpread) return undefined;
   const el = HTML_SPEC.elements[e.tag];
   if (!el) return undefined;
-  const override = ELEMENT_FACT_OVERRIDES[e.tag];
-  const aria = override ? { ...el.aria, ...override, namingProhibited: override.namingProhibited } : el.aria;
+  // An override replaces the element's ARIA facts wholesale — role, prohibition and conditions.
+  const aria: Pick<typeof el.aria, 'implicitRole' | 'namingProhibited' | 'conditions'> =
+    ELEMENT_FACT_OVERRIDES[e.tag] ?? el.aria;
   const roles: (string | false)[] = [aria.implicitRole ?? false];
-  for (const c of Object.values(override ? {} : (aria.conditions ?? {}))) {
+  for (const c of Object.values(aria.conditions ?? {})) {
     if ('implicitRole' in c) roles.push(c.implicitRole ?? false);
   }
   // A condition can only add a prohibition (the dataset writes no `namingProhibited: false`), and an

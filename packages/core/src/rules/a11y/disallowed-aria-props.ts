@@ -34,7 +34,7 @@ export const a11yDisallowedAriaProps = componentRule({
     "An `aria-*` attribute the element's role does not support is ignored by assistive technology, and one the role prohibits — a name on a `generic` `<div>` or `<span>`, on a `<p>`, on `<label>` — is worse than ignored: it is a name the author believes is exposed and is not. Judged against the ARIA 1.3 role tables, on the explicit role when there is one and otherwise on every implicit role the element can have.",
   recommendation:
     'Give the element a role that supports the attribute (`role="group"`, `role="region"`, `role="img"`), move the attribute to the element that owns the semantics, or drop it.',
-  applies: (c) => (c.ariaElements ?? []).some((e) => e.aria.some((a) => a.literal !== undefined || a.expression)),
+  applies: (c) => (c.ariaElements ?? []).some((e) => e.aria.length > 0),
   bad: (c) =>
     (c.ariaElements ?? []).flatMap((e) => {
       const cand = roleCandidates(e);

@@ -16,10 +16,12 @@ ARIA 1.3 の表に照らして 3 つを、コンポーネントのソースか�
 - **解決した role 上で非推奨の属性**: `checkbox` の `aria-haspopup`、`generic`（素の `<div>`/`<span>`）の `aria-disabled`、その他 ARIA 1.2 と 1.3 が外した組み合わせ。role の解決は `a11y/disallowed-aria-props` と同じです — 明示的な role の最初の具体的トークン、または要素が取り得るすべての implicit role で、そのすべての下で非推奨のときにだけ検出します。
 
 ```svelte
-<div role="checkbox" tabindex="0" aria-checked="false" aria-haspopup="true">…</div><div aria-grabbed="true">…</div>
+<div role="checkbox" tabindex="0" aria-checked="false" aria-haspopup="true">…</div>
+
+<div aria-grabbed="true">…</div>
 ```
 
-検出しないもの: `a11y/unknown-aria-attribute` が既に報告する属性。DPUB-ARIA の role、式による role、literal な role のない spread の上のもの。
+検出しないもの: `a11y/unknown-aria-attribute` が既に報告する属性。role ごとの腕は、DPUB-ARIA の role、式による role、literal な role のない spread では判定しません — role が不明なためです。一方、非推奨の role と 2 つのグローバル属性はそれに関わらず報告されます。
 
 **Svelte コンパイラとの重複。** 明示的な role については、コンパイラは role ごとのケースを*非対応*として（`a11y_role_supports_aria_props`、warning）報告します — その ARIA データは非推奨属性にフラグを付けるのではなく削除したためです。判定は同じで、ラベルと重大度が異なります。素の `<div>`/`<span>` — 実際に多いケースの `aria-disabled` — ではコンパイラは沈黙します。`role="directory"` と 2 つのグローバル属性についても沈黙します。
 
