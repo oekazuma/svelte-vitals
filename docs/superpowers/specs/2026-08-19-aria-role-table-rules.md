@@ -97,7 +97,9 @@ different facts:
   `namingProhibited` holds under every candidate (message: "prohibited on `<div>` — its role does not
   take a name"); and **(b)**, on a role — explicit, or implicit and holding under every candidate — any
   attribute its row lists in `prohibitedProperties`, with a message that names the attribute and the
-  role. The second form is what catches `aria-roledescription` on `generic` (ARIA 1.2 prohibits it;
+  role. When both forms match — `<div aria-label>` does — one finding is emitted and (a)'s message
+  wins, since the element-level fact is the more specific one. The second form is what catches
+  `aria-roledescription` on `generic` (ARIA 1.2 prohibits it;
   the compiler is silent) without calling it a naming attribute — and it is why the braille
   role-description form is **not** in the first list: `paragraph`, `code`, `strong` and the other text
   roles own `aria-brailleroledescription`, so `<p aria-brailleroledescription>` must stay silent.
@@ -146,19 +148,19 @@ with a test that pins each entry:
   would silently drop the `<label aria-label>` case decided above — `<label for=… aria-label>` firing
   is pinned for exactly that reason. (Under the override `<hgroup aria-haspopup>` still fires
   `deprecated-aria` and `<hgroup aria-level>` still fires not-owned; both are correct for `group`.) (`<html>` is also flagged
-  in the dataset; html-aria permits no `aria-*` on it at all, so the outcome is right and only the
-  message would mislead — the arm's message names the element, not a role, for it.)
+  in the dataset with implicit role `generic`; html-aria permits no `aria-*` on it at all, so
+  `<html aria-label>` firing is the right outcome, and form (a)'s element-named message fits it.)
 
 **`a11y/deprecated-aria`** (info). A literal role the table marks deprecated (`directory`); an
 attribute deprecated globally (`aria-dropeffect`, `aria-grabbed`); an attribute deprecated on the
 resolved role under every candidate (330 rows in the table — the common real hit is `aria-disabled`
 or `aria-haspopup` on `generic`: `aria-haspopup` is deprecated on 88 of the 103 roles,
-`aria-disabled` on 66). On explicit roles (295 of the 310
+`aria-disabled` on 66). The compiler, on explicit roles (295 of the 310
 explicit-role pairs on the 98 roles aria-query shares — the other 20 sit on the five roles it lacks,
 where the compiler's overlap is `a11y_unknown_role` instead; the 15 exceptions are `menuitemcheckbox`/`menuitemradio` × `aria-errormessage`/
 `aria-invalid`, the three `graphics-*` roles × `aria-errormessage`/`aria-haspopup`/`aria-invalid`,
 and `graphics-document`/`graphics-symbol` × `aria-disabled`, where it is silent), and on the
-implicit elements the compiler maps, it reports the role-deprecated arm as _unsupported_ at warning,
+implicit elements it maps, reports the role-deprecated arm as _unsupported_ at warning,
 because aria-query dropped those properties from its role tables rather than flagging them; the
 verdict class is the same ("do not write this here"), the label and severity differ, and the docs say
 so. On `<div>`/`<span>` — the common case — the compiler is silent, since its implicit-semantics table
@@ -196,7 +198,8 @@ aria-label>`, `<input aria-checked>`, `<address aria-label>`, `<hgroup aria-labe
    still judged; fallback tokens resolve; an unknown attribute is skipped.
 3. `deprecated-aria`: each arm; `aria-haspopup` on `<div role="checkbox">` fires, on `<div
 role="menuitem">` does not; `<div aria-disabled>` fires via `generic`; `<hgroup aria-disabled>` does
-   not (its implicit role is overridden to `group`).
+   not while `<hgroup aria-haspopup>` (deprecated on `group`) and `<hgroup aria-level>` (not owned by
+   `group`) still fire — the fact replacement must not over-silence.
 4. `deprecated-element` reports `<marquee>`; kitchen-sink and the html-spec spec updated.
 5. Kitchen-sink samples for both rules with counts in both expectation files; docs en/ja stating the
    compiler overlap, the axe grading difference, and the `<input>` limitation; changeset naming the
