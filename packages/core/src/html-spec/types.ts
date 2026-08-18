@@ -31,9 +31,20 @@ export interface HtmlElementSpec {
   /** Content model as the dataset writes it — a small selector DSL, evaluated by `permitted-contents` only. */
   contentModel: Record<string, unknown>;
   aria: {
+    /** Absent when the dataset says "no corresponding role" (`false`) — not the same as `generic`. */
     implicitRole?: string;
     /** Role names, or `'any'` — `true` and the AAM-object form both normalize to it. */
     permittedRoles: string[] | 'any';
+    /** The element's role does not take a name (`aria-label` & co. are prohibited on it). */
+    namingProhibited?: true;
+    /**
+     * Per-condition outcomes, keyed by the dataset's selector string, which is never evaluated.
+     * A key present only when the condition changes the implicit role or adds a naming
+     * prohibition; an absent field inherits the element default; `implicitRole: false` is "no
+     * corresponding role". Rules judge an implicit fact only when it holds under the default and
+     * every outcome here.
+     */
+    conditions?: Record<string, { implicitRole?: string | false; namingProhibited?: true }>;
   };
   /** Names of the `#globalAttrs` groups this element takes. */
   globalAttrs: string[];

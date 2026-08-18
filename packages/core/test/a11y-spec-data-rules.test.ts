@@ -48,9 +48,9 @@ describe('a11y/deprecated-element', () => {
     expect(fails(out)).toEqual(['1:<strike> is an obsolete element', '3:<center> is an obsolete element']);
   });
 
-  it('leaves marquee and blink to the compiler', async () => {
+  it('reports marquee and blink although the compiler does too — the deliberate overlap', async () => {
     const out = await a11yDeprecatedElement.check(ctx('<marquee>m</marquee><blink>b</blink>'));
-    expect(fails(out)).toEqual([]);
+    expect(fails(out)).toEqual(['1:<marquee> is an obsolete element', '1:<blink> is an obsolete element']);
   });
 
   it('skips the SVG namespace, and returns for <foreignObject> content', async () => {

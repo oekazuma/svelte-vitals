@@ -204,4 +204,9 @@ role="menuitem">` does not; `<div aria-disabled>` fires via `generic`; `<hgroup 
 5. Kitchen-sink samples for both rules with counts in both expectation files; docs en/ja stating the
    compiler overlap, the axe grading difference, and the `<input>` limitation; changeset naming the
    overlap and the `deprecated-element` correction.
-6. Corpus re-run with the shipped rules, numbers recorded here before merge.
+6. Corpus re-run with the shipped rules: `disallowed-aria-props` svelte-commerce 7 (all `aria-label`
+   on `<div>`), networking-toolbox 1 (`aria-label` on `<span>`); `deprecated-aria` networking-toolbox 1
+   (`aria-grabbed`); the other three apps 0 for both. One less than the design-phase probe's 9: that
+   probe did not honour the spread rule, and svelte-commerce's `<div aria-level={level} {...restProps}>`
+   is correctly left unjudged — its role could come from the spread. `deprecated-element` gains
+   nothing on the corpus from the `<marquee>` reversal (no app uses one).
