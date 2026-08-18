@@ -98,6 +98,23 @@ install`/`ci upgrade` bundle into scaffolded workflows.
   budget is welcome; raising one is a design decision needing a recorded reason, not a
   number edit. The two regressions that counts cannot catch — a widened analysis, and lost
   parallelism — are measured manually with `pnpm bench` (never in CI).
+- **User-facing levers ship with two guards.** A lever is anything a user sets to change what the
+  run does — a CLI flag, a config key, an inline directive, a suppressions entry, an override. Each
+  needs (1) a case in the kitchen-sink e2e suite asserting an **observable effect** on the real
+  gallery, so it fails if the lever becomes a no-op, and (2) a runtime warning when the lever
+  selects nothing on a full run **and selecting nothing is never a legitimate state**. Where it can
+  be legitimate — an inline directive left behind after the code was fixed is the worked example —
+  the warning is deferred to an opt-in follow-up, and the design records why. Guard (1) has no exception. The class
+  this prevents is a lever that silently does nothing while the run reports success — `--route
+"/blog/**"` matching zero routes and exiting 0 was exactly this, and it passed a canary that
+  asserted only that a report came back. Guard (2)'s "on a full run" is about where the warning
+  would be noise, not a blanket rule: an unmatched `--route`, and a `--rules` id whose facts
+  `--route` skips, are reported in the scoped run itself, since that is the only run they can be
+  wrong in — while unknown directive ids and unmatched `overrides` are full-run-only because a
+  scoped run legitimately reaches neither. `packages/cli/test/flag-coverage.test.ts` checks only
+  that each CLI flag is **named** by some test: it cannot tell an assertion from a mention, so it
+  narrows what review has to look for rather than discharging guard (1). Design record:
+  `docs/superpowers/specs/2026-08-17-route-inline-suppression.md`.
 
 ## Design docs
 

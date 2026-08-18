@@ -4,6 +4,7 @@ import {
   SITEMAP_SOURCE_PATHS,
   SVELTE_CONFIG_FILES,
   VITE_CONFIG_FILES,
+  collectSuppressions,
   findMinifyDisabled,
   resolveKitAliases,
   resolveKitPathsBase,
@@ -190,8 +191,9 @@ async function detectViteMinifyDisabled(rt: Runtime, cwd: string): Promise<Proje
   const file = VITE_CONFIG_FILES[exists.indexOf(true)];
   if (!file) return undefined;
   try {
-    const hit = findMinifyDisabled(await rt.readFile(rt.join(cwd, file)));
-    return hit ? { file, line: hit.line } : undefined;
+    const source = await rt.readFile(rt.join(cwd, file));
+    const hit = findMinifyDisabled(source);
+    return hit ? { file, line: hit.line, suppressions: collectSuppressions(source) } : undefined;
   } catch {
     return undefined; // unreadable config — don't guess
   }

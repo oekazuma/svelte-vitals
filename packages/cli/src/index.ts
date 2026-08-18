@@ -26,6 +26,8 @@ import {
   selectRules,
   applyRuleSeverities,
   applyOverrides,
+  applyInlineDirectives,
+  unknownDirectiveIds,
   settingSeverity,
   withFailedRulesOff,
   formatFailedRuleWarning,
@@ -299,17 +301,27 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     ...overridesOffWarnings(opts.allowRules, config.overrides)
   ];
 
-  const { heads, images, headings, a11y, project, components, kitModules, sourceFiles } = await collectAll(
-    rt,
-    cwd,
-    config,
-    {
+  const { heads, images, headings, a11y, project, components, kitModules, sourceFiles, directives, emptySelections } =
+    await collectAll(rt, cwd, config, {
       route: opts.route,
       parseCache: opts.parseCache
-    }
-  );
+    });
+  warnings.push(...emptySelections);
+  // Full runs only, like the stale-suppression report: `collectAll` parses every route before
+  // `--route` filters, so a scoped run would otherwise warn about files it never analysed.
+  if (opts.route === undefined) warnings.push(...unknownDirectiveIds(directives, allRules));
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
+  // `--route` skips the component/Kit-module/source-file collectors, so a rule the user named by id
+  // runs against nothing and reports a clean 100. Only named rules are worth saying this about: the
+  // default set always contains rules a scoped run cannot feed.
+  if (opts.route !== undefined && opts.allowRules?.length) {
+    const starved = rules.filter((r) => opts.allowRules!.includes(r.id) && r.scope !== 'route').map((r) => r.id);
+    if (starved.length > 0)
+      warnings.push(
+        `--rules ${starved.map((id) => `'${id}'`).join(', ')} examined nothing: --route collects route facts only.`
+      );
+  }
   const {
     results: rawResults,
     examined,
@@ -325,7 +337,12 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     kitModules,
     sourceFiles
   });
-  const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
+  const results = applyInlineDirectives(
+    applyOverrides(applyRuleSeverities(rawResults, config), config),
+    directives,
+    rules,
+    config
+  );
   // A failed rule examined nothing, so its weight must not stay in the Health denominator — else it
   // would score as if it had run clean. Returned as the config this function hands back (not just a
   // local copy) so every downstream consumer — CLI health/exit-code checks and the reporters, which

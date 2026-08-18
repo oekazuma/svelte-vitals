@@ -53,6 +53,14 @@ export interface Rule {
   /** Configurable options for this rule; absent means the rule takes none. */
   options?: RuleOptionsSpec;
   /**
+   * The message this rule puts on a PASS result. Declared so a PASS synthesised elsewhere — the
+   * central inline-suppression pass, which turns a fully-suppressed rule+route into a pass — reads
+   * the same as one the rule emitted itself. Rules built through `componentRule` and the a11y
+   * route factory supply it; the rest fall back to `title`, which is a cosmetic difference visible
+   * only in `--verbose`'s passed listing.
+   */
+  passLabel?: string;
+  /**
    * Evaluate the resolved heads. A single rule may return one Result per route,
    * so it always returns an array. Project-scoped rules return a single element.
    */

@@ -1,6 +1,7 @@
 import type { AST } from 'svelte/compiler';
-import type { BranchStep, HeadTag } from '@svelte-vitals/core/internal';
+import type { BranchStep, HeadTag, SuppressionDirective } from '@svelte-vitals/core/internal';
 import {
+  collectSuppressions,
   stripTextDirective,
   parseSvelte,
   CHILD_NODE_KEYS,
@@ -481,6 +482,10 @@ export interface ParsedFile {
   images: ParsedImage[];
   headings: ParsedHeading[];
   a11y: ParsedA11y;
+  /** Inline `svelte-vitals-disable-next-line` directives in this file, for the central
+   *  suppression pass. Collected here because a route-scoped finding can be located in any file
+   *  the composition reads, including ones no component-fact collection visited (`--route`). */
+  suppressions: SuppressionDirective[];
 }
 
 /** Parse a .svelte source into its layer-1 head tags, component usages, and imports. */
@@ -500,7 +505,8 @@ export function parseFile(source: string, filename: string): ParsedFile {
     imports: collectImports(ast),
     images,
     headings,
-    a11y: collectA11y(ast.fragment, source)
+    a11y: collectA11y(ast.fragment, source),
+    suppressions: collectSuppressions(source)
   };
 }
 

@@ -3,6 +3,8 @@
  * `node:` imports, no runtime-specific globals (design §8).
  */
 
+import type { SuppressionDirective } from './component.js';
+
 export type Severity = 'critical' | 'warning' | 'info';
 
 /** Where a head tag is set, relative to the route being evaluated (design §4). */
@@ -61,9 +63,10 @@ export interface Project {
    * `file` is the config path relative to the analyzed root (posix, may start with `../`
    * in monorepos); unset for inline programmatic configs. `line` is 1-based and set only
    * when the literal `minify: false` was located in that file; unset when the value was
-   * resolved at build time (plugin/conditional config).
+   * resolved at build time (plugin/conditional config). `suppressions` carries the config file's
+   * own inline directives, so a line-anchored finding in it can be silenced like any other.
    */
-  viteMinifyDisabled?: { file?: string; line?: number };
+  viteMinifyDisabled?: { file?: string; line?: number; suppressions?: SuppressionDirective[] };
   /**
    * Set when the project configures a non-empty `kit.paths.base` — read from the `sveltekit()`
    * Vite plugin config, else `svelte.config.{js,ts}` (correctness/base-path-navigation).

@@ -4,6 +4,8 @@ import {
   selectRules,
   applyRuleSeverities,
   applyOverrides,
+  applyInlineDirectives,
+  unknownDirectiveIds,
   runRules,
   withFailedRulesOff,
   formatFailedRuleWarning,
@@ -13,7 +15,8 @@ import {
   hasFailureAtOrAbove,
   formatConsoleReport,
   formatJsonReport,
-  type Project
+  type Project,
+  type SuppressionDirective
 } from '@svelte-vitals/core/internal';
 import { loadConfigFile } from 'svelte-vitals';
 import type { SvelteVitalsOptions } from './plugin.js';
@@ -114,12 +117,27 @@ export async function analyze(
     kitModules,
     sourceFiles
   });
-  const results = applyOverrides(applyRuleSeverities(rawResults, config), config);
+  // Rendered-mode route findings anchor to the prerendered HTML with `line: 0`, so directives reach
+  // only what has a source line here: the component and Kit-module findings, plus
+  // performance/minify-disabled in the Vite config. The pass runs all the same, so a rule gaining a
+  // line-anchored finding is covered in both pipelines without a second wiring step.
+  const directives = new Map<string, readonly SuppressionDirective[]>();
+  for (const c of components) directives.set(c.file, c.suppressions ?? []);
+  for (const m of kitModules) directives.set(m.file, m.suppressions ?? []);
+  if (project.viteMinifyDisabled?.file)
+    directives.set(project.viteMinifyDisabled.file, project.viteMinifyDisabled.suppressions ?? []);
+  const results = applyInlineDirectives(
+    applyOverrides(applyRuleSeverities(rawResults, config), config),
+    directives,
+    selected,
+    config
+  );
   // Surfaced through the same `warnings` channel as config-file issues (plugin.ts logs each with
   // `console.warn`). A file the collectors could not read or parse contributes empty facts, so its
   // findings go missing rather than showing as fixed — the build has to say so, exactly as the CLI
   // does, and through the same formatter so the two never drift apart.
   warnings.push(...skippedFileWarnings([...components, ...kitModules]));
+  warnings.push(...unknownDirectiveIds(directives, allRules));
   for (const f of failedRules) warnings.push(formatFailedRuleWarning(f));
   // A failed rule examined nothing, so its weight must not stay in the Health denominator — same
   // correction the CLI's `analyzeProject` applies, used by every downstream consumer here so the
