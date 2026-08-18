@@ -223,6 +223,23 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
       )
     );
     expect(run(dir).stderr).toContain("overrides entry for route '/no-such-route/**' matched no route");
+    const filesDir = scratchCopy();
+    scratch.push(filesDir);
+    const filesCfg = join(filesDir, 'svelte-vitals.config.ts');
+    const withFiles = (glob: string) =>
+      writeFileSync(
+        filesCfg,
+        readFileSync(cfgPath, 'utf8').replace(
+          "overrides: [{ route: '/no-such-route/**', rules: { seo: 'off' } }],",
+          `overrides: [{ files: ['${glob}'], rules: { seo: 'off' } }],`
+        )
+      );
+    withFiles('src/lib/no-such-dir/**');
+    expect(run(filesDir).stderr).toContain('matched no file');
+    // A file every rule can attribute a finding to, but that no src/ glob covers — judging these
+    // against the source tree alone would report a working override as dead.
+    withFiles('vite.config.ts');
+    expect(run(filesDir).stderr).not.toContain('matched no file');
     // A run that selects normally must stay silent, or the warnings get tuned out.
     expect(run(appDir, '--route', 'gallery/a11y/**').stderr).toBe('');
   });

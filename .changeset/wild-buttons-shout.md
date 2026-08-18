@@ -10,4 +10,4 @@ A suppressed finding becomes a pass for that rule and route rather than disappea
 
 A directive naming a rule id that no rule declares is now reported as a warning instead of silently suppressing nothing — on full runs, gated like the stale-suppressions report, since a `--route` run parses files it never analyses.
 
-Report selections that matched nothing, so a run cannot look clean because it checked nothing: a `--route` glob matching no route, an `overrides` entry whose route glob matches no route (full runs only), and a rule named by `--rules` whose facts a `--route` run does not collect.
+Report selections that matched nothing, so a run cannot look clean because it checked nothing: a `--route` glob matching no route, an `overrides` entry whose `route` or `files` glob matches nothing (full runs only), and a rule named by `--rules` whose facts a `--route` run does not collect.

@@ -117,9 +117,10 @@ export async function analyze(
     kitModules,
     sourceFiles
   });
-  // Rendered-mode route findings anchor to the prerendered HTML with `line: 0`, so directives
-  // reach only the component and Kit-module findings here — the pass runs all the same, so a rule
-  // gaining a line-anchored finding is covered in both pipelines without a second wiring step.
+  // Rendered-mode route findings anchor to the prerendered HTML with `line: 0`, so directives reach
+  // only what has a source line here: the component and Kit-module findings, plus
+  // performance/minify-disabled in the Vite config. The pass runs all the same, so a rule gaining a
+  // line-anchored finding is covered in both pipelines without a second wiring step.
   const directives = new Map<string, readonly SuppressionDirective[]>();
   for (const c of components) directives.set(c.file, c.suppressions ?? []);
   for (const m of kitModules) directives.set(m.file, m.suppressions ?? []);

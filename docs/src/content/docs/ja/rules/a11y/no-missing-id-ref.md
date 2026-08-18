@@ -39,7 +39,7 @@ id とその参照先は別々のファイルにあることが珍しくあり�
 
 ## 無効化
 
-検出が指す行の直上にインラインの `svelte-vitals-disable-next-line` コメントを置けば抑制できます。その行が合成されたコンポーネント内にある場合、1 つのディレクティブがそれを合成するすべてのルートで効きます — ルート単位で抑制したい場合は suppressions ファイル（`npx svelte-vitals --update-suppressions`）を使ってください。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+検出が指す行の直上にインラインの `svelte-vitals-disable-next-line` コメントを置けば抑制できます（静的モードのみ。ビルドモードの検出はプリレンダリングされた HTML を指すため、直上に置くべきソース行がありません）。その行が合成されたコンポーネント内にある場合、1 つのディレクティブがそれを合成するすべてのルートで効きます — ルート単位で抑制したい場合は suppressions ファイル（`npx svelte-vitals --update-suppressions`）を使ってください。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
 
 ```js svelte-vitals.config.js
 export default {

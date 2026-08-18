@@ -107,8 +107,13 @@ install`/`ci upgrade` bundle into scaffolded workflows.
   the warning is deferred to an opt-in follow-up, and the design records why. Guard (1) has no exception. The class
   this prevents is a lever that silently does nothing while the run reports success — `--route
 "/blog/**"` matching zero routes and exiting 0 was exactly this, and it passed a canary that
-  asserted only that a report came back. For CLI flags, guard (1) is enforced by
-  `packages/cli/test/flag-coverage.test.ts`. Design record:
+  asserted only that a report came back. Guard (2)'s "on a full run" is about where the warning
+  would be noise, not a blanket rule: an unmatched `--route`, and a `--rules` id whose facts
+  `--route` skips, are reported in the scoped run itself, since that is the only run they can be
+  wrong in — while unknown directive ids and unmatched `overrides` are full-run-only because a
+  scoped run legitimately reaches neither. `packages/cli/test/flag-coverage.test.ts` checks only
+  that each CLI flag is **named** by some test: it cannot tell an assertion from a mention, so it
+  narrows what review has to look for rather than discharging guard (1). Design record:
   `docs/superpowers/specs/2026-08-17-route-inline-suppression.md`.
 
 ## Design docs
