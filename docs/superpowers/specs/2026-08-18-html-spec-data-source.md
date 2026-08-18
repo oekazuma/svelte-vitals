@@ -74,9 +74,10 @@ Three measured reasons this beats a runtime dependency:
   `@markuplint/ml-spec` for its `.d.ts`; that pulls `@markuplint/ml-ast`, `@markuplint/types`,
   `dom-accessibility-api`, `is-plain-object` and `type-fest` into every user's install for a file that
   only ever loads JSON. As a devDependency it is installed here and nowhere else.
-- **84% of the JSON is not what the rules read** — 1.18 MB minified down to 0.19 MB projected. Half of
-  that is prose (`description`, `cite`, `defaultValue`, `animatable`), the other half is the `#aria`
-  table, of which only the deprecation rows are kept (below). Core purity is trivial: the data is a TS
+- **Roughly 80% of the JSON is not what the rules read** — 1.18 MB minified down to about 0.25 MB
+  once every column in the table plus the ARIA rows below is kept (0.19 MB without the ARIA rows).
+  Half of what goes is prose (`description`, `cite`, `defaultValue`, `animatable`), the other half is
+  the rest of the `#aria` table. Core purity is trivial: the data is a TS
   module.
 - **The dataset 1.0 ships is the one 1.0 was tested against.** A semver range on a runtime data
   package lets a user's `pnpm update` change what a rule reports; a committed projection cannot.
@@ -102,7 +103,8 @@ need deprecation, and `aria-query@5.3.2` carries **none** — no field on any ro
 where it matters: it lacks the three ARIA 1.3 globals (`aria-description`, `aria-braillelabel`,
 `aria-brailleroledescription`) on every role, so a rule built on it flags `aria-description`
 everywhere, and even after setting those aside it differs from markuplint's 1.3 `ownedProperties` on
-87 of 100 roles.
+90 of the 95 roles both tables have (only `application`, `combobox`, `searchbox`, `slider`, `textbox`
+agree).
 
 So the **per-role property tables come from markuplint**: `#aria.1.3` `roles[].ownedProperties`
 (with each row's `deprecated` flag) and `prohibitedProperties`, plus the deprecated roles
@@ -111,9 +113,10 @@ depending on whether rows are kept as objects or flattened to name lists. That i
 `disallowed-props`, `deprecated-props` and `deprecated-role` read. It is also why the two sources
 cannot answer the same question differently, and the projection is what enforces it:
 
-- `ownedProperties`/`prohibitedProperties` rows keep **name and `deprecated` only** — `required` is
-  dropped, so the vendored data cannot say what a role requires; `required-aria-props` keeps
-  `aria-query` plus `NO_REQUIRED_PROPS`, for the reason below.
+- `ownedProperties` rows keep **name and `deprecated` only** — `required` is dropped, so the vendored
+  data cannot say what a role requires; `required-aria-props` keeps `aria-query` plus
+  `NO_REQUIRED_PROPS`, for the reason below. `prohibitedProperties` is already a bare name list and
+  is kept as-is.
 - `#aria.1.3.props` is projected to **its deprecated names only** — `type`, `value`, `enum`,
   `isGlobal`, `conditionalValue` are dropped, so value typing has one source, `aria-query`.
 - `graphicsRoles` is projected the same way as `roles`. Nothing else from `#aria` — not
@@ -131,7 +134,9 @@ Because both sources now feed the same rules, a test asserts that every role in 
 `prohibitedProperties`, and every role name in the retained `specs[].aria.implicitRole`/
 `permittedRoles` is one `aria-data.ts` recognizes — read from the installed package. Of `specs[].aria`'s keys —
 `implicitRole`, `permittedRoles`, `conditions`, `properties`, `implicitProperties`,
-`namingProhibited`, `1.1` — only **`implicitRole` and `permittedRoles`** are retained. `conditions`,
+`namingProhibited`, `1.1` — only **`implicitRole` and `permittedRoles`** are retained.
+`implicitRole` is `string | false` (`false` on 120 of 206 entries); the hand-written type says so and
+the guard skips the boolean, as it skips the `"any"` sentinel below. `conditions`,
 `properties` and the `1.1` variant are dropped wholesale: `1.1` because the role table is pinned to
 1.3 and it is the only per-version key that exists at element level, the other two because no listed
 rule reads them and the data carries at least one typo there (`aria-hecked`, under
@@ -183,7 +188,7 @@ the flags in the data are not one thing:
   `style[type]` is `deprecated` while `svg:style` has no such row. No element-occurrence fact exists
   today, so this introduces one: a new `ComponentFacts` entry (`elements?: {tag, line, attrs, inSvg?}[]`,
   every element, lowercased tag and attribute names as `elementAttrs` already does) with `inSvg`
-  set under an `<svg>` ancestor, reset by `<foreignObject>`, and **seeded from
+  set under an `<svg>` ancestor, reset by `<foreignObject>` (compared lowercased, `foreignobject`), and **seeded from
   `<svelte:options namespace="svg" />`** — an SVG-partial component with a `<g>` root has no `<svg>`
   ancestor of its own and is exactly the case the flag exists for. Both rules skip flagged
   occurrences. Test 5 carries the `<svg><style type="text/css">` snippet, because "an `svg:*` element
@@ -243,7 +248,9 @@ meta-test coverage every rule has; the remaining rules follow one at a time unde
    committed generated module — offline, exact catalog version is the pin.
 2. ARIA guard: markuplint 1.3 `roles` ∪ `graphicsRoles`, `props`, every `ownedProperties`/
    `prohibitedProperties` name, and the retained `specs[].aria` role names ⊆ what `aria-data.ts`
-   recognizes, read from the installed package. The generated module contains no `required` field.
+   recognizes, read from the installed package. No projected `#aria` role row retains `required`
+   (the per-attribute `required`/`requiredEither` columns of `specs[].attributes` are a different
+   fact and stay).
 3. Notice: the built core `dist` contains the upstream copyright line (asserted from
    `packages/cli/test`).
 4. Core purity: `packages/core/src` still has no `node:` import; the generator lives under `scripts/`.
