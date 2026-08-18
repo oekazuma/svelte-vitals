@@ -42,25 +42,28 @@ export const a11yDisallowedAriaProps = componentRule({
       const rows = cand.roles.map(roleRow);
       // "No corresponding role" or a role with no table row (DPUB-ARIA) leaves ownership unknown.
       const ownershipKnown = rows.every((r) => r !== undefined);
+      // Every finding is anchored at the element's start tag (`e.line`), not the attribute's line: a
+      // `disable-next-line` directive can only sit above the tag, so an attribute-line anchor on a
+      // multi-line element would leave the documented lever with no position that works.
       return e.aria.flatMap((a) => {
         if (!isKnownAriaAttribute(a.name)) return [];
         // Form (a): a naming attribute on an element whose role does not take a name.
         if (NAMING.has(a.name) && cand.namingProhibited) {
           return [
-            { line: a.line, message: `\`${a.name}\` is prohibited on <${e.tag}> — its role does not take a name` }
+            { line: e.line, message: `\`${a.name}\` is prohibited on <${e.tag}> — its role does not take a name` }
           ];
         }
         if (!ownershipKnown) return [];
         // Form (b): prohibited by every candidate role's row.
         if (rows.every((r) => r!.prohibitedProperties.includes(a.name))) {
           const role = cand.roles.join('/');
-          return [{ line: a.line, message: `\`${a.name}\` is prohibited on role \`${role}\`` }];
+          return [{ line: e.line, message: `\`${a.name}\` is prohibited on role \`${role}\`` }];
         }
         // Not owned by any candidate role, and not a pair the compiler accepts.
         if (rows.every((r) => !r!.ownedProperties.some((p) => p.name === a.name))) {
           if (cand.roles.some((r) => COMPILER_ACCEPTS.has(`${r} ${a.name}`))) return [];
           const role = cand.roles.join('/');
-          return [{ line: a.line, message: `\`${a.name}\` is not supported by role \`${role}\`` }];
+          return [{ line: e.line, message: `\`${a.name}\` is not supported by role \`${role}\`` }];
         }
         return [];
       });

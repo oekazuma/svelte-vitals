@@ -115,6 +115,17 @@ describe('a11y/disallowed-aria-props', () => {
     expect(await disallowed('<div {...p} aria-checked="true">x</div>')).toEqual([]);
   });
 
+  it('anchors every finding at the start tag so a directive above a multi-line element reaches it', async () => {
+    const out = await a11yDisallowedAriaProps.check(
+      ctx('<div\n  role="button"\n  tabindex="0"\n  aria-checked="true"\n>x</div>')
+    );
+    expect(out.filter((r) => r.detection.presence === 'none').map((r) => r.line)).toEqual([1]);
+    const dep = await a11yDeprecatedAria.check(
+      ctx('<div\n  role="checkbox"\n  aria-checked="false"\n  aria-haspopup="true"\n>x</div>')
+    );
+    expect(dep.filter((r) => r.detection.presence === 'none').map((r) => r.line)).toEqual([1]);
+  });
+
   it('skips unknown attributes — one typo yields one finding, from unknown-aria-attribute', async () => {
     expect(await disallowed('<div role="button" aria-lable="x">x</div>')).toEqual([]);
   });

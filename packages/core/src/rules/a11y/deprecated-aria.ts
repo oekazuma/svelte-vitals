@@ -24,17 +24,19 @@ export const a11yDeprecatedAria = componentRule({
         const role = cand.roles[0] as string;
         if (roleRow(role)?.deprecated) out.push({ line: e.line, message: `role="${role}" is deprecated` });
       }
+      // Anchored at the start tag (`e.line`), as disallowed-aria-props is, so one directive above a
+      // multi-line element reaches every finding on it.
       for (const a of e.aria) {
         if (!isKnownAriaAttribute(a.name)) continue;
         if (HTML_SPEC.aria.deprecatedProps.includes(a.name)) {
-          out.push({ line: a.line, message: `\`${a.name}\` is deprecated` });
+          out.push({ line: e.line, message: `\`${a.name}\` is deprecated` });
           continue;
         }
         if (!cand) continue;
         const rows = cand.roles.map(roleRow);
         if (!rows.every((r) => r !== undefined)) continue;
         if (rows.every((r) => r!.ownedProperties.some((p) => p.name === a.name && p.deprecated))) {
-          out.push({ line: a.line, message: `\`${a.name}\` is deprecated on role \`${cand.roles.join('/')}\`` });
+          out.push({ line: e.line, message: `\`${a.name}\` is deprecated on role \`${cand.roles.join('/')}\`` });
         }
       }
       return out;

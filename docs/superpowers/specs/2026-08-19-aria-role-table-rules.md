@@ -166,6 +166,15 @@ verdict class is the same ("do not write this here"), the label and severity dif
 so. On `<div>`/`<span>` — the common case — the compiler is silent, since its implicit-semantics table
 has no entry for them.
 
+Every finding from both rules is anchored at the element's **start tag**, not the attribute's line —
+the convention `deprecated-attr` established, for the same reason: `disable-next-line` suppresses
+directive-line + 1 and no comment can sit inside a start tag, so an attribute-line anchor on a
+multi-line element is a documented lever with no position that works. Per-attribute findings are
+kept (their messages differ by form); they share the line and one directive reaches all of them.
+Attribute names are already lowercased in `AriaElementFact`, and the SVG namespace is not tracked
+there — the ARIA rules have never skipped it, and `<svg role="img" aria-label>` is exactly right to
+judge.
+
 ## Not built: `redundant-role`
 
 Zero in the corpus, and the compiler's `a11y_no_redundant_roles` covers it completely — including
@@ -204,7 +213,9 @@ role="menuitem">` does not; `<div aria-disabled>` fires via `generic`; `<hgroup 
 5. Kitchen-sink samples for both rules with counts in both expectation files; docs en/ja stating the
    compiler overlap, the axe grading difference, and the `<input>` limitation; changeset naming the
    overlap and the `deprecated-element` correction.
-6. Corpus re-run with the shipped rules: `disallowed-aria-props` svelte-commerce 7 (all `aria-label`
+6. Both rules anchor at the start tag: a unit case with a multi-line element reports line 1, and a
+   kitchen-sink e2e case suppresses each rule with a directive above a multi-line start tag.
+7. Corpus re-run with the shipped rules: `disallowed-aria-props` svelte-commerce 7 (all `aria-label`
    on `<div>`), networking-toolbox 1 (`aria-label` on `<span>`); `deprecated-aria` networking-toolbox 1
    (`aria-grabbed`); the other three apps 0 for both. One less than the design-phase probe's 9: that
    probe did not honour the spread rule, and svelte-commerce's `<div aria-level={level} {...restProps}>`
