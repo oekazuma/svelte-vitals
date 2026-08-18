@@ -12,21 +12,25 @@ shipped `deprecated-element` got that wrong and this design corrects it. The roa
 A probe over the five corpus apps (`ariaElements` facts × the vendored tables), and the compiler's
 verdict on the same snippets (`svelte/compiler` 5.56.9):
 
-| candidate                                          | kener | svelte-commerce | CMSaasStarter | networking-toolbox | joy | compiler                                                                                   |
-| -------------------------------------------------- | ----: | --------------: | ------------: | -----------------: | --: | ------------------------------------------------------------------------------------------ |
-| a naming attribute on an element that prohibits it |     0 |               8 |             0 |                  1 |   0 | **silent** (`<div aria-label>` compiles clean)                                             |
-| a prop an explicit role does not own               |     0 |               0 |             0 |                  0 |   0 | `a11y_role_supports_aria_props`                                                            |
-| a globally deprecated prop (`aria-grabbed`)        |     0 |               0 |             0 |                  1 |   0 | silent                                                                                     |
-| a prop deprecated on the resolved role             |     0 |               0 |             0 |                  0 |   0 | `a11y_role_supports_aria_props` — reported as _unsupported_, since aria-query removed them |
-| a deprecated role (`directory`)                    |     0 |               0 |             0 |                  0 |   0 | silent                                                                                     |
-| an explicit role equal to the implicit one         |     0 |               0 |             0 |                  0 |   0 | `a11y_no_redundant_roles`, with deliberate exemptions                                      |
+| candidate                                          | kener | svelte-commerce | CMSaasStarter | networking-toolbox | joy | compiler                                                                                                                                                   |
+| -------------------------------------------------- | ----: | --------------: | ------------: | -----------------: | --: | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| a naming attribute on an element that prohibits it |     0 |               8 |             0 |                  1 |   0 | **silent** (`<div aria-label>` compiles clean)                                                                                                             |
+| a prop an explicit role does not own               |     0 |               0 |             0 |                  0 |   0 | `a11y_role_supports_aria_props`                                                                                                                            |
+| a globally deprecated prop (`aria-grabbed`)        |     0 |               0 |             0 |                  1 |   0 | silent                                                                                                                                                     |
+| a prop deprecated on the resolved role             |     0 |               0 |             0 |                  0 |   0 | on explicit roles and its mapped implicit elements, `a11y_role_supports_aria_props` as _unsupported_ (aria-query removed them); silent on `<div>`/`<span>` |
+| a deprecated role (`directory`)                    |     0 |               0 |             0 |                  0 |   0 | silent                                                                                                                                                     |
+| an explicit role equal to the implicit one         |     0 |               0 |             0 |                  0 |   0 | `a11y_no_redundant_roles`, with deliberate exemptions                                                                                                      |
 
 Nine of the ten hits are `aria-label` on a bare `<div>`/`<span>`. Those elements are
 `namingProhibited` in the dataset — the fact axe's `aria-prohibited-attr` keys on — and the compiler
 says nothing. That is what makes the first rule worth shipping. (axe grades it _needs review_ when
-the element has text content and _serious_ only when it does not; the rule reports it either way,
-because ARIA prohibits the attribute on the role regardless of what else names the element, and the
-docs say axe's grading differs.)
+the element has text content — all nine corpus hits do — and _serious_ only when it does not, and
+axe additionally exempts a naming attribute whose nearest ancestor role is a widget, or a custom
+element; the rule reports all of these, because ARIA prohibits the attribute on the role regardless
+of what else names the element, and the docs say where axe's grading differs. `<label>` is the one
+worth naming there: the TR prohibits naming on it only when it is exposed as `generic`, the dataset
+and axe both prohibit it unconditionally, and `<label for=… aria-label="close sidebar">` is a real
+idiom that will fire.)
 
 The deprecated-role candidate is one role that appears nowhere; it folds into `deprecated-aria`.
 
@@ -58,7 +62,7 @@ and no implicit judgment is made.
 
 The dataset's element-level ARIA has three states that an earlier draft of this document collapsed
 into two, and got wrong: `implicitRole: "x"` is a role, `implicitRole: false` is _no corresponding
-role_ (`<canvas>`, `<iframe>`, `<video>`, 60-odd elements), and a `conditions[selector]` entry with
+role_ (`<canvas>`, `<iframe>`, `<video>` — 72 HTML elements), and a `conditions[selector]` entry with
 **no** `implicitRole` key inherits the default (`dl > div`, `figure:has(figcaption)` carry only
 `permittedRoles`). "No corresponding role" is not `generic`: treating it so flags
 `<canvas aria-label>`, which is in kener twice and is fine.
@@ -90,8 +94,9 @@ record the limitation rather than the rule pretending otherwise.
 different facts:
 
 - _Prohibited naming_: `aria-label` / `aria-labelledby` (and the two braille forms) on an element
-  whose `namingProhibited` holds under every candidate, or on an explicit role whose row lists them in
-  `prohibitedProperties` (`generic`, `presentation`, the text roles). Message: "`aria-label` is
+  whose `namingProhibited` holds under every candidate, or on a role — explicit, or implicit and
+  holding under every candidate — whose row lists them in `prohibitedProperties` (`generic`,
+  `presentation`, the text roles). Message: "`aria-label` is
   prohibited on `<div>` — its role does not take a name".
 - _Not owned by the role_: an attribute absent from an **explicit** role's `ownedProperties`, or from
   the implicit role's when that role holds under every candidate. Message: "`aria-level` is not
@@ -103,22 +108,36 @@ globals are absent from 17 roles' `ownedProperties`, and every one of those abse
 arm, never in _not owned_. Value is not judged (`invalid-aria-value`) and existence is not
 (`unknown-aria-attribute`): an unknown attribute is skipped so one typo yields one finding.
 
-**Where the tables would give a different verdict from the compiler, the compiler's holds.** Diffing
-markuplint 1.3 `ownedProperties` against aria-query on the 95 shared roles, the disagreements that
-would make this rule warn on markup the compiler accepts are exactly seven: `listitem`/`aria-level`,
-`tablist`/`aria-level`, `listbox`/`aria-expanded`, `menuitemcheckbox` and `menuitemradio` ×
-`aria-readonly`/`aria-required`, and `aria-expanded` on the three `graphics-*` roles — each one a
-property ARIA 1.2 lists as supported. Those pairs are exempted by name, in the rule, with that reason;
-the list is data judgment, not data, so it lives in code with a test that pins it, and it is the only
-place this rule consults anything other than the vendored table.
+**Two named exemption lists, with different justifications.** The rule consults nothing but the
+vendored table except these, both of which are data judgment rather than data, so they live in code
+with a test that pins each entry:
+
+- _The compiler wins._ Diffing markuplint 1.3 `ownedProperties` against aria-query (the compiler's
+  pin is 5.3.1; the workspace's 5.3.2 is identical here) on the 98 shared roles, the disagreements
+  that would make this rule warn on markup the compiler accepts are exactly ten (role, property)
+  pairs: `listitem`/`aria-level`, `tablist`/`aria-level`, `listbox`/`aria-expanded`,
+  `menuitemcheckbox` and `menuitemradio` × `aria-readonly`/`aria-required`, and `aria-expanded` on
+  the three `graphics-*` roles. Only the first and third are supported in ARIA 1.2 itself; the rest
+  are 1.1 leftovers or superclass artefacts aria-query still lists. The dataset is the more current
+  reading, and the compiler still wins — a different verdict on the same markup is what the policy
+  forbids, whichever source is right.
+- _The spec wins over the dataset._ `<address>` and `<hgroup>` are `namingProhibited` in the dataset,
+  but html-aria (TR and editor's draft) gives both `role=group` with no naming prohibition and axe's
+  element table agrees; upstream markuplint `main` still carries the flag, so this is a data bug, not
+  version drift. Both are exempted from the naming arm with that reason. (`<html>` is also flagged
+  in the dataset; html-aria permits no `aria-*` on it at all, so the outcome is right and only the
+  message would mislead — the arm's message names the element, not a role, for it.)
 
 **`a11y/deprecated-aria`** (info). A literal role the table marks deprecated (`directory`); an
 attribute deprecated globally (`aria-dropeffect`, `aria-grabbed`); an attribute deprecated on the
 resolved role under every candidate (330 rows in the table — the common real hit is `aria-disabled`
-or `aria-haspopup` on `generic`, since 66 of 88 roles deprecate those). The compiler reports the
-role-deprecated arm as _unsupported_ at warning, because aria-query dropped those properties from its
-role tables rather than flagging them; the verdict class is the same ("do not write this here"), the
-label and severity differ, and the docs say so.
+or `aria-haspopup` on `generic`: `aria-haspopup` is deprecated on 88 of the 103 roles,
+`aria-disabled` on 66). On explicit roles, and on the
+implicit elements the compiler maps, it reports the role-deprecated arm as _unsupported_ at warning,
+because aria-query dropped those properties from its role tables rather than flagging them; the
+verdict class is the same ("do not write this here"), the label and severity differ, and the docs say
+so. On `<div>`/`<span>` — the common case — the compiler is silent, since its implicit-semantics table
+has no entry for them.
 
 ## Not built: `redundant-role`
 
@@ -143,7 +162,8 @@ per-condition overrides are not; its own increment. `implicit-props`, `required-
    ARIA guard extends to condition outcomes; a role row still has no `required`.
 2. `disallowed-aria-props`, through `parseComponentFacts`: `<div aria-label>` and `<span
 aria-level>` fire with the two different messages; `<canvas aria-label>`, `<a aria-label>`, `<img
-aria-label>`, `<input aria-checked>` do not; `<li aria-level>` does not (exemption); a DPUB role,
+aria-label>`, `<input aria-checked>`, `<address aria-label>` do not; `<li aria-level>` does not
+   (exemption, all ten pairs pinned); a DPUB role,
    an expression role, and a spread with no literal role → nothing; a spread with a literal role →
    still judged; fallback tokens resolve; an unknown attribute is skipped.
 3. `deprecated-aria`: each arm; `aria-haspopup` on `<div role="checkbox">` fires, on `<div
