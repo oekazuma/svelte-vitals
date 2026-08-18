@@ -84,6 +84,8 @@ import { a11yLabelHasControl } from './a11y/label-has-control.js';
 import { a11yUseList } from './a11y/use-list.js';
 import { a11yPlaceholderLabelOption } from './a11y/placeholder-label-option.js';
 import { a11yRequireDatetime } from './a11y/require-datetime.js';
+import { a11yDeprecatedElement } from './a11y/deprecated-element.js';
+import { a11yDeprecatedAttr } from './a11y/deprecated-attr.js';
 import { a11yDoctype } from './a11y/doctype.js';
 import { a11yDuplicateLandmark } from './a11y/duplicate-landmark.js';
 import { a11yTopLevelLandmark } from './a11y/top-level-landmark.js';
@@ -174,6 +176,8 @@ export const allRules: Rule[] = [
   a11yUseList,
   a11yPlaceholderLabelOption,
   a11yRequireDatetime,
+  a11yDeprecatedElement,
+  a11yDeprecatedAttr,
   a11yDoctype,
   a11yDuplicateLandmark,
   a11yTopLevelLandmark,
@@ -265,6 +269,8 @@ export {
   a11yUseList,
   a11yPlaceholderLabelOption,
   a11yRequireDatetime,
+  a11yDeprecatedElement,
+  a11yDeprecatedAttr,
   a11yDoctype,
   a11yDuplicateLandmark,
   a11yTopLevelLandmark,
