@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projectHtmlSpec, resolveHtmlSpec } from '../scripts/html-spec.js';
 import { HTML_SPEC, HTML_SPEC_VERSION } from '../src/html-spec/generated.js';
@@ -40,8 +41,20 @@ describe('html-spec: what the projection must and must not carry', () => {
 
   it('opens with the upstream copyright line in a legal comment', () => {
     const head = readFileSync(generatedPath, 'utf8').slice(0, 400);
+    const copyright = resolveHtmlSpec()
+      .license.split('\n')
+      .find((l) => l.startsWith('Copyright'))!;
     expect(head.startsWith('/*!')).toBe(true);
-    expect(head).toContain('Copyright (c) 2017-2024 Yusuke Hirao');
+    expect(head).toContain(copyright);
+  });
+});
+
+describe('html-spec: core purity', () => {
+  it('the generated module and its neighbours import nothing from node:', () => {
+    const dir = fileURLToPath(new URL('../src/html-spec/', import.meta.url));
+    for (const f of readdirSync(dir)) {
+      expect(readFileSync(join(dir, f), 'utf8'), f).not.toMatch(/from 'node:|require\('node:/);
+    }
   });
 });
 

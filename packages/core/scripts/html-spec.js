@@ -99,11 +99,12 @@ export function projectHtmlSpec(raw) {
 }
 
 /**
- * The data is emitted as one JSON.parse'd string, not an object literal — a quarter-megabyte literal
- * is something oxfmt reflows on every run — and the string is built with a second JSON.stringify
- * because the projection carries hundreds of quote characters. The notice is a `/*!` legal comment:
- * esbuild strips ordinary block comments from dist, and MIT's "all copies or substantial portions"
- * is about the published copy.
+ * The data is emitted as one JSON.parse'd string, not an object literal, and the file is on oxfmt's
+ * ignore list — a quarter-megabyte literal is something the formatter would otherwise reflow on every
+ * run, and the generator's bytes are what the drift test compares. The string is built with a second
+ * JSON.stringify so the projection's own quote characters are escaped for it. The notice is a `/*!`
+ * legal comment: esbuild strips ordinary block comments from dist, and MIT's "all copies or
+ * substantial portions" is about the published copy.
  */
 export function renderHtmlSpecModule(data, { version, license, generatorCommand }) {
   const notice = license

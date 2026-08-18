@@ -11,7 +11,7 @@ Scored `info` rather than `warning`: the attribute may still work today. The fin
 
 Flags an attribute the HTML spec data marks deprecated (or obsolete) **on that element** — `iframe[frameborder]`, `td[width]`, `body[bgcolor]`, `hr[size]`, `style[type]` — in component source, by both the CLI and the Vite plugin. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
-Deprecation is per element: `width` is deprecated on `<td>` and current on `<img>`, so only the first is reported.
+Deprecation is per element: `width` is deprecated on `<td>` and current on `<img>`, so only the first is reported. An element with several deprecated attributes yields **one** finding listing them, anchored at the start tag — so one `disable-next-line` directive above the element silences it, however many lines the tag spans.
 
 Not flagged:
 

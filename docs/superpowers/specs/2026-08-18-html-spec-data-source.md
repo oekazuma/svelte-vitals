@@ -198,8 +198,10 @@ the flags in the data are not one thing:
   component's stylesheet, parsed into `ast.css` and never an element, so it is out of reach by
   construction. Other collectors (`accessible-name`, `interactive-nesting` on `<svg><a>`) may adopt
   the flag later; that is not this change.
-- Attributes: 169 `deprecated`, 2 `obsolete`, and separately 23 `nonStandard` and 16 `experimental`.
-  The rule fires on **`deprecated ∪ obsolete`** from the element's own `attributes` table only —
+- Attributes: 169 `deprecated`, 2 `obsolete`, and separately 23 `nonStandard` and 16 `experimental`
+  (all four flags, plus the single `noUse` row, are kept in the projection for `invalid-attr` to
+  read later; only two drive this rule). The rule fires on **`deprecated ∪ obsolete`** from the
+  element's own `attributes` table only —
   not on `nonStandard`/`experimental`, and not on the `#globalAttrs` groups. The global groups are
   where the false-positive traps live: `#XLinkAttrs` marks `xlink:href` deprecated, and every SVG
   icon sprite is `<use xlink:href="#…">`; consulting them would fire on the most common SVG idiom in
@@ -212,12 +214,15 @@ the flags in the data are not one thing:
   says "deprecated", and the rule doc says coverage is "attributes the dataset marks deprecated",
   not "obsolete attributes". An attribute flagged both `deprecated` and `nonStandard`
   (`hr[size]`, `canvas[moz-opaque]`) fires — it is in the union.
-- One finding per element: `deprecated-attr` skips every attribute on an element whose tag is in the
-  obsolete set (`marquee`/`blink` included, so the compiler's two fall out of the same check), so
-  `<font color>` and `<marquee behavior>` each surface once. This is a data-level skip, not a view of
-  the other rule's result — separate `componentRule` specs have none — so turning
+- One finding per element, in both senses. `deprecated-attr` skips every attribute on an element
+  whose tag is in the obsolete set (`marquee`/`blink` included, so the compiler's two fall out of the
+  same check), so `<font color>` and `<marquee behavior>` each surface once; this is a data-level
+  skip, not a view of the other rule's result — separate `componentRule` specs have none — so turning
   `a11y/deprecated-element` off, or suppressing it inline, does not resurface the attribute finding.
-  Stated in both rule docs.
+  And an element with several deprecated attributes yields one finding listing them, **anchored at
+  the start tag**: `disable-next-line` suppresses directive-line + 1 and no comment can sit inside a
+  start tag, so an attribute-line anchor on a multi-line element would be a documented lever with no
+  position that works. Stated in both rule docs.
 
 Measured with the shipped rules on five real apps: `deprecated-element` 2 (`<strike>`, both in
 svelte-commerce), `deprecated-attr` 7 (`iframe[frameborder]`, kener 3 and svelte-commerce 4), 0 in

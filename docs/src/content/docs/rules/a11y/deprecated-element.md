@@ -9,13 +9,13 @@ Scored `info` rather than `warning`: the element still renders and browsers keep
 
 ## What it checks
 
-Flags an element named in the HTML standard's obsolete-features list — `<center>`, `<font>`, `<strike>`, `<big>`, `<tt>`, `<frame>`, `<applet>`, and the rest of that section, 29 elements in all — in component source, by both the CLI and the Vite plugin. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+Flags an element named in the HTML standard's obsolete-features list — `<center>`, `<font>`, `<strike>`, `<big>`, `<tt>`, `<frame>`, `<applet>`, and the rest of that section — in component source, by both the CLI and the Vite plugin. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 Not flagged:
 
 - `<marquee>` and `<blink>`, which the Svelte compiler already reports (`a11y_distracting_elements`). Where the compiler and a rule overlap, the compiler wins — reporting them again under a second id would be a contradiction, not a second opinion.
 - Anything inside `<svg>`, or in a component declaring `<svelte:options namespace="svg" />`. The check is for HTML elements only; content under `<foreignObject>` returns to HTML and is checked.
-- The conforming replacements: `<s>` for `<strike>`, `<b>` or `<strong>` for `<big>`, `<code>`/`<kbd>`/`<samp>` for `<tt>`.
+- The conforming replacements: `<s>` for `<strike>`, `<span>` plus CSS `font-size` for `<big>` (`<b>`/`<strong>` would change the meaning), `<code>`/`<kbd>`/`<samp>` for `<tt>`.
 
 ```svelte
 <strike>old price</strike>

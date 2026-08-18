@@ -9,13 +9,13 @@ description: HTML 標準の obsolete features に挙げられた要素は非適�
 
 ## チェック内容
 
-HTML 標準の obsolete features 節に挙げられた要素 — `<center>`、`<font>`、`<strike>`、`<big>`、`<tt>`、`<frame>`、`<applet>` など、全 29 要素 — をコンポーネントのソースから検出します。CLI と Vite プラグインの両方が対象です。`--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
+HTML 標準の obsolete features 節に挙げられた要素 — `<center>`、`<font>`、`<strike>`、`<big>`、`<tt>`、`<frame>`、`<applet>` など — をコンポーネントのソースから検出します。CLI と Vite プラグインの両方が対象です。`--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
 
 検出しないもの:
 
 - `<marquee>` と `<blink>`。Svelte コンパイラが既に報告します（`a11y_distracting_elements`）。コンパイラとルールが重なる場合はコンパイラを優先します — 別の ID で二度報告するのは矛盾であって、セカンドオピニオンではありません。
 - `<svg>` の内側、および `<svelte:options namespace="svg" />` を宣言したコンポーネント内のすべて。このチェックは HTML 要素だけが対象です。`<foreignObject>` 配下は HTML に戻るのでチェックされます。
-- 適合する代替要素: `<strike>` に対する `<s>`、`<big>` に対する `<b>`/`<strong>`、`<tt>` に対する `<code>`/`<kbd>`/`<samp>`。
+- 適合する代替要素: `<strike>` に対する `<s>`、`<big>` に対する `<span>` + CSS の `font-size`（`<b>`/`<strong>` は意味が変わります）、`<tt>` に対する `<code>`/`<kbd>`/`<samp>`。
 
 ```svelte
 <strike>old price</strike>

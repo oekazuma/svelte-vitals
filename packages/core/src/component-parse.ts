@@ -1106,15 +1106,11 @@ function classifyAttrValue(value: unknown): { literal?: string } | { expression:
 }
 
 /**
- * Elements carrying a `role` and/or `aria-*` attribute(s) (a11y ARIA rules). Only
- * `RegularElement` is checked, so `<svelte:element this="div" role="…">` is out of static reach —
- * same convention as `collectCheckableBindValues`/`collectHrefLinks`.
- */
-/**
- * Every element, namespace-tracked: `inSvg` is set under an `<svg>` ancestor and cleared again under
- * `<foreignObject>`; a component declaring `<svelte:options namespace="svg" />` starts inside SVG,
- * since a `<g>`-root partial has no `<svg>` of its own. Compared lowercased throughout — the AST keeps
- * source spelling, HTML does not.
+ * Every element, namespace-tracked: `inSvg` is set on `<svg>` and everything under it, and cleared
+ * again under `<foreignObject>`; a component declaring `<svelte:options namespace="svg" />` starts
+ * inside SVG, since a `<g>`-root partial has no `<svg>` of its own. `<svelte:element this="…">` is
+ * skipped and its subtree treated as HTML — the tag is dynamic, so neither its name nor its namespace
+ * is known. Compared lowercased throughout — the AST keeps source spelling, HTML does not.
  */
 function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: boolean): void {
   if (Array.isArray(node)) {
@@ -1125,13 +1121,16 @@ function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: 
   let next = inSvg;
   if (node.type === 'RegularElement' && typeof node.name === 'string' && Array.isArray(node.attributes)) {
     const tag = node.name.toLowerCase();
+    // The `<svg>` element is itself in the SVG namespace, so it is flagged along with its subtree;
+    // `<foreignObject>` is too, and only its children return to HTML.
+    const self = inSvg || tag === 'svg';
     acc.push({
       tag,
       line: lineOf(source, node.start),
       attrs: node.attributes
         .filter((a: Node) => a?.type === 'Attribute' && typeof a.name === 'string')
         .map((a: Node) => ({ name: String(a.name).toLowerCase(), line: lineOf(source, a.start ?? node.start) })),
-      ...(inSvg ? { inSvg: true as const } : {})
+      ...(self ? { inSvg: true as const } : {})
     });
     if (tag === 'svg') next = true;
     else if (tag === 'foreignobject') next = false;
@@ -1141,6 +1140,11 @@ function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: 
   }
 }
 
+/**
+ * Elements carrying a `role` and/or `aria-*` attribute(s) (a11y ARIA rules). Only
+ * `RegularElement` is checked, so `<svelte:element this="div" role="…">` is out of static reach —
+ * same convention as `collectCheckableBindValues`/`collectHrefLinks`.
+ */
 function collectAriaElements(node: Node, source: string, acc: AriaElementFact[]): void {
   if (Array.isArray(node)) {
     for (const child of node) collectAriaElements(child, source, acc);

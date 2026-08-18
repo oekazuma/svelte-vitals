@@ -28,7 +28,7 @@ describe('parseComponentFacts — elements (HTML spec-data rules)', () => {
       'C.svelte'
     );
     expect(c.elements!.map((e) => [e.tag, e.inSvg ?? false])).toEqual([
-      ['svg', false],
+      ['svg', true],
       ['style', true],
       ['foreignobject', true],
       ['b', false],
@@ -67,6 +67,13 @@ describe('a11y/deprecated-attr', () => {
       ctx('<table><tr><td width="1">a</td></tr></table>\n<img src="x" width="1" alt="" />')
     );
     expect(fails(out)).toEqual(['1:`width` on <td> is a deprecated attribute']);
+  });
+
+  it('yields one finding per element, anchored at the start tag so a directive can reach it', async () => {
+    const out = await a11yDeprecatedAttr.check(
+      ctx('<table\n  border="0"\n  cellpadding="0"\n  width="100%"\n><tr><td>x</td></tr></table>')
+    );
+    expect(fails(out)).toEqual(['1:`border`, `cellpadding`, `width` on <table> are deprecated attributes']);
   });
 
   it('reports the head <style type>, which is an element, and cannot see the component stylesheet', async () => {

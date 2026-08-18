@@ -12,7 +12,7 @@ export const a11yDeprecatedElement = componentRule({
   rationale:
     "Elements in the HTML standard's obsolete-features list (`<center>`, `<font>`, `<strike>`, …) are non-conforming: browsers keep rendering them for legacy pages, but their semantics are unspecified for assistive technology and each has a conforming replacement.",
   recommendation:
-    'Replace the element with its conforming equivalent — `<s>` for `<strike>`, `<span>` plus CSS for `<font>`/`<center>`, `<b>`/`<strong>` for `<big>` — and move presentation to CSS.',
+    'Replace the element with its conforming equivalent — `<s>` for `<strike>`, `<span>` plus CSS for `<font>`/`<center>`/`<big>` — and move presentation to CSS.',
   // Every HTML element is judged, so a component with none obsolete passes rather than going unrecorded.
   applies: (c) => (c.elements ?? []).some((e) => !e.inSvg),
   bad: (c) =>

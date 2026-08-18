@@ -16,13 +16,22 @@ export const a11yDeprecatedAttr = componentRule({
   applies: (c) => (c.elements ?? []).some((e) => !e.inSvg && e.attrs.length > 0),
   bad: (c) =>
     (c.elements ?? [])
-      // One finding per element: attributes on an obsolete element are that element's finding
-      // (a11y/deprecated-element), and stay that way even when that rule is off or suppressed —
-      // this is a data-level skip, not a view of the other rule's result.
+      // Attributes on an obsolete element are that element's finding (a11y/deprecated-element),
+      // and stay that way even when that rule is off or suppressed — this is a data-level skip,
+      // not a view of the other rule's result.
       .filter((e) => !e.inSvg && !htmlElement(e.tag)?.obsolete)
-      .flatMap((e) =>
-        e.attrs
-          .filter((a) => isDeprecatedAttr(e.tag, a.name))
-          .map((a) => ({ line: a.line, message: `\`${a.name}\` on <${e.tag}> is a deprecated attribute` }))
-      )
+      .flatMap((e) => {
+        const names = e.attrs.filter((a) => isDeprecatedAttr(e.tag, a.name)).map((a) => a.name);
+        if (names.length === 0) return [];
+        // One finding per element, anchored at the element's line: a `disable-next-line` directive
+        // can only sit above the start tag, so an attribute-line anchor on a multi-line element
+        // would leave a documented lever with no position that works.
+        const list = names.map((n) => `\`${n}\``).join(', ');
+        return [
+          {
+            line: e.line,
+            message: `${list} on <${e.tag}> ${names.length === 1 ? 'is a deprecated attribute' : 'are deprecated attributes'}`
+          }
+        ];
+      })
 });

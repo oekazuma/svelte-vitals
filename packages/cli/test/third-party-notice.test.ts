@@ -14,6 +14,8 @@ describe('third-party notices reach the published core dist', () => {
       .filter((f) => f.endsWith('.js'))
       .map((f) => readFileSync(join(coreDist, f), 'utf8'))
       .join('\n');
+    // Year range as shipped by 4.18.0; a data bump that changes it fails here loudly, which is
+    // the point — the notice must be re-checked, not assumed.
     expect(js).toContain('Copyright (c) 2017-2024 Yusuke Hirao');
     expect(js).toContain('@markuplint/html-spec@');
   });
