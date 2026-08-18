@@ -84,7 +84,7 @@ outcome**, absent keys inheriting. `<div aria-label>`: `namingProhibited` on the
 inherits it → fires. `<a aria-label>`: default `link` is not naming-prohibited → no. `<img
 aria-label>`: `img` owns naming, `[alt=""]` → `presentation` → no. A `false` outcome means the role,
 and so ownership, is unknown → no ownership judgment there. `<input>` is unjudgeable for any
-non-global attribute under this device (25 conditions across eight roles) even though `inputType` is
+non-global attribute under this device (23 conditions across eight roles) even though `inputType` is
 collected; the compiler's `_implicit` warning covers `<input type="text" aria-checked>`, and the docs
 record the limitation rather than the rule pretending otherwise.
 
@@ -93,19 +93,24 @@ record the limitation rather than the rule pretending otherwise.
 **`a11y/disallowed-aria-props`** (warning). Two arms, with different messages because they are
 different facts:
 
-- _Prohibited naming_: `aria-label` / `aria-labelledby` (and the two braille forms) on an element
-  whose `namingProhibited` holds under every candidate, or on a role — explicit, or implicit and
-  holding under every candidate — whose row lists them in `prohibitedProperties` (`generic`,
-  `presentation`, the text roles). Message: "`aria-label` is
+- _Prohibited_: `aria-label` / `aria-labelledby` / `aria-braillelabel` on an element whose
+  `namingProhibited` holds under every candidate (message: "prohibited on `<div>` — its role does not
+  take a name"); and, on a role — explicit, or implicit and holding under every candidate — any
+  attribute its row lists in `prohibitedProperties`, with a message that names the attribute and the
+  role. The second form is what catches `aria-roledescription` on `generic` (ARIA 1.2 prohibits it;
+  the compiler is silent) without calling it a naming attribute — and it is why the braille
+  role-description form is **not** in the first list: `paragraph`, `code`, `strong` and the other text
+  roles own `aria-brailleroledescription`, so `<p aria-brailleroledescription>` must stay silent. Message: "`aria-label` is
   prohibited on `<div>` — its role does not take a name".
 - _Not owned by the role_: an attribute absent from an **explicit** role's `ownedProperties`, or from
   the implicit role's when that role holds under every candidate. Message: "`aria-level` is not
   supported by role `generic`". This is the arm that overlaps `a11y_role_supports_aria_props(_implicit)`.
 
-Global properties are owned by every role in the table with one shape of exception: the five naming
-globals are absent from 17 roles' `ownedProperties`, and every one of those absences is also a
-`prohibitedProperties` entry — so a global on any role either passes or lands in the _prohibited_
-arm, never in _not owned_. Value is not judged (`invalid-aria-value`) and existence is not
+Global properties are owned by every role in the table with one shape of exception: the three naming
+globals (`aria-label`, `aria-labelledby`, `aria-braillelabel`) are absent from the 17 prohibiting
+roles' `ownedProperties`, the two role-description globals from `generic` alone, and every one of
+those absences is also a `prohibitedProperties` entry — so a global on any role either passes or lands
+in the _prohibited_ arm, never in _not owned_. Value is not judged (`invalid-aria-value`) and existence is not
 (`unknown-aria-attribute`): an unknown attribute is skipped so one typo yields one finding.
 
 **Two named exemption lists, with different justifications.** The rule consults nothing but the
@@ -117,8 +122,11 @@ with a test that pins each entry:
   that would make this rule warn on markup the compiler accepts are exactly ten (role, property)
   pairs: `listitem`/`aria-level`, `tablist`/`aria-level`, `listbox`/`aria-expanded`,
   `menuitemcheckbox` and `menuitemradio` × `aria-readonly`/`aria-required`, and `aria-expanded` on
-  the three `graphics-*` roles. Only the first and third are supported in ARIA 1.2 itself; the rest
-  are 1.1 leftovers or superclass artefacts aria-query still lists. The dataset is the more current
+  the three `graphics-*` roles — counting the not-owned arm only; aria-query also lists the naming
+  attributes as supported on all 17 prohibiting roles, and the compiler never reads
+  `prohibitedProps`, so the prohibited arm is compiler-silent on explicit roles too, by design not
+  by exemption. Only the first and third of the ten are supported in ARIA 1.2 itself; the rest are
+  1.1 leftovers or superclass artefacts aria-query still lists. The dataset is the more current
   reading, and the compiler still wins — a different verdict on the same markup is what the policy
   forbids, whichever source is right.
 - _The spec wins over the dataset._ `<address>` and `<hgroup>` are `namingProhibited` in the dataset,
@@ -132,7 +140,9 @@ with a test that pins each entry:
 attribute deprecated globally (`aria-dropeffect`, `aria-grabbed`); an attribute deprecated on the
 resolved role under every candidate (330 rows in the table — the common real hit is `aria-disabled`
 or `aria-haspopup` on `generic`: `aria-haspopup` is deprecated on 88 of the 103 roles,
-`aria-disabled` on 66). On explicit roles, and on the
+`aria-disabled` on 66). On explicit roles (295 of the 310
+explicit-role pairs; the 15 exceptions are `menuitemcheckbox`/`menuitemradio` × `aria-errormessage`/
+`aria-invalid` and the three `graphics-*` roles × four properties, where it is silent), and on the
 implicit elements the compiler maps, it reports the role-deprecated arm as _unsupported_ at warning,
 because aria-query dropped those properties from its role tables rather than flagging them; the
 verdict class is the same ("do not write this here"), the label and severity differ, and the docs say
@@ -161,7 +171,9 @@ per-condition overrides are not; its own increment. `implicit-props`, `required-
 1. Projection: `namingProhibited` and `conditions` land as specified; the drift test covers them; the
    ARIA guard extends to condition outcomes; a role row still has no `required`.
 2. `disallowed-aria-props`, through `parseComponentFacts`: `<div aria-label>` and `<span
-aria-level>` fire with the two different messages; `<canvas aria-label>`, `<a aria-label>`, `<img
+aria-level>` fire with the two different messages; `<div aria-roledescription>` fires with the
+   property-named message and `<p aria-brailleroledescription>` does not; `<canvas aria-label>`, `<a
+aria-label>`, `<img
 aria-label>`, `<input aria-checked>`, `<address aria-label>` do not; `<li aria-level>` does not
    (exemption, all ten pairs pinned); a DPUB role,
    an expression role, and a spread with no literal role → nothing; a spread with a literal role →
