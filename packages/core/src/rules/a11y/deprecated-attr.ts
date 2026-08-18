@@ -10,7 +10,7 @@ export const a11yDeprecatedAttr = componentRule({
   severity: 'info',
   label: 'Deprecated attributes',
   rationale:
-    "An attribute the HTML spec data marks deprecated (`iframe[frameborder]`, `td[width]`, `body[bgcolor]`, …) has its behavior defined by legacy browser compatibility rather than by the standard, and each has a CSS or modern-attribute replacement. Coverage is what the dataset records as deprecated, which tracks MDN's status; WHATWG-obsolete attributes MDN never documented (`p[align]`) are not reported.",
+    "An attribute the HTML spec data marks deprecated (`iframe[frameborder]`, `td[width]`, `body[bgcolor]`, …) has its behavior defined by legacy browser compatibility rather than by the standard, and each has a CSS or modern-attribute replacement. Coverage is what the dataset marks deprecated or obsolete on that element, and its `deprecated` flag tracks MDN's status; attributes the dataset does not list at all — WHATWG-obsolete ones MDN never documented, like `p[align]` — are not reported.",
   recommendation: 'Move the presentation to CSS, or use the modern attribute the deprecated one was superseded by.',
   // Every attributed HTML element is judged, so a clean component passes rather than going unrecorded.
   applies: (c) => (c.elements ?? []).some((e) => !e.inSvg && e.attrs.length > 0),

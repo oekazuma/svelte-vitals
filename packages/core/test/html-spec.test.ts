@@ -53,7 +53,8 @@ describe('html-spec: core purity', () => {
   it('the generated module and its neighbours import nothing from node:', () => {
     const dir = fileURLToPath(new URL('../src/html-spec/', import.meta.url));
     for (const f of readdirSync(dir)) {
-      expect(readFileSync(join(dir, f), 'utf8'), f).not.toMatch(/from 'node:|require\('node:/);
+      // Static, side-effect, dynamic and require forms, either quote style.
+      expect(readFileSync(join(dir, f), 'utf8'), f).not.toMatch(/(?:from\s+|import\s*\(?\s*|require\s*\(\s*)['"]node:/);
     }
   });
 });
