@@ -74,6 +74,16 @@ install`/`ci upgrade` bundle into scaffolded workflows.
   stay floor-bound. Never pin the `test` matrix back to the floor, and never
   add a dev dependency to the smoke — it must stay Node-builtins-only. Design
   doc: `docs/superpowers/specs/2026-07-31-floor-smoke-design.md`.
+- **Vendored spec data is generated, never edited.** `packages/core/src/html-spec/generated.ts` (a
+  projection of `@markuplint/html-spec`) and `packages/core/src/rules/seo/schema-vocabulary.generated.ts`
+  (from `schema-dts`) are written by `pnpm --filter @svelte-vitals/core run gen:html-spec` /
+  `gen:schema-vocab` from the **installed** package — the data package is a pinned catalog
+  devDependency, so a version bump makes the drift test (`packages/core/test/html-spec.test.ts`,
+  `schema-vocabulary.test.ts`) fail until regenerated, offline, with the data diff in the PR. The
+  html-spec projection is the single source for per-element HTML facts and per-role ARIA property
+  tables; `aria-query` stays the single source for the ARIA vocabulary and required properties, and
+  the projection deliberately carries no `required` field so the two cannot answer the same
+  question. Design: `docs/superpowers/specs/2026-08-18-html-spec-data-source.md`.
 - **Dependencies via catalog**: root `package.json` devDependencies are all pinned as `catalog:`; actual versions live in `pnpm-workspace.yaml`. Add/bump shared devDependencies there, not as literal versions in a package's `package.json`.
 - **Changesets required**: any user-facing change needs `pnpm changeset`. Merging to `main` opens a release PR (Changesets bot). Internal-only / doc-only changes don't need one.
 - **en/ja docs stay in sync**: `docs/src/content/docs/` (English) and `docs/src/content/docs/ja/` (Japanese) are updated together, and CI enforces it — the `docs` job runs `blume translate --check` against the committed `docs/blume.translations.json` ledger and fails when an English page changed without its stamp. After editing an English page, update the Japanese page too, then run `pnpm --filter docs run translate:stamp <en-file...>` to record that the pair matches. Never re-stamp a page whose Japanese half you did not actually update, and never regenerate the whole ledger to silence the gate — a stamp is an assertion, not a formality. (A brand-new page pair starts untracked, which the gate ignores; stamp it so future drift is caught.)

@@ -126,6 +126,30 @@ export interface AriaElementFact {
   hasSpread?: true;
 }
 
+/**
+ * Every element in a component with its literal attribute names — the input for the rules that
+ * judge against the HTML spec data (a11y/deprecated-element, a11y/deprecated-attr, and the rest of
+ * that family). Tag and attribute names are lowercased, matching how HTML parses them.
+ */
+export interface ElementFact {
+  tag: string;
+  /** 1-based source line, or 0 if unknown. */
+  line: number;
+  /**
+   * Literal attribute names on the element (directives, spreads and expression-only names excluded).
+   * The per-attribute line is not what the deprecation rules anchor to — they anchor at the start
+   * tag so a `disable-next-line` directive can reach a multi-line element — but a value-level rule
+   * (`invalid-attr`) may want it for its message.
+   */
+  attrs: { name: string; line: number }[];
+  /**
+   * Inside an `<svg>` subtree, or in a component declaring `<svelte:options namespace="svg" />`.
+   * `<foreignObject>` returns to HTML. Names collide across the two namespaces (`a`, `script`,
+   * `style`, `title`), so HTML-only rules must skip these.
+   */
+  inSvg?: true;
+}
+
 /** Reactivity/correctness + security + architecture facts parsed from one `.svelte` component. */
 export interface ComponentFacts {
   /** Source file the component came from. */
@@ -192,6 +216,8 @@ export interface ComponentFacts {
   commentLinks: { url: string; line: number }[];
   /** Elements carrying a role or any aria-* attribute (a11y ARIA rules). */
   ariaElements?: AriaElementFact[];
+  /** Every element with its attribute names and SVG-namespace flag (the HTML spec-data rules). */
+  elements?: ElementFact[];
   /** Interactive elements nested inside another interactive container (a11y/interactive-nesting). */
   interactiveNestings?: InteractiveNestingFact[];
   /** `button`/`a href`/`input type="image"` elements with no computable accessible name (a11y/accessible-name). */

@@ -132,6 +132,23 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     expect(findings(report, 'a11y/invalid-role')).toBe(findings(baseline, 'a11y/invalid-role') - 1);
   });
 
+  it('silences the spec-data rules, including a deprecated attribute on a multi-line start tag', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    const page = join(dir, 'src', 'routes', 'gallery', 'a11y', 'legacy', '+page.svelte');
+    let src = readFileSync(page, 'utf8');
+    // The finding is anchored at the start tag, so the directive above a tag that spans lines works.
+    src = src.replace(
+      '<iframe src="/clean" frameborder="0" title="Embedded page"></iframe>',
+      '<!-- svelte-vitals-disable-next-line a11y/deprecated-attr -->\n<iframe\n  src="/clean"\n  frameborder="0"\n  title="Embedded page"\n></iframe>'
+    );
+    src = src.replace('<p><strike>', '<!-- svelte-vitals-disable-next-line a11y/deprecated-element -->\n<p><strike>');
+    writeFileSync(page, src);
+    const { report } = run(dir);
+    expect(findings(report, 'a11y/deprecated-attr')).toBe(findings(baseline, 'a11y/deprecated-attr') - 1);
+    expect(findings(report, 'a11y/deprecated-element')).toBe(findings(baseline, 'a11y/deprecated-element') - 1);
+  });
+
   it('silences a route-scoped finding in a composed component and turns it into a PASS', () => {
     const dir = scratchCopy();
     scratch.push(dir);

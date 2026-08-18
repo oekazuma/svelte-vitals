@@ -3,6 +3,7 @@ import type { Expression } from 'estree';
 import type { AST } from 'svelte/compiler';
 import type {
   AriaElementFact,
+  ElementFact,
   BasePathLinkFact,
   BrowserGlobalRefFact,
   CheckableBindValueFact,
@@ -1102,6 +1103,42 @@ function classifyAttrValue(value: unknown): { literal?: string } | { expression:
     return { literal: String(value[0].data ?? '') };
   }
   return { expression: true };
+}
+
+/**
+ * Every element, namespace-tracked: `inSvg` is set on `<svg>` and everything under it, and cleared
+ * again under `<foreignObject>`; a component declaring `<svelte:options namespace="svg" />` starts
+ * inside SVG, since a `<g>`-root partial has no `<svg>` of its own. `<svelte:element this="…">` is
+ * skipped — the tag is dynamic, so neither its name nor its namespace is known — and its subtree
+ * keeps the surrounding namespace. Compared lowercased throughout — the AST keeps source spelling,
+ * HTML does not.
+ */
+function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: boolean): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectElements(child, source, acc, inSvg);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  let next = inSvg;
+  if (node.type === 'RegularElement' && typeof node.name === 'string' && Array.isArray(node.attributes)) {
+    const tag = node.name.toLowerCase();
+    // The `<svg>` element is itself in the SVG namespace, so it is flagged along with its subtree;
+    // `<foreignObject>` is too, and only its children return to HTML.
+    const self = inSvg || tag === 'svg';
+    acc.push({
+      tag,
+      line: lineOf(source, node.start),
+      attrs: node.attributes
+        .filter((a: Node) => a?.type === 'Attribute' && typeof a.name === 'string')
+        .map((a: Node) => ({ name: String(a.name).toLowerCase(), line: lineOf(source, a.start ?? node.start) })),
+      ...(self ? { inSvg: true as const } : {})
+    });
+    if (tag === 'svg') next = true;
+    else if (tag === 'foreignobject') next = false;
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectElements(node[key], source, acc, next);
+  }
 }
 
 /**
@@ -2648,6 +2685,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectCheckableBindValues(ast.fragment ?? ast, source, checkableBindValues);
   const ariaElements: AriaElementFact[] = [];
   collectAriaElements(ast.fragment ?? ast, source, ariaElements);
+  const elements: ElementFact[] = [];
+  collectElements(ast.fragment ?? ast, source, elements, ast.options?.namespace === 'svg');
   const interactiveNestings: InteractiveNestingFact[] = [];
   collectInteractiveNestings(ast.fragment ?? ast, source, interactiveNestings, []);
   const unnamedInteractive: UnnamedInteractiveFact[] = [];
@@ -2886,6 +2925,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     suppressions,
     commentLinks: collectCommentLinks(source),
     ariaElements,
+    elements,
     interactiveNestings,
     unnamedInteractive,
     unassociatedLabels,
