@@ -76,7 +76,7 @@ export async function collectAll(
   // everything else that's independent of it runs alongside it in one Promise.all.
   const project = await collectProjectFacts(rt, cwd);
   const [collected, components, kitModules, sourceFiles] = await Promise.all([
-    collectRoutes(rt, cwd, config, parseCache, project.kitAliases, project.appHtmlIds),
+    collectRoutes(rt, cwd, config, parseCache, project.kitAliases, project.appHtmlIds, project.appHtmlBodyTags),
     // Component (Correctness) facts are file-scoped with no route attribution yet, so a
     // route-filtered run skips them rather than reporting unrelated components (#68 review);
     // kitModules is skipped for the same reason.

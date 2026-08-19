@@ -65,6 +65,13 @@ describe('collectProjectFacts', () => {
     expect((await collectProjectFacts(createMemoryRuntime({}), '')).appHtmlIds).toBeUndefined();
   });
 
+  it('collects the shell body tag names, and only the body', async () => {
+    const rt = createMemoryRuntime({
+      'src/app.html': `<html><head><meta charset="utf-8" /><title>x</title></head><body data-x><!-- <aside> --><MAIN id="app">%sveltekit.body%</MAIN><script>document.write('<footer>')</script></body></html>`
+    });
+    expect((await collectProjectFacts(rt, '')).appHtmlBodyTags).toEqual(['main']);
+  });
+
   it('reads shell ids case-insensitively and ignores comments and script/style bodies', async () => {
     const rt = createMemoryRuntime({
       'src/app.html': [

@@ -350,3 +350,10 @@ describe('parse-html: script capture (performance/render-blocking-script, perfor
     expect(tags.some((t) => t.kind === 'script')).toBe(false);
   });
 });
+
+describe('parse-html: elementTags (a11y/required-element)', () => {
+  it('collects distinct tag names under <body> only, skipping <template> children', () => {
+    const doc = `<!doctype html><html><head><title>t</title><meta name="x" content="y"></head><body><div id="app"><main><h1>H</h1><template><nav>n</nav></template></main></div></body></html>`;
+    expect([...parseHtmlHead(doc).elementTags].sort()).toEqual(['div', 'h1', 'main', 'template']);
+  });
+});

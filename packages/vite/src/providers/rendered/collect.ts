@@ -75,7 +75,10 @@ export async function collectRenderedHeads(prerenderPagesDir: string): Promise<C
       idCandidates: [...new Set(parsed.ids)],
       // The prerendered document IS the closed world: every id/landmark/reference it can ever
       // have is already in it, unlike source mode which may hit an unresolved component.
-      fullyResolved: true
+      fullyResolved: true,
+      elementTags: parsed.elementTags,
+      elementsClosed: true,
+      file: rel
     });
   }
 

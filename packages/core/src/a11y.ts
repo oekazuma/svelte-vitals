@@ -31,6 +31,22 @@ export interface ResolvedA11y {
   idCandidates: string[];
   /** closed world holds: every component resolved, no depth truncation, no {@html}/spread, no dynamic id */
   fullyResolved: boolean;
+  /**
+   * Distinct tag names in the route's body subtree — layout chain, page, every resolved component,
+   * and `app.html`'s `<body>` (static), or the prerendered `<body>` (rendered); optimistic across
+   * `{#if}` arms and `{#each}`/snippet bodies. Never `<svelte:head>` content, `<template>` children,
+   * or `<svelte:element>`. Absent where a provider does not collect it (a11y/required-element).
+   */
+  elementTags?: string[];
+  /**
+   * The closed world for elements: every component resolved to depth, no `{@html}`, no
+   * `<svelte:element>`. Incomparable with `fullyResolved` — a spread or `id={expr}` clears that flag
+   * and not this one, since neither can hide an element; a `<svelte:element>` clears this and not
+   * that. "Missing" is only reportable when this holds; presence is sound regardless.
+   */
+  elementsClosed?: boolean;
+  /** The file a route-level finding is anchored to: the page file (static) or the prerendered HTML path (rendered). */
+  file?: string;
 }
 
 type Foldable = { key: string; path: BranchStep[]; repeatable: boolean };

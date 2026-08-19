@@ -58,6 +58,8 @@ export interface ParsedHtmlHead {
   ids: string[];
   /** One entry per for/aria-…/href="#…" id reference; enables a11y/no-missing-id-ref. */
   idRefs: { id: string; attr: string }[];
+  /** Distinct tag names under `<body>`; enables a11y/required-element. */
+  elementTags: string[];
 }
 
 // HTML-AAM: <header>/<footer> map to banner/contentinfo unless a descendant of sectioning
@@ -75,6 +77,8 @@ interface A11yWalkCtx {
   asideDemoting: number;
   /** ancestor landmark kinds seen so far, outermost first */
   landmarks: string[];
+  /** under `<body>` — the presence set is body-scoped, the rest of the walk is whole-document */
+  inBody: boolean;
 }
 
 interface CollectedA11y {
@@ -82,6 +86,8 @@ interface CollectedA11y {
   nestedLandmarks: { kind: string; within: string }[];
   ids: string[];
   idRefs: { id: string; attr: string }[];
+  /** Distinct lowercased tag names under `<body>` — a11y/required-element's presence set, body-scoped like the source provider's. */
+  elementTags: string[];
 }
 
 /** Whole-document scan (not body-scoped: app.html shell ids/refs are real occurrences too). */
@@ -90,9 +96,11 @@ function collectA11y(root: HTMLElement): CollectedA11y {
   const nestedLandmarks: { kind: string; within: string }[] = [];
   const ids: string[] = [];
   const idRefs: { id: string; attr: string }[] = [];
+  const elementTags = new Set<string>();
 
   const walk = (el: HTMLElement, ctx: A11yWalkCtx): void => {
     const tag = el.rawTagName?.toLowerCase();
+    if (tag && ctx.inBody) elementTags.add(tag);
     const roleAttr = el.getAttribute('role');
     // A literal role, present or not, decides landmark-ness outright — it suppresses the tag
     // mapping rather than falling through to it (mirrors the source provider's parse.ts).
@@ -137,13 +145,14 @@ function collectA11y(root: HTMLElement): CollectedA11y {
     const nextCtx: A11yWalkCtx = {
       sectioning: ctx.sectioning + (SECTIONING_TAGS.has(tag) ? 1 : 0),
       asideDemoting: ctx.asideDemoting + (ASIDE_DEMOTING_TAGS.has(tag) ? 1 : 0),
-      landmarks: landmark ? [...ctx.landmarks, landmark] : ctx.landmarks
+      landmarks: landmark ? [...ctx.landmarks, landmark] : ctx.landmarks,
+      inBody: ctx.inBody || tag === 'body'
     };
     for (const child of el.children) walk(child, nextCtx);
   };
 
-  for (const child of root.children) walk(child, { sectioning: 0, asideDemoting: 0, landmarks: [] });
-  return { landmarks, nestedLandmarks, ids, idRefs };
+  for (const child of root.children) walk(child, { sectioning: 0, asideDemoting: 0, landmarks: [], inBody: false });
+  return { landmarks, nestedLandmarks, ids, idRefs, elementTags: [...elementTags] };
 }
 
 /** Parse a fully-rendered HTML document's <head> into normalized head tags. */

@@ -141,6 +141,22 @@ function detectHtmlLang(html: string): Detection {
  * element id, and counting one would silently satisfy a genuinely dangling reference.
  * Attribute names are ASCII case-insensitive (`ID="app"`) and values may be unquoted (`id=app`) — both are valid HTML.
  */
+/**
+ * Tag names inside `<body>` — the part of the shell that is body content on every route
+ * (`<main>%sveltekit.body%</main>` is real, and must count as present). A whole-file scan would
+ * count `<html>`/`<head>`/`<meta>`, which are not. Comments and script/style bodies are stripped as
+ * for ids; a shell with no `<body>` tag contributes nothing.
+ */
+function detectAppHtmlBodyTags(html: string): string[] {
+  const markup = html
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
+    .replace(/<style[\s\S]*?<\/style\s*>/gi, '');
+  const body = /<body\b[^>]*>([\s\S]*?)<\/body\s*>/i.exec(markup)?.[1];
+  if (body === undefined) return [];
+  return [...new Set([...body.matchAll(/<([a-zA-Z][a-zA-Z0-9-]*)\b/g)].map((m) => m[1]!.toLowerCase()))];
+}
+
 function detectAppHtmlIds(html: string): string[] {
   const markup = html
     .replace(/<!--[\s\S]*?-->/g, '')
@@ -155,7 +171,7 @@ function detectAppHtmlIds(html: string): string[] {
 async function detectAppHtmlFacts(
   rt: Runtime,
   cwd: string
-): Promise<Pick<Project, 'htmlLang' | 'appHtmlDoctype' | 'appHtmlIds'>> {
+): Promise<Pick<Project, 'htmlLang' | 'appHtmlDoctype' | 'appHtmlIds' | 'appHtmlBodyTags'>> {
   const appHtmlPath = rt.join(cwd, 'src/app.html');
   if (!(await rt.exists(appHtmlPath))) return { htmlLang: { presence: 'none', value: 'absent' } };
   let content: string;
@@ -170,7 +186,8 @@ async function detectAppHtmlFacts(
     // [\s\S]*? is ambiguous across iterations and backtracks exponentially on a comment run
     // with no doctype (measured: ~45 leading comments hang the process).
     appHtmlDoctype: /^\s*<!doctype\s+html/i.test(content.replace(/<!--[\s\S]*?-->/g, '')),
-    appHtmlIds: detectAppHtmlIds(content)
+    appHtmlIds: detectAppHtmlIds(content),
+    appHtmlBodyTags: detectAppHtmlBodyTags(content)
   };
 }
 

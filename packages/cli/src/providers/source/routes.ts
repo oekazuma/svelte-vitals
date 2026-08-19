@@ -145,6 +145,10 @@ interface ComposeState {
    */
   nextGroup: number;
   fullyResolved: boolean;
+  /** Body tag names seen so far across the composition (a11y/required-element's presence set). */
+  elementTags: Set<string>;
+  /** Closed world for elements: every component descended into, no `{@html}`, no `<svelte:element>`. */
+  elementsClosed: boolean;
 }
 
 interface ComposeCtx {
@@ -187,6 +191,8 @@ async function composeA11y(
 ): Promise<ComposedNode[]> {
   const { rt, cwd, state } = ctx;
   if (parsed.a11y.unknowableContent) state.fullyResolved = false;
+  for (const t of parsed.a11y.elementTags) state.elementTags.add(t);
+  if (parsed.a11y.elementsUnknowable) state.elementsClosed = false;
   const base = state.nextGroup;
   state.nextGroup += groupSpan(parsed.a11y.nodes);
 
@@ -203,6 +209,9 @@ async function composeA11y(
     const childRel = info ? resolveComponentPath(info.source, fileRel, ctx.aliases) : undefined;
     if (!childRel || depth <= 0 || visited.has(childRel) || !(await rt.exists(rt.join(cwd, childRel)))) {
       state.fullyResolved = false;
+      // A cycle-cut (`visited`) hides no tag — that file's tags are already in the union — but this
+      // branch is shared with the cases that do (unresolved, truncated), and it stays conservative.
+      state.elementsClosed = false;
       continue;
     }
     const childParsed = await readAndParse(rt, cwd, childRel, ctx.cache);
@@ -259,7 +268,8 @@ async function resolveRoute(
   layouts: Map<string, string>,
   cache: ParseCache,
   aliases: readonly KitAlias[] | undefined,
-  appHtmlIds: readonly string[] | undefined
+  appHtmlIds: readonly string[] | undefined,
+  appHtmlBodyTags: readonly string[] | undefined
 ): Promise<RouteFacts> {
   const files = chainFiles(pageRel, layouts);
   const chainOrder = new Map(files.map((f, i) => [f.rel, i]));
@@ -278,7 +288,14 @@ async function resolveRoute(
   const images: ImageInfo[] = [];
   const headings: HeadingInfo[] = [];
   const componentHeadings: HeadingInfo[] = [];
-  const a11yCtx: ComposeCtx = { rt, cwd, config, cache, aliases, state: { nextGroup: 0, fullyResolved: true } };
+  const a11yCtx: ComposeCtx = {
+    rt,
+    cwd,
+    config,
+    cache,
+    aliases,
+    state: { nextGroup: 0, fullyResolved: true, elementTags: new Set(appHtmlBodyTags ?? []), elementsClosed: true }
+  };
   const a11yNodes: ComposedNode[] = [];
   const nestedLandmarks: ResolvedA11y['nestedLandmarks'] = [];
   /** Landmark the layouts above the current chain file render their children inside. */
@@ -350,7 +367,10 @@ async function resolveRoute(
         .filter((n) => n.kind === 'idref' && !(n.attr === 'href' && isTopFragment(n.key)))
         .map((n) => ({ id: n.key, attr: n.attr ?? '', file: n.file, line: n.line })),
       idCandidates: [...new Set([...literalIds.map((n) => n.key), ...(appHtmlIds ?? [])])],
-      fullyResolved: a11yCtx.state.fullyResolved
+      fullyResolved: a11yCtx.state.fullyResolved,
+      elementTags: [...a11yCtx.state.elementTags],
+      elementsClosed: a11yCtx.state.elementsClosed,
+      file: pageRel
     }
   };
 }
@@ -377,7 +397,9 @@ export async function collectRoutes(
   aliases?: readonly KitAlias[],
   // The shell's literal ids (`Project.appHtmlIds`): part of every rendered document, so they
   // satisfy a route's id references.
-  appHtmlIds?: readonly string[]
+  appHtmlIds?: readonly string[],
+  // The shell's `<body>` tag names (`Project.appHtmlBodyTags`): present on every route.
+  appHtmlBodyTags?: readonly string[]
 ): Promise<{
   heads: ResolvedHead[];
   images: ResolvedImages[];
@@ -386,7 +408,7 @@ export async function collectRoutes(
 }> {
   const [pages, layouts] = await Promise.all([enumerateRoutePages(rt, cwd), collectLayouts(rt, cwd)]);
   const facts = await Promise.all(
-    pages.map((page) => resolveRoute(rt, cwd, page, config, layouts, cache, aliases, appHtmlIds))
+    pages.map((page) => resolveRoute(rt, cwd, page, config, layouts, cache, aliases, appHtmlIds, appHtmlBodyTags))
   );
   return {
     heads: facts.map((f) => f.head),

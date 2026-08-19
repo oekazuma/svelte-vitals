@@ -94,6 +94,8 @@ export interface Project {
    * absent when the file wasn't read.
    */
   appHtmlIds?: string[];
+  /** Distinct lowercased tag names inside `app.html`'s `<body>` (a11y/required-element's presence set; static mode). */
+  appHtmlBodyTags?: string[];
 }
 
 export const defaultProject: Project = {

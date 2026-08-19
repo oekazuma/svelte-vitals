@@ -537,4 +537,46 @@ describe('collectRoutes a11y composition', () => {
     const a11y = await a11yOf({ 'src/routes/+page.svelte': `<div>{@html body}</div>` });
     expect(a11y.fullyResolved).toBe(false);
   });
+
+  describe('elementTags / elementsClosed (a11y/required-element)', () => {
+    const tagsOf = async (files: Record<string, string>, appHtmlBodyTags?: string[]) =>
+      (
+        await collectRoutes(createMemoryRuntime(files), '', undefined, undefined, undefined, undefined, appHtmlBodyTags)
+      ).a11y.find((a) => a.route === '/')!;
+
+    it('unions body tags across the layout chain, the page, resolved components and the shell body', async () => {
+      const a11y = await tagsOf(
+        {
+          'src/routes/+layout.svelte': `<nav>n</nav><slot />`,
+          'src/routes/+page.svelte': `<script>import Card from '$lib/Card.svelte';</script><h1>t</h1><Card />`,
+          'src/lib/Card.svelte': `<article><p>x</p></article>`
+        },
+        ['main']
+      );
+      expect([...a11y.elementTags!].sort()).toEqual(['article', 'h1', 'main', 'nav', 'p']);
+      expect(a11y.elementsClosed).toBe(true);
+      expect(a11y.file).toBe('src/routes/+page.svelte');
+    });
+
+    it('is body-scoped: <svelte:head> content, <template> children and <svelte:element> do not count', async () => {
+      const a11y = await tagsOf({
+        'src/routes/+page.svelte': `<svelte:head><title>t</title></svelte:head><template><main>x</main></template><svelte:element this="section">s</svelte:element><div>d</div>`
+      });
+      expect([...a11y.elementTags!].sort()).toEqual(['div', 'template']);
+      // A dynamic tag can render anything the walk cannot see.
+      expect(a11y.elementsClosed).toBe(false);
+    });
+
+    it('is closed by neither a spread nor an expression id, and open by {@html} or an unresolved component', async () => {
+      const spread = await tagsOf({ 'src/routes/+page.svelte': `<div {...p} id={x}><main>m</main></div>` });
+      expect(spread.fullyResolved).toBe(false);
+      expect(spread.elementsClosed).toBe(true);
+      const html = await tagsOf({ 'src/routes/+page.svelte': `<div>{@html body}</div>` });
+      expect(html.elementsClosed).toBe(false);
+      const pkg = await tagsOf({
+        'src/routes/+page.svelte': `<script>import Fancy from 'fancy-ui';</script><Fancy />`
+      });
+      expect(pkg.elementsClosed).toBe(false);
+    });
+  });
 });

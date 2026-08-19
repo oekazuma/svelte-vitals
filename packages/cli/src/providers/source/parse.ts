@@ -273,6 +273,10 @@ export interface ParsedA11y {
   slotInLandmark?: string;
   /** file contains {@html} or a spread attribute — poisons the closed world for no-missing-id-ref */
   unknowableContent: boolean;
+  /** Distinct lowercased tag names of the body's `RegularElement`s (a11y/required-element's presence set). */
+  elementTags: string[];
+  /** file contains `{@html}` or a `<svelte:element>` — either can render an element the walk cannot see */
+  elementsUnknowable: boolean;
 }
 
 const LANDMARK_TAGS: Record<string, string | undefined> = { main: 'main', header: 'banner', footer: 'contentinfo' };
@@ -318,6 +322,8 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
   let groups = 0;
   let slotInLandmark: string | undefined;
   let unknowableContent = false;
+  const elementTags = new Set<string>();
+  let elementsUnknowable = false;
 
   const emit = (ctx: A11yCtx, node: Omit<A11yNode, 'repeatable' | 'path' | 'inLandmark'>): void => {
     const inLandmark = ctx.landmarks.at(-1);
@@ -343,6 +349,7 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
         return; // head content never renders into the body
       case 'HtmlTag':
         unknowableContent = true;
+        elementsUnknowable = true;
         return;
       case 'IfBlock':
         walkIfChain(node, ctx, groups++, 0);
@@ -365,6 +372,9 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
       // attributes are real — dropping them would make no-missing-id-ref report phantom misses.
       case 'RegularElement':
       case 'SvelteElement':
+        // A dynamic tag can render any element; its name is unknown to the presence set either way.
+        if (node.type === 'SvelteElement') elementsUnknowable = true;
+        else elementTags.add(node.name.toLowerCase());
         walkElement(node, ctx);
         return;
       case 'Component':
@@ -467,7 +477,13 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
   };
 
   walk(fragment, { path: [], repeatable: false, landmarks: [], elementDepth: 0, asideDemoting: 0 });
-  return { nodes, ...(slotInLandmark ? { slotInLandmark } : {}), unknowableContent };
+  return {
+    nodes,
+    ...(slotInLandmark ? { slotInLandmark } : {}),
+    unknowableContent,
+    elementTags: [...elementTags],
+    elementsUnknowable
+  };
 }
 
 function isChildrenRender(node: AST.RenderTag): boolean {

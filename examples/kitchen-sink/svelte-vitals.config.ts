@@ -4,6 +4,11 @@
 // clean canary routes.
 export default {
   rules: {
+    // Declaration-driven: nothing is judged until a project says what it wants. `<h1>` on every
+    // route passes across the gallery; the legacy page's override adds `<nav>`, which it lacks.
+    'a11y/required-element': { options: { elements: ['h1'] } },
+    // The legacy page's <iframe> is the planted occurrence.
+    'a11y/disallowed-element': { options: { elements: ['iframe'] } },
     'architecture/directory-naming': {
       options: {
         directories: { 'src/lib/architecture/*': 'PascalCase' }
@@ -34,5 +39,8 @@ export default {
         urlRoots: ['https://example.com/kitchen-sink/']
       }
     }
-  }
+  },
+  // A route-scoped override extends a string-list declaration rather than replacing it: the legacy
+  // page must also carry a <nav>, and it does not — the planted a11y/required-element finding.
+  overrides: [{ route: '/gallery/a11y/legacy', rules: { 'a11y/required-element': { options: { elements: ['nav'] } } } }]
 };
