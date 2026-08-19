@@ -84,6 +84,7 @@ export const handle = sequence(
 Notes:
 
 - Only the rendered HTML is analyzed — `<head>`, body headings, images, landmarks, and ids, the same data the browser receives. Source-level dynamic values (e.g. `{data.title}`) are always resolved by the time the handle sees them, so `treatDynamicAs` is not applicable here.
+- The handle runs on its own options only — it does not read `svelte-vitals.config.*`. A rule setting, option, or `overrides` entry you keep in the config file shapes the static baseline but not the live layer; restate the rule settings you need in the options object above.
 - `failOn` is not used: the handle feeds the dashboard but never gates the request.
 - Live updates only flow over a loopback origin (`localhost`, `127.0.0.1`, `[::1]`). When you run `vite dev --host` and open the app via a LAN IP, the handle skips the ingest POST (a guard against a spoofed `Host` header), so visited routes won't refine to `measured` — open it from `localhost` instead.
 - Set `SVELTE_VITALS_DEBUG=true` to surface swallowed internal errors (analysis failures, skipped ingests) to the terminal for troubleshooting.
