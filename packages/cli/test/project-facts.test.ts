@@ -75,6 +75,11 @@ describe('collectProjectFacts', () => {
       'src/app.html': `<html><body><template><nav></nav></template><main>%sveltekit.body%</main>`
     });
     expect((await collectProjectFacts(loose, '')).appHtmlBodyTags).toEqual(['template', 'main']);
+    // Nested templates: the inner one must not end the outer one's inert span.
+    const nested = createMemoryRuntime({
+      'src/app.html': `<body><template><template></template><nav></nav></template><div></div></body>`
+    });
+    expect((await collectProjectFacts(nested, '')).appHtmlBodyTags).toEqual(['template', 'div']);
   });
 
   it('reads shell ids case-insensitively and ignores comments and script/style bodies', async () => {

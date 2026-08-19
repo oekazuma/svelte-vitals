@@ -19,7 +19,7 @@ export default {
 };
 ```
 
-`elements` is a list of **bare tag names** — letters, digits and hyphens, so custom-element names (`my-widget`) are fine — matched case-insensitively. Anything else (`input[type=file]`, `.legacy`, `div > p`) is rejected when the config loads: the value would otherwise be accepted and silently match nothing, and giving it meaning later would change what an accepted config means. Where a declaration applies is `overrides`' job, as for every rule: an entry with `files` or `route` **adds** to the list for the files it matches (a `string-list` option extends, never replaces).
+`elements` is a list of **bare tag names** — a letter, then letters, digits and hyphens, so custom-element names (`my-widget`) are fine — matched case-insensitively. Anything else (`input[type=file]`, `.legacy`, `div > p`) is rejected when the config loads: the value would otherwise be accepted and silently match nothing, and giving it meaning later would change what an accepted config means. Where a declaration applies is `overrides`' job, as for every rule: an entry with `files` or `route` **adds** to the list for the files it matches (a `string-list` option extends, never replaces).
 
 ```js svelte-vitals.config.js
 export default {

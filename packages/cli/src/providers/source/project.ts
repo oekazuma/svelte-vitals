@@ -148,12 +148,21 @@ function detectHtmlLang(html: string): Detection {
  * for ids; a shell with no `<body>` tag contributes nothing.
  */
 function detectAppHtmlBodyTags(html: string): string[] {
-  const markup = html
+  let markup = html
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
-    .replace(/<style[\s\S]*?<\/style\s*>/gi, '')
-    // <template> children are inert until instantiated — the same reading both a11y walks take.
-    .replace(/<template[\s\S]*?<\/template\s*>/gi, '<template></template>');
+    .replace(/<style[\s\S]*?<\/style\s*>/gi, '');
+  // <template> children are inert until instantiated — the same reading both a11y walks take.
+  // Innermost-first, so nested templates empty out without a parser: each pass replaces every
+  // template whose body holds no template of its own with a placeholder that no later pass can
+  // match, until none is left; the placeholder then becomes an empty <template>, whose own name
+  // still counts, as it does in the component walk.
+  const innermost = /<template\b[^>]*>(?:(?!<template\b)[\s\S])*?<\/template\s*>/gi;
+  for (let prev = ''; prev !== markup;) {
+    prev = markup;
+    markup = markup.replace(innermost, '\u0000');
+  }
+  markup = markup.replaceAll('\u0000', '<template></template>');
   // HTML lets </body> be omitted; the body then runs to the end of the document.
   const body = /<body\b[^>]*>([\s\S]*?)(?:<\/body\s*>|$)/i.exec(markup)?.[1];
   if (body === undefined) return [];

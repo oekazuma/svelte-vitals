@@ -5,7 +5,7 @@ description: Every route must contain the elements a project declares — judged
 
 **Severity:** warning · **Category:** a11y
 
-Declaration-driven: the rule has no opinion of its own. With nothing declared it does nothing; declare the tags every route must carry — a `<main>`, an `<h1>`, a `<nav>` — and a route composed without one is a finding.
+Declaration-driven: the rule has no opinion of its own. With nothing declared it does nothing; declare the tags every route must carry — a `<main>`, an `<h1>`, a `<nav>` — and a route composed without one is a finding wherever the tool can see the whole route (see _Mode differences_).
 
 ## What it checks
 
@@ -20,7 +20,7 @@ export default {
 };
 ```
 
-`elements` is a list of **bare tag names** (letters, digits, hyphens; case-insensitive); selector syntax is rejected when the config loads. An `overrides` entry with `route` **adds** to the list for the routes it matches.
+`elements` is a list of **bare tag names** (a letter, then letters, digits and hyphens; case-insensitive); selector syntax is rejected when the config loads. An `overrides` entry with `route` **adds** to the list for the routes it matches.
 
 Presence is optimistic — an element inside any `{#if}` arm, `{#each}` body or snippet counts — and it is a body rule: `<svelte:head>` content never counts (a required `<title>` is `seo/title-presence`'s job), `<template>` children do not (they are inert until instantiated), and `<svelte:element>` does not, whatever its `this`.
 
@@ -45,7 +45,7 @@ The finding is located at the route's page file in static mode and at the preren
 
 ## Why it matters
 
-"Every page has a `<main>` landmark" and "every page has one `<h1>`" are the kind of structural guarantees a design system promises and a code review forgets to check. Declaring them makes the guarantee a scored, gated finding on the composed route rather than a convention.
+"Every page has a `<main>` landmark" and "every page contains an `<h1>`" are the kind of structural guarantees a design system promises and a code review forgets to check. Declaring them makes the guarantee a scored, gated finding on the composed route rather than a convention.
 
 ## How to fix
 

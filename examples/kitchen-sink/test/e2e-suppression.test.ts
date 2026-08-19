@@ -166,7 +166,7 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     expect(findings(report, 'a11y/deprecated-aria')).toBe(findings(baseline, 'a11y/deprecated-aria') - 1);
   });
 
-  it('the config-driven element rules: declaration is the lever, and a directive reaches a multi-line tag', () => {
+  it('emits nothing for the element rules once their declarations are removed, and a directive silences a multi-line disallowed tag', () => {
     const dir = scratchCopy();
     scratch.push(dir);
     const cfgPath = join(dir, 'svelte-vitals.config.ts');
