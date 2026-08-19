@@ -73,7 +73,11 @@ install`/`ci upgrade` bundle into scaffolded workflows.
   `floor-smoke` still runs `pnpm install`/`pnpm build` on 24.16.0, so those
   stay floor-bound. Never pin the `test` matrix back to the floor, and never
   add a dev dependency to the smoke — it must stay Node-builtins-only. Design
-  doc: `docs/superpowers/specs/2026-07-31-floor-smoke-design.md`.
+  doc: `docs/superpowers/specs/2026-07-31-floor-smoke-design.md`. **Changing the
+  `test` matrix means updating the `main` ruleset's required status checks in the
+  same change** — they are matched by job name (`test (24)`), a stale name waits
+  forever as "Expected", and merges then only go through by admin bypass. Read them
+  with `gh api repos/oekazuma/svelte-vitals/rules/branches/main`.
 - **Vendored spec data is generated, never edited.** `packages/core/src/html-spec/generated.ts` (a
   projection of `@markuplint/html-spec`) and `packages/core/src/rules/seo/schema-vocabulary.generated.ts`
   (from `schema-dts`) are written by `pnpm --filter @svelte-vitals/core run gen:html-spec` /
