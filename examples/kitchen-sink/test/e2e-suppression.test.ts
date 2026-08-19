@@ -147,7 +147,7 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     expect(findings(report, 'a11y/deprecated-element')).toBe(findings(baseline, 'a11y/deprecated-element') - 1);
   });
 
-  it('silences unknown-aria-attribute and invalid-aria-value on a multi-line start tag', () => {
+  it('silences unknown-aria-attribute on a multi-line start tag', () => {
     const dir = scratchCopy();
     scratch.push(dir);
     const page = join(dir, 'src', 'routes', 'gallery', 'a11y', 'aria', '+page.svelte');

@@ -7,7 +7,7 @@ description: id参照は、合成後のルートのどこかに存在する id �
 
 ## チェック内容
 
-`for`・`aria-labelledby`・`aria-describedby`・`aria-controls`・`aria-activedescendant` の各属性、または同一ページ内を指す `href="#…"` について、参照先の `id` がルートを構成するレイアウトチェーン（`+layout.svelte` から `+page.svelte` まで）・そこから解決したローカルコンポーネント・`src/app.html` シェルのどこにも存在しない場合に検出します。
+literal な id 参照属性 — HTML の `for`・`list`・`headers`・`form`・`popovertarget`・`commandfor`、および ARIA のすべての id 参照プロパティ（`aria-labelledby`・`aria-describedby`・`aria-controls`・`aria-activedescendant`・`aria-owns`・`aria-details`・`aria-errormessage`・`aria-flowto`）— または同一ページ内を指す `href="#…"` について、参照先の `id` がルートを構成するレイアウトチェーン（`+layout.svelte` から `+page.svelte` まで）・そこから解決したローカルコンポーネント・`src/app.html` シェルのどこにも存在しない場合に検出します。
 
 `href="#top"` は対象外です。この断片には `id="top"` を持つ要素が存在しなくても、ブラウザがドキュメント先頭までスクロールするため、参照切れにはなりません。**テキストフラグメントのディレクティブ**は照合前に取り除きます。`:~:` 以降はテキストを探すためのユーザーエージェント向けの指示で要素を指さないため `href="#:~:text=…"` は何も参照しませんが、`href="#section:~:text=…"` は `href="#section"` と同じく `id="section"` に対して照合されます。
 

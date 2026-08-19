@@ -12,3 +12,5 @@ Known-limitation sweep for the a11y rules:
 - `a11y/required-aria-props` no longer asks `<select role="combobox">` or `<input list role="combobox">` for `aria-expanded`/`aria-controls` — the host supplies both (HTML-AAM).
 - `a11y/no-missing-id-ref` now follows every ARIA id-reference property (`aria-owns`, `aria-details`, `aria-errormessage`, `aria-flowto`) and HTML's `list`, `headers`, `form`, `popovertarget`, `commandfor`, not only `for`/`aria-labelledby`/`aria-describedby`/`aria-controls`/`aria-activedescendant`.
 - `svelte-vitals explain` prints a `string-list` option's entry grammar where one is declared (`each entry a bare tag name …`).
+
+Two of these widen an existing rule rather than adding one, and a rule's findings are suppressed by `id::route::location` without a line — so a project with a recorded suppressions entry for `a11y/no-missing-id-ref` or `a11y/invalid-aria-value` at a location will find the new idref attributes and the empty-token-list case already silenced there.

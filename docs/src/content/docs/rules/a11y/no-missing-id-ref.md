@@ -7,7 +7,7 @@ description: An id reference should point to an id that exists somewhere in the 
 
 ## What it checks
 
-Flags a literal `for`, `aria-labelledby`, `aria-describedby`, `aria-controls`, or `aria-activedescendant` attribute, or a same-page `href="#…"`, whose referenced `id` does not exist anywhere in the route's composed layout chain (every `+layout.svelte` up to the route's `+page.svelte`), its resolved local components, or the `src/app.html` shell.
+Flags a literal id-reference attribute — HTML's `for`, `list`, `headers`, `form`, `popovertarget`, `commandfor`, and every ARIA id-reference property (`aria-labelledby`, `aria-describedby`, `aria-controls`, `aria-activedescendant`, `aria-owns`, `aria-details`, `aria-errormessage`, `aria-flowto`) — or a same-page `href="#…"`, whose referenced `id` does not exist anywhere in the route's composed layout chain (every `+layout.svelte` up to the route's `+page.svelte`), its resolved local components, or the `src/app.html` shell.
 
 `href="#top"` is exempt — the browser scrolls to the document top for that fragment even when no element has `id="top"`, so it is never a missing reference. A **text-fragment directive** is stripped before the lookup: everything from `:~:` on instructs the user agent to find text and names no element, so `href="#:~:text=…"` references nothing — while `href="#section:~:text=…"` still resolves against `id="section"`, exactly as `href="#section"` would.
 

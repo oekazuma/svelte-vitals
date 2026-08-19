@@ -17,6 +17,7 @@ description: state や property 属性を要求するロールには、ネイテ
 - `aria-selected` — `<option>` が供給。
 - `aria-level` — `<h1>`〜`<h6>` が供給。
 - `aria-valuenow` — `<input type="range">`、`<progress>`、`<meter>` が供給。
+- `aria-expanded` と `aria-controls` — `<select>` と `<input list="…">`、すなわちネイティブの combobox が供給（HTML-AAM は開閉状態とポップアップ自体を公開する）。Svelte コンパイラは `<input list role="combobox">` に対してここで警告しますが、このルールは沈黙します — 逆の判定ではありません。
 
 検出しないもの:
 

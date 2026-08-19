@@ -519,6 +519,21 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y.ids.row).toEqual([{ file: 'src/routes/+page.svelte', line: 1 }]);
   });
 
+  it('collects the ARIA id-reference properties and the HTML targets as references', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+page.svelte': `<div aria-owns="x y" aria-errormessage="e"></div><input list="opts" /><td headers="h1 h2"></td><button popovertarget="pop"></button>`
+    });
+    expect(a11y.idRefs.map((r) => `${r.attr}=${r.id}`)).toEqual([
+      'aria-owns=x',
+      'aria-owns=y',
+      'aria-errormessage=e',
+      'list=opts',
+      'headers=h1',
+      'headers=h2',
+      'popovertarget=pop'
+    ]);
+  });
+
   it('opens the world for an unresolvable component', async () => {
     const a11y = await a11yOf({
       'src/routes/+page.svelte': `<script>import Fancy from 'fancy-ui';</script><Fancy />`

@@ -14,7 +14,7 @@ description: aria-* 属性の値は、その属性に WAI-ARIA 仕様が定め�
 - **boolean**(例: `aria-hidden`) — `true` か `false` のみ許可。
 - **tristate**(例: `aria-checked`) — `true`・`false`・`mixed` のみ許可。
 - **token**(例: `aria-live`) — その属性に定義された固定の値の中から選ぶ。
-- **tokenlist**(例: `aria-relevant`) — 空白区切りの各語がすべて固定の値の中に含まれる。
+- **tokenlist**(例: `aria-relevant`) — 空白区切りの 1 語以上で、各語が固定の値の中に含まれる。空の値は無効。
 - **integer**(例: `aria-colcount`) — 整数であること。
 - **number**(例: `aria-valuenow`) — 有限の数値であること。
 - **string** / **id** / **idlist**(例: `aria-label`、`aria-activedescendant`) — どんなリテラルでも許可(静的にはチェックできない)。
