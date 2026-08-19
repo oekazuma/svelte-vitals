@@ -57,7 +57,7 @@ export const handle = sequence(svelteVitalsHandle());
 
 `svelteVitalsHandle` は `transformPageChunk` で各リクエストの完全にレンダリングされた HTML を観察します。投げっぱなし（fire-and-forget）で、レスポンスを変更もブロックもせず、自身のエラーを飲み込むため、開発サーバーを壊すことはありません。
 
-訪問したルートでは、レンダリング済みの結果が**同じルール ID の**静的結果を置き換えます。動的な値では特にそちらのほうが真実に近いためです。ライブ層が実行するのは、ルート単体で判定できるルートスコープの SEO・Performance・Accessibility ルールです。ルート同士を比較するルール（`seo/duplicate-title`、`seo/duplicate-description`）とサイト全体のルール（`seo/robots-txt`、`seo/html-lang`、`a11y/doctype` など）は 1 ページの HTML では答えられないため、静的結果のまま残ります。そのルートの他の静的な指摘、ルートを持たない（コンポーネント/サイト単位の）指摘、未訪問のルートはそのまま残ります。ルート見出しには由来のバッジが付きます: レンダリング層があれば `measured`、なければ `static` です。
+訪問したルートでは、レンダリング済みの結果が**同じルール ID の**静的結果を置き換えます。動的な値では特にそちらのほうが真実に近いためです。ライブ層が実行するのは、ルート単体で判定できるルートスコープの SEO・Performance・Accessibility ルールです。ルート同士を比較するルール（`seo/duplicate-title`、`seo/duplicate-description`）とサイト全体のルール（`seo/robots-txt`、`seo/html-lang`、`a11y/doctype` など）は 1 ページの HTML では答えられないため、静的結果のまま残ります。要素リストをハンドルが読まない設定ファイルから得る `a11y/required-element` も同様です。そのルートの他の静的な指摘、ルートを持たない（コンポーネント/サイト単位の）指摘、未訪問のルートはそのまま残ります。ルート見出しには由来のバッジが付きます: レンダリング層があれば `measured`、なければ `static` です。
 
 このフックは**開発時以外は何もしません**。`esm-env` の `DEV` フラグはビルド時に静的に解決されるため、ルールセットは構築されず、本番環境でのランタイムコストはゼロです。
 
