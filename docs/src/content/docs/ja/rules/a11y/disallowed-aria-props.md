@@ -29,7 +29,7 @@ description: 要素の role が対応しない aria-* 属性は無視され、ro
 検出しないもの:
 
 - `a11y/unknown-aria-attribute` が既に報告する属性 — typo 1 つに検出 1 件。
-- ARIA 1.3 の表からは消えたが Svelte コンパイラのデータがまだ受け入れる 10 組の (role, 属性)（`listitem` の `aria-level`、`listbox` の `aria-expanded` など）。同じマークアップでコンパイラとこのルールの判定が食い違う場合はコンパイラを優先します。
+- ARIA 1.3 の表からは消えたが Svelte コンパイラのデータがまだ受け入れる (role, 属性) の組（`listitem` の `aria-level`、`listbox` の `aria-expanded` など）。同じマークアップでコンパイラとこのルールの判定が食い違う場合はコンパイラを優先します。
 - `<address aria-label>` と `<hgroup aria-label>`: データセットは両方を名前を取らないと記しますが、ARIA in HTML 仕様と axe は両方に `role=group`（名前を取る）を与えています。このルールは仕様に従います。
 - 値で直るもの（`a11y/invalid-aria-value`）や必須属性の欠落（`a11y/required-aria-props`）。
 

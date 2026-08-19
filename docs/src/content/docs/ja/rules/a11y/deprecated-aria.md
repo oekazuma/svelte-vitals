@@ -21,7 +21,7 @@ ARIA 1.3 の表に照らして 3 つを、コンポーネントのソースか�
 <div aria-grabbed="true">…</div>
 ```
 
-検出しないもの: `a11y/unknown-aria-attribute` が既に報告する属性。role ごとの腕は、DPUB-ARIA の role、式による role、literal な role のない spread では判定しません — role が不明なためです。一方、非推奨の role と 2 つのグローバル属性はそれに関わらず報告されます。
+検出しないもの: `a11y/unknown-aria-attribute` が既に報告する属性。role ごとの判定は、DPUB-ARIA の role、式による role、literal な role のない spread では判定しません — role が不明なためです。一方、非推奨の role と 2 つのグローバル属性はそれに関わらず報告されます。
 
 **Svelte コンパイラとの重複。** 明示的な role については、コンパイラは role ごとのケースを*非対応*として（`a11y_role_supports_aria_props`、warning）報告します — その ARIA データは非推奨属性にフラグを付けるのではなく削除したためです。判定は同じで、ラベルと重大度が異なります。素の `<div>`/`<span>` — 実際に多いケースの `aria-disabled` — ではコンパイラは沈黙します。`role="directory"` と 2 つのグローバル属性についても沈黙します。
 

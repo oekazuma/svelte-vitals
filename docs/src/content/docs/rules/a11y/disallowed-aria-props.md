@@ -29,7 +29,7 @@ Two kinds of finding, with different messages:
 Not flagged:
 
 - An attribute `a11y/unknown-aria-attribute` already reports — one typo, one finding.
-- Ten (role, attribute) pairs the ARIA 1.3 tables no longer list but the Svelte compiler's data still accepts (`aria-level` on `listitem`, `aria-expanded` on `listbox`, …). Where the compiler and this rule would disagree on the same markup, the compiler wins.
+- The (role, attribute) pairs the ARIA 1.3 tables no longer list but the Svelte compiler's data still accepts (`aria-level` on `listitem`, `aria-expanded` on `listbox`, …). Where the compiler and this rule would disagree on the same markup, the compiler wins.
 - `<address aria-label>` and `<hgroup aria-label>`: the dataset marks both as not taking a name, but the ARIA-in-HTML specification and axe give both `role=group`, which does. This rule follows the specification.
 - Anything a value could fix (`a11y/invalid-aria-value`) or a missing required attribute (`a11y/required-aria-props`).
 
