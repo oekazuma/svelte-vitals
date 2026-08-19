@@ -52,6 +52,24 @@ function permittedRoles(v) {
 }
 
 /**
+ * A condition's implicit-role outcome and naming prohibition, keyed by the selector string it is
+ * written under; the selector is never evaluated. Only conditions carrying one of the two keys are
+ * kept — an entry with neither (`dl > div`, `figure:has(figcaption)`) is a `permittedRoles`-only
+ * override and inherits the element default, so it is not an outcome. `implicitRole: false` means
+ * "no corresponding role" and is kept as `false`, distinct from absent.
+ */
+function conditionOutcomes(conditions) {
+  const out = {};
+  for (const [selector, c] of Object.entries(conditions ?? {})) {
+    const entry = {};
+    if ('implicitRole' in c) entry.implicitRole = c.implicitRole;
+    if (c.namingProhibited) entry.namingProhibited = true;
+    if (Object.keys(entry).length > 0) out[selector] = entry;
+  }
+  return Object.keys(out).length > 0 ? { conditions: out } : {};
+}
+
+/**
  * Project the dataset down to what the rules read. Prose (`description`, `cite`, `defaultValue`,
  * `animatable`) goes; so does everything from `#aria` except the deprecation and per-role property
  * rows, and from those rows the `required` field is dropped so this module can never answer what
@@ -68,7 +86,9 @@ export function projectHtmlSpec(raw) {
       contentModel: s.contentModel ?? {},
       aria: {
         ...(typeof aria.implicitRole === 'string' ? { implicitRole: aria.implicitRole } : {}),
-        permittedRoles: permittedRoles(aria.permittedRoles)
+        permittedRoles: permittedRoles(aria.permittedRoles),
+        ...(aria.namingProhibited ? { namingProhibited: true } : {}),
+        ...conditionOutcomes(aria.conditions)
       },
       globalAttrs: Object.keys(s.globalAttrs ?? {}),
       attributes: projectAttrs(s.attributes)

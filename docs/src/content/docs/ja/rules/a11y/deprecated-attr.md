@@ -15,7 +15,7 @@ HTML spec データが**その要素で**非推奨（または obsolete）と記
 
 検出しないもの:
 
-- `a11y/deprecated-element` が報告する要素（`<font color>`）、および `<marquee>`/`<blink>` の属性 — 要素ごとに検出は 1 件です。`a11y/deprecated-element` を無効化・インライン抑制していても同じで、このルールは廃止要素を名前で読み飛ばします。
+- `a11y/deprecated-element` が報告する要素の非推奨属性（`<font color>`、`<marquee behavior>`）— 要素ごとに検出は 1 件です。`a11y/deprecated-element` を無効化・インライン抑制していても同じで、このルールは廃止要素を名前で読み飛ばします。
 - `<svg>` の内側、および `<svelte:options namespace="svg" />` を宣言したコンポーネント内。`<foreignObject>` 配下は HTML に戻ります。
 - グローバル属性グループ（`xml:lang`、`xlink:href`、`onwebkit*`）— 参照するのは要素自身の属性表だけなので、SVG スプライトの `<use xlink:href="#icon">` は決して報告されません。
 - `nonStandard` や `experimental` としてだけ記された属性。`deprecated` と `nonStandard` の両方が付いたもの（`hr[size]`）は報告されます。

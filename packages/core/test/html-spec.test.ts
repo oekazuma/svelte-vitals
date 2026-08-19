@@ -35,6 +35,18 @@ describe('html-spec: what the projection must and must not carry', () => {
     }
   });
 
+  it('keeps condition outcomes only where a condition changes the role or adds a prohibition', () => {
+    // `dl > div` is a permittedRoles-only override and must not appear; `a:not([href])` must.
+    expect(HTML_SPEC.elements.div!.aria.conditions).toBeUndefined();
+    expect(HTML_SPEC.elements.a!.aria.conditions).toEqual({
+      ':not([href])': { implicitRole: 'generic', namingProhibited: true }
+    });
+    // "No corresponding role" survives as `false`, distinct from absent.
+    expect(Object.values(HTML_SPEC.elements.input!.aria.conditions!).some((c) => c.implicitRole === false)).toBe(true);
+    expect(HTML_SPEC.elements.canvas!.aria.implicitRole).toBeUndefined();
+    expect(HTML_SPEC.elements.label!.aria.namingProhibited).toBe(true);
+  });
+
   it('keeps the per-attribute required columns, which are a different fact', () => {
     expect(HTML_SPEC.elements.img!.attributes.src!.requiredEither).toContain('srcset');
   });
@@ -77,6 +89,9 @@ describe('html-spec: the two ARIA sources cannot silently disagree about what ex
       if (el.aria.implicitRole && !isKnownRole(el.aria.implicitRole)) unknownElementRoles.add(el.aria.implicitRole);
       if (el.aria.permittedRoles !== 'any')
         for (const n of el.aria.permittedRoles) if (!isKnownRole(n)) unknownElementRoles.add(n);
+      for (const c of Object.values(el.aria.conditions ?? {})) {
+        if (typeof c.implicitRole === 'string' && !isKnownRole(c.implicitRole)) unknownElementRoles.add(c.implicitRole);
+      }
     }
     expect(unknownRoles).toEqual([]);
     expect([...unknownProps]).toEqual([]);

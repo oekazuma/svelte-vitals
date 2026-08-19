@@ -59,8 +59,7 @@
 <!-- a11y/deprecated-attr: `frameborder` — the most common deprecated attribute in real apps. -->
 <iframe src="/clean" frameborder="0" title="Embedded page"></iframe>
 
-<!-- Neither rule: <style type> inside <svg> is the SVG element, and the compiler already reports
-     <marquee> — both stay silent here. -->
+<!-- Neither rule: <style type> inside <svg> is the SVG element. -->
 <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
   <style type="text/css">
     .dot {
@@ -69,4 +68,6 @@
   </style>
   <circle class="dot" cx="12" cy="12" r="6" />
 </svg>
-<marquee behavior="scroll">reported by the compiler, not by svelte-vitals</marquee>
+<!-- a11y/deprecated-element: <marquee> is reported here and by the compiler — the deliberate overlap
+     that keeps the score honest. Its `behavior` attribute is not a second finding. -->
+<marquee behavior="scroll">reported by both the compiler and svelte-vitals</marquee>

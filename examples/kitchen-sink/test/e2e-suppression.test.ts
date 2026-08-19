@@ -149,6 +149,25 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     expect(findings(report, 'a11y/deprecated-element')).toBe(findings(baseline, 'a11y/deprecated-element') - 1);
   });
 
+  it('silences the ARIA role-table rules, including on a multi-line start tag', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    const page = join(dir, 'src', 'routes', 'gallery', 'a11y', 'aria', '+page.svelte');
+    let src = readFileSync(page, 'utf8');
+    src = src.replace(
+      '<div role="button" tabindex="0" aria-checked="true">Toggle</div>',
+      '<!-- svelte-vitals-disable-next-line a11y/disallowed-aria-props -->\n<div\n  role="button"\n  tabindex="0"\n  aria-checked="true"\n>Toggle</div>'
+    );
+    src = src.replace(
+      '<div aria-grabbed="true">',
+      '<!-- svelte-vitals-disable-next-line a11y/deprecated-aria -->\n<div aria-grabbed="true">'
+    );
+    writeFileSync(page, src);
+    const { report } = run(dir);
+    expect(findings(report, 'a11y/disallowed-aria-props')).toBe(findings(baseline, 'a11y/disallowed-aria-props') - 1);
+    expect(findings(report, 'a11y/deprecated-aria')).toBe(findings(baseline, 'a11y/deprecated-aria') - 1);
+  });
+
   it('silences a route-scoped finding in a composed component and turns it into a PASS', () => {
     const dir = scratchCopy();
     scratch.push(dir);

@@ -13,7 +13,6 @@ Flags an element named in the HTML standard's obsolete-features list — `<cente
 
 Not flagged:
 
-- `<marquee>` and `<blink>`, which the Svelte compiler already reports (`a11y_distracting_elements`). Where the compiler and a rule overlap, the compiler wins — reporting them again under a second id would be a contradiction, not a second opinion.
 - Anything inside `<svg>`, or in a component declaring `<svelte:options namespace="svg" />`. The check is for HTML elements only; content under `<foreignObject>` returns to HTML and is checked.
 - The conforming replacements: `<s>` for `<strike>`, `<span>` plus CSS `font-size` for `<big>` (`<b>`/`<strong>` would change the meaning), `<code>`/`<kbd>`/`<samp>` for `<tt>`.
 
@@ -21,6 +20,8 @@ Not flagged:
 <strike>old price</strike>
 <font color="red">styled with markup</font>
 ```
+
+`<marquee>` and `<blink>` are reported here **and** by the Svelte compiler (`a11y_distracting_elements`). That overlap is deliberate: the compiler streams into the build log and does not score, gate, or suppress, and a score that counted `<font>` but not `<marquee>` would be blind to two obsolete elements. The two never disagree — both say the element must go.
 
 An obsolete element yields one finding. Its deprecated attributes (`<font color>`) are not reported a second time by `a11y/deprecated-attr` — and that stays true when this rule is turned off or suppressed inline: the attribute rule skips obsolete elements by name, not by looking at this rule's result.
 

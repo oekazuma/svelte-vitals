@@ -15,7 +15,7 @@ Deprecation is per element: `width` is deprecated on `<td>` and current on `<img
 
 Not flagged:
 
-- Any attribute on an element `a11y/deprecated-element` reports (`<font color>`), or on `<marquee>`/`<blink>` — one finding per element. That holds even when `a11y/deprecated-element` is off or suppressed inline: this rule skips obsolete elements by name.
+- A deprecated attribute on an element `a11y/deprecated-element` reports (`<font color>`, `<marquee behavior>`) — one finding per element. That holds even when `a11y/deprecated-element` is off or suppressed inline: this rule skips obsolete elements by name.
 - Anything inside `<svg>`, or in a component declaring `<svelte:options namespace="svg" />`; content under `<foreignObject>` returns to HTML.
 - The global attribute groups (`xml:lang`, `xlink:href`, `onwebkit*`) — only an element's own attribute table is consulted, so `<use xlink:href="#icon">` in an SVG sprite is never reported.
 - Attributes only marked `nonStandard` or `experimental`. One marked both `deprecated` and `nonStandard` (`hr[size]`) is reported.

@@ -132,14 +132,21 @@ flag every `aria-*` on valid publishing markup.
 Because both sources now feed the same rules, a test asserts that every role in markuplint's 1.3
 `roles` ∪ `graphicsRoles`, every property in its `props` and in every role's `ownedProperties`/
 `prohibitedProperties`, and every role name in the retained `specs[].aria.implicitRole`/
-`permittedRoles` is one `aria-data.ts` recognizes — read from the installed package. Of `specs[].aria`'s keys —
-`implicitRole`, `permittedRoles`, `conditions`, `properties`, `implicitProperties`,
-`namingProhibited`, `1.1` — only **`implicitRole` and `permittedRoles`** are retained.
-`implicitRole` is `string | false` (`false` on 120 of 206 entries); the hand-written type says so and
-the guard skips the boolean, as it skips the `"any"` sentinel below. `conditions`,
-`properties` and the `1.1` variant are dropped wholesale: `1.1` because the role table is pinned to
-1.3 and it is the only per-version key that exists at element level, the other two because no listed
-rule reads them and the data carries at least one typo there (`aria-hecked`, under
+`permittedRoles` and in every retained condition outcome is one `aria-data.ts` recognizes — read
+from the installed package. Of `specs[].aria`'s keys — `implicitRole`, `permittedRoles`,
+`conditions`, `properties`, `implicitProperties`, `namingProhibited`, `1.1` — four are retained:
+**`implicitRole`, `permittedRoles`, `namingProhibited`**, and **`conditions` reduced to outcomes** —
+per selector key, only the `implicitRole` and `namingProhibited` a condition carries, and only for
+conditions carrying one of them (a `permittedRoles`-only override like `dl > div` inherits the
+default and is not an outcome; the selector strings are keys, never evaluated). That last part was
+"dropped wholesale" in the first version of this document and was amended by
+`2026-08-19-aria-role-table-rules.md`, whose rules need the outcomes to judge an implicit role only
+where it holds under every candidate. `implicitRole` is `string | false` (`false`, "no
+corresponding role", on 120 of 206 entries — not `generic`); the hand-written type says so and the
+guard skips the boolean, as it skips the `"any"` sentinel below. `properties`, per-condition
+`permittedRoles`/`properties`, and the `1.1` variant are dropped: `1.1` because the role table is
+pinned to 1.3 and it is the only per-version key that exists at element level, the others because no
+listed rule reads them and the data carries at least one typo there (`aria-hecked`, under
 `input.aria["1.1"].conditions[…].properties`) that a name guard would otherwise have to know about.
 `permittedRoles` has four shapes — an array of names, an array mixing names and `{name, deprecated}`
 objects, a boolean, and `{"core-aam": true, "graphics-aam": true}` on the `svg:*` entries — and the
@@ -160,7 +167,7 @@ requires it only for a focusable separator, and markuplint's table flattens the 
 adopting it would flag every `<div role="separator">`. Neither table is spec-exact; that judgment
 stays in `aria-data.ts` where it is.
 
-## The compiler already covers part of this, and the compiler wins
+## The compiler already covers part of this
 
 The earlier draft of this document said the Svelte compiler validates none of it. That was false:
 
@@ -170,10 +177,13 @@ The earlier draft of this document said the Svelte compiler validates none of it
   `table`/`tr`/`tbody`/`thead`/`tfoot`/`colgroup`/`head`/`html`.
 - `a11y_distracting_elements` warns on `<marquee>` and `<blink>`, both `obsolete` in the data.
 
-So `permitted-contents`' design starts from `svelte/src/html-tree-validation.js` and covers only what
-the compiler does not; and `deprecated-element` excludes `marquee` and `blink`, which the compiler
-already reports. Reporting either twice under two ids is the contradiction class the a11y review
-settled ("follow the compiler").
+`permitted-contents`' design starts from `svelte/src/html-tree-validation.js` and covers only what
+the compiler does not — a compile error fails the user's build before this tool runs, so there is
+nothing to score. `deprecated-element` reports `<marquee>`/`<blink>` **as well as** the compiler:
+this document first excluded them as "the contradiction class", and `2026-08-19-aria-role-table-rules.md`
+reversed that — the a11y category's deliberate-overlap decision keeps a scored rule that judges the
+same way the compiler does, and excluding two of 29 obsolete elements blinds the score to them while
+it counts `<font>`. What "the compiler wins" forbids is a different verdict on the same markup.
 
 ## The two rules that ship with the pipeline
 
@@ -181,7 +191,7 @@ settled ("follow the compiler").
 the flags in the data are not one thing:
 
 - Elements: no element carries `deprecated`; 29 carry `obsolete` (WHATWG §16.2 exactly). The rule
-  fires on **`obsolete`**, minus `marquee`/`blink` (compiler), and **only for the HTML namespace** —
+  fires on **`obsolete`**, all 29, and **only for the HTML namespace** —
   the 64 `svg:*` elements are out of scope for both rules in this increment. That scope is not free:
   `component-parse.ts` records `tag: node.name` with no ancestor namespace, and the names that
   collide — `a`, `script`, `style`, `title` — are exactly where a name-only lookup goes wrong.
@@ -215,8 +225,7 @@ the flags in the data are not one thing:
   not "obsolete attributes". An attribute flagged both `deprecated` and `nonStandard`
   (`hr[size]`, `canvas[moz-opaque]`) fires — it is in the union.
 - One finding per element, in both senses. `deprecated-attr` skips every attribute on an element
-  whose tag is in the obsolete set (`marquee`/`blink` included, so the compiler's two fall out of the
-  same check), so `<font color>` and `<marquee behavior>` each surface once; this is a data-level
+  whose tag is in the obsolete set, so `<font color>` and `<marquee behavior>` each surface once; this is a data-level
   skip, not a view of the other rule's result — separate `componentRule` specs have none — so turning
   `a11y/deprecated-element` off, or suppressing it inline, does not resurface the attribute finding.
   And an element with several deprecated attributes yields one finding listing them, **anchored at
@@ -270,7 +279,7 @@ meta-test coverage every rule has; the remaining rules follow one at a time unde
 4. Core purity: `packages/core/src` still has no `node:` import; the generator lives under `scripts/`.
 5. `deprecated-element` / `deprecated-attr`: kitchen-sink samples with expected counts; `<s>` (the
    conforming replacement for `<strike>`) does not fire; `td[width]` fires while `img[width]` does not
-   (deprecated on one element, current on the other); `<marquee>` does not fire;
+   (deprecated on one element, current on the other); `<marquee>` fires, as does the compiler;
    `<svg><style type="text/css">` and a `<g>`-root component with `<svelte:options namespace="svg" />`
    (`src/lib/a11y/SvgPartial.svelte`) do not fire while `<svelte:head><style type="text/css">` does;
    `<font color>` yields one finding, not two. The ja rule doc notes that `<rb>`/`<rtc>` are obsolete

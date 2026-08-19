@@ -9,6 +9,22 @@
 <!-- a11y/unknown-aria-attribute: "aria-lable" typo for "aria-label". -->
 <div aria-lable="Mislabeled">Typo'd aria attribute</div>
 
+<!-- a11y/disallowed-aria-props: a bare <div> is `generic`, which does not take a name — the label
+     the author believes is exposed is not. The Svelte compiler is silent on this one. -->
+<div aria-label="Breadcrumb">Home / Gallery</div>
+
+<!-- a11y/disallowed-aria-props: role="button" does not own aria-checked (the compiler also warns). -->
+<div role="button" tabindex="0" aria-checked="true">Toggle</div>
+
+<!-- a11y/deprecated-aria: aria-haspopup was deprecated on checkbox in ARIA 1.2 (the compiler reports
+     it as unsupported); aria-grabbed is deprecated everywhere (the compiler is silent). -->
+<div role="checkbox" tabindex="0" aria-checked="false" aria-haspopup="true">Deprecated on role</div>
+<div aria-grabbed="true">Draggable, the old way</div>
+
+<!-- Neither rule: <a aria-label> — `a` is `link` with an href and `generic` without, and only one of
+     those prohibits naming, so no implicit judgment is made. -->
+<a href="/clean" aria-label="Clean routes">Clean</a>
+
 <!-- a11y/required-aria-props: role="checkbox" needs aria-checked to announce its state. -->
 <div role="checkbox">Check me</div>
 
