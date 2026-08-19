@@ -37,6 +37,7 @@ Keep one `<main>`, one `<header>`/`role="banner"`, and one `<footer>`/`role="con
 Landmarks are collected in both modes, but from different sources, so results can differ:
 
 - **Static (CLI)** composes the route's layout chain with its resolved local components, using the branch-aware fold: within an `{#if}`/`{#await}` block only the arm with the most occurrences is credited, so it can pick a branch that would not actually render. It cannot see landmarks contributed by an unresolvable component (`node_modules`, a dynamically chosen component), and `{#each}`/`{#snippet}` bodies are excluded from counting since they render 0..N times.
+- **Static (CLI)** also decides whether a `<header>`/`<footer>` is a landmark per file: it counts as `banner`/`contentinfo` only at the top level of the file that contains it, since the composition cannot see sectioning ancestors in other files. A `<header>` a layout renders inside `<main>` is therefore not demoted the way the rendered DOM would demote it — a source-mode approximation, on the side of fewer findings.
 - **Rendered (vite)** reads the final prerendered HTML, so it sees only the branches that actually rendered, and it sees every landmark an `{#each}` loop produced. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line — the persisted finding key differs from the static-mode key for the same defect.
 
 When the two disagree, trust the rendered result — it reflects what ships to the browser.

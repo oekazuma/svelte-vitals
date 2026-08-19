@@ -7,7 +7,7 @@ description: A bullet character typed into plain text should be a real list elem
 
 ## What it checks
 
-Flags a text node whose trimmed content opens with a bullet character (`•`, `・`, `·`, `-`, or `*`) followed by whitespace. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+Flags text that opens with a bullet character (`•`, `・`, `·`, `-`, or `*`) followed by whitespace — **when there are at least two such items under one parent**, as sibling text nodes (`- one<br>- two`) or as the opening text of sibling elements (`<p>• one</p><p>• two</p>`). A lone bullet line is a dash, not a list; WCAG technique H48 is about sequences of items, and one item is not a sequence. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 Not flagged:
 

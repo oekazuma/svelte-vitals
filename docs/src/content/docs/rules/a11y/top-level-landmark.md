@@ -51,6 +51,7 @@ Move the nested landmark out so every landmark composes at the top level of the 
 Landmarks are collected in both modes, but from different sources, so results can differ:
 
 - **Static (CLI)** composes the route's layout chain with its resolved local components to detect nesting. It cannot see nesting introduced by an unresolvable component (`node_modules`, a dynamically chosen component).
+- **Static (CLI)** also decides whether a `<header>`/`<footer>` is a landmark per file: it counts as `banner`/`contentinfo` only at the top level of the file that contains it, since the composition cannot see sectioning ancestors in other files. A `<header>` a layout renders inside `<main>` is therefore not demoted the way the rendered DOM would demote it — a source-mode approximation, on the side of fewer findings.
 - **Rendered (vite)** reads the final prerendered HTML, so it sees nesting produced by any component, resolvable or not. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line — the persisted finding key differs from the static-mode key for the same defect.
 
 When the two disagree, trust the rendered result — it reflects what ships to the browser.

@@ -53,7 +53,7 @@ Add the element to the route — usually in the layout the route composes — or
 
 ## Disabling
 
-Route-scoped findings can be silenced with the suppressions file (`npx svelte-vitals --update-suppressions`) or scoped with `overrides`; remove the declaration, or turn the rule off:
+Route-scoped findings can be silenced with the suppressions file (`npx svelte-vitals --update-suppressions`) or scoped with `overrides`; remove the declaration, or turn the rule off. One thing to know about the suppressions file: its key is `id::route::location`, and a route missing several declared elements puts all of them under one key — so an entry recorded for a route silences every missing-element finding on it, including a different element that goes missing later:
 
 ```js svelte-vitals.config.js
 export default {

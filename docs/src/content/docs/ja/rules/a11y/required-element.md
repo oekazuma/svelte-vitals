@@ -53,7 +53,7 @@ export default {
 
 ## 無効化
 
-ルートスコープの検出は suppressions ファイル（`npx svelte-vitals --update-suppressions`）で抑制するか `overrides` で絞れます。宣言を消すか、ルールごと無効化するには:
+ルートスコープの検出は suppressions ファイル（`npx svelte-vitals --update-suppressions`）で抑制するか `overrides` で絞れます。宣言を消すか、ルールごと無効化することもできます。suppressions ファイルについて知っておくべき点が 1 つ: キーは `id::route::location` なので、複数の宣言要素を欠くルートはそれら全部が 1 つのキーに入ります — あるルートについて記録したエントリは、そのルートのすべての要素欠落を、後から欠落する別の要素も含めて抑制します:
 
 ```js svelte-vitals.config.js
 export default {

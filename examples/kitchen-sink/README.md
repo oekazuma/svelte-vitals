@@ -126,3 +126,9 @@ These are deliberate, not oversights. Do not clean them up:
 - `vite.config.ts` sets `build.minify: false` — the specimen for `performance/minify-disabled`.
 - `static/robots.txt` allows everything but has no `Sitemap:` line — the specimen for
   `seo/sitemap-in-robots`.
+- `svelte.config.js` tells the prerenderer to **ignore every 404** (`handleHttpError`) rather than
+  allowlisting paths. Planted specimens reference `href`/`src` values that resolve nowhere, the
+  crawler follows them, and an allowlist would need an entry per new specimen. The cost is that a
+  genuinely broken internal link in the example would also be swallowed — acceptable here, where the
+  static e2e's expectation files, not the prerender, are the correctness check; never copy this into
+  a real app's config.

@@ -23,6 +23,8 @@ Not flagged:
 - The select's first child being an `{#each}` block or a component — what it renders as the first option can't be resolved statically.
 - A spread attribute on the `<select>` (it may supply `multiple` or `size`) or on its first `<option>` (it may supply `value`) — either makes the check's inputs unknowable, so the element is skipped.
 
+Flagged on purpose: a `<select required>` with **no content at all**. It has no placeholder and no options, so as written it can never be satisfied; if its options arrive from script at runtime the rule cannot see them, and that one element is what an inline directive is for.
+
 ```svelte
 <select required>
   <option value="">Choose…</option>

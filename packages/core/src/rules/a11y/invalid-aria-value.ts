@@ -10,8 +10,11 @@ function isValid(type: string, values: string[] | undefined, literal: string): b
       return literal === 'true' || literal === 'false' || literal === 'mixed';
     case 'token':
       return (values ?? []).includes(literal);
-    case 'tokenlist':
-      return splitTokens(literal).every((t) => (values ?? []).includes(t));
+    case 'tokenlist': {
+      // A token list is "one or more" tokens (ARIA 1.2 §value types), so the empty string is not one.
+      const tokens = splitTokens(literal);
+      return tokens.length > 0 && tokens.every((t) => (values ?? []).includes(t));
+    }
     case 'integer':
       return /^-?\d+$/.test(literal);
     case 'number':
@@ -39,7 +42,8 @@ export const a11yInvalidAriaValue = componentRule({
         const kind = ariaValueKind(a.name);
         if (kind === undefined) return [];
         if (isValid(kind.type, kind.values, a.literal)) return [];
-        return [{ line: a.line, message: `\`${a.name}="${a.literal}"\` is not a valid ${kind.type} value` }];
+        // Start-tag anchor, so a directive above a multi-line element reaches it.
+        return [{ line: e.line, message: `\`${a.name}="${a.literal}"\` is not a valid ${kind.type} value` }];
       })
     )
 });

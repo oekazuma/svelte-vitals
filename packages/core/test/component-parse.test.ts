@@ -1269,6 +1269,10 @@ describe('parseComponentFacts — links inside comments', () => {
 });
 
 describe('parseComponentFacts — ariaElements (a11y ARIA rules)', () => {
+  it('records an input list attribute as hasList', () => {
+    const c = parseComponentFacts('<input list="opts" role="combobox" /><input role="combobox" />', 'C.svelte');
+    expect(c.ariaElements!.map((e) => e.hasList ?? false)).toEqual([true, false]);
+  });
   it('collects literal role and aria attributes with lines', () => {
     const c = parseComponentFacts('<div role="button" aria-label="Close"></div>', 'C.svelte');
     expect(c.ariaElements).toEqual([
@@ -1509,6 +1513,12 @@ describe('parseComponentFacts — bulletTexts (a11y/use-list)', () => {
   it('ignores text inside li and bullet chars mid-text', () => {
     const c = parseComponentFacts('<ul><li>• fine</li></ul>\n<p>a - b</p>', 'C.svelte');
     expect(c.bulletTexts ?? []).toEqual([]);
+  });
+  it('needs two items — a lone bullet line is a dash, not a list (WCAG H48)', () => {
+    expect(parseComponentFacts('<p>- note to self</p>', 'C.svelte').bulletTexts ?? []).toEqual([]);
+    expect(parseComponentFacts('<div><p>- one</p><span>x</span></div>', 'C.svelte').bulletTexts ?? []).toEqual([]);
+    // Two sibling paragraphs each opening with a bullet are a list; each item is reported once.
+    expect(parseComponentFacts('<div><p>- one</p><p>- two</p></div>', 'C.svelte').bulletTexts).toHaveLength(2);
   });
 });
 

@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import { execFileSync } from 'node:child_process';
-import { readFileSync, rmSync } from 'node:fs';
+import { existsSync, readFileSync, rmSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -27,6 +27,11 @@ beforeAll(() => {
   } catch (e) {
     buildFailed = true;
     buildStderr = (e as { stderr: string }).stderr;
+  }
+  // The report is written by the plugin before the gate decides; if it is missing, the build died
+  // before analysis ran, and the build's own stderr is the useful failure — not an ENOENT.
+  if (!existsSync(reportPath)) {
+    throw new Error(`no ${reportPath} after vite build (buildFailed=${buildFailed}):\n${buildStderr}`);
   }
   report = JSON.parse(readFileSync(reportPath, 'utf8'));
 }, 240_000);

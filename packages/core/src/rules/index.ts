@@ -298,6 +298,8 @@ export interface RuleOptionInfo {
   default: number | readonly string[] | Readonly<Record<string, string>>;
   min?: number;
   max?: number;
+  /** For a `string-list` with a reserved grammar: what each entry must be, in words (the regex stays out of `explain --json`). */
+  pattern?: string;
 }
 
 export interface RuleInfo {
@@ -322,7 +324,8 @@ function optionInfos(spec: RuleOptionsSpec): RuleOptionInfo[] {
     kind: s.kind,
     default: s.default,
     ...(s.kind === 'integer' && s.min !== undefined ? { min: s.min } : {}),
-    ...(s.kind === 'integer' && s.max !== undefined ? { max: s.max } : {})
+    ...(s.kind === 'integer' && s.max !== undefined ? { max: s.max } : {}),
+    ...(s.kind === 'string-list' && s.pattern ? { pattern: s.pattern.describe } : {})
   }));
 }
 
