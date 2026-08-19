@@ -7,7 +7,7 @@ description: A page's JSON-LD must be valid JSON with @context and @type.
 
 ## What it checks
 
-For each static `<script type="application/ld+json">`, the content must parse as JSON and contain both `@context` and `@type`. Invalid or incomplete JSON-LD is flagged. A dynamically-built JSON-LD is not checked.
+For each static `<script type="application/ld+json">`, the content must parse as JSON and contain both `@context` and `@type`. Invalid or incomplete JSON-LD is flagged. A dynamically-built JSON-LD is not checked by source analysis.
 
 ## Unknown type
 

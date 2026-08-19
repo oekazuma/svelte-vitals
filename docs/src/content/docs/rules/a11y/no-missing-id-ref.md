@@ -33,7 +33,7 @@ Add the missing id to the referenced element, or fix a typo'd reference:
 Reference checking runs in both modes, but from different sources, so results can differ:
 
 - **Source analysis** (the CLI, the dashboard's static baseline) composes the route's layout chain with its resolved local components and requires the closed-world condition above — any unresolved component, `{@html}`, spread attribute, or dynamic id anywhere in the composition skips the whole route.
-- **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the final prerendered HTML, which already is a closed world by construction — every id and reference that ships to the browser is visible, so this mode has no equivalent skip condition and can check routes source analysis cannot. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line — the persisted finding key differs from the static-mode key for the same defect.
+- **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the rendered HTML, which already is a closed world by construction — every id and reference that ships to the browser is visible, so this mode has no equivalent skip condition and can check routes source analysis cannot. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line — the persisted finding key differs from the source-analysis key for the same defect.
 
 When the two disagree, trust the rendered result — it reflects what ships to the browser.
 

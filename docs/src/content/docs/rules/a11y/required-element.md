@@ -38,7 +38,7 @@ Presence is optimistic — an element inside any `{#if}` arm, `{#each}` body or 
 
 ## Mode differences
 
-- **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard): the document is the closed world, so presence and absence are both reported on every prerendered route.
+- **Rendered analysis** (the Vite plugin's build pass): the document is the closed world, so presence and absence are both reported on every prerendered route.
 - **Source analysis** (the CLI, the dashboard's static baseline): presence is reported everywhere; absence only on routes closed for elements. On a real app most routes compose at least one component that does not resolve to a repo-local file — a UI library, an icon — so absence is reported on few of them until that is addressed. A spread attribute or an expression-valued `id` does not open the world for this rule; they cannot hide an element.
 
 The finding is located at the route's page file in source analysis and at the prerendered HTML file in the build pass. The dashboard's live layer does not evaluate this rule; the static baseline's result stands.

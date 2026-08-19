@@ -18,7 +18,7 @@ export interface RuleContext {
   a11y?: ResolvedA11y[];
   /** Per-file component-body facts for the component-scoped rules (absent in the dev handle's rendered pass). */
   components?: ComponentFacts[];
-  /** Per-file SvelteKit route/hooks facts for the SSR shared-state rules (static/CLI + vite build mode only). */
+  /** Per-file SvelteKit route/hooks facts for the kit-module rules (absent in the dev handle's rendered pass). */
   kitModules?: KitModuleFacts[];
   /**
    * Every file under `src/`, as project-relative paths, for directory-shaped Architecture rules

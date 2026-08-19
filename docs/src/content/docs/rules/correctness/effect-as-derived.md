@@ -7,7 +7,7 @@ description: Use $derived instead of an $effect that only assigns state.
 
 ## What it checks
 
-Flags an `$effect` whose body only assigns to `$state` variables.
+Flags an `$effect` whose body only assigns to `$state` variables, in the component's instance script.
 
 ## Why it matters
 

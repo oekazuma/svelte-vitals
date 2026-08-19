@@ -134,7 +134,7 @@ svelte-vitals --score --min-health 80   # スコアでゲートする。終了�
 svelte-vitals --route "/blog/**"
 ```
 
-ルートスコープのルールはマッチしたルートに対して動きます。コンポーネントスコープのルール（Correctness、Security、Architecture、およびコンポーネントスコープの Performance / Accessibility ルール）は、コンポーネントの検出には紐づけるルートが無いためスキップされます。プロジェクトスコープのルール（`seo/robots-txt`、`seo/html-lang` など）は引き続き動きます。`seo/duplicate-title` と `seo/duplicate-description` はマッチしたルート同士だけを比較します。どのルートにもマッチしない glob は警告として報告されます。
+ルートスコープのルールはマッチしたルートに対して動きます。コンポーネントスコープのルール（Correctness、Security、Architecture、`seo/ssr-disabled`、およびコンポーネントスコープの Performance / Accessibility ルール）は、コンポーネントの検出には紐づけるルートが無いためスキップされます。プロジェクトスコープのルール（`seo/robots-txt`、`seo/html-lang` など）は引き続き動きます。`seo/duplicate-title` と `seo/duplicate-description` はマッチしたルート同士だけを比較します。どのルートにもマッチしない glob は警告として報告されます。
 
 ### `--diff [ref]`
 

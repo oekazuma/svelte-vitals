@@ -71,9 +71,6 @@ Renaming the unit a link points at, in a file the link itself doesn't live in, i
 `--staged`: a finding's `location` is the file holding the link, and there is no better one to use — the
 target that moved is not the file that changed. A full run still reports it.
 
-This rule reads the same `src/` file inventory the sibling directory rules do, and on a `--route` run,
-where no inventory is built, it is silent.
-
 ## Mode differences
 
 None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.

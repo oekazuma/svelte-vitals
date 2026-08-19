@@ -7,7 +7,7 @@ description: ページの JSON-LD は、@context と @type を備えた妥当な
 
 ## チェック内容
 
-静的な `<script type="application/ld+json">` それぞれについて、内容が JSON としてパースでき、`@context` と `@type` の両方を含むことを確認します。無効または不完全な JSON-LD を検出します。動的に組み立てる JSON-LD は検査しません。
+静的な `<script type="application/ld+json">` それぞれについて、内容が JSON としてパースでき、`@context` と `@type` の両方を含むことを確認します。無効または不完全な JSON-LD を検出します。動的に組み立てる JSON-LD はソース解析では検査しません。
 
 ## 未知の型
 

@@ -7,7 +7,7 @@ description: An $effect that reads no reactive value belongs in an event handler
 
 ## What it checks
 
-Flags an `$effect` / `$effect.pre` whose non-empty body reads no reactive value that this analysis can see — no `$state`, `$derived`, `$props`, imported binding, local declared with a `new …()` initializer, or store subscription, and no bare function call (`foo()`). Such an effect runs once after mount and never re-runs on the paths this check can follow.
+Flags an `$effect` / `$effect.pre`, in the component's instance script, whose non-empty body reads no reactive value that this analysis can see — no `$state`, `$derived`, `$props`, imported binding, local declared with a `new …()` initializer, or store subscription, and no bare function call (`foo()`). Such an effect runs once after mount and never re-runs on the paths this check can follow.
 
 ## Why it matters
 
