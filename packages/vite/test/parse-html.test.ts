@@ -351,6 +351,18 @@ describe('parse-html: script capture (performance/render-blocking-script, perfor
   });
 });
 
+describe('parse-html: idRefs (a11y/no-missing-id-ref)', () => {
+  it('reads the ARIA id-reference properties and the HTML targets', () => {
+    const doc = `<!doctype html><html><head><title>t</title></head><body><div aria-owns="x y"></div><input list="opts"><button popovertarget="pop"></button></body></html>`;
+    expect(parseHtmlHead(doc).idRefs.map((r) => `${r.attr}=${r.id}`)).toEqual([
+      'aria-owns=x',
+      'aria-owns=y',
+      'list=opts',
+      'popovertarget=pop'
+    ]);
+  });
+});
+
 describe('parse-html: elementTags (a11y/required-element)', () => {
   it('collects distinct tag names under <body> only, skipping <template> children', () => {
     const doc = `<!doctype html><html><head><title>t</title><meta name="x" content="y"></head><body><div id="app"><main><h1>H</h1><template><nav>n</nav></template></main></div></body></html>`;

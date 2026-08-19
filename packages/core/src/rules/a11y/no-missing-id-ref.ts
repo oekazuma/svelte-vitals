@@ -7,9 +7,9 @@ const recommendation = 'An id reference should point to an id that exists somewh
 const result = resultFactory('a11y/no-missing-id-ref', recommendation);
 
 /**
- * a11y/no-missing-id-ref — a `for`/`aria-labelledby`/`aria-describedby`/`aria-controls`/
- * `aria-activedescendant`/same-page `href="#…"` referencing an `id` absent from the composed
- * route. Universal ("no element anywhere defines this id") needs a closed world, so this rule
+ * a11y/no-missing-id-ref — an id-reference attribute (`IDREF_ATTRS`: HTML's `for`/`list`/`headers`/
+ * `form`/the popover and command targets, and every ARIA id-reference property) or a same-page
+ * `href="#…"` referencing an `id` absent from the composed route. Universal ("no element anywhere defines this id") needs a closed world, so this rule
  * runs only on routes `ctx.a11y[].fullyResolved` marks fully resolved — see the rule docs.
  */
 export const a11yNoMissingIdRef: Rule = {
@@ -19,7 +19,7 @@ export const a11yNoMissingIdRef: Rule = {
   severity: 'warning',
   scope: 'route',
   rationale:
-    'A `for`/`aria-labelledby`/`aria-describedby`/`aria-controls`/`aria-activedescendant`/`href="#…"` pointing at an id that does not exist leaves assistive tech with a broken association or the browser with a dead in-page link.',
+    'An id reference — `for`, `list`, `headers`, `form`, `popovertarget`, `commandfor`, the ARIA id-reference properties (`aria-labelledby`, `aria-describedby`, `aria-controls`, `aria-owns`, …), or a same-page `href="#…"` — pointing at an id that does not exist leaves assistive tech with a broken association or the browser with a dead in-page link.',
   async check(ctx: RuleContext): Promise<Result[]> {
     const out: Result[] = [];
     for (const route of ctx.a11y ?? []) {

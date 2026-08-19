@@ -14,7 +14,7 @@ Only attributes the spec defines are checked here — an unrecognized name is `a
 - **boolean** (e.g. `aria-hidden`) — must be `true` or `false`.
 - **tristate** (e.g. `aria-checked`) — must be `true`, `false`, or `mixed`.
 - **token** (e.g. `aria-live`) — must be one of the attribute's fixed set of values.
-- **tokenlist** (e.g. `aria-relevant`) — every whitespace-separated word must be one of the fixed set.
+- **tokenlist** (e.g. `aria-relevant`) — one or more whitespace-separated words, each from the fixed set; an empty value is invalid.
 - **integer** (e.g. `aria-colcount`) — must be a whole number.
 - **number** (e.g. `aria-valuenow`) — must be a finite number.
 - **string** / **id** / **idlist** (e.g. `aria-label`, `aria-activedescendant`) — any literal is accepted; these can't be checked statically.

@@ -28,6 +28,11 @@ describe('svelte-vitals explain', () => {
     expect(out).toContain('max (integer, default 60, >= 1) — replaces the default');
   });
 
+  it("renders a string-list option's entry grammar when the rule reserves one", async () => {
+    const { out } = await explain(['a11y/disallowed-element']);
+    expect(out).toContain('elements (string-list, default [], each entry a bare tag name');
+  });
+
   it('states that a list option appends to the built-in entries', async () => {
     const { out } = await explain(['performance/preconnect']);
     expect(out).toContain('origins (string-list, default ["fonts.googleapis.com"');

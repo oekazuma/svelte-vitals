@@ -40,8 +40,9 @@
 <!-- a11y/label-has-control: no for attribute and no wrapped control. -->
 <label>Just some text</label>
 
-<!-- a11y/use-list: bullet character in plain text, outside any <ul>/<ol>. -->
-<p>• First bullet item outside a real list</p>
+<!-- a11y/use-list: two bullet lines in plain text, outside any <ul>/<ol> — a list that is not marked
+     up as one. A single bullet line would not fire: one item is a dash, not a list. -->
+<p>• First bullet item outside a real list<br />• Second bullet item, same paragraph</p>
 
 <!-- a11y/placeholder-label-option: required select whose first option isn't a placeholder. -->
 <select required>

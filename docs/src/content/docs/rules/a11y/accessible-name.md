@@ -21,6 +21,7 @@ Not flagged, even with no name source found:
 
 - An element whose content is unknowable — any `{expression}` child, a component child, `{@render …}`, `{@html …}`, a `<slot>` or `<svelte:fragment>` (its content comes from the parent), a hyphenated custom element (its shadow root may supply content), or a spread attribute on the element itself.
   The rule only flags what it can prove is unnamed; it never guesses at dynamic content.
+- Namespace is not tracked here: an `<a href>` inside `<svg>` is judged as the HTML `<a>`, so an SVG link without a computable accessible name (no text descendant, `aria-label`, `aria-labelledby`, or `<title>`) is reported — the same thing the SVG accessibility guidance asks for, so the verdict stands even though the reason differs.
 
 ```svelte
 <button></button>

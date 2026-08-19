@@ -114,7 +114,8 @@ describe('a11y/unknown-aria-attribute', () => {
     const rs = await a11yUnknownAriaAttribute.check(
       ctx([comp({ ariaElements: [el({ aria: [{ name: 'aria-lable', literal: 'x', line: 4 }] })] })])
     );
-    expect(fails(rs).map((r) => r.line)).toEqual([4]);
+    // Anchored at the element's start tag (line 3), not the attribute's line 4, so a directive reaches it.
+    expect(fails(rs).map((r) => r.line)).toEqual([3]);
   });
   it('passes known names regardless of value form', async () => {
     const rs = await a11yUnknownAriaAttribute.check(
@@ -182,6 +183,27 @@ describe('a11y/required-aria-props', () => {
     );
     expect(fails(rs)).toHaveLength(0);
   });
+  it('treats a single <select> and a text-like <input list> as native comboboxes whose aria-expanded the host supplies', async () => {
+    const rs = await a11yRequiredAriaProps.check(
+      ctx([
+        comp({
+          ariaElements: [
+            el({ tag: 'select', selectKind: 'combobox', role: { literal: 'combobox' } }),
+            el({ line: 5, tag: 'input', inputType: 'text', hasList: true, role: { literal: 'combobox' } }),
+            el({ line: 6, tag: 'input', hasList: true, role: { literal: 'combobox' } }),
+            // A plain <input role="combobox"> still owes aria-expanded.
+            el({ line: 8, tag: 'input', inputType: 'text', role: { literal: 'combobox' } }),
+            // <select multiple> / <select size="2"> are native listboxes, and a `list` on a
+            // non-text input type does not make a combobox: none of them supply anything.
+            el({ line: 9, tag: 'select', selectKind: 'listbox', role: { literal: 'combobox' } }),
+            el({ line: 10, tag: 'select', role: { literal: 'combobox' } }),
+            el({ line: 11, tag: 'input', inputType: 'date', hasList: true, role: { literal: 'combobox' } })
+          ]
+        })
+      ])
+    );
+    expect(fails(rs).map((r) => r.line)).toEqual([8, 9, 10, 11]);
+  });
   it('satisfied by a spread attribute — its full attribute set is unknowable', async () => {
     const rs = await a11yRequiredAriaProps.check(
       ctx([comp({ ariaElements: [el({ role: { literal: 'checkbox' }, hasSpread: true })] })])
@@ -198,11 +220,26 @@ describe('a11y/invalid-aria-value', () => {
     expect(fails(rs)).toHaveLength(1);
   });
 
+  it('rejects an empty token list — a token list is one or more tokens', async () => {
+    const rs = await a11yInvalidAriaValue.check(
+      ctx([
+        comp({
+          ariaElements: [
+            el({ aria: [{ name: 'aria-relevant', literal: '', line: 3 }] }),
+            el({ line: 9, aria: [{ name: 'aria-relevant', literal: 'additions text', line: 9 }] })
+          ]
+        })
+      ])
+    );
+    expect(fails(rs).map((r) => r.line)).toEqual([3]);
+  });
+
   it('flags a boolean aria attribute with a non-boolean literal', async () => {
     const rs = await a11yInvalidAriaValue.check(
       ctx([comp({ ariaElements: [el({ aria: [{ name: 'aria-hidden', literal: 'yes', line: 7 }] })] })])
     );
-    expect(fails(rs).map((r) => r.line)).toEqual([7]);
+    // Start-tag anchor (the element's line 3), for directive reachability on multi-line elements.
+    expect(fails(rs).map((r) => r.line)).toEqual([3]);
   });
   it('passes valid literals, expressions, and unknown attributes (owned by unknown-aria-attribute)', async () => {
     const rs = await a11yInvalidAriaValue.check(

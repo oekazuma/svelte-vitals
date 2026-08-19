@@ -26,7 +26,11 @@ function describeOptions(id: string, options: RuleOptionInfo[]): string {
     'string-map': 'merged over the default entries — a new key is added, a built-in key has its value overridden'
   } as const;
   const lines = options.map((o) => {
-    const bounds = [o.min !== undefined ? `>= ${o.min}` : '', o.max !== undefined ? `<= ${o.max}` : '']
+    const bounds = [
+      o.min !== undefined ? `>= ${o.min}` : '',
+      o.max !== undefined ? `<= ${o.max}` : '',
+      o.pattern ? `each entry ${o.pattern}` : ''
+    ]
       .filter(Boolean)
       .join(', ');
     return `- ${o.name} (${o.kind}, default ${JSON.stringify(o.default)}${bounds ? `, ${bounds}` : ''}) — ${MERGE[o.kind]}`;

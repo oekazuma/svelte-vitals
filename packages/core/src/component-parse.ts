@@ -1146,6 +1146,16 @@ function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: 
  * `RegularElement` is checked, so `<svelte:element this="div" role="…">` is out of static reach —
  * same convention as `collectCheckableBindValues`/`collectHrefLinks`.
  */
+/** HTML-AAM: a `<select>` is a combobox unless `multiple` or a display `size` above 1 makes it a listbox. */
+function selectNativeRole(attributes: Node[]): 'combobox' | 'listbox' | undefined {
+  if (findAttr(attributes, 'multiple') !== undefined) return 'listbox';
+  const size = findAttr(attributes, 'size');
+  if (size === undefined) return 'combobox';
+  const v = attrValueOf(size);
+  if (v !== 'static') return undefined;
+  return Number(attrTextOf(size)) > 1 ? 'listbox' : 'combobox';
+}
+
 function collectAriaElements(node: Node, source: string, acc: AriaElementFact[]): void {
   if (Array.isArray(node)) {
     for (const child of node) collectAriaElements(child, source, acc);
@@ -1165,12 +1175,16 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
     );
     if (roleAttr || ariaAttrs.length > 0) {
       const inputType = node.name === 'input' ? attrText(node.attributes, 'type') : undefined;
+      const hasList = node.name === 'input' && findAttr(node.attributes, 'list') !== undefined;
+      const selectKind = node.name === 'select' ? selectNativeRole(node.attributes) : undefined;
       const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
       acc.push({
         tag: node.name,
         line: lineOf(source, node.start),
         ...(roleAttr ? { role: classifyAttrValue(roleAttr.value) } : {}),
         ...(inputType !== undefined ? { inputType: inputType.toLowerCase() } : {}),
+        ...(hasList ? { hasList: true as const } : {}),
+        ...(selectKind ? { selectKind } : {}),
         ...(hasSpread ? { hasSpread: true as const } : {}),
         aria: ariaAttrs.map((a: Node) => ({
           name: String(a.name).toLowerCase(),
@@ -1514,42 +1528,74 @@ const VERBATIM_TEXT_TAGS = new Set(['pre', 'code', 'kbd', 'samp', 'textarea']);
 /**
  * Text nodes whose trimmed content opens with a bullet character followed by whitespace,
  * outside any `li` ancestor — a plain-text bullet where a `<ul>`/`<ol>` would give assistive
- * technology a real list structure (a11y/use-list).
+ * technology a real list structure (a11y/use-list). A list is two or more items: a lone bullet
+ * line (`<p>- note</p>`) is a dash, not a list, and WCAG H48 is about sequences. So bullet texts
+ * count only in twos or more under one parent — either as sibling text nodes (`- one<br>- two`)
+ * or as the opening text of sibling elements (`<p>• one</p><p>• two</p>`).
  */
 function collectBulletTexts(
   node: Node,
   source: string,
   acc: { line: number; char: string }[],
   inert: boolean,
-  afterExpression = false
+  afterExpression = false,
+  reported: WeakSet<object> = new WeakSet()
 ): void {
   if (Array.isArray(node)) {
     let prevWasExpression = afterExpression;
-    for (const child of node) {
-      collectBulletTexts(child, source, acc, inert, prevWasExpression);
-      if (child && typeof child === 'object' && child.type !== 'Comment') {
-        prevWasExpression = child.type === 'ExpressionTag';
+    let group: { line: number; char: string; text: Node }[] = [];
+    const flush = () => {
+      if (group.length >= 2) {
+        for (const b of group) {
+          if (reported.has(b.text)) continue;
+          reported.add(b.text);
+          acc.push({ line: b.line, char: b.char });
+        }
       }
+      group = [];
+    };
+    const bulletOf = (text: Node, after: boolean) => {
+      if (!text || typeof text !== 'object' || text.type !== 'Text' || after) return undefined;
+      const trimmed = String(text.data ?? '').trim();
+      return BULLET_TEXT_RE.test(trimmed) ? { line: lineOf(source, text.start), char: trimmed[0]!, text } : undefined;
+    };
+    for (const child of node) {
+      if (!child || typeof child !== 'object') continue;
+      if (child.type === 'Text') {
+        const b = inert ? undefined : bulletOf(child, prevWasExpression);
+        if (b) group.push(b);
+        // Meaningful non-bullet text ends a sequence; whitespace between items does not.
+        else if (String(child.data ?? '').trim()) flush();
+      } else if (child.type === 'Comment' || (child.type === 'RegularElement' && child.name === 'br')) {
+        // Separators inside a sequence (`- one<br>- two`).
+      } else {
+        // The opening text of a child element is an item of THIS parent's list too — unless the
+        // element follows an interpolation, the same tail-of-a-sentence case as for text.
+        let item: ReturnType<typeof bulletOf>;
+        if (!inert && child.type === 'RegularElement' && child.name !== 'li' && !VERBATIM_TEXT_TAGS.has(child.name)) {
+          const first = (child.fragment?.nodes ?? []).find(
+            (n: Node) => !(n?.type === 'Text' && !String(n.data ?? '').trim()) && n?.type !== 'Comment'
+          );
+          item = bulletOf(first, prevWasExpression);
+        }
+        if (item) group.push(item);
+        else flush(); // an element that is not an item, or an expression, ends the sequence
+        collectBulletTexts(child, source, acc, inert, prevWasExpression, reported);
+      }
+      if (child.type !== 'Comment') prevWasExpression = child.type === 'ExpressionTag';
     }
+    flush();
     return;
   }
   if (!node || typeof node !== 'object') return;
-  if (node.type === 'Text') {
-    const trimmed = String(node.data ?? '').trim();
-    // Text after an interpolation is the tail of a sentence, not the head of a bullet:
-    // `<p>{count} - results found</p>` trims to `- results found`.
-    if (!inert && !afterExpression && BULLET_TEXT_RE.test(trimmed)) {
-      acc.push({ line: lineOf(source, node.start), char: trimmed[0]! });
-    }
-    return;
-  }
+  if (node.type === 'Text') return;
   // A snippet's body renders at its {@render} site, so its list context is unknowable here —
   // skip it rather than judge bullet text against the declaration site's ancestors.
   if (node.type === 'SnippetBlock') return;
   const nowInert =
     inert || (node.type === 'RegularElement' && (node.name === 'li' || VERBATIM_TEXT_TAGS.has(node.name)));
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectBulletTexts(node[key], source, acc, nowInert);
+    if (key in node) collectBulletTexts(node[key], source, acc, nowInert, false, reported);
   }
 }
 

@@ -125,13 +125,26 @@ export function splitTokens(value: string | undefined): string[] {
 /** Explicit `role` values that map to the landmark kinds the route rules inspect. */
 export const LANDMARK_ROLES: ReadonlySet<string> = new Set(['main', 'banner', 'contentinfo', 'complementary']);
 
-/** Attributes whose (whitespace-tokenized) values reference element ids. */
+/**
+ * Attributes whose (whitespace-tokenized) values reference element ids: the ARIA id-reference and
+ * id-reference-list properties, and HTML's own (`for`, `list`, `headers`, `form`, the popover and
+ * command targets). `href="#…"` is handled separately — its value is a URL, not a token list.
+ */
 export const IDREF_ATTRS: readonly string[] = [
   'for',
+  'list',
+  'headers',
+  'form',
+  'popovertarget',
+  'commandfor',
   'aria-labelledby',
   'aria-describedby',
   'aria-controls',
-  'aria-activedescendant'
+  'aria-activedescendant',
+  'aria-owns',
+  'aria-details',
+  'aria-errormessage',
+  'aria-flowto'
 ];
 
 /**
