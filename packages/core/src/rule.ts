@@ -61,6 +61,11 @@ export interface Rule {
    */
   passLabel?: string;
   /**
+   * The rule compares routes against each other (`seo/duplicate-title`), so it cannot be judged
+   * from one route's rendered HTML — the dev dashboard's live layer leaves it to the static pass.
+   */
+  crossRoute?: true;
+  /**
    * Evaluate the resolved heads. A single rule may return one Result per route,
    * so it always returns an array. Project-scoped rules return a single element.
    */
