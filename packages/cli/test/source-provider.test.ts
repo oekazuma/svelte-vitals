@@ -563,8 +563,10 @@ describe('collectRoutes a11y composition', () => {
         'src/routes/+page.svelte': `<svelte:head><title>t</title></svelte:head><template><main>x</main></template><svelte:element this="section">s</svelte:element><div>d</div>`
       });
       expect([...a11y.elementTags!].sort()).toEqual(['div', 'template']);
-      // A dynamic tag can render anything the walk cannot see.
+      // A dynamic tag can render anything the walk cannot see — literal `this` and expression alike.
       expect(a11y.elementsClosed).toBe(false);
+      const expr = await tagsOf({ 'src/routes/+page.svelte': `<svelte:element this={tag}>s</svelte:element>` });
+      expect(expr.elementsClosed).toBe(false);
     });
 
     it('is closed by neither a spread nor an expression id, and open by {@html} or an unresolved component', async () => {

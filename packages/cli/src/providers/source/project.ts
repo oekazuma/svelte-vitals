@@ -151,8 +151,11 @@ function detectAppHtmlBodyTags(html: string): string[] {
   const markup = html
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
-    .replace(/<style[\s\S]*?<\/style\s*>/gi, '');
-  const body = /<body\b[^>]*>([\s\S]*?)<\/body\s*>/i.exec(markup)?.[1];
+    .replace(/<style[\s\S]*?<\/style\s*>/gi, '')
+    // <template> children are inert until instantiated — the same reading both a11y walks take.
+    .replace(/<template[\s\S]*?<\/template\s*>/gi, '<template></template>');
+  // HTML lets </body> be omitted; the body then runs to the end of the document.
+  const body = /<body\b[^>]*>([\s\S]*?)(?:<\/body\s*>|$)/i.exec(markup)?.[1];
   if (body === undefined) return [];
   return [...new Set([...body.matchAll(/<([a-zA-Z][a-zA-Z0-9-]*)\b/g)].map((m) => m[1]!.toLowerCase()))];
 }

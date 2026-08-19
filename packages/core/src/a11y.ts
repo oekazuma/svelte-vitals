@@ -39,8 +39,8 @@ export interface ResolvedA11y {
    */
   elementTags?: string[];
   /**
-   * The closed world for elements: every component resolved to depth, no `{@html}`, no
-   * `<svelte:element>`. Incomparable with `fullyResolved` — a spread or `id={expr}` clears that flag
+   * The closed world for elements: every component descended into (an unresolved, depth-truncated,
+   * or — conservatively — cycle-cut one clears it), no `{@html}`, no `<svelte:element>`. Incomparable with `fullyResolved` — a spread or `id={expr}` clears that flag
    * and not this one, since neither can hide an element; a `<svelte:element>` clears this and not
    * that. "Missing" is only reportable when this holds; presence is sound regardless.
    */

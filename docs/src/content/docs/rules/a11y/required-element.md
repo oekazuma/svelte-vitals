@@ -39,9 +39,9 @@ Presence is optimistic — an element inside any `{#if}` arm, `{#each}` body or 
 ### Mode differences
 
 - **Build mode** (`@svelte-vitals/vite`, prerendered routes): the document is the closed world, so presence and absence are both reported on every prerendered route.
-- **Static mode** (CLI): presence is reported everywhere; absence only on routes closed for elements. On a real app most routes compose at least one component that does not resolve to a repo-local file — a UI library, an icon — so absence is reported on few of them until that is addressed (issue #533 tracks it). A spread attribute or an expression-valued `id` does not open the world for this rule; they cannot hide an element.
+- **Static mode** (CLI): presence is reported everywhere; absence only on routes closed for elements. On a real app most routes compose at least one component that does not resolve to a repo-local file — a UI library, an icon — so absence is reported on few of them until that is addressed. A spread attribute or an expression-valued `id` does not open the world for this rule; they cannot hide an element.
 
-The finding is located at the route's page file.
+The finding is located at the route's page file in static mode and at the prerendered HTML file in build mode.
 
 ## Why it matters
 

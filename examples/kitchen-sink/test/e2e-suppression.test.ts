@@ -187,6 +187,8 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     expect(off.rules['a11y/required-element']).toEqual({ findings: 0, passed: 0 });
     expect(off.rules['a11y/disallowed-element']).toEqual({ findings: 0, passed: 0 });
     expect(findings(baseline, 'a11y/required-element')).toBe(1);
+    // The global `h1` layer's effect is the pass rows on every closed route; the override's is the finding.
+    expect(passed(baseline, 'a11y/required-element')).toBeGreaterThan(0);
     expect(findings(baseline, 'a11y/disallowed-element')).toBe(1);
     // A directive above a multi-line <iframe> silences disallowed-element.
     writeFileSync(cfgPath, cfg);
