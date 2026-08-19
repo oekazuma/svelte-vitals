@@ -18,9 +18,9 @@ The a11y design placed them; they stay there. Both follow `architecture/unit-ent
 convention for declaration-driven rules: an empty declaration list by default, so the rule is inert
 until a project declares something, with `options` declared through `RuleOptionsSpec`. Their
 built-in severity is `warning`, so `{ options: { elements: [...] } }` alone is enough to turn one
-on. Neither goes through `componentRule`'s per-file option resolution when nothing is declared:
-`applies` returns false on an empty list, which is the cheapest precondition the factory offers. A
-configured project:
+on. An undeclared project emits nothing: `disallowed-element` (a `componentRule`) returns false from
+`applies` on an empty list, and `required-element` (route-scoped, hand-written) returns early through
+`isMentionedAnywhere`, the `unit-entry-file` precedent. A configured project:
 
 ```js
 rules: {
@@ -90,9 +90,17 @@ the page, and every resolved component (a `Set<string>` per parsed file — `col
 visits every element — unioned along the same walk `composeA11y` does), **plus the tags of
 `app.html`**, read the way `appHtmlIds` already is: a shell that holds `<main>%sveltekit.body%</main>`
 must not produce a "missing `<main>`" on every route. The rendered provider collects the same from
-the prerendered HTML, shell included. New optional field on `ResolvedA11y`: `elementTags`. Excluded
-by construction, and stated in the docs: `<svelte:head>` content (never body), `<template>` children
-(the a11y walk skips them), and `<svelte:element this={expr}>` (unknown tag).
+the prerendered HTML, shell included. **`elementTags` is the body subtree in every source** —
+component templates outside `<svelte:head>`, `app.html`'s `<body>` (not the whole-file scan
+`appHtmlIds` uses), the prerendered `<body>` — so a head-only name like `title` is "missing" in both
+modes alike, and the rule docs call it a body rule (`<title>` is `seo/title-presence`'s job). New
+optional fields on `ResolvedA11y`: `elementTags`, and `file` (the page file, or the prerendered
+HTML path) so the finding has a location without joining `ctx.heads`. Not counted, and stated in
+the docs: `<template>` children (both a11y walks skip them, so a tag only inside one **reports
+missing** on a closed route, consistently in both modes) and `<svelte:element>` whether `this` is
+an expression or a literal (counts in neither rule). Presence is optimistic across `{#if}` arms,
+`{#each}`/snippet bodies and slot content — the same reading `idCandidates` takes, and what makes
+"present in a resolved file passes" sound.
 
 **Presence is open-world safe; absence is not.** An unresolved component can only _add_ elements, so
 a route where every declared tag is present among the resolved files **passes regardless of how
@@ -100,11 +108,16 @@ closed the world is** — the a11y design's existential-rule doctrine, and what 
 exercised on real apps in static mode. Only "missing" needs the world closed, and the right closure
 for elements is not `fullyResolved`: that flag is cleared by spreads and expression ids, which cannot
 hide an element. The composition gains a second flag, `elementsClosed`, cleared by exactly what can:
-an unresolved or depth-truncated component, `{@html}`, and a dynamic `<svelte:element>`. Measured on
-the #533 corpus it changes nothing today — every route of kener and svelte-commerce carries an
-unresolvable package component, so `elementsClosed` is as false as `fullyResolved` there — but it is
-the correct predicate, it is what a later answer to #533 (declaring what an unresolvable component
-renders) would unlock, and defining it now costs a few lines.
+an unresolved component (a `metaComponents` entry included — it deliberately takes the unresolved
+branch), a depth-truncated one, `{@html}`, and a `<svelte:element>`. A cycle-cut does not clear it —
+`visited` is per path, so the cycled file's tags are already in the union — though piggybacking on
+the composition's single "did not descend" branch is acceptable if the docs state it. The two flags
+are incomparable, not ordered: a route with a `<svelte:element>` and no spreads is `fullyResolved`
+today and not `elementsClosed`. On kener and svelte-commerce it changes nothing — every route
+carries an unresolvable package component (#533's table), so `elementsClosed` is as false as
+`fullyResolved` there; CMSaasStarter's per-cause breakdown was not measured, and since a spread
+clears only the old flag, coverage there may already widen. It is the correct predicate, it is what
+a later answer to #533 would unlock, and defining it costs a few lines.
 
 So in static mode the rule reports presence everywhere and absence only where the world is closed —
 few routes on a real app until #533 moves. In build mode (`@svelte-vitals/vite`, **prerendered
@@ -144,11 +157,12 @@ how an unjudged route is surfaced.
 4. Rendered: the Vite provider supplies `elementTags` (shell included) and `required-element`
    reports both presence and absence.
 5. Kitchen-sink: `svelte-vitals.config.ts` turns both on; a planted `<iframe>` fires
-   `disallowed-element`; a fully-resolved route (kitchen-sink has one — `no-missing-id-ref` reports
-   there) is planted to miss a declared element and fires `required-element`; both expectation files
+   `disallowed-element`; a route that is `elementsClosed` (kitchen-sink's fully-resolved route qualifies today — it
+   has no `<svelte:element>`) is planted to miss a declared element and fires `required-element`; both expectation files
    record the counts; the e2e-suppression suite gains the two levers, with the directive above a
    multi-line `<iframe>`.
-6. Docs en/ja: both pages state the tag-name-only grammar and what is not seen (`<svelte:element>`,
-   `<template>`, `<svelte:head>`); `required-element`'s Mode section says static mode reports
-   presence everywhere and absence only on closed routes, and that build mode covers prerendered
-   routes; changeset.
+6. Docs en/ja: both pages state the tag-name-only grammar; the `disallowed-element` page says only
+   `<svelte:element>` is unseen (it does walk `<svelte:head>` and `<template>`); the
+   `required-element` page says it is a body rule (`<svelte:head>`, `<template>`, `<svelte:element>`
+   do not count), that static mode reports presence everywhere and absence only on closed routes,
+   and that build mode covers prerendered routes; changeset.
