@@ -27,16 +27,19 @@ A parser-level probe over the five corpus apps (kener 41 routes, svelte-commerce
 
 The one candidate with a count is a false-positive class: an empty `<span>` with a class is how
 current CSS draws a dot, a rule, a placeholder, and the corpus shows exactly that — 67 intentional
-elements and nothing that reads as a missing body. The other eight total two findings across 321
-routes.
+elements and nothing that reads as a missing body. The seven other measured candidates total two
+findings across 321 routes. `neighbor-popovers` stays unmeasured: the corpus has no `popover` usage,
+so it is excluded from the totals and from the verdict below.
 
 ## Decision
 
-None of the nine is built. A rule that finds nothing on five real apps, or finds only what the author
-meant, is not a rule earning its place in a scored report; it is a maintenance bill with a
-false-positive risk attached. This is a measured "no", on the same footing as the attribute-level
-decision: the probe is the literal check each rule would ship, dynamic content was skipped
-conservatively, and the result is what the rules would report.
+None of the nine is built. For the eight measured candidates this is a measured "no", on the same
+footing as the attribute-level decision: a rule that finds nothing on five real apps, or finds only
+what the author meant, is not a rule earning its place in a scored report; it is a maintenance bill
+with a false-positive risk attached. The probe is the literal check each rule would ship, dynamic
+content was skipped conservatively, and the result is what the rules would report. `neighbor-popovers`
+is not built for a different reason — it could not be measured here — and is the one candidate this
+record does not close.
 
 If a later corpus says otherwise, each is a normal increment with no data or infrastructure
 prerequisite — the facts they need (`ElementFact`, head tags, image attributes) are already
