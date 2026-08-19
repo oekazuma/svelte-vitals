@@ -99,10 +99,8 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     const cfgPath = join(dir, 'svelte-vitals.config.ts');
     let cfg = readFileSync(cfgPath, 'utf8');
     cfg = cfg.replace('rules: {', "rules: {\n    'a11y/invalid-role': 'off',\n    'seo/title-presence': 'warning',");
-    cfg = cfg.replace(
-      'export default {',
-      "export default {\n  overrides: [{ route: '/gallery/a11y/**', rules: { a11y: 'off' } }],"
-    );
+    // The gallery config already has an `overrides` array; a second key would silently lose one.
+    cfg = cfg.replace('overrides: [', "overrides: [{ route: '/gallery/a11y/**', rules: { a11y: 'off' } }, ");
     writeFileSync(cfgPath, cfg);
     const { report } = run(dir);
     expect(findings(report, 'a11y/invalid-role')).toBe(0);
@@ -166,6 +164,56 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     const { report } = run(dir);
     expect(findings(report, 'a11y/disallowed-aria-props')).toBe(findings(baseline, 'a11y/disallowed-aria-props') - 1);
     expect(findings(report, 'a11y/deprecated-aria')).toBe(findings(baseline, 'a11y/deprecated-aria') - 1);
+  });
+
+  it('emits nothing for the element rules once their declarations are removed, and a directive silences a multi-line disallowed tag', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    const cfgPath = join(dir, 'svelte-vitals.config.ts');
+    // Removing the declarations removes the findings — the lever has an observable effect both ways.
+    const cfg = readFileSync(cfgPath, 'utf8');
+    writeFileSync(
+      cfgPath,
+      cfg
+        .replace("'a11y/required-element': { options: { elements: ['h1'] } },", '')
+        .replace("'a11y/disallowed-element': { options: { elements: ['iframe'] } },", '')
+        .replace(
+          "overrides: [{ route: '/gallery/a11y/legacy', rules: { 'a11y/required-element': { options: { elements: ['nav'] } } } }]",
+          'overrides: []'
+        )
+    );
+    // Undeclared, both rules run and emit nothing — no findings and no passes, not even a PASS row.
+    const off = run(dir).report;
+    expect(off.rules['a11y/required-element']).toEqual({ findings: 0, passed: 0 });
+    expect(off.rules['a11y/disallowed-element']).toEqual({ findings: 0, passed: 0 });
+    expect(findings(baseline, 'a11y/required-element')).toBe(1);
+    // The global `h1` layer's effect is the pass rows on every closed route; the override's is the finding.
+    expect(passed(baseline, 'a11y/required-element')).toBeGreaterThan(0);
+    expect(findings(baseline, 'a11y/disallowed-element')).toBe(1);
+    // A directive above a multi-line <iframe> silences disallowed-element.
+    writeFileSync(cfgPath, cfg);
+    const page = join(dir, 'src', 'routes', 'gallery', 'a11y', 'legacy', '+page.svelte');
+    writeFileSync(
+      page,
+      readFileSync(page, 'utf8').replace(
+        '<iframe src="/clean" frameborder="0" title="Embedded page"></iframe>',
+        '<!-- svelte-vitals-disable-next-line a11y/disallowed-element -->\n<iframe\n  src="/clean"\n  frameborder="0"\n  title="Embedded page"\n></iframe>'
+      )
+    );
+    expect(findings(run(dir).report, 'a11y/disallowed-element')).toBe(0);
+  });
+
+  it('rejects a selector-shaped element declaration at config load', () => {
+    const dir = scratchCopy();
+    scratch.push(dir);
+    const cfgPath = join(dir, 'svelte-vitals.config.ts');
+    writeFileSync(
+      cfgPath,
+      readFileSync(cfgPath, 'utf8').replace("elements: ['iframe']", "elements: ['input[type=file]']")
+    );
+    const res = spawnSync(process.execPath, [bin, dir, '--reporter', 'json'], { encoding: 'utf8' });
+    expect(res.status).toBe(2);
+    expect(res.stderr).toContain("'input[type=file]' is not a bare tag name");
   });
 
   it('silences a route-scoped finding in a composed component and turns it into a PASS', () => {
@@ -254,8 +302,8 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     writeFileSync(
       cfgPath,
       readFileSync(cfgPath, 'utf8').replace(
-        'export default {',
-        "export default {\n  overrides: [{ route: '/no-such-route/**', rules: { seo: 'off' } }],"
+        'overrides: [',
+        "overrides: [{ route: '/no-such-route/**', rules: { seo: 'off' } }, "
       )
     );
     expect(run(dir).stderr).toContain("overrides entry for route '/no-such-route/**' matched no route");
@@ -266,8 +314,8 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
       writeFileSync(
         filesCfg,
         readFileSync(cfgPath, 'utf8').replace(
-          "overrides: [{ route: '/no-such-route/**', rules: { seo: 'off' } }],",
-          `overrides: [{ files: ['${glob}'], rules: { seo: 'off' } }],`
+          "overrides: [{ route: '/no-such-route/**', rules: { seo: 'off' } }, ",
+          `overrides: [{ files: ['${glob}'], rules: { seo: 'off' } }, `
         )
       );
     withFiles('src/lib/no-such-dir/**');

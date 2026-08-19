@@ -21,7 +21,17 @@ const RULE_SETTING_VALUES: readonly string[] = ['off', 'critical', 'warning', 'i
  */
 export type RuleOptionSpec =
   | { kind: 'integer'; default: number; min?: number; max?: number }
-  | { kind: 'string-list'; default: readonly string[] }
+  | {
+      kind: 'string-list';
+      default: readonly string[];
+      /**
+       * Grammar every entry must match, checked at config load. A declaration-driven rule reserves
+       * its grammar with this so a value the rule does not interpret today (`'input[type=file]'`
+       * for a tag-name list) is rejected rather than accepted-and-ignored — accepting it would make
+       * giving it meaning later a reinterpretation of a value the frozen schema already took.
+       */
+      pattern?: { regex: RegExp; describe: string };
+    }
   | { kind: 'string-map'; default: Readonly<Record<string, string>> };
 
 /** A rule's configurable options, keyed by option name. */
@@ -192,6 +202,10 @@ export function validateRuleOptions(
     } else if (s.kind === 'string-list') {
       if (!Array.isArray(value) || !value.every(isNonEmptyString)) {
         errors.push(`${ruleId}.${key} must be an array of non-empty strings.`);
+      } else if (s.pattern) {
+        for (const v of value as string[]) {
+          if (!s.pattern.regex.test(v)) errors.push(`${ruleId}.${key}: '${v}' is not ${s.pattern.describe}.`);
+        }
       }
     } else if (
       typeof value !== 'object' ||

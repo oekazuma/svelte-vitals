@@ -65,6 +65,23 @@ describe('collectProjectFacts', () => {
     expect((await collectProjectFacts(createMemoryRuntime({}), '')).appHtmlIds).toBeUndefined();
   });
 
+  it('collects the shell body tag names, and only the body', async () => {
+    const rt = createMemoryRuntime({
+      'src/app.html': `<html><head><meta charset="utf-8" /><title>x</title></head><body data-x><!-- <aside> --><MAIN id="app">%sveltekit.body%</MAIN><script>document.write('<footer>')</script></body></html>`
+    });
+    expect((await collectProjectFacts(rt, '')).appHtmlBodyTags).toEqual(['main']);
+    // </body> may be omitted; <template> children are inert.
+    const loose = createMemoryRuntime({
+      'src/app.html': `<html><body><template><nav></nav></template><main>%sveltekit.body%</main>`
+    });
+    expect((await collectProjectFacts(loose, '')).appHtmlBodyTags).toEqual(['template', 'main']);
+    // Nested templates: the inner one must not end the outer one's inert span.
+    const nested = createMemoryRuntime({
+      'src/app.html': `<body><template><template></template><nav></nav></template><div></div></body>`
+    });
+    expect((await collectProjectFacts(nested, '')).appHtmlBodyTags).toEqual(['template', 'div']);
+  });
+
   it('reads shell ids case-insensitively and ignores comments and script/style bodies', async () => {
     const rt = createMemoryRuntime({
       'src/app.html': [

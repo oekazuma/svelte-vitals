@@ -141,6 +141,34 @@ function detectHtmlLang(html: string): Detection {
  * element id, and counting one would silently satisfy a genuinely dangling reference.
  * Attribute names are ASCII case-insensitive (`ID="app"`) and values may be unquoted (`id=app`) — both are valid HTML.
  */
+/**
+ * Tag names inside `<body>` — the part of the shell that is body content on every route
+ * (`<main>%sveltekit.body%</main>` is real, and must count as present). A whole-file scan would
+ * count `<html>`/`<head>`/`<meta>`, which are not. Comments and script/style bodies are stripped as
+ * for ids; a shell with no `<body>` tag contributes nothing.
+ */
+function detectAppHtmlBodyTags(html: string): string[] {
+  let markup = html
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
+    .replace(/<style[\s\S]*?<\/style\s*>/gi, '');
+  // <template> children are inert until instantiated — the same reading both a11y walks take.
+  // Innermost-first, so nested templates empty out without a parser: each pass replaces every
+  // template whose body holds no template of its own with a placeholder that no later pass can
+  // match, until none is left; the placeholder then becomes an empty <template>, whose own name
+  // still counts, as it does in the component walk.
+  const innermost = /<template\b[^>]*>(?:(?!<template\b)[\s\S])*?<\/template\s*>/gi;
+  for (let prev = ''; prev !== markup;) {
+    prev = markup;
+    markup = markup.replace(innermost, '\u0000');
+  }
+  markup = markup.replaceAll('\u0000', '<template></template>');
+  // HTML lets </body> be omitted; the body then runs to the end of the document.
+  const body = /<body\b[^>]*>([\s\S]*?)(?:<\/body\s*>|$)/i.exec(markup)?.[1];
+  if (body === undefined) return [];
+  return [...new Set([...body.matchAll(/<([a-zA-Z][a-zA-Z0-9-]*)\b/g)].map((m) => m[1]!.toLowerCase()))];
+}
+
 function detectAppHtmlIds(html: string): string[] {
   const markup = html
     .replace(/<!--[\s\S]*?-->/g, '')
@@ -155,7 +183,7 @@ function detectAppHtmlIds(html: string): string[] {
 async function detectAppHtmlFacts(
   rt: Runtime,
   cwd: string
-): Promise<Pick<Project, 'htmlLang' | 'appHtmlDoctype' | 'appHtmlIds'>> {
+): Promise<Pick<Project, 'htmlLang' | 'appHtmlDoctype' | 'appHtmlIds' | 'appHtmlBodyTags'>> {
   const appHtmlPath = rt.join(cwd, 'src/app.html');
   if (!(await rt.exists(appHtmlPath))) return { htmlLang: { presence: 'none', value: 'absent' } };
   let content: string;
@@ -170,7 +198,8 @@ async function detectAppHtmlFacts(
     // [\s\S]*? is ambiguous across iterations and backtracks exponentially on a comment run
     // with no doctype (measured: ~45 leading comments hang the process).
     appHtmlDoctype: /^\s*<!doctype\s+html/i.test(content.replace(/<!--[\s\S]*?-->/g, '')),
-    appHtmlIds: detectAppHtmlIds(content)
+    appHtmlIds: detectAppHtmlIds(content),
+    appHtmlBodyTags: detectAppHtmlBodyTags(content)
   };
 }
 
