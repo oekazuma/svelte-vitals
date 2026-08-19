@@ -31,6 +31,10 @@ Sanitizing still leaves `{@html}` in the source, so the finding persists by desi
 
 A general-purpose HTML sanitizer is also the wrong tool for a non-HTML payload. The common example is JSON-LD: Svelte doesn't evaluate `{...}` expressions inside a `<script>` tag in markup — they render as literal text — so a dynamic JSON-LD block has to be injected with `{@html}`, and an HTML sanitizer isn't checking the right thing there. What makes that injection safe is script-safe serialization: escape `<` as `\u003c` (e.g. `JSON.stringify(data).replace(/</g, '\\u003c')`) so a `</script>` inside a string value can't close the tag early and turn the rest into markup. Reviewing the data as "trusted" isn't enough on its own — even honest data can contain `</script>`. Once the value is serialized that way (or is a fully literal, reviewed JSON block), suppress rather than routing it through an HTML sanitizer.
 
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+
 ## Disabling
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/raw-html -->` on the line above it, or turn the rule off:

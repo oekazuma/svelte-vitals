@@ -9,7 +9,7 @@ description: HTML 標準の obsolete features に挙げられた要素は非適�
 
 ## チェック内容
 
-HTML 標準の obsolete features 節に挙げられた要素 — `<center>`、`<font>`、`<strike>`、`<big>`、`<tt>`、`<frame>`、`<applet>` など — をコンポーネントのソースから検出します。CLI と Vite プラグインの両方が対象です。`--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
+HTML 標準の obsolete features 節に挙げられた要素 — `<center>`、`<font>`、`<strike>`、`<big>`、`<tt>`、`<frame>`、`<applet>` など — をコンポーネントのソースから検出します。
 
 検出しないもの:
 
@@ -39,6 +39,10 @@ HTML 標準の obsolete features 節に挙げられた要素 — `<center>`、`<
 <s>old price</s>
 <span class="alert">styled with CSS</span>
 ```
+
+## モードによる違い
+
+ありません。このルールはソース — 同じ `.svelte` / `.ts` ファイル — を読むので、CLI、Vite プラグインのビルド、ライブダッシュボードの静的ベースラインのどの面でも結果は同一で、レンダリング済み HTML の解析で再評価されることもありません。`--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
 
 ## 無効化
 

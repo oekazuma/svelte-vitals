@@ -169,6 +169,10 @@ A mis-cased directory that is also a declared unit missing its entry file draws 
 `architecture/unit-entry-file` as well. Neither suppresses the other — they are different claims and
 both are true.
 
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+
 ## Disabling
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/directory-naming -->` on the line above it, or turn the rule off:

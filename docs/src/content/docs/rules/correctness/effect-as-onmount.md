@@ -7,7 +7,7 @@ description: An $effect that reads no reactive value belongs in an event handler
 
 ## What it checks
 
-Flags an `$effect` / `$effect.pre` whose non-empty body reads no reactive value that this analysis can see — no `$state`, `$derived`, `$props`, imported binding, local declared with a `new …()` initializer, or store subscription, and no bare function call (`foo()`). Such an effect runs once after mount and never re-runs on the paths this check can follow. Checked by static (CLI) analysis of component instance scripts.
+Flags an `$effect` / `$effect.pre` whose non-empty body reads no reactive value that this analysis can see — no `$state`, `$derived`, `$props`, imported binding, local declared with a `new …()` initializer, or store subscription, and no bare function call (`foo()`). Such an effect runs once after mount and never re-runs on the paths this check can follow.
 
 ## Why it matters
 
@@ -38,6 +38,10 @@ Name matching is by identifier text, not lexical scope — the same granularity 
 
 If that's your case, suppress it with a
 [`svelte-vitals-disable-next-line`](/guides/cli#suppressing-a-single-finding-inline) comment rather than moving working code into `onMount`.
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

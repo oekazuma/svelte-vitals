@@ -7,7 +7,7 @@ description: An aria-* attribute's value should match the type the WAI-ARIA spec
 
 ## What it checks
 
-Flags a literal `aria-*` attribute whose value does not match the type the WAI-ARIA spec defines for that attribute. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+Flags a literal `aria-*` attribute whose value does not match the type the WAI-ARIA spec defines for that attribute.
 
 Only attributes the spec defines are checked here — an unrecognized name is `a11y/unknown-aria-attribute`'s concern, not this rule's. Each spec type is validated differently:
 
@@ -41,6 +41,10 @@ Use a value matching the attribute's WAI-ARIA type — `aria-hidden="true"` for 
 ```svelte
 <div aria-hidden="true"></div>
 ```
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

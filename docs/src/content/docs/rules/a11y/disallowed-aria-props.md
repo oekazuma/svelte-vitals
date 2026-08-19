@@ -7,7 +7,7 @@ description: An aria-* attribute the element's role does not support is ignored;
 
 ## What it checks
 
-Flags an `aria-*` attribute that the element's role either **prohibits** or **does not own**, judged against the ARIA 1.3 role tables in component source, by both the CLI and the Vite plugin. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+Flags an `aria-*` attribute that the element's role either **prohibits** or **does not own**, judged against the ARIA 1.3 role tables in component source.
 
 Which role is judged:
 
@@ -50,6 +50,10 @@ Give the element a role that supports the attribute, or move the attribute to th
 
 <div role="switch" tabindex="0" aria-checked="true">Toggle</div>
 ```
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

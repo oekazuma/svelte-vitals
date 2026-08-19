@@ -139,6 +139,10 @@ Two things this rule does not attempt: over-permission at a reserved-name direct
 tell a concern directory from a reserved-name directory at the same depth), and seeding a
 declaration from the tree.
 
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+
 ## Disabling
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/reserved-name-placement -->` on the line above it, or turn the rule off:

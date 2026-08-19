@@ -7,7 +7,7 @@ description: The page should declare a character encoding with <meta charset>.
 
 ## What it checks
 
-Flags a rendered page with no `<meta charset>` declaration. In SvelteKit the charset tag lives in `src/app.html`, so this rule is evaluated only in rendered analysis (the vite plugin); static (CLI) analysis emits nothing for it.
+Flags a rendered page with no `<meta charset>` declaration.
 
 ## Why it matters
 
@@ -21,6 +21,10 @@ Without a declared character encoding the browser must guess, which can render t
   %sveltekit.head%
 </head>
 ```
+
+## Mode differences
+
+**Rendered analysis only** (the Vite plugin's build pass, a route you visit in the dashboard). The tag lives in `src/app.html`, which source analysis (the CLI, the dashboard's static baseline) does not resolve, so that pass reports nothing for this rule.
 
 ## Disabling
 

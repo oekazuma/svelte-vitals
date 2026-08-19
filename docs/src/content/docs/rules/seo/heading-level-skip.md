@@ -23,8 +23,8 @@ Skipping a heading level breaks the document outline that assistive technology r
 
 Headings are collected in both modes, but from different sources, so results can differ:
 
-- **Static (CLI)** walks the route's `.svelte` templates, so it counts headings in branches that may not render (e.g. inside `{#if false}`) and cannot see headings rendered by imported child components.
-- **Rendered (vite)** reads the final HTML, so it sees component-rendered headings and only the branches that actually rendered.
+- **Source analysis** (the CLI, the dashboard's static baseline) walks the route's `.svelte` templates, so it counts headings in branches that may not render (e.g. inside `{#if false}`) and cannot see headings rendered by imported child components.
+- **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the final HTML, so it sees component-rendered headings and only the branches that actually rendered.
 
 When the two disagree, trust the rendered result — it reflects what ships to the browser.
 

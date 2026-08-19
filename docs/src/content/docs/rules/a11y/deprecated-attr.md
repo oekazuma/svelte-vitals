@@ -9,7 +9,7 @@ Scored `info` rather than `warning`: the attribute may still work today. The fin
 
 ## What it checks
 
-Flags an attribute the HTML spec data marks deprecated (or obsolete) **on that element** — `iframe[frameborder]`, `td[width]`, `body[bgcolor]`, `hr[size]`, `style[type]` — in component source, by both the CLI and the Vite plugin. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+Flags an attribute the HTML spec data marks deprecated (or obsolete) **on that element** — `iframe[frameborder]`, `td[width]`, `body[bgcolor]`, `hr[size]`, `style[type]` — in component source.
 
 Deprecation is per element: `width` is deprecated on `<td>` and current on `<img>`, so only the first is reported. An element with several deprecated attributes yields **one** finding listing them, anchored at the start tag — so one `disable-next-line` directive above the element silences it, however many lines the tag spans.
 
@@ -40,6 +40,10 @@ Move the presentation to CSS, or use the attribute the deprecated one was supers
 <iframe src="/embed" title="Map" style="border: 0"></iframe>
 <td style="width: 120px">…</td>
 ```
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

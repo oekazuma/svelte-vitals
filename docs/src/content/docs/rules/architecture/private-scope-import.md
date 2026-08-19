@@ -57,6 +57,10 @@ A type-only import (`import type { X } from '../parts/types'`) is flagged the sa
 
 An import that names a private directory itself, rather than a file inside it (for example `import { Badge } from '../Card/parts'`), is not checked. This is a deliberate limitation, not a gap: resolving it to the directory's own contents would trade this false negative for a false positive elsewhere.
 
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+
 ## Disabling
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/private-scope-import -->` on the line above it, or turn the rule off:

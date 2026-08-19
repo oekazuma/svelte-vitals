@@ -21,6 +21,10 @@ Set `<html lang="...">` in `src/app.html`:
 <html lang="en">
 ```
 
+## Mode differences
+
+**Source analysis** (the CLI, the dashboard's static baseline) reads the `<html lang>` attribute in `src/app.html`. **Rendered analysis** (the Vite plugin's build pass) reads the shipped document's `<html lang>` — the first prerendered page carrying one — so a value filled in at render time by a `handle` is judged there, not in source. The dashboard's live layer does not evaluate this rule; the static baseline's result stands.
+
 ## Disabling
 
 If this is intentional, turn the rule off:

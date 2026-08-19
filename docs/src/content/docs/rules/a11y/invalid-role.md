@@ -7,7 +7,7 @@ description: A role attribute should name a concrete WAI-ARIA role, not a typo o
 
 ## What it checks
 
-Flags a literal `role` attribute whose value is not a valid, concrete WAI-ARIA role. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+Flags a literal `role` attribute whose value is not a valid, concrete WAI-ARIA role.
 
 A `role` may hold a space-separated fallback list (`role="switch checkbox"`). A user agent resolves it to the **first token naming a concrete role**, so the rule reports only a value that resolves to nothing at all. Two things get flagged:
 
@@ -33,6 +33,10 @@ Use a concrete WAI-ARIA role, or drop the attribute if the element's native sema
 ```svelte
 <div role="button">Click</div>
 ```
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

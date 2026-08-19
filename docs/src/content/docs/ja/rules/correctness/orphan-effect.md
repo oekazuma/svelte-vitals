@@ -72,6 +72,10 @@ export const quizState = new QuizStateManager();
 </script>
 ```
 
+## モードによる違い
+
+ありません。このルールはソース — 同じ `.svelte` / `.ts` ファイル — を読むので、CLI、Vite プラグインのビルド、ライブダッシュボードの静的ベースラインのどの面でも結果は同一で、レンダリング済み HTML の解析で再評価されることもありません。`--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
+
 ## 無効化
 
 個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/orphan-effect -->` を置きます。ルールごと無効化するには:

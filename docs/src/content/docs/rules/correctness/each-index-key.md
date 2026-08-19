@@ -7,7 +7,7 @@ description: Keying an {#each} block by its index gives items position-based ide
 
 ## What it checks
 
-Flags an `{#each}` block whose key is exactly its index binding, e.g. `{#each items as item, i (i)}`. Checked by static (CLI) analysis of every `.svelte` component under `src/`.
+Flags an `{#each}` block whose key is exactly its index binding, e.g. `{#each items as item, i (i)}`.
 
 Trivial stringifications of the index — `(String(i))`, `(Number(i))`, ``(`${i}`)``, `(i.toString())`, `(i + '')`, and TS-wrapped forms including `(i!)` — are flagged too: they are still position-based identity.
 
@@ -31,6 +31,10 @@ Key by a value that uniquely identifies the item:
   <li>{item.name}</li>
 {/each}
 ```
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

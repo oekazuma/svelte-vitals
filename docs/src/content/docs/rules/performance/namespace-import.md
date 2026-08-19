@@ -7,7 +7,7 @@ description: Prefer named imports over import * as for tree-shaking.
 
 ## What it checks
 
-Flags a value `import * as X from '<package>'` from a bare (node_modules) package. Type-only imports (`import type * as T`) and non-bare specifiers (relative, `$lib`, `$app`, `$env`, `#…`) are not flagged. Static (CLI) analysis of `src/**/*.svelte` scripts.
+Flags a value `import * as X from '<package>'` from a bare (node_modules) package. Type-only imports (`import type * as T`) and non-bare specifiers (relative, `$lib`, `$app`, `$env`, `#…`) are not flagged.
 
 ## Why it matters
 
@@ -26,6 +26,10 @@ Named imports are reliably shakeable and make the dependency surface explicit. W
   import { Scene, WebGLRenderer } from 'three';
 </script>
 ```
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

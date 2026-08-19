@@ -7,7 +7,7 @@ description: An {#each} block over dynamic data should have a key.
 
 ## What it checks
 
-Flags an `{#each}` block with no key. Checked by static (CLI) analysis of every `.svelte` component under `src/`. A few shapes are ignored:
+Flags an `{#each}` block with no key. A few shapes are ignored:
 
 - A constant inline array literal (`{#each [1, 2, 3] as n}`) — it has a fixed length and never reorders, so a key cannot help.
 - An itemless each (`{#each { length: 8 }, i}`, the "render N times" pattern) — there is no item identity to key on; the only possible key is the index itself, which is a no-op.
@@ -24,6 +24,10 @@ Without a key, a reorder or an insert/remove makes Svelte add or remove nodes at
   <li>{item.name}</li>
 {/each}
 ```
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

@@ -9,7 +9,7 @@ Declaration-driven: the rule has no opinion of its own. With nothing declared it
 
 ## What it checks
 
-Every element in component source whose tag name is in the declared list — by both the CLI and the Vite plugin, since both read the same `.svelte` files. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+Every element in component source whose tag name is in the declared list.
 
 ```js svelte-vitals.config.js
 export default {
@@ -43,6 +43,10 @@ Some elements have no place in a given project's markup — `<iframe>` in conten
 ## How to fix
 
 Replace the element with the one the project prefers, or narrow the declaration with an `overrides` entry for the files where it is allowed.
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

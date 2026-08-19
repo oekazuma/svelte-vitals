@@ -7,7 +7,7 @@ description: An aria-* attribute should name a real WAI-ARIA attribute, not a ty
 
 ## What it checks
 
-Flags an `aria-*` attribute whose name is not defined by the WAI-ARIA spec. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+Flags an `aria-*` attribute whose name is not defined by the WAI-ARIA spec.
 
 Only the attribute _name_ is checked, not its value — a bad value on a real attribute is `a11y/invalid-aria-value`'s concern. Because of that, an unrecognized name is flagged the same way whether its value is a literal or a dynamic expression:
 
@@ -32,6 +32,10 @@ Use the correctly spelled, spec-defined attribute:
 ```svelte
 <button aria-label="Close">×</button>
 ```
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

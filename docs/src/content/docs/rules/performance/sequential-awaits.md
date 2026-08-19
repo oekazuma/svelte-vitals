@@ -25,6 +25,10 @@ const [a, b] = await Promise.all([fetchA(), fetchB()]);
 
 Static data flow cannot see side-effect ordering. If an earlier await performs setup a later request relies on (sessions, locale, cache warming), the sequence is intentional — that is why this rule reports at `info` severity. Suppress a deliberate sequence per line with `// svelte-vitals-disable-next-line performance/sequential-awaits`, or raise/lower the severity in your config.
 
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+
 ## Disabling
 
 ```js svelte-vitals.config.js

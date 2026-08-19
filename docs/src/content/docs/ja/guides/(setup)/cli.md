@@ -134,6 +134,8 @@ svelte-vitals --score --min-health 80   # スコアでゲートする。終了�
 svelte-vitals --route "/blog/**"
 ```
 
+ルートスコープのルールはマッチしたルートに対して動きます。コンポーネントスコープのルール（Correctness、Security、Architecture、およびコンポーネントスコープの Performance / Accessibility ルール）は、コンポーネントの検出には紐づけるルートが無いためスキップされます。プロジェクトスコープのルール（`seo/robots-txt`、`seo/html-lang` など）は引き続き動きます。`seo/duplicate-title` と `seo/duplicate-description` はマッチしたルート同士だけを比較します。どのルートにもマッチしない glob は警告として報告されます。
+
 ### `--diff [ref]`
 
 `ref`（デフォルトは `HEAD`、つまり未コミットの変更）と比較して**変更された**ファイルにある検出結果のみを報告します。比較の基準は `ref` との**マージベース**で、追跡されていない（新規）ファイルも対象に含みます。そのため `--diff main` は「このブランチで変更した内容」を意味します。PR チェックとして最適です。
