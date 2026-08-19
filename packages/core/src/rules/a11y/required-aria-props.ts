@@ -10,13 +10,20 @@ const HOST_SUPPLIED: Record<string, (e: AriaElementFact) => boolean> = {
   'aria-selected': (e) => e.tag === 'option',
   'aria-level': (e) => /^h[1-6]$/.test(e.tag),
   'aria-valuenow': (e) => (e.tag === 'input' && e.inputType === 'range') || e.tag === 'progress' || e.tag === 'meter',
-  // HTML-AAM: `<select>` and `<input list>` are native comboboxes whose open/closed state and
-  // popup relationship the user agent exposes itself, so an explicit `role="combobox"` on them owes
-  // neither `aria-expanded` nor `aria-controls`. (The compiler warns on `<input list>` here; staying
-  // silent is not the opposite verdict, and HTML-AAM is the source for the host's own semantics.)
-  'aria-expanded': (e) => e.tag === 'select' || (e.tag === 'input' && e.hasList === true),
-  'aria-controls': (e) => e.tag === 'select' || (e.tag === 'input' && e.hasList === true)
+  // HTML-AAM: a `<select>` without `multiple`/`size > 1`, and a text-like `<input list>`, are native
+  // comboboxes whose open/closed state and popup relationship the user agent exposes itself, so an
+  // explicit `role="combobox"` on them owes neither `aria-expanded` nor `aria-controls`. (The
+  // compiler warns on `<input list>` here; staying silent is not the opposite verdict, and HTML-AAM
+  // is the source for the host's own semantics.)
+  'aria-expanded': isNativeCombobox,
+  'aria-controls': isNativeCombobox
 };
+
+const LIST_INPUT_TYPES = new Set([undefined, 'text', 'search', 'tel', 'url', 'email']);
+function isNativeCombobox(e: AriaElementFact): boolean {
+  if (e.tag === 'select') return e.selectKind === 'combobox';
+  return e.tag === 'input' && e.hasList === true && LIST_INPUT_TYPES.has(e.inputType);
+}
 
 export const a11yRequiredAriaProps = componentRule({
   id: 'a11y/required-aria-props',

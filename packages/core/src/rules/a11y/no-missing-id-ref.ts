@@ -19,7 +19,7 @@ export const a11yNoMissingIdRef: Rule = {
   severity: 'warning',
   scope: 'route',
   rationale:
-    'An id reference — `for`, `list`, `headers`, `form`, the ARIA id-reference properties (`aria-labelledby`, `aria-describedby`, `aria-controls`, `aria-owns`, …), or a same-page `href="#…"` — pointing at an id that does not exist leaves assistive tech with a broken association or the browser with a dead in-page link.',
+    'An id reference — `for`, `list`, `headers`, `form`, `popovertarget`, `commandfor`, the ARIA id-reference properties (`aria-labelledby`, `aria-describedby`, `aria-controls`, `aria-owns`, …), or a same-page `href="#…"` — pointing at an id that does not exist leaves assistive tech with a broken association or the browser with a dead in-page link.',
   async check(ctx: RuleContext): Promise<Result[]> {
     const out: Result[] = [];
     for (const route of ctx.a11y ?? []) {

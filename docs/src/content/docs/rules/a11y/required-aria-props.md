@@ -17,7 +17,7 @@ A handful of required props are supplied natively by certain host elements, per 
 - `aria-selected` — by `<option>`.
 - `aria-level` — by `<h1>`–`<h6>`.
 - `aria-valuenow` — by `<input type="range">`, `<progress>`, and `<meter>`.
-- `aria-expanded` and `aria-controls` — by `<select>` and by `<input list="…">`, the native comboboxes (HTML-AAM exposes their open state and their popup itself). The Svelte compiler still warns on `<input list role="combobox">` here; this rule stays silent, which is not the opposite verdict.
+- `aria-expanded` and `aria-controls` — by the native comboboxes: a `<select>` without `multiple` and without a `size` above 1, and an `<input list="…">` whose type is omitted or `text`, `search`, `tel`, `url`, or `email` (HTML-AAM exposes their open state and their popup itself). `<select multiple>` and `<select size="2">` are native listboxes and `<input type="date" list>` is not a combobox, so those still owe both. The Svelte compiler still warns on `<input list role="combobox">` here; this rule stays silent, which is not the opposite verdict.
 
 Not flagged:
 

@@ -28,7 +28,7 @@ Not flagged:
 - A descendant with `tabindex="-1"` — it is removed from the tab order, so it does not compete for keyboard focus.
 - A descendant of an href-less `<a>`, since a plain `<a>` with no `href` is not itself interactive.
 - Interactive elements nested across components (e.g. a `<button>` inside a child component rendered inside an `<a href>`) — this rule only sees a single component's own template, so that variant is a known non-goal.
-- Namespace is not tracked: an `<a href>` inside `<svg>` is judged as the HTML `<a>`, so an SVG link containing a `<button>` is reported — the same nesting SVG itself forbids, so the verdict stands.
+- Namespace is not tracked: an `<a href>` inside `<svg>` is classified as the HTML `<a>`, so an SVG link wrapping a `<button>` is reported as interactive nesting. That is a parser approximation, not an SVG restriction — SVG itself forbids only nested SVG links — but the pattern is one no reader of the HTML rule would want either, so the finding stays.
 
 ## Why it matters
 

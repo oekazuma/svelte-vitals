@@ -123,6 +123,11 @@ export interface AriaElementFact {
   inputType?: string;
   /** an `<input>` carrying a `list` attribute — its implicit role is `combobox` and the host supplies `aria-expanded` */
   hasList?: true;
+  /**
+   * A `<select>`'s native role: `combobox` with no `multiple` and no `size` above 1, `listbox`
+   * otherwise; absent for a non-select or when a dynamic `size` leaves it unknowable.
+   */
+  selectKind?: 'combobox' | 'listbox';
   /** Set when the element also carries a spread attribute — its full attribute set is
    *  unknowable, so required-prop presence checks must treat it as satisfied (a11y/required-aria-props). */
   hasSpread?: true;

@@ -183,20 +183,26 @@ describe('a11y/required-aria-props', () => {
     );
     expect(fails(rs)).toHaveLength(0);
   });
-  it('treats <select> and <input list> as native comboboxes whose aria-expanded the host supplies', async () => {
+  it('treats a single <select> and a text-like <input list> as native comboboxes whose aria-expanded the host supplies', async () => {
     const rs = await a11yRequiredAriaProps.check(
       ctx([
         comp({
           ariaElements: [
-            el({ tag: 'select', role: { literal: 'combobox' } }),
+            el({ tag: 'select', selectKind: 'combobox', role: { literal: 'combobox' } }),
             el({ line: 5, tag: 'input', inputType: 'text', hasList: true, role: { literal: 'combobox' } }),
+            el({ line: 6, tag: 'input', hasList: true, role: { literal: 'combobox' } }),
             // A plain <input role="combobox"> still owes aria-expanded.
-            el({ line: 8, tag: 'input', inputType: 'text', role: { literal: 'combobox' } })
+            el({ line: 8, tag: 'input', inputType: 'text', role: { literal: 'combobox' } }),
+            // <select multiple> / <select size="2"> are native listboxes, and a `list` on a
+            // non-text input type does not make a combobox: none of them supply anything.
+            el({ line: 9, tag: 'select', selectKind: 'listbox', role: { literal: 'combobox' } }),
+            el({ line: 10, tag: 'select', role: { literal: 'combobox' } }),
+            el({ line: 11, tag: 'input', inputType: 'date', hasList: true, role: { literal: 'combobox' } })
           ]
         })
       ])
     );
-    expect(fails(rs).map((r) => r.line)).toEqual([8]);
+    expect(fails(rs).map((r) => r.line)).toEqual([8, 9, 10, 11]);
   });
   it('satisfied by a spread attribute — its full attribute set is unknowable', async () => {
     const rs = await a11yRequiredAriaProps.check(

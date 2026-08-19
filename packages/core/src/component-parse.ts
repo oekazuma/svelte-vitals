@@ -1146,6 +1146,16 @@ function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: 
  * `RegularElement` is checked, so `<svelte:element this="div" role="…">` is out of static reach —
  * same convention as `collectCheckableBindValues`/`collectHrefLinks`.
  */
+/** HTML-AAM: a `<select>` is a combobox unless `multiple` or a display `size` above 1 makes it a listbox. */
+function selectNativeRole(attributes: Node[]): 'combobox' | 'listbox' | undefined {
+  if (findAttr(attributes, 'multiple') !== undefined) return 'listbox';
+  const size = findAttr(attributes, 'size');
+  if (size === undefined) return 'combobox';
+  const v = attrValueOf(size);
+  if (v !== 'static') return undefined;
+  return Number(attrTextOf(size)) > 1 ? 'listbox' : 'combobox';
+}
+
 function collectAriaElements(node: Node, source: string, acc: AriaElementFact[]): void {
   if (Array.isArray(node)) {
     for (const child of node) collectAriaElements(child, source, acc);
@@ -1166,6 +1176,7 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
     if (roleAttr || ariaAttrs.length > 0) {
       const inputType = node.name === 'input' ? attrText(node.attributes, 'type') : undefined;
       const hasList = node.name === 'input' && findAttr(node.attributes, 'list') !== undefined;
+      const selectKind = node.name === 'select' ? selectNativeRole(node.attributes) : undefined;
       const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
       acc.push({
         tag: node.name,
@@ -1173,6 +1184,7 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
         ...(roleAttr ? { role: classifyAttrValue(roleAttr.value) } : {}),
         ...(inputType !== undefined ? { inputType: inputType.toLowerCase() } : {}),
         ...(hasList ? { hasList: true as const } : {}),
+        ...(selectKind ? { selectKind } : {}),
         ...(hasSpread ? { hasSpread: true as const } : {}),
         aria: ariaAttrs.map((a: Node) => ({
           name: String(a.name).toLowerCase(),
@@ -1531,38 +1543,48 @@ function collectBulletTexts(
 ): void {
   if (Array.isArray(node)) {
     let prevWasExpression = afterExpression;
-    const group: { line: number; char: string; text: Node }[] = [];
+    let group: { line: number; char: string; text: Node }[] = [];
+    const flush = () => {
+      if (group.length >= 2) {
+        for (const b of group) {
+          if (reported.has(b.text)) continue;
+          reported.add(b.text);
+          acc.push({ line: b.line, char: b.char });
+        }
+      }
+      group = [];
+    };
     const bulletOf = (text: Node, after: boolean) => {
       if (!text || typeof text !== 'object' || text.type !== 'Text' || after) return undefined;
       const trimmed = String(text.data ?? '').trim();
       return BULLET_TEXT_RE.test(trimmed) ? { line: lineOf(source, text.start), char: trimmed[0]!, text } : undefined;
     };
     for (const child of node) {
-      if (child && typeof child === 'object' && child.type === 'Text') {
+      if (!child || typeof child !== 'object') continue;
+      if (child.type === 'Text') {
         const b = inert ? undefined : bulletOf(child, prevWasExpression);
         if (b) group.push(b);
+        // Meaningful non-bullet text ends a sequence; whitespace between items does not.
+        else if (String(child.data ?? '').trim()) flush();
+      } else if (child.type === 'Comment' || (child.type === 'RegularElement' && child.name === 'br')) {
+        // Separators inside a sequence (`- one<br>- two`).
       } else {
-        // The opening text of a child element is an item of THIS parent's list too.
-        if (!inert && child?.type === 'RegularElement' && child.name !== 'li' && !VERBATIM_TEXT_TAGS.has(child.name)) {
+        // The opening text of a child element is an item of THIS parent's list too — unless the
+        // element follows an interpolation, the same tail-of-a-sentence case as for text.
+        let item: ReturnType<typeof bulletOf>;
+        if (!inert && child.type === 'RegularElement' && child.name !== 'li' && !VERBATIM_TEXT_TAGS.has(child.name)) {
           const first = (child.fragment?.nodes ?? []).find(
             (n: Node) => !(n?.type === 'Text' && !String(n.data ?? '').trim()) && n?.type !== 'Comment'
           );
-          const b = bulletOf(first, false);
-          if (b) group.push(b);
+          item = bulletOf(first, prevWasExpression);
         }
+        if (item) group.push(item);
+        else flush(); // an element that is not an item, or an expression, ends the sequence
         collectBulletTexts(child, source, acc, inert, prevWasExpression, reported);
       }
-      if (child && typeof child === 'object' && child.type !== 'Comment') {
-        prevWasExpression = child.type === 'ExpressionTag';
-      }
+      if (child.type !== 'Comment') prevWasExpression = child.type === 'ExpressionTag';
     }
-    if (group.length >= 2) {
-      for (const b of group) {
-        if (reported.has(b.text)) continue;
-        reported.add(b.text);
-        acc.push({ line: b.line, char: b.char });
-      }
-    }
+    flush();
     return;
   }
   if (!node || typeof node !== 'object') return;
