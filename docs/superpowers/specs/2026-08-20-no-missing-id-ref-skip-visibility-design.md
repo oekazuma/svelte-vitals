@@ -12,8 +12,8 @@ skipped.
 
 Two separable problems: the silence (observability) and the narrow applicability (widening
 the closed world). This design fixes the silence and turns the report into the measurement
-harness for the widening decision. **The widening mechanism itself is out of scope** — issue
-#533 records that several shapes each hit a different wall, and roadmap item C-6 (pretender
+harness for the widening decision. **The widening mechanism itself is out of scope** —
+issue #533 records that several shapes each hit a different wall, and roadmap item C-6 (pretender
 mapping) is one input, not the conclusion: svelte-commerce carries spreads and
 expression-valued ids on 54/54 routes, so component mapping alone recovers roughly zero
 there. A follow-up design picks the mechanism from the numbers this design produces.

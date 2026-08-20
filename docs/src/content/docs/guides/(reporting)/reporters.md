@@ -165,7 +165,7 @@ you the declaration was checked at all — the question a rule with no findings 
 `a11y/no-missing-id-ref` uses it: the rule needs a fully resolved route composition, and a
 route that fails that bar is skipped without a result. Each entry lists the skipped route,
 its literal id-reference count (`refs` — a route with `0` would produce nothing even if it
-ran), and the causes that cleared the gate, each with `kind` (`component`, `spread`, `html`,
+ran), and the causes that broke the closed world, each with `kind` (`component`, `spread`, `html`,
 or `dynamic-id`), the first offending `file` and `line`, and for components the name as
 written (`detail`). Like `examined`, it describes the analysis rather than the report —
 `--diff`, `--baseline` and suppressions do not narrow it — and it is omitted when no

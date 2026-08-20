@@ -20,9 +20,9 @@ warning naming the skipped/analyzed ratio and the causes, and the JSON report ca
 top-level `skipped["a11y/no-missing-id-ref"]` array: one entry per skipped route with the
 route's literal id-reference count (`refs`) and each cause — `component` (with the
 component's name), `spread`, `html` (`{@html}`), or `dynamic-id` — located at the first
-file and line that cleared the gate. A report where the rule never ran is therefore
-distinguishable from one where it passed everywhere, and each entry says exactly what to
-change for the rule to run on that route.
+file and line that broke the closed world. A report where the rule never ran is therefore
+distinguishable from one where it passed everywhere, and each entry names the blocking
+causes and where they first occur.
 
 ## Why it matters
 
