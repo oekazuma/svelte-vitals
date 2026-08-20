@@ -15,6 +15,15 @@ Flags a literal id-reference attribute — HTML's `for`, `list`, `headers`, `for
 
 In practice, a single library component anywhere in a route's composition — a UI kit's `<Button>`, a `<Link>` from a routing helper, anything under `node_modules` — closes the world nowhere, so the rule never runs on that route. A typical app with such a component in its root layout gets this rule on none of its routes. That is accepted, not a bug: a false positive here would send someone hunting for an id that in fact exists inside a component the analysis couldn't see, so skipping the whole route beats guessing.
 
+A skip is no longer silent. When at least one analyzed route is skipped, the CLI prints one
+warning naming the skipped/analyzed ratio and the causes, and the JSON report carries a
+top-level `skipped["a11y/no-missing-id-ref"]` array: one entry per skipped route with the
+route's literal id-reference count (`refs`) and each cause — `component` (with the
+component's name), `spread`, `html` (`{@html}`), or `dynamic-id` — located at the first
+file and line that broke the closed world. A report where the rule never ran is therefore
+distinguishable from one where it passed everywhere, and each entry names the blocking
+causes and where they first occur.
+
 ## Why it matters
 
 The id and its reference routinely live in different files — a `<label for="email">` in a form component, `id="email"` on an `<input>` several components away, or an anchor link that only makes sense once the actual page is composed. A file-scoped markup linter cannot check this at all, since the defect only exists once the route is composed across files. Assistive tech resolves `for`/`aria-labelledby`/`aria-describedby`/`aria-controls`/`aria-activedescendant` by id lookup in the final DOM; when the target doesn't exist, the association silently fails — a label reads as unrelated text, an `aria-describedby` announces nothing extra, and a fragment link scrolls nowhere.

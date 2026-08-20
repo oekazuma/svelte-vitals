@@ -509,6 +509,7 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y.idRefs).toEqual([{ id: 'x', attr: 'for', file: 'src/routes/+layout.svelte', line: 1 }]);
     expect(a11y.ids.x).toHaveLength(1);
     expect(a11y.fullyResolved).toBe(true);
+    expect(a11y.unresolvedCauses).toBeUndefined();
   });
 
   it('collects every literal id as a candidate but counts only unconditional ones', async () => {
@@ -539,6 +540,9 @@ describe('collectRoutes a11y composition', () => {
       'src/routes/+page.svelte': `<script>import Fancy from 'fancy-ui';</script><Fancy />`
     });
     expect(a11y.fullyResolved).toBe(false);
+    expect(a11y.unresolvedCauses).toEqual([
+      { kind: 'component', detail: 'Fancy', file: 'src/routes/+page.svelte', line: 1 }
+    ]);
   });
 
   it('opens the world for a dynamic id, which is no candidate', async () => {
@@ -546,11 +550,34 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y.fullyResolved).toBe(false);
     expect(a11y.idCandidates).toEqual([]);
     expect(a11y.ids).toEqual({});
+    expect(a11y.unresolvedCauses).toEqual([{ kind: 'dynamic-id', file: 'src/routes/+page.svelte', line: 1 }]);
   });
 
   it('opens the world for {@html} content', async () => {
     const a11y = await a11yOf({ 'src/routes/+page.svelte': `<div>{@html body}</div>` });
     expect(a11y.fullyResolved).toBe(false);
+    expect(a11y.unresolvedCauses).toEqual([{ kind: 'html', file: 'src/routes/+page.svelte', line: 1 }]);
+  });
+
+  it('records a spread attribute as a located cause', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+page.svelte': `<h1>t</h1>\n<div {...rest}>spread</div>`
+    });
+    expect(a11y.fullyResolved).toBe(false);
+    expect(a11y.unresolvedCauses).toEqual([{ kind: 'spread', file: 'src/routes/+page.svelte', line: 2 }]);
+  });
+
+  it('dedupes causes by (kind, file, detail), keeping the first line', async () => {
+    const a11y = await a11yOf({
+      'src/routes/+page.svelte': `<script>import Fancy from 'fancy-ui';</script>\n<Fancy />\n<Fancy />\n<div {...a}>x</div>\n<div {...b}>y</div>`
+    });
+    expect(a11y.unresolvedCauses).toHaveLength(2);
+    expect(a11y.unresolvedCauses).toEqual(
+      expect.arrayContaining([
+        { kind: 'component', detail: 'Fancy', file: 'src/routes/+page.svelte', line: 2 },
+        { kind: 'spread', file: 'src/routes/+page.svelte', line: 4 }
+      ])
+    );
   });
 
   describe('elementTags / elementsClosed (a11y/required-element)', () => {

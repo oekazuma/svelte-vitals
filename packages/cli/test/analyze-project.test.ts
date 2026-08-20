@@ -47,8 +47,9 @@ describe('analyzeProject', () => {
     expect(results.some((r) => r.id === 'seo/title-presence')).toBe(true);
     expect(config.treatDynamicAs).toBe('pass');
     expect(typeof version).toBe('string');
-    // basic-project has no config file, so warnings must stay empty (equivalence regression check).
-    expect(warnings).toEqual([]);
+    // basic-project has no config file, so warnings carry only the a11y/no-missing-id-ref skip
+    // notice (equivalence regression check).
+    expect(warnings).toEqual([expect.stringMatching(/^a11y\/no-missing-id-ref skipped /)]);
   });
 
   it('respects the route glob filter', async () => {
@@ -400,5 +401,28 @@ describe('examined counts survive --diff scoping (examined-counts design, "It is
       (r) => r.id === 'architecture/reserved-name-placement' && r.route !== undefined
     );
     expect(scopedViolations).toHaveLength(1); // only other/parts' file is "changed"
+  });
+});
+
+describe('no-missing-id-ref skip visibility', () => {
+  it('surfaces skipped routes with refs, causes and one warning line', async () => {
+    const { skipped, warnings } = await analyzeProject({ cwd: fixtureDir });
+    const entries = skipped!['a11y/no-missing-id-ref']!;
+    const smt = entries.find((e) => e.route === '/smt-spread')!;
+    expect(smt.refs).toBe(0);
+    expect(smt.causes.map((c) => c.kind).sort()).toEqual(['component', 'spread']);
+    expect(smt.causes.find((c) => c.kind === 'component')!.detail).toBe('MetaTags');
+    expect(smt.causes.every((c) => c.file === 'src/routes/smt-spread/+page.svelte' && c.line > 0)).toBe(true);
+    const skipWarnings = warnings.filter((w) => w.startsWith('a11y/no-missing-id-ref skipped'));
+    expect(skipWarnings).toHaveLength(1);
+    expect(skipWarnings[0]).toMatch(
+      /^a11y\/no-missing-id-ref skipped \d+ of \d+ analyzed route\(s\) \(.* — per-route detail in the JSON report's "skipped"\)\.$/
+    );
+  });
+
+  it('is absent, with no warning, when the rule is deselected', async () => {
+    const { skipped, warnings } = await analyzeProject({ cwd: fixtureDir, ignoreRules: ['a11y/no-missing-id-ref'] });
+    expect(skipped).toBeUndefined();
+    expect(warnings.some((w) => w.startsWith('a11y/no-missing-id-ref skipped'))).toBe(false);
   });
 });

@@ -338,8 +338,12 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     // against the source tree alone would report a working override as dead.
     withFiles('vite.config.ts');
     expect(run(filesDir).stderr).not.toContain('matched no file');
-    // A run that selects normally must stay silent, or the warnings get tuned out.
-    expect(run(appDir, '--route', 'gallery/a11y/**').stderr).toBe('');
+    // A run that selects normally must stay silent about *scoping* — the planted skip route at
+    // gallery/a11y/skipped lives in this glob, so its notice is the only legitimate stderr line;
+    // the exact match keeps asserting that selection noise (matched none/examined nothing) stays absent.
+    expect(run(appDir, '--route', 'gallery/a11y/**').stderr.trim()).toMatch(
+      /^svelte-vitals: a11y\/no-missing-id-ref skipped 1 of \d+ analyzed route\(s\) \(spread 1, dynamic id 1 — per-route detail in the JSON report's "skipped"\)\.$/
+    );
   });
 
   it('reaches a finding anchored outside src/, in the Vite config', () => {

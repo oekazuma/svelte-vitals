@@ -7,7 +7,8 @@ import {
   type RuleOverride,
   type Result,
   type Config,
-  type Category
+  type Category,
+  type JsonReport
 } from '@svelte-vitals/core';
 import {
   skippedFileWarnings,
@@ -33,6 +34,7 @@ import {
   formatFailedRuleWarning,
   terminalSafe
 } from '@svelte-vitals/core/internal';
+import { buildIdRefSkips, idRefSkipWarning, ID_REF_RULE } from './a11y-skips.js';
 import { createNodeRuntime } from './runtime/node.js';
 import type { ParseCache } from './providers/source/resolve.js';
 import { detectProject, ProjectError, checkVersionFloor } from './providers/source/project.js';
@@ -201,9 +203,11 @@ export interface AnalyzeResult {
   ruleIds: string[];
   /** Per-rule, per-declaration counts of places examined, unfiltered by `--diff`/`--baseline`/suppressions. */
   examined: Record<string, Record<string, number>>;
+  /** Routes a closed-world rule skipped, keyed by rule id — the analysis-side companion to `examined`; unfiltered by `--diff`/`--baseline`/suppressions. Absent when no analyzed route was skipped or the rule was not selected. */
+  skipped?: JsonReport['skipped'];
   /** Ids of rules `runRules` caught throwing — already folded into `config` via `withFailedRulesOff`; exposed separately so a caller with its own base config (the vite dev dashboard) can apply the same correction without adopting this call's `config`. */
   failedRuleIds: string[];
-  /** Non-fatal issues surfaced during analysis: config-file problems (unknown top-level keys, invalid enum values), version-floor notices, `--rules`/overrides conflicts, and skipped-file notices. Empty when none apply. */
+  /** Non-fatal issues surfaced during analysis: config-file problems (unknown top-level keys, invalid enum values), version-floor notices, `--rules`/overrides conflicts, closed-world skip notices (`a11y/no-missing-id-ref`), and skipped-file notices. Empty when none apply. */
   warnings: string[];
   /**
    * This analysis's config-file load result (`undefined` when no config file exists at its
@@ -312,6 +316,8 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   if (opts.route === undefined) warnings.push(...unknownDirectiveIds(directives, allRules));
   const selected = selectRules(allRules, config);
   const rules = opts.categories ? selected.filter((r) => opts.categories!.includes(r.category)) : selected;
+  const idRefSkips = rules.some((r) => r.id === ID_REF_RULE) ? buildIdRefSkips(a11y) : [];
+  if (idRefSkips.length > 0) warnings.push(idRefSkipWarning(idRefSkips, a11y.length));
   // `--route` skips the component/Kit-module/source-file collectors, so a rule the user named by id
   // runs against nothing and reports a clean 100. Only named rules are worth saying this about: the
   // default set always contains rules a scoped run cannot feed.
@@ -355,6 +361,7 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     version: readPackageVersion(),
     ruleIds: rules.map((r) => r.id),
     examined,
+    ...(idRefSkips.length > 0 ? { skipped: { [ID_REF_RULE]: idRefSkips } } : {}),
     failedRuleIds,
     warnings: [...warnings, ...skippedFileWarnings([...components, ...kitModules]), ...failedRuleWarnings(failedRules)],
     loadedConfig: loaded
@@ -636,7 +643,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
         );
       }
       if (reporter === 'json') {
-        log(formatJsonReport(results, config, { version }, analysis.ruleIds, analysis.examined));
+        log(formatJsonReport(results, config, { version }, analysis.ruleIds, analysis.examined, analysis.skipped));
       } else if (reporter === 'agent') {
         log(formatAgentReport(results, config));
       } else if (reporter === 'sarif') {

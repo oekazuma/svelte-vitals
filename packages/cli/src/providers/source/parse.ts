@@ -271,8 +271,8 @@ export interface ParsedA11y {
   nodes: A11yNode[];
   /** landmark ancestor of this file's <slot>/{@render children()} position, if any */
   slotInLandmark?: string;
-  /** file contains {@html} or a spread attribute — poisons the closed world for no-missing-id-ref */
-  unknowableContent: boolean;
+  /** {@html} tags and spread attributes, located — each poisons the closed world for no-missing-id-ref */
+  unknowable: { kind: 'spread' | 'html'; line: number }[];
   /** Distinct lowercased tag names of the body's `RegularElement`s (a11y/required-element's presence set). */
   elementTags: string[];
   /** file contains `{@html}` or a `<svelte:element>` — either can render an element the walk cannot see */
@@ -321,7 +321,7 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
   const nodes: A11yNode[] = [];
   let groups = 0;
   let slotInLandmark: string | undefined;
-  let unknowableContent = false;
+  const unknowable: ParsedA11y['unknowable'] = [];
   const elementTags = new Set<string>();
   let elementsUnknowable = false;
 
@@ -332,9 +332,9 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
 
   const noteSpread = (node: WalkNode): void => {
     const attributes = (node as { attributes?: unknown }).attributes;
-    if (Array.isArray(attributes) && attributes.some((a) => (a as { type?: string }).type === 'SpreadAttribute')) {
-      unknowableContent = true;
-    }
+    if (!Array.isArray(attributes)) return;
+    const spread = attributes.find((a) => (a as { type?: string }).type === 'SpreadAttribute');
+    if (spread) unknowable.push({ kind: 'spread', line: lineOf(source, (spread as { start: number }).start) });
   };
 
   const walk = (node: WalkNode | WalkNode[] | null | undefined, ctx: A11yCtx): void => {
@@ -348,7 +348,7 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
       case 'SvelteHead':
         return; // head content never renders into the body
       case 'HtmlTag':
-        unknowableContent = true;
+        unknowable.push({ kind: 'html', line: lineOf(source, node.start) });
         elementsUnknowable = true;
         return;
       case 'IfBlock':
@@ -480,7 +480,7 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
   return {
     nodes,
     ...(slotInLandmark ? { slotInLandmark } : {}),
-    unknowableContent,
+    unknowable,
     elementTags: [...elementTags],
     elementsUnknowable
   };
