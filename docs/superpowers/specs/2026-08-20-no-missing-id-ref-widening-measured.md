@@ -6,13 +6,16 @@ surface (`2026-08-20-no-missing-id-ref-skip-visibility-design.md`): the built CL
 --no-suppressions` against fresh default-branch clones of the ecosystem corpus
 (`scripts/ecosystem-smoke.js`) plus `itswadesh/svelte-commerce` (the app issue #533
 measured), each clone's `svelte-vitals.config.*` removed. The aggregation script was a
-throwaway (per the design's Measurement section); every number below is recomputable from
-the report's `skipped` map alone.
+throwaway (per the design's Measurement section); every number below except the `analyzed`
+column is recomputable from the report's `skipped` map alone.
 
 Definitions, from the design: a skipped route is **unlockable** only when `refs > 0` — a
 route with no literal id references produces nothing even if the rule runs. A remedy set S
 unlocks a route iff every recorded cause kind is in S and `refs > 0`. Per-kind counts are
-routes carrying that kind; a route usually carries several, so rows overlap.
+routes carrying that kind; a route usually carries several, so rows overlap. **analyzed**
+is the CLI warning's denominator: routes the a11y collector produced facts for. It is not
+`routes[].length` in the report — that array also keys component-scoped findings by source
+file (CMSaasStarter: 63 report rows vs 25 analyzed routes).
 
 ## Per-app skip landscape
 
@@ -59,7 +62,7 @@ kind is `component` (the population per-name mapping alone can ever unlock):
 | shadcn-svelte      |            313 |                                0 | ModeWatcher, Tooltip.Provider, Toaster, icons, Button    |
 | cobalt             |             42 |                                0 | Icon\* (tabler icon set, 18 routes each)                 |
 | svelte-commerce    |            191 |                                0 | ColorPalette, GoogleAnalytics, Toaster, lucide icons     |
-| networking-toolbox |              7 |                                0 | Check, Copy, Download, Globe, Type, Mail                 |
+| networking-toolbox |              7 |                                0 | Check, Copy, Download, Component, Globe, Type, Mail      |
 | joy-of-code        |             15 |                                8 | Search, YouTube, X, Bluesky, RSS, Cog, Menu, Mail        |
 | kener              |            275 |                                0 | ModeWatcher, Toaster, Button, DropdownMenu.\*, Dialog.\* |
 | CMSaasStarter      |              1 |                                0 | Auth                                                     |
@@ -79,9 +82,10 @@ kind is `component` (the population per-name mapping alone can ever unlock):
   scale is not a real user behavior. If C-6 ships, the measured shape suggests it must
   work at a coarser grain than one name per entry to matter.
 - **The mass is in combinations.** All four remedies together reach 286 routes; dropping
-  `{@html}` alone loses 249 of them (networking-toolbox's 193 and svelte-commerce's 37 are
-  behind `{@html}` among other kinds). Any mechanism that cannot make a statement about
-  `{@html}` and expression-valued ids leaves the two largest apps at zero.
+  `{@html}` alone loses 249 of them (networking-toolbox's 193, svelte-commerce's 37, and
+  AdventureLog's 19 all sit behind `{@html}` among other kinds). Any mechanism that cannot
+  make a statement about `{@html}` and expression-valued ids leaves the two largest apps
+  at zero.
 - **`refs > 0` is the right unlock currency.** 101 of 387 skipped routes (26%) reference
   no id at all — svelte.dev is the extreme: all 18 routes skipped, none unlockable, so
   even a perfect widening yields nothing there. Any future coverage claim should count
