@@ -12,6 +12,10 @@ let buildStderr = '';
 interface JsonReport {
   rules: Record<string, { findings: number; passed: number }>;
   routes: Array<{ route: string }>;
+  skipped?: Record<
+    string,
+    Array<{ route: string; refs: number; causes: Array<{ kind: string; file: string; line: number; detail?: string }> }>
+  >;
 }
 
 let report: JsonReport;
@@ -74,5 +78,9 @@ describe('kitchen-sink e2e (build mode)', () => {
   it('excludes the ssr-off route (ssr=false skips prerendering, adapter fallback only)', () => {
     const routes = report.routes.map((r) => r.route);
     expect(routes).not.toContain('/gallery/seo/ssr-off');
+  });
+
+  it('never reports skipped routes: the prerendered document is its own closed world', () => {
+    expect(report.skipped).toBeUndefined();
   });
 });

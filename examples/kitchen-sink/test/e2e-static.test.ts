@@ -21,10 +21,15 @@ interface JsonReport {
   rules: Record<string, { findings: number; passed: number }>;
   routes: Array<{ route: string; issues: Array<{ id?: string; location?: string; severity?: string }> }>;
   siteIssues: Array<{ location?: string }>;
+  skipped?: Record<
+    string,
+    Array<{ route: string; refs: number; causes: Array<{ kind: string; file: string; line: number; detail?: string }> }>
+  >;
 }
 
 let report: JsonReport;
 let exitCode = 0;
+let stderr = '';
 
 beforeAll(() => {
   try {
@@ -33,9 +38,10 @@ beforeAll(() => {
     const out = execFileSync(process.execPath, [bin, appDir, '--reporter', 'json'], { encoding: 'utf8' });
     report = JSON.parse(out);
   } catch (e) {
-    const err = e as { status: number; stdout: string };
+    const err = e as { status: number; stdout: string; stderr?: string };
     exitCode = err.status;
     report = JSON.parse(err.stdout);
+    stderr = (e as { stderr?: string }).stderr ?? '';
   }
 });
 
@@ -101,6 +107,17 @@ describe('kitchen-sink e2e (static mode)', () => {
       }).stdout;
     expect(console_()).not.toContain('By route');
     expect(console_('--by-route')).toContain('By route');
+  });
+
+  it('reports the skipped route with its causes and warns on stderr', () => {
+    const entries = report.skipped!['a11y/no-missing-id-ref']!;
+    const entry = entries.find((e) => e.route === '/gallery/a11y/skipped')!;
+    expect(entry.refs).toBeGreaterThanOrEqual(1);
+    expect(entry.causes.map((c) => c.kind).sort()).toEqual(['dynamic-id', 'spread']);
+    expect(entry.causes.every((c) => c.file === 'src/routes/gallery/a11y/skipped/+page.svelte' && c.line > 0)).toBe(
+      true
+    );
+    expect(stderr).toContain('a11y/no-missing-id-ref skipped');
   });
 
   it('exits 1 on the gallery (critical present) and 0 on clean routes', () => {
