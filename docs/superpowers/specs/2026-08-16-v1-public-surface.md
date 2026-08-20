@@ -130,7 +130,7 @@ is exactly this case.
 
 - **JSON reporter** (`JsonReport`): frozen field-for-field as documented in the reporters guide —
   `version, score, weights, categories, summary, rules{findings,passed}, routes[], siteIssues[],
-inventories, examined?`, closed over exactly `Summary`, `RuleEvidence`, `JsonIssue`, `Result`,
+inventories, examined?, skipped?`, closed over exactly `Summary`, `RuleEvidence`, `JsonIssue`, `Result`,
   `Detection`, `Presence`, `Value`, `Fix`, `Category`, `Severity`, `Config`, and `ScoreModel`.
   Every field listed above, and its meaning, is frozen; new fields may be added in a minor **only
   as optional**, and consumers must ignore fields they do not know — a parser that rejects unknown
@@ -138,6 +138,8 @@ inventories, examined?`, closed over exactly `Summary`, `RuleEvidence`, `JsonIss
   `ScoreModel` is named rather than "the scoring types": the neighbouring `ScoreOptions` carries
   `rules?: Rule[]`, so freezing that group would drag `Rule` → `RuleContext` → `ResolvedA11y` back
   into the promise. Additive fields stay minor; removing or retyping one is 2.0.
+  **Added 2026-08-20**: `skipped?`, by the no-missing-id-ref skip-visibility design — an inline
+  object shape, so it closes over no additional named type.
 - **SARIF** stays valid SARIF 2.1.0; **GitHub** stays valid workflow commands. Both are frozen by
   reference to their external specs, not to our own layout.
 - **agent / markdown / html** reporters are **human/agent-readable output, not schemas**: their

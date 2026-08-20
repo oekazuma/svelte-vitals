@@ -81,6 +81,15 @@ svelte-vitals --reporter json
     "architecture/reserved-name-placement": {
       "capitalisedUnitPlacements.parts → src/**": 28 // places this declaration judged, permitted or rejected
     }
+  },
+  "skipped": {
+    "a11y/no-missing-id-ref": [
+      {
+        "route": "/checkout",
+        "refs": 2,
+        "causes": [{ "kind": "component", "detail": "Textbox", "file": "src/routes/checkout/+page.svelte", "line": 12 }]
+      }
+    ]
   }
 }
 ```
@@ -151,6 +160,16 @@ exact declaration label the rule's own diagnostic names —
 `architecture/reserved-name-placement`'s aggregated finding and its `examined` entry share the string
 `capitalisedUnitPlacements.parts → src/**`, so the two can be read together. A non-zero count is what tells
 you the declaration was checked at all — the question a rule with no findings otherwise leaves open.
+
+`skipped` is a second analysis-side map, keyed by rule id. Today only
+`a11y/no-missing-id-ref` uses it: the rule needs a fully resolved route composition, and a
+route that fails that bar is skipped without a result. Each entry lists the skipped route,
+its literal id-reference count (`refs` — a route with `0` would produce nothing even if it
+ran), and the causes that cleared the gate, each with `kind` (`component`, `spread`, `html`,
+or `dynamic-id`), the first offending `file` and `line`, and for components the name as
+written (`detail`). Like `examined`, it describes the analysis rather than the report —
+`--diff`, `--baseline` and suppressions do not narrow it — and it is omitted when no
+analyzed route was skipped.
 
 ### `agent`
 

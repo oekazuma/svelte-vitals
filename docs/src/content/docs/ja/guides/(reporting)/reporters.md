@@ -81,6 +81,15 @@ svelte-vitals --reporter json
     "architecture/reserved-name-placement": {
       "capitalisedUnitPlacements.parts → src/**": 28 // この宣言が判定した場所の数（許可・却下を問わない）
     }
+  },
+  "skipped": {
+    "a11y/no-missing-id-ref": [
+      {
+        "route": "/checkout",
+        "refs": 2,
+        "causes": [{ "kind": "component", "detail": "Textbox", "file": "src/routes/checkout/+page.svelte", "line": 12 }]
+      }
+    ]
   }
 }
 ```
@@ -110,6 +119,16 @@ svelte-vitals --reporter json
 `rules` の件数が表すのはツリーではなくレポートそのものです。baseline、抑制、`--diff` によるフィルタリングはレポートを組み立てる前に適用されるため、検出結果がすべて抑制されたルールも `findings: 0` のまま `rules` に残ります。`overrides` で無効化したルールも同様です。トップレベルとは異なり、`overrides` はルールが実行された後にその結果（合格分も含む）を取り除くため、`{ "findings": 0, "passed": 0 }` として現れ、選択されて何も検出しなかったルールと見分けがつきません。`rules` に存在することが保証するのは、`--ignore`・`--rules`・`--category`・設定ファイルのトップレベルの `rules` で除外されなかったことだけで、`overrides` が検出結果を何も残さなかったことまでは保証しません。
 
 `examined` は別の、トップレベルの独立したマップです —— ルール ID、その下に宣言のラベル、その下にその宣言が判定した場所の数（許可したか却下したかを問わない）が入ります。`--diff`・`--baseline`・抑制によって絞り込まれることはありません。これらは `rules` に適用されるものであり、`examined` はレポートではなく分析そのものを表すため、`rules` の中ではなく隣に置かれています。このマップ自体は省略可能で、件数を報告したルールが1つも無い実行では `examined` ごと現れません。存在する場合、状態は3つあります。件数を一切報告しないルールにはエントリがありません。数えはするが設定が何も宣言していないルールには空のエントリが入ります —— トップレベルの `rules` で `architecture/reserved-name-placement` を有効にしただけで配置を宣言しなければ、ちょうどこの状態になります。そして何も判定しなかった宣言は `0` として現れます。実際に現れるエントリは、そのルール自身の診断が使うのと同一の宣言ラベルを使います —— `architecture/reserved-name-placement` の集約された finding と `examined` のエントリは `capitalisedUnitPlacements.parts → src/**` という文字列を共有しており、両者を並べて読めます。0 でない件数は、その宣言が少なくとも一度は検査されたことを示します —— 検出結果が無いルールだけでは答えられない問いです。
+
+`skipped` はルール ID をキーとする、もう一つの分析側マップです。現時点では
+`a11y/no-missing-id-ref` だけがこれを使います。このルールは完全に解決済みのルート合成を必要とし、
+その基準を満たせないルートは結果を出さないままスキップされます。各エントリにはスキップされた
+ルート、その literal な id 参照数（`refs` —— 0 件のルートは、たとえ実行できたとしても何も検出
+しない）、そして条件を満たせなかった原因が並びます。原因はそれぞれ `kind`（`component`・`spread`・
+`html`・`dynamic-id`）、最初に該当した `file` と `line`、コンポーネントの場合は記述された名前
+（`detail`）を持ちます。`examined` と同様、これはレポートではなく分析そのものを表すため
+—— `--diff`・`--baseline`・抑制によって絞り込まれることはありません —— 解析対象のルートが
+1つもスキップされなかった場合は省略されます。
 
 ### `agent`
 
