@@ -146,7 +146,7 @@ By consequence class:
 | **Headings crossed with phrasing/flow** — a heading inside phrasing content (`button > h5/h4/h2` 23, `label > h3` 7, `span > h2` 2) or flow inside a heading (`h1/h2/h3 > div` 9)                                                                                         |    41 | true — a heading inside a button/label loses or pollutes its outline role for AT; networking-toolbox's card buttons (`<button><h5>…<p>`) are the repeated idiom                                                                                                                              |
 | **Flow in phrasing container** — `button > div` (167), `button > p` (31), `label > div` (30), `span > div`, `button > figure`, `span > strike` (obsolete, category-less), …                                                                                               |   234 | true per spec, benign in practice — browsers render it, no repair, minimal AT impact; the styling idiom (`<button><div class="flex">`) is ubiquitous (6+ apps; networking-toolbox alone has 87 `button > div`)                                                                               |
 | **Interactive overlap** — `a > button` (13), plus `a > div` (2) and `a > figure` (1) rejected by `a`'s `:has(:model(interactive))` filter because a literal `<button>` sits in the subtree                                                                                |    16 | true, `a11y/interactive-nesting` already reports every one — the nested buttons at any depth                                                                                                                                                                                                 |
-| Text in `ul`                                                                                                                                                                                                                                                              |     1 | true but trivial — a comma text node between `<b>` items (separate column)                                                                                                                                                                                                                   |
+| Text in `ul`                                                                                                                                                                                                                                                              |     1 | true but trivial — a comma text node between `<b>` items (the separate text column; outside the 351 element findings above)                                                                                                                                                                  |
 
 Adjudicated FPs: **0 of 351** — every finding violates the content model as written; the
 adjudication splits them by consequence, not validity. The compiler-agreeing count of 0 needs
@@ -183,9 +183,9 @@ Implementation is its own increment with its own design, carrying from this meas
   elements, `svelte:element`, `<slot />` children, unknown tags, transparent-at-root, `inSvg`,
   undecidable conditionals → laxest union.
 - **The interactive-exclusion class is left to `a11y/interactive-nesting`** — 16 findings are
-  that rule's exact territory, the direct `a > button` hits and the `:has`-arm hits alike; the
-  new rule reports the model-membership half only, so one defect is not two findings.
-  (Deliberate overlap is allowed; here the dedup is free because the transparent filter,
-  including its `:has` half, is separable.)
+  that rule's exact territory, the direct `a > button` hits and the `:has`-arm hits alike. The
+  shipped rule does **not** emit them: the transparent filter, including its `:has` half, is
+  separable from model membership, and the rule evaluates membership only — so these 16 stay
+  single-reported by `a11y/interactive-nesting`.
 - **The text column is not shipped** — 1 trivial occurrence in 3,671 files does not earn the
   extra judgment; recorded here so it isn't re-litigated.
