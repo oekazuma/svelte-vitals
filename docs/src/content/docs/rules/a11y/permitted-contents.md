@@ -9,8 +9,9 @@ description: Every element must be permitted content of its parent, per the HTML
 
 Every literal child element must be a member of its literal parent's permitted-content set, per
 the HTML content models (the same vendored spec data as the other element rules). Membership
-only — never order or count, which components and `{#if}`/`{#each}` blocks make unjudgeable — and
-a child inside a control-flow block still counts as the enclosing element's child. Transparent
+only — never order or count, because components and `{#if}`/`{#each}` blocks make those
+impossible to judge statically — and a child inside a control-flow block still counts as the
+enclosing element's child. Transparent
 elements (`<a>`, `<ins>`, `<del>`, …) pass the question up: `<ul><a href="…"><strong>` judges the
 `<strong>` against `<ul>`'s model. The `dl > div` styling wrapper and every other conditional
 model the spec defines is honoured.
