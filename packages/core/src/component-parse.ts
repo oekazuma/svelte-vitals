@@ -18,6 +18,7 @@ import type {
   UnnamedInteractiveFact
 } from './component.js';
 import { isRootRelativePath } from './base-path.js';
+import { HTML_SPEC } from './html-spec/generated.js';
 import {
   CHILD_NODE_KEYS,
   lineOf,
@@ -1164,7 +1165,12 @@ function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: 
       ...(parent !== undefined ? { parent } : {}),
       ...(hasSpread ? { hasSpread: true as const } : {})
     });
-    nextParent = acc.length - 1;
+    // A custom element or unknown tag renders its light DOM wherever its definition puts it, so
+    // the chain breaks (and the enclosing subtree is unknowable) exactly as at a component tag.
+    if (tag.includes('-') || (!(tag in HTML_SPEC.elements) && !(`svg:${tag}` in HTML_SPEC.elements))) {
+      if (parent !== undefined) acc[parent]!.unknownContent = true;
+      nextParent = undefined;
+    } else nextParent = acc.length - 1;
     if (tag === 'svg') next = true;
     else if (tag === 'foreignobject') next = false;
   }

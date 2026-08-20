@@ -111,6 +111,23 @@ describe('a11y/permitted-contents', () => {
     );
   });
 
+  it('honours the video[src] conditional — source dropped when src is present', async () => {
+    expect(await failing('<div><video><source src="/s.mp4" /></video></div>')).toEqual([]);
+    // With [src] the conditional replaces the model (track + transparent); <source> no longer
+    // matches an entry and the transparent arm defers to the known <div> ancestor, where
+    // <source> is not flow content.
+    const out = await failing('<div><video src="/v.mp4"><source src="/s.mp4" /></video></div>');
+    expect(out.map((f) => [f.line, f.severity])).toEqual([[1, 'warning']]);
+  });
+
+  it('does not judge canvas fallback content or across a custom-element boundary', async () => {
+    // WHATWG permits interactive canvas fallback (the accessible-canvas pattern); the dataset is
+    // stricter, and the rule sides with WHATWG.
+    expect(await failing('<div><canvas><button>Accessible fallback</button></canvas></div>')).toEqual([]);
+    expect(await failing('<dl><my-x><div><dt>t</dt></div></my-x></dl>')).toEqual([]);
+    expect(await failing('<form><div><my-x><form></form></my-x></div></form>')).toEqual([]);
+  });
+
   it('is silenced by an inline directive on the finding line', async () => {
     const src = '<ul>\n  <!-- svelte-vitals-disable-next-line a11y/permitted-contents -->\n  <div>x</div>\n</ul>';
     expect(await failing(src)).toEqual([]);

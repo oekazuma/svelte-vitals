@@ -46,7 +46,7 @@ export const a11yPermittedContents: Rule = componentRule({
     const out: ComponentIssue[] = [];
     for (let i = 0; i < els.length; i++) {
       const child = els[i]!;
-      if (child.parent === undefined || !judgeable(child) || child.tag === 'slot') continue;
+      if (child.parent === undefined || !judgeable(child)) continue;
       // ancestors: parent-link chain, outermost first
       const ancestors: number[] = [];
       for (let a: number | undefined = child.parent; a !== undefined; a = els[a]!.parent) ancestors.unshift(a);

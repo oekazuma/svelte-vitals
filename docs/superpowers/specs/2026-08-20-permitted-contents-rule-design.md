@@ -68,7 +68,8 @@ consumers untouched:
   (`{#if}`/`{#each}`/`{#await}`/`{#key}`). The chain **breaks** — the field is absent, the chain
   restarts — at every construct whose rendering position is not lexical: a component
   (`<Component>`, `<svelte:component>`, `<svelte:self>`), `<svelte:element>`, `<slot>`,
-  `{@render}`, `{@html}`, a `{#snippet}` body root, and `<svelte:head>` children (head-as-parent
+  `{@render}`, `{@html}`, a custom element or unknown tag (its light DOM renders wherever its
+  definition puts it), a `{#snippet}` body root, and `<svelte:head>` children (head-as-parent
   is not shipped — zero corpus findings; recorded divergence from the probe). Elements _inside_
   a snippet body still parent each other — the probe judged within-snippet nesting and those
   findings are inside the measured 351. The same breaks bound `:has` subtree reconstruction: an
@@ -106,9 +107,12 @@ are recorded in the measurement doc:
   `dfn`'s, `label`'s, `audio`/`video`'s media exclusion) is evaluated: implemented as "skip the
   `:not`/`:has` argument parts that are **token-exactly** `:model(interactive)`, `a`, or
   `[tabindex]`" — token-exact so `audio` and `label` are not mistaken for `a` — leaving
-  `form > form` reported while `a > button` is not. Accepted double-miss: `a > a` / `a > button`
-  under an `<a>` with no `href` is reported by neither rule (interactive-nesting requires `href`
-  on the container); the corpus count for that shape is zero.
+  `form > form` reported while `a > button` is not. Accepted double-misses, both corpus-zero:
+  `a > a` / `a > button` under an `<a>` with no `href` (interactive-nesting requires `href` on
+  the container), and `<canvas>`'s interactive exclusion — deliberately so, beyond the token
+  strip: WHATWG permits `a`, `button`, and checkbox/radio/button inputs as canvas fallback (the
+  accessible-canvas pattern), the dataset's blanket `:not(:model(interactive))` is stricter than
+  the spec, and flagging that pattern would be a false positive.
 
 Rule-side skips (each measured): `option`/`optgroup` parents (compiler-wins carve-out), custom
 elements and unknown tags as child or parent, `<slot />` and `<svelte:element>` children,
