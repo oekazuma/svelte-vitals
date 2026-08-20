@@ -84,6 +84,7 @@ export { formatConsoleReport } from './reporter/console.js';
 export { terminalSafe } from './reporter/sanitize.js';
 export { noColorPalette, scoreColor } from './reporter/palette.js';
 export type { Palette } from './reporter/palette.js';
+export type { JsonReport } from './reporter/json.js';
 export { buildJsonReport, formatJsonReport } from './reporter/json.js';
 export { formatAgentReport } from './reporter/agent.js';
 export { formatSarifReport } from './reporter/sarif.js';
