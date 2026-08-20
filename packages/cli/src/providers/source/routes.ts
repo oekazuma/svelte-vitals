@@ -1,6 +1,7 @@
 import type { Config } from '@svelte-vitals/core';
 import type {
   A11yOccurrenceInfo,
+  A11ySkipCause,
   BranchStep,
   HeadTag,
   HeadingInfo,
@@ -145,6 +146,8 @@ interface ComposeState {
    */
   nextGroup: number;
   fullyResolved: boolean;
+  /** Why fullyResolved went false, one entry per offending location — deduped and emitted at route level. */
+  causes: A11ySkipCause[];
   /** Body tag names seen so far across the composition (a11y/required-element's presence set). */
   elementTags: Set<string>;
   /** Closed world for elements: every component descended into, no `{@html}`, no `<svelte:element>`. */
@@ -169,6 +172,16 @@ function groupSpan(nodes: A11yNode[]): number {
   return max + 1;
 }
 
+/** Route-level dedupe: one cause per (kind, file, detail), first occurrence wins. */
+function dedupeCauses(causes: A11ySkipCause[]): A11ySkipCause[] {
+  const seen = new Map<string, A11ySkipCause>();
+  for (const c of causes) {
+    const key = `${c.kind}::${c.file}::${c.detail ?? ''}`;
+    if (!seen.has(key)) seen.set(key, c);
+  }
+  return [...seen.values()];
+}
+
 /** Paths are shared across every route that uses a parsed file — re-address by copying. */
 function offsetPath(path: BranchStep[], base: number): BranchStep[] {
   return base === 0 ? path : path.map((step) => ({ group: step.group + base, branch: step.branch }));
@@ -190,7 +203,10 @@ async function composeA11y(
   chain: boolean
 ): Promise<ComposedNode[]> {
   const { rt, cwd, state } = ctx;
-  if (parsed.a11y.unknowableContent) state.fullyResolved = false;
+  if (parsed.a11y.unknowable.length > 0) {
+    state.fullyResolved = false;
+    for (const u of parsed.a11y.unknowable) state.causes.push({ ...u, file: fileRel });
+  }
   for (const t of parsed.a11y.elementTags) state.elementTags.add(t);
   if (parsed.a11y.elementsUnknowable) state.elementsClosed = false;
   const base = state.nextGroup;
@@ -209,6 +225,7 @@ async function composeA11y(
     const childRel = info ? resolveComponentPath(info.source, fileRel, ctx.aliases) : undefined;
     if (!childRel || depth <= 0 || visited.has(childRel) || !(await rt.exists(rt.join(cwd, childRel)))) {
       state.fullyResolved = false;
+      state.causes.push({ kind: 'component', detail: node.key, file: fileRel, line: node.line });
       // A cycle-cut (`visited`) hides no tag — that file's tags are already in the union — but this
       // branch is shared with the cases that do (unresolved, truncated), and it stays conservative.
       state.elementsClosed = false;
@@ -294,7 +311,13 @@ async function resolveRoute(
     config,
     cache,
     aliases,
-    state: { nextGroup: 0, fullyResolved: true, elementTags: new Set(appHtmlBodyTags ?? []), elementsClosed: true }
+    state: {
+      nextGroup: 0,
+      fullyResolved: true,
+      causes: [],
+      elementTags: new Set(appHtmlBodyTags ?? []),
+      elementsClosed: true
+    }
   };
   const a11yNodes: ComposedNode[] = [];
   const nestedLandmarks: ResolvedA11y['nestedLandmarks'] = [];
@@ -345,7 +368,11 @@ async function resolveRoute(
 
   const idNodes = a11yNodes.filter((n) => n.kind === 'id');
   // An expression-valued id (key '') is unknowable: it closes no world and is no candidate.
-  if (idNodes.some((n) => n.key === '')) a11yCtx.state.fullyResolved = false;
+  for (const n of idNodes) {
+    if (n.key !== '') continue;
+    a11yCtx.state.fullyResolved = false;
+    a11yCtx.state.causes.push({ kind: 'dynamic-id', file: n.file, line: n.line });
+  }
   const literalIds = idNodes.filter((n) => n.key !== '');
 
   const route = deriveRoute(pageRel);
@@ -368,6 +395,7 @@ async function resolveRoute(
         .map((n) => ({ id: n.key, attr: n.attr ?? '', file: n.file, line: n.line })),
       idCandidates: [...new Set([...literalIds.map((n) => n.key), ...(appHtmlIds ?? [])])],
       fullyResolved: a11yCtx.state.fullyResolved,
+      ...(a11yCtx.state.causes.length > 0 ? { unresolvedCauses: dedupeCauses(a11yCtx.state.causes) } : {}),
       elementTags: [...a11yCtx.state.elementTags],
       elementsClosed: a11yCtx.state.elementsClosed,
       file: pageRel

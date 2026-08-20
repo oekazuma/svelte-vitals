@@ -12,6 +12,15 @@ export interface A11yOccurrenceInfo {
   line: number;
 }
 
+/** One reason a route's closed world failed to hold, with the first offending location. */
+export interface A11ySkipCause {
+  kind: 'component' | 'spread' | 'html' | 'dynamic-id';
+  file: string;
+  line: number;
+  /** for kind 'component': the unresolvable component's name as written */
+  detail?: string;
+}
+
 /**
  * Route-scoped a11y facts, the mode-independent boundary for the landmark/id rules
  * (mirrors headings.ts). Source mode composes the layout chain plus its resolved
@@ -31,6 +40,8 @@ export interface ResolvedA11y {
   idCandidates: string[];
   /** closed world holds: every component resolved, no depth truncation, no {@html}/spread, no dynamic id */
   fullyResolved: boolean;
+  /** Why `fullyResolved` is false — deduped by (kind, file, detail), first occurrence's line kept. Present exactly when `fullyResolved` is false. */
+  unresolvedCauses?: A11ySkipCause[];
   /**
    * Distinct tag names in the route's body subtree — layout chain, page, every resolved component,
    * and `app.html`'s `<body>` (static), or the prerendered `<body>` (rendered); optimistic across

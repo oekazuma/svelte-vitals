@@ -70,7 +70,7 @@ describe('parseFile — a11y occurrences', () => {
       expect.objectContaining({ kind: 'component', key: 'Shell', path: [{ group: 0, branch: 0 }] })
     );
     expect(parsed.a11y.slotInLandmark).toBe('main');
-    expect(parsed.a11y.unknowableContent).toBe(true);
+    expect(parsed.a11y.unknowable).toEqual([{ kind: 'html', line: 1 }]);
   });
 
   it('numbers {:else if} branches within one group and {#await} states 0/1/2', () => {
@@ -109,7 +109,7 @@ describe('parseFile — a11y occurrences', () => {
       { kind: 'idref', key: 'c', attr: 'aria-controls' },
       { kind: 'idref', key: 'top', attr: 'href' }
     ]);
-    expect(parsed.a11y.unknowableContent).toBe(false);
+    expect(parsed.a11y.unknowable).toEqual([]);
   });
 
   it('collects ids and idrefs from <svelte:element>', () => {
@@ -124,7 +124,7 @@ describe('parseFile — a11y occurrences', () => {
   it('marks {#snippet} bodies repeatable and spread attributes unknowable', () => {
     const parsed = parseIt('{#snippet row()}<main />{/snippet}<div {...props} />');
     expect(parsed.a11y.nodes[0]).toMatchObject({ kind: 'landmark', key: 'main', repeatable: true });
-    expect(parsed.a11y.unknowableContent).toBe(true);
+    expect(parsed.a11y.unknowable).toEqual([{ kind: 'spread', line: 1 }]);
   });
 
   it('ignores <svelte:head> content and non-children render tags', () => {
@@ -151,7 +151,7 @@ describe('parseFile — a11y occurrences', () => {
     const mains = parsed.a11y.nodes.filter((n) => n.kind === 'landmark' && n.key === 'main');
     expect(mains.map((n) => n.path)).toEqual([[{ group: 0, branch: 0 }], [{ group: 0, branch: 1 }]]);
     expect(parsed.a11y.nodes.filter((n) => n.kind === 'id').map((n) => n.key)).toEqual(['m', 'm2']);
-    expect(parsed.a11y.unknowableContent).toBe(false);
+    expect(parsed.a11y.unknowable).toEqual([]);
   });
 
   it('skips inert contents of <svelte:element this="template"> like a literal <template>', () => {
