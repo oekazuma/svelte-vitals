@@ -9,7 +9,7 @@ Scored `info` rather than `warning`: the role or attribute still works in curren
 
 ## What it checks
 
-Three things, judged against the ARIA 1.3 tables in component source, by both the CLI and the Vite plugin. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+Three things, judged against the ARIA 1.3 tables in component source.
 
 - **A deprecated role**: `role="directory"` (its replacement is `list`).
 - **A globally deprecated attribute**: `aria-dropeffect` and `aria-grabbed`, on any element.
@@ -36,6 +36,10 @@ Replace `role="directory"` with `role="list"`; drop `aria-dropeffect`/`aria-grab
 ```svelte
 <div role="checkbox" tabindex="0" aria-checked="false">…</div>
 ```
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

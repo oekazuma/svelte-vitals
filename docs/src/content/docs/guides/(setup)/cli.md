@@ -137,6 +137,8 @@ Only analyze routes whose path matches the given glob pattern.
 svelte-vitals --route "/blog/**"
 ```
 
+Route-scoped rules run on the matched routes; component-scoped rules (Correctness, Security, Architecture, `seo/ssr-disabled`, and the component-scoped Performance and Accessibility rules) are skipped, since a component finding has no route to attribute it to; project-scoped rules (`seo/robots-txt`, `seo/html-lang`, …) still run. `seo/duplicate-title` and `seo/duplicate-description` compare only the matched routes. A glob that matches no route is reported as a warning.
+
 ### `--diff [ref]`
 
 Report only findings located in files **changed** versus `ref` (default `HEAD`, i.e. uncommitted changes). Compares against the **merge-base** with `ref`, and includes untracked (new) files — so `--diff main` is "what this branch changed". Great as a PR check.

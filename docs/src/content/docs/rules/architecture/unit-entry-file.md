@@ -134,6 +134,10 @@ A declared unit missing its entry file that is also named in the wrong casing dr
 `architecture/directory-naming` as well, when that rule is configured for the same location. Neither
 suppresses the other — they are different claims and both are true.
 
+## Mode differences
+
+None. This rule reads the project's source-file inventory — the `src/**` paths, not file contents — which every surface builds the same way: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: no inventory is built, and a file finding has no route to attribute it to.
+
 ## Disabling
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/unit-entry-file -->` on the line above it, or turn the rule off:

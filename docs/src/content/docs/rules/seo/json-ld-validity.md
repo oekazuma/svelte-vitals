@@ -7,7 +7,7 @@ description: A page's JSON-LD must be valid JSON with @context and @type.
 
 ## What it checks
 
-For each static `<script type="application/ld+json">`, the content must parse as JSON and contain both `@context` and `@type`. Invalid or incomplete JSON-LD is flagged. A dynamically-built JSON-LD is not checked in static mode.
+For each static `<script type="application/ld+json">`, the content must parse as JSON and contain both `@context` and `@type`. Invalid or incomplete JSON-LD is flagged. A dynamically-built JSON-LD is not checked by source analysis.
 
 ## Unknown type
 
@@ -32,6 +32,10 @@ Invalid JSON-LD — unparseable, missing `@context`/`@type`, or declaring a `@ty
   </script>
 </svelte:head>
 ```
+
+## Mode differences
+
+**Source analysis** (the CLI, the dashboard's static baseline) composes each route's `<head>` from `<svelte:head>` in the page and its layout chain, followed into repo-local components, plus the known meta components (`svelte-meta-tags`, `svelte-seo`) and any you declare in `metaComponents`, and judges only a **literal** value — a dynamic one is not examined. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the shipped `<head>`, where every value is literal; the build pass covers prerendered routes only. When the two disagree, trust the rendered result.
 
 ## Disabling
 

@@ -9,7 +9,7 @@ Scored `info` rather than `warning`: the requirement is HTML conformance, not an
 
 ## What it checks
 
-Flags a `<time>` element with no `datetime` attribute whose literal text content is not itself machine-readable. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+Flags a `<time>` element with no `datetime` attribute whose literal text content is not itself machine-readable.
 
 Text counts as machine-readable when it matches one of the HTML time-string formats: a year/month/date (`2026-08-14`), a time (`14:30`), a date-time (`2026-08-14T14:30`), a yearless date (`08-14`), a week (`2026-W33`), a time-zone offset (`+09:00`, `Z`), or a duration in either spelling — `P3D` and `4h 18m 3s`. A year may be four **or more** digits.
 
@@ -35,6 +35,10 @@ Add a `datetime` attribute with a machine-readable value:
 ```svelte
 <time datetime="2026-08-14">last Tuesday</time>
 ```
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

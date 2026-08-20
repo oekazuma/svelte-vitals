@@ -7,7 +7,7 @@ description: A label needs a for attribute or a wrapped control to be associated
 
 ## What it checks
 
-Flags a `<label>` with no associated control. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+Flags a `<label>` with no associated control.
 
 Either of the following, if present, associates the label — it is not flagged:
 
@@ -34,6 +34,10 @@ Point `for` at the control's `id`, or wrap the control inside the `<label>`:
 
 <label>Name <input /></label>
 ```
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

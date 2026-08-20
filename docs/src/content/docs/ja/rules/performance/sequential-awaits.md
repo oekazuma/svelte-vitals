@@ -27,6 +27,10 @@ const [a, b] = await Promise.all([fetchA(), fetchB()]);
 
 意図的な逐次実行は `// svelte-vitals-disable-next-line performance/sequential-awaits` で行単位に抑制するか、設定で severity を調整してください。
 
+## モードによる違い
+
+ありません。このルールはソース — 同じ `.svelte` / `.ts` ファイル — を読むので、CLI、Vite プラグインのビルド、ライブダッシュボードの静的ベースラインのどの面でも結果は同一で、レンダリング済み HTML の解析で再評価されることもありません。`--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
+
 ## 無効化
 
 ```js svelte-vitals.config.js

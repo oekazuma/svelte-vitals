@@ -59,6 +59,10 @@ export default {
   — it is erased at build, so nothing renders.
 - A project whose routes live somewhere other than `src/routes`.
 
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+
 ## Disabling
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line architecture/route-component-import -->` on the line above it, or turn the rule off:

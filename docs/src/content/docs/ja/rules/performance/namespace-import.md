@@ -7,7 +7,7 @@ description: ツリーシェイクを効かせるため、import * as ではな�
 
 ## チェック内容
 
-node_modules のパッケージ（bare specifier）に対する値の `import * as X from '<package>'` を検出します。型のみの import（`import type * as T`）と、bare でない specifier（相対パス、`$lib`、`$app`、`$env`、`#…`）は対象外です。`src/**/*.svelte` のスクリプトを静的（CLI）解析します。
+node_modules のパッケージ（bare specifier）に対する値の `import * as X from '<package>'` を検出します。型のみの import（`import type * as T`）と、bare でない specifier（相対パス、`$lib`、`$app`、`$env`、`#…`）は対象外です。
 
 ## なぜ重要か
 
@@ -26,6 +26,10 @@ named import なら確実にツリーシェイクでき、依存の使用範囲�
   import { Scene, WebGLRenderer } from 'three';
 </script>
 ```
+
+## モードによる違い
+
+ありません。このルールはソース — 同じ `.svelte` / `.ts` ファイル — を読むので、CLI、Vite プラグインのビルド、ライブダッシュボードの静的ベースラインのどの面でも結果は同一で、レンダリング済み HTML の解析で再評価されることもありません。`--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
 
 ## 無効化
 

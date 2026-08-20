@@ -43,6 +43,17 @@ describe('docs: every documented rule has a reference page (en + ja)', () => {
     }
   });
 
+  it('states its mode behaviour on every rule page, as a ## section (en + ja)', () => {
+    for (const r of documented) {
+      expect(readFileSync(join(enRules, `${r.id}.md`), 'utf8'), `${r.id} en Mode differences`).toMatch(
+        /^## Mode differences$/m
+      );
+      expect(readFileSync(join(jaRules, `${r.id}.md`), 'utf8'), `${r.id} ja モードによる違い`).toMatch(
+        /^## モードによる違い$/m
+      );
+    }
+  });
+
   it('has no stray rule pages without a matching rule', () => {
     const ids = new Set(documented.map((r) => `${r.id}.md`));
     // Generated index pages and sidebar metadata live alongside the rule pages, at exactly

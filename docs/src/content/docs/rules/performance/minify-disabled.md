@@ -42,7 +42,7 @@ export default defineConfig(({ mode }) => ({
 
 Note the CLI's static pass deliberately skips this conditional form — only the plugin channel (which sees the resolved value) verifies which branch your build actually takes.
 
-## Limitations
+## Mode differences
 
 The two channels differ in strength. The CLI flags only the literal `build.minify: false`; a dynamic expression evaluating to `false` is invisible to it.
 

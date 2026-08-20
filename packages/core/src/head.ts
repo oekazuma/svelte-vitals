@@ -37,7 +37,7 @@ export interface HeadTag {
   presence: Exclude<Presence, 'none'>;
   /** Whether the tag's value is static/dynamic/absent (design §4). */
   value: Value;
-  /** Source file the tag came from (static mode only). */
+  /** Source file the tag came from (static mode); unset on a rendered head. */
   file?: string;
 }
 

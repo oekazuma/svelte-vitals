@@ -108,8 +108,7 @@ louder.
 
 ## Limitations
 
-Only directories under `src/` are considered — the rule reads the same source inventory the sibling
-rules do, and on a `--route` run, where no inventory is built, it is silent.
+Only directories under `src/` are considered.
 
 A declaration that is not checking what it says is reported, so a typo cannot leave the rule
 silently doing nothing. The finding names the reason:
@@ -138,6 +137,10 @@ exist yet.
 Two things this rule does not attempt: over-permission at a reserved-name directory (a glob cannot
 tell a concern directory from a reserved-name directory at the same depth), and seeding a
 declaration from the tree.
+
+## Mode differences
+
+None. This rule reads the project's source-file inventory — the `src/**` paths, not file contents — which every surface builds the same way: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: no inventory is built, and a file finding has no route to attribute it to.
 
 ## Disabling
 

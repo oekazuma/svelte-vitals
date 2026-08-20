@@ -53,6 +53,10 @@ Out of reach or out of scope:
 - A local class shadowing a built-in name (`class Map { … }`) would be misattributed; shadowing global built-ins is its own problem.
 - Runes-module (`.svelte.ts`) and class-field `$state`, in this version.
 
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+
 ## Disabling
 
 ```js svelte-vitals.config.js

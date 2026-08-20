@@ -50,6 +50,10 @@ export async function load({ fetch }) {
 
 Per-user data belongs in cookies/`locals` plus a database; share loaded data with components via `page.data` or the context API. If the write is genuinely a rate limiter or memoization cache keyed by non-personal data, add `// svelte-vitals-disable-next-line security/handler-state-write` above it.
 
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+
 ## Disabling
 
 Silence a single occurrence with `<!-- svelte-vitals-disable-next-line security/handler-state-write -->` on the line above it, or turn the rule off:

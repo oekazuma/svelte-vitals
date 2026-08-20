@@ -24,6 +24,10 @@ Allow: /
 Sitemap: https://example.com/sitemap.xml
 ```
 
+## Mode differences
+
+None. The check looks for the file or its `+server` endpoint in the project and is the same on every surface, including a `--route` run. The dashboard's live layer does not re-evaluate site-wide rules; the static baseline's result stands.
+
 ## Disabling
 
 If this is intentional, turn the rule off:

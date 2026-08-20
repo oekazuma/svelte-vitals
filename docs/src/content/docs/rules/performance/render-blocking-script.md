@@ -7,7 +7,7 @@ description: A head <script src> should not block parsing.
 
 ## What it checks
 
-Flags a `<script src>` in `<head>` that runs as a classic script (no `type`, an empty `type`, or a JavaScript MIME type) and has neither `defer` nor `async` — whether authored in `src/app.html` (caught in rendered analysis) or in `<svelte:head>` (caught in static analysis). A head with no `<script>` is not checked.
+Flags a `<script src>` in `<head>` that runs as a classic script (no `type`, an empty `type`, or a JavaScript MIME type) and has neither `defer` nor `async` — whether authored in `src/app.html` (caught in rendered analysis) or in `<svelte:head>` (caught in source analysis). A head with no `<script>` is not checked.
 
 Not flagged: `type="module"`, and non-executing types such as `type="importmap"`, `type="speculationrules"`, or a third-party runtime like `type="text/partytown"` — none of these run as a blocking classic script.
 
@@ -22,6 +22,10 @@ Add `defer` (or `type="module"`) / `async`:
 ```html src/app.html
 <script src="/analytics.js" defer></script>
 ```
+
+## Mode differences
+
+**Source analysis** (the CLI, the dashboard's static baseline) composes each route's `<head>` from `<svelte:head>` in the page and its layout chain, followed into repo-local components, plus the known meta components (`svelte-meta-tags`, `svelte-seo`) and any you declare in `metaComponents`, and judges only a **literal** value — a dynamic one is not examined. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the shipped `<head>`, where every value is literal; the build pass covers prerendered routes only. When the two disagree, trust the rendered result.
 
 ## Disabling
 

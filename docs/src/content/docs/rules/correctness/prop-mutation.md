@@ -9,7 +9,7 @@ description: Don't mutate a prop from $props() unless it is declared $bindable.
 
 Flags a mutation of a value destructured from `$props()` that is not declared `$bindable`: a member write (`user.name = …`, `obj.count += 1`), `delete obj.x`, or a mutating method call (`items.push(…)`, `arr.splice(…)`, `map.set(…)`, …). A `...rest` binding is tracked too, since rest props can never be individually declared `$bindable`.
 
-Plain reassignment of the prop itself (`count = 5`) is **not** flagged: Svelte's docs explicitly sanction temporary reassignment for unsaved ephemeral state. Only mutation is prohibited. Static (CLI) analysis of the component script and template.
+Plain reassignment of the prop itself (`count = 5`) is **not** flagged: Svelte's docs explicitly sanction temporary reassignment for unsaved ephemeral state. Only mutation is prohibited.
 
 A local reusing the prop's name shadows it and is not the prop at all, so mutating it is not flagged: a function or arrow parameter, a block-scoped `let`/`const` redeclaration, a `for`/`for-of`/`for-in` loop variable, a `catch` parameter, or a `{#each ... as x}` variable.
 
@@ -74,6 +74,10 @@ Reassign the prop after mutating it to re-trigger reactivity — this is Svelte'
   }
 </script>
 ```
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

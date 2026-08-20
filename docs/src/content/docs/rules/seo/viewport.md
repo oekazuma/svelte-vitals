@@ -7,7 +7,7 @@ description: Pages should declare a responsive viewport meta tag.
 
 ## What it checks
 
-Every route should expose a `<meta name="viewport">` tag (usually set once in `app.html`). A missing tag is flagged. Because the viewport tag normally lives in `app.html` — which static (CLI) mode does not resolve — this rule is evaluated in plugin/rendered mode only.
+Every route should expose a `<meta name="viewport">` tag (usually set once in `app.html`). A missing tag is flagged.
 
 ## Why it matters
 
@@ -20,6 +20,10 @@ Add the viewport meta tag, typically in `src/app.html`:
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 ```
+
+## Mode differences
+
+**Rendered analysis only** (the Vite plugin's build pass, a route you visit in the dashboard). The tag lives in `src/app.html`, which source analysis (the CLI, the dashboard's static baseline) does not resolve, so that pass reports nothing for this rule.
 
 ## Disabling
 

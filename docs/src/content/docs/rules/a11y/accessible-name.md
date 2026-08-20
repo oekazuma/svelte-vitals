@@ -7,7 +7,7 @@ description: A button, link, or image button needs a way to compute its accessib
 
 ## What it checks
 
-Flags a `<button>`, `<a href="…">`, or `<input type="image">` with no computable accessible name. Checked from component source, by both the CLI and the Vite plugin — the plugin reads the same `.svelte` files, so the result is identical in either mode. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+Flags a `<button>`, `<a href="…">`, or `<input type="image">` with no computable accessible name.
 
 Any of the following, if present, is a name source — the element is not flagged:
 
@@ -41,6 +41,10 @@ Give the element visible text, a labelling attribute, or an `alt` on its icon im
 <a href="/x"><img src="i.png" alt="Home" /></a>
 <input type="image" src="search.png" alt="Search" />
 ```
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

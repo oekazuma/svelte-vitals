@@ -7,7 +7,7 @@ description: Use $derived instead of an $effect that only assigns state.
 
 ## What it checks
 
-Flags an `$effect` whose body only assigns to `$state` variables. Checked by static (CLI) analysis of component instance scripts.
+Flags an `$effect` whose body only assigns to `$state` variables, in the component's instance script.
 
 ## Why it matters
 
@@ -73,6 +73,10 @@ values `$derived` cannot safely read, because there is no read that is guarantee
 Prefer `onMount`, or [`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window)
 for `window` properties — see those two rules' docs for the fix — and suppress this finding rather
 than switching to `$derived`.
+
+## Mode differences
+
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

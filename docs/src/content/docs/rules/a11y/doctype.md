@@ -17,7 +17,7 @@ Without a doctype browsers render in quirks mode, which applies different layout
 
 ## Mode differences
 
-CLI only. The Vite plugin analyses prerendered HTML and never reads `src/app.html`, so this rule reports nothing in plugin mode — even though a missing doctype is visible in the output it inspects.
+Source analysis only — the CLI and the live dashboard's static baseline read `src/app.html`. The Vite plugin's build pass analyses prerendered HTML and never reads `src/app.html`, so it reports nothing for this rule — even though a missing doctype is visible in the output it inspects — and the dashboard's live layer does not evaluate it either; the static result stands.
 
 ## How to fix
 

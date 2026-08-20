@@ -32,14 +32,14 @@ Add the missing id to the referenced element, or fix a typo'd reference:
 
 Reference checking runs in both modes, but from different sources, so results can differ:
 
-- **Static (CLI)** composes the route's layout chain with its resolved local components and requires the closed-world condition above — any unresolved component, `{@html}`, spread attribute, or dynamic id anywhere in the composition skips the whole route.
-- **Rendered (vite)** reads the final prerendered HTML, which already is a closed world by construction — every id and reference that ships to the browser is visible, so this mode has no equivalent skip condition and can check routes static mode cannot. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line — the persisted finding key differs from the static-mode key for the same defect.
+- **Source analysis** (the CLI, the dashboard's static baseline) composes the route's layout chain with its resolved local components and requires the closed-world condition above — any unresolved component, `{@html}`, spread attribute, or dynamic id anywhere in the composition skips the whole route.
+- **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the rendered HTML, which already is a closed world by construction — every id and reference that ships to the browser is visible, so this mode has no equivalent skip condition and can check routes source analysis cannot. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line — the persisted finding key differs from the source-analysis key for the same defect.
 
 When the two disagree, trust the rendered result — it reflects what ships to the browser.
 
 ## Disabling
 
-An inline `svelte-vitals-disable-next-line` comment above the line the finding names silences it — static mode only, since a build-mode finding points at the prerendered HTML and has no source line to sit above. That line often sits in a composed component, and one directive there silences the finding on every route composing it — the suppressions file (`npx svelte-vitals --update-suppressions`) is the per-route mechanism. You can also scope the rule per route or path with `overrides`, or turn it off:
+An inline `svelte-vitals-disable-next-line` comment above the line the finding names silences it — source analysis only, since a build-pass finding points at the prerendered HTML and has no source line to sit above. That line often sits in a composed component, and one directive there silences the finding on every route composing it — the suppressions file (`npx svelte-vitals --update-suppressions`) is the per-route mechanism. You can also scope the rule per route or path with `overrides`, or turn it off:
 
 ```js svelte-vitals.config.js
 export default {

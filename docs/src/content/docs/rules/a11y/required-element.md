@@ -9,7 +9,7 @@ Declaration-driven: the rule has no opinion of its own. With nothing declared it
 
 ## What it checks
 
-Each route's **body**, as composed: the layout chain, the page, every component that resolves to a repo-local `.svelte` file, and `app.html`'s `<body>` (static mode) — or the prerendered document's `<body>` (build mode). An element supplied by a layout or a resolved component counts, which is why this is judged per route and not per file: a `+page.svelte` alone rarely holds the `<main>`.
+Each route's **body**, as composed: the layout chain, the page, every component that resolves to a repo-local `.svelte` file, and `app.html`'s `<body>` (source analysis) — or the prerendered document's `<body>` (the build pass). An element supplied by a layout or a resolved component counts, which is why this is judged per route and not per file: a `+page.svelte` alone rarely holds the `<main>`.
 
 ```js svelte-vitals.config.js
 export default {
@@ -36,12 +36,12 @@ Presence is optimistic — an element inside any `{#if}` arm, `{#each}` body or 
 
 **Present** is a safe claim in any world: an unresolved component can only add elements, so a route with every declared element present passes whether or not everything resolved. **Missing** is a claim about the whole page, and it is made only when the world is closed for elements — every component resolved, no `{@html}`, no `<svelte:element>`. A route missing a declared element with the world open emits nothing.
 
-### Mode differences
+## Mode differences
 
-- **Build mode** (`@svelte-vitals/vite`, prerendered routes): the document is the closed world, so presence and absence are both reported on every prerendered route.
-- **Static mode** (CLI): presence is reported everywhere; absence only on routes closed for elements. On a real app most routes compose at least one component that does not resolve to a repo-local file — a UI library, an icon — so absence is reported on few of them until that is addressed. A spread attribute or an expression-valued `id` does not open the world for this rule; they cannot hide an element.
+- **Rendered analysis** (the Vite plugin's build pass): the document is the closed world, so presence and absence are both reported on every prerendered route.
+- **Source analysis** (the CLI, the dashboard's static baseline): presence is reported everywhere; absence only on routes closed for elements. On a real app most routes compose at least one component that does not resolve to a repo-local file — a UI library, an icon — so absence is reported on few of them until that is addressed. A spread attribute or an expression-valued `id` does not open the world for this rule; they cannot hide an element.
 
-The finding is located at the route's page file in static mode and at the prerendered HTML file in build mode.
+The finding is located at the route's page file in source analysis and at the prerendered HTML file in the build pass. The dashboard's live layer does not evaluate this rule; the static baseline's result stands.
 
 ## Why it matters
 

@@ -63,6 +63,10 @@ redirect(303, resolve('/login')); // load 関数や form action で
 - 素の `.ts`/`.js` モジュールの `goto()`。収集対象は `.svelte`・`.svelte.ts`・`.svelte.js` に限られます。
 - `src/hooks.client.ts` や `src/hooks.ts` の `redirect()`。Kit モジュール側の収集対象から外れています。
 
+## モードによる違い
+
+ありません。このルールはソース — 同じ `.svelte` / `.ts` ファイル — を読むので、CLI、Vite プラグインのビルド、ライブダッシュボードの静的ベースラインのどの面でも結果は同一で、レンダリング済み HTML の解析で再評価されることもありません。`--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
+
 ## 無効化
 
 ```js svelte-vitals.config.js
