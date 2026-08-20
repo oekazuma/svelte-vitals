@@ -17,8 +17,8 @@ describe('parseComponentFacts — elements (HTML spec-data rules)', () => {
   it('records every element with its attribute names lowercased (a capitalized tag is a component)', () => {
     const c = parseComponentFacts('<div Class="x" {...rest} on:click={f}><span id="a" /></div>', 'C.svelte');
     expect(c.elements).toEqual([
-      { tag: 'div', line: 1, attrs: [{ name: 'class', line: 1 }] },
-      { tag: 'span', line: 1, attrs: [{ name: 'id', line: 1 }] }
+      { tag: 'div', line: 1, attrs: [{ name: 'class', line: 1, value: 'x' }], hasSpread: true },
+      { tag: 'span', line: 1, attrs: [{ name: 'id', line: 1, value: 'a' }], parent: 0 }
     ]);
   });
 

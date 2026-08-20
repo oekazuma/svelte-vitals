@@ -33,7 +33,8 @@
 <h1>Gallery — obsolete elements and deprecated attributes</h1>
 
 <!-- a11y/deprecated-element: <strike> is in WHATWG's obsolete-features list; <s> is its replacement
-     and must not fire. -->
+     and must not fire. a11y/permitted-contents also reports it (info): an obsolete element is in
+     no content category, so it fails <p>'s phrasing model. -->
 <p><strike>old price</strike> <s>also old, conforming</s></p>
 
 <!-- a11y/deprecated-element: <font> fires once as an element; its `color` must NOT also fire under

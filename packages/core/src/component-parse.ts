@@ -1113,31 +1113,63 @@ function classifyAttrValue(value: unknown): { literal?: string } | { expression:
  * keeps the surrounding namespace. Compared lowercased throughout — the AST keeps source spelling,
  * HTML does not.
  */
-function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: boolean): void {
+// Constructs whose rendering position is not lexical: the parent chain breaks here
+// (permitted-contents never judges across). Those that can render content in place also make the
+// enclosing element's `:has` subtree unknowable; a snippet declaration and `<svelte:head>`
+// render nothing lexically, so they break the chain silently.
+const CHAIN_BREAKS = new Set([
+  'Component',
+  'SvelteComponent',
+  'SvelteSelf',
+  'SvelteElement',
+  'SlotElement',
+  'RenderTag',
+  'HtmlTag',
+  'SnippetBlock',
+  'SvelteHead'
+]);
+const SILENT_BREAKS = new Set(['SnippetBlock', 'SvelteHead']);
+
+function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: boolean, parent?: number): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectElements(child, source, acc, inSvg);
+    for (const child of node) collectElements(child, source, acc, inSvg, parent);
     return;
   }
   if (!node || typeof node !== 'object') return;
   let next = inSvg;
-  if (node.type === 'RegularElement' && typeof node.name === 'string' && Array.isArray(node.attributes)) {
+  let nextParent = parent;
+  if (typeof node.type === 'string' && CHAIN_BREAKS.has(node.type)) {
+    if (parent !== undefined && !SILENT_BREAKS.has(node.type)) acc[parent]!.unknownContent = true;
+    nextParent = undefined;
+  } else if (node.type === 'RegularElement' && typeof node.name === 'string' && Array.isArray(node.attributes)) {
     const tag = node.name.toLowerCase();
     // The `<svg>` element is itself in the SVG namespace, so it is flagged along with its subtree;
     // `<foreignObject>` is too, and only its children return to HTML.
     const self = inSvg || tag === 'svg';
+    const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
     acc.push({
       tag,
       line: lineOf(source, node.start),
       attrs: node.attributes
         .filter((a: Node) => a?.type === 'Attribute' && typeof a.name === 'string')
-        .map((a: Node) => ({ name: String(a.name).toLowerCase(), line: lineOf(source, a.start ?? node.start) })),
-      ...(self ? { inSvg: true as const } : {})
+        .map((a: Node) => {
+          const value = a.value === true ? '' : attrValueOf(a) === 'static' ? (attrTextOf(a) ?? undefined) : undefined;
+          return {
+            name: String(a.name).toLowerCase(),
+            line: lineOf(source, a.start ?? node.start),
+            ...(value !== undefined ? { value } : {})
+          };
+        }),
+      ...(self ? { inSvg: true as const } : {}),
+      ...(parent !== undefined ? { parent } : {}),
+      ...(hasSpread ? { hasSpread: true as const } : {})
     });
+    nextParent = acc.length - 1;
     if (tag === 'svg') next = true;
     else if (tag === 'foreignobject') next = false;
   }
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectElements(node[key], source, acc, next);
+    if (key in node) collectElements(node[key], source, acc, next, nextParent);
   }
 }
 

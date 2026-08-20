@@ -9,6 +9,8 @@ import { PENALIZED, PASS } from './detection.js';
 export interface ComponentIssue {
   line: number;
   message: string;
+  /** Overrides the rule's default severity for this one finding (a11y/permitted-contents' split). */
+  severity?: Severity;
 }
 
 /** Categories that component-scoped rules report under (CLI/static source analysis). */
@@ -105,7 +107,7 @@ export function fileRule<F extends { file: string; suppressions?: SuppressionDir
           out.push({
             id: spec.id,
             category: spec.category,
-            severity: spec.severity,
+            severity: b.severity ?? spec.severity,
             detection: PENALIZED,
             route: f.file,
             location: f.file,

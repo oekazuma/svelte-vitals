@@ -19,7 +19,7 @@ const expected = JSON.parse(readFileSync(join(appDir, 'expected-findings.json'),
 
 interface JsonReport {
   rules: Record<string, { findings: number; passed: number }>;
-  routes: Array<{ route: string; issues: Array<{ location?: string }> }>;
+  routes: Array<{ route: string; issues: Array<{ id?: string; location?: string; severity?: string }> }>;
   siteIssues: Array<{ location?: string }>;
 }
 
@@ -66,6 +66,16 @@ describe('kitchen-sink e2e (static mode)', () => {
         expect(got.findings, id).toBe(entry.findings);
       }
     }
+  });
+
+  it('splits a11y/permitted-contents severities: broken structure warns, the benign class informs', () => {
+    // Component-scoped findings key their route by source file, not URL path.
+    const aria = report.routes.find((r) => r.route === 'src/routes/gallery/a11y/aria/+page.svelte')!;
+    const severities = aria.issues
+      .filter((i) => i.id === 'a11y/permitted-contents')
+      .map((i) => i.severity)
+      .sort();
+    expect(severities).toEqual(['info', 'warning']);
   });
 
   it('keeps the clean canaries clean', () => {
