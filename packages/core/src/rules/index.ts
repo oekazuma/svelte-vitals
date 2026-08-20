@@ -89,6 +89,7 @@ import { a11yDeprecatedAttr } from './a11y/deprecated-attr.js';
 import { a11yDisallowedAriaProps } from './a11y/disallowed-aria-props.js';
 import { a11yDeprecatedAria } from './a11y/deprecated-aria.js';
 import { a11yDisallowedElement } from './a11y/disallowed-element.js';
+import { a11yPermittedContents } from './a11y/permitted-contents.js';
 import { a11yRequiredElement } from './a11y/required-element.js';
 import { a11yDoctype } from './a11y/doctype.js';
 import { a11yDuplicateLandmark } from './a11y/duplicate-landmark.js';
@@ -185,6 +186,7 @@ export const allRules: Rule[] = [
   a11yDisallowedAriaProps,
   a11yDeprecatedAria,
   a11yDisallowedElement,
+  a11yPermittedContents,
   a11yRequiredElement,
   a11yDoctype,
   a11yDuplicateLandmark,
@@ -282,6 +284,7 @@ export {
   a11yDisallowedAriaProps,
   a11yDeprecatedAria,
   a11yDisallowedElement,
+  a11yPermittedContents,
   a11yRequiredElement,
   a11yDoctype,
   a11yDuplicateLandmark,

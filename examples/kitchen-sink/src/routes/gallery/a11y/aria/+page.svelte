@@ -52,3 +52,14 @@
 
 <!-- a11y/require-datetime: plain text content isn't machine-readable, and there's no datetime. -->
 <time>next week</time>
+
+<!-- a11y/permitted-contents (warning): <ul> admits only <li> and script-supporting elements —
+     a <div> child breaks the list structure assistive tech announces. The <li> beside it is fine. -->
+<ul>
+  <div>Not a list item</div>
+  <li>A real list item</li>
+</ul>
+
+<!-- a11y/permitted-contents (info): <button> takes phrasing content only; a <div> child is
+     spec-invalid but renders fine — the severity split's benign class. A <span> would be clean. -->
+<button><div>Block inside a button</div></button>

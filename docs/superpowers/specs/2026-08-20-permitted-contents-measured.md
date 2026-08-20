@@ -107,6 +107,13 @@ intentional), as the attribute measurement did with its `og:` hits. Skipped buck
 (snippet-boundary, transparent-at-root, `:has` with unknowns, unevaluated constructs) are
 reported so the denominator is visible.
 
+## Post-implementation note
+
+The shipped rule reports more than the probe on SCSS-heavy apps: the CLI's parser blanks
+`<style lang=…>` bodies and retries, so it analyzes the 31 files the probe's raw `parse()`
+rejected (`css_*` errors). Reconciled exactly on networking-toolbox: shipped 193 = the probe's
+151 non-overlap findings + 42 in those 31 files.
+
 ## Data-quality note
 
 The dataset's `address` exclusion list spells `foooter` (`:model(flow):not(address, …, header,

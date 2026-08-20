@@ -148,13 +148,30 @@ export interface ElementFact {
    * tag so a `disable-next-line` directive can reach a multi-line element — but a value-level rule
    * (`invalid-attr`) may want it for its message.
    */
-  attrs: { name: string; line: number }[];
+  attrs: { name: string; line: number; value?: string }[];
   /**
    * Inside an `<svg>` subtree, or in a component declaring `<svelte:options namespace="svg" />`.
    * `<foreignObject>` returns to HTML. Names collide across the two namespaces (`a`, `script`,
    * `style`, `title`), so HTML-only rules must skip these.
    */
   inSvg?: true;
+  /**
+   * Index of the nearest literal ancestor element in the same array (push-before-children DFS
+   * keeps it sound), looking through `{#if}`/`{#each}`/`{#await}`/`{#key}`. Absent at template
+   * root and after every construct whose rendering position is not lexical — a component,
+   * `<svelte:element>`, `<slot>`, `{@render}`, `{@html}`, a custom element or unknown tag,
+   * a `{#snippet}` body root, `<svelte:head>` children — so `a11y/permitted-contents` never
+   * judges across one.
+   */
+  parent?: number;
+  /** A spread attribute is present — every attribute test on this element is unknowable. */
+  hasSpread?: true;
+  /**
+   * A direct child the static walk cannot see through (component, `{@html}`, `{@render}`,
+   * `<slot />`, `<svelte:element>`, a custom element or unknown tag) — `:has(...)` over this
+   * element's subtree is unknowable.
+   */
+  unknownContent?: true;
 }
 
 /** Reactivity/correctness + security + architecture facts parsed from one `.svelte` component. */
