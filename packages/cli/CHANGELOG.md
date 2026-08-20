@@ -1,5 +1,50 @@
 # svelte-vitals
 
+## 0.49.0
+
+### Minor Changes
+
+- d1f5916: Add `a11y/disallowed-aria-props` and `a11y/deprecated-aria`, judged against the ARIA 1.3 role tables in the vendored HTML spec data. `disallowed-aria-props` (warning) reports an `aria-*` attribute the element's role prohibits — most often `aria-label` on a bare `<div>`/`<span>`, which the Svelte compiler does not warn about — or does not own; for elements whose implicit role depends on context (`<a>`, `<img>`, `<input>`, …) it judges only what holds under every role the element could have. `deprecated-aria` (info) reports `role="directory"`, `aria-dropeffect`/`aria-grabbed`, and an attribute deprecated on its role (`aria-haspopup` on `checkbox`, `aria-disabled` on `generic`). Both overlap the compiler's `a11y_role_supports_aria_props` on explicit roles and never disagree with it: the ten (role, attribute) pairs where the ARIA 1.3 tables and the compiler's data differ are exempted, and `<address>`/`<hgroup>` follow the ARIA-in-HTML specification rather than the dataset.
+  
+  `a11y/deprecated-element` now reports `<marquee>` and `<blink>` as well — they were excluded because the compiler warns on them, which left the score blind to two of the 29 obsolete elements while it counted `<font>`. The two never disagree; the overlap is the same deliberate one every ARIA rule already has.
+- 298e86f: Add two declaration-driven rules, `a11y/disallowed-element` and `a11y/required-element`. Both are inert until a project declares tag names in their `elements` option (`{ options: { elements: ['iframe'] } }`); an `overrides` entry adds to the list for the routes or files it matches. `disallowed-element` reports every occurrence of a declared tag in component source. `required-element` judges the composed route — layout chain, page, resolved components, and `app.html`'s `<body>` — so a layout's `<main>` counts; presence passes in any world, and a missing element is reported only where the route is closed for elements (build mode always; static mode where every component resolved and there is no `{@html}` or `<svelte:element>`).
+  
+  The `elements` declaration is a bare tag name — letters, digits, hyphens — and selector syntax is rejected when the config loads, so a later attribute-qualified form can be added without changing what today's configs mean. `string-list` rule options can now declare a `pattern` for this.
+- 6c22500: New rule `a11y/permitted-contents`: every literal child element must be permitted content of its literal parent, per the HTML content models (membership only — order and count are unjudgeable statically). Severity is split by consequence: broken structure (a non-`<li>` child of `<ul>`, a heading inside a `<button>`, a `<li>` outside any list) is `warning`; category mismatches (`<button><div>`) are `info`. `<option>` rich content follows the compiler (allowed), and interactive nesting stays `a11y/interactive-nesting`'s verdict, so one defect is never two findings. Measured on eleven real apps before building: 351 adjudicated-true findings, 0 false positives.
+  
+  `ElementFact` (internal surface) gains `parent`, `attrs[*].value`, `hasSpread`, and `unknownContent`.
+- 0cdf097: Add `a11y/deprecated-element` and `a11y/deprecated-attr`, the first two rules on the vendored HTML spec data. `deprecated-element` reports the elements in the HTML standard's obsolete-features list (`<center>`, `<font>`, `<strike>`, …), leaving `<marquee>`/`<blink>` to the Svelte compiler; `deprecated-attr` reports an attribute the spec data marks deprecated on that element (`iframe[frameborder]`, `td[width]`, `hr[size]`), consulting the element's own attribute table only, so SVG sprites' `xlink:href` are never reported. Both are `info`, skip the SVG namespace, and yield one finding per element — several deprecated attributes on one element are listed in a single finding anchored at the start tag, so one inline directive silences it.
+  
+  `@svelte-vitals/core` now embeds a projection of `@markuplint/html-spec` (MIT) as generated data; the notice ships in the built output. There is no new runtime dependency.
+- 5c63cd8: Apply `svelte-vitals-disable-next-line` to every finding the report anchors to a file and a line, route-level ones included — a duplicate landmark, a second `<h1>`, an image missing dimensions. Previously the directive was read only by the file-scoped rules, so a comment above a route-level finding did nothing and said nothing.
+  
+  A suppressed finding becomes a pass for that rule and route rather than disappearing, so the route stays in the category average. A directive inside a component silences the finding on every route composing that component; per-route suppression remains the suppressions file's job.
+  
+  A directive naming a rule id that no rule declares is now reported as a warning instead of silently suppressing nothing — on full runs, gated like the stale-suppressions report, since a `--route` run parses files it never analyses.
+  
+  Report selections that matched nothing, so a run cannot look clean because it checked nothing: a `--route` glob matching no route, an `overrides` entry whose `route` or `files` glob matches nothing (full runs only), and a rule named by `--rules` whose facts a `--route` run does not collect.
+- 1271aa6: Known-limitation sweep for the a11y rules:
+  
+  - `a11y/use-list` now needs **two or more** bullet items under one parent (sibling text nodes, or sibling elements each opening with a bullet) before it reports — a lone `- note` line is a dash, not a list (WCAG H48 is about sequences). Projects with a single planted bullet line lose that finding.
+  - `a11y/unknown-aria-attribute` and `a11y/invalid-aria-value` anchor their findings at the element's start tag instead of the attribute's line, so one `svelte-vitals-disable-next-line` above a multi-line element now reaches them. Recorded suppressions-file entries are unaffected (the key carries no line).
+  - `a11y/invalid-aria-value` rejects an empty token list (`aria-relevant=""`): a token list is one or more tokens.
+  - `a11y/required-aria-props` no longer asks a native combobox for `aria-expanded`/`aria-controls` — the host supplies both (HTML-AAM). That is a `<select role="combobox">` without `multiple`/`size > 1` and an `<input list role="combobox">` whose type is omitted or text/search/tel/url/email; `<select multiple>`, `<select size="2">`, and other input types still owe them.
+  - `a11y/no-missing-id-ref` now follows every ARIA id-reference property (`aria-owns`, `aria-details`, `aria-errormessage`, `aria-flowto`) and HTML's `list`, `headers`, `form`, `popovertarget`, `commandfor`, not only `for`/`aria-labelledby`/`aria-describedby`/`aria-controls`/`aria-activedescendant`.
+  - `svelte-vitals explain` prints a `string-list` option's entry grammar where one is declared (`each entry a bare tag name …`).
+  
+  Two of these widen an existing rule rather than adding one, and a rule's findings are suppressed by `id::route::location` without a line — so a project with a recorded suppressions entry for `a11y/no-missing-id-ref` or `a11y/invalid-aria-value` at a location will find the new idref attributes and the empty-token-list case already silenced there.
+
+### Patch Changes
+
+- Updated dependencies [d1f5916]
+- Updated dependencies [298e86f]
+- Updated dependencies [805d30a]
+- Updated dependencies [6c22500]
+- Updated dependencies [0cdf097]
+- Updated dependencies [5c63cd8]
+- Updated dependencies [1271aa6]
+  - @svelte-vitals/core@0.46.0
+
 ## 0.48.1
 
 ### Patch Changes
