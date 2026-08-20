@@ -1,4 +1,5 @@
-import type { JsonReport, ResolvedA11y } from '@svelte-vitals/core/internal';
+import type { JsonReport } from '@svelte-vitals/core';
+import type { ResolvedA11y } from '@svelte-vitals/core/internal';
 
 export const ID_REF_RULE = 'a11y/no-missing-id-ref';
 

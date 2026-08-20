@@ -7,7 +7,8 @@ import {
   type RuleOverride,
   type Result,
   type Config,
-  type Category
+  type Category,
+  type JsonReport
 } from '@svelte-vitals/core';
 import {
   skippedFileWarnings,
@@ -31,8 +32,7 @@ import {
   settingSeverity,
   withFailedRulesOff,
   formatFailedRuleWarning,
-  terminalSafe,
-  type JsonReport
+  terminalSafe
 } from '@svelte-vitals/core/internal';
 import { buildIdRefSkips, idRefSkipWarning, ID_REF_RULE } from './a11y-skips.js';
 import { createNodeRuntime } from './runtime/node.js';
@@ -207,7 +207,7 @@ export interface AnalyzeResult {
   skipped?: JsonReport['skipped'];
   /** Ids of rules `runRules` caught throwing — already folded into `config` via `withFailedRulesOff`; exposed separately so a caller with its own base config (the vite dev dashboard) can apply the same correction without adopting this call's `config`. */
   failedRuleIds: string[];
-  /** Non-fatal issues surfaced during analysis: config-file problems (unknown top-level keys, invalid enum values), version-floor notices, `--rules`/overrides conflicts, and skipped-file notices. Empty when none apply. */
+  /** Non-fatal issues surfaced during analysis: config-file problems (unknown top-level keys, invalid enum values), version-floor notices, `--rules`/overrides conflicts, closed-world skip notices (`a11y/no-missing-id-ref`), and skipped-file notices. Empty when none apply. */
   warnings: string[];
   /**
    * This analysis's config-file load result (`undefined` when no config file exists at its

@@ -409,7 +409,7 @@ describe('no-missing-id-ref skip visibility', () => {
     const { skipped, warnings } = await analyzeProject({ cwd: fixtureDir });
     const entries = skipped!['a11y/no-missing-id-ref']!;
     const smt = entries.find((e) => e.route === '/smt-spread')!;
-    expect(smt.refs).toBeGreaterThanOrEqual(0);
+    expect(smt.refs).toBe(0);
     expect(smt.causes.map((c) => c.kind).sort()).toEqual(['component', 'spread']);
     expect(smt.causes.find((c) => c.kind === 'component')!.detail).toBe('MetaTags');
     expect(smt.causes.every((c) => c.file === 'src/routes/smt-spread/+page.svelte' && c.line > 0)).toBe(true);
