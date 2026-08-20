@@ -4,13 +4,13 @@ import { defineConfig, type Config, type Result, type RuleSetting } from '@svelt
 import {
   allRules,
   applyRuleSeverities,
+  defaultProject,
   effectiveSeverity,
   formatFailedRuleWarning,
   isPenalized,
   runRules,
   selectRules,
   terminalSafe,
-  type Project,
   type ResolvedA11y,
   type ResolvedHead,
   type ResolvedHeadings,
@@ -75,16 +75,7 @@ async function analyzeAndIngest(
   lastSignature: Map<string, string>
 ): Promise<void> {
   try {
-    const {
-      tags,
-      htmlLang,
-      headings: levels,
-      images: imgs,
-      landmarks,
-      nestedLandmarks,
-      ids,
-      idRefs
-    } = parseHtmlHead(html);
+    const { tags, headings: levels, images: imgs, landmarks, nestedLandmarks, ids, idRefs } = parseHtmlHead(html);
     const head: ResolvedHead = { route, source: 'rendered', tags, file: route };
     // Rendered mode does not track source lines (line 0 = unknown); file is the route.
     const headings: ResolvedHeadings[] = [
@@ -102,9 +93,6 @@ async function analyzeAndIngest(
         fullyResolved: true
       }
     ];
-    // robots/sitemap are not page-scoped, so mark them present to suppress seo/robots-txt, seo/sitemap-xml;
-    // htmlLang comes from the rendered document so seo/html-lang is evaluated against reality.
-    const project: Project = { hasRobotsTxt: true, hasSitemap: true, htmlLang };
     // No JSON report is built here — results are POSTed to the dashboard ingest — so the
     // examined counts have nowhere to go and are dropped.
     const { results: ruleResults, failedRules } = await runRules(rules, {
@@ -112,7 +100,7 @@ async function analyzeAndIngest(
       headings,
       images,
       a11y,
-      project,
+      project: defaultProject,
       config
     });
     const results = applyRuleSeverities(ruleResults, config);
@@ -143,7 +131,7 @@ async function analyzeAndIngest(
 }
 
 /**
- * SvelteKit `handle` that analyzes each visited page's rendered `<head>`, in dev only,
+ * SvelteKit `handle` that analyzes each visited page's rendered HTML, in dev only,
  * and (when the live dashboard is enabled) feeds the results in — upgrading that
  * route's dashboard findings from static (source-only) to `measured` (real rendered
  * HTML). Add it to `src/hooks.server.ts`, e.g. `sequence(svelteVitalsHandle())`.
@@ -162,7 +150,11 @@ export function svelteVitalsHandle(options: SvelteVitalsHookOptions = {}): Handl
     metaComponents: options.metaComponents ?? [],
     rules: options.rules ?? {}
   });
-  const rules = selectRules(allRules, config);
+  // One route's rendered HTML can answer only the rules that judge a route on its own: a
+  // cross-route rule passes on a single head and that pass replaces the static finding in the
+  // dashboard's merge; a project-scope rule answers for the site from one page and the store files
+  // that answer under the visited route, next to the real site-wide result.
+  const rules = selectRules(allRules, config).filter((r) => r.scope === 'route' && !r.crossRoute);
   const lastSignature = new Map<string, string>();
 
   return ({ event, resolve }) => {

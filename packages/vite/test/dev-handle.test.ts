@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import type { Handle } from '@sveltejs/kit';
 import { defineConfig, type Result } from '@svelte-vitals/core';
-import { isPenalized } from '@svelte-vitals/core/internal';
+import { allRules, isPenalized } from '@svelte-vitals/core/internal';
 import { svelteVitalsHandle } from '../src/hooks/index.js';
 
 // A minimal fake RequestEvent carrying only what the handle reads.
@@ -95,6 +95,20 @@ describe('svelteVitalsHandle', () => {
     await flush();
     expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(penalizedIds(sentResults(fetchMock))).toEqual([]);
+  });
+
+  it('runs only route-scoped rules that judge a route on their own — no cross-route or project rules', async () => {
+    const fetchMock = setup();
+    const handle = svelteVitalsHandle();
+    await handle({ event: fakeEvent('/ok', '/ok'), resolve: resolveWith([PAGE_OK]) });
+    await flush();
+    const byId = new Map(allRules.map((r) => [r.id, r]));
+    const ids = [...new Set(sentResults(fetchMock).map((r) => r.id))];
+    expect(ids.length).toBeGreaterThan(0);
+    const wrong = ids.filter((id) => byId.get(id)!.scope !== 'route' || byId.get(id)!.crossRoute);
+    expect(wrong).toEqual([]);
+    expect(ids).not.toContain('seo/duplicate-title');
+    expect(ids).not.toContain('seo/robots-txt');
   });
 
   it('reports multiple <h1> from the rendered body (seo/single-h1)', async () => {

@@ -27,6 +27,7 @@ export function uniquenessRule(opts: UniquenessRuleOptions): Rule {
     category: 'seo',
     severity: 'warning',
     scope: 'route',
+    crossRoute: true,
     rationale: opts.rationale,
     async check(ctx: RuleContext): Promise<Result[]> {
       // Gather (head, tag, normalized text) for every route with captured text.
