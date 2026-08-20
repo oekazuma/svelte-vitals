@@ -4,6 +4,8 @@ import { componentRule, type ComponentIssue } from '../component-rule.js';
 import { judgeContent } from '../../html-spec/content-model.js';
 import { HTML_SPEC } from '../../html-spec/generated.js';
 
+const KNOWN_TAGS = new Set(Object.keys(HTML_SPEC.elements).map((k) => k.replace(/^svg:/, '').toLowerCase()));
+
 const FIX = {
   description:
     'Move the child to an element its parent permits (e.g. wrap list content in <li>), or change the container to one that admits it (a <div> instead of a misused <ul>, a <span> instead of a block child inside a <button>).'
@@ -13,7 +15,7 @@ const FIX = {
 const COMPILER_CARVEOUT = new Set(['option', 'optgroup']);
 
 function judgeable(el: ElementFact): boolean {
-  return !el.inSvg && !el.tag.includes('-') && (el.tag in HTML_SPEC.elements || `svg:${el.tag}` in HTML_SPEC.elements);
+  return !el.inSvg && !el.tag.includes('-') && KNOWN_TAGS.has(el.tag);
 }
 
 /**

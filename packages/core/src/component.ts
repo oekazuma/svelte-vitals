@@ -159,15 +159,17 @@ export interface ElementFact {
    * Index of the nearest literal ancestor element in the same array (push-before-children DFS
    * keeps it sound), looking through `{#if}`/`{#each}`/`{#await}`/`{#key}`. Absent at template
    * root and after every construct whose rendering position is not lexical — a component,
-   * `<svelte:element>`, `<slot>`, `{@render}`, `{@html}`, a `{#snippet}` body root,
-   * `<svelte:head>` children — so `a11y/permitted-contents` never judges across one.
+   * `<svelte:element>`, `<slot>`, `{@render}`, `{@html}`, a custom element or unknown tag,
+   * a `{#snippet}` body root, `<svelte:head>` children — so `a11y/permitted-contents` never
+   * judges across one.
    */
   parent?: number;
   /** A spread attribute is present — every attribute test on this element is unknowable. */
   hasSpread?: true;
   /**
    * A direct child the static walk cannot see through (component, `{@html}`, `{@render}`,
-   * `<slot />`, `<svelte:element>`) — `:has(...)` over this element's subtree is unknowable.
+   * `<slot />`, `<svelte:element>`, a custom element or unknown tag) — `:has(...)` over this
+   * element's subtree is unknowable.
    */
   unknownContent?: true;
 }

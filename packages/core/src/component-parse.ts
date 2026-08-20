@@ -19,6 +19,10 @@ import type {
 } from './component.js';
 import { isRootRelativePath } from './base-path.js';
 import { HTML_SPEC } from './html-spec/generated.js';
+
+// Tag names the spec data knows, lowercased — 32 SVG keys are camelCase (`svg:clipPath`), and the
+// collector lowercases tags, so a direct key lookup would misread those as unknown tags.
+const KNOWN_TAGS = new Set(Object.keys(HTML_SPEC.elements).map((k) => k.replace(/^svg:/, '').toLowerCase()));
 import {
   CHILD_NODE_KEYS,
   lineOf,
@@ -1167,7 +1171,7 @@ function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: 
     });
     // A custom element or unknown tag renders its light DOM wherever its definition puts it, so
     // the chain breaks (and the enclosing subtree is unknowable) exactly as at a component tag.
-    if (tag.includes('-') || (!(tag in HTML_SPEC.elements) && !(`svg:${tag}` in HTML_SPEC.elements))) {
+    if (tag.includes('-') || !KNOWN_TAGS.has(tag)) {
       if (parent !== undefined) acc[parent]!.unknownContent = true;
       nextParent = undefined;
     } else nextParent = acc.length - 1;
