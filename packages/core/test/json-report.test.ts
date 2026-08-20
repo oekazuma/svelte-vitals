@@ -197,6 +197,30 @@ describe('buildJsonReport — examined counts', () => {
   });
 });
 
+describe('skipped routes map', () => {
+  const skipped = {
+    'a11y/no-missing-id-ref': [
+      {
+        route: '/x',
+        refs: 2,
+        causes: [{ kind: 'spread', file: 'src/routes/x/+page.svelte', line: 3 }]
+      }
+    ]
+  };
+
+  it('is included verbatim when entries exist and omitted otherwise', () => {
+    const report = buildJsonReport(results, config, { version: '0.0.0' }, undefined, undefined, skipped);
+    expect(report.skipped).toEqual(skipped);
+    expect(buildJsonReport(results, config, { version: '0.0.0' }).skipped).toBeUndefined();
+    expect(buildJsonReport(results, config, { version: '0.0.0' }, undefined, undefined, {}).skipped).toBeUndefined();
+  });
+
+  it('round-trips through formatJsonReport', () => {
+    const parsed = JSON.parse(formatJsonReport(results, config, { version: '0.0.0' }, undefined, undefined, skipped));
+    expect(parsed.skipped).toEqual(skipped);
+  });
+});
+
 describe('buildJsonReport — per-route category scores', () => {
   const config = defineConfig({});
   const meta = { version: '0.0.0' };

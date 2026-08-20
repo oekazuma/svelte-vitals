@@ -54,6 +54,17 @@ export interface JsonReport {
    * nothing has an empty entry; a declaration that judged nothing has an entry of `0`.
    */
   examined?: Record<string, Record<string, number>>;
+  /**
+   * Routes a closed-world rule skipped, keyed by rule id. Like `examined`, this describes the
+   * analysis rather than the report: `--diff`, `--baseline` and suppressions do not narrow it.
+   * `refs` is the route's literal id-reference count — a skipped route with `refs: 0` would
+   * produce nothing even if unlocked. Only source-mode analysis populates it; absent when no
+   * analyzed route was skipped.
+   */
+  skipped?: Record<
+    string,
+    Array<{ route: string; refs: number; causes: Array<{ kind: string; file: string; line: number; detail?: string }> }>
+  >;
 }
 
 function ruleEvidence(
@@ -79,7 +90,8 @@ export function buildJsonReport(
   config: Config,
   meta: { version: string },
   ruleIds?: readonly string[],
-  examined?: Record<string, Record<string, number>>
+  examined?: Record<string, Record<string, number>>,
+  skipped?: JsonReport['skipped']
 ): JsonReport {
   const { health, categories: byCat, weights } = computeHealth(results, config);
   const summary = summarize(results, config);
@@ -132,7 +144,8 @@ export function buildJsonReport(
     routes,
     siteIssues,
     inventories,
-    ...(examined && Object.keys(examined).length > 0 ? { examined } : {})
+    ...(examined && Object.keys(examined).length > 0 ? { examined } : {}),
+    ...(skipped && Object.keys(skipped).length > 0 ? { skipped } : {})
   };
 }
 
@@ -142,7 +155,8 @@ export function formatJsonReport(
   config: Config,
   meta: { version: string },
   ruleIds?: readonly string[],
-  examined?: Record<string, Record<string, number>>
+  examined?: Record<string, Record<string, number>>,
+  skipped?: JsonReport['skipped']
 ): string {
-  return JSON.stringify(buildJsonReport(results, config, meta, ruleIds, examined), null, 2);
+  return JSON.stringify(buildJsonReport(results, config, meta, ruleIds, examined, skipped), null, 2);
 }
