@@ -34,8 +34,9 @@ const CATEGORY_ICON = {
   security: 'shield',
   architecture: 'layers',
   // Lucide names only — the docs' icon set is @iconify-json/lucide, and an unknown
-  // name renders as no icon at all ('universal-access' is FontAwesome's name).
-  a11y: 'accessibility'
+  // name renders as no icon at all. 'person-standing' (arms-out figure) over Lucide's
+  // 'accessibility' (a wheelchair glyph): the category is for everyone, not one disability.
+  a11y: 'person-standing'
 };
 
 // The one place these blurbs live: core has no localized prose, and duplicating them
