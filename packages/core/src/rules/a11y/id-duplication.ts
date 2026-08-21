@@ -14,6 +14,9 @@ export const a11yIdDuplication = surplusRule({
   // stable — a Record's own-key enumeration would pull integer-like ids ("1") to the front.
   map: (route) =>
     Object.entries(route.ids).sort(([, a], [, b]) => a[0]!.file.localeCompare(b[0]!.file) || a[0]!.line - b[0]!.line),
-  message: (id) => `Duplicate id "${id}"`,
+  message: (id, _i, _n, first) =>
+    first.file === 'src/app.html'
+      ? `Duplicate id "${id}" — also defined by the src/app.html shell (line ${first.line})`
+      : `Duplicate id "${id}"`,
   passMessage: 'No duplicate ids'
 });

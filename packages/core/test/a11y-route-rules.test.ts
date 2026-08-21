@@ -102,6 +102,43 @@ describe('a11y/id-duplication', () => {
     expect(fails(one)).toHaveLength(0);
     expect(await a11yIdDuplication.check(ctxA11y([ra({})]))).toHaveLength(0);
   });
+  it('names the shell when the first representative is src/app.html', async () => {
+    const rs = await a11yIdDuplication.check(
+      ctxA11y([
+        ra({
+          ids: {
+            'shell-root': [
+              { file: 'src/app.html', line: 8 },
+              { file: 'src/routes/+page.svelte', line: 4 }
+            ]
+          }
+        })
+      ])
+    );
+    const f = fails(rs);
+    expect(f).toHaveLength(1);
+    expect(f[0]).toMatchObject({
+      location: 'src/routes/+page.svelte',
+      line: 4,
+      message: 'Duplicate id "shell-root" — also defined by the src/app.html shell (line 8)'
+    });
+  });
+
+  it('keeps the plain message for route-internal duplicates', async () => {
+    const rs = await a11yIdDuplication.check(
+      ctxA11y([
+        ra({
+          ids: {
+            x: [
+              { file: 'a.svelte', line: 1 },
+              { file: 'b.svelte', line: 2 }
+            ]
+          }
+        })
+      ])
+    );
+    expect(fails(rs)[0]!.message).toBe('Duplicate id "x"');
+  });
 });
 
 describe('a11y/id-duplication — entry ordering', () => {

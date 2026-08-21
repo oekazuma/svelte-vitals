@@ -88,12 +88,8 @@ export interface Project {
    * silent then, like `viteMinifyDisabled`'s absent convention.
    */
   appHtmlDoctype?: boolean;
-  /**
-   * Literal `id` attributes in `src/app.html`, from the same read as `htmlLang`. The shell is part
-   * of every rendered document, so its ids satisfy a route's id references (a11y/no-missing-id-ref);
-   * absent when the file wasn't read.
-   */
-  appHtmlIds?: string[];
+  /** Literal ids in src/app.html with the line each first appears on — shell content present on every rendered route. Absent when the file wasn't read. */
+  appHtmlIds?: { id: string; line: number }[];
   /** Distinct lowercased tag names inside `app.html`'s `<body>` (a11y/required-element's presence set; static mode). */
   appHtmlBodyTags?: string[];
 }

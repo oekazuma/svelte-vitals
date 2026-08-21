@@ -38,7 +38,7 @@ export function surplusRule(spec: {
   rationale: string;
   recommendation: string;
   map: (route: ResolvedA11y) => [string, A11yOccurrenceInfo[]][];
-  message: (key: string, i: number, n: number) => string;
+  message: (key: string, i: number, n: number, first: A11yOccurrenceInfo) => string;
   passMessage: string;
 }): Rule {
   const result = resultFactory(spec.id, spec.recommendation, 'warning');
@@ -59,7 +59,7 @@ export function surplusRule(spec: {
           first ??= reps[0];
           for (let i = 1; i < reps.length; i++) {
             surplus = true;
-            out.push(result(route.route, PENALIZED, reps[i]!, spec.message(key, i, reps.length)));
+            out.push(result(route.route, PENALIZED, reps[i]!, spec.message(key, i, reps.length, reps[0]!)));
           }
         }
         if (first && !surplus) out.push(result(route.route, PASS, { file: first.file, line: 0 }, spec.passMessage));

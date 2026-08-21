@@ -239,11 +239,14 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     // The scoped run is the case per-family wiring would have broken: it skips component-fact
     // collection, so the directive has to reach the pass through the route composition.
     for (const [i, args] of [[], scoped].entries()) {
-      expect(findings(before[i]!, 'a11y/id-duplication')).toBe(1);
+      // Relative, not absolute: the gallery may legitimately carry other id-duplication findings
+      // (the shell-collision plant); this test pins only that the directive silences exactly one
+      // finding and synthesizes exactly one PASS.
+      expect(findings(before[i]!, 'a11y/id-duplication')).toBeGreaterThanOrEqual(1);
       const { report } = run(dir, ...args);
       // A suppressed finding is checked-and-clean, so the route stays in the average as a PASS
       // rather than dropping out of it the way a skipped route does.
-      expect(findings(report, 'a11y/id-duplication')).toBe(0);
+      expect(findings(report, 'a11y/id-duplication')).toBe(findings(before[i]!, 'a11y/id-duplication') - 1);
       expect(passed(report, 'a11y/id-duplication')).toBe(passed(before[i]!, 'a11y/id-duplication') + 1);
     }
   });
@@ -368,10 +371,15 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     disableAbove(join(dir, 'src', 'lib', 'a11y', 'DupId.svelte'), '<p id="dup-x">', 'a11y/id-duplication');
     execFileSync(process.execPath, [bin, dir, '--update-suppressions'], { encoding: 'utf8', stdio: 'pipe' });
     const recorded = JSON.parse(readFileSync(join(dir, 'svelte-vitals-suppressions.json'), 'utf8')) as {
-      suppressions: Array<{ id: string }>;
+      suppressions: Array<{ id: string; route?: string }>;
     };
     expect(recorded.suppressions.length).toBeGreaterThan(0);
-    expect(recorded.suppressions.some((s) => s.id === 'a11y/id-duplication')).toBe(false);
+    // Route-scoped, not id-scoped: the gallery route carries its own unsuppressed
+    // a11y/id-duplication finding (the shell-collision plant), which --update-suppressions
+    // legitimately records. Only the inline-suppressed route must stay absent.
+    expect(recorded.suppressions.some((s) => s.id === 'a11y/id-duplication' && s.route === '/gallery/a11y/ids')).toBe(
+      false
+    );
   });
 
   it('turns a recorded entry stale once the same finding is suppressed inline', () => {

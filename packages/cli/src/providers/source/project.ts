@@ -6,6 +6,7 @@ import {
   VITE_CONFIG_FILES,
   collectSuppressions,
   findMinifyDisabled,
+  lineOf,
   resolveKitAliases,
   resolveKitPathsBase,
   type Project,
@@ -169,14 +170,22 @@ function detectAppHtmlBodyTags(html: string): string[] {
   return [...new Set([...body.matchAll(/<([a-zA-Z][a-zA-Z0-9-]*)\b/g)].map((m) => m[1]!.toLowerCase()))];
 }
 
-function detectAppHtmlIds(html: string): string[] {
+function detectAppHtmlIds(html: string): { id: string; line: number }[] {
+  // Newline-preserving strip: offsets on the stripped string must still yield correct
+  // lines for ids below multi-line comments/scripts/styles.
+  const keepNewlines = (m: string) => m.replace(/[^\n]/g, '');
   const markup = html
-    .replace(/<!--[\s\S]*?-->/g, '')
-    .replace(/<script[\s\S]*?<\/script\s*>/gi, '')
-    .replace(/<style[\s\S]*?<\/style\s*>/gi, '');
+    .replace(/<!--[\s\S]*?-->/g, keepNewlines)
+    .replace(/<script[\s\S]*?<\/script\s*>/gi, keepNewlines)
+    .replace(/<style[\s\S]*?<\/style\s*>/gi, keepNewlines);
   // The unquoted alternative rejects a leading '{' so templating placeholders (id={x}) stay out.
   const found = markup.matchAll(/(?<![\w-])id\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'>{][^\s"'>]*))/gi);
-  return [...new Set([...found].map((m) => m[1] ?? m[2] ?? m[3] ?? '').filter(Boolean))];
+  const out = new Map<string, number>();
+  for (const m of found) {
+    const id = m[1] ?? m[2] ?? m[3] ?? '';
+    if (id && !out.has(id)) out.set(id, lineOf(markup, m.index));
+  }
+  return [...out].map(([id, line]) => ({ id, line }));
 }
 
 /** app.html-derived facts sharing one read (io-budget): <html lang>, the leading doctype, and shell ids. */

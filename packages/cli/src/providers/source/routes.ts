@@ -285,7 +285,7 @@ async function resolveRoute(
   layouts: Map<string, string>,
   cache: ParseCache,
   aliases: readonly KitAlias[] | undefined,
-  appHtmlIds: readonly string[] | undefined,
+  appHtmlIds: readonly { id: string; line: number }[] | undefined,
   appHtmlBodyTags: readonly string[] | undefined
 ): Promise<RouteFacts> {
   const files = chainFiles(pageRel, layouts);
@@ -375,6 +375,19 @@ async function resolveRoute(
   }
   const literalIds = idNodes.filter((n) => n.key !== '');
 
+  const ids = representatives(literalIds, chainOrder);
+  // Shell collision: the app.html occurrence is prepended as the always-first, never-penalized
+  // representative — sorted in, representativeOrder would rank it after chain files and invert
+  // the penalty. Iterate the folded map's own keys (never index by shell id: a shell
+  // id="constructor" would read Object.prototype).
+  if (appHtmlIds) {
+    const shell = new Map(appHtmlIds.map((s) => [s.id, s.line]));
+    for (const key of Object.keys(ids)) {
+      const line = shell.get(key);
+      if (line !== undefined) ids[key] = [{ file: 'src/app.html', line }, ...ids[key]!];
+    }
+  }
+
   const route = deriveRoute(pageRel);
   return {
     head: { route, source: 'static', tags: [...composed.values(), ...additiveTags], file: pageRel },
@@ -387,13 +400,13 @@ async function resolveRoute(
         chainOrder
       ),
       nestedLandmarks,
-      ids: representatives(literalIds, chainOrder),
+      ids,
       // `href="#top"` scrolls to the document top with no element of that id, so it is
       // never a missing reference (HTML's "top of the document" fragment).
       idRefs: a11yNodes
         .filter((n) => n.kind === 'idref' && !(n.attr === 'href' && isTopFragment(n.key)))
         .map((n) => ({ id: n.key, attr: n.attr ?? '', file: n.file, line: n.line })),
-      idCandidates: [...new Set([...literalIds.map((n) => n.key), ...(appHtmlIds ?? [])])],
+      idCandidates: [...new Set([...literalIds.map((n) => n.key), ...(appHtmlIds ?? []).map((s) => s.id)])],
       fullyResolved: a11yCtx.state.fullyResolved,
       ...(a11yCtx.state.causes.length > 0 ? { unresolvedCauses: dedupeCauses(a11yCtx.state.causes) } : {}),
       elementTags: [...a11yCtx.state.elementTags],
@@ -425,7 +438,7 @@ export async function collectRoutes(
   aliases?: readonly KitAlias[],
   // The shell's literal ids (`Project.appHtmlIds`): part of every rendered document, so they
   // satisfy a route's id references.
-  appHtmlIds?: readonly string[],
+  appHtmlIds?: readonly { id: string; line: number }[],
   // The shell's `<body>` tag names (`Project.appHtmlBodyTags`): present on every route.
   appHtmlBodyTags?: readonly string[]
 ): Promise<{
