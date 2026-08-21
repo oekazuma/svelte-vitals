@@ -19,7 +19,10 @@ const expected = JSON.parse(readFileSync(join(appDir, 'expected-findings.json'),
 
 interface JsonReport {
   rules: Record<string, { findings: number; passed: number }>;
-  routes: Array<{ route: string; issues: Array<{ id?: string; location?: string; severity?: string }> }>;
+  routes: Array<{
+    route: string;
+    issues: Array<{ id?: string; location?: string; severity?: string; title?: string }>;
+  }>;
   siteIssues: Array<{ location?: string }>;
   skipped?: Record<
     string,
@@ -132,5 +135,18 @@ describe('kitchen-sink e2e (static mode)', () => {
     expect(report.routes.length).toBeGreaterThan(1);
     expect(report.routes.map((r) => r.route).every((r) => r.startsWith('/clean'))).toBe(true);
     expect(report.routes.flatMap((r) => r.issues)).toEqual([]);
+  });
+
+  it('opt-in a11y/unverified-id-ref flags the skipped route open-world when force-enabled', () => {
+    const res = spawnSync(process.execPath, [bin, appDir, '--rules', 'a11y/unverified-id-ref', '--reporter', 'json'], {
+      encoding: 'utf8',
+      maxBuffer: 64 * 1024 * 1024
+    });
+    const scoped = JSON.parse(res.stdout) as JsonReport;
+    const route = scoped.routes.find((r) => r.route === '/gallery/a11y/skipped')!;
+    const finding = route.issues.find((i) => i.id === 'a11y/unverified-id-ref')!;
+    expect(finding).toBeDefined();
+    // The message must name at least one concrete blocking cause with file and line.
+    expect((finding as { title?: string }).title).toMatch(/at src\/routes\/gallery\/a11y\/skipped\/\+page\.svelte:\d+/);
   });
 });
