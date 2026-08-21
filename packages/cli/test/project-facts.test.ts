@@ -109,6 +109,16 @@ describe('collectProjectFacts', () => {
     expect((await collectProjectFacts(rt, '')).appHtmlIds).toEqual([{ id: 'after', line: 7 }]);
   });
 
+  it('reports the line of a shell id below multi-line <script> and <style> blocks', async () => {
+    const rt = createMemoryRuntime({
+      'src/app.html': `<body>\n<script>\nlet a;\n</script>\n<div id="post-script"></div>\n<style>\n.x {}\n</style>\n<div id="post-style"></div>\n</body>`
+    });
+    expect((await collectProjectFacts(rt, '')).appHtmlIds).toEqual([
+      { id: 'post-script', line: 5 },
+      { id: 'post-style', line: 9 }
+    ]);
+  });
+
   it('detects build.minify: false in the Vite config', async () => {
     const rt = createMemoryRuntime({
       'vite.config.ts': `export default {\n  build: {\n    minify: false\n  }\n};\n`
