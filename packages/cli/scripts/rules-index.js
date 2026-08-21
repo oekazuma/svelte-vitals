@@ -33,7 +33,9 @@ const CATEGORY_ICON = {
   correctness: 'circle-check',
   security: 'shield',
   architecture: 'layers',
-  a11y: 'universal-access'
+  // Lucide names only — the docs' icon set is @iconify-json/lucide, and an unknown
+  // name renders as no icon at all ('universal-access' is FontAwesome's name).
+  a11y: 'accessibility'
 };
 
 // The one place these blurbs live: core has no localized prose, and duplicating them
