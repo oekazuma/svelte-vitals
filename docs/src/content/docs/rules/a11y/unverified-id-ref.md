@@ -13,7 +13,7 @@ On routes [`a11y/no-missing-id-ref`](/rules/a11y/no-missing-id-ref) must skip �
 
 ## Why it is opt-in
 
-svelte-vitals defaults to zero false positives: the sibling rule skips rather than guesses, and the JSON report's `skipped` map says where and why. This rule trades that guarantee for reach — an unmatched reference here is a _candidate_ defect, not a proven one — so it never runs unless you enable it:
+svelte-vitals defaults to zero false positives: the sibling rule skips rather than guesses, and the JSON report's `skipped` map says where and why. This rule trades that guarantee for reach — an unmatched reference here is a _candidate_ defect, not a proven one — so it never runs unless you enable it. In a nine-app measurement (`2026-08-21-unverified-id-ref-precision-measured.md`), 8 of 31 sampled finding sites — 49 of 72 findings — were real defects; 20 sites were false positives and 3 undecidable.
 
 ```js
 // svelte-vitals.config.js
