@@ -148,7 +148,7 @@ than shipping noise.
 - cli (`packages/cli/test/`): `--rules a11y/unverified-id-ref` force-enable materializes
   the entry in both the config-absent case and the config-file-explicit-`'off'` case (the
   post-delete resolveRuleSelection fix); config-file enablement end-to-end on a fixture
-  with a skipped route (`basic-project`'s `/smt-spread` works); disabled by default —
+  with a skipped route (a dedicated fixture with a dangling ref on a non-resolved route — `/smt-spread` has zero literal refs and cannot observe enablement); disabled by default —
   `analyzeProject` with default config selects the rule nowhere and reports no evidence
   row for it.
 - vite (`packages/vite/test/`): the build-path notice fires when the resolved config
