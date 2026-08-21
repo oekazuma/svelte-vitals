@@ -257,4 +257,24 @@ describe('analyze — svelte-vitals.config.*', () => {
       await rm(cwd, { recursive: true, force: true });
     }
   });
+
+  it('notices an enabled a11y/unverified-id-ref: structurally inert in rendered mode', async () => {
+    const { cwd, pages } = await makeProject(`export default { rules: { 'a11y/unverified-id-ref': 'info' } };\n`);
+    try {
+      const r = await analyze(pages, cwd, { report: false });
+      expect(r.warnings.some((w) => w.includes('a11y/unverified-id-ref has no effect in rendered mode'))).toBe(true);
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
+
+  it('no notice when the rule is not enabled', async () => {
+    const { cwd, pages } = await makeProject(`export default {};\n`);
+    try {
+      const r = await analyze(pages, cwd, { report: false });
+      expect(r.warnings.some((w) => w.includes('unverified-id-ref'))).toBe(false);
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
 });

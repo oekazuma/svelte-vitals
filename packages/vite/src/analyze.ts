@@ -102,6 +102,13 @@ export async function analyze(
   };
   const kitModules = await collectKitModuleFacts(cwd, project.kitAliases);
   const selected = selectRules(allRules, config);
+  // Rendered collection marks every route fully resolved, so the opt-in open-world rule can
+  // never fire here — say so instead of holding a silent no-op lever (design 2026-08-21).
+  if (selected.some((r) => r.id === 'a11y/unverified-id-ref')) {
+    warnings.push(
+      'a11y/unverified-id-ref has no effect in rendered mode — the prerendered document is always fully resolved.'
+    );
+  }
   const {
     results: rawResults,
     examined,
