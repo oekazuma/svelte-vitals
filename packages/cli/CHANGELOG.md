@@ -1,5 +1,39 @@
 # svelte-vitals
 
+## 0.50.0
+
+### Minor Changes
+
+- a1aca37: `a11y/no-missing-id-ref` no longer skips silently. The JSON report gains an optional
+  top-level `skipped` map (rule id → skipped routes, each with its literal id-reference count
+  and the located causes — unresolved component, spread, `{@html}`, or dynamic id — that
+  broke the route's closed world), and the CLI prints one warning line with the
+  skipped/analyzed ratio whenever the rule is selected and at least one analyzed route was
+  skipped. Scores and findings are unchanged: a skipped route still produces no result.
+- eb8c568: `a11y/id-duplication` now detects a route id colliding with an id in the `src/app.html`
+  shell in source mode (rendered mode always did): the finding sits on the route-side
+  occurrence and its message names the shell line. This is a new arm of an existing rule:
+  `findingKey` is `id::route::location` with no line component, so a project with an
+  existing suppressed `a11y/id-duplication` entry for the same route and file already has
+  the new finding pre-suppressed; projects without one will see new findings, and
+  `--update-suppressions` adopts them in one run. Diff-scoped runs (`--diff`/`--staged`)
+  only surface the finding when the route file changes — an edit to `src/app.html` alone
+  shows up on full runs.
+- 986e33a: New opt-in rule `a11y/unverified-id-ref`: on routes `a11y/no-missing-id-ref` must skip
+  (composition not fully resolved), it reports id references that match no literal id
+  anywhere analyzed as unverifiable — never as missing — naming the unresolved component,
+  spread, `{@html}`, or dynamic id that blocks verification. Off by default: enable it via
+  `rules: { 'a11y/unverified-id-ref': 'info' }` or `--rules a11y/unverified-id-ref`. Scores
+  are unchanged for every project that does not enable it. In a nine-app measurement (`docs/superpowers/specs/2026-08-21-unverified-id-ref-precision-measured.md`), 8 of 31 sampled finding sites (49 of 72 findings) were real defects. Source mode only; the vite
+  plugin prints a notice if it is enabled in rendered mode.
+
+### Patch Changes
+
+- Updated dependencies [a1aca37]
+- Updated dependencies [eb8c568]
+- Updated dependencies [986e33a]
+  - @svelte-vitals/core@0.47.0
+
 ## 0.49.0
 
 ### Minor Changes
