@@ -512,6 +512,29 @@ describe('collectRoutes a11y composition', () => {
     expect(a11y.unresolvedCauses).toBeUndefined();
   });
 
+  it('prepends the shell representative for a colliding id, first and with its line', async () => {
+    const a11y = await a11yOf({ 'src/routes/+page.svelte': `<div id="shell-root"></div>` }, [
+      { id: 'shell-root', line: 8 }
+    ]);
+    expect(a11y.ids['shell-root']).toEqual([
+      { file: 'src/app.html', line: 8 },
+      { file: 'src/routes/+page.svelte', line: 1 }
+    ]);
+  });
+
+  it('a shell id with no route collision never enters the ids map', async () => {
+    const a11y = await a11yOf({ 'src/routes/+page.svelte': `<div id="own"></div>` }, [{ id: 'lonely', line: 3 }]);
+    expect(a11y.ids['lonely']).toBeUndefined();
+    expect(a11y.idCandidates).toContain('lonely');
+  });
+
+  it('an each-body-only route id does not collide with the shell', async () => {
+    const a11y = await a11yOf({ 'src/routes/+page.svelte': `{#each items as x}<li id="shell-root"></li>{/each}` }, [
+      { id: 'shell-root', line: 8 }
+    ]);
+    expect(a11y.ids['shell-root']).toBeUndefined();
+  });
+
   it('collects every literal id as a candidate but counts only unconditional ones', async () => {
     const a11y = await a11yOf({
       'src/routes/+page.svelte': `{#each items as item}<li id="row"></li>{/each}<p id="row"></p>`
