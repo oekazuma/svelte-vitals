@@ -406,6 +406,14 @@ describe('examined counts survive --diff scoping (examined-counts design, "It is
 });
 
 describe('a11y/unverified-id-ref opt-in', () => {
+  const dirs: string[] = [];
+  afterEach(() => {
+    while (dirs.length > 0) {
+      const dir = dirs.pop();
+      if (dir) rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
   it('is not selected and reports no evidence row by default', async () => {
     const { ruleIds, results } = await analyzeProject({ cwd: unverifiedRefFixtureDir });
     expect(ruleIds).not.toContain('a11y/unverified-id-ref');
@@ -421,6 +429,19 @@ describe('a11y/unverified-id-ref opt-in', () => {
     expect(finding).toBeDefined();
     expect(finding!.message).toContain('for="ghost-input"');
     expect(finding!.message).toContain('spread at src/routes/+page.svelte:');
+  });
+
+  it('flags it when enabled via config file', async () => {
+    const dir = mkdtempSync(join(tmpdir(), 'svelte-vitals-unverified-id-ref-config-'));
+    dirs.push(dir);
+    cpSync(unverifiedRefFixtureDir, dir, { recursive: true });
+    writeFileSync(
+      join(dir, 'svelte-vitals.config.js'),
+      "export default { rules: { 'a11y/unverified-id-ref': 'info' } };"
+    );
+    const { results } = await analyzeProject({ cwd: dir });
+    const finding = results.find((r) => r.id === 'a11y/unverified-id-ref' && r.detection.presence === 'none');
+    expect(finding).toBeDefined();
   });
 
   it('flags it when enabled via --rules force-enable', async () => {

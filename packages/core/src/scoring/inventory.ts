@@ -11,7 +11,7 @@ export function pairKey(category: Category, scope: Scope): PairKey {
   return `${category}::${scope}`;
 }
 
-/** A rule's severity as configured, or undefined if the config turns it off. */
+/** A rule's severity as configured, or undefined when it is off (config `'off'`, or an unconfigured `defaultOff` rule). */
 function severityOf(rule: Rule, config: Config): Severity | undefined {
   return configuredSeverity(rule, config);
 }
