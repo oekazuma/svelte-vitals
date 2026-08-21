@@ -19,7 +19,10 @@
 </svelte:head>
 
 <main>
-  <h1>Gallery</h1>
+  <!-- a11y/id-duplication (shell collision): app.html's <div id="shell-root"> renders on every
+       route, so this heading's id duplicates it. Source mode names the shell in the message;
+       rendered mode has always counted this pair. -->
+  <h1 id="shell-root">Gallery</h1>
   <nav aria-label="Rule categories">
     <ul>
       <li><a href="/gallery/a11y">Accessibility</a></li>
