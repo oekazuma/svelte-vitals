@@ -30,6 +30,8 @@ function causeList(causes: readonly A11ySkipCause[]): string {
  * matching no optimistic candidate is reported as unverifiable, never as missing — an
  * unresolved component, spread, {@html}, or dynamic id could still define the id.
  */
+const passLabel = 'All id references match literal ids (composition not fully resolved)';
+
 export const a11yUnverifiedIdRef: Rule = {
   id: 'a11y/unverified-id-ref',
   title: 'Unverified id reference',
@@ -37,6 +39,7 @@ export const a11yUnverifiedIdRef: Rule = {
   severity: 'info',
   scope: 'route',
   defaultOff: true,
+  passLabel,
   rationale:
     'Opt-in: on routes a11y/no-missing-id-ref must skip (composition not fully resolved), an id reference that matches no literal id anywhere analyzed is reported as unverifiable — a real dangling reference and an id hidden inside an unresolved component look the same, so findings need manual confirmation.',
   async check(ctx: RuleContext): Promise<Result[]> {
@@ -60,14 +63,7 @@ export const a11yUnverifiedIdRef: Rule = {
       }
       if (!hasUnverified) {
         const first = route.idRefs[0]!;
-        out.push(
-          result(
-            route.route,
-            PASS,
-            { file: first.file, line: 0 },
-            'All id references match literal ids (composition not fully resolved)'
-          )
-        );
+        out.push(result(route.route, PASS, { file: first.file, line: 0 }, passLabel));
       }
     }
     return out;

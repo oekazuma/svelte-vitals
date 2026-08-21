@@ -391,7 +391,6 @@ export default {
   rules: { 'a11y/unverified-id-ref': 'info' }
 };
 ```
-````
 
 or one-off: `npx svelte-vitals --rules a11y/unverified-id-ref`. An `overrides` entry cannot enable it — overrides apply to results after analysis — but once enabled globally, overrides scope it normally (e.g. `'off'` for a route subtree).
 
@@ -402,14 +401,13 @@ Source-mode (CLI and the dev dashboard's static layer) only. In rendered mode (`
 ## How to fix
 
 Confirm the reference in the rendered page. If the id genuinely never renders, fix it as you would a [`a11y/no-missing-id-ref`](/rules/a11y/no-missing-id-ref) finding; if it lives inside a library component, pass the id through or silence the finding with a suppressions entry.
-
 ````
 
 Create the ja page as a full, natural translation (technical terms and field names stay as-is), then add one cross-link sentence to the **sibling's** page (en + ja), at the end of the skip-surfacing paragraph added by the skip-visibility change:
 
 ```markdown
 The opt-in sibling rule [`a11y/unverified-id-ref`](/rules/a11y/unverified-id-ref) can check these skipped routes open-world, reporting unmatched references as unverifiable rather than missing.
-````
+```
 
 Stamp both pairs:
 
@@ -736,7 +734,7 @@ git commit -m "chore: changeset for a11y/unverified-id-ref"
 - Create: `docs/superpowers/specs/2026-08-21-unverified-id-ref-precision-measured.md`
 - Modify: `docs/src/content/docs/rules/a11y/unverified-id-ref.md` + ja (add the measured precision paragraph), re-stamp
 
-**Interfaces:** consumes the built CLI from this branch; the measurement corpus clones may still exist at `/private/tmp/claude-501/-Users-oekazuma-localRepo-svelte-vitals/7d89715f-7c94-41c6-86bf-0630e8b198b0/scratchpad/skip-measure-workdir/` (reuse them; re-clone missing ones with `git clone --depth 1`, and always delete any `svelte-vitals.config.*` in a clone before analyzing — the CLI dynamically imports it, and running third-party config code is the risk, not a formality).
+**Interfaces:** consumes the built CLI from this branch; the measurement corpus is cloned into a local scratch directory outside the repository (reuse an existing clone cache if one is at hand; otherwise `git clone --depth 1` each target). Always delete any `svelte-vitals.config.*` in a clone before analyzing — the CLI dynamically imports it, and running third-party config code is the risk, not a formality.
 
 - [ ] **Step 1: Collect findings across the corpus**
 
