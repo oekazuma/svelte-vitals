@@ -10,7 +10,7 @@ const ID = 'a11y/required-element';
 const OPTIONS: RuleOptionsSpec = { elements: ELEMENTS_OPTION };
 const recommendation =
   'Add the element to the route — usually in the layout the route composes — or narrow the declaration with an `overrides` entry for the routes it does not apply to.';
-const result = resultFactory(ID, recommendation);
+const result = resultFactory(ID, recommendation, 'warning');
 
 /**
  * a11y/required-element — every route must contain the elements the project declares (design

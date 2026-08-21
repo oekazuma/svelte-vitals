@@ -5,7 +5,7 @@ import { resultFactory } from './route-rule.js';
 
 const recommendation =
   'A banner, main, complementary, or contentinfo landmark should not be nested inside another landmark.';
-const result = resultFactory('a11y/top-level-landmark', recommendation);
+const result = resultFactory('a11y/top-level-landmark', recommendation, 'warning');
 
 const KINDS = ['main', 'banner', 'complementary', 'contentinfo'] as const;
 

@@ -60,6 +60,8 @@ export interface Rule {
    * only in `--verbose`'s passed listing.
    */
   passLabel?: string;
+  /** Off unless config.rules names the rule explicitly — the opt-in class (design 2026-08-21). */
+  defaultOff?: true;
   /**
    * The rule compares routes against each other (`seo/duplicate-title`), so it cannot be judged
    * from one route's rendered HTML — the dev dashboard's live layer leaves it to the static pass.
