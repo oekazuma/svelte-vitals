@@ -1,4 +1,4 @@
-import type { Detection, Result } from '../../types.js';
+import type { Detection, Result, Severity } from '../../types.js';
 import type { A11yOccurrenceInfo, ResolvedA11y } from '../../a11y.js';
 import { docsUrlFor, type Rule, type RuleContext } from '../../rule.js';
 import { PENALIZED, PASS } from '../detection.js';
@@ -8,12 +8,12 @@ import { PENALIZED, PASS } from '../detection.js';
  * shape lives. `line` is emitted only when positive: PASS results deliberately carry no
  * line (callers pass `line: 0`), matching `seo/heading-level-skip`'s attribution.
  */
-export function resultFactory(id: string, recommendation: string) {
+export function resultFactory(id: string, recommendation: string, severity: Severity) {
   const docsUrl = docsUrlFor(id);
   return (route: string, detection: Detection, occ: { file: string; line: number }, message: string): Result => ({
     id,
     category: 'a11y',
-    severity: 'warning',
+    severity,
     detection,
     route,
     location: occ.file,
@@ -41,7 +41,7 @@ export function surplusRule(spec: {
   message: (key: string, i: number, n: number) => string;
   passMessage: string;
 }): Rule {
-  const result = resultFactory(spec.id, spec.recommendation);
+  const result = resultFactory(spec.id, spec.recommendation, 'warning');
   return {
     id: spec.id,
     title: spec.title,

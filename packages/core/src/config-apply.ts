@@ -13,9 +13,22 @@ export function settingOptions(setting: RuleSetting | undefined): RuleOptions | 
   return setting !== undefined && typeof setting !== 'string' ? setting.options : undefined;
 }
 
-/** Drop rules disabled via config (design §6). */
+/**
+ * A rule's effective severity under `config`, or undefined when it is off. The one place the
+ * defaultOff decision lives: a `defaultOff` rule with no `config.rules` entry is off — an
+ * explicit entry (any severity, or an options object) is the only enablement path.
+ */
+export function configuredSeverity(rule: Rule, config: Config): Severity | undefined {
+  const setting = config.rules[rule.id];
+  if (setting === undefined) return rule.defaultOff ? undefined : rule.severity;
+  const severity = settingSeverity(setting);
+  if (severity === 'off') return undefined;
+  return severity ?? rule.severity;
+}
+
+/** Drop rules disabled via config (design §6), including a `defaultOff` rule with no entry. */
 export function selectRules(rules: Rule[], config: Config): Rule[] {
-  return rules.filter((rule) => settingSeverity(config.rules[rule.id]) !== 'off');
+  return rules.filter((rule) => configuredSeverity(rule, config) !== undefined);
 }
 
 /**

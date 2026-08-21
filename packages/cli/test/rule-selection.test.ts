@@ -92,3 +92,23 @@ describe('resolveRuleSelection', () => {
     expect(out[X]).not.toBe(entry);
   });
 });
+
+describe('defaultOff materialization', () => {
+  it('--rules materializes an entry for a defaultOff rule with no config entry', () => {
+    const out = resolveRuleSelection({ allowRules: ['a11y/unverified-id-ref'] });
+    expect(out['a11y/unverified-id-ref']).toBe('info');
+  });
+
+  it("--rules overrides an explicit config 'off' for a defaultOff rule", () => {
+    const out = resolveRuleSelection({
+      fileRules: { 'a11y/unverified-id-ref': 'off' },
+      allowRules: ['a11y/unverified-id-ref']
+    });
+    expect(out['a11y/unverified-id-ref']).toBe('info');
+  });
+
+  it('a normal rule still gets no materialized entry (absent means default-on)', () => {
+    const out = resolveRuleSelection({ allowRules: ['a11y/no-missing-id-ref'] });
+    expect(out['a11y/no-missing-id-ref']).toBeUndefined();
+  });
+});

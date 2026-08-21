@@ -4,7 +4,7 @@ import { PENALIZED, PASS } from '../detection.js';
 import { resultFactory } from './route-rule.js';
 
 const recommendation = 'An id reference should point to an id that exists somewhere in the composed route.';
-const result = resultFactory('a11y/no-missing-id-ref', recommendation);
+const result = resultFactory('a11y/no-missing-id-ref', recommendation, 'warning');
 
 /**
  * a11y/no-missing-id-ref — an id-reference attribute (`IDREF_ATTRS`: HTML's `for`/`list`/`headers`/

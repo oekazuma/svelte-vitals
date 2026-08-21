@@ -380,7 +380,10 @@ describe('buildJsonReport — pair inventories', () => {
     // against the registry until now. Built from `allRules` itself (not a hard-coded id list): `performance`
     // and `seo` each carry both a route-scoped and a component-scoped rule for real, so this is the case
     // the precondition has to hold for, not a synthetic one.
-    const nonProjectRules = allRules.filter((r) => r.scope !== 'project');
+    // A defaultOff rule produces no results under the empty `config` used below (configuredSeverity
+    // leaves it unselected), so it is excluded here too — synthesizing one would inflate `failed`
+    // without a matching inventory entry, since `buildInventory` excludes it the same way.
+    const nonProjectRules = allRules.filter((r) => r.scope !== 'project' && !r.defaultOff);
     const results: Result[] = nonProjectRules.map((r) => ({
       id: r.id,
       category: r.category,

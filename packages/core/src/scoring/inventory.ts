@@ -1,6 +1,6 @@
 import type { Category, Config, Scope, Severity } from '../types.js';
 import type { Rule } from '../rule.js';
-import { selectRules, settingSeverity } from '../config-apply.js';
+import { configuredSeverity, selectRules } from '../config-apply.js';
 import { allRules } from '../rules/index.js';
 
 export const DEDUCTION: Record<Severity, number> = { critical: 15, warning: 5, info: 1 };
@@ -11,11 +11,9 @@ export function pairKey(category: Category, scope: Scope): PairKey {
   return `${category}::${scope}`;
 }
 
-/** A rule's severity as configured, or undefined if the config turns it off. */
+/** A rule's severity as configured, or undefined when it is off (config `'off'`, or an unconfigured `defaultOff` rule). */
 function severityOf(rule: Rule, config: Config): Severity | undefined {
-  const setting = settingSeverity(config.rules[rule.id]);
-  if (setting === 'off') return undefined;
-  return setting ?? rule.severity;
+  return configuredSeverity(rule, config);
 }
 
 /**

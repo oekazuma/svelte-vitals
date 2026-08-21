@@ -24,6 +24,8 @@ file and line that broke the closed world. A report where the rule never ran is 
 distinguishable from one where it passed everywhere, and each entry names the blocking
 causes and where they first occur.
 
+The opt-in sibling rule [`a11y/unverified-id-ref`](/rules/a11y/unverified-id-ref) can check these skipped routes open-world, reporting unmatched references as unverifiable rather than missing.
+
 ## Why it matters
 
 The id and its reference routinely live in different files — a `<label for="email">` in a form component, `id="email"` on an `<input>` several components away, or an anchor link that only makes sense once the actual page is composed. A file-scoped markup linter cannot check this at all, since the defect only exists once the route is composed across files. Assistive tech resolves `for`/`aria-labelledby`/`aria-describedby`/`aria-controls`/`aria-activedescendant` by id lookup in the final DOM; when the target doesn't exist, the association silently fails — a label reads as unrelated text, an `aria-describedby` announces nothing extra, and a fragment link scrolls nowhere.

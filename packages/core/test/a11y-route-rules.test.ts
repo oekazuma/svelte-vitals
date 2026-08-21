@@ -1,5 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { a11yDuplicateLandmark, a11yTopLevelLandmark, a11yIdDuplication, a11yNoMissingIdRef } from '../src/internal.js';
+import {
+  a11yDuplicateLandmark,
+  a11yTopLevelLandmark,
+  a11yIdDuplication,
+  a11yNoMissingIdRef,
+  a11yUnverifiedIdRef
+} from '../src/internal.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { ResolvedA11y } from '../src/a11y.js';
 import type { RuleContext } from '../src/rule.js';
@@ -141,5 +147,70 @@ describe('a11y/no-missing-id-ref', () => {
   });
   it('emits nothing on a fully resolved route with zero refs', async () => {
     expect(await a11yNoMissingIdRef.check(ctxA11y([ra({})]))).toHaveLength(0);
+  });
+});
+
+describe('a11y/unverified-id-ref', () => {
+  const cause = (over: object) => ({
+    kind: 'component' as const,
+    file: 'src/lib/A.svelte',
+    line: 2,
+    detail: 'A',
+    ...over
+  });
+  const open = (over: Partial<ResolvedA11y>) => ra({ fullyResolved: false, unresolvedCauses: [cause({})], ...over });
+
+  it('flags an unmatched ref on a non-resolved route, naming the blocking cause', async () => {
+    const rs = await a11yUnverifiedIdRef.check(
+      ctxA11y([open({ idRefs: [{ id: 'ghost', attr: 'for', file: 'f', line: 3 }], idCandidates: [] })])
+    );
+    const f = fails(rs);
+    expect(f).toHaveLength(1);
+    expect(f[0]).toMatchObject({ location: 'f', line: 3, severity: 'info' });
+    expect(f[0]!.message).toBe(
+      'for="ghost" references an id not found in any analyzed source — the route is not fully resolved ' +
+        '(unresolved component <A> at src/lib/A.svelte:2); verify the id exists at runtime'
+    );
+  });
+
+  it('caps the cause list at three plus a count', async () => {
+    const causes = [
+      cause({}),
+      cause({ kind: 'spread', detail: undefined, file: 'b.svelte', line: 1 }),
+      cause({ kind: 'html', detail: undefined, file: 'c.svelte', line: 4 }),
+      cause({ kind: 'dynamic-id', detail: undefined, file: 'd.svelte', line: 5 }),
+      cause({ kind: 'spread', detail: undefined, file: 'e.svelte', line: 6 })
+    ];
+    const rs = await a11yUnverifiedIdRef.check(
+      ctxA11y([open({ unresolvedCauses: causes, idRefs: [{ id: 'g', attr: 'for', file: 'f', line: 1 }] })])
+    );
+    expect(fails(rs)[0]!.message).toContain(
+      '(unresolved component <A> at src/lib/A.svelte:2, spread at b.svelte:1, {@html} at c.svelte:4, +2 more)'
+    );
+  });
+
+  it('PASS when every ref matches an optimistic candidate; href fragments use the # display form', async () => {
+    const rs = await a11yUnverifiedIdRef.check(
+      ctxA11y([open({ idRefs: [{ id: 'x', attr: 'href', file: 'f', line: 2 }], idCandidates: ['x'] })])
+    );
+    expect(rs).toHaveLength(1);
+    expect(fails(rs)).toHaveLength(0);
+    const miss = await a11yUnverifiedIdRef.check(
+      ctxA11y([open({ idRefs: [{ id: 'x', attr: 'href', file: 'f', line: 2 }], idCandidates: [] })])
+    );
+    expect(fails(miss)[0]!.message).toMatch(/^href="#x" references /);
+  });
+
+  it('emits nothing on fully resolved routes and on routes without refs', async () => {
+    const resolved = await a11yUnverifiedIdRef.check(
+      ctxA11y([ra({ idRefs: [{ id: 'g', attr: 'for', file: 'f', line: 1 }], idCandidates: [] })])
+    );
+    expect(resolved).toHaveLength(0);
+    expect(await a11yUnverifiedIdRef.check(ctxA11y([open({})]))).toHaveLength(0);
+  });
+
+  it('declares the opt-in class', () => {
+    expect(a11yUnverifiedIdRef.defaultOff).toBe(true);
+    expect(a11yUnverifiedIdRef.severity).toBe('info');
   });
 });
