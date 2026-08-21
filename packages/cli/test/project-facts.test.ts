@@ -61,7 +61,10 @@ describe('collectProjectFacts', () => {
     const rt = createMemoryRuntime({
       'src/app.html': `<body><div id="app" data-id="not-an-id"></div><span id='side'></span><i id={x}></i></body>`
     });
-    expect((await collectProjectFacts(rt, '')).appHtmlIds).toEqual(['app', 'side']);
+    expect((await collectProjectFacts(rt, '')).appHtmlIds).toEqual([
+      { id: 'app', line: 1 },
+      { id: 'side', line: 1 }
+    ]);
     expect((await collectProjectFacts(createMemoryRuntime({}), '')).appHtmlIds).toBeUndefined();
   });
 
@@ -91,12 +94,19 @@ describe('collectProjectFacts', () => {
         `<style>#styled { color: red } [id="attr"] { }</style></body>`
       ].join('\n')
     });
-    expect((await collectProjectFacts(rt, '')).appHtmlIds).toEqual(['app']);
+    expect((await collectProjectFacts(rt, '')).appHtmlIds).toEqual([{ id: 'app', line: 1 }]);
   });
 
   it('collects unquoted shell ids and still skips templating placeholders', async () => {
     const rt = createMemoryRuntime({ 'src/app.html': `<body><div id=app></div><i id={x}></i></body>` });
-    expect((await collectProjectFacts(rt, '')).appHtmlIds).toEqual(['app']);
+    expect((await collectProjectFacts(rt, '')).appHtmlIds).toEqual([{ id: 'app', line: 1 }]);
+  });
+
+  it('reports the line of a shell id even below a multi-line comment', async () => {
+    const rt = createMemoryRuntime({
+      'src/app.html': `<html>\n<body>\n<!-- a\nmulti\nline\ncomment -->\n<div id="after"></div>\n</body>\n</html>`
+    });
+    expect((await collectProjectFacts(rt, '')).appHtmlIds).toEqual([{ id: 'after', line: 7 }]);
   });
 
   it('detects build.minify: false in the Vite config', async () => {

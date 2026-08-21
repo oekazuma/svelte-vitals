@@ -397,7 +397,7 @@ describe('SourceHeadProvider real fixtures (component detection)', () => {
 });
 
 describe('collectRoutes a11y composition', () => {
-  const a11yOf = async (files: Record<string, string>, appHtmlIds?: string[]) =>
+  const a11yOf = async (files: Record<string, string>, appHtmlIds?: { id: string; line: number }[]) =>
     (await collectRoutes(createMemoryRuntime(files), '', undefined, undefined, undefined, appHtmlIds)).a11y.find(
       (a) => a.route === '/'
     )!;
@@ -502,7 +502,7 @@ describe('collectRoutes a11y composition', () => {
         'src/routes/+layout.svelte': `<label for="x">Name</label><a href="#top">up</a><slot />`,
         'src/routes/+page.svelte': `<div id="x"></div>`
       },
-      ['app']
+      [{ id: 'app', line: 1 }]
     );
     expect(a11y.idCandidates).toEqual(['x', 'app']);
     // `href="#top"` needs no element of that id.
