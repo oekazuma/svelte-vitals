@@ -31,6 +31,7 @@ const reservedNamesFixtureDir = join(here, 'fixtures', 'reserved-names-project')
 const rulesFlagConfigFixtureDir = join(here, 'fixtures', 'rules-flag-config-project');
 const deadDeclarationFixtureDir = join(here, 'fixtures', 'dead-declaration-project');
 const reservedNamePlacementFixtureDir = join(here, 'fixtures', 'reserved-name-placement-project');
+const unverifiedRefFixtureDir = join(here, 'fixtures', 'unverified-ref-project');
 
 // `architecture/component-size` (a componentRule) seeds a PASS result for every applicable
 // component in addition to a PENALIZED one for a violation, so a plain id filter can't tell
@@ -401,6 +402,33 @@ describe('examined counts survive --diff scoping (examined-counts design, "It is
       (r) => r.id === 'architecture/reserved-name-placement' && r.route !== undefined
     );
     expect(scopedViolations).toHaveLength(1); // only other/parts' file is "changed"
+  });
+});
+
+describe('a11y/unverified-id-ref opt-in', () => {
+  it('is not selected and reports no evidence row by default', async () => {
+    const { ruleIds, results } = await analyzeProject({ cwd: unverifiedRefFixtureDir });
+    expect(ruleIds).not.toContain('a11y/unverified-id-ref');
+    expect(results.some((r) => r.id === 'a11y/unverified-id-ref')).toBe(false);
+  });
+
+  it('flags the unverifiable ref when enabled via the rules map', async () => {
+    const { results } = await analyzeProject({
+      cwd: unverifiedRefFixtureDir,
+      rules: { 'a11y/unverified-id-ref': 'info' }
+    });
+    const finding = results.find((r) => r.id === 'a11y/unverified-id-ref' && r.detection.presence === 'none');
+    expect(finding).toBeDefined();
+    expect(finding!.message).toContain('for="ghost-input"');
+    expect(finding!.message).toContain('spread at src/routes/+page.svelte:');
+  });
+
+  it('flags it when enabled via --rules force-enable', async () => {
+    const { results } = await analyzeProject({
+      cwd: unverifiedRefFixtureDir,
+      allowRules: ['a11y/unverified-id-ref']
+    });
+    expect(results.some((r) => r.id === 'a11y/unverified-id-ref' && r.detection.presence === 'none')).toBe(true);
   });
 });
 

@@ -49,6 +49,14 @@ export function resolveRuleSelection(input: RuleSelectionInput): Record<string, 
         else out[id] = rest;
       }
     }
+
+    // A defaultOff rule's absent entry means OFF, so force-enable must materialize one —
+    // covering both "never configured" and "config said 'off', the delete above removed it".
+    for (const id of allowed) {
+      if (out[id] !== undefined) continue;
+      const rule = allRules.find((r) => r.id === id);
+      if (rule?.defaultOff) out[id] = rule.severity;
+    }
   }
 
   for (const id of input.ignoreRules ?? []) out[id] = 'off';
