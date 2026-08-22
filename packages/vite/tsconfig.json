@@ -2,9 +2,9 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["node"],
-    // DOM lib is only needed by test/dashboard-script-staleness.test.ts, which executes the
-    // dashboard client script (dashboard-script.ts) in a jsdom environment — src/ itself is
-    // Node/Vite-only and doesn't reference DOM globals.
+    // DOM lib is only needed by the `@vitest-environment happy-dom` tests under test/, which
+    // execute core's client script (APP_SCRIPT in app-shell.ts) — src/ itself is Node/Vite-only
+    // and doesn't reference DOM globals.
     "lib": ["ES2022", "DOM"]
   },
   "include": ["src", "test"]

@@ -1,11 +1,11 @@
-// @vitest-environment jsdom
+// @vitest-environment happy-dom
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { APP_SCRIPT as DASHBOARD_SCRIPT } from '@svelte-vitals/core/internal';
 
 /**
  * These tests execute the hand-authored `DASHBOARD_SCRIPT` client script (no bundler, no
- * framework — see the doc comment on `DASHBOARD_SCRIPT` itself) in a jsdom environment to
- * verify the SSE staleness guard in `fetchSnapshot()` (dashboard-script.ts): a re-fetched
+ * framework — see the doc comment on `DASHBOARD_SCRIPT` itself) in a happy-dom environment to
+ * verify the SSE staleness guard in `fetchSnapshot()` (core's app-shell.ts): a re-fetched
  * `/__svelte-vitals/data.json` response is only applied if its `sequence` is strictly newer
  * than what's already rendered. The script exposes nothing globally (no `fetchSnapshot`/
  * `state` to import or spy on directly) — `fetchSnapshot()` is only reachable through the
@@ -95,8 +95,7 @@ describe('dashboard client script — SSE staleness guard', () => {
     // boot snapshot's analyzing:false).
     fetchMock.mockResolvedValueOnce({ json: () => Promise.resolve(JSON.parse(snapshotJson(5, true))) });
 
-    // Executing the hand-authored client script under test, by design (see the doc comment
-    // above): DASHBOARD_SCRIPT is a plain string, not a module, so there's no import to drive.
+    // oxlint-disable-next-line no-eval -- DASHBOARD_SCRIPT is a plain string, not a module; executing it is the test
     (0, eval)(DASHBOARD_SCRIPT);
     expect(FakeEventSource.instances).toHaveLength(1);
     FakeEventSource.instances[0]!.dispatch('open');
@@ -118,6 +117,7 @@ describe('dashboard client script — SSE staleness guard', () => {
   it('applies a newer response and updates the rendered state', async () => {
     fetchMock.mockResolvedValueOnce({ json: () => Promise.resolve(JSON.parse(snapshotJson(5, true))) });
 
+    // oxlint-disable-next-line no-eval -- DASHBOARD_SCRIPT is a plain string, not a module; executing it is the test
     (0, eval)(DASHBOARD_SCRIPT);
     FakeEventSource.instances[0]!.dispatch('open');
     await vi.waitFor(() => expect(document.querySelector('.dv-analyzing')).not.toBeNull());

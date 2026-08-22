@@ -1,11 +1,11 @@
-// @vitest-environment jsdom
+// @vitest-environment happy-dom
 import { describe, it, expect } from 'vitest';
 import { type JsonReport } from '@svelte-vitals/core';
 import { buildHtmlDocument } from '@svelte-vitals/core/internal';
 
 /**
  * Boots the shared app shell (see app-shell-static.test.ts for why this lives in
- * packages/vite: core has no jsdom dependency) and pins the category-overview reach
+ * packages/vite: core has no DOM test environment) and pins the category-overview reach
  * line added for issue #388 — "N of M keys affected" beside each category's score,
  * the affectedKeys/keys fields the score floor design moved magnitude into
  * (docs/superpowers/specs/2026-08-05-score-floor-and-reach-design.md).
