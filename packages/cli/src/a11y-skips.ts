@@ -1,5 +1,5 @@
 import type { JsonReport } from '@svelte-vitals/core';
-import type { ResolvedA11y } from '@svelte-vitals/core/internal';
+import { docsUrlFor, type ResolvedA11y } from '@svelte-vitals/core/internal';
 
 export const ID_REF_RULE = 'a11y/no-missing-id-ref';
 
@@ -23,13 +23,14 @@ const KIND_LABELS: ReadonlyArray<readonly [string, string]> = [
 ];
 
 export function idRefSkipWarning(entries: readonly SkippedRouteEntry[], analyzedRoutes: number): string {
-  const parts: string[] = [];
+  const causes: string[] = [];
   for (const [kind, label] of KIND_LABELS) {
     const n = entries.filter((e) => e.causes.some((c) => c.kind === kind)).length;
-    if (n > 0) parts.push(`${label} ${n}`);
+    if (n > 0) causes.push(entries.length === 1 ? label : `${label} (${n})`);
   }
   return (
-    `${ID_REF_RULE} skipped ${entries.length} of ${analyzedRoutes} analyzed route(s) ` +
-    `(${parts.join(', ')} — per-route detail in the JSON report's "skipped").`
+    `${ID_REF_RULE} skipped ${entries.length} of ${analyzedRoutes} analyzed route(s) — it only checks routes ` +
+    `it can fully resolve, so this is not a failure. Causes: ${causes.join(', ')}. ` +
+    `Per-route detail: --reporter json → "skipped". Why, and how to widen: ${docsUrlFor(ID_REF_RULE)}`
   );
 }

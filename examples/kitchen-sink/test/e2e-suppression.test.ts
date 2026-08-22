@@ -345,7 +345,7 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     // gallery/a11y/skipped lives in this glob, so its notice is the only legitimate stderr line;
     // the exact match keeps asserting that selection noise (matched none/examined nothing) stays absent.
     expect(run(appDir, '--route', 'gallery/a11y/**').stderr.trim()).toMatch(
-      /^svelte-vitals: a11y\/no-missing-id-ref skipped 1 of \d+ analyzed route\(s\) \(spread 1, dynamic id 1 — per-route detail in the JSON report's "skipped"\)\.$/
+      /^svelte-vitals: a11y\/no-missing-id-ref skipped 1 of \d+ analyzed route\(s\) — it only checks routes it can fully resolve, so this is not a failure\. Causes: spread, dynamic id\. Per-route detail: --reporter json → "skipped"\. Why, and how to widen: https:\/\/oekazuma\.github\.io\/svelte-vitals\/rules\/a11y\/no-missing-id-ref$/
     );
   });
 

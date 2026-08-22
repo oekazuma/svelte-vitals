@@ -465,7 +465,7 @@ describe('no-missing-id-ref skip visibility', () => {
     const skipWarnings = warnings.filter((w) => w.startsWith('a11y/no-missing-id-ref skipped'));
     expect(skipWarnings).toHaveLength(1);
     expect(skipWarnings[0]).toMatch(
-      /^a11y\/no-missing-id-ref skipped \d+ of \d+ analyzed route\(s\) \(.* — per-route detail in the JSON report's "skipped"\)\.$/
+      /^a11y\/no-missing-id-ref skipped \d+ of \d+ analyzed route\(s\) — it only checks routes it can fully resolve, so this is not a failure\. Causes: .*\. Per-route detail: --reporter json → "skipped"\. Why, and how to widen: https:\/\/oekazuma\.github\.io\/svelte-vitals\/rules\/a11y\/no-missing-id-ref$/
     );
   });
 
