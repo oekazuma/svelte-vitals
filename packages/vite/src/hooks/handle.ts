@@ -48,7 +48,7 @@ async function postIngest(origin: string, route: string, results: Result[], fail
     // UI silently stops updating — surface why when debugging is enabled.
     if (globalThis.process?.env?.SVELTE_VITALS_DEBUG) {
       warn(
-        `[svelte-vitals] live UI ingest skipped for non-loopback origin ${origin} — open the dashboard via localhost`
+        `svelte-vitals: live UI ingest skipped for non-loopback origin ${origin} — open the dashboard via localhost`
       );
     }
     return;
@@ -125,7 +125,7 @@ async function analyzeAndIngest(
     // Dev tooling must never break the request: swallow any parse/rule error.
     // Set SVELTE_VITALS_DEBUG to surface tool-internal errors while debugging.
     if (globalThis.process?.env?.SVELTE_VITALS_DEBUG) {
-      warn(`[svelte-vitals] dev analysis failed: ${err instanceof Error ? err.message : String(err)}`);
+      warn(`svelte-vitals: dev analysis failed: ${err instanceof Error ? err.message : String(err)}`);
     }
   }
 }

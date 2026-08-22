@@ -275,7 +275,7 @@ describe('svelteVitalsHandle', () => {
       await handle({ event: fakeEvent('/none', '/none'), resolve: resolveWith([PAGE_NO_TITLE]) });
       await flush();
       const out = warn.mock.calls.map((c) => String(c[0])).join('\n');
-      expect(out).toContain('[svelte-vitals] dev analysis failed:');
+      expect(out).toContain('svelte-vitals: dev analysis failed:');
     } finally {
       // Restore precisely: assigning `undefined` would coerce to the string 'undefined'.
       if (prev === undefined) delete process.env.SVELTE_VITALS_DEBUG;

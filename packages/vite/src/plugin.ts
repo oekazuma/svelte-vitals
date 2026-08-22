@@ -310,7 +310,7 @@ export function svelteVitals(options: SvelteVitalsOptions = {}): Plugin | Plugin
           staticFailedRuleIds = failedRuleIds ?? [];
         },
         onError: (err) =>
-          warn(`[svelte-vitals] dev analysis failed: ${err instanceof Error ? err.message : String(err)}`),
+          warn(`svelte-vitals: dev analysis failed: ${err instanceof Error ? err.message : String(err)}`),
         onStatusChange: (analyzing) => store.setAnalyzing(analyzing)
       });
       runner.start();

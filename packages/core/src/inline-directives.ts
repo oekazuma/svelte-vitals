@@ -81,7 +81,10 @@ export function unknownDirectiveIds(index: DirectiveIndex, rules: readonly Rule[
   for (const [file, directives] of index) {
     for (const d of directives) {
       for (const id of d.ruleIds ?? []) {
-        if (!known.has(id)) seen.add(`${file}:${d.line - 1} disables unknown rule "${id}"`);
+        if (!known.has(id))
+          seen.add(
+            `${file}:${d.line - 1} disables unknown rule "${id}" — run \`svelte-vitals explain --list\` for the ids.`
+          );
       }
     }
   }

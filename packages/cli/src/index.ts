@@ -249,7 +249,7 @@ function overridesOffWarnings(allowRules: string[] | undefined, overrides: RuleO
         .join(', ');
       warnings.push(
         `--rules '${ruleId}' is scoped 'off' by overrides entry { ${scope} } — findings there will not be reported. ` +
-          `--rules overrides a global 'off' but not a scoped one.`
+          `--rules overrides a global 'off' but not a scoped one; edit that entry to check it there (see \`svelte-vitals docs show config\`).`
       );
     }
   }
@@ -325,7 +325,7 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     const starved = rules.filter((r) => opts.allowRules!.includes(r.id) && r.scope !== 'route').map((r) => r.id);
     if (starved.length > 0)
       warnings.push(
-        `--rules ${starved.map((id) => `'${id}'`).join(', ')} examined nothing: --route collects route facts only.`
+        `--rules ${starved.map((id) => `'${id}'`).join(', ')} examined nothing: --route analyzes routes only, and that rule reads component/config files — run without --route to check it.`
       );
   }
   const {
