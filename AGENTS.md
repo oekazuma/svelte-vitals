@@ -113,7 +113,7 @@ install`/`ci upgrade` bundle into scaffolded workflows.
   number edit. The two regressions that counts cannot catch — a widened analysis, and lost
   parallelism — are measured manually with `pnpm bench` (never in CI).
 - **Dependency budget**: `packages/cli/test/dep-budget.test.ts` caps the production dependency
-  closure (unique `name@version` reachable through `dependencies`) of each published package at its
+  closure (unique `name@version` reachable through `dependencies` / `optionalDependencies`) of each published package at its
   measured size. Adding or bumping a runtime dependency means checking that test. Lowering a ceiling
   is welcome; raising one is a design decision needing a recorded reason in the PR, not a number edit.
 - **User-facing levers ship with two guards.** A lever is anything a user sets to change what the
