@@ -97,6 +97,7 @@ describe('dashboard client script — SSE staleness guard', () => {
 
     // Executing the hand-authored client script under test, by design (see the doc comment
     // above): DASHBOARD_SCRIPT is a plain string, not a module, so there's no import to drive.
+    // oxlint-disable-next-line no-eval -- DASHBOARD_SCRIPT is a plain string, not a module; executing it is the test
     (0, eval)(DASHBOARD_SCRIPT);
     expect(FakeEventSource.instances).toHaveLength(1);
     FakeEventSource.instances[0]!.dispatch('open');
@@ -118,6 +119,7 @@ describe('dashboard client script — SSE staleness guard', () => {
   it('applies a newer response and updates the rendered state', async () => {
     fetchMock.mockResolvedValueOnce({ json: () => Promise.resolve(JSON.parse(snapshotJson(5, true))) });
 
+    // oxlint-disable-next-line no-eval -- DASHBOARD_SCRIPT is a plain string, not a module; executing it is the test
     (0, eval)(DASHBOARD_SCRIPT);
     FakeEventSource.instances[0]!.dispatch('open');
     await vi.waitFor(() => expect(document.querySelector('.dv-analyzing')).not.toBeNull());

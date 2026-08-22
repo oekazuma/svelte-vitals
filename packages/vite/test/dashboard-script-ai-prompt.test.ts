@@ -59,6 +59,7 @@ function boot(): void {
     </div>
     <script type="application/json" id="svelte-vitals-data">${snapshotJson()}</script>
   `;
+  // oxlint-disable-next-line no-eval -- DASHBOARD_SCRIPT is a plain string, not a module; executing it is the test
   (0, eval)(DASHBOARD_SCRIPT);
   location.hash = 'route/route-blog-hello';
   window.dispatchEvent(new Event('hashchange'));
