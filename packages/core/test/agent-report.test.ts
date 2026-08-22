@@ -174,6 +174,32 @@ describe('formatAgentReport', () => {
     const md = formatAgentReport(sameGroup, config);
     expect(md.indexOf('### seo/title-presence')).toBeLessThan(md.indexOf('### seo/og-image'));
   });
+
+  it('offers review as the second exit only where a directive can sit above the finding', () => {
+    const lineAnchored: Result = {
+      id: 'security/raw-html',
+      severity: 'warning',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/a',
+      location: 'src/routes/a/+page.svelte',
+      line: 13,
+      message: '{@html} renders unescaped HTML',
+      recommendation: 'Sanitize the value; the finding persists by design once reviewed.'
+    };
+    const md = formatAgentReport([lineAnchored, ...results], config);
+
+    const rawHtml = md.slice(md.indexOf('### security/raw-html'));
+    expect(rawHtml.split('\n').find((l) => l.startsWith('- Accept:'))).toContain(
+      '`svelte-vitals-disable-next-line security/raw-html` comment on the line above'
+    );
+
+    // A <head> finding reports what a route never set, so there is no line to annotate.
+    const headAccept = md
+      .slice(md.indexOf('### seo/description-presence'))
+      .split('\n')
+      .find((l) => l.startsWith('- Accept:'));
+    expect(headAccept).toBe('- Accept: re-run svelte-vitals; seo/description-presence passes for /a.');
+  });
 });
 
 describe('formatJsonReport includes fix', () => {
