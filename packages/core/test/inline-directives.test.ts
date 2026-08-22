@@ -111,7 +111,7 @@ describe('unknownDirectiveIds', () => {
       'src/lib/B.svelte': [{ line: 2 }]
     });
     expect(unknownDirectiveIds(idx, rules)).toEqual([
-      'src/lib/Card.svelte:3 disables unknown rule "a11y/id-duplicaton"'
+      'src/lib/Card.svelte:3 disables unknown rule "a11y/id-duplicaton" — run `svelte-vitals explain --list` for the ids.'
     ]);
   });
 });

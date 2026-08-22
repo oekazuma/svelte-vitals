@@ -311,7 +311,7 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
   it('says so when a selection matches nothing, and stays quiet on a clean run', () => {
     expect(run(appDir, '--route', 'no-such-route/**').stderr).toContain('matched none of the');
     expect(run(appDir, '--rules', 'correctness/effect-as-derived', '--route', 'gallery/a11y/**').stderr).toContain(
-      'examined nothing: --route collects route facts only'
+      'examined nothing: --route analyzes routes only'
     );
     const dir = scratchCopy();
     scratch.push(dir);

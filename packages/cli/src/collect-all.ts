@@ -116,7 +116,9 @@ export async function collectAll(
   // Exiting 0 on a glob that selected no route reads as "clean", which is how #510 stayed hidden.
   // Gated on the project having routes at all, so an empty project is not reported as a bad glob.
   if (opts.route !== undefined && routes.length > 0 && !routes.some(matches))
-    emptySelections.push(`--route '${opts.route}' matched none of the ${routes.length} route(s) found.`);
+    emptySelections.push(
+      `--route '${opts.route}' matched none of the ${routes.length} route(s) found — routes are URL paths, e.g. --route '/blog/**'; list them with --reporter json → routes.`
+    );
   // Full runs only: under --route most overrides legitimately fall outside the selection.
   if (opts.route === undefined && routes.length > 0) {
     // Every path a finding's `location` can be — the files the run scanned, plus the project-scoped
@@ -136,12 +138,16 @@ export async function collectAll(
     entries.forEach((entry, i) => {
       globList(entry.route).forEach((glob) => {
         if (!routes.some(routeMatcher(glob)))
-          emptySelections.push(`overrides entry for route '${glob}' matched no route.`);
+          emptySelections.push(
+            `overrides entry for route '${glob}' matched no route — route globs are URL paths, e.g. '/blog/**'; see \`svelte-vitals docs show config\`.`
+          );
       });
       globList(entry.files).forEach((glob, j) => {
         const pattern = compiled[i]?.files[j];
         if (pattern && !attributable.some((f) => pattern.test(f)))
-          emptySelections.push(`overrides entry for files '${glob}' matched no file.`);
+          emptySelections.push(
+            `overrides entry for files '${glob}' matched no file — file globs are project-relative, e.g. 'src/lib/**'; see \`svelte-vitals docs show config\`.`
+          );
       });
     });
   }
