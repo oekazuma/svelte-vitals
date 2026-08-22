@@ -102,7 +102,8 @@ describe('dashboard client script — AI Prompt disclosure', () => {
   it('falls back to execCommand and still shows "Copied!" when the Clipboard API is unavailable', async () => {
     boot();
     vi.stubGlobal('navigator', {});
-    // happy-dom doesn't implement execCommand at all, so there's nothing for vi.spyOn to wrap —
+    // happy-dom does ship navigator.clipboard, so the navigator stub above is what forces the
+    // fallback. It doesn't implement execCommand at all, so there's nothing for vi.spyOn to wrap —
     // define it directly, same as a real browser exposing it on `document`.
     const execCommand = vi.fn().mockReturnValue(true);
     document.execCommand = execCommand;
