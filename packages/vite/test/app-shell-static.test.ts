@@ -1,4 +1,4 @@
-// @vitest-environment jsdom
+// @vitest-environment happy-dom
 import { describe, it, expect, afterEach, vi } from 'vitest';
 import { type JsonReport } from '@svelte-vitals/core';
 import { buildHtmlDocument } from '@svelte-vitals/core/internal';
@@ -8,7 +8,7 @@ import { buildHtmlDocument } from '@svelte-vitals/core/internal';
  * ships — and pins the live/static contract: same layout and interactions as the
  * dashboard, but no EventSource connection, no /data.json refetch, and no
  * connection/analyzing indicators. Lives here (not packages/core) because core has
- * no jsdom dependency; the shell itself is core's.
+ * no happy-dom dependency; the shell itself is core's.
  */
 
 const report: JsonReport = {

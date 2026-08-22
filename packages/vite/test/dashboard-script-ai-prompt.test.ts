@@ -1,4 +1,4 @@
-// @vitest-environment jsdom
+// @vitest-environment happy-dom
 import { describe, it, expect, afterEach, vi } from 'vitest';
 import { APP_SCRIPT as DASHBOARD_SCRIPT } from '@svelte-vitals/core/internal';
 
@@ -101,7 +101,7 @@ describe('dashboard client script — AI Prompt disclosure', () => {
   it('falls back to execCommand and still shows "Copied!" when the Clipboard API is unavailable', async () => {
     boot();
     vi.stubGlobal('navigator', {});
-    // jsdom doesn't implement execCommand at all, so there's nothing for vi.spyOn to wrap —
+    // happy-dom doesn't implement execCommand at all, so there's nothing for vi.spyOn to wrap —
     // define it directly, same as a real browser exposing it on `document`.
     const execCommand = vi.fn().mockReturnValue(true);
     document.execCommand = execCommand;

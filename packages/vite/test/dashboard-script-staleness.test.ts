@@ -1,10 +1,10 @@
-// @vitest-environment jsdom
+// @vitest-environment happy-dom
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { APP_SCRIPT as DASHBOARD_SCRIPT } from '@svelte-vitals/core/internal';
 
 /**
  * These tests execute the hand-authored `DASHBOARD_SCRIPT` client script (no bundler, no
- * framework — see the doc comment on `DASHBOARD_SCRIPT` itself) in a jsdom environment to
+ * framework — see the doc comment on `DASHBOARD_SCRIPT` itself) in a happy-dom environment to
  * verify the SSE staleness guard in `fetchSnapshot()` (dashboard-script.ts): a re-fetched
  * `/__svelte-vitals/data.json` response is only applied if its `sequence` is strictly newer
  * than what's already rendered. The script exposes nothing globally (no `fetchSnapshot`/

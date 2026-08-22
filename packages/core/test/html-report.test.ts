@@ -179,7 +179,7 @@ describe('formatHtmlReport', () => {
   });
 
   it('carries category reach (keys/affectedKeys) into the embedded snapshot (issue #388)', () => {
-    // core has no jsdom dependency, so unlike packages/vite/test/dashboard-script-overview-reach.test.ts
+    // core has no happy-dom dependency, so unlike packages/vite/test/dashboard-script-overview-reach.test.ts
     // this only pins the data reaching the client, not the client's rendering of it.
     const results: Result[] = [
       {
