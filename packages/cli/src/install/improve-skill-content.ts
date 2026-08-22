@@ -183,8 +183,8 @@ One plan per selected finding, using the Plan template below, written into
 plans). Stamp each plan with the current commit (\`git rev-parse --short HEAD\`).
 
 Write for the weakest executor: exact file paths and current-code excerpts,
-the exact target code (svelte-vitals' own \`fix.snippet\`/\`fix.description\`
-when the finding maps to a rule — never approximated), this project's own
+the exact target code (the finding's own \`recommendation\`, plus
+\`fix.snippet\` where the rule ships one — never approximated), this project's own
 conventions with an exemplar to imitate, ordered steps, hard scope
 boundaries, and a verification section — mechanical
 (\`npx svelte-vitals --diff --reporter agent\` clears the targeted
