@@ -1,5 +1,11 @@
 # @svelte-vitals/core
 
+## 0.47.1
+
+### Patch Changes
+
+- a6ee36a: Build the packages with tsdown instead of tsup. Public entry points and type surface are unchanged; only the internal chunk layout of `dist/` differs.
+
 ## 0.47.0
 
 ### Minor Changes

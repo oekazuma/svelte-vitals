@@ -1,5 +1,14 @@
 # svelte-vitals
 
+## 0.50.1
+
+### Patch Changes
+
+- eb82bb4: Drop the `log-update` dependency. The spinner, greeting, and score animation now repaint through a small in-house frame writer that counts wrapped rows and clips to the terminal height the same way, so narrow- and short-terminal behaviour is unchanged while the CLI's install pulls in 16 fewer packages.
+- a6ee36a: Build the packages with tsdown instead of tsup. Public entry points and type surface are unchanged; only the internal chunk layout of `dist/` differs.
+- Updated dependencies [a6ee36a]
+  - @svelte-vitals/core@0.47.1
+
 ## 0.50.0
 
 ### Minor Changes
