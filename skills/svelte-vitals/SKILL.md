@@ -15,10 +15,14 @@ Use this whenever you are writing or reviewing SvelteKit route files (`+page.sve
 
 1. After writing or editing code, run `npx svelte-vitals . --diff --reporter agent` and fix any findings it reports.
 2. Before committing, run `npx svelte-vitals . --staged` as a pre-commit gate.
-3. For a rule's full rationale, configurable options and fix examples, run `npx svelte-vitals explain <rule-id>` (add `--json` for a structured object) or open its docs link below.
-4. For anything else — reporters, the config file, scoping to a change, CI, monorepos — run `npx svelte-vitals docs list` and then `npx svelte-vitals docs show <name>`. Those guides ship inside the CLI, so they match the version installed here; prefer them over searching the web.
+3. For a rule's full rationale, configurable options and fix examples, run `npx svelte-vitals explain <rule-id>` (add `--json` for a structured object) or open its docs link below. The fix text for a specific finding comes from the run itself, not from `explain` — see the note above the rule digest.
+4. When a finding is correct by design — a reviewed `{@html}` that is already sanitized, a deliberate `$effect` — clear it with an inline directive instead of changing the code: `<!-- svelte-vitals-disable-next-line <rule-id> -->` on the line above in markup, or `// svelte-vitals-disable-next-line <rule-id>` inside `<script>`. Review it first; never suppress a finding you have not read.
+5. Exit codes: `0` nothing failing, `1` a critical finding (or your `--fail-on`/`--min-health` threshold), `2` the run itself failed — a `2` says nothing about the code, so never read it as a clean or dirty result.
+6. For anything else — reporters, the config file, scoping to a change, CI, monorepos — run `npx svelte-vitals docs list` and then `npx svelte-vitals docs show <name>`. Those guides ship inside the CLI, so they match the version installed here; prefer them over searching the web.
 
 ## Rule digest
+
+A `Fix:` below is the rule's canonical fix, the same for every occurrence. A line without one is not a rule without a fix — those rules word their fix per finding, so take it from the finding itself: `recommendation` on each issue in `--reporter json`, printed as `Fix:` by `--reporter agent`.
 
 ### SEO
 

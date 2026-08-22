@@ -54,11 +54,29 @@ and stays suppressed (and not stale).
 
 A malformed suppressions file is a hard error (exit `2`), not a silent skip.
 
+## Suppress one occurrence inline
+
+For a single finding that is correct by design, put a `svelte-vitals-disable-next-line` comment on
+the line directly above it:
+
+```html
+<!-- svelte-vitals-disable-next-line security/raw-html -->
+<div>{@html sanitized}</div>
+```
+
+Inside `<script>`, use `// svelte-vitals-disable-next-line <rule-id>`. Omit the id to suppress every
+rule on the next line, or list several comma-separated.
+
+Only findings the report anchors to a **line** can be reached this way — not the `<head>` metadata
+rules, which report what a route never set. A directive in a component silences that finding on
+every route composing it; for one route, use the suppressions file or `overrides`.
+
 ## Which one
 
 | Situation                              | Use                                      |
 | -------------------------------------- | ---------------------------------------- |
 | Checking an edit you just made         | `--diff`                                 |
+| One occurrence that is right as-is     | `svelte-vitals-disable-next-line`        |
 | Pre-commit hook                        | `--staged`                               |
 | PR gate against a base branch          | `--diff <base> --baseline <base>`        |
 | Adopting on a legacy project, for good | `--update-suppressions`, commit the file |
