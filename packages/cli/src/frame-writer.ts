@@ -49,6 +49,7 @@ export function createFrameWriter(stream: NodeJS.WriteStream): FrameWriter {
   let rows = 0;
   let last = '';
   let lastColumns = 0;
+  let lastLimit = 0;
   const write = (out: string): void => {
     if (out === '') return;
     // Synchronized output: the terminal holds the erase + repaint until the sequence ends.
@@ -65,19 +66,26 @@ export function createFrameWriter(stream: NodeJS.WriteStream): FrameWriter {
   return Object.assign(
     (frame: string): void => {
       const columns = stream.columns || 80;
-      if (frame === last && columns === lastColumns) return;
+      const limit = (stream.rows || 24) - 1;
+      if (frame === last && columns === lastColumns && limit === lastLimit) return;
       const rowsOf = (line: string): number => Math.max(1, Math.ceil([...terminalSafe(line)].length / columns));
       const lines = frame.split('\n');
       let height = lines.reduce((n, line) => n + rowsOf(line), 0);
       // A frame taller than the viewport scrolls, and `\x1b[1A` cannot climb back past the top
-      // row — drop leading lines until the frame and its trailing newline fit.
-      const limit = (stream.rows || 24) - 1;
+      // row — drop leading lines until the frame and its trailing newline fit; if the last line
+      // alone still overflows, draw nothing rather than scroll.
       while (lines.length > 1 && height > limit) height -= rowsOf(lines.shift()!);
-      hideCursor(stream);
-      write(`${erase()}${lines.join('\n')}\n`);
-      rows = height;
+      if (height > limit) {
+        write(erase());
+        rows = 0;
+      } else {
+        hideCursor(stream);
+        write(`${erase()}${lines.join('\n')}\n`);
+        rows = height;
+      }
       last = frame;
       lastColumns = columns;
+      lastLimit = limit;
     },
     {
       clear(): void {

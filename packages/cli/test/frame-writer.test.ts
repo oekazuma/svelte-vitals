@@ -59,6 +59,27 @@ describe('createFrameWriter', () => {
     expect(writes).toEqual(['three\nfour\nfive\n', erase(3)]);
   });
 
+  it('draws nothing when even the last line overflows the viewport, and repaints once it fits', () => {
+    const { writes, stream } = fakeStream({ columns: 10, rows: 2 });
+    const render = createFrameWriter(stream);
+
+    render('Health: 82/100'); // 14 code points: 2 rows at 10 columns, 1 row available
+    stream.rows = 5;
+    render('Health: 82/100');
+
+    expect(writes).toEqual(['Health: 82/100\n']);
+  });
+
+  it('hides the cursor and brackets each TTY write in synchronized output until done()', () => {
+    const { writes, stream } = fakeStream({ isTTY: true });
+    const render = createFrameWriter(stream);
+
+    render('a');
+    render.done();
+
+    expect(writes).toEqual(['\x1b[?25l', '\x1b[?2026ha\n\x1b[?2026l', '\x1b[?25h']);
+  });
+
   it('forgets the frame on done() without erasing it', () => {
     const { writes, stream } = fakeStream();
     const render = createFrameWriter(stream);
