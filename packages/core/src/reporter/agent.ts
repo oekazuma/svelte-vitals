@@ -45,7 +45,11 @@ export function formatAgentReport(results: Result[], config: Config): string {
     // what mdEscape neutralizes (e.g. embedded newlines) would merge into one group.
     lines.push(`## ${mdEscape(loc)}`, '');
     for (const r of rs) {
-      lines.push(`### ${r.id} · ${mdEscape(r.message)} (${effectiveSeverity(r, config)})`);
+      // The group heading is the file, so the line is what separates two findings of the same
+      // rule inside it — and what the directive below has to sit above. Every other reporter
+      // already renders `location:line`.
+      const at = r.line == null ? '' : `, line ${r.line}`;
+      lines.push(`### ${r.id} · ${mdEscape(r.message)} (${effectiveSeverity(r, config)}${at})`);
       if (r.fix) {
         lines.push(`- Fix: ${mdEscape(r.fix.description)}`);
         if (r.fix.snippet) lines.push('', '```' + (r.fix.lang ?? 'svelte'), r.fix.snippet, '```');
@@ -53,7 +57,18 @@ export function formatAgentReport(results: Result[], config: Config): string {
         lines.push(`- Fix: ${mdEscape(r.recommendation)}`);
       }
       if (r.docsUrl) lines.push(`- Docs: ${r.docsUrl}`);
-      lines.push(`- Accept: re-run svelte-vitals; ${r.id} passes${r.route ? ` for ${mdEscape(r.route)}` : ''}.`, '');
+      // Some rules report a construct that survives its own fix — a sanitized `{@html}` is still
+      // an `{@html}` — so "the rule passes" is unreachable by editing, and naming only that exit
+      // sends an agent round the same fix twice. Review is the other exit, but an inline directive
+      // needs a line to sit above, which is exactly the findings that carry one.
+      const byReview =
+        r.line == null
+          ? ''
+          : ` If the code is right as written, a reviewed \`svelte-vitals-disable-next-line ${r.id}\` comment directly above line ${r.line} resolves it instead.`;
+      lines.push(
+        `- Accept: re-run svelte-vitals; ${r.id} passes${r.route ? ` for ${mdEscape(r.route)}` : ''}.${byReview}`,
+        ''
+      );
     }
   }
 

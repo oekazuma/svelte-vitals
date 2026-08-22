@@ -174,6 +174,35 @@ describe('formatAgentReport', () => {
     const md = formatAgentReport(sameGroup, config);
     expect(md.indexOf('### seo/title-presence')).toBeLessThan(md.indexOf('### seo/og-image'));
   });
+
+  it('offers review as the second exit only where a directive can sit above the finding', () => {
+    const lineAnchored: Result = {
+      id: 'security/raw-html',
+      severity: 'warning',
+      detection: { presence: 'none', value: 'absent' },
+      route: '/a',
+      location: 'src/routes/a/+page.svelte',
+      line: 13,
+      message: '{@html} renders unescaped HTML',
+      recommendation: 'Sanitize the value; the finding persists by design once reviewed.'
+    };
+    const md = formatAgentReport([lineAnchored, ...results], config);
+
+    const rawHtml = md.slice(md.indexOf('### security/raw-html'));
+    // The line is on the heading (the group heading is only the file) and named again where the
+    // directive has to go, so two findings of one rule in one file stay tellable apart.
+    expect(rawHtml.split('\n')[0]).toBe('### security/raw-html · {@html} renders unescaped HTML (warning, line 13)');
+    expect(rawHtml.split('\n').find((l) => l.startsWith('- Accept:'))).toContain(
+      '`svelte-vitals-disable-next-line security/raw-html` comment directly above line 13'
+    );
+
+    // A <head> finding reports what a route never set, so there is no line to annotate.
+    const head = md.slice(md.indexOf('### seo/description-presence')).split('\n');
+    expect(head[0]).not.toContain('line');
+    expect(head.find((l) => l.startsWith('- Accept:'))).toBe(
+      '- Accept: re-run svelte-vitals; seo/description-presence passes for /a.'
+    );
+  });
 });
 
 describe('formatJsonReport includes fix', () => {
