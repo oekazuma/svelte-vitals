@@ -45,7 +45,11 @@ export function formatAgentReport(results: Result[], config: Config): string {
     // what mdEscape neutralizes (e.g. embedded newlines) would merge into one group.
     lines.push(`## ${mdEscape(loc)}`, '');
     for (const r of rs) {
-      lines.push(`### ${r.id} · ${mdEscape(r.message)} (${effectiveSeverity(r, config)})`);
+      // The group heading is the file, so the line is what separates two findings of the same
+      // rule inside it — and what the directive below has to sit above. Every other reporter
+      // already renders `location:line`.
+      const at = r.line == null ? '' : `, line ${r.line}`;
+      lines.push(`### ${r.id} · ${mdEscape(r.message)} (${effectiveSeverity(r, config)}${at})`);
       if (r.fix) {
         lines.push(`- Fix: ${mdEscape(r.fix.description)}`);
         if (r.fix.snippet) lines.push('', '```' + (r.fix.lang ?? 'svelte'), r.fix.snippet, '```');
@@ -60,7 +64,7 @@ export function formatAgentReport(results: Result[], config: Config): string {
       const byReview =
         r.line == null
           ? ''
-          : ` If the code is right as written, a reviewed \`svelte-vitals-disable-next-line ${r.id}\` comment on the line above resolves it instead.`;
+          : ` If the code is right as written, a reviewed \`svelte-vitals-disable-next-line ${r.id}\` comment directly above line ${r.line} resolves it instead.`;
       lines.push(
         `- Accept: re-run svelte-vitals; ${r.id} passes${r.route ? ` for ${mdEscape(r.route)}` : ''}.${byReview}`,
         ''

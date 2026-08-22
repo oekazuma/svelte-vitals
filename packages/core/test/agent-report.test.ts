@@ -189,16 +189,19 @@ describe('formatAgentReport', () => {
     const md = formatAgentReport([lineAnchored, ...results], config);
 
     const rawHtml = md.slice(md.indexOf('### security/raw-html'));
+    // The line is on the heading (the group heading is only the file) and named again where the
+    // directive has to go, so two findings of one rule in one file stay tellable apart.
+    expect(rawHtml.split('\n')[0]).toBe('### security/raw-html · {@html} renders unescaped HTML (warning, line 13)');
     expect(rawHtml.split('\n').find((l) => l.startsWith('- Accept:'))).toContain(
-      '`svelte-vitals-disable-next-line security/raw-html` comment on the line above'
+      '`svelte-vitals-disable-next-line security/raw-html` comment directly above line 13'
     );
 
     // A <head> finding reports what a route never set, so there is no line to annotate.
-    const headAccept = md
-      .slice(md.indexOf('### seo/description-presence'))
-      .split('\n')
-      .find((l) => l.startsWith('- Accept:'));
-    expect(headAccept).toBe('- Accept: re-run svelte-vitals; seo/description-presence passes for /a.');
+    const head = md.slice(md.indexOf('### seo/description-presence')).split('\n');
+    expect(head[0]).not.toContain('line');
+    expect(head.find((l) => l.startsWith('- Accept:'))).toBe(
+      '- Accept: re-run svelte-vitals; seo/description-presence passes for /a.'
+    );
   });
 });
 
