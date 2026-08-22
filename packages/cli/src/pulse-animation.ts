@@ -1,6 +1,6 @@
 import { setTimeout as sleep } from 'node:timers/promises';
 import { scoreColor, type Palette } from '@svelte-vitals/core/internal';
-import { createLogUpdate } from 'log-update';
+import { createFrameWriter } from './frame-writer.js';
 import { colorEnabled } from './color.js';
 import { isAgentEnv, isCiEnv, type ReporterName } from './reporter-resolve.js';
 import {
@@ -51,16 +51,13 @@ interface ScoreAnimationOptions {
  * the score climbs (the wave drops away once it settles — see WAVE_FRAMES' doc comment),
  * plus — on a wide-enough terminal (`mascotFitsWidth`) — a mascot that watches neutrally
  * while the score counts up, then snaps to its reaction pose on the final frame, held
- * briefly, followed by a confetti bonus if the score is a perfect 100. Redraws via
- * `log-update` (see mascot.ts's `startMascotSpinner` doc comment for why: hand-rolled
- * `\x1b[nA` cursor math doesn't track wrapped lines, and this block is now up to 8 lines
- * tall with the mascot + confetti).
+ * briefly, followed by a confetti bonus if the score is a perfect 100.
  */
 export async function playScoreAnimation(opts: ScoreAnimationOptions): Promise<void> {
   const frameDelayMs = opts.frameDelayMs ?? FRAME_DELAY_MS;
   const holdMs = opts.frameDelayMs ?? REACTION_HOLD_MS;
   const confettiDelayMs = opts.frameDelayMs ?? CONFETTI_FRAME_DELAY_MS;
-  const render = createLogUpdate(opts.stream);
+  const render = createFrameWriter(opts.stream);
   const showMascot = mascotFitsWidth(opts.stream.columns);
   const state = mascotStateFor(opts.score);
   const reactionMessage =

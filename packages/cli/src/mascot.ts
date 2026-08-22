@@ -1,4 +1,4 @@
-import { createLogUpdate } from 'log-update';
+import { createFrameWriter } from './frame-writer.js';
 
 export type MascotState = 'ecstatic' | 'happy' | 'content';
 
@@ -164,11 +164,9 @@ const PLAIN_FRAMES = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '�
 const PLAIN_TICK_MS = 80;
 
 /**
- * The analysis-phase progress indicator: a small idle-blink loop rendered via
- * `log-update` (chosen over a hand-rolled `\r`/`\x1b[nA` redraw specifically
- * because it correctly tracks wrapped/actual line count — see the design spec's
- * "Library decision"). No-op when `enabled` is false. `mascot: false` renders a
- * plain one-line braille spinner instead (`--no-animation`, narrow terminals).
+ * The analysis-phase progress indicator: a small idle-blink loop. No-op when `enabled` is
+ * false. `mascot: false` renders a plain one-line braille spinner instead (`--no-animation`,
+ * narrow terminals).
  */
 export function startMascotSpinner(
   text: string,
@@ -177,7 +175,7 @@ export function startMascotSpinner(
   if (!opts.enabled) return { stop() {} };
   const stream = opts.stream ?? process.stderr;
   const mascot = opts.mascot ?? true;
-  const render = createLogUpdate(stream);
+  const render = createFrameWriter(stream);
   let i = 0;
   const tick = (): void => {
     render(mascot ? `${renderMascotIdleFrame(i)}\n${text}` : `${PLAIN_FRAMES[i % PLAIN_FRAMES.length]} ${text}`);
@@ -190,9 +188,6 @@ export function startMascotSpinner(
     stop() {
       clearInterval(timer);
       render.clear();
-      // clear() erases but leaves the cursor hidden (only done() re-shows it) —
-      // without this, a --no-animation run keeps the cursor invisible until exit.
-      render.done();
     }
   };
 }

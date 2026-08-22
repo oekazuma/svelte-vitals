@@ -2,11 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { scoreAnimationEnabled, playScoreAnimation } from '../src/pulse-animation.js';
 import { noColorPalette, ansiPalette } from '../src/color.js';
 import { REACTION_MESSAGES } from '../src/speech-bubble.js';
-
-function fakeStream() {
-  const writes: string[] = [];
-  return { writes, stream: { write: (s: string) => writes.push(s) } as unknown as NodeJS.WriteStream };
-}
+import { fakeStream } from './helpers/fake-stream.js';
 
 describe('scoreAnimationEnabled', () => {
   const base = {
@@ -82,20 +78,14 @@ describe('playScoreAnimation', () => {
   });
 
   it('omits the mascot entirely on a narrow terminal, still completing the wave/score reveal', async () => {
-    const { writes, stream } = fakeStream();
-    // 19, not 15: below MIN_MASCOT_COLUMNS (20) so the mascot is correctly omitted,
-    // but still wide enough that log-update doesn't hard-wrap the plain
-    // "Health: 82/100" score line (14 visible chars) itself, which would otherwise
-    // split the "82/100" substring this test asserts on across two physical lines.
-    Object.defineProperty(stream, 'columns', { value: 19 });
+    const { writes, stream } = fakeStream({ columns: 19 }); // below MIN_MASCOT_COLUMNS — mascot omitted
     await playScoreAnimation({ score: 82, palette: noColorPalette, stream, frameDelayMs: 0 });
     expect(writes[writes.length - 1]).toContain('82/100');
     expect(writes.join('')).not.toContain('╭'); // no mascot face art anywhere (the wave's own color isn't a reliable signal — it's colored too now)
   });
 
   it('colors the pulse wave dim orange while counting', async () => {
-    const { writes, stream } = fakeStream();
-    Object.defineProperty(stream, 'columns', { value: 19 }); // below MIN_MASCOT_COLUMNS — isolates the wave's own color from the mascot's
+    const { writes, stream } = fakeStream({ columns: 19 }); // below MIN_MASCOT_COLUMNS — isolates the wave's own color from the mascot's
     await playScoreAnimation({ score: 82, palette: ansiPalette, stream, frameDelayMs: 0 });
     const allWrites = writes.join('');
     expect(allWrites).toContain('\x1b[38;2;153;37;0m'); // dim orange, seen during at least one counting frame
@@ -137,8 +127,7 @@ describe('playScoreAnimation', () => {
   });
 
   it('omits the speech bubble (but keeps the mascot) when the terminal fits the mascot but not the bubble', async () => {
-    const { writes, stream } = fakeStream();
-    Object.defineProperty(stream, 'columns', { value: 45 }); // >= 20 (mascot) but < 55 (bubble)
+    const { writes, stream } = fakeStream({ columns: 45 }); // >= 20 (mascot) but < 55 (bubble)
     await playScoreAnimation({ score: 95, palette: ansiPalette, stream, frameDelayMs: 0 });
     const allWrites = writes.join('');
     expect(allWrites).toContain('\x1b[38;2;255;62;0m'); // mascot still present

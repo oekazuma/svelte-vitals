@@ -8,11 +8,7 @@ import {
   renderConfettiFrame,
   startMascotSpinner
 } from '../src/mascot.js';
-
-function fakeStream() {
-  const writes: string[] = [];
-  return { writes, stream: { write: (s: string) => writes.push(s) } as unknown as NodeJS.WriteStream };
-}
+import { fakeStream } from './helpers/fake-stream.js';
 
 describe('mascotStateFor', () => {
   it('is ecstatic at exactly 100', () => {
