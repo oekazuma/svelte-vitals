@@ -282,6 +282,22 @@ describe("--rules/--ignore compose with a config file's per-rule options (design
   });
 });
 
+describe('--route with --rules', () => {
+  it('warns that a component-scoped rule examined nothing, but not a project-scoped one', async () => {
+    const starved = await analyzeProject({
+      cwd: fixtureDir,
+      route: '/',
+      allowRules: ['correctness/effect-as-derived']
+    });
+    expect(starved.warnings.some((w) => w.startsWith("--rules 'correctness/effect-as-derived' examined nothing"))).toBe(
+      true
+    );
+    const fed = await analyzeProject({ cwd: fixtureDir, route: '/', allowRules: ['seo/robots-txt'] });
+    expect(fed.warnings.some((w) => w.includes('examined nothing'))).toBe(false);
+    expect(fed.ruleIds).toContain('seo/robots-txt');
+  });
+});
+
 describe('allowRules keeps the named rules configured', () => {
   it('runs a named rule with the config file options it declared', async () => {
     const { results } = await analyzeProject({
