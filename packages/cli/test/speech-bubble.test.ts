@@ -10,6 +10,7 @@ import {
   REACTION_MESSAGES
 } from '../src/speech-bubble.js';
 import { renderMascotReaction } from '../src/mascot.js';
+import { fakeStream } from './helpers/fake-stream.js';
 
 describe('renderSpeechBubble', () => {
   it('returns exactly 3 lines: top border, text, bottom border', () => {
@@ -108,11 +109,6 @@ describe('renderMascotWithSpeech', () => {
     expect(block).toContain('\x1b[38;2;255;62;0m'); // still the mascot, orange present
   });
 });
-
-function fakeStream() {
-  const writes: string[] = [];
-  return { writes, stream: { write: (s: string) => writes.push(s) } as unknown as NodeJS.WriteStream };
-}
 
 describe('playMascotGreeting', () => {
   it('writes nothing when disabled', async () => {

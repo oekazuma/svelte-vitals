@@ -1,5 +1,5 @@
 import { setTimeout as sleep } from 'node:timers/promises';
-import { createLogUpdate } from 'log-update';
+import { createFrameWriter } from './frame-writer.js';
 import { renderMascotAnticipating, type MascotState } from './mascot.js';
 
 const MIN_BUBBLE_COLUMNS = 55;
@@ -77,9 +77,7 @@ const GREETING_HOLD_MS = 800;
 /**
  * Plays a one-shot greeting: the mascot's idle-open pose with a random greeting
  * message in a speech bubble, held for `holdMs`, then cleared — called once
- * before analysis starts (index.ts), never repeated within a single run. Uses
- * `log-update` for the same reason mascot.ts's `startMascotSpinner` and
- * pulse-animation.ts's `playScoreAnimation` do: accurate multi-line redraw/clear.
+ * before analysis starts (index.ts), never repeated within a single run.
  */
 export async function playMascotGreeting(opts: {
   enabled: boolean;
@@ -89,7 +87,7 @@ export async function playMascotGreeting(opts: {
 }): Promise<void> {
   if (!opts.enabled) return;
   const holdMs = opts.holdMs ?? GREETING_HOLD_MS;
-  const render = createLogUpdate(opts.stream);
+  const render = createFrameWriter(opts.stream);
   render(renderMascotWithSpeech(renderMascotAnticipating(), pickMessage(GREETING_MESSAGES)));
   if (holdMs > 0) await sleep(holdMs);
   render.clear();
