@@ -69,7 +69,7 @@ install`/`ci upgrade` bundle into scaffolded workflows.
   natively, so the check is a single branch. A dev dependency raising its Node
   floor is not a problem _for dependencies the smoke actually executes_,
   because `floor-smoke` runs the dist under bare `node` and never loads them.
-  pnpm itself, and the build toolchain (tsup et al.), are not exempt —
+  pnpm itself, and the build toolchain (tsdown et al.), are not exempt —
   `floor-smoke` still runs `pnpm install`/`pnpm build` on 24.16.0, so those
   stay floor-bound. Never pin the `test` matrix back to the floor, and never
   add a dev dependency to the smoke — it must stay Node-builtins-only. Design

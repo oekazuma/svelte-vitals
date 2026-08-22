@@ -16,7 +16,7 @@ pnpm install
 ## Common commands
 
 ```bash
-pnpm build          # build all packages (tsup)
+pnpm build          # build all packages (tsdown)
 pnpm test           # vitest
 pnpm typecheck      # tsc --noEmit
 pnpm lint           # oxlint + oxfmt --check
