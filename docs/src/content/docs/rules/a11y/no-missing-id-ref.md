@@ -16,7 +16,8 @@ Flags a literal id-reference attribute — HTML's `for`, `list`, `headers`, `for
 In practice, a single library component anywhere in a route's composition — a UI kit's `<Button>`, a `<Link>` from a routing helper, anything under `node_modules` — closes the world nowhere, so the rule never runs on that route. A typical app with such a component in its root layout gets this rule on none of its routes. That is accepted, not a bug: a false positive here would send someone hunting for an id that in fact exists inside a component the analysis couldn't see, so skipping the whole route beats guessing.
 
 A skip is no longer silent. When at least one analyzed route is skipped, the CLI prints one
-warning naming the skipped/analyzed ratio and the causes, and the JSON report carries a
+stderr line naming the skipped/analyzed ratio and the causes, saying that this is not a failure,
+and linking to this page, and the JSON report carries a
 top-level `skipped["a11y/no-missing-id-ref"]` array: one entry per skipped route with the
 route's literal id-reference count (`refs`) and each cause — `component` (with the
 component's name), `spread`, `html` (`{@html}`), or `dynamic-id` — located at the first
