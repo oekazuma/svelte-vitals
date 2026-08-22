@@ -1,10 +1,10 @@
-import { defineConfig } from 'tsup';
+import { defineConfig } from 'tsdown';
 
 // ESM-only by design (issue #20) — never add 'cjs'.
 export default defineConfig({
   entry: ['src/index.ts', 'src/hooks/index.ts'],
   format: ['esm'],
+  fixedExtension: false,
   dts: true,
-  clean: true,
   target: 'es2022'
 });
