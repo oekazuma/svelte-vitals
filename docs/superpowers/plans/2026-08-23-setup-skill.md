@@ -463,9 +463,9 @@ git commit -m "test(cli): pin --config's effect on the gallery, and document the
 **Interfaces:**
 
 - Consumes: `allRules`, `docsUrlFor` from `@svelte-vitals/core/internal`; `oneLine` from `./skill-content.js` (already exported there).
-- Produces:
-  - `export function configurableRulesReference(): string` — the machine-derived section.
-  - `export function buildSetupSkillMarkdown(header: string): string` — the whole file (body added in Task 5).
+- Produces: `export function configurableRulesReference(): string` — the machine-derived section,
+  and nothing else. `buildSetupSkillMarkdown` arrives whole in Task 5: a stub here would be a
+  deliverable that only looks finished, and the task reviewer would be right to reject it.
 
 - [ ] **Step 1: Write the failing test**
 
@@ -474,7 +474,7 @@ git commit -m "test(cli): pin --config's effect on the gallery, and document the
 ```ts
 import { describe, it, expect } from 'vitest';
 import { allRules } from '@svelte-vitals/core/internal';
-import { configurableRulesReference, buildSetupSkillMarkdown } from '../src/install/setup-skill-content.js';
+import { configurableRulesReference } from '../src/install/setup-skill-content.js';
 
 describe('configurableRulesReference', () => {
   const reference = configurableRulesReference();
@@ -499,14 +499,6 @@ describe('configurableRulesReference', () => {
 
   it('sends the reader to the docs page for the meaning of an option', () => {
     expect(reference).toContain('https://oekazuma.github.io/svelte-vitals/rules/architecture/directory-naming');
-  });
-});
-
-describe('buildSetupSkillMarkdown', () => {
-  it('carries the frontmatter name and the given header', () => {
-    const md = buildSetupSkillMarkdown('<!-- generated -->');
-    expect(md.startsWith('---\nname: setup-svelte-vitals\n')).toBe(true);
-    expect(md).toContain('<!-- generated -->');
   });
 });
 ```
@@ -558,26 +550,6 @@ export function configurableRulesReference(): string {
 }
 ```
 
-Add a placeholder `buildSetupSkillMarkdown` so the second describe block passes; Task 5 fills the body:
-
-```ts
-export function buildSetupSkillMarkdown(header: string): string {
-  return `---
-name: setup-svelte-vitals
-description: Set up svelte-vitals in a SvelteKit project by deriving its config from the project itself.
----
-
-${header}
-
-# setup-svelte-vitals
-
-## Configurable rules
-
-${configurableRulesReference()}
-`;
-}
-```
-
 - [ ] **Step 4: Run the test to verify it passes**
 
 Run: `pnpm --filter svelte-vitals exec vitest run test/setup-skill.test.ts`
@@ -603,7 +575,8 @@ git commit -m "feat(cli): derive a configurable-rules reference for the setup sk
 **Interfaces:**
 
 - Consumes: `configurableRulesReference()` from Task 4.
-- Produces: the finished `buildSetupSkillMarkdown(header)`.
+- Produces: `export function buildSetupSkillMarkdown(header: string): string` — the whole
+  `SKILL.md`, frontmatter included. Task 6's generator and drift test call exactly this.
 
 **Source of truth:** `docs/superpowers/specs/2026-08-23-setup-skill-design.md`. Transcribe its "Workflow", "Derivation sources" and both mapping tables into the skill body. The spec is written for a reader deciding; the skill is written for an agent executing — keep every table row and every disposition, and drop the rationale paragraphs that only explain why the design is the way it is.
 
@@ -625,11 +598,17 @@ Non-negotiable content, each of which exists because a review caught its absence
 
 - [ ] **Step 1: Write the failing tests for the non-negotiable content**
 
-Append to `packages/cli/test/setup-skill.test.ts`:
+Append to `packages/cli/test/setup-skill.test.ts`, extending its import to bring in
+`buildSetupSkillMarkdown`:
 
 ```ts
 describe('the setup skill body', () => {
   const md = buildSetupSkillMarkdown('<!-- generated -->');
+
+  it('carries the frontmatter name and the given header', () => {
+    expect(md.startsWith('---\nname: setup-svelte-vitals\n')).toBe(true);
+    expect(md).toContain('<!-- generated -->');
+  });
 
   it('states the markuplint version its tables were checked against', () => {
     expect(md).toContain('4.18');
@@ -662,7 +641,7 @@ Expected: FAIL on the five new assertions.
 
 - [ ] **Step 3: Write the body**
 
-Replace `buildSetupSkillMarkdown`'s placeholder body with the full skill, following the eight points above and the spec. Structure it as: frontmatter → header → `# setup-svelte-vitals` → `## When to use` → `## Workflow` (the five phases) → `## Deriving from markuplint` → `## Deriving from eslint-plugin-check-file` → `## Inferring from the tree` → `## Configurable rules` (`${configurableRulesReference()}`).
+Add `buildSetupSkillMarkdown(header)` to `setup-skill-content.ts`, following the ten points above and the spec. It returns frontmatter, then the header, then the body. Structure it as: frontmatter → header → `# setup-svelte-vitals` → `## When to use` → `## Workflow` (the five phases) → `## Deriving from markuplint` → `## Deriving from eslint-plugin-check-file` → `## Inferring from the tree` → `## Configurable rules` (`${configurableRulesReference()}`).
 
 The frontmatter description decides whether the skill ever fires. Write it to match how a user asks for this, not what it does internally:
 
