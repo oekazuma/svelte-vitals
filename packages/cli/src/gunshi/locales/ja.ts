@@ -73,8 +73,8 @@ export const JA_ARG_DESCRIPTIONS = {
       'のルート別精度を上げる。--force はこの2つには適用されない — 既存の登録は常にそのまま残る。\n' +
       'cursor-rules は Cursor rules ファイル（.cursor/rules/svelte-vitals.mdc）を書き出す。\n' +
       '現在のルールセットから生成され、--force で再生成できる。\n' +
-      'svelte-vitals と improve-svelte の Agent Skills はここではインストールしない —\n' +
-      '`npx skills add oekazuma/svelte-vitals` でインストールする。\n' +
+      'svelte-vitals、improve-svelte、setup-svelte-vitals の Agent Skills はここでは\n' +
+      'インストールしない — `npx skills add oekazuma/svelte-vitals` でインストールする。\n' +
       'config-file は、すべてのオプションをコメントアウトした svelte-vitals.config.{js,ts} の雛形を\n' +
       '生成する。プロジェクトが TypeScript 志向に見え（tsconfig.json か vite.config.ts が存在する）、\n' +
       'かつ svelte-vitals が依存関係として宣言されていれば（defineConfig の import が読み込み時に\n' +
