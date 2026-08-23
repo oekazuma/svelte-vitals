@@ -9,7 +9,7 @@
 Some rules ship doing nothing. They declare options and every option defaults empty, so until a
 project fills them in the rule examines nothing and reports nothing. Measured at `94a77be`:
 
-```
+```text
 architecture/directory-naming, unit-entry-file, reserved-directory-names,
 reserved-name-placement, private-scope-import, doc-link-target
 a11y/disallowed-element, required-element
@@ -46,7 +46,7 @@ Two facts make this tractable for an agent rather than a form:
 
 ## Shape and shipping
 
-```
+```text
 packages/cli/src/install/setup-skill-content.ts   new generator
 skills/setup-svelte-vitals/SKILL.md               gen:skills output, distributed via `npx skills add`
 ```
@@ -111,7 +111,7 @@ failure surfaces as a confusing exit `2`.
 
 Then run the real scanner against it with `--config`. Report per rule, per candidate value:
 
-```
+```text
 architecture/directory-naming   kebab-case → 47   camelCase → 3
 a11y/required-element ['main']  → 12 routes
 ```
@@ -140,7 +140,7 @@ is skipped — that is the one this skill just did better.
 Most of it is a name match. These markuplint rules map to `a11y/<same name>`, verified against
 `allRules`:
 
-```
+```text
 permitted-contents  required-element  disallowed-element  deprecated-element
 deprecated-attr  id-duplication  label-has-control  use-list
 placeholder-label-option  require-datetime  doctype
