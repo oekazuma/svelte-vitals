@@ -102,7 +102,9 @@ export const ROOT_ARGS = {
   rules: { type: 'string', description: 'Comma-separated rule ids to enable (all others disabled)' },
   config: {
     type: 'string',
-    description: 'Path to a config file to use instead of the one in the analyzed directory'
+    description:
+      'Path to a config file to use instead of the one in the analyzed directory\n' +
+      '(relative paths resolve against the current shell directory, not the analyzed one)'
   },
   ignore: { type: 'string', description: 'Comma-separated rule ids to disable' },
   category: {

@@ -51,6 +51,21 @@ describe('--config <path>', () => {
     expect(named.rules['architecture/directory-naming']?.findings ?? 0).toBe(0);
   });
 
+  it('resolves a relative path against the shell cwd, not the analyzed directory', () => {
+    const res = spawnSync(
+      process.execPath,
+      [bin, appDir, '--config', './svelte-vitals.config.js', '--reporter', 'json'],
+      {
+        cwd: scratch,
+        encoding: 'utf8',
+        maxBuffer: 16 * 1024 * 1024
+      }
+    );
+    expect(res.status).not.toBe(2);
+    const report = JSON.parse(res.stdout) as JsonReport;
+    expect(report.rules['seo/title-presence']).toBeUndefined();
+  });
+
   it('exits 2 when the named config does not exist', () => {
     const res = spawnSync(process.execPath, [bin, appDir, '--config', join(scratch, 'absent.config.js')], {
       encoding: 'utf8'

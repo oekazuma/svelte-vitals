@@ -78,7 +78,11 @@ export interface RunOptions {
   ignoreRules?: string[];
   /** `--rules`: run only these rule ids. Selection; the config file still supplies their options. */
   allowRules?: string[];
-  /** `--config`: load this config file instead of discovering one in the analyzed directory. */
+  /**
+   * `--config`: load this config file instead of discovering one in the analyzed directory.
+   * Absolute, or relative to `process.cwd()` — never to `cwd`, so the analyzed directory is
+   * not the base.
+   */
   configPath?: string;
   /** Per-category weights for the combined Health score (flag > config file > default 1 each). */
   weights?: Partial<Record<Category, number>>;
@@ -188,7 +192,11 @@ export interface AnalyzeOptions {
    * omit this; a fresh cache is created automatically.
    */
   parseCache?: ParseCache;
-  /** `--config`: load this config file instead of discovering one in the analyzed directory. */
+  /**
+   * `--config`: load this config file instead of discovering one in the analyzed directory.
+   * Absolute, or relative to `process.cwd()` — never to `cwd`, so the analyzed directory is
+   * not the base.
+   */
   configPath?: string;
   /**
    * Result of a `loadConfigFile()` call to reuse instead of loading from `cwd`.
@@ -288,7 +296,7 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
     opts.loadedConfig !== undefined
       ? (opts.loadedConfig ?? undefined)
       : opts.configPath !== undefined
-        ? await loadConfigFromPath(resolve(cwd, opts.configPath))
+        ? await loadConfigFromPath(resolve(opts.configPath))
         : await loadConfigFile(cwd);
   const file = loaded?.config;
 

@@ -43,32 +43,32 @@ npx svelte-vitals@latest apps/web     # 検出をスキップし、apps/web を�
 
 <!-- cli-reference:start -->
 
-| Flag                                    | Description                                                                                                                      |
-| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `--meta-components <meta-components>`   | head メタデータを出力するコンポーネント名（カンマ区切り）                                                                        |
-| `--treat-dynamic-as <treat-dynamic-as>` | pass \| warn \| fail（デフォルト: pass）                                                                                         |
-| `--route <route>`                       | 指定した glob に一致するルートのみ解析                                                                                           |
-| `--diff <diff>`                         | ref と比較して変更されたファイルの検出結果のみ報告（デフォルト HEAD。例: --diff main）                                           |
-| `--staged`                              | コミット用にステージされたファイルの検出結果のみ報告（pre-commit ゲート）                                                        |
-| `--baseline <baseline>`                 | ref の時点では存在しなかった検出結果のみ報告（例: origin/main と比較）                                                           |
-| `--update-suppressions`                 | 現在のすべての検出結果を受け入れる svelte-vitals-suppressions.json を書き出す（既存プロジェクトへのゲート導入）                  |
-| `--no-suppressions`                     | この実行に限り svelte-vitals-suppressions.json を無視                                                                            |
-| `--by-route`                            | コンソール出力にルートごとのスコア内訳を表示                                                                                     |
-| `--reporter <reporter>`                 | console \| json \| agent \| sarif \| github \| html \| md（自動選択: AI エージェント環境では agent、GitHub Actions では github） |
-| `--out-file <out-file>`                 | --reporter html の出力先パス（デフォルト: svelte-vitals-report.html。'-' で標準出力）                                            |
-| `--fail-on <fail-on>`                   | 指定した重大度以上の検出結果があれば失敗（終了コード 1）: critical \| warning \| info                                            |
-| `--min-health <min-health>`             | 組み合わせた Health スコアがこの値を下回れば失敗（終了コード 1、0〜100）                                                         |
-| `--rules <rules>`                       | 有効にするルール ID（カンマ区切り、他はすべて無効）                                                                              |
-| `--config <config>`                     | 解析対象ディレクトリのものではなく、指定したパスの設定ファイルを使用                                                             |
-| `--ignore <ignore>`                     | 無効にするルール ID（カンマ区切り）                                                                                              |
-| `--category <category>`                 | 解析対象カテゴリ（カンマ区切り）: seo \| performance \| correctness \| security \| architecture \| a11y                          |
-| `--weights <weights>`                   | カテゴリごとの Health 重み上書き。例: seo=2,performance=1（指定のないカテゴリはデフォルト値 1）                                  |
-| `--score`                               | 組み合わせた Health スコアのみを出力（--min-health と併用してゲートに利用可能）                                                  |
-| `--no-color`                            | コンソール出力の ANSI カラーを無効化                                                                                             |
-| `--no-animation`                        | インタラクティブ端末での Health スコア発表アニメーションとマスコットを無効化                                                     |
-| `--verbose`                             | すべての検出結果を上限・グループ化なしで表示（デフォルトはルールごとにグループ化して上限あり）                                   |
-| `-h, --help`                            | このヘルプを表示                                                                                                                 |
-| `-v, --version`                         | バージョンを表示                                                                                                                 |
+| Flag                                    | Description                                                                                                                                                             |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--meta-components <meta-components>`   | head メタデータを出力するコンポーネント名（カンマ区切り）                                                                                                               |
+| `--treat-dynamic-as <treat-dynamic-as>` | pass \| warn \| fail（デフォルト: pass）                                                                                                                                |
+| `--route <route>`                       | 指定した glob に一致するルートのみ解析                                                                                                                                  |
+| `--diff <diff>`                         | ref と比較して変更されたファイルの検出結果のみ報告（デフォルト HEAD。例: --diff main）                                                                                  |
+| `--staged`                              | コミット用にステージされたファイルの検出結果のみ報告（pre-commit ゲート）                                                                                               |
+| `--baseline <baseline>`                 | ref の時点では存在しなかった検出結果のみ報告（例: origin/main と比較）                                                                                                  |
+| `--update-suppressions`                 | 現在のすべての検出結果を受け入れる svelte-vitals-suppressions.json を書き出す（既存プロジェクトへのゲート導入）                                                         |
+| `--no-suppressions`                     | この実行に限り svelte-vitals-suppressions.json を無視                                                                                                                   |
+| `--by-route`                            | コンソール出力にルートごとのスコア内訳を表示                                                                                                                            |
+| `--reporter <reporter>`                 | console \| json \| agent \| sarif \| github \| html \| md（自動選択: AI エージェント環境では agent、GitHub Actions では github）                                        |
+| `--out-file <out-file>`                 | --reporter html の出力先パス（デフォルト: svelte-vitals-report.html。'-' で標準出力）                                                                                   |
+| `--fail-on <fail-on>`                   | 指定した重大度以上の検出結果があれば失敗（終了コード 1）: critical \| warning \| info                                                                                   |
+| `--min-health <min-health>`             | 組み合わせた Health スコアがこの値を下回れば失敗（終了コード 1、0〜100）                                                                                                |
+| `--rules <rules>`                       | 有効にするルール ID（カンマ区切り、他はすべて無効）                                                                                                                     |
+| `--config <config>`                     | 解析対象ディレクトリのものではなく、指定したパスの設定ファイルを使用 （相対パスは解析対象ディレクトリではなく、コマンドを実行したカレントディレクトリを基準に解決する） |
+| `--ignore <ignore>`                     | 無効にするルール ID（カンマ区切り）                                                                                                                                     |
+| `--category <category>`                 | 解析対象カテゴリ（カンマ区切り）: seo \| performance \| correctness \| security \| architecture \| a11y                                                                 |
+| `--weights <weights>`                   | カテゴリごとの Health 重み上書き。例: seo=2,performance=1（指定のないカテゴリはデフォルト値 1）                                                                         |
+| `--score`                               | 組み合わせた Health スコアのみを出力（--min-health と併用してゲートに利用可能）                                                                                         |
+| `--no-color`                            | コンソール出力の ANSI カラーを無効化                                                                                                                                    |
+| `--no-animation`                        | インタラクティブ端末での Health スコア発表アニメーションとマスコットを無効化                                                                                            |
+| `--verbose`                             | すべての検出結果を上限・グループ化なしで表示（デフォルトはルールごとにグループ化して上限あり）                                                                          |
+| `-h, --help`                            | このヘルプを表示                                                                                                                                                        |
+| `-v, --version`                         | バージョンを表示                                                                                                                                                        |
 
 <!-- cli-reference:end -->
 

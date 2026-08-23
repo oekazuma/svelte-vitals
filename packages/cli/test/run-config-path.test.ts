@@ -1,4 +1,4 @@
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import { describe, it, expect } from 'vitest';
 import { analyzeProject } from '../src/index.js';
 import { parseRunArgs, resolveArgs } from '../src/resolve-args.js';
@@ -6,10 +6,17 @@ import { parseRunArgs, resolveArgs } from '../src/resolve-args.js';
 const fixture = (name: string) => join(import.meta.dirname, 'fixtures', name);
 
 describe('--config <path>', () => {
-  it('parses onto RunOptions.configPath', () => {
-    const { options, errors } = resolveArgs(parseRunArgs(['--config', 'other.config.js']));
+  it('resolves a relative path against the shell cwd, not the analyzed directory', () => {
+    const { options, errors } = resolveArgs(parseRunArgs(['apps/web', '--config', 'shared/sv.config.js']));
     expect(errors).toEqual([]);
-    expect(options?.configPath).toBe('other.config.js');
+    expect(options?.configPath).toBe(resolve('shared/sv.config.js'));
+    expect(options?.configPath).not.toContain('apps/web');
+  });
+
+  it('leaves an absolute path alone', () => {
+    const abs = join(fixture('config-file-named'), 'svelte-vitals.config.js');
+    const { options } = resolveArgs(parseRunArgs(['--config', abs]));
+    expect(options?.configPath).toBe(abs);
   });
 
   it('rejects a bare --config like every other value flag', () => {
@@ -30,9 +37,9 @@ describe('--config <path>', () => {
     expect(withNamed.config.rules['seo/title-presence']).toBeUndefined();
   });
 
-  it('fails the run when the named config does not exist', async () => {
+  it('resolves a programmatic relative configPath against process.cwd(), not the analyzed cwd', async () => {
     await expect(analyzeProject({ cwd: fixture('config-file-js'), configPath: 'no-such.config.js' })).rejects.toThrow(
-      /does not exist/
+      `${resolve('no-such.config.js')} does not exist.`
     );
   });
 });
