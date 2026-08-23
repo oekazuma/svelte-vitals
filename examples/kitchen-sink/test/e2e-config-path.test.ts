@@ -5,9 +5,14 @@ import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-// The gallery ships its own svelte-vitals.config.ts, so a --config run that changes the result
-// proves both halves at once: the named file is loaded, and discovery is skipped rather than
-// merged. Guard (1) of the two-guard rule for user-facing levers (AGENTS.md).
+// architecture/directory-naming is inert until a config sets its `directories` option — the
+// gallery's own svelte-vitals.config.ts is the only thing that wakes it, at the gallery's own
+// baseline finding. Any --config run that reports zero for it, while a bare run reports the
+// baseline, proves the named file replaced the discovered config rather than merging with it:
+// a merge would keep the discovered `directories` option active and the finding would persist.
+// seo/title-presence disagrees the other way (the scratch config turns it off, the discovered
+// one leaves it on), pinning that the named file is loaded at all. Guard (1) of the two-guard
+// rule for user-facing levers (AGENTS.md).
 const appDir = join(dirname(fileURLToPath(import.meta.url)), '..');
 const bin = join(appDir, '..', '..', 'packages', 'cli', 'dist', 'bin.js');
 
@@ -39,9 +44,11 @@ describe('--config <path>', () => {
   it('analyzes under the named config instead of the project’s own', () => {
     const discovered = run();
     expect(discovered.rules['seo/title-presence']!.findings).toBeGreaterThan(0);
+    expect(discovered.rules['architecture/directory-naming']!.findings).toBeGreaterThan(0);
 
     const named = run('--config', join(scratch, 'svelte-vitals.config.js'));
     expect(named.rules['seo/title-presence']).toBeUndefined();
+    expect(named.rules['architecture/directory-naming']?.findings ?? 0).toBe(0);
   });
 
   it('exits 2 when the named config does not exist', () => {
