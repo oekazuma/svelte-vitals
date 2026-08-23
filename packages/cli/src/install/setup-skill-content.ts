@@ -128,8 +128,14 @@ Write the candidate to a scratch path **outside** the project tree, then score t
 it without touching the project's own files:
 
 \`\`\`bash
-npx svelte-vitals apps/web --config /tmp/svelte-vitals-candidate.js
+npx svelte-vitals apps/web --config /tmp/svelte-vitals-candidate.js --reporter json
 \`\`\`
+
+\`--reporter json\` is not optional here. Left off, the CLI auto-selects the **agent** reporter inside
+an agent harness, and that one gives a per-finding remediation list and a single aggregate total —
+no per-rule counts to compare candidates with. The json report carries \`rules[<id>].findings\` and
+\`rules[<id>].passed\`, which is exactly what this phase needs; a rule missing from \`rules\` was
+switched off by the candidate config rather than scoring zero.
 
 Three properties of that file decide whether the counts mean anything:
 
@@ -147,7 +153,8 @@ Check the exit code before reading anything: \`0\` and \`1\` are both real runs 
 something reached the fail threshold), but \`2\` means the run never happened — usually a config that
 would not load — and there are no counts to report. Never present a \`2\` as a clean result.
 
-Report per rule, per candidate value:
+Report to the user per rule, per candidate value — \`findings\` read out of the json report, not
+copied from any reporter's own layout:
 
 \`\`\`
 architecture/directory-naming   kebab-case → 47   camelCase → 3
@@ -166,7 +173,7 @@ Never one bulk question. Each rule gets its own count and three options:
 | ------------------- | ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | adopt               | the count is small and each finding reads as a real defect                                  | write the option as measured                                                                                              |
 | skip                | the count says this is not the project's convention, or the outliers are deliberate         | write nothing for that rule, and say why                                                                                  |
-| adopt and absorb    | the convention is right going forward, but today's findings are not worth fixing now        | write the option, then after Phase 5's write run \`npx svelte-vitals --update-suppressions\` so only new findings ever fail |
+| adopt and absorb    | the convention is right going forward, but today's findings are not worth fixing now        | write the option, then after Phase 5's write run \`npx svelte-vitals apps/web --update-suppressions\` so only new findings ever fail |
 
 Different counts deserve different answers. Do not carry one rule's decision to the next one.
 
@@ -176,16 +183,19 @@ is about to be absorbed before running it, and run it once at the end rather tha
 
 ### Phase 5 — Write and confirm
 
-Write \`svelte-vitals.config.{js,ts}\` in the analyzed directory, matching the project's own style
-(\`.ts\` where the project is TypeScript; a config inside the project may use \`defineConfig\` from
-\`svelte-vitals\` once that package is a declared dependency — the plain object literal always works).
+**An existing config is never overwritten.** Where Phase 1 found one, show the diff against it and
+let the user apply it.
 
-**An existing config is never overwritten.** Show the diff and let the user apply it.
+Otherwise write \`svelte-vitals.config.{js,ts}\` in the analyzed directory, matching the project's own
+style (\`.ts\` where the project is TypeScript; a config inside the project may use \`defineConfig\`
+from \`svelte-vitals\` once that package is a declared dependency — the plain object literal always
+works).
 
-Then run a full scan, with no \`--config\`, and report the Health score and each adopted rule's count:
+Then run a full scan, with no \`--config\`, and report the Health score (\`score\`) and each adopted
+rule's count — the same json report Phase 3 read, for the same reason:
 
 \`\`\`bash
-npx svelte-vitals apps/web
+npx svelte-vitals apps/web --reporter json
 \`\`\`
 
 Finally, the part this skill does not own. For whichever of the Vite plugin, hooks and CI workflow
