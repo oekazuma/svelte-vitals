@@ -22,6 +22,11 @@ The first match wins. If none exist, svelte-vitals runs with its built-in defaul
 
 Otherwise it writes `.js`. Both files are ESM — the project must be `"type": "module"`, which is SvelteKit's default; CommonJS projects are not supported. `--force` keeps an existing file's extension rather than switching format underneath you.
 
+Pass `--config <path>` to analyze under a specific config file instead — discovery is skipped
+entirely rather than merged with it. It accepts `.js` and `.ts` only, and a missing or unreadable
+file exits `2`. Reach for it to try a config out before committing it, or to share one config
+across the apps in a monorepo.
+
 ## Example
 
 <Tabs>

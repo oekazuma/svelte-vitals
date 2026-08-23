@@ -15,6 +15,11 @@ In the **analyzed directory only** — no upward search. First match wins:
 No file means built-in defaults. `svelte-vitals install --client config-file` scaffolds one with
 every option commented out.
 
+`--config <path>` analyzes under the config file at that path instead of the one in the analyzed
+directory — no discovery, no merge. It accepts `.js` and `.ts` only, and a missing or unreadable
+file exits `2`. Useful for trying a config out before committing it, and for sharing one config
+across the apps in a monorepo.
+
 ```js
 // svelte-vitals.config.js
 export default {
