@@ -128,7 +128,7 @@ Write the candidate to a scratch path **outside** the project tree, then score t
 it without touching the project's own files:
 
 \`\`\`bash
-npx svelte-vitals --config /tmp/svelte-vitals-candidate.js
+npx svelte-vitals apps/web --config /tmp/svelte-vitals-candidate.js
 \`\`\`
 
 Three properties of that file decide whether the counts mean anything:
@@ -185,14 +185,15 @@ Write \`svelte-vitals.config.{js,ts}\` in the analyzed directory, matching the p
 Then run a full scan, with no \`--config\`, and report the Health score and each adopted rule's count:
 
 \`\`\`bash
-npx svelte-vitals
+npx svelte-vitals apps/web
 \`\`\`
 
-Finally, the part this skill does not own. If Phase 1 found no Vite plugin, no hooks and no CI
-workflow, run \`svelte-vitals install\` for exactly those targets and let its own picker handle them:
+Finally, the part this skill does not own. For whichever of the Vite plugin, hooks and CI workflow
+Phase 1 found missing, run \`svelte-vitals install\` for exactly those targets and let its own
+picker handle them:
 
 \`\`\`bash
-npx svelte-vitals install --client vite-plugin,vite-hooks,ci-workflow
+npx svelte-vitals install --app apps/web --client vite-plugin,vite-hooks,ci-workflow
 \`\`\`
 
 Drop from \`--client\` whatever the project already has. Never include \`config-file\` — that is the
@@ -235,10 +236,10 @@ already in that state.
 
 - A rule set to \`false\` maps to \`'off'\` in \`rules\`.
 - \`disallowed-element\` and \`required-element\` carry element lists rather than a boolean: those
-  become the \`elements\` option. The option's grammar reserves **a bare tag name** (letters, digits
-  and hyphens), and markuplint allows a selector there (\`meta[charset="UTF-8"]\`, \`input[type=file]\`).
-  An entry that fails the grammar is a **hard config-load error, exit \`2\`** — report those entries
-  as unconvertible instead of writing them.
+  become the \`elements\` option — see its entry under Configurable rules below for the exact grammar
+  — and markuplint allows a selector there (\`meta[charset="UTF-8"]\`, \`input[type=file]\`). An entry
+  that fails the grammar is a **hard config-load error, exit \`2\`** — report those entries as
+  unconvertible instead of writing them.
 
 ### The \`rules\` object is not the whole config
 
