@@ -129,6 +129,10 @@ absorb today's findings with `--update-suppressions`. Different counts deserve d
 Write `svelte-vitals.config.*`. An existing config is never overwritten — show the diff and let
 the user apply it. Then run a full scan and report the Health score and the adopted rules' counts.
 
+Finally, the part this skill does not own: if Phase 1 found no Vite plugin, hooks or CI workflow,
+run `svelte-vitals install` for those targets and let its own picker handle them. Its config target
+is skipped — that is the one this skill just did better.
+
 ## Derivation sources
 
 ### markuplint
@@ -248,7 +252,11 @@ Obligations that come with a flag: `gen:cli-reference` for the en/ja flag tables
   it.
 - **Not guarded, recorded instead:** both tests validate the svelte-vitals side of the tables. No
   test can validate the markuplint side — `@markuplint/rules` is not a dependency and adding one
-  to check a doc table is not worth it. That side is a reviewed literal list; it carries the
-  markuplint version it was checked against, and it is where an error will hide. The first draft of
-  this spec proved the point by listing `accessible-name` as a markuplint rule name when the rule
-  is `require-accessible-name`.
+  to check a doc table is not worth it. That side is a reviewed literal list, and it is where an
+  error will hide. It covers every markuplint-side claim, not only the rule names: the config keys
+  the derivation reads, and the `error`/`warning`/`info` severity vocabulary it converts from,
+  rest on the same unverifiable footing. **Stamp the shipped tables with the markuplint version
+  they were checked against — 4.18 as of this spec** (the repo pins `@markuplint/html-spec` at
+  4.18.0, and the tables were cross-checked against a real 4.x project config). The first draft
+  proved the point by listing `accessible-name` as a markuplint rule name when the rule is
+  `require-accessible-name`.
