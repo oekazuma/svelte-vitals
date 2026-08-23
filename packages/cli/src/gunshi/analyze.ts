@@ -100,6 +100,10 @@ export const ROOT_ARGS = {
     description: 'Fail (exit 1) when the combined Health score is below this value (0-100)'
   },
   rules: { type: 'string', description: 'Comma-separated rule ids to enable (all others disabled)' },
+  config: {
+    type: 'string',
+    description: 'Path to a config file to use instead of the one in the analyzed directory'
+  },
   ignore: { type: 'string', description: 'Comma-separated rule ids to disable' },
   category: {
     type: 'string',

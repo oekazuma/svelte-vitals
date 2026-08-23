@@ -1,5 +1,5 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import {
   defineConfig,
   type Severity,
@@ -48,7 +48,7 @@ import { loadSuppressions, writeSuppressions, applySuppressions, SUPPRESSIONS_FI
 import { colorEnabled, paletteFor } from './color.js';
 import { startMascotSpinner, mascotFitsWidth } from './mascot.js';
 import { playMascotGreeting, bubbleFitsWidth } from './speech-bubble.js';
-import { loadConfigFile, type LoadedConfigFile } from './config-file.js';
+import { loadConfigFile, loadConfigFromPath, type LoadedConfigFile } from './config-file.js';
 import { playScoreAnimation, scoreAnimationEnabled } from './pulse-animation.js';
 import { resolveRuleSelection } from './rule-selection.js';
 
@@ -78,6 +78,8 @@ export interface RunOptions {
   ignoreRules?: string[];
   /** `--rules`: run only these rule ids. Selection; the config file still supplies their options. */
   allowRules?: string[];
+  /** `--config`: load this config file instead of discovering one in the analyzed directory. */
+  configPath?: string;
   /** Per-category weights for the combined Health score (flag > config file > default 1 each). */
   weights?: Partial<Record<Category, number>>;
   /** Restrict analysis to rules in these categories (applied after rules/ignore selection). */
@@ -186,6 +188,8 @@ export interface AnalyzeOptions {
    * omit this; a fresh cache is created automatically.
    */
   parseCache?: ParseCache;
+  /** `--config`: load this config file instead of discovering one in the analyzed directory. */
+  configPath?: string;
   /**
    * Result of a `loadConfigFile()` call to reuse instead of loading from `cwd`.
    * Pass the value loaded from the real project so a secondary analysis (the
@@ -280,7 +284,12 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
   const cwd = opts.cwd ?? process.cwd();
   const rt = createNodeRuntime();
 
-  const loaded = opts.loadedConfig !== undefined ? (opts.loadedConfig ?? undefined) : await loadConfigFile(cwd);
+  const loaded =
+    opts.loadedConfig !== undefined
+      ? (opts.loadedConfig ?? undefined)
+      : opts.configPath !== undefined
+        ? await loadConfigFromPath(resolve(cwd, opts.configPath))
+        : await loadConfigFile(cwd);
   const file = loaded?.config;
 
   const weights = opts.weights ?? file?.weights;
@@ -483,6 +492,7 @@ function runAnalyzeOptions(opts: RunOptions): AnalyzeOptions {
     rules: opts.rules,
     ignoreRules: opts.ignoreRules,
     allowRules: opts.allowRules,
+    configPath: opts.configPath,
     weights: opts.weights,
     categories: opts.categories
   };
