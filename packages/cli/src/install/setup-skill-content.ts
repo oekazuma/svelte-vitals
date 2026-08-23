@@ -86,6 +86,15 @@ several apps, pick one and say which one you picked.
 Every command below runs against that directory: pass it as the positional path
 (\`npx svelte-vitals apps/web\`) or run from inside it.
 
+**Make the scanner local first.** Detect the project's package manager — a \`packageManager\` field
+in \`package.json\` decides it, otherwise the lockfile (\`pnpm-lock.yaml\`, \`yarn.lock\`,
+\`bun.lock\`/\`bun.lockb\`, \`package-lock.json\`) — and if \`svelte-vitals\` is not already a
+devDependency, add it with that one (\`pnpm add -D svelte-vitals\`, \`yarn add -D\`, \`bun add -d\`,
+\`npm i -D\`), wherever the project's other dev tooling lives: the workspace root in a monorepo,
+otherwise the app directory. Every \`npx svelte-vitals\` below then runs that installed binary out
+of \`node_modules/.bin\`, at the version the lockfile pins rather than whatever the registry serves;
+the package manager's own runner (\`pnpm exec\`, \`yarn\`, \`bun run\`) is equivalent.
+
 Ask nothing yet. Read:
 
 | Read                          | Where                                                                              | What it decides                                                                            |
@@ -188,7 +197,7 @@ let the user apply it.
 
 Otherwise write \`svelte-vitals.config.{js,ts}\` in the analyzed directory, matching the project's own
 style (\`.ts\` where the project is TypeScript; a config inside the project may use \`defineConfig\`
-from \`svelte-vitals\` once that package is a declared dependency — the plain object literal always
+from \`svelte-vitals\`, which Phase 1 made a declared dependency — the plain object literal always
 works).
 
 Then run a full scan, with no \`--config\`, and report the Health score (\`score\`) and each adopted
