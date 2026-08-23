@@ -1,6 +1,6 @@
 import { join } from 'node:path';
 import { describe, it, expect } from 'vitest';
-import { loadConfigFile } from '../src/config-file.js';
+import { loadConfigFile, loadConfigFromPath } from '../src/config-file.js';
 
 /**
  * Loader + validation tests (design doc: docs/superpowers/specs/2026-07-05-config-file-design.md).
@@ -252,4 +252,27 @@ describe('loadConfigFile', () => {
   // scripts/floor-smoke.js. It cannot live here: vitest's module runner
   // transforms in-process dynamic `import()`, so a `.ts` config always loads
   // inside vitest regardless of the host Node.
+});
+
+describe('loadConfigFromPath', () => {
+  it('loads a config the caller named, ignoring cwd discovery', async () => {
+    const loaded = await loadConfigFromPath(join(fixture('config-file-js'), 'svelte-vitals.config.js'));
+    expect(loaded.config).toEqual({
+      treatDynamicAs: 'warn',
+      failOn: 'warning',
+      rules: { 'seo/title-presence': 'off' }
+    });
+  });
+
+  it('rejects an extension the loader does not support, before touching the disk', async () => {
+    // .mjs was retired with a loud tripwire in discovery; a by-path loader that just
+    // import()s would resurrect it silently.
+    await expect(loadConfigFromPath('/nowhere/svelte-vitals.config.mjs')).rejects.toThrow(/\.js and \.ts only/);
+  });
+
+  it('treats a missing named file as fatal', async () => {
+    await expect(loadConfigFromPath(join(fixture('config-file-none'), 'svelte-vitals.config.js'))).rejects.toThrow(
+      /does not exist/
+    );
+  });
 });

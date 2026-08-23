@@ -258,10 +258,30 @@ export async function loadConfigFile(cwd: string): Promise<LoadedConfigFile | un
     }
     return undefined;
   }
+  return loadFrom(found);
+}
 
+/**
+ * Load and validate a config file the caller named (`--config`) instead of one discovered in
+ * `cwd`. Same loader, same validation; the difference is what absence means — the caller chose
+ * this file, so a missing one is fatal where a missing discovered file is simply "no config".
+ * The extension is checked first, and before the disk is touched: discovery narrowed to
+ * `{js,ts}` and kept a loud tripwire for `.mjs`, and a by-path loader that went straight to
+ * `import()` would quietly accept the file that tripwire exists to reject.
+ */
+export async function loadConfigFromPath(path: string): Promise<LoadedConfigFile> {
+  if (!/\.(js|ts)$/.test(path)) {
+    throw new Error(`${path} is not a supported config file — svelte-vitals loads .js and .ts only.`);
+  }
+  if (!existsSync(path)) throw new Error(`${path} does not exist.`);
+  return loadFrom(path);
+}
+
+/** Import one known-present config file and validate it. Shared by discovery and `--config`. */
+async function loadFrom(path: string): Promise<LoadedConfigFile> {
   let mod: { default?: unknown };
   try {
-    mod = (await import(pathToFileURL(found).href)) as { default?: unknown };
+    mod = (await import(pathToFileURL(path).href)) as { default?: unknown };
   } catch (err) {
     // A .js config in a CommonJS project is parsed as CJS, so its `export default` is a
     // SyntaxError that names neither the file nor the fix — rethrow with both. A typo in an
@@ -269,9 +289,9 @@ export async function loadConfigFile(cwd: string): Promise<LoadedConfigFile | un
     // stay in front of the hint or the typo becomes undiagnosable. Only a bare `node` can
     // reach this (vitest's module runner transforms in-process `import()`), so the assertion
     // lives in scripts/floor-smoke.js.
-    if (found.endsWith('.js') && err instanceof SyntaxError) {
+    if (path.endsWith('.js') && err instanceof SyntaxError) {
       throw new Error(
-        `could not load ${found}: ${err.message} — config files are ESM, so a CommonJS project ` +
+        `could not load ${path}: ${err.message} — config files are ESM, so a CommonJS project ` +
           'needs "type": "module" in package.json (SvelteKit\'s default) or a .ts config.',
         { cause: err }
       );
@@ -281,9 +301,9 @@ export async function loadConfigFile(cwd: string): Promise<LoadedConfigFile | un
 
   if (!isPlainObject(mod.default)) {
     throw new Error(
-      `${found} must have a default export that is a plain object (e.g. \`export default defineConfig({...})\` or a plain object literal).`
+      `${path} must have a default export that is a plain object (e.g. \`export default defineConfig({...})\` or a plain object literal).`
     );
   }
 
-  return validateConfigFile(mod.default as Record<string, unknown>, found);
+  return validateConfigFile(mod.default as Record<string, unknown>, path);
 }
