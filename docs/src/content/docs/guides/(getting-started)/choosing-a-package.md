@@ -21,7 +21,7 @@ Each package is versioned independently and depends on `@svelte-vitals/core` (th
 | Verify the exact HTML your prerendered pages will ship, whatever generated it                                          | **Vite plugin**, build mode                                                    |
 | See live findings while developing, whole project, from the moment `vite dev` starts                                   | **Vite plugin**, live dashboard                                                |
 | Let an AI coding agent (Claude Code, Cursor, Codex) check its own changes                                              | **CLI** with `--diff --reporter agent`                                         |
-| Teach your agent the rules up front, get a project-wide improvement roadmap, or have it derive your config on adoption | **Agent Skills** — `/svelte-vitals`, `/improve-svelte`, `/setup-svelte-vitals` |
+| Have your agent derive your config on adoption, get a project-wide improvement roadmap, or teach it the rules up front | **Agent Skills** — `/setup-svelte-vitals`, `/improve-svelte`, `/svelte-vitals` |
 
 ## Comparison
 
@@ -64,7 +64,7 @@ Runs the CLI's engine on every pull request and turns findings into GitHub-nativ
 
 ### Agent Skills — rule knowledge for your agent, up front
 
-[Agent Skills](/guides/agent-skills) make an agent _know the rules before it writes code_. `npx skills add oekazuma/svelte-vitals` installs portable `SKILL.md` files that work identically in Claude Code, Codex and Cursor: **`/svelte-vitals`** embeds the rule catalog plus a run-after-every-edit playbook, **`/improve-svelte`** is a read-only audit that turns "review my app" into impact-ranked implementation plans, and **`/setup-svelte-vitals`** is the adoption pass — it derives a `svelte-vitals.config` from what the project already declares, measuring each rule before adopting it.
+[Agent Skills](/guides/agent-skills) make an agent _know the rules before it writes code_. `npx skills add oekazuma/svelte-vitals` installs portable `SKILL.md` files that work identically in Claude Code, Codex and Cursor: **`/setup-svelte-vitals`** is the adoption pass — it derives a `svelte-vitals.config` from what the project already declares, measuring each rule before adopting it — **`/improve-svelte`** is a read-only audit that turns "review my app" into impact-ranked implementation plans, and **`/svelte-vitals`** embeds the rule catalog plus a run-after-every-edit playbook.
 
 They pair with the CLI rather than replace it — knowledge up front, analysis on demand. The playbook itself tells the agent to run `npx svelte-vitals . --diff --reporter agent` after an edit, and `npx svelte-vitals explain <rule-id>` for a rule's rationale and options.
 

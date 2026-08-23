@@ -9,9 +9,9 @@ import { buildSetupSkillMarkdown } from '../dist/install/setup-skill-content.js'
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 
 const skills = [
-  ['svelte-vitals', buildSkillMarkdown(REPO_SKILLS_HEADER)],
+  ['setup-svelte-vitals', buildSetupSkillMarkdown(REPO_SKILLS_HEADER)],
   ['improve-svelte', buildImproveSkillMarkdown(REPO_SKILLS_HEADER)],
-  ['setup-svelte-vitals', buildSetupSkillMarkdown(REPO_SKILLS_HEADER)]
+  ['svelte-vitals', buildSkillMarkdown(REPO_SKILLS_HEADER)]
 ];
 
 for (const [name, content] of skills) {
