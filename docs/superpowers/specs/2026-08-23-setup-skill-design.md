@@ -152,8 +152,8 @@ are written down:
 | `no-refer-to-non-existent-id`                                                                                                                                                                              | `a11y/no-missing-id-ref`                                                                                                               |
 | `required-h1`                                                                                                                                                                                              | `seo/single-h1` — SEO, not a11y                                                                                                        |
 | `heading-levels`                                                                                                                                                                                           | `seo/heading-level-skip` — SEO, not a11y                                                                                               |
-| `require-accessible-name`                                                                                                                                                                                  | `a11y/accessible-name` — the one a11y rule whose name is not shared                                                                    |
-| `required-attr`, the img/alt part                                                                                                                                                                          | `seo/image-alt`                                                                                                                        |
+| `require-accessible-name`                                                                                                                                                                                  | `a11y/accessible-name`                                                                                                                 |
+| `required-attr`, the img/alt part only — other required-attr entries are unconvertible                                                                                                                     | `seo/image-alt`                                                                                                                        |
 | `attr-duplication`, `end-tag`, `case-sensitive-*`, `character-reference`, `attr-value-quotes`, `no-boolean-attr-value`, `no-default-value`, `class-naming`, `no-hard-code-id`, `no-use-event-handler-attr` | none, by design — the Svelte parser guarantees these or they are formatter territory. Ignore them whether set true or false            |
 
 **Any markuplint rule in none of these three lists is reported as unconvertible**, never guessed
@@ -174,7 +174,9 @@ the project actually enabled:
   absent from `rules` under a preset is _on_, not unset — the opposite reading. Resolve the preset
   before mapping, and if it cannot be resolved, say so rather than treating absence as "unwanted".
 - **`severity`** in the object form (`{ value, severity, options }`) maps onto the `RuleSetting`
-  severity, not just on/off.
+  severity, not just on/off — converting the vocabulary, since `RuleSetting` takes `off`,
+  `critical`, `warning` or `info` and rejects anything else at config load: markuplint's `error`
+  becomes `critical`, `warning` and `info` carry over.
 - **`nodeRules` / `childNodeRules`** are selector-scoped. svelte-vitals' `overrides` are scoped by
   route and file glob, so a selector-scoped setting has no target: report it as unconvertible.
 - **`overrides`** are file-glob scoped and _do_ have a target — `overrides[].files` — but only for
