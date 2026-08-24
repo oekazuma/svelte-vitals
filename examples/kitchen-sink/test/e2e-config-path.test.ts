@@ -25,6 +25,10 @@ function run(...args: string[]): JsonReport {
     encoding: 'utf8',
     maxBuffer: 16 * 1024 * 1024
   });
+  // Exit 0 and 1 are both real runs (1 = fail threshold reached); anything else never produced
+  // a report, so surface the CLI's own diagnostic instead of a JSON parse error on empty stdout.
+  if (res.error) throw res.error;
+  if (res.status !== 0 && res.status !== 1) throw new Error(`svelte-vitals exited ${res.status}: ${res.stderr}`);
   return JSON.parse(res.stdout) as JsonReport;
 }
 

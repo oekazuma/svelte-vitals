@@ -1,14 +1,5 @@
 import { allRules, docsUrlFor, type RuleOptionSpec } from '@svelte-vitals/core/internal';
-import { oneLine } from './skill-content.js';
-
-/** An option carrying no signal to check against: an empty list or map. An integer option always
- * has a real numeric default, so it never counts as empty. Mirrors skill-content.ts's rule for
- * the same reason — a rule whose every option is empty examines nothing until configured. */
-function isEmptyDefault(spec: RuleOptionSpec): boolean {
-  if (spec.kind === 'string-list') return spec.default.length === 0;
-  if (spec.kind === 'string-map') return Object.keys(spec.default).length === 0;
-  return false;
-}
+import { isInertUntilConfigured, oneLine } from './skill-content.js';
 
 function optionLine(name: string, spec: RuleOptionSpec): string {
   const grammar = spec.kind === 'string-list' && spec.pattern ? ` — each entry is ${spec.pattern.describe}` : '';
@@ -26,12 +17,51 @@ export function configurableRulesReference(): string {
     .filter((rule) => rule.options)
     .map((rule) => {
       const specs = Object.entries(rule.options!);
-      const inert = specs.length > 0 && specs.every(([, spec]) => isEmptyDefault(spec));
-      const mark = inert ? ' — **inert until configured**' : '';
+      const mark = isInertUntilConfigured(rule) ? ' — **inert until configured**' : '';
       const options = specs.map(([name, spec]) => optionLine(name, spec)).join('\n');
       return `- **${rule.id}** — ${oneLine(rule.title)}${mark}\n${options}\n  - meaning: ${docsUrlFor(rule.id)}`;
     });
   return entries.join('\n');
+}
+
+/**
+ * markuplint 4.18 rule names with no entry in the body's exceptions table: per the skill's own
+ * convention each maps to `a11y/<name>` exactly when that rule id exists. The markuplint side is
+ * a reviewed literal (`@markuplint/rules` is not a dependency, so nothing can machine-verify
+ * it), but the svelte-vitals side is derived from `allRules` below, so a new a11y rule whose
+ * slug matches moves from the unconvertible examples to the direct-mapping list on the next
+ * regeneration instead of rotting here.
+ */
+const MARKUPLINT_NAME_MATCH_CANDIDATES = [
+  'permitted-contents',
+  'required-element',
+  'disallowed-element',
+  'deprecated-element',
+  'deprecated-attr',
+  'id-duplication',
+  'label-has-control',
+  'use-list',
+  'placeholder-label-option',
+  'require-datetime',
+  'doctype',
+  'invalid-attr',
+  'ineffective-attr',
+  'no-empty-palpable-content',
+  'no-orphaned-end-tag'
+];
+
+function markuplintNameMatchSplit(): { fencedList: string; unconvertibleExamples: string } {
+  const ids = new Set(allRules.map((rule) => rule.id));
+  const mapped = MARKUPLINT_NAME_MATCH_CANDIDATES.filter((name) => ids.has(`a11y/${name}`));
+  const unmapped = MARKUPLINT_NAME_MATCH_CANDIDATES.filter((name) => !ids.has(`a11y/${name}`));
+  const rows: string[] = [];
+  for (let i = 0; i < mapped.length; i += 4) rows.push(mapped.slice(i, i + 4).join('  '));
+  const ticked = unmapped.map((name) => `\`${name}\``);
+  return {
+    fencedList: rows.join('\n'),
+    unconvertibleExamples:
+      ticked.length <= 1 ? (ticked[0] ?? '') : `${ticked.slice(0, -1).join(', ')} and ${ticked.at(-1)}`
+  };
 }
 
 /**
@@ -40,6 +70,7 @@ export function configurableRulesReference(): string {
  * is not a dependency here, so no test can validate it.
  */
 export function buildSetupSkillMarkdown(header: string): string {
+  const nameMatch = markuplintNameMatchSplit();
   return `---
 name: setup-svelte-vitals
 description: 'Set up svelte-vitals in a SvelteKit project: inspect what the project already uses, derive a svelte-vitals.config from its markuplint / eslint-plugin-check-file config and its actual directory conventions, measure each candidate rule before adopting it, and hand the remaining targets to \`svelte-vitals install\`. Use when asked to set up, configure, adopt or onboard svelte-vitals, or to fill in the config file — including the first run on a project that has never used it.'
@@ -228,9 +259,7 @@ Most of it is a name match. **A markuplint rule maps to \`a11y/<markuplint name>
 exists** — confirm with \`npx svelte-vitals explain --list\`. These map that way today:
 
 \`\`\`
-permitted-contents  required-element  disallowed-element  deprecated-element
-deprecated-attr  id-duplication  label-has-control  use-list
-placeholder-label-option  require-datetime  doctype
+${nameMatch.fencedList}
 \`\`\`
 
 Only the exceptions are written down:
@@ -248,7 +277,7 @@ Only the exceptions are written down:
 
 **Any markuplint rule in none of those three lists is reported as unconvertible** — never guessed,
 never silently dropped. markuplint adds rules faster than this table will be revisited;
-\`invalid-attr\`, \`ineffective-attr\`, \`no-empty-palpable-content\` and \`no-orphaned-end-tag\` are
+${nameMatch.unconvertibleExamples} are
 already in that state.
 
 ### Values, not just names

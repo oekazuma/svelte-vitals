@@ -29,6 +29,12 @@ command from, never the analyzed directory, so from a repo root
 `.js` and `.ts` only, and a missing or unreadable file exits `2`. Reach for it to try a config out
 before committing it, or to share one config across the apps in a monorepo.
 
+`--config` is a CLI flag only — the [Vite plugin](/guides/plugin-mode) keeps resolving the config
+from the project root
+([see below](#using-the-config-file-with-the-vite-plugin)). To share a config with the plugin too,
+import the shared file in `vite.config.ts` and spread it into the plugin's options, which take
+precedence over the discovered file.
+
 ## Example
 
 <Tabs>

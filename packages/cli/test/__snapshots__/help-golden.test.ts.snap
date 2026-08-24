@@ -149,8 +149,7 @@ OPTIONS:
   --fail-on <fail-on>                            Fail (exit 1) when any finding reaches this severity: critical | warning | info
   --min-health <min-health>                      Fail (exit 1) when the combined Health score is below this value (0-100)
   --rules <rules>                                Comma-separated rule ids to enable (all others disabled)
-  --config <config>                              Path to a config file to use instead of the one in the analyzed directory
-(relative paths resolve against the current shell directory, not the analyzed one)
+  --config <config>                              Path to a config file to use instead of the one in the analyzed directory (relative paths resolve against the shell cwd, not the analyzed directory)
   --ignore <ignore>                              Comma-separated rule ids to disable
   --category <category>                          Comma-separated categories to analyze: seo | performance | correctness | security | architecture | a11y
   --weights <weights>                            Per-category Health weight overrides, e.g. seo=2,performance=1 (unlisted categories default to 1)

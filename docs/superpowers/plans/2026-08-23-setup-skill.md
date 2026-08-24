@@ -275,7 +275,7 @@ const loaded =
   opts.loadedConfig !== undefined
     ? (opts.loadedConfig ?? undefined)
     : opts.configPath !== undefined
-      ? await loadConfigFromPath(resolve(cwd, opts.configPath))
+      ? await loadConfigFromPath(resolve(opts.configPath))
       : await loadConfigFile(cwd);
 ```
 
@@ -290,8 +290,12 @@ In `runAnalyzeOptions`, forward it:
 In `resolveArgs` (`packages/cli/src/resolve-args.ts`), add `configPath` to the returned `options` object alongside the other string flags:
 
 ```ts
-    configPath: typeof argv.config === 'string' ? argv.config : undefined,
+    configPath: typeof argv.config === 'string' ? resolve(argv.config) : undefined,
 ```
+
+Relative paths resolve against the shell's cwd (`process.cwd()`), never against the analyzed
+directory — resolving in `resolveArgs` keeps the monorepo app-picker retry from re-basing the
+path against the app it picks.
 
 - [ ] **Step 5: Run the tests to verify they pass**
 

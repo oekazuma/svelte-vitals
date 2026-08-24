@@ -26,6 +26,9 @@ import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-confi
  */
 export const CONFIG_FILENAMES = ['svelte-vitals.config.js', 'svelte-vitals.config.ts'];
 
+/** The extension set `--config` accepts — derived so it cannot drift from discovery's list. */
+const CONFIG_EXTENSIONS = CONFIG_FILENAMES.map((name) => name.slice(name.lastIndexOf('.')));
+
 const TREAT_DYNAMIC_AS_VALUES = ['pass', 'warn', 'fail'];
 const FAIL_ON_VALUES = ['critical', 'warning', 'info'];
 const KNOWN_TOP_LEVEL_KEYS = new Set(['treatDynamicAs', 'metaComponents', 'rules', 'failOn', 'weights', 'overrides']);
@@ -270,8 +273,10 @@ export async function loadConfigFile(cwd: string): Promise<LoadedConfigFile | un
  * `import()` would quietly accept the file that tripwire exists to reject.
  */
 export async function loadConfigFromPath(path: string): Promise<LoadedConfigFile> {
-  if (!/\.(js|ts)$/.test(path)) {
-    throw new Error(`${path} is not a supported config file — svelte-vitals loads .js and .ts only.`);
+  if (!CONFIG_EXTENSIONS.some((ext) => path.endsWith(ext))) {
+    throw new Error(
+      `${path} is not a supported config file — svelte-vitals loads ${CONFIG_EXTENSIONS.join(' and ')} only.`
+    );
   }
   if (!existsSync(path)) throw new Error(`${path} does not exist.`);
   return loadFrom(path);
@@ -283,16 +288,19 @@ async function loadFrom(path: string): Promise<LoadedConfigFile> {
   try {
     mod = (await import(pathToFileURL(path).href)) as { default?: unknown };
   } catch (err) {
-    // A .js config in a CommonJS project is parsed as CJS, so its `export default` is a
-    // SyntaxError that names neither the file nor the fix — rethrow with both. A typo in an
-    // ESM config lands here too, and bin.ts prints only `message`, so Node's own text has to
-    // stay in front of the hint or the typo becomes undiagnosable. Only a bare `node` can
-    // reach this (vitest's module runner transforms in-process `import()`), so the assertion
-    // lives in scripts/floor-smoke.js.
+    // A .js config in CJS scope is parsed as CJS, so its `export default` is a SyntaxError
+    // that names neither the file nor the fix — rethrow with both. A typo in an ESM config
+    // lands here too, and bin.ts prints only `message`, so Node's own text has to stay in
+    // front of the hint or the typo becomes undiagnosable. Only a bare `node` can reach this
+    // (vitest's module runner transforms in-process `import()`), so the assertion lives in
+    // scripts/floor-smoke.js. The hint names the package.json nearest the config file, not
+    // "the project": a `--config` file can live outside the project tree, where the project's
+    // own package.json does not govern it.
     if (path.endsWith('.js') && err instanceof SyntaxError) {
       throw new Error(
-        `could not load ${path}: ${err.message} — config files are ESM, so a CommonJS project ` +
-          'needs "type": "module" in package.json (SvelteKit\'s default) or a .ts config.',
+        `could not load ${path}: ${err.message} — config files are ESM, so the nearest ` +
+          'package.json above the config file needs "type": "module" (SvelteKit\'s default), ' +
+          'or use a .ts config.',
         { cause: err }
       );
     }

@@ -195,14 +195,15 @@ export interface AnalyzeOptions {
   /**
    * `--config`: load this config file instead of discovering one in the analyzed directory.
    * Absolute, or relative to `process.cwd()` — never to `cwd`, so the analyzed directory is
-   * not the base.
+   * not the base. Ignored (not even read) when `loadedConfig` is set, including `null`.
    */
   configPath?: string;
   /**
    * Result of a `loadConfigFile()` call to reuse instead of loading from `cwd`.
    * Pass the value loaded from the real project so a secondary analysis (the
    * `--baseline` worktree) runs under the same config file; `null` means "the
-   * project has no config file — do not look for one".
+   * project has no config file — do not look for one". Any value here, `null`
+   * included, takes precedence over `configPath`.
    */
   loadedConfig?: LoadedConfigFile | null;
 }

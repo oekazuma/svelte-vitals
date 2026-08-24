@@ -42,8 +42,7 @@ export const JA_ARG_DESCRIPTIONS = {
     'min-health': '組み合わせた Health スコアがこの値を下回れば失敗（終了コード 1、0〜100）',
     rules: '有効にするルール ID（カンマ区切り、他はすべて無効）',
     config:
-      '解析対象ディレクトリのものではなく、指定したパスの設定ファイルを使用\n' +
-      '（相対パスは解析対象ディレクトリではなく、コマンドを実行したカレントディレクトリを基準に解決する）',
+      '解析対象ディレクトリのものではなく、指定したパスの設定ファイルを使用（相対パスはコマンドを実行したカレントディレクトリ基準）',
     ignore: '無効にするルール ID（カンマ区切り）',
     category: '解析対象カテゴリ（カンマ区切り）: seo | performance | correctness | security | architecture | a11y',
     weights: 'カテゴリごとの Health 重み上書き。例: seo=2,performance=1（指定のないカテゴリはデフォルト値 1）',

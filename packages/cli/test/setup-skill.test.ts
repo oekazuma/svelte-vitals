@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import { CATEGORIES } from '@svelte-vitals/core';
 import { allRules } from '@svelte-vitals/core/internal';
 import { buildSetupSkillMarkdown, configurableRulesReference } from '../src/install/setup-skill-content.js';
 
@@ -64,9 +65,7 @@ describe('the mapping tables name things that exist', () => {
   const ids = new Set(allRules.map((r) => r.id));
 
   it('every svelte-vitals rule id in the body is a real rule', () => {
-    const cited = [...md.matchAll(/`((?:a11y|seo|architecture|correctness|security|performance)\/[a-z0-9-]+)`/g)].map(
-      (m) => m[1]!
-    );
+    const cited = [...md.matchAll(new RegExp(`\`((?:${CATEGORIES.join('|')})/[a-z0-9-]+)\``, 'g'))].map((m) => m[1]!);
     expect([...new Set(cited)].filter((id) => !ids.has(id))).toEqual([]);
   });
 

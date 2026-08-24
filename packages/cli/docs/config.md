@@ -20,7 +20,9 @@ directory — no discovery, no merge. A relative path resolves against the direc
 command from, never the analyzed directory: from a repo root,
 `svelte-vitals apps/web --config shared/sv.config.js` reads `./shared/sv.config.js`. It accepts
 `.js` and `.ts` only, and a missing or unreadable file exits `2`. Useful for trying a config out
-before committing it, and for sharing one config across the apps in a monorepo.
+before committing it, and for sharing one config across the apps in a monorepo. CLI only: the Vite
+plugin resolves its own config from the project root — share with it by importing the shared file
+in `vite.config.ts` and spreading it into the plugin's options.
 
 ```js
 // svelte-vitals.config.js
