@@ -75,11 +75,13 @@ Useful as a CI gate.
 
 ### `svelte-vitals install`
 
-An interactive wizard that wires up the [Vite plugin](https://www.npmjs.com/package/@svelte-vitals/vite)'s live dashboard, Agent Skills (`/svelte-vitals`, `/improve-svelte`) for Claude Code, Codex, and Cursor, a `svelte-vitals.config` file, and a GitHub Actions CI workflow — grouped by category in the picker so it's clear what each target is for:
+An interactive wizard that wires up the [Vite plugin](https://www.npmjs.com/package/@svelte-vitals/vite)'s live dashboard, a Cursor rules file, a `svelte-vitals.config` file, and a GitHub Actions CI workflow — grouped by category in the picker so it's clear what each target is for:
 
 ```bash
 npx svelte-vitals@latest install
 ```
+
+The `/setup-svelte-vitals`, `/improve-svelte` and `/svelte-vitals` Agent Skills are not installer targets — install them with `npx skills add oekazuma/svelte-vitals`.
 
 ### `svelte-vitals docs` / `svelte-vitals explain`
 

@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import { parseArgs } from 'node:util';
 import type { Category, Severity } from '@svelte-vitals/core';
 import type { RunOptions } from './index.js';
@@ -158,6 +159,7 @@ export const VALUE_FLAGS = [
   'fail-on',
   'reporter',
   'rules',
+  'config',
   'ignore',
   'min-health',
   'out-file',
@@ -184,6 +186,7 @@ const RUN_STRING_FLAGS = [
   'fail-on',
   'reporter',
   'rules',
+  'config',
   'ignore',
   'min-health',
   'out-file',
@@ -379,6 +382,9 @@ export function resolveArgs(argv: CliArgv): ResolvedArgs {
       route,
       reporter,
       outFile: typeof argv['out-file'] === 'string' ? argv['out-file'] : undefined,
+      // Resolved here, against the shell's cwd, so the positional target directory never becomes
+      // the base — and so the monorepo app-picker retry cannot re-resolve it against the app it chose.
+      configPath: typeof argv.config === 'string' ? resolve(argv.config) : undefined,
       byRoute: Boolean(argv['by-route']),
       failOn,
       ...(allowRules !== undefined ? { allowRules } : {}),

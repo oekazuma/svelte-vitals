@@ -22,7 +22,7 @@ export function oneLine(text: string): string {
 /** Whether an option's default carries no signal to check against: an empty list or map. An
  * integer option always has a real numeric default (0 is a meaningful threshold, not "unset"),
  * so it never counts as empty here. */
-function isEmptyDefault(spec: RuleOptionSpec): boolean {
+export function isEmptyDefault(spec: RuleOptionSpec): boolean {
   if (spec.kind === 'string-list') return spec.default.length === 0;
   if (spec.kind === 'string-map') return Object.keys(spec.default).length === 0;
   return false;
@@ -34,7 +34,7 @@ function isEmptyDefault(spec: RuleOptionSpec): boolean {
  * hard-coding a rule id, so a future L3-layer rule (declared, never inferred) is picked up the
  * same way `architecture/private-scope-import` is today.
  */
-function isInertUntilConfigured(rule: (typeof allRules)[number]): boolean {
+export function isInertUntilConfigured(rule: (typeof allRules)[number]): boolean {
   if (!rule.options) return false;
   const specs = Object.values(rule.options);
   return specs.length > 0 && specs.every(isEmptyDefault);

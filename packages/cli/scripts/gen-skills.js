@@ -4,12 +4,14 @@ import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildSkillMarkdown, REPO_SKILLS_HEADER } from '../dist/install/skill-content.js';
 import { buildImproveSkillMarkdown } from '../dist/install/improve-skill-content.js';
+import { buildSetupSkillMarkdown } from '../dist/install/setup-skill-content.js';
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 
 const skills = [
-  ['svelte-vitals', buildSkillMarkdown(REPO_SKILLS_HEADER)],
-  ['improve-svelte', buildImproveSkillMarkdown(REPO_SKILLS_HEADER)]
+  ['setup-svelte-vitals', buildSetupSkillMarkdown(REPO_SKILLS_HEADER)],
+  ['improve-svelte', buildImproveSkillMarkdown(REPO_SKILLS_HEADER)],
+  ['svelte-vitals', buildSkillMarkdown(REPO_SKILLS_HEADER)]
 ];
 
 for (const [name, content] of skills) {

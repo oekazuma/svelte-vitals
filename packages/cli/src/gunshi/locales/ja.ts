@@ -41,6 +41,8 @@ export const JA_ARG_DESCRIPTIONS = {
     'fail-on': '指定した重大度以上の検出結果があれば失敗（終了コード 1）: critical | warning | info',
     'min-health': '組み合わせた Health スコアがこの値を下回れば失敗（終了コード 1、0〜100）',
     rules: '有効にするルール ID（カンマ区切り、他はすべて無効）',
+    config:
+      '解析対象ディレクトリのものではなく、指定したパスの設定ファイルを使用（相対パスはコマンドを実行したカレントディレクトリ基準）',
     ignore: '無効にするルール ID（カンマ区切り）',
     category: '解析対象カテゴリ（カンマ区切り）: seo | performance | correctness | security | architecture | a11y',
     weights: 'カテゴリごとの Health 重み上書き。例: seo=2,performance=1（指定のないカテゴリはデフォルト値 1）',
@@ -70,8 +72,8 @@ export const JA_ARG_DESCRIPTIONS = {
       'のルート別精度を上げる。--force はこの2つには適用されない — 既存の登録は常にそのまま残る。\n' +
       'cursor-rules は Cursor rules ファイル（.cursor/rules/svelte-vitals.mdc）を書き出す。\n' +
       '現在のルールセットから生成され、--force で再生成できる。\n' +
-      'svelte-vitals と improve-svelte の Agent Skills はここではインストールしない —\n' +
-      '`npx skills add oekazuma/svelte-vitals` でインストールする。\n' +
+      'setup-svelte-vitals、improve-svelte、svelte-vitals の Agent Skills はここでは\n' +
+      'インストールしない — `npx skills add oekazuma/svelte-vitals` でインストールする。\n' +
       'config-file は、すべてのオプションをコメントアウトした svelte-vitals.config.{js,ts} の雛形を\n' +
       '生成する。プロジェクトが TypeScript 志向に見え（tsconfig.json か vite.config.ts が存在する）、\n' +
       'かつ svelte-vitals が依存関係として宣言されていれば（defineConfig の import が読み込み時に\n' +

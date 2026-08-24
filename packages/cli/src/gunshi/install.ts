@@ -36,8 +36,8 @@ export const INSTALL_ARGS = {
       'to either of these two — an existing registration is always left as-is.\n' +
       'cursor-rules writes a Cursor rules file (.cursor/rules/svelte-vitals.mdc),\n' +
       'generated from the current rule set; supports --force to regenerate.\n' +
-      'The svelte-vitals and improve-svelte Agent Skills are not installed here —\n' +
-      'install them with `npx skills add oekazuma/svelte-vitals`.\n' +
+      'The setup-svelte-vitals, improve-svelte and svelte-vitals Agent Skills are not\n' +
+      'installed here — install them with `npx skills add oekazuma/svelte-vitals`.\n' +
       'config-file scaffolds svelte-vitals.config.{js,ts} with every option commented\n' +
       'out, auto-picking .ts (with defineConfig) when the project looks\n' +
       'TypeScript-oriented (tsconfig.json or vite.config.ts present) and\n' +

@@ -13,15 +13,15 @@ CLI・プラグイン・Action は同じルールエンジンとスコアリン�
 
 ## 早見表
 
-| やりたいこと                                                                             | 使うもの                                                 |
-| ---------------------------------------------------------------------------------------- | -------------------------------------------------------- |
-| プロジェクト全体のSEO、パフォーマンス、コードヘルスをCI/PRでゲートしたい                 | **CLI**：`npx svelte-vitals@latest`                      |
-| コミットしようとしているファイルだけをチェックしたい                                     | **CLI**（`--staged` / `--diff`）                         |
-| GitHubのPRをインラインアノテーション、ジョブサマリー、スティッキーコメントでゲートしたい | **GitHub Action**：`npx svelte-vitals@latest ci install` |
-| 実際に配信されるHTMLそのものを、生成元に関わらず正確に検証したい                         | **Vite プラグイン**（ビルドモード）                      |
-| ビルドを待たずに、開発中にプロジェクト全体をライブで確認したい                           | **Vite プラグイン**（ライブダッシュボード）              |
-| AIコーディングエージェント（Claude Code / Cursor / Codex）に自分の変更をチェックさせたい | **CLI** の `--diff --reporter agent`                     |
-| コードを書く前からエージェントにルールを教える、または改善ロードマップを作らせたい       | **Agent Skills**：`/svelte-vitals` と `/improve-svelte`  |
+| やりたいこと                                                                                                 | 使うもの                                                                      |
+| ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
+| プロジェクト全体のSEO、パフォーマンス、コードヘルスをCI/PRでゲートしたい                                     | **CLI**：`npx svelte-vitals@latest`                                           |
+| コミットしようとしているファイルだけをチェックしたい                                                         | **CLI**（`--staged` / `--diff`）                                              |
+| GitHubのPRをインラインアノテーション、ジョブサマリー、スティッキーコメントでゲートしたい                     | **GitHub Action**：`npx svelte-vitals@latest ci install`                      |
+| 実際に配信されるHTMLそのものを、生成元に関わらず正確に検証したい                                             | **Vite プラグイン**（ビルドモード）                                           |
+| ビルドを待たずに、開発中にプロジェクト全体をライブで確認したい                                               | **Vite プラグイン**（ライブダッシュボード）                                   |
+| AIコーディングエージェント（Claude Code / Cursor / Codex）に自分の変更をチェックさせたい                     | **CLI** の `--diff --reporter agent`                                          |
+| 導入時にエージェントに設定を導出させる、改善ロードマップを作らせる、またはコードを書く前からルールを教えたい | **Agent Skills**：`/setup-svelte-vitals`、`/improve-svelte`、`/svelte-vitals` |
 
 ## 比較
 
@@ -64,7 +64,7 @@ devで実際にルートを訪問すると、ダッシュボードはさらに�
 
 ### エージェントに前もってルールの知識を与える Agent Skills
 
-[Agent Skills](/ja/guides/agent-skills) は、エージェントが「コードを書く前からルールを知っている」状態を作ります。`npx skills add oekazuma/svelte-vitals` は Claude Code・Codex・Cursor で同じように動く `SKILL.md` をインストールします。**`/svelte-vitals`** はルールカタログと「編集のたびに実行する」プレイブック、**`/improve-svelte`** は「アプリをレビューして」を影響度順の実装プランに変える読み取り専用の監査スキルです。
+[Agent Skills](/ja/guides/agent-skills) は、エージェントが「コードを書く前からルールを知っている」状態を作ります。`npx skills add oekazuma/svelte-vitals` は Claude Code・Codex・Cursor で同じように動く `SKILL.md` をインストールします。**`/setup-svelte-vitals`** は導入時のスキルで、プロジェクトが既に宣言している内容から `svelte-vitals.config` を導出し、各ルールを採用する前に必ず計測します。**`/improve-svelte`** は「アプリをレビューして」を影響度順の実装プランに変える読み取り専用の監査スキル、**`/svelte-vitals`** はルールカタログと「編集のたびに実行する」プレイブックです。
 
 CLI を置き換えるのではなく補完します。知識は前もって、解析は必要なときに。プレイブック自身が、編集後には `npx svelte-vitals . --diff --reporter agent` を、ルールの根拠やオプションには `npx svelte-vitals explain <rule-id>` を実行するよう指示します。
 
