@@ -4,8 +4,10 @@
   "minimumReleaseAge": "3 days",
   "labels": ["renovate"],
   "lockFileMaintenance": {
+    "description": "platformAutomerge stays off here: a lockfile refresh pulls versions younger than minimumReleaseAge, and GitHub's auto-merge only waits for required checks — it would merge past the pending renovate/stability-days status. Renovate-side automerge waits for its own stability check, so the 3-day age holds.",
     "enabled": true,
-    "automerge": true
+    "automerge": true,
+    "platformAutomerge": false
   },
   "rangeStrategy": "bump",
   "platformAutomerge": true,
