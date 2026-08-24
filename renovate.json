@@ -4,7 +4,8 @@
   "minimumReleaseAge": "3 days",
   "labels": ["renovate"],
   "lockFileMaintenance": {
-    "enabled": true
+    "enabled": true,
+    "automerge": true
   },
   "rangeStrategy": "bump",
   "platformAutomerge": true,
@@ -21,8 +22,10 @@
       "enabled": false
     },
     {
+      "description": "matchUpdateTypes keeps this rule off the lockFileMaintenance update type — without it, the group rename splits lock file maintenance into a second, permanently-conflicting -catalog twin PR.",
       "groupName": "catalog",
-      "matchFileNames": ["pnpm-workspace.yaml"]
+      "matchFileNames": ["pnpm-workspace.yaml"],
+      "matchUpdateTypes": ["major", "minor", "patch", "pin", "digest"]
     },
     {
       "groupName": "linters",
