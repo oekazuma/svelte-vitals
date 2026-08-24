@@ -1,5 +1,23 @@
 # svelte-vitals
 
+## 0.51.0
+
+### Minor Changes
+
+- 1ff00b1: Add `--config <path>`: analyze under the config file at that path instead of the one discovered in the analyzed directory. Discovery is skipped rather than merged, a relative path resolves against the directory the command runs in rather than the analyzed one (so `svelte-vitals apps/web --config shared/sv.config.js` works from a repo root), `.js` and `.ts` are the only accepted extensions, and a missing or unreadable file exits `2`.
+- 1ff00b1: Add the `setup-svelte-vitals` agent skill, distributed alongside the other two via `npx skills add oekazuma/svelte-vitals`. Where `install` scaffolds a config file with every option commented out, this one derives the config from the project: it first makes `svelte-vitals` a devDependency with the project's own package manager, so every command it runs afterwards resolves the local, lockfile-pinned binary; then it reads an existing markuplint or eslint-plugin-check-file config, infers the conventions a project without either already follows, measures each candidate rule with `--config` before anything is written, and decides adoption per rule. It exists mainly for the rules that ship inert — the ones that examine nothing until a project fills their options in.
+
+### Patch Changes
+
+- 4b6a07b: Stop the agent reporter from asking for an acceptance it just said was unreachable. A rule like `security/raw-html` reports a construct that survives its own fix — a sanitized `{@html}` is still an `{@html}` — and its `Fix:` line says so, while the `Accept:` line underneath asked for the rule to pass on re-run, sending an agent round the same edit twice. Findings that carry a line now name the other exit too: a reviewed `svelte-vitals-disable-next-line` comment above them. That line is also rendered — on the finding's heading and again where the directive has to go — so two findings of one rule in one file are no longer told apart only by their message, and so the directive lands on the right construct. Findings with no line to annotate (the `<head>` metadata rules) are unchanged.
+- 1ff00b1: Point the ESM config-load hint at the package.json nearest the config file. The old wording ("a CommonJS project needs \"type\": \"module\"") sent users to the project's package.json, which is the wrong file when a `--config` file lives outside the project tree — the scope that governs a config file is the nearest package.json above it.
+- 5f7fd3f: Make the `a11y/no-missing-id-ref` skip notice self-explanatory: it now says the rule only checks routes it can fully resolve and that a skip is not a failure, drops the per-cause counts when a single route is skipped, points at `--reporter json` for the per-route detail, and links to the rule's docs page.
+- 0283d20: Scoping notices now say what to do next: an unmatched `--route` or `overrides` glob names the glob form it expects and where the routes/files are listed, a `--rules` id that `--route` cannot examine says why and how to check it, an inline directive naming an unknown rule points at `svelte-vitals explain --list`, and the Vite plugin's warnings share the CLI's `svelte-vitals:` prefix.
+- 94a77be: Point the scaffolded agent skills at the fix text that actually exists. Both skills told the agent to take a finding's fix from `svelte-vitals explain <rule-id> --json`, which never returns `recommendation` and returns no `fix` for a rule that words its fix per finding — a dead end on more than half the registry, criticals included. They now read `recommendation` off the finding in the report, and the rule digest says so where a `Fix:` line is absent. The `svelte-vitals` skill also gained the inline-suppression directive (the only way to clear a correct-by-design finding) and the exit-code contract, and the bundled `docs show scoping` guide now documents `svelte-vitals-disable-next-line`.
+- Updated dependencies [4b6a07b]
+- Updated dependencies [0283d20]
+  - @svelte-vitals/core@0.47.2
+
 ## 0.50.1
 
 ### Patch Changes
