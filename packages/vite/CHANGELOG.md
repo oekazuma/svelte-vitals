@@ -1,5 +1,20 @@
 # @svelte-vitals/vite
 
+## 0.32.3
+
+### Patch Changes
+
+- 0283d20: Scoping notices now say what to do next: an unmatched `--route` or `overrides` glob names the glob form it expects and where the routes/files are listed, a `--rules` id that `--route` cannot examine says why and how to check it, an inline directive naming an unknown rule points at `svelte-vitals explain --list`, and the Vite plugin's warnings share the CLI's `svelte-vitals:` prefix.
+- Updated dependencies [4b6a07b]
+- Updated dependencies [1ff00b1]
+- Updated dependencies [1ff00b1]
+- Updated dependencies [5f7fd3f]
+- Updated dependencies [0283d20]
+- Updated dependencies [1ff00b1]
+- Updated dependencies [94a77be]
+  - @svelte-vitals/core@0.47.2
+  - svelte-vitals@0.51.0
+
 ## 0.32.2
 
 ### Patch Changes
