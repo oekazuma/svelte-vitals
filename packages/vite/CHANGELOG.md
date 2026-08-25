@@ -1,5 +1,37 @@
 # @svelte-vitals/vite
 
+## 0.35.0
+
+### Minor Changes
+
+- ebff12a: `a11y/accessible-name` now also checks `<iframe>`: a frame with none of `title`, `aria-label`, or `aria-labelledby` is announced by screen readers as an unnamed frame. A blank `title=""` computes no name and is reported; hidden or presentational frames (`aria-hidden="true"`, `hidden`, `role="presentation"`/`"none"`) and SVG-namespace iframes are skipped, and expression-valued attributes resolve to silence as everywhere in this rule.
+  
+  Because this is a new arm on an existing rule, its findings share the rule's `id::route::location` suppression keys — a committed suppressions entry already recorded for `a11y/accessible-name` at the same route and file keeps matching, so iframe findings there can be pre-suppressed in projects with existing entries.
+  
+  Also, the shared element-facts channel now records a blank literal attribute value (`title=""`) as an empty string instead of folding it into "expression": `a11y/no-autofocus` consequently reports `autofocus=""` (browsers treat it as set), which it previously skipped as unknowable.
+- 8ba6790: Add two a11y rules for focus-hijacking global attributes.
+  
+  `a11y/no-accesskey` flags any element carrying an `accesskey` attribute — the actual shortcut combination varies by browser and OS, is undiscoverable, and conflicts with screen reader and browser keyboard bindings. Unlike most attribute rules, an expression-valued `accesskey` is also flagged: presence is the problem, the value never matters.
+  
+  `a11y/no-autofocus` flags a literal `autofocus` attribute unless the element is a `<dialog>`, or sits inside a `<dialog>` or a popover container in the same component template — their focusing steps run on show, not at page load, so autofocus there is the correct tool. Expression-valued `autofocus` is unknowable and passes. The dialog/popover carve-out cannot see through component boundaries, so an autofocus inside a component rendered into a dialog is a known false positive — the docs page names the inline-suppression escape hatch.
+- 431ef7e: Add three info-level a11y rules for small markup-conformance gaps.
+  
+  `a11y/no-duplicate-dt` flags a `<dt>` whose static text duplicates an earlier `<dt>` in the same `<dl>` — the spec says one name should not appear twice, and a duplicate is usually a copy-paste error where two descriptions were meant to share one term. Names under logic blocks, with non-static content, or in nested lists' own scopes are exempt.
+  
+  `a11y/abbr-title` flags an `<abbr>` with no `title` (blank included) giving the expansion. This is a best-practice nudge, not a conformance check: an expansion given in the surrounding prose is correct markup this rule cannot see — that known false-positive class is silenced with the inline `svelte-vitals-disable-next-line` directive, which the docs page shows.
+  
+  `a11y/pattern-title` flags an `<input pattern>` with no `title` (blank included) describing the expected format — browsers surface the title in the validation error, so without it a failed submit says only that the value is wrong. Only judged where `pattern` is effective (no `type`, or a literal type in the spec's applies-to set).
+  
+  All three treat expression-valued attributes as unknowable and stay silent, matching the other element rules.
+
+### Patch Changes
+
+- Updated dependencies [ebff12a]
+- Updated dependencies [8ba6790]
+- Updated dependencies [431ef7e]
+  - @svelte-vitals/core@0.49.0
+  - svelte-vitals@0.53.0
+
 ## 0.34.0
 
 ### Minor Changes
