@@ -88,13 +88,21 @@ export function isInteractiveElement(tag: string, attrs: ElementAttr[]): boolean
     return false;
   }
   if ((tag === 'audio' || tag === 'video') && attrs.some((a) => a.name === 'controls')) return true;
-  const tabindex = literalOf(attrs, 'tabindex')?.trim();
-  // A blank tabindex is invalid HTML and ignored by browsers (Number('') would coerce to 0).
-  if (tabindex) {
-    const n = Number(tabindex);
-    if (Number.isFinite(n) && n >= 0) return true;
-  }
+  const n = literalTabindexValue(literalOf(attrs, 'tabindex'));
+  if (n !== undefined && n >= 0) return true;
   return hasRoleIn(attrs, INTERACTIVE_ROLES);
+}
+
+/**
+ * Numeric value of a literal `tabindex`, or undefined when blank or non-numeric — a blank
+ * tabindex is invalid HTML and ignored by browsers (`Number('')` would coerce to 0). Shared
+ * by the interactive-element classification above and a11y/positive-tabindex.
+ */
+export function literalTabindexValue(raw: string | undefined): number | undefined {
+  const trimmed = raw?.trim();
+  if (!trimmed) return undefined;
+  const n = Number(trimmed);
+  return Number.isFinite(n) ? n : undefined;
 }
 
 /**

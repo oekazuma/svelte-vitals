@@ -63,3 +63,7 @@
 <!-- a11y/permitted-contents (info): <button> takes phrasing content only; a <div> child is
      spec-invalid but renders fine — the severity split's benign class. A <span> would be clean. -->
 <button><div>Block inside a button</div></button>
+
+<!-- a11y/positive-tabindex: tabindex above 0 puts this ahead of every naturally-ordered element,
+     hijacking the tab order for the whole page. The tabindex="0" divs above stay silent. -->
+<div tabindex="1">Jumps the tab queue</div>
