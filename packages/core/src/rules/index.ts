@@ -75,6 +75,7 @@ import { performanceMinifyDisabled } from './perf/minify-disabled.js';
 import { performanceLoadWaterfall } from './perf/load-waterfall.js';
 import { performanceSequentialAwaits } from './perf/sequential-awaits.js';
 import { performanceStateRaw } from './perf/state-raw.js';
+import { performanceIframeLoading } from './perf/iframe-loading.js';
 import { a11yInvalidRole } from './a11y/invalid-role.js';
 import { a11yUnknownAriaAttribute } from './a11y/unknown-aria-attribute.js';
 import { a11yRequiredAriaProps } from './a11y/required-aria-props.js';
@@ -175,6 +176,7 @@ export const allRules: Rule[] = [
   performanceLoadWaterfall,
   performanceSequentialAwaits,
   performanceStateRaw,
+  performanceIframeLoading,
   a11yInvalidRole,
   a11yUnknownAriaAttribute,
   a11yRequiredAriaProps,
@@ -276,6 +278,7 @@ export {
   performanceLoadWaterfall,
   performanceSequentialAwaits,
   performanceStateRaw,
+  performanceIframeLoading,
   a11yInvalidRole,
   a11yUnknownAriaAttribute,
   a11yRequiredAriaProps,
