@@ -100,9 +100,9 @@ export default {
 
 Each entry needs `rules` (keys are rule ids **or** category names) plus at least one of:
 
-- **`route`** — glob(s) against the route id as reported (`/blog/[slug]`). SvelteKit `(group)`
+- `route` — glob(s) against the route id as reported (`/blog/[slug]`). SvelteKit `(group)`
   segments are **not** in the route id, so use `files` to target a group.
-- **`files`** — glob(s) against the source path.
+- `files` — glob(s) against the source path.
 
 Globs are deliberately small: `*` within a segment, `**` across segments, a trailing `/**` also
 matches the bare prefix. Everything else — including `(`, `)`, `[`, `]` — is literal. Later entries win.

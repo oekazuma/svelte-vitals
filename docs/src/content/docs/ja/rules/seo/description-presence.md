@@ -7,7 +7,7 @@ description: すべてのルートに <meta name="description"> が必要です�
 
 ## チェック内容
 
-すべてのルートには、直接指定またはレイアウトチェーンからの継承で `<meta name="description">` タグが必要です。ディスクリプションのメタタグがない、または空のルートを検出します。
+すべてのルートには、直接指定またはレイアウトチェーンからの継承で `<meta name="description">` タグが必要です。ディスクリプションのメタタグがない、あるいは空のルートを検出します。
 
 ## なぜ重要か
 
@@ -17,7 +17,7 @@ description: すべてのルートに <meta name="description"> が必要です�
 
 ## 修正方法
 
-`<svelte:head>` 内に `<meta name="description">` を追加するか、メタコンポーネントのディスクリプションを設定します：
+`<svelte:head>` 内に `<meta name="description">` を追加するか、メタコンポーネントのディスクリプションを設定します。
 
 ```svelte
 <svelte:head>
@@ -31,7 +31,7 @@ description: すべてのルートに <meta name="description"> が必要です�
 
 ## 無効化
 
-既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

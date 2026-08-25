@@ -7,7 +7,7 @@ description: $derived を使わずに prop から計算した値は一度しか�
 
 ## チェック内容
 
-`$props()` の prop から `$derived` なしで計算され、テンプレートで描画されるトップレベルの `const`/`let` を検出します:
+`$props()` の prop から `$derived` なしで計算され、テンプレートで描画されるトップレベルの `const`/`let` を検出します。
 
 ```svelte
 <script>
@@ -45,7 +45,7 @@ Svelte のガイダンスは、props を変わるものとして扱うよう求�
 
 ### legacy mode（`export let`）
 
-同じバグは legacy mode のコンポーネントにも存在し、修正方法だけが異なります。Svelte は 1 つのファイル内で `export let` と `$props()` を混在できないため、このルールは両方の prop 記法を認識し、メッセージを出し分けます:
+同じバグは legacy mode のコンポーネントにも存在し、修正方法だけが異なります。Svelte は 1 つのファイル内で `export let` と `$props()` を混在できないため、このルールは両方の prop 記法を認識し、メッセージを出し分けます。
 
 ```svelte
 <script>

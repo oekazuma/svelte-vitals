@@ -33,13 +33,13 @@ description: state や property 属性を要求するロールには、ネイテ
 
 ## 修正方法
 
-ロールが要求する属性を追加します:
+ロールが要求する属性を追加します。
 
 ```svelte
 <div role="checkbox" aria-checked={checked}>Subscribe</div>
 ```
 
-または、その状態をすでにネイティブに供給する要素を使います:
+または、その状態をすでにネイティブに供給する要素を使います。
 
 ```svelte
 <input type="checkbox" bind:checked />
@@ -51,7 +51,7 @@ description: state や property 属性を要求するロールには、ネイテ
 
 ## 無効化
 
-必須プロパティを意図的に省略する場合は、`<!-- svelte-vitals-disable-next-line a11y/required-aria-props -->` で個別の要素を抑制するか、ルールを無効化してください:
+必須プロパティを意図的に省略する場合は、`<!-- svelte-vitals-disable-next-line a11y/required-aria-props -->` で個別の要素を抑制するか、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

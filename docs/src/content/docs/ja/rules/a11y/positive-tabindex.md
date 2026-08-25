@@ -7,7 +7,7 @@ description: 0 より大きい tabindex はその要素をページ内の自然�
 
 ## チェック内容
 
-リテラルの `tabindex` 属性の値が 0 より大きい有限数にパースされる要素を検出します:
+リテラルの `tabindex` 属性の値が 0 より大きい有限数にパースされる要素を検出します。
 
 ```svelte
 <div tabindex="1">Jumps the tab queue</div>
@@ -27,7 +27,7 @@ description: 0 より大きい tabindex はその要素をページ内の自然�
 
 ## 修正方法
 
-要素を DOM 順に配置して自然なタブ順に任せます。`tabindex="0"` はキーボードで到達させたい非インタラクティブ要素 — たとえばスクロール領域 — に限って使います:
+要素を DOM 順に配置して自然なタブ順に任せます。`tabindex="0"` はキーボードで到達させたい非インタラクティブ要素 — たとえばスクロール領域 — に限って使います。
 
 ```svelte
 <div tabindex="0" role="region" aria-label="Release notes" class="scroll-box">…</div>
@@ -35,7 +35,7 @@ description: 0 より大きい tabindex はその要素をページ内の自然�
 
 (クリックできるものにはネイティブの `<button>` を使ってください — それ自体でタブ順に加わります。)
 
-プログラムからフォーカスする要素（スキップリンクのターゲットやダイアログなど）には `tabindex="-1"` を使います:
+プログラムからフォーカスする要素（スキップリンクのターゲットやダイアログなど）には `tabindex="-1"` を使います。
 
 ```svelte
 <div tabindex="-1" bind:this={panel}>Focused from code</div>
@@ -57,7 +57,7 @@ description: 0 より大きい tabindex はその要素をページ内の自然�
 
 ## 無効化
 
-正の値が本当に意図したものなら、`<!-- svelte-vitals-disable-next-line a11y/positive-tabindex -->` で個別の要素を黙らせるか、ルールを無効化します:
+正の値が本当に意図したものなら、`<!-- svelte-vitals-disable-next-line a11y/positive-tabindex -->` で個別の要素を黙らせるか、ルールを無効化します。
 
 ```js svelte-vitals.config.js
 export default {

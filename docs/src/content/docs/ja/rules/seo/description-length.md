@@ -7,7 +7,7 @@ description: meta description は 70〜160 文字に収めましょう。
 
 ## チェック内容
 
-内容が 70 文字未満または 160 文字を超える静的な `<meta name="description">` を検出します。長さは、空白のトリムと圧縮を行ってから書記素クラスタ単位で数えます（絵文字は 1 文字扱い）。動的な説明文は検査しません。
+内容が 70 文字未満または 160 文字を超える静的な `<meta name="description">` を検出します。長さは、空白をトリム・圧縮してから書記素クラスタ単位で数えます（絵文字は 1 文字扱い）。動的な説明文は検査しません。
 
 ## なぜ重要か
 
@@ -43,7 +43,7 @@ export default {
 
 ## 無効化
 
-既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

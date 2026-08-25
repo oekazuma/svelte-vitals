@@ -9,7 +9,7 @@ description: 画面外の iframe はサードパーティのドキュメント�
 
 ## チェック内容
 
-`loading` 属性を持たない `<iframe>` 要素を検出します:
+`loading` 属性を持たない `<iframe>` 要素を検出します。
 
 ```svelte
 <iframe src="https://www.youtube.com/embed/…" title="Video"></iframe>
@@ -29,7 +29,7 @@ description: 画面外の iframe はサードパーティのドキュメント�
 
 ## 修正方法
 
-ロード時に画面外にありうる iframe には `loading="lazy"` を追加します:
+ロード時に画面外にありうる iframe には `loading="lazy"` を追加します。
 
 ```svelte
 <iframe src="https://www.youtube.com/embed/…" title="Video" loading="lazy"></iframe>
@@ -49,7 +49,7 @@ description: 画面外の iframe はサードパーティのドキュメント�
 
 ## 無効化
 
-常にファーストビュー内にある iframe には、抑制より明示的な `loading="eager"` を推奨します。それ以外は `<!-- svelte-vitals-disable-next-line performance/iframe-loading -->` で個別の要素を黙らせるか、ルールを無効化します:
+常にファーストビュー内にある iframe には、抑制より明示的な `loading="eager"` を推奨します。それ以外は `<!-- svelte-vitals-disable-next-line performance/iframe-loading -->` で個別の要素を黙らせるか、ルールを無効化します。
 
 ```js svelte-vitals.config.js
 export default {

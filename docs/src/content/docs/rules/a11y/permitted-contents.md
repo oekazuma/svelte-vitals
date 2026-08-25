@@ -18,11 +18,11 @@ model the spec defines is honoured.
 
 Two severities, split by consequence:
 
-- **warning** — the violation breaks structure assistive tech relies on: the parent admits only
+- warning — the violation breaks structure assistive tech relies on: the parent admits only
   specific elements (`<ul>`, `<ol>`, `<table>`, `<select>`, `<hgroup>`, …), a heading crosses the
   boundary in either direction (`<button><h5>`, `<h2><div>`), or the child is a structure-bound
   tag outside its container (`<div><li>`).
-- **info** — a category mismatch (`<button><div>`, `<label><div>`): spec-invalid, but browsers
+- info — a category mismatch (`<button><div>`, `<label><div>`): spec-invalid, but browsers
   render it and the practical impact is small.
 
 Not reported, on purpose:

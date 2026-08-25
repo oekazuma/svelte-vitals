@@ -15,7 +15,7 @@ description: <meta property="og:title"> タグはどのルートにも必要で�
 
 ## 修正方法
 
-`<meta property="og:title">` を追加するか、メタコンポーネントの `openGraph.title` を設定します：
+`<meta property="og:title">` を追加するか、メタコンポーネントの `openGraph.title` を設定します。
 
 ```svelte
 <svelte:head>
@@ -29,7 +29,7 @@ description: <meta property="og:title"> タグはどのルートにも必要で�
 
 ## 無効化
 
-既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

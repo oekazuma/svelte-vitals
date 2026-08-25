@@ -15,7 +15,7 @@ viewport メタタグがないと、モバイルブラウザはページを固�
 
 ## 修正方法
 
-通常は `src/app.html` に viewport メタタグを追加します：
+通常は `src/app.html` に viewport メタタグを追加します。
 
 ```html
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -27,7 +27,7 @@ viewport メタタグがないと、モバイルブラウザはページを固�
 
 ## 無効化
 
-既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

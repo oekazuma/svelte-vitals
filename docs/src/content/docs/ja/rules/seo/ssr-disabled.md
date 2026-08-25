@@ -19,13 +19,13 @@ SvelteKit 公式の SEO ガイダンスによれば、サーバーレンダリ�
 
 ## 修正方法
 
-`ssr = false` は、SEO が本当に不要なルートに限定します：
+`ssr = false` は、SEO が本当に不要なルートに限定します。
 
 ```ts src/routes/(app)/dashboard/+page.ts
 export const ssr = false; // これが意図的なら suppression するかルールを off に
 ```
 
-意図して完全な SPA にしている場合は、config でルールを無効化します：
+意図して完全な SPA にしている場合は、config でルールを無効化します。
 
 ```js svelte-vitals.config.js
 export default {
@@ -43,7 +43,7 @@ export default {
 
 ## 無効化
 
-個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line seo/ssr-disabled -->` を置きます。ルールごと無効化するには:
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line seo/ssr-disabled -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

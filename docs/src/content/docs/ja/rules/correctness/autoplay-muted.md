@@ -7,7 +7,7 @@ description: ブラウザは音声付きの自動再生をブロックし、ブ�
 
 ## チェック内容
 
-リテラルの `autoplay` 属性を持ちながら `muted` 属性を持たない `<video>` 要素を検出します:
+リテラルの `autoplay` 属性を持ちながら `muted` 属性を持たない `<video>` 要素を検出します。
 
 ```svelte
 <video autoplay src="/hero.mp4"></video>
@@ -25,7 +25,7 @@ Chrome と Safari は音声付きの自動再生をブロックします。`auto
 
 ## 修正方法
 
-`muted` を追加します。あわせて `playsinline` も付けるのが通例で、iOS が再生を拒否したり全画面にしたりせずインラインで再生するようになります:
+`muted` を追加します。あわせて `playsinline` も付けるのが通例で、iOS が再生を拒否したり全画面にしたりせずインラインで再生するようになります。
 
 ```svelte
 <video autoplay muted playsinline src="/hero.mp4"></video>

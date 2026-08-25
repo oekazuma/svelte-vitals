@@ -29,7 +29,7 @@ description: reactive 値を読まない $effect は、イベントハンドラ�
 
 ## 既知の制限
 
-このチェックは、rune の宣言（`$state`/`$derived`/`$props`）、import されたバインディング、`new …()` を初期化子として宣言されたローカル変数（`const x = new Foo()`）など、たどれる名前を経由した reactive 読み取りを認識します — これはクラスの `$state` フィールド、`SvelteMap`/`SvelteSet`、import された runes モジュールの状態オブジェクト、`svelte/reactivity/window` をカバーします。以下の2つの形はたどれる名前がないため、そのように書かれた本物の reactive な effect でも検出されてしまうことがあります:
+このチェックは、rune の宣言（`$state`/`$derived`/`$props`）、import されたバインディング、`new …()` を初期化子として宣言されたローカル変数（`const x = new Foo()`）など、たどれる名前を経由した reactive 読み取りを認識します — これはクラスの `$state` フィールド、`SvelteMap`/`SvelteSet`、import された runes モジュールの状態オブジェクト、`svelte/reactivity/window` をカバーします。以下の2つの形はたどれる名前がないため、そのように書かれた本物の reactive な effect でも検出されてしまうことがあります。
 
 - 素の関数の戻り値（`const c = createCounter()`）経由でしか到達できない reactive な値。
 - 宣言時ではなく宣言後に `new …()` を代入したローカル変数（`let m; m = new SvelteMap();`）— 初期化子として宣言された形のみ認識されます。
@@ -45,7 +45,7 @@ description: reactive 値を読まない $effect は、イベントハンドラ�
 
 ## 無効化
 
-個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/effect-as-onmount -->` を置きます。ルールごと無効化するには:
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/effect-as-onmount -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

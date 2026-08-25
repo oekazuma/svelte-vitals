@@ -17,7 +17,7 @@ Node.js 24.16 以降が必要です。
 
 ## インストール
 
-一度だけ実行する場合はインストール不要です：
+一度だけ実行する場合はインストール不要です。
 
 ```bash
 npx svelte-vitals@latest
@@ -33,7 +33,7 @@ pnpm add -D svelte-vitals
 
 ## 最初の実行
 
-任意の SvelteKit プロジェクトのルートで実行してください：
+任意の SvelteKit プロジェクトのルートで実行してください。
 
 ```bash
 npx svelte-vitals@latest --verbose
@@ -45,7 +45,7 @@ npx svelte-vitals@latest --verbose
 npx svelte-vitals@latest ./apps/web --verbose
 ```
 
-出力例（`--verbose` を付けると、件数だけでなく、パスした各項目を個別に表示）:
+出力例（`--verbose` を付けると、件数だけでなく、パスした各項目を個別に表示します）。
 
 ```text
 Svelte Vitals  ·  static mode
@@ -85,4 +85,4 @@ Passed (3)
 - どのパッケージを使えばいいか迷ったら、CLI、Vite プラグイン、GitHub Action、Agent Skills を比較した [パッケージの選び方](/ja/guides/choosing-a-package) を参照してください。
 - すべてのフラグについては [CLI リファレンス](/ja/guides/cli) を参照してください。
 - `vite build` と連携するには [プラグインモード](/ja/guides/plugin-mode) を使用してください。
-- AI エージェントにルールを教え、自ら分析を実行させるには [Agent Skills](/ja/guides/agent-skills) を使用してください。`npx skills add oekazuma/svelte-vitals` で Claude Code / Codex / Cursor 向けに一発でインストールできます。
+- AI エージェントにルールを教え、自ら分析させるには [Agent Skills](/ja/guides/agent-skills) を使用してください。`npx skills add oekazuma/svelte-vitals` で Claude Code / Codex / Cursor 向けに一発でインストールできます。

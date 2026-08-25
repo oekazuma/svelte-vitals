@@ -2,16 +2,16 @@
 
 A real SvelteKit app used four ways:
 
-- **Defect gallery** — `/gallery/**` plants one (or a few) findings per rule, so every rule in
+- Defect gallery — `/gallery/**` plants one (or a few) findings per rule, so every rule in
   `@svelte-vitals/core`'s `allRules` has a concrete, reviewable specimen instead of a synthetic
   fixture. `expected-findings.json` pins the exact finding count per rule; a meta-test enforces
   that every rule in `allRules` has an entry.
-- **False-positive canary** — `/clean/**` and `src/lib/clean/**` are written to be finding-free.
+- False-positive canary — `/clean/**` and `src/lib/clean/**` are written to be finding-free.
   If a rule change makes them fail, that's a regression in the rule, not the example.
-- **Live-dashboard dogfood** — `@svelte-vitals/vite`'s `svelteVitals()` plugin runs against this
+- Live-dashboard dogfood — `@svelte-vitals/vite`'s `svelteVitals()` plugin runs against this
   app's own `vite build`, exercising the same rendered-HTML analysis path and dashboard
   (`/__svelte-vitals/`) that real consumers use.
-- **Bench realism target** — `pnpm bench --target examples/kitchen-sink` measures collection
+- Bench realism target — `pnpm bench --target examples/kitchen-sink` measures collection
   performance against a project with real route/component depth, not a minimal fixture.
 
 ## Running it

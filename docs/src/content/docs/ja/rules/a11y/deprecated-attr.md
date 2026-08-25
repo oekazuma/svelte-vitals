@@ -34,7 +34,7 @@ HTML spec データが**その要素で**非推奨（または obsolete）と記
 
 ## 修正方法
 
-見た目は CSS に移すか、非推奨属性を置き換えた属性を使います:
+見た目は CSS に移すか、非推奨属性を置き換えた属性を使います。
 
 ```svelte
 <iframe src="/embed" title="Map" style="border: 0"></iframe>
@@ -47,7 +47,7 @@ HTML spec データが**その要素で**非推奨（または obsolete）と記
 
 ## 無効化
 
-個別の要素を抑制するには `<!-- svelte-vitals-disable-next-line a11y/deprecated-attr -->` を置きます。ルールごと無効化するには:
+個別の要素を抑制するには `<!-- svelte-vitals-disable-next-line a11y/deprecated-attr -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

@@ -50,7 +50,7 @@ export default {
 
 ## 無効化
 
-個別の要素を抑制するには `<!-- svelte-vitals-disable-next-line a11y/disallowed-element -->` を置きます。宣言を消すか、ルールごと無効化するには:
+個別の要素を抑制するには `<!-- svelte-vitals-disable-next-line a11y/disallowed-element -->` を置きます。宣言を消すか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

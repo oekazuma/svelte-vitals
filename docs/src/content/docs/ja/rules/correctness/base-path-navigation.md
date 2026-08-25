@@ -7,7 +7,7 @@ description: ルート相対リンクをハードコードすると kit.paths.ba
 
 ## チェック内容
 
-対象になるのは base path を設定しているプロジェクトだけです（Vite 設定の `sveltekit({ paths: { base } })`、または `svelte.config.*` の `kit.paths.base`。前者が優先されます）。その場合に、ハードコードされたルート相対リテラルで書かれたナビゲーションを3つの箇所で検出します:
+対象になるのは base path を設定しているプロジェクトだけです（Vite 設定の `sveltekit({ paths: { base } })`、または `svelte.config.*` の `kit.paths.base`。前者が優先されます）。その場合に、ハードコードされたルート相対リテラルで書かれたナビゲーションを3つの箇所で検出します。
 
 ```svelte
 <a href="/about">About</a>
@@ -32,7 +32,7 @@ base path の読み取り方は SvelteKit 自身と同じです。Vite の設定
 
 ## 修正方法
 
-`$app/paths` の `resolve()` でパスを包みます:
+`$app/paths` の `resolve()` でパスを包みます。
 
 ```svelte
 <script>

@@ -7,7 +7,7 @@ description: どのルートでも <title> が空にならないようにしま�
 
 ## チェック内容
 
-すべてのルートは空でない `<title>` を解決する必要があります（直接指定でも、レイアウトチェーンを通じた継承でも構いません）。動的タイトル（`<title>{data.title}</title>`）は SvelteKit の正しいパターンなので合格します。検出するのは、本当に欠落しているタイトルと空のタイトルだけです。
+すべてのルートで空でない `<title>` を解決してください（直接指定でも、レイアウトチェーンを通じた継承でも構いません）。動的タイトル（`<title>{data.title}</title>`）は SvelteKit の正しいパターンなので合格します。検出するのは、本当に欠落しているタイトルと空のタイトルだけです。
 
 ## なぜ重要か
 
@@ -15,7 +15,7 @@ description: どのルートでも <title> が空にならないようにしま�
 
 ## 修正方法
 
-`<svelte:head>` 内に `<title>` を追加します（動的タイトルでも問題ありません）。メタコンポーネントで設定することもできます：
+`<svelte:head>` 内に `<title>` を追加します（動的タイトルでも問題ありません）。メタコンポーネントでも設定できます。
 
 ```svelte
 <svelte:head>
@@ -29,7 +29,7 @@ description: どのルートでも <title> が空にならないようにしま�
 
 ## 無効化
 
-既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

@@ -11,9 +11,9 @@ Scored `info` rather than `warning`: the role or attribute still works in curren
 
 Three things, judged against the ARIA 1.3 tables in component source.
 
-- **A deprecated role**: `role="directory"` (its replacement is `list`).
-- **A globally deprecated attribute**: `aria-dropeffect` and `aria-grabbed`, on any element.
-- **An attribute deprecated on the resolved role**: `aria-haspopup` on `checkbox`, `aria-disabled` on `generic` (a bare `<div>`/`<span>`), and the other combinations ARIA 1.2 and 1.3 removed. The role is resolved as `a11y/disallowed-aria-props` resolves it — an explicit role's first concrete token, or every implicit role the element could have, with a finding only when the attribute is deprecated under all of them.
+- A deprecated role: `role="directory"` (its replacement is `list`).
+- A globally deprecated attribute: `aria-dropeffect` and `aria-grabbed`, on any element.
+- An attribute deprecated on the resolved role: `aria-haspopup` on `checkbox`, `aria-disabled` on `generic` (a bare `<div>`/`<span>`), and the other combinations ARIA 1.2 and 1.3 removed. The role is resolved as `a11y/disallowed-aria-props` resolves it — an explicit role's first concrete token, or every implicit role the element could have, with a finding only when the attribute is deprecated under all of them.
 
 ```svelte
 <div role="checkbox" tabindex="0" aria-checked="false" aria-haspopup="true">…</div>

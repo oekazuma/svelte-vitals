@@ -15,10 +15,10 @@ description: 要素の role が対応しない aria-* 属性は無視され、ro
 - それ以外は要素の implicit role — そして implicit role が文脈で変わる要素（`<a>` は `href` があるときだけ `link`、`<img alt="">` は `presentation`、`<input>` は `type` 次第）については、**その要素が取り得るすべての role**。判定はそのすべての下で成立するときにだけ行います。したがって `<div aria-label>` は発火し（`<div>` はどこでも `generic` で、`generic` は名前を取らない）、`<a aria-label>`、`<img aria-label>`、`<input aria-checked>` は発火しません。`<input>` はグローバルでない属性については事実上このルールで判定できません。`<input type="text" aria-checked>` は Svelte コンパイラの `a11y_role_supports_aria_props_implicit` がカバーします。
 - 式による role、または literal な role のない spread は role を不明にします: 検出なし。
 
-検出は 2 種類で、メッセージが異なります:
+検出は 2 種類で、メッセージが異なります。
 
-- **禁止** — 名前を取らない role の要素（`<div>`、`<span>`、`<p>`、`<code>`、`<label>`、`<time>` など）に置かれた `aria-label`、`aria-labelledby`、`aria-braillelabel`、または role の表が禁止と記す属性（`generic` に対する `aria-roledescription`）。メッセージ: "`aria-label` is prohibited on `<div>` — its role does not take a name"
-- **非対応** — role の表に無い属性: `role="button"` の `aria-checked`、`<span>` の `aria-level`。メッセージ: "`aria-level` is not supported by role `generic`"
+- 禁止 — 名前を取らない role の要素（`<div>`、`<span>`、`<p>`、`<code>`、`<label>`、`<time>` など）に置かれた `aria-label`、`aria-labelledby`、`aria-braillelabel`、または role の表が禁止と記す属性（`generic` に対する `aria-roledescription`）。メッセージ: "`aria-label` is prohibited on `<div>` — its role does not take a name"
+- 非対応 — role の表に無い属性: `role="button"` の `aria-checked`、`<span>` の `aria-level`。メッセージ: "`aria-level` is not supported by role `generic`"
 
 ```svelte
 <div aria-label="Breadcrumb">Home / Gallery</div>
@@ -43,7 +43,7 @@ description: 要素の role が対応しない aria-* 属性は無視され、ro
 
 ## 修正方法
 
-属性に対応する role を要素に与えるか、その意味論を持つ要素へ属性を移します:
+属性に対応する role を要素に与えるか、その意味論を持つ要素へ属性を移します。
 
 ```svelte
 <nav aria-label="Breadcrumb">Home / Gallery</nav>
@@ -57,7 +57,7 @@ description: 要素の role が対応しない aria-* 属性は無視され、ro
 
 ## 無効化
 
-個別の要素を抑制するには `<!-- svelte-vitals-disable-next-line a11y/disallowed-aria-props -->` を置きます。ルールごと無効化するには:
+個別の要素を抑制するには `<!-- svelte-vitals-disable-next-line a11y/disallowed-aria-props -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

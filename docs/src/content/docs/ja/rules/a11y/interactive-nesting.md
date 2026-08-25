@@ -36,7 +36,7 @@ description: インタラクティブな要素を、別のインタラクティ�
 
 ## 修正方法
 
-各インタラクティブなコントロールが、互いに子孫ではなく兄弟になるようマークアップを組み直します:
+各インタラクティブなコントロールが、互いに子孫ではなく兄弟になるようマークアップを組み直します。
 
 ```svelte
 <div>
@@ -51,7 +51,7 @@ description: インタラクティブな要素を、別のインタラクティ�
 
 ## 無効化
 
-ネストが意図的で、別の方法（`pointer-events` と合成フォーカストラップなど）で対処済みの場合は、`<!-- svelte-vitals-disable-next-line a11y/interactive-nesting -->` で個別の要素を抑制するか、ルールを無効化してください:
+ネストが意図的で、別の方法（`pointer-events` と合成フォーカストラップなど）で対処済みの場合は、`<!-- svelte-vitals-disable-next-line a11y/interactive-nesting -->` で個別の要素を抑制するか、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

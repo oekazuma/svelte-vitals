@@ -32,7 +32,7 @@ description: プレーンテキストに入力された行頭記号は、本物�
 
 ## 修正方法
 
-リスト要素を使います:
+リスト要素を使います。
 
 ```svelte
 <ul>
@@ -47,7 +47,7 @@ description: プレーンテキストに入力された行頭記号は、本物�
 
 ## 無効化
 
-その行頭記号がリストの代わりではなく意図的な地の文である場合は、`<!-- svelte-vitals-disable-next-line a11y/use-list -->` で個別の箇所を抑制するか、ルールを無効化してください:
+その行頭記号がリストの代わりではなく意図的な地の文である場合は、`<!-- svelte-vitals-disable-next-line a11y/use-list -->` で個別の箇所を抑制するか、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

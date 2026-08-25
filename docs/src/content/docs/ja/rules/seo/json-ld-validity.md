@@ -15,7 +15,7 @@ description: ページの JSON-LD は、@context と @type を備えた妥当な
 
 IRI 形式(`https://schema.org/Article`)やプレフィックス形式(`schema:Article`)の `@type` は妥当な JSON-LD であり、このチェックの対象外です — 裸の名前のみが検査されます。
 
-`@context` が schema.org 以外を指している場合(schema.org 以外のメンバーを含む配列、object 形式の context、あるいは別の語彙 URL)、そのドキュメントはこのチェックから完全に除外されます。用語の再マッピングによって、このルールが認識していない名前が正当なものになりうるためです。メンバーがすべて schema.org URL の配列は引き続き検証対象です。context の照合自体は大文字小文字を区別します(`https://schema.org`・`http://schema.org`、末尾スラッシュの有無は任意)— 変則的な大文字表記の URL は誤検知側ではなく除外側に倒れます。
+`@context` が schema.org 以外を指している場合(schema.org 以外のメンバーを含む配列、object 形式の context、あるいは別の語彙 URL)、そのドキュメントはこのチェックからまるごと除外されます。用語の再マッピングによって、このルールが認識していない名前が正当なものになりうるためです。メンバーがすべて schema.org URL の配列は引き続き検証対象です。context の照合自体は大文字小文字を区別します(`https://schema.org`・`http://schema.org`、末尾スラッシュの有無は任意)— 変則的な大文字表記の URL は誤検知側ではなく除外側に倒れます。
 
 この語彙は [schema-dts](https://github.com/google/schema-dts) から生成されており、この依存パッケージが更新されるたびに更新されます。
 
@@ -39,7 +39,7 @@ IRI 形式(`https://schema.org/Article`)やプレフィックス形式(`schema:A
 
 ## 無効化
 
-既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

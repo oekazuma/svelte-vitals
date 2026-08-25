@@ -7,7 +7,7 @@ description: input に pattern を指定するときは、期待する形式を�
 
 ## チェック内容
 
-リテラルの `pattern` を持ちながら、期待する形式を説明する `title` のない `<input>` を検出します:
+リテラルの `pattern` を持ちながら、期待する形式を説明する `title` のない `<input>` を検出します。
 
 ```svelte
 <input pattern="[A-Za-z]+-[0-9]+" />
@@ -37,7 +37,7 @@ description: input に pattern を指定するときは、期待する形式を�
 
 未知の `type` キーワード(`type="txet"`)は仕様上 Text 状態にフォールバックし、そこでは `pattern` が効きます — しかしこのルールはタイポを推測せず、既知の集合の外の type をスキップします。意図的で保守的な偽陰性です。
 
-正規表現の量指定子の波括弧(`{3}`)は、テンプレートの属性内では Svelte の式として解釈されます。そのため波括弧を使う pattern は通常 `pattern={'[A-Za-z]{3}[0-9]{4}'}` のように式として書くことになり、このルールは判定不能としてスキップします。波括弧を含まない素のリテラルの pattern は完全にカバーされます。
+正規表現の量指定子の波括弧(`{3}`)は、テンプレートの属性内では Svelte の式として解釈されます。そのため波括弧を使う pattern は通常 `pattern={'[A-Za-z]{3}[0-9]{4}'}` のように式として書くことになり、このルールは判定不能としてスキップします。波括弧を含まない素のリテラルの pattern は漏れなくカバーされます。
 
 ## モードによる違い
 
@@ -45,7 +45,7 @@ description: input に pattern を指定するときは、期待する形式を�
 
 ## 無効化
 
-このルールから見えない別の方法(`aria-describedby` で結びつけた可視のヘルプテキストなど)で形式を説明している場合は、`<!-- svelte-vitals-disable-next-line a11y/pattern-title -->` で個別の要素を抑制するか、ルールを無効化してください:
+このルールから見えない別の方法(`aria-describedby` で結びつけた可視のヘルプテキストなど)で形式を説明している場合は、`<!-- svelte-vitals-disable-next-line a11y/pattern-title -->` で個別の要素を抑制するか、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

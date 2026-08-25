@@ -15,7 +15,7 @@ description: プロジェクトに sitemap.xml を用意しましょう。
 
 ## 修正方法
 
-`static/sitemap.xml` を追加するか、`src/routes/sitemap.xml/+server` エンドポイントを作成します：
+`static/sitemap.xml` を追加するか、`src/routes/sitemap.xml/+server` エンドポイントを作成します。
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -30,7 +30,7 @@ description: プロジェクトに sitemap.xml を用意しましょう。
 
 ## 無効化
 
-意図したとおりであれば、ルールを無効化してください:
+意図したとおりであれば、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

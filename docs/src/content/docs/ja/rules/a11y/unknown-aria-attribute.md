@@ -27,7 +27,7 @@ description: aria-* 属性には、タイポではない実在の WAI-ARIA 属�
 
 ## 修正方法
 
-正しいスペルの、仕様で定義された属性を使います:
+正しいスペルの、仕様で定義された属性を使います。
 
 ```svelte
 <button aria-label="Close">×</button>
@@ -39,7 +39,7 @@ description: aria-* 属性には、タイポではない実在の WAI-ARIA 属�
 
 ## 無効化
 
-意図的に非標準な属性を使う場合は、`<!-- svelte-vitals-disable-next-line a11y/unknown-aria-attribute -->` で個別の要素を抑制するか、ルールを無効化してください:
+意図的に非標準な属性を使う場合は、`<!-- svelte-vitals-disable-next-line a11y/unknown-aria-attribute -->` で個別の要素を抑制するか、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

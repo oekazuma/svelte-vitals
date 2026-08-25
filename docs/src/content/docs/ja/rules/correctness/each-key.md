@@ -7,7 +7,7 @@ description: 動的なデータを回す {#each} にはキーを付けましょ�
 
 ## チェック内容
 
-キーのない `{#each}` ブロックを検出します。次の形は対象外とします:
+キーのない `{#each}` ブロックを検出します。次の形は対象外とします。
 
 - 定数のインライン配列リテラル（`{#each [1, 2, 3] as n}`）。長さが固定で並べ替えが起きないため、キーを付けても意味がありません。
 - アイテムを取らない each（`{#each { length: 8 }, i}` という「N 回描画する」パターン）。キーを付けられるようなアイテムの同一性が存在せず、唯一付けられる index 自体をキーにしても無意味です。
@@ -31,7 +31,7 @@ description: 動的なデータを回す {#each} にはキーを付けましょ�
 
 ## 無効化
 
-個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/each-key -->` を置きます。ルールごと無効化するには:
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/each-key -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

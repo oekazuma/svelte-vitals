@@ -10,8 +10,8 @@ disabling rules.
 
 ## Scope by file
 
-- **`--diff [ref]`** — only findings in files changed versus `ref` (default `HEAD`).
-- **`--staged`** — only findings in staged files. The pre-commit gate.
+- `--diff [ref]` — only findings in files changed versus `ref` (default `HEAD`).
+- `--staged` — only findings in staged files. The pre-commit gate.
 
 ```bash
 svelte-vitals . --diff --reporter agent   # after editing: what did I just break?

@@ -7,7 +7,7 @@ description: checkbox や radio の bind:value は DOM の value プロパティ
 
 ## チェック内容
 
-`bind:value` ディレクティブを持つネイティブの `<input type="checkbox">` または `<input type="radio">` 要素を検出します:
+`bind:value` ディレクティブを持つネイティブの `<input type="checkbox">` または `<input type="radio">` 要素を検出します。
 
 ```svelte
 <input type="checkbox" bind:value={subscribed} />
@@ -25,13 +25,13 @@ description: checkbox や radio の bind:value は DOM の value プロパティ
 
 ## 修正方法
 
-単一のチェックボックスなら、チェック状態を直接束縛します:
+単一のチェックボックスなら、チェック状態を直接束縛します。
 
 ```svelte
 <input type="checkbox" bind:checked={subscribed} />
 ```
 
-チェックボックスのリストや radio グループなら、代わりにグループを束縛します — 各 input には選択肢を識別するための静的な `value` をそのまま残します:
+チェックボックスのリストや radio グループなら、代わりにグループを束縛します — 各 input には選択肢を識別するための静的な `value` をそのまま残します。
 
 ```svelte
 <input type="radio" bind:group={selected} value="a" />

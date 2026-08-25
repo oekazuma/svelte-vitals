@@ -15,7 +15,7 @@ robots.txt に `Sitemap:` 行があると、クローラーが sitemap を見つ
 
 ## 修正方法
 
-`static/robots.txt` に `Sitemap:` 行を追加します：
+`static/robots.txt` に `Sitemap:` 行を追加します。
 
 ```text
 User-agent: *
@@ -30,7 +30,7 @@ Sitemap: https://example.com/sitemap.xml
 
 ## 無効化
 
-意図したとおりであれば、ルールを無効化してください:
+意図したとおりであれば、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {
