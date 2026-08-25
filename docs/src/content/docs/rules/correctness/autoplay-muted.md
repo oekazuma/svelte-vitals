@@ -19,6 +19,8 @@ Flags a `<video>` element that carries a literal `autoplay` attribute but no `mu
 
 Chrome and Safari block autoplay with audio: `autoplay` is only honoured when the video is muted or the site has earned an autoplay allowance. A blocked autoplay does not throw — the video just never starts.
 
+One documented exception: both browsers may allow unmuted autoplay for a video that has no audio track at all. A silent hero video without `muted` can therefore work — the finding is still worth acting on, since `muted` is harmless there and makes the intent explicit, but it is advisory in that case rather than a guaranteed failure.
+
 This makes the defect invisible in development: after interacting with the page, autoplay is often allowed for the session, so the author sees the video play and ships it. Real visitors get a frozen poster frame. The markup looks correct, compiles, and silently does nothing — exactly the class of defect static analysis is for.
 
 ## How to fix
@@ -33,11 +35,11 @@ If the video genuinely needs sound, drop `autoplay` and start playback from a us
 
 ## Limitations
 
-Only native `<video>` elements with a literal `autoplay` are covered. A dynamic tag via `<svelte:element this="video">` and an expression-valued `autoplay` are out of static reach and are not flagged.
+Only native `<video>` elements with a literal `autoplay` are covered. An expression-valued `autoplay` is unknowable and is not flagged, and a dynamic tag via `<svelte:element this="video">` is not inspected — the same RegularElement-only convention as `correctness/checkable-bind-value`. `<audio autoplay>` is out of scope: a muted audio autoplay is meaningless, so the rule's recommendation does not transfer — an audible `<audio autoplay>` is blocked the same way but needs a different fix (start playback from a user gesture). `muted={expr}` passes without evaluating the expression, so a hardcoded `muted={false}` is not flagged.
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

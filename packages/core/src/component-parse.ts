@@ -1771,9 +1771,10 @@ function collectTimesMissingDatetime(node: Node, source: string, acc: { line: nu
  * `<video>` with a literal `autoplay` attribute and no `muted` in any form
  * (correctness/autoplay-muted). Presence is what autoplays, so any literal value counts
  * (`autoplay="false"` still autoplays); an expression value is unknowable and is skipped.
- * `muted` as a bare attribute, `muted={expr}`, `bind:muted`, or a spread could all make the
- * element muted, so each passes. Only `RegularElement` is checked — `<svelte:element
- * this="video">` is a different node type and out of static reach.
+ * `muted` passes in every form — bare, `bind:muted`, a spread that could supply it, or
+ * `muted={expr}`, whose value is deliberately not evaluated (issue #580 scopes the rule to
+ * attribute presence). Only `RegularElement` is checked — `<svelte:element this="video">`
+ * follows the same RegularElement-only convention as `collectCheckableBindValues`.
  */
 function collectVideosAutoplayNoMuted(node: Node, source: string, acc: { line: number }[]): void {
   if (Array.isArray(node)) {
@@ -1782,11 +1783,9 @@ function collectVideosAutoplayNoMuted(node: Node, source: string, acc: { line: n
   }
   if (!node || typeof node !== 'object') return;
   if (node.type === 'RegularElement' && node.name === 'video' && Array.isArray(node.attributes)) {
-    const autoplay = findAttr(node.attributes, 'autoplay');
-    const literalAutoplay =
-      autoplay !== undefined &&
-      (autoplay.value === true ||
-        (Array.isArray(autoplay.value) && autoplay.value.every((v: Node) => v?.type === 'Text')));
+    // attrText, not attrTextOf/attrValueOf === 'static' — those trim `autoplay=""` to
+    // absent, and a bare boolean attribute must still count as literal.
+    const literalAutoplay = attrText(node.attributes, 'autoplay') !== undefined;
     const hasMuted =
       findAttr(node.attributes, 'muted') !== undefined ||
       node.attributes.some(
