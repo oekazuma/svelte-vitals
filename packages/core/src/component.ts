@@ -257,6 +257,8 @@ export interface ComponentFacts {
   timesMissingDatetime?: { line: number; text: string }[];
   /** `<video>` with a literal `autoplay` attribute and no `muted` in any form (correctness/autoplay-muted). */
   videosAutoplayNoMuted?: { line: number }[];
+  /** `<dt>` elements whose static name duplicates an earlier sibling `<dt>` in the same `<dl>` (a11y/no-duplicate-dt). */
+  duplicateDts?: { line: number; text: string }[];
   /** Set when the file failed to read or parse and these facts are the empty fallback — the file was NOT analyzed. */
   parseFailed?: true;
   /** Set when the file could not be READ — an environment problem (permissions, a descriptor

@@ -76,3 +76,18 @@
      dialog focusing steps run on show, not on load (the compiler also warns on the first). -->
 <input autofocus placeholder="Search the gallery" />
 <dialog><input autofocus placeholder="Your name" /></dialog>
+
+<!-- a11y/no-duplicate-dt: the second "Coffee" duplicates the first name in the same <dl> — one
+     dt may be followed by several dd instead. -->
+<dl>
+  <dt>Coffee</dt>
+  <dd>Hot, brewed</dd>
+  <dt>Coffee</dt>
+  <dd>Iced, cold brew</dd>
+</dl>
+
+<!-- a11y/abbr-title: no title — readers get no expansion of the abbreviation. -->
+<p>The <abbr>W3C</abbr> publishes the spec.</p>
+
+<!-- a11y/pattern-title: a pattern with no title — a failed match gives the user no format hint. -->
+<input pattern="[A-Za-z]+-[0-9]+" />

@@ -1771,6 +1771,69 @@ function collectTimesMissingDatetime(node: Node, source: string, acc: { line: nu
 }
 
 /**
+ * Duplicate `<dt>` names within one `<dl>` (a11y/no-duplicate-dt). Candidates are `<dt>`
+ * elements that are direct children of the `<dl>`, or direct children of a direct `<div>`
+ * child (the spec's div-wrapped name-value groups); a dt under a logic block or component is
+ * not a candidate — its multiplicity or rendered content is unknowable, and unknowable names
+ * can only ever add duplicates, never fabricate one between two static non-duplicates. A
+ * candidate's name is its fully-static text (all children `Text`, the require-datetime
+ * convention — a comment child exempts it too), trimmed and whitespace-collapsed; an empty
+ * name is not a candidate (two empty dts are a missing-content defect, not a duplicate name).
+ * Comparison is case-sensitive — the spec leaves the equality undefined, so only certain
+ * duplicates are reported. Namespace is tracked like `collectElements`: a `<dl>` inside
+ * `<svg>` never renders as an HTML definition list, so it is skipped; `<foreignObject>`
+ * children return to HTML. Nested `<dl>`s get their own scope for free — the walk recurses
+ * and a nested dl's dts are never the outer dl's direct children.
+ */
+function collectDuplicateDts(node: Node, source: string, acc: { line: number; text: string }[], inSvg: boolean): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectDuplicateDts(child, source, acc, inSvg);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  let next = inSvg;
+  if (node.type === 'RegularElement' && typeof node.name === 'string') {
+    const tag = node.name.toLowerCase();
+    if (tag === 'svg') next = true;
+    else if (tag === 'foreignobject') next = false;
+    if (!inSvg && tag === 'dl') {
+      const seen = new Set<string>();
+      const judge = (dt: Node) => {
+        const nodes: Node[] = dt.fragment?.nodes ?? [];
+        if (nodes.length === 0 || !nodes.every((n) => n?.type === 'Text')) return;
+        const name = nodes
+          .map((n) => String(n.data ?? ''))
+          .join('')
+          .trim()
+          .replace(/\s+/g, ' ');
+        if (!name) return;
+        if (seen.has(name)) acc.push({ line: lineOf(source, dt.start), text: name });
+        else seen.add(name);
+      };
+      for (const child of node.fragment?.nodes ?? []) {
+        if (child?.type !== 'RegularElement' || typeof child.name !== 'string') continue;
+        const childTag = child.name.toLowerCase();
+        if (childTag === 'dt') judge(child);
+        else if (childTag === 'div') {
+          for (const inner of child.fragment?.nodes ?? []) {
+            if (
+              inner?.type === 'RegularElement' &&
+              typeof inner.name === 'string' &&
+              inner.name.toLowerCase() === 'dt'
+            ) {
+              judge(inner);
+            }
+          }
+        }
+      }
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectDuplicateDts(node[key], source, acc, next);
+  }
+}
+
+/**
  * `<video>` with a literal `autoplay` attribute and no `muted` in any form
  * (correctness/autoplay-muted). Presence is what autoplays, so any literal value counts
  * (`autoplay="false"` still autoplays); an expression value is unknowable and is skipped.
@@ -2833,6 +2896,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectTimesMissingDatetime(ast.fragment ?? ast, source, timesMissingDatetime);
   const videosAutoplayNoMuted: { line: number }[] = [];
   collectVideosAutoplayNoMuted(ast.fragment ?? ast, source, videosAutoplayNoMuted, ast.options?.namespace === 'svg');
+  const duplicateDts: { line: number; text: string }[] = [];
+  collectDuplicateDts(ast.fragment ?? ast, source, duplicateDts, ast.options?.namespace === 'svg');
   const basePathLinks: BasePathLinkFact[] = [];
   collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
   const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
@@ -3064,6 +3129,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     bulletTexts,
     selectsMissingPlaceholder,
     timesMissingDatetime,
-    videosAutoplayNoMuted
+    videosAutoplayNoMuted,
+    duplicateDts
   };
 }
