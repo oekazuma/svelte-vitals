@@ -59,8 +59,8 @@ describe('a11y/positive-tabindex', () => {
     expect(passed).toEqual([]);
   });
 
-  it('pins the shared Number() parse: compiler-aligned verdicts on exotic values', async () => {
-    // Flagged: Number() parses these above 0 (matching the Svelte compiler's check),
+  it('pins the shared Number() parse on exotic values', async () => {
+    // Flagged: Number() parses these above 0 (following the Svelte compiler's check),
     // even where HTML's leading-integer parse would differ (0x10 → 0 in a browser).
     const flagged = await check(
       [

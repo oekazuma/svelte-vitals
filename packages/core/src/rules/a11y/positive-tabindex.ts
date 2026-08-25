@@ -3,9 +3,10 @@ import { literalTabindexValue } from './interactive.js';
 
 /**
  * Literal values only — an expression-valued `tabindex` is unknowable and passes. The
- * Number()-based parse deliberately matches the Svelte compiler's own a11y_positive_tabindex
- * check, so the scanner never disagrees with the user's build (see the docs page's Overlap
- * section for the one divergence, bare `tabindex`). SVG elements are judged too, unlike the
+ * Number()-based parse deliberately follows the Svelte compiler's a11y_positive_tabindex
+ * check so the scanner and the build agree (the docs page's Overlap section records the two
+ * divergences — bare `tabindex` and non-finite values, where this rule sides with the
+ * browser and stays silent). SVG elements are judged too, unlike the
  * deprecated-* rules' `!inSvg` filter: SVG2 honours `tabindex` with identical focus-order
  * semantics.
  */

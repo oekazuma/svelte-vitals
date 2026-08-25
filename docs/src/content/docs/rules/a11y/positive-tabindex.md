@@ -43,13 +43,13 @@ Use `tabindex="-1"` for elements you focus programmatically (e.g. a skip-link ta
 
 ## Limitations
 
-Only literal `tabindex` values on native elements are covered. An expression-valued `tabindex`, a spread attribute that supplies one, and a dynamic tag via `<svelte:element>` are out of static reach and are not flagged.
+Only literal `tabindex` values on statically named elements are covered — including custom elements, so `<my-widget tabindex="1">` is flagged. An expression-valued `tabindex`, a spread attribute that supplies one, and a dynamic tag via `<svelte:element>` are out of static reach and are not flagged.
 
 ## Overlap with the Svelte compiler
 
 The compiler warns on the same markup as `a11y_positive_tabindex`. That overlap is deliberate: the compiler streams into the build log and does not score, gate, or suppress — this rule feeds the health score, respects `svelte-vitals-disable-next-line`, and fails CI through `--fail-on`.
 
-The two checks share their value parsing (`Number()`-based), so they never disagree on what counts as positive — keeping that alignment is why the rule does not implement HTML's leading-integer parsing. The one divergence: a bare `<div tabindex>` makes the compiler warn, while this rule stays silent — browsers give that element `tabIndex` -1, so the silence is correct.
+The two checks share their value parsing (`Number()`-based) — keeping that alignment is why the rule does not implement HTML's leading-integer parsing. Two deliberate divergences remain, and in both this rule sides with the browser: a bare `<div tabindex>` makes the compiler warn while this rule stays silent (browsers give that element `tabIndex` -1), and a non-finite value like `tabindex="Infinity"` or an overflowing number makes the compiler warn while this rule stays silent (browsers ignore the value).
 
 ## Mode differences
 
