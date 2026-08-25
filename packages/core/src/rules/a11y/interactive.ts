@@ -88,13 +88,28 @@ export function isInteractiveElement(tag: string, attrs: ElementAttr[]): boolean
     return false;
   }
   if ((tag === 'audio' || tag === 'video') && attrs.some((a) => a.name === 'controls')) return true;
-  const tabindex = literalOf(attrs, 'tabindex')?.trim();
-  // A blank tabindex is invalid HTML and ignored by browsers (Number('') would coerce to 0).
-  if (tabindex) {
-    const n = Number(tabindex);
-    if (Number.isFinite(n) && n >= 0) return true;
-  }
+  const n = literalTabindexValue(literalOf(attrs, 'tabindex'));
+  if (n !== undefined && n >= 0) return true;
   return hasRoleIn(attrs, INTERACTIVE_ROLES);
+}
+
+/**
+ * Finite numeric value of a literal `tabindex` per `Number()` semantics, or undefined when
+ * blank, unparsable, or non-finite. A blank tabindex is invalid HTML and ignored by
+ * browsers (`Number('')` would coerce to 0). Deliberately NOT HTML's
+ * rules-for-parsing-integers: `Number()` is what the Svelte compiler's
+ * a11y_positive_tabindex check uses too, and disagreeing with the user's build would make
+ * the rule noise (the cost is edge divergence from browsers, e.g. `"1abc"` — browser
+ * tabIndex 1 — parses to undefined here). The finiteness guard is this helper's one
+ * departure from the compiler's `!isNaN(v) && +v > 0`: `"Infinity"`/overflowing values make
+ * the compiler warn while browsers ignore them, so undefined is the correct answer here.
+ * Shared by the interactive-element classification above and a11y/positive-tabindex.
+ */
+export function literalTabindexValue(raw: string | undefined): number | undefined {
+  const trimmed = raw?.trim();
+  if (!trimmed) return undefined;
+  const n = Number(trimmed);
+  return Number.isFinite(n) ? n : undefined;
 }
 
 /**
