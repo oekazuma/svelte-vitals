@@ -88,6 +88,19 @@ describe('a11y/no-autofocus', () => {
     expect(passed).toHaveLength(1);
   });
 
+  it('ignores a popover attribute on an SVG element — the focusing steps are HTML-only', async () => {
+    const { penalized } = await check('<svg popover="auto"><foreignObject><input autofocus /></foreignObject></svg>');
+    expect(penalized).toHaveLength(1);
+  });
+
+  it('honours a <dialog> inside <foreignObject> — its children are back in the HTML namespace', async () => {
+    const { penalized, passed } = await check(
+      '<svg><foreignObject><dialog><input autofocus /></dialog></foreignObject></svg>'
+    );
+    expect(penalized).toEqual([]);
+    expect(passed).toHaveLength(1);
+  });
+
   it('emits nothing for a component without autofocus', async () => {
     const { penalized, passed } = await check('<input />');
     expect(penalized).toEqual([]);

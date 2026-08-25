@@ -7,12 +7,14 @@ import { componentRule } from '../component-rule.js';
  * The popover check accepts the attribute in any form (bare, literal, expression): an expression
  * could resolve to a real popover value, and a generous carve-out trades a false negative for
  * never flagging the documented pattern (same trade as correctness/autoplay-muted's `muted`).
+ * Neither container form counts in the SVG namespace — the focusing steps are defined for the
+ * HTML `dialog` element and HTML elements with a `popover` attribute only; a `<dialog>` inside
+ * `<foreignObject>` is back in HTML and still counts.
  */
 function inShowTimeContainer(elements: ElementFact[], start: ElementFact): boolean {
   let e: ElementFact | undefined = start;
   while (e !== undefined) {
-    if (e.tag === 'dialog') return true;
-    if (e.attrs.some((a) => a.name === 'popover')) return true;
+    if (!e.inSvg && (e.tag === 'dialog' || e.attrs.some((a) => a.name === 'popover'))) return true;
     e = e.parent === undefined ? undefined : elements[e.parent];
   }
   return false;
