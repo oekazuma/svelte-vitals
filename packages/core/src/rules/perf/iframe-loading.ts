@@ -1,13 +1,7 @@
 import { componentRule } from '../component-rule.js';
 
-/**
- * performance/iframe-loading — an eagerly-loaded offscreen iframe fetches an entire
- * third-party document (scripts, fonts, media), so the cost is usually larger than for an
- * offscreen image. `info`, like performance/image-loading-hint: an above-the-fold iframe is
- * legitimately eager and position is statically unknowable, so this is advisory. Any literal
- * `loading` value passes (the author made a choice); an expression value is unknowable and
- * passes; a spread could supply `loading` and passes.
- */
+/** Any literal `loading` value passes (the author made a choice); an expression value is
+ *  unknowable and passes; a spread could supply `loading` and passes. */
 export const performanceIframeLoading = componentRule({
   id: 'performance/iframe-loading',
   title: 'Iframe loading attribute',
