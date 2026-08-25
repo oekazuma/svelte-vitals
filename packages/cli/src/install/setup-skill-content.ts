@@ -126,6 +126,11 @@ otherwise the app directory. Every \`npx svelte-vitals\` below then runs that in
 of \`node_modules/.bin\`, at the version the lockfile pins rather than whatever the registry serves;
 the package manager's own runner (\`pnpm exec\`, \`yarn\`, \`bun run\`) is equivalent.
 
+If \`@svelte-vitals/vite\` is already installed, keep the two on the same rule registry: install a
+\`svelte-vitals\` version the plugin's \`peerDependencies\` range accepts, or update both together —
+a CLI ahead of the plugin accepts config the plugin's copy rejects, so the scan passes and
+\`vite build\` fails on the same file.
+
 Ask nothing yet. Read:
 
 | Read                          | Where                                                                              | What it decides                                                                            |

@@ -14,10 +14,12 @@ sidebar:
 ## インストール
 
 ```bash
-npm install --save-dev @svelte-vitals/vite
+npm install --save-dev @svelte-vitals/vite svelte-vitals
 # または
-pnpm add -D @svelte-vitals/vite
+pnpm add -D @svelte-vitals/vite svelte-vitals
 ```
+
+`svelte-vitals` はプラグインの peer dependency です：両者は**同じインストール済みコピー**のルールエンジンで動くため、CLI が受け入れる設定がバージョン不一致でビルドを落とすことはありません。npm と pnpm は不足している peer を自動インストールしますが、明示的に宣言しておくとバージョンが lockfile の管理下に置かれます。2つがプラグインのサポート範囲から外れると、パッケージマネージャが警告を出します。
 
 ## セットアップ
 

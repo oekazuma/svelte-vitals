@@ -136,7 +136,7 @@ describe('analyzeProject config-file precedence (design doc 2026-07-05-config-fi
 
   it('rejects an unknown rule id in the file rules, listing known rule ids', async () => {
     await expect(analyzeProject({ cwd: configFileInvalidFixtureDir })).rejects.toThrow(
-      /unknown rule id\(s\) in rules: NOPE999.*Known rule ids:/s
+      /unknown rule id\(s\) in rules: NOPE999.*Known rule ids \(svelte-vitals \d.*core \d.*\):/s
     );
   });
 

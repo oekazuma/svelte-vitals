@@ -14,10 +14,12 @@ It also scans `src/` — components, runes modules (`.svelte.ts`/`.svelte.js`), 
 ## Installation
 
 ```bash
-npm install --save-dev @svelte-vitals/vite
+npm install --save-dev @svelte-vitals/vite svelte-vitals
 # or
-pnpm add -D @svelte-vitals/vite
+pnpm add -D @svelte-vitals/vite svelte-vitals
 ```
+
+`svelte-vitals` is a peer dependency of the plugin: both run the **same installed copy** of the rule engine, so a config the CLI accepts can never fail the build over a version mismatch. npm and pnpm auto-install missing peers, but declaring it explicitly keeps the version under your lockfile's control; your package manager warns if the two ever drift out of the plugin's supported range.
 
 ## Setup
 

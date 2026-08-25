@@ -409,7 +409,7 @@ describe('run() config file (design doc 2026-07-05-config-file-design.md)', () =
     expect(code).toBe(2);
     const errText = cap.err.join('\n');
     expect(errText).toContain('unknown rule id(s) in rules: NOPE999');
-    expect(errText).toContain('Known rule ids:');
+    expect(errText).toMatch(/Known rule ids \(svelte-vitals \d.*core \d.*\):/);
     // No double `svelte-vitals: ` prefix (the loader no longer prepends its own).
     expect(errText).not.toContain('svelte-vitals: svelte-vitals:');
   });

@@ -13,7 +13,9 @@ import { fileURLToPath } from 'node:url';
 const BUDGET: Record<string, number> = {
   '@svelte-vitals/core': 21,
   'svelte-vitals': 43,
-  '@svelte-vitals/vite': 55
+  // svelte-vitals + @svelte-vitals/core are peerDependencies (one shared copy with the
+  // user-installed CLI, issue #583), so their subtrees no longer count here.
+  '@svelte-vitals/vite': 15
 };
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');

@@ -54,7 +54,7 @@ describe('loadConfigFile', () => {
 
   it('rejects an unknown rule id in rules, listing known rule ids', async () => {
     await expect(loadConfigFile(fixture('config-file-unknown-rule'))).rejects.toThrow(
-      /unknown rule id\(s\) in rules: NOPE999.*Known rule ids:/s
+      /unknown rule id\(s\) in rules: NOPE999.*Known rule ids \(svelte-vitals \d.*core \d.*\):/s
     );
   });
 
