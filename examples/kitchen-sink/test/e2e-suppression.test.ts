@@ -137,8 +137,8 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     let src = readFileSync(page, 'utf8');
     // The finding is anchored at the start tag, so the directive above a tag that spans lines works.
     src = src.replace(
-      '<iframe src="/clean" frameborder="0" title="Embedded page"></iframe>',
-      '<!-- svelte-vitals-disable-next-line a11y/deprecated-attr -->\n<iframe\n  src="/clean"\n  frameborder="0"\n  title="Embedded page"\n></iframe>'
+      '<iframe src="/clean" frameborder="0"></iframe>',
+      '<!-- svelte-vitals-disable-next-line a11y/deprecated-attr -->\n<iframe\n  src="/clean"\n  frameborder="0"\n></iframe>'
     );
     src = src.replace('<p><strike>', '<!-- svelte-vitals-disable-next-line a11y/deprecated-element -->\n<p><strike>');
     writeFileSync(page, src);
@@ -210,8 +210,8 @@ describe('kitchen-sink e2e (suppression surfaces)', () => {
     writeFileSync(
       page,
       readFileSync(page, 'utf8').replace(
-        '<iframe src="/clean" frameborder="0" title="Embedded page"></iframe>',
-        '<!-- svelte-vitals-disable-next-line a11y/disallowed-element -->\n<iframe\n  src="/clean"\n  frameborder="0"\n  title="Embedded page"\n></iframe>'
+        '<iframe src="/clean" frameborder="0"></iframe>',
+        '<!-- svelte-vitals-disable-next-line a11y/disallowed-element -->\n<iframe\n  src="/clean"\n  frameborder="0"\n></iframe>'
       )
     );
     expect(findings(run(dir).report, 'a11y/disallowed-element')).toBe(0);

@@ -58,8 +58,10 @@
 />
 
 <!-- a11y/deprecated-attr: `frameborder` — the most common deprecated attribute in real apps.
-     performance/iframe-loading: no loading attribute — an offscreen embed loads eagerly. -->
-<iframe src="/clean" frameborder="0" title="Embedded page"></iframe>
+     performance/iframe-loading: no loading attribute — an offscreen embed loads eagerly.
+     a11y/accessible-name (iframe arm): no title/aria-label/aria-labelledby — announced as an
+     unnamed frame. -->
+<iframe src="/clean" frameborder="0"></iframe>
 
 <!-- Neither rule: <style type> inside <svg> is the SVG element. -->
 <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">

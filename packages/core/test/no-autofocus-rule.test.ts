@@ -40,6 +40,11 @@ describe('a11y/no-autofocus', () => {
     expect(penalized).toHaveLength(1);
   });
 
+  it('flags a blank literal autofocus — browsers treat autofocus="" as set', async () => {
+    const { penalized } = await check('<input autofocus="" />');
+    expect(penalized).toHaveLength(1);
+  });
+
   it('skips an expression-valued autofocus — the expression could be false', async () => {
     const { penalized, passed } = await check('<input autofocus={focusMe} />');
     expect(penalized).toEqual([]);
