@@ -36,6 +36,43 @@ describe('resolveFileTags (layers 2 & 4)', () => {
     expect(r.broad).toBe(true);
   });
 
+  it('declaring a resolvable local wrapper is a no-op: its resolved tags (jsonld) survive, no broad', async () => {
+    const rtLocal = createMemoryRuntime({
+      'src/lib/SiteMeta.svelte': `<script>import { JsonLd } from 'svelte-meta-tags';</script><JsonLd schema={data} />`
+    });
+    const parsed = parseFile(
+      `<script>import SiteMeta from '$lib/SiteMeta.svelte';</script><SiteMeta />`,
+      'src/routes/+page.svelte'
+    );
+    const r = await resolveFileTags(
+      rtLocal,
+      '',
+      'src/routes/+page.svelte',
+      parsed,
+      defineConfig({ metaComponents: ['SiteMeta'] }),
+      5,
+      new Set()
+    );
+    expect(r.tags).toContainEqual({ kind: 'jsonld', value: 'dynamic' });
+    expect(r.broad).toBe(false);
+  });
+
+  it('falls back to broad for a declared component behind a bare specifier', async () => {
+    const r = await resolve(
+      `<script>import SeoHead from '@acme/design-system';</script><SeoHead />`,
+      defineConfig({ metaComponents: ['SeoHead'] })
+    );
+    expect(r.broad).toBe(true);
+  });
+
+  it('falls back to broad for a declared component whose file does not exist', async () => {
+    const r = await resolve(
+      `<script>import SeoHead from '$lib/SeoHead.svelte';</script><SeoHead />`,
+      defineConfig({ metaComponents: ['SeoHead'] })
+    );
+    expect(r.broad).toBe(true);
+  });
+
   it('does NOT suppress for an unknown, undeclared component', async () => {
     const r = await resolve(`<Button />`);
     expect(r.broad).toBe(false);

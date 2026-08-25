@@ -157,7 +157,6 @@ interface ComposeState {
 interface ComposeCtx {
   rt: Runtime;
   cwd: string;
-  config: Config;
   cache: ParseCache;
   aliases: readonly KitAlias[] | undefined;
   state: ComposeState;
@@ -190,7 +189,7 @@ function offsetPath(path: BranchStep[], base: number): BranchStep[] {
 /**
  * One file's contribution to the route: its own occurrences plus, inline at each component
  * usage, that component's contribution carrying the usage's branch address and repeatability.
- * Anything that cannot be followed (package/adapter/meta component, `<svelte:component>`,
+ * Anything that cannot be followed (package/adapter import, `<svelte:component>`,
  * a cycle, MAX_DEPTH) contributes nothing and opens the world — existential rules stay sound,
  * `no-missing-id-ref` skips the route.
  */
@@ -219,7 +218,7 @@ async function composeA11y(
       composed.push({ ...node, path, file: fileRel, chain });
       continue;
     }
-    const info = ctx.config.metaComponents.includes(node.key) ? undefined : parsed.imports.get(node.key);
+    const info = parsed.imports.get(node.key);
     // Package (incl. adapter) imports and the dynamic `<svelte:component>`/`<svelte:self>` names
     // resolve to no repo-local path, so they fall into the unresolved branch below.
     const childRel = info ? resolveComponentPath(info.source, fileRel, ctx.aliases) : undefined;
@@ -308,7 +307,6 @@ async function resolveRoute(
   const a11yCtx: ComposeCtx = {
     rt,
     cwd,
-    config,
     cache,
     aliases,
     state: {

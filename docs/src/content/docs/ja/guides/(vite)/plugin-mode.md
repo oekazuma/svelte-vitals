@@ -40,7 +40,7 @@ export default {
 | `report`         | `'console' \| 'json' \| false`                               | `'console'`    | 分析レポートの出力形式                                                                                                      |
 | `outFile`        | `string`                                                     | —              | JSON レポートをこのパスのファイルに書き込む                                                                                 |
 | `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`           | ルールごとの上書き（ルールを無効化するか重大度を変更する）                                                                  |
-| `metaComponents` | `string[]`                                                   | —              | ヘッドメタデータを出力するカスタムコンポーネント名                                                                          |
+| `metaComponents` | `string[]`                                                   | —              | 解析が追跡できないヘッドメタデータ出力コンポーネント名（解決できるリポジトリ内のコンポーネントは自動的に追跡される）        |
 | `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`       | 動的に設定されたメタデータの扱い方                                                                                          |
 | `weights`        | `Partial<Record<Category, number>>`                          | 各カテゴリ `1` | レポート内の組み合わせた Health スコアのカテゴリごとの重み                                                                  |
 | `prerenderDir`   | `string`                                                     | —              | プリレンダリングページディレクトリの上書き                                                                                  |

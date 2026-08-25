@@ -45,7 +45,7 @@ npx svelte-vitals@latest apps/web     # 検出をスキップし、apps/web を�
 
 | Flag                                    | Description                                                                                                                      |
 | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `--meta-components <meta-components>`   | head メタデータを出力するコンポーネント名（カンマ区切り）                                                                        |
+| `--meta-components <meta-components>`   | 解析が追跡できない head メタデータ出力コンポーネント名（カンマ区切り）                                                           |
 | `--treat-dynamic-as <treat-dynamic-as>` | pass \| warn \| fail（デフォルト: pass）                                                                                         |
 | `--route <route>`                       | 指定した glob に一致するルートのみ解析                                                                                           |
 | `--diff <diff>`                         | ref と比較して変更されたファイルの検出結果のみ報告（デフォルト HEAD。例: --diff main）                                           |
@@ -284,7 +284,7 @@ svelte-vitals --weights seo=2,performance=1
 
 ### `--meta-components <names>`
 
-`<head>` メタデータを出力するカスタムコンポーネント名のカンマ区切りリストです。指定したコンポーネントは、`<head>` メタデータの出力元として解析されます。
+`<head>` メタデータを出力するものの、解析が追跡できないコンポーネント名のカンマ区切りリストです — 典型的には、組み込みアダプタのない npm パッケージから import したコンポーネントです。解析が解決できるリポジトリ内のコンポーネントは自動的に追跡されるため、それらを指定しても no-op です — 指定が効くのは解決に失敗した場合だけです。
 
 ```bash
 svelte-vitals --meta-components "SeoHead,PageMeta"

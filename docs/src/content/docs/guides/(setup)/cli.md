@@ -48,7 +48,7 @@ see below each row for usage notes, defaults, and examples.
 
 | Flag                                    | Description                                                                                                                                          |
 | --------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--meta-components <meta-components>`   | Comma-separated component names that emit head metadata                                                                                              |
+| `--meta-components <meta-components>`   | Comma-separated names of head-metadata components the analyzer cannot resolve                                                                        |
 | `--treat-dynamic-as <treat-dynamic-as>` | pass \| warn \| fail (default: pass)                                                                                                                 |
 | `--route <route>`                       | Only analyze routes matching this glob                                                                                                               |
 | `--diff <diff>`                         | Report only findings in files changed vs ref (default HEAD; e.g. --diff main)                                                                        |
@@ -307,7 +307,7 @@ above the target — a blank line in between breaks the match.
 
 ### `--meta-components <names>`
 
-Comma-separated list of custom component names that emit `<head>` metadata. Tells the analyzer to treat those components as head-metadata emitters.
+Comma-separated list of component names that emit `<head>` metadata but that the analyzer cannot resolve — typically components imported from an npm package without a built-in adapter. Components the analyzer can resolve in your own repo are followed automatically, so declaring one of those is a no-op — the declaration only kicks in when resolution fails.
 
 ```bash
 svelte-vitals --meta-components "SeoHead,PageMeta"

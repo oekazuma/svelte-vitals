@@ -68,7 +68,8 @@ describe('run() flags', () => {
     });
     const report = cap.out.join('\n');
     // The Critical section should list /none (seo/title-presence missing title) but NOT /widget —
-    // Widget suppression promotes /widget's title detection to dynamic/pass.
+    // Widget is a bare-specifier import the analyzer cannot resolve, so the declaration
+    // promotes /widget's title detection to dynamic/pass (the fallback, not an override).
     // Extract the Critical block (from header up to the next severity header or Passed).
     const criticalBlock = report.split(/\n(?:Warnings|Info|Passed)\s*\(/)[0];
     expect(criticalBlock).toContain('seo/title-presence  Missing <title>');
@@ -268,7 +269,7 @@ describe('run() a11y rules', () => {
     expect(json.categories.seo.affectedKeys).toBe(9);
     expect(json.categories.performance.keys).toBe(5);
     expect(json.categories.performance.affectedKeys).toBe(1);
-    expect(json.categories.architecture.keys).toBe(13);
+    expect(json.categories.architecture.keys).toBe(12);
     expect(json.categories.architecture.affectedKeys).toBe(0);
     expect(json.rules['performance/image-dimensions']).toEqual({ findings: 1, passed: 0 });
     expect(json.rules['seo/title-presence']).toEqual({ findings: 2, passed: 7 });

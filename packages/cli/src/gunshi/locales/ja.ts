@@ -25,7 +25,7 @@
 
 export const JA_ARG_DESCRIPTIONS = {
   root: {
-    'meta-components': 'head メタデータを出力するコンポーネント名（カンマ区切り）',
+    'meta-components': '解析が追跡できない head メタデータ出力コンポーネント名（カンマ区切り）',
     'treat-dynamic-as': 'pass | warn | fail（デフォルト: pass）',
     route: '指定した glob に一致するルートのみ解析',
     diff: 'ref と比較して変更されたファイルの検出結果のみ報告（デフォルト HEAD。例: --diff main）',

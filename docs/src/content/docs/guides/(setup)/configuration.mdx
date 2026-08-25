@@ -82,14 +82,14 @@ That import is a **runtime** one — it resolves when svelte-vitals loads the fi
 
 ## Available options
 
-| Option           | Type                                                                                    | Default            | Description                                                                                       |
-| ---------------- | --------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------- |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                                            | `'pass'`           | How to score routes where a metadata value is set dynamically                                     |
-| `metaComponents` | `string[]`                                                                              | `[]`               | Custom component names that emit `<head>` metadata                                                |
-| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info' \| { severity?, options? }>` | `{}`               | Per-rule overrides — disable a rule, change its severity, and/or set its [options](#rule-options) |
-| `failOn`         | `'critical' \| 'warning' \| 'info'`                                                     | `'critical'`       | Minimum severity that fails the run (exit code `1`)                                               |
-| `weights`        | `Partial<Record<Category, number>>`                                                     | every category `1` | Per-category weights for the combined [Health score](/guides/health-report)                       |
-| `overrides`      | `RuleOverride[]`                                                                        | (none)             | Route-/file-scoped rule overrides — see [below](#scoping-rules-to-routes-or-files-overrides)      |
+| Option           | Type                                                                                    | Default            | Description                                                                                                                                    |
+| ---------------- | --------------------------------------------------------------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                                            | `'pass'`           | How to score routes where a metadata value is set dynamically                                                                                  |
+| `metaComponents` | `string[]`                                                                              | `[]`               | `<head>`-metadata components the analyzer cannot resolve (e.g. from an npm package) — resolvable in-repo components are followed automatically |
+| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info' \| { severity?, options? }>` | `{}`               | Per-rule overrides — disable a rule, change its severity, and/or set its [options](#rule-options)                                              |
+| `failOn`         | `'critical' \| 'warning' \| 'info'`                                                     | `'critical'`       | Minimum severity that fails the run (exit code `1`)                                                                                            |
+| `weights`        | `Partial<Record<Category, number>>`                                                     | every category `1` | Per-category weights for the combined [Health score](/guides/health-report)                                                                    |
+| `overrides`      | `RuleOverride[]`                                                                        | (none)             | Route-/file-scoped rule overrides — see [below](#scoping-rules-to-routes-or-files-overrides)                                                   |
 
 `Category` is `'seo' | 'performance' | 'correctness' | 'security' | 'architecture'`.
 

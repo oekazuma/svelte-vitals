@@ -59,7 +59,10 @@ const BOOLEAN_FLAGS = [
  */
 /** Exported for gunshi/complete.ts — the completion tree's root args mirror this, never a second copy. */
 export const ROOT_ARGS = {
-  'meta-components': { type: 'string', description: 'Comma-separated component names that emit head metadata' },
+  'meta-components': {
+    type: 'string',
+    description: 'Comma-separated names of head-metadata components the analyzer cannot resolve'
+  },
   'treat-dynamic-as': { type: 'string', description: 'pass | warn | fail (default: pass)' },
   route: { type: 'string', description: 'Only analyze routes matching this glob' },
   diff: {

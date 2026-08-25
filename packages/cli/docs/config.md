@@ -56,6 +56,11 @@ in `.js` behaves identically and needs no dependency. Both are ESM — the proje
 'correctness' | 'security' | 'architecture' | 'a11y'`. A weight of `0` drops a category from the Health
 average; setting every category to `0` is an error (exit `2`).
 
+`metaComponents` names head-metadata components the analyzer cannot resolve (e.g. from an npm
+package without an adapter). Components the analyzer can resolve in your own repo are followed
+automatically — declaring one of those is a no-op; the declaration only kicks in when
+resolution fails.
+
 ## Turning a rule off or down
 
 ```js
