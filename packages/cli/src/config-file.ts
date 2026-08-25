@@ -9,18 +9,7 @@ import {
   shouldSkipRangeCheck,
   validateRuleSetting
 } from '@svelte-vitals/core/internal';
-import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
-import { readCoreVersion, readPackageVersion } from './version.js';
-
-/**
- * Stamps the rule registry's provenance onto the known-ids list. Two copies of
- * svelte-vitals can coexist in one tree (e.g. the Vite plugin's and a directly
- * installed CLI, issue #583); without the versions, a rule that exists in one
- * copy but not the other reads as a mystery rather than a version skew.
- */
-function registryTag(): string {
-  return `svelte-vitals ${readPackageVersion()}, core ${readCoreVersion()}`;
-}
+import { findUnknownRuleIds, knownRuleIds, registryTag, ruleOptionsSpec } from './rules-config.js';
 
 /**
  * Loads `svelte-vitals.config.{js,ts}` from the analyzed directory (design

@@ -19,7 +19,7 @@ npm install --save-dev @svelte-vitals/vite svelte-vitals
 pnpm add -D @svelte-vitals/vite svelte-vitals
 ```
 
-`svelte-vitals` はプラグインの peer dependency です：両者は**同じインストール済みコピー**のルールエンジンで動くため、CLI が受け入れる設定がバージョン不一致でビルドを落とすことはありません。npm と pnpm は不足している peer を自動インストールしますが、明示的に宣言しておくとバージョンが lockfile の管理下に置かれます。2つがプラグインのサポート範囲から外れると、パッケージマネージャが警告を出します。
+`svelte-vitals` はプラグインの peer dependency です：両者は**同じインストール済みコピー**のルールエンジンで動くため、バージョン不一致は「スキャンは通るのに `vite build` が落ちる」代わりに、インストール時の peer 警告として表面化します。npm と pnpm は不足している peer を自動インストールしますが、明示的に宣言しておくとバージョンが lockfile の管理下に置かれます — peer を自動インストールしない yarn では明示的な宣言が必須です。
 
 ## セットアップ
 

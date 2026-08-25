@@ -19,7 +19,7 @@ npm install --save-dev @svelte-vitals/vite svelte-vitals
 pnpm add -D @svelte-vitals/vite svelte-vitals
 ```
 
-`svelte-vitals` is a peer dependency of the plugin: both run the **same installed copy** of the rule engine, so a config the CLI accepts can never fail the build over a version mismatch. npm and pnpm auto-install missing peers, but declaring it explicitly keeps the version under your lockfile's control; your package manager warns if the two ever drift out of the plugin's supported range.
+`svelte-vitals` is a peer dependency of the plugin: both run the **same installed copy** of the rule engine, so a version mismatch surfaces as an install-time peer warning instead of a config that scans clean and then fails `vite build`. npm and pnpm auto-install missing peers, but declaring it explicitly keeps the version under your lockfile's control — and with yarn, which does not auto-install peers, it is required.
 
 ## Setup
 
