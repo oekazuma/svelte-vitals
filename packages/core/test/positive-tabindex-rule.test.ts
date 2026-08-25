@@ -53,9 +53,29 @@ describe('a11y/positive-tabindex', () => {
     expect(passed).toEqual([]);
   });
 
-  it('skips a blank or non-numeric tabindex — invalid HTML, ignored by browsers', async () => {
-    const { penalized } = await check('<div tabindex="">a</div>\n<div tabindex="x">b</div>');
+  it('emits nothing for a blank or unparsable tabindex — it neither penalizes nor seeds a pass', async () => {
+    const { penalized, passed } = await check('<div tabindex="">a</div>\n<div tabindex="x">b</div>');
     expect(penalized).toEqual([]);
+    expect(passed).toEqual([]);
+  });
+
+  it('pins the shared Number() parse: compiler-aligned verdicts on exotic values', async () => {
+    // Flagged: Number() parses these above 0 (matching the Svelte compiler's check),
+    // even where HTML's leading-integer parse would differ (0x10 → 0 in a browser).
+    const flagged = await check(
+      [
+        '<div tabindex="0x10">a</div>',
+        '<div tabindex="1e2">b</div>',
+        '<div tabindex="1.5">c</div>',
+        '<div tabindex=" 2 ">d</div>'
+      ].join('\n')
+    );
+    expect(flagged.penalized.map((r) => r.line)).toEqual([1, 2, 3, 4]);
+    // Skipped/passing: Infinity is not finite; -0 and 1abc parse to a non-positive or no value.
+    const quiet = await check(
+      ['<div tabindex="Infinity">a</div>', '<div tabindex="-0">b</div>', '<div tabindex="1abc">c</div>'].join('\n')
+    );
+    expect(quiet.penalized).toEqual([]);
   });
 
   it('emits nothing for a component without tabindex', async () => {
