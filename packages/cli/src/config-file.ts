@@ -9,7 +9,7 @@ import {
   shouldSkipRangeCheck,
   validateRuleSetting
 } from '@svelte-vitals/core/internal';
-import { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
+import { findUnknownRuleIds, knownRuleIds, registryTag, ruleOptionsSpec } from './rules-config.js';
 
 /**
  * Loads `svelte-vitals.config.{js,ts}` from the analyzed directory (design
@@ -133,7 +133,7 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
     const unknown = findUnknownRuleIds(Object.keys(rules));
     if (unknown.length > 0) {
       throw new Error(
-        `${path}: unknown rule id(s) in rules: ${unknown.join(', ')}. Known rule ids: ${knownRuleIds().join(', ')}`
+        `${path}: unknown rule id(s) in rules: ${unknown.join(', ')}. Known rule ids (${registryTag()}): ${knownRuleIds().join(', ')}`
       );
     }
     for (const [key, setting] of Object.entries(rules)) validateSetting(path, 'rules', key, setting, true);
@@ -181,7 +181,7 @@ function validateConfigFile(raw: Record<string, unknown>, path: string): LoadedC
       if (unknown.length > 0) {
         throw new Error(
           `${path}: unknown rule id(s) or categories in overrides[${i}].rules: ${unknown.join(', ')}. ` +
-            `Known categories: ${CATEGORIES.join(', ')}. Known rule ids: ${knownRuleIds().join(', ')}`
+            `Known categories: ${CATEGORIES.join(', ')}. Known rule ids (${registryTag()}): ${knownRuleIds().join(', ')}`
         );
       }
       for (const [key, setting] of Object.entries(entry.rules)) {

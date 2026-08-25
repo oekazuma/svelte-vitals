@@ -738,7 +738,7 @@ export async function run(opts: RunOptions = {}): Promise<number> {
 export { ProjectError } from './providers/source/project.js';
 export { routeMatcher } from './route-matcher.js';
 export type { ParseCache } from './providers/source/resolve.js';
-export { findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from './rules-config.js';
+export { findUnknownRuleIds, knownRuleIds, registryTag, ruleOptionsSpec } from './rules-config.js';
 export { loadConfigFile, CONFIG_FILENAMES } from './config-file.js';
 export type { LoadedConfigFile } from './config-file.js';
 // Re-exported so user config files can `import { defineConfig } from 'svelte-vitals'`

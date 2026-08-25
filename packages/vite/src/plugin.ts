@@ -19,7 +19,7 @@ import {
   terminalSafe,
   validateRuleSetting
 } from '@svelte-vitals/core/internal';
-import { CONFIG_FILENAMES, findUnknownRuleIds, knownRuleIds, ruleOptionsSpec } from 'svelte-vitals';
+import { CONFIG_FILENAMES, findUnknownRuleIds, knownRuleIds, registryTag, ruleOptionsSpec } from 'svelte-vitals';
 import { analyze, mergeConfig, resolveConfig } from './analyze.js';
 import { resolveMinifyDisabled } from './minify-flag.js';
 import { installUiMiddleware } from './ui/middleware.js';
@@ -111,7 +111,7 @@ function validateRulesOption(rules: Record<string, RuleSetting> | undefined): vo
   if (unknown.length > 0) {
     throw new Error(
       `svelte-vitals: invalid \`rules\` option — unknown rule id(s): ${unknown.join(', ')}. ` +
-        `Known rule ids: ${knownRuleIds().join(', ')}`
+        `Known rule ids (${registryTag()}): ${knownRuleIds().join(', ')}`
     );
   }
   const errors: string[] = [];
@@ -161,7 +161,8 @@ function validateOverridesOption(
     if (unknown.length > 0) {
       throw new Error(
         `svelte-vitals: invalid \`overrides\` option — overrides[${i}]: unknown rule id(s) or categories: ` +
-          `${unknown.join(', ')}. Known categories: ${CATEGORIES.join(', ')}. Known rule ids: ${knownRuleIds().join(', ')}`
+          `${unknown.join(', ')}. Known categories: ${CATEGORIES.join(', ')}. ` +
+          `Known rule ids (${registryTag()}): ${knownRuleIds().join(', ')}`
       );
     }
     for (const [key, setting] of Object.entries(entryRules)) {

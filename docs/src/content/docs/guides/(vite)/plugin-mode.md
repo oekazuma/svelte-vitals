@@ -14,10 +14,12 @@ It also scans `src/` — components, runes modules (`.svelte.ts`/`.svelte.js`), 
 ## Installation
 
 ```bash
-npm install --save-dev @svelte-vitals/vite
+npm install --save-dev @svelte-vitals/vite svelte-vitals
 # or
-pnpm add -D @svelte-vitals/vite
+pnpm add -D @svelte-vitals/vite svelte-vitals
 ```
+
+`svelte-vitals` and `@svelte-vitals/core` are peer dependencies of the plugin: both packages resolve the rule engine from your project's install, so a version mismatch surfaces as an install-time peer warning instead of a config that scans clean and then fails `vite build`. npm and pnpm auto-install missing peers, but declaring `svelte-vitals` explicitly keeps the version under your lockfile's control — and with yarn, which does not auto-install peers, it is required (Plug'n'Play users add `@svelte-vitals/core` too; classic yarn resolves it transitively).
 
 ## Setup
 
