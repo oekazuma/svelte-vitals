@@ -57,7 +57,8 @@
   alt="A conforming width attribute on img"
 />
 
-<!-- a11y/deprecated-attr: `frameborder` — the most common deprecated attribute in real apps. -->
+<!-- a11y/deprecated-attr: `frameborder` — the most common deprecated attribute in real apps.
+     performance/iframe-loading: no loading attribute — an offscreen embed loads eagerly. -->
 <iframe src="/clean" frameborder="0" title="Embedded page"></iframe>
 
 <!-- Neither rule: <style type> inside <svg> is the SVG element. -->
