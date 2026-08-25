@@ -57,8 +57,9 @@ in `.js` behaves identically and needs no dependency. Both are ESM — the proje
 average; setting every category to `0` is an error (exit `2`).
 
 `metaComponents` names head-metadata components the analyzer cannot resolve (e.g. from an npm
-package without an adapter). Components in your own repo are followed automatically — declaring
-one is a no-op.
+package without an adapter). Components the analyzer can resolve in your own repo are followed
+automatically — declaring one of those is a no-op; the declaration only kicks in when
+resolution fails.
 
 ## Turning a rule off or down
 
