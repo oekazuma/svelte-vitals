@@ -1768,6 +1768,38 @@ function collectTimesMissingDatetime(node: Node, source: string, acc: { line: nu
 }
 
 /**
+ * `<video>` with a literal `autoplay` attribute and no `muted` in any form
+ * (correctness/autoplay-muted). Presence is what autoplays, so any literal value counts
+ * (`autoplay="false"` still autoplays); an expression value is unknowable and is skipped.
+ * `muted` as a bare attribute, `muted={expr}`, `bind:muted`, or a spread could all make the
+ * element muted, so each passes. Only `RegularElement` is checked — `<svelte:element
+ * this="video">` is a different node type and out of static reach.
+ */
+function collectVideosAutoplayNoMuted(node: Node, source: string, acc: { line: number }[]): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectVideosAutoplayNoMuted(child, source, acc);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'RegularElement' && node.name === 'video' && Array.isArray(node.attributes)) {
+    const autoplay = findAttr(node.attributes, 'autoplay');
+    const literalAutoplay =
+      autoplay !== undefined &&
+      (autoplay.value === true ||
+        (Array.isArray(autoplay.value) && autoplay.value.every((v: Node) => v?.type === 'Text')));
+    const hasMuted =
+      findAttr(node.attributes, 'muted') !== undefined ||
+      node.attributes.some(
+        (a: Node) => (a?.type === 'BindDirective' && a.name === 'muted') || a?.type === 'SpreadAttribute'
+      );
+    if (literalAutoplay && !hasMuted) acc.push({ line: lineOf(source, node.start) });
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectVideosAutoplayNoMuted(node[key], source, acc);
+  }
+}
+
+/**
  * Root-relative `<a href="/…">` literals (correctness/base-path-navigation). Only
  * `RegularElement` anchors with a fully static href are considered, which is what makes the
  * correct forms self-excluding: `href="{base}/x"` and `href={resolve('/x')}` contain an
@@ -2789,6 +2821,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectSelectsMissingPlaceholder(ast.fragment ?? ast, source, selectsMissingPlaceholder);
   const timesMissingDatetime: { line: number; text: string }[] = [];
   collectTimesMissingDatetime(ast.fragment ?? ast, source, timesMissingDatetime);
+  const videosAutoplayNoMuted: { line: number }[] = [];
+  collectVideosAutoplayNoMuted(ast.fragment ?? ast, source, videosAutoplayNoMuted);
   const basePathLinks: BasePathLinkFact[] = [];
   collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
   const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
@@ -3019,6 +3053,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     unassociatedLabels,
     bulletTexts,
     selectsMissingPlaceholder,
-    timesMissingDatetime
+    timesMissingDatetime,
+    videosAutoplayNoMuted
   };
 }

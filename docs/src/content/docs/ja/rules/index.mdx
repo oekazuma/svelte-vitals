@@ -89,22 +89,23 @@ svelte-vitals が報告するルールをカテゴリ別にまとめました。
 
 ## Correctness
 
-| ルール                                                                                     | 重大度      | 概要                                                                                                                                                        |
-| ------------------------------------------------------------------------------------------ | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`correctness/orphan-effect`](/ja/rules/correctness/orphan-effect)                         | 🔴 critical | コンポーネント初期化の外で作られた $effect はランタイムで effect_orphan エラーになります。                                                                  |
-| [`correctness/orphan-lifecycle`](/ja/rules/correctness/orphan-lifecycle)                   | 🔴 critical | onMount や getContext などをコンポーネント初期化の外で呼ぶと、ランタイムで lifecycle_outside_component エラーになります。                                   |
-| [`correctness/server-browser-global`](/ja/rules/correctness/server-browser-global)         | 🔴 critical | モジュールスコープや load・ハンドラで window や document、localStorage を参照すると、SSR が ReferenceError で落ちます。                                     |
-| [`correctness/base-path-navigation`](/ja/rules/correctness/base-path-navigation)           | 🟡 warning  | ルート相対リンクをハードコードすると kit.paths.base ではなくドメインのルートを指すため、base path の配下ではアプリの外に出てしまい、本番で 404 になります。 |
-| [`correctness/checkable-bind-value`](/ja/rules/correctness/checkable-bind-value)           | 🟡 warning  | checkbox や radio の bind:value は DOM の value プロパティを見るため、チェックを切り替えても値が更新されません。                                            |
-| [`correctness/each-index-key`](/ja/rules/correctness/each-index-key)                       | 🟡 warning  | &#123;#each&#125; のキーに index を使うと、要素の同一性が位置で決まります。キーを付けないのと同じバグが、見えにくい形で起こります。                         |
-| [`correctness/each-key`](/ja/rules/correctness/each-key)                                   | 🟡 warning  | 動的なデータを回す &#123;#each&#125; にはキーを付けましょう。                                                                                               |
-| [`correctness/effect-as-derived`](/ja/rules/correctness/effect-as-derived)                 | 🟡 warning  | 状態を代入するだけの $effect は $derived に置き換えましょう。                                                                                               |
-| [`correctness/effect-as-onmount`](/ja/rules/correctness/effect-as-onmount)                 | 🟡 warning  | reactive 値を読まない $effect は、イベントハンドラ、&#123;@attach&#125;、onMount のいずれかで書くべきです。                                                 |
-| [`correctness/instance-browser-global`](/ja/rules/correctness/instance-browser-global)     | 🟡 warning  | インスタンススクリプトは SSR 時にサーバーでも実行されるため、トップレベルで window や document を参照するとレンダリングが落ちます。                         |
-| [`correctness/nonreactive-builtin-state`](/ja/rules/correctness/nonreactive-builtin-state) | 🟡 warning  | $state に入れた素の Map・Set・Date・URL・URLSearchParams はプロキシされないため、中身を変えても検知されず、気づかないうちに UI が更新されなくなります。     |
-| [`correctness/prop-mutation`](/ja/rules/correctness/prop-mutation)                         | 🟡 warning  | $bindable を宣言していない $props() の値は書き換えないでください。                                                                                          |
-| [`correctness/stale-prop-derivation`](/ja/rules/correctness/stale-prop-derivation)         | 🟡 warning  | $derived を使わずに prop から計算した値は一度しか評価されず、気づかないうちに親の変更へ追従しなくなります。                                                 |
-| [`correctness/unmutated-state`](/ja/rules/correctness/unmutated-state)                     | 🔵 info     | 一度も変更しない $state は、const（または $state.raw）で十分です。                                                                                          |
+| ルール                                                                                     | 重大度      | 概要                                                                                                                                                                |
+| ------------------------------------------------------------------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`correctness/orphan-effect`](/ja/rules/correctness/orphan-effect)                         | 🔴 critical | コンポーネント初期化の外で作られた $effect はランタイムで effect_orphan エラーになります。                                                                          |
+| [`correctness/orphan-lifecycle`](/ja/rules/correctness/orphan-lifecycle)                   | 🔴 critical | onMount や getContext などをコンポーネント初期化の外で呼ぶと、ランタイムで lifecycle_outside_component エラーになります。                                           |
+| [`correctness/server-browser-global`](/ja/rules/correctness/server-browser-global)         | 🔴 critical | モジュールスコープや load・ハンドラで window や document、localStorage を参照すると、SSR が ReferenceError で落ちます。                                             |
+| [`correctness/autoplay-muted`](/ja/rules/correctness/autoplay-muted)                       | 🟡 warning  | ブラウザは音声付きの自動再生をブロックし、ブロックされてもエラーになりません — muted のない &lt;video autoplay&gt; は実際の訪問者の前で静かに再生されないままです。 |
+| [`correctness/base-path-navigation`](/ja/rules/correctness/base-path-navigation)           | 🟡 warning  | ルート相対リンクをハードコードすると kit.paths.base ではなくドメインのルートを指すため、base path の配下ではアプリの外に出てしまい、本番で 404 になります。         |
+| [`correctness/checkable-bind-value`](/ja/rules/correctness/checkable-bind-value)           | 🟡 warning  | checkbox や radio の bind:value は DOM の value プロパティを見るため、チェックを切り替えても値が更新されません。                                                    |
+| [`correctness/each-index-key`](/ja/rules/correctness/each-index-key)                       | 🟡 warning  | &#123;#each&#125; のキーに index を使うと、要素の同一性が位置で決まります。キーを付けないのと同じバグが、見えにくい形で起こります。                                 |
+| [`correctness/each-key`](/ja/rules/correctness/each-key)                                   | 🟡 warning  | 動的なデータを回す &#123;#each&#125; にはキーを付けましょう。                                                                                                       |
+| [`correctness/effect-as-derived`](/ja/rules/correctness/effect-as-derived)                 | 🟡 warning  | 状態を代入するだけの $effect は $derived に置き換えましょう。                                                                                                       |
+| [`correctness/effect-as-onmount`](/ja/rules/correctness/effect-as-onmount)                 | 🟡 warning  | reactive 値を読まない $effect は、イベントハンドラ、&#123;@attach&#125;、onMount のいずれかで書くべきです。                                                         |
+| [`correctness/instance-browser-global`](/ja/rules/correctness/instance-browser-global)     | 🟡 warning  | インスタンススクリプトは SSR 時にサーバーでも実行されるため、トップレベルで window や document を参照するとレンダリングが落ちます。                                 |
+| [`correctness/nonreactive-builtin-state`](/ja/rules/correctness/nonreactive-builtin-state) | 🟡 warning  | $state に入れた素の Map・Set・Date・URL・URLSearchParams はプロキシされないため、中身を変えても検知されず、気づかないうちに UI が更新されなくなります。             |
+| [`correctness/prop-mutation`](/ja/rules/correctness/prop-mutation)                         | 🟡 warning  | $bindable を宣言していない $props() の値は書き換えないでください。                                                                                                  |
+| [`correctness/stale-prop-derivation`](/ja/rules/correctness/stale-prop-derivation)         | 🟡 warning  | $derived を使わずに prop から計算した値は一度しか評価されず、気づかないうちに親の変更へ追従しなくなります。                                                         |
+| [`correctness/unmutated-state`](/ja/rules/correctness/unmutated-state)                     | 🔵 info     | 一度も変更しない $state は、const（または $state.raw）で十分です。                                                                                                  |
 
 ## Security
 
