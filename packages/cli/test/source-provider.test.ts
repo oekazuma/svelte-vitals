@@ -431,6 +431,18 @@ describe('collectRoutes a11y composition', () => {
     expect(await nested('<article><aside aria-label={n}>d</aside></article>')).toEqual(['complementary']);
   });
 
+  it('composes a metaComponents-declared component that is still resolvable (declaration is not an override)', async () => {
+    const files = {
+      'src/routes/+page.svelte': `<script>import A from '$lib/A.svelte';</script><A />`,
+      'src/lib/A.svelte': `<main>a</main>`
+    };
+    const a11y = (
+      await collectRoutes(createMemoryRuntime(files), '', defineConfig({ metaComponents: ['A'] }))
+    ).a11y.find((a) => a.route === '/')!;
+    expect(a11y.landmarks.main).toEqual([{ file: 'src/lib/A.svelte', line: 1 }]);
+    expect(a11y.fullyResolved).toBe(true);
+  });
+
   it('takes the max across exclusive branches, including across components', async () => {
     const a11y = await a11yOf({
       'src/routes/+page.svelte': `<script>import A from '$lib/A.svelte';import B from '$lib/B.svelte';</script>{#if x}<A />{:else}<B />{/if}`,

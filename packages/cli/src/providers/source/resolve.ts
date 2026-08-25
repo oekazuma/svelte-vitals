@@ -136,12 +136,6 @@ export async function resolveFileTags(
       continue;
     }
 
-    // Layer 4: explicitly declared meta component (content unknown -> broad).
-    if (config.metaComponents.includes(use.name)) {
-      broad = true;
-      continue;
-    }
-
     // Layer 3: transitively resolve a user component in src/.
     const childRel = info ? resolveComponentPath(info.source, fileRel, aliases) : undefined;
     if (childRel && depth > 0 && !visited.has(childRel)) {
@@ -164,8 +158,19 @@ export async function resolveFileTags(
         broad = broad || child.broad;
         for (const h of childParsed.headings) headings.push({ ...h, file: childRel });
         headings.push(...child.headings);
+        continue;
       }
     }
+
+    // Layer 4, a fallback, never an override: a declared meta component is only credited as a
+    // broad source when layer 3 could not follow it (bare specifier, missing file, depth limit,
+    // cycle cut). A resolvable declaration is a no-op — otherwise declaring a local wrapper
+    // would *lose* its resolved tags (e.g. jsonld, which BROAD_KINDS deliberately omits).
+    if (config.metaComponents.includes(use.name)) {
+      broad = true;
+      continue;
+    }
+
     // Unresolved & undeclared components contribute nothing (strict).
   }
 

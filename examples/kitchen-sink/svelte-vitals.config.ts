@@ -3,6 +3,12 @@
 // so it does not reach into the perf/seo/correctness/security galleries or the
 // clean canary routes.
 export default {
+  // Two deliberate entries: OpaqueSeo is statically unresolvable ($lib/clean/seo resolves through
+  // an index.ts), so /clean/opaque stays clean only through this declaration — the lever's
+  // observable effect. JsonLd names the clean routes' *resolvable* local wrappers: the
+  // declaration must be a no-op (issue #584) — if it ever overrides resolution again, every
+  // clean route loses its seo/json-ld pass and the clean-canary e2e fails.
+  metaComponents: ['OpaqueSeo', 'JsonLd'],
   rules: {
     // Declaration-driven: nothing is judged until a project says what it wants. `<h1>` on every
     // route passes across the gallery; the legacy page's override adds `<nav>`, which it lacks.

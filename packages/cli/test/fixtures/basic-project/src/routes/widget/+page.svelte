@@ -1,5 +1,6 @@
 <script>
-  import Widget from '$lib/Widget.svelte';
+  // A bare specifier the analyzer cannot resolve — metaComponents' one legitimate case.
+  import Widget from '@acme/design-system';
 </script>
 
 <Widget />

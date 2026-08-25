@@ -40,7 +40,7 @@ export default {
 | `report`         | `'console' \| 'json' \| false`                               | `'console'`  | Output format for the analysis report                                                                       |
 | `outFile`        | `string`                                                     | —            | Write the JSON report to a file at this path                                                                |
 | `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info'>` | `{}`         | Per-rule overrides — disable a rule or change its severity                                                  |
-| `metaComponents` | `string[]`                                                   | —            | Custom component names that emit head metadata                                                              |
+| `metaComponents` | `string[]`                                                   | —            | Head-metadata components the analyzer cannot resolve — in-repo components are followed automatically        |
 | `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                 | `'pass'`     | How to treat dynamically-set metadata                                                                       |
 | `weights`        | `Partial<Record<Category, number>>`                          | every `1`    | Per-category weights for the combined Health score in the report                                            |
 | `prerenderDir`   | `string`                                                     | —            | Override the prerendered-pages directory                                                                    |
