@@ -87,6 +87,8 @@ import { a11yUseList } from './a11y/use-list.js';
 import { a11yPlaceholderLabelOption } from './a11y/placeholder-label-option.js';
 import { a11yRequireDatetime } from './a11y/require-datetime.js';
 import { a11yPositiveTabindex } from './a11y/positive-tabindex.js';
+import { a11yNoAccesskey } from './a11y/no-accesskey.js';
+import { a11yNoAutofocus } from './a11y/no-autofocus.js';
 import { a11yDeprecatedElement } from './a11y/deprecated-element.js';
 import { a11yDeprecatedAttr } from './a11y/deprecated-attr.js';
 import { a11yDisallowedAriaProps } from './a11y/disallowed-aria-props.js';
@@ -188,6 +190,8 @@ export const allRules: Rule[] = [
   a11yPlaceholderLabelOption,
   a11yRequireDatetime,
   a11yPositiveTabindex,
+  a11yNoAccesskey,
+  a11yNoAutofocus,
   a11yDeprecatedElement,
   a11yDeprecatedAttr,
   a11yDisallowedAriaProps,
@@ -290,6 +294,8 @@ export {
   a11yPlaceholderLabelOption,
   a11yRequireDatetime,
   a11yPositiveTabindex,
+  a11yNoAccesskey,
+  a11yNoAutofocus,
   a11yDeprecatedElement,
   a11yDeprecatedAttr,
   a11yDisallowedAriaProps,
