@@ -52,4 +52,23 @@ describe('videosAutoplayNoMuted — exclusions', () => {
   it('does not record a dynamic-tag svelte:element', () => {
     expect(facts('<svelte:element this="video" autoplay src="/a.mp4"></svelte:element>')).toEqual([]);
   });
+
+  it('does not record a video inside <svg> — SVG namespace, not an HTML video', () => {
+    expect(facts('<svg><video autoplay src="/a.mp4"></video></svg>')).toEqual([]);
+  });
+
+  it('does not record anything in a svelte:options namespace="svg" component', () => {
+    expect(facts('<svelte:options namespace="svg" />\n<video autoplay src="/a.mp4"></video>')).toEqual([]);
+  });
+
+  it('records a video inside <foreignObject> — its children return to HTML', () => {
+    const src = [
+      '<svg>',
+      '  <foreignObject>',
+      '    <video autoplay src="/a.mp4"></video>',
+      '  </foreignObject>',
+      '</svg>'
+    ].join('\n');
+    expect(facts(src)).toEqual([{ line: 3 }]);
+  });
 });
