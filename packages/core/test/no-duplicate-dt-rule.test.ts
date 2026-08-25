@@ -46,7 +46,9 @@ describe('a11y/no-duplicate-dt', () => {
   });
 
   it('gives a nested <dl> its own scope — the inner duplicate is reported without leaking outward', async () => {
-    const src = '<dl><dt>Outer</dt><dd><dl><dt>In</dt><dd>1</dd><dt>In</dt><dd>2</dd></dl></dd></dl>';
+    // The outer dt shares the inner name on purpose: a scope-leaking walk would count it and
+    // report two findings, so exactly one distinguishes per-<dl> scoping from a shared set.
+    const src = '<dl><dt>In</dt><dd><dl><dt>In</dt><dd>1</dd><dt>In</dt><dd>2</dd></dl></dd></dl>';
     const failing = await check(src);
     expect(failing).toHaveLength(1);
     expect(failing[0]!.message).toBe('Duplicate <dt> "In" in the same <dl>');
