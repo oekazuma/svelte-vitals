@@ -20,9 +20,10 @@ workspace build keep resolving them.
 `./internal` carries **no semver guarantee**. If only `svelte-vitals` were a peer while core stayed
 a pinned dependency, the plugin would validate configs through the peer CLI's registry (its core)
 but execute rendered analysis against its own pinned core — the same skew class the issue
-describes, one layer down and still invisible. With both as peers there is one copy of each: the
-user's `svelte-vitals` exact-pins the core version, and vite's core peer range is satisfied by (and
-checked against) that same copy.
+describes, one layer down and still invisible. With both as peers, a compatible install normally
+resolves one copy of each: the user's `svelte-vitals` exact-pins the core version, and vite's core
+peer range is satisfied by (and checked against) that same copy — see Known residual below for the
+patch-scale exception.
 
 ## Why `workspace:^`
 
