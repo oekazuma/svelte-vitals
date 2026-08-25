@@ -59,9 +59,21 @@ describe('a11y/no-duplicate-dt', () => {
     expect(await check(src)).toEqual([]);
   });
 
-  it('exempts a dt whose name is not fully-static text', async () => {
-    const src =
-      '<dl><dt>{term}</dt><dd>1</dd><dt>{term}</dt><dd>2</dd><dt><b>A</b></dt><dd>3</dd><dt><b>A</b></dt><dd>4</dd></dl>';
+  it('reads the name through static phrasing markup and ignores comments', async () => {
+    // <code>-wrapped terms are the same text content, and a comment contributes nothing.
+    const src = '<dl><dt><code>HTTP</code></dt><dd>1</dd><dt>HT<!-- x -->TP</dt><dd>2</dd></dl>';
+    const failing = await check(src);
+    expect(failing).toHaveLength(1);
+    expect(failing[0]!.message).toBe('Duplicate <dt> "HTTP" in the same <dl>');
+  });
+
+  it('exempts a dt with any dynamic content — expression, component, or custom-element child', async () => {
+    const src = [
+      '<script>import Term from "./Term.svelte";</script>',
+      '<dl><dt>{term}</dt><dd>1</dd><dt>{term}</dt><dd>2</dd>',
+      '<dt><Term /></dt><dd>3</dd><dt><Term /></dt><dd>4</dd>',
+      '<dt><x-term>A</x-term></dt><dd>5</dd><dt><x-term>A</x-term></dt><dd>6</dd></dl>'
+    ].join('\n');
     expect(await check(src)).toEqual([]);
   });
 

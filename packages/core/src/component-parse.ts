@@ -1771,14 +1771,42 @@ function collectTimesMissingDatetime(node: Node, source: string, acc: { line: nu
 }
 
 /**
+ * Fully-static text content of a node list: concatenated `Text` data, looked through static
+ * regular elements (`<dt><code>HTTP</code></dt>` names "HTTP"), with comments contributing
+ * nothing. `undefined` when anything dynamic appears anywhere below — an expression, a
+ * component, a block, `{@html}`/`{@render}`, `<svelte:element>`, a `<slot>`, or a custom
+ * element (its shadow root may supply content) — because the rendered text is then unknowable.
+ */
+function staticTextOf(nodes: Node[]): string | undefined {
+  let out = '';
+  for (const n of nodes) {
+    if (!n || typeof n !== 'object') continue;
+    if (n.type === 'Comment') continue;
+    if (n.type === 'Text') {
+      out += String(n.data ?? '');
+      continue;
+    }
+    if (n.type === 'RegularElement' && typeof n.name === 'string' && !n.name.includes('-')) {
+      const inner = staticTextOf(n.fragment?.nodes ?? []);
+      if (inner === undefined) return undefined;
+      out += inner;
+      continue;
+    }
+    return undefined;
+  }
+  return out;
+}
+
+/**
  * Duplicate `<dt>` names within one `<dl>` (a11y/no-duplicate-dt). Candidates are `<dt>`
  * elements that are direct children of the `<dl>`, or direct children of a direct `<div>`
  * child (the spec's div-wrapped name-value groups); a dt under a logic block or component is
  * not a candidate — its multiplicity or rendered content is unknowable, and unknowable names
  * can only ever add duplicates, never fabricate one between two static non-duplicates. A
- * candidate's name is its fully-static text (all children `Text`, the require-datetime
- * convention — a comment child exempts it too), trimmed and whitespace-collapsed; an empty
- * name is not a candidate (two empty dts are a missing-content defect, not a duplicate name).
+ * candidate's name is its fully-static text content (`staticTextOf` above — static phrasing
+ * markup like `<dt><code>HTTP</code></dt>` is looked through, comments contribute nothing),
+ * trimmed and whitespace-collapsed; an empty name is not a candidate (two empty dts are a
+ * missing-content defect, not a duplicate name).
  * Comparison is case-sensitive — the spec leaves the equality undefined, so only certain
  * duplicates are reported. Namespace is tracked like `collectElements`: a `<dl>` inside
  * `<svg>` never renders as an HTML definition list, so it is skipped; `<foreignObject>`
@@ -1799,13 +1827,9 @@ function collectDuplicateDts(node: Node, source: string, acc: { line: number; te
     if (!inSvg && tag === 'dl') {
       const seen = new Set<string>();
       const judge = (dt: Node) => {
-        const nodes: Node[] = dt.fragment?.nodes ?? [];
-        if (nodes.length === 0 || !nodes.every((n) => n?.type === 'Text')) return;
-        const name = nodes
-          .map((n) => String(n.data ?? ''))
-          .join('')
-          .trim()
-          .replace(/\s+/g, ' ');
+        const raw = staticTextOf(dt.fragment?.nodes ?? []);
+        if (raw === undefined) return;
+        const name = raw.trim().replace(/\s+/g, ' ');
         if (!name) return;
         if (seen.has(name)) acc.push({ line: lineOf(source, dt.start), text: name });
         else seen.add(name);

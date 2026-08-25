@@ -18,11 +18,11 @@ Flags a `<dt>` whose text duplicates an earlier `<dt>` in the same `<dl>`:
 </dl>
 ```
 
-Names are compared after trimming and collapsing internal whitespace, case-sensitively (the spec leaves the equality unstated, so only certain duplicates are reported). The div-wrapped name-value-group form counts too: a `<dt>` that is a direct child of a `<div>` directly inside the `<dl>` participates. Each `<dl>` is its own scope — the same term in two different lists is fine, and a `<dl>` nested inside a `<dd>` is judged on its own.
+A term's name is its static text content — static phrasing markup is looked through, so `<dt><code>HTTP</code></dt>` and `<dt>HTTP</dt>` carry the same name, and comments contribute nothing. Names are compared after trimming and collapsing internal whitespace, case-sensitively (the spec leaves the equality unstated, so only certain duplicates are reported). The div-wrapped name-value-group form counts too: a `<dt>` that is a direct child of a `<div>` directly inside the `<dl>` participates. Each `<dl>` is its own scope — the same term in two different lists is fine, and a `<dl>` nested inside a `<dd>` is judged on its own.
 
 Not flagged:
 
-- A `<dt>` whose content is not fully-static text — an `{expression}`, element, or component child makes the name unknowable.
+- A `<dt>` with any dynamic content — an `{expression}`, component, block, or custom-element child anywhere below makes the name unknowable.
 - A `<dt>` under a logic block (`{#if}`, `{#each}`, …) or inside a component — its multiplicity or rendered content is unknowable.
 - Empty or whitespace-only `<dt>`s — two blank terms are a missing-content defect, not a duplicate name.
 - A `<dl>` inside `<svg>` — it never renders as an HTML description list.
