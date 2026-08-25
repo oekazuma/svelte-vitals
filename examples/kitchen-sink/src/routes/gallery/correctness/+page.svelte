@@ -57,5 +57,8 @@
   Subscribe
 </label>
 
+<!-- correctness/autoplay-muted: audible autoplay is blocked, so this never starts playing. -->
+<video autoplay src="/hero.mp4"></video>
+
 <PropMutator {user} />
 <StaleDerivedCard type="danger" />

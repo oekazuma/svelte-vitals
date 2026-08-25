@@ -1768,6 +1768,45 @@ function collectTimesMissingDatetime(node: Node, source: string, acc: { line: nu
 }
 
 /**
+ * `<video>` with a literal `autoplay` attribute and no `muted` in any form
+ * (correctness/autoplay-muted). Presence is what autoplays, so any literal value counts
+ * (`autoplay="false"` still autoplays); an expression value is unknowable and is skipped.
+ * `muted` passes in every form — bare, `bind:muted`, a spread that could supply it, or
+ * `muted={expr}`, whose value is deliberately not evaluated (issue #580 scopes the rule to
+ * attribute presence). Only `RegularElement` is checked — `<svelte:element this="video">`
+ * follows the same RegularElement-only convention as `collectCheckableBindValues`. Namespace
+ * is tracked like `collectElements`: a `<video>` inside `<svg>` is an SVG-namespace element,
+ * not an HTML video, so it is skipped; `<foreignObject>` children return to HTML.
+ */
+function collectVideosAutoplayNoMuted(node: Node, source: string, acc: { line: number }[], inSvg: boolean): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectVideosAutoplayNoMuted(child, source, acc, inSvg);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  let next = inSvg;
+  if (node.type === 'RegularElement' && typeof node.name === 'string') {
+    const tag = node.name.toLowerCase();
+    if (tag === 'svg') next = true;
+    else if (tag === 'foreignobject') next = false;
+    if (!inSvg && tag === 'video' && Array.isArray(node.attributes)) {
+      // attrText, not attrTextOf/attrValueOf === 'static' — those trim `autoplay=""` to
+      // absent, and a bare boolean attribute must still count as literal.
+      const literalAutoplay = attrText(node.attributes, 'autoplay') !== undefined;
+      const hasMuted =
+        findAttr(node.attributes, 'muted') !== undefined ||
+        node.attributes.some(
+          (a: Node) => (a?.type === 'BindDirective' && a.name === 'muted') || a?.type === 'SpreadAttribute'
+        );
+      if (literalAutoplay && !hasMuted) acc.push({ line: lineOf(source, node.start) });
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectVideosAutoplayNoMuted(node[key], source, acc, next);
+  }
+}
+
+/**
  * Root-relative `<a href="/…">` literals (correctness/base-path-navigation). Only
  * `RegularElement` anchors with a fully static href are considered, which is what makes the
  * correct forms self-excluding: `href="{base}/x"` and `href={resolve('/x')}` contain an
@@ -2789,6 +2828,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectSelectsMissingPlaceholder(ast.fragment ?? ast, source, selectsMissingPlaceholder);
   const timesMissingDatetime: { line: number; text: string }[] = [];
   collectTimesMissingDatetime(ast.fragment ?? ast, source, timesMissingDatetime);
+  const videosAutoplayNoMuted: { line: number }[] = [];
+  collectVideosAutoplayNoMuted(ast.fragment ?? ast, source, videosAutoplayNoMuted, ast.options?.namespace === 'svg');
   const basePathLinks: BasePathLinkFact[] = [];
   collectHrefLinks(ast.fragment ?? ast, source, basePathLinks);
   const gotoPrograms = [ast.module?.content, ast.instance?.content].filter(Boolean) as Node[];
@@ -3019,6 +3060,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     unassociatedLabels,
     bulletTexts,
     selectsMissingPlaceholder,
-    timesMissingDatetime
+    timesMissingDatetime,
+    videosAutoplayNoMuted
   };
 }

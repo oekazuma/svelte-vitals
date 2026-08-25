@@ -49,6 +49,7 @@ import { correctnessPropMutation } from './correctness/prop-mutation.js';
 import { correctnessStalePropDerivation } from './correctness/stale-prop-derivation.js';
 import { correctnessNonreactiveBuiltinState } from './correctness/nonreactive-builtin-state.js';
 import { correctnessCheckableBindValue } from './correctness/checkable-bind-value.js';
+import { correctnessAutoplayMuted } from './correctness/autoplay-muted.js';
 import { correctnessOrphanEffect } from './correctness/orphan-effect.js';
 import { correctnessOrphanLifecycle } from './correctness/orphan-lifecycle.js';
 import { correctnessBasePathNavigation } from './correctness/base-path-navigation.js';
@@ -147,6 +148,7 @@ export const allRules: Rule[] = [
   correctnessStalePropDerivation,
   correctnessNonreactiveBuiltinState,
   correctnessCheckableBindValue,
+  correctnessAutoplayMuted,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
   correctnessBasePathNavigation,
@@ -246,6 +248,7 @@ export {
   correctnessStalePropDerivation,
   correctnessNonreactiveBuiltinState,
   correctnessCheckableBindValue,
+  correctnessAutoplayMuted,
   correctnessOrphanEffect,
   correctnessOrphanLifecycle,
   correctnessBasePathNavigation,
