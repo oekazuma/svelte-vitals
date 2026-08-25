@@ -66,10 +66,10 @@ export default {
 
 これらのルールは、意図的に「PascalCase」で異なることを意味しています。
 
-- **このルール** — 名前全体が記法に適合しているかを見ます。
-- **`architecture/unit-entry-file`** — 先頭 1 文字が A–Z かどうかだけを見ます。ディレクトリが
+- このルール — 名前全体が記法に適合しているかを見ます。
+- `architecture/unit-entry-file` — 先頭 1 文字が A–Z かどうかだけを見ます。ディレクトリが
   ユニットに*見えるか*を問うているのであって、名前の適合性を問うているのではありません。
-- **`architecture/reserved-directory-names`** — 同じ先頭 1 文字のテストに加え、同名のファイルを
+- `architecture/reserved-directory-names` — 同じ先頭 1 文字のテストに加え、同名のファイルを
   要求します。
 
 そのため、一方のルールの PascalCase 判定を通っても、もう一方では通らないディレクトリがあり得ます。
@@ -176,7 +176,7 @@ glob を狭めてください。除外は、その配下すべてをチェック
 
 ## 無効化
 
-個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/directory-naming -->` を置きます。ルールごと無効化するには:
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line architecture/directory-naming -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

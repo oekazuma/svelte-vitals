@@ -11,8 +11,8 @@ description: role 属性には、タイポでも抽象ロールでもない、�
 
 `role` にはスペース区切りのフォールバックリスト（`role="switch checkbox"`）を指定できます。ユーザーエージェントは**具体的なロールを指す最初のトークン**に解決するため、このルールはどのトークンにも解決しない値だけを報告します。検出対象は次の 2 種類です。
 
-- **未知のロール** — タイポや存在しない名前（例: `role="botton"`）。
-- **抽象ロール** — WAI-ARIA の分類体系を整理するためだけに存在し、直接使うことを意図していないロール（例: `role="widget"`、`role="input"`）。
+- 未知のロール — タイポや存在しない名前（例: `role="botton"`）。
+- 抽象ロール — WAI-ARIA の分類体系を整理するためだけに存在し、直接使うことを意図していないロール（例: `role="widget"`、`role="input"`）。
 
 検出しないもの:
 
@@ -28,7 +28,7 @@ description: role 属性には、タイポでも抽象ロールでもない、�
 
 ## 修正方法
 
-具体的な WAI-ARIA ロールを指定するか、要素本来のネイティブなセマンティクスで十分ならその属性自体を削除します:
+具体的な WAI-ARIA ロールを指定するか、要素本来のネイティブなセマンティクスで十分ならその属性自体を削除します。
 
 ```svelte
 <div role="button">Click</div>
@@ -40,7 +40,7 @@ description: role 属性には、タイポでも抽象ロールでもない、�
 
 ## 無効化
 
-意図的に非標準なロールを使う場合は、`<!-- svelte-vitals-disable-next-line a11y/invalid-role -->` で個別の要素を抑制するか、ルールを無効化してください:
+意図的に非標準なロールを使う場合は、`<!-- svelte-vitals-disable-next-line a11y/invalid-role -->` で個別の要素を抑制するか、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

@@ -46,7 +46,7 @@ description: 状態を代入するだけの $effect は $derived に置き換え
 
 同じ構造的な死角は、[correctness/server-browser-global](/ja/rules/correctness/server-browser-global) と
 [correctness/instance-browser-global](/ja/rules/correctness/instance-browser-global) が示している修正例
-—— browser 専用の global を読んで `$state` に代入する `$effect` —— も検出してしまいます:
+—— browser 専用の global を読んで `$state` に代入する `$effect` —— も検出してしまいます。
 
 ```svelte
 <script>
@@ -72,7 +72,7 @@ description: 状態を代入するだけの $effect は $derived に置き換え
 
 ## 無効化
 
-個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/effect-as-derived -->` を置きます。ルールごと無効化するには:
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/effect-as-derived -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

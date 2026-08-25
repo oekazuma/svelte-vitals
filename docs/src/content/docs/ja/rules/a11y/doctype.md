@@ -21,7 +21,7 @@ doctype がないとブラウザは互換モード（quirks mode）でレンダ�
 
 ## 修正方法
 
-`src/app.html` の先頭行に `<!doctype html>` を追加します：
+`src/app.html` の先頭行に `<!doctype html>` を追加します。
 
 ```html
 <!doctype html>
@@ -29,7 +29,7 @@ doctype がないとブラウザは互換モード（quirks mode）でレンダ�
 
 ## 無効化
 
-既存の検出を suppressions ファイルに記録する（`npx svelte-vitals --update-suppressions`）か、ルールを無効化してください:
+既存の検出を suppressions ファイルに記録する（`npx svelte-vitals --update-suppressions`）か、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

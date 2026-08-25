@@ -237,11 +237,11 @@ By default it writes `svelte-vitals-report.html` in the current directory and pr
 
 ## Auto-selection priority
 
-1. **Explicit `--reporter <fmt>`** — always wins.
-2. **`SVELTE_VITALS_REPORTER` environment variable** — overrides auto-detection.
-3. **A recognized AI-agent harness** (Claude Code, Cursor, Codex, and others) or `SVELTE_VITALS_AGENT=1` → `agent`.
-4. **GitHub Actions** (`GITHUB_ACTIONS=true`) → `github`.
-5. **Default** → `console`.
+1. Explicit `--reporter <fmt>` — always wins.
+2. `SVELTE_VITALS_REPORTER` environment variable — overrides auto-detection.
+3. A recognized AI-agent harness (Claude Code, Cursor, Codex, and others) or `SVELTE_VITALS_AGENT=1` → `agent`.
+4. GitHub Actions (`GITHUB_ACTIONS=true`) → `github`.
+5. Default → `console`.
 
 ## Example: CI pipeline
 

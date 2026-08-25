@@ -5,13 +5,13 @@ sidebar:
   order: 2
 ---
 
-svelte-vitals は Agent Skills を提供します。いずれも **Claude Code**、**Cursor**、**Codex** で同じように動くポータブルな `SKILL.md` ファイルです。3つのツールがいずれも同じフロントマター形式の規約を解釈するため、1つのファイルがそのまま使い回せます。スキルは [skills.sh](https://www.skills.sh/) に掲載されており、`skills` CLI でインストールします：
+svelte-vitals は Agent Skills を提供します。いずれも **Claude Code**、**Cursor**、**Codex** で同じように動くポータブルな `SKILL.md` ファイルです。3つのツールがいずれも同じフロントマター形式の規約を解釈するため、1つのファイルがそのまま使い回せます。スキルは [skills.sh](https://www.skills.sh/) に掲載されており、`skills` CLI でインストールします。
 
 ```bash
 npx skills add oekazuma/svelte-vitals
 ```
 
-CLI がどのエージェント向けにインストールするかを尋ね、各ツールの規約どおりの場所（`.claude/skills/`、`.agents/skills/` など）にスキルを書き出します。プロンプトをスキップするには：
+CLI がどのエージェント向けにインストールするかを尋ね、各ツールの規約どおりの場所（`.claude/skills/`、`.agents/skills/` など）にスキルを書き出します。プロンプトをスキップするには、次のように設定します。
 
 ```bash
 npx skills add oekazuma/svelte-vitals -a claude-code -a cursor -a codex -y
@@ -41,7 +41,7 @@ svelte-vitals を導入するときに一度、そして以前から入れては
 
 ## スキルを最新に保つ
 
-ルールはリリースごとに変わります。同じ CLI で最新のコピーを取得できます：
+ルールはリリースごとに変わります。同じ CLI で最新のコピーを取得できます。
 
 ```bash
 npx skills update

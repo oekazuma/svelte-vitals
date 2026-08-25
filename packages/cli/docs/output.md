@@ -9,15 +9,15 @@ description: Which reporter to use, how one is auto-selected, what goes to stdou
 
 `--reporter <fmt>`: `console` (default) · `json` · `agent` · `sarif` · `github` · `html` · `md`.
 
-- **`agent`** — Markdown remediation: each failing finding with its location, a concrete fix
+- `agent` — Markdown remediation: each failing finding with its location, a concrete fix
   (with snippet), and an acceptance check. Use this when something will act on the findings.
-- **`json`** — the full structured report (scores per route and site-wide; every finding with
+- `json` — the full structured report (scores per route and site-wide; every finding with
   `fix`, `recommendation`, `docsUrl`). Use it to filter or count.
-- **`console`** — for a human. Grouped and capped; `--verbose` for everything.
-- **`md`** — a compact summary table for a PR comment or job summary (capped at 50 rows).
-- **`sarif`** — SARIF v2.1, for GitHub Code Scanning and other SAST tooling.
-- **`github`** — `::error` / `::warning` workflow annotations.
-- **`html`** — a self-contained report file; `--out-file <path>`, or `--out-file -` for stdout.
+- `console` — for a human. Grouped and capped; `--verbose` for everything.
+- `md` — a compact summary table for a PR comment or job summary (capped at 50 rows).
+- `sarif` — SARIF v2.1, for GitHub Code Scanning and other SAST tooling.
+- `github` — `::error` / `::warning` workflow annotations.
+- `html` — a self-contained report file; `--out-file <path>`, or `--out-file -` for stdout.
 
 ## Auto-selection
 

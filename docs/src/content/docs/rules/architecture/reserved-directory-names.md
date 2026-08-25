@@ -65,10 +65,11 @@ depth.
 **An `anyCaseUnitScopes` key names a root the same way, but governs units of either case** — the same
 test without the letter requirement, so a `.ts`- or `.svelte.ts`-entry unit (`formatDate/formatDate.ts`,
 `useThing/useThing.svelte.ts`) counts too. `unitScopes`'s letter test excludes a lowercase unit, so
-without this option no generic unit-map declaration governed its children — a `scopes` key naming the
-parent directly could still reach one — measured at 129 of 299 units (43%) on a real tree. Neither unit
-option is named with the bare word "unit": `architecture/reserved-name-placement`, which takes the same
-split for its own options, records why that word alone is ambiguous once both predicates exist.
+without this option no generic unit-map declaration governs its children — though a `scopes` key naming
+the parent directly can still reach one. On a real-world tree, 129 of 299 units (43%) are such any-case
+units. Neither unit option is named with the bare word "unit" — with both predicates in play, that word
+alone wouldn't say which one applies (`architecture/reserved-name-placement` takes the same split for
+its own options).
 
 A `scopes` key is only worth writing where the children are **entirely** drawn from the names you
 list. A route directory holds its reserved names beside its route segments, and route segments are

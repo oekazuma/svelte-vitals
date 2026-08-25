@@ -11,8 +11,9 @@
     "ecosystem": "node scripts/ecosystem-smoke.js",
     "e2e": "node scripts/cli-e2e.js",
     "bench": "pnpm --filter svelte-vitals... build && pnpm --filter @svelte-vitals/vite run bench",
-    "lint": "oxlint . && oxfmt --check .",
+    "lint": "oxlint . && oxfmt --check . && pnpm lint:docs",
     "format": "oxfmt --write .",
+    "lint:docs": "textlint --cache \"README.md\" \"packages/*/README.md\" \"packages/cli/docs/*.md\" \"examples/kitchen-sink/README.md\" \"docs/src/content/docs/**/*.md\"",
     "check:publish": "pnpm --filter @svelte-vitals/core --filter @svelte-vitals/vite --filter svelte-vitals exec publint && pnpm --workspace-concurrency=1 --filter @svelte-vitals/core --filter @svelte-vitals/vite --filter svelte-vitals exec attw --pack . --profile esm-only",
     "release": "changeset publish",
     "changeset": "changeset"
@@ -20,9 +21,12 @@
   "devDependencies": {
     "@arethetypeswrong/cli": "catalog:",
     "@changesets/cli": "catalog:",
+    "@textlint-ja/textlint-rule-preset-ai-writing": "catalog:",
     "oxfmt": "catalog:",
     "oxlint": "catalog:",
     "publint": "catalog:",
+    "textlint": "catalog:",
+    "textlint-rule-preset-ja-technical-writing": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",

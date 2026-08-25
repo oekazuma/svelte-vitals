@@ -11,9 +11,9 @@ description: ARIA 1.3 が — 全体として、または置かれた role 上�
 
 ARIA 1.3 の表に照らして 3 つを、コンポーネントのソースから検出します。
 
-- **非推奨の role**: `role="directory"`（代替は `list`）。
-- **全体として非推奨の属性**: `aria-dropeffect` と `aria-grabbed`。どの要素でも。
-- **解決した role 上で非推奨の属性**: `checkbox` の `aria-haspopup`、`generic`（素の `<div>`/`<span>`）の `aria-disabled`、その他 ARIA 1.2 と 1.3 が外した組み合わせ。role の解決は `a11y/disallowed-aria-props` と同じです — 明示的な role の最初の具体的トークン、または要素が取り得るすべての implicit role で、そのすべての下で非推奨のときにだけ検出します。
+- 非推奨の role: `role="directory"`（代替は `list`）。
+- 全体として非推奨の属性: `aria-dropeffect` と `aria-grabbed`。どの要素でも。
+- 解決した role 上で非推奨の属性: `checkbox` の `aria-haspopup`、`generic`（素の `<div>`/`<span>`）の `aria-disabled`、その他 ARIA 1.2 と 1.3 が外した組み合わせ。role の解決は `a11y/disallowed-aria-props` と同じです — 明示的な role の最初の具体的トークン、または要素が取り得るすべての implicit role で、そのすべての下で非推奨のときにだけ検出します。
 
 ```svelte
 <div role="checkbox" tabindex="0" aria-checked="false" aria-haspopup="true">…</div>
@@ -31,7 +31,7 @@ ARIA における非推奨は role の定義からの削除です。今日の支
 
 ## 修正方法
 
-`role="directory"` は `role="list"` に置き換え、`aria-dropeffect`/`aria-grabbed` は削除し（ドラッグ&ドロップはいまはウィジェット自身の意味論で表現します）、role 上で非推奨の属性はその role がまだ定義している要素へ移すか削除します:
+`role="directory"` は `role="list"` に置き換え、`aria-dropeffect`/`aria-grabbed` は削除し（ドラッグ&ドロップはいまはウィジェット自身の意味論で表現します）、role 上で非推奨の属性はその role がまだ定義している要素へ移すか削除します。
 
 ```svelte
 <div role="checkbox" tabindex="0" aria-checked="false">…</div>
@@ -43,7 +43,7 @@ ARIA における非推奨は role の定義からの削除です。今日の支
 
 ## 無効化
 
-個別の要素を抑制するには `<!-- svelte-vitals-disable-next-line a11y/deprecated-aria -->` を置きます。ルールごと無効化するには:
+個別の要素を抑制するには `<!-- svelte-vitals-disable-next-line a11y/deprecated-aria -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

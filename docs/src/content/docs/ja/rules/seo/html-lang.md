@@ -15,7 +15,7 @@ description: app.html の <html> に lang 属性を設定しましょう。
 
 ## 修正方法
 
-`src/app.html` で `<html lang="...">` を設定します：
+`src/app.html` で `<html lang="...">` を設定します。
 
 ```text
 <html lang="en">
@@ -27,7 +27,7 @@ description: app.html の <html> に lang 属性を設定しましょう。
 
 ## 無効化
 
-意図したとおりであれば、ルールを無効化してください:
+意図したとおりであれば、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

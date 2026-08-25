@@ -7,7 +7,7 @@ description: コンポーネント初期化の外で作られた $effect はラ�
 
 ## チェック内容
 
-コンポーネント初期化の外で実行されることが確定している `$effect` / `$effect.pre` 呼び出しを検出します。これらはランタイムで Svelte の `effect_orphan` エラーを投げます:
+コンポーネント初期化の外で実行されることが確定している `$effect` / `$effect.pre` 呼び出しを検出します。これらはランタイムで Svelte の `effect_orphan` エラーを投げます。
 
 - `.svelte.ts` / `.svelte.js` の runes モジュール、または `.svelte` の `<script module>` ブロックの**トップレベルの effect**。モジュールの import 時に実行され、どのコンポーネントの初期化コンテキストにも属しません。
 - 同一ファイル内で宣言されたクラスの**モジュールスコープでの `new`** で、そのクラスの constructor が裸の `$effect`（`$effect.root` で包まれていないもの）を作るもの。共有状態マネージャのパターンです。検出位置は `new` の行になります。
@@ -39,7 +39,7 @@ class QuizStateManager {
 export const quizState = new QuizStateManager();
 ```
 
-`$effect.root` でスタンドアロンのリアクティブスコープを作るか（effect がアプリ全体と同じ寿命でよいならそのままで構いません。そうでなければ、返り値のクリーンアップ関数を確実に呼んでください）:
+`$effect.root` でスタンドアロンのリアクティブスコープを作ります（effect がアプリ全体と同じ寿命でよいならそのままで構いません。そうでなければ、返り値のクリーンアップ関数を確実に呼んでください）。
 
 ```ts
 constructor() {
@@ -51,7 +51,7 @@ constructor() {
 }
 ```
 
-または effect のセットアップをコンポーネント初期化時に行うよう構造を変えます:
+または effect のセットアップをコンポーネント初期化時に行うよう構造を変えます。
 
 ```ts
 class QuizStateManager {
@@ -78,7 +78,7 @@ export const quizState = new QuizStateManager();
 
 ## 無効化
 
-個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/orphan-effect -->` を置きます。ルールごと無効化するには:
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/orphan-effect -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

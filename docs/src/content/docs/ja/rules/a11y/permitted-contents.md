@@ -16,12 +16,12 @@ HTML のコンテンツモデル（他の要素系ルールと同じ vendored sp
 `<ul>` のモデルで判定されます。`dl > div` のスタイリングラッパーをはじめ、spec が定義する条件付き
 モデルはすべて尊重します。
 
-重大度は帰結で分かれます:
+重大度は帰結で分かれます。
 
-- **warning** — 支援技術が頼る構造を壊す違反: 親が特定の要素しか許可しない場合（`<ul>`、`<ol>`、
+- warning — 支援技術が頼る構造を壊す違反: 親が特定の要素しか許可しない場合（`<ul>`、`<ol>`、
   `<table>`、`<select>`、`<hgroup>` など）、見出しがどちらかの向きで境界を跨ぐ場合
   （`<button><h5>`、`<h2><div>`）、構造に束縛されたタグが容れ物の外にある場合（`<div><li>`）。
-- **info** — カテゴリ不一致（`<button><div>`、`<label><div>`）: spec 違反ですが、ブラウザは
+- info — カテゴリ不一致（`<button><div>`、`<label><div>`）: spec 違反ですが、ブラウザは
   レンダリングし、実害は小さいクラスです。
 
 意図的に報告しないもの:
@@ -46,7 +46,7 @@ HTML のコンテンツモデル（他の要素系ルールと同じ vendored sp
 
 ## 修正方法
 
-子を親が許可する要素に移すか、容れ物を変えます:
+子を親が許可する要素に移すか、容れ物を変えます。
 
 ```svelte
 <!-- before -->
@@ -74,7 +74,7 @@ HTML の解析で再評価されることもありません。`--route` で実�
 
 検出された行の直上にインラインの `svelte-vitals-disable-next-line` コメントを置けば、その 1 件を
 抑制できます。既存の検出を suppressions ファイルに記録する（`npx svelte-vitals
---update-suppressions`）、`overrides` でルートやパスごとに範囲を絞る、または無効化する:
+--update-suppressions`）、`overrides` でルートやパスごとに範囲を絞る、または次のように無効化します。
 
 ```js svelte-vitals.config.js
 export default {

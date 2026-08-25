@@ -30,7 +30,7 @@ description: time 要素のテキストは機械可読であるか、datetime �
 
 ## 修正方法
 
-機械可読な値を持つ `datetime` 属性を追加します:
+機械可読な値を持つ `datetime` 属性を追加します。
 
 ```svelte
 <time datetime="2026-08-14">last Tuesday</time>
@@ -42,7 +42,7 @@ description: time 要素のテキストは機械可読であるか、datetime �
 
 ## 無効化
 
-テキストが意図的に機械可読でない場合は、`<!-- svelte-vitals-disable-next-line a11y/require-datetime -->` で個別の要素を抑制するか、ルールを無効化してください:
+テキストが意図的に機械可読でない場合は、`<!-- svelte-vitals-disable-next-line a11y/require-datetime -->` で個別の要素を抑制するか、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

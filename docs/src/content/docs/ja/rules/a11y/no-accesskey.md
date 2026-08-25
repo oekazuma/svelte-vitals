@@ -7,7 +7,7 @@ description: accesskey 属性はページレベルのショートカットキー
 
 ## チェック内容
 
-`accesskey` 属性を持つあらゆる要素を検出します:
+`accesskey` 属性を持つあらゆる要素を検出します。
 
 ```svelte
 <button accesskey="s">Save draft</button>
@@ -25,7 +25,7 @@ description: accesskey 属性はページレベルのショートカットキー
 
 ## 修正方法
 
-属性を削除し、可視でフォーカス可能なコントロールに任せます:
+属性を削除し、可視でフォーカス可能なコントロールに任せます。
 
 ```svelte
 <button>Save draft</button>
@@ -47,7 +47,7 @@ description: accesskey 属性はページレベルのショートカットキー
 
 ## 無効化
 
-`accesskey` が本当に意図したものなら、`<!-- svelte-vitals-disable-next-line a11y/no-accesskey -->` で個別の要素を黙らせるか、ルールを無効化します:
+`accesskey` が本当に意図したものなら、`<!-- svelte-vitals-disable-next-line a11y/no-accesskey -->` で個別の要素を黙らせるか、ルールを無効化します。
 
 ```js svelte-vitals.config.js
 export default {

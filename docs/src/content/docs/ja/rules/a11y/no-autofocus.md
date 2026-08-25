@@ -7,7 +7,7 @@ description: autofocus はページ読み込み時にユーザーの意図と無
 
 ## チェック内容
 
-リテラルな `autofocus` 属性 — 素の属性または文字列値 — を持つ要素を検出します。ただしその要素が `<dialog>` 自身であるか、同じコンポーネントテンプレート内で `<dialog>` または popover コンテナの中にある場合は除きます:
+リテラルな `autofocus` 属性 — 素の属性または文字列値 — を持つ要素を検出します。ただしその要素が `<dialog>` 自身であるか、同じコンポーネントテンプレート内で `<dialog>` または popover コンテナの中にある場合は除きます。
 
 ```svelte
 <input autofocus placeholder="Search" />
@@ -26,7 +26,7 @@ description: autofocus はページ読み込み時にユーザーの意図と無
 
 ## 修正方法
 
-属性を削除し、フォーカスはページ先頭から始めさせます:
+属性を削除し、フォーカスはページ先頭から始めさせます。
 
 ```svelte
 <input placeholder="Search" />
@@ -42,7 +42,7 @@ dialog/popover の除外が見えるのは同じコンポーネントテンプ�
 
 コンパイラは同様のマークアップに `a11y_autofocus` を警告し、同じ `<dialog>` の除外を持ちます。この重複は意図的です: コンパイラの警告はビルドログに流れるだけで、スコアもゲートも抑制もしません — このルールはヘルススコアに反映され、`svelte-vitals-disable-next-line` を尊重し、`--fail-on` で CI を失敗させられます。
 
-意図的な相違点が4つあります:
+意図的な相違点が4つあります。
 
 - 式による `autofocus={expr}` はコンパイラが警告しますがこのルールは沈黙します — 式は `false` になりえます。
 - `<dialog>` の深い子孫(例: `<dialog><div><input autofocus /></div></dialog>`)はコンパイラが警告します — 直近の要素祖先しか確認しないためです — が、このルールはチェーン全体を辿って正しく通します。
@@ -55,7 +55,7 @@ dialog/popover の除外が見えるのは同じコンポーネントテンプ�
 
 ## 無効化
 
-ページ読み込み時の `autofocus` が本当に意図したものなら(検索専用ページ、ログインフォームなど)、`<!-- svelte-vitals-disable-next-line a11y/no-autofocus -->` で個別の要素を黙らせるか、ルールを無効化します:
+ページ読み込み時の `autofocus` が本当に意図したものなら(検索専用ページ、ログインフォームなど)、`<!-- svelte-vitals-disable-next-line a11y/no-autofocus -->` で個別の要素を黙らせるか、ルールを無効化します。
 
 ```js svelte-vitals.config.js
 export default {

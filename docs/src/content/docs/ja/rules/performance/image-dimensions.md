@@ -15,7 +15,7 @@ width と height を明示していない `<img>` は、読み込み中にレイ
 
 ## 修正方法
 
-`<img>` に `width` と `height` 属性を追加します：
+`<img>` に `width` と `height` 属性を追加します。
 
 ```svelte
 <img src="/hero.jpg" width="1200" height="630" alt="…" />
@@ -27,7 +27,7 @@ width と height を明示していない `<img>` は、読み込み中にレイ
 
 ## 無効化
 
-既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

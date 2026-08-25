@@ -7,10 +7,10 @@ description: モジュールスコープや load・ハンドラで window や do
 
 ## チェック内容
 
-**必ずサーバーで実行されるコード**での browser 専用 global（`window`、`document`、`localStorage`、`sessionStorage`、`navigator`、`location`、`history`、`screen`、`matchMedia`、`requestAnimationFrame`、`cancelAnimationFrame`、`IntersectionObserver`、`ResizeObserver`、`MutationObserver`、`alert`、`confirm`、`prompt`）の読み取りを検出します:
+**必ずサーバーで実行されるコード**での browser 専用 global（`window`、`document`、`localStorage`、`sessionStorage`、`navigator`、`location`、`history`、`screen`、`matchMedia`、`requestAnimationFrame`、`cancelAnimationFrame`、`IntersectionObserver`、`ResizeObserver`、`MutationObserver`、`alert`、`confirm`、`prompt`）の読み取りを検出します。
 
-- `.svelte.ts`/`.svelte.js` runes モジュールや `.svelte` の `<script module>` ブロックの**モジュールスコープ**（サーバーで import された瞬間にクラッシュ）
-- **SvelteKit のルート/フックファイル**：トップレベル、`load`/action/エンドポイント handler 本体、`init` フック（import 時またはリクエストごとにクラッシュ）
+- `.svelte.ts`/`.svelte.js` runes モジュールや `.svelte` の `<script module>` ブロックのモジュールスコープ（サーバーで import された瞬間にクラッシュ）
+- SvelteKit のルート/フックファイル：トップレベル、`load`/action/エンドポイント handler 本体、`init` フック（import 時またはリクエストごとにクラッシュ）
 
 検出対象外:
 
@@ -35,7 +35,7 @@ export function load() {
 }
 ```
 
-ブラウザアクセスをクライアント側、`onMount` の中へ移します — `onMount` はサーバーでは実行されません:
+ブラウザアクセスをクライアント側、`onMount` の中へ移します — `onMount` はサーバーでは実行されません。
 
 ```svelte +page.svelte
 <script>
@@ -48,7 +48,7 @@ export function load() {
 </script>
 ```
 
-または明示的にガードします:
+または明示的にガードします。
 
 ```ts
 import { browser } from '$app/environment';
@@ -62,7 +62,7 @@ const stored = browser ? localStorage.getItem('filters') : null; // ✅
 
 ## 無効化
 
-個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/server-browser-global -->` を置きます。ルールごと無効化するには:
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/server-browser-global -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

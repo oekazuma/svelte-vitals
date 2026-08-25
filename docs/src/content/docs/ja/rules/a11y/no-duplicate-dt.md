@@ -7,7 +7,7 @@ description: 1つの dl 要素の中で、同じ名前の dt 要素は複数あ�
 
 ## チェック内容
 
-同じ `<dl>` 内で、先行する `<dt>` とテキストが重複する `<dt>` を検出します:
+同じ `<dl>` 内で、先行する `<dt>` とテキストが重複する `<dt>` を検出します。
 
 ```svelte
 <dl>
@@ -33,7 +33,7 @@ HTML 仕様は、1つの `dl` 要素の中で同じ名前の `dt` 要素は複�
 
 ## 修正方法
 
-説明を1つの `<dt>` の下にまとめます:
+説明を1つの `<dt>` の下にまとめます。
 
 ```svelte
 <dl>
@@ -51,7 +51,7 @@ HTML 仕様は、1つの `dl` 要素の中で同じ名前の `dt` 要素は複�
 
 ## 無効化
 
-重複が意図したものなら、`<!-- svelte-vitals-disable-next-line a11y/no-duplicate-dt -->` で個別の要素を抑制するか、ルールを無効化してください:
+重複が意図したものなら、`<!-- svelte-vitals-disable-next-line a11y/no-duplicate-dt -->` で個別の要素を抑制するか、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

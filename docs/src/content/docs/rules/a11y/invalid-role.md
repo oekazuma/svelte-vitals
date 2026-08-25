@@ -11,8 +11,8 @@ Flags a literal `role` attribute whose value is not a valid, concrete WAI-ARIA r
 
 A `role` may hold a space-separated fallback list (`role="switch checkbox"`). A user agent resolves it to the **first token naming a concrete role**, so the rule reports only a value that resolves to nothing at all. Two things get flagged:
 
-- **Unknown roles** — typos or made-up names, e.g. `role="botton"`.
-- **Abstract roles** — roles that exist only to organize the WAI-ARIA taxonomy and are never meant to be used directly, e.g. `role="widget"` or `role="input"`.
+- Unknown roles — typos or made-up names, e.g. `role="botton"`.
+- Abstract roles — roles that exist only to organize the WAI-ARIA taxonomy and are never meant to be used directly, e.g. `role="widget"` or `role="input"`.
 
 Not flagged:
 

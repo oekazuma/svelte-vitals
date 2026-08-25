@@ -7,7 +7,7 @@ description: onMount や getContext などをコンポーネント初期化の�
 
 ## チェック内容
 
-Svelte の lifecycle / context 関数（`onMount`、`onDestroy`、`beforeUpdate`、`afterUpdate`、`createEventDispatcher`、`getContext`、`setContext`、`hasContext`、`getAllContexts`。`svelte` からの value import が対象で、エイリアスと namespace import も追跡します）のうち、コンポーネント初期化の外での実行が確定している呼び出しを検出します:
+Svelte の lifecycle / context 関数（`onMount`、`onDestroy`、`beforeUpdate`、`afterUpdate`、`createEventDispatcher`、`getContext`、`setContext`、`hasContext`、`getAllContexts`。`svelte` からの value import が対象で、エイリアスと namespace import も追跡します）のうち、コンポーネント初期化の外での実行が確定している呼び出しを検出します。
 
 - `.svelte.ts`/`.svelte.js` runes モジュールや `.svelte` の `<script module>` ブロックの**モジュールスコープ**
 - **モジュールスコープでインスタンス化されるクラスの constructor** 内（同一ファイル）
@@ -25,7 +25,7 @@ load/handler/`init` の本体の**内側で定義された関数**は、そこ�
 
 これらの関数はアクティブなコンポーネントコンテキストを必要とします。`getContext`/`setContext`/`hasContext`/`getAllContexts` は、ない状態で呼ぶとあらゆる環境でランタイムに `lifecycle_outside_component` エラーになります。コンパイラはどのパターンも警告なしでコンパイルするため、コードパスが実行されて初めて顕在化します（`load` 内なら、そのルートへの全アクセスが 500 に）。
 
-`onMount`/`beforeUpdate`/`afterUpdate`/`createEventDispatcher` はブラウザでは同じエラーを throw します。しかしサーバーでしか実行されない Kit モジュール（`+page.server.ts`、`+server.ts`、`hooks.server.ts`）ではブラウザに到達すること自体がないため、呼び出しは何もしない no-op になります — クラッシュせず、何も起きません。`onDestroy` だけはそこでも例外で、自前のコンポーネントコンテキストガードを持たないため、呼び出せば依然としてクラッシュしますが、`lifecycle_outside_component` ではなく素の `TypeError` になります（`load`/handler 内なら、そのルートへの全リクエストで 500 になる点は変わりません）。`+page.ts`/`+layout.ts` の universal モジュールやコンポーネント内のコードでは、同じコードがブラウザでも実行されるため、9つすべてが `lifecycle_outside_component` を throw します。
+`onMount`/`beforeUpdate`/`afterUpdate`/`createEventDispatcher` はブラウザでは同じエラーを throw します。しかしサーバーでしか実行されない Kit モジュール（`+page.server.ts`、`+server.ts`、`hooks.server.ts`）ではブラウザに到達すること自体がないため、呼び出しは何もしない no-op になります — クラッシュせず、何も起きません。`onDestroy` だけはそこでも例外です。自前のコンポーネントコンテキストガードを持たないため、呼び出せば依然としてクラッシュしますが、`lifecycle_outside_component` ではなく素の `TypeError` になります（`load`/handler 内なら、そのルートへの全リクエストで 500 になる点は変わりません）。`+page.ts`/`+layout.ts` の universal モジュールやコンポーネント内のコードでは、同じコードがブラウザでも実行されるため、9つすべてが `lifecycle_outside_component` を throw します。
 
 ## 修正方法
 
@@ -39,7 +39,7 @@ export async function load({ fetch }) {
 }
 ```
 
-呼び出しをコンポーネント初期化へ移します:
+呼び出しをコンポーネント初期化へ移します。
 
 ```svelte +page.svelte
 <script>
@@ -58,7 +58,7 @@ export async function load({ fetch }) {
 
 ## 無効化
 
-個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/orphan-lifecycle -->` を置きます。ルールごと無効化するには:
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/orphan-lifecycle -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

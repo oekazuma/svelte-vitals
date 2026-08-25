@@ -15,7 +15,7 @@ noindex はページを検索結果から除外します。公開ルートに誤
 
 ## 修正方法
 
-このルートをインデックスさせたい場合は robots メタから `noindex` を外します：
+このルートをインデックスさせたい場合は robots メタから `noindex` を外します。
 
 ```svelte
 <svelte:head>
@@ -29,7 +29,7 @@ noindex はページを検索結果から除外します。公開ルートに誤
 
 ## 無効化
 
-既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

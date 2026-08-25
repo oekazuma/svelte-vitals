@@ -17,8 +17,8 @@ Which role is judged:
 
 Two kinds of finding, with different messages:
 
-- **Prohibited** — `aria-label`, `aria-labelledby` or `aria-braillelabel` on an element whose role does not take a name (`<div>`, `<span>`, `<p>`, `<code>`, `<label>`, `<time>`, …), or any attribute a role's table lists as prohibited (`aria-roledescription` on `generic`). Message: "`aria-label` is prohibited on `<div>` — its role does not take a name".
-- **Not supported** — an attribute absent from the role's table: `aria-checked` on `role="button"`, `aria-level` on a `<span>`. Message: "`aria-level` is not supported by role `generic`".
+- Prohibited — `aria-label`, `aria-labelledby` or `aria-braillelabel` on an element whose role does not take a name (`<div>`, `<span>`, `<p>`, `<code>`, `<label>`, `<time>`, …), or any attribute a role's table lists as prohibited (`aria-roledescription` on `generic`). Message: "`aria-label` is prohibited on `<div>` — its role does not take a name".
+- Not supported — an attribute absent from the role's table: `aria-checked` on `role="button"`, `aria-level` on a `<span>`. Message: "`aria-level` is not supported by role `generic`".
 
 ```svelte
 <div aria-label="Breadcrumb">Home / Gallery</div>

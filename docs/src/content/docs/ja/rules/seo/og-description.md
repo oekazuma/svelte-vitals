@@ -13,7 +13,7 @@ description: og:description はどのルートにも入れましょう。
 
 og:description は、ソーシャルプレビューでタイトルの下に表示される要約文です。ないと各プラットフォームが内容を推測するか何も表示せず、クリック率が下がります。
 
-2026-08-09 の重大度レビュー以前は `warning` でした。[Open Graph プロトコル](https://ogp.me/)は `og:description` を任意のメタデータとして扱っており、必須（Basic Metadata）の `og:url`（参照: [`seo/og-url`](/ja/rules/seo/og-url)）とは異なります。そのため仕様が定める必須・任意の区分に合わせて重大度を下げました。
+[Open Graph プロトコル](https://ogp.me/)は `og:description` を任意のメタデータとして扱っており、必須（Basic Metadata）の `og:url`（参照: [`seo/og-url`](/ja/rules/seo/og-url)）とは異なります。重大度はこの仕様が定める必須・任意の区分に合わせています。
 
 ## 修正方法
 
@@ -29,7 +29,7 @@ og:description は、ソーシャルプレビューでタイトルの下に表�
 
 ## 無効化
 
-既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

@@ -26,7 +26,7 @@ description: label をフィールドと関連付けるには for 属性かラ�
 
 ## 修正方法
 
-`for` にコントロールの `id` を指定するか、コントロールを `<label>` でラップします:
+`for` にコントロールの `id` を指定するか、コントロールを `<label>` でラップします。
 
 ```svelte
 <label for="name">Name</label>
@@ -41,7 +41,7 @@ description: label をフィールドと関連付けるには for 属性かラ�
 
 ## 無効化
 
-このルールからは見えない別の方法（コントロール側の `aria-labelledby` など）で関連付けている場合は、`<!-- svelte-vitals-disable-next-line a11y/label-has-control -->` で個別の要素を抑制するか、ルールを無効化してください:
+このルールからは見えない別の方法（コントロール側の `aria-labelledby` など）で関連付けている場合は、`<!-- svelte-vitals-disable-next-line a11y/label-has-control -->` で個別の要素を抑制するか、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

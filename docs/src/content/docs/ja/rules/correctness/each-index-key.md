@@ -24,7 +24,7 @@ index キーではアイテムの同一性が位置に従うため、並べ替�
 
 ## 修正方法
 
-アイテムを一意に識別する値でキーを付けます:
+アイテムを一意に識別する値でキーを付けます。
 
 ```svelte
 {#each items as item (item.id)}
@@ -38,7 +38,7 @@ index キーではアイテムの同一性が位置に従うため、並べ替�
 
 ## 無効化
 
-並べ替えも途中への挿入や削除も決して起きないと確実に言えるリストなら、`<!-- svelte-vitals-disable-next-line correctness/each-index-key -->` で個別に抑制するか、ルールを無効化してください:
+並べ替えも途中への挿入や削除も決して起きないと確実に言えるリストなら、`<!-- svelte-vitals-disable-next-line correctness/each-index-key -->` で個別に抑制するか、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

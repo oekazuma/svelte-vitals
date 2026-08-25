@@ -7,7 +7,7 @@ description: title のない <abbr> は読者に展開形を提供しません �
 
 ## チェック内容
 
-展開形を与える `title` のない `<abbr>` を検出します:
+展開形を与える `title` のない `<abbr>` を検出します。
 
 ```svelte
 <p>The <abbr>W3C</abbr> publishes the spec.</p>
@@ -28,7 +28,7 @@ description: title のない <abbr> は読者に展開形を提供しません �
 
 ## 修正方法
 
-展開形を `title` として追加するか、初出時に完全な形で書きます:
+展開形を `title` として追加するか、初出時に完全な形で書きます。
 
 ```svelte
 <p>The <abbr title="World Wide Web Consortium">W3C</abbr> publishes the spec.</p>
@@ -44,7 +44,7 @@ description: title のない <abbr> は読者に展開形を提供しません �
 
 ## 無効化
 
-展開形を周囲のテキストで与えている場合は、`<!-- svelte-vitals-disable-next-line a11y/abbr-title -->` で個別の要素を抑制するか、ルールを無効化してください:
+展開形を周囲のテキストで与えている場合は、`<!-- svelte-vitals-disable-next-line a11y/abbr-title -->` で個別の要素を抑制するか、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {

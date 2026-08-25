@@ -7,7 +7,7 @@ description: すべてのルートに <link rel="canonical"> タグを含める�
 
 ## チェック内容
 
-すべてのルートには、直接指定またはレイアウトチェーンからの継承で `<link rel="canonical">` タグを含めるべきです。canonical リンクがない、または空のルートを検出します。
+すべてのルートには、直接指定またはレイアウトチェーンからの継承で `<link rel="canonical">` タグを含めるべきです。canonical リンクがない、あるいは空のルートを検出します。
 
 ## なぜ重要か
 
@@ -15,7 +15,7 @@ canonical URL は、どの URL が正規かを検索エンジンに伝えます�
 
 ## 修正方法
 
-`<svelte:head>` 内に `<link rel="canonical">` を追加するか、メタコンポーネントの canonical プロップを設定します：
+`<svelte:head>` 内に `<link rel="canonical">` を追加するか、メタコンポーネントの canonical プロップを設定します。
 
 ```svelte
 <svelte:head>
@@ -29,7 +29,7 @@ canonical URL は、どの URL が正規かを検索エンジンに伝えます�
 
 ## 無効化
 
-既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

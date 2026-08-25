@@ -17,7 +17,7 @@ prop と同名のローカルは prop をシャドーイングしており prop 
 
 ## なぜ重要か
 
-Svelte の公式ドキュメントは明確に「`$bindable` でない限り prop を変異させてはいけない」と述べています。コンパイラが捕まえない失敗モードが3つあります:
+Svelte の公式ドキュメントは明確に「`$bindable` でない限り prop を変異させてはいけない」と述べています。コンパイラが捕まえない失敗モードが3つあります。
 
 - **プレーンオブジェクト**の prop を変異させても、オブジェクトが state proxy でないため**黙って無視されます**（開発時の警告すら出ません）。
 - **リアクティブな state proxy** の prop を変異させると動作はしますが、`ownership_invalid_mutation` という開発時警告が出ます。ただしそれは**そのコードパスが実際に実行された場合のみ**です。
@@ -49,7 +49,7 @@ Svelte の公式ドキュメントは明確に「`$bindable` でない限り pro
 
 ### legacy mode（`export let`）
 
-同じ種類のバグは legacy mode のコンポーネントにも、別の理由で存在します。Svelte の legacy なリアクティビティは代入ベースなので、`bind:` で渡された prop であっても、変異メソッド呼び出しだけでは更新がトリガーされません:
+同じ種類のバグは legacy mode のコンポーネントにも、別の理由で存在します。Svelte の legacy なリアクティビティは代入ベースなので、`bind:` で渡された prop であっても、変異メソッド呼び出しだけでは更新がトリガーされません。
 
 ```svelte
 <script>
@@ -62,7 +62,7 @@ Svelte の公式ドキュメントは明確に「`$bindable` でない限り pro
 </script>
 ```
 
-リアクティビティを再トリガーするには、変異後に prop を再代入してください — これは回避策ではなく、Svelte 自身が公式に示しているパターンです:
+リアクティビティを再トリガーするには、変異後に prop を再代入してください — これは回避策ではなく、Svelte 自身が公式に示しているパターンです。
 
 ```svelte
 <script>
@@ -81,7 +81,7 @@ Svelte の公式ドキュメントは明確に「`$bindable` でない限り pro
 
 ## 無効化
 
-個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/prop-mutation -->` を置きます。ルールごと無効化するには:
+個別に抑制するには、対象行の直前に `<!-- svelte-vitals-disable-next-line correctness/prop-mutation -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

@@ -7,7 +7,7 @@ description: $state に入れた素の Map・Set・Date・URL・URLSearchParams 
 
 ## チェック内容
 
-素の組み込みクラス（`Map`・`Set`・`Date`・`URL`・`URLSearchParams`）をそのまま `$state` に入れたトップレベルの変数のうち、関数内またはテンプレートのハンドラー内でそのインスタンスに変更を加えているものを検出します:
+素の組み込みクラス（`Map`・`Set`・`Date`・`URL`・`URLSearchParams`）をそのまま `$state` に入れたトップレベルの変数のうち、関数内またはテンプレートのハンドラー内でそのインスタンスに変更を加えているものを検出します。
 
 ```svelte
 <script>

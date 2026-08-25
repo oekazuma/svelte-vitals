@@ -23,7 +23,7 @@ SvelteKit のパフォーマンスガイドは、リクエストウォーター�
 
 ## 修正方法
 
-依存チェーンを server load に移動します:
+依存チェーンを server load に移動します。
 
 ```ts +page.server.ts
 export async function load({ fetch }) {

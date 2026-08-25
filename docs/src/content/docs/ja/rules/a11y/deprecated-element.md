@@ -25,7 +25,7 @@ HTML 標準の obsolete features 節に挙げられた要素 — `<center>`、`<
 
 廃止要素は 1 件の検出になります。その要素の非推奨属性（`<font color>`）は `a11y/deprecated-attr` によって二重に報告されません — このルールを無効にしたりインラインで抑制したりしても同じです。属性ルールは、このルールの結果を見るのではなく、要素名で廃止要素を読み飛ばします。
 
-要素の一覧はベンダリングした HTML spec データ（`@markuplint/html-spec`）の `obsolete` 列で、WHATWG の obsolete features 節と完全に一致します。なお `<rb>`/`<rtc>` は WHATWG では obsolete ですが、W3C HTML 5.x では残っており、日本語のルビ記法で見かけることがあります。
+要素の一覧はベンダリングした HTML spec データ（`@markuplint/html-spec`）の `obsolete` 列で、WHATWG の obsolete features 節と過不足なく一致します。なお `<rb>`/`<rtc>` は WHATWG では obsolete ですが、W3C HTML 5.x では残っており、日本語のルビ記法で見かけることがあります。
 
 ## なぜ重要か
 
@@ -33,7 +33,7 @@ HTML 標準の obsolete features 節に挙げられた要素 — `<center>`、`<
 
 ## 修正方法
 
-適合する代替要素に置き換え、見た目は CSS に移します:
+適合する代替要素に置き換え、見た目は CSS に移します。
 
 ```svelte
 <s>old price</s>
@@ -46,7 +46,7 @@ HTML 標準の obsolete features 節に挙げられた要素 — `<center>`、`<
 
 ## 無効化
 
-個別の要素を抑制するには `<!-- svelte-vitals-disable-next-line a11y/deprecated-element -->` を置きます。ルールごと無効化するには:
+個別の要素を抑制するには `<!-- svelte-vitals-disable-next-line a11y/deprecated-element -->` を置きます。ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

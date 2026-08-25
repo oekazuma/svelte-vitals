@@ -15,7 +15,7 @@ description: <link rel="preload"> には as 属性を指定します。
 
 ## 修正方法
 
-リソース種別に合った `as` 属性を追加します：
+リソース種別に合った `as` 属性を追加します。
 
 ```html
 <link rel="preload" href="/app.css" as="style" />
@@ -27,7 +27,7 @@ description: <link rel="preload"> には as 属性を指定します。
 
 ## 無効化
 
-既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

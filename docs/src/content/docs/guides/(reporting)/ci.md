@@ -89,12 +89,12 @@ comment):
 
 A few things worth knowing before you see the real thing:
 
-- **It updates in place.** Every push to the PR re-scans and edits this same comment (via its
+- It updates in place. Every push to the PR re-scans and edits this same comment (via its
   hidden marker) instead of posting a new one each time.
-- **The message column includes the fix.** Each row is the finding's message _and_ its
+- The message column includes the fix. Each row is the finding's message _and_ its
   recommendation together, so you don't have to open the full report to know what to do.
-- **Rule IDs link to the docs** for that specific rule.
-- **A clean PR gets a short comment too** — `✅ No issues found.` in place of the findings table.
+- Rule IDs link to the docs for that specific rule.
+- A clean PR gets a short comment too — `✅ No issues found.` in place of the findings table.
 - The same content (minus the table) also appears in the job's **step summary**, and the
   underlying findings get **inline annotations** directly on the diff.
 
@@ -125,7 +125,7 @@ areas) get flagged by SEO rules, and there's no action input to exclude them —
 live in files the action already reads, so they apply identically to the CLI, the Vite plugin, and
 this action. Pick by intent:
 
-- **Never want a rule at all** — turn it off globally in
+- Never want a rule at all — turn it off globally in
   [`svelte-vitals.config.*`](/guides/configuration):
 
   ```js svelte-vitals.config.js
@@ -134,7 +134,7 @@ this action. Pick by intent:
   };
   ```
 
-- **A rule or category doesn't apply to part of the app** (the auth-only case) — scope it with
+- A rule or category doesn't apply to part of the app (the auth-only case) — scope it with
   [`overrides`](/guides/configuration#scoping-rules-to-routes-or-files-overrides).
   This is durable policy: routes added under the glob later are excluded too.
 
@@ -145,7 +145,7 @@ this action. Pick by intent:
   };
   ```
 
-- **The findings are real, you just can't fix them all now** — accept the current backlog
+- The findings are real, you just can't fix them all now — accept the current backlog
   one-shot with `svelte-vitals --update-suppressions` and commit the file (see
   [Adopting on an existing project](#adopting-on-an-existing-project) above). Unlike `overrides`,
   this is a snapshot: a _new_ route with the same problem fails again, which is exactly what you
@@ -199,9 +199,9 @@ jobs:
 ```
 
 `ci install` fills in `<sha>`/`<version>` with the pin bundled into the `svelte-vitals` CLI
-you're running — a maintainer resolves the latest
-[oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) release and
-commits it before each `svelte-vitals` release; `ci install` itself never queries GitHub. Running
+you're running — resolved from the latest
+[oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) release as of
+each `svelte-vitals` release; `ci install` itself never queries GitHub. Running
 the installer (with `@latest`, to get the most recently bundled pin) is the easiest way to get a
 working pin. Writing this by hand, use the commit SHA and version from the latest release tag in
 that [repository](https://github.com/oekazuma/svelte-vitals-action/releases).
@@ -235,14 +235,14 @@ npx svelte-vitals@latest ci upgrade --dry-run    # preview the before/after with
 The pin `ci upgrade` writes comes from the CLI build itself, not a network lookup — run it with
 `@latest` (as above) to pick up the most recent one. Possible outcomes:
 
-- **Upgraded** — the reference line(s) didn't match the bundled pin (either the SHA is stale, or
+- Upgraded — the reference line(s) didn't match the bundled pin (either the SHA is stale, or
   the SHA is current but the comment isn't — e.g. it's missing, unrelated, or still in a
   pre-migration shape, `# action-vX.Y.Z` or `# @svelte-vitals/action@X.Y.Z`); they're rewritten
   and the old version (read from the line's comment, in any recognized format, or the old SHA's
   first 7 characters if there was no recognized version comment at all) is reported.
-- **Already up to date** — every reference already matches the bundled pin **and** already
+- Already up to date — every reference already matches the bundled pin **and** already
   carries the canonical `# vX.Y.Z` comment; nothing is written.
-- **No workflow found** / **no action reference found** — exits with an error telling you to run
+- No workflow found / no action reference found — exits with an error telling you to run
   `ci install` first; `ci upgrade` never creates a workflow from scratch.
 
 The `vX.Y.Z` tags on [oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action)

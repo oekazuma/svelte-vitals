@@ -15,7 +15,7 @@ description: <img> には loading 属性を明示します。
 
 ## 修正方法
 
-画面外の `<img>` 要素に `loading="lazy"` を追加します（LCP やヒーロー画像は即時読み込みのままにします）：
+画面外の `<img>` 要素に `loading="lazy"` を追加します（LCP やヒーロー画像は即時読み込みのままにします）。
 
 ```svelte
 <img src="/thumb.jpg" width="320" height="240" loading="lazy" alt="…" />
@@ -27,7 +27,7 @@ description: <img> には loading 属性を明示します。
 
 ## 無効化
 
-既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには:
+既存の検出は suppressions ファイルに記録して抑制できます（`npx svelte-vitals --update-suppressions`）。`overrides` でルートやパス単位に絞るか、ルールごと無効化するには、次のように設定します。
 
 ```js svelte-vitals.config.js
 export default {

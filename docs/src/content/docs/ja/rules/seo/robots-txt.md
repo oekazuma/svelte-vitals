@@ -15,7 +15,7 @@ description: プロジェクトに robots.txt を用意しましょう。
 
 ## 修正方法
 
-`static/robots.txt` を追加するか、`src/routes/robots.txt/+server` エンドポイントを作成します：
+`static/robots.txt` を追加するか、`src/routes/robots.txt/+server` エンドポイントを作成します。
 
 ```text
 User-agent: *
@@ -30,7 +30,7 @@ Sitemap: https://example.com/sitemap.xml
 
 ## 無効化
 
-意図したとおりであれば、ルールを無効化してください:
+意図したとおりであれば、ルールを無効化してください。
 
 ```js svelte-vitals.config.js
 export default {
