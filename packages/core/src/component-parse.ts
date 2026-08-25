@@ -1158,7 +1158,10 @@ function collectElements(node: Node, source: string, acc: ElementFact[], inSvg: 
       attrs: node.attributes
         .filter((a: Node) => a?.type === 'Attribute' && typeof a.name === 'string')
         .map((a: Node) => {
-          const value = a.value === true ? '' : attrValueOf(a) === 'static' ? (attrTextOf(a) ?? undefined) : undefined;
+          // classifyAttrValue, not attrValueOf: the latter folds a blank literal (`title=""`)
+          // into 'absent', which here would make it indistinguishable from an expression value.
+          const cls = classifyAttrValue(a.value);
+          const value = 'expression' in cls ? undefined : cls.literal;
           return {
             name: String(a.name).toLowerCase(),
             line: lineOf(source, a.start ?? node.start),
