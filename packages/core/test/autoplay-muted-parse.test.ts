@@ -8,6 +8,10 @@ describe('videosAutoplayNoMuted — records', () => {
     expect(facts('<video autoplay src="/a.mp4"></video>')).toEqual([{ line: 1 }]);
   });
 
+  it('records a mixed-case tag — HTML tag names are case-insensitive (<VIDEO> would be a component)', () => {
+    expect(facts('<vIdeo autoplay src="/a.mp4"></vIdeo>')).toEqual([{ line: 1 }]);
+  });
+
   it('records autoplay with any literal value — presence is what autoplays', () => {
     expect(facts('<video autoplay="false" src="/a.mp4"></video>')).toEqual([{ line: 1 }]);
     expect(facts('<video autoplay="" src="/a.mp4"></video>')).toEqual([{ line: 1 }]);

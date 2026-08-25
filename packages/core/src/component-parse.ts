@@ -1789,7 +1789,7 @@ function collectVideosAutoplayNoMuted(node: Node, source: string, acc: { line: n
     const tag = node.name.toLowerCase();
     if (tag === 'svg') next = true;
     else if (tag === 'foreignobject') next = false;
-    if (!inSvg && node.name === 'video' && Array.isArray(node.attributes)) {
+    if (!inSvg && tag === 'video' && Array.isArray(node.attributes)) {
       // attrText, not attrTextOf/attrValueOf === 'static' — those trim `autoplay=""` to
       // absent, and a bare boolean attribute must still count as literal.
       const literalAutoplay = attrText(node.attributes, 'autoplay') !== undefined;
