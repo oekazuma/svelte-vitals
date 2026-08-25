@@ -7,7 +7,7 @@ description: 0 より大きい tabindex はその要素をページ内の自然�
 
 ## チェック内容
 
-リテラルの `tabindex` 属性の値が 0 より大きい整数にパースされる要素を検出します:
+リテラルの `tabindex` 属性の値が 0 より大きい有限数にパースされる要素を検出します:
 
 ```svelte
 <div tabindex="1">Jumps the tab queue</div>
@@ -27,11 +27,13 @@ description: 0 より大きい tabindex はその要素をページ内の自然�
 
 ## 修正方法
 
-要素を DOM 順に配置して自然なタブ順に任せます。非インタラクティブ要素をタブ順に加えたいときだけ `tabindex="0"` を使います:
+要素を DOM 順に配置して自然なタブ順に任せます。`tabindex="0"` はキーボードで到達させたい非インタラクティブ要素 — たとえばスクロール領域 — に限って使います:
 
 ```svelte
-<div tabindex="0" role="button">In the natural order</div>
+<div tabindex="0" role="region" aria-label="Release notes" class="scroll-box">…</div>
 ```
+
+(クリックできるものにはネイティブの `<button>` を使ってください — それ自体でタブ順に加わります。)
 
 プログラムからフォーカスする要素（スキップリンクのターゲットやダイアログなど）には `tabindex="-1"` を使います:
 

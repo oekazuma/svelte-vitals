@@ -7,7 +7,7 @@ description: A tabindex above 0 puts the element ahead of every naturally-ordere
 
 ## What it checks
 
-Flags an element with a literal `tabindex` attribute whose value parses to an integer greater than 0:
+Flags an element with a literal `tabindex` attribute whose value parses to a finite number greater than 0:
 
 ```svelte
 <div tabindex="1">Jumps the tab queue</div>
@@ -27,11 +27,13 @@ Elements with a positive `tabindex` come before every naturally-ordered element 
 
 ## How to fix
 
-Put elements in DOM order and let the natural tab sequence do the work, using `tabindex="0"` only to add a non-interactive element to it:
+Put elements in DOM order and let the natural tab sequence do the work, using `tabindex="0"` only to add a non-interactive element that needs keyboard reach — e.g. a scrollable region:
 
 ```svelte
-<div tabindex="0" role="button">In the natural order</div>
+<div tabindex="0" role="region" aria-label="Release notes" class="scroll-box">…</div>
 ```
+
+(For anything clickable, use a native `<button>` — it joins the tab order by itself.)
 
 Use `tabindex="-1"` for elements you focus programmatically (e.g. a skip-link target or a dialog):
 
