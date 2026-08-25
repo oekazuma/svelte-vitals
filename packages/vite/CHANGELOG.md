@@ -1,5 +1,21 @@
 # @svelte-vitals/vite
 
+## 0.34.0
+
+### Minor Changes
+
+- 29d620e: Add `correctness/autoplay-muted`: flags `<video autoplay>` without `muted`. Chrome and Safari block autoplay with audio, and a blocked autoplay does not error — the video silently never starts playing for real visitors while appearing to work in development. Only a literal `autoplay` is flagged; `muted` in any form (bare attribute, `muted={expr}`, `bind:muted`, or a spread) passes. The recommendation is to add `muted` (and typically `playsinline` for iOS).
+- f986615: Add `performance/iframe-loading`: recommends `loading="lazy"` on `<iframe>` elements. An offscreen iframe typically loads an entire third-party document — scripts, fonts, media — so eager-loading one usually costs more than an offscreen image, and iframes rarely are the LCP element. Severity is `info`: an above-the-fold iframe is legitimately eager and position is statically unknowable. Any literal `loading` value passes (the author made a choice), as do an expression-valued `loading` and a spread attribute.
+- e01d64a: Add `a11y/positive-tabindex`: flags elements with a literal `tabindex` whose value parses to a finite number above 0. A positive tabindex puts the element ahead of every naturally-ordered element on the page, so a single `tabindex="1"` reorders keyboard navigation globally — only `0` (join the natural order) and `-1` (programmatically focusable) are safe values. Expression-valued `tabindex` is unknowable and is skipped.
+
+### Patch Changes
+
+- Updated dependencies [29d620e]
+- Updated dependencies [f986615]
+- Updated dependencies [e01d64a]
+  - @svelte-vitals/core@0.48.0
+  - svelte-vitals@0.52.0
+
 ## 0.33.0
 
 ### Minor Changes
