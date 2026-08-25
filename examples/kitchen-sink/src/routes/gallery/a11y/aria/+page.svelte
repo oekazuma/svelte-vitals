@@ -67,3 +67,12 @@
 <!-- a11y/positive-tabindex: tabindex above 0 puts this ahead of every naturally-ordered element,
      hijacking the tab order for the whole page. The tabindex="0" divs above stay silent. -->
 <div tabindex="1">Jumps the tab queue</div>
+
+<!-- a11y/no-accesskey: the shortcut key varies by browser and OS, is undiscoverable, and collides
+     with assistive-technology bindings (the compiler also warns). -->
+<button accesskey="s">Save draft</button>
+
+<!-- a11y/no-autofocus: steals focus at page load. The <dialog>-scoped one below stays silent —
+     dialog focusing steps run on show, not on load (the compiler also warns on the first). -->
+<input autofocus placeholder="Search the gallery" />
+<dialog><input autofocus placeholder="Your name" /></dialog>
