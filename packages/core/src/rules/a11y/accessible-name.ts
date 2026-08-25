@@ -1,4 +1,6 @@
 import type { ComponentFacts, ElementFact } from '../../component.js';
+import { splitTokens } from '../../a11y.js';
+import { resolveRole } from './aria-data.js';
 import { componentRule } from '../component-rule.js';
 
 const NAMING_ATTRS = new Set(['title', 'aria-label', 'aria-labelledby']);
@@ -27,8 +29,11 @@ function unnamedIframes(c: ComponentFacts): ElementFact[] {
     }
     if (attr('hidden')) return false;
     const role = attr('role');
-    if (role && (role.value === undefined || ['presentation', 'none'].includes(role.value.trim().toLowerCase()))) {
-      return false;
+    if (role) {
+      if (role.value === undefined) return false;
+      // Resolved per ARIA's fallback rules, not the raw string: `role="bogus none"` applies `none`.
+      const resolved = resolveRole(splitTokens(role.value.toLowerCase()));
+      if (resolved === 'presentation' || resolved === 'none') return false;
     }
     return true;
   });

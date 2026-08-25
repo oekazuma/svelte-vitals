@@ -119,6 +119,12 @@ describe('a11y/accessible-name — iframe arm', () => {
     expect(await check('<iframe src="/t" role="presentation"></iframe>')).toHaveLength(0);
     expect(await check('<iframe src="/t" role="none"></iframe>')).toHaveLength(0);
   });
+  it('resolves a multi-token role per ARIA fallback before judging it presentational', async () => {
+    // An unsupported first token falls through to `none` — the applied role is presentational.
+    expect(await check('<iframe src="/t" role="bogus-role none"></iframe>')).toHaveLength(0);
+    // The first concrete token wins, so `button` applies and the frame still needs a name.
+    expect(await check('<iframe src="/t" role="button none"></iframe>')).toHaveLength(1);
+  });
   it('skips expression-valued skip attributes — unknowable resolves to silence, as everywhere in this rule', async () => {
     expect(await check('<iframe src="/t" aria-hidden={h}></iframe>')).toHaveLength(0);
     expect(await check('<iframe src="/t" role={r}></iframe>')).toHaveLength(0);
