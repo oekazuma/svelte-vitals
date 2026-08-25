@@ -9,7 +9,7 @@ description: モジュールスコープや load・ハンドラで window や do
 
 **必ずサーバーで実行されるコード**での browser 専用 global（`window`、`document`、`localStorage`、`sessionStorage`、`navigator`、`location`、`history`、`screen`、`matchMedia`、`requestAnimationFrame`、`cancelAnimationFrame`、`IntersectionObserver`、`ResizeObserver`、`MutationObserver`、`alert`、`confirm`、`prompt`）の読み取りを検出します。
 
-- `.svelte.ts`/`.svelte.js` runes モジュールや `.svelte` の `<script module>` ブロックの**モジュールスコープ**（サーバーで import された瞬間にクラッシュ）
+- `.svelte.ts`/`.svelte.js` runes モジュールや `.svelte` の `<script module>` ブロックのモジュールスコープ（サーバーで import された瞬間にクラッシュ）
 - SvelteKit のルート/フックファイル：トップレベル、`load`/action/エンドポイント handler 本体、`init` フック（import 時またはリクエストごとにクラッシュ）
 
 検出対象外:

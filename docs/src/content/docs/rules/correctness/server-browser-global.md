@@ -9,7 +9,7 @@ description: window, document, localStorage accessed in module scope or a load/h
 
 Flags reads of browser-only globals (`window`, `document`, `localStorage`, `sessionStorage`, `navigator`, `location`, `history`, `screen`, `matchMedia`, `requestAnimationFrame`, `cancelAnimationFrame`, `IntersectionObserver`, `ResizeObserver`, `MutationObserver`, `alert`, `confirm`, `prompt`) in code that always runs on the server:
 
-- **module scope** of a `.svelte.ts`/`.svelte.js` runes module or a `.svelte` `<script module>` block (crashes when the module is imported on the server), and
+- module scope of a `.svelte.ts`/`.svelte.js` runes module or a `.svelte` `<script module>` block (crashes when the module is imported on the server), and
 - SvelteKit route/hooks files — top level, `load`/action/endpoint handler bodies, and the `init` hook (crashes at import or on every request).
 
 Not flagged:

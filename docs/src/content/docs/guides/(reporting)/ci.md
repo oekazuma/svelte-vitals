@@ -89,11 +89,11 @@ comment):
 
 A few things worth knowing before you see the real thing:
 
-- **It updates in place.** Every push to the PR re-scans and edits this same comment (via its
+- It updates in place. Every push to the PR re-scans and edits this same comment (via its
   hidden marker) instead of posting a new one each time.
-- **The message column includes the fix.** Each row is the finding's message _and_ its
+- The message column includes the fix. Each row is the finding's message _and_ its
   recommendation together, so you don't have to open the full report to know what to do.
-- **Rule IDs link to the docs** for that specific rule.
+- Rule IDs link to the docs for that specific rule.
 - A clean PR gets a short comment too — `✅ No issues found.` in place of the findings table.
 - The same content (minus the table) also appears in the job's **step summary**, and the
   underlying findings get **inline annotations** directly on the diff.
@@ -134,7 +134,7 @@ this action. Pick by intent:
   };
   ```
 
-- **A rule or category doesn't apply to part of the app** (the auth-only case) — scope it with
+- A rule or category doesn't apply to part of the app (the auth-only case) — scope it with
   [`overrides`](/guides/configuration#scoping-rules-to-routes-or-files-overrides).
   This is durable policy: routes added under the glob later are excluded too.
 
@@ -242,7 +242,7 @@ The pin `ci upgrade` writes comes from the CLI build itself, not a network looku
   first 7 characters if there was no recognized version comment at all) is reported.
 - Already up to date — every reference already matches the bundled pin **and** already
   carries the canonical `# vX.Y.Z` comment; nothing is written.
-- **No workflow found** / **no action reference found** — exits with an error telling you to run
+- No workflow found / no action reference found — exits with an error telling you to run
   `ci install` first; `ci upgrade` never creates a workflow from scratch.
 
 The `vX.Y.Z` tags on [oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action)

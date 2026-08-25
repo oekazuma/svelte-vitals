@@ -103,6 +103,8 @@ export function formatMarkdownReport(results: Result[], config: Config, meta: { 
 
   const findings = flattenFindings(report);
   if (findings.length === 0) {
+    // Quoted verbatim in the CI guide docs and allowlisted in the repo-root
+    // .textlintrc.json — update both when changing this string.
     lines.push('✅ No issues found.');
   } else {
     lines.push('### Findings');
