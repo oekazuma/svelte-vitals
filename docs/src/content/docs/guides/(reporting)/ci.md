@@ -199,9 +199,9 @@ jobs:
 ```
 
 `ci install` fills in `<sha>`/`<version>` with the pin bundled into the `svelte-vitals` CLI
-you're running — a maintainer resolves the latest
-[oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) release and
-commits it before each `svelte-vitals` release; `ci install` itself never queries GitHub. Running
+you're running — resolved from the latest
+[oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) release as of
+each `svelte-vitals` release; `ci install` itself never queries GitHub. Running
 the installer (with `@latest`, to get the most recently bundled pin) is the easiest way to get a
 working pin. Writing this by hand, use the commit SHA and version from the latest release tag in
 that [repository](https://github.com/oekazuma/svelte-vitals-action/releases).
