@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { architectureRouteComponentImport } from '../src/internal.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import { parseComponentFacts } from '../src/component-parse.js';
+import { emptyComponentFacts } from '../src/component-collect.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
 import type { Result } from '../src/types.js';
@@ -10,8 +11,11 @@ const config = defineConfig({});
 const fails = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 const passes = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'own');
 
-const comp = (file: string, spans: ComponentFacts['importSpans']): ComponentFacts =>
-  ({ file, importSpans: spans, imports: spans.map((s) => s.source), suppressions: [] }) as unknown as ComponentFacts;
+const comp = (file: string, spans: ComponentFacts['importSpans']): ComponentFacts => ({
+  ...emptyComponentFacts(file),
+  importSpans: spans,
+  imports: spans.map((s) => s.source)
+});
 
 const ctx = (components: ComponentFacts[], over: Partial<RuleContext> = {}): RuleContext =>
   ({ heads: [], project: defaultProject, config, components, ...over }) as RuleContext;

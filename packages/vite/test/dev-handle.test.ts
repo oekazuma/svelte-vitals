@@ -1,33 +1,31 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import type { Handle } from '@sveltejs/kit';
+import type { Handle, RequestEvent } from '@sveltejs/kit';
 import { defineConfig, type Result } from '@svelte-vitals/core';
 import { allRules, isPenalized } from '@svelte-vitals/core/internal';
 import { svelteVitalsHandle } from '../src/hooks/index.js';
 
-// A minimal fake RequestEvent carrying only what the handle reads.
+// A minimal fake RequestEvent carrying only what the handle reads (single boundary cast).
 function fakeEvent(routeId: string | null, pathname = '/') {
-  return { route: { id: routeId }, url: new URL(`http://localhost${pathname}`) } as unknown as Parameters<
-    Parameters<Handle>[0]['resolve']
-  >[0];
+  return { route: { id: routeId }, url: new URL(`http://localhost${pathname}`) } as RequestEvent;
 }
 
 // A resolve() that feeds the given HTML chunks through transformPageChunk, awaiting each.
+// What each transform returned is exposed on `seen`; `wasTransformed()` reports whether
+// the handle passed a transformPageChunk at all.
 function resolveWith(chunks: string[]) {
-  return (async (
-    event: unknown,
-    opts?: {
-      transformPageChunk?: (i: { html: string; done: boolean }) => string | undefined | Promise<string | undefined>;
-    }
-  ) => {
+  const seen: (string | undefined)[] = [];
+  let transformed = false;
+  const resolve: Parameters<Handle>[0]['resolve'] = async (_event, opts) => {
     const tpc = opts?.transformPageChunk;
-    const seen: unknown[] = [];
+    transformed = tpc !== undefined;
     if (tpc) {
       for (let i = 0; i < chunks.length; i++) {
         seen.push(await tpc({ html: chunks[i]!, done: i === chunks.length - 1 }));
       }
     }
-    return { seen, transformed: tpc !== undefined } as unknown as Response;
-  }) as Parameters<Handle>[0]['resolve'];
+    return new Response();
+  };
+  return Object.assign(resolve, { seen, wasTransformed: () => transformed });
 }
 
 // The handle analyzes fire-and-forget (it never blocks the response), so the
@@ -137,11 +135,9 @@ describe('svelteVitalsHandle', () => {
   it('returns each chunk unchanged', async () => {
     setup();
     const handle = svelteVitalsHandle();
-    const res = (await handle({
-      event: fakeEvent('/none', '/none'),
-      resolve: resolveWith(['<html><head>', '</head></html>'])
-    })) as unknown as { seen: string[] };
-    expect(res.seen).toEqual(['<html><head>', '</head></html>']);
+    const resolve = resolveWith(['<html><head>', '</head></html>']);
+    await handle({ event: fakeEvent('/none', '/none'), resolve });
+    expect(resolve.seen).toEqual(['<html><head>', '</head></html>']);
   });
 
   it('dedups: the same findings on a repeat visit POST only once', async () => {
@@ -165,11 +161,9 @@ describe('svelteVitalsHandle', () => {
     try {
       const { svelteVitalsHandle: prodHandle } = await import('../src/hooks/index.js');
       const handle = prodHandle();
-      const res = (await handle({
-        event: fakeEvent('/none', '/none'),
-        resolve: resolveWith([PAGE_NO_TITLE])
-      })) as unknown as { transformed: boolean };
-      expect(res.transformed).toBe(false);
+      const resolve = resolveWith([PAGE_NO_TITLE]);
+      await handle({ event: fakeEvent('/none', '/none'), resolve });
+      expect(resolve.wasTransformed()).toBe(false);
       expect(fetchMock).not.toHaveBeenCalled();
     } finally {
       vi.doUnmock('esm-env');

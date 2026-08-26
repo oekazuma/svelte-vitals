@@ -1,23 +1,18 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
-import type { Handle } from '@sveltejs/kit';
+import type { Handle, RequestEvent } from '@sveltejs/kit';
 import { svelteVitalsHandle } from '../src/hooks/index.js';
 
+// A minimal fake RequestEvent carrying only what the handle reads (single boundary cast).
+// `pathname` may also be an absolute URL, overriding the default loopback origin.
 function fakeEvent(routeId: string | null, pathname = '/') {
-  return { route: { id: routeId }, url: new URL(`http://localhost:5173${pathname}`) } as unknown as Parameters<
-    Parameters<Handle>[0]['resolve']
-  >[0];
+  return { route: { id: routeId }, url: new URL(pathname, 'http://localhost:5173') } as RequestEvent;
 }
-function resolveWith(chunks: string[]) {
-  return (async (
-    _event: unknown,
-    opts?: {
-      transformPageChunk?: (i: { html: string; done: boolean }) => string | undefined | Promise<string | undefined>;
-    }
-  ) => {
+function resolveWith(chunks: string[]): Parameters<Handle>[0]['resolve'] {
+  return async (_event, opts) => {
     const tpc = opts?.transformPageChunk;
     if (tpc) for (let i = 0; i < chunks.length; i++) await tpc({ html: chunks[i]!, done: i === chunks.length - 1 });
-    return {} as unknown as Response;
-  }) as Parameters<Handle>[0]['resolve'];
+    return new Response();
+  };
 }
 const flush = () => new Promise((r) => setTimeout(r, 0));
 const PAGE_NO_TITLE = '<html lang="en"><head><meta name="description" content="x"></head><body></body></html>';
@@ -61,10 +56,7 @@ describe('handle ingest (UI feed)', () => {
     const fetchMock = vi.fn(async () => ({ ok: true }) as Response);
     vi.stubGlobal('fetch', fetchMock);
     vi.spyOn(console, 'warn').mockImplementation(() => {});
-    const evilEvent = {
-      route: { id: '/none' },
-      url: new URL('http://evil.example.com/none')
-    } as unknown as Parameters<Parameters<Handle>[0]['resolve']>[0];
+    const evilEvent = fakeEvent('/none', 'http://evil.example.com/none');
     const handle = svelteVitalsHandle();
     await handle({ event: evilEvent, resolve: resolveWith([PAGE_NO_TITLE]) });
     await flush();

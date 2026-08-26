@@ -11,11 +11,11 @@ import { CATEGORY_LABEL } from './console.js';
 
 type Band = 'good' | 'warn' | 'poor';
 
-export const BAND_COLOR: Record<Band, string> = {
+export const BAND_COLOR = {
   good: '#2FA968',
   warn: '#E8A317',
   poor: '#E5484D'
-};
+} satisfies Record<Band, string>;
 
 export function scoreBand(score: number): Band {
   return score >= 90 ? 'good' : score >= 50 ? 'warn' : 'poor';

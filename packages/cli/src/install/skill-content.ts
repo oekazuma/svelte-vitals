@@ -5,14 +5,14 @@ import { allRules, docsUrlFor, type RuleOptionSpec } from '@svelte-vitals/core/i
 // project's docs use elsewhere (SEO, Performance, Correctness, Security, Architecture, Accessibility).
 const CATEGORY_ORDER: Category[] = ['seo', 'performance', 'correctness', 'security', 'architecture', 'a11y'];
 
-const CATEGORY_LABELS: Record<Category, string> = {
+const CATEGORY_LABELS = {
   seo: 'SEO',
   performance: 'Performance',
   correctness: 'Correctness',
   security: 'Security',
   architecture: 'Architecture',
   a11y: 'Accessibility'
-};
+} satisfies Record<Category, string>;
 
 /** Collapse embedded newlines so a rule stays on a single Markdown list line. */
 export function oneLine(text: string): string {

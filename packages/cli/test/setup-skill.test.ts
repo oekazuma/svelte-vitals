@@ -105,7 +105,7 @@ describe('the frontmatter parses', () => {
    * broke this file's frontmatter before it was quoted. `yaml` is not a dependency of this
    * package, so this is the minimum reimplementation that still fails on that shape.
    */
-  function parseTwoLineFrontmatter(source: string): Record<string, string> {
+  function parseTwoLineFrontmatter(source: string) {
     const match = source.match(/^---\n([\s\S]*?)\n---\n/);
     if (!match) throw new Error('no frontmatter block found');
     const parsed: Record<string, string> = {};

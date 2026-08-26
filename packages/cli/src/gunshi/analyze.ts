@@ -243,7 +243,7 @@ If you are an AI agent:
  * only `diff`/`baseline` are needed here, so the two-flag `node:util.parseArgs` call is
  * self-contained instead of pulling in the analyzer's whole flag table.
  */
-export function shadowParseDiffAndBaseline(argv: string[]): { diff: unknown; baseline: unknown } {
+export function shadowParseDiffAndBaseline(argv: string[]) {
   const patched = argv.map((a, i) => (a === '--diff' && (argv[i + 1] ?? '--').startsWith('-') ? '--diff=HEAD' : a));
   const { values } = parseArgs({
     args: patched,

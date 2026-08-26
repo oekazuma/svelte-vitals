@@ -5,10 +5,10 @@ import { mapOption } from '../../rule-options.js';
  * Well-known heavy / non-tree-shakeable packages, mapped to the lighter alternative.
  * Matched by exact specifier — a subpath import (`lodash/debounce`) is the fix, not a hit.
  */
-const HEAVY_PACKAGES: Record<string, string> = {
+const HEAVY_PACKAGES = {
   lodash: 'import a submodule (lodash/debounce) or use lodash-es for tree-shaking',
   moment: 'use a lighter date library (date-fns or dayjs) — moment is large and not tree-shakeable'
-};
+} satisfies Record<string, string>;
 
 export const performanceHeavyImport = componentRule({
   id: 'performance/heavy-import',

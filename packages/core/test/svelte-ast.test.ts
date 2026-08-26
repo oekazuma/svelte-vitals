@@ -40,7 +40,8 @@ describe('valueFromNodes', () => {
     expect(valueFromNodes([text('   ')])).toBe('absent');
   });
   it('is absent for a non-array', () => {
-    expect(valueFromNodes(undefined as unknown as never[])).toBe('absent');
+    const nodes: AST.Text[] | undefined = undefined;
+    expect(valueFromNodes(nodes!)).toBe('absent');
   });
 });
 
@@ -65,7 +66,8 @@ describe('findAttr', () => {
     expect(findAttr([attr('href', true)], 'src')).toBeUndefined();
   });
   it('returns undefined for a non-array', () => {
-    expect(findAttr(undefined as unknown as never[], 'href')).toBeUndefined();
+    const attrs: AST.Attribute[] | undefined = undefined;
+    expect(findAttr(attrs!, 'href')).toBeUndefined();
   });
 });
 

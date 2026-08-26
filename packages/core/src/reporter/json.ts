@@ -67,11 +67,7 @@ export interface JsonReport {
   >;
 }
 
-function ruleEvidence(
-  results: Result[],
-  config: Config,
-  ruleIds: readonly string[] | undefined
-): Record<string, RuleEvidence> {
+function ruleEvidence(results: Result[], config: Config, ruleIds: readonly string[] | undefined) {
   const out: Record<string, RuleEvidence> = {};
   // Seeding from the ran-rule list is what separates "ran and found nothing" from "never selected";
   // seeding from results alone would leave both empty.

@@ -60,16 +60,16 @@ export function resolveMetaObject(
 }
 
 /** openGraph keys → tags. Shared by svelte-meta-tags and svelte-seo (both mirror OG names). */
-export const OPEN_GRAPH_KEYS: Record<string, (value: Value) => ParsedTag> = {
+export const OPEN_GRAPH_KEYS = {
   title: (value) => ({ kind: 'meta', property: 'og:title', value }),
   description: (value) => ({ kind: 'meta', property: 'og:description', value }),
   url: (value) => ({ kind: 'meta', property: 'og:url', value }),
   images: (value) => ({ kind: 'meta', property: 'og:image', value }),
   type: (value) => ({ kind: 'meta', property: 'og:type', value })
-};
+} satisfies Record<string, (value: Value) => ParsedTag>;
 
 /** twitter keys → twitter:card. svelte-meta-tags uses `cardType`; svelte-seo uses `card`. */
-export const TWITTER_KEYS: Record<string, (value: Value) => ParsedTag> = {
+export const TWITTER_KEYS = {
   cardType: (value) => ({ kind: 'meta', name: 'twitter:card', value }),
   card: (value) => ({ kind: 'meta', name: 'twitter:card', value })
-};
+} satisfies Record<string, (value: Value) => ParsedTag>;

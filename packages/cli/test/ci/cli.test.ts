@@ -4,12 +4,7 @@ import { WORKFLOW_PATH, buildWorkflowYaml, CHECKOUT_SHA, CHECKOUT_VERSION } from
 import { ACTION_SHA, ACTION_VERSION } from '../../src/ci/action-pin.generated.js';
 import type { InstallIO } from '../../src/install/index.js';
 
-function fakeIO(over: { files?: Record<string, string>; failWritePath?: string } = {}): {
-  io: InstallIO;
-  writes: Record<string, string>;
-  out: string[];
-  err: string[];
-} {
+function fakeIO(over: { files?: Record<string, string>; failWritePath?: string } = {}) {
   const files = over.files ?? {};
   const writes: Record<string, string> = {};
   const out: string[] = [];

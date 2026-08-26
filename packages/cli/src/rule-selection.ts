@@ -30,8 +30,9 @@ interface RuleSelectionInput {
  * Ids are taken as given. **An id in `allowRules` that no registered rule matches turns every rule
  * off**, so callers owe `findUnknownRuleIds` first; the CLI does this fatally in `resolve-args`.
  */
-export function resolveRuleSelection(input: RuleSelectionInput): Record<string, RuleSetting> {
-  const out: Record<string, RuleSetting> = { ...(input.rules ?? input.fileRules) };
+export function resolveRuleSelection(input: RuleSelectionInput) {
+  const out: Record<string, RuleSetting> = {};
+  Object.assign(out, input.rules ?? input.fileRules);
 
   const allow = input.allowRules ?? [];
   if (allow.length > 0) {

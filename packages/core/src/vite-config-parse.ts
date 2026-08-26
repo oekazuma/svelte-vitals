@@ -8,7 +8,7 @@
  * `defineConfig({…})` / a same-file alias, including a same-file identifier
  * passed as `defineConfig`'s argument) and CJS (`module.exports = {…}`) forms.
  */
-import type { Expression, Program } from 'estree';
+import type { Expression, Program, Property } from 'estree';
 import { parseModuleProgram, unwrapTs } from './component-parse.js';
 import { propOf, resolveConfigObject } from './config-object.js';
 import { lineOf } from './svelte-ast.js';
@@ -36,5 +36,5 @@ export function findMinifyDisabled(source: string): { line: number } | undefined
   const minifyValue = minify ? unwrapTs(minify.value as Expression) : undefined;
   if (!minify || minifyValue?.type !== 'Literal' || minifyValue.value !== false) return undefined;
   // acorn attaches start/end offsets that @types/estree's BaseNode doesn't declare.
-  return { line: Math.max(0, lineOf(wrapped, (minify as unknown as { start: number }).start) - 1) };
+  return { line: Math.max(0, lineOf(wrapped, (minify as Property & { start: number }).start) - 1) };
 }

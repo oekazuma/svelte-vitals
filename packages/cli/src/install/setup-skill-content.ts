@@ -50,7 +50,7 @@ const MARKUPLINT_NAME_MATCH_CANDIDATES = [
   'no-orphaned-end-tag'
 ];
 
-function markuplintNameMatchSplit(): { fencedList: string; unconvertibleExamples: string } {
+function markuplintNameMatchSplit() {
   const ids = new Set(allRules.map((rule) => rule.id));
   const mapped = MARKUPLINT_NAME_MATCH_CANDIDATES.filter((name) => ids.has(`a11y/${name}`));
   const unmapped = MARKUPLINT_NAME_MATCH_CANDIDATES.filter((name) => !ids.has(`a11y/${name}`));

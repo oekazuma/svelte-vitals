@@ -3,9 +3,14 @@ import { requiredAriaProps, resolveRole } from './aria-data.js';
 import type { AriaElementFact } from '../../component.js';
 import { splitTokens } from '../../a11y.js';
 
+interface HostSuppliedTable {
+  /** Keyed by `aria-*` prop name — looked up with arbitrary strings from aria-query, so the contract is open. */
+  [prop: string]: (e: AriaElementFact) => boolean;
+}
+
 /** ARIA-in-HTML host elements that supply a required prop's semantics natively, so the
  *  explicit `aria-*` attribute is redundant. Spec-fixed, not derived from aria-query. */
-const HOST_SUPPLIED: Record<string, (e: AriaElementFact) => boolean> = {
+const HOST_SUPPLIED: HostSuppliedTable = {
   'aria-checked': (e) => e.tag === 'input' && (e.inputType === 'checkbox' || e.inputType === 'radio'),
   'aria-selected': (e) => e.tag === 'option',
   'aria-level': (e) => /^h[1-6]$/.test(e.tag),

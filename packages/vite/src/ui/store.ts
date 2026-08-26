@@ -66,7 +66,7 @@ export function composeSnapshot(staticResults: Result[], liveByRoute: Map<string
 }
 
 /** Per-route provenance for the merged view: 'measured' where a live layer exists, else 'static'. */
-export function composeBadges(staticResults: Result[], liveByRoute: Map<string, Result[]>): Record<string, RouteBadge> {
+export function composeBadges(staticResults: Result[], liveByRoute: Map<string, Result[]>) {
   const badges: Record<string, RouteBadge> = {};
   for (const r of staticResults) {
     if (r.route) badges[r.route] = 'static';

@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { architectureDocLinkTarget } from '../src/internal.js';
+import { emptyComponentFacts } from '../src/component-collect.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
@@ -9,8 +10,10 @@ const ROOT = 'https://x.test/c/pkg/ui/';
 const fails = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'none' || r.detection.value === 'absent');
 const passes = (rs: Result[]) => rs.filter((r) => r.detection.presence === 'own');
 
-const comp = (links: ComponentFacts['commentLinks']): ComponentFacts =>
-  ({ file: 'src/lib/A/A.svelte', commentLinks: links, suppressions: [] }) as unknown as ComponentFacts;
+const comp = (links: ComponentFacts['commentLinks']): ComponentFacts => ({
+  ...emptyComponentFacts('src/lib/A/A.svelte'),
+  commentLinks: links
+});
 
 const ctx = (links: ComponentFacts['commentLinks'], sourceFiles: string[], roots: string[]): RuleContext =>
   ({

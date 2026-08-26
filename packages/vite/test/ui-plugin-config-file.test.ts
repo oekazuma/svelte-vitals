@@ -30,12 +30,15 @@ function fakeRes() {
       r.statusCode = c;
       Object.assign(headers, h ?? {});
     },
-    write: (c: string) => chunks.push(c),
+    write: (c: string) => {
+      chunks.push(c);
+    },
     end: (c?: string) => {
       if (c) chunks.push(c);
     }
   };
-  return { res: r as unknown as ServerResponse, headers, body: () => chunks.join('') };
+  // Single boundary cast: `r` carries only the ServerResponse members the middleware touches.
+  return { res: r as ServerResponse, headers, body: () => chunks.join('') };
 }
 
 function req(method: string, url: string): IncomingMessage {
@@ -44,7 +47,7 @@ function req(method: string, url: string): IncomingMessage {
     url,
     headers: { host: 'localhost:5173' },
     resume: () => {}
-  }) as unknown as IncomingMessage;
+  }) as IncomingMessage;
 }
 
 /** A minimal, already-scored seo-category finding — enough for computeHealth to report a weight for 'seo'. */
@@ -68,9 +71,9 @@ async function startUiServer(cwd: string, extraOptions: Record<string, unknown> 
   let handler: MiddlewareHandler = () => {};
   const server = {
     config: { root: cwd },
-    watcher: { on: () => {} },
+    watcher: { on: (_event: string, _cb: (...args: unknown[]) => void) => {} },
     middlewares: { use: (_path: string, fn: MiddlewareHandler) => (handler = fn) }
-  } as unknown as ViteDevServer;
+  } as ViteDevServer;
   const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
   await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
   const call = (r: IncomingMessage, res: ServerResponse) => handler(r, res, () => {});

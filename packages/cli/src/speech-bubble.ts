@@ -52,11 +52,11 @@ export const GREETING_MESSAGES: readonly string[] = [
   "Hi there! Let's dig in."
 ];
 
-export const REACTION_MESSAGES: Record<MascotState, readonly string[]> = {
+export const REACTION_MESSAGES = {
   ecstatic: ['Perfect score!', 'Flawless!', 'You nailed it!'],
   happy: ['Nice work!', 'Looking great!', 'Almost perfect!'],
   content: ['Keep going!', 'Room to grow!', "Let's improve this!"]
-};
+} satisfies Record<MascotState, readonly string[]>;
 
 /**
  * Picks one message uniformly at random from `pool`. `random` defaults to

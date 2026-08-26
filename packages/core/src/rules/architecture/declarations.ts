@@ -97,7 +97,7 @@ export interface CompiledKey {
 }
 
 /** Segment count and whole-`**`-segment count, computed once at compile time. */
-function keyShape(key: string): { segments: number; doubleStars: number } {
+function keyShape(key: string) {
   const parts = key.split('/');
   let doubleStars = 0;
   for (const p of parts) if (p === '**') doubleStars++;

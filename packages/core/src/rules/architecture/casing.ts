@@ -11,7 +11,12 @@
  */
 import { splitNames } from './declarations.js';
 
-export const CASINGS: Record<string, RegExp> = {
+/** Keyed by casing name — looked up with arbitrary user-config strings, so the contract is open. */
+export interface CasingTable {
+  [name: string]: RegExp;
+}
+
+export const CASINGS: CasingTable = {
   camelCase: /^[a-z][a-zA-Z0-9]*$/,
   PascalCase: /^[A-Z][a-zA-Z0-9]*$/,
   'kebab-case': /^[a-z0-9]+(-[a-z0-9]+)*$/,
@@ -26,7 +31,7 @@ export const CASINGS: Record<string, RegExp> = {
  * naming NO known casing is dropped from matching entirely by the caller, so a dead declaration
  * cannot shadow a live one; a value naming some is operative under those.
  */
-export function parseCasings(value: string): { known: string[]; unknown: string[] } {
+export function parseCasings(value: string) {
   const known: string[] = [];
   const unknown: string[] = [];
   for (const name of splitNames(value)) {

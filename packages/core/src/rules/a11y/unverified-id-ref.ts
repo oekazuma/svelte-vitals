@@ -8,12 +8,12 @@ const recommendation =
   'The reference could not be verified against the composed route. Confirm the id exists in the rendered page, or resolve the causes so a11y/no-missing-id-ref can verify it.';
 const result = resultFactory('a11y/unverified-id-ref', recommendation, 'info');
 
-const CAUSE_LABEL: Record<A11ySkipCause['kind'], string> = {
+const CAUSE_LABEL = {
   component: 'unresolved component',
   spread: 'spread',
   html: '{@html}',
   'dynamic-id': 'dynamic id'
-};
+} satisfies Record<A11ySkipCause['kind'], string>;
 
 function causeList(causes: readonly A11ySkipCause[]): string {
   const shown = causes.slice(0, 3).map((c) => {

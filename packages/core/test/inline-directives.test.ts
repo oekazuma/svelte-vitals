@@ -19,10 +19,27 @@ const bad = (over: Partial<Result>): Result => ({
 
 const index = (m: Record<string, { line: number; ruleIds?: string[] }[]>): DirectiveIndex => new Map(Object.entries(m));
 
-const rules = [
-  { id: 'a11y/id-duplication', title: 'Duplicate ids', passLabel: 'label for a11y/id-duplication' },
-  { id: 'seo/single-h1', title: 'Single h1' }
-] as unknown as Rule[];
+const rules: Rule[] = [
+  {
+    id: 'a11y/id-duplication',
+    title: 'Duplicate ids',
+    passLabel: 'label for a11y/id-duplication',
+    category: 'a11y',
+    severity: 'warning',
+    scope: 'route',
+    rationale: '',
+    check: async () => []
+  },
+  {
+    id: 'seo/single-h1',
+    title: 'Single h1',
+    category: 'seo',
+    severity: 'warning',
+    scope: 'route',
+    rationale: '',
+    check: async () => []
+  }
+];
 const run = (results: Result[], idx: DirectiveIndex) => applyInlineDirectives(results, idx, rules, defaultConfig);
 
 describe('applyInlineDirectives', () => {

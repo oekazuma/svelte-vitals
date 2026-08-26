@@ -10,7 +10,7 @@ import {
 } from '../src/internal.js';
 import type { Rule, RuleContext } from '../src/rule.js';
 
-const ctx = { heads: [], project: {}, config: { rules: {} } } as unknown as RuleContext;
+const ctx: RuleContext = { heads: [], project: defaultProject, config: defineConfig() };
 
 function ruleThatCounts(id: string, counts: Record<string, number>): Rule {
   return {
@@ -24,7 +24,7 @@ function ruleThatCounts(id: string, counts: Record<string, number>): Rule {
       c.recordExamined?.(counts);
       return [];
     }
-  } as unknown as Rule;
+  };
 }
 
 function ruleThatDoesNot(id: string): Rule {
@@ -38,7 +38,7 @@ function ruleThatDoesNot(id: string): Rule {
     async check() {
       return [];
     }
-  } as unknown as Rule;
+  };
 }
 
 function ruleThatFindsOne(id: string): Rule {
@@ -60,7 +60,7 @@ function ruleThatFindsOne(id: string): Rule {
         }
       ];
     }
-  } as unknown as Rule;
+  };
 }
 
 /** `sync` throws before ever returning a promise; the default (async) rejects the promise `check` returns. */
@@ -80,7 +80,7 @@ function ruleThatThrows(id: string, message: string, mode: 'sync' | 'async' = 'a
         : async () => {
             throw new Error(message);
           }
-  } as unknown as Rule;
+  };
 }
 
 describe('runRules examined counts', () => {

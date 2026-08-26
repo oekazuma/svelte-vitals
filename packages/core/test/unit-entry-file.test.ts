@@ -639,7 +639,7 @@ describe('architecture/unit-entry-file — examined counts', () => {
       project: defaultProject,
       config,
       recordExamined: (c: Record<string, number>) => void seen.push(c)
-    } as unknown as RuleContext);
+    });
     expect(seen).toEqual([]);
   });
 
@@ -652,7 +652,7 @@ describe('architecture/unit-entry-file — examined counts', () => {
       project: defaultProject,
       config,
       recordExamined: (c: Record<string, number>) => void seen.push(c)
-    } as unknown as RuleContext);
+    });
     expect(seen).toEqual([]);
   });
 });

@@ -13,13 +13,13 @@ import { INSTALL_ARGS } from '../src/gunshi/install.js';
 import { CI_ARGS } from '../src/gunshi/ci.js';
 import { JA_ARG_DESCRIPTIONS } from '../src/gunshi/locales/ja.js';
 
-const LIVE_SURFACES: Record<keyof typeof JA_ARG_DESCRIPTIONS, Record<string, { type: string; hidden?: boolean }>> = {
+const LIVE_SURFACES = {
   root: ROOT_ARGS,
   docs: DOCS_ROOT_ARGS,
   explain: EXPLAIN_ARGS,
   install: INSTALL_ARGS,
   ci: CI_ARGS
-};
+} satisfies Record<keyof typeof JA_ARG_DESCRIPTIONS, Record<string, { type: string; hidden?: boolean }>>;
 
 /** Hidden args never reach `--help`'s OPTIONS block (gunshi's own renderer skips them, same as
  * `--help`/the completion tree/the cli-reference table) — nothing to translate for one. */

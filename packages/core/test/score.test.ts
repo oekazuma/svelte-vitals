@@ -297,8 +297,15 @@ describe('computeScore — a displayed 100 means zero deduction', () => {
   });
 });
 
-const r = (id: string, category: Rule['category'], scope: Rule['scope'], severity: Rule['severity']) =>
-  ({ id, category, scope, severity, title: id, rationale: '', check: async () => [] }) as unknown as Rule;
+const r = (id: string, category: Rule['category'], scope: Rule['scope'], severity: Rule['severity']): Rule => ({
+  id,
+  category,
+  scope,
+  severity,
+  title: id,
+  rationale: '',
+  check: async () => []
+});
 
 // Nine weight in one pair — the shape that makes the arithmetic below checkable by hand.
 const PERF = [

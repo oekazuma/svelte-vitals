@@ -10,7 +10,11 @@ import { resolveRole } from './aria-data.js';
  * axe give it `role=group` with no prohibition. Replacing the whole fact closes every arm at once.
  * `<address>` is already `group` in the dataset and only its naming flag is wrong.
  */
-const ELEMENT_FACT_OVERRIDES: Record<string, { implicitRole?: string; namingProhibited?: true }> = {
+interface ElementFactOverrideTable {
+  /** Keyed by tag name — looked up with the element's arbitrary tag string, so the contract is open. */
+  [tag: string]: { implicitRole?: string; namingProhibited?: true };
+}
+const ELEMENT_FACT_OVERRIDES: ElementFactOverrideTable = {
   hgroup: { implicitRole: 'group' },
   address: { implicitRole: 'group' }
 };

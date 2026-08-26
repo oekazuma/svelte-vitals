@@ -1,5 +1,8 @@
 import { describe, it, expect, afterEach, vi } from 'vitest';
+import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Plugin, ViteDevServer } from 'vite';
+
+type MiddlewareHandler = (req: IncomingMessage, res: ServerResponse, next: () => void) => void;
 
 // Stub out the whole-project analysis runner so the watcher-callback test below can
 // assert on `notifyChange` calls directly, without a real analysis run in the loop.
@@ -48,9 +51,13 @@ describe('svelteVitals({ ui })', () => {
     const used: string[] = [];
     const server = {
       config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
-      watcher: { on: () => {} },
-      middlewares: { use: (path: string) => used.push(path) }
-    } as unknown as ViteDevServer;
+      watcher: { on: (_event: string, _cb: (...args: unknown[]) => void) => {} },
+      middlewares: {
+        use: (path: string, _fn: MiddlewareHandler) => {
+          used.push(path);
+        }
+      }
+    } as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
     await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
     expect(process.env.SVELTE_VITALS_UI).toBe('1');
@@ -63,9 +70,13 @@ describe('svelteVitals({ ui })', () => {
     const watcherEvents: string[] = [];
     const server = {
       config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
-      watcher: { on: (event: string) => watcherEvents.push(event) },
-      middlewares: { use: () => {} }
-    } as unknown as ViteDevServer;
+      watcher: {
+        on: (event: string, _cb: (...args: unknown[]) => void) => {
+          watcherEvents.push(event);
+        }
+      },
+      middlewares: { use: (_path: string, _fn: MiddlewareHandler) => {} }
+    } as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
     await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
     expect(watcherEvents).toContain('all');
@@ -83,8 +94,8 @@ describe('svelteVitals({ ui })', () => {
           watcherCallback = cb;
         }
       },
-      middlewares: { use: () => {} }
-    } as unknown as ViteDevServer;
+      middlewares: { use: (_path: string, _fn: MiddlewareHandler) => {} }
+    } as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
     await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
     expect(watcherCallback).toBeDefined();
@@ -107,11 +118,11 @@ describe('svelteVitals({ ui })', () => {
     const originalPrintUrls = vi.fn();
     const server = {
       config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
-      watcher: { on: () => {} },
-      middlewares: { use: () => {} },
-      printUrls: originalPrintUrls,
-      resolvedUrls: { local: ['http://localhost:5173/'], network: [] }
-    } as unknown as ViteDevServer;
+      watcher: { on: (_event: string, _cb: (...args: unknown[]) => void) => {} },
+      middlewares: { use: (_path: string, _fn: MiddlewareHandler) => {} },
+      printUrls: originalPrintUrls as ViteDevServer['printUrls'],
+      resolvedUrls: { local: ['http://localhost:5173/'], network: [] as string[] }
+    } as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
     await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
 
@@ -131,14 +142,14 @@ describe('svelteVitals({ ui })', () => {
     const originalPrintUrls = vi.fn();
     const server = {
       config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
-      watcher: { on: () => {} },
-      middlewares: { use: () => {} },
-      printUrls: originalPrintUrls,
+      watcher: { on: (_event: string, _cb: (...args: unknown[]) => void) => {} },
+      middlewares: { use: (_path: string, _fn: MiddlewareHandler) => {} },
+      printUrls: originalPrintUrls as ViteDevServer['printUrls'],
       // A non-root `base` in vite.config makes Vite print a URL with a path
       // segment (e.g. /my-app/), but installUiMiddleware always mounts at
       // the server root — the announced URL must not inherit that path.
-      resolvedUrls: { local: ['http://localhost:5173/my-app/'], network: [] }
-    } as unknown as ViteDevServer;
+      resolvedUrls: { local: ['http://localhost:5173/my-app/'], network: [] as string[] }
+    } as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
     await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
 
@@ -158,11 +169,11 @@ describe('svelteVitals({ ui })', () => {
     const originalPrintUrls = vi.fn();
     const server = {
       config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
-      watcher: { on: () => {} },
-      middlewares: { use: () => {} },
-      printUrls: originalPrintUrls,
+      watcher: { on: (_event: string, _cb: (...args: unknown[]) => void) => {} },
+      middlewares: { use: (_path: string, _fn: MiddlewareHandler) => {} },
+      printUrls: originalPrintUrls as ViteDevServer['printUrls'],
       resolvedUrls: null
-    } as unknown as ViteDevServer;
+    } as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
     await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);
 
@@ -175,8 +186,8 @@ describe('svelteVitals({ ui })', () => {
     const ui = plugins.find((p) => p.name === 'svelte-vitals:ui')!;
     const server = {
       config: { root: '/tmp/does-not-exist-svelte-vitals-ui-plugin-test' },
-      middlewares: { use: () => {} }
-    } as unknown as ViteDevServer;
+      middlewares: { use: (_path: string, _fn: MiddlewareHandler) => {} }
+    } as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
     // Rejecting here would fail the test the same way `.not.toThrow()` would for sync code.
     await (hook as (s: ViteDevServer) => void | Promise<void>).call({}, server);

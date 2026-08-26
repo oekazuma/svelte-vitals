@@ -11,13 +11,13 @@ interface ReadCwd {
 // Order matters: checked in this priority when multiple lockfiles coexist.
 // Bun has shipped two lockfile formats — the newer text-based `bun.lock` (default
 // since Bun 1.2) and the older binary `bun.lockb` — so both are checked.
-const LOCKFILE_TO_PM: Record<string, PackageManager> = {
+const LOCKFILE_TO_PM = {
   'pnpm-lock.yaml': 'pnpm',
   'yarn.lock': 'yarn',
   'bun.lock': 'bun',
   'bun.lockb': 'bun',
   'package-lock.json': 'npm'
-};
+} satisfies Record<string, PackageManager>;
 
 /**
  * The package manager whose lockfile exists in `io.cwd`, or undefined when none does.
@@ -45,7 +45,7 @@ export function hasVitePackage(io: ReadCwd): boolean {
 }
 
 /** Build the install-as-devDependency command for a package manager. npm uses `install`, not `add`. */
-export function installCommand(pm: PackageManager): { command: string; args: string[] } {
+export function installCommand(pm: PackageManager) {
   const action = pm === 'npm' ? 'install' : 'add';
   return { command: pm, args: [action, '-D', '@svelte-vitals/vite'] };
 }

@@ -23,7 +23,7 @@ const SHELLS = ['bash', 'zsh', 'fish', 'powershell'] as const;
  * already replaced), so this clears prior calls first — otherwise a second `spyLog()`/`candidates()`
  * in the same `it` would see earlier queries' output too.
  */
-function spyLog(): { calls: () => string; restore: () => void } {
+function spyLog() {
   const spy = vi.spyOn(console, 'log').mockImplementation(() => {});
   spy.mockClear();
   return {
@@ -236,7 +236,7 @@ describe('spawn the built dist (skipped if `pnpm build` has not run)', () => {
   const cliBin = join(import.meta.dirname, '..', 'dist', 'bin.js');
   const has = existsSync(cliBin);
 
-  function run(args: string[]): { code: number; stdout: string; stderr: string } {
+  function run(args: string[]) {
     try {
       const stdout = execFileSync(process.execPath, [cliBin, ...args], {
         encoding: 'utf8',

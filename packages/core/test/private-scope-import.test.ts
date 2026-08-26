@@ -203,11 +203,12 @@ describe('architecture/private-scope-import', () => {
   });
 
   it('falls back to line 0 when importSpans is absent', async () => {
-    const c = comp({
+    // Facts from before importSpans existed carry no such field; strip it to reach the fallback.
+    const { importSpans: _absent, ...older } = comp({
       file: 'src/lib/Other/Other.svelte',
-      imports: ['../Card/parts/Badge.svelte'],
-      importSpans: undefined as unknown as ComponentFacts['importSpans']
+      imports: ['../Card/parts/Badge.svelte']
     });
+    const c = older as ComponentFacts;
     const rs = await architecturePrivateScopeImport.check(scoped([c], SCOPES));
     expect(fails(rs)).toHaveLength(1);
     expect(rs[0]!.line).toBeUndefined();

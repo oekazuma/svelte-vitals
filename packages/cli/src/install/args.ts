@@ -15,7 +15,7 @@ const INSTALL_BOOLEAN_FLAGS = ['yes', 'dry-run', 'force', 'refresh', 'help'] as 
  * a full re-parse, not just a synthesized error, is what install's fallback needs).
  */
 export function parseInstallArgs(args: string[]): CliArgv {
-  const options: Record<string, { type: 'boolean' | 'string'; short?: string }> = {
+  const options = {
     // `scope` is still declared although the flag is gone: it keeps `--scope global` from
     // parsing its value as a positional, so resolveInstallArgs can warn and carry on.
     client: { type: 'string' },
@@ -26,7 +26,7 @@ export function parseInstallArgs(args: string[]): CliArgv {
     force: { type: 'boolean' },
     refresh: { type: 'boolean' },
     help: { type: 'boolean', short: 'h' }
-  };
+  } satisfies Record<string, { type: 'boolean' | 'string'; short?: string }>;
   const { values, positionals } = parseArgs({ args, options, strict: false, allowPositionals: true });
   for (const name of INSTALL_BOOLEAN_FLAGS) {
     const v = values[name];

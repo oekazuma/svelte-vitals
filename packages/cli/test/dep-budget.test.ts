@@ -10,20 +10,15 @@ import { fileURLToPath } from 'node:url';
  * is the parser, so it is the floor. Lowering a ceiling is welcome; RAISING one is a design
  * decision that needs a recorded reason in the PR, not a number edit.
  */
-const BUDGET: Record<string, number> = {
-  '@svelte-vitals/core': 21,
-  'svelte-vitals': 43,
+const BUDGET = {
+  '@svelte-vitals/core': { dir: 'packages/core', max: 21 },
+  'svelte-vitals': { dir: 'packages/cli', max: 43 },
   // svelte-vitals + @svelte-vitals/core are peerDependencies (one shared copy with the
   // user-installed CLI, issue #583), so their subtrees no longer count here.
-  '@svelte-vitals/vite': 15
+  '@svelte-vitals/vite': { dir: 'packages/vite', max: 15 }
 };
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
-const pkgDir: Record<string, string> = {
-  '@svelte-vitals/core': 'packages/core',
-  'svelte-vitals': 'packages/cli',
-  '@svelte-vitals/vite': 'packages/vite'
-};
 
 function readPkg(dir: string): {
   name: string;
@@ -67,9 +62,9 @@ function closure(dir: string): Set<string> {
 }
 
 describe('production dependency budget', () => {
-  for (const [name, max] of Object.entries(BUDGET)) {
+  for (const [name, { dir, max }] of Object.entries(BUDGET)) {
     it(`${name} pulls in at most ${max} packages`, () => {
-      const deps = closure(join(root, pkgDir[name]!));
+      const deps = closure(join(root, dir));
       expect(deps.size, `${name} closure:\n${[...deps].sort().join('\n')}`).toBeLessThanOrEqual(max);
     });
   }
