@@ -155,7 +155,7 @@ jobs:
           baseline: origin/${{ github.base_ref }}
 ```
 
-`ci install` は `<sha>`/`<version>` に、実行している `svelte-vitals` CLI に同梱されたピンを埋め込みます — `svelte-vitals` の各リリース時点の [oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) 最新リリースから解決されたものです。`ci install` 自体が GitHub に問い合わせることはありません。動作するピンを得る一番簡単な方法は(最新の同梱ピンを得るために `@latest` を付けて)インストーラーを実行することです。手書きする場合は、その[リポジトリ](https://github.com/oekazuma/svelte-vitals-action/releases)にある最新リリースタグのコミット SHA とバージョンを使ってください。
+`ci install` は `<sha>`/`<version>` に、実行している `svelte-vitals` CLI に同梱されたピンを埋め込みます。これは `svelte-vitals` の各リリース時点の [oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) 最新リリースから解決されたものです。`ci install` 自体が GitHub に問い合わせることはありません。動作するピンを得る一番簡単な方法は(最新の同梱ピンを得るために `@latest` を付けて)インストーラーを実行することです。手書きする場合は、その[リポジトリ](https://github.com/oekazuma/svelte-vitals-action/releases)にある最新リリースタグのコミット SHA とバージョンを使ってください。
 
 Action を経由せず svelte-vitals を直接実行したい場合の `--diff` や `--baseline` などの対応フラグについては[CLI リファレンス](/ja/guides/cli)を、Action のサマリーとコメントが基づいている出力フォーマットについては[レポーターガイド](/ja/guides/reporters)を参照してください。
 

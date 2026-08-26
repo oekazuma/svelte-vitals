@@ -18,9 +18,9 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
 
 最初に見つかったファイルを使います。どれも存在しなければ、この機能がなかった頃と同じく、svelte-vitals は組み込みのデフォルト設定で動きます。
 
-`install --client config-file` が `.ts` を選ぶのは次の2条件がそろったときです。プロジェクトが TypeScript 志向であること（ルートに `tsconfig.json` または `vite.config.ts`）、**かつ** `svelte-vitals` が依存関係として宣言されていること — `defineConfig` の import は読み込み時に解決されるため、npx だけで使うプロジェクトには適用できません。
+`install --client config-file` が `.ts` を選ぶのは次の2条件がそろったときです。プロジェクトが TypeScript 志向であること（ルートに `tsconfig.json` または `vite.config.ts`）、**かつ** `svelte-vitals` が依存関係として宣言されていること。`defineConfig` の import は読み込み時に解決されるため、npx だけで使うプロジェクトには適用できません。
 
-それ以外は `.js` を書き出します。どちらのファイルも ESM です — プロジェクトは `"type": "module"`（SvelteKit のデフォルト）である必要があり、CommonJS プロジェクトはサポートされません。`--force` は既存ファイルの拡張子を維持し、形式を勝手に切り替えません。
+それ以外は `.js` を書き出します。どちらのファイルも ESM なので、プロジェクトは `"type": "module"`（SvelteKit のデフォルト）である必要があり、CommonJS プロジェクトはサポートされません。`--force` は既存ファイルの拡張子を維持し、形式を勝手に切り替えません。
 
 特定の設定ファイルを指定して分析したい場合は `--config <path>` を使います。指定すると探索は行われず、その設定ファイルだけが使われます（マージはされません）。相対パスの基準は、解析対象ディレクトリではなくコマンドを実行したディレクトリです。たとえばリポジトリのルートで `svelte-vitals apps/web --config shared/sv.config.js` を実行すると、読み込まれるのは `./shared/sv.config.js` です。受け付ける拡張子は `.js` と `.ts` のみで、ファイルが存在しない・読み込めない場合は exit `2` で終了します。設定をコミットする前に試したいとき、モノレポ内の複数アプリで一つの設定を共有したいときに使えます。
 
@@ -76,13 +76,13 @@ svelte-vitals は次のファイルを、この優先順で**分析対象ディ�
 | オプション       | 型                                                                                      | デフォルト     | 説明                                                                                                                                             |
 | ---------------- | --------------------------------------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                                            | `'pass'`       | メタデータの値が動的に設定されているルートをどう採点するか                                                                                       |
-| `metaComponents` | `string[]`                                                                              | `[]`           | 解析が追跡できない `<head>` メタデータ出力コンポーネント名（npm パッケージ由来など）— 解決できるリポジトリ内のコンポーネントは自動的に追跡される |
+| `metaComponents` | `string[]`                                                                              | `[]`           | 解析が追跡できない `<head>` メタデータ出力コンポーネント名（npm パッケージ由来など）。解決できるリポジトリ内のコンポーネントは自動的に追跡される |
 | `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info' \| { severity?, options? }>` | `{}`           | ルールごとの上書き（ルールを無効化する、重大度を変更する、[オプション](#ルールオプション)を設定する）                                            |
 | `failOn`         | `'critical' \| 'warning' \| 'info'`                                                     | `'critical'`   | 実行を失敗させる（終了コード `1`）最低重大度                                                                                                     |
 | `weights`        | `Partial<Record<Category, number>>`                                                     | 各カテゴリ `1` | 組み合わせた [Health スコア](/ja/guides/health-report) のカテゴリごとの重み                                                                      |
 | `overrides`      | `RuleOverride[]`                                                                        | （なし）       | ルート/ファイル単位のルール上書き（[下記](#ルールをルートやファイルにスコープする-overrides)を参照）                                             |
 
-`Category` は `'seo' | 'performance' | 'correctness' | 'security' | 'architecture'` です。
+`Category` は `'seo' | 'performance' | 'correctness' | 'security' | 'architecture' | 'a11y'` です。
 
 重み `0` は正当な値で、そのカテゴリを Health の平均から完全に除外します（カテゴリ自体のスコアは引き続き出力され、検出結果や終了コードの挙動にも影響しません）。ただし、結果に存在する**すべて**のカテゴリを `0` にすると平均の取りようがなくなるため、実行はエラー（終了コード `2`）になります。
 
@@ -111,7 +111,7 @@ glob の構文はあえて最小限に絞ってあります：`*` はパスセ�
 押さえておきたい挙動：
 
 - `'off'` はマッチした検出結果を完全に取り除きます。実行を失敗させず、スコアも下げません。そのルールがそこでは実行されなかったのと同じ扱いです。一方、重大度の値を指定した場合は、取り除くのではなくその重大度に再分類します。
-- エントリは順に評価され、**後のエントリが勝ちます**。1つのエントリ内では、ルール ID のキーが**重大度を指定している場合に限り**カテゴリのキーに勝ちます。オプションだけを持つ（`severity` を指定しない）ルール ID のキーはオプションだけを反映し、カテゴリのキーの重大度はそのまま有効であり続けます — 上書きしません。マッチした箇所ではオーバーライドが常にグローバルの `rules` 設定に勝ちます。
+- エントリは順に評価され、**後のエントリが勝ちます**。1つのエントリ内では、ルール ID のキーが**重大度を指定している場合に限り**カテゴリのキーに勝ちます。オプションだけを持つ（`severity` を指定しない）ルール ID のキーはオプションだけを反映し、カテゴリのキーの重大度はそのまま有効であり続け、上書きはしません。マッチした箇所ではオーバーライドが常にグローバルの `rules` 設定に勝ちます。
 - ルートにもファイルにも紐付かない検出結果（robots.txt などプロジェクト全体のチェック）には一切影響しません。そちらは `rules` を使ってください。
 - `overrides` が効くのは CLI と Vite プラグインのビルド時ゲートです。ライブダッシュボードのリクエストごとのレイヤーは、ページがレンダリングされるたびにその場でスコアリングするため overrides を適用しません。追加したばかりのオーバーライドを確認するときは、CLI（またはビルドゲート）を正とみなしてください。
 - 「アプリのこの部分は恒久的に対象外」というポリシーには、[suppressions ファイル](/ja/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)より `overrides` を選んでください：suppressions はファイルを書き出した時点で存在した検出結果だけを受け入れるため、あとから追加したルートは再び失敗します。overrides は同じ glob 配下の新しいルートにもマッチし続けます。
@@ -136,44 +136,44 @@ export default {
 
 層は「組み込みのデフォルト → `rules` → マッチする `overrides` エントリを順に」の順で重なり、組み合わさり方はオプションの種類で決まります。
 
-- **整数** — 置き換え。最後に設定された値が勝ちます。
-- **リスト** / **マップ** — 組み込みのセットを破棄せず**追加**します。以降のリリースで組み込みが増えても恩恵を受け続けられます。
-- **マップ**の既存キー — エントリは残したまま値だけが指定値になります。1つのパッケージについて組み込みの対処方法だけを書き換えたいときに使います。
+- **整数**は置き換えです。最後に設定された値が勝ちます。
+- **リスト**と**マップ**は、組み込みのセットを破棄せず**追加**します。以降のリリースで組み込みが増えても恩恵を受け続けられます。
+- **マップ**の既存キーは、エントリを残したまま値だけが指定値になります。1つのパッケージについて組み込みの対処方法だけを書き換えたいときに使います。
 
 オプションを受け付けるのは一部のルールだけです。オプションを受け付けないルールに `options` を渡すのは、未知のオプション名や型の誤ったオプション値と同じく致命的な設定エラーになります。以下のルールはオプションを受け付け、それ以外のルールは重大度文字列 / `off` のみを受け付けます。各ルールのページには「設定」節があり、正確なオプション名とデフォルト値が書かれています。
 
 - [`architecture/prop-count`](/ja/rules/architecture/prop-count) と
-  [`architecture/component-size`](/ja/rules/architecture/component-size) — 整数の `max`。
+  [`architecture/component-size`](/ja/rules/architecture/component-size) は整数の `max` を取ります。
 - [`seo/title-length`](/ja/rules/seo/title-length) と
-  [`seo/description-length`](/ja/rules/seo/description-length) — 整数の `min` / `max`。
-- [`performance/heavy-import`](/ja/rules/performance/heavy-import) — パッケージ指定子 →
-  対処方法の文字列という `packages` マップ。組み込みリストに追加されます。
-- [`performance/preconnect`](/ja/rules/performance/preconnect) — ホスト名の `origins` リスト。
-  組み込みリストに追加されます。
-- [`architecture/private-scope-import`](/ja/rules/architecture/private-scope-import) — プライベートな
-  ディレクトリを指定する `scopes` の glob リスト。設定するまでこのルールは何も出力しません。
-- [`architecture/unit-entry-file`](/ja/rules/architecture/unit-entry-file) — どのディレクトリが
-  ユニットかを宣言する `units` / `pascalCaseUnits` / `exclude` の glob。設定するまでこのルールは何も
-  出力しません。
-- [`architecture/directory-naming`](/ja/rules/architecture/directory-naming) — ディレクトリ glob →
-  記法の集合 の `directories` マップと `exclude` の glob。`directories` を設定するまでこのルールは
+  [`seo/description-length`](/ja/rules/seo/description-length) は整数の `min` / `max` を取ります。
+- [`performance/heavy-import`](/ja/rules/performance/heavy-import) は、パッケージ指定子 →
+  対処方法の文字列という `packages` マップを取ります。組み込みリストに追加されます。
+- [`performance/preconnect`](/ja/rules/performance/preconnect) は、ホスト名の `origins` リストを
+  取ります。組み込みリストに追加されます。
+- [`architecture/private-scope-import`](/ja/rules/architecture/private-scope-import) は、プライベートな
+  ディレクトリを指定する `scopes` の glob リストを取ります。設定するまでこのルールは何も出力しません。
+- [`architecture/unit-entry-file`](/ja/rules/architecture/unit-entry-file) は、どのディレクトリが
+  ユニットかを宣言する `units` / `pascalCaseUnits` / `exclude` の glob を取ります。設定するまでこのルールは
   何も出力しません。
-- [`architecture/reserved-directory-names`](/ja/rules/architecture/reserved-directory-names) —
+- [`architecture/directory-naming`](/ja/rules/architecture/directory-naming) は、ディレクトリ glob →
+  記法の集合 の `directories` マップと `exclude` の glob を取ります。`directories` を設定するまでこのルールは
+  何も出力しません。
+- [`architecture/reserved-directory-names`](/ja/rules/architecture/reserved-directory-names) は、
   `scopes`（ディレクトリ glob → 直下に置ける名前）、`unitScopes`（起点 glob → ユニット直下に置ける
-  名前）、`anyCaseUnitScopes`（同様、大文字小文字を問わないユニット用）、`exclude`。いずれかの
+  名前）、`anyCaseUnitScopes`（同様、大文字小文字を問わないユニット用）、`exclude` を取ります。いずれかの
   スコープマップを設定するまで無効です。
-- [`architecture/route-component-import`](/ja/rules/architecture/route-component-import) —
+- [`architecture/route-component-import`](/ja/rules/architecture/route-component-import) は、
   ルートエントリを手動でインポートしてよいサテライトファイル（stories、test、spec）を指定する
-  `exemptImporters` の glob リスト。組み込みリストに追加されます。
-- [`architecture/doc-link-target`](/ja/rules/architecture/doc-link-target) — プロジェクトのルートを
-  表す URL プレフィックスを指定する `urlRoots` のリスト。設定するまでこのルールは何も出力しません。
+  `exemptImporters` の glob リストを取ります。組み込みリストに追加されます。
+- [`architecture/doc-link-target`](/ja/rules/architecture/doc-link-target) は、プロジェクトのルートを
+  表す URL プレフィックスを指定する `urlRoots` のリストを取ります。設定するまでこのルールは何も出力しません。
 
 ### インポートエイリアス
 
 インポートを追跡するルール（`architecture/private-scope-import`、`architecture/route-component-import`、
-`security/shared-state-import`、`security/handler-state-write`）は、プロジェクトが `svelte.config.{js,ts}` で宣言しているエイリアス —
-`kit.alias`、および `$lib` を移動している場合は `kit.files.lib` — を通じて指定子を解決します。これらは
-静的に、SvelteKit がエイリアスを構築するのと同じ順序で読み取られ、ビルド時とまったく同じく最初にマッチ
+`security/shared-state-import`、`security/handler-state-write`）は、プロジェクトが `svelte.config.{js,ts}` で宣言しているエイリアス、つまり
+`kit.alias` と、`$lib` を移動している場合の `kit.files.lib` を通じて指定子を解決します。svelte-vitals はこれらを
+静的に、SvelteKit がエイリアスを構築するのと同じ順序で読み取り、ビルド時とまったく同じく最初にマッチ
 したエイリアスが使われます。
 
 CLI の静的モードは、ルートの `<head>` と見出しを解決するためにコンポーネントのインポートをたどる際にも
@@ -186,7 +186,7 @@ CLI の静的モードは、ルートの `<head>` と見出しを解決するた
 
 - エイリアスの値が（`path.resolve(...)` やテンプレートリテラルなどで）計算される場合。プレーンな文字列
   ではないため、指定子は「見えないもの」として扱われ、何も報告されません。
-- エイリアスの値がリテラルの絶対パスである場合 — `/opt/shared/src` のような POSIX パスや、
+- エイリアスの値がリテラルの絶対パスである場合。`/opt/shared/src` のような POSIX パスや、
   `C:\shared\src` のような Windows のドライブレター付きパスなど。プロジェクトの外にあるファイルを指す
   ため、対象として扱いません。
 - `kit.files.lib` 自体がプレーンな文字列ではなく計算される場合。この場合 `$lib` 自体が解決不能になるため、
@@ -205,7 +205,7 @@ CLI の静的モードは、ルートの `<head>` と見出しを解決するた
 
 各フィールドについて、次のうち最初に設定されているものが優先されます:**CLI フラグ > 設定ファイル > 組み込みのデフォルト**。この優先順位はフィールドごとに独立して働きます。一度きりの `--fail-on info` を指定しても、設定ファイルの他のフィールドはそのまま生きています。
 
-一つ例外があります。`--rules` と `--ignore` はどちらも「どのルールを実行するか」を選ぶだけで、有効なままのルールをどう設定するかには関与しません。`--rules` は名前を挙げたルール ID に実行を絞り込み、その ID については設定ファイルのトップレベルの `rules` に書かれた `off` を上書きします — ルールを無効化することそのものが選択だからです。それ以外、名前を挙げたルールの重大度やオプションは設定ファイルの値をそのまま引き継ぎます。`--ignore` は向きが違うだけです。名前を挙げたルール ID に `off` エントリを追加するだけで、これは `rules`（設定ファイル、あるいは `--rules` によって絞り込まれた後の値）の上にレイヤーとして重ねて適用されます — 名前を挙げていないルールには何も起こらず、直前のレイヤーが解決した値、すなわち設定ファイルの設定、あるいは `--rules` によって除外されていれば `off` を、そのまま保持します。両方が同じルールを名指ししたときは `--ignore` が `--rules` に勝ちます。プログラムから、あるいは Vite プラグインのオプションとして明示的に渡した `rules` の値は、これまで通り設定ファイルの `rules` を丸ごと置き換えます。
+一つ例外があります。`--rules` と `--ignore` はどちらも「どのルールを実行するか」を選ぶだけで、有効なままのルールをどう設定するかには関与しません。`--rules` は名前を挙げたルール ID に実行を絞り込み、その ID については設定ファイルのトップレベルの `rules` に書かれた `off` を上書きします。ルールを無効化することそのものが選択だからです。それ以外、名前を挙げたルールの重大度やオプションは設定ファイルの値をそのまま引き継ぎます。`--ignore` は向きが違うだけです。名前を挙げたルール ID に `off` エントリを追加するだけで、これは `rules`（設定ファイル、あるいは `--rules` によって絞り込まれた後の値）の上にレイヤーとして重ねて適用されます。名前を挙げていないルールには何も起こらず、直前のレイヤーが解決した値、すなわち設定ファイルの設定、あるいは `--rules` によって除外されていれば `off` を、そのまま保持します。両方が同じルールを名指ししたときは `--ignore` が `--rules` に勝ちます。プログラムから、あるいは Vite プラグインのオプションとして明示的に渡した `rules` の値は、これまで通り設定ファイルの `rules` を丸ごと置き換えます。
 
 `overrides` に対応する CLI フラグはありません。ルートのポリシーはコミットされるファイルに置くべきものだからです。CLI と Action にとっては設定ファイルが唯一のソースで、Vite プラグインだけは追加でプラグインオプションとしても受け取ります（いつも通り、オプション > ファイル）。
 
@@ -231,4 +231,4 @@ export default {
 };
 ```
 
-プロジェクトルートに `svelte-vitals.config` ファイル（サポートされる3つの拡張子のいずれか）を置くだけで、上記のプラグインはその `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` / `overrides` を自動的に読み込みます。`vite.config.ts` 側で自分でファイルを import する必要はありません。設定ファイルの非致命的な警告（未知のトップレベルキー、無効な列挙値など）は、CLI と同じ `svelte-vitals:` というプレフィックス付きの文言でコンソールに出力されます。
+プロジェクトルートに `svelte-vitals.config` ファイル（サポートされる2つの拡張子のどちらか）を置くだけで、上記のプラグインはその `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` / `overrides` を自動的に読み込みます。`vite.config.ts` 側で自分でファイルを import する必要はありません。設定ファイルの非致命的な警告（未知のトップレベルキー、無効な列挙値など）は、CLI と同じ `svelte-vitals:` というプレフィックス付きの文言でコンソールに出力されます。

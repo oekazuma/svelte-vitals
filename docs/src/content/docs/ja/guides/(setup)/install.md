@@ -11,7 +11,7 @@ svelte-vitals の Vite との連携、Cursor rules、[設定ファイル](/ja/gu
 npx svelte-vitals@latest install
 ```
 
-フラグなしで実行すると対話式ウィザードが起動します。ターゲットを選択し、変更計画を確認して適用します。ピッカーはターゲットを **Vite integration**、**Agent rules**、**CI（GitHub Actions）**、**Config file** のカテゴリごとにグループ化するため、それぞれ何のためのものか分かりやすくなっています。非対話環境／CI ではフラグだけで実行できます。
+フラグなしで実行すると対話式ウィザードが起動します。ターゲットを選択し、変更計画を確認して適用します。ピッカーはターゲットを Vite integration、Agent rules、CI（GitHub Actions）、Config file のカテゴリごとにグループ化するため、それぞれ何のためのものか分かりやすくなっています。非対話環境／CI ではフラグだけで実行できます。
 
 `svelte-vitals install --help` が表示するすべてのフラグです。CLI 自身の引数宣言と ja リソースから生成されています（フラグ名自体は CLI の実際の綴りのまま、英語です）。各ターゲットの詳しい挙動は以下の各セクションを参照してください。
 
@@ -37,7 +37,7 @@ npx svelte-vitals@latest install
 
 どちらも `magicast` によるコードモッドで、確実に認識できる形のファイルだけを変更します。認識できない場合は手を付けず、スニペットを表示します。書き込み時に `@svelte-vitals/vite` が依存関係になければ、検出したパッケージマネージャーで自動インストールします。**`--force` はこの2つには適用されず**、既存の登録は常にそのまま維持されます。
 
-`cursor-rules` は `.cursor/rules/svelte-vitals.mdc` を書き出します。インストール時点のルールセット（各ルールの id・タイトル・severity・rationale をカテゴリごとに）から生成されます。コードモッドではなく全文を再生成するため、**`--force` が適用され**、既存ファイルを上書きします。（[`/setup-svelte-vitals`・`/improve-svelte`・`/svelte-vitals` の Agent Skills](/ja/guides/agent-skills) はこのインストーラーのターゲットではありません — `npx skills add oekazuma/svelte-vitals` でインストールします。）
+`cursor-rules` は `.cursor/rules/svelte-vitals.mdc` を書き出します。インストール時点のルールセット（各ルールの id・タイトル・severity・rationale をカテゴリごとに）から生成されます。コードモッドではなく全文を再生成するため、**`--force` が適用され**、既存ファイルを上書きします。（[`/setup-svelte-vitals`・`/improve-svelte`・`/svelte-vitals` の Agent Skills](/ja/guides/agent-skills) はこのインストーラーのターゲットではありません。`npx skills add oekazuma/svelte-vitals` でインストールします。）
 
 `config-file` はオプション（`treatDynamicAs`、`metaComponents`、`rules`、`failOn`、`weights`）をすべてコメントアウトした `svelte-vitals.config.{js,ts}` の雛形を生成します。拡張子は環境に合わせて自動で選びます。詳細は [設定ファイル](/ja/guides/configuration) を参照してください。`cursor-rules` と同様に毎回全文を再生成するため、**`--force` が適用されます**（上書きするのは既に存在するファイルで、再生成しても拡張子は変わりません）。
 

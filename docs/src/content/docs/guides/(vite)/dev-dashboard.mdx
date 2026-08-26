@@ -1,11 +1,11 @@
 ---
 title: 'Live dashboard'
-description: 'A live, filterable code-health dashboard during `vite dev` — enabled by default, no build step needed.'
+description: 'A live, filterable code-health dashboard during `vite dev`. Enabled by default, no build step needed.'
 sidebar:
   order: 2
 ---
 
-`@svelte-vitals/vite`'s `svelteVitals()` plugin serves a live dashboard at `/__svelte-vitals/` during `vite dev` — a searchable, sortable route list with a detail pane for the selected route, or an "Overview" that aggregates every finding across the whole project. It updates in place as you work, and it's **on by default**; see [Disabling it](#disabling-it) to opt out.
+`@svelte-vitals/vite`'s `svelteVitals()` plugin serves a live dashboard at `/__svelte-vitals/` during `vite dev`. It is a searchable, sortable route list with a detail pane for the selected route, plus an "Overview" that aggregates every finding across the whole project. It updates in place as you work, and it's on by default; see [Disabling it](#disabling-it) to opt out.
 
 ```js vite.config.{js,ts}
 import { svelteVitals } from '@svelte-vitals/vite';
@@ -34,15 +34,15 @@ export default {
 
 ## Whole-project coverage from startup
 
-From the moment the dev server starts, the dashboard shows the **whole project**: a static analysis of all routes across every category (SEO, Performance, Correctness, Security, Architecture, Accessibility) runs asynchronously at startup — the same analysis as `npx svelte-vitals@latest` — so you get the real project Health without visiting a single page. Saving a source file (anything under `src/` or `static/`, or a `svelte.config.*` / `svelte-vitals.config.*`) triggers a debounced re-analysis, and the dashboard refreshes itself.
+From the moment the dev server starts, the dashboard shows the whole project. A static analysis of all routes runs asynchronously at startup across every category (SEO, Performance, Correctness, Security, Architecture, Accessibility). It is the same analysis as `npx svelte-vitals@latest`, so you get the real project Health without visiting a single page. Saving a source file (anything under `src/` or `static/`, or a `svelte.config.*` / `svelte-vitals.config.*`) triggers a debounced re-analysis, and the dashboard refreshes itself.
 
-"Overview" lists every finding across the whole project — every route plus the project's site-wide checks — in one place, and the severity/category chips filter that list directly. Each finding shows which route it came from; clicking it jumps straight to that route's detail pane.
+"Overview" lists every finding across the whole project in one place, every route plus the project's site-wide checks, and the severity and category chips filter that list directly. Each finding shows which route it came from; clicking it jumps straight to that route's detail pane.
 
 The sidebar search filters routes by path or by a finding's rule id, title or location; the sort control reorders it (worst score first by default). Selecting a route or "Overview" updates the detail pane and the URL hash, so a reload or shared link returns to the same view.
 
 The topbar shows an "Analyzing…" indicator during a whole-project re-analysis, plus a dark-mode toggle remembered per browser (otherwise following your OS).
 
-If the whole-project analysis fails (for example the dev server root is not a SvelteKit project), the failure is logged with `console.warn` and the dashboard falls back to live-only mode — showing just the routes you visit — without ever breaking the dev server.
+If the whole-project analysis fails, for example because the dev server root is not a SvelteKit project, svelte-vitals logs the failure with `console.warn` and the dashboard falls back to live-only mode, showing just the routes you visit. It never breaks the dev server.
 
 ## Improve accuracy by browsing
 
@@ -59,7 +59,7 @@ If you already have other handles, place `svelteVitalsHandle()` alongside them i
 
 `svelteVitalsHandle` observes each request's fully-rendered HTML via `transformPageChunk`, fire-and-forget: it never modifies or delays the response and swallows its own errors, so it cannot break the dev server.
 
-On a visited route, a rendered result replaces the static one **for the same rule id** — closer to the truth, especially for dynamic values. The live layer runs the route-scoped SEO, Performance, and Accessibility rules that judge a route on its own; rules that compare routes against each other (`seo/duplicate-title`, `seo/duplicate-description`) and site-wide rules (`seo/robots-txt`, `seo/html-lang`, `a11y/doctype`, …) keep their static result, since one page's HTML cannot answer them; so does `a11y/required-element`, whose element list comes from the config file the handle does not read. The route's other static findings, routeless (component- and site-scoped) findings, and unvisited routes stay as they were. Route headings carry a provenance badge: `measured` once a route has a rendered layer, `static` otherwise.
+On a visited route, a rendered result replaces the static one **for the same rule id**, which is closer to the truth, especially for dynamic values. The live layer runs the route-scoped SEO, Performance, and Accessibility rules that judge a route on its own. Rules that compare routes against each other (`seo/duplicate-title`, `seo/duplicate-description`) and site-wide rules (`seo/robots-txt`, `seo/html-lang`, `a11y/doctype`, …) keep their static result, since one page's HTML cannot answer them. So does `a11y/required-element`, whose element list comes from the config file the handle does not read. The route's other static findings, routeless (component- and site-scoped) findings, and unvisited routes stay as they were. Route headings carry a provenance badge: `measured` once a route has a rendered layer, `static` otherwise.
 
 The handle is a **no-op outside dev**: the `DEV` flag from `esm-env` resolves statically at build time, so the rule set is never built and the hook adds zero runtime cost in production.
 
@@ -83,15 +83,15 @@ export const handle = sequence(
 
 Notes:
 
-- Only the rendered HTML is analyzed — `<head>`, body headings, images, landmarks, and ids, the same data the browser receives. Source-level dynamic values (e.g. `{data.title}`) are always resolved by the time the handle sees them, so `treatDynamicAs` is not applicable here.
-- The handle runs on its own options only — it does not read `svelte-vitals.config.*`. A rule setting, option, or `overrides` entry you keep in the config file shapes the static baseline but not the live layer; restate the rule settings you need in the options object above.
+- The handle analyzes the rendered HTML only: `<head>`, body headings, images, landmarks, and ids, the same data the browser receives. Source-level dynamic values such as `{data.title}` are always resolved by the time the handle sees them, so `treatDynamicAs` does not apply here.
+- The handle runs on its own options only; it does not read `svelte-vitals.config.*`. A rule setting, option, or `overrides` entry you keep in the config file shapes the static baseline but not the live layer; restate the rule settings you need in the options object above.
 - `failOn` is not used: the handle feeds the dashboard but never gates the request.
-- Live updates only flow over a loopback origin (`localhost`, `127.0.0.1`, `[::1]`). When you run `vite dev --host` and open the app via a LAN IP, the handle skips the ingest POST (a guard against a spoofed `Host` header), so visited routes won't refine to `measured` — open it from `localhost` instead.
+- Live updates only flow over a loopback origin (`localhost`, `127.0.0.1`, `[::1]`). When you run `vite dev --host` and open the app via a LAN IP, the handle skips the ingest POST, a guard against a spoofed `Host` header, so visited routes won't refine to `measured`. Open it from `localhost` instead.
 - Set `SVELTE_VITALS_DEBUG=true` to surface swallowed internal errors (analysis failures, skipped ingests) to the terminal for troubleshooting.
 
 ## Copy a fix prompt for any finding
 
-Every finding card has a collapsed **AI Prompt** disclosure — expand it and hit **Copy** to get a ready-to-paste prompt for whichever coding agent you're using, built from that finding's rule id, location, recommendation, fix, and docs link:
+Every finding card has a collapsed **AI Prompt** disclosure. Expand it and hit **Copy** to get a ready-to-paste prompt for whichever coding agent you're using, built from that finding's rule id, location, recommendation, fix, and docs link:
 
 ````text
 Fix this svelte-vitals finding:
@@ -113,11 +113,11 @@ Fix this svelte-vitals finding:
 After fixing, re-run `svelte-vitals --diff` (or revisit this route) to confirm seo/title-presence passes for /blog/hello.
 ````
 
-No AI call generates it — the prompt is assembled instantly from svelte-vitals' own rule data already in the dashboard's snapshot, the same fields the [`agent` reporter](/guides/reporters) uses for its remediation document. It can't hallucinate a fix that isn't the rule's actual recommendation.
+No AI call generates it. The dashboard assembles the prompt from svelte-vitals' own rule data already in its snapshot, the same fields the [`agent` reporter](/guides/reporters) uses for its remediation document. It can't hallucinate a fix that isn't the rule's actual recommendation.
 
 ## Disabling it
 
-The dashboard is on by default. If you only want the [build-time gate](/guides/plugin-mode) and not the dev-time dashboard — for example on a very large project where you'd rather avoid the startup/re-analysis cost — pass `ui: false`:
+The dashboard is on by default. If you only want the [build-time gate](/guides/plugin-mode) and not the dev-time dashboard, for example on a very large project where you'd rather avoid the startup and re-analysis cost, pass `ui: false`:
 
 ```js
 export default {
@@ -127,7 +127,7 @@ export default {
 
 ## Version drift
 
-The topbar shows the plugin version and, next to it, `core v<@svelte-vitals/core version>`. The second is the one that matters when comparing against the CLI: both packages are versioned independently around the shared core, so they can resolve to _different_ core versions while each looks up to date — and a rule added in a newer core only appears on the surface that depends on it.
+The topbar shows the plugin version and, next to it, `core v<@svelte-vitals/core version>`. The second is the one that matters when comparing against the CLI: both packages are versioned independently around the shared core, so they can resolve to _different_ core versions while each looks up to date. A rule added in a newer core then appears only in the package that depends on it.
 
 Package-manager cooldown settings make this easy to hit unnoticed: pnpm's [`minimumReleaseAge`](https://pnpm.io/settings#minimumreleaseage) can resolve `pnpm dlx svelte-vitals@latest` down to an older "mature" release than your lockfile's plugin depends on.
 
