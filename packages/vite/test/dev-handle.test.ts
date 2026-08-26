@@ -13,7 +13,12 @@ function fakeEvent(routeId: string | null, pathname = '/') {
 
 // A resolve() that feeds the given HTML chunks through transformPageChunk, awaiting each.
 function resolveWith(chunks: string[]) {
-  return (async (event: unknown, opts?: { transformPageChunk?: (i: { html: string; done: boolean }) => unknown }) => {
+  return (async (
+    event: unknown,
+    opts?: {
+      transformPageChunk?: (i: { html: string; done: boolean }) => string | undefined | Promise<string | undefined>;
+    }
+  ) => {
     const tpc = opts?.transformPageChunk;
     const seen: unknown[] = [];
     if (tpc) {

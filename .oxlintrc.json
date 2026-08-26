@@ -21,9 +21,17 @@
     "**/.blume/**",
     "examples/kitchen-sink/src/routes/gallery",
     "examples/kitchen-sink/src/lib/crash-samples",
-    "examples/kitchen-sink/src/lib/clean/jsonld/**"
+    "examples/kitchen-sink/src/lib/clean/jsonld/**",
+    "tools/oxlint/anti-slop/**"
   ],
+  "jsPlugins": [{ "name": "anti-slop", "specifier": "./tools/oxlint/anti-slop/index.ts" }],
   "rules": {
+    "anti-slop/no-object-parameters": "error",
+    "anti-slop/no-reflect-apply": "error",
+    "anti-slop/no-reflect-get": "error",
+    "anti-slop/no-unknown-returns": "error",
+    "anti-slop/no-unknown-type-aliases": "error",
+    "anti-slop/no-widen-then-assert": "error",
     "constructor-super": "error",
     "for-direction": "error",
     "getter-return": "error",
