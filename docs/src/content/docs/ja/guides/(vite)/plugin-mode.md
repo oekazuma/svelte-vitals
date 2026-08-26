@@ -5,7 +5,7 @@ sidebar:
   order: 1
 ---
 
-`@svelte-vitals/vite` は `vite build` に便乗して**プリレンダリングされた HTML** を解析し、CLI と同じ SEO・Performance・Accessibility のルールを実行します（`src/app.html` を読む `a11y/doctype` だけは CLI 専用です）。実際の出力を検査するので、使っているライブラリを問いません。
+`@svelte-vitals/vite` は `vite build` に相乗りしてプリレンダリングされた HTML を解析し、CLI と同じ SEO・Performance・Accessibility のルールを実行します（`src/app.html` を読む `a11y/doctype` だけは CLI 専用です）。実際の出力を検査するので、使っているライブラリを問いません。
 
 さらに `src/` 配下（コンポーネント、runes モジュール（`.svelte.ts`/`.svelte.js`）、ルート/フックファイル）を走査し、Correctness・Security・Architecture・残りの Accessibility とコンポーネントスコープの Performance ルールも実行します。デフォルトで有効です。検出結果が `failOn` の閾値に達するとビルドが失敗します。
 
@@ -19,7 +19,7 @@ npm install --save-dev @svelte-vitals/vite svelte-vitals
 pnpm add -D @svelte-vitals/vite svelte-vitals
 ```
 
-`svelte-vitals` と `@svelte-vitals/core` はプラグインの peer dependency です：両パッケージがプロジェクトのインストールからルールエンジンを解決するため、バージョン不一致は「スキャンは通るのに `vite build` が落ちる」代わりに、インストール時の peer 警告として表面化します。npm と pnpm は不足している peer を自動インストールしますが、`svelte-vitals` を明示的に宣言しておくとバージョンが lockfile の管理下に置かれます — peer を自動インストールしない yarn では明示的な宣言が必須です（Plug'n'Play では `@svelte-vitals/core` も追加してください。classic yarn は推移的に解決します）。
+`svelte-vitals` と `@svelte-vitals/core` はプラグインの peer dependency です。両パッケージがプロジェクトのインストールからルールエンジンを解決するため、バージョン不一致は「スキャンは通るのに `vite build` が落ちる」ではなく、インストール時の peer 警告として現れます。npm と pnpm は不足している peer を自動インストールしますが、`svelte-vitals` を明示的に宣言しておくとバージョンが lockfile の管理下に置かれます。peer を自動インストールしない yarn では、明示的な宣言が必須です（Plug'n'Play では `@svelte-vitals/core` も追加してください。classic yarn は推移的に解決します）。
 
 ## セットアップ
 
@@ -55,7 +55,7 @@ export default {
 
 ## 対象範囲
 
-**HTML** の検査対象は**プリレンダリング**されたルートのみです。SSR や動的ルートにはビルド出力がないので、ここではレンダリング後の HTML を読めません。これらのルートは `svelte-vitals` CLI がソース解析でカバーし、`vite dev` 中にブラウズすれば[ライブダッシュボード](/ja/guides/dev-dashboard)がレンダリング結果を読み取ります。ソース走査のほうは、ルートのレンダリング方式に関係なくプロジェクト全体が対象です。
+HTML の検査対象はプリレンダリングされたルートのみです。SSR や動的ルートにはビルド出力がないので、ここではレンダリング後の HTML を読めません。これらのルートは `svelte-vitals` CLI がソース解析でカバーし、`vite dev` 中にブラウズすれば[ライブダッシュボード](/ja/guides/dev-dashboard)がレンダリング結果を読み取ります。ソース走査のほうは、ルートのレンダリング方式に関係なくプロジェクト全体が対象です。
 
 ## 動作の仕組み
 

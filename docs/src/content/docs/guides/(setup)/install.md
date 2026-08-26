@@ -5,16 +5,16 @@ sidebar:
   order: 2
 ---
 
-Interactively set up the svelte-vitals Vite integration, Cursor rules, the [config file](/guides/configuration), and the [CI workflow](/guides/ci) — everything a project needs, wired up in one pass. ([Agent Skills](/guides/agent-skills) are installed separately, with `npx skills add oekazuma/svelte-vitals`.)
+Interactively set up the svelte-vitals Vite integration, Cursor rules, the [config file](/guides/configuration), and the [CI workflow](/guides/ci). Everything a project needs, wired up in one pass. [Agent Skills](/guides/agent-skills) are installed separately, with `npx skills add oekazuma/svelte-vitals`.
 
 ```bash
 npx svelte-vitals@latest install
 ```
 
-With no flags it launches an interactive wizard: pick your targets, review the plan, and confirm. The picker groups targets by category — **Vite integration**, **Agent rules**, **CI (GitHub Actions)**, **Config file** — so it's clear what each one is for. For non-interactive/CI use, drive it entirely with flags.
+With no flags it launches an interactive wizard: pick your targets, review the plan, and confirm. The picker groups targets by category, so it's clear what each one is for: Vite integration, Agent rules, CI (GitHub Actions), Config file. For non-interactive and CI use, drive it entirely with flags.
 
 Every flag `svelte-vitals install --help` prints, generated from the CLI's own argument
-declarations — see below each row for the full behavior per target.
+declarations. The sections after the table give the full behavior per target.
 
 <!-- cli-reference:start -->
 
@@ -36,23 +36,23 @@ Comma-separated targets to configure: `vite-plugin`, `vite-hooks`, `cursor-rules
 
 `vite-plugin` registers the build-mode plugin in `vite.config.{ts,js,mjs}` (the live dashboard is on by default); `vite-hooks` wires `svelteVitalsHandle` into `src/hooks.server.{ts,js}`, improving the dashboard's per-route accuracy as you browse.
 
-Both use a `magicast` codemod that only touches a file whose shape it confidently recognizes — anything else is left alone and a snippet printed instead. Writing either installs `@svelte-vitals/vite` via the detected package manager if it isn't already a dependency. **`--force` does not apply to these two:** an existing registration is always left as-is.
+Both use a `magicast` codemod that only touches a file whose shape it confidently recognizes. Anything else it leaves alone, printing a snippet instead. Writing either installs `@svelte-vitals/vite` via the detected package manager if it isn't already a dependency. **`--force` does not apply to these two:** an existing registration is always left as-is.
 
-`cursor-rules` writes `.cursor/rules/svelte-vitals.mdc`, generated at install time from the current rule set (id, title, severity and rationale per rule, grouped by category). Being regenerated rather than codemodded, **`--force` does apply** and overwrites it. (The [`/setup-svelte-vitals`, `/improve-svelte` and `/svelte-vitals` Agent Skills](/guides/agent-skills) are not installer targets — install them with `npx skills add oekazuma/svelte-vitals`.)
+`cursor-rules` writes `.cursor/rules/svelte-vitals.mdc`, generated at install time from the current rule set (id, title, severity and rationale per rule, grouped by category). Because it is regenerated rather than codemodded, **`--force` does apply** and overwrites it. (The [`/setup-svelte-vitals`, `/improve-svelte` and `/svelte-vitals` Agent Skills](/guides/agent-skills) are not installer targets; install them with `npx skills add oekazuma/svelte-vitals`.)
 
-`config-file` scaffolds `svelte-vitals.config.{js,ts}` with every option (`treatDynamicAs`, `metaComponents`, `rules`, `failOn`, `weights`) commented out, auto-picking the best extension for the environment — see [Config file](/guides/configuration). Like `cursor-rules`, it's fully regenerated, so **`--force` does apply** (to whichever file already exists — regenerating never switches its extension).
+`config-file` scaffolds `svelte-vitals.config.{js,ts}` with every option (`treatDynamicAs`, `metaComponents`, `rules`, `failOn`, `weights`) commented out, auto-picking the best extension for the environment; see [Config file](/guides/configuration). Like `cursor-rules`, it's fully regenerated, so **`--force` does apply**, to whichever file already exists. Regenerating never switches that file's extension.
 
-`ci-workflow` scaffolds `.github/workflows/svelte-vitals.yml`, the same file the standalone [`svelte-vitals ci install`](/guides/ci) command writes — pick it here to set up CI in the same pass as everything else, instead of a separate command. It's fully regenerated, so **`--force` does apply**; `svelte-vitals ci upgrade` (not part of this wizard) remains the way to bump an existing workflow's pinned action version without touching anything else in the file.
+`ci-workflow` scaffolds `.github/workflows/svelte-vitals.yml`, the same file the standalone [`svelte-vitals ci install`](/guides/ci) command writes. Pick it here to set up CI in the same pass as everything else, instead of a separate command. It's fully regenerated, so **`--force` does apply**; `svelte-vitals ci upgrade` (not part of this wizard) remains the way to bump an existing workflow's pinned action version without touching anything else in the file.
 
-## `--app <app>` — monorepos
+## `--app <app>` in monorepos
 
-The `vite-plugin`, `vite-hooks`, and `config-file` targets must land in the SvelteKit **app** directory — that's where `vite.config.*` and `src/hooks.server.*` live, and a `svelte-vitals.config.*` is only [loaded from the analyzed directory](/guides/configuration#where-it-lives). When you run `install` from a monorepo root, these targets resolve their app the same way [the analyzer does](/guides/cli#monorepos):
+The `vite-plugin`, `vite-hooks`, and `config-file` targets must land in the SvelteKit app directory. That's where `vite.config.*` and `src/hooks.server.*` live, and svelte-vitals only [loads a `svelte-vitals.config.*` from the analyzed directory](/guides/configuration#where-it-lives). When you run `install` from a monorepo root, these targets resolve their app the same way [the analyzer does](/guides/cli#monorepos):
 
-- An explicit `--app apps/web` always wins (and fails with exit `2` if that directory has no `svelte.config.{js,ts}`).
+- An explicit `--app apps/web` always wins, and fails with exit `2` when that directory is not a SvelteKit app, meaning it has neither a `svelte.config.{js,ts}` nor a `package.json` declaring `@sveltejs/kit`.
 - Otherwise, if the current directory is itself a SvelteKit app, it's used as-is.
-- Otherwise detection kicks in: exactly one app found → used automatically with a notice; several found → a picker prompt on an interactive terminal, or exit `2` asking for `--app` when non-interactive.
+- Otherwise detection takes over: exactly one app found → used automatically with a notice; several found → a picker prompt on an interactive terminal, or exit `2` asking for `--app` when non-interactive.
 
-Everything else — `cursor-rules`, `ci-workflow` — always writes relative to the current directory, since the repo root is those files' correct home in a monorepo.
+Everything else, `cursor-rules` and `ci-workflow`, always writes relative to the current directory, since the repo root is those files' correct home in a monorepo.
 
 ```bash
 cd my-monorepo
@@ -73,7 +73,7 @@ Overwrite an existing `svelte-vitals` entry. By default an entry that already ex
 
 ## `--refresh`
 
-Regenerates a `cursor-rules` file already on disk with the current rule set — a way to pick up new rules after an upgrade. It never creates a file that isn't there. (Agent Skills installed with `npx skills add` are updated by the `skills` CLI, not by `--refresh`.)
+Regenerates a `cursor-rules` file already on disk with the current rule set, which is how you pick up new rules after an upgrade. It never creates a file that isn't there. (Agent Skills installed with `npx skills add` are updated by the `skills` CLI, not by `--refresh`.)
 
 `--yes`, `--force` and `--app` are ignored with a warning; `--client` is a fatal combination. With no generated files present it prints guidance and exits `0`.
 

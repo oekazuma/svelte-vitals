@@ -16,22 +16,22 @@ svelte-vitals explain <rule-id>
 
 `path` is optional and defaults to the current directory. [`docs`](#docs) prints the guides that
 ship inside the CLI, and [`explain`](#explain) prints a single rule's rationale, fix, and
-configurable options — neither analyzes a project.
+configurable options. Neither analyzes a project.
 
-> There is also an [`install` subcommand](/guides/install) for setting up the Vite integration, Cursor rules, and the config file ([Agent Skills](/guides/agent-skills) are installed separately with `npx skills add`), and a `ci install` subcommand that scaffolds a GitHub Actions PR gate — see [CI integration](/guides/ci).
+> There is also an [`install` subcommand](/guides/install) for setting up the Vite integration, Cursor rules, and the config file ([Agent Skills](/guides/agent-skills) are installed separately with `npx skills add`), and a `ci install` subcommand that scaffolds a GitHub Actions PR gate. See [CI integration](/guides/ci).
 
-Flags below can also be set once in a `svelte-vitals.config` file at the project root instead of being repeated on every invocation — see [Config file](/guides/configuration). A flag always overrides the config file.
+Flags below can also be set once in a `svelte-vitals.config` file at the project root instead of being repeated on every invocation; see [Config file](/guides/configuration). A flag always overrides the config file.
 
 ## Monorepos
 
-Passing an explicit `path` (or running inside the app directory itself) always takes priority — svelte-vitals never second-guesses a target you named.
+Passing an explicit `path`, or running inside the app directory itself, always takes priority. svelte-vitals never second-guesses a target you named.
 
-When no `path` is given and the current directory isn't a SvelteKit app, svelte-vitals looks for SvelteKit apps nearby — a directory with `src/routes` and either a `svelte.config.{js,ts}` or a `package.json` declaring `@sveltejs/kit` (current `sv create` output folds the SvelteKit config into `vite.config.ts` and emits no `svelte.config` file) — instead of failing immediately:
+When no `path` is given and the current directory isn't a SvelteKit app, svelte-vitals looks for SvelteKit apps nearby instead of failing immediately. A nearby app is a directory with `src/routes` and either a `svelte.config.{js,ts}` or a `package.json` declaring `@sveltejs/kit`; current `sv create` output folds the SvelteKit config into `vite.config.ts` and emits no `svelte.config` file.
 
 - **Exactly one app found:** it's analyzed automatically, with a notice on stderr (`detected SvelteKit app at apps/web; analyzing it.`).
 - **Multiple apps found, interactive terminal:** you get a single-select prompt to choose which one to analyze. Cancelling exits `0` without analyzing anything.
-- **Multiple apps found, non-interactive (CI, agents, piped output):** svelte-vitals never prompts — it exits `2` with the list of detected apps and a hint to pass one explicitly, e.g. `npx svelte-vitals@latest apps/web`.
-- **No apps found:** the original "not a SvelteKit project" error, exit `2`.
+- **Multiple apps found, non-interactive (CI, agents, piped output):** svelte-vitals never prompts. It exits `2` with the list of detected apps and a hint to pass one explicitly, e.g. `npx svelte-vitals@latest apps/web`.
+- **No apps found:** the "not a SvelteKit project" error, exit `2`.
 
 ```bash
 cd my-monorepo
@@ -41,8 +41,8 @@ npx svelte-vitals@latest apps/web     # skips detection entirely — analyzes ap
 
 ## Flags
 
-Every flag `svelte-vitals --help` prints, generated from the CLI's own argument declarations —
-see below each row for usage notes, defaults, and examples.
+Every flag `svelte-vitals --help` prints, generated from the CLI's own argument declarations.
+The sections after the table give usage notes, defaults, and examples.
 
 <!-- cli-reference:start -->
 
@@ -91,7 +91,7 @@ Select the output format.
 
 Accepted values: `console, json, agent, sarif, github, html, or md`
 
-**Auto-selection:** when run inside a recognized AI-agent harness (Claude Code, Cursor, Codex, and others — the recognized list is delegated to [gunshi](https://gunshi.dev)'s agent profile and evolves with it) or with `SVELTE_VITALS_AGENT=1` set, the `agent` reporter is selected automatically. When run inside GitHub Actions (`GITHUB_ACTIONS=true`), the `github` reporter is selected automatically. An explicit `--reporter` flag always overrides auto-selection. You can also override via the `SVELTE_VITALS_REPORTER` environment variable.
+**Auto-selection.** Inside a recognized AI-agent harness (Claude Code, Cursor, Codex, and others), or with `SVELTE_VITALS_AGENT=1` set, svelte-vitals selects the `agent` reporter automatically. The recognized list is delegated to [gunshi](https://gunshi.dev)'s agent profile and evolves with it. Inside GitHub Actions (`GITHUB_ACTIONS=true`) it selects the `github` reporter. An explicit `--reporter` flag always overrides auto-selection, and so does the `SVELTE_VITALS_REPORTER` environment variable.
 
 ### `--out-file <path>`
 
@@ -128,7 +128,7 @@ svelte-vitals --score
 svelte-vitals --score --min-health 80   # gate on the score; exit code still reflects pass/fail
 ```
 
-Combining `--score` with `--reporter` is not an error, but the reporter output is suppressed and a warning is printed to stderr. The exit code is unaffected by `--score` — it still reflects `--fail-on` and `--min-health` as usual.
+Combining `--score` with `--reporter` is not an error, but svelte-vitals suppresses the reporter output and prints a warning to stderr. `--score` does not affect the exit code; it still reflects `--fail-on` and `--min-health` as usual.
 
 ### `--route <glob>`
 
@@ -138,11 +138,11 @@ Only analyze routes whose path matches the given glob pattern.
 svelte-vitals --route "/blog/**"
 ```
 
-Route-scoped rules run on the matched routes; component-scoped rules (Correctness, Security, Architecture, `seo/ssr-disabled`, and the component-scoped Performance and Accessibility rules) are skipped, since a component finding has no route to attribute it to; project-scoped rules (`seo/robots-txt`, `seo/html-lang`, …) still run. `seo/duplicate-title` and `seo/duplicate-description` compare only the matched routes. A glob that matches no route is reported as a warning.
+Route-scoped rules run on the matched routes. Component-scoped rules are skipped, since a component finding has no route to attribute it to: Correctness, Security, Architecture, `seo/ssr-disabled`, and the component-scoped Performance and Accessibility rules. Project-scoped rules (`seo/robots-txt`, `seo/html-lang`, …) still run. `seo/duplicate-title` and `seo/duplicate-description` compare only the matched routes. A glob that matches no route is reported as a warning.
 
 ### `--diff [ref]`
 
-Report only findings located in files **changed** versus `ref` (default `HEAD`, i.e. uncommitted changes). Compares against the **merge-base** with `ref`, and includes untracked (new) files — so `--diff main` is "what this branch changed". Great as a PR check.
+Report only findings located in files **changed** versus `ref` (default `HEAD`, i.e. uncommitted changes). Compares against the **merge-base** with `ref`, and includes untracked (new) files, so `--diff main` is "what this branch changed". Useful as a PR check.
 
 ```bash
 svelte-vitals --diff          # uncommitted changes vs HEAD
@@ -151,7 +151,7 @@ svelte-vitals --diff main     # everything this branch changed vs main
 
 ### `--staged`
 
-Report only findings in files **staged** for commit (`git diff --cached`). Ideal as a pre-commit hook to gate just what you're about to commit. Takes precedence over `--diff`.
+Report only findings in files **staged** for commit (`git diff --cached`). Use it as a pre-commit hook to gate just what you're about to commit. Takes precedence over `--diff`.
 
 ```bash
 svelte-vitals --staged --fail-on warning
@@ -161,7 +161,7 @@ svelte-vitals --staged --fail-on warning
 
 ### `--baseline <ref>`
 
-Report only findings that are **new** compared to `ref` — i.e. not present when the same analysis runs against `ref`. Unlike `--diff`/`--staged` (which scope by file), `--baseline` scopes by finding identity, so pre-existing issues in files you touched don't fail the gate — only issues your change actually introduced. There is no default ref; it must be given explicitly.
+Report only findings that are **new** compared to `ref`, meaning not present when the same analysis runs against `ref`. Unlike `--diff`/`--staged` (which scope by file), `--baseline` scopes by finding identity, so pre-existing issues in files you touched don't fail the gate. Only issues your change actually introduced do. There is no default ref; it must be given explicitly.
 
 Internally, svelte-vitals checks out `ref` into a temporary git worktree, analyzes it, and subtracts those findings (matched by rule id + route + location) from the current run's findings. If checkout fails (not a git repo, git unavailable, bad ref), svelte-vitals warns and reports all findings instead of failing the run.
 
@@ -174,7 +174,7 @@ svelte-vitals --diff origin/main --baseline origin/main --fail-on warning   # re
 
 ### `svelte-vitals-suppressions.json` / `--update-suppressions` / `--no-suppressions`
 
-Adopting svelte-vitals on an existing project usually means there's a backlog of findings you can't fix before turning on gating. `--baseline <ref>` covers the **transient** case — comparing a PR against its base — but there's also a **persistent** ramp: record today's findings once, accept them, and gate only on anything new from then on.
+Adopting svelte-vitals on an existing project usually means there's a backlog of findings you can't fix before turning on gating. `--baseline <ref>` covers the **transient** case, comparing a PR against its base. There's also a **persistent** ramp: record today's findings once, accept them, and gate only on anything new from then on.
 
 ```bash
 svelte-vitals --update-suppressions   # write svelte-vitals-suppressions.json, accepting every current finding
@@ -182,9 +182,9 @@ git add svelte-vitals-suppressions.json && git commit -m "chore: accept existing
 svelte-vitals --fail-on warning       # now gates only on findings introduced after that commit
 ```
 
-`--update-suppressions` analyzes the whole project (any `--diff`/`--staged`/`--baseline` scoping is ignored — the file is meant to capture the whole project's state, not a diff), writes every currently-penalized finding to `svelte-vitals-suppressions.json` in the analyzed directory (passing findings are never written), prints a summary to stderr, and exits `0` without printing a report.
+`--update-suppressions` analyzes the whole project, ignoring any `--diff`/`--staged`/`--baseline` scoping, since the file is meant to capture the whole project's state rather than a diff. It writes every currently-penalized finding to `svelte-vitals-suppressions.json` in the analyzed directory (passing findings are never written), prints a summary to stderr, and exits `0` without printing a report.
 
-Once the file exists, it's applied **automatically** on every run — after `--diff`/`--staged` and `--baseline` — removing any penalized finding whose rule id, route, and location match an entry, and printing how many were suppressed:
+Once the file exists, svelte-vitals applies it **automatically** on every run, after `--diff`/`--staged` and `--baseline`. It removes any penalized finding whose rule id, route, and location match an entry, and prints how many were suppressed:
 
 ```
 svelte-vitals: 12 finding(s) suppressed by svelte-vitals-suppressions.json.
@@ -196,13 +196,13 @@ Fix an accepted finding and its entry becomes **stale** (matches nothing); svelt
 svelte-vitals: 3 finding(s) suppressed by svelte-vitals-suppressions.json (1 stale entry — re-run --update-suppressions to prune).
 ```
 
-**What a suppression covers:** an entry means _accept whatever this rule reports at this route and location_, not _accept this one message_. The key is `id` + `route` + `location` — deliberately no message — so fixing the finding an entry was recorded for and then triggering a different finding from the same rule at the same spot still matches the entry: the new finding is suppressed too, and the entry stays out of the stale count because it's still actively matching something. An entry only goes stale once nothing at all matches it. Prune deliberately with `--update-suppressions` rather than assuming a green run means that exact issue is gone.
+**What a suppression covers.** An entry means _accept whatever this rule reports at this route and location_, not _accept this one message_. The key is `id` + `route` + `location`, deliberately with no message. Fix the finding an entry was recorded for, then trigger a different finding from the same rule at the same spot, and the entry still matches: the new finding is suppressed too, and it stays out of the stale count because it's still actively matching something. An entry only goes stale once nothing at all matches it. Prune deliberately with `--update-suppressions` rather than assuming a green run means that exact issue is gone.
 
-Use `--no-suppressions` to ignore the file for one run (e.g. to see the project's true current state). A malformed `svelte-vitals-suppressions.json` (not valid JSON, wrong `version`, or an entry missing `id`) is a hard error (exit `2`) rather than being silently ignored — a typo'd file must not silently un-gate CI.
+Use `--no-suppressions` to ignore the file for one run (e.g. to see the project's true current state). A malformed `svelte-vitals-suppressions.json` (not valid JSON, wrong `version`, or an entry missing `id`) is a hard error (exit `2`) rather than being silently ignored. A typo'd file must not silently un-gate CI.
 
-**Key difference from `--baseline <ref>`:** `--baseline` re-derives "what's pre-existing" by re-analyzing a git ref on every run — nothing to commit, but it only ever compares against one ref. The suppressions file is a committed, persistent record you build once (or update deliberately) and that keeps applying regardless of which ref you're on.
+**Key difference from `--baseline <ref>`.** `--baseline` re-derives "what's pre-existing" by re-analyzing a git ref on every run. Nothing to commit, but it only ever compares against one ref. The suppressions file is a committed, persistent record you build once (or update deliberately) and that keeps applying regardless of which ref you're on.
 
-> Entries match without a line number, same as `--baseline` — a second violation of an accepted rule lower in the same file won't surface as new. This file only affects the CLI in v1; it isn't yet read by `@svelte-vitals/vite` or the GitHub Action.
+> Entries match without a line number, same as `--baseline`, so a second violation of an accepted rule lower in the same file won't surface as new. The `@svelte-vitals/vite` plugin does not read this file. The GitHub Action does, since it runs the CLI's own engine.
 
 ### `--by-route`
 
@@ -210,13 +210,13 @@ Print a per-route score breakdown in the console output.
 
 ### `--verbose`
 
-Show every finding uncapped and ungrouped, matching the console output from before this option existed. By default, console output groups failures by rule (showing the top 5 rules per severity, each with one example location and an "…and N more" count), collapses the Passed section to a bare count, and caps `--by-route` to the 10 worst-scoring routes.
+Show every finding uncapped and ungrouped. By default, console output groups failures by rule (showing the top 5 rules per severity, each with one example location and an "…and N more" count), collapses the Passed section to a bare count, and caps `--by-route` to the 10 worst-scoring routes.
 
 ### `--no-animation`
 
 Disable the Health-score reveal animation and the analysis-phase mascot, falling back to a plain spinner and a plain score reveal.
 
-Both only ever play on an interactive, color-capable terminal — never in CI, piped output, or an AI-agent shell — so this flag is only for opting out on a terminal that would otherwise show them. The mascot additionally needs 20+ columns and is dropped below that width regardless.
+Both only ever play on an interactive, color-capable terminal, never in CI, piped output, or an AI-agent shell. This flag is only for opting out on a terminal that would otherwise show them. The mascot additionally needs 20+ columns and is dropped below that width regardless.
 
 ### `--rules <ids>`
 
@@ -243,7 +243,7 @@ svelte-vitals --category seo
 svelte-vitals --category seo,performance
 ```
 
-`--category` intersects with `--rules`/`--ignore`/config-file rule selection — a rule only runs if it survives both. Narrowing to a subset of categories also narrows the [Health score](/guides/health-report): the combined score becomes the weighted average of only the categories that have findings, so it isn't directly comparable to an unfiltered run. An unknown category is an error (exit `2`).
+`--category` intersects with `--rules`, `--ignore`, and config-file rule selection. A rule only runs if it survives both. Narrowing to a subset of categories also narrows the [Health score](/guides/health-report): the combined score becomes the weighted average of only the categories that have findings, so it isn't directly comparable to an unfiltered run. An unknown category is an error (exit `2`).
 
 ### `--weights <pairs>`
 
@@ -259,9 +259,9 @@ An unknown category or a negative/non-numeric value is an error (exit `2`).
 
 For one intentional occurrence that `--ignore` would silence project-wide, add a
 `svelte-vitals-disable-next-line` comment on the line directly above it. It works for
-every finding the report anchors to a file **and a line**, route-level ones included —
+every finding the report anchors to a file **and a line**, route-level ones included:
 a duplicate landmark, a second `<h1>`, an image missing dimensions, `minify: false` in
-`vite.config.ts`. What it cannot reach is a finding with no line to sit above: the
+`vite.config.ts`. What it cannot reach is a finding with no line to sit above, meaning the
 `<head>` metadata rules, which report what a route never set, and the checks about a
 file's name or place in the tree.
 
@@ -286,28 +286,28 @@ In markup, use an HTML comment instead:
 Omit the rule id to suppress every rule on the next line, or list several
 comma-separated (`correctness/effect-as-derived, security/raw-html`).
 
-A directive in a component silences that finding on **every route that composes it** —
-you are annotating one piece of markup, not one route. Per-route suppression is what
+A directive in a component silences that finding on **every route that composes it**.
+You are annotating one piece of markup, not one route. Per-route suppression is what
 `svelte-vitals-suppressions.json` and `overrides` are for.
 
 A directive naming a rule id that no rule declares is reported as a warning on a full
-run; it would otherwise suppress nothing, silently. (A `--route` run stays quiet about
-it — it parses files outside the selection and should not report on them, the same gate
-the stale-suppressions notice uses.) A directive that suppresses nothing is **not** reported at
-all — the author fixed the code and left the comment, the rule is off in config, the run
-was scoped, all legitimate, and reporting them by default is how a warning gets muted.
+run; it would otherwise suppress nothing, silently. A `--route` run stays quiet about
+it, since it parses files outside the selection and should not report on them, the same gate
+the stale-suppressions notice uses. A directive that suppresses nothing is **not** reported at
+all. The author fixed the code and left the comment, the rule is off in config, the run
+was scoped: all legitimate, and reporting them by default is how a warning gets muted.
 
 Build mode (`@svelte-vitals/vite`) analyzes prerendered HTML, which has no source
-lines, so route-level findings there cannot be suppressed inline — component-scoped
+lines, so route-level findings there cannot be suppressed inline. Component-scoped
 findings still can.
 
 Two constraints: the comment must be the only thing on its line (a trailing
 same-line comment is not recognized), and it must be the line **immediately**
-above the target — a blank line in between breaks the match.
+above the target. A blank line in between breaks the match.
 
 ### `--meta-components <names>`
 
-Comma-separated list of component names that emit `<head>` metadata but that the analyzer cannot resolve — typically components imported from an npm package without a built-in adapter. Components the analyzer can resolve in your own repo are followed automatically, so declaring one of those is a no-op — the declaration only kicks in when resolution fails.
+Comma-separated list of component names that emit `<head>` metadata but that the analyzer cannot resolve, typically components imported from an npm package without a built-in adapter. The analyzer follows components it can resolve in your own repo automatically, so declaring one of those is a no-op. The declaration only takes effect when resolution fails.
 
 ```bash
 svelte-vitals --meta-components "SeoHead,PageMeta"
@@ -325,16 +325,16 @@ How to handle routes where a metadata value is set dynamically.
 
 ### `-h, --help`
 
-Print the help text and exit. Renders in Japanese when the resolved locale is `ja` — see
+Print the help text and exit. Renders in Japanese when the resolved locale is `ja`; see
 [Help language](#help-language) below. Every other output (errors, warnings, reporters) stays
 English regardless of locale.
 
 #### Help language
 
-`--help` picks English or Japanese from the environment — POSIX-style, first non-empty value wins:
+`--help` picks English or Japanese from the environment, POSIX-style, first non-empty value wins:
 `SVELTE_VITALS_LANG` > `LC_ALL` > `LC_MESSAGES` > `LANG`. A value of `ja`, `ja-JP`, or `ja_JP.UTF-8`
-selects Japanese; anything else (including unset) selects English. There is no `--lang` flag — the
-environment already expresses this on every terminal.
+selects Japanese; anything else, unset included, selects English. There is no `--lang` flag, because
+the environment already expresses this on every terminal.
 
 ```bash
 SVELTE_VITALS_LANG=ja svelte-vitals --help
@@ -343,7 +343,7 @@ LANG=ja_JP.UTF-8 svelte-vitals docs --help
 
 ### `-v, --version`
 
-Print the CLI's own version and the resolved `@svelte-vitals/core` version, e.g. `0.20.0 (core 0.21.0)`. `svelte-vitals` and `@svelte-vitals/vite` are versioned independently and can end up depending on different `@svelte-vitals/core` releases — compare this `core` version against the one shown in the [live dashboard](/guides/dev-dashboard#version-drift) topbar if the two surfaces ever disagree on findings.
+Print the CLI's own version and the resolved `@svelte-vitals/core` version, e.g. `0.20.0 (core 0.21.0)`. `svelte-vitals` and `@svelte-vitals/vite` are versioned independently and can end up depending on different `@svelte-vitals/core` releases. If the two ever disagree on findings, compare this `core` version against the one shown in the [live dashboard](/guides/dev-dashboard#version-drift) topbar.
 
 ## `docs`
 
@@ -352,15 +352,15 @@ svelte-vitals docs list [--json]
 svelte-vitals docs show <name>
 ```
 
-A curated set of guides is **bundled into the CLI itself**, so what you read always matches the
-version you are running and works with no network. `docs list` prints each topic with a one-line
+svelte-vitals **bundles a curated set of guides into the CLI itself**, so what you read always matches
+the version you are running and works with no network. `docs list` prints each topic with a one-line
 description (`--json` for the machine-readable form); `docs show <name>` prints one.
 
 ```bash
 npx svelte-vitals docs show scoping
 ```
 
-The set covers the things you need while running the tool, condensed for a terminal — run
+The set covers the things you need while running the tool, condensed for a terminal. Run
 `docs list` for the current topics rather than trusting a list written down elsewhere. This site
 remains the complete reference; the bundled set is deliberately smaller.
 
@@ -377,11 +377,11 @@ svelte-vitals explain --list [--json]
 svelte-vitals explain <rule-id> [--json]
 ```
 
-`--list` prints every rule grouped by category, with its default severity and title — the way to
+`--list` prints every rule grouped by category, with its default severity and title. It is the way to
 discover rule ids without triggering an error.
 
 Given an id, `explain` prints that rule's static metadata without analyzing anything: title,
-category, default severity, rationale, docs URL, fix template, and — for a configurable rule —
+category, default severity, rationale, docs URL, fix template, and, for a configurable rule,
 each option's name, kind, default, bounds and **merge semantics**.
 
 That last part is the piece a finding can't tell you: `integer` replaces the default,
@@ -441,8 +441,8 @@ svelte-vitals complete powershell >> $PROFILE
 . $PROFILE
 ```
 
-Each script re-invokes `svelte-vitals` from the exact install location it was generated from —
-regenerate it after upgrading `svelte-vitals`, or after moving/reinstalling the package.
+Each script re-invokes `svelte-vitals` from the exact install location it was generated from.
+Regenerate it after upgrading `svelte-vitals`, or after moving or reinstalling the package.
 
 `complete` is a subcommand, so it wins over a directory of the same name: to analyze a directory
 called `complete`, write `svelte-vitals ./complete`.
@@ -450,11 +450,11 @@ called `complete`, write `svelte-vitals ./complete`.
 ## Supported Svelte/SvelteKit versions
 
 Rules assume **Svelte 5+ (runes)** and **SvelteKit 2+**. If the analyzed project declares an
-older `svelte` or `@sveltejs/kit` version in `package.json`, a warning is printed to stderr —
-the analysis still runs normally, but rules that key off runes syntax (e.g.
+older `svelte` or `@sveltejs/kit` version in `package.json`, svelte-vitals prints a warning to stderr.
+The analysis still runs normally, but rules that key off runes syntax (e.g.
 [correctness/stale-prop-derivation](/rules/correctness/stale-prop-derivation),
 [correctness/prop-mutation](/rules/correctness/prop-mutation)) can't recognize
-the legacy (`export let` / `$:`) equivalent of the same bugs, so findings may be incomplete for
+the legacy `export let` / `$:` equivalent of the same bugs, so findings may be incomplete for
 components that haven't migrated to runes yet.
 
 ## Exit codes

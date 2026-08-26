@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-svelte-vitals は Agent Skills を提供します。いずれも **Claude Code**、**Cursor**、**Codex** で同じように動くポータブルな `SKILL.md` ファイルです。3つのツールがいずれも同じフロントマター形式の規約を解釈するため、1つのファイルがそのまま使い回せます。スキルは [skills.sh](https://www.skills.sh/) に掲載されており、`skills` CLI でインストールします。
+svelte-vitals は Agent Skills を提供します。いずれも Claude Code、Cursor、Codex で同じように動くポータブルな `SKILL.md` ファイルです。3つのツールがいずれも同じフロントマター形式の規約を解釈するため、1つのファイルがそのまま使い回せます。スキルは [skills.sh](https://www.skills.sh/) に掲載されており、`skills` CLI でインストールします。
 
 ```bash
 npx skills add oekazuma/svelte-vitals

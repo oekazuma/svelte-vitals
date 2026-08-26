@@ -88,7 +88,7 @@ npx svelte-vitals@latest apps/web     # 検出をスキップし、apps/web を�
 
 指定できる値：`console, json, agent, sarif, github, html, md` のいずれか
 
-**自動選択：** 既知の AI エージェントハーネス（Claude Code、Cursor、Codex など —— 認識対象は [gunshi](https://gunshi.dev) のエージェントプロファイルに委譲されており、gunshi の更新とともに拡張されます）で実行された場合、または `SVELTE_VITALS_AGENT=1` が設定されている場合は `agent` レポーターを、GitHub Actions（`GITHUB_ACTIONS=true`）では `github` レポーターを自動的に選択します。`--reporter` を明示的に指定すれば、常に自動選択より優先されます。`SVELTE_VITALS_REPORTER` 環境変数でも上書きできます。
+**自動選択：** 既知の AI エージェントハーネス（Claude Code、Cursor、Codex など）で実行された場合、または `SVELTE_VITALS_AGENT=1` が設定されている場合は `agent` レポーターを、GitHub Actions（`GITHUB_ACTIONS=true`）では `github` レポーターを自動的に選択します。認識対象は [gunshi](https://gunshi.dev) のエージェントプロファイルに委譲されており、gunshi の更新とともに拡張されます。`--reporter` を明示的に指定すれば、常に自動選択より優先されます。`SVELTE_VITALS_REPORTER` 環境変数でも上書きできます。
 
 ### `--out-file <path>`
 
@@ -199,7 +199,7 @@ svelte-vitals: 3 finding(s) suppressed by svelte-vitals-suppressions.json (1 sta
 
 **`--baseline <ref>` との違い:** `--baseline` は実行のたびに git の ref を再解析して「何が既存か」を導出します。コミットは不要ですが、常に 1 つの ref としか比較できません。抑制ファイルは、一度作って（あるいは意図したときにだけ更新して）コミットする永続的な記録で、どの ref 上にいても適用され続けます。
 
-> `--baseline` と同様、エントリは行番号なしで照合されます。受け入れ済みのルールの 2 件目の違反が同じファイルの下の方に追加されても「新規」としては表示されません。このファイルは v1 では CLI にのみ影響します。まだ `@svelte-vitals/vite` と GitHub Action からは読み込まれません。
+> `--baseline` と同様、エントリは行番号なしで照合されます。受け入れ済みのルールの 2 件目の違反が同じファイルの下の方に追加されても「新規」としては表示されません。`@svelte-vitals/vite` はこのファイルを読みません。GitHub Action は CLI と同じエンジンを実行するため読み込みます。
 
 ### `--by-route`
 
@@ -207,7 +207,7 @@ svelte-vitals: 3 finding(s) suppressed by svelte-vitals-suppressions.json (1 sta
 
 ### `--verbose`
 
-すべての検出結果を、集約もグループ化もせずに表示します（このオプションが導入される前の出力と同じです）。デフォルトのコンソール出力は、失敗した検出結果をルールごとにグループ化し（severityごとに上位5ルールのみを、それぞれ代表1件の場所と「他N件」の件数付きで表示）、Passedセクションを件数のみに集約し、`--by-route`をスコアが低い順に上位10ルートまでに制限します。
+すべての検出結果を、集約もグループ化もせずに表示します。デフォルトのコンソール出力は、失敗した検出結果をルールごとにグループ化し（severityごとに上位5ルールのみを、それぞれ代表1件の場所と「他N件」の件数付きで表示）、Passedセクションを件数のみに集約し、`--by-route`をスコアが低い順に上位10ルートまでに制限します。
 
 ### `--no-animation`
 
@@ -252,7 +252,7 @@ svelte-vitals --weights seo=2,performance=1
 
 ### 特定の指摘だけをインラインで抑制する
 
-`--ignore` はプロジェクト全体でルールを無効にしますが、意図的な1箇所だけを黙らせたい場合は、対象行の直前に `svelte-vitals-disable-next-line` コメントを書きます。レポートがファイルと**行**を示すすべての検出に対応し、ルートレベルの検出も含まれます — ランドマークの重複、2つ目の `<h1>`、寸法のない画像、`vite.config.ts` の `minify: false` などです。抑制できないのは、直上に置くべき行を持たない検出です。ルートが設定しなかったものを報告する `<head>` メタデータ系のルールと、ファイル名やツリー内の位置を対象とするチェックがこれにあたります。
+`--ignore` はプロジェクト全体でルールを無効にしますが、意図的な1箇所だけを黙らせたい場合は、対象行の直前に `svelte-vitals-disable-next-line` コメントを書きます。レポートがファイルと**行**を示すすべての検出に対応し、ルートレベルの検出も含まれます。ランドマークの重複、2つ目の `<h1>`、寸法のない画像、`vite.config.ts` の `minify: false` などです。抑制できないのは、直上に置くべき行を持たない検出です。ルートが設定しなかったものを報告する `<head>` メタデータ系のルールと、ファイル名やツリー内の位置を対象とするチェックがこれにあたります。
 
 ```svelte
 <script>
@@ -274,9 +274,9 @@ svelte-vitals --weights seo=2,performance=1
 
 ルール ID を省略すると次の行のすべてのルールを抑制します。複数指定する場合はカンマ区切りで書けます（`correctness/effect-as-derived, security/raw-html`）。
 
-コンポーネント内のディレクティブは、**それを合成するすべてのルート**でその検出を抑制します — 1 つのルートではなく 1 箇所のマークアップに注釈を付けているためです。ルート単位の抑制は `svelte-vitals-suppressions.json` と `overrides` の役割です。
+コンポーネント内のディレクティブは、**それを合成するすべてのルート**でその検出を抑制します。1 つのルートではなく 1 箇所のマークアップに注釈を付けているためです。ルート単位の抑制は `svelte-vitals-suppressions.json` と `overrides` の役割です。
 
-どのルールも宣言していないルール ID を指定したディレクティブは、フル実行では警告として報告されます。そのままでは何も抑制せずに黙って無視されてしまうためです。（`--route` を付けた実行では報告しません。選択範囲外のファイルも解析対象として読むため、それらについて報告すべきではないからで、stale な suppressions の通知と同じゲートです。）一方、何も抑制しなかったディレクティブは報告**されません** — コードを直してコメントだけ残った・ルールが config で無効になっている・実行がスコープされている、のいずれも正当であり、既定で報告すると警告そのものが無視されるようになるからです。
+どのルールも宣言していないルール ID を指定したディレクティブは、フル実行では警告として報告されます。そのままでは何も抑制せずに黙って無視されてしまうためです。`--route` を付けた実行では報告しません。選択範囲外のファイルも解析対象として読むため、それらについて報告すべきではないからで、stale な suppressions の通知と同じゲートです。一方、何も抑制しなかったディレクティブは報告**されません**。コードを直してコメントだけ残った・ルールが config で無効になっている・実行がスコープされている、のいずれも正当であり、既定で報告すると警告そのものが無視されるようになるからです。
 
 ビルドモード（`@svelte-vitals/vite`）はプリレンダリングされた HTML を解析し、そこにはソース行がないため、ルートレベルの検出をインラインでは抑制できません。コンポーネントスコープの検出は引き続き抑制できます。
 
@@ -284,7 +284,7 @@ svelte-vitals --weights seo=2,performance=1
 
 ### `--meta-components <names>`
 
-`<head>` メタデータを出力するものの、解析が追跡できないコンポーネント名のカンマ区切りリストです — 典型的には、組み込みアダプタのない npm パッケージから import したコンポーネントです。解析が解決できるリポジトリ内のコンポーネントは自動的に追跡されるため、それらを指定しても no-op です — 指定が効くのは解決に失敗した場合だけです。
+`<head>` メタデータを出力するものの、解析が追跡できないコンポーネント名のカンマ区切りリストです。典型的には、組み込みアダプタのない npm パッケージから import したコンポーネントです。解析が解決できるリポジトリ内のコンポーネントは自動的に追跡されるため、それらを指定しても no-op です。指定が効くのは解決に失敗した場合だけです。
 
 ```bash
 svelte-vitals --meta-components "SeoHead,PageMeta"
@@ -302,7 +302,7 @@ svelte-vitals --meta-components "SeoHead,PageMeta"
 
 ### `-h, --help`
 
-ヘルプテキストを表示して終了します。解決されたロケールが `ja` のときは日本語で表示されます —
+ヘルプテキストを表示して終了します。解決されたロケールが `ja` のときは日本語で表示されます。
 詳しくは下の[ヘルプの言語](#ヘルプの言語)を参照してください。`--help` 以外の出力（エラー・警告・
 各種レポーター）はロケールに関わらず常に英語のままです。
 
@@ -310,8 +310,8 @@ svelte-vitals --meta-components "SeoHead,PageMeta"
 
 `--help` の言語は環境変数から決まります（POSIX 方式で、最初に空でない値が採用されます）：
 `SVELTE_VITALS_LANG` > `LC_ALL` > `LC_MESSAGES` > `LANG`。値が `ja`・`ja-JP`・`ja_JP.UTF-8` のいず
-れかであれば日本語、それ以外（未設定を含む）は英語になります。`--lang` のようなフラグはありません
-— 端末の環境変数がすでにこれを表しているためです。
+れかであれば日本語、それ以外（未設定を含む）は英語になります。`--lang` のようなフラグはありません。
+端末の環境変数がすでにこれを表しているためです。
 
 ```bash
 SVELTE_VITALS_LANG=ja svelte-vitals --help
@@ -414,7 +414,7 @@ svelte-vitals complete powershell >> $PROFILE
 
 ルールは **Svelte 5+（runes）** と **SvelteKit 2+** を前提としています。解析対象プロジェクトの
 `package.json` がそれより古い `svelte`/`@sveltejs/kit` バージョンを宣言している場合、stderr に
-警告が表示されます — 解析自体は通常どおり実行されますが、
+警告が表示されます。解析自体は通常どおり実行されますが、
 [correctness/stale-prop-derivation](/ja/rules/correctness/stale-prop-derivation)や
 [correctness/prop-mutation](/ja/rules/correctness/prop-mutation)のように runes
 構文を手がかりにするルールは、同じバグの legacy 構文（`export let` / `$:`）版を認識できないため、

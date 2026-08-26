@@ -5,31 +5,31 @@ sidebar:
   order: 3
 ---
 
-Instead of repeating `--rules`, `--ignore`, `--fail-on`, and `--weights` on every invocation, put them in a `svelte-vitals.config` file at your project root. The CLI and the [Vite plugin](/guides/plugin-mode) both read it automatically (the Vite plugin reads it directly — see [Using the config file with the Vite plugin](#using-the-config-file-with-the-vite-plugin) below).
+Instead of repeating `--rules`, `--ignore`, `--fail-on`, and `--weights` on every invocation, put them in a `svelte-vitals.config` file at your project root. The CLI and the [Vite plugin](/guides/plugin-mode) both read it automatically. The plugin reads it directly; see [Using the config file with the Vite plugin](#using-the-config-file-with-the-vite-plugin) below.
 
 Run `svelte-vitals install --client config-file` to scaffold one with every option below commented out.
 
 ## Where it lives
 
-svelte-vitals looks for one of these, in this order, **in the analyzed directory only** (no upward search into parent directories — the analyzed directory is the SvelteKit project root, the same place `vite.config.*` lives):
+svelte-vitals looks for one of these, in this order, **in the analyzed directory only**, with no upward search into parent directories. The analyzed directory is the SvelteKit project root, the same place `vite.config.*` lives.
 
 1. `svelte-vitals.config.js`
 2. `svelte-vitals.config.ts`
 
-The first match wins. If none exist, svelte-vitals runs with its built-in defaults, same as before this feature existed.
+The first match wins. If neither exists, svelte-vitals runs with its built-in defaults.
 
-`install --client config-file` picks `.ts` when both hold: the project looks TypeScript-oriented (`tsconfig.json` or `vite.config.ts` at the root) **and** `svelte-vitals` is a declared dependency — the `defineConfig` import resolves at load time, so an npx-only project must not get it.
+`install --client config-file` picks `.ts` when both hold: the project looks TypeScript-oriented (`tsconfig.json` or `vite.config.ts` at the root), **and** `svelte-vitals` is a declared dependency. The `defineConfig` import resolves at load time, so an npx-only project must not get it.
 
-Otherwise it writes `.js`. Both files are ESM — the project must be `"type": "module"`, which is SvelteKit's default; CommonJS projects are not supported. `--force` keeps an existing file's extension rather than switching format underneath you.
+Otherwise it writes `.js`. Both files are ESM, so the project must be `"type": "module"`, which is SvelteKit's default; CommonJS projects are not supported. `--force` keeps an existing file's extension rather than switching format underneath you.
 
-Pass `--config <path>` to analyze under a specific config file instead — discovery is skipped
-entirely rather than merged with it. A relative path resolves against the directory you run the
+Pass `--config <path>` to analyze under a specific config file instead. svelte-vitals then skips
+discovery entirely rather than merging with it. A relative path resolves against the directory you run the
 command from, never the analyzed directory, so from a repo root
 `svelte-vitals apps/web --config shared/sv.config.js` reads `./shared/sv.config.js`. It accepts
 `.js` and `.ts` only, and a missing or unreadable file exits `2`. Reach for it to try a config out
 before committing it, or to share one config across the apps in a monorepo.
 
-`--config` is a CLI flag only — the [Vite plugin](/guides/plugin-mode) keeps resolving the config
+`--config` is a CLI flag only. The [Vite plugin](/guides/plugin-mode) keeps resolving the config
 from the `cwd` passed to `svelteVitals({ ... })`, else the Vite config root
 ([see below](#using-the-config-file-with-the-vite-plugin)). To share a config with the plugin too,
 import the shared file in `vite.config.ts` and spread it into the plugin's options, which take
@@ -76,29 +76,29 @@ precedence over the discovered file.
   </Tab>
 </Tabs>
 
-`defineConfig` is a thin helper that merges your object over the built-in defaults; it buys type-checking and autocomplete in a `.ts` file and nothing else. A bare `export default {...}` behaves identically at runtime — and, unlike the import, works when svelte-vitals is only ever run via `npx`.
+`defineConfig` is a thin helper that merges your object over the built-in defaults; it buys type-checking and autocomplete in a `.ts` file and nothing else. A bare `export default {...}` behaves identically at runtime, and unlike the import, it works when svelte-vitals is only ever run via `npx`.
 
-That import is a **runtime** one — it resolves when svelte-vitals loads the file, so `svelte-vitals` must be a declared dependency. Import it from `svelte-vitals`, not `@svelte-vitals/core`: core is normally transitive, and a strict `node_modules` layout (pnpm's default) won't resolve it.
+That import is a **runtime** one. It resolves when svelte-vitals loads the file, so `svelte-vitals` must be a declared dependency. Import it from `svelte-vitals`, not `@svelte-vitals/core`: core is normally transitive, and a strict `node_modules` layout (pnpm's default) won't resolve it.
 
 ## Available options
 
-| Option           | Type                                                                                    | Default            | Description                                                                                                                                    |
-| ---------------- | --------------------------------------------------------------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                                            | `'pass'`           | How to score routes where a metadata value is set dynamically                                                                                  |
-| `metaComponents` | `string[]`                                                                              | `[]`               | `<head>`-metadata components the analyzer cannot resolve (e.g. from an npm package) — resolvable in-repo components are followed automatically |
-| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info' \| { severity?, options? }>` | `{}`               | Per-rule overrides — disable a rule, change its severity, and/or set its [options](#rule-options)                                              |
-| `failOn`         | `'critical' \| 'warning' \| 'info'`                                                     | `'critical'`       | Minimum severity that fails the run (exit code `1`)                                                                                            |
-| `weights`        | `Partial<Record<Category, number>>`                                                     | every category `1` | Per-category weights for the combined [Health score](/guides/health-report)                                                                    |
-| `overrides`      | `RuleOverride[]`                                                                        | (none)             | Route-/file-scoped rule overrides — see [below](#scoping-rules-to-routes-or-files-overrides)                                                   |
+| Option           | Type                                                                                    | Default            | Description                                                                                                                                 |
+| ---------------- | --------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `treatDynamicAs` | `'pass' \| 'warn' \| 'fail'`                                                            | `'pass'`           | How to score routes where a metadata value is set dynamically                                                                               |
+| `metaComponents` | `string[]`                                                                              | `[]`               | `<head>`-metadata components the analyzer cannot resolve (e.g. from an npm package); it follows resolvable in-repo components automatically |
+| `rules`          | `Record<string, 'off' \| 'critical' \| 'warning' \| 'info' \| { severity?, options? }>` | `{}`               | Per-rule overrides: disable a rule, change its severity, or set its [options](#rule-options)                                                |
+| `failOn`         | `'critical' \| 'warning' \| 'info'`                                                     | `'critical'`       | Minimum severity that fails the run (exit code `1`)                                                                                         |
+| `weights`        | `Partial<Record<Category, number>>`                                                     | every category `1` | Per-category weights for the combined [Health score](/guides/health-report)                                                                 |
+| `overrides`      | `RuleOverride[]`                                                                        | (none)             | Route- and file-scoped rule overrides; see [below](#scoping-rules-to-routes-or-files-overrides)                                             |
 
-`Category` is `'seo' | 'performance' | 'correctness' | 'security' | 'architecture'`.
+`Category` is `'seo' | 'performance' | 'correctness' | 'security' | 'architecture' | 'a11y'`.
 
-A weight of `0` is valid — it excludes that category from the Health average entirely (the category's own score still appears in the output, and findings / exit-code behavior are unaffected). Setting **every** present category to `0` is an error, though: there is nothing left to average, so the run stops with exit `2`.
+A weight of `0` is valid. It excludes that category from the Health average entirely; the category's own score still appears in the output, and findings and exit-code behavior are unaffected. Setting **every** present category to `0` is an error, though: there is nothing left to average, so the run stops with exit `2`.
 
 ## Scoping rules to routes or files (overrides)
 
-`rules` applies everywhere. `overrides` applies rule settings only where they match — the typical
-case being routes that are intentionally not public (behind auth) and shouldn't be held to SEO
+`rules` applies everywhere. `overrides` applies rule settings only where they match. The typical
+case is routes that are intentionally not public, behind auth, and shouldn't be held to SEO
 metadata rules:
 
 ```js svelte-vitals.config.js
@@ -116,30 +116,30 @@ Each entry has `rules` (keys are **rule ids or category names**, values are
 `'off' | 'critical' | 'warning' | 'info'` or the object form described in
 [Rule options](#rule-options) below) plus at least one scope:
 
-- **`route`** — glob(s) matched against the finding's route id as shown in reports (e.g.
-  `/blog/[slug]`). Note that SvelteKit `(group)` segments are **not** part of the route id
-  (`src/routes/(app)/dashboard` reports as `/dashboard`) — to target a group, use `files`.
-- **`files`** — glob(s) matched against the finding's source path (e.g.
-  `src/routes/(app)/dashboard/+page.svelte`).
+- **`route`** matches globs against the finding's route id as shown in reports, e.g.
+  `/blog/[slug]`. SvelteKit `(group)` segments are **not** part of the route id:
+  `src/routes/(app)/dashboard` reports as `/dashboard`. To target a group, use `files`.
+- **`files`** matches globs against the finding's source path, e.g.
+  `src/routes/(app)/dashboard/+page.svelte`.
 
 Glob syntax is deliberately small: `*` matches within a path segment, `**` matches across
 segments, and a trailing `/**` also matches the bare prefix (`/admin/**` matches `/admin`
-itself). Everything else — including `(`, `)`, `[`, `]` — is literal. An entry matches when
+itself). Everything else is literal, including `(`, `)`, `[` and `]`. An entry matches when
 _any_ of its `route` or `files` globs match.
 
 Semantics worth knowing:
 
-- `'off'` removes matching findings entirely — they don't fail the run and don't drag the
+- `'off'` removes matching findings entirely. They don't fail the run and don't drag the
   score, as if the rule hadn't run there. A severity value re-classifies instead.
-- Entries are evaluated in order and **later entries win**; within one entry, a rule-id key
+- svelte-vitals evaluates entries in order and **later entries win**; within one entry, a rule-id key
   beats a category key **when it specifies a severity**. An options-only rule-id key (no
-  `severity`) contributes its options but leaves the category key's severity in force — it
+  `severity`) contributes its options but leaves the category key's severity in force; it
   doesn't shadow it. Overrides always win over the global `rules` setting where they match.
-- Findings that aren't attached to a route or file (project-wide checks like robots.txt) are
-  never affected — use `rules` for those.
+- Findings that aren't attached to a route or file, project-wide checks like robots.txt, are
+  never affected. Use `rules` for those.
 - `overrides` applies to the CLI and to the Vite plugin's build-time gate. The live
-  dashboard's per-request layer scores each page as it renders and does not apply them — use the
-  CLI (or the build gate) as the source of truth for an override you have just added.
+  dashboard's per-request layer scores each page as it renders and does not apply them. Use the
+  CLI, or the build gate, as the source of truth for an override you have just added.
 - For a permanent "this part of the app is exempt" policy, prefer `overrides` over the
   [suppressions file](/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions):
   suppressions accept only the findings that existed when the file was written, so newly added
@@ -159,95 +159,95 @@ export default {
 };
 ```
 
-`severity` is optional — omit it to keep the rule's built-in severity while only changing its
+`severity` is optional. Omit it to keep the rule's built-in severity while only changing its
 options. `{ severity: 'off', ... }` disables the rule as usual, and any `options` alongside it are
 inert. The bare string forms (`'off'`, `'critical'`, `'warning'`, `'info'`) still work unchanged;
 the object form is additive, not a replacement for them.
 
 Options work inside `overrides` entries the same way they work in the top-level `rules` map,
-scoped by `route` / `files` like any other override setting — but only on a **rule-id key, never
-on a category key**: a category may carry a severity, but its options are meaningless without
+scoped by `route` / `files` like any other override setting, but only on a **rule-id key, never
+on a category key**. A category may carry a severity, but its options are meaningless without
 knowing which rule they belong to.
 
-Layers combine in order — built-in default, `rules`, then each matching `overrides` entry — and how
+Layers combine in order: built-in default, `rules`, then each matching `overrides` entry. How
 they combine depends on the option kind:
 
-- **integer** — replaces; the last one set wins.
-- **list** / **map** — **adds** to the built-in set rather than discarding it, so later
+- **integer** replaces; the last one set wins.
+- **list** and **map** **add** to the built-in set rather than discarding it, so later
   svelte-vitals releases can still grow the defaults under you.
-- **map**, existing key — keeps the entry but takes your value, which is how you reword the
+- **map** with an existing key keeps the entry but takes your value, which is how you reword the
   built-in advice for one package instead of only adding new ones.
 
-Only some rules take options — passing `options` to a rule that doesn't accept any is a fatal
+Only some rules take options. Passing `options` to a rule that doesn't accept any is a fatal
 config error, same as an unknown option name or a value of the wrong type. The rules below do;
 every other rule takes a bare severity/`off` only. Each rule's own page has a "Configuration"
 section with its exact option names and defaults.
 
 - [`architecture/prop-count`](/rules/architecture/prop-count) and
-  [`architecture/component-size`](/rules/architecture/component-size) — an integer `max`.
+  [`architecture/component-size`](/rules/architecture/component-size) take an integer `max`.
 - [`seo/title-length`](/rules/seo/title-length) and
-  [`seo/description-length`](/rules/seo/description-length) — integer `min` / `max`.
-- [`performance/heavy-import`](/rules/performance/heavy-import) — a `packages` map of package
+  [`seo/description-length`](/rules/seo/description-length) take integer `min` and `max`.
+- [`performance/heavy-import`](/rules/performance/heavy-import) takes a `packages` map of package
   specifier → remediation advice, added to the built-in list.
-- [`performance/preconnect`](/rules/performance/preconnect) — an `origins` list of hostnames,
+- [`performance/preconnect`](/rules/performance/preconnect) takes an `origins` list of hostnames,
   added to the built-in list.
-- [`architecture/private-scope-import`](/rules/architecture/private-scope-import) — a `scopes` list of
-  globs naming private directories. The rule is inert until you set it.
-- [`architecture/unit-entry-file`](/rules/architecture/unit-entry-file) — `units`, `pascalCaseUnits`
+- [`architecture/private-scope-import`](/rules/architecture/private-scope-import) takes a `scopes` list
+  of globs naming private directories. The rule is inert until you set it.
+- [`architecture/unit-entry-file`](/rules/architecture/unit-entry-file) takes `units`, `pascalCaseUnits`
   and `exclude` globs declaring which directories are units. The rule is inert until you set them.
-- [`architecture/directory-naming`](/rules/architecture/directory-naming) — a `directories` map of
-  directory glob to casing set, and `exclude` globs. The rule is inert until you set `directories`.
-- [`architecture/reserved-directory-names`](/rules/architecture/reserved-directory-names) — `scopes`
+- [`architecture/directory-naming`](/rules/architecture/directory-naming) takes a `directories` map of
+  directory glob to casing set, plus `exclude` globs. The rule is inert until you set `directories`.
+- [`architecture/reserved-directory-names`](/rules/architecture/reserved-directory-names) takes `scopes`
   (directory glob → allowed child names), `unitScopes` (root glob → the names a unit's children may
   take), `anyCaseUnitScopes` (the same, for units of either case) and `exclude`. Off until a scope map
   is set.
-- [`architecture/route-component-import`](/rules/architecture/route-component-import) — an
+- [`architecture/route-component-import`](/rules/architecture/route-component-import) takes an
   `exemptImporters` glob list of satellite files (stories, tests, specs) allowed to import a route
   entry by hand, added to the built-in list.
-- [`architecture/doc-link-target`](/rules/architecture/doc-link-target) — a `urlRoots` list of URL
+- [`architecture/doc-link-target`](/rules/architecture/doc-link-target) takes a `urlRoots` list of URL
   prefixes that stand for the project's root. The rule is inert until you set it.
 
 ### Import aliases
 
 Rules that follow imports (`architecture/private-scope-import`, `architecture/route-component-import`,
 `security/shared-state-import`, `security/handler-state-write`) resolve specifiers through the aliases your project declares in
-`svelte.config.{js,ts}` — `kit.alias`, plus `kit.files.lib` when `$lib` has been moved. They are read
-statically, in the same order SvelteKit builds them, and the first matching alias wins, exactly as it
-does at build time.
+`svelte.config.{js,ts}`: `kit.alias`, plus `kit.files.lib` when `$lib` has been moved. svelte-vitals
+reads them statically, in the same order SvelteKit builds them, and the first matching alias wins,
+exactly as it does at build time.
 
 The CLI's static mode also follows these aliases when it walks component imports to resolve a route's
 `<head>` and headings (a `<title>`/meta/JSON-LD/`<h1>` set by a component imported through `$components`
-or another custom alias, not just `$lib` or a relative import) — so every SEO rule reading that channel
-sees content the same way regardless of which alias reached it.
+or another custom alias, not just `$lib` or a relative import). Every SEO rule reading that channel
+therefore sees content the same way regardless of which alias reached it.
 
 The following cases are not resolved:
 
-- an alias whose value is computed (`path.resolve(...)`, a template literal) rather than a plain string —
-  the specifier is treated as one we cannot see, so nothing is reported for it;
-- an alias whose value is a literal absolute path — a POSIX path like `/opt/shared/src`, or a Windows
-  drive-letter path like `C:\shared\src` — since that names a file outside the analyzed project;
+- an alias whose value is computed (`path.resolve(...)`, a template literal) rather than a plain string;
+  svelte-vitals treats the specifier as one it cannot see, so nothing is reported for it;
+- an alias whose value is a literal absolute path, such as a POSIX path like `/opt/shared/src` or a
+  Windows drive-letter path like `C:\shared\src`, since that names a file outside the analyzed project;
 - a `kit.files.lib` that is itself computed rather than a plain string, which makes `$lib` unresolvable
   too: every rule above falls silent on `$lib/...` specifiers, and
   [`security/handler-state-write`](/rules/security/handler-state-write)'s lib `server/` exemption stays
   off rather than guessing at where the directory now points;
 - a project that passes its SvelteKit options to the `sveltekit()` plugin in `vite.config.ts` instead of
-  `svelte.config.{js,ts}` — same result, nothing reported;
+  `svelte.config.{js,ts}`, with the same result, nothing reported;
 - a `kit.alias` object containing a spread (`{ ...shared, '$a': 'src/a' }`) or a computed key
-  (`{ [key]: 'src/a' }`) — an unknown key could shadow any entry declared after it, so the _whole_ of
-  `kit.alias` is discarded rather than just that one entry. Every literal alias declared alongside it stops
+  (`{ [key]: 'src/a' }`); an unknown key could shadow any entry declared after it, so svelte-vitals
+  discards the _whole_ of `kit.alias` rather than just that one entry. Every literal alias declared alongside it stops
   resolving too (`$lib` is unaffected, since nothing can shadow the position it always occupies).
 
 ## Precedence
 
-For each field, the first of these that is set wins: **CLI flag > config file > built-in default**. This is per field, not all-or-nothing — a one-off `--fail-on info` does not discard the rest of your config file.
+For each field, the first of these that is set wins: **CLI flag > config file > built-in default**. This is per field, not all-or-nothing. A one-off `--fail-on info` does not discard the rest of your config file.
 
-One exception: `--rules` and `--ignore` are selection, not configuration — each decides which rules run, not how the ones left enabled are set up. `--rules` narrows the run to the rule ids it names and overrides an `'off'` in the config file's top-level `rules` for those ids, since turning a rule off is itself selection; the severity and options the file declared for a named rule are otherwise inherited unchanged. `--ignore` differs only in direction: it adds `off` entries for the rule ids it names, layered on top of whatever `rules` already resolved to (the config file, or `--rules`'s narrowed selection) — a rule it doesn't name is untouched, keeping whatever that previous layer resolved to: the config file's configuration, or `'off'` if `--rules` excluded it. `--ignore` beats `--rules` when both name the same rule. An explicit `rules` value passed programmatically or as a Vite plugin option still replaces the config file's `rules` map as a whole.
+One exception: `--rules` and `--ignore` are selection, not configuration. Each decides which rules run, not how the ones left enabled are set up. `--rules` narrows the run to the rule ids it names and overrides an `'off'` in the config file's top-level `rules` for those ids, since turning a rule off is itself selection; the severity and options the file declared for a named rule are otherwise inherited unchanged. `--ignore` differs only in direction. It adds `off` entries for the rule ids it names, layered on top of whatever `rules` already resolved to, either the config file or `--rules`'s narrowed selection. A rule it doesn't name is untouched, keeping whatever that previous layer resolved to: the config file's configuration, or `'off'` if `--rules` excluded it. `--ignore` beats `--rules` when both name the same rule. An explicit `rules` value passed programmatically or as a Vite plugin option still replaces the config file's `rules` map as a whole.
 
-`overrides` has no CLI flag — route policy belongs in a committed file. The config file is its only source for the CLI and the action; the Vite plugin additionally accepts it as a plugin option (option > file, as usual).
+`overrides` has no CLI flag; route policy belongs in a committed file. The config file is its only source for the CLI and the action; the Vite plugin additionally accepts it as a plugin option (option > file, as usual).
 
 ## Validation
 
-- **Invalid and svelte-vitals stops (exit `2`)**: the file can't be loaded (syntax error or no default export); an unknown rule id inside `rules`; an unknown category or a negative/non-numeric value inside `weights`; a malformed `overrides` entry (not `{ route/files, rules }`-shaped, a scope that isn't a string / non-empty string array, or a key in its `rules` that is neither a known rule id nor a category); an invalid rule setting, in either `rules` or an `overrides` entry's `rules` — a bare string other than `off`/`critical`/`warning`/`info`, an object form with an unrecognized key or an invalid `severity`, options on a rule that takes none, an unknown option name, an option value of the wrong type, out of range, or not in the grammar the option declares (a tag-name list given a selector), options on a category key, or (for a rule with both a `min` and a `max` option) a configured range where `min` would exceed `max`.
+- **Invalid and svelte-vitals stops (exit `2`)**: the file can't be loaded (syntax error or no default export); an unknown rule id inside `rules`; an unknown category or a negative/non-numeric value inside `weights`; a malformed `overrides` entry (not `{ route/files, rules }`-shaped, a scope that isn't a string / non-empty string array, or a key in its `rules` that is neither a known rule id nor a category); an invalid rule setting, in either `rules` or an `overrides` entry's `rules`, meaning a bare string other than `off`/`critical`/`warning`/`info`, an object form with an unrecognized key or an invalid `severity`, options on a rule that takes none, an unknown option name, an option value of the wrong type, out of range, or not in the grammar the option declares (a tag-name list given a selector), options on a category key, or (for a rule with both a `min` and a `max` option) a configured range where `min` would exceed `max`.
 - **Invalid but ignored, with a warning (analysis still runs)**: an unrecognized `treatDynamicAs` or `failOn` value (falls back to flag/default); an unrecognized top-level key (forward-compatible with future config fields).
 
 ## TypeScript configs
@@ -267,4 +267,4 @@ export default {
 };
 ```
 
-With a `svelte-vitals.config` file (any of the three supported extensions) in the project root, the plugin above picks up its `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` / `overrides` automatically — no need to import the file yourself in `vite.config.ts`. Non-fatal config-file warnings (unknown top-level keys, invalid enum values) are logged to the console with a `svelte-vitals:` prefix, the same wording the CLI uses.
+With a `svelte-vitals.config` file in the project root, the plugin above picks up its `treatDynamicAs` / `metaComponents` / `rules` / `failOn` / `weights` / `overrides` automatically. There is no need to import the file yourself in `vite.config.ts`. Non-fatal config-file warnings (unknown top-level keys, invalid enum values) are logged to the console with a `svelte-vitals:` prefix, the same wording the CLI uses.

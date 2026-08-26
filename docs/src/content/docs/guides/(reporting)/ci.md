@@ -5,8 +5,8 @@ sidebar:
   order: 3
 ---
 
-`svelte-vitals ci install` scaffolds a GitHub Actions workflow that calls **`@svelte-vitals/action`**, a
-first-party GitHub Action, on every pull request — inline annotations, a job summary, and a single
+`svelte-vitals ci install` scaffolds a GitHub Actions workflow that calls `@svelte-vitals/action`, a
+first-party GitHub Action, on every pull request. You get inline annotations, a job summary, and a single
 sticky PR comment, with no YAML to hand-write.
 
 ## Quick start
@@ -19,7 +19,7 @@ This writes `.github/workflows/svelte-vitals.yml`. Commit it and open a pull req
 run.
 
 Setting this up alongside the Vite integration or Cursor rules? `ci-workflow` is also
-a selectable target in [`svelte-vitals install`](/guides/install#--client-ids) — pick
+a selectable target in [`svelte-vitals install`](/guides/install#--client-ids). Pick
 it there to write the same workflow file in the same pass, instead of running this command
 separately. `ci upgrade` (below) has no wizard equivalent and stays a standalone command.
 
@@ -28,15 +28,15 @@ npx svelte-vitals@latest ci install --dry-run   # preview without writing
 npx svelte-vitals@latest ci install --force     # regenerate an existing workflow file
 ```
 
-Re-running `ci install` without `--force` is a no-op if the file already exists (idempotent —
-safe to run again after upgrading svelte-vitals). If you already have a workflow from an older
+Re-running `ci install` without `--force` is a no-op if the file already exists, so it is safe to run
+again after upgrading svelte-vitals. If you already have a workflow from an older
 svelte-vitals version, re-run with `--force` to migrate to the current, shorter template.
 
 ## Adopting on an existing project
 
-With an existing backlog, run `svelte-vitals --update-suppressions` locally first: it writes
+With an existing backlog, run `svelte-vitals --update-suppressions` locally first. It writes
 `svelte-vitals-suppressions.json` accepting every current finding. Commit it, then turn on any
-gate — only findings introduced afterward fail. See
+gate; only findings introduced afterward fail. See
 [`--update-suppressions`](/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
 for the full behaviour.
 
@@ -53,22 +53,21 @@ On every `pull_request` event, the generated workflow:
 2. Calls `@svelte-vitals/action`, which runs svelte-vitals **in-process** (no `npx`, no Node setup
    step, no separate scan per output) scoped to the PR: `diff: origin/<base>` limits findings to
    files the PR touched, and [`baseline: origin/<base>`](/guides/cli) further
-   narrows to findings **newly introduced** by the PR — pre-existing issues in touched files
+   narrows to findings **newly introduced** by the PR. Pre-existing issues in touched files
    don't block it.
 3. From that single analysis, the action produces all three outputs together:
    - Inline annotations on the diff.
    - A job summary.
-   - A sticky PR comment — a hidden `<!-- svelte-vitals-report -->` marker lets subsequent pushes
+   - A sticky PR comment. A hidden `<!-- svelte-vitals-report -->` marker lets subsequent pushes
      update the same comment instead of piling up new ones.
-4. Fails the job if the scan found any gating findings, after the summary/comment have already
-   been written — so you always get the PR comment, even on a failing run.
+4. Fails the job if the scan found any gating findings, after the summary and comment have already
+   been written, so you always get the PR comment, even on a failing run.
 
 ## What the comment looks like
 
-Before you install anything, here's a preview of the sticky PR comment `@svelte-vitals/action`
-posts — this is what a real one renders as (the finding rows below are real rule output, just
-assembled here for illustration; the bold lines below render as actual headings in a real GitHub
-comment):
+Before you install anything, here is what the sticky PR comment `@svelte-vitals/action` posts looks
+like. The finding rows below are real rule output, assembled here for illustration; the bold lines
+render as actual headings in a real GitHub comment.
 
 > **svelte-vitals — Health 78/100**
 >
@@ -94,9 +93,9 @@ A few things worth knowing before you see the real thing:
 - The message column includes the fix. Each row is the finding's message _and_ its
   recommendation together, so you don't have to open the full report to know what to do.
 - Rule IDs link to the docs for that specific rule.
-- A clean PR gets a short comment too — `✅ No issues found.` in place of the findings table.
-- The same content (minus the table) also appears in the job's **step summary**, and the
-  underlying findings get **inline annotations** directly on the diff.
+- A clean PR gets a short comment too: `✅ No issues found.` in place of the findings table.
+- The same content, minus the table, also appears in the job's step summary, and the
+  underlying findings get inline annotations directly on the diff.
 
 ## Action inputs
 
@@ -109,23 +108,23 @@ A few things worth knowing before you see the real thing:
 | `baseline`     | Report only findings not already present at this git ref             | (unset)               |
 | `github-token` | Token used to read/post/update the sticky PR comment                 | `${{ github.token }}` |
 
-There's no `reporter` input — the action always produces annotations, the job summary, and the
-sticky comment together in one pass; that fan-out isn't something you configure separately.
+There's no `reporter` input. The action always produces annotations, the job summary, and the
+sticky comment together in one pass; that combination isn't something you configure separately.
 
-The inputs above are **not** the whole configuration surface: the action runs the same analysis
+The inputs above are **not** the whole configuration. The action runs the same analysis
 as the CLI, so it automatically picks up your committed
 [`svelte-vitals.config.*`](/guides/configuration) and
-[`svelte-vitals-suppressions.json`](/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions)
-— see the next section.
+[`svelte-vitals-suppressions.json`](/guides/cli#svelte-vitals-suppressionsjson----update-suppressions----no-suppressions).
+See the next section.
 
 ## Excluding routes or rules
 
-A common wall when adopting in CI: routes that are intentionally not public (behind auth, admin
-areas) get flagged by SEO rules, and there's no action input to exclude them — because exclusions
-live in files the action already reads, so they apply identically to the CLI, the Vite plugin, and
-this action. Pick by intent:
+Adopting in CI, most people hit this: SEO rules flag routes that are intentionally not public,
+behind auth or in admin areas, and there is no action input to exclude them. That is because
+exclusions live in files the action already reads, so they apply identically to the CLI, the Vite
+plugin, and this action. Pick by intent:
 
-- Never want a rule at all — turn it off globally in
+- Never want a rule at all? Turn it off globally in
   [`svelte-vitals.config.*`](/guides/configuration):
 
   ```js svelte-vitals.config.js
@@ -134,7 +133,7 @@ this action. Pick by intent:
   };
   ```
 
-- A rule or category doesn't apply to part of the app (the auth-only case) — scope it with
+- A rule or category doesn't apply to part of the app, the auth-only case? Scope it with
   [`overrides`](/guides/configuration#scoping-rules-to-routes-or-files-overrides).
   This is durable policy: routes added under the glob later are excluded too.
 
@@ -145,14 +144,14 @@ this action. Pick by intent:
   };
   ```
 
-- The findings are real, you just can't fix them all now — accept the current backlog
-  one-shot with `svelte-vitals --update-suppressions` and commit the file (see
-  [Adopting on an existing project](#adopting-on-an-existing-project) above). Unlike `overrides`,
+- The findings are real, you just can't fix them all now? Accept the current backlog in one
+  shot with `svelte-vitals --update-suppressions` and commit the file; see
+  [Adopting on an existing project](#adopting-on-an-existing-project) above. Unlike `overrides`,
   this is a snapshot: a _new_ route with the same problem fails again, which is exactly what you
   want for a backlog.
 
-All three are committed files — no workflow inputs involved, and a change to them is reviewed
-like any other PR.
+All three are committed files. No workflow inputs are involved, and a change to them goes through
+review like any other PR.
 
 ## Permissions
 
@@ -166,8 +165,8 @@ permissions:
 
 `pull-requests: write` is required to post/update the PR comment. On workflows triggered by pull
 requests **from forks**, GitHub Actions downgrades token permissions regardless of what the
-workflow declares, so `@svelte-vitals/action` detects fork PRs and skips the sticky comment there
-(this can never fail the job) — inline annotations and the job summary still work in that case.
+workflow declares, so `@svelte-vitals/action` detects fork PRs and skips the sticky comment there,
+which can never fail the job. Inline annotations and the job summary still work in that case.
 
 ## Writing it by hand
 
@@ -199,9 +198,9 @@ jobs:
 ```
 
 `ci install` fills in `<sha>`/`<version>` with the pin bundled into the `svelte-vitals` CLI
-you're running — resolved from the latest
+you're running, resolved from the latest
 [oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action) release as of
-each `svelte-vitals` release; `ci install` itself never queries GitHub. Running
+each `svelte-vitals` release. `ci install` itself never queries GitHub. Running
 the installer (with `@latest`, to get the most recently bundled pin) is the easiest way to get a
 working pin. Writing this by hand, use the commit SHA and version from the latest release tag in
 that [repository](https://github.com/oekazuma/svelte-vitals-action/releases).
@@ -221,8 +220,8 @@ steps, etc).
 `svelte-vitals ci upgrade` is the surgical alternative: it rewrites **only** the action `uses:`
 line(s) to the pin bundled with the CLI you're running. Both the current
 `oekazuma/svelte-vitals-action@<sha>` form and the pre-migration
-`oekazuma/svelte-vitals/packages/action@<sha>` form are recognized and migrated. Everything else —
-other pins, triggers, extra steps — is untouched.
+`oekazuma/svelte-vitals/packages/action@<sha>` form are recognized and migrated. Everything else stays
+untouched: other pins, triggers, extra steps.
 
 The action repository publishes plain `vX.Y.Z` tags, so Renovate proposes these updates too, with
 no extra configuration.
@@ -232,20 +231,20 @@ npx svelte-vitals@latest ci upgrade              # rewrite the pin in place
 npx svelte-vitals@latest ci upgrade --dry-run    # preview the before/after without writing
 ```
 
-The pin `ci upgrade` writes comes from the CLI build itself, not a network lookup — run it with
-`@latest` (as above) to pick up the most recent one. Possible outcomes:
+The pin `ci upgrade` writes comes from the CLI build itself, not a network lookup. Run it with
+`@latest`, as above, to pick up the most recent one. Possible outcomes:
 
-- Upgraded — the reference line(s) didn't match the bundled pin (either the SHA is stale, or
-  the SHA is current but the comment isn't — e.g. it's missing, unrelated, or still in a
-  pre-migration shape, `# action-vX.Y.Z` or `# @svelte-vitals/action@X.Y.Z`); they're rewritten
-  and the old version (read from the line's comment, in any recognized format, or the old SHA's
-  first 7 characters if there was no recognized version comment at all) is reported.
-- Already up to date — every reference already matches the bundled pin **and** already
+- Upgraded. The reference lines didn't match the bundled pin, either because the SHA is stale,
+  or because the SHA is current but the comment isn't (missing, unrelated, or still in a
+  pre-migration shape such as `# action-vX.Y.Z` or `# @svelte-vitals/action@X.Y.Z`). svelte-vitals
+  rewrites them and reports the old version, read from the line's comment in any recognized
+  format, or the old SHA's first 7 characters when there was no recognized version comment at all.
+- Already up to date. Every reference already matches the bundled pin **and** already
   carries the canonical `# vX.Y.Z` comment; nothing is written.
-- No workflow found / no action reference found — exits with an error telling you to run
-  `ci install` first; `ci upgrade` never creates a workflow from scratch.
+- No workflow found, or no action reference found. `ci upgrade` exits with an error telling you
+  to run `ci install` first; it never creates a workflow from scratch.
 
 The `vX.Y.Z` tags on [oekazuma/svelte-vitals-action](https://github.com/oekazuma/svelte-vitals-action)
-are plain semver, so Renovate's built-in github-actions manager already understands them — if you
-use Renovate (or another tool) to bump the pin directly, `ci upgrade` won't conflict with it —
+are plain semver, so Renovate's built-in github-actions manager already understands them. If you
+use Renovate, or another tool, to bump the pin directly, `ci upgrade` won't conflict with it:
 both keep the same line in the same `uses: ... @<sha> # v<version>` shape.
