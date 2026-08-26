@@ -8,7 +8,12 @@ function fakeEvent(routeId: string | null, pathname = '/') {
   >[0];
 }
 function resolveWith(chunks: string[]) {
-  return (async (_event: unknown, opts?: { transformPageChunk?: (i: { html: string; done: boolean }) => unknown }) => {
+  return (async (
+    _event: unknown,
+    opts?: {
+      transformPageChunk?: (i: { html: string; done: boolean }) => string | undefined | Promise<string | undefined>;
+    }
+  ) => {
     const tpc = opts?.transformPageChunk;
     if (tpc) for (let i = 0; i < chunks.length; i++) await tpc({ html: chunks[i]!, done: i === chunks.length - 1 });
     return {} as unknown as Response;

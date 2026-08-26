@@ -7,7 +7,7 @@ import {
   a11yUnverifiedIdRef
 } from '../src/internal.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
-import type { ResolvedA11y } from '../src/a11y.js';
+import type { A11ySkipCause, ResolvedA11y } from '../src/a11y.js';
 import type { RuleContext } from '../src/rule.js';
 
 const config = defineConfig({});
@@ -188,7 +188,7 @@ describe('a11y/no-missing-id-ref', () => {
 });
 
 describe('a11y/unverified-id-ref', () => {
-  const cause = (over: object) => ({
+  const cause = (over: Partial<A11ySkipCause>) => ({
     kind: 'component' as const,
     file: 'src/lib/A.svelte',
     line: 2,

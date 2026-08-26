@@ -35,7 +35,7 @@ const baseSnapshot: AppSnapshot = {
   meta: { version: '9.9.9', coreVersion: '0.21.0' }
 };
 
-function extractEmbeddedJson(html: string): unknown {
+function extractEmbeddedJson(html: string): AppSnapshot {
   const start = html.indexOf('<script type="application/json" id="svelte-vitals-data">');
   const contentStart = html.indexOf('>', start) + 1;
   const end = html.indexOf('</script>', contentStart);
@@ -82,7 +82,7 @@ describe('renderDashboardShell', () => {
     };
     const html = renderDashboardShell(snapshot);
     expect(html).not.toContain('</script><script>alert(1)</script>');
-    const embedded = extractEmbeddedJson(html) as typeof snapshot;
+    const embedded = extractEmbeddedJson(html);
     expect(embedded.report.routes[0]!.issues[0]!.title).toBe('</script><script>alert(1)</script>');
   });
 
