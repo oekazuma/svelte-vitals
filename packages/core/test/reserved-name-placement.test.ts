@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import { architectureReservedNamePlacement } from '../src/rules/architecture/reserved-name-placement.js';
 import { runRules } from '../src/engine.js';
-import type { Config } from '../src/types.js';
+import { defineConfig, defaultProject, type Config } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 
 const ID = 'architecture/reserved-name-placement';
 
 /** A context carrying only what this rule reads: `sourceFiles` and `config`. */
 function ctx(files: string[], options: Record<string, unknown>, extra: Partial<Config> = {}): RuleContext {
-  const config = { rules: { [ID]: { options } }, ...extra } as unknown as Config;
-  return { sourceFiles: files, config } as unknown as RuleContext;
+  const config = defineConfig({ rules: { [ID]: { options } }, ...extra });
+  return { sourceFiles: files, heads: [], project: defaultProject, config };
 }
 
 async function run(files: string[], options: Record<string, unknown>, extra: Partial<Config> = {}) {
@@ -66,20 +66,24 @@ describe('architecture/reserved-name-placement', () => {
   });
 
   it('reports nothing when no config layer mentions the rule at all', async () => {
-    const config = { rules: {} } as unknown as Config;
+    const config = defineConfig({});
     const results = await architectureReservedNamePlacement.check({
       sourceFiles: ['src/lib/e2e/a.ts'],
+      heads: [],
+      project: defaultProject,
       config
-    } as unknown as RuleContext);
+    });
     expect(results).toEqual([]);
   });
 
   it('reports nothing on a --route run, where no file inventory exists', async () => {
-    const config = { rules: { [ID]: { options: { placements: { e2e: 'src/routes/**' } } } } } as unknown as Config;
+    const config = defineConfig({ rules: { [ID]: { options: { placements: { e2e: 'src/routes/**' } } } } });
     const results = await architectureReservedNamePlacement.check({
       sourceFiles: undefined,
+      heads: [],
+      project: defaultProject,
       config
-    } as unknown as RuleContext);
+    });
     expect(results).toEqual([]);
   });
 
@@ -614,13 +618,15 @@ describe('architecture/reserved-name-placement', () => {
   });
 
   it('reports no counts at all on a run with no file inventory', async () => {
-    const config = { rules: { [ID]: { options: { capitalisedUnitPlacements: { parts: 'src/**' } } } } };
+    const config = defineConfig({ rules: { [ID]: { options: { capitalisedUnitPlacements: { parts: 'src/**' } } } } });
     const seen: Record<string, number>[] = [];
     await architectureReservedNamePlacement.check({
       sourceFiles: undefined,
+      heads: [],
+      project: defaultProject,
       config,
       recordExamined: (c: Record<string, number>) => void seen.push(c)
-    } as unknown as RuleContext);
+    });
     expect(seen).toEqual([]);
   });
 
@@ -630,13 +636,15 @@ describe('architecture/reserved-name-placement', () => {
   // unconfigured project would gain an `"architecture/reserved-name-placement": {}` entry in every
   // report, which is exactly the "absent for rules that count nothing" property the design relies on.
   it('reports no counts at all when no config layer mentions the rule', async () => {
-    const config = { rules: {} } as unknown as Config;
+    const config = defineConfig({});
     const seen: Record<string, number>[] = [];
     await architectureReservedNamePlacement.check({
       sourceFiles: ['src/lib/e2e/a.ts'],
+      heads: [],
+      project: defaultProject,
       config,
       recordExamined: (c: Record<string, number>) => void seen.push(c)
-    } as unknown as RuleContext);
+    });
     expect(seen).toEqual([]);
   });
 

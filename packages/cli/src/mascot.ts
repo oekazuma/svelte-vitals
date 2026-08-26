@@ -78,11 +78,11 @@ const FACE_HAPPY = ['╭──────────╮', '│  ●    ●  �
 // not mouth width.
 const FACE_ECSTATIC = ['╭──────────╮', '│  ^    ^  │', '│   ╰──╯   │', '╰──────────╯'];
 
-const REACTION_FACES: Record<MascotState, readonly string[]> = {
+const REACTION_FACES = {
   content: FACE_CONTENT,
   happy: FACE_HAPPY,
   ecstatic: FACE_ECSTATIC
-};
+} satisfies Record<MascotState, readonly string[]>;
 
 /** The settled pose for the given reaction state — the "payoff" frame of the reveal. */
 export function renderMascotReaction(state: MascotState): string {
@@ -98,19 +98,19 @@ export function renderMascotAnticipating(): string {
 // original every-5th-tick cadence (160ms x 5 = 800ms); the winks are rarer personality
 // flourishes layered on top, spaced apart from each other and from the blinks so no two
 // "special" expressions ever land back-to-back. Full cycle: 160ms x 24 = 3.84s.
-const IDLE_FRAME_SEQUENCE = [0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 2, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 3];
+const IDLE_FRAME_SEQUENCE = [0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 2, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 3] as const;
 
-const IDLE_FACES: Record<number, readonly string[]> = {
+const IDLE_FACES = {
   0: FACE_OPEN_EYES_NEUTRAL_MOUTH,
   1: FACE_CLOSED_EYES_NEUTRAL_MOUTH,
   2: FACE_WINK_BOTH,
   3: FACE_WINK_ONE
-};
+} satisfies Record<number, readonly string[]>;
 
 /** One frame of the analysis-phase idle loop. `frameIndex` is taken mod the sequence length. */
 export function renderMascotIdleFrame(frameIndex: number): string {
   const code = IDLE_FRAME_SEQUENCE[frameIndex % IDLE_FRAME_SEQUENCE.length]!;
-  return renderFace(IDLE_FACES[code]!);
+  return renderFace(IDLE_FACES[code]);
 }
 
 // A small set of festive colors for the 100/100 confetti bonus, distinct from the

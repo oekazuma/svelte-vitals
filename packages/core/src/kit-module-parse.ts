@@ -312,10 +312,7 @@ function refsTainted(node: Node, tainted: Set<string>): boolean {
  * response-body reads are never sites, but their bindings taint. Lines are
  * returned in ORIGINAL-source coordinates (the −1 wrap shift is applied here).
  */
-function collectLoadWaterfalls(
-  program: Node,
-  wrapped: string
-): { dependentLines: number[]; independentLines: number[] } {
+function collectLoadWaterfalls(program: Node, wrapped: string) {
   const dependentLines: number[] = [];
   const independentLines: number[] = [];
   const load = findLoadFunction(program);

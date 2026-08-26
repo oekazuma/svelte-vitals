@@ -20,25 +20,23 @@ export interface RuntimeCounts {
  * timings they are identical on every machine, so the gate cannot be flaky.
  * See docs/superpowers/specs/2026-07-29-io-budget-ci-design.md.
  */
-export function createCountingRuntime(base: Runtime): { rt: Runtime; counts: RuntimeCounts } {
+export function createCountingRuntime(base: Runtime) {
   const counts: RuntimeCounts = { readFile: new Map(), exists: new Map(), glob: new Map() };
   const bump = (m: Map<string, number>, key: string) => m.set(key, (m.get(key) ?? 0) + 1);
-  return {
-    counts,
-    rt: {
-      ...base,
-      readFile(path) {
-        bump(counts.readFile, path);
-        return base.readFile(path);
-      },
-      exists(path) {
-        bump(counts.exists, path);
-        return base.exists(path);
-      },
-      glob(pattern, cwd) {
-        bump(counts.glob, pattern);
-        return base.glob(pattern, cwd);
-      }
+  const rt: Runtime = {
+    ...base,
+    readFile(path) {
+      bump(counts.readFile, path);
+      return base.readFile(path);
+    },
+    exists(path) {
+      bump(counts.exists, path);
+      return base.exists(path);
+    },
+    glob(pattern, cwd) {
+      bump(counts.glob, pattern);
+      return base.glob(pattern, cwd);
     }
   };
+  return { rt, counts };
 }

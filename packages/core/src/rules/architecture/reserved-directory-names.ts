@@ -86,7 +86,7 @@ type MapKind = 'scopes' | 'unitScopes' | 'anyCaseUnitScopes';
 // narrower, more specific claim and wins there too, letting one glob partition a governed name into a
 // capitalised superset and an any-case subset (design 2026-08-06's worked example, ported to this rule's
 // single-governing-set shape rather than that rule's union shape).
-const PRIORITY: Record<MapKind, number> = { scopes: 0, unitScopes: 1, anyCaseUnitScopes: 2 };
+const PRIORITY = { scopes: 0, unitScopes: 1, anyCaseUnitScopes: 2 } satisfies Record<MapKind, number>;
 
 /**
  * architecture/reserved-directory-names — a directory's immediate subdirectories may only take names

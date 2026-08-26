@@ -5,6 +5,7 @@ import { cpSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { run } from '../src/index.js';
 import { GREETING_MESSAGES } from '../src/speech-bubble.js';
+import { fakeStream } from './helpers/fake-stream.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const fixtureDir = join(here, 'fixtures', 'basic-project');
@@ -497,8 +498,7 @@ describe('run() --verbose and animation', () => {
 
   it('animates the header on an interactive stdout and omits it from the printed body', async () => {
     const cap = capture();
-    const animWrites: string[] = [];
-    const stdoutStream = { write: (s: string) => animWrites.push(s) } as unknown as NodeJS.WriteStream;
+    const { writes: animWrites, stream: stdoutStream } = fakeStream();
     await run({
       cwd: fixtureDir,
       log: cap.log,
@@ -537,8 +537,7 @@ describe('run() --verbose and animation', () => {
 
   it('--no-animation suppresses the animation even on an interactive stdout', async () => {
     const cap = capture();
-    const animWrites: string[] = [];
-    const stdoutStream = { write: (s: string) => animWrites.push(s) } as unknown as NodeJS.WriteStream;
+    const { writes: animWrites, stream: stdoutStream } = fakeStream();
     await run({
       cwd: fixtureDir,
       log: cap.log,
@@ -554,8 +553,7 @@ describe('run() --verbose and animation', () => {
 
   it('shows the mascot idle loop on stderr during analysis on a wide interactive terminal', async () => {
     const cap = capture();
-    const stderrWrites: string[] = [];
-    const stderrStream = { write: (s: string) => stderrWrites.push(s) } as unknown as NodeJS.WriteStream;
+    const { writes: stderrWrites, stream: stderrStream } = fakeStream();
     await run({
       cwd: fixtureDir,
       log: cap.log,
@@ -574,8 +572,7 @@ describe('run() --verbose and animation', () => {
 
   it('shows a one-off greeting speech bubble before the idle loop, on a wide interactive terminal', async () => {
     const cap = capture();
-    const stderrWrites: string[] = [];
-    const stderrStream = { write: (s: string) => stderrWrites.push(s) } as unknown as NodeJS.WriteStream;
+    const { writes: stderrWrites, stream: stderrStream } = fakeStream();
     await run({
       cwd: fixtureDir,
       log: cap.log,
@@ -592,8 +589,7 @@ describe('run() --verbose and animation', () => {
 
   it('falls back to the plain braille spinner when --no-animation is set, even on a wide interactive terminal', async () => {
     const cap = capture();
-    const stderrWrites: string[] = [];
-    const stderrStream = { write: (s: string) => stderrWrites.push(s) } as unknown as NodeJS.WriteStream;
+    const { writes: stderrWrites, stream: stderrStream } = fakeStream();
     await run({
       cwd: fixtureDir,
       log: cap.log,
@@ -610,9 +606,7 @@ describe('run() --verbose and animation', () => {
 
   it('falls back to the plain braille spinner on a narrow terminal', async () => {
     const cap = capture();
-    const stderrWrites: string[] = [];
-    const stderrStream = { write: (s: string) => stderrWrites.push(s) } as unknown as NodeJS.WriteStream;
-    Object.defineProperty(stderrStream, 'columns', { value: 15 });
+    const { writes: stderrWrites, stream: stderrStream } = fakeStream({ columns: 15 });
     await run({
       cwd: fixtureDir,
       log: cap.log,

@@ -30,8 +30,10 @@ interface RuleSelectionInput {
  * Ids are taken as given. **An id in `allowRules` that no registered rule matches turns every rule
  * off**, so callers owe `findUnknownRuleIds` first; the CLI does this fatally in `resolve-args`.
  */
-export function resolveRuleSelection(input: RuleSelectionInput): Record<string, RuleSetting> {
-  const out: Record<string, RuleSetting> = { ...(input.rules ?? input.fileRules) };
+export function resolveRuleSelection(input: RuleSelectionInput) {
+  // Spread, not Object.assign: spread defines own properties, so a parsed `__proto__` key
+  // cannot swap the map's prototype and masquerade as rule settings.
+  const out = { ...(input.rules ?? input.fileRules) };
 
   const allow = input.allowRules ?? [];
   if (allow.length > 0) {

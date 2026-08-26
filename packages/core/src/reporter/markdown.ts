@@ -7,7 +7,7 @@ import { SEVERITY_RANK } from './shared.js';
 /** Cap on rendered finding rows — keeps PR comments/job summaries within GitHub's size limits. */
 const MAX_FINDINGS = 50;
 
-const SEVERITY_EMOJI: Record<Severity, string> = { critical: '🔴', warning: '🟡', info: '🔵' };
+const SEVERITY_EMOJI = { critical: '🔴', warning: '🟡', info: '🔵' } satisfies Record<Severity, string>;
 
 /**
  * Escape a value for use inside a Markdown table cell: `mdEscape` handles the general

@@ -55,16 +55,19 @@ describe('svelteVitals dev — invalid config file', () => {
     const chunks: string[] = [];
     const r = {
       statusCode: 200,
-      setHeader: () => {},
+      setHeader: (_k: string, _v: string) => {},
       writeHead: (c: number) => {
         r.statusCode = c;
       },
-      write: (c: string) => chunks.push(c),
+      write: (c: string) => {
+        chunks.push(c);
+      },
       end: (c?: string) => {
         if (c) chunks.push(c);
       }
     };
-    return { res: r as unknown as ServerResponse, body: () => chunks.join('') };
+    // Single boundary cast: `r` carries only the ServerResponse members the middleware touches.
+    return { res: r as ServerResponse, body: () => chunks.join('') };
   }
 
   function req(method: string, url: string): IncomingMessage {
@@ -73,7 +76,7 @@ describe('svelteVitals dev — invalid config file', () => {
       url,
       headers: { host: 'localhost:5173' },
       resume: () => {}
-    }) as unknown as IncomingMessage;
+    }) as IncomingMessage;
   }
 
   let cwd: string;
@@ -95,9 +98,9 @@ describe('svelteVitals dev — invalid config file', () => {
     let handler: MiddlewareHandler = () => {};
     const server = {
       config: { root: cwd },
-      watcher: { on: () => {} },
+      watcher: { on: (_event: string, _cb: (...args: unknown[]) => void) => {} },
       middlewares: { use: (_path: string, fn: MiddlewareHandler) => (handler = fn) }
-    } as unknown as ViteDevServer;
+    } as ViteDevServer;
     const hook = typeof ui.configureServer === 'function' ? ui.configureServer : ui.configureServer!.handler;
 
     // Server setup must complete (not reject / crash) despite the invalid config file.

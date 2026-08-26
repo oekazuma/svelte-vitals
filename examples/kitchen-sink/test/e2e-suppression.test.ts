@@ -18,12 +18,13 @@ interface JsonReport {
   siteIssues: Array<{ id: string; severity: string }>;
 }
 
-function run(dir: string, ...args: string[]): { code: number; stderr: string; report: JsonReport } {
+function run(dir: string, ...args: string[]) {
   const res = spawnSync(process.execPath, [bin, dir, ...args, '--reporter', 'json'], {
     encoding: 'utf8',
     maxBuffer: 16 * 1024 * 1024
   });
-  return { code: res.status ?? 1, stderr: res.stderr, report: JSON.parse(res.stdout) };
+  const report: JsonReport = JSON.parse(res.stdout);
+  return { code: res.status ?? 1, stderr: res.stderr, report };
 }
 
 const findings = (r: JsonReport, id: string) => r.rules[id]?.findings ?? 0;

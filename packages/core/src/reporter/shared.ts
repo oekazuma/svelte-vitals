@@ -4,7 +4,7 @@ import { docsUrlFor } from '../rule.js';
 export { docsUrlFor } from '../rule.js';
 
 /** Sort key: critical first. */
-export const SEVERITY_RANK: Record<Severity, number> = { critical: 0, warning: 1, info: 2 };
+export const SEVERITY_RANK = { critical: 0, warning: 1, info: 2 } satisfies Record<Severity, number>;
 
 /** Map a rule severity to a SARIF result/configuration level. */
 export function severityToSarifLevel(sev: Severity): 'error' | 'warning' | 'note' {

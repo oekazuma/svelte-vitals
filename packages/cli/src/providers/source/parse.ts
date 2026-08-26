@@ -32,7 +32,7 @@ type WalkNode = AST.Fragment | AST.Text | AST.Tag | AST.ElementLike | AST.Block 
  * no single interface to index into — this cast is the walker's one deliberate escape hatch.
  */
 function childOf(node: WalkNode, key: string): WalkNode | WalkNode[] | null | undefined {
-  return (node as unknown as Record<string, WalkNode | WalkNode[] | null | undefined>)[key];
+  return (node as WalkNode & Record<string, WalkNode | WalkNode[] | null | undefined>)[key];
 }
 
 /** Recursively collect every <svelte:head> node anywhere in the template. */
@@ -279,7 +279,11 @@ export interface ParsedA11y {
   elementsUnknowable: boolean;
 }
 
-const LANDMARK_TAGS: Record<string, string | undefined> = { main: 'main', header: 'banner', footer: 'contentinfo' };
+const LANDMARK_TAGS = new Map([
+  ['main', 'main'],
+  ['header', 'banner'],
+  ['footer', 'contentinfo']
+]);
 
 /**
  * HTML-AAM: an `<aside>` scoped to `body` or `main` is a `complementary` landmark; scoped to
@@ -420,7 +424,7 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
     // ARIA fallback role lists (role="switch checkbox") resolve to the first supported token; a
     // non-literal or non-landmark role suppresses the tag mapping rather than falling through to it.
     const role = roleAttr ? splitTokens(attrTextOf(roleAttr))[0] : undefined;
-    let landmark = roleAttr ? (role && LANDMARK_ROLES.has(role) ? role : undefined) : LANDMARK_TAGS[node.name];
+    let landmark = roleAttr ? (role && LANDMARK_ROLES.has(role) ? role : undefined) : LANDMARK_TAGS.get(node.name);
     if (!roleAttr && node.name === 'aside') {
       landmark = ctx.asideDemoting === 0 || hasAccessibleName(attrs) ? 'complementary' : undefined;
     }

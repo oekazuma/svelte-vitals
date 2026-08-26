@@ -88,11 +88,7 @@ function detectPackageManagerNear(io: InstallIO, appDir: string): ReturnType<typ
 }
 
 /** Read the first candidate path that exists; otherwise report the first candidate as the (nonexistent) path. */
-function resolveCandidate(
-  io: InstallIO,
-  baseDir: string,
-  candidates: string[]
-): { path: string; content: string | undefined } {
+function resolveCandidate(io: InstallIO, baseDir: string, candidates: string[]) {
   for (const rel of candidates) {
     const path = join(baseDir, rel);
     const content = io.readFile(path);
@@ -327,12 +323,12 @@ export async function runInstall(
     // list — flattening all four target types together made it hard to tell what an id
     // was for (a Vite target vs. an agent skill vs. a one-off).
     const asOption = (t: InstallTarget): SelectableOption => ({ id: t.id, label: t.label, hint: t.hint });
-    const groups: Record<string, SelectableOption[]> = {
+    const groups = {
       'Vite integration': targetsOfKind('vite').map(asOption),
       'Agent rules': targetsOfKind('agent').map(asOption),
       'CI (GitHub Actions)': targetsOfKind('ci').map(asOption),
       'Config file': targetsOfKind('config').map(asOption)
-    };
+    } satisfies Record<string, SelectableOption[]>;
     const picked = await prompts.selectClients(groups, detected);
     if (picked === null) {
       io.log('Cancelled.');

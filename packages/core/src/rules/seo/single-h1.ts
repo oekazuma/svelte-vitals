@@ -35,7 +35,7 @@ export const seoSingleH1: Rule = {
       const combined = [...route.headings, ...(route.componentHeadings ?? [])];
       const h1 = combined.filter((h) => h.level === 1);
       let problem: { message: string; severity: 'warning' | 'info'; recommendation: string } | undefined;
-      let where: { location?: string; line?: number } = {};
+      let where: Pick<Result, 'location' | 'line'> = {};
       if (h1.length === 0) {
         problem = { message: 'Missing <h1>', severity: 'warning', recommendation: missingRecommendation };
         // Counting reads `combined`; attribution deliberately does not. Locating the

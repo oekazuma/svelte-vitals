@@ -3,7 +3,7 @@ import { collectSourceFiles } from '../src/source-files.js';
 import type { Runtime } from '../src/runtime.js';
 
 /** A Runtime whose glob returns a fixed list, recording every glob call and any file reads. */
-function fakeRuntime(files: string[]): { rt: Runtime; globs: { pattern: string; cwd: string }[]; reads: string[] } {
+function fakeRuntime(files: string[]) {
   const globs: { pattern: string; cwd: string }[] = [];
   const reads: string[] = [];
   const rt: Runtime = {

@@ -101,11 +101,11 @@ export const architectureReservedNamePlacement: Rule = {
     const label = (map: MapName, name: string, glob: string) => `${map}.${name} → ${glob}`;
 
     const globalOptions = resolveRuleOptions(ID, OPTIONS, ctx.config);
-    const globalMaps: Record<MapName, Record<string, string>> = {
+    const globalMaps = {
       placements: mapOption(globalOptions, 'placements'),
       capitalisedUnitPlacements: mapOption(globalOptions, 'capitalisedUnitPlacements'),
       anyCaseUnitPlacements: mapOption(globalOptions, 'anyCaseUnitPlacements')
-    };
+    } satisfies Record<MapName, Record<string, string>>;
     // Only globally resolved alternatives are classified: a value arriving solely from an `overrides`
     // layer governs a subtree and cannot be judged dead against the whole tree.
     const globalAlternatives = new Map<string, { map: MapName; glob: string }>();
@@ -250,10 +250,10 @@ export const architectureReservedNamePlacement: Rule = {
       const liveDirs = allDirs.filter((d) => !isExcluded(d, ancestorDirs(d), globalExcluded));
       // The live directories that are units of each kind — what a unit-map glob must reach to be
       // doing anything, against the same pruned tree the other two reasons use.
-      const liveUnits: Record<'capitalisedUnitPlacements' | 'anyCaseUnitPlacements', string[]> = {
+      const liveUnits = {
         capitalisedUnitPlacements: liveDirs.filter((d) => isUnitDir(d, filesIn)),
         anyCaseUnitPlacements: liveDirs.filter((d) => isAnyCaseUnitDir(d, filesIn))
-      };
+      } satisfies Record<'capitalisedUnitPlacements' | 'anyCaseUnitPlacements', string[]>;
 
       const globs = [...new Set(stillUnused.map(globOf))];
       const reachesAny = keysMatchingAny(globs, allDirs, compile);

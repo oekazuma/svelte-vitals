@@ -144,7 +144,7 @@ export function applySuppressions(
   entries: SuppressionEntry[],
   config: Config,
   allResults?: Result[]
-): { results: Result[]; suppressed: number; stale: number } {
+) {
   const keys = new Set(entries.map((e) => findingKey(e)));
   const kept: Result[] = [];
   let suppressed = 0;

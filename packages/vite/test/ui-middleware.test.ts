@@ -19,7 +19,7 @@ function setup(
   const server = {
     httpServer,
     middlewares: { use: (_path: string, fn: MiddlewareHandler) => (handler = fn) }
-  } as unknown as ViteDevServer;
+  } as ViteDevServer;
   installUiMiddleware(server, defineConfig({}), '9.9.9', store, coreVersion, getStaticFailedRuleIds);
   return {
     store,
@@ -58,7 +58,7 @@ function res(): MockRes & ServerResponse {
       r.ended = true;
     }
   };
-  return r as unknown as MockRes & ServerResponse;
+  return r as MockRes & ServerResponse;
 }
 // A real IncomingMessage always carries a headers object (the http parser initializes it),
 // and HTTP/1.1 requires Host — default to a loopback Host to model real dev-server traffic.
@@ -69,7 +69,7 @@ function postReq(url: string, headers: Record<string, string> = { host: 'localho
     url,
     headers,
     resume: () => {}
-  }) as unknown as IncomingMessage;
+  }) as IncomingMessage;
 }
 function getReq(url: string, headers: Record<string, string> = { host: 'localhost:5173' }): IncomingMessage {
   return Object.assign(new EventEmitter(), {
@@ -77,7 +77,7 @@ function getReq(url: string, headers: Record<string, string> = { host: 'localhos
     url,
     headers,
     resume: () => {}
-  }) as unknown as IncomingMessage;
+  }) as IncomingMessage;
 }
 
 const ingestBody = JSON.stringify({
@@ -433,9 +433,9 @@ describe('installUiMiddleware', () => {
   });
 
   it('reads getStaticFailedRuleIds per request so a later re-analysis is reflected without re-mounting', () => {
-    // A mutable holder (not a reassigned `let`) so the getter reads whatever's current at
-    // request time — the object reference passed to setup() never changes, only its field.
-    const idsHolder: { current?: string[] } = {};
+    // The getter closes over this variable and reads it at request time, so a later
+    // reassignment is visible without re-mounting the middleware.
+    let currentFailedIds: string[] | undefined = undefined;
     const store = createStore();
     store.setStatic([
       {
@@ -447,7 +447,7 @@ describe('installUiMiddleware', () => {
         severity: 'warning'
       }
     ]);
-    const { call } = setup(undefined, () => idsHolder.current, store);
+    const { call } = setup(undefined, () => currentFailedIds, store);
 
     const before = res();
     call(getReq('/data.json'), before);
@@ -455,7 +455,7 @@ describe('installUiMiddleware', () => {
 
     // A later whole-project run reports seo/canonical-url as failed — the getter reads the
     // CURRENT value at request time, not a snapshot taken when installUiMiddleware was called.
-    idsHolder.current = ['seo/canonical-url'];
+    currentFailedIds = ['seo/canonical-url'];
     const after = res();
     call(getReq('/data.json'), after);
     const afterScore = JSON.parse(after.chunks.join('')).report.score;

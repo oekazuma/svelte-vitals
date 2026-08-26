@@ -7,7 +7,7 @@ import { PENALIZED, PASS } from '../detection.js';
 export type JsonLdNode = Record<string, unknown>;
 
 /** Parse JSON-LD and flatten to structured-data objects: root, top-level array members, and @graph members. */
-export function parseJsonLd(raw: string): { ok: boolean; nodes: JsonLdNode[] } {
+export function parseJsonLd(raw: string) {
   let data: unknown;
   try {
     data = JSON.parse(raw);
@@ -193,8 +193,13 @@ export function hasNonEmpty(node: JsonLdNode, key: string): boolean {
  */
 export type RequiredPropsRow = string[] | { all: string[]; oneOf: string[] };
 
+/** Keyed by JSON-LD `@type` — looked up with arbitrary strings from page content, so the contract is open. */
+export interface RequiredPropsByType {
+  [type: string]: RequiredPropsRow;
+}
+
 /** Curated @type -> required properties for the rich result (Google structured-data docs). */
-export const REQUIRED_PROPS: Record<string, RequiredPropsRow> = {
+export const REQUIRED_PROPS: RequiredPropsByType = {
   Product: { all: ['name'], oneOf: ['review', 'aggregateRating', 'offers'] },
   BreadcrumbList: ['itemListElement'],
   WebSite: ['name', 'url'],

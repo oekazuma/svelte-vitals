@@ -5,23 +5,23 @@ import { noColorPalette, scoreColor, type Palette } from './palette.js';
 import { terminalSafe } from './sanitize.js';
 
 const RULE = '────────────────────────';
-const SEVERITY_TITLE: Record<Severity, string> = {
+const SEVERITY_TITLE = {
   critical: 'Critical',
   warning: 'Warnings',
   info: 'Info'
-};
+} satisfies Record<Severity, string>;
 
 // Record<Category, string> keeps this exhaustive by type: a new category fails compilation
 // here instead of silently vanishing from the console report. Declaration order is the
 // display order.
-export const CATEGORY_LABEL: Record<Category, string> = {
+export const CATEGORY_LABEL = {
   seo: 'SEO',
   performance: 'Performance',
   correctness: 'Correctness',
   security: 'Security',
   architecture: 'Architecture',
   a11y: 'Accessibility'
-};
+} satisfies Record<Category, string>;
 const CATEGORY_ORDER = Object.keys(CATEGORY_LABEL) as readonly Category[];
 
 const categoryLabel = (c: Category) => CATEGORY_LABEL[c];
@@ -129,11 +129,11 @@ export function formatConsoleReport(results: Result[], config: Config, options: 
   }
   lines.push('');
 
-  const SEVERITY_COLOR: Record<Severity, (s: string) => string> = {
-    critical: (s) => p.red(p.bold(s)),
-    warning: (s) => p.yellow(p.bold(s)),
-    info: (s) => p.dim(s)
-  };
+  const SEVERITY_COLOR = {
+    critical: (s: string) => p.red(p.bold(s)),
+    warning: (s: string) => p.yellow(p.bold(s)),
+    info: (s: string) => p.dim(s)
+  } satisfies Record<Severity, (s: string) => string>;
 
   const failures = results.filter((r) => classify(r, config) === 'fail');
   for (const severity of ['critical', 'warning', 'info'] as const) {

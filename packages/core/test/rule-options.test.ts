@@ -150,7 +150,7 @@ describe('validateRuleOptions', () => {
       expect(validateRuleOptions('seo/title-length', lengthSpec, { min: 5, max: 10 })).toEqual([]);
     });
     it('does not double-report when a per-key type error already fired', () => {
-      const errors = validateRuleOptions('seo/title-length', lengthSpec, { min: '100' as unknown as number });
+      const errors = validateRuleOptions('seo/title-length', lengthSpec, { min: '100' });
       expect(errors).toHaveLength(1);
       expect(errors[0]).toContain('must be an integer');
     });

@@ -31,8 +31,15 @@ const MAX_READS_PER_FILE = 2;
  * reads fall under the budget too, instead of running unbudgeted against a
  * fixture with nothing for it to find.
  */
-function project(routeCount: number): Record<string, string> {
-  const files: Record<string, string> = {
+function project(routeCount: number) {
+  const routes = Object.fromEntries(
+    Array.from({ length: routeCount }, (_, i) => [
+      `src/routes/p${i}/+page.svelte`,
+      `<svelte:head><title>Page ${i}</title></svelte:head>\n<h1>Page ${i}</h1>\n`
+    ])
+  );
+  return {
+    ...routes,
     'svelte.config.js': `export default { kit: {} };\n`,
     'vite.config.ts': `export default { plugins: [] };\n`,
     'src/app.html': `<!doctype html><html lang="en"><body></body></html>\n`,
@@ -41,11 +48,6 @@ function project(routeCount: number): Record<string, string> {
     'src/hooks.server.ts': `export async function handle({ event, resolve }) {\n  return resolve(event);\n}\n`,
     'src/routes/p0/+page.server.ts': `export async function load() {\n  return {};\n}\n`
   };
-  for (let i = 0; i < routeCount; i++) {
-    files[`src/routes/p${i}/+page.svelte`] =
-      `<svelte:head><title>Page ${i}</title></svelte:head>\n<h1>Page ${i}</h1>\n`;
-  }
-  return files;
 }
 
 /**

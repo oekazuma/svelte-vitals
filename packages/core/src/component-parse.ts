@@ -481,8 +481,13 @@ function isPlainStateCall(node: Node): boolean {
 /** Built-in classes with reactive drop-ins in svelte/reactivity — plain instances in $state are NOT deep-proxied, so their mutations are untracked (correctness/nonreactive-builtin-state). */
 const BUILTIN_STATE_TYPES = new Set(['Map', 'Set', 'Date', 'URL', 'URLSearchParams']);
 
+/** Keyed by constructor type name — looked up with the candidate's recorded type string, so the contract is open. */
+interface BuiltinMutationTable {
+  [type: string]: Set<string>;
+}
+
 /** Type-specific mutating methods. URL mutates via property writes and deep searchParams calls only. */
-const BUILTIN_MUTATIONS: Record<string, Set<string>> = {
+const BUILTIN_MUTATIONS: BuiltinMutationTable = {
   Map: new Set(['set', 'delete', 'clear']),
   Set: new Set(['add', 'delete', 'clear']),
   Date: new Set([
@@ -1340,7 +1345,8 @@ function isCustomElement(node: Node): boolean {
  *  with a non-empty literal `alt`. `unknowable`: an expression-tag, `Component`, `{@render}`,
  *  or `{@html}` anywhere below — content the rule cannot statically resolve, so the element is
  *  skipped rather than risk a false positive. */
-function scanAccessibleNameSubtree(node: Node, skip?: Node): { named: boolean; unknowable: boolean } {
+type AccessibleNameScan = { named: boolean; unknowable: boolean };
+function scanAccessibleNameSubtree(node: Node, skip?: Node): AccessibleNameScan {
   if (Array.isArray(node)) {
     const acc = { named: false, unknowable: false };
     for (const child of node) {
@@ -1500,7 +1506,8 @@ function isLabelableDescendant(node: Node): boolean {
  *  `hasControl`: a descendant labelable element. `unknowable`: an expression-tag, `Component`,
  *  `{@render}`, or `{@html}` anywhere below — content the rule cannot statically resolve, so
  *  the label is skipped rather than risk a false positive. */
-function scanLabelSubtree(node: Node): { hasControl: boolean; unknowable: boolean } {
+type LabelScan = { hasControl: boolean; unknowable: boolean };
+function scanLabelSubtree(node: Node): LabelScan {
   if (Array.isArray(node)) {
     const acc = { hasControl: false, unknowable: false };
     for (const child of node) {
@@ -2424,7 +2431,7 @@ const LIFECYCLE_NAMES = new Set([
  * (`import * as s from 'svelte'`). Type-only imports/specifiers excluded; same-named
  * imports from any other module are never tracked. Shared with the Kit-module parser.
  */
-export function collectSvelteLifecycleImports(program: Node): { locals: Map<string, string>; namespaces: Set<string> } {
+export function collectSvelteLifecycleImports(program: Node) {
   const locals = new Map<string, string>();
   const namespaces = new Set<string>();
   for (const stmt of program.body ?? []) {
@@ -2760,7 +2767,8 @@ type ParsedFacts = Omit<ComponentFacts, 'file' | 'suppressions'> & { suppression
  * numbers are +1 relative to the input, so callers subtract 1. Shared by the
  * runes-module facts (correctness/orphan-effect) and the Kit-module facts (the security kit-module rules).
  */
-export function parseModuleProgram(source: string, filename: string): { program: Node | undefined; wrapped: string } {
+type ParsedModule = { program: Node | undefined; wrapped: string };
+export function parseModuleProgram(source: string, filename: string): ParsedModule {
   const neutralized = source.replace(/<\/script/gi, '<_script');
   const wrapped = `<script lang="ts">\n${neutralized}\n</script>`;
   const ast = parse(wrapped, { modern: true, filename }) as Node;
@@ -2892,7 +2900,7 @@ function parseModuleFacts(source: string, filename: string): ParsedFacts {
 export function parseComponentFacts(source: string, filename: string): ParsedFacts {
   if (MODULE_FILE_RE.test(filename)) return parseModuleFacts(source, filename);
 
-  const ast = parseSvelte(source, filename) as unknown as Node;
+  const ast = parseSvelte(source, filename) as Node;
   const eachBlocks: EachBlockFact[] = [];
   collectEachBlocks(ast.fragment ?? ast, source, eachBlocks);
   const htmlTags: SourceSpan[] = [];

@@ -4,8 +4,15 @@ import { defineConfig } from '../src/types.js';
 import { allRules } from '../src/rules/index.js';
 import type { Rule } from '../src/rule.js';
 
-const rule = (id: string, category: Rule['category'], scope: Rule['scope'], severity: Rule['severity']) =>
-  ({ id, category, scope, severity, title: id, rationale: '', check: async () => [] }) as unknown as Rule;
+const rule = (id: string, category: Rule['category'], scope: Rule['scope'], severity: Rule['severity']): Rule => ({
+  id,
+  category,
+  scope,
+  severity,
+  title: id,
+  rationale: '',
+  check: async () => []
+});
 
 describe('buildInventory', () => {
   it('sums DEDUCTION per (category, scope) pair', () => {

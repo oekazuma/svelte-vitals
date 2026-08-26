@@ -3,7 +3,7 @@ import type { Rule } from '../rule.js';
 import { configuredSeverity, selectRules } from '../config-apply.js';
 import { allRules } from '../rules/index.js';
 
-export const DEDUCTION: Record<Severity, number> = { critical: 15, warning: 5, info: 1 };
+export const DEDUCTION = { critical: 15, warning: 5, info: 1 } satisfies Record<Severity, number>;
 
 export type PairKey = `${Category}::${Scope}`;
 
