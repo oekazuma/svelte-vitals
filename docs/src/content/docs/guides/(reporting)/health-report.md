@@ -44,8 +44,8 @@ svelte-vitals --weights seo=2
 
 **Only categories present in the results are included.** If, for example, nothing in your project matches any Performance rule, the Performance category produces no results and Health is based solely on the remaining categories.
 
-The result is **floored**, not rounded to nearest, so a displayed score of 100 means the deduction was
-exactly zero. Any finding at all, even a single `info`, puts its category's score at 99 or below.
+Scores are **floored**, not rounded to nearest, so a category score of 100 means that category's
+deduction was exactly zero. Any finding at all, even a single `info`, puts its category's score at 99 or below.
 
 **Weights change Health, never a category's own score.** svelte-vitals computes a category score from that
 category's findings alone, so weighting a category `0` does not raise its score. What `0` does is leave the

@@ -47,7 +47,7 @@ npx svelte-vitals@latest install
 
 `vite-plugin`、`vite-hooks`、`config-file` の3ターゲットは SvelteKit の**アプリ**ディレクトリに書き込む必要があります。`vite.config.*` と `src/hooks.server.*` はアプリディレクトリにあり、`svelte-vitals.config.*` も[分析対象ディレクトリからしか読み込まれません](/ja/guides/configuration#探索場所)。モノレポのルートで `install` を実行した場合、これらのターゲットは[アナライザーと同じ方法](/ja/guides/cli#モノレポ)で対象アプリを解決します。
 
-- 明示的な `--app apps/web` が常に最優先です（そのディレクトリに `svelte.config.{js,ts}` がなければ終了コード `2` で失敗します）。
+- 明示的な `--app apps/web` が常に最優先です。そのディレクトリが SvelteKit アプリでない場合、つまり `svelte.config.{js,ts}` も `@sveltejs/kit` を宣言する `package.json` もない場合は、終了コード `2` で失敗します。
 - それ以外で、カレントディレクトリ自体が SvelteKit アプリならそのまま使われます。
 - それ以外は自動検出が働きます。見つかったアプリが1件ならそのまま使い（通知あり）、複数見つかった場合、対話的な端末では選択プロンプトを表示し、非対話環境では `--app` を求めて終了コード `2` になります。
 

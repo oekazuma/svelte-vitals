@@ -38,7 +38,7 @@ Two pieces are deliberately absent from this table. The GitHub Action runs the C
 
 ### Why build-mode coverage is close to the CLI's
 
-Correctness, Security, Architecture, and Accessibility rules read component source: `$effect` bodies, `{@html}` calls, prop counts, ARIA attributes. That source only exists before compilation. The CLI, the Vite plugin's build mode, and the live dashboard's whole-project static baseline all read it directly, so all three cover the full rule set across every category.
+Correctness, Security, Architecture, and Accessibility rules read component source: `$effect` bodies, `{@html}` calls, prop counts, ARIA attributes. That source only exists before compilation. The CLI, the Vite plugin's build mode, and the live dashboard's whole-project static baseline all read it directly, so all three run those rules across every category.
 
 Visiting a route in dev additionally re-checks its rendered HTML through `svelteVitalsHandle`, for SEO, Performance and Accessibility. That is the one thing the static baseline alone can't give you. Build mode reads rendered HTML too, _on top of_ the source scan, making it the only build-time path with both.
 

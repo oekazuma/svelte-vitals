@@ -48,7 +48,7 @@ Both use a `magicast` codemod that only touches a file whose shape it confidentl
 
 The `vite-plugin`, `vite-hooks`, and `config-file` targets must land in the SvelteKit app directory. That's where `vite.config.*` and `src/hooks.server.*` live, and svelte-vitals only [loads a `svelte-vitals.config.*` from the analyzed directory](/guides/configuration#where-it-lives). When you run `install` from a monorepo root, these targets resolve their app the same way [the analyzer does](/guides/cli#monorepos):
 
-- An explicit `--app apps/web` always wins (and fails with exit `2` if that directory has no `svelte.config.{js,ts}`).
+- An explicit `--app apps/web` always wins, and fails with exit `2` when that directory is not a SvelteKit app, meaning it has neither a `svelte.config.{js,ts}` nor a `package.json` declaring `@sveltejs/kit`.
 - Otherwise, if the current directory is itself a SvelteKit app, it's used as-is.
 - Otherwise detection takes over: exactly one app found → used automatically with a notice; several found → a picker prompt on an interactive terminal, or exit `2` asking for `--app` when non-interactive.
 
