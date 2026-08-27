@@ -43,13 +43,13 @@ const CATEGORY_ICON = {
 // across the top-level page and the five category pages would let the two drift.
 const CATEGORY_BLURB = {
   en: {
-    seo: 'Resolved <head> metadata, structured data, and crawlability — what search engines actually see.',
-    performance: 'Images, render-blocking assets, imports, and load waterfalls — what makes a route slow.',
-    correctness: 'Svelte 5 runes and lifecycle misuse — code that compiles but behaves wrong.',
+    seo: 'Resolved <head> metadata, structured data, and crawlability: what search engines actually see.',
+    performance: 'Images, render-blocking assets, imports, and load waterfalls: what makes a route slow.',
+    correctness: 'Svelte 5 runes and lifecycle misuse: code that compiles but behaves wrong.',
     security: 'Unescaped HTML, unsafe URLs, and server state that leaks across requests.',
     architecture:
-      'Component size, prop surface, and the import boundaries a project declares — signals that code is placed or shaped wrong.',
-    a11y: 'ARIA validity, landmark structure, accessible names, and semantic markup — what makes a site usable for everyone.'
+      'Component size, prop count, and the import boundaries a project declares: signals that code is placed or shaped wrong.',
+    a11y: 'ARIA validity, landmark structure, accessible names, and semantic markup: what makes a site usable for everyone.'
   },
   ja: {
     seo: '検索エンジンが実際に目にするもの。解決後の <head> メタデータ、構造化データ、クロールのしやすさを見ます。',

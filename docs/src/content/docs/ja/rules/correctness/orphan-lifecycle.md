@@ -25,7 +25,7 @@ load/handler/`init` の本体の**内側で定義された関数**は、そこ�
 
 これらの関数はアクティブなコンポーネントコンテキストを必要とします。`getContext`/`setContext`/`hasContext`/`getAllContexts` は、ない状態で呼ぶとあらゆる環境でランタイムに `lifecycle_outside_component` エラーになります。コンパイラはどのパターンも警告なしでコンパイルするため、コードパスが実行されて初めて顕在化します（`load` 内なら、そのルートへの全アクセスが 500 に）。
 
-`onMount`/`beforeUpdate`/`afterUpdate`/`createEventDispatcher` はブラウザでは同じエラーを throw します。しかしサーバーでしか実行されない Kit モジュール（`+page.server.ts`、`+server.ts`、`hooks.server.ts`）ではブラウザに到達すること自体がないため、呼び出しは何もしない no-op になります — クラッシュせず、何も起きません。`onDestroy` だけはそこでも例外です。自前のコンポーネントコンテキストガードを持たないため、呼び出せば依然としてクラッシュしますが、`lifecycle_outside_component` ではなく素の `TypeError` になります（`load`/handler 内なら、そのルートへの全リクエストで 500 になる点は変わりません）。`+page.ts`/`+layout.ts` の universal モジュールやコンポーネント内のコードでは、同じコードがブラウザでも実行されるため、9つすべてが `lifecycle_outside_component` を throw します。
+`onMount`/`beforeUpdate`/`afterUpdate`/`createEventDispatcher` はブラウザでは同じエラーを throw します。しかしサーバーでしか実行されない Kit モジュール（`+page.server.ts`、`+server.ts`、`hooks.server.ts`）ではブラウザに到達すること自体がないため、呼び出しは何もしない no-op になります。クラッシュせず、何も起きません。`onDestroy` だけはそこでも例外です。自前のコンポーネントコンテキストガードを持たないため、呼び出せば依然としてクラッシュしますが、`lifecycle_outside_component` ではなく素の `TypeError` になります（`load`/handler 内なら、そのルートへの全リクエストで 500 になる点は変わりません）。`+page.ts`/`+layout.ts` の universal モジュールやコンポーネント内のコードでは、同じコードがブラウザでも実行されるため、9つすべてが `lifecycle_outside_component` を throw します。
 
 ## 修正方法
 
@@ -54,7 +54,7 @@ export async function load({ fetch }) {
 
 ## モードによる違い
 
-ありません。このルールはソース — 同じ `.svelte` / `.ts` ファイル — を読むので、CLI、Vite プラグインのビルド、ライブダッシュボードの静的ベースラインのどの面でも結果は同一で、レンダリング済み HTML の解析で再評価されることもありません。`--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
+ありません。このルールが読むのは同じ `.svelte` / `.ts` のソースファイルなので、CLI、Vite プラグインのビルド、ライブダッシュボードの静的ベースラインのいずれでも結果は同一で、レンダリング済み HTML の解析で再評価されることもありません。`--route` で実行範囲を絞ると、このルールは動きません。コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
 
 ## 無効化
 

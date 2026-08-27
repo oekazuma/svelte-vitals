@@ -9,12 +9,12 @@ description: A label needs a for attribute or a wrapped control to be associated
 
 Flags a `<label>` with no associated control.
 
-Either of the following, if present, associates the label — it is not flagged:
+Either of the following, if present, associates the label, and it is not flagged:
 
-- A `for` attribute — a literal or an expression (its value is unknowable, but the attribute's presence is enough).
+- A `for` attribute, either a literal or an expression (its value is unknowable, but the attribute's presence is enough).
 - A wrapped labelable descendant: `input` (unless its literal `type` is `hidden`), `select`, `textarea`, `button`, `meter`, `output`, or `progress`.
 
-Not flagged, even with no association found: a label whose content is unknowable — any `{expression}` child, a component child, `{@render …}`, `{@html …}`, a `<slot>` or `<svelte:fragment>` (its content comes from the parent), or a hyphenated custom element (which may be form-associated, and so labelable). A spread attribute on the `<label>` is skipped for the same reason — it may itself supply `for`. The rule only flags what it can prove is unassociated; it never guesses at dynamic content.
+Not flagged, even with no association found: a label whose content is unknowable: any `{expression}` child, a component child, `{@render …}`, `{@html …}`, a `<slot>` or `<svelte:fragment>` (its content comes from the parent), or a hyphenated custom element (which may be form-associated, and so labelable). A spread attribute on the `<label>` is skipped for the same reason, since it may itself supply `for`. The rule only flags what it can prove is unassociated; it never guesses at dynamic content.
 
 ```svelte
 <label>Name</label>
@@ -22,7 +22,7 @@ Not flagged, even with no association found: a label whose content is unknowable
 
 ## Why it matters
 
-A `<label>` with no associated control is announced by assistive technology as plain text, not a form label — a screen reader gives no relationship between it and the field it names. Sighted users lose the click-to-focus target the label visually promises, which is why the gap is easy to miss in visual review.
+A `<label>` with no associated control is announced by assistive technology as plain text, not a form label, and a screen reader gives no relationship between it and the field it names. Sighted users lose the click-to-focus target the label visually promises, which is why the gap is easy to miss in visual review.
 
 ## How to fix
 
@@ -37,7 +37,7 @@ Point `for` at the control's `id`, or wrap the control inside the `<label>`:
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

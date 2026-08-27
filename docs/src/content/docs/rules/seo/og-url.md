@@ -13,7 +13,7 @@ Every route should include a `<meta property="og:url">` tag (own or inherited). 
 
 og:url tells social platforms the canonical address to attribute shares and likes to, consolidating engagement on one URL. The [Open Graph protocol](https://ogp.me/) lists `og:url` among its required properties, alongside `og:title`, `og:type`, and `og:image`.
 
-`og:url` might seem redundant with `<link rel="canonical">` — most consumers can fall back to the canonical URL when og:url is absent. But that conflates two different jobs: canonical tells search engines which URL to index, while og:url tells social platforms which URL to attribute shares to. Since the Open Graph spec itself treats `og:url` as required (unlike `og:description`, which it lists as optional — see [`seo/og-description`](/rules/seo/og-description)), the severity follows the spec's own required/optional split.
+`og:url` might seem redundant with `<link rel="canonical">`, since most consumers can fall back to the canonical URL when og:url is absent. But that conflates two different jobs: canonical tells search engines which URL to index, while og:url tells social platforms which URL to attribute shares to. Since the Open Graph spec itself treats `og:url` as required (unlike `og:description`, which it lists as optional; see [`seo/og-description`](/rules/seo/og-description)), the severity follows the spec's own required/optional split.
 
 ## How to fix
 

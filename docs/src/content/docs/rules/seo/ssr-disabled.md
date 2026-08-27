@@ -7,13 +7,13 @@ description: export const ssr = false makes a route's content invisible to non-J
 
 ## What it checks
 
-Flags SvelteKit route files that disable server-side rendering with `export const ssr = false` (the `satisfies`/`as` and same-file alias-export forms included). Disabling it in the root `+layout` — which turns the whole app into an SPA — gets a stronger, app-wide message.
+Flags SvelteKit route files that disable server-side rendering with `export const ssr = false` (the `satisfies`/`as` and same-file alias-export forms included). Disabling it in the root `+layout` turns the whole app into an SPA, and gets a stronger, app-wide message.
 
-Not flagged: `csr = false` (server-only rendering — fine for SEO), non-literal values like `export const ssr = dev` (not statically evaluable), and non-exported `const ssr = false` (has no effect in SvelteKit).
+Not flagged: `csr = false` (server-only rendering, which is fine for SEO), non-literal values like `export const ssr = dev` (not statically evaluable), and non-exported `const ssr = false` (has no effect in SvelteKit).
 
 ## Why it matters
 
-SvelteKit's own SEO guidance: server-side rendered content is indexed more frequently and reliably — leave SSR on unless you have a good reason not to. On top of the indexing risk, SPA mode ships an empty page that must fetch and run JavaScript before anything renders, adding a network round trip before first paint.
+SvelteKit's own SEO guidance: server-side rendered content is indexed more frequently and reliably, so leave SSR on unless you have a good reason not to. On top of the indexing risk, SPA mode ships an empty page that must fetch and run JavaScript before anything renders, adding a network round trip before first paint.
 
 Note that `prerender = true` does not neutralise this: with `ssr = false` the prerendered output is still an empty shell.
 
@@ -39,7 +39,7 @@ or add `// svelte-vitals-disable-next-line seo/ssr-disabled` above the declarati
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

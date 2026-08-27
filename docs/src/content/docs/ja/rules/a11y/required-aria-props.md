@@ -13,18 +13,18 @@ description: state や property 属性を要求するロールには、ネイテ
 
 一部の必須プロパティは、ARIA-in-HTML の仕様に従って特定のホスト要素がネイティブに供給するため、明示的な属性は不要です。
 
-- `aria-checked` — `<input type="checkbox">` と `<input type="radio">` が供給。
-- `aria-selected` — `<option>` が供給。
-- `aria-level` — `<h1>`〜`<h6>` が供給。
-- `aria-valuenow` — `<input type="range">`、`<progress>`、`<meter>` が供給。
-- `aria-expanded` と `aria-controls` — ネイティブの combobox が供給: `multiple` も 1 を超える `size` も持たない `<select>` と、type が省略または `text`・`search`・`tel`・`url`・`email` の `<input list="…">`（HTML-AAM は開閉状態とポップアップ自体を公開する）。`<select multiple>` や `<select size="2">` はネイティブの listbox、`<input type="date" list>` は combobox ではないため、これらは引き続き両方を要求されます。Svelte コンパイラは `<input list role="combobox">` に対してここで警告しますが、このルールは沈黙します — 逆の判定ではありません。
+- `aria-checked`。`<input type="checkbox">` と `<input type="radio">` が供給します。
+- `aria-selected`。`<option>` が供給します。
+- `aria-level`。`<h1>`〜`<h6>` が供給します。
+- `aria-valuenow`。`<input type="range">`、`<progress>`、`<meter>` が供給します。
+- `aria-expanded` と `aria-controls`。ネイティブの combobox が供給します: `multiple` も 1 を超える `size` も持たない `<select>` と、type が省略または `text`・`search`・`tel`・`url`・`email` の `<input list="…">`（HTML-AAM は開閉状態とポップアップ自体を公開する）。`<select multiple>` や `<select size="2">` はネイティブの listbox、`<input type="date" list>` は combobox ではないため、これらは引き続き両方を要求されます。Svelte コンパイラは `<input list role="combobox">` に対してここで警告しますが、このルールは沈黙します。逆の判定ではありません。
 
 検出しないもの:
 
-- `<div role="checkbox" aria-checked="true">` — 必須プロパティがリテラルとして存在する。
-- `<div role="checkbox" aria-checked={checked}>` — 必須プロパティが式として存在する。
-- `<input type="checkbox" role="switch">` — `switch` が要求する `aria-checked` は、input のネイティブなチェックボックスのセマンティクスで供給される。
-- どの具体的なロールも指さないフォールバックリスト（`role="bogus alsobogus"`） — 要求すべきロールが存在しないため。解決するリストは、解決先のロールに対してチェックされる（`role="bogus checkbox"` は `checkbox` としてチェックされる）。
+- `<div role="checkbox" aria-checked="true">`。必須プロパティがリテラルとして存在します。
+- `<div role="checkbox" aria-checked={checked}>`。必須プロパティが式として存在します。
+- `<input type="checkbox" role="switch">`。`switch` が要求する `aria-checked` は、input のネイティブなチェックボックスのセマンティクスで供給される。
+- どの具体的なロールも指さないフォールバックリスト（`role="bogus alsobogus"`）。要求すべきロールが存在しないためです。解決するリストは、解決先のロールに対してチェックされる（`role="bogus checkbox"` は `checkbox` としてチェックされる）。
 - 式で値が決まるロール（静的には値がわからないため）: `role={dynamicRole}`。
 
 ## なぜ重要か
@@ -47,7 +47,7 @@ description: state や property 属性を要求するロールには、ネイテ
 
 ## モードによる違い
 
-ありません。このルールはソース — 同じ `.svelte` / `.ts` ファイル — を読むので、CLI、Vite プラグインのビルド、ライブダッシュボードの静的ベースラインのどの面でも結果は同一で、レンダリング済み HTML の解析で再評価されることもありません。`--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
+ありません。このルールが読むのは同じ `.svelte` / `.ts` のソースファイルなので、CLI、Vite プラグインのビルド、ライブダッシュボードの静的ベースラインのいずれでも結果は同一で、レンダリング済み HTML の解析で再評価されることもありません。`--route` で実行範囲を絞ると、このルールは動きません。コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
 
 ## 無効化
 

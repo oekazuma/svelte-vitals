@@ -28,7 +28,7 @@ From that one analysis it produces:
 
 It fails the job **after** writing those, so a failing run still leaves the feedback behind.
 
-Inputs: `path` (default `.`), `diff`, `baseline`, `github-token`. No `reporter` input — the
+Inputs: `path` (default `.`), `diff`, `baseline`, `github-token`. No `reporter` input. The
 fan-out is fixed. It reads your committed `svelte-vitals.config.*` and
 `svelte-vitals-suppressions.json`, so rule policy stays in those files.
 
@@ -39,7 +39,7 @@ still work.
 ## Without the Action
 
 Any CI can run the CLI directly. On GitHub, `GITHUB_ACTIONS=true` auto-selects the `github`
-reporter, so annotations come for free — but a detected AI-agent environment outranks it, so a
+reporter, so annotations come for free, but a detected AI-agent environment outranks it, so a
 job driven by an agent gets `agent` instead. Pass `--reporter github` when you need the
 annotations regardless of who is running the job:
 
@@ -55,10 +55,10 @@ npx svelte-vitals@latest --diff origin/main --baseline origin/main --fail-on war
 
 Gate on the score instead of, or as well as, individual findings with `--min-health <0-100>`.
 
-Exit `1` means findings gated the run; exit `2` means the run did not happen — fail the job
+Exit `1` means findings gated the run; exit `2` means the run did not happen. Fail the job
 loudly on `2` rather than treating it as a pass.
 
 ## Related
 
-- `svelte-vitals docs show scoping` — what `--diff` / `--baseline` / suppressions each do
-- `svelte-vitals docs show output` — reporters and exit codes
+- `svelte-vitals docs show scoping`: what `--diff` / `--baseline` / suppressions each do
+- `svelte-vitals docs show output`: reporters and exit codes

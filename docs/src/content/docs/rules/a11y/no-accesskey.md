@@ -17,11 +17,11 @@ Unlike most attribute rules, an expression-valued `accesskey={key}` is also flag
 
 Not flagged:
 
-- An `accesskey` supplied through a spread attribute — out of static reach.
+- An `accesskey` supplied through a spread attribute, which is out of static reach.
 
 ## Why it matters
 
-`accesskey` assigns a page-level keyboard shortcut, but the actual key combination is chosen by the browser and OS, not by you — the same markup means Alt+key in one browser, Alt+Shift+key in another, and Ctrl+Opt+key on macOS. Users have no way to discover that the shortcut exists, and the combinations routinely collide with screen reader and browser keyboard bindings, silently stealing commands from the users who depend on them most. Long-standing accessibility guidance is to not use the attribute at all.
+`accesskey` assigns a page-level keyboard shortcut, but the actual key combination is chosen by the browser and OS, not by you. The same markup means Alt+key in one browser, Alt+Shift+key in another, and Ctrl+Opt+key on macOS. Users have no way to discover that the shortcut exists, and the combinations routinely collide with screen reader and browser keyboard bindings, silently stealing commands from the users who depend on them most. Long-standing accessibility guidance is to not use the attribute at all.
 
 ## How to fix
 
@@ -31,19 +31,19 @@ Remove the attribute and rely on visible, focusable controls:
 <button>Save draft</button>
 ```
 
-If a real keyboard shortcut is needed, implement it with a key handler and document it visibly in the page — that way you choose the exact combination and can avoid reserved ones.
+If a real keyboard shortcut is needed, implement it with a key handler and document it visibly in the page. That way you choose the exact combination and can avoid reserved ones.
 
 ## Limitations
 
-Only attributes on statically named elements are covered — including custom elements. A spread attribute that supplies `accesskey` and a dynamic tag via `<svelte:element>` are out of static reach and are not flagged.
+Only attributes on statically named elements are covered, custom elements included. A spread attribute that supplies `accesskey` and a dynamic tag via `<svelte:element>` are out of static reach and are not flagged.
 
 ## Overlap with the Svelte compiler
 
-The compiler warns on the same markup as `a11y_accesskey`. That overlap is deliberate: the compiler streams into the build log and does not score, gate, or suppress — this rule feeds the health score, respects `svelte-vitals-disable-next-line`, and fails CI through `--fail-on`. Both checks judge the attribute's presence regardless of its value, so there are no known divergences.
+The compiler warns on the same markup as `a11y_accesskey`. That overlap is deliberate: the compiler streams into the build log and does not score, gate, or suppress, while this rule feeds the health score, respects `svelte-vitals-disable-next-line`, and fails CI through `--fail-on`. Both checks judge the attribute's presence regardless of its value, so there are no known divergences.
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

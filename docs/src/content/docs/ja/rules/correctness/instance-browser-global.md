@@ -25,7 +25,7 @@ description: インスタンススクリプトは SSR 時にサーバーでも�
 </script>
 ```
 
-`window` のプロパティなら、[`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window)（5.11.0 以降）が現在推奨される形です — ガード不要で、サーバーでは `undefined`、クライアントではリアクティブになります。
+`window` のプロパティなら、[`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window)（5.11.0 以降）が現在推奨される形です。ガード不要で、サーバーでは `undefined`、クライアントではリアクティブになります。
 
 ```svelte
 <script>
@@ -35,7 +35,7 @@ description: インスタンススクリプトは SSR 時にサーバーでも�
 <p>{innerWidth.current}</p>
 ```
 
-`svelte/reactivity/window` がカバーしない場合は、`onMount` の中で読んでください — `onMount` はサーバーでは実行されません。
+`svelte/reactivity/window` がカバーしない場合は、`onMount` の中で読んでください。`onMount` はサーバーでは実行されません。
 
 ```svelte
 <script>
@@ -50,7 +50,7 @@ description: インスタンススクリプトは SSR 時にサーバーでも�
 
 ## モードによる違い
 
-ありません。このルールはソース — 同じ `.svelte` / `.ts` ファイル — を読むので、CLI、Vite プラグインのビルド、ライブダッシュボードの静的ベースラインのどの面でも結果は同一で、レンダリング済み HTML の解析で再評価されることもありません。`--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
+ありません。このルールが読むのは同じ `.svelte` / `.ts` のソースファイルなので、CLI、Vite プラグインのビルド、ライブダッシュボードの静的ベースラインのいずれでも結果は同一で、レンダリング済み HTML の解析で再評価されることもありません。`--route` で実行範囲を絞ると、このルールは動きません。コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
 
 ## 無効化
 

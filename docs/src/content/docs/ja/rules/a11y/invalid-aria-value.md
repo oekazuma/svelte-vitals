@@ -11,13 +11,13 @@ description: aria-* 属性の値は、その属性に WAI-ARIA 仕様が定め�
 
 チェック対象は仕様で定義済みの属性のみです（未知の属性名は `a11y/unknown-aria-attribute` が扱い、本ルールの対象外です）。仕様上の型ごとに検証方法が異なります。
 
-- **boolean**(例: `aria-hidden`) — `true` か `false` のみ許可。
-- **tristate**(例: `aria-checked`) — `true`・`false`・`mixed` のみ許可。
-- **token**(例: `aria-live`) — その属性に定義された固定の値の中から選ぶ。
-- **tokenlist**(例: `aria-relevant`) — 空白区切りの 1 語以上で、各語が固定の値の中に含まれる。空の値は無効。
-- **integer**(例: `aria-colcount`) — 整数であること。
-- **number**(例: `aria-valuenow`) — 有限の数値であること。
-- **string** / **id** / **idlist**(例: `aria-label`、`aria-activedescendant`) — どんなリテラルでも許可(静的にはチェックできない)。
+- **boolean**(例: `aria-hidden`)。`true` か `false` のみ許可。
+- **tristate**(例: `aria-checked`)。`true`・`false`・`mixed` のみ許可。
+- **token**(例: `aria-live`)。その属性に定義された固定の値の中から選びます。
+- **tokenlist**(例: `aria-relevant`)。空白区切りの 1 語以上で、各語が固定の値の中に含まれる。空の値は無効。
+- **integer**(例: `aria-colcount`)。整数であること。
+- **number**(例: `aria-valuenow`)。有限の数値であること。
+- **string** / **id** / **idlist**(例: `aria-label`、`aria-activedescendant`)。どんなリテラルでも許可(静的にはチェックできない)。
 
 ARIA 仕様の字面からは意図的に 2 点ずらしています。いずれも、実際にビルドに使う Svelte コンパイラに合わせるためです。仕様はいくつかの boolean 属性に `undefined` を値として挙げ、長さ 0 の文字列は属性が無いものとして扱うべきだとしていますが、コンパイラはどちらも拒否し（`a11y_incorrect_aria_attribute_type_boolean`）、このルールも拒否します。自分のビルドと食い違うルールは、第二の意見ではなくただのノイズだからです。
 
@@ -25,10 +25,10 @@ ARIA 仕様の字面からは意図的に 2 点ずらしています。いずれ
 
 検出しないもの:
 
-- `aria-hidden="true"` — 有効な boolean。
-- `aria-live="polite"` — 有効な token。
+- `aria-hidden="true"`。有効な boolean です。
+- `aria-live="polite"`。有効な token です。
 - 値が動的な属性(実行時の値は静的には分からないため): `aria-hidden={isHidden}`。
-- 未知の属性名、例: `aria-bogus="x"` — `a11y/unknown-aria-attribute` の担当。
+- 未知の属性名、例: `aria-bogus="x"`。`a11y/unknown-aria-attribute` の担当です。
 
 ## なぜ重要か
 
@@ -44,7 +44,7 @@ ARIA 仕様の字面からは意図的に 2 点ずらしています。いずれ
 
 ## モードによる違い
 
-ありません。このルールはソース — 同じ `.svelte` / `.ts` ファイル — を読むので、CLI、Vite プラグインのビルド、ライブダッシュボードの静的ベースラインのどの面でも結果は同一で、レンダリング済み HTML の解析で再評価されることもありません。`--route` で実行範囲を絞ると、このルールは動きません — コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
+ありません。このルールが読むのは同じ `.svelte` / `.ts` のソースファイルなので、CLI、Vite プラグインのビルド、ライブダッシュボードの静的ベースラインのいずれでも結果は同一で、レンダリング済み HTML の解析で再評価されることもありません。`--route` で実行範囲を絞ると、このルールは動きません。コンポーネントスコープのルールには、検出を紐づけるルートが無いためです。
 
 ## 無効化
 

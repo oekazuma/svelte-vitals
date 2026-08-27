@@ -1,6 +1,6 @@
 ---
 title: a11y/no-duplicate-dt · Duplicate <dt> names in a <dl>
-description: Within a single dl element there should not be more than one dt element for each name — a duplicated term usually means two descriptions were meant to share one dt.
+description: Within a single dl element there should not be more than one dt element for each name; a duplicated term usually means two descriptions were meant to share one dt.
 ---
 
 **Severity:** info · **Category:** a11y
@@ -18,14 +18,14 @@ Flags a `<dt>` whose text duplicates an earlier `<dt>` in the same `<dl>`:
 </dl>
 ```
 
-A term's name is its static text content — static phrasing markup is looked through, so `<dt><code>HTTP</code></dt>` and `<dt>HTTP</dt>` carry the same name, and comments contribute nothing. Names are compared after trimming and collapsing internal whitespace, case-sensitively (the spec leaves the equality unstated, so only certain duplicates are reported). The div-wrapped name-value-group form counts too: a `<dt>` that is a direct child of a `<div>` directly inside the `<dl>` participates. Each `<dl>` is its own scope — the same term in two different lists is fine, and a `<dl>` nested inside a `<dd>` is judged on its own.
+A term's name is its static text content, and static phrasing markup is looked through, so `<dt><code>HTTP</code></dt>` and `<dt>HTTP</dt>` carry the same name, and comments contribute nothing. Names are compared after trimming and collapsing internal whitespace, case-sensitively (the spec leaves the equality unstated, so only certain duplicates are reported). The div-wrapped name-value-group form counts too: a `<dt>` that is a direct child of a `<div>` directly inside the `<dl>` participates. Each `<dl>` is its own scope. The same term in two different lists is fine, and a `<dl>` nested inside a `<dd>` is judged on its own.
 
 Not flagged:
 
-- A `<dt>` with any dynamic content — an `{expression}`, component, block, or custom-element child anywhere below makes the name unknowable.
-- A `<dt>` under a logic block (`{#if}`, `{#each}`, …) or inside a component — its multiplicity or rendered content is unknowable.
-- Empty or whitespace-only `<dt>`s — two blank terms are a missing-content defect, not a duplicate name.
-- A `<dl>` inside `<svg>` — it never renders as an HTML description list.
+- A `<dt>` with any dynamic content. An `{expression}`, component, block, or custom-element child anywhere below makes the name unknowable.
+- A `<dt>` under a logic block (`{#if}`, `{#each}`, …) or inside a component, whose multiplicity or rendered content is unknowable.
+- Empty or whitespace-only `<dt>`s. Two blank terms are a missing-content defect, not a duplicate name.
+- A `<dl>` inside `<svg>`, which never renders as an HTML description list.
 
 ## Why it matters
 
@@ -47,7 +47,7 @@ Or rename one of the terms if the entries are genuinely different.
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

@@ -7,7 +7,7 @@ description: Your project should provide a sitemap.xml file.
 
 ## What it checks
 
-The project should have a `sitemap.xml` — either at `static/sitemap.xml` or served via a `src/routes/sitemap.xml/+server` endpoint.
+The project should have a `sitemap.xml`, either at `static/sitemap.xml` or served via a `src/routes/sitemap.xml/+server` endpoint.
 
 ## Why it matters
 
@@ -26,7 +26,7 @@ Add `static/sitemap.xml` or a `src/routes/sitemap.xml/+server` endpoint:
 
 ## Mode differences
 
-None. The check looks for the file or its `+server` endpoint in the project and is the same on every surface, including a `--route` run. The dashboard's live layer does not re-evaluate site-wide rules; the static baseline's result stands.
+None. The check looks for the file or its `+server` endpoint in the project and is the same everywhere it runs, including a `--route` run. The dashboard's live layer does not re-evaluate site-wide rules; the static baseline's result stands.
 
 ## Disabling
 

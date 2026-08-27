@@ -9,15 +9,15 @@ description: An aria-* attribute's value should match the type the WAI-ARIA spec
 
 Flags a literal `aria-*` attribute whose value does not match the type the WAI-ARIA spec defines for that attribute.
 
-Only attributes the spec defines are checked here — an unrecognized name is `a11y/unknown-aria-attribute`'s concern, not this rule's. Each spec type is validated differently:
+Only attributes the spec defines are checked here. An unrecognized name is `a11y/unknown-aria-attribute`'s concern, not this rule's. Each spec type is validated differently:
 
-- **boolean** (e.g. `aria-hidden`) — must be `true` or `false`.
-- **tristate** (e.g. `aria-checked`) — must be `true`, `false`, or `mixed`.
-- **token** (e.g. `aria-live`) — must be one of the attribute's fixed set of values.
-- **tokenlist** (e.g. `aria-relevant`) — one or more whitespace-separated words, each from the fixed set; an empty value is invalid.
-- **integer** (e.g. `aria-colcount`) — must be a whole number.
-- **number** (e.g. `aria-valuenow`) — must be a finite number.
-- **string** / **id** / **idlist** (e.g. `aria-label`, `aria-activedescendant`) — any literal is accepted; these can't be checked statically.
+- **boolean** (e.g. `aria-hidden`) must be `true` or `false`.
+- **tristate** (e.g. `aria-checked`) must be `true`, `false`, or `mixed`.
+- **token** (e.g. `aria-live`) must be one of the attribute's fixed set of values.
+- **tokenlist** (e.g. `aria-relevant`) takes one or more whitespace-separated words, each from the fixed set; an empty value is invalid.
+- **integer** (e.g. `aria-colcount`) must be a whole number.
+- **number** (e.g. `aria-valuenow`) must be a finite number.
+- **string**, **id** and **idlist** (e.g. `aria-label`, `aria-activedescendant`) accept any literal; these can't be checked statically.
 
 Two deliberate divergences from the letter of the ARIA spec, both to match the Svelte compiler you build with. The spec lists `undefined` as a value for several boolean attributes, and says a zero-length string should be treated as an absent attribute; the compiler rejects both (`a11y_incorrect_aria_attribute_type_boolean`), and so does this rule. A rule that disagreed with your own build would be noise, not a second opinion.
 
@@ -25,18 +25,18 @@ Attribute and `role` names are matched **case-insensitively**, since HTML lowerc
 
 Not flagged:
 
-- `aria-hidden="true"` — a valid boolean.
-- `aria-live="polite"` — a valid token.
+- `aria-hidden="true"`, a valid boolean.
+- `aria-live="polite"`, a valid token.
 - An expression-valued attribute, since its runtime value is unknown statically: `aria-hidden={isHidden}`.
-- An unrecognized attribute name, e.g. `aria-bogus="x"` — owned by `a11y/unknown-aria-attribute`.
+- An unrecognized attribute name, e.g. `aria-bogus="x"`, which `a11y/unknown-aria-attribute` owns.
 
 ## Why it matters
 
-Assistive technology expects each `aria-*` attribute's value to match its spec-defined type. `aria-hidden="yes"` isn't a recognized boolean, and `aria-live="loud"` isn't one of the fixed live-region tokens — both are ignored or misread, so the state or region the author intended to expose never reaches the user, with no visual sign anything is wrong.
+Assistive technology expects each `aria-*` attribute's value to match its spec-defined type. `aria-hidden="yes"` isn't a recognized boolean, and `aria-live="loud"` isn't one of the fixed live-region tokens. Both are ignored or misread, so the state or region the author intended to expose never reaches the user, with no visual sign anything is wrong.
 
 ## How to fix
 
-Use a value matching the attribute's WAI-ARIA type — `aria-hidden="true"` for a boolean, `aria-live="polite"` for a token:
+Use a value matching the attribute's WAI-ARIA type: `aria-hidden="true"` for a boolean, `aria-live="polite"` for a token:
 
 ```svelte
 <div aria-hidden="true"></div>
@@ -44,7 +44,7 @@ Use a value matching the attribute's WAI-ARIA type — `aria-hidden="true"` for 
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

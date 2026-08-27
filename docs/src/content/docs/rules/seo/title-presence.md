@@ -7,7 +7,7 @@ description: Every route should resolve a non-empty <title>.
 
 ## What it checks
 
-Every route must resolve a non-empty `<title>` (own or inherited through the layout chain). A dynamic title (`<title>{data.title}</title>`) is the correct SvelteKit pattern and passes — only a genuinely missing or empty title is flagged.
+Every route must resolve a non-empty `<title>` (own or inherited through the layout chain). A dynamic title (`<title>{data.title}</title>`) is the correct SvelteKit pattern and passes; only a genuinely missing or empty title is flagged.
 
 ## Why it matters
 

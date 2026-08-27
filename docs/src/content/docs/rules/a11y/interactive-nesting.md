@@ -11,9 +11,9 @@ Flags an interactive element (`<button>`, `<input>`, a literal interactive `role
 
 Only three kinds of element open a container that this rule watches for a nested descendant:
 
-- `<a href="…">` — an href-less `<a>` is not a container.
+- `<a href="…">`. An href-less `<a>` is not a container.
 - `<button>`.
-- An element with a literal role ARIA marks children-presentational, meaning user agents should not expose its descendants through the accessibility API — `button`, `checkbox`, `radio`, `switch`, `tab`, `menuitemcheckbox`, `menuitemradio`, `option`, `slider`, `scrollbar`. `link` is a container too, not because ARIA marks it children-presentational — it does not — but because this rule applies to it the same nesting restriction `<a href>` carries in the HTML content model. Roles that legitimately contain their own controls are **not** containers: `role="gridcell"` holding a button is the documented grid pattern, and an ARIA 1.1 `role="combobox"` wraps its own `<input>`.
+- An element with a literal role ARIA marks children-presentational, meaning user agents should not expose its descendants through the accessibility API: `button`, `checkbox`, `radio`, `switch`, `tab`, `menuitemcheckbox`, `menuitemradio`, `option`, `slider`, `scrollbar`. `link` is a container too, not because ARIA marks it children-presentational, which it does not, but because this rule applies to it the same nesting restriction `<a href>` carries in the HTML content model. Roles that legitimately contain their own controls are **not** containers: `role="gridcell"` holding a button is the documented grid pattern, and an ARIA 1.1 `role="combobox"` wraps its own `<input>`.
 
 Any interactive element entering while one of those containers is open is flagged, for example:
 
@@ -25,14 +25,14 @@ Any interactive element entering while one of those containers is open is flagge
 
 Not flagged:
 
-- A descendant with `tabindex="-1"` — it is removed from the tab order, so it does not compete for keyboard focus.
+- A descendant with `tabindex="-1"`, which is removed from the tab order and does not compete for keyboard focus.
 - A descendant of an href-less `<a>`, since a plain `<a>` with no `href` is not itself interactive.
-- Interactive elements nested across components (e.g. a `<button>` inside a child component rendered inside an `<a href>`) — this rule only sees a single component's own template, so that variant is a known non-goal.
-- Namespace is not tracked: an `<a href>` inside `<svg>` is classified as the HTML `<a>`, so an SVG link wrapping a `<button>` is reported as interactive nesting. That is a parser approximation, not an SVG restriction — SVG itself forbids only nested SVG links — but the pattern is one no reader of the HTML rule would want either, so the finding stays.
+- Interactive elements nested across components (e.g. a `<button>` inside a child component rendered inside an `<a href>`). This rule only sees a single component's own template, so that variant is a known non-goal.
+- Namespace is not tracked: an `<a href>` inside `<svg>` is classified as the HTML `<a>`, so an SVG link wrapping a `<button>` is reported as interactive nesting. That is a parser approximation rather than an SVG restriction, since SVG itself forbids only nested SVG links, but the pattern is one no reader of the HTML rule would want either, so the finding stays.
 
 ## Why it matters
 
-Keyboard and assistive-technology users navigate by control, not by DOM position. A control nested inside another control is announced and operated inconsistently: browsers disagree on which element a click or `Enter` activates, and screen readers differ on how the pair is presented. When the outer element is an `<a href>` or a `<button>`, it is also invalid HTML — their content models forbid interactive descendants outright. A role-based container such as `role="button"` on a `<div>` is not covered by that content-model rule, but its interaction model breaks the same way.
+Keyboard and assistive-technology users navigate by control, not by DOM position. A control nested inside another control is announced and operated inconsistently: browsers disagree on which element a click or `Enter` activates, and screen readers differ on how the pair is presented. When the outer element is an `<a href>` or a `<button>`, it is also invalid HTML: their content models forbid interactive descendants outright. A role-based container such as `role="button"` on a `<div>` is not covered by that content-model rule, but its interaction model breaks the same way.
 
 ## How to fix
 
@@ -47,7 +47,7 @@ Restructure the markup so each interactive control is a sibling, not a descendan
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

@@ -19,14 +19,14 @@ The flagship case is a layout that renders its children inside `<main>` while th
 <h1>Page content</h1><aside>Related links</aside>
 ```
 
-No `role` is needed: a bare `<aside>` scoped to `<body>` or `<main>` is a `complementary` landmark. Inside sectioning content — `<article>`, `<aside>`, `<nav>`, `<section>` — it is one only when it has an `aria-label` or `aria-labelledby`, which is what the HTML accessibility mapping specifies.
+No `role` is needed: a bare `<aside>` scoped to `<body>` or `<main>` is a `complementary` landmark. Inside sectioning content (`<article>`, `<aside>`, `<nav>`, `<section>`) it is one only when it has an `aria-label` or `aria-labelledby`, which is what the HTML accessibility mapping specifies.
 
-Nothing in either file alone is wrong — a file-scoped markup linter cannot see this, since the nesting only exists once the layout's `<main>` and the page's `complementary` are composed across files.
+Nothing in either file alone is wrong, and a file-scoped markup linter cannot see this, since the nesting only exists once the layout's `<main>` and the page's `complementary` are composed across files.
 
 Not flagged:
 
 - A route with no `banner`/`main`/`complementary`/`contentinfo` landmark at all.
-- Nesting through an intermediate, non-landmark component: if `+page.svelte` places `<Sidebar />` inside `<main>`, and `Sidebar.svelte` itself renders `role="complementary"`, that nesting is out of scope — detection is counting-only per file, plus the direct layout-`<slot>` case, not a full call-graph trace through every intermediate component.
+- Nesting through an intermediate, non-landmark component: if `+page.svelte` places `<Sidebar />` inside `<main>`, and `Sidebar.svelte` itself renders `role="complementary"`, that nesting is out of scope. Detection is counting-only per file, plus the direct layout-`<slot>` case, not a full call-graph trace through every intermediate component.
 
 ## Why it matters
 
@@ -51,14 +51,14 @@ Move the nested landmark out so every landmark composes at the top level of the 
 Landmarks are collected in both modes, but from different sources, so results can differ:
 
 - **Source analysis** (the CLI, the dashboard's static baseline) composes the route's layout chain with its resolved local components to detect nesting. It cannot see nesting introduced by an unresolvable component (`node_modules`, a dynamically chosen component).
-- **Source analysis** (the CLI, the dashboard's static baseline) also decides whether a `<header>`/`<footer>` is a landmark by where it sits in its own file: it counts as `banner`/`contentinfo` only at the template top level of a **chain file** (a layout or the page) — never inside a component, whose header may sit under sectioning content the component cannot see. This is an approximation: a page's top-level `<header>` counts even when the layout renders the page inside `<main>`, where the rendered DOM would not treat it as a landmark at all — so source analysis can report a nesting the browser never exposes.
-- **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the rendered HTML, so it sees nesting produced by any component, resolvable or not. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line — the persisted finding key differs from the source-analysis key for the same defect.
+- **Source analysis** (the CLI, the dashboard's static baseline) also decides whether a `<header>`/`<footer>` is a landmark by where it sits in its own file: it counts as `banner`/`contentinfo` only at the template top level of a **chain file** (a layout or the page), never inside a component, whose header may sit under sectioning content the component cannot see. This is an approximation: a page's top-level `<header>` counts even when the layout renders the page inside `<main>`, where the rendered DOM would not treat it as a landmark at all, so source analysis can report a nesting the browser never exposes.
+- **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the rendered HTML, so it sees nesting produced by any component, resolvable or not. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line. The persisted finding key differs from the source-analysis key for the same defect.
 
-When the two disagree, trust the rendered result — it reflects what ships to the browser.
+When the two disagree, trust the rendered result. It reflects what ships to the browser.
 
 ## Disabling
 
-An inline `svelte-vitals-disable-next-line` comment above the line the finding names silences it — source analysis only, since a build-pass finding points at the prerendered HTML and has no source line to sit above. That line often sits in a composed component, and one directive there silences the finding on every route composing it — the suppressions file (`npx svelte-vitals --update-suppressions`) is the per-route mechanism. You can also scope the rule per route or path with `overrides`, or turn it off:
+An inline `svelte-vitals-disable-next-line` comment above the line the finding names silences it, in source analysis only: a build-pass finding points at the prerendered HTML and has no source line to sit above. That line often sits in a composed component, and one directive there silences the finding on every route composing it. The suppressions file (`npx svelte-vitals --update-suppressions`) is the per-route mechanism. You can also scope the rule per route or path with `overrides`, or turn it off:
 
 ```js svelte-vitals.config.js
 export default {

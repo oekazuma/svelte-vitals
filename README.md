@@ -26,24 +26,24 @@ npx svelte-vitals@latest
 📖 **[Documentation](https://oekazuma.github.io/svelte-vitals/)**
 
 > [!WARNING]
-> **Pre-1.0 — not recommended for production use yet.** Development is moving fast and aggressively, driven at the maintainer's discretion until `1.0`: APIs, rule IDs, scoring, and output formats can change at any time, including breaking changes between minor releases. Relying on it in critical pipelines is discouraged until `1.0`.
+> **Pre-1.0. Not recommended for production use yet.** Development is moving fast and aggressively, driven at the maintainer's discretion until `1.0`: APIs, rule IDs, scoring, and output formats can change at any time, including breaking changes between minor releases. Relying on it in critical pipelines is discouraged until `1.0`.
 
 ## Categories
 
-Six categories — **SEO**, **Performance**, **Correctness**, **Security**, **Architecture**, **Accessibility** — each scored independently and rolled into a single weighted **Health** score. → [Health score](https://oekazuma.github.io/svelte-vitals/guides/health-report/)
+Six categories, each scored independently and rolled into a single weighted **Health** score: **SEO**, **Performance**, **Correctness**, **Security**, **Architecture**, **Accessibility**. → [Health score](https://oekazuma.github.io/svelte-vitals/guides/health-report/)
 
 ## Features
 
-- Multiple reporters — `console`, `json`, `agent` (a Markdown remediation document an AI agent can act on directly), `sarif`, `github`, `md` (a plain Markdown report), and `html` (a self-contained, shareable report). The `agent` reporter auto-selects inside AI-agent harnesses (e.g. Claude Code); `github` auto-selects under GitHub Actions. → [Reporters](https://oekazuma.github.io/svelte-vitals/guides/reporters/)
-- GitHub integration — zero-config inline PR annotations, plus SARIF upload for persistent code-scanning alerts in the Security tab; `svelte-vitals ci install` scaffolds a full GitHub Actions workflow around `@svelte-vitals/action`, with a job summary and a sticky PR comment. → [Reporters](https://oekazuma.github.io/svelte-vitals/guides/reporters/), [CI integration](https://oekazuma.github.io/svelte-vitals/guides/ci/)
-- Live dashboard — a searchable, filterable dashboard at `/__svelte-vitals/` during `vite dev`, on by default: whole-project coverage from startup, refined to real rendered values as you browse, with a copy-to-clipboard AI-agent prompt on every finding. → [Live dashboard](https://oekazuma.github.io/svelte-vitals/guides/dev-dashboard/)
-- Plugin mode (`@svelte-vitals/vite`) — build-time analysis of the prerendered `<head>`; library-agnostic and exact. → [Plugin mode](https://oekazuma.github.io/svelte-vitals/guides/plugin-mode/)
-- Bundled docs — `svelte-vitals docs list` / `docs show <name>` print the guides from inside the CLI, so they match the installed version and need no network; `svelte-vitals explain --list` / `explain <rule-id>` do the same for the rule set. `docs list` and both forms of `explain` take `--json`; `docs show` prints the topic as Markdown. → [CLI reference](https://oekazuma.github.io/svelte-vitals/guides/cli/)
-- Agent Skills — `/setup-svelte-vitals`, `/improve-svelte`, and `/svelte-vitals` slash-command skills for Claude Code, Cursor, and Codex: a first-run pass that derives the config file from what the project already declares, a project-wide, evidence-ranked improvement roadmap, and rule knowledge up front. Install with `npx skills add oekazuma/svelte-vitals` ([skills.sh](https://www.skills.sh/)). → [Agent Skills](https://oekazuma.github.io/svelte-vitals/guides/agent-skills/)
+- Multiple reporters: `console`, `json`, `agent` (a Markdown remediation document an AI agent can act on directly), `sarif`, `github`, `md` (a plain Markdown report), and `html` (a self-contained, shareable report). The `agent` reporter auto-selects inside AI-agent harnesses (e.g. Claude Code); `github` auto-selects under GitHub Actions. → [Reporters](https://oekazuma.github.io/svelte-vitals/guides/reporters/)
+- GitHub integration: zero-config inline PR annotations, plus SARIF upload for persistent code-scanning alerts in the Security tab; `svelte-vitals ci install` scaffolds a full GitHub Actions workflow around `@svelte-vitals/action`, with a job summary and a sticky PR comment. → [Reporters](https://oekazuma.github.io/svelte-vitals/guides/reporters/), [CI integration](https://oekazuma.github.io/svelte-vitals/guides/ci/)
+- Live dashboard: a searchable, filterable dashboard at `/__svelte-vitals/` during `vite dev`, on by default: whole-project coverage from startup, refined to real rendered values as you browse, with a copy-to-clipboard AI-agent prompt on every finding. → [Live dashboard](https://oekazuma.github.io/svelte-vitals/guides/dev-dashboard/)
+- Plugin mode (`@svelte-vitals/vite`): build-time analysis of the prerendered `<head>`; library-agnostic and exact. → [Plugin mode](https://oekazuma.github.io/svelte-vitals/guides/plugin-mode/)
+- Bundled docs: `svelte-vitals docs list` / `docs show <name>` print the guides from inside the CLI, so they match the installed version and need no network; `svelte-vitals explain --list` / `explain <rule-id>` do the same for the rule set. `docs list` and both forms of `explain` take `--json`; `docs show` prints the topic as Markdown. → [CLI reference](https://oekazuma.github.io/svelte-vitals/guides/cli/)
+- Agent Skills: `/setup-svelte-vitals`, `/improve-svelte`, and `/svelte-vitals` slash-command skills for Claude Code, Cursor, and Codex: a first-run pass that derives the config file from what the project already declares, a project-wide, evidence-ranked improvement roadmap, and rule knowledge up front. Install with `npx skills add oekazuma/svelte-vitals` ([skills.sh](https://www.skills.sh/)). → [Agent Skills](https://oekazuma.github.io/svelte-vitals/guides/agent-skills/)
 
 ## Packages
 
-Two packages you'll use directly — CLI and Vite plugin — both built on the shared `@svelte-vitals/core` rule engine. → [Choosing a package](https://oekazuma.github.io/svelte-vitals/guides/choosing-a-package/)
+Two packages you'll use directly, the CLI and the Vite plugin, both built on the shared `@svelte-vitals/core` rule engine. → [Choosing a package](https://oekazuma.github.io/svelte-vitals/guides/choosing-a-package/)
 
 ## Getting started
 

@@ -28,7 +28,7 @@ Add a preconnect hint for the third-party origin:
 | --------- | ----------------- | ------------------------------------------- |
 | `origins` | list of hostnames | `fonts.googleapis.com`, `fonts.gstatic.com` |
 
-Configured origins are **added to** the built-in list, not a replacement for it — a project keeps
+Configured origins are **added to** the built-in list, rather than replacing it, so a project keeps
 checking the Google Fonts origins even after adding its own, and picks up any origin the built-in
 list grows to cover in a later svelte-vitals release.
 
@@ -42,7 +42,7 @@ export default {
 
 ## Mode differences
 
-**Source analysis** (the CLI, the dashboard's static baseline) composes each route's `<head>` from `<svelte:head>` in the page and its layout chain, followed into repo-local components, plus the known meta components (`svelte-meta-tags`, `svelte-seo`) and any you declare in `metaComponents`, and judges only a **literal** value — a dynamic one is not examined. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the shipped `<head>`, where every value is literal; the build pass covers prerendered routes only. When the two disagree, trust the rendered result.
+**Source analysis** (the CLI, the dashboard's static baseline) composes each route's `<head>` from `<svelte:head>` in the page and its layout chain, followed into repo-local components, plus the known meta components (`svelte-meta-tags`, `svelte-seo`) and any you declare in `metaComponents`. It judges only a **literal** value; it never examines a dynamic one. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the shipped `<head>`, where every value is literal; the build pass covers prerendered routes only. When the two disagree, trust the rendered result.
 
 ## Disabling
 

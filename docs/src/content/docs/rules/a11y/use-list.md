@@ -7,17 +7,17 @@ description: A bullet character typed into plain text should be a real list elem
 
 ## What it checks
 
-Flags text that opens with a bullet character (`•`, `・`, `·`, `-`, or `*`) followed by whitespace — **when there are at least two such items under one parent**, as sibling text nodes (`- one<br>- two`) or as the opening text of sibling elements (`<p>• one</p><p>• two</p>`). A lone bullet line is a dash, not a list; WCAG technique H48 is about sequences of items, and one item is not a sequence.
+Flags text that opens with a bullet character (`•`, `・`, `·`, `-`, or `*`) followed by whitespace, **when there are at least two such items under one parent**, as sibling text nodes (`- one<br>- two`) or as the opening text of sibling elements (`<p>• one</p><p>• two</p>`). A lone bullet line is a dash, not a list; WCAG technique H48 is about sequences of items, and one item is not a sequence.
 
 Not flagged:
 
-- The bullet character elsewhere in the text, e.g. `a - b` or `-webkit-...` — only the start of the trimmed text counts.
+- The bullet character elsewhere in the text, e.g. `a - b` or `-webkit-...`. Only the start of the trimmed text counts.
 - A bullet character with no following whitespace, e.g. a signed number like `-1`.
 - Text already inside an `<li>`.
-- Text that follows an `{expression}` among its siblings — `<p>{count} - results found</p>` trims to `- results found`, which is a sentence tail, not a bullet.
+- Text that follows an `{expression}` among its siblings. `<p>{count} - results found</p>` trims to `- results found`, which is a sentence tail, not a bullet.
 - Text inside `<pre>`, `<code>`, `<kbd>`, `<samp>` or `<textarea>`, where a leading dash is content.
 
-This is a heuristic, not a structural check — it can't tell a genuine bullet from an author's stylistic dash, so it's scored as `info` rather than `warning`.
+This is a heuristic, not a structural check. It can't tell a genuine bullet from an author's stylistic dash, so it's scored as `info` rather than `warning`.
 
 ```svelte
 <div>
@@ -43,7 +43,7 @@ Use a list element instead:
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

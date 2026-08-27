@@ -7,15 +7,15 @@ description: Dependent sequential awaits in a universal load cost a network roun
 
 ## What it checks
 
-Flags await chains in a **universal** load (`+page.ts` / `+layout.ts`) where a later await uses the result of an earlier one — directly, through destructured bindings, or through intermediate constants. Each dependent hop is a full network round trip from the browser on client-side navigation.
+Flags await chains in a **universal** load (`+page.ts` / `+layout.ts`) where a later await uses the result of an earlier one, whether directly, through destructured bindings, or through intermediate constants. Each dependent hop is a full network round trip from the browser on client-side navigation.
 
 The scan is deliberately conservative:
 
 - It follows the load body's straight-line statements (directly `try`-wrapped ones included) and does not enter `if` branches, loops, or nested functions.
 - `await parent()` is never flagged itself, but data derived from it counts as a dependency.
-- Reading a response body (`await res.json()` and friends) is not a hop — it costs no extra round trip — though data parsed from it still carries the dependency forward.
+- Reading a response body (`await res.json()` and friends) is not a hop, since it costs no extra round trip, though data parsed from it still carries the dependency forward.
 - Dependent chains in **server** loads are exempt: they cannot be parallelized and already run server-side.
-- Files disabling client-side rendering (`export const csr = false`) are exempt — without a client runtime the universal load only runs during SSR.
+- Files disabling client-side rendering (`export const csr = false`) are exempt: without a client runtime the universal load only runs during SSR.
 
 ## Why it matters
 
@@ -43,7 +43,7 @@ Only the literal dependent-chain shape is detected; chains hidden behind branche
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 
