@@ -9,7 +9,7 @@ description: Which reporter to use, how one is auto-selected, what goes to stdou
 
 `--reporter <fmt>`: `console` (default) · `json` · `agent` · `sarif` · `github` · `html` · `md`.
 
-- `agent`: Markdown remediation: each failing finding with its location, a concrete fix
+- `agent`: a Markdown remediation document. Each failing finding with its location, a concrete fix
   (with snippet), and an acceptance check. Use this when something will act on the findings.
 - `json`: the full structured report (scores per route and site-wide; every finding with
   `fix`, `recommendation`, `docsUrl`). Use it to filter or count.

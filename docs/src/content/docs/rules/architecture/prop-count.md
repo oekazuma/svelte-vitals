@@ -13,7 +13,7 @@ The threshold is measured, not guessed. 6 is the median per-repository 90th perc
 
 ## Why it matters
 
-A component with a large prop surface is usually doing too much; grouping related props or splitting the component keeps its API understandable.
+A component taking many props is usually doing too much; grouping related props or splitting the component keeps its API understandable.
 
 ## How to fix
 

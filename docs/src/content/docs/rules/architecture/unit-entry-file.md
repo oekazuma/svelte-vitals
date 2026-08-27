@@ -82,7 +82,7 @@ When several globs match one directory, the most specific wins, in this order:
 4. the alphabetically first.
 
 Segment count includes wildcards, so a key made only of wildcards can outrank one naming a real
-directory if it is deeper, so write the depth you mean.
+directory if it is deeper; write the depth you mean.
 
 ### `exclude`
 
@@ -92,7 +92,7 @@ neither units themselves nor hold units:
 | Directory                            | In `exclude`?                                |
 | ------------------------------------ | -------------------------------------------- |
 | test, style-guide, e2e, type folders | Yes                                          |
-| a folder whose children _are_ units  | **No**, excluding it removes those units too |
+| a folder whose children _are_ units  | **No**: excluding it removes those units too |
 
 If a broad `units` glob sweeps in a folder that holds units, narrow the glob instead of excluding it.
 
