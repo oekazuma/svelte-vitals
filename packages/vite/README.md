@@ -4,8 +4,8 @@
 
 Vite/SvelteKit plugin for [svelte-vitals](https://github.com/oekazuma/svelte-vitals). Two things in one package:
 
-- Build-time gate — piggybacks on `vite build`, parses the **prerendered HTML** (head metadata, images, headings, landmarks and ids), and runs the same rule engine as the CLI (SEO, Performance, Correctness, Security, Architecture, Accessibility) — library-agnostic, because it inspects the real output. Fails the build when findings reach `failOn`.
-- Live dev dashboard — on by default during `vite dev`: a searchable, filterable code-health dashboard at `/__svelte-vitals/`, covering the whole project from startup via static analysis, refined to real rendered values as you browse.
+- Build-time gate: hooks into `vite build`, parses the prerendered HTML (head metadata, images, headings, landmarks and ids), and runs the same rule engine as the CLI (SEO, Performance, Correctness, Security, Architecture, Accessibility). It works with any metadata library, because it inspects the real output. Fails the build when findings reach `failOn`.
+- Live dev dashboard: on by default during `vite dev`: a searchable, filterable code-health dashboard at `/__svelte-vitals/`, covering the whole project from startup via static analysis, refined to real rendered values as you browse.
 
 > **ESM-only** (Node 24.16+). Ships ES modules only; `require()` is unsupported by design.
 
@@ -21,20 +21,20 @@ export default {
 };
 ```
 
-`vite dev` prints the dashboard's URL next to its own `Local:`/`Network:` lines. Add the `svelteVitalsHandle` hook (from `@svelte-vitals/vite/hooks`) to `src/hooks.server.ts` for per-route `measured` accuracy as you browse — the dashboard works without it too, from whole-project static analysis alone.
+`vite dev` prints the dashboard's URL next to its own `Local:`/`Network:` lines. Add the `svelteVitalsHandle` hook (from `@svelte-vitals/vite/hooks`) to `src/hooks.server.ts` for per-route `measured` accuracy as you browse. The dashboard works without it too, from whole-project static analysis alone.
 
 ## Options
 
-- `failOn` — minimum severity that fails the build (default `critical`).
-- `report` — `'console' | 'json' | false` (default `console`).
-- `outFile` — write the JSON report to a path.
-- `rules` / `metaComponents` / `treatDynamicAs` — same as the CLI/core config.
-- `weights` — per-category weight overrides for the combined Health score.
-- `prerenderDir` — override the prerendered-pages directory.
-- `cwd` — project root (defaults to the Vite config root).
-- `ui` — serve the live dev dashboard (default `true`); pass `false` to keep only the build-time gate.
+- `failOn`: minimum severity that fails the build (default `critical`).
+- `report`: `'console' | 'json' | false` (default `console`).
+- `outFile`: write the JSON report to a path.
+- `rules` / `metaComponents` / `treatDynamicAs`: same as the CLI/core config.
+- `weights`: per-category weight overrides for the combined Health score.
+- `prerenderDir`: override the prerendered-pages directory.
+- `cwd`: project root (defaults to the Vite config root).
+- `ui`: serve the live dev dashboard (default `true`); pass `false` to keep only the build-time gate.
 
-At build time the **HTML** check covers prerendered routes only; the source scan applies project-wide. SSR and dynamic routes have no build output, so nothing checks their rendered HTML here — the `svelte-vitals` CLI covers them by source analysis, and browsing them during `vite dev` gets the live dashboard a rendered reading.
+At build time the HTML check covers prerendered routes only; the source scan applies project-wide. SSR and dynamic routes have no build output, so nothing checks their rendered HTML here. The `svelte-vitals` CLI covers them by source analysis, and browsing them during `vite dev` gets the live dashboard a rendered reading.
 
 See [Live dashboard](https://oekazuma.github.io/svelte-vitals/guides/dev-dashboard/) and [Plugin mode](https://oekazuma.github.io/svelte-vitals/guides/plugin-mode/) for the full picture.
 

@@ -10,8 +10,8 @@ disabling rules.
 
 ## Scope by file
 
-- `--diff [ref]` — only findings in files changed versus `ref` (default `HEAD`).
-- `--staged` — only findings in staged files. The pre-commit gate.
+- `--diff [ref]`: only findings in files changed versus `ref` (default `HEAD`).
+- `--staged`: only findings in staged files. The pre-commit gate.
 
 ```bash
 svelte-vitals . --diff --reporter agent   # after editing: what did I just break?
@@ -49,7 +49,7 @@ Fixing an accepted finding leaves a **stale** entry, reported on stderr but neve
 `--no-suppressions` ignores the file for one run.
 
 An entry covers whatever its rule reports at that route and location, not just the message
-recorded when written — a different finding from the same rule at the same spot still matches
+recorded when written, so a different finding from the same rule at the same spot still matches
 and stays suppressed (and not stale).
 
 A malformed suppressions file is a hard error (exit `2`), not a silent skip.
@@ -67,7 +67,7 @@ the line directly above it:
 Inside `<script>`, use `// svelte-vitals-disable-next-line <rule-id>`. Omit the id to suppress every
 rule on the next line, or list several comma-separated.
 
-Only findings the report anchors to a **line** can be reached this way — not the `<head>` metadata
+Only findings the report anchors to a **line** can be reached this way, not the `<head>` metadata
 rules, which report what a route never set. A directive in a component silences that finding on
 every route composing it; for one route, use the suppressions file or `overrides`.
 
@@ -86,5 +86,5 @@ violation of the same rule lower in the same file does not surface as new.
 
 ## Related
 
-- `svelte-vitals docs show ci` — the generated PR gate already does the `--diff`/`--baseline` pairing
-- `svelte-vitals docs show config` — turning a rule off for good, when that is genuinely right
+- `svelte-vitals docs show ci`: the generated PR gate already does the `--diff`/`--baseline` pairing
+- `svelte-vitals docs show config`: turning a rule off for good, when that is genuinely right

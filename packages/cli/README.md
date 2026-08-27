@@ -75,17 +75,17 @@ Useful as a CI gate.
 
 ### `svelte-vitals install`
 
-An interactive wizard that wires up the [Vite plugin](https://www.npmjs.com/package/@svelte-vitals/vite)'s live dashboard, a Cursor rules file, a `svelte-vitals.config` file, and a GitHub Actions CI workflow — grouped by category in the picker so it's clear what each target is for:
+An interactive wizard that wires up the [Vite plugin](https://www.npmjs.com/package/@svelte-vitals/vite)'s live dashboard, a Cursor rules file, a `svelte-vitals.config` file, and a GitHub Actions CI workflow, grouped by category in the picker so it's clear what each target is for:
 
 ```bash
 npx svelte-vitals@latest install
 ```
 
-The `/setup-svelte-vitals`, `/improve-svelte` and `/svelte-vitals` Agent Skills are not installer targets — install them with `npx skills add oekazuma/svelte-vitals`.
+The `/setup-svelte-vitals`, `/improve-svelte` and `/svelte-vitals` Agent Skills are not installer targets. Install them with `npx skills add oekazuma/svelte-vitals`.
 
 ### `svelte-vitals docs` / `svelte-vitals explain`
 
-Both read out of the CLI itself, so the answer always matches the installed version and needs no network — the thing an AI agent otherwise guesses at or fetches from a page describing a different release.
+Both read out of the CLI itself, so the answer always matches the installed version and needs no network, which is the thing an AI agent otherwise guesses at or fetches from a page describing a different release.
 
 ```bash
 npx svelte-vitals@latest docs list             # every bundled topic, with a one-line description
@@ -94,11 +94,11 @@ npx svelte-vitals@latest explain --list        # every rule, by category
 npx svelte-vitals@latest explain performance/heavy-import
 ```
 
-`explain <rule-id>` prints that rule's rationale, docs link, fix template, and — for a configurable rule — every option's default, bounds, and how a configured value merges with the built-in default: the detail needed to decide whether a finding is a defect or a threshold disagreement. `docs list` and both forms of `explain` take `--json`; `docs show` prints the topic as Markdown.
+`explain <rule-id>` prints that rule's rationale, docs link, fix template, and, for a configurable rule, every option's default, bounds, and how a configured value merges with the built-in default: the detail needed to decide whether a finding is a defect or a threshold disagreement. `docs list` and both forms of `explain` take `--json`; `docs show` prints the topic as Markdown.
 
 ### CI integration
 
-`svelte-vitals ci install` scaffolds a GitHub Actions workflow around `@svelte-vitals/action` — inline PR annotations, a job summary, and a sticky PR comment, no YAML to hand-write. The same workflow is also a selectable `ci-workflow` target inside `svelte-vitals install`, so it can be set up in the same pass as everything else. See [CI integration](https://oekazuma.github.io/svelte-vitals/guides/ci/).
+`svelte-vitals ci install` scaffolds a GitHub Actions workflow around `@svelte-vitals/action`: inline PR annotations, a job summary, and a sticky PR comment, with no YAML to hand-write. The same workflow is also a selectable `ci-workflow` target inside `svelte-vitals install`, so it can be set up in the same pass as everything else. See [CI integration](https://oekazuma.github.io/svelte-vitals/guides/ci/).
 
 ### Agent-native output
 
@@ -110,7 +110,7 @@ It is selected **automatically** when run inside a known AI-agent harness (e.g. 
 
 svelte-vitals resolves the effective `<head>` of every route by walking the layout chain (`+layout.svelte` → … → `+page.svelte`) and parsing `<svelte:head>` with `svelte/compiler`.
 
-A dynamic title such as `<title>{data.title}</title>` — the most common, correct SvelteKit pattern — is **never** flagged as missing; it passes with a `↯` marker. Only genuinely missing or empty metadata is penalized.
+A dynamic title such as `<title>{data.title}</title>`, the most common and correct SvelteKit pattern, is **never** flagged as missing; it passes with a `↯` marker. Only genuinely missing or empty metadata is penalized.
 
 See the [full documentation](https://oekazuma.github.io/svelte-vitals/) for every flag, rule, and reporter, or the [project README](https://github.com/oekazuma/svelte-vitals#readme) for the full picture and roadmap.
 
