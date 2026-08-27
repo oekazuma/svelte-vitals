@@ -11,7 +11,7 @@ Flags an `$effect` whose body only assigns to `$state` variables, in the compone
 
 ## Why it matters
 
-Synchronising state with an `$effect` (the "useEffect → $effect" habit from React) runs after render and can trigger extra render passes or loops. A `$derived` value expresses the same dependency declaratively — Svelte recomputes it lazily, the next time it's read, rather than scheduling a separate effect run.
+Synchronising state with an `$effect` (the "useEffect → $effect" habit from React) runs after render and can trigger extra render passes or loops. A `$derived` value expresses the same dependency declaratively. Svelte recomputes it lazily, the next time it's read, rather than scheduling a separate effect run.
 
 ## How to fix
 
@@ -25,7 +25,7 @@ Synchronising state with an `$effect` (the "useEffect → $effect" habit from Re
 
 ## Known limitation: mount-flag / hydration-guard effects
 
-This check is structural — "does the effect body only assign to `$state`?" — not
+This check is structural, asking only "does the effect body only assign to `$state`?", and not
 semantic, so it can't distinguish a genuine derive-in-an-effect anti-pattern from
 the "mount signal" idiom used to avoid SSR/prerender ↔ hydration mismatches:
 
@@ -44,7 +44,7 @@ the "mount signal" idiom used to avoid SSR/prerender ↔ hydration mismatches:
 
 `$derived` recomputes on next read, including during hydration; `$effect` runs only after the
 component has mounted to the DOM, which is the whole point here. Converting this shape to
-`$derived` reintroduces the bug the `$effect` was added to prevent — so suppress it with a
+`$derived` reintroduces the bug the `$effect` was added to prevent, so suppress it with a
 [`svelte-vitals-disable-next-line`](/guides/cli#suppressing-a-single-finding-inline) comment
 rather than "fixing" it.
 
@@ -52,7 +52,7 @@ rather than "fixing" it.
 
 The same structural blind spot also catches the documented fix for
 [correctness/server-browser-global](/rules/correctness/server-browser-global) and
-[correctness/instance-browser-global](/rules/correctness/instance-browser-global) — an `$effect` that
+[correctness/instance-browser-global](/rules/correctness/instance-browser-global), an `$effect` that
 reads a browser-only global and assigns it to `$state`:
 
 ```svelte
@@ -64,19 +64,19 @@ reads a browser-only global and assigns it to `$state`:
 </script>
 ```
 
-`$derived` only evaluates its expression when something reads the derived value — but a value like
+`$derived` only evaluates its expression when something reads the derived value, but a value like
 this exists to be read (typically from the template), and a template read happens during SSR too.
 Converting this to `$derived(localStorage.getItem('filters'))` would reintroduce the exact
 `ReferenceError: localStorage is not defined` those two rules exist to prevent, the moment
 something reads it during server-side rendering. `localStorage`/`window`/etc. are exactly the
 values `$derived` cannot safely read, because there is no read that is guaranteed client-only.
 Prefer `onMount`, or [`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window)
-for `window` properties — see those two rules' docs for the fix — and suppress this finding rather
+for `window` properties, whose fix those two rules' docs describe, and suppress this finding rather
 than switching to `$derived`.
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

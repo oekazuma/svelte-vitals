@@ -13,15 +13,15 @@ Plain reassignment of the prop itself (`count = 5`) is **not** flagged: Svelte's
 
 A local reusing the prop's name shadows it and is not the prop at all, so mutating it is not flagged: a function or arrow parameter, a block-scoped `let`/`const` redeclaration, a `for`/`for-of`/`for-in` loop variable, a `catch` parameter, or a `{#each ... as x}` variable.
 
-`{#snippet}`/`{:then}`/`{:catch}` bindings are not tracked and could still produce a false positive — a deliberately partial mitigation, not full scope resolution.
+`{#snippet}`/`{:then}`/`{:catch}` bindings are not tracked and could still produce a false positive. This is a deliberately partial mitigation, not full scope resolution.
 
 ## Why it matters
 
 Svelte's docs say plainly: "don't mutate props" unless they are `$bindable`. Three failure modes, none caught by the compiler:
 
-- A **plain-object** prop mutation is a silent no-op — the object isn't a state proxy, so not even the dev-time warning fires.
-- A **reactive-state-proxy** prop mutation works, but triggers the `ownership_invalid_mutation` dev warning — only if that code path is actually exercised at runtime.
-- A **fallback value** in use behaves like a plain object — mutation has no effect.
+- A **plain-object** prop mutation is a silent no-op: the object isn't a state proxy, so not even the dev-time warning fires.
+- A **reactive-state-proxy** prop mutation works, but triggers the `ownership_invalid_mutation` dev warning, and only if that code path is actually exercised at runtime.
+- A **fallback value** in use behaves like a plain object, so mutation has no effect.
 
 Static analysis catches all three at review/CI time, before the code path has to run.
 
@@ -49,7 +49,7 @@ Static analysis catches all three at review/CI time, before the code path has to
 
 ### Legacy mode (`export let`)
 
-The same class of bug exists in legacy-mode components, for a different reason — Svelte's legacy reactivity is assignment-based, so a mutating method call never triggers an update on its own, even when the prop is passed with `bind:`:
+The same class of bug exists in legacy-mode components, for a different reason. Svelte's legacy reactivity is assignment-based, so a mutating method call never triggers an update on its own, even when the prop is passed with `bind:`:
 
 ```svelte
 <script>
@@ -62,7 +62,7 @@ The same class of bug exists in legacy-mode components, for a different reason �
 </script>
 ```
 
-Reassign the prop after mutating it to re-trigger reactivity — this is Svelte's own documented pattern, not a workaround:
+Reassign the prop after mutating it to re-trigger reactivity. This is Svelte's own documented pattern, not a workaround:
 
 ```svelte
 <script>
@@ -77,7 +77,7 @@ Reassign the prop after mutating it to re-trigger reactivity — this is Svelte'
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

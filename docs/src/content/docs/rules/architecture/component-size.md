@@ -13,7 +13,7 @@ The threshold comes from the same survey of real Svelte 5 codebases as `architec
 
 ## Why it matters
 
-A very large component is hard to read, test, and reuse, and usually means several responsibilities should be split out — a common shape for AI-generated code.
+A very large component is hard to read, test, and reuse, and usually means several responsibilities should be split out, a common shape for AI-generated code.
 
 ## How to fix
 
@@ -33,7 +33,7 @@ export default {
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

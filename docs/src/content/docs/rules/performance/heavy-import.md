@@ -9,7 +9,7 @@ description: Avoid importing large, non-tree-shakeable packages.
 
 Flags an `import` from a well-known heavy / non-tree-shakeable package (currently `lodash`, `moment`). Matched by exact specifier, so a subpath import like `lodash/debounce` is **not** flagged.
 
-A **type-only** import is not flagged — `import type { Moment } from 'moment'`, or one whose every specifier is inline-typed — because it is erased at build and adds nothing to the bundle.
+A **type-only** import is not flagged, whether `import type { Moment } from 'moment'` or one whose every specifier is inline-typed, because it is erased at build and adds nothing to the bundle.
 
 `architecture/private-scope-import` still reports type-only imports: that rule is about coupling between parts of your tree, which a type import creates just the same.
 
@@ -52,7 +52,7 @@ export default {
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

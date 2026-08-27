@@ -13,7 +13,7 @@ This rule is **off until you configure it**. It has no default convention, becau
 
 ## Why it matters
 
-Code placed in a private directory is written for one owner. Importing it from elsewhere couples two parts of the tree that were meant to move independently: renaming or deleting the owner now breaks a stranger. The unit belongs higher up — in the directory its importers share.
+Code placed in a private directory is written for one owner. Importing it from elsewhere couples two parts of the tree that were meant to move independently: renaming or deleting the owner now breaks a stranger. The unit belongs higher up, in the directory its importers share.
 
 ## How to fix
 
@@ -41,11 +41,11 @@ With that configuration:
 
 - `Card/parts/Badge.svelte` is importable from anywhere under `Card/`, and nowhere else.
 - `src/routes/blog/components/Toc.svelte` is importable from anywhere under `src/routes/blog/`, and nowhere else.
-- `src/lib/components/Button.svelte` is unconstrained — no glob matches it, so the same directory name means something different here.
+- `src/lib/components/Button.svelte` is unconstrained: no glob matches it, so the same directory name means something different here.
 
 When private directories nest, the innermost one wins: with `**/parts`, a unit in `A/parts/B/parts/C` is private to `A/parts/B`, not to `A`.
 
-In globs, `*` matches within a path segment and `**` across segments. A `**` between two segments matches one segment or more, not zero — so `src/routes/**/components` does not match `src/routes/components`. List both patterns if you have a private directory at that level.
+In globs, `*` matches within a path segment and `**` across segments. A `**` between two segments matches one segment or more, not zero, so `src/routes/**/components` does not match `src/routes/components`. List both patterns if you have a private directory at that level.
 
 ## Limitations
 
@@ -59,7 +59,7 @@ An import that names a private directory itself, rather than a file inside it (f
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

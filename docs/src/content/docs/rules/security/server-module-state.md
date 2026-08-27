@@ -1,6 +1,6 @@
 ---
 title: security/server-module-state · Server module-scope state
-description: A module-scope variable in a Kit route or hooks file is reassigned from a function — shared across all requests on the server.
+description: A module-scope variable in a Kit route or hooks file is reassigned from a function, shared across all requests on the server.
 ---
 
 **Severity:** warning · **Category:** security
@@ -12,13 +12,13 @@ Flags reassignment (`=`, `+=`, `??=`, `++`, …) of a **module-scope `let`/`var`
 Not flagged:
 
 - Top-level initialisation and `const` bindings.
-- Mutation-style caches (`const cache = new Map()` + `cache.set(…)`), a deliberate memoisation pattern — though putting request-derived data in one carries the same risk.
+- Mutation-style caches (`const cache = new Map()` + `cache.set(…)`), a deliberate memoisation pattern, though putting request-derived data in one carries the same risk.
 - Anything under `src/lib/server/**`, which is not scanned at all, since legitimate singletons live there.
 - Assignments inside SvelteKit's `init` hook, which runs once at server startup.
 
 ## Why it matters
 
-SvelteKit's docs: "Avoid shared state on the server." A module variable on the server is one instance shared by every user — if an action stores Alice's form data there, Bob's next request reads it. The value also silently resets whenever the process restarts.
+SvelteKit's docs: "Avoid shared state on the server." A module variable on the server is one instance shared by every user. If an action stores Alice's form data there, Bob's next request reads it. The value also silently resets whenever the process restarts.
 
 ## How to fix
 
@@ -39,7 +39,7 @@ Authenticate with cookies/`locals` and persist per-user data to a database. For 
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

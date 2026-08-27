@@ -9,14 +9,14 @@ description: hreflang alternates should use valid codes; x-default is recommende
 
 Validates `<link rel="alternate" hreflang="…">` alternates. The rule is opt-in: a page with no hreflang alternates is never flagged. When alternates exist it flags:
 
-- a malformed `hreflang` value — not `x-default`, or a language(-script)(-region) code such as `en`, `en-US`, `zh-Hant`, or `es-419` — and
+- a malformed `hreflang` value, meaning neither `x-default` nor a language(-script)(-region) code such as `en`, `en-US`, `zh-Hant`, or `es-419`; and
 - a set of two or more alternates with no `x-default` declared.
 
 ## Why it matters
 
-A malformed hreflang code breaks international targeting outright — search engines may serve the wrong language version or ignore the annotations entirely.
+A malformed hreflang code breaks international targeting outright. Search engines may serve the wrong language version or ignore the annotations entirely.
 
-A missing `x-default` is a different kind of finding. [Google's own guidance](https://developers.google.com/search/docs/specialty/international/localized-versions) says to "consider adding a fallback page for unmatched languages, especially on language/country selectors or auto-redirecting home pages" — a recommendation for that specific shape of page, not a defect on every multilingual site. A page that lists a fixed set of language alternates without a language selector or auto-redirect has no unmatched-language visitor to fall back for, so skipping `x-default` there is a legitimate choice, not an oversight.
+A missing `x-default` is a different kind of finding. [Google's own guidance](https://developers.google.com/search/docs/specialty/international/localized-versions) says to "consider adding a fallback page for unmatched languages, especially on language/country selectors or auto-redirecting home pages", a recommendation for that specific shape of page rather than a defect on every multilingual site. A page that lists a fixed set of language alternates without a language selector or auto-redirect has no unmatched-language visitor to fall back for, so skipping `x-default` there is a legitimate choice, not an oversight.
 
 ## How to fix
 
@@ -30,11 +30,11 @@ A missing `x-default` is a different kind of finding. [Google's own guidance](ht
 
 ## Limitations
 
-Validation covers a pragmatic subset of BCP-47 — language, optional script, optional region — not the full grammar. BCP-47 variants and extensions (e.g. `de-DE-1996`, `en-US-u-hc-h12`) are valid hreflang values but are not recognized here and will be flagged as malformed.
+Validation covers a pragmatic subset of BCP-47, meaning language plus optional script and region, not the full grammar. BCP-47 variants and extensions (e.g. `de-DE-1996`, `en-US-u-hc-h12`) are valid hreflang values but are not recognized here and will be flagged as malformed.
 
 ## Mode differences
 
-**Source analysis** (the CLI, the dashboard's static baseline) composes each route's `<head>` from `<svelte:head>` in the page and its layout chain, followed into repo-local components, plus the known meta components (`svelte-meta-tags`, `svelte-seo`) and any you declare in `metaComponents`, and judges only a **literal** value — a dynamic one is not examined. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the shipped `<head>`, where every value is literal; the build pass covers prerendered routes only. When the two disagree, trust the rendered result.
+**Source analysis** (the CLI, the dashboard's static baseline) composes each route's `<head>` from `<svelte:head>` in the page and its layout chain, followed into repo-local components, plus the known meta components (`svelte-meta-tags`, `svelte-seo`) and any you declare in `metaComponents`. It judges only a **literal** value; it never examines a dynamic one. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the shipped `<head>`, where every value is literal; the build pass covers prerendered routes only. When the two disagree, trust the rendered result.
 
 ## Disabling
 

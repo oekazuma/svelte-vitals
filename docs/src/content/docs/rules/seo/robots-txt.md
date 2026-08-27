@@ -7,7 +7,7 @@ description: Your project should provide a robots.txt file.
 
 ## What it checks
 
-The project should have a `robots.txt` — either at `static/robots.txt` or served via a `src/routes/robots.txt/+server` endpoint.
+The project should have a `robots.txt`, either at `static/robots.txt` or served via a `src/routes/robots.txt/+server` endpoint.
 
 ## Why it matters
 

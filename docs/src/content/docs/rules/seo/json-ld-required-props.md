@@ -7,7 +7,7 @@ description: A recognized @type should include the properties its rich result re
 
 ## What it checks
 
-For a recognized `@type` (Product, BreadcrumbList, WebSite, Event, Recipe, VideoObject, LocalBusiness), checks that Google's required properties are present. Unknown/custom types are not flagged — and so are types (Article, BlogPosting, NewsArticle, Organization) for which Google's structured-data docs list no required properties at all, and Person, whose only Google-documented requirement applies to `ProfilePage.mainEntity`, a relationship this per-node check doesn't track.
+For a recognized `@type` (Product, BreadcrumbList, WebSite, Event, Recipe, VideoObject, LocalBusiness), checks that Google's required properties are present. Unknown and custom types are not flagged, and neither are types (Article, BlogPosting, NewsArticle, Organization) for which Google's structured-data docs list no required properties at all, and Person, whose only Google-documented requirement applies to `ProfilePage.mainEntity`, a relationship this per-node check doesn't track.
 
 ## Why it matters
 
@@ -28,7 +28,7 @@ Add the missing properties. For example, a `Product` needs `name`, plus at least
 
 ## Mode differences
 
-**Source analysis** (the CLI, the dashboard's static baseline) composes each route's `<head>` from `<svelte:head>` in the page and its layout chain, followed into repo-local components, plus the known meta components (`svelte-meta-tags`, `svelte-seo`) and any you declare in `metaComponents`, and judges only a **literal** value — a dynamic one is not examined. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the shipped `<head>`, where every value is literal; the build pass covers prerendered routes only. When the two disagree, trust the rendered result.
+**Source analysis** (the CLI, the dashboard's static baseline) composes each route's `<head>` from `<svelte:head>` in the page and its layout chain, followed into repo-local components, plus the known meta components (`svelte-meta-tags`, `svelte-seo`) and any you declare in `metaComponents`. It judges only a **literal** value; it never examines a dynamic one. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the shipped `<head>`, where every value is literal; the build pass covers prerendered routes only. When the two disagree, trust the rendered result.
 
 ## Disabling
 

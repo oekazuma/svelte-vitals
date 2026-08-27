@@ -15,7 +15,7 @@ JSON-LD structured data lets search engines render rich results (breadcrumbs, ar
 
 ## How to fix
 
-Add a JSON-LD `<script>` inside `<svelte:head>` with literal JSON (Svelte emits the script body as-is, so use literal JSON — an interpolation like `{JSON.stringify(...)}` would be emitted as that literal string and produce invalid JSON-LD):
+Add a JSON-LD `<script>` inside `<svelte:head>` with literal JSON. Svelte emits the script body as-is, so an interpolation like `{JSON.stringify(...)}` would be emitted as that literal string and produce invalid JSON-LD:
 
 ```svelte
 <svelte:head>

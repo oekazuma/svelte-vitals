@@ -26,7 +26,7 @@ Headings are collected in both modes, but from different sources, so results can
 - **Source analysis** (the CLI, the dashboard's static baseline) walks the route's `.svelte` templates, so it counts headings in branches that may not render (e.g. inside `{#if false}`) and cannot see headings rendered by imported child components.
 - **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the rendered HTML, so it sees component-rendered headings and only the branches that actually rendered.
 
-When the two disagree, trust the rendered result — it reflects what ships to the browser.
+When the two disagree, trust the rendered result. It reflects what ships to the browser.
 
 ## Disabling
 

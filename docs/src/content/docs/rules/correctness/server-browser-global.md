@@ -10,12 +10,12 @@ description: window, document, localStorage accessed in module scope or a load/h
 Flags reads of browser-only globals (`window`, `document`, `localStorage`, `sessionStorage`, `navigator`, `location`, `history`, `screen`, `matchMedia`, `requestAnimationFrame`, `cancelAnimationFrame`, `IntersectionObserver`, `ResizeObserver`, `MutationObserver`, `alert`, `confirm`, `prompt`) in code that always runs on the server:
 
 - module scope of a `.svelte.ts`/`.svelte.js` runes module or a `.svelte` `<script module>` block (crashes when the module is imported on the server), and
-- SvelteKit route/hooks files — top level, `load`/action/endpoint handler bodies, and the `init` hook (crashes at import or on every request).
+- SvelteKit route and hooks files: top level, `load`/action/endpoint handler bodies, and the `init` hook (crashes at import or on every request).
 
 Not flagged:
 
 - Code guarded by `browser` from `$app/environment` (aliases included) or a `typeof window !== 'undefined'` check (early-return guards included).
-- Code inside `onMount`/`$effect`/ordinary functions — they don't run at module evaluation.
+- Code inside `onMount`, `$effect`, or ordinary functions, since none of them run at module evaluation.
 - A bare `typeof window`, which never throws.
 - Names you imported or declared yourself (`const document = …`).
 - Closures nested inside handlers, typically client callbacks.
@@ -23,7 +23,7 @@ Not flagged:
 
 ## Why it matters
 
-None of these globals exist in Node. A module-scope `window` read crashes the server the moment the file is imported; in a `load` it crashes every SSR request — `ReferenceError: window is not defined`, a production 500 the compiler never warns about.
+None of these globals exist in Node. A module-scope `window` read crashes the server the moment the file is imported; in a `load` it crashes every SSR request with `ReferenceError: window is not defined`, a production 500 the compiler never warns about.
 
 ## How to fix
 
@@ -35,7 +35,7 @@ export function load() {
 }
 ```
 
-Move the browser access to the client side, in `onMount` — it never runs on the server:
+Move the browser access to the client side, into `onMount`, which never runs on the server:
 
 ```svelte +page.svelte
 <script>
@@ -58,7 +58,7 @@ const stored = browser ? localStorage.getItem('filters') : null; // ✅
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

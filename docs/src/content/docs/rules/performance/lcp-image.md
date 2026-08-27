@@ -23,7 +23,7 @@ Remove `loading="lazy"` from the first/LCP image and consider `fetchpriority="hi
 
 ## Mode differences
 
-**Source analysis** (the CLI, the dashboard's static baseline) reads the `<img>` elements in the route's own templates — the page and its layout chain — not those rendered by a child component. `loading="lazy"` is judged from the literal attribute only — a dynamic `loading={…}` or a spread (`{...rest}`) is never flagged. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads every `<img>` in the shipped body; the build pass covers prerendered routes only, and its findings anchor to the HTML file with no source line, so an inline `svelte-vitals-disable-next-line` reaches only the source-analysis finding. When the two disagree, trust the rendered result.
+**Source analysis** (the CLI, the dashboard's static baseline) reads the `<img>` elements in the route's own templates, meaning the page and its layout chain, not those rendered by a child component. `loading="lazy"` is judged from the literal attribute only; a dynamic `loading={…}` or a spread (`{...rest}`) is never flagged. **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads every `<img>` in the shipped body; the build pass covers prerendered routes only, and its findings anchor to the HTML file with no source line, so an inline `svelte-vitals-disable-next-line` reaches only the source-analysis finding. When the two disagree, trust the rendered result.
 
 ## Disabling
 

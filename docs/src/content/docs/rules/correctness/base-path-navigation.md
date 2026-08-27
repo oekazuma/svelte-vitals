@@ -1,13 +1,13 @@
 ---
 title: correctness/base-path-navigation · Root-relative navigation under a base path
-description: 'A hardcoded root-relative link resolves against the domain root, not kit.paths.base — under a base path it lands outside the app and 404s in production.'
+description: 'A hardcoded root-relative link resolves against the domain root, not kit.paths.base, so under a base path it lands outside the app and 404s in production.'
 ---
 
 **Severity:** warning · **Category:** correctness
 
 ## What it checks
 
-Only projects that configure a base path are checked — via `sveltekit({ paths: { base } })` in the Vite config, which takes precedence, or `kit.paths.base` in `svelte.config.*`. In those, the rule flags navigation written as a hardcoded root-relative literal on three surfaces:
+Only projects that configure a base path are checked, either through `sveltekit({ paths: { base } })` in the Vite config, which takes precedence, or `kit.paths.base` in `svelte.config.*`. In those, the rule flags navigation written as a hardcoded root-relative literal in three places:
 
 ```svelte
 <a href="/about">About</a>
@@ -18,17 +18,17 @@ goto('/dashboard');
 redirect(303, '/login');
 ```
 
-Under `base: '/docs'` these target `/about`, `/dashboard`, and `/login` on the domain root — outside the app — and 404 in production.
+Under `base: '/docs'` these target `/about`, `/dashboard`, and `/login` on the domain root, outside the app, and 404 in production.
 
 The base path is read the way SvelteKit reads it: from `sveltekit({ paths: { base } })` in your Vite config when present (which makes `svelte.config` irrelevant, as SvelteKit itself warns), otherwise from `kit.paths.base` in `svelte.config.js`/`.ts`.
 
-A computed base — the common `base: dev ? '' : '/repo'` deploy form — still opens the gate, since the app is served under a base in at least one environment. No base, or an explicit `base: ''`, keeps the rule silent.
+A computed base, such as the common `base: dev ? '' : '/repo'` deploy form, still opens the gate, since the app is served under a base in at least one environment. No base, or an explicit `base: ''`, keeps the rule silent.
 
 Detection is literal-only, which means the correct forms are never flagged: `href="{base}/about"`, `href={resolve('/about')}`, `goto(resolve('/about'))`, and ``goto(`${base}/about`)`` are all dynamic expressions, not string literals.
 
 ## Why it matters
 
-The break is invisible where you develop it: a base path usually applies only in the deployed environment, so locally `base` is `''` and every hardcoded link works. Nothing else catches it either — the compiler sees an ordinary attribute, and `svelte-check` types the string, not what it resolves to. It surfaces as "every link 404s" after deploy.
+The break is invisible where you develop it: a base path usually applies only in the deployed environment, so locally `base` is `''` and every hardcoded link works. Nothing else catches it either. The compiler sees an ordinary attribute, and `svelte-check` types the string, not what it resolves to. It surfaces as "every link 404s" after deploy.
 
 ## How to fix
 
@@ -57,15 +57,15 @@ redirect(303, resolve('/login')); // in a load function or form action
 
 Not covered:
 
-- `<form action="/…">`, `fetch('/api/…')`, and static assets (`<img src="/logo.png">`, `<link href>`) — assets break the same way but are fixed with `asset()` rather than `resolve()`, so they are left to a future rule.
+- `<form action="/…">`, `fetch('/api/…')`, and static assets (`<img src="/logo.png">`, `<link href>`). Assets break the same way but are fixed with `asset()` rather than `resolve()`, so they are left to a future rule.
 - Dynamic paths of any kind, `<svelte:element this="a">`, and namespace-imported `goto`/`redirect` (`import * as nav from '$app/navigation'`).
-- A `sveltekit()` argument that cannot be read statically, such as an imported config object — the rule stays silent rather than guessing.
+- A `sveltekit()` argument that cannot be read statically, such as an imported config object. The rule stays silent rather than guessing.
 - `goto()` in a plain `.ts`/`.js` module: only `.svelte`, `.svelte.ts` and `.svelte.js` are read for component facts.
 - `redirect()` in `src/hooks.client.ts` or `src/hooks.ts`, which fall outside the Kit-module collector's file set.
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 

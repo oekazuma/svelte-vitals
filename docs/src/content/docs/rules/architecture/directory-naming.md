@@ -7,7 +7,7 @@ description: A directory should be named in the casing its location declares.
 
 ## What it checks
 
-Flags a directory whose name does not match the casing you have declared for its location —
+Flags a directory whose name does not match the casing you have declared for its location:
 `UserProfile/` where the features root is camelCase, `setCookie/` where endpoint segments are
 kebab-case.
 
@@ -17,7 +17,7 @@ should look like, because that is your project's convention, not ours.
 ## Why it matters
 
 A directory name is the cheapest signal a tree has. When the convention holds, `parts/` and `Card/`
-tell a reader — human or agent — what they are without opening anything. One directory that breaks it
+tell a reader, human or agent, what they are without opening anything. One directory that breaks it
 costs nothing today and makes the signal unreliable forever after, because a reader who has met one
 exception has to check every case from then on.
 
@@ -61,13 +61,13 @@ Four are recognised, and each tests the **whole** name rather than its first cha
 | `snake_case` | `^[a-z0-9]+(_[a-z0-9]+)*$` | `price_table` |
 
 A value may name several, joined by `|`, for a location that legitimately holds more than one kind of
-directory — a route's `components/` holds PascalCase component units and camelCase groupings side by
+directory. A route's `components/` holds PascalCase component units and camelCase groupings side by
 side.
 
 These rules mean different things by "PascalCase", on purpose:
 
 - **This rule** checks that the whole name conforms.
-- **`architecture/unit-entry-file`** asks only whether the first character is A–Z — it is asking
+- **`architecture/unit-entry-file`** asks only whether the first character is A–Z. It is asking
   whether a directory _looks like_ a unit, not whether its name conforms.
 - **`architecture/reserved-directory-names`** uses that same first-character test, but also requires
   a same-named file.
@@ -110,14 +110,14 @@ When several globs match one directory, the most specific wins: more path segmen
 Segment count includes wildcards, so a key made only of wildcards can outrank one naming a real
 directory if it is deeper. Write the depth you mean.
 
-A **trailing** `/**` means "everything under this directory" and never governs the directory itself —
+A **trailing** `/**` means "everything under this directory" and never governs the directory itself,
 which matters here, because the containers those keys name are `src/routes`, `src/lib` and `src`, and
 SvelteKit chooses those names, not you.
 
 ### `exclude`
 
 **`exclude` removes a directory and everything beneath it.** Use it for a subtree whose names you do
-not control — generated code, a vendored tree:
+not control, such as generated code or a vendored tree:
 
 ```js
 options: {
@@ -160,18 +160,18 @@ valid declaration that would otherwise govern the same directory.
 
 Two things are deliberately never reported:
 
-- A declaration written **only** inside an `overrides` entry — whether it matched anything depends
+- A declaration written **only** inside an `overrides` entry, since whether it matched anything depends
   on which paths the override applies to.
 - An `exclude` glob that matches nothing, since removing nothing changes no report. A mistyped
   `exclude` is therefore silent when the subtree it meant to remove had no findings anyway.
 
 A mis-cased directory that is also a declared unit missing its entry file draws a finding from
-`architecture/unit-entry-file` as well. Neither suppresses the other — they are different claims and
+`architecture/unit-entry-file` as well. Neither suppresses the other. They are different claims and
 both are true.
 
 ## Mode differences
 
-None. This rule reads the project's source-file inventory — the `src/**` paths, not file contents — which every surface builds the same way: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: no inventory is built, and a file finding has no route to attribute it to.
+None. This rule reads the project's source-file inventory, the `src/**` paths rather than file contents, and everywhere it runs that inventory is built the same way. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: no inventory is built, and a file finding has no route to attribute it to.
 
 ## Disabling
 

@@ -7,7 +7,7 @@ description: A directory's subdirectories should only take names declared for th
 
 ## What it checks
 
-Flags a directory whose name is not one of the names you declared for its position — a `helpers/`
+Flags a directory whose name is not one of the names you declared for its position: a `helpers/`
 inside a component unit that may only hold `parts/`, `functions/` and `tests/`.
 
 This rule is **off until you configure it**. It has no default idea of which names your project
@@ -16,7 +16,7 @@ reserves.
 ## Why it matters
 
 A closed set of directory names is only worth writing down if it stays closed. The first directory
-outside it costs nothing — it is correctly cased, it sits in a plausible place — but the table stops
+outside it costs nothing, since it is correctly cased and sits in a plausible place, but the table stops
 describing the tree, and from then on a reader who has met one exception has to open every directory
 to learn what it holds.
 
@@ -26,7 +26,7 @@ to learn what it holds.
 ## How to fix
 
 Rename the directory to a declared name, move it under one of them, or add its name to the
-declaration — deciding to widen the set is a legitimate outcome, as long as it is a decision.
+declaration. Deciding to widen the set is a legitimate outcome, as long as it is a decision.
 
 ## Configuration
 
@@ -57,29 +57,29 @@ export default {
 immediate subdirectories may take are the ones you list.
 
 **A `unitScopes` key names a root.** `'src/**'` matches every directory beneath `src`, and the rule
-governs the children of whichever of them are **units** — a directory whose name begins with a capital
-and which holds a file named after it (`Card/Card.svelte`, `Card/Card.ts`, `Card/Card.svelte.ts`). Use
+governs the children of whichever of them are **units**, meaning a directory whose name begins with a
+capital and which holds a file named after it (`Card/Card.svelte`, `Card/Card.ts`, `Card/Card.svelte.ts`). Use
 it for a closed set that hangs off something a glob cannot reach, because units nest to arbitrary
 depth.
 
-**An `anyCaseUnitScopes` key names a root the same way, but governs units of either case** — the same
+**An `anyCaseUnitScopes` key names a root the same way, but governs units of either case**. It is the same
 test without the letter requirement, so a `.ts`- or `.svelte.ts`-entry unit (`formatDate/formatDate.ts`,
 `useThing/useThing.svelte.ts`) counts too. `unitScopes`'s letter test excludes a lowercase unit, so
-without this option no generic unit-map declaration governs its children — though a `scopes` key naming
+without this option no generic unit-map declaration governs its children, though a `scopes` key naming
 the parent directly can still reach one. On a real-world tree, 129 of 299 units (43%) are such any-case
-units. Neither unit option is named with the bare word "unit" — with both predicates in play, that word
+units. Neither unit option is named with the bare word "unit": with both predicates in play, that word
 alone wouldn't say which one applies (`architecture/reserved-name-placement` takes the same split for
 its own options).
 
 A `scopes` key is only worth writing where the children are **entirely** drawn from the names you
 list. A route directory holds its reserved names beside its route segments, and route segments are
-unbounded — one per page — so no declaration belongs there. Writing one anyway reports every segment.
+unbounded, one per page, so no declaration belongs there. Writing one anyway reports every segment.
 
 The same applies wherever a position mixes reserved names with names the project invents freely. A
 camelCase unit that keeps its own nested helpers beside a `tests/` is such a position: the helper names
 are as unbounded as route segments, so `scopes: { 'src/**/functions/*': 'tests' }` would report every
 one of them. Between the two, the vocabulary is enforceable under component units and at positions
-whose children really are a closed list — not everywhere a reserved name appears.
+whose children really are a closed list, not everywhere a reserved name appears.
 
 The names in one declaration need not be the names in another. Each declared position has its own
 closed set; there is no single table.
@@ -96,11 +96,11 @@ decides: **`scopes` beats both unit maps, and `unitScopes` beats `anyCaseUnitSco
 `scopes` wins over either unit map because it applies to every directory its key matches, while a unit
 map applies only to the units of its required case. Declaring the same glob in `scopes` and a unit map
 is reported: `scopes` wins wherever both are declared, so the unit map's entry does nothing there. (It
-can still govern elsewhere — e.g. a `unitScopes` key declared globally and shadowed by a `scopes` key
+can still govern elsewhere: a `unitScopes` key declared globally and shadowed by a `scopes` key
 added only inside an `overrides` entry still governs outside that override's scope.)
 
 `unitScopes` wins over `anyCaseUnitScopes` because `unitScopes`'s letter test is the narrower of the
-two gates — every capitalised unit is also an any-case unit, never the reverse — so the identical glob
+two gates, since every capitalised unit is also an any-case unit and never the reverse, so the identical glob
 in both maps **partitions** rather than collides: `unitScopes` governs at capitalised units,
 `anyCaseUnitScopes` governs alone at the lowercase ones `unitScopes` never reaches. This is not
 reported as a dead declaration, because both entries do real work:
@@ -133,27 +133,27 @@ Only directories under `src/` are considered. File names are not checked. Dot di
 appear, so they need no excluding.
 
 **A directory beginning A–Z that holds no file named after it is not a unit here**, and this rule
-says nothing about its children. That directory is `architecture/unit-entry-file`'s finding —
-reported once, rather than once per child.
+says nothing about its children. That directory is `architecture/unit-entry-file`'s finding,
+reported once rather than once per child.
 
 "Named after it" compares the directory name against the filename up to its **first** dot, which is
-what lets `Card/Card.svelte.ts` count. One consequence: a directory whose only such file is a test —
-`Card/Card.test.ts` — counts as a unit too, and its children are checked. The alternative, stripping a
+what lets `Card/Card.svelte.ts` count. One consequence: a directory whose only such file is a test,
+`Card/Card.test.ts`, counts as a unit too, and its children are checked. The alternative, stripping a
 single extension, would reject a real entry-file shape, and a finding a reader can dismiss is the
 milder failure.
 
-The cut applies only to the filename, not the directory name — the directory's basename is compared
+The cut applies only to the filename, not the directory name. The directory's basename is compared
 whole. So `src/lib/Card.v2/` is **not a unit here**, even though it holds `Card.v2.svelte`: the stem of
 that filename up to its first dot is `Card`, which does not equal the directory's own uncut name
 `Card.v2`. Its children go unchecked. `architecture/unit-entry-file`, configured with an explicit extension, asks a
-different question — whether `Card.v2` + `.svelte` exists — and answers yes for the same directory.
+different question, whether `Card.v2` + `.svelte` exists, and answers yes for the same directory.
 Both answers are consistent with each rule's own definition.
 
 The rule says "here, only these names". It cannot say "this name, only here": a `parts/` in the wrong
 place is invisible unless that place is itself declared.
 
 **A project that nests units directly inside units should not declare `unitScopes` or
-`anyCaseUnitScopes`** — the nested unit is a child not in the set, and would be reported.
+`anyCaseUnitScopes`**. The nested unit is a child not in the set, and would be reported.
 
 A declaration that is not checking what it says is reported, so a typo cannot leave the rule silently
 doing nothing. These cases land in that finding, each named in the message:
@@ -161,13 +161,13 @@ doing nothing. These cases land in that finding, each named in the message:
 - the glob matched no directory;
 - every directory it matched is excluded;
 - a `unitScopes` key matched directories but never a unit;
-- an `anyCaseUnitScopes` key matched directories but never a unit of either case — the stronger claim,
+- an `anyCaseUnitScopes` key matched directories but never a unit of either case, the stronger claim,
   since every capitalised unit is also an any-case unit;
 - the value lists no name at all;
 - the same glob is declared in `scopes` and a unit map, with **both** values naming at least one
   directory. If either value names nothing it is dropped before matching, so the other governs alone
   and the empty-value reason reports instead. The same glob declared in **both unit maps** is not this
-  case — see "Which declaration wins" above.
+  case; see "Which declaration wins" above.
 
 Two things are never reported:
 
@@ -175,11 +175,11 @@ Two things are never reported:
   depends on which paths the override applies to. One exception: the identical-glob collision check
   is not narrowed to globally declared keys, so a collision between `scopes` and a unit map assembled
   entirely from `overrides` entries is still reported.
-- A declared name no directory currently uses — the set says what **may** appear, not what must.
+- A declared name no directory currently uses. The set says what **may** appear, not what must.
 
 ## Mode differences
 
-None. This rule reads the project's source-file inventory — the `src/**` paths, not file contents — which every surface builds the same way: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: no inventory is built, and a file finding has no route to attribute it to.
+None. This rule reads the project's source-file inventory, the `src/**` paths rather than file contents, and everywhere it runs that inventory is built the same way. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: no inventory is built, and a file finding has no route to attribute it to.
 
 ## Disabling
 

@@ -40,11 +40,11 @@ Landmarks are collected in both modes, but from different sources, so results ca
 - **Source analysis** (the CLI, the dashboard's static baseline) also decides whether a `<header>`/`<footer>` is a landmark by where it sits in its own file: it counts as `banner`/`contentinfo` only at the template top level of a **chain file** (a layout or the page) — never inside a component, whose header may sit under sectioning content the component cannot see. This is an approximation in both directions: a component's own top-level `<header>` is not counted, so two of the same component on a route do not duplicate `banner` the way the rendered DOM would; and a page's top-level `<header>` counts even when the layout renders the page inside `<main>`, where the rendered DOM would not treat it as a landmark at all.
 - **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the rendered HTML, so it sees only the branches that actually rendered, and it sees every landmark an `{#each}` loop produced. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line — the persisted finding key differs from the source-analysis key for the same defect.
 
-When the two disagree, trust the rendered result — it reflects what ships to the browser.
+When the two disagree, trust the rendered result. It reflects what ships to the browser.
 
 ## Disabling
 
-An inline `svelte-vitals-disable-next-line` comment above the line the finding names silences it — source analysis only, since a build-pass finding points at the prerendered HTML and has no source line to sit above. That line often sits in a composed component, and one directive there silences the finding on every route composing it — the suppressions file (`npx svelte-vitals --update-suppressions`) is the per-route mechanism. You can also scope the rule per route or path with `overrides`, or turn it off:
+An inline `svelte-vitals-disable-next-line` comment above the line the finding names silences it, in source analysis only: a build-pass finding points at the prerendered HTML and has no source line to sit above. That line often sits in a composed component, and one directive there silences the finding on every route composing it. The suppressions file (`npx svelte-vitals --update-suppressions`) is the per-route mechanism. You can also scope the rule per route or path with `overrides`, or turn it off:
 
 ```js svelte-vitals.config.js
 export default {

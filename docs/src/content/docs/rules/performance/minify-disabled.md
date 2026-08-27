@@ -16,7 +16,7 @@ The CLI statically parses `vite.config.*` (the first file in Vite's own resoluti
 - a same-file alias export
 - the CommonJS `module.exports = { … }` form
 
-The Vite plugin instead reads the **resolved** config during `vite build`, so it also catches function-form and conditional configs — and never flags an override that doesn't apply to the actual build.
+The Vite plugin instead reads the **resolved** config during `vite build`, so it also catches function-form and conditional configs, and never flags an override that doesn't apply to the actual build.
 
 Not flagged: `minify: 'oxc' | 'esbuild' | 'terser' | true`, and `minify` keys outside the `build` object. A project with no Vite config is not flagged **by the CLI**, which has nothing to parse; the plugin still judges the resolved value, including for an inline programmatic config.
 
@@ -24,7 +24,7 @@ An object spread that could override `minify` after the literal (`{ minify: fals
 
 ## Why it matters
 
-Vite minifies by default (`oxc` since Vite 8); turning it off is almost always a leftover from debugging a production issue. Unminified bundles are several times larger, so every route pays for it in download and parse time — and nothing in the toolchain warns you: the build succeeds and dev behaves identically.
+Vite minifies by default (`oxc` since Vite 8); turning it off is almost always a leftover from debugging a production issue. Unminified bundles are several times larger, so every route pays for it in download and parse time. Nothing in the toolchain warns you either: the build succeeds and dev behaves identically.
 
 ## How to fix
 
@@ -40,7 +40,7 @@ export default defineConfig(({ mode }) => ({
 }));
 ```
 
-Note the CLI's static pass deliberately skips this conditional form — only the plugin channel (which sees the resolved value) verifies which branch your build actually takes.
+Note the CLI's static pass deliberately skips this conditional form. Only the plugin channel, which sees the resolved value, verifies which branch your build actually takes.
 
 ## Mode differences
 

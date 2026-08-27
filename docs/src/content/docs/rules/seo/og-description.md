@@ -13,7 +13,7 @@ Every route should include a `<meta property="og:description">` tag (own or inhe
 
 og:description is the summary shown under the title in social previews; without one, platforms guess or show nothing, lowering click-through.
 
-The [Open Graph protocol](https://ogp.me/) lists `og:description` under Optional Metadata, unlike `og:url` (Basic/required — see [`seo/og-url`](/rules/seo/og-url)), so the severity follows the spec's own required/optional split.
+The [Open Graph protocol](https://ogp.me/) lists `og:description` under Optional Metadata, unlike `og:url`, which it lists as Basic and required (see [`seo/og-url`](/rules/seo/og-url)), so the severity follows the spec's own required/optional split.
 
 ## How to fix
 

@@ -42,11 +42,11 @@ Ids are collected in both modes, but from different sources, so results can diff
 - Both modes report a page id that collides with one in `src/app.html`: source analysis prepends the shell occurrence as the first, never-flagged representative, so the finding sits on the route-side occurrence and its message names the shell (`— also defined by the src/app.html shell (line N)`).
 - **Rendered analysis** (the Vite plugin's build pass, a route you visit in the dashboard) reads the rendered HTML, so it sees only the ids that actually rendered, including every id an `{#each}` loop produced — a real duplicate from a loop only surfaces here. It has no source files to attribute a finding to, so its findings anchor to the route itself rather than a specific file and line — the persisted finding key differs from the source-analysis key for the same defect.
 
-When the two disagree, trust the rendered result — it reflects what ships to the browser.
+When the two disagree, trust the rendered result. It reflects what ships to the browser.
 
 ## Disabling
 
-An inline `svelte-vitals-disable-next-line` comment above the line the finding names silences it — source analysis only, since a build-pass finding points at the prerendered HTML and has no source line to sit above. That line often sits in a composed component, and one directive there silences the finding on every route composing it — the suppressions file (`npx svelte-vitals --update-suppressions`) is the per-route mechanism. You can also scope the rule per route or path with `overrides`, or turn it off:
+An inline `svelte-vitals-disable-next-line` comment above the line the finding names silences it, in source analysis only: a build-pass finding points at the prerendered HTML and has no source line to sit above. That line often sits in a composed component, and one directive there silences the finding on every route composing it. The suppressions file (`npx svelte-vitals --update-suppressions`) is the per-route mechanism. You can also scope the rule per route or path with `overrides`, or turn it off:
 
 ```js svelte-vitals.config.js
 export default {

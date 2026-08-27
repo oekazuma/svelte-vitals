@@ -7,13 +7,13 @@ description: Use const (or $state.raw) for a $state that is never mutated.
 
 ## What it checks
 
-Flags a `let x = $state(...)` whose value is never written or escaped anywhere in the component — not reassigned, not mutated (`x.a = …`, `x.push()`), not bound (`bind:value={x}`), not passed to a function or component.
+Flags a `let x = $state(...)` whose value is never written or escaped anywhere in the component: not reassigned, not mutated (`x.a = …`, `x.push()`), not bound (`bind:value={x}`), not passed to a function or component.
 
-State passed to a `use:`/`transition:`/`animate:` directive is not flagged either — the receiving code holds the reference and may mutate it invisibly.
+State passed to a `use:`/`transition:`/`animate:` directive is not flagged either, since the receiving code holds the reference and may mutate it invisibly.
 
 ## Why it matters
 
-A `$state` that is never mutated pays for reactivity — deep proxying and dependency tracking — that it never uses. `const` is clearer and cheaper; `$state.raw` fits when you only ever reassign the value wholesale (never mutate its properties).
+A `$state` that is never mutated pays for reactivity it never uses, meaning deep proxying and dependency tracking. `const` is clearer and cheaper; `$state.raw` fits when you only ever reassign the value wholesale (never mutate its properties).
 
 ## How to fix
 
@@ -30,7 +30,7 @@ A `$state` that is never mutated pays for reactivity — deep proxying and depen
 
 ## Mode differences
 
-None. This rule reads source — the same `.svelte` and `.ts` files — on every surface: the CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
+None. This rule reads source, the same `.svelte` and `.ts` files, everywhere it runs. The CLI, the Vite plugin's build pass, and the live dashboard's static baseline all report it identically, and the rendered-HTML pass never re-evaluates it. Scoping a run with `--route` skips it: component-scoped rules have no route to attribute a finding to.
 
 ## Disabling
 
