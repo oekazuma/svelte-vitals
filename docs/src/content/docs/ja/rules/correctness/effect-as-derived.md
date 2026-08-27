@@ -11,7 +11,7 @@ description: 状態を代入するだけの $effect は $derived に置き換え
 
 ## なぜ重要か
 
-`$effect` で状態を同期する書き方（React の useEffect の習慣の持ち込み）は、レンダリング後に実行されるため、余計なレンダリングパスやループを招きます。`$derived` は同じ依存関係を宣言的に表します — 個別の effect 実行をスケジュールするのではなく、次に読み取られたタイミングで遅延評価されます。
+`$effect` で状態を同期する書き方（React の useEffect の習慣の持ち込み）は、レンダリング後に実行されるため、余計なレンダリングパスやループを招きます。`$derived` は同じ依存関係を宣言的に表します。個別の effect 実行をスケジュールするのではなく、次に読み取られたタイミングで遅延評価されます。
 
 ## 修正方法
 
@@ -46,7 +46,7 @@ description: 状態を代入するだけの $effect は $derived に置き換え
 
 同じ構造的な死角は、[correctness/server-browser-global](/ja/rules/correctness/server-browser-global) と
 [correctness/instance-browser-global](/ja/rules/correctness/instance-browser-global) が示している修正例
-—— browser 専用の global を読んで `$state` に代入する `$effect` —— も検出してしまいます。
+、つまり browser 専用の global を読んで `$state` に代入する `$effect` も検出してしまいます。
 
 ```svelte
 <script>
@@ -57,11 +57,11 @@ description: 状態を代入するだけの $effect は $derived に置き換え
 </script>
 ```
 
-`$derived` は、その derived な値が何かに読まれた時点で初めて式を評価します —— ただ、この値は元々読まれる
+`$derived` は、その derived な値が何かに読まれた時点で初めて式を評価します。ただ、この値は元々読まれる
 ため（典型的にはテンプレートから）に存在し、テンプレートからの読み取りは SSR 中にも起こります。これを
 `$derived(localStorage.getItem('filters'))` に置き換えると、サーバーサイドレンダリング中に誰かがそれを
 読んだ瞬間、この2つのルールが防ごうとしている `ReferenceError: localStorage is not defined` を再発させます。
-`localStorage`/`window` などは、まさに `$derived` が安全に読めない値です —— クライアント限定だと保証できる
+`localStorage`/`window` などは、まさに `$derived` が安全に読めない値です。クライアント限定だと保証できる
 読み取りが存在しないからです。`onMount`、あるいは `window` のプロパティなら
 [`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window) を使ってください
 （修正方法はこの2つのルールのドキュメントを参照）。`$derived` に切り替えるのではなく、この指摘は抑制してください。

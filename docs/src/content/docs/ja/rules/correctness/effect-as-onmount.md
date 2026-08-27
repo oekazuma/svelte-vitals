@@ -25,16 +25,16 @@ description: reactive 値を読まない $effect は、イベントハンドラ�
 </script>
 ```
 
-ユーザー操作への応答として実行しているなら、`$effect` よりイベントハンドラを優先してください。外部ライブラリ（チャートやツールチップなど）と要素を同期しているなら、[`{@attach ...}`](https://svelte.dev/docs/svelte/@attach)（5.29 以降）を優先してください — `$effect` や `onMount` より現在推奨されている DOM/ライブラリ同期の方法です。
+ユーザー操作への応答として実行しているなら、`$effect` よりイベントハンドラを優先してください。外部ライブラリ（チャートやツールチップなど）と要素を同期しているなら、[`{@attach ...}`](https://svelte.dev/docs/svelte/@attach)（5.29 以降）を優先してください。`$effect` や `onMount` より現在推奨されている DOM/ライブラリ同期の方法です。
 
 ## 既知の制限
 
-このチェックは、rune の宣言（`$state`/`$derived`/`$props`）、import されたバインディング、`new …()` を初期化子として宣言されたローカル変数（`const x = new Foo()`）など、たどれる名前を経由した reactive 読み取りを認識します — これはクラスの `$state` フィールド、`SvelteMap`/`SvelteSet`、import された runes モジュールの状態オブジェクト、`svelte/reactivity/window` をカバーします。以下の2つの形はたどれる名前がないため、そのように書かれた本物の reactive な effect でも検出されてしまうことがあります。
+このチェックは、rune の宣言（`$state`/`$derived`/`$props`）、import されたバインディング、`new …()` を初期化子として宣言されたローカル変数（`const x = new Foo()`）など、たどれる名前を経由した reactive 読み取りを認識します。これはクラスの `$state` フィールド、`SvelteMap`/`SvelteSet`、import された runes モジュールの状態オブジェクト、`svelte/reactivity/window` をカバーします。以下の2つの形はたどれる名前がないため、そのように書かれた本物の reactive な effect でも検出されてしまうことがあります。
 
 - 素の関数の戻り値（`const c = createCounter()`）経由でしか到達できない reactive な値。
-- 宣言時ではなく宣言後に `new …()` を代入したローカル変数（`let m; m = new SvelteMap();`）— 初期化子として宣言された形のみ認識されます。
+- 宣言時ではなく宣言後に `new …()` を代入したローカル変数（`let m; m = new SvelteMap();`）。初期化子として宣言された形のみ認識されます。
 
-名前の照合は字句スコープではなく識別子のテキストで行われます —— これは rune 名に対してこのルールが元々使っている粒度と同じです。そのため、import または `new` で宣言された名前をシャドーするコールバックローカルな binding（例えば同じ名前を再利用するパラメータ）も reactive として扱われます。これは指摘を見逃す方向にしか働かず、誤って検出することはありません。
+名前の照合は字句スコープではなく識別子のテキストで行われます。これは rune 名に対してこのルールが元々使っている粒度と同じです。そのため、import または `new` で宣言された名前をシャドーするコールバックローカルな binding（例えば同じ名前を再利用するパラメータ）も reactive として扱われます。これは指摘を見逃す方向にしか働かず、誤って検出することはありません。
 
 該当する場合は、動作しているコードを `onMount` に移すのではなく、
 [`svelte-vitals-disable-next-line`](/ja/guides/cli#特定の指摘だけをインラインで抑制する) コメントで抑制してください。

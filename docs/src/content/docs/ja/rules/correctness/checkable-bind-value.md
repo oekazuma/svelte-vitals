@@ -31,7 +31,7 @@ description: checkbox や radio の bind:value は DOM の value プロパティ
 <input type="checkbox" bind:checked={subscribed} />
 ```
 
-チェックボックスのリストや radio グループなら、代わりにグループを束縛します — 各 input には選択肢を識別するための静的な `value` をそのまま残します。
+チェックボックスのリストや radio グループなら、代わりにグループを束縛します。各 input には選択肢を識別するための静的な `value` をそのまま残します。
 
 ```svelte
 <input type="radio" bind:group={selected} value="a" />

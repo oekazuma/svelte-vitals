@@ -13,7 +13,7 @@ description: og:url には、そのページの正規アドレスを入れまし
 
 og:url は、シェアやいいねをどの正規アドレスに帰属させるべきかをソーシャルプラットフォームに伝え、エンゲージメントを1つの URL に集約します。[Open Graph プロトコル](https://ogp.me/)では、`og:title`・`og:type`・`og:image` と並んで `og:url` は必須プロパティに挙げられています。
 
-`og:url` は `<link rel="canonical">` でカバーされているように見えるかもしれません — og:url がなくても、多くの受信側は canonical URL にフォールバックできます。しかしこれは役割の異なる2つの仕組みを混同しています。canonical は検索エンジンにどの URL をインデックスすべきか伝えるものであり、og:url はソーシャルプラットフォームにシェアをどの URL に帰属させるか伝えるものです。Open Graph の仕様自体が `og:url` を必須としているため（`og:description` は任意 — [`seo/og-description`](/ja/rules/seo/og-description) を参照）、重大度は仕様が定める必須・任意の区分に合わせています。
+`og:url` は `<link rel="canonical">` でカバーされているように見えるかもしれません。og:url がなくても、多くの受信側は canonical URL にフォールバックできます。しかしこれは役割の異なる2つの仕組みを混同しています。canonical は検索エンジンにどの URL をインデックスすべきか伝えるものであり、og:url はソーシャルプラットフォームにシェアをどの URL に帰属させるか伝えるものです。Open Graph の仕様自体が `og:url` を必須としているため（`og:description` は任意。[`seo/og-description`](/ja/rules/seo/og-description) を参照）、重大度は仕様が定める必須・任意の区分に合わせています。
 
 ## 修正方法
 

@@ -25,7 +25,7 @@ description: インスタンススクリプトは SSR 時にサーバーでも�
 </script>
 ```
 
-`window` のプロパティなら、[`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window)（5.11.0 以降）が現在推奨される形です — ガード不要で、サーバーでは `undefined`、クライアントではリアクティブになります。
+`window` のプロパティなら、[`svelte/reactivity/window`](https://svelte.dev/docs/svelte/svelte-reactivity-window)（5.11.0 以降）が現在推奨される形です。ガード不要で、サーバーでは `undefined`、クライアントではリアクティブになります。
 
 ```svelte
 <script>
@@ -35,7 +35,7 @@ description: インスタンススクリプトは SSR 時にサーバーでも�
 <p>{innerWidth.current}</p>
 ```
 
-`svelte/reactivity/window` がカバーしない場合は、`onMount` の中で読んでください — `onMount` はサーバーでは実行されません。
+`svelte/reactivity/window` がカバーしない場合は、`onMount` の中で読んでください。`onMount` はサーバーでは実行されません。
 
 ```svelte
 <script>

@@ -22,7 +22,7 @@ redirect(303, '/login');
 
 base path の読み取り方は SvelteKit 自身と同じです。Vite の設定に `sveltekit({ paths: { base } })` の引数があればそちらを（この場合 `svelte.config` は無視されます。SvelteKit 自身も警告を出します）、無ければ `svelte.config.js`/`.ts` の `kit.paths.base` を見ます。
 
-設定側で値を計算している場合 — よくある `base: dev ? '' : '/repo'` — も対象です。少なくともどれかの環境では base 配下で配信されるためです。base が無い場合や明示的に `base: ''` の場合は発火しません。
+設定側で値を計算している場合、よくある `base: dev ? '' : '/repo'` のような形も対象です。少なくともどれかの環境では base 配下で配信されるためです。base が無い場合や明示的に `base: ''` の場合は発火しません。
 
 検出は静的なリテラルだけを対象にします。そのため正しい書き方が誤検出されることはありません。`href="{base}/about"`、`href={resolve('/about')}`、`goto(resolve('/about'))`、``goto(`${base}/about`)`` はいずれも文字列リテラルではなく動的な式だからです。
 
