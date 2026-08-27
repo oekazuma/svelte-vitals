@@ -11,20 +11,20 @@ Flags a literal `role` attribute whose value is not a valid, concrete WAI-ARIA r
 
 A `role` may hold a space-separated fallback list (`role="switch checkbox"`). A user agent resolves it to the **first token naming a concrete role**, so the rule reports only a value that resolves to nothing at all. Two things get flagged:
 
-- Unknown roles — typos or made-up names, e.g. `role="botton"`.
-- Abstract roles — roles that exist only to organize the WAI-ARIA taxonomy and are never meant to be used directly, e.g. `role="widget"` or `role="input"`.
+- Unknown roles, meaning typos or made-up names, e.g. `role="botton"`.
+- Abstract roles, which exist only to organize the WAI-ARIA taxonomy and are never meant to be used directly, e.g. `role="widget"` or `role="input"`.
 
 Not flagged:
 
 - A concrete role: `role="button"`.
-- Any fallback list in which some token is concrete: `role="switch checkbox"`, and equally `role="widget checkbox"` or `role="checkbox some-future-role"` — the list form exists so a value can name a role older user agents do not know.
+- Any fallback list in which some token is concrete: `role="switch checkbox"`, and equally `role="widget checkbox"` or `role="checkbox some-future-role"`. The list form exists so a value can name a role older user agents do not know.
 - An expression-valued role, since its runtime value is unknown statically: `role={dynamicRole}`.
 
 The role vocabulary comes from a pinned copy of the ARIA data, extended by hand with the roles ARIA 1.3 added after that copy. A role newer than both is reported as unknown until the data is updated.
 
 ## Why it matters
 
-Assistive technology maps `role` to a fixed WAI-ARIA vocabulary. A role it doesn't recognize — a typo or an abstract role — is ignored or misread, so the element falls back to its implicit (often generic) semantics. The author's intent to announce the element as a button, switch, or dialog is silently lost, with no visual sign anything is wrong.
+Assistive technology maps `role` to a fixed WAI-ARIA vocabulary. A role it doesn't recognize, whether a typo or an abstract role, is ignored or misread, so the element falls back to its implicit (often generic) semantics. The author's intent to announce the element as a button, switch, or dialog is silently lost, with no visual sign anything is wrong.
 
 ## How to fix
 

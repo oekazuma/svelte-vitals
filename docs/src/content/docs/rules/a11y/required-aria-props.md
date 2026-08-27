@@ -9,27 +9,27 @@ description: A role that requires state or property attributes needs them presen
 
 Flags a literal `role` attribute naming a role that requires one or more `aria-*` attributes, when none of those attributes are present on the element.
 
-An attribute counts as present whether its value is a literal or a dynamic expression — only the attribute's presence matters here, not its value (a bad value is `a11y/invalid-aria-value`'s concern).
+An attribute counts as present whether its value is a literal or a dynamic expression. Only the attribute's presence matters here, not its value (a bad value is `a11y/invalid-aria-value`'s concern).
 
 A handful of required props are supplied natively by certain host elements, per ARIA-in-HTML, so the explicit attribute isn't needed:
 
-- `aria-checked` — by `<input type="checkbox">` and `<input type="radio">`.
-- `aria-selected` — by `<option>`.
-- `aria-level` — by `<h1>`–`<h6>`.
-- `aria-valuenow` — by `<input type="range">`, `<progress>`, and `<meter>`.
-- `aria-expanded` and `aria-controls` — by the native comboboxes: a `<select>` without `multiple` and without a `size` above 1, and an `<input list="…">` whose type is omitted or `text`, `search`, `tel`, `url`, or `email` (HTML-AAM exposes their open state and their popup itself). `<select multiple>` and `<select size="2">` are native listboxes and `<input type="date" list>` is not a combobox, so those still owe both. The Svelte compiler still warns on `<input list role="combobox">` here; this rule stays silent, which is not the opposite verdict.
+- `aria-checked`, by `<input type="checkbox">` and `<input type="radio">`.
+- `aria-selected`, by `<option>`.
+- `aria-level`, by `<h1>`–`<h6>`.
+- `aria-valuenow`, by `<input type="range">`, `<progress>`, and `<meter>`.
+- `aria-expanded` and `aria-controls`, by the native comboboxes: a `<select>` without `multiple` and without a `size` above 1, and an `<input list="…">` whose type is omitted or `text`, `search`, `tel`, `url`, or `email` (HTML-AAM exposes their open state and their popup itself). `<select multiple>` and `<select size="2">` are native listboxes and `<input type="date" list>` is not a combobox, so those still owe both. The Svelte compiler still warns on `<input list role="combobox">` here; this rule stays silent, which is not the opposite verdict.
 
 Not flagged:
 
-- `<div role="checkbox" aria-checked="true">` — required prop present as a literal.
-- `<div role="checkbox" aria-checked={checked}>` — required prop present as an expression.
-- `<input type="checkbox" role="switch">` — `aria-checked` (required by `switch`) is supplied by the input's native checkbox semantics.
-- A fallback list naming no concrete role at all (`role="bogus alsobogus"`) — there is no role to require anything of. A list that does resolve is checked against the role it resolves to: `role="bogus checkbox"` is checked as `checkbox`.
+- `<div role="checkbox" aria-checked="true">`, where the required prop is present as a literal.
+- `<div role="checkbox" aria-checked={checked}>`, where the required prop is present as an expression.
+- `<input type="checkbox" role="switch">`, where `aria-checked` (required by `switch`) is supplied by the input's native checkbox semantics.
+- A fallback list naming no concrete role at all (`role="bogus alsobogus"`), where there is no role to require anything of. A list that does resolve is checked against the role it resolves to: `role="bogus checkbox"` is checked as `checkbox`.
 - An expression-valued role, since its runtime value is unknown statically: `role={dynamicRole}`.
 
 ## Why it matters
 
-Some WAI-ARIA roles carry state that assistive technology cannot infer on its own. A `role="checkbox"` with no way to know checked or unchecked announces a control with no discoverable state — the user hears "checkbox" and nothing else, with no visual sign anything is missing.
+Some WAI-ARIA roles carry state that assistive technology cannot infer on its own. A `role="checkbox"` with no way to know checked or unchecked announces a control with no discoverable state. The user hears "checkbox" and nothing else, with no visual sign anything is missing.
 
 ## How to fix
 

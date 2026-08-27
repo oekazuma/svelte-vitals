@@ -7,7 +7,7 @@ description: A required, single-selection select needs an empty first option so 
 
 ## What it checks
 
-Flags a `<select required>` — with no `multiple` attribute and a display size absent or `1` — whose first `option` element child is not a placeholder label option.
+Flags a `<select required>`, with no `multiple` attribute and a display size absent or `1`, whose first `option` element child is not a placeholder label option.
 
 Per the HTML spec, a placeholder label option is the first `option` and must have either:
 
@@ -16,12 +16,12 @@ Per the HTML spec, a placeholder label option is the first `option` and must hav
 
 Not flagged:
 
-- `multiple`, or a display `size` greater than `1` — the browser doesn't force an initial selection, so there's nothing to placeholder.
+- `multiple`, or a display `size` greater than `1`. The browser doesn't force an initial selection, so there's nothing to placeholder.
 - No `required` attribute.
-- An expression-valued `required`, `multiple`, or `size` — its runtime value is unknown statically.
-- An expression-valued `value` on the first option, or text content containing an `{expression}` — its effective value is unknowable statically.
-- The select's first child being an `{#each}` block or a component — what it renders as the first option can't be resolved statically.
-- A spread attribute on the `<select>` (it may supply `multiple` or `size`) or on its first `<option>` (it may supply `value`) — either makes the check's inputs unknowable, so the element is skipped.
+- An expression-valued `required`, `multiple`, or `size`, whose runtime value is unknown statically.
+- An expression-valued `value` on the first option, or text content containing an `{expression}`, whose effective value is unknowable statically.
+- The select's first child being an `{#each}` block or a component, since what it renders as the first option can't be resolved statically.
+- A spread attribute on the `<select>` (it may supply `multiple` or `size`) or on its first `<option>` (it may supply `value`). Either makes the check's inputs unknowable, so the element is skipped.
 
 Flagged on purpose: a `<select required>` with **no content at all**. It has no placeholder and no options, so as written it can never be satisfied; if its options arrive from script at runtime the rule cannot see them, and that one element is what an inline directive is for.
 
@@ -34,7 +34,7 @@ Flagged on purpose: a `<select required>` with **no content at all**. It has no 
 
 ## Why it matters
 
-A required `<select>` initially displays its first option as the selected value. If that option is not an empty placeholder, the field already holds a value the user never actively chose — they can submit the form without making a real selection, and a screen reader announces that value as already selected, giving no cue that a choice is still needed.
+A required `<select>` initially displays its first option as the selected value. If that option is not an empty placeholder, the field already holds a value the user never actively chose. They can submit the form without making a real selection, and a screen reader announces that value as already selected, giving no cue that a choice is still needed.
 
 ## How to fix
 
@@ -47,7 +47,7 @@ Make the first `option` an empty placeholder:
 </select>
 ```
 
-Do not mark it `disabled` on its own. The select's reset algorithm selects the first option that is **not** disabled, so a disabled placeholder leaves `A` selected, `required` satisfied, and the user submitting a value they never chose — the exact harm this rule reports. Write `disabled selected` if you want it unselectable, so the placeholder is still what the field starts on.
+Do not mark it `disabled` on its own. The select's reset algorithm selects the first option that is **not** disabled, so a disabled placeholder leaves `A` selected, `required` satisfied, and the user submitting a value they never chose, the exact harm this rule reports. Write `disabled selected` if you want it unselectable, so the placeholder is still what the field starts on.
 
 ## Mode differences
 
