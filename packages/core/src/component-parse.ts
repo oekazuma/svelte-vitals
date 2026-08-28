@@ -1365,9 +1365,14 @@ function collectAriaHiddenFocusables(
         .toLowerCase() === 'true';
     const tabindexAttr = attrs.find((a) => a.name === 'tabindex');
     const tabindex = literalTabindexValue(tabindexAttr?.literal);
+    // An expression tabindex may resolve to -1 (unknowable); an invalid literal is ignored by
+    // browsers, so it neither exempts a native control nor grants focus — isInteractiveElement
+    // already treats it as absent.
+    const tabindexExempts = tabindexAttr !== undefined && tabindexAttr.literal === undefined;
     const focusable =
       !inert &&
-      (tabindexAttr === undefined || (tabindexAttr.literal !== undefined && tabindex !== undefined && tabindex >= 0)) &&
+      !tabindexExempts &&
+      !(tabindex !== undefined && tabindex < 0) &&
       !(DISABLEABLE_TAGS.has(node.name) && attrs.some((a) => a.name === 'disabled')) &&
       isInteractiveElement(node.name, attrs);
     if (focusable && (hiddenSelf || stack.length > 0)) {

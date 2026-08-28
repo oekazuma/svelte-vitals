@@ -1401,6 +1401,12 @@ describe('parseComponentFacts — ariaHiddenFocusables (a11y/aria-hidden-focus)'
     const c = parseComponentFacts('<div aria-hidden="true"><button tabindex={i}>x</button></div>', 'C.svelte');
     expect(c.ariaHiddenFocusables ?? []).toEqual([]);
   });
+  it('treats an invalid literal tabindex as absent — a native control stays focusable', () => {
+    const src = '<div aria-hidden="true"><button tabindex="abc">x</button><div tabindex="abc">y</div></div>';
+    expect(parseComponentFacts(src, 'C.svelte').ariaHiddenFocusables).toEqual([
+      { tag: 'button', containerTag: 'div', line: 1 }
+    ]);
+  });
   it('ignores a disabled form control — it is not focusable', () => {
     const src = '<div aria-hidden="true"><button disabled>x</button><input disabled /></div>';
     expect(parseComponentFacts(src, 'C.svelte').ariaHiddenFocusables ?? []).toEqual([]);
