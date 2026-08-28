@@ -314,30 +314,56 @@ export const APP_SCRIPT: string = `
     return pre;
   }
 
+  // Analyzed-repo strings (title, location, recommendation, fix description, docs URL) flow
+  // into a prompt the user pastes into a coding agent — same threat model as
+  // reporter/sanitize.ts's mdEscape, re-implemented here in ES5 because APP_SCRIPT runs in
+  // the browser and cannot import build-time modules. Keep the two in sync.
+  function mdSafe(text) {
+    return String(text)
+      .replace(/\\r\\n|\\r|\\n/g, ' ')
+      .replace(/<[^>]+>/g, function (tag) {
+        var longest = 0;
+        var runs = tag.match(/\`+/g);
+        if (runs) for (var i = 0; i < runs.length; i++) if (runs[i].length > longest) longest = runs[i].length;
+        var fence = Array(longest + 2).join('\`');
+        var pad = tag.charAt(0) === '\`' || tag.charAt(tag.length - 1) === '\`' ? ' ' : '';
+        return fence + pad + tag + pad + fence;
+      })
+      .replace(/\\[([^\\]]*)\\]\\(([^)]*)\\)/g, '[$1]\\\\($2\\\\)');
+  }
+
+  function fenceFor(snippet) {
+    var longest = 0;
+    var runs = String(snippet).match(/\`+/g);
+    if (runs) for (var i = 0; i < runs.length; i++) if (runs[i].length > longest) longest = runs[i].length;
+    return Array(Math.max(3, longest + 1) + 1).join('\`');
+  }
+
   // Plain-text, copy-pasteable prompt for a single finding — same ingredients as the
   // agent reporter's per-finding block (rule id, location, recommendation, fix, docs),
   // reshaped for a standalone request rather than a whole-project remediation doc.
   function buildAiPrompt(issue, route) {
     var lines = ['Fix this svelte-vitals finding:', ''];
-    lines.push('- Rule: ' + issue.id + ' — ' + issue.title + ' (' + issue.severity + ')');
-    if (route) lines.push('- Route: ' + route);
+    lines.push('- Rule: ' + issue.id + ' — ' + mdSafe(issue.title) + ' (' + issue.severity + ')');
+    if (route) lines.push('- Route: ' + mdSafe(route));
     if (issue.location) {
-      lines.push('- Location: ' + issue.location + (issue.line !== undefined ? ':' + issue.line : ''));
+      lines.push('- Location: ' + mdSafe(issue.location) + (issue.line !== undefined ? ':' + issue.line : ''));
     }
-    if (issue.recommendation) lines.push('- Recommendation: ' + issue.recommendation);
+    if (issue.recommendation) lines.push('- Recommendation: ' + mdSafe(issue.recommendation));
     if (issue.fix) {
-      lines.push('- Fix: ' + issue.fix.description);
+      lines.push('- Fix: ' + mdSafe(issue.fix.description));
       if (issue.fix.snippet) {
-        lines.push('', '\`\`\`' + (issue.fix.lang || 'svelte'), issue.fix.snippet, '\`\`\`');
+        var fence = fenceFor(issue.fix.snippet);
+        lines.push('', fence + (issue.fix.lang || 'svelte'), issue.fix.snippet, fence);
       }
     }
-    if (issue.docsUrl) lines.push('- Docs: ' + issue.docsUrl);
+    if (issue.docsUrl) lines.push('- Docs: ' + mdSafe(issue.docsUrl));
     lines.push(
       '',
       'After fixing, re-run \`svelte-vitals --diff\` (or revisit this route) to confirm ' +
         issue.id +
         ' passes' +
-        (route ? ' for ' + route : '') +
+        (route ? ' for ' + mdSafe(route) : '') +
         '.'
     );
     return lines.join('\\n');
