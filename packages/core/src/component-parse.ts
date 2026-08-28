@@ -1333,18 +1333,19 @@ const DISABLEABLE_TAGS = new Set(['button', 'input', 'select', 'textarea']);
  * with a fresh stack (they render at their `{@render}` site), and an expression `aria-hidden`
  * is unknowable — a toggled `aria-hidden={...}` never opens a container. Exempt as not
  * focusable: a `tabindex` that is negative (the documented remediation) or an expression (it
- * may resolve to -1), a `disabled` form control, and anything at or under an `inert` element —
- * the whole subtree leaves the tab order, so `inert` carries down the walk.
+ * may resolve to -1), a `disabled` form control, and anything at or under an `inert` or
+ * `hidden` element — an inert subtree leaves the tab order and a hidden one does not render,
+ * so both carry down the walk as `unfocusable`.
  */
 function collectAriaHiddenFocusables(
   node: Node,
   source: string,
   acc: AriaHiddenFocusFact[],
   stack: string[],
-  inert = false
+  unfocusable = false
 ): void {
   if (Array.isArray(node)) {
-    for (const child of node) collectAriaHiddenFocusables(child, source, acc, stack, inert);
+    for (const child of node) collectAriaHiddenFocusables(child, source, acc, stack, unfocusable);
     return;
   }
   if (!node || typeof node !== 'object') return;
@@ -1357,7 +1358,7 @@ function collectAriaHiddenFocusables(
   let opened = false;
   if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
     const attrs = elementAttrs(node.attributes);
-    if (attrs.some((a) => a.name === 'inert')) inert = true;
+    if (attrs.some((a) => a.name === 'inert' || a.name === 'hidden')) unfocusable = true;
     const hiddenSelf =
       attrs
         .find((a) => a.name === 'aria-hidden')
@@ -1370,7 +1371,7 @@ function collectAriaHiddenFocusables(
     // already treats it as absent.
     const tabindexExempts = tabindexAttr !== undefined && tabindexAttr.literal === undefined;
     const focusable =
-      !inert &&
+      !unfocusable &&
       !tabindexExempts &&
       !(tabindex !== undefined && tabindex < 0) &&
       !(DISABLEABLE_TAGS.has(node.name) && attrs.some((a) => a.name === 'disabled')) &&
@@ -1388,7 +1389,7 @@ function collectAriaHiddenFocusables(
     }
   }
   for (const key of CHILD_NODE_KEYS) {
-    if (key in node) collectAriaHiddenFocusables(node[key], source, acc, stack, inert);
+    if (key in node) collectAriaHiddenFocusables(node[key], source, acc, stack, unfocusable);
   }
   if (opened) stack.pop();
 }

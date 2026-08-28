@@ -24,7 +24,7 @@ Not flagged:
 - An expression-valued `aria-hidden` (`aria-hidden={!open}`). A toggled value is unknowable statically, so the legitimate open/close pattern — hide while closed, unhide while open — never triggers this rule. An expression `tabindex` is unknowable the same way (it may resolve to `-1`) and exempts the element.
 - An element removed from the tab order with a literal negative `tabindex`. `<button tabindex="-1" aria-hidden="true">` is the documented remediation, hidden from both the accessibility tree and keyboard focus.
 - A `disabled` form control (`<button>`, `<input>`, `<select>`, `<textarea>`) — disabling removes it from the tab order too.
-- Anything at or under an element with the `inert` attribute: the whole subtree is unfocusable, so an `aria-hidden` + `inert` combination is consistent, not a defect.
+- Anything at or under an element with the `inert` or `hidden` attribute: an inert subtree is unfocusable and a hidden one does not render, so combining either with `aria-hidden` is consistent, not a defect.
 - `aria-hidden="false"`, and `aria-hidden="true"` subtrees containing nothing focusable (a decorative `<svg aria-hidden="true">` icon stays clean).
 - The valueless shorthand `<div aria-hidden>`: Svelte renders it as `aria-hidden=""`, an invalid value assistive technology treats as unset, and this rule matches only the literal `"true"`. Also `<svelte:element>`, whose tag is out of static reach — a known non-goal, same as the other element rules.
 - A focusable element inside a child component rendered within an `aria-hidden` container. This rule only sees a single component's own template, so that variant is a known non-goal.

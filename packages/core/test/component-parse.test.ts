@@ -1416,6 +1416,11 @@ describe('parseComponentFacts — ariaHiddenFocusables (a11y/aria-hidden-focus)'
       '<div aria-hidden="true" inert><button>x</button></div>\n<div aria-hidden="true"><div inert><a href="/x">y</a></div></div>';
     expect(parseComponentFacts(src, 'C.svelte').ariaHiddenFocusables ?? []).toEqual([]);
   });
+  it('ignores everything at or under hidden — the element does not render', () => {
+    const src =
+      '<button hidden aria-hidden="true">x</button>\n<div aria-hidden="true"><div hidden><button>y</button></div></div>';
+    expect(parseComponentFacts(src, 'C.svelte').ariaHiddenFocusables ?? []).toEqual([]);
+  });
   it('does not leak inert to siblings after the inert subtree closes', () => {
     const src = '<div><div inert></div><div aria-hidden="true"><button>x</button></div></div>';
     expect(parseComponentFacts(src, 'C.svelte').ariaHiddenFocusables).toEqual([
