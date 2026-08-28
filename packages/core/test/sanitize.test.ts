@@ -31,4 +31,30 @@ describe('terminalSafe', () => {
   it('leaves clean text untouched', () => {
     expect(terminalSafe('src/routes/blog/+page.svelte')).toBe('src/routes/blog/+page.svelte');
   });
+
+  it('strips a C1 CSI sequence (\\x9b) with its payload', () => {
+    expect(terminalSafe('a\x9b31mb')).toBe('ab');
+  });
+
+  it('strips a C1 OSC sequence (\\x9d) terminated by BEL', () => {
+    expect(terminalSafe('a\x9d0;evil\x07b')).toBe('ab');
+  });
+
+  it('strips a C1 OSC sequence (\\x9d) terminated by C1 ST (\\x9c)', () => {
+    expect(terminalSafe('a\x9d0;evil\x9cb')).toBe('ab');
+  });
+
+  it('strips a lone C1 byte that is not a CSI/OSC opener', () => {
+    expect(terminalSafe('a\x80b')).toBe('ab');
+  });
+
+  it('leaves ESC-form CSI/OSC sequences stripped as before (non-regression)', () => {
+    expect(terminalSafe('a\x1b[31mb')).toBe('ab');
+    expect(terminalSafe('a\x1b]0;evil\x07b')).toBe('ab');
+  });
+
+  it('leaves ordinary multibyte and Latin-1-range text untouched (non-regression)', () => {
+    expect(terminalSafe('こんにちは🎉café')).toBe('こんにちは🎉café');
+    expect(terminalSafe(' ¡é')).toBe(' ¡é');
+  });
 });
