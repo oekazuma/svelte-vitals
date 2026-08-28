@@ -103,6 +103,17 @@ export interface InteractiveNestingFact {
   line: number;
 }
 
+/** A keyboard-focusable element that a literal `aria-hidden="true"` hides from assistive
+ *  technology — carried on the element itself or on an ancestor (a11y/aria-hidden-focus). */
+export interface AriaHiddenFocusFact {
+  /** The focusable element's tag. */
+  tag: string;
+  /** The nearest `aria-hidden="true"` ancestor's tag; absent when the element itself carries it. */
+  containerTag?: string;
+  /** 1-based source line of the focusable element, or 0 if unknown. */
+  line: number;
+}
+
 /** A `button`/`a href`/`input type="image"` with no computable accessible name (a11y/accessible-name). */
 export interface UnnamedInteractiveFact {
   tag: string;
@@ -244,6 +255,8 @@ export interface ComponentFacts {
   elements?: ElementFact[];
   /** Interactive elements nested inside another interactive container (a11y/interactive-nesting). */
   interactiveNestings?: InteractiveNestingFact[];
+  /** Keyboard-focusable elements hidden by a literal `aria-hidden="true"` (a11y/aria-hidden-focus). */
+  ariaHiddenFocusables?: AriaHiddenFocusFact[];
   /** `button`/`a href`/`input type="image"` elements with no computable accessible name (a11y/accessible-name). */
   unnamedInteractive?: UnnamedInteractiveFact[];
   /** `<label>` elements with neither a `for` attribute nor a wrapped labelable descendant (a11y/label-has-control). */

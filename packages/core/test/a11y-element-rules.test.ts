@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
+  a11yAriaHiddenFocus,
   a11yInteractiveNesting,
   a11yAccessibleName,
   a11yLabelHasControl,
@@ -54,6 +55,27 @@ describe('a11y/interactive-nesting', () => {
   });
   it('passes a component with no recorded nesting', async () => {
     const rs = await a11yInteractiveNesting.check(ctx([comp({ interactiveNestings: [] })]));
+    expect(fails(rs)).toHaveLength(0);
+  });
+});
+
+describe('a11y/aria-hidden-focus', () => {
+  it('flags a recorded descendant with the container in the message', async () => {
+    const rs = await a11yAriaHiddenFocus.check(
+      ctx([comp({ ariaHiddenFocusables: [{ tag: 'button', containerTag: 'div', line: 2 }] })])
+    );
+    const failing = fails(rs);
+    expect(failing.map((r) => r.line)).toEqual([2]);
+    expect(failing[0]?.message).toBe('<button> inside <div aria-hidden="true"> is still keyboard-focusable');
+  });
+  it('flags an element that itself carries aria-hidden', async () => {
+    const rs = await a11yAriaHiddenFocus.check(ctx([comp({ ariaHiddenFocusables: [{ tag: 'a', line: 4 }] })]));
+    const failing = fails(rs);
+    expect(failing.map((r) => r.line)).toEqual([4]);
+    expect(failing[0]?.message).toBe('<a aria-hidden="true"> is still keyboard-focusable');
+  });
+  it('passes a component with no recorded aria-hidden focusables', async () => {
+    const rs = await a11yAriaHiddenFocus.check(ctx([comp({ ariaHiddenFocusables: [] })]));
     expect(fails(rs)).toHaveLength(0);
   });
 });
