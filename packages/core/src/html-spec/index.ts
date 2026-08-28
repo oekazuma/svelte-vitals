@@ -6,7 +6,10 @@ export { HTML_SPEC, HTML_SPEC_VERSION } from './generated.js';
 
 /** The HTML element's spec row; `undefined` for SVG (`svg:*`) and unknown names. */
 export function htmlElement(tag: string): HtmlElementSpec | undefined {
-  return HTML_SPEC.elements[tag.toLowerCase()];
+  const key = tag.toLowerCase();
+  // JSON.parse output inherits Object.prototype, and `constructor` is a legal author tag —
+  // an unguarded index would return Object's function instead of undefined.
+  return Object.hasOwn(HTML_SPEC.elements, key) ? HTML_SPEC.elements[key] : undefined;
 }
 
 /**
@@ -27,7 +30,11 @@ export function isObsoleteElement(tag: string): boolean {
  * and the per-element table is where the dataset's per-attribute status lives.
  */
 export function elementAttr(tag: string, name: string): HtmlAttrSpec | undefined {
-  return htmlElement(tag)?.attributes[name.toLowerCase()];
+  const attrs = htmlElement(tag)?.attributes;
+  if (!attrs) return undefined;
+  const key = name.toLowerCase();
+  // Same Object.prototype hazard as htmlElement, keyed by an author-controlled attribute name.
+  return Object.hasOwn(attrs, key) ? attrs[key] : undefined;
 }
 
 /**
