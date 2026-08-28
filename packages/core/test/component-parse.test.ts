@@ -1372,6 +1372,82 @@ describe('parseComponentFacts — interactiveNestings (a11y/interactive-nesting)
   });
 });
 
+describe('parseComponentFacts — ariaHiddenFocusables (a11y/aria-hidden-focus)', () => {
+  it('flags a focusable element inside an aria-hidden container, at the descendant line', () => {
+    const c = parseComponentFacts('<div aria-hidden="true">\n  <button>Go</button>\n</div>', 'C.svelte');
+    expect(c.ariaHiddenFocusables).toEqual([{ tag: 'button', containerTag: 'div', line: 2 }]);
+  });
+  it('flags an interactive element that itself carries aria-hidden="true"', () => {
+    const c = parseComponentFacts('<button aria-hidden="true">x</button>', 'C.svelte');
+    expect(c.ariaHiddenFocusables).toEqual([{ tag: 'button', line: 1 }]);
+  });
+  it('reaches focusables through intermediate non-interactive wrappers', () => {
+    const c = parseComponentFacts('<div aria-hidden="true"><div><a href="/x">y</a></div></div>', 'C.svelte');
+    expect(c.ariaHiddenFocusables).toEqual([{ tag: 'a', containerTag: 'div', line: 1 }]);
+  });
+  it('ignores an expression aria-hidden — a toggled value is unknowable', () => {
+    const c = parseComponentFacts('<div aria-hidden={!open}><button>x</button></div>', 'C.svelte');
+    expect(c.ariaHiddenFocusables ?? []).toEqual([]);
+  });
+  it('ignores aria-hidden="false" and non-focusable content', () => {
+    const src = '<div aria-hidden="false"><button>x</button></div>\n<div aria-hidden="true"><span>y</span></div>';
+    expect(parseComponentFacts(src, 'C.svelte').ariaHiddenFocusables ?? []).toEqual([]);
+  });
+  it('ignores a focusable removed from the tab order with tabindex="-1"', () => {
+    const c = parseComponentFacts('<div aria-hidden="true"><button tabindex="-1">x</button></div>', 'C.svelte');
+    expect(c.ariaHiddenFocusables ?? []).toEqual([]);
+  });
+  it('ignores an expression tabindex — it may resolve to -1', () => {
+    const c = parseComponentFacts('<div aria-hidden="true"><button tabindex={i}>x</button></div>', 'C.svelte');
+    expect(c.ariaHiddenFocusables ?? []).toEqual([]);
+  });
+  it('treats an invalid literal tabindex as absent — a native control stays focusable', () => {
+    const src = '<div aria-hidden="true"><button tabindex="abc">x</button><div tabindex="abc">y</div></div>';
+    expect(parseComponentFacts(src, 'C.svelte').ariaHiddenFocusables).toEqual([
+      { tag: 'button', containerTag: 'div', line: 1 }
+    ]);
+  });
+  it('ignores a disabled form control — it is not focusable', () => {
+    const src = '<div aria-hidden="true"><button disabled>x</button><input disabled /></div>';
+    expect(parseComponentFacts(src, 'C.svelte').ariaHiddenFocusables ?? []).toEqual([]);
+  });
+  it('ignores everything under inert — the subtree is unfocusable', () => {
+    const src =
+      '<div aria-hidden="true" inert><button>x</button></div>\n<div aria-hidden="true"><div inert><a href="/x">y</a></div></div>';
+    expect(parseComponentFacts(src, 'C.svelte').ariaHiddenFocusables ?? []).toEqual([]);
+  });
+  it('ignores everything at or under hidden — the element does not render', () => {
+    const src =
+      '<button hidden aria-hidden="true">x</button>\n<div aria-hidden="true"><div hidden><button>y</button></div></div>';
+    expect(parseComponentFacts(src, 'C.svelte').ariaHiddenFocusables ?? []).toEqual([]);
+  });
+  it('does not leak inert to siblings after the inert subtree closes', () => {
+    const src = '<div><div inert></div><div aria-hidden="true"><button>x</button></div></div>';
+    expect(parseComponentFacts(src, 'C.svelte').ariaHiddenFocusables).toEqual([
+      { tag: 'button', containerTag: 'div', line: 1 }
+    ]);
+  });
+  it('flags a tabindex-granted focusable and a case-insensitive literal', () => {
+    const src = '<div aria-hidden="TRUE"><div tabindex="0">x</div></div>';
+    expect(parseComponentFacts(src, 'C.svelte').ariaHiddenFocusables).toEqual([
+      { tag: 'div', containerTag: 'div', line: 1 }
+    ]);
+  });
+  it('attributes a nested container case to the nearest aria-hidden ancestor', () => {
+    const src = '<section aria-hidden="true"><div aria-hidden="true"><button>x</button></div></section>';
+    expect(parseComponentFacts(src, 'C.svelte').ariaHiddenFocusables).toEqual([
+      { tag: 'button', containerTag: 'div', line: 1 }
+    ]);
+  });
+  it('does not report a snippet declared inside an aria-hidden container', () => {
+    const c = parseComponentFacts(
+      '<div aria-hidden="true">{#snippet icon()}<button>i</button>{/snippet}</div>',
+      'C.svelte'
+    );
+    expect(c.ariaHiddenFocusables ?? []).toEqual([]);
+  });
+});
+
 describe('parseComponentFacts — {#snippet} bodies render at their {@render} site, not the declaration', () => {
   it('does not report a snippet declared inside an interactive container as nested', () => {
     const c = parseComponentFacts('<a href="/x">Go{#snippet icon()}<button>i</button>{/snippet}</a>', 'C.svelte');

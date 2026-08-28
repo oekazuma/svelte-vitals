@@ -11,6 +11,7 @@ import type {
   EachBlockFact,
   EffectFact,
   InteractiveNestingFact,
+  AriaHiddenFocusFact,
   OrphanEffectFact,
   OrphanLifecycleCallFact,
   SourceSpan,
@@ -33,7 +34,12 @@ import {
   textFromNodes,
   parseSvelte
 } from './svelte-ast.js';
-import { isInteractiveElement, isInteractiveContainer, type ElementAttr } from './rules/a11y/interactive.js';
+import {
+  isInteractiveElement,
+  isInteractiveContainer,
+  literalTabindexValue,
+  type ElementAttr
+} from './rules/a11y/interactive.js';
 import { splitTokens } from './a11y.js';
 import { resolveRole } from './rules/a11y/aria-data.js';
 
@@ -1314,6 +1320,76 @@ function collectInteractiveNestings(
   }
   for (const key of CHILD_NODE_KEYS) {
     if (key in node) collectInteractiveNestings(node[key], source, acc, stack);
+  }
+  if (opened) stack.pop();
+}
+
+/** Tags on which a `disabled` attribute actually removes focusability (it does nothing on `<a>`). */
+const DISABLEABLE_TAGS = new Set(['button', 'input', 'select', 'textarea']);
+
+/**
+ * Keyboard-focusable elements hidden by a literal `aria-hidden="true"` (a11y/aria-hidden-focus).
+ * Same conventions as `collectInteractiveNestings`: only `RegularElement`, snippet bodies walk
+ * with a fresh stack (they render at their `{@render}` site), and an expression `aria-hidden`
+ * is unknowable — a toggled `aria-hidden={...}` never opens a container. Exempt as not
+ * focusable: a `tabindex` that is negative (the documented remediation) or an expression (it
+ * may resolve to -1), a `disabled` form control, and anything at or under an `inert` or
+ * `hidden` element — an inert subtree leaves the tab order and a hidden one does not render,
+ * so both carry down the walk as `unfocusable`.
+ */
+function collectAriaHiddenFocusables(
+  node: Node,
+  source: string,
+  acc: AriaHiddenFocusFact[],
+  stack: string[],
+  unfocusable = false
+): void {
+  if (Array.isArray(node)) {
+    for (const child of node) collectAriaHiddenFocusables(child, source, acc, stack, unfocusable);
+    return;
+  }
+  if (!node || typeof node !== 'object') return;
+  if (node.type === 'SnippetBlock') {
+    for (const key of CHILD_NODE_KEYS) {
+      if (key in node) collectAriaHiddenFocusables(node[key], source, acc, []);
+    }
+    return;
+  }
+  let opened = false;
+  if (node.type === 'RegularElement' && Array.isArray(node.attributes)) {
+    const attrs = elementAttrs(node.attributes);
+    if (attrs.some((a) => a.name === 'inert' || a.name === 'hidden')) unfocusable = true;
+    const hiddenSelf =
+      attrs
+        .find((a) => a.name === 'aria-hidden')
+        ?.literal?.trim()
+        .toLowerCase() === 'true';
+    const tabindexAttr = attrs.find((a) => a.name === 'tabindex');
+    const tabindex = literalTabindexValue(tabindexAttr?.literal);
+    // An expression tabindex may resolve to -1 (unknowable); an invalid literal is ignored by
+    // browsers, so it neither exempts a native control nor grants focus — isInteractiveElement
+    // already treats it as absent.
+    const tabindexExempts = tabindexAttr !== undefined && tabindexAttr.literal === undefined;
+    const focusable =
+      !unfocusable &&
+      !tabindexExempts &&
+      !(tabindex !== undefined && tabindex < 0) &&
+      !(DISABLEABLE_TAGS.has(node.name) && attrs.some((a) => a.name === 'disabled')) &&
+      isInteractiveElement(node.name, attrs);
+    if (focusable && (hiddenSelf || stack.length > 0)) {
+      acc.push({
+        tag: node.name,
+        ...(hiddenSelf ? {} : { containerTag: stack[stack.length - 1]! }),
+        line: lineOf(source, node.start)
+      });
+    }
+    if (hiddenSelf) {
+      stack.push(node.name);
+      opened = true;
+    }
+  }
+  for (const key of CHILD_NODE_KEYS) {
+    if (key in node) collectAriaHiddenFocusables(node[key], source, acc, stack, unfocusable);
   }
   if (opened) stack.pop();
 }
@@ -2914,6 +2990,8 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
   collectElements(ast.fragment ?? ast, source, elements, ast.options?.namespace === 'svg');
   const interactiveNestings: InteractiveNestingFact[] = [];
   collectInteractiveNestings(ast.fragment ?? ast, source, interactiveNestings, []);
+  const ariaHiddenFocusables: AriaHiddenFocusFact[] = [];
+  collectAriaHiddenFocusables(ast.fragment ?? ast, source, ariaHiddenFocusables, []);
   const unnamedInteractive: UnnamedInteractiveFact[] = [];
   const labelTargets = { ids: new Set<string>(), nodes: new Set<Node>() };
   collectLabelTargets(ast.fragment ?? ast, labelTargets);
@@ -3156,6 +3234,7 @@ export function parseComponentFacts(source: string, filename: string): ParsedFac
     ariaElements,
     elements,
     interactiveNestings,
+    ariaHiddenFocusables,
     unnamedInteractive,
     unassociatedLabels,
     bulletTexts,

@@ -81,6 +81,7 @@ import { a11yUnknownAriaAttribute } from './a11y/unknown-aria-attribute.js';
 import { a11yRequiredAriaProps } from './a11y/required-aria-props.js';
 import { a11yInvalidAriaValue } from './a11y/invalid-aria-value.js';
 import { a11yInteractiveNesting } from './a11y/interactive-nesting.js';
+import { a11yAriaHiddenFocus } from './a11y/aria-hidden-focus.js';
 import { a11yAccessibleName } from './a11y/accessible-name.js';
 import { a11yLabelHasControl } from './a11y/label-has-control.js';
 import { a11yUseList } from './a11y/use-list.js';
@@ -187,6 +188,7 @@ export const allRules: Rule[] = [
   a11yRequiredAriaProps,
   a11yInvalidAriaValue,
   a11yInteractiveNesting,
+  a11yAriaHiddenFocus,
   a11yAccessibleName,
   a11yLabelHasControl,
   a11yUseList,
@@ -294,6 +296,7 @@ export {
   a11yRequiredAriaProps,
   a11yInvalidAriaValue,
   a11yInteractiveNesting,
+  a11yAriaHiddenFocus,
   a11yAccessibleName,
   a11yLabelHasControl,
   a11yUseList,

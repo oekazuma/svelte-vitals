@@ -47,3 +47,9 @@
 <div id="clean-details" tabindex="-1" bind:this={detailsEl}>
   <p>Status detail focuses here when "Check status" is activated.</p>
 </div>
+
+<!-- The toggle pattern a11y/aria-hidden-focus must never flag: aria-hidden is an expression.
+     inert mirrors it so the hidden state is consistent at runtime too. -->
+<div aria-hidden={status === 'online'} inert={status === 'online'}>
+  <button type="button" onclick={checkStatus}>Reconnect</button>
+</div>

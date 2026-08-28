@@ -34,6 +34,11 @@
 <!-- a11y/interactive-nesting: <button> nested inside the interactive <a href>. -->
 <a href="/x"><button>Nested button</button></a>
 
+<!-- a11y/aria-hidden-focus: the button stays keyboard-reachable but is hidden from AT. -->
+<div aria-hidden="true">
+  <button>Hidden but focusable</button>
+</div>
+
 <!-- a11y/accessible-name: no text, aria-label, or title. -->
 <button></button>
 
