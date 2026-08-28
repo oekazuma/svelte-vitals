@@ -1,6 +1,11 @@
 import { describe, it, expect } from 'vitest';
 import { parseComponentFacts } from '../src/component-parse.js';
-import { a11yDeprecatedElement, a11yDeprecatedAttr } from '../src/internal.js';
+import {
+  a11yDeprecatedElement,
+  a11yDeprecatedAttr,
+  a11yDeprecatedAria,
+  a11yDisallowedAriaProps
+} from '../src/internal.js';
 import { defineConfig, defaultProject, type Result } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 
@@ -101,5 +106,20 @@ describe('a11y/deprecated-attr', () => {
   it('does not consult the global attribute groups', async () => {
     const out = await a11yDeprecatedAttr.check(ctx('<svg><use xlink:href="#i" /></svg><div xml:lang="en">t</div>'));
     expect(fails(out)).toEqual([]);
+  });
+});
+
+describe('an Object.prototype-inherited tag name (<constructor>) does not crash spec-data rules', () => {
+  it('a11y/deprecated-attr treats it as an unknown element and finds nothing', async () => {
+    const out = await a11yDeprecatedAttr.check(ctx('<constructor data-x="1"></constructor>'));
+    expect(fails(out)).toEqual([]);
+  });
+
+  it('a11y/deprecated-aria and a11y/disallowed-aria-props (roleCandidates consumers) find nothing', async () => {
+    // Needs an aria-* attribute (not just data-x) so parseComponentFacts records an ariaElements
+    // entry — that's what makes these rules actually reach roleCandidates for this tag.
+    const src = '<constructor data-x="1" aria-label="x"></constructor>';
+    expect(fails(await a11yDeprecatedAria.check(ctx(src)))).toEqual([]);
+    expect(fails(await a11yDisallowedAriaProps.check(ctx(src)))).toEqual([]);
   });
 });

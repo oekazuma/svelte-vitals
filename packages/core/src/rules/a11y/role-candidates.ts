@@ -46,11 +46,14 @@ export function roleCandidates(e: AriaElementFact): RoleCandidates | undefined {
     return role ? { explicit: true, roles: [role], namingProhibited: false } : undefined;
   }
   if (e.hasSpread) return undefined;
-  const el = HTML_SPEC.elements[e.tag];
+  // JSON.parse output and object literals inherit Object.prototype, and e.tag is an author-
+  // controlled tag name (e.g. `constructor`) — an unguarded index would return Object's
+  // function instead of undefined.
+  const el = Object.hasOwn(HTML_SPEC.elements, e.tag) ? HTML_SPEC.elements[e.tag] : undefined;
   if (!el) return undefined;
   // An override replaces the element's ARIA facts wholesale — role, prohibition and conditions.
-  const aria: Pick<typeof el.aria, 'implicitRole' | 'namingProhibited' | 'conditions'> =
-    ELEMENT_FACT_OVERRIDES[e.tag] ?? el.aria;
+  const override = Object.hasOwn(ELEMENT_FACT_OVERRIDES, e.tag) ? ELEMENT_FACT_OVERRIDES[e.tag] : undefined;
+  const aria: Pick<typeof el.aria, 'implicitRole' | 'namingProhibited' | 'conditions'> = override ?? el.aria;
   const roles: (string | false)[] = [aria.implicitRole ?? false];
   for (const c of Object.values(aria.conditions ?? {})) {
     if ('implicitRole' in c) roles.push(c.implicitRole ?? false);

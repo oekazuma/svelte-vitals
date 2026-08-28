@@ -270,7 +270,10 @@ export function judgeContent(
   const child = els[childIdx]!;
   for (let i = ancestors.length - 1; i >= 0; i--) {
     const holder = els[ancestors[i]!]!;
-    const spec = HTML_SPEC.elements[holder.tag];
+    // JSON.parse output inherits Object.prototype, and holder.tag is an author-controlled tag
+    // name (e.g. `constructor`) — an unguarded index would return Object's function instead of
+    // undefined.
+    const spec = Object.hasOwn(HTML_SPEC.elements, holder.tag) ? HTML_SPEC.elements[holder.tag] : undefined;
     if (!spec?.contentModel) return undefined;
     const cm = spec.contentModel as { contents?: unknown; conditional?: { condition: string; contents: unknown }[] };
     if (cm.contents === true) return undefined;

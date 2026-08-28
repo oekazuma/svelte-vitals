@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projectHtmlSpec, resolveHtmlSpec } from '../scripts/html-spec.js';
 import { HTML_SPEC, HTML_SPEC_VERSION } from '../src/html-spec/generated.js';
+import { elementAttr, htmlElement, isDeprecatedAttr } from '../src/html-spec/index.js';
 import { isKnownAriaAttribute, isKnownRole } from '../src/rules/a11y/aria-data.js';
 
 const REGENERATE = 'run `pnpm --filter @svelte-vitals/core run gen:html-spec`';
@@ -58,6 +59,22 @@ describe('html-spec: what the projection must and must not carry', () => {
       .find((l) => l.startsWith('Copyright'))!;
     expect(head.startsWith('/*!')).toBe(true);
     expect(head).toContain(copyright);
+  });
+});
+
+describe('html-spec: Object.prototype keys are not element data', () => {
+  it('treats Object.prototype-inherited tag names as unknown elements', () => {
+    expect(htmlElement('constructor')).toBeUndefined();
+    expect(htmlElement('toString')).toBeUndefined();
+    expect(htmlElement('valueOf')).toBeUndefined();
+  });
+
+  it('does not throw when checking a deprecated attribute on such a tag', () => {
+    expect(isDeprecatedAttr('constructor', 'data-x')).toBe(false);
+  });
+
+  it('treats an Object.prototype-inherited attribute name as an unknown attribute', () => {
+    expect(elementAttr('img', 'constructor')).toBeUndefined();
   });
 });
 
