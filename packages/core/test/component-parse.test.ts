@@ -1355,6 +1355,10 @@ describe('parseComponentFacts — interactiveNestings (a11y/interactive-nesting)
     const c = parseComponentFacts('<a href="/x"><span tabindex="-1">x</span></a><a><button>y</button></a>', 'C.svelte');
     expect(c.interactiveNestings ?? []).toEqual([]);
   });
+  it('still flags a natively interactive descendant carrying tabindex="-1" — it stays clickable', () => {
+    const c = parseComponentFacts('<a href="/x"><button tabindex="-1">x</button></a>', 'C.svelte');
+    expect(c.interactiveNestings).toEqual([{ containerTag: 'a', descendantTag: 'button', line: 1 }]);
+  });
   it('ignores an expression-valued href — unknowable whether the anchor renders with one', () => {
     const c = parseComponentFacts('<a href={disabled ? undefined : url}><button>Go</button></a>', 'C.svelte');
     expect(c.interactiveNestings ?? []).toEqual([]);
