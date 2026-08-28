@@ -110,14 +110,15 @@ describe('a11y/deprecated-attr', () => {
 });
 
 describe('an Object.prototype-inherited tag name (<constructor>) does not crash spec-data rules', () => {
-  const src = '<constructor data-x="1"></constructor>';
-
   it('a11y/deprecated-attr treats it as an unknown element and finds nothing', async () => {
-    const out = await a11yDeprecatedAttr.check(ctx(src));
+    const out = await a11yDeprecatedAttr.check(ctx('<constructor data-x="1"></constructor>'));
     expect(fails(out)).toEqual([]);
   });
 
   it('a11y/deprecated-aria and a11y/disallowed-aria-props (roleCandidates consumers) find nothing', async () => {
+    // Needs an aria-* attribute (not just data-x) so parseComponentFacts records an ariaElements
+    // entry — that's what makes these rules actually reach roleCandidates for this tag.
+    const src = '<constructor data-x="1" aria-label="x"></constructor>';
     expect(fails(await a11yDeprecatedAria.check(ctx(src)))).toEqual([]);
     expect(fails(await a11yDisallowedAriaProps.check(ctx(src)))).toEqual([]);
   });
