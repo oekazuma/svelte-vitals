@@ -187,6 +187,82 @@ improve スキルによる監査(2026-07-05、commit `1f6f233` 時点)から生�
 - **2608-DIR-04(agent skill 世代ズレ)**: 埋め込んだ生成時バージョンを誰も読み返さない事実を再確認。ノイズゲート(どのコマンドで出すか)だけが設計判断。
 - **2608-DIR-05(config キー)**: `failOn` は config キーで `minHealth` だけ取り残された非対称が 1 行で示せる。flag-beats-config の優先順位を決める 1 枚の設計ノート(S)。`category` は overrides との重複で弱い。
 
+## 2026-08-28 deep 監査(commit `690dd5e4`)
+
+/improve deep による全リポジトリ監査(9 カテゴリ、7 並列サブエージェント + direction は親が直接 + 計画対象 5 件は親が引用元コードを全件実読・うち 2 件は実バイナリで再現)。前回 deep 監査(2026-08-12、`ddcf62d0`)から 165 コミット / +43.5k 行。監査は新規面(a11y カテゴリ 34 ルール、html-spec projection、kitchen-sink、ecosystem smoke、setup skill、vite peer-deps 再構成)に重み付けした。ユーザー非対話セッションのため、スキルの既定に従い leverage 上位 5 件を計画化した。所見 ID は「260828-」プレフィックス。計画対象は親検証済み、下の候補リストはサブエージェント報告+親のスポットチェック。
+
+| Plan | Title                                                                                                                             | Priority | Effort | Depends on | Status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------- | -------- | ------ | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 055  | `HTML_SPEC` lookup の `Object.prototype` キー防御(`<constructor>` で a11y/deprecated-attr がクラッシュ→ルール脱落)(260828-BUG-01) | P1       | S      | —          | DONE(2026-08-28 Sonnet executor → 敵対的レビュー(Fable)REJECT 1 回[changeset の deprecated-element クラッシュ主張が事実誤り+elementAttr の属性名索引も同ハザード]→ 修正後 APPROVE → [PR #615](https://github.com/oekazuma/svelte-vitals/pull/615)。レビュー副産物: `reserved-name-placement.ts:181-183/205-207` の config キー索引に同クラスのハザード残存 — 次回候補に追加)                                                                                                                                                          |
+| 056  | `guardArgs` の last-wins を全ブールトークンに拡張(`--flag=true --flag=false` が OFF にならない)(260828-BUG-02)                    | P1       | S      | —          | DONE(2026-08-28 Sonnet executor。逸脱 1 件は妥当と裁定[計画のセル 1 の invalid-dir 手法は ProjectError が --score 読み取り前に発火し on/off を判別不能 — 実 fixture 方式+unit セルに置換、advisor 相談済み]→ 敵対的レビュー(Fable)一発 APPROVE[legacy parseArgs との 12 セル等価性・prefix 衝突・value/bool 重複を検証、revert で判別セル 2 本の実効性を実証]→ [PR #616](https://github.com/oekazuma/svelte-vitals/pull/616)。レビュー副産物: 短縮形 `-h --help=false` の last-wins 非対応は base から同挙動の既知ギャップとして記録) |
+| 057  | CLI の生 console 出力を IO ファクトリで `terminalSafe` 化(install 系+最終 catch の残穴)(260828-SEC-02)                            | P1       | S      | —          | DONE(2026-08-28 Sonnet executor → 敵対的レビュー(Fable)REJECT 1 回[consoleIO.log の wrap が console レポーターの SGR カラーを全滅させる実回帰 — FORCE_COLOR A/B 74行→0行で実測検出。既存スイートはこれを検出できなかった]→ errorLog のみ wrap + カラー生存 pin テスト追加で APPROVE → [PR #617](https://github.com/oekazuma/svelte-vitals/pull/617))                                                                                                                                                                                  |
+| 058  | dashboard「Copy AI prompt」の Markdown 無害化(`buildAiPrompt` 生連結。APP_SCRIPT 内 ES5 実装)(260828-SEC-01)                      | P1       | S      | —          | DONE(2026-08-28 Sonnet executor → 敵対的レビュー(Fable)REJECT 1 回[末尾 "After fixing… for route" の route 生連結が残存 — dist の eval で自由段落注入を実証]→ mdSafe(route) + trailing-line 専用テスト追加で APPROVE[外科的 revert で判別性も実証]→ [PR #618](https://github.com/oekazuma/svelte-vitals/pull/618)。レビュー副産物: agent.ts:55 の固定 ``` フェンスに同クラスの latent 残存 — 次回候補)                                                                                                                                |
+| 059  | landmark 収集を `resolveRole` に統一(fallback role リストの先頭直取り。検証レビュー row 4 との decision drift)(260828-BUG-03)     | P1       | S      | —          | DONE(2026-08-28 Sonnet executor → 敵対的レビュー(Fable)REJECT 1 回[changeset の required-element 言及は誤り — 同ルールは route.elementTags のみ消費し landmark データを読まない。計画側の所見の過大主張をレビューが検出]→ 訂正後 APPROVE[mutation test で判別性実証、第 3 の同種バグサイトなしを grep 確認]→ [PR #619](https://github.com/oekazuma/svelte-vitals/pull/619))                                                                                                                                                           |
+
+### 2026-08-28 の依存メモ
+
+- 5 計画は全て互いに独立で並行可。055/058 は core、056/057 は cli の別ファイル、059 は core(export 1 行)+cli/vite のプロバイダ。
+- 057 と 059 は両方 `@svelte-vitals/core/internal` の import 行に触れる可能性があるが別ファイルなのでコンフリクトしない。
+
+### メンテナーが直接やるのが最安の 4 件(計画化しない)
+
+- **260828-DEPS-04**(docs/package.json の blume/typescript を devDependencies へ、2 行): これで `pnpm audit --prod` の 28 件(high 15)のノイズが消え、audit がゲートとして使える。3 回連続で監査がこのノイズを手動検証している。
+- **260828-DEPS-03**(schema-dts の caret ピン): `2026-08-18-html-spec-data-source.md` は生成器入力を exact ピンと明記しており、schema-dts `^2.0.0` だけが違反(decision drift)。exact 化 1 行、または spec に例外理由を 1 文追記。
+- **260828-DX-01**(AGENTS.md に `pnpm e2e` 行): CI の test ジョブが `pnpm e2e` を PR ブロッキングで走らせているのに検証コマンド表に行がない。
+- **260828-PERF-06**(bench-gated 決定の再計測): `2026-08-17-bench-gated-decisions.md` の「walk 21.4%」は component-parse.ts が 2309→3246 行・collector 28→42 に育つ前の数字。判断は計測後(measure-before-deciding)なので、`pnpm bench` + `--cpu-prof` の再取得と spec への追記はメンテナー実行が最安。
+
+### 2026-08-28 監査で検出したが計画化しなかった主な所見(次回選定の候補、leverage 順)
+
+- **260828-DEPS-01** 公開 `dependencies`/`peerDependencies` の `catalog:` 展開で、Renovate の dev カタログ bump が公開互換フロアを無審査ラチェットする(実例: #573 が vite peer を ^8.2.1→^8.2.2 に、changeset なし)。PR #587 で peer 警告が「機能」になった今、最重要の次候補。ガードテスト半分は executor 可能だが、フロア値の選定はメンテナー判断が要るため計画化見送り(S–M)。
+- **260828-PERF-01** 非解析コマンドでの `svelte/compiler` ロード排除。実測: `--version` 130ms、TAB 毎の `complete` 140ms、うち 106ms が `svelte/compiler` 単体。leaf module 化+dynamic import(S–M、help golden がリスク)。
+- **260828-DEPS-02** `aria-query` が catalog 5.3.2 exact、Svelte が 5.3.1 exact — 全コンシューマで必ず二重インストール+語彙の不一致許容。5.3.1 への整合はルール出力 diff のレビューが要る(S、MED リスク)。dep-budget 3 パッケージとも headroom 0(260828-DEPS-07)の唯一の解放枠でもある。
+- **260828-TEST-01** kitchen-sink の per-rule assert が件数のみで location を pin していない(~87 ルールが count-only。「正しい件数で誤った場所」を通す)(M)。
+- **260828-TEST-02** ルール options 6 つ(component-size.max、prop-count.max、route-component-import.exemptImporters、heavy-import.packages、preconnect.origins、title/description-length min/max)が実 CLI 経路の観測可能テストなし — two-guards ポリシーの lever 該当(M、option-coverage メタテスト+gallery 追加)。
+- **260828-TEST-03** `--meta-components` フラグが parse テストのみで、`index.ts:307` の `opts.metaComponents ??` を消しても全スイート green(no-op 化検出不能)(S)。
+- **260828-DEBT-01** `component-parse.ts` 3246 行・17 独立 walk。ルール 1 本追加(#613)が 22 ファイル +423 行かかる構造コスト。分割→visitor registry(L、PERF-06 の再計測後に判断)。
+- **260828-DEBT-02** anti-slop の未有効 7 ルール+未配線 effect/ サブプラグイン+lint 除外 ~2000 行。削除か warn 有効化(S)。
+- **260828-PERF-07** `permitted-contents` の `judgeContent` がセレクタ解析を要素×祖先ごとに再実行(M、bench 先行)。
+- **260828-DOCS-01** interactive-nesting / aria-hidden-focus の docs が式値属性の除外(`<a href={url}>` は container 扱いされない等)を書いていない — #614 と同クラス(S、en/ja+stamp)。
+- **260828-DOCS-02→03** ルールページのメタデータヘッダ正規化(39 ページが Category 欠落、split-severity 2 ページの許容込み)→ その後 `docs-links.test.ts` に severity/category 照合 ~15 行(旧 2608-DIR-03。現時点の実ドリフトはゼロと全 210 ページ機械照合済み — 純粋な将来ガード)(S+S)。
+- **260828-SEC-03** dashboard middleware の ingest 無上限バッファ/SSE クライアント無上限/nosniff 欠落 — 正しい loopback ゲートの背後の defense-in-depth で「今はやらない」が妥当。260812-SEC-INV-01 の脅威モデル 1 段落に「loopback 上のプロセスは信頼境界内」と書くのが先(S)。
+- **260828-BUG-04** gunshi 系 6 closure の exit code 初期値 0 → 2 への防御的変更(現 HEAD で到達不能と検証済み、latent)(S)。
+- **260828-BUG-05** `permitted-contents` の KNOWN_TAGS が `svg:` prefix 剥がしで SVG 専用 60 名を HTML 既知タグ扱い(`<div><g>` に info 発火。measured spec の「unknown は無判定」方針と矛盾)(S)。
+- **260828-BUG-06** `loadSuppressions` の catch-all を ENOENT 限定に(EACCES が「ファイルなし」に化ける。安全側の failure だが診断が紛らわしい)(S)。
+- **260828-REV-01(055 レビュー副産物)** `reserved-name-placement.ts:181-183/205-207` の `capUnits[name]`/`anyUnits[name]` が hasOwn なしの config キー索引 — `constructor` という名のディレクトリ+片側 map の config エントリで Object 関数が `globsOf` に流れる(S)。
+- **260828-REV-02(058 レビュー副産物)** `reporter/agent.ts:55` の `fix.snippet` フェンスが固定 ``` — dashboard 側で直したのと同クラス。全ルールの snippet がリテラル著述の現在は latent(S)。
+- **260828-REV-03(056 レビュー副産物)** 短縮形 `-h --help=false` が last-wins 非対応(base から同挙動の既知ギャップ。気にする人が出たら、の優先度)(S)。
+- **260828-TEST-04/05** schema-vocabulary drift テストの extractor 側トートロジー+size floor なし / JSON-LD `@type: ""` 等の縮退値未 pin(各 S)。
+- **260828-TEST-06/07** ja help 完全性ガードの新コマンド盲点 / dist 依存 completion テストの silent skip(各 S、既知の継続)。
+- **260828-DEBT-03/05/06/07/08** vite `mergeConfig` の rules 選択ドリフト(コメントが虚偽) / CATEGORIES 3 重複("single source" コメント 2 枚) / analyzer フラグ表 2 面のパリティテスト不在 / bare `--diff` 書き換え 3 重複 / minHealth 二重検証(各 S–M、既知の継続または悪化)。
+- **260828-DEBT-09** 2 つの head パーサの `as=""`・nameless `<meta>` ポリシー差 — conformance フィクスチャ表を両パーサに食わせる(M、既知の継続)。
+- **260828-DEBT-10/11/13/14/15** architecture 5 ルールの前文重複 / html-spec の未消費 `required` projection(境界コメント 1 行でも可) / Node Runtime アダプタ 2 重化(vite が CLI の `createNodeRuntime` を import すれば削れる) / vite の生 console 2 箇所 / inline suppression の 2 段階適用の述語共有(各 S–M)。
+- **260828-DEPS-05/06** Node フロア文字列 ~15 箇所(前回 6 から倍増、22.13→24.16 移行で bilingual docs に拡散)の整合テスト / devEngines Node ピンが初回コミットから不動(各 S)。
+- **260828-PERF-02/03/04/05** dashboard の component facts キャッシュ(JSDoc が既知ギャップ明記のまま) / 同一 .svelte の 2 重 read+parse 統合(io-budget コメント自身が「Lowering is welcome」) / `lineOf` の線形走査(34 サイト、micro-bench で 18.7ms→0.43ms) / `exists` メモ化+io-budget への invariant 追加(a11y 合成で無監視のまま呼び出し倍増)(S–L、全て bench 先行)。
+- **260828-DX-02/03/04/05** guard.ts と component-parse.ts の JSDoc 誤付着 2 件 / CONTRIBUTING の lint 説明陳腐化+e2e/translate ゲート欠落 / AGENTS.md への「Adding a CLI flag」チェックリスト / README に completion・ja help の記載なし(各 S)。
+
+### 2026-08-28 監査で棄却・検証済みの所見(再監査防止)
+
+- **前回 backlog のステータス移動(サブエージェント検証)** 2608-TEST-01(bin.ts の in-process seam)と 2608-TEST-03(実バイナリ gate-flag e2e)は **RESOLVED**(runCli 化+cli-e2e.js)。2608-CLI-09(readFile→exit 1)は **FIXED**(install/cli.ts の ENOENT 判別+exit 2 経路)。2608-CLI-11(stderr flush)は**再現せず not worth doing**(install/ci の出力は数百バイトで 64KiB パイプバッファに収まると実プローブで確認)。260812-DEPS-09(workspace:\* exact 展開)は **CLOSED — 2026-08-25 vite peer-deps 設計が exact ピンを load-bearing と明記**。260812-PERF-03(JSON-LD vocab 構築)は**解消**(単一文字列 split の Set になり構築コスト µs 級)。2608-DEPS-03(@types/node)は **CLOSED**(types 24.13 < floor 24.16 は安全方向)。2608-DEBT-01/260812-DEPS-08(vite→cli 依存)は **PR #587 で設計どおり peer 化完了**(残る CLI import は設計が明示する形)。2608-DEBT-03 は 3 重→2 重に、2608-DEBT-05 の rule→rule import は解消(残余は 260828-DEBT-13/10)。260812-DX の gen:schema-vocab package map 追記は済み。
+- **260812-PERF-02 の CPU 半分** 引き続き diamond fixture での実測待ち(correctness 側の反証済み半分は再浮上させない)。
+- **a11y ルールの誤検知スイープ** correctness エージェントが APG イディオム含む 43 マークアップ形で全ルール実行、誤検知ゼロ。2026-08-19/20/21 の measured 除外は HEAD で保持されている。
+- **ルール docs のメカニカル整合** 105 ルール × en/ja 全ページで severity/category/defaultOff/options 名・既定値の機械照合を実施、**不一致ゼロ**(#606/#608 の全面リライトを経てなお)。260828-DOCS-03 は純粋な将来ガード。
+- **セキュリティ検証済み** own/scaffolded workflows の persist-credentials・SHA ピン維持、gen-action-pin の形状ガード維持、ecosystem-smoke の untrusted clone 処理(execFileSync 配列形+config 除去+realpath 封じ込め)は正しい。core の I/O-free も grep で再確認。
+- **`Object.prototype` 系の残り** `<__proto__>` タグは Svelte パーサが拒否、`role="constructor"` は aria-query の Map 経由で安全、routes.ts の shell-id マージは Object.fromEntries で安全 — 055 の対象外で正しい。
+- **判定に影響しない既知の癖** judgeContent の filters 押し込み(観測不能と追跡済み)、collectAriaElements の SVG/ケースギャップ(9 形プローブで誤検知ゼロ、latent)。
+
+### 本監査でカバーしていない領域(明示)
+
+- Windows 挙動は既知の 2608-TEST-06(Windows CI 不在)のまま。本監査も macOS 上でのみ実施。
+- ルール docs の**メカニカル層**(severity/category/defaultOff/options)は 105 ルール × en/ja 全 210 ページを機械照合したが、**prose 層**の実装照合はサンプル 13 ルールのみ。サンプル外の prose の挙動主張は引き続きレビュー頼み(260828-DOCS-01 が見つけたクラスの残存はありうる)。
+- a11y 誤検知スイープは 43 マークアップ形のプローブであり、網羅コーパスではない。
+
+### 2026-08-28 方向性所見(計画化せず記録)
+
+- **旧 i18n スパイク(2026-07-13)は Superseded 明記が未了のまま**(Status: Proposed のまま、対象の packages/action・mcp は消滅済み)。gunshi --help ja 出荷後の残る人間向け表面は vite dashboard(最有力)と `docs show`(最弱)の 2 つ — この整理は 08-12 監査の指摘から動いていない。1 行の Status 書き換えだけでも価値がある。
+- **2608-DIR-02(examined counts)** HEAD 再確認 — 依然 `--reporter json` のみ(`packages/core/src/reporter/json.ts`)。console reporter への zero-examined footer が実際の失敗モードに最も効く形、という 08-12 の結論は変わらず。
+- **2608-DIR-05(minHealth の config キー非対称)** HEAD 再確認 — `failOn` は config キー(config-file.ts の KNOWN_TOP_LEVEL_KEYS)なのに `minHealth` は CLI フラグのみのまま。flag-beats-config の優先順位を決める設計ノート 1 枚(S)。
+- 2608-DIR-04(agent skill 世代ズレ警告)は状況変化なし。v1 Phase E(タグ付け)は意図的保留のまま — 本監査からの提案はしない。
+
 Status values: TODO | IN PROGRESS | DONE | BLOCKED (with one-line reason) | REJECTED (with one-line rationale)
 
 ## Dependency notes
