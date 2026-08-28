@@ -21,7 +21,12 @@ import { defineSuggestNames, levenshtein } from '@gunshi/plugin-suggestion';
 export interface GuardResult {
   /** Fatal `--<flag> requires a value.` messages; empty when nothing was rejected. */
   errors: string[];
-  /** `argv` with every `--<boolFlag>=false` token removed (equivalent to the flag never being passed). */
+  /**
+   * `argv` with boolean-flag tokens normalized for last-wins: if a `booleanFlag`'s last
+   * occurrence (any `--<flag>` or `--<flag>=<value>` spelling) is `=false`, every one of its
+   * tokens is removed (equivalent to the flag never being passed); otherwise only its `=false`
+   * tokens are removed, leaving the winning occurrence for gunshi to parse.
+   */
   argv: string[];
 }
 
@@ -46,17 +51,21 @@ export function guardArgs(argv: string[], valueFlags: readonly string[], boolean
 
   // Duplicate boolean tokens are last-wins under `node:util`'s parseArgs (overwrites on
   // repetition, then a final literal 'false' coerces to off) — so when a flag's LAST occurrence
-  // is `=false`, every token of that flag must go, not just the `=false` ones.
+  // is `=false`, every token of that flag must go, not just the `=false` ones. Every `--<flag>`
+  // spelling counts as an occurrence for "last", including `--<flag>=true` or any other explicit
+  // value — otherwise a surviving `=true` token between two off-decisions (or after the winning
+  // `=false`) reaches gunshi and re-ons the flag.
+  const isTokenOf = (flag: string, token: string) => token === `--${flag}` || token.startsWith(`--${flag}=`);
   const offFlags = new Set(
     booleanFlags.filter((flag) => {
       let lastToken: string | undefined;
-      for (const t of argv) if (t === `--${flag}` || t === `--${flag}=false`) lastToken = t;
+      for (const t of argv) if (isTokenOf(flag, t)) lastToken = t;
       return lastToken === `--${flag}=false`;
     })
   );
   const argvNormalized = argv.filter((token) => {
     for (const flag of booleanFlags) {
-      if (token === `--${flag}=false` || (offFlags.has(flag) && token === `--${flag}`)) return false;
+      if (offFlags.has(flag) ? isTokenOf(flag, token) : token === `--${flag}=false`) return false;
     }
     return true;
   });

@@ -72,6 +72,16 @@ describe('guardArgs: boolean --flag=false normalization', () => {
     const { argv } = guardArgs(['--json=false', '--json'], [], ['json']);
     expect(argv).toEqual(['--json']);
   });
+
+  it('a --<boolFlag>=true token counts as an occurrence too: a trailing =false still turns it off', () => {
+    const { argv } = guardArgs(['--json=true', '--json=false'], [], ['json']);
+    expect(argv).toEqual([]);
+  });
+
+  it('--<boolFlag>=false then =true: the trailing =true wins, flag stays on', () => {
+    const { argv } = guardArgs(['--json=false', '--json=true'], [], ['json']);
+    expect(argv).toEqual(['--json=true']);
+  });
 });
 
 describe('splitAtTerminator', () => {

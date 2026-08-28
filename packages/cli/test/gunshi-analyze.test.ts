@@ -206,6 +206,32 @@ describe('--score --score=false: last-wins through the real dispatch path', () =
   });
 });
 
+// Truth table for every 2-token last-wins shape, run against a real project (unitEntryFixtureDir)
+// instead of an invalid dir: ProjectError fires before opts.score is ever read, so an invalid-dir
+// run can't distinguish --score being on from off (both hit the same "No SvelteKit project found"
+// path) — only a real analysis run makes the on/off difference (bare number vs. full report)
+// observable.
+describe('boolean last-wins truth table (--score): every =<value> spelling counts as an occurrence', () => {
+  it('--score=true --score=false: the trailing =false wins, off (full report, not a bare number)', async () => {
+    const { code, out } = await run([unitEntryFixtureDir, '--score=true', '--score=false']);
+    expect(code).toBe(1);
+    expect(out).not.toMatch(/^\d+$/);
+    expect(out.length).toBeGreaterThan(0);
+  });
+
+  it('--score=false --score=true: the trailing =true wins, on (a bare Health-score number)', async () => {
+    const { code, out } = await run([unitEntryFixtureDir, '--score=false', '--score=true']);
+    expect(code).toBe(1);
+    expect(out).toMatch(/^\d+$/);
+  });
+
+  it('--score=false --score: the trailing bare flag wins, on (a bare Health-score number)', async () => {
+    const { code, out } = await run([unitEntryFixtureDir, '--score=false', '--score']);
+    expect(code).toBe(1);
+    expect(out).toMatch(/^\d+$/);
+  });
+});
+
 describe('--help wins over a guard-detected error (help is checked before the guard fallback)', () => {
   it('--help --reporter= prints help and exits 0, exactly like today', async () => {
     const { code, out, err } = await run(['--help', '--reporter=']);
