@@ -100,6 +100,11 @@ describe('parseFile — a11y occurrences', () => {
     ]);
   });
 
+  it('resolves an ARIA fallback role list to the first concrete role, not the first token', () => {
+    const parsed = parseIt('<div role="section main" /><div role="button main" />');
+    expect(parsed.a11y.nodes).toEqual([expect.objectContaining({ kind: 'landmark', key: 'main' })]);
+  });
+
   it('emits an empty key for expression ids and tokenizes aria idref lists', () => {
     const parsed = parseIt('<div id={x} aria-labelledby="a b" aria-controls="c" /><a href="#top" /><a href="#" />');
     expect(parsed.a11y.nodes.map((n) => ({ kind: n.kind, key: n.key, attr: n.attr }))).toEqual([

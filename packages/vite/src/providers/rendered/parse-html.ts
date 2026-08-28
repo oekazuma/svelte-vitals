@@ -7,7 +7,8 @@ import {
   isTopFragment,
   stripTextDirective,
   LANDMARK_ROLES,
-  IDREF_ATTRS
+  IDREF_ATTRS,
+  resolveRole
 } from '@svelte-vitals/core/internal';
 
 function attrValue(v: string | undefined): Value {
@@ -104,9 +105,10 @@ function collectA11y(root: HTMLElement): CollectedA11y {
     const roleAttr = el.getAttribute('role');
     // A literal role, present or not, decides landmark-ness outright — it suppresses the tag
     // mapping rather than falling through to it (mirrors the source provider's parse.ts).
+    // ARIA fallback role lists resolve to the first token naming a concrete role (resolveRole).
     let landmark: string | undefined;
     if (roleAttr !== undefined) {
-      const role = splitTokens(roleAttr)[0];
+      const role = resolveRole(splitTokens(roleAttr));
       landmark = role && LANDMARK_ROLES.has(role) ? role : undefined;
     } else if (tag === 'main') {
       landmark = 'main';

@@ -23,6 +23,7 @@ export {
   LANDMARK_ROLES,
   IDREF_ATTRS
 } from './a11y.js';
+export { resolveRole } from './rules/a11y/aria-data.js';
 export type {
   EachBlockFact,
   EffectFact,

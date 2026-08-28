@@ -309,6 +309,11 @@ describe('parse-html: a11y capture (rendered landmark/id parity)', () => {
     expect(landmarks).toContain('complementary');
   });
 
+  it('resolves an ARIA fallback role list to the first concrete role, not the first token', () => {
+    const { landmarks } = parseHtmlHead(doc('<div role="section main"></div><div role="button main"></div>'));
+    expect(landmarks).toEqual(['main']);
+  });
+
   it('reports nesting when a landmark sits inside another landmark', () => {
     const { nestedLandmarks } = parseHtmlHead(doc('<main><div role="complementary"></div></main>'));
     expect(nestedLandmarks).toContainEqual({ kind: 'complementary', within: 'main' });
