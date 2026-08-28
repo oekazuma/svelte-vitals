@@ -2,6 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import * as p from '@clack/prompts';
+import { terminalSafe } from '@svelte-vitals/core/internal';
 import type { InstallIO, InstallPrompts, SelectableOption, TargetId } from './index.js';
 
 export function realIO(): InstallIO {
@@ -22,8 +23,8 @@ export function realIO(): InstallIO {
     // clack reads from stdin and renders to stdout, so both must be interactive —
     // a piped/redirected stdin would leave the prompt hanging for input that never comes.
     isTTY: Boolean(process.stdin.isTTY) && Boolean(process.stdout.isTTY),
-    log: (line) => console.log(line),
-    errorLog: (line) => console.error(line),
+    log: (line) => console.log(terminalSafe(line)),
+    errorLog: (line) => console.error(terminalSafe(line)),
     runCommand: (command, args, cwd) => {
       const result = spawnSync(command, args, {
         cwd,
@@ -32,11 +33,13 @@ export function realIO(): InstallIO {
         timeout: 120_000
       });
       if (result.error) {
-        console.error(`svelte-vitals: ${command} failed to start: ${result.error.message}`);
+        console.error(terminalSafe(`svelte-vitals: ${command} failed to start: ${result.error.message}`));
         return 1;
       }
       if (result.signal) {
-        console.error(`svelte-vitals: ${command} was terminated (${result.signal}) — it may have timed out.`);
+        console.error(
+          terminalSafe(`svelte-vitals: ${command} was terminated (${result.signal}) — it may have timed out.`)
+        );
         return 1;
       }
       return result.status ?? 1;
