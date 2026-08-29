@@ -1,5 +1,20 @@
 # @svelte-vitals/vite
 
+## 0.36.1
+
+### Patch Changes
+
+- aca531d: Landmark collection now resolves ARIA fallback role lists (`role="section main"`) the way user agents do — the first token naming a concrete role — instead of taking the first token unconditionally. A list whose first token is abstract or unrecognized (`role="section main"`) now resolves to `main` in both the source and rendered providers, matching browser behavior, so `a11y/duplicate-landmark` and `a11y/top-level-landmark` no longer miss or misreport landmarks introduced through such lists.
+- Updated dependencies [bfba619]
+- Updated dependencies [7083231]
+- Updated dependencies [b714e49]
+- Updated dependencies [3acf640]
+- Updated dependencies [aca531d]
+- Updated dependencies [4a77313]
+- Updated dependencies [32e066b]
+  - @svelte-vitals/core@0.50.1
+  - svelte-vitals@0.54.1
+
 ## 0.36.0
 
 ### Minor Changes

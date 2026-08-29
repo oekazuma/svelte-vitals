@@ -1,5 +1,53 @@
 # @svelte-vitals/core
 
+## 0.50.1
+
+### Patch Changes
+
+- bfba619: Lowercase tag names in `collectAriaElements`.
+  
+  Svelte accepts a mixed-case regular element (`<dIv>`; a leading capital instead makes Svelte treat
+  the tag as a component reference, so `<Div>` was never affected), but the collector recorded
+  `node.name` verbatim while `collectElements` already normalized with `.toLowerCase()`. The rules
+  reading `ariaElements` were affected unevenly: `a11y/invalid-role`,
+  `a11y/unknown-aria-attribute`, and `a11y/invalid-aria-value` never key off `e.tag` and were unaffected.
+  `a11y/disallowed-aria-props` and `a11y/deprecated-aria` resolve an element's implicit role through
+  `roleCandidates`, which looks up `HTML_SPEC.elements` by tag — on a mixed-case tag without an
+  explicit `role` attribute that lookup missed, silently dropping the findings that depend on
+  implicit-role resolution. Elements with an explicit role, and `deprecated-aria`'s
+  globally-deprecated-attribute findings (`aria-grabbed` etc.), were unaffected.
+  `a11y/required-aria-props`'s `HOST_SUPPLIED` table checks `e.tag`/`e.inputType`/`e.selectKind`
+  to recognize a native control (a checkbox `<input>`, a combobox `<select>`) that already supplies a
+  required prop natively — a mixed-case tag missed that recognition too, but in the other direction:
+  the prop was wrongly reported missing on an element that already had it. Normalizing at collection
+  fixes every consumer at once.
+- 7083231: The dashboard's Copy-AI-prompt output now neutralizes newlines, links, and backtick runs coming from the analyzed project. Finding fields (title, route, location, recommendation, fix description, docs URL) are analyzed-repo strings that get pasted into a coding agent; a newline could previously open a fake new bullet line, and a triple-backtick run in a fix snippet could previously close the code fence early, letting the rest of the field read as free-standing instructions to the agent instead of quoted finding data.
+- 3acf640: Guard HTML spec lookups against `Object.prototype` keys.
+  
+  `HTML_SPEC.elements` is `JSON.parse` output, so it inherits `Object.prototype`. A component
+  containing an element like `<constructor>` — a legal, if unusual, tag name — indexed straight into
+  `Object`'s own function instead of getting `undefined`, and the subsequent property access threw.
+  `a11y/deprecated-attr` crashed outright; when a rule throws, the runner drops it from scoring
+  silently rather than failing the run, so the finding loss was easy to miss. `a11y/deprecated-element`
+  traversed the same unguarded lookup without crashing — its `.obsolete === true` check happened to
+  read `undefined` off the `Object` function and land on a correct-by-accident `false`. `a11y/deprecated-aria`
+  and `a11y/disallowed-aria-props` shared the same unguarded lookup pattern in `roleCandidates`, and the
+  content-model checker and the attribute-name lookup each had one too — none of them crashed today, but
+  all were one field access away from it. All lookups by an author-controlled tag or attribute name now
+  check `Object.hasOwn` first, matching the existing convention this repo already uses elsewhere for
+  attacker-shaped keys.
+- aca531d: Landmark collection now resolves ARIA fallback role lists (`role="section main"`) the way user agents do — the first token naming a concrete role — instead of taking the first token unconditionally. A list whose first token is abstract or unrecognized (`role="section main"`) now resolves to `main` in both the source and rendered providers, matching browser behavior, so `a11y/duplicate-landmark` and `a11y/top-level-landmark` no longer miss or misreport landmarks introduced through such lists.
+- 4a77313: Strip C1 control characters (U+0080–U+009F) in `terminalSafe`.
+  
+  The function already removed ESC-form (`\x1b[`/`\x1b]`) OSC/CSI sequences and C0 control
+  bytes, but let C1 control bytes through untouched. C1 has single-codepoint equivalents for
+  CSI (U+009B), OSC (U+009D), and ST (U+009C) that legacy or some configured terminals
+  interpret the same as their two-byte ESC forms, so a repo path or route id containing one
+  of these bytes could still smuggle a terminal-title rewrite or cursor/screen control
+  sequence into a rendered report. `terminalSafe` now matches C1 CSI/OSC sequences (and OSC's
+  C1 ST terminator) alongside their ESC-form counterparts, and the final control-byte sweep
+  now also drops any other lone C1 byte.
+
 ## 0.50.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # svelte-vitals
 
+## 0.54.1
+
+### Patch Changes
+
+- b714e49: Fix a boolean flag's last-wins resolution to see every `--flag=<value>` spelling, not just bare `--flag` and `--flag=false`. Previously `--flag=true --flag=false` left the flag on instead of turning it off, because the surviving `--flag=true` token reached the parser unnoticed.
+- aca531d: Landmark collection now resolves ARIA fallback role lists (`role="section main"`) the way user agents do — the first token naming a concrete role — instead of taking the first token unconditionally. A list whose first token is abstract or unrecognized (`role="section main"`) now resolves to `main` in both the source and rendered providers, matching browser behavior, so `a11y/duplicate-landmark` and `a11y/top-level-landmark` no longer miss or misreport landmarks introduced through such lists.
+- 32e066b: Sanitize terminal escape sequences from analyzed-repo strings that reach the terminal outside the analyze report: every subcommand's stderr (`consoleIO.errorLog`), the `install` command's stdout/stderr and its `runCommand` failure messages, and the CLI's last-resort error path. The `analyze` command's own stdout is unchanged — its console reporter already sanitizes tainted substrings at interpolation points and still emits its own deliberate ANSI color codes.
+- Updated dependencies [bfba619]
+- Updated dependencies [7083231]
+- Updated dependencies [3acf640]
+- Updated dependencies [aca531d]
+- Updated dependencies [4a77313]
+  - @svelte-vitals/core@0.50.1
+
 ## 0.54.0
 
 ### Minor Changes
