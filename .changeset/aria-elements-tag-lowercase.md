@@ -6,8 +6,8 @@ Lowercase tag names in `collectAriaElements`.
 
 Svelte accepts a mixed-case regular element (`<dIv>`; a leading capital instead makes Svelte treat
 the tag as a component reference, so `<Div>` was never affected), but the collector recorded
-`node.name` verbatim while `collectElements` already normalized with `.toLowerCase()`. Every rule
-reading `ariaElements` was affected, but not uniformly: `a11y/invalid-role`,
+`node.name` verbatim while `collectElements` already normalized with `.toLowerCase()`. The rules
+reading `ariaElements` were affected unevenly: `a11y/invalid-role`,
 `a11y/unknown-aria-attribute`, and `a11y/invalid-aria-value` never key off `e.tag` and were unaffected.
 `a11y/disallowed-aria-props` and `a11y/deprecated-aria` look up `HTML_SPEC.elements` by tag through
 `roleCandidates`, so a mixed-case tag missed the lookup and silently dropped every finding for that
