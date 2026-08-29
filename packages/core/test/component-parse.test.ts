@@ -1315,6 +1315,20 @@ describe('parseComponentFacts — ariaElements (a11y ARIA rules)', () => {
     const c = parseComponentFacts('<input type="CHECKBOX" role="switch" />', 'C.svelte');
     expect(c.ariaElements![0]!.inputType).toBe('checkbox');
   });
+  it('lowercases a mixed-case tag, including for the input/select special-casing', () => {
+    // Svelte accepts `<dIv>`/`<inPUT>` as ordinary HTML elements; the tag must be normalized like
+    // attribute names are, or spec lookups keyed by lowercase tag (role-candidates) and the
+    // input/select branches below silently miss it.
+    expect(parseComponentFacts('<dIv aria-label="x"></dIv>', 'C.svelte').ariaElements![0]!.tag).toBe('div');
+    // A leading capital makes Svelte treat the tag as a component, not an element — the mixed case
+    // has to start lowercase, and a void element without a closing tag needs the `/>` form.
+    const input = parseComponentFacts('<inPUT aria-label="x" type="TEXT" />', 'C.svelte').ariaElements![0]!;
+    expect(input.tag).toBe('input');
+    expect(input.inputType).toBe('text');
+    const select = parseComponentFacts('<sElect multiple aria-label="x"></sElect>', 'C.svelte').ariaElements![0]!;
+    expect(select.tag).toBe('select');
+    expect(select.selectKind).toBe('listbox');
+  });
   it('marks hasSpread when the element carries a spread attribute, but still collects it', () => {
     const c = parseComponentFacts('<div role="checkbox" {...attrs}></div>', 'C.svelte');
     expect(c.ariaElements).toEqual([{ tag: 'div', line: 1, role: { literal: 'checkbox' }, hasSpread: true, aria: [] }]);

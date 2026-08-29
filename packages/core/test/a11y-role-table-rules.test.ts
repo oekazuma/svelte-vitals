@@ -79,6 +79,14 @@ describe('a11y/disallowed-aria-props', () => {
     expect(await disallowed('<label for="x" aria-label="close sidebar">x</label>')).toHaveLength(1);
   });
 
+  it('judges a mixed-case tag the same as its lowercase form', async () => {
+    // Svelte's AST keeps `<dIv>`'s source casing; the collector normalizes it so this HTML_SPEC
+    // lookup — keyed by lowercase tag — still finds the element instead of silently skipping it.
+    expect(await disallowed('<dIv aria-label="Breadcrumb">x</dIv>')).toEqual([
+      '`aria-label` is prohibited on <div> — its role does not take a name'
+    ]);
+  });
+
   it('reports an attribute the role does not own, with the role named', async () => {
     expect(await disallowed('<span aria-level="2">x</span>')).toEqual([
       '`aria-level` is not supported by role `generic`'

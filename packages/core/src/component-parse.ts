@@ -1230,12 +1230,16 @@ function collectAriaElements(node: Node, source: string, acc: AriaElementFact[])
       (a: Node) => a?.type === 'Attribute' && typeof a.name === 'string' && a.name.toLowerCase().startsWith('aria-')
     );
     if (roleAttr || ariaAttrs.length > 0) {
-      const inputType = node.name === 'input' ? attrText(node.attributes, 'type') : undefined;
-      const hasList = node.name === 'input' && findAttr(node.attributes, 'list') !== undefined;
-      const selectKind = node.name === 'select' ? selectNativeRole(node.attributes) : undefined;
+      // Tag names, like the attribute names above, keep their source spelling in the Svelte AST —
+      // normalize so spec lookups (HTML tag matching is case-insensitive) and the input/select
+      // special-casing don't silently miss a mixed-case tag like `<dIv>` or `<inPUT>`.
+      const tag = node.name.toLowerCase();
+      const inputType = tag === 'input' ? attrText(node.attributes, 'type') : undefined;
+      const hasList = tag === 'input' && findAttr(node.attributes, 'list') !== undefined;
+      const selectKind = tag === 'select' ? selectNativeRole(node.attributes) : undefined;
       const hasSpread = node.attributes.some((a: Node) => a?.type === 'SpreadAttribute');
       acc.push({
-        tag: node.name,
+        tag,
         line: lineOf(source, node.start),
         ...(roleAttr ? { role: classifyAttrValue(roleAttr.value) } : {}),
         ...(inputType !== undefined ? { inputType: inputType.toLowerCase() } : {}),
