@@ -16,7 +16,8 @@ import {
   decodeFragmentId,
   splitTokens,
   LANDMARK_ROLES,
-  IDREF_ATTRS
+  IDREF_ATTRS,
+  resolveRole
 } from '@svelte-vitals/core/internal';
 import { collectImports, type ImportMap } from './imports.js';
 
@@ -421,9 +422,9 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
     // are filtered out internally, so this widening cast is safe.
     const attrs = node.attributes as AST.Attribute[];
     const roleAttr = findAttr(attrs, 'role');
-    // ARIA fallback role lists (role="switch checkbox") resolve to the first supported token; a
-    // non-literal or non-landmark role suppresses the tag mapping rather than falling through to it.
-    const role = roleAttr ? splitTokens(attrTextOf(roleAttr))[0] : undefined;
+    // ARIA fallback role lists resolve to the first token naming a concrete role (resolveRole); a
+    // role attribute, resolved or not, suppresses the tag mapping rather than falling through to it.
+    const role = roleAttr ? resolveRole(splitTokens(attrTextOf(roleAttr))) : undefined;
     let landmark = roleAttr ? (role && LANDMARK_ROLES.has(role) ? role : undefined) : LANDMARK_TAGS.get(node.name);
     if (!roleAttr && node.name === 'aside') {
       landmark = ctx.asideDemoting === 0 || hasAccessibleName(attrs) ? 'complementary' : undefined;
