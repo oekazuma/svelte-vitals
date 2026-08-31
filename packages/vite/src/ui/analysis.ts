@@ -92,7 +92,7 @@ export function createAnalysisRunner(opts: AnalysisRunnerOptions): AnalysisRunne
     notifyChange(file: string) {
       if (stopped) return;
       // Invalidate only the changed file's cache entry — the ParseCache is keyed
-      // by project-root-relative POSIX path (as tinyglobby returns it), while the
+      // by project-root-relative POSIX path (as globFiles returns it), while the
       // watcher hands us an absolute, OS-separated path, so normalize to match.
       const rel = relative(opts.root, file).split(sep).join('/');
       parseCache.delete(rel);

@@ -1,6 +1,5 @@
 import { readFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
-import { glob } from 'tinyglobby';
 import {
   collectComponentFacts as collect,
   collectKitModuleFacts as collectKit,
@@ -11,6 +10,7 @@ import {
   withReadLimit,
   type Runtime
 } from '@svelte-vitals/core/internal';
+import { globFiles } from '../../glob.js';
 
 /**
  * Node-backed Runtime adapter (design §8). vite always runs in Node, so no
@@ -29,7 +29,7 @@ const nodeRuntime: Runtime = {
       return false;
     }
   },
-  glob: (pattern, cwd) => glob(pattern, { cwd, dot: false }),
+  glob: (pattern, cwd) => globFiles(pattern, cwd),
   join: (...parts) => join(...parts)
 };
 

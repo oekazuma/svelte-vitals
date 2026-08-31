@@ -1,7 +1,7 @@
 import { readFile, access } from 'node:fs/promises';
 import { join } from 'node:path';
-import { glob as tinyglob } from 'tinyglobby';
 import { withReadLimit, type Runtime } from '@svelte-vitals/core/internal';
+import { globFiles } from '../glob.js';
 
 /**
  * Node implementation of the core Runtime abstraction (design §8). This is the
@@ -23,7 +23,7 @@ export function createNodeRuntime(): Runtime {
       }
     },
     glob(pattern, cwd) {
-      return tinyglob(pattern, { cwd, dot: false });
+      return globFiles(pattern, cwd);
     },
     join(...parts) {
       return join(...parts);

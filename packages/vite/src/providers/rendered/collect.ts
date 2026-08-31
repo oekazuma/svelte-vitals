@@ -1,6 +1,5 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { glob } from 'tinyglobby';
 import type { Value } from '@svelte-vitals/core';
 import type {
   A11yOccurrenceInfo,
@@ -10,6 +9,7 @@ import type {
   ResolvedImages
 } from '@svelte-vitals/core/internal';
 import { parseHtmlHead } from './parse-html.js';
+import { globFiles } from '../../glob.js';
 
 /** Group raw occurrence keys (one entry per hit, in document order) by key, `file` attached, `line: 0` (rendered mode does not track source lines). */
 export function toOccurrenceMap(keys: string[], file: string): Record<string, A11yOccurrenceInfo[]> {
@@ -38,7 +38,7 @@ export interface CollectedHeads {
 
 /** Read every prerendered HTML page under `prerenderPagesDir` into ResolvedHead[]. */
 export async function collectRenderedHeads(prerenderPagesDir: string): Promise<CollectedHeads> {
-  const files = (await glob('**/*.html', { cwd: prerenderPagesDir })).sort();
+  const files = (await globFiles('**/*.html', prerenderPagesDir)).sort();
   // Read + parse in parallel; Promise.all preserves the sorted order so the
   // "first own <html lang>" pick below stays deterministic.
   const parsedFiles = await Promise.all(

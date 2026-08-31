@@ -111,7 +111,7 @@ describe('enumerateRoutePages — includes +page@ breakouts (#12)', () => {
     ]);
   });
 
-  it('ignores leading-dot directories, matching the real runtime glob (tinyglobby dot:false)', async () => {
+  it('ignores leading-dot directories, matching the real runtime glob (dot entries excluded)', async () => {
     const rt = createMemoryRuntime({
       'src/routes/+page.svelte': 'x',
       'src/routes/.well-known/+page.svelte': 'y'

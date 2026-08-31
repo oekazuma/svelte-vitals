@@ -12,10 +12,10 @@ import { fileURLToPath } from 'node:url';
  */
 const BUDGET = {
   '@svelte-vitals/core': { dir: 'packages/core', max: 21 },
-  'svelte-vitals': { dir: 'packages/cli', max: 43 },
+  'svelte-vitals': { dir: 'packages/cli', max: 40 },
   // svelte-vitals + @svelte-vitals/core are peerDependencies (one shared copy with the
   // user-installed CLI, issue #583), so their subtrees no longer count here.
-  '@svelte-vitals/vite': { dir: 'packages/vite', max: 15 }
+  '@svelte-vitals/vite': { dir: 'packages/vite', max: 12 }
 };
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');

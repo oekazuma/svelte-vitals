@@ -28,7 +28,7 @@ import {
 const ROUTES_DIR = 'src/routes';
 const MAX_DEPTH = 5;
 
-/** glob/tinyglobby returns POSIX-separated paths on every platform, so we split on '/'. */
+/** Runtime.glob returns POSIX-separated paths on every platform, so we split on '/'. */
 function isGroupSegment(segment: string): boolean {
   return /^\(.+\)$/.test(segment);
 }
