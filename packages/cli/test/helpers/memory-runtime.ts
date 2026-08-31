@@ -4,8 +4,8 @@ import type { Runtime } from '@svelte-vitals/core/internal';
 /**
  * In-memory Runtime for tests (design §8): lets the provider run with no real
  * files, proving the pipeline is runtime-agnostic. Paths are POSIX strings.
- * `matchesGlob` matches the real runtime glob's semantics (tinyglobby runs with
- * dot:false, so hidden dirs are skipped) including `{,.ts,.js}` brace expansion.
+ * `matchesGlob` matches the real runtime glob's semantics (node:fs glob never
+ * matches dot entries, so hidden dirs are skipped) including `{,.ts,.js}` brace expansion.
  */
 export function createMemoryRuntime(files: Record<string, string>): Runtime {
   const map = new Map(Object.entries(files));

@@ -1,14 +1,20 @@
-import { existsSync } from 'node:fs';
+import { existsSync, type Dirent } from 'node:fs';
 import { readFile } from 'node:fs/promises';
-import { join, dirname } from 'node:path';
-import { glob } from 'tinyglobby';
+import { join, dirname, relative, sep } from 'node:path';
+import { globFiles } from './glob.js';
 import { hasDep, parsePkg } from './pkg-json.js';
 
-const GLOB_OPTS = {
-  dot: false,
-  deep: 4,
-  ignore: ['**/node_modules/**', '**/.svelte-kit/**', '**/build/**', '**/dist/**', '**/.git/**']
-};
+const IGNORED_DIRS = new Set(['node_modules', '.svelte-kit', 'build', 'dist', '.git']);
+// Directory descent cap: matches stay ≤ 4 path segments deep so a huge repo stays fast.
+const MAX_DEPTH = 4;
+
+const pruneFor =
+  (cwd: string) =>
+  (entry: Dirent): boolean => {
+    if (!entry.isDirectory()) return false;
+    if (IGNORED_DIRS.has(entry.name)) return true;
+    return relative(cwd, join(entry.parentPath, entry.name)).split(sep).length >= MAX_DEPTH;
+  };
 
 /** True if `pkgJsonPath` declares `@sveltejs/kit` as a dependency. Missing or malformed package.json — not a candidate. */
 async function hasKitDependency(pkgJsonPath: string): Promise<boolean> {
@@ -30,9 +36,10 @@ async function hasKitDependency(pkgJsonPath: string): Promise<boolean> {
  * huge repo stays fast.
  */
 export async function discoverApps(cwd: string): Promise<string[]> {
+  const prune = pruneFor(cwd);
   const [configs, pkgJsons] = await Promise.all([
-    glob('**/svelte.config.{js,ts}', { cwd, ...GLOB_OPTS }),
-    glob('**/package.json', { cwd, ...GLOB_OPTS })
+    globFiles('**/svelte.config.{js,ts}', cwd, prune),
+    globFiles('**/package.json', cwd, prune)
   ]);
 
   const configDirs = configs.map(dirname);

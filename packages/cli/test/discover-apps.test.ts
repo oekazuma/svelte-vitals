@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -34,6 +34,21 @@ describe('discoverApps', () => {
     const cwd = await mkdtemp(join(tmpdir(), 'sv-discover-empty-'));
     try {
       expect(await discoverApps(cwd)).toEqual([]);
+    } finally {
+      await rm(cwd, { recursive: true, force: true });
+    }
+  });
+
+  it('finds apps up to 4 path segments deep and stops there (design doc depth cap)', async () => {
+    const cwd = await mkdtemp(join(tmpdir(), 'sv-discover-depth-'));
+    const plant = async (dir: string) => {
+      await mkdir(join(cwd, dir, 'src/routes'), { recursive: true });
+      await writeFile(join(cwd, dir, 'svelte.config.js'), 'export default {};\n');
+    };
+    try {
+      await plant('a/b/c'); // config at 4 segments — inside the cap
+      await plant('a/b/c/d'); // config at 5 segments — beyond it
+      expect(await discoverApps(cwd)).toEqual(['a/b/c']);
     } finally {
       await rm(cwd, { recursive: true, force: true });
     }
