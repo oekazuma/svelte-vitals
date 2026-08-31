@@ -70,7 +70,6 @@ export type { FailedRule } from './engine.js';
 // Star re-export: the rule registry is the single list. A hand-maintained copy here would be a
 // fourth place to register a rule that TypeScript cannot check.
 export * from './rules/index.js';
-export { headTagRule } from './rules/seo/head-tag-rule.js';
 
 export type { Classification } from './summary.js';
 export { summarize, classify, hasFailureAtOrAbove, effectiveSeverity } from './summary.js';

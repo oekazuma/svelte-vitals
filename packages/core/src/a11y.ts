@@ -136,7 +136,7 @@ export function splitTokens(value: string | undefined): string[] {
 }
 
 /** Explicit `role` values that map to the landmark kinds the route rules inspect. */
-export const LANDMARK_ROLES: ReadonlySet<string> = new Set(['main', 'banner', 'contentinfo', 'complementary']);
+const LANDMARK_ROLES: ReadonlySet<string> = new Set(['main', 'banner', 'contentinfo', 'complementary']);
 
 /** Sectioning content (HTML-AAM): a `<header>`/`<footer>` below one of these is not a landmark. */
 export const SECTIONING_TAGS: ReadonlySet<string> = new Set(['article', 'aside', 'main', 'nav', 'section']);
