@@ -13,7 +13,7 @@ import {
 import {
   skippedFileWarnings,
   allRules,
-  runRules,
+  runAnalysis,
   formatConsoleReport,
   formatJsonReport,
   formatAgentReport,
@@ -25,12 +25,8 @@ import {
   hasFailureAtOrAbove,
   computeHealth,
   selectRules,
-  applyRuleSeverities,
-  applyOverrides,
-  applyInlineDirectives,
   unknownDirectiveIds,
   settingSeverity,
-  withFailedRulesOff,
   formatFailedRuleWarning,
   terminalSafe
 } from '@svelte-vitals/core/internal';
@@ -347,33 +343,11 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
         `--rules ${starved.map((id) => `'${id}'`).join(', ')} examined nothing: --route analyzes routes only, and that rule reads component/config files — run without --route to check it.`
       );
   }
-  const {
-    results: rawResults,
-    examined,
-    failedRules
-  } = await runRules(rules, {
-    heads,
-    images,
-    headings,
-    a11y,
-    components,
-    project,
-    config,
-    kitModules,
-    sourceFiles
-  });
-  const results = applyInlineDirectives(
-    applyOverrides(applyRuleSeverities(rawResults, config), config),
-    directives,
+  const { results, examined, failedRules, failedRuleIds, scoringConfig } = await runAnalysis(
     rules,
-    config
+    { heads, images, headings, a11y, components, project, config, kitModules, sourceFiles },
+    directives
   );
-  // A failed rule examined nothing, so its weight must not stay in the Health denominator — else it
-  // would score as if it had run clean. Returned as the config this function hands back (not just a
-  // local copy) so every downstream consumer — CLI health/exit-code checks and the reporters, which
-  // each recompute Health from `config` — agrees on the same score.
-  const failedRuleIds = failedRules.map((f) => f.id);
-  const scoringConfig = withFailedRulesOff(config, failedRuleIds);
   return {
     results,
     config: scoringConfig,

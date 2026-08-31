@@ -37,7 +37,7 @@ export type {
   SuppressionDirective
 } from './component.js';
 export { parseComponentFacts, collectSuppressions } from './component-parse.js';
-export { applyInlineDirectives, unknownDirectiveIds, type DirectiveIndex } from './inline-directives.js';
+export { unknownDirectiveIds, type DirectiveIndex } from './inline-directives.js';
 export { skippedFileWarnings } from './component.js';
 export { collectComponentFacts } from './component-collect.js';
 export { collectSourceFiles } from './source-files.js';
@@ -64,7 +64,7 @@ export { withReadLimit } from './runtime.js';
 export type { Rule, RuleContext } from './rule.js';
 export { isPenalized, docsUrlFor } from './rule.js';
 
-export { runRules } from './engine.js';
+export { runRules, runAnalysis } from './engine.js';
 export type { FailedRule } from './engine.js';
 
 // Star re-export: the rule registry is the single list. A hand-maintained copy here would be a
@@ -96,8 +96,6 @@ export type { AppSnapshot, RouteBadge } from './reporter/app-shell.js';
 
 export {
   selectRules,
-  applyRuleSeverities,
-  applyOverrides,
   compileOverrides,
   settingSeverity,
   withFailedRulesOff,

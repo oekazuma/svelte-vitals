@@ -2,12 +2,8 @@ import { defineConfig, type Config, type Result, type Summary, type Severity } f
 import {
   allRules,
   selectRules,
-  applyRuleSeverities,
-  applyOverrides,
-  applyInlineDirectives,
   unknownDirectiveIds,
-  runRules,
-  withFailedRulesOff,
+  runAnalysis,
   formatFailedRuleWarning,
   skippedFileWarnings,
   computeScore,
@@ -109,21 +105,6 @@ export async function analyze(
       'a11y/unverified-id-ref has no effect in rendered mode — the prerendered document is always fully resolved.'
     );
   }
-  const {
-    results: rawResults,
-    examined,
-    failedRules
-  } = await runRules(selected, {
-    heads,
-    headings,
-    images,
-    a11y,
-    project,
-    components,
-    config,
-    kitModules,
-    sourceFiles
-  });
   // Rendered-mode route findings anchor to the prerendered HTML with `line: 0`, so directives reach
   // only what has a source line here: the component and Kit-module findings, plus
   // performance/minify-disabled in the Vite config. The pass runs all the same, so a rule gaining a
@@ -133,11 +114,10 @@ export async function analyze(
   for (const m of kitModules) directives.set(m.file, m.suppressions ?? []);
   if (project.viteMinifyDisabled?.file)
     directives.set(project.viteMinifyDisabled.file, project.viteMinifyDisabled.suppressions ?? []);
-  const results = applyInlineDirectives(
-    applyOverrides(applyRuleSeverities(rawResults, config), config),
-    directives,
+  const { results, examined, failedRules, scoringConfig } = await runAnalysis(
     selected,
-    config
+    { heads, headings, images, a11y, project, components, config, kitModules, sourceFiles },
+    directives
   );
   // Surfaced through the same `warnings` channel as config-file issues (plugin.ts logs each with
   // `console.warn`). A file the collectors could not read or parse contributes empty facts, so its
@@ -146,13 +126,6 @@ export async function analyze(
   warnings.push(...skippedFileWarnings([...components, ...kitModules]));
   warnings.push(...unknownDirectiveIds(directives, allRules));
   for (const f of failedRules) warnings.push(formatFailedRuleWarning(f));
-  // A failed rule examined nothing, so its weight must not stay in the Health denominator — same
-  // correction the CLI's `analyzeProject` applies, used by every downstream consumer here so the
-  // score, reports, and fail decision agree.
-  const scoringConfig = withFailedRulesOff(
-    config,
-    failedRules.map((f) => f.id)
-  );
 
   const { score } = computeScore(results, scoringConfig);
   const summary = summarize(results, scoringConfig);

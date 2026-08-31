@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
-import { architectureUnitEntryFile, applyOverrides, computeScore, summarize } from '../src/internal.js';
+import { architectureUnitEntryFile, computeScore, summarize } from '../src/internal.js';
+import { applyOverrides } from '../src/config-apply.js';
 import { runRules } from '../src/engine.js';
 import { defineConfig, defaultProject, type Config } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';

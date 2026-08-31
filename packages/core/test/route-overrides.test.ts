@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { defineConfig, type Result } from '../src/index.js';
-import { applyOverrides } from '../src/internal.js';
+import { applyOverrides } from '../src/config-apply.js';
 
 function finding(overrides: Partial<Result> = {}): Result {
   return {

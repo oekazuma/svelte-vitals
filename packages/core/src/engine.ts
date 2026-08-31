@@ -1,5 +1,7 @@
-import type { Result } from './types.js';
+import type { Config, Result } from './types.js';
 import type { Rule, RuleContext } from './rule.js';
+import { applyRuleSeverities, applyOverrides, withFailedRulesOff } from './config-apply.js';
+import { applyInlineDirectives, type DirectiveIndex } from './inline-directives.js';
 
 export interface FailedRule {
   id: string;
@@ -38,4 +40,40 @@ export async function runRules(
     else failedRules.push(outcome);
   }
   return { results, examined, failedRules };
+}
+
+/**
+ * Run rules and apply the correction sequence every pipeline owes its results: configured
+ * severities, overrides, inline directives, then the failed-rule weight correction — a failed
+ * rule examined nothing, so its weight must not stay in the Health denominator, and every
+ * downstream consumer must score against the returned `scoringConfig` so they agree.
+ * A caller with no directive sources passes an empty index; the correction passes are identity
+ * then, which is the explicit form of skipping them.
+ */
+export async function runAnalysis(
+  rules: Rule[],
+  ctx: RuleContext,
+  directives: DirectiveIndex
+): Promise<{
+  results: Result[];
+  examined: Record<string, Record<string, number>>;
+  failedRules: FailedRule[];
+  failedRuleIds: string[];
+  scoringConfig: Config;
+}> {
+  const { results: raw, examined, failedRules } = await runRules(rules, ctx);
+  const results = applyInlineDirectives(
+    applyOverrides(applyRuleSeverities(raw, ctx.config), ctx.config),
+    directives,
+    rules,
+    ctx.config
+  );
+  const failedRuleIds = failedRules.map((f) => f.id);
+  return {
+    results,
+    examined,
+    failedRules,
+    failedRuleIds,
+    scoringConfig: withFailedRulesOff(ctx.config, failedRuleIds)
+  };
 }
