@@ -63,7 +63,7 @@ export {
 } from './svelte-ast.js';
 export { ROBOTS_SOURCE_PATHS, SITEMAP_SOURCE_PATHS, VITE_CONFIG_FILES, SVELTE_CONFIG_FILES } from './project-paths.js';
 export type { Runtime } from './runtime.js';
-export { withReadLimit, READ_CONCURRENCY } from './runtime.js';
+export { withReadLimit } from './runtime.js';
 export type { Rule, RuleContext } from './rule.js';
 export { isPenalized, docsUrlFor } from './rule.js';
 
@@ -96,10 +96,8 @@ export {
   escapeHtml,
   safeHref,
   scoreBand,
-  BAND_COLOR,
   renderAppShell,
-  APP_SCRIPT,
-  APP_STYLE
+  APP_SCRIPT
 } from './reporter/app-shell.js';
 export type { AppSnapshot, RouteBadge } from './reporter/app-shell.js';
 
@@ -110,7 +108,6 @@ export {
   compileOverrides,
   overrideMatches,
   settingSeverity,
-  settingOptions,
   withFailedRulesOff,
   formatFailedRuleWarning
 } from './config-apply.js';
