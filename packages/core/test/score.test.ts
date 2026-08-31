@@ -1,10 +1,10 @@
 // Scores are floored, not rounded (2026-07-31): a displayed 100 means the deduction was exactly zero.
 import { describe, it, expect } from 'vitest';
 import { defineConfig, type Result } from '../src/index.js';
-import { computeScore, scoresByCategory, withFailedRulesOff } from '../src/internal.js';
+import { computeScore, withFailedRulesOff } from '../src/internal.js';
 import type { Rule } from '../src/rule.js';
 import { buildInventory, DEDUCTION } from '../src/scoring/inventory.js';
-import { INVENTORY_FLOOR } from '../src/scoring/score.js';
+import { INVENTORY_FLOOR, scoresByCategory } from '../src/scoring/score.js';
 
 const pass = (id: string, route: string): Result => ({
   id,

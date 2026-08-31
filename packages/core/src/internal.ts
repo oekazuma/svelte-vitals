@@ -10,7 +10,7 @@
 export type { Project, KitAlias, Scope } from './types.js';
 export { defaultConfig, defaultProject } from './types.js';
 
-export type { HeadTag, ResolvedHead, HeadProvider } from './head.js';
+export type { HeadTag, ResolvedHead } from './head.js';
 export { isClassicScriptType } from './head.js';
 export type { ImageInfo, ResolvedImages } from './images.js';
 export type { HeadingInfo, ResolvedHeadings } from './headings.js';
@@ -21,7 +21,6 @@ export {
   splitTokens,
   isTopFragment,
   stripTextDirective,
-  LANDMARK_ROLES,
   SECTIONING_TAGS,
   ASIDE_DEMOTING_TAGS,
   ANCESTRY_DEPENDENT_TAGS,
@@ -29,7 +28,6 @@ export {
   resolveLandmark,
   IDREF_ATTRS
 } from './a11y.js';
-export { resolveRole } from './rules/a11y/aria-data.js';
 export type {
   EachBlockFact,
   EffectFact,
@@ -41,20 +39,13 @@ export type {
 export { parseComponentFacts, collectSuppressions } from './component-parse.js';
 export { applyInlineDirectives, unknownDirectiveIds, type DirectiveIndex } from './inline-directives.js';
 export { skippedFileWarnings } from './component.js';
-export { collectComponentFacts, emptyComponentFacts } from './component-collect.js';
+export { collectComponentFacts } from './component-collect.js';
 export { collectSourceFiles } from './source-files.js';
 export type { KitModuleFacts } from './kit-module.js';
-export { parseKitModuleFacts, resolveRunesModuleSpecifier, resolveRepoLocalPath } from './kit-module-parse.js';
-export { collectKitModuleFacts, emptyKitModuleFacts } from './kit-module-collect.js';
+export { resolveRepoLocalPath } from './kit-module-parse.js';
+export { collectKitModuleFacts } from './kit-module-collect.js';
 export { findMinifyDisabled } from './vite-config-parse.js';
-export {
-  findKitPathsBaseInSvelteConfig,
-  findKitPathsBaseInViteConfig,
-  resolveKitPathsBase,
-  findKitAliasesInSvelteConfig,
-  resolveKitAliases
-} from './svelte-config-parse.js';
-export type { ViteKitConfigResult, RawKitAliases } from './svelte-config-parse.js';
+export { resolveKitPathsBase, resolveKitAliases } from './svelte-config-parse.js';
 export {
   CHILD_NODE_KEYS,
   lineOf,
@@ -80,8 +71,6 @@ export type { FailedRule } from './engine.js';
 // fourth place to register a rule that TypeScript cannot check.
 export * from './rules/index.js';
 export { headTagRule } from './rules/seo/head-tag-rule.js';
-export { imageRule } from './rules/perf/image-rule.js';
-export { linkRule } from './rules/perf/link-rule.js';
 
 export type { Classification } from './summary.js';
 export { summarize, classify, hasFailureAtOrAbove, effectiveSeverity } from './summary.js';
@@ -101,7 +90,6 @@ export {
   formatHtmlReport,
   escapeHtml,
   safeHref,
-  scoreBand,
   renderAppShell,
   APP_SCRIPT
 } from './reporter/app-shell.js';
@@ -112,24 +100,14 @@ export {
   applyRuleSeverities,
   applyOverrides,
   compileOverrides,
-  overrideMatches,
   settingSeverity,
   withFailedRulesOff,
   formatFailedRuleWarning
 } from './config-apply.js';
 export type { CompiledOverride } from './config-apply.js';
 
-export {
-  isMentionedAnywhere,
-  resolveRuleOptions,
-  validateRuleOptions,
-  validateRuleSetting,
-  shouldSkipRangeCheck,
-  intOption,
-  listOption,
-  mapOption
-} from './rule-options.js';
+export { resolveRuleOptions, validateRuleSetting, shouldSkipRangeCheck } from './rule-options.js';
 export type { RuleOptionSpec, RuleOptionsSpec } from './rule-options.js';
 
 export type { ScoreResult, ScoreOptions, HealthResult } from './scoring/score.js';
-export { computeScore, scoresByCategory, computeHealth } from './scoring/score.js';
+export { computeScore, computeHealth } from './scoring/score.js';

@@ -5,11 +5,11 @@ import {
   applyRuleSeverities,
   applyOverrides,
   compileOverrides,
-  overrideMatches,
   withFailedRulesOff,
   formatFailedRuleWarning,
   type Rule
 } from '../src/internal.js';
+import { overrideMatches } from '../src/config-apply.js';
 
 const ruleA = {
   id: 'seo/title-presence',

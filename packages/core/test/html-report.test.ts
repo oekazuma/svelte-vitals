@@ -1,13 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { defineConfig } from '../src/index.js';
-import {
-  buildHtmlDocument,
-  formatHtmlReport,
-  renderAppShell,
-  escapeHtml,
-  safeHref,
-  scoreBand
-} from '../src/internal.js';
+import { buildHtmlDocument, formatHtmlReport, renderAppShell, escapeHtml, safeHref } from '../src/internal.js';
+import { scoreBand } from '../src/reporter/app-shell.js';
 import type { Result } from '../src/index.js';
 import type { AppSnapshot } from '../src/internal.js';
 import type { JsonReport } from '../src/reporter/json.js';
