@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { correctnessBasePathNavigation } from '../src/rules/correctness/base-path-navigation.js';
-import { emptyComponentFacts } from '../src/component-collect.js';
+import { emptyComponentFacts } from '../src/component.js';
 import { emptyKitModuleFacts } from '../src/kit-module-collect.js';
 import { defaultProject, defineConfig } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';

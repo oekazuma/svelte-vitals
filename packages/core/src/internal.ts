@@ -36,10 +36,11 @@ export type {
   ComponentFacts,
   SuppressionDirective
 } from './component.js';
-export { parseComponentFacts, collectSuppressions } from './component-parse.js';
+export { parseComponentFacts } from './component-parse.js';
+export { collectSuppressions } from './module-ast.js';
 export { unknownDirectiveIds, addFactsDirectives, type DirectiveIndex } from './inline-directives.js';
 export { skippedFileWarnings } from './component.js';
-export { collectComponentFacts } from './component-collect.js';
+export { collectComponentFacts } from './component.js';
 export { collectSourceFiles } from './source-files.js';
 export type { KitModuleFacts } from './kit-module.js';
 export { resolveRepoLocalPath } from './kit-module-parse.js';

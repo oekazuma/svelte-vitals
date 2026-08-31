@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { a11yPositiveTabindex } from '../src/rules/a11y/positive-tabindex.js';
 import { parseComponentFacts } from '../src/component-parse.js';
-import { emptyComponentFacts } from '../src/component-collect.js';
+import { emptyComponentFacts } from '../src/component.js';
 import { defaultProject, defineConfig } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 import type { ComponentFacts } from '../src/component.js';

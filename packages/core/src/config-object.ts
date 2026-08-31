@@ -4,7 +4,7 @@
  * already-parsed ESTree program.
  */
 import type { Expression, ObjectExpression, Program, Property } from 'estree';
-import { unwrapTs, type TsExpression } from './component-parse.js';
+import { unwrapTs, type TsExpression } from './module-ast.js';
 import { collectTopLevelBindings } from './kit-module-parse.js';
 
 /**

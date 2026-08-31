@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { architectureRouteComponentImport } from '../src/internal.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import { parseComponentFacts } from '../src/component-parse.js';
-import { emptyComponentFacts } from '../src/component-collect.js';
+import { emptyComponentFacts } from '../src/component.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';
 import type { Result } from '../src/types.js';

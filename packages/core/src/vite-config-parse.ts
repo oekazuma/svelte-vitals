@@ -9,7 +9,7 @@
  * passed as `defineConfig`'s argument) and CJS (`module.exports = {…}`) forms.
  */
 import type { Expression, Program, Property } from 'estree';
-import { parseModuleProgram, unwrapTs } from './component-parse.js';
+import { parseModuleProgram, unwrapTs } from './module-ast.js';
 import { propOf, resolveConfigObject } from './config-object.js';
 import { lineOf } from './svelte-ast.js';
 

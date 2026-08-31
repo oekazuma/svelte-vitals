@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { correctnessCheckableBindValue } from '../src/rules/correctness/checkable-bind-value.js';
-import { emptyComponentFacts } from '../src/component-collect.js';
+import { emptyComponentFacts } from '../src/component.js';
 import { defaultProject, defineConfig } from '../src/types.js';
 import type { RuleContext } from '../src/rule.js';
 import type { ComponentFacts } from '../src/component.js';
