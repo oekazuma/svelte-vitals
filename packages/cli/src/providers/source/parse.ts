@@ -15,9 +15,10 @@ import {
   attrValueOf,
   decodeFragmentId,
   splitTokens,
-  LANDMARK_ROLES,
-  IDREF_ATTRS,
-  resolveRole
+  isClassicScriptType,
+  resolveLandmark,
+  ASIDE_DEMOTING_TAGS,
+  IDREF_ATTRS
 } from '@svelte-vitals/core/internal';
 import { collectImports, type ImportMap } from './imports.js';
 
@@ -48,35 +49,6 @@ function collectSvelteHeads(node: WalkNode | WalkNode[] | null | undefined, acc:
   for (const key of CHILD_NODE_KEYS) {
     if (key in node) collectSvelteHeads(childOf(node, key), acc);
   }
-}
-
-// HTML spec: a <script> executes as a "classic script" only when its `type` is absent, empty,
-// or a JavaScript MIME type (mimesniff's JAVASCRIPT_MIME_TYPES). Anything else — module,
-// importmap, speculationrules, a third-party runtime like text/partytown, … — never runs as a
-// blocking classic script (performance/render-blocking-script).
-const JS_MIME_TYPES = new Set([
-  'application/ecmascript',
-  'application/javascript',
-  'application/x-ecmascript',
-  'application/x-javascript',
-  'text/ecmascript',
-  'text/javascript',
-  'text/javascript1.0',
-  'text/javascript1.1',
-  'text/javascript1.2',
-  'text/javascript1.3',
-  'text/javascript1.4',
-  'text/javascript1.5',
-  'text/jscript',
-  'text/livescript',
-  'text/x-ecmascript',
-  'text/x-javascript'
-]);
-
-function isClassicScriptType(type: string | undefined): boolean {
-  if (type === undefined) return true;
-  const normalized = type.trim().toLowerCase();
-  return normalized === '' || JS_MIME_TYPES.has(normalized);
 }
 
 function tagsFromHead(head: AST.SvelteHead): ParsedTag[] {
@@ -280,20 +252,6 @@ export interface ParsedA11y {
   elementsUnknowable: boolean;
 }
 
-const LANDMARK_TAGS = new Map([
-  ['main', 'main'],
-  ['header', 'banner'],
-  ['footer', 'contentinfo']
-]);
-
-/**
- * HTML-AAM: an `<aside>` scoped to `body` or `main` is a `complementary` landmark; scoped to
- * sectioning content it is one only when it has an accessible name. `main` is deliberately absent
- * — it is a scope in which an `aside` *is* a landmark, unlike the sectioning set that decides
- * `<header>`/`<footer>`.
- */
-const ASIDE_DEMOTING_TAGS = new Set(['article', 'aside', 'nav', 'section']);
-
 /** An `aria-label`/`aria-labelledby` carrying a name: a non-blank literal, or an expression whose
  *  rendered value is unknowable. An empty or whitespace-only literal names nothing. */
 function hasAccessibleName(attrs: AST.Attribute[]): boolean {
@@ -422,13 +380,15 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
     // are filtered out internally, so this widening cast is safe.
     const attrs = node.attributes as AST.Attribute[];
     const roleAttr = findAttr(attrs, 'role');
-    // ARIA fallback role lists resolve to the first token naming a concrete role (resolveRole); a
-    // role attribute, resolved or not, suppresses the tag mapping rather than falling through to it.
-    const role = roleAttr ? resolveRole(splitTokens(attrTextOf(roleAttr))) : undefined;
-    let landmark = roleAttr ? (role && LANDMARK_ROLES.has(role) ? role : undefined) : LANDMARK_TAGS.get(node.name);
-    if (!roleAttr && node.name === 'aside') {
-      landmark = ctx.asideDemoting === 0 || hasAccessibleName(attrs) ? 'complementary' : undefined;
-    }
+    // A per-file walk cannot see cross-file sectioning ancestry, so insideSectioning stays false;
+    // countsAsLandmark (routes.ts) applies the topLevel approximation at composition instead.
+    const landmark = resolveLandmark({
+      tag: node.name,
+      roleTokens: roleAttr ? splitTokens(attrTextOf(roleAttr)) : undefined,
+      named: hasAccessibleName(attrs),
+      insideSectioning: false,
+      insideAsideDemoting: ctx.asideDemoting > 0
+    });
     if (landmark) {
       // Only `<header>`/`<footer>` carry the per-file top-level approximation: their landmark-ness
       // depends on sectioning ancestry the composition cannot see. `<main>` and `<aside>` are

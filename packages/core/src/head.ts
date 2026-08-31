@@ -62,3 +62,33 @@ export interface HeadProvider {
   mode: 'static' | 'rendered';
   collect(rt: Runtime, cwd: string, config?: Config): Promise<ResolvedHead[]>;
 }
+
+// HTML spec: a <script> executes as a "classic script" only when its `type` is absent, empty,
+// or a JavaScript MIME type (mimesniff's JAVASCRIPT_MIME_TYPES). Anything else — module,
+// importmap, speculationrules, a third-party runtime like text/partytown, … — never runs as a
+// blocking classic script (performance/render-blocking-script).
+const JS_MIME_TYPES = new Set([
+  'application/ecmascript',
+  'application/javascript',
+  'application/x-ecmascript',
+  'application/x-javascript',
+  'text/ecmascript',
+  'text/javascript',
+  'text/javascript1.0',
+  'text/javascript1.1',
+  'text/javascript1.2',
+  'text/javascript1.3',
+  'text/javascript1.4',
+  'text/javascript1.5',
+  'text/jscript',
+  'text/livescript',
+  'text/x-ecmascript',
+  'text/x-javascript'
+]);
+
+/** Whether a `type` attribute (undefined = absent) makes a `<script>` a classic, render-blocking-capable script. */
+export function isClassicScriptType(type: string | undefined): boolean {
+  if (type === undefined) return true;
+  const normalized = type.trim().toLowerCase();
+  return normalized === '' || JS_MIME_TYPES.has(normalized);
+}

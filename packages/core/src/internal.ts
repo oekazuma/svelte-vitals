@@ -11,9 +11,10 @@ export type { Project, KitAlias, Scope } from './types.js';
 export { defaultConfig, defaultProject } from './types.js';
 
 export type { HeadTag, ResolvedHead, HeadProvider } from './head.js';
+export { isClassicScriptType } from './head.js';
 export type { ImageInfo, ResolvedImages } from './images.js';
 export type { HeadingInfo, ResolvedHeadings } from './headings.js';
-export type { BranchStep, A11yOccurrenceInfo, ResolvedA11y, A11ySkipCause } from './a11y.js';
+export type { BranchStep, A11yOccurrenceInfo, ResolvedA11y, A11ySkipCause, LandmarkInput } from './a11y.js';
 export {
   foldOccurrences,
   decodeFragmentId,
@@ -21,6 +22,9 @@ export {
   isTopFragment,
   stripTextDirective,
   LANDMARK_ROLES,
+  SECTIONING_TAGS,
+  ASIDE_DEMOTING_TAGS,
+  resolveLandmark,
   IDREF_ATTRS
 } from './a11y.js';
 export { resolveRole } from './rules/a11y/aria-data.js';

@@ -1,3 +1,5 @@
+import { resolveRole } from './rules/a11y/aria-data.js';
+
 /** One step of a template branch address: which exclusive block, and which arm of it. */
 export interface BranchStep {
   /** index of the {#if}/{#await} block among its file's blocks (document order) */
@@ -135,6 +137,54 @@ export function splitTokens(value: string | undefined): string[] {
 
 /** Explicit `role` values that map to the landmark kinds the route rules inspect. */
 export const LANDMARK_ROLES: ReadonlySet<string> = new Set(['main', 'banner', 'contentinfo', 'complementary']);
+
+/** Sectioning content (HTML-AAM): a `<header>`/`<footer>` below one of these is not a landmark. */
+export const SECTIONING_TAGS: ReadonlySet<string> = new Set(['article', 'aside', 'main', 'nav', 'section']);
+
+/**
+ * HTML-AAM: an `<aside>` scoped to `body` or `main` is a `complementary` landmark; scoped to
+ * sectioning content it is one only when it has an accessible name. `main` is deliberately absent
+ * — it is a scope in which an `aside` *is* a landmark, unlike the sectioning set that decides
+ * `<header>`/`<footer>`.
+ */
+export const ASIDE_DEMOTING_TAGS: ReadonlySet<string> = new Set(['article', 'aside', 'nav', 'section']);
+
+export interface LandmarkInput {
+  /** Element tag name, as the provider matches it (rendered HTML lowercases; the AST walk passes the literal name). */
+  tag: string | undefined;
+  /**
+   * Whitespace tokens of the `role` attribute, or `undefined` when the attribute is absent. The
+   * distinction is load-bearing: a present attribute — even one resolving to no concrete role
+   * (empty, dynamic, unknown tokens) — suppresses the tag mapping instead of falling through to it.
+   */
+  roleTokens: readonly string[] | undefined;
+  /** Has an accessible name (`aria-label`/`aria-labelledby`); each provider decides what its dynamic values mean. */
+  named: boolean;
+  /** An ancestor is sectioning content. A provider that cannot see ancestry passes false and defers the demotion (topLevel approximation). */
+  insideSectioning: boolean;
+  /** An ancestor is in ASIDE_DEMOTING_TAGS — an `<aside>` below one needs a name to stay a landmark. */
+  insideAsideDemoting: boolean;
+}
+
+/**
+ * The landmark kind an element contributes ('main'|'banner'|'contentinfo'|'complementary'), or
+ * undefined. The one home for the decision both providers apply — the source AST walk and the
+ * rendered HTML walk each feed it their own tree's context. ARIA fallback role lists resolve to
+ * the first token naming a concrete role (resolveRole).
+ */
+export function resolveLandmark(input: LandmarkInput): string | undefined {
+  const { tag, roleTokens, named, insideSectioning, insideAsideDemoting } = input;
+  if (roleTokens !== undefined) {
+    const role = resolveRole(roleTokens);
+    return role && LANDMARK_ROLES.has(role) ? role : undefined;
+  }
+  if (tag === 'main') return 'main';
+  if (tag === 'header' || tag === 'footer') {
+    return insideSectioning ? undefined : tag === 'header' ? 'banner' : 'contentinfo';
+  }
+  if (tag === 'aside') return !insideAsideDemoting || named ? 'complementary' : undefined;
+  return undefined;
+}
 
 /**
  * Attributes whose (whitespace-tokenized) values reference element ids: the ARIA id-reference and
