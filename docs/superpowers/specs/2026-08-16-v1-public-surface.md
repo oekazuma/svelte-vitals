@@ -175,6 +175,18 @@ internal.
 
 ## Internal (moves to `./internal`, no promise)
 
+> **Partly superseded 2026-09-01.** The listing below is the surface at this spec's freeze, not a
+> membership contract: `./internal` holds exactly what cli/vite (or their tests) consume, and names
+> whose last consumer disappears are pruned. The 2026-09-01 sweeps removed, among others,
+> `emptyComponentFacts`, the `parseKitModuleFacts`/`resolveRunesModuleSpecifier` pair,
+> `LANDMARK_ROLES`, `resolveRole`, the three rule factories, `scoreBand`,
+> `applyRuleSeverities`/`applyOverrides`/`applyInlineDirectives` (absorbed by `runAnalysis`), and
+> the option-spec helpers — and `scoreBand`'s rationale below was already false (the app shell
+> inlines its own copy). Added since the freeze: `isClassicScriptType`, `resolveLandmark` with its
+> tag/name sets, `runAnalysis`, and `addFactsDirectives`. Removals ship as core minors so an
+> installed plugin built against the old surface is rejected at install time (see the 2026-08-25
+> peer-deps design). The list below stands as the freeze-time record.
+
 Everything else in today's index, without exception. Named here only where a reader would expect a
 different answer:
 

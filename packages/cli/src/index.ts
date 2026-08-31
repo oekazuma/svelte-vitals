@@ -214,7 +214,7 @@ export interface AnalyzeResult {
   examined: Record<string, Record<string, number>>;
   /** Routes a closed-world rule skipped, keyed by rule id — the analysis-side companion to `examined`; unfiltered by `--diff`/`--baseline`/suppressions. Absent when no analyzed route was skipped or the rule was not selected. */
   skipped?: JsonReport['skipped'];
-  /** Ids of rules `runRules` caught throwing — already folded into `config` via `withFailedRulesOff`; exposed separately so a caller with its own base config (the vite dev dashboard) can apply the same correction without adopting this call's `config`. */
+  /** Ids of rules `runAnalysis` caught throwing — already folded into `config` via `withFailedRulesOff`; exposed separately so a caller with its own base config (the vite dev dashboard) can apply the same correction without adopting this call's `config`. */
   failedRuleIds: string[];
   /** Non-fatal issues surfaced during analysis: config-file problems (unknown top-level keys, invalid enum values), version-floor notices, `--rules`/overrides conflicts, closed-world skip notices (`a11y/no-missing-id-ref`), and skipped-file notices. Empty when none apply. */
   warnings: string[];
@@ -266,7 +266,7 @@ function overridesOffWarnings(allowRules: string[] | undefined, overrides: RuleO
 }
 
 /**
- * Warn about rules `runRules` caught throwing (dev tooling must never throw): the run completes
+ * Warn about rules `runAnalysis` caught throwing (dev tooling must never throw): the run completes
  * without them, so any findings they would have produced are simply missing rather than reported
  * as clean. Message capped to its first line so a multi-line stack trace can't flood the terminal.
  */

@@ -47,8 +47,8 @@ export async function runRules(
  * severities, overrides, inline directives, then the failed-rule weight correction — a failed
  * rule examined nothing, so its weight must not stay in the Health denominator, and every
  * downstream consumer must score against the returned `scoringConfig` so they agree.
- * A caller with no directive sources passes an empty index; the correction passes are identity
- * then, which is the explicit form of skipping them.
+ * A caller with no directive sources passes an empty index, which makes the directive pass
+ * identity; the severity and override passes are config-governed and run regardless.
  */
 export async function runAnalysis(
   rules: Rule[],

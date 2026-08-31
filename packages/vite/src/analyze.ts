@@ -3,6 +3,7 @@ import {
   allRules,
   selectRules,
   unknownDirectiveIds,
+  addFactsDirectives,
   runAnalysis,
   formatFailedRuleWarning,
   skippedFileWarnings,
@@ -110,10 +111,7 @@ export async function analyze(
   // performance/minify-disabled in the Vite config. The pass runs all the same, so a rule gaining a
   // line-anchored finding is covered in both pipelines without a second wiring step.
   const directives = new Map<string, readonly SuppressionDirective[]>();
-  for (const c of components) directives.set(c.file, c.suppressions ?? []);
-  for (const m of kitModules) directives.set(m.file, m.suppressions ?? []);
-  if (project.viteMinifyDisabled?.file)
-    directives.set(project.viteMinifyDisabled.file, project.viteMinifyDisabled.suppressions ?? []);
+  addFactsDirectives(directives, { components, kitModules, viteMinifyDisabled: project.viteMinifyDisabled });
   const { results, examined, failedRules, scoringConfig } = await runAnalysis(
     selected,
     { heads, headings, images, a11y, project, components, config, kitModules, sourceFiles },

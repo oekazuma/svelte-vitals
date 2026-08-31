@@ -46,6 +46,14 @@ describe('runAnalysis', () => {
     expect(results).toEqual([finding]);
   });
 
+  it('an empty directive index leaves a penalized finding untouched too', async () => {
+    // The dev handle relies on this branch: penalized findings take the directive-lookup path.
+    const penalized: Result = { ...finding, detection: { presence: 'none', value: 'absent' } };
+    const failingRule: Rule = { ...okRule, check: async () => [penalized] };
+    const { results } = await runAnalysis([failingRule], ctxFor(), new Map());
+    expect(results).toEqual([penalized]);
+  });
+
   it('turns a crashed rule off in the returned scoring config', async () => {
     const { results, failedRules, failedRuleIds, scoringConfig } = await runAnalysis(
       [okRule, crashingRule],

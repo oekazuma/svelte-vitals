@@ -1,5 +1,6 @@
 import { type Config } from '@svelte-vitals/core';
 import {
+  addFactsDirectives,
   collectComponentFacts,
   collectKitModuleFacts,
   collectSourceFiles,
@@ -106,10 +107,7 @@ export async function collectAll(
   }
   // The union is what makes `--route` behave like a full run: the two branches above leave these
   // empty, and a component the composition never reached is only in this half.
-  for (const c of components) directives.set(c.file, c.suppressions ?? []);
-  for (const m of kitModules) directives.set(m.file, m.suppressions ?? []);
-  const viteConfig = project.viteMinifyDisabled;
-  if (viteConfig?.file) directives.set(viteConfig.file, viteConfig.suppressions ?? []);
+  addFactsDirectives(directives, { components, kitModules, viteMinifyDisabled: project.viteMinifyDisabled });
 
   const routes = collected.heads.map((h) => h.route);
   const emptySelections: string[] = [];
