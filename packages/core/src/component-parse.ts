@@ -1,5 +1,8 @@
 import type { Expression } from 'estree';
 import type { AST } from 'svelte/compiler';
+// component.js value-imports parseComponentFacts from this module, so every import back into it
+// must stay type-only — a value back-edge closes an ESM cycle that evaluates component.js
+// mid-initialization and lands parseComponentFacts in TDZ.
 import type {
   AriaElementFact,
   ElementFact,
@@ -58,12 +61,10 @@ import {
   unwrapTs,
   walkEstree,
   walkEvalScope,
+  walkScoped,
   WALK_IGNORED_KEYS,
   type TsExpression
 } from './module-ast.js';
-
-/** Boundary set for walkScoped: enter every node. */
-const NO_BOUNDARIES: Set<string> = new Set();
 
 // The Svelte AST is structurally complex and only partially typed for our needs,
 // so traversal uses `any`. The node-type strings below are verified against
@@ -262,19 +263,6 @@ function isDerivedDeclaration(node: Node): boolean {
     return c.property?.type === 'Identifier' && c.property.name === 'by';
   }
   return false;
-}
-
-/**
- * Like `walkEstree`, but threads a "shadowed names" set down through scope-introducing
- * constructs (`scopeIntroducedNames`) so `visit` can check whether a candidate identifier
- * is locally shadowed before treating it as a match against an outer binding.
- */
-function walkScoped(
-  node: Node,
-  visit: (n: Node, shadowed: Set<string>) => void,
-  shadowed: Set<string> = new Set()
-): void {
-  walkEvalScope(node, (n, scope) => void visit(n, scope), shadowed, NO_BOUNDARIES);
 }
 
 /**

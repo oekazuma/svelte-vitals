@@ -1,7 +1,6 @@
 // Shared AST-analysis toolkit: the estree/TS helpers, scoped walkers, program-level
-// collectors, and directive/suppression scanner used by the component, Kit-module, and
-// config parsers. Extracted from component-parse.ts so its siblings depend on the toolkit,
-// not on "the component parser", by name.
+// collectors, and directive/suppression scanner. The component, Kit-module, and config
+// parsers all depend on this toolkit rather than on each other.
 
 import { parse } from 'svelte/compiler';
 import type { Expression } from 'estree';
@@ -14,8 +13,7 @@ import type { SuppressionDirective } from './component.js';
 type Node = any;
 
 // TypeScript wrapper expressions the Svelte script parser emits for `x satisfies T` /
-// `x as T` / `x!` — not part of estree's own type set, so declared here. `unwrapTs`
-// is shared with the Kit-module and Vite-config parsers, hence exported alongside them.
+// `x as T` / `x!` — not part of estree's own type set, so declared here.
 export interface TSSatisfiesExpression {
   type: 'TSSatisfiesExpression';
   start: number;
@@ -56,9 +54,22 @@ export const WALK_IGNORED_KEYS = new Set(['type', 'start', 'end', 'loc', 'range'
 /** Boundary set for the walkers that enter every node (walkEstree, walkScoped). */
 const NO_BOUNDARIES: Set<string> = new Set();
 
-/** Generic ESTree walk over a `<script>` program: visit every node with a `.type`. Shared with the component parser. */
+/** Generic ESTree walk over a `<script>` program: visit every node with a `.type`. */
 export function walkEstree(node: Node, visit: (n: Node) => void): void {
   walkEvalScope(node, (n) => void visit(n), new Set(), NO_BOUNDARIES);
+}
+
+/**
+ * Like `walkEstree`, but threads a "shadowed names" set down through scope-introducing
+ * constructs (`scopeIntroducedNames`) so `visit` can check whether a candidate identifier
+ * is locally shadowed before treating it as a match against an outer binding.
+ */
+export function walkScoped(
+  node: Node,
+  visit: (n: Node, shadowed: Set<string>) => void,
+  shadowed: Set<string> = new Set()
+): void {
+  walkEvalScope(node, (n, scope) => void visit(n, scope), shadowed, NO_BOUNDARIES);
 }
 
 /**
@@ -394,7 +405,8 @@ function guardTerminates(consequent: Node): boolean {
   if (!consequent) return false;
   if (consequent.type === 'ReturnStatement' || consequent.type === 'ThrowStatement') return true;
   if (consequent.type === 'BlockStatement') {
-    const last = (consequent.body ?? [])[consequent.body.length - 1];
+    const body = consequent.body ?? [];
+    const last = body[body.length - 1];
     return last?.type === 'ReturnStatement' || last?.type === 'ThrowStatement';
   }
   return false;

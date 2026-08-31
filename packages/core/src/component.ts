@@ -4,6 +4,9 @@
  * the rendered provider can't see reactivity, so correctness rules no-op there.
  */
 
+import { parseComponentFacts } from './component-parse.js';
+import type { Runtime } from './runtime.js';
+
 /** An `{#each}` block in a component template. */
 export interface EachBlockFact {
   /** True when the block has a key, e.g. `{#each items as item (item.id)}`. */
@@ -316,9 +319,6 @@ export function skippedFileWarnings(
   }
   return out;
 }
-
-import { parseComponentFacts } from './component-parse.js';
-import type { Runtime } from './runtime.js';
 
 /**
  * Fallback facts for a file that fails to read or parse (dev tooling must never
