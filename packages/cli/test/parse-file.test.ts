@@ -100,6 +100,16 @@ describe('parseFile — a11y occurrences', () => {
     ]);
   });
 
+  it('matches landmark tags case-insensitively, like the rendered document does', () => {
+    const parsed = parseIt('<heaDer /><tEmplate><div id="inert" /></tEmplate>');
+    expect(parsed.a11y.nodes).toEqual([expect.objectContaining({ kind: 'landmark', key: 'banner', topLevel: true })]);
+  });
+
+  it('resolves a <svelte:element> literal this to its landmark, and a dynamic this to none', () => {
+    const parsed = parseIt('<svelte:element this="main" /><svelte:element this={t} />');
+    expect(parsed.a11y.nodes).toEqual([expect.objectContaining({ kind: 'landmark', key: 'main' })]);
+  });
+
   it('resolves an ARIA fallback role list to the first concrete role, not the first token', () => {
     const parsed = parseIt('<div role="section main" /><div role="button main" />');
     expect(parsed.a11y.nodes).toEqual([expect.objectContaining({ kind: 'landmark', key: 'main' })]);

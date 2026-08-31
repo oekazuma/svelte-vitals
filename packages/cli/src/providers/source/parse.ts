@@ -18,6 +18,8 @@ import {
   isClassicScriptType,
   resolveLandmark,
   ASIDE_DEMOTING_TAGS,
+  ANCESTRY_DEPENDENT_TAGS,
+  NAMING_ATTRS,
   IDREF_ATTRS
 } from '@svelte-vitals/core/internal';
 import { collectImports, type ImportMap } from './imports.js';
@@ -255,7 +257,7 @@ export interface ParsedA11y {
 /** An `aria-label`/`aria-labelledby` carrying a name: a non-blank literal, or an expression whose
  *  rendered value is unknowable. An empty or whitespace-only literal names nothing. */
 function hasAccessibleName(attrs: AST.Attribute[]): boolean {
-  return ['aria-label', 'aria-labelledby'].some((name) => {
+  return NAMING_ATTRS.some((name) => {
     const attr = findAttr(attrs, name);
     if (!attr) return false;
     if (attrValueOf(attr) === 'dynamic') return true;
@@ -380,20 +382,30 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
     // are filtered out internally, so this widening cast is safe.
     const attrs = node.attributes as AST.Attribute[];
     const roleAttr = findAttr(attrs, 'role');
+    // The element this node renders as: the tag itself, or a <svelte:element this="…"> literal.
+    // Lowercased because HTML tag names are ASCII case-insensitive and Svelte's SSR output
+    // normalizes them — the rendered provider sees <heaDer> as a banner, so this walk must too.
+    const literalTag =
+      node.type === 'SvelteElement'
+        ? node.tag.type === 'Literal' && typeof node.tag.value === 'string'
+          ? node.tag.value
+          : undefined
+        : node.name;
+    const tag = literalTag?.toLowerCase();
     // A per-file walk cannot see cross-file sectioning ancestry, so insideSectioning stays false;
     // countsAsLandmark (routes.ts) applies the topLevel approximation at composition instead.
     const landmark = resolveLandmark({
-      tag: node.name,
+      tag,
       roleTokens: roleAttr ? splitTokens(attrTextOf(roleAttr)) : undefined,
-      named: hasAccessibleName(attrs),
+      named: tag === 'aside' && hasAccessibleName(attrs),
       insideSectioning: false,
       insideAsideDemoting: ctx.asideDemoting > 0
     });
     if (landmark) {
-      // Only `<header>`/`<footer>` carry the per-file top-level approximation: their landmark-ness
+      // Only ancestry-dependent tags carry the per-file top-level approximation: their landmark-ness
       // depends on sectioning ancestry the composition cannot see. `<main>` and `<aside>` are
       // landmarks wherever they sit, so tagging them would drop every nested one.
-      const headerFooter = !roleAttr && (node.name === 'header' || node.name === 'footer');
+      const headerFooter = !roleAttr && tag !== undefined && ANCESTRY_DEPENDENT_TAGS.has(tag);
       emit(ctx, {
         kind: 'landmark',
         key: landmark,
@@ -426,17 +438,11 @@ function collectA11y(fragment: AST.Fragment, source: string): ParsedA11y {
     // <template> contents are inert (not in the rendered document until instantiated), so ids
     // and landmarks inside never resolve or duplicate. The element's OWN attributes are live.
     // A <svelte:element this="template"> with a literal tag resolves to the same element.
-    const literalTag =
-      node.type === 'SvelteElement'
-        ? node.tag.type === 'Literal' && typeof node.tag.value === 'string'
-          ? node.tag.value
-          : undefined
-        : node.name;
-    if (literalTag === 'template') return;
+    if (tag === 'template') return;
     walk(node.fragment, {
       ...ctx,
       elementDepth: ctx.elementDepth + 1,
-      asideDemoting: ctx.asideDemoting + (literalTag && ASIDE_DEMOTING_TAGS.has(literalTag) ? 1 : 0),
+      asideDemoting: ctx.asideDemoting + (tag !== undefined && ASIDE_DEMOTING_TAGS.has(tag) ? 1 : 0),
       landmarks: landmark ? [...ctx.landmarks, landmark] : ctx.landmarks
     });
   };

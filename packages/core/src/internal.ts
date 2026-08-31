@@ -24,6 +24,8 @@ export {
   LANDMARK_ROLES,
   SECTIONING_TAGS,
   ASIDE_DEMOTING_TAGS,
+  ANCESTRY_DEPENDENT_TAGS,
+  NAMING_ATTRS,
   resolveLandmark,
   IDREF_ATTRS
 } from './a11y.js';

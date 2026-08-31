@@ -10,6 +10,7 @@ import {
   resolveLandmark,
   SECTIONING_TAGS,
   ASIDE_DEMOTING_TAGS,
+  NAMING_ATTRS,
   IDREF_ATTRS
 } from '@svelte-vitals/core/internal';
 
@@ -71,7 +72,7 @@ function collectA11y(root: HTMLElement): CollectedA11y {
     const landmark = resolveLandmark({
       tag,
       roleTokens: roleAttr !== undefined ? splitTokens(roleAttr) : undefined,
-      named: ['aria-label', 'aria-labelledby'].some((a) => (el.getAttribute(a) ?? '').trim().length > 0),
+      named: tag === 'aside' && NAMING_ATTRS.some((a) => (el.getAttribute(a) ?? '').trim().length > 0),
       insideSectioning: ctx.sectioning > 0,
       insideAsideDemoting: ctx.asideDemoting > 0
     });

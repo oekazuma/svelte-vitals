@@ -142,6 +142,16 @@ export const LANDMARK_ROLES: ReadonlySet<string> = new Set(['main', 'banner', 'c
 export const SECTIONING_TAGS: ReadonlySet<string> = new Set(['article', 'aside', 'main', 'nav', 'section']);
 
 /**
+ * Tags whose landmark-ness depends on sectioning ancestry. A provider that cannot see ancestry
+ * (the per-file AST walk) uses this same set to mark the deferral (topLevel) — reading it from
+ * here keeps the deferral set from drifting when the policy widens.
+ */
+export const ANCESTRY_DEPENDENT_TAGS: ReadonlySet<string> = new Set(['header', 'footer']);
+
+/** Attributes that give an element the accessible name the `<aside>` landmark decision reads. */
+export const NAMING_ATTRS: readonly string[] = ['aria-label', 'aria-labelledby'];
+
+/**
  * HTML-AAM: an `<aside>` scoped to `body` or `main` is a `complementary` landmark; scoped to
  * sectioning content it is one only when it has an accessible name. `main` is deliberately absent
  * — it is a scope in which an `aside` *is* a landmark, unlike the sectioning set that decides
@@ -150,7 +160,7 @@ export const SECTIONING_TAGS: ReadonlySet<string> = new Set(['article', 'aside',
 export const ASIDE_DEMOTING_TAGS: ReadonlySet<string> = new Set(['article', 'aside', 'nav', 'section']);
 
 export interface LandmarkInput {
-  /** Element tag name, as the provider matches it (rendered HTML lowercases; the AST walk passes the literal name). */
+  /** Lowercased element tag name (HTML tag names are ASCII case-insensitive), or undefined when unknown. */
   tag: string | undefined;
   /**
    * Whitespace tokens of the `role` attribute, or `undefined` when the attribute is absent. The
@@ -179,7 +189,7 @@ export function resolveLandmark(input: LandmarkInput): string | undefined {
     return role && LANDMARK_ROLES.has(role) ? role : undefined;
   }
   if (tag === 'main') return 'main';
-  if (tag === 'header' || tag === 'footer') {
+  if (tag !== undefined && ANCESTRY_DEPENDENT_TAGS.has(tag)) {
     return insideSectioning ? undefined : tag === 'header' ? 'banner' : 'contentinfo';
   }
   if (tag === 'aside') return !insideAsideDemoting || named ? 'complementary' : undefined;
