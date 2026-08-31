@@ -49,15 +49,23 @@ describe('resolveLandmark', () => {
 });
 
 describe('isClassicScriptType', () => {
-  it('treats an absent or empty type as classic', () => {
+  it('treats an absent or literally empty type as classic', () => {
     expect(isClassicScriptType(undefined)).toBe(true);
     expect(isClassicScriptType('')).toBe(true);
-    expect(isClassicScriptType('  ')).toBe(true);
   });
 
-  it('accepts JavaScript MIME types case-insensitively', () => {
+  it('accepts JavaScript MIME types case-insensitively, stripping ASCII whitespace', () => {
     expect(isClassicScriptType('text/javascript')).toBe(true);
     expect(isClassicScriptType(' Text/JavaScript ')).toBe(true);
+    expect(isClassicScriptType('\ttext/javascript\n')).toBe(true);
+  });
+
+  it('treats a whitespace-only type as a data block, not a classic script', () => {
+    expect(isClassicScriptType('  ')).toBe(false);
+  });
+
+  it('strips only ASCII whitespace — a U+00A0-wrapped MIME type is a data block', () => {
+    expect(isClassicScriptType(' text/javascript ')).toBe(false);
   });
 
   it('rejects non-classic types', () => {

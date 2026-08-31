@@ -86,9 +86,17 @@ const JS_MIME_TYPES = new Set([
   'text/x-javascript'
 ]);
 
-/** Whether a `type` attribute (undefined = absent) makes a `<script>` a classic, render-blocking-capable script. */
+/** HTML strips only ASCII whitespace from a `type` before matching — `trim()` would also strip
+ *  U+00A0 etc. and misread a data block as a classic script. */
+const ASCII_WHITESPACE_EDGES = /^[\t\n\f\r ]+|[\t\n\f\r ]+$/g;
+
+/**
+ * Whether a `type` attribute (undefined = absent) makes a `<script>` a classic,
+ * render-blocking-capable script. Per the HTML spec, absent and the literal empty string are
+ * classic; any other value is ASCII-whitespace-stripped and must match a JavaScript MIME type —
+ * so a whitespace-only `type` is a data block, not a classic script.
+ */
 export function isClassicScriptType(type: string | undefined): boolean {
-  if (type === undefined) return true;
-  const normalized = type.trim().toLowerCase();
-  return normalized === '' || JS_MIME_TYPES.has(normalized);
+  if (type === undefined || type === '') return true;
+  return JS_MIME_TYPES.has(type.replace(ASCII_WHITESPACE_EDGES, '').toLowerCase());
 }
