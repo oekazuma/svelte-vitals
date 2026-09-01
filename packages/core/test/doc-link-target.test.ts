@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { architectureDocLinkTarget } from '../src/internal.js';
-import { emptyComponentFacts } from '../src/component-collect.js';
+import { emptyComponentFacts } from '../src/component.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';

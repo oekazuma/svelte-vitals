@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import type { Runtime } from '../src/runtime.js';
-import { collectComponentFacts, emptyComponentFacts } from '../src/component-collect.js';
+import { collectComponentFacts, emptyComponentFacts } from '../src/component.js';
 import { withReadLimit } from '../src/runtime.js';
 import { skippedFileWarnings } from '../src/component.js';
 

@@ -14,7 +14,7 @@ import {
   collectDerivedGuardBindings,
   collectProgramBindings,
   collectNamedImportAliases
-} from './component-parse.js';
+} from './module-ast.js';
 import { lineOf } from './svelte-ast.js';
 import { isRootRelativePath } from './base-path.js';
 import type { KitModuleFacts } from './kit-module.js';

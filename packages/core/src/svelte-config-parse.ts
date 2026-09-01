@@ -6,7 +6,7 @@
  * are passed via your Vite config"), otherwise `svelte.config.{js,ts}` is read. Never throws.
  */
 import type { Expression, ObjectExpression, Program, Property } from 'estree';
-import { collectNamedImportAliases, parseModuleProgram, unwrapTs, type TsExpression } from './component-parse.js';
+import { collectNamedImportAliases, parseModuleProgram, unwrapTs, type TsExpression } from './module-ast.js';
 import { collectTopLevelBindings } from './kit-module-parse.js';
 import { propOf, resolveConfigObject, unwrapToObjectExpression } from './config-object.js';
 import type { KitAlias } from './types.js';
