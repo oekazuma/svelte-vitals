@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { resolveRepoLocalPath } from '../src/kit-module-parse.js';
 import { routeGlobToRegExp } from '../src/config-apply.js';
-import { architecturePrivateScopeImport, applyOverrides } from '../src/internal.js';
+import { architecturePrivateScopeImport } from '../src/internal.js';
+import { applyOverrides } from '../src/config-apply.js';
 import { defineConfig, defaultProject } from '../src/types.js';
 import type { ComponentFacts } from '../src/component.js';
 import type { RuleContext } from '../src/rule.js';

@@ -195,10 +195,11 @@ describe('svelteVitalsHandle', () => {
       const actual = await importOriginal<typeof import('@svelte-vitals/core/internal')>();
       return {
         ...actual,
-        runRules: async () => ({
+        runAnalysis: async (...args: Parameters<typeof actual.runAnalysis>) => ({
+          ...(await actual.runAnalysis(...args)),
           results: [],
-          examined: {},
-          failedRules: [{ id: 'seo/title-presence', message: 'boom' }]
+          failedRules: [{ id: 'seo/title-presence', message: 'boom' }],
+          failedRuleIds: ['seo/title-presence']
         })
       };
     });
@@ -224,13 +225,17 @@ describe('svelteVitalsHandle', () => {
       const actual = await importOriginal<typeof import('@svelte-vitals/core/internal')>();
       return {
         ...actual,
-        runRules: async (rules: unknown, ctx: Parameters<typeof actual.runRules>[1]) => {
-          // Real results on both runs — only `failedRules` differs while `shouldFail` is
-          // true — so the second POST below can only be explained by the failed-id
+        runAnalysis: async (...args: Parameters<typeof actual.runAnalysis>) => {
+          // Real results on both runs — only the failed-rule fields differ while `shouldFail`
+          // is true — so the second POST below can only be explained by the failed-id
           // dedup suffix changing, not by `findingSignature`'s `results` shifting too.
-          const result = await actual.runRules(rules as never, ctx);
+          const result = await actual.runAnalysis(...args);
           if (shouldFail) {
-            return { ...result, failedRules: [{ id: 'seo/title-presence', message: 'boom' }] };
+            return {
+              ...result,
+              failedRules: [{ id: 'seo/title-presence', message: 'boom' }],
+              failedRuleIds: ['seo/title-presence']
+            };
           }
           return result;
         }

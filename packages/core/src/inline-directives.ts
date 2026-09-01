@@ -1,9 +1,29 @@
 import { isPenalized, type Rule } from './rule.js';
-import type { Config, Result } from './types.js';
-import type { SuppressionDirective } from './component.js';
+import type { Config, Project, Result } from './types.js';
+import type { ComponentFacts, SuppressionDirective } from './component.js';
+import type { KitModuleFacts } from './kit-module.js';
 
 /** File-relative-path → the inline directives collected from that file. */
 export type DirectiveIndex = ReadonlyMap<string, readonly SuppressionDirective[]>;
+
+/**
+ * Enter every fact-carrying file into a directive index — components, Kit modules, and the Vite
+ * config when its minify flag was read. The one home for the union both pipelines apply, so a new
+ * fact family that carries suppressions is wired into inline directives in a single place.
+ */
+export function addFactsDirectives(
+  index: Map<string, readonly SuppressionDirective[]>,
+  facts: {
+    components?: readonly ComponentFacts[];
+    kitModules?: readonly KitModuleFacts[];
+    viteMinifyDisabled?: Project['viteMinifyDisabled'];
+  }
+): void {
+  for (const c of facts.components ?? []) index.set(c.file, c.suppressions ?? []);
+  for (const m of facts.kitModules ?? []) index.set(m.file, m.suppressions ?? []);
+  const vc = facts.viteMinifyDisabled;
+  if (vc?.file) index.set(vc.file, vc.suppressions ?? []);
+}
 
 /** The directive silencing `r`, if one sits on its line and names its rule (or names nothing). */
 function directiveFor(index: DirectiveIndex, r: Result): SuppressionDirective | undefined {
@@ -32,6 +52,9 @@ export function applyInlineDirectives(
   rules: readonly Rule[],
   config: Config
 ): Result[] {
+  // An empty index cannot suppress anything; skip the per-result bookkeeping so callers with no
+  // directive sources (the dev handle's per-request path) pay nothing for the shared pipeline.
+  if (index.size === 0) return [...results];
   const labels = new Map(rules.map((r) => [r.id, r.passLabel ?? r.title]));
   const kept: Result[] = [];
   /** rule+route → the first suppressed result, for the PASS this pair may need. */

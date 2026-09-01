@@ -3,12 +3,11 @@ import type { Handle } from '@sveltejs/kit';
 import { defineConfig, type Config, type Result, type RuleSetting } from '@svelte-vitals/core';
 import {
   allRules,
-  applyRuleSeverities,
   defaultProject,
   effectiveSeverity,
   formatFailedRuleWarning,
   isPenalized,
-  runRules,
+  runAnalysis,
   selectRules,
   terminalSafe,
   type ResolvedA11y,
@@ -94,17 +93,14 @@ async function analyzeAndIngest(
       }
     ];
     // No JSON report is built here — results are POSTed to the dashboard ingest — so the
-    // examined counts have nowhere to go and are dropped.
-    const { results: ruleResults, failedRules } = await runRules(rules, {
-      heads: [head],
-      headings,
-      images,
-      a11y,
-      project: defaultProject,
-      config
-    });
-    const results = applyRuleSeverities(ruleResults, config);
-    const failedRuleIds = failedRules.map((f) => f.id);
+    // examined counts have nowhere to go and are dropped. Dev has no config file, so no
+    // overrides, and no source lines for directives to anchor to: the empty directive index
+    // makes those correction passes identity, which is the explicit form of skipping them.
+    const { results, failedRules, failedRuleIds } = await runAnalysis(
+      rules,
+      { heads: [head], headings, images, a11y, project: defaultProject, config },
+      new Map()
+    );
 
     // Same debug-only channel as this function's own catch below — a failed rule is dropped
     // silently otherwise, since this hot per-request path has no other diagnostics surface.

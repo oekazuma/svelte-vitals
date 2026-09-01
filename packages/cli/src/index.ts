@@ -13,7 +13,7 @@ import {
 import {
   skippedFileWarnings,
   allRules,
-  runRules,
+  runAnalysis,
   formatConsoleReport,
   formatJsonReport,
   formatAgentReport,
@@ -25,12 +25,8 @@ import {
   hasFailureAtOrAbove,
   computeHealth,
   selectRules,
-  applyRuleSeverities,
-  applyOverrides,
-  applyInlineDirectives,
   unknownDirectiveIds,
   settingSeverity,
-  withFailedRulesOff,
   formatFailedRuleWarning,
   terminalSafe
 } from '@svelte-vitals/core/internal';
@@ -218,7 +214,7 @@ export interface AnalyzeResult {
   examined: Record<string, Record<string, number>>;
   /** Routes a closed-world rule skipped, keyed by rule id — the analysis-side companion to `examined`; unfiltered by `--diff`/`--baseline`/suppressions. Absent when no analyzed route was skipped or the rule was not selected. */
   skipped?: JsonReport['skipped'];
-  /** Ids of rules `runRules` caught throwing — already folded into `config` via `withFailedRulesOff`; exposed separately so a caller with its own base config (the vite dev dashboard) can apply the same correction without adopting this call's `config`. */
+  /** Ids of rules `runAnalysis` caught throwing — already folded into `config` via `withFailedRulesOff`; exposed separately so a caller with its own base config (the vite dev dashboard) can apply the same correction without adopting this call's `config`. */
   failedRuleIds: string[];
   /** Non-fatal issues surfaced during analysis: config-file problems (unknown top-level keys, invalid enum values), version-floor notices, `--rules`/overrides conflicts, closed-world skip notices (`a11y/no-missing-id-ref`), and skipped-file notices. Empty when none apply. */
   warnings: string[];
@@ -270,7 +266,7 @@ function overridesOffWarnings(allowRules: string[] | undefined, overrides: RuleO
 }
 
 /**
- * Warn about rules `runRules` caught throwing (dev tooling must never throw): the run completes
+ * Warn about rules `runAnalysis` caught throwing (dev tooling must never throw): the run completes
  * without them, so any findings they would have produced are simply missing rather than reported
  * as clean. Message capped to its first line so a multi-line stack trace can't flood the terminal.
  */
@@ -347,33 +343,11 @@ export async function analyzeProject(opts: AnalyzeOptions = {}): Promise<Analyze
         `--rules ${starved.map((id) => `'${id}'`).join(', ')} examined nothing: --route analyzes routes only, and that rule reads component/config files — run without --route to check it.`
       );
   }
-  const {
-    results: rawResults,
-    examined,
-    failedRules
-  } = await runRules(rules, {
-    heads,
-    images,
-    headings,
-    a11y,
-    components,
-    project,
-    config,
-    kitModules,
-    sourceFiles
-  });
-  const results = applyInlineDirectives(
-    applyOverrides(applyRuleSeverities(rawResults, config), config),
-    directives,
+  const { results, examined, failedRules, failedRuleIds, scoringConfig } = await runAnalysis(
     rules,
-    config
+    { heads, images, headings, a11y, components, project, config, kitModules, sourceFiles },
+    directives
   );
-  // A failed rule examined nothing, so its weight must not stay in the Health denominator — else it
-  // would score as if it had run clean. Returned as the config this function hands back (not just a
-  // local copy) so every downstream consumer — CLI health/exit-code checks and the reporters, which
-  // each recompute Health from `config` — agrees on the same score.
-  const failedRuleIds = failedRules.map((f) => f.id);
-  const scoringConfig = withFailedRulesOff(config, failedRuleIds);
   return {
     results,
     config: scoringConfig,
