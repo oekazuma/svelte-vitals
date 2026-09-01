@@ -62,3 +62,41 @@ export interface HeadProvider {
   mode: 'static' | 'rendered';
   collect(rt: Runtime, cwd: string, config?: Config): Promise<ResolvedHead[]>;
 }
+
+// HTML spec: a <script> executes as a "classic script" only when its `type` is absent, empty,
+// or a JavaScript MIME type (mimesniff's JAVASCRIPT_MIME_TYPES). Anything else — module,
+// importmap, speculationrules, a third-party runtime like text/partytown, … — never runs as a
+// blocking classic script (performance/render-blocking-script).
+const JS_MIME_TYPES = new Set([
+  'application/ecmascript',
+  'application/javascript',
+  'application/x-ecmascript',
+  'application/x-javascript',
+  'text/ecmascript',
+  'text/javascript',
+  'text/javascript1.0',
+  'text/javascript1.1',
+  'text/javascript1.2',
+  'text/javascript1.3',
+  'text/javascript1.4',
+  'text/javascript1.5',
+  'text/jscript',
+  'text/livescript',
+  'text/x-ecmascript',
+  'text/x-javascript'
+]);
+
+/** HTML strips only ASCII whitespace from a `type` before matching — `trim()` would also strip
+ *  U+00A0 etc. and misread a data block as a classic script. */
+const ASCII_WHITESPACE_EDGES = /^[\t\n\f\r ]+|[\t\n\f\r ]+$/g;
+
+/**
+ * Whether a `type` attribute (undefined = absent) makes a `<script>` a classic,
+ * render-blocking-capable script. Per the HTML spec, absent and the literal empty string are
+ * classic; any other value is ASCII-whitespace-stripped and must match a JavaScript MIME type —
+ * so a whitespace-only `type` is a data block, not a classic script.
+ */
+export function isClassicScriptType(type: string | undefined): boolean {
+  if (type === undefined || type === '') return true;
+  return JS_MIME_TYPES.has(type.replace(ASCII_WHITESPACE_EDGES, '').toLowerCase());
+}

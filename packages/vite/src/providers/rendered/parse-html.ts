@@ -6,42 +6,16 @@ import {
   splitTokens,
   isTopFragment,
   stripTextDirective,
-  LANDMARK_ROLES,
-  IDREF_ATTRS,
-  resolveRole
+  isClassicScriptType,
+  resolveLandmark,
+  SECTIONING_TAGS,
+  ASIDE_DEMOTING_TAGS,
+  NAMING_ATTRS,
+  IDREF_ATTRS
 } from '@svelte-vitals/core/internal';
 
 function attrValue(v: string | undefined): Value {
   return v !== undefined && v.trim().length > 0 ? 'static' : 'absent';
-}
-
-// HTML spec: a <script> executes as a "classic script" only when its `type` is absent, empty,
-// or a JavaScript MIME type (mimesniff's JAVASCRIPT_MIME_TYPES). Anything else — module,
-// importmap, speculationrules, a third-party runtime like text/partytown, … — never runs as a
-// blocking classic script (performance/render-blocking-script).
-const JS_MIME_TYPES = new Set([
-  'application/ecmascript',
-  'application/javascript',
-  'application/x-ecmascript',
-  'application/x-javascript',
-  'text/ecmascript',
-  'text/javascript',
-  'text/javascript1.0',
-  'text/javascript1.1',
-  'text/javascript1.2',
-  'text/javascript1.3',
-  'text/javascript1.4',
-  'text/javascript1.5',
-  'text/jscript',
-  'text/livescript',
-  'text/x-ecmascript',
-  'text/x-javascript'
-]);
-
-function isClassicScriptType(type: string | undefined): boolean {
-  if (type === undefined) return true;
-  const normalized = type.trim().toLowerCase();
-  return normalized === '' || JS_MIME_TYPES.has(normalized);
 }
 
 export interface ParsedHtmlHead {
@@ -62,16 +36,6 @@ export interface ParsedHtmlHead {
   /** Distinct tag names under `<body>`; enables a11y/required-element. */
   elementTags: string[];
 }
-
-// HTML-AAM: <header>/<footer> map to banner/contentinfo unless a descendant of sectioning
-// content (article/aside/main/nav/section) — the rendered DOM's real nesting decides this
-// directly, unlike source mode's per-file topLevel approximation (routes.ts countsAsLandmark).
-const SECTIONING_TAGS = new Set(['article', 'aside', 'main', 'nav', 'section']);
-
-// HTML-AAM: an <aside> scoped to body or main is a complementary landmark; scoped to sectioning
-// content it is one only when it has an accessible name. `main` is absent on purpose — for an
-// <aside> it is a scope that keeps the landmark, unlike the set above.
-const ASIDE_DEMOTING_TAGS = new Set(['article', 'aside', 'nav', 'section']);
 
 interface A11yWalkCtx {
   sectioning: number;
@@ -103,21 +67,15 @@ function collectA11y(root: HTMLElement): CollectedA11y {
     const tag = el.rawTagName?.toLowerCase();
     if (tag && ctx.inBody) elementTags.add(tag);
     const roleAttr = el.getAttribute('role');
-    // A literal role, present or not, decides landmark-ness outright — it suppresses the tag
-    // mapping rather than falling through to it (mirrors the source provider's parse.ts).
-    // ARIA fallback role lists resolve to the first token naming a concrete role (resolveRole).
-    let landmark: string | undefined;
-    if (roleAttr !== undefined) {
-      const role = resolveRole(splitTokens(roleAttr));
-      landmark = role && LANDMARK_ROLES.has(role) ? role : undefined;
-    } else if (tag === 'main') {
-      landmark = 'main';
-    } else if ((tag === 'header' || tag === 'footer') && ctx.sectioning === 0) {
-      landmark = tag === 'header' ? 'banner' : 'contentinfo';
-    } else if (tag === 'aside') {
-      const named = ['aria-label', 'aria-labelledby'].some((a) => (el.getAttribute(a) ?? '').trim().length > 0);
-      landmark = ctx.asideDemoting === 0 || named ? 'complementary' : undefined;
-    }
+    // The rendered DOM's real nesting decides sectioning ancestry directly, unlike source
+    // mode's per-file topLevel approximation (routes.ts countsAsLandmark).
+    const landmark = resolveLandmark({
+      tag,
+      roleTokens: roleAttr !== undefined ? splitTokens(roleAttr) : undefined,
+      named: tag === 'aside' && NAMING_ATTRS.some((a) => (el.getAttribute(a) ?? '').trim().length > 0),
+      insideSectioning: ctx.sectioning > 0,
+      insideAsideDemoting: ctx.asideDemoting > 0
+    });
 
     if (landmark) {
       landmarks.push(landmark);
