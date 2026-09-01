@@ -1,5 +1,17 @@
 # @svelte-vitals/core
 
+## 0.51.0
+
+### Minor Changes
+
+- e9fd01e: Remove 20 values (`resolveRole`, `headTagRule`, `LANDMARK_ROLES`, `emptyComponentFacts`, `emptyKitModuleFacts`, `parseKitModuleFacts`, `resolveRunesModuleSpecifier`, the `findKitPathsBase*`/`findKitAliases*` helpers, `imageRule`, `linkRule`, `scoreBand`, `scoresByCategory`, `overrideMatches`, `isMentionedAnywhere`, `validateRuleOptions`, `intOption`, `listOption`, `mapOption`) and 3 types (`HeadProvider`, `ViteKitConfigResult`, `RawKitAliases`) from the `./internal` entry — no consumer imported them. Each stays exported from its source module for in-core use. `./internal` carries no semver guarantee, but the removals ship as a core minor so an already-installed plugin built against the old surface surfaces as a peer-dependency conflict at install time (a warning or resolution failure, depending on the package manager) instead of failing at import.
+- 52a9247: Add `runAnalysis` to core: rule execution plus the correction sequence (configured severities, overrides, inline directives, failed-rule weight correction) as one function. The CLI, the Vite build analysis, and the dev-server handle all run it instead of each replaying the sequence; findings do not change. `applyRuleSeverities`, `applyOverrides`, and `applyInlineDirectives` leave the `./internal` entry — no consumer imports them any more; each stays exported from its source module. `./internal` carries no semver guarantee, but the removals ship as a core minor so an already-installed plugin built against the old surface surfaces as a peer-dependency conflict at install time (a warning or resolution failure, depending on the package manager) instead of failing at import.
+
+### Patch Changes
+
+- 263d80c: Move the landmark-resolution and classic-script-type policies into core as a single implementation. The CLI's source provider and the Vite plugin's rendered provider now apply the same decision procedure instead of maintaining mirrored copies. Three narrow detection fixes land with the unification: mixed-case landmark tags (`<heaDer>`) are now matched case-insensitively like the rendered document, a `<svelte:element this="…">` with a literal tag now contributes its landmark instead of only demoting its children, and script-`type` matching now follows the HTML spec's ASCII-whitespace rules — a whitespace-only or U+00A0-wrapped `type` is a data block, no longer flagged as render-blocking.
+- 88ebf6e: Remove `READ_CONCURRENCY`, `BAND_COLOR`, `APP_STYLE`, and `settingOptions` from the `./internal` entry — no consumer imported them. `BAND_COLOR` had no in-core use either and is deleted outright (the HTML report's client script carries its own copy). `./internal` carries no semver guarantee.
+
 ## 0.50.1
 
 ### Patch Changes
