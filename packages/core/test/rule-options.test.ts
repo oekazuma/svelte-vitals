@@ -1,16 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { defineConfig } from '../src/index.js';
-import {
-  isMentionedAnywhere,
-  resolveRuleOptions,
-  validateRuleOptions,
-  validateRuleSetting,
-  shouldSkipRangeCheck,
-  intOption,
-  listOption,
-  mapOption,
-  compileOverrides
-} from '../src/internal.js';
+import { resolveRuleOptions, validateRuleSetting, shouldSkipRangeCheck, compileOverrides } from '../src/internal.js';
+import { isMentionedAnywhere, validateRuleOptions, intOption, listOption, mapOption } from '../src/rule-options.js';
 import type { RuleOptionsSpec } from '../src/internal.js';
 
 const spec: RuleOptionsSpec = {
