@@ -36,7 +36,7 @@ let stderr = '';
 
 beforeAll(() => {
   try {
-    // ponytail: execFileSync's default 1MB maxBuffer caps the JSON report; raise it if the
+    // execFileSync's default 1MB maxBuffer caps the JSON report; raise it if the
     // gallery grows enough to hit ENOBUFS.
     const out = execFileSync(process.execPath, [bin, appDir, '--reporter', 'json'], { encoding: 'utf8' });
     report = JSON.parse(out);

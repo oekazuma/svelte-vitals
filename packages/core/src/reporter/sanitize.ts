@@ -28,7 +28,7 @@ export function mdEscape(text: string): string {
     text
       .replace(/\r\n|\r|\n/g, ' ')
       .replace(/<[^>]+>/g, (tag) => inlineCode(tag))
-      // ponytail: `[^)]*` stops at the first `)`, so a URL with its own unescaped
+      // `[^)]*` stops at the first `)`, so a URL with its own unescaped
       // parens (rare outside contrived payloads) leaves one stray `)` after the escaped
       // pair instead of round-tripping cleanly. Still inert either way — `\(` is a literal
       // paren, not link-opening syntax — so this only affects cosmetics, not safety.
@@ -51,7 +51,7 @@ export function mdEscape(text: string): string {
  * like reset or save-cursor) falls through to the final control sweep below, which drops
  * the lone control byte but — deliberately, not swallowing an adjacent legitimate
  * character — leaves whatever printable byte follows it as stray text.
- * ponytail: doesn't special-case every Fe escape form; broaden the CSI/OSC patterns if a
+ * Doesn't special-case every Fe escape form; broaden the CSI/OSC patterns if a
  * concrete non-CSI/OSC sequence turns out to matter.
  */
 /* oxlint-disable no-control-regex -- deliberately matching C0/C1/DEL/ESC control bytes to strip them */

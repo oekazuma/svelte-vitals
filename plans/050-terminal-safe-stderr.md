@@ -70,9 +70,7 @@ lines,`index.ts:270-271`).
     names.
   - `index.ts:557,561,690` — `err.message` interpolations
     (`ProjectError`/config-load, which quote repo paths and config content).
-- Convention: comments state constraints only; this repo marks deliberate
-  simplifications with `ponytail:` comments (see the one already inside the
-  `terminalSafe` doc block — leave it).
+- Convention: comments state constraints only.
 
 ## Commands you will need
 
