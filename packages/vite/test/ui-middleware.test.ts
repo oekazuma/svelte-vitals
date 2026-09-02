@@ -219,6 +219,73 @@ describe('installUiMiddleware', () => {
     expect(gr.chunks.join('')).not.toContain('seo/title-presence');
   });
 
+  it('rejects an ingest POST from another loopback port (cross-origin on localhost)', async () => {
+    const { call } = setup();
+    const ir = res();
+    const ireq = postReq('/ingest', { host: 'localhost:5173', origin: 'http://localhost:3000' });
+    call(ireq, ir);
+    expect(ir.statusCode).toBe(403);
+    ireq.emit('data', Buffer.from(ingestBody));
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    const gr = res();
+    call(getReq('/'), gr);
+    expect(gr.chunks.join('')).not.toContain('seo/title-presence');
+  });
+
+  it("accepts an ingest POST from the dashboard's own origin", async () => {
+    const { call } = setup();
+    const ir = res();
+    const ireq = postReq('/ingest', { host: 'localhost:5173', origin: 'http://localhost:5173' });
+    call(ireq, ir);
+    ireq.emit('data', Buffer.from(ingestBody));
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    expect(ir.statusCode).toBe(204);
+    const gr = res();
+    call(getReq('/'), gr);
+    expect(gr.chunks.join('')).toContain('seo/title-presence');
+  });
+
+  it('accepts a same-host https Origin (server.https)', async () => {
+    const { call } = setup();
+    const ir = res();
+    const ireq = postReq('/ingest', { host: 'localhost:5173', origin: 'https://localhost:5173' });
+    call(ireq, ir);
+    ireq.emit('data', Buffer.from(ingestBody));
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    expect(ir.statusCode).toBe(204);
+  });
+
+  it('rejects Origin: null', async () => {
+    const { call } = setup();
+    const ir = res();
+    const ireq = postReq('/ingest', { host: 'localhost:5173', origin: 'null' });
+    call(ireq, ir);
+    expect(ir.statusCode).toBe(403);
+    ireq.emit('data', Buffer.from(ingestBody));
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    const gr = res();
+    call(getReq('/'), gr);
+    expect(gr.chunks.join('')).not.toContain('seo/title-presence');
+  });
+
+  it('rejects an ingest body over the size cap and stores nothing', async () => {
+    const { call } = setup();
+    const ir = res();
+    const ireq = postReq('/ingest', { host: 'localhost:5173' });
+    call(ireq, ir);
+    ireq.emit('data', Buffer.alloc(4 * 1024 * 1024 + 1, 0x20));
+    ireq.emit('end');
+    await new Promise((r) => setTimeout(r, 0));
+    expect(ir.statusCode).toBe(413);
+    const gr = res();
+    call(getReq('/'), gr);
+    expect(gr.chunks.join('')).not.toContain('seo/title-presence');
+  });
+
   it('accepts an ingest POST without an Origin header (server-side postIngest behavior)', async () => {
     const { call } = setup();
     const ir = res();
