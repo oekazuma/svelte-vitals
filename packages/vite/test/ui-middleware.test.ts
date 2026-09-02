@@ -68,7 +68,8 @@ function postReq(url: string, headers: Record<string, string> = { host: 'localho
     method: 'POST',
     url,
     headers,
-    resume: () => {}
+    resume: () => {},
+    destroy: () => {}
   }) as IncomingMessage;
 }
 function getReq(url: string, headers: Record<string, string> = { host: 'localhost:5173' }): IncomingMessage {
@@ -76,7 +77,8 @@ function getReq(url: string, headers: Record<string, string> = { host: 'localhos
     method: 'GET',
     url,
     headers,
-    resume: () => {}
+    resume: () => {},
+    destroy: () => {}
   }) as IncomingMessage;
 }
 
@@ -278,9 +280,10 @@ describe('installUiMiddleware', () => {
     const ireq = postReq('/ingest', { host: 'localhost:5173' });
     call(ireq, ir);
     ireq.emit('data', Buffer.alloc(4 * 1024 * 1024 + 1, 0x20));
+    expect(ir.statusCode).toBe(413); // answered as soon as the cap is crossed, not at 'end'
     ireq.emit('end');
+    expect(ir.statusCode).toBe(413); // 'end' must not overwrite it with 204
     await new Promise((r) => setTimeout(r, 0));
-    expect(ir.statusCode).toBe(413);
     const gr = res();
     call(getReq('/'), gr);
     expect(gr.chunks.join('')).not.toContain('seo/title-presence');

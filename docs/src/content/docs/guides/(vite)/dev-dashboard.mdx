@@ -87,7 +87,7 @@ Notes:
 - The handle runs on its own options only; it does not read `svelte-vitals.config.*`. A rule setting, option, or `overrides` entry you keep in the config file shapes the static baseline but not the live layer; restate the rule settings you need in the options object above.
 - `failOn` is not used: the handle feeds the dashboard but never gates the request.
 - Live updates only flow over a loopback origin (`localhost`, `127.0.0.1`, `[::1]`). When you run `vite dev --host` and open the app via a LAN IP, the handle skips the ingest POST, a guard against a spoofed `Host` header, so visited routes won't refine to `measured`. Open it from `localhost` instead.
-- The dashboard's ingest endpoint accepts POSTs only from the dashboard's own origin (same host and port) or from the server-side handle, so a page served by another local dev server or tool cannot feed it findings.
+- The dashboard's ingest endpoint checks the `Origin` header: a request that carries one must match the dashboard's own host and port, so a page served by another local dev server or tool cannot feed it findings. Requests without an `Origin` header (the server-side handle's own POSTs) are accepted as before.
 - Set `SVELTE_VITALS_DEBUG=true` to surface swallowed internal errors (analysis failures, skipped ingests) to the terminal for troubleshooting.
 
 ## Copy a fix prompt for any finding

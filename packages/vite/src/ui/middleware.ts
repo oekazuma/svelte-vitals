@@ -99,10 +99,12 @@ export function installUiMiddleware(
     // other localhost port (another dev server, a local tool UI) can no longer POST findings in.
     const origin = req.headers.origin;
     const host = req.headers.host;
+    // The Host header has no scheme, but the socket does (server.https) — isSameOrigin needs it to resolve the Host side's default port.
+    const isTls = Boolean((req.socket as { encrypted?: boolean } | undefined)?.encrypted);
     if (
       host === undefined ||
       !isLoopbackOrigin(`http://${host}`) ||
-      (typeof origin === 'string' && !isSameOrigin(origin, host))
+      (typeof origin === 'string' && !isSameOrigin(origin, host, isTls))
     ) {
       // drain any unread body so the client reliably receives the 403 (unread data kills the socket)
       req.resume();
@@ -116,16 +118,24 @@ export function installUiMiddleware(
       // multibyte char split across a chunk boundary, dropping that route's findings.
       const chunks: Buffer[] = [];
       let received = 0;
+      let tooLarge = false;
       req.on('data', (c: Buffer) => {
+        if (tooLarge) return;
         received += c.length;
-        if (received <= INGEST_BODY_LIMIT) chunks.push(c);
-      });
-      req.on('end', () => {
         if (received > INGEST_BODY_LIMIT) {
+          // Answer and drop the connection the moment the cap is crossed, so an oversized sender
+          // cannot keep the request open; a destroyed stream emits no 'end'.
+          tooLarge = true;
+          chunks.length = 0;
           res.statusCode = 413;
           res.end();
+          req.destroy();
           return;
         }
+        chunks.push(c);
+      });
+      req.on('end', () => {
+        if (tooLarge) return;
         try {
           const { route, results, failedRuleIds } = JSON.parse(Buffer.concat(chunks).toString('utf8'));
           if (typeof route === 'string' && Array.isArray(results)) {
